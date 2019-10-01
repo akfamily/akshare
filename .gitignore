@@ -12,6 +12,8 @@
 
 *.icls
 
+*.egg-info
+
 /_windows/
 
 /codestyles/
