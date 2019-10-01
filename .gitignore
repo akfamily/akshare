@@ -12,7 +12,6 @@
 
 *.icls
 
-
 /_windows/
 
 /codestyles/
@@ -21,7 +20,7 @@
 build
 dist
 setup.py
-/akshare.egg-info/*
+akshare.egg-info
 colors
 
 
