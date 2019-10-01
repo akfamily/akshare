@@ -118,7 +118,7 @@ dce_headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
 }
 
-SYS_SPOT_PRICE_URL = 'http://www.100ppi.com/sf/day-%s.html'
+SYS_SPOT_PRICE_URL = 'http://www.100ppi.com/sf/day-{}.html'
 SYS_SPOT_PRICE_LATEST_URL = 'http://www.100ppi.com/sf/'
 
 SHFE_VOL_RANK_URL = 'http://www.shfe.com.cn/data/dailydata/kx/pm%s.dat'

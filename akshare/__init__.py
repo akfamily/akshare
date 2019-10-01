@@ -89,14 +89,14 @@ pandas最新版0.24.0的pd.read_html函数在basis脚本中识别格式有区别
 更新原 package 函数问题
 """
 
-__version__ = '0.1.6'
+__version__ = '0.1.8'
 __author__ = 'Albert King'
 
 """
 大宗商品现货价格及基差
 """
-# from fushare.basis import (get_spotPrice_daily,
-#                            get_spotPrice)
+from akshare.basis import (get_spot_price_daily,
+                           get_spot_price)
 
 """
 期货持仓成交排名数据
