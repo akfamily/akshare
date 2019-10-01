@@ -64,13 +64,13 @@ CZCE_VOL_RANK_URL_1 = 'http://www.czce.com.cn/cn/exchange/jyxx/pm/pm%s.html'
 CZCE_VOL_RANK_URL_2 = 'http://www.czce.com.cn/cn/exchange/%s/datatradeholding/%s.htm'
 CZCE_VOL_RANK_URL_3 = 'http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataHolding.htm'
 
-# DCE_RECIEPT_URL = 'http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html?wbillWeeklyQuotes.variety=all&year=%s&month=%s&day=%s'
-DCE_RECIEPT_URL = "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
-SHFE_RECIEPT_URL_1 = 'http://www.shfe.com.cn/data/dailydata/%sdailystock.html'
-SHFE_RECIEPT_URL_2 = 'http://www.shfe.com.cn/data/dailydata/%sdailystock.dat'
-CZCE_RECIEPT_URL_1 = 'http://www.czce.com.cn/cn/exchange/jyxx/sheet/sheet%s.html'
-CZCE_RECIEPT_URL_2 = 'http://www.czce.com.cn/cn/exchange/%s/datawhsheet/%s.htm'
-CZCE_RECIEPT_URL_3 = 'http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataWhsheet.htm'
+# DCE_RECEIPT_URL = 'http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html?wbillWeeklyQuotes.variety=all&year=%s&month=%s&day=%s'
+DCE_RECEIPT_URL = "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
+SHFE_RECEIPT_URL_1 = 'http://www.shfe.com.cn/data/dailydata/%sdailystock.html'
+SHFE_RECEIPT_URL_2 = 'http://www.shfe.com.cn/data/dailydata/%sdailystock.dat'
+CZCE_RECEIPT_URL_1 = 'http://www.czce.com.cn/cn/exchange/jyxx/sheet/sheet%s.html'
+CZCE_RECEIPT_URL_2 = 'http://www.czce.com.cn/cn/exchange/%s/datawhsheet/%s.htm'
+CZCE_RECEIPT_URL_3 = 'http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataWhsheet.htm'
 
 CFFEX_DAILY_URL = 'http://www.cffex.com.cn/fzjy/mrhq/%s/%s/%s_1.csv'
 SHFE_DAILY_URL = 'http://www.shfe.com.cn/data/dailydata/kx/kx%s.dat'

@@ -49,7 +49,7 @@ def get_dce_receipt(date: str = None, symbol_list: List = cons.contract_symbols)
         "month": date.month - 1,  # 网站月份描述少 1 个月, 属于网站问题
         "day": date.day
     }
-    data = pandas_read_html_link(cons.DCE_RECIEPT_URL, method="post", data=payload, headers=cons.dce_headers)[0]
+    data = pandas_read_html_link(cons.DCE_RECEIPT_URL, method="post", data=payload, headers=cons.dce_headers)[0]
     records = pd.DataFrame()
     for x in data.to_dict(orient='records'):
         if isinstance(x['品种'], str):
@@ -89,7 +89,7 @@ def get_shfe_receipt_1(date=None, vars=cons.contract_symbols):
         return warnings.warn('20100416、20130821日期交易所数据丢失')
     else:
         var_list = ['天然橡胶', '沥青仓库', '沥青厂库', '热轧卷板', '燃料油', '白银', '线材', '螺纹钢', '铅', '铜', '铝', '锌', '黄金', '锡', '镍']
-        url = cons.SHFE_RECIEPT_URL_1 % date
+        url = cons.SHFE_RECEIPT_URL_1 % date
         data = pandas_read_html_link(url)[0]
         indexs = [x for x in data.index if (data[0].tolist()[x] in var_list)]
         last_index = [x for x in data.index if '注' in str(data[0].tolist()[x])][0] - 1
@@ -133,7 +133,7 @@ def get_shfe_receipt_2(date=None, vars=cons.contract_symbols):
     if date not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
         return None
-    url = cons.SHFE_RECIEPT_URL_2 % date
+    url = cons.SHFE_RECEIPT_URL_2 % date
     r = requests_link(url, encoding='utf-8')
     try:
         context = r.json()
@@ -178,7 +178,7 @@ def get_czce_receipt_1(date=None, vars=cons.contract_symbols):
         return None
     if date == '20090820':
         return pd.DataFrame()
-    url = cons.CZCE_RECIEPT_URL_1 % date
+    url = cons.CZCE_RECEIPT_URL_1 % date
     r = requests_link(url, encoding='utf-8')
     context = r.text
     data = pd.read_html(context)[1]
@@ -231,7 +231,7 @@ def get_czce_receipt_2(date=None, vars=cons.contract_symbols):
     if date not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
         return None
-    url = cons.CZCE_RECIEPT_URL_2 % (date[:4], date)
+    url = cons.CZCE_RECEIPT_URL_2 % (date[:4], date)
     r = requests.get(url)
     r.encoding = 'utf-8'
     data = pd.read_html(r.text)[3:]
@@ -281,7 +281,7 @@ def get_czce_receipt_3(date=None, vars=cons.contract_symbols):
     if date not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
         return None
-    url = cons.CZCE_RECIEPT_URL_3 % (date[:4], date)
+    url = cons.CZCE_RECEIPT_URL_3 % (date[:4], date)
     r = requests_link(url, encoding='utf-8')
     r.encoding = 'utf-8'
     data = pd.read_html(r.text, encoding='gb2312')
@@ -340,7 +340,7 @@ def get_receipt(start=None, end=None, vars=cons.contract_symbols):
     records = pd.DataFrame()
     while start <= end:
         if start.strftime('%Y%m%d') not in calendar:
-            warnings.warn('%s非交易日' % start.strftime('%Y%m%d'))
+            warnings.warn(f"{start.strftime('%Y%m%d')}非交易日")
         else:
             print(start)
             for market, market_vars in cons.market_exchange_symbols.items():
