@@ -1,6 +1,6 @@
 # akshare(python3.7.3)
 
-<img src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" width = 50% height = 30% align = center/>
+<img src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" width = 20% height = 10% align = center/>
 
 **作者: Albert King**
 
