@@ -79,7 +79,7 @@ pandas最新版0.24.0的pd.read_html函数在basis脚本中识别格式有区别
 20190502, 20190503，去掉该交易日
 """
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 __author__ = 'Albert King'
 
 """

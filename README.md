@@ -1,7 +1,11 @@
 # akshare(python3.7.3)
-[主页链接](https://github.com/jindaxiang/akshare)
+
+<img src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" width = 50% height = 30% align = center/>
 
 **作者: Albert King**
+
+[主页链接](https://github.com/jindaxiang/akshare)
+
 
 建议安装方法
 -
@@ -232,11 +236,11 @@ root 设置为 akshare 爬数据时存储的默认目录(需要保证目录存�
 
 欢迎加 QQ 群交流: 326900231
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/1569925684166.png)
+![image](https://jfds.nos-eastchina1.126.net/akshare/md_fold/1569925684166.png)
 
-点击加入:
+点击加入下面的图片自动 QQ 打开加入:
 
-<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="akshare官方" title="akshare官方"></a>
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" alt="akshare官方" title="akshare官方"></a>
 
 声明:
 
