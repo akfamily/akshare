@@ -1,4 +1,11 @@
-# -*- coding:utf-8 -*- 
+# -*- coding:utf-8 -*-
+# /usr/bin/env python
+"""
+Author: Albert King
+date: 2019/9/30 13:58
+contact: jindaxiang@163.com
+desc: 初始化文件, 主要用于在导入 package 的时候导入需要运行的函数
+"""
 
 """
 版本改动记录:
@@ -38,13 +45,13 @@
 1.1.20:
 增加大商所乙二醇品种EG
 1.1.21
-修改展期收益率的bug，用的公式为:
+修改展期收益率的 bug，用的公式为:
 ln(合约2价格/合约1价格)/（合约1交割年月 - 合约2交割年月）*12
 增添展期收益中的近月合约名称、远月合约名称
 
 减去新版日历中的交易日2018年12月31日
 1.1.22
-增加2019年的交易日历
+增加 2019 年的交易日历
 
 1.2.1
 增加脚本sendEmail，方便每日监控17:00爬取数据，以csv文件形式存本地，并发送给自己QQ邮件确认完成。
@@ -75,11 +82,14 @@ pandas最新版0.24.0的pd.read_html函数在basis脚本中识别格式有区别
 大商所的仓单数据网站格式变化
 
 1.2.10
-上期所成交量0时候有的为str格式的空白，解决该问题
-20190502, 20190503，去掉该交易日
+上期所成交量为 0 时候, 有的为 str 格式的空白, 解决该问题
+20190502, 20190503, 去掉该交易日
+
+0.1.5
+更新原 package 函数问题
 """
 
-__version__ = '0.1.5'
+__version__ = '0.1.6'
 __author__ = 'Albert King'
 
 """
@@ -106,12 +116,12 @@ from akshare.receipt import (get_receipt)
 """
 大宗商品仓单数据
 """
-# from fushare.rollYield import (get_rollYield_bar, get_rollYield)
+# from fushare.roll_yield import (get_roll_yield_bar, get_roll_yield)
 
 """
 交易所行情数据日线
 """
-# from fushare.dailyBar import (get_cffex_daily,
+# from fushare.daily_bar import (get_cffex_daily,
 #                               get_czce_daily,
 #                               get_shfe_vwap,
 #                               get_shfe_daily,
@@ -121,4 +131,4 @@ from akshare.receipt import (get_receipt)
 """
 发邮件模块
 """
-# from fushare.sendEmail import sendEmail
+# from fushare.send_email import send_email

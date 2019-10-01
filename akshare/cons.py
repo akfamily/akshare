@@ -12,30 +12,94 @@ import json
 import os
 
 # 键值对: 键为交易所代码, 值为具体合约代码, TODO 需要及时补充新增的品种
-market_exchange_symbols = {'cffex': ['IF', 'IC', 'IH', 'T', 'TF', 'TS'],
-                           'dce': ['C', 'CS', 'A', 'B', 'M', 'Y', 'P', 'FB', 'BB', 'JD', 'L', 'V', 'PP', 'J', 'JM', 'I',
-                                   'EG'],
-                           'czce': ['WH', 'PM', 'CF', 'SR', 'TA', 'OI', 'RI', 'MA', 'ME', 'FG', 'RS', 'RM', 'ZC', 'JR',
-                                    'LR', 'SF',
-                                    'SM', 'WT', 'TC', 'GN', 'RO', 'ER', 'SRX', 'SRY', 'WSX', 'WSY', 'CY', 'AP'],
-                           'shfe': ['CU', 'AL', 'ZN', 'PB', 'NI', 'SN', 'AU', 'AG', 'RB', 'WR', 'HC', 'FU', 'BU', 'RU',
-                                    'SC', 'SP']
-                           }
+market_exchange_symbols = {
+    'cffex': [
+        'IF',
+        'IC',
+        'IH',
+        'T',
+        'TF',
+        'TS'],
+    'dce': [
+        'C',
+        'CS',
+        'A',
+        'B',
+        'M',
+        'Y',
+        'P',
+        'FB',
+        'BB',
+        'JD',
+        'L',
+        'V',
+        'PP',
+        'J',
+        'JM',
+        'I',
+        'EG'],
+    'czce': [
+        'WH',
+        'PM',
+        'CF',
+        'SR',
+        'TA',
+        'OI',
+        'RI',
+        'MA',
+        'ME',
+        'FG',
+        'RS',
+        'RM',
+        'ZC',
+        'JR',
+        'LR',
+        'SF',
+        'SM',
+        'WT',
+        'TC',
+        'GN',
+        'RO',
+        'ER',
+        'SRX',
+        'SRY',
+        'WSX',
+        'WSY',
+        'CY',
+        'AP',
+        "UR"],
+    'shfe': [
+        'CU',
+        'AL',
+        'ZN',
+        'PB',
+        'NI',
+        'SN',
+        'AU',
+        'AG',
+        'RB',
+        'WR',
+        'HC',
+        'FU',
+        'BU',
+        'RU',
+        'SC',
+        'SP']}
 
 contract_symbols = []
 [contract_symbols.extend(i) for i in market_exchange_symbols.values()]
 
-headers = {'Host': 'www.czce.com.cn',
-           'Connection': 'keep-alive',
-           'Cache-Control': 'max-age=0',
-           'Accept': 'text/html, */*; q=0.01',
-           'X-Requested-With': 'XMLHttpRequest',
-           'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
-           'DNT': '1',
-           'Referer': 'http://www.super-ping.com/?ping=www.google.com&locale=sc',
-           'Accept-Encoding': 'gzip, deflate, sdch',
-           'Accept-Language': 'zh-CN,zh;q=0.8,ja;q=0.6'
-           }
+headers = {
+    'Host': 'www.czce.com.cn',
+    'Connection': 'keep-alive',
+    'Cache-Control': 'max-age=0',
+    'Accept': 'text/html, */*; q=0.01',
+    'X-Requested-With': 'XMLHttpRequest',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
+    'DNT': '1',
+    'Referer': 'http://www.super-ping.com/?ping=www.google.com&locale=sc',
+    'Accept-Encoding': 'gzip, deflate, sdch',
+    'Accept-Language': 'zh-CN,zh;q=0.8,ja;q=0.6'}
 
 shfe_headers = {'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'}
 
@@ -83,25 +147,117 @@ CZCE_DAILY_URL_3 = 'http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/Future
 DATE_PATTERN = re.compile(r'^([0-9]{4})[-/]?([0-9]{2})[-/]?([0-9]{2})')
 FUTURES_SYMBOL_PATTERN = re.compile(r'(^[A-Za-z]{1,2})[0-9]+')
 
-CFFEX_COLUMNS = ['open', 'high', 'low', 'volume', 'turnover', 'open_interest', 'close', 'settle', 'change1', 'change2']
-CZCE_COLUMNS = ['pre_settle', 'open', 'high', 'low', 'close', 'settle', 'change1', 'change2', 'volume', 'open_interest',
-                'oi_chg', 'turnover', 'final_settle']
-CZCE_COLUMNS_2 = ['pre_settle', 'open', 'high', 'low', 'close', 'settle', 'change1', 'volume', 'open_interest',
-                  'oi_chg', 'turnover', 'final_settle']
-SHFE_COLUMNS = {'CLOSE_PRICE': 'close', 'HIGH_EST_PRICE': 'high', 'LOW_EST_PRICE': 'low',
-                'OPEN_INTEREST': 'open_interest',
-                'OPEN_PRICE': 'open', 'PRE_SETTLEMENT_PRICE': 'pre_settle', 'SETTLEMENT_PRICE': 'settle',
-                'VOLUME': 'volume'}
-SHFE_VWAP_COLUMNS = {':B1': 'date', 'INSTRUMENT_ID': 'symbol', 'TIME': 'time_range', 'REF_SETTLEMENT_PRICE': 'vwap'}
-DCE_COLUMNS = ['open', 'high', 'low', 'close', 'pre_settle', 'settle', 'change1', 'change2', 'volume', 'open_interest',
-               'oi_chg', 'turnover']
-DCE_OPTION_COLUMNS = ['open', 'high', 'low', 'close', 'pre_settle', 'settle', 'change1', 'change2', 'delta', 'volume',
-                      'open_interest', 'oi_chg', 'turnover', 'exercise_volume']
+CFFEX_COLUMNS = [
+    'open',
+    'high',
+    'low',
+    'volume',
+    'turnover',
+    'open_interest',
+    'close',
+    'settle',
+    'change1',
+    'change2']
+CZCE_COLUMNS = [
+    'pre_settle',
+    'open',
+    'high',
+    'low',
+    'close',
+    'settle',
+    'change1',
+    'change2',
+    'volume',
+    'open_interest',
+    'oi_chg',
+    'turnover',
+    'final_settle']
+CZCE_COLUMNS_2 = [
+    'pre_settle',
+    'open',
+    'high',
+    'low',
+    'close',
+    'settle',
+    'change1',
+    'volume',
+    'open_interest',
+    'oi_chg',
+    'turnover',
+    'final_settle']
+SHFE_COLUMNS = {
+    'CLOSE_PRICE': 'close',
+    'HIGH_EST_PRICE': 'high',
+    'LOW_EST_PRICE': 'low',
+    'OPEN_INTEREST': 'open_interest',
+    'OPEN_PRICE': 'open',
+    'PRE_SETTLEMENT_PRICE': 'pre_settle',
+    'SETTLEMENT_PRICE': 'settle',
+    'VOLUME': 'volume'}
+SHFE_VWAP_COLUMNS = {
+    ':B1': 'date',
+    'INSTRUMENT_ID': 'symbol',
+    'TIME': 'time_range',
+    'REF_SETTLEMENT_PRICE': 'vwap'}
+DCE_COLUMNS = [
+    'open',
+    'high',
+    'low',
+    'close',
+    'pre_settle',
+    'settle',
+    'change1',
+    'change2',
+    'volume',
+    'open_interest',
+    'oi_chg',
+    'turnover']
+DCE_OPTION_COLUMNS = [
+    'open',
+    'high',
+    'low',
+    'close',
+    'pre_settle',
+    'settle',
+    'change1',
+    'change2',
+    'delta',
+    'volume',
+    'open_interest',
+    'oi_chg',
+    'turnover',
+    'exercise_volume']
 
-OUTPUT_COLUMNS = ['symbol', 'date', 'open', 'high', 'low', 'close', 'volume', 'open_interest', 'turnover', 'settle',
-                  'pre_settle', 'variety']
-OPTION_OUTPUT_COLUMNS = ['symbol', 'date', 'open', 'high', 'low', 'close', 'pre_settle', 'settle', 'delta', 'volume',
-                         'open_interest', 'oi_chg', 'turnover', 'implied_volatility', 'exercise_volume', 'variety']
+OUTPUT_COLUMNS = [
+    'symbol',
+    'date',
+    'open',
+    'high',
+    'low',
+    'close',
+    'volume',
+    'open_interest',
+    'turnover',
+    'settle',
+    'pre_settle',
+    'variety']
+OPTION_OUTPUT_COLUMNS = [
+    'symbol',
+    'date',
+    'open',
+    'high',
+    'low',
+    'close',
+    'pre_settle',
+    'settle',
+    'delta',
+    'volume',
+    'open_interest',
+    'oi_chg',
+    'turnover',
+    'implied_volatility',
+    'exercise_volume',
+    'variety']
 
 DCE_MAP = {
     '豆一': 'A',
@@ -137,7 +293,11 @@ def convert_date(date):
         if match:
             groups = match.groups()
             if len(groups) == 3:
-                return datetime.date(year=int(groups[0]), month=int(groups[1]), day=int(groups[2]))
+                return datetime.date(
+                    year=int(
+                        groups[0]), month=int(
+                        groups[1]), day=int(
+                        groups[2]))
     return None
 
 

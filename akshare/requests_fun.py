@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 用 requests 访问网站内容，在链接失败后可重复爬取
+desc: 请求网站内容的函数: 在链接失败后可重复 20 次
 """
 import time
 from typing import Dict
@@ -15,10 +15,10 @@ import requests
 
 def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: Dict = None, headers: Dict = None):
     """
-    爬取网站内容，如网站链接失败，可重复爬取 20 次
-    :param url: string 网站
+    利用 requests 请求网站, 爬取网站内容, 如网站链接失败, 可重复爬取 20 次
+    :param url: string 网站地址
     :param encoding: string 编码类型: "utf-8", "gbk", "gb2312"
-    :param method: string 编码类型: "utf-8", "gbk", "gb2312"
+    :param method: string 访问方法: "get", "post"
     :param data: dict 上传数据: 键值对
     :param headers: dict 游览器请求头: 键值对
     :return: requests.response 爬取返回内容: response
@@ -35,10 +35,10 @@ def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: 
                 r.encoding = encoding
                 return r
             else:
-                raise ValueError("请提供正确的请发方式")
+                raise ValueError("请提供正确的请求方式")
         except TimeoutError as e:  # TODO 完善错误类型
             i += 1
-            print(f'第{str(i)}次链接失败, 最多尝试20次', e)
+            print(f"第{str(i)}次链接失败, 最多尝试 20 次", e)
             time.sleep(5)
             if i > 20:
                 return None
@@ -46,10 +46,10 @@ def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: 
 
 def pandas_read_html_link(url: str, encoding: str = "utf-8", method: str = "get", data: Dict = None, headers: Dict = None):
     """
-    爬取网站内容，如网站链接失败，可重复爬取 20 次
-    :param url: string 网站
+    利用 pandas 提供的 read_html 函数来直接提取网页中的表格内容, 如网站链接失败, 可重复爬取 20 次
+    :param url: string 网站地址
     :param encoding: string 编码类型: "utf-8", "gbk", "gb2312"
-    :param method: string 编码类型: "utf-8", "gbk", "gb2312"
+    :param method: string 访问方法: "get", "post"
     :param data: dict 上传数据: 键值对
     :param headers: dict 游览器请求头: 键值对
     :return: requests.response 爬取返回内容: response
@@ -71,7 +71,7 @@ def pandas_read_html_link(url: str, encoding: str = "utf-8", method: str = "get"
                 raise ValueError("请提供正确的请求方式")
         except TimeoutError as e:  # TODO 完善错误类型
             i += 1
-            print(f'第{str(i)}次链接失败, 最多尝试20次', e)
+            print(f"第{str(i)}次链接失败, 最多尝试20次", e)
             time.sleep(5)
             if i > 20:
                 return None

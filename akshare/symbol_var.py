@@ -132,7 +132,8 @@ def chinese_to_english(chinese_var: str):
         '棉纱',
         '苹果',
         '原油',
-        '中质含硫原油']
+        '中质含硫原油',
+        "尿素"]
     english_list = [
         'RU',
         'RU',
@@ -213,7 +214,8 @@ def chinese_to_english(chinese_var: str):
         'CY',
         'AP',
         'SC',
-        'SC']
+        'SC',
+        "UR"]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]
 
