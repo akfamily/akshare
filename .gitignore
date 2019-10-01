@@ -17,16 +17,14 @@
 /codestyles/
 
 # Temp
-build
-dist
+build/
+dist/
 setup.py
-akshare.egg-info
+*.egg-info/
 colors
 
-
 # IDE
-.idea
-
+.idea/
 
 # jupyter
 .ipynb_checkpoints
