@@ -1,0 +1,10 @@
+pandas>=0.23.1
+requests>=2.12.4
+matplotlib>=2.0.0
+bs4>=4.5.3
+
+datetime
+time
+urllib
+io
+json

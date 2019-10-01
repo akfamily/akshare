@@ -1,0 +1,12 @@
+README.md
+setup.py
+akshare/__init__.py
+akshare/calendar.json
+akshare/cons.py
+akshare/receipt.py
+akshare/requests_fun.py
+akshare/symbol_var.py
+akshare.egg-info/PKG-INFO
+akshare.egg-info/SOURCES.txt
+akshare.egg-info/dependency_links.txt
+akshare.egg-info/top_level.txt
