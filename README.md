@@ -6,7 +6,8 @@ AkShare 是实现对期货等衍生金融产品从数据采集, 数据清洗加�
 
 **作者: Albert King**
 
-<img src="https://jfds.nos-eastchina1.126.net/AkShare/md_fold/images.jpg" width = 20% height = 10% align = center/>
+
+<img src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" width = 20% height = 10% align = center/>
 
 
 
@@ -250,11 +251,11 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 欢迎加 QQ 群交流: 326900231
 
-![image](https://jfds.nos-eastchina1.126.net/AkShare/md_fold/1569925684166.png)
+![image](https://jfds.nos-eastchina1.126.net/akshare/md_fold/1569925684166.png)
 
 点击加入下面的图片自动 QQ 打开加入:
 
-<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds.nos-eastchina1.126.net/AkShare/md_fold/images.jpg" alt="AkShare官方" title="AkShare官方"></a>
+<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" alt="AkShare官方" title="AkShare官方"></a>
 
 声明:
 
