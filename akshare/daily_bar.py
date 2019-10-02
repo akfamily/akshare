@@ -224,7 +224,7 @@ def get_czce_daily(date=None):
         return pd.DataFrame(dict_data)[output_columns]
 
 
-def get_shfe_vwap(date=None):
+def get_shfe_v_wap(date=None):
     """
         获取上期所日成交均价数据
     Parameters
@@ -236,8 +236,8 @@ def get_shfe_vwap(date=None):
             郑商所日交易数据(DataFrame):
                 symbol        合约代码
                 date          日期
-                time_range    vwap时段，分09:00-10:15和09:00-15:00两类
-                vwap          加权平均成交均价
+                time_range    v_wap时段，分09:00-10:15和09:00-15:00两类
+                v_wap          加权平均成交均价
         或 None(给定日期没有数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
@@ -245,8 +245,7 @@ def get_shfe_vwap(date=None):
         warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
         return None
     try:
-        json_data = json.loads(requests_link(cons.SHFE_VWAP_URL % (day.strftime('%Y%m%d')), headers=cons.headers),
-                               encoding="utf-8").text
+        json_data = json.loads(requests_link(cons.SHFE_V_WAP_URL % (day.strftime('%Y%m%d')), headers=cons.headers, encoding="utf-8").text)
     except requests.HTTPError as reason:
         if reason.response not in [404, 403]:
             print(cons.SHFE_DAILY_URL % (day.strftime('%Y%m%d')), reason)
@@ -258,7 +257,7 @@ def get_shfe_vwap(date=None):
         df = pd.DataFrame(json_data['o_currefprice'])
         df['INSTRUMENTID'] = df['INSTRUMENTID'].str.strip()
         df[':B1'].astype('int16')
-        return df.rename(columns=cons.SHFE_VWAP_COLUMNS)[list(cons.SHFE_VWAP_COLUMNS.values())]
+        return df.rename(columns=cons.SHFE_V_WAP_COLUMNS)[list(cons.SHFE_V_WAP_COLUMNS.values())]
     except:
         return None
 
@@ -307,10 +306,10 @@ def get_shfe_daily(date=None):
     df['variety'] = df.PRODUCTID.str.slice(0, -6).str.upper()
     df['symbol'] = df['variety'] + df['DELIVERYMONTH']
     df['date'] = day.strftime('%Y%m%d')
-    vwap_df = get_shfe_vwap(day)
-    if vwap_df is not None:
-        df = pd.merge(df, vwap_df[vwap_df.time_range == '9:00-15:00'], on=['date', 'symbol'], how='left')
-        df['turnover'] = df.vwap * df.VOLUME
+    v_wap_df = get_shfe_v_wap(day)
+    if v_wap_df is not None:
+        df = pd.merge(df, v_wap_df[v_wap_df.time_range == '9:00-15:00'], on=['date', 'symbol'], how='left')
+        df['turnover'] = df.v_wap * df.VOLUME
     else:
         df['VOLUME'] = df['VOLUME'].apply(lambda x: 0 if x == '' else x)
         df['turnover'] = df['VOLUME'] * df['SETTLEMENTPRICE']
@@ -549,5 +548,5 @@ def get_futures_index(df):
 
 
 if __name__ == '__main__':
-    d = get_futures_daily(start='20180301', end='20180517', market='DCE', index_bar=False)
+    d = get_futures_daily(start='20180301', end='20180517', market='SHFE', index_bar=False)
     print(d)

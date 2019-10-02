@@ -11,6 +11,7 @@ import datetime
 import json
 import os
 
+QHKC_URL = "https://www.qhkch.com/ajax/index_show.php"
 # 键值对: 键为交易所代码, 值为具体合约代码, TODO 需要及时补充新增的品种
 market_exchange_symbols = {
     'cffex': [
@@ -138,7 +139,7 @@ CZCE_RECEIPT_URL_3 = 'http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/Futu
 
 CFFEX_DAILY_URL = 'http://www.cffex.com.cn/fzjy/mrhq/{}/{}/{}_1.csv'
 SHFE_DAILY_URL = 'http://www.shfe.com.cn/data/dailydata/kx/kx%s.dat'
-SHFE_VWAP_URL = 'http://www.shfe.com.cn/data/dailydata/ck/%sdailyTimePrice.dat'
+SHFE_V_WAP_URL = 'http://www.shfe.com.cn/data/dailydata/ck/%sdailyTimePrice.dat'
 DCE_DAILY_URL = 'http://www.dce.com.cn//publicweb/quotesdata/dayQuotesCh.html'
 CZCE_DAILY_URL_1 = 'http://www.czce.com.cn/cn/exchange/jyxx/hq/hq%s.html'
 CZCE_DAILY_URL_2 = 'http://www.czce.com.cn/cn/exchange/%s/datadaily/%s.txt'
@@ -186,19 +187,19 @@ CZCE_COLUMNS_2 = [
     'turnover',
     'final_settle']
 SHFE_COLUMNS = {
-    'CLOSE_PRICE': 'close',
-    'HIGH_EST_PRICE': 'high',
-    'LOW_EST_PRICE': 'low',
-    'OPEN_INTEREST': 'open_interest',
-    'OPEN_PRICE': 'open',
-    'PRE_SETTLEMENT_PRICE': 'pre_settle',
-    'SETTLEMENT_PRICE': 'settle',
+    'CLOSEPRICE': 'close',
+    'HIGHESTPRICE': 'high',
+    'LOWESTPRICE': 'low',
+    'OPENINTEREST': 'open_interest',
+    'OPENPRICE': 'open',
+    'PRESETTLEMENTPRICE': 'pre_settle',
+    'SETTLEMENTPRICE': 'settle',
     'VOLUME': 'volume'}
-SHFE_VWAP_COLUMNS = {
+SHFE_V_WAP_COLUMNS = {
     ':B1': 'date',
     'INSTRUMENT_ID': 'symbol',
     'TIME': 'time_range',
-    'REF_SETTLEMENT_PRICE': 'vwap'}
+    'REF_SETTLEMENT_PRICE': 'v_wap'}
 DCE_COLUMNS = [
     'open',
     'high',
