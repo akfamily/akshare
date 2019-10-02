@@ -136,7 +136,7 @@ CZCE_RECEIPT_URL_1 = 'http://www.czce.com.cn/cn/exchange/jyxx/sheet/sheet%s.html
 CZCE_RECEIPT_URL_2 = 'http://www.czce.com.cn/cn/exchange/%s/datawhsheet/%s.htm'
 CZCE_RECEIPT_URL_3 = 'http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataWhsheet.htm'
 
-CFFEX_DAILY_URL = 'http://www.cffex.com.cn/fzjy/mrhq/%s/%s/%s_1.csv'
+CFFEX_DAILY_URL = 'http://www.cffex.com.cn/fzjy/mrhq/{}/{}/{}_1.csv'
 SHFE_DAILY_URL = 'http://www.shfe.com.cn/data/dailydata/kx/kx%s.dat'
 SHFE_VWAP_URL = 'http://www.shfe.com.cn/data/dailydata/ck/%sdailyTimePrice.dat'
 DCE_DAILY_URL = 'http://www.dce.com.cn//publicweb/quotesdata/dayQuotesCh.html'

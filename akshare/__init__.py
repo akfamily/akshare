@@ -89,7 +89,7 @@ pandas最新版0.24.0的pd.read_html函数在basis脚本中识别格式有区别
 更新原 package 函数问题
 """
 
-__version__ = '0.1.8'
+__version__ = '0.1.9'
 __author__ = 'Albert King'
 
 """
@@ -101,7 +101,7 @@ from akshare.basis import (get_spot_price_daily,
 """
 期货持仓成交排名数据
 """
-# from fushare.cot import (get_rank_sum_daily,
+# from akshare.cot import (get_rank_sum_daily,
 #                          get_rank_sum,
 #                          get_shfe_rank_table,
 #                          get_czce_rank_table,
@@ -114,21 +114,21 @@ from akshare.basis import (get_spot_price_daily,
 from akshare.receipt import (get_receipt)
 
 """
-大宗商品仓单数据
+大宗商品展期收益率数据
 """
-# from fushare.roll_yield import (get_roll_yield_bar, get_roll_yield)
+# from akshare.roll_yield import (get_roll_yield_bar, get_roll_yield)
 
 """
 交易所行情数据日线
 """
-# from fushare.daily_bar import (get_cffex_daily,
-#                               get_czce_daily,
-#                               get_shfe_vwap,
-#                               get_shfe_daily,
-#                               get_dce_daily,
-#                               get_future_daily)
+from akshare.daily_bar import (get_cffex_daily,
+                               get_czce_daily,
+                               get_shfe_vwap,
+                               get_shfe_daily,
+                               get_dce_daily,
+                               get_futures_daily)
 
 """
 发邮件模块
 """
-# from fushare.send_email import send_email
+# from akshare.send_email import send_email
