@@ -12,7 +12,7 @@ from email.header import Header
 from email.mime.multipart import MIMEMultipart
 
 
-def send_email(msg: str, from_email: str, password: str, to_email: str, host: str, port: str, attach_name: bool = False,
+def send_email(msg: str, from_email: str, password: str, to_email: str, host: str, port: str, attach_name=False,
                attach_root: bool = False, ssl: bool = False):
     """
     发送提醒邮件

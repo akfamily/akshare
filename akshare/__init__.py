@@ -89,7 +89,7 @@ pandas最新版0.24.0的pd.read_html函数在basis脚本中识别格式有区别
 更新原 package 函数问题
 """
 
-__version__ = '0.1.10'
+__version__ = '0.1.11'
 __author__ = 'Albert King'
 
 """
