@@ -1,36 +1,36 @@
-# akshare(python3.7)
+AkShare
 
-<img src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" width = 20% height = 10% align = center/>
+AkShare 已经发布, 请访问[主页链接](https://github.com/jindaxiang/akshare)了解和查询数据接口！
+
+AkShare 是实现对期货等衍生金融产品从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 AkShare 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论.
 
 **作者: Albert King**
 
-[主页链接](https://github.com/jindaxiang/akshare)
+<img src="https://jfds.nos-eastchina1.126.net/AkShare/md_fold/images.jpg" width = 20% height = 10% align = center/>
+
+
+
+
 
 
 建议安装方法
 -
-    pip install akshare
+    pip install AkShare
 
 
 升级方法
 -
-    pip install akshare --upgrade
+    pip install AkShare --upgrade
     
 最新版本
--    
-    0.1.1
-    修复 receipt 接口不能访问的问题
-    
-    0.1.2
-    更新 README.md 文档, 更新原 fushare 接口的英文拼写错误
-    
+-
     0.1.11
-    更新完毕所有 fushare 接口, 后续开发特色期货数据接口
+    更新完毕所有基于 fushare 接口, 后续开发特色期货数据接口
 
 
 **目录**
-- [akshare 库的特色](#akshare库的特色)
-- [akshare 库的初衷](#akshare库的初衷)
+- [AkShare 库的特色](#AkShare库的特色)
+- [AkShare 库的初衷](#AkShare库的初衷)
 - [展期收益率](#展期收益率)
 - [注册仓单](#注册仓单)
 - [现货价格和基差](#现货价格和基差)
@@ -43,23 +43,25 @@
 
 
 
-## akshare库的特色
-akshare 后期主要改进如下:
+## AkShare库的特色
+AkShare 后期主要改进如下:
 1. 语法更符合 PEP8 规范, 尤其在函数命名上;
 2. 仅支持 Python 3.7 以上版本的 Python
 3. 后续加入 asyncio 和 aiohttp 做异步爬虫加速
 4. 修正函数不能运行的问题
 5. 增加更多的网络数据采集功能
+
     5.1 增加奇货可查(https://qhkch.com/)数据接口, 目前已经提供奇货可查指数部分
-6. 后续更新主要集中在数据部分, 也希望您能参与 akshare 的维护管理
+    
+6. 后续更新主要集中在数据部分, 也希望您能参与 AkShare 的维护管理
 
 
-## akshare库的初衷
-由于 fushare 库目前处于无人维护状态, 特建立 akshare 库
+## AkShare库的初衷
+由于 fushare 库目前处于无人维护状态, 特建立 AkShare 库
 
 传统的 CTA 策略以趋势为主, 但是自从 2017 年以来, 无论是长线还是短线的趋势策略都受制于商品波动率的降低, 面临了多多少少的回撤, 同时市场也逐渐趋于机构化理性化, 因此在传统CTA策略的基础上加入基本面的因素显得迫在眉睫. 近几年各券商的研报陆续提出了许多依赖于趋势行情以外的有效信号, 它们的表现都与趋势策略有着很低的甚至负的相关性, 这样通过多种不同类型的信号对冲得到的策略, 就有机会在市场上取得非常棒的夏普率和稳定的收益. 
 
-akshare 库的公开就是为了向各位同仁提供一个爬虫接口, 避免各个研究组、机构重复造轮子爬取相关数据的资源浪费. 
+AkShare 库的公开就是为了向各位同仁提供一个爬虫接口, 避免各个研究组、机构重复造轮子爬取相关数据的资源浪费. 
 
 
 
@@ -70,14 +72,14 @@ akshare 库的公开就是为了向各位同仁提供一个爬虫接口, 避免�
 其中 "date" 类型是由某商品品种在不同日期的主力合约次主力合约的价差组成, 调用方法例子为: 
 ```
 import akshare as ak
-ak.get_roll_yield_bar(type="date", var="RB", start="20180618", end="20180718",plot=True)
+ak.get_roll_yield_bar(type="date", var="RB", start="20180618", end="20180718", plot=True)
 ```
 ![展期收益率1](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/5*I5BdC65qlzua*UdvH8RLnUqlxUPZac.zFZudbuu70!/b/dEcBAAAAAAAA&bo=6gIZAQAAAAADB9I!&rf=viewer_4)
 
 
 其中 "symbol" 类型是由某商品品种在某天的所有交割月合约价格组成, 可以很方便的观察该品种从近期到远期的展期结构, 调用方法例子为: 
 ```
-ak.get_roll_yield_bar(type="symbol", var="RB", date="20180718",plot=True)
+ak.get_roll_yield_bar(type="symbol", var="RB", date="20180718", plot=True)
 ```
 ![展期收益率2](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/C4uCfCH4GmrJZIuM5bh4UxXIZVybLVQ1fg5PjxNRC4U!/b/dDEBAAAAAAAA&bo=3AIqAQAAAAADB9c!&rf=viewer_4)
 
@@ -107,7 +109,8 @@ ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")
 ```
 ak.get_receipt(start="20180712", end="20180719", vars=["CU", "NI"])
 ```
-下图有错误, fushare 的原作者把 receipt 打错字为 recipet, 目前在 akshare 已经修正为 receipt
+下图有错误, fushare 的原作者把 receipt 打错字为 recipet, 目前在 AkShare 已经修正为 receipt
+
 ![注册仓单](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/cOYxMVta6Ylp87IskIjwOG6nkkMJQ1HJ7HggCSgafog!/b/dDABAAAAAAAA&bo=WARNAgAAAAADBzE!&rf=viewer_4)
 
 注意:
@@ -154,7 +157,10 @@ ak.get_rank_sum_daily(start="20180718", end="20180719", vars=["IF", "C"])
 
 获取某交易日某品种的持仓排名榜
 ```
-ak.get_dce_rank_table()、ak.get_cffex_rank_table()、ak.get_czce_rank_table()、ak.get_shfe_rank_table()
+ak.get_dce_rank_table()
+ak.get_cffex_rank_table()
+ak.get_czce_rank_table()
+ak.get_shfe_rank_table()
 ```
 ![会员持仓3](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/O905N6vk7SFlQlnPfaFJEZi2qTFUOl.7OKXIGmBeWm8!/b/dFoAAAAAAAAA&bo=pgM8AQAAAAADB7o!&rf=viewer_4)
 
@@ -190,9 +196,9 @@ Anaconda 是集成了上千个常用包的 Python 发行版本, 通过安装 Ana
 
 用 ctrl+z 可以退出刚才的 Python 运行环境回到 cmd 命令下, 输入
 ```
-pip install akshare
+pip install AkShare
 ```
-即在 Python 环境中安装了akshare 库(有网络情况下)
+即在 Python 环境中安装了AkShare 库(有网络情况下)
 
 ![image](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/cLA3Un4yK4rE3JHXHdHhO5mDxKokQ158J734BBmz69Q!/b/dL8AAAAAAAAA&bo=.AKpBAAAAAADF2U!&rf=viewer_4)
 
@@ -200,11 +206,11 @@ pip install akshare
 ```
 import akshare
 ```
-即导入了 akshare 库, 再输入
+即导入了 AkShare 库, 再输入
 ```
 akshare.__version__
 ```
-可以查看当前安装的akshare版本号
+可以查看当前安装的 AkShare 版本号
 ![image](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/7fePfBNlfdeBiuiSFd*Ba2X2jBrjXb4wjS9jPyH*7Nc!/b/dL8AAAAAAAAA&bo=.AKfAQAAAAADB0Y!&rf=viewer_4)
 
 
@@ -216,7 +222,7 @@ akshare.__version__
 ![image](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/oT9PEhN0Knbv7Q.hPIO9TyuDkHl*il8K92GILqm4QHQ!/b/dL4AAAAAAAAA&bo=EgTRAwAAAAADB.Y!&rf=viewer_4)
 
 解压下载的文件, 然后来到 example 目录下, 设置 setting 配置文件
-root 设置为 akshare 爬数据时存储的默认目录(需要保证目录存在), qqEmail 和 secret 为爬取到数据时把数据发送给自己的 qq 邮箱账号和密码. 需要开通SMTP服务, 如果不需要自己邮件提醒, 就不用设置（也不要改默认的qqEmail和secret）. 
+root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存在), qqEmail 和 secret 为爬取到数据时把数据发送给自己的 qq 邮箱账号和密码. 需要开通SMTP服务, 如果不需要自己邮件提醒, 就不用设置（也不要改默认的qqEmail和secret）. 
 ![image](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/Ja.CVdg.fgrxFKW2jBGJqT53b7qCNSY*DwmbGDBS928!/b/dL8AAAAAAAAA&bo=aQRbAwAAAAADBxc!&rf=viewer_4)
 
 最后双击 monitor.cmd 即完成, 每日 17 点自动下载数据. 
@@ -244,11 +250,11 @@ root 设置为 akshare 爬数据时存储的默认目录(需要保证目录存�
 
 欢迎加 QQ 群交流: 326900231
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/md_fold/1569925684166.png)
+![image](https://jfds.nos-eastchina1.126.net/AkShare/md_fold/1569925684166.png)
 
 点击加入下面的图片自动 QQ 打开加入:
 
-<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" alt="akshare官方" title="akshare官方"></a>
+<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds.nos-eastchina1.126.net/AkShare/md_fold/images.jpg" alt="AkShare官方" title="AkShare官方"></a>
 
 声明:
 
