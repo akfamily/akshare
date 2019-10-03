@@ -1,10 +1,5 @@
-# -*- coding:utf-8 -*-
-# /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 初始化文件, 主要用于在导入 package 的时候导入需要运行的函数
+AkShare 是实现对期货等衍生金融产品从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 AkShare 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论.
 """
 
 """
@@ -29,9 +24,12 @@ desc: 初始化文件, 主要用于在导入 package 的时候导入需要运行
 
 0.1.19
 修正 cot.py 中请求错误
+
+0.1.20
+修正 __doc__
 """
 
-__version__ = '0.1.19'
+__version__ = '0.1.20'
 __author__ = 'Albert King'
 
 """

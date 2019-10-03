@@ -1,9 +1,8 @@
 import akshare
-from akshare.requests_fun import pandas_read_html_link
 
 
 def test():
-    print('测试及功能展示：')
+    print('测试及功能展示: ')
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n一个品种在时间轴上的展期收益率')
