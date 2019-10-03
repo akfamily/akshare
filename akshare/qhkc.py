@@ -21,7 +21,7 @@ def get_qhkc_data(url=QHKC_URL, payload=payload_id):
     获得齐货可查的指数数据
     :param url: 网址
     :param payload: 上传ID
-    :return: pd.Dataframe
+    :return: pd.DataFrame
     """
     r = requests.post(url, data=payload)
     json_data = r.json()

@@ -20,12 +20,12 @@ from akshare.requests_fun import pandas_read_html_link
 calendar = cons.get_calendar()
 
 
-def get_spot_price_daily(start_day=None, end_day=None, vars=cons.contract_symbols):
+def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
     """
     获取大宗商品现货价格及相应基差
     :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
-    :param vars: 合约品种如 RB、AL 等列表; 为空时为所有商品
+    :param vars_list: 合约品种如 RB、AL 等列表; 为空时为所有商品
     :return: pd.DataFrame
     展期收益率数据(DataFrame):
         var             商品品种                     string
@@ -46,21 +46,21 @@ def get_spot_price_daily(start_day=None, end_day=None, vars=cons.contract_symbol
     df_list = []
     while start_day <= end_day:
         print(start_day)
-        df = get_spot_price(start_day, vars)
-        if df is False:
+        temp_df = get_spot_price(start_day, vars_list)
+        if temp_df is False:
             return pd.concat(df_list).reset_index(drop=True)
-        elif df is not None:
-            df_list.append(df)
+        elif temp_df is not None:
+            df_list.append(temp_df)
         start_day += datetime.timedelta(days=1)
     if len(df_list) > 0:
         return pd.concat(df_list).reset_index(drop=True)
 
 
-def get_spot_price(date=None, var_list=cons.contract_symbols):
+def get_spot_price(date=None, vars_list=cons.contract_symbols):
     """
     获取某一天大宗商品现货价格及相应基差
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :param var_list: 合约品种如RB、AL等列表 为空时为所有商品
+    :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
     :return: pd.DataFrame
     展期收益率数据(pd.DataFrame):
         var             商品品种                     string
@@ -93,18 +93,18 @@ def get_spot_price(date=None, var_list=cons.contract_symbols):
                 if news[3:11] == date.strftime('%Y%m%d'):
                     records = _check_information(r[1], date)
                     records.index = records['var']
-                    var_list_in_market = [i for i in var_list if i in records.index]
+                    var_list_in_market = [i for i in vars_list if i in records.index]
                     temp_df = records.loc[var_list_in_market, :]
                     temp_df.reset_index(drop=True)
                     temp_df.columns = ["var", "sp", "near_symbol", "near_price", "dom_symbol", "dom_price", "near_basis", "dom_basis", "near_basis_rate", "dom_basis_rate", "date"]
                     return temp_df
                 else:
                     time.sleep(3)
-            except Exception as e:
-                print(f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败，第{str(i)}次尝试，最多5次")
+            except IndexError as e:
+                print(f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败，第{str(i)}次尝试，最多5次", e)
                 i += 1
                 if i > 5:
-                    print("{date.strftime('%Y-%m-%d')}日生意社数据连接失败，已超过5次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试")
+                    print(f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败，已超过5次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试")
                     return False
 
 

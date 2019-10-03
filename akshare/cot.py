@@ -120,43 +120,43 @@ def get_rank_sum(date=None, vars_list=cons.contract_symbols):
     shfe_var = [i for i in vars_list if i in cons.market_exchange_symbols['shfe']]
     czce_var = [i for i in vars_list if i in cons.market_exchange_symbols['czce']]
     cffex_var = [i for i in vars_list if i in cons.market_exchange_symbols['cffex']]
-    D = {}
+    big_dict = {}
     if len(dce_var) > 0:
         data = get_dce_rank_table(date, dce_var)
         if data is False:
             return False
-        D.update(data)
+        big_dict.update(data)
     if len(shfe_var) > 0:
         data = get_shfe_rank_table(date, shfe_var)
         if data is False:
             return False
-        D.update(data)
+        big_dict.update(data)
     if len(czce_var) > 0:
         data = get_czce_rank_table(date, czce_var)
         if data is False:
             return False
-        D.update(data)
+        big_dict.update(data)
     if len(cffex_var) > 0:
         data = get_cffex_rank_table(date, cffex_var)
         if data is False:
             return False
-        D.update(data)
+        big_dict.update(data)
     records = pd.DataFrame()
 
-    for symbol, table in D.items():
+    for symbol, table in big_dict.items():
         table = table.applymap(lambda x: 0 if x == '' else x)
-        for symbol in set(table['symbol']):
+        for symbol_inner in set(table['symbol']):
 
-            var = symbol_varieties(symbol)
+            var = symbol_varieties(symbol_inner)
             if var in vars_list:
-                table_cut = table[table['symbol'] == symbol]
+                table_cut = table[table['symbol'] == symbol_inner]
                 table_cut['rank'] = table_cut['rank'].astype('float')
                 table_cut_top5 = table_cut[table_cut['rank'] <= 5]
                 table_cut_top10 = table_cut[table_cut['rank'] <= 10]
                 table_cut_top15 = table_cut[table_cut['rank'] <= 15]
                 table_cut_top20 = table_cut[table_cut['rank'] <= 20]
 
-                D = {'symbol': symbol, 'variety': var,
+                big_dict = {'symbol': symbol_inner, 'variety': var,
 
                      'vol_top5': table_cut_top5['vol'].sum(), 'vol_chg_top5': table_cut_top5['vol_chg'].sum(),
                      'long_open_interest_top5': table_cut_top5['long_open_interest'].sum(),
@@ -184,9 +184,9 @@ def get_rank_sum(date=None, vars_list=cons.contract_symbols):
 
                      'date': date.strftime('%Y%m%d')
                      }
-                records = records.append(pd.DataFrame(D, index=[0]))
+                records = records.append(pd.DataFrame(big_dict, index=[0]))
 
-    if len(D.items()) > 0:
+    if len(big_dict.items()) > 0:
         add_vars = [i for i in cons.market_exchange_symbols['shfe'] + cons.market_exchange_symbols['cffex'] if i in records['variety'].tolist()]
         for var in add_vars:
             records_cut = records[records['variety'] == var]
@@ -260,13 +260,13 @@ def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
         except:
             pass
     get_vars = [var for var in vars_list if var in df['variety'].tolist()]
-    D = {}
+    big_dict = {}
     for var in get_vars:
         df_var = df[df['variety'] == var]
         for symbol in set(df_var['symbol']):
             df_symbol = df_var[df_var['symbol'] == symbol]
-            D[symbol] = df_symbol.reset_index(drop=True)
-    return D
+            big_dict[symbol] = df_symbol.reset_index(drop=True)
+    return big_dict
 
 
 def _czce_df_read(url, skip_rows, encode='utf-8'):
@@ -336,7 +336,7 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
                 except:
                     symbol = strings[4]
                 symbols.append(symbol)
-        D = {}
+        big_dict = {}
         for i in range(len(symbols)):
             symbol = symbols[i]
             table_cut = data[i + 2]
@@ -354,8 +354,8 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
 
             table_cut[intColumns] = table_cut[intColumns].astype(float)
             table_cut[intColumns] = table_cut[intColumns].astype(int)
-            D[symbol] = table_cut.reset_index(drop=True)
-        return D
+            big_dict[symbol] = table_cut.reset_index(drop=True)
+        return big_dict
 
     elif date <= datetime.date(2015, 11, 11):
         url = cons.CZCE_VOL_RANK_URL_2 % (date.year, date.strftime('%Y%m%d'))
@@ -378,7 +378,7 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
     table = table.applymap(lambda x: 0 if x == '-' else x)
     indexes = [i for i in table.index if '合约' in i or '品种' in i]
     indexes.insert(0, 0)
-    D = {}
+    big_dict = {}
 
     for i in range(len(indexes)):
 
@@ -409,9 +409,9 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
             table_cut = table_cut.loc[[x for x in table_cut.index if x in [str(i) for i in range(21)]], :]
 
             table_cut = _table_cut_cal(table_cut, symbol)
-            D[symbol] = table_cut.reset_index(drop=True)
+            big_dict[symbol] = table_cut.reset_index(drop=True)
 
-    return D
+    return big_dict
 
 
 def get_dce_rank_table(date=None, vars_list=cons.contract_symbols):
@@ -448,7 +448,7 @@ def get_dce_rank_table(date=None, vars_list=cons.contract_symbols):
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
         return {}
     vars_list = [i for i in vars_list if i in cons.market_exchange_symbols['dce']]
-    D = {}
+    big_dict = {}
     for var in vars_list:
         url = cons.DCE_VOL_RANK_URL % (var.lower(), var.lower(), date.year, date.month - 1, date.day)
 
@@ -485,8 +485,8 @@ def get_dce_rank_table(date=None, vars_list=cons.contract_symbols):
                                       })
             table_cut = table_cut.applymap(lambda x: x.replace(',', ''))
             table_cut = _table_cut_cal(table_cut, var)
-            D[var] = table_cut.reset_index(drop=True)
-    return D
+            big_dict[var] = table_cut.reset_index(drop=True)
+    return big_dict
 
 
 def get_cffex_rank_table(date=None, vars_list=cons.contract_symbols):
@@ -523,7 +523,7 @@ def get_cffex_rank_table(date=None, vars_list=cons.contract_symbols):
     if date.strftime('%Y%m%d') not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
         return {}
-    D = {}
+    big_dict = {}
     for var in vars_list:
         url = cons.CFFEX_VOL_RANK_URL % (date.strftime('%Y%m'), date.strftime('%d'), var)
         r = requests_link(url, encoding='gbk')
@@ -537,8 +537,8 @@ def get_cffex_rank_table(date=None, vars_list=cons.contract_symbols):
                 table_cut = table[table['合约'] == symbol]
                 table_cut.columns = ['symbol', 'rank'] + rank_columns
                 table_cut = _table_cut_cal(pd.DataFrame(table_cut), symbol)
-                D[symbol] = table_cut.reset_index(drop=True)
-    return D
+                big_dict[symbol] = table_cut.reset_index(drop=True)
+    return big_dict
 
 
 def _table_cut_cal(table_cut, symbol):
@@ -556,6 +556,7 @@ def _table_cut_cal(table_cut, symbol):
 
 
 if __name__ == '__main__':
-    dfs = get_czce_rank_table('20190124')
-    for k, v in dfs.items():
-        print(type(v['long_open_interest'].tolist()[-1]))
+    dfs = get_dce_rank_table('20181210')
+    # for k, v in dfs.items():
+    #     print(type(v['long_open_interest'].tolist()[-1]))
+    get_rank_sum("20180301")

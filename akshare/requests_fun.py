@@ -27,11 +27,11 @@ def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: 
     while True:
         try:
             if method == "get":
-                r = requests.get(url, timeout=5)
+                r = requests.get(url, timeout=10)
                 r.encoding = encoding
                 return r
             elif method == "post":
-                r = requests.post(url, timeout=5, data=data, headers=headers)
+                r = requests.post(url, timeout=10, data=data, headers=headers)
                 r.encoding = encoding
                 return r
             else:
@@ -58,12 +58,12 @@ def pandas_read_html_link(url: str, encoding: str = "utf-8", method: str = "get"
     while True:
         try:
             if method == "get":
-                r = requests.get(url, timeout=5)
+                r = requests.get(url, timeout=10)
                 r.encoding = encoding
                 r = pd.read_html(r.text, encoding=encoding)
                 return r
             elif method == "post":
-                r = requests.post(url, timeout=5, data=data, headers=headers)
+                r = requests.post(url, timeout=10, data=data, headers=headers)
                 r.encoding = encoding
                 r = pd.read_html(r.text, encoding=encoding)
                 return r

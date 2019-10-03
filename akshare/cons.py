@@ -129,7 +129,6 @@ CZCE_VOL_RANK_URL_1 = 'http://www.czce.com.cn/cn/exchange/jyxx/pm/pm%s.html'
 CZCE_VOL_RANK_URL_2 = 'http://www.czce.com.cn/cn/exchange/%s/datatradeholding/%s.htm'
 CZCE_VOL_RANK_URL_3 = 'http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataHolding.htm'
 
-# DCE_RECEIPT_URL = 'http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html?wbillWeeklyQuotes.variety=all&year=%s&month=%s&day=%s'
 DCE_RECEIPT_URL = "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
 SHFE_RECEIPT_URL_1 = 'http://www.shfe.com.cn/data/dailydata/%sdailystock.html'
 SHFE_RECEIPT_URL_2 = 'http://www.shfe.com.cn/data/dailydata/%sdailystock.dat'
@@ -324,26 +323,26 @@ def get_calendar():
     return json.load(open(setting_file_path, "r"))
 
 
-def last_trading_day(d):
+def last_trading_day(day):
     """
     获取前一个交易日
-    :param d: '%Y%m%d' or  datetime.date()
+    :param day: '%Y%m%d' or  datetime.date()
     :return last_day: '%Y%m%d' or  datetime.date()
     """
     calendar = get_calendar()
 
-    if isinstance(d, str):
-        if d not in calendar:
-            print('Today is not tradingday：' + d)
+    if isinstance(day, str):
+        if day not in calendar:
+            print('Today is not trading day：' + day)
             return False
-        pos = calendar.index(d)
+        pos = calendar.index(day)
         last_day = calendar[pos - 1]
         return last_day
 
-    elif isinstance(d, datetime.date):
-        d_str = d.strftime('%Y%m%d')
+    elif isinstance(day, datetime.date):
+        d_str = day.strftime('%Y%m%d')
         if d_str not in calendar:
-            print('Today is not workingday：' + d_str)
+            print('Today is not working day：' + d_str)
             return False
         pos = calendar.index(d_str)
         last_day = calendar[pos - 1]
@@ -351,22 +350,22 @@ def last_trading_day(d):
         return last_day
 
 
-def get_latest_data_date(d):
+def get_latest_data_date(day):
     """
     获取最新的有数据的日期
-    :param d: datetime.datetime()
+    :param day: datetime.datetime()
     :return string
     """
     calendar = get_calendar()
-    if d.strftime('%Y%m%d') in calendar:
-        if d.time() > datetime.time(17, 0, 0):
-            return d.strftime('%Y%m%d')
+    if day.strftime('%Y%m%d') in calendar:
+        if day.time() > datetime.time(17, 0, 0):
+            return day.strftime('%Y%m%d')
         else:
-            return last_trading_day(d.strftime('%Y%m%d'))
+            return last_trading_day(day.strftime('%Y%m%d'))
     else:
-        while d.strftime('%Y%m%d') not in calendar:
-            d = d - datetime.timedelta(days=1)
-        return d.strftime('%Y%m%d')
+        while day.strftime('%Y%m%d') not in calendar:
+            day = day - datetime.timedelta(days=1)
+        return day.strftime('%Y%m%d')
 
 
 if __name__ == '__main__':
