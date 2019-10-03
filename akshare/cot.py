@@ -457,12 +457,12 @@ def get_dce_rank_table(date=None, vars_list=cons.contract_symbols):
         list_60_chg = []
         rank = []
 
-        texts = requests_link(url)
-        if texts:
+        texts = requests_link(url).content.splitlines()
+        if not texts:
             return False
         if len(texts) > 30:
             for text in texts:
-                line = text.decode('utf8')
+                line = text.decode("utf-8")
                 string_list = line.split()
                 try:
                     if int(string_list[0]) <= 20:
@@ -527,7 +527,7 @@ def get_cffex_rank_table(date=None, vars_list=cons.contract_symbols):
     for var in vars_list:
         url = cons.CFFEX_VOL_RANK_URL % (date.strftime('%Y%m'), date.strftime('%d'), var)
         r = requests_link(url, encoding='gbk')
-        if r:
+        if not r:
             return False
         if '网页错误' not in r.text:
             table = pd.read_csv(StringIO(r.text.split('\n交易日,')[1]))
