@@ -14,9 +14,18 @@ desc: 初始化文件, 主要用于在导入 package 的时候导入需要运行
 
 0.1.14
 更新 requirements.txt 文件
+
+0.1.15
+自动安装所需要的 packages
+
+0.1.16
+修正部分函数命名
+
+0.1.17
+更新版本号自动管理
 """
 
-__version__ = '0.1.15'
+__version__ = '0.1.17'
 __author__ = 'Albert King'
 
 """
