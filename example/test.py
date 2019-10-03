@@ -1,4 +1,5 @@
 import akshare
+from akshare.requests_fun import pandas_read_html_link
 
 
 def test():
@@ -57,3 +58,5 @@ def test():
 
 if __name__ == '__main__':
     test()
+    df = akshare.get_spot_price('20181210')
+    print(df)

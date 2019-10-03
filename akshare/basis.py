@@ -11,11 +11,11 @@ import time
 import datetime
 import warnings
 
-import requests
 import pandas as pd
 
 from akshare.symbol_var import chinese_to_english
 from akshare import cons
+from akshare.requests_fun import pandas_read_html_link
 
 calendar = cons.get_calendar()
 
@@ -87,11 +87,11 @@ def get_spot_price(date=None, var_list=cons.contract_symbols):
     while True:
         for url in [u2, u1]:
             try:
-                r = requests.get(url, timeout=2)
-                string = pd.read_html(r.text)[0].loc[1, 1]
+                r = pandas_read_html_link(url)
+                string = r[0].loc[1, 1]
                 news = ''.join(re.findall(r'[0-9]', string))
                 if news[3:11] == date.strftime('%Y%m%d'):
-                    records = _check_information(pd.read_html(r.text)[1], date)
+                    records = _check_information(r[1], date)
                     records.index = records['var']
                     var_list_in_market = [i for i in var_list if i in records.index]
                     temp_df = records.loc[var_list_in_market, :]
