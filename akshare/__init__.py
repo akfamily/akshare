@@ -11,9 +11,12 @@ desc: 初始化文件, 主要用于在导入 package 的时候导入需要运行
 版本改动记录:
 0.1.13
 更新所有基于 fushare 的接口
+
+0.1.14
+更新 requirements.txt 文件
 """
 
-__version__ = '0.1.13'
+__version__ = '0.1.14'
 __author__ = 'Albert King'
 
 """
