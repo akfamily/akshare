@@ -16,7 +16,7 @@ desc: 初始化文件, 主要用于在导入 package 的时候导入需要运行
 更新 requirements.txt 文件
 """
 
-__version__ = '0.1.14'
+__version__ = '0.1.15'
 __author__ = 'Albert King'
 
 """
