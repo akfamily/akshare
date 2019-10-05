@@ -310,8 +310,8 @@ def convert_date(date):
 
 def get_json_path(name, module_file):
     """
-    获取 JSON 配置文件的路径从模块所在目录查找
-    :param name:
+    获取 JSON 配置文件的路径(从模块所在目录查找)
+    :param name: 文件名
     :param module_file:
     :return:
     """
@@ -322,7 +322,7 @@ def get_json_path(name, module_file):
 
 def get_calendar():
     """
-    获取交易日历至2018年结束
+    获取交易日历至 2019 年结束, 这里的交易日历需要按年更新
     :return: list
     """
     setting_file_name = 'calendar.json'

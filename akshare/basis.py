@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 从生意社网站采集大宗商品现货价格及相应基差数据, 目前数据从 20110104-至今
+desc: 从生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 """
 import re
 import time
@@ -28,17 +28,17 @@ def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_s
     :param vars_list: 合约品种如 RB, AL 等列表; 为空时为所有商品
     :return: pd.DataFrame
     展期收益率数据(DataFrame):
-        var             商品品种                     string
-        sp              现货价格                     float
-        near_symbol      临近交割合约                  string
-        near_price       临近交割合约结算价             float
-        dom_symbol       主力合约                     string
-        dom_price        主力合约结算价                float
-        near_basis       临近交割合约相对现货的基差      float
-        dom_basis        主力合约相对现货的基差         float
+        var               商品品种                      string
+        sp                现货价格                      float
+        near_symbol       临近交割合约                  string
+        near_price        临近交割合约结算价             float
+        dom_symbol        主力合约                      string
+        dom_price         主力合约结算价                 float
+        near_basis        临近交割合约相对现货的基差      float
+        dom_basis         主力合约相对现货的基差         float
         near_basis_rate   临近交割合约相对现货的基差率    float
         dom_basis_rate    主力合约相对现货的基差率       float
-        date              日期                       string YYYYMMDD
+        date              日期                         string YYYYMMDD
     """
     start_day = cons.convert_date(start_day) if start_day is not None else datetime.date.today()
     end_day = cons.convert_date(end_day) if end_day is not None else cons.convert_date(
@@ -58,7 +58,7 @@ def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_s
 
 def get_spot_price(date=None, vars_list=cons.contract_symbols):
     """
-    获取某一天大宗商品现货价格及相应基差
+    获取某个交易日大宗商品现货价格及相应基差
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
     :return: pd.DataFrame
@@ -100,8 +100,8 @@ def get_spot_price(date=None, vars_list=cons.contract_symbols):
                     return temp_df
                 else:
                     time.sleep(3)
-            except IndexError as e:
-                print(f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败，第{str(i)}次尝试，最多5次", e)
+            except:
+                print(f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败，第{str(i)}次尝试，最多5次")
                 i += 1
                 if i > 5:
                     print(f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败，已超过5次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试")
@@ -109,10 +109,7 @@ def get_spot_price(date=None, vars_list=cons.contract_symbols):
 
 
 def _check_information(df_data, date):
-    if int(pd.__version__[2:4]) <= 23:
-        df_data = df_data.loc[:, [0, 1, 2, 3, 7, 8]]
-    else:
-        df_data = df_data.loc[:, [0, 1, 2, 3, 5, 6]]
+    df_data = df_data.loc[:, [0, 1, 2, 3, 5, 6]]
     df_data.columns = ['var', 'SP', 'nearSymbol', 'nearPrice', 'domSymbol', 'domPrice']
     records = pd.DataFrame()
     for string in df_data['var'].tolist():
