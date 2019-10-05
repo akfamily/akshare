@@ -37,6 +37,9 @@ pip install akshare --upgrade
 
 0.1.29
 规范说明文档格式
+
+0.1.30
+规范说明文档格式
 ```
 
 
@@ -59,19 +62,20 @@ pip install akshare --upgrade
 
 ## AkShare库的特色
 AkShare 主要改进如下:
-1. Python 语法更符合 PEP8 规范, 尤其在接口函数的命名上; 增加类型注释
-2. 支持 Python 3.7 以上版本的 Python;
-3. 后续加入 asyncio 和 aiohttp 做异步爬虫加速(由于目前 aiohttp 尚未支持 Python 3.7);
-4. 持续维护由于原网站格式变化导致的部分函数运行异常的问题;
-5. 增加更多的网络数据采集接口:
+1. Python 语法更符合 PEP8 规范, 尤其在接口函数的命名上; 
+2. 增加代码类型注释;
+3. 支持 Python 3.7 以上版本的 Python;
+4. 后续加入 asyncio 和 aiohttp 做异步爬虫加速(由于目前 aiohttp 尚未支持 Python 3.7);
+5. 持续维护由于原网站格式变化导致的部分函数运行异常的问题;
+6. 增加更多的网络数据采集接口:
 
-    5.1 增加奇货可查(https://qhkch.com/)数据接口, 目前已经提供奇货可查指数数据部分(已完成)
+    5.1 增加奇货可查(https://qhkch.com/)数据接口, 目前已经提供奇货可查指数数据部分(已完成);
     
-    5.2 增加主要国家股票市场指数数据接口(开发中)
+    5.2 增加主要国家股票市场指数数据接口(开发中);
     
-6. 后续更新主要集中在增加更多数据接口部分, 同时修复源代码中 bug;
-7. 更加完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性
-8. 希望您能参与 AkShare 的维护与管理
+7. 后续更新主要集中在增加更多数据接口部分, 同时修复源代码中 bug;
+8. 更加完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
+9. 希望您能参与 AkShare 的维护与管理.
 
 
 ## AkShare库的初衷
@@ -101,24 +105,24 @@ import akshare as ak
 > 数据获取函数说明
 
 ```
- 'get_cffex_daily',  # 获取中国金融期货交易所每日基差数据
- 'get_cffex_rank_table',  # 获取中国金融期货交易所每日基差数据
- 'get_czce_daily',  # 获取中国金融期货交易所每日基差数据
- 'get_czce_rank_table',  # 获取中国金融期货交易所每日基差数据
- 'get_dce_daily',  # 获取中国金融期货交易所每日基差数据
- 'get_dce_rank_table',  # 获取中国金融期货交易所每日基差数据
+ 'get_cffex_daily',  # 获取中国金融期货交易所每日交易数据
+ 'get_cffex_rank_table',  # 获取中国金融期货交易所前20会员持仓数据明细
+ 'get_czce_daily',  # 获取郑州商品交易所每日交易数据
+ 'get_czce_rank_table',  # 获取郑州商品交易所前20会员持仓数据明细
+ 'get_dce_daily',  # 获取大连商品交易所每日交易数据
+ 'get_dce_rank_table',  #获取大连商品交易所前20会员持仓数据明细
  'get_futures_daily',  # 获取中国金融期货交易所每日基差数据
- 'get_qhkc_data',  # 获取中国金融期货交易所每日基差数据
- 'get_rank_sum',  # 获取中国金融期货交易所每日基差数据
- 'get_rank_sum_daily',  # 获取中国金融期货交易所每日基差数据
- 'get_receipt',  # 获取中国金融期货交易所每日基差数据
- 'get_roll_yield',  # 获取中国金融期货交易所每日基差数据
- 'get_roll_yield_bar',  # 获取中国金融期货交易所每日基差数据
- 'get_shfe_daily',  # 获取中国金融期货交易所每日基差数据
- 'get_shfe_rank_table',  # 获取中国金融期货交易所每日基差数据
- 'get_shfe_v_wap',  # 获取中国金融期货交易所每日基差数据
- 'get_spot_price',  # 获取中国金融期货交易所每日基差数据
- 'get_spot_price_daily'  # 获取中国金融期货交易所每日基差数据
+ 'get_qhkc_data',  # 获取奇货可查-期货指数数据
+ 'get_rank_sum',  # 获取四个期货交易所前5, 10, 15, 20会员持仓排名数据
+ 'get_rank_sum_daily',  # 获取每日四个期货交易所前5, 10, 15, 20会员持仓排名数据
+ 'get_receipt',  # 获取大宗商品注册仓单数据
+ 'get_roll_yield',  # 获取某一天某品种(主力和次主力)或固定两个合约的展期收益率
+ 'get_roll_yield_bar',  # 获取展期收益率
+ 'get_shfe_daily',  # 获取上海期货交易所每日交易数据
+ 'get_shfe_rank_table',  # 获取上海期货交易所前20会员持仓数据明细
+ 'get_shfe_v_wap',  # 获取上海期货交易所日成交均价数据
+ 'get_spot_price',  # 获取某一交易日大宗商品现货价格及相应基差数据
+ 'get_spot_price_daily'  # 获取一段交易日大宗商品现货价格及相应基差数据
 ```
 
 ### 3. 获取展期收益率
@@ -167,39 +171,6 @@ ak.get_roll_yield_bar(type_method="date", var="RB", start="20180618", end="20180
 
 通过 get_roll_yield_bar 接口下载展期收益率, 这里展期收益率列表的序列类型分为三种, 分别可以通过 type_method="date", "symbol", "var"获取. 
 其中 "date" 类型是由某商品品种在不同日期的主力合约和次主力合约的价差组成, 调用方法例子为:
-
-**Example 1.** 获取展期收益率数据：
-```python
-import akshare as ak
-ak.get_roll_yield_bar(type_method="date", var="RB", start="20180618", end="20180718", plot=True)
-```
-结果显示：
-
-> 日期, 展期收益率, 最近合约, 下一期合约
-
-                roll_yield near_by deferred
-    2018-06-19    0.191289  RB1810   RB1901
-    2018-06-20    0.192123  RB1810   RB1901
-    2018-06-21    0.183304  RB1810   RB1901
-    2018-06-22    0.190642  RB1810   RB1901
-    2018-06-25    0.194838  RB1810   RB1901
-    2018-06-26    0.204314  RB1810   RB1901
-    2018-06-27    0.213667  RB1810   RB1901
-    2018-06-28    0.211701  RB1810   RB1901
-    2018-06-29    0.205892  RB1810   RB1901
-    2018-07-02    0.224809  RB1810   RB1901
-    2018-07-03    0.229198  RB1810   RB1901
-    2018-07-04    0.222853  RB1810   RB1901
-    2018-07-05    0.247187  RB1810   RB1901
-    2018-07-06    0.261259  RB1810   RB1901
-    2018-07-09    0.253283  RB1810   RB1901
-    2018-07-10    0.225832  RB1810   RB1901
-    2018-07-11    0.210659  RB1810   RB1901
-    2018-07-12    0.212805  RB1810   RB1901
-    2018-07-13    0.170282  RB1810   RB1901
-    2018-07-16    0.218066  RB1810   RB1901
-    2018-07-17    0.229768  RB1810   RB1901
-    2018-07-18    0.225529  RB1810   RB1901
 
 
 ![展期收益率1](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/5*I5BdC65qlzua*UdvH8RLnUqlxUPZac.zFZudbuu70!/b/dEcBAAAAAAAA&bo=6gIZAQAAAAADB9I!&rf=viewer_4)
