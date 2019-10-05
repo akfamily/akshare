@@ -8,11 +8,12 @@ desc:
 """
 import pandas as pd
 import requests
+from typing import AnyStr
 
 from akshare.cons import QHKC_URL
 
 
-def get_qhkc_data(name, url=QHKC_URL):
+def get_qhkc_data(name: AnyStr = "奇货商品", url: AnyStr = QHKC_URL):
     """
     获得奇货可查的指数数据: '奇货黑链', '奇货商品', '奇货谷物', '奇货贵金属', '奇货饲料', '奇货软商品', '奇货化工', '奇货有色', '奇货股指', '奇货铁合金', '奇货油脂'
     :param url: 网址

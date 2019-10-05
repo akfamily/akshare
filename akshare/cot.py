@@ -158,36 +158,40 @@ def get_rank_sum(date=None, vars_list=cons.contract_symbols):
 
                 big_dict = {'symbol': symbol_inner, 'variety': var,
 
-                     'vol_top5': table_cut_top5['vol'].sum(), 'vol_chg_top5': table_cut_top5['vol_chg'].sum(),
-                     'long_open_interest_top5': table_cut_top5['long_open_interest'].sum(),
-                     'long_open_interest_chg_top5': table_cut_top5['long_open_interest_chg'].sum(),
-                     'short_open_interest_top5': table_cut_top5['short_open_interest'].sum(),
-                     'short_open_interest_chg_top5': table_cut_top5['short_open_interest_chg'].sum(),
+                            'vol_top5': table_cut_top5['vol'].sum(), 'vol_chg_top5': table_cut_top5['vol_chg'].sum(),
+                            'long_open_interest_top5': table_cut_top5['long_open_interest'].sum(),
+                            'long_open_interest_chg_top5': table_cut_top5['long_open_interest_chg'].sum(),
+                            'short_open_interest_top5': table_cut_top5['short_open_interest'].sum(),
+                            'short_open_interest_chg_top5': table_cut_top5['short_open_interest_chg'].sum(),
 
-                     'vol_top10': table_cut_top10['vol'].sum(), 'vol_chg_top10': table_cut_top10['vol_chg'].sum(),
-                     'long_open_interest_top10': table_cut_top10['long_open_interest'].sum(),
-                     'long_open_interest_chg_top10': table_cut_top10['long_open_interest_chg'].sum(),
-                     'short_open_interest_top10': table_cut_top10['short_open_interest'].sum(),
-                     'short_open_interest_chg_top10': table_cut_top10['short_open_interest_chg'].sum(),
+                            'vol_top10': table_cut_top10['vol'].sum(),
+                            'vol_chg_top10': table_cut_top10['vol_chg'].sum(),
+                            'long_open_interest_top10': table_cut_top10['long_open_interest'].sum(),
+                            'long_open_interest_chg_top10': table_cut_top10['long_open_interest_chg'].sum(),
+                            'short_open_interest_top10': table_cut_top10['short_open_interest'].sum(),
+                            'short_open_interest_chg_top10': table_cut_top10['short_open_interest_chg'].sum(),
 
-                     'vol_top15': table_cut_top15['vol'].sum(), 'vol_chg_top15': table_cut_top15['vol_chg'].sum(),
-                     'long_open_interest_top15': table_cut_top15['long_open_interest'].sum(),
-                     'long_open_interest_chg_top15': table_cut_top15['long_open_interest_chg'].sum(),
-                     'short_open_interest_top15': table_cut_top15['short_open_interest'].sum(),
-                     'short_open_interest_chg_top15': table_cut_top15['short_open_interest_chg'].sum(),
+                            'vol_top15': table_cut_top15['vol'].sum(),
+                            'vol_chg_top15': table_cut_top15['vol_chg'].sum(),
+                            'long_open_interest_top15': table_cut_top15['long_open_interest'].sum(),
+                            'long_open_interest_chg_top15': table_cut_top15['long_open_interest_chg'].sum(),
+                            'short_open_interest_top15': table_cut_top15['short_open_interest'].sum(),
+                            'short_open_interest_chg_top15': table_cut_top15['short_open_interest_chg'].sum(),
 
-                     'vol_top20': table_cut_top20['vol'].sum(), 'vol_chg_top20': table_cut_top20['vol_chg'].sum(),
-                     'long_open_interest_top20': table_cut_top20['long_open_interest'].sum(),
-                     'long_open_interest_chg_top20': table_cut_top20['long_open_interest_chg'].sum(),
-                     'short_open_interest_top20': table_cut_top20['short_open_interest'].sum(),
-                     'short_open_interest_chg_top20': table_cut_top20['short_open_interest_chg'].sum(),
+                            'vol_top20': table_cut_top20['vol'].sum(),
+                            'vol_chg_top20': table_cut_top20['vol_chg'].sum(),
+                            'long_open_interest_top20': table_cut_top20['long_open_interest'].sum(),
+                            'long_open_interest_chg_top20': table_cut_top20['long_open_interest_chg'].sum(),
+                            'short_open_interest_top20': table_cut_top20['short_open_interest'].sum(),
+                            'short_open_interest_chg_top20': table_cut_top20['short_open_interest_chg'].sum(),
 
-                     'date': date.strftime('%Y%m%d')
-                     }
+                            'date': date.strftime('%Y%m%d')
+                            }
                 records = records.append(pd.DataFrame(big_dict, index=[0]))
 
     if len(big_dict.items()) > 0:
-        add_vars = [i for i in cons.market_exchange_symbols['shfe'] + cons.market_exchange_symbols['cffex'] if i in records['variety'].tolist()]
+        add_vars = [i for i in cons.market_exchange_symbols['shfe'] + cons.market_exchange_symbols['cffex'] if
+                    i in records['variety'].tolist()]
         for var in add_vars:
             records_cut = records[records['variety'] == var]
             var_record = pd.DataFrame(records_cut.sum()).T
