@@ -158,6 +158,7 @@ CFFEX_COLUMNS = [
     'settle',
     'change1',
     'change2']
+
 CZCE_COLUMNS = [
     'pre_settle',
     'open',
@@ -172,6 +173,7 @@ CZCE_COLUMNS = [
     'oi_chg',
     'turnover',
     'final_settle']
+
 CZCE_COLUMNS_2 = [
     'pre_settle',
     'open',
@@ -185,6 +187,7 @@ CZCE_COLUMNS_2 = [
     'oi_chg',
     'turnover',
     'final_settle']
+
 SHFE_COLUMNS = {
     'CLOSEPRICE': 'close',
     'HIGHESTPRICE': 'high',
@@ -194,11 +197,13 @@ SHFE_COLUMNS = {
     'PRESETTLEMENTPRICE': 'pre_settle',
     'SETTLEMENTPRICE': 'settle',
     'VOLUME': 'volume'}
+
 SHFE_V_WAP_COLUMNS = {
     ':B1': 'date',
     'INSTRUMENT_ID': 'symbol',
     'TIME': 'time_range',
     'REF_SETTLEMENT_PRICE': 'v_wap'}
+
 DCE_COLUMNS = [
     'open',
     'high',
@@ -212,6 +217,7 @@ DCE_COLUMNS = [
     'open_interest',
     'oi_chg',
     'turnover']
+
 DCE_OPTION_COLUMNS = [
     'open',
     'high',
@@ -241,6 +247,7 @@ OUTPUT_COLUMNS = [
     'settle',
     'pre_settle',
     'variety']
+
 OPTION_OUTPUT_COLUMNS = [
     'symbol',
     'date',
@@ -303,7 +310,7 @@ def convert_date(date):
 
 def get_json_path(name, module_file):
     """
-    获取JSON配置文件的路径从模块所在目录查找
+    获取 JSON 配置文件的路径从模块所在目录查找
     :param name:
     :param module_file:
     :return:

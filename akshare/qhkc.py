@@ -11,19 +11,27 @@ import requests
 
 from akshare.cons import QHKC_URL
 
-payload_id = {
-    "id": "index0d5e051e-b262-bd7a-0fdc-89e2aab21ebb"
-}
 
-
-def get_qhkc_data(url=QHKC_URL, payload=payload_id):
+def get_qhkc_data(name, url=QHKC_URL):
     """
-    获得齐货可查的指数数据
+    获得奇货可查的指数数据: '奇货黑链', '奇货商品', '奇货谷物', '奇货贵金属', '奇货饲料', '奇货软商品', '奇货化工', '奇货有色', '奇货股指', '奇货铁合金', '奇货油脂'
     :param url: 网址
-    :param payload: 上传ID
+    :param name None
     :return: pd.DataFrame
+
     """
-    r = requests.post(url, data=payload)
+    name_id_dict = {}
+    qhkc_index_url = "https://qhkch.com/ajax/official_indexes.php"
+    r = requests.post(qhkc_index_url)
+    display_name = [item["name"] for item in r.json()["data"]]
+    index_id = [item["id"] for item in r.json()["data"]]
+    for item in range(len(display_name)):
+        name_id_dict[display_name[item]] = index_id[item]
+    payload_id = {
+        "id": name_id_dict[name]
+    }
+    r = requests.post(url, data=payload_id)
+    print(name, "数据获取成功")
     json_data = r.json()
     date = json_data["data"]["date"]
     price = json_data["data"]["price"]
@@ -33,9 +41,5 @@ def get_qhkc_data(url=QHKC_URL, payload=payload_id):
 
 
 if __name__ == "__main__":
-    df = get_qhkc_data()
-    print(df)
-
-
-
-
+    data = get_qhkc_data("奇货谷物")
+    print(data)

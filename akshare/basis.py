@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 从生意社网站采集大宗商品现货价格及相应基差网站数据, 目前数据从20110104-至今
+desc: 从生意社网站采集大宗商品现货价格及相应基差数据, 目前数据从 20110104-至今
 """
 import re
 import time
@@ -25,7 +25,7 @@ def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_s
     获取大宗商品现货价格及相应基差
     :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
-    :param vars_list: 合约品种如 RB、AL 等列表; 为空时为所有商品
+    :param vars_list: 合约品种如 RB, AL 等列表; 为空时为所有商品
     :return: pd.DataFrame
     展期收益率数据(DataFrame):
         var             商品品种                     string
