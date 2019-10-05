@@ -34,6 +34,9 @@ pip install akshare --upgrade
 
 0.1.28
 更新说明文档
+
+0.1.29
+规范说明文档格式
 ```
 
 
@@ -83,65 +86,80 @@ AkShare 主要改进如下:
 
 ### 1. 先按照 [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
 ### 2. 查看 AkShare 提供的数据获取接口
-**Example 2.1** 查看 AkShare 提供的数据获取接口:
+
+**Example 2.1** 查看 AkShare 提供的数据获取接口
+
+代码:
+
 ```python
 import akshare as ak
 [item for item in dir(ak) if item.startswith("get")]
 ```
-    ['get_cffex_daily',
-     'get_cffex_rank_table',
-     'get_czce_daily',
-     'get_czce_rank_table',
-     'get_dce_daily',
-     'get_dce_rank_table',
-     'get_futures_daily',
-     'get_qhkc_data',
-     'get_rank_sum',
-     'get_rank_sum_daily',
-     'get_receipt',
-     'get_roll_yield',
-     'get_roll_yield_bar',
-     'get_shfe_daily',
-     'get_shfe_rank_table',
-     'get_shfe_v_wap',
-     'get_spot_price',
-     'get_spot_price_daily']
+
+结果显示:
+
+> 数据获取函数说明
+
+```
+ 'get_cffex_daily',  # 获取中国金融期货交易所每日基差数据
+ 'get_cffex_rank_table',  # 获取中国金融期货交易所每日基差数据
+ 'get_czce_daily',  # 获取中国金融期货交易所每日基差数据
+ 'get_czce_rank_table',  # 获取中国金融期货交易所每日基差数据
+ 'get_dce_daily',  # 获取中国金融期货交易所每日基差数据
+ 'get_dce_rank_table',  # 获取中国金融期货交易所每日基差数据
+ 'get_futures_daily',  # 获取中国金融期货交易所每日基差数据
+ 'get_qhkc_data',  # 获取中国金融期货交易所每日基差数据
+ 'get_rank_sum',  # 获取中国金融期货交易所每日基差数据
+ 'get_rank_sum_daily',  # 获取中国金融期货交易所每日基差数据
+ 'get_receipt',  # 获取中国金融期货交易所每日基差数据
+ 'get_roll_yield',  # 获取中国金融期货交易所每日基差数据
+ 'get_roll_yield_bar',  # 获取中国金融期货交易所每日基差数据
+ 'get_shfe_daily',  # 获取中国金融期货交易所每日基差数据
+ 'get_shfe_rank_table',  # 获取中国金融期货交易所每日基差数据
+ 'get_shfe_v_wap',  # 获取中国金融期货交易所每日基差数据
+ 'get_spot_price',  # 获取中国金融期货交易所每日基差数据
+ 'get_spot_price_daily'  # 获取中国金融期货交易所每日基差数据
+```
 
 ### 3. 获取展期收益率
 
-**Example 1.** 获取展期收益率数据：
+**Example 3.1** 获取展期收益率数据:
+
+代码:
+
 ```python
 import akshare as ak
 ak.get_roll_yield_bar(type_method="date", var="RB", start="20180618", end="20180718", plot=True)
 ```
+
 结果显示：
 
 > 日期, 展期收益率, 最近合约, 下一期合约
-
-                roll_yield near_by deferred
-    2018-06-19    0.191289  RB1810   RB1901
-    2018-06-20    0.192123  RB1810   RB1901
-    2018-06-21    0.183304  RB1810   RB1901
-    2018-06-22    0.190642  RB1810   RB1901
-    2018-06-25    0.194838  RB1810   RB1901
-    2018-06-26    0.204314  RB1810   RB1901
-    2018-06-27    0.213667  RB1810   RB1901
-    2018-06-28    0.211701  RB1810   RB1901
-    2018-06-29    0.205892  RB1810   RB1901
-    2018-07-02    0.224809  RB1810   RB1901
-    2018-07-03    0.229198  RB1810   RB1901
-    2018-07-04    0.222853  RB1810   RB1901
-    2018-07-05    0.247187  RB1810   RB1901
-    2018-07-06    0.261259  RB1810   RB1901
-    2018-07-09    0.253283  RB1810   RB1901
-    2018-07-10    0.225832  RB1810   RB1901
-    2018-07-11    0.210659  RB1810   RB1901
-    2018-07-12    0.212805  RB1810   RB1901
-    2018-07-13    0.170282  RB1810   RB1901
-    2018-07-16    0.218066  RB1810   RB1901
-    2018-07-17    0.229768  RB1810   RB1901
-    2018-07-18    0.225529  RB1810   RB1901
-
+```
+            roll_yield near_by deferred
+2018-06-19    0.191289  RB1810   RB1901
+2018-06-20    0.192123  RB1810   RB1901
+2018-06-21    0.183304  RB1810   RB1901
+2018-06-22    0.190642  RB1810   RB1901
+2018-06-25    0.194838  RB1810   RB1901
+2018-06-26    0.204314  RB1810   RB1901
+2018-06-27    0.213667  RB1810   RB1901
+2018-06-28    0.211701  RB1810   RB1901
+2018-06-29    0.205892  RB1810   RB1901
+2018-07-02    0.224809  RB1810   RB1901
+2018-07-03    0.229198  RB1810   RB1901
+2018-07-04    0.222853  RB1810   RB1901
+2018-07-05    0.247187  RB1810   RB1901
+2018-07-06    0.261259  RB1810   RB1901
+2018-07-09    0.253283  RB1810   RB1901
+2018-07-10    0.225832  RB1810   RB1901
+2018-07-11    0.210659  RB1810   RB1901
+2018-07-12    0.212805  RB1810   RB1901
+2018-07-13    0.170282  RB1810   RB1901
+2018-07-16    0.218066  RB1810   RB1901
+2018-07-17    0.229768  RB1810   RB1901
+2018-07-18    0.225529  RB1810   RB1901
+```
 
 
 ## 展期收益率
