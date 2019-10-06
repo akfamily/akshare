@@ -12,6 +12,7 @@ import json
 import os
 
 QHKC_URL = "https://www.qhkch.com/ajax/index_show.php"
+
 # 键值对: 键为交易所代码, 值为具体合约代码, TODO 需要及时补充新增的品种
 market_exchange_symbols = {
     'cffex': [
@@ -359,9 +360,9 @@ def last_trading_day(day):
 
 def get_latest_data_date(day):
     """
-    获取最新的有数据的日期
+    获取最新的有数据的交易日
     :param day: datetime.datetime()
-    :return string
+    :return string YYYYMMDD
     """
     calendar = get_calendar()
     if day.strftime('%Y%m%d') in calendar:

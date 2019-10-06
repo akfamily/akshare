@@ -5,6 +5,11 @@ Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
 desc: 从生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
+备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
+黄金为元/克, 白银为元/千克, 玻璃现货为元/平方米, 鸡蛋现货为元/公斤, 鸡蛋期货为元/500千克, 其余元/吨.
+焦炭现货规格是: 一级冶金焦, 焦炭期货规格: 介于一级和二级之间, 焦炭现期差仅供参考.
+铁矿石现货价格是: 湿吨, 铁矿石期货价格是: 干吨
+demo_page: http://www.100ppi.com/sf/
 """
 import re
 import time
@@ -23,11 +28,11 @@ calendar = cons.get_calendar()
 def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
     """
     获取大宗商品现货价格及相应基差
-    :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
-    :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
-    :param vars_list: 合约品种如 RB, AL 等列表; 为空时为所有商品
-    :return: pd.DataFrame
-    展期收益率数据(DataFrame):
+    :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
+    :param end_day: str 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
+    :param vars_list: list 合约品种如 [RB, AL]; 默认参数为所有商品
+    :return: pandas.DataFrame
+    展期收益率数据:
         var               商品品种                      string
         sp                现货价格                      float
         near_symbol       临近交割合约                  string
@@ -35,10 +40,10 @@ def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_s
         dom_symbol        主力合约                      string
         dom_price         主力合约结算价                 float
         near_basis        临近交割合约相对现货的基差      float
-        dom_basis         主力合约相对现货的基差         float
+        dom_basis         主力合约相对现货的基差          float
         near_basis_rate   临近交割合约相对现货的基差率    float
-        dom_basis_rate    主力合约相对现货的基差率       float
-        date              日期                         string YYYYMMDD
+        dom_basis_rate    主力合约相对现货的基差率        float
+        date              日期                          string YYYYMMDD
     """
     start_day = cons.convert_date(start_day) if start_day is not None else datetime.date.today()
     end_day = cons.convert_date(end_day) if end_day is not None else cons.convert_date(
@@ -61,19 +66,19 @@ def get_spot_price(date=None, vars_list=cons.contract_symbols):
     获取某个交易日大宗商品现货价格及相应基差
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
-    :return: pd.DataFrame
-    展期收益率数据(pd.DataFrame):
-        var             商品品种                     string
-        sp              现货价格                     float
+    :return: pandas.DataFrame
+    展期收益率数据:
+        var              商品品种                     string
+        sp               现货价格                     float
         near_symbol      临近交割合约                  string
         near_price       临近交割合约结算价             float
         dom_symbol       主力合约                     string
         dom_price        主力合约结算价                float
         near_basis       临近交割合约相对现货的基差      float
         dom_basis        主力合约相对现货的基差         float
-        near_basis_rate   临近交割合约相对现货的基差率    float
-        dom_basis_rate    主力合约相对现货的基差率       float
-        date              日期                       string YYYYMMDD
+        near_basis_rate  临近交割合约相对现货的基差率    float
+        dom_basis_rate   主力合约相对现货的基差率       float
+        date             日期                         string YYYYMMDD
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2011, 1, 4):
