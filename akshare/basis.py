@@ -27,7 +27,7 @@ calendar = cons.get_calendar()
 
 def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
     """
-    获取大宗商品现货价格及相应基差
+    获取某段时间大宗商品现货价格及相应基差
     :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param end_day: str 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param vars_list: list 合约品种如 [RB, AL]; 默认参数为所有商品
@@ -58,7 +58,9 @@ def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_s
             df_list.append(temp_df)
         start_day += datetime.timedelta(days=1)
     if len(df_list) > 0:
-        return pd.concat(df_list).reset_index(drop=True)
+        temp_df = pd.concat(df_list)
+        temp_df.reset_index(drop=True, inplace=True)
+        return temp_df
 
 
 def get_spot_price(date=None, vars_list=cons.contract_symbols):
@@ -97,11 +99,10 @@ def get_spot_price(date=None, vars_list=cons.contract_symbols):
                 news = ''.join(re.findall(r'[0-9]', string))
                 if news[3:11] == date.strftime('%Y%m%d'):
                     records = _check_information(r[1], date)
-                    records.index = records['var']
+                    records.index = records['symbol']
                     var_list_in_market = [i for i in vars_list if i in records.index]
                     temp_df = records.loc[var_list_in_market, :]
-                    temp_df.reset_index(drop=True)
-                    temp_df.columns = ["var", "sp", "near_symbol", "near_price", "dom_symbol", "dom_price", "near_basis", "dom_basis", "near_basis_rate", "dom_basis_rate", "date"]
+                    temp_df.reset_index(drop=True, inplace=True)
                     return temp_df
                 else:
                     time.sleep(3)
@@ -115,46 +116,46 @@ def get_spot_price(date=None, vars_list=cons.contract_symbols):
 
 def _check_information(df_data, date):
     df_data = df_data.loc[:, [0, 1, 2, 3, 5, 6]]
-    df_data.columns = ['var', 'SP', 'nearSymbol', 'nearPrice', 'domSymbol', 'domPrice']
+    df_data.columns = ['symbol', 'spot_price', 'near_contract', 'near_contract_price', 'dominant_contract', 'dominant_contract_price']
     records = pd.DataFrame()
-    for string in df_data['var'].tolist():
+    for string in df_data['symbol'].tolist():
         if string == 'PTA':
             news = 'PTA'
         else:
             news = ''.join(re.findall(r'[\u4e00-\u9fa5]', string))
         if news != '' and news not in ['商品', '价格', '上海期货交易所', '郑州商品交易所', '大连商品交易所']:
-            var = chinese_to_english(news)
-            record = pd.DataFrame(df_data[df_data['var'] == string])
-            record.loc[:, 'var'] = var
-            record.loc[:, 'SP'] = record.loc[:, 'SP'].astype(float)
-            if var == 'JD':
-                record.loc[:, 'SP'] = float(record['SP']) * 500
-            if var == 'FG':
-                record.loc[:, 'SP'] = record['SP'] * 80
+            symbol = chinese_to_english(news)
+            record = pd.DataFrame(df_data[df_data['symbol'] == string])
+            record.loc[:, 'symbol'] = symbol
+            record.loc[:, 'spot_price'] = record.loc[:, 'spot_price'].astype(float)
+            if symbol == 'JD':  # 鸡蛋现货为元/公斤, 鸡蛋期货为元/500千克, 其余元/吨(http://www.100ppi.com/sf/)
+                record.loc[:, 'spot_price'] = float(record['spot_price']) * 500
+            elif symbol == 'FG':  # 上表中现货单位为元/平方米, 期货单位为元/吨. 换算公式：元/平方米*80=元/吨(http://www.100ppi.com/sf/959.html)
+                record.loc[:, 'spot_price'] = float(record['spot_price']) * 80
             records = records.append(record)
 
-    records.loc[:, ['nearPrice', 'domPrice', 'SP']] = records.loc[:, ['nearPrice', 'domPrice', 'SP']].astype(
+    records.loc[:, ['near_contract_price', 'dominant_contract_price', 'spot_price']] = records.loc[:, ['near_contract_price', 'dominant_contract_price', 'spot_price']].astype(
         'float')
 
-    records.loc[:, 'nearSymbol'] = records['nearSymbol'].replace(r'[^0-9]*(\d*)$', r'\g<1>', regex=True)
-    records.loc[:, 'domSymbol'] = records['domSymbol'].replace(r'[^0-9]*(\d*)$', r'\g<1>', regex=True)
+    records.loc[:, 'near_contract'] = records['near_contract'].replace(r'[^0-9]*(\d*)$', r'\g<1>', regex=True)
+    records.loc[:, 'dominant_contract'] = records['dominant_contract'].replace(r'[^0-9]*(\d*)$', r'\g<1>', regex=True)
 
-    records.loc[:, 'nearSymbol'] = records['var'] + records.loc[:, 'nearSymbol'].astype('int').astype('str')
-    records.loc[:, 'domSymbol'] = records['var'] + records.loc[:, 'domSymbol'].astype('int').astype('str')
+    records.loc[:, 'near_contract'] = records['symbol'] + records.loc[:, 'near_contract'].astype('int').astype('str')
+    records.loc[:, 'dominant_contract'] = records['symbol'] + records.loc[:, 'dominant_contract'].astype('int').astype('str')
 
-    records['nearSymbol'] = records['nearSymbol'].apply(
+    records['near_contract'] = records['near_contract'].apply(
         lambda x: x.lower() if x[:-4] in cons.market_exchange_symbols['shfe'] + cons.market_exchange_symbols['dce'] else x)
-    records.loc[:, 'domSymbol'] = records.loc[:, 'domSymbol'].apply(
+    records.loc[:, 'dominant_contract'] = records.loc[:, 'dominant_contract'].apply(
         lambda x: x.lower() if x[:-4] in cons.market_exchange_symbols['shfe'] + cons.market_exchange_symbols['dce'] else x)
-    records.loc[:, 'nearSymbol'] = records.loc[:, 'nearSymbol'].apply(
+    records.loc[:, 'near_contract'] = records.loc[:, 'near_contract'].apply(
         lambda x: x[:-4] + x[-3:] if x[:-4] in cons.market_exchange_symbols['czce'] else x)
-    records.loc[:, 'domSymbol'] = records.loc[:, 'domSymbol'].apply(
+    records.loc[:, 'dominant_contract'] = records.loc[:, 'dominant_contract'].apply(
         lambda x: x[:-4] + x[-3:] if x[:-4] in cons.market_exchange_symbols['czce'] else x)
 
-    records['nearBasis'] = records['nearPrice'] - records['SP']
-    records['domBasis'] = records['domPrice'] - records['SP']
-    records['nearBasisRate'] = records['nearPrice'] / records['SP'] - 1
-    records['domBasisRate'] = records['domPrice'] / records['SP'] - 1
+    records['near_basis'] = records['near_contract_price'] - records['spot_price']
+    records['dom_basis'] = records['dominant_contract_price'] - records['spot_price']
+    records['near_basis_rate'] = records['near_contract_price'] / records['spot_price'] - 1
+    records['dom_basis_rate'] = records['dominant_contract_price'] / records['spot_price'] - 1
     records.loc[:, 'date'] = date.strftime('%Y%m%d')
     return records
 

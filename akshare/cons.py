@@ -6,10 +6,10 @@ date: 2019/9/30 13:58
 contact: jindaxiang@163.com
 desc: 常用变量
 """
-import re
 import datetime
 import json
 import os
+import re
 
 QHKC_URL = "https://www.qhkch.com/ajax/index_show.php"
 
@@ -313,7 +313,7 @@ def get_json_path(name, module_file):
     """
     获取 JSON 配置文件的路径(从模块所在目录查找)
     :param name: 文件名
-    :param module_file:
+    :param module_file: filename
     :return: str json_file_path
     """
     module_folder = os.path.abspath(os.path.dirname(module_file))
@@ -361,7 +361,7 @@ def last_trading_day(day):
 def get_latest_data_date(day):
     """
     获取最新的有数据的交易日
-    :param day: datetime.datetime()
+    :param day: datetime.datetime
     :return string YYYYMMDD
     """
     calendar = get_calendar()
