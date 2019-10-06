@@ -43,6 +43,9 @@ pip install akshare --upgrade
 
 0.1.31
 规范 cot.py 函数说明
+
+0.1.32
+update basis.py
 ```
 
 

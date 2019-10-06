@@ -40,9 +40,11 @@
 规范说明文档格式
 0.1.31
 规范 cot.py 函数说明
+0.1.32
+update basis.py
 """
 
-__version__ = '0.1.31'
+__version__ = '0.1.32'
 __author__ = 'Albert King'
 
 """
