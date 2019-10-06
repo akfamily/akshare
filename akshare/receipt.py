@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 从大连商品交易所、上海期货交易所、郑州商品交易所采集每日仓单数据, 建议下午 16:30 以后采集当天数据,
+desc: 从大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日仓单数据, 建议下午 16:30 以后采集当天数据,
 避免交易所数据更新不稳定导致的程序出错
 """
 import re
@@ -56,7 +56,8 @@ def get_dce_receipt(date: str = None, symbol_list: List = cons.contract_symbols)
         if isinstance(x['品种'], str):
             if x['品种'][-2:] == '小计':
                 var = x['品种'][:-2]
-                temp_data = {'var': chinese_to_english(var), 'receipt': int(x['今日仓单量']), 'receipt_chg': int(x['增减']), 'date': date.strftime('%Y%m%d')}
+                temp_data = {'var': chinese_to_english(var), 'receipt': int(x['今日仓单量']), 'receipt_chg': int(x['增减']),
+                             'date': date.strftime('%Y%m%d')}
                 records = records.append(pd.DataFrame(temp_data, index=[0]))
     if len(records.index) != 0:
         records.index = records['var']
@@ -65,11 +66,11 @@ def get_dce_receipt(date: str = None, symbol_list: List = cons.contract_symbols)
     return records.reset_index(drop=True)
 
 
-def get_shfe_receipt_1(date=None, vars=cons.contract_symbols):
+def get_shfe_receipt_1(date=None, vars_list=cons.contract_symbols):
     """
     抓取上海期货交易所注册仓单数据, 适用20081006至20140518(包括) 20100126、20101029日期交易所格式混乱，直接回复脚本中DataFrame, 20100416、20130821日期交易所数据丢失
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :param vars: 合约品种如RB、AL等列表 为空时为所有商品
+    :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
     :return: pd.DataFrame
     展期收益率数据(DataFrame):
                     var             商品品种                     string
@@ -92,36 +93,36 @@ def get_shfe_receipt_1(date=None, vars=cons.contract_symbols):
         var_list = ['天然橡胶', '沥青仓库', '沥青厂库', '热轧卷板', '燃料油', '白银', '线材', '螺纹钢', '铅', '铜', '铝', '锌', '黄金', '锡', '镍']
         url = cons.SHFE_RECEIPT_URL_1 % date
         data = pandas_read_html_link(url)[0]
-        indexs = [x for x in data.index if (data[0].tolist()[x] in var_list)]
+        indexes = [x for x in data.index if (data[0].tolist()[x] in var_list)]
         last_index = [x for x in data.index if '注' in str(data[0].tolist()[x])][0] - 1
         records = pd.DataFrame()
-        for i in list(range(len(indexs))):
-            if i != len(indexs) - 1:
-                data_cut = data.loc[indexs[i]:indexs[i + 1] - 1, :]
+        for i in list(range(len(indexes))):
+            if i != len(indexes) - 1:
+                data_cut = data.loc[indexes[i]:indexes[i + 1] - 1, :]
             else:
-                data_cut = data.loc[indexs[i]:last_index, :]
+                data_cut = data.loc[indexes[i]:last_index, :]
                 data_cut = data_cut.fillna(method='pad')
-            D = {}
-            D['var'] = chinese_to_english(data_cut[0].tolist()[0])
-            D['receipt'] = int(data_cut[2].tolist()[-1])
-            D['receipt_chg'] = int(data_cut[3].tolist()[-1])
-            D['date'] = date
-            records = records.append(pd.DataFrame(D, index=[0]))
+            data_dict = dict()
+            data_dict['var'] = chinese_to_english(data_cut[0].tolist()[0])
+            data_dict['receipt'] = int(data_cut[2].tolist()[-1])
+            data_dict['receipt_chg'] = int(data_cut[3].tolist()[-1])
+            data_dict['date'] = date
+            records = records.append(pd.DataFrame(data_dict, index=[0]))
     if len(records.index) != 0:
         records.index = records['var']
-        vars_in_market = [i for i in vars if i in records.index]
+        vars_in_market = [i for i in vars_list if i in records.index]
         records = records.loc[vars_in_market, :]
     return records.reset_index(drop=True)
 
 
-def get_shfe_receipt_2(date=None, vars=cons.contract_symbols):
+def get_shfe_receipt_2(date=None, vars_list=cons.contract_symbols):
     """
         抓取上海商品交易所注册仓单数据
         适用20140519(包括)至今
         Parameters
         ------
             date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-            vars: 合约品种如RB、AL等列表 为空时为所有商品
+            vars_list: 合约品种如RB、AL等列表 为空时为所有商品
         Return
         -------
             DataFrame:
@@ -146,25 +147,26 @@ def get_shfe_receipt_2(date=None, vars=cons.contract_symbols):
     records = pd.DataFrame()
     for var in set(data['VARNAME'].tolist()):
         data_cut = data[data['VARNAME'] == var]
-        D = {'var': chinese_to_english(re.sub(r"\W|[a-zA-Z]", "", var)),
-             'receipt': int(data_cut['WRTWGHTS'].tolist()[-1]), 'receipt_chg': int(data_cut['WRTCHANGE'].tolist()[-1]),
-             'date': date}
-        records = records.append(pd.DataFrame(D, index=[0]))
+        data_dict = {'var': chinese_to_english(re.sub(r"\W|[a-zA-Z]", "", var)),
+                     'receipt': int(data_cut['WRTWGHTS'].tolist()[-1]),
+                     'receipt_chg': int(data_cut['WRTCHANGE'].tolist()[-1]),
+                     'date': date}
+        records = records.append(pd.DataFrame(data_dict, index=[0]))
     if len(records.index) != 0:
         records.index = records['var']
-        vars_in_market = [i for i in vars if i in records.index]
+        vars_in_market = [i for i in vars_list if i in records.index]
         records = records.loc[vars_in_market, :]
     return records.reset_index(drop=True)
 
 
-def get_czce_receipt_1(date=None, vars=cons.contract_symbols):
+def get_czce_receipt_1(date=None, vars_list=cons.contract_symbols):
     """
         抓取郑州商品交易所注册仓单数据
         适用20080222至20100824(包括)
         Parameters
         ------
             date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-            vars: 合约品种如CF、TA等列表 为空时为所有商品
+            vars_list: 合约品种如CF、TA等列表 为空时为所有商品
         Return
         -------
             DataFrame:
@@ -184,14 +186,14 @@ def get_czce_receipt_1(date=None, vars=cons.contract_symbols):
     context = r.text
     data = pd.read_html(context)[1]
     records = pd.DataFrame()
-    indexs = [x for x in data.index if '品种：' in str(data[0].tolist()[x])]
+    indexes = [x for x in data.index if '品种：' in str(data[0].tolist()[x])]
     ends = [x for x in data.index if '总计' in str(data[0].tolist()[x])]
-    for i in list(range(len(indexs))):
-        if i != len(indexs) - 1:
-            data_cut = data.loc[indexs[i]:ends[i], :]
+    for i in list(range(len(indexes))):
+        if i != len(indexes) - 1:
+            data_cut = data.loc[indexes[i]:ends[i], :]
             data_cut = data_cut.fillna(method='pad')
         else:
-            data_cut = data.loc[indexs[i]:, :]
+            data_cut = data.loc[indexes[i]:, :]
             data_cut = data_cut.fillna(method='pad')
         if 'PTA' in data_cut[0].tolist()[0]:
             var = 'TA'
@@ -203,23 +205,23 @@ def get_czce_receipt_1(date=None, vars=cons.contract_symbols):
         else:
             receipt = data_cut[5].tolist()[-1]
             receipt_chg = data_cut[6].tolist()[-1]
-        D = {'var': var, 'receipt': int(receipt), 'receipt_chg': int(receipt_chg), 'date': date}
-        records = records.append(pd.DataFrame(D, index=[0]))
+        data_dict = {'var': var, 'receipt': int(receipt), 'receipt_chg': int(receipt_chg), 'date': date}
+        records = records.append(pd.DataFrame(data_dict, index=[0]))
     if len(records.index) != 0:
         records.index = records['var']
-        vars_in_market = [i for i in vars if i in records.index]
+        vars_in_market = [i for i in vars_list if i in records.index]
         records = records.loc[vars_in_market, :]
     return records.reset_index(drop=True)
 
 
-def get_czce_receipt_2(date=None, vars=cons.contract_symbols):
+def get_czce_receipt_2(date=None, vars_list=cons.contract_symbols):
     """
         抓取郑州商品交易所注册仓单数据
         适用20100825(包括)至20151111(包括)
         Parameters
         ------
             date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-            vars: 合约品种如CF、TA等列表 为空时为所有商品
+            vars_list: 合约品种如CF、TA等列表 为空时为所有商品
         Return
         -------
             DataFrame:
@@ -239,9 +241,9 @@ def get_czce_receipt_2(date=None, vars=cons.contract_symbols):
     records = pd.DataFrame()
     for data_cut in data:
         if len(data_cut.columns) > 3:
-            last_indexs = [x for x in data_cut.index if '注：' in str(data_cut[0].tolist()[x])]
-            if len(last_indexs) > 0:
-                last_index = last_indexs[0] - 1
+            last_indexes = [x for x in data_cut.index if '注：' in str(data_cut[0].tolist()[x])]
+            if len(last_indexes) > 0:
+                last_index = last_indexes[0] - 1
                 data_cut = data_cut.loc[:last_index, :]
             if 'PTA' in data_cut[0].tolist()[0]:
                 var = 'TA'
@@ -252,23 +254,23 @@ def get_czce_receipt_2(date=None, vars=cons.contract_symbols):
             data_cut.columns = data_cut.T[1].tolist()
             receipt = data_cut['仓单数量'].tolist()[-1]
             receipt_chg = data_cut['当日增减'].tolist()[-1]
-            D = {'var': var, 'receipt': int(receipt), 'receipt_chg': int(receipt_chg), 'date': date}
-            records = records.append(pd.DataFrame(D, index=[0]))
+            data_dict = {'var': var, 'receipt': int(receipt), 'receipt_chg': int(receipt_chg), 'date': date}
+            records = records.append(pd.DataFrame(data_dict, index=[0]))
     if len(records.index) != 0:
         records.index = records['var']
-        vars_in_market = [i for i in vars if i in records.index]
+        vars_in_market = [i for i in vars_list if i in records.index]
         records = records.loc[vars_in_market, :]
     return records.reset_index(drop=True)
 
 
-def get_czce_receipt_3(date=None, vars=cons.contract_symbols):
+def get_czce_receipt_3(date=None, vars_list=cons.contract_symbols):
     """
         抓取郑州商品交易所注册仓单数据
         适用20151112(包括)至今
         Parameters
         ------
             date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-            vars: 合约品种如CF、TA等列表 为空时为所有商品
+            vars_list: 合约品种如CF、TA等列表 为空时为所有商品
         Return
         -------
             DataFrame:
@@ -293,9 +295,9 @@ def get_czce_receipt_3(date=None, vars=cons.contract_symbols):
         data = data[1:]
     for data_cut in data:
         if len(data_cut.columns) > 3:
-            last_indexs = [x for x in data_cut.index if '注：' in str(data_cut[0].tolist()[x])]
-            if len(last_indexs) > 0:
-                last_index = last_indexs[0] - 1
+            last_indexes = [x for x in data_cut.index if '注：' in str(data_cut[0].tolist()[x])]
+            if len(last_indexes) > 0:
+                last_index = last_indexes[0] - 1
                 data_cut = data_cut.loc[:last_index, :]
             if 'PTA' in data_cut[0].tolist()[0]:
                 var = 'TA'
@@ -310,23 +312,23 @@ def get_czce_receipt_3(date=None, vars=cons.contract_symbols):
             except:
                 receipt = data_cut.loc[:, '仓单数量(保税)'].tolist()[-1]
             receipt_chg = data_cut.loc[:, '当日增减'].tolist()[-1]
-            D = {'var': var, 'receipt': int(receipt), 'receipt_chg': int(receipt_chg), 'date': date}
-            records = records.append(pd.DataFrame(D, index=[0]))
+            data_dict = {'var': var, 'receipt': int(receipt), 'receipt_chg': int(receipt_chg), 'date': date}
+            records = records.append(pd.DataFrame(data_dict, index=[0]))
     if len(records.index) != 0:
         records.index = records['var']
-        vars_in_market = [i for i in vars if i in records.index]
+        vars_in_market = [i for i in vars_list if i in records.index]
         records = records.loc[vars_in_market, :]
     return records.reset_index(drop=True)
 
 
-def get_receipt(start=None, end=None, vars=cons.contract_symbols):
+def get_receipt(start=None, end=None, vars_list=cons.contract_symbols):
     """
         获取大宗商品注册仓单数量
         Parameters
         ------
             start: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
             end: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-            vars: 合约品种如RB、AL等列表 为空时为所有商品
+            vars_list: 合约品种如RB、AL等列表 为空时为所有商品
         Return
         -------
             DataFrame
@@ -370,7 +372,7 @@ def get_receipt(start=None, end=None, vars=cons.contract_symbols):
                     else:
                         f = None
                         print('20080303起，czce每交易日更新仓单数据')
-                get_vars = [var for var in vars if var in market_vars]
+                get_vars = [var for var in vars_list if var in market_vars]
                 if market != 'cffex' and get_vars != []:
                     if f is not None:
                         records = records.append(f(start, get_vars))
