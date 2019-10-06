@@ -115,6 +115,25 @@ def get_spot_price(date=None, vars_list=cons.contract_symbols):
 
 
 def _check_information(df_data, date):
+    """
+    进行数据验证和计算模块
+    :param df_data: pandas.DataFrame 采集的数据
+    :param date: datetime.date 具体某一天 YYYYMMDD
+    :return: pandas.DataFrame
+    中间数据
+       symbol  spot_price near_contract  ...  near_basis_rate dom_basis_rate      date
+         CU    49620.00        cu1811  ...        -0.002418      -0.003426  20181108
+         RB     4551.54        rb1811  ...        -0.013521      -0.134359  20181108
+         ZN    22420.00        zn1811  ...        -0.032114      -0.076271  20181108
+         AL    13900.00        al1812  ...         0.005396       0.003957  20181108
+         AU      274.10        au1811  ...         0.005655       0.020430  20181108
+         WR     4806.25        wr1903  ...        -0.180026      -0.237035  20181108
+         RU    10438.89        ru1811  ...        -0.020969       0.084406  20181108
+         PB    18600.00        pb1811  ...        -0.001344      -0.010215  20181108
+         AG     3542.67        ag1811  ...        -0.000754       0.009408  20181108
+         BU     4045.53        bu1811  ...        -0.129904      -0.149679  20181108
+         HC     4043.33        hc1811  ...        -0.035449      -0.088128  20...
+    """
     df_data = df_data.loc[:, [0, 1, 2, 3, 5, 6]]
     df_data.columns = ['symbol', 'spot_price', 'near_contract', 'near_contract_price', 'dominant_contract', 'dominant_contract_price']
     records = pd.DataFrame()
