@@ -51,6 +51,11 @@ update basis.py
 增加奇货可查数据三个接口:
 get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss
 使用方法请 help(get_qhkc_index) 查看
+
+0.1.34
+增加奇货可查-资金数据三个接口:
+get_qhkc_fund_position_change, get_qhkc_fund_bs, get_qhkc_fund_position
+使用方法请 help(get_qhkc_fund_position_change) 查看
 ```
 
 

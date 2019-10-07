@@ -14,6 +14,12 @@ import re
 QHKC_INDEX_URL = "https://www.qhkch.com/ajax/index_show.php"
 QHKC_INDEX_TREND_URL = "https://qhkch.com/ajax/indexes_trend.php"
 QHKC_INDEX_PROFIT_LOSS_URL = "https://qhkch.com/ajax/indexes_profit_loss.php"
+QHKC_FUND_BS_URL = "https://qhkch.com/ajax/fund_bs_pie.php"
+QHKC_FUND_POSITION_URL = "https://qhkch.com/ajax/fund_position_pie.php"
+QHKC_FUND_POSITION_CHANGE_URL = "https://qhkch.com/ajax/fund_position_chge_pie.php"
+QHKC_FUND_DEAL_URL = "https://qhkch.com/ajax/fund_deal_pie.php"
+QHKC_FUND_BIG_CHANGE_URL = "https://qhkch.com/ajax/fund_big_chge.php"
+
 
 # 键值对: 键为交易所代码, 值为具体合约代码, TODO 需要及时补充新增的品种
 market_exchange_symbols = {

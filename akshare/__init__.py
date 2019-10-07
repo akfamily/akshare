@@ -46,15 +46,28 @@ update basis.py
 增加奇货可查数据三个接口:
 get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss
 使用方法请 help(get_qhkc_index) 查看
+0.1.34
+增加奇货可查-资金数据三个接口:
+get_qhkc_fund_position_change, get_qhkc_fund_bs, get_qhkc_fund_position
+使用方法请 help(get_qhkc_fund_position_change) 查看
 """
 
-__version__ = '0.1.33'
+__version__ = '0.1.34'
 __author__ = 'Albert King'
 
 """
-奇货可查模块
+奇货可查-指数模块
 """
-from akshare.qhkc import (get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss)
+from akshare.qhkc_index import (get_qhkc_index,
+                                get_qhkc_index_trend,
+                                get_qhkc_index_profit_loss)
+
+"""
+奇货可查-资金模块
+"""
+from akshare.qhkc_fund import (get_qhkc_fund_position_change,
+                               get_qhkc_fund_bs,
+                               get_qhkc_fund_position)
 
 """
 大宗商品现货价格及基差
@@ -80,7 +93,8 @@ from akshare.receipt import (get_receipt)
 """
 大宗商品展期收益率数据
 """
-from akshare.roll_yield import (get_roll_yield_bar, get_roll_yield)
+from akshare.roll_yield import (get_roll_yield_bar,
+                                get_roll_yield)
 
 """
 交易所行情数据日线
