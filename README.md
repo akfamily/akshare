@@ -46,6 +46,11 @@ pip install akshare --upgrade
 
 0.1.32
 update basis.py
+
+0.1.33
+增加奇货可查数据三个接口:
+get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss
+使用方法请 help(get_qhkc_index) 查看
 ```
 
 

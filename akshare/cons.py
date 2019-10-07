@@ -11,7 +11,9 @@ import json
 import os
 import re
 
-QHKC_URL = "https://www.qhkch.com/ajax/index_show.php"
+QHKC_INDEX_URL = "https://www.qhkch.com/ajax/index_show.php"
+QHKC_INDEX_TREND_URL = "https://qhkch.com/ajax/indexes_trend.php"
+QHKC_INDEX_PROFIT_LOSS_URL = "https://qhkch.com/ajax/indexes_profit_loss.php"
 
 # 键值对: 键为交易所代码, 值为具体合约代码, TODO 需要及时补充新增的品种
 market_exchange_symbols = {

@@ -42,15 +42,19 @@
 规范 cot.py 函数说明
 0.1.32
 update basis.py
+0.1.33
+增加奇货可查数据三个接口:
+get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss
+使用方法请 help(get_qhkc_index) 查看
 """
 
-__version__ = '0.1.32'
+__version__ = '0.1.33'
 __author__ = 'Albert King'
 
 """
 奇货可查模块
 """
-from akshare.qhkc import get_qhkc_data
+from akshare.qhkc import (get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss)
 
 """
 大宗商品现货价格及基差
