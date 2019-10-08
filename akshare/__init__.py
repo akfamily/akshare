@@ -64,9 +64,11 @@ get_bond_bank
 使用方法请 help(get_bond_bank) 查看
 0.1.38
 修正
+0.1.39
+模块化处理
 """
 
-__version__ = '0.1.38'
+__version__ = '0.1.39'
 __author__ = 'Albert King'
 
 """
