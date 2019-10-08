@@ -15,8 +15,8 @@ import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdate
-from akshare.symbol_var import symbol_market, symbol_varieties
-from akshare.daily_bar import get_futures_daily
+from akshare.futures.symbol_var import symbol_market, symbol_varieties
+from akshare.futures.daily_bar import get_futures_daily
 from akshare.futures import cons
 
 register_matplotlib_converters()

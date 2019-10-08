@@ -18,9 +18,9 @@ import warnings
 
 import pandas as pd
 
-from akshare.symbol_var import chinese_to_english
+from akshare.futures.symbol_var import chinese_to_english
 from akshare.futures import cons
-from akshare.requests_fun import pandas_read_html_link
+from akshare.futures.requests_fun import pandas_read_html_link
 
 calendar = cons.get_calendar()
 

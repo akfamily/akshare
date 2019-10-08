@@ -17,7 +17,7 @@ import pandas as pd
 import numpy as np
 
 from akshare.futures import cons
-from akshare.requests_fun import requests_link
+from akshare.futures.requests_fun import requests_link
 
 calendar = cons.get_calendar()
 

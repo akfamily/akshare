@@ -17,14 +17,14 @@ from io import StringIO
 from bs4 import BeautifulSoup
 import pandas as pd
 
-from akshare.requests_fun import (
+from akshare.futures.requests_fun import (
     requests_link
 )
-from akshare.symbol_var import (
+from akshare.futures.symbol_var import (
     symbol_varieties
 )
 from akshare.futures import cons
-from akshare.symbol_var import chinese_to_english, find_chinese
+from akshare.futures.symbol_var import chinese_to_english, find_chinese
 
 calendar = cons.get_calendar()
 rank_columns = ['vol_party_name', 'vol', 'vol_chg', 'long_party_name', 'long_open_interest',
