@@ -72,7 +72,7 @@ def get_roll_yield_bar(type_method='symbol', var='RB', date=None, start=None, en
         cons.get_latest_data_date(datetime.datetime.now()))
 
     if type_method == 'symbol':
-        df = get_futures_daily(start=date, end=date, market=symbol_market(var))
+        df = get_futures_daily(start_day=date, end_day=date, market=symbol_market(var))
         df = df[df['variety'] == var]
         if plot:
             _plot_bar_2(df[['symbol', 'close']])
@@ -81,7 +81,7 @@ def get_roll_yield_bar(type_method='symbol', var='RB', date=None, start=None, en
     if type_method == 'var':
         df = pd.DataFrame()
         for market in ['dce', 'cffex', 'shfe', 'czce']:
-            df = df.append(get_futures_daily(start=date, end=date, market=market))
+            df = df.append(get_futures_daily(start_day=date, end_day=date, market=market))
         var_list = list(set(df['variety']))
         df_l = pd.DataFrame()
         for var in var_list:
@@ -134,7 +134,7 @@ def get_roll_yield(date=None, var='IF', symbol1=None, symbol2=None, df=None):
         var = symbol_varieties(symbol1)
     if not isinstance(df, pd.DataFrame):
         market = symbol_market(var)
-        df = get_futures_daily(start=date, end=date, market=market)
+        df = get_futures_daily(start_day=date, end_day=date, market=market)
     if var:
         df = df[df['variety'] == var].sort_values('open_interest', ascending=False)
         df['close'] = df['close'].astype('float')

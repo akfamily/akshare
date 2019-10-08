@@ -451,13 +451,13 @@ def get_dce_daily(date=None, symbol_type="futures", retries=0):
         return pd.merge(df, pd.DataFrame(implied_data), on='contract_id', how='left', indicator=False)[output_columns]
 
 
-def get_futures_daily(start=None, end=None, market='CFFEX', index_bar=False):
+def get_futures_daily(start_day=None, end_day=None, market='CFFEX', index_bar=False):
     """
         获取交易所日交易数据
     Parameters
     ------
-        start: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-        end: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+        start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+        end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
         market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一。默认为中金所
         index_bar: bool  是否合成指数K线
     Return
@@ -490,18 +490,18 @@ def get_futures_daily(start=None, end=None, market='CFFEX', index_bar=False):
         print("Invalid Market Symbol")
         return
 
-    start = cons.convert_date(start) if start is not None else datetime.date.today()
-    end = cons.convert_date(end) if end is not None else cons.convert_date(
+    start_day = cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    end_day = cons.convert_date(end_day) if end_day is not None else cons.convert_date(
         cons.get_latest_data_date(datetime.datetime.now()))
 
     df_list = list()
-    while start <= end:
-        df = f(start)
+    while start_day <= end_day:
+        df = f(start_day)
         if df is not None:
             df_list.append(df)
             if index_bar:
                 df_list.append(get_futures_index(df))
-        start += datetime.timedelta(days=1)
+        start_day += datetime.timedelta(days=1)
 
     if len(df_list) > 0:
         return pd.concat(df_list).reset_index(drop=True)
@@ -549,5 +549,5 @@ def get_futures_index(df):
 
 
 if __name__ == '__main__':
-    d = get_futures_daily(start='20180301', end='20180517', market='SHFE', index_bar=False)
+    d = get_futures_daily(start_day='20180301', end_day='20180517', market='SHFE', index_bar=False)
     print(d)

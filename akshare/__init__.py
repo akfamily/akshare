@@ -66,9 +66,11 @@ get_bond_bank
 修正
 0.1.39
 模块化处理
+0.1.40
+统一接口函数参数 start --> start_day; end --> end_day
 """
 
-__version__ = '0.1.39'
+__version__ = '0.1.40'
 __author__ = 'Albert King'
 
 """

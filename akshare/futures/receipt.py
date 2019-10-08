@@ -66,7 +66,7 @@ def get_dce_receipt(date: str = None, symbol_list: List = cons.contract_symbols)
     return records.reset_index(drop=True)
 
 
-def get_shfe_receipt_1(date=None, vars_list=cons.contract_symbols):
+def get_shfe_receipt_1(date: str = None, vars_list: List = cons.contract_symbols):
     """
     抓取上海期货交易所注册仓单数据, 适用20081006至20140518(包括) 20100126、20101029日期交易所格式混乱，直接回复脚本中DataFrame, 20100416、20130821日期交易所数据丢失
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -115,7 +115,7 @@ def get_shfe_receipt_1(date=None, vars_list=cons.contract_symbols):
     return records.reset_index(drop=True)
 
 
-def get_shfe_receipt_2(date=None, vars_list=cons.contract_symbols):
+def get_shfe_receipt_2(date: str = None, vars_list: List = cons.contract_symbols):
     """
         抓取上海商品交易所注册仓单数据
         适用20140519(包括)至今
@@ -159,7 +159,7 @@ def get_shfe_receipt_2(date=None, vars_list=cons.contract_symbols):
     return records.reset_index(drop=True)
 
 
-def get_czce_receipt_1(date=None, vars_list=cons.contract_symbols):
+def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols):
     """
         抓取郑州商品交易所注册仓单数据
         适用20080222至20100824(包括)
@@ -214,7 +214,7 @@ def get_czce_receipt_1(date=None, vars_list=cons.contract_symbols):
     return records.reset_index(drop=True)
 
 
-def get_czce_receipt_2(date=None, vars_list=cons.contract_symbols):
+def get_czce_receipt_2(date: str = None, vars_list: List = cons.contract_symbols):
     """
         抓取郑州商品交易所注册仓单数据
         适用20100825(包括)至20151111(包括)
@@ -263,7 +263,7 @@ def get_czce_receipt_2(date=None, vars_list=cons.contract_symbols):
     return records.reset_index(drop=True)
 
 
-def get_czce_receipt_3(date=None, vars_list=cons.contract_symbols):
+def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols):
     """
         抓取郑州商品交易所注册仓单数据
         适用20151112(包括)至今
@@ -321,13 +321,13 @@ def get_czce_receipt_3(date=None, vars_list=cons.contract_symbols):
     return records.reset_index(drop=True)
 
 
-def get_receipt(start=None, end=None, vars_list=cons.contract_symbols):
+def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = cons.contract_symbols):
     """
         获取大宗商品注册仓单数量
         Parameters
         ------
-            start: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-            end: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+            start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+            end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
             vars_list: 合约品种如RB、AL等列表 为空时为所有商品
         Return
         -------
@@ -337,37 +337,37 @@ def get_receipt(start=None, end=None, vars_list=cons.contract_symbols):
                     receipt         仓单数量                     int
                     date            日期                        string YYYYMMDD
     """
-    start = cons.convert_date(start) if start is not None else datetime.date.today()
-    end = cons.convert_date(end) if end is not None else cons.convert_date(
+    start_day = cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    end_day = cons.convert_date(end_day) if end_day is not None else cons.convert_date(
         cons.get_latest_data_date(datetime.datetime.now()))
     records = pd.DataFrame()
-    while start <= end:
-        if start.strftime('%Y%m%d') not in calendar:
-            warnings.warn(f"{start.strftime('%Y%m%d')}非交易日")
+    while start_day <= end_day:
+        if start_day.strftime('%Y%m%d') not in calendar:
+            warnings.warn(f"{start_day.strftime('%Y%m%d')}非交易日")
         else:
-            print(start)
+            print(start_day)
             for market, market_vars in cons.market_exchange_symbols.items():
 
                 if market == 'dce':
-                    if start >= datetime.date(2009, 4, 7):
+                    if start_day >= datetime.date(2009, 4, 7):
                         f = get_dce_receipt
                     else:
                         print('20090407起，dce每交易日更新仓单数据')
                         f = None
                 elif market == 'shfe':
-                    if datetime.date(2008, 10, 6) <= start <= datetime.date(2014, 5, 16):
+                    if datetime.date(2008, 10, 6) <= start_day <= datetime.date(2014, 5, 16):
                         f = get_shfe_receipt_1
-                    elif start > datetime.date(2014, 5, 16):
+                    elif start_day > datetime.date(2014, 5, 16):
                         f = get_shfe_receipt_2
                     else:
                         f = None
                         print('20081006起，shfe每交易日更新仓单数据')
                 elif market == 'czce':
-                    if datetime.date(2008, 3, 3) <= start <= datetime.date(2010, 8, 24):
+                    if datetime.date(2008, 3, 3) <= start_day <= datetime.date(2010, 8, 24):
                         f = get_czce_receipt_1
-                    elif datetime.date(2010, 8, 24) < start <= datetime.date(2015, 11, 11):
+                    elif datetime.date(2010, 8, 24) < start_day <= datetime.date(2015, 11, 11):
                         f = get_czce_receipt_2
-                    elif start > datetime.date(2015, 11, 11):
+                    elif start_day > datetime.date(2015, 11, 11):
                         f = get_czce_receipt_3
                     else:
                         f = None
@@ -375,9 +375,9 @@ def get_receipt(start=None, end=None, vars_list=cons.contract_symbols):
                 get_vars = [var for var in vars_list if var in market_vars]
                 if market != 'cffex' and get_vars != []:
                     if f is not None:
-                        records = records.append(f(start, get_vars))
+                        records = records.append(f(start_day, get_vars))
 
-        start += datetime.timedelta(days=1)
+        start_day += datetime.timedelta(days=1)
     return records.reset_index(drop=True)
 
 

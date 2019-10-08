@@ -30,7 +30,7 @@ def down_load(date):
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n会员持仓排名之和')
-    df = akshare.get_rank_sum_daily(start=date, end=date)
+    df = akshare.get_rank_sum_daily(start_day=date, end_day=date)
     df.to_csv(s['root'] + '会员持仓排名%s.csv' % date)
 
     # ----------------------------------------------------------------------

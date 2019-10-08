@@ -77,6 +77,9 @@ get_bond_bank
 
 0.1.39
 模块化处理
+
+0.1.40
+统一接口函数参数 start --> start_day; end --> end_day
 ```
 
 
@@ -140,6 +143,7 @@ import akshare as ak
 > 数据获取函数说明
 
 ```
+ # 交易所数据
  'get_cffex_daily',  # 获取中国金融期货交易所每日交易数据
  'get_cffex_rank_table',  # 获取中国金融期货交易所前20会员持仓数据明细
  'get_czce_daily',  # 获取郑州商品交易所每日交易数据
@@ -147,7 +151,6 @@ import akshare as ak
  'get_dce_daily',  # 获取大连商品交易所每日交易数据
  'get_dce_rank_table',  #获取大连商品交易所前20会员持仓数据明细
  'get_futures_daily',  # 获取中国金融期货交易所每日基差数据
- 'get_qhkc_data',  # 获取奇货可查-期货指数数据
  'get_rank_sum',  # 获取四个期货交易所前5, 10, 15, 20会员持仓排名数据
  'get_rank_sum_daily',  # 获取每日四个期货交易所前5, 10, 15, 20会员持仓排名数据
  'get_receipt',  # 获取大宗商品注册仓单数据
@@ -158,6 +161,17 @@ import akshare as ak
  'get_shfe_v_wap',  # 获取上海期货交易所日成交均价数据
  'get_spot_price',  # 获取某一交易日大宗商品现货价格及相应基差数据
  'get_spot_price_daily'  # 获取一段交易日大宗商品现货价格及相应基差数据
+ # 奇货可查数据
+ 'get_qhkc_index'  # 获取奇货可查-指数-数值数据
+ 'get_qhkc_index_profit_loss'  # 获取奇货可查-指数-累计盈亏数据
+ 'get_qhkc_index_trend'  # 获取奇货可查-指数-大资金动向数据
+ 'get_qhkc_fund_bs'  # 获取奇货可查-资金-净持仓分布数据
+ 'get_qhkc_fund_position'  # 获取奇货可查-资金-总持仓分布数据
+ 'get_qhkc_fund_position_change'  # 获取奇货可查-资金-净持仓变化分布数据
+ 'get_qhkc_tool_foreign'  # 获取奇货可查-工具-外盘比价数据
+ 'get_qhkc_tool_gdp'  # 获取奇货可查-工具-各地区经济数据
+ # 中国银行间市场交易所数据
+ 'get_bond_bank'  # 获取中国银行间市场交易商协会-债券数据
 ```
 
 ### 3. 获取展期收益率

@@ -26,7 +26,7 @@ def test():
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n特定品种、特定时段的交易所注册仓单')
-    df = akshare.get_receipt(start='20181207', end='20181210', vars=['CU', 'NI'])
+    df = akshare.get_receipt(start_day='20181207', end_day='20181210', vars=['CU', 'NI'])
     print(df)
 
     # ----------------------------------------------------------------------
@@ -41,7 +41,7 @@ def test():
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n特定品种、特定时段的会员持仓排名求和')
-    df = akshare.get_rank_sum_daily(start='20181210', end='20181210', vars_list=['IF', 'C'])
+    df = akshare.get_rank_sum_daily(start_day='20181210', end_day='20181210', vars_list=['IF', 'C'])
     print(df)
 
     # ----------------------------------------------------------------------
@@ -51,7 +51,7 @@ def test():
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n日线行情获取')
-    df = akshare.get_futures_daily(start='20181210', end='20181210', market='DCE', index_bar=True)
+    df = akshare.get_futures_daily(start_day='20181210', end_day='20181210', market='DCE', index_bar=True)
     print(df)
 
 

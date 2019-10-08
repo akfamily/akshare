@@ -33,14 +33,14 @@ intColumns = ['vol', 'vol_chg', 'long_open_interest', 'long_open_interest_chg', 
               'short_open_interest_chg']
 
 
-def get_rank_sum_daily(start=None, end=None, vars_list=cons.contract_symbols):
+def get_rank_sum_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
     """
     采集四个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名;
         所以函数输出的品种排名是由品种中的每个标的加总获得，并不是真实的品种排名列表
     注2：大商所只公布了品种排名，未公布标的排名
-    :param start: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :param end: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
     :return: pd.DataFrame
     展期收益率数据(DataFrame):
@@ -56,21 +56,21 @@ def get_rank_sum_daily(start=None, end=None, vars_list=cons.contract_symbols):
         ...
         date                             日期                         string YYYYMMDD
     """
-    start = cons.convert_date(start) if start is not None else datetime.date.today()
-    end = cons.convert_date(end) if end is not None else cons.convert_date(
+    start_day = cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    end_day = cons.convert_date(end_day) if end_day is not None else cons.convert_date(
         cons.get_latest_data_date(datetime.datetime.now()))
     records = pd.DataFrame()
-    while start <= end:
-        print(start)
-        if start.strftime('%Y%m%d') in calendar:
-            data = get_rank_sum(start, vars_list)
+    while start_day <= end_day:
+        print(start_day)
+        if start_day.strftime('%Y%m%d') in calendar:
+            data = get_rank_sum(start_day, vars_list)
             if data is False:
-                print(f"{start.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试")
+                print(f"{start_day.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试")
                 return records.reset_index(drop=True)
             records = records.append(data)
         else:
-            warnings.warn(f"{start.strftime('%Y%m%d')}非交易日")
-        start += datetime.timedelta(days=1)
+            warnings.warn(f"{start_day.strftime('%Y%m%d')}非交易日")
+        start_day += datetime.timedelta(days=1)
 
     return records.reset_index(drop=True)
 
