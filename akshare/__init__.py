@@ -3,7 +3,7 @@
 """
 版本改动记录:
 0.1.13
-更新所有基于 FuShare 的接口
+更新所有基于 fushare 的接口
 0.1.14
 更新 requirements.txt 文件
 0.1.15
@@ -63,7 +63,7 @@ get_qhkc_tool_gdp
 get_bond_bank
 使用方法请 help(get_bond_bank) 查看
 0.1.38
-修复说明文档
+修正
 """
 
 __version__ = '0.1.38'
@@ -83,10 +83,16 @@ from akshare.qhkc.qhkc_tool import (get_qhkc_tool_foreign,
 """
 奇货可查-指数模块
 """
+from akshare.qhkc.qhkc_index import (get_qhkc_index,
+                                     get_qhkc_index_trend,
+                                     get_qhkc_index_profit_loss)
 
 """
 奇货可查-资金模块
 """
+from akshare.qhkc.qhkc_fund import (get_qhkc_fund_position_change,
+                                    get_qhkc_fund_bs,
+                                    get_qhkc_fund_position)
 
 """
 大宗商品现货价格及基差
@@ -107,14 +113,23 @@ from akshare.futures.cot import (get_rank_sum_daily,
 """
 大宗商品仓单数据
 """
+from akshare.futures.receipt import (get_receipt)
 
 """
 大宗商品展期收益率数据
 """
+from akshare.futures.roll_yield import (get_roll_yield_bar,
+                                        get_roll_yield)
 
 """
 交易所行情数据日线
 """
+from akshare.futures.daily_bar import (get_cffex_daily,
+                                       get_czce_daily,
+                                       get_shfe_v_wap,
+                                       get_shfe_daily,
+                                       get_dce_daily,
+                                       get_futures_daily)
 
 """
 发邮件模块
