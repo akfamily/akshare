@@ -64,7 +64,7 @@ get_bond_bank
 使用方法请 help(get_bond_bank) 查看
 """
 
-__version__ = '0.1.37'
+__version__ = '0.1.38'
 __author__ = 'Albert King'
 
 """

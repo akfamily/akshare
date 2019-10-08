@@ -58,12 +58,12 @@ get_qhkc_fund_position_change, get_qhkc_fund_bs, get_qhkc_fund_position
 使用方法请 help(get_qhkc_fund_position_change) 查看
 
 0.1.35
-增加奇货可查-工具数据一个接口:
+增加奇货可查-工具-外盘比价接口:
 get_qhkc_tool_foreign
 使用方法请 help(get_qhkc_tool_foreign) 查看
 
 0.1.36
-增加奇货可查-工具数据一个接口:
+增加奇货可查-工具-各地区经济数据接口:
 get_qhkc_tool_gdp
 使用方法请 help(get_qhkc_tool_gdp) 查看
 
