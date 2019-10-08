@@ -20,11 +20,11 @@ def send_email(msg: str, from_email: str, password: str, to_email: str, host: st
     :param from_email: string 发送邮件的邮箱
     :param password: string 发送邮件的密码
     :param to_email: string 接收邮件的邮箱
-    :param host: string 邮箱服务器地址（邮箱服务商查询）
-    :param port: string 端口（邮箱服务商查询）
-    :param attach_name: string 单个附件名字/ list 多个附件名字列表
+    :param host: string 邮箱服务器地址(邮箱服务商查询)
+    :param port: string 端口(邮箱服务商查询)
+    :param attach_name: string 单个附件名字 / list 多个附件名字列表
     :param attach_root: 附件本机目录
-    :param ssl: bool 是否使用ssl加密协议（QQ邮箱需要使用）
+    :param ssl: bool 是否使用ssl加密协议(QQ邮箱需要使用)
     :return: None
     """
     message = MIMEMultipart()
