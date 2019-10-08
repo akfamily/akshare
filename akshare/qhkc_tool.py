@@ -11,11 +11,11 @@ import pandas as pd
 import requests
 from typing import AnyStr
 
-from akshare.cons import (QHKC_TOOL_FOREIGN,
-                          QHKC_TOOL_GDP)
+from akshare.cons import (QHKC_TOOL_FOREIGN_URL,
+                          QHKC_TOOL_GDP_URL)
 
 
-def get_qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN):
+def get_qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
     """
     奇货可查-工具-外盘比价
     实时更新数据, 暂不能查询历史数据
@@ -65,7 +65,7 @@ def get_qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN):
     return temp_df
 
 
-def get_qhkc_tool_gdp(url: AnyStr = QHKC_TOOL_GDP):
+def get_qhkc_tool_gdp(url: AnyStr = QHKC_TOOL_GDP_URL):
     """
     奇货可查-工具-各地区经济数据
     实时更新数据, 暂不能查询历史数据
