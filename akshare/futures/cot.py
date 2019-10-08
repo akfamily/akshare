@@ -23,7 +23,7 @@ from akshare.requests_fun import (
 from akshare.symbol_var import (
     symbol_varieties
 )
-from akshare import cons
+from akshare.futures import cons
 from akshare.symbol_var import chinese_to_english, find_chinese
 
 calendar = cons.get_calendar()

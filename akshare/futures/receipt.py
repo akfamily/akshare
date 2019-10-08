@@ -16,7 +16,7 @@ import pandas as pd
 import requests
 
 from akshare.symbol_var import chinese_to_english
-from akshare import cons
+from akshare.futures import cons
 from akshare.requests_fun import requests_link, pandas_read_html_link
 
 calendar = cons.get_calendar()

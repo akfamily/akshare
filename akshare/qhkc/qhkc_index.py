@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 from typing import AnyStr
 
-from akshare.cons import QHKC_INDEX_URL, QHKC_INDEX_TREND_URL, QHKC_INDEX_PROFIT_LOSS_URL
+from akshare.futures.cons import QHKC_INDEX_URL, QHKC_INDEX_TREND_URL, QHKC_INDEX_PROFIT_LOSS_URL
 
 
 def get_qhkc_index(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX_URL):

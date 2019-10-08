@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
 
-from akshare import cons
+from akshare.futures import cons
 from akshare.requests_fun import requests_link
 
 calendar = cons.get_calendar()
@@ -491,7 +491,8 @@ def get_futures_daily(start=None, end=None, market='CFFEX', index_bar=False):
         return
 
     start = cons.convert_date(start) if start is not None else datetime.date.today()
-    end = cons.convert_date(end) if end is not None else cons.convert_date(cons.get_latest_data_date(datetime.datetime.now()))
+    end = cons.convert_date(end) if end is not None else cons.convert_date(
+        cons.get_latest_data_date(datetime.datetime.now()))
 
     df_list = list()
     while start <= end:

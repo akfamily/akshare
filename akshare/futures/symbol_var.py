@@ -8,7 +8,7 @@ desc:
 """
 import re
 
-from akshare import cons
+from akshare.futures import cons
 
 
 def symbol_varieties(contract_code: str):

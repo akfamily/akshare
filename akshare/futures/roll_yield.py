@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdate
 from akshare.symbol_var import symbol_market, symbol_varieties
 from akshare.daily_bar import get_futures_daily
-from akshare import cons
+from akshare.futures import cons
 
 register_matplotlib_converters()
 calendar = cons.get_calendar()

@@ -3,7 +3,7 @@
 """
 版本改动记录:
 0.1.13
-更新所有基于 fushare 的接口
+更新所有基于 FuShare 的接口
 0.1.14
 更新 requirements.txt 文件
 0.1.15
@@ -62,6 +62,8 @@ get_qhkc_tool_gdp
 增加中国银行间市场交易商协会-债券接口
 get_bond_bank
 使用方法请 help(get_bond_bank) 查看
+0.1.38
+修复说明文档
 """
 
 __version__ = '0.1.38'
@@ -70,66 +72,51 @@ __author__ = 'Albert King'
 """
 中国银行间市场交易商协会
 """
-from akshare.bond_bank import (get_bond_bank)
+from akshare.bond.bond_bank import (get_bond_bank)
 
 """
 奇货可查-工具模块
 """
-from akshare.qhkc_tool import (get_qhkc_tool_foreign,
-                               get_qhkc_tool_gdp)
+from akshare.qhkc.qhkc_tool import (get_qhkc_tool_foreign,
+                                    get_qhkc_tool_gdp)
 
 """
 奇货可查-指数模块
 """
-from akshare.qhkc_index import (get_qhkc_index,
-                                get_qhkc_index_trend,
-                                get_qhkc_index_profit_loss)
 
 """
 奇货可查-资金模块
 """
-from akshare.qhkc_fund import (get_qhkc_fund_position_change,
-                               get_qhkc_fund_bs,
-                               get_qhkc_fund_position)
 
 """
 大宗商品现货价格及基差
 """
-from akshare.basis import (get_spot_price_daily,
-                           get_spot_price)
+from akshare.futures.basis import (get_spot_price_daily,
+                                   get_spot_price)
 
 """
 期货持仓成交排名数据
 """
-from akshare.cot import (get_rank_sum_daily,
-                         get_rank_sum,
-                         get_shfe_rank_table,
-                         get_czce_rank_table,
-                         get_dce_rank_table,
-                         get_cffex_rank_table)
+from akshare.futures.cot import (get_rank_sum_daily,
+                                 get_rank_sum,
+                                 get_shfe_rank_table,
+                                 get_czce_rank_table,
+                                 get_dce_rank_table,
+                                 get_cffex_rank_table)
 
 """
 大宗商品仓单数据
 """
-from akshare.receipt import (get_receipt)
 
 """
 大宗商品展期收益率数据
 """
-from akshare.roll_yield import (get_roll_yield_bar,
-                                get_roll_yield)
 
 """
 交易所行情数据日线
 """
-from akshare.daily_bar import (get_cffex_daily,
-                               get_czce_daily,
-                               get_shfe_v_wap,
-                               get_shfe_daily,
-                               get_dce_daily,
-                               get_futures_daily)
 
 """
 发邮件模块
 """
-from akshare.send_email import send_email
+from akshare.tool.send_email import send_email

@@ -11,8 +11,8 @@ import pandas as pd
 import requests
 from typing import AnyStr
 
-from akshare.cons import (QHKC_TOOL_FOREIGN_URL,
-                          QHKC_TOOL_GDP_URL)
+from akshare.futures.cons import (QHKC_TOOL_FOREIGN_URL,
+                                  QHKC_TOOL_GDP_URL)
 
 
 def get_qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):

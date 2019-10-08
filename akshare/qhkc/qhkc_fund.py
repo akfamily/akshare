@@ -14,10 +14,10 @@ import pandas as pd
 import requests
 from typing import AnyStr
 
-from akshare.cons import (QHKC_FUND_BS_URL,
-                          QHKC_FUND_POSITION_URL,
-                          QHKC_FUND_POSITION_CHANGE_URL,
-                          QHKC_FUND_DEAL_URL)
+from akshare.futures.cons import (QHKC_FUND_BS_URL,
+                                  QHKC_FUND_POSITION_URL,
+                                  QHKC_FUND_POSITION_CHANGE_URL,
+                                  QHKC_FUND_DEAL_URL)
 
 
 def get_qhkc_fund_bs(date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_BS_URL):
