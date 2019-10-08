@@ -20,6 +20,7 @@ QHKC_FUND_POSITION_CHANGE_URL = "https://qhkch.com/ajax/fund_position_chge_pie.p
 QHKC_FUND_DEAL_URL = "https://qhkch.com/ajax/fund_deal_pie.php"
 QHKC_FUND_BIG_CHANGE_URL = "https://qhkch.com/ajax/fund_big_chge.php"
 QHKC_TOOL_FOREIGN = "https://qhkch.com/ajax/toolbox_foreign.php"
+QHKC_TOOL_GDP = "https://qhkch.com/dist/views/toolbox/gdp.html?v=1.10.7.1"
 
 
 # 键值对: 键为交易所代码, 值为具体合约代码, TODO 需要及时补充新增的品种

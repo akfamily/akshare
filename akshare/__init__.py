@@ -54,15 +54,20 @@ get_qhkc_fund_position_change, get_qhkc_fund_bs, get_qhkc_fund_position
 增加奇货可查-工具数据一个接口:
 get_qhkc_tool_foreign
 使用方法请 help(get_qhkc_tool_foreign) 查看
+0.1.36
+增加奇货可查-工具数据一个接口:
+get_qhkc_tool_gdp
+使用方法请 help(get_qhkc_tool_gdp) 查看
 """
 
-__version__ = '0.1.35'
+__version__ = '0.1.36'
 __author__ = 'Albert King'
 
 """
 奇货可查-工具模块
 """
-from akshare.qhkc_tool import (get_qhkc_tool_foreign)
+from akshare.qhkc_tool import (get_qhkc_tool_foreign,
+                               get_qhkc_tool_gdp)
 
 """
 奇货可查-指数模块
