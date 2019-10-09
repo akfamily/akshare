@@ -74,10 +74,12 @@ get_bond_bank
 更新上海期货交易所-上海国际能源交易中心-20号胶-NR品种
 更新上海期货交易所-不锈钢-SS品种
 0.1.43
-修改 example --> test.py 文件函数接口调用
+修复 example --> test.py 函数调用
+0.1.44
+修复 example --> daily_run.py 函数调用
 """
 
-__version__ = '0.1.43'
+__version__ = '0.1.44'
 __author__ = 'Albert King'
 
 """
@@ -141,6 +143,11 @@ from akshare.futures.daily_bar import (get_cffex_daily,
                                        get_shfe_daily,
                                        get_dce_daily,
                                        get_futures_daily)
+
+"""
+配置文件
+"""
+from akshare.futures import (cons)
 
 """
 发邮件模块

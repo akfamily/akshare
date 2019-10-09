@@ -89,7 +89,10 @@ get_bond_bank
 更新上海期货交易所-不锈钢-SS品种
 
 0.1.43
-修改 example --> test.py 文件函数接口调用
+修改 example --> test.py 函数调用
+
+0.1.44
+修复 example --> daily_run.py 函数调用
 ```
 
 
