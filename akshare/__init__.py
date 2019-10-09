@@ -79,9 +79,11 @@ get_bond_bank
 修复 example --> daily_run.py 函数调用
 0.1.45
 修复 README.md 函数接口调用说明和感谢单位
+0.1.46
+修复 README.md 图片显示
 """
 
-__version__ = '0.1.45'
+__version__ = '0.1.46'
 __author__ = 'Albert King'
 
 """
@@ -146,12 +148,14 @@ from akshare.futures.daily_bar import (get_cffex_daily,
                                        get_dce_daily,
                                        get_futures_daily)
 
+
 """
 配置文件
 """
 from akshare.futures import (cons)
 
+
 """
 发邮件模块
 """
-from akshare.tool.send_email import send_email
+from akshare.tool.send_email import (send_email)
