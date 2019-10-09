@@ -70,9 +70,12 @@ get_bond_bank
 统一接口函数参数 start --> start_day; end --> end_day
 0.1.41
 更新大连商品交易所-苯乙烯-EB品种
+0.1.42
+更新上海期货交易所-上海国际能源交易中心-20号胶-NR品种
+更新上海期货交易所-不锈钢-SS品种
 """
 
-__version__ = '0.1.41'
+__version__ = '0.1.42'
 __author__ = 'Albert King'
 
 """

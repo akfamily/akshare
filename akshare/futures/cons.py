@@ -99,7 +99,9 @@ market_exchange_symbols = {
         "BU",
         "RU",
         "SC",
-        "SP"]}
+        "NR",
+        "SP",
+        "SS"]}
 
 contract_symbols = []
 [contract_symbols.extend(i) for i in market_exchange_symbols.values()]
