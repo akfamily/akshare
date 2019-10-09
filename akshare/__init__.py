@@ -77,9 +77,11 @@ get_bond_bank
 修复 example --> test.py 函数调用
 0.1.44
 修复 example --> daily_run.py 函数调用
+0.1.45
+修复 README.md 函数接口调用说明和感谢单位
 """
 
-__version__ = '0.1.44'
+__version__ = '0.1.45'
 __author__ = 'Albert King'
 
 """

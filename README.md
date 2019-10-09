@@ -93,6 +93,9 @@ get_bond_bank
 
 0.1.44
 修复 example --> daily_run.py 函数调用
+
+0.1.45
+修复 README.md 函数接口调用说明和感谢单位
 ```
 
 
@@ -195,7 +198,7 @@ import akshare as ak
 
 ```python
 import akshare as ak
-ak.get_roll_yield_bar(type_method="date", var="RB", start="20180618", end="20180718", plot=True)
+ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718", plot=True)
 ```
 
 结果显示：
@@ -267,8 +270,9 @@ ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")
 
 ## 注册仓单
 注册仓单是由各交易所的公布的日级数据, 在一定程度上可以反映市场的库存变化. 调用例子如下: 
-```
-ak.get_receipt(start="20180712", end="20180719", vars=["CU", "NI"])
+```python
+import akshare as ak
+ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
 ```
 下图有错误, [FuShare](https://github.com/jindaxiang/fushare) 的作者把 receipt 打错字为 recipet, 目前在 AkShare 已经修正为 receipt
 
@@ -286,7 +290,8 @@ ak.get_receipt(start="20180712", end="20180719", vars=["CU", "NI"])
 ## 现货价格和基差
 基差是商品期货非常重要的基本面因素. 这里提供两种获取基差的方法: 
 获取当天的基差数据
-```
+```python
+import akshare as ak
 ak.get_spot_price("20180712")
 ```
 返回值分别为品种、现货价格、最近交割合约、最近交割合约价格、主力合约、主力合约价格、最近合约基差值、主力合约基差值、最近合约基差率、主力合约基差率. 
@@ -296,8 +301,9 @@ ak.get_spot_price("20180712")
 
 
 获取历史某段时间的基差值
-```
-ak.get_spot_price_daily(start="20180710", end="20180719", vars_list=["CU", "RB"])
+```python
+import akshare as ak
+ak.get_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=["CU", "RB"])
 ```
 ![现货价格和基差2](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/ctmFsF3vNZLCCnoH1j6EuZCKRztuIfNL*6yHBhUV*gk!/b/dFIBAAAAAAAA&bo=gwM4AgAAAAADF4g!&rf=viewer_4)
 
@@ -310,8 +316,9 @@ ak.get_spot_price_daily(start="20180710", end="20180719", vars_list=["CU", "RB"]
 ## 会员持仓排名
 自从 "蜘蛛网策略" 问世以来, 会员持仓数据受到日益关注. 数据的爬取方式如下所示: 
 获取某段时间的会员持仓排名前 5、前 10、前 15、前 20 等总和.
-```
-ak.get_rank_sum_daily(start="20180718", end="20180719", vars=["IF", "C"])
+```python
+import akshare as ak
+ak.get_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
 ```
 ![会员持仓1](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/0BtIdxAyCswVlR4o1fjXfQxn49Odr3rKqt3u*KA0At0!/b/dDYBAAAAAAAA&bo=fgORAQAAAAADF98!&rf=viewer_4)
 
@@ -331,8 +338,9 @@ ak.get_shfe_rank_table()
 
 ## 日线行情K线
 通过爬取交易所官网信息, 可以获得各合约日线行情, 以及根据持仓量加权的指数行情, 用法如下: 
-```
-ak.get_futures_daily(start="20190107", end="20190108", market="SHFE", index_bar=True)
+```python
+import akshare as ak
+ak.get_futures_daily(start_day="20190107", end_day="20190108", market="SHFE", index_bar=True)
 ```
 ![日线行情](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/0Kaa2Y9yMcyL7puvLxeaDs1oRW7Nlx6pkC5ENFtrQN0!/b/dLgAAAAAAAAA&bo=PATEAAAAAAADB94!&rf=viewer_4)
 
@@ -463,11 +471,21 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 ### 致谢:
 
-非常感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 项目提供借鉴学习的机会;
+特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 项目提供借鉴学习的机会;
 
-感谢[生意社网站](http://www.100ppi.com/)提供的商品基差数据;
+感谢[生意社网站](http://www.100ppi.com/)提供的商品基差及相关数据;
 
 感谢[奇货可查网站](https://qhkch.com/)提供的奇货指数及相关数据;
+
+感谢[中国金融期货交易所网站](http://www.cffex.com.cn/)提供的相关数据;
+
+感谢[上海期货交易所网站](http://www.shfe.com.cn/)提供的相关数据;
+
+感谢[大连商品交易所网站](http://www.dce.com.cn/)提供的相关数据;
+
+感谢[郑州商品交易所网站](http://www.czce.com.cn/)提供的相关数据;
+
+感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据;
 
 
 
