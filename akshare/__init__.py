@@ -73,9 +73,11 @@ get_bond_bank
 0.1.42
 更新上海期货交易所-上海国际能源交易中心-20号胶-NR品种
 更新上海期货交易所-不锈钢-SS品种
+0.1.43
+修改 example --> test.py 文件函数接口调用
 """
 
-__version__ = '0.1.42'
+__version__ = '0.1.43'
 __author__ = 'Albert King'
 
 """

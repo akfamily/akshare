@@ -51,14 +51,14 @@ def _plot(plot_df):
     plt.show()
 
 
-def get_roll_yield_bar(type_method='symbol', var='RB', date=None, start=None, end=None, plot=False):
+def get_roll_yield_bar(type_method='symbol', var='RB', date=None, start_day=None, end_day=None, plot=False):
     """
     获取展期收益率
     :param type_method: 'symbol'：获取某天某品种所有交割月合约的收盘价, 'var'：获取某天所有品种两个主力合约的展期收益率（展期收益率横截面）, ‘date’：获取某品种每天的两个主力合约的展期收益率（展期收益率时间序列）
     :param var: 合约品种如RB、AL等
     :param date: 某一天日期 format： YYYYMMDD
-    :param start: 开始日期 format：YYYYMMDD
-    :param end: 结束数据 format：YYYYMMDD
+    :param start_day: 开始日期 format：YYYYMMDD
+    :param end_day: 结束数据 format：YYYYMMDD
     :param plot: True or False作图
     :return: pd.DataFrame
     展期收益率数据(DataFrame):
@@ -67,8 +67,8 @@ def get_roll_yield_bar(type_method='symbol', var='RB', date=None, start=None, en
     """
 
     date = cons.convert_date(date) if date is not None else datetime.date.today()
-    start = cons.convert_date(start) if start is not None else datetime.date.today()
-    end = cons.convert_date(end) if end is not None else cons.convert_date(
+    start_day = cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    end_day = cons.convert_date(end_day) if end_day is not None else cons.convert_date(
         cons.get_latest_data_date(datetime.datetime.now()))
 
     if type_method == 'symbol':
@@ -96,14 +96,14 @@ def get_roll_yield_bar(type_method='symbol', var='RB', date=None, start=None, en
 
     if type_method == 'date':
         df_l = pd.DataFrame()
-        while start <= end:
+        while start_day <= end_day:
             try:
-                ry = get_roll_yield(start, var)
+                ry = get_roll_yield(start_day, var)
                 if ry:
-                    df_l = df_l.append(pd.DataFrame([ry], index=[start], columns=['roll_yield', 'near_by', 'deferred']))
+                    df_l = df_l.append(pd.DataFrame([ry], index=[start_day], columns=['roll_yield', 'near_by', 'deferred']))
             except:
                 pass
-            start += datetime.timedelta(days=1)
+            start_day += datetime.timedelta(days=1)
         if plot:
             _plot(df_l['roll_yield'])
         return df_l

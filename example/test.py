@@ -6,17 +6,17 @@ def test():
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n一个品种在时间轴上的展期收益率')
-    df = akshare.get_roll_yield_bar(type='date', var='RB', start='20181206', end='20181210', plot=False)
+    df = akshare.get_roll_yield_bar(type_method='date', var='RB', start_day='20181206', end_day='20181210', plot=False)
     print(df)
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n一个品种在不同交割标的上的价格比较')
-    df = akshare.get_roll_yield_bar(type='symbol', var='RB', date='20181210', plot=False)
+    df = akshare.get_roll_yield_bar(type_method='symbol', var='RB', date='20181210', plot=False)
     print(df)
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n多个品种在某天的展期收益率横截面比较')
-    df = akshare.get_roll_yield_bar(type='var', date='20181210', plot=False)
+    df = akshare.get_roll_yield_bar(type_method='var', date='20181210', plot=False)
     print(df)
 
     # ----------------------------------------------------------------------
@@ -26,7 +26,7 @@ def test():
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n特定品种、特定时段的交易所注册仓单')
-    df = akshare.get_receipt(start_day='20181207', end_day='20181210', vars=['CU', 'NI'])
+    df = akshare.get_receipt(start_day='20181207', end_day='20181210', vars_list=['CU', 'NI'])
     print(df)
 
     # ----------------------------------------------------------------------
@@ -36,7 +36,7 @@ def test():
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n特定品种、特定时段的现货价格及基差')
-    df = akshare.get_spot_price_daily(start_day='20181210', end_day='20181210', vars=['CU', 'RB'])
+    df = akshare.get_spot_price_daily(start_day='20181210', end_day='20181210', vars_list=['CU', 'RB'])
     print(df)
 
     # ----------------------------------------------------------------------
