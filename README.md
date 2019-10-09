@@ -99,6 +99,9 @@ get_bond_bank
 
 0.1.46
 修复 README.md 图片显示
+
+0.1.47
+修复 README.md 增加说明部分
 ```
 
 
@@ -400,11 +403,13 @@ index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成
 
 ![image](https://jfds.nos-eastchina1.126.net/akshare/prompt/anaconda_prompt_1.png)
 
-> 创建虚拟环境
+> 创建虚拟环境命令
+
 ```
 conda create -n ak_test python=3.7.3
 ```
 
+> 输入上述命令后出现确认, 输入 y
 ```
 Proceed 输入 y
 ```
@@ -415,6 +420,11 @@ Proceed 输入 y
 
 > 在虚拟环境中安装 AkShare. 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
 
+> 激活已经创建好的 ak_test 虚拟环境
+```
+conda activate ak_test
+```
+> 在 ak_test 虚拟环境中安装并更新 AkShare
 ```
 pip install akshare --upgrade
 ```
@@ -427,17 +437,20 @@ pip install akshare --upgrade
 python
 ```
 
+> 在 Python 环境中输入
+
 ```python
 import akshare as ak
 ak.__doc__
 ```
 
-> 如下界面则虚拟环境和 AkShare 安装成功
+> 显示出如下界面则虚拟环境和 AkShare 安装成功
 
 ![image](https://jfds.nos-eastchina1.126.net/akshare/prompt/anaconda_prompt_4.png)
 
 
-> 输入如下代码可以显示 AkShare 的版本
+> 在 Python 环境中输入如下代码可以显示 AkShare 的版本
+
 ```python
 import akshare as ak
 ak.__version__

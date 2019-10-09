@@ -81,9 +81,11 @@ get_bond_bank
 修复 README.md 函数接口调用说明和感谢单位
 0.1.46
 修复 README.md 图片显示
+0.1.47
+修复 README.md 增加说明部分
 """
 
-__version__ = '0.1.46'
+__version__ = '0.1.47'
 __author__ = 'Albert King'
 
 """
