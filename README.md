@@ -80,6 +80,9 @@ get_bond_bank
 
 0.1.40
 统一接口函数参数 start --> start_day; end --> end_day
+
+0.1.41
+更新大连商品交易所-苯乙烯-EB品种
 ```
 
 

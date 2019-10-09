@@ -60,9 +60,10 @@ def get_bond_bank(page_num=1):
     for item in data_json["rows"]:  # 遍历 json 的具体格式
         temp_df = temp_df.append(pd.DataFrame.from_dict(item, orient='index').T, sort=False)
     temp_df.reset_index(inplace=True, drop=True)  # 重新设置索引
+    temp_df.drop_duplicates(inplace=True)
     return temp_df
 
 
 if __name__ == "__main__":
-    df = get_bond_bank(20)
+    df = get_bond_bank(2)
     print(df)
