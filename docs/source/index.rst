@@ -11,6 +11,7 @@ Welcome to AkShare's documentation!
    :caption: Contents:
 
    example
+   README
 
 
 Indices and tables
