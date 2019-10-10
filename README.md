@@ -109,6 +109,9 @@ get_bond_bank
 0.1.49
 增加智道智科-私募指数数据接口
 使用方法请 help(get_zdzk_fund_index) 查看
+
+0.1.50
+更新 README.md 文件
 ```
 
 
@@ -201,6 +204,8 @@ import akshare as ak
  'get_qhkc_tool_gdp'  # 获取奇货可查-工具-各地区经济数据
  # 中国银行间市场交易所数据
  'get_bond_bank'  # 获取中国银行间市场交易商协会-债券数据
+ # 智道智科-私募指数数据
+ 'get_zdzk_fund_index'  # 获取智道智科-私募指数数据
 ```
 
 ### 3. 获取展期收益率

@@ -88,9 +88,11 @@ get_bond_bank
 0.1.49
 增加智道智科-私募指数数据接口
 使用方法请 help(get_zdzk_fund_index) 查看
+0.1.50
+更新 README.md 文件
 """
 
-__version__ = '0.1.49'
+__version__ = '0.1.50'
 __author__ = 'Albert King'
 
 """
