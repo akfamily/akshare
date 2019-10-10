@@ -10,7 +10,6 @@ Welcome to AkShare's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   example
    README
 
 
