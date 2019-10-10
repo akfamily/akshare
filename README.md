@@ -105,6 +105,10 @@ get_bond_bank
 
 0.1.48
 更新大连商品交易所-粳米-RR品种
+
+0.1.49
+增加智道智科-私募指数数据接口
+使用方法请 help(get_zdzk_fund_index) 查看
 ```
 
 
@@ -128,7 +132,7 @@ AkShare 主要改进如下:
 1. Python 语法更符合 PEP8 规范, 尤其在接口函数的命名上; 
 2. 增加代码类型注释;
 3. 支持 Python 3.7 以上版本的 Python;
-4. 后续加入 asyncio 和 aiohttp 做异步爬虫加速(由于目前 aiohttp 尚未支持 Python 3.7);
+4. 后续加入 asyncio 和 aiohttp 做异步爬虫加速;
 5. 持续维护由于原网站格式变化导致的部分函数运行异常的问题;
 6. 增加更多的网络数据采集接口:
 
@@ -138,7 +142,7 @@ AkShare 主要改进如下:
     
 7. 后续更新主要集中在增加更多数据接口部分, 同时修复源代码中 bug;
 8. 更加完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
-9. 希望您能参与 AkShare 的维护与管理.
+9. 希望您能参与 [AkShare](https://github.com/jindaxiang/akshare) 的维护与管理.
 
 
 ## AkShare库的初衷
@@ -239,42 +243,74 @@ ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_da
 2018-07-18    0.225529  RB1810   RB1901
 ```
 
+### 4. 获取私募指数数据
+
+**Example 4.1** 获取私募指数数据:
+
+代码:
+
+```python
+import akshare as ak
+ak.get_zdzk_fund_index(index_type=32, plot=True)
+```
+
+结果显示：
+
+> 日期, 指数数值
+```
+2014-12-26    1000.000000
+2015-01-02     985.749098
+2015-01-09    1032.860242
+2015-01-16    1039.978586
+2015-01-23    1046.235945
+                 ...     
+2019-08-23    1390.816835
+2019-08-30    1397.684642
+2019-09-06    1402.711847
+2019-09-13    1401.723599
+2019-09-20    1386.570103
+Name: 智道管理期货指数, Length: 248, dtype: float64
+```
+
+
+
+
 
 ## 展期收益率
 展期收益率是由不同交割月的价差除以相隔月份数计算得来, 它反映了市场对该品种在近期交割和远期交割的价差预期. 
 
-通过 get_roll_yield_bar 接口下载展期收益率, 这里展期收益率列表的序列类型分为三种, 分别可以通过 type_method="date", "symbol", "var"获取. 
-其中 "date" 类型是由某商品品种在不同日期的主力合约和次主力合约的价差组成, 调用方法例子为:
+在 [AkShare](https://github.com/jindaxiang/akshare) 中可以通过 get_roll_yield_bar 接口下载展期收益率数据.
 
+这里展期收益率列表的序列类型分为三种, 分别可以通过:
 
-![展期收益率1](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/5*I5BdC65qlzua*UdvH8RLnUqlxUPZac.zFZudbuu70!/b/dEcBAAAAAAAA&bo=6gIZAQAAAAADB9I!&rf=viewer_4)
+    1. type_method = "date"  # 由某商品品种在不同日期的主力合约和次主力合约的价差组成
+    2. type_method = "symbol"  # 由某商品品种在某天的所有交割月合约价格组成, 可以很方便的观察该品种从近期到远期的展期结构
+    3. type_method = "var"  # 由某交易日, 所有品种的主力次主力合约展期收益率的组合, 可以方便的找到展期收益率高的品种和低的品种
 
+来获取.
 
-其中 "symbol" 类型是由某商品品种在某天的所有交割月合约价格组成, 可以很方便的观察该品种从近期到远期的展期结构, 调用方法例子为: 
+其中 "date" 类型, 调用方法例子为:
 ```
-ak.get_roll_yield_bar(type_method="symbol", var="RB", date="20180718", plot=True)
+ak.get_roll_yield_bar(type_method="date", var="RB", date="20191008", plot=True)
 ```
-![展期收益率2](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/C4uCfCH4GmrJZIuM5bh4UxXIZVybLVQ1fg5PjxNRC4U!/b/dDEBAAAAAAAA&bo=3AIqAQAAAAADB9c!&rf=viewer_4)
 
-
-其中 "var" 类型是由某交易日, 所有品种的主力次主力合约展期收益率的组合, 可以方便的找到展期收益率高的品种和低的品种, 调用方法例子为: 
+其中 "symbol" 类型, 调用方法例子为: 
 ```
-ak.get_roll_yield_bar(type_method="var", date="20180718", plot=True)
+ak.get_roll_yield_bar(type_method="symbol", var="RB", date="20191008", plot=True)
 ```
-![展期收益率3](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/A7sWrX8pHdkmNybpwx.qziH0pjFvl9ZDh7e1W8olQo8!/b/dDIBAAAAAAAA&bo=zAIxAQAAAAADB9w!&rf=viewer_4)
 
+其中 "var" 类型, 调用方法例子为: 
+```
+ak.get_roll_yield_bar(type_method="var", date="20191008", plot=True)
+```
 
-利用 get_roll_yield 接口, 可以找到特定合约特定日期的主力合约次主力合约展期收益率, 或通过 symbol1、symbol2 变量自定义某两个合约的展期收益率. 
+利用 get_roll_yield 接口, 可以找到特定合约特定日期的主力合约次主力合约展期收益率, 或通过 symbol1 和 symbol2 变量自定义某两个合约的展期收益率. 
 
 ```
 ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811"), 如下图所示: 
 ```
-![展期收益率4](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/sbBvkU.BCNWrQfDLkBL918x2*0j1QTbzXhjIP4rg5Ec!/b/dC0BAAAAAAAA&bo=VgRKAAAAAAADBzo!&rf=viewer_4)
 
-
-注意:
-
-主力合约和次主力合约的定义, 是由该日的各交割月合约持仓量由大到小排序得到.
+> 注意: 主力合约和次主力合约的定义, 是由该日的各交割月合约持仓量由大到小排序得到.
 
 
 ## 注册仓单
@@ -283,17 +319,14 @@ ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")
 import akshare as ak
 ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
 ```
-下图有错误, [FuShare](https://github.com/jindaxiang/fushare) 的作者把 receipt 打错字为 recipet, 目前在 AkShare 已经修正为 receipt
-
-![注册仓单](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/cOYxMVta6Ylp87IskIjwOG6nkkMJQ1HJ7HggCSgafog!/b/dDABAAAAAAAA&bo=WARNAgAAAAADBzE!&rf=viewer_4)
 
 注意:
 
-1. vars_list 变量接上需要爬取的品种列表, 即使是一个品种, 也需要以列表形式输入; 由于 vars 为 Python 内置, 后续将被移除
-
-2. 在研究仓单的方向变化时, 需要考虑一些品种的年度周期性, 如农产品的收割季、工业品的开工季等;
-
-3. 需考虑到交割日的仓单变化. 
+    1. vars_list 变量接上需要爬取的品种列表, 即使是一个品种, 也需要以列表形式输入;
+    
+    2. 在研究仓单的方向变化时, 需要考虑一些品种的年度周期性, 如农产品的收割季、工业品的开工季等;
+    
+    3. 需考虑到交割日的仓单变化.
 
 
 ## 现货价格和基差
@@ -306,7 +339,6 @@ ak.get_spot_price("20180712")
 返回值分别为品种、现货价格、最近交割合约、最近交割合约价格、主力合约、主力合约价格、最近合约基差值、主力合约基差值、最近合约基差率、主力合约基差率. 
 
 
-![现货价格和基差1](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/W.RAzR8m1YlGAQs0fgmlftn7AJO1KT*EmZVA4Aw.KKQ!/b/dFMBAAAAAAAA&bo=jQNOAQAAAAADB.M!&rf=viewer_4)
 
 
 获取历史某段时间的基差值
@@ -314,7 +346,6 @@ ak.get_spot_price("20180712")
 import akshare as ak
 ak.get_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=["CU", "RB"])
 ```
-![现货价格和基差2](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/ctmFsF3vNZLCCnoH1j6EuZCKRztuIfNL*6yHBhUV*gk!/b/dFIBAAAAAAAA&bo=gwM4AgAAAAADF4g!&rf=viewer_4)
 
 
 注意: 
@@ -329,7 +360,6 @@ ak.get_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=["CU
 import akshare as ak
 ak.get_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
 ```
-![会员持仓1](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/0BtIdxAyCswVlR4o1fjXfQxn49Odr3rKqt3u*KA0At0!/b/dDYBAAAAAAAA&bo=fgORAQAAAAADF98!&rf=viewer_4)
 
 
 获取某交易日某品种的持仓排名榜
@@ -339,7 +369,6 @@ ak.get_cffex_rank_table()
 ak.get_czce_rank_table()
 ak.get_shfe_rank_table()
 ```
-![会员持仓3](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/O905N6vk7SFlQlnPfaFJEZi2qTFUOl.7OKXIGmBeWm8!/b/dFoAAAAAAAAA&bo=pgM8AQAAAAADB7o!&rf=viewer_4)
 
 注意: 
 
@@ -351,7 +380,6 @@ ak.get_shfe_rank_table()
 import akshare as ak
 ak.get_futures_daily(start_day="20190107", end_day="20190108", market="SHFE", index_bar=True)
 ```
-![日线行情](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/0Kaa2Y9yMcyL7puvLxeaDs1oRW7Nlx6pkC5ENFtrQN0!/b/dLgAAAAAAAAA&bo=PATEAAAAAAADB94!&rf=viewer_4)
 
 market 可以添为四个交易所的简称, 即 "dce" 代表大商所; "shfe" 代表上期所; "czce" 代表郑商所; "cffex" 代表中金所. 
 index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成指数合约, 如 RB99.

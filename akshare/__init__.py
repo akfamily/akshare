@@ -85,10 +85,18 @@ get_bond_bank
 修复 README.md 增加说明部分
 0.1.48
 更新大连商品交易所-粳米-RR品种
+0.1.49
+增加智道智科-私募指数数据接口
+使用方法请 help(get_zdzk_fund_index) 查看
 """
 
-__version__ = '0.1.48'
+__version__ = '0.1.49'
 __author__ = 'Albert King'
+
+"""
+私募指数
+"""
+from akshare.fund.zdzk_fund import (get_zdzk_fund_index)
 
 """
 中国银行间市场交易商协会
@@ -157,6 +165,7 @@ from akshare.futures.daily_bar import (get_cffex_daily,
 配置文件
 """
 from akshare.futures import (cons)
+from akshare.fund import (fund_cons)
 
 
 """
