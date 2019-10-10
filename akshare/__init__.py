@@ -83,9 +83,11 @@ get_bond_bank
 修复 README.md 图片显示
 0.1.47
 修复 README.md 增加说明部分
+0.1.48
+更新大连商品交易所-粳米-RR品种
 """
 
-__version__ = '0.1.47'
+__version__ = '0.1.48'
 __author__ = 'Albert King'
 
 """

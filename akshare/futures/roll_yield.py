@@ -161,9 +161,9 @@ def get_roll_yield(date=None, var='IF', symbol1=None, symbol2=None, df=None):
 
 
 if __name__ == '__main__':
-    # d = get_roll_yield_bar(type_method='var', date='20181214', plot=True)
-    # print(d)
-    # data = get_roll_yield_bar(type_method='date', var='RB', start='20181206', end='20181215', plot=True)
-    # print(data.index)
-    data = get_roll_yield_bar(type_method='symbol', var='RB', date='20181210', plot=True)
-    print(data.index)
+    d = get_roll_yield_bar(type_method='var', date='20191009', plot=True)
+    print(d)
+    data = get_roll_yield_bar(type_method='date', var='RB', start_day='20191008', end_day='20191010', plot=True)
+    print(data)
+    data = get_roll_yield_bar(type_method='symbol', var='RB', date='20191009', plot=True)
+    print(data)

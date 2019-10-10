@@ -51,6 +51,7 @@ market_exchange_symbols = {
         "JM",
         "I",
         "EG",
+        "RR",
         "EB"  # 20191009
     ],
     "czce": [
@@ -315,6 +316,7 @@ DCE_MAP = {
     "焦煤": "JM",
     "铁矿石": "I",
     "乙二醇": "EG",
+    "粳米": "RR",
     "苯乙烯": "EB"
 }
 
