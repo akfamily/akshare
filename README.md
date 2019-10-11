@@ -1,5 +1,5 @@
 # AkShare
-## [AkShare](https://github.com/jindaxiang/akshare)
+## [AkShare](https://github.com/jindaxiang/akshare) 介绍
 
 [AkShare](https://github.com/jindaxiang/akshare) 已经正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
 
@@ -171,16 +171,11 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 ```
 
 # API接口说明与示例
-- [Quick-Start](#Quick-Start)
 - [展期收益率](#展期收益率)
 - [注册仓单](#注册仓单)
 - [现货价格和基差](#现货价格和基差)
 - [会员持仓排名](#会员持仓排名)
 - [日线行情 K 线](#日线行情K线)
-- [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
-- [每日监控下载配置](#每日监控下载配置)
-- [QQ 邮箱 SMTP 服务设置](#QQ邮箱SMTP服务设置)
-- [特别说明](#特别说明)
 
 
 ## 展期收益率
