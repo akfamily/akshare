@@ -99,7 +99,7 @@ import akshare as ak
  'get_zdzk_fund_index'  # 获取智道智科-私募指数数据
 ```
 
-## 案例演示
+## 3. 案例演示
 
 ### 3. 获取展期收益率
 
