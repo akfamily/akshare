@@ -1,28 +1,17 @@
 # AkShare
-## [AkShare](https://github.com/jindaxiang/akshare) 介绍
+## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
 [AkShare](https://github.com/jindaxiang/akshare) 已经正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
 
 [AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的开源数据接口库, 目的是实现对期货, 期权, 基金等衍生金融产品和另类数据从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 [AkShare](https://github.com/jindaxiang/akshare) 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论.
 
-## 作者介绍
+## [AkShare](https://github.com/jindaxiang/akshare) 的作者
 
 **[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品研究
 
 <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width = 20% height = 10% align = center/>
 
-# 安装方法
-```
-pip install akshare
-```
-
-# 升级方法
-**p.s. 由于目前版本更新迭代比较频繁, 请在使用前先升级库**
-```
-pip install akshare --upgrade
-```
-
-# [AkShare](https://github.com/jindaxiang/akshare)的特色
+## [AkShare](https://github.com/jindaxiang/akshare) 的特色
 AkShare 主要改进如下:
 1. Python 语法更符合 PEP8 规范, 尤其在接口函数的命名上; 
 2. 增加代码类型注释;
@@ -40,12 +29,25 @@ AkShare 主要改进如下:
 9. 希望您能参与 [AkShare](https://github.com/jindaxiang/akshare) 的维护与管理.
 
 
-# [AkShare](https://github.com/jindaxiang/akshare)的初衷
+## [AkShare](https://github.com/jindaxiang/akshare) 的初衷
 由于 [FuShare](https://github.com/LowinLi/fushare) 库目前处于无人维护状态, 因此建立 [AkShare](https://github.com/jindaxiang/akshare) 库为用户提供持续数据支持.
 
 传统的 CTA 策略以趋势为主, 但是自从 2017 年以来, 无论是长线还是短线的趋势策略都受制于商品波动率的降低, 面临了多多少少的回撤, 同时市场也逐渐趋于机构化理性化, 因此在传统CTA策略的基础上加入基本面的因素显得迫在眉睫. 近几年各券商的研报陆续提出了许多依赖于趋势行情以外的有效信号, 它们的表现都与趋势策略有着很低的甚至负的相关性, 这样通过多种不同类型的信号对冲得到的策略, 就有机会在市场上取得非常棒的夏普率和稳定的收益. 
 
 [AkShare](https://github.com/jindaxiang/akshare) 库的公开就是为了向各位同仁提供一个网络数据采集接口, 避免各个研究组, 研究机构, 个人投资者重复造轮子采集相关数据造成的资源浪费. 
+
+
+# 安装方法
+```
+pip install akshare
+```
+
+# 升级方法
+**p.s. 由于目前版本更新迭代比较频繁, 请在使用前先升级库**
+```
+pip install akshare --upgrade
+```
+
 
 # 快速入门
 
