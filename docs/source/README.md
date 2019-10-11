@@ -1,14 +1,15 @@
 # AkShare
+## [AkShare](https://github.com/jindaxiang/akshare)
 
-AkShare 已经发布, 请访问[主页链接](https://github.com/jindaxiang/akshare)了解和查询数据接口！
+[AkShare](https://github.com/jindaxiang/akshare) 已经正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
 
-AkShare 是实现对期货等衍生金融产品从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 AkShare 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论.
+[AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的开源数据接口库, 目的是实现对期货, 期权, 基金等衍生金融产品和另类数据从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 [AkShare](https://github.com/jindaxiang/akshare) 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论.
 
-**作者: Albert King**
+## 作者介绍
 
+**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品研究
 
-<img src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/images.jpg" width = 20% height = 10% align = center/>
-
+<img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width = 20% height = 10% align = center/>
 
 # 安装方法
 ```
@@ -16,121 +17,12 @@ pip install akshare
 ```
 
 # 升级方法
-p.s. 由于目前版本更新迭代比较频繁, 请在使用前先升级库
+**p.s. 由于目前版本更新迭代比较频繁, 请在使用前先升级库**
 ```
 pip install akshare --upgrade
 ```
 
-# 版本更新说明
-```
-0.1.25
-增加奇货可查指数接口 e.g. ak.get_qhkc_data("商品指数")
-
-0.1.26
-修复代码格式问题
-
-0.1.27
-修复说明格式问题
-
-0.1.28
-更新说明文档
-
-0.1.29
-规范说明文档格式
-
-0.1.30
-规范说明文档格式
-
-0.1.31
-规范 cot.py 函数说明
-
-0.1.32
-update basis.py
-
-0.1.33
-增加奇货可查数据三个接口:
-get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss
-使用方法请 help(get_qhkc_index) 查看
-
-0.1.34
-增加奇货可查-资金数据三个接口:
-get_qhkc_fund_position_change, get_qhkc_fund_bs, get_qhkc_fund_position
-使用方法请 help(get_qhkc_fund_position_change) 查看
-
-0.1.35
-增加奇货可查-工具-外盘比价接口:
-get_qhkc_tool_foreign
-使用方法请 help(get_qhkc_tool_foreign) 查看
-
-0.1.36
-增加奇货可查-工具-各地区经济数据接口:
-get_qhkc_tool_gdp
-使用方法请 help(get_qhkc_tool_gdp) 查看
-
-0.1.37
-增加中国银行间市场交易商协会-债券接口
-get_bond_bank
-使用方法请 help(get_bond_bank) 查看
-
-0.1.38
-修正小异常
-
-0.1.39
-模块化处理
-
-0.1.40
-统一接口函数参数 start --> start_day; end --> end_day
-
-0.1.41
-更新大连商品交易所-苯乙烯-EB品种
-
-0.1.42
-更新上海期货交易所-上海国际能源交易中心-20号胶-NR品种
-更新上海期货交易所-不锈钢-SS品种
-
-0.1.43
-修改 example --> test.py 函数调用
-
-0.1.44
-修复 example --> daily_run.py 函数调用
-
-0.1.45
-修复 README.md 函数接口调用说明和感谢单位
-
-0.1.46
-修复 README.md 图片显示
-
-0.1.47
-修复 README.md 增加说明部分
-
-0.1.48
-更新大连商品交易所-粳米-RR品种
-
-0.1.49
-增加智道智科-私募指数数据接口
-使用方法请 help(get_zdzk_fund_index) 查看
-
-0.1.50
-更新 README.md 文件
-```
-
-
-# 目录
-- [AkShare 库的特色](#AkShare库的特色)
-- [AkShare 库的初衷](#AkShare库的初衷)
-- [Quick-Start](#Quick-Start)
-- [展期收益率](#展期收益率)
-- [注册仓单](#注册仓单)
-- [现货价格和基差](#现货价格和基差)
-- [会员持仓排名](#会员持仓排名)
-- [日线行情 K 线](#日线行情K线)
-- [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
-- [每日监控下载配置](#每日监控下载配置)
-- [QQ 邮箱 SMTP 服务设置](#QQ邮箱SMTP服务设置)
-- [特别说明](#特别说明)
-
-
-## AkShare库的特色
+# [AkShare](https://github.com/jindaxiang/akshare)的特色
 AkShare 主要改进如下:
 1. Python 语法更符合 PEP8 规范, 尤其在接口函数的命名上; 
 2. 增加代码类型注释;
@@ -148,18 +40,17 @@ AkShare 主要改进如下:
 9. 希望您能参与 [AkShare](https://github.com/jindaxiang/akshare) 的维护与管理.
 
 
-## AkShare库的初衷
+# [AkShare](https://github.com/jindaxiang/akshare)的初衷
 由于 [FuShare](https://github.com/LowinLi/fushare) 库目前处于无人维护状态, 因此建立 [AkShare](https://github.com/jindaxiang/akshare) 库为用户提供持续数据支持.
 
 传统的 CTA 策略以趋势为主, 但是自从 2017 年以来, 无论是长线还是短线的趋势策略都受制于商品波动率的降低, 面临了多多少少的回撤, 同时市场也逐渐趋于机构化理性化, 因此在传统CTA策略的基础上加入基本面的因素显得迫在眉睫. 近几年各券商的研报陆续提出了许多依赖于趋势行情以外的有效信号, 它们的表现都与趋势策略有着很低的甚至负的相关性, 这样通过多种不同类型的信号对冲得到的策略, 就有机会在市场上取得非常棒的夏普率和稳定的收益. 
 
 [AkShare](https://github.com/jindaxiang/akshare) 库的公开就是为了向各位同仁提供一个网络数据采集接口, 避免各个研究组, 研究机构, 个人投资者重复造轮子采集相关数据造成的资源浪费. 
 
+# 快速入门
 
-## Quick-Start
-
-### 1. 先按照 [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
-### 2. 查看 AkShare 提供的数据获取接口
+## 1. 先按照 [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
+## 2. 查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据获取接口
 
 **Example 2.1** 查看 AkShare 提供的数据获取接口
 
@@ -208,7 +99,7 @@ import akshare as ak
  'get_zdzk_fund_index'  # 获取智道智科-私募指数数据
 ```
 
-### 3. 获取展期收益率
+## 3. 获取展期收益率
 
 **Example 3.1** 获取展期收益率数据:
 
@@ -248,7 +139,7 @@ ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_da
 2018-07-18    0.225529  RB1810   RB1901
 ```
 
-### 4. 获取私募指数数据
+## 4. 获取私募指数数据
 
 **Example 4.1** 获取私募指数数据:
 
@@ -277,8 +168,17 @@ ak.get_zdzk_fund_index(index_type=32, plot=True)
 Name: 智道管理期货指数, Length: 248, dtype: float64
 ```
 
-
-
+# API接口说明与示例
+- [Quick-Start](#Quick-Start)
+- [展期收益率](#展期收益率)
+- [注册仓单](#注册仓单)
+- [现货价格和基差](#现货价格和基差)
+- [会员持仓排名](#会员持仓排名)
+- [日线行情 K 线](#日线行情K线)
+- [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
+- [每日监控下载配置](#每日监控下载配置)
+- [QQ 邮箱 SMTP 服务设置](#QQ邮箱SMTP服务设置)
+- [特别说明](#特别说明)
 
 
 ## 展期收益率
@@ -390,8 +290,8 @@ market 可以添为四个交易所的简称, 即 "dce" 代表大商所; "shfe" �
 index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成指数合约, 如 RB99.
 
 
-## Anaconda安装说明及环境配置
-### Anaconda 安装说明
+# Anaconda安装说明及环境配置
+## Anaconda 安装说明
 
 > Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Anaconda 能简化环境管理工作, 非常推荐使用. 
 
@@ -399,7 +299,7 @@ index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成
 
 > 同时, 根据您电脑的操作系统选择相对应的版本: Windows 版, MacOS 或 Linux 版的 64 位安装包.
 
-#### 安装演示(以 64 位 windows 版本为例)
+## 安装演示(以 64 位 windows 版本为例)
 下图中红框为 64 位 Windows 选择的版本:
 ![anaconda安装图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_download.png)
 
@@ -493,7 +393,7 @@ ak.__version__
 ```
 
 
-## 每日监控下载配置
+# 每日监控下载配置
 本地配置好 Anaconda, 以及通过 pip 安装好 akshare>=0.1.25 后, 在 github 上下载示例文件, 即按照下图选择. 
 
 [https://github.com/jindaxiang/akshare](https://github.com/jindaxiang/akshare)
@@ -506,7 +406,7 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 最后双击 monitor.cmd 即完成, 每日 17 点自动下载数据. 
 
-## QQ邮箱SMTP服务设置
+# QQ邮箱SMTP服务设置
 在利用 Python 程序发送 QQ 邮件时, 需要开启 QQ 邮件的 SMTP 服务, 操作方法如下, 第一步打开 QQ 邮箱, 点"设置". 
 
 ![image](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/bvaIA.HUOZL.pKsEPMB4gj8dvT*9TLy*6x7zIKwzPQE!/b/dLwAAAAAAAAA&bo=HgR5AgAAAAADB0M!&rf=viewer_4)
@@ -519,9 +419,9 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 在启动服务的过程中, 如果该 QQ 账户没有绑定过手机号, 可能会需要验证, 这里不再赘述. 
 
-## 特别说明
+# 特别说明
 
-### 致谢:
+## 致谢:
 
 特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 项目提供借鉴学习的机会;
 
@@ -541,7 +441,7 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 
 
-### 交流:
+## 交流:
 
 欢迎加 QQ 群交流: 326900231
 
@@ -553,9 +453,102 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 
 
-### 声明:
+## 声明:
 
 1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据仅供参考, 不构成任何投资建议;
 2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
 3. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议;
 
+
+# 版本更新说明
+```
+0.1.25
+增加奇货可查指数接口 e.g. ak.get_qhkc_data("商品指数")
+
+0.1.26
+修复代码格式问题
+
+0.1.27
+修复说明格式问题
+
+0.1.28
+更新说明文档
+
+0.1.29
+规范说明文档格式
+
+0.1.30
+规范说明文档格式
+
+0.1.31
+规范 cot.py 函数说明
+
+0.1.32
+update basis.py
+
+0.1.33
+增加奇货可查数据三个接口:
+get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss
+使用方法请 help(get_qhkc_index) 查看
+
+0.1.34
+增加奇货可查-资金数据三个接口:
+get_qhkc_fund_position_change, get_qhkc_fund_bs, get_qhkc_fund_position
+使用方法请 help(get_qhkc_fund_position_change) 查看
+
+0.1.35
+增加奇货可查-工具-外盘比价接口:
+get_qhkc_tool_foreign
+使用方法请 help(get_qhkc_tool_foreign) 查看
+
+0.1.36
+增加奇货可查-工具-各地区经济数据接口:
+get_qhkc_tool_gdp
+使用方法请 help(get_qhkc_tool_gdp) 查看
+
+0.1.37
+增加中国银行间市场交易商协会-债券接口
+get_bond_bank
+使用方法请 help(get_bond_bank) 查看
+
+0.1.38
+修正小异常
+
+0.1.39
+模块化处理
+
+0.1.40
+统一接口函数参数 start --> start_day; end --> end_day
+
+0.1.41
+更新大连商品交易所-苯乙烯-EB品种
+
+0.1.42
+更新上海期货交易所-上海国际能源交易中心-20号胶-NR品种
+更新上海期货交易所-不锈钢-SS品种
+
+0.1.43
+修改 example --> test.py 函数调用
+
+0.1.44
+修复 example --> daily_run.py 函数调用
+
+0.1.45
+修复 README.md 函数接口调用说明和感谢单位
+
+0.1.46
+修复 README.md 图片显示
+
+0.1.47
+修复 README.md 增加说明部分
+
+0.1.48
+更新大连商品交易所-粳米-RR品种
+
+0.1.49
+增加智道智科-私募指数数据接口
+使用方法请 help(get_zdzk_fund_index) 查看
+
+0.1.50
+更新 README.md 文件
+```
