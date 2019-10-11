@@ -401,43 +401,43 @@ index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成
 
 #### 安装演示(以 64 位 windows 版本为例)
 下图中红框为 64 位 Windows 选择的版本:
-![anaconda安装图](https://jfds.nos-eastchina1.126.net/akshare/anaconda/anaconda_download.png)
+![anaconda安装图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_download.png)
 
 在这里, 作者建议下载 Anaconda3-2019.07, 点击下载 [最新版 Anaconda 官方下载链接](https://repo.anaconda.com/archive/Anaconda3-2019.07-Windows-x86_64.exe)
 
 > 双击如下图标进行安装:
 >
-![image](https://jfds.nos-eastchina1.126.net/akshare/anaconda/anaconda_icon.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_icon.png)
 
 > 点击 Next
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/anaconda/anaconda_install_1.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_1.png)
 
 > 点击 I Agree
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/anaconda/anaconda_install_2.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_2.png)
 
 
 > 点击 Just me --> Next
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/anaconda/anaconda_install_3.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_3.png)
 
 
 > 修改 Destination Folder 为如图所示:
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/anaconda/anaconda_install_4.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_4.png)
 
 > 勾选下图红框选项(以便于把安装的环境加入系统路径) --> Install
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/anaconda/anaconda_install_5.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_5.png)
 
 > 安装好后, 找到 Anaconda Prompt 窗口:
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/prompt/anaconda_prompt.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt.png)
 
 > 输入 python, 如果如下图所示, 即已经在系统目录中安装好 anaconda3 的环境. 
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/prompt/anaconda_prompt_1.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_1.png)
 
 > 创建虚拟环境命令
 
@@ -452,7 +452,7 @@ Proceed 输入 y
 
 > 显示出 最后一个红框内容则创建虚拟环境成功
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/prompt/anaconda_prompt_2.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_2.png)
 
 > 在虚拟环境中安装 AkShare. 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
 
@@ -465,7 +465,7 @@ conda activate ak_test
 pip install akshare --upgrade
 ```
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/prompt/anaconda_prompt_3.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_3.png)
 
 > 在安装完毕后, 输入 python 进入虚拟环境中的 python
 
@@ -482,7 +482,7 @@ ak.__doc__
 
 > 显示出如下界面则虚拟环境和 AkShare 安装成功
 
-![image](https://jfds.nos-eastchina1.126.net/akshare/prompt/anaconda_prompt_4.png)
+![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_4.png)
 
 
 > 在 Python 环境中输入如下代码可以显示 AkShare 的版本
@@ -549,7 +549,7 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 在开启 QQ 情况下, 点击下面的图片自动打开 QQ 并加入本群, 本功能由 QQ 提供, 请放心点击:
 
-<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds.nos-eastchina1.126.net/akshare/md_fold/1569925684166.png" alt="AkShare官方" title="AkShare官方"></a>
+<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方"></a>
 
 
 
