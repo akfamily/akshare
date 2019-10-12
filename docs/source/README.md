@@ -477,6 +477,33 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 3. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议.
 
 
+# 量化策略介绍
+[掘金量化策略文档](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/classic_strategy_myquant.pdf)
+
+目录
+- 双均线策略(期货)
+- alpha对冲(股票+期货)
+- 集合竞价选股(股票)
+- 多因子选股(股票)
+- 网格交易(期货)
+- 指数增强(股票)
+- 跨品种套利(期货)
+- 跨期套利(期货)
+- 日内回转交易(股票)
+- 做市商交易(期货)
+- 海龟交易法(期货)
+- 行业轮动(股票)
+- 机器学习(股票)
+
+# 量化平台介绍
+
+目录
+- 聚宽量化
+- 掘金量化
+- BigQuant
+- 万矿平台(万得资讯旗下)
+
+
 # 版本更新说明
 ```
 0.1.25
@@ -571,30 +598,7 @@ get_bond_bank
 
 0.1.51
 更新官方文档: https://akshare.readthedocs.io
+
+0.1.52
+增加量化策略和量化平台板块
 ```
-
-# 量化策略介绍
-[掘金量化策略文档](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/classic_strategy_myquant.pdf)
-
-目录
-- 双均线策略(期货)
-- alpha对冲(股票+期货)
-- 集合竞价选股(股票)
-- 多因子选股(股票)
-- 网格交易(期货)
-- 指数增强(股票)
-- 跨品种套利(期货)
-- 跨期套利(期货)
-- 日内回转交易(股票)
-- 做市商交易(期货)
-- 海龟交易法(期货)
-- 行业轮动(股票)
-- 机器学习(股票)
-
-# 量化平台介绍
-
-目录
-- 聚宽量化
-- 掘金量化
-- BigQuant
-- 万矿平台(万得资讯旗下)

@@ -92,9 +92,11 @@ get_bond_bank
 更新 README.md 文件
 0.1.51
 更新官方文档: https://akshare.readthedocs.io
+0.1.52
+增加量化策略和量化平台板块
 """
 
-__version__ = '0.1.51'
+__version__ = '0.1.52'
 __author__ = 'Albert King'
 
 """
