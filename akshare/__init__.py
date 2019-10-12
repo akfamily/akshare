@@ -94,9 +94,11 @@ get_bond_bank
 更新官方文档: https://akshare.readthedocs.io
 0.1.52
 增加量化策略和量化平台板块
+0.1.53
+增加期货品种列表和名词解释
 """
 
-__version__ = '0.1.52'
+__version__ = '0.1.53'
 __author__ = 'Albert King'
 
 """
