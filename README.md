@@ -178,18 +178,19 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 - [会员持仓排名](#会员持仓排名)
 - [日线行情 K 线](#日线行情K线)
 
-## AkShare期货数据
+## [AkShare](https://github.com/jindaxiang/akshare) 期货数据
 
 ### 期货基础信息表
-#### [AkShare](https://github.com/jindaxiang/akshare) 期货交易所各类代码表
+
+#### 期货交易所
 
 | **交易所名称**    | **交易所代码** | **合约后缀** | **首页地址**|
 | ------------------ | ---------- | -------- | --------|
 | [中国金融期货交易所](http://www.cffex.com.cn/) | CFFEX      | .CFX     | http://www.cffex.com.cn/|
-| 上海期货交易所 | SHFE       | .SHF     | http://www.shfe.com.cn/|
-| 上海国际能源交易中心 | INE        | .INE     | http://www.ine.cn/|
-| 郑州商品交易所 | CZCE       | .ZCE     | http://www.czce.com.cn/|
-| 大连商品交易所 | DCE        | .DCE     | http://www.dce.com.cn/|
+| [上海期货交易所](http://www.shfe.com.cn/) | SHFE       | .SHF     | http://www.shfe.com.cn/|
+| [上海国际能源交易中心](http://www.ine.cn/) | INE        | .INE     | http://www.ine.cn/|
+| [郑州商品交易所](http://www.czce.com.cn/) | CZCE       | .ZCE     | http://www.czce.com.cn/|
+| [大连商品交易所](http://www.dce.com.cn/) | DCE        | .DCE     | http://www.dce.com.cn/|
 
 #### 金融期货
 
@@ -241,8 +242,8 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 | 绿豆合约     | GN9999.XZCE  | GN8888.XZCE  | 已于2009年5月5日退市                   |
 | 粳稻谷合约   | JR9999.XZCE  | JR8888.XZCE  |                                        |
 | 晚籼稻合约   | LR9999.XZCE  | LR8888.XZCE  |                                        |
-| 甲醇合约     | MA9999.XZCE  | MA8888.XZCE  | MA为新的甲醇合约代码，自MA1506开始执行 |
-| 甲醇合约     | ME9999.XZCE  | ME8888.XZCE  | ME为旧的甲醇合约代码，自ME1505停止执行 |
+| 甲醇合约     | MA9999.XZCE  | MA8888.XZCE  | MA为新的甲醇合约代码, 自MA1506开始执行 |
+| 甲醇合约     | ME9999.XZCE  | ME8888.XZCE  | ME为旧的甲醇合约代码, 自ME1505停止执行 |
 | 菜籽油合约   | OI9999.XZCE  | OI8888.XZCE  |                                        |
 | 普麦合约     | PM9999.XZCE  | PM8888.XZCE  |                                        |
 | 早籼稻合约   | RI9999.XZCE  | RI8888.XZCE  |                                        |
@@ -254,8 +255,8 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 | 白糖合约     | SR9999.XZCE  | SR8888.XZCE  |                                        |
 | PTA合约      | TA9999.XZCE  | TA8888.XZCE  |                                        |
 | 动力煤合约   | TC9999.XZCE  | TC8888.XZCE  |                                        |
-| 强麦合约     | WH9999.XZCE  | WH8888.XZCE  | WH为新的强麦合约代码，自WH1307开始执行 |
-| 强麦合约     | WS9999.XZCE  | WS8888.XZCE  | WS为旧的强麦合约代码，自WS1305停止执行 |
+| 强麦合约     | WH9999.XZCE  | WH8888.XZCE  | WH为新的强麦合约代码, 自WH1307开始执行 |
+| 强麦合约     | WS9999.XZCE  | WS8888.XZCE  | WS为旧的强麦合约代码, 自WS1305停止执行 |
 | 硬白小麦合约 | WT9999.XZCE  | WT8888.XZCE  |                                        |
 | 动力煤合约   | ZC9999.XZCE  | ZC8888.XZCE  |                                        |
 | 红枣合约     | CJ9999.XZCE  | CJ8888.XZCE  |                                        |
@@ -282,7 +283,18 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 | 豆油合约     | Y9999.XDCE   | Y8888.XDCE   |
 | 乙二醇合约   | EG9999.XDCE  | EG8888.XDCE  |
 
+### 期货基础名词
 
+#### 连续合约
+
+需要注意, 由于期货合约存续的特殊性, 针对每一品种的期货合约, 系统中都增加了主力连续合约以及指数连续合约两个人工合成的合约来满足使用需求. 
+
+#### 主力连续合约
+主力连续合约：合约首次上市时, 以当日收盘同品种持仓量最大者作为从第二个交易日开始的主力合约. 当同品种其他合约持仓量在收盘后超过当前主力合约1.1倍时, 从第二个交易日开始进行主力合约的切换. 
+日内不会进行主力合约的切换. 主力连续合约是由该品种期货不同时期主力合约接续而成, 代码以88或888结尾结尾, 例如 IF88 或 IF888. 前者为合约量价数据的简单拼接, 未做平滑处理； 后者对价格进行了”平滑”处理, 处理规则如下：以主力合约切换前一天（T-1日）新、旧两个主力合约收盘价做差,  之后将 T-1 日及以前的主力连续合约的所有价格水平整体加上或减去该价差, 以”整体抬升”或”整体下降”主力合约的价格水平, 成交量、持仓量均不作调整, 成交额统一设置为0.
+
+#### 指数连续合约
+指数连续合约：由当前品种全部可交易合约以累计持仓量为权重加权平均得到, 代码以99结尾, 例如 IF99. 
 
 ## 展期收益率
 展期收益率是由不同交割月的价差除以相隔月份数计算得来, 它反映了市场对该品种在近期交割和远期交割的价差预期. 
