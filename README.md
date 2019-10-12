@@ -443,6 +443,8 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 感谢[奇货可查网站](https://qhkch.com/)提供的奇货指数及相关数据;
 
+感谢[智道智科](https://www.ziasset.com/)提供的私募指数数据;
+
 感谢[中国金融期货交易所网站](http://www.cffex.com.cn/)提供的相关数据;
 
 感谢[上海期货交易所网站](http://www.shfe.com.cn/)提供的相关数据;
