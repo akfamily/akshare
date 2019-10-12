@@ -179,16 +179,98 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 - [日线行情 K 线](#日线行情K线)
 
 ## AkShare期货数据
-AkShare期货交易所代码表
 
-| **交易所名称**    | **交易所代码** | **合约后缀** |
-| ------------------ | ---------- | -------- | 
-| 郑州商品交易所 | CZCE       | .ZCE     |
-| 上海期货交易所 | SHFE       | .SHF     |
-| 大连商品交易所 | DCE        | .DCE     |
-| 中国金融期货交易所 | CFFEX      | .CFX     |
-| 上海国际能源交易所 | INE        | .INE     |
+### 期货基础信息表
+#### [AkShare](https://github.com/jindaxiang/akshare) 期货交易所各类代码表
 
+| **交易所名称**    | **交易所代码** | **合约后缀** | **首页地址**|
+| ------------------ | ---------- | -------- | --------|
+| 郑州商品交易所 | CZCE       | .ZCE     | http://www.czce.com.cn/|
+| 上海期货交易所 | SHFE       | .SHF     | http://www.shfe.com.cn/|
+| 大连商品交易所 | DCE        | .DCE     | http://www.dce.com.cn/|
+| 中国金融期货交易所 | CFFEX      | .CFX     | http://www.cffex.com.cn/|
+| 上海国际能源交易中心 | INE        | .INE     | http://www.ine.cn/|
+
+#### 商品期货
+
+##### 上海国际能源交易中心
+
+| 名称     | 主力合约代码 | 指数合约代码 |
+|----------|--------------|--------------|
+| 原油合约 | SC9999.XINE  | SC8888.XINE  |
+
+##### 上海期货交易所
+
+| 名称         | 主力合约代码 | 指数合约代码 |
+|--------------|--------------|--------------|
+| 白银合约     | AG9999.XSGE  | AG8888.XSGE  |
+| 铝合约       | AL9999.XSGE  | AL8888.XSGE  |
+| 黄金合约     | AU9999.XSGE  | AU8888.XSGE  |
+| 沥青合约     | BU9999.XSGE  | BU8888.XSGE  |
+| 铜合约       | CU9999.XSGE  | CU8888.XSGE  |
+| 燃料油合约   | FU9999.XSGE  | FU8888.XSGE  |
+| 热轧卷板合约 | HC9999.XSGE  | HC8888.XSGE  |
+| 镍合约       | NI9999.XSGE  | NI8888.XSGE  |
+| 铅合约       | PB9999.XSGE  | PB8888.XSGE  |
+| 螺纹钢合约   | RB9999.XSGE  | RB8888.XSGE  |
+| 天然橡胶合约 | RU9999.XSGE  | RU8888.XSGE  |
+| 锡合约       | SN9999.XSGE  | SN8888.XSGE  |
+| 线材合约     | WR9999.XSGE  | WR8888.XSGE  |
+| 锌合约       | ZN9999.XSGE  | ZN8888.XSGE  |
+| 纸浆合约     | SP9999.XSGE  | SP8888.XSGE  |
+
+##### 郑州商品交易所
+
+| 名称         | 主力合约代码 | 指数合约代码 | 备注                                   |
+|--------------|--------------|--------------|----------------------------------------|
+| 苹果合约     | AP9999.XZCE  | AP8888.XZCE  |                                        |
+| 棉花合约     | CF9999.XZCE  | CF8888.XZCE  |                                        |
+| 棉纱合约     | CY9999.XZCE  | CY8888.XZCE  |                                        |
+| 早籼稻合约   | ER9999.XZCE  | ER8888.XZCE  |                                        |
+| 玻璃合约     | FG9999.XZCE  | FG8888.XZCE  |                                        |
+| 绿豆合约     | GN9999.XZCE  | GN8888.XZCE  | 已于2009年5月5日退市                   |
+| 粳稻谷合约   | JR9999.XZCE  | JR8888.XZCE  |                                        |
+| 晚籼稻合约   | LR9999.XZCE  | LR8888.XZCE  |                                        |
+| 甲醇合约     | MA9999.XZCE  | MA8888.XZCE  | MA为新的甲醇合约代码，自MA1506开始执行 |
+| 甲醇合约     | ME9999.XZCE  | ME8888.XZCE  | ME为旧的甲醇合约代码，自ME1505停止执行 |
+| 菜籽油合约   | OI9999.XZCE  | OI8888.XZCE  |                                        |
+| 普麦合约     | PM9999.XZCE  | PM8888.XZCE  |                                        |
+| 早籼稻合约   | RI9999.XZCE  | RI8888.XZCE  |                                        |
+| 菜籽粕合约   | RM9999.XZCE  | RM8888.XZCE  |                                        |
+| 菜籽油合约   | RO9999.XZCE  | RO8888.XZCE  |                                        |
+| 油菜籽合约   | RS9999.XZCE  | RS8888.XZCE  |                                        |
+| 硅铁合约     | SF9999.XZCE  | SF8888.XZCE  |                                        |
+| 锰硅合约     | SM9999.XZCE  | SM8888.XZCE  |                                        |
+| 白糖合约     | SR9999.XZCE  | SR8888.XZCE  |                                        |
+| PTA合约      | TA9999.XZCE  | TA8888.XZCE  |                                        |
+| 动力煤合约   | TC9999.XZCE  | TC8888.XZCE  |                                        |
+| 强麦合约     | WH9999.XZCE  | WH8888.XZCE  | WH为新的强麦合约代码，自WH1307开始执行 |
+| 强麦合约     | WS9999.XZCE  | WS8888.XZCE  | WS为旧的强麦合约代码，自WS1305停止执行 |
+| 硬白小麦合约 | WT9999.XZCE  | WT8888.XZCE  |                                        |
+| 动力煤合约   | ZC9999.XZCE  | ZC8888.XZCE  |                                        |
+| 红枣合约     | CJ9999.XZCE  | CJ8888.XZCE  |                                        |
+
+##### 大连商品交易所
+
+| 名称         | 主力合约代码 | 指数合约代码 |
+|--------------|--------------|--------------|
+| 豆一合约     | A9999.XDCE   | A8888.XDCE   |
+| 豆二合约     | B9999.XDCE   | B8888.XDCE   |
+| 胶合板合约   | BB9999.XDCE  | BB8888.XDCE  |
+| 玉米合约     | C9999.XDCE   | C8888.XDCE   |
+| 玉米淀粉合约 | CS9999.XDCE  | CS8888.XDCE  |
+| 纤维板合约   | FB9999.XDCE  | FB8888.XDCE  |
+| 铁矿石合约   | I9999.XDCE   | I8888.XDCE   |
+| 焦炭合约     | J9999.XDCE   | J8888.XDCE   |
+| 鸡蛋合约     | JD9999.XDCE  | JD8888.XDCE  |
+| 焦煤合约     | JM9999.XDCE  | JM8888.XDCE  |
+| 聚乙烯合约   | L9999.XDCE   | L8888.XDCE   |
+| 豆粕合约     | M9999.XDCE   | M8888.XDCE   |
+| 棕榈油合约   | P9999.XDCE   | P8888.XDCE   |
+| 聚丙烯合约   | PP9999.XDCE  | PP8888.XDCE  |
+| 聚氯乙烯合约 | V9999.XDCE   | V8888.XDCE   |
+| 豆油合约     | Y9999.XDCE   | Y8888.XDCE   |
+| 乙二醇合约   | EG9999.XDCE  | EG8888.XDCE  |
 
 
 ## 展期收益率
@@ -271,7 +353,7 @@ ak.get_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=["CU
 
 
 ## 会员持仓排名
-自从 "蜘蛛网策略" 问世以来, 会员持仓数据受到日益关注. 数据的爬取方式如下所示: 
+自从**蜘蛛网策略**问世以来, 会员持仓数据日益受到关注. 数据的获取方式如下所示: 
 获取某段时间的会员持仓排名前 5、前 10、前 15、前 20 等总和.
 ```python
 import akshare as ak
@@ -316,7 +398,9 @@ Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Ana
 
 ## 安装演示(以 64 位 windows 版本为例)
 下图中红框为 64 位 Windows 选择的版本:
+
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_download.png)
+
 在这里, 作者建议下载 Anaconda3-2019.07, 点击下载 [最新版 Anaconda 官方下载链接](https://repo.anaconda.com/archive/Anaconda3-2019.07-Windows-x86_64.exe)
 
 双击如下图标进行安装:

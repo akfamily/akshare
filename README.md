@@ -316,7 +316,9 @@ Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Ana
 
 ## 安装演示(以 64 位 windows 版本为例)
 下图中红框为 64 位 Windows 选择的版本:
+
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_download.png)
+
 在这里, 作者建议下载 Anaconda3-2019.07, 点击下载 [最新版 Anaconda 官方下载链接](https://repo.anaconda.com/archive/Anaconda3-2019.07-Windows-x86_64.exe)
 
 双击如下图标进行安装:
