@@ -408,7 +408,6 @@ import akshare as ak
 ak.__version__
 ```
 
-
 # 每日监控下载配置
 本地配置好 Anaconda, 以及通过 pip 安装好 akshare>=0.1.25 后, 在 github 上下载示例文件, 即按照下图选择. 
 
@@ -573,3 +572,29 @@ get_bond_bank
 0.1.51
 更新官方文档: https://akshare.readthedocs.io
 ```
+
+# 量化策略介绍
+[掘金量化策略文档](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/classic_strategy_myquant.pdf)
+
+目录
+- 双均线策略(期货)
+- alpha对冲(股票+期货)
+- 集合竞价选股(股票)
+- 多因子选股(股票)
+- 网格交易(期货)
+- 指数增强(股票)
+- 跨品种套利(期货)
+- 跨期套利(期货)
+- 日内回转交易(股票)
+- 做市商交易(期货)
+- 海龟交易法(期货)
+- 行业轮动(股票)
+- 机器学习(股票)
+
+# 量化平台介绍
+
+目录
+- 聚宽量化
+- 掘金量化
+- BigQuant
+- 万矿平台(万得资讯旗下)
