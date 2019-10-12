@@ -28,11 +28,6 @@ author = 'Albert King'
 release = '0.0.1'
 
 # -- General configuration ---------------------------------------------------
-source_parsers = {
-    '.md': 'recommonmark.parser.CommonMarkParser',
-}
-
-source_suffix = ['.rst', '.md']
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
