@@ -1,13 +1,13 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
 ## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
-[AkShare](https://github.com/jindaxiang/akshare) 已经正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
+[AkShare](https://github.com/jindaxiang/akshare) 已经于 **2019-10-08** 正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
 
 [AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的开源数据接口库, 目的是实现对期货, 期权, 基金等衍生金融产品和另类数据从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 [AkShare](https://github.com/jindaxiang/akshare) 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论.
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的作者
 
-**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品研究
+**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品定价和价格预测, 机器学习在金融领域的应用等研究.
 
 <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width = 20% height = 10% align = center/>
 
@@ -20,11 +20,13 @@
 5. 持续维护由于原网站格式变化导致的部分函数运行异常的问题;
 6. 增加更多的网络数据采集接口:
 
-    5.1 增加[奇货可查网站](https://qhkch.com/)数据接口, 目前已经提供奇货可查指数数据部分(已完成);
+    6.1 增加[奇货可查网站](https://qhkch.com/)数据接口, 目前已经提供奇货可查指数数据部分(已完成);
     
-    5.2 增加主要国家股票市场指数数据接口(开发中);
+    6.2 增加[智道智科网站](https://www.ziasset.com/)数据接口, 目前已经私募指数数据部分(已完成);
     
-7. 后续更新主要集中在增加更多数据接口部分, 同时修复源代码中 bug;
+    6.3 增加主要国家股票市场指数数据接口(开发中);
+    
+7. 后续更新主要集中在增加更多数据接口, 同时修复源代码中 bug;
 8. 更加完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 9. 希望您能参与 [AkShare](https://github.com/jindaxiang/akshare) 的维护与管理.
 
@@ -178,7 +180,6 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 
 ## AkShare期货数据
 AkShare期货交易所代码表
-
 
 | **交易所名称**    | **交易所代码** | **合约后缀** |
 | ------------------ | ---------- | -------- | 
