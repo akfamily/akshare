@@ -1,18 +1,18 @@
-# AkShare
+# [AkShare](https://github.com/jindaxiang/akshare)
 ## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
-[AkShare](https://github.com/jindaxiang/akshare) 已经正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
+[AkShare](https://github.com/jindaxiang/akshare) 已经于 **2019-10-08** 正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
 
 [AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的开源数据接口库, 目的是实现对期货, 期权, 基金等衍生金融产品和另类数据从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 [AkShare](https://github.com/jindaxiang/akshare) 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论.
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的作者
 
-**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品研究
+**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品定价和价格预测, 机器学习在金融领域的应用等研究.
 
 <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width = 20% height = 10% align = center/>
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的特色
-AkShare 主要改进如下:
+[AkShare](https://github.com/jindaxiang/akshare) 主要改进如下:
 1. Python 语法更符合 PEP8 规范, 尤其在接口函数的命名上; 
 2. 增加代码类型注释;
 3. 支持 Python 3.7 以上版本的 Python;
@@ -20,11 +20,13 @@ AkShare 主要改进如下:
 5. 持续维护由于原网站格式变化导致的部分函数运行异常的问题;
 6. 增加更多的网络数据采集接口:
 
-    5.1 增加[奇货可查网站](https://qhkch.com/)数据接口, 目前已经提供奇货可查指数数据部分(已完成);
+    6.1 增加[奇货可查网站](https://qhkch.com/)数据接口, 目前已经提供奇货可查指数数据部分(已完成);
     
-    5.2 增加主要国家股票市场指数数据接口(开发中);
+    6.2 增加[智道智科网站](https://www.ziasset.com/)数据接口, 目前已经私募指数数据部分(已完成);
     
-7. 后续更新主要集中在增加更多数据接口部分, 同时修复源代码中 bug;
+    6.3 增加主要国家股票市场指数数据接口(开发中);
+    
+7. 后续更新主要集中在增加更多数据接口, 同时修复源代码中 bug;
 8. 更加完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 9. 希望您能参与 [AkShare](https://github.com/jindaxiang/akshare) 的维护与管理.
 
@@ -54,7 +56,7 @@ pip install akshare --upgrade
 ## 1. 先按照 [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
 ## 2. 查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据获取接口
 
-**Example 2.1** 查看 AkShare 提供的数据获取接口
+**Example 2.1** 查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据获取接口
 
 代码:
 
@@ -178,7 +180,6 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 
 ## AkShare期货数据
 AkShare期货交易所代码表
-
 
 | **交易所名称**    | **交易所代码** | **合约后缀** |
 | ------------------ | ---------- | -------- | 
@@ -308,99 +309,99 @@ index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成
 # Anaconda安装说明及环境配置
 ## Anaconda 安装说明
 
-> Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Anaconda 能简化环境管理工作, 非常推荐使用. 
 
-> 作者基于目前 Python2 即将停止更新, 且目前大部分使用者电脑系统基本都是 64 位, 所以建议选择 Python3.7.3 64 位版本
-
-> 同时, 根据您电脑的操作系统选择相对应的版本: Windows 版, MacOS 或 Linux 版的 64 位安装包.
+Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Anaconda 能简化环境管理工作, 非常推荐使用. 
+作者基于目前 Python2 即将停止更新, 且目前大部分使用者电脑系统基本都是 64 位, 所以建议选择 Python3.7.3 64 位版本
+同时, 根据您电脑的操作系统选择相对应的版本: Windows 版, MacOS 或 Linux 版的 64 位安装包.
 
 ## 安装演示(以 64 位 windows 版本为例)
 下图中红框为 64 位 Windows 选择的版本:
-![anaconda安装图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_download.png)
-
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_download.png)
 在这里, 作者建议下载 Anaconda3-2019.07, 点击下载 [最新版 Anaconda 官方下载链接](https://repo.anaconda.com/archive/Anaconda3-2019.07-Windows-x86_64.exe)
 
-> 双击如下图标进行安装:
->
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_icon.png)
+双击如下图标进行安装:
 
-> 点击 Next
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_icon.png)
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_1.png)
+点击 Next:
 
-> 点击 I Agree
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_1.png)
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_2.png)
+点击 I Agree:
 
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_2.png)
 
-> 点击 Just me --> Next
+点击 Just me --> Next:
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_3.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_3.png)
 
+修改 Destination Folder 为如图所示:
 
-> 修改 Destination Folder 为如图所示:
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_4.png)
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_4.png)
+勾选下图红框选项(以便于把安装的环境加入系统路径) --> Install:
 
-> 勾选下图红框选项(以便于把安装的环境加入系统路径) --> Install
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_5.png)
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_install_5.png)
+安装好后, 找到 Anaconda Prompt 窗口:
 
-> 安装好后, 找到 Anaconda Prompt 窗口:
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt.png)
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt.png)
+输入 python, 如果如下图所示, 即已经在系统目录中安装好 anaconda3 的环境. 
 
-> 输入 python, 如果如下图所示, 即已经在系统目录中安装好 anaconda3 的环境. 
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_1.png)
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_1.png)
-
-> 创建虚拟环境命令
+创建虚拟环境命令:
 
 ```
 conda create -n ak_test python=3.7.3
 ```
 
-> 输入上述命令后出现确认, 输入 y
+输入上述命令后出现确认, 输入 y
+
 ```
 Proceed 输入 y
 ```
 
-> 显示出 最后一个红框内容则创建虚拟环境成功
+显示出最后一个红框内容则创建虚拟环境成功.
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_2.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_2.png)
 
-> 在虚拟环境中安装 AkShare. 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
+在虚拟环境中安装 [AkShare](https://github.com/jindaxiang/akshare). 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
 
-> 激活已经创建好的 ak_test 虚拟环境
+激活已经创建好的 ak_test 虚拟环境
+
 ```
 conda activate ak_test
 ```
-> 在 ak_test 虚拟环境中安装并更新 AkShare
+
+在 ak_test 虚拟环境中安装并更新 [AkShare](https://github.com/jindaxiang/akshare)
+
 ```
 pip install akshare --upgrade
 ```
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_3.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_3.png)
 
-> 在安装完毕后, 输入 python 进入虚拟环境中的 python
+在安装完毕后, 输入 **python** 进入虚拟环境中的 Python
 
 ```
 python
 ```
 
-> 在 Python 环境中输入
+在 ak_test 虚拟环境的 Python 环境里面输入:
 
 ```python
 import akshare as ak
 ak.__doc__
 ```
 
-> 显示出如下界面则虚拟环境和 AkShare 安装成功
+显示出如下图则虚拟环境和 [AkShare](https://github.com/jindaxiang/akshare) 安装成功:
 
-![image](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_4.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_4.png)
 
 
-> 在 Python 环境中输入如下代码可以显示 AkShare 的版本
+还可以在 ak_test 虚拟环境的 Python 环境中输入如下代码可以显示 [AkShare](https://github.com/jindaxiang/akshare) 的版本
 
 ```python
 import akshare as ak
@@ -416,7 +417,7 @@ ak.__version__
 ![image](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/oT9PEhN0Knbv7Q.hPIO9TyuDkHl*il8K92GILqm4QHQ!/b/dL4AAAAAAAAA&bo=EgTRAwAAAAADB.Y!&rf=viewer_4)
 
 解压下载的文件, 然后来到 example 目录下, 设置 setting 配置文件
-root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存在), qqEmail 和 secret 为爬取到数据时把数据发送给自己的 qq 邮箱账号和密码. 需要开通SMTP服务, 如果不需要自己邮件提醒, 就不用设置（也不要改默认的qqEmail和secret）. 
+root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存储的默认目录(需要保证目录存在), qqEmail 和 secret 为爬取到数据时把数据发送给自己的 qq 邮箱账号和密码. 需要开通SMTP服务, 如果不需要自己邮件提醒, 就不用设置（也不要改默认的qqEmail和secret）. 
 ![image](http://m.qpic.cn/psb?/V12c0Jww0zKwzz/Ja.CVdg.fgrxFKW2jBGJqT53b7qCNSY*DwmbGDBS928!/b/dL8AAAAAAAAA&bo=aQRbAwAAAAADBxc!&rf=viewer_4)
 
 最后双击 monitor.cmd 即完成, 每日 17 点自动下载数据. 
@@ -454,7 +455,7 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 感谢[郑州商品交易所网站](http://www.czce.com.cn/)提供的相关数据;
 
-感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据;
+感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据.
 
 
 
@@ -474,7 +475,7 @@ root 设置为 AkShare 爬数据时存储的默认目录(需要保证目录存�
 
 1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据仅供参考, 不构成任何投资建议;
 2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
-3. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议;
+3. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议.
 
 
 # 版本更新说明
