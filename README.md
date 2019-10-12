@@ -569,4 +569,7 @@ get_bond_bank
 
 0.1.50
 更新 README.md 文件
+
+0.1.51
+更新官方文档: https://akshare.readthedocs.io
 ```

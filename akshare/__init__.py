@@ -90,9 +90,11 @@ get_bond_bank
 使用方法请 help(get_zdzk_fund_index) 查看
 0.1.50
 更新 README.md 文件
+0.1.51
+更新官方文档: https://akshare.readthedocs.io
 """
 
-__version__ = '0.1.50'
+__version__ = '0.1.51'
 __author__ = 'Albert King'
 
 """
