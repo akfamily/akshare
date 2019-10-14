@@ -14,6 +14,8 @@ import requests
 from akshare.futures.cons import (BOND_BANK_URL,
                                   bond_bank_headers)
 
+pd.set_option('display.max_columns', None)
+
 
 def get_bond_bank(page_num=1):
     """
@@ -61,7 +63,7 @@ def get_bond_bank(page_num=1):
         temp_df = temp_df.append(pd.DataFrame.from_dict(item, orient='index').T, sort=False)
     temp_df.reset_index(inplace=True, drop=True)  # 重新设置索引
     temp_df.drop_duplicates(inplace=True)
-    return temp_df
+    return temp_df[["firstIssueAmount", "isReg", "regFileName", "regPrdtType", "releaseTime", "projPhase"]]
 
 
 if __name__ == "__main__":
