@@ -168,7 +168,7 @@ if __name__ == "__main__":
     for i in range(10):
         try:
             # help(get_inventory_data)
-            data = get_inventory_data(exchange=1, symbol=6, plot=True)
+            data = get_inventory_data(exchange=3, symbol=11, plot=True)
             print(data)
             break
         except:
