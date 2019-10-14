@@ -328,6 +328,62 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 
 ### 期货基础数据
 
+#### 库存数据
+
+库存数据是从[99期货](http://www.99qh.com/d/store.aspx)获取的日级数据, 
+由于网站限制, 目前可以利用本接口获取历史数据的图片格式和近期数据的 **pandas.DataFrame** 格式. 调用例子如下: 
+
+接口：get_inventory_data
+
+目标地址: http://www.99qh.com/d/store.aspx
+
+描述：获取大宗商品库存数据
+
+限量：单次一个市场的某个具体品种, 请用 **help(get_inventory_data)** 查看使用方法
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| exchange | int  | Y    |  默认参数 exchange=1 对应上海期货交易所, 请用 **help(get_inventory_data)** 查看参数|
+| symbol | int  | Y    |  默认参数 symbol=6, 对应上海期货交易所-铜, 请用 **help(get_inventory_data)** 查看参数|
+| plot | Bool  | Y    |  默认参数 plot=True, 是否输出历史数据图片|
+
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 日期          | str   | Y        | 日期     |
+| 库存          | str   | Y        | 库存数据(对应图片左边的Y轴)     |
+| 增减          | str   | Y        | 相对前一个交易日的增减     |
+
+
+
+接口示例
+```python
+import akshare as ak
+ak.get_inventory_data(exchange=1, symbol=6, plot=True)
+```
+
+数据示例
+```
+   0           1           2           3           4           5           6   \
+0  日期  2019-10-11  2019-09-30  2019-09-27  2019-09-20  2019-09-12  2019-09-06   
+1  库存      134509      118108      117455      141379      152188      162059   
+2  增减       16401         653      -23924       10809       -9871       18183   
+           7           8           9           10  
+0  2019-08-30  2019-08-23  2019-08-16  2019-08-09  
+1      143876      156573      162830      156367  
+2      -12697       -6257        6463         396 
+```
+
+图片示例
+
+p.s.**库存(左轴)-绿色**, **增减(右轴)-蓝色**
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/inventory/shfe_cu.jpg)
+
+
 #### 展期收益率
 展期收益率是由不同交割月的价差除以相隔月份数计算得来, 它反映了市场对该品种在近期交割和远期交割的价差预期. 
 
@@ -689,6 +745,8 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 
 感谢[中国银行间市场交易商协会](http://www.nafmii.org.cn/)提供的银行间市场债券数据;
 
+感谢[99期货](http://www.99qh.com/)提供的大宗商品库存数据;
+
 感谢[中国金融期货交易所网站](http://www.cffex.com.cn/)提供的相关数据;
 
 感谢[上海期货交易所网站](http://www.shfe.com.cn/)提供的相关数据;
@@ -850,4 +908,7 @@ get_bond_bank
 
 0.1.54
 修改 AkShare的初衷, 增加管理期货策略指数
+
+0.1.55
+新增 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
 ```

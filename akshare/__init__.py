@@ -98,10 +98,17 @@ get_bond_bank
 增加期货品种列表和名词解释
 0.1.54
 修改 AkShare的初衷, 增加管理期货策略指数
+0.1.55
+新增 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
 """
 
-__version__ = '0.1.54'
+__version__ = '0.1.55'
 __author__ = 'Albert King'
+
+"""
+99期货数据
+"""
+from akshare.futures.futures_inventory import (get_inventory_data)
 
 """
 私募指数
