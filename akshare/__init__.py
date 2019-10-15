@@ -100,9 +100,11 @@ get_bond_bank
 修改 AkShare的初衷, 增加管理期货策略指数
 0.1.55
 新增 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
+0.1.56
+修复 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
 """
 
-__version__ = '0.1.55'
+__version__ = '0.1.56'
 __author__ = 'Albert King'
 
 """

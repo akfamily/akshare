@@ -361,9 +361,18 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 
 
 接口示例
+
+p.s. **由于 [99期货网站](http://www.99qh.com/d/store.aspx)** 服务器不稳定, 请加
+try ... except 语句, 如下格式; 另外请关注图片下载的路径, 会自动 **print** 出来
 ```python
 import akshare as ak
-ak.get_inventory_data(exchange=1, symbol=6, plot=True)
+for i in range(10):
+    try:
+        data = ak.get_inventory_data(exchange=1, symbol=6, plot=True)
+        print(data)
+        break
+    except:
+        continue
 ```
 
 数据示例
@@ -745,7 +754,7 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 
 感谢[中国银行间市场交易商协会](http://www.nafmii.org.cn/)提供的银行间市场债券数据;
 
-感谢[99期货](http://www.99qh.com/)提供的大宗商品库存数据;
+感谢[99期货网站](http://www.99qh.com/)提供的大宗商品库存数据;
 
 感谢[中国金融期货交易所网站](http://www.cffex.com.cn/)提供的相关数据;
 
@@ -911,4 +920,7 @@ get_bond_bank
 
 0.1.55
 新增 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
+
+0.1.56
+修复 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
 ```

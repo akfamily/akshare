@@ -12,12 +12,16 @@ import pickle
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
 from akshare.futures.cons import (qh_headers,
-                                  sample_headers)
+                                  sample_headers,
+                                  get_pk_path,
+                                  inventory_temp_headers)
 
 
 def get_inventory_data(exchange=1, symbol=6, plot=True):
     """
+    调用此函数, 请调用 try except
     # 交易所代码
     '1': '上海期货交易所', '2': '郑州商品交易所', '3': '大连商品交易所', '7': 'LME', '8': 'NYMEX', '9': 'CBOT', '11': 'NYBOT', '12': 'TOCOM', '14': '上海国际能源交易中心'
     # 交易所对应合约代码
@@ -28,18 +32,19 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
     'LME': {'18': 'LME铜', '19': 'LME铝', '25': 'LME镍', '26': 'LME铅', '27': 'LME锌', '45': 'LME锡', '50': 'LME铝合金'},
     'NYMEX': {'20': 'COMEX铜', '31': 'COMEX金', '32': 'COMEX银'},
     'CBOT': {'22': 'CBOT大豆', '46': 'CBOT小麦', '47': 'CBOT玉米', '48': 'CBOT燕麦', '49': 'CBOT糙米'},
-    'NYBOT': {'30': 'NYBOT2号棉'}, 'TOCOM': {'44': 'TOCOM橡胶'},
+    'NYBOT': {'30': 'NYBOT2号棉'}, 'TOCOM': {'44': 'TOCOM橡胶'}
 
-    :param exchange:
-    :param symbol:
-    :param plot:
-    :return:
+    :param exchange: int 交易所, 请对照 __doc__ 中的代码输入
+    :param symbol: int 品种, 请对照 __doc__ 中的代码输入对应交易所的品种
+    # :param dir_path: str 存放图片的目录
+    :param plot: Bool 画出历史库存曲线图
+    :return: pandas.DataFrame and picture
     """
-    with open(r'C:\Users\king\PycharmProjects\akshare\akshare\futures\exchange_symbol_value_list.pk', 'rb') as f:
+    with open(get_pk_path("exchange_symbol_value_list.pk", __file__), 'rb') as f:
         data_code = pickle.load(f)
-    with open(r'C:\Users\king\PycharmProjects\akshare\akshare\futures\exchange_symbol_list.pk', 'rb') as f:
+    with open(get_pk_path("exchange_symbol_list.pk", __file__), 'rb') as f:
         data_name = pickle.load(f)
-    with open(r'C:\Users\king\PycharmProjects\akshare\akshare\futures\code_exchange_name_dict.pk', 'rb') as f:
+    with open(get_pk_path("code_exchange_name_dict.pk", __file__), 'rb') as f:
         out_exchange_name = pickle.load(f)
     name_temp_dict = {}
     code_temp_dict = {}
@@ -69,7 +74,7 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
         res = requests.post(url, data=payload, headers=qh_headers)
         soup = BeautifulSoup(res.text, "lxml")
         exchange_name = soup.find_all("select")[0].find_all(attrs={"selected": "selected"})[0].get_text()
-        print("切换后", exchange_name)
+        # print("切换后", exchange_name)
         view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
         even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0]["value"]
         payload = {
@@ -85,7 +90,7 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
         res = requests.post(url, data=payload, headers=qh_headers)
         soup = BeautifulSoup(res.text, "lxml")
         small_code = soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1]
-        print(small_code)
+        # print(small_code)
         payload = {
             "__EVENTTARGET": "btnZoomAll",
             "__EVENTARGUMENT": "",
@@ -100,27 +105,16 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
         soup = BeautifulSoup(res.text, "lxml")
         inventory_table = pd.read_html(res.text)[-1]
 
-        print("big code", soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1])
+        # print("big code", soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1])
         params = {
             "ChartDirectorChartImage": "chart_chartData",
             "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1],
             "page": "99qh"
         }
-        temp_headers = {
-            "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
-            "Accept-Encoding": "gzip, deflate",
-            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-            "Connection": "keep-alive",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Cookie": "UM_distinctid=16c378978de5cc-02cfeac5f7869b-c343162-1fa400-16c378978df8d7; __utmz=181566328.1570520149.3.2.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; ASP.NET_SessionId=wj5gxuzl3fvvr25503tquq55; __utmc=181566328; _fxaid=1D9A634AB9F5D0265856F7E85E7BC196%1D%2BOOl1inxPE7181fmKs5HCs%2BdLO%2Fq%2FbSvf46UVjo%2BE7w%3D%1DPYphpUa9OlzWUzatrOQTXLPOVillbwMhTIJas%2ByfkyVL2Hd5XA1GOSslksqDkMTccXvQ2duLNsc0CHT4789JrYNbakJrpzrxLnwtBC5GCTssKHGEpor6EwAZfWJgBUlCs4JYFcGUnh3jIO69A4LsOlRMOGf4c9cd%2FbohSjTx3VA%3D; __utma=181566328.1348268634.1564299852.1571066568.1571068391.7; tgw_l7_route=eb1311426274fc07631b2135a6431f7d; __utmt=1; __utmb=181566328.7.10.1571068391",
-            "Host": "service.99qh.com",
-            "Referer": "http://service.99qh.com/Storage/Storage.aspx?page=99qh",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
-        }
-        res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=temp_headers)
+        res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=inventory_temp_headers)
         if plot:
             with open("{}_{}.jpg".format(exchange_name, code_temp_dict[str(exchange)][str(symbol)]), "wb") as fs:
-                print("保存图片到本地{}".format(os.getcwd()))
+                print("保存图片到本地: {}".format(os.getcwd()))
                 fs.write(res.content)
         return inventory_table
 
@@ -145,21 +139,10 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
             "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1],
             "page": "99qh"
         }
-        temp_headers = {
-            "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
-            "Accept-Encoding": "gzip, deflate",
-            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-            "Connection": "keep-alive",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Cookie": "UM_distinctid=16c378978de5cc-02cfeac5f7869b-c343162-1fa400-16c378978df8d7; __utmz=181566328.1570520149.3.2.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; ASP.NET_SessionId=wj5gxuzl3fvvr25503tquq55; __utmc=181566328; _fxaid=1D9A634AB9F5D0265856F7E85E7BC196%1D%2BOOl1inxPE7181fmKs5HCs%2BdLO%2Fq%2FbSvf46UVjo%2BE7w%3D%1DPYphpUa9OlzWUzatrOQTXLPOVillbwMhTIJas%2ByfkyVL2Hd5XA1GOSslksqDkMTccXvQ2duLNsc0CHT4789JrYNbakJrpzrxLnwtBC5GCTssKHGEpor6EwAZfWJgBUlCs4JYFcGUnh3jIO69A4LsOlRMOGf4c9cd%2FbohSjTx3VA%3D; __utma=181566328.1348268634.1564299852.1571066568.1571068391.7; tgw_l7_route=eb1311426274fc07631b2135a6431f7d; __utmt=1; __utmb=181566328.7.10.1571068391",
-            "Host": "service.99qh.com",
-            "Referer": "http://service.99qh.com/Storage/Storage.aspx?page=99qh",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
-        }
-        res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=temp_headers)
+        res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=inventory_temp_headers)
         if plot:
             with open("{}_{}.jpg".format(exchange_name, code_temp_dict[str(exchange)][str(symbol)]), "wb") as fs:
-                print("保存图片到本地{}".format(os.getcwd()))
+                print("保存图片到本地: {}".format(os.getcwd()))
                 fs.write(res.content)
         return inventory_table
 
@@ -167,7 +150,6 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
 if __name__ == "__main__":
     for i in range(10):
         try:
-            # help(get_inventory_data)
             data = get_inventory_data(exchange=3, symbol=11, plot=True)
             print(data)
             break
