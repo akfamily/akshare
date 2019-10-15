@@ -362,7 +362,7 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 
 接口示例
 
-p.s. **由于 [99期货网站](http://www.99qh.com/d/store.aspx)** 服务器不稳定, 请加
+p.s. 由于**[99期货网站](http://www.99qh.com/d/store.aspx)** 服务器不稳定, 请加
 try ... except 语句, 如下格式; 另外请关注图片下载的路径, 会自动 **print** 出来
 ```python
 import akshare as ak
