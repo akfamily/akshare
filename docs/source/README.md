@@ -330,7 +330,7 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 
 #### 库存数据
 
-库存数据是从[99期货](http://www.99qh.com/d/store.aspx)获取的日级数据, 
+库存数据是从[99期货网站](http://www.99qh.com/d/store.aspx)获取的日频率数据, 
 由于网站限制, 目前可以利用本接口获取历史数据的图片格式和近期数据的 **pandas.DataFrame** 格式. 调用例子如下: 
 
 接口：get_inventory_data
