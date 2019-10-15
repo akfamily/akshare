@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(更新于 2019-10-14; 如发现文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(更新于 2019-10-15; 如发现文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 ## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
 [AkShare](https://github.com/jindaxiang/akshare) 已经于 **2019-10-08** 正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
@@ -362,7 +362,7 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 
 接口示例
 
-p.s. 由于**[99期货网站](http://www.99qh.com/d/store.aspx)** 服务器不稳定, 请加
+p.s. 由于[99期货网站](http://www.99qh.com/d/store.aspx)服务器不稳定, 请加
 try ... except 语句, 如下格式; 另外请关注图片下载的路径, 会自动 **print** 出来
 ```python
 import akshare as ak
@@ -925,5 +925,8 @@ get_bond_bank
 修复 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
 
 0.1.57
+更新 md 文件数据接口
+
+0.1.58
 更新 md 文件数据接口
 ```

@@ -104,9 +104,11 @@ get_bond_bank
 修复 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
 0.1.57
 更新 md 文件数据接口
+0.1.58
+更新 md 文件数据接口
 """
 
-__version__ = '0.1.57'
+__version__ = '0.1.58'
 __author__ = 'Albert King'
 
 """
