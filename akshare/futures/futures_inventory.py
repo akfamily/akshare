@@ -15,8 +15,8 @@ from bs4 import BeautifulSoup
 
 from akshare.futures.cons import (qh_headers,
                                   sample_headers,
-                                  get_pk_path,
-                                  inventory_temp_headers)
+                                  inventory_temp_headers,
+                                  get_pk_data)
 
 
 def get_inventory_data(exchange=1, symbol=6, plot=True):
@@ -40,12 +40,9 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
     :param plot: Bool 画出历史库存曲线图
     :return: pandas.DataFrame and picture
     """
-    with open(get_pk_path("exchange_symbol_value_list.pk", __file__), 'rb') as f:
-        data_code = pickle.load(f)
-    with open(get_pk_path("exchange_symbol_list.pk", __file__), 'rb') as f:
-        data_name = pickle.load(f)
-    with open(get_pk_path("code_exchange_name_dict.pk", __file__), 'rb') as f:
-        out_exchange_name = pickle.load(f)
+    data_code = get_pk_data("exchange_symbol_value_list.pk")
+    data_name = get_pk_data("exchange_symbol_list.pk")
+    out_exchange_name = get_pk_data("code_exchange_name_dict.pk")
     name_temp_dict = {}
     code_temp_dict = {}
     for num in data_code.keys():

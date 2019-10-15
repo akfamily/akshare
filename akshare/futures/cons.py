@@ -10,6 +10,7 @@ import datetime
 import json
 import os
 import re
+import pickle
 
 inventory_temp_headers = {
     "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
@@ -396,9 +397,19 @@ def get_pk_path(name, module_file):
     :param module_file: filename
     :return: str json_file_path
     """
-    module_folder = os.path.abspath(os.path.dirname(module_file))
-    module_json_path = os.path.join(module_folder, "akshare\\file_fold", name)
+    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
+    module_json_path = os.path.join(module_folder, "file_fold", name)
     return module_json_path
+
+
+def get_pk_data(file_name):
+    """
+    获取交易日历至 2019 年结束, 这里的交易日历需要按年更新
+    :return: json
+    """
+    setting_file_name = file_name
+    setting_file_path = get_pk_path(setting_file_name, __file__)
+    return pickle.load(open(setting_file_path, "rb"))
 
 
 def get_calendar():
