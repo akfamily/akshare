@@ -112,10 +112,18 @@ get_bond_bank
 更新 致谢部分, 申明借鉴和引用的 package
 0.1.61
 更新说明文档
+0.1.62
+提供英为财情-股票指数-全球股指与期货指数数据接口
+https://cn.investing.com/indices/
 """
 
-__version__ = '0.1.61'
+__version__ = '0.1.62'
 __author__ = 'Albert King'
+
+"""
+英为财情
+"""
+from akshare.index.get_investing_index import (get_country_index)  # 股票指数-全球股指与期货指数数据接口
 
 """
 99期货数据
@@ -189,13 +197,11 @@ from akshare.futures.daily_bar import (get_cffex_daily,
                                        get_dce_daily,
                                        get_futures_daily)
 
-
 """
 配置文件
 """
 from akshare.futures import (cons)
 from akshare.fund import (fund_cons)
-
 
 """
 发邮件模块

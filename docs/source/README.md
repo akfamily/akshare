@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(更新于 2019-10-16; 如发现库和文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(更新于 2019-10-17; 如发现库和文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 ## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
 首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
@@ -133,6 +133,8 @@ import akshare as ak
  'get_bond_bank'  # 获取中国银行间市场交易商协会-债券数据
  # 智道智科-私募指数数据
  'get_zdzk_fund_index'  # 获取智道智科-私募指数数据
+ # 提供英为财情数据接口
+ 'get_investing_index'  # 提供英为财情-股票指数-全球股指与期货指数数据接口
 ```
 
 ## 3. 案例演示
@@ -616,6 +618,72 @@ ak.get_bond_bank(page_num=1)
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 私募指数数据
 
+## [AkShare](https://github.com/jindaxiang/akshare) 全球指数数据
+接口：get_country_index
+
+目标地址: https://cn.investing.com/indices/
+
+描述：获取世界主要国家的各种指数, 具体参见目标地址网页
+
+限量：单次返回某一个国家的具体某一个指数, 建议用 for 获取多个国家的多个指数
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| country | str  | Y    |   country="中国"|
+| index_name | str  | Y    |  index_name="深证新兴"|
+| start_date | str  | Y    |  start_date='2000/01/01'|
+| end_date | str  | Y    |  end_date='2019/10/17'|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期  |
+| 收盘      | str   | Y        | 收盘   |
+| 开盘      | str   | Y        | 开盘        |
+| 高        | str   | Y        |高    |
+| 低         | str | Y        | 低         |
+| 交易量      | str | Y        | 交易量      |
+| 百分比变化  | str | Y        | 百分比变化  |
+
+
+
+接口示例
+```python
+import akshare as ak
+index_df = ak.get_country_index(country="中国", index_name="深证新兴", start_date='2000/01/01', end_date='2019/10/17')
+print(index_df)
+print(index_df.name)
+```
+
+数据示例
+
+index_df.name:
+
+```深证战略性新兴产业指数历史数据```
+
+index_df:
+
+```
+0              日期        收盘        开盘         高         低     交易量   百分比变化
+1     2019年10月16日  1,692.60  1,695.38  1,708.59  1,691.39   4.65B  -0.01%
+2     2019年10月15日  1,692.79  1,712.84  1,712.84  1,691.32   5.41B  -1.45%
+3     2019年10月14日  1,717.74  1,713.70  1,726.25  1,710.30   5.99B   1.30%
+4     2019年10月11日  1,695.62  1,695.28  1,703.79  1,680.60   5.15B   0.24%
+5     2019年10月10日  1,691.63  1,664.54  1,693.21  1,660.60   5.36B   1.68%
+...           ...       ...       ...       ...       ...     ...     ...
+1647    2013年1月7日    914.17    901.32    914.17    899.97  18.97K   1.45%
+1648    2013年1月4日    901.11    917.44    918.90    893.13  17.70K  -1.02%
+1649  2012年12月31日    910.43    902.72    910.43    900.62  15.90K   1.11%
+1650  2012年12月28日    900.42    892.72    900.42    888.62  13.82K   0.88%
+1651  2012年12月27日    892.59    901.97    905.57    891.83  17.55K  -0.76%
+```
+
+
+
+
 # Anaconda安装说明及环境配置
 ## Anaconda 安装说明
 
@@ -944,4 +1012,8 @@ get_bond_bank
 
 0.1.61
 更新说明文档
+
+0.1.62
+提供英为财情-股票指数-全球股指与期货指数数据接口
+https://cn.investing.com/indices/
 ```
