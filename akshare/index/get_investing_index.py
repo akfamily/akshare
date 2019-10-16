@@ -398,6 +398,9 @@ def get_country_index(
     df_data.columns = df_data.iloc[0, :]
     df_data = df_data.iloc[1:, :]
     df_data = df_data[:-1]  # 去掉最后一行
+    df_data = df_data.set_index(["日期"])
+    df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
+    df_data.index.name = "日期"
     df_data.name = title
     return df_data
 
@@ -409,3 +412,4 @@ if __name__ == "__main__":
         start_date='2000/01/01',
         end_date='2019/10/17')
     print(index_df.name)
+    print(index_df)

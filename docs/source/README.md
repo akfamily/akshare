@@ -1021,4 +1021,7 @@ https://cn.investing.com/indices/
 
 0.1.63
 更新说明文档-致谢英为财情
+
+0.1.64
+更新 get_country_index 返回格式为日期索引
 ```
