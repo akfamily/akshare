@@ -401,6 +401,10 @@ def get_country_index(
     df_data = df_data.set_index(["日期"])
     df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
     df_data.index.name = "日期"
+    df_data["收盘"] = df_data["收盘"].str.replace(",", "").astype(float)
+    df_data["开盘"] = df_data["开盘"].str.replace(",", "").astype(float)
+    df_data["高"] = df_data["高"].str.replace(",", "").astype(float)
+    df_data["低"] = df_data["低"].str.replace(",", "").astype(float)
     df_data.name = title
     return df_data
 

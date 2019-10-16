@@ -1024,4 +1024,7 @@ https://cn.investing.com/indices/
 
 0.1.64
 更新 get_country_index 返回格式为日期索引
+
+0.1.65
+更新 get_country_index 返回格式数据开盘, 收盘, 高, 低为浮点型
 ```
