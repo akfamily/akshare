@@ -108,9 +108,11 @@ get_bond_bank
 更新 md 文件数据接口
 0.1.59
 更新 md 文件数据接口
+0.1.60
+更新 致谢部分, 申明借鉴和引用的 package
 """
 
-__version__ = '0.1.59'
+__version__ = '0.1.60'
 __author__ = 'Albert King'
 
 """
