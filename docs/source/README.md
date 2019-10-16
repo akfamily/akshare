@@ -1,8 +1,8 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(更新于 2019-10-15; 如发现文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(更新于 2019-10-16; 如发现库和文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 ## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
-首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会;
+首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
 
 [AkShare](https://github.com/jindaxiang/akshare) 已经于 **2019-10-08** 正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
 
@@ -941,4 +941,7 @@ get_bond_bank
 
 0.1.60
 更新 致谢部分, 申明借鉴和引用的 package
+
+0.1.61
+更新说明文档
 ```
