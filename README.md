@@ -830,6 +830,8 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 
 感谢[99期货网站](http://www.99qh.com/)提供的大宗商品库存数据;
 
+感谢[英为财情网站](https://cn.investing.com/)提供的全球股指与期货指数数据;
+
 感谢[中国金融期货交易所网站](http://www.cffex.com.cn/)提供的相关数据;
 
 感谢[上海期货交易所网站](http://www.shfe.com.cn/)提供的相关数据;
@@ -1016,4 +1018,7 @@ get_bond_bank
 0.1.62
 提供英为财情-股票指数-全球股指与期货指数数据接口
 https://cn.investing.com/indices/
+
+0.1.63
+更新说明文档-致谢英为财情
 ```

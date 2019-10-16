@@ -115,9 +115,11 @@ get_bond_bank
 0.1.62
 提供英为财情-股票指数-全球股指与期货指数数据接口
 https://cn.investing.com/indices/
+0.1.63
+更新说明文档-致谢英为财情
 """
 
-__version__ = '0.1.62'
+__version__ = '0.1.63'
 __author__ = 'Albert King'
 
 """
