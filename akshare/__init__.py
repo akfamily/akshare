@@ -127,9 +127,11 @@ https://cn.investing.com/rates-bonds/
 新增 get_country_bond 返回格式数据开盘, 收盘, 高, 低为浮点型
 0.1.67
 更新说明文档-私募指数数据说明
+0.1.68
+更新说明文档-私募指数数据说明-增加图片
 """
 
-__version__ = '0.1.67'
+__version__ = '0.1.68'
 __author__ = 'Albert King'
 
 """

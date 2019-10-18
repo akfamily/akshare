@@ -136,7 +136,8 @@ import akshare as ak
  # 智道智科-私募指数数据
  'get_zdzk_fund_index'  # 获取智道智科-私募指数数据
  # 提供英为财情数据接口
- 'get_investing_index'  # 提供英为财情-股票指数-全球股指与期货指数数据接口
+ 'get_country_index'  # 提供英为财情-股票指数-全球股指与期货指数数据接口
+ 'get_country_bond'  # 提供英为财情-债券数据-全球政府债券行情与收益率
 ```
 
 ## 3. 案例演示
@@ -761,6 +762,9 @@ index_se:
 2019-09-27    1380.657989
 ```
 
+图片示例
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/zdzd_index.png)
+
 ## [AkShare](https://github.com/jindaxiang/akshare) 全球指数数据
 接口：get_country_index
 
@@ -1176,10 +1180,13 @@ https://cn.investing.com/indices/
 更新 get_country_index 返回格式数据开盘, 收盘, 高, 低为浮点型
 
 0.1.66
-提供英为财情-股票指数-全球股指与期货指数数据接口
+提供英为财情-债券数据-全球政府债券行情与收益率
 https://cn.investing.com/rates-bonds/
 新增 get_country_bond 返回格式数据开盘, 收盘, 高, 低为浮点型
 
 0.1.67
 更新说明文档-私募指数数据说明
+
+0.1.68
+更新说明文档-私募指数数据说明-增加图片
 ```
