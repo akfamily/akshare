@@ -15,6 +15,9 @@ import re
 DCE_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html"
 DCE_DAILY_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
 
+# 上海期货交易所
+SHFE_OPTION_URL = "http://www.shfe.com.cn/data/dailydata/option/kx/kx{}.dat"
+
 # PAYLOAD
 
 DCE_PAYLOAD = {

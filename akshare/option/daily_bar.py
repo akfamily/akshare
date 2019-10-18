@@ -6,27 +6,26 @@ date: 2019/9/30 13:58
 contact: jindaxiang@163.com
 desc:
 """
-import json
 import datetime
 import warnings
-import urllib
 
 import requests
-from bs4 import BeautifulSoup
 import pandas as pd
-import numpy as np
 
-from akshare.option.cons import DCE_OPTION_URL, DCE_PAYLOAD, DCE_DAILY_OPTION_URL
+from akshare.option.cons import (DCE_OPTION_URL,
+                                 DCE_PAYLOAD,
+                                 DCE_DAILY_OPTION_URL,
+                                 SHFE_OPTION_URL)
 from akshare.futures import cons
-from akshare.futures.requests_fun import requests_link
 
 calendar = cons.get_calendar()
 
 
-def get_dce_option_daily(trade_date="20191017"):
+def get_dce_option_daily(trade_date="20191017", symbol_type="玉米期权"):
     """
     获取大连商品交易所-期权-日频行情数据
     :param trade_date: str format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param symbol_type: str "玉米期权"
     :return: pandas.DataFrame
         symbol        合约代码
         trade_date          日期
@@ -75,13 +74,17 @@ def get_dce_option_daily(trade_date="20191017"):
     table_df.dropna(axis=1, how="all", inplace=True)
     product_one_df = table_df.iloc[:table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name, :]
     product_two_df = table_df.iloc[table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name+1:table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name, :]
-    return product_one_df, product_two_df, another_df
+    if symbol_type == "玉米期权":
+        return product_one_df, another_df[another_df.iloc[:, 0].str.contains("c")]
+    else:
+        return product_two_df, another_df[another_df.iloc[:, 0].str.contains("m")]
 
 
-def get_czce_option_daily(trade_date="20191017"):
+def get_czce_option_daily(trade_date="20191017", symbol_type="白糖期权"):
     """
     获取郑州商品交易所-期权-日频行情数据
     :param trade_date: str "20191017"
+    :param symbol_type: str "白糖期权"
     :return: pandas.DataFrame
     郑商所每日期权交易数据
              品种代码        昨结算         今开盘         最高价         最低价         今收盘      \
@@ -136,15 +139,43 @@ def get_czce_option_daily(trade_date="20191017"):
             with open("temp.txt", "w") as f:
                 f.write(html)
             table_df = pd.read_table("temp.txt", encoding="gbk", skiprows=1, sep="|")
-            return table_df
+            if symbol_type == "白糖期权":
+                return table_df[table_df.iloc[:, 0].str.contains("SR")]
+            else:
+                return table_df[table_df["品种代码"].str.contains("CF")]
+        except:
+            return None
+
+
+def get_shfe_option_daily(trade_date="20191017", symbol_type="铜期权"):
+    day = cons.convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    if day.strftime('%Y%m%d') not in calendar:
+        warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
+        return None
+    if day > datetime.date(2010, 8, 24):
+        if day > datetime.date(2015, 9, 19):
+            url = SHFE_OPTION_URL.format(day.strftime('%Y%m%d'))
+        try:
+            r = requests.get(url, headers=cons.shfe_headers)
+            json_data = r.json()
+            table_df = pd.DataFrame([row for row in json_data['o_curinstrument'] if row['INSTRUMENTID'] not in ['小计', '合计'] and row['INSTRUMENTID'] != ''])
+            contract_df = table_df[table_df["PRODUCTNAME"].str.strip() == symbol_type]
+            product_df = pd.DataFrame(json_data['o_curproduct'])
+            product_df = product_df[product_df["PRODUCTNAME"].str.strip() == symbol_type]
+            volatility_df = pd.DataFrame(json_data['o_cursigma'])
+            volatility_df = volatility_df[volatility_df["PRODUCTNAME"].str.strip() == symbol_type]
+            return contract_df, product_df, volatility_df
         except:
             return None
 
 
 if __name__ == "__main__":
-    # df_test = get_czce_option_daily(trade_date="20191014")
+    # df_test = get_czce_option_daily(trade_date="20191017", symbol_type="白糖期权")
     # print(df_test)
-    one, two, three = get_dce_option_daily(trade_date="20191014")
+    one, two = get_dce_option_daily(trade_date="20191017", symbol_type="玉米期权")
     print(one)
     print(two)
-    print(three)
+    # one, two, three = get_shfe_option_daily(trade_date="20191017", symbol_type="天胶期权")
+    # print(one)
+    # print(two)
+    # print(three)
