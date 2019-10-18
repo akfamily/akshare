@@ -129,9 +129,11 @@ https://cn.investing.com/rates-bonds/
 更新说明文档-私募指数数据说明
 0.1.68
 更新说明文档-私募指数数据说明-增加图片
+0.1.69
+更新说明文档-债券说明格式调整
 """
 
-__version__ = '0.1.68'
+__version__ = '0.1.69'
 __author__ = 'Albert King'
 
 """

@@ -617,7 +617,7 @@ ak.get_bond_bank(page_num=1)
 19          PN  2019-10-12 00:00:00        60
 ```
 
-#### [AkShare](https://github.com/jindaxiang/akshare) 全球债券数据
+### [AkShare](https://github.com/jindaxiang/akshare) 全球债券行情数据
 接口：get_country_bond
 
 目标地址: https://cn.investing.com/rates-bonds/
@@ -1189,4 +1189,7 @@ https://cn.investing.com/rates-bonds/
 
 0.1.68
 更新说明文档-私募指数数据说明-增加图片
+
+0.1.69
+更新说明文档-债券说明格式调整
 ```
