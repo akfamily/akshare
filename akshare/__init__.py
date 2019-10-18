@@ -131,10 +131,18 @@ https://cn.investing.com/rates-bonds/
 更新说明文档-私募指数数据说明-增加图片
 0.1.69
 更新说明文档-债券说明格式调整
+0.1.70
+更新大商所, 郑商所商品期权数据接口
 """
 
-__version__ = '0.1.69'
+__version__ = '0.1.70'
 __author__ = 'Albert King'
+
+"""
+商品期权
+"""
+from akshare.option.daily_bar import (get_dce_option_daily,
+                                      get_czce_option_daily)
 
 """
 英为财情-债券

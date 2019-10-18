@@ -198,6 +198,7 @@ CZCE_VOL_RANK_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datatradeholding/%s
 CZCE_VOL_RANK_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataHolding.htm"
 
 DCE_RECEIPT_URL = "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
+
 SHFE_RECEIPT_URL_1 = "http://www.shfe.com.cn/data/dailydata/%sdailystock.html"
 SHFE_RECEIPT_URL_2 = "http://www.shfe.com.cn/data/dailydata/%sdailystock.dat"
 CZCE_RECEIPT_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/sheet/sheet%s.html"
@@ -211,6 +212,8 @@ DCE_DAILY_URL = "http://www.dce.com.cn//publicweb/quotesdata/dayQuotesCh.html"
 CZCE_DAILY_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/hq/hq%s.html"
 CZCE_DAILY_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datadaily/%s.txt"
 CZCE_DAILY_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataDaily.txt"
+CZCE_DAILY_OPTION_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Option/%s/%s/OptionDataDaily.txt"
+
 
 DATE_PATTERN = re.compile(r"^([0-9]{4})[-/]?([0-9]{2})[-/]?([0-9]{2})")
 FUTURES_SYMBOL_PATTERN = re.compile(r"(^[A-Za-z]{1,2})[0-9]+")

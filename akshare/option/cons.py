@@ -13,6 +13,7 @@ import re
 
 # 大连商品交易所
 DCE_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html"
+DCE_DAILY_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
 
 # PAYLOAD
 

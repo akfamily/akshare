@@ -512,7 +512,7 @@ def get_futures_index(df):
         获取指数日交易数据
     Parameters
     ------
-        df: 爬到的原始合约日线行情    dataframe
+        df: 爬到的原始合约日线行情    pandas.DataFrame
     Return
     -------
         df: 持仓量加权指数日线行情
