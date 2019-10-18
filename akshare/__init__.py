@@ -125,9 +125,11 @@ https://cn.investing.com/indices/
 提供英为财情-股票指数-全球股指与期货指数数据接口
 https://cn.investing.com/rates-bonds/
 新增 get_country_bond 返回格式数据开盘, 收盘, 高, 低为浮点型
+0.1.67
+更新说明文档-私募指数数据说明
 """
 
-__version__ = '0.1.66'
+__version__ = '0.1.67'
 __author__ = 'Albert King'
 
 """

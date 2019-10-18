@@ -3,7 +3,7 @@
 """
 Author: Albert King
 date: 2019/9/15 18:27
-desc: 获取智道智科的私募基金数据, 私募指数介绍, 可以为用户提供私募基金策略发展方向的参考
+desc: 获取智道智科的私募基金指数数据, 可以为用户提供私募基金策略发展方向的参考
 """
 import pandas as pd
 import requests
@@ -32,10 +32,10 @@ def get_zdzk_fund_index(index_type=28, plot=True):
     "42": "智道上海区域指数",
     "44": "智道广州区域指数",
     "46": "智道深圳区域指数",
-    "46": "智道浙江区域指数",
+    "48": "智道浙江区域指数",
     :param index_type: int 请查看函数说明
     :param plot: True or False 是否画图
-    :return: pandas.DataFrame
+    :return: pandas.Series
         2010-01-01    1000.000000
         2010-01-08     998.797040
         2010-01-15    1026.032462
