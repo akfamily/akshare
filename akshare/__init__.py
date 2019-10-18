@@ -121,13 +121,22 @@ https://cn.investing.com/indices/
 更新 get_country_index 返回格式为日期索引
 0.1.65
 更新 get_country_index 返回格式数据开盘, 收盘, 高, 低为浮点型
+0.1.66
+提供英为财情-股票指数-全球股指与期货指数数据接口
+https://cn.investing.com/rates-bonds/
+新增 get_country_bond 返回格式数据开盘, 收盘, 高, 低为浮点型
 """
 
-__version__ = '0.1.65'
+__version__ = '0.1.66'
 __author__ = 'Albert King'
 
 """
-英为财情
+英为财情-债券
+"""
+from akshare.bond.get_investing_bond import (get_country_bond)  # 债券-全球政府债券行情与收益率
+
+"""
+英为财情-指数
 """
 from akshare.index.get_investing_index import (get_country_index)  # 股票指数-全球股指与期货指数数据接口
 

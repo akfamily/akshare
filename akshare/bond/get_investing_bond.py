@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/17 0:50
 contact: jindaxiang@163.com
-desc: 提供英为财情-股票指数-全球股指与期货指数数据接口
+desc: 提供英为财情-利率国债-全球政府债券行情与收益率
 """
 import re
 
@@ -115,7 +115,7 @@ def get_global_country_name_url():
     '黎巴嫩': '/indices/lebanon-indices',
     '黑山': '/indices/montenegro-indices'}
     """
-    url = "https://cn.investing.com/indices/"
+    url = "https://cn.investing.com/rates-bonds/"
     res = requests.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, 'lxml')
     name_url_option_list = soup.find(
@@ -131,7 +131,7 @@ def get_global_country_name_url():
 
 def get_country_name_url(country="中国"):
     """
-    参考网页: https://cn.investing.com/indices/
+    参考网页: https://cn.investing.com/rates-bonds/
     获取选择国家对应的: 主要指数, 主要行业, 附加指数, 其他指数
     :param country: str 中文国家名称, 对应 get_global_country_name_url 函数返回的国家名称
     :return: dict
@@ -290,7 +290,7 @@ def get_country_name_url(country="中国"):
      '深证红利': '/indices/szse-dividend-price', '深证综指': '/indices/szse-composite'}
     """
     name_url_dict = get_global_country_name_url()
-    url = f"https://cn.investing.com{name_url_dict[country]}?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on"
+    url = f"https://cn.investing.com{name_url_dict[country]}"
     res = requests.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, 'lxml')
     url_list = [item.find("a")["href"]
@@ -302,9 +302,9 @@ def get_country_name_url(country="中国"):
     return name_code_map_dict
 
 
-def get_country_index(
+def get_country_bond(
         country="中国",
-        index_name="上证指数",
+        index_name="中国1年期国债",
         start_date='2000/01/01',
         end_date='2019/10/17'):
     """
@@ -380,10 +380,10 @@ def get_country_index(
         list_vol_per.append(item[5])
 
     list_vol = list()
-    list_per = list()
+    # list_per = list()
     for item in list_vol_per:
         list_vol.append(item.split(' ')[0])
-        list_per.append(item.split(' ')[1])
+        # list_per.append(item.split(' ')[1])
 
     list_date.append(vest_list[-1][0])
     list_new.append(vest_list[-1][1])
@@ -392,9 +392,8 @@ def get_country_index(
     list_low.append(vest_list[-1][4])
 
     df_data = pd.DataFrame(
-        [list_date, list_new, list_open, list_high, list_low, list_vol, list_per]).T
-    df_data.iloc[0, :][5] = '交易量'
-    df_data.iloc[0, :][6] = '百分比变化'
+        [list_date, list_new, list_open, list_high, list_low, list_vol]).T
+    df_data.iloc[0, :][5] = '涨跌幅'
     df_data.columns = df_data.iloc[0, :]
     df_data = df_data.iloc[1:, :]
     df_data = df_data[:-1]  # 去掉最后一行
@@ -410,9 +409,9 @@ def get_country_index(
 
 
 if __name__ == "__main__":
-    index_df = get_country_index(
-        country="美国",
-        index_name="美元指数",
+    index_df = get_country_bond(
+        country="中国",
+        index_name="中国1年期国债",
         start_date='2000/01/01',
         end_date='2019/10/17')
     print(index_df.name)

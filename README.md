@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(更新于 2019-10-17; 如发现库和文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(更新于 2019-10-18; 如发现库和文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 ## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
 首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
@@ -614,6 +614,75 @@ ak.get_bond_bank(page_num=1)
 19          PN  2019-10-12 00:00:00        60
 ```
 
+#### [AkShare](https://github.com/jindaxiang/akshare) 全球债券数据
+接口：get_country_bond
+
+目标地址: https://cn.investing.com/rates-bonds/
+
+描述：获取全球政府债券行情与收益率, 由于涉及国家和债券多(**近1000**个债券)具体参见[国家-债券目录](https://cn.investing.com/rates-bonds/world-government-bonds?maturity_from=10&maturity_to=310)
+具体的调用方式可以参照: 
+1. 先查询指数所在的国家名称;
+2. 复制网页上国家名称(推荐复制), 如 **中国**;
+3. 复制所显示的具体债券名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **中国1年期国债**;
+4. 在安装 [AkShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.get_country_bond(country="中国", index_name="中国1年期国债", start_date='2000/01/01', end_date='2019/10/17')**;
+5. 稍后就可以获得所需数据.
+
+限量：单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| country | str  | Y    |   country="中国"|
+| index_name | str  | Y    |  index_name="中国1年期国债"|
+| start_date | str  | Y    |  start_date='2000/01/01'|
+| end_date | str  | Y    |  end_date='2019/10/17'|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期索引  |
+| 收盘      | float   | Y        | 收盘   |
+| 开盘      | float   | Y        | 开盘        |
+| 高        | float   | Y        |高    |
+| 低         | float | Y        | 低         |
+| 交易量      | str | Y        | 涨跌幅      |
+
+
+
+接口示例
+```python
+import akshare as ak
+bond_df = ak.get_country_bond(country="中国", index_name="中国1年期国债", start_date='2000/01/01', end_date='2019/10/17')
+print(bond_df)
+print(bond_df.name)
+```
+
+数据示例
+
+bond_df.name:
+
+```中国一年期国债收益率历史数据```
+
+bond_df:
+
+```
+0          收盘     开盘      高      低      涨跌幅
+日期                                             
+2019-10-17  2.647  2.656  2.656  2.647   -1.65%
+2019-10-16  2.691  2.700  2.700  2.691    0.67%
+2019-10-15  2.673  2.673  2.673  2.673    0.75%
+2019-10-14  2.653  2.671  2.671  2.653    0.19%
+2019-10-11  2.648  2.677  2.677  2.648   -0.56%
+...           ...    ...    ...    ...      ...
+2002-06-10  1.955  1.955  1.955  1.955    2.20%
+2002-06-07  1.913  1.913  1.913  1.913   -0.42%
+2002-06-06  1.921  1.921  1.921  1.921  -12.60%
+2002-06-05  2.198  2.198  2.198  2.198    0.18%
+2002-06-04  2.194  2.194  2.194  2.194    3.44%
+```
+
 ## [AkShare](https://github.com/jindaxiang/akshare) 期权数据
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 私募指数数据
@@ -623,16 +692,22 @@ ak.get_bond_bank(page_num=1)
 
 目标地址: https://cn.investing.com/indices/
 
-描述：获取世界主要国家的各种指数, 具体参见目标地址网页
+描述：获取世界主要国家的各种指数, 由于涉及国家和指数(**1000**+个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
+具体的调用方式可以参照: 
+1. 先查询指数所在的国家名称;
+2. 复制网页上国家名称(推荐复制), 如 **美国**;
+3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**;
+4. 在安装 [AkShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.get_country_index(country="美国", index_name="美元指数", start_date='2000/01/01', end_date='2019/10/17')**;
+5. 稍后就可以获得所需数据.
 
-限量：单次返回某一个国家的具体某一个指数, 建议用 for 获取多个国家的多个指数
+限量：单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
 
 输入参数
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| country | str  | Y    |   country="中国"|
-| index_name | str  | Y    |  index_name="深证新兴"|
+| country | str  | Y    |   country="美国"|
+| index_name | str  | Y    |  index_name="美元指数"|
 | start_date | str  | Y    |  start_date='2000/01/01'|
 | end_date | str  | Y    |  end_date='2019/10/17'|
 
@@ -640,12 +715,12 @@ ak.get_bond_bank(page_num=1)
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期  |
-| 收盘      | str   | Y        | 收盘   |
-| 开盘      | str   | Y        | 开盘        |
-| 高        | str   | Y        |高    |
-| 低         | str | Y        | 低         |
-| 交易量      | str | Y        | 交易量      |
+| 日期      | str   | Y        | 日期-索引  |
+| 收盘      | float   | Y        | 收盘   |
+| 开盘      | float   | Y        | 开盘        |
+| 高        | float   | Y        |高    |
+| 低         | float | Y        | 低         |
+| 交易量      | float | Y        | 交易量      |
 | 百分比变化  | str | Y        | 百分比变化  |
 
 
@@ -653,7 +728,7 @@ ak.get_bond_bank(page_num=1)
 接口示例
 ```python
 import akshare as ak
-index_df = ak.get_country_index(country="中国", index_name="深证新兴", start_date='2000/01/01', end_date='2019/10/17')
+index_df = ak.get_country_index(country="美国", index_name="美元指数", start_date='2000/01/01', end_date='2019/10/17')
 print(index_df)
 print(index_df.name)
 ```
@@ -662,27 +737,25 @@ print(index_df.name)
 
 index_df.name:
 
-```深证战略性新兴产业指数历史数据```
+```美元指数历史数据```
 
 index_df:
 
 ```
-0              日期        收盘        开盘         高         低     交易量   百分比变化
-1     2019年10月16日  1,692.60  1,695.38  1,708.59  1,691.39   4.65B  -0.01%
-2     2019年10月15日  1,692.79  1,712.84  1,712.84  1,691.32   5.41B  -1.45%
-3     2019年10月14日  1,717.74  1,713.70  1,726.25  1,710.30   5.99B   1.30%
-4     2019年10月11日  1,695.62  1,695.28  1,703.79  1,680.60   5.15B   0.24%
-5     2019年10月10日  1,691.63  1,664.54  1,693.21  1,660.60   5.36B   1.68%
-...           ...       ...       ...       ...       ...     ...     ...
-1647    2013年1月7日    914.17    901.32    914.17    899.97  18.97K   1.45%
-1648    2013年1月4日    901.11    917.44    918.90    893.13  17.70K  -1.02%
-1649  2012年12月31日    910.43    902.72    910.43    900.62  15.90K   1.11%
-1650  2012年12月28日    900.42    892.72    900.42    888.62  13.82K   0.88%
-1651  2012年12月27日    892.59    901.97    905.57    891.83  17.55K  -0.76%
+0               收盘      开盘       高       低 交易量   百分比变化
+日期                                                    
+2019-05-10   97.33   97.43   97.45   97.13   -  -0.04%
+2019-05-09   97.37   97.58   97.70   97.24   -  -0.26%
+2019-05-08   97.62   97.57   97.68   97.42   -  -0.01%
+2019-05-07   97.63   97.52   97.74   97.38   -   0.11%
+2019-05-06   97.52   97.56   97.70   97.46   -   0.00%
+...            ...     ...     ...     ...  ..     ...
+2000-01-07  100.80  100.49  100.93  100.44   -   0.15%
+2000-01-06  100.65  100.31  100.81   99.81   -   0.27%
+2000-01-05  100.38  100.42  100.47   99.71   -  -0.03%
+2000-01-04  100.41  100.55  100.86  100.01   -   0.19%
+2000-01-03  100.22  101.67  101.83  100.19   -  -1.62%
 ```
-
-
-
 
 # Anaconda安装说明及环境配置
 ## Anaconda 安装说明
@@ -1027,4 +1100,9 @@ https://cn.investing.com/indices/
 
 0.1.65
 更新 get_country_index 返回格式数据开盘, 收盘, 高, 低为浮点型
+
+0.1.66
+提供英为财情-股票指数-全球股指与期货指数数据接口
+https://cn.investing.com/rates-bonds/
+新增 get_country_bond 返回格式数据开盘, 收盘, 高, 低为浮点型
 ```
