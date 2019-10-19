@@ -30,7 +30,7 @@
     
     6.3 增加[99期货网](http://www.99qh.com/)数据接口, 提供大宗商品库存数据(开发完成);
     
-    6.4 增加[商品期权](https://github.com/jindaxiang/akshare)数据接口, 提供商品期货数据(**开发中**);
+    6.4 增加[商品期权](https://github.com/jindaxiang/akshare)数据接口, 提供商品期货数据(开发完成);
     
     6.5 增加[英为财情网站-全球指数](https://github.com/jindaxiang/akshare)数据接口, 提供全球股指与期货指数数据(开发完成);
     
@@ -104,7 +104,7 @@ import akshare as ak
 结果显示: 数据获取函数说明
 
 ```
- # 交易所数据
+ # 交易所期货数据
  'get_cffex_daily',  # 获取中国金融期货交易所每日交易数据
  'get_cffex_rank_table',  # 获取中国金融期货交易所前20会员持仓数据明细
  'get_czce_daily',  # 获取郑州商品交易所每日交易数据
@@ -136,8 +136,13 @@ import akshare as ak
  # 智道智科-私募指数数据
  'get_zdzk_fund_index'  # 获取智道智科-私募指数数据
  # 提供英为财情数据接口
- 'get_country_index'  # 提供英为财情-股票指数-全球股指与期货指数数据接口
- 'get_country_bond'  # 提供英为财情-债券数据-全球政府债券行情与收益率
+ 'get_country_index'  # 提供英为财情-股票指数-全球股指与期货指数数据
+ 'get_country_bond'  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
+ # 交易所商品期权数据
+ 'get_dce_option_daily'  # 提供大连商品交易所商品期权数据
+ 'get_czce_option_daily'  # 提供郑州商品交易所商品期权数据
+ 'get_shfe_option_daily'  # 提供上海期货交易所商品期权数据
+
 ```
 
 ## 3. 案例演示
@@ -1614,5 +1619,8 @@ https://cn.investing.com/rates-bonds/
 0.1.72
 修改大商所, 郑商所, 上期所商品期权数据接口
 增加函数说明
+更新说明文档-期权部分
+
+0.1.73
 更新说明文档-期权部分
 ```
