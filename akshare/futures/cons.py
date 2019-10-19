@@ -212,7 +212,6 @@ DCE_DAILY_URL = "http://www.dce.com.cn//publicweb/quotesdata/dayQuotesCh.html"
 CZCE_DAILY_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/hq/hq%s.html"
 CZCE_DAILY_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datadaily/%s.txt"
 CZCE_DAILY_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataDaily.txt"
-CZCE_DAILY_OPTION_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Option/%s/%s/OptionDataDaily.txt"
 
 
 DATE_PATTERN = re.compile(r"^([0-9]{4})[-/]?([0-9]{2})[-/]?([0-9]{2})")
