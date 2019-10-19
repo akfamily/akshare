@@ -141,9 +141,11 @@ https://cn.investing.com/rates-bonds/
 更新说明文档-期权部分
 0.1.73
 更新说明文档-期权部分
+0.1.74
+更新说明文档格式调整
 """
 
-__version__ = '0.1.73'
+__version__ = '0.1.74'
 __author__ = 'Albert King'
 
 """
