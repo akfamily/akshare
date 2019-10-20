@@ -143,10 +143,25 @@ https://cn.investing.com/rates-bonds/
 更新说明文档-期权部分
 0.1.74
 更新说明文档格式调整
+0.1.75
+新增外汇接口, 银行间债券市场行情数据接口
 """
 
-__version__ = '0.1.74'
+__version__ = '0.1.75'
 __author__ = 'Albert King'
+
+"""
+外汇
+"""
+from akshare.fx.fx_quote import (get_fx_pair_quote,
+                                 get_fx_spot_quote,
+                                 get_fx_swap_quote)
+
+"""
+债券行情
+"""
+from akshare.bond.dev_china_bond import (get_bond_market_quote,
+                                         get_bond_market_trade)
 
 """
 商品期权
