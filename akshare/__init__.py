@@ -145,9 +145,11 @@ https://cn.investing.com/rates-bonds/
 更新说明文档格式调整
 0.1.75
 新增外汇接口, 银行间债券市场行情数据接口
+0.1.76
+更新说明文档
 """
 
-__version__ = '0.1.75'
+__version__ = '0.1.76'
 __author__ = 'Albert King'
 
 """
