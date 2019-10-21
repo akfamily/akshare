@@ -153,9 +153,11 @@ https://cn.investing.com/rates-bonds/
 新增全球宏观数据-中国年度、月度CPI数据, 年度M2数据
 0.1.79
 更新说明文档
+0.1.80
+更新说明文档-刷新
 """
 
-__version__ = '0.1.79'
+__version__ = '0.1.80'
 __author__ = 'Albert King'
 
 """

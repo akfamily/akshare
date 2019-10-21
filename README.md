@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(本文档更新于 **2019-10-21**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(本文档更新于 **2019-10-22**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -2357,4 +2357,7 @@ https://cn.investing.com/rates-bonds/
 
 0.1.79
 更新说明文档
+
+0.1.80
+更新说明文档-刷新
 ```
