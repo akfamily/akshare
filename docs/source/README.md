@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(更新于 **2019-10-20**; 如发现库和文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(更新于 **2019-10-21**; 如发现库和文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 ## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
 首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
@@ -37,6 +37,9 @@
     6.6 增加[英为财情网站-全球债券](https://github.com/jindaxiang/akshare)数据接口, 提供全球政府债券行情与收益率数据(开发完成);
     
     6.7 增加[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)数据接口, 提供中国银行间债券行情和外汇数据(开发完成);
+
+    6.8 增加[英为财情网站-商品](https://cn.investing.com/commodities/)数据接口, 提供全球商品历史数据(开发完成);
+
 7. 后续更新主要集中在提供更多数据接口, 同时修复源代码中 bug;
 8. 更加完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 9. 希望您能参与 [AkShare](https://github.com/jindaxiang/akshare) 的维护与管理.
@@ -144,13 +147,14 @@ import akshare as ak
  'get_czce_option_daily'  # 提供郑州商品交易所商品期权数据
  'get_shfe_option_daily'  # 提供上海期货交易所商品期权数据
  # 中国银行间市场债券行情数据
- 'get_bond_market_quote'  # 债券市场行情-现券市场成交行情
- 'get_bond_market_trade'  # 债券市场行情-现券市场做市报价
+ 'get_bond_market_quote'  # 债券市场行情-现券市场成交行情数据
+ 'get_bond_market_trade'  # 债券市场行情-现券市场做市报价数据
  # 外汇
- 'get_fx_spot_quote'  # 人民币外汇即期报价
- 'get_fx_swap_quote'  # 人民币外汇远掉报价
- 'get_fx_pair_quote'  # 外币对即期报价
-
+ 'get_fx_spot_quote'  # 人民币外汇即期报价数据
+ 'get_fx_swap_quote'  # 人民币外汇远掉报价数据
+ 'get_fx_pair_quote'  # 外币对即期报价数据
+ # 商品
+ 'get_sector_futures'  # 全球商品数据数据
 ```
 
 ## 3. 案例演示
@@ -530,6 +534,63 @@ ak.get_futures_daily(start_day="20190107", end_day="20190108", market="SHFE", in
 
 market 可以添为四个交易所的简称, 即 "dce" 代表大商所; "shfe" 代表上期所; "czce" 代表郑商所; "cffex" 代表中金所. 
 index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成指数合约, 如 RB99.
+
+### 期货行情数据
+
+#### 全球商品期货
+接口: get_sector_futures
+
+目标地址: https://cn.investing.com/commodities/
+
+描述: 主要提供全球能源、农业、金属、商品指数历史数据
+
+限量: 单次最大5000行, 建议用 for 获取行数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| sector | str  | Y    |  能源、农业、金属、商品指数之一|
+| symbol | str  | Y    |  对应板块中的产品名称, 可以通过查询网页获取|
+| start_date | str  | Y    |  需要获取数据的开始时间, e.g., start_date='2005/01/01'|
+| end_date | str  | Y    |  需要获取数据的开始时间, e.g., end_date='2015/01/01' |
+
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期索引  |
+| 收盘      | float   | Y        | 收盘   |
+| 开盘      | float   | Y        | 开盘        |
+| 高        | float   | Y        |高    |
+| 低         | float | Y        | 低         |
+| 涨跌幅      | str | Y        | 涨跌幅      |
+
+
+接口示例
+```python
+import akshare as ak
+ak.get_sector_futures(sector="能源", symbol="伦敦布伦特原油", start_date='2005/01/01', end_date='2019/10/17')
+```
+
+数据示例
+```
+0              收盘     开盘      高      低      涨跌幅
+日期                                             
+2019-10-17  59.91  58.99  60.04  58.69  269.84K
+2019-10-16  59.42  58.90  59.75  58.36  257.88K
+2019-10-15  58.74  59.30  59.68  58.00  305.68K
+2019-10-14  59.35  60.69  60.73  58.50  283.07K
+2019-10-11  60.51  59.53  60.69  59.21  367.63K
+...           ...    ...    ...    ...      ...
+2005-01-10  42.92  43.20  44.85  42.90   27.65K
+2005-01-07  43.18  42.75  43.75  42.20   29.64K
+2005-01-06  42.85  40.43  43.20  39.82   51.63K
+2005-01-05  40.51  40.80  41.00  39.90   42.23K
+2005-01-04  41.04  39.40  41.25  38.81   40.10K
+```
+
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 债券数据
 
@@ -2096,4 +2157,7 @@ https://cn.investing.com/rates-bonds/
 
 0.1.76
 更新说明文档
+
+0.1.77
+新增全球期货历史数据查询接口
 ```

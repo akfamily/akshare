@@ -13,6 +13,7 @@ import time
 
 import requests
 import pandas as pd
+from prettytable import PrettyTable
 
 from akshare.fx.cons import (SHORT_HEADERS,
                              FX_SPOT_URL,

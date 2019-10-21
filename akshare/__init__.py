@@ -147,10 +147,17 @@ https://cn.investing.com/rates-bonds/
 新增外汇接口, 银行间债券市场行情数据接口
 0.1.76
 更新说明文档
+0.1.77
+新增全球期货历史数据查询接口
 """
 
-__version__ = '0.1.76'
+__version__ = '0.1.77'
 __author__ = 'Albert King'
+
+"""
+全球期货
+"""
+from akshare.futures.international_futures import (get_sector_futures)
 
 """
 外汇
