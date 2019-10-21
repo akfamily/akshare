@@ -149,10 +149,19 @@ https://cn.investing.com/rates-bonds/
 更新说明文档
 0.1.77
 新增全球期货历史数据查询接口
+0.1.78
+新增全球宏观数据-中国年度、月度CPI数据, 年度M2数据
 """
 
-__version__ = '0.1.77'
+__version__ = '0.1.78'
 __author__ = 'Albert King'
+
+"""
+全球宏观-中国
+"""
+from akshare.economic.get_macro_data import (get_china_monthly_cpi,
+                                             get_china_yearly_cpi,
+                                             get_china_yearly_m2)
 
 """
 全球期货

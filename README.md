@@ -39,7 +39,9 @@
     6.7 增加[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)数据接口, 提供中国银行间债券行情和外汇数据(开发完成);
 
     6.8 增加[英为财情网站-商品](https://cn.investing.com/commodities/)数据接口, 提供全球商品历史数据(开发完成);
-
+    
+    6.9 增加[金十数据网站](https://www.jin10.com/)数据接口, 提供全球宏观经济数据接口-中国宏观(开发完成);
+    
 7. 后续更新主要集中在提供更多数据接口, 同时修复源代码中 bug;
 8. 更加完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 9. 希望您能参与 [AkShare](https://github.com/jindaxiang/akshare) 的维护与管理.
@@ -155,6 +157,10 @@ import akshare as ak
  'get_fx_pair_quote'  # 外币对即期报价数据
  # 商品
  'get_sector_futures'  # 全球商品数据数据
+ # 宏观
+ 'get_china_yearly_cpi'  # 中国年度CPI数据
+ 'get_china_monthly_cpi'  # 中国月度CPI数据
+ 'get_china_yearly_m2'  # 中国年度M2数据
 ```
 
 ## 3. 案例演示
@@ -1401,7 +1407,7 @@ print(option_df)
     402  8769.52                            2
 ```
 
-## [AkShare](https://github.com/jindaxiang/akshare) 外汇
+## [AkShare](https://github.com/jindaxiang/akshare) 外汇数据
 
 ### 人民币外汇即期报价
 
@@ -1774,6 +1780,174 @@ index_df:
 2000-01-04  100.41  100.55  100.86  100.01   -   0.19%
 2000-01-03  100.22  101.67  101.83  100.19   -  -1.62%
 ```
+
+## [AkShare](https://github.com/jindaxiang/akshare) 宏观数据
+
+### 中国宏观
+
+#### 中国CPI年率报告
+接口: get_china_yearly_cpi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_cpi_yoy
+
+描述: 获取中国年度CPI数据, 数据区间从19860201-至今
+
+限量: 单次返回某一个所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 年率      | float   | Y        | 年率   |
+
+
+接口示例
+```python
+import akshare as ak
+index_df = ak.get_china_yearly_cpi()
+print(index_df)
+print(index_df.name)
+```
+
+数据示例
+
+index_df.name:
+
+```cpi```
+
+index_df:
+
+```
+1986-02-01    7.1
+1986-03-01    7.1
+1986-04-01    7.1
+1986-05-01    7.1
+1986-06-01    7.1
+             ... 
+2019-07-10    2.7
+2019-08-09    2.8
+2019-09-10    2.8
+2019-10-15      3
+2019-11-09      0
+```
+
+
+#### 中国CPI月率报告
+接口: get_china_monthly_cpi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_cpi_mom
+
+描述: 获取中国月度CPI数据, 数据区间从19960201-至今
+
+限量: 单次返回某一个所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 月率      | float   | Y        | 年率   |
+
+
+接口示例
+```python
+import akshare as ak
+index_df = ak.get_china_monthly_cpi()
+print(index_df)
+print(index_df.name)
+```
+
+数据示例
+
+index_df.name:
+
+```cpi```
+
+index_df:
+
+```
+1996-02-01     2.1
+1996-03-01     2.3
+1996-04-01     0.6
+1996-05-01     0.7
+1996-06-01    -0.5
+              ... 
+2019-07-10    -0.1
+2019-08-09     0.4
+2019-09-10     0.7
+2019-10-15     0.9
+2019-11-09       0
+```
+
+#### 中国M2年率报告
+接口: get_china_yearly_m2
+
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_m2_money_supply_yoy
+
+描述: 获取中国年度M2数据, 数据区间从19980201-至今
+
+限量: 单次返回某一个所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 年率      | float   | Y        | 年率   |
+
+
+接口示例
+```python
+import akshare as ak
+index_df = ak.get_china_yearly_m2()
+print(index_df)
+print(index_df.name)
+```
+
+数据示例
+
+index_df.name:
+
+```m2```
+
+index_df:
+
+```
+1998-02-01    17.4
+1998-03-01    16.7
+1998-04-01    15.4
+1998-05-01    14.6
+1998-06-01    15.5
+              ... 
+2019-09-11     8.2
+2019-09-13       0
+2019-10-14       0
+2019-10-15     8.4
+2019-10-17       0
+```
+
 
 # Anaconda安装说明及环境配置
 ## Anaconda 安装说明
@@ -2160,4 +2334,7 @@ https://cn.investing.com/rates-bonds/
 
 0.1.77
 新增全球期货历史数据查询接口
+
+0.1.78
+新增全球宏观数据-中国年度、月度CPI数据, 年度M2数据
 ```
