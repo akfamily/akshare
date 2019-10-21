@@ -57,5 +57,5 @@ def test():
 
 if __name__ == '__main__':
     test()
-    df = akshare.get_spot_price('20181210')
-    print(df)
+    data = akshare.get_spot_price('20181210')
+    print(data)

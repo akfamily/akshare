@@ -1,27 +1,35 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(更新于 **2019-10-21**; 如发现库和文档问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(本文档更新于 **2019-10-21**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+
+您也可以加入QQ群答疑解难: 326900231
+
+<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方"></a>
+
 ## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
 
 首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
 
-[AkShare](https://github.com/jindaxiang/akshare) 已经于 **2019-10-08** 正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
+[AkShare](https://github.com/jindaxiang/akshare) 于 **2019-10-08** 正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
 
 [AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的开源数据接口库, 目的是实现对期货, 期权, 基金等衍生金融产品和另类数据从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 [AkShare](https://github.com/jindaxiang/akshare) 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论.
 
-**后续会基于最新的学术研究论文和券商的金融工程报告添加更多的期货基本面指标和计算方法, 敬请关注**
+**后续会基于最新的学术研究论文和券商的金融工程报告添加更多的期货基本面指标和计算方法, 敬请关注.**
+
 ## [AkShare](https://github.com/jindaxiang/akshare) 的作者
 
-**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品定价和价格预测, 机器学习在金融领域的应用等研究.
+**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品定价和价格预测、机器学习在金融领域的应用等研究.
 
 <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width = 20% height = 10% align = center/>
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的特色
+
 [AkShare](https://github.com/jindaxiang/akshare) 主要改进如下:
+
 1. Python 语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 统一接口函数的命名;
-2. 增加代码类型注释;
-3. 支持 Python 3.7 以上版本的 Python;
-4. 后续加入 [asyncio](https://www.python.org/dev/peps/pep-3156/) 和 [aiohttp](https://aiohttp.readthedocs.io/en/stable/) 做异步爬虫加速;
-5. 持续维护由于原网站格式变化导致的部分函数运行异常的问题;
+2. 支持 Python 3.7 以上版本;
+3. 后续加入 [asyncio](https://www.python.org/dev/peps/pep-3156/) 和 [aiohttp](https://aiohttp.readthedocs.io/en/stable/) 做异步加速;
+4. 持续维护由于目标网页变化而导致的部分函数运行异常问题;
+5. 后续更新会主要集中在提供更多金融数据接口, 同时优化源代码;
 6. 增加更多的网络数据采集接口:
 
     6.1 增加[奇货可查网站](https://qhkch.com/)数据接口, 提供奇货可查指数数据(开发完成);
@@ -42,22 +50,25 @@
     
     6.9 增加[金十数据网站](https://www.jin10.com/)数据接口, 提供全球宏观经济数据接口-中国宏观(开发完成);
     
-7. 后续更新主要集中在提供更多数据接口, 同时修复源代码中 bug;
-8. 更加完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
-9. 希望您能参与 [AkShare](https://github.com/jindaxiang/akshare) 的维护与管理.
+7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
+9. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的初衷
+
+[AkShare](https://github.com/jindaxiang/akshare) 希望能为各位同仁提供一个多源金融数据的接口, 助力个人
+投资者、机构投资者、各大研究机构方便的搜集和整理关于金融产品, 金融衍生品等相关的数据. 
+
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/stock_futures_index.png)
 
 上图是利用 [AkShare](https://github.com/jindaxiang/akshare) 的 **get_zdzk_fund_index** 接口获取的[智道智科](https://www.ziasset.com/company/)发布的股票策略指数和管理期货策略指数.
+可以看出股票策略的波动性大于管理期货策略, 而且从 2015 年至今, 管理期货策略能获得较稳定的收益.
 
-可以清晰的看到股票策略的波动性远远大于管理期货策略, 从 2015 年至今, 管理期货策略能获得较稳定的收益.
-
-再结合传统的 CTA 策略以趋势为主, 但是自从 2017 年以来, 无论是长线还是短线的趋势策略都受制于商品波动率的降低, 面临了多多少少的回撤, 
+传统的 CTA 策略以趋势为主, 但是自从 2017 年以来, 无论是长线还是短线的趋势策略都受制于商品波动率的降低, 面临了多多少少的回撤, 
 同时市场也逐渐趋于机构化理性化, 因此在传统 CTA 策略的基础上加入基本面的因素显得迫在眉睫. 近几年各券商的研报陆续提出了许多依赖于趋势行情以外的有效信号, 它们的表现都与趋势策略有着很低的甚至负的相关性, 这样通过多种不同类型的信号对冲得到的策略, 就有机会在市场上取得非常棒的夏普率和稳定的收益. 
 
 **上图调用 [AkShare](https://github.com/jindaxiang/akshare) 的绘制的代码如下**
+
 ```python
 import akshare as ak
 import matplotlib.pyplot as plt
@@ -77,16 +88,17 @@ plt.title("智道智科股票策略和管理期货策略指数")
 plt.legend()
 plt.show()
 ```
-[AkShare](https://github.com/jindaxiang/akshare) 希望能向各位同仁提供一个网络数据采集接口, 助力个人
-投资者、机构投资者、各大研究机构方便的搜集和整理关于金融衍生品, 尤其是期货基本面相关的数据. 
 
 
 # 安装方法
+
 ```
 pip install akshare
 ```
 
+
 # 升级方法
+
 **p.s. 由于目前版本更新迭代比较频繁, 请在使用前先升级库**
 ```
 pip install akshare --upgrade
@@ -96,6 +108,7 @@ pip install akshare --upgrade
 # 快速入门
 
 ## 1. 先按照 [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
+
 ## 2. 查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据获取接口
 
 **Example 2.1** 查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据获取接口
@@ -229,7 +242,6 @@ ak.get_zdzk_fund_index(index_type=32, plot=True)
 2019-09-06    1402.711847
 2019-09-13    1401.723599
 2019-09-20    1386.570103
-Name: 智道管理期货指数, Length: 248, dtype: float64
 ```
 
 # [AkShare](https://github.com/jindaxiang/akshare) 数据字典
@@ -238,9 +250,11 @@ Name: 智道管理期货指数, Length: 248, dtype: float64
 
 ### 期货基础信息
 
+主要提供金融期货和商品期货相关的基本面和行情数据
+
 #### 期货交易所
 
-| **交易所名称**    | **交易所代码** | **合约后缀** | **首页地址**|
+| 交易所名称    | 交易所代码 | 合约后缀 | 首页地址|
 | ------------------ | ---------- | -------- | --------|
 | [中国金融期货交易所](http://www.cffex.com.cn/) | CFFEX      | .CFX     | http://www.cffex.com.cn/|
 | [上海期货交易所](http://www.shfe.com.cn/) | SHFE       | .SHF     | http://www.shfe.com.cn/|
@@ -1950,14 +1964,15 @@ index_df:
 
 
 # Anaconda安装说明及环境配置
-## Anaconda 安装说明
 
+## Anaconda 安装说明
 
 Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Anaconda 能简化环境管理工作, 非常推荐使用. 
 作者基于目前 Python2 即将停止更新, 且目前大部分使用者电脑系统基本都是 64 位, 所以建议选择 Python3.7.3 64 位版本
 同时, 根据您电脑的操作系统选择相对应的版本: Windows 版, MacOS 或 Linux 版的 64 位安装包.
 
 ## 安装演示(以 64 位 windows 版本为例)
+
 下图中红框为 64 位 Windows 选择的版本:
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/anaconda_download.png)
@@ -2045,13 +2060,13 @@ ak.__doc__
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_4.png)
 
-
 还可以在 ak_test 虚拟环境的 Python 环境中输入如下代码可以显示 [AkShare](https://github.com/jindaxiang/akshare) 的版本
 
 ```python
 import akshare as ak
 ak.__version__
 ```
+
 
 # 每日监控下载配置
 本地配置好 Anaconda, 以及通过 pip 安装好 akshare>=0.1.59 后, 在 github 上下载示例文件, 即按照下图选择. 
@@ -2066,6 +2081,7 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 
 最后双击 monitor.cmd 即完成, 每日 17 点自动下载数据. 
 
+
 # QQ邮箱SMTP服务设置
 在利用 Python 程序发送 QQ 邮件时, 需要开启 QQ 邮件的 SMTP 服务, 操作方法如下, 第一步打开 QQ 邮箱, 点"设置". 
 
@@ -2079,6 +2095,7 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 
 在启动服务的过程中, 如果该 QQ 账户没有绑定过手机号, 可能会需要验证, 这里不再赘述. 
 
+
 # 特别说明
 
 ## 致谢
@@ -2091,13 +2108,15 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 
 感谢[智道智科网站](https://www.ziasset.com/)提供的私募指数数据;
 
-感谢[中国银行间市场交易商协会网站](http://www.nafmii.org.cn/)提供的银行间市场债券数据;
+感谢[中国银行间市场交易商协会网站](http://www.nafmii.org.cn/)提供的银行间市场债券基本面数据;
 
 感谢[99期货网站](http://www.99qh.com/)提供的大宗商品库存数据;
 
 感谢[英为财情网站](https://cn.investing.com/)提供的全球股指与期货指数数据, 全球政府债券行情与收益率数据;
 
 感谢[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)提供的外汇和债券相关数据;
+
+感谢[金十数据网站](https://www.jin10.com/)提供的全球宏观数据-中国宏观数据;
 
 感谢[中国金融期货交易所网站](http://www.cffex.com.cn/)提供的相关数据;
 
@@ -2110,24 +2129,21 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据.
 
 
-
 ## 交流
 
 欢迎加 QQ 群交流: 326900231
 
-您可以扫码或者点击群二维码
-
-在开启 QQ 情况下, 点击下面的图片自动打开 QQ 并加入本群, 本功能由 QQ 提供, 请放心点击:
+您可以扫码或者点击群二维码申请加入, 请放心点击:
 
 <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方"></a>
-
 
 
 ## 声明
 
 1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据仅供参考, 不构成任何投资建议;
 2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
-3. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议.
+3. [AkShare](https://github.com/jindaxiang/akshare) 坚持提供开源金融数据, 请放心使用;
+4. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议;
 
 
 # 量化策略介绍
@@ -2147,6 +2163,7 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 - 海龟交易法(期货)
 - 行业轮动(股票)
 - 机器学习(股票)
+
 
 # 量化平台介绍
 
@@ -2337,4 +2354,7 @@ https://cn.investing.com/rates-bonds/
 
 0.1.78
 新增全球宏观数据-中国年度、月度CPI数据, 年度M2数据
+
+0.1.79
+更新说明文档
 ```
