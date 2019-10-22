@@ -10,4 +10,11 @@ desc: economic-cons
 JS_CHINA_CPI_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_cpi_yoy_all.js?v={}&_={}"
 JS_CHINA_CPI_MONTHLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_cpi_mom_all.js?v={}&_={}"
 JS_CHINA_M2_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_m2_money_supply_yoy_all.js?v={}&_={}"
-
+JS_CHINA_PPI_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_ppi_yoy_all.js?v={}&_={}"
+JS_CHINA_PMI_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_manufacturing_pmi_all.js?v={}&_={}"
+JS_CHINA_GDP_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_gdp_yoy_all.js?v={}&_={}"
+JS_CHINA_CX_PMI_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_caixin_manufacturing_pmi_all.js?v={}&_={}"
+JS_CHINA_FX_RESERVES_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_fx_reserves_all.js?v={}&_={}"
+JS_CHINA_ENERGY_DAILY_URL = "https://cdn.jin10.com/dc/reports/dc_qihuo_energy_report_all.js?v={}&_={}"
+JS_CHINA_NON_MAN_PMI_MONTHLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_non_manufacturing_pmi_all.js?v={}&_={}"
+JS_CHINA_RMB_DAILY_URL = "https://cdn.jin10.com/dc/reports/dc_rmb_data_all.js?v={}&_={}"

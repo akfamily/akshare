@@ -14,7 +14,15 @@ import requests
 
 from akshare.economic.cons import (JS_CHINA_CPI_YEARLY_URL,
                                    JS_CHINA_CPI_MONTHLY_URL,
-                                   JS_CHINA_M2_YEARLY_URL)
+                                   JS_CHINA_M2_YEARLY_URL,
+                                   JS_CHINA_PPI_YEARLY_URL,
+                                   JS_CHINA_PMI_YEARLY_URL,
+                                   JS_CHINA_GDP_YEARLY_URL,
+                                   JS_CHINA_CX_PMI_YEARLY_URL,
+                                   JS_CHINA_FX_RESERVES_YEARLY_URL,
+                                   JS_CHINA_ENERGY_DAILY_URL,
+                                   JS_CHINA_NON_MAN_PMI_MONTHLY_URL,
+                                   JS_CHINA_RMB_DAILY_URL)
 
 
 def get_china_yearly_cpi():
@@ -41,9 +49,9 @@ def get_china_yearly_cpi():
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
-    cpi_df = value_df["今值(%)"]
-    cpi_df.name = "cpi"
-    return cpi_df
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "cpi"
+    return temp_df
 
 
 def get_china_monthly_cpi():
@@ -70,9 +78,9 @@ def get_china_monthly_cpi():
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
-    cpi_df = value_df["今值(%)"]
-    cpi_df.name = "cpi"
-    return cpi_df
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "cpi"
+    return temp_df
 
 
 def get_china_yearly_m2():
@@ -99,9 +107,336 @@ def get_china_yearly_m2():
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
-    cpi_df = value_df["今值(%)"]
-    cpi_df.name = "m2"
-    return cpi_df
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "m2"
+    return temp_df
+
+
+def get_china_yearly_ppi():
+    """
+    获取中国年度PPI数据, 数据区间从19950801-至今
+    :return: pandas.Series
+    1995-08-01    13.5
+    1995-09-01      13
+    1995-10-01    12.9
+    1995-11-01    12.5
+    1995-12-01    11.1
+                  ... 
+    2019-07-10       0
+    2019-08-09    -0.3
+    2019-09-10    -0.8
+    2019-10-15    -1.2
+    2019-11-09       0
+    """
+    t = time.time()
+    res = requests.get(JS_CHINA_PPI_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国PPI年率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "ppi"
+    return temp_df
+
+
+def get_china_yearly_pmi():
+    """
+    获取中国年度PMI数据, 数据区间从20050201-至今
+    :return: pandas.Series
+    2005-02-01    54.7
+    2005-03-01    54.5
+    2005-04-01    57.9
+    2005-05-01    56.7
+    2005-06-01    52.9
+                  ...
+    2019-06-30    49.4
+    2019-07-31    49.7
+    2019-08-31    49.5
+    2019-09-30    49.5
+    2019-10-31       0
+    """
+    t = time.time()
+    res = requests.get(JS_CHINA_PMI_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国官方制造业PMI报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "pmi"
+    return temp_df
+
+
+def get_china_yearly_gdp():
+    """
+    获取中国年度GDP数据, 数据区间从20110120-至今
+    :return: pandas.Series
+    2011-01-20    9.8
+    2011-04-15    9.7
+    2011-07-13    9.5
+    2011-10-18    9.1
+    2012-01-17    8.9
+    2012-04-13    8.1
+    2012-07-13    7.6
+    2012-10-18    7.4
+    2013-01-18    7.9
+    2013-04-15    7.7
+    2013-07-15    7.5
+    2013-10-18    7.8
+    2014-01-20    7.7
+    2014-04-16    7.4
+    2014-07-16    7.5
+    2014-10-21    7.3
+    2015-01-20    7.3
+    2015-04-15      7
+    2015-07-15      7
+    2015-10-19    6.9
+    2016-01-19    6.8
+    2016-04-15    6.7
+    2016-07-15    6.7
+    2016-10-19    6.7
+    2017-01-20    6.8
+    2017-04-17    6.9
+    2017-07-17    6.9
+    2017-10-19    6.8
+    2018-01-18    6.8
+    2018-04-17    6.8
+    2018-07-16    6.7
+    2018-10-19    6.5
+    2019-01-21    6.4
+    2019-04-17    6.4
+    2019-07-15    6.2
+    2019-10-18      6
+    """
+    t = time.time()
+    res = requests.get(JS_CHINA_GDP_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国GDP年率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "gdp"
+    return temp_df
+
+
+def get_china_yearly_cx_pmi():
+    """
+    获取中国年度财新PMI数据, 数据区间从20120120-至今
+    :return: pandas.Series
+    2012-01-20    48.8
+    2012-02-22    49.6
+    2012-03-22    48.3
+    2012-04-23    49.1
+    2012-05-02    49.3
+                  ...
+    2019-07-01    49.4
+    2019-08-01    49.9
+    2019-09-02    50.4
+    2019-09-30    51.4
+    2019-11-01       0
+    """
+    t = time.time()
+    res = requests.get(JS_CHINA_CX_PMI_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国财新制造业PMI终值报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "cx_pmi"
+    return temp_df
+
+
+def get_china_yearly_fx_reserves():
+    """
+    获取中国年度外汇储备数据, 数据区间从20140115-至今
+    :return: pandas.Series
+    2014-01-15    39500
+    2014-07-15    39900
+    2015-01-15    32300
+    2016-03-07    32020
+    2016-04-07    32100
+    2016-06-07    31900
+    2016-07-07    32100
+    2016-08-07    32010
+    2016-09-07    31820
+    2016-10-07    31660
+    2016-11-07    31210
+    2016-12-07    30520
+    2017-01-07    30110
+    2017-02-07    29980
+    2017-03-07    30050
+    2017-04-07    30090
+    2017-05-07    30300
+    2017-06-07    30540
+    2017-07-07    30570
+    2017-08-07    30810
+    2017-09-07    30920
+    2017-10-09    31080
+    2017-11-07    31090
+    2017-12-07    31190
+    2017-12-08        0
+    2018-01-07    31390
+    2018-02-07    31620
+    2018-02-08        0
+    2018-03-07    31340
+    2018-04-08    31430
+    2018-05-07    31250
+    2018-06-07    31110
+    2018-07-09    31120
+    2018-08-07    31180
+    2018-09-07    31100
+    2018-10-07    30870
+    2018-11-07    30500
+    2018-12-07    30600
+    2019-01-07    30700
+    2019-02-11    30700
+    2019-03-07    30900
+    2019-04-07    30990
+    2019-05-07        0
+    2019-05-08    31010
+    2019-06-07        0
+    2019-07-07        0
+    2019-07-08    31190
+    2019-08-07    31040
+    2019-09-07    31070
+    2019-10-08    30920
+    """
+    t = time.time()
+    res = requests.get(JS_CHINA_FX_RESERVES_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国外汇储备报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(亿美元)"]
+    temp_df.name = "fx_reserves"
+    return temp_df
+
+
+def get_china_daily_energy():
+    """
+    获取中国日度沿海六大电库存数据, 数据区间从20160101-至今
+    :return: pandas.Series
+                 沿海六大电库存      日耗 存煤可用天数
+    2016-01-01  1167.60   64.20   18.19
+    2016-01-02  1162.90   63.40   18.34
+    2016-01-03  1160.80   62.60   18.54
+    2016-01-04  1185.30   57.60   20.58
+    2016-01-05  1150.20   57.20   20.11
+                  ...     ...    ...
+    2019-05-17   1639.47   61.71  26.56
+    2019-05-21   1591.92   62.67  25.40
+    2019-05-22   1578.63   59.54  26.51
+    2019-05-24   1671.83   60.65  27.56
+    2019-06-21   1786.64   66.57  26.84
+    """
+    t = time.time()
+    res = requests.get(JS_CHINA_ENERGY_DAILY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["沿海六大电厂库存动态报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df[["沿海六大电库存", "日耗", "存煤可用天数"]]
+    temp_df.name = "energy"
+    return temp_df
+
+
+def get_china_non_man_pmi():
+    """
+    获取中国官方非制造业PMI, 数据区间从20160101-至今
+    :return: pandas.Series
+    2007-02-01    60.4
+    2007-03-01    60.6
+    2007-04-01    58.2
+    2007-05-01    60.4
+    2007-06-01    62.2
+                  ...
+    2019-06-30    54.2
+    2019-07-31    53.7
+    2019-08-31    53.8
+    2019-09-30    53.7
+    2019-10-31       0
+    """
+    t = time.time()
+    res = requests.get(JS_CHINA_NON_MAN_PMI_MONTHLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国官方非制造业PMI报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "non_pmi"
+    return temp_df
+
+
+def get_china_rmb():
+    """
+    获取中国人民币汇率中间价报告, 数据区间从20170103-至今
+    :return: pandas.Series
+                         美元/人民币            欧元/人民币         100日元/人民币  \
+    2017-03-01  [6.8798, 48.00]  [7.2648, 126.00]   [6.0913, 73.00]
+    2017-03-02  [6.8798, 48.00]  [7.2648, 126.00]   [6.0913, 73.00]
+    2017-03-03  [6.8809, 11.00]  [7.2536, 112.00]  [6.0381, 532.00]
+    2017-03-04  [6.8896, 87.00]  [7.2334, 202.00]  [6.0253, 128.00]
+    2017-03-05  [6.8896, 87.00]  [7.2334, 202.00]  [6.0253, 128.00]
+                         ...               ...               ...
+    2019-10-16  [7.0746, 38.00]  [7.8052, 132.00]  [6.5010, 185.00]
+    2019-10-17  [7.0789, 43.00]  [7.8405, 353.00]  [6.5111, 101.00]
+    2019-10-18  [7.0690, 99.00]  [7.8625, 220.00]   [6.5081, 30.00]
+    2019-10-21  [7.0680, 10.00]  [7.8843, 218.00]  [6.5201, 120.00]
+    2019-10-22  [7.0668, 12.00]   [7.8802, 41.00]  [6.5055, 146.00]
+                          港元/人民币             英镑/人民币            澳元/人民币  \
+    2017-03-01   [0.88629, 4.90]   [8.5090, 377.00]  [5.2629, 129.00]
+    2017-03-02   [0.88629, 4.90]   [8.5090, 377.00]  [5.2629, 129.00]
+    2017-03-03   [0.88638, 0.90]   [8.4521, 569.00]   [5.2723, 94.00]
+    2017-03-04  [0.88758, 12.00]    [8.4464, 57.00]  [5.2173, 550.00]
+    2017-03-05  [0.88758, 12.00]    [8.4464, 57.00]  [5.2173, 550.00]
+                          ...                ...               ...
+    2019-10-16   [0.90173, 4.00]  [9.0250, 1141.00]  [4.7759, 114.00]
+    2019-10-17   [0.90248, 7.50]   [9.0771, 521.00]   [4.7855, 96.00]
+    2019-10-18  [0.90136, 11.20]   [9.0952, 181.00]  [4.8238, 383.00]
+    2019-10-21   [0.90136, 0.00]   [9.1193, 241.00]  [4.8416, 178.00]
+    2019-10-22   [0.90111, 2.50]   [9.1627, 434.00]  [4.8536, 120.00]
+                        新西兰元/人民币
+    2017-03-01   [4.9320, 66.00]
+    2017-03-02   [4.9320, 66.00]
+    2017-03-03  [4.9076, 244.00]
+    2017-03-04  [4.8647, 429.00]
+    2017-03-05  [4.8647, 429.00]
+                          ...
+    2019-10-16    [4.4529, 4.00]
+    2019-10-17   [4.4539, 10.00]
+    2019-10-18  [4.4885, 346.00]
+    2019-10-21  [4.5140, 255.00]
+    2019-10-22  [4.5305, 165.00]
+    """
+    t = time.time()
+    res = requests.get(JS_CHINA_RMB_DAILY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list_1 = [item["datas"]["美元/人民币"] for item in json_data["list"]]
+    value_list_2 = [item["datas"]["欧元/人民币"] for item in json_data["list"]]
+    value_list_3 = [item["datas"]["100日元/人民币"] for item in json_data["list"]]
+    value_list_4 = [item["datas"]["港元/人民币"] for item in json_data["list"]]
+    value_list_5 = [item["datas"]["英镑/人民币"] for item in json_data["list"]]
+    value_list_6 = [item["datas"]["澳元/人民币"] for item in json_data["list"]]
+    value_list_7 = [item["datas"]["新西兰元/人民币"] for item in json_data["list"]]
+    value_df = pd.DataFrame([value_list_1, value_list_2, value_list_3, value_list_4, value_list_5, value_list_6, value_list_7]).T
+    value_df.columns = ["美元/人民币", "欧元/人民币", "100日元/人民币", "港元/人民币", "英镑/人民币", "澳元/人民币", "新西兰元/人民币"]
+    value_df.index = pd.to_datetime(date_list)
+    value_df.name = "currency"
+    return value_df
 
 
 if __name__ == "__main__":
@@ -110,6 +445,16 @@ if __name__ == "__main__":
     df = get_china_monthly_cpi()
     print(df)
     df = get_china_yearly_m2()
+    print(df)
+    df = get_china_yearly_ppi()
+    print(df)
+    df = get_china_yearly_pmi()
+    print(df)
+    df = get_china_yearly_gdp()
+    print(df)
+    df = get_china_yearly_cx_pmi()
+    print(df)
+    df = get_china_yearly_fx_reserves()
     print(df)
 
 

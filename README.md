@@ -174,6 +174,14 @@ import akshare as ak
  'get_china_yearly_cpi'  # 中国年度CPI数据
  'get_china_monthly_cpi'  # 中国月度CPI数据
  'get_china_yearly_m2'  # 中国年度M2数据
+ 'get_china_yearly_ppi'  # 中国年度PPI数据
+ 'get_china_yearly_pmi'  # 中国年度PMI数据
+ 'get_china_yearly_gdp'  # 中国年度GDP数据
+ 'get_china_yearly_cx_pmi'  # 中国年度财新PMI数据
+ 'get_china_yearly_fx_reserves'  # 中国外汇储备数据
+ 'get_china_daily_energy'  # 中国电力能源数据
+ 'get_china_non_man_pmi'  # 中国年度非制造业PMI数据
+ 'get_china_rmb'  # 人民币中间报价汇率
 ```
 
 ## 3. 案例演示
@@ -1731,7 +1739,8 @@ index_se:
 目标地址: https://cn.investing.com/indices/
 
 描述: 获取世界主要国家的各种指数, 由于涉及国家和指数(**1000**+个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
-具体的调用方式可以参照: 
+具体的调用方式可以参照:
+
 1. 先查询指数所在的国家名称;
 2. 复制网页上国家名称(推荐复制), 如 **美国**;
 3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**;
@@ -2360,4 +2369,15 @@ https://cn.investing.com/rates-bonds/
 
 0.1.80
 更新说明文档-刷新
+
+0.1.81
+新增全球宏观数据-中国宏观数据
+中国年度PPI数据
+中国年度PMI数据 
+中国年度GDP数据
+中国年度财新PMI数据
+中国外汇储备数据
+中国电力能源数据
+中国年度非制造业PMI数据
+人民币中间报价汇率
 ```
