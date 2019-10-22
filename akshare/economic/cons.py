@@ -6,7 +6,8 @@ date: 2019/10/21 21:11
 contact: jindaxiang@163.com
 desc: economic-cons
 """
-# urls
+
+# urls-china
 JS_CHINA_CPI_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_cpi_yoy_all.js?v={}&_={}"
 JS_CHINA_CPI_MONTHLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_cpi_mom_all.js?v={}&_={}"
 JS_CHINA_M2_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_m2_money_supply_yoy_all.js?v={}&_={}"
@@ -18,3 +19,5 @@ JS_CHINA_FX_RESERVES_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_f
 JS_CHINA_ENERGY_DAILY_URL = "https://cdn.jin10.com/dc/reports/dc_qihuo_energy_report_all.js?v={}&_={}"
 JS_CHINA_NON_MAN_PMI_MONTHLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_non_manufacturing_pmi_all.js?v={}&_={}"
 JS_CHINA_RMB_DAILY_URL = "https://cdn.jin10.com/dc/reports/dc_rmb_data_all.js?v={}&_={}"
+
+# urls-american

@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 import matplotlib.pyplot as plt
 
-from akshare.fund.fund_cons import zdzk_headers, code_name_map_dict
+from akshare.fund.cons import zdzk_headers, code_name_map_dict
 
 plt.rcParams['font.sans-serif'] = ['SimHei']  # 步骤一(替换sans-serif字体)
 plt.rcParams['axes.unicode_minus'] = False  # 步骤二(解决坐标轴负数的负号显示问题)

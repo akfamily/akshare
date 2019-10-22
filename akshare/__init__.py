@@ -1,4 +1,4 @@
-"""AkShare 是实现对期货等衍生金融产品从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 AkShare 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论."""
+"""AkShare 是基于 Python 的开源数据接口库, 目的是实现对期货, 期权, 基金等衍生金融产品和另类数据从数据采集, 数据清洗加工, 到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 AkShare 获取的是基于交易所公布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 得出科学的结论."""
 
 """
 版本改动记录:
@@ -174,17 +174,17 @@ __author__ = 'Albert King'
 """
 全球宏观-中国宏观
 """
-from akshare.economic.get_macro_data import (get_china_monthly_cpi,
-                                             get_china_yearly_cpi,
-                                             get_china_yearly_m2,
-                                             get_china_yearly_fx_reserves,
-                                             get_china_yearly_cx_pmi,
-                                             get_china_yearly_pmi,
-                                             get_china_daily_energy,
-                                             get_china_non_man_pmi,
-                                             get_china_rmb,
-                                             get_china_yearly_gdp,
-                                             get_china_yearly_ppi)
+from akshare.economic.macro_data_china import (get_china_monthly_cpi,
+                                               get_china_yearly_cpi,
+                                               get_china_yearly_m2,
+                                               get_china_yearly_fx_reserves,
+                                               get_china_yearly_cx_pmi,
+                                               get_china_yearly_pmi,
+                                               get_china_daily_energy,
+                                               get_china_non_man_pmi,
+                                               get_china_rmb,
+                                               get_china_yearly_gdp,
+                                               get_china_yearly_ppi)
 
 """
 全球期货
@@ -201,8 +201,8 @@ from akshare.fx.fx_quote import (get_fx_pair_quote,
 """
 债券行情
 """
-from akshare.bond.dev_china_bond import (get_bond_market_quote,
-                                         get_bond_market_trade)
+from akshare.bond.china_bond import (get_bond_market_quote,
+                                     get_bond_market_trade)
 
 """
 商品期权
@@ -214,12 +214,12 @@ from akshare.option.daily_bar import (get_dce_option_daily,
 """
 英为财情-债券
 """
-from akshare.bond.get_investing_bond import (get_country_bond)  # 债券-全球政府债券行情与收益率
+from akshare.bond.investing_bond import (get_country_bond)  # 债券-全球政府债券行情与收益率
 
 """
 英为财情-指数
 """
-from akshare.index.get_investing_index import (get_country_index)  # 股票指数-全球股指与期货指数数据接口
+from akshare.index.investing_index import (get_country_index)  # 股票指数-全球股指与期货指数数据接口
 
 """
 99期货数据
@@ -297,7 +297,7 @@ from akshare.futures.daily_bar import (get_cffex_daily,
 配置文件
 """
 from akshare.futures import (cons)
-from akshare.fund import (fund_cons)
+from akshare.fund import (cons)
 
 """
 发邮件模块

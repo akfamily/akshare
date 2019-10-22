@@ -1,11 +1,10 @@
-#!/usr/bin/env python
 # -*- coding:utf-8 -*-
-
+# /usr/bin/env python
 """
-    Created on 2016年10月17日
-    @author: Jimmy Liu
-    @group : waditu
-    @contact: jimmysoa@sina.cn
+Author: Albert King
+date: 2019/9/30 13:58
+contact: jindaxiang@163.com
+desc: 常用变量
 """
 
 countries_dict = {
