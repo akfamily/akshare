@@ -22,9 +22,7 @@ SHFE_OPTION_URL = "http://www.shfe.com.cn/data/dailydata/option/kx/kx{}.dat"
 CZCE_DAILY_OPTION_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Option/{}/{}/OptionDataDaily.txt"
 
 # PAYLOAD
-
-
-shfe_headers = {"User-Agent": "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"}
+SHFE_HEADERS = {"User-Agent": "Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)"}
 
 DATE_PATTERN = re.compile(r"^([0-9]{4})[-/]?([0-9]{2})[-/]?([0-9]{2})")
 

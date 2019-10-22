@@ -8,6 +8,7 @@ desc:
 """
 import datetime
 import warnings
+from io import StringIO
 
 import requests
 import pandas as pd
@@ -17,7 +18,7 @@ from akshare.option.cons import (get_calendar,
                                  DCE_DAILY_OPTION_URL,
                                  SHFE_OPTION_URL,
                                  CZCE_DAILY_OPTION_URL_3,
-                                 shfe_headers)
+                                 SHFE_HEADERS)
 
 calendar = get_calendar()
 
@@ -76,9 +77,8 @@ def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
         "exportFlag": "txt"
     }
     res = requests.post(url, data=payload)
-    with open("temp.txt", "w") as f:
-        f.write(res.text)
-    table_df = pd.read_table("temp.txt", encoding="gbk", skiprows=2, header=None, sep=r"\t\t", engine="python")
+    f = StringIO(res.text)
+    table_df = pd.read_table(f, encoding="gbk", skiprows=2, header=None, sep=r"\t\t", engine="python")
     another_df = table_df.iloc[table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:, [0, 1]]
     another_df.reset_index(inplace=True, drop=True)
     another_df.iloc[0] = another_df.iat[0, 0].split("\t")
@@ -159,9 +159,8 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
         url = CZCE_DAILY_OPTION_URL_3.format(day.strftime('%Y'), day.strftime('%Y%m%d'))
         try:
             r = requests.get(url)
-            with open("temp.txt", "w") as f:
-                f.write(r.text)
-            table_df = pd.read_table("temp.txt", encoding="gbk", skiprows=1, sep="|")
+            f = StringIO(r.text)
+            table_df = pd.read_table(f, encoding="utf-8", skiprows=1, sep="|")
             if symbol == "白糖期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SR")]
                 temp_df.reset_index(inplace=True, drop=True)
@@ -281,7 +280,7 @@ def get_shfe_option_daily(trade_date="20191017", symbol="铜期权"):
     if day > datetime.date(2010, 8, 24):
         url = SHFE_OPTION_URL.format(day.strftime('%Y%m%d'))
         try:
-            r = requests.get(url, headers=shfe_headers)
+            r = requests.get(url, headers=SHFE_HEADERS)
             json_data = r.json()
             table_df = pd.DataFrame([row for row in json_data['o_curinstrument'] if
                                      row['INSTRUMENTID'] not in ['小计', '合计'] and row['INSTRUMENTID'] != ''])

@@ -4,8 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc:
-货可查指数目前已经收费, 特提供奇货可查-工具数据接口, 方便您调用
+desc: 货可查指数目前已经收费, 特提供奇货可查-工具数据接口, 方便您调用
 """
 import pandas as pd
 import requests
@@ -131,7 +130,7 @@ def get_qhkc_tool_gdp(url: AnyStr = QHKC_TOOL_GDP_URL):
 
 
 if __name__ == "__main__":
-    # df = get_qhkc_tool_foreign()
-    # print(df)
+    df = get_qhkc_tool_foreign()
+    print(df)
     df = get_qhkc_tool_gdp()
     print(df)
