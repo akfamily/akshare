@@ -172,9 +172,11 @@ https://cn.investing.com/rates-bonds/
 美国非农就业人数报告
 美国失业率报告
 美国EIA原油库存报告
+0.1.83
+更新说明文档
 """
 
-__version__ = '0.1.82'
+__version__ = '0.1.83'
 __author__ = 'Albert King'
 
 """
@@ -183,8 +185,7 @@ __author__ = 'Albert King'
 from akshare.economic.macro_data_usa import (get_usa_eia_crude_rate,
                                              get_usa_interest_rate,
                                              get_usa_non_farm,
-                                             get_usa_unemployment_rate
-                                             )
+                                             get_usa_unemployment_rate)
 
 """
 全球宏观-中国宏观
