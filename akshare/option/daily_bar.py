@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc:
+desc: 获取商品期权数据
 """
 import datetime
 import warnings

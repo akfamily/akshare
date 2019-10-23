@@ -166,10 +166,25 @@ https://cn.investing.com/rates-bonds/
 中国电力能源数据
 中国年度非制造业PMI数据
 人民币中间报价汇率
+0.1.82
+新增全球宏观数据-美国宏观数据
+美联储利率决议报告
+美国非农就业人数报告
+美国失业率报告
+美国EIA原油库存报告
 """
 
-__version__ = '0.1.81'
+__version__ = '0.1.82'
 __author__ = 'Albert King'
+
+"""
+全球宏观-美国宏观
+"""
+from akshare.economic.macro_data_usa import (get_usa_eia_crude_rate,
+                                             get_usa_interest_rate,
+                                             get_usa_non_farm,
+                                             get_usa_unemployment_rate
+                                             )
 
 """
 全球宏观-中国宏观

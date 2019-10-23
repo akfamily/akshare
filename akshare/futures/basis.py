@@ -182,5 +182,5 @@ def _check_information(df_data, date):
 if __name__ == '__main__':
     df = get_spot_price_daily(start_day='20181108', end_day='20181110')
     print(df)
-    df = get_spot_price('20180910')
+    df = get_spot_price('20191023')
     print(df)

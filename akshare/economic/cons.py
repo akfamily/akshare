@@ -20,4 +20,8 @@ JS_CHINA_ENERGY_DAILY_URL = "https://cdn.jin10.com/dc/reports/dc_qihuo_energy_re
 JS_CHINA_NON_MAN_PMI_MONTHLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_non_manufacturing_pmi_all.js?v={}&_={}"
 JS_CHINA_RMB_DAILY_URL = "https://cdn.jin10.com/dc/reports/dc_rmb_data_all.js?v={}&_={}"
 
-# urls-american
+# urls-usa
+JS_USA_INTEREST_RATE_URL = "https://cdn.jin10.com/dc/reports/dc_usa_interest_rate_decision_all.js?v={}&_={}"
+JS_USA_NON_FARM_URL = "https://cdn.jin10.com/dc/reports/dc_nonfarm_payrolls_all.js?v={}&_={}"
+JS_USA_UNEMPLOYMENT_RATE_URL = "https://cdn.jin10.com/dc/reports/dc_usa_unemployment_rate_all.js??v={}&_={}"
+JS_USA_EIA_CRUDE_URL = "https://cdn.jin10.com/dc/reports/dc_eia_crude_oil_all.js?v={}&_={}"

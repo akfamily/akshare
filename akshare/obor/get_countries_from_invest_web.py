@@ -1,9 +1,10 @@
 # -*- coding:utf-8 -*-
+# /usr/bin/env python
 """
-Created on 2019年01月15日
-@author: Ablert King
-@contact: jindaxiang@163.com
-
+Author: Albert King
+date: 2019/10/17 0:50
+contact: jindaxiang@163.com
+desc:
 from the official website: https://cn.investing.com/indices/world-indices/ get the country index list
 There are 45 countries in OBOR(exclude China), but we get the China data
 We list the countries having financial index data fetched in investing.com
@@ -12,7 +13,7 @@ We list the countries having financial index data fetched in investing.com
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-from akshare.akshare.obor import cons
+from akshare.obor import cons
 
 
 def get_countries_url():
