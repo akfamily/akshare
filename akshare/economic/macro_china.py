@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/21 12:08
 contact: jindaxiang@163.com
-desc: 获取金十数据-数据中心-中国-中国CPI年率报告
+desc: 获取金十数据-数据中心-中国-中国宏观
 """
 import json
 import time

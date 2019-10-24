@@ -174,33 +174,74 @@ https://cn.investing.com/rates-bonds/
 美国EIA原油库存报告
 0.1.83
 更新说明文档
+0.1.84
+新增全球宏观数据-美国宏观数据
+美国初请失业金人数报告美国核心
+PCE物价指数年率报告
+美国CPI月率报告
+美联储劳动力市场状况指数报告
+美国ADP就业人数报告
+美国国内生产总值(GDP)报告
+美国原油产量报告
+新增全球宏观数据-欧洲宏观数据
+欧洲央行决议报告
+新增全球宏观数据-机构宏观数据
+全球最大黄金ETF—SPDR Gold Trust持仓报告
+全球最大白银ETF--iShares Silver Trust持仓报告
+欧佩克报告
 """
 
-__version__ = '0.1.83'
+__version__ = '0.1.84'
 __author__ = 'Albert King'
+
+"""
+全球宏观-机构宏观
+"""
+from akshare.economic.macro_constitute import (get_cons_gold_amount,
+                                               get_cons_gold_change,
+                                               get_cons_gold_volume,
+                                               get_cons_opec_month,
+                                               get_cons_opec_near_change,
+                                               get_cons_silver_amount,
+                                               get_cons_silver_change,
+                                               get_cons_silver_volume)
+
+"""
+全球宏观-欧洲宏观
+"""
+from akshare.economic.macro_euro import (get_euro_interest_rate)
 
 """
 全球宏观-美国宏观
 """
-from akshare.economic.macro_data_usa import (get_usa_eia_crude_rate,
-                                             get_usa_interest_rate,
-                                             get_usa_non_farm,
-                                             get_usa_unemployment_rate)
+from akshare.economic.macro_usa import (get_usa_eia_crude_rate,
+                                        get_usa_interest_rate,
+                                        get_usa_non_farm,
+                                        get_usa_unemployment_rate,
+                                        get_usa_adp_employment,
+                                        get_usa_core_pce_price,
+                                        get_usa_cpi_monthly,
+                                        get_usa_crude_alaska,
+                                        get_usa_crude_inner,
+                                        get_usa_crude_state,
+                                        get_usa_gdp_monthly,
+                                        get_usa_initial_jobless,
+                                        get_usa_lmci)
 
 """
 全球宏观-中国宏观
 """
-from akshare.economic.macro_data_china import (get_china_monthly_cpi,
-                                               get_china_yearly_cpi,
-                                               get_china_yearly_m2,
-                                               get_china_yearly_fx_reserves,
-                                               get_china_yearly_cx_pmi,
-                                               get_china_yearly_pmi,
-                                               get_china_daily_energy,
-                                               get_china_non_man_pmi,
-                                               get_china_rmb,
-                                               get_china_yearly_gdp,
-                                               get_china_yearly_ppi)
+from akshare.economic.macro_china import (get_china_monthly_cpi,
+                                          get_china_yearly_cpi,
+                                          get_china_yearly_m2,
+                                          get_china_yearly_fx_reserves,
+                                          get_china_yearly_cx_pmi,
+                                          get_china_yearly_pmi,
+                                          get_china_daily_energy,
+                                          get_china_non_man_pmi,
+                                          get_china_rmb,
+                                          get_china_yearly_gdp,
+                                          get_china_yearly_ppi)
 
 """
 全球期货

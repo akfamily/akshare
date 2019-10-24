@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(本文档更新于 **2019-10-23**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(本文档更新于 **2019-10-24**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -52,6 +52,8 @@
     
     6.10 增加[金十数据网站](https://www.jin10.com/)数据接口, 提供全球宏观经济数据接口-美国宏观(开发完成);
     
+    6.11 增加[金十数据网站](https://www.jin10.com/)数据接口, 提供全球宏观经济数据接口-欧洲、机构宏观(开发完成);
+
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 9. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
@@ -189,6 +191,26 @@ import akshare as ak
  'get_usa_non_farm'  # 美国非农就业人数报告
  'get_usa_unemployment_rate'  # 美国失业率报告
  'get_usa_eia_crude_rate'  # 美国EIA原油库存报告
+ 'get_usa_core_pce_price'  # 美国核心PCE物价指数年率报告
+ 'get_usa_cpi_monthly'  # 美国CPI月率报告
+ 'get_usa_crude_alaska'  # 美国原油产量报告-美国阿拉斯加州原油产量
+ 'get_usa_crude_inner'  # 美国原油产量报告-美国国内原油总量
+ 'get_usa_crude_state'  # 美国原油产量报告-美国本土48州原油产量
+ 'get_usa_gdp_monthly'  # 美国国内生产总值(GDP)报告
+ 'get_usa_initial_jobless'  # 美国初请失业金人数报告
+ 'get_usa_lmci'  # 美联储劳动力市场状况指数报告
+ 'get_usa_adp_employment'  # 美国ADP就业人数报告
+ # 宏观-欧洲
+ 'get_euro_interest_rate'  # 欧洲央行决议报告
+ # 宏观-主要机构
+ 'get_cons_gold_amount'  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-总价值
+ 'get_cons_gold_change'  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-增持/减持
+ 'get_cons_gold_volume'  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-总库存
+ 'get_cons_opec_month'  # 欧佩克报告-差异
+ 'get_cons_opec_near_change'  # 欧佩克报告-月份
+ 'get_cons_silver_amount'  # 全球最大白银ETF--iShares Silver Trust持仓报告-总价值
+ 'get_cons_silver_change'  # 全球最大白银ETF--iShares Silver Trust持仓报告-增持/减持
+ 'get_cons_silver_volume'  # 全球最大白银ETF--iShares Silver Trust持仓报告-总库存
 ```
 
 ## 3. 案例演示
@@ -2624,4 +2646,20 @@ https://cn.investing.com/rates-bonds/
 
 0.1.83
 更新说明文档
+
+0.1.84
+新增全球宏观数据-美国宏观数据
+美国初请失业金人数报告美国核心
+PCE物价指数年率报告
+美国CPI月率报告
+美联储劳动力市场状况指数报告
+美国ADP就业人数报告
+美国国内生产总值(GDP)报告
+美国原油产量报告
+新增全球宏观数据-欧洲宏观数据
+欧洲央行决议报告
+新增全球宏观数据-机构宏观数据
+全球最大黄金ETF—SPDR Gold Trust持仓报告
+全球最大白银ETF--iShares Silver Trust持仓报告
+欧佩克报告
 ```
