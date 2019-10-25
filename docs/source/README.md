@@ -2853,4 +2853,7 @@ PCE物价指数年率报告
 
 0.1.89
 更新requirements.txt
+
+0.1.90
+更新setup.py
 ```

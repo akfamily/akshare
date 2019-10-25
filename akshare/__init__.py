@@ -199,9 +199,11 @@ PCE物价指数年率报告
 更新说明文档
 0.1.89
 更新requirements.txt
+0.1.90
+更新setup.py
 """
 
-__version__ = '0.1.89'
+__version__ = '0.1.90'
 __author__ = 'Albert King'
 
 """
