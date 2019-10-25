@@ -197,9 +197,11 @@ PCE物价指数年率报告
 新增和讯财经-企业社会责任数据接口
 0.1.88
 更新说明文档
+0.1.89
+更新requirements.txt
 """
 
-__version__ = '0.1.88'
+__version__ = '0.1.89'
 __author__ = 'Albert King'
 
 """
