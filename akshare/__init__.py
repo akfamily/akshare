@@ -189,10 +189,17 @@ PCE物价指数年率报告
 全球最大黄金ETF—SPDR Gold Trust持仓报告
 全球最大白银ETF--iShares Silver Trust持仓报告
 欧佩克报告
+0.1.85
+新增期货-仓单有效期接口
 """
 
-__version__ = '0.1.84'
+__version__ = '0.1.85'
 __author__ = 'Albert King'
+
+"""
+期货-仓单有效期
+"""
+from akshare.futures.receipt_period import (get_receipt_date)
 
 """
 全球宏观-机构宏观
