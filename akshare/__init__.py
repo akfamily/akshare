@@ -193,10 +193,17 @@ PCE物价指数年率报告
 新增期货-仓单有效期接口
 0.1.86
 更新说明文档
+0.1.87
+新增和讯财经-企业社会责任数据接口
 """
 
-__version__ = '0.1.86'
+__version__ = '0.1.87'
 __author__ = 'Albert King'
+
+"""
+和讯财经-企业社会责任
+"""
+from akshare.stock.stock_report import (get_stock_scr_report)
 
 """
 期货-仓单有效期
