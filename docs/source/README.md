@@ -448,7 +448,7 @@ ak.get_zdzk_fund_index(index_type=32, plot=True)
 接口示例
 ```python
 import akshare as ak
-data = ak.get_receipt_date(exchange=1, symbol=6, plot=True)
+data = ak.get_receipt_date()
 print(data)
 ```
 
@@ -2767,4 +2767,7 @@ PCE物价指数年率报告
 
 0.1.85
 新增期货-仓单有效期接口
+
+0.1.86
+更新说明文档
 ```
