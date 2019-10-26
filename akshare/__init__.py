@@ -201,10 +201,18 @@ PCE物价指数年率报告
 更新requirements.txt
 0.1.90
 更新setup.py
+0.1.91
+新增和讯财经-中国概念股行情及日频历史数据接口
 """
 
-__version__ = '0.1.90'
+__version__ = '0.1.91'
 __author__ = 'Albert King'
+
+"""
+和讯财经-行情及历史数据
+"""
+from akshare.stock.usa_stock_current import (get_stock_usa_current,
+                                             get_stock_usa_history_daily)
 
 """
 和讯财经-企业社会责任
