@@ -221,6 +221,9 @@ import akshare as ak
  'get_receipt_date'  # 期货仓单有效期数据
  # 股票-企业社会责任
  'get_stock_scr_report'  # 企业社会责任数据
+ # 美股-中国概念股行情和历史数据
+ 'get_stock_usa_current'  # 中国概念股行情
+ 'get_stock_usa_history_daily'  # 中国概念股历史数据
 ```
 
 ## 3. 案例演示
@@ -2986,4 +2989,7 @@ PCE物价指数年率报告
 
 0.1.91
 新增和讯财经-中国概念股行情及日频历史数据接口
+
+0.1.92
+更新说明文档
 ```
