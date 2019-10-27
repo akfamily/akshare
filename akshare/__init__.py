@@ -207,10 +207,25 @@ PCE物价指数年率报告
 更新说明文档
 0.1.93
 新增交易法门-套利工具-跨期价差(自由价差)数据接口
+0.1.94
+新增生意社-商品与期货-现期图数据接口
+新增西本新干线-指数数据
 """
 
-__version__ = '0.1.93'
+__version__ = '0.1.94'
 __author__ = 'Albert King'
+
+"""
+西本新干线-指数数据
+"""
+from akshare.futures_derivative.xgx_data import (get_code_pic,
+                                                 get_xgx_data)
+
+"""
+生意社-商品与期货-现期图数据
+"""
+from akshare.futures_derivative.sys_spot_futures import (get_sys_spot_futures,
+                                                         get_sys_spot_futures_dict)
 
 """
 交易法门-套利工具-跨期价差(自由价差)

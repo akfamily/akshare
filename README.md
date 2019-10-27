@@ -61,7 +61,8 @@
     6.14 增加[和讯网网站](http://www.hexun.com/)数据接口, 提供美国-中概股行情及历史数据(开发完成);
     
     6.15 增加[交易法门网站](https://www.jiaoyifamen.com/)数据接口, 提供套利工具-跨期价差(自由价差)数据(开发完成);
-
+    
+    6.16 增加
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 9. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
@@ -3147,4 +3148,8 @@ PCE物价指数年率报告
 
 0.1.93
 新增交易法门-套利工具-跨期价差(自由价差)数据接口
+
+0.1.94
+新增生意社-商品与期货-现期图数据接口
+新增西本新干线-指数数据
 ```
