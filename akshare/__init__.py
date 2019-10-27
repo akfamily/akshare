@@ -205,10 +205,19 @@ PCE物价指数年率报告
 新增和讯财经-中国概念股行情及日频历史数据接口
 0.1.92
 更新说明文档
+0.1.93
+新增交易法门-套利工具-跨期价差(自由价差)数据接口
 """
 
-__version__ = '0.1.92'
+__version__ = '0.1.93'
 __author__ = 'Albert King'
+
+"""
+交易法门-套利工具-跨期价差(自由价差)
+"""
+from akshare.futures_derivative.arbitrage_tools import (get_futures_csa_params,
+                                                        get_futures_csa_seasonally,
+                                                        get_futures_csa_history)
 
 """
 和讯财经-行情及历史数据

@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(本文档更新于 **2019-10-27**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(本文档更新于 **2019-10-28**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -59,6 +59,8 @@
     6.13 增加[和讯网网站](http://www.hexun.com/)数据接口, 提供股票-企业社会责任数据(开发完成);
     
     6.14 增加[和讯网网站](http://www.hexun.com/)数据接口, 提供美国-中概股行情及历史数据(开发完成);
+    
+    6.15 增加[交易法门网站](https://www.jiaoyifamen.com/)数据接口, 提供套利工具-跨期价差(自由价差)数据(开发完成);
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 9. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
@@ -224,6 +226,10 @@ import akshare as ak
  # 美股-中国概念股行情和历史数据
  'get_stock_usa_current'  # 中国概念股行情
  'get_stock_usa_history_daily'  # 中国概念股历史数据
+ # 中国期货跨期价差(自由价差)数据接口
+ 'get_futures_csa_params'  # 获取跨期价差参数
+ 'get_futures_csa_history'  # 获取跨期价差历史数据
+ 'get_futures_csa_seasonally'  # 获取跨期价差季节性数据
 ```
 
 ## 3. 案例演示
@@ -618,6 +624,152 @@ print(data)
 展期收益率是由不同交割月的价差除以相隔月份数计算得来, 它反映了市场对该品种在近期交割和远期交割的价差预期.
 
 ### 期货基础数据
+
+#### 跨期价差
+
+跨期价差数据是从[交易法门网站](https://www.jiaoyifamen.com/)获取的数据即时更新, 更新频率为日频
+
+接口: get_futures_csa_params, get_futures_csa_history, get_futures_csa_seasonally
+
+目标地址: https://www.jiaoyifamen.com/
+
+描述: 获取跨期价差数据
+
+限量: 单次返回某两个品种在两个不同时间的合约的价差
+
+输入参数(get_futures_csa_params)
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |   -|
+
+
+输出参数(get_futures_csa_params)
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| - | -  | -    |返回字典; 键:为交易所简称, 值:为具体的品种代码和中文简称|
+
+
+接口示例
+```python
+import akshare as ak
+data = ak.get_futures_csa_params()
+print(data)
+```
+
+数据示例
+```
+{
+'中国金融期货交易所': {'TF': '五债', 'T': '十债', 'IC': '中证500', 'IF': '沪深300', 'IH': '上证50', 'TS': '二债'}, 
+'郑州商品交易所': {'FG': '玻璃', 'RS': '菜籽', 'CF': '郑棉', 'LR': '晚稻', 'CJ': '红枣', 'JR': '粳稻', 'ZC': '郑煤', 'TA': 'PTA', 'AP': '苹果', 'WH': '郑麦', 'SF': '硅铁', 'MA': '郑醇', 'CY': '棉纱', 'RI': '早稻', 'OI': '郑油', 'SM': '硅锰', 'RM': '菜粕', 'UR': '尿素', 'PM': '普麦', 'SR': '白糖'}, 
+'大连商品交易所': {'PP': 'PP', 'RR': '粳米', 'BB': '纤板', 'A': '豆一', 'EG': '乙二醇', 'B': '豆二', 'C': '玉米', 'JM': '焦煤', 'I': '铁矿', 'J': '焦炭', 'L': '塑料', 'M': '豆粕', 'P': '棕榈', 'CS': '淀粉', 'V': 'PVC', 'Y': '豆油', 'JD': '鸡蛋', 'FB': '胶板', 'EB': '苯乙烯'}, 
+'上海期货交易所': {'SS': '不锈钢', 'RU': '橡胶', 'AG': '沪银', 'AL': '沪铝', 'FU': '燃油', 'RB': '螺纹', 'CU': '沪铜', 'PB': '沪铅', 'BU': '沥青', 'AU': '沪金', 'ZN': '沪锌', 'SN': '沪锡', 'HC': '热卷', 'NI': '沪镍', 'WR': '线材', 'SP': '纸浆'}, 
+'上海国际能源交易中心': {'SC': '原油', 'NR': '20号胶'}
+}
+```
+
+输入参数(get_futures_csa_history)
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| type_1 | str  | Y    |   type_1="RB"; 需要参与计算价差的品种一, 具体参数运行 **get_futures_csa_params** 查阅|
+| type_2 | str| Y    |     type_2="RB"; 需要参与计算价差的品种二， 具体参数运行 **get_futures_csa_params** 查阅|
+| code_1 | str  | Y    |   code_1="01"; 品种一的具体合约, e.g., 01, 02 *** 12|
+| code_2 | str | Y    |   code_2="05"; 品种二的具体合约, e.g., 01, 02 *** 12|
+| plot | Bool  | Y    |   plot=True|
+
+, , , , 
+
+输出参数(get_futures_csa_history)
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| date | datetime  | Y    |-|
+| value | float  | Y    |-|
+
+
+接口示例
+```python
+import akshare as ak
+data = ak.get_futures_csa_history()
+print(data)
+```
+
+数据示例
+```
+2013-01-04   -121
+2013-01-07   -124
+2013-01-08   -150
+2013-01-09   -143
+2013-01-10   -195
+             ...
+2019-10-21    116
+2019-10-22    126
+2019-10-23    123
+2019-10-24    126
+2019-10-25    134
+```
+
+输入参数(get_futures_csa_seasonally)
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| type_1 | str  | Y    |   type_1="RB"; 需要参与计算价差的品种一, 具体参数运行 **get_futures_csa_params** 查阅|
+| type_2 | str| Y    |     type_2="RB"; 需要参与计算价差的品种二， 具体参数运行 **get_futures_csa_params** 查阅|
+| code_1 | str  | Y    |   code_1="01"; 品种一的具体合约, e.g., 01, 02 *** 12|
+| code_2 | str | Y    |   code_2="05"; 品种二的具体合约, e.g., 01, 02 *** 12|
+| plot | Bool  | Y    |   plot=True|
+
+, , , , 
+
+输出参数(get_futures_csa_seasonally)
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| date | str  | Y    |-|
+| year2019 | float  | Y    |-|
+| year2018 | float  | Y    |-|
+| ... | ...  | ...    |...
+| year2013 | float  | Y    |-|
+
+
+接口示例
+```python
+import akshare as ak
+data = ak.get_futures_csa_seasonally()
+print(data)
+```
+
+数据示例
+```
+                      year2019  year2018  year2017  year2016  year2015  year2014  \
+    dataCategory
+    01-02            452.0     406.0       NaN       NaN       NaN    -262.0
+    01-03            408.0     409.0      90.0       NaN       NaN    -249.0
+    01-04            380.0     412.0      50.0      60.0       NaN       NaN
+    01-05              NaN     377.0      67.0      56.0      20.0       NaN
+    01-06              NaN       NaN      48.0      80.0       1.0    -242.0
+                    ...       ...       ...       ...       ...       ...
+    12-27              NaN     490.0     298.0      -4.0       NaN       NaN
+    12-28              NaN     448.0     383.0       NaN      77.0       NaN
+    12-29              NaN       NaN     454.0      17.0      67.0      93.0
+    12-30              NaN       NaN       NaN      56.0      63.0      44.0
+    12-31              NaN       NaN       NaN       NaN      61.0       1.0
+                  year2013
+    dataCategory
+    01-02              NaN
+    01-03              NaN
+    01-04           -121.0
+    01-05              NaN
+    01-06              NaN
+                    ...
+    12-27           -174.0
+    12-28              NaN
+    12-29              NaN
+    12-30           -194.0
+    12-31           -223.0
+```
 
 #### 仓单有效期
 
@@ -2992,4 +3144,7 @@ PCE物价指数年率报告
 
 0.1.92
 更新说明文档
+
+0.1.93
+新增交易法门-套利工具-跨期价差(自由价差)数据接口
 ```
