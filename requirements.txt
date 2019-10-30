@@ -19,3 +19,4 @@ urllib3==1.25.6
 wincertstore==0.2
 sphinx-markdown-tables
 demjson
+pyexecjs
