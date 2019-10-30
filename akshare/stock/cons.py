@@ -6,6 +6,23 @@ date: 2019/10/25 15:56
 contact: jindaxiang@163.com
 desc:
 """
+# hk
+hk_url = "http://stock.gtimg.cn/data/hk_rank.php"
+hk_headers = {
+    "Referer": "http://stockapp.finance.qq.com/mstats/",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+}
+hk_payload = {
+    "board": "A_H",
+    "metric": "price",
+    "pageSize": "20",
+    "reqPage": "1",
+    "order": "decs",
+    "var_name": "list_data"
+}
+
+
+# usa
 url_usa_daily = "http://webusstock.hermes.hexun.com/usa/kline"
 payload_usa_daily = {
     "code": "NASDAQNTES",
