@@ -50,25 +50,24 @@ def match_main_contract(exchange="dce"):
             print(item, "无主力合约")
             continue
     print("主力合约获取成功")
-    return subscribe_cffex_list
+    return ','.join(["nf_" + item for item in subscribe_cffex_list])
 
 
-def subscribe_exchange_tick():
-    url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={sub_str}"
+def subscribe_exchange_tick(subscribe_list="nf_V2001,nf_P2001"):
+    url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
     res = requests.get(url)
     data_df = pd.DataFrame(
         [item.strip().split("=")[1].split(",") for item in res.text.split(";") if item.strip() != ""])
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")
     data_df.iloc[:, -1] = data_df.iloc[:, -1].str.replace('"', "")
-    data_df.columns = ["symbol", "time", "open", "high", "low", "pre_settle", "_", "_", "_", "_", "buy_vol", "sell_vol", "hold", "volume", "_", "_", "_""_", "_", "_", "_""_", "_", "_", "_""_", "_", "_", "_", "_", "_"]
-    return data_df[["symbol", "time", "open", "high", "low", "pre_settle", "buy_vol", "sell_vol", "hold", "volume"]]
+    data_df.columns = ["symbol", "time", "open", "high", "low", "pre_settle", "current_price", "_", "_", "_", "buy_vol", "sell_vol", "hold", "volume", "_", "_", "_""_", "_", "_", "_""_", "_", "_", "_""_", "_", "_", "_", "_", "_"]
+    return data_df[["symbol", "time", "open", "high", "low", "pre_settle", "current_price", "buy_vol", "sell_vol", "hold", "volume"]]
 
 
 if __name__ == "__main__":
     subscribe_cffex_list = match_main_contract(exchange="dce")
     print("开始接收实时行情, 每秒刷新一次")
-    sub_str = ','.join(["nf_" + item for item in subscribe_cffex_list])
     while True:
         time.sleep(1)
-        data = subscribe_exchange_tick()
+        data = subscribe_exchange_tick(subscribe_list=subscribe_cffex_list)
         print(data)
