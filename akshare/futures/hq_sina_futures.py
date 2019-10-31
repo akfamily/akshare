@@ -60,14 +60,14 @@ def subscribe_exchange_tick(subscribe_list="nf_V2001,nf_P2001"):
         [item.strip().split("=")[1].split(",") for item in res.text.split(";") if item.strip() != ""])
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")
     data_df.iloc[:, -1] = data_df.iloc[:, -1].str.replace('"', "")
-    data_df.columns = ["symbol", "time", "open", "high", "low", "pre_settle", "current_price", "_", "_", "_", "buy_vol", "sell_vol", "hold", "volume", "_", "_", "_""_", "_", "_", "_""_", "_", "_", "_""_", "_", "_", "_", "_", "_"]
-    return data_df[["symbol", "time", "open", "high", "low", "pre_settle", "current_price", "buy_vol", "sell_vol", "hold", "volume"]]
+    data_df.columns = ["symbol", "time", "open", "high", "low", "_", "current_price", "ask_price", "_", "_", "_", "buy_vol", "sell_vol", "hold", "volume", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"]
+    return data_df[["symbol", "time", "open", "high", "low", "current_price", "ask_price", "buy_vol", "sell_vol", "hold", "volume"]]
 
 
 if __name__ == "__main__":
     subscribe_cffex_list = match_main_contract(exchange="dce")
     print("开始接收实时行情, 每秒刷新一次")
     while True:
-        time.sleep(1)
+        time.sleep(3)
         data = subscribe_exchange_tick(subscribe_list=subscribe_cffex_list)
         print(data)
