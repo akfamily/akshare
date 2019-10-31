@@ -218,9 +218,11 @@ PCE物价指数年率报告
 修正新浪财经-期货-实时数据接口-返回 current_price 和 ask_price 字段为实时数据
 0.1.98
 修正版本更新错误
+0.1.99
+增加自动安装 pillow
 """
 
-__version__ = '0.1.98'
+__version__ = '0.1.99'
 __author__ = 'Albert King'
 
 """

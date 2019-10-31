@@ -20,3 +20,4 @@ wincertstore==0.2
 sphinx-markdown-tables
 demjson
 pyexecjs
+pillow
