@@ -12,6 +12,18 @@ import os
 import re
 import pickle
 
+# sina_tick
+subscribe_exchange_symbol_url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
+match_main_contract_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQFuturesData"
+match_main_contract_payload = {
+    "page": "1",
+    "num": "5",
+    "sort": "position",
+    "asc": "0",
+    "node": "001",
+    "base": "futures"
+}
+
 inventory_temp_headers = {
     "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
     "Accept-Encoding": "gzip, deflate",
@@ -214,7 +226,6 @@ DCE_DAILY_URL = "http://www.dce.com.cn//publicweb/quotesdata/dayQuotesCh.html"
 CZCE_DAILY_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/hq/hq%s.html"
 CZCE_DAILY_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datadaily/%s.txt"
 CZCE_DAILY_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataDaily.txt"
-
 
 DATE_PATTERN = re.compile(r"^([0-9]{4})[-/]?([0-9]{2})[-/]?([0-9]{2})")
 FUTURES_SYMBOL_PATTERN = re.compile(r"(^[A-Za-z]{1,2})[0-9]+")

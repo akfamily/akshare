@@ -210,10 +210,18 @@ PCE物价指数年率报告
 0.1.94
 新增生意社-商品与期货-现期图数据接口
 新增西本新干线-指数数据
+0.1.95
+新增新浪财经-期货-实时数据接口
 """
 
-__version__ = '0.1.94'
+__version__ = '0.1.95'
 __author__ = 'Albert King'
+
+"""
+新浪-期货实时数据
+"""
+from akshare.futures.hq_sina_futures import (subscribe_exchange_tick,
+                                             match_main_contract)
 
 """
 西本新干线-指数数据
