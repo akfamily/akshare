@@ -220,10 +220,18 @@ PCE物价指数年率报告
 修正版本更新错误
 0.1.99
 增加自动安装 pillow
+0.2.1
+增加港股当日(时点)行情数据和历史数据(前复权和后复权因子)
 """
 
-__version__ = '0.1.99'
+__version__ = '0.2.1'
 __author__ = 'Albert King'
+
+"""
+新浪-港股当日(时点)行情数据和历史数据(前复权和后复权因子)
+"""
+from akshare.stock.hk_stock_sina import (get_hk_stock_hist_data,
+                                         get_hk_stock_name)
 
 """
 新浪-期货实时数据

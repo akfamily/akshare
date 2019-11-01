@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/30 11:28
 contact: jindaxiang@163.com
-desc:
+desc: 提供当日行情数据和历史数据(前复权和后复权因子)
 """
 import requests
 import demjson
@@ -39,9 +39,11 @@ def get_hk_stock_hist_data(symbol="00001"):
     hfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])['data'])
     res = requests.get(hk_sina_stock_hist_qfq_url.format(symbol))
     qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])['data'])
+    hfq_factor_df.columns = ["date", "hfq_factor", "cash"]
+    qfq_factor_df.columns = ["date", "qfq_factor"]
     return data_df, hfq_factor_df, qfq_factor_df
 
 
 if __name__ == "__main__":
-    a, b, c = get_hk_stock_hist_data(symbol="00005")
-    df = get_hk_stock_name()
+    data, hfq_factor, qfq_factor = get_hk_stock_hist_data(symbol="00005")
+    stock_df = get_hk_stock_name()
