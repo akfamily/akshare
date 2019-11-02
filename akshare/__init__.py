@@ -222,10 +222,19 @@ PCE物价指数年率报告
 增加自动安装 pillow
 0.2.1
 增加港股当日(时点)行情数据和历史数据(前复权和后复权因子)
+0.2.2
+增加美股当日(时点)行情数据和历史数据(前复权因子)
 """
 
-__version__ = '0.2.1'
+__version__ = '0.2.2'
 __author__ = 'Albert King'
+
+"""
+新浪-美股当日(时点)行情数据和历史数据(前复权)
+"""
+from akshare.stock.us_stock_sina import (get_us_stock_name,
+                                         get_us_stock_hist_data,
+                                         get_us_current_stock_price)
 
 """
 新浪-港股当日(时点)行情数据和历史数据(前复权和后复权因子)

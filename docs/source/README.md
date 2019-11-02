@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(本文档更新于 **2019-11-01**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
+(本文档更新于 **2019-11-02**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 作者: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -65,6 +65,8 @@
     6.16 增加[新浪财经-期货](https://finance.sina.com.cn/futuremarket/)数据接口, 提供期货实时数据(开发完成)
 
     6.17 增加[新浪财经-港股](http://finance.sina.com.cn/stock/hkstock/)数据接口, 提供当日行情数据和历史数据(包括前复权和后复权因子)
+
+    6.18 增加[新浪财经-美股](http://finance.sina.com.cn/stock/usstock/sector.shtml)数据接口, 提供当日行情数据和历史数据(包括前复权因子)
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 9. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
@@ -238,6 +240,10 @@ import akshare as ak
  # 新浪财经-港股
  'get_hk_stock_hist_data'  # 获取港股的历史数据(包括前后复权因子)
  'get_hk_stock_name'  # 获取港股的实时数据(也可以获得所有港股代码)
+ # 新浪财经-美股
+ 'get_us_stock_name'  # 获得美股的所有股票代码
+ 'get_us_stock_hist_data'  # 获取美股的历史数据(包括前复权因子)
+ 'get_us_current_stock_price'  # 获取美股行情报价
 ```
 
 ## 3. 案例演示
@@ -312,6 +318,130 @@ ak.get_zdzk_fund_index(index_type=32, plot=True)
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 股票数据
 
+### 美股
+
+美股数据是从[新浪财经](http://finance.sina.com.cn/stock/usstock/sector.shtml)获取的数据, 历史数据按日频率更新
+
+接口: get_us_stock_hist_data
+
+目标地址: http://finance.sina.com.cn/stock/usstock/sector.shtml
+
+描述: 获取美股行情数据和历史数据
+
+限量: 单次返回某家上市公司的所有历史数据和前复权因子
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |   美股代码, 可以通过**get_us_stock_name**函数返回所有美股代码, 由于美股数据量大, 建议按需要获取|
+
+
+输出参数(历史数据)
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| date          | datetime   | Y        | 日期     |
+| open          | float      | Y        | 开盘价     |
+| high          | float      | Y        | 最高价     |
+| low           | float      | Y        | 最低价     |
+| close         | float      | Y        | 收盘价     |
+| volume        | float      | Y        | 成交量     |
+
+
+输出参数(前复权因子)
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| date          | datetime   | Y        | 日期     |
+| qfq_factor          | float      | Y        | 前复权因子     |
+
+                
+接口示例
+```python
+import akshare as ak
+data, qfq_factor = ak.get_us_stock_hist_data(symbol="AMZN")
+stock_df = ak.get_us_stock_name()
+```
+
+数据示例(历史数据)
+```
+               open     high      low    close   volume
+date                                                   
+1997-05-15    29.25    30.00    23.13    23.50  6013000
+1997-05-16    23.63    23.75    20.50    20.75  1225000
+1997-05-19    21.13    21.25    19.50    20.50   508900
+1997-05-20    20.75    21.00    19.63    19.63   455600
+1997-05-21    19.63    19.75    16.50    17.13  1571100
+             ...      ...      ...      ...      ...
+2019-10-28  1748.06  1778.70  1742.50  1777.08  3708851
+2019-10-29  1774.81  1777.00  1755.81  1762.71  2276855
+2019-10-30  1760.24  1782.38  1759.12  1779.99  2449405
+2019-10-31  1775.99  1792.00  1771.48  1776.66  2781185
+2019-11-01  1788.01  1797.44  1785.21  1791.44  2790354
+```
+
+数据示例(前复权因子)
+```
+         date         qfq_factor
+0  1999-09-02                  1
+1  1999-01-05                0.5
+2  1998-06-02   0.16666666666666
+3  1900-01-01  0.083333333333332
+```
+
+数据示例(港股行情及名词列表**get_us_stock_name**函数返回值)
+```
+                                                 name  \
+0                                         Apple, Inc.   
+1                                     Microsoft Corp.   
+2                                    Amazon.com, Inc.   
+3                                      Alphabet, Inc.   
+4                                      Alphabet, Inc.   
+..                                                ...   
+75                               salesforce.com, inc.   
+76                     Thermo Fisher Scientific, Inc.   
+77                                       AbbVie, Inc.   
+78  iPath Series B Bloomberg Energy Subindex Total...   
+79              International Business Machines Corp.   
+                                                cname category symbol  \
+0                                                苹果公司      计算机   AAPL   
+1                                                微软公司       软件   MSFT   
+2                                               亚马逊公司      互联网   AMZN   
+3                                                  谷歌      互联网   GOOG   
+4                                               谷歌A类股     媒体内容  GOOGL   
+..                                                ...      ...    ...   
+75                                              赛富时公司       软件    CRM   
+76                                          赛默飞世尔科技公司             TMO   
+77                                              艾伯维公司  生物技术和制药   ABBV   
+78  iPath Series B Bloomberg Energy Subindex Total...     None   JJEB   
+79                                    IBM(国际商业机器有限公司)             IBM   
+      price   diff   chg preclose     open     high      low amplitude  \
+0    255.82   7.06  2.84   248.76   249.54   255.93   249.16     2.72%   
+1    143.72   0.35  0.24   143.37   144.26   144.42   142.97     1.01%   
+2   1791.44  14.78  0.83  1776.66  1788.01  1797.44  1785.21     0.69%   
+3   1273.74  13.63  1.08  1260.11  1265.00  1274.62  1260.50     1.12%   
+4   1272.25  13.45  1.07  1258.80  1265.80  1273.00  1259.71     1.06%   
+..      ...    ...   ...      ...      ...      ...      ...       ...   
+75   159.74   3.25  2.08   156.49   157.91   160.09   156.75     2.13%   
+76   303.60   1.62  0.54   301.98   305.00   305.28   303.12     0.72%   
+77    81.75   2.20  2.77    79.55    80.03    82.18    79.13     3.83%   
+78    51.74   0.00  0.00    51.74     0.00     0.00     0.00     3.54%   
+79   135.53   1.80  1.35   133.73   134.50   135.56   134.09     1.10%   
+      volume         mktcap            pe  market category_id  
+0   37781334  1156096660699   21.62468377  NASDAQ           5  
+1   33128366  1097361048289   26.81343240  NASDAQ          14  
+2    2790354   881483397489   77.65236086  NASDAQ          41  
+3    1670072   874498927695   27.11238831  NASDAQ          41  
+4    1440607   873475960000   27.08067289  NASDAQ         702  
+..       ...            ...           ...     ...         ...  
+75   4771053   122239344864  129.86992115    NYSE          14  
+76    990471   122222192032   33.88392911    NYSE         738  
+77  13356251   121302156830   29.94505474    NYSE         700  
+78         0   121175090554          None    AMEX        None  
+79   3089789   120621698914   15.65011561    NYSE         750 
+```
+
 ### 港股
 
 港股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk)获取的数据, 历史数据按日频率更新
@@ -320,7 +450,7 @@ ak.get_zdzk_fund_index(index_type=32, plot=True)
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
 
-描述: 获取港股数据行情数据和历史数据
+描述: 获取港股行情数据和历史数据
 
 限量: 单次返回某家上市公司的前后复权因子和所有历史数据
 
@@ -465,8 +595,6 @@ date
 2434     None    400000000       0.003     2.1276596  
 2435     None   1200000000       0.004     2.4242424 
 ```
-
-
 
 ### 中国概念股
 
@@ -3420,4 +3548,7 @@ PCE物价指数年率报告
 
 0.2.1
 增加港股当日(时点)行情数据和历史数据(前复权和后复权因子)
+
+0.2.2
+增加美股当日(时点)行情数据和历史数据(前复权因子)
 ```

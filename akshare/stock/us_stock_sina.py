@@ -36,7 +36,7 @@ def get_us_current_stock_price():
 
 def get_us_stock_name():
     big_df = pd.DataFrame()
-    for page in range(1, 489):
+    for page in range(1, 5):
         # page = "1"
         print("正在抓取第{}页的美股数据".format(page))
         us_js_decode = "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(page)
@@ -49,7 +49,7 @@ def get_us_stock_name():
     return big_df
 
 
-def get_hk_stock_hist_data(symbol="BRK.A"):
+def get_us_stock_hist_data(symbol="BRK.A"):
     res = requests.get(us_sina_stock_hist_url.format(symbol))
     js_code = execjs.compile(hk_js_decode)
     dict_list = js_code.call('d', res.text.split("=")[1].split(";")[0].replace('"', ""))  # 执行js解密代码
@@ -60,12 +60,13 @@ def get_hk_stock_hist_data(symbol="BRK.A"):
     data_df.astype("float")
     res = requests.get(us_sina_stock_hist_qfq_url.format(symbol))
     qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])['data'])
+    qfq_factor_df.columns = ["date", "qfq_factor"]
     return data_df, qfq_factor_df
 
 
 if __name__ == "__main__":
     df = get_us_stock_name()
     print(df)
-    original_df, fq_df = get_hk_stock_hist_data(symbol="AMZN")
+    original_df, fq_df = get_us_stock_hist_data(symbol="AMZN")
     print(original_df)
     print(fq_df)
