@@ -224,10 +224,18 @@ PCE物价指数年率报告
 增加港股当日(时点)行情数据和历史数据(前复权和后复权因子)
 0.2.2
 增加美股当日(时点)行情数据和历史数据(前复权因子)
+0.2.3
+增加金融期权
 """
 
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 __author__ = 'Albert King'
+
+"""
+金融期权
+"""
+from akshare.option.daily_bar_finance import (get_finance_option,
+                                              get_finance_option_current)
 
 """
 新浪-美股当日(时点)行情数据和历史数据(前复权)
@@ -353,9 +361,9 @@ from akshare.bond.china_bond import (get_bond_market_quote,
 """
 商品期权
 """
-from akshare.option.daily_bar import (get_dce_option_daily,
-                                      get_czce_option_daily,
-                                      get_shfe_option_daily)
+from akshare.option.daily_bar_commodity import (get_dce_option_daily,
+                                                get_czce_option_daily,
+                                                get_shfe_option_daily)
 
 """
 英为财情-债券

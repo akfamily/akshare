@@ -11,6 +11,19 @@ import json
 import os
 import re
 
+# 上海证券交易所
+
+SH_OPTION_URL = "http://yunhq.sse.com.cn:32041/v1/sh1/list/self/510050"
+SH_OPTION_URL_KING = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/510050_{}"
+
+SH_OPTION_PAYLOAD = {
+    "select": "select: code,name,last,change,chg_rate,amp_rate,volume,amount,prev_close"
+}
+
+SH_OPTION_PAYLOAD_OTHER = {
+    "select": "contractid,last,chg_rate,presetpx,exepx"
+}
+
 # 大连商品交易所
 DCE_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html"
 DCE_DAILY_OPTION_URL = "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
