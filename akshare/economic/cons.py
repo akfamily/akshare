@@ -6,6 +6,13 @@ date: 2019/10/21 21:11
 contact: jindaxiang@163.com
 desc: economic-cons
 """
+# bitcoin
+bitcoin_url = "https://datacenter.jin10.com/get_dc_second_data"
+bitcoin_payload = {
+    "type": "dc_bitcoin_current",
+    "jsonpCallback": "jQuery111104191226301236135_{}",
+    "_": "1572857040275"
+}
 
 # urls-china
 JS_CHINA_CPI_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_cpi_yoy_all.js?v={}&_={}"
@@ -40,7 +47,6 @@ JS_EURO_RATE_DECISION_URL = "https://cdn.jin10.com/dc/reports/dc_interest_rate_d
 JS_CONS_GOLD_ETF_URL = "https://cdn.jin10.com/dc/reports/dc_etf_gold_all.js?v={}&_={}"
 JS_CONS_SLIVER_ETF_URL = "https://cdn.jin10.com/dc/reports/dc_etf_sliver_all.js?v={}&_={}"
 JS_CONS_OPEC_URL = "https://cdn.jin10.com/dc/reports/dc_opec_report_all.js??v={}&_={}"
-
 
 usa_name_url_map = {'美联储决议报告': '//datacenter.jin10.com/reportType/dc_usa_interest_rate_decision',
                     '美国非农就业人数报告': '//datacenter.jin10.com/reportType/dc_nonfarm_payrolls',

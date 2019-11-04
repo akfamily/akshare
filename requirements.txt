@@ -18,6 +18,6 @@ soupsieve==1.9.4
 urllib3==1.25.6
 wincertstore==0.2
 sphinx-markdown-tables
-demjson
-pyexecjs
-pillow
+demjson==2.2.4
+pyexecjs==1.5.1
+pillow==6.2.1
