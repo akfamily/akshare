@@ -73,8 +73,9 @@
     6.20 增加[金十数据网站](http://www.sse.com.cn/assortment/options/price/)数据接口, 提供数字货币行情数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
-9. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
+8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/AkShare.png)
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的初衷
 
@@ -3708,4 +3709,7 @@ PCE物价指数年率报告
 
 0.2.4
 增加数字货币行情接口
+
+0.2.5
+增加 AkShare 接口导图
 ```
