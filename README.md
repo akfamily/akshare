@@ -62,13 +62,13 @@
     
     6.15 增加[交易法门网站](https://www.jiaoyifamen.com/)数据接口, 提供套利工具-跨期价差(自由价差)数据(开发完成);
     
-    6.16 增加[新浪财经-期货](https://finance.sina.com.cn/futuremarket/)数据接口, 提供实时行情数据(开发完成)
+    6.16 增加[新浪财经-期货](https://finance.sina.com.cn/futuremarket/)数据接口, 提供实时行情数据(开发完成);
 
-    6.17 增加[新浪财经-港股](http://finance.sina.com.cn/stock/hkstock/)数据接口, 提供实时行情数据和历史行情数据(包括前复权和后复权因子)
+    6.17 增加[新浪财经-港股](http://finance.sina.com.cn/stock/hkstock/)数据接口, 提供实时行情数据和历史行情数据(包括前复权和后复权因子);
 
-    6.18 增加[新浪财经-美股](http://finance.sina.com.cn/stock/usstock/sector.shtml)数据接口, 提供实时行情数据和历史行情数据(包括前复权因子)
+    6.18 增加[新浪财经-美股](http://finance.sina.com.cn/stock/usstock/sector.shtml)数据接口, 提供实时行情数据和历史行情数据(包括前复权因子);
 
-    6.19 增加[上海证券交易所-期权](http://www.sse.com.cn/assortment/options/price/)数据接口, 提供当日期权行情数据
+    6.19 增加[上海证券交易所-期权](http://www.sse.com.cn/assortment/options/price/)数据接口, 提供当日期权行情数据;
     
     6.20 增加[金十数据网站](http://www.sse.com.cn/assortment/options/price/)数据接口, 提供数字货币行情数据;
 
@@ -3753,4 +3753,7 @@ PCE物价指数年率报告
 
 0.2.6
 更新港股数据接口和说明文档
+
+0.2.7
+更新 qhkc 接口注释和说明文档
 ```

@@ -4,12 +4,13 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 奇货可查指数目前已经收费, 特提供奇货可查-指数数据接口, 方便您调用
-注：期货价格为收盘价. 现货价格来自网络. 基差=现货价格-期货价格. 基差率=(现货价格-期货价格)/现货价格 * 100 %.
+desc: 奇货可查网站目前已经商业化运营, 特提供奇货可查-指数数据接口, 方便您程序化调用
+注：期货价格为收盘价; 现货价格来自网络; 基差=现货价格-期货价格; 基差率=(现货价格-期货价格)/现货价格 * 100 %.
 """
+from typing import AnyStr
+
 import pandas as pd
 import requests
-from typing import AnyStr
 
 from akshare.futures.cons import QHKC_INDEX_URL, QHKC_INDEX_TREND_URL, QHKC_INDEX_PROFIT_LOSS_URL
 
