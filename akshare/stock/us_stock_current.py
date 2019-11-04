@@ -4,18 +4,20 @@
 Author: Albert King
 date: 2019/10/26 20:34
 contact: jindaxiang@163.com
-desc: 
+desc: 获取美股历史数据(日频)和实时行情数据
 """
 import datetime as dt
-import importlib
-
+import json
 
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
-import json
 
-from akshare.stock.cons import url_usa, payload_usa, headers_usa, url_usa_daily, payload_usa_daily
+from akshare.stock.cons import (url_usa,
+                                payload_usa,
+                                headers_usa,
+                                url_usa_daily,
+                                payload_usa_daily)
 
 
 def get_stock_usa_current(flag=False):
@@ -47,10 +49,12 @@ def get_stock_usa_current(flag=False):
     188        0.00
     189        0.00
     """
-    payload_usa.update({"time": dt.datetime.now().time().strftime("%H%I%M")})  # 每次更新时间
-    res = requests.get(url_usa, params=payload_usa, headers=headers_usa)  # 上传指定参数, 伪装游览器
+    payload_usa_copy = payload_usa.copy()
+    payload_usa_copy.update({"time": dt.datetime.now().time().strftime("%H%I%M")})  # 每次更新时间
+    res = requests.get(url_usa, params=payload_usa_copy, headers=headers_usa)  # 上传指定参数, 伪装游览器
     data_list = eval(res.text.split("=")[1].strip().rsplit(";")[0])  # eval 出列表
-    data_df = pd.DataFrame(data_list, columns=["代码", "名称", "最新价(美元)", "涨跌幅", "d_1", "d_2", "最高", "最低", "昨收", "d_3", "成交量", "d_4"])
+    data_df = pd.DataFrame(data_list,
+                           columns=["代码", "名称", "最新价(美元)", "涨跌幅", "d_1", "d_2", "最高", "最低", "昨收", "d_3", "成交量", "d_4"])
     if flag:
         return dict(zip(data_df["名称"], data_df["代码"]))
     return data_df[["代码", "名称", "最新价(美元)", "涨跌幅", "最高", "最低", "昨收", "成交量"]]
@@ -79,13 +83,15 @@ def get_stock_usa_history_daily(code="NTES"):
     hist_headers_usa.update({"Host": "stockdata.stock.hexun.com"})  # 更新游览器头
     res = requests.get("http://stockdata.stock.hexun.com/us/{}.shtml".format(code), headers=hist_headers_usa)
     soup = BeautifulSoup(res.text, "lxml")
-    temp_code = soup.find("dl", attrs={"class": "dlDataTit"}).find("small").get_text().split("(")[1].split(")")[0].replace(":", "")
+    temp_code = soup.find("dl", attrs={"class": "dlDataTit"}).find("small").get_text().split("(")[1].split(")")[
+        0].replace(":", "")
     payload_usa_daily.update({"code": temp_code})  # 更新股票代码, e.g., NYSEBABA
     payload_usa_daily.update({"start": dt.datetime.now().strftime("%Y%m%d" + "213000")})  # 更新时间
     res = requests.get(url_usa_daily, params=payload_usa_daily)
     res.encoding = "utf-8"  # 设置编码格式
     data_dict = json.loads(res.text[1:-2])  # 加载非规范 json 数据
-    data_df = pd.DataFrame(data_dict["Data"][0], columns=[list(item.values())[0] for item in data_dict["KLine"]])  # 设置数据框
+    data_df = pd.DataFrame(data_dict["Data"][0],
+                           columns=[list(item.values())[0] for item in data_dict["KLine"]])  # 设置数据框
     data_df["时间"] = pd.to_datetime(data_df["时间"].astype(str).str.slice(0, 8))  # 规范化时间
     data_df["前收盘价"] = data_df["前收盘价"] / 100  # 规范化数据
     data_df["开盘价"] = data_df["开盘价"] / 100  # 规范化数据
@@ -100,4 +106,4 @@ if __name__ == "__main__":
     df = get_stock_usa_current(flag=0)
     print(df)
     df = get_stock_usa_history_daily(code="CEO")
-    print(df.columns)
+    print(df)

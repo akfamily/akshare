@@ -4,25 +4,25 @@
 Author: Albert King
 date: 2019/10/25 15:56
 contact: jindaxiang@163.com
-desc: 
+desc: 和讯财经-上市公司社会责任报告数据, http://stockdata.stock.hexun.com/zrbg/
 """
 import demjson
-
 import requests
 import pandas as pd
 
-from akshare.stock.cons import (headers,
-                                params,
-                                url)
+from akshare.stock.cons import (hx_headers,
+                                hx_params,
+                                hx_url)
 
 
 def get_stock_scr_report(report_year=2018, page=1):
     """
     获取和讯财经-上市公司社会责任报告数据, 从2010年至今(年度)
+    因为股票数量大, 所以获取某年需要遍历所有页
     :param report_year: int 年份
     :param page: int 具体某页
     :return: pandas.DataFrame
-                    股票名称   股东责任    总得分 等级  员工责任  环境责任   社会责任 供应商、客户和消费者权益责任
+            股票名称   股东责任    总得分 等级  员工责任  环境责任   社会责任 供应商、客户和消费者权益责任
     0    陆家嘴(600663)  23.97  42.97  C  4.00  0.00  15.00           0.00
     1   世荣兆业(002016)  24.61  42.44  C  2.83  0.00  15.00           0.00
     2    万科A(000002)  23.18  42.18  C  4.00  0.00  15.00           0.00
@@ -44,9 +44,10 @@ def get_stock_scr_report(report_year=2018, page=1):
     18  中国平安(601318)  20.59  39.59  D  4.00  0.00  15.00           0.00
     19  深深房A(000029)  22.45  39.47  D  2.02  0.00  15.00           0.00
     """
-    params.update({"date": "{}-12-31".format(str(report_year))})
-    params.update({"page": page})
-    res = requests.get(url, headers=headers, params=params)
+    hx_params_copy = hx_params.copy()
+    hx_params_copy.update({"date": "{}-12-31".format(str(report_year))})
+    hx_params_copy.update({"page": page})
+    res = requests.get(hx_url, headers=hx_headers, params=hx_params_copy)
     temp_df = res.text[res.text.find("(") + 1:res.text.rfind(")")]
     py_obj = demjson.decode(temp_df)
     industry = [item["industry"] for item in py_obj["list"]]
@@ -62,5 +63,6 @@ def get_stock_scr_report(report_year=2018, page=1):
 
 
 if __name__ == "__main__":
-    df = get_stock_scr_report(report_year=2018, page=1)
-    print(df)
+    for i_page in range(1, 100):
+        df = get_stock_scr_report(report_year=2018, page=i_page)
+        print(df)

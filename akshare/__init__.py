@@ -230,9 +230,11 @@ PCE物价指数年率报告
 增加数字货币行情接口
 0.2.5
 增加 AkShare 接口导图
+0.2.6
+更新港股数据接口和说明文档
 """
 
-__version__ = '0.2.5'
+__version__ = '0.2.6'
 __author__ = 'Albert King'
 
 """
@@ -257,7 +259,7 @@ from akshare.stock.us_stock_sina import (get_us_stock_name,
 新浪-港股当日(时点)行情数据和历史数据(前复权和后复权因子)
 """
 from akshare.stock.hk_stock_sina import (get_hk_stock_hist_data,
-                                         get_hk_stock_name)
+                                         get_hk_stock_current)
 
 """
 新浪-期货实时数据
@@ -287,13 +289,13 @@ from akshare.futures_derivative.arbitrage_tools import (get_futures_csa_params,
 """
 和讯财经-行情及历史数据
 """
-from akshare.stock.usa_stock_current import (get_stock_usa_current,
-                                             get_stock_usa_history_daily)
+from akshare.stock.us_stock_current import (get_stock_usa_current,
+                                            get_stock_usa_history_daily)
 
 """
 和讯财经-企业社会责任
 """
-from akshare.stock.stock_report import (get_stock_scr_report)
+from akshare.stock.zh_stock_zrbg_hx import (get_stock_scr_report)
 
 """
 期货-仓单有效期

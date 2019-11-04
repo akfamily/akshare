@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 常用变量
+desc: 期货配置文件
 """
 import datetime
 import json

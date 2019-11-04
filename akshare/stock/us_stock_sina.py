@@ -6,8 +6,9 @@ date: 2019/10/30 18:47
 contact: jindaxiang@163.com
 desc: 获取新浪财经-美股实时数据和历史数据
 """
-import requests
 import json
+
+import requests
 import pandas as pd
 import execjs
 
