@@ -105,6 +105,17 @@ hk_payload = {
     "var_name": "list_data"
 }
 
+hk_stock_url = "http://web.ifzq.gtimg.cn/appstock/app/hkfqkline/get"
+hk_stock_headers = {
+    "Referer": "http://gu.qq.com/hk00168/gp",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+}
+hk_stock_payload = {
+    "_var": "kline_dayhfq{}",
+    "param": "hk{},day,{}-01-01,{}-12-31,640,hfq",
+    "r": ""
+}
+
 # usa
 url_usa_daily = "http://webusstock.hermes.hexun.com/usa/kline"
 payload_usa_daily = {

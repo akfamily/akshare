@@ -4,7 +4,8 @@
 Author: Albert King
 date: 2019/10/26 20:34
 contact: jindaxiang@163.com
-desc: 获取美股历史数据(日频)和实时行情数据
+desc: 从和讯网获取美股-中概股实时行情数据和历史行情数据(日)
+注意: 由于涉及到复权问题, 建议使用新浪的接口来获取历史行情数据(日)
 """
 import datetime as dt
 import json
@@ -20,9 +21,9 @@ from akshare.stock.cons import (url_usa,
                                 payload_usa_daily)
 
 
-def get_stock_usa_current(flag=False):
+def get_stock_us_zh_current(flag=False):
     """
-    获取美股即时行情数据
+    获取美股-中概股实时行情数据
     :return: pd.DataFrame
                代码                           名称 最新价(美元)   涨跌幅      最高      最低      昨收  \
     0    NTES                           网易  281.16  0.00  285.80  279.90  282.88
@@ -60,9 +61,9 @@ def get_stock_usa_current(flag=False):
     return data_df[["代码", "名称", "最新价(美元)", "涨跌幅", "最高", "最低", "昨收", "成交量"]]
 
 
-def get_stock_usa_history_daily(code="NTES"):
+def get_stock_us_zh_hist_data(code="NTES"):
     """
-    获取日频的美股历史数据
+    获取美股-中概股历史行情数据(日)
     :param code: 参见代码表
     :return: pd.DataFrame
                     时间    前收盘价     开盘价     收盘价     最高价     最低价     成交量
@@ -103,7 +104,7 @@ def get_stock_usa_history_daily(code="NTES"):
 
 
 if __name__ == "__main__":
-    df = get_stock_usa_current(flag=0)
+    df = get_stock_us_zh_current(flag=0)
     print(df)
-    df = get_stock_usa_history_daily(code="CEO")
+    df = get_stock_us_zh_hist_data(code="CEO")
     print(df)

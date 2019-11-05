@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/30 11:28
 contact: jindaxiang@163.com
-desc: 新浪财经-港股-实时行情和历史数据(包含前复权和后复权因子)
+desc: 新浪财经-港股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 """
 import requests
 import demjson

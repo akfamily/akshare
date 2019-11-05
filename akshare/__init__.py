@@ -236,10 +236,19 @@ PCE物价指数年率报告
 更新 qhkc 接口注释和说明文档
 0.2.8
 更新说明文档
+0.2.9
+更新A+H股数据实时行情数据和历史行情数据(后复权)
 """
 
-__version__ = '0.2.8'
+__version__ = '0.2.9'
 __author__ = 'Albert King'
+
+"""
+A+H股
+"""
+from akshare.stock.hk_stock_tx import (get_stock_ah_current,
+                                       get_stock_ah_hist_data,
+                                       get_stock_ah_name)
 
 """
 金融期权
@@ -253,14 +262,13 @@ from akshare.option.daily_bar_finance import (get_finance_option,
                                               get_finance_option_current)
 
 """
-新浪-美股当日(时点)行情数据和历史数据(前复权)
+新浪-美股实时行情数据和历史数据(前复权)
 """
-from akshare.stock.us_stock_sina import (get_us_stock_name,
-                                         get_us_stock_hist_data,
-                                         get_us_current_stock_price)
+from akshare.stock.us_stock_sina import (get_us_stock_hist_data,
+                                         get_us_stock_current)
 
 """
-新浪-港股当日(时点)行情数据和历史数据(前复权和后复权因子)
+新浪-港股实时行情数据和历史数据(前复权和后复权因子)
 """
 from akshare.stock.hk_stock_sina import (get_hk_stock_hist_data,
                                          get_hk_stock_current)
@@ -293,8 +301,8 @@ from akshare.futures_derivative.arbitrage_tools import (get_futures_csa_params,
 """
 和讯财经-行情及历史数据
 """
-from akshare.stock.us_stock_current import (get_stock_usa_current,
-                                            get_stock_usa_history_daily)
+from akshare.stock.us_zh_stock_hx import (get_stock_us_zh_current,
+                                          get_stock_us_zh_hist_data)
 
 """
 和讯财经-企业社会责任
