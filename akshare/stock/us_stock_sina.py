@@ -5,7 +5,7 @@ Author: Albert King
 date: 2019/10/30 18:47
 contact: jindaxiang@163.com
 desc: 获取新浪财经-美股实时行情数据和历史行情数据
-优化: 在美股行情的获取上采用多线程模式(新浪应该不会封IP)
+优化: 在美股行情的获取上采用多线程模式(新浪会封IP, 不再优化)
 """
 import json
 
@@ -39,7 +39,7 @@ def get_us_page_count():
 def get_us_stock_current():
     big_df = pd.DataFrame()
     page_count = get_us_page_count()
-    for page in range(1, page_count):
+    for page in range(1, page_count+1):
         # page = "1"
         print("正在抓取第{}页的美股数据".format(page))
         us_js_decode = "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(page)

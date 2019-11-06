@@ -242,10 +242,24 @@ PCE物价指数年率报告
 更新说明文档
 0.2.11
 更新说明文档
+0.2.12
+增加A股和科创板实时行情数据和历史行情数据
 """
 
-__version__ = '0.2.11'
+__version__ = '0.2.12'
 __author__ = 'Albert King'
+
+"""
+科创板股票
+"""
+from akshare.stock.zh_stock_kcb_sina import (get_zh_kcb_stock_current,
+                                             get_zh_kcb_stock_hist_data)
+
+"""
+A股
+"""
+from akshare.stock.zh_stock_a_sina import (get_zh_a_stock_current,
+                                           get_zh_a_stock_hist_data)
 
 """
 A+H股
@@ -255,7 +269,7 @@ from akshare.stock.hk_stock_tx import (get_stock_ah_current,
                                        get_stock_ah_name)
 
 """
-金融期权
+数字货币
 """
 from akshare.economic.macro_other import (get_js_dc_current)
 
@@ -266,7 +280,7 @@ from akshare.option.daily_bar_finance import (get_finance_option,
                                               get_finance_option_current)
 
 """
-新浪-美股实时行情数据和历史数据(前复权)
+新浪-美股实时行情数据和历史行情数据(前复权)
 """
 from akshare.stock.us_stock_sina import (get_us_stock_hist_data,
                                          get_us_stock_current)
