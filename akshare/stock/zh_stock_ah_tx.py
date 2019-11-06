@@ -20,7 +20,7 @@ from akshare.stock.cons import (hk_url,
                                 hk_stock_payload)
 
 
-def get_stock_ah_page_count():
+def get_zh_stock_ah_page_count():
     hk_payload_copy = hk_payload.copy()
     hk_payload_copy.update({"reqPage": 1})
     res = requests.get(hk_url, params=hk_payload_copy, headers=hk_headers)
@@ -29,9 +29,9 @@ def get_stock_ah_page_count():
     return page_count
 
 
-def get_stock_ah_current():
+def get_zh_stock_ah_current():
     big_df = pd.DataFrame()
-    page_count = get_stock_ah_page_count() + 1
+    page_count = get_zh_stock_ah_page_count() + 1
     for i in range(1, page_count):
         hk_payload.update({"reqPage": i})
         res = requests.get(hk_url, params=hk_payload, headers=hk_headers)
@@ -41,9 +41,9 @@ def get_stock_ah_current():
     return big_df
 
 
-def get_stock_ah_name():
+def get_zh_stock_ah_name():
     big_df = pd.DataFrame()
-    page_count = get_stock_ah_page_count() + 1
+    page_count = get_zh_stock_ah_page_count() + 1
     for i in range(1, page_count):
         hk_payload.update({"reqPage": i})
         res = requests.get(hk_url, params=hk_payload, headers=hk_headers)
@@ -54,7 +54,7 @@ def get_stock_ah_name():
     return code_name_dict
 
 
-def get_stock_ah_hist_data(symbol="02318", start_year="2000", end_year="2019"):
+def get_zh_stock_ah_hist_data(symbol="02318", start_year="2000", end_year="2019"):
     big_df = pd.DataFrame()
     for year in range(int(start_year), int(end_year)):
         hk_stock_payload_copy = hk_stock_payload.copy()
@@ -75,10 +75,10 @@ def get_stock_ah_hist_data(symbol="02318", start_year="2000", end_year="2019"):
 
 
 if __name__ == "__main__":
-    get_stock_ah_current()
-    big_dict = get_stock_ah_name()
+    get_zh_stock_ah_current()
+    big_dict = get_zh_stock_ah_name()
     for item in big_dict.keys():
-        df = get_stock_ah_hist_data(symbol=item, start_year="2000", end_year="2019")
+        df = get_zh_stock_ah_hist_data(symbol=item, start_year="2000", end_year="2019")
         print(df)
         # temp_df.to_csv(f"{item}.csv")
         print(f"{item}完成")

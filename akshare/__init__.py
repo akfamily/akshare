@@ -244,9 +244,11 @@ PCE物价指数年率报告
 更新说明文档
 0.2.12
 增加A股和科创板实时行情数据和历史行情数据
+0.2.13
+统一股票接口命名
 """
 
-__version__ = '0.2.12'
+__version__ = '0.2.13'
 __author__ = 'Albert King'
 
 """
@@ -264,9 +266,9 @@ from akshare.stock.zh_stock_a_sina import (get_zh_a_stock_current,
 """
 A+H股
 """
-from akshare.stock.hk_stock_tx import (get_stock_ah_current,
-                                       get_stock_ah_hist_data,
-                                       get_stock_ah_name)
+from akshare.stock.zh_stock_ah_tx import (get_zh_stock_ah_current,
+                                          get_zh_stock_ah_hist_data,
+                                          get_zh_stock_ah_name)
 
 """
 数字货币

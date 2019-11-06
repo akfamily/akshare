@@ -261,9 +261,9 @@ import akshare as ak
  # 数字货币行情
  'get_js_dc_current'  # 提供主流数字货币行情数据接口
  # A+H股实时行情数据和历史行情数据
- 'get_stock_ah_current'  # 获取 A+H 股实时行情数据(延迟15分钟)
- 'get_stock_ah_hist_data'  # 获取 A+H 股历史行情数据(日频)
- 'get_stock_ah_name'  # 获取 A+H 股所有股票代码
+ 'get_zh_stock_ah_current'  # 获取 A+H 股实时行情数据(延迟15分钟)
+ 'get_zh_stock_ah_hist_data'  # 获取 A+H 股历史行情数据(日频)
+ 'get_zh_stock_ah_name'  # 获取 A+H 股所有股票代码
  # A股实时行情数据和历史行情数据
  'get_zh_a_stock_current'  # 获取 A 股实时行情数据
  'get_zh_a_stock_hist_data'  # 获取 A 股历史行情数据(日频)
@@ -548,7 +548,7 @@ print(stock_df)
 
 A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)获取的数据, 延迟 15 分钟更新
 
-接口: get_stock_ah_current
+接口: get_zh_stock_ah_current
 
 目标地址: http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH
 
@@ -585,7 +585,7 @@ A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=lis
 接口示例
 ```python
 import akshare as ak
-stock_df = ak.get_stock_ah_current()
+stock_df = ak.get_zh_stock_ah_current()
 print(stock_df)
 ```
 
@@ -621,7 +621,7 @@ print(stock_df)
 
 A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)获取的数据, 历史数据按日频率更新
 
-接口: get_stock_ah_hist_data
+接口: get_zh_stock_ah_hist_data
 
 目标地址: http://gu.qq.com/hk02359/gp(示例)
 
@@ -654,7 +654,7 @@ A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=lis
 接口示例
 ```python
 import akshare as ak
-stock_df = ak.get_stock_ah_hist_data()
+stock_df = ak.get_zh_stock_ah_hist_data()
 print(stock_df)
 ```
 
@@ -678,7 +678,7 @@ print(stock_df)
 
 A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)获取的数据, 历史数据按日频率更新
 
-接口: get_stock_ah_name
+接口: get_zh_stock_ah_name
 
 目标地址: http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH
 
@@ -703,7 +703,7 @@ A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=lis
 接口示例
 ```python
 import akshare as ak
-stock_dict = ak.get_stock_ah_name()
+stock_dict = ak.get_zh_stock_ah_name()
 print(stock_dict)
 ```
 
@@ -4189,4 +4189,7 @@ PCE物价指数年率报告
 
 0.2.12
 增加A股和科创板实时行情数据和历史行情数据
+
+0.2.13
+统一股票接口命名
 ```
