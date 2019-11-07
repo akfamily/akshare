@@ -261,7 +261,7 @@ def stock_zh_kcb_daily(symbol="sh688008", factor=""):
 
 
 if __name__ == "__main__":
-    hist_data_df = stock_zh_kcb_daily(symbol="sh688008", factor="hfq")
+    hist_data_df = stock_zh_kcb_daily(symbol="sh688008", factor="qfq")
     print(hist_data_df)
     current_data_df = stock_zh_kcb_spot()
     print(current_data_df)
