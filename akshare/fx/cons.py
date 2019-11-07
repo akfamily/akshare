@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/20 10:58
 contact: jindaxiang@163.com
-desc: 
+desc: 外汇配置文件
 """
 # headers
 SHORT_HEADERS = {

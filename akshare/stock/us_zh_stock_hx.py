@@ -21,7 +21,7 @@ from akshare.stock.cons import (url_usa,
                                 payload_usa_daily)
 
 
-def get_stock_us_zh_current(flag=False):
+def stock_us_zh_spot(flag=False):
     """
     获取美股-中概股实时行情数据
     :return: pd.DataFrame
@@ -61,7 +61,7 @@ def get_stock_us_zh_current(flag=False):
     return data_df[["代码", "名称", "最新价(美元)", "涨跌幅", "最高", "最低", "昨收", "成交量"]]
 
 
-def get_stock_us_zh_hist_data(code="NTES"):
+def stock_us_zh_daily(code="NTES"):
     """
     获取美股-中概股历史行情数据(日)
     :param code: 参见代码表
@@ -104,7 +104,7 @@ def get_stock_us_zh_hist_data(code="NTES"):
 
 
 if __name__ == "__main__":
-    df = get_stock_us_zh_current(flag=0)
+    df = stock_us_zh_spot(flag=0)
     print(df)
-    df = get_stock_us_zh_hist_data(code="CEO")
+    df = stock_us_zh_daily(code="CEO")
     print(df)

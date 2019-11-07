@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(本文档更新于 **2019-11-06**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
+(本文档更新于 **2019-11-07**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -238,38 +238,38 @@ import akshare as ak
  'get_cons_silver_volume'  # 全球最大白银ETF--iShares Silver Trust持仓报告-总库存
  # 期货-仓单有效期
  'get_receipt_date'  # 期货仓单有效期数据
- # 股票-企业社会责任
- 'get_stock_scr_report'  # 企业社会责任数据
- # 美股-中国概念股行情和历史数据
- 'get_stock_usa_current'  # 中国概念股行情
- 'get_stock_usa_history_daily'  # 中国概念股历史数据
  # 中国期货跨期价差(自由价差)数据接口
  'get_futures_csa_params'  # 获取跨期价差参数
  'get_futures_csa_history'  # 获取跨期价差历史数据
  'get_futures_csa_seasonally'  # 获取跨期价差季节性数据
  # 新浪财经-期货
  'subscribe_exchange_tick'  # 获取新浪期货行情实时数据
- # 新浪财经-港股
- 'get_hk_stock_hist_data'  # 获取港股的历史行情数据(包括前后复权因子)
- 'get_hk_stock_current'  # 获取港股的实时行情数据(也可以用于获得所有港股代码)
- # 新浪财经-美股
- 'get_us_stock_name'  # 获得美股的所有股票代码
- 'get_us_stock_hist_data'  # 获取美股的历史数据(包括前复权因子)
- 'get_us_current_stock_price'  # 获取美股行情报价
  # 交易所金融期权数据
  'get_finance_option'  # 提供上海证券交易所期权数据
  # 数字货币行情
  'get_js_dc_current'  # 提供主流数字货币行情数据接口
+ # 股票-企业社会责任
+ 'stock_zh_a_scr_report'  # 企业社会责任数据
+ # 美股-中国概念股行情和历史数据
+ 'stock_us_zh_spot'  # 中国概念股行情
+ 'stock_us_zh_daily'  # 中国概念股历史数据
+ # 新浪财经-港股
+ 'stock_hk_spot'  # 获取港股的历史行情数据(包括前后复权因子)
+ 'stock_hk_daily'  # 获取港股的实时行情数据(也可以用于获得所有港股代码)
+ # 新浪财经-美股
+ 'stock_us_name'  # 获得美股的所有股票代码
+ 'stock_us_spot'  # 获取美股行情报价
+ 'stock_us_daily'  # 获取美股的历史数据(包括前复权因子)
  # A+H股实时行情数据和历史行情数据
- 'get_zh_stock_ah_current'  # 获取 A+H 股实时行情数据(延迟15分钟)
- 'get_zh_stock_ah_hist_data'  # 获取 A+H 股历史行情数据(日频)
- 'get_zh_stock_ah_name'  # 获取 A+H 股所有股票代码
+ 'stock_zh_ah_spot'  # 获取 A+H 股实时行情数据(延迟15分钟)
+ 'stock_zh_ah_daily'  # 获取 A+H 股历史行情数据(日频)
+ 'stock_zh_ah_name'  # 获取 A+H 股所有股票代码
  # A股实时行情数据和历史行情数据
- 'get_zh_a_stock_current'  # 获取 A 股实时行情数据
- 'get_zh_a_stock_hist_data'  # 获取 A 股历史行情数据(日频)
+ 'stock_zh_a_spot'  # 获取 A 股实时行情数据
+ 'stock_zh_a_daily'  # 获取 A 股历史行情数据(日频)
  # 科创板实时行情数据和历史行情数据
- 'get_zh_kcb_stock_current'  # 获取科创板实时行情数据
- 'get_zh_kcb_stock_hist_data'  # 获取科创板历史行情数据(日频)
+ 'stock_zh_kcb_spot'  # 获取科创板实时行情数据
+ 'stock_zh_kcb_daily'  # 获取科创板历史行情数据(日频)
 ```
 
 ## 3. 案例演示
@@ -350,7 +350,7 @@ ak.get_zdzk_fund_index(index_type=32, plot=True)
 
 A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)获取的数据
 
-接口: get_zh_a_stock_current
+接口: stock_zh_a_spot
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_a
 
@@ -387,7 +387,7 @@ A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)�
 接口示例
 ```python
 import akshare as ak
-stock_df = ak.get_zh_a_stock_current()
+stock_df = ak.stock_zh_a_spot()
 print(stock_df)
 ```
 
@@ -435,7 +435,7 @@ print(stock_df)
 
 A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)获取的数据, 历史数据按日频率更新
 
-接口: get_zh_a_stock_hist_data
+接口: stock_zh_a_daily
 
 目标地址: https://finance.sina.com.cn/realstock/company/sh600006/nc.shtml(示例)
 
@@ -467,7 +467,7 @@ A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)�
 接口示例
 ```python
 import akshare as ak
-stock_df = ak.get_zh_a_stock_hist_data()
+stock_df = ak.stock_zh_a_daily()
 print(stock_df)
 ```
 
@@ -548,7 +548,7 @@ print(stock_df)
 
 A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)获取的数据, 延迟 15 分钟更新
 
-接口: get_zh_stock_ah_current
+接口: stock_zh_ah_spot
 
 目标地址: http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH
 
@@ -585,7 +585,7 @@ A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=lis
 接口示例
 ```python
 import akshare as ak
-stock_df = ak.get_zh_stock_ah_current()
+stock_df = ak.stock_zh_ah_spot()
 print(stock_df)
 ```
 
@@ -621,7 +621,7 @@ print(stock_df)
 
 A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)获取的数据, 历史数据按日频率更新
 
-接口: get_zh_stock_ah_hist_data
+接口: stock_zh_ah_daily
 
 目标地址: http://gu.qq.com/hk02359/gp(示例)
 
@@ -654,7 +654,7 @@ A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=lis
 接口示例
 ```python
 import akshare as ak
-stock_df = ak.get_zh_stock_ah_hist_data()
+stock_df = ak.stock_zh_ah_daily()
 print(stock_df)
 ```
 
@@ -678,7 +678,7 @@ print(stock_df)
 
 A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)获取的数据, 历史数据按日频率更新
 
-接口: get_zh_stock_ah_name
+接口: stock_zh_ah_name
 
 目标地址: http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH
 
@@ -703,7 +703,7 @@ A+H 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=lis
 接口示例
 ```python
 import akshare as ak
-stock_dict = ak.get_zh_stock_ah_name()
+stock_dict = ak.stock_zh_ah_name()
 print(stock_dict)
 ```
 
@@ -720,7 +720,7 @@ print(stock_dict)
 
 美股数据是从[新浪财经](http://finance.sina.com.cn/stock/usstock/sector.shtml)获取的数据(延迟15分钟)
 
-接口: get_us_stock_current
+接口: stock_us_spot
 
 目标地址: http://finance.sina.com.cn/stock/usstock/sector.shtml
 
@@ -745,7 +745,7 @@ print(stock_dict)
 接口示例
 ```python
 import akshare as ak
-us_stock_current_df = ak.get_us_stock_current()
+us_stock_current_df = ak.stock_us_spot()
 print(us_stock_current_df)
 ```
 
@@ -805,7 +805,7 @@ print(us_stock_current_df)
 
 美股数据是从[新浪财经](http://finance.sina.com.cn/stock/usstock/sector.shtml)获取的数据, 历史数据按日频率更新
 
-接口: get_us_stock_hist_data
+接口: stock_us_daily
 
 目标地址: http://finance.sina.com.cn/stock/usstock/sector.shtml
 
@@ -843,8 +843,7 @@ print(us_stock_current_df)
 接口示例
 ```python
 import akshare as ak
-data, qfq_factor = ak.get_us_stock_hist_data(symbol="AMZN")
-stock_df = ak.get_us_stock_name()
+data, qfq_factor = ak.stock_us_daily(symbol="AMZN")
 ```
 
 数据示例(历史数据)
@@ -880,7 +879,7 @@ date
 
 港股-实时行情数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk)获取的数据, 更新频率为实时, 由于新浪服务器因素**行情延时 15 分钟**
 
-接口: get_hk_stock_current
+接口: stock_hk_spot
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
 
@@ -919,7 +918,7 @@ date
 接口示例
 ```python
 import akshare as ak
-current_data_df = ak.get_hk_stock_current()
+current_data_df = ak.stock_hk_spot()
 print(current_data_df)
 ```
 
@@ -967,7 +966,7 @@ print(current_data_df)
 
 港股-历史行情数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk)获取的数据, 更新频率为日频
 
-接口: get_hk_stock_hist_data
+接口: stock_hk_daily
 
 目标地址: http://stock.finance.sina.com.cn/hkstock/quotes/01336.html(个例)
 
@@ -1013,7 +1012,7 @@ print(current_data_df)
 接口示例
 ```python
 import akshare as ak
-hist_data_df = ak.get_hk_stock_hist_data(symbol="00005", factor="")
+hist_data_df = ak.stock_hk_daily(symbol="00005", factor="")
 print(hist_data_df)
 ```
 
@@ -1072,7 +1071,7 @@ date
 
 中国概念股数据是从[和讯网网站](http://www.hexun.com/)获取的数据
 
-接口: get_stock_usa_current
+接口: stock_us_zh_spot
 
 目标地址: http://quote.hexun.com/default.html#ustock_0
 
@@ -1104,7 +1103,7 @@ date
 接口示例
 ```python
 import akshare as ak
-data = ak.get_stock_us_zh_current()
+data = ak.stock_us_zh_spot()
 print(data)
 ```
 
@@ -1140,7 +1139,7 @@ print(data)
 
 中国概念股数据是从[和讯网网站](http://www.hexun.com/)获取的数据, 实时更新
 
-接口: get_stock_usa_history_daily
+接口: stock_us_zh_daily
 
 目标地址: http://stockdata.stock.hexun.com/us/NTES.shtml(例子)
 
@@ -1171,7 +1170,7 @@ print(data)
 接口示例
 ```python
 import akshare as ak
-data = ak.get_stock_us_zh_hist_data()
+data = ak.stock_us_zh_daily()
 print(data)
 ```
 
@@ -1195,7 +1194,7 @@ print(data)
 
 企业社会责任数据是从[和讯财经网站](http://www.hexun.com/)获取的数据, 年度更新
 
-接口: get_stock_scr_report
+接口: stock_zh_a_scr_report
 
 目标地址: http://stockdata.stock.hexun.com/zrbg/Plate.aspx?date=2010-12-31#
 
@@ -1228,7 +1227,7 @@ print(data)
 接口示例
 ```python
 import akshare as ak
-data = ak.get_stock_scr_report()
+data = ak.stock_zh_a_scr_report()
 print(data)
 ```
 
@@ -4192,4 +4191,7 @@ PCE物价指数年率报告
 
 0.2.13
 统一股票接口命名
+
+0.2.14
+统一股票接口命名, 去除 get 
 ```

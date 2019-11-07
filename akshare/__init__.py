@@ -246,29 +246,31 @@ PCE物价指数年率报告
 增加A股和科创板实时行情数据和历史行情数据
 0.2.13
 统一股票接口命名
+0.2.14
+统一股票接口命名, 去除 get 
 """
 
-__version__ = '0.2.13'
+__version__ = '0.2.14'
 __author__ = 'Albert King'
 
 """
 科创板股票
 """
-from akshare.stock.zh_stock_kcb_sina import (get_zh_kcb_stock_current,
-                                             get_zh_kcb_stock_hist_data)
+from akshare.stock.zh_stock_kcb_sina import (stock_zh_kcb_spot,
+                                             stock_zh_kcb_daily)
 
 """
 A股
 """
-from akshare.stock.zh_stock_a_sina import (get_zh_a_stock_current,
-                                           get_zh_a_stock_hist_data)
+from akshare.stock.zh_stock_a_sina import (stock_zh_a_spot,
+                                           stock_zh_a_daily)
 
 """
 A+H股
 """
-from akshare.stock.zh_stock_ah_tx import (get_zh_stock_ah_current,
-                                          get_zh_stock_ah_hist_data,
-                                          get_zh_stock_ah_name)
+from akshare.stock.zh_stock_ah_tx import (stock_zh_ah_spot,
+                                          stock_zh_ah_daily,
+                                          stock_zh_ah_name)
 
 """
 数字货币
@@ -284,14 +286,14 @@ from akshare.option.daily_bar_finance import (get_finance_option,
 """
 新浪-美股实时行情数据和历史行情数据(前复权)
 """
-from akshare.stock.us_stock_sina import (get_us_stock_hist_data,
-                                         get_us_stock_current)
+from akshare.stock.us_stock_sina import (stock_us_daily,
+                                         stock_us_spot)
 
 """
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)
 """
-from akshare.stock.hk_stock_sina import (get_hk_stock_hist_data,
-                                         get_hk_stock_current)
+from akshare.stock.hk_stock_sina import (stock_hk_daily,
+                                         stock_hk_spot)
 
 """
 新浪-期货实时数据
@@ -321,13 +323,13 @@ from akshare.futures_derivative.arbitrage_tools import (get_futures_csa_params,
 """
 和讯财经-行情及历史数据
 """
-from akshare.stock.us_zh_stock_hx import (get_stock_us_zh_current,
-                                          get_stock_us_zh_hist_data)
+from akshare.stock.us_zh_stock_hx import (stock_us_zh_spot,
+                                          stock_us_zh_daily)
 
 """
 和讯财经-企业社会责任
 """
-from akshare.stock.zh_stock_zrbg_hx import (get_stock_scr_report)
+from akshare.stock.zh_stock_zrbg_hx import (stock_zh_a_scr_report)
 
 """
 期货-仓单有效期

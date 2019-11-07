@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/17 1:19
 contact: jindaxiang@163.com
-desc: 
+desc: 指数配置文件
 """
 
 short_headers = {

@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/20 10:21
 contact: jindaxiang@163.com
-desc: akshare-akshare-bond-cons
+desc: 债券配置文件
 """
 # headers
 SHORT_HEADERS = {

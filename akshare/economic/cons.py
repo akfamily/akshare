@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/21 21:11
 contact: jindaxiang@163.com
-desc: economic-cons
+desc: 宏观经济配置文件
 """
 # bitcoin
 bitcoin_url = "https://datacenter.jin10.com/get_dc_second_data"

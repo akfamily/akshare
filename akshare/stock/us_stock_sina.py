@@ -36,7 +36,7 @@ def get_us_page_count():
     return page_count
 
 
-def get_us_stock_current():
+def stock_us_spot():
     big_df = pd.DataFrame()
     page_count = get_us_page_count()
     for page in range(1, page_count+1):
@@ -52,7 +52,7 @@ def get_us_stock_current():
     return big_df
 
 
-def get_us_stock_hist_data(symbol="BRK.A", factor=""):
+def stock_us_daily(symbol="BRK.A", factor=""):
     res = requests.get(us_sina_stock_hist_url.format(symbol))
     js_code = execjs.compile(hk_js_decode)
     dict_list = js_code.call('d', res.text.split("=")[1].split(";")[0].replace('"', ""))  # 执行js解密代码
@@ -71,8 +71,8 @@ def get_us_stock_hist_data(symbol="BRK.A", factor=""):
 
 
 if __name__ == "__main__":
-    df = get_us_stock_current()
+    df = stock_us_spot()
     print(df)
-    df = get_us_stock_hist_data(symbol="AMZN", factor="qfq")
+    df = stock_us_daily(symbol="AMZN", factor="qfq")
     print(df)
 

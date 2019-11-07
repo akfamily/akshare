@@ -19,7 +19,7 @@ from akshare.stock.cons import (hk_js_decode,
                                 hk_sina_stock_hist_qfq_url)
 
 
-def get_hk_stock_current():
+def stock_hk_spot():
     """
     从新浪财经-港股获取所有港股的实时行情数据
     **行情延迟15分钟**
@@ -51,7 +51,7 @@ def get_hk_stock_current():
     return data_df
 
 
-def get_hk_stock_hist_data(symbol="00001", factor=""):
+def stock_hk_daily(symbol="00001", factor=""):
     res = requests.get(hk_sina_stock_hist_url.format(symbol))
     js_code = execjs.compile(hk_js_decode)
     dict_list = js_code.call(
@@ -79,7 +79,7 @@ def get_hk_stock_hist_data(symbol="00001", factor=""):
 
 
 if __name__ == "__main__":
-    hist_data_df = get_hk_stock_hist_data(symbol="00005", factor="hfq")
+    hist_data_df = stock_hk_daily(symbol="00005", factor="hfq")
     print(hist_data_df)
-    current_data_df = get_hk_stock_current()
+    current_data_df = stock_hk_spot()
     print(current_data_df)

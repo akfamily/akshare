@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 
+desc: 基金配置文件
 """
 zdzk_headers = {
     'Accept': 'application/json, text/plain, */*',

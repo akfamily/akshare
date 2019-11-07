@@ -15,7 +15,7 @@ from akshare.stock.cons import (hx_headers,
                                 hx_url)
 
 
-def get_stock_scr_report(report_year=2018, page=1):
+def stock_zh_a_scr_report(report_year=2018, page=1):
     """
     获取和讯财经-上市公司社会责任报告数据, 从2010年至今(年度)
     因为股票数量大, 所以获取某年需要遍历所有页
@@ -64,5 +64,5 @@ def get_stock_scr_report(report_year=2018, page=1):
 
 if __name__ == "__main__":
     for i_page in range(1, 100):
-        df = get_stock_scr_report(report_year=2018, page=i_page)
+        df = stock_zh_a_scr_report(report_year=2018, page=i_page)
         print(df)

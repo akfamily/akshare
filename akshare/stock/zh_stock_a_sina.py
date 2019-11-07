@@ -37,7 +37,7 @@ def get_zh_a_page_count():
         return int(page_count) + 1
 
 
-def get_zh_a_stock_current():
+def stock_zh_a_spot():
     """
     从新浪财经-A股获取所有A股的实时行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
@@ -93,7 +93,7 @@ def get_zh_a_stock_current():
     return big_df
 
 
-def get_zh_a_stock_hist_data(symbol="sh600000", factor=""):
+def stock_zh_a_daily(symbol="sh600000", factor=""):
     """
     从新浪财经-A股获取某个股票的历史行情数据, 大量抓取容易封IP
     :param symbol: str e.g., sh600000
@@ -191,7 +191,7 @@ def get_zh_a_stock_hist_data(symbol="sh600000", factor=""):
 
 
 if __name__ == "__main__":
-    hist_data_df = get_zh_a_stock_hist_data(symbol="sh600000", factor="qfq")
+    hist_data_df = stock_zh_a_daily(symbol="sh600000", factor="qfq")
     print(hist_data_df)
-    current_data_df = get_zh_a_stock_current()
+    current_data_df = stock_zh_a_spot()
     print(current_data_df)
