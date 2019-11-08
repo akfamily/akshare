@@ -9,10 +9,9 @@ desc: 不需要控制速度, 但是需要伪装游览器, 不然会被一次封 
 import os
 
 import requests
+import execjs
 import pandas as pd
 from bs4 import BeautifulSoup
-import execjs
-import time
 
 from akshare.bank.cons import cbirc_headers_without_cookie
 
@@ -22,17 +21,16 @@ def get_page_list(all_page=15):
     想要获取多少页的内容
     注意路径
     http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/1.html
-    :param all_page: int 输入从第1页到 all_page 页的内容
+    :param all_page: int 输入从第 1 页到 all_page 页的内容
     :return: pd.DataFrame 另存为 csv 文件
     """
     big_url_list = []
     big_title_list = []
     flag = True
     cbirc_headers = cbirc_headers_without_cookie.copy()
-    time.sleep(5)
+    # time.sleep(5)  # 每次启动函数之间有间隔，提高稳定性
     for page in range(1, all_page):
         # page = 1
-
         print(page)
         main_url = "http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/{}.html".format(page)
         if flag:
@@ -41,45 +39,34 @@ def get_page_list(all_page=15):
             cbirc_headers.update({"Cookie": res.headers["Set-Cookie"].split(";")[0]})
             res = requests.get(main_url, headers=cbirc_headers)
             soup = BeautifulSoup(res.text, "lxml")
-            if "fromCharCode" not in res.text:
-                res_html = "function getClearance(){" + soup.find_all("script")[0].get_text() + "};"
-                res_html = res_html.replace("</script>", "")
-                res_html = res_html.replace("eval", "return")
-                res_html = res_html.replace("<script>", "")
-                ctx = execjs.compile(res_html)
-                over_js = "function getClearance2(){ var a" + ctx.call("getClearance").split("document.cookie")[1].split("Path=/;'")[
-                             0] + "Path=/;';return a;};"
-                over_js = over_js.replace("window.headless", "''")
-                over_js = over_js.replace("window['_p'+'hantom']", "''")
-                over_js = over_js.replace("window['__p'+'hantom'+'as']", "''")
-                ctx = execjs.compile(over_js)
-                cookie_2 = ctx.call("getClearance2").split(";")[0]
-                cbirc_headers.update({"Cookie": temp_cookie + ";" + cookie_2})
-                res = requests.get(main_url, headers=cbirc_headers)
-            else:
-                res_html = "function getClearance(){" + soup.find_all("script")[0].get_text() + "};"
-                res_html = res_html.replace("</script>", "")
-                res_html = res_html.replace("eval", "return")
-                res_html = res_html.replace("<script>", "")
-                ctx = execjs.compile(res_html)
-                over_js = "function getClearance2(){ var a" + \
-                          ctx.call("getClearance").split("document.cookie")[1].split("Path=/;'")[
-                              0] + "Path=/;';return a;};"
-                over_js = over_js.replace("window.headless", "''")
-                over_js = over_js.replace("window['_p'+'hantom']", "''")
-                over_js = over_js.replace("window['__p'+'hantom'+'as']", "''")
-                over_js = over_js.replace("window['callP'+'hantom']", "''")
-                ctx = execjs.compile(over_js)
-                cookie_2 = ctx.call("getClearance2").split(";")[0]
-                cbirc_headers.update({"Cookie": temp_cookie + ";" + cookie_2})
-                res = requests.get(main_url, headers=cbirc_headers)
-                flag = 0
-        # print(cbirc_headers)
-        soup = BeautifulSoup(res.text, "lxml")
-        url_list = [item.find("a")["href"] for item in soup.find_all(attrs={"class": "zwbg-2"})]
-        title_list = [item.find("a").get_text() for item in soup.find_all(attrs={"class": "zwbg-2"})]
-        big_url_list.extend(url_list)
-        big_title_list.extend(title_list)
+            res_html = "function getClearance(){" + soup.find_all("script")[0].get_text() + "};"
+            res_html = res_html.replace("</script>", "")
+            res_html = res_html.replace("eval", "return")
+            res_html = res_html.replace("<script>", "")
+            ctx = execjs.compile(res_html)
+            over_js = "function getClearance2(){var a" + ctx.call("getClearance").split("document.cookie")[1].split("Path=/;'")[0] + "Path=/;';return a;};"
+            over_js = over_js.replace("window.headless", "''")
+            over_js = over_js.replace("window['_p'+'hantom']", "''")
+            over_js = over_js.replace("window['__p'+'hantom'+'as']", "''")
+            over_js = over_js.replace("window['callP'+'hantom']", "''")
+            over_js = over_js.replace("return(", "eval(")
+            ctx = execjs.compile(over_js)
+            cookie_2 = ctx.call("getClearance2").split(";")[0]
+            cbirc_headers.update({"Cookie": temp_cookie + ";" + cookie_2})
+            res = requests.get(main_url, headers=cbirc_headers)
+            soup = BeautifulSoup(res.text, "lxml")
+            url_list = [item.find("a")["href"] for item in soup.find_all(attrs={"class": "zwbg-2"})]
+            title_list = [item.find("a").get_text() for item in soup.find_all(attrs={"class": "zwbg-2"})]
+            big_url_list.extend(url_list)
+            big_title_list.extend(title_list)
+            flag = 0
+        else:
+            res = requests.get(main_url, headers=cbirc_headers)
+            soup = BeautifulSoup(res.text, "lxml")
+            url_list = [item.find("a")["href"] for item in soup.find_all(attrs={"class": "zwbg-2"})]
+            title_list = [item.find("a").get_text() for item in soup.find_all(attrs={"class": "zwbg-2"})]
+            big_url_list.extend(url_list)
+            big_title_list.extend(title_list)
     temp_df = pd.DataFrame([big_title_list, big_url_list]).T
     return temp_df
 
@@ -91,6 +78,7 @@ def get_detail():
     :return: pandas.DataFrame 另存为 csv 文件
     """
     os.chdir(r"C:\Users\king\PycharmProjects\akshare\temp")
+    cbirc_headers = cbirc_headers_without_cookie.copy()
     temp_df = pd.read_csv(r"C:\Users\king\PycharmProjects\akshare\bank.csv", encoding="gb2312", header=0, index_col=0)
     for i in range(1, len(temp_df) + 1):
         print(i)

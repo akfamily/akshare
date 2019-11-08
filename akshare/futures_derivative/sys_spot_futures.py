@@ -93,7 +93,7 @@ def get_sys_spot_futures(symbol="铜", plot=True):
 if __name__ == "__main__":
     df = get_sys_spot_futures_dict()
     print(df)
-    df_one, df_two, df_three = get_sys_spot_futures(symbol="白银", plot=False)
+    df_one, df_two, df_three = get_sys_spot_futures(symbol="白银", plot=True)
     print(df_one)
     print(df_two)
     print(df_three)
