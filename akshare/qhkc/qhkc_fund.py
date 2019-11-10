@@ -312,7 +312,7 @@ def get_qhkc_fund_position_change(date: datetime.datetime.date = "20190924", url
     return symbol_df, long_short_df
 
 
-def get_qhkc_fund_position_change(date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_DEAL_URL):
+def get_qhkc_fund_money_change(date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_DEAL_URL):
     """
     奇货可查-资金-成交额分布
     可获取数据的时间段为:"2016-10-10:2019-09-30"
@@ -416,5 +416,5 @@ if __name__ == "__main__":
     # print(df1)
     # print(df2)
 
-    df = get_qhkc_fund_position_change(20190925)
+    df = get_qhkc_fund_money_change(20190925)
     print(df)

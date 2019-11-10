@@ -250,10 +250,17 @@ PCE物价指数年率报告
 统一股票接口命名, 去除 get
 0.2.15
 增加科创板实时行情数据和历史行情数据
+0.2.16
+增加银保监分局本级行政处罚数据
 """
 
-__version__ = '0.2.15'
+__version__ = '0.2.16'
 __author__ = 'Albert King'
+
+"""
+银保监分局本级行政处罚数据
+"""
+from akshare.bank.band_cbirc import (bank_ybjfjcf)
 
 """
 科创板股票
@@ -440,8 +447,8 @@ from akshare.bond.bond_bank import (get_bond_bank)
 """
 奇货可查-工具模块
 """
-from akshare.qhkc.qhkc_tool import (get_qhkc_tool_foreign,
-                                    get_qhkc_tool_gdp)
+from akshare.qhkc.qhkc_tool import (qhkc_tool_foreign,
+                                    qhkc_tool_gdp)
 
 """
 奇货可查-指数模块
@@ -453,7 +460,7 @@ from akshare.qhkc.qhkc_index import (get_qhkc_index,
 """
 奇货可查-资金模块
 """
-from akshare.qhkc.qhkc_fund import (get_qhkc_fund_position_change,
+from akshare.qhkc.qhkc_fund import (get_qhkc_fund_money_change,
                                     get_qhkc_fund_bs,
                                     get_qhkc_fund_position)
 

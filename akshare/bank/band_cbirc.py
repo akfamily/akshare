@@ -6,8 +6,6 @@ date: 2019/11/7 14:06
 contact: jindaxiang@163.com
 desc: 不需要控制速度, 但是需要伪装游览器, 不然会被一次封 IP 地址
 """
-import os
-
 import requests
 import execjs
 import pandas as pd
@@ -16,23 +14,22 @@ from bs4 import BeautifulSoup
 from akshare.bank.cons import cbirc_headers_without_cookie
 
 
-def get_page_list(all_page=15):
+def bank_page_list(page=5):
     """
     想要获取多少页的内容
     注意路径
     http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/1.html
-    :param all_page: int 输入从第 1 页到 all_page 页的内容
+    :param page: int 输入从第 1 页到 all_page 页的内容
     :return: pd.DataFrame 另存为 csv 文件
     """
     big_url_list = []
     big_title_list = []
     flag = True
     cbirc_headers = cbirc_headers_without_cookie.copy()
-    # time.sleep(5)  # 每次启动函数之间有间隔，提高稳定性
-    for page in range(1, all_page):
+    for i_page in range(1, page):
         # page = 1
-        print(page)
-        main_url = "http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/{}.html".format(page)
+        print(i_page)
+        main_url = "http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/{}.html".format(i_page)
         if flag:
             res = requests.get(main_url, headers=cbirc_headers)
             temp_cookie = res.headers["Set-Cookie"].split(";")[0]
@@ -50,6 +47,7 @@ def get_page_list(all_page=15):
             over_js = over_js.replace("window['__p'+'hantom'+'as']", "''")
             over_js = over_js.replace("window['callP'+'hantom']", "''")
             over_js = over_js.replace("return(", "eval(")
+            over_js = over_js.replace(over_js[over_js.find("docum"):over_js.find(".href")+5], "'http://www.cbirc.gov.cn/'")
             ctx = execjs.compile(over_js)
             cookie_2 = ctx.call("getClearance2").split(";")[0]
             cbirc_headers.update({"Cookie": temp_cookie + ";" + cookie_2})
@@ -68,55 +66,36 @@ def get_page_list(all_page=15):
             big_url_list.extend(url_list)
             big_title_list.extend(title_list)
     temp_df = pd.DataFrame([big_title_list, big_url_list]).T
-    return temp_df
+    return temp_df, cbirc_headers
 
 
-def get_detail():
+def bank_ybjfjcf(page=3):
     """
     获取每个具体页面的表格内容
     注意路径
     :return: pandas.DataFrame 另存为 csv 文件
     """
-    os.chdir(r"C:\Users\king\PycharmProjects\akshare\temp")
-    cbirc_headers = cbirc_headers_without_cookie.copy()
-    temp_df = pd.read_csv(r"C:\Users\king\PycharmProjects\akshare\bank.csv", encoding="gb2312", header=0, index_col=0)
-    for i in range(1, len(temp_df) + 1):
+    big_df = pd.DataFrame()
+    temp_df, cbirc_headers = bank_page_list(page)
+    for i in range(len(temp_df)):
+        # i = 1
         print(i)
         try:
             res = requests.get("http://www.cbirc.gov.cn" + temp_df.iloc[:, 1][i], headers=cbirc_headers)
             table_list = pd.read_html(res.text)
             table_df = table_list[6].iloc[:, 2:]
             table_df.columns = ["字段", "内容"]
-            table_df.to_csv(f"{temp_df.iloc[:, 0][i]}.csv", encoding="gb2312")
+            big_df = big_df.append(table_df.T)
         except:
             print(i, "是文档")
             continue
-
-
-def process_data():
-    """
-    处理采集下载的具体页面的内容
-    注意路径
-    :return: pandas.DataFrame 另存为 csv 文件
-    """
-    big_df = pd.DataFrame()
-    file_name_list = os.listdir(r"C:\Users\king\PycharmProjects\akshare\temp")
-    for file in file_name_list:
-        print(file)
-        file_df = pd.read_csv(file, encoding="gb2312", header=0, index_col=0)
-        big_df = big_df.append(file_df.iloc[:, 1])
-    for file in file_name_list:
-        print(file)
-        file_df = pd.read_csv(file, encoding="gb2312", header=0, index_col=0)
-        break
-    df = big_df.reset_index(drop=True)
-    df = df.iloc[:, :-1]
-    df.columns = file_df.iloc[:, 0].tolist()
-    df.to_csv("result.csv", encoding="gb2312")
+    big_df.reset_index(drop=True, inplace=True)
+    big_df.columns = table_df.iloc[:, 0].tolist()
+    return big_df
 
 
 if __name__ == "__main__":
-    df = get_page_list(all_page=15)
+    df = bank_ybjfjcf(page=3)
     print(df)
 
 
