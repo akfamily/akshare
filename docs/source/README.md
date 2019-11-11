@@ -121,11 +121,19 @@ plt.show()
 ```
 
 
-# 安装方法
-
+# 安装方法()
+**体验完整功能请安装 Nodejs 安装方法如下!!!!**
 ```
 pip install akshare
 ```
+
+Ubuntu
+```
+sudo apt-get install nodejs
+```
+Windows
+
+[点击下载 Nodejs for win 64]((https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi))
 
 
 # 升级方法
@@ -3934,7 +3942,7 @@ update
 
 ### 银保监分局本级行政处罚
 
-接口: bank_fjcf
+接口: bank_fjcf(需要安装 **Nodejs**)
 
 目标地址: http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/1.html
 
@@ -4676,4 +4684,7 @@ PCE物价指数年率报告
 
 0.2.18
 修正银保监分局本级行政处罚数据接口字段命名
+
+0.2.19
+增加 Nodejs 安装说明
 ```
