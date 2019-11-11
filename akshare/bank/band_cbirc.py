@@ -69,7 +69,7 @@ def bank_page_list(page=5):
     return temp_df, cbirc_headers
 
 
-def bank_ybjfjcf(page=3):
+def bank_fjcf(page=3):
     """
     获取每个具体页面的表格内容
     注意路径
@@ -83,19 +83,19 @@ def bank_ybjfjcf(page=3):
         try:
             res = requests.get("http://www.cbirc.gov.cn" + temp_df.iloc[:, 1][i], headers=cbirc_headers)
             table_list = pd.read_html(res.text)
-            table_df = table_list[6].iloc[:, 2:]
-            table_df.columns = ["字段", "内容"]
+            table_df = table_list[6].iloc[:, 3:]
+            table_df.columns = ["内容"]
             big_df = big_df.append(table_df.T)
         except:
             print(i, "是文档")
             continue
     big_df.reset_index(drop=True, inplace=True)
-    big_df.columns = table_df.iloc[:, 0].tolist()
+    big_df.columns = table_list[6].iloc[:, 2]
     return big_df
 
 
 if __name__ == "__main__":
-    df = bank_ybjfjcf(page=3)
+    df = bank_fjcf(page=3)
     print(df)
 
 
