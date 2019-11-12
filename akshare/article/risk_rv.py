@@ -17,7 +17,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def article_oman_visual(symbol="FTSE", index="rk_th2", plot=True):
+def article_oman_rv(symbol="FTSE", index="rk_th2", plot=True):
     """
     获取 Oxford-Man Institute of Quantitative Finance Realized Library 的数据
     :param symbol: str ['AEX', 'AORD', 'BFX', 'BSESN', 'BVLG', 'BVSP', 'DJI', 'FCHI', 'FTMIB', 'FTSE', 'GDAXI', 'GSPTSE', 'HSI', 'IBEX', 'IXIC', 'KS11', 'KSE', 'MXX', 'N225', 'NSEI', 'OMXC20', 'OMXHPI', 'OMXSPI', 'OSEAX', 'RUT', 'SMSI', 'SPX', 'SSEC', 'SSMI', 'STI', 'STOXX50E']
@@ -54,7 +54,7 @@ def article_oman_visual(symbol="FTSE", index="rk_th2", plot=True):
         return temp_df
 
 
-def article_oman_rv(symbol="FTSE", plot=True):
+def article_oman_rv_short(symbol="FTSE", plot=True):
     """
     获取 Oxford-Man Institute of Quantitative Finance Realized Library 的数据
     :param symbol: str FTSE: FTSE 100, GDAXI: DAX, RUT: Russel 2000, SPX: S&P 500 Index, STOXX50E: EURO STOXX 50, SSEC: Shanghai Composite Index, N225: Nikkei 225
@@ -103,7 +103,7 @@ def article_oman_rv(symbol="FTSE", plot=True):
         return temp_df
 
 
-def article_xdc_rv(symbol="39693", plot=True):
+def article_rlab_rv(symbol="39693", plot=True):
     """
     获取修大成主页-Risk Lab-Realized Volatility
     :param symbol: str 股票代码
@@ -173,14 +173,14 @@ def article_xdc_rv(symbol="39693", plot=True):
 
 
 if __name__ == "__main__":
-    df = article_xdc_rv(symbol="39693")
+    df = article_rlab_rv(symbol="39693")
     print(df)
-    help(article_xdc_rv)
+    help(article_rlab_rv)
 
-    df = article_oman_rv(symbol="FTSE")
+    df = article_oman_rv_short(symbol="FTSE")
     print(df)
-    help(article_xdc_rv)
+    help(article_rlab_rv)
 
-    df = article_oman_visual(symbol="FTSE", index="rk_th2")
+    df = article_oman_rv(symbol="FTSE", index="rk_th2")
     print(df)
-    help(article_xdc_rv)
+    help(article_rlab_rv)

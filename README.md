@@ -4148,7 +4148,7 @@ print(df)
 
 ### Oxford-Man
 
-接口: article_oman_visual
+接口: article_oman_rv
 
 目标地址: https://realized.oxford-man.ox.ac.uk/data/visualization
 
@@ -4179,7 +4179,7 @@ Oxford-Man-已实现波动率数据
 
 ```python
 import akshare as ak
-df = ak.article_oman_visual(symbol="FTSE", index="rk_th2", plot=True)
+df = ak.article_oman_rv(symbol="FTSE", index="rk_th2", plot=True)
 print(df)
 ```
 
@@ -4199,9 +4199,9 @@ print(df)
 ```
 
 
-### Risk Lab
+### Risk-Lab
 
-接口: article_xdc_rv
+接口: article_rlab_rv
 
 目标地址: https://dachxiu.chicagobooth.edu/
 
@@ -4231,7 +4231,7 @@ Risk-Lab-已实现波动率数据
 
 ```python
 import akshare as ak
-df = ak.article_xdc_rv(symbol="39693")
+df = ak.article_rlab_rv(symbol="39693")
 print(df)
 ```
 
@@ -4410,6 +4410,10 @@ root 设置为 [AkShare](https://github.com/jindaxiang/akshare) 爬数据时存�
 感谢[和讯财经网站](http://www.hexun.com/)提供的相关数据;
 
 感谢[新浪财经网站](https://finance.sina.com.cn/)提供的相关数据;
+
+感谢[Oxford-Man Institute of Quantitative Finance Realized Library 网站](https://realized.oxford-man.ox.ac.uk/)提供的相关数据;
+
+感谢[DACHENG XIU网站](https://dachxiu.chicagobooth.edu/)提供的相关数据;
 
 感谢[上海证券交易所](http://www.sse.com.cn/assortment/options/price/)提供的相关数据;
 
@@ -4798,4 +4802,7 @@ PCE物价指数年率报告
 
 0.2.20
 增加 Realized Library 接口
+
+0.2.21
+更新说明文档
 ```

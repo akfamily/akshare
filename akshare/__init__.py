@@ -260,17 +260,19 @@ PCE物价指数年率报告
 增加 Nodejs 安装说明
 0.2.20
 增加 Realized Library 接口
+0.2.21
+更新说明文档
 """
 
-__version__ = '0.2.20'
+__version__ = '0.2.21'
 __author__ = 'Albert King'
 
 """
 Realized Library 接口
 """
-from akshare.article.finance_xdc import (article_oman_visual,
-                                         article_oman_rv,
-                                         article_xdc_rv)
+from akshare.article.risk_rv import (article_oman_rv,
+                                     article_oman_rv_short,
+                                     article_rlab_rv)
 
 """
 银保监分局本级行政处罚数据
