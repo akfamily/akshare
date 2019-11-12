@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(本文档更新于 **2019-11-11**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
+(本文档更新于 **2019-11-12**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -28,7 +28,7 @@
 [AkShare](https://github.com/jindaxiang/akshare) 主要改进如下:
 
 1. Python 语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 统一接口函数的命名;
-2. 支持 Python 3.7 以上版本;
+2. 支持 Python 3.7.3 及其以上版本;
 3. 后续加入 [asyncio](https://www.python.org/dev/peps/pep-3156/) 和 [aiohttp](https://aiohttp.readthedocs.io/en/stable/) 做异步加速;
 4. 持续维护由于目标网页变化而导致的部分函数运行异常问题;
 5. 后续更新会主要集中在提供更多金融数据接口, 同时优化源代码;
@@ -81,6 +81,8 @@
     6.23 增加[新浪财经-科创板](http://vip.stock.finance.sina.com.cn/mkt/#cyb)数据接口, 提供科创板数据;
 
     6.24 增加[银保监分局本级行政处罚](http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/1.html)数据接口, 提供银保监分局本级行政处罚;
+
+    6.25 增加[Realized Library](https://realized.oxford-man.ox.ac.uk/)数据接口, Oxford-Man Institute of Quantitative Finance; https://dachxiu.chicagobooth.edu/
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
@@ -121,7 +123,7 @@ plt.show()
 ```
 
 
-# 安装方法()
+# 安装方法
 **体验完整功能请安装 Nodejs 安装方法如下!!!!**
 ```
 pip install akshare
@@ -4142,6 +4144,112 @@ print(df)
 ```
 
 
+## [AkShare](https://github.com/jindaxiang/akshare) 已实现波动率数据
+
+### Oxford-Man
+
+接口: article_oman_visual
+
+目标地址: https://realized.oxford-man.ox.ac.uk/data/visualization
+
+描述: 获取 Oxford-Man 已实现波动率数据
+
+限量: 单次返回某个指数具体指标的所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |  symbol="FTSE", 某个具体指数 help(article_oman_visual)|
+| index | str  | Y    |  index="rk_th2", 某个具体指标 help(article_oman_visual)|
+| plot | Bool  | Y    |  plot=True, 是否画图|
+
+
+输出参数
+
+Oxford-Man-已实现波动率数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| index      | datetime   | -        | -  |  
+| data      | float   | -        | -  |  
+
+
+接口示例
+
+```python
+import akshare as ak
+df = ak.article_oman_visual(symbol="FTSE", index="rk_th2", plot=True)
+print(df)
+```
+
+数据示例
+```
+2000-01-04    22.95
+2000-01-05    19.37
+2000-01-06    18.22
+2000-01-07    19.34
+2000-01-10    15.67
+              ...  
+2019-11-04     6.71
+2019-11-05     5.90
+2019-11-06     6.43
+2019-11-07     5.81
+2019-11-08     6.75
+```
+
+
+### Risk Lab
+
+接口: article_xdc_rv
+
+目标地址: https://dachxiu.chicagobooth.edu/
+
+描述: 获取 Risk-Lab 已实现波动率数据
+
+限量: 单次返回某个指数所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |  symbol="39693", 某个具体指数 help(article_xdc_rv)|
+| plot | Bool  | Y    |  plot=True, 是否画图|
+
+
+输出参数
+
+Risk-Lab-已实现波动率数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| index      | datetime   | -        | -  |  
+| data      | float   | -        | -  |  
+
+
+接口示例
+
+```python
+import akshare as ak
+df = ak.article_xdc_rv(symbol="39693")
+print(df)
+```
+
+数据示例
+```
+1996-01-02    0.000000
+1996-01-04    0.000000
+1996-01-05    0.000000
+1996-01-09    0.000000
+1996-01-10    0.000000
+                ...   
+2019-11-04    0.175107
+2019-11-05    0.185112
+2019-11-06    0.210373
+2019-11-07    0.240808
+2019-11-08    0.199549
+```
+
 # Anaconda安装说明及环境配置
 
 ## Anaconda 安装说明
@@ -4687,4 +4795,7 @@ PCE物价指数年率报告
 
 0.2.19
 增加 Nodejs 安装说明
+
+0.2.20
+增加 Realized Library 接口
 ```
