@@ -4213,7 +4213,7 @@ print(df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| symbol | str  | Y    |  symbol="39693", 某个具体指数 help(article_xdc_rv)|
+| symbol | str  | Y    |  symbol="39693", 某个具体指数 help(article_rlab_rv)|
 | plot | Bool  | Y    |  plot=True, 是否画图|
 
 
@@ -4804,5 +4804,8 @@ PCE物价指数年率报告
 增加 Realized Library 接口
 
 0.2.21
+更新说明文档
+
+0.2.22
 更新说明文档
 ```

@@ -262,9 +262,11 @@ PCE物价指数年率报告
 增加 Realized Library 接口
 0.2.21
 更新说明文档
+0.2.22
+更新说明文档
 """
 
-__version__ = '0.2.21'
+__version__ = '0.2.22'
 __author__ = 'Albert King'
 
 """
