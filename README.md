@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(本文档更新于 **2019-11-12**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
+(本文档更新于 **2019-11-14**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -4808,4 +4808,7 @@ PCE物价指数年率报告
 
 0.2.22
 更新说明文档
+
+0.2.23
+修正银保监分局本级行政处罚数据接口反扒升级-修改完成
 ```

@@ -7,7 +7,6 @@ contact: jindaxiang@163.com
 desc: 不需要控制速度, 但是需要伪装游览器, 不然会被一次封 IP 地址
 """
 import requests
-import execjs
 import pandas as pd
 from bs4 import BeautifulSoup
 
@@ -27,30 +26,12 @@ def bank_page_list(page=5):
     flag = True
     cbirc_headers = cbirc_headers_without_cookie.copy()
     for i_page in range(1, page):
-        # page = 1
+        # i_page = 1
         print(i_page)
         main_url = "http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/{}.html".format(i_page)
         if flag:
             res = requests.get(main_url, headers=cbirc_headers)
-            temp_cookie = res.headers["Set-Cookie"].split(";")[0]
             cbirc_headers.update({"Cookie": res.headers["Set-Cookie"].split(";")[0]})
-            res = requests.get(main_url, headers=cbirc_headers)
-            soup = BeautifulSoup(res.text, "lxml")
-            res_html = "function getClearance(){" + soup.find_all("script")[0].get_text() + "};"
-            res_html = res_html.replace("</script>", "")
-            res_html = res_html.replace("eval", "return")
-            res_html = res_html.replace("<script>", "")
-            ctx = execjs.compile(res_html)
-            over_js = "function getClearance2(){var a" + ctx.call("getClearance").split("document.cookie")[1].split("Path=/;'")[0] + "Path=/;';return a;};"
-            over_js = over_js.replace("window.headless", "''")
-            over_js = over_js.replace("window['_p'+'hantom']", "''")
-            over_js = over_js.replace("window['__p'+'hantom'+'as']", "''")
-            over_js = over_js.replace("window['callP'+'hantom']", "''")
-            over_js = over_js.replace("return(", "eval(")
-            over_js = over_js.replace(over_js[over_js.find("docum"):over_js.find(".href")+5], "'http://www.cbirc.gov.cn/'")
-            ctx = execjs.compile(over_js)
-            cookie_2 = ctx.call("getClearance2").split(";")[0]
-            cbirc_headers.update({"Cookie": temp_cookie + ";" + cookie_2})
             res = requests.get(main_url, headers=cbirc_headers)
             soup = BeautifulSoup(res.text, "lxml")
             url_list = [item.find("a")["href"] for item in soup.find_all(attrs={"class": "zwbg-2"})]
@@ -97,5 +78,3 @@ def bank_fjcf(page=3):
 if __name__ == "__main__":
     df = bank_fjcf(page=8)
     print(df)
-
-
