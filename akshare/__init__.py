@@ -274,15 +274,19 @@ PCE物价指数年率报告
 修正期货-实时行情: 接口命名, 字段补充及限制访问速度
 0.2.27
 增加新浪-外盘期货实时行情数据接口
+0.2.28
+修正新浪-外盘期货实时行情数据引入
+更新文档
 """
 
-__version__ = '0.2.27'
+__version__ = '0.2.28'
 __author__ = 'Albert King'
 
 """
 外盘期货实时行情
 """
-from akshare.futures.hf_futures_sina import (futures_hq_spot)
+from akshare.futures.hf_futures_sina import (futures_hf_spot,
+                                             hf_subscribe_exchange_symbol_url)
 
 """
 FF多因子数据接口

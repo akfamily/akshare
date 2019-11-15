@@ -18,14 +18,14 @@ from akshare.futures.cons import (hf_subscribe_exchange_symbol_url,
                                   hf_sina_spot_headers)
 
 
-def subscribe_exchange_symbol():
+def hf_subscribe_exchange_symbol():
     res = requests.get(hf_subscribe_exchange_symbol_url, headers=hf_sina_spot_headers)
     res.encoding = "gb2312"
     data_json = demjson.decode(res.text[res.text.find("var oHF_1 = ") + 12: res.text.find("var oHF_2 = ") - 2])
     return list(data_json.keys())
 
 
-def futures_hq_spot(subscribe_list=subscribe_exchange_symbol()):
+def futures_hf_spot(subscribe_list=hf_subscribe_exchange_symbol()):
     payload = "&list=" + ",".join(["hf_" + item for item in subscribe_list])
     prefix = f"rn={round(time.time() * 1000)}"
     res = requests.get(hf_subscribe_url + prefix + payload, headers=hf_subscribe_headers)
@@ -66,5 +66,5 @@ if __name__ == "__main__":
     print("开始接收实时行情, 每秒刷新一次")
     while True:
         time.sleep(3)
-        data = futures_hq_spot(subscribe_list=subscribe_exchange_symbol())
+        data = futures_hf_spot(subscribe_list=hf_subscribe_exchange_symbol())
         print(data)

@@ -2240,7 +2240,7 @@ import akshare as ak
 print("开始接收实时行情, 每秒刷新一次")
 while True:
     time.sleep(3)
-    data = ak.futures_hq_spot(subscribe_list=ak.subscribe_exchange_symbol())
+    data = ak.futures_hf_spot(subscribe_list=ak.hf_subscribe_exchange_symbol())
     print(data)
 ```
 数据示例
@@ -5059,4 +5059,8 @@ PCE物价指数年率报告
 
 0.2.27
 增加新浪-外盘期货实时行情数据接口
+
+0.2.28
+修正新浪-外盘期货实时行情数据引入
+更新文档
 ```

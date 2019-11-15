@@ -19,7 +19,7 @@ from akshare.futures.cons import (zh_subscribe_exchange_symbol_url,
                                   zh_sina_spot_headers)
 
 
-def subscribe_exchange_symbol(exchange="dce"):
+def zh_subscribe_exchange_symbol(exchange="dce"):
     res = requests.get(zh_subscribe_exchange_symbol_url, headers=zh_sina_spot_headers)
     data_json = demjson.decode(
         res.text[res.text.find("{"): res.text.find("};") + 1])
@@ -39,7 +39,7 @@ def subscribe_exchange_symbol(exchange="dce"):
 
 def match_main_contract(exchange="dce"):
     subscribe_cffex_list = []
-    exchange_symbol_list = subscribe_exchange_symbol(
+    exchange_symbol_list = zh_subscribe_exchange_symbol(
         exchange).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
         zh_match_main_contract_payload.update({"node": item})
