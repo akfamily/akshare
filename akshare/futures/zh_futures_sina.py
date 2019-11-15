@@ -13,14 +13,14 @@ import requests
 import pandas as pd
 import demjson
 
-from akshare.futures.cons import (subscribe_exchange_symbol_url,
-                                  match_main_contract_url,
-                                  match_main_contract_payload,
-                                  sina_spot_headers)
+from akshare.futures.cons import (zh_subscribe_exchange_symbol_url,
+                                  zh_match_main_contract_url,
+                                  zh_match_main_contract_payload,
+                                  zh_sina_spot_headers)
 
 
 def subscribe_exchange_symbol(exchange="dce"):
-    res = requests.get(subscribe_exchange_symbol_url, headers=sina_spot_headers)
+    res = requests.get(zh_subscribe_exchange_symbol_url, headers=zh_sina_spot_headers)
     data_json = demjson.decode(
         res.text[res.text.find("{"): res.text.find("};") + 1])
     if exchange == "czce":
@@ -42,10 +42,10 @@ def match_main_contract(exchange="dce"):
     exchange_symbol_list = subscribe_exchange_symbol(
         exchange).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
-        match_main_contract_payload.update({"node": item})
+        zh_match_main_contract_payload.update({"node": item})
         res = requests.get(
-            match_main_contract_url,
-            params=match_main_contract_payload, headers=sina_spot_headers)
+            zh_match_main_contract_url,
+            params=zh_match_main_contract_payload, headers=zh_sina_spot_headers)
         data_json = demjson.decode(res.text)
         data_df = pd.DataFrame(data_json)
         try:
@@ -61,7 +61,7 @@ def match_main_contract(exchange="dce"):
 
 def futures_zh_spot(subscribe_list="nf_V2001,nf_P2001"):
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
-    res = requests.get(url, headers=sina_spot_headers)
+    res = requests.get(url, headers=zh_sina_spot_headers)
     data_df = pd.DataFrame([item.strip().split("=")[1].split(
         ",") for item in res.text.split(";") if item.strip() != ""])
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")

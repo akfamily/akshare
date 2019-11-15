@@ -12,10 +12,37 @@ import os
 import re
 import pickle
 
-# sina_spot
-subscribe_exchange_symbol_url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
-match_main_contract_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQFuturesData"
-match_main_contract_payload = {
+# hf_sina_spot
+hf_subscribe_exchange_symbol_url = "http://finance.sina.com.cn/money/future/hf.html"
+hf_subscribe_url = "http://hq.sinajs.cn/"
+hf_subscribe_headers = {
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive",
+    "Host": "hq.sinajs.cn",
+    "Pragma": "no-cache",
+    "Referer": "http://finance.sina.com.cn/money/future/hf.html",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36"
+}
+hf_sina_spot_headers = {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive",
+    "Host": "finance.sina.com.cn",
+    "Pragma": "no-cache",
+    "Referer": "https://finance.sina.com.cn/futuremarket/",
+    "Upgrade-Insecure-Requests": "1",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36"
+}
+
+# zh_sina_spot
+zh_subscribe_exchange_symbol_url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
+zh_match_main_contract_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQFuturesData"
+zh_match_main_contract_payload = {
     "page": "1",
     "num": "5",
     "sort": "position",
@@ -23,7 +50,7 @@ match_main_contract_payload = {
     "node": "001",
     "base": "futures"
 }
-sina_spot_headers = {
+zh_sina_spot_headers = {
     "Accept": "*/*",
     "Accept-Encoding": "gzip, deflate, br",
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
