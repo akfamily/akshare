@@ -339,7 +339,7 @@ from akshare.stock.hk_stock_sina import (stock_hk_daily,
 """
 新浪-期货实时数据
 """
-from akshare.futures.hq_sina_futures import (futures_zh_spot,
+from akshare.futures.zh_futures_sina import (futures_zh_spot,
                                              match_main_contract)
 
 """
