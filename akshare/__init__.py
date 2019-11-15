@@ -270,9 +270,11 @@ PCE物价指数年率报告
 增加FF多因子模型数据接口
 0.2.25
 更新说明文档
+0.2.26
+修正期货-实时行情: 接口命名, 字段补充及限制访问速度
 """
 
-__version__ = '0.2.25'
+__version__ = '0.2.26'
 __author__ = 'Albert King'
 
 """
@@ -337,7 +339,7 @@ from akshare.stock.hk_stock_sina import (stock_hk_daily,
 """
 新浪-期货实时数据
 """
-from akshare.futures.hq_sina_futures import (subscribe_exchange_tick,
+from akshare.futures.hq_sina_futures import (futures_zh_spot,
                                              match_main_contract)
 
 """

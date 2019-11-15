@@ -78,8 +78,8 @@ def ff_crr():
 
 
 if __name__ == "__main__":
-    df = ff_crr()
-    print(df)
+    df_data = ff_crr()
+    print(df_data)
 
 
 

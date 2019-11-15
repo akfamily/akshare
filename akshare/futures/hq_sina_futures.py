@@ -5,6 +5,7 @@ Author: Albert King
 date: 2019/10/30 21:34
 contact: jindaxiang@163.com
 desc: 新浪财经-国内期货-实时数据获取
+P.S. 注意抓取速度, 容易封 IP 地址
 """
 import time
 
@@ -19,7 +20,8 @@ from akshare.futures.cons import (subscribe_exchange_symbol_url,
 
 def subscribe_exchange_symbol(exchange="dce"):
     res = requests.get(subscribe_exchange_symbol_url)
-    data_json = demjson.decode(res.text[res.text.find("{"): res.text.find("};") + 1])
+    data_json = demjson.decode(
+        res.text[res.text.find("{"): res.text.find("};") + 1])
     if exchange == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
@@ -36,10 +38,13 @@ def subscribe_exchange_symbol(exchange="dce"):
 
 def match_main_contract(exchange="dce"):
     subscribe_cffex_list = []
-    exchange_symbol_list = subscribe_exchange_symbol(exchange).iloc[:, 1].tolist()
+    exchange_symbol_list = subscribe_exchange_symbol(
+        exchange).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
         match_main_contract_payload.update({"node": item})
-        res = requests.get(match_main_contract_url, params=match_main_contract_payload)
+        res = requests.get(
+            match_main_contract_url,
+            params=match_main_contract_payload)
         data_json = demjson.decode(res.text)
         data_df = pd.DataFrame(data_json)
         try:
@@ -53,21 +58,65 @@ def match_main_contract(exchange="dce"):
     return ','.join(["nf_" + item for item in subscribe_cffex_list])
 
 
-def subscribe_exchange_tick(subscribe_list="nf_V2001,nf_P2001"):
+def futures_zh_spot(subscribe_list="nf_V2001,nf_P2001"):
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
     res = requests.get(url)
-    data_df = pd.DataFrame(
-        [item.strip().split("=")[1].split(",") for item in res.text.split(";") if item.strip() != ""])
+    data_df = pd.DataFrame([item.strip().split("=")[1].split(
+        ",") for item in res.text.split(";") if item.strip() != ""])
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")
     data_df.iloc[:, -1] = data_df.iloc[:, -1].str.replace('"', "")
-    data_df.columns = ["symbol", "time", "open", "high", "low", "_", "current_price", "ask_price", "_", "_", "_", "buy_vol", "sell_vol", "hold", "volume", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"]
-    return data_df[["symbol", "time", "open", "high", "low", "current_price", "ask_price", "buy_vol", "sell_vol", "hold", "volume"]]
+    data_df.columns = [
+        "symbol",
+        "time",
+        "open",
+        "high",
+        "low",
+        "last_close",
+        "bid_price",
+        "ask_price",
+        "current_price",
+        "avg_price",
+        "last_settle_price",
+        "buy_vol",
+        "sell_vol",
+        "hold",
+        "volume",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_"]
+    return data_df[["symbol",
+                    "time",
+                    "open",
+                    "high",
+                    "low",
+                    "current_price",
+                    "bid_price",
+                    "ask_price",
+                    "buy_vol",
+                    "sell_vol",
+                    "hold",
+                    "volume",
+                    "avg_price",
+                    "last_close",
+                    "last_settle_price",
+                    ]]
 
 
 if __name__ == "__main__":
-    subscribe_cffex_list = match_main_contract(exchange="dce")
     print("开始接收实时行情, 每秒刷新一次")
     while True:
         time.sleep(3)
-        data = subscribe_exchange_tick(subscribe_list=subscribe_cffex_list)
+        data = futures_zh_spot(
+            subscribe_list=match_main_contract(
+                exchange="dce"))
         print(data)
