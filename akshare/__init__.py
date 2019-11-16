@@ -288,10 +288,18 @@ PCE物价指数年率报告
 更新说明文档
 0.2.33
 更新说明文档-期货-外盘
+0.2.34
+新增新浪-指数实时行情和历史行情接口
 """
 
-__version__ = '0.2.33'
+__version__ = '0.2.34'
 __author__ = 'Albert King'
+
+"""
+新浪-指数实时行情和历史行情
+"""
+from akshare.index.zh_stock_index_sina import (stock_zh_index_daily,
+                                               stock_zh_index_spot)
 
 """
 外盘期货实时行情

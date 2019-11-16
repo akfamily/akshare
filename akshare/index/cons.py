@@ -6,7 +6,20 @@ date: 2019/10/17 1:19
 contact: jindaxiang@163.com
 desc: 指数配置文件
 """
+# zh-sina-a
+zh_sina_index_stock_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
+zh_sina_index_stock_payload = {
+    "page": "1",
+    "num": "80",
+    "sort": "symbol",
+    "asc": "1",
+    "node": "hs_s",
+    "_s_r_a": "page"
+}
+zh_sina_index_stock_count_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple?node=hs_s"
+zh_sina_index_stock_hist_url = "https://finance.sina.com.cn/realstock/company/{}/hisdata/klc_kl.js"
 
+# investing
 short_headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36'
 }
