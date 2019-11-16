@@ -2345,6 +2345,7 @@ while True:
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
+| subscribe_list | str | Y | 需要订阅的合约代码; e.g., 按照示例获取 |
 
 
 输出参数
@@ -2369,9 +2370,10 @@ while True:
 import time
 import akshare as ak
 print("开始接收实时行情, 每秒刷新一次")
+subscribe_list = ak.hf_subscribe_exchange_symbol()
 while True:
     time.sleep(3)
-    data = ak.futures_hf_spot(subscribe_list=ak.hf_subscribe_exchange_symbol())
+    data = ak.futures_hf_spot(subscribe_list=subscribe_list)
     print(data)
 ```
 数据示例
@@ -5207,4 +5209,7 @@ PCE物价指数年率报告
 
 0.2.32
 更新说明文档
+
+0.2.33
+更新说明文档-期货-外盘
 ```

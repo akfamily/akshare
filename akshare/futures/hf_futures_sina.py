@@ -64,7 +64,8 @@ def futures_hf_spot(subscribe_list=hf_subscribe_exchange_symbol()):
 
 if __name__ == "__main__":
     print("开始接收实时行情, 每秒刷新一次")
+    subscribe_list = hf_subscribe_exchange_symbol()
     while True:
         time.sleep(3)
-        data = futures_hf_spot(subscribe_list=hf_subscribe_exchange_symbol())
+        data = futures_hf_spot(subscribe_list=subscribe_list)
         print(data)
