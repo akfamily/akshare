@@ -85,6 +85,8 @@
     6.25 增加[Realized Library](https://realized.oxford-man.ox.ac.uk/)数据接口, Oxford-Man Institute of Quantitative Finance; https://dachxiu.chicagobooth.edu/
 
     6.26 增加[FF Factors](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)数据接口, 提供多因子模型数据
+
+    6.27 增加[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)数据接口, 提供历史分笔行情数据(近2年)
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
@@ -292,6 +294,11 @@ import akshare as ak
  'article_rlab_rv'  # Risk-Lab已实现波动率
  # FF多因子模型数据
  'ff_crr'  # FF当前因子
+ # 指数实时行情和历史行情
+ 'stock_zh_index_daily'  # 股票指数历史行情数据
+ 'stock_zh_index_spot'  # 股票指数实时行情数据
+ # 股票分笔数据
+ 'stock_zh_a_tick'  # A股票分笔行情数据(近2年)
 ```
 
 ## 3. 案例演示
@@ -562,6 +569,61 @@ print(stock_df)
     19  2000-07-06  12.6405367756464000
     20  1999-11-10  12.7227249211316980
     21  1900-01-01  12.7227249211316980
+```
+
+#### 历史分笔数据
+
+A 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)获取的数据, 历史数据按日频率更新
+
+接口: stock_zh_a_tick
+
+目标地址: http://gu.qq.com/sz300494/gp/detail(示例)
+
+描述: 获取 A 股历史分笔行情数据
+
+限量: 单次返回具体某个 A 上市公司的近2年历史分笔行情数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| code | str  | Y    |   symbol="sh600000"|
+| trade_date | datetime  | Y    |  trade_date="20191011"|
+
+
+输出参数-历史行情数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 成交时间          | time   | Y        | -     |
+| 成交价格          | float      | Y        | -     |
+| 价格变动          | float      | Y        | -     |
+| 成交量(手)           | float      | Y        | -     |
+| 成交额(元)         | float      | Y        | -     |
+| 性质        | str      | Y        | 买卖盘标记     |
+
+                
+接口示例
+```python
+import akshare as ak
+stock_df = ak.stock_zh_a_tick(code="sh600848", trade_date="20191011")
+print(stock_df)
+```
+
+数据示例-历史行情数据
+```
+          成交时间  成交价格  价格变动  成交量(手)  成交额(元)  性质
+0     09:25:04  3.45  0.01       4    1380  卖盘
+1     09:30:02  3.46  0.01       1     346  买盘
+2     09:30:08  3.46  0.00      20    6920  买盘
+3     09:30:20  3.46  0.00      28    9688  买盘
+4     09:30:23  3.46  0.00      25    8665  买盘
+        ...   ...   ...     ...     ...  ..
+1405  14:59:29  3.51 -0.02      14    4914  卖盘
+1406  14:59:50  3.51  0.00       5    1755  卖盘
+1407  14:59:50  3.52  0.01      69   24288  买盘
+1408  14:59:59  3.51 -0.01     100   35100  卖盘
+1409  15:00:02  3.52  0.01      10    3520  买盘
 ```
 
 ### 股票指数
@@ -5361,4 +5423,7 @@ PCE物价指数年率报告
 
 0.2.35
 新增新浪-指数和A股实时行情列表获取问题
+
+0.2.36
+新增腾讯财经-A股分笔行情历史数据
 ```

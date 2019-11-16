@@ -292,10 +292,17 @@ PCE物价指数年率报告
 新增新浪-指数实时行情和历史行情接口
 0.2.35
 新增新浪-指数和A股实时行情列表获取问题
+0.2.36
+新增腾讯财经-A股分笔行情历史数据
 """
 
-__version__ = '0.2.35'
+__version__ = '0.2.36'
 __author__ = 'Albert King'
+
+"""
+新浪-指数实时行情和历史行情
+"""
+from akshare.stock.zh_stock_a_tick_tx import (stock_zh_a_tick)
 
 """
 新浪-指数实时行情和历史行情
