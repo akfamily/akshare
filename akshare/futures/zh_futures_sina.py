@@ -52,14 +52,16 @@ def match_main_contract(exchange="dce"):
             main_contract = data_df[data_df.iloc[:, 3:].duplicated()]
             print(main_contract["symbol"].values[0])
             subscribe_cffex_list.append(main_contract["symbol"].values[0])
-        except:
+        except BaseException:
             print(item, "无主力合约")
             continue
     print("主力合约获取成功")
     return ','.join(["nf_" + item for item in subscribe_cffex_list])
 
 
-def futures_zh_spot(subscribe_list="nf_IF1912,nf_TF1912,nf_IH1912,nf_IC1912", market="CF"):
+def futures_zh_spot(
+        subscribe_list="nf_IF1912,nf_TF1912,nf_IH1912,nf_IC1912",
+        market="CF"):
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
     res = requests.get(url)
     data_df = pd.DataFrame([item.strip().split("=")[1].split(
@@ -179,19 +181,20 @@ def futures_zh_spot(subscribe_list="nf_IF1912,nf_TF1912,nf_IH1912,nf_IC1912", ma
 
 if __name__ == "__main__":
     print("开始接收实时行情, 每秒刷新一次")
-    dce_text = match_main_contract(exchange="dce")
-    czce_text = match_main_contract(exchange="czce")
-    shfe_text = match_main_contract(exchange="shfe")
-    while True:
-        time.sleep(3)
-        data = futures_zh_spot(
-            subscribe_list=",".join([dce_text, czce_text, shfe_text]))
-        print(data)
-
-    # 金融期货单独订阅
-    # cffex_text = match_main_contract(exchange="cffex")
-    #
+    # dce_text = match_main_contract(exchange="dce")
+    # czce_text = match_main_contract(exchange="czce")
+    # shfe_text = match_main_contract(exchange="shfe")
     # while True:
     #     time.sleep(3)
-    #     data = futures_zh_spot(subscribe_list=cffex_text, market="FF")
+    #     data = futures_zh_spot(
+    #         subscribe_list=",".join([dce_text, czce_text, shfe_text]),
+    #         market="CF")
     #     print(data)
+
+    # 金融期货单独订阅
+    cffex_text = match_main_contract(exchange="cffex")
+
+    while True:
+        time.sleep(3)
+        data = futures_zh_spot(subscribe_list=cffex_text, market="FF")
+        print(data)
