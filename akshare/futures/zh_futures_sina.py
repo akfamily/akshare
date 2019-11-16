@@ -20,7 +20,7 @@ from akshare.futures.cons import (zh_subscribe_exchange_symbol_url,
 
 
 def zh_subscribe_exchange_symbol(exchange="dce"):
-    res = requests.get(zh_subscribe_exchange_symbol_url, headers=zh_sina_spot_headers)
+    res = requests.get(zh_subscribe_exchange_symbol_url)
     data_json = demjson.decode(
         res.text[res.text.find("{"): res.text.find("};") + 1])
     if exchange == "czce":
@@ -45,7 +45,7 @@ def match_main_contract(exchange="dce"):
         zh_match_main_contract_payload.update({"node": item})
         res = requests.get(
             zh_match_main_contract_url,
-            params=zh_match_main_contract_payload, headers=zh_sina_spot_headers)
+            params=zh_match_main_contract_payload)
         data_json = demjson.decode(res.text)
         data_df = pd.DataFrame(data_json)
         try:
@@ -61,7 +61,7 @@ def match_main_contract(exchange="dce"):
 
 def futures_zh_spot(subscribe_list="nf_V2001,nf_P2001"):
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
-    res = requests.get(url, headers=zh_sina_spot_headers)
+    res = requests.get(url)
     data_df = pd.DataFrame([item.strip().split("=")[1].split(
         ",") for item in res.text.split(";") if item.strip() != ""])
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")
@@ -115,9 +115,11 @@ def futures_zh_spot(subscribe_list="nf_V2001,nf_P2001"):
 
 if __name__ == "__main__":
     print("开始接收实时行情, 每秒刷新一次")
-    temp_list = match_main_contract(exchange="dce")
+    dce_text = match_main_contract(exchange="dce")
+    czce_text = match_main_contract(exchange="czce")
+    shfe_text = match_main_contract(exchange="shfe")
     while True:
-        time.sleep(6)
+        time.sleep(3)
         data = futures_zh_spot(
-            subscribe_list=temp_list)
+            subscribe_list=",".join([dce_text, czce_text, shfe_text]))
         print(data)

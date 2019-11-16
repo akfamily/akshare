@@ -279,9 +279,12 @@ PCE物价指数年率报告
 更新文档
 0.2.29
 更新文档
+0.2.30
+监管-银保监: 反扒措施在变化, 更新接口
+修正期货-国内-实时行情接口订阅问题
 """
 
-__version__ = '0.2.29'
+__version__ = '0.2.30'
 __author__ = 'Albert King'
 
 """
@@ -305,7 +308,7 @@ from akshare.article.risk_rv import (article_oman_rv,
 """
 银保监分局本级行政处罚数据
 """
-from akshare.bank.bank_cbirc_20191115 import (bank_fjcf)
+from akshare.bank.bank_cbirc_20191114 import (bank_fjcf)
 
 """
 科创板股票
