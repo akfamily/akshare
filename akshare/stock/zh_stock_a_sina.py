@@ -87,7 +87,7 @@ def stock_zh_a_spot():
         zh_sina_stock_payload_copy.update({"page": page})
         res = requests.get(
             zh_sina_a_stock_url,
-            params=zh_sina_a_stock_payload)
+            params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(res.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
     return big_df
