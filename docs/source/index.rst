@@ -11,6 +11,7 @@ Welcome to AkShare's documentation!
    :caption: Contents:
 
    README
+   Pandas_0.25
 
 
 Indices and tables
