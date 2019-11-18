@@ -1,5 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare)
-(本文档更新于 **2019-11-16**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
+(本文档更新于 **2019-11-18**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -87,6 +87,8 @@
     6.26 增加[FF Factors](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)数据接口, 提供多因子模型数据
 
     6.27 增加[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)数据接口, 提供历史分笔行情数据(近2年)
+    
+    6.28 增加[金十数据](https://datacenter.jin10.com/market)监控数据接口, 提供基于 Websocket 的数据接口(基础版本);
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
@@ -4823,6 +4825,57 @@ Big Neutral                                            4.49
 Big Aggressive                                        -0.38
 ```
 
+## [AkShare](https://github.com/jindaxiang/akshare) 板块实时监控(完善中)
+
+### 商品、外汇、股市、美股、国债、指数
+
+接口: watch
+
+目标地址: https://datacenter.jin10.com/market
+
+描述: 获取商品、外汇、股市、美股、国债、指数实时行情数据
+
+限量: 主动推送
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |  -|
+
+
+输出参数
+
+FF-Current Research Returns
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| json数据暂不统一数据格式     | float   | -        | -  |  
+
+
+接口示例
+
+```python
+import akshare as ak
+ak.watch()
+```
+
+数据示例
+```
+42["price",{"c":"USDSEK","n":"美元/瑞典克朗","t":2,"lp":9.63381,"ch":-0.00548,"chp":-0.06}]
+42["price",{"c":"USDTRY","n":"美元/土耳其里拉","t":2,"lp":5.7359,"ch":-0.0064}]
+42["price",{"c":"CADCHF","n":"加元/瑞郎","t":2,"lp":0.74865,"ch":0.00076,"chp":0.1}]
+42["price",{"c":"AUDUSD","n":"澳元/美元","t":2,"lp":0.68114,"ch":-0.00052,"chp":-0.08}]
+42["price",{"c":"UKX","n":"英国富时100指数","t":3,"lp":7309,"ch":6.1}]
+42["price",{"c":"AUDNZD","n":"澳元/纽元","t":2,"lp":1.06348,"ch":-0.00134,"chp":-0.13}]
+42["price",{"c":"AUDNZD","n":"澳元/纽元","t":2,"lp":1.06369,"ch":-0.00113,"chp":-0.11}]
+42["price",{"c":"XAUUSD","n":"现货黄金","t":1,"lp":1459.18,"ch":-8.74,"chp":-0.6}]
+42["price",{"c":"AUDNZD","n":"澳元/纽元","t":2,"lp":1.06346,"ch":-0.00136,"chp":-0.13}]
+42["price",{"c":"USDCAD","n":"美元/加元","t":2,"lp":1.3217,"ch":-0.00035,"chp":-0.03}]
+42["price",{"c":"AUDNZD","n":"澳元/纽元","t":2,"lp":1.06347,"ch":-0.00135}]
+42["price",{"c":"AUDNZD","n":"澳元/纽元","t":2,"lp":1.06369,"ch":-0.00113,"chp":-0.11}]
+```
+
 
 # Anaconda安装说明及环境配置
 
@@ -5426,4 +5479,7 @@ PCE物价指数年率报告
 
 0.2.36
 新增腾讯财经-A股分笔行情历史数据
+
+0.2.37
+新增金十数据-实时监控接口
 ```

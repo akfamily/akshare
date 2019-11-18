@@ -95,7 +95,7 @@ def bank_fjcf(page=3):
 
 
 if __name__ == "__main__":
-    df = bank_fjcf(page=8)
+    df = bank_fjcf(page=3)
     print(df)
 
 

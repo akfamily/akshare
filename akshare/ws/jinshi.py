@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/11/16 22:47
 contact: jindaxiang@163.com
-desc:
+desc: 金十数据 websocket 实时数据接口
 """
 import time
 from threading import Timer, Event, Thread
@@ -61,7 +61,7 @@ def on_emit(ws):
         time.sleep(.2)
 
 
-if __name__ == "__main__":
+def watch():
     websocket.enableTrace(False)
     ws = websocket.WebSocketApp(
         "wss://sshibikfdn.jin10.com:9085/socket.io/?EIO=3&transport=websocket",
@@ -73,3 +73,7 @@ if __name__ == "__main__":
     t = Timer(3, on_emit, args=(ws,))
     t.start()
     ws.run_forever()
+
+
+if __name__ == "__main__":
+    watch()

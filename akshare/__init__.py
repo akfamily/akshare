@@ -1,5 +1,5 @@
 """AkShare 是基于 Python 的开源金融数据接口库, 目的是实现对股票, 期货, 期权, 基金, 债券, 外汇等金融产品和另类数据从数据采集, 数据清洗到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 AkShare 获取的是基于可信任数据源发布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 从而得出科学的结论."""
-
+import datetime
 """
 版本改动记录:
 0.1.13
@@ -294,10 +294,17 @@ PCE物价指数年率报告
 新增新浪-指数和A股实时行情列表获取问题
 0.2.36
 新增腾讯财经-A股分笔行情历史数据
+0.2.37
+新增金十数据-实时监控接口
 """
 
-__version__ = '0.2.36'
+__version__ = '0.2.37'
 __author__ = 'Albert King'
+
+"""
+金十财经-实时监控
+"""
+from akshare.ws.jinshi import (watch)
 
 """
 新浪-指数实时行情和历史行情
@@ -331,7 +338,10 @@ from akshare.article.risk_rv import (article_oman_rv,
 """
 银保监分局本级行政处罚数据
 """
-from akshare.bank.bank_cbirc_20191114 import (bank_fjcf)
+if datetime.datetime.now().weekday() in [0, 1, 2, 3, 4]:
+    from akshare.bank.bank_cbirc_20191114 import (bank_fjcf)
+else:
+    from akshare.bank.bank_cbirc_20191115 import (bank_fjcf)
 
 """
 科创板股票
@@ -563,7 +573,7 @@ from akshare.futures.roll_yield import (get_roll_yield_bar,
                                         get_roll_yield)
 
 """
-交易所行情数据日线
+交易所日线行情数据
 """
 from akshare.futures.daily_bar import (get_cffex_daily,
                                        get_czce_daily,
