@@ -1,14 +1,14 @@
 # Pandas 10大新功能
 
-![Pandas0.25](https://upload-images.jianshu.io/upload_images/3240514-4e644d577b798c68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![Pandas0.25](https://upload-images.jianshu.io/upload_images/3240514-4e644d577b798c68.png)
 **推荐阅读**
-![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea)
 
  [Python大咖谈 - Kenneth Reitz 与 Mike Driscoll](https://mp.weixin.qq.com/s/R2jkmrzsXw_jM3FcjQ6z3g)
  [Python大咖谈 - Brett Cannon](https://mp.weixin.qq.com/s/McPsnFVESseQFjpYgTrN4w)
  [Python大咖谈 - Steve Holden](https://mp.weixin.qq.com/s/H8oUhxHsoneXyHa8XKBXxg)
 
-![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea)
 > 呆鸟云：“7 月 18 日，Pandas 团队推出了 Pandas 0.25 版，这就相当于 Python 3.8 啦，Python 数据分析师可别错过新版的好功能哦。”
 
 安装 0.25 版：`pip install pandas`，就可以了。
@@ -18,15 +18,15 @@
 ## 一、四个置顶的警告！
 1. 从 0.25 起，pandas 只支持 Python 3.53 及以上版本了，不再支持 Python 2.7，还在使用 Python 2 的朋友可要注意了，享受不了新功能了，不过，貌似用 Python 2 做数据分析这事儿估计已经绝迹了吧！
 
-![](https://upload-images.jianshu.io/upload_images/3240514-f06471baa5a83b6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-f06471baa5a83b6a.png)
 
 2. 下一版 pandas 将只支持 Python 3.6 及以上版本了，这是因为 f-strings 的缘故吗？嘿嘿。
 
-![](https://upload-images.jianshu.io/upload_images/3240514-2382c84ae7b65940.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-2382c84ae7b65940.png)
 
 3. 彻底去掉了 Panel，N 维数据结构以后要用 [xarray](https://xarray.pydata.org/en/stable/) 了。 说起来惭愧，呆鸟还没用过 Panel 呢，它怎么就走了。。。。
 
-![](https://upload-images.jianshu.io/upload_images/3240514-d13199350b34e881.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-d13199350b34e881.png)
 
 4. `read_pickle()`  与 `read_msgpack()`，只向后兼容到 0.20.3。上一篇文章刚介绍过 `read_pickle()`，它就也要离我们而去了吗？-_-||
 
@@ -34,12 +34,11 @@
 
 ## 二、新增功能
 
-### 1. Groupby 的**命名聚合（Named Aggregation）**
+### 1. Groupby 的**命名聚合(Named Aggregation)**
 
 这可是个新功能，能直接为指定的聚合输出列命名。先创建一个 DataFrame 示例。
 
-```python
-import pandas as pd
+```
 animals = pd.DataFrame({'品种': ['猫', '狗', '猫', '狗'],
                         '身高': [9.1, 6.0, 9.5, 34.0],
                         '体重': [7.9, 7.5, 9.9, 198.0]})
@@ -48,7 +47,7 @@ animals
 
 > 命名聚合示例，居然还支持中文诶！不过，这里是为了演示清晰才写的中文变量名，平时，该用英文还是要用英文的。
 
-```Python
+```
 animals.groupby('品种').agg(
     最低=pd.NamedAgg(column='身高', aggfunc='min'),
     最高=pd.NamedAgg(column='身高', aggfunc='max'),
@@ -57,7 +56,7 @@ animals.groupby('品种').agg(
 ```
 这么写看起来还是有些繁琐，很不 Pythonic，好在 pandas 提供了更简单的写法，只需传递一个 Tuple 就可以了，Tuple 里的第一个元素是指定列，第二个元素是聚合函数，看看下面的代码，是不是少敲了好多下键盘：
 
-```Python
+```
 animals.groupby('品种').agg(
     最低=('身高', min),
     最高=('身高', max),
@@ -70,19 +69,19 @@ Pandas 提供了一种叫 `pandas.NameAgg` 的命名元组（namedtuple），但
 
 这两段代码的效果是一样的，结果都如下图所示。 
 
-![命名聚合](https://upload-images.jianshu.io/upload_images/3240514-da0cf5f7919d78e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![命名聚合](https://upload-images.jianshu.io/upload_images/3240514-da0cf5f7919d78e5.png)
 
 命名聚合取代了已经废弃的 `dict-of-dicts` 重命名方式，看了一下，之前的操作还真是挺复杂的，这里就不赘述了，有兴趣回顾的朋友，可以自己看下[用 dict 重命名 groupby.agg() 输出结果（已废弃） ](https://pandas.pydata.org/pandas-docs/stable/whatsnew/v0.20.0.html#whatsnew-0200-api-breaking-deprecate-group-agg-dict)这部分内容。
 
 命名聚合还支持 Series 的 groupby 对象，因为 Series 无需指定列名，只要写清楚要应用的函数就可以了。
 
-```python
+```
 animals.groupby('品种').身高.agg(
     最低=min,
     最高=max,
 )
 ```
-![命名聚合](https://upload-images.jianshu.io/upload_images/3240514-435e32238e910bf9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![命名聚合](https://upload-images.jianshu.io/upload_images/3240514-435e32238e910bf9.png)
 
 更多有关**命名聚合**的介绍，详见官方文档 [Named aggregation](https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#groupby-aggregate-named) 。
 
@@ -90,24 +89,24 @@ animals.groupby('品种').身高.agg(
 
 0.25 版有一个黑科技，以 list 方式向 `agg()` 函数传递多个 lambda 函数。为了减少键盘敲击量，真是无所不用其极啊！
 
-```Python
+```
 animals.groupby('品种').身高.agg([
     lambda x: x.iloc[0], lambda x: x.iloc[-1]
 ])
 ```
-![多个 lambda 函数1](https://upload-images.jianshu.io/upload_images/3240514-31f80d8829eddd6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![多个 lambda 函数1](https://upload-images.jianshu.io/upload_images/3240514-31f80d8829eddd6f.png)
 
-```python
+```
 animals.groupby('品种').agg([
     lambda x: x.iloc[0] - x.iloc[1],
     lambda x: x.iloc[0] + x.iloc[1]
 ])
 ```
-![多个 lambda 函数2](https://upload-images.jianshu.io/upload_images/3240514-acadecac59939d08.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![多个 lambda 函数2](https://upload-images.jianshu.io/upload_images/3240514-acadecac59939d08.png)
 
 0.25 版前，这样操作会触发 `SpecificationError`
 
-![触发 SpecificationError](https://upload-images.jianshu.io/upload_images/3240514-5d2fbbddd89311c5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![触发 SpecificationError](https://upload-images.jianshu.io/upload_images/3240514-5d2fbbddd89311c5.png)
 
 > 这个功能也有个小遗憾，多 lambda 函数的输出没有像命名聚合那样可以自定义命名，还要后面手动修改，有些不方便，不知道是我没找到，还是真没有……
 
@@ -115,13 +114,13 @@ animals.groupby('品种').agg([
 
 `MultiIndex` 输出的每行数据以 Tuple 显示，且垂直对齐，这样一来，`MultiIndex` 的结构显示的更清晰了。
 
-```python
+```
 pd.MultiIndex.from_product([['a', 'abc'], range(500)])
 ```
-![之前，是这样的](https://upload-images.jianshu.io/upload_images/3240514-1279f8ecd379e83b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![之前，是这样的](https://upload-images.jianshu.io/upload_images/3240514-1279f8ecd379e83b.png)
 
 
-![现在，是这样的](https://upload-images.jianshu.io/upload_images/3240514-f1e76a879103c5ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![现在，是这样的](https://upload-images.jianshu.io/upload_images/3240514-f1e76a879103c5ff.png)
 
 真是货比货得扔，以前没感觉，现在一比较，有没有觉得大不相同呢？
 
@@ -143,7 +142,7 @@ amount1 = np.arange(1000)
 cols = ['销售金额']
 sales1 = pd.DataFrame(amount1,index=sales_date1,columns=cols)
 ```
-![min_rows](https://upload-images.jianshu.io/upload_images/3240514-432731e9a57fa9de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![min_rows](https://upload-images.jianshu.io/upload_images/3240514-432731e9a57fa9de.png)
 
 > 在 VSCode 里显示正常，只显示了前 5 行与后 5 行，但貌似 Jupyter Notebook 6.0 目前貌似还不支持这个设置，还是显示前 30 行与后 30 行。图片太长，这里就不截图了。如果 Jupyter 可以的话，请告诉我。
 
@@ -151,7 +150,7 @@ sales1 = pd.DataFrame(amount1,index=sales_date1,columns=cols)
 
 json_normalize()  支持按层级（level）读取，增加了 `max_level` 控制参数。
 
-```Python
+```
 from pandas.io.json import json_normalize
 
 data = [{
@@ -162,33 +161,33 @@ data = [{
         }]
 ```
 0.25 以前是这样的，所有层级都读取出来了：
-```Python
+```
 json_normalize(data)
 ```
 
-![0.25以前](https://upload-images.jianshu.io/upload_images/3240514-ed8bf442d0a621bb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![0.25以前](https://upload-images.jianshu.io/upload_images/3240514-ed8bf442d0a621bb.png)
 
 0.25 以后是这样的，可以通过 `max_level` 参数控制读取的 JSON 数据层级：
-```Python
+```
 json_normalize(data, max_level=1)
 ```
-![0.25以后](https://upload-images.jianshu.io/upload_images/3240514-9a5418c4b0e1763a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![0.25以后](https://upload-images.jianshu.io/upload_images/3240514-9a5418c4b0e1763a.png)
 
 ### 6. 增加 explode() 方法，把 list “炸”成行
 
 Series 与 DataFrame 增加了 explode() 方法，把 list 形式的值转换为单独的行。
 
-```python
+```
 df = pd.DataFrame([{'变量1': 'a,b,c', '变量2': 1},
                    {'变量1': 'd,e,f', '变量2': 2}])
 df
 ```
-![](https://upload-images.jianshu.io/upload_images/3240514-8a15488ca1c0a96f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-8a15488ca1c0a96f.png)
 
-```python
+```
 df.assign(变量1=df.变量1.str.split(',')).explode('变量1')
 ```
-![](https://upload-images.jianshu.io/upload_images/3240514-f4bb304bc71dfadc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-f4bb304bc71dfadc.png)
 
 以后再拆分这样的数据就简单多了。具体官方文档说明详见 [section on Exploding list-like column](https://pandas.pydata.org/pandas-docs/stable/user_guide/reshaping.html#reshaping-explode)。
 
@@ -207,10 +206,10 @@ pd.DataFrame({"A": pd.SparseArray([0, 1])})
 ```
 输出的结果都是一样的：
 
-![稀疏矩阵](https://upload-images.jianshu.io/upload_images/3240514-730edf414eae8910.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![稀疏矩阵](https://upload-images.jianshu.io/upload_images/3240514-730edf414eae8910.png)
 
 ### 8. 对 DataFrame Groupby 后，Groupby.apply 对每组只处理一次
-```python
+```
 df = pd.DataFrame({"a": ["x", "y"], "b": [1, 2]})
 df
 
@@ -223,15 +222,15 @@ df.groupby('a').apply(func)
 
 有没有想到，0.25 以前输出的结果居然是这样的：
 
-![0.25以前](https://upload-images.jianshu.io/upload_images/3240514-5db1ea42cbf9e600.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![0.25以前](https://upload-images.jianshu.io/upload_images/3240514-5db1ea42cbf9e600.png)
 
-![0.25以后](https://upload-images.jianshu.io/upload_images/3240514-6129c1176ca094bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![0.25以后](https://upload-images.jianshu.io/upload_images/3240514-6129c1176ca094bf.png)
 
 这样才正常嘛~~！
 
 ### 9. 用 Dict 生成的 DataFrame，终于支持列排序啦
 
-```Python
+```
 data = [
     {'姓 名': '张三', '城 市': '北京', '年 龄': 18},
     {'姓 名': '李四', '城 市': '上海', '年 龄': 19, '爱 好': '打游戏'},
@@ -242,16 +241,16 @@ pd.DataFrame(data)
 
 以前是乱序的，全凭 pandas 的喜好：
 
-![0.25以前](https://upload-images.jianshu.io/upload_images/3240514-00fb1f275e4614d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![0.25以前](https://upload-images.jianshu.io/upload_images/3240514-00fb1f275e4614d4.png)
 
 现在，我的字典终于我做主了！
 
-![0.25以后](https://upload-images.jianshu.io/upload_images/3240514-4f23dbd90550b434.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![0.25以后](https://upload-images.jianshu.io/upload_images/3240514-4f23dbd90550b434.png)
 
 ### 10. Query() 支持列名空格了
 
 用上面的 `data` 生成一个示例 DataFrame，注意列名是有空格的。
-```Python
+```
 import pandas as pd
 df = pd.DataFrame(data)
 ```
@@ -259,7 +258,7 @@ df = pd.DataFrame(data)
 ```
 df.query('`年 龄` <19')
 ```
-![](https://upload-images.jianshu.io/upload_images/3240514-32d59324c7429ecf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-32d59324c7429ecf.png)
 
 好了，本文就先介绍 pandas 0.25 的这些改变，其实，0.25 还包括了很多优化，比如，对 DataFrame GroupBy 后 `ffill`, `bfill` 方法的调整，对类别型数据的 `argsort` 的缺失值排序，`groupby`保留类别数据的数据类型等，如需了解，详见官方文档 [What's new in 0.25.0](https://pandas.pydata.org/pandas-docs/stable/whatsnew/v0.25.0.html)。
 

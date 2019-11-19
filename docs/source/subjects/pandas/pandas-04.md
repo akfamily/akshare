@@ -2,7 +2,7 @@
 
 本节介绍 Pandas 基础数据结构，包括各类对象的数据类型、索引、轴标记、对齐等基础操作。首先，导入 NumPy 和 Pandas：
 
-```python
+```
 In [1]: import numpy as np
 
 In [2]: import pandas as pd
@@ -16,7 +16,7 @@ In [2]: import pandas as pd
 
 [`Series`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.Series.html#Pandas.Series) 是带标签的一维数组，可存储整数、浮点数、字符串、Python 对象等类型的数据。轴标签统称为**索引**。调用 `pd.Series` 函数即可创建 Series：
 
-```python
+```
 >>> s = pd.Series(data, index=index)
 ```
 
@@ -32,7 +32,7 @@ In [2]: import pandas as pd
 
 `data` 是多维数组时，**index** 长度必须与 **data** 长度一致。没有指定 `index` 参数时，创建数值型索引，即 `[0, ..., len(data) - 1]`。
 
-```python
+```
 In [3]: s = pd.Series(np.random.randn(5), index=['a', 'b', 'c', 'd', 'e'])
 
 In [4]: s
@@ -67,7 +67,7 @@ Pandas 的索引值可以重复。不支持重复索引值的操作会触发异�
 
 Series 可以用字典实例化：
 
-```python
+```
 In [7]: d = {'b': 1, 'a': 0, 'c': 2}
 
 In [8]: pd.Series(d)
@@ -90,7 +90,7 @@ Python < 3.6 或 Pandas < 0.23，且未设置 `index` 参数时，`Series` 按�
 
 如果设置了 `index` 参数，则按索引标签提取 `data` 里对应的值。
 
-```python
+```
 In [9]: d = {'a': 0., 'b': 1., 'c': 2.}
 
 In [10]: pd.Series(d)
@@ -119,7 +119,7 @@ Pandas 用 `NaN`（Not a Number）表示**缺失数据**。
 
 `data` 是标量值时，必须提供索引。`Series` 按**索引**长度重复该标量值。
 
-```python
+```
 In [12]: pd.Series(5., index=['a', 'b', 'c', 'd', 'e'])
 Out[12]: 
 a    5.0
@@ -134,7 +134,7 @@ dtype: float64
 
 `Series` 操作与 `ndarray` 类似，支持大多数 NumPy 函数，还支持索引切片。
 
-```python
+```
 In [13]: s[0]
 Out[13]: 0.4691122999071863
 
@@ -176,7 +176,7 @@ dtype: float64
 
 和 NumPy 数组一样，Series 也支持 [`dtype`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.Series.dtype.html#Pandas.Series.dtype)。
 
-```python
+```
 In [18]: s.dtype
 Out[18]: dtype('float64')
 ```
@@ -185,7 +185,7 @@ Out[18]: dtype('float64')
 
 [`Series.array`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.Series.array.html#Pandas.Series.array) 用于提取 `Series` 数组。
 
-```python
+```
 In [19]: s.array
 Out[19]: 
 <PandasArray>
@@ -201,7 +201,7 @@ Length: 5, dtype: float64
 Series 只是类似于多维数组，提取**真正**的多维数组，要用
  [`Series.to_numpy()`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.Series.to_numpy.html#Pandas.Series.to_numpy)。
 
-```python
+```
 In [20]: s.to_numpy()
 Out[20]: array([ 0.4691, -0.2829, -1.5091, -1.1356,  1.2121])
 ```
@@ -212,7 +212,7 @@ Series 是[`扩展数组`](https://Pandas.pydata.org/Pandas-docs/stable/referenc
 
 Series 类似固定大小的字典，可以用索引标签提取值或设置值：
 
-```python
+```
 In [21]: s['a']
 Out[21]: 0.4691122999071863
 
@@ -236,14 +236,14 @@ Out[25]: False
 
 引用 `Series` 里没有的标签会触发异常：
 
-```python
+```
 >>> s['f']
 KeyError: 'f'
 ```
 
 `get` 方法可以提取 `Series` 里没有的标签，返回 `None` 或指定默认值：
 
-```python
+```
 In [26]: s.get('f')
 
 In [27]: s.get('f', np.nan)
@@ -256,7 +256,7 @@ Out[27]: nan
 
 Series 和 NumPy 数组一样，都不用循环每个值，而且 Series 支持大多数 NumPy 多维数组的方法。
 
-```python
+```
 In [28]: s + s
 Out[28]: 
 a     0.938225
@@ -287,7 +287,7 @@ dtype: float64
 
 Series 和多维数组的主要区别在于， Series 之间的操作会自动基于标签对齐数据。因此，不用顾及执行计算操作的 Series 是否有相同的标签。
 
-```python
+```
 In [31]: s[1:] + s[:-1]
 Out[31]: 
 a         NaN
@@ -310,7 +310,7 @@ dtype: float64
 
 Series 支持 `name` 属性：
 
-```python
+```
 In [32]: s = pd.Series(np.random.randn(5), name='something')
 
 In [33]: s
@@ -332,7 +332,7 @@ Out[34]: 'something'
 
 [`pandas.Series.rename()`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.Series.rename.html#Pandas.Series.rename) 方法用于重命名 Series 。
 
-```python
+```
 In [35]: s2 = s.rename("different")
 
 In [36]: s2.name
@@ -367,7 +367,7 @@ Python < 3.6 或 Pandas < 0.23，且未指定 `columns` 参数时，`DataFrame` 
 
 生成的**索引**是每个 **Series** 索引的并集。先把嵌套字典转换为 Series。如果没有指定列，DataFrame 的列就是字典键的有序列表。
 
-```python
+```
 In [37]: d = {'one': pd.Series([1., 2., 3.], index=['a', 'b', 'c']),
    ....:      'two': pd.Series([1., 2., 3., 4.], index=['a', 'b', 'c', 'd'])}
    ....: 
@@ -405,7 +405,7 @@ a  1.0   NaN
 
 :::
 
-```python
+```
 In [42]: df.index
 Out[42]: Index(['a', 'b', 'c', 'd'], dtype='object')
 
@@ -417,7 +417,7 @@ Out[43]: Index(['one', 'two'], dtype='object')
 
 多维数组的长度必须相同。如果传递了索引参数，`index` 的长度必须与数组一致。如果没有传递索引参数，生成的结果是 `range(n)`，`n` 为数组长度。
 
-```python
+```
 In [44]: d = {'one': [1., 2., 3., 4.],
    ....:      'two': [4., 3., 2., 1.]}
    ....: 
@@ -443,7 +443,7 @@ d  4.0  1.0
 
 本例与数组字典的操作方式相同。
 
-```python
+```
 In [47]: data = np.zeros((2, ), dtype=[('A', 'i4'), ('B', 'f4'), ('C', 'a10')])
 
 In [48]: data[:] = [(1, 2., 'Hello'), (2, 3., "World")]
@@ -475,7 +475,7 @@ DataFrame 的运作方式与 NumPy 二维数组不同。
 
 ### 用列表字典生成 DataFrame
 
-```python
+```
 In [52]: data2 = [{'a': 1, 'b': 2}, {'a': 5, 'b': 10, 'c': 20}]
 
 In [53]: pd.DataFrame(data2)
@@ -501,7 +501,7 @@ Out[55]:
 
 元组字典可以自动创建多层索引 DataFrame。
 
-```python
+```
 In [56]: pd.DataFrame({('a', 'b'): {('A', 'B'): 1, ('A', 'C'): 2},
    ....:               ('a', 'a'): {('A', 'C'): 3, ('A', 'B'): 4},
    ....:               ('a', 'c'): {('A', 'B'): 5, ('A', 'C'): 6},
@@ -530,7 +530,7 @@ A B  1.0  4.0  5.0  8.0  10.0
 
 `DataFrame.from_dict` 接收字典组成的字典或数组序列字典，并生成 DataFrame。除了 `orient` 参数默认为 `columns`，本构建器的操作与 `DataFrame` 构建器类似。把 `orient` 参数设置为 `'index'`， 即可把字典的键作为行标签。
 
-```python
+```
 In [57]: pd.DataFrame.from_dict(dict([('A', [1, 2, 3]), ('B', [4, 5, 6])]))
 Out[57]: 
    A  B
@@ -541,7 +541,7 @@ Out[57]:
 
 `orient='index'` 时，键是行标签。本例还传递了列名：
 
-```python
+```
 In [58]: pd.DataFrame.from_dict(dict([('A', [1, 2, 3]), ('B', [4, 5, 6])]),
    ....:                        orient='index', columns=['one', 'two', 'three'])
    ....: 
@@ -555,7 +555,7 @@ B    4    5      6
 
 `DataFrame.from_records` 构建器支持元组列表或结构数据类型（`dtype`）的多维数组。本构建器与 `DataFrame` 构建器类似，只不过生成的 DataFrame 索引是结构数据类型指定的字段。例如：
 
-```python
+```
 In [59]: data
 Out[59]: 
 array([(1, 2., b'Hello'), (2, 3., b'World')],
@@ -573,7 +573,7 @@ b'World'  2  3.0
 
 DataFrame 就像带索引的 Series 字典，提取、设置、删除列的操作与字典类似：
 
-```python
+```
 In [61]: df['one']
 Out[61]: 
 a    1.0
@@ -597,7 +597,7 @@ d  NaN  4.0    NaN  False
 
 删除（del、pop）列的方式也与字典类似：
 
-```python
+```
 In [65]: del df['two']
 
 In [66]: three = df.pop('three')
@@ -613,7 +613,7 @@ d  NaN  False
 
 标量值以广播的方式填充列：
 
-```python
+```
 In [68]: df['foo'] = 'bar'
 
 In [69]: df
@@ -627,7 +627,7 @@ d  NaN  False  bar
 
 插入与 DataFrame 索引不同的 Series 时，以 DataFrame 的索引为准：
 
-```python
+```
 In [70]: df['one_trunc'] = df['one'][:2]
 
 In [71]: df
@@ -643,7 +643,7 @@ d  NaN  False  bar        NaN
 
 默认在 DataFrame 尾部插入列。`insert` 函数可以指定插入列的位置：
 
-```python
+```
 In [72]: df.insert(1, 'bar', df['one'])
 
 In [73]: df
@@ -659,7 +659,7 @@ d  NaN  NaN  False  bar        NaN
 
 受 [dplyr](https://dplyr.tidyverse.org/reference/mutate.html) 的 `mutate` 启发，DataFrame 提供了 [`assign()`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.DataFrame.assign.html#Pandas.DataFrame.assign) 方法，可以利用现有的列创建新列。
 
-```python
+```
 In [74]: iris = pd.read_csv('data/iris.data')
 
 In [75]: iris.head()
@@ -685,7 +685,7 @@ Out[76]:
 
 上例中，插入了一个预计算的值。还可以传递带参数的函数，在 `assign` 的 DataFrame 上求值。
 
-```python
+```
 In [77]: iris.assign(sepal_ratio=lambda x: (x['SepalWidth'] / x['SepalLength'])).head()
 Out[77]: 
    SepalLength  SepalWidth  PetalLength  PetalWidth         Name  sepal_ratio
@@ -700,7 +700,7 @@ Out[77]:
 
 未引用 DataFrame 时，传递可调用的，不是实际要插入的值。这种方式常见于在操作链中调用 `assign` 的操作。例如，将 DataFrame 限制为花萼长度大于 5 的观察值，计算比例，再制图：
 
-```python
+```
 In [78]: (iris.query('SepalLength > 5')
    ....:      .assign(SepalRatio=lambda x: x.SepalWidth / x.SepalLength,
    ....:              PetalRatio=lambda x: x.PetalWidth / x.PetalLength)
@@ -709,7 +709,7 @@ In [78]: (iris.query('SepalLength > 5')
 Out[78]: <matplotlib.axes._subplots.AxesSubplot at 0x7f66075a7978>
 ```
 
-![](https://upload-images.jianshu.io/upload_images/3240514-ff75949572dc8134.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/3240514-ff75949572dc8134.png)
 
 上例用 `assign` 把函数传递给 DataFrame， 并执行函数运算。这是要注意的是，该 DataFrame 是筛选了花萼长度大于 5 以后的数据。首先执行的是筛选操作，再计算比例。这个例子就是对没有事先*筛选* DataFrame 进行的引用。
 
@@ -719,7 +719,7 @@ Out[78]: <matplotlib.axes._subplots.AxesSubplot at 0x7f66075a7978>
 
 从 3.6 版开始，Python 可以保存 `**kwargs` 顺序。这种操作允许*依赖赋值*，`**kwargs` 后的表达式，可以引用同一个 [`assign()`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.DataFrame.assign.html#Pandas.DataFrame.assign) 函数里之前创建的列 。
 
-```python
+```
 In [79]: dfa = pd.DataFrame({"A": [1, 2, 3],
    ....:                     "B": [4, 5, 6]})
    ....: 
@@ -738,7 +738,7 @@ Out[80]:
 
 要兼容所有 Python 版本，可以把 `assign` 操作分为两部分。
 
-```python
+```
 In [81]: dependent = pd.DataFrame({"A": [1, 1, 1]})
 
 In [82]: (dependent.assign(A=lambda x: x['A'] + 1)
@@ -762,7 +762,7 @@ Out[82]:
 
 示例如下，更新列 “A”，然后，在创建 “B” 列时引用该列。
 
-```python
+```
 >>> dependent = pd.DataFrame({"A": [1, 1, 1]})
 >>> dependent.assign(A=lambda x: x["A"] + 1, B=lambda x: x["A"] + 2)
 ```
@@ -801,7 +801,7 @@ A  B
 
 选择行返回 Series，索引是 DataFrame 的列：
 
-```python
+```
 In [83]: df.loc['b']
 Out[83]: 
 one              2
@@ -827,7 +827,7 @@ Name: c, dtype: object
 
 DataFrame 对象可以自动对齐**列与索引（行标签）**的数据。与上文一样，生成的结果是列和行标签的并集。
 
-```python
+```
 In [85]: df = pd.DataFrame(np.random.randn(10, 4), columns=['A', 'B', 'C', 'D'])
 
 In [86]: df2 = pd.DataFrame(np.random.randn(7, 3), columns=['A', 'B', 'C'])
@@ -849,7 +849,7 @@ Out[87]:
 
 DataFrame 和 Series 之间执行操作时，默认操作是在 DataFrame 的**列**上对齐 Series 的**索引**，按行执行[广播](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)操作。例如：
 
-```python
+```
 In [88]: df - df.iloc[0]
 Out[88]: 
           A         B         C         D
@@ -867,7 +867,7 @@ Out[88]:
 
 时间序列是特例，DataFrame 索引包含日期时，按列广播：
 
-```python
+```
 In [89]: index = pd.date_range('1/1/2000', periods=8)
 
 In [90]: df = pd.DataFrame(np.random.randn(8, 3), index=index, columns=list('ABC'))
@@ -904,13 +904,13 @@ Out[93]:
 
 ::: danger 警告
 
-```python
+```
 df - df['A']
 ```
 
 已弃用，后期版本中会删除。实现此操作的首选方法是：
 
-```python
+```
 df.sub(df['A'], axis=0)
 ```
 
@@ -920,7 +920,7 @@ df.sub(df['A'], axis=0)
 
 标量操作与其它数据结构一样：
 
-```python
+```
 In [94]: df * 5 + 2
 Out[94]: 
                    A         B         C
@@ -960,7 +960,7 @@ Out[96]:
 
 支持布尔运算符：
 
-```python
+```
 In [97]: df1 = pd.DataFrame({'a': [1, 0, 1], 'b': [0, 1, 1]}, dtype=bool)
 
 In [98]: df2 = pd.DataFrame({'a': [0, 1, 1], 'b': [1, 1, 0]}, dtype=bool)
@@ -998,7 +998,7 @@ Out[102]:
 
 类似于多维数组，`T` 属性（即 `transpose` 函数）可以转置 DataFrame：
 
-```python
+```
 # only show the first 5 rows
 In [103]: df[:5].T
 Out[103]: 
@@ -1012,7 +1012,7 @@ C   -1.281247   -0.097883    0.959726    0.149748    0.176444
 
 Series 与 DataFrame 可使用 log、exp、sqrt 等多种元素级 NumPy 通用函数（ufunc） ，假设 DataFrame 的数据都是数字：
 
-```python
+```
 In [104]: np.exp(df)
 Out[104]: 
                    A         B         C
@@ -1043,7 +1043,7 @@ DataFrame 不是多维数组的替代品，它的索引语义和数据模型与�
 
 通用函数应用于 Series 的底层数组。
 
-```python
+```
 In [106]: ser = pd.Series([1, 2, 3, 4])
 
 In [107]: np.exp(ser)
@@ -1059,7 +1059,7 @@ dtype: float64
 
 Pandas 可以自动对齐 ufunc 里的多个带标签输入数据。例如，两个标签排序不同的 [`Series`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.Series.html#Pandas.Series) 运算前，会先对齐标签。
 
-```python
+```
 In [108]: ser1 = pd.Series([1, 2, 3], index=['a', 'b', 'c'])
 
 In [109]: ser2 = pd.Series([1, 3, 5], index=['b', 'a', 'c'])
@@ -1088,7 +1088,7 @@ dtype: int64
 
 一般来说，Pandas 提取两个索引的并集，不重叠的值用缺失值填充。
 
-```python
+```
 In [113]: ser3 = pd.Series([2, 4, 6], index=['b', 'c', 'd'])
 
 In [114]: ser3
@@ -1109,7 +1109,7 @@ dtype: float64
 
 对 [`Series`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.Series.html#Pandas.Series) 和 [`Index`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.Index.html#Pandas.Index) 应用二进制 ufunc 时，优先执行 Series，并返回的结果也是 Series 。
 
-```python
+```
 In [116]: ser = pd.Series([1, 2, 3])
 
 In [117]: idx = pd.Index([4, 5, 6])
@@ -1128,7 +1128,7 @@ NumPy 通用函数可以安全地应用于非多维数组支持的 [`Series`](ht
 
 控制台显示大型 DataFrame 时，会根据空间调整显示大小。[`info()`](https://Pandas.pydata.org/Pandas-docs/stable/reference/api/Pandas.DataFrame.info.html#Pandas.DataFrame.info)函数可以查看 DataFrame 的信息摘要。下列代码读取 R 语言 **plyr** 包里的**棒球**数据集 CSV 文件）：
 
-```python
+```
 In [119]: baseball = pd.read_csv('data/baseball.csv')
 
 In [120]: print(baseball)
@@ -1174,7 +1174,7 @@ memory usage: 18.1+ KB
 
 尽管 `to_string` 有时不匹配控制台的宽度，但还是可以用 `to_string` 以表格形式返回 DataFrame 的字符串表示形式：
 
-```python
+```
 In [122]: print(baseball.iloc[-20:, :12].to_string())
        id     player  year  stint team  lg    g   ab   r    h  X2b  X3b
 80  89474  finlest01  2007      1  COL  NL   43   94   9   17    3    0
@@ -1201,7 +1201,7 @@ In [122]: print(baseball.iloc[-20:, :12].to_string())
 
 默认情况下，过宽的 DataFrame 会跨多行输出：
 
-```python
+```
 In [123]: pd.DataFrame(np.random.randn(3, 12))
 Out[123]: 
           0         1         2         3         4         5         6         7         8         9        10        11
@@ -1212,7 +1212,7 @@ Out[123]:
 
 `display.width` 选项可以更改单行输出的宽度：
 
-```python
+```
 In [124]: pd.set_option('display.width', 40)  # 默认值为 80
 
 In [125]: pd.DataFrame(np.random.randn(3, 12))
@@ -1225,7 +1225,7 @@ Out[125]:
 
 还可以用 `display.max_colwidth` 调整最大列宽。
 
-```python
+```
 In [126]: datafile = {'filename': ['filename_01', 'filename_02'],
    .....:             'path': ["media/user_name/storage/folder_01/filename_01",
    .....:                      "media/user_name/storage/folder_02/filename_02"]}
@@ -1254,7 +1254,7 @@ Out[130]:
 
 DataFrame 列标签是有效的 Python 变量名时，可以像属性一样访问该列：
 
-```python
+```
 In [131]: df = pd.DataFrame({'foo1': np.random.randn(5),
    .....:                    'foo2': np.random.randn(5)})
    .....: 
@@ -1280,7 +1280,7 @@ Name: foo1, dtype: float64
 
 [IPython](https://ipython.org) 支持补全功能，按 **tab** 键可以实现代码补全：
 
-```python
+```
 In [134]: df.fo<TAB>  # 此时按 tab 键 会显示下列内容
 df.foo1  df.foo2
 ```
