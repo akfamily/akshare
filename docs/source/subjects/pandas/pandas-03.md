@@ -1,5 +1,5 @@
-# 专题教程
-## Pandas专题教程
+# Pandas 10大新功能
+
 ![Pandas0.25](https://upload-images.jianshu.io/upload_images/3240514-4e644d577b798c68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 **推荐阅读**
 ![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -15,7 +15,7 @@
 
 下面和大家一起看看新版 pandas 都有哪些改变。
 
-### 一、四个置顶的警告！
+## 一、四个置顶的警告！
 1. 从 0.25 起，pandas 只支持 Python 3.53 及以上版本了，不再支持 Python 2.7，还在使用 Python 2 的朋友可要注意了，享受不了新功能了，不过，貌似用 Python 2 做数据分析这事儿估计已经绝迹了吧！
 
 ![](https://upload-images.jianshu.io/upload_images/3240514-f06471baa5a83b6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -32,9 +32,9 @@
 
 看完了这四大警告，咱们再看下 0.25 带来了哪些新东西。
 
-### 二、新增功能
+## 二、新增功能
 
-#### 1. Groupby 的**命名聚合（Named Aggregation）**
+### 1. Groupby 的**命名聚合（Named Aggregation）**
 
 这可是个新功能，能直接为指定的聚合输出列命名。先创建一个 DataFrame 示例。
 
@@ -86,7 +86,7 @@ animals.groupby('品种').身高.agg(
 
 更多有关**命名聚合**的介绍，详见官方文档 [Named aggregation](https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#groupby-aggregate-named) 。
 
-#### 2. Groupby 聚合支持多个 lambda 函数
+### 2. Groupby 聚合支持多个 lambda 函数
 
 0.25 版有一个黑科技，以 list 方式向 `agg()` 函数传递多个 lambda 函数。为了减少键盘敲击量，真是无所不用其极啊！
 
@@ -111,7 +111,7 @@ animals.groupby('品种').agg([
 
 > 这个功能也有个小遗憾，多 lambda 函数的输出没有像命名聚合那样可以自定义命名，还要后面手动修改，有些不方便，不知道是我没找到，还是真没有……
 
-#### 3. 优化了 MultiIndex 显示输出
+### 3. 优化了 MultiIndex 显示输出
 
 `MultiIndex` 输出的每行数据以 Tuple 显示，且垂直对齐，这样一来，`MultiIndex` 的结构显示的更清晰了。
 
@@ -125,7 +125,7 @@ pd.MultiIndex.from_product([['a', 'abc'], range(500)])
 
 真是货比货得扔，以前没感觉，现在一比较，有没有觉得大不相同呢？
 
-#### 4.  精简显示  Series 与 DataFrame
+### 4.  精简显示  Series 与 DataFrame
 
 超过 60 行的 Series 与 DataFrame，pandas 会默认最多只显示 60 行（见 `display.max_rows` 选项）。这种设置依然会占用大量垂直屏幕空间。因此，0.25 版引入了 `display.min_rows` 选项，默认只显示 10 行：
 
@@ -147,7 +147,7 @@ sales1 = pd.DataFrame(amount1,index=sales_date1,columns=cols)
 
 > 在 VSCode 里显示正常，只显示了前 5 行与后 5 行，但貌似 Jupyter Notebook 6.0 目前貌似还不支持这个设置，还是显示前 30 行与后 30 行。图片太长，这里就不截图了。如果 Jupyter 可以的话，请告诉我。
 
-#### 5.  json_normalize()  支持 max_level
+### 5.  json_normalize()  支持 max_level
 
 json_normalize()  支持按层级（level）读取，增加了 `max_level` 控制参数。
 
@@ -174,7 +174,7 @@ json_normalize(data, max_level=1)
 ```
 ![0.25以后](https://upload-images.jianshu.io/upload_images/3240514-9a5418c4b0e1763a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 6. 增加 explode() 方法，把 list “炸”成行
+### 6. 增加 explode() 方法，把 list “炸”成行
 
 Series 与 DataFrame 增加了 explode() 方法，把 list 形式的值转换为单独的行。
 
@@ -192,7 +192,7 @@ df.assign(变量1=df.变量1.str.split(',')).explode('变量1')
 
 以后再拆分这样的数据就简单多了。具体官方文档说明详见 [section on Exploding list-like column](https://pandas.pydata.org/pandas-docs/stable/user_guide/reshaping.html#reshaping-explode)。
 
-#### 7.  SparseDataFrame 被废弃了
+### 7.  SparseDataFrame 被废弃了
 
 0.25 以前专门有 `SparseDataFrame()`，生成稀疏矩阵，0.25 以后，这个函数被废弃了，改成 `pd.DataFrame` 里的 `pd.SparseArray()` 了，函数统一了，但是要多敲几下键盘了。 
 
@@ -209,7 +209,7 @@ pd.DataFrame({"A": pd.SparseArray([0, 1])})
 
 ![稀疏矩阵](https://upload-images.jianshu.io/upload_images/3240514-730edf414eae8910.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 8. 对 DataFrame Groupby 后，Groupby.apply 对每组只处理一次
+### 8. 对 DataFrame Groupby 后，Groupby.apply 对每组只处理一次
 ```python
 df = pd.DataFrame({"a": ["x", "y"], "b": [1, 2]})
 df
@@ -229,7 +229,7 @@ df.groupby('a').apply(func)
 
 这样才正常嘛~~！
 
-#### 9. 用 Dict 生成的 DataFrame，终于支持列排序啦
+### 9. 用 Dict 生成的 DataFrame，终于支持列排序啦
 
 ```Python
 data = [
@@ -248,7 +248,7 @@ pd.DataFrame(data)
 
 ![0.25以后](https://upload-images.jianshu.io/upload_images/3240514-4f23dbd90550b434.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 10. Query() 支持列名空格了
+### 10. Query() 支持列名空格了
 
 用上面的 `data` 生成一个示例 DataFrame，注意列名是有空格的。
 ```Python

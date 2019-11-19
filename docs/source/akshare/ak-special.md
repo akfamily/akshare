@@ -42,6 +42,8 @@
 
 感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据.
 
+感谢[Python大咖谈公众号](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)提供的Pandas教程
+
 
 ## 交流
 
