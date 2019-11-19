@@ -1,0 +1,148 @@
+# Russian translations for sphinx_rtd_theme.
+# Copyright (C) 2019 Read the Docs, Inc
+# This file is distributed under the same license as the sphinx_rtd_theme
+# project.
+msgid ""
+msgstr ""
+"Project-Id-Version: sphinx_rtd_theme 0.4.3.dev0\n"
+"Report-Msgid-Bugs-To: support@readthedocs.org\n"
+"POT-Creation-Date: 2019-07-24 23:51-0600\n"
+"PO-Revision-Date: 2019-07-16 21:44+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: Russian "
+"(https://www.transifex.com/readthedocs/teams/101354/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.7.0\n"
+
+#: sphinx_rtd_theme/breadcrumbs.html:31
+msgid "Docs"
+msgstr ""
+
+#: sphinx_rtd_theme/breadcrumbs.html:43 sphinx_rtd_theme/breadcrumbs.html:45
+msgid "Edit on GitHub"
+msgstr ""
+
+#: sphinx_rtd_theme/breadcrumbs.html:50 sphinx_rtd_theme/breadcrumbs.html:52
+msgid "Edit on Bitbucket"
+msgstr ""
+
+#: sphinx_rtd_theme/breadcrumbs.html:57 sphinx_rtd_theme/breadcrumbs.html:59
+msgid "Edit on GitLab"
+msgstr ""
+
+#: sphinx_rtd_theme/breadcrumbs.html:62 sphinx_rtd_theme/breadcrumbs.html:64
+msgid "View page source"
+msgstr ""
+
+#: sphinx_rtd_theme/breadcrumbs.html:74 sphinx_rtd_theme/footer.html:5
+msgid "Next"
+msgstr ""
+
+#: sphinx_rtd_theme/breadcrumbs.html:77 sphinx_rtd_theme/footer.html:8
+msgid "Previous"
+msgstr ""
+
+#: sphinx_rtd_theme/footer.html:21 sphinx_rtd_theme/footer.html:24
+#: sphinx_rtd_theme/layout.html:92
+msgid "Copyright"
+msgstr ""
+
+#. Build is a noun, not a verb
+#: sphinx_rtd_theme/footer.html:31
+msgid "Build"
+msgstr ""
+
+#: sphinx_rtd_theme/footer.html:36
+msgid "Revision"
+msgstr ""
+
+#: sphinx_rtd_theme/footer.html:40
+#, python-format
+msgid "Last updated on %(last_updated)s."
+msgstr ""
+
+#: sphinx_rtd_theme/footer.html:50
+#, python-format
+msgid "Built with %(sphinx_web)s using a"
+msgstr ""
+
+#: sphinx_rtd_theme/footer.html:50
+msgid "theme"
+msgstr ""
+
+#: sphinx_rtd_theme/footer.html:50
+#, python-format
+msgid "provided by %(readthedocs_web)s"
+msgstr ""
+
+#: sphinx_rtd_theme/layout.html:61
+#, python-format
+msgid "Search within %(docstitle)s"
+msgstr ""
+
+#: sphinx_rtd_theme/layout.html:83
+msgid "About these documents"
+msgstr ""
+
+#: sphinx_rtd_theme/layout.html:86
+msgid "Index"
+msgstr ""
+
+#: sphinx_rtd_theme/layout.html:89 sphinx_rtd_theme/search.html:11
+msgid "Search"
+msgstr ""
+
+#: sphinx_rtd_theme/layout.html:124
+msgid "Logo"
+msgstr ""
+
+#: sphinx_rtd_theme/search.html:26
+msgid "Please activate JavaScript to enable the search functionality."
+msgstr ""
+
+#. Search is a noun, not a verb
+#: sphinx_rtd_theme/search.html:34
+msgid "Search Results"
+msgstr ""
+
+#: sphinx_rtd_theme/search.html:36
+msgid ""
+"Your search did not match any documents. Please make sure that all words "
+"are spelled correctly and that you've selected enough categories."
+msgstr ""
+
+#: sphinx_rtd_theme/searchbox.html:4
+msgid "Search docs"
+msgstr ""
+
+#: sphinx_rtd_theme/versions.html:11
+msgid "Versions"
+msgstr ""
+
+#: sphinx_rtd_theme/versions.html:17
+msgid "Downloads"
+msgstr ""
+
+#. The phrase "Read the Docs" is not translated
+#: sphinx_rtd_theme/versions.html:24
+msgid "On Read the Docs"
+msgstr ""
+
+#: sphinx_rtd_theme/versions.html:26
+msgid "Project Home"
+msgstr ""
+
+#: sphinx_rtd_theme/versions.html:29
+msgid "Builds"
+msgstr ""
+
+#: sphinx_rtd_theme/versions.html:33
+msgid "Free document hosting provided by"
+msgstr ""
+
