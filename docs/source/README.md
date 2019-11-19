@@ -141,7 +141,7 @@ sudo apt-get install nodejs
 ```
 Windows
 
-[点击下载 Nodejs for win 64]((https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi))
+[点击下载 Nodejs for win 64](https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi)
 
 
 # 升级方法
