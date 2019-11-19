@@ -10,8 +10,20 @@ Welcome to AkShare's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   akshare/ak-introduction
+   akshare/ak-installation
+   akshare/ak-tutorial
    README
-   Pandas_0.25
+
+   akshare/ak-anaconda
+   akshare/ak-monitor
+   akshare/ak-email
+   akshare/ak-special
+   akshare/ak-strategy
+   akshare/ak-platform
+   subjects/pandas/pandas-1
+
+   akshare/ak-changelog
 
 
 Indices and tables
