@@ -1,4 +1,4 @@
-# Anaconda安装说明及环境配置
+# [AkShare](https://github.com/jindaxiang/akshare) 环境配置
 
 ## Anaconda 安装说明
 
@@ -6,7 +6,9 @@ Anaconda 是集成了上千个常用库的 Python 发行版本, 通过安装 Ana
 作者基于目前 Python2 即将停止更新, 且目前大部分使用者电脑系统基本都是 64 位, 所以建议选择 Python3.7.3 64 位版本
 同时, 根据您电脑的操作系统选择相对应的版本: Windows 版, MacOS 或 Linux 版的 64 位安装包.
 
-## 安装演示(以 64 位 windows 版本为例)
+## Anaconda 安装演示
+
+**以 64 位 windows 版本为例**
 
 下图中红框为 64 位 Windows 选择的版本:
 

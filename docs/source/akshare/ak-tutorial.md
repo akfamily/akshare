@@ -1,8 +1,8 @@
-# 快速入门
+# 10分钟快速入门
 
-## 1. 先按照 [Anaconda安装说明及环境配置](#Anaconda安装说明及环境配置)
+## 1. 先进行 [AkShare](https://github.com/jindaxiang/akshare) 环境配置
 
-## 2. 查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据接口
+## 2. 再查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据接口
 
 **Example 2.1** 查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据接口
 

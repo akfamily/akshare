@@ -1,4 +1,4 @@
-# 每日监控下载配置
+# 监控配置
 本地配置好 Anaconda, 以及通过 pip 安装好 akshare>=0.1.59 后, 在 github 上下载示例文件, 即按照下图选择. 
 
 [https://github.com/jindaxiang/akshare](https://github.com/jindaxiang/akshare)
