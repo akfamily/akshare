@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="referrer" content="no-referrer"/>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% set title = _('Welcome!') %}
+{% block body %}
+  <h1>{{ _('Welcome') }}</h1>
 
-</body>
-</html>
+  <p>This is the test project for creating a custom landing page.
+
+  <img class="biglogo" src="{{ pathto('_static/images/logo.jpg', 1) }}">
+
+  <h2 style="margin-bottom: 10 px">{%trans%}Start Here{%endtrans%}</h2>
+
+  <p>See the <a href="{{ pathto("contents") }}">{%trans%}table of contents{%endtrans%}</a>.</p>
+
+{% endblock %}
