@@ -92,7 +92,7 @@
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/AkShare.png)
+![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare.png)
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的初衷
 
