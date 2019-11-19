@@ -12,7 +12,7 @@
 
 ## Overview
 
-AkShare is an , written with `Python-3.7.3`, aims to make fetch financial data as convenient as possible.
+[AkShare](https://github.com/jindaxiang/akshare) is an , written with `Python-3.7.3`, aims to make fetch financial data as convenient as possible.
 
 **Write less, get more**:
 
