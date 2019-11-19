@@ -847,7 +847,7 @@ Out[87]:
 9       NaN       NaN       NaN NaN
 ```
 
-DataFrame 和 Series 之间执行操作时，默认操作是在 DataFrame 的**列**上对齐 Series 的**索引**，按行执行[广播]((http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html))操作。例如：
+DataFrame 和 Series 之间执行操作时，默认操作是在 DataFrame 的**列**上对齐 Series 的**索引**，按行执行[广播](http://docs.scipy.org/doc/numpy/user/basics.broadcasting.html)操作。例如：
 
 ```python
 In [88]: df - df.iloc[0]

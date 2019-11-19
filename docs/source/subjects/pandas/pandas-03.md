@@ -264,5 +264,3 @@ df.query('`年 龄` <19')
 好了，本文就先介绍 pandas 0.25 的这些改变，其实，0.25 还包括了很多优化，比如，对 DataFrame GroupBy 后 `ffill`, `bfill` 方法的调整，对类别型数据的 `argsort` 的缺失值排序，`groupby`保留类别数据的数据类型等，如需了解，详见官方文档 [What's new in 0.25.0](https://pandas.pydata.org/pandas-docs/stable/whatsnew/v0.25.0.html)。
 
 配套的 Jupyter Notebook 文件链接[这里](https://github.com/jaystone776/pandas_answered/blob/master/10_New_Features_in_Pandas_0.25.ipynb)。
-***
-

@@ -2,7 +2,7 @@
 
 本节介绍 Pandas 数据结构的基础用法。下列代码创建上一节用过的示例数据对象：
 
-```pyhton
+```python
 In [1]: index = pd.date_range('1/1/2000', periods=8)
 
 In [2]: s = pd.Series(np.random.randn(5), index=['a', 'b', 'c', 'd', 'e'])
