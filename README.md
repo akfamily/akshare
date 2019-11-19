@@ -6,7 +6,7 @@
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/) 
 [![Downloads](https://pepy.tech/badge/akshare/month)](https://pepy.tech/project/akshare/month)
 
-# ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/home/akshare_home.png)
+# ![](https://github.com/jindaxiang/akshare/blob/master/docs/source/_static/images/akshare_home.png)
 
 ## Overview
 
@@ -15,6 +15,8 @@ AkShare is an , written with `Python-3.7.3`, aims to make fetch financial data a
 **Write less, get more**:
 
 -   Documentation: [中文文档](https://akshare.readthedocs.io/zh_CN/latest/)
+
+# ![](https://github.com/jindaxiang/akshare/blob/master/docs/source/_static/images/AkShare.png)
 
 ## Features
 
