@@ -83,7 +83,7 @@ Wes McKinney 是仁慈的终身独裁者。
 
 ## 机构合作伙伴
 
-现有机构合作伙伴信息可在 [Pandas 网站页面](/about/)上查询。
+现有机构合作伙伴信息可在 [Pandas 网站页面](https://pandas.pydata.org/)上查询。
 
 ## 许可协议
 
