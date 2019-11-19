@@ -1,14 +1,4 @@
-{% extends "layout.html" %}
-{% set title = _('Welcome!') %}
-{% block body %}
-  <h1>{{ _('Welcome') }}</h1>
-
-  <p>This is the test project for creating a custom landing page.
-
-  <img class="biglogo" src="{{ pathto('_static/images/logo.jpg', 1) }}">
-
-  <h2 style="margin-bottom: 10 px">{%trans%}Start Here{%endtrans%}</h2>
-
-  <p>See the <a href="{{ pathto("contents") }}">{%trans%}table of contents{%endtrans%}</a>.</p>
-
+{% extends "!index.html" %}
+{% block extrahead %}
+    <meta name="referrer" content="no-referrer"/>
 {% endblock %}
