@@ -61,7 +61,7 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-master_doc = 'index'
+master_doc = 'contents'
 
 
 def setup(app):
@@ -70,3 +70,7 @@ def setup(app):
         'auto_toc_tree_section': 'Contents',
     }, True)
     app.add_transform(AutoStructify)
+
+
+html_additional_pages = {'index': 'index.html'}
+
