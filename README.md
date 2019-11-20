@@ -127,3 +127,21 @@ AkShare is still under developing, feel free to open issues and pull requests:
 2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
 3. [AkShare](https://github.com/jindaxiang/akshare) 坚持提供开源金融数据, 请放心使用;
 4. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议;
+
+## Show your style
+
+Use the badge in your project's README.md:
+
+```markdown
+[![Data: akshare](https://img.shields.io/badge/data-akshare-000345.svg)](https://github.com/jindaxiang/akshare)
+```
+
+Using the badge in README.rst:
+
+```
+.. image:: https://img.shields.io/badge/data-akshare-000345.svg
+    :target: https://github.com/jindaxiang/akshare
+```
+
+Looks like this:
+[![Data: akshare](https://img.shields.io/badge/data-akshare-000345.svg)](https://github.com/jindaxiang/akshare)
