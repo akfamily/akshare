@@ -12,15 +12,14 @@ from typing import AnyStr
 import pandas as pd
 import requests
 
-from akshare.futures.cons import (QHKC_TOOL_FOREIGN_URL,
-                                  QHKC_TOOL_GDP_URL)
+from akshare.futures.cons import QHKC_TOOL_FOREIGN_URL, QHKC_TOOL_GDP_URL
 
 
 def qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
     """
     奇货可查-工具-外盘比价
     实时更新数据, 暂不能查询历史数据
-    :param url: 网址
+    :param url: str 网址
     :return: pd.DataFrame
     name    base_time base_price latest_price   rate
      伦敦铜  10/08 01:00       5704       5746.5  0.745
@@ -43,10 +42,7 @@ def qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
       美糖  10/07 23:30      12.37        12.53  1.293
      美棉花  10/07 23:30      61.69        61.05 -1.037
     """
-    payload_id = {
-        "page": 1,
-        "limit": 10
-    }
+    payload_id = {"page": 1, "limit": 10}
     r = requests.post(url, data=payload_id)
     print("数据获取成功")
     json_data = r.json()
@@ -92,10 +88,7 @@ def qhkc_tool_nebula(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
       美糖  10/07 23:30      12.37        12.53  1.293
      美棉花  10/07 23:30      61.69        61.05 -1.037
     """
-    payload_id = {
-        "page": 1,
-        "limit": 10
-    }
+    payload_id = {"page": 1, "limit": 10}
     r = requests.post(url, data=payload_id)
     print("数据获取成功")
     json_data = r.json()

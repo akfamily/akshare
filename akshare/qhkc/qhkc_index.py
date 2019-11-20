@@ -12,7 +12,11 @@ from typing import AnyStr
 import pandas as pd
 import requests
 
-from akshare.futures.cons import QHKC_INDEX_URL, QHKC_INDEX_TREND_URL, QHKC_INDEX_PROFIT_LOSS_URL
+from akshare.futures.cons import (
+    QHKC_INDEX_URL,
+    QHKC_INDEX_TREND_URL,
+    QHKC_INDEX_PROFIT_LOSS_URL,
+)
 
 
 def get_qhkc_index(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX_URL):
@@ -42,9 +46,7 @@ def get_qhkc_index(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX_URL):
     index_id = [item["id"] for item in r.json()["data"]]
     for item in range(len(display_name)):
         name_id_dict[display_name[item]] = index_id[item]
-    payload_id = {
-        "id": name_id_dict[name]
-    }
+    payload_id = {"id": name_id_dict[name]}
     r = requests.post(url, data=payload_id)
     print(name, "数据获取成功")
     json_data = r.json()
@@ -55,8 +57,18 @@ def get_qhkc_index(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX_URL):
     total_value = json_data["data"]["total_value"]
     profit = json_data["data"]["profit"]
     long_short_ratio = json_data["data"]["line"]
-    df_temp = pd.DataFrame([date, price, volume, open_interest, total_value, profit, long_short_ratio]).T
-    df_temp.columns = ["date", "price", "volume", "open_interest", "margin", "profit", "long_short_ratio"]
+    df_temp = pd.DataFrame(
+        [date, price, volume, open_interest, total_value, profit, long_short_ratio]
+    ).T
+    df_temp.columns = [
+        "date",
+        "price",
+        "volume",
+        "open_interest",
+        "margin",
+        "profit",
+        "long_short_ratio",
+    ]
     return df_temp
 
 
@@ -110,12 +122,7 @@ def get_qhkc_index_trend(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX
     index_id = [item["id"] for item in r.json()["data"]]
     for item in range(len(display_name)):
         name_id_dict[display_name[item]] = index_id[item]
-    payload_id = {
-        "page": 1,
-        "limit": 10,
-        "index": name_id_dict[name],
-        "date": ""
-    }
+    payload_id = {"page": 1, "limit": 10, "index": name_id_dict[name], "date": ""}
     r = requests.post(url, data=payload_id)
     print(f"{name}期货指数-大资金动向数据获取成功")
     json_data = r.json()
@@ -126,13 +133,20 @@ def get_qhkc_index_trend(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX
         money = item["money"]
         order_money = item["order_money"]
         variety = item["variety"]
-        df_temp = df_temp.append(pd.DataFrame([broker, grade, money, order_money, variety]).T)
+        df_temp = df_temp.append(
+            pd.DataFrame([broker, grade, money, order_money, variety]).T
+        )
     df_temp.columns = ["broker", "grade", "money", "open_order", "variety"]
     df_temp.reset_index(drop=True, inplace=True)
     return df_temp
 
 
-def get_qhkc_index_profit_loss(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX_PROFIT_LOSS_URL, start_date="", end_date=""):
+def get_qhkc_index_profit_loss(
+    name: AnyStr = "奇货商品",
+    url: AnyStr = QHKC_INDEX_PROFIT_LOSS_URL,
+    start_date="",
+    end_date="",
+):
     """
     奇货可查-指数-盈亏详情
     获得奇货可查的指数数据: '奇货黑链', '奇货商品', '奇货谷物', '奇货贵金属', '奇货饲料', '奇货软商品', '奇货化工', '奇货有色', '奇货股指', '奇货铁合金', '奇货油脂'
@@ -161,15 +175,10 @@ def get_qhkc_index_profit_loss(name: AnyStr = "奇货商品", url: AnyStr = QHKC
     index_id = [item["id"] for item in r.json()["data"]]
     for item in range(len(display_name)):
         name_id_dict[display_name[item]] = index_id[item]
-    payload_id = {
-        "index": name_id_dict[name],
-        "date1": start_date,
-        "date2": end_date
-    }
+    payload_id = {"index": name_id_dict[name], "date1": start_date, "date2": end_date}
     r = requests.post(url, data=payload_id)
     print(f"{name}期货指数-盈亏分布数据获取成功")
     json_data = r.json()
-    df_temp = pd.DataFrame()
     indexes = json_data["data"]["indexes"]
     value = json_data["data"]["value"]
     trans_date = [json_data["data"]["trans_date"]] * len(value)
