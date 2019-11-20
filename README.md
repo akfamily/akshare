@@ -7,7 +7,7 @@
 [![Downloads](https://pepy.tech/badge/akshare/month)](https://pepy.tech/project/akshare/month)
 [![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/zh_CN/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
+[![Data: akshare](https://img.shields.io/badge/data-akshare-000345.svg)](https://github.com/jindaxiang/akshare)
 
 # ![](https://github.com/jindaxiang/akshare/blob/master/example/images/akshare_home.png)
 
