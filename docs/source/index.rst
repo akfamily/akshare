@@ -6,10 +6,13 @@
 欢迎来到 AkShare 的在线文档!
 ===================================
 
+`AkShare Github地址`_
+
+.. _AkShare Github地址: https://github.com/jindaxiang/akshare
+
 .. note::
 
-    这里是 AkShare 的在线文档, 如有问题, 请跟作者 Albert King 联系: jindaxiang@163.com. `AkShare Github地址`_
-   .. _AkShare Github地址: https://github.com/jindaxiang/akshare
+    这里是 AkShare 的在线文档, 如有问题, 请跟作者 Albert King 联系: jindaxiang@163.com.
 
 .. toctree::
    :maxdepth: 2
@@ -19,16 +22,12 @@
    akshare/ak-introduction
    akshare/ak-installation
    akshare/ak-tutorial
-
-   README
-
+   data/index
    akshare/ak-anaconda
    akshare/ak-monitor
    akshare/ak-email
    akshare/ak-special
    akshare/ak-strategy
    akshare/ak-platform
-
    subjects/index
-
    akshare/ak-changelog

@@ -1,0 +1,214 @@
+## [AkShare](https://github.com/jindaxiang/akshare) 已实现波动率数据
+
+### Oxford-Man
+
+接口: article_oman_rv
+
+目标地址: https://realized.oxford-man.ox.ac.uk/data/visualization
+
+描述: 获取 Oxford-Man 已实现波动率数据
+
+限量: 单次返回某个指数具体指标的所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |  symbol="FTSE", 某个具体指数 help(article_oman_visual)|
+| index | str  | Y    |  index="rk_th2", 某个具体指标 help(article_oman_visual)|
+| plot | Bool  | Y    |  plot=True, 是否画图|
+
+
+输出参数
+
+Oxford-Man-已实现波动率数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| index      | datetime   | -        | -  |  
+| data      | float   | -        | -  |  
+
+
+接口示例
+
+```python
+import akshare as ak
+df = ak.article_oman_rv(symbol="FTSE", index="rk_th2", plot=True)
+print(df)
+```
+
+数据示例
+```
+2000-01-04    22.95
+2000-01-05    19.37
+2000-01-06    18.22
+2000-01-07    19.34
+2000-01-10    15.67
+              ...  
+2019-11-04     6.71
+2019-11-05     5.90
+2019-11-06     6.43
+2019-11-07     5.81
+2019-11-08     6.75
+```
+
+
+### Risk-Lab
+
+接口: article_rlab_rv
+
+目标地址: https://dachxiu.chicagobooth.edu/
+
+描述: 获取 Risk-Lab 已实现波动率数据
+
+限量: 单次返回某个指数所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |  symbol="39693", 某个具体指数 help(article_rlab_rv)|
+| plot | Bool  | Y    |  plot=True, 是否画图|
+
+
+输出参数
+
+Risk-Lab-已实现波动率数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| index      | datetime   | -        | -  |  
+| data      | float   | -        | -  |  
+
+
+接口示例
+
+```python
+import akshare as ak
+df = ak.article_rlab_rv(symbol="39693")
+print(df)
+```
+
+数据示例
+```
+1996-01-02    0.000000
+1996-01-04    0.000000
+1996-01-05    0.000000
+1996-01-09    0.000000
+1996-01-10    0.000000
+                ...   
+2019-11-04    0.175107
+2019-11-05    0.185112
+2019-11-06    0.210373
+2019-11-07    0.240808
+2019-11-08    0.199549
+```
+
+
+## [AkShare](https://github.com/jindaxiang/akshare) FF多因子模型
+
+### Current Research Returns
+
+接口: ff_crr
+
+目标地址: http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
+
+描述: 获取 Current Research Returns 多因子数据
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |  -|
+
+
+输出参数
+
+FF-Current Research Returns
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| September 2019      | float   | -        | -  |  
+| Last 3 Months      | float   | -        | -  |  
+| Last 12 Months      | float   | -        | -  |  
+
+
+接口示例
+
+```python
+import akshare as ak
+df = ak.ff_crr()
+print(df)
+```
+
+数据示例
+```
+                                            September  2019 Last 3  Months  \
+Fama/French 3 Research Factors                            -              -   
+Rm-Rf                                                  1.44           0.00   
+SMB                                                   -0.89          -5.36   
+HML                                                    6.73           1.39   
+Fama/French 5 Research Factors (2x3)                      -              -   
+Rm-Rf                                                  1.44           0.00   
+SMB                                                    0.33          -4.94   
+HML                                                    6.73           1.39   
+RMW                                                    1.98           2.16   
+CMA                                                    3.58           2.82   
+Fama/French Research Portfolios                           -              -   
+Size and Book-to-Market Portfolios                        -              -   
+Small Value                                            5.77          -4.01   
+Small Neutral                                          3.84          -1.84   
+Big Neutral                                           -2.46          -7.08   
+Small Growth                                           5.54           0.74   
+Big Value                                              3.97           1.38   
+Big Growth                                             0.30           1.04   
+Size and Operating Profitability Portfolios               -              -   
+Small Robust                                           3.73          -6.10   
+Small Neutral                                          4.50          -1.20   
+Small Weak                                            -0.22          -6.10   
+Big Robust                                             1.12           2.24   
+Big Neutral                                            2.60           0.67   
+Big Weak                                               1.11          -2.08   
+Size and Investment Portfolios                            -              -   
+Small Conservative                                     3.57          -3.90   
+Small Neutral                                          3.57          -1.41   
+Small Aggressive                                       0.15          -6.10   
+Big Conservative                                       3.08           2.35   
+Big Neutral                                            2.42           1.45   
+Big Aggressive                                        -0.66          -1.09   
+                                            Last 12  Months  
+Fama/French 3 Research Factors                            -  
+Rm-Rf                                                 -0.45  
+SMB                                                  -14.60  
+HML                                                   -4.92  
+Fama/French 5 Research Factors (2x3)                      -  
+Rm-Rf                                                 -0.45  
+SMB                                                  -14.74  
+HML                                                   -4.92  
+RMW                                                    4.97  
+CMA                                                    2.98  
+Fama/French Research Portfolios                           -  
+Size and Book-to-Market Portfolios                        -  
+Small Value                                          -16.59  
+Small Neutral                                         -9.19  
+Big Neutral                                          -12.36  
+Small Growth                                          -1.87  
+Big Value                                              3.79  
+Big Growth                                             3.73  
+Size and Operating Profitability Portfolios               -  
+Small Robust                                         -15.42  
+Small Neutral                                         -7.23  
+Small Weak                                           -15.73  
+Big Robust                                             4.76  
+Big Neutral                                            3.40  
+Big Weak                                              -4.88  
+Size and Investment Portfolios                            -  
+Small Conservative                                   -14.66  
+Small Neutral                                         -8.16  
+Small Aggressive                                     -15.00  
+Big Conservative                                       5.23  
+Big Neutral                                            4.49  
+Big Aggressive                                        -0.38
+```

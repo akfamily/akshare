@@ -198,7 +198,7 @@ ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_da
 
 ```python
 import akshare as ak
-ak.get_zdzk_fund_index(index_type=32, plot=True)
+ak.zdzk_fund_index(index_type=32, plot=True)
 ```
 
 结果显示: 日期, 指数数值

@@ -307,9 +307,12 @@ PCE物价指数年率报告
 更新说明文件
 0.2.42
 更新mindmap
+0.2.43
+重构说明文档-模块化处理, 将 github 说明文档和 docs 在线文档分开处理
+重构私募指数接口
 """
 
-__version__ = '0.2.42'
+__version__ = '0.2.43'
 __author__ = 'Albert King'
 
 """
@@ -529,7 +532,7 @@ from akshare.futures.futures_inventory import (get_inventory_data)
 """
 私募指数
 """
-from akshare.fund.zdzk_fund import (get_zdzk_fund_index)
+from akshare.fund.zdzk_fund import (zdzk_fund_index)
 
 """
 中国银行间市场交易商协会
