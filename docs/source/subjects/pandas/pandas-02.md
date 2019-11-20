@@ -1,14 +1,4 @@
 # Pandas 25 式
-![](https://upload-images.jianshu.io/upload_images/3240514-0ebf53bd571b35b3.png)
-
-**推荐阅读**
-![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea)
-
- [Pandas0.25来了，别错过这10大好用的新功能](https://www.jianshu.com/p/3f0c4939ab54)
- [浅谈 Pandas 样式](https://www.jianshu.com/p/54b0a88cc50e)
- [学习Python数据分析的正确姿势](https://www.jianshu.com/p/503b669b7936)
-
-![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea)
 
 Kevin Markham，数据科学讲师，2002 年，毕业于范德堡大学，计算机工程学士，2014 年，创建了 Data School，在线教授 Python 数据科学课程，他的课程主要包括 Pandas、Scikit-learn、Kaggle 竞赛数据科学、机器学习、自然语言处理等内容，迄今为止，浏览量在油管上已经超过 500 万次。
 
@@ -664,34 +654,10 @@ pandas 的 DataFrame 设计的目标是把数据存到内存里，有时要缩�
 
 ![](https://upload-images.jianshu.io/upload_images/3240514-7252ab7e26bd4979.png)
 
+[英文版 Jupyter Notebook 链接](https://nbviewer.jupyter.org/github/justmarkham/pandas-videos/blob/master/top_25_pandas_tricks.ipynb)
 
-英文版 Jupyter Notebook 链接：
+[中文版 Jupyter Notebook 链接](https://github.com/jaystone776/pandas_answered/blob/master/25_Pandas_Tips_by_PyCon_Master.ipynb)
 
-https://nbviewer.jupyter.org/github/justmarkham/pandas-videos/blob/master/top_25_pandas_tricks.ipynb
+[数据集下载](https://github.com/jaystone776/pandas_answered/blob/master/data/25_Pandas_Tips_by_PyCon_Master_data.zip)
 
-中文版 Jupyter Notebook 链接：
-
-https://github.com/jaystone776/pandas_answered/blob/master/25_Pandas_Tips_by_PyCon_Master.ipynb
-
-数据集下载：
-
-https://github.com/jaystone776/pandas_answered/blob/master/data/25_Pandas_Tips_by_PyCon_Master_data.zip
-
-Kevin Markham - My top 25 pandas tricks 英文版视频：
-
-链接：
-
-https://pan.baidu.com/s/1HDgOfG5yd_FuQag-Wsr-Bw
-
-提取码：vqup 
-
-**推荐阅读**
-
-[Pandas0.25来了，别错过这10大好用的新功能](https://mp.weixin.qq.com/s/MvevIWPP0-xgTRqOyMSfYg)
- 
-[浅谈 Pandas 样式](https://mp.weixin.qq.com/s/dkmp2jGhOsvZHGSTkkHttQ)
- 
-[学习Python数据分析的正确姿势](https://mp.weixin.qq.com/s/sOym9w_D07yNPVuRHVtgCQ)
-
-
-
+[Kevin Markham - My top 25 pandas tricks 英文版视频: 提取码：vqup ](https://pan.baidu.com/s/1HDgOfG5yd_FuQag-Wsr-Bw)

@@ -1,21 +1,7 @@
 # Pandas 10大新功能
 
-![Pandas0.25](https://upload-images.jianshu.io/upload_images/3240514-4e644d577b798c68.png)
-**推荐阅读**
-![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea)
-
- [Python大咖谈 - Kenneth Reitz 与 Mike Driscoll](https://mp.weixin.qq.com/s/R2jkmrzsXw_jM3FcjQ6z3g)
- [Python大咖谈 - Brett Cannon](https://mp.weixin.qq.com/s/McPsnFVESseQFjpYgTrN4w)
- [Python大咖谈 - Steve Holden](https://mp.weixin.qq.com/s/H8oUhxHsoneXyHa8XKBXxg)
-
-![](https://upload-images.jianshu.io/upload_images/3240514-46e91e3a17c5c8ea)
-> 呆鸟云：“7 月 18 日，Pandas 团队推出了 Pandas 0.25 版，这就相当于 Python 3.8 啦，Python 数据分析师可别错过新版的好功能哦。”
-
-安装 0.25 版：`pip install pandas`，就可以了。
-
-下面和大家一起看看新版 pandas 都有哪些改变。
-
 ## 一、四个置顶的警告！
+
 1. 从 0.25 起，pandas 只支持 Python 3.53 及以上版本了，不再支持 Python 2.7，还在使用 Python 2 的朋友可要注意了，享受不了新功能了，不过，貌似用 Python 2 做数据分析这事儿估计已经绝迹了吧！
 
 ![](https://upload-images.jianshu.io/upload_images/3240514-f06471baa5a83b6a.png)
@@ -63,6 +49,7 @@ animals.groupby('品种').agg(
     平均体重=('体重', np.mean),
 )
 ```
+
 > 这里还可以进一步偷懒，只写 `min` 或 `max`，连单引号都不写了。
 
 Pandas 提供了一种叫 `pandas.NameAgg` 的命名元组（namedtuple），但如上面的代码所示，直接使用 Tuple 也没问题。
