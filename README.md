@@ -65,7 +65,7 @@ AkShare is still under developing, feel free to open issues and pull requests:
 
 > Notice: We use [Black](https://black.readthedocs.io/en/stable/) to format the code
 
-## Thanks
+## Acknowledgement
 
 特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 项目提供借鉴学习的机会;
 
@@ -107,18 +107,21 @@ AkShare is still under developing, feel free to open issues and pull requests:
 
 感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据;
 
-感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程
+感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
-## 交流
+## Communication
 
-欢迎加 QQ 群交流: 326900231
+您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:
 
-您可以扫码或者点击群二维码申请加入, 请放心点击:
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qrcode_for_gh_abc3d079060a_258.jpg)
+
+也欢迎加入 QQ 群交流更多问题: 326900231
+
+您可以扫码或者点击群二维码申请加入, 点击跳转加入:
 
 <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方"></a>
 
-
-## 声明
+## Statement
 
 1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据仅供参考, 不构成任何投资建议;
 2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
