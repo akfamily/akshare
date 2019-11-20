@@ -23,7 +23,7 @@ class HeartbeatThread(Thread):
     def run(self):
         while True:
             # 发送ping包
-            self.ws.send('2')
+            self.ws.send("2")
             self.event.wait(timeout=2)
 
 
@@ -58,7 +58,7 @@ def on_emit(ws):
         # 2: socket.io event
         # chat message event message
         ws.send('42["chat message","{0}"]'.format(content))
-        time.sleep(.2)
+        time.sleep(0.2)
 
 
 def watch():
@@ -67,7 +67,7 @@ def watch():
         "wss://sshibikfdn.jin10.com:9085/socket.io/?EIO=3&transport=websocket",
         on_message=on_message,
         on_error=on_error,
-        on_close=on_close
+        on_close=on_close,
     )
     ws.on_open = on_open
     t = Timer(3, on_emit, args=(ws,))

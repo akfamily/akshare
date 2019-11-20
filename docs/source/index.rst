@@ -8,7 +8,8 @@
 
 .. note::
 
-    这里是 AkShare 的在线文档, 如有问题, 请跟作者 Albert King 联系: jindaxiang@163.com.
+    这里是 AkShare 的在线文档, 如有问题, 请跟作者 Albert King 联系: jindaxiang@163.com. `AkShare Github地址`_
+   .. _AkShare Github地址: https://github.com/jindaxiang/akshare
 
 .. toctree::
    :maxdepth: 2

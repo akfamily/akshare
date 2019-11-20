@@ -13,13 +13,17 @@ from typing import AnyStr
 import pandas as pd
 import requests
 
-from akshare.futures.cons import (QHKC_FUND_BS_URL,
-                                  QHKC_FUND_POSITION_URL,
-                                  QHKC_FUND_POSITION_CHANGE_URL,
-                                  QHKC_FUND_DEAL_URL)
+from akshare.futures.cons import (
+    QHKC_FUND_BS_URL,
+    QHKC_FUND_POSITION_URL,
+    QHKC_FUND_POSITION_CHANGE_URL,
+    QHKC_FUND_DEAL_URL,
+)
 
 
-def get_qhkc_fund_bs(date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_BS_URL):
+def get_qhkc_fund_bs(
+    date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_BS_URL
+):
     """
     奇货可查-资金-净持仓分布
     可获取数据的时间段为:"2016-10-10:2019-09-30"
@@ -87,9 +91,7 @@ def get_qhkc_fund_bs(date: datetime.datetime.date = "20190924", url: AnyStr = QH
     date = str(date)
     date = date[:4] + "-" + date[4:6] + "-" + date[6:]
     print(date)
-    payload_id = {
-        "date": date
-    }
+    payload_id = {"date": date}
     r = requests.post(url, data=payload_id)
     print("数据获取成功")
     json_data = r.json()
@@ -116,7 +118,9 @@ def get_qhkc_fund_bs(date: datetime.datetime.date = "20190924", url: AnyStr = QH
     return symbol_df, long_short_df
 
 
-def get_qhkc_fund_position(date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_POSITION_URL):
+def get_qhkc_fund_position(
+    date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_POSITION_URL
+):
     """
     奇货可查-资金-总持仓分布
     可获取数据的时间段为:"2016-10-10:2019-09-30"
@@ -184,9 +188,7 @@ def get_qhkc_fund_position(date: datetime.datetime.date = "20190924", url: AnySt
     date = str(date)
     date = date[:4] + "-" + date[4:6] + "-" + date[6:]
     print(date)
-    payload_id = {
-        "date": date
-    }
+    payload_id = {"date": date}
     r = requests.post(url, data=payload_id)
     print(url)
     print("数据获取成功")
@@ -214,7 +216,10 @@ def get_qhkc_fund_position(date: datetime.datetime.date = "20190924", url: AnySt
     return symbol_df, long_short_df
 
 
-def get_qhkc_fund_position_change(date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_POSITION_CHANGE_URL):
+def get_qhkc_fund_position_change(
+    date: datetime.datetime.date = "20190924",
+    url: AnyStr = QHKC_FUND_POSITION_CHANGE_URL,
+):
     """
     奇货可查-资金-净持仓变化分布
     可获取数据的时间段为:"2016-10-10:2019-09-30"
@@ -282,9 +287,7 @@ def get_qhkc_fund_position_change(date: datetime.datetime.date = "20190924", url
     date = str(date)
     date = date[:4] + "-" + date[4:6] + "-" + date[6:]
     print(date)
-    payload_id = {
-        "date": date
-    }
+    payload_id = {"date": date}
     r = requests.post(url, data=payload_id)
     print(url)
     print("数据获取成功")
@@ -312,7 +315,9 @@ def get_qhkc_fund_position_change(date: datetime.datetime.date = "20190924", url
     return symbol_df, long_short_df
 
 
-def get_qhkc_fund_money_change(date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_DEAL_URL):
+def get_qhkc_fund_money_change(
+    date: datetime.datetime.date = "20190924", url: AnyStr = QHKC_FUND_DEAL_URL
+):
     """
     奇货可查-资金-成交额分布
     可获取数据的时间段为:"2016-10-10:2019-09-30"
@@ -383,9 +388,7 @@ def get_qhkc_fund_money_change(date: datetime.datetime.date = "20190924", url: A
     date = str(date)
     date = date[:4] + "-" + date[4:6] + "-" + date[6:]
     print(date)
-    payload_id = {
-        "date": date
-    }
+    payload_id = {"date": date}
     r = requests.post(url, data=payload_id)
     print(url)
     print("数据获取成功")
