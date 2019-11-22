@@ -29,40 +29,67 @@ def bank_page_list(page=5):
     for i_page in range(1, page):
         # i_page = 1
         print(i_page)
-        main_url = "http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/{}.html".format(i_page)
+        main_url = "http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/{}.html".format(
+            i_page
+        )
         if flag:
             res = requests.get(main_url, headers=cbirc_headers)
             temp_cookie = res.headers["Set-Cookie"].split(";")[0]
             cbirc_headers.update({"Cookie": res.headers["Set-Cookie"].split(";")[0]})
             res = requests.get(main_url, headers=cbirc_headers)
             soup = BeautifulSoup(res.text, "lxml")
-            res_html = "function getClearance(){" + soup.find_all("script")[0].get_text() + "};"
+            res_html = (
+                "function getClearance(){"
+                + soup.find_all("script")[0].get_text()
+                + "};"
+            )
             res_html = res_html.replace("</script>", "")
             res_html = res_html.replace("eval", "return")
             res_html = res_html.replace("<script>", "")
             ctx = execjs.compile(res_html)
-            over_js = "function getClearance2(){var a" + ctx.call("getClearance").split("document.cookie")[1].split("Path=/;'")[0] + "Path=/;';return a;};"
+            over_js = (
+                "function getClearance2(){var a"
+                + ctx.call("getClearance")
+                .split("document.cookie")[1]
+                .split("Path=/;'")[0]
+                + "Path=/;';return a;};"
+            )
             over_js = over_js.replace("window.headless", "''")
             over_js = over_js.replace("window['_p'+'hantom']", "''")
             over_js = over_js.replace("window['__p'+'hantom'+'as']", "''")
             over_js = over_js.replace("window['callP'+'hantom']", "''")
             over_js = over_js.replace("return(", "eval(")
-            over_js = over_js.replace(over_js[over_js.find("docum"):over_js.find(".href")+5], "'http://www.cbirc.gov.cn/'")
+            over_js = over_js.replace(
+                over_js[over_js.find("docum") : over_js.find(".href") + 5],
+                "'http://www.cbirc.gov.cn/'",
+            )
             ctx = execjs.compile(over_js)
             cookie_2 = ctx.call("getClearance2").split(";")[0]
             cbirc_headers.update({"Cookie": temp_cookie + ";" + cookie_2})
             res = requests.get(main_url, headers=cbirc_headers)
             soup = BeautifulSoup(res.text, "lxml")
-            url_list = [item.find("a")["href"] for item in soup.find_all(attrs={"class": "zwbg-2"})]
-            title_list = [item.find("a").get_text() for item in soup.find_all(attrs={"class": "zwbg-2"})]
+            url_list = [
+                item.find("a")["href"]
+                for item in soup.find_all(attrs={"class": "zwbg-2"})
+            ]
+            title_list = [
+                item.find("a").get_text()
+                for item in soup.find_all(attrs={"class": "zwbg-2"})
+            ]
             big_url_list.extend(url_list)
             big_title_list.extend(title_list)
             flag = 0
         else:
             res = requests.get(main_url, headers=cbirc_headers)
             soup = BeautifulSoup(res.text, "lxml")
-            url_list = [item.find("a")["href"] for item in soup.find_all(attrs={"class": "zwbg-2"})]
-            title_list = [item.find("a").get_text() for item in soup.find_all(attrs={"class": "zwbg-2"})]
+            url_list = [
+                item.find("a")["href"]
+                for item in soup.find_all(attrs={"class": "zwbg-2"})
+            ]
+            title_list = [
+                item.find("a").get_text()
+                for item in soup.find_all(attrs={"class": "zwbg-2"})
+            ]
             big_url_list.extend(url_list)
             big_title_list.extend(title_list)
     temp_df = pd.DataFrame([big_title_list, big_url_list]).T
@@ -81,7 +108,9 @@ def bank_fjcf(page=3):
         # i = 1
         print(i)
         try:
-            res = requests.get("http://www.cbirc.gov.cn" + temp_df.iloc[:, 1][i], headers=cbirc_headers)
+            res = requests.get(
+                "http://www.cbirc.gov.cn" + temp_df.iloc[:, 1][i], headers=cbirc_headers
+            )
             table_list = pd.read_html(res.text)
             table_df = table_list[6].iloc[:, 3:]
             table_df.columns = ["内容"]
@@ -90,12 +119,21 @@ def bank_fjcf(page=3):
             print(i, "是文档")
             continue
     big_df.reset_index(drop=True, inplace=True)
-    big_df.columns = ["行政处罚决定书文号", "姓名", "单位", "名称", "主要负责人姓名", "主要违法违规事实（案由）", "行政处罚依据", "行政处罚决定", "作出处罚决定的机关名称", "作出处罚决定的日期"]
+    big_df.columns = [
+        "行政处罚决定书文号",
+        "姓名",
+        "单位",
+        "名称",
+        "主要负责人姓名",
+        "主要违法违规事实（案由）",
+        "行政处罚依据",
+        "行政处罚决定",
+        "作出处罚决定的机关名称",
+        "作出处罚决定的日期",
+    ]
     return big_df
 
 
 if __name__ == "__main__":
     df = bank_fjcf(page=3)
     print(df)
-
-

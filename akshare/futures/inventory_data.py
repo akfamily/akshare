@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 得到原始 99 原始数据
+desc: 得到99期货网的原始数据
 """
 import requests
 import pickle

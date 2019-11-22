@@ -11,10 +11,9 @@ desc:
 import pandas as pd
 import requests
 
-from akshare.futures.cons import (BOND_BANK_URL,
-                                  bond_bank_headers)
+from akshare.futures.cons import BOND_BANK_URL, bond_bank_headers
 
-pd.set_option('display.max_columns', None)
+pd.set_option("display.max_columns", None)
 
 
 def get_bond_bank(page_num=1):
@@ -55,15 +54,26 @@ def get_bond_bank(page_num=1):
         "leadManager": "",
         "regPrdtType": "",
         "page": int(page_num),
-        "rows": 20
+        "rows": 20,
     }
     r = requests.post(BOND_BANK_URL, data=payload, headers=bond_bank_headers)
     data_json = r.json()  # 数据类型为 json 格式
     for item in data_json["rows"]:  # 遍历 json 的具体格式
-        temp_df = temp_df.append(pd.DataFrame.from_dict(item, orient='index').T, sort=False)
+        temp_df = temp_df.append(
+            pd.DataFrame.from_dict(item, orient="index").T, sort=False
+        )
     temp_df.reset_index(inplace=True, drop=True)  # 重新设置索引
     temp_df.drop_duplicates(inplace=True)
-    return temp_df[["firstIssueAmount", "isReg", "regFileName", "regPrdtType", "releaseTime", "projPhase"]]
+    return temp_df[
+        [
+            "firstIssueAmount",
+            "isReg",
+            "regFileName",
+            "regPrdtType",
+            "releaseTime",
+            "projPhase",
+        ]
+    ]
 
 
 if __name__ == "__main__":

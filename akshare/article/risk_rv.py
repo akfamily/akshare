@@ -34,13 +34,13 @@ def article_oman_rv(symbol="FTSE", index="rk_th2", plot=True):
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "lxml")
     soup_text = soup.find("p").get_text()
-    data_json = json.loads(soup_text[soup_text.find("{"): soup_text.rfind("};")+1])
+    data_json = json.loads(soup_text[soup_text.find("{") : soup_text.rfind("};") + 1])
     date_list = data_json[f".{symbol}"]["dates"]
     title_fore = data_json[f".{symbol}"][index]["name"]
     title_last = data_json[f".{symbol}"][index]["measure"]
     title_list = title_fore + "-" + title_last
     temp_df = pd.DataFrame([date_list, data_json[f".{symbol}"][index]["data"]]).T
-    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0], unit='ms')
+    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0], unit="ms")
     temp_df = temp_df.iloc[:, 1]
     temp_df.index.name = "date"
     temp_df.name = f"{symbol}-{index}"
@@ -78,18 +78,18 @@ def article_oman_rv_short(symbol="FTSE", plot=True):
         "Referer": "https://realized.oxford-man.ox.ac.uk/?from=groupmessage&isappinstalled=0",
         "Sec-Fetch-Mode": "no-cors",
         "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
     }
 
     res = requests.get(url, headers=headers)
     soup = BeautifulSoup(res.text, "lxml")
     soup_text = soup.find("p").get_text()
-    data_json = json.loads(soup_text[soup_text.find("{"): soup_text.rfind("}")+1])
+    data_json = json.loads(soup_text[soup_text.find("{") : soup_text.rfind("}") + 1])
     title_fore = data_json[f".{symbol}"]["name"]
     title_last = data_json[f".{symbol}"]["measure"]
     title_list = title_fore + "-" + title_last
     temp_df = pd.DataFrame(data_json[f".{symbol}"]["data"])
-    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0], unit='ms')
+    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0], unit="ms")
     temp_df = temp_df.iloc[:, 1]
     temp_df.index.name = "date"
     temp_df.name = f"{symbol}"
@@ -148,8 +148,15 @@ def article_rlab_rv(symbol="39693", plot=True):
     payload = {"ticker": symbol}
     res = requests.get(url, params=payload, verify=False)
     soup = BeautifulSoup(res.text, "lxml")
-    title_fore = pd.DataFrame(soup.find("p").get_text().split(symbol)).iloc[0, 0].strip()
-    title_list = pd.DataFrame(soup.find("p").get_text().split(symbol)).iloc[1, 0].strip().split("\n")
+    title_fore = (
+        pd.DataFrame(soup.find("p").get_text().split(symbol)).iloc[0, 0].strip()
+    )
+    title_list = (
+        pd.DataFrame(soup.find("p").get_text().split(symbol))
+        .iloc[1, 0]
+        .strip()
+        .split("\n")
+    )
     title_list.insert(0, title_fore)
     temp_df = pd.DataFrame(soup.find("p").get_text().split(symbol)).iloc[2:, :]
     temp_df = temp_df.iloc[:, 0].str.split(" ", expand=True)
