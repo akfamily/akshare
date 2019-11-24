@@ -23,7 +23,7 @@
 
 ## Features
 
--   **Easy**: Powered by Python
+-   **Easy**: Just one line to fetch the data
 -   **Fast**: Powered by Python
 -   **Extensible**: Powered by Python
 -   **Powerful**: Python support
@@ -35,9 +35,6 @@
 pip install akshare --upgrade
 
 # For Windows
-pip install akshare --upgrade
-
-# New features
 pip install akshare --upgrade
 ```
 
@@ -56,7 +53,7 @@ pip install akshare --upgrade
 
 ## Contribution
 
-AkShare is still under developing, feel free to open issues and pull requests:
+ [AkShare](https://github.com/jindaxiang/akshare) is still under developing, feel free to open issues and pull requests:
 
 -   Report or fix bugs
 -   Require or publish interface
@@ -113,9 +110,9 @@ AkShare is still under developing, feel free to open issues and pull requests:
 
 您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qrcode_for_gh_abc3d079060a_258.jpg)
+<img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qrcode_for_gh_abc3d079060a_258.jpg"/>
 
-也欢迎加入 QQ 群交流更多问题: 326900231
+也欢迎加入 QQ 群交流问题: 326900231
 
 您可以扫码或者点击群二维码申请加入, 点击跳转加入:
 
