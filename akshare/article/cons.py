@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/11/14 20:32
 contact: jindaxiang@163.com
-desc: 
+desc: 学术板块配置文件
 """
 # FF-factor
 ff_home_url = "http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html"
