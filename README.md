@@ -104,6 +104,8 @@ pip install akshare --upgrade
 
 感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据;
 
+感谢[timeanddate网站](https://www.timeanddate.com/)提供的日出和日落数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
 ## Communication

@@ -310,10 +310,18 @@ PCE物价指数年率报告
 0.2.43
 重构说明文档-模块化处理, 将 github 说明文档和 docs 在线文档分开处理
 重构私募指数接口
+0.2.44
+增加日出和日落模块
 """
 
-__version__ = '0.2.43'
+__version__ = '0.2.44'
 __author__ = 'Albert King'
+
+"""
+timeanddate-日出和日落
+"""
+from akshare.weather.time_and_date import (weather_daily,
+                                           weather_monthly)
 
 """
 金十财经-实时监控
