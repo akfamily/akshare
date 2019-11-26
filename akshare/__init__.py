@@ -314,9 +314,11 @@ PCE物价指数年率报告
 增加日出和日落模块
 0.2.45
 增加河北空气指数数据
+0.2.46
+更新 requirements.txt
 """
 
-__version__ = '0.2.45'
+__version__ = '0.2.46'
 __author__ = 'Albert King'
 
 """
