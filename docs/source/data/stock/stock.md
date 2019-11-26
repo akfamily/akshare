@@ -217,7 +217,6 @@ A 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&
 | code | str  | Y    |   symbol="sh600000"|
 | trade_date | datetime  | Y    |  trade_date="20191011"|
 
-
 输出参数-历史行情数据
 
 | 名称          | 类型 | 默认显示 | 描述           |
@@ -1202,7 +1201,6 @@ date
 | -------- | ---- | ---- | --- |
 | flag | Bool  | Y    |   flag=1, 返回中国概念股词典,key 为中文简称, value 为代码, 可以通过获取代码来获得多个中国概念股的股票历史数据|
 
-
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
@@ -1216,8 +1214,8 @@ date
 | 昨收          | float   | Y        | -     |
 | 成交量          | float   | Y        | -     |
 
-                
 接口示例
+
 ```python
 import akshare as ak
 data = ak.stock_us_zh_spot()
@@ -1225,6 +1223,7 @@ print(data)
 ```
 
 数据示例
+
 ```
        代码                           名称 最新价(美元)   涨跌幅      最高      最低      昨收  \
 0    NTES                           网易  281.16  0.00  285.80  279.90  282.88   
@@ -1270,7 +1269,6 @@ print(data)
 | -------- | ---- | ---- | --- |
 | - | -  | -    |   -|
 
-
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
@@ -1283,8 +1281,8 @@ print(data)
 | 最低价          | float   | Y        | -     |
 | 成交量          | float   | Y        | -     |
 
-                
 接口示例
+
 ```python
 import akshare as ak
 data = ak.stock_us_zh_daily()
@@ -1292,6 +1290,7 @@ print(data)
 ```
 
 数据示例
+
 ```
             时间    前收盘价     开盘价     收盘价     最高价     最低价     成交量
 0   2015-10-28  111.29  111.48  115.00  115.41  111.30   83029
@@ -1326,7 +1325,6 @@ print(data)
 | report_year | int  | Y    |   需要获取的年份, e.g. report_year=2018|
 | page | int  | Y    |   需要具体的年份的第几页, e.g. page=1|
 
-
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
@@ -1340,8 +1338,8 @@ print(data)
 | 社会责任          | float   | Y        | -     |
 | 供应商、客户和消费者权益责任          | str   | Y        | -     |
 
-                
 接口示例
+
 ```python
 import akshare as ak
 data = ak.stock_zh_a_scr_report()
@@ -1349,6 +1347,7 @@ print(data)
 ```
 
 数据示例
+
 ```
             股票名称   股东责任    总得分 等级  员工责任  环境责任   社会责任 供应商、客户和消费者权益责任
 0    陆家嘴(600663)  23.97  42.97  C  4.00  0.00  15.00           0.00

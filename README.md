@@ -145,4 +145,5 @@ Using the badge in README.rst:
 ```
 
 Looks like this:
+
 [![Data: akshare](https://img.shields.io/badge/data-akshare-000345.svg)](https://github.com/jindaxiang/akshare)
