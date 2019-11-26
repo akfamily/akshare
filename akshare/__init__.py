@@ -316,9 +316,11 @@ PCE物价指数年率报告
 增加河北空气指数数据
 0.2.46
 更新 requirements.txt
+0.2.47
+添加初始化文件
 """
 
-__version__ = '0.2.46'
+__version__ = '0.2.47'
 __author__ = 'Albert King'
 
 """
