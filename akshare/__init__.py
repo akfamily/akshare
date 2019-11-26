@@ -312,10 +312,17 @@ PCE物价指数年率报告
 重构私募指数接口
 0.2.44
 增加日出和日落模块
+0.2.45
+增加河北空气指数数据
 """
 
-__version__ = '0.2.44'
+__version__ = '0.2.45'
 __author__ = 'Albert King'
+
+"""
+空气-河北
+"""
+from akshare.weather.air_hebei import (air_hebei)
 
 """
 timeanddate-日出和日落

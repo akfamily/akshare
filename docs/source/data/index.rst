@@ -19,3 +19,4 @@ AkShare 数据字典
     article/article
     ws/ws
     weather/weather
+    weather/air
