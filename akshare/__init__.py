@@ -318,9 +318,11 @@ PCE物价指数年率报告
 更新 requirements.txt
 0.2.47
 添加初始化文件
+0.2.48
+添加 websocket-client
 """
 
-__version__ = '0.2.47'
+__version__ = '0.2.48'
 __author__ = 'Albert King'
 
 """
