@@ -405,14 +405,24 @@ def get_country_index(
     df_data["开盘"] = df_data["开盘"].str.replace(",", "").astype(float)
     df_data["高"] = df_data["高"].str.replace(",", "").astype(float)
     df_data["低"] = df_data["低"].str.replace(",", "").astype(float)
+    if any(df_data["交易量"].astype(str).str.contains("-")):
+        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][df_data["交易量"].str.contains("-")].replace("-", 0)
+    if any(df_data["交易量"].astype(str).str.contains("B")):
+        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)].str.replace("B", "").astype(float) * 1000000000
+    if any(df_data["交易量"].astype(str).str.contains("M")):
+        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)].str.replace("M", "").astype(float) * 1000000
+    if any(df_data["交易量"].astype(str).str.contains("K")):
+        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)].str.replace("K", "").astype(float) * 1000
+    df_data["交易量"] = df_data["交易量"].astype(float)
+    df_data = df_data[["收盘", "开盘", "高", "低", "交易量"]]
     df_data.name = title
     return df_data
 
 
 if __name__ == "__main__":
     index_df = get_country_index(
-        country="美国",
-        index_name="美元指数",
+        country="中国",
+        index_name="上证指数",
         start_date='2000/01/01',
         end_date='2019/10/17')
     print(index_df.name)
