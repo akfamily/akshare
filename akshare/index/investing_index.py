@@ -14,6 +14,8 @@ from bs4 import BeautifulSoup
 
 from akshare.index.cons import short_headers, long_headers
 
+pd.set_option('mode.chained_assignment', None)
+
 
 def get_global_country_name_url():
     """
