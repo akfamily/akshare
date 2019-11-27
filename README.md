@@ -108,6 +108,8 @@ pip install akshare --upgrade
 
 感谢[河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/)提供的河北省空气质量数据;
 
+感谢[南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html)提供南华期货-南华指数数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
 ## Communication

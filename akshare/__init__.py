@@ -320,10 +320,17 @@ PCE物价指数年率报告
 添加初始化文件
 0.2.48
 添加 websocket-client
+0.2.49
+南华期货-南华商品指数
 """
 
-__version__ = '0.2.48'
+__version__ = '0.2.49'
 __author__ = 'Albert King'
+
+"""
+南华期货-南华指数
+"""
+from akshare.futures_derivative.nh_index import (nh_index)
 
 """
 空气-河北
