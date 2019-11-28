@@ -328,15 +328,21 @@ PCE物价指数年率报告
 消除部分警告信息
 0.2.52
 基差数据缺失错误提示修正
+0.2.53
+统一南华期货-商品指数历史走势-收益率指数
+新增南华期货-商品指数历史走势-价格指数
+新增南华期货-商品指数历史走势-波动率指数
 """
 
-__version__ = '0.2.52'
+__version__ = '0.2.53'
 __author__ = 'Albert King'
 
 """
 南华期货-南华指数
 """
-from akshare.futures_derivative.nh_index import (nh_index)
+from akshare.futures_derivative.nh_index_return import (nh_return_index)
+from akshare.futures_derivative.nh_index_price import (nh_price_index)
+from akshare.futures_derivative.nh_index_volatility import (nh_volatility_index)
 
 """
 空气-河北

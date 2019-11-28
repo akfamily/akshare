@@ -4,11 +4,14 @@
 Author: Albert King
 date: 2019/11/26 18:52
 contact: jindaxiang@163.com
-desc: 获取南华期货-商品指数历史趋势-http://www.nanhua.net/nhzc/varietytrend.html
+desc: 获取南华期货-商品指数历史走势-收益率指数-波动率-http://www.nanhua.net/nhzc/varietytrend.html
+1000 点开始, 用收益率累计
+目标地址: http://www.nanhua.net/ianalysis/volatility/20/NHCI.json?t=1574932291399
 """
+import time
+
 import requests
 import pandas as pd
-import time
 
 
 def num_to_str_data(str_date):
@@ -104,10 +107,11 @@ def get_nh_list():
     return futures_df
 
 
-def nh_index(code="Y"):
+def nh_volatility_index(code="NHCI", day_count=20):
     """
     获取南华期货-南华指数单品种所有历史数据
     :param code: str 通过 get_nh_list 提供
+    :param day_count: int [5, 20, 60, 120] 任意一个
     :return: pandas.Series
                       value
     date
@@ -124,9 +128,7 @@ def nh_index(code="Y"):
     2019-11-26  779.346
     """
     if code in get_nh_list()["code"].tolist():
-        base_url = "http://www.nanhua.net/ianalysis/varietyindex/index/{}.json?t=1559030283536".format(
-            code
-        )
+        base_url = f"http://www.nanhua.net/ianalysis/volatility/{day_count}/{code}.json?t=1559030283536"
         res = requests.get(base_url)
         date = [num_to_str_data(item[0]).split(" ")[0] for item in res.json()]
         data = [item[1] for item in res.json()]
@@ -138,5 +140,5 @@ def nh_index(code="Y"):
 
 
 if __name__ == "__main__":
-    df = nh_index()
+    df = nh_volatility_index(code="A", day_count=20)
     print(df)
