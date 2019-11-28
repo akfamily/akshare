@@ -2,14 +2,17 @@
 # /usr/bin/env python
 """
 Author: Albert King
-date: 2019/9/30 13:58
+date: 2019/11/28 13:58
 contact: jindaxiang@163.com
 desc: 从生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
-黄金为元/克, 白银为元/千克, 玻璃现货为元/平方米, 鸡蛋现货为元/公斤, 鸡蛋期货为元/500千克, 其余元/吨.
-焦炭现货规格是: 一级冶金焦, 焦炭期货规格: 介于一级和二级之间, 焦炭现期差仅供参考.
+黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
+焦炭现货规格是: 一级冶金焦; 焦炭期货规格: 介于一级和二级之间, 焦炭现期差仅供参考.
 铁矿石现货价格是: 湿吨, 铁矿石期货价格是: 干吨
-demo_page: http://www.100ppi.com/sf/
+网页地址: http://www.100ppi.com/sf/
+历史数据可以通过修改 url 地址来获取, 比如: http://www.100ppi.com/sf/day-2017-09-12.html
+发现生意社的 bugs:
+1. 2018-09-12 周三 数据缺失是因为生意社源数据在该交易日缺失: http://www.100ppi.com/sf/day-2018-09-12.html
 """
 import re
 import time
@@ -116,7 +119,7 @@ def get_spot_price(date=None, vars_list=cons.contract_symbols):
                 i += 1
                 if i > 5:
                     print(
-                        f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败，已超过5次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
+                        f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败, 如果当前交易日是 2018-09-12, 由于生意社源数据缺失, 无法访问, 否则为重复访问已超过5次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                     )
                     return False
 
@@ -229,7 +232,7 @@ def _check_information(df_data, date):
 
 
 if __name__ == "__main__":
-    df = get_spot_price_daily(start_day="20181108", end_day="20181110")
+    df = get_spot_price_daily(start_day="20180909", end_day="20180920")
     print(df)
-    df = get_spot_price("20191023")
+    df = get_spot_price("20180912")
     print(df)
