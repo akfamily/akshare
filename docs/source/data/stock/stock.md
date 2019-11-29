@@ -925,7 +925,7 @@ print(us_stock_current_df)
 
 目标地址: http://finance.sina.com.cn/stock/usstock/sector.shtml
 
-描述: 获取美股历史行情数据
+描述: 获取美股历史行情数据, 设定 factor="qfq" 则只返回前复权因子(不包含历史数据), 默认则返回历史数据
 
 限量: 单次返回某家上市公司的所有历史行情数据和前复权因子
 
@@ -934,6 +934,7 @@ print(us_stock_current_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | symbol | str  | Y    |   美股代码, 可以通过**get_us_stock_name**函数返回所有美股代码, 由于美股数据量大, 建议按需要获取|
+| factor | str  | Y    |   设定 factor="qfq" 则只返回前复权因子(不包含历史数据), 默认则返回历史数据|
 
 
 输出参数(历史数据)
@@ -957,12 +958,15 @@ print(us_stock_current_df)
 
                 
 接口示例
+
 ```python
 import akshare as ak
-data, qfq_factor = ak.stock_us_daily(symbol="AMZN")
+hist_df = ak.stock_us_daily(symbol="AMZN")
+print(hist_df)
 ```
 
 数据示例(历史数据)
+
 ```
                open     high      low    close   volume
 date                                                   
@@ -979,7 +983,16 @@ date
 2019-11-01  1788.01  1797.44  1785.21  1791.44  2790354
 ```
 
+接口示例
+
+```python
+import akshare as ak
+qfq_df = ak.stock_us_daily(symbol="AMZN", factor="qfq")
+print(qfq_df)
+```
+
 数据示例(前复权因子)
+
 ```
          date         qfq_factor
 0  1999-09-02                  1
