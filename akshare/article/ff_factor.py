@@ -12,7 +12,7 @@ import pandas as pd
 from akshare.article.cons import ff_home_url
 
 
-def ff_crr():
+def article_ff_crr():
     res = requests.get(ff_home_url)
     # first table
     list_index = (
@@ -142,5 +142,5 @@ def ff_crr():
 
 
 if __name__ == "__main__":
-    df_data = ff_crr()
+    df_data = article_ff_crr()
     print(df_data)

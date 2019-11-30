@@ -29,6 +29,39 @@ def article_oman_rv(symbol="FTSE", index="rk_th2", plot=True):
     This Library is used as the basis of some of our own research, which effects its scope, and is made available here to encourage the more widespread exploitation of these methods. It is given 'as is' and solely for informational purposes, please read the disclaimer.
 
     The volatility data can be visually explored. We make the complete up-to-date dataset available for download. Lists of assets covered and realized measures available are also available.
+    | Symbol    | Name                                      | Earliest Available | Latest Available  |
+    |-----------|-------------------------------------------|--------------------|-------------------|
+    | .AEX      | AEX index                                 | January 03, 2000   | November 28, 2019 |
+    | .AORD     | All Ordinaries                            | January 04, 2000   | November 28, 2019 |
+    | .BFX      | Bell 20 Index                             | January 03, 2000   | November 28, 2019 |
+    | .BSESN    | S&P BSE Sensex                            | January 03, 2000   | November 28, 2019 |
+    | .BVLG     | PSI All-Share Index                       | October 15, 2012   | November 28, 2019 |
+    | .BVSP     | BVSP BOVESPA Index                        | January 03, 2000   | November 28, 2019 |
+    | .DJI      | Dow Jones Industrial Average              | January 03, 2000   | November 27, 2019 |
+    | .FCHI     | CAC 40                                    | January 03, 2000   | November 28, 2019 |
+    | .FTMIB    | FTSE MIB                                  | June 01, 2009      | November 28, 2019 |
+    | .FTSE     | FTSE 100                                  | January 04, 2000   | November 28, 2019 |
+    | .GDAXI    | DAX                                       | January 03, 2000   | November 28, 2019 |
+    | .GSPTSE   | S&P/TSX Composite index                   | May 02, 2002       | November 28, 2019 |
+    | .HSI      | HANG SENG Index                           | January 03, 2000   | November 28, 2019 |
+    | .IBEX     | IBEX 35 Index                             | January 03, 2000   | November 28, 2019 |
+    | .IXIC     | Nasdaq 100                                | January 03, 2000   | November 27, 2019 |
+    | .KS11     | Korea Composite Stock Price Index (KOSPI) | January 04, 2000   | November 28, 2019 |
+    | .KSE      | Karachi SE 100 Index                      | January 03, 2000   | November 28, 2019 |
+    | .MXX      | IPC Mexico                                | January 03, 2000   | November 28, 2019 |
+    | .N225     | Nikkei 225                                | February 02, 2000  | November 28, 2019 |
+    | .NSEI     | NIFTY 50                                  | January 03, 2000   | November 28, 2019 |
+    | .OMXC20   | OMX Copenhagen 20 Index                   | October 03, 2005   | November 28, 2019 |
+    | .OMXHPI   | OMX Helsinki All Share Index              | October 03, 2005   | November 28, 2019 |
+    | .OMXSPI   | OMX Stockholm All Share Index             | October 03, 2005   | November 28, 2019 |
+    | .OSEAX    | Oslo Exchange All-share Index             | September 03, 2001 | November 28, 2019 |
+    | .RUT      | Russel 2000                               | January 03, 2000   | November 27, 2019 |
+    | .SMSI     | Madrid General Index                      | July 04, 2005      | November 28, 2019 |
+    | .SPX      | S&P 500 Index                             | January 03, 2000   | November 27, 2019 |
+    | .SSEC     | Shanghai Composite Index                  | January 04, 2000   | November 28, 2019 |
+    | .SSMI     | Swiss Stock Market Index                  | January 04, 2000   | November 28, 2019 |
+    | .STI      | Straits Times Index                       | January 03, 2000   | November 28, 2019 |
+    | .STOXX50E | EURO STOXX 50                             | January 03, 2000   | November 28, 2019 |
     """
     url = "https://realized.oxford-man.ox.ac.uk/theme/js/visualization-data.js?20191111113154"
     res = requests.get(url)

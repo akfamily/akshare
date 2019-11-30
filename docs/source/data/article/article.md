@@ -14,10 +14,68 @@
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| symbol | str  | Y    |  symbol="FTSE", 某个具体指数 help(article_oman_visual)|
-| index | str  | Y    |  index="rk_th2", 某个具体指标 help(article_oman_visual)|
+| symbol | str  | Y    |  symbol="FTSE", 具体指数请查看如下 **已实现波动率指数一览表**|
+| index | str  | Y     |  index="rk_th2", 具体指标请查看如下 **已实现波动率指标一览表**|
 | plot | Bool  | Y    |  plot=True, 是否画图|
 
+已实现波动率指数一览表
+
+| Symbol    | Name                                      | Earliest Available | Latest Available  |
+|-----------|-------------------------------------------|--------------------|-------------------|
+| .AEX      | AEX index                                 | January 03, 2000   | November 28, 2019 |
+| .AORD     | All Ordinaries                            | January 04, 2000   | November 28, 2019 |
+| .BFX      | Bell 20 Index                             | January 03, 2000   | November 28, 2019 |
+| .BSESN    | S&P BSE Sensex                            | January 03, 2000   | November 28, 2019 |
+| .BVLG     | PSI All-Share Index                       | October 15, 2012   | November 28, 2019 |
+| .BVSP     | BVSP BOVESPA Index                        | January 03, 2000   | November 28, 2019 |
+| .DJI      | Dow Jones Industrial Average              | January 03, 2000   | November 27, 2019 |
+| .FCHI     | CAC 40                                    | January 03, 2000   | November 28, 2019 |
+| .FTMIB    | FTSE MIB                                  | June 01, 2009      | November 28, 2019 |
+| .FTSE     | FTSE 100                                  | January 04, 2000   | November 28, 2019 |
+| .GDAXI    | DAX                                       | January 03, 2000   | November 28, 2019 |
+| .GSPTSE   | S&P/TSX Composite index                   | May 02, 2002       | November 28, 2019 |
+| .HSI      | HANG SENG Index                           | January 03, 2000   | November 28, 2019 |
+| .IBEX     | IBEX 35 Index                             | January 03, 2000   | November 28, 2019 |
+| .IXIC     | Nasdaq 100                                | January 03, 2000   | November 27, 2019 |
+| .KS11     | Korea Composite Stock Price Index (KOSPI) | January 04, 2000   | November 28, 2019 |
+| .KSE      | Karachi SE 100 Index                      | January 03, 2000   | November 28, 2019 |
+| .MXX      | IPC Mexico                                | January 03, 2000   | November 28, 2019 |
+| .N225     | Nikkei 225                                | February 02, 2000  | November 28, 2019 |
+| .NSEI     | NIFTY 50                                  | January 03, 2000   | November 28, 2019 |
+| .OMXC20   | OMX Copenhagen 20 Index                   | October 03, 2005   | November 28, 2019 |
+| .OMXHPI   | OMX Helsinki All Share Index              | October 03, 2005   | November 28, 2019 |
+| .OMXSPI   | OMX Stockholm All Share Index             | October 03, 2005   | November 28, 2019 |
+| .OSEAX    | Oslo Exchange All-share Index             | September 03, 2001 | November 28, 2019 |
+| .RUT      | Russel 2000                               | January 03, 2000   | November 27, 2019 |
+| .SMSI     | Madrid General Index                      | July 04, 2005      | November 28, 2019 |
+| .SPX      | S&P 500 Index                             | January 03, 2000   | November 27, 2019 |
+| .SSEC     | Shanghai Composite Index                  | January 04, 2000   | November 28, 2019 |
+| .SSMI     | Swiss Stock Market Index                  | January 04, 2000   | November 28, 2019 |
+| .STI      | Straits Times Index                       | January 03, 2000   | November 28, 2019 |
+| .STOXX50E | EURO STOXX 50                             | January 03, 2000   | November 28, 2019 |
+
+已实现波动率指标一览表
+
+| Code          | Description                                   |
+|---------------|-----------------------------------------------|
+| bv            | Bipower Variation (5-min)                     |
+| bv_ss         | Bipower Variation (5-min Sub-sampled)         |
+| close_price   | Closing (Last) Price                          |
+| close_time    | Closing Time                                  |
+| medrv         | Median Realized Variance (5-min)              |
+| nobs          | Number of Observations                        |
+| open_price    | Opening (First) Price                         |
+| open_time     | Opening Time                                  |
+| open_to_close | Open to Close Return                          |
+| rk_parzen     | Realized Kernel Variance (Non-Flat Parzen)    |
+| rk_th2        | Realized Kernel Variance (Tukey-Hanning(2))   |
+| rk_twoscale   | Realized Kernel Variance (Two-Scale/Bartlett) |
+| rsv           | Realized Semi-variance (5-min)                |
+| rsv_ss        | Realized Semi-variance (5-min Sub-sampled)    |
+| rv10          | Realized Variance (10-min)                    |
+| rv10_ss       | Realized Variance (10-min Sub-sampled)        |
+| rv5           | Realized Variance (5-min)                     |
+| rv5_ss        | Realized Variance (5-min Sub-sampled)         |
 
 输出参数
 
@@ -25,8 +83,8 @@ Oxford-Man-已实现波动率数据
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| index      | datetime   | -        | -  |  
-| data      | float   | -        | -  |  
+| index      | datetime.datetime   | Y        | 日期  |  
+| data      | float   | Y        | 数据  |  
 
 
 接口示例
@@ -77,8 +135,8 @@ Risk-Lab-已实现波动率数据
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| index      | datetime   | -        | -  |  
-| data      | float   | -        | -  |  
+| index      | datetime.datetime   | Y        | 日期  |  
+| data      | float   | Y        | 数据  |  
 
 
 接口示例
@@ -109,7 +167,7 @@ print(df)
 
 ### Current Research Returns
 
-接口: ff_crr
+接口: article_ff_crr
 
 目标地址: http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 
@@ -123,27 +181,26 @@ print(df)
 | -------- | ---- | ---- | --- |
 | - | -  | -    |  -|
 
-
 输出参数
 
 FF-Current Research Returns
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| September 2019      | float   | -        | -  |  
-| Last 3 Months      | float   | -        | -  |  
-| Last 12 Months      | float   | -        | -  |  
-
+| September 2019      | float   | Y        | -  |  
+| Last 3 Months      | float   | Y        | -  |  
+| Last 12 Months      | float   | Y        | -  |  
 
 接口示例
 
 ```python
 import akshare as ak
-df = ak.ff_crr()
+df = ak.article_ff_crr()
 print(df)
 ```
 
 数据示例
+
 ```
                                             September  2019 Last 3  Months  \
 Fama/French 3 Research Factors                            -              -   

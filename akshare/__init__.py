@@ -382,7 +382,7 @@ from akshare.futures.hf_futures_sina import (futures_hf_spot,
 """
 FF多因子数据接口
 """
-from akshare.article.ff_factor import (ff_crr)
+from akshare.article.ff_factor import (article_ff_crr)
 
 """
 Realized Library 接口
