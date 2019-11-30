@@ -271,7 +271,7 @@ Big Aggressive                                        -0.38
 ```
 
 
-## [AkShare](https://github.com/jindaxiang/akshare) 经济政策不确定性(EPU)指数
+## [AkShare](https://github.com/jindaxiang/akshare) 经济政策不确定性
 
 ### 国家和地区指数
 
