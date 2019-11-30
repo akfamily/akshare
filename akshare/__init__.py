@@ -334,9 +334,12 @@ PCE物价指数年率报告
 新增南华期货-商品指数历史走势-波动率指数
 0.2.54
 添加 numpy 依赖
+0.2.55
+更新已实现波动率的说明文档
+统一 ff_crr --> article_ff_crr
 """
 
-__version__ = '0.2.54'
+__version__ = '0.2.55'
 __author__ = 'Albert King'
 
 """
