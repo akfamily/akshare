@@ -89,6 +89,19 @@
     6.27 增加[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)数据接口, 提供历史分笔行情数据(近2年)
     
     6.28 增加[金十数据](https://datacenter.jin10.com/market)监控数据接口, 提供基于 Websocket 的数据接口(基础版本);
+
+    6.29 增加[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)专题教程-pandas专题-连载;
+
+    6.30 增加[timeanddate网站](https://www.timeanddate.com/)提供的日出和日落数据接口;
+    
+    6.31 增加[河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/)提供的河北省空气质量数据接口;
+    
+    6.32 增加[南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html)商品指数历史走势-收益率指数、价格指数、波动率指数接口;
+    
+    6.33 增加[Economic Policy Uncertainty网站](http://www.nanhua.net/nhzc/varietytrend.html)提供经济政策不确定性(EPU)指数数据接口;
+
+
+
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
 

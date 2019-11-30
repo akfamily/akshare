@@ -4,16 +4,9 @@
 
 ## 2. 再查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据接口
 
-**Example 2.1** 查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据接口
+具体函数使用详情, 请查看 [AkShare 文档](https://akshare.readthedocs.io/) 每个接口的示例代码
 
-代码:
-
-```python
-import akshare as ak
-[item for item in dir(ak) if item.startswith("get")]
-```
-
-结果显示: 数据获取函数说明
+[AkShare](https://github.com/jindaxiang/akshare) 数据接口一览表
 
 ```
  # 交易所期货数据
@@ -146,14 +139,28 @@ import akshare as ak
  'stock_zh_index_daily'  # 股票指数历史行情数据
  'stock_zh_index_spot'  # 股票指数实时行情数据
  # 股票分笔数据
- 'stock_zh_a_tick'  # A股票分笔行情数据(近2年)
+ 'stock_zh_a_tick'  # A 股票分笔行情数据(近2年)
+ # Websocket 实时监控
+ 'watch'  # 监控外汇实时价格
+ # 世界各地区日出和日落数据-日
+ 'weather_daily'  # 每日日出和日落数据
+ # 世界各地区日出和日落数据-月
+ 'weather_monthly'  # 每月日出和日落数据
+ # 河北空气质量数据(期货-钢铁)
+ 'air_hebei'  # 河北空气质量数据
+ # 南华期货-南华指数-波动率指数
+ 'nh_volatility_index'  # 波动率指数
+ # 南华期货-南华指数-价格指数
+ 'nh_price_index'  # 价格指数
+ # 南华期货-南华指数-收益率指数
+ 'nh_return_index'  # 收益率指数
+ # 经济政策不确定性(EPU)指数
+ 'article_epu_index'  # 主要国家和地区的经济政策不确定性(EPU)指数
 ```
 
 ## 3. 案例演示
 
-### 3. 获取展期收益率
-
-**Example 3.1** 获取展期收益率数据:
+### 3.1 获取展期收益率
 
 代码:
 
@@ -190,9 +197,7 @@ ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_da
 2018-07-18    0.225529  RB1810   RB1901
 ```
 
-### 4. 获取私募指数数据
-
-**Example 4.1** 获取私募指数数据:
+### 3.2 获取私募指数数据
 
 代码:
 

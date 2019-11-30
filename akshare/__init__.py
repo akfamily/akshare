@@ -337,10 +337,19 @@ PCE物价指数年率报告
 0.2.55
 更新已实现波动率的说明文档
 统一 ff_crr --> article_ff_crr
+0.2.56
+新增经济政策不确定性(EPU)数据接口
+更新说明文档
+修改示例说明
 """
 
-__version__ = '0.2.55'
+__version__ = '0.2.56'
 __author__ = 'Albert King'
+
+"""
+经济政策不确定性指数
+"""
+from akshare.article.epu_index import article_epu_index
 
 """
 南华期货-南华指数
