@@ -31,9 +31,12 @@ def air_hebei(city="定州市"):
     city_6.index = city_list
 
     big_df = pd.concat([city_1, city_2, city_3, city_4, city_5, city_6])
-    return big_df[big_df.index == city]
+    if city == "":
+        return big_df
+    else:
+        return big_df[big_df.index == city]
 
 
 if __name__ == "__main__":
-    temp_df = air_hebei(city="定州市")
-    print(temp_df)
+    temp_df = air_hebei(city="")
+    print(temp_df[temp_df.index == "石家庄市"])

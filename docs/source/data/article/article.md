@@ -12,7 +12,7 @@
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
 | symbol | str  | Y    |  symbol="FTSE", 具体指数请查看如下 **已实现波动率指数一览表**|
 | index | str  | Y     |  index="rk_th2", 具体指标请查看如下 **已实现波动率指标一览表**|
@@ -329,7 +329,7 @@ Big Aggressive                                        -0.38
 
 ```python
 import akshare as ak
-epu_index_df = ak.article_epu_index(index="China")
+epu_index_df = ak.article_epu_index(index="China")  # 注意单词第一个字母大写
 print(epu_index_df)
 ```
 
@@ -347,4 +347,5 @@ print(epu_index_df)
 288  2019      1           654.96260
 289  2019      2           720.15790
 290  2019      3           753.10770
-291  2019      4           502.55000```
+291  2019      4           502.55000
+```
