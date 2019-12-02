@@ -13,26 +13,51 @@ import pandas as pd
 import numpy as np
 from bs4 import BeautifulSoup
 import matplotlib.pyplot as plt
+import execjs
+
+from akshare.futures_derivative import jymf_js
+
 
 from akshare.futures_derivative.cons import (csa_payload,
                                              csa_url,
-                                             csa_params_url)
+                                             csa_params_url,
+                                             jyfm_init_headers,
+                                             jyfm_login_url)
 
 
-def get_futures_csa_params():
+def login_jyfm(account="", password="", captcha=False):
+    if captcha:
+        pic_url = "https://www.jiaoyifamen.com/captcha/login?needCaptcha=1571976133484&t=0.21240719486403603"
+        res = requests.get(pic_url)
+        with open("code.png", "wb") as f:
+            f.write(res.content)
+        code = input()
+        c_func = execjs.compile(jymf_js.c.replace(r"\n", ""))
+        en_psw = c_func.call("e", password)
+        payload = {"nameOrEmail": account, "userPassword": en_psw, "captcha": code}
+    else:
+        c_func = execjs.compile(jymf_js.c.replace(r"\n", ""))
+        en_psw = c_func.call("e", password)
+        payload = {"nameOrEmail": account, "userPassword": en_psw}
+    res = requests.post(jyfm_login_url, json=payload, headers=jyfm_init_headers)
+    copy_jyfm_init_headers = jyfm_init_headers.copy()
+    copy_jyfm_init_headers["cookie"] = list(dict(res.cookies).keys())[0] + "=" + list(dict(res.cookies).values())[0] + "; " + list(dict(res.cookies).keys())[1] + "=" + list(dict(res.cookies).values())[1]
+    # res = requests.get("https://www.jiaoyifamen.com/tools/future/spread/free?type1=RB&code1=01&type2=RB&code2=05", headers=copy_jyfm_init_headers)
+    # json_df = res.json()
+    return copy_jyfm_init_headers
+
+
+def get_futures_csa_params(headers=""):
     """
     返回可以试用的参数, e.g., 交易所, 品种
     :return: dict
     {'中国金融期货交易所': {'TF': '五债', 'T': '十债', 'IC': '中证500', 'IF': '沪深300', 'IH': '上证50', 'TS': '二债'}, '郑州商品交易所': {'FG': '玻璃', 'RS': '菜籽', 'CF': '郑棉', 'LR': '晚稻', 'CJ': '红枣', 'JR': '粳稻', 'ZC': '郑煤', 'TA': 'PTA', 'AP': '苹果', 'WH': '郑麦', 'SF': '硅铁', 'MA': '郑醇', 'CY': '棉纱', 'RI': '早稻', 'OI': '郑油', 'SM': '硅锰', 'RM': '菜粕', 'UR': '尿素', 'PM': '普麦', 'SR': '白糖'}, '大连商品交易所': {'PP': 'PP', 'RR': '粳米', 'BB': '纤板', 'A': '豆一', 'EG': '乙二醇', 'B': '豆二', 'C': '玉米', 'JM': '焦煤', 'I': '铁矿', 'J': '焦炭', 'L': '塑料', 'M': '豆粕', 'P': '棕榈', 'CS': '淀粉', 'V': 'PVC', 'Y': '豆油', 'JD': '鸡蛋', 'FB': '胶板', 'EB': '苯乙烯'}, '上海期货交易所': {'SS': '不锈钢', 'RU': '橡胶', 'AG': '沪银', 'AL': '沪铝', 'FU': '燃油', 'RB': '螺纹', 'CU': '沪铜', 'PB': '沪铅', 'BU': '沥青', 'AU': '沪金', 'ZN': '沪锌', 'SN': '沪锡', 'HC': '热卷', 'NI': '沪镍', 'WR': '线材', 'SP': '纸浆'}, '上海国际能源交易中心': {'SC': '原油', 'NR': '20号胶'}}
     """
-    res = requests.get(csa_params_url)
-    soup = BeautifulSoup(res.text, "lxml")
-    html_text = soup.find("script", attrs={"type": "text/javascript"}).get_text()
-    data_dict = json.loads(html_text[html_text.find("{"): html_text.rfind("}")+1])
-    return data_dict
+    res = requests.get("https://www.jiaoyifamen.com/tools/future/spread/free?type1=RB&code1=01&type2=RB&code2=05", headers=headers)
+    return res.json()
 
 
-def get_futures_csa_history(type_1="RB", type_2="RB", code_1="01", code_2="05", plot=True):
+def get_futures_csa_history(type_1="RB", type_2="RB", code_1="01", code_2="05", plot=True, headers=""):
     """
     获取某两个合约的价差走势数据和图
     :param type_1: str
@@ -58,7 +83,7 @@ def get_futures_csa_history(type_1="RB", type_2="RB", code_1="01", code_2="05", 
     csa_payload_his.update({"type2": type_2})
     csa_payload_his.update({"code1": code_1})
     csa_payload_his.update({"code2": code_2})
-    res = requests.get(csa_url, params=csa_payload_his)
+    res = requests.get(csa_url, params=csa_payload_his, headers=headers)
     data_json = res.json()
     data_df = pd.DataFrame([data_json["category"], data_json["value"]]).T
     data_df.index = pd.to_datetime(data_df.iloc[:, 0])
@@ -75,7 +100,7 @@ def get_futures_csa_history(type_1="RB", type_2="RB", code_1="01", code_2="05", 
         return data_df
 
 
-def get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05", plot=True):
+def get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05", plot=True, headers=""):
     """
     获取某两个合约的价差季节图
     :param type_1: str
@@ -116,7 +141,7 @@ def get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05
     csa_payload_his.update({"type2": type_2})
     csa_payload_his.update({"code1": code_1})
     csa_payload_his.update({"code2": code_2})
-    res = requests.get(csa_url, params=csa_payload_his)
+    res = requests.get(csa_url, params=csa_payload_his, headers=headers)
     data_json = res.json()
     data_df = pd.DataFrame([data_json["category"], data_json["value"]]).T
     data_df.index = pd.to_datetime(data_df.iloc[:, 0])
@@ -146,9 +171,14 @@ def get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05
 
 
 if __name__ == "__main__":
-    df = get_futures_csa_params()
+    # df = get_futures_csa_params()
+    # print(df)
+    # df = get_futures_csa_history()
+    # print(df)
+    # df = get_futures_csa_seasonally(type_1="FU", type_2="FU", code_1="01", code_2="05", plot=True)
+    # print(df)
+    headers = login_jyfm(account="jindaxiang@163.com", password="", captcha=False)
+    df = get_futures_csa_history(headers=headers)
     print(df)
-    df = get_futures_csa_history()
-    print(df)
-    df = get_futures_csa_seasonally(type_1="FU", type_2="FU", code_1="01", code_2="05", plot=True)
-    print(df)
+    # df = get_futures_csa_params(headers=headers)
+    # print(df)

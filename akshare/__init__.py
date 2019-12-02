@@ -476,9 +476,9 @@ from akshare.futures_derivative.sys_spot_futures import (get_sys_spot_futures,
 """
 交易法门-套利工具-跨期价差(自由价差)
 """
-from akshare.futures_derivative.arbitrage_tools import (get_futures_csa_params,
-                                                        get_futures_csa_seasonally,
-                                                        get_futures_csa_history)
+# from akshare.futures_derivative.arbitrage_tools import (get_futures_csa_params,
+#                                                         get_futures_csa_seasonally,
+#                                                         get_futures_csa_history)
 
 """
 和讯财经-行情及历史数据

@@ -6,6 +6,15 @@ date: 2019/10/27 19:49
 contact: jindaxiang@163.com
 desc: 期货衍生指标变量文件
 """
+# 交易法门
+jyfm_init_headers = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                     "Accept-Encoding": "gzip, deflate, br",
+                     "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
+                     "Host": "www.jiaoyifamen.com",
+                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0"
+                     }
+jyfm_login_url = "https://www.jiaoyifamen.com/login"
+
 # xgx
 symbol_dict = {
     '钢材指数': '65',

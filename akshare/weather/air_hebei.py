@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def air_hebei(city="定州市"):
+def air_hebei(city=""):
     url = "http://110.249.223.67/publishNewServer/api/CityPublishInfo/GetProvinceAndCityPublishData?publishDate=2019-11-26%2016:00:00"
     res = requests.get(url)
     json_data = res.json()

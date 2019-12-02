@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans"><head><link href="https://www.jiaoyifamen.com/dist/skins/classic/style.common.5799ac1b3c3f12401cda.css" rel="stylesheet"><script src="https://www.jiaoyifamen.com/dist/skins/classic/vendors.8f419335aa18457569f6.js" defer></script><script src="https://www.jiaoyifamen.com/dist/skins/classic/style.common.690e3567fca7de677371.js" defer></script><script src="https://www.jiaoyifamen.com/dist/skins/classic/common.cdb54affe7a3c08793a7.js" defer></script></head>
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="theme-color" content="#3b3e43">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="google-site-verification" content="l6JwXAuzDd2K09z9xYaeZTFjnXVJATmJ7xX1q2_HuEo" />
+<meta name="baidu-site-verification" content="YA26etlJrZ" />
+<meta name="msvalidate.01" content="43B15631A6176E01B4CC074375AD7AF1" />
+<meta name="p:domain_verify" content="4ad0f1e10883fcfd6c18da6c6b84e8a0"/>
+<meta name="format-detection" content="telephone=no" />
+<title>404 Not Found! - 交易法门</title>
+<meta name="description" content="<p>交易法门是一个专注<strong>期货基本面</strong>研究的社区。"/>
+<meta property="og:description" content="<p>交易法门是一个专注<strong>期货基本面</strong>研究的社区。"/>
+<link rel="dns-prefetch" href="https://www.jiaoyifamen.com" />
+<link rel="dns-prefetch" href="//img.hacpai.com" />
+<link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+<link rel="preconnect" href="https://www.jiaoyifamen.com">
+<link rel="icon" type="image/png" href="https://www.jiaoyifamen.com/images/favicon.png" />
+<link rel="apple-touch-icon" href="https://www.jiaoyifamen.com/images/apple-touch-icon.png">
+<link rel="shortcut icon" type="image/x-icon" href="https://www.jiaoyifamen.com/images/favicon.png">
+    <meta name="robots" content="noindex"/>
+<meta name="copyright" content="jiaoyifamen.com" />
+<meta http-equiv="Window-target" content="_top" />
+<meta property="og:locale" content="zh-cmn-Hans"/>
+<meta property="og:title" content="404 Not Found! - 交易法门"/>
+<meta property="og:site_name" content="交易法门"/>
+<meta property="og:url" content="https://www.jiaoyifamen.com/error/404?needCaptcha=1571976133484&t=0.21240719486403603"/>
+<meta property="og:image" content="https://www.jiaoyifamen.com/images/faviconH.png"/>
+<link rel="search" type="application/opensearchdescription+xml" title="HacPai" href="/opensearch.xml">
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+
+</head>
+<body class="error fn__flex-column">
+<header class="nav">
+    <div class="wrapper">
+    <h1>
+        <span class="fn__none">交易法门 The best trading way.</span>
+        <a href="https://www.jiaoyifamen.com">
+        </a>
+    </h1>
+    <nav class="nav-tabs" style="border-bottom: 0px">
+        <a href="https://www.jiaoyifamen.com" class="nav__item">
+            <svg>
+                <use xlink:href="#iconHome"></use>
+            </svg> 首页</a>
+
+        <a href="https://www.jiaoyifamen.com/tools" class="nav__item">
+            <svg>
+                <use xlink:href="#iconChainBook"></use>
+            </svg>工具
+        </a>
+        <a href="https://www.jiaoyifamen.com/data" class="nav__item">
+            <svg>
+                <use xlink:href="#iconAsk"></use>
+            </svg>数据</a>
+
+
+           <a href="https://www.jiaoyifamen.com/tag/论坛"
+            class=" nav__item ">
+        <svg>
+            <use xlink:href="#iconDomain"></use>
+        </svg>社区</a>
+
+
+
+
+
+
+        <a href="https://www.jiaoyifamen.com/vip" class="nav__item">
+            <svg>
+                <use xlink:href="#refresh"></use>
+            </svg>VIP
+        </a>
+
+
+
+
+    </nav>
+    <div class="quick-search">
+        <input class="quickSearchInput input" type="text" autocomplete="off"
+               placeholder="搜索帖子、标签和用户"/>
+    </div>
+    <div class="user-nav">
+            <span id="navLogin"
+                  class="nav__item fn__left commonGoLogin">登录/注册</span>
+            <span id="navRegister"
+                  class="nav__item fn__left commonGoRegister" style="display: none">注册</span>
+    </div>
+        </div>
+</header>
+<div class="main fn__flex-1">
+    <div class="wrapper">
+        <div class="module">
+            <h2 class="sub-head">404 Not Found!</h2>
+            <br>
+            <div class="ft-center" id="img"></div>
+            <br>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="wrapper">
+        <div class="footer-nav fn__flex">
+            <div class="fn-flex-1">
+                <a rel="help" href="https://www.jiaoyifamen.com/article/1565601109780">关于</a>
+                <a href="https://www.jiaoyifamen.com/article/1488603534762" class="fn__none">API</a>
+                <a href="https://www.jiaoyifamen.com/article/1460083956075"  class="fn__none">广告投放</a>
+                <a href="https://www.jiaoyifamen.com/statistic">数据统计</a>
+                <a href="https://www.qhkch.com" target="_blank" class="fn__none">奇货可查</a>
+            </div>
+
+            <div class="ft__smaller">
+                内容协议 <a rel="noopener noreferrer" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank">CC BY-SA</a>
+                 &COPY; 2019 交易法门
+            </div>
+        </div>
+        <div class="fn__flex">
+            <div class="fn__flex-1">
+                <a href="https://github.com/b3log/symphony" target="_blank" rel="noopener"
+                   class="tooltipped tooltipped__n footer__share fn__none"
+                   aria-label="本站基于 Sym 源码">
+                    <svg class="icon-github">
+                        <use xlink:href="#iconGithub"></use>
+                    </svg>
+                </a>
+                <a target="_blank" rel="noopener" class="tooltipped tooltipped__n footer__share fn__none" aria-label="加入电报群"
+                   href="https://t.me/b3log">
+                    <svg class="icon-telegram">
+                        <use xlink:href="#iconTelegram"></use>
+                    </svg>
+                </a>
+                <span class="ft__smaller">
+                    为期货基本面交易而构建的社区  &nbsp;
+                    The best trading way.
+                </span>
+            </div>
+
+            <div class="ft__smaller">
+                    <a href="http://www.beian.miit.gov.cn/" rel="noopener nofollow" target="_blank">蜀ICP备19026179号</a> •
+                <a href="https://www.jiaoyifamen.com" rel="noopener" target="_blank">交易法门</a>
+                v3.5.0 • 4ms
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    var Label = {
+        sendLabel: '发送',
+        advanceSearchLabel: '高级搜索',
+        notFoundPostLabel: '帖子不存在',
+        notFoundTagLabel: '标签不存在',
+        notFoundUserLabel: '用户不存在',
+        getNewChatLabel: '查看新的聊天内容',
+        systemEmptyLabel: '暂时没有内容，请稍后再来看看',
+        historyLabel: '历史',
+        thoughtLabel: '思绪',
+        link26: 'https://www.jiaoyifamen.com/article/1558427377784',
+        viewAllMsgLabel: '查看所有消息',
+        deReplyLabel: '&nbsp;的回帖',
+        openLabel: '展开',
+        foldLabel: '折叠',
+        offTopicLabel: '偏离主题',
+        outdatedLabel: '已过时',
+        link1: 'https://www.jiaoyifamen.com/article/1474030007391',
+        link25: 'https://www.jiaoyifamen.com/article/1464416402922',
+        comment2UseSceneLabel: '仅支持_斜体_、**加粗**以及超链接，请浏览<a href="https://www.jiaoyifamen.com/article/1555259445024" target="_blank">使用场景说明</a>了解更多细节',
+        notificationComment2edLabel: '收到的评论',
+        comment2ErrorLabel: '评论内容长度 4-4096',
+        sc403Label: '因权限不足操作已被禁止',
+        consoleDebugInfo1: '%cJYFM%c\n\n  www.jiaoyifamen.com\n  Copyright © 2012-present',
+        consoleDebugInfo2: 'font-size:96px;color:#3b3e43',
+        consoleDebugInfo3: 'font-size:12px;color:rgba(0,0,0,0.38)',
+        chickenEggLabel: '没有鸡，哪来的鸡蛋呢？',
+        myFileLabel: '我的文件',
+        lang: 'zh-cmn-Hans',
+        iPadTipLabel: '⚠️ 第一次点击查看 hover 效果，第二次点击才是真正的点击',
+        useHorizontalScreenLabel: '请使用横屏全屏模式进行浏览，以便获取最佳体验',
+        updateArticlePollFailedLabel: '投票表单没有插入到正文中，如果不需要投票表单请先进行删除',
+        insertLabel: '插入',
+        updateLabel: '更新',
+        removeLabel: '删除',
+        addOptionLabel: '添加选项',
+        isPublicLabel: '是否公开投票人',
+        endTimeLabel: '投票如需定时结束，请完整设置年/月/日 时:分',
+        typeLabel: '类型',
+        optionLabel: '选项',
+        titleLabel: '标题',
+        multipleSelectionLabel: '多选',
+        singleSelectionLabel: '单选',
+        pollLabel: '投票',
+        commentEditorPlaceholderLabel: '请输入回帖内容',
+        confirmRemoveLabel: '确定删除么？',
+        editLabel: '编辑',
+        confirmLogoutLabel: '确定需要登出？',
+        version: '3.5.0',
+        moreLabel: '更多',
+        hideLabel: '隐藏',
+        chatLabel: '聊天',
+        openOrgImgLabel: '查看原图',
+        downloadLabel: '下载',
+        revolveLabel: '旋转',
+        nextPageLabel: '下一页',
+        YCYLabel: '异次元空间',
+        markdownHttpAvailable: false,
+        searchTimeTipLabel: '⚡️ 已找到 <strong>{count}</strong> 个相关结果（用时 <strong>{time}ms</strong>）',
+        searchEmptyLabel: '暂时没有 [${key}] 相关的数据',
+        statUserLabel: '用户',
+        tagLabel: '标签',
+        articleLabel: '文章',
+        updateNameTipLabel: '（修改用户名需消耗 {point} 积分）',
+        certainLabel: '确定',
+        deactivateAccountLabel: '永久停用账号',
+        tipLabel: '提示',
+        reportContentLabel: '请说明举报理由',
+        miscLabel: '其他',
+        reportSuccLabel: '举报成功',
+        spamADLabel: '垃圾广告',
+        pornographicLabel: '低俗色情',
+        violationOfRegulationsLabel: '违法违规',
+        allegedlyInfringingLabel: '涉嫌侵权',
+        personalAttacksLabel: '人身攻击',
+        posingAccountLabel: '冒充账号',
+        spamADAccountLabel: '垃圾广告账号',
+        personalInfoViolationLabel: '个人信息违规',
+        reportLabel: '举报',
+        noMessageLabel: '无消息',
+        invalidQnAOfferPointLabel: '悬赏积分必须大于等于 20',
+        submitLabel: '提交',
+        nextStepLabel: '下一步',
+        breezemoonLabel: '清风明月',
+        breezemoonDescriptionLabel: '只与清风、明月为伴。',
+        invalidUserNameLabel: '用户名仅允许使用数字或字母，最大长度 20',
+        invalidVipInfoLabel: 'VIP认证信息不能为空',
+        finshLabel: '完成',
+        invalidEmailLabel: '邮箱地址格式有误',
+        confirmPwdErrorLabel: '密码输入不一致',
+        captchaErrorLabel: '验证码错误',
+        imgMaxSize: 10485760,
+        fileMaxSize: 20971520,
+        miniPostfix: '.min',
+        messageLabel: '消息',
+        desktopNotificationTemplateLabel: '你有 ${count} 条未读消息',
+        invalidPasswordLabel: '密码格式有误（数字及字母组合，长度 6-16）',
+        loginNameErrorLabel: '登录名称长度 1-256',
+        settingsAccountTip10Label:'仅支持中国11位手机号',
+        verifycodeLengthError:'验证码格式为6位数字',
+        followLabel: '关注',
+        unfollowLabel: '取消关注',
+        symphonyLabel: '交易法门',
+        cmtLabel: '回帖',
+        collectLabel: '收藏',
+        uncollectLabel: '取消收藏',
+        copyLabel: '复制',
+        copiedLabel: '已复制',
+        servePath: 'https://www.jiaoyifamen.com',
+        staticServePath: 'https://www.jiaoyifamen.com',
+        isLoggedIn: false,
+        funNeedLoginLabel: '登录后才能使用该功能',
+        notificationCommentedLabel: '收到的回帖',
+        notificationReplyLabel: '收到的回复',
+        notificationAtLabel: '提及我的',
+        notificationFollowingLabel: '我关注的',
+        pointLabel: '积分',
+        sameCityLabel: '同城',
+        systemLabel: '系统',
+        walletLabel: '钱包',
+        newFollowerLabel: '新关注者',
+        makeAsReadLabel: '标记为已读',
+        commaLabel: '，',
+        setEmotionLabel: '设置常用表情',
+        year: '2019',
+        mouseEffects: false,
+        killBrowserLabel: '<div class="fn__clear vditor-reset">为了让浏览器更好的发展，人类更加的进步，拥有更好的体验，让我们放弃使用那些过时、不安全的浏览器。<p>你可以下载：</p><ul class="fn__left"><li><a href="http://www.google.com/chrome" target="_blank" rel="noopener">谷歌浏览器</a></li><li><a href="http://www.mozilla.com/" target="_blank" rel="noopener">火狐</a></li><li><a href="http://se.360.cn/" target="_blank" rel="noopener">360</a> 或者 <a href="https://www.baidu.com/s?wd=%E6%B5%8F%E8%A7%88%E5%99%A8" target="_blank" rel="noopener">其它浏览器</a></li></ul><img class="fn__right" alt="Kill IE6" title="Kill IE6" src="/images/kill-browser.png"></div>',
+        killBrowserTitleLabel: '让我们放弃使用那些过时、不安全的浏览器吧！',
+        activityStartEatingSnakeTipLabel: '玩一局需要 【{point}】积分，确定开始么？',
+        activityStartGobangTipLabel: '玩一局需要 【{point}】积分，确定开始么？',
+        activityAskForDrawLabel: '对方请求和棋，是否同意？',
+        newVersionAvailableLabel: '新版本可用',
+        colonLabel: '：',
+        upToDateLabel: '已是最新版',
+        amountNotEmpty: '数额不能为空',
+        updateFailLabel: '更新失败',
+        updateSuccLabel: '更新成功',
+        transferSuccLabel: '转账成功',
+        invalidUserURLLabel: '链接需要符合 URL（协议://地址），最大长度 100',
+        tagsErrorLabel: '最多包含 4 个标签，每个标签长度 1-9，请勿包含特殊符号',
+        invalidUserQQLabel: 'QQ 号必须为数字，最大长度 12',
+        invalidUserIntroLabel: '个人简介最大长度 255',
+        invalidUserB3KeyLabel: 'B3 Key 最大长度 20',
+        invalidUserB3ClientURLLabel: 'B3 博客接口最大长度 150',
+        invalidUserNicknameLabel: '昵称最大长度 20',
+        invalidPhoneLabel: '手机号有误',
+        uploadLabel: '上传',
+        helpLabel: '帮助',
+        articleTitleErrorLabel: '帖子标题长度 1-255',
+        articleContentErrorLabel: '帖子内容长度 4-{maxArticleContentLength}',
+        recordDeniedLabel: '授权后才可以使用音频',
+        recordDeviceNotFoundLabel: '录音设备加载失败',
+        audioRecordingLabel: '[录音中]',
+        uploadingLabel: '[上传中请稍候]',
+        articleRewardPointErrorLabel: '打赏区积分必须为正整数',
+        discussionLabel: '机要',
+        commonAtUser: 'false',
+        commentErrorLabel: '回帖内容长度 1-4096',
+        notAllowCmtLabel: '该帖已关闭回帖',
+        upLabel: '赞同',
+        downLabel: '反对',
+        removedLabel: '相关数据已被删除',
+        stickConfirmLabel: '确定要消费 {point} 积分来置顶该帖子吗？',
+        noRevisionLabel: '权限不足或内容没有发生过改变。',
+        thankedLabel: '已感谢',
+        thankLabel: '感谢',
+        isAdminLoggedIn: false,
+        adminLabel: '管理',
+        thankSelfLabel: '老王，你家的瓜熟了~',
+        replyLabel: '回复',
+        referenceLabel: '引用',
+        goCommentLabel: '跳转到回帖',
+        commonUpdateCommentPermissionLabel: '更新回帖',
+        noPermissionLabel: '该账号目前是<span class="ft-green">访客</span>，暂不能使用该功能，详情请浏览<a href="https://www.jiaoyifamen.com/article/1482057214675">社区信任体系</a>',
+        rewardLabel: '打赏',
+        closeLabel: '关闭',
+        invalidAppRoleLabel: '角色有误',
+        cancelLabel: '取消',
+        wsToken: '',
+        userChannelURL: 'wss://www.jiaoyifamen.com:443/user-channel?url=' + encodeURIComponent(window.location.href) + "&wsToken=",
+        csrfToken: '',
+    }
+</script>
+ <!--[if le IE 8]>
+ <script>
+     document.getElementsByTagName(
+             'div')[0].innerHTML = '<div class="dialog"><div class="dialog__bg"></div><div class="dialog__main" style="width:768px;top:' +
+             (document.documentElement.clientHeight - 287) / 2 + 'px;left:' +
+             (document.documentElement.clientWidth - 768) / 2 + 'px">'
+             +
+             '<div style="height: 20px" class="dialog__header fn__clear" onselectstart="return false;"><h2>让我们放弃使用那些过时、不安全的浏览器吧！</h2></div><div class="dialog__content"><div class="fn__clear vditor-reset">为了让浏览器更好的发展，人类更加的进步，拥有更好的体验，让我们放弃使用那些过时、不安全的浏览器。<p>你可以下载：</p><ul class="fn__left"><li><a href="http://www.google.com/chrome" target="_blank" rel="noopener">谷歌浏览器</a></li><li><a href="http://www.mozilla.com/" target="_blank" rel="noopener">火狐</a></li><li><a href="http://se.360.cn/" target="_blank" rel="noopener">360</a> 或者 <a href="https://www.baidu.com/s?wd=%E6%B5%8F%E8%A7%88%E5%99%A8" target="_blank" rel="noopener">其它浏览器</a></li></ul><img class="fn__right" alt="Kill IE6" title="Kill IE6" src="/images/kill-browser.png"></div></div></div></div>'
+ </script>
+
+ <![endif]-->
+
+ <script>
+     (function(){
+         var bp = document.createElement('script');
+         var curProtocol = window.location.protocol.split(':')[0];
+         if (curProtocol === 'https') {
+             bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+         }
+         else {
+             bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+         }
+         var s = document.getElementsByTagName("script")[0];
+         s.parentNode.insertBefore(bp, s);
+     })();
+ </script>
+
+<script>
+    document.getElementById('img').innerHTML = '<img src="https://www.jiaoyifamen.com/images/404/' + Math.round(
+            Math.random() * 11) + '.gif">'
+</script>
+</body>
+</html>
+
+<!-- Generated by Latke (https://github.com/b3log/latke) in 10ms, 2019/12/02 18:46:20 -->
