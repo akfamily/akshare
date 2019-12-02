@@ -99,7 +99,10 @@
     6.32 增加[南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html)商品指数历史走势-收益率指数、价格指数、波动率指数接口;
     
     6.33 增加[Economic Policy Uncertainty网站](http://www.nanhua.net/nhzc/varietytrend.html)提供经济政策不确定性(EPU)指数数据接口;
-
+    
+    6.34 增加[新浪微博](https://data.weibo.com/index)提供微博指数数据;
+    
+    6.35 增加[百度](https://www.baidu.com/)提供百度指数数据;
 
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
