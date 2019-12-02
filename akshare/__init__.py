@@ -343,10 +343,17 @@ PCE物价指数年率报告
 修改示例说明
 0.2.57
 修改 air_hebei 接口, 默认返回全部城市
+0.2.58
+新增微博指数
 """
 
-__version__ = '0.2.57'
+__version__ = '0.2.58'
 __author__ = 'Albert King'
+
+"""
+微博指数
+"""
+from akshare.index.weibo_index import weibo_index
 
 """
 经济政策不确定性指数
@@ -476,9 +483,9 @@ from akshare.futures_derivative.sys_spot_futures import (get_sys_spot_futures,
 """
 交易法门-套利工具-跨期价差(自由价差)
 """
-# from akshare.futures_derivative.arbitrage_tools import (get_futures_csa_params,
-#                                                         get_futures_csa_seasonally,
-#                                                         get_futures_csa_history)
+from akshare.futures_derivative.arbitrage_tools import (jyfm_tools_futures_ratio,
+                                                        jyfm_tools_futures_customize,
+                                                        jyfm_tools_futures_spread)
 
 """
 和讯财经-行情及历史数据

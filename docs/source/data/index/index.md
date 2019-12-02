@@ -1,4 +1,7 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 全球指数数据
+## [AkShare](https://github.com/jindaxiang/akshare) 指数数据
+
+### 全球指数数据
+
 接口: get_country_index
 
 目标地址: https://cn.investing.com/indices/
@@ -67,4 +70,52 @@ index_df:
 2000-01-05  100.38  100.42  100.47   99.71   -  -0.03%
 2000-01-04  100.41  100.55  100.86  100.01   -   0.19%
 2000-01-03  100.22  101.67  101.83  100.19   -  -1.62%
+```
+
+### 微博指数数据
+
+接口: weibo_index
+
+目标地址: https://data.weibo.com/index/newindex
+
+描述: 获取指定 **词语** 的微博指数
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| word | str  | Y    |   word="股票"|
+| time_type | str  | Y    |  time_type="1hour"; 1hour, 1day, 1month, 3month 选其一|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| date      | datetime   | Y        | 日期-索引  |
+| index      | float   | Y        | 指数   |
+
+接口示例
+
+```python
+import akshare as ak
+df_index = ak.weibo_index(word="期货", time_type="3month")
+print(df_index)
+```
+
+数据示例
+
+```
+             期货
+index          
+20190901  13334
+20190902  46214
+20190903  49017
+20190904  53229
+20190905  68506
+         ...
+20191127  68081
+20191128  42348
+20191129  62141
+20191130  23448
+20191201  16169
 ```

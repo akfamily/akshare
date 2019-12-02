@@ -156,6 +156,8 @@
  'nh_return_index'  # 收益率指数
  # 经济政策不确定性(EPU)指数
  'article_epu_index'  # 主要国家和地区的经济政策不确定性(EPU)指数
+ # 微博指数
+ 'weibo_index'  # 获取3个月内的微博指数
 ```
 
 ## 3. 案例演示

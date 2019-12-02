@@ -143,7 +143,10 @@ xgx_short_headers = {
 }
 # csa
 csa_params_url = "https://www.jiaoyifamen.com/tools/nav/spread"
-csa_url = "https://www.jiaoyifamen.com/tools/future/spread/free"
+csa_url_spread = "https://www.jiaoyifamen.com/tools/future/spread/free"
+csa_url_ratio = "https://www.jiaoyifamen.com/tools/future/valence/free"
+csa_url_customize = "https://www.jiaoyifamen.com/tools/future/customize"
+
 csa_payload = {
     "type1": "RB",
     "code1": "01",

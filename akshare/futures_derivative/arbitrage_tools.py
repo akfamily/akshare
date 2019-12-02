@@ -6,12 +6,13 @@ date: 2019/10/27 19:47
 contact: jindaxiang@163.com
 desc: 获取交易法门网站-套利工具-跨期价差(自由价差)
 """
-import json
+from io import BytesIO
+
+from PIL import Image
 
 import requests
 import pandas as pd
 import numpy as np
-from bs4 import BeautifulSoup
 import matplotlib.pyplot as plt
 import execjs
 
@@ -19,31 +20,30 @@ from akshare.futures_derivative import jymf_js
 
 
 from akshare.futures_derivative.cons import (csa_payload,
-                                             csa_url,
-                                             csa_params_url,
+                                             csa_url_spread,
+                                             csa_url_ratio,
                                              jyfm_init_headers,
-                                             jyfm_login_url)
+                                             jyfm_login_url,
+                                             csa_url_customize)
 
 
-def login_jyfm(account="", password="", captcha=False):
-    if captcha:
-        pic_url = "https://www.jiaoyifamen.com/captcha/login?needCaptcha=1571976133484&t=0.21240719486403603"
+def login_jyfm(account="", password=""):
+    try:
+        pic_url = f"https://www.jiaoyifamen.com/captcha/login?needCaptcha=1571976133484&t={execjs.eval('Math.random()')}"
         res = requests.get(pic_url)
-        with open("code.png", "wb") as f:
-            f.write(res.content)
+        f = Image.open(BytesIO(res.content))
+        f.show()
         code = input()
         c_func = execjs.compile(jymf_js.c.replace(r"\n", ""))
         en_psw = c_func.call("e", password)
         payload = {"nameOrEmail": account, "userPassword": en_psw, "captcha": code}
-    else:
+    except:
         c_func = execjs.compile(jymf_js.c.replace(r"\n", ""))
         en_psw = c_func.call("e", password)
         payload = {"nameOrEmail": account, "userPassword": en_psw}
     res = requests.post(jyfm_login_url, json=payload, headers=jyfm_init_headers)
     copy_jyfm_init_headers = jyfm_init_headers.copy()
     copy_jyfm_init_headers["cookie"] = list(dict(res.cookies).keys())[0] + "=" + list(dict(res.cookies).values())[0] + "; " + list(dict(res.cookies).keys())[1] + "=" + list(dict(res.cookies).values())[1]
-    # res = requests.get("https://www.jiaoyifamen.com/tools/future/spread/free?type1=RB&code1=01&type2=RB&code2=05", headers=copy_jyfm_init_headers)
-    # json_df = res.json()
     return copy_jyfm_init_headers
 
 
@@ -57,7 +57,7 @@ def get_futures_csa_params(headers=""):
     return res.json()
 
 
-def get_futures_csa_history(type_1="RB", type_2="RB", code_1="01", code_2="05", plot=True, headers=""):
+def jyfm_tools_futures_spread(type_1="RB", type_2="RB", code_1="01", code_2="05",  headers="", plot=True):
     """
     获取某两个合约的价差走势数据和图
     :param type_1: str
@@ -83,7 +83,88 @@ def get_futures_csa_history(type_1="RB", type_2="RB", code_1="01", code_2="05", 
     csa_payload_his.update({"type2": type_2})
     csa_payload_his.update({"code1": code_1})
     csa_payload_his.update({"code2": code_2})
-    res = requests.get(csa_url, params=csa_payload_his, headers=headers)
+    res = requests.get(csa_url_spread, params=csa_payload_his, headers=headers)
+    data_json = res.json()
+    data_df = pd.DataFrame([data_json["category"], data_json["value"]]).T
+    data_df.index = pd.to_datetime(data_df.iloc[:, 0])
+    data_df = data_df.iloc[:, 1]
+    data_df.name = "value"
+    if plot:
+        data_df.plot()
+        plt.legend(loc="best")
+        plt.xlabel("date")
+        plt.ylabel("value")
+        plt.show()
+        return data_df
+    else:
+        return data_df
+
+
+def jyfm_tools_futures_ratio(type_1="RB", type_2="RB", code_1="01", code_2="05",  headers="", plot=True):
+    """
+    获取某两个合约的价差走势数据和图
+    :param type_1: str
+    :param type_2: str
+    :param code_1: str
+    :param code_2: str
+    :param plot: Bool
+    :return: pandas.Series or pic
+    2013-01-04   -121
+    2013-01-07   -124
+    2013-01-08   -150
+    2013-01-09   -143
+    2013-01-10   -195
+                 ...
+    2019-10-21    116
+    2019-10-22    126
+    2019-10-23    123
+    2019-10-24    126
+    2019-10-25    134
+    """
+    csa_payload_his = csa_payload.copy()
+    csa_payload_his.update({"type1": type_1})
+    csa_payload_his.update({"type2": type_2})
+    csa_payload_his.update({"code1": code_1})
+    csa_payload_his.update({"code2": code_2})
+    res = requests.get(csa_url_ratio, params=csa_payload_his, headers=headers)
+    data_json = res.json()
+    data_df = pd.DataFrame([data_json["category"], data_json["value"]]).T
+    data_df.index = pd.to_datetime(data_df.iloc[:, 0])
+    data_df = data_df.iloc[:, 1]
+    data_df.name = "value"
+    if plot:
+        data_df.plot()
+        plt.legend(loc="best")
+        plt.xlabel("date")
+        plt.ylabel("value")
+        plt.show()
+        return data_df
+    else:
+        return data_df
+
+
+def jyfm_tools_futures_customize(formula="RB01-1.6*I01-0.5*J01-1200",  headers="", plot=True):
+    """
+    获取某两个合约的价差走势数据和图
+    :param formula: str
+    :param plot: Bool
+    :return: pandas.Series or pic
+    2013-01-04   -121
+    2013-01-07   -124
+    2013-01-08   -150
+    2013-01-09   -143
+    2013-01-10   -195
+                 ...
+    2019-10-21    116
+    2019-10-22    126
+    2019-10-23    123
+    2019-10-24    126
+    2019-10-25    134
+    """
+    params = {
+        "formula": formula
+    }
+    res = requests.get(csa_url_customize, params=params, headers=headers)
     data_json = res.json()
     data_df = pd.DataFrame([data_json["category"], data_json["value"]]).T
     data_df.index = pd.to_datetime(data_df.iloc[:, 0])
@@ -141,7 +222,7 @@ def get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05
     csa_payload_his.update({"type2": type_2})
     csa_payload_his.update({"code1": code_1})
     csa_payload_his.update({"code2": code_2})
-    res = requests.get(csa_url, params=csa_payload_his, headers=headers)
+    res = requests.get(csa_url_spread, params=csa_payload_his, headers=headers)
     data_json = res.json()
     data_df = pd.DataFrame([data_json["category"], data_json["value"]]).T
     data_df.index = pd.to_datetime(data_df.iloc[:, 0])
@@ -171,14 +252,7 @@ def get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05
 
 
 if __name__ == "__main__":
-    # df = get_futures_csa_params()
-    # print(df)
-    # df = get_futures_csa_history()
-    # print(df)
-    # df = get_futures_csa_seasonally(type_1="FU", type_2="FU", code_1="01", code_2="05", plot=True)
-    # print(df)
-    headers = login_jyfm(account="jindaxiang@163.com", password="", captcha=False)
-    df = get_futures_csa_history(headers=headers)
+    headers = login_jyfm(account="jindaxiang@163.com", password="king0575")
+    df = get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05", plot=True, headers=headers)
     print(df)
-    # df = get_futures_csa_params(headers=headers)
-    # print(df)
+
