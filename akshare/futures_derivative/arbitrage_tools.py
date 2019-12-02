@@ -252,7 +252,7 @@ def get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05
 
 
 if __name__ == "__main__":
-    headers = login_jyfm(account="jindaxiang@163.com", password="king0575")
+    headers = login_jyfm(account="", password="")
     df = get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05", plot=True, headers=headers)
     print(df)
 
