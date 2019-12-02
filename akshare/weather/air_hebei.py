@@ -6,12 +6,14 @@ date: 2019/11/26 16:33
 contact: jindaxiang@163.com
 desc: 
 """
+import datetime
+
 import pandas as pd
 import requests
 
 
 def air_hebei(city=""):
-    url = "http://110.249.223.67/publishNewServer/api/CityPublishInfo/GetProvinceAndCityPublishData?publishDate=2019-11-26%2016:00:00"
+    url = f"http://110.249.223.67/publishNewServer/api/CityPublishInfo/GetProvinceAndCityPublishData?publishDate={datetime.datetime.today().strftime('%Y-%m-%d')}%2016:00:00"
     res = requests.get(url)
     json_data = res.json()
 
