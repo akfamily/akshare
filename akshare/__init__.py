@@ -347,10 +347,17 @@ PCE物价指数年率报告
 新增微博指数
 0.2.59
 增加西本新干线说明文档
+0.2.60
+新增百度指数
 """
 
-__version__ = '0.2.59'
+__version__ = '0.2.60'
 __author__ = 'Albert King'
+
+"""
+百度指数
+"""
+from akshare.index.baidu_index import baidu_index
 
 """
 微博指数

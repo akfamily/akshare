@@ -114,6 +114,8 @@ pip install akshare --upgrade
 
 感谢[微博指数](https://data.weibo.com/index/newindex)提供微博指数数据;
 
+感谢[百度指数](http://index.baidu.com/v2/main/index.html)提供百度指数数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
 ## Communication
