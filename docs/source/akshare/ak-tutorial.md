@@ -159,7 +159,9 @@
  # 微博指数
  'weibo_index'  # 获取3个月内的微博指数
  # 百度指数
- 'weibo_index'  # 获取3个月内的百度指数
+ 'baidu_search_index'  # 获取百度搜索指数
+ 'baidu_info_index'  # 获取百度资讯指数
+ 'baidu_media_index'  # 获取百度媒体指数
 ```
 
 ## 3. 案例演示

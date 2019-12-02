@@ -351,15 +351,21 @@ PCE物价指数年率报告
 新增百度指数
 0.2.61
 修正河北空气数据代码
+0.2.62
+新增百度搜索指数
+新增百度资讯指数
+新增百度媒体指数
 """
 
-__version__ = '0.2.61'
+__version__ = '0.2.62'
 __author__ = 'Albert King'
 
 """
 百度指数
 """
-from akshare.index.baidu_index import baidu_index
+from akshare.index.baidu_index import (baidu_search_index,
+                                       baidu_info_index,
+                                       baidu_media_index)
 
 """
 微博指数

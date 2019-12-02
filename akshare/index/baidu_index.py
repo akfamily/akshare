@@ -9,6 +9,7 @@ desc: 百度指数
 """
 import requests
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def decrypt(t: str, e: str) -> str:
@@ -47,7 +48,7 @@ def get_ptbk(uniqid: str) -> str:
         return ptbk
 
 
-def baidu_index(word: str, start_date: str, end_date: str) -> str:
+def baidu_search_index(word: str, start_date: str, end_date: str) -> str:
     with session.get(
             url=f"http://index.baidu.com/api/SearchApi/index?word={word}&area=0&startDate={start_date}&endDate={end_date}"
     ) as response:
@@ -57,13 +58,71 @@ def baidu_index(word: str, start_date: str, end_date: str) -> str:
         ptbk = get_ptbk(uniqid)
         result = decrypt(ptbk, all_data).split(',')
         result = [int(item) for item in result]
-        return pd.DataFrame([pd.date_range(start=start_date, end=end_date), result], index=["date", "index"]).T
+        temp_df = pd.DataFrame([pd.date_range(start=start_date, end=end_date, freq="7D"), result],
+                               index=["date", "index"]).T
+        temp_df.index = pd.to_datetime(temp_df["date"])
+        del temp_df["date"]
+        return temp_df
+
+
+def baidu_info_index(word: str, start_date: str, end_date: str) -> str:
+    with session.get(
+            url=f"http://index.baidu.com/api/FeedSearchApi/getFeedIndex?word={word}&area=0"
+
+    ) as response:
+        data = response.json()["data"]
+        all_data = data["index"][0]["data"]
+        uniqid = data["uniqid"]
+        ptbk = get_ptbk(uniqid)
+        result = decrypt(ptbk, all_data).split(',')
+        result = [int(item) for item in result]
+        temp_df = pd.DataFrame([pd.date_range(start=start_date, end=end_date, freq="7D"), result],
+                               index=["date", "index"]).T
+        temp_df.index = pd.to_datetime(temp_df["date"])
+        del temp_df["date"]
+        return temp_df
+
+
+def baidu_media_index(word: str, start_date: str, end_date: str) -> str:
+    with session.get(
+            url=f"http://index.baidu.com/api/NewsApi/getNewsIndex?word={word}&area=0"
+
+    ) as response:
+        data = response.json()["data"]
+        all_data = data["index"][0]["data"]
+        uniqid = data["uniqid"]
+        ptbk = get_ptbk(uniqid)
+        result = decrypt(ptbk, all_data).split(',')
+        result = ["0" if item == "" else item for item in result]
+        result = [int(item) for item in result]
+        temp_df = pd.DataFrame([pd.date_range(start=start_date, end=end_date, freq="7D"), result],
+                               index=["date", "index"]).T
+        temp_df.index = pd.to_datetime(temp_df["date"])
+        del temp_df["date"]
+        return temp_df
 
 
 if __name__ == "__main__":
-    data = baidu_index(
-        word="期货",
-        start_date='2019-11-01',
-        end_date='2019-12-01'
-    )
+    # data = baidu_search_index(
+    #     word="螺纹钢",
+    #     start_date='2010-12-27',
+    #     end_date='2019-12-01'
+    # )
+    # print(data)
+    # data.dropna(inplace=True)
+    # data.plot()
+    # plt.show()
+    # data = baidu_info_index(word="螺纹钢",
+    #                          start_date='2017-07-03',
+    #                          end_date='2019-12-01')
+    # print(data)
+    # data.dropna(inplace=True)
+    # data.plot()
+    # plt.show()
+    data = baidu_media_index(word="螺纹钢",
+                             start_date='2010-12-27',
+                             end_date='2019-12-01')
     print(data)
+    data.dropna(inplace=True)
+    data.plot()
+    plt.show()
