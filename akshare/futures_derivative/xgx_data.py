@@ -35,7 +35,7 @@ def get_code_pic():
     return session
 
 
-def get_xgx_data(symbol=67, plot=True):
+def xgx_data(symbol=67, plot=True):
     session = get_code_pic()
     value = input()
     payload = {
@@ -64,5 +64,5 @@ if __name__ == "__main__":
     # 国内螺纹钢社会库存量 67
     # 国内线材社会库存量 68
     print(pd.DataFrame.from_dict(symbol_dict, orient="index"))
-    df = get_xgx_data(symbol=161, plot=True)
+    df = xgx_data(symbol=161, plot=True)
     print(df)

@@ -345,9 +345,11 @@ PCE物价指数年率报告
 修改 air_hebei 接口, 默认返回全部城市
 0.2.58
 新增微博指数
+0.2.59
+增加西本新干线说明文档
 """
 
-__version__ = '0.2.58'
+__version__ = '0.2.59'
 __author__ = 'Albert King'
 
 """
@@ -472,7 +474,7 @@ from akshare.futures.zh_futures_sina import (futures_zh_spot,
 西本新干线-指数数据
 """
 from akshare.futures_derivative.xgx_data import (get_code_pic,
-                                                 get_xgx_data)
+                                                 xgx_data)
 
 """
 生意社-商品与期货-现期图数据
