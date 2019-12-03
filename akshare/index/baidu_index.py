@@ -11,6 +11,8 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 
+plt.rcParams["font.sans-serif"] = ["SimHei"]  # 显示中文标签
+
 
 def decrypt(t: str, e: str) -> str:
     n, i, a, result = list(t), list(e), {}, []
@@ -59,7 +61,7 @@ def baidu_search_index(word: str, start_date: str, end_date: str) -> str:
         result = decrypt(ptbk, all_data).split(',')
         result = [int(item) for item in result]
         temp_df = pd.DataFrame([pd.date_range(start=start_date, end=end_date, freq="7D"), result],
-                               index=["date", "index"]).T
+                               index=["date", word]).T
         temp_df.index = pd.to_datetime(temp_df["date"])
         del temp_df["date"]
         return temp_df
@@ -77,7 +79,7 @@ def baidu_info_index(word: str, start_date: str, end_date: str) -> str:
         result = decrypt(ptbk, all_data).split(',')
         result = [int(item) for item in result]
         temp_df = pd.DataFrame([pd.date_range(start=start_date, end=end_date, freq="7D"), result],
-                               index=["date", "index"]).T
+                               index=["date", word]).T
         temp_df.index = pd.to_datetime(temp_df["date"])
         del temp_df["date"]
         return temp_df
@@ -96,7 +98,7 @@ def baidu_media_index(word: str, start_date: str, end_date: str) -> str:
         result = ["0" if item == "" else item for item in result]
         result = [int(item) for item in result]
         temp_df = pd.DataFrame([pd.date_range(start=start_date, end=end_date, freq="7D"), result],
-                               index=["date", "index"]).T
+                               index=["date", word]).T
         temp_df.index = pd.to_datetime(temp_df["date"])
         del temp_df["date"]
         return temp_df
@@ -112,17 +114,17 @@ if __name__ == "__main__":
     # data.dropna(inplace=True)
     # data.plot()
     # plt.show()
-    # data = baidu_info_index(word="螺纹钢",
-    #                          start_date='2017-07-03',
-    #                          end_date='2019-12-01')
-    # print(data)
-    # data.dropna(inplace=True)
-    # data.plot()
-    # plt.show()
-    data = baidu_media_index(word="螺纹钢",
-                             start_date='2010-12-27',
+    data = baidu_info_index(word="螺纹钢",
+                             start_date='2017-07-03',
                              end_date='2019-12-01')
     print(data)
     data.dropna(inplace=True)
     data.plot()
     plt.show()
+    # data = baidu_media_index(word="螺纹钢",
+    #                          start_date='2010-12-27',
+    #                          end_date='2019-12-01')
+    # print(data)
+    # data.dropna(inplace=True)
+    # data.plot()
+    # plt.show()
