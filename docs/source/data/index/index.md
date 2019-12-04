@@ -266,3 +266,57 @@ date
 2019-11-18     5
 2019-11-25     8
 ```
+
+### 谷歌趋势指数
+
+接口: google_index **(需要通过代理访问)**
+
+目标地址: https://trends.google.com/trends/?geo=US
+
+描述: 获取指定 **词语** 的谷歌趋势指数
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| word | str  | Y    |   word="python"|
+| start_date | datetime.datetime  | Y    | start_date="2004-01-01" |
+| end_date | datetime.datetime  | Y    |  end_date="2019-12-01" |
+| plot | Bool  | Y    |  plot=True, 则画图 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| date      | datetime   | Y        | 日期-索引  |
+| index      | float   | Y        | 指数   |
+
+接口示例
+
+```python
+import akshare as ak
+index_df = ak.google_index(word="python", start_date='2004-01-01', end_date='2019-12-01', plot=True)
+print(index_df)
+```
+
+数据示例
+
+```
+date
+2004-01-01     43
+2004-02-01     40
+2004-03-01     41
+2004-04-01     38
+2004-05-01     40
+             ... 
+2019-08-01     87
+2019-09-01     98
+2019-10-01     99
+2019-11-01    100
+2019-12-01     60
+Name: python, Length: 192, dtype: int32
+```
+
+图片示例
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/clipboard_20191204050206.png)

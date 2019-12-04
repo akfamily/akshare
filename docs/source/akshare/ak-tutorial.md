@@ -162,6 +162,8 @@
  'baidu_search_index'  # 获取百度搜索指数
  'baidu_info_index'  # 获取百度资讯指数
  'baidu_media_index'  # 获取百度媒体指数
+ # 谷歌指数
+ 'google_index'  # 获取谷歌趋势指数
 ```
 
 ## 3. 案例演示

@@ -1,5 +1,6 @@
 """AkShare 是基于 Python 的开源金融数据接口库, 目的是实现对股票, 期货, 期权, 基金, 债券, 外汇等金融产品和另类数据从数据采集, 数据清洗到数据下载的工具, 满足金融数据科学家, 数据科学爱好者在数据获取方面的需求. 它的特点是利用 AkShare 获取的是基于可信任数据源发布的原始数据, 广大数据科学家可以利用原始数据进行再加工, 从而得出科学的结论."""
 import datetime
+
 """
 版本改动记录:
 0.1.13
@@ -357,17 +358,28 @@ PCE物价指数年率报告
 新增百度媒体指数
 0.2.63
 更新指数-legend代码
+0.2.64
+fix pillow>=6.2.0
+0.2.65
+新增谷歌指数
 """
 
-__version__ = '0.2.63'
-__author__ = 'Albert King'
+__version__ = "0.2.65"
+__author__ = "Albert King"
+
+"""
+谷歌指数
+"""
+from akshare.index.google_index import google_index
 
 """
 百度指数
 """
-from akshare.index.baidu_index import (baidu_search_index,
-                                       baidu_info_index,
-                                       baidu_media_index)
+from akshare.index.baidu_index import (
+    baidu_search_index,
+    baidu_info_index,
+    baidu_media_index,
+)
 
 """
 微博指数
@@ -382,309 +394,322 @@ from akshare.article.epu_index import article_epu_index
 """
 南华期货-南华指数
 """
-from akshare.futures_derivative.nh_index_return import (nh_return_index)
-from akshare.futures_derivative.nh_index_price import (nh_price_index)
-from akshare.futures_derivative.nh_index_volatility import (nh_volatility_index)
+from akshare.futures_derivative.nh_index_return import nh_return_index
+from akshare.futures_derivative.nh_index_price import nh_price_index
+from akshare.futures_derivative.nh_index_volatility import nh_volatility_index
 
 """
 空气-河北
 """
-from akshare.weather.air_hebei import (air_hebei)
+from akshare.weather.air_hebei import air_hebei
 
 """
 timeanddate-日出和日落
 """
-from akshare.weather.time_and_date import (weather_daily,
-                                           weather_monthly)
+from akshare.weather.time_and_date import weather_daily, weather_monthly
 
 """
 金十财经-实时监控
 """
-from akshare.ws.jinshi import (watch)
+from akshare.ws.jinshi import watch
 
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.stock.zh_stock_a_tick_tx import (stock_zh_a_tick)
+from akshare.stock.zh_stock_a_tick_tx import stock_zh_a_tick
 
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.index.zh_stock_index_sina import (stock_zh_index_daily,
-                                               stock_zh_index_spot)
+from akshare.index.zh_stock_index_sina import stock_zh_index_daily, stock_zh_index_spot
 
 """
 外盘期货实时行情
 """
-from akshare.futures.hf_futures_sina import (futures_hf_spot,
-                                             hf_subscribe_exchange_symbol)
+from akshare.futures.hf_futures_sina import (
+    futures_hf_spot,
+    hf_subscribe_exchange_symbol,
+)
 
 """
 FF多因子数据接口
 """
-from akshare.article.ff_factor import (article_ff_crr)
+from akshare.article.ff_factor import article_ff_crr
 
 """
 Realized Library 接口
 """
-from akshare.article.risk_rv import (article_oman_rv,
-                                     article_oman_rv_short,
-                                     article_rlab_rv)
+from akshare.article.risk_rv import (
+    article_oman_rv,
+    article_oman_rv_short,
+    article_rlab_rv,
+)
 
 """
 银保监分局本级行政处罚数据
 """
 if datetime.datetime.now().weekday() in [0, 1, 2, 3, 4]:
-    from akshare.bank.bank_cbirc_20191114 import (bank_fjcf)
+    from akshare.bank.bank_cbirc_20191114 import bank_fjcf
 else:
-    from akshare.bank.bank_cbirc_20191115 import (bank_fjcf)
+    from akshare.bank.bank_cbirc_20191115 import bank_fjcf
 
 """
 科创板股票
 """
-from akshare.stock.zh_stock_kcb_sina import (stock_zh_kcb_spot,
-                                             stock_zh_kcb_daily)
+from akshare.stock.zh_stock_kcb_sina import stock_zh_kcb_spot, stock_zh_kcb_daily
 
 """
 A股
 """
-from akshare.stock.zh_stock_a_sina import (stock_zh_a_spot,
-                                           stock_zh_a_daily)
+from akshare.stock.zh_stock_a_sina import stock_zh_a_spot, stock_zh_a_daily
 
 """
 A+H股
 """
-from akshare.stock.zh_stock_ah_tx import (stock_zh_ah_spot,
-                                          stock_zh_ah_daily,
-                                          stock_zh_ah_name)
+from akshare.stock.zh_stock_ah_tx import (
+    stock_zh_ah_spot,
+    stock_zh_ah_daily,
+    stock_zh_ah_name,
+)
 
 """
 数字货币
 """
-from akshare.economic.macro_other import (get_js_dc_current)
+from akshare.economic.macro_other import get_js_dc_current
 
 """
 金融期权
 """
-from akshare.option.daily_bar_finance import (get_finance_option,
-                                              get_finance_option_current)
+from akshare.option.daily_bar_finance import (
+    get_finance_option,
+    get_finance_option_current,
+)
 
 """
 新浪-美股实时行情数据和历史行情数据(前复权)
 """
-from akshare.stock.us_stock_sina import (stock_us_daily,
-                                         stock_us_spot)
+from akshare.stock.us_stock_sina import stock_us_daily, stock_us_spot
 
 """
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)
 """
-from akshare.stock.hk_stock_sina import (stock_hk_daily,
-                                         stock_hk_spot)
+from akshare.stock.hk_stock_sina import stock_hk_daily, stock_hk_spot
 
 """
 新浪-期货实时数据
 """
-from akshare.futures.zh_futures_sina import (futures_zh_spot,
-                                             match_main_contract)
+from akshare.futures.zh_futures_sina import futures_zh_spot, match_main_contract
 
 """
 西本新干线-指数数据
 """
-from akshare.futures_derivative.xgx_data import (get_code_pic,
-                                                 xgx_data)
+from akshare.futures_derivative.xgx_data import get_code_pic, xgx_data
 
 """
 生意社-商品与期货-现期图数据
 """
-from akshare.futures_derivative.sys_spot_futures import (get_sys_spot_futures,
-                                                         get_sys_spot_futures_dict)
+from akshare.futures_derivative.sys_spot_futures import (
+    get_sys_spot_futures,
+    get_sys_spot_futures_dict,
+)
 
 """
 交易法门-套利工具-跨期价差(自由价差)
 """
-from akshare.futures_derivative.arbitrage_tools import (jyfm_tools_futures_ratio,
-                                                        jyfm_tools_futures_customize,
-                                                        jyfm_tools_futures_spread)
+from akshare.futures_derivative.arbitrage_tools import (
+    jyfm_tools_futures_ratio,
+    jyfm_tools_futures_customize,
+    jyfm_tools_futures_spread,
+)
 
 """
 和讯财经-行情及历史数据
 """
-from akshare.stock.us_zh_stock_hx import (stock_us_zh_spot,
-                                          stock_us_zh_daily)
+from akshare.stock.us_zh_stock_hx import stock_us_zh_spot, stock_us_zh_daily
 
 """
 和讯财经-企业社会责任
 """
-from akshare.stock.zh_stock_zrbg_hx import (stock_zh_a_scr_report)
+from akshare.stock.zh_stock_zrbg_hx import stock_zh_a_scr_report
 
 """
 期货-仓单有效期
 """
-from akshare.futures.receipt_period import (get_receipt_date)
+from akshare.futures.receipt_period import get_receipt_date
 
 """
 全球宏观-机构宏观
 """
-from akshare.economic.macro_constitute import (get_cons_gold_amount,
-                                               get_cons_gold_change,
-                                               get_cons_gold_volume,
-                                               get_cons_opec_month,
-                                               get_cons_opec_near_change,
-                                               get_cons_silver_amount,
-                                               get_cons_silver_change,
-                                               get_cons_silver_volume)
+from akshare.economic.macro_constitute import (
+    get_cons_gold_amount,
+    get_cons_gold_change,
+    get_cons_gold_volume,
+    get_cons_opec_month,
+    get_cons_opec_near_change,
+    get_cons_silver_amount,
+    get_cons_silver_change,
+    get_cons_silver_volume,
+)
 
 """
 全球宏观-欧洲宏观
 """
-from akshare.economic.macro_euro import (get_euro_interest_rate)
+from akshare.economic.macro_euro import get_euro_interest_rate
 
 """
 全球宏观-美国宏观
 """
-from akshare.economic.macro_usa import (get_usa_eia_crude_rate,
-                                        get_usa_interest_rate,
-                                        get_usa_non_farm,
-                                        get_usa_unemployment_rate,
-                                        get_usa_adp_employment,
-                                        get_usa_core_pce_price,
-                                        get_usa_cpi_monthly,
-                                        get_usa_crude_alaska,
-                                        get_usa_crude_inner,
-                                        get_usa_crude_state,
-                                        get_usa_gdp_monthly,
-                                        get_usa_initial_jobless,
-                                        get_usa_lmci)
+from akshare.economic.macro_usa import (
+    get_usa_eia_crude_rate,
+    get_usa_interest_rate,
+    get_usa_non_farm,
+    get_usa_unemployment_rate,
+    get_usa_adp_employment,
+    get_usa_core_pce_price,
+    get_usa_cpi_monthly,
+    get_usa_crude_alaska,
+    get_usa_crude_inner,
+    get_usa_crude_state,
+    get_usa_gdp_monthly,
+    get_usa_initial_jobless,
+    get_usa_lmci,
+)
 
 """
 全球宏观-中国宏观
 """
-from akshare.economic.macro_china import (get_china_monthly_cpi,
-                                          get_china_yearly_cpi,
-                                          get_china_yearly_m2,
-                                          get_china_yearly_fx_reserves,
-                                          get_china_yearly_cx_pmi,
-                                          get_china_yearly_pmi,
-                                          get_china_daily_energy,
-                                          get_china_non_man_pmi,
-                                          get_china_rmb,
-                                          get_china_yearly_gdp,
-                                          get_china_yearly_ppi)
+from akshare.economic.macro_china import (
+    get_china_monthly_cpi,
+    get_china_yearly_cpi,
+    get_china_yearly_m2,
+    get_china_yearly_fx_reserves,
+    get_china_yearly_cx_pmi,
+    get_china_yearly_pmi,
+    get_china_daily_energy,
+    get_china_non_man_pmi,
+    get_china_rmb,
+    get_china_yearly_gdp,
+    get_china_yearly_ppi,
+)
 
 """
 全球期货
 """
-from akshare.futures.international_futures import (get_sector_futures)
+from akshare.futures.international_futures import get_sector_futures
 
 """
 外汇
 """
-from akshare.fx.fx_quote import (get_fx_pair_quote,
-                                 get_fx_spot_quote,
-                                 get_fx_swap_quote)
+from akshare.fx.fx_quote import get_fx_pair_quote, get_fx_spot_quote, get_fx_swap_quote
 
 """
 债券行情
 """
-from akshare.bond.china_bond import (get_bond_market_quote,
-                                     get_bond_market_trade)
+from akshare.bond.china_bond import get_bond_market_quote, get_bond_market_trade
 
 """
 商品期权
 """
-from akshare.option.daily_bar_commodity import (get_dce_option_daily,
-                                                get_czce_option_daily,
-                                                get_shfe_option_daily)
+from akshare.option.daily_bar_commodity import (
+    get_dce_option_daily,
+    get_czce_option_daily,
+    get_shfe_option_daily,
+)
 
 """
 英为财情-债券
 """
-from akshare.bond.investing_bond import (get_country_bond)  # 债券-全球政府债券行情与收益率
+from akshare.bond.investing_bond import get_country_bond  # 债券-全球政府债券行情与收益率
 
 """
 英为财情-指数
 """
-from akshare.index.investing_index import (get_country_index)  # 股票指数-全球股指与期货指数数据接口
+from akshare.index.investing_index import get_country_index  # 股票指数-全球股指与期货指数数据接口
 
 """
 99期货数据
 """
-from akshare.futures.futures_inventory import (get_inventory_data)
+from akshare.futures.futures_inventory import get_inventory_data
 
 """
 私募指数
 """
-from akshare.fund.zdzk_fund import (zdzk_fund_index)
+from akshare.fund.zdzk_fund import zdzk_fund_index
 
 """
 中国银行间市场交易商协会
 """
-from akshare.bond.bond_bank import (get_bond_bank)
+from akshare.bond.bond_bank import get_bond_bank
 
 """
 奇货可查-工具模块
 """
-from akshare.qhkc.qhkc_tool import (qhkc_tool_foreign,
-                                    qhkc_tool_gdp)
+from akshare.qhkc.qhkc_tool import qhkc_tool_foreign, qhkc_tool_gdp
 
 """
 奇货可查-指数模块
 """
-from akshare.qhkc.qhkc_index import (get_qhkc_index,
-                                     get_qhkc_index_trend,
-                                     get_qhkc_index_profit_loss)
+from akshare.qhkc.qhkc_index import (
+    get_qhkc_index,
+    get_qhkc_index_trend,
+    get_qhkc_index_profit_loss,
+)
 
 """
 奇货可查-资金模块
 """
-from akshare.qhkc.qhkc_fund import (get_qhkc_fund_money_change,
-                                    get_qhkc_fund_bs,
-                                    get_qhkc_fund_position)
+from akshare.qhkc.qhkc_fund import (
+    get_qhkc_fund_money_change,
+    get_qhkc_fund_bs,
+    get_qhkc_fund_position,
+)
 
 """
 大宗商品现货价格及基差
 """
-from akshare.futures.basis import (get_spot_price_daily,
-                                   get_spot_price)
+from akshare.futures.basis import get_spot_price_daily, get_spot_price
 
 """
 期货持仓成交排名数据
 """
-from akshare.futures.cot import (get_rank_sum_daily,
-                                 get_rank_sum,
-                                 get_shfe_rank_table,
-                                 get_czce_rank_table,
-                                 get_dce_rank_table,
-                                 get_cffex_rank_table)
+from akshare.futures.cot import (
+    get_rank_sum_daily,
+    get_rank_sum,
+    get_shfe_rank_table,
+    get_czce_rank_table,
+    get_dce_rank_table,
+    get_cffex_rank_table,
+)
 
 """
 大宗商品仓单数据
 """
-from akshare.futures.receipt import (get_receipt)
+from akshare.futures.receipt import get_receipt
 
 """
 大宗商品展期收益率数据
 """
-from akshare.futures.roll_yield import (get_roll_yield_bar,
-                                        get_roll_yield)
+from akshare.futures.roll_yield import get_roll_yield_bar, get_roll_yield
 
 """
 交易所日线行情数据
 """
-from akshare.futures.daily_bar import (get_cffex_daily,
-                                       get_czce_daily,
-                                       get_shfe_v_wap,
-                                       get_shfe_daily,
-                                       get_dce_daily,
-                                       get_futures_daily)
+from akshare.futures.daily_bar import (
+    get_cffex_daily,
+    get_czce_daily,
+    get_shfe_v_wap,
+    get_shfe_daily,
+    get_dce_daily,
+    get_futures_daily,
+)
 
 """
 配置文件
 """
-from akshare.futures import (cons)
-from akshare.fund import (cons)
+from akshare.futures import cons
+from akshare.fund import cons
 
 """
 发邮件模块
 """
-from akshare.tool.send_email import (send_email)
+from akshare.tool.send_email import send_email

@@ -103,6 +103,8 @@
     6.34 增加[新浪微博](https://data.weibo.com/index)提供微博指数数据;
     
     6.35 增加[百度](https://www.baidu.com/)提供百度指数数据;
+    
+    6.36 增加[谷歌](https://www..com/)提供谷歌趋势数据;
 
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
