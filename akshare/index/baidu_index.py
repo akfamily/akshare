@@ -121,7 +121,7 @@ if __name__ == "__main__":
     # data.dropna(inplace=True)
     # data.plot()
     # plt.show()
-    data = baidu_media_index(word="房价",
+    data = baidu_media_index(word="螺纹钢",
                              start_date='2010-12-27',
                              end_date='2019-12-01')
     print(data)

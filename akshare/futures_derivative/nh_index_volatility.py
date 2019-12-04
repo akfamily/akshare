@@ -128,7 +128,8 @@ def nh_volatility_index(code="NHCI", day_count=20):
     2019-11-26  779.346
     """
     if code in get_nh_list()["code"].tolist():
-        base_url = f"http://www.nanhua.net/ianalysis/volatility/{day_count}/{code}.json?t=1559030283536"
+        t = time.time()
+        base_url = f"http://www.nanhua.net/ianalysis/volatility/{day_count}/{code}.json?t={int(round(t * 1000))}"
         res = requests.get(base_url)
         date = [num_to_str_data(item[0]).split(" ")[0] for item in res.json()]
         data = [item[1] for item in res.json()]
@@ -140,5 +141,5 @@ def nh_volatility_index(code="NHCI", day_count=20):
 
 
 if __name__ == "__main__":
-    df = nh_volatility_index(code="A", day_count=20)
+    df = nh_volatility_index(code="AL", day_count=20)
     print(df)

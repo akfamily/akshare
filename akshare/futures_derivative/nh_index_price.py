@@ -121,9 +121,8 @@ def nh_price_index(code="A"):
     2019-11-26  779.346
     """
     if code in get_nh_list()["code"].tolist():
-        base_url = "http://www.nanhua.net/ianalysis/varietyindex/price/{}.json?t=1559030283536".format(
-            code
-        )
+        t = time.time()
+        base_url = f"http://www.nanhua.net/ianalysis/varietyindex/price/{code}.json?t={int(round(t * 1000))}"
         res = requests.get(base_url)
         date = [num_to_str_data(item[0]).split(" ")[0] for item in res.json()]
         data = [item[1] for item in res.json()]
