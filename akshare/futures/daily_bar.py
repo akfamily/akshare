@@ -43,45 +43,54 @@ def get_cffex_daily(date=None):
         或 None(给定日期没有交易数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
-    if day.strftime('%Y%m%d') not in calendar:
-        warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     try:
         html = requests_link(
-            cons.CFFEX_DAILY_URL.format(day.strftime('%Y%m'), day.strftime('%d'), day.strftime('%Y%m%d')),
-            encoding="gbk", headers=cons.headers).text
+            cons.CFFEX_DAILY_URL.format(
+                day.strftime("%Y%m"), day.strftime("%d"), day.strftime("%Y%m%d")
+            ),
+            encoding="gbk",
+            headers=cons.headers,
+        ).text
     except requests.exceptions.HTTPError as reason:
         if reason.response != 404:
-            print(cons.CFFEX_DAILY_URL % (day.strftime('%Y%m'), day.strftime('%d'),
-                                          day.strftime('%Y%m%d')), reason)
+            print(
+                cons.CFFEX_DAILY_URL
+                % (day.strftime("%Y%m"), day.strftime("%d"), day.strftime("%Y%m%d")),
+                reason,
+            )
         return
 
-    if html.find('网页错误') >= 0:
+    if html.find("网页错误") >= 0:
         return
-    html = [i.replace(' ', '').split(',') for i in html.split('\n')[:-2] if i[0][0] != '小']
+    html = [
+        i.replace(" ", "").split(",") for i in html.split("\n")[:-2] if i[0][0] != "小"
+    ]
 
-    if html[0][0] != '合约代码':
+    if html[0][0] != "合约代码":
         return
 
     dict_data = list()
-    day_const = day.strftime('%Y%m%d')
+    day_const = day.strftime("%Y%m%d")
     for row in html[1:]:
         m = cons.FUTURES_SYMBOL_PATTERN.match(row[0])
         if not m:
             continue
-        row_dict = {'date': day_const, 'symbol': row[0], 'variety': m.group(1)}
+        row_dict = {"date": day_const, "symbol": row[0], "variety": m.group(1)}
 
         for i, field in enumerate(cons.CFFEX_COLUMNS):
             if row[i + 1] == "":
                 row_dict[field] = 0.0
-            elif field in ['volume', 'open_interest', 'oi_chg']:
+            elif field in ["volume", "open_interest", "oi_chg"]:
                 row_dict[field] = int(row[i + 1])
             else:
                 try:
                     row_dict[field] = float(row[i + 1])
                 except:
                     pass
-        row_dict['pre_settle'] = row_dict['close'] - row_dict['change1']
+        row_dict["pre_settle"] = row_dict["close"] - row_dict["change1"]
         dict_data.append(row_dict)
 
     return pd.DataFrame(dict_data)[cons.OUTPUT_COLUMNS]
@@ -131,16 +140,16 @@ def get_czce_daily(date=None):
         None(类型错误或给定日期没有交易数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
-    if day.strftime('%Y%m%d') not in calendar:
-        warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     if day > datetime.date(2010, 8, 24):
         if day > datetime.date(2015, 9, 19):
             u = cons.CZCE_DAILY_URL_3
-            url = u % (day.strftime('%Y'), day.strftime('%Y%m%d'))
+            url = u % (day.strftime("%Y"), day.strftime("%Y%m%d"))
         elif day < datetime.date(2015, 9, 19):
             u = cons.CZCE_DAILY_URL_2
-            url = u % (day.strftime('%Y'), day.strftime('%Y%m%d'))
+            url = u % (day.strftime("%Y"), day.strftime("%Y%m%d"))
         listed_columns = cons.CZCE_COLUMNS
         output_columns = cons.OUTPUT_COLUMNS
         try:
@@ -148,47 +157,65 @@ def get_czce_daily(date=None):
             html = r.text
         except requests.exceptions.HTTPError as reason:
             if reason.response.status_code != 404:
-                print(cons.CZCE_DAILY_URL_3 % (day.strftime('%Y'), day.strftime('%Y%m%d')), reason)
+                print(
+                    cons.CZCE_DAILY_URL_3
+                    % (day.strftime("%Y"), day.strftime("%Y%m%d")),
+                    reason,
+                )
             return
-        if html.find('您的访问出错了') >= 0 or html.find('无期权每日行情交易记录') >= 0:
+        if html.find("您的访问出错了") >= 0 or html.find("无期权每日行情交易记录") >= 0:
             return
-        html = [i.replace(' ', '').split('|') for i in html.split('\n')[:-4] if i[0][0] != u'小']
+        html = [
+            i.replace(" ", "").split("|")
+            for i in html.split("\n")[:-4]
+            if i[0][0] != u"小"
+        ]
 
         if day > datetime.date(2015, 9, 19):
-            if html[1][0] not in ['品种月份', u'品种代码']:
+            if html[1][0] not in ["品种月份", u"品种代码"]:
                 return
             dict_data = list()
-            day_const = int(day.strftime('%Y%m%d'))
+            day_const = int(day.strftime("%Y%m%d"))
             for row in html[2:]:
                 m = cons.FUTURES_SYMBOL_PATTERN.match(row[0])
                 if not m:
                     continue
-                row_dict = {'date': day_const, 'symbol': row[0], 'variety': m.group(1)}
+                row_dict = {"date": day_const, "symbol": row[0], "variety": m.group(1)}
                 for i, field in enumerate(listed_columns):
                     if row[i + 1] == "\r":
                         row_dict[field] = 0.0
-                    elif field in ['volume', 'open_interest', 'oi_chg', 'exercise_volume']:
-                        row[i + 1] = row[i + 1].replace(',', '')
+                    elif field in [
+                        "volume",
+                        "open_interest",
+                        "oi_chg",
+                        "exercise_volume",
+                    ]:
+                        row[i + 1] = row[i + 1].replace(",", "")
                         row_dict[field] = int(row[i + 1])
                     else:
-                        row[i + 1] = row[i + 1].replace(',', '')
+                        row[i + 1] = row[i + 1].replace(",", "")
                         row_dict[field] = float(row[i + 1])
                 dict_data.append(row_dict)
 
             return pd.DataFrame(dict_data)[output_columns]
         elif day < datetime.date(2015, 9, 19):
             dict_data = list()
-            day_const = int(day.strftime('%Y%m%d'))
+            day_const = int(day.strftime("%Y%m%d"))
             for row in html[1:]:
-                row = row[0].split(',')
+                row = row[0].split(",")
                 m = cons.FUTURES_SYMBOL_PATTERN.match(row[0])
                 if not m:
                     continue
-                row_dict = {'date': day_const, 'symbol': row[0], 'variety': m.group(1)}
+                row_dict = {"date": day_const, "symbol": row[0], "variety": m.group(1)}
                 for i, field in enumerate(listed_columns):
                     if row[i + 1] == "\r":
                         row_dict[field] = 0.0
-                    elif field in ['volume', 'open_interest', 'oi_chg', 'exercise_volume']:
+                    elif field in [
+                        "volume",
+                        "open_interest",
+                        "oi_chg",
+                        "exercise_volume",
+                    ]:
                         row_dict[field] = int(float(row[i + 1]))
                     else:
                         row_dict[field] = float(row[i + 1])
@@ -197,23 +224,23 @@ def get_czce_daily(date=None):
 
     if day <= datetime.date(2010, 8, 24):
         u = cons.CZCE_DAILY_URL_1
-        url = u % day.strftime('%Y%m%d')
+        url = u % day.strftime("%Y%m%d")
         listed_columns = cons.CZCE_COLUMNS_2
         output_columns = cons.OUTPUT_COLUMNS
-        df = pd.read_html(url)[1].dropna(how='any')
+        df = pd.read_html(url)[1].dropna(how="any")
 
         dict_data = list()
-        day_const = int(day.strftime('%Y%m%d'))
+        day_const = int(day.strftime("%Y%m%d"))
 
-        for row in df.to_dict(orient='records')[1:]:
+        for row in df.to_dict(orient="records")[1:]:
             m = cons.FUTURES_SYMBOL_PATTERN.match(row[0])
             if not m:
                 continue
-            row_dict = {'date': day_const, 'symbol': row[0], 'variety': m.group(1)}
+            row_dict = {"date": day_const, "symbol": row[0], "variety": m.group(1)}
             for i, field in enumerate(listed_columns):
                 if row[i + 1] == "\r":
                     row_dict[field] = 0.0
-                elif field in ['volume', 'open_interest', 'oi_chg', 'exercise_volume']:
+                elif field in ["volume", "open_interest", "oi_chg", "exercise_volume"]:
 
                     row_dict[field] = int(row[i + 1])
                 else:
@@ -241,23 +268,31 @@ def get_shfe_v_wap(date=None):
         或 None(给定日期没有数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
-    if day.strftime('%Y%m%d') not in calendar:
-        warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     try:
-        json_data = json.loads(requests_link(cons.SHFE_V_WAP_URL % (day.strftime('%Y%m%d')), headers=cons.headers, encoding="utf-8").text)
+        json_data = json.loads(
+            requests_link(
+                cons.SHFE_V_WAP_URL % (day.strftime("%Y%m%d")),
+                headers=cons.headers,
+                encoding="utf-8",
+            ).text
+        )
     except requests.HTTPError as reason:
         if reason.response not in [404, 403]:
-            print(cons.SHFE_DAILY_URL % (day.strftime('%Y%m%d')), reason)
+            print(cons.SHFE_DAILY_URL % (day.strftime("%Y%m%d")), reason)
         return None
 
-    if len(json_data['o_currefprice']) == 0:
+    if len(json_data["o_currefprice"]) == 0:
         return None
     try:
-        df = pd.DataFrame(json_data['o_currefprice'])
-        df['INSTRUMENTID'] = df['INSTRUMENTID'].str.strip()
-        df[':B1'].astype('int16')
-        return df.rename(columns=cons.SHFE_V_WAP_COLUMNS)[list(cons.SHFE_V_WAP_COLUMNS.values())]
+        df = pd.DataFrame(json_data["o_currefprice"])
+        df["INSTRUMENTID"] = df["INSTRUMENTID"].str.strip()
+        df[":B1"].astype("int16")
+        return df.rename(columns=cons.SHFE_V_WAP_COLUMNS)[
+            list(cons.SHFE_V_WAP_COLUMNS.values())
+        ]
     except:
         return None
 
@@ -287,32 +322,46 @@ def get_shfe_daily(date=None):
         或 None(给定日期没有交易数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
-    if day.strftime('%Y%m%d') not in calendar:
-        warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     try:
-        json_data = json.loads(requests_link(cons.SHFE_DAILY_URL % (day.strftime('%Y%m%d')), headers=cons.shfe_headers).text)
+        json_data = json.loads(
+            requests_link(
+                cons.SHFE_DAILY_URL % (day.strftime("%Y%m%d")),
+                headers=cons.shfe_headers,
+            ).text
+        )
     except requests.HTTPError as reason:
         if reason.response != 404:
-            print(cons.SHFE_DAILY_URL % (day.strftime('%Y%m%d')), reason)
+            print(cons.SHFE_DAILY_URL % (day.strftime("%Y%m%d")), reason)
         return
 
-    if len(json_data['o_curinstrument']) == 0:
+    if len(json_data["o_curinstrument"]) == 0:
         return
 
     df = pd.DataFrame(
-        [row for row in json_data['o_curinstrument'] if
-         row['DELIVERYMONTH'] not in ['小计', '合计'] and row['DELIVERYMONTH'] != ''])
-    df['variety'] = df.PRODUCTID.str.slice(0, -6).str.upper()
-    df['symbol'] = df['variety'] + df['DELIVERYMONTH']
-    df['date'] = day.strftime('%Y%m%d')
+        [
+            row
+            for row in json_data["o_curinstrument"]
+            if row["DELIVERYMONTH"] not in ["小计", "合计"] and row["DELIVERYMONTH"] != ""
+        ]
+    )
+    df["variety"] = df.PRODUCTID.str.slice(0, -6).str.upper()
+    df["symbol"] = df["variety"] + df["DELIVERYMONTH"]
+    df["date"] = day.strftime("%Y%m%d")
     v_wap_df = get_shfe_v_wap(day)
     if v_wap_df is not None:
-        df = pd.merge(df, v_wap_df[v_wap_df.time_range == '9:00-15:00'], on=['date', 'symbol'], how='left')
-        df['turnover'] = df.v_wap * df.VOLUME
+        df = pd.merge(
+            df,
+            v_wap_df[v_wap_df.time_range == "9:00-15:00"],
+            on=["date", "symbol"],
+            how="left",
+        )
+        df["turnover"] = df.v_wap * df.VOLUME
     else:
-        df['VOLUME'] = df['VOLUME'].apply(lambda x: 0 if x == '' else x)
-        df['turnover'] = df['VOLUME'] * df['SETTLEMENTPRICE']
+        df["VOLUME"] = df["VOLUME"].apply(lambda x: 0 if x == "" else x)
+        df["turnover"] = df["VOLUME"] * df["SETTLEMENTPRICE"]
     df.rename(columns=cons.SHFE_COLUMNS, inplace=True)
     return df[cons.OUTPUT_COLUMNS]
 
@@ -363,34 +412,54 @@ def get_dce_daily(date=None, symbol_type="futures", retries=0):
         或 None(给定日期没有交易数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
-    if day.strftime('%Y%m%d') not in calendar:
-        warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     if retries > 3:
         print("maximum retires for DCE market data: ", day.strftime("%Y%m%d"))
         return
 
-    if symbol_type == 'futures':
-        url = cons.DCE_DAILY_URL + '?' + urllib.parse.urlencode({"currDate": day.strftime('%Y%m%d'),
-                                                                 "year": day.strftime('%Y'),
-                                                                 "month": str(int(day.strftime('%m')) - 1),
-                                                                 "day": day.strftime('%d')})
+    if symbol_type == "futures":
+        url = (
+            cons.DCE_DAILY_URL
+            + "?"
+            + urllib.parse.urlencode(
+                {
+                    "currDate": day.strftime("%Y%m%d"),
+                    "year": day.strftime("%Y"),
+                    "month": str(int(day.strftime("%m")) - 1),
+                    "day": day.strftime("%d"),
+                }
+            )
+        )
         listed_columns = cons.DCE_COLUMNS
         output_columns = cons.OUTPUT_COLUMNS
-    elif symbol_type == 'option':
-        url = cons.DCE_DAILY_URL + '?' + urllib.parse.urlencode({"currDate": day.strftime('%Y%m%d'),
-                                                                 "year": day.strftime('%Y'),
-                                                                 "month": str(int(day.strftime('%m')) - 1),
-                                                                 "day": day.strftime('%d'),
-                                                                 "dayQuotes.trade_type": "1"})
+    elif symbol_type == "option":
+        url = (
+            cons.DCE_DAILY_URL
+            + "?"
+            + urllib.parse.urlencode(
+                {
+                    "currDate": day.strftime("%Y%m%d"),
+                    "year": day.strftime("%Y"),
+                    "month": str(int(day.strftime("%m")) - 1),
+                    "day": day.strftime("%d"),
+                    "dayQuotes.trade_type": "1",
+                }
+            )
+        )
         listed_columns = cons.DCE_OPTION_COLUMNS
         output_columns = cons.OPTION_OUTPUT_COLUMNS
     else:
-        print('invalid symbol_type :' + symbol_type + ', should be one of "futures" or "option"')
+        print(
+            "invalid symbol_type :"
+            + symbol_type
+            + ', should be one of "futures" or "option"'
+        )
         return
 
     try:
-        response = requests_link(url, method='post', headers=cons.headers).text
+        response = requests_link(url, method="post", headers=cons.headers).text
     except requests.exceptions.ContentDecodingError as reason:
         return get_dce_daily(day, retries=retries + 1)
     except requests.exceptions.HTTPError as reason:
@@ -400,58 +469,73 @@ def get_dce_daily(date=None, symbol_type="futures", retries=0):
             print(cons.DCE_DAILY_URL, reason)
         return
 
-    if '错误：您所请求的网址（URL）无法获取' in response:
+    if "错误：您所请求的网址（URL）无法获取" in response:
         return get_dce_daily(day, retries=retries + 1)
-    elif '暂无数据' in response:
+    elif "暂无数据" in response:
         return
 
-    data = BeautifulSoup(response, 'html.parser').find_all('tr')
+    data = BeautifulSoup(response, "html.parser").find_all("tr")
     if len(data) == 0:
         return
 
     dict_data = list()
     implied_data = list()
     for i_data in data[1:]:
-        if '小计' in i_data.text or '总计' in i_data.text:
+        if "小计" in i_data.text or "总计" in i_data.text:
             continue
-        x = i_data.find_all('td')
-        if symbol_type == 'futures':
-            row_dict = {'variety': cons.DCE_MAP[x[0].text.strip()]}
-            row_dict['symbol'] = row_dict['variety'] + x[1].text.strip()
+        x = i_data.find_all("td")
+        if symbol_type == "futures":
+            row_dict = {"variety": cons.DCE_MAP[x[0].text.strip()]}
+            row_dict["symbol"] = row_dict["variety"] + x[1].text.strip()
             for i, field in enumerate(listed_columns):
                 field_content = x[i + 2].text.strip()
-                if '-' in field_content:
+                if "-" in field_content:
                     row_dict[field] = 0
-                elif field in ['volume', 'open_interest']:
-                    row_dict[field] = int(field_content.replace(',', ''))
+                elif field in ["volume", "open_interest"]:
+                    row_dict[field] = int(field_content.replace(",", ""))
                 else:
-                    row_dict[field] = float(field_content.replace(',', ''))
+                    row_dict[field] = float(field_content.replace(",", ""))
             dict_data.append(row_dict)
         elif len(x) == 16:
             m = cons.FUTURES_SYMBOL_PATTERN.match(x[1].text.strip())
             if not m:
                 continue
-            row_dict = {'symbol': x[1].text.strip(), 'variety': m.group(1).upper(), 'contract_id': m.group(0)}
+            row_dict = {
+                "symbol": x[1].text.strip(),
+                "variety": m.group(1).upper(),
+                "contract_id": m.group(0),
+            }
             for i, field in enumerate(listed_columns):
                 field_content = x[i + 2].text.strip()
-                if '-' in field_content:
+                if "-" in field_content:
                     row_dict[field] = 0
-                elif field in ['volume', 'open_interest']:
-                    row_dict[field] = int(field_content.replace(',', ''))
+                elif field in ["volume", "open_interest"]:
+                    row_dict[field] = int(field_content.replace(",", ""))
                 else:
-                    row_dict[field] = float(field_content.replace(',', ''))
+                    row_dict[field] = float(field_content.replace(",", ""))
             dict_data.append(row_dict)
         elif len(x) == 2:
-            implied_data.append({'contract_id': x[0].text.strip(), 'implied_volatility': float(x[1].text.strip())})
+            implied_data.append(
+                {
+                    "contract_id": x[0].text.strip(),
+                    "implied_volatility": float(x[1].text.strip()),
+                }
+            )
     df = pd.DataFrame(dict_data)
-    df['date'] = day.strftime('%Y%m%d')
-    if symbol_type == 'futures':
+    df["date"] = day.strftime("%Y%m%d")
+    if symbol_type == "futures":
         return df[output_columns]
     else:
-        return pd.merge(df, pd.DataFrame(implied_data), on='contract_id', how='left', indicator=False)[output_columns]
+        return pd.merge(
+            df,
+            pd.DataFrame(implied_data),
+            on="contract_id",
+            how="left",
+            indicator=False,
+        )[output_columns]
 
 
-def get_futures_daily(start_day=None, end_day=None, market='CFFEX', index_bar=False):
+def get_futures_daily(start_day=None, end_day=None, market="CFFEX", index_bar=False):
     """
         获取交易所日交易数据
     Parameters
@@ -478,21 +562,26 @@ def get_futures_daily(start_day=None, end_day=None, market='CFFEX', index_bar=Fa
                 variety     合约类别
         或 None(给定日期没有交易数据)
     """
-    if market.upper() == 'CFFEX':
+    if market.upper() == "CFFEX":
         f = get_cffex_daily
-    elif market.upper() == 'CZCE':
+    elif market.upper() == "CZCE":
         f = get_czce_daily
-    elif market.upper() == 'SHFE':
+    elif market.upper() == "SHFE":
         f = get_shfe_daily
-    elif market.upper() == 'DCE':
+    elif market.upper() == "DCE":
         f = get_dce_daily
     else:
         print("Invalid Market Symbol")
         return
 
-    start_day = cons.convert_date(start_day) if start_day is not None else datetime.date.today()
-    end_day = cons.convert_date(end_day) if end_day is not None else cons.convert_date(
-        cons.get_latest_data_date(datetime.datetime.now()))
+    start_day = (
+        cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    )
+    end_day = (
+        cons.convert_date(end_day)
+        if end_day is not None
+        else cons.convert_date(cons.get_latest_data_date(datetime.datetime.now()))
+    )
 
     df_list = list()
     while start_day <= end_day:
@@ -532,24 +621,32 @@ def get_futures_index(df):
                 variety     合约类别
     """
     index_dfs = []
-    for var in set(df['variety']):
-        df_cut = df[df['variety'] == var]
-        df_cut = df_cut[df_cut['open_interest'] != 0]
-        df_cut = df_cut[df_cut['volume'] != 0]
+    for var in set(df["variety"]):
+        df_cut = df[df["variety"] == var]
+        df_cut = df_cut[df_cut["open_interest"] != 0]
+        df_cut = df_cut[df_cut["close"] != ""]
+        df_cut = df_cut[df_cut["volume"] != 0]
         if len(df_cut.index) > 0:
             index_df = pd.Series(index=df_cut.columns)
-            index_df[['volume', 'open_interest', 'turnover']] = df_cut[['volume', 'open_interest', 'turnover']].sum()
-            index_df[['open', 'high', 'low', 'close', 'settle', 'pre_settle']] = np.dot(
-                np.array(df_cut[['open', 'high', 'low', 'close', 'settle', 'pre_settle']]).T,
-                np.array((df_cut['open_interest']))) / np.sum(df_cut['open_interest'])
-            index_df[['date', 'variety']] = df_cut[['date', 'variety']].iloc[0, :]
-            index_df['symbol'] = index_df['variety'] + '99'
+            index_df[["volume", "open_interest", "turnover"]] = df_cut[
+                ["volume", "open_interest", "turnover"]
+            ].sum()
+            index_df[["open", "high", "low", "close", "settle", "pre_settle"]] = np.dot(
+                np.array(
+                    df_cut[["open", "high", "low", "close", "settle", "pre_settle"]]
+                ).T,
+                np.array((df_cut["open_interest"])),
+            ) / np.sum(df_cut["open_interest"])
+            index_df[["date", "variety"]] = df_cut[["date", "variety"]].iloc[0, :]
+            index_df["symbol"] = index_df["variety"] + "99"
             index_dfs.append(index_df)
     return pd.concat(index_dfs, axis=1).T
 
 
-if __name__ == '__main__':
-    # d = get_futures_daily(start_day='20180301', end_day='20180517', market='SHFE', index_bar=False)
-    # print(d)
-    d = get_dce_daily(date=None, symbol_type="option", retries=0)
+if __name__ == "__main__":
+    d = get_futures_daily(
+        start_day="20191201", end_day="20191204", market="SHFE", index_bar=True
+    )
     print(d)
+    # d = get_dce_daily(date=None, symbol_type="option", retries=0)
+    # print(d)
