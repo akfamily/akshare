@@ -367,9 +367,15 @@ fix pillow>=6.2.0
 0.2.67
 修正 get_futures_index 函数中上海期货交易所
 CU 出现 cuefp 数据导致指数合成异常的问题
+0.2.68
+降低 Python 版本要求
+0.2.69
+降低python版本要求到 Python3.7.1
+0.2.70
+适配 VNPY 使用
 """
 
-__version__ = "0.2.67"
+__version__ = "0.2.70"
 __author__ = "Albert King"
 
 """
