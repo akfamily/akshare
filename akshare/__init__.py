@@ -373,10 +373,42 @@ CU 出现 cuefp 数据导致指数合成异常的问题
 降低python版本要求到 Python3.7.1
 0.2.70
 适配 VNPY 使用
+0.2.71
+交易法门数据接口
 """
 
-__version__ = "0.2.70"
+__version__ = "0.2.71"
 __author__ = "Albert King"
+
+"""
+交易法门-数据-农产品-美豆
+"""
+from akshare.futures_derivative.jyfm_data_agriculture_usa_bean import (
+    usa_bean_emergence_ratio,
+    usa_bean_export_ratio,
+    usa_bean_flower_ratio,
+    usa_bean_good_ratio,
+    usa_bean_grow,
+    usa_bean_harvest_ratio,
+    jyfm_login,
+)
+
+"""
+交易法门-数据-农产品-白糖
+"""
+from akshare.futures_derivative.jyfm_data_agriculture_sugar import (
+    sugar_month_data_produce_1,
+    sugar_month_data_produce_2,
+    sugar_month_data_stock,
+    sugar_month_data_trade,
+    sugar_year_data_gap,
+    sugar_year_data_grow_area,
+    sugar_year_data_produce,
+    sugar_year_data_stock,
+    sugar_year_data_trade,
+    sugar_year_data_yield,
+    jyfm_login,
+)
 
 """
 谷歌指数
@@ -527,7 +559,7 @@ from akshare.futures_derivative.sys_spot_futures import (
 """
 交易法门-套利工具-跨期价差(自由价差)
 """
-from akshare.futures_derivative.arbitrage_tools import (
+from akshare.futures_derivative.jyfm_tools_arbitrage import (
     jyfm_tools_futures_ratio,
     jyfm_tools_futures_customize,
     jyfm_tools_futures_spread,
