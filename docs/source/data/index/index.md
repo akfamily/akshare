@@ -321,7 +321,7 @@ Name: python, Length: 192, dtype: int32
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/clipboard_20191204050206.png)
 
-### 申万一级行业指数-实时
+### 申万一级行业实时行情
 
 接口: sw_level_one_index_spot
 
@@ -334,7 +334,6 @@ Name: python, Length: 192, dtype: int32
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | - | -  | -    |   -|
-
 
 输出参数
 
