@@ -375,10 +375,17 @@ CU 出现 cuefp 数据导致指数合成异常的问题
 适配 VNPY 使用
 0.2.71
 交易法门数据接口
+0.2.72
+申万行业一级指数-实时
 """
 
-__version__ = "0.2.71"
+__version__ = "0.2.72"
 __author__ = "Albert King"
+
+"""
+申万行业一级-实时
+"""
+from akshare.index.sw_index import sw_level_one_index_spot
 
 """
 交易法门-数据-农产品-美豆

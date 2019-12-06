@@ -56,6 +56,8 @@
 
 感谢[谷歌指数](https://trends.google.com/trends/?geo=US)提供谷歌趋势指数数据;
 
+感谢[申万指数](http://www.swsindex.com/idx0120.aspx?columnid=8832)提供的相关数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
 ## 交流
@@ -65,7 +67,6 @@
 您可以扫码或者点击群二维码申请加入, 请放心点击:
 
 <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方"></a>
-
 
 ## 声明
 

@@ -164,6 +164,8 @@
  'baidu_media_index'  # 获取百度媒体指数
  # 谷歌指数
  'google_index'  # 获取谷歌趋势指数
+ # 申万行业指数
+ 'sw_level_one_index_spot'  # 获取申万一级实时行情
 ```
 
 ## 3. 案例演示
