@@ -120,6 +120,8 @@ pip install akshare --upgrade
 
 感谢[申万指数](http://www.swsindex.com/idx0120.aspx?columnid=8832)提供的相关数据;
 
+感谢[真气网](https://www.aqistudy.cn/)提供的空气质量数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
 ## Communication

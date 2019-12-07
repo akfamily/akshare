@@ -379,10 +379,17 @@ CU 出现 cuefp 数据导致指数合成异常的问题
 申万行业一级指数-实时
 0.2.73
 更新纯碱期货数据接口
+0.2.74
+新增AQI空气质量数据接口
 """
 
-__version__ = "0.2.73"
+__version__ = "0.2.74"
 __author__ = "Albert King"
+
+"""
+AQI空气质量接口
+"""
+from akshare.weather.aqi_study import air_all_city, air_city_list, air_daily, air_hourly
 
 """
 申万行业一级-实时

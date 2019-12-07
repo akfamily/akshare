@@ -12,3 +12,4 @@ pillow>=6.2.1
 pypinyin>=0.36.0
 websocket-client>=0.56.0
 pytrends>=4.7.2
+pycryptodomex>=3.9.4
