@@ -1,4 +1,4 @@
-Anaconda教程
+Anaconda 教程
 ==========
 
 .. note::
