@@ -2,7 +2,7 @@
 
 ## 致谢
 
-特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 项目提供借鉴学习的机会;
+特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 和 [OpenData](https://github.com/PKUJohnson/OpenData) 项目提供借鉴学习的机会;
 
 感谢[生意社网站](http://www.100ppi.com/)提供的相关数据;
 
@@ -64,7 +64,11 @@
 
 ## 交流
 
-欢迎加 QQ 群交流: 326900231
+您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:
+
+<img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qrcode_for_gh_abc3d079060a_258.jpg"/>
+
+也欢迎您加 QQ 群交流: 326900231
 
 您可以扫码或者点击群二维码申请加入, 请放心点击:
 
