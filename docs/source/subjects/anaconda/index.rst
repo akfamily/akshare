@@ -17,7 +17,7 @@ Anaconda 教程
 
 .. toctree::
     :maxdepth: 2
-    :numbered: 2
+    :numbered: 1
 
     anaconda-00
     anaconda-01
