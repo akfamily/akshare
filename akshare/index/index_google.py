@@ -31,6 +31,6 @@ def google_index(
 
 if __name__ == "__main__":
     df = google_index(
-        word="python", start_date="2004-01-01", end_date="2019-12-04", plot=True
+        word="人工智能", start_date="2004-01-01", end_date="2019-12-04", plot=True
     )
     print(df)

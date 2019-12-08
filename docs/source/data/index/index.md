@@ -323,7 +323,7 @@ Name: python, Length: 192, dtype: int32
 
 ### 申万一级行业实时行情
 
-接口: sw_level_one_index_spot
+接口: sw_index_spot
 
 目标地址: http://www.swsindex.com/idx0120.aspx?columnid=8832
 
@@ -353,7 +353,7 @@ Name: python, Length: 192, dtype: int32
 
 ```python
 import akshare as ak
-sw_index_df = ak.sw_level_one_index_spot()
+sw_index_df = ak.sw_index_spot()
 print(sw_index_df)
 ```
 
@@ -418,4 +418,194 @@ print(sw_index_df)
 25   1991.02  1642748437  
 26   3676.52  1504640443  
 27   1103.92  1881425427  
+```
+
+### 申万一级行业成份
+
+接口: sw_index_cons
+
+目标地址: http://www.swsindex.com/idx0210.aspx?swindexcode=801010
+
+描述: 获取申万一级行业成份股数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| index_code | str  | Y   |   index_code="801010"|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| stock_code      | str   | Y        |   |
+| stock_name      | str   | Y        |    |
+| start_date      | float   | Y        |   |
+| weight      | float   | Y        |    |
+
+接口示例
+
+```python
+import akshare as ak
+sw_index_df = ak.sw_index_cons(index_code="801010")
+print(sw_index_df)
+```
+
+数据示例
+
+```
+   stock_code stock_name          start_date  weight
+0      000048        康达尔 2011-10-10 00:00:00  0.4648
+1      000505       京粮控股 2018-07-16 00:00:00  0.2636
+2      000576       广东甘化 2018-07-16 00:00:00  0.3266
+3      000592       平潭发展 2015-11-03 00:00:00  0.7277
+4      000702       正虹科技 2008-06-02 00:00:00  0.2174
+..        ...        ...                 ...     ...
+79     603566        普莱柯 2015-06-24 00:00:00  0.5235
+80     603609       禾丰牧业 2014-07-31 00:00:00  0.9313
+81     603668       天马科技 2016-12-01 21:19:00  0.2899
+82     603718       海利生物 2016-02-05 00:00:00  0.4451
+83     603739       蔚蓝生物 2019-01-04 10:00:00  0.1789
+```
+
+### 申万一级行业历史行情
+
+接口: sw_index_daily
+
+目标地址: http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
+
+描述: 获取申万一级行业历史行情数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| index_code | str  | Y   |   index_code="801010"|
+| start_date | str  | Y   |   start_date="2019-12-01"|
+| end_date | str  | Y   |   end_date="2019-12-07"|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| index_code      | str   | Y        |   |
+| index_name      | str   | Y        |    |
+| date      | str   | Y        |   |
+| open      | float   | Y        |    |
+| high      | float   | Y        |    |
+| low      | float   | Y        |    |
+| close      | float   | Y        |    |
+| vol      | float   | Y        |    |
+| amount      | float   | Y        |    |
+| change_pct      | float   | Y        |    |
+
+接口示例
+
+```python
+import akshare as ak
+sw_index_df = ak.sw_index_daily(index_code="801010", start_date="2019-12-01", end_date="2019-12-07")
+print(sw_index_df)
+```
+
+数据示例
+
+```
+  index_code index_name       date     open     high      low    close   vol  \
+0     801010       农林牧渔 2019-12-06  3278.67  3301.18  3263.89  3273.24  7.63   
+1     801010       农林牧渔 2019-12-05  3278.81  3278.81  3252.86  3272.12  6.93   
+2     801010       农林牧渔 2019-12-04  3274.92  3278.03  3227.42  3268.57  7.44   
+3     801010       农林牧渔 2019-12-03  3295.98  3315.15  3270.35  3287.12  6.80   
+4     801010       农林牧渔 2019-12-02  3280.31  3321.77  3280.31  3297.97  7.33   
+   amount change_pct  
+0  106.32       0.03  
+1   85.40       0.11  
+2   93.57      -0.56  
+3   91.33      -0.33  
+4  105.91       1.37  
+```
+
+### 申万一级行业历史行情
+
+接口: sw_index_daily
+
+目标地址: http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
+
+描述: 获取申万一级行业历史行情数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| index_code | str  | Y   |   index_code="801010"|
+| start_date | str  | Y   |   start_date="2019-12-01"|
+| end_date | str  | Y   |   end_date="2019-12-07"|
+| data_type | str  | Y   |   data_type="Day"; "Day": 日报表, "Week": 周报表|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| index_code      | str   | Y        |   |
+| index_name      | str   | Y        |    |
+| date      | str   | Y        |   |
+| close      | float   | Y        |    |
+| volume      | float   | Y        |    |
+| chg_pct      | float   | Y        |    |
+| turn_rate      | float   | Y        |    |
+| pe      | float   | Y        |    |
+| pb      | float   | Y        |    |
+| vwap      | float   | Y        |    |
+| float_mv      | float   | Y        |    |
+| avg_float_mv      | float   | Y        |    |
+| dividend_yield_ratio      | float   | Y        |    |
+| turnover_pct      | float   | Y        |    |
+
+接口示例-天
+
+```python
+import akshare as ak
+sw_index_df = ak.sw_index_daily_indicator(index_code="801010", start_date="2019-12-01", end_date="2019-12-07", data_type="Day")
+print(sw_index_df)
+```
+
+数据示例-天
+
+```
+  index_code index_name       date    close volume chg_pct turn_rate     pe  \
+0     801010       农林牧渔 2019-12-06  3273.24   7.63    0.03    1.1533  31.62   
+1     801010       农林牧渔 2019-12-05  3272.12   6.93    0.11    1.0484  31.62   
+2     801010       农林牧渔 2019-12-04  3268.57   7.44   -0.56    1.1242  31.59   
+3     801010       农林牧渔 2019-12-03  3287.12   6.80   -0.33    1.0281  31.77   
+4     801010       农林牧渔 2019-12-02  3297.97   7.33    1.37    1.1087  31.88   
+     pb   vwap  float_mv avg_float_mv dividend_yield_ratio turnover_pct  
+0  3.51  12.24  8,360.39        99.53                 1.19         2.64  
+1  3.51  12.17  8,357.91        99.50                 1.19         2.05  
+2  3.50  12.14  8,354.00        99.45                 1.19         2.68  
+3  3.52  12.19  8,373.92        99.69                 1.19         2.68  
+4  3.54  12.19  8,389.36        99.87                 1.18         3.16  
+```
+
+接口示例-周
+
+```python
+import akshare as ak
+sw_index_df = ak.sw_index_daily_indicator(index_code="801010", start_date="2019-12-01", end_date="2019-12-07", data_type="Week")
+print(sw_index_df)
+```
+
+数据示例-周
+
+```
+  index_code index_name       date    close volume chg_pct turn_rate     pe  \
+0     801010       农林牧渔 2019-12-06  3273.24  36.13    0.61    1.1533  31.62   
+1     801010       农林牧渔 2019-11-29  3253.34  36.30   -1.48    1.0256  31.43   
+2     801010       农林牧渔 2019-11-22  3302.08  39.75   -1.23    1.1851  31.89   
+3     801010       农林牧渔 2019-11-15  3343.26  42.56   -4.95    1.3313  32.27   
+4     801010       农林牧渔 2019-11-08  3517.40  58.51   -1.35    1.5961  33.90   
+     pb   vwap  float_mv avg_float_mv dividend_yield_ratio turnover_pct  
+0  3.51  12.24  8,360.39        99.53                 1.19         2.62  
+1  3.49  12.07  8,275.56        98.52                 1.20         2.60  
+2  3.54  12.26  8,411.33       100.13                 1.18         2.69  
+3  3.58  12.44  8,488.62       101.06                 1.17         3.18  
+4  3.76  13.08  8,918.01       106.17                 1.11         4.12  
 ```

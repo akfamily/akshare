@@ -381,9 +381,11 @@ CU 出现 cuefp 数据导致指数合成异常的问题
 更新纯碱期货数据接口
 0.2.74
 新增AQI空气质量数据接口
+0.2.75
+新增申万一级指数接口
 """
 
-__version__ = "0.2.74"
+__version__ = "0.2.75"
 __author__ = "Albert King"
 
 """
@@ -394,7 +396,12 @@ from akshare.weather.aqi_study import air_all_city, air_city_list, air_daily, ai
 """
 申万行业一级-实时
 """
-from akshare.index.sw_index import sw_level_one_index_spot
+from akshare.index.index_sw import (
+    sw_index_spot,
+    sw_index_cons,
+    sw_index_daily,
+    sw_index_daily_indicator,
+)
 
 """
 交易法门-数据-农产品-美豆
@@ -429,12 +436,12 @@ from akshare.futures_derivative.jyfm_data_agriculture_sugar import (
 """
 谷歌指数
 """
-from akshare.index.google_index import google_index
+from akshare.index.index_google import google_index
 
 """
 百度指数
 """
-from akshare.index.baidu_index import (
+from akshare.index.index_baidu import (
     baidu_search_index,
     baidu_info_index,
     baidu_media_index,
@@ -443,7 +450,7 @@ from akshare.index.baidu_index import (
 """
 微博指数
 """
-from akshare.index.weibo_index import weibo_index
+from akshare.index.index_weibo import weibo_index
 
 """
 经济政策不确定性指数
@@ -683,7 +690,7 @@ from akshare.bond.investing_bond import get_country_bond  # 债券-全球政府�
 """
 英为财情-指数
 """
-from akshare.index.investing_index import get_country_index  # 股票指数-全球股指与期货指数数据接口
+from akshare.index.index_investing import get_country_index  # 股票指数-全球股指与期货指数数据接口
 
 """
 99期货数据

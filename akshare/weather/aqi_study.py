@@ -15,6 +15,7 @@ import json
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
+import matplotlib.pyplot as plt
 
 from akshare.weather.aqi_utils import *
 
@@ -145,14 +146,15 @@ if __name__ == '__main__':
     city = air_city_list()
     print(city)
 
-    df = air_hourly('北京', '2019-07-22')
+    df = air_hourly('成都', '2019-12-07')
     print(df)
 
-    df = air_daily('北京', '2018-05-01', '2019-05-01')
+    df = air_daily('成都', '2019-01-01', '2019-12-07')
     print(df)
 
     df = air_all_city("HOUR", "2019-07-22 08:00:00")
     print(df.columns)
 
-    df = air_all_city("DAY", "2019-07-21")
+    df = air_all_city("DAY", "2019-12-02")
     print(df)
+
