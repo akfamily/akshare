@@ -6,6 +6,7 @@ date: 2019/12/6 14:34
 contact: jindaxiang@163.com
 desc: 获取申万指数-申万一级
 http://www.swsindex.com/IdxMain.aspx
+部分代码要感谢: PKUJson
 """
 import time
 import json
