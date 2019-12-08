@@ -524,13 +524,13 @@ print(sw_index_df)
 4  105.91       1.37  
 ```
 
-### 申万一级行业历史行情
+### 申万一级行业历史行情指标
 
-接口: sw_index_daily
+接口: sw_index_daily_indicator
 
 目标地址: http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
 
-描述: 获取申万一级行业历史行情数据
+描述: 获取申万一级行业历史行情指标数据
 
 输入参数
 
