@@ -13,9 +13,11 @@ import time
 import pandas as pd
 import requests
 
-from akshare.economic.cons import (JS_CONS_GOLD_ETF_URL,
-                                   JS_CONS_SLIVER_ETF_URL,
-                                   JS_CONS_OPEC_URL)
+from akshare.economic.cons import (
+    JS_CONS_GOLD_ETF_URL,
+    JS_CONS_SLIVER_ETF_URL,
+    JS_CONS_OPEC_URL,
+)
 
 
 def get_cons_gold_volume():
@@ -35,8 +37,12 @@ def get_cons_gold_volume():
     2019-10-24    918.48
     """
     t = time.time()
-    res = requests.get(JS_CONS_GOLD_ETF_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CONS_GOLD_ETF_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -64,8 +70,12 @@ def get_cons_gold_change():
     2019-10-24     0.00
     """
     t = time.time()
-    res = requests.get(JS_CONS_GOLD_ETF_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CONS_GOLD_ETF_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -93,8 +103,12 @@ def get_cons_gold_amount():
     2019-10-24    44120217405.82
     """
     t = time.time()
-    res = requests.get(JS_CONS_GOLD_ETF_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CONS_GOLD_ETF_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -122,8 +136,12 @@ def get_cons_silver_volume():
     2019-10-23    11751.96
     """
     t = time.time()
-    res = requests.get(JS_CONS_SLIVER_ETF_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CONS_SLIVER_ETF_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -151,8 +169,12 @@ def get_cons_silver_change():
     2019-10-23      0.00
     """
     t = time.time()
-    res = requests.get(JS_CONS_SLIVER_ETF_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CONS_SLIVER_ETF_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -180,8 +202,12 @@ def get_cons_silver_amount():
     2019-10-23     Show All
     """
     t = time.time()
-    res = requests.get(JS_CONS_SLIVER_ETF_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CONS_SLIVER_ETF_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -250,8 +276,12 @@ def get_cons_opec_near_change():
     2019-06-13  -7.60   0.30  -3.50 -23.60
     """
     t = time.time()
-    res = requests.get(JS_CONS_OPEC_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CONS_OPEC_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     big_df = pd.DataFrame()
     for country in [item["datas"] for item in json_data["list"]][0].keys():
@@ -327,8 +357,12 @@ def get_cons_opec_month(month_type="上个月"):
     2019-06-13   969.0  306.1   74.1  2987.6
     """
     t = time.time()
-    res = requests.get(JS_CONS_OPEC_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CONS_OPEC_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     big_df = pd.DataFrame()
     for country in [item["datas"] for item in json_data["list"]][0].keys():

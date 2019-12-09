@@ -13,17 +13,19 @@ import time
 import pandas as pd
 import requests
 
-from akshare.economic.cons import (JS_USA_INTEREST_RATE_URL,
-                                   JS_USA_NON_FARM_URL,
-                                   JS_USA_UNEMPLOYMENT_RATE_URL,
-                                   JS_USA_EIA_CRUDE_URL,
-                                   JS_USA_INITIAL_JOBLESS_URL,
-                                   JS_USA_CORE_PCE_PRICE_URL,
-                                   JS_USA_CPI_MONTHLY_URL,
-                                   JS_USA_LMCI_URL,
-                                   JS_USA_ADP_NONFARM_URL,
-                                   JS_USA_GDP_MONTHLY_URL,
-                                   JS_USA_EIA_CRUDE_PRODUCE_URL)
+from akshare.economic.cons import (
+    JS_USA_INTEREST_RATE_URL,
+    JS_USA_NON_FARM_URL,
+    JS_USA_UNEMPLOYMENT_RATE_URL,
+    JS_USA_EIA_CRUDE_URL,
+    JS_USA_INITIAL_JOBLESS_URL,
+    JS_USA_CORE_PCE_PRICE_URL,
+    JS_USA_CPI_MONTHLY_URL,
+    JS_USA_LMCI_URL,
+    JS_USA_ADP_NONFARM_URL,
+    JS_USA_GDP_MONTHLY_URL,
+    JS_USA_EIA_CRUDE_PRODUCE_URL,
+)
 
 
 def get_usa_interest_rate():
@@ -43,8 +45,12 @@ def get_usa_interest_rate():
     2019-12-12        0
     """
     t = time.time()
-    res = requests.get(JS_USA_INTEREST_RATE_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_INTEREST_RATE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国利率决议"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -72,8 +78,12 @@ def get_usa_non_farm():
     2019-11-01       0
     """
     t = time.time()
-    res = requests.get(JS_USA_NON_FARM_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_NON_FARM_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国非农就业人数"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -101,8 +111,12 @@ def get_usa_unemployment_rate():
     2019-11-01      0
     """
     t = time.time()
-    res = requests.get(JS_USA_UNEMPLOYMENT_RATE_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_UNEMPLOYMENT_RATE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国失业率"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -130,8 +144,12 @@ def get_usa_eia_crude_rate():
     2019-10-23        0
     """
     t = time.time()
-    res = requests.get(JS_USA_EIA_CRUDE_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_EIA_CRUDE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国EIA原油库存(万桶)"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -159,8 +177,12 @@ def get_usa_initial_jobless():
     2019-10-24          0
     """
     t = time.time()
-    res = requests.get(JS_USA_INITIAL_JOBLESS_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_INITIAL_JOBLESS_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国初请失业金人数(万人)"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -188,8 +210,12 @@ def get_usa_core_pce_price():
     2019-10-31      0
     """
     t = time.time()
-    res = requests.get(JS_USA_CORE_PCE_PRICE_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_CORE_PCE_PRICE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国核心PCE物价指数年率"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -217,8 +243,12 @@ def get_usa_cpi_monthly():
     2019-11-13      0
     """
     t = time.time()
-    res = requests.get(JS_USA_CPI_MONTHLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_CPI_MONTHLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国居民消费价格指数(CPI)(月环比)"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -271,8 +301,12 @@ def get_usa_lmci():
     2017-08-07      0
     """
     t = time.time()
-    res = requests.get(JS_USA_LMCI_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_LMCI_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美联储劳动力市场状况指数"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -300,8 +334,12 @@ def get_usa_adp_employment():
     2019-10-30       0
     """
     t = time.time()
-    res = requests.get(JS_USA_ADP_NONFARM_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_ADP_NONFARM_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国ADP就业人数(万人)"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -329,8 +367,12 @@ def get_usa_gdp_monthly():
     2019-10-30      0
     """
     t = time.time()
-    res = requests.get(JS_USA_GDP_MONTHLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_GDP_MONTHLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国国内生产总值(GDP)"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -358,8 +400,12 @@ def get_usa_crude_inner():
     2019-10-18    1260.00
     """
     t = time.time()
-    res = requests.get(JS_USA_EIA_CRUDE_PRODUCE_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_EIA_CRUDE_PRODUCE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国国内原油总量"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -387,8 +433,12 @@ def get_usa_crude_state():
     2019-10-18    1210.00
     """
     t = time.time()
-    res = requests.get(JS_USA_EIA_CRUDE_PRODUCE_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_EIA_CRUDE_PRODUCE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国本土48州原油产量"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -416,8 +466,12 @@ def get_usa_crude_alaska():
     2019-10-18    48.50
     """
     t = time.time()
-    res = requests.get(JS_USA_EIA_CRUDE_PRODUCE_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_USA_EIA_CRUDE_PRODUCE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国阿拉斯加州原油产量"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -437,5 +491,3 @@ if __name__ == "__main__":
     print(df)
     df = get_usa_eia_crude_rate()
     print(df)
-
-

@@ -12,17 +12,19 @@ import time
 import pandas as pd
 import requests
 
-from akshare.economic.cons import (JS_CHINA_CPI_YEARLY_URL,
-                                   JS_CHINA_CPI_MONTHLY_URL,
-                                   JS_CHINA_M2_YEARLY_URL,
-                                   JS_CHINA_PPI_YEARLY_URL,
-                                   JS_CHINA_PMI_YEARLY_URL,
-                                   JS_CHINA_GDP_YEARLY_URL,
-                                   JS_CHINA_CX_PMI_YEARLY_URL,
-                                   JS_CHINA_FX_RESERVES_YEARLY_URL,
-                                   JS_CHINA_ENERGY_DAILY_URL,
-                                   JS_CHINA_NON_MAN_PMI_MONTHLY_URL,
-                                   JS_CHINA_RMB_DAILY_URL)
+from akshare.economic.cons import (
+    JS_CHINA_CPI_YEARLY_URL,
+    JS_CHINA_CPI_MONTHLY_URL,
+    JS_CHINA_M2_YEARLY_URL,
+    JS_CHINA_PPI_YEARLY_URL,
+    JS_CHINA_PMI_YEARLY_URL,
+    JS_CHINA_GDP_YEARLY_URL,
+    JS_CHINA_CX_PMI_YEARLY_URL,
+    JS_CHINA_FX_RESERVES_YEARLY_URL,
+    JS_CHINA_ENERGY_DAILY_URL,
+    JS_CHINA_NON_MAN_PMI_MONTHLY_URL,
+    JS_CHINA_RMB_DAILY_URL,
+)
 
 
 def get_china_yearly_cpi():
@@ -42,8 +44,12 @@ def get_china_yearly_cpi():
     2019-11-09      0
     """
     t = time.time()
-    res = requests.get(JS_CHINA_CPI_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_CPI_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国CPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -71,8 +77,12 @@ def get_china_monthly_cpi():
     2019-11-09       0
     """
     t = time.time()
-    res = requests.get(JS_CHINA_CPI_MONTHLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_CPI_MONTHLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国CPI月率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -100,8 +110,12 @@ def get_china_yearly_m2():
     2019-10-17       0
     """
     t = time.time()
-    res = requests.get(JS_CHINA_M2_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_M2_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国M2货币供应年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -129,8 +143,12 @@ def get_china_yearly_ppi():
     2019-11-09       0
     """
     t = time.time()
-    res = requests.get(JS_CHINA_PPI_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_PPI_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国PPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -158,8 +176,12 @@ def get_china_yearly_pmi():
     2019-10-31       0
     """
     t = time.time()
-    res = requests.get(JS_CHINA_PMI_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_PMI_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国官方制造业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -212,8 +234,12 @@ def get_china_yearly_gdp():
     2019-10-18      6
     """
     t = time.time()
-    res = requests.get(JS_CHINA_GDP_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_GDP_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国GDP年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -241,8 +267,12 @@ def get_china_yearly_cx_pmi():
     2019-11-01       0
     """
     t = time.time()
-    res = requests.get(JS_CHINA_CX_PMI_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_CX_PMI_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国财新制造业PMI终值报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -309,8 +339,12 @@ def get_china_yearly_fx_reserves():
     2019-10-08    30920
     """
     t = time.time()
-    res = requests.get(JS_CHINA_FX_RESERVES_YEARLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_FX_RESERVES_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国外汇储备报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -339,8 +373,12 @@ def get_china_daily_energy():
     2019-06-21   1786.64   66.57  26.84
     """
     t = time.time()
-    res = requests.get(JS_CHINA_ENERGY_DAILY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_ENERGY_DAILY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["沿海六大电厂库存动态报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -368,8 +406,12 @@ def get_china_non_man_pmi():
     2019-10-31       0
     """
     t = time.time()
-    res = requests.get(JS_CHINA_NON_MAN_PMI_MONTHLY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_NON_MAN_PMI_MONTHLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国官方非制造业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -422,8 +464,12 @@ def get_china_rmb():
     2019-10-22  [4.5305, 165.00]
     """
     t = time.time()
-    res = requests.get(JS_CHINA_RMB_DAILY_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_CHINA_RMB_DAILY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = [item["datas"]["美元/人民币"] for item in json_data["list"]]
     value_list_2 = [item["datas"]["欧元/人民币"] for item in json_data["list"]]
@@ -432,8 +478,26 @@ def get_china_rmb():
     value_list_5 = [item["datas"]["英镑/人民币"] for item in json_data["list"]]
     value_list_6 = [item["datas"]["澳元/人民币"] for item in json_data["list"]]
     value_list_7 = [item["datas"]["新西兰元/人民币"] for item in json_data["list"]]
-    value_df = pd.DataFrame([value_list_1, value_list_2, value_list_3, value_list_4, value_list_5, value_list_6, value_list_7]).T
-    value_df.columns = ["美元/人民币", "欧元/人民币", "100日元/人民币", "港元/人民币", "英镑/人民币", "澳元/人民币", "新西兰元/人民币"]
+    value_df = pd.DataFrame(
+        [
+            value_list_1,
+            value_list_2,
+            value_list_3,
+            value_list_4,
+            value_list_5,
+            value_list_6,
+            value_list_7,
+        ]
+    ).T
+    value_df.columns = [
+        "美元/人民币",
+        "欧元/人民币",
+        "100日元/人民币",
+        "港元/人民币",
+        "英镑/人民币",
+        "澳元/人民币",
+        "新西兰元/人民币",
+    ]
     value_df.index = pd.to_datetime(date_list)
     value_df.name = "currency"
     return value_df
@@ -456,5 +520,3 @@ if __name__ == "__main__":
     print(df)
     df = get_china_yearly_fx_reserves()
     print(df)
-
-

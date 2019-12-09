@@ -522,4 +522,7 @@ Python 3.6
 
 0.2.81
 html5lib
+
+0.2.82
+websockets-8.1
 ```

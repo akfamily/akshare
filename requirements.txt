@@ -14,3 +14,4 @@ websocket-client>=0.56.0
 pytrends>=4.7.2
 pycryptodomex>=3.9.4
 html5lib>=1.0.1
+websockets>=8.1

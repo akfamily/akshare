@@ -13,7 +13,7 @@ import time
 import pandas as pd
 import requests
 
-from akshare.economic.cons import (JS_EURO_RATE_DECISION_URL)
+from akshare.economic.cons import JS_EURO_RATE_DECISION_URL
 
 
 def get_euro_interest_rate():
@@ -33,8 +33,12 @@ def get_euro_interest_rate():
     2019-10-24      0
     """
     t = time.time()
-    res = requests.get(JS_EURO_RATE_DECISION_URL.format(str(int(round(t * 1000))), str(int(round(t * 1000))+90)))
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}")+1])
+    res = requests.get(
+        JS_EURO_RATE_DECISION_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区利率决议"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -48,4 +52,3 @@ def get_euro_interest_rate():
 if __name__ == "__main__":
     df = get_euro_interest_rate()
     print(df)
-

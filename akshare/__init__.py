@@ -395,9 +395,11 @@ Python 降级
 Python 3.6
 0.2.81
 html5lib
+0.2.82
+websockets-8.1
 """
 
-__version__ = "0.2.81"
+__version__ = "0.2.82"
 __author__ = "Albert King"
 
 """
