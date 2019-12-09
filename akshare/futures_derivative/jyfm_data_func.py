@@ -47,7 +47,7 @@ def jyfm_data_usa_bean(indicator="白糖产区库存", headers=""):
 
 
 if __name__ == "__main__":
-    headers = jyfm_login(account="jindaxiang@163.com", password="king0575")
+    headers = jyfm_login(account="", password="")
     df = jyfm_data_palm(indicator="马棕月度出口", headers=headers)
     print(df)
     df = jyfm_data_soybean_meal(indicator="大豆月度进口", headers=headers)
