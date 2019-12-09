@@ -383,9 +383,11 @@ CU 出现 cuefp 数据导致指数合成异常的问题
 新增AQI空气质量数据接口
 0.2.75
 新增申万一级指数接口
+0.2.76
+统一交易法门登录和数据获取接口
 """
 
-__version__ = "0.2.75"
+__version__ = "0.2.76"
 __author__ = "Albert King"
 
 """
@@ -404,34 +406,19 @@ from akshare.index.index_sw import (
 )
 
 """
-交易法门-数据-农产品-美豆
+交易法门-数据-农产品
 """
-from akshare.futures_derivative.jyfm_data_agriculture_usa_bean import (
-    usa_bean_emergence_ratio,
-    usa_bean_export_ratio,
-    usa_bean_flower_ratio,
-    usa_bean_good_ratio,
-    usa_bean_grow,
-    usa_bean_harvest_ratio,
-    jyfm_login,
+from akshare.futures_derivative.jyfm_data_func import (
+    jyfm_data_palm,  # 棕榈
+    jyfm_data_soybean_meal,  # 豆粕
+    jyfm_data_sugar,  # 白糖
+    jyfm_data_usa_bean,  # 美豆
 )
 
 """
-交易法门-数据-农产品-白糖
+交易法门-登录
 """
-from akshare.futures_derivative.jyfm_data_agriculture_sugar import (
-    sugar_month_data_produce_1,
-    sugar_month_data_produce_2,
-    sugar_month_data_stock,
-    sugar_month_data_trade,
-    sugar_year_data_gap,
-    sugar_year_data_grow_area,
-    sugar_year_data_produce,
-    sugar_year_data_stock,
-    sugar_year_data_trade,
-    sugar_year_data_yield,
-    jyfm_login,
-)
+from akshare.futures_derivative.jyfm_login_func import jyfm_login
 
 """
 谷歌指数
@@ -582,7 +569,7 @@ from akshare.futures_derivative.sys_spot_futures import (
 """
 交易法门-套利工具-跨期价差(自由价差)
 """
-from akshare.futures_derivative.jyfm_tools_arbitrage import (
+from akshare.futures_derivative.jyfm_tools_func import (
     jyfm_tools_futures_ratio,
     jyfm_tools_futures_customize,
     jyfm_tools_futures_spread,

@@ -6,45 +6,18 @@ date: 2019/10/27 19:47
 contact: jindaxiang@163.com
 desc: 获取交易法门网站-工具-套利工具
 """
-from io import BytesIO
-
-from PIL import Image
-
 import requests
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import execjs
 
-from akshare.futures_derivative import jymf_js
+from akshare.futures_derivative.jyfm_login_func import jyfm_login
 
 
 from akshare.futures_derivative.cons import (csa_payload,
                                              csa_url_spread,
                                              csa_url_ratio,
-                                             jyfm_init_headers,
-                                             jyfm_login_url,
                                              csa_url_customize)
-
-
-def jyfm_login(account="", password=""):
-    try:
-        pic_url = f"https://www.jiaoyifamen.com/captcha/login?needCaptcha=1571976133484&t={execjs.eval('Math.random()')}"
-        res = requests.get(pic_url)
-        f = Image.open(BytesIO(res.content))
-        f.show()
-        code = input()
-        c_func = execjs.compile(jymf_js.c.replace(r"\n", ""))
-        en_psw = c_func.call("e", password)
-        payload = {"nameOrEmail": account, "userPassword": en_psw, "captcha": code}
-    except:
-        c_func = execjs.compile(jymf_js.c.replace(r"\n", ""))
-        en_psw = c_func.call("e", password)
-        payload = {"nameOrEmail": account, "userPassword": en_psw}
-    res = requests.post(jyfm_login_url, json=payload, headers=jyfm_init_headers)
-    copy_jyfm_init_headers = jyfm_init_headers.copy()
-    copy_jyfm_init_headers["cookie"] = list(dict(res.cookies).keys())[0] + "=" + list(dict(res.cookies).values())[0] + "; " + list(dict(res.cookies).keys())[1] + "=" + list(dict(res.cookies).values())[1]
-    return copy_jyfm_init_headers
 
 
 def jyfm_tools_receipt_expire_info(headers=""):

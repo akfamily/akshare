@@ -6,6 +6,52 @@ date: 2019/10/27 19:49
 contact: jindaxiang@163.com
 desc: 期货衍生指标变量文件
 """
+# 交易法门-数据-美豆
+jyfm_data_usa_bean_name_url_dict = {
+    "美豆种植进度": "https://www.jiaoyifamen.com/data/usa-bean-grow/grow",
+    "美豆出苗率": "https://www.jiaoyifamen.com/data/usa-bean-emergence/ratio",
+    "美豆开花率": "https://www.jiaoyifamen.com/data/usa-bean-flower/ratio",
+    "美豆优良率": "https://www.jiaoyifamen.com/data/usa-bean-good/ratio",
+    "美豆收割进度": "https://www.jiaoyifamen.com/data/usa-bean-harvest/ratio",
+    "美豆出口情况": "https://www.jiaoyifamen.com/data/usa-bean-export/ratio",
+}
+
+# 交易法门-数据-白糖
+jyfm_data_sugar_name_url_dict = {
+    "国内种植面积": "https://www.jiaoyifamen.com/data/sugar-year-grow-area/grow",
+    "年度产糖率": "https://www.jiaoyifamen.com/data/sugar-year-yield/yield",
+    "白糖年度产销": "https://www.jiaoyifamen.com/data/sugar-year-data/produce",
+    "白糖进出口量": "https://www.jiaoyifamen.com/data/sugar-year-data/trade",
+    "食糖产需缺口": "https://www.jiaoyifamen.com/data/sugar-year-data/gap",
+    "白糖月度产量": "https://www.jiaoyifamen.com/data/sugar-month-data/produce?category=1",
+    "白糖月度销量": "https://www.jiaoyifamen.com/data/sugar-month-data/produce?category=2",
+    "白糖月度进口": "https://www.jiaoyifamen.com/data/sugar-month-trade/trade",
+    "食糖工业库存": "https://www.jiaoyifamen.com/data/sugar-month-stock/stock",
+    "白糖产区库存": "https://www.jiaoyifamen.com/data/sugar-year-stock/stock",
+}
+
+# 交易法门-数据-豆粕
+jyfm_data_soybean_meal_name_url_dict = {
+    "大豆月度进口": "https://www.jiaoyifamen.com/data/soybean-meal-month-import/import",
+    "大豆原料库存": "https://www.jiaoyifamen.com/data/soybean-meal-ingredient-stock/stock",
+    "压榨开工率": "https://www.jiaoyifamen.com/data/soybean-meal-operate-ratio/ratio",
+    "企业压榨利润": "https://www.jiaoyifamen.com/data/soybean-meal-profit/profit",
+    "豆粕月度产量": "https://www.jiaoyifamen.com/data/soybean-meal-month-product/product",
+    "豆粕每日成交": "https://www.jiaoyifamen.com/data/soybean-meal-profit/profit",
+    "豆粕周度库存": "https://www.jiaoyifamen.com/data/soybean-meal-week-stock/stock",
+    "豆粕平衡表": "https://www.jiaoyifamen.com/data/soybean-meal-balance/balance",
+}
+
+# 交易法门-数据-棕榈
+jyfm_data_palm_name_url_dict = {
+    "马棕种植面积": "https://www.jiaoyifamen.com/data/palm-grow-area/grow",
+    "马棕FFB单产": "https://www.jiaoyifamen.com/data/palm-f-f-b-product/product",
+    "马棕出油率": "https://www.jiaoyifamen.com/data/palm-yield/yield",
+    "马棕月度产量": "https://www.jiaoyifamen.com/data/palm-month-product/product",
+    "马棕月度库存": "https://www.jiaoyifamen.com/data/palm-month-stock/stock",
+    "马棕月度出口": "https://www.jiaoyifamen.com/data/palm-month-export/export",
+}
+
 # 交易法门
 jyfm_init_headers = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                      "Accept-Encoding": "gzip, deflate, br",

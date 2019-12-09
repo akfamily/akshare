@@ -62,7 +62,7 @@
     
     6.14 增加[和讯网](http://www.hexun.com/)数据接口, 提供美国-中概股行情及历史数据(开发完成);
     
-    6.15 增加[交易法门网站](https://www.jiaoyifamen.com/)数据接口, 提供套利工具-跨期价差(自由价差)数据(开发完成);
+    6.15 增加[交易法门网站](https://www.jiaoyifamen.com/)数据接口;
     
     6.16 增加[新浪财经-期货](https://finance.sina.com.cn/futuremarket/)数据接口, 提供实时行情数据(开发完成);
 
