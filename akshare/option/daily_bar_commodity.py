@@ -5,6 +5,15 @@ Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
 desc: 获取商品期权数据
+说明：
+(1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
+(2) 价格：元/吨，鸡蛋为元/500千克，纤维板为元/立方米，胶合板为元/张
+(3) 成交量、持仓量：手（按双边计算）
+(4) 成交额：万元（按双边计算）
+(5) 涨跌＝收盘价－前结算价
+(6) 涨跌1=今结算价-前结算价
+(7) 合约系列：具有相同月份标的期货合约的所有期权合约的统称
+(8) 隐含波动率：根据期权市场价格，利用期权定价模型计算的标的期货合约价格波动率
 """
 import datetime
 import warnings
@@ -72,7 +81,7 @@ def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
         "dayQuotes.variety": "all",
         "dayQuotes.trade_type": "1",
         "year": str(day.year),
-        "month": str(day.month-1),
+        "month": str(day.month - 1),
         "day": str(day.day),
         "exportFlag": "txt"
     }
@@ -94,10 +103,14 @@ def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
     product_one_df = table_df.iloc[:table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name, :]
     product_two_df = table_df.iloc[table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name + 1:
                                    table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name, :]
+    product_three_df = table_df.iloc[table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name + 1:
+                                     table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[2].name, :]
     if symbol == "玉米期权":
         return product_one_df, another_df[another_df.iloc[:, 0].str.contains("c")]
+    elif symbol == "铁矿石期权":
+        return product_two_df, another_df[another_df.iloc[:, 0].str.contains("i")]
     else:
-        return product_two_df, another_df[another_df.iloc[:, 0].str.contains("m")]
+        return product_three_df, another_df[another_df.iloc[:, 0].str.contains("m")]
 
 
 def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
@@ -297,7 +310,7 @@ def get_shfe_option_daily(trade_date="20191017", symbol="铜期权"):
 if __name__ == "__main__":
     df_test = get_czce_option_daily(trade_date="20191017", symbol="白糖期权")
     print(df_test)
-    one, two = get_dce_option_daily(trade_date="20191017", symbol="玉米期权")
+    one, two = get_dce_option_daily(trade_date="20191209", symbol="铁矿石期权")
     print(one)
     print(two)
     one, two, three = get_shfe_option_daily(trade_date="20191017", symbol="天胶期权")

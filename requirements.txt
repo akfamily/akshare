@@ -1,6 +1,6 @@
 bs4>=0.0.1
 lxml>=4.4.1
-matplotlib>=3.1.1
+matplotlib>=2.2.4
 numpy>=1.17.2
 pandas>=0.25.1
 requests>=2.22.0
@@ -13,3 +13,4 @@ pypinyin>=0.36.0
 websocket-client>=0.56.0
 pytrends>=4.7.2
 pycryptodomex>=3.9.4
+html5lib>=1.0.1
