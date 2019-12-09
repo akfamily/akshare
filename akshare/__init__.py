@@ -399,9 +399,11 @@ html5lib
 websockets-8.1
 0.2.83
 修复 weibo_index 函数日期格式问题
+0.2.84
+修复 baidu_index 接口
 """
 
-__version__ = "0.2.83"
+__version__ = "0.2.84"
 __author__ = "Albert King"
 
 """

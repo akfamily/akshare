@@ -22,7 +22,7 @@ def decrypt(t: str, e: str) -> str:
     return "".join([a[j] for j in e])
 
 
-COOKIES = "BAIDUID=8759768F974CE3E6C2884260097331A4:FG=1; PSTM=1574683224; H_PS_PSSID=1445_21116_29567_29220; BIDUPSID=43233656E2011B10D268D7B02D7A956A; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; delPer=0; PSINO=2; Hm_lvt_d101ea4d2a5c67dab98251f0b5de24dc=1574939615; BDUSS=hWWDJ0Z01VOWZINGdPaWRkTUotYmR4WlRhcEhJNTVDQzA3SUpDNzBSWHRPQWRlRVFBQUFBJCQAAAAAAAAAAAEAAAA3VXuxu6rPxNPQxMzGpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO2r313tq99daE; CHKFORREG=f47c79690c889b9fe3bb335ced026f76; bdindexid=j4g6p93elqe6o7phocmmfn53o2; Hm_lpvt_d101ea4d2a5c67dab98251f0b5de24dc=1574940479"
+COOKIES = "PSTM=1575382863; BAIDUID=C01F1BDBA4D8C7ECF8049F18CF9CECF2:FG=1; BIDUPSID=4EE8E9BA66768CFD68C8120B5EB3E658; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; BDUSS=k5UNjNjcjVtTHQtYkJBdVlUfkdYUVBXVXM0anp3d3EtOE9iZEdxdXk3NnlWZzllSVFBQUFBJCQAAAAAAAAAAAEAAAA9yPAAamluMDU3NQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLJ512yyeddV; delPer=0; PSINO=2; H_PS_PSSID=1443_21116_30210_30125_26350; BDSFRCVID=Xo8sJeCCxG3JggRwNmZP0TUBj8FOeQZRddMu3J; H_BDCLCKID_SF=tJkjVIPytIt3fP36qRbsbtCs5Uo0q6FXKKOLV-JJ3q7keq8CDR52hULrDpJwLtrrHmOB3-Tt3DQIjR72y5jHhnKsylCDBqkHtK74XfJGabnpsIJMbJAWbT8U5f5lWlbpaKviaMnjBMb1fIJDBT5h2M4qMxtOLR3pWDTm_q5TtUJMeCnTDMFhe6j0jH_HJ58qf5QBBbFyfIP_Hn7zq4b_ePLuBPnZKxtqtHQU2noqWt3FEnnEqfn8-nF-hMnXBljnWncKW56gKh8WHRbGLPQ4X5533b3405OT2j-O0KJcbR_aVDohhPJvypksXnO7-5OlXbrtXp7_2J0WStbKy4oTjxL1Db3JKjvMtgDtVDDQ2RrfetPk-4QEbbQH-UnLqhvyfT7Z0lOnMp05OR3T0RJFhqIrDbOP3tIO3eO-bxc45nbYfDO_e4bK-TrbjN8q3J; Hm_lvt_d101ea4d2a5c67dab98251f0b5de24dc=1575305783,1575379659,1575471527,1575887345; bdindexid=jqsit8468qh1hforfns4v3eos3; Hm_lpvt_d101ea4d2a5c67dab98251f0b5de24dc=1575887352"
 
 headers = {
     "Accept": "application/json, text/plain, */*",
@@ -44,7 +44,7 @@ session.headers.update(headers)
 
 def get_ptbk(uniqid: str) -> str:
     with session.get(
-        url=f"http://index.baidu.com/Interface/ptbk?uniqid={uniqid}"
+            url=f"http://index.baidu.com/Interface/ptbk?uniqid={uniqid}"
     ) as response:
         ptbk = response.json()["data"]
         return ptbk
@@ -52,7 +52,7 @@ def get_ptbk(uniqid: str) -> str:
 
 def baidu_search_index(word: str, start_date: str, end_date: str) -> str:
     with session.get(
-        url=f"http://index.baidu.com/api/SearchApi/index?word={word}&area=0&startDate={start_date}&endDate={end_date}"
+            url=f"http://index.baidu.com/api/SearchApi/index?word={word}&area=0&startDate={start_date}&endDate={end_date}"
     ) as response:
         data = response.json()["data"]
         all_data = data["userIndexes"][0]["all"]["data"]
@@ -71,7 +71,7 @@ def baidu_search_index(word: str, start_date: str, end_date: str) -> str:
 
 def baidu_info_index(word: str, start_date: str, end_date: str) -> str:
     with session.get(
-        url=f"http://index.baidu.com/api/FeedSearchApi/getFeedIndex?word={word}&area=0"
+            url=f"http://index.baidu.com/api/FeedSearchApi/getFeedIndex?word={word}&area=0"
     ) as response:
         data = response.json()["data"]
         all_data = data["index"][0]["data"]
@@ -90,7 +90,7 @@ def baidu_info_index(word: str, start_date: str, end_date: str) -> str:
 
 def baidu_media_index(word: str, start_date: str, end_date: str) -> str:
     with session.get(
-        url=f"http://index.baidu.com/api/NewsApi/getNewsIndex?word={word}&area=0"
+            url=f"http://index.baidu.com/api/NewsApi/getNewsIndex?word={word}&area=0"
     ) as response:
         data = response.json()["data"]
         all_data = data["index"][0]["data"]
@@ -109,22 +109,22 @@ def baidu_media_index(word: str, start_date: str, end_date: str) -> str:
 
 
 if __name__ == "__main__":
-    # data = baidu_search_index(
-    #     word="螺纹钢",
-    #     start_date='2010-12-27',
-    #     end_date='2019-12-01'
-    # )
-    # print(data)
-    # data.dropna(inplace=True)
-    # data.plot()
-    # plt.show()
-    # data = baidu_info_index(word="螺纹钢",
-    #                          start_date='2017-07-03',
-    #                          end_date='2019-12-01')
-    # print(data)
-    # data.dropna(inplace=True)
-    # data.plot()
-    # plt.show()
+    data = baidu_search_index(
+        word="螺纹钢",
+        start_date='2010-12-27',
+        end_date='2019-12-01'
+    )
+    print(data)
+    data.dropna(inplace=True)
+    data.plot()
+    plt.show()
+    data = baidu_info_index(word="螺纹钢",
+                            start_date='2017-07-03',
+                            end_date='2019-12-01')
+    print(data)
+    data.dropna(inplace=True)
+    data.plot()
+    plt.show()
     data = baidu_media_index(
         word="人工智能", start_date="2010-12-27", end_date="2019-12-01"
     )
