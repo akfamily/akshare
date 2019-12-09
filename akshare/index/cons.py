@@ -6,6 +6,14 @@ date: 2019/10/17 1:19
 contact: jindaxiang@163.com
 desc: 指数配置文件
 """
+# 微博游览器伪装
+index_weibo_headers = {
+    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",
+    "Referer": "http://data.weibo.com/index/newindex",
+    "Accept": "application/json",
+    "Origin": "https://data.weibo.com",
+}
+
 # sw-cons
 sw_cons_headers = {
     "Accept": "*/*",

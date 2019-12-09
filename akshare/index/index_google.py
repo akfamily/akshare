@@ -18,10 +18,11 @@ def google_index(
     """
     pytrends = TrendReq(hl="en-US", tz=360)
     kw_list = [word]
-    pytrends.build_payload(kw_list, cat=0, timeframe=start_date + " " + end_date, geo='', gprop='')
+    pytrends.build_payload(
+        kw_list, cat=0, timeframe=start_date + " " + end_date, geo="", gprop=""
+    )
     search_df = pytrends.interest_over_time()
     if plot:
-
         search_df[word].plot()
         plt.legend()
         plt.show()
