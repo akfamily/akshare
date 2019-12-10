@@ -423,7 +423,7 @@ AQI空气质量接口
 from akshare.weather.aqi_study import air_all_city, air_city_list, air_daily, air_hourly
 
 """
-申万行业一级-实时
+申万行业一级
 """
 from akshare.index.index_sw import (
     sw_index_spot,

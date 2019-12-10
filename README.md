@@ -4,10 +4,10 @@
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/) 
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/) 
-[![Downloads](https://pepy.tech/badge/akshare/month)](https://pepy.tech/project/akshare/month)
+[![Downloads](https://pepy.tech/badge/akshare)](https://pepy.tech/project/akshare)
 [![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/zh_CN/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Data: akshare](https://img.shields.io/badge/data-akshare-000345.svg)](https://github.com/jindaxiang/akshare)
+[![Data: akshare](https://img.shields.io/badge/data-akshare-000150.svg)](https://github.com/jindaxiang/akshare)
 
 # ![](https://github.com/jindaxiang/akshare/blob/master/example/images/akshare_home.png)
 
@@ -143,7 +143,7 @@ pip install akshare --upgrade
 1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据仅供参考, 不构成任何投资建议;
 2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
 3. [AkShare](https://github.com/jindaxiang/akshare) 坚持提供开源金融数据, 请放心使用;
-4. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议;
+4. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议.
 
 ## Show your style
 
@@ -156,13 +156,13 @@ Use the badge in your project's README.md:
 Using the badge in README.rst:
 
 ```
-.. image:: https://img.shields.io/badge/data-akshare-000345.svg
+.. image:: https://img.shields.io/badge/data-akshare-000150.svg
     :target: https://github.com/jindaxiang/akshare
 ```
 
 Looks like this:
 
-[![Data: akshare](https://img.shields.io/badge/data-akshare-000345.svg)](https://github.com/jindaxiang/akshare)
+[![Data: akshare](https://img.shields.io/badge/data-akshare-000150.svg)](https://github.com/jindaxiang/akshare)
 
 ## Citation
 
