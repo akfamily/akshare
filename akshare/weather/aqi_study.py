@@ -15,7 +15,6 @@ import json
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
-import matplotlib.pyplot as plt
 
 from akshare.weather.aqi_utils import *
 
@@ -23,13 +22,15 @@ from akshare.weather.aqi_utils import *
 def air_hourly(city="上海", date="2019-12-05"):
     start_time = "%s 00:00:00" % date
     end_time = "%s 23:59:59" % date
-    return get_server_data(city, "HOUR", start_time, end_time)
+    temp_df = get_server_data(city, "HOUR", start_time, end_time)
+    return temp_df.transform(pd.to_numeric)
 
 
 def air_daily(city="上海", start_date="2019-11-01", end_date="2019-12-01"):
     start_time = "%s 00:00:00" % start_date
     end_time = "%s 23:59:59" % end_date
-    return get_server_data(city, "DAY", start_time, end_time)
+    temp_df = get_server_data(city, "DAY", start_time, end_time)
+    return temp_df.transform(pd.to_numeric)
 
 
 def get_server_data(city, period_type, start_time, end_time):
@@ -122,6 +123,7 @@ def air_all_city(period_type="HOUR", time_point="2019-12-01 20:00:00"):
     result_df = pd.DataFrame(result_rows)
     if len(result_df) > 0:
         result_df.set_index("time", inplace=True)
+    result_df = result_df.transform(pd.to_numeric, errors="ignore")
     return result_df
 
 
@@ -143,18 +145,18 @@ def air_city_list():
 
 
 if __name__ == '__main__':
-    city = air_city_list()
-    print(city)
+    city_list = air_city_list()
+    print(city_list)
 
-    df = air_hourly('成都', '2019-12-07')
-    print(df)
+    df_hourly = air_hourly('成都', '2019-12-10')
+    print(df_hourly)
 
-    df = air_daily('成都', '2019-01-01', '2019-12-07')
-    print(df)
+    df_daily = air_daily('成都', '2019-01-01', '2019-12-10')
+    print(df_daily)
 
-    df = air_all_city("HOUR", "2019-07-22 08:00:00")
-    print(df.columns)
+    df_all_city = air_all_city("HOUR", "2019-12-10 08:00:00")
+    print(df_all_city)
 
-    df = air_all_city("DAY", "2019-12-02")
-    print(df)
+    df_city = air_all_city("DAY", "2019-12-09")
+    print(df_city)
 

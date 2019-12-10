@@ -5,7 +5,7 @@
 ## 安装 [AkShare](https://github.com/jindaxiang/akshare)
 
 ```
-pip install akshare
+pip install akshare  --upgrade
 ```
 
 ## 安装 [Node.js](https://nodejs.org/dist/)
