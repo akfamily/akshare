@@ -41,10 +41,15 @@ pip install wheel
 
 - 在[这里下载](http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml3)与您的 Python 版本对应的 **.whl** 文件, **注意别改文件名!**
 
-- 进入 **.whl** 所在的文件夹, 执行命令即可完成安装
+以下提供 64 位电脑的版本, 所以下载对应的 64 位就可以, 点击如下链接也可以下载:
+
+1. [lxml‑4.4.2‑cp36‑cp36m‑win_amd64.whl](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/software/lxml/lxml-4.4.2-cp36-cp36m-win_amd64.whl)
+2. [lxml‑4.4.2‑cp37‑cp37m‑win_amd64.whl](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/software/lxml/lxml-4.4.2-cp37-cp37m-win_amd64.whl)
+
+- 进入 **.whl** 所在的文件夹, 执行命令即可完成安装, 如下
 
 ```
-pip install 带后缀的完整文件名
+pip install 带后缀的完整路径和文件名
 ```
 
 ### 2. 提示其他错误的
