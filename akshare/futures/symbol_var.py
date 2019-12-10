@@ -17,7 +17,7 @@ def symbol_varieties(contract_code: str):
     :param contract_code: ru1801
     :return: RU
     """
-    symbol_detail = ''.join(re.findall(r"\D", contract_code)).upper().strip()
+    symbol_detail = "".join(re.findall(r"\D", contract_code)).upper().strip()
     if symbol_detail == "PTA":
         symbol_detail = "TA"
     return symbol_detail
@@ -43,7 +43,7 @@ def find_chinese(chinese_string: str):
     """
     p = re.compile(r"[\u4e00-\u9fa5]")
     res = re.findall(p, chinese_string)
-    return ''.join(res)
+    return "".join(res)
 
 
 def chinese_to_english(chinese_var: str):
@@ -137,7 +137,11 @@ def chinese_to_english(chinese_var: str):
         "20号胶",
         "苯乙烯",
         "不锈钢",
-        "粳米"
+        "粳米",
+        "20号胶20",
+        "红枣",
+        "不锈钢仓库",
+        "纯碱",
     ]
     english_list = [
         "RU",
@@ -224,7 +228,12 @@ def chinese_to_english(chinese_var: str):
         "NR",
         "EB",
         "SS",
-        "RR"]
+        "RR",
+        "NR",
+        "CJ",
+        "SS",
+        "SA",
+    ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]
 

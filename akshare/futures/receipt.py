@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 从大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日仓单数据, 建议下午 16:30 以后采集当天数据,
+desc: 从大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日注册仓单数据, 建议下午 16:30 以后采集当天数据,
 避免交易所数据更新不稳定导致的程序出错
 """
 import re
@@ -294,7 +294,7 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
     if int(date) <= 20171227:
         data = data[1:]
     for data_cut in data:
-        if len(data_cut.columns) > 3:
+        if len(data_cut.columns) > 3 and len(data_cut.index) > 7:
             last_indexes = [x for x in data_cut.index if '注：' in str(data_cut[0].tolist()[x])]
             if len(last_indexes) > 0:
                 last_index = last_indexes[0] - 1
@@ -304,6 +304,7 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
             else:
                 strings = data_cut[0].tolist()[0]
                 string = strings.split(' ')[0][3:]
+                print(string)
                 var = chinese_to_english(re.sub('[A-Z]+', '', string))
             data_cut.columns = data_cut.loc[1, :]
             data_cut = data_cut.fillna(method='pad')
@@ -382,5 +383,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    d = get_receipt('20090301', '20090310')
+    d = get_receipt('20191111', '20191210')
     print(d)
