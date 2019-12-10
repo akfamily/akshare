@@ -31,7 +31,7 @@ pip install akshare --upgrade
 
 ## 安装报错解决方案
 
-### 1. 提示安装 lxml 库失败的错误
+### 1. 安装 lxml 库失败的错误
 
 - 安装 wheel, 在 CMD 中运行如下命令:
 
@@ -52,7 +52,33 @@ pip install wheel
 pip install 带后缀的完整路径和文件名
 ```
 
-### 2. 提示其他的错误
+### 2. 安装超时的错误
+
+1.大致报错如下, 出现关键词 **amt**:
+
+```
+Traceback (most recent call last):
+File "/home/xiaoduc/.pyenv/versions/3.7.3/lib/python3.7/site-packages/pip/_vendor/requests/packages/urllib3/response.py", line 228, in _error_catcher
+yield
+File "/home/xiaoduc/.pyenv/versions/3.7.3/lib/python3.7/site-packages/pip/_vendor/requests/packages/urllib3/response.py", line 310, in read
+data = self._fp.read(amt)
+File "/home/xiaoduc/.pyenv/versions/3.7.3/lib/python3.7/site-packages/pip/_vendor/cachecontrol/filewrapper.py", line 49, in read
+data = self.__fp.read(amt)
+```
+
+2.解决方案如下:
+
+方法一
+
+```
+pip --default-timeout=100 install -U akshare
+```
+
+方法二
+
+使用全局代理解决
+
+### 3. 提示其他的错误
 
 - 方法一: 升级您的 Anaconda 或者 Python 到 **Python3.7.3** 及以上版本
 - 方法二: 使用 conda 的虚拟环境来安装, 详见 **AkShare 环境配置**板块的内容
