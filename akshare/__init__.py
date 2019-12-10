@@ -408,9 +408,11 @@ lxml 降级
 0.2.87
 lxml 降级
 更新安装时的错误处理
+0.2.88
+pypinyin 降级
 """
 
-__version__ = "0.2.87"
+__version__ = "0.2.88"
 __author__ = "Albert King"
 
 """

@@ -78,7 +78,28 @@ pip --default-timeout=100 install -U akshare
 
 使用全局代理解决
 
-### 3. 提示其他的错误
+### 3. 拒绝访问错误
+
+1.大致报错如下, 出现关键词 **拒绝访问**:
+
+```
+Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Users/mac/Anaconda/anaconda3/lib/python3.7/site-packages/cv2/__init__.py'
+Consider using the `--user` option or check the permissions.
+```
+
+2.解决方案如下:
+
+方法一
+
+```
+pip install akshare --user
+```
+
+方法二
+
+使用管理员权限打开 Anaconda Prompt 进行安装
+
+### 4. 提示其他的错误
 
 - 方法一: 升级您的 Anaconda 或者 Python 到 **Python3.7.3** 及以上版本
 - 方法二: 使用 conda 的虚拟环境来安装, 详见 **AkShare 环境配置**板块的内容
