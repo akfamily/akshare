@@ -481,7 +481,7 @@ time
 2019-07-21   3  14  1.1  199                O3  
 ```
 
-### [AkShare](https://github.com/jindaxiang/akshare) 财富排行榜
+### 财富排行榜
 
 接口: fortune_rank
 
