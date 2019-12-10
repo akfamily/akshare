@@ -31,7 +31,7 @@ pip install akshare --upgrade
 
 ## 安装报错解决方案
 
-### 1. 提示安装 lxml 库失败
+### 1. 提示安装 lxml 库失败的错误
 
 - 安装 wheel, 在 CMD 中运行如下命令:
 
@@ -52,6 +52,7 @@ pip install wheel
 pip install 带后缀的完整路径和文件名
 ```
 
-### 2. 提示其他错误的
+### 2. 提示其他的错误
 
-升级您的 Anaconda 或者 Python 到 **Python3.7.3** 及以上版本
+- 方法一: 升级您的 Anaconda 或者 Python 到 **Python3.7.3** 及以上版本
+- 方法二: 使用 conda 的虚拟环境来安装, 详见 **AkShare 环境配置**板块的内容
