@@ -9,7 +9,6 @@ http://www.fortunechina.com/fortune500/index.htm
 """
 import requests
 import pandas as pd
-from bs4 import BeautifulSoup
 
 from akshare.fortune.cons import (
     url_1996,
@@ -40,12 +39,80 @@ from akshare.fortune.cons import (
 
 
 def fortune_rank(year="2015"):
-    res = requests.get(eval("url_" + year))
-    res.encoding = "utf-8"
-    df = pd.read_html(res.text)[0]
-    return df
+    if int(year) in [item for item in range(2014, 2020)] + [item for item in range(1996, 2007)]:
+        if year in ["2006", "2007"]:
+            res = requests.get(eval("url_" + year))
+            res.encoding = "utf-8"
+            df = pd.read_html(res.text)[0].iloc[1:, 2:]
+            df.columns = pd.read_html(res.text)[0].iloc[0, 2:].tolist()
+            return df
+        elif year in ["1996", "1997", "1998", "1999", "2000", "2001", "2003", "2004", "2005"]:
+            res = requests.get(eval("url_" + year))
+            res.encoding = "utf-8"
+            df = pd.read_html(res.text)[0].iloc[1:-1, 1:]
+            df.columns = pd.read_html(res.text)[0].iloc[0, 1:].tolist()
+            return df
+        elif year in ["2002"]:
+            res = requests.get(eval("url_" + year))
+            res.encoding = "utf-8"
+            df = pd.read_html(res.text)[0].iloc[1:, 1:]
+            df.columns = pd.read_html(res.text)[0].iloc[0, 1:].tolist()
+            return df
+        else:
+            res = requests.get(eval("url_" + year))
+            res.encoding = "utf-8"
+            df = pd.read_html(res.text)[0].iloc[:, 2:]
+            return df
+    elif int(year) in [item for item in range(2010, 2014)]:
+        res = requests.get(eval(f"url_{year}"))
+        res.encoding = "utf-8"
+        df = pd.read_html(res.text)[0].iloc[:, 2:]
+        temp_df = df
+        for page in range(2, 6):
+            # page = 1
+            res = requests.get(eval(f"url_{year}").rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+            res.encoding = "utf-8"
+            df = pd.read_html(res.text)[0].iloc[:, 2:]
+            temp_df = temp_df.append(df, ignore_index=True)
+        df = temp_df
+        return df
+    elif int(year) in [item for item in range(2008, 2010)]:
+        res = requests.get(eval(f"url_{year}"))
+        res.encoding = "utf-8"
+        df = pd.read_html(res.text)[0].iloc[1:, 2:]
+        df.columns = pd.read_html(res.text)[0].iloc[0, 2:].tolist()
+        temp_df = df
+        for page in range(2, 11):
+            # page = 1
+            res = requests.get(eval(f"url_{year}").rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+            res.encoding = "utf-8"
+            text_df = pd.read_html(res.text)[0]
+            df = text_df.iloc[1:, 2:]
+            df.columns = text_df.iloc[0, 2:]
+            temp_df = temp_df.append(df, ignore_index=True)
+        df = temp_df
+        return df
+    elif int(year) == 2007:
+        res = requests.get(eval(f"url_{year}"))
+        res.encoding = "utf-8"
+        df = pd.read_html(res.text)[0].iloc[1:, 1:]
+        df.columns = pd.read_html(res.text)[0].iloc[0, 1:].tolist()
+        temp_df = df
+        for page in range(2, 11):
+            # page = 1
+            res = requests.get(eval(f"url_{year}").rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+            res.encoding = "utf-8"
+            text_df = pd.read_html(res.text)[0]
+            df = text_df.iloc[1:, 1:]
+            df.columns = text_df.iloc[0, 1:]
+            temp_df = temp_df.append(df, ignore_index=True)
+        df = temp_df
+        return df
 
 
 if __name__ == '__main__':
-    df = fortune_rank(year="2015")
-    print(df)
+    for i in range(1996, 2020):
+        print(i)
+        df = fortune_rank(year=str(i))  # 2010 不一样
+        print(df)
+        print("--------------------------------------------------")

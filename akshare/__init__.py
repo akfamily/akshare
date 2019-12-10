@@ -414,10 +414,18 @@ pypinyin 降级
 全国空气质量数据数据格式规范为数值型
 0.2.90
 更新注册仓单的产品参数和异常错误
+0.2.91
+世界五百强公司排名接口
 """
 
-__version__ = "0.2.90"
+__version__ = "0.2.91"
 __author__ = "Albert King"
+
+"""
+世界五百强公司排名接口
+"""
+from akshare.fortune.fortune_500 import fortune_rank
+
 
 """
 AQI空气质量接口

@@ -124,6 +124,8 @@
     6.37 增加[申万指数](http://www.swsindex.com/IdxMain.aspx)提供申万指数数据;
     
     6.38 增加[AQI空气质量数据](https://www.aqistudy.cn/)提供申万指数数据;
+    
+    6.39 增加[财富网站](http://www.fortunechina.com/)提供财富企业500强数据;
 
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
