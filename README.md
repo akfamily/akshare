@@ -163,3 +163,18 @@ Using the badge in README.rst:
 Looks like this:
 
 [![Data: akshare](https://img.shields.io/badge/data-akshare-000345.svg)](https://github.com/jindaxiang/akshare)
+
+## Citation
+
+Please use this **bibtex** if you want to cite this repository in your publications:
+
+```
+@misc{akshare,
+    author = {Albert King},
+    title = {AkShare},
+    year = {2019},
+    publisher = {GitHub},
+    journal = {GitHub repository},
+    howpublished = {\url{https://github.com/jindaxiang/akshare}},
+}
+```
