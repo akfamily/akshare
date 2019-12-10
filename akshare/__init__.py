@@ -405,9 +405,12 @@ websockets-8.1
 临时修复 baidu_index 接口
 0.2.86
 lxml 降级
+0.2.87
+lxml 降级
+更新安装时的错误处理
 """
 
-__version__ = "0.2.86"
+__version__ = "0.2.87"
 __author__ = "Albert King"
 
 """
