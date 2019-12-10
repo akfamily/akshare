@@ -28,3 +28,25 @@ sudo apt-get install nodejs
 ```
 pip install akshare --upgrade
 ```
+
+## 安装报错解决方案
+
+### 1. 提示安装 lxml 库失败
+
+- 安装 wheel, 在 CMD 中运行如下命令:
+
+```
+pip install wheel
+```
+
+- 在[这里下载](http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml3)与您的 Python 版本对应的 **.whl** 文件, **注意别改文件名!**
+
+- 进入 **.whl** 所在的文件夹, 执行命令即可完成安装
+
+```
+pip install 带后缀的完整文件名
+```
+
+### 2. 提示其他错误的
+
+升级您的 Anaconda 或者 Python 到 **Python3.7.3** 及以上版本

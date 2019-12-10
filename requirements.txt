@@ -1,5 +1,5 @@
 bs4>=0.0.1
-lxml>=4.4.1
+lxml>=4.2.1
 matplotlib>=2.2.4
 numpy>=1.17.2
 pandas>=0.25.1
