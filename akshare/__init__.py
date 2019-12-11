@@ -416,9 +416,11 @@ pypinyin 降级
 更新注册仓单的产品参数和异常错误
 0.2.91
 世界五百强公司排名接口
+0.2.92
+更新中国债券市场行情数据接口
 """
 
-__version__ = "0.2.91"
+__version__ = "0.2.92"
 __author__ = "Albert King"
 
 """
@@ -695,7 +697,7 @@ from akshare.fx.fx_quote import get_fx_pair_quote, get_fx_spot_quote, get_fx_swa
 """
 债券行情
 """
-from akshare.bond.china_bond import get_bond_market_quote, get_bond_market_trade
+from akshare.bond.china_bond import bond_spot_quote, bond_spot_deal
 
 """
 商品期权
