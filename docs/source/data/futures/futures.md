@@ -177,6 +177,7 @@ print(data)
 ```
 
 数据示例
+
 ```
 {
 '中国金融期货交易所': {'TF': '五债', 'T': '十债', 'IC': '中证500', 'IF': '沪深300', 'IH': '上证50', 'TS': '二债'}, 
@@ -197,8 +198,6 @@ print(data)
 | code_2 | str | Y    |   code_2="05"; 品种二的具体合约, e.g., 01, 02 *** 12|
 | plot | Bool  | Y    |   plot=True|
 
-, , , , 
-
 输出参数(get_futures_csa_history)
 
 | 名称          | 类型 | 默认显示 | 描述           |
@@ -206,8 +205,8 @@ print(data)
 | date | datetime  | Y    |-|
 | value | float  | Y    |-|
 
-
 接口示例
+
 ```python
 import akshare as ak
 data = ak.get_futures_csa_history()
@@ -215,6 +214,7 @@ print(data)
 ```
 
 数据示例
+
 ```
 2013-01-04   -121
 2013-01-07   -124
@@ -239,8 +239,6 @@ print(data)
 | code_2 | str | Y    |   code_2="05"; 品种二的具体合约, e.g., 01, 02 *** 12|
 | plot | Bool  | Y    |   plot=True|
 
-, , , , 
-
 输出参数(get_futures_csa_seasonally)
 
 | 名称          | 类型 | 默认显示 | 描述           |
@@ -251,8 +249,8 @@ print(data)
 | ... | ...  | ...    |...
 | year2013 | float  | Y    |-|
 
-
 接口示例
+
 ```python
 import akshare as ak
 data = ak.get_futures_csa_seasonally()
@@ -384,7 +382,6 @@ print(data)
 54  上期所     铜                                               永久有效
 ```
 
-
 #### 库存数据
 
 库存数据是从[99期货网站](http://www.99qh.com/d/store.aspx)获取的日频率数据, 
@@ -406,7 +403,6 @@ print(data)
 | symbol | int  | Y    |  默认参数 symbol=6, 对应上海期货交易所-铜, 请用 **help(get_inventory_data)** 查看参数|
 | plot | Bool  | Y    |  默认参数 plot=True, 是否输出历史数据图片|
 
-
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
@@ -415,12 +411,11 @@ print(data)
 | 库存          | str   | Y        | 库存数据(对应图片左边的Y轴)     |
 | 增减          | str   | Y        | 相对前一个交易日的增减     |
 
-
-
 接口示例
 
 p.s. 由于[99期货网站](http://www.99qh.com/d/store.aspx)服务器不稳定, 请加
 try ... except 语句, 如下格式; 另外请关注图片下载的路径, 会自动 **print** 出来
+
 ```python
 import akshare as ak
 for i in range(10):
@@ -433,6 +428,7 @@ for i in range(10):
 ```
 
 数据示例
+
 ```
    0           1           2           3           4           5           6   \
 0  日期  2019-10-11  2019-09-30  2019-09-27  2019-09-20  2019-09-12  2019-09-06   
@@ -447,10 +443,11 @@ for i in range(10):
 图片示例
 
 p.s.**库存(左轴)-绿色**, **增减(右轴)-蓝色**
+
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/inventory/shfe_cu.jpg)
 
-
 #### 展期收益率
+
 展期收益率是由不同交割月的价差除以相隔月份数计算得来, 它反映了市场对该品种在近期交割和远期交割的价差预期. 
 
 在 [AkShare](https://github.com/jindaxiang/akshare) 中可以通过 **get_roll_yield_bar** 接口下载展期收益率数据.
@@ -464,16 +461,19 @@ p.s.**库存(左轴)-绿色**, **增减(右轴)-蓝色**
 来获取.
 
 其中 "date" 类型, 调用方法例子为:
+
 ```
 ak.get_roll_yield_bar(type_method="date", var="RB", date="20191008", plot=True)
 ```
 
 其中 "symbol" 类型, 调用方法例子为: 
+
 ```
 ak.get_roll_yield_bar(type_method="symbol", var="RB", date="20191008", plot=True)
 ```
 
 其中 "var" 类型, 调用方法例子为: 
+
 ```
 ak.get_roll_yield_bar(type_method="var", date="20191008", plot=True)
 ```
@@ -484,13 +484,13 @@ ak.get_roll_yield_bar(type_method="var", date="20191008", plot=True)
 ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811"), 如下图所示: 
 ```
 
-注意: 
-    
-    1. 主力合约和次主力合约的定义, 是由该日的各交割月合约持仓量由大到小排序得到.
+注意: 1. 主力合约和次主力合约的定义, 是由该日的各交割月合约持仓量由大到小排序得到.
 
 
 #### 注册仓单
+
 注册仓单是由各交易所的公布的日级数据, 在一定程度上可以反映市场的库存变化. 调用例子如下: 
+
 ```python
 import akshare as ak
 ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
@@ -506,39 +506,39 @@ ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
 
 
 #### 现货价格和基差
+
 基差是商品期货非常重要的基本面因素. 这里提供两种获取基差的方法: 
+
 获取当天的基差数据
+
 ```python
 import akshare as ak
 ak.get_spot_price("20180712")
 ```
+
 返回值分别为品种、现货价格、最近交割合约、最近交割合约价格、主力合约、主力合约价格、最近合约基差值、主力合约基差值、最近合约基差率、主力合约基差率. 
 
-
-
-
 获取历史某段时间的基差值
+
 ```python
 import akshare as ak
 ak.get_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=["CU", "RB"])
 ```
 
-
-注意: 
-
-    1. 现货价格是从生意社网站爬取获得, 仅支持从 2011 年至今每个交易日数据. 
-
+注意: 1. 现货价格是从生意社网站爬取获得, 仅支持从 2011 年至今每个交易日数据. 
 
 #### 会员持仓排名
+
 自从**蜘蛛网策略**问世以来, 会员持仓数据日益受到关注. 数据的获取方式如下所示: 
 获取某段时间的会员持仓排名前 5、前 10、前 15、前 20 等总和.
+
 ```python
 import akshare as ak
 ak.get_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
 ```
 
-
 获取某交易日某品种的持仓排名榜
+
 ```
 ak.get_dce_rank_table()
 ak.get_cffex_rank_table()
@@ -604,9 +604,10 @@ print(df)
 2012-01-06  33.13   0.00    0.00%
 ```
 
-
 #### 日线行情K线
+
 通过采集交易所官网信息, 可以获得各合约日线行情, 以及根据持仓量加权的指数行情, 用法如下: 
+
 ```python
 import akshare as ak
 ak.get_futures_daily(start_day="20190107", end_day="20190108", market="SHFE", index_bar=True)
@@ -618,6 +619,7 @@ index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成
 ### 期货行情数据
 
 #### 内盘-实时行情数据
+
 接口: futures_zh_spot
 
 目标地址: https://finance.sina.com.cn/futuremarket/
@@ -655,6 +657,7 @@ index_bar 为 True 时, 在生成的 pd.DataFrame 中通过持仓量加权合成
 | last_settle_price      | str | Y        | 上一个交易日的结算价      |
 
 接口示例-订阅所有商品期货(大商所, 上期所, 郑商所主力合约)
+
 ```python
 import time
 import akshare as ak
@@ -668,7 +671,9 @@ while True:
         market="CF")
     print(data)
 ```
+
 数据示例-商品期货
+
 ```
       symbol    time        open        high         low current_price  \
 0    PVC2001  225958    6615.000    6620.000    6580.000      6585.000   
@@ -832,6 +837,7 @@ while True:
 ```
 
 接口示例-订阅所有金融期货(中金所主力合约)
+
 ```python
 import time
 import akshare as ak
@@ -841,7 +847,9 @@ while True:
     data = ak.futures_zh_spot(subscribe_list=cffex_text, market="FF")
     print(data)
 ```
+
 数据示例-金融期货
+
 ```
         symbol      time      open      high       low current_price  \
 0  沪深300指数1912  15:00:00  3902.800  3915.000  3871.200      3879.000   
@@ -890,6 +898,7 @@ while True:
 
 
 接口示例
+
 ```python
 import time
 import akshare as ak
@@ -900,7 +909,9 @@ while True:
     data = ak.futures_hf_spot(subscribe_list=subscribe_list)
     print(data)
 ```
+
 数据示例
+
 ```
    current_price        bid        ask       high        low      time  \
 0         66.731     66.720     66.740     66.740     66.000  00:08:04   
@@ -973,7 +984,6 @@ while True:
 | start_date | str  | Y    |  需要获取数据的开始时间, e.g., start_date='2005/01/01'|
 | end_date | str  | Y    |  需要获取数据的开始时间, e.g., end_date='2015/01/01' |
 
-
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
@@ -985,14 +995,15 @@ while True:
 | 低         | float | Y        | 低         |
 | 涨跌幅      | str | Y        | 涨跌幅      |
 
-
 接口示例
+
 ```python
 import akshare as ak
 ak.get_sector_futures(sector="能源", symbol="伦敦布伦特原油", start_date='2005/01/01', end_date='2019/10/17')
 ```
 
 数据示例
+
 ```
 0              收盘     开盘      高      低      涨跌幅
 日期                                             
