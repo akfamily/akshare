@@ -280,9 +280,15 @@ date
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | word | str  | Y    |   word="python"|
-| start_date | datetime.datetime  | Y    | start_date="2004-01-01" |
-| end_date | datetime.datetime  | Y    |  end_date="2019-12-01" |
+| start_date | datetime.datetime  | Y    | start_date="2004-01-01", 如果要获取具体的实时分钟或小时数据, 请输入如 start_date="2019-12-10T10" , end_date="2019-12-10T23"|
+| end_date | datetime.datetime  | Y    |  end_date="2019-12-01", 如果要获取具体的实时分钟或小时数据, 请输入如 start_date="2019-12-10T10" , end_date="2019-12-10T23"|
 | plot | Bool  | Y    |  plot=True, 则画图 |
+
+**start_date="2019-12-10T10"** 中的 **T10** 表示 10 点, 以 24 小时制计算, 2019年12月10日上午 **10** 点
+
+**end_date="2019-12-10T23"** 中的 **T10** 表示 23 点, 以 24 小时制计算, 2019年12月10日晚上 **23** 点
+
+**中美时间会有一天左右时差**
 
 输出参数
 
@@ -291,7 +297,7 @@ date
 | date      | datetime   | Y        | 日期-索引  |
 | index      | float   | Y        | 指数   |
 
-接口示例
+接口示例-长时间
 
 ```python
 import akshare as ak
@@ -299,7 +305,7 @@ index_df = ak.google_index(word="python", start_date='2004-01-01', end_date='201
 print(index_df)
 ```
 
-数据示例
+数据示例-长时间
 
 ```
 date
@@ -317,9 +323,40 @@ date
 Name: python, Length: 192, dtype: int32
 ```
 
-图片示例
+图片示例-长时间
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/clipboard_20191204050206.png)
+
+接口示例-短时间
+
+```python
+import akshare as ak
+index_df = df = ak.google_index(word="AI", start_date="2019-12-10T10", end_date="2019-12-10T23", plot=True)
+print(index_df)
+```
+
+数据示例-短时间
+
+```
+date
+date
+2019-12-10 10:00:00    31
+2019-12-10 10:08:00    42
+2019-12-10 10:16:00    42
+2019-12-10 10:24:00    73
+2019-12-10 10:32:00    83
+                       ..
+2019-12-10 22:24:00    12
+2019-12-10 22:32:00     0
+2019-12-10 22:40:00    12
+2019-12-10 22:48:00    12
+2019-12-10 22:56:00    62
+Name: 人工智能, Length: 98, dtype: int32
+```
+
+图片示例-短时间
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/clipboard_20191211034449.png)
 
 ### 申万一级行业实时行情
 
