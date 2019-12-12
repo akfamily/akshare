@@ -129,7 +129,6 @@ def bank_fjcf(page=3):
         "行政处罚决定书文号",
         "姓名",
         "单位",
-        "名称",
         "主要负责人姓名",
         "主要违法违规事实（案由）",
         "行政处罚依据",
@@ -141,5 +140,5 @@ def bank_fjcf(page=3):
 
 
 if __name__ == "__main__":
-    df = bank_fjcf(page=5)
+    df = bank_fjcf(page=3)
     print(df)

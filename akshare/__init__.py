@@ -541,9 +541,9 @@ from akshare.article.risk_rv import (
 银保监分局本级行政处罚数据
 """
 if datetime.datetime.now().weekday() in [0, 1, 2, 3, 4]:
-    from akshare.bank.bank_cbirc_20191114 import bank_fjcf
-else:
     from akshare.bank.bank_cbirc_20191115 import bank_fjcf
+else:
+    from akshare.bank.bank_cbirc_20191114 import bank_fjcf
 
 """
 科创板股票

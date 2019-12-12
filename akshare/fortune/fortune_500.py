@@ -6,6 +6,8 @@ date: 2019/12/10 21:55
 contact: jindaxiang@163.com
 desc: 历年世界500强榜单数据
 http://www.fortunechina.com/fortune500/index.htm
+特殊情况
+2010 由于网页端没有公布公司所属的国家, 故2010年数据没用国家这一栏
 """
 import requests
 import pandas as pd
@@ -64,6 +66,19 @@ def fortune_rank(year="2015"):
             df = pd.read_html(res.text)[0].iloc[:, 2:]
             return df
     elif int(year) in [item for item in range(2010, 2014)]:
+        if int(year) == 2011:
+            res = requests.get(eval(f"url_{2011}"))
+            res.encoding = "utf-8"
+            df = pd.read_html(res.text)[0].iloc[:, 2:]
+            temp_df = df
+            for page in range(2, 6):
+                # page = 1
+                res = requests.get(eval(f"url_{2011}").rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+                res.encoding = "utf-8"
+                df = pd.read_html(res.text)[0].iloc[:, 2:]
+                temp_df = temp_df.append(df, ignore_index=True)
+            temp_df.columns = ["公司名称", "营业收入百万美元", "利润百万美元", "国家地区"]
+            return temp_df
         res = requests.get(eval(f"url_{year}"))
         res.encoding = "utf-8"
         df = pd.read_html(res.text)[0].iloc[:, 2:]
@@ -111,8 +126,5 @@ def fortune_rank(year="2015"):
 
 
 if __name__ == '__main__':
-    for i in range(1996, 2020):
-        print(i)
-        df = fortune_rank(year=str(i))  # 2010 不一样
-        print(df)
-        print("--------------------------------------------------")
+    df = fortune_rank(year=2011)  # 2010 不一样
+    print(df)
