@@ -9,6 +9,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Data: akshare](https://img.shields.io/badge/data-akshare-000150.svg)](https://github.com/jindaxiang/akshare)
 [![codecov](https://codecov.io/gh/jindaxiang/akshare/branch/master/graph/badge.svg)](https://codecov.io/gh/jindaxiang/akshare)
+[![Build Status](https://travis-ci.com/jindaxiang/akshare.svg?branch=master)](https://travis-ci.com/jindaxiang/akshare)
 
 # ![](https://github.com/jindaxiang/akshare/blob/master/example/images/akshare_home.png)
 
