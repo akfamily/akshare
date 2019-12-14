@@ -1,4 +1,6 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 私募指数数据
+## 私募数据
+
+### [AkShare](https://github.com/jindaxiang/akshare) 私募指数数据
 
 接口: zdzk_fund_index
 
@@ -76,9 +78,9 @@ zdzk_se:
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/zdzd_index.png)
 
-## [AkShare](https://github.com/jindaxiang/akshare) 中国基金业协会数据
+### [AkShare](https://github.com/jindaxiang/akshare) 中国基金业协会数据
 
-### 私募基金管理人公示
+#### 私募基金管理人公示
 
 接口: amac_manager_info
 
