@@ -420,10 +420,17 @@ pypinyin 降级
 更新中国债券市场行情数据接口
 0.2.93
 增加自动测试模型
+0.2.94
+增加私募基金管理人信息公示接口
 """
 
-__version__ = "0.2.93"
+__version__ = "0.2.94"
 __author__ = "Albert King"
+
+"""
+中国证券投资基金业协会-信息公示-私募基金管理人公示
+"""
+from akshare.fund.manager_amac import amac_manager_info
 
 """
 世界五百强公司排名接口
