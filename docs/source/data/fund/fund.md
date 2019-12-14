@@ -8,7 +8,7 @@
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-会员信息公示-会员机构综合查询
+描述: 获取中国证券投资基金业协会-信息公示-会员信息公示-会员机构综合查询
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -61,7 +61,7 @@ print(amac_member_info_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示
+描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -166,7 +166,7 @@ print(member_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-基金产品公示-私募基金管理人基金产品
+描述: 获取中国证券投资基金业协会-信息公示-基金产品公示-私募基金管理人基金产品
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -231,7 +231,7 @@ print(member_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-基金产品公示-证券公司集合资管产品公示
+描述: 获取中国证券投资基金业协会-信息公示-基金产品公示-证券公司集合资管产品公示
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -299,7 +299,7 @@ print(member_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-基金产品公示-证券公司直投基金
+描述: 获取中国证券投资基金业协会-信息公示-基金产品公示-证券公司直投基金
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -362,7 +362,7 @@ print(member_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-基金产品公示-证券公司私募投资基金
+描述: 获取中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -426,7 +426,7 @@ print(member_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-基金产品公示-基金公司及子公司集合资管产品公示
+描述: 获取中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -476,7 +476,7 @@ print(member_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-基金产品公示-期货公司集合资管产品公示
+描述: 获取中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -544,7 +544,7 @@ print(member_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-诚信信心公式-已注销私募基金管理人名单
+描述: 获取中国证券投资基金业协会-信息公示--诚信信息公示-已注销私募基金管理人名单
 
 限量: 单次返回当前时刻所有历史数据
 
