@@ -180,7 +180,18 @@
  "air_daily"  # 获取每日天气
  "air_hourly"  # 获取每小时天气
  # 财富世界五百强公司
- "fortune_rank"  # 获取财富世界500强公司排名
+ "fortune_rank"  # 获取财富世界500强公司历年排名
+ # 中国证券投资基金业协会-信息公示
+ "amac_manager_info"  # 会员信息公示-会员机构综合查询
+ "amac_member_info"  # 私募基金管理人公示-私募基金管理人综合查询
+ "amac_member_sub_info"  # 私募基金管理人公示-证券公司私募基金子公司管理人信息公示
+ "amac_aoin_info"  # 基金产品公示-证券公司直投基金
+ "amac_fund_account_info"  # 基金产品公示-基金公司及子公司集合资管产品公示
+ "amac_fund_info"  # 基金产品公示-私募基金管理人基金产品
+ "amac_fund_sub_info"  # 基金产品公示-证券公司私募投资基金
+ "amac_futures_info"  # 基金产品公示-期货公司集合资管产品公示
+ "amac_manager_cancelled_info"  # 诚信信息公示-已注销私募基金管理人名单
+ "amac_securities_info"  # 基金产品公示-证券公司集合资管产品公示
 ```
 
 ## 3. 案例演示

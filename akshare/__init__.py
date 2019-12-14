@@ -422,15 +422,28 @@ pypinyin 降级
 增加自动测试模型
 0.2.94
 增加私募基金管理人信息公示接口
+0.2.95
+增加中国证券投资基金业协会-信息公示
 """
 
-__version__ = "0.2.94"
+__version__ = "0.2.95"
 __author__ = "Albert King"
 
 """
-中国证券投资基金业协会-信息公示-私募基金管理人公示
+中国证券投资基金业协会-信息公示
 """
-from akshare.fund.manager_amac import amac_manager_info
+from akshare.fund.manager_amac import (
+    amac_manager_info,
+    amac_member_info,
+    amac_member_sub_info,
+    amac_aoin_info,
+    amac_fund_account_info,
+    amac_fund_info,
+    amac_fund_sub_info,
+    amac_futures_info,
+    amac_manager_cancelled_info,
+    amac_securities_info,
+)
 
 """
 世界五百强公司排名接口
