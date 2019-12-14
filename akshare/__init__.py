@@ -424,9 +424,12 @@ pypinyin 降级
 增加私募基金管理人信息公示接口
 0.2.95
 增加中国证券投资基金业协会-信息公示
+0.2.96
+修复交易法门登录验证码
+由于交易法门-数据部分权限缘故, 需要注册后方可使用
 """
 
-__version__ = "0.2.95"
+__version__ = "0.2.96"
 __author__ = "Albert King"
 
 """
@@ -467,13 +470,23 @@ from akshare.index.index_sw import (
 )
 
 """
-交易法门-数据-农产品
+交易法门-数据
 """
 from akshare.futures_derivative.jyfm_data_func import (
     jyfm_data_palm,  # 棕榈
     jyfm_data_soybean_meal,  # 豆粕
     jyfm_data_sugar,  # 白糖
     jyfm_data_usa_bean,  # 美豆
+)
+
+"""
+交易法门-工具
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_futures_customize,  # 棕榈
+    jyfm_tools_futures_ratio,  # 豆粕
+    jyfm_tools_futures_spread,  # 白糖
+    jyfm_tools_receipt_expire_info,  # 美豆
 )
 
 """

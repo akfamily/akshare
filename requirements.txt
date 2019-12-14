@@ -15,5 +15,5 @@ pytrends>=4.7.2
 pycryptodomex>=3.9.4
 html5lib>=1.0.1
 websockets>=8.1
-newspaper3k>=0.2.8
+# newspaper3k>=0.2.8
 requests-html>=0.10.0

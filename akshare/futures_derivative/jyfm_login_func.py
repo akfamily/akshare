@@ -23,7 +23,7 @@ from akshare.futures_derivative.cons import (
 
 def jyfm_login(account="", password=""):
     try:
-        pic_url = f"https://www.jiaoyifamen.com/captcha/login?needCaptcha={round(time.time() * 1000)}&t={execjs.eval('Math.random()')}"
+        pic_url = f"https://www.jiaoyifamen.com/captcha"
         res = requests.get(pic_url)
         f = Image.open(BytesIO(res.content))
         f.show()
