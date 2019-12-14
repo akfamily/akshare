@@ -228,7 +228,7 @@ def get_futures_csa_seasonally(type_1="RB", type_2="RB", code_1="01", code_2="05
 
 
 if __name__ == "__main__":
-    headers = jyfm_login(account="jindaxiang@163.com", password="king0575")
+    headers = jyfm_login(account="", password="")
     df = jyfm_tools_futures_customize(formula="RB01-1.6*I01-0.5*J01-1200",  headers=headers, plot=True)
     temp_df = pd.DataFrame(df)
     print(temp_df)
