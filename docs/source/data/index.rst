@@ -4,7 +4,7 @@ AkShare 数据字典
 数据字典主要介绍 AkShare 的提供的数据接口;
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 4
 
     stock/stock
     futures/futures
