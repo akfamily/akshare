@@ -2,7 +2,7 @@
 
 ### 人民币外汇即期报价
 
-接口: get_fx_spot_quote
+接口: fx_spot_quote
 
 目标地址: http://www.chinamoney.com.cn/chinese/mkdatapfx/
 
@@ -34,7 +34,7 @@
 接口示例
 ```python
 import akshare as ak
-fx_df = ak.get_fx_spot_quote()
+fx_df = ak.fx_spot_quote()
 print(fx_df)
 ```
 
@@ -69,7 +69,7 @@ print(fx_df)
 
 ### 人民币外汇远掉报价
 
-接口: get_fx_swap_quote
+接口: fx_swap_quote
 
 目标地址: http://www.chinamoney.com.cn/chinese/mkdatapfx/
 
@@ -104,7 +104,7 @@ print(fx_df)
 接口示例
 ```python
 import akshare as ak
-fx_df = ak.get_fx_swap_quote()
+fx_df = ak.fx_swap_quote()
 print(fx_df)
 ```
 
@@ -167,7 +167,7 @@ print(fx_df)
 
 ### 外币对即期报价
 
-接口: get_fx_pair_quote
+接口: fx_pair_quote
 
 目标地址: http://www.chinamoney.com.cn/chinese/mkdatapfx/
 
@@ -199,7 +199,7 @@ print(fx_df)
 接口示例
 ```python
 import akshare as ak
-fx_df = ak.get_fx_pair_quote()
+fx_df = ak.fx_pair_quote()
 print(fx_df)
 ```
 

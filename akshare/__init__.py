@@ -431,9 +431,11 @@ pypinyin 降级
 更新说明文档
 0.2.98
 增加甲醇期权和PTA期权
+0.2.99
+更新外汇数据接口, 规范格式
 """
 
-__version__ = "0.2.98"
+__version__ = "0.2.99"
 __author__ = "Albert King"
 
 """
@@ -731,7 +733,7 @@ from akshare.futures.international_futures import get_sector_futures
 """
 外汇
 """
-from akshare.fx.fx_quote import get_fx_pair_quote, get_fx_spot_quote, get_fx_swap_quote
+from akshare.fx.fx_quote import fx_pair_quote, fx_spot_quote, fx_swap_quote
 
 """
 债券行情

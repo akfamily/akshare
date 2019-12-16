@@ -14,13 +14,10 @@ import time
 import requests
 import pandas as pd
 
-from akshare.fx.cons import (SHORT_HEADERS,
-                             FX_SPOT_URL,
-                             FX_SWAP_URL,
-                             FX_PAIR_URL)
+from akshare.fx.cons import SHORT_HEADERS, FX_SPOT_URL, FX_SWAP_URL, FX_PAIR_URL
 
 
-def get_fx_spot_quote():
+def fx_spot_quote():
     """
     中国外汇交易中心暨全国银行间同业拆借中心-市场数据-市场行情-外汇市场行情-人民币外汇即期报价
     :return: pandas.DataFrame
@@ -50,15 +47,12 @@ def get_fx_spot_quote():
     22     CNY/MXN   2.7016   2.7041      ---
     23     CNY/THB   4.2753   4.2791      ---
     """
-    t = time.time()
-    spot_payload = {
-        "t": str(int(round(t * 1000)))
-    }
-    res = requests.post(FX_SPOT_URL, data=spot_payload, headers=SHORT_HEADERS)
+    payload = {"t": str(int(round(time.time() * 1000)))}
+    res = requests.post(FX_SPOT_URL, data=payload, headers=SHORT_HEADERS)
     return pd.DataFrame(res.json()["records"])
 
 
-def get_fx_swap_quote():
+def fx_swap_quote():
     """
     中国外汇交易中心暨全国银行间同业拆借中心-市场数据-市场行情-债券市场行情-人民币外汇远掉报价
     :return: pandas.DataFrame
@@ -113,15 +107,12 @@ def get_fx_swap_quote():
     22      -79.94/-78.15    -105.72/-104.72    -131.06/-130.29
     23    -126.90/-123.92    -168.07/-166.21    -208.66/-207.02
     """
-    t = time.time()
-    spot_payload = {
-        "t": str(int(round(t * 1000)))
-    }
-    res = requests.post(FX_SWAP_URL, data=spot_payload, headers=SHORT_HEADERS)
+    payload = {"t": str(int(round(time.time() * 1000)))}
+    res = requests.post(FX_SWAP_URL, data=payload, headers=SHORT_HEADERS)
     return pd.DataFrame(res.json()["records"])
 
 
-def get_fx_pair_quote():
+def fx_pair_quote():
     """
     中国外汇交易中心暨全国银行间同业拆借中心-市场数据-市场行情-债券市场行情-外币对即期报价
     :return: pandas.DataFrame
@@ -138,18 +129,15 @@ def get_fx_pair_quote():
     9   NZD/USD  0.63772  0.63773      ---
     10  EUR/GBP  0.86544  0.86546      ---
     """
-    t = time.time()
-    spot_payload = {
-        "t": str(int(round(t * 1000)))
-    }
-    res = requests.post(FX_PAIR_URL, data=spot_payload, headers=SHORT_HEADERS)
+    payload = {"t": str(int(round(time.time() * 1000)))}
+    res = requests.post(FX_PAIR_URL, data=payload, headers=SHORT_HEADERS)
     return pd.DataFrame(res.json()["records"])
 
 
 if __name__ == "__main__":
-    df = get_fx_spot_quote()
+    df = fx_spot_quote()
     print(df)
-    df = get_fx_swap_quote()
+    df = fx_swap_quote()
     print(df)
-    df = get_fx_pair_quote()
+    df = fx_pair_quote()
     print(df)
