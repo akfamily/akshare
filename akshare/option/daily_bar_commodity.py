@@ -124,7 +124,7 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
     (5) 涨跌二：今结算-昨结算
     (6) 隐含波动率：将当日期权合约的结算价代入期权定价模型，反推出来的波动率数值
     :param trade_date: str "20191017"
-    :param symbol: str "白糖期权" or "棉花期权"
+    :param symbol: str "白糖期权", "棉花期权","甲醇期权","PTA期权"
     :return: pandas.DataFrame
     郑商所每日期权交易数据
              品种代码        昨结算         今开盘         最高价         最低价         今收盘      \
@@ -176,6 +176,14 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
             table_df = pd.read_table(f, encoding="utf-8", skiprows=1, sep="|")
             if symbol == "白糖期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("SR")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "PTA期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("TA")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "甲醇期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("MA")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
             else:
@@ -308,7 +316,7 @@ def get_shfe_option_daily(trade_date="20191017", symbol="铜期权"):
 
 
 if __name__ == "__main__":
-    df_test = get_czce_option_daily(trade_date="20191017", symbol="白糖期权")
+    df_test = get_czce_option_daily(trade_date="20191216", symbol="PTA期权")
     print(df_test)
     one, two = get_dce_option_daily(trade_date="20191209", symbol="铁矿石期权")
     print(one)
