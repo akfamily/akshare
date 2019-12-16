@@ -131,6 +131,8 @@
     6.40 增加[中国证券投资基金业协会](http://gs.amac.org.cn/)提供的私募基金数据;
 
     6.41 增加[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)专题教程-Anaconda专题-连载;
+    
+    6.42 增加[猫眼电影](https://maoyan.com/board/1)提供的实时票房数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.

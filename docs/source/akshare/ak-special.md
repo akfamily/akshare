@@ -64,7 +64,9 @@
 
 感谢[中国证券投资基金业协会](http://gs.amac.org.cn/)提供私募基金数据;
 
-感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
+感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程;
+
+感谢[猫眼电影](https://maoyan.com/board/1)提供的实时票房数据.
 
 ## 交流
 
