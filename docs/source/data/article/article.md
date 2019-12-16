@@ -1,6 +1,6 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 已实现波动率数据
+## [AkShare](https://github.com/jindaxiang/akshare) 波动率数据
 
-### Oxford-Man
+### 已实现波动率数据-Oxford-Man
 
 接口: article_oman_rv
 
@@ -111,7 +111,7 @@ print(df)
 ```
 
 
-### Risk-Lab
+### 已实现波动率数据-Risk-Lab
 
 接口: article_rlab_rv
 
@@ -162,8 +162,7 @@ print(df)
 2019-11-08    0.199549
 ```
 
-
-## [AkShare](https://github.com/jindaxiang/akshare) FF多因子模型
+## [AkShare](https://github.com/jindaxiang/akshare) 多因子数据
 
 ### Current Research Returns
 
@@ -270,8 +269,7 @@ Big Neutral                                            4.49
 Big Aggressive                                        -0.38
 ```
 
-
-## [AkShare](https://github.com/jindaxiang/akshare) 经济政策不确定性
+## [AkShare](https://github.com/jindaxiang/akshare) 政策不确定性数据
 
 ### 国家和地区指数
 
