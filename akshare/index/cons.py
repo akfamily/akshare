@@ -6,7 +6,7 @@ date: 2019/10/17 1:19
 contact: jindaxiang@163.com
 desc: 指数配置文件
 """
-# 微博游览器伪装
+# weibo-user-agent
 index_weibo_headers = {
     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",
     "Referer": "http://data.weibo.com/index/newindex",
@@ -29,8 +29,10 @@ sw_cons_headers = {
     'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
     "X-AjaxPro-Method": "ReturnContent",
 }
+
 # sw-url
 sw_url = "http://www.swsindex.com/handler.aspx"
+
 # sw-payload
 sw_payload = {
     "tablename": "swzs",
@@ -42,6 +44,7 @@ sw_payload = {
     "pagecount": "28",
     "timed": "",
 }
+
 # sw-headers
 sw_headers = {
     'Accept': 'application/json, text/javascript, */*',
@@ -57,6 +60,7 @@ sw_headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
     'X-Requested-With': 'XMLHttpRequest'
 }
+
 # zh-sina-a
 zh_sina_index_stock_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
 zh_sina_index_stock_payload = {

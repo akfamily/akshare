@@ -18,4 +18,4 @@ AkShare 数据字典
     bank/bank
     article/article
     ws/ws
-    weather/weather
+    others/others

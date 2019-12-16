@@ -13,7 +13,7 @@ import pandas as pd
 import requests
 import matplotlib.pyplot as plt
 
-from akshare.index.cons import index_weibo_headers
+from akshare.index.cons import index_weibo_headers  # 伪装游览器, 必备
 
 plt.rcParams["font.sans-serif"] = ["SimHei"]  # 显示中文标签
 
