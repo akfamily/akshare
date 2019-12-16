@@ -16,7 +16,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 
-from akshare.weather.aqi_utils import *
+from akshare.air.aqi_utils import *
 
 
 def air_hourly(city="上海", date="2019-12-05"):

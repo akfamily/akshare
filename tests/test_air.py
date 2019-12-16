@@ -6,7 +6,7 @@ date: 2019/12/12 18:16
 contact: jindaxiang@163.com
 desc: 测试文件
 """
-from akshare.weather.aqi_study import air_hourly
+from akshare.air.aqi_study import air_hourly
 
 
 def test_air_hourly():

@@ -433,15 +433,22 @@ pypinyin 降级
 增加甲醇期权和PTA期权
 0.2.99
 更新外汇数据接口, 规范格式
+0.3.0
+猫眼电影实时票房
 """
 
-__version__ = "0.2.99"
+__version__ = "0.3.0"
 __author__ = "Albert King"
+
+"""
+猫眼电影实时票房
+"""
+from akshare.movie.movie_maoyan import movie_board
 
 """
 中国证券投资基金业协会-信息公示
 """
-from akshare.fund.manager_amac import (
+from akshare.fund.fund_amac import (
     amac_manager_info,
     amac_member_info,
     amac_member_sub_info,
@@ -463,7 +470,7 @@ from akshare.fortune.fortune_500 import fortune_rank
 """
 AQI空气质量接口
 """
-from akshare.weather.aqi_study import air_all_city, air_city_list, air_daily, air_hourly
+from akshare.air.aqi_study import air_all_city, air_city_list, air_daily, air_hourly
 
 """
 申万行业一级
@@ -534,12 +541,12 @@ from akshare.futures_derivative.nh_index_volatility import nh_volatility_index
 """
 空气-河北
 """
-from akshare.weather.air_hebei import air_hebei
+from akshare.air.air_hebei import air_hebei
 
 """
 timeanddate-日出和日落
 """
-from akshare.weather.time_and_date import weather_daily, weather_monthly
+from akshare.air.time_and_date import weather_daily, weather_monthly
 
 """
 金十财经-实时监控
@@ -613,7 +620,7 @@ from akshare.economic.macro_other import get_js_dc_current
 """
 金融期权
 """
-from akshare.option.daily_bar_finance import (
+from akshare.option.option_finance import (
     get_finance_option,
     get_finance_option_current,
 )
@@ -743,7 +750,7 @@ from akshare.bond.china_bond import bond_spot_quote, bond_spot_deal
 """
 商品期权
 """
-from akshare.option.daily_bar_commodity import (
+from akshare.option.option_commodity import (
     get_dce_option_daily,
     get_czce_option_daily,
     get_shfe_option_daily,
@@ -767,7 +774,7 @@ from akshare.futures.futures_inventory import get_inventory_data
 """
 私募指数
 """
-from akshare.fund.zdzk_fund import zdzk_fund_index
+from akshare.fund.fund_zdzk import zdzk_fund_index
 
 """
 中国银行间市场交易商协会

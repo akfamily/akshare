@@ -6,8 +6,8 @@ date: 2019/12/10 21:55
 contact: jindaxiang@163.com
 desc: 历年世界500强榜单数据
 http://www.fortunechina.com/fortune500/index.htm
-特殊情况
-2010 由于网页端没有公布公司所属的国家, 故2010年数据没用国家这一栏
+特殊情况说明：
+2010年由于网页端没有公布公司所属的国家, 故 2010 年数据没有国家这列
 """
 import requests
 import pandas as pd

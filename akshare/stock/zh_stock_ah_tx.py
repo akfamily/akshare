@@ -20,7 +20,7 @@ from akshare.stock.cons import (hk_url,
                                 hk_stock_payload)
 
 
-def get_zh_stock_ah_page_count():
+def get_zh_stock_ah_page_count() -> int:
     hk_payload_copy = hk_payload.copy()
     hk_payload_copy.update({"reqPage": 1})
     res = requests.get(hk_url, params=hk_payload_copy, headers=hk_headers)
