@@ -1,6 +1,8 @@
 ## [AkShare](https://github.com/jindaxiang/akshare) 波动率数据
 
-### 已实现波动率数据-Oxford-Man
+### 已实现波动率数据
+
+#### Oxford-Man
 
 接口: article_oman_rv
 
@@ -110,8 +112,7 @@ print(df)
 2019-11-08     6.75
 ```
 
-
-### 已实现波动率数据-Risk-Lab
+#### Risk-Lab
 
 接口: article_rlab_rv
 
