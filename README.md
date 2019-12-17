@@ -131,6 +131,8 @@ pip install akshare --upgrade
 
 感谢[中国证券投资基金业协会](http://gs.amac.org.cn/)提供私募基金数据;
 
+感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
 ## Communication
