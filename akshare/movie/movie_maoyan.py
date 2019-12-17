@@ -20,7 +20,7 @@ from fontTools.ttLib import TTFont
 from akshare.movie.movie_maoyan_knn_font import Classify
 
 _woff_path = (
-    Path(__file__).absolute().parent / "akshare" / "movie" / "fonts" / "test.woff"
+    Path(__file__).absolute().parent / "fonts" / "test.woff"
 )
 _board_url = "https://maoyan.com/board/1"
 _headers = {
