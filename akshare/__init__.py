@@ -441,10 +441,17 @@ pypinyin 降级
 更新说明文档
 0.3.3
 更新外盘期货行情订阅时, 统一字段名称与网页端一致
+0.3.4
+新增能源-碳排放权数据
 """
 
-__version__ = "0.3.3"
+__version__ = "0.3.4"
 __author__ = "Albert King"
+
+"""
+能约-碳排放权
+"""
+from akshare.energy.energy_carbon import energy_carbon
 
 """
 猫眼电影实时票房
