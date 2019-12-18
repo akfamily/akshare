@@ -133,6 +133,8 @@ pip install akshare --upgrade
 
 感谢[猫眼电影网站](https://maoyan.com/board/1)提供的实时票房数据;
 
+感谢[Expatistan网站](https://www.expatistan.com/cost-of-living)提供的世界各大城市生活成本数据;
+
 感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据;
 
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.

@@ -443,10 +443,17 @@ pypinyin 降级
 更新外盘期货行情订阅时, 统一字段名称与网页端一致
 0.3.4
 新增能源-碳排放权数据
+0.3.5
+新增世界各大城市生活成本数据
 """
 
-__version__ = "0.3.4"
+__version__ = "0.3.5"
 __author__ = "Albert King"
+
+"""
+成本-世界各大城市生活成本
+"""
+from akshare.cost.cost_living import cost_living
 
 """
 能约-碳排放权

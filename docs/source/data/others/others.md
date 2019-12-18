@@ -589,3 +589,65 @@ print(movie_df)
 8  总票房:1171.0万  
 9    总票房:1.92亿  
 ```
+
+### 生活成本
+
+接口: cost_living
+
+目标地址: https://expatistan.com/cost-of-living/index
+
+描述: 获取世界各大城市生活成本数据
+
+限量: 返回当前时点所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| region     | str   | -        | region="world", 默认, 返回所有城市数据, 其他城市请查看 **城市一览表**  |  
+
+城市一览表
+
+| 名称   | 类型 |   
+| -------- | ---- |
+| europe | 欧洲  |
+| north-america | 北美洲  |
+| latin-america | 拉丁美洲  |
+| asia | 亚洲  |
+| middle-east | 中东  |
+| africa | 非洲  |
+| oceania | 大洋洲  |
+| world | 默认全球所有城市  |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| rank     | str   | -        | 排名  |  
+| city     | str   | -        | 城市名称 |  
+| index    | str   | -        | 价格指数  |  
+
+接口示例
+
+```python
+import akshare as ak
+cost_df = ak.cost_living()
+print(cost_df)
+```
+
+数据示例
+
+```
+      rank                                       city  index
+0      1st              Grand Cayman (Cayman Islands)    271
+1      2nd  Mountain View, California (United States)    259
+2      3rd      Palo Alto, California (United States)    259
+3      4th              New York City (United States)    253
+4      5th                       Zurich (Switzerland)    246
+..     ...                                        ...    ...
+295  296th                             Indore (India)     62
+296  297th                             Madras (India)     62
+297  298th                        Córdoba (Argentina)     58
+298  299th                        Rosario (Argentina)     56
+299  300th                        Mendoza (Argentina)     48
+```

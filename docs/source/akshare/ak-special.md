@@ -68,6 +68,8 @@
 
 感谢[猫眼电影](https://maoyan.com/board/1)提供的实时票房数据;
 
+感谢[Expatistan网站](https://www.expatistan.com/cost-of-living)提供的世界各大城市生活成本数据;
+
 感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据.
 
 ## 交流
