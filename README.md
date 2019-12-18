@@ -127,9 +127,11 @@ pip install akshare --upgrade
 
 感谢[真气网](https://www.aqistudy.cn/)提供的空气质量数据;
 
-感谢[财富网站](http://www.fortunechina.com/)提供财富企业世界500强数据;
+感谢[财富网站](http://www.fortunechina.com/)提供的财富企业世界500强数据;
 
-感谢[中国证券投资基金业协会](http://gs.amac.org.cn/)提供私募基金数据;
+感谢[中国证券投资基金业协会](http://gs.amac.org.cn/)提供的私募基金数据;
+
+感谢[猫眼电影网站](https://maoyan.com/board/1)提供的实时票房数据;
 
 感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据;
 

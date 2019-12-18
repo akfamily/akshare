@@ -110,7 +110,7 @@ def baidu_media_index(word: str, start_date: str, end_date: str) -> str:
 
 if __name__ == "__main__":
     data = baidu_search_index(
-        word="地震",
+        word="九寨沟",
         start_date='2010-12-27',
         end_date='2019-12-01'
     )
@@ -118,7 +118,7 @@ if __name__ == "__main__":
     data.dropna(inplace=True)
     data.plot()
     plt.show()
-    data = baidu_info_index(word="地震",
+    data = baidu_info_index(word="九寨沟",
                             start_date='2017-07-03',
                             end_date='2019-12-01')
     print(data)
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     data.plot()
     plt.show()
     data = baidu_media_index(
-        word="地震", start_date="2010-12-27", end_date="2019-12-01"
+        word="九寨沟", start_date="2010-12-27", end_date="2019-12-01"
     )
     print(data)
     data.dropna(inplace=True)

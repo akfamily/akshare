@@ -79,7 +79,7 @@ def weibo_index(word="python", time_type="3month"):
 
 
 if __name__ == "__main__":
-    df_index = weibo_index(word="地震", time_type="1hour")
+    df_index = weibo_index(word="九寨沟", time_type="3month")
     print(df_index)
     df_index.plot()
     plt.show()
