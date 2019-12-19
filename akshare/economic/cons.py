@@ -34,6 +34,7 @@ JS_CHINA_GDP_YEARLY_URL = (
     "https://cdn.jin10.com/dc/reports/dc_chinese_gdp_yoy_all.js?v={}&_={}"
 )
 JS_CHINA_CX_PMI_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_caixin_manufacturing_pmi_all.js?v={}&_={}"
+JS_CHINA_CX_SERVICE_PMI_YEARLY_URL = "https://cdn.jin10.com/dc/reports/dc_chinese_caixin_services_pmi_all.js?v={}&_={}"
 JS_CHINA_FX_RESERVES_YEARLY_URL = (
     "https://cdn.jin10.com/dc/reports/dc_chinese_fx_reserves_all.js?v={}&_={}"
 )
@@ -44,6 +45,9 @@ JS_CHINA_NON_MAN_PMI_MONTHLY_URL = (
     "https://cdn.jin10.com/dc/reports/dc_chinese_non_manufacturing_pmi_all.js?v={}&_={}"
 )
 JS_CHINA_RMB_DAILY_URL = "https://cdn.jin10.com/dc/reports/dc_rmb_data_all.js?v={}&_={}"
+JS_CHINA_MARKET_MARGIN_SZ_URL = "https://cdn.jin10.com/dc/reports/dc_market_margin_sz_all.js?v={}&_={}"
+JS_CHINA_MARKET_MARGIN_SH_URL = "https://cdn.jin10.com/dc/reports/dc_market_margin_sse_all.js?v={}&_={}"
+JS_CHINA_REPORT_URL = "https://cdn.jin10.com/dc/reports/dc_sge_report_all.js?v={}&_={}"
 
 # urls-usa
 JS_USA_INTEREST_RATE_URL = (

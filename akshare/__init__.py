@@ -449,9 +449,11 @@ pypinyin 降级
 商品现货价格指数
 0.3.7
 修复百度指数日期问题
+0.3.8
+新增中国宏观数据接口和文档说明
 """
 
-__version__ = "0.3.7"
+__version__ = "0.3.8"
 __author__ = "Albert King"
 
 """
@@ -759,6 +761,10 @@ from akshare.economic.macro_china import (
     get_china_rmb,
     get_china_yearly_gdp,
     get_china_yearly_ppi,
+    get_china_yearly_cx_services_pmi,
+    get_market_margin_sh,
+    get_market_margin_sz,
+    au_report,
 )
 
 """

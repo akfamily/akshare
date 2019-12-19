@@ -24,6 +24,10 @@ from akshare.economic.cons import (
     JS_CHINA_ENERGY_DAILY_URL,
     JS_CHINA_NON_MAN_PMI_MONTHLY_URL,
     JS_CHINA_RMB_DAILY_URL,
+    JS_CHINA_CX_SERVICE_PMI_YEARLY_URL,
+    JS_CHINA_MARKET_MARGIN_SZ_URL,
+    JS_CHINA_MARKET_MARGIN_SH_URL,
+    JS_CHINA_REPORT_URL,
 )
 
 
@@ -283,6 +287,39 @@ def get_china_yearly_cx_pmi():
     return temp_df
 
 
+def get_china_yearly_cx_services_pmi():
+    """
+    获取中国财新服务业PMI报告, 数据区间从20120405-至今
+    :return: pandas.Series
+    2012-04-05    53.3
+    2012-05-04    54.1
+    2012-06-05    54.7
+    2012-07-04    52.3
+    2012-08-03    53.1
+                  ...
+    2019-08-05    51.6
+    2019-09-04    52.1
+    2019-10-08    51.3
+    2019-11-05    51.1
+    2019-12-04    53.5
+    """
+    t = time.time()
+    res = requests.get(
+        JS_CHINA_CX_SERVICE_PMI_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国财新服务业PMI报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "cx_services_pmi"
+    return temp_df
+
+
 def get_china_yearly_fx_reserves():
     """
     获取中国年度外汇储备数据, 数据区间从20140115-至今
@@ -501,6 +538,157 @@ def get_china_rmb():
     value_df.index = pd.to_datetime(date_list)
     value_df.name = "currency"
     return value_df
+
+
+def get_market_margin_sz():
+    """
+    获取深圳融资融券报告, 数据区间从20100331-至今
+    :return: pandas.DataFrame
+                   融资买入额(元)       融资余额(元)  融券卖出量(股)    融券余量(股)     融券余额(元)  \
+    2010-03-31       684569        670796      4000       3900       70895
+    2010-04-08      6713260      14467758      2100       3100       56023
+    2010-04-09      9357095      19732998      6700       5400      108362
+    2010-04-12     10406563      24813027      2200       1000        8100
+    2010-04-15     16607172      47980287      4200       5200       97676
+                     ...           ...       ...        ...         ...
+    2019-12-12  25190412075  423457288662  29769255  209557883  2504593151
+    2019-12-13  29636811209  423422868505  32820867  206092170  2509424768
+    2019-12-16  39166060634  428851154451  44000215  217123568  2647520178
+    2019-12-17  46930557203  433966722200  40492711  220945538  2750371397
+    2019-12-18  41043515833  438511398249  39150376  224554586  2761303194
+                   融资融券余额(元)
+    2010-03-31        741691
+    2010-04-08      14523781
+    2010-04-09      19841360
+    2010-04-12      24821127
+    2010-04-15      48077963
+                      ...
+    2019-12-12  425961881813
+    2019-12-13  425932293273
+    2019-12-16  431498674629
+    2019-12-17  436717093597
+    2019-12-18  441272701443
+    """
+    t = time.time()
+    res = requests.get(
+        JS_CHINA_MARKET_MARGIN_SZ_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
+    value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
+    value_list_3 = [item["datas"]["总量"][2] for item in json_data["list"]]
+    value_list_4 = [item["datas"]["总量"][3] for item in json_data["list"]]
+    value_list_5 = [item["datas"]["总量"][4] for item in json_data["list"]]
+    value_list_6 = [item["datas"]["总量"][5] for item in json_data["list"]]
+    value_df = pd.DataFrame(
+        [
+            value_list_1,
+            value_list_2,
+            value_list_3,
+            value_list_4,
+            value_list_5,
+            value_list_6,
+        ]
+    ).T
+    value_df.columns = [
+        "融资买入额(元)",
+        "融资余额(元)",
+        "融券卖出量(股)",
+        "融券余量(股)",
+        "融券余额(元)",
+        "融资融券余额(元)",
+    ]
+    value_df.index = pd.to_datetime(date_list)
+    value_df.name = "market_margin_sz"
+    return value_df
+
+
+def get_market_margin_sh():
+    """
+    获取上海融资融券报告, 数据区间从20100331-至今
+    :return: pandas.DataFrame
+                        融资买入额(元)      融资余额(元)    融券卖出量(股)      融券余量(股)    融券余额(元)  \
+    2010-03-31       5824813      5866316        2900        24142       3100
+    2010-04-01       6842114      1054024        2200        17325          0
+    2010-04-02       6762781       207516        1500        11929          0
+    2010-04-06      10091243      3329461        1400        10267          0
+    2010-04-07      25086826     15141395        2800        38418       1400
+                      ...          ...         ...          ...        ...
+    2019-12-12  544762356034  15711214718  1449227888  10838303677   87173923
+    2019-12-13  544431163367  23244118842  1444631533  10983715047  125984881
+    2019-12-16  548288053609  27740021378  1453192249  10964588638  113223026
+    2019-12-17  551516610507  35126663542  1457433748  11152939293  152548014
+    2019-12-18  554466188124  29684776793  1413650473  11107457966  122335778
+                   融资融券余额(元)
+    2010-03-31       5848955
+    2010-04-01       6859439
+    2010-04-02       6774710
+    2010-04-06      10101510
+    2010-04-07      25125244
+                      ...
+    2019-12-12  555600659711
+    2019-12-13  555414878414
+    2019-12-16  559252642247
+    2019-12-17  562669549800
+    2019-12-18  565573646090
+    """
+    t = time.time()
+    res = requests.get(
+        JS_CHINA_MARKET_MARGIN_SH_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
+    value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
+    value_list_3 = [item["datas"]["总量"][2] for item in json_data["list"]]
+    value_list_4 = [item["datas"]["总量"][3] for item in json_data["list"]]
+    value_list_5 = [item["datas"]["总量"][4] for item in json_data["list"]]
+    value_list_6 = [item["datas"]["总量"][5] for item in json_data["list"]]
+    value_df = pd.DataFrame(
+        [
+            value_list_1,
+            value_list_2,
+            value_list_3,
+            value_list_4,
+            value_list_5,
+            value_list_6,
+        ]
+    ).T
+    value_df.columns = [
+        "融资买入额(元)",
+        "融资余额(元)",
+        "融券卖出量(股)",
+        "融券余量(股)",
+        "融券余额(元)",
+        "融资融券余额(元)",
+    ]
+    value_df.index = pd.to_datetime(date_list)
+    value_df.name = "market_margin_sh"
+    return value_df
+
+
+def au_report():
+    """
+    获取上海黄金交易所报告, 数据区间从20100331-至今
+    :return: pandas.DataFrame
+    格式暂未处理
+    """
+    t = time.time()
+    res = requests.get(
+        JS_CHINA_REPORT_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list_1 = pd.DataFrame([item["datas"] for item in json_data["list"]])
+    value_list_1.index = pd.to_datetime(date_list)
+    return value_list_1
 
 
 if __name__ == "__main__":
