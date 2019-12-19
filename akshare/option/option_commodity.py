@@ -194,11 +194,11 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
             return None
 
 
-def get_shfe_option_daily(trade_date="20191017", symbol="铜期权"):
+def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
     """
     获取上海期货交易所-期权-日频行情数据
     :param trade_date: str "20191017"
-    :param symbol: str "铜期权" or "天胶期权"
+    :param symbol: str "铜期权" or "天胶期权" or "黄金期权"
     :return: pandas.DataFrame
     part-1:
             PRODUCTID  PRODUCTSORTNO       PRODUCTNAME  \
@@ -321,7 +321,7 @@ if __name__ == "__main__":
     one, two = get_dce_option_daily(trade_date="20191209", symbol="铁矿石期权")
     print(one)
     print(two)
-    one, two, three = get_shfe_option_daily(trade_date="20191017", symbol="天胶期权")
+    one, two, three = get_shfe_option_daily(trade_date="20191220", symbol="黄金期权")
     print(one)
     print(two)
     print(three)
