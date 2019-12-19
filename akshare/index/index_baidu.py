@@ -60,37 +60,55 @@ def baidu_search_index(word: str, start_date: str, end_date: str) -> str:
         ptbk = get_ptbk(uniqid)
         result = decrypt(ptbk, all_data).split(",")
         result = [int(item) for item in result]
-        temp_df = pd.DataFrame(
-            [pd.date_range(start=start_date, end=end_date, freq="7D"), result],
-            index=["date", word],
-        ).T
-        temp_df.index = pd.to_datetime(temp_df["date"])
-        del temp_df["date"]
-        return temp_df
+        if len(result) == len(pd.date_range(start=start_date, end=end_date, freq="7D")):
+            temp_df_7 = pd.DataFrame(
+                [pd.date_range(start=start_date, end=end_date, freq="7D"), result],
+                index=["date", word],
+            ).T
+            temp_df_7.index = pd.to_datetime(temp_df_7["date"])
+            del temp_df_7["date"]
+            return temp_df_7
+        else:
+            temp_df_1 = pd.DataFrame(
+                [pd.date_range(start=start_date, end=end_date, freq="1D"), result],
+                index=["date", word],
+            ).T
+            temp_df_1.index = pd.to_datetime(temp_df_1["date"])
+            del temp_df_1["date"]
+            return temp_df_1
 
 
 def baidu_info_index(word: str, start_date: str, end_date: str) -> str:
     with session.get(
-            url=f"http://index.baidu.com/api/FeedSearchApi/getFeedIndex?word={word}&area=0"
+            url=f"http://index.baidu.com/api/FeedSearchApi/getFeedIndex?word={word}&area=0&startDate={start_date}&endDate={end_date}"
     ) as response:
         data = response.json()["data"]
         all_data = data["index"][0]["data"]
         uniqid = data["uniqid"]
         ptbk = get_ptbk(uniqid)
         result = decrypt(ptbk, all_data).split(",")
-        result = [int(item) for item in result]
-        temp_df = pd.DataFrame(
-            [pd.date_range(start=start_date, end=end_date, freq="7D"), result],
-            index=["date", word],
-        ).T
-        temp_df.index = pd.to_datetime(temp_df["date"])
-        del temp_df["date"]
-        return temp_df
+        result = [int(item) if item != "" else 0 for item in result]
+        if len(result) == len(pd.date_range(start=start_date, end=end_date, freq="7D")):
+            temp_df_7 = pd.DataFrame(
+                [pd.date_range(start=start_date, end=end_date, freq="7D"), result],
+                index=["date", word],
+            ).T
+            temp_df_7.index = pd.to_datetime(temp_df_7["date"])
+            del temp_df_7["date"]
+            return temp_df_7
+        else:
+            temp_df_1 = pd.DataFrame(
+                [pd.date_range(start=start_date, end=end_date, freq="1D"), result],
+                index=["date", word],
+            ).T
+            temp_df_1.index = pd.to_datetime(temp_df_1["date"])
+            del temp_df_1["date"]
+            return temp_df_1
 
 
 def baidu_media_index(word: str, start_date: str, end_date: str) -> str:
     with session.get(
-            url=f"http://index.baidu.com/api/NewsApi/getNewsIndex?word={word}&area=0"
+            url=f"http://index.baidu.com/api/NewsApi/getNewsIndex?word={word}&area=0&startDate={start_date}&endDate={end_date}"
     ) as response:
         data = response.json()["data"]
         all_data = data["index"][0]["data"]
@@ -99,19 +117,28 @@ def baidu_media_index(word: str, start_date: str, end_date: str) -> str:
         result = decrypt(ptbk, all_data).split(",")
         result = ["0" if item == "" else item for item in result]
         result = [int(item) for item in result]
-        temp_df = pd.DataFrame(
-            [pd.date_range(start=start_date, end=end_date, freq="7D"), result],
-            index=["date", word],
-        ).T
-        temp_df.index = pd.to_datetime(temp_df["date"])
-        del temp_df["date"]
-        return temp_df
+        if len(result) == len(pd.date_range(start=start_date, end=end_date, freq="7D")):
+            temp_df_7 = pd.DataFrame(
+                [pd.date_range(start=start_date, end=end_date, freq="7D"), result],
+                index=["date", word],
+            ).T
+            temp_df_7.index = pd.to_datetime(temp_df_7["date"])
+            del temp_df_7["date"]
+            return temp_df_7
+        else:
+            temp_df_1 = pd.DataFrame(
+                [pd.date_range(start=start_date, end=end_date, freq="1D"), result],
+                index=["date", word],
+            ).T
+            temp_df_1.index = pd.to_datetime(temp_df_1["date"])
+            del temp_df_1["date"]
+            return temp_df_1
 
 
 if __name__ == "__main__":
     data = baidu_search_index(
         word="九寨沟",
-        start_date='2010-12-27',
+        start_date='2017-12-27',
         end_date='2019-12-01'
     )
     print(data)
@@ -126,7 +153,7 @@ if __name__ == "__main__":
     data.plot()
     plt.show()
     data = baidu_media_index(
-        word="九寨沟", start_date="2010-12-27", end_date="2019-12-01"
+        word="九寨沟", start_date="2017-10-27", end_date="2019-12-01"
     )
     print(data)
     data.dropna(inplace=True)
