@@ -1,8 +1,8 @@
 ## [AkShare](https://github.com/jindaxiang/akshare) 期权数据
 
-### 商品期权一览图
+### 商品期权全景图
 
-[商品期权一览图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/option/pdf/%E5%95%86%E5%93%81%E6%9C%9F%E6%9D%83%E5%85%A8%E6%99%AF%E5%9B%BE.pdf)
+[商品期权全景图-点击下载](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/option/pdf/%E5%95%86%E5%93%81%E6%9C%9F%E6%9D%83%E5%85%A8%E6%99%AF%E5%9B%BE.pdf)
 
 ### 上海证券交易所-金融期权
 
