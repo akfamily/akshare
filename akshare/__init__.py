@@ -445,10 +445,17 @@ pypinyin 降级
 新增能源-碳排放权数据
 0.3.5
 新增世界各大城市生活成本数据
+0.3.6
+商品现货价格指数
 """
 
-__version__ = "0.3.5"
+__version__ = "0.3.6"
 __author__ = "Albert King"
+
+"""
+大宗商品-现货价格指数
+"""
+from akshare.index.index_spot import spot_goods
 
 """
 成本-世界各大城市生活成本
