@@ -70,6 +70,8 @@
 
 感谢[Expatistan网站](https://www.expatistan.com/cost-of-living)提供的世界各大城市生活成本数据;
 
+感谢[国家金融与发展实验室网站](http://www.nifd.cn/)提供的宏观杠杆率;
+
 感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据.
 
 ## 交流
