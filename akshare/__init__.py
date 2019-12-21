@@ -451,10 +451,17 @@ pypinyin 降级
 修复百度指数日期问题
 0.3.8
 新增中国宏观数据接口和文档说明
+0.3.9
+新增中国宏观杠杆率数据
 """
 
-__version__ = "0.3.8"
+__version__ = "0.3.9"
 __author__ = "Albert King"
+
+"""
+中国宏观杠杆率数据
+"""
+from akshare.economic.marco_cnbs import macro_cnbs
 
 """
 大宗商品-现货价格指数
