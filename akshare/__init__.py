@@ -508,7 +508,6 @@ from akshare.fund.fund_amac import (
 """
 from akshare.fortune.fortune_500 import fortune_rank
 
-
 """
 AQI空气质量接口
 """
