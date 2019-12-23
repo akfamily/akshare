@@ -41,6 +41,11 @@ from akshare.fortune.cons import (
 
 
 def fortune_rank(year="2015"):
+    """
+    获取财富500强公司从1996年开始的排行榜
+    :param year: str 年份
+    :return: pandas.DataFrame
+    """
     if int(year) in [item for item in range(2014, 2020)] + [item for item in range(1996, 2007)]:
         if year in ["2006", "2007"]:
             res = requests.get(eval("url_" + year))
