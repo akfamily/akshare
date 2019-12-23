@@ -453,9 +453,11 @@ pypinyin 降级
 新增中国宏观数据接口和文档说明
 0.3.9
 新增中国宏观杠杆率数据
+0.3.10
+修改金融期权数据接口
 """
 
-__version__ = "0.3.9"
+__version__ = "0.3.10"
 __author__ = "Albert King"
 
 """
@@ -659,8 +661,8 @@ from akshare.economic.macro_other import get_js_dc_current
 金融期权
 """
 from akshare.option.option_finance import (
-    get_finance_option,
-    get_finance_option_current,
+    option_finance_board,
+    option_finance_underlying,
 )
 
 """

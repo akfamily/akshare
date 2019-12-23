@@ -11,10 +11,21 @@ import json
 import os
 import re
 
+# 中国金融期货交易所
+
+CFFEX_OPTION_URL_300 = "http://www.cffex.com.cn/quote_IO.txt"
+
+# 深圳证券交易所
+
+SZ_OPTION_URL_300 = "http://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=ysplbrb&TABKEY=tab1&random=0.10432465776720479"
+
 # 上海证券交易所
 
-SH_OPTION_URL = "http://yunhq.sse.com.cn:32041/v1/sh1/list/self/510050"
-SH_OPTION_URL_KING = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/510050_{}"
+SH_OPTION_URL_50 = "http://yunhq.sse.com.cn:32041/v1/sh1/list/self/510050"
+SH_OPTION_URL_KING_50 = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/510050_{}"
+
+SH_OPTION_URL_300 = "http://yunhq.sse.com.cn:32041/v1/sh1/list/self/510300"
+SH_OPTION_URL_KING_300 = "http://yunhq.sse.com.cn:32041/v1/sho/list/tstyle/510300_{}"
 
 SH_OPTION_PAYLOAD = {
     "select": "select: code,name,last,change,chg_rate,amp_rate,volume,amount,prev_close"

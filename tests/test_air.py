@@ -16,7 +16,7 @@ def test_air_hourly():
     test air_hourly interface
     :return:
     """
-    df_hourly = air_hourly('成都', '2019-12-10')
+    df_hourly = air_hourly("成都", "2019-12-10")
     assert len(df_hourly) >= 10
 
 
