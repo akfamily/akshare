@@ -7,6 +7,9 @@ contact: jindaxiang@163.com
 desc: 
 """
 import pandas as pd
+import matplotlib.pyplot as plt
+
+plt.rcParams["font.sans-serif"] = ["SimHei"]  # 显示中文标签
 
 
 def macro_cnbs():
@@ -46,3 +49,8 @@ def macro_cnbs():
 if __name__ == '__main__':
     cnbs_df = macro_cnbs()
     print(cnbs_df)
+    cnbs_df.index = pd.to_datetime(cnbs_df["年份"])
+    cnbs_df["居民部门"].plot()
+    plt.ylabel("居民部门杠杆率数据(百分比%)")
+    plt.title("中国宏观杠杆率数据-居民部门")
+    plt.show()

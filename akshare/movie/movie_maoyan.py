@@ -20,11 +20,24 @@ from fontTools.ttLib import TTFont
 from akshare.movie.movie_maoyan_knn_font import Classify
 
 _woff_path = (
-    Path(__file__).absolute().parent / "fonts" / "test.woff"
+        Path(__file__).absolute().parent / "fonts" / "test.woff"
 )
 _board_url = "https://maoyan.com/board/1"
 _headers = {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36"
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Cache-Control": "no-cache",
+    "Connection": "keep-alive",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36",
+    "Host": "maoyan.com",
+    "Pragma": "no-cache",
+    # "Cookie": "_lxsdk_s=16f32be05ae-d46-b03-a58%7C%7C1",
+    "Referer": "https://maoyan.com/board/1",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-User": "?1",
+    "Upgrade-Insecure-Requests": "1",
 }
 _classify = Classify()
 
@@ -33,8 +46,12 @@ def get_map(text: str) -> Dict[str, Any]:
     woff_url = re.findall(r"url\('(.*?\.woff)'\)", text)[0]
     font_url = f"http:{woff_url}"
     content = requests.get(font_url).content
-    with open(_woff_path, "wb") as f:
-        f.write(content)
+    try:
+        with open(_woff_path, "wb") as f:
+            f.write(content)
+    except:
+        with open(r"C:\Users\king\PycharmProjects\akshare\akshare\movie\fonts\test.woff", "wb") as f:
+            f.write(content)
     font = TTFont(BytesIO(content))
     glyf_order = font.getGlyphOrder()[2:]
     info = []
@@ -48,7 +65,9 @@ def get_map(text: str) -> Dict[str, Any]:
 
 
 def movie_board():
-    text = requests.get(url=_board_url, headers=_headers).text
+    res = requests.get(url=_board_url, headers=_headers)
+    res.encoding = "utf-8"
+    text = res.text
     map_dict = get_map(text=text)
     for uni in map_dict.keys():
         text = text.replace(uni, map_dict[uni])

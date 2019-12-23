@@ -393,3 +393,6 @@ if __name__ == "__main__":
     print(aoin_info_df)
     amac_member_info_df = amac_member_info()
     print(amac_member_info_df)
+    # fund_df[fund_df["建立时间"] > "2019-12-01"].info()
+    # fund_df.info()
+
