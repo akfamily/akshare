@@ -1,10 +1,6 @@
 ## [AkShare](https://github.com/jindaxiang/akshare) 期权数据
 
-### 商品期权全景图
-
-[商品期权全景图-点击下载](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/option/pdf/%E5%95%86%E5%93%81%E6%9C%9F%E6%9D%83%E5%85%A8%E6%99%AF%E5%9B%BE.pdf)
-
-### 金融期权
+### 金融期权-三大交易所
 
 接口: option_finance_board
 
@@ -337,7 +333,7 @@ print(option_df)
 71   481.0        1  
 ```
 
-### 上海期货交易所-商品期权
+### 商品期权-上海期货交易所
 
 接口: get_shfe_option_daily
 
@@ -528,7 +524,7 @@ part_3: 上海期货交易所隐含波动参考值
     21  0.216861
 ```
 
-### 大连商品交易所-商品期权
+### 商品期权-大连商品交易所
 
 接口: get_dce_option_daily
 
@@ -643,7 +639,7 @@ part_2: 隐含波动率参考值
     5  c2009     6.85
 ```
 
-### 郑州商品交易所-商品期权
+### 商品期权-郑州商品交易所
 
 接口: get_czce_option_daily
 
@@ -748,3 +744,7 @@ print(option_df)
 128     0.00  -0.7430     15.96         0  
 129     0.00  -0.7831     16.21         0  
 ```
+
+### 商品期权全景图
+
+[商品期权全景图-点击下载](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/option/pdf/%E5%95%86%E5%93%81%E6%9C%9F%E6%9D%83%E5%85%A8%E6%99%AF%E5%9B%BE.pdf)
