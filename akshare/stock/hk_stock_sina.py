@@ -22,7 +22,7 @@ from akshare.stock.cons import (hk_js_decode,
 def stock_hk_spot():
     """
     从新浪财经-港股获取所有港股的实时行情数据
-    **行情延迟15分钟**
+    **行情延迟 15 分钟**
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
     :return: pandas.DataFrame
     """

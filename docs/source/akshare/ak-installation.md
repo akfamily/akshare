@@ -4,8 +4,22 @@
 
 ## 安装 [AkShare](https://github.com/jindaxiang/akshare)
 
+### 通用安装
+
 ```
 pip install akshare  --upgrade
+```
+
+### 国内安装-Python
+
+```
+pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
+```
+
+### 国内安装-Anaconda
+
+```
+pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade
 ```
 
 ## 安装 [Node.js](https://nodejs.org/dist/)
