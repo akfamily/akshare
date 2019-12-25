@@ -52,7 +52,7 @@ def match_main_contract(exchange="dce"):
             main_contract = data_df[data_df.iloc[:, 3:].duplicated()]
             print(main_contract["symbol"].values[0])
             subscribe_cffex_list.append(main_contract["symbol"].values[0])
-        except BaseException:
+        except:
             print(item, "无主力合约")
             continue
     print("主力合约获取成功")

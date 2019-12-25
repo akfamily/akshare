@@ -208,6 +208,8 @@
  "macro_cnbs"  # 获取中国宏观杠杆率数据
  # 金融期权
  "option_finance_board"  # 获取金融期权数据
+ # 期货连续合约
+ "futures_main_sina"  # 获取新浪期货连续合约的历史数据
 ```
 
 ## 3. 案例演示
