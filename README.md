@@ -1,6 +1,4 @@
-<h1 align=center>
-<img src="https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg" width='120px' height='120px'>
-</h1>
+![logo](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/) 
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/) 
