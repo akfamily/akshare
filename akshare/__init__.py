@@ -457,10 +457,17 @@ pypinyin 降级
 修改金融期权数据接口
 0.3.11
 修复实时票房数据接口
+0.3.12
+新增新浪主力连续接口
 """
 
-__version__ = "0.3.11"
+__version__ = "0.3.12"
 __author__ = "Albert King"
+
+"""
+新浪主力连续接口
+"""
+from akshare.futures_derivative.sina_futures_index import futures_main_sina
 
 """
 中国宏观杠杆率数据

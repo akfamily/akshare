@@ -7,8 +7,8 @@ contact: jindaxiang@163.com
 desc: 
 """
 import time
-import json
 import random
+import os
 
 import requests
 import pandas as pd
@@ -18,18 +18,22 @@ headers = {
 }
 
 
-def main():
-    data = pd.DataFrame(
-        columns=['com_name', 'born', 'close', 'live_time', 'total_money', 'cat_name', 'com_prov', 'closure_type'])
-    for i in range(1, 100):  # 设置爬取N页
-        url = 'https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page=' + str(i)
-        html = requests.get(url=url, headers=headers).content
-        doc = json.loads(html.decode('utf-8'))['data']['info']
-        for j in range(10):  # 一页10个死亡公司
-            data = data.append({'com_name': doc[j]['com_name'], 'born': doc[j]['born'], 'cat_name': doc[j]['cat_name'],
-                                'closure_type': doc[j]['closure_type'], 'close': doc[j]['com_change_close_date'],
-                                'com_prov': doc[j]['com_prov'],
-                                'live_time': doc[j]['live_time'], 'total_money': doc[j]['total_money']},
-                               ignore_index=True)
-            time.sleep(random.random())
-    return data
+def death_company():
+    page_num_url = 'https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page=1'
+    data_json = requests.get(url=page_num_url, headers=headers).json()
+    num_page_int = data_json['data']['page']["total"]
+    for i in range(191, num_page_int+1):
+        print(i)
+        json_url = f'https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page={i}'
+        data_json = requests.get(url=json_url, headers=headers).json()
+        data_df = data_json['data']['info']
+        data_df = pd.DataFrame(data_df)
+        data_df = data_df[['com_name', 'born', "com_change_close_date", 'live_time', 'total_money', 'cat_name', 'com_prov']]
+        data_df.to_csv(os.path.join(r"C:\Users\king\Desktop\juzi", str(i)+".csv"))
+        time.sleep(2)
+    return data_df
+
+
+if __name__ == '__main__':
+    df = death_company()
+    print(df)
