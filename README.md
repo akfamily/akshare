@@ -1,5 +1,5 @@
 <h1 align=center>
-<img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width='120px' height='120px'>
+<img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/logo/jin0575.png" width='120px' height='120px'>
 </h1>
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/) 
