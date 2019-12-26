@@ -28,7 +28,7 @@ from akshare.fortune.cons import it_headers, it_url
 def death_company():
     """
     直接读取下载好的文件, 以免给对方服务器造成压力
-    此数据更新频率不高！
+    此数据更新频率不高！需要大量下载, 请注册会员
     https://www.itjuzi.com/deathCompany
     :return: pandas.DataFrame
     """
