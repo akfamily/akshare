@@ -461,10 +461,20 @@ pypinyin 降级
 新增新浪主力连续接口
 0.3.13
 新增新浪主力连续列表
+0.3.14
+中国倒闭公司名单
+0.3.15
+中国独角兽名单
+中国千里马名单
 """
 
-__version__ = "0.3.13"
+__version__ = "0.3.15"
 __author__ = "Albert King"
+
+"""
+新浪主力连续接口
+"""
+from akshare.fortune.it_juzi import death_company, maxima_company, nicorn_company
 
 """
 新浪主力连续接口

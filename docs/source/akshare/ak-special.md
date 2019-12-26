@@ -76,6 +76,8 @@
 
 感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据.
 
+感谢[IT桔子](https://www.itjuzi.com)提供的数据.
+
 ## 交流
 
 您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:

@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-(本文档更新于 **2019-12-25**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
+(本文档更新于 **2019-12-26**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -139,6 +139,8 @@
     6.44 新增[Expatistan网站](https://www.expatistan.com/cost-of-living)提供的世界各大城市生活成本数据;
     
     6.45 新增[国家金融与发展实验室网站](http://www.nifd.cn/)提供的宏观杠杆率数据;
+    
+    6.46 新增[IT桔子](https://www.itjuzi.com)提供的千里马、独角兽、倒闭公司数据.
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.

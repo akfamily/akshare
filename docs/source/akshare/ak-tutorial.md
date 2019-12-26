@@ -210,6 +210,13 @@
  "option_finance_board"  # 获取金融期权数据
  # 期货连续合约
  "futures_main_sina"  # 获取新浪期货连续合约的历史数据
+ # 倒闭公司数据
+ "death_company"  # 获取2014至今倒闭公司名单
+ # 独角兽公司数据
+ "nicorn_company"  # 获取独角兽公司名单
+ # 千里马公司数据
+ "maxima_company"  # 获取千里马公司名单
+
 ```
 
 ## 3. 案例演示
