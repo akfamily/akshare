@@ -1,4 +1,4 @@
-![logo](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg)
+![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/) 
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/) 
