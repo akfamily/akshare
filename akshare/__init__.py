@@ -468,15 +468,19 @@ pypinyin 降级
 中国千里马名单
 0.3.16
 东方财富-机构调研
+0.3.17
+东方财富网-数据中心-特色数据-机构调研
+机构调研统计
+机构调研详细
 """
 
-__version__ = "0.3.16"
+__version__ = "0.3.17"
 __author__ = "Albert King"
 
 """
 东方财富-机构调研
 """
-from akshare.stock_feature.stock_eastmoney import stock_em_jgdy
+from akshare.stock_feature.stock_eastmoney import stock_em_jgdy_tj, stock_em_jgdy_detail
 
 """
 新浪主力连续接口
