@@ -11,13 +11,13 @@ from akshare.index.index_weibo import weibo_index
 from akshare.fortune.fortune_500 import fortune_rank
 
 
-def test_air_hourly():
-    """
-    test air_hourly interface
-    :return:
-    """
-    df_hourly = air_hourly("成都", "2019-12-10")
-    assert len(df_hourly) >= 10
+# def test_air_hourly():
+#     """
+#     test air_hourly interface
+#     :return:
+#     """
+#     df_hourly = air_hourly("成都", "2019-12-10")
+#     assert len(df_hourly) >= 10
 
 
 def test_weibo_index():
@@ -40,5 +40,5 @@ def test_fortune():
 
 if __name__ == "__main__":
     # test_air_hourly()
-    # test_weibo_index()
+    test_weibo_index()
     test_fortune()

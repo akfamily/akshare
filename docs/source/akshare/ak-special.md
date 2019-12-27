@@ -78,6 +78,8 @@
 
 感谢[IT桔子](https://www.itjuzi.com)提供的数据.
 
+感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的机构调研数据.
+
 ## 交流
 
 您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:

@@ -141,6 +141,8 @@ pip install akshare --upgrade
 
 感谢[IT桔子](https://www.itjuzi.com)提供的数据.
 
+感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的机构调研数据.
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
 ## Communication

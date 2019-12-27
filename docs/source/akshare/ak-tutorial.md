@@ -216,7 +216,9 @@
  "nicorn_company"  # 获取独角兽公司名单
  # 千里马公司数据
  "maxima_company"  # 获取千里马公司名单
-
+ # 机构调研数据
+ "stock_em_jgdy_tj"  # 获取机构调研数据-统计
+ "stock_em_jgdy_detail"  # 获取机构调研数据-详细
 ```
 
 ## 3. 案例演示

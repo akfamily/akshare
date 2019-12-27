@@ -13,6 +13,8 @@ import json
 import requests
 import pandas as pd
 
+pd.set_option('display.max_columns', 500)
+
 
 def _get_page_num_tj():
     """
@@ -109,7 +111,8 @@ def stock_em_jgdy_detail():
 
 
 if __name__ == '__main__':
-    # df_tj = stock_em_jgdy_tj()
-    # print(df_tj)
+    df_tj = stock_em_jgdy_tj()
+    print(df_tj)
     df_detail = stock_em_jgdy_detail()
     print(df_detail)
+
