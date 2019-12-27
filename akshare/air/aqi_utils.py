@@ -40,7 +40,7 @@ def pkcs7unpadding(text):
     """
     length = len(text)
     unpadding = ord(text[length - 1])
-    return text[0 : length - unpadding]
+    return text[0: length - unpadding]
 
 
 def aes_encrypt(key, iv, content):
@@ -91,7 +91,6 @@ def decrypt_response(des_key, des_iv, aes_key, aes_iv, content):
      key,iv使用同一个
     模式cbc
     去填充pkcs7
-    :param key:
     :param content:
     :return:
     """
@@ -137,13 +136,13 @@ real_des_iv = "skzlkpoi="
 
 real_aes_client_key = (
     hashlib.md5(real_aes_client_key.encode(encoding="utf8"))
-    .hexdigest()[16:32]
-    .encode("utf8")
+        .hexdigest()[16:32]
+        .encode("utf8")
 )
 real_aes_client_iv = (
     hashlib.md5(real_aes_client_iv.encode(encoding="utf8"))
-    .hexdigest()[0:16]
-    .encode("utf8")
+        .hexdigest()[0:16]
+        .encode("utf8")
 )
 
 real_des_key = (
@@ -155,11 +154,11 @@ real_des_iv = (
 
 real_aes_server_key = (
     hashlib.md5(real_aes_server_key.encode(encoding="utf8"))
-    .hexdigest()[16:32]
-    .encode("utf8")
+        .hexdigest()[16:32]
+        .encode("utf8")
 )
 real_aes_server_iv = (
     hashlib.md5(real_aes_server_iv.encode(encoding="utf8"))
-    .hexdigest()[0:16]
-    .encode("utf8")
+        .hexdigest()[0:16]
+        .encode("utf8")
 )

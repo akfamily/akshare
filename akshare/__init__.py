@@ -466,10 +466,17 @@ pypinyin 降级
 0.3.15
 中国独角兽名单
 中国千里马名单
+0.3.16
+东方财富-机构调研
 """
 
-__version__ = "0.3.15"
+__version__ = "0.3.16"
 __author__ = "Albert King"
+
+"""
+东方财富-机构调研
+"""
+from akshare.stock_feature.stock_eastmoney import stock_em_jgdy
 
 """
 新浪主力连续接口
