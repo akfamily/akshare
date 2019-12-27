@@ -652,7 +652,9 @@ print(cost_df)
 299  300th                        Mendoza (Argentina)     48
 ```
 
-### 倒闭公司
+### 新经济公司
+
+#### 倒闭公司
 
 接口: death_company
 
@@ -704,7 +706,7 @@ print(death_df)
 9         壹手车  2014-12-01            2017-08-07  ...         None     汽车交通       北京
 ```
 
-### 独角兽公司
+#### 独角兽公司
 
 接口: nicorn_company
 
@@ -798,7 +800,7 @@ print(nicorn_df)
 229    100000.00         $1亿      D轮  
 ```
 
-### 千里马公司
+#### 千里马公司
 
 接口: maxima_company
 
