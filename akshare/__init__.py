@@ -477,15 +477,30 @@ pypinyin 降级
 0.3.19
 修复融资融券字段名匹配问题
 增加东方财富网-数据中心-特色数据-股票质押
+0.3.20
+东方财富网-数据中心-特色数据-股权质押
+东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: http://data.eastmoney.com/gpzy/marketProfile.aspx
+东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: http://data.eastmoney.com/gpzy/pledgeRatio.aspx
+东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细: http://data.eastmoney.com/gpzy/pledgeDetail.aspx
+东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
+东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
+东方财富网-数据中心-特色数据-股权质押-行业数据: http://data.eastmoney.com/gpzy/industryData.aspx
 """
 
-__version__ = "0.3.19"
+__version__ = "0.3.20"
 __author__ = "Albert King"
 
 """
 东方财富-股票质押
 """
-from akshare.stock_feature.stock_em_gpzy import stock_em_gpzy_pledge_ratio, stock_em_gpzy_profile
+from akshare.stock_feature.stock_em_gpzy import (
+    stock_em_gpzy_pledge_ratio,
+    stock_em_gpzy_profile,
+    stock_em_gpzy_distribute_statistics_bank,
+    stock_em_gpzy_distribute_statistics_company,
+    stock_em_gpzy_industry_data,
+    stock_em_gpzy_pledge_ratio_detail,
+)
 
 """
 东方财富-机构调研
@@ -500,7 +515,10 @@ from akshare.fortune.it_juzi import death_company, maxima_company, nicorn_compan
 """
 新浪主力连续接口
 """
-from akshare.futures_derivative.sina_futures_index import futures_main_sina, futures_display_main_sina
+from akshare.futures_derivative.sina_futures_index import (
+    futures_main_sina,
+    futures_display_main_sina,
+)
 
 """
 中国宏观杠杆率数据
