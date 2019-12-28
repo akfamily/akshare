@@ -474,15 +474,23 @@ pypinyin 降级
 机构调研详细
 0.3.18
 修复自动测试接口
+0.3.19
+修复融资融券字段名匹配问题
+增加东方财富网-数据中心-特色数据-股票质押
 """
 
-__version__ = "0.3.18"
+__version__ = "0.3.19"
 __author__ = "Albert King"
+
+"""
+东方财富-股票质押
+"""
+from akshare.stock_feature.stock_em_gpzy import stock_em_gpzy_pledge_ratio, stock_em_gpzy_profile
 
 """
 东方财富-机构调研
 """
-from akshare.stock_feature.stock_eastmoney import stock_em_jgdy_tj, stock_em_jgdy_detail
+from akshare.stock_feature.stock_em_jgdy import stock_em_jgdy_tj, stock_em_jgdy_detail
 
 """
 新浪主力连续接口

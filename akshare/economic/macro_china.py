@@ -594,11 +594,11 @@ def get_market_margin_sz():
         ]
     ).T
     value_df.columns = [
-        "融资买入额(元)",
         "融资余额(元)",
-        "融券卖出量(股)",
+        "融资买入额(元)",
         "融券余量(股)",
-        "融券余额(元)",
+        "融券余量金额(元)",
+        "融券卖出量(股)",
         "融资融券余额(元)",
     ]
     value_df.index = pd.to_datetime(date_list)
@@ -660,11 +660,11 @@ def get_market_margin_sh():
         ]
     ).T
     value_df.columns = [
-        "融资买入额(元)",
         "融资余额(元)",
-        "融券卖出量(股)",
+        "融资买入额(元)",
         "融券余量(股)",
-        "融券余额(元)",
+        "融券余量金额(元)",
+        "融券卖出量(股)",
         "融资融券余额(元)",
     ]
     value_df.index = pd.to_datetime(date_list)

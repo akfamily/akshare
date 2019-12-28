@@ -13,7 +13,7 @@ import json
 import requests
 import pandas as pd
 
-pd.set_option('display.max_columns', 500)
+# pd.set_option('display.max_columns', 500)
 
 
 def _get_page_num_tj():
