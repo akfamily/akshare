@@ -83,5 +83,6 @@ def futures_main_sina(symbol="V0", trade_date="20191225"):
 if __name__ == '__main__':
     display_main_df = futures_display_main_sina()
     print(display_main_df)
+
     futures_hist = futures_main_sina(symbol="IF0", trade_date="20181220")
     print(futures_hist)

@@ -132,13 +132,16 @@
 需要注意, 由于期货合约存续的特殊性, 针对每一品种的期货合约, 系统中都增加了主力连续合约以及指数连续合约两个人工合成的合约来满足使用需求. 
 
 #### 主力连续合约
+
 主力连续合约: 合约首次上市时, 以当日收盘同品种持仓量最大者作为从第二个交易日开始的主力合约. 当同品种其他合约持仓量在收盘后超过当前主力合约1.1倍时, 从第二个交易日开始进行主力合约的切换. 
 日内不会进行主力合约的切换. 主力连续合约是由该品种期货不同时期主力合约接续而成, 代码以88或888结尾结尾, 例如 IF88 或 IF888. 前者为合约量价数据的简单拼接, 未做平滑处理;  后者对价格进行了”平滑”处理, 处理规则如下: 以主力合约切换前一天(T-1日)新、旧两个主力合约收盘价做差,  之后将 T-1 日及以前的主力连续合约的所有价格水平整体加上或减去该价差, 以”整体抬升”或”整体下降”主力合约的价格水平, 成交量、持仓量均不作调整, 成交额统一设置为0.
 
 #### 指数连续合约
+
 指数连续合约: 由当前品种全部可交易合约以累计持仓量为权重加权平均得到, 代码以99结尾, 例如 IF99. 
 
 #### 展期收益率
+
 展期收益率是由不同交割月的价差除以相隔月份数计算得来, 它反映了市场对该品种在近期交割和远期交割的价差预期.
 
 ### 期货基础数据
@@ -1037,7 +1040,7 @@ ak.get_sector_futures(sector="能源", symbol="伦敦布伦特原油", start_dat
 | symbol | str  | Y    |  symbol="IF0", 请参考**新浪连续合约品种一览表**, 也可通过 **futures_display_main_sina** 获取|
 | trade_date="20181225" | str  | Y    | 可以不输入, 默认用当前交易日|
 
-新浪连续合约品种一览表
+新浪连续合约品种一览表(获取函数在接口示例处有说明)
 
 |    序号    |品种    | 交易所    | 合约名称  |   备注|                  
 |--------|----------|-------|---------------------|---|
@@ -1117,7 +1120,7 @@ ak.get_sector_futures(sector="能源", symbol="伦敦布伦特原油", start_dat
 | 成交量      | float   | Y        | 注意单位   |
 | 持仓量      | float   | Y        | 注意单位   |
 
-接口示例
+接口示例-连续合约数据接口
 
 ```python
 import akshare as ak
@@ -1125,7 +1128,7 @@ futures_df = ak.futures_main_sina(symbol="IF0", trade_date="20181220")
 print(futures_df)
 ```
 
-数据示例
+数据示例-连续合约数据接口
 
 ```
      日期     开盘价     最高价     最低价     收盘价    成交量    持仓量
@@ -1140,6 +1143,91 @@ print(futures_df)
 713  2019-12-23  4031.0  4053.0  3972.6  3979.4  73788  72170
 714  2019-12-24  3990.0  4008.6  3977.4  3998.4  48197  66325
 715  2019-12-25  3996.0  4011.2  3982.4  4002.8  57465  70656
+```
+
+接口示例-新浪连续合约品种一览表接口
+
+```python
+import akshare as ak
+display_main_df = ak.futures_display_main_sina()
+print(display_main_df)
+```
+
+数据示例-新浪连续合约品种一览表接口
+
+**P.S. 部分无连续合约的品种需要剔除, 剔除代码如下**
+
+```python
+import akshare as ak
+display_main_df = ak.futures_display_main_sina()
+display_main_df[display_main_df["name"].str.contains("连续")]
+```
+
+```
+    symbol exchange          name
+0       V0      dce         PVC连续
+1       P0      dce         棕榈油连续
+2       B0      dce          豆二连续
+3       M0      dce          豆粕连续
+4       I0      dce         铁矿石连续
+5      JD0      dce          鸡蛋连续
+6       L0      dce          塑料连续
+7      PP0      dce         聚丙烯连续
+8      FB0      dce         纤维板连续
+9      BB0      dce         胶合板连续
+10      Y0      dce          豆油连续
+11      C0      dce          玉米连续
+12      A0      dce          豆一连续
+13      J0      dce          焦炭连续
+14     JM0      dce          焦煤连续
+15     CS0      dce          淀粉连续
+16     EG0      dce         乙二醇连续
+17     RR0      dce          粳米连续
+18     EB0      dce         苯乙烯连续
+19     TA0     czce         PTA连续
+20     OI0     czce          菜油连续
+21  RS2007     czce        菜籽2007
+22     RM0     czce          菜粕连续
+23     ZC0     czce         动力煤连续
+24     WH0     czce          强麦连续
+25  JR2001     czce        粳稻2001
+26     SR0     czce          白糖连续
+27     CF0     czce          棉花连续
+28     RI0     czce         早籼稻连续
+29     MA0     czce          甲醇连续
+30     FG0     czce          玻璃连续
+31  LR2001     czce       晚籼稻2001
+32     SF0     czce          硅铁连续
+33     SM0     czce          锰硅连续
+34     CY0     czce          棉纱连续
+35     AP0     czce          苹果连续
+36     CJ0     czce          红枣连续
+37     UR0     czce          尿素连续
+38     SA0     czce          纯碱连续
+39     FU0     shfe         燃料油连续
+40     SC0      ine        上海原油连续
+41     AL0     shfe           铝连续
+42     RU0     shfe        天然橡胶连续
+43     ZN0     shfe          沪锌连续
+44     CU0     shfe           铜连续
+45     AU0     shfe          黄金连续
+46     RB0     shfe         螺纹钢连续
+47     WR0     shfe          线材连续
+48     PB0     shfe           铅连续
+49  AG2006     shfe        白银2006
+50     BU0     shfe          沥青连续
+51     HC0     shfe        热轧卷板连续
+52  SN2005     shfe         锡2005
+53     NI0     shfe           镍连续
+54     SP0     shfe          纸浆连续
+55     NR0      ine        20号胶连续
+56     SS0     shfe         不锈钢连续
+57     IF0    cffex   沪深300指数期货连续
+58     TF0    cffex     5年期国债期货连续
+59   T2003    cffex  10年期国债期货2003
+60     IH0    cffex    上证50指数期货连续
+61     IC0    cffex   中证500指数期货连续
+62     TS0    cffex     2年期国债期货连续
 ```
 
 ### 南华指数

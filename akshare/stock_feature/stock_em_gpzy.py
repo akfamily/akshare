@@ -39,7 +39,7 @@ def _get_page_num_gpzy_market_profile():
         "rt": "52583914",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -67,16 +67,42 @@ def stock_em_gpzy_profile():
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
-        map_dict = dict(zip(pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                            pd.DataFrame(data_json["font"]["FontMapping"])["value"]))
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        map_dict = dict(
+            zip(
+                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
+                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
+            )
+        )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
-    temp_df.columns = ['交易日期', 'sc_zsz', '平均质押比例(%)', '涨跌幅', 'A股质押总比例(%)', '质押公司数量', '质押笔数', '质押总股数(股)', '质押总市值(元)',
-                       '沪深300指数']
-    temp_df = temp_df[['交易日期', '平均质押比例(%)', '涨跌幅', 'A股质押总比例(%)', '质押公司数量', '质押笔数', '质押总股数(股)', '质押总市值(元)', '沪深300指数']]
+    temp_df.columns = [
+        "交易日期",
+        "sc_zsz",
+        "平均质押比例(%)",
+        "涨跌幅",
+        "A股质押总比例(%)",
+        "质押公司数量",
+        "质押笔数",
+        "质押总股数(股)",
+        "质押总市值(元)",
+        "沪深300指数",
+    ]
+    temp_df = temp_df[
+        [
+            "交易日期",
+            "平均质押比例(%)",
+            "涨跌幅",
+            "A股质押总比例(%)",
+            "质押公司数量",
+            "质押笔数",
+            "质押总股数(股)",
+            "质押总市值(元)",
+            "沪深300指数",
+        ]
+    ]
     temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
     return temp_df
 
@@ -95,13 +121,13 @@ def _get_page_num_gpzy_market_pledge_ratio():
         "st": "amtshareratio",
         "sr": "-1",
         "p": "2",
-        'ps': '5000',
-        'js': "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
+        "ps": "5000",
+        "js": "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
         "filter": "(tdate='2019-12-27')",
-        "rt": '52584436',
+        "rt": "52584436",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -123,25 +149,53 @@ def stock_em_gpzy_pledge_ratio():
             "st": "amtshareratio",
             "sr": "-1",
             "p": str(page),
-            'ps': '5000',
-            'js': "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
+            "ps": "5000",
+            "js": "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
             "filter": "(tdate='2019-12-27')",
-            "rt": '52584436',
+            "rt": "52584436",
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
-        map_dict = dict(zip(pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                            pd.DataFrame(data_json["font"]["FontMapping"])["value"]))
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        map_dict = dict(
+            zip(
+                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
+                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
+            )
+        )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
-    temp_df.columns = ['股票代码', '股票简称', '交易日期', '所属行业', 'blfb', '质押比例(%)', '质押股数(股)', '质押市值(元)', '质押笔数', '无限售股质押数(股)',
-                       '限售股质押数(股)', '近一年涨跌幅(%)']
+    temp_df.columns = [
+        "股票代码",
+        "股票简称",
+        "交易日期",
+        "所属行业",
+        "blfb",
+        "质押比例(%)",
+        "质押股数(股)",
+        "质押市值(元)",
+        "质押笔数",
+        "无限售股质押数(股)",
+        "限售股质押数(股)",
+        "近一年涨跌幅(%)",
+    ]
     temp_df = temp_df[
-        ['股票代码', '股票简称', '交易日期', '所属行业', '质押比例(%)', '质押股数(股)', '质押市值(元)', '质押笔数', '无限售股质押数(股)', '限售股质押数(股)',
-         '近一年涨跌幅(%)']]
+        [
+            "股票代码",
+            "股票简称",
+            "交易日期",
+            "所属行业",
+            "质押比例(%)",
+            "质押股数(股)",
+            "质押市值(元)",
+            "质押笔数",
+            "无限售股质押数(股)",
+            "限售股质押数(股)",
+            "近一年涨跌幅(%)",
+        ]
+    ]
     temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
     return temp_df
 
@@ -160,13 +214,13 @@ def _get_page_num_gpzy_market_pledge_ratio_detail():
         "st": "ndate",
         "sr": "-1",
         "p": "2",
-        'ps': '5000',
-        'js': "var oiIxTSgC={pages:(tp),data:(x),font:(font)}",
+        "ps": "5000",
+        "js": "var oiIxTSgC={pages:(tp),data:(x),font:(font)}",
         "filter": "(datatype=1)",
-        "rt": '52584576',
+        "rt": "52584576",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -188,32 +242,91 @@ def stock_em_gpzy_pledge_ratio_detail():
             "st": "ndate",
             "sr": "-1",
             "p": str(page),
-            'ps': '5000',
-            'js': "var oiIxTSgC={pages:(tp),data:(x),font:(font)}",
+            "ps": "5000",
+            "js": "var oiIxTSgC={pages:(tp),data:(x),font:(font)}",
             "filter": "(datatype=1)",
-            "rt": '52584576',
+            "rt": "52584576",
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
-        map_dict = dict(zip(pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                            pd.DataFrame(data_json["font"]["FontMapping"])["value"]))
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        map_dict = dict(
+            zip(
+                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
+                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
+            )
+        )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
-    temp_df.columns = ['股票代码', '股票简称', 'eitime', 'eutime', 'eid', 'ccode', '公告日期', 'upd',
-                       'sharehdcode', 'gdmc', '股东名称', 'sharehdnum', '质押开始日期', 'jysj',
-                       'enddate', 'fcode', '质押机构', 'jglx', '-', '-',
-                       'pledgepur', 'frozenreason', 'remark', 'newprice', 'instcode',
-                       'relinstcode', 'jg_scode', 'zyjg_ccode', 'pname', 'yjx_pcx_type',
-                       'syscbl', 'syscsz', 'gd_count', 'jg_sname', 'yjx_min', 'yjx_max',
-                       'yjx_row', 'pcx_min', 'pcx_max', 'pcx_row', 'datatype',
-                       '质押股份数量(股)', '占所持股份比例(%)', '占总股本比例(%)', '最新价(元)', '质押日收盘价(元)',
-                       '预估平仓线(元)', 'sz', 'yjx']
+    temp_df.columns = [
+        "股票代码",
+        "股票简称",
+        "eitime",
+        "eutime",
+        "eid",
+        "ccode",
+        "公告日期",
+        "upd",
+        "sharehdcode",
+        "gdmc",
+        "股东名称",
+        "sharehdnum",
+        "质押开始日期",
+        "jysj",
+        "enddate",
+        "fcode",
+        "质押机构",
+        "jglx",
+        "-",
+        "-",
+        "pledgepur",
+        "frozenreason",
+        "remark",
+        "newprice",
+        "instcode",
+        "relinstcode",
+        "jg_scode",
+        "zyjg_ccode",
+        "pname",
+        "yjx_pcx_type",
+        "syscbl",
+        "syscsz",
+        "gd_count",
+        "jg_sname",
+        "yjx_min",
+        "yjx_max",
+        "yjx_row",
+        "pcx_min",
+        "pcx_max",
+        "pcx_row",
+        "datatype",
+        "质押股份数量(股)",
+        "占所持股份比例(%)",
+        "占总股本比例(%)",
+        "最新价(元)",
+        "质押日收盘价(元)",
+        "预估平仓线(元)",
+        "sz",
+        "yjx",
+    ]
     temp_df = temp_df[
-        ['股票代码', '股票简称', '公告日期', '股东名称', '质押开始日期', '质押机构', '质押股份数量(股)', '占所持股份比例(%)', '占总股本比例(%)', '最新价(元)',
-         '质押日收盘价(元)', '预估平仓线(元)']]
+        [
+            "股票代码",
+            "股票简称",
+            "公告日期",
+            "股东名称",
+            "质押开始日期",
+            "质押机构",
+            "质押股份数量(股)",
+            "占所持股份比例(%)",
+            "占总股本比例(%)",
+            "最新价(元)",
+            "质押日收盘价(元)",
+            "预估平仓线(元)",
+        ]
+    ]
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"])
     temp_df["质押开始日期"] = pd.to_datetime(temp_df["质押开始日期"])
     return temp_df
@@ -233,13 +346,13 @@ def _get_page_num_gpzy_distribute_statistics_company():
         "st": "scode_count",
         "sr": "-1",
         "p": "1",
-        'ps': '5000',
-        'js': "var bLnpEFtJ={pages:(tp),data:(x),font:(font)}",
+        "ps": "5000",
+        "js": "var bLnpEFtJ={pages:(tp),data:(x),font:(font)}",
         "filter": "(hy_name='券商信托')",
-        "rt": '52584592',
+        "rt": "52584592",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -261,25 +374,52 @@ def stock_em_gpzy_distribute_statistics_company():
             "st": "scode_count",
             "sr": "-1",
             "p": str(page),
-            'ps': '5000',
-            'js': "var bLnpEFtJ={pages:(tp),data:(x),font:(font)}",
+            "ps": "5000",
+            "js": "var bLnpEFtJ={pages:(tp),data:(x),font:(font)}",
             "filter": "(hy_name='券商信托')",
-            "rt": '52584592',
+            "rt": "52584592",
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
-        map_dict = dict(zip(pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                            pd.DataFrame(data_json["font"]["FontMapping"])["value"]))
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        map_dict = dict(
+            zip(
+                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
+                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
+            )
+        )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
-    temp_df.columns = ['质押公司股票代码', '质押笔数', 'jg_yjx_type_1', 'jg_yjx_type_2', '质押机构',
-                       '行业名称', '质押公司数量', '质押笔数', '质押数量(股)', '未达预警线比例(%)',
-                       '达到预警线未达平仓线比例(%)', '达到平仓线比例(%)']
-    temp_df = temp_df[['质押公司股票代码', '质押笔数', '质押机构', '行业名称', '质押公司数量', '质押笔数', '质押数量(股)', '未达预警线比例(%)', '达到预警线未达平仓线比例(%)',
-                       '达到平仓线比例(%)']]
+    temp_df.columns = [
+        "质押公司股票代码",
+        "质押笔数",
+        "jg_yjx_type_1",
+        "jg_yjx_type_2",
+        "质押机构",
+        "行业名称",
+        "质押公司数量",
+        "质押笔数",
+        "质押数量(股)",
+        "未达预警线比例(%)",
+        "达到预警线未达平仓线比例(%)",
+        "达到平仓线比例(%)",
+    ]
+    temp_df = temp_df[
+        [
+            "质押公司股票代码",
+            "质押笔数",
+            "质押机构",
+            "行业名称",
+            "质押公司数量",
+            "质押笔数",
+            "质押数量(股)",
+            "未达预警线比例(%)",
+            "达到预警线未达平仓线比例(%)",
+            "达到平仓线比例(%)",
+        ]
+    ]
     return temp_df
 
 
@@ -297,13 +437,13 @@ def _get_page_num_gpzy_distribute_statistics_bank():
         "st": "scode_count",
         "sr": "-1",
         "p": "1",
-        'ps': '5000',
-        'js': "var AQxIdDuK={pages:(tp),data:(x),font:(font)}",
+        "ps": "5000",
+        "js": "var AQxIdDuK={pages:(tp),data:(x),font:(font)}",
         "filter": "(hy_name='银行')",
-        "rt": '52584617',
+        "rt": "52584617",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -325,25 +465,52 @@ def stock_em_gpzy_distribute_statistics_bank():
             "st": "scode_count",
             "sr": "-1",
             "p": str(page),
-            'ps': '5000',
-            'js': "var AQxIdDuK={pages:(tp),data:(x),font:(font)}",
+            "ps": "5000",
+            "js": "var AQxIdDuK={pages:(tp),data:(x),font:(font)}",
             "filter": "(hy_name='银行')",
-            "rt": '52584617',
+            "rt": "52584617",
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
-        map_dict = dict(zip(pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                            pd.DataFrame(data_json["font"]["FontMapping"])["value"]))
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        map_dict = dict(
+            zip(
+                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
+                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
+            )
+        )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
-    temp_df.columns = ['质押公司股票代码', '质押笔数', 'jg_yjx_type_1', 'jg_yjx_type_2', '质押机构',
-                       '行业名称', '质押公司数量', '质押笔数', '质押数量(股)', '未达预警线比例(%)',
-                       '达到预警线未达平仓线比例(%)', '达到平仓线比例(%)']
-    temp_df = temp_df[['质押公司股票代码', '质押笔数', '质押机构', '行业名称', '质押公司数量', '质押笔数', '质押数量(股)', '未达预警线比例(%)', '达到预警线未达平仓线比例(%)',
-                       '达到平仓线比例(%)']]
+    temp_df.columns = [
+        "质押公司股票代码",
+        "质押笔数",
+        "jg_yjx_type_1",
+        "jg_yjx_type_2",
+        "质押机构",
+        "行业名称",
+        "质押公司数量",
+        "质押笔数",
+        "质押数量(股)",
+        "未达预警线比例(%)",
+        "达到预警线未达平仓线比例(%)",
+        "达到平仓线比例(%)",
+    ]
+    temp_df = temp_df[
+        [
+            "质押公司股票代码",
+            "质押笔数",
+            "质押机构",
+            "行业名称",
+            "质押公司数量",
+            "质押笔数",
+            "质押数量(股)",
+            "未达预警线比例(%)",
+            "达到预警线未达平仓线比例(%)",
+            "达到平仓线比例(%)",
+        ]
+    ]
     return temp_df
 
 
@@ -361,12 +528,12 @@ def _get_page_num_gpzy_industry_data():
         "st": "amtshareratio_pj",
         "sr": "-1",
         "p": "1",
-        'ps': '5000',
-        'js': "var SIqThurI={pages:(tp),data:(x),font:(font)}",
-        "rt": '52584617',
+        "ps": "5000",
+        "js": "var SIqThurI={pages:(tp),data:(x),font:(font)}",
+        "rt": "52584617",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -388,35 +555,52 @@ def stock_em_gpzy_industry_data():
             "st": "amtshareratio_pj",
             "sr": "-1",
             "p": str(page),
-            'ps': '5000',
-            'js': "var SIqThurI={pages:(tp),data:(x),font:(font)}",
-            "rt": '52584617',
+            "ps": "5000",
+            "js": "var SIqThurI={pages:(tp),data:(x),font:(font)}",
+            "rt": "52584617",
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
-        map_dict = dict(zip(pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                            pd.DataFrame(data_json["font"]["FontMapping"])["value"]))
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        map_dict = dict(
+            zip(
+                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
+                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
+            )
+        )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
-    temp_df.columns = ['统计时间', '-', '行业', '平均质押比例(%)', '公司家数', '质押总笔数', '质押总股本', '最新质押市值']
-    temp_df = temp_df[['统计时间', '行业', '平均质押比例(%)', '公司家数', '质押总笔数', '质押总股本', '最新质押市值']]
+    temp_df.columns = [
+        "统计时间",
+        "-",
+        "行业",
+        "平均质押比例(%)",
+        "公司家数",
+        "质押总笔数",
+        "质押总股本",
+        "最新质押市值",
+    ]
+    temp_df = temp_df[["统计时间", "行业", "平均质押比例(%)", "公司家数", "质押总笔数", "质押总股本", "最新质押市值"]]
     temp_df["统计时间"] = pd.to_datetime(temp_df["统计时间"])
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_em_gpzy_profile_df = stock_em_gpzy_profile()
     print(stock_em_gpzy_profile_df)
     stock_em_gpzy_pledge_ratio_df = stock_em_gpzy_pledge_ratio()
     print(stock_em_gpzy_pledge_ratio_df)
     stock_em_gpzy_pledge_ratio_detail_df = stock_em_gpzy_pledge_ratio_detail()
     print(stock_em_gpzy_pledge_ratio_detail_df)
-    stock_em_gpzy_distribute_statistics_company_df = stock_em_gpzy_distribute_statistics_company()
+    stock_em_gpzy_distribute_statistics_company_df = (
+        stock_em_gpzy_distribute_statistics_company()
+    )
     print(stock_em_gpzy_distribute_statistics_company_df)
-    stock_em_gpzy_distribute_statistics_bank_df = stock_em_gpzy_distribute_statistics_bank()
+    stock_em_gpzy_distribute_statistics_bank_df = (
+        stock_em_gpzy_distribute_statistics_bank()
+    )
     print(stock_em_gpzy_distribute_statistics_bank_df)
     stock_em_gpzy_industry_data_df = stock_em_gpzy_industry_data()
     print(stock_em_gpzy_industry_data_df)
