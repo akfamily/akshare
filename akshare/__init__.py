@@ -485,10 +485,28 @@ pypinyin 降级
 东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
 东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
 东方财富网-数据中心-特色数据-股权质押-行业数据: http://data.eastmoney.com/gpzy/industryData.aspx
+0.3.21
+东方财富网-数据中心-特色数据-商誉
+东方财富网-数据中心-特色数据-商誉-A股商誉市场概况: http://data.eastmoney.com/sy/scgk.html
+东方财富网-数据中心-特色数据-商誉-商誉减值预期明细: http://data.eastmoney.com/sy/yqlist.html
+东方财富网-数据中心-特色数据-商誉-个股商誉减值明细: http://data.eastmoney.com/sy/jzlist.html
+东方财富网-数据中心-特色数据-商誉-个股商誉明细: http://data.eastmoney.com/sy/list.html
+东方财富网-数据中心-特色数据-商誉-行业商誉: http://data.eastmoney.com/sy/hylist.html
 """
 
-__version__ = "0.3.20"
+__version__ = "0.3.21"
 __author__ = "Albert King"
+
+"""
+东方财富-商誉专题
+"""
+from akshare.stock_feature.stock_em_sy import (
+    stock_em_sy_profile,
+    stock_em_sy_yq_list,
+    stock_em_sy_jz_list,
+    stock_em_sy_list,
+    stock_em_sy_hy_list,
+)
 
 """
 东方财富-股票质押

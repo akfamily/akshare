@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-(本文档更新于 **2019-12-27**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
+(本文档更新于 **2019-12-30**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -140,9 +140,13 @@
     
     6.45 新增[国家金融与发展实验室网站](http://www.nifd.cn/)提供的宏观杠杆率数据;
     
-    6.46 新增[IT桔子](https://www.itjuzi.com)提供的千里马、独角兽、倒闭公司数据.
+    6.46 新增[IT桔子](https://www.itjuzi.com)提供的千里马、独角兽、倒闭公司数据;
     
-    6.47 新增[东方财富网站](http://data.eastmoney.com/jgdy/)提供的调研数据.
+    6.47 新增[东方财富网站](http://data.eastmoney.com/jgdy/)提供的机构调研数据;
+    
+    6.48 新增[东方财富网站](http://data.eastmoney.com/gpzy/)提供的股权质押数据;
+    
+    6.49 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的商誉专题数据.
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
