@@ -492,10 +492,18 @@ pypinyin 降级
 东方财富网-数据中心-特色数据-商誉-个股商誉减值明细: http://data.eastmoney.com/sy/jzlist.html
 东方财富网-数据中心-特色数据-商誉-个股商誉明细: http://data.eastmoney.com/sy/list.html
 东方财富网-数据中心-特色数据-商誉-行业商誉: http://data.eastmoney.com/sy/hylist.html
+0.3.22
+期货规则-交易日历数据表
+更新2020交易日历数据
 """
 
-__version__ = "0.3.21"
+__version__ = "0.3.22"
 __author__ = "Albert King"
+
+"""
+期货规则
+"""
+from akshare.futures.futures_rule import futures_rule
 
 """
 东方财富-商誉专题
