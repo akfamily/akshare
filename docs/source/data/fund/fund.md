@@ -1,6 +1,6 @@
 ## [AkShare](https://github.com/jindaxiang/akshare) 私募数据
 
-### [AkShare](https://github.com/jindaxiang/akshare) 中国基金业协会数据
+### 中国基金业协会数据
 
 #### 会员机构综合查询
 
@@ -601,7 +601,7 @@ print(member_df)
 14513   100  
 ```
 
-### [AkShare](https://github.com/jindaxiang/akshare) 中国私募指数数据
+### 中国私募指数数据
 
 接口: zdzk_fund_index
 
