@@ -24,3 +24,4 @@ Pandas 教程
     pandas-02
     pandas-03
     pandas-04
+    pandas-05
