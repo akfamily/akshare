@@ -495,10 +495,17 @@ pypinyin 降级
 0.3.22
 期货规则-交易日历数据表
 更新2020交易日历数据
+0.3.23
+东方财富网-数据中心-特色数据-股票账户统计: http://data.eastmoney.com/cjsj/gpkhsj.html
 """
 
-__version__ = "0.3.22"
+__version__ = "0.3.23"
 __author__ = "Albert King"
+
+"""
+东方财富-股票账户
+"""
+from akshare.stock_feature.stock_em_account import stock_em_account
 
 """
 期货规则

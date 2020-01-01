@@ -232,6 +232,8 @@
  "stock_em_sy_jz_list"  # 获取个股商誉减值明细
  "stock_em_sy_list"  # 获取个股商誉明细
  "stock_em_sy_hy_list"  # 获取行业商誉
+ # 股票账户统计数据
+ "stock_em_account"  # 获取股票账户统计数据
 ```
 
 ## 3. 案例演示
