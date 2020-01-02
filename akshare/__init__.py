@@ -497,9 +497,12 @@ pypinyin 降级
 更新2020交易日历数据
 0.3.23
 东方财富网-数据中心-特色数据-股票账户统计: http://data.eastmoney.com/cjsj/gpkhsj.html
+0.3.24
+移除-交易法门系列函数
+因为交易法门网站需要会员登录后访问数据
 """
 
-__version__ = "0.3.23"
+__version__ = "0.3.24"
 __author__ = "Albert King"
 
 """

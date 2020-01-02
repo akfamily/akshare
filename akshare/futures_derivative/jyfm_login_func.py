@@ -7,7 +7,6 @@ contact: jindaxiang@163.com
 desc: 交易法门-登录函数
 """
 from io import BytesIO
-import time
 
 from PIL import Image
 import requests
@@ -22,6 +21,15 @@ from akshare.futures_derivative.cons import (
 
 
 def jyfm_login(account="", password=""):
+    """
+    交易法门网站登录函数
+    :param account: user account
+    :type account: str
+    :param password: user password
+    :type password: str
+    :return: headers with cookies
+    :rtype: dict
+    """
     try:
         pic_url = f"https://www.jiaoyifamen.com/captcha"
         res = requests.get(pic_url)

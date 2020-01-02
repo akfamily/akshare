@@ -13,8 +13,9 @@ import websocket
 
 
 class HeartbeatThread(Thread):
-    """心跳"""
-
+    """
+    心跳
+    """
     def __init__(self, event, ws):
         super(HeartbeatThread, self).__init__()
         self.event = event
@@ -28,7 +29,15 @@ class HeartbeatThread(Thread):
 
 
 def on_message(ws, message):
-    """接收信息"""
+    """
+    接收信息
+    :param ws: 
+    :type ws:
+    :param message:
+    :type message:
+    :return:
+    :rtype:
+    """
     print(message)
 
 
@@ -37,6 +46,12 @@ def on_error(ws, error):
 
 
 def on_close(ws):
+    """
+    :param ws:
+    :type ws:
+    :return:
+    :rtype:
+    """
     print("### closed ###")
 
 
@@ -48,8 +63,10 @@ def on_open(ws):
 def on_emit(ws):
     """
     创建心跳线程
-    :param ws: websocket object
+    :param ws: object
+    :type ws: websocket object
     :return: None
+    :rtype: None
     """
     event = Event()
     heartbeat = HeartbeatThread(event, ws)
@@ -66,6 +83,7 @@ def on_emit(ws):
 
 
 def watch():
+
     websocket.enableTrace(False)
     ws = websocket.WebSocketApp(
         "wss://sshibikfdn.jin10.com:9085/socket.io/?EIO=3&transport=websocket",

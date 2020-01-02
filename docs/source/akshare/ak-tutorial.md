@@ -95,10 +95,6 @@
  "get_cons_silver_volume"  # 全球最大白银ETF--iShares Silver Trust持仓报告-总库存
  # 期货-仓单有效期
  "get_receipt_date"  # 期货仓单有效期数据
- # 中国期货跨期价差(自由价差)数据接口
- "get_futures_csa_params"  # 获取跨期价差参数
- "get_futures_csa_history"  # 获取跨期价差历史数据
- "get_futures_csa_seasonally"  # 获取跨期价差季节性数据
  # 新浪财经-期货
  "futures_zh_spot"  # 获取新浪-国内期货实时行情数据
  "futures_hq_spot"  # 获取新浪-外盘期货实时行情数据
@@ -169,11 +165,6 @@
  "sw_index_cons"  # 获取申万一级板块成份
  "sw_index_daily"  # 获取申万一级历史行情
  "sw_index_daily_indicator"  # 获取申万一级历史行情指标
- # 交易法门
- "jyfm_data_palm"  # 交易法门-棕榈
- "jyfm_data_soybean_meal"  # 交易法门-豆粕
- "jyfm_data_sugar"  # 交易法门-白糖
- "jyfm_data_usa_bean"  # 交易法门-美豆
  # 空气质量
  "air_all_city"  # 获取所有城市天气
  "air_city_list"  # 获取城市列表
@@ -234,6 +225,8 @@
  "stock_em_sy_hy_list"  # 获取行业商誉
  # 股票账户统计数据
  "stock_em_account"  # 获取股票账户统计数据
+ # 交易法门数据接口
+ " "
 ```
 
 ## 3. 案例演示
