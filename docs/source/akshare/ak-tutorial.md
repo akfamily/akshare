@@ -226,7 +226,12 @@
  # 股票账户统计数据
  "stock_em_account"  # 获取股票账户统计数据
  # 交易法门数据接口
- " "
+ "jyfm_tools_receipt_expire_info"  # 交易法门-工具-交易规则-仓单有效期
+ "jyfm_tools_position_limit_info"  # 交易法门-工具-交易规则-限仓规定
+ "jyfm_tools_futures_spread"  # 交易法门-工具-套利分析-跨期价差(自由价差)
+ "jyfm_tools_futures_ratio"  # 交易法门-工具-套利分析-自由价比
+ "jyfm_tools_futures_customize"  # 交易法门-工具-套利分析-多腿组合
+ "jyfm_exchange_symbol_dict"  # 交易所-品种字典
 ```
 
 ## 3. 案例演示
