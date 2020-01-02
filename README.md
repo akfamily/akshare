@@ -14,7 +14,7 @@
 
 ## Overview
 
-**目前 [AkShare](https://github.com/jindaxiang/akshare) 支持 Python 3.6 及以上版本**
+**Currently [AkShare](https://github.com/jindaxiang/akshare) only support Python version >= 3.6 **
 
 [AkShare](https://github.com/jindaxiang/akshare) is an, written with `Python-3.7.5`, aims to make fetch financial data as convenient as possible.
 
