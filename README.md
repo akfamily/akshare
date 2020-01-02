@@ -1,4 +1,4 @@
-![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg)
+![AkShare Logo](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/) 
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/) 
@@ -10,26 +10,26 @@
 [![Build Status](https://travis-ci.com/jindaxiang/akshare.svg?branch=master)](https://travis-ci.com/jindaxiang/akshare)
 [![MIT Licence](https://camo.githubusercontent.com/14a9abb7e83098f2949f26d2190e04fb1bd52c06/68747470733a2f2f626c61636b2e72656164746865646f63732e696f2f656e2f737461626c652f5f7374617469632f6c6963656e73652e737667)](https://github.com/jindaxiang/akshare/blob/master/LICENSE)
 
-# ![](https://github.com/jindaxiang/akshare/blob/master/example/images/akshare_home.png)
+# ![AkShare Demo](https://github.com/jindaxiang/akshare/blob/master/example/images/akshare_home.png)
 
 ## Overview
 
 **目前 [AkShare](https://github.com/jindaxiang/akshare) 支持 Python 3.6 及以上版本**
 
-[AkShare](https://github.com/jindaxiang/akshare) is an , written with `Python-3.7.3`, aims to make fetch financial data as convenient as possible.
+[AkShare](https://github.com/jindaxiang/akshare) is an, written with `Python-3.7.5`, aims to make fetch financial data as convenient as possible.
 
-**Write less, get more**:
+**Write less, get more!**:
 
--   Documentation: [中文文档](https://akshare.readthedocs.io/zh_CN/latest/)
+- Documentation: [中文文档](https://akshare.readthedocs.io/zh_CN/latest/)
 
 # ![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare.png)
 
 ## Features
 
--   **Easy**: Just one line to fetch the data
--   **Fast**: Powered by Python
--   **Extensible**: Powered by Python
--   **Powerful**: Python support
+- **Easy**: Just one line to fetch the data
+- **Fast**: Powered by Python
+- **Extensible**: Powered by Python
+- **Powerful**: Python support
 
 ## Installation
 
@@ -43,25 +43,25 @@ pip install akshare --upgrade
 
 ## Tutorials
 
-1.  [Overview](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-introduction.html)
-2.  [Installation](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-installation.html)
-3.  [Tutorial](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-tutorial.html)
-4.  [Data Dict](https://akshare.readthedocs.io/zh_CN/latest/README.html)
-5.  [Subjects](https://akshare.readthedocs.io/zh_CN/latest/subjects/index.html)
+1. [Overview](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-introduction.html)
+2. [Installation](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-installation.html)
+3. [Tutorial](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-tutorial.html)
+4. [Data Dict](https://akshare.readthedocs.io/zh_CN/latest/README.html)
+5. [Subjects](https://akshare.readthedocs.io/zh_CN/latest/subjects/index.html)
 
 ## TODO
 
--   Uniform interface;
--   Support more data;
+- Uniform interface;
+- Support more data;
 
 ## Contribution
 
- [AkShare](https://github.com/jindaxiang/akshare) is still under developing, feel free to open issues and pull requests:
+[AkShare](https://github.com/jindaxiang/akshare) is still under developing, feel free to open issues and pull requests:
 
--   Report or fix bugs
--   Require or publish interface
--   Write or fix documentation
--   Add test cases
+- Report or fix bugs
+- Require or publish interface
+- Write or fix documentation
+- Add test cases
 
 > Notice: We use [Black](https://black.readthedocs.io/en/stable/) to format the code
 
