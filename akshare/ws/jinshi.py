@@ -46,7 +46,11 @@ def on_open(ws):
 
 
 def on_emit(ws):
-    # 创建心跳线程
+    """
+    创建心跳线程
+    :param ws: websocket object
+    :return: None
+    """
     event = Event()
     heartbeat = HeartbeatThread(event, ws)
     heartbeat.start()

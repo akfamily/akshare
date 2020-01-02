@@ -3,21 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-欢迎来到 AkShare 的在线文档!
-===================================
+Welcome to AkShare's Online Documentation!
+===========================================
 
-`AkShare Github地址`_
+`AkShare's Github Address`_
 
-.. _AkShare Github地址: https://github.com/jindaxiang/akshare
+.. _AkShare's Github Address: https://github.com/jindaxiang/akshare
 
 .. note::
 
-    这里是 AkShare 的在线文档, 如有问题, 请跟作者 Albert King 联系: jindaxiang@163.com.
+   This is AkShare's online documentation. Please contact Albert King via jindaxiang@163.com
 
 .. toctree::
    :maxdepth: 2
    :glob:
-   :caption: 目录:
+   :caption: Table of contents:
 
    akshare/ak-introduction
    akshare/ak-installation
