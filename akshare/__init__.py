@@ -498,12 +498,27 @@ pypinyin 降级
 0.3.23
 东方财富网-数据中心-特色数据-股票账户统计: http://data.eastmoney.com/cjsj/gpkhsj.html
 0.3.24
-移除-交易法门系列函数
+移除-交易法门系列老函数
 因为交易法门网站需要会员登录后访问数据
+0.3.25
+增加-交易法门-工具-套利分析接口
+增加-交易法门-工具-交易规则接口
 """
 
-__version__ = "0.3.24"
+__version__ = "0.3.25"
 __author__ = "Albert King"
+
+"""
+交易法门-工具-套利分析接口
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_receipt_expire_info,
+    jyfm_tools_position_limit_info,
+    jyfm_tools_futures_spread,
+    jyfm_tools_futures_ratio,
+    jyfm_tools_futures_customize,
+    jyfm_exchange_symbol_dict,
+)
 
 """
 东方财富-股票账户
