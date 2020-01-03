@@ -135,13 +135,15 @@ pip install akshare --upgrade
 
 感谢[Expatistan网站](https://www.expatistan.com/cost-of-living)提供的世界各大城市生活成本数据;
 
-感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据;
+感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放数据;
 
-感谢[国家金融与发展实验室网站](http://www.nifd.cn/)提供的宏观杠杆率;
+感谢[国家金融与发展实验室网站](http://www.nifd.cn/)提供的杠杆率相关数据;
 
-感谢[IT桔子](https://www.itjuzi.com)提供的数据.
+感谢[IT桔子](https://www.itjuzi.com)提供的新经济公司相关数据;
 
-感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的相关数据.
+感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的相关股票数据.
+
+感谢[交易法门](http://data.eastmoney.com/jgdy/)提供的期货基本面相关数据.
 
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
