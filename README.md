@@ -1,4 +1,4 @@
-![AkShare Logo](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg)
+![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/) 
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/) 
@@ -9,7 +9,7 @@
 [![Build Status](https://travis-ci.com/jindaxiang/akshare.svg?branch=master)](https://travis-ci.com/jindaxiang/akshare)
 [![MIT Licence](https://camo.githubusercontent.com/14a9abb7e83098f2949f26d2190e04fb1bd52c06/68747470733a2f2f626c61636b2e72656164746865646f63732e696f2f656e2f737461626c652f5f7374617469632f6c6963656e73652e737667)](https://github.com/jindaxiang/akshare/blob/master/LICENSE)
 
-# ![AkShare Demo](https://github.com/jindaxiang/akshare/blob/master/example/images/akshare_home.png)
+# ![](https://github.com/jindaxiang/akshare/blob/master/example/images/akshare_home.png)
 
 ## Overview
 
