@@ -18,7 +18,7 @@
 
 [AkShare](https://github.com/jindaxiang/akshare) is an, written with `Python-3.7.5`, aims to make fetch financial data as convenient as possible.
 
-**Write less, get more!**:
+**Write less, get more!**
 
 - Documentation: [中文文档](https://akshare.readthedocs.io/zh_CN/latest/)
 
@@ -143,7 +143,9 @@ pip install akshare --upgrade
 
 感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的相关数据.
 
-感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
+感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 专题教程;
+
+感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Anaconda 专题教程.
 
 ## Communication
 
@@ -151,7 +153,7 @@ pip install akshare --upgrade
 
 <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qrcode_for_gh_abc3d079060a_258.jpg"/>
 
-也欢迎加入 QQ 群交流问题: 326900231
+同时也欢迎您加入 QQ 群交流相关问题: 326900231
 
 您可以扫码或者点击群二维码申请加入, 点击跳转加入:
 
