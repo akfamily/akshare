@@ -81,6 +81,7 @@ animals.groupby('品种').身高.agg([
     lambda x: x.iloc[0], lambda x: x.iloc[-1]
 ])
 ```
+
 ![多个 lambda 函数1](https://upload-images.jianshu.io/upload_images/3240514-31f80d8829eddd6f.png)
 
 ```
