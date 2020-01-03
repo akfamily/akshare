@@ -503,10 +503,30 @@ pypinyin 降级
 0.3.25
 增加-交易法门-工具-套利分析接口
 增加-交易法门-工具-交易规则接口
+0.3.26
+增加-交易法门-数据-农产品-豆油
+增加-交易法门-数据-黑色系-焦煤
+增加-交易法门-工具-持仓分析-期货分析
+增加-交易法门-工具-持仓分析-持仓分析
 """
 
-__version__ = "0.3.25"
+__version__ = "0.3.26"
 __author__ = "Albert King"
+
+"""
+交易法门-工具-数据-黑色系
+"""
+from akshare.futures_derivative.jyfm_data_func import (
+    jyfm_data_cocking_coal,
+)
+
+"""
+交易法门-工具-持仓分析
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_position_detail,
+    jyfm_tools_position_seat,
+)
 
 """
 交易法门-工具-套利分析接口
@@ -633,13 +653,14 @@ from akshare.index.index_sw import (
 )
 
 """
-交易法门-数据
+交易法门-数据-农产品
 """
 from akshare.futures_derivative.jyfm_data_func import (
     jyfm_data_palm,  # 棕榈
     jyfm_data_soybean_meal,  # 豆粕
     jyfm_data_sugar,  # 白糖
     jyfm_data_usa_bean,  # 美豆
+    jyfm_data_soybean_oil  # 豆油
 )
 
 """

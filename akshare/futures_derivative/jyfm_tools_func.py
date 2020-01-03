@@ -21,49 +21,7 @@ from akshare.futures_derivative.cons import (
 )
 
 
-def jyfm_tools_receipt_expire_info(headers=""):
-    """
-    交易法门-工具-交易规则-仓单有效期
-    :param headers: headers with cookies
-    :type headers: dict
-    :return: all history data
-    :rtype: pandas.DataFrame
-    """
-    temp_df = pd.DataFrame()
-    for page in range(1, 4):
-        params = {
-            "page": str(page),
-            "limit": "20",
-        }
-        res = requests.get(
-            f"https://www.jiaoyifamen.com/tools/receipt-expire-info/all",
-            params=params,
-            headers=headers,
-        )
-        temp_df = temp_df.append(pd.DataFrame(res.json()["data"]), ignore_index=True)
-    return temp_df
-
-
-def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
-    """
-    交易法门-工具-交易规则-限仓规定
-    :param exchange: one of ["INE", "DCE", "CZCE", "SHFE", "CFFEX"], default is "CFFEX"]
-    :type exchange: str
-    :param headers: headers with cookies
-    :type headers: dict
-    :return:
-    :rtype: pandas.DataFrame
-    """
-    params = {
-        "page": "1",
-        "limit": "10",
-        "exchange": exchange,
-    }
-    url = "https://www.jiaoyifamen.com/tools/position-limit/query"
-    res = requests.get(url, params=params, headers=headers)
-    return pd.DataFrame(res.json()["data"])
-
-
+# 交易法门-工具-套利分析
 def jyfm_tools_futures_spread(
     type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
 ):
@@ -75,17 +33,6 @@ def jyfm_tools_futures_spread(
     :param code_2: str
     :param plot: Bool
     :return: pandas.Series or pic
-    2013-01-04   -121
-    2013-01-07   -124
-    2013-01-08   -150
-    2013-01-09   -143
-    2013-01-10   -195
-                 ...
-    2019-10-21    116
-    2019-10-22    126
-    2019-10-23    123
-    2019-10-24    126
-    2019-10-25    134
     """
     csa_payload_his = csa_payload.copy()
     csa_payload_his.update({"type1": type_1})
@@ -267,14 +214,124 @@ jyfm_exchange_symbol_dict = {
 }
 
 
+# 交易法门-工具-持仓分析
+def jyfm_tools_position_detail(
+    symbol="SR", code="a2005", trade_date="2020-01-03", headers=""
+):
+    """
+    交易法门-工具-持仓分析-期货分析
+    :param symbol:
+    :type symbol:
+    :param code:
+    :type code:
+    :param trade_date:
+    :type trade_date:
+    :param headers:
+    :type headers:
+    :return:
+    :rtype:
+    """
+    url = f"https://www.jiaoyifamen.com/tools/position/details/{symbol}?code={code}&day={trade_date}&_=1578040551329"
+    res = requests.get(url, headers=headers)
+    return pd.DataFrame(res.json()["short_rank_table"])
+
+
+def jyfm_tools_position_seat(seat="永安期货", trade_date="2020-01-03", headers=""):
+    """
+    交易法门-工具-持仓分析-持仓分析
+    :param seat:
+    :type seat:
+    :param trade_date:
+    :type trade_date:
+    :param headers:
+    :type headers:
+    :return:
+    :rtype:
+    """
+    url = "https://www.jiaoyifamen.com/tools/position/seat"
+    params = {
+        "seat": seat,
+        "day": trade_date,
+        "type": "",
+        "_": "1578040989932",
+    }
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json()["data"])
+
+
+# 交易法门-工具-交易规则
+def jyfm_tools_receipt_expire_info(headers=""):
+    """
+    交易法门-工具-交易规则-仓单有效期
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: all history data
+    :rtype: pandas.DataFrame
+    """
+    temp_df = pd.DataFrame()
+    for page in range(1, 4):
+        params = {
+            "page": str(page),
+            "limit": "20",
+        }
+        res = requests.get(
+            f"https://www.jiaoyifamen.com/tools/receipt-expire-info/all",
+            params=params,
+            headers=headers,
+        )
+        temp_df = temp_df.append(pd.DataFrame(res.json()["data"]), ignore_index=True)
+    return temp_df
+
+
+def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
+    """
+    交易法门-工具-交易规则-限仓规定
+    :param exchange: one of ["INE", "DCE", "CZCE", "SHFE", "CFFEX"], default is "CFFEX"]
+    :type exchange: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "page": "1",
+        "limit": "10",
+        "exchange": exchange,
+    }
+    url = "https://www.jiaoyifamen.com/tools/position-limit/query"
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json()["data"])
+
+
 if __name__ == "__main__":
     # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 填入下载 jyfm_login 函数后再运行!
-    headers = jyfm_login(account="", password="")
+    headers = jyfm_login(account="link", password="loveloli888")
+
+    # 交易法门-工具-套利分析
+    jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
+        type_1="RB", type_2="RB", code_1="01", code_2="05", headers=headers, plot=True
+    )
+    print(jyfm_tools_futures_spread_df)
+    jyfm_tools_futures_ratio_df = jyfm_tools_futures_ratio(
+        type_1="RB", type_2="RB", code_1="01", code_2="05", headers=headers, plot=True
+    )
+    print(jyfm_tools_futures_ratio_df)
     jyfm_tools_futures_customize_df = jyfm_tools_futures_customize(
         formula="RB01-1.6*I01-0.5*J01-1200", headers=headers, plot=True
     )
-    temp_df = pd.DataFrame(jyfm_tools_futures_customize_df)
-    print(temp_df)
+    print(jyfm_tools_futures_customize_df)
+
+    # 交易法门-工具-持仓分析
+    jyfm_tools_position_detail_df = jyfm_tools_position_detail(
+        symbol="SR", code="a2005", trade_date="2020-01-03", headers=headers
+    )
+    print(jyfm_tools_position_detail_df)
+    jyfm_tools_position_seat_df = jyfm_tools_position_seat(
+        seat="永安期货", trade_date="2020-01-03", headers=headers
+    )
+    print(jyfm_tools_position_seat_df)
+
+    # 交易法门-工具-交易规则
     jyfm_tools_receipt_expire_info_df = jyfm_tools_receipt_expire_info(headers=headers)
     print(jyfm_tools_receipt_expire_info_df)
     jyfm_tools_position_limit_info_df = jyfm_tools_position_limit_info(
