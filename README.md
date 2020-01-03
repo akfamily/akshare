@@ -14,7 +14,7 @@
 
 ## Overview
 
-**Currently [AkShare](https://github.com/jindaxiang/akshare) only support Python version >= 3.6 **
+**Currently [AkShare](https://github.com/jindaxiang/akshare) only support Python version >= 3.6**
 
 [AkShare](https://github.com/jindaxiang/akshare) is an, written with `Python-3.7.5`, aims to make fetch financial data as convenient as possible.
 
@@ -109,41 +109,39 @@ pip install akshare --upgrade
 
 感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据;
 
-感谢[timeanddate网站](https://www.timeanddate.com/)提供的日出和日落数据;
+感谢[timeanddate网站](https://www.timeanddate.com/)提供的相关数据;
 
-感谢[河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/)提供的河北省空气质量数据;
+感谢[河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/)提供的相关数据;
 
-感谢[南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html)提供南华期货-南华指数数据;
+感谢[南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html)提供的相关数据;
 
-感谢[Economic Policy Uncertainty网站](http://www.nanhua.net/nhzc/varietytrend.html)提供经济政策不确定性(EPU)指数数据;
+感谢[Economic Policy Uncertainty网站](http://www.nanhua.net/nhzc/varietytrend.html)提供的相关数据;
 
-感谢[微博指数](https://data.weibo.com/index/newindex)提供微博指数数据;
+感谢[微博指数](https://data.weibo.com/index/newindex)提供的相关数据;
 
-感谢[百度指数](http://index.baidu.com/v2/main/index.html)提供百度指数数据;
+感谢[百度指数](http://index.baidu.com/v2/main/index.html)提供的相关数据;
 
-感谢[谷歌指数](https://trends.google.com/trends/?geo=US)提供谷歌趋势指数数据;
+感谢[谷歌指数](https://trends.google.com/trends/?geo=US)提供的相关数据;
 
 感谢[申万指数](http://www.swsindex.com/idx0120.aspx?columnid=8832)提供的相关数据;
 
-感谢[真气网](https://www.aqistudy.cn/)提供的空气质量数据;
+感谢[真气网](https://www.aqistudy.cn/)提供的相关数据;
 
-感谢[财富网站](http://www.fortunechina.com/)提供的财富企业世界500强数据;
+感谢[财富网站](http://www.fortunechina.com/)提供的相关数据;
 
-感谢[中国证券投资基金业协会](http://gs.amac.org.cn/)提供的私募基金数据;
+感谢[中国证券投资基金业协会](http://gs.amac.org.cn/)提供的相关数据;
 
-感谢[猫眼电影网站](https://maoyan.com/board/1)提供的实时票房数据;
+感谢[猫眼电影网站](https://maoyan.com/board/1)提供的相关数据;
 
-感谢[Expatistan网站](https://www.expatistan.com/cost-of-living)提供的世界各大城市生活成本数据;
+感谢[Expatistan网站](https://www.expatistan.com/cost-of-living)提供的相关数据;
 
-感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放数据;
+感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的相关数据;
 
-感谢[国家金融与发展实验室网站](http://www.nifd.cn/)提供的杠杆率相关数据;
+感谢[国家金融与发展实验室网站](http://www.nifd.cn/)提供的相关数据;
 
-感谢[IT桔子](https://www.itjuzi.com)提供的新经济公司相关数据;
+感谢[IT桔子](https://www.itjuzi.com)提供的相关数据;
 
-感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的相关股票数据.
-
-感谢[交易法门](http://data.eastmoney.com/jgdy/)提供的期货基本面相关数据.
+感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的相关数据.
 
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 教程.
 
