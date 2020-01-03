@@ -120,7 +120,7 @@ def jyfm_data_cocking_coal(indicator="焦煤总库存", headers=""):
 
 
 if __name__ == "__main__":
-    headers = jyfm_login(account="link", password="loveloli888")
+    headers = jyfm_login(account="", password="")
     # 农产品
     df = jyfm_data_usa_bean(indicator="美豆优良率", headers=headers)
     print(df)

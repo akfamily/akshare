@@ -216,7 +216,7 @@ jyfm_exchange_symbol_dict = {
 
 # 交易法门-工具-持仓分析
 def jyfm_tools_position_detail(
-    symbol="SR", code="a2005", trade_date="2020-01-03", headers=""
+    symbol="JM", code="jm2005", trade_date="2020-01-03", headers=""
 ):
     """
     交易法门-工具-持仓分析-期货分析
@@ -305,7 +305,7 @@ def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
 
 if __name__ == "__main__":
     # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 填入下载 jyfm_login 函数后再运行!
-    headers = jyfm_login(account="link", password="loveloli888")
+    headers = jyfm_login(account="", password="")
 
     # 交易法门-工具-套利分析
     jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
@@ -323,7 +323,7 @@ if __name__ == "__main__":
 
     # 交易法门-工具-持仓分析
     jyfm_tools_position_detail_df = jyfm_tools_position_detail(
-        symbol="SR", code="a2005", trade_date="2020-01-03", headers=headers
+        symbol="JM", code="jm2005", trade_date="2020-01-03", headers=headers
     )
     print(jyfm_tools_position_detail_df)
     jyfm_tools_position_seat_df = jyfm_tools_position_seat(
