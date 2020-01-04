@@ -32,10 +32,12 @@
 
 ## Installation
 
-``` shell
+```shell script
 # For Linux & Mac
 pip install akshare --upgrade
+```
 
+```shell script
 # For Windows
 pip install akshare --upgrade
 ```
