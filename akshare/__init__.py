@@ -510,10 +510,20 @@ pypinyin 降级
 增加-交易法门-工具-持仓分析-持仓分析
 0.3.27
 交易法门-说明文档
+0.3.28
+增加-股票指数-股票指数成份股接口
 """
 
-__version__ = "0.3.27"
+__version__ = "0.3.28"
 __author__ = "Albert King"
+
+"""
+股票指数-股票指数-成份股
+"""
+from akshare.index.index_cons import (
+    index_stock_info,
+    index_stock_cons,
+)
 
 """
 交易法门-工具-数据-黑色系

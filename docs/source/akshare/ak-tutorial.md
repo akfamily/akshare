@@ -241,6 +241,9 @@
  "jyfm_data_sugar"  # 交易法门-数据-农产品-白糖
  "jyfm_data_usa_bean"  # 交易法门-数据-农产品-美豆
  "jyfm_data_soybean_oil"  # 交易法门-数据-农产品-豆油
+ # 股票指数-成份股
+ "index_stock_cons"  # 股票指数-成份股-最新成份股获取
+ "index_stock_info"  # 股票指数-成份股-所有可以获取的指数表
 ```
 
 ## 3. 案例演示
