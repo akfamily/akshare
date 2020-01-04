@@ -514,10 +514,19 @@ pypinyin 降级
 增加-股票指数-股票指数成份股接口
 0.3.29
 增加-股票指数-股票指数成份股接口-代码注释
+0.3.30
+增加-义乌小商品指数
 """
 
-__version__ = "0.3.29"
+__version__ = "0.3.30"
 __author__ = "Albert King"
+
+"""
+义乌小商品指数
+"""
+from akshare.index.index_yw import (
+    index_yw,
+)
 
 """
 股票指数-股票指数-成份股

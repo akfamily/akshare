@@ -74,11 +74,13 @@
 
 感谢[国家金融与发展实验室网站](http://www.nifd.cn/)提供的宏观杠杆率;
 
-感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据.
+感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据;
 
-感谢[IT桔子](https://www.itjuzi.com)提供的数据.
+感谢[IT桔子](https://www.itjuzi.com)提供的数据;
 
-感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的数据.
+感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的数据;
+
+感谢[义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/)提供的相关数据.
 
 ## 交流
 

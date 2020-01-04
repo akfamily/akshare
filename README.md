@@ -144,6 +144,8 @@ pip install akshare --upgrade
 
 感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的相关数据;
 
+感谢[义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/)提供的相关数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 专题教程;
 
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Anaconda 专题教程.
