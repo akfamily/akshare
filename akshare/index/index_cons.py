@@ -4,7 +4,9 @@
 Author: Albert King
 date: 2020/1/4 16:19
 contact: jindaxiang@163.com
-desc: 获取股票指数成份
+desc: 获取股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
+新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
+老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
 import requests
 import pandas as pd
@@ -48,6 +50,12 @@ from bs4 import BeautifulSoup
 #     return pd.DataFrame(demjson.decode(res.text))
 
 def index_stock_info():
+    """
+    获取聚宽 指数数据 页面的 指数列表
+    https://www.joinquant.com/data/dict/indexData
+    :return: 指数信息的数据框
+    :rtype: pandas.DataFrame
+    """
     index_df = pd.read_html("https://www.joinquant.com/data/dict/indexData")[0]
     index_df["指数代码"] = index_df["指数代码"].str.split(".", expand=True)[0]
     index_df.columns = ["index_code", "display_name", "publish_date", "-", "-"]
@@ -58,10 +66,10 @@ def index_stock_cons(index="000031"):
     """
     查询最新股票指数的成份股目录
     http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
-    :param index:
-    :type index:
-    :return:
-    :rtype:
+    :param index: 指数代码, 可以通过 index_stock_info 函数获取
+    :type index: str
+    :return: result
+    :rtype: pandas.DataFrame
     """
     url = f"http://vip.stock.finance.sina.com.cn/corp/go.php/vII_NewestComponent/indexid/{index}.phtml"
     res = requests.get(url)
