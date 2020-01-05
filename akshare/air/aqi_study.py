@@ -9,12 +9,12 @@ https://www.aqistudy.cn/
 此部分参考 https://github.com/PKUJohnson/OpenData/tree/master/opendatatools/aqi2
 感谢 PKUJohnson 提供的加解密函数
 """
-import time
 import json
+import time
 
 import pandas as pd
-from bs4 import BeautifulSoup
 import requests
+from bs4 import BeautifulSoup
 
 from akshare.air.aqi_utils import *
 

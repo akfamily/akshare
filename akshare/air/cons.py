@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/11/25 20:45
 contact: jindaxiang@163.com
-desc: 
+desc: 空气质量接口配置文件
 """
 city_chinese_list = [
     "北京",

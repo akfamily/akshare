@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/11/26 16:33
 contact: jindaxiang@163.com
-desc: 
+desc: 河北的空气质量数据
 """
 import datetime
 

@@ -6,8 +6,8 @@ date: 2019/11/14 20:31
 contact: jindaxiang@163.com
 desc: FF-data-library: http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 """
-import requests
 import pandas as pd
+import requests
 
 from akshare.article.cons import ff_home_url
 
