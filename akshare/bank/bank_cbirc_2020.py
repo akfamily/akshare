@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2020/01/06 14:06
 contact: jindaxiang@163.com
-desc: 首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表
+desc: 中国银行保险监督管理委员会-首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表
 http://www.cbirc.gov.cn/cn/view/pages/ItemList.html?itemPId=923&itemId=4115&itemUrl=ItemListRightList.html&itemName=%E9%93%B6%E4%BF%9D%E7%9B%91%E5%88%86%E5%B1%80%E6%9C%AC%E7%BA%A7&itemsubPId=931&itemsubPName=%E8%A1%8C%E6%94%BF%E5%A4%84%E7%BD%9A#2
 提取 具体页面 html 页面的 json 接口
 http://www.cbirc.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId=881446.json
