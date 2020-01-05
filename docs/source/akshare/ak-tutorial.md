@@ -125,7 +125,7 @@
  "stock_zh_kcb_spot"  # 获取科创板实时行情数据
  "stock_zh_kcb_daily"  # 获取科创板历史行情数据(日频)
  # 银保监分局本级行政处罚数据
- "bank_fjcf"  # 获取银保监分局本级行政处罚
+ "bank_fjcf_table_detail"  # 获取银保监分局本级行政处罚-信息公开表
  # 已实现波动率数据
  "article_oman_rv"  # O-MAN已实现波动率
  "article_rlab_rv"  # Risk-Lab已实现波动率

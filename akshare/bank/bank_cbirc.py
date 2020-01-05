@@ -11,7 +11,7 @@ import execjs
 import pandas as pd
 from bs4 import BeautifulSoup
 
-from akshare.bank.cons import cbirc_headers_without_cookie
+from akshare.bank.cons import cbirc_headers_without_cookie_2019
 
 
 def bank_page_list(page=5):
@@ -25,7 +25,7 @@ def bank_page_list(page=5):
     big_url_list = []
     big_title_list = []
     flag = True
-    cbirc_headers = cbirc_headers_without_cookie.copy()
+    cbirc_headers = cbirc_headers_without_cookie_2019.copy()
     for i_page in range(1, page):
         # i_page = 1
         print(i_page)

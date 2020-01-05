@@ -516,9 +516,12 @@ pypinyin 降级
 增加-股票指数-股票指数成份股接口-代码注释
 0.3.30
 增加-义乌小商品指数
+0.3.31
+修复-银保监分局本级行政处罚数据接口
+接口重命名为: bank_fjcf_table_detail
 """
 
-__version__ = "0.3.30"
+__version__ = "0.3.31"
 __author__ = "Albert King"
 
 """
@@ -782,10 +785,7 @@ from akshare.article.risk_rv import (
 """
 银保监分局本级行政处罚数据
 """
-if datetime.datetime.now().weekday() in [0, 1, 2, 3, 4]:
-    from akshare.bank.bank_cbirc_20191115 import bank_fjcf
-else:
-    from akshare.bank.bank_cbirc_20191114 import bank_fjcf
+from akshare.bank.bank_cbirc_2020 import bank_fjcf_table_detail
 
 """
 科创板股票
