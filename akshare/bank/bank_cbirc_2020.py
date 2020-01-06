@@ -96,5 +96,5 @@ def bank_fjcf_table_detail(page=5):
 
 
 if __name__ == '__main__':
-    bank_fjcf_detail_df = bank_fjcf_table_detail(page=1)
+    bank_fjcf_detail_df = bank_fjcf_table_detail(page=2)
     print(bank_fjcf_detail_df)
