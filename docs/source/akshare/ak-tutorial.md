@@ -68,6 +68,10 @@
  "get_china_daily_energy"  # 中国电力能源数据
  "get_china_non_man_pmi"  # 中国年度非制造业PMI数据
  "get_china_rmb"  # 人民币中间报价汇率
+ "macro_china_ctci"  # 中国电煤价格指数-全国综合电煤价格指数
+ "macro_china_ctci_detail"  # 各价区电煤价格指数
+ "macro_china_ctci_detail_hist"  # 历史电煤价格指数
+
  # 宏观-美国
  "get_usa_interest_rate"  # 联储利率决议报告
  "get_usa_non_farm"  # 美国非农就业人数报告

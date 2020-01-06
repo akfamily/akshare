@@ -80,7 +80,9 @@
 
 感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的数据;
 
-感谢[义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/)提供的相关数据.
+感谢[义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/)提供的相关数据;
+
+感谢[中国国家发展和改革委员会网站](http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741)提供的相关数据;
 
 ## 交流
 

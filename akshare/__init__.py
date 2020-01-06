@@ -519,9 +519,11 @@ pypinyin 降级
 0.3.31
 修复-银保监分局本级行政处罚数据接口
 接口重命名为: bank_fjcf_table_detail
+0.3.32
+新增-中国电煤价格指数
 """
 
-__version__ = "0.3.31"
+__version__ = "0.3.32"
 __author__ = "Albert King"
 
 """
@@ -928,6 +930,9 @@ from akshare.economic.macro_china import (
     get_market_margin_sh,
     get_market_margin_sz,
     au_report,
+    macro_china_ctci_detail,
+    macro_china_ctci_detail_hist,
+    macro_china_ctci,
 )
 
 """

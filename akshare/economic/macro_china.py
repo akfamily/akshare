@@ -5,6 +5,8 @@ Author: Albert King
 date: 2019/10/21 12:08
 contact: jindaxiang@163.com
 desc: 获取金十数据-数据中心-中国-中国宏观
+首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
+http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
 """
 import json
 import time
@@ -53,7 +55,7 @@ def get_china_yearly_cpi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国CPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -86,7 +88,7 @@ def get_china_monthly_cpi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国CPI月率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -119,7 +121,7 @@ def get_china_yearly_m2():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国M2货币供应年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -152,7 +154,7 @@ def get_china_yearly_ppi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国PPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -185,7 +187,7 @@ def get_china_yearly_pmi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国官方制造业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -243,7 +245,7 @@ def get_china_yearly_gdp():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国GDP年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -276,7 +278,7 @@ def get_china_yearly_cx_pmi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国财新制造业PMI终值报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -309,7 +311,7 @@ def get_china_yearly_cx_services_pmi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国财新服务业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -381,7 +383,7 @@ def get_china_yearly_fx_reserves():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国外汇储备报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -415,7 +417,7 @@ def get_china_daily_energy():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["沿海六大电厂库存动态报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -448,7 +450,7 @@ def get_china_non_man_pmi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国官方非制造业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -506,7 +508,7 @@ def get_china_rmb():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = [item["datas"]["美元/人民币"] for item in json_data["list"]]
     value_list_2 = [item["datas"]["欧元/人民币"] for item in json_data["list"]]
@@ -691,6 +693,54 @@ def au_report():
     return value_list_1
 
 
+# 发改委
+def macro_china_ctci():
+    """
+    中国电煤价格指数-全国综合电煤价格指数
+    http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
+    :return: 20140101-至今的所有历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://59.252.41.60/portal//out/dm?t=1578298533594"
+    res = requests.get(url)
+    return pd.DataFrame({"date": res.json()["periods"], "value": res.json()["data"][0]})
+
+
+def macro_china_ctci_detail():
+    """
+    2019年11月各价区电煤价格指数
+    http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
+    :return:
+    :rtype:
+    """
+    url = "http://59.252.41.60/portal//out/dm/list/cebdf627f9c24c22a507e2f2e25e2b43?t=1578298533161"
+    res = requests.get(url)
+    data_df = pd.DataFrame(res.json()["data"])
+    data_df.index = res.json()["names"]
+    data_df.columns = ["-", "环比", "上期", "同比", "本期"]
+    return data_df[["环比", "上期", "同比", "本期"]]
+
+
+def macro_china_ctci_detail_hist(year="2018"):
+    """
+    历史电煤价格指数
+    http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
+    :param year: 2014-2019 年
+    :type year: str
+    :return: 制定年份的中国电煤价格指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://59.252.41.60/portal//out/dm/listAll?t=1578299685398"
+    params = {
+        "CONF_ID": "cebdf627f9c24c22a507e2f2e25e2b43",
+        "year": f"{year}",
+    }
+    res = requests.post(url, data=params)
+    data_df = pd.DataFrame(res.json()["data"])
+    data_df.columns = res.json()["names"]
+    return data_df
+
+
 if __name__ == "__main__":
     df = get_china_yearly_cpi()
     print(df)
@@ -708,3 +758,11 @@ if __name__ == "__main__":
     print(df)
     df = get_china_yearly_fx_reserves()
     print(df)
+    # 发改委
+    macro_china_ctci_df = macro_china_ctci()
+    print(macro_china_ctci_df)
+    macro_china_ctci_detail_df = macro_china_ctci_detail()
+    print(macro_china_ctci_detail_df)
+    macro_china_ctci_detail_hist_df = macro_china_ctci_detail_hist()
+    print(macro_china_ctci_detail_hist_df)
+
