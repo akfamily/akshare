@@ -521,9 +521,11 @@ pypinyin 降级
 接口重命名为: bank_fjcf_table_detail
 0.3.32
 新增-中国电煤价格指数
+0.3.33
+修复-银保监分局本级行政处罚数据接口-20200108新增字段后适应
 """
 
-__version__ = "0.3.32"
+__version__ = "0.3.33"
 __author__ = "Albert King"
 
 """

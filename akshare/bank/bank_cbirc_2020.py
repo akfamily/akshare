@@ -11,6 +11,7 @@ http://www.cbirc.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId=881446.j
 2020新接口
 """
 import requests
+import numpy as np
 import pandas as pd
 
 from akshare.bank.cons import cbirc_headers_without_cookie_2020
@@ -75,16 +76,24 @@ def bank_fjcf_table_detail(page=5):
         # print(res.json()["data"]["docClob"])
         try:
             table_list = pd.read_html(res.json()["data"]["docClob"])[0]
-            table_df = table_list.iloc[:, 3:]
+            table_list = table_list.iloc[:, 3:].values.tolist()
+            # 部分旧表缺少字段，所以填充
+            if len(table_list) != 10:
+                table_list.insert(2, np.nan)
+            # 部分会变成嵌套列表, 这里还原
+            table_list = [item[0] if isinstance(item, list) else item for item in table_list]
+            table_df = pd.DataFrame(table_list)
             table_df.columns = ["内容"]
-            big_df = big_df.append(table_df.T)
+            big_df = big_df.append(table_df.T, ignore_index=True)
+            # 解决有些页面缺少字段的问题, 都放到 try 里面
         except:
             print(f"{item} is not table, it will be skip")
             continue
     big_df.columns = [
         "行政处罚决定书文号",
         "姓名",
-        "单位",
+        "单位",  # 20200108新增
+        "单位名称",
         "主要负责人姓名",
         "主要违法违规事实（案由）",
         "行政处罚依据",
