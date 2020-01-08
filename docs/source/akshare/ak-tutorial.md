@@ -229,16 +229,17 @@
  "stock_em_sy_hy_list"  # 获取行业商誉
  # 股票账户统计数据
  "stock_em_account"  # 获取股票账户统计数据
- # 交易法门-工具接口
+ # 交易法门-工具接口-套利分析
  "jyfm_tools_futures_spread"  # 交易法门-工具-套利分析-跨期价差(自由价差)
  "jyfm_tools_futures_ratio"  # 交易法门-工具-套利分析-自由价比
  "jyfm_tools_futures_customize"  # 交易法门-工具-套利分析-多腿组合
  "jyfm_exchange_symbol_dict"  # 交易法门-交易所-品种字典
  "jyfm_tools_position_detail"  # 交易法门-工具-持仓分析-期货分析
  "jyfm_tools_position_seat"  # 交易法门-工具-持仓分析-持仓分析
+ # 交易法门-工具接口-交易规则
  "jyfm_tools_receipt_expire_info"  # 交易法门-工具-交易规则-仓单有效期
  "jyfm_tools_position_limit_info"  # 交易法门-工具-交易规则-限仓规定
- # 交易法门-数据接口
+ # 交易法门-数据接口-农产品
  "jyfm_data_cocking_coal"  # 交易法门-数据-黑色系-焦煤
  "jyfm_data_palm"  # 交易法门-数据-农产品-棕榈
  "jyfm_data_soybean_meal"  # 交易法门-数据-农产品-豆粕
@@ -250,6 +251,11 @@
  "index_stock_info"  # 股票指数-成份股-所有可以获取的指数表
  # 义乌小商品指数
  "index_yw"  # 获取义乌小商品指数
+ # 交易法门-工具接口-期限分析
+ "jyfm_tools_futures_basis_daily"  # 增加-交易法门-工具-期限分析-基差日报
+ "jyfm_tools_futures_basis_analysis"  # 增加-交易法门-工具-期限分析-基差分析
+ "jyfm_tools_futures_basis_structure"  # 增加-交易法门-工具-期限分析-期限结构
+ "jyfm_tools_futures_basis_rule"  # 增加-交易法门-工具-期限分析-价格季节性
 ```
 
 ## 3. 案例演示

@@ -523,10 +523,26 @@ pypinyin 降级
 新增-中国电煤价格指数
 0.3.33
 修复-银保监分局本级行政处罚数据接口-20200108新增字段后适应
+0.3.34
+增加-交易法门-工具-期限分析-基差日报
+增加-交易法门-工具-期限分析-基差分析
+增加-交易法门-工具-期限分析-期限结构
+增加-交易法门-工具-期限分析-价格季节性
 """
 
-__version__ = "0.3.33"
+__version__ = "0.3.34"
 __author__ = "Albert King"
+
+"""
+增加-交易法门-工具-期限分析
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_futures_basis_daily,
+    jyfm_tools_futures_basis_analysis_area,
+    jyfm_tools_futures_basis_analysis,
+    jyfm_tools_futures_basis_structure,
+    jyfm_tools_futures_basis_rule,
+)
 
 """
 义乌小商品指数

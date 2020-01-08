@@ -6,6 +6,10 @@ date: 2020/01/02 17:37
 contact: jindaxiang@163.com
 desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门首页: https://www.jiaoyifamen.com/
+增加-交易法门-工具-期限分析-基差日报
+增加-交易法门-工具-期限分析-基差分析
+增加-交易法门-工具-期限分析-期限结构
+增加-交易法门-工具-期限分析-价格季节性
 """
 import requests
 import pandas as pd
@@ -23,7 +27,7 @@ from akshare.futures_derivative.cons import (
 
 # 交易法门-工具-套利分析
 def jyfm_tools_futures_spread(
-    type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
+        type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
 ):
     """
     交易法门-工具-套利分析-跨期价差(自由价差)
@@ -57,7 +61,7 @@ def jyfm_tools_futures_spread(
 
 
 def jyfm_tools_futures_ratio(
-    type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
+        type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
 ):
     """
     交易法门-工具-套利分析-自由价比
@@ -102,7 +106,7 @@ def jyfm_tools_futures_ratio(
 
 
 def jyfm_tools_futures_customize(
-    formula="RB01-1.6*I01-0.5*J01-1200", headers="", plot=True
+        formula="RB01-1.6*I01-0.5*J01-1200", headers="", plot=True
 ):
     """
     交易法门-工具-套利分析-多腿组合
@@ -216,7 +220,7 @@ jyfm_exchange_symbol_dict = {
 
 # 交易法门-工具-持仓分析
 def jyfm_tools_position_detail(
-    symbol="JM", code="jm2005", trade_date="2020-01-03", headers=""
+        symbol="JM", code="jm2005", trade_date="2020-01-03", headers=""
 ):
     """
     交易法门-工具-持仓分析-期货分析
@@ -303,9 +307,112 @@ def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
     return pd.DataFrame(res.json()["data"])
 
 
+# 交易法门-工具-期限分析
+def jyfm_tools_futures_basis_daily(trade_date="2020-01-02", headers=""):
+    """
+    交易法门-工具-期限分析-基差日报
+    :param trade_date: 指定交易日期, 注意格式为 "2020-01-02"
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定日期的基差日报数据
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "day": trade_date,
+    }
+    url = f"https://www.jiaoyifamen.com/tools/future/basis/daily"
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json()["table_data"])
+
+
+def jyfm_tools_futures_basis_analysis_area(symbol="Y", headers=""):
+    """
+    交易法门-工具-期限分析-基差日报-地区选取
+    :param symbol: 品种代码
+    :type symbol: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定品种的可选地区
+    :rtype: list
+    """
+    params = {
+        "type": symbol,
+    }
+    url = "https://www.jiaoyifamen.com/tools/future/area"
+    res = requests.get(url, params=params, headers=headers)
+    return res.json()["areas"]
+
+
+def jyfm_tools_futures_basis_analysis(symbol="RB", area="上海", headers=""):
+    """
+    交易法门-工具-期限分析-基差日报
+    :param symbol: 品种代码
+    :type symbol: str
+    :param area: one of ["上海", "天津"], 不同品种不同日期通过 jyfm_tools_futures_basis_analysis_area 返回
+    :type area: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定品种和地区的基差日报
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "type": symbol,
+        "area": area,
+    }
+    url = f"https://www.jiaoyifamen.com/tools/future/basis/daily"
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json())
+
+
+def jyfm_tools_futures_basis_structure(symbol="RB", headers=""):
+    """
+    交易法门-工具-期限分析-期限结构
+    :param symbol: 合约品种
+    :type symbol: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定品种的期限结构数据
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "type": symbol,
+    }
+    url = "https://www.jiaoyifamen.com/tools/future/basis/structure"
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json())
+
+
+def jyfm_tools_futures_basis_rule(symbol="RB", code="05", return_data="", headers=""):
+    """
+    交易法门-工具-期限分析-价格季节性
+    :param symbol: 品种
+    :type symbol: str
+    :param code: 合约具体月份
+    :type code: str
+    :param return_data: 期货涨跌统计 or 季节性走势图, 默认为 季节性走势图
+    :type return_data: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 期货涨跌统计 or 季节性走势图
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "type": symbol,
+        "code": code,
+    }
+    url = "https://www.jiaoyifamen.com/tools/future/basis/rule"
+    res = requests.get(url, params=params, headers=headers)
+    data_json = res.json()
+    if return_data == "期货涨跌统计":
+        return pd.DataFrame(data_json["ratioData"])
+    return pd.DataFrame([data_json["dataCategory"], data_json["year2013"], data_json["year2014"], data_json["year2015"],
+                         data_json["year2016"], data_json["year2017"], data_json["year2018"], data_json["year2019"],
+                         data_json["year2020"]], index=["date", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"]).T
+
+
 if __name__ == "__main__":
     # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 填入下载 jyfm_login 函数后再运行!
-    headers = jyfm_login(account="", password="")
+    headers = jyfm_login(account="link", password="loveloli888")
 
     # 交易法门-工具-套利分析
     jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
@@ -338,3 +445,15 @@ if __name__ == "__main__":
         exchange="CFFEX", headers=headers
     )
     print(jyfm_tools_position_limit_info_df)
+
+    # 交易法门-工具-期限分析
+    jyfm_tools_futures_basis_daily_df = jyfm_tools_futures_basis_daily(trade_date="2020-01-02", headers=headers)
+    print(jyfm_tools_futures_basis_daily_df)
+    jyfm_tools_futures_basis_analysis_area_df = jyfm_tools_futures_basis_analysis_area(symbol="Y", headers=headers)
+    print(jyfm_tools_futures_basis_analysis_area_df)
+    jyfm_tools_futures_basis_analysis_df = jyfm_tools_futures_basis_analysis(symbol="RB", area="上海", headers=headers)
+    print(jyfm_tools_futures_basis_analysis_df)
+    jyfm_tools_futures_basis_structure_df = jyfm_tools_futures_basis_structure(symbol="RB", headers=headers)
+    print(jyfm_tools_futures_basis_structure_df)
+    jyfm_tools_futures_basis_rule_df = jyfm_tools_futures_basis_rule(symbol="RB", code="05", return_data="", headers=headers)
+    print(jyfm_tools_futures_basis_rule_df)
