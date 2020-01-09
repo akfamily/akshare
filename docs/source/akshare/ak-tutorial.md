@@ -251,11 +251,20 @@
  "index_stock_info"  # 股票指数-成份股-所有可以获取的指数表
  # 义乌小商品指数
  "index_yw"  # 获取义乌小商品指数
- # 交易法门-工具接口-期限分析
- "jyfm_tools_futures_basis_daily"  # 增加-交易法门-工具-期限分析-基差日报
- "jyfm_tools_futures_basis_analysis"  # 增加-交易法门-工具-期限分析-基差分析
- "jyfm_tools_futures_basis_structure"  # 增加-交易法门-工具-期限分析-期限结构
- "jyfm_tools_futures_basis_rule"  # 增加-交易法门-工具-期限分析-价格季节性
+ # 交易法门-工具-期限分析
+ "jyfm_tools_futures_basis_daily"  # 交易法门-工具-期限分析-基差日报
+ "jyfm_tools_futures_basis_analysis"  # 交易法门-工具-期限分析-基差分析
+ "jyfm_tools_futures_basis_structure"  # 交易法门-工具-期限分析-期限结构
+ "jyfm_tools_futures_basis_rule"  # 交易法门-工具-期限分析-价格季节性
+ # 交易法门-工具-资讯汇总
+ "jyfm_tools_research_query"  # 交易法门-工具-资讯汇总-研报查询
+ "jyfm_tools_trade_calendar"  # 交易法门-工具-资讯汇总-交易日历
+ # 交易法门-工具-资金分析
+ "jyfm_tools_position_fund"  # 交易法门-工具-资金分析-资金流向
+ # 交易法门-工具-仓单分析
+ "jyfm_tools_warehouse_receipt_daily"  # 交易法门-工具-仓单分析-仓单日报
+ "jyfm_tools_warehouse_receipt_query"  # 交易法门-工具-仓单分析-仓单查询
+ "jyfm_tools_warehouse_receipt_ratio"  # 交易法门-工具-仓单分析-虚实盘比查询
 ```
 
 ## 3. 案例演示

@@ -530,13 +530,47 @@ pypinyin 降级
 增加-交易法门-工具-期限分析-价格季节性
 0.3.35
 更新说明文档
+0.3.36
+# 交易法门-工具-仓单分析
+增加-交易法门-工具-仓单分析-仓单日报
+增加-交易法门-工具-仓单分析-仓单查询
+增加-交易法门-工具-仓单分析-虚实盘比查询
+# 交易法门-工具-资讯汇总
+增加-交易法门-工具-资讯汇总-研报查询
+增加-交易法门-工具-资讯汇总-交易日历
+# 交易法门-工具-资金分析
+增加-交易法门-工具-资金分析-资金流向
 """
 
-__version__ = "0.3.35"
+__version__ = "0.3.36"
 __author__ = "Albert King"
 
 """
-增加-交易法门-工具-期限分析
+交易法门-工具-资讯汇总
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_research_query,
+    jyfm_tools_trade_calendar,
+)
+
+"""
+交易法门-工具-资金分析
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_position_fund,
+)
+
+"""
+交易法门-工具-仓单分析
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_warehouse_receipt_daily,
+    jyfm_tools_warehouse_receipt_query,
+    jyfm_tools_warehouse_receipt_ratio,
+)
+
+"""
+交易法门-工具-期限分析
 """
 from akshare.futures_derivative.jyfm_tools_func import (
     jyfm_tools_futures_basis_daily,
