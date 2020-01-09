@@ -29,7 +29,7 @@
 
 ```python
 import akshare as ak
-index_df = ak.get_china_yearly_cpi()
+index_df = ak.macro_china_yearly_cpi()
 print(index_df)
 print(index_df.name)
 ```
@@ -83,7 +83,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_monthly_cpi()
+index_df = ak.macro_china_monthly_cpi()
 print(index_df)
 print(index_df.name)
 ```
@@ -137,7 +137,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_yearly_m2()
+index_df = ak.macro_china_yearly_m2()
 print(index_df)
 print(index_df.name)
 ```
@@ -191,7 +191,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_yearly_ppi()
+index_df = ak.macro_china_yearly_ppi()
 print(index_df)
 print(index_df.name)
 ```
@@ -245,7 +245,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_yearly_pmi()()
+index_df = ak.macro_china_yearly_pmi()()
 print(index_df)
 print(index_df.name)
 ```
@@ -299,7 +299,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_yearly_gdp()
+index_df = ak.macro_china_yearly_gdp()
 print(index_df)
 print(index_df.name)
 ```
@@ -378,7 +378,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_yearly_cx_pmi()
+index_df = ak.macro_china_yearly_cx_pmi()
 print(index_df)
 print(index_df.name)
 ```
@@ -432,7 +432,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_yearly_cx_services_pmi()
+index_df = ak.macro_china_yearly_cx_services_pmi()
 print(index_df)
 print(index_df.name)
 ```
@@ -486,7 +486,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_yearly_fx_reserves()
+index_df = ak.macro_china_yearly_fx_reserves()
 print(index_df)
 print(index_df.name)
 ```
@@ -579,7 +579,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_daily_energy()
+index_df = ak.macro_china_daily_energy()
 print(index_df)
 print(index_df.name)
 ```
@@ -634,7 +634,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_non_man_pmi()
+index_df = ak.macro_china_non_man_pmi()
 print(index_df)
 print(index_df.name)
 ```
@@ -694,7 +694,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_china_rmb()
+index_df = ak.macro_china_rmb()
 print(index_df)
 ```
 
@@ -773,7 +773,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_market_margin_sz()
+index_df = ak.macro_market_margin_sz()
 print(index_df)
 ```
 
@@ -840,7 +840,7 @@ index_df:
 
 ```python
 import akshare as ak
-index_df = ak.get_market_margin_sh()
+index_df = ak.macro_market_margin_sh()
 print(index_df)
 ```
 

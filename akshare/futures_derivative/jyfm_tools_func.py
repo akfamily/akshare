@@ -342,6 +342,7 @@ def jyfm_tools_position_fund(trade_date="2020-01-08", indicator="沉淀资金排
 
 
 # 交易法门-工具-仓单分析
+# TODO 修改输出数据的字段名
 def jyfm_tools_warehouse_receipt_daily(trade_date="2020-01-02", headers=""):
     """
     交易法门-工具-仓单分析-仓单日报

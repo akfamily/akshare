@@ -544,10 +544,68 @@ pypinyin 降级
 更新说明文档
 0.3.38
 修改-交易法门-工具-资金分析-资金流向函数的字段和说明文档
+0.3.39
+金十数据中心-经济指标-央行利率-主要央行利率
+美联储利率决议报告
+欧洲央行决议报告
+新西兰联储决议报告
+中国央行决议报告
+瑞士央行决议报告
+英国央行决议报告
+澳洲联储决议报告
+日本央行决议报告
+俄罗斯央行决议报告
+印度央行决议报告
+巴西央行决议报告
+金十数据中心-经济指标-欧元区
+金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况
+金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平
+金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场
+金十数据中心-经济指标-欧元区-贸易状况
+金十数据中心-经济指标-欧元区-产业指标
+金十数据中心-经济指标-欧元区-领先指标
 """
 
-__version__ = "0.3.38"
+__version__ = "0.3.39"
 __author__ = "Albert King"
+
+"""
+金十数据中心-经济指标-欧元区
+"""
+from akshare.economic.macro_euro import (
+    macro_euro_gdp_yoy,
+    macro_euro_cpi_mom,
+    macro_euro_cpi_yoy,
+    macro_euro_current_account_mom,
+    macro_euro_employment_change_qoq,
+    macro_euro_industrial_production_mom,
+    macro_euro_manufacturing_pmi,
+    macro_euro_ppi_mom,
+    macro_euro_retail_sales_mom,
+    macro_euro_sentix_investor_confidence,
+    macro_euro_services_pmi,
+    macro_euro_trade_balance,
+    macro_euro_unemployment_rate_mom,
+    macro_euro_zew_economic_sentiment
+)
+
+"""
+金十数据中心-经济指标-央行利率-主要央行利率
+"""
+from akshare.economic.macro_global_bank import (
+    macro_bank_australia_interest_rate,
+    macro_bank_brazil_interest_rate,
+    macro_bank_china_interest_rate,
+    macro_bank_brazil_interest_rate,
+    macro_bank_english_interest_rate,
+    macro_bank_euro_interest_rate,
+    macro_bank_india_interest_rate,
+    macro_bank_japan_interest_rate,
+    macro_bank_newzealand_interest_rate,
+    macro_bank_russia_interest_rate,
+    macro_bank_switzerland_interest_rate,
+    macro_bank_usa_interest_rate,
+)
 
 """
 交易法门-工具-资讯汇总
@@ -948,7 +1006,7 @@ from akshare.economic.macro_constitute import (
 """
 全球宏观-欧洲宏观
 """
-from akshare.economic.macro_euro import get_euro_interest_rate
+from akshare.economic.macro_euro import macro_euro_interest_rate
 
 """
 全球宏观-美国宏观
@@ -973,20 +1031,20 @@ from akshare.economic.macro_usa import (
 全球宏观-中国宏观
 """
 from akshare.economic.macro_china import (
-    get_china_monthly_cpi,
-    get_china_yearly_cpi,
-    get_china_yearly_m2,
-    get_china_yearly_fx_reserves,
-    get_china_yearly_cx_pmi,
-    get_china_yearly_pmi,
-    get_china_daily_energy,
-    get_china_non_man_pmi,
-    get_china_rmb,
-    get_china_yearly_gdp,
-    get_china_yearly_ppi,
-    get_china_yearly_cx_services_pmi,
-    get_market_margin_sh,
-    get_market_margin_sz,
+    macro_china_monthly_cpi,
+    macro_china_yearly_cpi,
+    macro_china_yearly_m2,
+    macro_china_yearly_fx_reserves,
+    macro_china_yearly_cx_pmi,
+    macro_china_yearly_pmi,
+    macro_china_daily_energy,
+    macro_china_non_man_pmi,
+    macro_china_rmb,
+    macro_china_yearly_gdp,
+    macro_china_yearly_ppi,
+    macro_china_yearly_cx_services_pmi,
+    macro_market_margin_sh,
+    macro_market_margin_sz,
     au_report,
     macro_china_ctci_detail,
     macro_china_ctci_detail_hist,

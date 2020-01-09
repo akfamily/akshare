@@ -482,6 +482,67 @@ def get_usa_crude_alaska():
     return temp_df
 
 
+# 金十数据中心-经济指标-美国-领先指标
+def macro_usa_michigan_consumer_sentiment():
+    """
+    美国密歇根大学消费者信心指数初值报告, 数据区间从19700301-至今
+    https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+    :return: 美国密歇根大学消费者信心指数初值报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国密歇根大学消费者信心指数初值报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "michigan_consumer_sentiment"
+    return temp_df
+
+
+def macro_usa_nfib_small_business():
+    """
+    美国NFIB小型企业信心指数报告, 数据区间从19750201-至今
+    https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v=1578576631
+    :return: 美国NFIB小型企业信心指数报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国NFIB小型企业信心指数报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "nfib_small_business"
+    return temp_df
+
+
+def macro_usa_cb_consumer_confidence():
+    """
+    美国谘商会消费者信心指数报告, 数据区间从19700101-至今
+    https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v=1578576859
+    :return: 美国谘商会消费者信心指数报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国谘商会消费者信心指数报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "cb_consumer_confidence"
+    return temp_df
+
+
 if __name__ == "__main__":
     df = get_usa_interest_rate()
     print(df)

@@ -33,7 +33,7 @@ from akshare.economic.cons import (
 )
 
 
-def get_china_yearly_cpi():
+def macro_china_yearly_cpi():
     """
     获取中国年度CPI数据, 数据区间从19860201-至今
     :return: pandas.Series
@@ -66,7 +66,7 @@ def get_china_yearly_cpi():
     return temp_df
 
 
-def get_china_monthly_cpi():
+def macro_china_monthly_cpi():
     """
     获取中国月度CPI数据, 数据区间从19960201-至今
     :return: pandas.Series
@@ -99,7 +99,7 @@ def get_china_monthly_cpi():
     return temp_df
 
 
-def get_china_yearly_m2():
+def macro_china_yearly_m2():
     """
     获取中国年度M2数据, 数据区间从19980201-至今
     :return: pandas.Series
@@ -132,7 +132,7 @@ def get_china_yearly_m2():
     return temp_df
 
 
-def get_china_yearly_ppi():
+def macro_china_yearly_ppi():
     """
     获取中国年度PPI数据, 数据区间从19950801-至今
     :return: pandas.Series
@@ -165,7 +165,7 @@ def get_china_yearly_ppi():
     return temp_df
 
 
-def get_china_yearly_pmi():
+def macro_china_yearly_pmi():
     """
     获取中国年度PMI数据, 数据区间从20050201-至今
     :return: pandas.Series
@@ -198,7 +198,7 @@ def get_china_yearly_pmi():
     return temp_df
 
 
-def get_china_yearly_gdp():
+def macro_china_yearly_gdp():
     """
     获取中国年度GDP数据, 数据区间从20110120-至今
     :return: pandas.Series
@@ -256,7 +256,7 @@ def get_china_yearly_gdp():
     return temp_df
 
 
-def get_china_yearly_cx_pmi():
+def macro_china_yearly_cx_pmi():
     """
     获取中国年度财新PMI数据, 数据区间从20120120-至今
     :return: pandas.Series
@@ -289,7 +289,7 @@ def get_china_yearly_cx_pmi():
     return temp_df
 
 
-def get_china_yearly_cx_services_pmi():
+def macro_china_yearly_cx_services_pmi():
     """
     获取中国财新服务业PMI报告, 数据区间从20120405-至今
     :return: pandas.Series
@@ -322,7 +322,7 @@ def get_china_yearly_cx_services_pmi():
     return temp_df
 
 
-def get_china_yearly_fx_reserves():
+def macro_china_yearly_fx_reserves():
     """
     获取中国年度外汇储备数据, 数据区间从20140115-至今
     :return: pandas.Series
@@ -394,7 +394,7 @@ def get_china_yearly_fx_reserves():
     return temp_df
 
 
-def get_china_daily_energy():
+def macro_china_daily_energy():
     """
     获取中国日度沿海六大电库存数据, 数据区间从20160101-至今
     :return: pandas.Series
@@ -428,7 +428,7 @@ def get_china_daily_energy():
     return temp_df
 
 
-def get_china_non_man_pmi():
+def macro_china_non_man_pmi():
     """
     获取中国官方非制造业PMI, 数据区间从20160101-至今
     :return: pandas.Series
@@ -461,7 +461,7 @@ def get_china_non_man_pmi():
     return temp_df
 
 
-def get_china_rmb():
+def macro_china_rmb():
     """
     获取中国人民币汇率中间价报告, 数据区间从20170103-至今
     :return: pandas.Series
@@ -542,7 +542,7 @@ def get_china_rmb():
     return value_df
 
 
-def get_market_margin_sz():
+def macro_market_margin_sz():
     """
     获取深圳融资融券报告, 数据区间从20100331-至今
     :return: pandas.DataFrame
@@ -608,7 +608,7 @@ def get_market_margin_sz():
     return value_df
 
 
-def get_market_margin_sh():
+def macro_market_margin_sh():
     """
     获取上海融资融券报告, 数据区间从20100331-至今
     :return: pandas.DataFrame
@@ -742,21 +742,21 @@ def macro_china_ctci_detail_hist(year="2018"):
 
 
 if __name__ == "__main__":
-    df = get_china_yearly_cpi()
+    df = macro_china_yearly_cpi()
     print(df)
-    df = get_china_monthly_cpi()
+    df = macro_china_monthly_cpi()
     print(df)
-    df = get_china_yearly_m2()
+    df = macro_china_yearly_m2()
     print(df)
-    df = get_china_yearly_ppi()
+    df = macro_china_yearly_ppi()
     print(df)
-    df = get_china_yearly_pmi()
+    df = macro_china_yearly_pmi()
     print(df)
-    df = get_china_yearly_gdp()
+    df = macro_china_yearly_gdp()
     print(df)
-    df = get_china_yearly_cx_pmi()
+    df = macro_china_yearly_cx_pmi()
     print(df)
-    df = get_china_yearly_fx_reserves()
+    df = macro_china_yearly_fx_reserves()
     print(df)
     # 发改委
     macro_china_ctci_df = macro_china_ctci()
