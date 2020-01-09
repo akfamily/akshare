@@ -561,7 +561,7 @@ def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
 
 if __name__ == "__main__":
     # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 填入下载 jyfm_login 函数后再运行!
-    headers = jyfm_login(account="link", password="loveloli888")
+    headers = jyfm_login(account="", password="")
 
     # 交易法门-工具-套利分析
     jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
