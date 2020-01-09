@@ -22,7 +22,7 @@ desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门-工具-资讯汇总-交易日历
 
 # 交易法门-工具-资金分析
-
+交易法门-工具-资金分析-资金流向
 """
 import requests
 import pandas as pd

@@ -39,6 +39,7 @@ print(fx_df)
 ```
 
 数据示例-人民币外汇即期报价
+
 ```
                ccyPair   bidPrc   askPrc midprice time
     0      USD/CNY   7.0810   7.0824      ---
@@ -108,9 +109,7 @@ fx_df = ak.fx_swap_quote()
 print(fx_df)
 ```
 
-数据示例
-
-人民币外汇远掉报价
+数据示例-人民币外汇远掉报价
 
 ```
             ccpair         label_1W         label_1M           label_3M  \
@@ -182,9 +181,7 @@ print(fx_df)
 | 无 | 无 | 无 | 无 |
 
 
-输出参数
-
-获取外币对即期报价
+输出参数-获取外币对即期报价
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
@@ -194,7 +191,7 @@ print(fx_df)
 | 中间价      | float   | Y        |  为空 |
 | 时间      | str   | Y        |  为空 |
 
-注：本行情为询价报价行情(美元为ODM), 实时更新. 
+**注：本行情为询价报价行情(美元为ODM), 实时更新**
 						
 接口示例
 ```python
@@ -203,9 +200,7 @@ fx_df = ak.fx_pair_quote()
 print(fx_df)
 ```
 
-数据示例
-
-外币对即期报价
+数据示例-外币对即期报价
 
 ```
             ccyPair   bidPrc   askPrc midprice time
