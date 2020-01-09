@@ -564,9 +564,11 @@ pypinyin 降级
 金十数据中心-经济指标-欧元区-贸易状况
 金十数据中心-经济指标-欧元区-产业指标
 金十数据中心-经济指标-欧元区-领先指标
+0.3.40
+修复-欧洲央行决议报告
 """
 
-__version__ = "0.3.39"
+__version__ = "0.3.40"
 __author__ = "Albert King"
 
 """
@@ -586,13 +588,13 @@ from akshare.economic.macro_euro import (
     macro_euro_services_pmi,
     macro_euro_trade_balance,
     macro_euro_unemployment_rate_mom,
-    macro_euro_zew_economic_sentiment
+    macro_euro_zew_economic_sentiment,
 )
 
 """
 金十数据中心-经济指标-央行利率-主要央行利率
 """
-from akshare.economic.macro_global_bank import (
+from akshare.economic.macro_bank import (
     macro_bank_australia_interest_rate,
     macro_bank_brazil_interest_rate,
     macro_bank_china_interest_rate,
@@ -1002,11 +1004,6 @@ from akshare.economic.macro_constitute import (
     get_cons_silver_change,
     get_cons_silver_volume,
 )
-
-"""
-全球宏观-欧洲宏观
-"""
-from akshare.economic.macro_euro import macro_euro_interest_rate
 
 """
 全球宏观-美国宏观
