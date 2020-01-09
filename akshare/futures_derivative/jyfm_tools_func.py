@@ -316,12 +316,14 @@ def jyfm_tools_position_seat(seat="永安期货", trade_date="2020-01-03", heade
 
 
 # 交易法门-工具-资金分析
-def jyfm_tools_position_fund(trade_date="2020-01-02", headers=""):
+def jyfm_tools_position_fund(trade_date="2020-01-08", indicator="沉淀资金排名", headers=""):
     """
     交易法门-工具-资金分析-资金流向
     https://www.jiaoyifamen.com/tools/position/fund/?day=2020-01-08
     :param trade_date: 指定交易日
     :type trade_date: str
+    :param indicator: "沉淀资金排名" or "资金流向排名"
+    :type indicator: str
     :param headers: headers with cookies
     :type headers: dict
     :return: 指定交易日的资金流向数据
@@ -332,7 +334,11 @@ def jyfm_tools_position_fund(trade_date="2020-01-02", headers=""):
     }
     url = "https://www.jiaoyifamen.com/tools/position/fund/"
     res = requests.get(url, params=params, headers=headers)
-    return pd.DataFrame(res.json())
+    data_json = res.json()
+    if indicator == "沉淀资金排名":
+        return pd.DataFrame([[data_json["tradingDay"]] * len(data_json["category1"]), data_json["category1"], data_json["value1"]], index=["date", "symbol", "fund"]).T
+    else:
+        return pd.DataFrame([[data_json["tradingDay"]] * len(data_json["category2"]), data_json["category2"], data_json["value2"]], index=["date", "symbol", "fund"]).T
 
 
 # 交易法门-工具-仓单分析
@@ -560,8 +566,8 @@ def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
 
 
 if __name__ == "__main__":
-    # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 填入下载 jyfm_login 函数后再运行!
-    headers = jyfm_login(account="", password="")
+    # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 在下面输入对应的帐号和密码后再运行 jyfm_login 函数!
+    headers = jyfm_login(account="link", password="loveloli888")
 
     # 交易法门-工具-套利分析
     jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
@@ -594,7 +600,7 @@ if __name__ == "__main__":
     print(jyfm_tools_position_seat_df)
 
     # 交易法门-工具-资金分析
-    jyfm_tools_position_fund_df = jyfm_tools_position_fund(trade_date="2020-01-08", headers=headers)
+    jyfm_tools_position_fund_df = jyfm_tools_position_fund(trade_date="2020-01-08", indicator="沉淀资金排名", headers=headers)
     print(jyfm_tools_position_fund_df)
 
     # 交易法门-工具-仓单分析
