@@ -265,6 +265,21 @@
  "jyfm_tools_warehouse_receipt_daily"  # 交易法门-工具-仓单分析-仓单日报
  "jyfm_tools_warehouse_receipt_query"  # 交易法门-工具-仓单分析-仓单查询
  "jyfm_tools_warehouse_receipt_ratio"  # 交易法门-工具-仓单分析-虚实盘比查询
+ # 银行间拆借利率
+ "chibor_hist"  #  银行间拆借利率
+ # 主要央行利率
+ "macro_bank_usa_interest_rate"  # 美联储利率决议报告
+ "macro_bank_euro_interest_rate"  # 欧洲央行决议报告
+ "macro_bank_newzealand_interest_rate"  # 新西兰联储决议报告
+ "macro_bank_china_interest_rate"  # 中国央行决议报告
+ "macro_bank_switzerland_interest_rate"  # 瑞士央行决议报告
+ "macro_bank_english_interest_rate"  # 英国央行决议报告
+ "macro_bank_australia_interest_rate"  # 澳洲联储决议报告
+ "macro_bank_japan_interest_rate"  # 日本央行决议报告
+ "macro_bank_russia_interest_rate"  # 俄罗斯央行决议报告
+ "macro_bank_india_interest_rate"  # 印度央行决议报告
+ "macro_bank_brazil_interest_rate"  # 巴西央行决议报告
+
 ```
 
 ## 3. 案例演示

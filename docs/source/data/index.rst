@@ -11,6 +11,7 @@ AkShare 数据字典
     bond/bond
     option/option
     fx/fx
+    interest_rate/interest_rate
     fund/fund
     index/index
     macro/macro

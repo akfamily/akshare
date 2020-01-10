@@ -566,10 +566,19 @@ pypinyin 降级
 金十数据中心-经济指标-欧元区-领先指标
 0.3.40
 修复-欧洲央行决议报告
+0.3.41
+增加-东方财富网-经济数据-银行间拆借利率
 """
 
-__version__ = "0.3.40"
+__version__ = "0.3.41"
 __author__ = "Albert King"
+
+"""
+增加-东方财富网-经济数据-银行间拆借利率
+"""
+from akshare.interest_rate.shibor_em import (
+    chibor_hist,
+)
 
 """
 金十数据中心-经济指标-欧元区
