@@ -17,7 +17,7 @@ from akshare.economic.cons import bitcoin_url, bitcoin_payload
 
 def get_js_dc_current():
     """
-    获取主流数字货币的实时行情数据, 一次请求返回具体某一时刻行情数据
+    主流数字货币的实时行情数据, 一次请求返回具体某一时刻行情数据
     :return: pandas.DataFrame
     """
     bit_payload = bitcoin_payload.copy()

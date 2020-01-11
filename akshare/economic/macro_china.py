@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/21 12:08
 contact: jindaxiang@163.com
-desc: 获取金十数据-数据中心-中国-中国宏观
+desc: 金十数据-数据中心-中国-中国宏观
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
 http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
 """
@@ -33,21 +33,36 @@ from akshare.economic.cons import (
 )
 
 
-def macro_china_yearly_cpi():
+# 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
+def macro_china_gdp_yearly():
     """
-    获取中国年度CPI数据, 数据区间从19860201-至今
+    中国年度GDP数据, 数据区间从20110120-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_gdp_yoy
     :return: pandas.Series
-    1986-02-01    7.1
-    1986-03-01    7.1
-    1986-04-01    7.1
-    1986-05-01    7.1
-    1986-06-01    7.1
-                 ...
-    2019-07-10    2.7
-    2019-08-09    2.8
-    2019-09-10    2.8
-    2019-10-15      3
-    2019-11-09      0
+    """
+    t = time.time()
+    res = requests.get(
+        JS_CHINA_GDP_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国GDP年率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "gdp"
+    return temp_df
+
+
+# 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
+def macro_china_cpi_yearly():
+    """
+    中国年度CPI数据, 数据区间从19860201-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_cpi_yoy
+    :return: pandas.Series
     """
     t = time.time()
     res = requests.get(
@@ -55,7 +70,7 @@ def macro_china_yearly_cpi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国CPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -66,21 +81,12 @@ def macro_china_yearly_cpi():
     return temp_df
 
 
-def macro_china_monthly_cpi():
+# 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI月率报告
+def macro_china_cpi_monthly():
     """
-    获取中国月度CPI数据, 数据区间从19960201-至今
+    中国月度CPI数据, 数据区间从19960201-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_cpi_mom
     :return: pandas.Series
-    1996-02-01     2.1
-    1996-03-01     2.3
-    1996-04-01     0.6
-    1996-05-01     0.7
-    1996-06-01    -0.5
-                  ...
-    2019-07-10    -0.1
-    2019-08-09     0.4
-    2019-09-10     0.7
-    2019-10-15     0.9
-    2019-11-09       0
     """
     t = time.time()
     res = requests.get(
@@ -88,7 +94,7 @@ def macro_china_monthly_cpi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国CPI月率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -99,54 +105,12 @@ def macro_china_monthly_cpi():
     return temp_df
 
 
-def macro_china_yearly_m2():
+# 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国PPI年率报告
+def macro_china_ppi_yearly():
     """
-    获取中国年度M2数据, 数据区间从19980201-至今
+    中国年度PPI数据, 数据区间从19950801-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_ppi_yoy
     :return: pandas.Series
-    1998-02-01    17.4
-    1998-03-01    16.7
-    1998-04-01    15.4
-    1998-05-01    14.6
-    1998-06-01    15.5
-                  ...
-    2019-09-11     8.2
-    2019-09-13       0
-    2019-10-14       0
-    2019-10-15     8.4
-    2019-10-17       0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_CHINA_M2_YEARLY_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["中国M2货币供应年率报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
-    temp_df.name = "m2"
-    return temp_df
-
-
-def macro_china_yearly_ppi():
-    """
-    获取中国年度PPI数据, 数据区间从19950801-至今
-    :return: pandas.Series
-    1995-08-01    13.5
-    1995-09-01      13
-    1995-10-01    12.9
-    1995-11-01    12.5
-    1995-12-01    11.1
-                  ... 
-    2019-07-10       0
-    2019-08-09    -0.3
-    2019-09-10    -0.8
-    2019-10-15    -1.2
-    2019-11-09       0
     """
     t = time.time()
     res = requests.get(
@@ -154,7 +118,7 @@ def macro_china_yearly_ppi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国PPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -165,7 +129,104 @@ def macro_china_yearly_ppi():
     return temp_df
 
 
-def macro_china_yearly_pmi():
+# 金十数据中心-经济指标-中国-贸易状况-以美元计算出口年率报告
+def macro_china_exports_yoy():
+    """
+    中国以美元计算出口年率报告, 数据区间从19820201-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_exports_yoy
+    https://cdn.jin10.com/dc/reports/dc_chinese_exports_yoy_all.js?v=1578754453
+    :return: 中国以美元计算出口年率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_chinese_exports_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国以美元计算出口年率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "china_exports_yoy"
+    return temp_df
+
+
+# 金十数据中心-经济指标-中国-贸易状况-以美元计算进口年率
+def macro_china_imports_yoy():
+    """
+    中国以美元计算进口年率报告, 数据区间从19960201-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_imports_yoy
+    https://cdn.jin10.com/dc/reports/dc_chinese_imports_yoy_all.js?v=1578754588
+    :return: 中国以美元计算进口年率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_chinese_imports_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国以美元计算进口年率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "china_imports_yoy"
+    return temp_df
+
+
+# 金十数据中心-经济指标-中国-贸易状况-以美元计算贸易帐(亿美元)
+def macro_china_trade_balance():
+    """
+    中国以美元计算贸易帐报告, 数据区间从19810201-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_trade_balance
+    https://cdn.jin10.com/dc/reports/dc_chinese_trade_balance_all.js?v=1578754677
+    :return: 中国以美元计算贸易帐报告-今值(亿美元)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_chinese_trade_balance_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国以美元计算贸易帐报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(亿美元)"]
+    temp_df.name = "china_trade_balance"
+    return temp_df
+
+
+# 金十数据中心-经济指标-中国-产业指标-规模以上工业增加值年率
+def macro_china_industrial_production_yoy():
+    """
+    中国规模以上工业增加值年率报告, 数据区间从19900301-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_industrial_production_yoy
+    https://cdn.jin10.com/dc/reports/dc_chinese_industrial_production_yoy_all.js?v=1578754779
+    :return: 中国规模以上工业增加值年率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_chinese_industrial_production_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国规模以上工业增加值年率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "china_industrial_production_yoy"
+    return temp_df
+
+
+# 金十数据中心-经济指标-中国-产业指标-官方制造业PMI
+def macro_china_pmi_yearly():
     """
     获取中国年度PMI数据, 数据区间从20050201-至今
     :return: pandas.Series
@@ -187,7 +248,7 @@ def macro_china_yearly_pmi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国官方制造业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -198,65 +259,8 @@ def macro_china_yearly_pmi():
     return temp_df
 
 
-def macro_china_yearly_gdp():
-    """
-    获取中国年度GDP数据, 数据区间从20110120-至今
-    :return: pandas.Series
-    2011-01-20    9.8
-    2011-04-15    9.7
-    2011-07-13    9.5
-    2011-10-18    9.1
-    2012-01-17    8.9
-    2012-04-13    8.1
-    2012-07-13    7.6
-    2012-10-18    7.4
-    2013-01-18    7.9
-    2013-04-15    7.7
-    2013-07-15    7.5
-    2013-10-18    7.8
-    2014-01-20    7.7
-    2014-04-16    7.4
-    2014-07-16    7.5
-    2014-10-21    7.3
-    2015-01-20    7.3
-    2015-04-15      7
-    2015-07-15      7
-    2015-10-19    6.9
-    2016-01-19    6.8
-    2016-04-15    6.7
-    2016-07-15    6.7
-    2016-10-19    6.7
-    2017-01-20    6.8
-    2017-04-17    6.9
-    2017-07-17    6.9
-    2017-10-19    6.8
-    2018-01-18    6.8
-    2018-04-17    6.8
-    2018-07-16    6.7
-    2018-10-19    6.5
-    2019-01-21    6.4
-    2019-04-17    6.4
-    2019-07-15    6.2
-    2019-10-18      6
-    """
-    t = time.time()
-    res = requests.get(
-        JS_CHINA_GDP_YEARLY_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["中国GDP年率报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
-    temp_df.name = "gdp"
-    return temp_df
-
-
-def macro_china_yearly_cx_pmi():
+# 金十数据中心-经济指标-中国-产业指标-财新制造业PMI终值
+def macro_china_cx_pmi_yearly():
     """
     获取中国年度财新PMI数据, 数据区间从20120120-至今
     :return: pandas.Series
@@ -278,7 +282,7 @@ def macro_china_yearly_cx_pmi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国财新制造业PMI终值报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -289,7 +293,8 @@ def macro_china_yearly_cx_pmi():
     return temp_df
 
 
-def macro_china_yearly_cx_services_pmi():
+# 金十数据中心-经济指标-中国-产业指标-财新服务业PMI
+def macro_china_cx_services_pmi_yearly():
     """
     获取中国财新服务业PMI报告, 数据区间从20120405-至今
     :return: pandas.Series
@@ -311,7 +316,7 @@ def macro_china_yearly_cx_services_pmi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国财新服务业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -322,7 +327,42 @@ def macro_china_yearly_cx_services_pmi():
     return temp_df
 
 
-def macro_china_yearly_fx_reserves():
+# 金十数据中心-经济指标-中国-产业指标-中国官方非制造业PMI
+def macro_china_non_man_pmi():
+    """
+    获取中国官方非制造业PMI, 数据区间从20160101-至今
+    :return: pandas.Series
+    2007-02-01    60.4
+    2007-03-01    60.6
+    2007-04-01    58.2
+    2007-05-01    60.4
+    2007-06-01    62.2
+                  ...
+    2019-06-30    54.2
+    2019-07-31    53.7
+    2019-08-31    53.8
+    2019-09-30    53.7
+    2019-10-31       0
+    """
+    t = time.time()
+    res = requests.get(
+        JS_CHINA_NON_MAN_PMI_MONTHLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国官方非制造业PMI报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "non_pmi"
+    return temp_df
+
+
+# 金十数据中心-经济指标-中国-金融指标-外汇储备(亿美元)
+def macro_china_fx_reserves_yearly():
     """
     获取中国年度外汇储备数据, 数据区间从20140115-至今
     :return: pandas.Series
@@ -383,7 +423,7 @@ def macro_china_yearly_fx_reserves():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国外汇储备报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -394,9 +434,103 @@ def macro_china_yearly_fx_reserves():
     return temp_df
 
 
+# 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
+def macro_china_m2_yearly():
+    """
+    获取中国年度M2数据, 数据区间从19980201-至今
+    :return: pandas.Series
+    1998-02-01    17.4
+    1998-03-01    16.7
+    1998-04-01    15.4
+    1998-05-01    14.6
+    1998-06-01    15.5
+                  ...
+    2019-09-11     8.2
+    2019-09-13       0
+    2019-10-14       0
+    2019-10-15     8.4
+    2019-10-17       0
+    """
+    t = time.time()
+    res = requests.get(
+        JS_CHINA_M2_YEARLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["中国M2货币供应年率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "m2"
+    return temp_df
+
+
+# 金十数据中心-经济指标-中国-金融指标-上海银行业同业拆借报告
+def macro_china_shibor_all():
+    """
+    上海银行业同业拆借报告, 数据区间从20170317-至今
+    https://datacenter.jin10.com/reportType/dc_shibor
+    https://cdn.jin10.com/dc/reports/dc_shibor_all.js?v=1578755058
+    :return: 上海银行业同业拆借报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_shibor_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["O/N"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    value_df.columns = ["O/N"]
+    value_df["1W"] = [item["datas"]["1W"][0] for item in json_data["list"]]
+    value_df["2W"] = [item["datas"]["2W"][0] for item in json_data["list"]]
+    value_df["1M"] = [item["datas"]["1M"][0] for item in json_data["list"]]
+    value_df["3M"] = [item["datas"]["3M"][0] for item in json_data["list"]]
+    value_df["6M"] = [item["datas"]["6M"][0] for item in json_data["list"]]
+    value_df["9M"] = [item["datas"]["9M"][0] for item in json_data["list"]]
+    value_df["1Y"] = [item["datas"]["1Y"][0] for item in json_data["list"]]
+    return value_df
+
+
+# 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
+def macro_china_hk_market_info():
+    """
+    香港同业拆借报告, 数据区间从20170320-至今
+    https://datacenter.jin10.com/reportType/dc_hk_market_info
+    https://cdn.jin10.com/dc/reports/dc_hk_market_info_all.js?v=1578755471
+    :return: 香港同业拆借报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_hk_market_info_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["ON"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    value_df.columns = ["ON"]
+    value_df["1W"] = [item["datas"]["1W"][0] for item in json_data["list"]]
+    value_df["2W"] = [item["datas"]["2W"][0] for item in json_data["list"]]
+    value_df["1M"] = [item["datas"]["1M"][0] for item in json_data["list"]]
+    value_df["3M"] = [item["datas"]["3M"][0] for item in json_data["list"]]
+    value_df["6M"] = [item["datas"]["6M"][0] for item in json_data["list"]]
+    value_df["1Y"] = [item["datas"]["1Y"][0] for item in json_data["list"]]
+    return value_df
+
+
+# 金十数据中心-经济指标-中国-其他-中国日度沿海六大电库存数据
 def macro_china_daily_energy():
     """
-    获取中国日度沿海六大电库存数据, 数据区间从20160101-至今
+    中国日度沿海六大电库存数据, 数据区间从20160101-至今
     :return: pandas.Series
                  沿海六大电库存      日耗 存煤可用天数
     2016-01-01  1167.60   64.20   18.19
@@ -417,7 +551,7 @@ def macro_china_daily_energy():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["沿海六大电厂库存动态报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -428,42 +562,10 @@ def macro_china_daily_energy():
     return temp_df
 
 
-def macro_china_non_man_pmi():
-    """
-    获取中国官方非制造业PMI, 数据区间从20160101-至今
-    :return: pandas.Series
-    2007-02-01    60.4
-    2007-03-01    60.6
-    2007-04-01    58.2
-    2007-05-01    60.4
-    2007-06-01    62.2
-                  ...
-    2019-06-30    54.2
-    2019-07-31    53.7
-    2019-08-31    53.8
-    2019-09-30    53.7
-    2019-10-31       0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_CHINA_NON_MAN_PMI_MONTHLY_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["中国官方非制造业PMI报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值"]
-    temp_df.name = "non_pmi"
-    return temp_df
-
-
+# 金十数据中心-经济指标-中国-其他-中国人民币汇率中间价报告
 def macro_china_rmb():
     """
-    获取中国人民币汇率中间价报告, 数据区间从20170103-至今
+    中国人民币汇率中间价报告, 数据区间从20170103-至今
     :return: pandas.Series
                          美元/人民币            欧元/人民币         100日元/人民币  \
     2017-03-01  [6.8798, 48.00]  [7.2648, 126.00]   [6.0913, 73.00]
@@ -508,7 +610,7 @@ def macro_china_rmb():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = [item["datas"]["美元/人民币"] for item in json_data["list"]]
     value_list_2 = [item["datas"]["欧元/人民币"] for item in json_data["list"]]
@@ -542,9 +644,10 @@ def macro_china_rmb():
     return value_df
 
 
-def macro_market_margin_sz():
+# 金十数据中心-经济指标-中国-其他-深圳融资融券报告
+def macro_china_market_margin_sz():
     """
-    获取深圳融资融券报告, 数据区间从20100331-至今
+    深圳融资融券报告, 数据区间从20100331-至今
     :return: pandas.DataFrame
                    融资买入额(元)       融资余额(元)  融券卖出量(股)    融券余量(股)     融券余额(元)  \
     2010-03-31       684569        670796      4000       3900       70895
@@ -577,7 +680,7 @@ def macro_market_margin_sz():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
     value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
@@ -608,9 +711,10 @@ def macro_market_margin_sz():
     return value_df
 
 
-def macro_market_margin_sh():
+# 金十数据中心-经济指标-中国-其他-上海融资融券报告
+def macro_china_market_margin_sh():
     """
-    获取上海融资融券报告, 数据区间从20100331-至今
+    上海融资融券报告, 数据区间从20100331-至今
     :return: pandas.DataFrame
                         融资买入额(元)      融资余额(元)    融券卖出量(股)      融券余量(股)    融券余额(元)  \
     2010-03-31       5824813      5866316        2900        24142       3100
@@ -643,7 +747,7 @@ def macro_market_margin_sh():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
     value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
@@ -674,9 +778,10 @@ def macro_market_margin_sh():
     return value_df
 
 
-def au_report():
+# 金十数据中心-经济指标-中国-其他-上海黄金交易所报告
+def macro_china_au_report():
     """
-    获取上海黄金交易所报告, 数据区间从20100331-至今
+    上海黄金交易所报告, 数据区间从20100331-至今
     :return: pandas.DataFrame
     格式暂未处理
     """
@@ -686,14 +791,14 @@ def au_report():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = pd.DataFrame([item["datas"] for item in json_data["list"]])
     value_list_1.index = pd.to_datetime(date_list)
     return value_list_1
 
 
-# 发改委
+# 发改委-中国电煤价格指数-全国综合电煤价格指数
 def macro_china_ctci():
     """
     中国电煤价格指数-全国综合电煤价格指数
@@ -706,6 +811,7 @@ def macro_china_ctci():
     return pd.DataFrame({"date": res.json()["periods"], "value": res.json()["data"][0]})
 
 
+# 发改委-中国电煤价格指数-各价区电煤价格指数
 def macro_china_ctci_detail():
     """
     2019年11月各价区电煤价格指数
@@ -721,6 +827,7 @@ def macro_china_ctci_detail():
     return data_df[["环比", "上期", "同比", "本期"]]
 
 
+# 发改委-中国电煤价格指数-历史电煤价格指数
 def macro_china_ctci_detail_hist(year="2018"):
     """
     历史电煤价格指数
@@ -742,27 +849,76 @@ def macro_china_ctci_detail_hist(year="2018"):
 
 
 if __name__ == "__main__":
-    df = macro_china_yearly_cpi()
-    print(df)
-    df = macro_china_monthly_cpi()
-    print(df)
-    df = macro_china_yearly_m2()
-    print(df)
-    df = macro_china_yearly_ppi()
-    print(df)
-    df = macro_china_yearly_pmi()
-    print(df)
-    df = macro_china_yearly_gdp()
-    print(df)
-    df = macro_china_yearly_cx_pmi()
-    print(df)
-    df = macro_china_yearly_fx_reserves()
-    print(df)
-    # 发改委
+    # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
+    macro_china_gdp_yearly_df = macro_china_gdp_yearly()
+    print(macro_china_gdp_yearly_df)
+    # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
+    macro_china_cpi_yearly_df = macro_china_cpi_yearly()
+    print(macro_china_cpi_yearly_df)
+    # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI月率报告
+    macro_china_cpi_monthly_df = macro_china_cpi_monthly()
+    print(macro_china_cpi_monthly_df)
+    # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国PPI年率报告
+    macro_china_ppi_yearly_df = macro_china_ppi_yearly()
+    print(macro_china_ppi_yearly_df)
+    # 金十数据中心-经济指标-中国-贸易状况-以美元计算出口年率报告
+    macro_china_exports_yoy_df = macro_china_exports_yoy()
+    print(macro_china_exports_yoy_df)
+    # 金十数据中心-经济指标-中国-贸易状况-以美元计算进口年率
+    macro_china_imports_yoy_df = macro_china_imports_yoy()
+    print(macro_china_imports_yoy_df)
+    # 金十数据中心-经济指标-中国-贸易状况-以美元计算贸易帐(亿美元)
+    macro_china_trade_balance_df = macro_china_trade_balance()
+    print(macro_china_trade_balance_df)
+    # 金十数据中心-经济指标-中国-产业指标-规模以上工业增加值年率
+    macro_china_industrial_production_yoy_df = macro_china_industrial_production_yoy()
+    print(macro_china_industrial_production_yoy_df)
+    # 金十数据中心-经济指标-中国-产业指标-官方制造业PMI
+    macro_china_pmi_yearly_df = macro_china_pmi_yearly()
+    print(macro_china_pmi_yearly_df)
+    # 金十数据中心-经济指标-中国-产业指标-财新制造业PMI终值
+    macro_china_cx_pmi_yearly_df = macro_china_cx_pmi_yearly()
+    print(macro_china_cx_pmi_yearly_df)
+    # 金十数据中心-经济指标-中国-产业指标-财新服务业PMI
+    macro_china_cx_services_pmi_yearly_df = macro_china_cx_services_pmi_yearly()
+    print(macro_china_cx_services_pmi_yearly_df)
+    # 金十数据中心-经济指标-中国-产业指标-中国官方非制造业PMI
+    macro_china_non_man_pmi_df = macro_china_non_man_pmi()
+    print(macro_china_non_man_pmi_df)
+    # 金十数据中心-经济指标-中国-金融指标-外汇储备(亿美元)
+    macro_china_fx_reserves_yearly_df = macro_china_fx_reserves_yearly()
+    print(macro_china_fx_reserves_yearly_df)
+    # 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
+    macro_china_m2_yearly_df = macro_china_m2_yearly()
+    print(macro_china_m2_yearly_df)
+    # 金十数据中心-经济指标-中国-金融指标-上海银行业同业拆借报告
+    macro_china_shibor_all_df = macro_china_shibor_all()
+    print(macro_china_shibor_all_df)
+    # 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
+    macro_china_hk_market_info_df = macro_china_hk_market_info()
+    print(macro_china_hk_market_info_df)
+    # 金十数据中心-经济指标-中国-其他-中国日度沿海六大电库存数据
+    macro_china_daily_energy_df = macro_china_daily_energy()
+    print(macro_china_daily_energy_df)
+    # 金十数据中心-经济指标-中国-其他-中国人民币汇率中间价报告
+    macro_china_rmb_df = macro_china_rmb()
+    print(macro_china_rmb_df)
+    # 金十数据中心-经济指标-中国-其他-深圳融资融券报告
+    macro_china_market_margin_sz_df = macro_china_market_margin_sz()
+    print(macro_china_market_margin_sz_df)
+    # 金十数据中心-经济指标-中国-其他-上海融资融券报告
+    macro_china_market_margin_sh_df = macro_china_market_margin_sh()
+    print(macro_china_market_margin_sh_df)
+    # 金十数据中心-经济指标-中国-其他-上海黄金交易所报告
+    macro_china_au_report_df = macro_china_au_report()
+    print(macro_china_au_report_df)
+
+    # 发改委-中国电煤价格指数-全国综合电煤价格指数
     macro_china_ctci_df = macro_china_ctci()
     print(macro_china_ctci_df)
+    # 发改委-中国电煤价格指数-各价区电煤价格指数
     macro_china_ctci_detail_df = macro_china_ctci_detail()
     print(macro_china_ctci_detail_df)
+    # 发改委-中国电煤价格指数-历史电煤价格指数
     macro_china_ctci_detail_hist_df = macro_china_ctci_detail_hist()
     print(macro_china_ctci_detail_hist_df)
-

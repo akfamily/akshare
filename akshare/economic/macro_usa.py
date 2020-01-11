@@ -4,8 +4,8 @@
 Author: Albert King
 date: 2019/10/21 12:08
 contact: jindaxiang@163.com
-desc: 获取金十数据-数据中心-美国-宏观经济
-后续修改为类 --> 去除冗余代码
+desc: 金十数据中心-经济指标-美国
+https://datacenter.jin10.com/economic
 """
 import json
 import time
@@ -14,7 +14,6 @@ import pandas as pd
 import requests
 
 from akshare.economic.cons import (
-    JS_USA_INTEREST_RATE_URL,
     JS_USA_NON_FARM_URL,
     JS_USA_UNEMPLOYMENT_RATE_URL,
     JS_USA_EIA_CRUDE_URL,
@@ -28,331 +27,11 @@ from akshare.economic.cons import (
 )
 
 
-def get_usa_interest_rate():
+# 金十数据中心-经济指标-美国-经济状况-美国GDP
+def macro_usa_gdp_monthly():
     """
-    获取美联储利率决议报告, 数据区间从19820927-至今
-    :return: pandas.Series
-    1982-09-27    10.25
-    1982-10-01       10
-    1982-10-07      9.5
-    1982-11-19        9
-    1982-12-14      8.5
-                  ...
-    2019-06-20      2.5
-    2019-08-01     2.25
-    2019-09-19        2
-    2019-10-31        0
-    2019-12-12        0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_INTEREST_RATE_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国利率决议"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
-    temp_df.name = "interest_rate"
-    return temp_df
-
-
-def get_usa_non_farm():
-    """
-    获取美国非农就业人数报告, 数据区间从19700102-至今
-    :return: pandas.Series
-    1970-01-02    15.3
-    1970-02-06    -6.4
-    1970-03-06    12.8
-    1970-04-03    14.8
-    1970-05-01   -10.4
-                  ...
-    2019-07-05    19.3
-    2019-08-02    15.9
-    2019-09-06    16.8
-    2019-10-04    13.6
-    2019-11-01       0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_NON_FARM_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国非农就业人数"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(万人)"]
-    temp_df.name = "non_farm"
-    return temp_df
-
-
-def get_usa_unemployment_rate():
-    """
-    获取美国失业率报告, 数据区间从19700101-至今
-    :return: pandas.Series
-    1970-01-01    3.5
-    1970-02-01    3.9
-    1970-03-01    4.2
-    1970-04-01    4.4
-    1970-05-01    4.6
-                 ...
-    2019-07-05    3.7
-    2019-08-02    3.7
-    2019-09-06    3.7
-    2019-10-04    3.5
-    2019-11-01      0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_UNEMPLOYMENT_RATE_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国失业率"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
-    temp_df.name = "unemployment_rate"
-    return temp_df
-
-
-def get_usa_eia_crude_rate():
-    """
-    获取美国EIA原油库存报告, 数据区间从19950801-至今
-    :return: pandas.Series
-    1982-09-01   -262.6
-    1982-10-01       -8
-    1982-11-01    -41.3
-    1982-12-01    -87.6
-    1983-01-01     51.3
-                  ...
-    2019-10-02      310
-    2019-10-09    292.7
-    2019-10-16        0
-    2019-10-17    928.1
-    2019-10-23        0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_EIA_CRUDE_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国EIA原油库存(万桶)"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(万桶)"]
-    temp_df.name = "eia_crude_rate"
-    return temp_df
-
-
-def get_usa_initial_jobless():
-    """
-    获取美国初请失业金人数报告, 数据区间从19700101-至今
-    :return: pandas.Series
-    1970-01-01    22.1087
-    1970-02-01    24.9318
-    1970-03-01      25.85
-    1970-04-01    26.8682
-    1970-05-01    33.1591
-                   ...
-    2019-09-26       21.5
-    2019-10-03         22
-    2019-10-10         21
-    2019-10-17       21.4
-    2019-10-24          0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_INITIAL_JOBLESS_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国初请失业金人数(万人)"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(万人)"]
-    temp_df.name = "initial_jobless"
-    return temp_df
-
-
-def get_usa_core_pce_price():
-    """
-    获取美国核心PCE物价指数年率报告, 数据区间从19700101-至今
-    :return: pandas.Series
-    1970-01-01    4.8
-    1970-02-01    4.7
-    1970-03-01    4.8
-    1970-04-01    4.7
-    1970-05-01    4.7
-                 ...
-    2019-06-28    1.5
-    2019-07-30    1.6
-    2019-08-30    1.7
-    2019-09-27    1.8
-    2019-10-31      0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_CORE_PCE_PRICE_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国核心PCE物价指数年率"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
-    temp_df.name = "core_pce_price"
-    return temp_df
-
-
-def get_usa_cpi_monthly():
-    """
-    获取美国CPI月率报告, 数据区间从19700101-至今
-    :return: pandas.Series
-    1970-01-01    0.5
-    1970-02-01    0.5
-    1970-03-01    0.5
-    1970-04-01    0.5
-    1970-05-01    0.5
-                 ...
-    2019-07-11    0.1
-    2019-08-13    0.3
-    2019-09-12    0.1
-    2019-10-10    0.1
-    2019-11-13      0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_CPI_MONTHLY_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国居民消费价格指数(CPI)(月环比)"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
-    temp_df.name = "cpi_monthly"
-    return temp_df
-
-
-def get_usa_lmci():
-    """
-    获取美联储劳动力市场状况指数报告, 数据区间从20141006-至今
-    :return: pandas.Series
-    2014-10-06      4
-    2014-11-10    3.9
-    2014-12-08    5.5
-    2015-01-12    7.3
-    2015-02-09    4.9
-    2015-03-09      2
-    2015-04-06   -1.8
-    2015-05-11   -0.5
-    2015-06-08    0.9
-    2015-07-06    1.4
-    2015-08-10    1.8
-    2015-09-08    1.2
-    2015-10-05    1.3
-    2015-11-09    2.2
-    2015-12-07    2.7
-    2016-01-11    2.3
-    2016-02-08   -0.8
-    2016-03-07   -2.5
-    2016-04-04   -2.1
-    2016-05-09   -3.4
-    2016-06-06   -3.6
-    2016-07-11   -0.1
-    2016-08-08      1
-    2016-09-06   -1.3
-    2016-10-11   -0.1
-    2016-11-07    1.4
-    2016-12-05    2.1
-    2017-01-09    0.6
-    2017-02-06    1.3
-    2017-03-17    1.5
-    2017-04-10    3.6
-    2017-05-08    3.5
-    2017-06-05      0
-    2017-06-16    3.3
-    2017-07-10    1.5
-    2017-08-07      0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_LMCI_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美联储劳动力市场状况指数"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
-    temp_df.name = "lmci"
-    return temp_df
-
-
-def get_usa_adp_employment():
-    """
-    获取美国ADP就业人数报告, 数据区间从20010601-至今
-    :return: pandas.Series
-    2001-06-01   -17.5
-    2001-07-01     -23
-    2001-08-01   -20.3
-    2001-09-01   -24.6
-    2001-10-01   -26.1
-                  ...
-    2019-07-03    11.2
-    2019-07-31    14.2
-    2019-09-05    15.7
-    2019-10-02    13.5
-    2019-10-30       0
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_ADP_NONFARM_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国ADP就业人数(万人)"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(万人)"]
-    temp_df.name = "adp"
-    return temp_df
-
-
-def get_usa_gdp_monthly():
-    """
-    获取美国国内生产总值(GDP)报告, 数据区间从20080228-至今
+    美国国内生产总值(GDP)报告, 数据区间从20080228-至今
+    https://datacenter.jin10.com/reportType/dc_usa_gdp
     :return: pandas.Series
     2008-02-28    0.6
     2008-03-27    0.6
@@ -372,7 +51,7 @@ def get_usa_gdp_monthly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国国内生产总值(GDP)"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -383,9 +62,999 @@ def get_usa_gdp_monthly():
     return temp_df
 
 
-def get_usa_crude_inner():
+# 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告
+def macro_usa_cpi_monthly():
     """
-    获取美国原油产量报告, 数据区间从19830107-至今
+    美国CPI月率报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_cpi
+    https://cdn.jin10.com/dc/reports/dc_usa_cpi_all.js?v=1578741110
+    :return: 美国CPI月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        JS_USA_CPI_MONTHLY_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国居民消费价格指数(CPI)(月环比)"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "cpi_monthly"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-物价水平-美国核心CPI月率报告
+def macro_usa_core_cpi_monthly():
+    """
+    美国核心CPI月率报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_core_cpi
+    https://cdn.jin10.com/dc/reports/dc_usa_core_cpi_all.js?v=1578740570
+    :return: 美国核心CPI月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_core_cpi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国核心CPI月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_core_cpi"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-物价水平-美国个人支出月率报告
+def macro_usa_personal_spending():
+    """
+    美国个人支出月率报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_personal_spending
+    https://cdn.jin10.com/dc/reports/dc_usa_personal_spending_all.js?v=1578741327
+    :return: 美国个人支出月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_personal_spending_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国个人支出月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_personal_spending"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-物价水平-美国零售销售月率报告
+def macro_usa_retail_sales():
+    """
+    美国零售销售月率报告, 数据区间从19920301-至今
+    https://datacenter.jin10.com/reportType/dc_usa_retail_sales
+    https://cdn.jin10.com/dc/reports/dc_usa_retail_sales_all.js?v=1578741528
+    :return: 美国零售销售月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_retail_sales_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国零售销售月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_retail_sales"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-物价水平-美国进口物价指数报告
+def macro_usa_import_price():
+    """
+    美国进口物价指数报告, 数据区间从19890201-至今
+    https://datacenter.jin10.com/reportType/dc_usa_import_price
+    https://cdn.jin10.com/dc/reports/dc_usa_import_price_all.js?v=1578741716
+    :return: 美国进口物价指数报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_import_price_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国进口物价指数"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_import_price"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-物价水平-美国出口价格指数报告
+def macro_usa_export_price():
+    """
+    美国出口价格指数报告, 数据区间从19890201-至今
+    https://datacenter.jin10.com/reportType/dc_usa_export_price
+    https://cdn.jin10.com/dc/reports/dc_usa_export_price_all.js?v=1578741832
+    :return: 美国出口价格指数报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_export_price_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国出口价格指数"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_export_price"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-劳动力市场-LMCI
+def macro_usa_lmci():
+    """
+    美联储劳动力市场状况指数报告, 数据区间从20141006-至今
+    https://datacenter.jin10.com/reportType/dc_usa_lmci
+    https://cdn.jin10.com/dc/reports/dc_usa_lmci_all.js?v=1578742043
+    :return: 美联储劳动力市场状况指数报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        JS_USA_LMCI_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美联储劳动力市场状况指数"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "lmci"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-劳动力市场-失业率-美国失业率报告
+def macro_usa_unemployment_rate():
+    """
+    获取美国失业率报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_lmci
+    https://cdn.jin10.com/dc/reports/dc_usa_lmci_all.js?v=1578742043
+    :return: 获取美国失业率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        JS_USA_UNEMPLOYMENT_RATE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国失业率"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "unemployment_rate"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-劳动力市场-失业率-美国挑战者企业裁员人数报告
+def macro_usa_job_cuts():
+    """
+    美国挑战者企业裁员人数报告, 数据区间从19940201-至今
+    https://datacenter.jin10.com/reportType/dc_usa_job_cuts
+    https://cdn.jin10.com/dc/reports/dc_usa_job_cuts_all.js?v=1578742262
+    :return: 美国挑战者企业裁员人数报告-今值(万人)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_job_cuts_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国挑战者企业裁员人数报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万人)"]
+    temp_df.name = "usa_job_cuts"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-劳动力市场-就业人口-美国非农就业人数报告
+def macro_usa_non_farm():
+    """
+    美国非农就业人数报告, 数据区间从19700102-至今
+    https://datacenter.jin10.com/reportType/dc_nonfarm_payrolls
+    https://cdn.jin10.com/dc/reports/dc_nonfarm_payrolls_all.js?v=1578742490
+    :return: 美国非农就业人数报告-今值(万人)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        JS_USA_NON_FARM_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国非农就业人数"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万人)"]
+    temp_df.name = "non_farm"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-劳动力市场-就业人口-美国ADP就业人数报告
+def macro_usa_adp_employment():
+    """
+    美国ADP就业人数报告, 数据区间从20010601-至今
+    https://datacenter.jin10.com/reportType/dc_adp_nonfarm_employment
+    https://cdn.jin10.com/dc/reports/dc_adp_nonfarm_employment_all.js?v=1578742564
+    :return: 美国ADP就业人数报告-今值(万人)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        JS_USA_ADP_NONFARM_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国ADP就业人数(万人)"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万人)"]
+    temp_df.name = "adp"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-劳动力市场-消费者收入与支出-美国核心PCE物价指数年率报告
+def macro_usa_core_pce_price():
+    """
+    美国核心PCE物价指数年率报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_core_pce_price
+    https://cdn.jin10.com/dc/reports/dc_usa_core_pce_price_all.js?v=1578742641
+    :return: 美国核心PCE物价指数年率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        JS_USA_CORE_PCE_PRICE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国核心PCE物价指数年率"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "core_pce_price"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-劳动力市场-消费者收入与支出-美国实际个人消费支出季率初值报告
+def macro_usa_real_consumer_spending():
+    """
+    美国实际个人消费支出季率初值报告, 数据区间从20131107-至今
+    https://datacenter.jin10.com/reportType/dc_usa_real_consumer_spending
+    https://cdn.jin10.com/dc/reports/dc_usa_real_consumer_spending_all.js?v=1578742802
+    :return: 美国实际个人消费支出季率初值报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_real_consumer_spending_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国实际个人消费支出季率初值报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_real_consumer_spending"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-贸易状况-美国贸易帐报告
+def macro_usa_trade_balance():
+    """
+    美国贸易帐报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_trade_balance
+    https://cdn.jin10.com/dc/reports/dc_usa_trade_balance_all.js?v=1578742911
+    :return: 美国贸易帐报告-今值(亿美元)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_trade_balance_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国贸易帐报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(亿美元)"]
+    temp_df.name = "usa_trade_balance"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-贸易状况-美国经常帐报告
+def macro_usa_current_account():
+    """
+    美国经常帐报告, 数据区间从20080317-至今
+    https://datacenter.jin10.com/reportType/dc_usa_current_account
+    https://cdn.jin10.com/dc/reports/dc_usa_current_account_all.js?v=1578743012
+    :return: 美国经常帐报告-今值(亿美元)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_current_account_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国经常账报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(亿美元)"]
+    temp_df.name = "usa_current_account"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-制造业-贝克休斯钻井报告
+def macro_usa_rig_count():
+    """
+    贝克休斯钻井报告, 数据区间从20080317-至今
+    https://datacenter.jin10.com/reportType/dc_rig_count_summary
+    https://cdn.jin10.com/dc/reports/dc_rig_count_summary_all.js?v=1578743203
+    :return: 贝克休斯钻井报告-当周
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_rig_count_summary_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["钻井总数"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["当周"]
+    temp_df.name = "usa_rig_count"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-制造业-美国个人支出月率报告
+
+
+# 金十数据中心-经济指标-美国-产业指标-制造业-美国生产者物价指数(PPI)报告
+def macro_usa_ppi():
+    """
+    美国生产者物价指数(PPI)报告, 数据区间从20080226-至今
+    https://datacenter.jin10.com/reportType/dc_usa_ppi
+    https://cdn.jin10.com/dc/reports/dc_usa_ppi_all.js?v=1578743628
+    :return: 美国生产者物价指数(PPI)报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_ppi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国生产者物价指数(PPI)报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_ppi"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-制造业-美国核心生产者物价指数(PPI)报告
+def macro_usa_core_ppi():
+    """
+    美国核心生产者物价指数(PPI)报告, 数据区间从20080318-至今
+    https://datacenter.jin10.com/reportType/dc_usa_core_ppi
+    https://cdn.jin10.com/dc/reports/dc_usa_core_ppi_all.js?v=1578743709
+    :return: 美国核心生产者物价指数(PPI)报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_core_ppi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国核心生产者物价指数(PPI)报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_core_ppi"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-制造业-美国API原油库存报告
+def macro_usa_api_crude_stock():
+    """
+    美国API原油库存报告, 数据区间从20120328-至今
+    https://datacenter.jin10.com/reportType/dc_usa_api_crude_stock
+    https://cdn.jin10.com/dc/reports/dc_usa_api_crude_stock_all.js?v=1578743859
+    :return: 美国API原油库存报告-今值(万桶)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_api_crude_stock_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国API原油库存报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万桶)"]
+    temp_df.name = "usa_api_crude_stock"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-制造业-美国Markit制造业PMI初值报告
+def macro_usa_pmi():
+    """
+    美国Markit制造业PMI初值报告, 数据区间从20120601-至今
+    https://datacenter.jin10.com/reportType/dc_usa_pmi
+    https://cdn.jin10.com/dc/reports/dc_usa_pmi_all.js?v=1578743969
+    :return: 美国Markit制造业PMI初值报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国Markit制造业PMI报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "usa_pmi"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-制造业-美国ISM制造业PMI报告
+def macro_usa_ism_pmi():
+    """
+    美国ISM制造业PMI报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_ism_pmi
+    https://cdn.jin10.com/dc/reports/dc_usa_ism_pmi_all.js?v=1578744071
+    :return: 美国ISM制造业PMI报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_ism_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国ISM制造业PMI报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "usa_ism_pmi"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-工业-美国工业产出月率报告
+def macro_usa_industrial_production():
+    """
+    美国工业产出月率报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_industrial_production
+    https://cdn.jin10.com/dc/reports/dc_usa_industrial_production_all.js?v=1578744188
+    :return: 美国工业产出月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_industrial_production_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国工业产出月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_industrial_production"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-工业-美国耐用品订单月率报告
+def macro_usa_durable_goods_orders():
+    """
+    美国耐用品订单月率报告, 数据区间从20080227-至今
+    https://datacenter.jin10.com/reportType/dc_usa_durable_goods_orders
+    https://cdn.jin10.com/dc/reports/dc_usa_durable_goods_orders_all.js?v=1578744295
+    :return: 美国耐用品订单月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_durable_goods_orders_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国耐用品订单月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_durable_goods_orders"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-工业-美国工厂订单月率报告
+def macro_usa_factory_orders():
+    """
+    美国工厂订单月率报告, 数据区间从19920401-至今
+    https://datacenter.jin10.com/reportType/dc_usa_factory_orders
+    https://cdn.jin10.com/dc/reports/dc_usa_factory_orders_all.js?v=1578744385
+    :return: 美国工厂订单月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_factory_orders_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国工厂订单月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_factory_orders"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-服务业-美国Markit服务业PMI初值报告
+def macro_usa_services_pmi():
+    """
+    美国Markit服务业PMI初值报告, 数据区间从20120701-至今
+    https://datacenter.jin10.com/reportType/dc_usa_services_pmi
+    https://cdn.jin10.com/dc/reports/dc_usa_services_pmi_all.js?v=1578744503
+    :return: 美国Markit服务业PMI初值报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_services_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国Markit服务业PMI初值报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "usa_services_pmi"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-服务业-美国商业库存月率报告
+def macro_usa_business_inventories():
+    """
+    美国商业库存月率报告, 数据区间从19920301-至今
+    https://datacenter.jin10.com/reportType/dc_usa_business_inventories
+    https://cdn.jin10.com/dc/reports/dc_usa_business_inventories_all.js?v=1578744618
+    :return: 美国商业库存月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_business_inventories_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国商业库存月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_business_inventories"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-服务业-美国ISM非制造业PMI报告
+def macro_usa_ism_non_pmi():
+    """
+    美国ISM非制造业PMI报告, 数据区间从19970801-至今
+    https://datacenter.jin10.com/reportType/dc_usa_ism_non_pmi
+    https://cdn.jin10.com/dc/reports/dc_usa_ism_non_pmi_all.js?v=1578744693
+    :return: 美国ISM非制造业PMI报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_ism_non_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国ISM非制造业PMI报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "usa_ism_non_pmi"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-房地产-美国NAHB房产市场指数报告
+def macro_usa_nahb_house_market_index():
+    """
+    美国NAHB房产市场指数报告, 数据区间从19850201-至今
+    https://datacenter.jin10.com/reportType/dc_usa_nahb_house_market_index
+    https://cdn.jin10.com/dc/reports/dc_usa_nahb_house_market_index_all.js?v=1578744817
+    :return: 美国NAHB房产市场指数报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_nahb_house_market_index_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国NAHB房产市场指数报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "usa_nahb_house_market_index"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-房地产-美国新屋开工总数年化报告
+def macro_usa_house_starts():
+    """
+    美国新屋开工总数年化报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_house_starts
+    https://cdn.jin10.com/dc/reports/dc_usa_house_starts_all.js?v=1578747388
+    :return: 美国新屋开工总数年化报告-今值(万户)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_house_starts_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国新屋开工总数年化报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万户)"]
+    temp_df.name = "usa_house_starts"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-房地产-美国新屋销售总数年化报告
+def macro_usa_new_home_sales():
+    """
+    美国新屋销售总数年化报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_new_home_sales
+    https://cdn.jin10.com/dc/reports/dc_usa_new_home_sales_all.js?v=1578747501
+    :return: 美国新屋销售总数年化报告-今值(万户)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_new_home_sales_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国新屋销售总数年化报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万户)"]
+    temp_df.name = "usa_new_home_sales"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-房地产-美国营建许可总数报告
+def macro_usa_building_permits():
+    """
+    美国营建许可总数报告, 数据区间从20080220-至今
+    https://datacenter.jin10.com/reportType/dc_usa_building_permits
+    https://cdn.jin10.com/dc/reports/dc_usa_building_permits_all.js?v=1578747599
+    :return: 美国营建许可总数报告-今值(万户)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_building_permits_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国营建许可总数报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万户)"]
+    temp_df.name = "usa_building_permits"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-房地产-美国成屋销售总数年化报告
+def macro_usa_exist_home_sales():
+    """
+    美国成屋销售总数年化报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_exist_home_sales
+    https://cdn.jin10.com/dc/reports/dc_usa_exist_home_sales_all.js?v=1578747703
+    :return: 美国成屋销售总数年化报告-今值(万户)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_exist_home_sales_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国成屋销售总数年化报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万户)"]
+    temp_df.name = "usa_exist_home_sales"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-房地产-美国FHFA房价指数月率报告
+def macro_usa_house_price_index():
+    """
+    美国FHFA房价指数月率报告, 数据区间从19910301-至今
+    https://datacenter.jin10.com/reportType/dc_usa_house_price_index
+    https://cdn.jin10.com/dc/reports/dc_usa_house_price_index_all.js?v=1578747781
+    :return: 美国FHFA房价指数月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_house_price_index_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国FHFA房价指数月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_house_price_index"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-房地产-美国S&P/CS20座大城市房价指数年率报告
+def macro_usa_spcs20():
+    """
+    美国S&P/CS20座大城市房价指数年率报告, 数据区间从20010201-至今
+    https://datacenter.jin10.com/reportType/dc_usa_spcs20
+    https://cdn.jin10.com/dc/reports/dc_usa_spcs20_all.js?v=1578747873
+    :return: 美国S&P/CS20座大城市房价指数年率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_spcs20_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国S&P/CS20座大城市房价指数年率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_spcs20"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-产业指标-房地产-美国成屋签约销售指数月率报告
+def macro_usa_pending_home_sales():
+    """
+    美国成屋签约销售指数月率报告, 数据区间从20010301-至今
+    https://datacenter.jin10.com/reportType/dc_usa_pending_home_sales
+    https://cdn.jin10.com/dc/reports/dc_usa_pending_home_sales_all.js?v=1578747959
+    :return: 美国成屋签约销售指数月率报告-今值(%)
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_pending_home_sales_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国成屋签约销售指数月率报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(%)"]
+    temp_df.name = "usa_pending_home_sales"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-领先指标-美国谘商会消费者信心指数报告
+def macro_usa_cb_consumer_confidence():
+    """
+    美国谘商会消费者信心指数报告, 数据区间从19700101-至今
+    https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v=1578576859
+    :return: 美国谘商会消费者信心指数报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国谘商会消费者信心指数报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "cb_consumer_confidence"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-领先指标-美国NFIB小型企业信心指数报告
+def macro_usa_nfib_small_business():
+    """
+    美国NFIB小型企业信心指数报告, 数据区间从19750201-至今
+    https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v=1578576631
+    :return: 美国NFIB小型企业信心指数报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国NFIB小型企业信心指数报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "nfib_small_business"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-领先指标-美国密歇根大学消费者信心指数初值报告
+def macro_usa_michigan_consumer_sentiment():
+    """
+    美国密歇根大学消费者信心指数初值报告, 数据区间从19700301-至今
+    https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+    :return: 美国密歇根大学消费者信心指数初值报告-今值
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国密歇根大学消费者信心指数初值报告"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值"]
+    temp_df.name = "michigan_consumer_sentiment"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
+def macro_usa_eia_crude_rate():
+    """
+    美国EIA原油库存报告, 数据区间从19950801-至今
+    :return: pandas.Series
+    1982-09-01   -262.6
+    1982-10-01       -8
+    1982-11-01    -41.3
+    1982-12-01    -87.6
+    1983-01-01     51.3
+                  ...
+    2019-10-02      310
+    2019-10-09    292.7
+    2019-10-16        0
+    2019-10-17    928.1
+    2019-10-23        0
+    """
+    t = time.time()
+    res = requests.get(
+        JS_USA_EIA_CRUDE_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国EIA原油库存(万桶)"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万桶)"]
+    temp_df.name = "eia_crude_rate"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
+def macro_usa_initial_jobless():
+    """
+    美国初请失业金人数报告, 数据区间从19700101-至今
+    :return: pandas.Series
+    1970-01-01    22.1087
+    1970-02-01    24.9318
+    1970-03-01      25.85
+    1970-04-01    26.8682
+    1970-05-01    33.1591
+                   ...
+    2019-09-26       21.5
+    2019-10-03         22
+    2019-10-10         21
+    2019-10-17       21.4
+    2019-10-24          0
+    """
+    t = time.time()
+    res = requests.get(
+        JS_USA_INITIAL_JOBLESS_URL.format(
+            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
+        )
+    )
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    date_list = [item["date"] for item in json_data["list"]]
+    value_list = [item["datas"]["美国初请失业金人数(万人)"] for item in json_data["list"]]
+    value_df = pd.DataFrame(value_list)
+    value_df.columns = json_data["kinds"]
+    value_df.index = pd.to_datetime(date_list)
+    temp_df = value_df["今值(万人)"]
+    temp_df.name = "initial_jobless"
+    return temp_df
+
+
+# 金十数据中心-经济指标-美国-其他-美国原油产量报告
+def macro_usa_crude_inner():
+    """
+    美国原油产量报告, 数据区间从19830107-至今
     :return: pandas.Series
     1983-01-07     863.40
     1983-01-14     863.40
@@ -405,7 +1074,7 @@ def get_usa_crude_inner():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国国内原油总量"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -416,9 +1085,10 @@ def get_usa_crude_inner():
     return temp_df
 
 
-def get_usa_crude_state():
+# 金十数据中心-经济指标-美国-其他-美国本土48州原油产量
+def macro_usa_crude_state():
     """
-    获取美国本土48州原油产量, 数据区间从19830107-至今
+    美国本土48州原油产量, 数据区间从19830107-至今
     :return: pandas.Series
     1983-01-07       0.00
     1983-01-14       0.00
@@ -438,7 +1108,7 @@ def get_usa_crude_state():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国本土48州原油产量"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -449,9 +1119,10 @@ def get_usa_crude_state():
     return temp_df
 
 
-def get_usa_crude_alaska():
+# 金十数据中心-经济指标-美国-其他-美国阿拉斯加州原油产量
+def macro_usa_crude_alaska():
     """
-    获取美国阿拉斯加州原油产量, 数据区间从19830107-至今
+    美国阿拉斯加州原油产量, 数据区间从19830107-至今
     :return: pandas.Series
     1983-01-07     0.00
     1983-01-14     0.00
@@ -471,7 +1142,7 @@ def get_usa_crude_alaska():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国阿拉斯加州原油产量"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -482,73 +1153,120 @@ def get_usa_crude_alaska():
     return temp_df
 
 
-# 金十数据中心-经济指标-美国-领先指标
-def macro_usa_michigan_consumer_sentiment():
-    """
-    美国密歇根大学消费者信心指数初值报告, 数据区间从19700301-至今
-    https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
-    :return: 美国密歇根大学消费者信心指数初值报告-今值
-    :rtype: pandas.Series
-    """
-    t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国密歇根大学消费者信心指数初值报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值"]
-    temp_df.name = "michigan_consumer_sentiment"
-    return temp_df
-
-
-def macro_usa_nfib_small_business():
-    """
-    美国NFIB小型企业信心指数报告, 数据区间从19750201-至今
-    https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v=1578576631
-    :return: 美国NFIB小型企业信心指数报告-今值
-    :rtype: pandas.Series
-    """
-    t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国NFIB小型企业信心指数报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值"]
-    temp_df.name = "nfib_small_business"
-    return temp_df
-
-
-def macro_usa_cb_consumer_confidence():
-    """
-    美国谘商会消费者信心指数报告, 数据区间从19700101-至今
-    https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v=1578576859
-    :return: 美国谘商会消费者信心指数报告-今值
-    :rtype: pandas.Series
-    """
-    t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国谘商会消费者信心指数报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值"]
-    temp_df.name = "cb_consumer_confidence"
-    return temp_df
-
-
 if __name__ == "__main__":
-    df = get_usa_interest_rate()
-    print(df)
-    df = get_usa_non_farm()
-    print(df)
-    df = get_usa_unemployment_rate()
-    print(df)
-    df = get_usa_eia_crude_rate()
-    print(df)
+    # 金十数据中心-经济指标-美国-经济状况-美国GDP
+    macro_usa_gdp_monthly_df = macro_usa_gdp_monthly()
+    print(macro_usa_gdp_monthly_df)
+    # 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告
+    macro_usa_cpi_monthly_df = macro_usa_cpi_monthly()
+    print(macro_usa_cpi_monthly_df)
+    # 金十数据中心-经济指标-美国-物价水平-美国核心CPI月率报告
+    macro_usa_core_cpi_monthly_df = macro_usa_core_cpi_monthly()
+    print(macro_usa_core_cpi_monthly_df)
+    # 金十数据中心-经济指标-美国-物价水平-美国个人支出月率报告
+    macro_usa_personal_spending_df = macro_usa_personal_spending()
+    print(macro_usa_personal_spending_df)
+    # 金十数据中心-经济指标-美国-物价水平-美国零售销售月率报告
+    macro_usa_retail_sales_df = macro_usa_retail_sales()
+    print(macro_usa_retail_sales_df)
+    # 金十数据中心-经济指标-美国-物价水平-美国进口物价指数报告
+    macro_usa_import_price_df = macro_usa_import_price()
+    print(macro_usa_import_price_df)
+    # 金十数据中心-经济指标-美国-物价水平-美国出口价格指数报告
+    macro_usa_export_price_df = macro_usa_export_price()
+    print(macro_usa_export_price_df)
+    # 金十数据中心-经济指标-美国-劳动力市场-LMCI
+    macro_usa_lmci_df = macro_usa_lmci()
+    print(macro_usa_lmci_df)
+    # 金十数据中心-经济指标-美国-劳动力市场-失业率-美国失业率报告
+    macro_usa_unemployment_rate_df = macro_usa_unemployment_rate()
+    print(macro_usa_unemployment_rate_df)
+    # 金十数据中心-经济指标-美国-劳动力市场-失业率-美国挑战者企业裁员人数报告
+    macro_usa_job_cuts_df = macro_usa_job_cuts()
+    print(macro_usa_job_cuts_df)
+    # 金十数据中心-经济指标-美国-劳动力市场-就业人口-美国非农就业人数报告
+    macro_usa_non_farm_df = macro_usa_non_farm()
+    print(macro_usa_non_farm_df)
+    # 金十数据中心-经济指标-美国-劳动力市场-就业人口-美国ADP就业人数报告
+    macro_usa_adp_employment_df = macro_usa_adp_employment()
+    print(macro_usa_adp_employment_df)
+    # 金十数据中心-经济指标-美国-劳动力市场-消费者收入与支出-美国核心PCE物价指数年率报告
+    macro_usa_core_pce_price_df = macro_usa_core_pce_price()
+    print(macro_usa_core_pce_price_df)
+    # 金十数据中心-经济指标-美国-劳动力市场-消费者收入与支出-美国实际个人消费支出季率初值报告
+    macro_usa_real_consumer_spending_df = macro_usa_real_consumer_spending()
+    print(macro_usa_real_consumer_spending_df)
+    # 金十数据中心-经济指标-美国-贸易状况-美国贸易帐报告
+    macro_usa_trade_balance_df = macro_usa_trade_balance()
+    print(macro_usa_trade_balance_df)
+    # 金十数据中心-经济指标-美国-贸易状况-美国经常帐报告
+    macro_usa_current_account_df = macro_usa_current_account()
+    print(macro_usa_current_account_df)
+    # 金十数据中心-经济指标-美国-产业指标-制造业-贝克休斯钻井报告
+    macro_usa_rig_count_df = macro_usa_rig_count()
+    print(macro_usa_rig_count_df)
+    # 金十数据中心-经济指标-美国-产业指标-制造业-美国个人支出月率报告
+    # 金十数据中心-经济指标-美国-产业指标-制造业-美国生产者物价指数(PPI)报告
+    macro_usa_ppi_df = macro_usa_ppi()
+    print(macro_usa_ppi_df)
+    # 金十数据中心-经济指标-美国-产业指标-制造业-美国核心生产者物价指数(PPI)报告
+    macro_usa_core_ppi_df = macro_usa_core_ppi()
+    print(macro_usa_core_ppi_df)
+    # 金十数据中心-经济指标-美国-产业指标-制造业-美国API原油库存报告
+    macro_usa_api_crude_stock_df = macro_usa_api_crude_stock()
+    print(macro_usa_api_crude_stock_df)
+    # 金十数据中心-经济指标-美国-产业指标-制造业-美国Markit制造业PMI初值报告
+    macro_usa_pmi_df = macro_usa_pmi()
+    print(macro_usa_pmi_df)
+    # 金十数据中心-经济指标-美国-产业指标-制造业-美国ISM制造业PMI报告
+    macro_usa_ism_pmi_df = macro_usa_ism_pmi()
+    print(macro_usa_ism_pmi_df)
+    # 金十数据中心-经济指标-美国-产业指标-房地产-美国NAHB房产市场指数报告
+    macro_usa_nahb_house_market_index_df = macro_usa_nahb_house_market_index()
+    print(macro_usa_nahb_house_market_index_df)
+    # 金十数据中心-经济指标-美国-产业指标-房地产-美国新屋开工总数年化报告
+    macro_usa_house_starts_df = macro_usa_house_starts()
+    print(macro_usa_house_starts_df)
+    # 金十数据中心-经济指标-美国-产业指标-房地产-美国新屋销售总数年化报告
+    macro_usa_new_home_sales_df = macro_usa_new_home_sales()
+    print(macro_usa_new_home_sales_df)
+    # 金十数据中心-经济指标-美国-产业指标-房地产-美国营建许可总数报告
+    macro_usa_building_permits_df = macro_usa_building_permits()
+    print(macro_usa_building_permits_df)
+    # 金十数据中心-经济指标-美国-产业指标-房地产-美国成屋销售总数年化报告
+    macro_usa_exist_home_sales_df = macro_usa_exist_home_sales()
+    print(macro_usa_exist_home_sales_df)
+    # 金十数据中心-经济指标-美国-产业指标-房地产-美国FHFA房价指数月率报告
+    macro_usa_house_price_index_df = macro_usa_house_price_index()
+    print(macro_usa_house_price_index_df)
+    # 金十数据中心-经济指标-美国-产业指标-房地产-美国S&P/CS20座大城市房价指数年率报告
+    macro_usa_spcs20_df = macro_usa_spcs20()
+    print(macro_usa_spcs20_df)
+    # 金十数据中心-经济指标-美国-产业指标-房地产-美国成屋签约销售指数月率报告
+    macro_usa_pending_home_sales_df = macro_usa_pending_home_sales()
+    print(macro_usa_pending_home_sales_df)
+    # 金十数据中心-经济指标-美国-领先指标-美国谘商会消费者信心指数报告
+    macro_usa_cb_consumer_confidence_df = macro_usa_cb_consumer_confidence()
+    print(macro_usa_cb_consumer_confidence_df)
+    # 金十数据中心-经济指标-美国-领先指标-美国NFIB小型企业信心指数报告
+    macro_usa_nfib_small_business_df = macro_usa_nfib_small_business()
+    print(macro_usa_nfib_small_business_df)
+    # 金十数据中心-经济指标-美国-领先指标-美国密歇根大学消费者信心指数初值报告
+    macro_usa_michigan_consumer_sentiment_df = macro_usa_michigan_consumer_sentiment()
+    print(macro_usa_michigan_consumer_sentiment_df)
+
+    # 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
+    macro_usa_eia_crude_rate_df = macro_usa_eia_crude_rate()
+    print(macro_usa_eia_crude_rate_df)
+    # 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
+    macro_usa_initial_jobless_df = macro_usa_initial_jobless()
+    print(macro_usa_initial_jobless_df)
+    # 金十数据中心-经济指标-美国-其他-美国原油产量报告
+    macro_usa_crude_inner_df = macro_usa_crude_inner()
+    print(macro_usa_crude_inner_df)
+    # 金十数据中心-经济指标-美国-其他-美国本土48州原油产量
+    macro_usa_crude_state_df = macro_usa_crude_state()
+    print(macro_usa_crude_state_df)
+    # 金十数据中心-经济指标-美国-其他-美国阿拉斯加州原油产量
+    macro_usa_crude_alaska_df = macro_usa_crude_alaska()
+    print(macro_usa_crude_alaska_df)
