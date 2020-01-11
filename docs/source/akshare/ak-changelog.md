@@ -823,4 +823,7 @@ macro_usa_initial_jobless  # 金十数据中心-经济指标-美国-其他-美�
 macro_usa_crude_inner  # 金十数据中心-经济指标-美国-其他-美国原油产量报告
 macro_usa_crude_state  # 金十数据中心-经济指标-美国-其他-美国本土48州原油产量
 macro_usa_crude_alaska  # 金十数据中心-经济指标-美国-其他-美国阿拉斯加州原油产量
+
+0.3.43
+增加-交易法门-数据-黑色系-焦煤
 ```

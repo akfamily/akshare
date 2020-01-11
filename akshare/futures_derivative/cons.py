@@ -5,6 +5,8 @@ Author: Albert King
 date: 2019/10/27 19:49
 contact: jindaxiang@163.com
 desc: 期货衍生指标配置文件
+交易法门-数据
+西本新干线-指数数据
 """
 # 交易法门-数据-农产品
 # 交易法门-数据-农产品-美豆
@@ -72,10 +74,23 @@ jyfm_data_sugar_name_url_dict = {
 # 交易法门-数据-黑色系-焦煤
 jyfm_data_cocking_coal_url_dict = {
     "焦煤总库存": "https://www.jiaoyifamen.com/data/cocking-coal-total-stock/stock",
-    "焦煤焦企库存100": "https://www.jiaoyifamen.com/data/cocking-coal100-cocking-stock/stock",
-    "焦煤焦企库存230": "https://www.jiaoyifamen.com/data/cocking-coal230-cocking-stock/stock",
+    "焦煤焦企库存-焦煤焦企库存100": "https://www.jiaoyifamen.com/data/cocking-coal100-cocking-stock/stock",
+    "焦煤焦企库存-焦煤焦企库存230": "https://www.jiaoyifamen.com/data/cocking-coal230-cocking-stock/stock",
     "焦煤钢厂库存": "https://www.jiaoyifamen.com/data/cocking-coal-steel-stock/stock",
     "焦煤港口库存": "https://www.jiaoyifamen.com/data/cocking-coal-port-stock/stock",
+}
+# 交易法门-数据-黑色系-焦炭
+jyfm_data_coke_url_dict = {
+    "焦企产能利用率-100家独立焦企产能利用率": "https://www.jiaoyifamen.com/data/coke100-availability-ratio/ratio",
+    "焦企产能利用率-230家独立焦企产能利用率": "https://www.jiaoyifamen.com/data/coke230-availability-ratio/ratio",
+    "焦炭日均产量-100家独立焦企焦炭日均产量": "https://www.jiaoyifamen.com/data/coke100-day-produce/produce",
+    "焦炭日均产量-230家独立焦企焦炭日均产量": "https://www.jiaoyifamen.com/data/coke230-day-produce/produce",
+    "焦炭总库存": "https://www.jiaoyifamen.com/data/coke-total-stock/stock",
+    "焦炭焦企库存-100家独立焦企焦炭库存": "https://www.jiaoyifamen.com/data/coke100-cocking-stock/stock",
+    "焦炭焦企库存-230家独立焦企焦炭库存": "https://www.jiaoyifamen.com/data/coke230-cocking-stock/stock",
+    "焦炭钢厂库存": "https://www.jiaoyifamen.com/data/coke-steel-stock/stock",
+    "焦炭港口库存": "https://www.jiaoyifamen.com/data/coke-port-stock/stock",
+    "焦企焦化利润": "https://www.jiaoyifamen.com/data/coke-coking-profit/profit",
 }
 
 
