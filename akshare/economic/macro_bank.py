@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2020/1/9 22:52
 contact: jindaxiang@163.com
-desc: # 金十数据中心-经济指标-央行利率-主要央行利率
+desc: 金十数据中心-经济指标-央行利率-主要央行利率
 https://datacenter.jin10.com/economic
 美联储利率决议报告
 欧洲央行决议报告
@@ -35,8 +35,9 @@ def macro_bank_usa_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_usa_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国利率决议"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -57,8 +58,9 @@ def macro_bank_euro_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区利率决议"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -79,8 +81,9 @@ def macro_bank_newzealand_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_newzealand_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_newzealand_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["新西兰利率决议报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -101,8 +104,9 @@ def macro_bank_china_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_china_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_china_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国人民银行利率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -123,8 +127,9 @@ def macro_bank_switzerland_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_switzerland_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_switzerland_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["瑞士央行利率决议报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -145,8 +150,9 @@ def macro_bank_english_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_english_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_english_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["英国利率决议报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -167,8 +173,9 @@ def macro_bank_australia_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_australia_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_australia_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["澳大利亚利率决议报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -189,8 +196,9 @@ def macro_bank_japan_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_japan_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_japan_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["日本利率决议报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -211,8 +219,9 @@ def macro_bank_russia_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_russia_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_russia_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["俄罗斯利率决议报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -233,8 +242,9 @@ def macro_bank_india_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_india_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_india_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["印度利率决议报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -255,8 +265,9 @@ def macro_bank_brazil_interest_rate():
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_brazil_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+        f"https://cdn.jin10.com/dc/reports/dc_brazil_interest_rate_decision_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["巴西利率决议报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -267,7 +278,7 @@ def macro_bank_brazil_interest_rate():
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     macro_bank_usa_interest_rate_df = macro_bank_usa_interest_rate()
     print(macro_bank_usa_interest_rate_df)
 
