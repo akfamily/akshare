@@ -241,7 +241,7 @@ def macro_bank_india_interest_rate():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
-    temp_df.name = "india_interest_rate_decision"
+    temp_df.name = "india_interest_rate"
     return temp_df
 
 

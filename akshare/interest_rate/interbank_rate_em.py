@@ -165,7 +165,7 @@ def _get_page_num(market="上海银行同业拆借市场", symbol="Shibor人民�
     return int(page_num)
 
 
-def chibor_hist(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="隔夜"):
+def rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="隔夜"):
     """
     具体市场具体品种具体指标的拆借利率数据
     :param market: ["上海银行同业拆借市场", "中国银行同业拆借市场", "伦敦银行同业拆借市场", "欧洲银行同业拆借市场", "香港银行同业拆借市场", "新加坡银行同业拆借市场"]
@@ -189,5 +189,5 @@ def chibor_hist(market="上海银行同业拆借市场", symbol="Shibor人民币
 
 
 if __name__ == '__main__':
-    chibor_hist_df = chibor_hist(market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="3月")
-    print(chibor_hist_df)
+    rate_interbank_df = rate_interbank(market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="3月")
+    print(rate_interbank_df)

@@ -576,8 +576,8 @@ __author__ = "Albert King"
 """
 增加-东方财富网-经济数据-银行间拆借利率
 """
-from akshare.interest_rate.shibor_em import (
-    chibor_hist,
+from akshare.interest_rate.interbank_rate_em import (
+    rate_interbank,
 )
 
 """

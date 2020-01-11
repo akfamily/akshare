@@ -266,7 +266,7 @@
  "jyfm_tools_warehouse_receipt_query"  # 交易法门-工具-仓单分析-仓单查询
  "jyfm_tools_warehouse_receipt_ratio"  # 交易法门-工具-仓单分析-虚实盘比查询
  # 银行间拆借利率
- "chibor_hist"  #  银行间拆借利率
+ "rate_interbank"  #  银行间拆借利率
  # 主要央行利率
  "macro_bank_usa_interest_rate"  # 美联储利率决议报告
  "macro_bank_euro_interest_rate"  # 欧洲央行决议报告

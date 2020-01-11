@@ -1163,61 +1163,6 @@ print(macro_china_ctci_detail_hist_df)
 
 ### 美国宏观
 
-#### 美联储利率决议报告
-
-接口: get_usa_interest_rate
-
-目标地址: https://datacenter.jin10.com/reportType/dc_usa_interest_rate_decision
-
-描述: 获取美联储利率决议报告, 数据区间从19820927-至今
-
-限量: 单次返回某一个所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 今值(%)     | float   | Y        | 今值(%)   |
-
-
-接口示例
-```python
-import akshare as ak
-index_se = ak.get_usa_interest_rate()
-print(index_se)
-print(index_se.name)
-```
-
-数据示例
-
-index_se.name
-
-```interest_rate```
-
-index_se: pandas.Series
-
-```
-1982-09-27    10.25
-1982-10-01       10
-1982-10-07      9.5
-1982-11-19        9
-1982-12-14      8.5
-              ...
-2019-06-20      2.5
-2019-08-01     2.25
-2019-09-19        2
-2019-10-31        0
-2019-12-12        0
-```
-
 #### 美国非农就业人数报告
 
 接口: get_usa_non_farm
@@ -1274,7 +1219,6 @@ index_se: pandas.Series
 2019-11-01       0
 ```
 
-
 #### 美国失业率报告
 
 接口: get_usa_unemployment_rate
@@ -1330,7 +1274,6 @@ index_se: pandas.Series
 2019-10-04    3.5
 2019-11-01      0
 ```
-
 
 #### 美国失业率报告
 
