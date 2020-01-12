@@ -26,6 +26,8 @@ from akshare.economic.cons import (
     JS_USA_EIA_CRUDE_PRODUCE_URL,
 )
 
+pd.set_option('display.max_rows', 10)
+
 
 # 金十数据中心-经济指标-美国-经济状况-美国GDP
 def macro_usa_gdp_monthly():
@@ -237,9 +239,9 @@ def macro_usa_lmci():
 # 金十数据中心-经济指标-美国-劳动力市场-失业率-美国失业率报告
 def macro_usa_unemployment_rate():
     """
-    获取美国失业率报告, 数据区间从19700101-至今
-    https://datacenter.jin10.com/reportType/dc_usa_lmci
-    https://cdn.jin10.com/dc/reports/dc_usa_lmci_all.js?v=1578742043
+    美国失业率报告, 数据区间从19700101-至今
+    https://datacenter.jin10.com/reportType/dc_usa_unemployment_rate
+    https://cdn.jin10.com/dc/reports/dc_usa_unemployment_rate_all.js?v=1578821511
     :return: 获取美国失业率报告-今值(%)
     :rtype: pandas.Series
     """

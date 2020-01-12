@@ -2,6 +2,61 @@
 
 ### 中国宏观
 
+#### 中国宏观杠杆率
+
+接口: macro_cnbs
+
+目标地址: http://114.115.232.154:8080/
+
+描述: 获取中国国家金融与发展实验室-中国宏观杠杆率数据
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 年份      | str   | Y        | 日期, 年-月  |
+| 居民部门      | float   | Y        | -   |
+| 非金融企业部门      | float   | Y        | -   |
+| 政府部门      | float   | Y        | -   |
+| 中央政府      | float   | Y        | -   |
+| 地方政府      | float   | Y        | -   |
+| 实体经济部门      | float   | Y        | -   |
+| 金融部门资产方      | float   | Y        | -   |
+| 金融部门负债方      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cnbs_df = ak.macro_cnbs()
+print(macro_cnbs_df)
+```
+
+数据示例
+
+```
+    年份       居民部门     非金融企业部门  ...      实体经济部门    金融部门资产方    金融部门负债方
+0   1993-12   8.311222   91.658000  ...  107.791459   8.896441   7.128428
+1   1994-12   7.808230   82.411703  ...   98.354271   9.808787   6.796868
+2   1995-12   8.240004   80.950106  ...   97.850373  10.009081   7.006151
+3   1996-03   8.403456   81.711651  ...   99.241521  10.183896   7.186300
+4   1996-06   8.581114   82.051373  ...   99.679459  10.379730   7.380510
+..      ...        ...         ...  ...         ...        ...        ...
+93  2018-09  52.575456  155.641011  ...  245.227043  61.350917  60.645733
+94  2018-12  53.198837  153.553140  ...  243.702122  60.638348  60.936158
+95  2019-03  54.277928  156.881879  ...  248.828108  60.542178  59.417322
+96  2019-06  55.304291  155.743313  ...  249.533412  58.736094  58.727086
+97  2019-09  56.314848  155.618498  ...  251.147265  55.820243  59.358625
+```
+
 #### 国民经济运行状况
 
 ##### 经济状况
@@ -409,16 +464,17 @@ macro_china_trade_balance_df:
 2020-01-14        0
 ```
 
+#### 产业指标
 
-#### 中国CPI月率报告
+##### 规模以上工业增加值年率
 
-接口: macro_china_cpi_monthly
+接口: macro_china_industrial_production_yoy
 
-目标地址: https://datacenter.jin10.com/reportType/dc_chinese_cpi_mom
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_industrial_production_yoy
 
-描述: 获取中国月度CPI数据, 数据区间从19960201-至今
+描述: 获取中国规模以上工业增加值年率报告, 数据区间从19900301-至今
 
-限量: 单次返回某一个所有历史数据
+限量: 单次返回所有历史数据
 
 输入参数
 
@@ -431,40 +487,324 @@ macro_china_trade_balance_df:
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 月率      | float   | Y        | 年率   |
+| 年率      | float   | Y        | 年率   |
 
 接口示例
 
 ```python
 import akshare as ak
-macro_china_cpi_monthly_df = ak.macro_china_cpi_monthly()
-print(macro_china_cpi_monthly_df)
-print(macro_china_cpi_monthly_df.name)
+macro_china_industrial_production_yoy_df = ak.macro_china_industrial_production_yoy()
+print(macro_china_industrial_production_yoy_df)
+print(macro_china_industrial_production_yoy_df.name)
 ```
 
 数据示例
 
-macro_china_cpi_monthly_df.name:
-
-```cpi```
-
-macro_china_cpi_monthly_df:
+macro_china_industrial_production_yoy_df.name:
 
 ```
-1996-02-01     2.1
-1996-03-01     2.3
-1996-04-01     0.6
-1996-05-01     0.7
-1996-06-01    -0.5
+china_industrial_production_yoy
+```
+
+macro_china_industrial_production_yoy_df:
+
+```
+1990-03-01      5
+1990-04-01    0.8
+1990-05-01    1.7
+1990-06-01    3.3
+1990-07-01      5
+             ... 
+2019-09-16    4.4
+2019-10-18    5.8
+2019-11-14    4.7
+2019-12-16    6.2
+2020-01-17      0
+```
+
+##### 官方制造业PMI
+
+接口: macro_china_pmi_yearly
+
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
+
+描述: 获取中国年度PMI数据, 数据区间从20050201-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 年率      | float   | Y        | 年率   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_pmi_yearly_df = ak.macro_china_pmi_yearly()
+print(macro_china_pmi_yearly_df)
+print(macro_china_pmi_yearly_df.name)
+```
+
+数据示例
+
+macro_china_pmi_yearly_df.name:
+
+```
+pmi
+```
+
+macro_china_pmi_yearly_df:
+
+```
+2005-02-01    54.7
+2005-03-01    54.5
+2005-04-01    57.9
+2005-05-01    56.7
+2005-06-01    52.9
               ... 
-2019-07-10    -0.1
-2019-08-09     0.4
-2019-09-10     0.7
-2019-10-15     0.9
-2019-11-09       0
+2019-09-30    49.8
+2019-10-31    49.3
+2019-11-30    50.2
+2019-12-31    50.2
+2020-01-31       0
 ```
 
-#### 中国M2年率报告
+##### 财新制造业PMI终值
+
+接口: macro_china_cx_pmi_yearly
+
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
+
+描述: 获取中国年度财新PMI数据, 数据区间从20120120-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 年率      | float   | Y        | 年率   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_cx_pmi_yearly_df = ak.macro_china_cx_pmi_yearly()
+print(macro_china_cx_pmi_yearly_df)
+print(macro_china_cx_pmi_yearly_df.name)
+```
+
+数据示例
+
+macro_china_cx_pmi_yearly_df.name:
+
+```
+cx_pmi
+```
+
+macro_china_cx_pmi_yearly_df:
+
+```
+2012-01-20    48.8
+2012-02-22    49.6
+2012-03-22    48.3
+2012-04-23    49.1
+2012-05-02    49.3
+              ... 
+2019-09-02    50.4
+2019-09-30    51.4
+2019-11-01    51.7
+2019-12-02    51.8
+2020-01-02    51.5
+```
+
+##### 财新服务业PMI
+
+接口: macro_china_cx_services_pmi_yearly
+
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_caixin_services_pmi
+
+描述: 获取中国财新服务业PMI报告, 数据区间从20120405-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 年率      | float   | Y        | 年率   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_cx_services_pmi_yearly_df = ak.macro_china_cx_services_pmi_yearly()
+print(macro_china_cx_services_pmi_yearly_df)
+print(macro_china_cx_services_pmi_yearly_df.name)
+```
+
+数据示例
+
+macro_china_cx_services_pmi_yearly_df.name:
+
+```
+cx_services_pmi
+```
+
+macro_china_cx_services_pmi_yearly_df:
+
+```
+2012-04-05    53.3
+2012-05-04    54.1
+2012-06-05    54.7
+2012-07-04    52.3
+2012-08-03    53.1
+              ... 
+2019-09-04    52.1
+2019-10-08    51.3
+2019-11-05    51.1
+2019-12-04    53.5
+2020-01-06    52.5
+```
+
+##### 中国官方非制造业PMI
+
+接口: macro_china_non_man_pmi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_non_manufacturing_pmi
+
+描述: 获取中国官方非制造业PMI, 数据区间从20160101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 年率      | float   | Y        | 年率   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_non_man_pmi_df = ak.macro_china_non_man_pmi()
+print(macro_china_non_man_pmi_df)
+print(macro_china_non_man_pmi_df.name)
+```
+
+数据示例
+
+macro_china_non_man_pmi_df.name:
+
+```
+cx_services_pmi
+```
+
+macro_china_non_man_pmi_df:
+
+```
+2007-02-01    60.4
+2007-03-01    60.6
+2007-04-01    58.2
+2007-05-01    60.4
+2007-06-01    62.2
+              ... 
+2019-09-30    53.7
+2019-10-31    52.8
+2019-11-30    54.4
+2019-12-31    53.5
+2020-01-31       0
+```
+
+#### 金融指标
+
+##### 外汇储备(亿美元)
+
+接口: macro_china_fx_reserves_yearly
+
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_fx_reserves
+
+描述: 获取中国年度外汇储备数据, 数据区间从20140115-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 年率      | float   | Y        | 年率   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_fx_reserves_yearly_df = ak.macro_china_fx_reserves_yearly()
+print(macro_china_fx_reserves_yearly_df)
+print(macro_china_fx_reserves_yearly_df.name)
+```
+
+数据示例
+
+macro_china_fx_reserves_yearly_df.name:
+
+```
+fx_reserves
+```
+
+macro_china_fx_reserves_yearly_df:
+
+```
+2014-01-15    39500
+2014-07-15    39900
+2015-01-15    32300
+2016-03-07    32020
+2016-04-07    32100
+              ...  
+2019-09-07    31070
+2019-10-08    30920
+2019-11-07    31050
+2019-12-07    30960
+2020-01-07    31080
+```
+
+##### M2货币供应年率
 
 接口: macro_china_m2_yearly
 
@@ -472,7 +812,7 @@ macro_china_cpi_monthly_df:
 
 描述: 获取中国年度M2数据, 数据区间从19980201-至今
 
-限量: 单次返回某一个所有历史数据
+限量: 单次返回所有历史数据
 
 输入参数
 
@@ -500,7 +840,9 @@ print(macro_china_m2_yearly_df.name)
 
 macro_china_m2_yearly_df.name:
 
-```m2```
+```
+m2
+```
 
 macro_china_m2_yearly_df:
 
@@ -511,20 +853,20 @@ macro_china_m2_yearly_df:
 1998-05-01    14.6
 1998-06-01    15.5
               ... 
-2019-09-11     8.2
-2019-09-13       0
-2019-10-14       0
-2019-10-15     8.4
-2019-10-17       0
+2019-11-11     8.4
+2019-11-14       0
+2019-12-10     8.2
+2019-12-13       0
+2020-01-14       0
 ```
 
-#### 中国PPI年率报告
+##### 上海银行业同业拆借报告
 
-接口: macro_china_ppi_yearly
+接口: macro_china_shibor_all
 
-目标地址: https://datacenter.jin10.com/reportType/dc_chinese_ppi_yoy
+目标地址: https://datacenter.jin10.com/reportType/dc_shibor
 
-描述: 获取中国年度PPI数据, 数据区间从19950801-至今
+描述: 获取上海银行业同业拆借报告, 数据区间从20170317-至今
 
 限量: 单次返回所有历史数据
 
@@ -539,46 +881,42 @@ macro_china_m2_yearly_df:
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 数值      | float   | Y        | PPI   |
+| 年率      | float   | Y        | 年率   |
 
 接口示例
 
 ```python
 import akshare as ak
-macro_china_ppi_yearly_df = ak.macro_china_ppi_yearly()
-print(macro_china_ppi_yearly_df)
-print(macro_china_ppi_yearly_df.name)
+macro_china_shibor_all_df = ak.macro_china_shibor_all()
+print(macro_china_shibor_all_df)
 ```
 
 数据示例
 
-macro_china_ppi_yearly_df.name:
-
-```ppi```
-
-macro_china_ppi_yearly_df:
+macro_china_shibor_all_df:
 
 ```
-1995-08-01    13.5
-1995-09-01      13
-1995-10-01    12.9
-1995-11-01    12.5
-1995-12-01    11.1
-              ... 
-2019-07-10       0
-2019-08-09    -0.3
-2019-09-10    -0.8
-2019-10-15    -1.2
-2019-11-09       0
+               O/N      1W      2W      1M      3M      6M      9M      1Y
+2017-03-17  2.6330  2.7250  3.2360  4.2775  4.3507  4.2909  4.1340  4.1246
+2017-03-20  2.6325  2.7471  3.2690  4.3172  4.3711  4.3091  4.1504  4.1435
+2017-03-21  2.6477  2.7680  3.3070  4.3558  4.3846  4.3218  4.1621  4.1559
+2017-03-22  2.6507  2.7910  3.3372  4.3959  4.4077  4.3460  4.1713  4.1649
+2017-03-23  2.6570  2.8070  3.3650  4.4475  4.4396  4.3592  4.1772  4.1717
+            ...     ...     ...     ...     ...     ...     ...     ...
+2020-01-06  1.0030  2.2190  2.0910  2.7470  2.9200  2.9600  3.0050  3.0500
+2020-01-07  1.2150  2.2590  2.1760  2.7000  2.8990  2.9430  2.9920  3.0400
+2020-01-08  1.5530  2.3200  2.1600  2.6380  2.8810  2.9300  2.9830  3.0320
+2020-01-09  1.6900  2.4700  2.1470  2.6090  2.8670  2.9210  2.9740  3.0210
+2020-01-10  1.7722  2.4870  2.2900  2.6190  2.8640  2.9200  2.9720  3.0150
 ```
 
-#### 中国官方制造业PMI报告
+##### 人民币香港银行同业拆息
 
-接口: macro_china_pmi_yearly
+接口: macro_china_hk_market_info
 
-目标地址: https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
+目标地址: https://datacenter.jin10.com/reportType/dc_hk_market_info
 
-描述: 获取中国年度PMI数据, 数据区间从20050201-至今
+描述: 获取香港同业拆借报告, 数据区间从20170320-至今
 
 限量: 单次返回所有历史数据
 
@@ -593,326 +931,44 @@ macro_china_ppi_yearly_df:
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 数值      | float   | Y        | pmi   |
+| 年率      | float   | Y        | 年率   |
 
 接口示例
 
 ```python
 import akshare as ak
-macro_china_pmi_yearly_df = ak.macro_china_pmi_yearly()()
-print(macro_china_pmi_yearly_df)
-print(macro_china_pmi_yearly_df.name)
+macro_china_hk_market_info_df = ak.macro_china_hk_market_info()
+print(macro_china_hk_market_info_df)
 ```
 
 数据示例
 
-macro_china_pmi_yearly_df.name:
-
-```pmi```
-
-macro_china_pmi_yearly_df:
+macro_china_hk_market_info_df:
 
 ```
-2005-02-01    54.7
-2005-03-01    54.5
-2005-04-01    57.9
-2005-05-01    56.7
-2005-06-01    52.9
-              ... 
-2019-08-31    49.5
-2019-09-30    49.8
-2019-10-31    49.3
-2019-11-30    50.2
-2019-12-31       0
+                 ON       1W       2W       1M       3M       6M       1Y
+2017-03-20  2.02833  3.94283  4.24167  4.50383  4.77300  4.89400  5.31150
+2017-03-21  2.38833  3.90939  4.16467  4.52033  4.81017  4.92000  5.33900
+2017-03-22  2.31000  4.37950  4.58526  4.84900  4.84750  4.90500  5.31750
+2017-03-23  2.22629  4.35383  4.39300  4.49650  4.67133  4.86750  5.30200
+2017-03-24  2.24383  4.35417  4.44100  4.60267  4.83750  4.89817  5.15933
+             ...      ...      ...      ...      ...      ...      ...
+2020-01-06  2.61300  2.71900  2.76650  2.91900  3.19283  3.23450  3.30400
+2020-01-07  2.64900  2.72700  2.76667  2.88300  3.18317  3.22600  3.29800
+2020-01-08  2.61050  2.71667  2.79150  2.89150  3.18317  3.23150  3.31300
+2020-01-09  2.26700  2.52167  2.78600  2.86700  3.13100  3.18483  3.28483
+2020-01-10  2.50867  2.62433  2.77100  2.81883  3.05500  3.18317  3.28317
 ```
 
-#### 中国GDP年率报告
+#### 其他指标
 
-接口: macro_china_gdp_yearly
-
-目标地址: https://datacenter.jin10.com/reportType/dc_chinese_gdp_yoy
-
-描述: 获取中国年度GDP数据, 数据区间从20110120-至今
-
-限量: 单次返回所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 数值      | float   | Y        | gdp   |
-
-接口示例
-
-```python
-import akshare as ak
-macro_china_gdp_yearly_df = ak.macro_china_gdp_yearly()
-print(macro_china_gdp_yearly_df)
-print(macro_china_gdp_yearly_df.name)
-```
-
-数据示例
-
-macro_china_gdp_yearly_df.name:
-
-```gdp```
-
-macro_china_gdp_yearly_df:
-
-```
-2011-01-20    9.8
-2011-04-15    9.7
-2011-07-13    9.5
-2011-10-18    9.1
-2012-01-17    8.9
-2012-04-13    8.1
-2012-07-13    7.6
-2012-10-18    7.4
-2013-01-18    7.9
-2013-04-15    7.7
-2013-07-15    7.5
-2013-10-18    7.8
-2014-01-20    7.7
-2014-04-16    7.4
-2014-07-16    7.5
-2014-10-21    7.3
-2015-01-20    7.3
-2015-04-15      7
-2015-07-15      7
-2015-10-19    6.9
-2016-01-19    6.8
-2016-04-15    6.7
-2016-07-15    6.7
-2016-10-19    6.7
-2017-01-20    6.8
-2017-04-17    6.9
-2017-07-17    6.9
-2017-10-19    6.8
-2018-01-18    6.8
-2018-04-17    6.8
-2018-07-16    6.7
-2018-10-19    6.5
-2019-01-21    6.4
-2019-04-17    6.4
-2019-07-15    6.2
-2019-10-18      6
-```
-
-#### 中国财新制造业PMI终值报告
-
-接口: macro_china_cx_pmi_yearly
-
-目标地址: https://datacenter.jin10.com/reportType/dc_chinese_caixin_manufacturing_pmi
-
-描述: 获取中国年度财新PMI数据, 数据区间从20120120-至今
-
-限量: 单次返回所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 数值      | float   | Y        | cx_pmi   |
-
-接口示例
-
-```python
-import akshare as ak
-macro_china_cx_pmi_yearly_df = ak.macro_china_cx_pmi_yearly()
-print(macro_china_cx_pmi_yearly_df)
-print(macro_china_cx_pmi_yearly_df.name)
-```
-
-数据示例
-
-macro_china_cx_pmi_yearly_df.name:
-
-```cx_pmi```
-
-macro_china_cx_pmi_yearly_df:
-
-```
-2012-01-20    48.8
-2012-02-22    49.6
-2012-03-22    48.3
-2012-04-23    49.1
-2012-05-02    49.3
-              ... 
-2019-08-01    49.9
-2019-09-02    50.4
-2019-09-30    51.4
-2019-11-01    51.7
-2019-12-02    51.8
-```
-
-#### 中国财新服务业PMI报告
-
-接口: macro_china_cx_services_pmi_yearly
-
-目标地址: https://datacenter.jin10.com/reportType/dc_chinese_caixin_services_pmi
-
-描述: 获取中国财新服务业PMI报告, 数据区间从20120405-至今
-
-限量: 单次返回所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 数值      | float   | Y        | cx_services_pmi   |
-
-接口示例
-
-```python
-import akshare as ak
-macro_china_cx_services_pmi_yearly_df = ak.macro_china_cx_services_pmi_yearly()
-print(macro_china_cx_services_pmi_yearly_df)
-print(macro_china_cx_services_pmi_yearly_df.name)
-```
-
-数据示例
-
-macro_china_cx_services_pmi_yearly_df.name:
-
-```cx_services_pmi```
-
-macro_china_cx_services_pmi_yearly_df:
-
-```
-2012-04-05    53.3
-2012-05-04    54.1
-2012-06-05    54.7
-2012-07-04    52.3
-2012-08-03    53.1
-              ...
-2019-08-05    51.6
-2019-09-04    52.1
-2019-10-08    51.3
-2019-11-05    51.1
-2019-12-04    53.5
-```
-
-#### 中国外汇储备报告
-
-接口: macro_china_fx_reserves_yearly
-
-目标地址: https://datacenter.jin10.com/reportType/dc_chinese_fx_reserves
-
-描述: 获取中国年度外汇储备数据, 数据区间从20140115-至今
-
-限量: 单次返回所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 数值      | float   | Y        | fx_reserves   |
-
-接口示例
-
-```python
-import akshare as ak
-macro_china_fx_reserves_yearly_df = ak.macro_china_fx_reserves_yearly()
-print(macro_china_fx_reserves_yearly_df)
-print(macro_china_fx_reserves_yearly_df.name)
-```
-
-数据示例
-
-macro_china_fx_reserves_yearly_df.name:
-
-```fx_reserves```
-
-macro_china_fx_reserves_yearly_df:
-
-```
-2014-01-15    39500
-2014-07-15    39900
-2015-01-15    32300
-2016-03-07    32020
-2016-04-07    32100
-2016-06-07    31900
-2016-07-07    32100
-2016-08-07    32010
-2016-09-07    31820
-2016-10-07    31660
-2016-11-07    31210
-2016-12-07    30520
-2017-01-07    30110
-2017-02-07    29980
-2017-03-07    30050
-2017-04-07    30090
-2017-05-07    30300
-2017-06-07    30540
-2017-07-07    30570
-2017-08-07    30810
-2017-09-07    30920
-2017-10-09    31080
-2017-11-07    31090
-2017-12-07    31190
-2017-12-08        0
-2018-01-07    31390
-2018-02-07    31620
-2018-02-08        0
-2018-03-07    31340
-2018-04-08    31430
-2018-05-07    31250
-2018-06-07    31110
-2018-07-09    31120
-2018-08-07    31180
-2018-09-07    31100
-2018-10-07    30870
-2018-11-07    30500
-2018-12-07    30600
-2019-01-07    30700
-2019-02-11    30700
-2019-03-07    30900
-2019-04-07    30990
-2019-05-07        0
-2019-05-08    31010
-2019-06-07        0
-2019-07-07        0
-2019-07-08    31190
-2019-08-07    31040
-2019-09-07    31070
-2019-10-08    30920
-```
-
-#### 中国日度沿海六大电库存
+##### 中国日度沿海六大电库存
 
 接口: macro_china_daily_energy
 
-目标地址: 不再更新
+目标地址: https://datacenter.jin10.com/reportType/dc_qihuo_energy_report
 
-描述: 获取中国日度沿海六大电库存数据, 数据区间从20160101-至今
+描述: 获取中国日度沿海六大电库存数据, 数据区间从20160101-至今, 不再更新, 只能获得历史数据
 
 限量: 单次返回所有历史数据
 
@@ -935,19 +991,14 @@ macro_china_fx_reserves_yearly_df:
 import akshare as ak
 macro_china_daily_energy_df = ak.macro_china_daily_energy()
 print(macro_china_daily_energy_df)
-print(macro_china_daily_energy_df.name)
 ```
 
 数据示例
 
-macro_china_daily_energy_df.name:
-
-```energy```
-
 macro_china_daily_energy_df:
 
 ```
-            沿海六大电库存    日耗 存煤可用天数
+          沿海六大电库存      日耗 存煤可用天数
 2016-01-01  1167.60   64.20   18.19
 2016-01-02  1162.90   63.40   18.34
 2016-01-03  1160.80   62.60   18.54
@@ -961,61 +1012,7 @@ macro_china_daily_energy_df:
 2019-06-21   1786.64   66.57  26.84
 ```
 
-#### 中国官方非制造业PMI
-
-接口: macro_china_non_man_pmi
-
-目标地址: 不再更新
-
-描述: 获取中国官方非制造业PMI, 数据区间从20160101-至今
-
-限量: 单次返回所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 数值      | float   | Y        | non_pmi   |
-
-接口示例
-
-```python
-import akshare as ak
-macro_china_non_man_pmi_df = ak.macro_china_non_man_pmi()
-print(macro_china_non_man_pmi_df)
-print(macro_china_non_man_pmi_df.name)
-```
-
-数据示例
-
-macro_china_non_man_pmi_df.name:
-
-```non_pmi```
-
-macro_china_non_man_pmi_df:
-
-```
-2007-02-01    60.4
-2007-03-01    60.6
-2007-04-01    58.2
-2007-05-01    60.4
-2007-06-01    62.2
-              ...
-2019-06-30    54.2
-2019-07-31    53.7
-2019-08-31    53.8
-2019-09-30    53.7
-2019-10-31       0
-```
-
-#### 人民币汇率中间价报告
+##### 人民币汇率中间价报告
 
 接口: macro_china_rmb
 
@@ -1095,7 +1092,7 @@ macro_china_rmb_df:
 2019-10-22  [4.5305, 165.00]
 ```
 
-#### 深圳融资融券报告
+##### 深圳融资融券报告
 
 接口: macro_china_market_margin_sz
 
@@ -1162,7 +1159,7 @@ macro_china_market_margin_sz_df:
 2019-12-18  441272701443
 ```
 
-#### 上海融资融券报告
+##### 上海融资融券报告
 
 接口: macro_china_market_margin_sh
 
@@ -1276,63 +1273,6 @@ print(macro_china_ctci_df)
 7   20140901  417.76
 8   20141001  412.30
 9   20141101  415.58
-10  20141201  422.22
-11  20150101  424.68
-12  20150201  423.10
-13  20150301  412.27
-14  20150401  402.85
-15  20150501  383.11
-16  20150601  362.55
-17  20150701  357.16
-18  20150801  348.10
-19  20150901  340.79
-20  20151001  337.45
-21  20151101  330.13
-22  20151201  326.81
-23  20160101  329.09
-24  20160201  326.67
-25  20160301  318.36
-26  20160401  322.75
-27  20160501  317.20
-28  20160601  315.00
-29  20160701  321.00
-30  20160801  340.72
-31  20160901  369.74
-32  20161001  414.07
-33  20161101  469.01
-34  20161201  521.66
-35  20170101  534.92
-36  20170201  528.54
-37  20170301  522.49
-38  20170401  511.29
-39  20170501  510.12
-40  20170601  501.92
-41  20170701  490.91
-42  20170801  493.26
-43  20170901  509.74
-44  20171001  519.68
-45  20171101  534.76
-46  20171201  532.98
-47  20180101  536.19
-48  20180201  549.12
-49  20180301  567.21
-50  20180401  546.58
-51  20180501  522.78
-52  20180601  515.39
-53  20180701  528.57
-54  20180801  532.53
-55  20180901  522.40
-56  20181001  522.16
-57  20181101  523.47
-58  20181201  520.09
-59  20190101  522.20
-60  20190201  511.02
-61  20190301  511.34
-62  20190401  500.29
-63  20190501  495.26
-64  20190601  499.12
-65  20190701  492.04
-66  20190801  488.13
 67  20190901  486.79
 68  20191001  489.88
 69  20191101  492.01
@@ -1517,7 +1457,573 @@ print(macro_china_ctci_detail_hist_df)
 
 ### 美国宏观
 
-#### 美国非农就业人数报告
+#### 经济状况
+
+##### 美国GDP
+
+接口: macro_usa_gdp_monthly
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_gdp
+
+描述: 获取美国国内生产总值(GDP)报告, 数据区间从20080228-至今
+
+限量: 单次返回某一个所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_gdp_monthly_se = ak.macro_usa_gdp_monthly()
+print(macro_usa_gdp_monthly_se.name)
+print(macro_usa_gdp_monthly_se)
+```
+
+数据示例
+
+macro_usa_gdp_monthly_se.name
+
+```gdp```
+
+macro_usa_gdp_monthly_se: pandas.Series
+
+```
+2008-02-28    0.6
+2008-03-27    0.6
+2008-04-30    0.9
+2008-06-26      1
+2008-07-31    1.9
+             ... 
+2019-09-26      2
+2019-10-30      2
+2019-11-27      2
+2019-12-20    2.1
+2020-01-30      0
+```
+
+#### 物价水平
+
+##### 美国CPI月率报告
+
+接口: macro_usa_cpi_monthly
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_cpi
+
+描述: 获取美国CPI月率报告, 数据区间从19700101-至今
+
+限量: 单次返回某一个所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_cpi_monthly_se = ak.macro_usa_cpi_monthly()
+print(macro_usa_cpi_monthly_se.name)
+print(macro_usa_cpi_monthly_se)
+```
+
+数据示例
+
+macro_usa_cpi_monthly_se.name
+
+```cpi_monthly```
+
+macro_usa_cpi_monthly_se: pandas.Series
+
+```
+1970-01-01    0.5
+1970-02-01    0.5
+1970-03-01    0.5
+1970-04-01    0.5
+1970-05-01    0.5
+             ... 
+2019-09-12    0.1
+2019-10-10    0.1
+2019-11-13    0.4
+2019-12-11    0.3
+2020-01-14      0
+```
+
+##### 美国核心CPI月率报告
+
+接口: macro_usa_core_cpi_monthly
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_core_cpi
+
+描述: 获取美国核心CPI月率报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_core_cpi_monthly_se = ak.macro_usa_core_cpi_monthly()
+print(macro_usa_core_cpi_monthly_se.name)
+print(macro_usa_core_cpi_monthly_se)
+```
+
+数据示例
+
+macro_usa_core_cpi_monthly_se.name
+
+```
+usa_core_cpi
+```
+
+macro_usa_core_cpi_monthly_se: pandas.Series
+
+```
+1970-01-01    0.5
+1970-02-01    0.5
+1970-03-01    0.5
+1970-04-01    0.8
+1970-05-01    0.7
+             ... 
+2019-09-12    0.3
+2019-10-10    0.1
+2019-11-13    0.2
+2019-12-11    0.2
+2020-01-14      0
+```
+
+##### 美国个人支出月率报告
+
+接口: macro_usa_personal_spending
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_personal_spending
+
+描述: 获取美国个人支出月率报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_personal_spending_se = ak.macro_usa_personal_spending()
+print(macro_usa_personal_spending_se.name)
+print(macro_usa_personal_spending_se)
+```
+
+数据示例
+
+macro_usa_personal_spending_se.name
+
+```
+usa_personal_spending
+```
+
+macro_usa_personal_spending_se: pandas.Series
+
+```
+1970-01-01    0.4
+1970-02-01      1
+1970-03-01    0.8
+1970-04-01   -0.3
+1970-05-01    0.6
+             ... 
+2019-09-27    0.2
+2019-10-31    0.2
+2019-11-27    0.3
+2019-12-20    0.4
+2020-01-31      0
+```
+
+##### 美国零售销售月率报告
+
+接口: macro_usa_retail_sales
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_retail_sales
+
+描述: 获取美国零售销售月率报告, 数据区间从19920301-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_retail_sales_se = ak.macro_usa_retail_sales()
+print(macro_usa_retail_sales_se.name)
+print(macro_usa_retail_sales_se)
+```
+
+数据示例
+
+macro_usa_retail_sales_se.name
+
+```
+usa_retail_sales
+```
+
+macro_usa_retail_sales_se: pandas.Series
+
+```
+1992-03-01     0.1
+1992-04-01    -0.3
+1992-05-01     0.6
+1992-06-01     0.5
+1992-07-01     0.3
+              ... 
+2019-09-13     0.6
+2019-10-16    -0.3
+2019-11-15     0.4
+2019-12-13     0.2
+2020-01-16       0
+```
+
+##### 美国进口物价指数报告
+
+接口: macro_usa_import_price
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_import_price
+
+描述: 获取美国进口物价指数报告, 数据区间从19890201-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_import_price_se = ak.macro_usa_import_price()
+print(macro_usa_import_price_se.name)
+print(macro_usa_import_price_se)
+```
+
+数据示例
+
+macro_usa_import_price_se.name
+
+```
+usa_import_price
+```
+
+macro_usa_import_price_se: pandas.Series
+
+```
+1989-02-01       2
+1989-03-01    -0.5
+1989-04-01     0.8
+1989-05-01     0.8
+1989-06-01     0.7
+              ... 
+2019-09-13    -0.2
+2019-10-11     0.1
+2019-11-15    -0.5
+2019-12-13     0.2
+2020-01-16       0
+```
+
+##### 美国出口价格指数报告
+
+接口: macro_usa_export_price
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_export_price
+
+描述: 获取美国出口价格指数报告, 数据区间从19890201-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_export_price_se = ak.macro_usa_export_price()
+print(macro_usa_export_price_se.name)
+print(macro_usa_export_price_se)
+```
+
+数据示例
+
+macro_usa_export_price_se.name
+
+```
+usa_export_price
+```
+
+macro_usa_export_price_se: pandas.Series
+
+```
+1989-02-01     1.2
+1989-03-01    -0.3
+1989-04-01     0.6
+1989-05-01    -0.2
+1989-06-01     0.4
+              ... 
+2019-09-13    -0.6
+2019-10-11    -0.2
+2019-11-15    -0.1
+2019-12-13     0.2
+2020-01-16       0
+```
+
+#### 劳动力市场
+
+##### LMCI
+
+接口: macro_usa_lmci
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_lmci
+
+描述: 获取美联储劳动力市场状况指数报告, 数据区间从20141006-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_lmci_se = ak.macro_usa_lmci()
+print(macro_usa_lmci_se.name)
+print(macro_usa_lmci_se)
+```
+
+数据示例
+
+macro_usa_lmci_se.name
+
+```
+lmci
+```
+
+macro_usa_lmci_se: pandas.Series
+
+```
+2014-10-06      4
+2014-11-10    3.9
+2014-12-08    5.5
+2015-01-12    7.3
+2015-02-09    4.9
+             ... 
+2017-05-08    3.5
+2017-06-05      0
+2017-06-16    3.3
+2017-07-10    1.5
+2017-08-07      0
+```
+
+##### 失业率
+
+###### 美国失业率报告
+
+接口: macro_usa_unemployment_rate
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_unemployment_rate
+
+描述: 获取美国失业率报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_unemployment_rate_se = ak.macro_usa_unemployment_rate()
+print(macro_usa_unemployment_rate_se.name)
+print(macro_usa_unemployment_rate_se)
+```
+
+数据示例
+
+macro_usa_unemployment_rate_se.name
+
+```
+unemployment_rate
+```
+
+macro_usa_unemployment_rate_se: pandas.Series
+
+```
+1970-01-01    3.5
+1970-02-01    3.9
+1970-03-01    4.2
+1970-04-01    4.4
+1970-05-01    4.6
+             ... 
+2019-09-06    3.7
+2019-10-04    3.5
+2019-11-01    3.6
+2019-12-06    3.5
+2020-01-10    3.5
+```
+
+###### 美国挑战者企业裁员人数报告
+
+接口: macro_usa_job_cuts
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_job_cuts
+
+描述: 获取美国挑战者企业裁员人数报告, 数据区间从19940201-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_job_cuts_se = ak.macro_usa_job_cuts()
+print(macro_usa_job_cuts_se.name)
+print(macro_usa_job_cuts_se)
+```
+
+数据示例
+
+macro_usa_job_cuts_se.name
+
+```
+usa_job_cuts
+```
+
+macro_usa_job_cuts_se: pandas.Series
+
+```
+1994-02-01     10.89
+1994-03-01      3.46
+1994-04-01       4.9
+1994-05-01      3.61
+1994-06-01      3.63
+               ...  
+2019-10-31    5.0275
+2019-12-05    4.4569
+2020-01-02    3.2843
+2020-01-09         0
+2020-02-06         0
+```
+
+##### 就业人口
+
+###### 美国非农就业人数报告
 
 接口: macro_usa_non_farm
 
@@ -1533,14 +2039,12 @@ print(macro_china_ctci_detail_hist_df)
 | -------- | ---- | ---- | --- |
 | 无 | 无 | 无 | 无 |
 
-
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
 | 今值(万人)      | float   | Y        | 今值(万人)   |
-
 
 接口示例
 
@@ -1573,69 +2077,13 @@ macro_usa_non_farm_se: pandas.Series
 2019-11-01       0
 ```
 
-#### 美国失业率报告
+###### 美国ADP就业人数报告
 
-接口: get_usa_unemployment_rate
+接口: macro_usa_adp_employment
 
-目标地址: https://datacenter.jin10.com/reportType/dc_usa_unemployment_rate
+目标地址: https://datacenter.jin10.com/reportType/dc_adp_nonfarm_employment
 
-描述: 获取美国失业率报告, 数据区间从19700101-至今
-
-限量: 单次返回某一个所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 今值(%)      | float   | Y        | 今值(%)   |
-
-
-接口示例
-
-```python
-import akshare as ak
-index_se = ak.macro_usa_unemployment_rate()
-print(index_se.name)
-print(index_se)
-```
-
-数据示例
-
-index_se.name
-
-```unemployment_rate```
-
-index_se: pandas.Series
-
-```
-1970-01-01    3.5
-1970-02-01    3.9
-1970-03-01    4.2
-1970-04-01    4.4
-1970-05-01    4.6
-             ...
-2019-07-05    3.7
-2019-08-02    3.7
-2019-09-06    3.7
-2019-10-04    3.5
-2019-11-01      0
-```
-
-#### 美国失业率报告
-
-接口: get_usa_eia_crude_rate
-
-目标地址: https://datacenter.jin10.com/reportType/dc_eia_crude_oil
-
-描述: 获取美国EIA原油库存报告, 数据区间从19950801-至今
+描述: 获取美国ADP就业人数报告, 数据区间从20010601-至今
 
 限量: 单次返回某一个所有历史数据
 
@@ -1645,53 +2093,111 @@ index_se: pandas.Series
 | -------- | ---- | ---- | --- |
 | 无 | 无 | 无 | 无 |
 
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 今值(万人)      | float   | Y        | 今值(万人)   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_adp_employment_se = ak.macro_usa_adp_employment()
+print(macro_usa_adp_employment_se.name)
+print(macro_usa_adp_employment_se)
+```
+
+数据示例
+
+macro_usa_adp_employment_se.name
+
+```
+adp
+```
+
+macro_usa_adp_employment_se: pandas.Series
+
+```
+2001-06-01   -17.5
+2001-07-01     -23
+2001-08-01   -20.3
+2001-09-01   -24.6
+2001-10-01   -26.1
+              ... 
+2019-09-05    15.7
+2019-10-02     9.3
+2019-10-30    12.1
+2019-12-04    12.4
+2020-01-08    20.2
+```
+
+##### 消费者收入与支出
+
+###### 美国核心PCE物价指数年率报告
+
+接口: macro_usa_core_pce_price
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_core_pce_price
+
+描述: 获取美国核心PCE物价指数年率报告, 数据区间从19700101-至今
+
+限量: 单次返回某一个所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
 
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 今值(万桶)      | float   | Y        | 今值(万桶)   |
-
+| 值      | float   | Y        | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-index_se = ak.macro_usa_eia_crude_rate()
-print(index_se.name)
-print(index_se)
+macro_usa_core_pce_price_se = ak.macro_usa_core_pce_price()
+print(macro_usa_core_pce_price_se.name)
+print(macro_usa_core_pce_price_se)
 ```
 
 数据示例
 
-index_se.name
-
-```eia_crude_rate```
-
-index_se: pandas.Series
+macro_usa_core_pce_price_se.name
 
 ```
-1982-09-01   -262.6
-1982-10-01       -8
-1982-11-01    -41.3
-1982-12-01    -87.6
-1983-01-01     51.3
-              ...
-2019-10-02      310
-2019-10-09    292.7
-2019-10-16        0
-2019-10-17    928.1
-2019-10-23        0
+core_pce_price
 ```
 
-### 中国宏观杠杆率
+macro_usa_core_pce_price_se: pandas.Series
 
-接口: macro_cnbs
+```
+1970-01-01    4.8
+1970-02-01    4.7
+1970-03-01    4.8
+1970-04-01    4.7
+1970-05-01    4.7
+             ... 
+2019-09-27    1.8
+2019-10-31    1.7
+2019-11-27    1.7
+2019-12-20    1.6
+2020-01-31      0
+```
 
-目标地址: http://114.115.232.154:8080/
+###### 美国实际个人消费支出季率初值报告
 
-描述: 获取中国国家金融与发展实验室-中国宏观杠杆率数据
+接口: macro_usa_real_consumer_spending
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_real_consumer_spending
+
+描述: 获取美国实际个人消费支出季率初值报告, 数据区间从20131107-至今
 
 限量: 单次返回所有历史数据
 
@@ -1705,37 +2211,1790 @@ index_se: pandas.Series
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 年份      | str   | Y        | 日期, 年-月  |
-| 居民部门      | float   | Y        | -   |
-| 非金融企业部门      | float   | Y        | -   |
-| 政府部门      | float   | Y        | -   |
-| 中央政府      | float   | Y        | -   |
-| 地方政府      | float   | Y        | -   |
-| 实体经济部门      | float   | Y        | -   |
-| 金融部门资产方      | float   | Y        | -   |
-| 金融部门负债方      | float   | Y        | -   |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-macro_df = ak.macro_cnbs()
-print(macro_df)
+macro_usa_real_consumer_spending_se = ak.macro_usa_real_consumer_spending()
+print(macro_usa_real_consumer_spending_se.name)
+print(macro_usa_real_consumer_spending_se)
 ```
 
 数据示例
 
+macro_usa_real_consumer_spending_se.name
+
 ```
-    年份       居民部门     非金融企业部门  ...      实体经济部门    金融部门资产方    金融部门负债方
-0   1993-12   8.311222   91.658000  ...  107.791459   8.896441   7.128428
-1   1994-12   7.808230   82.411703  ...   98.354271   9.808787   6.796868
-2   1995-12   8.240004   80.950106  ...   97.850373  10.009081   7.006151
-3   1996-03   8.403456   81.711651  ...   99.241521  10.183896   7.186300
-4   1996-06   8.581114   82.051373  ...   99.679459  10.379730   7.380510
-..      ...        ...         ...  ...         ...        ...        ...
-93  2018-09  52.575456  155.641011  ...  245.227043  61.350917  60.645733
-94  2018-12  53.198837  153.553140  ...  243.702122  60.638348  60.936158
-95  2019-03  54.277928  156.881879  ...  248.828108  60.542178  59.417322
-96  2019-06  55.304291  155.743313  ...  249.533412  58.736094  58.727086
-97  2019-09  56.314848  155.618498  ...  251.147265  55.820243  59.358625
+usa_real_consumer_spending
+```
+
+macro_usa_real_consumer_spending_se: pandas.Series
+
+```
+2013-11-07    1.5
+2013-12-05    1.4
+2013-12-20      2
+2014-01-30    3.3
+2014-02-28    2.6
+             ... 
+2019-09-26    4.6
+2019-10-30    2.9
+2019-11-27    2.9
+2019-12-20    3.2
+2020-01-30      0
+```
+
+#### 贸易状况
+
+##### 美国贸易帐报告
+
+接口: macro_usa_trade_balance
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_trade_balance
+
+描述: 获取美国贸易帐报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_trade_balance_se = ak.macro_usa_trade_balance()
+print(macro_usa_trade_balance_se.name)
+print(macro_usa_trade_balance_se)
+```
+
+数据示例
+
+macro_usa_trade_balance_se.name
+
+```
+usa_trade_balance
+```
+
+macro_usa_trade_balance_se: pandas.Series
+
+```
+1970-01-01       2
+1970-02-01       1
+1970-03-01       2
+1970-04-01       1
+1970-05-01       1
+              ... 
+2019-09-04    -540
+2019-10-04    -550
+2019-11-05    -511
+2019-12-05    -469
+2020-01-07    -431
+```
+
+##### 美国经常帐报告
+
+接口: macro_usa_current_account
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_current_account
+
+描述: 获取美国经常帐报告, 数据区间从20080317-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_current_account_se = ak.macro_usa_current_account()
+print(macro_usa_current_account_se.name)
+print(macro_usa_current_account_se)
+```
+
+数据示例
+
+macro_usa_current_account_se.name
+
+```
+usa_current_account
+```
+
+macro_usa_current_account_se: pandas.Series
+
+```
+2008-03-17    -1730
+2008-06-17    -1760
+2008-09-17    -1830
+2008-12-17    -1740
+2009-03-18    -1549
+              ...  
+2019-03-21        0
+2019-03-27    -1439
+2019-06-20    -1362
+2019-09-19    -1252
+2019-12-19    -1241
+```
+
+#### 产业指标
+
+##### 制造业
+
+###### 贝克休斯钻井报告
+
+接口: macro_usa_rig_count
+
+目标地址: https://datacenter.jin10.com/reportType/dc_rig_count_summary
+
+描述: 获取贝克休斯钻井报告, 数据区间从20080317-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_rig_count_se = ak.macro_usa_rig_count()
+print(macro_usa_rig_count_se.name)
+print(macro_usa_rig_count_se)
+```
+
+数据示例
+
+macro_usa_rig_count_se.name
+
+```
+usa_rig_count
+```
+
+macro_usa_rig_count_se: pandas.Series
+
+```
+2011-01-07    1700
+2011-01-14    1700
+2011-01-21    1713
+2011-01-28    1732
+2011-02-04    1739
+              ... 
+2019-04-26     991
+2019-05-03     990
+2019-05-10     988
+2019-05-17     987
+2019-05-24     983
+```
+
+###### 美国生产者物价指数(PPI)报告
+
+接口: macro_usa_ppi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_ppi
+
+描述: 获取美国生产者物价指数(PPI)报告, 数据区间从20080226-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_ppi_se = ak.macro_usa_ppi()
+print(macro_usa_ppi_se.name)
+print(macro_usa_ppi_se)
+```
+
+数据示例
+
+macro_usa_ppi_se.name
+
+```
+usa_ppi
+```
+
+macro_usa_ppi_se: pandas.Series
+
+```
+2008-02-26       1
+2008-03-18     0.3
+2008-04-15     1.1
+2008-05-20     0.2
+2008-06-17     1.4
+              ... 
+2019-09-11     0.1
+2019-10-08    -0.3
+2019-11-14     0.4
+2019-12-12       0
+2020-01-15       0
+```
+
+###### 美国核心生产者物价指数(PPI)报告
+
+接口: macro_usa_core_ppi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_core_ppi
+
+描述: 获取美国核心生产者物价指数(PPI)报告, 数据区间从20080318-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_core_ppi_se = ak.macro_usa_core_ppi()
+print(macro_usa_core_ppi_se.name)
+print(macro_usa_core_ppi_se)
+```
+
+数据示例
+
+macro_usa_core_ppi_se.name
+
+```
+usa_core_ppi
+```
+
+macro_usa_core_ppi_se: pandas.Series
+
+```
+2008-03-18     0.5
+2008-04-15     0.2
+2008-05-20     0.4
+2008-06-17     0.2
+2008-08-19     0.7
+              ... 
+2019-09-11     0.3
+2019-10-08    -0.3
+2019-11-14     0.3
+2019-12-12    -0.2
+2020-01-15       0
+```
+
+###### 美国API原油库存报告
+
+接口: macro_usa_api_crude_stock
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_api_crude_stock
+
+描述: 获取美国API原油库存报告, 数据区间从20120328-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_api_crude_stock_se = ak.macro_usa_api_crude_stock()
+print(macro_usa_api_crude_stock_se.name)
+print(macro_usa_api_crude_stock_se)
+```
+
+数据示例
+
+macro_usa_api_crude_stock_se.name
+
+```
+usa_api_crude_stock
+```
+
+macro_usa_api_crude_stock_se: pandas.Series
+
+```
+2012-03-28     360.2
+2012-04-04     784.8
+2012-04-11     658.4
+2012-04-18     340.9
+2012-04-25     -98.5
+               ...  
+2019-12-27         0
+2020-01-01         0
+2020-01-02         0
+2020-01-08    -594.5
+2020-01-15         0
+```
+
+###### 美国Markit制造业PMI初值报告
+
+接口: macro_usa_pmi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_pmi
+
+描述: 获取美国Markit制造业PMI初值报告, 数据区间从20120601-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_pmi_se = ak.macro_usa_pmi()
+print(macro_usa_pmi_se.name)
+print(macro_usa_pmi_se)
+```
+
+数据示例
+
+macro_usa_pmi_se.name
+
+```
+usa_pmi
+```
+
+macro_usa_pmi_se: pandas.Series
+
+```
+2012-06-01    52.9
+2012-07-02    52.5
+2012-07-24    51.8
+2012-08-01    51.4
+2012-08-23    51.9
+              ... 
+2019-11-22    52.2
+2019-12-02    52.6
+2019-12-16    52.6
+2020-01-02    52.4
+2020-01-24       0
+```
+
+###### 美国ISM制造业PMI报告
+
+接口: macro_usa_ism_pmi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_ism_pmi
+
+描述: 获取美国ISM制造业PMI报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_ism_pmi_se = ak.macro_usa_ism_pmi()
+print(macro_usa_ism_pmi_se.name)
+print(macro_usa_ism_pmi_se)
+```
+
+数据示例
+
+macro_usa_ism_pmi_se.name
+
+```
+usa_ism_pmi
+```
+
+macro_usa_ism_pmi_se: pandas.Series
+
+```
+1970-01-01      52
+1970-02-01    48.7
+1970-03-01    47.4
+1970-04-01    46.9
+1970-05-01      45
+              ... 
+2019-09-03    49.1
+2019-10-01    47.8
+2019-11-01    48.3
+2019-12-02    48.1
+2020-01-03    47.2
+```
+
+##### 工业
+
+###### 美国工业产出月率报告
+
+接口: macro_usa_industrial_production
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_industrial_production
+
+描述: 获取美国工业产出月率报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_industrial_production_se = ak.macro_usa_industrial_production()
+print(macro_usa_industrial_production_se.name)
+print(macro_usa_industrial_production_se)
+```
+
+数据示例
+
+macro_usa_industrial_production_se.name
+
+```
+usa_industrial_production
+```
+
+macro_usa_industrial_production_se: pandas.Series
+
+```
+1970-01-01    -0.3
+1970-02-01    -1.9
+1970-03-01    -0.1
+1970-04-01    -0.1
+1970-05-01    -0.3
+              ... 
+2019-09-17     0.8
+2019-10-17    -0.3
+2019-11-15    -0.9
+2019-12-17     1.1
+2020-01-17       0
+```
+
+###### 美国耐用品订单月率报告
+
+接口: macro_usa_durable_goods_orders
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_durable_goods_orders
+
+描述: 获取美国耐用品订单月率报告, 数据区间从20080227-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_durable_goods_orders_se = ak.macro_usa_durable_goods_orders()
+print(macro_usa_durable_goods_orders_se.name)
+print(macro_usa_durable_goods_orders_se)
+```
+
+数据示例
+
+macro_usa_durable_goods_orders_se.name
+
+```
+usa_durable_goods_orders
+```
+
+macro_usa_durable_goods_orders_se: pandas.Series
+
+```
+2008-02-27    -5.3
+2008-03-26    -1.1
+2008-04-24    -0.3
+2008-05-28    -0.6
+2008-06-25       0
+              ... 
+2019-10-24    -1.4
+2019-11-27     0.2
+2019-12-23    -2.1
+2019-12-24       0
+2020-01-28       0
+```
+
+###### 美国工厂订单月率报告
+
+接口: macro_usa_factory_orders
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_factory_orders
+
+描述: 获取美国工厂订单月率报告, 数据区间从19920401-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_factory_orders_se = ak.macro_usa_factory_orders()
+print(macro_usa_factory_orders_se.name)
+print(macro_usa_factory_orders_se)
+```
+
+数据示例
+
+macro_usa_factory_orders_se.name
+
+```
+usa_factory_orders
+```
+
+macro_usa_factory_orders_se: pandas.Series
+
+```
+1992-04-01     4.6
+1992-05-01     1.9
+1992-06-01     1.6
+1992-07-01    -0.5
+1992-08-01    -0.9
+              ... 
+2019-09-05     1.4
+2019-10-03    -0.1
+2019-11-04    -0.8
+2019-12-05     0.2
+2020-01-07    -0.7
+```
+
+##### 服务业
+
+###### 美国Markit服务业PMI初值报告
+
+接口: macro_usa_services_pmi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_services_pmi
+
+描述: 获取美国Markit服务业PMI初值报告, 数据区间从20120701-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_services_pmi_se = ak.macro_usa_services_pmi()
+print(macro_usa_services_pmi_se.name)
+print(macro_usa_services_pmi_se)
+```
+
+数据示例
+
+macro_usa_services_pmi_se.name
+
+```
+usa_services_pmi
+```
+
+macro_usa_services_pmi_se: pandas.Series
+
+```
+2012-07-01    53.2
+2012-08-01    51.2
+2012-09-01      52
+2012-10-01    50.7
+2012-11-01    52.7
+              ... 
+2019-11-22    50.6
+2019-12-04    51.6
+2019-12-16    51.6
+2020-01-06    52.8
+2020-01-24       0
+```
+
+###### 美国商业库存月率报告
+
+接口: macro_usa_business_inventories
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_business_inventories
+
+描述: 获取美国商业库存月率报告, 数据区间从19920301-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_business_inventories_se = ak.macro_usa_business_inventories()
+print(macro_usa_business_inventories_se.name)
+print(macro_usa_business_inventories_se)
+```
+
+数据示例
+
+macro_usa_business_inventories_se.name
+
+```
+usa_business_inventories
+```
+
+macro_usa_business_inventories_se: pandas.Series
+
+```
+1992-03-01     0.2
+1992-04-01     0.4
+1992-05-01     0.3
+1992-06-01    -0.1
+1992-07-01     0.7
+              ... 
+2019-09-13     0.3
+2019-10-16    -0.1
+2019-11-15    -0.1
+2019-12-13     0.2
+2020-01-16       0
+```
+
+###### 美国ISM非制造业PMI报告
+
+接口: macro_usa_ism_non_pmi
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_ism_non_pmi
+
+描述: 获取美国ISM非制造业PMI报告, 数据区间从19970801-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_ism_non_pmi_se = ak.macro_usa_ism_non_pmi()
+print(macro_usa_ism_non_pmi_se.name)
+print(macro_usa_ism_non_pmi_se)
+```
+
+数据示例
+
+macro_usa_ism_non_pmi_se.name
+
+```
+usa_ism_non_pmi
+```
+
+macro_usa_ism_non_pmi_se: pandas.Series
+
+```
+1997-08-01    56.7
+1997-09-01      62
+1997-10-01    56.2
+1997-11-01    56.6
+1997-12-01    58.5
+              ... 
+2019-09-05    56.4
+2019-10-03    52.6
+2019-11-05    54.7
+2019-12-04    53.9
+2020-01-07    55.0
+```
+
+###### 美国NAHB房产市场指数报告
+
+接口: macro_usa_nahb_house_market_index
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_nahb_house_market_index
+
+描述: 获取美国NAHB房产市场指数报告, 数据区间从19850201-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_nahb_house_market_index_se = ak.macro_usa_nahb_house_market_index()
+print(macro_usa_nahb_house_market_index_se.name)
+print(macro_usa_nahb_house_market_index_se)
+```
+
+数据示例
+
+macro_usa_nahb_house_market_index_se.name
+
+```
+usa_nahb_house_market_index
+```
+
+macro_usa_nahb_house_market_index_se: pandas.Series
+
+```
+1985-02-01    50
+1985-03-01    58
+1985-04-01    54
+1985-05-01    49
+1985-06-01    51
+              ..
+2019-09-17    68
+2019-10-16    71
+2019-11-18    71
+2019-12-16    76
+2020-01-16     0
+```
+
+##### 房地产
+
+###### 美国NAHB房产市场指数报告
+
+接口: macro_usa_nahb_house_market_index
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_nahb_house_market_index
+
+描述: 获取美国NAHB房产市场指数报告, 数据区间从19850201-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_nahb_house_market_index_se = ak.macro_usa_nahb_house_market_index()
+print(macro_usa_nahb_house_market_index_se.name)
+print(macro_usa_nahb_house_market_index_se)
+```
+
+数据示例
+
+macro_usa_nahb_house_market_index_se.name
+
+```
+usa_nahb_house_market_index
+```
+
+macro_usa_nahb_house_market_index_se: pandas.Series
+
+```
+1985-02-01    50
+1985-03-01    58
+1985-04-01    54
+1985-05-01    49
+1985-06-01    51
+              ..
+2019-09-17    68
+2019-10-16    71
+2019-11-18    71
+2019-12-16    76
+2020-01-16     0
+```
+
+###### 美国新屋开工总数年化报告
+
+接口: macro_usa_house_starts
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_house_starts
+
+描述: 获取美国新屋开工总数年化报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_house_starts_se = ak.macro_usa_house_starts()
+print(macro_usa_house_starts_se.name)
+print(macro_usa_house_starts_se)
+```
+
+数据示例
+
+macro_usa_house_starts_se.name
+
+```
+usa_house_starts
+```
+
+macro_usa_house_starts_se: pandas.Series
+
+```
+1970-01-01    132.7
+1970-02-01    108.5
+1970-03-01    130.5
+1970-04-01    131.9
+1970-05-01    126.4
+              ...  
+2019-09-18    138.6
+2019-10-17    126.6
+2019-11-19    132.3
+2019-12-17    136.5
+2020-01-17        0
+```
+
+###### 美国新屋销售总数年化报告
+
+接口: macro_usa_new_home_sales
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_new_home_sales
+
+描述: 获取美国新屋销售总数年化报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_new_home_sales_se = ak.macro_usa_new_home_sales()
+print(macro_usa_new_home_sales_se.name)
+print(macro_usa_new_home_sales_se)
+```
+
+数据示例
+
+macro_usa_new_home_sales_se.name
+
+```
+usa_new_home_sales
+```
+
+macro_usa_new_home_sales_se: pandas.Series
+
+```
+1970-01-01    45.2
+1970-02-01    46.1
+1970-03-01    37.3
+1970-04-01    38.9
+1970-05-01    44.5
+              ... 
+2019-09-25    70.6
+2019-10-24    73.8
+2019-11-26      71
+2019-12-23    71.9
+2020-01-27       0
+```
+
+###### 美国营建许可总数报告
+
+接口: macro_usa_building_permits
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_building_permits
+
+描述: 获取美国营建许可总数报告, 数据区间从20080220-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_building_permits_se = ak.macro_usa_building_permits()
+print(macro_usa_building_permits_se.name)
+print(macro_usa_building_permits_se)
+```
+
+数据示例
+
+macro_usa_building_permits_se.name
+
+```
+usa_building_permits
+```
+
+macro_usa_building_permits_se: pandas.Series
+
+```
+2008-02-20      106
+2008-03-18       98
+2008-04-16       93
+2008-05-16       98
+2008-06-17       98
+              ...  
+2019-09-18    142.5
+2019-10-17    139.1
+2019-11-19    146.1
+2019-12-17    147.4
+2020-01-17        0
+```
+
+###### 美国成屋销售总数年化报告
+
+接口: macro_usa_exist_home_sales
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_exist_home_sales
+
+描述: 获取美国成屋销售总数年化报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_exist_home_sales_se = ak.macro_usa_exist_home_sales()
+print(macro_usa_exist_home_sales_se.name)
+print(macro_usa_exist_home_sales_se)
+```
+
+数据示例
+
+macro_usa_exist_home_sales_se.name
+
+```
+usa_exist_home_sales
+```
+
+macro_usa_exist_home_sales_se: pandas.Series
+
+```
+1970-01-01    160
+1970-02-01    153
+1970-03-01    146
+1970-04-01    137
+1970-05-01    151
+             ... 
+2019-09-19    550
+2019-10-22    536
+2019-11-21    544
+2019-12-19    535
+2020-01-22      0
+```
+
+###### 美国FHFA房价指数月率报告
+
+接口: macro_usa_house_price_index
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_house_price_index
+
+描述: 获取美国FHFA房价指数月率报告, 数据区间从19910301-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_house_price_index_se = ak.macro_usa_house_price_index()
+print(macro_usa_house_price_index_se.name)
+print(macro_usa_house_price_index_se)
+```
+
+数据示例
+
+macro_usa_house_price_index_se.name
+
+```
+usa_house_price_index
+```
+
+macro_usa_house_price_index_se: pandas.Series
+
+```
+1991-03-01    0.5
+1991-04-01      0
+1991-05-01   -0.2
+1991-06-01    0.1
+1991-07-01    0.1
+             ... 
+2019-09-24    0.4
+2019-10-23    0.2
+2019-11-26    0.6
+2019-12-31    0.2
+2020-01-22      0
+```
+
+###### 美国S&P/CS20座大城市房价指数年率报告
+
+接口: macro_usa_spcs20
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_spcs20
+
+描述: 获取美国S&P/CS20座大城市房价指数年率报告, 数据区间从20010201-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_spcs20_se = ak.macro_usa_spcs20()
+print(macro_usa_spcs20_se.name)
+print(macro_usa_spcs20_se)
+```
+
+数据示例
+
+macro_usa_spcs20_se.name
+
+```
+usa_spcs20
+```
+
+macro_usa_spcs20_se: pandas.Series
+
+```
+2001-02-01    12.4
+2001-03-01    12.2
+2001-04-01      12
+2001-05-01    11.4
+2001-06-01    10.5
+              ... 
+2019-09-24       2
+2019-10-29       2
+2019-11-26     2.1
+2019-12-31     2.2
+2020-01-28       0
+```
+
+###### 美国成屋签约销售指数月率报告
+
+接口: macro_usa_pending_home_sales
+
+目标地址: https://datacenter.jin10.com/reportType/dc_usa_pending_home_sales
+
+描述: 获取美国成屋签约销售指数月率报告, 数据区间从20010301-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_pending_home_sales_se = ak.macro_usa_pending_home_sales()
+print(macro_usa_pending_home_sales_se.name)
+print(macro_usa_pending_home_sales_se)
+```
+
+数据示例
+
+macro_usa_pending_home_sales_se.name
+
+```
+usa_pending_home_sales
+```
+
+macro_usa_pending_home_sales_se: pandas.Series
+
+```
+2001-03-01     5.1
+2001-04-01    -4.7
+2001-05-01    -2.9
+2001-06-01     2.7
+2001-07-01    -3.4
+              ... 
+2019-09-26     1.4
+2019-10-29     1.4
+2019-11-27    -1.3
+2019-12-30     1.2
+2020-01-29       0
+```
+
+#### 领先指标
+
+##### 美国谘商会消费者信心指数报告
+
+接口: macro_usa_cb_consumer_confidence
+
+目标地址: https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v=1578576859
+
+描述: 获取美国谘商会消费者信心指数报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_cb_consumer_confidence_se = ak.macro_usa_cb_consumer_confidence()
+print(macro_usa_cb_consumer_confidence_se.name)
+print(macro_usa_cb_consumer_confidence_se)
+```
+
+数据示例
+
+macro_usa_cb_consumer_confidence_se.name
+
+```
+cb_consumer_confidence
+```
+
+macro_usa_cb_consumer_confidence_se: pandas.Series
+
+```
+1970-01-01      126
+1970-02-01      126
+1970-03-01    101.7
+1970-04-01    101.7
+1970-05-01       98
+              ...  
+2019-09-24    126.3
+2019-10-29    126.1
+2019-11-26    126.8
+2019-12-31    126.5
+2020-01-28        0
+```
+
+##### 美国NFIB小型企业信心指数报告
+
+接口: macro_usa_nfib_small_business
+
+目标地址: https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v=1578576631
+
+描述: 获取美国NFIB小型企业信心指数报告, 数据区间从19750201-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_nfib_small_business_se = ak.macro_usa_nfib_small_business()
+print(macro_usa_nfib_small_business_se.name)
+print(macro_usa_nfib_small_business_se)
+```
+
+数据示例
+
+macro_usa_nfib_small_business_se.name
+
+```
+nfib_small_business
+```
+
+macro_usa_nfib_small_business_se: pandas.Series
+
+```
+1975-02-01     86.67
+1975-05-01     95.16
+1975-08-01     99.36
+1975-11-01    100.37
+1976-02-01    102.01
+               ...  
+2019-09-10     103.1
+2019-10-08     101.8
+2019-11-12     102.4
+2019-12-10     104.7
+2020-01-14         0
+```
+
+##### 美国密歇根大学消费者信心指数初值报告
+
+接口: macro_usa_michigan_consumer_sentiment
+
+目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+
+描述: 获取美国密歇根大学消费者信心指数初值报告, 数据区间从19700301-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_michigan_consumer_sentiment_se = ak.macro_usa_michigan_consumer_sentiment()
+print(macro_usa_michigan_consumer_sentiment_se.name)
+print(macro_usa_michigan_consumer_sentiment_se)
+```
+
+数据示例
+
+macro_usa_michigan_consumer_sentiment_se.name
+
+```
+michigan_consumer_sentiment
+```
+
+macro_usa_michigan_consumer_sentiment_se: pandas.Series
+
+```
+1970-03-01    78.1
+1970-06-01    75.4
+1970-09-01    77.6
+1970-12-01    72.4
+1971-03-01    78.1
+              ... 
+2019-11-08    95.5
+2019-11-22    96.8
+2019-12-06    96.8
+2019-12-20    99.3
+2020-01-17       0
+```
+
+#### 其他
+
+##### 美国EIA原油库存报告
+
+接口: macro_usa_eia_crude_rate
+
+目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+
+描述: 获取美国EIA原油库存报告, 数据区间从19950801-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_eia_crude_rate_se = ak.macro_usa_eia_crude_rate()
+print(macro_usa_eia_crude_rate_se.name)
+print(macro_usa_eia_crude_rate_se)
+```
+
+数据示例
+
+macro_usa_eia_crude_rate_se.name
+
+```
+eia_crude_rate
+```
+
+macro_usa_eia_crude_rate_se: pandas.Series
+
+```
+1982-09-01     -262.6
+1982-10-01         -8
+1982-11-01      -41.3
+1982-12-01      -87.6
+1983-01-01       51.3
+               ...   
+2019-12-27          0
+2019-12-28     -547.4
+2020-01-04    -1146.3
+2020-01-08      116.4
+2020-01-15          0
+```
+
+##### 美国初请失业金人数报告
+
+接口: macro_usa_initial_jobless
+
+目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+
+描述: 获取美国初请失业金人数报告, 数据区间从19700101-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_initial_jobless_se = ak.macro_usa_initial_jobless()
+print(macro_usa_initial_jobless_se.name)
+print(macro_usa_initial_jobless_se)
+```
+
+数据示例
+
+macro_usa_initial_jobless_se.name
+
+```
+initial_jobless
+```
+
+macro_usa_initial_jobless_se: pandas.Series
+
+```
+1970-01-01    22.1087
+1970-02-01    24.9318
+1970-03-01      25.85
+1970-04-01    26.8682
+1970-05-01    33.1591
+               ...   
+2019-12-19       23.5
+2019-12-26       22.4
+2020-01-02       22.3
+2020-01-09       21.4
+2020-01-16          0
+```
+
+##### 美国原油产量报告
+
+接口: macro_usa_crude_inner
+
+目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+
+描述: 获取美国原油产量报告, 数据区间从19830107-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_crude_inner_se = ak.macro_usa_crude_inner()
+print(macro_usa_crude_inner_se.name)
+print(macro_usa_crude_inner_se)
+```
+
+数据示例
+
+macro_usa_crude_inner_se.name
+
+```
+crude_inner
+```
+
+macro_usa_crude_inner_se: pandas.Series
+
+```
+1983-01-07     863.40
+1983-01-14     863.40
+1983-01-21     863.40
+1983-01-28     863.40
+1983-02-04     866.00
+               ...   
+2019-12-06    1280.00
+2019-12-13    1280.00
+2019-12-20    1290.00
+2019-12-27    1290.00
+2020-01-03    1290.00
+```
+
+##### 美国本土48州原油产量
+
+接口: macro_usa_crude_state
+
+目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+
+描述: 获取美国本土48州原油产量, 数据区间从19830107-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_crude_state_se = ak.macro_usa_crude_state()
+print(macro_usa_crude_state_se.name)
+print(macro_usa_crude_state_se)
+```
+
+数据示例
+
+macro_usa_crude_state_se.name
+
+```
+crude_state
+```
+
+macro_usa_crude_state_se: pandas.Series
+
+```
+1983-01-07       0.00
+1983-01-14       0.00
+1983-01-21       0.00
+1983-01-28       0.00
+1983-02-04       0.00
+               ...   
+2019-12-06    1230.00
+2019-12-13    1230.00
+2019-12-20    1240.00
+2019-12-27    1240.00
+2020-01-03    1240.00
+```
+
+##### 美国阿拉斯加州原油产量
+
+接口: macro_usa_crude_alaska
+
+目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+
+描述: 获取美国阿拉斯加州原油产量, 数据区间从19830107-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_usa_crude_alaska_se = ak.macro_usa_crude_alaska()
+print(macro_usa_crude_alaska_se.name)
+print(macro_usa_crude_alaska_se)
+```
+
+数据示例
+
+macro_usa_crude_alaska_se.name
+
+```
+crude_alaska
+```
+
+macro_usa_crude_alaska_se: pandas.Series
+
+```
+1983-01-07     0.00
+1983-01-14     0.00
+1983-01-21     0.00
+1983-01-28     0.00
+1983-02-04     0.00
+              ...  
+2019-12-06    48.80
+2019-12-13    48.10
+2019-12-20    48.10
+2019-12-27    48.70
+2020-01-03    48.30
 ```

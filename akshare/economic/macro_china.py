@@ -32,6 +32,8 @@ from akshare.economic.cons import (
     JS_CHINA_REPORT_URL,
 )
 
+pd.set_option('display.max_rows', 10)
+
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
 def macro_china_gdp_yearly():
@@ -228,19 +230,10 @@ def macro_china_industrial_production_yoy():
 # 金十数据中心-经济指标-中国-产业指标-官方制造业PMI
 def macro_china_pmi_yearly():
     """
-    获取中国年度PMI数据, 数据区间从20050201-至今
+    中国年度PMI数据, 数据区间从20050201-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
+    https://cdn.jin10.com/dc/reports/dc_chinese_manufacturing_pmi_all.js?v=1578817858
     :return: pandas.Series
-    2005-02-01    54.7
-    2005-03-01    54.5
-    2005-04-01    57.9
-    2005-05-01    56.7
-    2005-06-01    52.9
-                  ...
-    2019-06-30    49.4
-    2019-07-31    49.7
-    2019-08-31    49.5
-    2019-09-30    49.5
-    2019-10-31       0
     """
     t = time.time()
     res = requests.get(
@@ -262,19 +255,10 @@ def macro_china_pmi_yearly():
 # 金十数据中心-经济指标-中国-产业指标-财新制造业PMI终值
 def macro_china_cx_pmi_yearly():
     """
-    获取中国年度财新PMI数据, 数据区间从20120120-至今
+    中国年度财新PMI数据, 数据区间从20120120-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_caixin_manufacturing_pmi
+    https://cdn.jin10.com/dc/reports/dc_chinese_caixin_manufacturing_pmi_all.js?v=1578818009
     :return: pandas.Series
-    2012-01-20    48.8
-    2012-02-22    49.6
-    2012-03-22    48.3
-    2012-04-23    49.1
-    2012-05-02    49.3
-                  ...
-    2019-07-01    49.4
-    2019-08-01    49.9
-    2019-09-02    50.4
-    2019-09-30    51.4
-    2019-11-01       0
     """
     t = time.time()
     res = requests.get(
@@ -296,19 +280,10 @@ def macro_china_cx_pmi_yearly():
 # 金十数据中心-经济指标-中国-产业指标-财新服务业PMI
 def macro_china_cx_services_pmi_yearly():
     """
-    获取中国财新服务业PMI报告, 数据区间从20120405-至今
+    中国财新服务业PMI报告, 数据区间从20120405-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_caixin_services_pmi
+    https://cdn.jin10.com/dc/reports/dc_chinese_caixin_services_pmi_all.js?v=1578818109
     :return: pandas.Series
-    2012-04-05    53.3
-    2012-05-04    54.1
-    2012-06-05    54.7
-    2012-07-04    52.3
-    2012-08-03    53.1
-                  ...
-    2019-08-05    51.6
-    2019-09-04    52.1
-    2019-10-08    51.3
-    2019-11-05    51.1
-    2019-12-04    53.5
     """
     t = time.time()
     res = requests.get(
@@ -330,7 +305,9 @@ def macro_china_cx_services_pmi_yearly():
 # 金十数据中心-经济指标-中国-产业指标-中国官方非制造业PMI
 def macro_china_non_man_pmi():
     """
-    获取中国官方非制造业PMI, 数据区间从20160101-至今
+    中国官方非制造业PMI, 数据区间从20160101-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_non_manufacturing_pmi
+    https://cdn.jin10.com/dc/reports/dc_chinese_non_manufacturing_pmi_all.js?v=1578818248
     :return: pandas.Series
     2007-02-01    60.4
     2007-03-01    60.6
@@ -364,7 +341,9 @@ def macro_china_non_man_pmi():
 # 金十数据中心-经济指标-中国-金融指标-外汇储备(亿美元)
 def macro_china_fx_reserves_yearly():
     """
-    获取中国年度外汇储备数据, 数据区间从20140115-至今
+    中国年度外汇储备数据, 数据区间从20140115-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_fx_reserves
+    https://cdn.jin10.com/dc/reports/dc_chinese_fx_reserves_all.js?v=1578818365
     :return: pandas.Series
     2014-01-15    39500
     2014-07-15    39900
@@ -437,7 +416,9 @@ def macro_china_fx_reserves_yearly():
 # 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
 def macro_china_m2_yearly():
     """
-    获取中国年度M2数据, 数据区间从19980201-至今
+    中国年度M2数据, 数据区间从19980201-至今
+    https://datacenter.jin10.com/reportType/dc_chinese_m2_money_supply_yoy
+    https://cdn.jin10.com/dc/reports/dc_chinese_m2_money_supply_yoy_all.js?v=1578818474
     :return: pandas.Series
     1998-02-01    17.4
     1998-03-01    16.7
@@ -531,6 +512,8 @@ def macro_china_hk_market_info():
 def macro_china_daily_energy():
     """
     中国日度沿海六大电库存数据, 数据区间从20160101-至今
+    https://datacenter.jin10.com/reportType/dc_qihuo_energy_report
+    https://cdn.jin10.com/dc/reports/dc_qihuo_energy_report_all.js?v=1578819100
     :return: pandas.Series
                  沿海六大电库存      日耗 存煤可用天数
     2016-01-01  1167.60   64.20   18.19
