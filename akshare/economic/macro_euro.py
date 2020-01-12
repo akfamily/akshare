@@ -18,9 +18,10 @@ import time
 import pandas as pd
 import requests
 
-
+pd.set_option('display.max_rows', 10)
 # 金十数据中心-经济指标-欧元区-国民经济运行状况
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况
+# 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况-欧元区季度GDP年率报告
 def macro_euro_gdp_yoy():
     """
     欧元区季度GDP年率报告, 数据区间从20131114-至今
@@ -42,7 +43,7 @@ def macro_euro_gdp_yoy():
     return temp_df
 
 
-# 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平
+# 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区CPI月率报告
 def macro_euro_cpi_mom():
     """
     欧元区CPI月率报告, 数据区间从19900301-至今
@@ -64,6 +65,7 @@ def macro_euro_cpi_mom():
     return temp_df
 
 
+# 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区CPI年率报告
 def macro_euro_cpi_yoy():
     """
     欧元区CPI年率报告, 数据区间从19910201-至今
@@ -85,6 +87,7 @@ def macro_euro_cpi_yoy():
     return temp_df
 
 
+# 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区PPI月率报告
 def macro_euro_ppi_mom():
     """
     欧元区PPI月率报告, 数据区间从19810301-至今
@@ -106,6 +109,7 @@ def macro_euro_ppi_mom():
     return temp_df
 
 
+# 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区零售销售月率报告
 def macro_euro_retail_sales_mom():
     """
     欧元区零售销售月率报告, 数据区间从20000301-至今
@@ -127,7 +131,7 @@ def macro_euro_retail_sales_mom():
     return temp_df
 
 
-# 金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场
+# 金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场-欧元区季调后就业人数季率报告
 def macro_euro_employment_change_qoq():
     """
     欧元区季调后就业人数季率报告, 数据区间从20083017-至今
@@ -149,6 +153,7 @@ def macro_euro_employment_change_qoq():
     return temp_df
 
 
+# 金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场-欧元区失业率报告
 def macro_euro_unemployment_rate_mom():
     """
     欧元区失业率报告, 数据区间从19980501-至今
@@ -170,7 +175,7 @@ def macro_euro_unemployment_rate_mom():
     return temp_df
 
 
-# 金十数据中心-经济指标-欧元区-贸易状况
+# 金十数据中心-经济指标-欧元区-贸易状况-欧元区未季调贸易帐报告
 def macro_euro_trade_balance():
     """
     欧元区未季调贸易帐报告, 数据区间从19990201-至今
@@ -192,6 +197,7 @@ def macro_euro_trade_balance():
     return temp_df
 
 
+# 金十数据中心-经济指标-欧元区-贸易状况-欧元区经常帐报告
 def macro_euro_current_account_mom():
     """
     欧元区经常帐报告, 数据区间从20080221-至今, 前两个值需要去掉
@@ -213,7 +219,7 @@ def macro_euro_current_account_mom():
     return temp_df
 
 
-# 金十数据中心-经济指标-欧元区-产业指标
+# 金十数据中心-经济指标-欧元区-产业指标-欧元区工业产出月率报告
 def macro_euro_industrial_production_mom():
     """
     欧元区工业产出月率报告, 数据区间从19910301-至今
@@ -235,6 +241,7 @@ def macro_euro_industrial_production_mom():
     return temp_df
 
 
+# 金十数据中心-经济指标-欧元区-产业指标-欧元区制造业PMI初值报告
 def macro_euro_manufacturing_pmi():
     """
     欧元区制造业PMI初值报告, 数据区间从20080222-至今
@@ -256,6 +263,7 @@ def macro_euro_manufacturing_pmi():
     return temp_df
 
 
+# 金十数据中心-经济指标-欧元区-产业指标-欧元区服务业PMI终值报告
 def macro_euro_services_pmi():
     """
     欧元区服务业PMI终值报告, 数据区间从20080222-至今
@@ -277,7 +285,7 @@ def macro_euro_services_pmi():
     return temp_df
 
 
-# 金十数据中心-经济指标-欧元区-领先指标
+# 金十数据中心-经济指标-欧元区-领先指标-欧元区ZEW经济景气指数报告
 def macro_euro_zew_economic_sentiment():
     """
     欧元区ZEW经济景气指数报告, 数据区间从20080212-至今
@@ -299,6 +307,7 @@ def macro_euro_zew_economic_sentiment():
     return temp_df
 
 
+# 金十数据中心-经济指标-欧元区-领先指标-欧元区Sentix投资者信心指数报告
 def macro_euro_sentix_investor_confidence():
     """
     欧元区Sentix投资者信心指数报告, 数据区间从20020801-至今
