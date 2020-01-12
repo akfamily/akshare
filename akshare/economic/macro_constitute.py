@@ -22,7 +22,7 @@ from akshare.economic.cons import (
 
 def macro_cons_gold_volume():
     """
-    获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+    全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
     :return: pandas.Series
     2004-11-18      8.09
     2004-11-19     57.85
@@ -220,7 +220,7 @@ def macro_cons_silver_amount():
 
 def macro_cons_opec_near_change():
     """
-    欧佩克报告, 数据区间从20170118-至今
+    欧佩克报告-变动, 数据区间从20170118-至今
     :return: pandas.Series
                 阿尔及利亚    安哥拉   厄瓜多尔     加蓬     伊朗     伊拉克    科威特    利比亚   尼日利亚  \
     2017-01-18  -0.87   3.56  -0.25  -0.87   0.95    4.26   0.20   3.13 -11.35
@@ -300,7 +300,7 @@ def macro_cons_opec_near_change():
 
 def macro_cons_opec_month(month_type="上个月"):
     """
-    欧佩克报告, 数据区间从20170118-至今
+    欧佩克报告-月度, 数据区间从20170118-至今
     :param month_type: ["上上上上个月", "上上上个月", "上上个月", "上个月"]
     :return: pandas.Series
                 阿尔及利亚    安哥拉  厄瓜多尔    加蓬     伊朗    伊拉克    科威特    利比亚   尼日利亚  \
@@ -392,8 +392,6 @@ if __name__ == "__main__":
     print(macro_cons_silver_change_df)
     macro_cons_silver_amount_df = macro_cons_silver_amount()
     print(macro_cons_silver_amount_df)
-    macro_cons_gold_volume_df = macro_cons_gold_volume()
-    print(macro_cons_gold_volume_df)
     macro_cons_opec_near_change_df = macro_cons_opec_near_change()
     print(macro_cons_opec_near_change_df)
     macro_cons_opec_month_df = macro_cons_opec_month()

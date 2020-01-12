@@ -314,6 +314,15 @@
  "macro_usa_crude_inner"  # 金十数据中心-经济指标-美国-其他-美国原油产量报告
  "macro_usa_crude_state"  # 金十数据中心-经济指标-美国-其他-美国本土48州原油产量
  "macro_usa_crude_alaska"  # 金十数据中心-经济指标-美国-其他-美国阿拉斯加州原油产量
+ # 更新宏观数据
+ "macro_cons_gold_volume"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
+ "macro_cons_gold_change"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
+ "macro_cons_gold_amount"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
+ "macro_cons_silver_volume"  # 全球最大白银ETF--iShares Silver Trust持仓报告
+ "macro_cons_silver_change"  # 全球最大白银ETF--iShares Silver Trust持仓报告
+ "macro_cons_silver_amount"  # 全球最大白银ETF--iShares Silver Trust持仓报告
+ "macro_cons_opec_near_change"  # 欧佩克报告-变动
+ "macro_cons_opec_month"  # 欧佩克报告-月度
 ```
 
 ## 3. 案例演示

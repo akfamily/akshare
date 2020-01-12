@@ -4807,7 +4807,7 @@ macro_euro_sentix_investor_confidence_se: pandas.Series
 
 目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
 
-描述: 获取获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
 
 限量: 单次返回所有历史数据
 

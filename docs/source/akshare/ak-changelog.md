@@ -826,4 +826,15 @@ macro_usa_crude_alaska  # 金十数据中心-经济指标-美国-其他-美国�
 
 0.3.43
 增加-交易法门-数据-黑色系-焦煤
+
+0.3.44
+更新宏观数据
+macro_cons_gold_volume  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
+macro_cons_gold_change  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
+macro_cons_gold_amount  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
+macro_cons_silver_volume  # 全球最大白银ETF--iShares Silver Trust持仓报告
+macro_cons_silver_change  # 全球最大白银ETF--iShares Silver Trust持仓报告
+macro_cons_silver_amount  # 全球最大白银ETF--iShares Silver Trust持仓报告
+macro_cons_opec_near_change  # 欧佩克报告-变动
+macro_cons_opec_month  # 欧佩克报告-月度
 ```
