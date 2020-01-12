@@ -4798,3 +4798,465 @@ macro_euro_sentix_investor_confidence_se: pandas.Series
 2019-12-09      0.7
 2020-01-06      7.6
 ```
+
+### 重要机构
+
+#### 全球最大黄金ETF—SPDR Gold Trust持仓报告
+
+接口: macro_cons_gold_volume
+
+目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+
+描述: 获取获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cons_gold_volume_se = ak.macro_cons_gold_volume()
+print(macro_cons_gold_volume_se.name)
+print(macro_cons_gold_volume_se)
+```
+
+数据示例
+
+macro_euro_sentix_investor_confidence_se.name
+
+```
+gold_volume
+```
+
+macro_euro_sentix_investor_confidence_se: pandas.Series
+
+```
+2004-11-18      8.09
+2004-11-19     57.85
+2004-11-22     87.09
+2004-11-23     87.09
+2004-11-24     96.42
+               ...
+2019-10-20    924.64
+2019-10-21    924.64
+2019-10-22    919.66
+2019-10-23    918.48
+2019-10-24    918.48
+```
+
+#### 全球最大黄金ETF—SPDR Gold Trust持仓报告
+
+接口: macro_cons_gold_change
+
+目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+
+描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cons_gold_change_se = ak.macro_cons_gold_change()
+print(macro_cons_gold_change_se.name)
+print(macro_cons_gold_change_se)
+```
+
+数据示例
+
+macro_cons_gold_change_se.name
+
+```
+gold_change
+```
+
+macro_cons_gold_change_se: pandas.Series
+
+```
+2004-11-18        0
+2004-11-19    49.76
+2004-11-22    29.24
+2004-11-23     0.00
+2004-11-24     9.33
+              ...
+2019-10-20     0.00
+2019-10-21     0.00
+2019-10-22    -4.98
+2019-10-23    -1.18
+2019-10-24     0.00
+```
+
+#### 全球最大黄金ETF—SPDR Gold Trust持仓报告
+
+接口: macro_cons_gold_amount
+
+目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+
+描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cons_gold_amount_se = ak.macro_cons_gold_amount()
+print(macro_cons_gold_amount_se.name)
+print(macro_cons_gold_amount_se)
+```
+
+数据示例
+
+macro_cons_gold_amount_se.name
+
+```
+gold_amount
+```
+
+macro_cons_gold_amount_se: pandas.Series
+
+```
+2004-11-18      114920000.00
+2004-11-19      828806907.20
+2004-11-22     1253785205.50
+2004-11-23     1254751438.19
+2004-11-24     1390568824.08
+                   ...
+2019-10-20    44286078486.23
+2019-10-21    44333677232.68
+2019-10-22    43907962483.56
+2019-10-23    44120217405.82
+2019-10-24    44120217405.82
+```
+
+#### 全球最大白银ETF--iShares Silver Trust持仓报告
+
+接口: macro_cons_silver_volume
+
+目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+
+描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cons_silver_volume_se = ak.macro_cons_silver_volume()
+print(macro_cons_silver_volume_se.name)
+print(macro_cons_silver_volume_se)
+```
+
+数据示例
+
+macro_cons_silver_volume_se.name
+
+```
+silver_volume
+```
+
+macro_cons_silver_volume_se: pandas.Series
+
+```
+2006-04-29      653.17
+2006-05-02      653.17
+2006-05-03      995.28
+2006-05-04     1197.43
+2006-05-05     1306.29
+                ...
+2019-10-17    11847.91
+2019-10-18    11847.91
+2019-10-21    11813.02
+2019-10-22    11751.96
+2019-10-23    11751.96
+```
+
+#### 全球最大白银ETF--iShares Silver Trust持仓报告
+
+接口: macro_cons_silver_change
+
+目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+
+描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cons_silver_change_se = ak.macro_cons_silver_change()
+print(macro_cons_silver_change_se.name)
+print(macro_cons_silver_change_se)
+```
+
+数据示例
+
+macro_cons_silver_change_se.name
+
+```
+silver_change
+```
+
+macro_cons_silver_change_se: pandas.Series
+
+```
+2006-04-29          0
+2006-05-02       0.00
+2006-05-03     342.11
+2006-05-04     202.15
+2006-05-05     108.86
+               ...   
+2020-01-06       0.00
+2020-01-07     -37.76
+2020-01-08       0.00
+2020-01-09    -101.66
+2020-01-10       0.00
+```
+
+#### 全球最大白银ETF--iShares Silver Trust持仓报告
+
+接口: macro_cons_silver_amount
+
+目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+
+描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cons_silver_amount_se = ak.macro_cons_silver_amount()
+print(macro_cons_silver_amount_se.name)
+print(macro_cons_silver_amount_se)
+```
+
+数据示例
+
+macro_cons_silver_amount_se.name
+
+```
+silver_amount
+```
+
+macro_cons_silver_amount_se: pandas.Series
+
+```
+2006-04-29    263651152
+2006-05-02    263651152
+2006-05-03    445408550
+2006-05-04    555123947
+2006-05-05    574713264
+                ...
+2019-10-17     Show All
+2019-10-18     Show All
+2019-10-21     Show All
+2019-10-22     Show All
+2019-10-23     Show All
+```
+
+#### 欧佩克报告
+
+接口: macro_cons_opec_near_change
+
+目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+
+描述: 获取欧佩克报告, 数据区间从20170118-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cons_opec_near_change_df = ak.macro_cons_opec_near_change()
+print(macro_cons_opec_near_change_df)
+```
+
+数据示例
+
+macro_cons_opec_near_change_df
+
+```
+            阿尔及利亚   安哥拉   厄瓜多尔    加蓬     伊朗     伊拉克    科威特    利比亚   尼日利亚  \
+2017-01-18  -0.87  3.56  -0.25 -0.87   0.95    4.26   0.20   3.13 -11.35   
+2017-02-13  -4.17 -2.32  -1.67 -1.00   5.02  -16.57 -14.12   6.47  10.18   
+2017-03-14  -0.02 -1.82  -0.44 -0.69   3.61   -6.20  -0.93  -1.11   5.80   
+2017-04-12   0.45 -1.87  -0.28  0.19  -2.87   -0.85  -0.95  -6.08  -2.98   
+2017-05-11  -0.75  9.71  -0.06  0.88  -3.47   -3.91   0.03  -6.16   5.08   
+           ...   ...    ...   ...    ...     ...    ...    ...    ...   
+2018-11-13  -0.40  2.20  -0.30  0.30 -15.60  465.30  -3.30   6.00  -1.70   
+2018-12-12  -0.50  0.30   0.10 -1.10 -38.00   -2.30   4.50  -1.10  -3.00   
+2019-03-14   0.20  2.20   0.50  0.70   1.20   -7.00  -1.40   2.30   1.00   
+2019-04-10  -0.70  0.70  52.40  0.90  -2.80  -12.60  -0.10  19.60   1.10   
+2019-06-13   0.60  7.40  -0.10  2.30 -22.70    9.40   1.30  -0.30  -9.20   
+               沙特    阿联酋   委内瑞拉  欧佩克产量  
+2017-01-18 -14.93  -0.63  -4.52 -22.09  
+2017-02-13 -49.62 -15.93  -3.05 -89.02  
+2017-03-14  -6.81  -3.69  -1.60 -13.95  
+2017-04-12   4.16  -3.27  -2.59 -15.27  
+2017-05-11   4.92  -6.23  -2.60  -1.82  
+           ...    ...    ...    ...  
+2018-11-13  12.70  14.20  -4.00  12.70  
+2018-12-12  37.70   7.10  -5.20  -1.10  
+2019-03-14  -8.60  -0.40 -14.20 -22.10  
+2019-04-10 -32.40  -0.90 -28.90 -53.40  
+2019-06-13  -7.60   0.30  -3.50 -23.60  
+```
+
+#### 欧佩克报告
+
+接口: macro_cons_opec_month
+
+目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+
+描述: 获取欧佩克报告, 数据区间从20170118-至今
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| month_type | str | Y | month_type="上个月" |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | str   | Y        | 日期-索引  |
+| 值      | float   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+macro_cons_opec_month_df = ak.macro_cons_opec_month(month_type="上个月")
+print(macro_cons_opec_month_df)
+```
+
+数据示例
+
+macro_cons_opec_month_df
+
+```
+            阿尔及利亚    安哥拉  厄瓜多尔    加蓬     伊朗    伊拉克    科威特    利比亚   尼日利亚  \
+2017-01-18  108.0  172.4  54.5  21.3  372.0  463.2  281.2   60.8  154.2   
+2017-02-13  104.5  165.1  52.7  19.9  377.5  447.6  271.8   67.5  157.6   
+2017-03-14  105.3  164.1  52.6  19.4  381.4  441.4  270.9   66.9  160.8   
+2017-04-12  105.6  161.4  52.6  19.8  379.0  440.2  270.2   62.2  154.5   
+2017-05-11  104.7  169.2  52.4  20.6  375.9  437.3  270.2   55.0  150.8   
+           ...    ...   ...   ...    ...    ...    ...    ...    ...   
+2018-11-13  105.4  153.3  52.5  18.6  329.6  465.4  276.4  111.4  175.1   
+2018-12-12  105.2  152.1  52.5  17.6  295.4  463.1  280.9  110.4  173.6   
+2019-03-14  102.6  145.7  52.2  20.3  274.3  463.3  270.9   90.6  174.1   
+2019-04-10  101.8  145.4  52.4  21.4  269.8  452.2  270.9  109.8  173.3   
+2019-06-13  102.9  147.1  52.9  21.1  237.0  472.4  271.0  117.4  173.3   
+                沙特    阿联酋   委内瑞拉   欧佩克产量  
+2017-01-18  1047.4  307.1  202.1  3308.5  
+2017-02-13   994.6  293.1  200.4  3213.9  
+2017-03-14   979.7  292.5  198.7  3195.8  
+2017-04-12   999.4  289.5  197.2  3192.8  
+2017-05-11   995.4  284.2  195.6  3173.2  
+            ...    ...    ...     ...  
+2018-11-13  1063.0  316.0  117.1  3290.0  
+2018-12-12  1101.6  324.6  113.7  3296.5  
+2019-03-14  1008.7  307.2  100.8  3054.9  
+2019-04-10   979.4  305.9   73.2  3002.2  
+2019-06-13   969.0  306.1   74.1  2987.6  
+```

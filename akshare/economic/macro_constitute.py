@@ -20,7 +20,7 @@ from akshare.economic.cons import (
 )
 
 
-def get_cons_gold_volume():
+def macro_cons_gold_volume():
     """
     获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
     :return: pandas.Series
@@ -53,9 +53,9 @@ def get_cons_gold_volume():
     return temp_df
 
 
-def get_cons_gold_change():
+def macro_cons_gold_change():
     """
-    获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+    全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
     :return: pandas.Series
     2004-11-18        0
     2004-11-19    49.76
@@ -86,9 +86,9 @@ def get_cons_gold_change():
     return temp_df
 
 
-def get_cons_gold_amount():
+def macro_cons_gold_amount():
     """
-    获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+    全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
     :return: pandas.Series
     2004-11-18      114920000.00
     2004-11-19      828806907.20
@@ -119,9 +119,9 @@ def get_cons_gold_amount():
     return temp_df
 
 
-def get_cons_silver_volume():
+def macro_cons_silver_volume():
     """
-    获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+    全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
     :return: pandas.Series
     2006-04-29      653.17
     2006-05-02      653.17
@@ -152,9 +152,9 @@ def get_cons_silver_volume():
     return temp_df
 
 
-def get_cons_silver_change():
+def macro_cons_silver_change():
     """
-    获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+    全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
     :return: pandas.Series
     2006-04-29         0
     2006-05-02      0.00
@@ -185,9 +185,9 @@ def get_cons_silver_change():
     return temp_df
 
 
-def get_cons_silver_amount():
+def macro_cons_silver_amount():
     """
-    获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+    全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
     :return: pandas.Series
     2006-04-29    263651152
     2006-05-02    263651152
@@ -218,9 +218,9 @@ def get_cons_silver_amount():
     return temp_df
 
 
-def get_cons_opec_near_change():
+def macro_cons_opec_near_change():
     """
-    获取欧佩克报告, 数据区间从20170118-至今
+    欧佩克报告, 数据区间从20170118-至今
     :return: pandas.Series
                 阿尔及利亚    安哥拉   厄瓜多尔     加蓬     伊朗     伊拉克    科威特    利比亚   尼日利亚  \
     2017-01-18  -0.87   3.56  -0.25  -0.87   0.95    4.26   0.20   3.13 -11.35
@@ -298,9 +298,9 @@ def get_cons_opec_near_change():
     return big_df.T
 
 
-def get_cons_opec_month(month_type="上个月"):
+def macro_cons_opec_month(month_type="上个月"):
     """
-    获取欧佩克报告, 数据区间从20170118-至今
+    欧佩克报告, 数据区间从20170118-至今
     :param month_type: ["上上上上个月", "上上上个月", "上上个月", "上个月"]
     :return: pandas.Series
                 阿尔及利亚    安哥拉  厄瓜多尔    加蓬     伊朗    伊拉克    科威特    利比亚   尼日利亚  \
@@ -380,21 +380,22 @@ def get_cons_opec_month(month_type="上个月"):
 
 
 if __name__ == "__main__":
-    df = get_cons_gold_volume()
-    print(df)
-    df = get_cons_gold_change()
-    print(df)
-    df = get_cons_gold_amount()
-    print(df)
-    df = get_cons_silver_volume()
-    print(df)
-    df = get_cons_silver_change()
-    print(df)
-    df = get_cons_silver_amount()
-    print(df)
-    df = get_cons_gold_volume()
-    print(df)
-    df = get_cons_opec_near_change()
-    print(df)
-    df = get_cons_opec_month()
-    print(df)
+    macro_cons_gold_volume_df = macro_cons_gold_volume()
+    print(macro_cons_gold_volume_df)
+    macro_cons_gold_change_df = macro_cons_gold_change()
+    print(macro_cons_gold_change_df)
+    macro_cons_gold_amount_df = macro_cons_gold_amount()
+    print(macro_cons_gold_amount_df)
+    macro_cons_silver_volume_df = macro_cons_silver_volume()
+    print(macro_cons_silver_volume_df)
+    macro_cons_silver_change_df = macro_cons_silver_change()
+    print(macro_cons_silver_change_df)
+    macro_cons_silver_amount_df = macro_cons_silver_amount()
+    print(macro_cons_silver_amount_df)
+    macro_cons_gold_volume_df = macro_cons_gold_volume()
+    print(macro_cons_gold_volume_df)
+    macro_cons_opec_near_change_df = macro_cons_opec_near_change()
+    print(macro_cons_opec_near_change_df)
+    macro_cons_opec_month_df = macro_cons_opec_month()
+    print(macro_cons_opec_month_df)
+

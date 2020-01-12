@@ -1073,14 +1073,14 @@ from akshare.futures.receipt_period import get_receipt_date
 全球宏观-机构宏观
 """
 from akshare.economic.macro_constitute import (
-    get_cons_gold_amount,
-    get_cons_gold_change,
-    get_cons_gold_volume,
-    get_cons_opec_month,
-    get_cons_opec_near_change,
-    get_cons_silver_amount,
-    get_cons_silver_change,
-    get_cons_silver_volume,
+    macro_cons_gold_amount,
+    macro_cons_gold_change,
+    macro_cons_gold_volume,
+    macro_cons_opec_month,
+    macro_cons_opec_near_change,
+    macro_cons_silver_amount,
+    macro_cons_silver_change,
+    macro_cons_silver_volume,
 )
 
 """
