@@ -3,10 +3,12 @@ Author: Albert King & Guo Yangyang
 date: 2019/12/14 19:54
 contact: jindaxiang@163.com
 desc: 获取中国证券投资基金业协会-信息公示数据
-http://gs.amac.org.cn
+中国证券投资基金业协会-新版: http://gs.amac.org.cn
+中国证券投资基金业协会-旧版: http://www1.amac.org.cn/
+目前的网络数据采集基于旧版接口, Guo Yangyang 正在更新新版接口数据
 """
-import requests
 import pandas as pd
+import requests
 
 from akshare.fund.cons import (
     manager_url,
@@ -34,8 +36,8 @@ from akshare.fund.cons import (
 
 def _get_pages(url="", payload=""):
     """
-    获取 中国证券投资基金业协会-信息公示-私募基金管理人公示 页数
-    暂时不适用本函数, 直接可以获取所有数据
+    中国证券投资基金业协会-信息公示-私募基金管理人公示 页数
+    暂时不使用本函数, 直接可以获取所有数据
     """
     headers = {
         "Content-Type": "application/json",
@@ -395,4 +397,3 @@ if __name__ == "__main__":
     print(amac_member_info_df)
     # fund_df[fund_df["建立时间"] > "2019-12-01"].info()
     # fund_df.info()
-
