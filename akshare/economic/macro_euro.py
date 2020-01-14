@@ -18,7 +18,9 @@ import time
 import pandas as pd
 import requests
 
-pd.set_option('display.max_rows', 10)
+pd.set_option("display.max_rows", 10)
+
+
 # 金十数据中心-经济指标-欧元区-国民经济运行状况
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况-欧元区季度GDP年率报告
@@ -31,7 +33,9 @@ def macro_euro_gdp_yoy():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_gdp_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_gdp_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区季度GDP年率报告"] for item in json_data["list"]]
@@ -53,7 +57,9 @@ def macro_euro_cpi_mom():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_cpi_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_cpi_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区CPI月率报告"] for item in json_data["list"]]
@@ -75,7 +81,9 @@ def macro_euro_cpi_yoy():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_cpi_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_cpi_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区CPI年率报告"] for item in json_data["list"]]
@@ -97,7 +105,9 @@ def macro_euro_ppi_mom():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_ppi_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_ppi_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区PPI月率报告"] for item in json_data["list"]]
@@ -119,7 +129,9 @@ def macro_euro_retail_sales_mom():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_retail_sales_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_retail_sales_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区零售销售月率报告"] for item in json_data["list"]]
@@ -141,7 +153,9 @@ def macro_euro_employment_change_qoq():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_employment_change_qoq_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_employment_change_qoq_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区季调后就业人数季率报告"] for item in json_data["list"]]
@@ -163,7 +177,9 @@ def macro_euro_unemployment_rate_mom():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_unemployment_rate_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_unemployment_rate_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区失业率报告"] for item in json_data["list"]]
@@ -185,7 +201,9 @@ def macro_euro_trade_balance():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_trade_balance_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_trade_balance_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区未季调贸易帐报告"] for item in json_data["list"]]
@@ -207,7 +225,9 @@ def macro_euro_current_account_mom():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_current_account_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_current_account_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区经常帐报告"] for item in json_data["list"]]
@@ -229,7 +249,9 @@ def macro_euro_industrial_production_mom():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_industrial_production_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_industrial_production_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区工业产出月率报告"] for item in json_data["list"]]
@@ -251,7 +273,9 @@ def macro_euro_manufacturing_pmi():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_manufacturing_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_manufacturing_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区制造业PMI初值报告"] for item in json_data["list"]]
@@ -273,7 +297,9 @@ def macro_euro_services_pmi():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_services_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_services_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区服务业PMI终值报告"] for item in json_data["list"]]
@@ -295,7 +321,9 @@ def macro_euro_zew_economic_sentiment():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_zew_economic_sentiment_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_zew_economic_sentiment_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区ZEW经济景气指数报告"] for item in json_data["list"]]
@@ -317,7 +345,9 @@ def macro_euro_sentix_investor_confidence():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(f"https://cdn.jin10.com/dc/reports/dc_eurozone_sentix_investor_confidence_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}")
+    res = requests.get(
+        f"https://cdn.jin10.com/dc/reports/dc_eurozone_sentix_investor_confidence_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+    )
     json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区Sentix投资者信心指数报告"] for item in json_data["list"]]
@@ -332,41 +362,52 @@ def macro_euro_sentix_investor_confidence():
 if __name__ == "__main__":
     # 金十数据中心-经济指标-欧元区-国民经济运行状况
     # 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况
+    # 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况-欧元区季度GDP年率报告
     macro_euro_gdp_yoy_df = macro_euro_gdp_yoy()
     print(macro_euro_gdp_yoy_df)
 
     # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平
+    # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区CPI月率报告
     macro_euro_cpi_mom_df = macro_euro_cpi_mom()
     print(macro_euro_cpi_mom_df)
+    # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区CPI年率报告
     macro_euro_cpi_yoy_df = macro_euro_cpi_yoy()
     print(macro_euro_cpi_yoy_df)
+    # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区PPI月率报告
     macro_euro_ppi_mom_df = macro_euro_ppi_mom()
     print(macro_euro_ppi_mom_df)
+    # 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平-欧元区零售销售月率报告
     macro_euro_retail_sales_mom_df = macro_euro_retail_sales_mom()
     print(macro_euro_retail_sales_mom_df)
 
     # 金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场
+    # 金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场-欧元区季调后就业人数季率报告
     macro_euro_employment_change_qoq_df = macro_euro_employment_change_qoq()
     print(macro_euro_employment_change_qoq_df)
+    # 金十数据中心-经济指标-欧元区-国民经济运行状况-劳动力市场-欧元区失业率报告
     macro_euro_unemployment_rate_mom_df = macro_euro_unemployment_rate_mom()
     print(macro_euro_unemployment_rate_mom_df)
-
     # 金十数据中心-经济指标-欧元区-贸易状况
+    # 金十数据中心-经济指标-欧元区-贸易状况-欧元区未季调贸易帐报告
     macro_euro_trade_balance_df = macro_euro_trade_balance()
     print(macro_euro_trade_balance_df)
+    # 金十数据中心-经济指标-欧元区-贸易状况-欧元区经常帐报告
     macro_euro_current_account_mom_df = macro_euro_current_account_mom()
     print(macro_euro_current_account_mom_df)
-
     # 金十数据中心-经济指标-欧元区-产业指标
+    # 金十数据中心-经济指标-欧元区-产业指标-欧元区工业产出月率报告
     macro_euro_industrial_production_mom_df = macro_euro_industrial_production_mom()
     print(macro_euro_industrial_production_mom_df)
+    # 金十数据中心-经济指标-欧元区-产业指标-欧元区制造业PMI初值报告
     macro_euro_manufacturing_pmi_df = macro_euro_manufacturing_pmi()
     print(macro_euro_manufacturing_pmi_df)
+    # 金十数据中心-经济指标-欧元区-产业指标-欧元区服务业PMI终值报告
     macro_euro_services_pmi_df = macro_euro_services_pmi()
     print(macro_euro_services_pmi_df)
-
     # 金十数据中心-经济指标-欧元区-领先指标
+    # 金十数据中心-经济指标-欧元区-领先指标-欧元区ZEW经济景气指数报告
     macro_euro_zew_economic_sentiment_df = macro_euro_zew_economic_sentiment()
     print(macro_euro_zew_economic_sentiment_df)
+    # 金十数据中心-经济指标-欧元区-领先指标-欧元区Sentix投资者信心指数报告
     macro_euro_sentix_investor_confidence_df = macro_euro_sentix_investor_confidence()
     print(macro_euro_sentix_investor_confidence_df)
