@@ -28,7 +28,7 @@
 - **Easy**: Just one line to fetch the data
 - **Fast**: Just copy and paste
 - **Extensible**: Easy to customize your own code
-- **Powerful**: Python support!
+- **Powerful**: Python support
 
 ## Installation
 
@@ -52,8 +52,8 @@ pip install akshare --upgrade
 
 ## TODO
 
-- Uniform interface;
-- Support more data;
+- Uniform interface
+- Support more data
 
 ## Contribution
 
@@ -169,7 +169,8 @@ pip install akshare --upgrade
 1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据仅供参考, 不构成任何投资建议;
 2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
 3. [AkShare](https://github.com/jindaxiang/akshare) 坚持提供开源金融数据, 请放心使用;
-4. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议.
+4. [AkShare](https://github.com/jindaxiang/akshare) 基于某些不可控因素, 可能会移除部分数据接口;
+5. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议.
 
 ## Show your style
 
