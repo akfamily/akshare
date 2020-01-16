@@ -34,11 +34,23 @@ def death_company():
     """
     temp_df = pd.read_csv(it_url, index_col=0)
     for i in range(1, 3):
-        json_url = f'https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page={i}'
+        json_url = (
+            f"https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page={i}"
+        )
         data_json = requests.get(url=json_url, headers=it_headers).json()
-        data_df = data_json['data']['info']
+        data_df = data_json["data"]["info"]
         data_df = pd.DataFrame(data_df)
-        data_df = data_df[['com_name', 'born', "com_change_close_date", 'live_time', 'total_money', 'cat_name', 'com_prov']]
+        data_df = data_df[
+            [
+                "com_name",
+                "born",
+                "com_change_close_date",
+                "live_time",
+                "total_money",
+                "cat_name",
+                "com_prov",
+            ]
+        ]
         temp_df = temp_df.append(data_df, ignore_index=True)
         temp_df.drop_duplicates(inplace=True)
     return temp_df
@@ -51,11 +63,14 @@ def nicorn_company():
     https://www.itjuzi.com/deathCompany
     :return: pandas.DataFrame
     """
-    temp_df = pd.read_csv("https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/nicorn_company.csv", index_col=0)
+    temp_df = pd.read_csv(
+        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/nicorn_company.csv",
+        index_col=0,
+    )
     for i in range(1, 2):
-        json_url = f'https://www.itjuzi.com/api/nicorn?page={i}&com_prov=&cat_id=&order_id=1&com_name='
+        json_url = f"https://www.itjuzi.com/api/nicorn?page={i}&com_prov=&cat_id=&order_id=1&com_name="
         data_json = requests.get(url=json_url, headers=it_headers).json()
-        data_df = data_json['data']['data']
+        data_df = data_json["data"]["data"]
         data_df = pd.DataFrame(data_df)
         temp_df = temp_df.append(data_df, ignore_index=True)
         temp_df.drop_duplicates(inplace=True)
@@ -69,12 +84,15 @@ def maxima_company():
     https://www.itjuzi.com/deathCompany
     :return: pandas.DataFrame
     """
-    temp_df = pd.read_csv("https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/maxima.csv", index_col=0)
+    temp_df = pd.read_csv(
+        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/maxima.csv",
+        index_col=0,
+    )
     temp_df.head().append(temp_df.tail())
     for i in range(1, 2):
-        json_url = f'https://www.itjuzi.com/api/maxima/?page={i}&com_prov=&cat_id=&order_id=1&com_name='
+        json_url = f"https://www.itjuzi.com/api/maxima/?page={i}&com_prov=&cat_id=&order_id=1&com_name="
         data_json = requests.get(url=json_url, headers=it_headers).json()
-        data_df = data_json['data']['data']
+        data_df = data_json["data"]["data"]
         data_df = pd.DataFrame(data_df)
         temp_df = temp_df.append(data_df, ignore_index=True)
         temp_df.drop_duplicates(inplace=True)
@@ -87,21 +105,35 @@ def _death_company():
     https://www.itjuzi.com/deathCompany
     :return: pandas.DataFrame
     """
-    page_num_url = 'https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page=1'
+    page_num_url = (
+        "https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page=1"
+    )
     data_json = requests.get(url=page_num_url, headers=it_headers).json()
-    num_page_int = data_json['data']['page']["total"]
-    for i in range(1, int(num_page_int/10)+1):
+    num_page_int = data_json["data"]["page"]["total"]
+    for i in range(1, int(num_page_int / 10) + 1):
         print(i)
-        json_url = f'https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page={i}'
+        json_url = (
+            f"https://www.itjuzi.com/api/closure?com_prov=&fund_status=&sort=&page={i}"
+        )
         data_json = requests.get(url=json_url, headers=it_headers).json()
-        data_df = data_json['data']['info']
+        data_df = data_json["data"]["info"]
         data_df = pd.DataFrame(data_df)
-        data_df = data_df[['com_name', 'born', "com_change_close_date", 'live_time', 'total_money', 'cat_name', 'com_prov']]
+        data_df = data_df[
+            [
+                "com_name",
+                "born",
+                "com_change_close_date",
+                "live_time",
+                "total_money",
+                "cat_name",
+                "com_prov",
+            ]
+        ]
         # data_df.to_csv(os.path.join(r"C:\Users\king\Desktop\juzi", str(i)+".csv"))
     return data_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     death_df = death_company()
     print(death_df)
     nicorn_df = nicorn_company()
