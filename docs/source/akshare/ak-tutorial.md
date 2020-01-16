@@ -147,16 +147,23 @@
  # 财富世界五百强公司
  "fortune_rank"  # 获取财富世界500强公司历年排名
  # 中国证券投资基金业协会-信息公示
- "amac_manager_info"  # 会员信息公示-会员机构综合查询
- "amac_member_info"  # 私募基金管理人公示-私募基金管理人综合查询
- "amac_member_sub_info"  # 私募基金管理人公示-证券公司私募基金子公司管理人信息公示
- "amac_aoin_info"  # 基金产品公示-证券公司直投基金
- "amac_fund_account_info"  # 基金产品公示-基金公司及子公司集合资管产品公示
- "amac_fund_info"  # 基金产品公示-私募基金管理人基金产品
- "amac_fund_sub_info"  # 基金产品公示-证券公司私募投资基金
- "amac_futures_info"  # 基金产品公示-期货公司集合资管产品公示
- "amac_manager_cancelled_info"  # 诚信信息公示-已注销私募基金管理人名单
- "amac_securities_info"  # 基金产品公示-证券公司集合资管产品公示
+ "amac_member_info" # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
+ "amac_person_org_list" # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
+ "amac_person_org_list_ext" # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册外部公示信息
+ "amac_manager_info" # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
+ "amac_manager_classify_info" # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
+ "amac_member_sub_info" # 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
+ "amac_fund_info" # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
+ "amac_securities_info" # 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
+ "amac_aoin_info" # 中国证券投资基金业协会-信息公示-基金产品-证券公司直投基金
+ "amac_fund_sub_info" # 中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
+ "amac_fund_account_info" # 中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
+ "amac_fund_abs" # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
+ "amac_futures_info" # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
+ "amac_manager_xxgs_hmd" # 中国证券投资基金业协会-信息公示-诚信信息-违反自律规则黑名单
+ "amac_manager_xxgs_jlcf" # 中国证券投资基金业协会-信息公示-诚信信息-纪律处分
+ "amac_manager_xxgs_cxdj" # 中国证券投资基金业协会-信息公示-诚信信息-撤销管理人登记的名单
+ "amac_manager_cancelled_info" # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
  # 全国银行间同业拆借中心-市场数据-市场行情-外汇市场行情
  "fx_spot_quote"  # 市场行情-外汇市场行情-人民币外汇即期报价
  "fx_swap_quote"  # 市场行情-债券市场行情-人民币外汇远掉报价

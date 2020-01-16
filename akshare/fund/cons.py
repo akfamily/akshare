@@ -6,44 +6,80 @@ date: 2019/9/30 13:58
 contact: jindaxiang@163.com
 desc: 基金配置文件
 """
-# amac
-manager_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.1906342132667007&page=0&size=30000"
-manager_payload = {}
+# 中国证券投资基金业协会-信息公示-会员信息
+# 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
+amac_member_info_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/pofMember?rand=0.29121896744980824&page=0&size=10000"
+amac_member_info_payload = {}
 
+# 中国证券投资基金业协会-信息公示-从业人员信息
+# 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
+amac_person_org_list_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/personOrg?rand=0.29990518236199226&page=0&size=30000"
+amac_person_org_list_payload = {"page": "1"}
+
+# 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册外部公示信息
+amac_person_org_list_ext_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/personOrg?rand=0.6559113152033413&page=0&size=1000"
+amac_person_org_list_ext_payload = {"page": "2"}
+
+# 中国证券投资基金业协会-信息公示-私募基金管理人公示
+# 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
+amac_manager_info_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.1906342132667007&page=0&size=30000"
+amac_manager_info_payload = {}
+
+# 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
+amac_manager_classify_info_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/manager?rand=0.15042461260592477&page=0&size=30000"
+amac_manager_classify_info_payload = {}
+
+# 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
 member_sub_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/pofMember?rand=0.7268765057523581&page=0&size=1000"
 member_sub_payload = {"primaryInvestType": ["证券公司私募基金子公司"]}
 
-fund_info_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/fund?rand=0.4453771335054344&page=0&size=150000"
-fund_info_payload = {}
+# 中国证券投资基金业协会-信息公示-基金产品
+# 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
+amac_fund_info_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/fund?rand=0.4453771335054344&page=0&size=150000"
+amac_fund_info_payload = {}
 
-manager_cancelled_url = "http://gs.amac.org.cn/amac-infodisc/api/cancelled/manager?rand=0.5044834416392225&page=0&size=20000"
-manager_cancelled_payload = {}
+# 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
+amac_securities_info_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/securities?rand=0.37635501241756697&page=0&size=10000"
+amac_securities_info_payload = {}
 
-# 证券公司集合资管产品公示
-securities_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/securities?rand=0.37635501241756697&page=0&size=10000"
-securities_payload = {}
+# 中国证券投资基金业协会-信息公示-基金产品-证券公司直投基金
+amac_aoin_info_url = "http://gs.amac.org.cn/amac-infodisc/api/aoin/product?rand=0.8658543297539962&page=0&size=2000"
+amac_aoin_info_payload = {}
 
-# 期货公司集合资管产品公示
-futures_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/futures?rand=0.7131945361451304&page=0&size=10000"
-futures_payload = {}
+# 中国证券投资基金业协会-信息公示-基金产品-证券公司私募投资基金
+amac_fund_sub_info_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/subfund?rand=0.8256678186283957&page=0&size=2000"
+amac_fund_sub_info_payload = {}
 
-# 基金公司及子公司集合资管产品公示
-fund_account_url = "http://gs.amac.org.cn/amac-infodisc/api/fund/account?rand=0.7087855351461467&page=0&size=50000"
-fund_account_payload = {}
+# 中国证券投资基金业协会-信息公示-基金产品-基金公司及子公司集合资管产品公示
+amac_fund_account_info_url = "http://gs.amac.org.cn/amac-infodisc/api/fund/account?rand=0.7087855351461467&page=0&size=50000"
+amac_fund_account_info_payload = {}
 
-# 证券公司私募投资基金
-fund_sub_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/subfund?rand=0.8256678186283957&page=0&size=2000"
-fund_sub_payload = {}
+# 中国证券投资基金业协会-信息公示-基金产品-资产支持专项计划
+amac_fund_abs_url = "http://ba.amac.org.cn/pages/amacWeb/ab-special-plan!list.action"
+amac_fund_abs_payload = {
+    "filter_LIKES_ASPI_NAME": "",
+    "filter_GES_AT_AUDIT_DATE": "",
+    "filter_LES_AT_AUDIT_DATE": "",
+    "page.searchFileName": "publicity_abs_web",
+    "page.sqlKey": "PAGE_ABS_PUBLICITY_WEB",
+    "page.sqlCKey": "SIZE_ABS_PUBLICITY_WEB",
+    "_search": "false",
+    "nd": "1579177295346",
+    "page.pageSize": "5000",
+    "page.pageNo": "1",
+    "page.orderBy": "ASPI_ID",
+    "page.order": "desc",
+}
 
-# 证券公司直投基金
-aoin_url = "http://gs.amac.org.cn/amac-infodisc/api/aoin/product?rand=0.8658543297539962&page=0&size=2000"
-aoin_payload = {}
+# 中国证券投资基金业协会-信息公示-基金产品-期货公司集合资管产品公示
+amac_futures_info_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/futures?rand=0.7131945361451304&page=0&size=10000"
+amac_futures_info_payload = {}
 
-# 会员机构综合查询
-member_url = "http://gs.amac.org.cn/amac-infodisc/api/pof/pofMember?rand=0.29121896744980824&page=0&size=10000"
-member_payload = {}
+# 中国证券投资基金业协会-信息公示-诚信信息公示-已注销私募基金管理人名单
+amac_manager_cancelled_info_url = "http://gs.amac.org.cn/amac-infodisc/api/cancelled/manager?rand=0.5044834416392225&page=0&size=20000"
+amac_manager_cancelled_info_payload = {}
 
-
+# 智道智科
 zdzk_headers = {
     "Accept": "application/json, text/plain, */*",
     "Accept-Encoding": "gzip, deflate, br",
