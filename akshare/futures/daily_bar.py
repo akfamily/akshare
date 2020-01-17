@@ -24,23 +24,23 @@ calendar = cons.get_calendar()
 
 def get_cffex_daily(date=None):
     """
-    获取中国金融期货交易所日交易数据
+    中国金融期货交易所日交易数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 为空时为当天
-    :return: pd.DataFrame
-    中国金融期货交易所日(pd.DataFrame):
-        symbol        合约代码
-        date          日期
-        open          开盘价
-        high          最高价
-        low          最低价
-        close         收盘价
-        volume        成交量
-        open_interest   持仓量
-        turnover      成交额
-        settle        结算价
-        pre_settle    前结算价
-        variety       合约类别
-        或 None(给定日期没有交易数据)
+    :return: pandas.DataFrame
+    中国金融期货交易所日:
+    symbol        合约代码
+    date          日期
+    open          开盘价
+    high          最高价
+    low          最低价
+    close         收盘价
+    volume        成交量
+    open_interest   持仓量
+    turnover      成交额
+    settle        结算价
+    pre_settle    前结算价
+    variety       合约类别
+    或 None(给定日期没有交易数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:

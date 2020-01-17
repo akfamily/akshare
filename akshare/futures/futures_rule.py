@@ -12,7 +12,7 @@ import pandas as pd
 
 def futures_rule():
     """
-    获取 国泰君安期货-交易日历数据表 数据
+    国泰君安期货-交易日历数据表 数据
     http://www.gtjaqh.com/jyrl.html
     :return: pandas.DataFrame
     """
