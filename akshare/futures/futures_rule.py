@@ -9,15 +9,17 @@ http://www.gtjaqh.com/jyrl.html
 """
 import pandas as pd
 
+from akshare.futures.cons import futures_rule_url
+
 
 def futures_rule():
     """
-    国泰君安期货-交易日历数据表 数据
+    国泰君安期货-交易日历数据表, 必须在交易日运行
     http://www.gtjaqh.com/jyrl.html
-    :return: pandas.DataFrame
+    :return: 交易日历数据
+    :rtype: pandas.DataFrame
     """
-    url = "http://www.gtjaqh.com/gtqh/html/calendar/dataTable"
-    temp_df = pd.read_html(url, header=0)[0]
+    temp_df = pd.read_html(futures_rule_url, header=0)[0]
     temp_df.dropna(subset=["品种"], inplace=True)
     return temp_df
 
