@@ -6,7 +6,7 @@ date: 2020/1/19 14:44
 contact: jindaxiang@163.com
 desc: 郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
 http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
-自 2020 年 1 月 1 日起，成交量、空盘量、成交额、行权量均为单边计算
+自 20200101 起，成交量、空盘量、成交额、行权量均为单边计算
 郑州商品交易所-期权上市时间表
 "SR": "20170419"
 "CF": "20190410"
@@ -56,6 +56,7 @@ def option_czce_hist(symbol="SR", year="2019"):
     }
     res = requests.post(url, data=payload)
     soup = BeautifulSoup(res.text, "lxml")
+    # 获取 url 地址
     url = soup.get_text()[soup.get_text().find("'") + 1:soup.get_text().rfind("'")].split(",")[0][:-1]
     res = requests.get(url)
     option_df = pd.read_table(StringIO(res.text), skiprows=1, sep="|", low_memory=False)

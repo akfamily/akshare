@@ -680,20 +680,29 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.3.46
 更新-商品期权-菜籽粕期权接口
 修复 get_sector_futures 字段名问题
+0.3.47
+增加-商品期权-郑州商品交易所-期权-历史数据
 """
 
-__version__ = "0.3.46"
+__version__ = "0.3.47"
 __author__ = "Albert King"
 
 """
-增加-宏观-经济数据-银行间拆借利率
+商品期权-郑州商品交易所-期权-历史数据
+"""
+from akshare.option.czce_option import (
+    option_czce_hist,
+)
+
+"""
+宏观-经济数据-银行间拆借利率
 """
 from akshare.interest_rate.interbank_rate_em import (
     rate_interbank,
 )
 
 """
-增加-东方财富网-经济数据-银行间拆借利率
+东方财富网-经济数据-银行间拆借利率
 """
 from akshare.interest_rate.interbank_rate_em import (
     rate_interbank,
