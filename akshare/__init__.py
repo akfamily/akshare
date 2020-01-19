@@ -677,9 +677,12 @@ amac_manager_xxgs_hmd # 中国证券投资基金业协会-信息公示-诚信信
 amac_manager_xxgs_jlcf # 中国证券投资基金业协会-信息公示-诚信信息-纪律处分
 amac_manager_xxgs_cxdj # 中国证券投资基金业协会-信息公示-诚信信息-撤销管理人登记的名单
 amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
+0.3.46
+更新-商品期权-菜籽粕期权接口
+修复 get_sector_futures 字段名问题
 """
 
-__version__ = "0.3.45"
+__version__ = "0.3.46"
 __author__ = "Albert King"
 
 """

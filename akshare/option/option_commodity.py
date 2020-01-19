@@ -115,7 +115,7 @@ def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
 
 def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
     """
-    获取郑州商品交易所-期权-日频行情数据
+    郑州商品交易所-期权-日频行情数据
     说明：
     (1) 价格：元/吨
     (2) 成交量、空盘量：手
@@ -124,7 +124,7 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
     (5) 涨跌二：今结算-昨结算
     (6) 隐含波动率：将当日期权合约的结算价代入期权定价模型，反推出来的波动率数值
     :param trade_date: str "20191017"
-    :param symbol: str "白糖期权", "棉花期权","甲醇期权","PTA期权"
+    :param symbol: str "白糖期权", "棉花期权", "甲醇期权", "PTA期权", "菜籽粕期权"
     :return: pandas.DataFrame
     郑商所每日期权交易数据
              品种代码        昨结算         今开盘         最高价         最低价         今收盘      \
@@ -186,6 +186,10 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("MA")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
+            elif symbol == "菜籽粕期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("RM")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
             else:
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("CF")]
                 temp_df.reset_index(inplace=True, drop=True)
@@ -196,7 +200,7 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
 
 def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
     """
-    获取上海期货交易所-期权-日频行情数据
+    上海期货交易所-期权-日频行情数据
     :param trade_date: str "20191017"
     :param symbol: str "铜期权" or "天胶期权" or "黄金期权"
     :return: pandas.DataFrame
@@ -316,7 +320,7 @@ def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
 
 
 if __name__ == "__main__":
-    df_test = get_czce_option_daily(trade_date="20191216", symbol="PTA期权")
+    df_test = get_czce_option_daily(trade_date="20200117", symbol="菜籽粕期权")
     print(df_test)
     one, two = get_dce_option_daily(trade_date="20191209", symbol="铁矿石期权")
     print(one)

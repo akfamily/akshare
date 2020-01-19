@@ -70,7 +70,7 @@ def get_sector_futures(
         start_date='2000/01/01',
         end_date='2019/10/17'):
     """
-    获得具体国家的具体指数的从 start_date 到 end_date 期间的数据
+    具体国家的具体指数的从 start_date 到 end_date 期间的数据
     :param sector: str 对应函数中的国家名称
     :param symbol: str 对应函数中的指数名称
     :param start_date: str '2000/01/01', 注意格式
@@ -155,7 +155,7 @@ def get_sector_futures(
 
     df_data = pd.DataFrame(
         [list_date, list_new, list_open, list_high, list_low, list_vol]).T
-    df_data.iloc[0, :][5] = '涨跌幅'
+    # df_data.iloc[0, :][5] = '涨跌幅'
     df_data.columns = df_data.iloc[0, :]
     df_data = df_data.iloc[1:, :]
     df_data = df_data[:-1]  # 去掉最后一行
@@ -173,8 +173,8 @@ def get_sector_futures(
 if __name__ == "__main__":
     index_df = get_sector_futures(
         sector="能源",
-        symbol="伦敦布伦特原油",
-        start_date='2005/01/01',
-        end_date='2019/10/17')
+        symbol="WTI原油",
+        start_date='2019/02/01',
+        end_date='2020/01/17')
     print(index_df.name)
     print(index_df)
