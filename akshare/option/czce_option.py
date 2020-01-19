@@ -7,7 +7,12 @@ contact: jindaxiang@163.com
 desc: 郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
 http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
 自 2020 年 1 月 1 日起，成交量、空盘量、成交额、行权量均为单边计算
-SR  20170419
+郑州商品交易所-期权上市时间表
+"SR": "20170419"
+"CF": "20190410"
+"TA": "20191216"
+"MA": "20191217"
+"RM": "20200116"
 """
 from io import StringIO
 
@@ -17,22 +22,27 @@ from bs4 import BeautifulSoup
 
 
 def option_czce_hist(symbol="SR", year="2019"):
-    url = "http://app.czce.com.cn/cms/cmsface/czce/newcms/calendarnewAll.jsp"
-    headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "Accept-Encoding": "gzip, deflate",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Content-Length": "181",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Host": "app.czce.com.cn",
-        "Origin": "http://www.czce.com.cn",
-        "Pragma": "no-cache",
-        "Referer": "http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36",
+    """
+    郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
+    http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
+    :param symbol: {"白糖": "SR", "棉花": "CF", "PTA": "TA", "甲醇": "MA", "菜籽粕": "RM"}
+    :type symbol: str
+    :param year: 需要获取数据的年份, 注意品种的上市时间
+    :type year: str
+    :return: 制定年份的日频期权数据
+    :rtype: pandas.DataFrame
+    """
+    symbol_year_dict = {
+        "SR": "2017",
+        "CF": "2019",
+        "TA": "2019",
+        "MA": "2019",
+        "RM": "2020",
     }
+    if int(symbol_year_dict[symbol]) > int(year):
+        print(f"{year} 年品种 {symbol} 还没用上市")
+        return
+    url = "http://app.czce.com.cn/cms/cmsface/czce/newcms/calendarnewAll.jsp"
     payload = {
         "dataType": "HISTORY",
         "radio": "options",
@@ -46,12 +56,12 @@ def option_czce_hist(symbol="SR", year="2019"):
     }
     res = requests.post(url, data=payload)
     soup = BeautifulSoup(res.text, "lxml")
-    url = soup.get_text()[soup.get_text().find("'")+1:soup.get_text().rfind("'")].split(",")[0][:-1]
+    url = soup.get_text()[soup.get_text().find("'") + 1:soup.get_text().rfind("'")].split(",")[0][:-1]
     res = requests.get(url)
     option_df = pd.read_table(StringIO(res.text), skiprows=1, sep="|", low_memory=False)
     return option_df
 
 
 if __name__ == '__main__':
-    option_czce_hist_df = option_czce_hist(symbol="SR", year="2018")
+    option_czce_hist_df = option_czce_hist(symbol="MA", year="2020")
     print(option_czce_hist_df)
