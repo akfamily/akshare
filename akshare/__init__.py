@@ -686,9 +686,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复 macro_cons_opec_month 接口数据更新问题
 0.3.49
 新增-交易法门-工具-仓单分析-虚实盘比日报接口
+0.3.50
+更新-说明文档
 """
 
-__version__ = "0.3.49"
+__version__ = "0.3.50"
 __author__ = "Albert King"
 
 """
