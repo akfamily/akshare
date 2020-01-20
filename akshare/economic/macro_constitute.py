@@ -42,7 +42,7 @@ def macro_cons_gold_volume():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -75,7 +75,7 @@ def macro_cons_gold_change():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -108,7 +108,7 @@ def macro_cons_gold_amount():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -141,7 +141,7 @@ def macro_cons_silver_volume():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -174,7 +174,7 @@ def macro_cons_silver_change():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -207,7 +207,7 @@ def macro_cons_silver_amount():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -281,7 +281,7 @@ def macro_cons_opec_near_change():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     big_df = pd.DataFrame()
     for country in [item["datas"] for item in json_data["list"]][0].keys():
@@ -298,10 +298,11 @@ def macro_cons_opec_near_change():
     return big_df.T
 
 
-def macro_cons_opec_month(month_type="上个月"):
+def macro_cons_opec_month():
     """
     欧佩克报告-月度, 数据区间从20170118-至今
-    :param month_type: ["上上上上个月", "上上上个月", "上上个月", "上个月"]
+    这里返回的具体索引日期的数据为上一个月的数据, 由于某些国家的数据有缺失,
+    只选择有数据的国家返回
     :return: pandas.Series
                 阿尔及利亚    安哥拉  厄瓜多尔    加蓬     伊朗    伊拉克    科威特    利比亚   尼日利亚  \
     2017-01-18  108.0  172.4  54.5  21.3  372.0  463.2  281.2   60.8  154.2
@@ -362,7 +363,7 @@ def macro_cons_opec_month(month_type="上个月"):
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     big_df = pd.DataFrame()
     for country in [item["datas"] for item in json_data["list"]][0].keys():
@@ -371,29 +372,60 @@ def macro_cons_opec_month(month_type="上个月"):
             value_df = pd.DataFrame(value_list)
             value_df.columns = json_data["kinds"]
             value_df.index = pd.to_datetime(date_list)
-            temp_df = value_df[month_type]
+            temp_df = value_df["上个月"]
             temp_df.name = country
             big_df = big_df.append(temp_df)
         except:
             continue
+
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_opec_report",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    res = requests.get(f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
+                       headers=headers)  # 日期序列
+    all_date_list = res.json()["data"]
+    need_date_list = [item for item in all_date_list if
+                      item.split("-")[0] + item.split("-")[1] + item.split("-")[2] not in date_list]
+    for item in reversed(need_date_list):
+        res = requests.get(
+            f"https://datacenter-api.jin10.com/reports/list?category=opec&date={item}&_={str(int(round(t * 1000)))}",
+            headers=headers)
+        temp_df = pd.DataFrame(res.json()["data"]["values"],
+                               columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist()).T
+        temp_df.columns = temp_df.iloc[0, :]
+        temp_df = temp_df[['阿尔及利亚', '安哥拉', '厄瓜多尔', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
+                           '阿联酋', '委内瑞拉', '欧佩克产量']].iloc[-2, :]
+        big_df[item] = temp_df
+
     return big_df.T
 
 
 if __name__ == "__main__":
-    macro_cons_gold_volume_df = macro_cons_gold_volume()
-    print(macro_cons_gold_volume_df)
-    macro_cons_gold_change_df = macro_cons_gold_change()
-    print(macro_cons_gold_change_df)
-    macro_cons_gold_amount_df = macro_cons_gold_amount()
-    print(macro_cons_gold_amount_df)
-    macro_cons_silver_volume_df = macro_cons_silver_volume()
-    print(macro_cons_silver_volume_df)
-    macro_cons_silver_change_df = macro_cons_silver_change()
-    print(macro_cons_silver_change_df)
-    macro_cons_silver_amount_df = macro_cons_silver_amount()
-    print(macro_cons_silver_amount_df)
-    macro_cons_opec_near_change_df = macro_cons_opec_near_change()
-    print(macro_cons_opec_near_change_df)
-    macro_cons_opec_month_df = macro_cons_opec_month()
+    # macro_cons_gold_volume_df = macro_cons_gold_volume()
+    # print(macro_cons_gold_volume_df)
+    # macro_cons_gold_change_df = macro_cons_gold_change()
+    # print(macro_cons_gold_change_df)
+    # macro_cons_gold_amount_df = macro_cons_gold_amount()
+    # print(macro_cons_gold_amount_df)
+    # macro_cons_silver_volume_df = macro_cons_silver_volume()
+    # print(macro_cons_silver_volume_df)
+    # macro_cons_silver_change_df = macro_cons_silver_change()
+    # print(macro_cons_silver_change_df)
+    # macro_cons_silver_amount_df = macro_cons_silver_amount()
+    # print(macro_cons_silver_amount_df)
+    # macro_cons_opec_near_change_df = macro_cons_opec_near_change()
+    # print(macro_cons_opec_near_change_df)
+    macro_cons_opec_month_df = macro_cons_opec_month(month_type="上个月")
     print(macro_cons_opec_month_df)
-

@@ -682,9 +682,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复 get_sector_futures 字段名问题
 0.3.47
 增加-商品期权-郑州商品交易所-期权-历史数据
+0.3.48
+修复 macro_cons_opec_month 接口数据更新问题
 """
 
-__version__ = "0.3.47"
+__version__ = "0.3.48"
 __author__ = "Albert King"
 
 """
