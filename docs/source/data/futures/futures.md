@@ -2757,9 +2757,63 @@ print(jyfm_tools_warehouse_receipt_query_df)
 1705  2020-01-08   41990   -275
 ```
 
+###### 交易法门-工具-仓单分析-虚实盘比日报
+
+接口: jyfm_tools_warehouse_virtual_fact_daily
+
+目标地址: https://www.jiaoyifamen.com/tools/warehouse-receipt/virtualfact/daily?day=&_=1579532255369
+
+描述: 获取交易法门-工具-仓单分析-虚实盘比日报
+
+限量: 单次获取指定日期所有合约的虚实盘比日报数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| trade_date | str | Y | trade_date="2020-01-20" |
+| headers | dict  | Y    |   headers=headers|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| day          | str   | Y        | 日期     |
+| type          | str   | Y        | 品种     |
+| ratio          | str   | Y        | 虚实盘比     |
+| increase        | str   | Y        | 增减     |
+| increaseRatio    | str   | Y        | 增减幅度     |
+
+接口示例
+
+```python
+import akshare as ak
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_warehouse_virtual_fact_daily_df = ak.jyfm_tools_warehouse_virtual_fact_daily(trade_date="2020-01-20", headers=headers)
+print(jyfm_tools_warehouse_virtual_fact_daily_df)
+```
+
+数据示例
+
+```
+                    day type          ratio      increase  increaseRatio
+0   2020-01-20 00:00:00   沪金  101671.742809   1914.833616       0.019195
+1   2020-01-20 00:00:00   鸡蛋   38149.230769 -24245.880342      -0.388586
+2   2020-01-20 00:00:00   焦炭   33052.352941  -4744.117647      -0.125517
+3   2020-01-20 00:00:00   铁矿   16533.307692   -344.564103      -0.020415
+4   2020-01-20 00:00:00   玻璃    6081.400000    -76.125000      -0.012363
+..                  ...  ...            ...           ...            ...
+38  2020-01-20 00:00:00   沪铝       7.359149      0.122958       0.016992
+39  2020-01-20 00:00:00   沪铅       6.410041      0.849726       0.152820
+40  2020-01-20 00:00:00   沪锡       5.996223     -0.074240      -0.012230
+41  2020-01-20 00:00:00   沪镍       3.787275     -0.107731      -0.027659
+42  2020-01-20 00:00:00   沪银       3.054186      0.007524       0.002470
+```
+
 ###### 交易法门-工具-仓单分析-虚实盘比查询
 
-接口: jyfm_tools_warehouse_receipt_ratio
+接口: jyfm_tools_warehouse_virtual_fact_ratio
 
 目标地址: https://www.jiaoyifamen.com/tools/warehouse-receipt/ratio
 
@@ -2787,7 +2841,7 @@ print(jyfm_tools_warehouse_receipt_query_df)
 import akshare as ak
 headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
-jyfm_tools_warehouse_receipt_ratio_df = ak.jyfm_tools_warehouse_receipt_ratio(symbol="AL", code="05", headers=headers)
+jyfm_tools_warehouse_receipt_ratio_df = ak.jyfm_tools_warehouse_virtual_fact_ratio(symbol="AL", code="05", headers=headers)
 print(jyfm_tools_warehouse_receipt_ratio_df)
 ```
 

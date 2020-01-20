@@ -684,6 +684,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 增加-商品期权-郑州商品交易所-期权-历史数据
 0.3.48
 修复 macro_cons_opec_month 接口数据更新问题
+0.3.49
+新增-交易法门-工具-仓单分析-虚实盘比日报接口
 """
 
 __version__ = "0.3.48"
@@ -769,7 +771,8 @@ from akshare.futures_derivative.jyfm_tools_func import (
 from akshare.futures_derivative.jyfm_tools_func import (
     jyfm_tools_warehouse_receipt_daily,
     jyfm_tools_warehouse_receipt_query,
-    jyfm_tools_warehouse_receipt_ratio,
+    jyfm_tools_warehouse_virtual_fact_ratio,
+    jyfm_tools_warehouse_virtual_fact_daily,
 )
 
 """

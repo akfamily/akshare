@@ -391,7 +391,28 @@ def jyfm_tools_warehouse_receipt_query(symbol="AL", indicator="仓单数据走�
                                "year2019", "year2020"]).T
 
 
-def jyfm_tools_warehouse_receipt_ratio(symbol="AL", code="05", headers=""):
+def jyfm_tools_warehouse_virtual_fact_daily(trade_date="2020-01-20", headers=""):
+    """
+    交易法门-工具-仓单分析-虚实盘比日报
+    https://www.jiaoyifamen.com/tools/warehouse-receipt/virtualfact/daily?day=&_=1579532255369
+    :param trade_date: 指定日期
+    :type trade_date: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定品种指定合约的虚实盘比数据
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "day": trade_date,
+        "_": "1579532255370",
+    }
+    url = "https://www.jiaoyifamen.com/tools/warehouse-receipt/virtualfact/daily"
+    res = requests.get(url, params=params, headers=headers)
+    data_json = res.json()["data"]
+    return pd.DataFrame(data_json)
+
+
+def jyfm_tools_warehouse_virtual_fact_ratio(symbol="AL", code="05", headers=""):
     """
     交易法门-工具-仓单分析-虚实盘比查询
     https://www.jiaoyifamen.com/tools/warehouse-receipt/ratio
@@ -568,7 +589,7 @@ def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
 
 if __name__ == "__main__":
     # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 在下面输入对应的帐号和密码后再运行 jyfm_login 函数!
-    headers = jyfm_login(account="", password="")
+    headers = jyfm_login(account="link", password="loveloli888")
 
     # 交易法门-工具-套利分析
     jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
@@ -605,11 +626,17 @@ if __name__ == "__main__":
     print(jyfm_tools_position_fund_df)
 
     # 交易法门-工具-仓单分析
+    # 交易法门-工具-仓单分析-仓单日报
     jyfm_tools_warehouse_receipt_daily_df = jyfm_tools_warehouse_receipt_daily(trade_date="2020-01-02", headers=headers)
     print(jyfm_tools_warehouse_receipt_daily_df)
+    # 交易法门-工具-仓单分析-仓单查询
     jyfm_tools_warehouse_receipt_query_df = jyfm_tools_warehouse_receipt_query(symbol="AL", indicator="仓单数据走势图", headers=headers)
     print(jyfm_tools_warehouse_receipt_query_df)
-    jyfm_tools_warehouse_receipt_ratio_df = jyfm_tools_warehouse_receipt_ratio(symbol="AL", code="05", headers=headers)
+    # 交易法门-工具-仓单分析-虚实盘比日报
+    jyfm_tools_warehouse_virtual_fact_daily_df = jyfm_tools_warehouse_virtual_fact_daily(trade_date="2020-01-20", headers=headers)
+    print(jyfm_tools_warehouse_virtual_fact_daily_df)
+    # 交易法门-工具-仓单分析-虚实盘比查询
+    jyfm_tools_warehouse_receipt_ratio_df = jyfm_tools_warehouse_virtual_fact_ratio(symbol="AL", code="05", headers=headers)
     print(jyfm_tools_warehouse_receipt_ratio_df)
 
     # 交易法门-工具-期限分析
