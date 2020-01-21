@@ -874,8 +874,13 @@ index
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | word | str  | Y    |   word="股票"|
-| start_date | datetime.datetime  | Y    | start_date="2010-12-27" |
-| end_date | datetime.datetime  | Y    |  end_date="2019-12-01" |
+| start_date | str  | Y    | start_date="2010-12-27" |
+| end_date | str  | Y    |  end_date="2019-12-01" |
+| cookie | str  | Y    |  cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示 |
+
+如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可
+
+![cookies](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png)
 
 输出参数
 
@@ -888,7 +893,8 @@ index
 
 ```python
 import akshare as ak
-index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01')
+cookie = "此处输入您在网页端登录百度指数后的 cookie 数据"
+index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
 print(index_df)
 ```
 
@@ -925,6 +931,11 @@ date
 | word | str  | Y    |   word="股票"|
 | start_date | datetime.datetime  | Y    | start_date="2017-07-03" |
 | end_date | datetime.datetime  | Y    |  end_date="2019-12-01" |
+| cookie | str  | Y    |  cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示 |
+
+如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可
+
+![cookies](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png)
 
 输出参数
 
@@ -937,7 +948,8 @@ date
 
 ```python
 import akshare as ak
-index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01')
+cookie = "此处输入您在网页端登录百度指数后的 cookie 数据"
+index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01', cookie=cookie)
 print(index_df)
 ```
 
@@ -974,6 +986,11 @@ date
 | word | str  | Y    |   word="股票"|
 | start_date | datetime.datetime  | Y    | start_date="2010-12-27" |
 | end_date | datetime.datetime  | Y    |  end_date="2019-12-01" |
+| cookie | str  | Y    |  cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示 |
+
+如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可
+
+![cookies](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png)
 
 输出参数
 
@@ -986,7 +1003,8 @@ date
 
 ```python
 import akshare as ak
-index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01')
+cookie = "此处输入您在网页端登录百度指数后的 cookie 数据"
+index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
 print(index_df)
 ```
 
