@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/10/17 0:50
 contact: jindaxiang@163.com
-desc: 提供英为财情-股票指数-全球股指与期货指数数据接口
+desc: 英为财情-股票指数-全球股指与期货指数数据接口
 """
 import re
 
@@ -309,137 +309,6 @@ def get_country_name_url(country="中国"):
 
 
 def get_country_index(
-    country="中国", index_name="上证指数", start_date="2000/01/01", end_date="2019/10/17"
-):
-    """
-    获得具体国家的具体指数的从 start_date 到 end_date 期间的数据
-    :param country: str 对应函数中的国家名称
-    :param index_name: str 对应函数中的指数名称
-    :param start_date: str '2000/01/01', 注意格式
-    :param end_date: str '2019/10/17', 注意格式
-    :return: pandas.DataFrame
-    深证战略性新兴产业指数历史数据
-    0              日期        收盘        开盘         高         低     交易量   百分比变化
-    1     2019年10月16日  1,692.60  1,695.38  1,708.59  1,691.39   4.65B  -0.01%
-    2     2019年10月15日  1,692.79  1,712.84  1,712.84  1,691.32   5.41B  -1.45%
-    3     2019年10月14日  1,717.74  1,713.70  1,726.25  1,710.30   5.99B   1.30%
-    4     2019年10月11日  1,695.62  1,695.28  1,703.79  1,680.60   5.15B   0.24%
-    5     2019年10月10日  1,691.63  1,664.54  1,693.21  1,660.60   5.36B   1.68%
-               ...       ...       ...       ...       ...     ...     ...
-    1647    2013年1月7日    914.17    901.32    914.17    899.97  18.97K   1.45%
-    1648    2013年1月4日    901.11    917.44    918.90    893.13  17.70K  -1.02%
-    1649  2012年12月31日    910.43    902.72    910.43    900.62  15.90K   1.11%
-    1650  2012年12月28日    900.42    892.72    900.42    888.62  13.82K   0.88%
-    1651  2012年12月27日    892.59    901.97    905.57    891.83  17.55K  -0.76%
-    """
-    name_code_dict = get_country_name_url(country)
-    temp_url = f"https://cn.investing.com/{name_code_dict[index_name]}-historical-data"
-    res = requests.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
-    res = requests.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
-    para_data = re.findall(r"\d+", data)
-    payload = {
-        "curr_id": para_data[0],
-        "smlID": para_data[1],
-        "header": title,
-        "st_date": start_date,
-        "end_date": end_date,
-        "interval_sec": "Daily",
-        "sort_col": "date",
-        "sort_ord": "DESC",
-        "action": "historical_data",
-    }
-    url = "https://cn.investing.com/instruments/HistoricalDataAjax"
-    res = requests.post(url, data=payload, headers=long_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    vest_list = [item.get_text().strip().split("\n") for item in soup.find_all("tr")]
-
-    list_date = list()
-    for item in vest_list[:-1]:
-        list_date.append(item[0])
-
-    list_new = list()
-    for item in vest_list[:-1]:
-        list_new.append(item[1])
-
-    list_open = list()
-    for item in vest_list[:-1]:
-        list_open.append(item[2])
-
-    list_high = list()
-    for item in vest_list[:-1]:
-        list_high.append(item[3])
-
-    list_low = list()
-    for item in vest_list[:-1]:
-        list_low.append(item[4])
-
-    list_vol_per = list()
-    for item in vest_list[:-1]:
-        list_vol_per.append(item[5])
-
-    list_vol = list()
-    list_per = list()
-    for item in list_vol_per:
-        list_vol.append(item.split(" ")[0])
-        list_per.append(item.split(" ")[1])
-
-    list_date.append(vest_list[-1][0])
-    list_new.append(vest_list[-1][1])
-    list_open.append(vest_list[-1][2])
-    list_high.append(vest_list[-1][3])
-    list_low.append(vest_list[-1][4])
-
-    df_data = pd.DataFrame(
-        [list_date, list_new, list_open, list_high, list_low, list_vol, list_per]
-    ).T
-    df_data.iloc[0, :][5] = "交易量"
-    df_data.iloc[0, :][6] = "百分比变化"
-    df_data.columns = df_data.iloc[0, :]
-    df_data = df_data.iloc[1:, :]
-    df_data = df_data[:-1]  # 去掉最后一行
-    df_data = df_data.set_index(["日期"])
-    df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
-    df_data.index.name = "日期"
-    df_data["收盘"] = df_data["收盘"].str.replace(",", "").astype(float)
-    df_data["开盘"] = df_data["开盘"].str.replace(",", "").astype(float)
-    df_data["高"] = df_data["高"].str.replace(",", "").astype(float)
-    df_data["低"] = df_data["低"].str.replace(",", "").astype(float)
-    if any(df_data["交易量"].astype(str).str.contains("-")):
-        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
-            df_data["交易量"].str.contains("-")
-        ].replace("-", 0)
-    if any(df_data["交易量"].astype(str).str.contains("B")):
-        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
-            .str.replace("B", "")
-            .astype(float)
-            * 1000000000
-        )
-    if any(df_data["交易量"].astype(str).str.contains("M")):
-        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
-            .str.replace("M", "")
-            .astype(float)
-            * 1000000
-        )
-    if any(df_data["交易量"].astype(str).str.contains("K")):
-        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
-            .str.replace("K", "")
-            .astype(float)
-            * 1000
-        )
-    df_data["交易量"] = df_data["交易量"].astype(float)
-    df_data = df_data[["收盘", "开盘", "高", "低", "交易量"]]
-    df_data.name = title
-    return df_data
-
-
-def get_currencies(
     country="中国", index_name="上证指数", start_date="2000/01/01", end_date="2019/10/17"
 ):
     """
