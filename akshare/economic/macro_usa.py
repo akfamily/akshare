@@ -437,7 +437,7 @@ def macro_usa_current_account():
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-贝克休斯钻井报告
-def macro_usa_rig_count():
+def _macro_usa_rig_count():
     """
     贝克休斯钻井报告, 数据区间从20080317-至今
     https://datacenter.jin10.com/reportType/dc_rig_count_summary
@@ -458,6 +458,55 @@ def macro_usa_rig_count():
     temp_df = value_df["当周"]
     temp_df.name = "usa_rig_count"
     return temp_df
+
+
+def macro_usa_rig_count():
+    """
+    贝克休斯钻井报告, 数据区间从20080317-至今
+    后期用协程
+    https://datacenter.jin10.com/reportType/dc_rig_count_summary
+    https://cdn.jin10.com/dc/reports/dc_rig_count_summary_all.js?v=1578743203
+    :return: 贝克休斯钻井报告-当周
+    :rtype: pandas.Series
+    """
+    t = time.time()
+    big_df = pd.DataFrame()
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_rig_count_summary",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    res = requests.get(f"https://datacenter-api.jin10.com/reports/dates?category=baker&_={str(int(round(t * 1000)))}",
+                       headers=headers)  # 日期序列
+    all_date_list = res.json()["data"]
+    for item in reversed(all_date_list):
+        print(item)
+        res = requests.get(
+            f"https://datacenter-api.jin10.com/reports/list?category=baker&date={item}&_={str(int(round(t * 1000)))}",
+            headers=headers)
+        temp_df = pd.DataFrame(res.json()["data"]["values"],
+                               columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist()).T
+        temp_df.columns = temp_df.iloc[0, :]
+        temp_df = temp_df.iloc[1:, :]
+        try:
+            temp_df = temp_df[['美国天然气钻井', '混合钻井', '美国石油钻井', '钻井总数']].iloc[-2, :]
+        except:
+            temp_df = temp_df[['美国天然气钻井', '混合钻井', '美国石油钻井', '钻井总数']].iloc[-1, :]
+        big_df[temp_df.name] = temp_df
+    big_df = big_df.T
+    big_df.columns.name = "日期"
+    big_df.index = [item.split("截止")[1].split("当周")[0] for item in big_df.index.tolist()]
+    return big_df
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国个人支出月率报告

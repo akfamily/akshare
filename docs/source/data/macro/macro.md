@@ -2371,7 +2371,7 @@ macro_usa_current_account_se: pandas.Series
 
 目标地址: https://datacenter.jin10.com/reportType/dc_rig_count_summary
 
-描述: 获取贝克休斯钻井报告, 数据区间从20080317-至今
+描述: 获取贝克休斯钻井报告, 数据区间从19870717-至今, 由于数据周期长, 耗时比久
 
 限量: 单次返回所有历史数据
 
@@ -2386,39 +2386,36 @@ macro_usa_current_account_se: pandas.Series
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 美国天然气钻井      | float   | Y        | -   |
+| 混合钻井      | float   | Y        | -   |
+| 美国石油钻井      | float   | Y        | -   |
+| 钻井总数      | float   | Y        | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-macro_usa_rig_count_se = ak.macro_usa_rig_count()
-print(macro_usa_rig_count_se.name)
-print(macro_usa_rig_count_se)
+macro_usa_rig_count_df = ak.macro_usa_rig_count()
+print(macro_usa_rig_count_df)
 ```
 
 数据示例
 
-macro_usa_rig_count_se.name
+macro_usa_rig_count_df
 
 ```
-usa_rig_count
-```
-
-macro_usa_rig_count_se: pandas.Series
-
-```
-2011-01-07    1700
-2011-01-14    1700
-2011-01-21    1713
-2011-01-28    1732
-2011-02-04    1739
-              ... 
-2019-04-26     991
-2019-05-03     990
-2019-05-10     988
-2019-05-17     987
-2019-05-24     983
+日期         美国天然气钻井 混合钻井 美国石油钻井  钻井总数
+1987-07-17    33.7  2.6   55.9  92.2
+1987-07-24    33.1  2.1   56.5  91.7
+1987-07-31    34.6  2.2   60.5  97.3
+1987-08-07    34.9  2.1   61.3  98.3
+1987-08-14    35.2  2.6   62.0  99.8
+            ...  ...    ...   ...
+2019-12-13    12.9  0.3   66.7  79.9
+2019-12-20    12.5  0.3   68.5  81.3
+2019-12-27    12.5  0.3   67.7  80.5
+2020-01-03    12.3  0.3   67.0  79.6
+2020-01-10    11.9  0.3   65.9  78.1
 ```
 
 ###### 美国生产者物价指数(PPI)报告

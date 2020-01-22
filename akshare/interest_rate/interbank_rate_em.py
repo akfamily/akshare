@@ -17,6 +17,7 @@ from akshare.interest_rate.cons import market_symbol_indicator_dict
 def _get_page_num(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="隔夜"):
     """
     获取具体市场具体品种具体指标的页面数量
+    http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
     :param market: ["上海银行同业拆借市场", "中国银行同业拆借市场", "伦敦银行同业拆借市场", "欧洲银行同业拆借市场", "香港银行同业拆借市场", "新加坡银行同业拆借市场"]
     :type market: str
     :param symbol: ["Shibor人民币", ***]
@@ -40,6 +41,7 @@ def _get_page_num(market="上海银行同业拆借市场", symbol="Shibor人民�
 def rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="隔夜"):
     """
     具体市场具体品种具体指标的拆借利率数据
+    具体 market 和 symbol 参见: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
     :param market: ["上海银行同业拆借市场", "中国银行同业拆借市场", "伦敦银行同业拆借市场", "欧洲银行同业拆借市场", "香港银行同业拆借市场", "新加坡银行同业拆借市场"]
     :type market: str
     :param symbol: ["Shibor人民币", ***]
@@ -57,13 +59,12 @@ def rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民
         )
         res = requests.get(need_url)
         table = pd.read_html(res.text)[0]
-        print(table)
         temp_df = temp_df.append(table, ignore_index=True)
     return temp_df
 
 
 if __name__ == "__main__":
     rate_interbank_df = rate_interbank(
-        market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="3月"
+        market="中国银行同业拆借市场", symbol="Chibor人民币", indicator="3月"
     )
     print(rate_interbank_df)

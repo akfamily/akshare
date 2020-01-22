@@ -892,4 +892,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.52
 新增-英为财情-外汇-货币对历史数据
+
+0.3.53
+修复-macro_usa_rig_count-接口返回数据
+修复-rate_interbank-文档注释
 ```
