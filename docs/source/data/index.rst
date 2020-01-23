@@ -20,4 +20,5 @@ AkShare 数据字典
     article/article
     ws/ws
     energy/energy
+    event/event
     others/others

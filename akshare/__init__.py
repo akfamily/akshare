@@ -695,10 +695,22 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.3.53
 修复-macro_usa_rig_count-接口返回数据
 修复-rate_interbank-文档注释
+0.3.54
+新增-事件接口
+新增-事件接口新型冠状病毒-网易
+新增-事件接口新型冠状病毒-丁香园
 """
 
-__version__ = "0.3.53"
+__version__ = "0.3.54"
 __author__ = "Albert King"
+
+"""
+新增-事件接口新型冠状病毒接口
+"""
+from akshare.event.sos import (
+    epidemic_163,
+    epidemic_dxy,
+)
 
 """
 英为财情-外汇-货币对历史数据
