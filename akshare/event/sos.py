@@ -10,7 +10,7 @@ desc: 新增-事件接口
 """
 import json
 import time
-
+import re
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -44,13 +44,14 @@ def epidemic_dxy(indicator="data"):
     temp_json = text_data_news[text_data_news.find("= {") + 2: text_data_news.rfind("}catch")]
     json_data = pd.DataFrame(json.loads(temp_json)["result"])
     desc_data = json_data[["title", "summary", "infoSource", "provinceName", "sourceUrl"]]
-
+    
+    total=re.findall('"countRemark":"(.*?)","virus"',res.text)[0]
     text_data_news = str(soup.find_all("script", attrs={"id": "getListByCountryTypeService1"}))
     temp_json = text_data_news[text_data_news.find("= [{") + 2: text_data_news.rfind("catch") - 1]
     json_data = pd.DataFrame(json.loads(temp_json))
     data = json_data[['tags', 'provinceShortName']]
     dig_data = data[['provinceShortName', 'tags']]
-
+    dig_data=dig_data.append([{'provinceShortName':'总计','tags':total[3:]}],ignore_index=True)
     # text_data_news = str(soup.find_all("script")[6])
     # temp_json = text_data_news[text_data_news.find("= {") + 2: text_data_news.rfind("}catch")]
     # info_data = pd.DataFrame(json.loads(temp_json), index=[0]).T
@@ -58,7 +59,6 @@ def epidemic_dxy(indicator="data"):
         return dig_data
     else:
         return desc_data
-
 
 if __name__ == '__main__':
     epidemic_dxy_df = epidemic_dxy(indicator="data")
