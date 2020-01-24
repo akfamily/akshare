@@ -267,3 +267,26 @@ print(epidemic_dxy_df)
 72    青海   /       定点医院
 73    甘肃   /       定点医院
 ```
+
+输入参数-plot
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="plot", 绘制-全国疫情趋势图|
+
+输出参数-plot
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 图片      | str   | Y        |图片, 需要自己保存   |
+
+接口示例-plot
+
+```python
+import akshare as ak
+ak.epidemic_dxy(indicator="plot")
+```
+
+图片示例-plot
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/epidemic_trend.PNG)

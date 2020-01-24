@@ -10,6 +10,8 @@ desc: 新增-事件接口
 """
 import json
 import time
+from io import BytesIO
+from PIL import Image
 
 import pandas as pd
 import requests
@@ -96,6 +98,11 @@ def epidemic_dxy(indicator="info"):
         return dxy_time + dxy_info
     elif indicator == "hospital":
         return hospital_df
+    elif indicator == "plot":
+        # img
+        img_url = soup.find(attrs={"class": "mapImg___3LuBG"})["src"]
+        img_file = Image.open(BytesIO(requests.get(img_url).content))
+        img_file.show()
     else:
         return desc_data
 
@@ -109,5 +116,7 @@ if __name__ == '__main__':
     print(epidemic_dxy_hospital_df)
     epidemic_dxy_news_df = epidemic_dxy(indicator="news")
     print(epidemic_dxy_news_df)
+    epidemic_dxy(indicator="plot")
+
     epidemic_163_df = epidemic_163()
     print(epidemic_163_df)
