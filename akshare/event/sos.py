@@ -75,15 +75,22 @@ def epidemic_dxy(indicator="info"):
     temp_json = text_data_news[text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")]
     json_data = pd.DataFrame(json.loads(temp_json))
     desc_data = json_data[["title", "summary", "infoSource", "provinceName", "sourceUrl"]]
-    # data
-    area_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock1___j0DGa"})]
-    ensure_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock2___E7-fW"})]
-    cure_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock3___3mcDz"})]
-    big_df = pd.DataFrame([area_list, ensure_list, cure_list]).T
-    big_df.columns = big_df.iloc[0, :]
-    big_df = big_df.iloc[1:, :]
-    big_df.reset_index(drop=True, inplace=True)
-    big_df.columns.name = None
+    # data-new
+    data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
+
+    data_text_json = json.loads(data_text[data_text.find("= [{")+2: data_text.rfind("catch")-1])
+    data_df = pd.DataFrame(data_text_json)
+    data_df.columns = ["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注", "区域"]
+    country_df = data_df[["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注"]]
+    # # data
+    # area_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock1___j0DGa"})]
+    # ensure_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock2___E7-fW"})]
+    # cure_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock3___3mcDz"})]
+    # big_df = pd.DataFrame([area_list, ensure_list, cure_list]).T
+    # big_df.columns = big_df.iloc[0, :]
+    # big_df = big_df.iloc[1:, :]
+    # big_df.reset_index(drop=True, inplace=True)
+    # big_df.columns.name = None
     # info
     dxy_time = soup.find(attrs={"class": "mapTitle___2QtRg"}).get_text()
     dxy_info = soup.find(attrs={"class": "content___2hIPS"}).get_text()
@@ -92,8 +99,8 @@ def epidemic_dxy(indicator="info"):
     params = {"t": str(int(time.time()))}
     res = requests.get(url, params=params)
     hospital_df = pd.read_html(res.text)[0]
-    if indicator == "data":
-        return big_df
+    if indicator == "全国":
+        return country_df
     elif indicator == "info":
         return dxy_time + dxy_info
     elif indicator == "hospital":
@@ -103,13 +110,22 @@ def epidemic_dxy(indicator="info"):
         img_url = soup.find(attrs={"class": "mapImg___3LuBG"})["src"]
         img_file = Image.open(BytesIO(requests.get(img_url).content))
         img_file.show()
-    else:
+    elif indicator == "news":
         return desc_data
+    else:
+        try:
+            sub_area = pd.DataFrame(data_df[data_df["地区"] == indicator]["区域"].values[0])
+            sub_area.columns = ["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]
+            return sub_area
+        except IndexError as e:
+            print("请输入省/市的全称, 如: 浙江省/上海市 等")
 
 
 if __name__ == '__main__':
-    epidemic_dxy_data_df = epidemic_dxy(indicator="data")
-    print(epidemic_dxy_data_df)
+    epidemic_dxy_country_df = epidemic_dxy(indicator="全国")
+    print(epidemic_dxy_country_df)
+    epidemic_dxy_province_df = epidemic_dxy(indicator="浙江省")
+    print(epidemic_dxy_province_df)
     epidemic_dxy_info_df = epidemic_dxy(indicator="info")
     print(epidemic_dxy_info_df)
     epidemic_dxy_hospital_df = epidemic_dxy(indicator="hospital")
@@ -117,6 +133,5 @@ if __name__ == '__main__':
     epidemic_dxy_news_df = epidemic_dxy(indicator="news")
     print(epidemic_dxy_news_df)
     epidemic_dxy(indicator="plot")
-
     epidemic_163_df = epidemic_163()
     print(epidemic_163_df)

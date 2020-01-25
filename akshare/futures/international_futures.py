@@ -113,60 +113,24 @@ def get_sector_futures(
     }
     url = 'https://cn.investing.com/instruments/HistoricalDataAjax'
     res = requests.post(url, data=payload, headers=long_headers)
-    soup = BeautifulSoup(res.text, 'lxml')
-    vest_list = [item.get_text().strip().split('\n')
-                 for item in soup.find_all('tr')]
-
-    list_date = list()
-    for item in vest_list[:-1]:
-        list_date.append(item[0])
-
-    list_new = list()
-    for item in vest_list[:-1]:
-        list_new.append(item[1])
-
-    list_open = list()
-    for item in vest_list[:-1]:
-        list_open.append(item[2])
-
-    list_high = list()
-    for item in vest_list[:-1]:
-        list_high.append(item[3])
-
-    list_low = list()
-    for item in vest_list[:-1]:
-        list_low.append(item[4])
-
-    list_vol_per = list()
-    for item in vest_list[:-1]:
-        list_vol_per.append(item[5])
-
-    list_vol = list()
-    # list_per = list()
-    for item in list_vol_per:
-        list_vol.append(item.split(' ')[0])
-        # list_per.append(item.split(' ')[1])
-
-    list_date.append(vest_list[-1][0])
-    list_new.append(vest_list[-1][1])
-    list_open.append(vest_list[-1][2])
-    list_high.append(vest_list[-1][3])
-    list_low.append(vest_list[-1][4])
-
-    df_data = pd.DataFrame(
-        [list_date, list_new, list_open, list_high, list_low, list_vol]).T
-    # df_data.iloc[0, :][5] = '涨跌幅'
-    df_data.columns = df_data.iloc[0, :]
-    df_data = df_data.iloc[1:, :]
-    df_data = df_data[:-1]  # 去掉最后一行
+    temp_df = pd.read_html(res.text)[0]
+    df_data = temp_df
     df_data = df_data.set_index(["日期"])
     df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
     df_data.index.name = "日期"
-    df_data["收盘"] = df_data["收盘"].str.replace(",", "").astype(float)
-    df_data["开盘"] = df_data["开盘"].str.replace(",", "").astype(float)
-    df_data["高"] = df_data["高"].str.replace(",", "").astype(float)
-    df_data["低"] = df_data["低"].str.replace(",", "").astype(float)
+    df_data.columns
+    if any(df_data["交易量"].astype(str).str.contains("-")):
+        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][df_data["交易量"].str.contains("-")].replace("-", 0)
+    if any(df_data["交易量"].astype(str).str.contains("B")):
+        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)].str.replace("B", "").astype(float) * 1000000000
+    if any(df_data["交易量"].astype(str).str.contains("M")):
+        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)].str.replace("M", "").astype(float) * 1000000
+    if any(df_data["交易量"].astype(str).str.contains("K")):
+        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)].str.replace("K", "").astype(float) * 1000
+    df_data["交易量"] = df_data["交易量"].astype(float)
+    df_data["涨跌幅"] = pd.DataFrame(round(df_data['涨跌幅'].str.replace('%', '').astype(float) / 100, 6))
     df_data.name = title
+    df_data.columns.name = None
     return df_data
 
 
@@ -174,7 +138,7 @@ if __name__ == "__main__":
     index_df = get_sector_futures(
         sector="能源",
         symbol="WTI原油",
-        start_date='2019/02/01',
-        end_date='2020/01/17')
+        start_date='1980/01/01',
+        end_date='1999/01/30')
     print(index_df.name)
     print(index_df)
