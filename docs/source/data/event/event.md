@@ -355,4 +355,4 @@ ak.epidemic_dxy(indicator="plot")
 
 图片示例-plot
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/epidemic_trend.PNG)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/epidemic_trend.jpg)

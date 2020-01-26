@@ -124,7 +124,7 @@ def epidemic_dxy(indicator="info"):
 if __name__ == '__main__':
     epidemic_dxy_country_df = epidemic_dxy(indicator="全国")
     print(epidemic_dxy_country_df)
-    epidemic_dxy_province_df = epidemic_dxy(indicator="浙江省")
+    epidemic_dxy_province_df = epidemic_dxy(indicator="湖北省")
     print(epidemic_dxy_province_df)
     epidemic_dxy_info_df = epidemic_dxy(indicator="info")
     print(epidemic_dxy_info_df)
