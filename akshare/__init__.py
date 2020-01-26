@@ -706,9 +706,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.3.57
 更新-事件接口新型冠状病毒-分省地区
 一些细节修复
+0.3.58
+新增-财富排行榜(英文版)
 """
 
-__version__ = "0.3.57"
+__version__ = "0.3.58"
 __author__ = "Albert King"
 
 """
@@ -966,7 +968,7 @@ from akshare.fund.fund_amac import (
 """
 世界五百强公司排名接口
 """
-from akshare.fortune.fortune_500 import fortune_rank
+from akshare.fortune.fortune_500 import fortune_rank, fortune_rank_eng
 
 """
 AQI空气质量接口

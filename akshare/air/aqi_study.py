@@ -20,15 +20,35 @@ from akshare.air.aqi_utils import *
 
 
 def air_hourly(city="上海", date="2019-12-05"):
-    start_time = "%s 00:00:00" % date
-    end_time = "%s 23:59:59" % date
+    """
+
+    :param city:
+    :type city:
+    :param date:
+    :type date:
+    :return:
+    :rtype:
+    """
+    start_time = f"{date} 00:00:00"
+    end_time = f"{date} 23:59:59"
     temp_df = get_server_data(city, "HOUR", start_time, end_time)
     return temp_df.transform(pd.to_numeric)
 
 
 def air_daily(city="上海", start_date="2019-11-01", end_date="2019-12-01"):
-    start_time = "%s 00:00:00" % start_date
-    end_time = "%s 23:59:59" % end_date
+    """
+
+    :param city:
+    :type city:
+    :param start_date:
+    :type start_date:
+    :param end_date:
+    :type end_date:
+    :return:
+    :rtype:
+    """
+    start_time = f"{start_date} 00:00:00"
+    end_time = f"{end_date} 23:59:59"
     temp_df = get_server_data(city, "DAY", start_time, end_time)
     return temp_df.transform(pd.to_numeric)
 
@@ -39,11 +59,25 @@ def get_server_data(city, period_type, start_time, end_time):
     method = "GETDETAIL"
     timestamp = int(time.time() * 1000)
     client_type = "WEB"
-    object_dict = {"city": city, "type": period_type, "startTime": start_time, "endTime": end_time}
-    secret_key = app_id + method + str(
-        timestamp) + client_type + "{\"city\":\"%s\",\"endTime\":\"%s\",\"startTime\":\"%s\",\"type\":\"%s\"}" % (
-                     object_dict["city"], object_dict["endTime"], object_dict["startTime"], object_dict["type"]
-                 )
+    object_dict = {
+        "city": city,
+        "type": period_type,
+        "startTime": start_time,
+        "endTime": end_time,
+    }
+    secret_key = (
+        app_id
+        + method
+        + str(timestamp)
+        + client_type
+        + '{"city":"%s","endTime":"%s","startTime":"%s","type":"%s"}'
+        % (
+            object_dict["city"],
+            object_dict["endTime"],
+            object_dict["startTime"],
+            object_dict["type"],
+        )
+    )
     secret = hashlib.md5(secret_key.encode("utf8")).hexdigest()
     payload = {
         "appId": app_id,
@@ -51,7 +85,7 @@ def get_server_data(city, period_type, start_time, end_time):
         "timestamp": timestamp,
         "clienttype": client_type,
         "object": object_dict,
-        "secret": secret
+        "secret": secret,
     }
 
     payload = base64.standard_b64encode(json.dumps(payload).encode("utf8")).decode()
@@ -62,7 +96,13 @@ def get_server_data(city, period_type, start_time, end_time):
         return None, "获取数据失败"
 
     # data = base64.standard_b64decode(response.encode("utf8")).decode()
-    data = decrypt_response(real_des_key, real_des_iv, real_aes_server_key, real_aes_server_iv, response.text)
+    data = decrypt_response(
+        real_des_key,
+        real_des_iv,
+        real_aes_server_key,
+        real_aes_server_iv,
+        response.text,
+    )
 
     json_obj = json.loads(data)
     success = json_obj["success"]
@@ -89,8 +129,13 @@ def air_all_city(period_type="HOUR", time_point="2019-12-01 20:00:00"):
     timestamp = int(time.time() * 1000)
     client_type = "WEB"
     object_dict = {"type": period_type, "timepoint": time_point}
-    secret_key = app_id + method + str(timestamp) + client_type + "{\"timepoint\":\"%s\",\"type\":\"%s\"}" % (
-        object_dict["timepoint"], object_dict["type"]
+    secret_key = (
+        app_id
+        + method
+        + str(timestamp)
+        + client_type
+        + '{"timepoint":"%s","type":"%s"}'
+        % (object_dict["timepoint"], object_dict["type"])
     )
     secret = hashlib.md5(secret_key.encode("utf8")).hexdigest()
     payload = {
@@ -99,7 +144,7 @@ def air_all_city(period_type="HOUR", time_point="2019-12-01 20:00:00"):
         "timestamp": timestamp,
         "clienttype": client_type,
         "object": object_dict,
-        "secret": secret
+        "secret": secret,
     }
 
     payload = base64.standard_b64encode(json.dumps(payload).encode("utf8")).decode()
@@ -110,7 +155,13 @@ def air_all_city(period_type="HOUR", time_point="2019-12-01 20:00:00"):
         return None, "获取数据失败"
 
     # data = base64.standard_b64decode(response.encode("utf8")).decode()
-    data = decrypt_response(real_des_key, real_des_iv, real_aes_server_key, real_aes_server_iv, response.text)
+    data = decrypt_response(
+        real_des_key,
+        real_des_iv,
+        real_aes_server_key,
+        real_aes_server_iv,
+        response.text,
+    )
 
     json_obj = json.loads(data)
     errcode = json_obj["errcode"]
@@ -129,29 +180,28 @@ def air_all_city(period_type="HOUR", time_point="2019-12-01 20:00:00"):
 
 def air_city_list():
     """
-    获取城市列表
+    真气网-空气质量历史数据查询-全部城市列表
+    https://www.aqistudy.cn/historydata/
+    :return: 城市映射
+    :rtype: dict
     """
     url = "https://www.aqistudy.cn/historydata/"
     res = requests.get(url)
-    soup = BeautifulSoup(res.text, "html5lib")
-    links = soup.find_all('a')
-    data = {}
-    for link in links:
-        href = link["href"]
-        if href.startswith("monthdata.php?city="):
-            city = href.replace("monthdata.php?city=", "")
-            data[city] = city
-    return data
+    soup = BeautifulSoup(res.text, "lxml")
+    # 注意 href 的用法
+    link_list = soup.find_all(href=has_month_data)
+    city_list = [item.get_text() for item in link_list]
+    return dict(zip(city_list, city_list))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     city_list = air_city_list()
     print(city_list)
 
-    df_hourly = air_hourly('成都', '2019-12-10')
+    df_hourly = air_hourly("成都", "2019-12-10")
     print(df_hourly)
 
-    df_daily = air_daily('成都', '2019-01-01', '2019-12-10')
+    df_daily = air_daily("成都", "2019-01-01", "2019-12-10")
     print(df_daily)
 
     df_all_city = air_all_city("HOUR", "2019-12-10 08:00:00")
@@ -159,4 +209,3 @@ if __name__ == '__main__':
 
     df_city = air_all_city("DAY", "2019-12-09")
     print(df_city)
-

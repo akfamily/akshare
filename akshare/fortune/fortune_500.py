@@ -9,8 +9,12 @@ http://www.fortunechina.com/fortune500/index.htm
 特殊情况说明：
 2010年由于网页端没有公布公司所属的国家, 故 2010 年数据没有国家这列
 """
+import json
+
 import requests
 import pandas as pd
+from bs4 import BeautifulSoup
+
 
 from akshare.fortune.cons import (
     url_1996,
@@ -42,7 +46,8 @@ from akshare.fortune.cons import (
 
 def fortune_rank(year="2015"):
     """
-    获取财富500强公司从1996年开始的排行榜
+    财富500强公司从1996年开始的排行榜
+    http://www.fortunechina.com/fortune500/index.htm
     :param year: str 年份
     :return: pandas.DataFrame
     """
@@ -130,6 +135,35 @@ def fortune_rank(year="2015"):
         return df
 
 
+def fortune_rank_eng(year="1995"):
+    """
+    注意你的网速
+    https://fortune.com/global500/
+    https://fortune.com/global500/2012/search/
+    :param year: "1995"
+    :type year: str
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://fortune.com/global500/{year}/search/"
+    res = requests.get(url)
+    soup = BeautifulSoup(res.text, "lxml")
+    code = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).get_text())["identifier"]
+    url = f"https://content.fortune.com/wp-json/irving/v1/data/franchise-search-results?list_id={code}"
+    res = requests.get(url)
+    big_df = pd.DataFrame()
+    for i in range(len(res.json()[1]["items"][0]['fields'])):
+        temp_df = pd.DataFrame([item["fields"][i] for item in res.json()[1]["items"]])
+        big_df[temp_df["key"].values[0]] = temp_df["value"]
+    big_df["rank"] = big_df["rank"].astype(int)
+    big_df.sort_values("rank", inplace=True)
+    return big_df
+
+
 if __name__ == '__main__':
     df = fortune_rank(year=2011)  # 2010 不一样
     print(df)
+    for year in range(1995, 2020):
+        print(year)
+        fortune_eng_df = fortune_rank_eng(year=year)
+        print(fortune_eng_df)
