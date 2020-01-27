@@ -157,6 +157,7 @@ def fortune_rank_eng(year="1995"):
         big_df[temp_df["key"].values[0]] = temp_df["value"]
     big_df["rank"] = big_df["rank"].astype(int)
     big_df.sort_values("rank", inplace=True)
+    big_df.reset_index(drop=True, inplace=True)
     return big_df
 
 
