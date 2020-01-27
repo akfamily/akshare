@@ -98,7 +98,7 @@ def epidemic_dxy(indicator="info"):
     url = "https://assets.dxycdn.com/gitrepo/tod-assets/output/default/pneumonia/index.js"
     params = {"t": str(int(time.time()))}
     res = requests.get(url, params=params)
-    hospital_df = pd.read_html(res.text)[0]
+    hospital_df = pd.read_html(res.text)[0].iloc[:, :-1]
     if indicator == "全国":
         return country_df
     elif indicator == "info":

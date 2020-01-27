@@ -712,9 +712,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-currency_name_code-接口
 0.3.60
 修复-财富排行榜(英文版)-索引乱序问题
+0.3.61
+修复-事件接口新型冠状病毒-hospital-接口
 """
 
-__version__ = "0.3.60"
+__version__ = "0.3.61"
 __author__ = "Albert King"
 
 """
