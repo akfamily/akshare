@@ -11,10 +11,10 @@ desc: 新增-事件接口
 import json
 import time
 from io import BytesIO
-from PIL import Image
 
 import pandas as pd
 import requests
+from PIL import Image
 from bs4 import BeautifulSoup
 
 
