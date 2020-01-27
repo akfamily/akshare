@@ -708,9 +708,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 一些细节修复
 0.3.58
 新增-财富排行榜(英文版)
+0.3.59
+新增-currency_name_code-接口
 """
 
-__version__ = "0.3.58"
+__version__ = "0.3.59"
 __author__ = "Albert King"
 
 """
@@ -726,6 +728,7 @@ from akshare.event.sos import (
 """
 from akshare.fx.currency_investing import (
     currency_hist,
+    currency_name_code,
 )
 
 """

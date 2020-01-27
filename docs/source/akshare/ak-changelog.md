@@ -914,4 +914,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.58
 新增-财富排行榜(英文版)
+
+0.3.59
+新增-currency_name_code-接口
 ```
