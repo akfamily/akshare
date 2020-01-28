@@ -26,7 +26,7 @@ def test_weibo_index():
     :return: assert
     :rtype:
     """
-    weibo_index_df = weibo_index(word="python", time_type="3month")
+    weibo_index_df = weibo_index(word="口罩", time_type="3month")
     assert len(weibo_index_df) >= 10
 
 
