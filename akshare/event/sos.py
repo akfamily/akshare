@@ -13,12 +13,13 @@ import time
 from io import BytesIO
 
 import pandas as pd
+import demjson
 import requests
 from PIL import Image
 from bs4 import BeautifulSoup
 
 
-def epidemic_163():
+def epidemic_163(indicator="实时"):
     """
     网易网页端-新冠状病毒-实时人数统计情况
     国内和海外
@@ -26,33 +27,15 @@ def epidemic_163():
     :return: 返回国内各地区和海外地区情况
     :rtype: pandas.DataFrame
     """
-    url = "https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&"
+    url = "https://spider.ws.126.net/disease_map_data"
     res = requests.get(url)
-    soup = BeautifulSoup(res.text, "lxml")
-    sum_china_list = [item.get_text() for item in soup.find("div", attrs={"class": "cover_tit_des"}).find_all("p")][
-        0].split("：")
-    sum_board_list = [item.get_text() for item in soup.find("div", attrs={"class": "cover_tit_des"}).find_all("p")][
-        1].split("：")
-    abroad_single_one = \
-        [item.get_text() for item in soup.find("div", attrs={"class": "map_others"}).find_all("p")][0].split("：")[
-            1].split(
-            "，")
-    abroad_single_two = [item.get_text() for item in soup.find("div", attrs={"class": "map_others"}).find_all("p")][
-        1].split("，")
-    abroad_single_three = [item.get_text() for item in soup.find("div", attrs={"class": "map_others"}).find_all("p")][
-        2].split("，")
-    abroad_list = abroad_single_one + abroad_single_two + abroad_single_three
-    province_list = [item.get_text() for item in soup.find("ul").find_all("strong")]
-    desc_list = [item.get_text() for item in soup.find("ul").find_all("li")]
-    province_list.append(sum_china_list[0])
-    province_list.append(sum_board_list[0])
-    # province_list.extend([item[:-2] for item in abroad_list])
-    desc_list.append((sum_china_list[1]))
-    desc_list.append((sum_board_list[1]))
-    # desc_list.extend([item[-2:] for item in abroad_list])
-    temp_df = pd.DataFrame([province_list, desc_list],
-                           index=["地区", f"数据-{soup.find(attrs={'class': 'tit'}).find('span').get_text()}"]).T
-    return temp_df
+    temp = res.text[res.text.find("({")+1: res.text.rfind("})")+1]
+    current_df = pd.DataFrame(demjson.decode(json.loads(temp)["data1"].replace("\n", "")))
+    hist_df = pd.DataFrame(demjson.decode(json.loads(temp)["data2"].replace("\n", "")))
+    if indicator == "实时":
+        return current_df
+    else:
+        return hist_df
 
 
 def epidemic_dxy(indicator="info"):
@@ -133,5 +116,7 @@ if __name__ == '__main__':
     epidemic_dxy_news_df = epidemic_dxy(indicator="news")
     print(epidemic_dxy_news_df)
     epidemic_dxy(indicator="plot")
-    epidemic_163_df = epidemic_163()
-    print(epidemic_163_df)
+    epidemic_current_163_df = epidemic_163(indicator="实时")
+    print(epidemic_current_163_df)
+    epidemic_hist_163_df = epidemic_163(indicator="历史")
+    print(epidemic_hist_163_df)
