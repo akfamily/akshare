@@ -115,5 +115,5 @@ pip install akshare --user
 
 ### 4. 提示其他的错误
 
-- 方法一: 升级您的 Anaconda 或者 Python 到 **Python3.7.3** 及以上版本
+- 方法一: 升级您的 Anaconda 或者 Python 到 **Python3.7.5** 及以上版本
 - 方法二: 使用 conda 的虚拟环境来安装, 详见 **AkShare 环境配置**板块的内容
