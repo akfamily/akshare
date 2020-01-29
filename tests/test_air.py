@@ -6,7 +6,6 @@ date: 2019/12/12 18:16
 contact: jindaxiang@163.com
 desc: To test intention, just write test code here!
 """
-from akshare.air.aqi_study import air_hourly
 from akshare.index.index_weibo import weibo_index
 from akshare.fortune.fortune_500 import fortune_rank
 

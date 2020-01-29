@@ -103,7 +103,29 @@ print(epidemic_dxy_df)
 数据示例-info
 
 ```
-截至 2020-01-24 14:33 数据统计全国 确诊 883 例 疑似 1073 例 治愈 35 例 死亡 26 例
+                                                                0
+abroadRemark                                                     
+confirmedCount                                               6078
+countRemark                                                      
+createTime                                          1579537899000
+curedCount                                                    115
+dailyPic        https://img1.dxycdn.com/2020/0129/166/33936094...
+deadCount                                                     132
+deleted                                                     False
+generalRemark                     疑似病例数来自国家卫健委数据，目前为全国数据，未分省市自治区等
+id                                                              1
+imgUrl          https://img1.dxycdn.com/2020/0123/733/33925757...
+infectSource                                        野生动物，可能为中华菊头蝠
+modifyTime                                          1580291081000
+passWay                                         经呼吸道飞沫传播，亦可通过接触传播
+remark1                 易感人群: 人群普遍易感。老年人及有基础疾病者感染后病情较重，儿童及婴幼儿也有发病
+remark2                       潜伏期: 一般为 3~7 天，最长不超过 14 天，潜伏期内存在传染性
+remark3                                                          
+remark4                                                          
+remark5                                                          
+summary                                                          
+suspectedCount                                               9239
+virus                                            新型冠状病毒 2019-nCoV
 ```
 
 输入参数-全国

@@ -60,7 +60,6 @@ def epidemic_dxy(indicator="info"):
     desc_data = json_data[["title", "summary", "infoSource", "provinceName", "sourceUrl"]]
     # data-new
     data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
-
     data_text_json = json.loads(data_text[data_text.find("= [{")+2: data_text.rfind("catch")-1])
     data_df = pd.DataFrame(data_text_json)
     data_df.columns = ["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注", "区域"]
@@ -75,8 +74,8 @@ def epidemic_dxy(indicator="info"):
     # big_df.reset_index(drop=True, inplace=True)
     # big_df.columns.name = None
     # info
-    dxy_time = soup.find(attrs={"class": "mapTitle___2QtRg"}).get_text()
-    dxy_info = soup.find(attrs={"class": "content___2hIPS"}).get_text()
+    dxy_static = soup.find(attrs={"id": "getStatisticsService"}).get_text()
+
     # hospital
     url = "https://assets.dxycdn.com/gitrepo/tod-assets/output/default/pneumonia/index.js"
     params = {"t": str(int(time.time()))}
@@ -85,13 +84,13 @@ def epidemic_dxy(indicator="info"):
     if indicator == "全国":
         return country_df
     elif indicator == "info":
-        return dxy_time + dxy_info
+        return pd.read_json(dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")], orient="index")
     elif indicator == "hospital":
         return hospital_df
     elif indicator == "plot":
         # img
-        img_url = soup.find(attrs={"class": "mapImg___3LuBG"})["src"]
-        img_file = Image.open(BytesIO(requests.get(img_url).content))
+        img_url = pd.read_json(dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")], orient="index").T
+        img_file = Image.open(BytesIO(requests.get(img_url["dailyPic"].values[0]).content))
         img_file.show()
     elif indicator == "news":
         return desc_data
