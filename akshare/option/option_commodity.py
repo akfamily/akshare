@@ -29,7 +29,6 @@ from akshare.option.cons import (get_calendar,
                                  CZCE_DAILY_OPTION_URL_3,
                                  SHFE_HEADERS)
 
-calendar = get_calendar()
 
 
 def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
@@ -72,6 +71,7 @@ def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
     4  c2007      7.7
     5  c2009     6.85
     """
+    calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime('%Y%m%d') not in calendar:
         warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
@@ -164,6 +164,7 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
     401  2138.41                            0
     402  8769.52                            2
     """
+    calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime('%Y%m%d') not in calendar:
         warnings.warn('{}非交易日'.format(day.strftime('%Y%m%d')))
@@ -298,6 +299,7 @@ def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
     20  0.216861
     21  0.216861
     """
+    calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime('%Y%m%d') not in calendar:
         warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
