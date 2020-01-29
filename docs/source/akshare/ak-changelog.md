@@ -932,4 +932,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.64
 修复-事件接口新型冠状病毒-丁香园接口
+
+0.3.65
+修复-calendar.json 问题, 感谢 fxt0706
 ```
