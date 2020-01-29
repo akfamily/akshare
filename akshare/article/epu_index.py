@@ -7,19 +7,6 @@ contact: jindaxiang@163.com
 desc: 获取 http://www.policyuncertainty.com/index.html 网站的经济政策不确定性指数
 """
 import pandas as pd
-import requests
-from bs4 import BeautifulSoup
-
-from akshare.article.cons import epu_home_url
-
-res = requests.get(epu_home_url)
-soup = BeautifulSoup(res.text, "lxml")
-html_left_list = soup.find(attrs={"class": "sidebar_container"}).find_all("p", attrs={"class": "alignleft"})
-html_right_list = soup.find(attrs={"class": "sidebar_container"}).find_all("p", attrs={"class": "alignright"})
-
-index_left_list = [item.get_text() for item in html_left_list][4:]
-index_right_list = [item.get_text() for item in html_right_list]
-index_list = index_left_list + index_right_list
 
 
 def article_epu_index(index="China"):
