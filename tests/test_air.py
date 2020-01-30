@@ -6,6 +6,7 @@ date: 2019/12/12 18:16
 contact: jindaxiang@163.com
 desc: To test intention, just write test code here!
 """
+# from akshare.air.aqi_study import air_hourly
 from akshare.index.index_weibo import weibo_index
 from akshare.fortune.fortune_500 import fortune_rank
 
@@ -13,29 +14,31 @@ from akshare.fortune.fortune_500 import fortune_rank
 # def test_air_hourly():
 #     """
 #     test air_hourly interface
-#     :return:
+#     :return: air_hourly_df
+#     :rtype: pandas.DataFrame
 #     """
-#     df_hourly = air_hourly("成都", "2019-12-10")
-#     assert len(df_hourly) >= 10
+#     air_hourly_df = air_hourly("成都", "2019-12-10")
+#     assert air_hourly_df.shape[0] > 0
 
 
 def test_weibo_index():
     """
-    test air_hourly interface
-    :return: assert
-    :rtype:
+    test weibo_index interface
+    :return: weibo_index_df
+    :rtype: pandas.DataFrame
     """
     weibo_index_df = weibo_index(word="口罩", time_type="3month")
-    assert len(weibo_index_df) >= 10
+    assert weibo_index_df.shape[0] > 0
 
 
 def test_fortune():
     """
-    test air_hourly interface
-    :return:
+    test fortune_rank interface
+    :return: fortune_rank_df
+    :rtype: pandas.DataFrame
     """
-    fortune_df = fortune_rank(year=2011)  # 2010 不一样
-    assert len(fortune_df) >= 10
+    fortune_rank_df = fortune_rank(year=2011)  # 2010 不一样
+    assert fortune_rank_df.shape[0] > 0
 
 
 if __name__ == "__main__":
