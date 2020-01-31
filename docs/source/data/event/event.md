@@ -396,7 +396,7 @@ ak.epidemic_dxy(indicator="plot")
 | --------------- | ----- | -------- | ---------------- |
 | city_name      | str   | Y        |城市名称   |
 | province_name      | str   | Y        |省份   |
-| value      | str   | Y        |迁入比例   |
+| value      | str   | Y        |迁入比例 = 该城市迁入人数 / 全国迁入总人数, https://qianxi.baidu.com/?from=shoubai#city=0   |
 | city_code      | str   | Y        |各区县行政区划代码   |
 
 接口示例-热门迁入地
