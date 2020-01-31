@@ -600,13 +600,13 @@ print(fortune_df)
 
 ### 电影票房-实时
 
-接口: movie_board
+接口: box_office_spot
 
 目标地址: https://maoyan.com/board/1
 
-描述: 获取最新电影的实时票房数据
+描述: 获取上映中电影的实时票房数据
 
-限量: 将昨日国内热映的影片, 按照昨日票房从高到低排列, 每天上午10点更新
+限量: 将昨日国内热映的影片, 按照昨日票房从高到低排序, 每天上午 10 点更新
 
 输入参数
 
@@ -614,20 +614,22 @@ print(fortune_df)
 | -------- | ---- | ---- | --- |
 | - | -  | -    |  -|
 
-
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| -     | float   | -        | json返回所有推送数据, 逐步做处理  |  
-
+| 电影名称     | str   | -        | -  |  
+| 主演         | str   | -        | -  |  
+| 上映时间     | str   | -        | 注意具体时区  |  
+| 实时票房     | str   | -        | 注意票房单位 |  
+| 总票房       | str   | -        |注意票房单位 |  
 
 接口示例
 
 ```python
 import akshare as ak
-movie_df = ak.movie_board()
-print(movie_df)
+box_office_spot_df = ak.box_office_spot()
+print(box_office_spot_df)
 ```
 
 数据示例
@@ -698,8 +700,8 @@ print(movie_df)
 
 ```python
 import akshare as ak
-cost_df = ak.cost_living()
-print(cost_df)
+cost_living_df = ak.cost_living()
+print(cost_living_df)
 ```
 
 数据示例

@@ -5,6 +5,7 @@ Author: Albert King
 date: 2019/12/16 21:39
 contact: jindaxiang@163.com
 desc: 用 knn 训练模型来拟合数字, 但是要看样本的数量, 目前主要是 5 个样本
+这里需要引入 sklearn package
 """
 import numpy as np
 import pandas as pd

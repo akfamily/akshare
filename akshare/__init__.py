@@ -726,9 +726,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epu_index-加载问题
 0.3.67
 修复-option_commodity-json数据加载问题
+0.3.68
+更名函数 movie_board -> box_office_spot
 """
 
-__version__ = "0.3.67"
+__version__ = "0.3.68"
 __author__ = "Albert King"
 
 """
@@ -959,7 +961,7 @@ from akshare.energy.energy_carbon import energy_carbon
 """
 猫眼电影实时票房
 """
-from akshare.movie.movie_maoyan import movie_board
+from akshare.movie.movie_maoyan import box_office_spot
 
 """
 中国证券投资基金业协会-信息公示

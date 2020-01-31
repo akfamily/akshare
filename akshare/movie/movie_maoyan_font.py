@@ -12,7 +12,6 @@ from pathlib import Path
 from typing import List
 
 import requests
-
 from fontTools.ttLib import TTFont
 
 _fonts_path = Path(__file__).absolute().parent / "fonts"
@@ -22,9 +21,14 @@ _headers = {
 }
 
 
-def get_font_content() -> str:
-    response = requests.get(url=_brand_url, headers=_headers)
-    woff_url = re.findall(r"url\('(.*?\.woff)'\)", response.text)[0]
+def get_font_content() -> bytes:
+    """
+    请求字体文件
+    :return: woff file
+    :rtype: bytes
+    """
+    res = requests.get(url=_brand_url, headers=_headers)
+    woff_url = re.findall(r"url\('(.*?\.woff)'\)", res.text)[0]
     font_url = f"http:{woff_url}"
     return requests.get(font_url).content
 

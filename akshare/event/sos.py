@@ -12,8 +12,8 @@ import json
 import time
 from io import BytesIO
 
-import pandas as pd
 import demjson
+import pandas as pd
 import requests
 from PIL import Image
 from bs4 import BeautifulSoup
@@ -29,8 +29,10 @@ def epidemic_163(indicator="实时"):
     """
     url = "https://spider.ws.126.net/disease_map_data"
     res = requests.get(url)
-    temp = res.text[res.text.find("({")+1: res.text.rfind("})")+1]
-    current_df = pd.DataFrame(demjson.decode(json.loads(temp)["data1"].replace("\n", "")))
+    temp = res.text[res.text.find("({") + 1: res.text.rfind("})") + 1]
+    current_df = pd.DataFrame(
+        demjson.decode(json.loads(temp)["data1"].replace("\n", ""))
+    )
     hist_df = pd.DataFrame(demjson.decode(json.loads(temp)["data2"].replace("\n", "")))
     if indicator == "实时":
         return current_df
@@ -55,42 +57,48 @@ def epidemic_dxy(indicator="info"):
     soup = BeautifulSoup(res.text, "lxml")
     # news
     text_data_news = str(soup.find_all("script", attrs={"id": "getTimelineService"}))
-    temp_json = text_data_news[text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")]
+    temp_json = text_data_news[
+                text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")
+                ]
     json_data = pd.DataFrame(json.loads(temp_json))
-    desc_data = json_data[["title", "summary", "infoSource", "provinceName", "sourceUrl"]]
+    desc_data = json_data[
+        ["title", "summary", "infoSource", "provinceName", "sourceUrl"]
+    ]
     # data-new
     data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
-    data_text_json = json.loads(data_text[data_text.find("= [{")+2: data_text.rfind("catch")-1])
+    data_text_json = json.loads(
+        data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
+    )
     data_df = pd.DataFrame(data_text_json)
     data_df.columns = ["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注", "区域"]
     country_df = data_df[["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注"]]
-    # # data
-    # area_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock1___j0DGa"})]
-    # ensure_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock2___E7-fW"})]
-    # cure_list = [item.get_text() for item in soup.find_all("p", attrs={"class": "subBlock3___3mcDz"})]
-    # big_df = pd.DataFrame([area_list, ensure_list, cure_list]).T
-    # big_df.columns = big_df.iloc[0, :]
-    # big_df = big_df.iloc[1:, :]
-    # big_df.reset_index(drop=True, inplace=True)
-    # big_df.columns.name = None
     # info
     dxy_static = soup.find(attrs={"id": "getStatisticsService"}).get_text()
-
     # hospital
-    url = "https://assets.dxycdn.com/gitrepo/tod-assets/output/default/pneumonia/index.js"
+    url = (
+        "https://assets.dxycdn.com/gitrepo/tod-assets/output/default/pneumonia/index.js"
+    )
     params = {"t": str(int(time.time()))}
     res = requests.get(url, params=params)
     hospital_df = pd.read_html(res.text)[0].iloc[:, :-1]
     if indicator == "全国":
         return country_df
     elif indicator == "info":
-        return pd.read_json(dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")], orient="index")
+        return pd.read_json(
+            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
+            orient="index",
+        )
     elif indicator == "hospital":
         return hospital_df
     elif indicator == "plot":
         # img
-        img_url = pd.read_json(dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")], orient="index").T
-        img_file = Image.open(BytesIO(requests.get(img_url["dailyPic"].values[0]).content))
+        img_url = pd.read_json(
+            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
+            orient="index",
+        ).T
+        img_file = Image.open(
+            BytesIO(requests.get(img_url["dailyPic"].values[0]).content)
+        )
         img_file.show()
     elif indicator == "news":
         return desc_data
@@ -103,7 +111,13 @@ def epidemic_dxy(indicator="info"):
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+    # 163
+    epidemic_current_163_df = epidemic_163(indicator="实时")
+    print(epidemic_current_163_df)
+    epidemic_hist_163_df = epidemic_163(indicator="历史")
+    print(epidemic_hist_163_df)
+    # dxy
     epidemic_dxy_country_df = epidemic_dxy(indicator="全国")
     print(epidemic_dxy_country_df)
     epidemic_dxy_province_df = epidemic_dxy(indicator="湖北省")
@@ -115,7 +129,4 @@ if __name__ == '__main__':
     epidemic_dxy_news_df = epidemic_dxy(indicator="news")
     print(epidemic_dxy_news_df)
     epidemic_dxy(indicator="plot")
-    epidemic_current_163_df = epidemic_163(indicator="实时")
-    print(epidemic_current_163_df)
-    epidemic_hist_163_df = epidemic_163(indicator="历史")
-    print(epidemic_hist_163_df)
+

@@ -941,4 +941,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.67
 修复-option_commodity-json数据加载问题
+
+0.3.68
+更名函数 movie_board -> box_office_spot
 ```

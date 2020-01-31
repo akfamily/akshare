@@ -7,52 +7,29 @@ contact: jindaxiang@163.com
 desc: 猫眼电影实时票房
 感谢老铁: https://cloudcrawler.club/cong-mao-yan-zi-ti-fan-pa-fen-xi-tan-tan-zi-ti-fan-pa-de-qian-shi-jin-sheng.html
 """
-from typing import Dict, Any
 import re
 from io import BytesIO
 from pathlib import Path
+from typing import Dict, Any
 
-import requests
 import pandas as pd
-from lxml import etree
+import requests
 from fontTools.ttLib import TTFont
+from bs4 import BeautifulSoup
 
 from akshare.movie.movie_maoyan_knn_font import Classify
+from akshare.movie.cons import _board_url, _headers
 
-_woff_path = (
-        Path(__file__).absolute().parent / "fonts" / "test.woff"
-)
-_board_url = "https://maoyan.com/board/1"
-_headers = {
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-    "Cache-Control": "no-cache",
-    "Connection": "keep-alive",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36",
-    "Host": "maoyan.com",
-    "Pragma": "no-cache",
-    # "Cookie": "_lxsdk_s=16f32be05ae-d46-b03-a58%7C%7C1",
-    "Referer": "https://maoyan.com/board/1",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-Site": "same-origin",
-    "Sec-Fetch-User": "?1",
-    "Upgrade-Insecure-Requests": "1",
-}
+_woff_path = Path(__file__).absolute().parent / "fonts" / "test.woff"
+
 _classify = Classify()
 
 
 def get_map(text: str) -> Dict[str, Any]:
     woff_url = re.findall(r"url\('(.*?\.woff)'\)", text)[0]
     font_url = f"http:{woff_url}"
-    content = requests.get(font_url).content
-    try:
-        with open(_woff_path, "wb") as f:
-            f.write(content)
-    except:
-        with open(r"C:\Users\king\PycharmProjects\akshare\akshare\movie\fonts\test.woff", "wb") as f:
-            f.write(content)
-    font = TTFont(BytesIO(content))
+    res = requests.get(font_url)
+    font = TTFont(BytesIO(res.content))
     glyf_order = font.getGlyphOrder()[2:]
     info = []
     for g in glyf_order:
@@ -64,59 +41,60 @@ def get_map(text: str) -> Dict[str, Any]:
     return dict(zip(uni_li, map_li))
 
 
-def movie_board():
+def box_office_spot():
+    """
+    猫眼电影-榜单-国内票房榜
+    :return: 国内上映电影的实时票房数据
+    :rtype: pandas.DataFrame
+    """
     res = requests.get(url=_board_url, headers=_headers)
     res.encoding = "utf-8"
     text = res.text
     map_dict = get_map(text=text)
     for uni in map_dict.keys():
         text = text.replace(uni, map_dict[uni])
-    html = etree.HTML(text)
-    dd_li = html.xpath('//dl[@class="board-wrapper"]/dd')
+    soup = BeautifulSoup(text, "lxml")
+    dd_li = soup.find("dl", attrs={"class": "board-wrapper"}).find_all("dd")
     title_temp = []
     star_temp = []
-    releasetime_temp = []
+    release_time_temp = []
     realtime_stont_temp = []
     total_stont_temp = []
     for dd in dd_li:
-        p_li = dd.xpath(
-            './div[@class="board-item-main"]//div[@class="movie-item-info"]/p'
+        p_li = (
+            dd.find("div", attrs={"class": "board-item-main"})
+            .find("div", attrs={"class": "movie-item-info"})
+            .find_all("p")
         )
-        title = p_li[0].xpath("./a/@title")[0]
-        star = p_li[1].xpath("./text()")[0]
-        releasetime = p_li[2].xpath("./text()")[0]
-        p_li = dd.xpath(
-            './div[@class="board-item-main"]//div[@class="movie-item-number boxoffice"]/p'
+        title = p_li[0].get_text()
+        star = p_li[1].get_text()
+        release_time = p_li[2].get_text()
+        p_li = (
+            dd.find("div", attrs={"class": "board-item-main"})
+            .find("div", attrs={"class": "movie-item-number"})
+            .find_all("p")
         )
-        realtime_stont = "".join(
-            list(map(lambda x: x.strip(), p_li[0].xpath(".//text()")))
-        )
-        total_stont = "".join(
-            list(map(lambda x: x.strip(), p_li[1].xpath(".//text()")))
-        )
-        # print(title)
+        realtime_stont = "".join(list(map(lambda x: x.strip(), p_li[0].get_text())))
+        total_stont = "".join(list(map(lambda x: x.strip(), p_li[1].get_text())))
         title_temp.append(title)
-        # print(star)
-        star_temp.append(star)
-        # print(releasetime)
-        releasetime_temp.append(releasetime)
-        # print(realtime_stont)
-        realtime_stont_temp.append(realtime_stont)
-        # print(total_stont)
-        total_stont_temp.append(total_stont)
-        # print("-" * 50)
-    return pd.DataFrame(
+        star_temp.append(star.split("：")[1])
+        release_time_temp.append(release_time.split("：")[1])
+        realtime_stont_temp.append(realtime_stont.split(":")[1])
+        total_stont_temp.append(total_stont.split(":")[1])
+    temp_df = pd.DataFrame(
         [
             title_temp,
             star_temp,
-            releasetime_temp,
+            release_time_temp,
             realtime_stont_temp,
             total_stont_temp,
         ],
         index=["电影名称", "主演", "上映时间", "实时票房", "总票房"],
     ).T
 
+    return temp_df
+
 
 if __name__ == "__main__":
-    df = movie_board()
-    print(df)
+    box_office_spot_df = box_office_spot()
+    print(box_office_spot_df)
