@@ -18,6 +18,8 @@ import requests
 from PIL import Image
 from bs4 import BeautifulSoup
 
+pd.set_option('display.max_columns', None)
+
 
 def epidemic_163(indicator="实时"):
     """
@@ -111,6 +113,98 @@ def epidemic_dxy(indicator="info"):
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
 
 
+def epidemic_baidu(indicator="浙江"):
+    """
+    百度-新型冠状病毒肺炎-疫情实时大数据报告
+    https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1
+    :param indicator: 看说明文档
+    :type indicator: str
+    :return: 指定 indicator 的数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://huiyan.baidu.com/openapi/v1/migration/rank"
+    params = {
+        "type": "move",
+        "ak": "kgD2HiDnLdUhwzd3CLuG5AWNfX3fhLYe",
+        "adminType": "country",
+        "name": "全国",
+    }
+    res = requests.get(url, params=params)
+    move_in_df = pd.DataFrame(res.json()["result"]["moveInList"])
+    move_out_df = pd.DataFrame(res.json()["result"]["moveOutList"])
+    url = "https://opendata.baidu.com/api.php"
+    params = {
+        "query": "全国",
+        "resource_id": "39258",
+        "tn": "wisetpl",
+        "format": "json",
+        "cb": "jsonp_1580470773343_11183",
+    }
+    res = requests.get(url, params=params)
+    json_data = json.loads(res.text[res.text.find("({")+1:res.text.rfind(");")])
+    today_df = pd.DataFrame(json_data["data"][0]["list"][0]["item"])
+    protect_df = pd.DataFrame(json_data["data"][0]["list"][1]["item"])
+    rumor_df = pd.DataFrame(json_data["data"][0]["list"][2]["item"])
+
+    url = "https://opendata.baidu.com/data/inner"
+    params = {
+        "tn": "reserved_all_res_tn",
+        "dspName": "iphone",
+        "from_sf": "1",
+        "dsp": "iphone",
+        "resource_id": "28565",
+        "alr": "1",
+        "query": "肺炎",
+        "cb": "jsonp_1580470773344_83572",
+    }
+    res = requests.get(url, params=params)
+    json_data = json.loads(res.text[res.text.find("({") + 1:res.text.rfind(");")])
+    spot_report = pd.DataFrame(json_data["Result"][0]["DisplayData"]["result"]["items"])
+
+    url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/"
+    params = {
+        "from": "osari_pc_1",
+    }
+    res = requests.get(url, params=params)
+    json_data = json.loads(res.text[res.text.find("V.conf = ")+9: res.text.find("V.bsData")-1])
+    temp_df = pd.DataFrame()
+    temp_df[json_data["component"][0]["trend"]["list"][0]["name"]] = json_data["component"][0]["trend"]["list"][0]["data"]
+    temp_df[json_data["component"][0]["trend"]["list"][1]["name"]] = json_data["component"][0]["trend"]["list"][1]["data"]
+    temp_df[json_data["component"][0]["trend"]["list"][2]["name"]] = json_data["component"][0]["trend"]["list"][2]["data"]
+    temp_df[json_data["component"][0]["trend"]["list"][3]["name"]] = json_data["component"][0]["trend"]["list"][3]["data"]
+    temp_df.index = json_data["component"][0]["trend"]["updateDate"]
+
+    temp_dict = {}
+    for item in json_data["component"][0]["caseList"]:
+        temp_dict[item["area"]] = item["subList"]
+
+    domestic_df = pd.DataFrame.from_dict(json_data["component"][0]["summaryDataIn"], orient="index")
+    domestic_df.columns = [json_data["component"][0]["mapLastUpdatedTime"]]
+    out_df = pd.DataFrame.from_dict(json_data["component"][0]["summaryDataOut"], orient="index")
+    out_df.columns = [json_data["component"][0]["foreignLastUpdatedTime"]]
+
+    if indicator == "热门迁入地":
+        return move_in_df
+    elif indicator == "热门迁出地":
+        return move_out_df
+    elif indicator == "今日疫情热搜":
+        return today_df
+    elif indicator == "防疫知识热搜":
+        return protect_df
+    elif indicator == "热搜谣言粉碎":
+        return rumor_df
+    elif indicator == "实时播报":
+        return spot_report
+    elif indicator == "历史":
+        return temp_df
+    elif indicator == "国内":
+        return domestic_df
+    elif indicator == "国外":
+        return out_df
+    else:
+        return pd.DataFrame(temp_dict[indicator])
+
+
 if __name__ == "__main__":
     # 163
     epidemic_current_163_df = epidemic_163(indicator="实时")
@@ -129,4 +223,25 @@ if __name__ == "__main__":
     epidemic_dxy_news_df = epidemic_dxy(indicator="news")
     print(epidemic_dxy_news_df)
     epidemic_dxy(indicator="plot")
+    # baidu
+    epidemic_baidu_rmqrd_df = epidemic_baidu(indicator="热门迁入地")
+    print(epidemic_baidu_rmqrd_df)
+    epidemic_baidu_rmqcd_df = epidemic_baidu(indicator="热门迁出地")
+    print(epidemic_baidu_rmqcd_df)
+    epidemic_baidu_jryqrs_df = epidemic_baidu(indicator="今日疫情热搜")
+    print(epidemic_baidu_jryqrs_df)
+    epidemic_baidu_fyzsrs_df = epidemic_baidu(indicator="防疫知识热搜")
+    print(epidemic_baidu_fyzsrs_df)
+    epidemic_baidu_rsyyfs_df = epidemic_baidu(indicator="热搜谣言粉碎")
+    print(epidemic_baidu_rsyyfs_df)
+    epidemic_baidu_ssbb_df = epidemic_baidu(indicator="实时播报")
+    print(epidemic_baidu_ssbb_df.columns)
+    epidemic_baidu_ls_df = epidemic_baidu(indicator="历史")
+    print(epidemic_baidu_ls_df)
+    epidemic_baidu_gn_df = epidemic_baidu(indicator="国内")
+    print(epidemic_baidu_gn_df)
+    epidemic_baidu_gw_df = epidemic_baidu(indicator="国外")
+    print(epidemic_baidu_gw_df)
+    epidemic_baidu_zj_df = epidemic_baidu(indicator="浙江")
+    print(epidemic_baidu_zj_df)
 

@@ -353,13 +353,15 @@ print(epidemic_dxy_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="plot", 绘制-全国疫情趋势图|
+| indicator | str | Y | indicator="plot", 绘制-全国疫情图 3 合 1|
 
 输出参数-plot
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 图片      | str   | Y        |图片, 需要自己保存   |
+| 全国疫情新增趋势图      | str   | Y        |图片, 需要自己保存   |
+| 全国疫情确诊/疑似累计趋势图      | str   | Y        |图片, 需要自己保存   |
+| 全国疫情死亡/治愈累计趋势图      | str   | Y        |图片, 需要自己保存   |
 
 接口示例-plot
 
@@ -371,3 +373,625 @@ ak.epidemic_dxy(indicator="plot")
 图片示例-plot
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/epidemic_trend.jpg)
+
+### 新型冠状病毒-百度
+
+接口: epidemic_baidu
+
+目标地址: https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1
+
+描述: 获取百度-新型冠状病毒肺炎-疫情实时大数据报告
+
+限量: 单次返回所有数据
+
+输入参数-热门迁入地
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="热门迁入地", 返回全国迁徙城市热门|
+
+输出参数-热门迁入地
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| city_name      | str   | Y        |城市名称   |
+| province_name      | str   | Y        |省份   |
+| value      | str   | Y        |迁入比例   |
+| city_code      | str   | Y        |各区县行政区划代码   |
+
+接口示例-热门迁入地
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="热门迁入地")
+print(epidemic_baidu_df)
+```
+
+数据示例-热门迁入地
+
+```
+   city_name province_name  value city_code
+0        成都市           四川省   3.85    510100
+1        北京市           北京市   3.32    110000
+2        深圳市           广东省   3.09    440300
+3        上海市           上海市   2.78    310000
+4        广州市           广东省   2.72    440100
+5        东莞市           广东省   2.17    441900
+6        苏州市           江苏省   1.65    320500
+7        重庆市           重庆市   1.65    500000
+8        长沙市           湖南省   1.60    430100
+9        昆明市           云南省   1.48    530100
+10       沈阳市           辽宁省   1.41    210100
+11       西安市           陕西省   1.40    610100
+12       佛山市           广东省   1.33    440600
+13       贵阳市           贵州省   1.32    520100
+14       杭州市           浙江省   1.23    330100
+15       郑州市           河南省   1.22    410100
+16       南宁市       广西壮族自治区   1.22    450100
+17       南京市           江苏省   1.20    320100
+18       天津市           天津市   1.18    120000
+19       合肥市           安徽省   1.09    340100
+20       长春市           吉林省   1.07    220100
+21      哈尔滨市          黑龙江省   0.98    230100
+22       惠州市           广东省   0.97    441300
+23       厦门市           福建省   0.96    350200
+24       济南市           山东省   0.95    370100
+25       青岛市           山东省   0.84    370200
+26       中山市           广东省   0.83    442000
+27       无锡市           江苏省   0.79    320200
+28       太原市           山西省   0.75    140100
+29       大连市           辽宁省   0.73    210200
+```
+
+输入参数-热门迁出地
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="热门迁出地", 返回全国迁徙城市热门|
+
+输出参数-热门迁出地
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| city_name      | str   | Y        |城市名称   |
+| province_name      | str   | Y        |省份   |
+| value      | str   | Y        |迁入比例   |
+| city_code      | str   | Y        |各区县行政区划代码   |
+
+接口示例-热门迁出地
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="热门迁出地")
+print(epidemic_baidu_df)
+```
+
+数据示例-热门迁入地
+
+```
+   city_name province_name  value city_code
+0        重庆市           重庆市   1.68    500000
+1        成都市           四川省   1.27    510100
+2        南充市           四川省   1.07    511300
+3        广州市           广东省   0.98    440100
+4        邵阳市           湖南省   0.88    430500
+5        北京市           北京市   0.87    110000
+6        盐城市           江苏省   0.87    320900
+7        深圳市           广东省   0.82    440300
+8        毕节市           贵州省   0.82    520500
+9        达州市           四川省   0.81    511700
+10       衡阳市           湖南省   0.73    430400
+11       梅州市           广东省   0.72    441400
+12       茂名市           广东省   0.72    440900
+13       阜阳市           安徽省   0.71    341200
+14       周口市           河南省   0.69    411600
+15       长沙市           湖南省   0.66    430100
+16       西安市           陕西省   0.66    610100
+17       上海市           上海市   0.66    310000
+18       曲靖市           云南省   0.66    530300
+19       南宁市       广西壮族自治区   0.65    450100
+20       湛江市           广东省   0.64    440800
+21       玉林市       广西壮族自治区   0.61    450900
+22       合肥市           安徽省   0.61    340100
+23       资阳市           四川省   0.61    512000
+24       揭阳市           广东省   0.61    445200
+25       广安市           四川省   0.59    511600
+26       内江市           四川省   0.59    511000
+27       永州市           湖南省   0.59    431100
+28       遵义市           贵州省   0.58    520300
+29       绵阳市           四川省   0.58    510700
+```
+
+输入参数-今日疫情热搜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="今日疫情热搜", 返回今日疫情热搜数据|
+
+输出参数-今日疫情热搜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| degree      | str   | Y        | 搜索量   |
+| query      | str   | Y        | 搜索内容  |
+| type      | str   | Y        | 类型  |
+| url      | str   | Y        | 网址  |
+					
+接口示例-今日疫情热搜
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="今日疫情热搜")
+print(epidemic_baidu_df)
+```
+
+数据示例-今日疫情热搜
+
+```
+     degree            query type  \
+0  25779382         新型肺炎实时动态    2   
+1   2626725          疫情拐点将出现    1   
+2   1935775   疫情被列国际突发公共卫生事件    2   
+3   1337020    湖北企业复工不早于2.13    2   
+4   1009220   病毒在毛质衣物上存活时间更短    0   
+5    905491            火神山直播    0   
+6    893315      包机接海外湖北公民回家    3   
+7    779037  省委书记检查防疫被村口大爷拦住    3   
+                                                 url  
+0  https://m.baidu.com/s?word=%E6%96%B0%E5%9E%8B%...  
+1  https://m.baidu.com/s?word=%E7%96%AB%E6%83%85%...  
+2  https://m.baidu.com/s?word=%E7%96%AB%E6%83%85%...  
+3  https://m.baidu.com/s?word=%E6%B9%96%E5%8C%97%...  
+4  https://m.baidu.com/s?word=%E7%97%85%E6%AF%92%...  
+5  https://m.baidu.com/s?word=%E7%81%AB%E7%A5%9E%...  
+6  https://m.baidu.com/s?word=%E5%8C%85%E6%9C%BA%...  
+7  https://m.baidu.com/s?word=%E7%9C%81%E5%A7%94%...         
+```
+
+输入参数-防疫知识热搜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="防疫知识热搜", 返回防疫知识热搜数据|
+
+输出参数-防疫知识热搜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| degree      | str   | Y        | 搜索量   |
+| query      | str   | Y        | 搜索内容  |
+| type      | str   | Y        | 类型  |
+| url      | str   | Y        | 网址  |
+					
+接口示例-防疫知识热搜
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="防疫知识热搜")
+print(epidemic_baidu_df)
+```
+
+数据示例-防疫知识热搜
+
+```
+    degree        query type  \
+0  1802150     新型肺炎自查手册    0   
+1   781468    新型冠状病毒的特征    0   
+2   914125   n95口罩多久换一次    0   
+3   801365    人的正常体温是多少    0   
+4   599625  84消毒液对人体有害吗    3   
+5   498645     钟南山示范摘口罩    3   
+6   409385   戴口罩眼镜不起雾技巧    0   
+7   109359    收快递会感染病毒吗    0   
+                                                 url  
+0  https://m.baidu.com/s?word=%E6%96%B0%E5%9E%8B%...  
+1  https://m.baidu.com/s?word=%E6%96%B0%E5%9E%8B%...  
+2  https://m.baidu.com/s?word=n95%E5%8F%A3%E7%BD%...  
+3  https://m.baidu.com/s?word=%E4%BA%BA%E7%9A%84%...  
+4  https://m.baidu.com/s?word=84%E6%B6%88%E6%AF%9...  
+5  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...  
+6  https://m.baidu.com/s?word=%E6%88%B4%E5%8F%A3%...  
+7  https://m.baidu.com/s?word=%E6%94%B6%E5%BF%AB%...  
+```
+
+输入参数-热搜谣言粉碎
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="热搜谣言粉碎", 返回热搜谣言粉碎数据|
+
+输出参数-热搜谣言粉碎
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| degree      | str   | Y        | 搜索量   |
+| query      | str   | Y        | 搜索内容  |
+| type      | str   | Y        | 类型  |
+| url      | str   | Y        | 网址  |
+					
+接口示例-热搜谣言粉碎
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="热搜谣言粉碎")
+print(epidemic_baidu_df)
+```
+
+数据示例-热搜谣言粉碎
+
+```
+   degree         query type  \
+0  219570    洗热水澡预防新型肺炎    7   
+1   85560     纸币会传播冠状病毒    7   
+2   68568     全身喷洒酒精可消毒    7   
+3   39528   武汉红十字会收取服务费    7   
+4   37296     风油精涂人中防流感    7   
+5    7224    超市买的东西必须消毒    7   
+6    4032      香油滴鼻孔防传染    7   
+7    6696  世卫组织认定中国为疫区国    7   
+                                                 url  
+0  https://m.baidu.com/s?word=%E6%B4%97%E7%83%AD%...  
+1  https://m.baidu.com/s?word=%E7%BA%B8%E5%B8%81%...  
+2  https://m.baidu.com/s?word=%E5%85%A8%E8%BA%AB%...  
+3  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...  
+4  https://m.baidu.com/s?word=%E9%A3%8E%E6%B2%B9%...  
+5  https://m.baidu.com/s?word=%E8%B6%85%E5%B8%82%...  
+6  https://m.baidu.com/s?word=%E9%A6%99%E6%B2%B9%...  
+7  https://m.baidu.com/s?word=%E4%B8%96%E5%8D%AB%...  
+```
+
+输入参数-实时播报
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="实时播报", 返回实时播报数据|
+
+输出参数-实时播报
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| bjh_na      | str   | Y        |-   |
+| eventDescription      | str   | Y        | 新闻描述  |
+| eventTime      | str   | Y        | 新闻时间  |
+| eventUrl      | str   | Y        | 链接  |
+| homepageUrl      | str   | Y        | 链接  |
+| item_avatar      | str   | Y        | -  |
+| siteName      | str   | Y        | 新闻来源  |
+
+接口示例-实时播报
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="实时播报")
+print(epidemic_baidu_df)
+```
+
+数据示例-实时播报
+
+```
+                                               bjh_na  \
+0   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+1                                                 NaN   
+2   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+3   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+4   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+5   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+6                                                 NaN   
+7   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+8   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+9   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+10                                                NaN   
+11                                                NaN   
+12                                                NaN   
+13  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+14  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+15  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+16                                                NaN   
+17  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+18  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+19  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+20  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+21  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+22                                                NaN   
+23  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+24  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+25                                                NaN   
+26  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+27  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+28  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+29                                                NaN   
+30                                                NaN   
+31  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+32                                                NaN   
+33  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+34  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+35  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
+                     eventDescription   eventTime  \
+0            快讯！俄罗斯首次确诊两例新型冠状病毒感染肺炎病例  1580474901   
+1           武汉市金银潭医院20名新型冠状病毒肺炎患者集体出院  1580474200   
+2               财政部：确保居民不因担心费用问题而不敢就诊  1580473684   
+3      湖北民政厅原副厅长文增显去世 是否感染新型冠状病毒肺炎未确诊  1580473063   
+4         中央赴湖北指导组：进一步降低病死率 加强农村和社区防控  1580472650   
+5          芬兰航空取消2月6日至2月29日期间中国内地全部航班  1580472257   
+6      重磅！北京市政府：除必需行业外，各企业2月9日前灵活安排工作  1580472216   
+7                         湖北将适当延长春节假期  1580469318   
+8                长这样！雷神山医院隔离病区整体效果图发布  1580469098   
+9              新加坡后天起禁止过去14天曾到中国的旅客入境  1580469076   
+10       厦门实行口罩预约登记、摇号购买 登记系统今日14点已开放  1580468100   
+11           准备起飞！祖国派专机接滞留马来西亚的武汉同胞回家  1580465635   
+12                快讯！香港：从明日起 发烧旅客不准登机  1580465580   
+13      感染孕产妇是否会对胎儿产生影响？马丁院士：现在还不能下结论  1580465303   
+14            埃及航空暂停2月29日之前往返于中国大陆的航班  1580464878   
+15        多家航司派出包机接湖北籍中国公民返乡，采取自愿购票原则  1580464838   
+16           香港新型肺炎确诊病例增至12例，其中11例属输入  1580464114   
+17       路透社：巴基斯坦暂停往返中国航班，2月2日后将再评估情况  1580463960   
+18                   英国确诊2例新型冠状病毒感染肺炎  1580463912   
+19         中疾控独家回应：“人传人”早有推论，保守下结论有原因  1580463633   
+20           外地返京人员回不了家？北京市民政局：可向我们反映  1580462613   
+21             商务部：前几天部分超市出现空架的情况明显缓解  1580461742   
+22       林郑月娥：全港中小学、幼儿园以及特殊学校最快3月2日复课  1580461620   
+23  北京卫健委发言人：有43例都是被家人感染，建议家人接触也要留有空间  1580461200   
+24      北京市疾控中心副主任：对一般民众不太建议推广使用N95口罩  1580460671   
+25         湖北红十字会对武汉、黄冈、孝感、荆门四市拨付款超1亿  1580460638   
+26           广东31日0-12时新增确诊43例，新增出院1例  1580460300   
+27         广东省卫健委：已做好在广深珠佛莞等市建临时医院的准备  1580459720   
+28             湖北红会纠错莆田系医院口罩数量，结果又出错了  1580459430   
+29         北京市卫健委发言人介绍9月大患者：为家庭密切接触感染  1580459407   
+30       北京市民政局回应社区禁止外地人进入：非确诊病例应自由进入  1580458992   
+31              北京新增7例新型肺炎确诊病例 累计139例  1580458448   
+32       民政部回应家人被隔离后脑瘫儿死亡：加强特殊群体的关心帮扶  1580457600   
+33         民政部回应社区劝阻租户入住：不宜一刀切，人心不能疏离  1580457246   
+34                  卫健委：戴口罩跳广场舞还是有风险的  1580456929   
+35           民政部：疫情解除前社区不能举办各类人员聚集性活动  1580456760   
+                                             eventUrl  \
+0   http://baijiahao.baidu.com/s?id=16572480255696...   
+1   http://baijiahao.baidu.com/s?id=16572472690114...   
+2   http://baijiahao.baidu.com/s?id=16572468473332...   
+3   http://baijiahao.baidu.com/s?id=16572464180335...   
+4   http://baijiahao.baidu.com/s?id=16572458307781...   
+5   http://baijiahao.baidu.com/s?id=16572453392259...   
+6   http://baijiahao.baidu.com/s?id=16572296217201...   
+7   http://baijiahao.baidu.com/s?id=16572423157274...   
+8   http://baijiahao.baidu.com/s?id=16572419102201...   
+9   http://baijiahao.baidu.com/s?id=16572419989469...   
+10  http://baijiahao.baidu.com/s?id=16572274167485...   
+11  http://baijiahao.baidu.com/s?id=16572382862715...   
+12  http://baijiahao.baidu.com/s?id=16572385604862...   
+13  http://baijiahao.baidu.com/s?id=16572379462581...   
+14  http://baijiahao.baidu.com/s?id=16572375985555...   
+15  http://baijiahao.baidu.com/s?id=16572376024466...   
+16  http://baijiahao.baidu.com/s?id=16572368444719...   
+17  http://baijiahao.baidu.com/s?id=16572368038836...   
+18  http://baijiahao.baidu.com/s?id=16572365082310...   
+19  http://baijiahao.baidu.com/s?id=16572363429949...   
+20  http://baijiahao.baidu.com/s?id=16572352076867...   
+21  http://baijiahao.baidu.com/s?id=16572343604491...   
+22  http://baijiahao.baidu.com/s?id=16572344014716...   
+23  http://baijiahao.baidu.com/s?id=16572338358951...   
+24  http://baijiahao.baidu.com/s?id=16572331048794...   
+25  http://baijiahao.baidu.com/s?id=16572331928382...   
+26  http://baijiahao.baidu.com/s?id=16572328951131...   
+27  http://baijiahao.baidu.com/s?id=16572321483350...   
+28  http://baijiahao.baidu.com/s?id=16572337126213...   
+29  http://baijiahao.baidu.com/s?id=16572319400182...   
+30  http://baijiahao.baidu.com/s?id=16572314353418...   
+31  http://baijiahao.baidu.com/s?id=16572309679415...   
+32  http://baijiahao.baidu.com/s?id=16572300663904...   
+33  http://baijiahao.baidu.com/s?id=16572296788198...   
+34  http://baijiahao.baidu.com/s?id=16572291786683...   
+35  http://baijiahao.baidu.com/s?id=16572293117986...   
+                                          homepageUrl  \
+0   https://baijiahao.baidu.com/u?app_id=155196823...   
+1   http://baijiahao.baidu.com/u?app_id=1551968238...   
+2   https://baijiahao.baidu.com/u?app_id=156645361...   
+3   https://baijiahao.baidu.com/u?app_id=156182596...   
+4   https://baijiahao.baidu.com/u?app_id=155286491...   
+5   https://baijiahao.baidu.com/u?app_id=156645361...   
+6   http://baijiahao.baidu.com/u?app_id=1601149438...   
+7   https://baijiahao.baidu.com/u?app_id=156645361...   
+8   https://baijiahao.baidu.com/u?app_id=160114943...   
+9   https://baijiahao.baidu.com/u?app_id=154660853...   
+10  http://baijiahao.baidu.com/u?app_id=1561825967...   
+11  http://baijiahao.baidu.com/u?app_id=1552864910...   
+12  http://baijiahao.baidu.com/u?app_id=1549608413...   
+13  https://baijiahao.baidu.com/u?app_id=156182596...   
+14  https://baijiahao.baidu.com/u?app_id=156645361...   
+15  https://baijiahao.baidu.com/u?app_id=157407200...   
+16  http://baijiahao.baidu.com/u?app_id=1566453612...   
+17  https://baijiahao.baidu.com/u?app_id=154960841...   
+18  https://baijiahao.baidu.com/u?app_id=156182596...   
+19  https://baijiahao.baidu.com/u?app_id=156645361...   
+20  https://baijiahao.baidu.com/u?app_id=156645361...   
+21  https://baijiahao.baidu.com/u?app_id=157316232...   
+22  http://baijiahao.baidu.com/u?app_id=1549608413...   
+23  https://baijiahao.baidu.com/u?app_id=154960841...   
+24  https://baijiahao.baidu.com/u?app_id=156182596...   
+25  http://baijiahao.baidu.com/u?app_id=1566453612...   
+26  https://baijiahao.baidu.com/u?app_id=154960841...   
+27  https://baijiahao.baidu.com/u?app_id=160198381...   
+28  https://baijiahao.baidu.com/u?app_id=157224978...   
+29  http://baijiahao.baidu.com/u?app_id=1566453612...   
+30  http://baijiahao.baidu.com/u?app_id=1566453612...   
+31  https://baijiahao.baidu.com/u?app_id=155286491...   
+32  http://baijiahao.baidu.com/u?app_id=1549608413...   
+33  https://baijiahao.baidu.com/u?app_id=156645361...   
+34  https://baijiahao.baidu.com/u?app_id=160686343...   
+35  https://baijiahao.baidu.com/u?app_id=154960841...   
+                                          item_avatar siteName  
+0   http://timg01.bdimg.com/timg?pacompress&imgtyp...     环球时报  
+1   http://timg01.bdimg.com/timg?pacompress&imgtyp...     环球时报  
+2   http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
+3   http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
+4   http://timg01.bdimg.com/timg?pacompress=&imgty...  人民日报海外网  
+5   http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
+6   http://pic.rmb.bdstatic.com/73c41abfdd401cc72e...  北京日报客户端  
+7   http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
+8   http://pic.rmb.bdstatic.com/73c41abfdd401cc72e...  北京日报客户端  
+9   http://timg01.bdimg.com/timg?pa=&imgtype=0&sec...     观察者网  
+10  http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
+11  http://timg01.bdimg.com/timg?pacompress=&imgty...  人民日报海外网  
+12  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
+13  http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
+14  http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
+15  http://timg01.bdimg.com/timg?pacompress=&imgty...     澎湃新闻  
+16  https://timg01.bdimg.com/timg?pacompress=&imgt...      新京报  
+17  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
+18  http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
+19  http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
+20  http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
+21  http://timg01.bdimg.com/timg?pacompress=&imgty...      金融界  
+22  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
+23  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
+24  http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
+25  https://timg01.bdimg.com/timg?pacompress=&imgt...      新京报  
+26  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
+27  http://timg01.bdimg.com/timg?pacompress&imgtyp...   金十数据快讯  
+28  http://timg01.bdimg.com/timg?pacompress=&imgty...     上游新闻  
+29  https://timg01.bdimg.com/timg?pacompress=&imgt...      新京报  
+30  https://timg01.bdimg.com/timg?pacompress=&imgt...      新京报  
+31  http://timg01.bdimg.com/timg?pacompress=&imgty...  人民日报海外网  
+32  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
+33  http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
+34  http://pic.rmb.bdstatic.com/a51d142ac7625feda1...   潇湘晨报官方  
+35  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
+```
+
+输入参数-历史
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="历史", 返回全国疫情统计的历史数据|
+
+输出参数-历史
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 确诊      | str   | Y        |-   |
+| 疑似      | str   | Y        | -  |
+| 治愈      | str   | Y        | -  |
+| 死亡      | str   | Y        | -  |
+
+接口示例-历史
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="历史")
+print(epidemic_baidu_df)
+```
+
+数据示例-历史
+
+```
+        确诊     疑似   治愈   死亡
+1.21   440     37    0    0
+1.22   574    393    0   17
+1.23   835   1072   34   25
+1.24  1297   1965   38   41
+1.25  1985   2684   49   56
+1.26  2761   5794   51   80
+1.27  4535   6973   60  106
+1.28  5997   9239  103  132
+1.29  7736  12167  126  170
+1.30  9720  15238  171  213
+```
+
+输入参数-国内
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="国内", 国内疫情实时统计数据|
+
+输出参数-国内
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| index      | str   | Y        |项目   |
+|  value     | str   | Y        |数值(单位: 人)   |
+
+接口示例-国内
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="国内")
+print(epidemic_baidu_df)
+```
+
+数据示例-国内
+
+```
+            2020.01.31 20:52
+confirmed               9811
+died                     213
+cured                    216
+unconfirmed            15238
+```
+
+输入参数-国外
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="国外", 国外疫情实时统计数据|
+
+输出参数-国外
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| index      | str   | Y        |项目   |
+| value     | str   | Y        |数值(单位: 人)   |
+
+接口示例-国外
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="国外")
+print(epidemic_baidu_df)
+```
+
+数据示例-国外
+
+```
+          2020.01.31 20:52
+confirmed              122
+died                     0
+cured                   10
+```
+
+输入参数-具体省份(如: 浙江)
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="浙江", 浙江疫情实时统计数据|
+
+输出参数-具体省份(如: 浙江)
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| city      | str   | Y        |城市名称   |
+| confirmed     | str   | Y        |确诊人数  |
+| died     | str   | Y        |死亡人数   |
+| crued     | str   | Y        |治愈人数   |
+
+接口示例-具体省份(如: 浙江)
+
+```python
+import akshare as ak
+epidemic_baidu_df = ak.epidemic_baidu(indicator="浙江")
+print(epidemic_baidu_df)
+```
+
+数据示例-具体省份(如: 浙江)
+
+```
+   city confirmed died crued
+0    台州        81          1
+1    嘉兴        16           
+2    湖州         6           
+3    舟山         7          1
+4    绍兴        23           
+5    宁波        46           
+6    杭州        85           
+7    金华        27          2
+8    丽水         7          1
+9    温州       227          7
+10   衢州        12           
+```

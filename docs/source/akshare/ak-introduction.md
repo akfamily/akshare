@@ -153,6 +153,12 @@
     6.50 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的股票账户统计数据;
     
     6.51 新增[交易法门网站](https://www.jiaoyifamen.com/)提供的商品期货数据-黑色系数据;
+    
+    6.52 新增[百度](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的新型冠状病毒-疫情数据;
+    
+    6.53 新增[丁香园](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)提供的新型冠状病毒-疫情数据;
+    
+    6.54 新增[网易](https://news.163.com/special/epidemic/)提供的新型冠状病毒-疫情数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.

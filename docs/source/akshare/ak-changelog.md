@@ -944,4 +944,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.68
 更名函数 movie_board -> box_office_spot
+
+0.3.69
+新增-epidemic_baidu
+百度-新型冠状病毒肺炎-疫情实时大数据报告
 ```
