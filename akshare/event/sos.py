@@ -42,7 +42,7 @@ def epidemic_163(indicator="实时"):
         return hist_df
 
 
-def epidemic_dxy(indicator="info"):
+def epidemic_dxy(indicator="浙江省"):
     """
     丁香园-全国统计-info
     丁香园-分地区统计-data
@@ -72,7 +72,7 @@ def epidemic_dxy(indicator="info"):
         data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
     )
     data_df = pd.DataFrame(data_text_json)
-    data_df.columns = ["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注", "区域"]
+    data_df.columns = ["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注", "区域ID", "区域"]
     country_df = data_df[["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注"]]
     # info
     dxy_static = soup.find(attrs={"id": "getStatisticsService"}).get_text()
@@ -107,7 +107,8 @@ def epidemic_dxy(indicator="info"):
     else:
         try:
             sub_area = pd.DataFrame(data_df[data_df["地区"] == indicator]["区域"].values[0])
-            sub_area.columns = ["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]
+            sub_area.columns = ["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "区域ID"]
+            sub_area[["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]]
             return sub_area
         except IndexError as e:
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
