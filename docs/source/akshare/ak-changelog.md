@@ -951,4 +951,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.70
 修复-epidemic_dxy-字段问题
+
+0.3.71
+修复-epidemic_dxy-具体省份字段问题
 ```

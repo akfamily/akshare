@@ -42,7 +42,7 @@ def epidemic_163(indicator="实时"):
         return hist_df
 
 
-def epidemic_dxy(indicator="浙江省"):
+def epidemic_dxy(indicator="西藏自治区"):
     """
     丁香园-全国统计-info
     丁香园-分地区统计-data
@@ -107,6 +107,8 @@ def epidemic_dxy(indicator="浙江省"):
     else:
         try:
             sub_area = pd.DataFrame(data_df[data_df["地区"] == indicator]["区域"].values[0])
+            if sub_area.empty:
+                return print("暂无分区域数据")
             sub_area.columns = ["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "区域ID"]
             sub_area[["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]]
             return sub_area
@@ -215,7 +217,7 @@ if __name__ == "__main__":
     # dxy
     epidemic_dxy_country_df = epidemic_dxy(indicator="全国")
     print(epidemic_dxy_country_df)
-    epidemic_dxy_province_df = epidemic_dxy(indicator="湖北省")
+    epidemic_dxy_province_df = epidemic_dxy(indicator="西藏自治区")
     print(epidemic_dxy_province_df)
     epidemic_dxy_info_df = epidemic_dxy(indicator="info")
     print(epidemic_dxy_info_df)
