@@ -735,10 +735,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_dxy-字段问题
 0.3.71
 修复-epidemic_dxy-具体省份字段问题
+0.3.72
+新增-百度迁徙地图接口
 """
 
-__version__ = "0.3.71"
+__version__ = "0.3.72"
 __author__ = "Albert King"
+
+"""
+新增-百度迁徙地图接口
+"""
+from akshare.event.sos import migration_area_baidu, migration_scale_baidu
 
 """
 新增-事件接口新型冠状病毒接口
@@ -760,23 +767,17 @@ from akshare.fx.currency_investing import (
 """
 商品期权-郑州商品交易所-期权-历史数据
 """
-from akshare.option.czce_option import (
-    option_czce_hist,
-)
+from akshare.option.czce_option import option_czce_hist
 
 """
 宏观-经济数据-银行间拆借利率
 """
-from akshare.interest_rate.interbank_rate_em import (
-    rate_interbank,
-)
+from akshare.interest_rate.interbank_rate_em import rate_interbank
 
 """
 东方财富网-经济数据-银行间拆借利率
 """
-from akshare.interest_rate.interbank_rate_em import (
-    rate_interbank,
-)
+from akshare.interest_rate.interbank_rate_em import rate_interbank
 
 """
 金十数据中心-经济指标-欧元区
@@ -827,9 +828,7 @@ from akshare.futures_derivative.jyfm_tools_func import (
 """
 交易法门-工具-资金分析
 """
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_fund,
-)
+from akshare.futures_derivative.jyfm_tools_func import jyfm_tools_position_fund
 
 """
 交易法门-工具-仓单分析
@@ -855,9 +854,7 @@ from akshare.futures_derivative.jyfm_tools_func import (
 """
 义乌小商品指数
 """
-from akshare.index.index_yw import (
-    index_yw,
-)
+from akshare.index.index_yw import index_yw
 
 """
 股票指数-股票指数-成份股
@@ -1022,7 +1019,7 @@ from akshare.futures_derivative.jyfm_data_func import (
     jyfm_data_soybean_meal,  # 豆粕
     jyfm_data_sugar,  # 白糖
     jyfm_data_usa_bean,  # 美豆
-    jyfm_data_soybean_oil  # 豆油
+    jyfm_data_soybean_oil,  # 豆油
 )
 
 """

@@ -152,6 +152,10 @@ pip install akshare --upgrade
 
 感谢[丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)提供的相关数据;
 
+感谢[百度网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的相关数据;
+
+感谢[百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0)提供的相关数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 专题教程;
 
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Anaconda 专题教程.

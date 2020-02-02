@@ -334,6 +334,9 @@
  "epidemic_163"  # 新型冠状病毒-网易
  "epidemic_dxy"  # 新型冠状病毒-丁香园
  "epidemic_baidu"  # 新型冠状病毒-百度
+ # 百度迁徙地图接口
+ "migration_area_baidu"  # 百度迁徙地图-迁入/出地详情
+ "migration_scale_baidu"  # 百度迁徙地图-迁徙规模
 ```
 
 ## 3. 案例演示

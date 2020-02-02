@@ -995,3 +995,110 @@ print(epidemic_baidu_df)
 9    温州       227          7
 10   衢州        12           
 ```
+
+### 迁徙数据-百度
+
+#### 迁入与迁出地详情
+
+接口: migration_area_baidu
+
+目标地址: https://qianxi.baidu.com/?from=shoubai#city=0
+
+描述: 获取百度-百度地图慧眼-百度迁徙-迁入/迁出地数据接口
+
+限量: 单次返回前 50 个城市, 由于百度接口限制, 目前只能返回前 50 个城市
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| area | str | Y | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如 浙江省, 乌鲁木齐市 |
+| indicator | str | Y | indicator="move_in", 返回迁入地详情, indicator="move_in", 返回迁出地详情 |
+| date | str | Y | date="20200201", 需要滞后一天 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| city_name      | 城市名称   | Y        |   |
+| province_name      | 所属省份   | Y        |   |
+| value      | str   | 迁徙规模, 比例        |   |
+			
+接口示例
+
+```python
+import akshare as ak
+migration_area_baidu_df = ak.migration_area_baidu(area="浙江省", indicator="move_in", date="20200201")
+print(migration_area_baidu_df)
+```
+
+数据示例
+
+```
+   city_name province_name  value
+0        上海市           上海市   5.77
+1        阜阳市           安徽省   4.68
+2        上饶市           江西省   4.57
+3        亳州市           安徽省   2.44
+4        重庆市           重庆市   2.34
+..       ...           ...    ...
+95       咸阳市           陕西省   0.26
+96       潍坊市           山东省   0.25
+97       烟台市           山东省   0.25
+98       常德市           湖南省   0.25
+99       沈阳市           辽宁省   0.24
+```
+
+#### 迁徙规模
+
+接口: migration_scale_baidu
+
+目标地址: https://qianxi.baidu.com/?from=shoubai#city=0
+
+描述: 获取百度-百度地图慧眼-百度迁徙-迁徙规模
+
+- 迁徙规模指数：反映迁入或迁出人口规模，城市间可横向对比
+- 城市迁徙边界采用该城市行政区划，包含该城市管辖的区、县、乡、村
+
+限量: 单次返回当前城市的去年和今年的迁徙规模数据, 查询参数中的 **start_date** 不要随意更改
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| area | str | Y | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如 浙江省, 乌鲁木齐市 |
+| indicator | str | Y | indicator="move_in", 返回迁入地详情, indicator="move_in", 返回迁出地详情 |
+| start_date | str | Y | start_date="20190112", 一般不要变化 |
+| end_date | str | Y | end_date="20200201", 往后查询如 20200202 之后 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 日期      | 索引   | Y        | 去年和今年的日期  |
+| 迁徙规模指数      | str   | Y        |  定义参见百度, 同 epidemic_baidu 定义 |
+			
+接口示例
+
+```python
+import akshare as ak
+migration_scale_baidu_df = ak.migration_scale_baidu(area="浙江省", indicator="move_out", start_date="20190112", end_date="20200201")
+print(migration_scale_baidu_df)
+```
+
+数据示例
+
+```
+               迁徙规模指数
+2019-01-12  82153.440
+2019-01-13  75818.916
+2019-01-14  82712.988
+2019-01-15  83889.108
+2019-01-16  90118.008
+               ...
+2020-01-28  29054.052
+2020-01-29  22622.328
+2020-01-30  20901.564
+2020-01-31  19023.984
+2020-02-01  15723.072
+```

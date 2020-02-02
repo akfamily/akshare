@@ -2,7 +2,7 @@
 
 **特殊时期, 大家注意安全**
 
-(本文档更新于 **2020-02-01**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
+(本文档更新于 **2020-02-02**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -154,11 +154,13 @@
     
     6.51 新增[交易法门网站](https://www.jiaoyifamen.com/)提供的商品期货数据-黑色系数据;
     
-    6.52 新增[百度](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的新型冠状病毒-疫情数据;
+    6.52 新增[百度疫情网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的新型冠状病毒-疫情数据;
     
-    6.53 新增[丁香园](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)提供的新型冠状病毒-疫情数据;
+    6.53 新增[丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)提供的新型冠状病毒-疫情数据;
     
-    6.54 新增[网易](https://news.163.com/special/epidemic/)提供的新型冠状病毒-疫情数据;
+    6.54 新增[网易网站](https://news.163.com/special/epidemic/)提供的新型冠状病毒-疫情数据;
+    
+    6.55 新增[百度迁徙网站](https://news.163.com/special/epidemic/)提供的人口迁徙数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
