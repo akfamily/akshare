@@ -737,9 +737,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_dxy-具体省份字段问题
 0.3.72
 新增-百度迁徙地图接口
+0.3.73
+修复文字表述
 """
 
-__version__ = "0.3.72"
+__version__ = "0.3.73"
 __author__ = "Albert King"
 
 """

@@ -6,7 +6,7 @@ date: 2020/1/31 17:02
 contact: jindaxiang@163.com
 desc: 
 """
-_board_url = "https://maoyan.com/board/2"  # 1 represent domestic or 2 represent abroad
+_board_url = "https://maoyan.com/board/1"  # 1 represent domestic or 2 represent abroad
 _headers = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
     "Accept-Encoding": "gzip, deflate, br",

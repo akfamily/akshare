@@ -7,13 +7,13 @@ contact: jindaxiang@163.com
 desc: 获取北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
 https://www.bjets.com.cn/article/jyxx/
 """
-import requests
 import pandas as pd
+import requests
 
 
 def energy_carbon():
     """
-    获取北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
+    北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
     https://www.bjets.com.cn/article/jyxx/
     """
     print("正在采集, 预计10秒左右完成")

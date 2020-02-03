@@ -9,14 +9,13 @@ P.S. 注意抓取速度, 容易封 IP 地址
 """
 import time
 
-import requests
-import pandas as pd
 import demjson
+import pandas as pd
+import requests
 
 from akshare.futures.cons import (zh_subscribe_exchange_symbol_url,
                                   zh_match_main_contract_url,
-                                  zh_match_main_contract_payload,
-                                  zh_sina_spot_headers)
+                                  zh_match_main_contract_payload)
 
 
 def zh_subscribe_exchange_symbol(exchange="dce"):

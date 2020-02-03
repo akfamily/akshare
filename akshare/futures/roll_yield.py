@@ -7,18 +7,18 @@ contact: jindaxiang@163.com
 desc: 获取各合约展期收益率, 日线数据从 daily_bar 函数获取
 """
 import datetime
-import warnings
 import re
+import warnings
 
+import matplotlib.dates as mdate
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pandas.plotting import register_matplotlib_converters
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdate
 
-from akshare.futures.symbol_var import symbol_market, symbol_varieties
-from akshare.futures.daily_bar import get_futures_daily
 from akshare.futures import cons
+from akshare.futures.daily_bar import get_futures_daily
+from akshare.futures.symbol_var import symbol_market, symbol_varieties
 
 register_matplotlib_converters()
 calendar = cons.get_calendar()
