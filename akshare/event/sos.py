@@ -28,20 +28,38 @@ def epidemic_163(indicator="实时"):
     网易网页端-新冠状病毒-实时人数统计情况
     国内和海外
     https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&#map_block
+    https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&
     :return: 返回国内各地区和海外地区情况
     :rtype: pandas.DataFrame
     """
-    url = "https://spider.ws.126.net/disease_map_data"
-    res = requests.get(url)
-    temp = res.text[res.text.find("({") + 1: res.text.rfind("})") + 1]
-    current_df = pd.DataFrame(
-        demjson.decode(json.loads(temp)["data1"].replace("\n", ""))
-    )
-    hist_df = pd.DataFrame(demjson.decode(json.loads(temp)["data2"].replace("\n", "")))
+    url = "https://news.163.com/special/epidemic/"
+    params = {
+        "spssid": "93326430940df93a37229666dfbc4b96",
+        "spsw": "4",
+        "spss": "other",
+    }
+    res = requests.get(url, params=params)
+    soup = BeautifulSoup(res.text, "lxml")
+
+    text = soup.find_all("script")[1].get_text()
+    temp = text[text.find("window.data_by_date = ") + 22: text.rfind(";")]
+    hist_df = pd.DataFrame(demjson.decode(temp))
+
+    text = soup.find_all("script")[-6].get_text()
+    temp = text[text.find("window.epidemic = ") + 18: text.rfind(";")]
+    area_df = pd.DataFrame(demjson.decode(temp))
+
+    current_df = [item for item in soup.find("div", attrs={"class": "cover_con"}).get_text().split("\n") if item is not ""]
+
+    outside_df = pd.DataFrame([item for item in soup.find("div", attrs={"class": "map_others"}).get_text().split("\n") if item is not ""])
     if indicator == "实时":
         return current_df
-    else:
+    elif indicator == "历史":
         return hist_df
+    elif indicator == "地区":
+        return area_df
+    elif indicator == "海外":
+        return outside_df
 
 
 def epidemic_dxy(indicator="西藏自治区"):
@@ -68,7 +86,7 @@ def epidemic_dxy(indicator="西藏自治区"):
     desc_data = json_data[
         ["title", "summary", "infoSource", "provinceName", "sourceUrl"]
     ]
-    # data-new
+    # data-domestic
     data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
     data_text_json = json.loads(
         data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
@@ -76,6 +94,12 @@ def epidemic_dxy(indicator="西藏自治区"):
     data_df = pd.DataFrame(data_text_json)
     data_df.columns = ["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注", "区域ID", "区域"]
     country_df = data_df[["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注"]]
+    # data-global
+    data_text = str(soup.find("script", attrs={"id": "getListByCountryTypeService2"}))
+    data_text_json = json.loads(
+        data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
+    )
+    global_df = pd.DataFrame(data_text_json)
     # info
     dxy_static = soup.find(attrs={"id": "getStatisticsService"}).get_text()
     # hospital
@@ -87,6 +111,8 @@ def epidemic_dxy(indicator="西藏自治区"):
     hospital_df = pd.read_html(res.text)[0].iloc[:, :-1]
     if indicator == "全国":
         return country_df
+    elif indicator == "global":
+        return global_df
     elif indicator == "info":
         return pd.read_json(
             dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
@@ -146,7 +172,7 @@ def epidemic_baidu(indicator="浙江"):
         "cb": "jsonp_1580470773343_11183",
     }
     res = requests.get(url, params=params)
-    json_data = json.loads(res.text[res.text.find("({")+1:res.text.rfind(");")])
+    json_data = json.loads(res.text[res.text.find("({") + 1:res.text.rfind(");")])
     today_df = pd.DataFrame(json_data["data"][0]["list"][0]["item"])
     protect_df = pd.DataFrame(json_data["data"][0]["list"][1]["item"])
     rumor_df = pd.DataFrame(json_data["data"][0]["list"][2]["item"])
@@ -171,12 +197,16 @@ def epidemic_baidu(indicator="浙江"):
         "from": "osari_pc_1",
     }
     res = requests.get(url, params=params)
-    json_data = json.loads(res.text[res.text.find("V.conf = ")+9: res.text.find("V.bsData")-1])
+    json_data = json.loads(res.text[res.text.find("V.conf = ") + 9: res.text.find("V.bsData") - 1])
     temp_df = pd.DataFrame()
-    temp_df[json_data["component"][0]["trend"]["list"][0]["name"]] = json_data["component"][0]["trend"]["list"][0]["data"]
-    temp_df[json_data["component"][0]["trend"]["list"][1]["name"]] = json_data["component"][0]["trend"]["list"][1]["data"]
-    temp_df[json_data["component"][0]["trend"]["list"][2]["name"]] = json_data["component"][0]["trend"]["list"][2]["data"]
-    temp_df[json_data["component"][0]["trend"]["list"][3]["name"]] = json_data["component"][0]["trend"]["list"][3]["data"]
+    temp_df[json_data["component"][0]["trend"]["list"][0]["name"]] = json_data["component"][0]["trend"]["list"][0][
+        "data"]
+    temp_df[json_data["component"][0]["trend"]["list"][1]["name"]] = json_data["component"][0]["trend"]["list"][1][
+        "data"]
+    temp_df[json_data["component"][0]["trend"]["list"][2]["name"]] = json_data["component"][0]["trend"]["list"][2][
+        "data"]
+    temp_df[json_data["component"][0]["trend"]["list"][3]["name"]] = json_data["component"][0]["trend"]["list"][3][
+        "data"]
     temp_df.index = json_data["component"][0]["trend"]["updateDate"]
 
     temp_dict = {}
@@ -237,7 +267,7 @@ def migration_area_baidu(area="乌鲁木齐市", indicator="move_in", date="2020
         "date": date,
     }
     res = requests.get(url, params=params)
-    json_data = json.loads(res.text[res.text.find("({")+1:res.text.rfind(");")])
+    json_data = json.loads(res.text[res.text.find("({") + 1:res.text.rfind(");")])
     return pd.DataFrame(json_data["data"]["list"])
 
 
@@ -285,9 +315,15 @@ if __name__ == "__main__":
     print(epidemic_current_163_df)
     epidemic_hist_163_df = epidemic_163(indicator="历史")
     print(epidemic_hist_163_df)
+    epidemic_area_163_df = epidemic_163(indicator="地区")
+    print(epidemic_area_163_df)
+    epidemic_outside_163_df = epidemic_163(indicator="海外")
+    print(epidemic_outside_163_df)
     # dxy
     epidemic_dxy_country_df = epidemic_dxy(indicator="全国")
     print(epidemic_dxy_country_df)
+    epidemic_dxy_global_df = epidemic_dxy(indicator="global")
+    print(epidemic_dxy_global_df)
     epidemic_dxy_province_df = epidemic_dxy(indicator="西藏自治区")
     print(epidemic_dxy_province_df)
     epidemic_dxy_info_df = epidemic_dxy(indicator="info")
@@ -321,5 +357,6 @@ if __name__ == "__main__":
     # 迁徙地图
     migration_area_baidu_df = migration_area_baidu(area="浙江省", indicator="move_in", date="20200201")
     print(migration_area_baidu_df)
-    migration_scale_baidu_df = migration_scale_baidu(area="浙江省", indicator="move_out", start_date="20190112", end_date="20200201")
+    migration_scale_baidu_df = migration_scale_baidu(area="浙江省", indicator="move_out", start_date="20190112",
+                                                     end_date="20200201")
     print(migration_scale_baidu_df)
