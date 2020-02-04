@@ -191,7 +191,9 @@ def stock_zh_a_daily(symbol="sh600000", factor=""):
 
 
 if __name__ == "__main__":
-    hist_data_df = stock_zh_a_daily(symbol="sh600000", factor="qfq")
-    print(hist_data_df)
-    current_data_df = stock_zh_a_spot()
-    print(current_data_df)
+    stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol="sh600000", factor="qfq")
+    print(stock_zh_a_daily_qfq_df)
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh603290")
+    print(stock_zh_a_daily_df)
+    stock_zh_a_spot_df = stock_zh_a_spot()
+    print(stock_zh_a_spot_df)

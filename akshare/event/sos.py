@@ -45,13 +45,17 @@ def epidemic_163(indicator="实时"):
     temp = text[text.find("window.data_by_date = ") + 22: text.rfind(";")]
     hist_df = pd.DataFrame(demjson.decode(temp))
 
-    text = soup.find_all("script")[-6].get_text()
-    temp = text[text.find("window.epidemic = ") + 18: text.rfind(";")]
-    area_df = pd.DataFrame(demjson.decode(temp))
+    url = "https://c.m.163.com/ug/api/wuhan/app/index/feiyan-data-list?t=1580825778098"
+    headers = {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+    }
+    res = requests.get(url, headers=headers)
+    area_df = pd.DataFrame(res.json()["data"]["list"])
 
     current_df = [item for item in soup.find("div", attrs={"class": "cover_con"}).get_text().split("\n") if item is not ""]
 
     outside_df = pd.DataFrame([item for item in soup.find("div", attrs={"class": "map_others"}).get_text().split("\n") if item is not ""])
+
     if indicator == "实时":
         return current_df
     elif indicator == "历史":
@@ -188,7 +192,7 @@ def epidemic_dxy(indicator="西藏自治区"):
             if sub_area.empty:
                 return print("暂无分区域数据")
             sub_area.columns = ["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "区域ID"]
-            sub_area[["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]]
+            sub_area = sub_area[["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]]
             return sub_area
         except IndexError as e:
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
