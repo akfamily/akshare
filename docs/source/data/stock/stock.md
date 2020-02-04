@@ -262,13 +262,11 @@ print(stock_df)
 
 #### 实时行情数据
 
-股票指数数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_s)获取的数据
-
 接口: stock_zh_index_spot
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_s
 
-描述: 获取指数实时行情数据
+描述: 股票指数数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_s)获取的数据
 
 限量: 单次返回所有指数的实时行情数据
 
@@ -277,7 +275,6 @@ print(stock_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | - | -  | -    |   -|
-
 
 输出参数-实时行情数据
 
@@ -349,13 +346,13 @@ print(stock_df)
 
 #### 历史行情数据
 
-股票指数数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_s)获取的数据, 历史数据按日频率更新
+##### 历史行情数据-新浪
 
 接口: stock_zh_index_daily
 
 目标地址: https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml(示例)
 
-描述: 获取指数历史行情数据
+描述: 股票指数数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_s)获取的数据, 历史数据按日频率更新
 
 限量: 单次返回具体某个指数的所有历史行情数据
 
@@ -370,19 +367,19 @@ print(stock_df)
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
-| 日期          | datetime   | Y        | -     |
-| 开盘          | float      | Y        | -     |
-| 收盘          | float      | Y        | -     |
-| 最高           | float      | Y        | -     |
-| 最低         | float      | Y        | -     |
-| 成交量        | float      | Y        | -     |
+| date          | str   | Y        | 新浪的数据开始时间, 不是证券上市时间     |
+| open          | float      | Y        | -     |
+| close          | float      | Y        | -     |
+| high           | float      | Y        | -     |
+| low         | float      | Y        | -     |
+| amount        | float      | Y        | -     |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_df = ak.stock_zh_index_daily(symbol="sz399552")
-print(stock_df)
+stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
+print(stock_zh_index_daily_df)
 ```
 
 数据示例-历史行情数据
@@ -401,6 +398,59 @@ date
 2019-11-13  7816.080  7817.346  7759.580  7803.760  1.169749e+09
 2019-11-14  7815.102  7826.694  7785.544  7803.063  1.886548e+09
 2019-11-15  7813.952  7823.045  7752.760  7752.760  1.514993e+09
+```
+
+##### 历史行情数据-腾讯
+
+接口: stock_zh_index_daily_tx
+
+目标地址: http://gu.qq.com/sh000919/zs
+
+描述: 获取股票指数(或者股票)历史行情数据
+
+限量: 单次返回具体某个股票指数(或者股票)的所有历史行情数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |   symbol="sh000919"|
+
+输出参数-历史行情数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| date          | datetime   | Y        | 腾讯的数据开始时间, 不是证券上市时间     |
+| open          | float      | Y        | -     |
+| close          | float      | Y        | -     |
+| high           | float      | Y        | -     |
+| low         | float      | Y        | -     |
+| amount        | float      | Y        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_zh_index_daily_tx_df = ak.stock_zh_index_daily_tx(symbol="sh000919")
+print(stock_zh_index_daily_tx_df)
+```
+
+数据示例-历史行情数据
+
+```
+               open    close     high      low      amount
+date                                                      
+2005-01-04   993.11   978.14   993.11   976.82   4235500.0
+2005-01-05   976.94   981.50   985.52   972.79   3366739.0
+2005-01-06   982.37   968.90   982.37   966.52   3137880.0
+2005-01-07   968.77   967.72   978.27   963.10   3340480.0
+2005-01-10   967.81   977.77   978.15   963.31   2680019.0
+             ...      ...      ...      ...         ...
+2020-01-21  5057.77  4985.22  5057.77  4983.42  47773440.0
+2020-01-22  4964.64  4993.16  5003.42  4916.75  44316915.0
+2020-01-23  4952.00  4851.44  4952.00  4823.68  59821336.0
+2020-02-03  4414.92  4486.51  4544.62  4414.92  87252491.0
+2020-02-04  4472.27  4591.61  4595.76  4472.27  81098211.0
 ```
 
 ### 科创板

@@ -8,16 +8,19 @@ desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 优化: 在指数行情的获取上采用多线程模式(新浪会封IP, 不再优化)
 """
 import re
+import datetime
 
 import requests
 import demjson
 import pandas as pd
 import execjs
 
-from akshare.index.cons import (zh_sina_index_stock_payload,
-                                zh_sina_index_stock_url,
-                                zh_sina_index_stock_count_url,
-                                zh_sina_index_stock_hist_url)
+from akshare.index.cons import (
+    zh_sina_index_stock_payload,
+    zh_sina_index_stock_url,
+    zh_sina_index_stock_count_url,
+    zh_sina_index_stock_hist_url,
+)
 from akshare.stock.cons import hk_js_decode
 
 
@@ -80,12 +83,10 @@ def stock_zh_index_spot():
     big_df = pd.DataFrame()
     page_count = get_zh_index_page_count()
     zh_sina_stock_payload_copy = zh_sina_index_stock_payload.copy()
-    for page in range(1, page_count+1):
+    for page in range(1, page_count + 1):
         print(page)
         zh_sina_stock_payload_copy.update({"page": page})
-        res = requests.get(
-            zh_sina_index_stock_url,
-            params=zh_sina_stock_payload_copy)
+        res = requests.get(zh_sina_index_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(res.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
     return big_df
@@ -110,12 +111,12 @@ def stock_zh_index_daily(symbol="sh000922"):
     2019-11-14  1185.788  1187.431  1178.414  1180.791   271514767
     2019-11-15  1181.090  1181.739  1165.898  1166.536   338309880
     """
-    res = requests.get(zh_sina_index_stock_hist_url.format(symbol))
-    res.url
+    params = {"d": "2020_2_4"}
+    res = requests.get(zh_sina_index_stock_hist_url.format(symbol), params=params)
     js_code = execjs.compile(hk_js_decode)
     dict_list = js_code.call(
-        'd', res.text.split("=")[1].split(";")[0].replace(
-            '"', ""))  # 执行js解密代码
+        "d", res.text.split("=")[1].split(";")[0].replace('"', "")
+    )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
     data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
@@ -124,8 +125,77 @@ def stock_zh_index_daily(symbol="sh000922"):
     return data_df
 
 
+def _get_tx_start_year(symbol="sh000922"):
+    """
+    腾讯证券-获取有股票数据的第一天, 注意这个数据是腾讯证券的历史数据第一天
+    http://gu.qq.com/sh000919/zs
+    :param symbol: 带市场标识的股票代码
+    :type symbol: str
+    :return: 开始日期
+    :rtype: pandas.DataFrame
+    """
+    url = "http://web.ifzq.gtimg.cn/other/klineweb/klineWeb/weekTrends"
+    params = {
+        "code": symbol,
+        "type": "qfq",
+        "_var": "trend_qfq",
+        "r": "0.3506048543943414",
+    }
+    res = requests.get(url, params=params)
+    text = res.text
+    start_date = demjson.decode(text[text.find("={") + 1 :])["data"][0][0]
+    return start_date
+
+
+def stock_zh_index_daily_tx(symbol="sh000922"):
+    """
+    腾讯证券-日频-股票或者指数历史数据
+    作为 stock_zh_index_daily 的补充, 因为在新浪中有部分指数数据缺失
+    注意都是: 前复权, 不同网站复权方式不同, 不可混用数据
+    http://gu.qq.com/sh000919/zs
+    :param symbol: 带市场标识的股票或者指数代码
+    :type symbol: str
+    :return: 后复权的股票和指数数据
+    :rtype: pandas.DataFrame
+    """
+    start_date = _get_tx_start_year(symbol=symbol)
+    url = "http://web.ifzq.gtimg.cn/appstock/app/fqkline/get"
+    range_start = int(start_date.split("-")[0])
+    range_end = datetime.date.today().year + 1
+    temp_df = pd.DataFrame()
+    for year in range(range_start, range_end):
+        print(year)
+        params = {
+            "_var": f"kline_dayqfq{year}",
+            "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,qfq",
+            "r": "0.8205512681390605",
+        }
+        res = requests.get(url, params=params)
+        text = res.text
+        try:
+            inner_temp_df = pd.DataFrame(
+                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["day"]
+            )
+        except:
+            inner_temp_df = pd.DataFrame(
+                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
+            )
+        temp_df = temp_df.append(inner_temp_df, ignore_index=True)
+    if temp_df.shape[1] == 6:
+        temp_df.columns = ["date", "open", "close", "high", "low", "amount"]
+    else:
+        temp_df = temp_df.iloc[:, :6]
+        temp_df.columns = ["date", "open", "close", "high", "low", "amount"]
+    temp_df.index = pd.to_datetime(temp_df["date"])
+    del temp_df["date"]
+    temp_df = temp_df.astype("float")
+    return temp_df
+
+
 if __name__ == "__main__":
-    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sh000922")
+    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sz399998")
     print(stock_zh_index_daily_df)
     stock_zh_index_spot_df = stock_zh_index_spot()
     print(stock_zh_index_spot_df)
+    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sh000919")
+    print(stock_zh_index_daily_tx_df)

@@ -779,9 +779,8 @@ print(index_stock_cons_df)
 | 交易量      | float | Y        | 交易量      |
 | 百分比变化  | str | Y        | 百分比变化  |
 
-
-
 接口示例
+
 ```python
 import akshare as ak
 index_df = ak.get_country_index(country="美国", index_name="美元指数", start_date='2000/01/01', end_date='2019/10/17')
