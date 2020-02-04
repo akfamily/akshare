@@ -512,30 +512,143 @@ print(epidemic_dxy_df)
 73    甘肃   /       定点医院
 ```
 
-输入参数-plot
+输入参数-全国疫情新增趋势图
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="plot", 绘制-全国疫情图 3 合 1|
+| indicator | str | Y | indicator="全国疫情新增趋势图", 绘制-全国疫情新增趋势图|
 
-输出参数-plot
+输出参数-全国疫情新增趋势图
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 全国疫情新增趋势图      | str   | Y        |图片, 需要自己保存   |
-| 全国疫情确诊/疑似累计趋势图      | str   | Y        |图片, 需要自己保存   |
-| 全国疫情死亡/治愈累计趋势图      | str   | Y        |图片, 需要自己保存   |
+| 全国疫情新增趋势图      | pic | Y        |图片, 需要自己保存   |
 
-接口示例-plot
+接口示例-全国疫情新增趋势图
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="plot")
+ak.epidemic_dxy(indicator="全国疫情新增趋势图")
 ```
 
-图片示例-plot
+图片示例-全国疫情新增趋势图
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/epidemic_trend.jpg)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD%E7%96%AB%E6%83%85%E6%96%B0%E5%A2%9E%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+输入参数-全国疫情新增趋势图-湖北
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="全国疫情新增趋势图-湖北", 绘制-全国疫情新增趋势图-湖北|
+
+输出参数-全国疫情新增趋势图-湖北
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 全国疫情新增趋势图-湖北      | pic | Y        |图片, 需要自己保存   |
+
+接口示例-全国疫情新增趋势图-湖北
+
+```python
+import akshare as ak
+ak.epidemic_dxy(indicator="全国疫情新增趋势图-湖北")
+```
+
+图片示例-全国疫情新增趋势图-湖北
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD%E7%96%AB%E6%83%85%E6%96%B0%E5%A2%9E%E8%B6%8B%E5%8A%BF%E5%9B%BE-%E6%B9%96%E5%8C%97.png)
+
+输入参数-全国疫情累计趋势图
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="全国疫情累计趋势图", 绘制-全国疫情累计趋势图|
+
+输出参数-全国疫情累计趋势图
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 全国疫情累计趋势图  | pic | Y        |图片, 需要自己保存   |
+
+接口示例-全国疫情累计趋势图
+
+```python
+import akshare as ak
+ak.epidemic_dxy(indicator="全国疫情累计趋势图")
+```
+
+图片示例-全国疫情累计趋势图
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD%E7%96%AB%E6%83%85%E7%B4%AF%E8%AE%A1%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+输入参数-全国疫情死亡/治愈累计趋势图
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="全国疫情死亡/治愈累计趋势图", 绘制-全国疫情死亡/治愈累计趋势图|
+
+输出参数-全国疫情死亡/治愈累计趋势图
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 全国疫情死亡/治愈累计趋势图  | pic | Y        |图片, 需要自己保存   |
+
+接口示例-全国疫情死亡/治愈累计趋势图
+
+```python
+import akshare as ak
+ak.epidemic_dxy(indicator="全国疫情死亡/治愈累计趋势图")
+```
+
+图片示例-全国疫情死亡/治愈累计趋势图
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD%E7%96%AB%E6%83%85%E6%AD%BB%E4%BA%A1-%E6%B2%BB%E6%84%88%E7%B4%AF%E8%AE%A1%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+输入参数-全国疫情死亡治愈趋势图
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="全国疫情死亡治愈趋势图", 绘制-全国疫情死亡治愈趋势图|
+
+输出参数-全国疫情死亡治愈趋势图
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 全国疫情死亡治愈趋势图  | pic | Y        |图片, 需要自己保存   |
+
+接口示例-全国疫情死亡治愈趋势图
+
+```python
+import akshare as ak
+ak.epidemic_dxy(indicator="全国疫情死亡治愈趋势图")
+```
+
+图片示例-全国疫情死亡治愈趋势图
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD%E7%96%AB%E6%83%85%E6%AD%BB%E4%BA%A1%E6%B2%BB%E6%84%88%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+输入参数-疫情地图
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="疫情地图", 绘制-疫情地图|
+
+输出参数-疫情地图
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 疫情地图  | pic | Y        |图片, 需要自己保存   |
+
+接口示例-疫情地图
+
+```python
+import akshare as ak
+ak.epidemic_dxy(indicator="疫情地图")
+```
+
+图片示例-疫情地图
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E7%96%AB%E6%83%85%E5%9C%B0%E5%9B%BE.png)
 
 ### 新型冠状病毒-百度
 

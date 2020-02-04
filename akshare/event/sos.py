@@ -120,14 +120,64 @@ def epidemic_dxy(indicator="西藏自治区"):
         )
     elif indicator == "hospital":
         return hospital_df
-    elif indicator == "plot":
+    elif indicator == "全国疫情新增趋势图":
         # img
         img_url = pd.read_json(
             dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
             orient="index",
         ).T
         img_file = Image.open(
-            BytesIO(requests.get(img_url["dailyPic"].values[0]).content)
+            BytesIO(requests.get(img_url["dailyPics"][0][0]).content)
+        )
+        img_file.show()
+    elif indicator == "全国疫情新增趋势图-湖北":
+        # img
+        img_url = pd.read_json(
+            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
+            orient="index",
+        ).T
+        img_file = Image.open(
+            BytesIO(requests.get(img_url["dailyPics"][0][1]).content)
+        )
+        img_file.show()
+    elif indicator == "全国疫情累计趋势图":
+        # img
+        img_url = pd.read_json(
+            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
+            orient="index",
+        ).T
+        img_file = Image.open(
+            BytesIO(requests.get(img_url["dailyPics"][0][2]).content)
+        )
+        img_file.show()
+    elif indicator == "全国疫情死亡/治愈累计趋势图":
+        # img
+        img_url = pd.read_json(
+            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
+            orient="index",
+        ).T
+        img_file = Image.open(
+            BytesIO(requests.get(img_url["dailyPics"][0][3]).content)
+        )
+        img_file.show()
+    elif indicator == "全国疫情死亡治愈趋势图":
+        # img
+        img_url = pd.read_json(
+            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
+            orient="index",
+        ).T
+        img_file = Image.open(
+            BytesIO(requests.get(img_url["dailyPics"][0][4]).content)
+        )
+        img_file.show()
+    elif indicator == "疫情地图":
+        # img
+        img_url = pd.read_json(
+            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
+            orient="index",
+        ).T
+        img_file = Image.open(
+            BytesIO(requests.get(img_url["imgUrl"].values[0]).content)
         )
         img_file.show()
     elif indicator == "news":
@@ -244,6 +294,10 @@ def migration_area_baidu(area="乌鲁木齐市", indicator="move_in", date="2020
     """
     百度地图慧眼-百度迁徙-XXX迁入地详情
     百度地图慧眼-百度迁徙-XXX迁出地详情
+    以上展示 top100 结果，如不够 100 则展示全部
+    迁入来源地比例: 从 xx 地迁入到当前区域的人数与当前区域迁入总人口的比值
+    迁出目的地比例: 从当前区域迁出到 xx 的人口与从当前区域迁出总人口的比值
+    https://qianxi.baidu.com/?from=shoubai#city=0
     :param area: 可以输入 省份 或者 具体城市 但是需要用全称
     :type area: str
     :param indicator: move_in 迁入 move_out 迁出
@@ -276,6 +330,7 @@ def migration_scale_baidu(area="乌鲁木齐市", indicator="move_out", start_da
     百度地图慧眼-百度迁徙-迁徙规模
     * 迁徙规模指数：反映迁入或迁出人口规模，城市间可横向对比
     * 城市迁徙边界采用该城市行政区划，包含该城市管辖的区、县、乡、村
+    https://qianxi.baidu.com/?from=shoubai#city=0
     :param area: 可以输入 省份 或者 具体城市 但是需要用全称
     :type area: str
     :param indicator: move_in 迁入 move_out 迁出
@@ -332,7 +387,12 @@ if __name__ == "__main__":
     print(epidemic_dxy_hospital_df)
     epidemic_dxy_news_df = epidemic_dxy(indicator="news")
     print(epidemic_dxy_news_df)
-    epidemic_dxy(indicator="plot")
+    epidemic_dxy(indicator="全国疫情新增趋势图")
+    epidemic_dxy(indicator="全国疫情新增趋势图-湖北")
+    epidemic_dxy(indicator="全国疫情累计趋势图")
+    epidemic_dxy(indicator="全国疫情死亡/治愈累计趋势图")
+    epidemic_dxy(indicator="全国疫情死亡治愈趋势图")
+    epidemic_dxy(indicator="疫情地图")
     # baidu
     epidemic_baidu_rmqrd_df = epidemic_baidu(indicator="热门迁入地")
     print(epidemic_baidu_rmqrd_df)
@@ -355,8 +415,8 @@ if __name__ == "__main__":
     epidemic_baidu_zj_df = epidemic_baidu(indicator="浙江")
     print(epidemic_baidu_zj_df)
     # 迁徙地图
-    migration_area_baidu_df = migration_area_baidu(area="浙江省", indicator="move_in", date="20200201")
+    migration_area_baidu_df = migration_area_baidu(area="绍兴市", indicator="move_in", date="20200202")
     print(migration_area_baidu_df)
-    migration_scale_baidu_df = migration_scale_baidu(area="浙江省", indicator="move_out", start_date="20190112",
-                                                     end_date="20200201")
+    migration_scale_baidu_df = migration_scale_baidu(area="绍兴市", indicator="move_out", start_date="20190112",
+                                                     end_date="20200202")
     print(migration_scale_baidu_df)

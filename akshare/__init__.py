@@ -741,9 +741,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复文字表述
 0.3.74
 修复-epidemic_163-数据更新问题
+0.3.75
+修复-epidemic_dxy-图片显示问题
 """
 
-__version__ = "0.3.74"
+__version__ = "0.3.75"
 __author__ = "Albert King"
 
 """

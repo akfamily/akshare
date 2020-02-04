@@ -91,7 +91,7 @@ def stock_zh_index_spot():
     return big_df
 
 
-def stock_zh_index_daily(symbol="sh000001"):
+def stock_zh_index_daily(symbol="sh000922"):
     """
     从新浪财经-指数获取某个指数的历史行情数据, 大量抓取容易封IP
     :param symbol: str e.g., sz399998
@@ -111,6 +111,7 @@ def stock_zh_index_daily(symbol="sh000001"):
     2019-11-15  1181.090  1181.739  1165.898  1166.536   338309880
     """
     res = requests.get(zh_sina_index_stock_hist_url.format(symbol))
+    res.url
     js_code = execjs.compile(hk_js_decode)
     dict_list = js_code.call(
         'd', res.text.split("=")[1].split(";")[0].replace(
@@ -124,7 +125,7 @@ def stock_zh_index_daily(symbol="sh000001"):
 
 
 if __name__ == "__main__":
-    hist_data_df = stock_zh_index_daily(symbol="sz399552")
-    print(hist_data_df)
-    current_data_df = stock_zh_index_spot()
-    print(current_data_df)
+    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sh000922")
+    print(stock_zh_index_daily_df)
+    stock_zh_index_spot_df = stock_zh_index_spot()
+    print(stock_zh_index_spot_df)
