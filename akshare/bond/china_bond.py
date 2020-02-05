@@ -110,20 +110,23 @@ def bond_spot_deal():
     return deal_data_out
 
 
-def bond_china_yield(date="2020-02-04"):
+def bond_china_yield(start_date="2019-02-04", end_date="2020-02-04"):
     """
     中国债券信息网-国债及其他债券收益率曲线
     https://www.chinabond.com.cn/
     http://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery?startDate=2019-02-07&endDate=2020-02-04&gjqx=0&qxId=ycqx&locale=cn_ZH
-    :param date: 需要查询的日期, 返回在该日期之前一年内的数据
-    :type date: str
-    :return: 返回在该日期之前一年内的数据
+    注意: end_date - start_date 应该小于一年
+    :param start_date: 需要查询的日期, 返回在该日期之后一年内的数据
+    :type start_date: str
+    :param end_date: 需要查询的日期, 返回在该日期之前一年内的数据
+    :type end_date: str
+    :return: 返回在指定日期之间之前一年内的数据
     :rtype: pandas.DataFrame
     """
     url = "http://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery"
     params = {
-        "startDate": f"{int(date.split('-')[0])-1}-02-04",
-        "endDate": date,
+        "startDate": start_date,
+        "endDate": end_date,
         "gjqx": "0",
         "qxId": "ycqx",
         "locale": "cn_ZH",
@@ -140,5 +143,5 @@ if __name__ == "__main__":
     print(bond_spot_quote_df)
     bond_spot_deal_df = bond_spot_deal()
     print(bond_spot_deal_df)
-    bond_china_yield_df = bond_china_yield(date="2020-02-04")
+    bond_china_yield_df = bond_china_yield(start_date="2018-01-01", end_date="2019-01-01")
     print(bond_china_yield_df)

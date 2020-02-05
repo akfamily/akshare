@@ -749,9 +749,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_163-数据更新问题
 0.3.78
 新增-bond_china_yield-中国债券信息网-国债及其他债券收益率曲线
+0.3.79
+修改-bond_china_yield-参数
 """
 
-__version__ = "0.3.78"
+__version__ = "0.3.79"
 __author__ = "Albert King"
 
 """
