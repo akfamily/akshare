@@ -11,9 +11,9 @@ http://www.chinamoney.com.cn/chinese/mkdatabond/
 """
 from operator import itemgetter
 
-import requests
-import pandas as pd
 import numpy as np
+import pandas as pd
+import requests
 
 
 def get_quote_data():
@@ -29,7 +29,7 @@ def get_quote_data():
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/78.0.3904.108 Safari/537.36",
+                      "Chrome/78.0.3904.108 Safari/537.36",
     }
     res = requests.post(url=quote_url, data=payload, headers=headers)  # 请求数据
     res.encoding = "utf-8"
@@ -44,7 +44,7 @@ def get_deal_data():
     deal_url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbtPri?"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/78.0.3904.108 Safari/537.36",
+                      "Chrome/78.0.3904.108 Safari/537.36",
     }
     payload = {
         "flag": "1",
@@ -110,8 +110,35 @@ def bond_spot_deal():
     return deal_data_out
 
 
+def bond_china_yield(date="2020-02-04"):
+    """
+    中国债券信息网-国债及其他债券收益率曲线
+    https://www.chinabond.com.cn/
+    http://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery?startDate=2019-02-07&endDate=2020-02-04&gjqx=0&qxId=ycqx&locale=cn_ZH
+    :param date: 需要查询的日期, 返回在该日期之前一年内的数据
+    :type date: str
+    :return: 返回在该日期之前一年内的数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery"
+    params = {
+        "startDate": f"{int(date.split('-')[0])-1}-02-04",
+        "endDate": date,
+        "gjqx": "0",
+        "qxId": "ycqx",
+        "locale": "cn_ZH",
+    }
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+    }
+    res = requests.get(url, params=params, headers=headers)
+    return pd.read_html(res.text, header=0)[1]
+
+
 if __name__ == "__main__":
-    quote_df = bond_spot_quote()
-    print(quote_df)
-    deal_df = bond_spot_deal()
-    print(deal_df)
+    bond_spot_quote_df = bond_spot_quote()
+    print(bond_spot_quote_df)
+    bond_spot_deal_df = bond_spot_deal()
+    print(bond_spot_deal_df)
+    bond_china_yield_df = bond_china_yield(date="2020-02-04")
+    print(bond_china_yield_df)

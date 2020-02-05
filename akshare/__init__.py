@@ -747,9 +747,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-stock_zh_index_daily_tx-补充新浪指数的数据缺失问题
 0.3.77
 修复-epidemic_163-数据更新问题
+0.3.78
+新增-bond_china_yield-中国债券信息网-国债及其他债券收益率曲线
 """
 
-__version__ = "0.3.77"
+__version__ = "0.3.78"
 __author__ = "Albert King"
 
 """
@@ -1101,7 +1103,11 @@ from akshare.stock.zh_stock_a_tick_tx import stock_zh_a_tick
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.index.zh_stock_index_sina import stock_zh_index_daily, stock_zh_index_spot, stock_zh_index_daily_tx
+from akshare.index.zh_stock_index_sina import (
+    stock_zh_index_daily,
+    stock_zh_index_spot,
+    stock_zh_index_daily_tx,
+)
 
 """
 外盘期货实时行情
@@ -1321,7 +1327,7 @@ from akshare.fx.fx_quote import fx_pair_quote, fx_spot_quote, fx_swap_quote
 """
 债券行情
 """
-from akshare.bond.china_bond import bond_spot_quote, bond_spot_deal
+from akshare.bond.china_bond import bond_spot_quote, bond_spot_deal, bond_china_yield
 
 """
 商品期权

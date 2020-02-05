@@ -84,7 +84,7 @@ def stock_zh_index_spot():
     page_count = get_zh_index_page_count()
     zh_sina_stock_payload_copy = zh_sina_index_stock_payload.copy()
     for page in range(1, page_count + 1):
-        print(page)
+        # print(page)
         zh_sina_stock_payload_copy.update({"page": page})
         res = requests.get(zh_sina_index_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(res.text)
@@ -164,7 +164,7 @@ def stock_zh_index_daily_tx(symbol="sh000922"):
     range_end = datetime.date.today().year + 1
     temp_df = pd.DataFrame()
     for year in range(range_start, range_end):
-        print(year)
+        # print(year)
         params = {
             "_var": f"kline_dayqfq{year}",
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,qfq",
