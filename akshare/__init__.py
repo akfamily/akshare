@@ -751,13 +751,20 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-bond_china_yield-中国债券信息网-国债及其他债券收益率曲线
 0.3.79
 修改-bond_china_yield-参数
+0.3.80
+新增-基金数据接口
 """
 
-__version__ = "0.3.79"
+__version__ = "0.3.80"
 __author__ = "Albert King"
 
 """
-新增-百度迁徙地图接口
+基金数据接口
+"""
+from akshare.fund.fund_em import fund_em_daily, fund_em_info
+
+"""
+百度迁徙地图接口
 """
 from akshare.event.sos import migration_area_baidu, migration_scale_baidu
 

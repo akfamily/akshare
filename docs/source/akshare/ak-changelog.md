@@ -978,4 +978,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.79
 修改-bond_china_yield-参数
+
+0.3.80
+新增-基金数据接口
 ```
