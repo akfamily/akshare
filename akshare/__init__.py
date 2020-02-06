@@ -753,9 +753,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修改-bond_china_yield-参数
 0.3.80
 新增-基金数据接口
+0.3.81
+新增-基金数据接口-净值
 """
 
-__version__ = "0.3.80"
+__version__ = "0.3.81"
 __author__ = "Albert King"
 
 """
