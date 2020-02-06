@@ -6,29 +6,42 @@ date: 2020/01/02 17:37
 contact: jindaxiang@163.com
 desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门首页: https://www.jiaoyifamen.com/
-# 增加-交易法门-工具-期限分析-
-增加-交易法门-工具-期限分析-基差日报
-增加-交易法门-工具-期限分析-基差分析
-增加-交易法门-工具-期限分析-期限结构
-增加-交易法门-工具-期限分析-价格季节性
-
-# 交易法门-工具-仓单分析
-交易法门-工具-仓单分析-仓单日报
-交易法门-工具-仓单分析-仓单查询
-交易法门-工具-仓单分析-虚实盘比查询
+# 交易法门-工具-套利分析
+交易法门-工具-套利分析-跨期价差(自由价差)
+交易法门-工具-套利分析-自由价比
+交易法门-工具-套利分析-多腿组合
+交易法门-工具-套利分析-FullCarry
 
 # 交易法门-工具-资讯汇总
 交易法门-工具-资讯汇总-研报查询
 交易法门-工具-资讯汇总-交易日历
 
+# 交易法门-工具-持仓分析
+交易法门-工具-持仓分析-期货持仓
+交易法门-工具-持仓分析-席位持仓
+
 # 交易法门-工具-资金分析
 交易法门-工具-资金分析-资金流向
-"""
-import requests
-import pandas as pd
-import matplotlib.pyplot as plt
 
-from akshare.futures_derivative.jyfm_login_func import jyfm_login
+# 交易法门-工具-仓单分析
+交易法门-工具-仓单分析-仓单日报
+交易法门-工具-仓单分析-仓单查询
+交易法门-工具-仓单分析-虚实盘比日报
+交易法门-工具-仓单分析-虚实盘比查询
+
+# 交易法门-工具-期限分析
+交易法门-工具-期限分析-基差日报
+交易法门-工具-期限分析-基差分析
+交易法门-工具-期限分析-期限结构
+交易法门-工具-期限分析-价格季节性
+
+# 交易法门-工具-交易规则
+交易法门-工具-交易规则-仓单有效期
+交易法门-工具-交易规则-限仓规定
+"""
+import matplotlib.pyplot as plt
+import pandas as pd
+import requests
 
 from akshare.futures_derivative.cons import (
     csa_payload,
@@ -36,6 +49,7 @@ from akshare.futures_derivative.cons import (
     csa_url_ratio,
     csa_url_customize,
 )
+from akshare.futures_derivative.jyfm_login_func import jyfm_login
 
 
 # 交易法门-工具-套利分析
@@ -126,17 +140,6 @@ def jyfm_tools_futures_customize(
     :param formula: str
     :param plot: Bool
     :return: pandas.Series or pic
-    2013-01-04   -121
-    2013-01-07   -124
-    2013-01-08   -150
-    2013-01-09   -143
-    2013-01-10   -195
-                 ...
-    2019-10-21    116
-    2019-10-22    126
-    2019-10-23    123
-    2019-10-24    126
-    2019-10-25    134
     """
     params = {"formula": formula}
     res = requests.get(csa_url_customize, params=params, headers=headers)
@@ -154,6 +157,32 @@ def jyfm_tools_futures_customize(
         return data_df
     else:
         return data_df
+
+
+def jyfm_tools_futures_full_carry(begin_code="05", end_code="09", ratio="4", headers=""):
+    """
+    交易法门-工具-套利分析-FullCarry
+    https://www.jiaoyifamen.com/tools/future/full/carry?beginCode=05&endCode=09&ratio=4
+    注: 正向转抛成本主要是仓储费和资金成本，手续费占比很小，故忽略。增值税不确定，故也未列入计算。使用该表时注意仓单有效期问题、升贴水问题以及生鲜品种其他较高费用的问题。实际Full Carry水平要略高于这里的测算水平。
+    :param begin_code: 开始月份
+    :type begin_code: str
+    :param end_code: 结束月份
+    :type end_code: str
+    :param ratio: 百分比, 这里输入绝对值
+    :type ratio: str
+    :param headers: 请求头
+    :type headers: dict
+    :return: 正向市场转抛成本估算
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.jiaoyifamen.com/tools/future/full/carry"
+    params = {
+        "beginCode": begin_code,
+        "endCode": end_code,
+        "ratio": ratio,
+    }
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json()["table_data"])
 
 
 jyfm_exchange_symbol_dict = {
@@ -336,13 +365,26 @@ def jyfm_tools_position_fund(trade_date="2020-01-08", indicator="沉淀资金排
     res = requests.get(url, params=params, headers=headers)
     data_json = res.json()
     if indicator == "沉淀资金排名":
-        return pd.DataFrame([[data_json["tradingDay"]] * len(data_json["category1"]), data_json["category1"], data_json["value1"]], index=["date", "symbol", "fund"]).T
+        return pd.DataFrame(
+            [
+                [data_json["tradingDay"]] * len(data_json["category1"]),
+                data_json["category1"],
+                data_json["value1"],
+            ],
+            index=["date", "symbol", "fund"],
+        ).T
     else:
-        return pd.DataFrame([[data_json["tradingDay"]] * len(data_json["category2"]), data_json["category2"], data_json["value2"]], index=["date", "symbol", "fund"]).T
+        return pd.DataFrame(
+            [
+                [data_json["tradingDay"]] * len(data_json["category2"]),
+                data_json["category2"],
+                data_json["value2"],
+            ],
+            index=["date", "symbol", "fund"],
+        ).T
 
 
 # 交易法门-工具-仓单分析
-# TODO 修改输出数据的字段名
 def jyfm_tools_warehouse_receipt_daily(trade_date="2020-01-02", headers=""):
     """
     交易法门-工具-仓单分析-仓单日报
@@ -383,12 +425,33 @@ def jyfm_tools_warehouse_receipt_query(symbol="AL", indicator="仓单数据走�
     res = requests.get(url, params=params, headers=headers)
     data_json = res.json()
     if indicator == "仓单数据走势图":
-        return pd.DataFrame([data_json["category"], data_json["value"], data_json["value2"]]).T
-    return pd.DataFrame([data_json["dataCategory"], data_json["year2013"], data_json["year2014"], data_json["year2015"],
-                         data_json["year2016"], data_json["year2017"], data_json["year2018"], data_json["year2019"],
-                         data_json["year2020"]],
-                        index=["date", "year2013", "year2014", "year2015", "year2016", "year2017", "year2018",
-                               "year2019", "year2020"]).T
+        return pd.DataFrame(
+            [data_json["category"], data_json["value"], data_json["value2"]]
+        ).T
+    return pd.DataFrame(
+        [
+            data_json["dataCategory"],
+            data_json["year2013"],
+            data_json["year2014"],
+            data_json["year2015"],
+            data_json["year2016"],
+            data_json["year2017"],
+            data_json["year2018"],
+            data_json["year2019"],
+            data_json["year2020"],
+        ],
+        index=[
+            "date",
+            "year2013",
+            "year2014",
+            "year2015",
+            "year2016",
+            "year2017",
+            "year2018",
+            "year2019",
+            "year2020",
+        ],
+    ).T
 
 
 def jyfm_tools_warehouse_virtual_fact_daily(trade_date="2020-01-20", headers=""):
@@ -432,18 +495,42 @@ def jyfm_tools_warehouse_virtual_fact_ratio(symbol="AL", code="05", headers=""):
     url = "https://www.jiaoyifamen.com/tools/warehouse-receipt/ratio"
     res = requests.get(url, params=params, headers=headers)
     data_json = res.json()
-    return pd.DataFrame([data_json["dataCategory"], data_json["year2013"], data_json["year2014"], data_json["year2015"],
-                         data_json["year2016"], data_json["year2017"], data_json["year2018"], data_json["year2019"],
-                         data_json["year2020"]],
-                        index=["date", "year2013", "year2014", "year2015", "year2016", "year2017", "year2018",
-                               "year2019", "year2020"]).T
+    return pd.DataFrame(
+        [
+            data_json["dataCategory"],
+            data_json["year2013"],
+            data_json["year2014"],
+            data_json["year2015"],
+            data_json["year2016"],
+            data_json["year2017"],
+            data_json["year2018"],
+            data_json["year2019"],
+            data_json["year2020"],
+        ],
+        index=[
+            "date",
+            "year2013",
+            "year2014",
+            "year2015",
+            "year2016",
+            "year2017",
+            "year2018",
+            "year2019",
+            "year2020",
+        ],
+    ).T
 
 
-# 交易法门-工具-期限分析
-def jyfm_tools_futures_basis_daily(trade_date="2020-01-02", headers=""):
+# 交易法门-工具-期限分析-基差日报
+def jyfm_tools_futures_basis_daily(
+        trade_date="2020-02-05", indicator="基差率", headers=""
+):
     """
     交易法门-工具-期限分析-基差日报
     :param trade_date: 指定交易日期, 注意格式为 "2020-01-02"
+    :type trade_date: str
+    :param indicator: ["基差率", "基差日报"] 二选一
+    :type indicator: str
     :param headers: headers with cookies
     :type headers: dict
     :return: 指定日期的基差日报数据
@@ -454,10 +541,20 @@ def jyfm_tools_futures_basis_daily(trade_date="2020-01-02", headers=""):
     }
     url = "https://www.jiaoyifamen.com/tools/future/basis/daily"
     res = requests.get(url, params=params, headers=headers)
-    return pd.DataFrame(res.json()["table_data"])
+    json_data = res.json()
+
+    if indicator == "基差率":
+        # x 轴, y 轴
+        return pd.DataFrame(
+            [json_data["category"], json_data["value"]], index=["x", "y"]
+        ).T
+
+    if indicator == "基差日报":
+        return pd.DataFrame(json_data["table_data"])
 
 
-def jyfm_tools_futures_basis_analysis_area(symbol="Y", headers=""):
+# 交易法门-工具-期限分析-基差日报-地区选取
+def jyfm_tools_futures_basis_daily_area(symbol="Y", headers=""):
     """
     交易法门-工具-期限分析-基差日报-地区选取
     :param symbol: 品种代码
@@ -475,25 +572,68 @@ def jyfm_tools_futures_basis_analysis_area(symbol="Y", headers=""):
     return res.json()["areas"]
 
 
-def jyfm_tools_futures_basis_analysis(symbol="RB", area="上海", headers=""):
+def jyfm_tools_futures_basis_analysis(
+        symbol="RB", area="上海", indicator="基差率分布图", headers=""
+):
     """
-    交易法门-工具-期限分析-基差日报
+    交易法门-工具-期限分析-基差分析
     :param symbol: 品种代码
     :type symbol: str
-    :param area: one of ["上海", "天津"], 不同品种不同日期通过 jyfm_tools_futures_basis_analysis_area 返回
+    :param area: one of ["上海", "天津"], 不同品种不同日期通过 jyfm_tools_futures_basis_daily_area 返回
     :type area: str
+    :param indicator: one of ["基差走势图", "基差率季节图", "基差率分布图"]
+    :type indicator: str
     :param headers: headers with cookies
     :type headers: dict
     :return: 指定品种和地区的基差日报
     :rtype: pandas.DataFrame
     """
+    url = "https://www.jiaoyifamen.com/tools/future/basis/analysis"
     params = {
         "type": symbol,
         "area": area,
     }
-    url = f"https://www.jiaoyifamen.com/tools/future/basis/daily"
     res = requests.get(url, params=params, headers=headers)
-    return pd.DataFrame(res.json())
+    json_data = res.json()
+    if indicator == "基差走势图":
+        # x 轴 y 轴
+        return pd.DataFrame(
+            [json_data["cashValue"], json_data["futureValue"], json_data["basisValue"]],
+            columns=json_data["category"],
+            index=["现货", "期货", "基差"],
+        ).T
+
+    if indicator == "基差率季节图":
+        # x 轴 y 轴
+        return pd.DataFrame(
+            [
+                json_data["year2013"],
+                json_data["year2014"],
+                json_data["year2015"],
+                json_data["year2016"],
+                json_data["year2017"],
+                json_data["year2018"],
+                json_data["year2019"],
+                json_data["year2020"],
+            ],
+            index=[
+                "year2013",
+                "year2014",
+                "year2015",
+                "year2016",
+                "year2017",
+                "year2018",
+                "year2019",
+                "year2020",
+            ],
+            columns=json_data["dataCategory"],
+        ).T
+
+    if indicator == "基差率分布图":
+        # x 轴 y 轴
+        return pd.DataFrame(
+            [json_data["limitCategory"], json_data["limitValue"]], index=["x", "y"]
+        ).T
 
 
 def jyfm_tools_futures_basis_structure(symbol="RB", headers=""):
@@ -514,15 +654,17 @@ def jyfm_tools_futures_basis_structure(symbol="RB", headers=""):
     return pd.DataFrame(res.json())
 
 
-def jyfm_tools_futures_basis_rule(symbol="RB", code="05", return_data="", headers=""):
+def jyfm_tools_futures_basis_rule(
+        symbol="RB", code="05", indicator="期货涨跌统计", headers=""
+):
     """
     交易法门-工具-期限分析-价格季节性
     :param symbol: 品种
     :type symbol: str
     :param code: 合约具体月份
     :type code: str
-    :param return_data: 期货涨跌统计 or 季节性走势图, 默认为 季节性走势图
-    :type return_data: str
+    :param indicator: ["期货涨跌统计", "季节性走势图"], 默认为: 期货涨跌统计
+    :type indicator: str
     :param headers: headers with cookies
     :type headers: dict
     :return: 期货涨跌统计 or 季节性走势图
@@ -535,12 +677,33 @@ def jyfm_tools_futures_basis_rule(symbol="RB", code="05", return_data="", header
     url = "https://www.jiaoyifamen.com/tools/future/basis/rule"
     res = requests.get(url, params=params, headers=headers)
     data_json = res.json()
-    if return_data == "期货涨跌统计":
+    if indicator == "期货涨跌统计":
         return pd.DataFrame(data_json["ratioData"])
-    return pd.DataFrame([data_json["dataCategory"], data_json["year2013"], data_json["year2014"], data_json["year2015"],
-                         data_json["year2016"], data_json["year2017"], data_json["year2018"], data_json["year2019"],
-                         data_json["year2020"]],
-                        index=["date", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"]).T
+    if indicator == "季节性走势图":
+        return pd.DataFrame(
+            [
+                data_json["dataCategory"],
+                data_json["year2013"],
+                data_json["year2014"],
+                data_json["year2015"],
+                data_json["year2016"],
+                data_json["year2017"],
+                data_json["year2018"],
+                data_json["year2019"],
+                data_json["year2020"],
+            ],
+            index=[
+                "date",
+                "2013",
+                "2014",
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019",
+                "2020",
+            ],
+        ).T
 
 
 # 交易法门-工具-交易规则
@@ -589,7 +752,7 @@ def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
 
 if __name__ == "__main__":
     # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 在下面输入对应的帐号和密码后再运行 jyfm_login 函数!
-    headers = jyfm_login(account="", password="")
+    headers = jyfm_login(account="link", password="loveloli888")
 
     # 交易法门-工具-套利分析
     jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
@@ -604,11 +767,17 @@ if __name__ == "__main__":
         formula="RB01-1.6*I01-0.5*J01-1200", headers=headers, plot=True
     )
     print(jyfm_tools_futures_customize_df)
+    jyfm_tools_futures_full_carry_df = jyfm_tools_futures_full_carry(begin_code="05", end_code="09", ratio="4", headers=headers)
+    print(jyfm_tools_futures_full_carry_df)
 
     # 交易法门-工具-资讯汇总
-    jyfm_tools_research_query_df = jyfm_tools_research_query(limit="100", headers=headers)
+    jyfm_tools_research_query_df = jyfm_tools_research_query(
+        limit="100", headers=headers
+    )
     print(jyfm_tools_research_query_df)
-    jyfm_tools_trade_calendar_df = jyfm_tools_trade_calendar(trade_date="2020-01-03", headers=headers)
+    jyfm_tools_trade_calendar_df = jyfm_tools_trade_calendar(
+        trade_date="2020-01-03", headers=headers
+    )
     print(jyfm_tools_trade_calendar_df)
 
     # 交易法门-工具-持仓分析
@@ -622,34 +791,53 @@ if __name__ == "__main__":
     print(jyfm_tools_position_seat_df)
 
     # 交易法门-工具-资金分析
-    jyfm_tools_position_fund_df = jyfm_tools_position_fund(trade_date="2020-01-08", indicator="沉淀资金排名", headers=headers)
+    jyfm_tools_position_fund_df = jyfm_tools_position_fund(
+        trade_date="2020-01-08", indicator="沉淀资金排名", headers=headers
+    )
     print(jyfm_tools_position_fund_df)
 
     # 交易法门-工具-仓单分析
     # 交易法门-工具-仓单分析-仓单日报
-    jyfm_tools_warehouse_receipt_daily_df = jyfm_tools_warehouse_receipt_daily(trade_date="2020-01-02", headers=headers)
+    jyfm_tools_warehouse_receipt_daily_df = jyfm_tools_warehouse_receipt_daily(
+        trade_date="2020-01-02", headers=headers
+    )
     print(jyfm_tools_warehouse_receipt_daily_df)
     # 交易法门-工具-仓单分析-仓单查询
-    jyfm_tools_warehouse_receipt_query_df = jyfm_tools_warehouse_receipt_query(symbol="AL", indicator="仓单数据走势图", headers=headers)
+    jyfm_tools_warehouse_receipt_query_df = jyfm_tools_warehouse_receipt_query(
+        symbol="AL", indicator="仓单数据走势图", headers=headers
+    )
     print(jyfm_tools_warehouse_receipt_query_df)
     # 交易法门-工具-仓单分析-虚实盘比日报
-    jyfm_tools_warehouse_virtual_fact_daily_df = jyfm_tools_warehouse_virtual_fact_daily(trade_date="2020-01-20", headers=headers)
+    jyfm_tools_warehouse_virtual_fact_daily_df = jyfm_tools_warehouse_virtual_fact_daily(
+        trade_date="2020-01-20", headers=headers
+    )
     print(jyfm_tools_warehouse_virtual_fact_daily_df)
     # 交易法门-工具-仓单分析-虚实盘比查询
-    jyfm_tools_warehouse_receipt_ratio_df = jyfm_tools_warehouse_virtual_fact_ratio(symbol="AL", code="05", headers=headers)
+    jyfm_tools_warehouse_receipt_ratio_df = jyfm_tools_warehouse_virtual_fact_ratio(
+        symbol="AL", code="05", headers=headers
+    )
     print(jyfm_tools_warehouse_receipt_ratio_df)
 
     # 交易法门-工具-期限分析
-    jyfm_tools_futures_basis_daily_df = jyfm_tools_futures_basis_daily(trade_date="2020-01-02", headers=headers)
+    jyfm_tools_futures_basis_daily_df = jyfm_tools_futures_basis_daily(
+        trade_date="2020-01-02", headers=headers
+    )
     print(jyfm_tools_futures_basis_daily_df)
-    jyfm_tools_futures_basis_analysis_area_df = jyfm_tools_futures_basis_analysis_area(symbol="Y", headers=headers)
+    jyfm_tools_futures_basis_analysis_area_df = jyfm_tools_futures_basis_daily_area(
+        symbol="Y", headers=headers
+    )
     print(jyfm_tools_futures_basis_analysis_area_df)
-    jyfm_tools_futures_basis_analysis_df = jyfm_tools_futures_basis_analysis(symbol="RB", area="上海", headers=headers)
+    jyfm_tools_futures_basis_analysis_df = jyfm_tools_futures_basis_analysis(
+        symbol="RB", area="上海", indicator="基差率分布图", headers=headers
+)
     print(jyfm_tools_futures_basis_analysis_df)
-    jyfm_tools_futures_basis_structure_df = jyfm_tools_futures_basis_structure(symbol="RB", headers=headers)
+    jyfm_tools_futures_basis_structure_df = jyfm_tools_futures_basis_structure(
+        symbol="RB", headers=headers
+    )
     print(jyfm_tools_futures_basis_structure_df)
-    jyfm_tools_futures_basis_rule_df = jyfm_tools_futures_basis_rule(symbol="RB", code="05", return_data="",
-                                                                     headers=headers)
+    jyfm_tools_futures_basis_rule_df = jyfm_tools_futures_basis_rule(
+        symbol="RB", code="05", indicator="", headers=headers
+    )
     print(jyfm_tools_futures_basis_rule_df)
 
     # 交易法门-工具-交易规则
@@ -659,4 +847,3 @@ if __name__ == "__main__":
         exchange="CFFEX", headers=headers
     )
     print(jyfm_tools_position_limit_info_df)
-

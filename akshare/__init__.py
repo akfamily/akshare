@@ -758,9 +758,12 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.3.82
 新增-小区查询
 新增-相同行程查询
+0.3.83
+新增-交易法门-工具-套利分析-FullCarry
+修改-交易法门-工具-期限分析-基差分析
 """
 
-__version__ = "0.3.82"
+__version__ = "0.3.83"
 __author__ = "Albert King"
 
 """
@@ -854,11 +857,30 @@ from akshare.economic.macro_bank import (
 )
 
 """
+交易法门-工具-套利分析
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_futures_spread,
+    jyfm_tools_futures_ratio,
+    jyfm_tools_futures_customize,
+    jyfm_exchange_symbol_dict,
+    jyfm_tools_futures_full_carry,
+)
+
+"""
 交易法门-工具-资讯汇总
 """
 from akshare.futures_derivative.jyfm_tools_func import (
     jyfm_tools_research_query,
     jyfm_tools_trade_calendar,
+)
+
+"""
+交易法门-工具-持仓分析
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_position_detail,
+    jyfm_tools_position_seat,
 )
 
 """
@@ -881,10 +903,18 @@ from akshare.futures_derivative.jyfm_tools_func import (
 """
 from akshare.futures_derivative.jyfm_tools_func import (
     jyfm_tools_futures_basis_daily,
-    jyfm_tools_futures_basis_analysis_area,
+    jyfm_tools_futures_basis_daily_area,
     jyfm_tools_futures_basis_analysis,
     jyfm_tools_futures_basis_structure,
     jyfm_tools_futures_basis_rule,
+)
+
+"""
+交易法门-工具-交易规则
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_receipt_expire_info,
+    jyfm_tools_position_limit_info,
 )
 
 """
@@ -906,26 +936,6 @@ from akshare.index.index_cons import (
 from akshare.futures_derivative.jyfm_data_func import (
     jyfm_data_cocking_coal,
     jyfm_data_coke,
-)
-
-"""
-交易法门-工具-持仓分析
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_detail,
-    jyfm_tools_position_seat,
-)
-
-"""
-交易法门-工具-套利分析接口
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_receipt_expire_info,
-    jyfm_tools_position_limit_info,
-    jyfm_tools_futures_spread,
-    jyfm_tools_futures_ratio,
-    jyfm_tools_futures_customize,
-    jyfm_exchange_symbol_dict,
 )
 
 """

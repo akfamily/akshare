@@ -1631,6 +1631,82 @@ print(data)
 2019-10-25    134
 ```
 
+###### 交易法门-工具-套利分析-FullCarry
+
+接口: jyfm_tools_futures_full_carry
+
+目标地址: https://www.jiaoyifamen.com/tools/future/full/carry?beginCode=05&endCode=09&ratio=4
+
+描述: 获取交易法门-工具-套利分析-FullCarry
+
+限量: 单次返回某两个日期间指定比率下的 Full Carry
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| begin_code | str  | Y    |   begin_code="05"; 近月合约|
+| end_code | str  | Y    |   end_code="09"; 远月合约|
+| ratio | str  | Y    |   ratio="4"; 资金成本|
+| headers | str  | Y    |   headers=headers; 必须要传入 **headers**, 因为需要登录的 Cookies 来访问|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| - | -  | -    |返回字段较多, 不单列|
+
+接口示例
+
+```python
+import akshare as ak
+headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_futures_full_carry_df = ak.jyfm_tools_futures_full_carry(begin_code="05", end_code="09", ratio="4", headers=headers)
+print(jyfm_tools_futures_full_carry_df)
+```
+
+数据示例
+
+```
+    id  instVariety productName  recentContractValue  farMonthContractValue  \
+0    1          303          橡胶              11340.0                 9920.0   
+1    2          304          沥青               2984.0                 3960.0   
+2    3          314          燃油               2140.0                 1980.0   
+3    4          313          纸浆               4492.0                 7058.0   
+4    5          306          螺纹               3304.0                 2727.0   
+..  ..          ...         ...                  ...                    ...   
+53  54          117          早稻               2640.0                 2285.0   
+54  55          118          晚稻               2580.0                 2829.2   
+55  56          119          粳稻               2970.0                 3866.0   
+56  57          501          原油                410.8                 5714.0   
+57  58          502        20号胶               9710.0                 1783.5   
+    spread  deliveryFee  storageFee  holdingPeriod    fundCost  turnoverCost  \
+0   1420.0         4.00        0.80          120.0  149.128767    249.128767   
+1   -976.0         1.00        1.50          120.0   39.241644    220.241644   
+2    160.0         1.00        1.40          120.0   28.142466    197.142466   
+3  -2566.0         1.00        0.80          120.0   59.072877    156.072877   
+4    577.0         1.00        0.15          120.0   43.449863     62.449863   
+..     ...          ...         ...            ...         ...           ...   
+53   355.0         0.50        0.40          120.0   34.717808     83.217808   
+54  -249.2         0.50        0.50          120.0   33.928767     94.428767   
+55  -896.0         0.50        0.55          120.0   39.057534    105.557534   
+56 -5303.2         0.05        0.20          120.0    5.402301     29.452301   
+57  7926.5         4.00        1.50          120.0  127.693151    311.693151   
+    spreadRatio receiptValidityPeriod  
+0        569.99                   11月  
+1        443.15                   10月  
+2         81.16                   12月  
+3       1644.10                   11月  
+4        923.94               生产日期90天  
+..          ...                   ...  
+53       426.59                    7月  
+54       263.90                    9月  
+55       848.83                    9月  
+56     18006.06                    永久  
+57      2543.05              生产日期12个月  
+```
+
 ##### 交易法门-工具-资讯汇总
 
 ###### 交易法门-工具-资讯汇总-研报查询
@@ -3679,14 +3755,15 @@ print(jyfm_tools_futures_basis_daily_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | symbol | str  | Y    |   symbol="RB"|
-| are | str  | Y    |   area="上海", 可以通过 **jyfm_tools_futures_basis_analysis_area(symbol="Y", headers=headers)** 获取交易区域|
+| area | str  | Y    |   area="上海", 可以通过 **jyfm_tools_futures_basis_daily_area(symbol="Y", headers=headers)** 获取交易区域|
+| indicator | str  | Y    |   indicator="基差率分布图", 选取: "基差走势图", "基差率季节图", "基差率分布图"|
 | headers | dict  | Y    |   headers=headers|
 
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
-| 返回所有字段          | -   | Y        | -     |
+| -          | -   | -        | 返回所有字段     |
 
 接口示例
 
@@ -3694,76 +3771,25 @@ print(jyfm_tools_futures_basis_daily_df)
 import akshare as ak
 headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
-jyfm_tools_futures_basis_analysis_df = ak.jyfm_tools_futures_basis_analysis_area(symbol="Y", area="上海", headers=headers)
+jyfm_tools_futures_basis_analysis_df = ak.jyfm_tools_futures_basis_analysis(symbol="RB", area="上海", indicator="基差率分布图", headers=headers)
 print(jyfm_tools_futures_basis_analysis_df)
-# 进一步取 jyfm_tools_futures_basis_analysis_df["table_data"] 
 ```
 
 数据示例
 
 ```
-    tradingDay                                         table_data category  \
-0   2020-01-06  {'id': 69346, 'tradingDay': '2020-01-06 00:00:...       橡胶   
-1   2020-01-06  {'id': 69337, 'tradingDay': '2020-01-06 00:00:...       豆一   
-2   2020-01-06  {'id': 69338, 'tradingDay': '2020-01-06 00:00:...       玉米   
-3   2020-01-06  {'id': 69347, 'tradingDay': '2020-01-06 00:00:...       沥青   
-4   2020-01-06  {'id': 69332, 'tradingDay': '2020-01-06 00:00:...       棉花   
-5   2020-01-06  {'id': 69334, 'tradingDay': '2020-01-06 00:00:...      PTA   
-6   2020-01-06  {'id': 69343, 'tradingDay': '2020-01-06 00:00:...       淀粉   
-7   2020-01-06  {'id': 69341, 'tradingDay': '2020-01-06 00:00:...       豆粕   
-8   2020-01-06  {'id': 69356, 'tradingDay': '2020-01-06 00:00:...     上证50   
-9   2020-01-06  {'id': 69349, 'tradingDay': '2020-01-06 00:00:...       沪铜   
-10  2020-01-06  {'id': 69354, 'tradingDay': '2020-01-06 00:00:...    沪深300   
-11  2020-01-06  {'id': 69355, 'tradingDay': '2020-01-06 00:00:...    中证500   
-12  2020-01-06  {'id': 69350, 'tradingDay': '2020-01-06 00:00:...       沪铅   
-13  2020-01-06  {'id': 69351, 'tradingDay': '2020-01-06 00:00:...       沪锌   
-14  2020-01-06  {'id': 69328, 'tradingDay': '2020-01-06 00:00:...       甲醇   
-15  2020-01-06  {'id': 69333, 'tradingDay': '2020-01-06 00:00:...      动力煤   
-16  2020-01-06  {'id': 69336, 'tradingDay': '2020-01-06 00:00:...       豆油   
-17  2020-01-06  {'id': 69330, 'tradingDay': '2020-01-06 00:00:...       菜粕   
-18  2020-01-06  {'id': 69353, 'tradingDay': '2020-01-06 00:00:...       沪镍   
-19  2020-01-06  {'id': 69331, 'tradingDay': '2020-01-06 00:00:...       白糖   
-20  2020-01-06  {'id': 69342, 'tradingDay': '2020-01-06 00:00:...       棕榈   
-21  2020-01-06  {'id': 69329, 'tradingDay': '2020-01-06 00:00:...       菜油   
-22  2020-01-06  {'id': 69335, 'tradingDay': '2020-01-06 00:00:...      PVC   
-23  2020-01-06  {'id': 69327, 'tradingDay': '2020-01-06 00:00:...       玻璃   
-24  2020-01-06  {'id': 69348, 'tradingDay': '2020-01-06 00:00:...       螺纹   
-25  2020-01-06  {'id': 69340, 'tradingDay': '2020-01-06 00:00:...       焦炭   
-26  2020-01-06  {'id': 69352, 'tradingDay': '2020-01-06 00:00:...       热卷   
-27  2020-01-06  {'id': 69339, 'tradingDay': '2020-01-06 00:00:...       铁矿   
-28  2020-01-06  {'id': 69344, 'tradingDay': '2020-01-06 00:00:...       鸡蛋   
-29  2020-01-06  {'id': 69345, 'tradingDay': '2020-01-06 00:00:...       焦煤   
-    value  
-0   -7.34  
-1   -5.65  
-2   -3.41  
-3   -2.86  
-4   -2.72  
-5   -2.47  
-6   -1.29  
-7   -0.33  
-8   -0.10  
-9   -0.09  
-10  -0.08  
-11   0.03  
-12   0.14  
-13   0.30  
-14   0.56  
-15   0.58  
-16   0.78  
-17   1.37  
-18   2.18  
-19   2.38  
-20   4.27  
-21   5.09  
-22   5.69  
-23   7.52  
-24   7.86  
-25   8.15  
-26   8.47  
-27   9.75  
-28  12.02  
-29  15.86  
+       x    y
+0   -8.2  1.0
+1   -7.7  1.0
+2   -7.2  2.0
+3   -6.7  2.0
+4   -6.2  6.0
+..   ...  ...
+60  21.8  2.0
+61  22.3  1.0
+62  22.8  2.0
+63  23.3  3.0
+64  23.8  1.0
 ```
 
 ###### 交易法门-工具-期限分析-期限结构
@@ -3846,7 +3872,7 @@ print(jyfm_tools_futures_basis_structure_df)
 | -------- | ---- | ---- | --- |
 | symbol | str  | Y    |   symbol="RB"|
 | code | str  | Y    |   code="05", 合约到期月份|
-| return_data | str  | Y    |   return_data="", 默认返回 季节性走势图, return_data="期货涨跌统计", 返回 期货涨跌统计|
+| indicator | str  | Y    |   indicator="期货涨跌统计", 二选一: "期货涨跌统计", "季节性走势图"|
 | headers | dict  | Y    |   headers=headers|
 
 输出参数
@@ -3861,7 +3887,7 @@ print(jyfm_tools_futures_basis_structure_df)
 import akshare as ak
 headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
-jyfm_tools_futures_basis_rule_df = ak.jyfm_tools_futures_basis_rule(symbol="RB", code="05", return_data="", headers=headers)
+jyfm_tools_futures_basis_rule_df = ak.jyfm_tools_futures_basis_rule(symbol="RB", code="05", indicator="期货涨跌统计", headers=headers)
 print(jyfm_tools_futures_basis_rule_df)
 ```
 
