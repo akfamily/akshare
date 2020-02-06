@@ -92,6 +92,10 @@
 
 感谢[百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0)提供的相关数据;
 
+感谢[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message)提供的相关数据;
+
+感谢[新型肺炎-小区查询](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
+
 ## 交流
 
 您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:

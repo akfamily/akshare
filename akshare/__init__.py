@@ -755,10 +755,23 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-基金数据接口
 0.3.81
 新增-基金数据接口-净值
+0.3.82
+新增-小区查询
+新增-相同行程查询
 """
 
-__version__ = "0.3.81"
+__version__ = "0.3.82"
 __author__ = "Albert King"
+
+"""
+新型肺炎
+"""
+from akshare.event.sos import (
+    epidemic_area_search,
+    epidemic_area_all,
+    epidemic_area_detail,
+    epidemic_trip,
+)
 
 """
 基金数据接口

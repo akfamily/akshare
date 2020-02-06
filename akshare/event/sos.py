@@ -368,6 +368,81 @@ def migration_scale_baidu(area="乌鲁木齐市", indicator="move_out", start_da
     return temp_df
 
 
+def epidemic_area_search(province="四川省", city="成都市", district="高新区"):
+    """
+    省份-城市-区-数据查询
+    https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
+    :param province: 根据 epidemic_area_all 输入
+    :type province: str
+    :param city: 根据 epidemic_area_all 输入
+    :type city: str
+    :param district: 根据 epidemic_area_all 输入
+    :type district: str
+    :return: 全国所有省份-城市-区域数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://ncov.html5.qq.com/api/getCommunity"
+    params = {
+        "province": province,
+        "city": city,
+        "district": district,
+        "lat": "30.26555",
+        "lng": "120.1536",
+    }
+    res = requests.get(url, params=params)
+    temp_df = pd.DataFrame(res.json()["community"][province][city][district])
+    return temp_df[["province", "city", "district", "show_address", "full_address", "cnt_sum_certain"]]
+
+
+def epidemic_area_all():
+    """
+    可以获取数据的全国所有省份-城市-区域数据
+    https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
+    :return: 数据的全国所有省份-城市-区域数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://ncov.html5.qq.com/api/getPosition"
+    res = requests.get(url)
+    area = res.json()["position"]
+    province_list = list(area.keys())
+    temp = []
+    for p in province_list:
+        for c in area[p].keys():
+            temp.extend(list(zip([p] * len(list(area[p][c].keys())[1:]), [c] * len(list(area[p][c].keys())[1:]), list(area[p][c].keys())[1:])))
+    return pd.DataFrame(temp, columns=["province", "city", "district"])
+
+
+def epidemic_area_detail():
+    """
+    细化到每个小区的确诊人数
+    需要遍历每个页面, 如非必要, 请勿运行
+    https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
+    :return: 全国每个小区的确诊人数
+    :rtype: pandas.DataFrame
+    """
+    temp_df = pd.DataFrame()
+    area_df = epidemic_area_all()
+    for item in area_df.iterrows():
+        print(item[0])
+        small_df = epidemic_area_search(province=item[1][0], city=item[1][1], district=item[1][2])
+        temp_df = temp_df.append(small_df, ignore_index=True)
+
+    # temp_df["cnt_sum_certain"] = temp_df["cnt_sum_certain"].replace("-1", "确诊人数不详")
+    return temp_df
+
+
+def epidemic_trip():
+    """
+    新型肺炎确诊患者-相同行程查询工具
+    https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message
+    :return: 新型肺炎确诊患者-相同行程查询工具, 所有历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://rl.inews.qq.com/taf/travelFront"
+    res = requests.get(url)
+    return pd.DataFrame(res.json()["data"]["list"])
+
+
 if __name__ == "__main__":
     # 163
     epidemic_current_163_df = epidemic_163(indicator="实时")
@@ -424,3 +499,13 @@ if __name__ == "__main__":
     migration_scale_baidu_df = migration_scale_baidu(area="绍兴市", indicator="move_out", start_date="20190112",
                                                      end_date="20200202")
     print(migration_scale_baidu_df)
+    # 小区
+    epidemic_area_search_df = epidemic_area_search(province="四川省", city="成都市", district="高新区")
+    print(epidemic_area_search_df)
+    epidemic_area_all_df = epidemic_area_all()
+    print(epidemic_area_all_df)
+    # epidemic_area_detail_df = epidemic_area_detail()
+    # print(epidemic_area_detail_df)
+    # 行程
+    epidemic_trip_df = epidemic_trip()
+    print(epidemic_trip_df)

@@ -337,6 +337,12 @@
  # 百度迁徙地图接口
  "migration_area_baidu"  # 百度迁徙地图-迁入/出地详情
  "migration_scale_baidu"  # 百度迁徙地图-迁徙规模
+ # 新型肺炎-小区查询
+ "epidemic_area_search"  # 具体小区查询
+ "epidemic_area_all"  # 提供可查询的省份-城市-区一览表
+ "epidemic_area_detail"  # 全国所有小区详细数据
+ # 新型肺炎-相同行程查询
+ "epidemic_trip"  # 相同行程交通工具所有信息
 ```
 
 ## 3. 案例演示
