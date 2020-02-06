@@ -6,6 +6,7 @@ date: 2020/01/02 17:37
 contact: jindaxiang@163.com
 desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门首页: https://www.jiaoyifamen.com/
+
 # 交易法门-工具-套利分析
 交易法门-工具-套利分析-跨期价差(自由价差)
 交易法门-工具-套利分析-自由价比
@@ -752,7 +753,7 @@ def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
 
 if __name__ == "__main__":
     # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 在下面输入对应的帐号和密码后再运行 jyfm_login 函数!
-    headers = jyfm_login(account="link", password="loveloli888")
+    headers = jyfm_login(account="", password="")
 
     # 交易法门-工具-套利分析
     jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
