@@ -423,7 +423,7 @@ def epidemic_area_detail():
     temp_df = pd.DataFrame()
     area_df = epidemic_area_all()
     for item in area_df.iterrows():
-        print(item[0])
+        print(f"一共{area_df.shape[0]}, 正在下载第{item[0]+1}页")
         small_df = epidemic_area_search(province=item[1][0], city=item[1][1], district=item[1][2])
         temp_df = temp_df.append(small_df, ignore_index=True)
 
@@ -504,8 +504,8 @@ if __name__ == "__main__":
     print(epidemic_area_search_df)
     epidemic_area_all_df = epidemic_area_all()
     print(epidemic_area_all_df)
-    # epidemic_area_detail_df = epidemic_area_detail()
-    # print(epidemic_area_detail_df)
+    epidemic_area_detail_df = epidemic_area_detail()
+    print(epidemic_area_detail_df)
     # 行程
     epidemic_trip_df = epidemic_trip()
     print(epidemic_trip_df)
