@@ -32,7 +32,7 @@ from akshare.economic.cons import (
     JS_CHINA_REPORT_URL,
 )
 
-pd.set_option('display.max_rows', 10)
+# pd.set_option('display.max_rows', 10)  # just for debug
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
@@ -48,7 +48,7 @@ def macro_china_gdp_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国GDP年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)

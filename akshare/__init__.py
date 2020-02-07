@@ -761,9 +761,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.3.83
 新增-交易法门-工具-套利分析-FullCarry
 修改-交易法门-工具-期限分析-基差分析
+0.3.84
+新增-货币对-投机情绪报告
 """
 
-__version__ = "0.3.83"
+__version__ = "0.3.84"
 __author__ = "Albert King"
 
 """
@@ -817,6 +819,11 @@ from akshare.interest_rate.interbank_rate_em import rate_interbank
 东方财富网-经济数据-银行间拆借利率
 """
 from akshare.interest_rate.interbank_rate_em import rate_interbank
+
+"""
+金十数据中心-外汇情绪
+"""
+from akshare.economic.macro_other import macro_fx_sentiment
 
 """
 金十数据中心-经济指标-欧元区

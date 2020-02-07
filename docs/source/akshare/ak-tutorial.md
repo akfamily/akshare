@@ -330,6 +330,8 @@
  "macro_cons_silver_amount"  # 全球最大白银ETF--iShares Silver Trust持仓报告
  "macro_cons_opec_near_change"  # 欧佩克报告-变动
  "macro_cons_opec_month"  # 欧佩克报告-月度
+ # 货币对-投机情绪报告
+ "macro_fx_sentiment"  # 货币对-投机情绪报告
  # 新型冠状病毒数据接口
  "epidemic_163"  # 新型冠状病毒-网易
  "epidemic_dxy"  # 新型冠状病毒-丁香园
