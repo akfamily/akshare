@@ -135,7 +135,7 @@ def epidemic_dxy(indicator="西藏自治区"):
             BytesIO(requests.get(img_url["dailyPics"][0][0]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情新增趋势图-湖北":
+    elif indicator == "全国疫情新增确诊病例趋势图":
         # img
         img_url = pd.read_json(
             dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
@@ -145,7 +145,7 @@ def epidemic_dxy(indicator="西藏自治区"):
             BytesIO(requests.get(img_url["dailyPics"][0][1]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情累计趋势图":
+    elif indicator == "全国疫情风险病例趋势图":
         # img
         img_url = pd.read_json(
             dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
@@ -155,7 +155,7 @@ def epidemic_dxy(indicator="西藏自治区"):
             BytesIO(requests.get(img_url["dailyPics"][0][2]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情死亡/治愈累计趋势图":
+    elif indicator == "全国疫情累计死亡/治愈病例趋势图":
         # img
         img_url = pd.read_json(
             dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
@@ -165,7 +165,7 @@ def epidemic_dxy(indicator="西藏自治区"):
             BytesIO(requests.get(img_url["dailyPics"][0][3]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情死亡治愈趋势图":
+    elif indicator == "全国疫情累计死亡/治愈病例趋势图-湖北":
         # img
         img_url = pd.read_json(
             dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
@@ -173,6 +173,16 @@ def epidemic_dxy(indicator="西藏自治区"):
         ).T
         img_file = Image.open(
             BytesIO(requests.get(img_url["dailyPics"][0][4]).content)
+        )
+        img_file.show()
+    elif indicator == "全国疫情病死率趋势图":
+        # img
+        img_url = pd.read_json(
+            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
+            orient="index",
+        ).T
+        img_file = Image.open(
+            BytesIO(requests.get(img_url["dailyPics"][0][5]).content)
         )
         img_file.show()
     elif indicator == "疫情地图":
@@ -466,10 +476,11 @@ if __name__ == "__main__":
     epidemic_dxy_news_df = epidemic_dxy(indicator="news")
     print(epidemic_dxy_news_df)
     epidemic_dxy(indicator="全国疫情新增趋势图")
-    epidemic_dxy(indicator="全国疫情新增趋势图-湖北")
-    epidemic_dxy(indicator="全国疫情累计趋势图")
-    epidemic_dxy(indicator="全国疫情死亡/治愈累计趋势图")
-    epidemic_dxy(indicator="全国疫情死亡治愈趋势图")
+    epidemic_dxy(indicator="全国疫情新增确诊病例趋势图")
+    epidemic_dxy(indicator="全国疫情风险病例趋势图")
+    epidemic_dxy(indicator="全国疫情累计死亡/治愈病例趋势图")
+    epidemic_dxy(indicator="全国疫情累计死亡/治愈病例趋势图-湖北")
+    epidemic_dxy(indicator="全国疫情病死率趋势图")
     epidemic_dxy(indicator="疫情地图")
     # baidu
     epidemic_baidu_rmqrd_df = epidemic_baidu(indicator="热门迁入地")
