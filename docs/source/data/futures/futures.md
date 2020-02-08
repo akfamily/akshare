@@ -3659,6 +3659,7 @@ print(jyfm_tools_warehouse_receipt_ratio_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | trade_date | str | Y | trade_date="2020-01-02" |
+| indicator | str | Y | indicator="基差率"; 二选一: "基差率", "基差日报" |
 | headers | dict  | Y    |   headers=headers|
 
 输出参数
@@ -3673,7 +3674,7 @@ print(jyfm_tools_warehouse_receipt_ratio_df)
 import akshare as ak
 headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
-jyfm_tools_futures_basis_daily_df = ak.jyfm_tools_futures_basis_daily(trade_date="2020-01-02", headers=headers)
+jyfm_tools_futures_basis_daily_df = ak.jyfm_tools_futures_basis_daily(trade_date="2020-01-02", indicator="基差率", headers=headers)
 print(jyfm_tools_futures_basis_daily_df)
 ```
 

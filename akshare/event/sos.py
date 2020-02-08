@@ -7,6 +7,7 @@ contact: jindaxiang@163.com
 desc: 新增-事件接口
 新增-事件接口新型冠状病毒-网易
 新增-事件接口新型冠状病毒-丁香园
+新增-事件接口新型冠状病毒-百度
 """
 import json
 import time
@@ -20,7 +21,7 @@ from bs4 import BeautifulSoup
 
 from akshare.event.cons import province_dict, city_dict
 
-pd.set_option('display.max_columns', None)
+# pd.set_option('display.max_columns', None)  # just for debug
 
 
 def epidemic_163(indicator="实时"):
@@ -426,8 +427,6 @@ def epidemic_area_detail():
         print(f"一共{area_df.shape[0]}, 正在下载第{item[0]+1}页")
         small_df = epidemic_area_search(province=item[1][0], city=item[1][1], district=item[1][2])
         temp_df = temp_df.append(small_df, ignore_index=True)
-
-    # temp_df["cnt_sum_certain"] = temp_df["cnt_sum_certain"].replace("-1", "确诊人数不详")
     return temp_df
 
 
@@ -435,7 +434,7 @@ def epidemic_trip():
     """
     新型肺炎确诊患者-相同行程查询工具
     https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message
-    :return: 新型肺炎确诊患者-相同行程查询工具, 所有历史数据
+    :return: 新型肺炎确诊患者-相同行程查询工具的所有历史数据
     :rtype: pandas.DataFrame
     """
     url = "https://rl.inews.qq.com/taf/travelFront"

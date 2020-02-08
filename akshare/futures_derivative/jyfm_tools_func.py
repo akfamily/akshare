@@ -821,7 +821,7 @@ if __name__ == "__main__":
 
     # 交易法门-工具-期限分析
     jyfm_tools_futures_basis_daily_df = jyfm_tools_futures_basis_daily(
-        trade_date="2020-01-02", headers=headers
+        trade_date="2020-01-02", indicator="基差率", headers=headers
     )
     print(jyfm_tools_futures_basis_daily_df)
     jyfm_tools_futures_basis_analysis_area_df = jyfm_tools_futures_basis_daily_area(
