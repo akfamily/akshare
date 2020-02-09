@@ -767,10 +767,18 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_area_detail-增加下载进度提示
 0.3.86
 修复-epidemic_dxy-完善图片获取
+0.3.87
+新增-债券质押式回购成交明细数据
+新增-细化到地市的疫情历史数据20200123至今
 """
 
-__version__ = "0.3.86"
+__version__ = "0.3.87"
 __author__ = "Albert King"
+
+"""
+债券质押式回购成交明细数据
+"""
+from akshare.bond.china_repo import bond_repo_zh_tick
 
 """
 新型肺炎
@@ -799,6 +807,9 @@ from akshare.event.sos import (
     epidemic_163,
     epidemic_dxy,
     epidemic_baidu,
+    epidemic_hist_all,
+    epidemic_hist_city,
+    epidemic_hist_province,
 )
 
 """

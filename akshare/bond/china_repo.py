@@ -2,11 +2,11 @@
 # /usr/bin/env python
 """
 Author: Albert King
-date: 2019/11/16 20:39
+date: 2020/2/9 11:48
 contact: jindaxiang@163.com
-desc: 腾讯-股票-实时行情-成交明细
+desc: 腾讯-债券-质押式回购-实时行情-成交明细
 下载成交明细-每个交易日16:00提供当日数据
-该列表港股报价延时15分钟
+http://stockhtm.finance.qq.com/sstock/ggcx/131802.shtml
 """
 from io import StringIO
 
@@ -14,14 +14,14 @@ import pandas as pd
 import requests
 
 
-def stock_zh_a_tick(code="sh600848", trade_date="20191011"):
+def bond_repo_zh_tick(code="sz131802", trade_date="20200207"):
     """
     成交明细-每个交易日16:00提供当日数据
-    :param code: 带市场标识的股票代码
+    :param code: 带市场标识的债券-质押式回购代码
     :type code: str
     :param trade_date: 需要提取数据的日期
     :type trade_date: str
-    :return: 返回当日股票成交明细的数据
+    :return: 返回指定交易日债券-质押式回购成交明细的数据
     :rtype: pandas.DataFrame
     """
     url = "http://stock.gtimg.cn/data/index.php"
@@ -38,9 +38,9 @@ def stock_zh_a_tick(code="sh600848", trade_date="20191011"):
 
 
 if __name__ == "__main__":
-    date_list = pd.date_range(start="20190801", end="20191111").tolist()
+    date_list = pd.date_range(start="20190801", end="20200209").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
-        data = stock_zh_a_tick(code="sh601872", trade_date=f"{item}")
+        data = bond_repo_zh_tick(code="sz131802", trade_date=f"{item}")
         if not data.empty:
             print(data)

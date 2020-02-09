@@ -452,6 +452,48 @@ def epidemic_trip():
     return pd.DataFrame(res.json()["data"]["list"])
 
 
+def epidemic_hist_all():
+    """
+    https://github.com/norratek/Ncov2020HistoryData
+    https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
+    :return: 返回每日的历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://ncov.nosensor.com:8080/api/"
+    data_json = requests.get(url).json()
+    big_df = pd.DataFrame()
+    for item in range(0, len(data_json["city"])):
+        print(data_json["city"][item]["Time"])
+        temp_df = pd.DataFrame(data_json["city"][item]["CityDetail"])
+        temp_df["date"] = data_json["city"][item]["Time"]
+        big_df = big_df.append(temp_df)
+    return big_df
+
+
+def epidemic_hist_city(city="武汉"):
+    """
+    https://github.com/norratek/Ncov2020HistoryData
+    https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
+    :return: 返回每日的历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = f"http://ncov.nosensor.com:8080/api/city={city}"
+    data_json = requests.get(url).json().get("city", None)
+    return pd.DataFrame(data_json)
+
+
+def epidemic_hist_province(province="湖北"):
+    """
+    https://github.com/norratek/Ncov2020HistoryData
+    https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
+    :return: 返回每日的历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = f"http://ncov.nosensor.com:8080/api/province={province}"
+    data_json = requests.get(url).json().get("province", None)
+    return pd.DataFrame(data_json)
+
+
 if __name__ == "__main__":
     # 163
     epidemic_current_163_df = epidemic_163(indicator="实时")
@@ -519,3 +561,10 @@ if __name__ == "__main__":
     # 行程
     epidemic_trip_df = epidemic_trip()
     print(epidemic_trip_df)
+    # 历史数据
+    epidemic_hist_all_df = epidemic_hist_all()
+    print(epidemic_hist_all_df)
+    epidemic_hist_city_df = epidemic_hist_city(city="武汉")
+    print(epidemic_hist_city_df)
+    epidemic_hist_province_df = epidemic_hist_province(province="湖北")
+    print(epidemic_hist_province_df)

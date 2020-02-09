@@ -204,21 +204,21 @@ print(stock_df)
 
 #### 历史分笔数据
 
-A 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)获取的数据, 历史数据按日频率更新
-
 接口: stock_zh_a_tick
 
 目标地址: http://gu.qq.com/sz300494/gp/detail(示例)
 
-描述: 获取 A 股历史分笔行情数据
+描述: A 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)获取的数据, 历史数据按日频率更新
 
-限量: 单次返回具体某个 A 上市公司的近2年历史分笔行情数据
+限量: 单次返回具体某个 A 上市公司的近 2 年历史分笔行情数据
+
+- 每个交易日 16:00 提供当日数据
 
 输入参数
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| code | str  | Y    |   symbol="sh600000"|
+| symbol | str  | Y    |   symbol="sh600000"|
 | trade_date | datetime  | Y    |  trade_date="20191011"|
 
 输出参数-历史行情数据
@@ -231,8 +231,7 @@ A 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&
 | 成交量(手)           | float      | Y        | -     |
 | 成交额(元)         | float      | Y        | -     |
 | 性质        | str      | Y        | 买卖盘标记     |
-
-                
+   
 接口示例
 
 ```python

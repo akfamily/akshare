@@ -68,3 +68,7 @@ if __name__ == "__main__":
         market="中国银行同业拆借市场", symbol="Chibor人民币", indicator="3月"
     )
     print(rate_interbank_df)
+    rate_interbank_df = rate_interbank(
+        market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="1月"
+    )
+    print(rate_interbank_df)

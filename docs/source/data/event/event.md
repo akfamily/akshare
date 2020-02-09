@@ -1642,3 +1642,159 @@ print(epidemic_trip_df)
 1785  朝阳市新型冠状病毒感染的肺炎疫情防控指挥部办公室  
 1786          陵水县新型肺炎疫情防控工作指挥部  
 ```
+
+### 疫情历史数据-细化到地市
+
+接口: epidemic_hist_all
+
+目标地址: https://github.com/norratek/Ncov2020HistoryData
+
+描述: 获取新型肺炎统计数据颗粒细化到地市
+
+限量: 单次返回所有细化到地市的所有数据
+
+输入参数-epidemic_hist_all
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数-epidemic_hist_all
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| Province | str | Y | - |
+| City | str | Y | - |
+| Confirmed | float | Y | - |
+| Dead | float | Y | - |
+| Cured | float | Y | - |
+| Severe | float | Y | - |
+| Critical | float | Y | - |
+| date | str | Y | - |
+			
+接口示例-epidemic_hist_all
+
+```python
+import akshare as ak
+epidemic_hist_all_df = ak.epidemic_hist_all()
+print(epidemic_hist_all_df)
+```
+
+数据示例-epidemic_hist_all
+
+```
+    Province  City  Confirmed  Dead  Cured  Severe  Critical        date
+0        安徽省    合肥        128     7      0       0         0  2020-02-07
+1        安徽省    淮北         22     0      0       0         0  2020-02-07
+2        安徽省    亳州         81     2      0       0         0  2020-02-07
+3        安徽省    宿州         28     0      0       0         0  2020-02-07
+4        安徽省    蚌埠         99     0      0       0         0  2020-02-07
+..       ...   ...        ...   ...    ...     ...       ...         ...
+133       新疆  乌鲁木齐          2     0      0       0         0  2020-01-23
+134      甘肃省    兰州          1     0      0       0         0  2020-01-23
+135       香港    香港          2     0      0       0         0  2020-01-23
+136       澳门    澳门          2     0      0       0         0  2020-01-23
+137       台湾    台湾          1     0      0       0         0  2020-01-23
+```
+
+输入参数-epidemic_hist_city
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数-epidemic_hist_city
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| Date | str | Y | - |
+| Province | str | Y | - |
+| City | str | Y | - |
+| Confirmed | float | Y | - |
+| Dead | float | Y | - |
+| Cured | float | Y | - |
+| Severe | float | Y | - |
+| Critical | float | Y | - |
+			
+接口示例-epidemic_hist_city
+
+```python
+import akshare as ak
+epidemic_hist_city_df = ak.epidemic_hist_city(city="武汉")
+print(epidemic_hist_city_df)
+```
+
+数据示例-epidemic_hist_city
+
+```
+          Date Province City  Confirmed  Dead  Cured  Severe  Critical
+0   2020-02-07      湖北省   武汉      13603   545      0       0         0
+1   2020-02-06      湖北省   武汉      11618   478      0       0         0
+2   2020-02-05      湖北省   武汉      10117   414      0       0         0
+3   2020-02-04      湖北省   武汉       8351   362      0       0         0
+4   2020-02-03      湖北省   武汉       6384   313      0       0         0
+..         ...      ...  ...        ...   ...    ...     ...       ...
+11  2020-01-27      湖北省   武汉       1590    85      0       0         0
+12  2020-01-26      湖北省   武汉        698    63     42     141        51
+13  2020-01-25      湖北省   武汉        618     0      0       0         0
+14  2020-01-24      湖北省   武汉        572     0      0       0         0
+15  2020-01-23      湖北省   武汉        495     0      0       0         0
+```
+
+输入参数-epidemic_hist_province
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数-epidemic_hist_province
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| Date | str | Y | - |
+| Province | str | Y | - |
+| Confirmed | float | Y | - |
+| Dead | float | Y | - |
+| Cured | float | Y | - |
+| Severe | float | Y | - |
+| Critical | float | Y | - |
+| CloseContact | float | Y | - |
+| Obse | float | Y | - |
+| UnObse | float | Y | - |
+			
+接口示例-epidemic_hist_province
+
+```python
+import akshare as ak
+epidemic_hist_province_df = ak.epidemic_hist_province(province="湖北")
+print(epidemic_hist_province_df)
+```
+
+数据示例-epidemic_hist_province
+
+```
+          Date Province  Confirmed  Dead  Cured  Severe  Critical  \
+0   2020-02-07      湖北省      24953   699   1115    4188      1007   
+1   2020-02-06      湖北省      22112   618    817    3161       841   
+2   2020-02-05      湖北省      19665   549    633    2328       756   
+3   2020-02-04      湖北省      16678   479    520    1809       711   
+4   2020-02-03      湖北省      13522   414    396    1567       576   
+..         ...      ...        ...   ...    ...     ...       ...   
+19  2020-01-19      湖北省        198     0      0       0         0   
+20  2020-01-18      湖北省        121     0      0       0         0   
+21  2020-01-17      湖北省         62     0      0       0         0   
+22  2020-01-16      湖北省         45     0      0       0         0   
+23  2020-01-15      湖北省         41     0      0       0         0   
+    CloseContact   Obse  UnObse  
+0          32767  32767       1  
+1          32767  32767       1  
+2          32767  32767       1  
+3          32767  32767       1  
+4          32767  32767       1  
+..           ...    ...     ...  
+19             0      0       0  
+20             0      0       0  
+21             0      0       0  
+22             0      0       0  
+23             0      0       0  
+```

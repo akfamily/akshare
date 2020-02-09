@@ -83,7 +83,7 @@ def stock_zh_a_spot():
     page_count = get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
     for page in range(1, page_count+1):
-        print(page)
+        print(f"一共有{page_count}页, 正在采集第{page}页")
         zh_sina_stock_payload_copy.update({"page": page})
         res = requests.get(
             zh_sina_a_stock_url,
@@ -96,7 +96,7 @@ def stock_zh_a_spot():
 def stock_zh_a_daily(symbol="sh600000", factor=""):
     """
     从新浪财经-A股获取某个股票的历史行情数据, 大量抓取容易封IP
-    :param symbol: str e.g., sh600000
+    :param symbol: str sh600000
     :param factor: str 默认为空, 不复权; qfq, 前复权因子; hfq, 后复权因子;
     :return: pandas.DataFrame
     不复权数据
