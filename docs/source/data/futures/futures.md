@@ -2574,6 +2574,64 @@ print(data)
 125                32.0                  NaN                  32  
 ```
 
+###### 交易法门-工具-持仓分析-持仓季节性
+
+接口: jyfm_tools_position_season
+
+目标地址: https://www.jiaoyifamen.com/tools/
+
+描述: 获取交易法门-工具-持仓分析-持仓季节性
+
+限量: 单次返回具体品种的具体合约的所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |   symbol="RB", 具体品种|
+| code | str  | Y    |   code="05", 合约月份|
+| headers | str  | Y    |   headers=headers; 必须要传入 **headers**, 因为需要登录的 Cookies 来访问|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 2013 | int  | Y    ||
+| 2014 | int  | Y    ||
+| 2015 | int  | Y    ||
+| 2016 | int  | Y    ||
+| 2017 | int  | Y    ||
+| 2018 | int  | Y    ||
+| 2019 | int  | Y    ||
+| 2020 | int  | Y    ||
+
+接口示例
+
+```python
+import akshare as ak
+headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_position_season_df = ak.jyfm_tools_position_season(symbol="RB", code="05", headers=headers)
+print(jyfm_tools_position_season_df)
+```
+
+数据示例
+
+```
+          2013     2014     2015     2016     2017     2018     2019     2020
+01-02      NaN  1312107      NaN      NaN      NaN  3026770  2557688  2781688
+01-03      NaN  1444409      NaN      NaN  2844641  3218666  3403266  2493906
+01-04  1892840      NaN      NaN  6635225  3502942  3370656  3285479      NaN
+01-05      NaN      NaN  3457186  6451866  3320035  3547477      NaN      NaN
+01-06      NaN  1381436  6000984  5167258  3375187      NaN      NaN  2663730
+        ...      ...      ...      ...      ...      ...      ...      ...
+12-27  1520088      NaN      NaN  3269924  3651806  3610301  2898657      NaN
+12-28      NaN      NaN  5134824  3465775  3917797  2892656      NaN      NaN
+12-29      NaN  3448074  7421491  3401785  3788556      NaN      NaN      NaN
+12-30  1660131  5223239  7302941  2935965      NaN      NaN  2786181      NaN
+12-31  1463415  3860045  5972634      NaN      NaN      NaN  3112488      NaN
+```
+
 ##### 交易法门-工具-资金分析
 
 ###### 交易法门-工具-资金分析-资金流向

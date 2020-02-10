@@ -81,6 +81,14 @@ def maxima_company():
     """
     直接读取下载好的文件, 以免给对方服务器造成压力
     此数据更新频率不高！
+    death_df.to_csv("test.csv", encoding="utf-8-sig")  # 注意编码格式
+    千里马俱乐部网页声明
+    1. 本榜单是基于IT桔子投资数据库而打造的 “千里马俱乐部”，致力于展现中国新经济领域最具成长性和最具价值的未上市创新创业公司；
+    2. “千里马俱乐部”上榜公司要求最新估值在10亿人民币-10亿美元之间；新一轮融资额绝大多数是在2000万美元或2亿元人民币以上；
+    3. “千里马俱乐部”榜单上的融资估值数据均为估算值，可能会存在些许误差，但我们着力确保更高的可靠性；
+    4. 某些估值在10亿人民币-10亿美元的公司，可能由于信息收录时间有所延误而未被列入榜单，如有上述情况请及时联系我们；
+    5. “千里马俱乐部”欢迎更多的人参与共建，如需对数据纠错或进行其他数据反馈，欢迎随时联系我们 。
+    邮箱：hello@itjuzi.com, 微信公众号：itjuzi521 。
     https://www.itjuzi.com/deathCompany
     :return: pandas.DataFrame
     """
@@ -134,9 +142,9 @@ def _death_company():
 
 
 if __name__ == "__main__":
-    death_df = death_company()
-    print(death_df)
-    nicorn_df = nicorn_company()
-    print(nicorn_df)
-    maxima_df = maxima_company()
-    print(maxima_df)
+    death_company_df = death_company()
+    print(death_company_df.to_csv("test.csv", encoding="utf-8"))
+    nicorn_company_df = nicorn_company()
+    print(nicorn_company_df)
+    maxima_company_df = maxima_company()
+    print(maxima_company_df)

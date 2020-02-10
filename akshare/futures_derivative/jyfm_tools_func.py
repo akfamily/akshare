@@ -20,6 +20,7 @@ desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 # 交易法门-工具-持仓分析
 交易法门-工具-持仓分析-期货持仓
 交易法门-工具-持仓分析-席位持仓
+交易法门-工具-持仓分析-持仓季节性
 
 # 交易法门-工具-资金分析
 交易法门-工具-资金分析-资金流向
@@ -55,7 +56,7 @@ from akshare.futures_derivative.jyfm_login_func import jyfm_login
 
 # 交易法门-工具-套利分析
 def jyfm_tools_futures_spread(
-        type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
+    type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
 ):
     """
     交易法门-工具-套利分析-跨期价差(自由价差)
@@ -89,7 +90,7 @@ def jyfm_tools_futures_spread(
 
 
 def jyfm_tools_futures_ratio(
-        type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
+    type_1="RB", type_2="RB", code_1="01", code_2="05", headers="", plot=True
 ):
     """
     交易法门-工具-套利分析-自由价比
@@ -134,7 +135,7 @@ def jyfm_tools_futures_ratio(
 
 
 def jyfm_tools_futures_customize(
-        formula="RB01-1.6*I01-0.5*J01-1200", headers="", plot=True
+    formula="RB01-1.6*I01-0.5*J01-1200", headers="", plot=True
 ):
     """
     交易法门-工具-套利分析-多腿组合
@@ -160,7 +161,9 @@ def jyfm_tools_futures_customize(
         return data_df
 
 
-def jyfm_tools_futures_full_carry(begin_code="05", end_code="09", ratio="4", headers=""):
+def jyfm_tools_futures_full_carry(
+    begin_code="05", end_code="09", ratio="4", headers=""
+):
     """
     交易法门-工具-套利分析-FullCarry
     https://www.jiaoyifamen.com/tools/future/full/carry?beginCode=05&endCode=09&ratio=4
@@ -302,7 +305,7 @@ def jyfm_tools_trade_calendar(trade_date="2020-01-03", headers=""):
 
 # 交易法门-工具-持仓分析
 def jyfm_tools_position_detail(
-        symbol="JM", code="jm2005", trade_date="2020-01-03", headers=""
+    symbol="JM", code="jm2005", trade_date="2020-01-03", headers=""
 ):
     """
     交易法门-工具-持仓分析-期货持仓
@@ -343,6 +346,43 @@ def jyfm_tools_position_seat(seat="永安期货", trade_date="2020-01-03", heade
     }
     res = requests.get(url, params=params, headers=headers)
     return pd.DataFrame(res.json()["data"])
+
+
+def jyfm_tools_position_season(symbol="RB", code="05", headers=""):
+    """
+    交易法门-工具-持仓分析-持仓分析-持仓季节性
+    https://www.jiaoyifamen.com/tools/position/season
+    :param symbol: 具体品种
+    :type symbol: str
+    :param code: 具体合约月份
+    :type code: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 合约持仓季节性规律
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.jiaoyifamen.com/tools/position/season"
+    params = {
+        "type": symbol,
+        "code": code,
+    }
+    res = requests.get(url, params=params, headers=headers)
+    data_json = res.json()
+    temp_df = pd.DataFrame(
+        [
+            data_json["year2013"],
+            data_json["year2014"],
+            data_json["year2015"],
+            data_json["year2016"],
+            data_json["year2017"],
+            data_json["year2018"],
+            data_json["year2019"],
+            data_json["year2020"],
+        ],
+        columns=data_json["dataCategory"],
+    ).T
+    temp_df.columns = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"]
+    return temp_df
 
 
 # 交易法门-工具-资金分析
@@ -524,7 +564,7 @@ def jyfm_tools_warehouse_virtual_fact_ratio(symbol="AL", code="05", headers=""):
 
 # 交易法门-工具-期限分析-基差日报
 def jyfm_tools_futures_basis_daily(
-        trade_date="2020-02-05", indicator="基差率", headers=""
+    trade_date="2020-02-05", indicator="基差率", headers=""
 ):
     """
     交易法门-工具-期限分析-基差日报
@@ -574,7 +614,7 @@ def jyfm_tools_futures_basis_daily_area(symbol="Y", headers=""):
 
 
 def jyfm_tools_futures_basis_analysis(
-        symbol="RB", area="上海", indicator="基差率分布图", headers=""
+    symbol="RB", area="上海", indicator="基差率分布图", headers=""
 ):
     """
     交易法门-工具-期限分析-基差分析
@@ -656,7 +696,7 @@ def jyfm_tools_futures_basis_structure(symbol="RB", headers=""):
 
 
 def jyfm_tools_futures_basis_rule(
-        symbol="RB", code="05", indicator="期货涨跌统计", headers=""
+    symbol="RB", code="05", indicator="期货涨跌统计", headers=""
 ):
     """
     交易法门-工具-期限分析-价格季节性
@@ -768,7 +808,9 @@ if __name__ == "__main__":
         formula="RB01-1.6*I01-0.5*J01-1200", headers=headers, plot=True
     )
     print(jyfm_tools_futures_customize_df)
-    jyfm_tools_futures_full_carry_df = jyfm_tools_futures_full_carry(begin_code="05", end_code="09", ratio="4", headers=headers)
+    jyfm_tools_futures_full_carry_df = jyfm_tools_futures_full_carry(
+        begin_code="05", end_code="09", ratio="4", headers=headers
+    )
     print(jyfm_tools_futures_full_carry_df)
 
     # 交易法门-工具-资讯汇总
@@ -790,6 +832,10 @@ if __name__ == "__main__":
         seat="永安期货", trade_date="2020-01-03", headers=headers
     )
     print(jyfm_tools_position_seat_df)
+    jyfm_tools_position_season_df = jyfm_tools_position_season(
+        symbol="RB", code="05", headers=headers
+    )
+    print(jyfm_tools_position_season_df)
 
     # 交易法门-工具-资金分析
     jyfm_tools_position_fund_df = jyfm_tools_position_fund(
@@ -830,7 +876,7 @@ if __name__ == "__main__":
     print(jyfm_tools_futures_basis_analysis_area_df)
     jyfm_tools_futures_basis_analysis_df = jyfm_tools_futures_basis_analysis(
         symbol="RB", area="上海", indicator="基差率分布图", headers=headers
-)
+    )
     print(jyfm_tools_futures_basis_analysis_df)
     jyfm_tools_futures_basis_structure_df = jyfm_tools_futures_basis_structure(
         symbol="RB", headers=headers

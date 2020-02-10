@@ -770,9 +770,12 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.3.87
 新增-债券质押式回购成交明细数据
 新增-细化到地市的疫情历史数据20200123至今
+0.3.88
+新增-交易法门-工具-持仓分析-持仓季节性
+修复-epidemic_163
 """
 
-__version__ = "0.3.87"
+__version__ = "0.3.88"
 __author__ = "Albert King"
 
 """
@@ -903,6 +906,7 @@ from akshare.futures_derivative.jyfm_tools_func import (
 from akshare.futures_derivative.jyfm_tools_func import (
     jyfm_tools_position_detail,
     jyfm_tools_position_seat,
+    jyfm_tools_position_season,
 )
 
 """

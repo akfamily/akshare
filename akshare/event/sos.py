@@ -33,38 +33,34 @@ def epidemic_163(indicator="实时"):
     :return: 返回国内各地区和海外地区情况
     :rtype: pandas.DataFrame
     """
-    url = "https://news.163.com/special/epidemic/"
-    params = {
-        "spssid": "93326430940df93a37229666dfbc4b96",
-        "spsw": "4",
-        "spss": "other",
-    }
-    res = requests.get(url, params=params)
-    soup = BeautifulSoup(res.text, "lxml")
-
-    text = soup.find_all("script")[1].get_text()
-    temp = text[text.find("window.data_by_date = ") + 22: text.rfind(";")]
-    hist_df = pd.DataFrame(demjson.decode(temp))
-
-    url = "https://c.m.163.com/ug/api/wuhan/app/index/feiyan-data-list?t=1580825778098"
+    url = "https://c.m.163.com/ug/api/wuhan/app/data/list-total"
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
     }
-    res = requests.get(url, headers=headers)
-    area_df = pd.DataFrame(res.json()["data"]["list"])
+    params = {
+        "t": int(time.time() * 1000),
+    }
+    res = requests.get(url, params=params, headers=headers)
+    data_json = res.json()
 
-    current_df = [item for item in soup.find("div", attrs={"class": "cover_con"}).get_text().split("\n") if item is not ""]
+    hist_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["chinaDayList"]], index=[item["date"] for item in data_json["data"]["chinaDayList"]])
+    hist_total_df = pd.DataFrame([item["total"] for item in data_json["data"]["chinaDayList"]], index=[item["date"] for item in data_json["data"]["chinaDayList"]])
 
-    outside_df = pd.DataFrame([item for item in soup.find("div", attrs={"class": "map_others"}).get_text().split("\n") if item is not ""])
+    current_df = pd.DataFrame.from_dict(data_json["data"]["chinaTotal"])
+
+    outside_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["areaTree"]], index=[item["name"] for item in data_json["data"]["areaTree"]])
+    outside_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"]], index=[item["name"] for item in data_json["data"]["areaTree"]])
+
+    province_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"][0]["children"]], index=[item["name"] for item in data_json["data"]["areaTree"][0]["children"]])
 
     if indicator == "实时":
         return current_df
+    if indicator == "省份":
+        return province_hist_df
     elif indicator == "历史":
-        return hist_df
-    elif indicator == "地区":
-        return area_df
-    elif indicator == "海外":
-        return outside_df
+        return hist_total_df
+    elif indicator == "国家":
+        return outside_hist_df
 
 
 def epidemic_dxy(indicator="西藏自治区"):
@@ -454,6 +450,7 @@ def epidemic_trip():
 
 def epidemic_hist_all():
     """
+    NCP细化到地市的细颗粒数据
     https://github.com/norratek/Ncov2020HistoryData
     https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
     :return: 返回每日的历史数据
@@ -498,11 +495,11 @@ if __name__ == "__main__":
     # 163
     epidemic_current_163_df = epidemic_163(indicator="实时")
     print(epidemic_current_163_df)
-    epidemic_hist_163_df = epidemic_163(indicator="历史")
+    epidemic_hist_163_df = epidemic_163(indicator="省份")
     print(epidemic_hist_163_df)
-    epidemic_area_163_df = epidemic_163(indicator="地区")
+    epidemic_area_163_df = epidemic_163(indicator="历史")
     print(epidemic_area_163_df)
-    epidemic_outside_163_df = epidemic_163(indicator="海外")
+    epidemic_outside_163_df = epidemic_163(indicator="国家")
     print(epidemic_outside_163_df)
     # dxy
     epidemic_dxy_country_df = epidemic_dxy(indicator="全国")
@@ -556,8 +553,8 @@ if __name__ == "__main__":
     print(epidemic_area_search_df)
     epidemic_area_all_df = epidemic_area_all()
     print(epidemic_area_all_df)
-    epidemic_area_detail_df = epidemic_area_detail()
-    print(epidemic_area_detail_df)
+    # epidemic_area_detail_df = epidemic_area_detail()
+    # print(epidemic_area_detail_df)
     # 行程
     epidemic_trip_df = epidemic_trip()
     print(epidemic_trip_df)
