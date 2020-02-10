@@ -211,8 +211,10 @@
  "jyfm_tools_futures_ratio"  # 交易法门-工具-套利分析-自由价比
  "jyfm_tools_futures_customize"  # 交易法门-工具-套利分析-多腿组合
  "jyfm_exchange_symbol_dict"  # 交易法门-交易所-品种字典
+ # 交易法门-工具接口-套利分析
  "jyfm_tools_position_detail"  # 交易法门-工具-持仓分析-期货分析
  "jyfm_tools_position_seat"  # 交易法门-工具-持仓分析-持仓分析
+ "jyfm_tools_position_season"  # 交易法门-工具-持仓分析-季节性分析
  # 交易法门-工具接口-交易规则
  "jyfm_tools_receipt_expire_info"  # 交易法门-工具-交易规则-仓单有效期
  "jyfm_tools_position_limit_info"  # 交易法门-工具-交易规则-限仓规定
