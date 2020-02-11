@@ -55,7 +55,7 @@ def air_daily(city="上海", start_date="2019-11-01", end_date="2019-12-01"):
 
 def get_server_data(city, period_type, start_time, end_time):
     url = "https://www.aqistudy.cn/apinew/aqistudyapi.php"
-    app_id = "1a45f75b824b2dc628d5955356b5ef18"
+    app_id = "a01901d3caba1f362d69474674ce477f"
     method = "GETDETAIL"
     timestamp = int(time.time() * 1000)
     client_type = "WEB"
@@ -124,7 +124,7 @@ def air_all_city(period_type="HOUR", time_point="2019-12-01 20:00:00"):
     # period_type : "DAY", "HOUR
     """
     url = "https://www.aqistudy.cn/apinew/aqistudyapi.php"
-    app_id = "1a45f75b824b2dc628d5955356b5ef18"
+    app_id = "a01901d3caba1f362d69474674ce477f"
     method = "GETMAPDATA"
     timestamp = int(time.time() * 1000)
     client_type = "WEB"
