@@ -68,7 +68,9 @@ pip install akshare --upgrade
 
 ## Acknowledgement
 
-特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 项目提供借鉴学习的机会;
+特别感谢[FuShare](https://github.com/LowinLi/fushare)项目提供借鉴学习的机会;
+
+特别感谢[TuShare](https://github.com/waditu/tushare)项目提供借鉴学习的机会;
 
 感谢[生意社网站](http://www.100ppi.com/)提供的相关数据;
 
@@ -152,13 +154,13 @@ pip install akshare --upgrade
 
 感谢[丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)提供的相关数据;
 
-感谢[百度网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的相关数据;
+感谢[百度新型肺炎网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的相关数据;
 
 感谢[百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0)提供的相关数据;
 
 感谢[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message)提供的相关数据;
 
-感谢[新型肺炎-小区查询](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
+感谢[新型肺炎-小区查询网站](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
 
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 专题教程;
 
@@ -180,7 +182,7 @@ pip install akshare --upgrade
 
 1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据仅供参考, 不构成任何投资建议;
 2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
-3. [AkShare](https://github.com/jindaxiang/akshare) 坚持提供开源金融数据, 请放心使用;
+3. [AkShare](https://github.com/jindaxiang/akshare) 坚持提供开源金融数据;
 4. [AkShare](https://github.com/jindaxiang/akshare) 基于某些不可控因素, 可能会移除部分数据接口;
 5. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议.
 
