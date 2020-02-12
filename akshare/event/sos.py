@@ -13,13 +13,13 @@ import json
 import time
 from io import BytesIO
 
-import demjson
 import pandas as pd
 import requests
 from PIL import Image
 from bs4 import BeautifulSoup
 
 from akshare.event.cons import province_dict, city_dict
+
 
 # pd.set_option('display.max_columns', None)  # just for debug
 
@@ -43,6 +43,14 @@ def epidemic_163(indicator="实时"):
     res = requests.get(url, params=params, headers=headers)
     data_json = res.json()
 
+    url = "https://news.163.com/special/epidemic/"
+    headers = {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+    }
+    res = requests.get(url, headers=headers)
+    soup = BeautifulSoup(res.text, "lxml")
+    data_info_df = pd.DataFrame([item.text.strip().split(".")[1] for item in soup.find("div", attrs={"class": "data_tip_pop_text"}).find_all("p")])
+
     hist_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["chinaDayList"]], index=[item["date"] for item in data_json["data"]["chinaDayList"]])
     hist_total_df = pd.DataFrame([item["total"] for item in data_json["data"]["chinaDayList"]], index=[item["date"] for item in data_json["data"]["chinaDayList"]])
 
@@ -54,12 +62,19 @@ def epidemic_163(indicator="实时"):
     province_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"][0]["children"]], index=[item["name"] for item in data_json["data"]["areaTree"][0]["children"]])
 
     if indicator == "实时":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
         return current_df
+    if indicator == "数据说明":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
+        return data_info_df
     if indicator == "省份":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
         return province_hist_df
     elif indicator == "历史":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
         return hist_total_df
     elif indicator == "国家":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
         return outside_hist_df
 
 
