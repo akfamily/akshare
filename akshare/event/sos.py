@@ -11,6 +11,7 @@ desc: 新增-事件接口
 """
 import json
 import time
+import datetime
 from io import BytesIO
 
 import pandas as pd
@@ -49,17 +50,23 @@ def epidemic_163(indicator="实时"):
     }
     res = requests.get(url, headers=headers)
     soup = BeautifulSoup(res.text, "lxml")
-    data_info_df = pd.DataFrame([item.text.strip().split(".")[1] for item in soup.find("div", attrs={"class": "data_tip_pop_text"}).find_all("p")])
+    data_info_df = pd.DataFrame([item.text.strip().split(".")[1] for item in
+                                 soup.find("div", attrs={"class": "data_tip_pop_text"}).find_all("p")])
 
-    hist_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["chinaDayList"]], index=[item["date"] for item in data_json["data"]["chinaDayList"]])
-    hist_total_df = pd.DataFrame([item["total"] for item in data_json["data"]["chinaDayList"]], index=[item["date"] for item in data_json["data"]["chinaDayList"]])
+    hist_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["chinaDayList"]],
+                                 index=[item["date"] for item in data_json["data"]["chinaDayList"]])
+    hist_total_df = pd.DataFrame([item["total"] for item in data_json["data"]["chinaDayList"]],
+                                 index=[item["date"] for item in data_json["data"]["chinaDayList"]])
 
     current_df = pd.DataFrame.from_dict(data_json["data"]["chinaTotal"])
 
-    outside_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["areaTree"]], index=[item["name"] for item in data_json["data"]["areaTree"]])
-    outside_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"]], index=[item["name"] for item in data_json["data"]["areaTree"]])
+    outside_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["areaTree"]],
+                                    index=[item["name"] for item in data_json["data"]["areaTree"]])
+    outside_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"]],
+                                   index=[item["name"] for item in data_json["data"]["areaTree"]])
 
-    province_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"][0]["children"]], index=[item["name"] for item in data_json["data"]["areaTree"][0]["children"]])
+    province_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"][0]["children"]],
+                                    index=[item["name"] for item in data_json["data"]["areaTree"][0]["children"]])
 
     if indicator == "实时":
         print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
@@ -107,9 +114,9 @@ def epidemic_dxy(indicator="西藏自治区"):
     data_text_json = json.loads(
         data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
     )
-    data_df = pd.DataFrame(data_text_json)
-    data_df.columns = ["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注", "区域ID", "区域"]
-    country_df = data_df[["地区", "地区简称", "确诊", "疑似", "治愈", "死亡", "备注"]]
+    data_df = pd.DataFrame(data_text_json).iloc[:, :7]
+    data_df.columns = ["地区", "地区简称", "现存确诊", "累计确诊", "-", "治愈", "死亡"]
+    country_df = data_df[["地区", "地区简称", "现存确诊", "累计确诊", "治愈", "死亡"]]
     # data-global
     data_text = str(soup.find("script", attrs={"id": "getListByCountryTypeService2"}))
     data_text_json = json.loads(
@@ -118,6 +125,15 @@ def epidemic_dxy(indicator="西藏自治区"):
     global_df = pd.DataFrame(data_text_json)
     # info
     dxy_static = soup.find(attrs={"id": "getStatisticsService"}).get_text()
+    data_json = json.loads(dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}c")])
+    info_df = pd.DataFrame([time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(data_json["modifyTime"] / 1000)),
+                            data_json["currentConfirmedCount"],
+                            data_json["confirmedCount"],
+                            data_json["suspectedCount"],
+                            data_json["curedCount"],
+                            data_json["deadCount"],
+                            data_json["seriousCount"],
+                            ], index=["数据发布时间", "现存确诊", "累计确诊", "现存疑似", "治愈", "死亡", "现存重症"])
     # hospital
     url = (
         "https://assets.dxycdn.com/gitrepo/tod-assets/output/default/pneumonia/index.js"
@@ -130,70 +146,57 @@ def epidemic_dxy(indicator="西藏自治区"):
     elif indicator == "global":
         return global_df
     elif indicator == "info":
-        return pd.read_json(
-            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
-            orient="index",
-        )
+        return info_df
     elif indicator == "hospital":
         return hospital_df
-    elif indicator == "全国疫情新增趋势图":
-        # img
-        img_url = pd.read_json(
-            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
-            orient="index",
-        ).T
+    elif indicator == "全国-疫情新增趋势图":
         img_file = Image.open(
-            BytesIO(requests.get(img_url["dailyPics"][0][0]).content)
+            BytesIO(requests.get(data_json["quanguoTrendChart"][0]["imgUrl"]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情新增确诊病例趋势图":
-        # img
-        img_url = pd.read_json(
-            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
-            orient="index",
-        ).T
+    elif indicator == "全国-疫情疑似-确诊趋势图":
         img_file = Image.open(
-            BytesIO(requests.get(img_url["dailyPics"][0][1]).content)
+            BytesIO(requests.get(data_json["quanguoTrendChart"][1]["imgUrl"]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情风险病例趋势图":
-        # img
-        img_url = pd.read_json(
-            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
-            orient="index",
-        ).T
+    elif indicator == "全国-疫情新增死亡-治愈病例趋势图":
         img_file = Image.open(
-            BytesIO(requests.get(img_url["dailyPics"][0][2]).content)
+            BytesIO(requests.get(data_json["quanguoTrendChart"][2]["imgUrl"]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情累计死亡/治愈病例趋势图":
-        # img
-        img_url = pd.read_json(
-            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
-            orient="index",
-        ).T
+    elif indicator == "全国-疫情死亡-治愈病例趋势图":
         img_file = Image.open(
-            BytesIO(requests.get(img_url["dailyPics"][0][3]).content)
+            BytesIO(requests.get(data_json["quanguoTrendChart"][3]["imgUrl"]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情累计死亡/治愈病例趋势图-湖北":
-        # img
-        img_url = pd.read_json(
-            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
-            orient="index",
-        ).T
+    elif indicator == "全国-疫情病死率-治愈率趋势图":
         img_file = Image.open(
-            BytesIO(requests.get(img_url["dailyPics"][0][4]).content)
+            BytesIO(requests.get(data_json["quanguoTrendChart"][4]["imgUrl"]).content)
         )
         img_file.show()
-    elif indicator == "全国疫情病死率趋势图":
-        # img
-        img_url = pd.read_json(
-            dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}catch")],
-            orient="index",
-        ).T
+    elif indicator == "湖北-疫情新增确诊病例趋势图":
         img_file = Image.open(
-            BytesIO(requests.get(img_url["dailyPics"][0][5]).content)
+            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][0]["imgUrl"]).content)
+        )
+        img_file.show()
+    elif indicator == "湖北-疫情确诊趋势图":
+        img_file = Image.open(
+            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][1]["imgUrl"]).content)
+        )
+        img_file.show()
+    elif indicator == "湖北-疫情死亡-治愈病例趋势图":
+        img_file = Image.open(
+            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][2]["imgUrl"]).content)
+        )
+        img_file.show()
+    elif indicator == "湖北-疫情病死率趋势图":
+        img_file = Image.open(
+            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][3]["imgUrl"]).content)
+        )
+        img_file.show()
+    elif indicator == "湖北-疫情治愈率趋势图":
+        img_file = Image.open(
+            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][4]["imgUrl"]).content)
         )
         img_file.show()
     elif indicator == "疫情地图":
@@ -210,11 +213,16 @@ def epidemic_dxy(indicator="西藏自治区"):
         return desc_data
     else:
         try:
-            sub_area = pd.DataFrame(data_df[data_df["地区"] == indicator]["区域"].values[0])
+            data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
+            data_text_json = json.loads(
+                data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
+            )
+            data_df = pd.DataFrame(data_text_json)
+            sub_area = pd.DataFrame(data_df[data_df["provinceName"] == indicator]["cities"].values[0])
             if sub_area.empty:
                 return print("暂无分区域数据")
-            sub_area.columns = ["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "区域ID"]
-            sub_area = sub_area[["区域", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]]
+            sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "id"]
+            sub_area = sub_area[["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]]
             return sub_area
         except IndexError as e:
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
@@ -430,7 +438,8 @@ def epidemic_area_all():
     temp = []
     for p in province_list:
         for c in area[p].keys():
-            temp.extend(list(zip([p] * len(list(area[p][c].keys())[1:]), [c] * len(list(area[p][c].keys())[1:]), list(area[p][c].keys())[1:])))
+            temp.extend(list(zip([p] * len(list(area[p][c].keys())[1:]), [c] * len(list(area[p][c].keys())[1:]),
+                                 list(area[p][c].keys())[1:])))
     return pd.DataFrame(temp, columns=["province", "city", "district"])
 
 
@@ -445,7 +454,7 @@ def epidemic_area_detail():
     temp_df = pd.DataFrame()
     area_df = epidemic_area_all()
     for item in area_df.iterrows():
-        print(f"一共{area_df.shape[0]}, 正在下载第{item[0]+1}页")
+        print(f"一共{area_df.shape[0]}, 正在下载第{item[0] + 1}页")
         small_df = epidemic_area_search(province=item[1][0], city=item[1][1], district=item[1][2])
         temp_df = temp_df.append(small_df, ignore_index=True)
     return temp_df
@@ -510,6 +519,8 @@ if __name__ == "__main__":
     # 163
     epidemic_current_163_df = epidemic_163(indicator="实时")
     print(epidemic_current_163_df)
+    epidemic_info_163_df = epidemic_163(indicator="数据说明")
+    print(epidemic_info_163_df)
     epidemic_hist_163_df = epidemic_163(indicator="省份")
     print(epidemic_hist_163_df)
     epidemic_area_163_df = epidemic_163(indicator="历史")
@@ -521,7 +532,7 @@ if __name__ == "__main__":
     print(epidemic_dxy_country_df)
     epidemic_dxy_global_df = epidemic_dxy(indicator="global")
     print(epidemic_dxy_global_df)
-    epidemic_dxy_province_df = epidemic_dxy(indicator="西藏自治区")
+    epidemic_dxy_province_df = epidemic_dxy(indicator="浙江省")
     print(epidemic_dxy_province_df)
     epidemic_dxy_info_df = epidemic_dxy(indicator="info")
     print(epidemic_dxy_info_df)
@@ -529,12 +540,16 @@ if __name__ == "__main__":
     print(epidemic_dxy_hospital_df)
     epidemic_dxy_news_df = epidemic_dxy(indicator="news")
     print(epidemic_dxy_news_df)
-    epidemic_dxy(indicator="全国疫情新增趋势图")
-    epidemic_dxy(indicator="全国疫情新增确诊病例趋势图")
-    epidemic_dxy(indicator="全国疫情风险病例趋势图")
-    epidemic_dxy(indicator="全国疫情累计死亡/治愈病例趋势图")
-    epidemic_dxy(indicator="全国疫情累计死亡/治愈病例趋势图-湖北")
-    epidemic_dxy(indicator="全国疫情病死率趋势图")
+    epidemic_dxy(indicator="全国-疫情新增趋势图")
+    epidemic_dxy(indicator="全国-疫情疑似-确诊趋势图")
+    epidemic_dxy(indicator="全国-疫情新增死亡-治愈病例趋势图")
+    epidemic_dxy(indicator="全国-疫情死亡-治愈病例趋势图")
+    epidemic_dxy(indicator="全国-疫情病死率-治愈率趋势图")
+    epidemic_dxy(indicator="湖北-疫情新增确诊病例趋势图")
+    epidemic_dxy(indicator="湖北-疫情确诊趋势图")
+    epidemic_dxy(indicator="湖北-疫情死亡-治愈病例趋势图")
+    epidemic_dxy(indicator="湖北-疫情病死率趋势图")
+    epidemic_dxy(indicator="湖北-疫情治愈率趋势图")
     epidemic_dxy(indicator="疫情地图")
     # baidu
     epidemic_baidu_rmqrd_df = epidemic_baidu(indicator="热门迁入地")
@@ -558,20 +573,21 @@ if __name__ == "__main__":
     epidemic_baidu_zj_df = epidemic_baidu(indicator="浙江")
     print(epidemic_baidu_zj_df)
     # 迁徙地图
-    migration_area_baidu_df = migration_area_baidu(area="上海市", indicator="move_in", date="20200210")
-    # print(migration_area_baidu_df.to_csv("迁入上海市来源地.csv", encoding="gb2312"))
+    migration_area_baidu_df = migration_area_baidu(area="上海市", indicator="move_in", date="20200212")
+    # print(migration_area_baidu_df.to_csv("迁入上海市来源地-20200212.csv", encoding="gb2312"))
     print(migration_area_baidu_df)
-    migration_scale_baidu_df = migration_scale_baidu(area="上海市", indicator="move_in", start_date="20190112",
-                                                     end_date="20200210")
-    # print(migration_scale_baidu_df.to_csv("迁入上海市2019-2020统计.csv", encoding="gb2312"))
+    migration_scale_baidu_df = migration_scale_baidu(area="上海市", indicator="move_in", start_date="20190113",
+                                                     end_date="20200212")
+    # print(migration_scale_baidu_df.to_csv("迁入上海市2019-2020统计-20200213.csv", encoding="gb2312"))
     print(migration_scale_baidu_df)
     # 小区
     epidemic_area_search_df = epidemic_area_search(province="四川省", city="成都市", district="高新区")
     print(epidemic_area_search_df)
     epidemic_area_all_df = epidemic_area_all()
     print(epidemic_area_all_df)
-    # epidemic_area_detail_df = epidemic_area_detail()
-    # print(epidemic_area_detail_df)
+    epidemic_area_detail_df = epidemic_area_detail()
+    print(epidemic_area_detail_df)
+    # print(epidemic_area_detail_df.to_csv("所有疫情地点-20200213.csv", encoding="gbk"))
     # 行程
     epidemic_trip_df = epidemic_trip()
     print(epidemic_trip_df)

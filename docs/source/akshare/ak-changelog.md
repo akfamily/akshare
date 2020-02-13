@@ -1012,4 +1012,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.89
 新增-epidemic_163-数据说明接口
+
+0.3.90
+修复-epidemic_dxy
 ```
