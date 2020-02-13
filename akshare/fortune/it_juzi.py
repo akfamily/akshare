@@ -19,8 +19,8 @@ https://www.itjuzi.com/deathCompany
 七、“死亡公司数据库”欢迎更多的人参与共建，如需对数据纠错或进行其他数据反馈，欢迎随时联系我们。
 邮箱：hello@itjuzi.com 微信：itjuzi-radar
 """
-import requests
 import pandas as pd
+import requests
 
 from akshare.fortune.cons import it_headers, it_url
 

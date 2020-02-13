@@ -13,7 +13,8 @@ import requests
 
 from akshare.futures.cons import BOND_BANK_URL, bond_bank_headers
 
-pd.set_option("display.max_columns", None)
+
+# pd.set_option("display.max_columns", None)
 
 
 def get_bond_bank(page_num=1):

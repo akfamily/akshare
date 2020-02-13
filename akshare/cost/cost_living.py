@@ -7,8 +7,8 @@ contact: jindaxiang@163.com
 desc: 获取世界各大城市生活成本数据
 https://expatistan.com/cost-of-living/index
 """
-import requests
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 from akshare.cost.cons import url, name_url_map
