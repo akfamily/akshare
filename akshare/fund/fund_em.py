@@ -40,7 +40,7 @@ def fund_em_daily():
     }
     res = requests.get(url, params=params)
     text = res.text
-    data_json = demjson.decode(text[text.find("{"):])
+    data_json = demjson.decode(text.strip("var db="))
     return pd.DataFrame(data_json["datas"])
 
 
