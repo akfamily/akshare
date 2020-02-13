@@ -233,7 +233,7 @@ PCE物价指数年率报告
 0.2.6
 更新港股数据接口和说明文档
 0.2.7
-更新 qhkc 接口注释和说明文档
+更新 qhkc_web 接口注释和说明文档
 0.2.8
 更新说明文档
 0.2.9
@@ -779,10 +779,22 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_dxy
 0.3.91
 修复-get_receipt-MA数值问题
+0.3.92
+新增-奇货可查接口测试
 """
 
-__version__ = "0.3.91"
+__version__ = "0.3.92"
 __author__ = "Albert King"
+
+"""
+for pro api
+"""
+from akshare.pro.data_pro import pro_api
+
+"""
+for pro api token set
+"""
+from akshare.utils.token_process import set_token
 
 """
 债券质押式回购成交明细数据
@@ -1432,12 +1444,12 @@ from akshare.bond.bond_bank import get_bond_bank
 """
 奇货可查-工具模块
 """
-from akshare.qhkc.qhkc_tool import qhkc_tool_foreign, qhkc_tool_gdp
+from akshare.qhkc_web.qhkc_tool import qhkc_tool_foreign, qhkc_tool_gdp
 
 """
 奇货可查-指数模块
 """
-from akshare.qhkc.qhkc_index import (
+from akshare.qhkc_web.qhkc_index import (
     get_qhkc_index,
     get_qhkc_index_trend,
     get_qhkc_index_profit_loss,
@@ -1446,7 +1458,7 @@ from akshare.qhkc.qhkc_index import (
 """
 奇货可查-资金模块
 """
-from akshare.qhkc.qhkc_fund import (
+from akshare.qhkc_web.qhkc_fund import (
     get_qhkc_fund_money_change,
     get_qhkc_fund_bs,
     get_qhkc_fund_position,

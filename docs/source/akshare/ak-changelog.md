@@ -1018,4 +1018,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.91
 修复-get_receipt-MA数值问题
+
+0.3.92
+新增-奇货可查接口测试
 ```
