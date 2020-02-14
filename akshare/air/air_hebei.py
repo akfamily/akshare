@@ -58,5 +58,5 @@ def air_hebei(city="唐山市"):
 
 
 if __name__ == "__main__":
-    air_hebei_df = air_hebei(city="唐山市")
+    air_hebei_df = air_hebei(city="")
     print(air_hebei_df)

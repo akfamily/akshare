@@ -80,7 +80,7 @@ def baidu_search_index(word: str, start_date: str, end_date: str, cookie: str) -
         uniqid = data["uniqid"]
         ptbk = get_ptbk(uniqid, cookie)
         result = decrypt(ptbk, all_data).split(",")
-        result = [int(item) for item in result]
+        result = [int(item) if item != "" else 0 for item in result]
         if len(result) == len(pd.date_range(start=start_date, end=end_date, freq="7D")):
             temp_df_7 = pd.DataFrame(
                 [pd.date_range(start=start_date, end=end_date, freq="7D"), result],
@@ -190,23 +190,22 @@ def baidu_media_index(word: str, start_date: str, end_date: str, cookie: str,) -
 
 if __name__ == "__main__":
     cookie = ""
-
     data = baidu_search_index(
-        word="口罩", start_date="2018-12-27", end_date="2020-01-21", cookie=cookie
+        word="中国原油期货", start_date="2020-01-01", end_date="2020-02-14", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
     data.plot()
     plt.show()
     data = baidu_info_index(
-        word="口罩", start_date="2018-07-03", end_date="2020-01-21", cookie=cookie
+        word="中国原油期货", start_date="2018-07-03", end_date="2020-01-21", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
     data.plot()
     plt.show()
     data = baidu_media_index(
-        word="口罩", start_date="2018-10-27", end_date="2020-01-21", cookie=cookie
+        word="中国原油期货", start_date="2018-10-27", end_date="2020-01-21", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
