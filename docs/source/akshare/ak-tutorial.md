@@ -347,6 +347,12 @@
  "epidemic_area_detail"  # 全国所有小区详细数据
  # 新型肺炎-相同行程查询
  "epidemic_trip"  # 相同行程交通工具所有信息
+ # 债券-沪深债券
+ "bond_zh_hs_daily"  # 债券-沪深债券-历史行情数据
+ "bond_zh_hs_spot"  # 债券-沪深债券-实时行情数据
+ # 债券-沪深可转债
+ "bond_zh_hs_cov_daily"  # 债券-沪深可转债-历史行情数据
+ "bond_zh_hs_cov_spot"  # 债券-沪深可转债-实时行情数据
 ```
 
 ## 3. 案例演示

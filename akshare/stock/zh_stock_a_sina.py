@@ -9,10 +9,10 @@ desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权�
 """
 import re
 
-import requests
 import demjson
-import pandas as pd
 import execjs
+import pandas as pd
+import requests
 
 from akshare.stock.cons import (zh_sina_a_stock_payload,
                                 zh_sina_a_stock_url,

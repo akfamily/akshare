@@ -7,13 +7,12 @@ contact: jindaxiang@163.com
 desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前复权和后复权因子)
 优化: 在科创板行情的获取上采用多线程模式(新浪会封IP, 不再优化)
 """
-import re
 import datetime
+import re
 
-import requests
 import demjson
 import pandas as pd
-
+import requests
 
 from akshare.stock.cons import (zh_sina_kcb_stock_payload,
                                 zh_sina_kcb_stock_url,
@@ -261,7 +260,7 @@ def stock_zh_kcb_daily(symbol="sh688008", factor=""):
 
 
 if __name__ == "__main__":
-    hist_data_df = stock_zh_kcb_daily(symbol="sh688008", factor="qfq")
-    print(hist_data_df)
-    current_data_df = stock_zh_kcb_spot()
-    print(current_data_df)
+    stock_zh_kcb_daily_df = stock_zh_kcb_daily(symbol="sh688008", factor="qfq")
+    print(stock_zh_kcb_daily_df)
+    stock_zh_kcb_spot_df = stock_zh_kcb_spot()
+    print(stock_zh_kcb_spot_df)

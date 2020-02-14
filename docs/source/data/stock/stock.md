@@ -4,13 +4,11 @@
 
 #### 实时行情数据
 
-A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)获取的数据
-
 接口: stock_zh_a_spot
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_a
 
-描述: 获取 A 股实时行情数据
+描述: A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)获取的数据
 
 限量: 单次返回所有 A 股上市公司的实时行情数据
 
@@ -19,7 +17,6 @@ A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)�
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | - | -  | -    |   -|
-
 
 输出参数-实时行情数据
 
@@ -39,8 +36,8 @@ A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)�
 | 最高        | float      | Y        | -     |
 | 最低        | float      | Y        | -     |
 
-                
-接口示例
+接口示例-实时行情数据
+
 ```python
 import akshare as ak
 stock_df = ak.stock_zh_a_spot()
@@ -90,13 +87,11 @@ print(stock_df)
 
 #### 历史行情数据
 
-A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)获取的数据, 历史数据按日频率更新
-
 接口: stock_zh_a_daily
 
 目标地址: https://finance.sina.com.cn/realstock/company/sh600006/nc.shtml(示例)
 
-描述: 获取 A 股历史行情数据
+描述: A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)获取的数据, 历史数据按日频率更新
 
 限量: 单次返回具体某个 A 上市公司的所有历史行情数据
 
@@ -119,9 +114,8 @@ A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)�
 | 最低         | float      | Y        | -     |
 | 成交量        | float      | Y        | -     |
 
+接口示例-历史行情数据
 
-                
-接口示例
 ```python
 import akshare as ak
 stock_df = ak.stock_zh_a_daily(symbol="sh600000", factor="")

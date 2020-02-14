@@ -785,10 +785,19 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-奇货可查接口测试-代码补全
 0.3.94
 修复-epidemic_dxy
+0.3.95
+新增-债券-沪深债券
+新增-债券-沪深可转债
 """
 
-__version__ = "0.3.94"
+__version__ = "0.3.95"
 __author__ = "Albert King"
+
+"""
+债券-沪深债券
+"""
+from akshare.bond.zh_bond_sina import bond_zh_hs_daily, bond_zh_hs_spot
+from akshare.bond.zh_bond_cov_sina import bond_zh_hs_cov_daily, bond_zh_hs_cov_spot
 
 
 """
