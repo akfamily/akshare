@@ -158,19 +158,14 @@ def epidemic_dxy(indicator="西藏自治区"):
             BytesIO(requests.get(data_json["quanguoTrendChart"][1]["imgUrl"]).content)
         )
         img_file.show()
-    elif indicator == "全国-疫情新增死亡-治愈病例趋势图":
+    elif indicator == "全国-疫情死亡-治愈病例趋势图":
         img_file = Image.open(
             BytesIO(requests.get(data_json["quanguoTrendChart"][2]["imgUrl"]).content)
         )
         img_file.show()
-    elif indicator == "全国-疫情死亡-治愈病例趋势图":
-        img_file = Image.open(
-            BytesIO(requests.get(data_json["quanguoTrendChart"][3]["imgUrl"]).content)
-        )
-        img_file.show()
     elif indicator == "全国-疫情病死率-治愈率趋势图":
         img_file = Image.open(
-            BytesIO(requests.get(data_json["quanguoTrendChart"][4]["imgUrl"]).content)
+            BytesIO(requests.get(data_json["quanguoTrendChart"][3]["imgUrl"]).content)
         )
         img_file.show()
     elif indicator == "湖北-疫情新增确诊病例趋势图":
