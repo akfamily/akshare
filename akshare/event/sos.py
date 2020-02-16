@@ -568,11 +568,11 @@ if __name__ == "__main__":
     print(epidemic_baidu_zj_df)
     # 迁徙地图
     migration_area_baidu_df = migration_area_baidu(area="上海市", indicator="move_in", date="20200212")
-    # print(migration_area_baidu_df.to_csv("迁入上海市来源地-20200212.csv", encoding="gb2312"))
+    # print(migration_area_baidu_df.to_csv("迁入上海市来源地-20200216.csv", encoding="gb2312"))
     print(migration_area_baidu_df)
     migration_scale_baidu_df = migration_scale_baidu(area="上海市", indicator="move_in", start_date="20190113",
                                                      end_date="20200212")
-    # print(migration_scale_baidu_df.to_csv("迁入上海市2019-2020统计-20200213.csv", encoding="gb2312"))
+    # print(migration_scale_baidu_df.to_csv("迁入上海市2019-2020统计-20200216.csv", encoding="gb2312"))
     print(migration_scale_baidu_df)
     # 小区
     epidemic_area_search_df = epidemic_area_search(province="四川省", city="成都市", district="高新区")
@@ -581,7 +581,7 @@ if __name__ == "__main__":
     print(epidemic_area_all_df)
     epidemic_area_detail_df = epidemic_area_detail()
     print(epidemic_area_detail_df)
-    # print(epidemic_area_detail_df.to_csv("所有疫情地点-20200213.csv", encoding="gbk"))
+    # print(epidemic_area_detail_df.to_csv("所有疫情地点-20200216.csv", encoding="gbk"))
     # 行程
     epidemic_trip_df = epidemic_trip()
     print(epidemic_trip_df)
