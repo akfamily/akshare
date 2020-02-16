@@ -162,6 +162,8 @@ pip install akshare --upgrade
 
 感谢[新型肺炎-小区查询网站](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
 
+感谢[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的特许经营数据;
+
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 专题教程;
 
 感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Anaconda 专题教程.

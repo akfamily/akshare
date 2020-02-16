@@ -96,6 +96,8 @@
 
 感谢[新型肺炎-小区查询](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
 
+感谢[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的特许经营数据;
+
 ## 交流
 
 您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:

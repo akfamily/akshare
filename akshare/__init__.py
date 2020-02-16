@@ -790,10 +790,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-债券-沪深可转债
 0.3.96
 修复-baidu_search_index-异常
+0.3.97
+新增-特许经营数据
 """
 
-__version__ = "0.3.96"
+__version__ = "0.3.97"
 __author__ = "Albert King"
+
+"""
+中国-特许经营数据
+"""
+from akshare.event.franchise import franchise_china
 
 """
 债券-沪深债券

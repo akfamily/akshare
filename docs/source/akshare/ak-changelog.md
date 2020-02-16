@@ -1034,4 +1034,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.96
 修复-baidu_search_index-异常
+
+0.3.97
+新增-特许经营数据
 ```
