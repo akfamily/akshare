@@ -374,11 +374,12 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
         start_day += datetime.timedelta(days=1)
     records.reset_index(drop=True, inplace=True)
-    replace_index = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0].index
-    records.loc[replace_index, "receipt"] = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0]
+    if "MA" in records["var"].to_list():
+        replace_index = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0].index
+        records.loc[replace_index, "receipt"] = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0]
     return records
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20200203', end_day='20200206')
+    get_receipt_df = get_receipt(start_day='20200214', end_day='20200214', vars_list=["C", "PP", "MA"])
     print(get_receipt_df)

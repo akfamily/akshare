@@ -1037,4 +1037,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.3.97
 新增-特许经营数据
+
+0.3.98
+修复-get_receipt-MA数值问题条件判断
 ```
