@@ -30,33 +30,23 @@ def air_hebei(city="唐山市"):
     :return: city = "", 返回所有地区的数据; city = "唐山市", 返回唐山市的数据
     :rtype: pandas.DataFrame
     """
-    url = f"http://110.249.223.67/publishNewServer/api/CityPublishInfo/GetProvinceAndCityPublishData?publishDate={datetime.datetime.today().strftime('%Y-%m-%d')}%2016:00:00"
-    res = requests.get(url)
-    json_data = res.json()
-
+    url = "http://110.249.223.67/publishNewServer/api/CityPublishInfo/GetProvinceAndCityPublishData"
+    payload = {
+        "publishDate": f"{datetime.datetime.today().strftime('%Y-%m-%d')} 16:00:00"
+    }
+    r = requests.get(url, params=payload)
+    json_data = r.json()
     city_list = pd.DataFrame.from_dict(json_data["cityPublishDatas"], orient="columns")["CityName"].tolist()
-    # 未来第一天, 以此类推
-    future_df_1 = pd.DataFrame.from_dict([item["Date1"] for item in json_data["cityPublishDatas"]], orient="columns")
-    future_df_2 = pd.DataFrame.from_dict([item["Date2"] for item in json_data["cityPublishDatas"]], orient="columns")
-    future_df_3 = pd.DataFrame.from_dict([item["Date3"] for item in json_data["cityPublishDatas"]], orient="columns")
-    future_df_4 = pd.DataFrame.from_dict([item["Date4"] for item in json_data["cityPublishDatas"]], orient="columns")
-    future_df_5 = pd.DataFrame.from_dict([item["Date5"] for item in json_data["cityPublishDatas"]], orient="columns")
-    future_df_6 = pd.DataFrame.from_dict([item["Date6"] for item in json_data["cityPublishDatas"]], orient="columns")
-
-    future_df_1.index = city_list
-    future_df_2.index = city_list
-    future_df_3.index = city_list
-    future_df_4.index = city_list
-    future_df_5.index = city_list
-    future_df_6.index = city_list
-
-    big_df = pd.concat([future_df_1, future_df_2, future_df_3, future_df_4, future_df_5, future_df_6])
+    outer_df = pd.DataFrame()
+    for i in range(1, 7):
+        temp_df = pd.DataFrame([item[f"Date{i}"] for item in json_data["cityPublishDatas"]], index=city_list)
+        outer_df = outer_df.append(temp_df)
     if city == "":
-        return big_df
+        return outer_df
     else:
-        return big_df[big_df.index == city]
+        return outer_df[outer_df.index == city]
 
 
 if __name__ == "__main__":
-    air_hebei_df = air_hebei(city="")
+    air_hebei_df = air_hebei(city="辛集市")
     print(air_hebei_df)
