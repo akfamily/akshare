@@ -37,18 +37,18 @@ def epidemic_163(indicator="实时"):
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
     }
-    params = {
+    payload = {
         "t": int(time.time() * 1000),
     }
-    res = requests.get(url, params=params, headers=headers)
-    data_json = res.json()
+    r = requests.get(url, params=payload, headers=headers)
+    data_json = r.json()
 
     url = "https://news.163.com/special/epidemic/"
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
     }
-    res = requests.get(url, headers=headers)
-    soup = BeautifulSoup(res.text, "lxml")
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
     data_info_df = pd.DataFrame([item.text.strip().split(".")[1] for item in
                                  soup.find("div", attrs={"class": "data_tip_pop_text"}).find_all("p")])
 
@@ -96,9 +96,9 @@ def epidemic_dxy(indicator="西藏自治区"):
     :rtype: pandas.DataFrame
     """
     url = "https://3g.dxy.cn/newh5/view/pneumonia"
-    res = requests.get(url)
-    res.encoding = "utf-8"
-    soup = BeautifulSoup(res.text, "lxml")
+    r = requests.get(url)
+    r.encoding = "utf-8"
+    soup = BeautifulSoup(r.text, "lxml")
     # news
     text_data_news = str(soup.find_all("script", attrs={"id": "getTimelineService"}))
     temp_json = text_data_news[
@@ -137,9 +137,9 @@ def epidemic_dxy(indicator="西藏自治区"):
     url = (
         "https://assets.dxycdn.com/gitrepo/tod-assets/output/default/pneumonia/index.js"
     )
-    params = {"t": str(int(time.time()))}
-    res = requests.get(url, params=params)
-    hospital_df = pd.read_html(res.text)[0].iloc[:, :-1]
+    payload = {"t": str(int(time.time()))}
+    r = requests.get(url, params=payload)
+    hospital_df = pd.read_html(r.text)[0].iloc[:, :-1]
     if indicator == "全国":
         return country_df
     elif indicator == "global":
@@ -232,31 +232,31 @@ def epidemic_baidu(indicator="浙江"):
     :rtype: pandas.DataFrame
     """
     url = "https://huiyan.baidu.com/openapi/v1/migration/rank"
-    params = {
+    payload = {
         "type": "move",
         "ak": "kgD2HiDnLdUhwzd3CLuG5AWNfX3fhLYe",
         "adminType": "country",
         "name": "全国",
     }
-    res = requests.get(url, params=params)
-    move_in_df = pd.DataFrame(res.json()["result"]["moveInList"])
-    move_out_df = pd.DataFrame(res.json()["result"]["moveOutList"])
+    r = requests.get(url, params=payload)
+    move_in_df = pd.DataFrame(r.json()["result"]["moveInList"])
+    move_out_df = pd.DataFrame(r.json()["result"]["moveOutList"])
     url = "https://opendata.baidu.com/api.php"
-    params = {
+    payload = {
         "query": "全国",
         "resource_id": "39258",
         "tn": "wisetpl",
         "format": "json",
         "cb": "jsonp_1580470773343_11183",
     }
-    res = requests.get(url, params=params)
-    json_data = json.loads(res.text[res.text.find("({") + 1:res.text.rfind(");")])
+    r = requests.get(url, params=payload)
+    json_data = json.loads(r.text[r.text.find("({") + 1:r.text.rfind(");")])
     today_df = pd.DataFrame(json_data["data"][0]["list"][0]["item"])
     protect_df = pd.DataFrame(json_data["data"][0]["list"][1]["item"])
     rumor_df = pd.DataFrame(json_data["data"][0]["list"][2]["item"])
 
     url = "https://opendata.baidu.com/data/inner"
-    params = {
+    payload = {
         "tn": "reserved_all_res_tn",
         "dspName": "iphone",
         "from_sf": "1",
@@ -266,16 +266,16 @@ def epidemic_baidu(indicator="浙江"):
         "query": "肺炎",
         "cb": "jsonp_1580470773344_83572",
     }
-    res = requests.get(url, params=params)
-    json_data = json.loads(res.text[res.text.find("({") + 1:res.text.rfind(");")])
+    r = requests.get(url, params=payload)
+    json_data = json.loads(r.text[r.text.find("({") + 1:r.text.rfind(");")])
     spot_report = pd.DataFrame(json_data["Result"][0]["DisplayData"]["result"]["items"])
 
     url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/"
-    params = {
+    payload = {
         "from": "osari_pc_1",
     }
-    res = requests.get(url, params=params)
-    json_data = json.loads(res.text[res.text.find("V.conf = ") + 9: res.text.find("V.bsData") - 1])
+    r = requests.get(url, params=payload)
+    json_data = json.loads(r.text[r.text.find("V.conf = ") + 9: r.text.find("V.bsData") - 1])
     temp_df = pd.DataFrame()
     temp_df[json_data["component"][0]["trend"]["list"][0]["name"]] = json_data["component"][0]["trend"]["list"][0][
         "data"]
@@ -342,14 +342,14 @@ def migration_area_baidu(area="乌鲁木齐市", indicator="move_in", date="2020
     else:
         dt_flag = "city"
     url = "https://huiyan.baidu.com/migration/cityrank.jsonp"
-    params = {
+    payload = {
         "dt": dt_flag,
         "id": inner_dict[area],
         "type": indicator,
         "date": date,
     }
-    res = requests.get(url, params=params)
-    json_data = json.loads(res.text[res.text.find("({") + 1:res.text.rfind(");")])
+    r = requests.get(url, params=payload)
+    json_data = json.loads(r.text[r.text.find("({") + 1:r.text.rfind(");")])
     return pd.DataFrame(json_data["data"]["list"])
 
 
@@ -377,15 +377,15 @@ def migration_scale_baidu(area="乌鲁木齐市", indicator="move_out", start_da
     else:
         dt_flag = "city"
     url = "https://huiyan.baidu.com/migration/historycurve.jsonp"
-    params = {
+    payload = {
         "dt": dt_flag,
         "id": inner_dict[area],
         "type": indicator,
         "startDate": start_date,
         "endDate": end_date,
     }
-    res = requests.get(url, params=params)
-    json_data = json.loads(res.text[res.text.find("({") + 1:res.text.rfind(");")])
+    r = requests.get(url, params=payload)
+    json_data = json.loads(r.text[r.text.find("({") + 1:r.text.rfind(");")])
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df.columns = ["迁徙规模指数"]
@@ -406,15 +406,15 @@ def epidemic_area_search(province="四川省", city="成都市", district="高�
     :rtype: pandas.DataFrame
     """
     url = "https://ncov.html5.qq.com/api/getCommunity"
-    params = {
+    payload = {
         "province": province,
         "city": city,
         "district": district,
         "lat": "30.26555",
         "lng": "120.1536",
     }
-    res = requests.get(url, params=params)
-    temp_df = pd.DataFrame(res.json()["community"][province][city][district])
+    r = requests.get(url, params=payload)
+    temp_df = pd.DataFrame(r.json()["community"][province][city][district])
     return temp_df[["province", "city", "district", "show_address", "full_address", "cnt_sum_certain"]]
 
 
@@ -426,8 +426,8 @@ def epidemic_area_all():
     :rtype: pandas.DataFrame
     """
     url = "https://ncov.html5.qq.com/api/getPosition"
-    res = requests.get(url)
-    area = res.json()["position"]
+    r = requests.get(url)
+    area = r.json()["position"]
     province_list = list(area.keys())
     temp = []
     for p in province_list:
@@ -462,8 +462,8 @@ def epidemic_trip():
     :rtype: pandas.DataFrame
     """
     url = "https://rl.inews.qq.com/taf/travelFront"
-    res = requests.get(url)
-    return pd.DataFrame(res.json()["data"]["list"])
+    r = requests.get(url)
+    return pd.DataFrame(r.json()["data"]["list"])
 
 
 def epidemic_hist_all():
