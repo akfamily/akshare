@@ -39,8 +39,8 @@ def air_hebei(city="唐山市"):
     city_list = pd.DataFrame.from_dict(json_data["cityPublishDatas"], orient="columns")["CityName"].tolist()
     outer_df = pd.DataFrame()
     for i in range(1, 7):
-        temp_df = pd.DataFrame([item[f"Date{i}"] for item in json_data["cityPublishDatas"]], index=city_list)
-        outer_df = outer_df.append(temp_df)
+        inner_df = pd.DataFrame([item[f"Date{i}"] for item in json_data["cityPublishDatas"]], index=city_list)
+        outer_df = outer_df.append(inner_df)
     if city == "":
         return outer_df
     else:
