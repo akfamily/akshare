@@ -2,7 +2,7 @@
 
 **特殊时期, 大家注意安全**
 
-(本文档更新于 **2020-02-18**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
+(本文档更新于 **2020-02-19**; 如发现库和文档相关问题, 请联系 [AkShare](https://github.com/jindaxiang/akshare) 的作者 **Albert King**: jindaxiang@163.com)
 
 您也可以加入QQ群答疑解难: 326900231
 
@@ -164,7 +164,7 @@
     
     6.56 新增[新浪网站](http://vip.stock.finance.sina.com.cn/mkt/#hs_z)提供的沪深债券数据;
     
-    6.57 新增[新浪网站](http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z)提供的沪深可债券数据;
+    6.57 新增[新浪网站](http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z)提供的沪深可转债数据;
     
     6.58 新增[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的特许经营数据;
 

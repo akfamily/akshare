@@ -6,7 +6,7 @@ date: 2019/12/4 15:49
 contact: jindaxiang@163.com
 desc: 获取谷歌指数, 必须使用代理, 获得的数据是小时频率的, 所以获取时间周期太长会很慢
 """
-from pytrends.request import TrendReq
+from akshare.index.request import TrendReq
 import matplotlib.pyplot as plt
 
 
@@ -31,7 +31,7 @@ def google_index(
 
 
 if __name__ == "__main__":
-    df = google_index(
+    google_index_df = google_index(
         word="AI", start_date="2019-12-10T10", end_date="2019-12-10T23", plot=True
     )
-    print(df)
+    print(google_index_df)
