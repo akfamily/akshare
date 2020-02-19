@@ -14,6 +14,7 @@ import time
 from io import BytesIO
 
 import pandas as pd
+import demjson
 import requests
 from PIL import Image
 from bs4 import BeautifulSoup
@@ -241,6 +242,7 @@ def epidemic_baidu(indicator="浙江"):
     r = requests.get(url, params=payload)
     move_in_df = pd.DataFrame(r.json()["result"]["moveInList"])
     move_out_df = pd.DataFrame(r.json()["result"]["moveOutList"])
+
     url = "https://opendata.baidu.com/api.php"
     payload = {
         "query": "全国",
@@ -250,10 +252,8 @@ def epidemic_baidu(indicator="浙江"):
         "cb": "jsonp_1580470773343_11183",
     }
     r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1:r.text.rfind(");")])
-    today_df = pd.DataFrame(json_data["data"][0]["list"][0]["item"])
-    protect_df = pd.DataFrame(json_data["data"][0]["list"][1]["item"])
-    rumor_df = pd.DataFrame(json_data["data"][0]["list"][2]["item"])
+    text_data = r.text
+    json_data_news = json.loads(text_data.strip("/**/jsonp_1580470773343_11183(").rstrip(");"))
 
     url = "https://opendata.baidu.com/data/inner"
     payload = {
@@ -270,44 +270,41 @@ def epidemic_baidu(indicator="浙江"):
     json_data = json.loads(r.text[r.text.find("({") + 1:r.text.rfind(");")])
     spot_report = pd.DataFrame(json_data["Result"][0]["DisplayData"]["result"]["items"])
 
-    url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/"
-    payload = {
-        "from": "osari_pc_1",
-    }
-    r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("V.conf = ") + 9: r.text.find("V.bsData") - 1])
-    temp_df = pd.DataFrame()
-    temp_df[json_data["component"][0]["trend"]["list"][0]["name"]] = json_data["component"][0]["trend"]["list"][0][
-        "data"]
-    temp_df[json_data["component"][0]["trend"]["list"][1]["name"]] = json_data["component"][0]["trend"]["list"][1][
-        "data"]
-    temp_df[json_data["component"][0]["trend"]["list"][2]["name"]] = json_data["component"][0]["trend"]["list"][2][
-        "data"]
-    temp_df[json_data["component"][0]["trend"]["list"][3]["name"]] = json_data["component"][0]["trend"]["list"][3][
-        "data"]
-    temp_df.index = json_data["component"][0]["trend"]["updateDate"]
+    url = "https://mss0.bdstatic.com/se/static/act/captain/bundles/458/a6dc3abe.65e7e794.js"
+    r = requests.get(url)
+    text_data = r.text
+    json_data = demjson.decode(text_data[text_data.find('type:"object"') - 1: text_data.find('t.default=r') - 2])
+    domestic_df = pd.DataFrame.from_dict(json_data["properties"]["summaryDataIn"]["properties"], orient="index")
+    spot_df = pd.DataFrame.from_dict(json_data["properties"]["summaryDataIn"]["default"], orient="index")
+    domestic_df = pd.DataFrame.from_dict(json_data["properties"]["caseList"]["default"])
+    out_df = pd.DataFrame.from_dict(json_data["properties"]["caseOutsideList"]["default"])
 
-    temp_dict = {}
-    for item in json_data["component"][0]["caseList"]:
-        temp_dict[item["area"]] = item["subList"]
-
-    domestic_df = pd.DataFrame.from_dict(json_data["component"][0]["summaryDataIn"], orient="index")
-    domestic_df.columns = [json_data["component"][0]["mapLastUpdatedTime"]]
-    out_df = pd.DataFrame.from_dict(json_data["component"][0]["summaryDataOut"], orient="index")
-    out_df.columns = [json_data["component"][0]["foreignLastUpdatedTime"]]
+    temp_df = pd.DataFrame([pd.DataFrame.from_dict(json_data["properties"]["trend"]["default"]["list"])["data"][0],
+                            pd.DataFrame.from_dict(json_data["properties"]["trend"]["default"]["list"])["data"][1],
+                            pd.DataFrame.from_dict(json_data["properties"]["trend"]["default"]["list"])["data"][2],
+                            pd.DataFrame.from_dict(json_data["properties"]["trend"]["default"]["list"])["data"][3],
+                            pd.DataFrame.from_dict(json_data["properties"]["trend"]["default"]["list"])["data"][4],
+                            pd.DataFrame.from_dict(json_data["properties"]["trend"]["default"]["list"])["data"][5]],
+                           index=pd.DataFrame.from_dict(json_data["properties"]["trend"]["default"]["list"])[
+                               "name"].to_list(),
+                           columns=json_data["properties"]["trend"]["default"]["updateDate"])
 
     if indicator == "热门迁入地":
         return move_in_df
     elif indicator == "热门迁出地":
         return move_out_df
     elif indicator == "今日疫情热搜":
-        return today_df
+        return pd.DataFrame(json_data_news["data"][0]["list"][0]["item"])
     elif indicator == "防疫知识热搜":
-        return protect_df
+        return pd.DataFrame(json_data_news["data"][0]["list"][1]["item"])
     elif indicator == "热搜谣言粉碎":
-        return rumor_df
+        return pd.DataFrame(json_data_news["data"][0]["list"][2]["item"])
+    elif indicator == "复工复课热搜":
+        return pd.DataFrame(json_data_news["data"][0]["list"][3]["item"])
     elif indicator == "实时播报":
         return spot_report
+    elif indicator == "实时":
+        return spot_df
     elif indicator == "历史":
         return temp_df
     elif indicator == "国内":
@@ -315,7 +312,7 @@ def epidemic_baidu(indicator="浙江"):
     elif indicator == "国外":
         return out_df
     else:
-        return pd.DataFrame(temp_dict[indicator])
+        return pd.DataFrame(domestic_df[domestic_df.area == indicator]["subList"].to_list()[0])
 
 
 def migration_area_baidu(area="乌鲁木齐市", indicator="move_in", date="20200201"):

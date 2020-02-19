@@ -1046,4 +1046,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.4.1
 修复-pandas-版本降级
+
+0.4.2
+修复-epidemic_baidu
 ```

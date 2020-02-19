@@ -58,30 +58,44 @@ def nested_to_record(
     return new_ds
 
 
-
 class TrendReq(object):
     """
     Google Trends API
     """
-    GET_METHOD = 'get'
-    POST_METHOD = 'post'
-    GENERAL_URL = 'https://trends.google.com/trends/api/explore'
-    INTEREST_OVER_TIME_URL = 'https://trends.google.com/trends/api/widgetdata/multiline'
-    INTEREST_BY_REGION_URL = 'https://trends.google.com/trends/api/widgetdata/comparedgeo'
-    RELATED_QUERIES_URL = 'https://trends.google.com/trends/api/widgetdata/relatedsearches'
-    TRENDING_SEARCHES_URL = 'https://trends.google.com/trends/hottrends/visualize/internal/data'
-    TOP_CHARTS_URL = 'https://trends.google.com/trends/api/topcharts'
-    SUGGESTIONS_URL = 'https://trends.google.com/trends/api/autocomplete/'
-    CATEGORIES_URL = 'https://trends.google.com/trends/api/explore/pickers/category'
-    TODAY_SEARCHES_URL = 'https://trends.google.com/trends/api/dailytrends'
 
-    def __init__(self, hl='en-US', tz=360, geo='', timeout=(2, 5), proxies='',
-                 retries=0, backoff_factor=0):
+    GET_METHOD = "get"
+    POST_METHOD = "post"
+    GENERAL_URL = "https://trends.google.com/trends/api/explore"
+    INTEREST_OVER_TIME_URL = "https://trends.google.com/trends/api/widgetdata/multiline"
+    INTEREST_BY_REGION_URL = (
+        "https://trends.google.com/trends/api/widgetdata/comparedgeo"
+    )
+    RELATED_QUERIES_URL = (
+        "https://trends.google.com/trends/api/widgetdata/relatedsearches"
+    )
+    TRENDING_SEARCHES_URL = (
+        "https://trends.google.com/trends/hottrends/visualize/internal/data"
+    )
+    TOP_CHARTS_URL = "https://trends.google.com/trends/api/topcharts"
+    SUGGESTIONS_URL = "https://trends.google.com/trends/api/autocomplete/"
+    CATEGORIES_URL = "https://trends.google.com/trends/api/explore/pickers/category"
+    TODAY_SEARCHES_URL = "https://trends.google.com/trends/api/dailytrends"
+
+    def __init__(
+        self,
+        hl="en-US",
+        tz=360,
+        geo="",
+        timeout=(2, 5),
+        proxies="",
+        retries=0,
+        backoff_factor=0,
+    ):
         """
         Initialize default values for params
         """
         # google rate limit
-        self.google_rl = 'You have reached your quota limit. Please try again later.'
+        self.google_rl = "You have reached your quota limit. Please try again later."
         self.results = None
         # set user defined options used globally
         self.tz = tz
@@ -108,22 +122,28 @@ class TrendReq(object):
         """
         while True:
             if len(self.proxies) > 0:
-                proxy = {'https': self.proxies[self.proxy_index]}
+                proxy = {"https": self.proxies[self.proxy_index]}
             else:
-                proxy = ''
+                proxy = ""
             try:
-                return dict(filter(lambda i: i[0] == 'NID', requests.get(
-                    'https://trends.google.com/?geo={geo}'.format(
-                        geo=self.hl[-2:]),
-                    timeout=self.timeout,
-                    proxies=proxy
-                ).cookies.items()))
+                return dict(
+                    filter(
+                        lambda i: i[0] == "NID",
+                        requests.get(
+                            "https://trends.google.com/?geo={geo}".format(
+                                geo=self.hl[-2:]
+                            ),
+                            timeout=self.timeout,
+                            proxies=proxy,
+                        ).cookies.items(),
+                    )
+                )
             except requests.exceptions.ProxyError:
-                print('Proxy error. Changing IP')
+                print("Proxy error. Changing IP")
                 if len(self.proxies) > 0:
                     self.proxies.remove(self.proxies[self.proxy_index])
                 else:
-                    print('Proxy list is empty. Bye!')
+                    print("Proxy list is empty. Bye!")
                 continue
 
     def GetNewProxy(self):
@@ -147,28 +167,35 @@ class TrendReq(object):
         s = requests.session()
         # Retries mechanism. Activated when one of statements >0 (best used for proxy)
         if self.retries > 0 or self.backoff_factor > 0:
-            retry = Retry(total=self.retries, read=self.retries,
-                          connect=self.retries,
-                          backoff_factor=self.backoff_factor)
+            retry = Retry(
+                total=self.retries,
+                read=self.retries,
+                connect=self.retries,
+                backoff_factor=self.backoff_factor,
+            )
 
-        s.headers.update({'accept-language': self.hl})
+        s.headers.update({"accept-language": self.hl})
         if len(self.proxies) > 0:
             self.cookies = self.GetGoogleCookie()
-            s.proxies.update({'https': self.proxies[self.proxy_index]})
+            s.proxies.update({"https": self.proxies[self.proxy_index]})
         if method == TrendReq.POST_METHOD:
-            response = s.post(url, timeout=self.timeout,
-                              cookies=self.cookies, **kwargs)  # DO NOT USE retries or backoff_factor here
+            response = s.post(
+                url, timeout=self.timeout, cookies=self.cookies, **kwargs
+            )  # DO NOT USE retries or backoff_factor here
         else:
-            response = s.get(url, timeout=self.timeout, cookies=self.cookies,
-                             **kwargs)  # DO NOT USE retries or backoff_factor here
+            response = s.get(
+                url, timeout=self.timeout, cookies=self.cookies, **kwargs
+            )  # DO NOT USE retries or backoff_factor here
         # check if the response contains json and throw an exception otherwise
         # Google mostly sends 'application/json' in the Content-Type header,
         # but occasionally it sends 'application/javascript
         # and sometimes even 'text/javascript
-        if response.status_code == 200 and 'application/json' in \
-                response.headers['Content-Type'] or \
-                'application/javascript' in response.headers['Content-Type'] or \
-                'text/javascript' in response.headers['Content-Type']:
+        if (
+            response.status_code == 200
+            and "application/json" in response.headers["Content-Type"]
+            or "application/javascript" in response.headers["Content-Type"]
+            or "text/javascript" in response.headers["Content-Type"]
+        ):
             # trim initial characters
             # some responses start with garbage characters, like ")]}',"
             # these have to be cleaned before being passed to the json parser
@@ -179,28 +206,27 @@ class TrendReq(object):
         else:
             # error
             raise exceptions.ResponseError(
-                'The request failed: Google returned a '
-                'response with code {0}.'.format(response.status_code),
-                response=response)
+                "The request failed: Google returned a "
+                "response with code {0}.".format(response.status_code),
+                response=response,
+            )
 
-    def build_payload(self, kw_list, cat=0, timeframe='today 5-y', geo='',
-                      gprop=''):
+    def build_payload(self, kw_list, cat=0, timeframe="today 5-y", geo="", gprop=""):
         """Create the payload for related queries, interest over time and interest by region"""
         self.kw_list = kw_list
         self.geo = geo or self.geo
         self.token_payload = {
-            'hl': self.hl,
-            'tz': self.tz,
-            'req': {'comparisonItem': [], 'category': cat, 'property': gprop}
+            "hl": self.hl,
+            "tz": self.tz,
+            "req": {"comparisonItem": [], "category": cat, "property": gprop},
         }
 
         # build out json for each keyword
         for kw in self.kw_list:
-            keyword_payload = {'keyword': kw, 'time': timeframe,
-                               'geo': self.geo}
-            self.token_payload['req']['comparisonItem'].append(keyword_payload)
+            keyword_payload = {"keyword": kw, "time": timeframe, "geo": self.geo}
+            self.token_payload["req"]["comparisonItem"].append(keyword_payload)
         # requests will mangle this if it is not a string
-        self.token_payload['req'] = json.dumps(self.token_payload['req'])
+        self.token_payload["req"] = json.dumps(self.token_payload["req"])
         # get tokens
         self._tokens()
         return
@@ -213,7 +239,7 @@ class TrendReq(object):
             method=TrendReq.GET_METHOD,
             params=self.token_payload,
             trim_chars=4,
-        )['widgets']
+        )["widgets"]
         # order of the json matters...
         first_region_token = True
         # clear self.related_queries_widget_list and self.related_topics_widget_list
@@ -222,15 +248,15 @@ class TrendReq(object):
         self.related_topics_widget_list[:] = []
         # assign requests
         for widget in widget_dict:
-            if widget['id'] == 'TIMESERIES':
+            if widget["id"] == "TIMESERIES":
                 self.interest_over_time_widget = widget
-            if widget['id'] == 'GEO_MAP' and first_region_token:
+            if widget["id"] == "GEO_MAP" and first_region_token:
                 self.interest_by_region_widget = widget
                 first_region_token = False
             # response for each term, put into a list
-            if 'RELATED_TOPICS' in widget['id']:
+            if "RELATED_TOPICS" in widget["id"]:
                 self.related_topics_widget_list.append(widget)
-            if 'RELATED_QUERIES' in widget['id']:
+            if "RELATED_QUERIES" in widget["id"]:
                 self.related_queries_widget_list.append(widget)
         return
 
@@ -239,9 +265,9 @@ class TrendReq(object):
 
         over_time_payload = {
             # convert to string as requests will mangle
-            'req': json.dumps(self.interest_over_time_widget['request']),
-            'token': self.interest_over_time_widget['token'],
-            'tz': self.tz
+            "req": json.dumps(self.interest_over_time_widget["request"]),
+            "token": self.interest_over_time_widget["token"],
+            "tz": self.tz,
         }
 
         # make the request and parse the returned json
@@ -252,60 +278,59 @@ class TrendReq(object):
             params=over_time_payload,
         )
 
-        df = pd.DataFrame(req_json['default']['timelineData'])
-        if (df.empty):
+        df = pd.DataFrame(req_json["default"]["timelineData"])
+        if df.empty:
             return df
 
-        df['date'] = pd.to_datetime(df['time'].astype(dtype='float64'),
-                                    unit='s')
-        df = df.set_index(['date']).sort_index()
+        df["date"] = pd.to_datetime(df["time"].astype(dtype="float64"), unit="s")
+        df = df.set_index(["date"]).sort_index()
         # split list columns into seperate ones, remove brackets and split on comma
-        result_df = df['value'].apply(lambda x: pd.Series(
-            str(x).replace('[', '').replace(']', '').split(',')))
+        result_df = df["value"].apply(
+            lambda x: pd.Series(str(x).replace("[", "").replace("]", "").split(","))
+        )
         # rename each column with its search term, relying on order that google provides...
         for idx, kw in enumerate(self.kw_list):
             # there is currently a bug with assigning columns that may be
             # parsed as a date in pandas: use explicit insert column method
-            result_df.insert(len(result_df.columns), kw,
-                             result_df[idx].astype('int'))
+            result_df.insert(len(result_df.columns), kw, result_df[idx].astype("int"))
             del result_df[idx]
 
-        if 'isPartial' in df:
+        if "isPartial" in df:
             # make other dataframe from isPartial key data
             # split list columns into seperate ones, remove brackets and split on comma
             df = df.fillna(False)
-            result_df2 = df['isPartial'].apply(lambda x: pd.Series(
-                str(x).replace('[', '').replace(']', '').split(',')))
-            result_df2.columns = ['isPartial']
+            result_df2 = df["isPartial"].apply(
+                lambda x: pd.Series(str(x).replace("[", "").replace("]", "").split(","))
+            )
+            result_df2.columns = ["isPartial"]
             # concatenate the two dataframes
             final = pd.concat([result_df, result_df2], axis=1)
         else:
             final = result_df
-            final['isPartial'] = False
+            final["isPartial"] = False
 
         return final
 
-    def interest_by_region(self, resolution='COUNTRY', inc_low_vol=False,
-                           inc_geo_code=False):
+    def interest_by_region(
+        self, resolution="COUNTRY", inc_low_vol=False, inc_geo_code=False
+    ):
         """Request data from Google's Interest by Region section and return a dataframe"""
 
         # make the request
         region_payload = dict()
-        if self.geo == '':
-            self.interest_by_region_widget['request'][
-                'resolution'] = resolution
-        elif self.geo == 'US' and resolution in ['DMA', 'CITY', 'REGION']:
-            self.interest_by_region_widget['request'][
-                'resolution'] = resolution
+        if self.geo == "":
+            self.interest_by_region_widget["request"]["resolution"] = resolution
+        elif self.geo == "US" and resolution in ["DMA", "CITY", "REGION"]:
+            self.interest_by_region_widget["request"]["resolution"] = resolution
 
-        self.interest_by_region_widget['request'][
-            'includeLowSearchVolumeGeos'] = inc_low_vol
+        self.interest_by_region_widget["request"][
+            "includeLowSearchVolumeGeos"
+        ] = inc_low_vol
 
         # convert to string as requests will mangle
-        region_payload['req'] = json.dumps(
-            self.interest_by_region_widget['request'])
-        region_payload['token'] = self.interest_by_region_widget['token']
-        region_payload['tz'] = self.tz
+        region_payload["req"] = json.dumps(self.interest_by_region_widget["request"])
+        region_payload["token"] = self.interest_by_region_widget["token"]
+        region_payload["tz"] = self.tz
 
         # parse returned json
         req_json = self._get_data(
@@ -314,22 +339,22 @@ class TrendReq(object):
             trim_chars=5,
             params=region_payload,
         )
-        df = pd.DataFrame(req_json['default']['geoMapData'])
-        if (df.empty):
+        df = pd.DataFrame(req_json["default"]["geoMapData"])
+        if df.empty:
             return df
 
         # rename the column with the search keyword
-        df = df[['geoName', 'geoCode', 'value']].set_index(
-            ['geoName']).sort_index()
+        df = df[["geoName", "geoCode", "value"]].set_index(["geoName"]).sort_index()
         # split list columns into seperate ones, remove brackets and split on comma
-        result_df = df['value'].apply(lambda x: pd.Series(
-            str(x).replace('[', '').replace(']', '').split(',')))
+        result_df = df["value"].apply(
+            lambda x: pd.Series(str(x).replace("[", "").replace("]", "").split(","))
+        )
         if inc_geo_code:
-            result_df['geoCode'] = df['geoCode']
+            result_df["geoCode"] = df["geoCode"]
 
         # rename each column with its search term
         for idx, kw in enumerate(self.kw_list):
-            result_df[kw] = result_df[idx].astype('int')
+            result_df[kw] = result_df[idx].astype("int")
             del result_df[idx]
 
         return result_df
@@ -345,12 +370,13 @@ class TrendReq(object):
         result_dict = dict()
         for request_json in self.related_topics_widget_list:
             # ensure we know which keyword we are looking at rather than relying on order
-            kw = request_json['request']['restriction'][
-                'complexKeywordsRestriction']['keyword'][0]['value']
+            kw = request_json["request"]["restriction"]["complexKeywordsRestriction"][
+                "keyword"
+            ][0]["value"]
             # convert to string as requests will mangle
-            related_payload['req'] = json.dumps(request_json['request'])
-            related_payload['token'] = request_json['token']
-            related_payload['tz'] = self.tz
+            related_payload["req"] = json.dumps(request_json["request"])
+            related_payload["token"] = request_json["token"]
+            related_payload["tz"] = self.tz
 
             # parse the returned json
             req_json = self._get_data(
@@ -362,25 +388,23 @@ class TrendReq(object):
 
             # top topics
             try:
-                top_list = req_json['default']['rankedList'][0][
-                    'rankedKeyword']
-                df_top = pd.DataFrame(
-                    [nested_to_record(d, sep='_') for d in top_list])
+                top_list = req_json["default"]["rankedList"][0]["rankedKeyword"]
+                df_top = pd.DataFrame([nested_to_record(d, sep="_") for d in top_list])
             except KeyError:
                 # in case no top topics are found, the lines above will throw a KeyError
                 df_top = None
 
             # rising topics
             try:
-                rising_list = req_json['default']['rankedList'][1][
-                    'rankedKeyword']
+                rising_list = req_json["default"]["rankedList"][1]["rankedKeyword"]
                 df_rising = pd.DataFrame(
-                    [nested_to_record(d, sep='_') for d in rising_list])
+                    [nested_to_record(d, sep="_") for d in rising_list]
+                )
             except KeyError:
                 # in case no rising topics are found, the lines above will throw a KeyError
                 df_rising = None
 
-            result_dict[kw] = {'rising': df_rising, 'top': df_top}
+            result_dict[kw] = {"rising": df_rising, "top": df_top}
         return result_dict
 
     def related_queries(self):
@@ -394,12 +418,13 @@ class TrendReq(object):
         result_dict = dict()
         for request_json in self.related_queries_widget_list:
             # ensure we know which keyword we are looking at rather than relying on order
-            kw = request_json['request']['restriction'][
-                'complexKeywordsRestriction']['keyword'][0]['value']
+            kw = request_json["request"]["restriction"]["complexKeywordsRestriction"][
+                "keyword"
+            ][0]["value"]
             # convert to string as requests will mangle
-            related_payload['req'] = json.dumps(request_json['request'])
-            related_payload['token'] = request_json['token']
-            related_payload['tz'] = self.tz
+            related_payload["req"] = json.dumps(request_json["request"])
+            related_payload["token"] = request_json["token"]
+            related_payload["tz"] = self.tz
 
             # parse the returned json
             req_json = self._get_data(
@@ -412,8 +437,9 @@ class TrendReq(object):
             # top queries
             try:
                 top_df = pd.DataFrame(
-                    req_json['default']['rankedList'][0]['rankedKeyword'])
-                top_df = top_df[['query', 'value']]
+                    req_json["default"]["rankedList"][0]["rankedKeyword"]
+                )
+                top_df = top_df[["query", "value"]]
             except KeyError:
                 # in case no top queries are found, the lines above will throw a KeyError
                 top_df = None
@@ -421,50 +447,55 @@ class TrendReq(object):
             # rising queries
             try:
                 rising_df = pd.DataFrame(
-                    req_json['default']['rankedList'][1]['rankedKeyword'])
-                rising_df = rising_df[['query', 'value']]
+                    req_json["default"]["rankedList"][1]["rankedKeyword"]
+                )
+                rising_df = rising_df[["query", "value"]]
             except KeyError:
                 # in case no rising queries are found, the lines above will throw a KeyError
                 rising_df = None
 
-            result_dict[kw] = {'top': top_df, 'rising': rising_df}
+            result_dict[kw] = {"top": top_df, "rising": rising_df}
         return result_dict
 
-    def trending_searches(self, pn='united_states'):
+    def trending_searches(self, pn="united_states"):
         """Request data from Google's Hot Searches section and return a dataframe"""
 
         # make the request
         # forms become obsolute due to the new TRENDING_SEACHES_URL
         # forms = {'ajax': 1, 'pn': pn, 'htd': '', 'htv': 'l'}
         req_json = self._get_data(
-            url=TrendReq.TRENDING_SEARCHES_URL,
-            method=TrendReq.GET_METHOD
+            url=TrendReq.TRENDING_SEARCHES_URL, method=TrendReq.GET_METHOD
         )[pn]
         result_df = pd.DataFrame(req_json)
         return result_df
 
-    def today_searches(self, pn='US'):
+    def today_searches(self, pn="US"):
         """Request data from Google Daily Trends section and returns a dataframe"""
-        forms = {'ns': 15, 'geo': pn, 'tz': '-180', 'hl': 'en-US'}
+        forms = {"ns": 15, "geo": pn, "tz": "-180", "hl": "en-US"}
         req_json = self._get_data(
             url=TrendReq.TODAY_SEARCHES_URL,
             method=TrendReq.GET_METHOD,
             trim_chars=5,
-            params=forms
-        )['default']['trendingSearchesDays'][0]['trendingSearches']
+            params=forms,
+        )["default"]["trendingSearchesDays"][0]["trendingSearches"]
         result_df = pd.DataFrame()
         # parse the returned json
         sub_df = pd.DataFrame()
         for trend in req_json:
-            sub_df = sub_df.append(trend['title'], ignore_index=True)
+            sub_df = sub_df.append(trend["title"], ignore_index=True)
         result_df = pd.concat([result_df, sub_df])
         return result_df.iloc[:, -1]
 
-    def top_charts(self, date, hl='en-US', tz=300, geo='GLOBAL'):
+    def top_charts(self, date, hl="en-US", tz=300, geo="GLOBAL"):
         """Request data from Google's Top Charts section and return a dataframe"""
         # create the payload
-        chart_payload = {'hl': hl, 'tz': tz, 'date': date, 'geo': geo,
-                         'isMobile': False}
+        chart_payload = {
+            "hl": hl,
+            "tz": tz,
+            "date": date,
+            "geo": geo,
+            "isMobile": False,
+        }
 
         # make the request and parse the returned json
         req_json = self._get_data(
@@ -472,7 +503,7 @@ class TrendReq(object):
             method=TrendReq.GET_METHOD,
             trim_chars=5,
             params=chart_payload,
-        )['topCharts'][0]['listItems']
+        )["topCharts"][0]["listItems"]
         df = pd.DataFrame(req_json)
         return df
 
@@ -481,20 +512,20 @@ class TrendReq(object):
 
         # make the request
         kw_param = quote(keyword)
-        parameters = {'hl': self.hl}
+        parameters = {"hl": self.hl}
 
         req_json = self._get_data(
             url=TrendReq.SUGGESTIONS_URL + kw_param,
             params=parameters,
             method=TrendReq.GET_METHOD,
             trim_chars=5,
-        )['default']['topics']
+        )["default"]["topics"]
         return req_json
 
     def categories(self):
         """Request available categories data from Google's API and return a dictionary"""
 
-        params = {'hl': self.hl}
+        params = {"hl": self.hl}
 
         req_json = self._get_data(
             url=TrendReq.CATEGORIES_URL,
@@ -504,15 +535,28 @@ class TrendReq(object):
         )
         return req_json
 
-    def get_historical_interest(self, keywords, year_start=2018, month_start=1,
-                                day_start=1, hour_start=0, year_end=2018,
-                                month_end=2, day_end=1, hour_end=0, cat=0,
-                                geo='', gprop='', sleep=0):
+    def get_historical_interest(
+        self,
+        keywords,
+        year_start=2018,
+        month_start=1,
+        day_start=1,
+        hour_start=0,
+        year_end=2018,
+        month_end=2,
+        day_end=1,
+        hour_end=0,
+        cat=0,
+        geo="",
+        gprop="",
+        sleep=0,
+    ):
         """Gets historical hourly data for interest by chunking requests to 1 week at a time (which is what Google allows)"""
 
         # construct datetime obejcts - raises ValueError if invalid parameters
-        initial_start_date = start_date = datetime(year_start, month_start,
-                                                   day_start, hour_start)
+        initial_start_date = start_date = datetime(
+            year_start, month_start, day_start, hour_start
+        )
         end_date = datetime(year_end, month_end, day_end, hour_end)
 
         # the timeframe has to be in 1 week intervals or Google will reject it
@@ -526,10 +570,10 @@ class TrendReq(object):
         while True:
             # format date to comply with API call
 
-            start_date_str = start_date.strftime('%Y-%m-%dT%H')
-            date_iterator_str = date_iterator.strftime('%Y-%m-%dT%H')
+            start_date_str = start_date.strftime("%Y-%m-%dT%H")
+            date_iterator_str = date_iterator.strftime("%Y-%m-%dT%H")
 
-            tf = start_date_str + ' ' + date_iterator_str
+            tf = start_date_str + " " + date_iterator_str
 
             try:
                 self.build_payload(keywords, cat, tf, geo, gprop)
@@ -542,13 +586,13 @@ class TrendReq(object):
             start_date += delta
             date_iterator += delta
 
-            if (date_iterator > end_date):
+            if date_iterator > end_date:
                 # Run for 7 more days to get remaining data that would have been truncated if we stopped now
                 # This is needed because google requires 7 days yet we may end up with a week result less than a full week
-                start_date_str = start_date.strftime('%Y-%m-%dT%H')
-                date_iterator_str = date_iterator.strftime('%Y-%m-%dT%H')
+                start_date_str = start_date.strftime("%Y-%m-%dT%H")
+                date_iterator_str = date_iterator.strftime("%Y-%m-%dT%H")
 
-                tf = start_date_str + ' ' + date_iterator_str
+                tf = start_date_str + " " + date_iterator_str
 
                 try:
                     self.build_payload(keywords, cat, tf, geo, gprop)
