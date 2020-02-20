@@ -13,8 +13,8 @@ import json
 import time
 from io import BytesIO
 
-import pandas as pd
 import demjson
+import pandas as pd
 import requests
 from PIL import Image
 from bs4 import BeautifulSoup
@@ -468,7 +468,7 @@ def epidemic_hist_all():
     NCP细化到地市的细颗粒数据
     https://github.com/norratek/Ncov2020HistoryData
     https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
-    :return: 返回每日的历史数据
+    :return: 每日的历史数据
     :rtype: pandas.DataFrame
     """
     url = "http://ncov.nosensor.com:8080/api/"
@@ -486,7 +486,7 @@ def epidemic_hist_city(city="武汉"):
     """
     https://github.com/norratek/Ncov2020HistoryData
     https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
-    :return: 返回每日的历史数据
+    :return: 每日的历史数据
     :rtype: pandas.DataFrame
     """
     url = f"http://ncov.nosensor.com:8080/api/city={city}"
@@ -498,7 +498,7 @@ def epidemic_hist_province(province="湖北"):
     """
     https://github.com/norratek/Ncov2020HistoryData
     https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
-    :return: 返回每日的历史数据
+    :return: 每日的历史数据
     :rtype: pandas.DataFrame
     """
     url = f"http://ncov.nosensor.com:8080/api/province={province}"

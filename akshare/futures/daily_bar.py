@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Author: Albert King
-date: 2019/9/30 13:58
+date: 2020/02/20 13:58
 contact: jindaxiang@163.com
 desc: 从交易所网站获取日线行情
 """
@@ -598,27 +598,24 @@ def get_futures_daily(start_day=None, end_day=None, market="CFFEX", index_bar=Fa
 
 def get_futures_index(df):
     """
-        获取指数日交易数据
-    Parameters
-    ------
-        df: 爬到的原始合约日线行情    pandas.DataFrame
-    Return
-    -------
-        df: 持仓量加权指数日线行情
-        DataFrame
-            中金所日交易数据(DataFrame):
-                symbol      合约代码
-                date       日期
-                open       开盘价
-                high       最高价
-                low       最低价
-                close      收盘价
-                volume      成交量
-                open_interest 持仓量
-                turnover    成交额
-                settle     结算价
-                pre_settle   前结算价
-                variety     合约类别
+    指数日交易数据
+    :param df: 爬到的原始合约日线行情
+    :type df: pandas.DataFrame
+    :return: 持仓量加权指数日线行情
+    :rtype: pandas.DataFrame
+    中金所日交易数据(DataFrame):
+    symbol      合约代码
+    date       日期
+    open       开盘价
+    high       最高价
+    low       最低价
+    close      收盘价
+    volume      成交量
+    open_interest 持仓量
+    turnover    成交额
+    settle     结算价
+    pre_settle   前结算价
+    variety     合约类别
     """
     index_dfs = []
     for var in set(df["variety"]):
@@ -644,9 +641,9 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    d = get_futures_daily(
-        start_day="20191205", end_day="20191206", market="CFFEX", index_bar=True
+    get_futures_daily_df = get_futures_daily(
+        start_day="20191205", end_day="20200206", market="CFFEX", index_bar=True
     )
-    print(d)
-    # d = get_dce_daily(date=None, symbol_type="option", retries=0)
-    # print(d)
+    print(get_futures_daily_df)
+    get_dce_daily_df = get_dce_daily(date=None, symbol_type="option", retries=0)
+    print(get_dce_daily_df)
