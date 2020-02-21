@@ -15,7 +15,13 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def _franchise_china_page_num():
+def _get_franchise_china_page_num() -> int:
+    """
+    获取特许经营总页数
+    http://txjy.syggs.mofcom.gov.cn/index.do?method=entpsearch
+    :return: 特许经营总页数
+    :rtype: int
+    """
     url = "http://txjy.syggs.mofcom.gov.cn/index.do"
     payload = {
         "method": "entps",
@@ -26,11 +32,14 @@ def _franchise_china_page_num():
     }
     r = requests.get(url, params=payload)
     soup = BeautifulSoup(r.text, "lxml")
-    page_num = re.findall(re.compile(r"\d+"), soup.find(attrs={"class": "inner"}).find_all("a")[-1]["href"])[0]
+    page_num = re.findall(
+        re.compile(r"\d+"),
+        soup.find(attrs={"class": "inner"}).find_all("a")[-1]["href"],
+    )[0]
     return int(page_num)
 
 
-def franchise_china():
+def franchise_china() -> pd.DataFrame:
     """
     中国-商业特许经营信息管理
     http://txjy.syggs.mofcom.gov.cn/
@@ -41,7 +50,7 @@ def franchise_china():
     # file_url 历史数据文件, 主要是为了防止重复访问的速度和资源浪费问题
     file_url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/franchise/franchise_china.csv"
     outer_df = pd.read_csv(file_url, encoding="gbk", index_col=0)
-    for page in range(1, int(5)):
+    for page in range(1, int(5)):  # 这里的 5 是硬编码, 长期后需要更新 file_url 文件
         # print(page)
         payload = {
             "method": "entps",
@@ -59,6 +68,6 @@ def franchise_china():
     return outer_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     franchise_china_df = franchise_china()
     print(franchise_china_df)

@@ -591,8 +591,8 @@ if __name__ == "__main__":
     print(epidemic_area_search_df)
     epidemic_area_all_df = epidemic_area_all()
     print(epidemic_area_all_df)
-    epidemic_area_detail_df = epidemic_area_detail()
-    print(epidemic_area_detail_df)
+    # epidemic_area_detail_df = epidemic_area_detail()
+    # print(epidemic_area_detail_df)
     # print(epidemic_area_detail_df.to_csv("所有疫情地点-20200218.csv", encoding="gbk"))
     # 行程
     epidemic_trip_df = epidemic_trip()
@@ -604,6 +604,6 @@ if __name__ == "__main__":
     print(epidemic_hist_city_df)
     epidemic_hist_province_df = epidemic_hist_province(province="湖北")
     print(epidemic_hist_province_df)
-
+    # 详细历史数据
     epidemic_history_df = epidemic_history()
     print(epidemic_history_df)

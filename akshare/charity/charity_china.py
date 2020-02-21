@@ -20,6 +20,7 @@ http://cishan.chinanpo.gov.cn/biz/ma/csmh/d/csmhdindex.html
 http://cishan.chinanpo.gov.cn/biz/ma/csmh/h/csmhhindex.html
 """
 import re
+from typing import Tuple
 
 import pandas as pd
 import requests
@@ -51,7 +52,7 @@ def _get_page_num_charity_china_organization() -> int:
     return int(page_num)
 
 
-def charity_china_organization():
+def charity_china_organization() -> pd.DataFrame:
     """
     慈善中国-慈善组织查询
     http://cishan.chinanpo.gov.cn/biz/ma/csmh/a/csmhaindex.html
@@ -101,7 +102,7 @@ def _get_page_num_charity_china_trust() -> int:
     return int(page_num)
 
 
-def charity_china_trust():
+def charity_china_trust() -> pd.DataFrame:
     """
     慈善中国-慈善信托查询
     http://cishan.chinanpo.gov.cn/biz/ma/csmh/e/csmheindex.html
@@ -149,13 +150,14 @@ def _get_page_num_charity_china_plan() -> int:
     return int(page_num)
 
 
-def _get_charity_china_plan_detail(url: str = ""):
+def _get_charity_china_plan_detail(url: str = "") -> Tuple:
     """
+    获取页面的详情, 需要进入二级页面访问获取, 需要增加字段可以在此函数中进行
     http://cishan.chinanpo.gov.cn/biz/ma/csmh/c/csmhcdetail.html?id=ff8080816390694d0163f31aab60188e
-    :param url:
-    :type url:
-    :return:
-    :rtype:
+    :param url: charity_china_plan 二级页面的网址
+    :type url: str
+    :return: 名词和备案号
+    :rtype: tuple
     """
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
@@ -164,7 +166,7 @@ def _get_charity_china_plan_detail(url: str = ""):
     return title, number
 
 
-def charity_china_plan():
+def charity_china_plan() -> pd.DataFrame:
     """
     慈善中国-募捐方案备案
     http://cishan.chinanpo.gov.cn/biz/ma/csmh/c/csmhcindex.html
@@ -229,7 +231,7 @@ def _get_page_num_charity_china_progress() -> int:
     return int(page_num)
 
 
-def _get_charity_china_progress_detail(url: str = ""):
+def _get_charity_china_progress_detail(url: str = "") -> Tuple[str]:
     """
     http://cishan.chinanpo.gov.cn/biz/ma/csmh/b/csmhbdetail.html?id=ff80808170367b4c01703a5a9158053e
     :param url:
@@ -247,7 +249,7 @@ def _get_charity_china_progress_detail(url: str = ""):
     return title, number, ori_org, status
 
 
-def charity_china_progress():
+def charity_china_progress() -> pd.DataFrame:
     """
     慈善中国-慈善项目进展
     http://cishan.chinanpo.gov.cn/biz/ma/csmh/b/csmhbindex.html
@@ -312,7 +314,7 @@ def _get_page_num_charity_china_report() -> int:
     return int(page_num)
 
 
-def charity_china_report():
+def charity_china_report() -> pd.DataFrame:
     """
     慈善中国-慈善组织年报
     http://cishan.chinanpo.gov.cn/biz/ma/csmh/d/csmhdindex.html
@@ -347,7 +349,7 @@ def charity_china_report():
 
 
 # 慈善中国-募捐信息平台
-def charity_china_platform():
+def charity_china_platform() -> pd.DataFrame:
     """
     慈善中国-募捐信息平台
     http://cishan.chinanpo.gov.cn/biz/ma/csmh/h/csmhhindex.html
@@ -373,15 +375,21 @@ def charity_china_platform():
 
 
 if __name__ == "__main__":
+    # 慈善中国-慈善组织查询
     charity_organization_df = charity_china_organization()
     print(charity_organization_df)
+    # 慈善中国-慈善信托查询
     charity_china_trust_df = charity_china_trust()
     print(charity_china_trust_df)
+    # 慈善中国-募捐方案备案
     charity_china_plan_df = charity_china_plan()
     print(charity_china_plan_df)
+    # 慈善中国-慈善项目进展
     charity_china_progress_df = charity_china_progress()
     print(charity_china_progress_df)
+    # 慈善中国-慈善组织年报
     charity_china_report_df = charity_china_report()
     print(charity_china_report_df)
+    # 慈善中国-募捐信息平台
     charity_china_platform_df = charity_china_platform()
     print(charity_china_platform_df)
