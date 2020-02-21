@@ -806,9 +806,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-epidemic_history-疫情所有历史数据
 0.4.5
 完善-慈善中国-类型注解
+0.4.6
+修复-charity_china_report
 """
 
-__version__ = "0.4.5"
+__version__ = "0.4.6"
 __author__ = "Albert King"
 
 """

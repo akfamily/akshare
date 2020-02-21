@@ -331,7 +331,7 @@ def charity_china_report() -> pd.DataFrame:
     }
     outer_df = pd.DataFrame()
     for page in range(1, page_num):
-        # page = 1
+        # page = 16
         print(page)
         payload_data = {"pageNo": str(page)}
 
@@ -341,7 +341,7 @@ def charity_china_report() -> pd.DataFrame:
         inner_df["操作"] = [
             "http://cishan.chinanpo.gov.cn/mz/upload/pub/load/resource_download.html?"
             + item["onclick"].strip("Download('").strip("')")
-            for item in inner_soup.find_all("a", attrs={"title": "下载附件"})
+            for item in inner_soup.find_all("a", attrs={"style": "color: #0088DB;"})
         ]
         outer_df = outer_df.append(inner_df, ignore_index=True)
 
