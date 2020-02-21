@@ -802,9 +802,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_baidu
 0.4.3
 新增-慈善中国
+0.4.4
+新增-epidemic_history-疫情所有历史数据
 """
 
-__version__ = "0.4.3"
+__version__ = "0.4.4"
 __author__ = "Albert King"
 
 """
@@ -854,6 +856,7 @@ from akshare.event.sos import (
     epidemic_area_all,
     epidemic_area_detail,
     epidemic_trip,
+    epidemic_history
 )
 
 """

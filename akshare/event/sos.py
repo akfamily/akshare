@@ -506,6 +506,21 @@ def epidemic_hist_province(province="湖北"):
     return pd.DataFrame(data_json)
 
 
+def epidemic_history():
+    """
+    该接口最好用代理速度比较快
+    https://github.com/canghailan/Wuhan-2019-nCoV
+    2019-12-01开始
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
+    r = requests.get(url)
+    data_json = r.json()
+    data_df = pd.DataFrame(data_json)
+    return data_df
+
+
 if __name__ == "__main__":
     # 163
     epidemic_current_163_df = epidemic_163(indicator="实时")
@@ -589,3 +604,6 @@ if __name__ == "__main__":
     print(epidemic_hist_city_df)
     epidemic_hist_province_df = epidemic_hist_province(province="湖北")
     print(epidemic_hist_province_df)
+
+    epidemic_history_df = epidemic_history()
+    print(epidemic_history_df)

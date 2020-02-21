@@ -1052,4 +1052,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.4.3
 新增-中国慈善
+
+0.4.4
+新增-epidemic_history-疫情所有历史数据
 ```

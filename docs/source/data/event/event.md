@@ -1865,3 +1865,60 @@ print(epidemic_hist_province_df)
 22             0      0       0  
 23             0      0       0  
 ```
+
+### 历史数据查询
+
+接口: epidemic_history
+
+目标地址: https://github.com/canghailan/Wuhan-2019-nCoV
+
+描述: 获取新型肺炎感染所有历史数据
+
+限量: 单次返回新型肺炎感染所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| date      | str   | Y        |   |
+| country      | str   | Y        |   |
+| countryCode      | str   | Y        |   |
+| province      | str   | Y        |   |
+| provinceCode      | str   | Y        |   |
+| city      | str   | Y        |   |
+| cityCode      | float   | Y        |   |
+| confirmed      | float   | Y        |   |
+| suspected      | float   | Y        |   |
+| cured      | float   | Y        |   |
+| dead      | float   | Y        |   |
+			
+接口示例
+
+```python
+import akshare as ak
+epidemic_history_df = ak.epidemic_history()
+print(epidemic_history_df)
+```
+
+数据示例
+
+```
+             date country countryCode  ... suspected cured dead
+0      2019-12-01      中国          CN  ...         0     0    0
+1      2019-12-01      中国          CN  ...         0     0    0
+2      2019-12-01      中国          CN  ...         0     0    0
+3      2019-12-02      中国          CN  ...         0     0    0
+4      2019-12-02      中国          CN  ...         0     0    0
+           ...     ...         ...  ...       ...   ...  ...
+14359  2020-02-21      瑞典          SE  ...         0     0    0
+14360  2020-02-21     新加坡          SG  ...         0    37    0
+14361  2020-02-21      泰国          TH  ...         0    17    0
+14362  2020-02-21      美国          US  ...         0     3    0
+14363  2020-02-21      越南          VN  ...         0     9    0
+```
