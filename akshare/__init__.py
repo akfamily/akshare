@@ -800,10 +800,24 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-pandas-版本降级
 0.4.2
 修复-epidemic_baidu
+0.4.3
+新增-慈善中国
 """
 
-__version__ = "0.4.2"
+__version__ = "0.4.3"
 __author__ = "Albert King"
+
+"""
+中国-慈善
+"""
+from akshare.charity.charity_china import (
+    charity_china_organization,
+    charity_china_plan,
+    charity_china_platform,
+    charity_china_progress,
+    charity_china_report,
+    charity_china_trust,
+)
 
 """
 中国-特许经营数据

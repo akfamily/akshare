@@ -96,7 +96,9 @@
 
 感谢[新型肺炎-小区查询](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
 
-感谢[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的特许经营数据;
+感谢[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的相关数据;
+
+感谢[慈善中国](http://cishan.chinanpo.gov.cn/platform/login.html)提供的相关数据;
 
 ## 交流
 

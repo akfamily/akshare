@@ -642,8 +642,9 @@ def get_futures_index(df):
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_day="20191205", end_day="20200206", market="CFFEX", index_bar=True
+        start_day="20181210", end_day="20191210", market="DCE", index_bar=True
     )
     print(get_futures_daily_df)
     get_dce_daily_df = get_dce_daily(date=None, symbol_type="option", retries=0)
     print(get_dce_daily_df)
+

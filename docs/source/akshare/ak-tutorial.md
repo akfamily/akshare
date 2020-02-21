@@ -355,6 +355,13 @@
  "bond_zh_hs_cov_spot"  # 债券-沪深可转债-实时行情数据
  # 中国-商业特许经营数据
  "franchise_china"  # 中国-商业特许经营数据
+ # 慈善中国
+ "charity_china_organization"  # 慈善中国-慈善组织查询
+ "charity_china_trust"  # 慈善中国-慈善信托查询
+ "charity_china_plan"  # 慈善中国-募捐方案备案
+ "charity_china_progress"  # 慈善中国-慈善项目进展
+ "charity_china_report"  # 慈善中国-慈善组织年报
+ "charity_china_platform"  # 慈善中国-募捐信息平台
 ```
 
 ## 3. 案例演示

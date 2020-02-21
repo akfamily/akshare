@@ -8,9 +8,9 @@ desc: 新浪财经-外盘期货-实时数据获取
 """
 import time
 
-import requests
-import pandas as pd
 import demjson
+import pandas as pd
+import requests
 
 from akshare.futures.cons import (
     hf_subscribe_exchange_symbol_url,
