@@ -8,7 +8,13 @@ desc: To test intention, just write test code here!
 """
 # from akshare.air.aqi_study import air_hourly
 from akshare.index.index_weibo import weibo_index
+from akshare.event.franchise import franchise_china
 # from akshare.fortune.fortune_500 import fortune_rank
+
+
+def test_franchise_china():
+    franchise_china_df = franchise_china()
+    assert franchise_china_df.shape[0] > 0
 
 
 # def test_air_hourly():

@@ -46,7 +46,7 @@
 [AkShare](https://github.com/jindaxiang/akshare) 主要改进如下:
 
 1. Python 语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 统一接口函数的命名;
-2. 支持 Python 3.7.3 及其以上版本;
+2. 最佳支持 Python 3.7.3 及其以上版本;
 3. 后续加入 [asyncio](https://www.python.org/dev/peps/pep-3156/) 和 [aiohttp](https://aiohttp.readthedocs.io/en/stable/) 做异步加速;
 4. 持续维护由于目标网页变化而导致的部分函数运行异常问题;
 5. 后续更新会主要集中在提供更多金融数据接口, 同时优化源代码;

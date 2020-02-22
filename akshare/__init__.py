@@ -808,9 +808,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 完善-慈善中国-类型注解
 0.4.6
 修复-charity_china_report
+0.4.7
+新增-测试接口
 """
 
-__version__ = "0.4.6"
+__version__ = "0.4.7"
 __author__ = "Albert King"
 
 """
