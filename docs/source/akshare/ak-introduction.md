@@ -152,7 +152,7 @@
     
     6.50 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的股票账户统计数据;
     
-    6.51 新增[交易法门网站](https://www.jiaoyifamen.com/)提供的商品期货数据-黑色系数据;
+    6.51 新增[交易法门网站](https://www.jiaoyifamen.com/)提供的商品期货数据数据;
     
     6.52 新增[百度疫情网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的新型冠状病毒-疫情数据;
     
