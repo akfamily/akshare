@@ -7,8 +7,8 @@ contact: jindaxiang@163.com
 desc: 获取金融期权数据
 http://www.sse.com.cn/assortment/options/price/
 """
-import requests
 import pandas as pd
+import requests
 
 from akshare.option.cons import (
     SH_OPTION_URL_50,
@@ -122,7 +122,7 @@ def option_finance_board(symbol="华泰柏瑞沪深300ETF期权", end_month="200
 
 
 if __name__ == "__main__":
-    df = option_finance_underlying(symbol="300ETF")
-    print(df)
-    df = option_finance_board(symbol="沪深300股指期权", end_month="2003")
-    print(df)
+    option_finance_underlying_df = option_finance_underlying(symbol="300ETF")
+    print(option_finance_underlying_df)
+    option_finance_board_df = option_finance_board(symbol="沪深300股指期权", end_month="2003")
+    print(option_finance_board_df)
