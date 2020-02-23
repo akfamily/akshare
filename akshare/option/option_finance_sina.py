@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Author: Albert King
-date: 2019/12/29 0:11
+date: 2020/02/22 0:11
 contact: jindaxiang@163.com
 desc: 新浪财经-期权
 https://stock.finance.sina.com.cn/option/quotes.html
@@ -13,6 +13,7 @@ https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 https://stock.finance.sina.com.cn/option/quotes.html
 """
 import json
+import datetime
 from typing import Dict, List, Tuple
 
 import requests
@@ -21,9 +22,9 @@ import pandas as pd
 
 
 # 期权-中金所-沪深300指数
-def option_sina_cffex_hs300_list() -> Dict:
+def option_sina_cffex_hs300_list() -> Dict[str, List[str]]:
     """
-    中金所-沪深300指数-所有合约
+    中金所-沪深300指数-所有合约, 返回的第一个合约为主力合约
     目前中金所只有 沪深300指数
     :return: 中金所-沪深300指数-所有合约
     :rtype: dict
@@ -32,7 +33,9 @@ def option_sina_cffex_hs300_list() -> Dict:
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     symbol = soup.find(attrs={"id": "option_symbol"}).find("li").text
-    contract = [item.text for item in soup.find(attrs={"id": "option_suffix"}).find_all("li")]
+    contract = [
+        item.text for item in soup.find(attrs={"id": "option_suffix"}).find_all("li")
+    ]
     return {symbol: contract}
 
 
@@ -53,15 +56,36 @@ def option_sina_cffex_hs300_spot(contract: str = "io2004") -> pd.DataFrame:
     }
     r = requests.get(url, params=payload)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{"):data_text.rfind("}") + 1])
-    option_call_df = pd.DataFrame(data_json["result"]["data"]["up"],
-                                  columns=["call_买量", "call_买价", "call_最新价", "call_卖价", "call_卖量", "call_持仓量",
-                                           "call_涨跌", "call_行权价", "call_标识"])
-    option_put_df = pd.DataFrame(data_json["result"]["data"]["down"],
-                                 columns=["put_买量", "put_买价", "put_最新价", "put_卖价", "put_卖量", "put_持仓量", "put_涨跌",
-                                          "put_标识"])
-    option_df = pd.concat([option_call_df, option_put_df], axis=1).iloc[:, :-1]
-    return option_df
+    data_json = json.loads(data_text[data_text.find("{") : data_text.rfind("}") + 1])
+    option_call_df = pd.DataFrame(
+        data_json["result"]["data"]["up"],
+        columns=[
+            "call_买量",
+            "call_买价",
+            "call_最新价",
+            "call_卖价",
+            "call_卖量",
+            "call_持仓量",
+            "call_涨跌",
+            "call_行权价",
+            "call_标识",
+        ],
+    )
+    option_put_df = pd.DataFrame(
+        data_json["result"]["data"]["down"],
+        columns=[
+            "put_买量",
+            "put_买价",
+            "put_最新价",
+            "put_卖价",
+            "put_卖量",
+            "put_持仓量",
+            "put_涨跌",
+            "put_标识",
+        ],
+    )
+    data_df = pd.concat([option_call_df, option_put_df], axis=1).iloc[:, :-1]
+    return data_df
 
 
 def option_sina_cffex_hs300_daily(contract: str = "io2004C4450") -> pd.DataFrame:
@@ -72,19 +96,22 @@ def option_sina_cffex_hs300_daily(contract: str = "io2004C4450") -> pd.DataFrame
     :return: 日频率数据
     :rtype: pd.DataFrame
     """
-    url = "https://stock.finance.sina.com.cn/futures/api/jsonp.php/var%20_io2003C33002020_2_22=/FutureOptionAllService.getOptionDayline"
-    payload = {
-        "symbol": "io2003C3300"
-    }
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    day = datetime.datetime.now().day
+    url = f"https://stock.finance.sina.com.cn/futures/api/jsonp.php/var%20_{contract}{year}_{month}_{day}=/FutureOptionAllService.getOptionDayline"
+    payload = {"symbol": contract}
     r = requests.get(url, params=payload)
     data_text = r.text
-    temp_df = pd.DataFrame(eval(data_text[data_text.find("["):data_text.rfind("]") + 1]))
-    temp_df.columns = ["open", "high", "low", "close", "volume", "date"]
-    return temp_df
+    data_df = pd.DataFrame(
+        eval(data_text[data_text.find("["): data_text.rfind("]") + 1])
+    )
+    data_df.columns = ["open", "high", "low", "close", "volume", "date"]
+    return data_df
 
 
 # 期权-上交所-50ETF
-def option_sina_sse_list(symbol: str = "50ETF", exchange: str = "null") -> List:
+def option_sina_sse_list(symbol: str = "50ETF", exchange: str = "null") -> List[str]:
     """
     期权-上交所-50ETF-合约到期月份列表
     :param symbol: 50ETF or 300ETF
@@ -94,13 +121,17 @@ def option_sina_sse_list(symbol: str = "50ETF", exchange: str = "null") -> List:
     :return: 合约到期时间
     :rtype: list
     """
-    url = f"http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getStockName?" \
-          f"exchange={exchange}&cate={symbol}"
-    date_list = requests.get(url).json()['result']['data']['contractMonth']
-    return [''.join(i.split('-')) for i in date_list][1:]
+    url = (
+        f"http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getStockName?"
+        f"exchange={exchange}&cate={symbol}"
+    )
+    date_list = requests.get(url).json()["result"]["data"]["contractMonth"]
+    return ["".join(i.split("-")) for i in date_list][1:]
 
 
-def get_option_expire_day(trade_date: str = "202002", symbol='50ETF', exchange='null') -> Tuple:
+def option_sina_sse_expire_day(
+    trade_date: str = "202002", symbol="50ETF", exchange="null"
+) -> Tuple[str, int]:
     """
     获取指定到期月份指定品种的剩余到期时间
     :param trade_date: 到期月份: 202002, 20203, 20206, 20209
@@ -112,38 +143,48 @@ def get_option_expire_day(trade_date: str = "202002", symbol='50ETF', exchange='
     :return: (到期时间, 剩余时间)
     :rtype: Tuple
     """
-    url = f"http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay?" \
-          f"exchange={exchange}&cate={symbol}&date={trade_date[:4]}-{trade_date[4:]}"
-    data = requests.get(url).json()['result']['data']
-    if int(data['remainderDays']) < 0:
-        url = f"http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay?" \
-              f"exchange={exchange}&cate={'XD' + symbol}&date={trade_date[:4]}-{trade_date[4:]}"
-        data = requests.get(url).json()['result']['data']
-    return data['expireDay'], int(data['remainderDays'])
+    url = (
+        f"http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay?"
+        f"exchange={exchange}&cate={symbol}&date={trade_date[:4]}-{trade_date[4:]}"
+    )
+    data = requests.get(url).json()["result"]["data"]
+    if int(data["remainderDays"]) < 0:
+        url = (
+            f"http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay?"
+            f"exchange={exchange}&cate={'XD' + symbol}&date={trade_date[:4]}-{trade_date[4:]}"
+        )
+        data = requests.get(url).json()["result"]["data"]
+    return data["expireDay"], int(data["remainderDays"])
 
 
-def get_option_codes(trade_date: str = "202002", underlying: str = "510050") -> Tuple[List, List]:
+def option_sina_sse_codes(
+    trade_date: str = "202002", underlying: str = "510300"
+) -> Tuple[List[str], List[str]]:
     """
     获取所有看涨看跌合约的代码
     :param trade_date: 期权到期月份
     :type trade_date: "202002"
-    :param underlying: 期权代码
+    :param underlying: 标的产品代码 华夏上证50ETF: 510050 or 华泰柏瑞沪深300ETF: 510300
     :type underlying: str
     :return: 看涨看跌合约的代码
     :rtype: Tuple[List, List]
     """
-    url_up = ''.join(["http://hq.sinajs.cn/list=OP_UP_", underlying, str(trade_date)[-4:]])
-    url_down = ''.join(["http://hq.sinajs.cn/list=OP_DOWN_", underlying, str(trade_date)[-4:]])
-    data_up = requests.get(url_up).text.replace('"', ',').split(',')
-    codes_up = [i[7:] for i in data_up if i.startswith('CON_OP_')]
-    data_down = requests.get(url_down).text.replace('"', ',').split(',')
-    codes_down = [i[7:] for i in data_down if i.startswith('CON_OP_')]
+    url_up = "".join(
+        ["http://hq.sinajs.cn/list=OP_UP_", underlying, str(trade_date)[-4:]]
+    )
+    url_down = "".join(
+        ["http://hq.sinajs.cn/list=OP_DOWN_", underlying, str(trade_date)[-4:]]
+    )
+    data_up = requests.get(url_up).text.replace('"', ",").split(",")
+    codes_up = [i[7:] for i in data_up if i.startswith("CON_OP_")]
+    data_down = requests.get(url_down).text.replace('"', ",").split(",")
+    codes_down = [i[7:] for i in data_down if i.startswith("CON_OP_")]
     return codes_up, codes_down
 
 
-def get_option_price(code: str = "10002273") -> pd.DataFrame:
+def option_sina_sse_spot_price(code: str = "10002273") -> pd.DataFrame:
     """
-    期权量价数据
+    期权实时数据
     :param code: 期权代码
     :type code: str
     :return: 期权量价数据
@@ -151,19 +192,59 @@ def get_option_price(code: str = "10002273") -> pd.DataFrame:
     """
     url = f"http://hq.sinajs.cn/list=CON_OP_{code}"
     data_text = requests.get(url).text
-    data_list = data_text[data_text.find('"') + 1: data_text.rfind('"')].split(',')
-    field_list = ['买量', '买价', '最新价', '卖价', '卖量', '持仓量', '涨幅', '行权价', '昨收价', '开盘价', '涨停价',
-                  '跌停价', '申卖价五', '申卖量五', '申卖价四', '申卖量四', '申卖价三', '申卖量三', '申卖价二',
-                  '申卖量二', '申卖价一', '申卖量一', '申买价一', '申买量一 ', '申买价二', '申买量二', '申买价三',
-                  '申买量三', '申买价四', '申买量四', '申买价五', '申买量五', '行情时间', '主力合约标识', '状态码',
-                  '标的证券类型', '标的股票', '期权合约简称', '振幅', '最高价', '最低价', '成交量', '成交额']
+    data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
+    field_list = [
+        "买量",
+        "买价",
+        "最新价",
+        "卖价",
+        "卖量",
+        "持仓量",
+        "涨幅",
+        "行权价",
+        "昨收价",
+        "开盘价",
+        "涨停价",
+        "跌停价",
+        "申卖价五",
+        "申卖量五",
+        "申卖价四",
+        "申卖量四",
+        "申卖价三",
+        "申卖量三",
+        "申卖价二",
+        "申卖量二",
+        "申卖价一",
+        "申卖量一",
+        "申买价一",
+        "申买量一 ",
+        "申买价二",
+        "申买量二",
+        "申买价三",
+        "申买量三",
+        "申买价四",
+        "申买量四",
+        "申买价五",
+        "申买量五",
+        "行情时间",
+        "主力合约标识",
+        "状态码",
+        "标的证券类型",
+        "标的股票",
+        "期权合约简称",
+        "振幅",
+        "最高价",
+        "最低价",
+        "成交量",
+        "成交额",
+    ]
     data_df = pd.DataFrame(list(zip(field_list, data_list)), columns=["字段", "值"])
     return data_df
 
 
-def get_underlying_security_price(code: str = "sh510300") -> pd.DataFrame:
+def option_sina_sse_underlying_spot_price(code: str = "sh510300") -> pd.DataFrame:
     """
-    期权标的物的信息
+    期权标的物的实时数据
     :param code: sh510050 or sh510300
     :type code: str
     :return: 期权标的物的信息
@@ -171,17 +252,47 @@ def get_underlying_security_price(code: str = "sh510300") -> pd.DataFrame:
     """
     url = f"http://hq.sinajs.cn/list={code}"
     data_text = requests.get(url).text
-    data_list = data_text[data_text.find('"') + 1: data_text.rfind('"')].split(',')
-    field_list = ['证券简称', '今日开盘价', '昨日收盘价', '最近成交价', '最高成交价', '最低成交价', '买入价',
-                  '卖出价', '成交数量', '成交金额', '买数量一', '买价位一', '买数量二', '买价位二', '买数量三',
-                  '买价位三', '买数量四', '买价位四', '买数量五', '买价位五', '卖数量一', '卖价位一', '卖数量二',
-                  '卖价位二', '卖数量三', '卖价位三', '卖数量四', '卖价位四', '卖数量五', '卖价位五', '行情日期',
-                  '行情时间', '停牌状态']
+    data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
+    field_list = [
+        "证券简称",
+        "今日开盘价",
+        "昨日收盘价",
+        "最近成交价",
+        "最高成交价",
+        "最低成交价",
+        "买入价",
+        "卖出价",
+        "成交数量",
+        "成交金额",
+        "买数量一",
+        "买价位一",
+        "买数量二",
+        "买价位二",
+        "买数量三",
+        "买价位三",
+        "买数量四",
+        "买价位四",
+        "买数量五",
+        "买价位五",
+        "卖数量一",
+        "卖价位一",
+        "卖数量二",
+        "卖价位二",
+        "卖数量三",
+        "卖价位三",
+        "卖数量四",
+        "卖价位四",
+        "卖数量五",
+        "卖价位五",
+        "行情日期",
+        "行情时间",
+        "停牌状态",
+    ]
     data_df = pd.DataFrame(list(zip(field_list, data_list)), columns=["字段", "值"])
     return data_df
 
 
-def get_option_greek_alphabet(code: str = "10002273") -> pd.DataFrame:
+def option_sina_sse_greeks(code: str = "10002273") -> pd.DataFrame:
     """
     期权基本信息表
     :param code: 合约代码
@@ -191,30 +302,47 @@ def get_option_greek_alphabet(code: str = "10002273") -> pd.DataFrame:
     """
     url = f"http://hq.sinajs.cn/list=CON_SO_{code}"
     data_text = requests.get(url).text
-    data_list = data_text[data_text.find('"') + 1: data_text.rfind('"')].split(',')
-    field_list = ['期权合约简称', '成交量', 'Delta', 'Gamma', 'Theta', 'Vega', '隐含波动率', '最高价', '最低价',
-                  '交易代码', '行权价', '最新价', '理论价值']
-    data_df = pd.DataFrame(list(zip(field_list, [data_list[0]] + data_list[4:])), columns=["字段", "值"])
+    data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
+    field_list = [
+        "期权合约简称",
+        "成交量",
+        "Delta",
+        "Gamma",
+        "Theta",
+        "Vega",
+        "隐含波动率",
+        "最高价",
+        "最低价",
+        "交易代码",
+        "行权价",
+        "最新价",
+        "理论价值",
+    ]
+    data_df = pd.DataFrame(
+        list(zip(field_list, [data_list[0]] + data_list[4:])), columns=["字段", "值"]
+    )
     return data_df
 
 
-def get_option_time_line(code: str = "10002273") -> pd.DataFrame:
+def option_sina_sse_minute(code: str = "10002273") -> pd.DataFrame:
     """
-    获取指定期权的当前交易日的分钟数据
+    获取指定期权品种在当前交易日的分钟数据, 只能获取当前交易日的数据, 不能获取历史分钟数据
     :param code: 期权代码
     :type code: str
     :return: 指定期权的当前交易日的分钟数据
     :rtype: pandas.DataFrame
     """
-    url = f"https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionDaylineService.getOptionMinline?" \
-          f"symbol=CON_OP_{code}"
-    data_json = requests.get(url).json()['result']['data']
+    url = (
+        f"https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionDaylineService.getOptionMinline?"
+        f"symbol=CON_OP_{code}"
+    )
+    data_json = requests.get(url).json()["result"]["data"]
     data_df = pd.DataFrame(data_json)
     data_df.columns = ["时间", "价格", "成交", "持仓", "均价", "日期"]
     return data_df
 
 
-def get_option_day_kline(code: str = "10002273") -> pd.DataFrame:
+def option_sina_sse_daily(code: str = "10002273") -> pd.DataFrame:
     """
     获取指定期权的日频率数据
     :param code: 期权代码
@@ -222,38 +350,49 @@ def get_option_day_kline(code: str = "10002273") -> pd.DataFrame:
     :return: 指定期权的所有日频率历史数据
     :rtype: pandas.DataFrame
     """
-    url = f"http://stock.finance.sina.com.cn/futures/api/jsonp_v2.php//StockOptionDaylineService.getSymbolInfo?" \
-          f"symbol=CON_OP_{code}"
+    url = (
+        f"http://stock.finance.sina.com.cn/futures/api/jsonp_v2.php//StockOptionDaylineService.getSymbolInfo?"
+        f"symbol=CON_OP_{code}"
+    )
     data_text = requests.get(url).text
-    data_json = json.loads(data_text[data_text.find('(') + 1: data_text.rfind(')')])
+    data_json = json.loads(data_text[data_text.find("(") + 1 : data_text.rfind(")")])
     data_df = pd.DataFrame(data_json)
     data_df.columns = ["日期", "开盘", "最高", "最低", "收盘", "成交"]
     return data_df
 
 
-def test():
-    dates = option_sina_sse_list(symbol='50ETF')
-    print('期权合约月份：{}'.format(dates))
-    for date in dates:
-        print('期权月份{}：到期日{} 剩余天数{}'.format(date, *get_option_expire_day(date, symbol='300ETF')))
-    demo_code = '10002180'
-    for date in dates:
-        call_codes, put_codes = get_option_codes(date, underlying='510300')
-        print('期权月份{} 看涨期权代码：{}\n期权月份{} 看跌期权代码：{}'.format(date, call_codes, date, put_codes))
-        demo_code = call_codes[0]
-    for index, i in enumerate(get_option_price(demo_code)):
-        print('期权' + demo_code, index, *i)
-    for index, i in enumerate(get_underlying_security_price(code='sh510300')):
-        print(index, *i)
-    for index, i in enumerate(get_option_greek_alphabet(demo_code)):
-        print('期权' + demo_code, index, *i)
-    time_line = get_option_time_line(demo_code)
-    for i in time_line[-10:]:
-        print('时间:{i}, 价格:{p}, 成交:{v}, 持仓:{t}, 均价:{a}'.format(**i))
-    day_kline = get_option_day_kline(demo_code)
-    for i in day_kline:
-        print('日期:{d}, 开盘:{o}, 最高:{h}, 最低:{l}, 收盘:{c}, 成交:{v}'.format(**i))
+if __name__ == "__main__":
+    # 期权-中金所-沪深300指数
+    option_sina_cffex_hs300_list_df = option_sina_cffex_hs300_list()
+    print(option_sina_cffex_hs300_list_df)
 
+    option_sina_cffex_hs300_spot_df = option_sina_cffex_hs300_spot(contract="io2004")
+    print(option_sina_cffex_hs300_spot_df)
 
-if __name__ == '__main__':
-    test()
+    option_sina_cffex_hs300_daily_df = option_sina_cffex_hs300_daily(contract="io2004C4450")
+    print(option_sina_cffex_hs300_daily_df)
+
+    # 期权-上交所-50ETF
+    option_sina_sse_list_df = option_sina_sse_list(symbol="50ETF", exchange="null")
+    print(option_sina_sse_list_df)
+
+    option_sina_sse_expire_day_df = option_sina_sse_expire_day(trade_date="202002", symbol="50ETF", exchange="null")
+    print(option_sina_sse_expire_day_df)
+
+    option_sina_sse_codes_df = option_sina_sse_codes(trade_date="202002", underlying="510300")
+    print(option_sina_sse_codes_df)
+
+    option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10002273")
+    print(option_sina_sse_spot_price_df)
+
+    option_sina_sse_underlying_spot_price_df = option_sina_sse_underlying_spot_price(code="sh510300")
+    print(option_sina_sse_underlying_spot_price_df)
+
+    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10002273")
+    print(option_sina_sse_greeks_df)
+
+    option_sina_sse_minute_df = option_sina_sse_minute(code="10002273")
+    print(option_sina_sse_minute_df)
+
+    option_sina_sse_daily_df = option_sina_sse_daily(code="10002273")
+    print(option_sina_sse_daily_df)

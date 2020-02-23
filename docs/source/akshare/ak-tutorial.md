@@ -362,6 +362,18 @@
  "charity_china_progress"  # 慈善中国-慈善项目进展
  "charity_china_report"  # 慈善中国-慈善组织年报
  "charity_china_platform"  # 慈善中国-募捐信息平台
+ # 期权-新浪
+ "option_sina_cffex_hs300_list"  # 沪深300期权列表
+ "option_sina_cffex_hs300_spot"  # 沪深300期权实时行情
+ "option_sina_cffex_hs300_daily"  # 沪深300期权历史行情-日频
+ "option_sina_sse_list"  # 上交所期权列表
+ "option_sina_sse_expire_day"  # 上交所期权剩余到期日
+ "option_sina_sse_codes"  # 上交所期权代码
+ "option_sina_sse_spot_price"  # 上交所期权实时行情
+ "option_sina_sse_underlying_spot_price"  # 上交所期权标的物实时行情
+ "option_sina_sse_greeks"  # 上交所期权希腊字母
+ "option_sina_sse_minute"  # 上交所期权分钟数据
+ "option_sina_sse_daily"  # 上交所期权日频数据
 ```
 
 ## 3. 案例演示

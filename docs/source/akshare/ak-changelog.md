@@ -1069,4 +1069,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_hist_all
 修复-epidemic_hist_city
 修复-epidemic_hist_province
+
+0.4.9
+新增-option_sina_cffex_hs300_list
+新增-option_sina_cffex_hs300_spot
+新增-option_sina_cffex_hs300_daily
+新增-option_sina_sse_list
+新增-option_sina_sse_expire_day
+新增-option_sina_sse_codes
+新增-option_sina_sse_spot_price
+新增-option_sina_sse_underlying_spot_price
+新增-option_sina_sse_greeks
+新增-option_sina_sse_minute
+新增-option_sina_sse_daily
 ```

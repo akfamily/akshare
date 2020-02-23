@@ -814,10 +814,39 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_hist_all
 修复-epidemic_hist_city
 修复-epidemic_hist_province
+0.4.9
+新增-option_sina_cffex_hs300_list
+新增-option_sina_cffex_hs300_spot
+新增-option_sina_cffex_hs300_daily
+新增-option_sina_sse_list
+新增-option_sina_sse_expire_day
+新增-option_sina_sse_codes
+新增-option_sina_sse_spot_price
+新增-option_sina_sse_underlying_spot_price
+新增-option_sina_sse_greeks
+新增-option_sina_sse_minute
+新增-option_sina_sse_daily
 """
 
-__version__ = "0.4.8"
+__version__ = "0.4.9"
 __author__ = "Albert King"
+
+"""
+金融期权-新浪
+"""
+from akshare.option.option_finance_sina import (
+    option_sina_cffex_hs300_list,
+    option_sina_cffex_hs300_spot,
+    option_sina_cffex_hs300_daily,
+    option_sina_sse_list,
+    option_sina_sse_expire_day,
+    option_sina_sse_codes,
+    option_sina_sse_spot_price,
+    option_sina_sse_underlying_spot_price,
+    option_sina_sse_greeks,
+    option_sina_sse_minute,
+    option_sina_sse_daily,
+)
 
 """
 中国-慈善
@@ -841,7 +870,6 @@ from akshare.event.franchise import franchise_china
 """
 from akshare.bond.zh_bond_sina import bond_zh_hs_daily, bond_zh_hs_spot
 from akshare.bond.zh_bond_cov_sina import bond_zh_hs_cov_daily, bond_zh_hs_cov_spot
-
 
 """
 for pro api
