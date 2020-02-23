@@ -1730,14 +1730,17 @@ print(epidemic_trip_df)
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| Province | str | Y | - |
-| City | str | Y | - |
-| Confirmed | float | Y | - |
-| Dead | float | Y | - |
-| Cured | float | Y | - |
-| Severe | float | Y | - |
-| Critical | float | Y | - |
-| date | str | Y | - |
+| date | str | Y | 时间（天） |
+| country | str | Y | 国家 |
+| countryCode | float | Y | 国家代码 |
+| province | float | Y | 省 |
+| provinceCode | float | Y | 省代码 |
+| city | float | Y | 市 |
+| cityCode | float | Y | 市代码 |
+| confirmed | str | Y | 确诊人数 |
+| suspected | str | Y | 疑似人数 |
+| cured | str | Y | 治愈人数 |
+| dead | str | Y | 死亡人数 |
 			
 接口示例-epidemic_hist_all
 
@@ -1750,120 +1753,112 @@ print(epidemic_hist_all_df)
 数据示例-epidemic_hist_all
 
 ```
-    Province  City  Confirmed  Dead  Cured  Severe  Critical        date
-0        安徽省    合肥        128     7      0       0         0  2020-02-07
-1        安徽省    淮北         22     0      0       0         0  2020-02-07
-2        安徽省    亳州         81     2      0       0         0  2020-02-07
-3        安徽省    宿州         28     0      0       0         0  2020-02-07
-4        安徽省    蚌埠         99     0      0       0         0  2020-02-07
-..       ...   ...        ...   ...    ...     ...       ...         ...
-133       新疆  乌鲁木齐          2     0      0       0         0  2020-01-23
-134      甘肃省    兰州          1     0      0       0         0  2020-01-23
-135       香港    香港          2     0      0       0         0  2020-01-23
-136       澳门    澳门          2     0      0       0         0  2020-01-23
-137       台湾    台湾          1     0      0       0         0  2020-01-23
+             date country countryCode  ... suspected cured dead
+0      2019-12-01      中国          CN  ...         0     0    0
+1      2019-12-01      中国          CN  ...         0     0    0
+2      2019-12-01      中国          CN  ...         0     0    0
+3      2019-12-02      中国          CN  ...         0     0    0
+4      2019-12-02      中国          CN  ...         0     0    0
+           ...     ...         ...  ...       ...   ...  ...
+15438  2020-02-23      瑞典          SE  ...         0     0    0
+15439  2020-02-23     新加坡          SG  ...         0    49    0
+15440  2020-02-23      泰国          TH  ...         0    17    0
+15441  2020-02-23      美国          US  ...         0     3    0
+15442  2020-02-23      越南          VN  ...         0     9    0
 ```
 
 输入参数-epidemic_hist_city
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| - | - | - | - |
+| city | str | Y | city="武汉市" |
 
 输出参数-epidemic_hist_city
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| Date | str | Y | - |
-| Province | str | Y | - |
-| City | str | Y | - |
-| Confirmed | float | Y | - |
-| Dead | float | Y | - |
-| Cured | float | Y | - |
-| Severe | float | Y | - |
-| Critical | float | Y | - |
+| date | str | Y | 时间（天） |
+| country | str | Y | 国家 |
+| countryCode | float | Y | 国家代码 |
+| province | float | Y | 省 |
+| provinceCode | float | Y | 省代码 |
+| city | float | Y | 市 |
+| cityCode | float | Y | 市代码 |
+| confirmed | str | Y | 确诊人数 |
+| suspected | str | Y | 疑似人数 |
+| cured | str | Y | 治愈人数 |
+| dead | str | Y | 死亡人数 |
 			
 接口示例-epidemic_hist_city
 
 ```python
 import akshare as ak
-epidemic_hist_city_df = ak.epidemic_hist_city(city="武汉")
+epidemic_hist_city_df = ak.epidemic_hist_city(city="武汉市")
 print(epidemic_hist_city_df)
 ```
 
 数据示例-epidemic_hist_city
 
 ```
-          Date Province City  Confirmed  Dead  Cured  Severe  Critical
-0   2020-02-07      湖北省   武汉      13603   545      0       0         0
-1   2020-02-06      湖北省   武汉      11618   478      0       0         0
-2   2020-02-05      湖北省   武汉      10117   414      0       0         0
-3   2020-02-04      湖北省   武汉       8351   362      0       0         0
-4   2020-02-03      湖北省   武汉       6384   313      0       0         0
-..         ...      ...  ...        ...   ...    ...     ...       ...
-11  2020-01-27      湖北省   武汉       1590    85      0       0         0
-12  2020-01-26      湖北省   武汉        698    63     42     141        51
-13  2020-01-25      湖北省   武汉        618     0      0       0         0
-14  2020-01-24      湖北省   武汉        572     0      0       0         0
-15  2020-01-23      湖北省   武汉        495     0      0       0         0
+             date country countryCode  ... suspected cured  dead
+2      2019-12-01      中国          CN  ...         0     0     0
+5      2019-12-02      中国          CN  ...         0     0     0
+8      2019-12-03      中国          CN  ...         0     0     0
+11     2019-12-04      中国          CN  ...         0     0     0
+14     2019-12-05      中国          CN  ...         0     0     0
+           ...     ...         ...  ...       ...   ...   ...
+12979  2020-02-19      中国          CN  ...         0  4990  1497
+13526  2020-02-20      中国          CN  ...         0  5573  1585
+14071  2020-02-21      中国          CN  ...         0  6280  1684
+14614  2020-02-22      中国          CN  ...         0  7278  1774
+15154  2020-02-23      中国          CN  ...         0  8171  1856
 ```
 
 输入参数-epidemic_hist_province
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| - | - | - | - |
+| province | str | Y | province="湖北省" |
 
 输出参数-epidemic_hist_province
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| Date | str | Y | - |
-| Province | str | Y | - |
-| Confirmed | float | Y | - |
-| Dead | float | Y | - |
-| Cured | float | Y | - |
-| Severe | float | Y | - |
-| Critical | float | Y | - |
-| CloseContact | float | Y | - |
-| Obse | float | Y | - |
-| UnObse | float | Y | - |
+| date | str | Y | 时间（天） |
+| country | str | Y | 国家 |
+| countryCode | float | Y | 国家代码 |
+| province | float | Y | 省 |
+| provinceCode | float | Y | 省代码 |
+| city | float | Y | 市 |
+| cityCode | float | Y | 市代码 |
+| confirmed | str | Y | 确诊人数 |
+| suspected | str | Y | 疑似人数 |
+| cured | str | Y | 治愈人数 |
+| dead | str | Y | 死亡人数 |
 			
 接口示例-epidemic_hist_province
 
 ```python
 import akshare as ak
-epidemic_hist_province_df = ak.epidemic_hist_province(province="湖北")
+epidemic_hist_province_df = ak.epidemic_hist_province(province="湖北省")
 print(epidemic_hist_province_df)
 ```
 
 数据示例-epidemic_hist_province
 
 ```
-          Date Province  Confirmed  Dead  Cured  Severe  Critical  \
-0   2020-02-07      湖北省      24953   699   1115    4188      1007   
-1   2020-02-06      湖北省      22112   618    817    3161       841   
-2   2020-02-05      湖北省      19665   549    633    2328       756   
-3   2020-02-04      湖北省      16678   479    520    1809       711   
-4   2020-02-03      湖北省      13522   414    396    1567       576   
-..         ...      ...        ...   ...    ...     ...       ...   
-19  2020-01-19      湖北省        198     0      0       0         0   
-20  2020-01-18      湖北省        121     0      0       0         0   
-21  2020-01-17      湖北省         62     0      0       0         0   
-22  2020-01-16      湖北省         45     0      0       0         0   
-23  2020-01-15      湖北省         41     0      0       0         0   
-    CloseContact   Obse  UnObse  
-0          32767  32767       1  
-1          32767  32767       1  
-2          32767  32767       1  
-3          32767  32767       1  
-4          32767  32767       1  
-..           ...    ...     ...  
-19             0      0       0  
-20             0      0       0  
-21             0      0       0  
-22             0      0       0  
-23             0      0       0  
+             date country countryCode  ... suspected cured dead
+1      2019-12-01      中国          CN  ...         0     0    0
+2      2019-12-01      中国          CN  ...         0     0    0
+4      2019-12-02      中国          CN  ...         0     0    0
+5      2019-12-02      中国          CN  ...         0     0    0
+7      2019-12-03      中国          CN  ...         0     0    0
+           ...     ...         ...  ...       ...   ...  ...
+15166  2020-02-23      中国          CN  ...         0   123    3
+15167  2020-02-23      中国          CN  ...         0   248   19
+15168  2020-02-23      中国          CN  ...         0    78    8
+15169  2020-02-23      中国          CN  ...         0   232   13
+15170  2020-02-23      中国          CN  ...         0    10    0
 ```
 
 ### 历史数据查询
@@ -1886,17 +1881,17 @@ print(epidemic_hist_province_df)
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| date      | str   | Y        |   |
-| country      | str   | Y        |   |
-| countryCode      | str   | Y        |   |
-| province      | str   | Y        |   |
-| provinceCode      | str   | Y        |   |
-| city      | str   | Y        |   |
-| cityCode      | float   | Y        |   |
-| confirmed      | float   | Y        |   |
-| suspected      | float   | Y        |   |
-| cured      | float   | Y        |   |
-| dead      | float   | Y        |   |
+| date | str | Y | 时间（天） |
+| country | str | Y | 国家 |
+| countryCode | float | Y | 国家代码 |
+| province | float | Y | 省 |
+| provinceCode | float | Y | 省代码 |
+| city | float | Y | 市 |
+| cityCode | float | Y | 市代码 |
+| confirmed | str | Y | 确诊人数 |
+| suspected | str | Y | 疑似人数 |
+| cured | str | Y | 治愈人数 |
+| dead | str | Y | 死亡人数 |
 			
 接口示例
 

@@ -463,50 +463,52 @@ def epidemic_trip():
     return pd.DataFrame(r.json()["data"]["list"])
 
 
-def epidemic_hist_all():
+def epidemic_hist_all() -> pd.DataFrame:
     """
-    NCP细化到地市的细颗粒数据
-    https://github.com/norratek/Ncov2020HistoryData
-    https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
-    :return: 每日的历史数据
+    该接口最好用代理速度比较快
+    https://github.com/canghailan/Wuhan-2019-nCoV
+    2019-12-01开始
+    :return:
     :rtype: pandas.DataFrame
     """
-    url = "http://ncov.nosensor.com:8080/api/"
-    data_json = requests.get(url).json()
-    big_df = pd.DataFrame()
-    for item in range(0, len(data_json["city"])):
-        print(data_json["city"][item]["Time"])
-        temp_df = pd.DataFrame(data_json["city"][item]["CityDetail"])
-        temp_df["date"] = data_json["city"][item]["Time"]
-        big_df = big_df.append(temp_df)
-    return big_df
+    url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
+    r = requests.get(url)
+    data_json = r.json()
+    data_df = pd.DataFrame(data_json)
+    return data_df
 
 
-def epidemic_hist_city(city="武汉"):
+def epidemic_hist_city(city: str = "武汉市") -> pd.DataFrame:
     """
-    https://github.com/norratek/Ncov2020HistoryData
-    https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
-    :return: 每日的历史数据
+    该接口最好用代理速度比较快
+    https://github.com/canghailan/Wuhan-2019-nCoV
+    2019-12-01开始
+    :return:
     :rtype: pandas.DataFrame
     """
-    url = f"http://ncov.nosensor.com:8080/api/city={city}"
-    data_json = requests.get(url).json().get("city", None)
-    return pd.DataFrame(data_json)
+    url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
+    r = requests.get(url)
+    data_json = r.json()
+    data_df = pd.DataFrame(data_json)
+    return data_df[data_df["city"] == city]
 
 
-def epidemic_hist_province(province="湖北"):
+def epidemic_hist_province(province: str = "湖北省") -> pd.DataFrame:
     """
-    https://github.com/norratek/Ncov2020HistoryData
-    https://docs.google.com/spreadsheets/d/1JNQnFYJpR7PxQo5K5lwXTuE0F6jprhMXuy7DPnV9H90/edit#gid=0
-    :return: 每日的历史数据
+    该接口最好用代理速度比较快
+    https://github.com/canghailan/Wuhan-2019-nCoV
+    2019-12-01开始
+    :return:
     :rtype: pandas.DataFrame
     """
-    url = f"http://ncov.nosensor.com:8080/api/province={province}"
-    data_json = requests.get(url).json().get("province", None)
-    return pd.DataFrame(data_json)
+    url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
+    r = requests.get(url)
+    data_json = r.json()
+    data_df = pd.DataFrame(data_json)
+    return data_df[data_df["province"] == province]
 
 
-def epidemic_history():
+def epidemic_history() -> pd.DataFrame:
     """
     该接口最好用代理速度比较快
     https://github.com/canghailan/Wuhan-2019-nCoV
@@ -600,9 +602,9 @@ if __name__ == "__main__":
     # 历史数据
     epidemic_hist_all_df = epidemic_hist_all()
     print(epidemic_hist_all_df)
-    epidemic_hist_city_df = epidemic_hist_city(city="武汉")
+    epidemic_hist_city_df = epidemic_hist_city(city="武汉市")
     print(epidemic_hist_city_df)
-    epidemic_hist_province_df = epidemic_hist_province(province="湖北")
+    epidemic_hist_province_df = epidemic_hist_province(province="湖北省")
     print(epidemic_hist_province_df)
     # 详细历史数据
     epidemic_history_df = epidemic_history()

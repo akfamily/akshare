@@ -810,9 +810,13 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-charity_china_report
 0.4.7
 新增-测试接口
+0.4.8
+修复-epidemic_hist_all
+修复-epidemic_hist_city
+修复-epidemic_hist_province
 """
 
-__version__ = "0.4.7"
+__version__ = "0.4.8"
 __author__ = "Albert King"
 
 """
