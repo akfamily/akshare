@@ -323,13 +323,14 @@ ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
 
 #### 现货价格和基差
 
-基差是商品期货非常重要的基本面因素. 这里提供两种获取基差的方法: 
+基差是商品期货非常重要的基本面因素, AkShare 在这里提供两种获取基差的方法: 
 
 获取当天的基差数据
 
 ```python
 import akshare as ak
-ak.get_spot_price("20180712")
+get_spot_price_df = ak.get_spot_price("20180712")
+print(get_spot_price_df)
 ```
 
 返回值分别为品种、现货价格、最近交割合约、最近交割合约价格、主力合约、主力合约价格、最近合约基差值、主力合约基差值、最近合约基差率、主力合约基差率. 
@@ -360,6 +361,14 @@ ak.get_dce_rank_table()
 ak.get_cffex_rank_table()
 ak.get_czce_rank_table()
 ak.get_shfe_rank_table()
+```
+
+代码示例:
+
+```python
+import akshare as ak
+get_dce_rank_table_df = ak.get_czce_rank_table(date='20200213')
+print(get_dce_rank_table_df)
 ```
 
 注意: 

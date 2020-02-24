@@ -530,7 +530,10 @@ def _table_cut_cal(table_cut, symbol):
 
 
 if __name__ == '__main__':
-    get_dce_rank_table_df = get_czce_rank_table(date='20200131')
+    get_dce_rank_table_df = get_czce_rank_table(date='20200213')
+    print(get_dce_rank_table_df)
+    get_cffex_rank_table_df = get_cffex_rank_table(date='20200213')
+    print(get_cffex_rank_table_df)
     # for k, v in dfs.items():
     #     print(type(v['long_open_interest'].tolist()[-1]))
     # get_rank_sum("20180301")
