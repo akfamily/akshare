@@ -826,9 +826,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-option_sina_sse_greeks
 新增-option_sina_sse_minute
 新增-option_sina_sse_daily
+0.4.10
+修复-金十数据websocket接口
 """
 
-__version__ = "0.4.9"
+__version__ = "0.4.10"
 __author__ = "Albert King"
 
 """

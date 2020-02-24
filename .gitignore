@@ -19,7 +19,6 @@
 # Temp
 build/
 dist/
-setup.py
 *.egg-info/
 colors
 

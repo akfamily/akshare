@@ -6,16 +6,35 @@ date: 2019/11/16 22:47
 contact: jindaxiang@163.com
 desc: 金十数据 websocket 实时数据接口
 """
+import json
 import time
 from threading import Timer, Event, Thread
 
+import requests
 import websocket
+
+
+def _get_sid():
+    """
+    XHR 监听 sid
+    需要动态获取sid, 拼接后访问
+    https://www.jb51.net/article/149738.htm
+    用轮询获取 sid 用 sid 请求
+    :return:
+    :rtype:
+    """
+    url = "https://sshhbhekjf.jin10.com:9081/socket.io/?EIO=3&transport=polling"
+    r = requests.get(url)
+    data_text = r.text
+    data_json = json.loads(data_text[data_text.find("{") :])
+    return data_json["sid"]
 
 
 class HeartbeatThread(Thread):
     """
     心跳
     """
+
     def __init__(self, event, ws):
         super(HeartbeatThread, self).__init__()
         self.event = event
@@ -58,6 +77,8 @@ def on_close(ws):
 def on_open(ws):
     """请求连接"""
     ws.send("2probe")
+    time.sleep(0.02)
+    ws.send("5")
 
 
 def on_emit(ws):
@@ -86,7 +107,7 @@ def watch():
 
     websocket.enableTrace(False)
     ws = websocket.WebSocketApp(
-        "wss://sshibikfdn.jin10.com:9085/socket.io/?EIO=3&transport=websocket",
+        f"wss://sshhbhekjf.jin10.com:9081/socket.io/?EIO=3&transport=websocket&sid={_get_sid()}",
         on_message=on_message,
         on_error=on_error,
         on_close=on_close,
