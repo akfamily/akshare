@@ -385,7 +385,7 @@
 
 ### 3.1 获取展期收益率
 
-代码:
+示例代码
 
 ```python
 import akshare as ak
@@ -422,7 +422,7 @@ ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_da
 
 ### 3.2 获取私募指数数据
 
-代码:
+示例代码
 
 ```python
 import akshare as ak

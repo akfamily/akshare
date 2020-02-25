@@ -5,9 +5,9 @@ Author: Albert King
 date: 2019/9/15 18:27
 desc: 获取智道智科的私募基金指数数据, 可以为用户提供私募基金策略发展方向的参考
 """
+import matplotlib.pyplot as plt
 import pandas as pd
 import requests
-import matplotlib.pyplot as plt
 
 from akshare.fund.cons import zdzk_headers, code_name_map_dict
 
@@ -90,5 +90,5 @@ def _plot(data_df, title):
 
 
 if __name__ == "__main__":
-    zdzk_se = zdzk_fund_index(index_type=32, plot=True)
-    print(zdzk_se)
+    zdzk_fund_index_se = zdzk_fund_index(index_type=30, plot=True)
+    print(zdzk_fund_index_se)
