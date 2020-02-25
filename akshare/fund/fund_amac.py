@@ -656,6 +656,8 @@ if __name__ == "__main__":
     # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     amac_fund_info_df = amac_fund_info()
     print(amac_fund_info_df)
+    example_df = amac_fund_info_df[amac_fund_info_df["私募基金管理人名称"].str.contains("聚宽")]
+    print(example_df)
     # 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
     amac_securities_info_df = amac_securities_info()
     print(amac_securities_info_df)
