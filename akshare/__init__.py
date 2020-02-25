@@ -835,9 +835,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-交易法门-工具-资金分析-成交排名
 0.4.12
 新增-微博舆情报告
+0.4.13
+新增-Python3.8.1支持
 """
 
-__version__ = "0.4.12"
+__version__ = "0.4.13"
 __author__ = "Albert King"
 
 """
