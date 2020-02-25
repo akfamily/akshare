@@ -21,6 +21,7 @@ build/
 dist/
 *.egg-info/
 colors
+setup.py
 
 
 # IDE
