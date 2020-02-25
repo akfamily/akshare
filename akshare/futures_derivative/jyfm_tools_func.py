@@ -24,6 +24,9 @@ desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 
 # 交易法门-工具-资金分析
 交易法门-工具-资金分析-资金流向
+交易法门-工具-资金分析-沉淀资金
+交易法门-工具-资金分析-资金季节性
+交易法门-工具-资金分析-成交排名
 
 # 交易法门-工具-仓单分析
 交易法门-工具-仓单分析-仓单日报
@@ -386,13 +389,15 @@ def jyfm_tools_position_season(symbol="RB", code="05", headers=""):
 
 
 # 交易法门-工具-资金分析
-def jyfm_tools_position_fund(trade_date="2020-01-08", indicator="沉淀资金排名", headers=""):
+def jyfm_tools_position_fund_direction(
+    trade_date="2020-02-24", indicator="期货品种资金流向排名", headers=""
+):
     """
     交易法门-工具-资金分析-资金流向
     https://www.jiaoyifamen.com/tools/position/fund/?day=2020-01-08
     :param trade_date: 指定交易日
     :type trade_date: str
-    :param indicator: "沉淀资金排名" or "资金流向排名"
+    :param indicator: "期货品种资金流向排名" or "期货主力合约资金流向排名"
     :type indicator: str
     :param headers: headers with cookies
     :type headers: dict
@@ -403,23 +408,140 @@ def jyfm_tools_position_fund(trade_date="2020-01-08", indicator="沉淀资金排
         "day": trade_date,
     }
     url = "https://www.jiaoyifamen.com/tools/position/fund/"
-    res = requests.get(url, params=params, headers=headers)
-    data_json = res.json()
-    if indicator == "沉淀资金排名":
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    if indicator == "期货品种资金流向排名":
         return pd.DataFrame(
             [
-                [data_json["tradingDay"]] * len(data_json["category1"]),
-                data_json["category1"],
-                data_json["value1"],
+                [data_json["tradingDay"]] * len(data_json["flowCategory"]),
+                data_json["flowCategory"],
+                data_json["flowValue"],
             ],
             index=["date", "symbol", "fund"],
         ).T
     else:
         return pd.DataFrame(
             [
-                [data_json["tradingDay"]] * len(data_json["category2"]),
-                data_json["category2"],
-                data_json["value2"],
+                [data_json["tradingDay"]] * len(data_json["dominantFlowCategory"]),
+                data_json["dominantFlowCategory"],
+                data_json["dominantFlowValue"],
+            ],
+            index=["date", "symbol", "fund"],
+        ).T
+
+
+def jyfm_tools_position_fund_down(
+    trade_date="2020-02-24", indicator="期货品种沉淀资金排名", headers=""
+):
+    """
+    交易法门-工具-资金分析-沉淀资金
+    https://www.jiaoyifamen.com/tools/position/fund/?day=2020-01-08
+    :param trade_date: 指定交易日
+    :type trade_date: str
+    :param indicator: "期货品种沉淀资金排名" or "期货主力合约沉淀资金排名"
+    :type indicator: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定交易日的沉淀资金
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "day": trade_date,
+    }
+    url = "https://www.jiaoyifamen.com/tools/position/fund/"
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    if indicator == "期货品种沉淀资金排名":
+        return pd.DataFrame(
+            [
+                [data_json["tradingDay"]] * len(data_json["precipitationCategory"]),
+                data_json["precipitationCategory"],
+                data_json["precipitationValue"],
+            ],
+            index=["date", "symbol", "fund"],
+        ).T
+    else:
+        return pd.DataFrame(
+            [
+                [data_json["tradingDay"]] * len(data_json["dominantPrecipitationCategory"]),
+                data_json["dominantPrecipitationCategory"],
+                data_json["dominantPrecipitationValue"],
+            ],
+            index=["date", "symbol", "fund"],
+        ).T
+
+
+def jyfm_tools_position_fund_season(symbol="RB", code="05", headers=""):
+    """
+    交易法门-工具-资金分析-资金季节性
+    https://www.jiaoyifamen.com/tools/position/fund/?day=2020-01-08
+    :param symbol: 指定品种
+    :type symbol: str
+    :param code: 合约到期月
+    :type code: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定交易日的资金资金季节性
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "type": symbol,
+        "code": code,
+    }
+    url = "https://www.jiaoyifamen.com/tools/position/fund/season"
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    data_df = pd.DataFrame(
+        [
+            data_json["dataCategory"],
+            data_json["year2013"],
+            data_json["year2014"],
+            data_json["year2015"],
+            data_json["year2016"],
+            data_json["year2017"],
+            data_json["year2018"],
+            data_json["year2019"],
+            data_json["year2020"],
+        ],
+        index=["date", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"],
+    ).T
+    return data_df
+
+
+def jyfm_tools_position_fund_deal(trade_date="2020-02-24", indicator="期货品种成交量排名", headers=""):
+    """
+    交易法门-工具-资金分析-成交排名
+    https://www.jiaoyifamen.com/tools/position/fund/?day=2020-01-08
+    :param trade_date: 指定交易日
+    :type trade_date: str
+    :param indicator: "期货品种成交量排名" or "期货主力合约成交量排名"
+    :type indicator: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定交易日的资金成交排名
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "day": trade_date,
+    }
+    url = "https://www.jiaoyifamen.com/tools/position/fund/"
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    if indicator == "期货品种成交量排名":
+        return pd.DataFrame(
+            [
+                [data_json["tradingDay"]] * len(data_json["turnOverCategory"]),
+                data_json["turnOverCategory"],
+                data_json["turnOverValue"],
+            ],
+            index=["date", "symbol", "fund"],
+        ).T
+    else:
+        return pd.DataFrame(
+            [
+                [data_json["tradingDay"]] * len(data_json["dominantTurnOverCategory"]),
+                data_json["dominantTurnOverCategory"],
+                data_json["dominantTurnOverValue"],
             ],
             index=["date", "symbol", "fund"],
         ).T
@@ -838,10 +960,22 @@ if __name__ == "__main__":
     print(jyfm_tools_position_season_df)
 
     # 交易法门-工具-资金分析
-    jyfm_tools_position_fund_df = jyfm_tools_position_fund(
-        trade_date="2020-01-08", indicator="沉淀资金排名", headers=headers
+    # 交易法门-工具-资金分析-资金流向
+    jyfm_tools_position_fund_direction_df = jyfm_tools_position_fund_direction(
+        trade_date="2020-02-24", indicator="期货主力合约资金流向排名", headers=headers
     )
-    print(jyfm_tools_position_fund_df)
+    print(jyfm_tools_position_fund_direction_df)
+    # 交易法门-工具-资金分析-沉淀资金
+    jyfm_tools_position_fund_down_df = jyfm_tools_position_fund_down(
+        trade_date="2020-02-24", indicator="期货主力合约沉淀资金排名", headers=headers
+    )
+    print(jyfm_tools_position_fund_down_df)
+    # 交易法门-工具-资金分析-资金季节性
+    jyfm_tools_position_fund_season_df = jyfm_tools_position_fund_season(symbol="RB", code="05", headers=headers)
+    print(jyfm_tools_position_fund_season_df)
+    # 交易法门-工具-资金分析-成交排名
+    jyfm_tools_position_fund_deal_df = jyfm_tools_position_fund_deal(trade_date="2020-02-24", indicator="期货主力合约成交量排名", headers=headers)
+    print(jyfm_tools_position_fund_deal_df)
 
     # 交易法门-工具-仓单分析
     # 交易法门-工具-仓单分析-仓单日报
@@ -888,8 +1022,10 @@ if __name__ == "__main__":
     print(jyfm_tools_futures_basis_rule_df)
 
     # 交易法门-工具-交易规则
+    # 交易法门-工具-交易规则-限仓规定
     jyfm_tools_receipt_expire_info_df = jyfm_tools_receipt_expire_info(headers=headers)
     print(jyfm_tools_receipt_expire_info_df)
+    # 交易法门-工具-交易规则-仓单有效期
     jyfm_tools_position_limit_info_df = jyfm_tools_position_limit_info(
         exchange="CFFEX", headers=headers
     )

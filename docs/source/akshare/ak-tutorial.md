@@ -239,7 +239,10 @@
  "jyfm_tools_research_query"  # 交易法门-工具-资讯汇总-研报查询
  "jyfm_tools_trade_calendar"  # 交易法门-工具-资讯汇总-交易日历
  # 交易法门-工具-资金分析
- "jyfm_tools_position_fund"  # 交易法门-工具-资金分析-资金流向
+ "jyfm_tools_position_fund_direction"  # 交易法门-工具-资金分析-资金流向
+ "jyfm_tools_position_fund_down"  # 交易法门-工具-资金分析-沉淀资金
+ "jyfm_tools_position_fund_season"  # 交易法门-工具-资金分析-资金季节性
+ "jyfm_tools_position_fund_deal"  # 交易法门-工具-资金分析-成交排名
  # 交易法门-工具-仓单分析
  "jyfm_tools_warehouse_receipt_daily"  # 交易法门-工具-仓单分析-仓单日报
  "jyfm_tools_warehouse_receipt_query"  # 交易法门-工具-仓单分析-仓单查询

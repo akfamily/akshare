@@ -828,9 +828,14 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-option_sina_sse_daily
 0.4.10
 修复-金十数据websocket接口
+0.4.11
+新增-交易法门-工具-资金分析-资金流向
+新增-交易法门-工具-资金分析-沉淀资金
+新增-交易法门-工具-资金分析-资金季节性
+新增-交易法门-工具-资金分析-成交排名
 """
 
-__version__ = "0.4.10"
+__version__ = "0.4.11"
 __author__ = "Albert King"
 
 """
@@ -1018,7 +1023,12 @@ from akshare.futures_derivative.jyfm_tools_func import (
 """
 交易法门-工具-资金分析
 """
-from akshare.futures_derivative.jyfm_tools_func import jyfm_tools_position_fund
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_position_fund_direction,
+    jyfm_tools_position_fund_down,
+    jyfm_tools_position_fund_season,
+    jyfm_tools_position_fund_deal,
+)
 
 """
 交易法门-工具-仓单分析
