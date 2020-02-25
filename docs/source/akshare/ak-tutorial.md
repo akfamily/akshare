@@ -377,6 +377,8 @@
  "option_sina_sse_greeks"  # 上交所期权希腊字母
  "option_sina_sse_minute"  # 上交所期权分钟数据
  "option_sina_sse_daily"  # 上交所期权日频数据
+ # 微博舆情报告
+ "stock_js_weibo_report"  # 微博舆情报告
 ```
 
 ## 3. 案例演示
