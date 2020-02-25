@@ -1327,7 +1327,7 @@ print(charity_china_platform_df)
 27                                                  #  ...                       None
 ```
 
-#### 微博舆情报告
+### 微博舆情报告
 
 接口: stock_js_weibo_report
 
