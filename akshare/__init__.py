@@ -833,10 +833,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-交易法门-工具-资金分析-沉淀资金
 新增-交易法门-工具-资金分析-资金季节性
 新增-交易法门-工具-资金分析-成交排名
+0.4.12
+新增-微博舆情报告
 """
 
-__version__ = "0.4.11"
+__version__ = "0.4.12"
 __author__ = "Albert King"
+
+"""
+微博舆情报告
+"""
+from akshare.stock.stock_weibo_nlp import stock_js_weibo_nlp_time, stock_js_weibo_report
 
 """
 金融期权-新浪
