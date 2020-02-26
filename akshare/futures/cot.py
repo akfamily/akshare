@@ -235,7 +235,7 @@ def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
 
     if len(df.columns) < 3:
         return {}
-    df = df.applymap(lambda x: x.strip() if type(x) == type('') else x)
+    df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
     df = df.applymap(lambda x: None if x == '' else x)
     df['variety'] = df['symbol'].apply(lambda x: symbol_varieties(x))
 
@@ -497,7 +497,7 @@ def get_cffex_rank_table(date=None, vars_list=cons.contract_symbols):
         if '网页错误' not in r.text:
             table = pd.read_csv(StringIO(r.text.split('\n交易日,')[1]))
             table = table.dropna(how='any')
-            table = table.applymap(lambda x: x.strip() if type(x) == type('') else x)
+            table = table.applymap(lambda x: x.strip() if isinstance(x, str) else x)
             for symbol in set(table['合约']):
                 table_cut = table[table['合约'] == symbol]
                 table_cut.columns = ['symbol', 'rank'] + rank_columns
@@ -530,10 +530,12 @@ def _table_cut_cal(table_cut, symbol):
 
 
 if __name__ == '__main__':
-    get_dce_rank_table_df = get_czce_rank_table(date='20200213')
-    print(get_dce_rank_table_df)
+    get_czce_rank_table_df = get_czce_rank_table(date='20200213')
+    print(get_czce_rank_table_df)
     get_cffex_rank_table_df = get_cffex_rank_table(date='20200213')
     print(get_cffex_rank_table_df)
+    get_shfe_rank_table_df = get_shfe_rank_table(date='20190711')
+    print(get_shfe_rank_table_df)
     # for k, v in dfs.items():
     #     print(type(v['long_open_interest'].tolist()[-1]))
     # get_rank_sum("20180301")

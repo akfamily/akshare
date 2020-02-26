@@ -135,9 +135,9 @@ def fx_pair_quote():
 
 
 if __name__ == "__main__":
-    df = fx_spot_quote()
-    print(df)
-    df = fx_swap_quote()
-    print(df)
-    df = fx_pair_quote()
-    print(df)
+    fx_spot_quote_df = fx_spot_quote()
+    print(fx_spot_quote_df)
+    fx_swap_quote_df = fx_swap_quote()
+    print(fx_swap_quote_df)
+    fx_pair_quote_df = fx_pair_quote()
+    print(fx_pair_quote_df)

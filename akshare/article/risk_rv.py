@@ -213,14 +213,14 @@ def article_rlab_rv(symbol="39693", plot=True):
 
 
 if __name__ == "__main__":
-    df = article_rlab_rv(symbol="39693")
-    print(df)
+    article_rlab_rv_df = article_rlab_rv(symbol="39693")
+    print(article_rlab_rv_df)
     help(article_rlab_rv)
 
-    df = article_oman_rv_short(symbol="FTSE")
-    print(df)
+    article_oman_rv_short_df = article_oman_rv_short(symbol="FTSE")
+    print(article_oman_rv_short_df)
     help(article_rlab_rv)
 
-    df = article_oman_rv(symbol="FTSE", index="rk_th2")
-    print(df)
+    article_oman_rv_df = article_oman_rv(symbol="FTSE", index="rk_th2")
+    print(article_oman_rv_df)
     help(article_rlab_rv)
