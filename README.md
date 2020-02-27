@@ -33,7 +33,7 @@
 ## Installation
 
 ```cmd
-pip install akshare --upgrade
+pip install akshare
 ```
 
 ## Tutorials
@@ -43,11 +43,6 @@ pip install akshare --upgrade
 3. [Tutorial](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-tutorial.html)
 4. [Data Dict](https://akshare.readthedocs.io/zh_CN/latest/README.html)
 5. [Subjects](https://akshare.readthedocs.io/zh_CN/latest/subjects/index.html)
-
-## TODO
-
-- Uniform interface
-- Support more data
 
 ## Contribution
 
@@ -60,119 +55,15 @@ pip install akshare --upgrade
 
 > Notice: We use [Black](https://black.readthedocs.io/en/stable/) to format the code
 
-## Acknowledgement
-
-特别感谢[FuShare](https://github.com/LowinLi/fushare)项目提供借鉴学习的机会;
-
-特别感谢[TuShare](https://github.com/waditu/tushare)项目提供借鉴学习的机会;
-
-感谢[生意社网站](http://www.100ppi.com/)提供的相关数据;
-
-感谢[奇货可查网站](https://qhkch.com/)提供的相关数据;
-
-感谢[智道智科网站](https://www.ziasset.com/)提供的相关数据;
-
-感谢[中国银行间市场交易商协会网站](http://www.nafmii.org.cn/)提供的相关数据;
-
-感谢[99期货网站](http://www.99qh.com/)提供的相关数据;
-
-感谢[英为财情网站](https://cn.investing.com/)提供的相关数据;
-
-感谢[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)提供的相关数据;
-
-感谢[金十数据网站](https://www.jin10.com/)提供的相关数据;
-
-感谢[交易法门网站](https://www.jiaoyifamen.com/)提供的相关数据;
-
-感谢[和讯财经网站](http://www.hexun.com/)提供的相关数据;
-
-感谢[新浪财经网站](https://finance.sina.com.cn/)提供的相关数据;
-
-感谢[Oxford-Man Institute网站](https://realized.oxford-man.ox.ac.uk/)提供的相关数据;
-
-感谢[DACHENG-XIU网站](https://dachxiu.chicagobooth.edu/)提供的相关数据;
-
-感谢[上海证券交易所网站](http://www.sse.com.cn/assortment/options/price/)提供的相关数据;
-
-感谢[深证证券交易所网站](http://www.szse.cn/)提供的相关数据;
-
-感谢[中国金融期货交易所网站](http://www.cffex.com.cn/)提供的相关数据;
-
-感谢[上海期货交易所网站](http://www.shfe.com.cn/)提供的相关数据;
-
-感谢[大连商品交易所网站](http://www.dce.com.cn/)提供的相关数据;
-
-感谢[郑州商品交易所网站](http://www.czce.com.cn/)提供的相关数据;
-
-感谢[上海国际能源交易中心网站](http://www.ine.com.cn/)提供的相关数据;
-
-感谢[timeanddate网站](https://www.timeanddate.com/)提供的相关数据;
-
-感谢[河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/)提供的相关数据;
-
-感谢[南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html)提供的相关数据;
-
-感谢[Economic Policy Uncertainty网站](http://www.nanhua.net/nhzc/varietytrend.html)提供的相关数据;
-
-感谢[微博指数](https://data.weibo.com/index/newindex)提供的相关数据;
-
-感谢[百度指数](http://index.baidu.com/v2/main/index.html)提供的相关数据;
-
-感谢[谷歌指数](https://trends.google.com/trends/?geo=US)提供的相关数据;
-
-感谢[申万指数](http://www.swsindex.com/idx0120.aspx?columnid=8832)提供的相关数据;
-
-感谢[真气网](https://www.aqistudy.cn/)提供的相关数据;
-
-感谢[财富网站](http://www.fortunechina.com/)提供的相关数据;
-
-感谢[中国证券投资基金业协会](http://gs.amac.org.cn/)提供的相关数据;
-
-感谢[猫眼电影网站](https://maoyan.com/board/1)提供的相关数据;
-
-感谢[Expatistan网站](https://www.expatistan.com/cost-of-living)提供的相关数据;
-
-感谢[北京市碳排放权电子交易平台](https://www.bjets.com.cn/article/jyxx/)提供的相关数据;
-
-感谢[国家金融与发展实验室网站](http://www.nifd.cn/)提供的相关数据;
-
-感谢[IT桔子](https://www.itjuzi.com)提供的相关数据;
-
-感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的相关数据;
-
-感谢[义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/)提供的相关数据;
-
-感谢[中国国家发展和改革委员会网站](http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741)提供的相关数据;
-
-感谢[163网站](https://news.163.com/special/epidemic/)提供的相关数据;
-
-感谢[丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)提供的相关数据;
-
-感谢[百度新型肺炎网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的相关数据;
-
-感谢[百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0)提供的相关数据;
-
-感谢[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message)提供的相关数据;
-
-感谢[新型肺炎-小区查询网站](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
-
-感谢[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的特许经营数据;
-
-感谢[慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html)提供的相关数据;
-
-感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Pandas 专题教程;
-
-感谢[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的 Anaconda 专题教程.
-
 ## Communication
 
-您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:
+Pay attention to **数据科学实战** WeChat Official Accounts to get the [AkShare](https://github.com/jindaxiang/akshare) updated info:
 
 <div align=center>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
 </div>
 
-您可以加入 **AkShare-官方** QQ交流群来咨询 [AkShare](https://github.com/jindaxiang/akshare) 使用中的问题, QQ群号: 326900231
+Application to add **AkShare-官方** QQ group and talk about [AkShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 326900231
 
 <div align=center>
     <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3">
@@ -182,11 +73,15 @@ pip install akshare --upgrade
 
 ## Statement
 
-1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据仅供参考, 不构成任何投资建议;
-2. 任何基于 [AkShare](https://github.com/jindaxiang/akshare) 进行研究的投资者请注意数据风险;
-3. [AkShare](https://github.com/jindaxiang/akshare) 坚持提供开源金融数据;
-4. [AkShare](https://github.com/jindaxiang/akshare) 基于某些不可控因素, 可能会移除部分数据接口;
-5. [AkShare](https://github.com/jindaxiang/akshare) 的使用请遵循相关开源协议.
+1. The data provided by [AkShare](https://github.com/jindaxiang/akshare) is for reference only and does not constitute any investment proposal;
+
+2. Any investor based on [AkShare](https://github.com/jindaxiang/akshare) research should pay more attention to data risk;
+
+3. [AkShare](https://github.com/jindaxiang/akshare) will insist on providing open-source financial data;
+
+4. Based on some uncontrollable factors, some data interfaces in [AkShare](https://github.com/jindaxiang/akshare) may be removed;
+
+5. Please follow the relevant open-source protocol used by [AkShare](https://github.com/jindaxiang/akshare)
 
 ## Show your style
 
@@ -221,3 +116,107 @@ Please use this **bibtex** if you want to cite this repository in your publicati
     howpublished = {\url{https://github.com/jindaxiang/akshare}},
 }
 ```
+
+## Acknowledgement
+
+Special thanks [FuShare](https://github.com/LowinLi/fushare) for the opportunity of learning from the project;
+
+Special thanks [TuShare](https://github.com/waditu/tushare) for the opportunity of learning from the project;
+
+Thanks for the data provided by [生意社网站](http://www.100ppi.com/)
+
+Thanks for the data provided by [奇货可查网站](https://qhkch.com/);
+
+Thanks for the data provided by [智道智科网站](https://www.ziasset.com/);
+
+Thanks for the data provided by [中国银行间市场交易商协会网站](http://www.nafmii.org.cn/);
+
+Thanks for the data provided by [99期货网站](http://www.99qh.com/);
+
+Thanks for the data provided by [英为财情网站](https://cn.investing.com/);
+
+Thanks for the data provided by [中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/);
+
+Thanks for the data provided by [金十数据网站](https://www.jin10.com/);
+
+Thanks for the data provided by [交易法门网站](https://www.jiaoyifamen.com/);
+
+Thanks for the data provided by [和讯财经网站](http://www.hexun.com/);
+
+Thanks for the data provided by [新浪财经网站](https://finance.sina.com.cn/);
+
+Thanks for the data provided by [Oxford-Man Institute 网站](https://realized.oxford-man.ox.ac.uk/);
+
+Thanks for the data provided by [DACHENG-XIU 网站](https://dachxiu.chicagobooth.edu/);
+
+Thanks for the data provided by [上海证券交易所网站](http://www.sse.com.cn/assortment/options/price/);
+
+Thanks for the data provided by [深证证券交易所网站](http://www.szse.cn/);
+
+Thanks for the data provided by [中国金融期货交易所网站](http://www.cffex.com.cn/);
+
+Thanks for the data provided by [上海期货交易所网站](http://www.shfe.com.cn/);
+
+Thanks for the data provided by [大连商品交易所网站](http://www.dce.com.cn/);
+
+Thanks for the data provided by [郑州商品交易所网站](http://www.czce.com.cn/);
+
+Thanks for the data provided by [上海国际能源交易中心网站](http://www.ine.com.cn/);
+
+Thanks for the data provided by [Timeanddate 网站](https://www.timeanddate.com/);
+
+Thanks for the data provided by [河北省空气质量预报信息发布系统网站](http://110.249.223.67/publish/);
+
+Thanks for the data provided by [南华期货网站](http://www.nanhua.net/nhzc/varietytrend.html);
+
+Thanks for the data provided by [Economic Policy Uncertainty 网站](http://www.nanhua.net/nhzc/varietytrend.html);
+
+Thanks for the data provided by [微博指数网站](https://data.weibo.com/index/newindex);
+
+Thanks for the data provided by [百度指数网站](http://index.baidu.com/v2/main/index.html);
+
+Thanks for the data provided by [谷歌指数网站](https://trends.google.com/trends/?geo=US);
+
+Thanks for the data provided by [申万指数网站](http://www.swsindex.com/idx0120.aspx?columnid=8832);
+
+Thanks for the data provided by [真气网网站](https://www.aqistudy.cn/);
+
+Thanks for the data provided by [财富网站](http://www.fortunechina.com/);
+
+Thanks for the data provided by [中国证券投资基金业协会网站](http://gs.amac.org.cn/);
+
+Thanks for the data provided by [猫眼电影网站](https://maoyan.com/board/1);
+
+Thanks for the data provided by [Expatistan 网站](https://www.expatistan.com/cost-of-living);
+
+Thanks for the data provided by [北京市碳排放权电子交易平台网站](https://www.bjets.com.cn/article/jyxx/);
+
+Thanks for the data provided by [国家金融与发展实验室网站](http://www.nifd.cn/);
+
+Thanks for the data provided by [IT桔子网站](https://www.itjuzi.com);
+
+Thanks for the data provided by [东方财富网站](http://data.eastmoney.com/jgdy/);
+
+Thanks for the data provided by [义乌小商品指数网站](http://www.ywindex.com/Home/Product/index/);
+
+Thanks for the data provided by [中国国家发展和改革委员会网站](http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741);
+
+Thanks for the data provided by [163网站](https://news.163.com/special/epidemic/);
+
+Thanks for the data provided by [丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0);
+
+Thanks for the data provided by [百度新型肺炎网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1);
+
+Thanks for the data provided by [百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0);
+
+Thanks for the data provided by [新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message);
+
+Thanks for the data provided by [新型肺炎-小区查询网站](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0);
+
+Thanks for the data provided by [商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/);
+
+Thanks for the data provided by [慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html);
+
+Thanks for the tutorial provided by [微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png);
+
+Thanks for the tutorial provided by [微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png).
