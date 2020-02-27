@@ -1100,4 +1100,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.4.14
 修复-get_receipt-CZCE问题
+
+0.4.15
+修复-hf_subscribe_exchange_symbol-在Linux Python 3.8.1 报错问题
 ```
