@@ -8,23 +8,23 @@ desc: 从大连商品交易所、上海期货交易所、郑州商品交易所�
 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定;
 郑州商品交易所格式分为三类
 """
+import datetime
 import json
 import re
-import datetime
 import warnings
 from io import StringIO
 
-from bs4 import BeautifulSoup
 import pandas as pd
+from bs4 import BeautifulSoup
 
+from akshare.futures import cons
 from akshare.futures.requests_fun import (
     requests_link
 )
+from akshare.futures.symbol_var import chinese_to_english, find_chinese
 from akshare.futures.symbol_var import (
     symbol_varieties
 )
-from akshare.futures import cons
-from akshare.futures.symbol_var import chinese_to_english, find_chinese
 
 calendar = cons.get_calendar()
 rank_columns = ['vol_party_name', 'vol', 'vol_chg', 'long_party_name', 'long_open_interest',

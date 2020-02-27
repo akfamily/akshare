@@ -1097,4 +1097,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.4.13
 新增-Python3.8.1支持
+
+0.4.14
+修复-get_receipt-CZCE问题
 ```

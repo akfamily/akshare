@@ -263,19 +263,19 @@ def get_czce_receipt_2(date: str = None, vars_list: List = cons.contract_symbols
 
 def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols):
     """
-        抓取郑州商品交易所注册仓单数据
-        适用20151112(包括)至今
-        Parameters
-        ------
-            date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-            vars_list: 合约品种如CF、TA等列表 为空时为所有商品
-        Return
-        -------
-            DataFrame:
-                展期收益率数据(DataFrame):`1
-                    var             商品品种                     string
-                    receipt         仓单数                       int
-                    date            日期                         string YYYYMMDD
+    抓取郑州商品交易所注册仓单数据
+    适用20151112(包括)至今
+    Parameters
+    ------
+        date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+        vars_list: 合约品种如CF、TA等列表 为空时为所有商品
+    Return
+    -------
+        DataFrame:
+            展期收益率数据(DataFrame):`1
+                var             商品品种                     string
+                receipt         仓单数                       int
+                date            日期                         string YYYYMMDD
     """
 
     date = cons.convert_date(date).strftime('%Y%m%d') if date is not None else datetime.date.today()
@@ -302,6 +302,8 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
             else:
                 strings = data_cut[0].tolist()[0]
                 string = strings.split(' ')[0][3:]
+                if len(string) > 7:
+                    continue
                 print(string)
                 var = chinese_to_english(re.sub('[A-Z]+', '', string))
             data_cut.columns = data_cut.loc[1, :]
@@ -381,5 +383,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20200214', end_day='20200214', vars_list=["C", "PP", "MA"])
+    get_receipt_df = get_receipt(start_day='20200225', end_day='20200225')
     print(get_receipt_df)
