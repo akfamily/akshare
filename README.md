@@ -168,13 +168,17 @@ pip install akshare --upgrade
 
 您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:
 
-<img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qrcode_for_gh_abc3d079060a_258.jpg" align="center"/>
+<div align=center>
+    <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
+</div>
 
-同时也欢迎您加入 QQ 群交流相关问题: 326900231
+您可以加入 **AkShare-官方** QQ交流群来咨询 [AkShare](https://github.com/jindaxiang/akshare) 使用中的问题, QQ群号: 326900231
 
-您可以扫码或者点击群二维码申请加入, 点击跳转加入:
-
-<a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方" align="center"></a>
+<div align=center>
+    <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3">
+        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方" align="center">
+    </a>
+</div>
 
 ## Statement
 
