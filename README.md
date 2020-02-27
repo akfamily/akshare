@@ -60,7 +60,7 @@ pip install akshare
 Pay attention to **数据科学实战** WeChat Official Accounts to get the [AkShare](https://github.com/jindaxiang/akshare) updated info:
 
 <div align=center>
-    <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
+    <img src="https://github.com/jindaxiang/akshare/blob/master/example/images/ds.png">
 </div>
 
 Application to add **AkShare-官方** QQ group and talk about [AkShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 326900231
