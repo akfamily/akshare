@@ -14,11 +14,9 @@
 
 4. 欢迎关注 **数据科学实战** 微信公众号来获取最新的更新信息;
 
-
 <div align=center>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
 </div>
-
 
 ## 引用
 
@@ -51,7 +49,9 @@
 
 **[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品定价和价格预测、机器学习在金融领域的应用等研究.
 
-<img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width = 20% height = 10% align = center/>
+<div align=center>
+    <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width = 20% height = 10% align = center/>
+</div>
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的特色
 
