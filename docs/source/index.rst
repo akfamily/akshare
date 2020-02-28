@@ -10,11 +10,9 @@ Welcome to AkShare's Online Documentation!
 
    Please visit `AkShare's Github`_ for source code!
 
-.. _AkShare's Github: https://github.com/jindaxiang/akshare
-
-.. note::
-
    Please visit `Github Issues`_ if you have any question!
+
+.. _AkShare's Github: https://github.com/jindaxiang/akshare
 
 .. _Github Issues: https://github.com/jindaxiang/akshare/issues
 
