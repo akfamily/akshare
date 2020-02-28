@@ -6,7 +6,9 @@
 Welcome to AkShare's Online Documentation!
 ===========================================
 
-`AkShare's Github Address`_
+.. note::
+
+   `AkShare's Github Address`_
 
 .. _AkShare's Github Address: https://github.com/jindaxiang/akshare
 
