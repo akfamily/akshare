@@ -12,7 +12,9 @@ Welcome to AkShare's Online Documentation!
 
 .. note::
 
-   This is AkShare's online documentation. Please contact Albert King via jindaxiang@163.com
+   This is AkShare's online documentation. Please visit `Github Issues`_
+
+.. _Github Issues: https://github.com/jindaxiang/akshare/issues
 
 .. toctree::
    :maxdepth: 2
