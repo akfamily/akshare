@@ -13,7 +13,7 @@
 
 ## Overview
 
-**Currently [AkShare](https://github.com/jindaxiang/akshare) only support Python version >= 3.6**
+**Currently [AkShare](https://github.com/jindaxiang/akshare) support Python >= 3.6**
 
 [AkShare](https://github.com/jindaxiang/akshare) is an, written with `Python-3.7.5`, aims to make fetch financial data as convenient as possible.
 
@@ -23,18 +23,34 @@
 
 # ![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare.png)
 
+## Installation
+
+```cmd
+pip install akshare
+```
+
+## Communication
+
+Pay attention to **数据科学实战** WeChat Official Accounts to get the [AkShare](https://github.com/jindaxiang/akshare) updated info:
+
+<div align=center>
+    <img src="https://github.com/jindaxiang/akshare/blob/master/example/images/ds.png">
+</div>
+
+Application to add **AkShare-官方** QQ group and talk about [AkShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 326900231
+
+<div align=center>
+    <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3">
+        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方" align="center">
+    </a>
+</div>
+
 ## Features
 
 - **Easy**: Just one line to fetch the data;
 - **Fast**: Just copy and paste;
 - **Extensible**: Easy to customize your own code;
 - **Powerful**: Python ecosystem;
-
-## Installation
-
-```cmd
-pip install akshare
-```
 
 ## Tutorials
 
@@ -54,22 +70,6 @@ pip install akshare
 - Add test cases
 
 > Notice: We use [Black](https://black.readthedocs.io/en/stable/) to format the code
-
-## Communication
-
-Pay attention to **数据科学实战** WeChat Official Accounts to get the [AkShare](https://github.com/jindaxiang/akshare) updated info:
-
-<div align=center>
-    <img src="https://github.com/jindaxiang/akshare/blob/master/example/images/ds.png">
-</div>
-
-Application to add **AkShare-官方** QQ group and talk about [AkShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 326900231
-
-<div align=center>
-    <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3">
-        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方" align="center">
-    </a>
-</div>
 
 ## Statement
 
