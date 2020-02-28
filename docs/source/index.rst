@@ -8,8 +8,7 @@ Welcome to AkShare's Online Documentation!
 
 .. note::
 
-   Please visit `AkShare's Github`_ for source code!
-   Please visit `Github Issues`_ if you have any question!
+   Please visit `AkShare's Github`_ for source code or visit `Github Issues`_ if you have any question!
 
 .. _AkShare's Github: https://github.com/jindaxiang/akshare
 
@@ -25,7 +24,6 @@ Welcome to AkShare's Online Documentation!
    akshare/ak-tutorial
    data/index
    akshare/ak-anaconda
-   akshare/ak-monitor
    akshare/ak-email
    akshare/ak-special
    akshare/ak-strategy
