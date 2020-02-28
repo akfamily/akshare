@@ -7,11 +7,25 @@ contact: jindaxiang@163.com
 desc: 宏观经济配置文件
 """
 # bitcoin
-bitcoin_url = "https://datacenter.jin10.com/get_dc_second_data"
+bitcoin_url = "https://datacenter-api.jin10.com/crypto_currency/list"
 bitcoin_payload = {
-    "type": "dc_bitcoin_current",
-    "jsonpCallback": "jQuery111104191226301236135_{}",
     "_": "1572857040275",
+}
+bitcoin_headers = {
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate, br",
+    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "cache-control": "no-cache",
+    "origin": "https://datacenter.jin10.com",
+    "pragma": "no-cache",
+    "referer": "https://datacenter.jin10.com/reportType/dc_bitcoin_current",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "x-app-id": "rU6QIu7JHe2gOUeR",
+    "x-csrf-token": "",
+    "x-version": "1.0.0",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
 }
 
 # urls-china

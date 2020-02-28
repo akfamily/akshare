@@ -12,29 +12,28 @@ import time
 import pandas as pd
 import requests
 
-from akshare.economic.cons import bitcoin_url, bitcoin_payload
+from akshare.economic.cons import bitcoin_url, bitcoin_payload, bitcoin_headers
 
 
 def get_js_dc_current():
     """
     主流数字货币的实时行情数据, 一次请求返回具体某一时刻行情数据
+    https://datacenter.jin10.com/reportType/dc_bitcoin_current
     :return: pandas.DataFrame
     """
     bit_payload = bitcoin_payload.copy()
     bit_payload.update({"_": int(time.time() * 1000)})
     bit_payload.update(
         {
-            "jsonpCallback": bitcoin_payload["jsonpCallback"].format(
-                int(time.time() * 1000)
-            )
+            "_": int(time.time() * 1000)
         }
     )
-    res = requests.get(bitcoin_url, params=bit_payload)
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    data_df = pd.DataFrame(json_data["data"])
-    data_df.set_index("update", drop=True, inplace=True)
+    r = requests.get(bitcoin_url, params=bit_payload, headers=bitcoin_headers)
+    data_json = r.json()
+    data_df = pd.DataFrame(data_json["data"])
+    data_df.set_index("reported_at", drop=True, inplace=True)
     data_df.index = pd.to_datetime(data_df.index)
-    return data_df.iloc[:, :-4]
+    return data_df
 
 
 def macro_fx_sentiment(start_date="2020-02-07", end_date="2020-02-07"):
