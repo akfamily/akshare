@@ -465,6 +465,7 @@ def epidemic_trip():
 
 def epidemic_hist_all() -> pd.DataFrame:
     """
+    返回丁香园的数据
     该接口最好用代理速度比较快
     https://github.com/canghailan/Wuhan-2019-nCoV
     2019-12-01开始
@@ -609,3 +610,4 @@ if __name__ == "__main__":
     # 详细历史数据
     epidemic_history_df = epidemic_history()
     print(epidemic_history_df)
+
