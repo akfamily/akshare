@@ -22,7 +22,7 @@ def md5(text):
 
 class SimuAgent():
     def __init__(self):
-        RestAgent.__init__(self)
+        # RestAgent.__init__(self)
         self.user_info = None
         self.df_fundlist = None
         self.cookies = None
