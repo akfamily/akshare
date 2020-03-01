@@ -100,6 +100,8 @@
 
 感谢[慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html)提供的相关数据;
 
+感谢[思知网站](https://www.ownthink.com/)提供的相关数据;
+
 ## 交流
 
 您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:

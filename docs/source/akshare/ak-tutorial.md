@@ -379,6 +379,8 @@
  "option_sina_sse_daily"  # 上交所期权日频数据
  # 微博舆情报告
  "stock_js_weibo_report"  # 微博舆情报告
+ # 自然语言处理
+ "nlp_ownthink"  # 知识图谱
 ```
 
 ## 3. 案例演示

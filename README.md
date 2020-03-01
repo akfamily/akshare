@@ -13,7 +13,7 @@
 
 ## Overview
 
-**Currently [AkShare](https://github.com/jindaxiang/akshare) support Python >= 3.6**
+[AkShare](https://github.com/jindaxiang/akshare) support Python 3.6+;
 
 [AkShare](https://github.com/jindaxiang/akshare) is an, written with `Python-3.7.5`, aims to make fetch financial data as convenient as possible.
 
@@ -217,6 +217,8 @@ Thanks for the data provided by [新型肺炎-小区查询网站](https://ncov.h
 Thanks for the data provided by [商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/);
 
 Thanks for the data provided by [慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html);
+
+Thanks for the data provided by [思知网站](https://www.ownthink.com/);
 
 Thanks for the tutorial provided by [微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png);
 
