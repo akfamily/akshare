@@ -843,10 +843,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-hf_subscribe_exchange_symbol-在Linux Python 3.8.1 报错问题
 0.4.16
 修复-get_js_dc_current
+0.4.17
+新增-知识图谱
 """
 
-__version__ = "0.4.16"
+__version__ = "0.4.17"
 __author__ = "Albert King"
+
+"""
+知识图谱
+"""
+from akshare.nlp.nlp_interface import nlp_ownthink
 
 """
 微博舆情报告

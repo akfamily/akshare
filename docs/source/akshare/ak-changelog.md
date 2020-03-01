@@ -1106,4 +1106,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.4.16
 修复-get_js_dc_current
+
+0.4.17
+新增-知识图谱
 ```
