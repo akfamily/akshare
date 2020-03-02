@@ -1110,6 +1110,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.17
 新增-知识图谱
 
-0.4.18
-fix: use tqdm replace print hints
+0.4.18: fix: use tqdm replace print hints
+
+0.4.19: fix: use tqdm replace print hints in energy_carbon.py and charity_china.py
 ```

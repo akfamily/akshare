@@ -9,6 +9,7 @@ https://www.bjets.com.cn/article/jyxx/
 """
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 
 def energy_carbon():
@@ -16,9 +17,8 @@ def energy_carbon():
     北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
     https://www.bjets.com.cn/article/jyxx/
     """
-    print("正在采集, 预计10秒左右完成")
     temp_df = pd.DataFrame()
-    for i in range(1, 73):
+    for i in tqdm(range(1, 74)):
         if i == 1:
             i = ""
         url = f"https://www.bjets.com.cn/article/jyxx/?{i}"

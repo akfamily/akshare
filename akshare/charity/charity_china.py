@@ -25,6 +25,7 @@ from typing import Tuple
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 
 # 慈善中国-慈善组织查询
@@ -68,9 +69,8 @@ def charity_china_organization() -> pd.DataFrame:
         "flag": "0",
     }
     outer_df = pd.DataFrame()
-    for page in range(1, page_num):
+    for page in tqdm(range(1, page_num+1)):
         # page = 1
-        print(page)
         payload_data = {"pageNo": str(page)}
 
         r = requests.post(url, params=payload_params, data=payload_data)
@@ -117,9 +117,8 @@ def charity_china_trust() -> pd.DataFrame:
         "sort": "desc",
     }
     outer_df = pd.DataFrame()
-    for page in range(1, page_num):
+    for page in tqdm(range(1, page_num+1)):
         # page = 1
-        print(page)
         payload_data = {"pageNo": str(page)}
 
         r = requests.post(url, params=payload_params, data=payload_data)
@@ -180,9 +179,8 @@ def charity_china_plan() -> pd.DataFrame:
         "aaex8104": "1",
     }
     outer_df = pd.DataFrame()
-    for page in range(1, page_num):
+    for page in tqdm(range(1, page_num+1)):
         # page = 1
-        print(page)
         payload_data = {"pageNo": str(page)}
 
         r = requests.post(url, params=payload_params, data=payload_data)
@@ -263,9 +261,8 @@ def charity_china_progress() -> pd.DataFrame:
         "aaex8104": "1",
     }
     outer_df = pd.DataFrame()
-    for page in range(1, page_num):
+    for page in tqdm(range(1, page_num)):
         # page = 1
-        print(page)
         payload_data = {"pageNo": str(page)}
         r = requests.post(url, params=payload_params, data=payload_data)
         soup = BeautifulSoup(r.text, "lxml")
@@ -330,9 +327,8 @@ def charity_china_report() -> pd.DataFrame:
         "flag": "0",
     }
     outer_df = pd.DataFrame()
-    for page in range(1, page_num):
+    for page in tqdm(range(1, page_num+1)):
         # page = 16
-        print(page)
         payload_data = {"pageNo": str(page)}
 
         r = requests.post(url, params=payload_params, data=payload_data)
