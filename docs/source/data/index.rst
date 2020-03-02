@@ -21,4 +21,5 @@ AkShare 数据字典
     ws/ws
     energy/energy
     event/event
+    nlp/nlp
     others/others
