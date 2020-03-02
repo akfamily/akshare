@@ -9,6 +9,7 @@ desc: 和讯财经-上市公司社会责任报告数据, http://stockdata.stock.
 import demjson
 import requests
 import pandas as pd
+from tqdm import tqdm
 
 from akshare.stock.cons import (hx_headers,
                                 hx_params,
@@ -63,6 +64,6 @@ def stock_zh_a_scr_report(report_year=2018, page=1):
 
 
 if __name__ == "__main__":
-    for i_page in range(1, 100):
+    for i_page in tqdm(range(1, 100)):
         df = stock_zh_a_scr_report(report_year=2018, page=i_page)
-        print(df)
+        # print(df)

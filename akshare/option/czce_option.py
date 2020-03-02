@@ -40,7 +40,7 @@ def option_czce_hist(symbol="SR", year="2019"):
         "RM": "2020",
     }
     if int(symbol_year_dict[symbol]) > int(year):
-        print(f"{year} 年品种 {symbol} 还没用上市")
+        print(f"{year} year, symbol {symbol} is not on trade")
         return
     url = "http://app.czce.com.cn/cms/cmsface/czce/newcms/calendarnewAll.jsp"
     payload = {

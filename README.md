@@ -30,6 +30,37 @@
 pip install akshare
 ```
 
+## Usage
+
+### Get US stock price info
+
+Code
+
+```python
+import akshare as ak
+hist_df = ak.stock_us_daily(symbol="AMZN")
+print(hist_df)
+```
+
+Output
+
+```
+               open     high      low    close   volume
+date                                                   
+1997-05-15    29.25    30.00    23.13    23.50  6013000
+1997-05-16    23.63    23.75    20.50    20.75  1225000
+1997-05-19    21.13    21.25    19.50    20.50   508900
+1997-05-20    20.75    21.00    19.63    19.63   455600
+1997-05-21    19.63    19.75    16.50    17.13  1571100
+             ...      ...      ...      ...      ...
+2020-02-24  2003.18  2039.30  1987.97  2009.29  6546997
+2020-02-25  2026.42  2034.60  1958.42  1972.74  6219094
+2020-02-26  1970.28  2014.67  1960.45  1979.59  5240402
+2020-02-27  1934.38  1975.00  1882.76  1884.30  8143993
+2020-02-28  1814.63  1889.76  1811.13  1883.75  9493797
+[5731 rows x 5 columns]
+```
+
 ## Communication
 
 Pay attention to **数据科学实战** WeChat Official Accounts to get the [AkShare](https://github.com/jindaxiang/akshare) updated info:

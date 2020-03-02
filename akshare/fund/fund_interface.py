@@ -10,7 +10,7 @@
 #
 # simu_agent = SimuAgent()
 #
-# 
+#
 # def login(username, password):
 #     user_info, msg = simu_agent.login(username, password)
 #     return user_info, msg

@@ -13,6 +13,7 @@ import demjson
 import execjs
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 from akshare.stock.cons import (zh_sina_a_stock_payload,
                                 zh_sina_a_stock_url,
@@ -82,8 +83,7 @@ def stock_zh_a_spot():
     big_df = pd.DataFrame()
     page_count = get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
-    for page in range(1, page_count+1):
-        print(f"一共有{page_count}页, 正在采集第{page}页")
+    for page in tqdm(range(1, page_count+1)):
         zh_sina_stock_payload_copy.update({"page": page})
         res = requests.get(
             zh_sina_a_stock_url,

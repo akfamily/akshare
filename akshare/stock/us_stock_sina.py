@@ -12,6 +12,7 @@ import json
 import execjs
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 from akshare.stock.cons import (
     js_hash_text,
@@ -25,9 +26,7 @@ from akshare.stock.cons import (
 
 def get_us_page_count():
     page = "1"
-    us_js_decode = "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(
-        page
-    )
+    us_js_decode = f"US_CategoryService.getList?page={page}&num=20&sort=&asc=0&market=&id="
     js_code = execjs.compile(js_hash_text)
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
     us_sina_stock_dict_payload.update({"page": "{}".format(page)})
@@ -45,9 +44,8 @@ def get_us_page_count():
 def stock_us_spot():
     big_df = pd.DataFrame()
     page_count = get_us_page_count()
-    for page in range(1, page_count + 1):
+    for page in tqdm(range(1, page_count + 1)):
         # page = "1"
-        print("正在抓取第{}页的美股数据".format(page))
         us_js_decode = "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(
             page
         )
@@ -75,15 +73,15 @@ def stock_us_daily(symbol="BRK.A", factor=""):
     data_df.astype("float")
     res = requests.get(us_sina_stock_hist_qfq_url.format(symbol))
     qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])["data"])
-    qfq_factor_df.columns = ["date", "qfq_factor"]
+    qfq_factor_df.columns = ["date", "qfq_factor", "-"]
     if factor == "qfq":
-        return qfq_factor_df
+        return qfq_factor_df.iloc[:, :2]
     else:
         return data_df
 
 
 if __name__ == "__main__":
-    stock_us_spot_df = stock_us_spot()
-    print(stock_us_spot_df)
-    stock_us_daily_df = stock_us_daily(symbol="AMZN", factor="qfq")
+    # stock_us_spot_df = stock_us_spot()
+    # print(stock_us_spot_df)
+    stock_us_daily_df = stock_us_daily(symbol="AMZN")
     print(stock_us_daily_df)

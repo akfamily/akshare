@@ -11,6 +11,7 @@ import random
 import requests
 import pandas as pd
 import demjson
+from tqdm import tqdm
 
 from akshare.stock.cons import (hk_url,
                                 hk_headers,
@@ -32,7 +33,7 @@ def get_zh_stock_ah_page_count() -> int:
 def stock_zh_ah_spot():
     big_df = pd.DataFrame()
     page_count = get_zh_stock_ah_page_count() + 1
-    for i in range(1, page_count):
+    for i in tqdm(range(1, page_count)):
         hk_payload.update({"reqPage": i})
         res = requests.get(hk_url, params=hk_payload, headers=hk_headers)
         data_json = demjson.decode(res.text[res.text.find("{"): res.text.rfind("}") + 1])
@@ -44,7 +45,7 @@ def stock_zh_ah_spot():
 def stock_zh_ah_name():
     big_df = pd.DataFrame()
     page_count = get_zh_stock_ah_page_count() + 1
-    for i in range(1, page_count):
+    for i in tqdm(range(1, page_count)):
         hk_payload.update({"reqPage": i})
         res = requests.get(hk_url, params=hk_payload, headers=hk_headers)
         data_json = demjson.decode(res.text[res.text.find("{"): res.text.rfind("}") + 1])
@@ -56,7 +57,7 @@ def stock_zh_ah_name():
 
 def stock_zh_ah_daily(symbol="02318", start_year="2000", end_year="2019"):
     big_df = pd.DataFrame()
-    for year in range(int(start_year), int(end_year)):
+    for year in tqdm(range(int(start_year), int(end_year))):
         hk_stock_payload_copy = hk_stock_payload.copy()
         hk_stock_payload_copy.update({"_var": f"kline_dayhfq{year}"})
         hk_stock_payload_copy.update({"param": f"hk{symbol},day,{year}-01-01,{int(year) + 1}-12-31,640,hfq"})
@@ -69,7 +70,7 @@ def stock_zh_ah_daily(symbol="02318", start_year="2000", end_year="2019"):
             continue
         temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量", "_", "_", "_"]
         temp_df = temp_df[["日期", "开盘", "收盘", "最高", "最低", "成交量"]]
-        print("正在采集{}第{}年的数据".format(symbol, year))
+        # print("正在采集{}第{}年的数据".format(symbol, year))
         big_df = big_df.append(temp_df, ignore_index=True)
     return big_df
 

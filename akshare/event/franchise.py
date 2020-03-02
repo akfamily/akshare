@@ -13,6 +13,7 @@ import re
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 
 def _get_franchise_china_page_num() -> int:
@@ -50,7 +51,7 @@ def franchise_china() -> pd.DataFrame:
     # file_url 历史数据文件, 主要是为了防止重复访问的速度和资源浪费问题
     file_url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/franchise/franchise_china.csv"
     outer_df = pd.read_csv(file_url, encoding="gbk", index_col=0)
-    for page in range(1, int(5)):  # 这里的 5 是硬编码, 长期后需要更新 file_url 文件
+    for page in tqdm(range(1, int(5))):  # 这里的 5 是硬编码, 长期后需要更新 file_url 文件
         # print(page)
         payload = {
             "method": "entps",
