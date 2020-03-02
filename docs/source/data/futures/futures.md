@@ -2906,6 +2906,60 @@ print(jyfm_tools_position_fund_deal_df)
 60  2020-02-24     普麦        17968
 ```
 
+##### 交易法门-工具-席位分析
+
+###### 交易法门-工具-席位分析-持仓结构
+
+接口: jyfm_tools_position_structure
+
+目标地址: https://www.jiaoyifamen.com/tools
+
+描述: 获取交易法门-工具-席位分析-持仓结构
+
+限量: 单次获取指定交易日指定席位的持仓结构
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| trade_date | str | Y | trade_date="2020-03-02"; |
+| seat | str | Y | seat="永安期货"; broker |
+| indicator | str | Y | indicator="long"; choice of "long": 多头持仓结构, "short": 空头持仓结构, "pure": 净持仓结构 |
+| headers | dict  | Y    |   headers=headers|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 返回所有字段          | -   | -        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_position_structure_df = ak.jyfm_tools_position_structure(trade_date="2020-03-02", seat="永安期货", indicator="long", headers=headers)
+print(jyfm_tools_position_structure_df)
+```
+
+数据示例
+
+```
+          id    code  ... indicatorIncrease instVariety
+0   12399305   c2005  ...             -5373         204
+1   12402548  rb2005  ...             -2452         306
+2   12400024   m2005  ...             15446         208
+3   12402607  rb2010  ...               693         306
+4   12400145   m2009  ...             -3654         208
+..       ...     ...  ...               ...         ...
+15  12399429   c2009  ...             -2994         204
+16  12403751  hc2005  ...              -425         311
+17  12400925  jm2005  ...              2106         213
+18  12400267   p2005  ...             -3121         209
+19  12398951   v2009  ...              2936         201
+```
+
 ##### 交易法门-工具-仓单分析
 
 ###### 交易法门-工具-仓单分析-仓单日报

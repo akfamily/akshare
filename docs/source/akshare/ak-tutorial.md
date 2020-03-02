@@ -243,6 +243,8 @@
  "jyfm_tools_position_fund_down"  # 交易法门-工具-资金分析-沉淀资金
  "jyfm_tools_position_fund_season"  # 交易法门-工具-资金分析-资金季节性
  "jyfm_tools_position_fund_deal"  # 交易法门-工具-资金分析-成交排名
+ # 交易法门-工具-席位分析
+ "jyfm_tools_position_structure"  # 交易法门-工具-席位分析-持仓结构
  # 交易法门-工具-仓单分析
  "jyfm_tools_warehouse_receipt_daily"  # 交易法门-工具-仓单分析-仓单日报
  "jyfm_tools_warehouse_receipt_query"  # 交易法门-工具-仓单分析-仓单查询

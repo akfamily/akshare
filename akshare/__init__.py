@@ -847,9 +847,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 新增-知识图谱
 0.4.18: fix: use tqdm replace print hints
 0.4.19: fix: use tqdm replace print hints in energy_carbon.py and charity_china.py
+0.4.20: add: jyfm_tools_position_structure
 """
 
-__version__ = "0.4.19"
+__version__ = "0.4.20"
 __author__ = "Albert King"
 
 """
@@ -1014,6 +1015,13 @@ from akshare.economic.macro_bank import (
     macro_bank_russia_interest_rate,
     macro_bank_switzerland_interest_rate,
     macro_bank_usa_interest_rate,
+)
+
+"""
+交易法门-工具-席位分析
+"""
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_position_structure,
 )
 
 """
