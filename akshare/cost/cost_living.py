@@ -43,6 +43,6 @@ def cost_living(region="world"):
 
 
 if __name__ == '__main__':
-    cost_df = cost_living()
-    print(cost_df)
+    cost_living_df = cost_living()
+    print(cost_living_df)
 
