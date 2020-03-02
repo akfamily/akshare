@@ -180,7 +180,7 @@ def amac_manager_info():
     :return:
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 10 秒")
+    print("Please waiting for about 10 seconds")
     data = get_data(url=amac_manager_info_url, payload=amac_manager_info_payload)
     need_data = data["content"]
     keys_list = [
