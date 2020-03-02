@@ -44,8 +44,9 @@ desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门-工具-期限分析-价格季节性
 
 # 交易法门-工具-交易规则
-交易法门-工具-交易规则-仓单有效期
 交易法门-工具-交易规则-限仓规定
+交易法门-工具-交易规则-仓单有效期
+交易法门-工具-交易规则-品种手册
 """
 import time
 
@@ -60,6 +61,8 @@ from akshare.futures_derivative.cons import (
     csa_url_customize,
 )
 from akshare.futures_derivative.jyfm_login_func import jyfm_login
+
+# pd.set_option('display.max_columns', None)
 
 
 # 交易法门-工具-套利分析
@@ -908,6 +911,26 @@ def jyfm_tools_futures_basis_rule(
 
 
 # 交易法门-工具-交易规则
+def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
+    """
+    交易法门-工具-交易规则-限仓规定
+    :param exchange: one of ["INE", "DCE", "CZCE", "SHFE", "CFFEX"], default is "CFFEX"]
+    :type exchange: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "page": "1",
+        "limit": "10",
+        "exchange": exchange,
+    }
+    url = "https://www.jiaoyifamen.com/tools/position-limit/query"
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json()["data"])
+
+
 def jyfm_tools_receipt_expire_info(headers=""):
     """
     交易法门-工具-交易规则-仓单有效期
@@ -931,24 +954,17 @@ def jyfm_tools_receipt_expire_info(headers=""):
     return temp_df
 
 
-def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
+def jyfm_tools_symbol_handbook(headers=""):
     """
-    交易法门-工具-交易规则-限仓规定
-    :param exchange: one of ["INE", "DCE", "CZCE", "SHFE", "CFFEX"], default is "CFFEX"]
-    :type exchange: str
+    交易法门-工具-交易规则-品种手册
     :param headers: headers with cookies
     :type headers: dict
-    :return:
+    :return: all history data
     :rtype: pandas.DataFrame
     """
-    params = {
-        "page": "1",
-        "limit": "10",
-        "exchange": exchange,
-    }
-    url = "https://www.jiaoyifamen.com/tools/position-limit/query"
-    res = requests.get(url, params=params, headers=headers)
-    return pd.DataFrame(res.json()["data"])
+    res = requests.get("https://www.jiaoyifamen.com/tools/receipt-expire-info/variety", headers=headers)
+    temp_df = pd.DataFrame(res.json()["data"])
+    return temp_df
 
 
 if __name__ == "__main__":
@@ -1073,3 +1089,6 @@ if __name__ == "__main__":
         exchange="CFFEX", headers=headers
     )
     print(jyfm_tools_position_limit_info_df)
+    # 交易法门-工具-交易规则-品种手册
+    jyfm_tools_symbol_handbook_df = jyfm_tools_symbol_handbook(headers=headers)
+    print(jyfm_tools_symbol_handbook_df)

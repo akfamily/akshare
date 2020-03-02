@@ -4740,6 +4740,72 @@ print(data)
 8       600手  
 ```
 
+###### 交易法门-工具-交易规则-品种手册
+
+接口: jyfm_tools_symbol_handbook
+
+目标地址: https://www.jiaoyifamen.com/tools
+
+描述: 获取交易法门-工具-交易规则-品种手册
+
+限量: 单次指定交易所的所有品种的品种手册连接地址, 点击连接就可以下载 PDF 文件
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| headers | dict  | Y    |   headers=headers|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| id          | str   | Y        | 唯一标识     |
+| exchangeName        | str   | Y        | 商品交易所     |
+| productName          | str   | Y        | 品种(中文)     |
+| startDelivDate          | str   | Y        | -     |
+| expireDate          | str   | Y        | -     |
+| link          | str   | Y        | PDF 下载链接     |
+
+接口示例
+
+```python
+import akshare as ak
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_symbol_handbook_df = ak.jyfm_tools_symbol_handbook(headers=headers)
+print(jyfm_tools_symbol_handbook_df)
+```
+
+数据示例
+
+```
+    id exchangeName productName startDelivDate expireDate  \
+0    1          上期所           铜           None       永久有效   
+1    2          上期所           锌           None       永久有效   
+2    3          上期所           铝           None       永久有效   
+3    4          上期所           铅           None       永久有效   
+4    5          上期所           镍           None       永久有效   
+..  ..          ...         ...            ...        ...   
+64  65          郑商所        白糖期权           None       None   
+65  66          郑商所        棉花期权           None       None   
+66  67          郑商所       PTA期权           None       None   
+67  68          郑商所        甲醇期权           None       None   
+68  69          郑商所        菜粕期权           None       None   
+                                                 link  
+0   http://www.shfe.com.cn/upload/20190919/1568892...  
+1   http://www.shfe.com.cn/upload/20190919/1568892...  
+2   http://www.shfe.com.cn/upload/20190919/1568892...  
+3   http://www.shfe.com.cn/upload/20190919/1568892...  
+4   http://www.shfe.com.cn/upload/20190919/1568892...  
+..                                                ...  
+64  http://www.czce.com.cn/cn/sspz/bt/H770204index...  
+65  http://www.czce.com.cn/cn/sspz/mh/H770203index...  
+66  http://www.czce.com.cn/cn/sspz/pta/H770205inde...  
+67  http://www.czce.com.cn/cn/sspz/jc/H770208index...  
+68  http://www.czce.com.cn/cn/sspz/czp/H770211inde...  
+```
+
 #### 数据
 
 ##### 黑色系

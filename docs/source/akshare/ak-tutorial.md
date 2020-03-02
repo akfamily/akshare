@@ -218,6 +218,7 @@
  # 交易法门-工具接口-交易规则
  "jyfm_tools_receipt_expire_info"  # 交易法门-工具-交易规则-仓单有效期
  "jyfm_tools_position_limit_info"  # 交易法门-工具-交易规则-限仓规定
+ "jyfm_tools_symbol_handbook"  # 交易法门-工具-交易规则-品种手册
  # 交易法门-数据接口-农产品
  "jyfm_data_cocking_coal"  # 交易法门-数据-黑色系-焦煤
  "jyfm_data_palm"  # 交易法门-数据-农产品-棕榈
