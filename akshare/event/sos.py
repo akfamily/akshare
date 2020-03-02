@@ -610,4 +610,3 @@ if __name__ == "__main__":
     # 详细历史数据
     epidemic_history_df = epidemic_history()
     print(epidemic_history_df)
-
