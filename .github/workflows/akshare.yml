@@ -1,4 +1,4 @@
-name: bulit
+name: build
 
 on: [push]
 
