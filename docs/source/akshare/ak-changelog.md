@@ -1117,4 +1117,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.20: add: jyfm_tools_position_structure and jyfm_tools_symbol_handbook
 
 0.4.21: fix: macro_cons_opec_month print hints
+
+0.4.22: fix: add tqdm desc
 ```

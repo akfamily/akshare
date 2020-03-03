@@ -327,7 +327,7 @@ def charity_china_report() -> pd.DataFrame:
         "flag": "0",
     }
     outer_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num+1), desc="Please wait for a moment"):
         # page = 16
         payload_data = {"pageNo": str(page)}
 

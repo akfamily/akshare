@@ -492,7 +492,9 @@ def macro_cons_opec_month():
     res = requests.get(f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
                        headers=headers)  # 日期序列
     all_date_list = res.json()["data"]
-    for item in tqdm(reversed(all_date_list)):
+    bar = tqdm(reversed(all_date_list))
+    for item in bar:
+        bar.set_description(f"Please wait for a moment, now downing {item}'s data")
         res = requests.get(
             f"https://datacenter-api.jin10.com/reports/list?category=opec&date={item}&_={str(int(round(t * 1000)))}",
             headers=headers)

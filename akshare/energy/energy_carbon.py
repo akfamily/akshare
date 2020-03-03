@@ -18,7 +18,7 @@ def energy_carbon():
     https://www.bjets.com.cn/article/jyxx/
     """
     temp_df = pd.DataFrame()
-    for i in tqdm(range(1, 74)):
+    for i in tqdm(range(1, 74), desc="Please wait for a moment"):
         if i == 1:
             i = ""
         url = f"https://www.bjets.com.cn/article/jyxx/?{i}"
