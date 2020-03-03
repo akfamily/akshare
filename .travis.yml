@@ -5,6 +5,7 @@ language: python
 python:
 - "3.6.5"
 - "3.7.5"
+- "3.7.6"
 - "3.8.1"
 
 branches:

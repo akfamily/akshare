@@ -848,9 +848,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.18: fix: use tqdm replace print hints
 0.4.19: fix: use tqdm replace print hints in energy_carbon.py and charity_china.py
 0.4.20: add: jyfm_tools_position_structure and jyfm_tools_symbol_handbook
+0.4.21: fix: macro_cons_opec_month print hints
 """
 
-__version__ = "0.4.20"
+__version__ = "0.4.21"
 __author__ = "Albert King"
 
 """

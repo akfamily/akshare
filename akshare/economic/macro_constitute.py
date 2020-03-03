@@ -12,6 +12,7 @@ import time
 
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 from akshare.economic.cons import (
     JS_CONS_GOLD_ETF_URL,
@@ -491,8 +492,7 @@ def macro_cons_opec_month():
     res = requests.get(f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
                        headers=headers)  # 日期序列
     all_date_list = res.json()["data"]
-    for item in reversed(all_date_list):
-        print(item)
+    for item in tqdm(reversed(all_date_list)):
         res = requests.get(
             f"https://datacenter-api.jin10.com/reports/list?category=opec&date={item}&_={str(int(round(t * 1000)))}",
             headers=headers)
