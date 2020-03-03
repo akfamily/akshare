@@ -1,4 +1,4 @@
-name: AkShare Package Test
+name: akshare
 
 on: [push]
 
