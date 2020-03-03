@@ -13,9 +13,7 @@
 
 ## Overview
 
-[AkShare](https://github.com/jindaxiang/akshare) support Python 3.6+;
-
-[AkShare](https://github.com/jindaxiang/akshare) is an, written with `Python-3.7.5`, aims to make fetch financial data as convenient as possible.
+[AkShare](https://github.com/jindaxiang/akshare) support Python 3.6+, aims to make fetch financial data as convenient as possible.
 
 **Write less, get more!**
 
@@ -32,13 +30,11 @@ pip install akshare
 
 ## Usage
 
-### Get US stock price info
-
 Code
 
 ```python
 import akshare as ak
-hist_df = ak.stock_us_daily(symbol="AMZN")
+hist_df = ak.stock_us_daily(symbol="AMZN")  # Get U.S. stock Amazon's price info
 print(hist_df)
 ```
 
@@ -82,7 +78,7 @@ Application to add **AkShare-官方** QQ group and talk about [AkShare](https://
 - **Easy**: Just one line to fetch the data;
 - **Fast**: Just copy and paste;
 - **Extensible**: Easy to customize your own code;
-- **Powerful**: Python ecosystem;
+- **Powerful**: Python ecosystem.
 
 ## Tutorials
 
