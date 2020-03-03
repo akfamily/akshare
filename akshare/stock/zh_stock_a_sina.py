@@ -83,7 +83,7 @@ def stock_zh_a_spot():
     big_df = pd.DataFrame()
     page_count = get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
-    for page in tqdm(range(1, page_count+1)):
+    for page in tqdm(range(1, page_count+1), desc="Please wait for a moment"):
         zh_sina_stock_payload_copy.update({"page": page})
         res = requests.get(
             zh_sina_a_stock_url,
@@ -95,7 +95,7 @@ def stock_zh_a_spot():
 
 def stock_zh_a_daily(symbol="sh600000", factor=""):
     """
-    从新浪财经-A股获取某个股票的历史行情数据, 大量抓取容易封IP
+    新浪财经-A股获取某个股票的历史行情数据, 大量抓取容易封IP
     :param symbol: str sh600000
     :param factor: str 默认为空, 不复权; qfq, 前复权因子; hfq, 后复权因子;
     :return: pandas.DataFrame
@@ -191,9 +191,9 @@ def stock_zh_a_daily(symbol="sh600000", factor=""):
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol="sh600000", factor="qfq")
+    stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol="sh600582", factor="qfq")
     print(stock_zh_a_daily_qfq_df)
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh603290")
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582")
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
