@@ -851,9 +851,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.21: fix: macro_cons_opec_month print hints
 0.4.22: fix: add tqdm desc
 0.4.23: fix: add tqdm stock_zh_a_spot desc
+0.4.24: fix: add get_us_stock_name to get the u.s. stock name
 """
 
-__version__ = "0.4.23"
+__version__ = "0.4.24"
 __author__ = "Albert King"
 
 """
@@ -1383,7 +1384,7 @@ from akshare.option.option_finance import (
 """
 新浪-美股实时行情数据和历史行情数据(前复权)
 """
-from akshare.stock.us_stock_sina import stock_us_daily, stock_us_spot
+from akshare.stock.us_stock_sina import stock_us_daily, stock_us_spot, get_us_stock_name
 
 """
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)
