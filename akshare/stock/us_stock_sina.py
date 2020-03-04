@@ -33,12 +33,37 @@ def get_us_page_count():
     res = requests.get(
         us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
     )
-    data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
+    data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
     if not isinstance(int(data_json["count"]) / 20, int):
         page_count = int(int(data_json["count"]) / 20) + 1
     else:
         page_count = int(int(data_json["count"]) / 20)
     return page_count
+
+
+def get_us_stock_name() -> pd.DataFrame:
+    """
+    u.s. stock's english name, chinese name and symbol
+    you should use symbol to get apply into the next function
+    :return: stock's english name, chinese name and symbol
+    :rtype: pandas.DataFrame
+    """
+    big_df = pd.DataFrame()
+    page_count = get_us_page_count()
+    for page in tqdm(range(1, page_count + 1)):
+        # page = "1"
+        us_js_decode = "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(
+            page
+        )
+        js_code = execjs.compile(js_hash_text)
+        dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
+        us_sina_stock_dict_payload.update({"page": "{}".format(page)})
+        res = requests.get(
+            us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
+        )
+        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+        big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    return big_df[["name", "cname", "symbol"]]
 
 
 def stock_us_spot():
@@ -81,7 +106,9 @@ def stock_us_daily(symbol="BRK.A", factor=""):
 
 
 if __name__ == "__main__":
-    # stock_us_spot_df = stock_us_spot()
-    # print(stock_us_spot_df)
+    stock_us_stock_name_df = get_us_stock_name()
+    print(stock_us_stock_name_df)
+    stock_us_spot_df = stock_us_spot()
+    print(stock_us_spot_df)
     stock_us_daily_df = stock_us_daily(symbol="AMZN")
     print(stock_us_daily_df)

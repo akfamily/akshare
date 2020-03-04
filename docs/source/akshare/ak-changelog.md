@@ -1121,4 +1121,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.22: fix: add tqdm desc
 
 0.4.23: fix: add tqdm stock_zh_a_spot desc
+
+0.4.24: fix: add get_us_stock_name to get the u.s. stock name
 ```
