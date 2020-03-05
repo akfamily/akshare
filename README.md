@@ -6,7 +6,6 @@
 [![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/zh_CN/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![akshare](https://img.shields.io/badge/AkShare-Data%20Science-brightgreen)](https://github.com/jindaxiang/akshare)
-[![Build Status](https://travis-ci.com/jindaxiang/akshare.svg?branch=master)](https://travis-ci.com/jindaxiang/akshare)
 [![Actions Status](https://github.com/jindaxiang/akshare/workflows/build/badge.svg)](https://github.com/jindaxiang/akshare/actions)
 [![MIT Licence](https://camo.githubusercontent.com/14a9abb7e83098f2949f26d2190e04fb1bd52c06/68747470733a2f2f626c61636b2e72656164746865646f63732e696f2f656e2f737461626c652f5f7374617469632f6c6963656e73652e737667)](https://github.com/jindaxiang/akshare/blob/master/LICENSE)
 [![](https://img.shields.io/github/forks/jindaxiang/akshare)](https://github.com/jindaxiang/akshare)
