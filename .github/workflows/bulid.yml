@@ -1,10 +1,16 @@
 name: build
 
-on: [push]
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - master
+      - develop
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
