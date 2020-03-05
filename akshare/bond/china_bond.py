@@ -73,7 +73,7 @@ def bond_spot_quote():
     for i in range(len(need_data)):
         quote_data = itemgetter(*keys_list)(need_data[i])
         quote_data = pd.DataFrame(quote_data).T
-        quote_data.columns = ["报价机构", "债券简称", "买入/卖出净价(元)", "买入/卖出收益率(%)"]
+        quote_data.columns = ["债券简称", "报价机构", "买入/卖出净价(元)", "买入/卖出收益率(%)"]
         quote_data_out = quote_data_out.append(quote_data, ignore_index=True)
     quote_data_out.replace("---", np.nan, inplace=True)
     return quote_data_out
