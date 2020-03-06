@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-1. 本文档更新于 **2020-03-05**;
+1. 本文档更新于 **2020-03-06**;
 
 2. 如有库或者文档的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
@@ -181,6 +181,8 @@
     6.58 新增[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的特许经营数据;
     
     6.59 新增[慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html)提供的慈善数据;
+    
+    6.60 新增[Currencyscoop网站](https://currencyscoop.com/)提供的货币数据.
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.

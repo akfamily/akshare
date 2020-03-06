@@ -856,10 +856,22 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.26: fix: bond_spot_quote and docs
 0.4.27: test: automate test
 0.4.28: test: automate test
+0.4.29: feats: add currency interface
 """
 
-__version__ = "0.4.28"
+__version__ = "0.4.29"
 __author__ = "Albert King"
+
+"""
+currency interface
+"""
+from akshare.currency.currency import (
+    currency_convert,
+    currency_currencies,
+    currency_history,
+    currency_latest,
+    currency_time_series,
+)
 
 """
 知识图谱
@@ -934,7 +946,7 @@ from akshare.event.sos import (
     epidemic_area_all,
     epidemic_area_detail,
     epidemic_trip,
-    epidemic_history
+    epidemic_history,
 )
 
 """
@@ -1028,9 +1040,7 @@ from akshare.economic.macro_bank import (
 """
 交易法门-工具-席位分析
 """
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_structure,
-)
+from akshare.futures_derivative.jyfm_tools_func import jyfm_tools_position_structure
 
 """
 交易法门-工具-套利分析
