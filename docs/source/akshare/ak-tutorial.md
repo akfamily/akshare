@@ -384,6 +384,12 @@
  "stock_js_weibo_report"  # 微博舆情报告
  # 自然语言处理
  "nlp_ownthink"  # 知识图谱
+ # 货币
+ "currency_latest"  # 最新货币报价
+ "currency_history"  # 指定历史日期的所有货币报价
+ "currency_time_series"  # 指定日期间的时间序列数据-需要权限
+ "currency_currencies"  # 查询所支持的货币信息
+ "currency_convert"  # 货币换算
 ```
 
 ## 3. 案例演示
