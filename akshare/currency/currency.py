@@ -4,16 +4,15 @@
 Author: Albert King
 date: 2020/3/6 16:41
 contact: jindaxiang@163.com
-desc: https://currencyscoop.com/
+desc: get currency data from website
+P.S. you should get the api key from the website, you can register a gmail account to verify your email account
 https://currencyscoop.com/
 """
 import pandas as pd
 import requests
 
 
-def currency_latest(
-    base="USD", api_key=""
-) -> pd.DataFrame:
+def currency_latest(base: str = "USD", api_key: str = "") -> pd.DataFrame:
     """
     Latest data from currencyscoop.com
     https://currencyscoop.com/api-documentation
@@ -33,7 +32,7 @@ def currency_latest(
 
 
 def currency_history(
-    base="USD", date="2020-02-03", api_key=""
+    base: str = "USD", date: str = "2020-02-03", api_key: str = ""
 ) -> pd.DataFrame:
     """
     Latest data from currencyscoop.com
@@ -56,10 +55,10 @@ def currency_history(
 
 
 def currency_time_series(
-    base="USD",
-    start_date="2020-02-03",
-    end_date="2020-03-04",
-    api_key="",
+    base: str = "USD",
+    start_date: str = "2020-02-03",
+    end_date: str = "2020-03-04",
+    api_key: str = "",
 ) -> pd.DataFrame:
     """
     Time-series data from currencyscoop.com
@@ -89,9 +88,7 @@ def currency_time_series(
     return temp_df
 
 
-def currency_currencies(
-    c_type="fiat", api_key=""
-) -> pd.DataFrame:
+def currency_currencies(c_type: str = "fiat", api_key: str = "") -> pd.DataFrame:
     """
     currencies data from currencyscoop.com
     https://currencyscoop.com/api-documentation
@@ -110,8 +107,8 @@ def currency_currencies(
 
 
 def currency_convert(
-    base="USD", to="CNY", amount="10000", api_key=""
-) -> pd.DataFrame:
+    base: str = "USD", to: str = "CNY", amount: str = "10000", api_key: str = ""
+) -> pd.Series:
     """
     currencies data from currencyscoop.com
     https://currencyscoop.com/api-documentation
@@ -140,26 +137,20 @@ def currency_convert(
 
 
 if __name__ == "__main__":
-    currency_latest_df = currency_latest(
-        base="USD", api_key="e2cd623e630613c89ba9cee546ae5108"
-    )
+    currency_latest_df = currency_latest(base="USD", api_key="")
     print(currency_latest_df)
-    currency_history_df = currency_history(
-        base="USD", date="2020-02-03", api_key="e2cd623e630613c89ba9cee546ae5108"
-    )
+    currency_history_df = currency_history(base="USD", date="2020-02-03", api_key="")
     print(currency_history_df)
     # currency_time_series_df = currency_time_series(
     #     base="USD",
     #     start_date="2020-02-03",
     #     end_date="2020-03-04",
-    #     api_key="e2cd623e630613c89ba9cee546ae5108",
+    #     api_key="",
     # )
     # print(currency_time_series_df)
-    currency_currencies_df = currency_currencies(
-        c_type="fiat", api_key="e2cd623e630613c89ba9cee546ae5108"
-    )
+    currency_currencies_df = currency_currencies(c_type="fiat", api_key="")
     print(currency_currencies_df)
-    currency_convert_df = currency_convert(
-        base="USD", to="CNY", amount="10000", api_key="e2cd623e630613c89ba9cee546ae5108"
+    currency_convert_se = currency_convert(
+        base="USD", to="CNY", amount="10000", api_key=""
     )
-    print(currency_convert_df)
+    print(currency_convert_se)
