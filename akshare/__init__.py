@@ -857,9 +857,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.27: test: automate test
 0.4.28: test: automate test
 0.4.29: feats: add currency interface
+0.4.30: fix: roll_yield.py/get_roll_yield: CUefp error
 """
 
-__version__ = "0.4.29"
+__version__ = "0.4.30"
 __author__ = "Albert King"
 
 """

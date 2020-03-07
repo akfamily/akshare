@@ -98,7 +98,7 @@ def get_cffex_daily(date=None):
 
 def get_czce_daily(date=None):
     """
-        获取郑商所日交易数据
+    获取郑州商品交易所日频率交易数据
     Parameters
     ------
         date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
