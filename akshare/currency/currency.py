@@ -12,7 +12,7 @@ import requests
 
 
 def currency_latest(
-    base="USD", api_key="e2cd623e630613c89ba9cee546ae5108"
+    base="USD", api_key=""
 ) -> pd.DataFrame:
     """
     Latest data from currencyscoop.com
@@ -33,7 +33,7 @@ def currency_latest(
 
 
 def currency_history(
-    base="USD", date="2020-02-03", api_key="e2cd623e630613c89ba9cee546ae5108"
+    base="USD", date="2020-02-03", api_key=""
 ) -> pd.DataFrame:
     """
     Latest data from currencyscoop.com
@@ -59,7 +59,7 @@ def currency_time_series(
     base="USD",
     start_date="2020-02-03",
     end_date="2020-03-04",
-    api_key="e2cd623e630613c89ba9cee546ae5108",
+    api_key="",
 ) -> pd.DataFrame:
     """
     Time-series data from currencyscoop.com
@@ -90,7 +90,7 @@ def currency_time_series(
 
 
 def currency_currencies(
-    c_type="fiat", api_key="e2cd623e630613c89ba9cee546ae5108"
+    c_type="fiat", api_key=""
 ) -> pd.DataFrame:
     """
     currencies data from currencyscoop.com
@@ -110,7 +110,7 @@ def currency_currencies(
 
 
 def currency_convert(
-    base="USD", to="CNY", amount="10000", api_key="e2cd623e630613c89ba9cee546ae5108"
+    base="USD", to="CNY", amount="10000", api_key=""
 ) -> pd.DataFrame:
     """
     currencies data from currencyscoop.com

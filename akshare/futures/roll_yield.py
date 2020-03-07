@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Author: Albert King
-date: 2019/9/30 13:58
+date: 2020/09/07 16:58
 contact: jindaxiang@163.com
 desc: 获取各合约展期收益率, 日线数据从 daily_bar 函数获取
 """
@@ -24,7 +24,7 @@ register_matplotlib_converters()
 calendar = cons.get_calendar()
 
 
-def _plot_bar(temp_df):
+def _plot_bar(temp_df) -> None:
     fig = plt.figure(1, dpi=300)
     ax = fig.add_subplot(111)
     ax.bar(range(len(temp_df.index)), temp_df, color="green")
@@ -33,7 +33,7 @@ def _plot_bar(temp_df):
     plt.show()
 
 
-def _plot_bar_2(temp_df):
+def _plot_bar_2(temp_df) -> None:
     fig = plt.figure(1, dpi=300)
     ax = fig.add_subplot(111)
     ax.bar(range(len(temp_df.symbol)), temp_df.close, color="green")
@@ -57,14 +57,14 @@ def get_roll_yield_bar(
 ):
     """
     获取展期收益率
-    :param type_method: 'symbol'：获取某天某品种所有交割月合约的收盘价, 'var'：获取某天所有品种两个主力合约的展期收益率（展期收益率横截面）, ‘date’：获取某品种每天的两个主力合约的展期收益率（展期收益率时间序列）
-    :param var: 合约品种如RB、AL等
-    :param date: 某一天日期 format： YYYYMMDD
+    :param type_method: 'symbol'：获取指定交易日指定品种所有交割月合约的收盘价, 'var'：获取某天所有品种两个主力合约的展期收益率（展期收益率横截面）, 'date'：获取某品种每天的两个主力合约的展期收益率（展期收益率时间序列）
+    :param var: 合约品种如 RB、AL 等
+    :param date: 指定交易日 format： YYYYMMDD
     :param start_day: 开始日期 format：YYYYMMDD
-    :param end_day: 结束数据 format：YYYYMMDD
+    :param end_day: 结束日期 format：YYYYMMDD
     :param plot: True or False作图
-    :return: pd.DataFrame
-    展期收益率数据(DataFrame):
+    :return: pandas.DataFrame
+    展期收益率数据(DataFrame)
         ry      展期收益率
         index   日期或品种
     """
@@ -129,16 +129,16 @@ def get_roll_yield_bar(
         return df_l
 
 
-def get_roll_yield(date=None, var="IF", symbol1=None, symbol2=None, df=None):
+def get_roll_yield(date=None, var="CU", symbol1=None, symbol2=None, df=None):
     """
-    获取某一天某一品种（主力和次主力）、或固定两个合约的展期收益率
+    指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
     Parameters
     ------
-        date: string 某一天日期 format： YYYYMMDD
-        var: string 合约品种如RB、AL等
-        symbol1: string 合约1如rb1810
-        symbol2: string 合约2如rb1812
-        df: DataFrame或None 从dailyBar得到合约价格，如果为空就在函数内部抓dailyBar，直接喂给数据可以让计算加快
+    date: string 某一天日期 format： YYYYMMDD
+    var: string 合约品种如RB、AL等
+    symbol1: string 合约 1如 rb1810
+    symbol2: string 合约 2 如 rb1812
+    df: DataFrame或None 从dailyBar得到合约价格，如果为空就在函数内部抓dailyBar，直接喂给数据可以让计算加快
     Return
     -------
         tuple
@@ -146,6 +146,7 @@ def get_roll_yield(date=None, var="IF", symbol1=None, symbol2=None, df=None):
         near_by
         deferred
     """
+    # date = "20200304"
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -156,6 +157,7 @@ def get_roll_yield(date=None, var="IF", symbol1=None, symbol2=None, df=None):
         market = symbol_market(var)
         df = get_futures_daily(start_day=date, end_day=date, market=market)
     if var:
+        df = df[~df["symbol"].str.contains("efp")]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
         df = df[df["variety"] == var].sort_values("open_interest", ascending=False)
         df["close"] = df["close"].astype("float")
         symbol1 = df["symbol"].tolist()[0]
@@ -180,17 +182,19 @@ def get_roll_yield(date=None, var="IF", symbol1=None, symbol2=None, df=None):
 
 
 if __name__ == "__main__":
-    d = get_roll_yield_bar(type_method="var", date="20191009", plot=True)
-    print(d)
-    data = get_roll_yield_bar(
+    get_roll_yield_bar_df = get_roll_yield_bar(
+        type_method="var", date="20200304", plot=True
+    )
+    print(get_roll_yield_bar_df)
+    get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="date",
         var="CF",
-        start_day="20151210",
-        end_day="20191010",
+        start_day="20191210",
+        end_day="20200305",
         plot=True,
     )
-    print(data)
-    data = get_roll_yield_bar(
+    print(get_roll_yield_bar_range_df)
+    get_roll_yield_bar_symbol = get_roll_yield_bar(
         type_method="symbol", var="RB", date="20191009", plot=True
     )
-    print(data)
+    print(get_roll_yield_bar_symbol)
