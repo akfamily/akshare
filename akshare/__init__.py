@@ -861,7 +861,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.31: format: format currency.py
 """
 
-__version__ = "0.4.30"
+__version__ = "0.4.31"
 __author__ = "Albert King"
 
 """
