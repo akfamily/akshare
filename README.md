@@ -13,7 +13,6 @@
 [![](https://img.shields.io/github/issues/jindaxiang/akshare)](https://github.com/jindaxiang/akshare)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-
 # ![](https://github.com/jindaxiang/akshare/blob/master/example/images/akshare_home.png)
 
 ## Overview
