@@ -57,5 +57,3 @@ def test():
 
 if __name__ == '__main__':
     test()
-    data = akshare.get_spot_price('20181210')
-    print(data)
