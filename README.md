@@ -253,6 +253,4 @@ Thanks for the data provided by [思知网站](https://www.ownthink.com/);
 
 Thanks for the data provided by [Currencyscoop网站](https://currencyscoop.com/);
 
-Thanks for the tutorial provided by [微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png);
-
 Thanks for the tutorial provided by [微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png).
