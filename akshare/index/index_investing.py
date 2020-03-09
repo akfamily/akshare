@@ -5,6 +5,7 @@ Author: Albert King
 date: 2019/10/17 0:50
 contact: jindaxiang@163.com
 desc: 英为财情-股票指数-全球股指与期货指数数据接口
+
 """
 import re
 
@@ -440,8 +441,7 @@ def get_country_index(
 
 
 if __name__ == "__main__":
-    index_df = get_country_index(
-        country="中国", index_name="上证指数", start_date="2000/01/01", end_date="2019/10/17"
-    )
-    print(index_df.name)
-    print(index_df)
+    get_country_name_url_dict = get_country_name_url("美国")
+    get_country_index_df = get_country_index()
+    print(get_country_index_df.name)
+    print(get_country_index_df)
