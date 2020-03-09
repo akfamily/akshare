@@ -155,7 +155,7 @@ Special thanks [FuShare](https://github.com/LowinLi/fushare) for the opportunity
 
 Special thanks [TuShare](https://github.com/waditu/tushare) for the opportunity of learning from the project;
 
-Thanks for the data provided by [生意社网站](http://www.100ppi.com/)
+Thanks for the data provided by [生意社网站](http://www.100ppi.com/);
 
 Thanks for the data provided by [奇货可查网站](https://qhkch.com/);
 
