@@ -860,9 +860,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.30: fix: roll_yield.py/get_roll_yield: CUefp error
 0.4.31: format: format currency.py
 0.4.32: fix: china_bond.py
+0.4.33: add: jyfm_tools_futures_arbitrage_matrix for jyfm futures
 """
 
-__version__ = "0.4.32"
+__version__ = "0.4.33"
 __author__ = "Albert King"
 
 """
@@ -1054,6 +1055,7 @@ from akshare.futures_derivative.jyfm_tools_func import (
     jyfm_tools_futures_customize,
     jyfm_exchange_symbol_dict,
     jyfm_tools_futures_full_carry,
+    jyfm_tools_futures_arbitrage_matrix,
 )
 
 """

@@ -12,6 +12,7 @@ desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门-工具-套利分析-自由价比
 交易法门-工具-套利分析-多腿组合
 交易法门-工具-套利分析-FullCarry
+交易法门-工具-套利分析-套利价差矩阵*
 
 # 交易法门-工具-资讯汇总
 交易法门-工具-资讯汇总-研报查询
@@ -61,6 +62,7 @@ from akshare.futures_derivative.cons import (
     csa_url_customize,
 )
 from akshare.futures_derivative.jyfm_login_func import jyfm_login
+
 
 # pd.set_option('display.max_columns', None)
 
@@ -198,6 +200,34 @@ def jyfm_tools_futures_full_carry(
     }
     res = requests.get(url, params=params, headers=headers)
     return pd.DataFrame(res.json()["table_data"])
+
+
+def jyfm_tools_futures_arbitrage_matrix(
+    category="1", type1="RB", type2="RB", headers=""
+):
+    """
+    交易法门-工具-套利分析-跨期价差矩阵
+    https://www.jiaoyifamen.com/tools/future/arbitrage/matrix
+    :param category: 1: 跨期价差; 2: 自由价差; 3: 自由价比
+    :type category: str
+    :param type1: 种类一
+    :type type1: str
+    :param type2: 种类二
+    :type type2: str
+    :param headers: 请求头
+    :type headers: dict
+    :return: 对应的矩阵
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.jiaoyifamen.com/tools/future/arbitrage/matrix"
+    params = {
+        "category": category,
+        "type1": type1,
+        "type2": type2,
+        "_": "1583846468579",
+    }
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json()["data"])
 
 
 jyfm_exchange_symbol_dict = {
@@ -471,7 +501,8 @@ def jyfm_tools_position_fund_down(
     else:
         return pd.DataFrame(
             [
-                [data_json["tradingDay"]] * len(data_json["dominantPrecipitationCategory"]),
+                [data_json["tradingDay"]]
+                * len(data_json["dominantPrecipitationCategory"]),
                 data_json["dominantPrecipitationCategory"],
                 data_json["dominantPrecipitationValue"],
             ],
@@ -516,7 +547,9 @@ def jyfm_tools_position_fund_season(symbol="RB", code="05", headers=""):
     return data_df
 
 
-def jyfm_tools_position_fund_deal(trade_date="2020-02-24", indicator="期货品种成交量排名", headers=""):
+def jyfm_tools_position_fund_deal(
+    trade_date="2020-02-24", indicator="期货品种成交量排名", headers=""
+):
     """
     交易法门-工具-资金分析-成交排名
     https://www.jiaoyifamen.com/tools/position/fund/?day=2020-01-08
@@ -556,7 +589,9 @@ def jyfm_tools_position_fund_deal(trade_date="2020-02-24", indicator="期货品�
 
 
 # 交易法门-工具-席位分析-持仓结构
-def jyfm_tools_position_structure(trade_date="2020-03-02", seat="永安期货", indicator="long", headers=""):
+def jyfm_tools_position_structure(
+    trade_date="2020-03-02", seat="永安期货", indicator="long", headers=""
+):
     """
     交易法门-工具-席位分析-持仓结构
     https://www.jiaoyifamen.com/tools/position/seat
@@ -575,7 +610,7 @@ def jyfm_tools_position_structure(trade_date="2020-03-02", seat="永安期货", 
         "seat": seat,
         "day": trade_date,
         "structure": "structure",
-        "_": int(time.time() * 1000)
+        "_": int(time.time() * 1000),
     }
     url = "https://www.jiaoyifamen.com/tools/position/seat"
     r = requests.get(url, params=params, headers=headers)
@@ -962,7 +997,9 @@ def jyfm_tools_symbol_handbook(headers=""):
     :return: all history data
     :rtype: pandas.DataFrame
     """
-    res = requests.get("https://www.jiaoyifamen.com/tools/receipt-expire-info/variety", headers=headers)
+    res = requests.get(
+        "https://www.jiaoyifamen.com/tools/receipt-expire-info/variety", headers=headers
+    )
     temp_df = pd.DataFrame(res.json()["data"])
     return temp_df
 
@@ -988,6 +1025,10 @@ if __name__ == "__main__":
         begin_code="05", end_code="09", ratio="4", headers=headers
     )
     print(jyfm_tools_futures_full_carry_df)
+    jyfm_tools_futures_arbitrage_matrix_df = jyfm_tools_futures_arbitrage_matrix(
+        category="1", type1="RB", type2="RB", headers=headers
+    )
+    print(jyfm_tools_futures_arbitrage_matrix_df)
 
     # 交易法门-工具-资讯汇总
     jyfm_tools_research_query_df = jyfm_tools_research_query(
@@ -1025,15 +1066,21 @@ if __name__ == "__main__":
     )
     print(jyfm_tools_position_fund_down_df)
     # 交易法门-工具-资金分析-资金季节性
-    jyfm_tools_position_fund_season_df = jyfm_tools_position_fund_season(symbol="RB", code="05", headers=headers)
+    jyfm_tools_position_fund_season_df = jyfm_tools_position_fund_season(
+        symbol="RB", code="05", headers=headers
+    )
     print(jyfm_tools_position_fund_season_df)
     # 交易法门-工具-资金分析-成交排名
-    jyfm_tools_position_fund_deal_df = jyfm_tools_position_fund_deal(trade_date="2020-02-24", indicator="期货主力合约成交量排名", headers=headers)
+    jyfm_tools_position_fund_deal_df = jyfm_tools_position_fund_deal(
+        trade_date="2020-02-24", indicator="期货主力合约成交量排名", headers=headers
+    )
     print(jyfm_tools_position_fund_deal_df)
 
     # 交易法门-工具-席位分析
     # 交易法门-工具-席位分析-持仓结构
-    jyfm_tools_position_structure_df = jyfm_tools_position_structure(trade_date="2020-03-02", seat="永安期货", indicator="long", headers=headers)
+    jyfm_tools_position_structure_df = jyfm_tools_position_structure(
+        trade_date="2020-03-02", seat="永安期货", indicator="long", headers=headers
+    )
     print(jyfm_tools_position_structure_df)
 
     # 交易法门-工具-仓单分析
