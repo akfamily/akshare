@@ -146,3 +146,4 @@ if __name__ == "__main__":
     bond_spot_deal_df = bond_spot_deal()
     print(bond_spot_deal_df)
     bond_china_yield_df = bond_china_yield(start_date="2018-01-01", end_date="2019-01-01")
+    print(bond_china_yield_df)
