@@ -1139,4 +1139,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.31: format: format currency.py
 
 0.4.32: fix: china_bond.py
+
+0.4.33: add: jyfm_tools_futures_arbitrage_matrix for jyfm futures
 ```
