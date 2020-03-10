@@ -21,6 +21,7 @@ from bs4 import BeautifulSoup
 #     :return:
 #     :rtype:
 #     """
+#     import demjson
 #     if index == "000300":
 #         temp_df = pd.DataFrame()
 #         for page in range(1, 5):
@@ -34,8 +35,8 @@ from bs4 import BeautifulSoup
 #                 "symbol": "",
 #                 "_s_r_a": "init",
 #             }
-#             res = requests.get(url, params=params)
-#             temp_df = temp_df.append(pd.DataFrame(demjson.decode(res.text)), ignore_index=True)
+#             r = requests.get(url, params=params)
+#             temp_df = temp_df.append(pd.DataFrame(demjson.decode(r.text)), ignore_index=True)
 #         return temp_df
 #     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
 #     params = {
@@ -46,12 +47,13 @@ from bs4 import BeautifulSoup
 #         "node": f"zhishu_{index}",
 #         "_s_r_a": "setlen",
 #     }
-#     res = requests.get(url, params=params)
-#     return pd.DataFrame(demjson.decode(res.text))
+#     r = requests.get(url, params=params)
+#     return pd.DataFrame(demjson.decode(r.text))
 
-def index_stock_info():
+
+def index_stock_info() -> pd.DataFrame:
     """
-    获取聚宽 指数数据 页面的 指数列表
+    聚宽-指数数据-指数列表
     https://www.joinquant.com/data/dict/indexData
     :return: 指数信息的数据框
     :rtype: pandas.DataFrame
@@ -62,38 +64,45 @@ def index_stock_info():
     return index_df[["index_code", "display_name", "publish_date"]]
 
 
-def index_stock_cons(index="000031"):
+def index_stock_cons(index: str = "000031") -> pd.DataFrame:
     """
-    查询最新股票指数的成份股目录
+    最新股票指数的成份股目录
     http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
     :param index: 指数代码, 可以通过 index_stock_info 函数获取
     :type index: str
-    :return: result
+    :return: 最新股票指数的成份股目录
     :rtype: pandas.DataFrame
     """
     url = f"http://vip.stock.finance.sina.com.cn/corp/go.php/vII_NewestComponent/indexid/{index}.phtml"
-    res = requests.get(url)
-    res.encoding = "gb2312"
-    soup = BeautifulSoup(res.text, "lxml")
-    page_num = soup.find(attrs={"class": "table2"}).find("td").find_all("a")[-1]["href"].split("page=")[-1].split("&")[0]
+    r = requests.get(url)
+    r.encoding = "gb2312"
+    soup = BeautifulSoup(r.text, "lxml")
+    page_num = (
+        soup.find(attrs={"class": "table2"})
+        .find("td")
+        .find_all("a")[-1]["href"]
+        .split("page=")[-1]
+        .split("&")[0]
+    )
     if page_num == "#":
-        temp_df = pd.read_html(res.text, header=1)[3].iloc[:, :3]
+        temp_df = pd.read_html(r.text, header=1)[3].iloc[:, :3]
         temp_df["品种代码"] = temp_df["品种代码"].astype(str).str.zfill(6)
         return temp_df
 
     temp_df = pd.DataFrame()
-    for page in range(1, int(page_num)+1):
+    for page in range(1, int(page_num) + 1):
         url = f"http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page={page}&indexid={index}"
-        res = requests.get(url)
-        res.encoding = "gb2312"
-        temp_df = temp_df.append(pd.read_html(res.text, header=1)[3], ignore_index=True)
+        r = requests.get(url)
+        r.encoding = "gb2312"
+        temp_df = temp_df.append(pd.read_html(r.text, header=1)[3], ignore_index=True)
     temp_df = temp_df.iloc[:, :3]
     temp_df["品种代码"] = temp_df["品种代码"].astype(str).str.zfill(6)
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     index_list = index_stock_info()["index_code"].tolist()
     for item in index_list:
-        df = index_stock_cons(index="000300")
-        print(df)
+        index_stock_cons_df = index_stock_cons(index=item)
+        print(index_stock_cons_df)
+
