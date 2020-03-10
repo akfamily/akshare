@@ -28,8 +28,22 @@
 
 ## Installation
 
+### General
+
+```
+pip install akshare --ugrade
+```
+
+### China
+
 ```cmd
-pip install akshare
+pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
+```
+
+### Docker
+
+```
+docker pull registry.cn-hangzhou.aliyuncs.com/akshare/akdocker
 ```
 
 ## Usage
