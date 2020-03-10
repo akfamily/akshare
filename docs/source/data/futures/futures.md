@@ -1716,6 +1716,58 @@ print(jyfm_tools_futures_full_carry_df)
 57      2543.05              生产日期12个月  
 ```
 
+###### 交易法门-工具-套利分析-跨期价差矩阵
+
+接口: jyfm_tools_futures_arbitrage_matrix
+
+目标地址: https://www.jiaoyifamen.com/tools/future/arbitrage/matrix
+
+描述: 获取交易法门-工具-套利分析-跨期价差矩阵、自由价差、自由价比价差矩阵
+
+限量: 单次返回某两个指定品种的跨期价差矩阵、自由价差、自由价比价差矩阵
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| category | str  | Y    |   category="1"; 1: 跨期价差; 2: 自由价差; 3: 自由价比|
+| type1 | str  | Y    |   type1="RB"; 远月合约|
+| type2 | str  | Y    |   type2="RB"; 资金成本|
+| headers | str  | Y    |   headers=headers; 必须要传入 **headers**, 因为需要登录的 Cookies 来访问|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| - | -  | -    |返回字段较多, 不单列|
+
+接口示例
+
+```python
+import akshare as ak
+headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+# 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
+jyfm_tools_futures_arbitrage_matrix_df = ak.jyfm_tools_futures_arbitrage_matrix(category="1", type1="RB", type2="RB", headers=headers)
+print(jyfm_tools_futures_arbitrage_matrix_df)
+```
+
+数据示例
+
+```
+      id    code  arbitrage1  ...  arbitrage18  arbitrage19  arbitrage20
+0   None  rb2003         0.0  ...         None         None         None
+1   None  rb2004       -32.0  ...         None         None         None
+2   None  rb2005         9.0  ...         None         None         None
+3   None  rb2006       -10.0  ...         None         None         None
+4   None  rb2007       -14.0  ...         None         None         None
+..   ...     ...         ...  ...          ...          ...          ...
+7   None  rb2010        35.0  ...         None         None         None
+8   None  rb2011        19.0  ...         None         None         None
+9   None  rb2012       -12.0  ...         None         None         None
+10  None  rb2101       -90.0  ...         None         None         None
+11  None  rb2102      -141.0  ...         None         None         None
+```
+
 ##### 交易法门-工具-资讯汇总
 
 ###### 交易法门-工具-资讯汇总-研报查询
