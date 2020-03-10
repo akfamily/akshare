@@ -859,9 +859,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.29: feats: add currency interface
 0.4.30: fix: roll_yield.py/get_roll_yield: CUefp error
 0.4.31: format: format currency.py
+0.4.32: fix: china_bond.py
 """
 
-__version__ = "0.4.31"
+__version__ = "0.4.32"
 __author__ = "Albert King"
 
 """
