@@ -255,16 +255,18 @@ def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
     return big_dict
 
 
-def _czce_df_read(url, skip_rows, encoding='utf-8'):
+def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     """
     郑州商品交易所的网页数据
+    :param header:
+    :type header:
     :param url: 网站 string
     :param skip_rows: 去掉前几行 int
     :param encoding: utf-8 or gbk or gb2312
     :return: pd.DataFrame
     """
     r = requests_link(url, encoding)
-    data = pd.read_html(r.text, match='.+', flavor=None, header=0, index_col=0, skiprows=skip_rows, attrs=None,
+    data = pd.read_html(r.text, match='.+', flavor=None, header=header, index_col=0, skiprows=skip_rows, attrs=None,
                         parse_dates=False, thousands=', ', encoding="gbk", decimal='.',
                         converters=None, na_values=None, keep_default_na=True)
     return data
@@ -334,12 +336,17 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
             big_dict[symbol] = table_cut.reset_index(drop=True)
         return big_dict
 
-    elif date <= datetime.date(2015, 11, 11):
+    elif date <= datetime.date(2015, 11, 11):  # 20200311 格式修正
         url = cons.CZCE_VOL_RANK_URL_2 % (date.year, date.strftime('%Y%m%d'))
-        data = _czce_df_read(url, skip_rows=1)[1]
-    elif date < datetime.date(2017, 12, 28):
+        data = _czce_df_read(url, skip_rows=0, header=None)[3:]
+        big_df = pd.DataFrame()
+        for item in data:
+            big_df = pd.concat([big_df, item], axis=0, ignore_index=False)
+        big_df.columns = big_df.iloc[0, :].tolist()
+        data = big_df.iloc[1:, :]
+    elif date < datetime.date(2017, 12, 28):  # 20200311 格式修正
         url = cons.CZCE_VOL_RANK_URL_3 % (date.year, date.strftime('%Y%m%d'))
-        data = _czce_df_read(url, skip_rows=1)[0]
+        data = _czce_df_read(url, skip_rows=0, header=0)[1]
     else:
         url = cons.CZCE_VOL_RANK_URL_3 % (date.year, date.strftime('%Y%m%d'))
         data = _czce_df_read(url, skip_rows=0)[0]
@@ -348,6 +355,7 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
         return {}
 
     table = pd.DataFrame(data.iloc[:, :9])
+    table.index.name = table.columns[0]
     table.columns = rank_columns
     table.loc[:, 'rank'] = table.index
     table[intColumns] = table[intColumns].astype(str)
@@ -391,30 +399,30 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
     return big_dict
 
 
-def get_dce_rank_table(date=None, vars_list=cons.contract_symbols):
+def get_dce_rank_table(date="20180404", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细
-    注: 该交易所既公布品种排名, 也公布标的排名
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
-    :param vars_list: 合约品种如RB、AL等列表为空时为所有商品, 数据从20060104开始，每交易日16:30左右更新数据
-    :return: pd.DataFrame
+    注: 该交易所既公布品种排名, 也公布标的合约排名
+    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象, 为空时为当天
+    :param vars_list: 合约品种如 RB、AL等列表为空时为所有商品, 数据从 20060104 开始，每交易日 16:30 左右更新数据
+    :return: pandas.DataFrame
     rank                        排名                        int
-    vol_party_name              成交量排序的当前名次会员        string(中文)
-    vol                         该会员成交量                  int
-    vol_chg                     该会员成交量变化量             int
-    long_party_name             持多单排序的当前名次会员        string(中文)
-    long_open_interest               该会员持多单                  int
-    long_open_interest_chg           该会员持多单变化量             int
-    short_party_name            持空单排序的当前名次会员        string(中文)
-    short_open_interest              该会员持空单                  int
-    short_open_interest_chg          该会员持空单变化量             int
+    vol_party_name              成交量排序的当前名次会员      string(中文)
+    vol                         该会员成交量                 int
+    vol_chg                     该会员成交量变化量            int
+    long_party_name             持多单排序的当前名次会员      string(中文)
+    long_open_interest          该会员持多单                 int
+    long_open_interest_chg      该会员持多单变化量            int
+    short_party_name            持空单排序的当前名次会员       string(中文)
+    short_open_interest         该会员持空单                  int
+    short_open_interest_chg     该会员持空单变化量             int
     symbol                      标的合约                     string
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2006, 1, 4):
-        print(Exception("dce数据源开始日期为20060104，跳过"))
+        print(Exception("大连商品交易所数据源开始日期为20060104，跳过"))
         return {}
     if date.strftime('%Y%m%d') not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
@@ -461,7 +469,7 @@ def get_dce_rank_table(date=None, vars_list=cons.contract_symbols):
 
 def get_cffex_rank_table(date=None, vars_list=cons.contract_symbols):
     """
-    郑州商品交易所前20会员持仓排名数据明细
+    中国金融期货交易所前20会员持仓排名数据明细
     注：该交易所既公布品种排名，也公布标的排名
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品, 数据从20100416开始，每交易日16:30左右更新数据
@@ -511,7 +519,7 @@ def _table_cut_cal(table_cut, symbol):
     表格切分
     :param table_cut: 需要切分的表格
     :type table_cut: pandas.DataFrame
-    :param symbol: 品种
+    :param symbol: 具体合约的代码
     :type symbol: str
     :return:
     :rtype: pandas.DataFrame
@@ -530,11 +538,17 @@ def _table_cut_cal(table_cut, symbol):
 
 
 if __name__ == '__main__':
-    get_czce_rank_table_df = get_czce_rank_table(date='20200213')
-    print(get_czce_rank_table_df)
+    get_czce_rank_table_first_df = get_czce_rank_table(date='20131227')
+    print(get_czce_rank_table_first_df)
+    get_czce_rank_table_second_df = get_czce_rank_table(date='20171227')
+    print(get_czce_rank_table_second_df)
+    get_czce_rank_table_third_df = get_czce_rank_table(date='20191227')
+    print(get_czce_rank_table_third_df)
     get_cffex_rank_table_df = get_cffex_rank_table(date='20200213')
     print(get_cffex_rank_table_df)
     get_shfe_rank_table_df = get_shfe_rank_table(date='20190711')
+    print(get_shfe_rank_table_df)
+    get_shfe_rank_table_df = get_dce_rank_table(date='20180404')
     print(get_shfe_rank_table_df)
     # for k, v in dfs.items():
     #     print(type(v['long_open_interest'].tolist()[-1]))
