@@ -15,6 +15,7 @@ import warnings
 from io import StringIO
 
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 from akshare.futures import cons
@@ -302,10 +303,12 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
         return {}
     if date <= datetime.date(2010, 8, 25):
         url = cons.CZCE_VOL_RANK_URL_1 % (date.strftime('%Y%m%d'))
+        r = requests.get(url)
+        r.encoding = "utf-8"
+        soup = BeautifulSoup(r.text, "lxml")
         data = _czce_df_read(url, skip_rows=0)
         r = requests_link(url, 'utf-8')
         r.encoding = 'utf-8'
-        soup = BeautifulSoup(r.text, 'lxml', from_encoding="gb2312")
         symbols = []
         for link in soup.find_all('b'):
             strings = (str(link).split(' '))
@@ -318,7 +321,7 @@ def get_czce_rank_table(date=None, vars_list=cons.contract_symbols):
         big_dict = {}
         for i in range(len(symbols)):
             symbol = symbols[i]
-            table_cut = data[i + 2]
+            table_cut = data[i + 1]
             table_cut.columns = rank_columns
             table_cut = table_cut.iloc[:-1, :]
             table_cut.loc[:, 'rank'] = table_cut.index
@@ -538,7 +541,7 @@ def _table_cut_cal(table_cut, symbol):
 
 
 if __name__ == '__main__':
-    get_czce_rank_table_first_df = get_czce_rank_table(date='20131227')
+    get_czce_rank_table_first_df = get_czce_rank_table(date='20061227')
     print(get_czce_rank_table_first_df)
     get_czce_rank_table_second_df = get_czce_rank_table(date='20171227')
     print(get_czce_rank_table_second_df)
@@ -548,8 +551,12 @@ if __name__ == '__main__':
     print(get_cffex_rank_table_df)
     get_shfe_rank_table_df = get_shfe_rank_table(date='20190711')
     print(get_shfe_rank_table_df)
-    get_shfe_rank_table_df = get_dce_rank_table(date='20180404')
-    print(get_shfe_rank_table_df)
+    get_shfe_rank_table_first_df = get_dce_rank_table(date='20131227')
+    print(get_shfe_rank_table_first_df)
+    get_shfe_rank_table_second_df = get_dce_rank_table(date='20171227')
+    print(get_shfe_rank_table_second_df)
+    get_shfe_rank_table_third_df = get_dce_rank_table(date='20191227')
+    print(get_shfe_rank_table_third_df)
     # for k, v in dfs.items():
     #     print(type(v['long_open_interest'].tolist()[-1]))
     # get_rank_sum("20180301")
