@@ -6,15 +6,15 @@ date: 2020/02/20 13:58
 contact: jindaxiang@163.com
 desc: 从交易所网站获取日线行情
 """
-import json
 import datetime
-import warnings
+import json
 import urllib
+import warnings
 
+import numpy as np
+import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
-import numpy as np
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
@@ -96,52 +96,84 @@ def get_cffex_daily(date=None):
     return pd.DataFrame(dict_data)[cons.OUTPUT_COLUMNS]
 
 
-def get_czce_daily(date=None):
+def get_ine_daily(date="20200312"):
     """
-    获取郑州商品交易所日频率交易数据
-    Parameters
-    ------
-        date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    Return
-    -------
-        DataFrame
-            郑商所每日期货交易数据:
-                symbol        合约代码
-                date          日期
-                open          开盘价
-                high          最高价
-                low           最低价
-                close         收盘价
-                volume        成交量
-                open_interest 持仓量
-                turnover      成交额
-                settle        结算价
-                pre_settle    前结算价
-                variety       合约类别
-        或
-        DataFrame
-           郑商所每日期权交易数据
-                symbol        合约代码
-                date          日期
-                open          开盘价
-                high          最高价
-                low           最低价
-                close         收盘价
-                pre_settle      前结算价
-                settle         结算价
-                delta          对冲值
-                volume         成交量
-                open_interest     持仓量
-                oi_change       持仓变化
-                turnover        成交额
-                implied_volatility 隐含波动率
-                exercise_volume   行权量
-                variety        合约类别
-        None(类型错误或给定日期没有交易数据)
+    上海国际能源交易中心-日频率-量价数据
+    上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
+    trade_price: http://www.ine.cn/statements/daily/?paramid=kx
+    trade_note: http://www.ine.cn/data/datanote.dat
+    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :type date: str or datetime.date
+    :return: 上海国际能源交易中心-日频率-量价数据
+    :rtype: pandas.DataFrame or None
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
-        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
+        warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
+        return None
+    url = f"http://www.ine.cn/data/dailydata/kx/kx{day.strftime('%Y%m%d')}.dat"
+    r = requests.get(url)
+    result_df = pd.DataFrame()
+    temp_df = pd.DataFrame(r.json()["o_curinstrument"]).iloc[:-1, :]
+    temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
+    result_df["symbol"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0] + temp_df["DELIVERYMONTH"]
+    result_df["date"] = day.strftime("%Y%m%d")
+    result_df["open"] = temp_df["OPENPRICE"]
+    result_df["high"] = temp_df["HIGHESTPRICE"]
+    result_df["low"] = temp_df["LOWESTPRICE"]
+    result_df["close"] = temp_df["CLOSEPRICE"]
+    result_df["volume"] = temp_df["VOLUME"]
+    result_df["open_interest"] = temp_df["OPENINTEREST"]
+    result_df["turnover"] = 0
+    result_df["settle"] = temp_df["SETTLEMENTPRICE"]
+    result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
+    result_df["variety"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0]
+    return result_df
+
+
+def get_czce_daily(date=None):
+    """
+    郑州商品交易所-日频率-量价数据
+    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :type date: str or datetime.date
+    :return: 郑州商品交易所-日频率-量价数据
+    :rtype: pandas.DataFrame or None
+    郑商所每日期货交易数据:
+    symbol        合约代码
+    date          日期
+    open          开盘价
+    high          最高价
+    low           最低价
+    close         收盘价
+    volume        成交量
+    open_interest 持仓量
+    turnover      成交额
+    settle        结算价
+    pre_settle    前结算价
+    variety       合约类别
+    或
+   郑商所每日期权交易数据
+    symbol        合约代码
+    date          日期
+    open          开盘价
+    high          最高价
+    low           最低价
+    close         收盘价
+    pre_settle      前结算价
+    settle         结算价
+    delta          对冲值
+    volume         成交量
+    open_interest     持仓量
+    oi_change       持仓变化
+    turnover        成交额
+    implied_volatility 隐含波动率
+    exercise_volume   行权量
+    variety        合约类别
+    None(类型错误或给定日期没有交易数据)
+    """
+    day = cons.convert_date(date) if date is not None else datetime.date.today()
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return None
     if day > datetime.date(2010, 8, 24):
         if day > datetime.date(2015, 9, 19):
@@ -299,27 +331,25 @@ def get_shfe_v_wap(date=None):
 
 def get_shfe_daily(date=None):
     """
-        获取上期所日交易数据
-    Parameters
-    ------
-        date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    Return
-    -------
-        DataFrame
-            上期所日交易数据(DataFrame):
-                symbol        合约代码
-                date          日期
-                open          开盘价
-                high          最高价
-                low           最低价
-                close         收盘价
-                volume        成交量
-                open_interest 持仓量
-                turnover      成交额
-                settle        结算价
-                pre_settle     前结算价
-                variety       合约类别
-        或 None(给定日期没有交易数据)
+    上海期货交易所-日频率-量价数据
+    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 默认为当前交易日
+    :type date: str or datetime.date
+    :return: 上海期货交易所-日频率-量价数据
+    :rtype: pandas.DataFrame or None
+    上期所日交易数据(DataFrame):
+    symbol        合约代码
+    date          日期
+    open          开盘价
+    high          最高价
+    low           最低价
+    close         收盘价
+    volume        成交量
+    open_interest 持仓量
+    turnover      成交额
+    settle        结算价
+    pre_settle     前结算价
+    variety       合约类别
+    或 None(给定交易日没有交易数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
@@ -537,12 +567,12 @@ def get_dce_daily(date=None, symbol_type="futures", retries=0):
 
 def get_futures_daily(start_day=None, end_day=None, market="CFFEX", index_bar=False):
     """
-        获取交易所日交易数据
+    交易所日交易数据
     Parameters
     ------
         start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
         end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-        market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一。默认为中金所
+        market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
         index_bar: bool  是否合成指数K线
     Return
     -------
@@ -570,6 +600,8 @@ def get_futures_daily(start_day=None, end_day=None, market="CFFEX", index_bar=Fa
         f = get_shfe_daily
     elif market.upper() == "DCE":
         f = get_dce_daily
+    elif market.upper() == "INE":
+        f = get_ine_daily
     else:
         print("Invalid Market Symbol")
         return
@@ -642,9 +674,9 @@ def get_futures_index(df):
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_day="20181210", end_day="20191210", market="DCE", index_bar=True
+        start_day="20200310", end_day="20200312", market="DCE", index_bar=True
     )
     print(get_futures_daily_df)
-    get_dce_daily_df = get_dce_daily(date=None, symbol_type="option", retries=0)
+    get_dce_daily_df = get_dce_daily(date=None, symbol_type="futures", retries=0)
     print(get_dce_daily_df)
 
