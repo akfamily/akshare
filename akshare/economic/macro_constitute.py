@@ -415,9 +415,11 @@ def _macro_cons_opec_month():
 
 def macro_cons_opec_month():
     """
-    欧佩克报告-月度, 数据区间从20170118-至今
-    这里返回的具体索引日期的数据为上一个月的数据, 由于某些国家的数据有缺失,
+    欧佩克报告-月度, 数据区间从 20170118-至今
+    这里返回的具体索引日期的数据为上一个月的数据, 由于某些国家的数据有缺失
     只选择有数据的国家返回
+    20200312:fix:由于 “厄瓜多尔” 已经有几个月没有更新数据，在这里加以剔除
+    https://datacenter.jin10.com/reportType/dc_opec_report
     :return: pandas.Series
                 阿尔及利亚    安哥拉  厄瓜多尔    加蓬     伊朗    伊拉克    科威特    利比亚   尼日利亚  \
     2017-01-18  108.0  172.4  54.5  21.3  372.0  463.2  281.2   60.8  154.2
@@ -493,6 +495,7 @@ def macro_cons_opec_month():
                        headers=headers)  # 日期序列
     all_date_list = res.json()["data"]
     bar = tqdm(reversed(all_date_list))
+
     for item in bar:
         bar.set_description(f"Please wait for a moment, now downing {item}'s data")
         res = requests.get(
@@ -503,10 +506,10 @@ def macro_cons_opec_month():
         temp_df.columns = temp_df.iloc[0, :]
         temp_df = temp_df.iloc[1:, :]
         try:
-            temp_df = temp_df[['阿尔及利亚', '安哥拉', '厄瓜多尔', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
+            temp_df = temp_df[['阿尔及利亚', '安哥拉', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
                                '阿联酋', '委内瑞拉', '欧佩克产量']].iloc[-2, :]
         except:
-            temp_df = temp_df[['阿尔及利亚', '安哥拉', '厄瓜多尔', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
+            temp_df = temp_df[['阿尔及利亚', '安哥拉', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
                                '阿联酋', '委内瑞拉', '欧佩克产量']].iloc[-1, :]
         big_df[temp_df.name] = temp_df
     big_df = big_df.T
