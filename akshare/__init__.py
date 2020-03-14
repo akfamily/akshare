@@ -865,10 +865,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.35: fix: get_czce_rank_table history-20071228 format
 0.4.36: fix: macro_cons_opec_month
 0.4.37: add: get_ine_daily to fetch SC and NR data
+0.4.38: add: futures_sgx_daily to fetch futures data from sgx
 """
 
-__version__ = "0.4.37"
+__version__ = "0.4.38"
 __author__ = "Albert King"
+
+"""
+sgx futures data
+"""
+from akshare.futures.futures_sgx_daily import futures_sgx_daily
 
 """
 currency interface

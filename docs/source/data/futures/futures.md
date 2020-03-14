@@ -320,7 +320,6 @@ ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
     
     3. 需考虑到交割日的仓单变化.
 
-
 #### 现货价格和基差
 
 基差是商品期货非常重要的基本面因素, AkShare 在这里提供两种获取基差的方法: 
@@ -843,6 +842,65 @@ ak.get_sector_futures(sector="能源", symbol="伦敦布伦特原油", start_dat
 2005-01-06  42.85  40.43  43.20  39.82   51.63K
 2005-01-05  40.51  40.80  41.00  39.90   42.23K
 2005-01-04  41.04  39.40  41.25  38.81   40.10K
+```
+
+#### 新加坡交易所期货
+
+接口: futures_sgx_daily
+
+目标地址: https://www.sgx.com/zh-hans/research-education/derivatives
+
+描述: 主要提供盘价、最高价、最低价、收盘价、结算、成交量及未平仓合约数据, 数据于下个工作日新加坡时间下午2点起提供.
+
+限量: 单次获取指定交易日前指定交易日天数的数据, 由于国内网络限制, 请使用代理访问
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| trade_date | str  | Y    |  需要获取数据的指定日期, e.g., trade_date="2020/03/06"|
+| recent_day | str  | Y    |  需要获取数据的指定日期的前 **recent_day** 的数据, e.g., recent_day="2" |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| DATE      | str   | Y        | 日期  |
+| COM      | float   | Y        | 品种代码   |
+| COM_MM      | float   | Y        | 品种到期月份        |
+| COM_YY        | float   | Y        |品种年份    |
+| OPEN         | float | Y        | 开盘价         |
+| HIGH      | str | Y        | 最高价      |
+| LOW      | str | Y        | 最低价      |
+| CLOSE      | str | Y        | 收盘价      |
+| SETTLE      | str | Y        | 结算价      |
+| VOLUME      | str | Y        | 交易量      |
+| OINT      | str | Y        | 未平仓合约      |
+| SERIES      | str | Y        | 合约代码      |
+
+接口示例
+
+```python
+import akshare as ak
+futures_sgx_daily_df = ak.futures_sgx_daily(trade_date="2020/03/06", recent_day="2")
+print(futures_sgx_daily_df)
+```
+
+数据示例
+
+```
+          DATE    COM  COM_MM  COM_YY  ...  SETTLE  VOLUME  OINT   SERIES
+0     20200305  1MF         3    2020  ...  273.01       0    20   1MFH20
+1     20200305  1MF         4    2020  ...  275.23       0    20   1MFJ20
+2     20200305  1MF         5    2020  ...  277.23       0    20   1MFK20
+3     20200305  1MF         6    2020  ...  279.45       0     0   1MFM20
+4     20200305  1MF         7    2020  ...  280.47       0     0   1MFN20
+        ...    ...     ...     ...  ...     ...     ...   ...      ...
+2174  20200306  ZYES        4    2020  ...    9.30     314   314  ZYESJ20
+2175  20200306  ZYES        5    2020  ...    9.60       0     0  ZYESK20
+2176  20200306  ZZEE        3    2020  ...  221.60       0     4  ZZEEH20
+2177  20200306  ZZEE        4    2020  ...  222.95       0     0  ZZEEJ20
+2178  20200306  ZZEE        5    2020  ...  223.70       0     0  ZZEEK20
 ```
 
 ### 期货连续合约
