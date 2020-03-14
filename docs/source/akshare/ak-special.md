@@ -104,6 +104,10 @@
 
 感谢[Currencyscoop网站](https://currencyscoop.com/)提供的相关数据;
 
+感谢[新加坡交易所](https://www.sgx.com/zh-hans/research-education/derivatives)提供的相关数据;
+
+感谢[Currencyscoop网站](https://currencyscoop.com/)提供的相关数据;
+
 ## 交流
 
 您可以关注 **数据科学实战** 微信公众号来获取最新的 [AkShare](https://github.com/jindaxiang/akshare) 更新信息:

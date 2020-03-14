@@ -441,7 +441,7 @@ def get_country_index(
 
 
 if __name__ == "__main__":
-    get_country_name_url_dict = get_country_name_url("美国")
-    get_country_index_df = get_country_index()
+    get_country_name_url_dict = get_country_name_url("新加坡")
+    get_country_index_df = get_country_index(country="新加坡", index_name="FTSE Singapore", start_date="2005/01/01", end_date="2020/03/12")
     print(get_country_index_df.name)
     print(get_country_index_df)
