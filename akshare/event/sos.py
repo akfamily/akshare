@@ -3,8 +3,9 @@
 """
 Author: Albert King
 date: 2020/1/23 9:07
+update_date: 2020/3/16 9:07
 contact: jindaxiang@163.com
-desc: 新增-事件接口
+desc: COVID-19
 新增-事件接口-新型冠状病毒-网易
 新增-事件接口-新型冠状病毒-丁香园
 新增-事件接口-新型冠状病毒-百度

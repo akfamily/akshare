@@ -12,7 +12,7 @@ import pandas as pd
 from akshare.futures.cons import futures_rule_url
 
 
-def futures_rule():
+def futures_rule() -> pd.DataFrame:
     """
     国泰君安期货-交易日历数据表, 必须在交易日运行
     http://www.gtjaqh.com/jyrl.html
