@@ -59,6 +59,7 @@ setuptools.setup(
         "xlrd>=1.2.0",
         "tqdm>=4.43.0",
         "openpyxl>=3.0.3",
+        "jsonpath>=0.82",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.woff"]},
     keywords=[

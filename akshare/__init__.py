@@ -866,9 +866,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.36: fix: macro_cons_opec_month
 0.4.37: add: get_ine_daily to fetch SC and NR data
 0.4.38: add: futures_sgx_daily to fetch futures data from sgx
+0.4.39: refactor: sos.py/covid_19_163 interface
 """
 
-__version__ = "0.4.38"
+__version__ = "0.4.39"
 __author__ = "Albert King"
 
 """
@@ -956,11 +957,11 @@ from akshare.bond.china_repo import bond_repo_zh_tick
 新型肺炎
 """
 from akshare.event.sos import (
-    epidemic_area_search,
-    epidemic_area_all,
-    epidemic_area_detail,
-    epidemic_trip,
-    epidemic_history,
+    covid_19_area_search,
+    covid_19_area_all,
+    covid_19_area_detail,
+    covid_19_trip,
+    covid_19_history,
 )
 
 """
@@ -977,12 +978,12 @@ from akshare.event.sos import migration_area_baidu, migration_scale_baidu
 新增-事件接口新型冠状病毒接口
 """
 from akshare.event.sos import (
-    epidemic_163,
-    epidemic_dxy,
-    epidemic_baidu,
-    epidemic_hist_all,
-    epidemic_hist_city,
-    epidemic_hist_province,
+    covid_19_163,
+    covid_19_dxy,
+    covid_19_baidu,
+    covid_19_hist_all,
+    covid_19_hist_city,
+    covid_19_hist_province,
 )
 
 """
