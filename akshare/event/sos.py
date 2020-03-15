@@ -5,15 +5,17 @@ Author: Albert King
 date: 2020/1/23 9:07
 contact: jindaxiang@163.com
 desc: 新增-事件接口
-新增-事件接口新型冠状病毒-网易
-新增-事件接口新型冠状病毒-丁香园
-新增-事件接口新型冠状病毒-百度
+新增-事件接口-新型冠状病毒-网易
+新增-事件接口-新型冠状病毒-丁香园
+新增-事件接口-新型冠状病毒-百度
+20200315 refactor the function
 """
 import json
 import time
 from io import BytesIO
 
 import demjson
+import jsonpath
 import pandas as pd
 import requests
 from PIL import Image
@@ -25,13 +27,12 @@ from akshare.event.cons import province_dict, city_dict
 # pd.set_option('display.max_columns', None)  # just for debug
 
 
-def epidemic_163(indicator="实时"):
+def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
     """
-    网易网页端-新冠状病毒-实时人数统计情况
-    国内和海外
+    网易-新冠状病毒
     https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&#map_block
     https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&
-    :return: 返回国内各地区和海外地区情况
+    :return: 返回指定 indicator 的数据
     :rtype: pandas.DataFrame
     """
     url = "https://c.m.163.com/ug/api/wuhan/app/data/list-total"
@@ -43,50 +44,134 @@ def epidemic_163(indicator="实时"):
     }
     r = requests.get(url, params=payload, headers=headers)
     data_json = r.json()
-
+    # data info
     url = "https://news.163.com/special/epidemic/"
-    headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
-    }
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     data_info_df = pd.DataFrame([item.text.strip().split(".")[1] for item in
                                  soup.find("div", attrs={"class": "data_tip_pop_text"}).find_all("p")])
+    data_info_df.columns = ["info"]
 
+    # 中国历史时点数据
     hist_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["chinaDayList"]],
                                  index=[item["date"] for item in data_json["data"]["chinaDayList"]])
+
+    # 中国历史累计数据
     hist_total_df = pd.DataFrame([item["total"] for item in data_json["data"]["chinaDayList"]],
                                  index=[item["date"] for item in data_json["data"]["chinaDayList"]])
 
+    # 中国实时数据
     current_df = pd.DataFrame.from_dict(data_json["data"]["chinaTotal"])
 
+    # 世界历史时点数据
     outside_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["areaTree"]],
                                     index=[item["name"] for item in data_json["data"]["areaTree"]])
-    outside_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"]],
-                                   index=[item["name"] for item in data_json["data"]["areaTree"]])
 
-    province_hist_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"][0]["children"]],
-                                    index=[item["name"] for item in data_json["data"]["areaTree"][0]["children"]])
+    # 世界历史累计数据
+    outside_total_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"]],
+                                    index=[item["name"] for item in data_json["data"]["areaTree"]])
 
-    if indicator == "实时":
-        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
-        return current_df
+    # 全球所有国家及地区时点数据
+    all_world_today_df = pd.DataFrame(jsonpath.jsonpath(data_json["data"]["areaTree"], '$..today'),
+                                      index=jsonpath.jsonpath(data_json["data"]["areaTree"], '$..name'))
+
+    # 全球所有国家及地区累计数据
+    all_world_total_df = pd.DataFrame(jsonpath.jsonpath(data_json["data"]["areaTree"], '$..total'),
+                                      index=jsonpath.jsonpath(data_json["data"]["areaTree"], '$..name'))
+
+    # 中国各地区时点数据
+    area_total_df = pd.DataFrame([item["total"] for item in data_json["data"]["areaTree"][0]["children"]],
+                                 index=[item["name"] for item in data_json["data"]["areaTree"][0]["children"]])
+
+    # 中国各地区累计数据
+    area_today_df = pd.DataFrame([item["today"] for item in data_json["data"]["areaTree"][0]["children"]],
+                                 index=[item["name"] for item in data_json["data"]["areaTree"][0]["children"]])
+
+    # 疫情学术进展
+    url_article = "https://vip.open.163.com/api/cms/topic/list"
+    payload_article = {
+        "topicid": "00019NGQ",
+        "listnum": "1000",
+        "liststart": "0",
+        "pointstart": "0",
+        "pointend": "255",
+        "useproperty": "true"
+    }
+    r_article = requests.get(url_article, params=payload_article)
+    article_df = pd.DataFrame(r_article.json()["data"]).iloc[:, 1:]
+
+    # 咨询
+    url_info = "https://ent.163.com/special/00035080/virus_report_data.js"
+    payload_info = {
+        "_": int(time.time() * 1000),
+        "callback": "callback",
+    }
+    r_info = requests.get(url_info, params=payload_info, headers=headers)
+    data_info_text = r_info.text
+    data_info_json = demjson.decode(data_info_text.strip(" callback(")[:-1])
+
     if indicator == "数据说明":
         print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
         return data_info_df
-    if indicator == "省份":
+
+    if indicator == "中国实时数据":
         print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
-        return province_hist_df
-    elif indicator == "历史":
+        return current_df
+
+    if indicator == "中国历史时点数据":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
+        return hist_today_df
+
+    if indicator == "中国历史累计数据":
         print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
         return hist_total_df
-    elif indicator == "国家":
+
+    if indicator == "世界历史时点数据":
         print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
-        return outside_hist_df
+        return outside_today_df
+
+    if indicator == "世界历史累计数据":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
+        return outside_total_df
+
+    if indicator == "全球所有国家及地区时点数据":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
+        return all_world_today_df
+
+    elif indicator == "全球所有国家及地区累计数据":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
+        return all_world_total_df
+
+    elif indicator == "中国各地区时点数据":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
+        return area_today_df
+
+    elif indicator == "中国各地区累计数据":
+        print(f"数据更新时间: {data_json['data']['lastUpdateTime']}")
+        return area_total_df
+
+    elif indicator == "疫情学术进展":
+        return article_df
+
+    elif indicator == "实时资讯新闻播报":
+        return pd.DataFrame(data_info_json["list"])
+
+    elif indicator == "实时医院新闻播报":
+        return pd.DataFrame(data_info_json["hospital"])
+
+    elif indicator == "前沿知识":
+        return pd.DataFrame(data_info_json["papers"])
+
+    elif indicator == "权威发布":
+        return pd.DataFrame(data_info_json["power"])
+
+    elif indicator == "滚动新闻":
+        return pd.DataFrame(data_info_json["scrollNews"])
 
 
-def epidemic_dxy(indicator="西藏自治区"):
+def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
     """
+    20200315-丁香园接口更新分为国内和国外
     丁香园-全国统计-info
     丁香园-分地区统计-data
     丁香园-全国发热门诊一览表-hospital
@@ -100,8 +185,8 @@ def epidemic_dxy(indicator="西藏自治区"):
     r = requests.get(url)
     r.encoding = "utf-8"
     soup = BeautifulSoup(r.text, "lxml")
-    # news
-    text_data_news = str(soup.find_all("script", attrs={"id": "getTimelineService"}))
+    # news-china
+    text_data_news = str(soup.find_all("script", attrs={"id": "getTimelineServiceundefined"}))
     temp_json = text_data_news[
                 text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")
                 ]
@@ -109,6 +194,14 @@ def epidemic_dxy(indicator="西藏自治区"):
     desc_data = json_data[
         ["title", "summary", "infoSource", "provinceName", "sourceUrl"]
     ]
+    # # news-foreign
+    # text_data_news = str(soup.find_all("script", attrs={"id": "getTimelineService2"}))
+    # temp_json = text_data_news[
+    #             text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")
+    #             ]
+    # json_data = pd.DataFrame(json.loads(temp_json))
+    # desc_data = json_data
+
     # data-domestic
     data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
     data_text_json = json.loads(
@@ -118,7 +211,7 @@ def epidemic_dxy(indicator="西藏自治区"):
     data_df.columns = ["地区", "地区简称", "现存确诊", "累计确诊", "-", "治愈", "死亡"]
     country_df = data_df[["地区", "地区简称", "现存确诊", "累计确诊", "治愈", "死亡"]]
     # data-global
-    data_text = str(soup.find("script", attrs={"id": "getListByCountryTypeService2"}))
+    data_text = str(soup.find("script", attrs={"id": "getListByCountryTypeService2true"}))
     data_text_json = json.loads(
         data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
     )
@@ -223,7 +316,7 @@ def epidemic_dxy(indicator="西藏自治区"):
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
 
 
-def epidemic_baidu(indicator="浙江"):
+def covid_19_baidu(indicator="浙江"):
     """
     百度-新型冠状病毒肺炎-疫情实时大数据报告
     https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1
@@ -389,7 +482,7 @@ def migration_scale_baidu(area="乌鲁木齐市", indicator="move_out", start_da
     return temp_df
 
 
-def epidemic_area_search(province="四川省", city="成都市", district="高新区"):
+def covid_19_area_search(province="四川省", city="成都市", district="高新区"):
     """
     省份-城市-区-数据查询
     https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
@@ -415,7 +508,7 @@ def epidemic_area_search(province="四川省", city="成都市", district="高�
     return temp_df[["province", "city", "district", "show_address", "full_address", "cnt_sum_certain"]]
 
 
-def epidemic_area_all():
+def covid_19_area_all():
     """
     可以获取数据的全国所有省份-城市-区域数据
     https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
@@ -434,7 +527,7 @@ def epidemic_area_all():
     return pd.DataFrame(temp, columns=["province", "city", "district"])
 
 
-def epidemic_area_detail():
+def covid_19_area_detail():
     """
     细化到每个小区的确诊人数
     需要遍历每个页面, 如非必要, 请勿运行
@@ -443,15 +536,15 @@ def epidemic_area_detail():
     :rtype: pandas.DataFrame
     """
     temp_df = pd.DataFrame()
-    area_df = epidemic_area_all()
+    area_df = covid_19_area_all()
     for item in area_df.iterrows():
         print(f"一共{area_df.shape[0]}, 正在下载第{item[0] + 1}页")
-        small_df = epidemic_area_search(province=item[1][0], city=item[1][1], district=item[1][2])
+        small_df = covid_19_area_search(province=item[1][0], city=item[1][1], district=item[1][2])
         temp_df = temp_df.append(small_df, ignore_index=True)
     return temp_df
 
 
-def epidemic_trip():
+def covid_19_trip():
     """
     新型肺炎确诊患者-相同行程查询工具
     https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message
@@ -463,7 +556,7 @@ def epidemic_trip():
     return pd.DataFrame(r.json()["data"]["list"])
 
 
-def epidemic_hist_all() -> pd.DataFrame:
+def covid_19_hist_all() -> pd.DataFrame:
     """
     返回丁香园的数据
     该接口最好用代理速度比较快
@@ -479,7 +572,7 @@ def epidemic_hist_all() -> pd.DataFrame:
     return data_df
 
 
-def epidemic_hist_city(city: str = "武汉市") -> pd.DataFrame:
+def covid_19_hist_city(city: str = "武汉市") -> pd.DataFrame:
     """
     该接口最好用代理速度比较快
     https://github.com/canghailan/Wuhan-2019-nCoV
@@ -494,12 +587,12 @@ def epidemic_hist_city(city: str = "武汉市") -> pd.DataFrame:
     return data_df[data_df["city"] == city]
 
 
-def epidemic_hist_province(province: str = "湖北省") -> pd.DataFrame:
+def covid_19_hist_province(province: str = "湖北省") -> pd.DataFrame:
     """
     该接口最好用代理速度比较快
     https://github.com/canghailan/Wuhan-2019-nCoV
     2019-12-01开始
-    :return:
+    :return: 具体省份的疫情数据
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
@@ -509,7 +602,7 @@ def epidemic_hist_province(province: str = "湖北省") -> pd.DataFrame:
     return data_df[data_df["province"] == province]
 
 
-def epidemic_history() -> pd.DataFrame:
+def covid_19_history() -> pd.DataFrame:
     """
     该接口最好用代理速度比较快
     https://github.com/canghailan/Wuhan-2019-nCoV
@@ -526,60 +619,59 @@ def epidemic_history() -> pd.DataFrame:
 
 if __name__ == "__main__":
     # 163
-    epidemic_current_163_df = epidemic_163(indicator="实时")
-    print(epidemic_current_163_df)
-    epidemic_info_163_df = epidemic_163(indicator="数据说明")
-    print(epidemic_info_163_df)
-    epidemic_hist_163_df = epidemic_163(indicator="省份")
-    print(epidemic_hist_163_df)
-    epidemic_area_163_df = epidemic_163(indicator="历史")
-    print(epidemic_area_163_df)
-    epidemic_outside_163_df = epidemic_163(indicator="国家")
-    print(epidemic_outside_163_df)
+    indicator_list = ["数据说明", "中国实时数据", "中国历史时点数据", "中国历史累计数据",
+                      "世界历史时点数据", "世界历史累计数据", "全球所有国家及地区时点数据",
+                      "全球所有国家及地区累计数据", "中国各地区时点数据", "中国各地区累计数据",
+                      "疫情学术进展", "实时资讯新闻播报", "实时医院新闻播报", "前沿知识",
+                      "权威发布", "滚动新闻"]
+    for item in indicator_list:
+        covip_19_163_df = covid_19_163(indicator=item)
+        print(covip_19_163_df)
+
     # dxy
-    epidemic_dxy_country_df = epidemic_dxy(indicator="全国")
+    epidemic_dxy_country_df = covid_19_dxy(indicator="全国")
     print(epidemic_dxy_country_df)
-    epidemic_dxy_global_df = epidemic_dxy(indicator="global")
+    epidemic_dxy_global_df = covid_19_dxy(indicator="global")
     print(epidemic_dxy_global_df)
-    epidemic_dxy_province_df = epidemic_dxy(indicator="浙江省")
+    epidemic_dxy_province_df = covid_19_dxy(indicator="浙江省")
     print(epidemic_dxy_province_df)
-    epidemic_dxy_info_df = epidemic_dxy(indicator="info")
+    epidemic_dxy_info_df = covid_19_dxy(indicator="info")
     print(epidemic_dxy_info_df)
-    epidemic_dxy_hospital_df = epidemic_dxy(indicator="hospital")
+    epidemic_dxy_hospital_df = covid_19_dxy(indicator="hospital")
     print(epidemic_dxy_hospital_df)
-    epidemic_dxy_news_df = epidemic_dxy(indicator="news")
+    epidemic_dxy_news_df = covid_19_dxy(indicator="news")
     print(epidemic_dxy_news_df)
-    epidemic_dxy(indicator="全国-疫情新增趋势图")
-    epidemic_dxy(indicator="全国-疫情疑似-确诊趋势图")
-    epidemic_dxy(indicator="全国-疫情新增死亡-治愈病例趋势图")
-    epidemic_dxy(indicator="全国-疫情死亡-治愈病例趋势图")
-    epidemic_dxy(indicator="全国-疫情病死率-治愈率趋势图")
-    epidemic_dxy(indicator="湖北-疫情新增确诊病例趋势图")
-    epidemic_dxy(indicator="湖北-疫情确诊趋势图")
-    epidemic_dxy(indicator="湖北-疫情死亡-治愈病例趋势图")
-    epidemic_dxy(indicator="湖北-疫情病死率趋势图")
-    epidemic_dxy(indicator="湖北-疫情治愈率趋势图")
-    epidemic_dxy(indicator="疫情地图")
+    covid_19_dxy(indicator="全国-疫情新增趋势图")
+    covid_19_dxy(indicator="全国-疫情疑似-确诊趋势图")
+    covid_19_dxy(indicator="全国-疫情新增死亡-治愈病例趋势图")
+    covid_19_dxy(indicator="全国-疫情死亡-治愈病例趋势图")
+    covid_19_dxy(indicator="全国-疫情病死率-治愈率趋势图")
+    covid_19_dxy(indicator="湖北-疫情新增确诊病例趋势图")
+    covid_19_dxy(indicator="湖北-疫情确诊趋势图")
+    covid_19_dxy(indicator="湖北-疫情死亡-治愈病例趋势图")
+    covid_19_dxy(indicator="湖北-疫情病死率趋势图")
+    covid_19_dxy(indicator="湖北-疫情治愈率趋势图")
+    covid_19_dxy(indicator="疫情地图")
     # baidu
-    epidemic_baidu_rmqrd_df = epidemic_baidu(indicator="热门迁入地")
+    epidemic_baidu_rmqrd_df = covid_19_baidu(indicator="热门迁入地")
     print(epidemic_baidu_rmqrd_df)
-    epidemic_baidu_rmqcd_df = epidemic_baidu(indicator="热门迁出地")
+    epidemic_baidu_rmqcd_df = covid_19_baidu(indicator="热门迁出地")
     print(epidemic_baidu_rmqcd_df)
-    epidemic_baidu_jryqrs_df = epidemic_baidu(indicator="今日疫情热搜")
+    epidemic_baidu_jryqrs_df = covid_19_baidu(indicator="今日疫情热搜")
     print(epidemic_baidu_jryqrs_df)
-    epidemic_baidu_fyzsrs_df = epidemic_baidu(indicator="防疫知识热搜")
+    epidemic_baidu_fyzsrs_df = covid_19_baidu(indicator="防疫知识热搜")
     print(epidemic_baidu_fyzsrs_df)
-    epidemic_baidu_rsyyfs_df = epidemic_baidu(indicator="热搜谣言粉碎")
+    epidemic_baidu_rsyyfs_df = covid_19_baidu(indicator="热搜谣言粉碎")
     print(epidemic_baidu_rsyyfs_df)
-    epidemic_baidu_ssbb_df = epidemic_baidu(indicator="实时播报")
+    epidemic_baidu_ssbb_df = covid_19_baidu(indicator="实时播报")
     print(epidemic_baidu_ssbb_df)
-    epidemic_baidu_ls_df = epidemic_baidu(indicator="历史")
+    epidemic_baidu_ls_df = covid_19_baidu(indicator="历史")
     print(epidemic_baidu_ls_df)
-    epidemic_baidu_gn_df = epidemic_baidu(indicator="国内")
+    epidemic_baidu_gn_df = covid_19_baidu(indicator="国内")
     print(epidemic_baidu_gn_df)
-    epidemic_baidu_gw_df = epidemic_baidu(indicator="国外")
+    epidemic_baidu_gw_df = covid_19_baidu(indicator="国外")
     print(epidemic_baidu_gw_df)
-    epidemic_baidu_zj_df = epidemic_baidu(indicator="浙江")
+    epidemic_baidu_zj_df = covid_19_baidu(indicator="浙江")
     print(epidemic_baidu_zj_df)
     # 迁徙地图
     migration_area_baidu_df = migration_area_baidu(area="上海市", indicator="move_in", date="20200212")
@@ -590,23 +682,23 @@ if __name__ == "__main__":
     # print(migration_scale_baidu_df.to_csv("迁入上海市2019-2020统计-20200218.csv", encoding="gb2312"))
     print(migration_scale_baidu_df)
     # 小区
-    epidemic_area_search_df = epidemic_area_search(province="四川省", city="成都市", district="高新区")
+    epidemic_area_search_df = covid_19_area_search(province="四川省", city="成都市", district="高新区")
     print(epidemic_area_search_df)
-    epidemic_area_all_df = epidemic_area_all()
+    epidemic_area_all_df = covid_19_area_all()
     print(epidemic_area_all_df)
     # epidemic_area_detail_df = epidemic_area_detail()
     # print(epidemic_area_detail_df)
     # print(epidemic_area_detail_df.to_csv("所有疫情地点-20200218.csv", encoding="gbk"))
     # 行程
-    epidemic_trip_df = epidemic_trip()
+    epidemic_trip_df = covid_19_trip()
     print(epidemic_trip_df)
     # 历史数据
-    epidemic_hist_all_df = epidemic_hist_all()
+    epidemic_hist_all_df = covid_19_hist_all()
     print(epidemic_hist_all_df)
-    epidemic_hist_city_df = epidemic_hist_city(city="武汉市")
+    epidemic_hist_city_df = covid_19_hist_city(city="武汉市")
     print(epidemic_hist_city_df)
-    epidemic_hist_province_df = epidemic_hist_province(province="湖北省")
+    epidemic_hist_province_df = covid_19_hist_province(province="湖北省")
     print(epidemic_hist_province_df)
     # 详细历史数据
-    epidemic_history_df = epidemic_history()
+    epidemic_history_df = covid_19_history()
     print(epidemic_history_df)

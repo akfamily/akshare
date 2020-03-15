@@ -1,39 +1,39 @@
 ## [AkShare](https://github.com/jindaxiang/akshare) 事件数据
 
-### 新型冠状病毒-网易
+### COVIP-19-网易
 
-接口: epidemic_163
+接口: covid_19_163
 
 目标地址: https://news.163.com/special/epidemic/
 
-描述: 获取网易-新型冠状病毒-疫情数据
+描述: 获取网易-新型冠状病毒肺炎-疫情数据-总入口
 
-限量: 单次返回实时数据
+限量: 单次返回指定 **indicator** 的数据
 
 输入参数-数据说明
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="数据说明", 返回数据说明 |
+| indicator | str | Y | indicator="数据说明"; 返回网易对相关字段的数据说明 |
 
 输出参数-数据说明
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        |  - |
+| info      | -   | -        | 数据说明  |
 						
 接口示例-数据说明
 
 ```python
 import akshare as ak
-epidemic_163_df = ak.epidemic_163(indicator="数据说明")
-print(epidemic_163_df)
+covid_19_163_df = ak.covid_19_163(indicator="数据说明")
+print(covid_19_163_df)
 ```
 
 数据示例-数据说明
 
 ```
-                                                   0
+                                                   info
 0             数据来源：国家卫健委、各省市区卫健委、各省市区政府、港澳台官方渠道公开数据。
 1   数据更新时间：实时更新全国、各省市区数据，因核实计算需要，与官方的发布时间相比，将有一定时...
 2   实时数据统计原则：① 每日上午优先将全国各类数据与国家卫健委公布数据对齐（此时各省市区数据...
@@ -41,157 +41,546 @@ print(epidemic_163_df)
 4    网易新闻全力以赴提供权威、准确、及时的疫情数据，如有任何疑问，欢迎通过网易新闻客户端留言反馈。
 ```
 
-输入参数-实时
+输入参数-中国实时数据
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="实时", 返回实时数据; indicator="历史", 返回历史数据 |
+| indicator | str | Y | indicator="中国实时数据"; 返回中国实时疫情统计数据 |
 
-输出参数-实时
+输出参数-中国实时数据
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| confirm      | str   | Y        |   |
-| suspect      | str   | Y        |   |
-| heal      | str   | Y        |   |
-| dead      | str   | Y        |   |
+| -      | -   | -        | 参见: **数据示例-中国实时数据**  |
 						
-接口示例-实时
+接口示例-中国实时数据
 
 ```python
 import akshare as ak
-epidemic_163_df = ak.epidemic_163(indicator="实时")
-print(epidemic_163_df)
+covip_19_163_df = ak.covid_19_163(indicator="中国实时数据")
+print(covip_19_163_df)
 ```
 
-数据示例-实时
+数据示例-中国实时数据
 
 ```
-         today  total
-confirm   3084  40246
-suspect   4008  23589
-heal       727   3378
-dead        97    909
+                  today    total extData
+confirm            41.0  81062.0     NaN
+suspect            39.0    113.0     NaN
+heal             1390.0  67039.0     NaN
+dead               10.0   3204.0     NaN
+severe           -384.0   3226.0     NaN
+                 ...      ...     ...
+suspectNote         NaN      NaN        
+healNote            NaN      NaN        
+deadNote            NaN      NaN        
+incrConfirmNote     NaN      NaN        
+incrSevereNote      NaN      NaN        
 ```
 
-输入参数-历史
+输入参数-中国历史时点数据
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="历史", 返回历史时间数据 |
+| indicator | str | Y | indicator="中国历史时点数据", 返回中国历史每日新增数据 |
 
-输出参数-历史
+输出参数-中国历史时点数据
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| confirm      | str   | Y        |   |
-| suspect      | str   | Y        |   |
-| heal      | str   | Y        |   |
-| dead      | int   | Y        |   |
+| -      | -   | -        | 参见 **数据示例-中国历史时点数据**  |
 						
-接口示例-历史
+接口示例-中国历史时点数据
 
 ```python
 import akshare as ak
-epidemic_163_df = ak.epidemic_163(indicator="历史")
-print(epidemic_163_df)
+covid_19_163_df = ak.covid_19_163(indicator="中国历史时点数据")
+print(covid_19_163_df)
 ```
 
-数据示例-历史
+数据示例-中国历史时点数据
 
 ```
-            confirm  suspect  heal  dead
-2020-01-20      291       54     0     6
-2020-01-21      440       37     0     9
-2020-01-22      571      393    28    17
-2020-01-23      830     1072    34    25
-2020-01-24     1287     1965    38    41
-             ...      ...   ...   ...
-2020-02-05    28018    24702  1153   563
-2020-02-06    31116    26359  1540   636
-2020-02-07    34546    27657  2050   722
-2020-02-08    37198    28942  2649   811
-2020-02-09    40171    23589  3281   908
+            confirm  suspect  heal  dead  severe storeConfirm
+2020-01-20      291       27    25     6       0         None
+2020-01-21      149       26     0     3       0         None
+2020-01-22      131      257     3     8       0         None
+2020-01-23      259      680     6     8       0         None
+2020-01-24      457     1118     4    16       0         None
+             ...      ...   ...   ...     ...          ...
+2020-03-10       24       31  1578    22       0         None
+2020-03-11       15       33  1318    11       0         None
+2020-03-12       20       33  1318     7       0         None
+2020-03-13       11       17  1430    13       0         None
+2020-03-14       20       39  1370    10       0         None
 ```
 
-输入参数-省份
+输入参数-中国历史累计数据
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="省份", 返回省份数据 |
+| indicator | str | Y | indicator="中国历史累计数据", 返回中国历史每日累计数据 |
 
-输出参数-省份
+输出参数-中国历史累计数据
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| confirm      | str   | Y        |   |
-| suspect      | str   | Y        |   |
-| heal      | str   | Y        |   |
-| dead      | int   | Y        |   |
+| -      | -   | -        | 参见 **数据示例-中国历史累计数据**  |
 						
-接口示例-省份
+接口示例-中国历史累计数据
 
 ```python
 import akshare as ak
-epidemic_163_df = ak.epidemic_163(indicator="省份")
-print(epidemic_163_df)
+covid_19_163_df = ak.covid_19_163(indicator="中国历史累计数据")
+print(covid_19_163_df)
 ```
 
-数据示例-历史
+数据示例-中国历史累计数据
 
 ```
-    confirm  suspect  heal  dead
-湖北    29631        0  1795   871
-广东     1151        0   148     1
-浙江     1092        0   215     0
-河南     1073        0   179     6
-湖南      879        0   200     1
-..      ...      ...   ...   ...
-香港       36        0     0     1
-青海       18        0     3     0
-台湾       18        0     1     0
-澳门       10        0     1     0
-西藏        1        0     0     0
+            confirm  suspect   heal  dead  severe
+2020-01-20      291       54     25     6       0
+2020-01-21      440       37     25     9     102
+2020-01-22      571      393     28    17      95
+2020-01-23      830     1072     34    25     177
+2020-01-24     1287     1965     38    41     237
+             ...      ...    ...   ...     ...
+2020-03-10    80778      285  61475  3158    4492
+2020-03-11    80793      253  62793  3169    4257
+2020-03-12    80813      147  64111  3176    4020
+2020-03-13    80824      115  65541  3189    3610
+2020-03-14    80844      113  66911  3199    3226
 ```
 
-输入参数-国家
+输入参数-世界历史时点数据
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="国家", 返回海外数据 |
+| indicator | str | Y | indicator="世界历史时点数据", 返回世界历史每日新增数据 |
 
-输出参数-国家
+输出参数-世界历史时点数据
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| confirm      | int   | Y        |   |
-| suspect      | int   | Y        |   |
-| heal      | int   | Y        |   |
-| dead      | int   | Y        |   |
+| -      | -   | -        | 参见 **数据示例-世界历史时点数据**  |
 						
-接口示例-国家
+接口示例-世界历史时点数据
 
 ```python
 import akshare as ak
-epidemic_163_df = ak.epidemic_163(indicator="国家")
-print(epidemic_163_df)
+covid_19_163_df = ak.covid_19_163(indicator="世界历史时点数据")
+print(covid_19_163_df)
 ```
 
-数据示例-国家
+数据示例-世界历史时点数据
 
 ```
-      confirm  suspect  heal  dead
-中国      40246    23589  3378   909
-日本        130        0     0     0
-泰国         32        0     0     0
-新加坡        40        0     0     0
-韩国         27        0     0     0
-       ...      ...   ...   ...
-西班牙         2        0     0     0
-斯里兰卡        1        0     0     0
-柬埔寨         1        0     0     0
-瑞典          1        0     0     0
-比利时         1        0     0     0
+        confirm  suspect    heal  dead  severe storeConfirm
+中国         41.0     39.0  1393.0  10.0  -384.0         None
+日本        107.0      NaN    14.0   5.0     NaN         None
+泰国         44.0      0.0     0.0   0.0     0.0         None
+新加坡        26.0      0.0     8.0   0.0     0.0         None
+韩国         76.0      NaN   120.0   3.0     NaN         None
+         ...      ...     ...   ...     ...          ...
+苏里南         NaN      0.0     NaN   NaN     0.0         None
+刚果（布）       1.0      0.0     0.0   0.0     0.0         None
+乌兹别克斯坦      1.0      0.0     0.0   0.0     0.0         None
+刚果（金）       0.0      NaN     0.0   0.0     NaN         None
+中非共和国       1.0      0.0     0.0   0.0     0.0         None
+```
+
+输入参数-世界历史累计数据
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="世界历史累计数据", 返回世界历史每日累计数据 |
+
+输出参数-世界历史累计数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-世界历史累计数据**  |
+						
+接口示例-世界历史累计数据
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="世界历史累计数据")
+print(covid_19_163_df)
+```
+
+数据示例-世界历史累计数据
+
+```
+        confirm  suspect   heal  dead  severe
+中国        81062      113  67042  3204    3226
+日本         1515        0    525    31       0
+泰国          114        0     35     1       0
+新加坡         226        0    105     0       0
+韩国         8162        0    834    75       0
+         ...      ...    ...   ...     ...
+苏里南           1        0      0     0       0
+刚果（布）         1        0      0     0       0
+乌兹别克斯坦        1        0      0     0       0
+刚果（金）         2        0      0     0       0
+中非共和国         1        0      0     0       0
+```
+
+输入参数-全球所有国家及地区时点数据
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="全球所有国家及地区时点数据", 返回全球所有国家及地区时点数据 |
+
+输出参数-全球所有国家及地区时点数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-全球所有国家及地区时点数据**  |
+						
+接口示例-全球所有国家及地区时点数据
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="全球所有国家及地区时点数据")
+print(covid_19_163_df)
+```
+
+数据示例-全球所有国家及地区时点数据
+
+```
+        confirm  suspect    heal  dead  severe storeConfirm
+中国         41.0     39.0  1393.0  10.0  -384.0         None
+湖北          4.0      NaN  1346.0  10.0     NaN         None
+武汉          4.0      0.0  1192.0  10.0     0.0         None
+孝感          0.0      NaN    16.0   0.0     NaN         None
+黄冈          0.0      NaN     8.0   0.0     NaN         None
+         ...      ...     ...   ...     ...          ...
+苏里南         NaN      0.0     NaN   NaN     0.0         None
+刚果（布）       1.0      0.0     0.0   0.0     0.0         None
+乌兹别克斯坦      1.0      0.0     0.0   0.0     0.0         None
+刚果（金）       0.0      NaN     0.0   0.0     NaN         None
+中非共和国       1.0      0.0     0.0   0.0     0.0         None
+```
+
+输入参数-全球所有国家及地区累计数据
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="全球所有国家及地区累计数据", 返回全球所有国家及地区累计数据 |
+
+输出参数-全球所有国家及地区累计数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-全球所有国家及地区累计数据**  |
+						
+接口示例-全球所有国家及地区累计数据
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="全球所有国家及地区累计数据")
+print(covid_19_163_df)
+```
+
+数据示例-全球所有国家及地区累计数据
+
+```
+        confirm  suspect   heal  dead  severe
+中国        81062      113  67042  3204    3226
+湖北        67794        0  54289  3085       0
+武汉        49999        0  37643  2456       0
+孝感         3518        0   3253   126       0
+黄冈         2907        0   2738   125       0
+         ...      ...    ...   ...     ...
+苏里南           1        0      0     0       0
+刚果（布）         1        0      0     0       0
+乌兹别克斯坦        1        0      0     0       0
+刚果（金）         2        0      0     0       0
+中非共和国         1        0      0     0       0
+```
+
+输入参数-中国各地区时点数据
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="中国各地区时点数据", 返回中国各地区时点数据 |
+
+输出参数-中国各地区时点数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-中国各地区时点数据**  |
+						
+接口示例-中国各地区时点数据
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="中国各地区时点数据")
+print(covid_19_163_df)
+```
+
+数据示例-中国各地区时点数据
+
+```
+     confirm  suspect  heal  dead  severe storeConfirm
+湖北         4      NaN  1346    10     NaN         None
+广东         4      NaN     5     0     NaN         None
+河南         0      NaN     1     0     NaN         None
+浙江         4      NaN     0     0     NaN         None
+湖南         0      0.0     5     0     0.0         None
+..       ...      ...   ...   ...     ...          ...
+内蒙古        0      NaN     0     0     NaN         None
+台湾         9      0.0     0     0     0.0         None
+青海         0      NaN     0     0     NaN         None
+澳门         0      NaN     0     0     NaN         None
+西藏         0      NaN     0     0     NaN         None
+```
+
+输入参数-中国各地区累计数据
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="中国各地区累计数据", 返回中国各地区累计数据 |
+
+输出参数-中国各地区累计数据
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-中国各地区累计数据**  |
+						
+接口示例-中国各地区累计数据
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="中国各地区累计数据")
+print(covid_19_163_df)
+```
+
+数据示例-中国各地区累计数据
+
+```
+     confirm  suspect   heal  dead  severe
+湖北     67794        0  54289  3085       0
+广东      1360        0   1304     8       0
+河南      1273        0   1250    22       0
+浙江      1231        0   1211     1       0
+湖南      1018        0   1014     4       0
+..       ...      ...    ...   ...     ...
+内蒙古       75        0     71     1       0
+台湾        59        0     20     1       0
+青海        18        0     18     0       0
+澳门        10        0     10     0       0
+西藏         1        0      1     0       0
+```
+
+输入参数-疫情学术进展
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="疫情学术进展", 返回疫情学术进展数据 |
+
+输出参数-疫情学术进展
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-疫情学术进展**  |
+						
+接口示例-疫情学术进展
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="疫情学术进展")
+print(covid_19_163_df)
+```
+
+数据示例-疫情学术进展
+
+```
+                                                url3g  ...            stitle
+0   http://3g.163.com/news/20/0313/01/F7IG6B4I0001...  ...               NaN
+1   http://3g.163.com/news/20/0306/11/F71IP6280001...  ...  F71IP62800019NGP
+2   http://3g.163.com/news/20/0303/11/F6PQGDCD0001...  ...  F6PQGDCD00019NGP
+3   http://3g.163.com/news/20/0210/14/F51HPI890001...  ...  F51HPI8900019NGP
+4   http://3g.163.com/news/20/0228/23/F6GRTAMN0001...  ...  F6GRTAMN00019NGP
+..                                                ...  ...               ...
+29  http://3g.163.com/news/20/0202/15/F4D23HC60001...  ...  F4D23HC600019NGP
+30  http://3g.163.com/news/20/0202/14/F4CSKV890001...  ...  F4CSKV8900019NGP
+31  http://3g.163.com/news/20/0202/17/F4D8C03S0001...  ...  F4D8C03S00019NGP
+32  http://3g.163.com/news/20/0202/05/F4BUU2240001...  ...  F4BUU22400019NGP
+33  http://3g.163.com/news/20/0202/05/F4BTHEQU0001...  ...  F4BTHEQU00019NGP
+```
+
+输入参数-实时资讯新闻播报
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="实时资讯新闻播报", 返回实时资讯新闻播报数据 |
+
+输出参数-实时资讯新闻播报
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-实时资讯新闻播报**  |
+						
+接口示例-实时资讯新闻播报
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="实时资讯新闻播报")
+print(covid_19_163_df)
+```
+
+数据示例-实时资讯新闻播报
+
+```
+                         title  ...                                               link
+0    新加坡新增新冠肺炎确诊病例14例 累计确诊226例  ...  https://news.163.com/20/0315/22/F7PT9IH100019B...
+1        苏格兰新冠肺炎病毒检测呈阳性病例达153例  ...  https://news.163.com/20/0315/22/F7PT5PST00019B...
+2         外媒：全球新冠肺炎死亡病例已超6000例  ...  https://news.163.com/20/0315/21/F7PRSOSN00019B...
+3     法国数百“黄背心“无视禁令上街了 有人戴防护面罩  ...  https://news.163.com/20/0315/21/F7PRDBLK00019B...
+4   荷兰已确诊新冠肺炎病例1135例 累计死亡20例    ...  https://news.163.com/20/0315/21/F7PQA54O000189...
+..                         ...  ...                                                ...
+45     英媒：因担心感染新冠病毒 英国女王离开白金汉宫  ...  https://news.163.com/20/0315/10/F7OJIAP200019B...
+46    北京境外输入病例累计已达27例 首超外地来京病例  ...  https://news.163.com/20/0315/10/F7OJ5BR8000187...
+47     英国医生：病毒太可怕 而我们没有中国那样的能力  ...  https://news.163.com/20/0315/09/F7OIQGNN000187...
+48      古特雷斯第三次就疫情发表讲话：向新冠病毒宣战  ...  https://news.163.com/20/0315/09/F7OIC6S5000189...
+49  7天确诊破5000 新冠如何在一周之内“闪袭“西班牙  ...  https://news.163.com/20/0315/09/F7OHPQQS000189...
+```
+
+输入参数-实时医院新闻播报
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="实时医院新闻播报", 返回实时医院新闻播报数据 |
+
+输出参数-实时医院新闻播报
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-实时医院新闻播报**  |
+						
+接口示例-实时医院新闻播报
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="实时医院新闻播报")
+print(covid_19_163_df)
+```
+
+数据示例-实时医院新闻播报
+
+```
+                                           title  ...                                               link
+0   宁夏回族自治区新型冠状病毒感染的肺炎医疗救治第一批定点医疗机构和设置发热门诊医疗机构名单  ...  https://news.163.com/20/0301/23/F6M1I3NF000189...
+1                         湖南省新型冠状病毒感染的肺炎定点救治医院名单  ...  https://news.163.com/20/0301/23/F6M0VAAC000189...
+2                      调整优化医院发热门诊 北京市76所医院保留发热门诊  ...  https://news.163.com/20/0301/22/F6LR1D52000189...
+3                                四川省新冠肺炎救治定点医院名单  ...  http://sc.news.163.com/20/0228/08/F6F6M5QR0426...
+4                        湖北公布新型肺炎医疗救治和发热门诊医疗机构名单  ...  https://news.163.com/20/0123/15/F3J7P4V600018A...
+..                                           ...  ...                                                ...
+25              黑龙江省卫健委公布130家新型肺炎定点医疗机构及513家发热门诊  ...  http://dy.163.com/v2/article/detail/F3HVO99705...
+26                 吉林省设置发热门诊和新型冠状病毒感染的肺炎定点救治医疗机构  ...  http://dy.163.com/v2/article/detail/F3GK8OPS05...
+27                  青海公布9家医院为新型冠状病毒感染的肺炎医疗救治定点医院  ...  http://dy.163.com/v2/article/detail/F3JLHHGO05...
+28                       新疆公布新型冠状病毒感染的肺炎定点救治医院名单  ...  http://dy.163.com/v2/article/detail/F3JJU24T05...
+29                          西藏公布新型冠状病毒感染救治定点医院名单  ...  http://dy.163.com/v2/article/detail/F3KTN6MQ05...
+```
+
+输入参数-前沿知识
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="前沿知识", 返回前沿知识数据 |
+
+输出参数-前沿知识
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-前沿知识**  |
+						
+接口示例-前沿知识
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="前沿知识")
+print(covid_19_163_df)
+```
+
+数据示例-前沿知识
+
+```
+                           title  ...                                               link
+0      钟南山:国内新冠疫情4月见顶，总感染规模约9.5万  ...  https://vip.open.163.com/mobile/activity/ncov/...
+1   张文宏:上海已止住病例的指数增长，传播力比预期降低99%  ...  https://vip.open.163.com/mobile/activity/ncov/...
+2         管轶:检测表明穿山甲可能是新冠病毒的中间宿主  ...  https://vip.open.163.com/mobile/activity/ncov/...
+3  新冠病毒正式命名为SARS-Cov-2，是SARS姊妹病毒  ...  https://vip.open.163.com/mobile/activity/ncov/...
+```
+
+输入参数-权威发布
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="权威发布", 返回权威发布数据 |
+
+输出参数-权威发布
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-权威发布**  |
+						
+接口示例-权威发布
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="权威发布")
+print(covid_19_163_df)
+```
+
+数据示例-权威发布
+
+```
+   title  ...                                               link
+0    张文宏  ...  https://news.163.com/20/0315/17/F7PDEGB200018A...
+1    张文宏  ...  https://news.163.com/20/0313/07/F7J5800Q000189...
+2    钟南山  ...  https://news.163.com/20/0311/22/F7FM1PUI00018A...
+3    李兰娟  ...  https://news.163.com/20/0310/18/F7CK07CV000189...
+4    钟南山  ...  https://news.163.com/20/0309/14/F79KN0T4000189...
+..   ...  ...                                                ...
+26   钟南山  ...  https://news.163.com/20/0212/00/F554CHN4000189...
+27   张文宏  ...  https://news.163.com/20/0206/16/F4NFU78S000189...
+28   钟南山  ...  https://news.163.com/20/0131/17/F481L8JM000189...
+29   李兰娟  ...  https://news.163.com/20/0123/16/F3JCMD5B00018A...
+30   钟南山  ...           http://v.163.com/static/3/VK2EF0114.html
+```
+
+输入参数-滚动新闻
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="滚动新闻", 返回滚动新闻数据 |
+
+输出参数-滚动新闻
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-滚动新闻**  |
+						
+接口示例-滚动新闻
+
+```python
+import akshare as ak
+covid_19_163_df = ak.covid_19_163(indicator="滚动新闻")
+print(covid_19_163_df)
+```
+
+数据示例-权威发布
+
+```
+                   title  ...                                               link
+0        以色列总理接受新冠肺炎病毒检测  ...  https://news.163.com/20/0315/22/F7PSDT5C00019B...
+1  16日起所有入境进京人员均需集中观察14天  ...  https://news.163.com/20/0315/16/F7P8HV3700019B...
+2          意大利一市长患新冠肺炎病逝  ...  https://news.163.com/20/0315/15/F7P5SGAI00019B...
+3    全球至少51名官员确诊 伊朗确诊28例  ...  https://news.163.com/20/0315/13/F7OVOG18000187...
+4    襄阳：机关事业单位明日全面恢复正常上班  ...  https://news.163.com/20/0315/12/F7OQOBS7000189...
 ```
 
 ### 新型冠状病毒-丁香园
@@ -220,7 +609,7 @@ print(epidemic_163_df)
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.epidemic_dxy(indicator="info")
+epidemic_dxy_df = ak.covid_19_dxy(indicator="info")
 print(epidemic_dxy_df)
 ```
 
@@ -257,7 +646,7 @@ print(epidemic_dxy_df)
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.epidemic_dxy(indicator="全国")
+epidemic_dxy_df = ak.covid_19_dxy(indicator="全国")
 print(epidemic_dxy_df)
 ```
 
@@ -294,7 +683,7 @@ print(epidemic_dxy_df)
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.epidemic_dxy(indicator="global")
+epidemic_dxy_df = ak.covid_19_dxy(indicator="global")
 print(epidemic_dxy_df)
 ```
 
@@ -372,7 +761,7 @@ print(epidemic_dxy_df)
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.epidemic_dxy(indicator="浙江省")
+epidemic_dxy_df = ak.covid_19_dxy(indicator="浙江省")
 print(epidemic_dxy_df)
 ```
 
@@ -413,7 +802,7 @@ print(epidemic_dxy_df)
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.epidemic_dxy(indicator="news")
+epidemic_dxy_df = ak.covid_19_dxy(indicator="news")
 print(epidemic_dxy_df)
 ```
 
@@ -489,7 +878,7 @@ print(epidemic_dxy_df)
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.epidemic_dxy(indicator="hospital")
+epidemic_dxy_df = ak.covid_19_dxy(indicator="hospital")
 print(epidemic_dxy_df)
 ```
 
@@ -526,7 +915,7 @@ print(epidemic_dxy_df)
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="全国-疫情新增趋势图")
+ak.covid_19_dxy(indicator="全国-疫情新增趋势图")
 ```
 
 图片示例-全国-疫情新增趋势图
@@ -549,7 +938,7 @@ ak.epidemic_dxy(indicator="全国-疫情新增趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="全国-疫情疑似-确诊趋势图")
+ak.covid_19_dxy(indicator="全国-疫情疑似-确诊趋势图")
 ```
 
 图片示例-全国-疫情疑似-确诊趋势图
@@ -572,7 +961,7 @@ ak.epidemic_dxy(indicator="全国-疫情疑似-确诊趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="全国-疫情死亡-治愈病例趋势图")
+ak.covid_19_dxy(indicator="全国-疫情死亡-治愈病例趋势图")
 ```
 
 图片示例-全国-疫情死亡-治愈病例趋势图
@@ -595,7 +984,7 @@ ak.epidemic_dxy(indicator="全国-疫情死亡-治愈病例趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="全国-疫情病死率-治愈率趋势图")
+ak.covid_19_dxy(indicator="全国-疫情病死率-治愈率趋势图")
 ```
 
 图片示例-全国-疫情病死率-治愈率趋势图
@@ -618,7 +1007,7 @@ ak.epidemic_dxy(indicator="全国-疫情病死率-治愈率趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="湖北-疫情新增确诊病例趋势图")
+ak.covid_19_dxy(indicator="湖北-疫情新增确诊病例趋势图")
 ```
 
 图片示例-湖北-疫情新增确诊病例趋势图
@@ -641,7 +1030,7 @@ ak.epidemic_dxy(indicator="湖北-疫情新增确诊病例趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="湖北-疫情确诊趋势图")
+ak.covid_19_dxy(indicator="湖北-疫情确诊趋势图")
 ```
 
 图片示例-湖北-疫情确诊趋势图
@@ -664,7 +1053,7 @@ ak.epidemic_dxy(indicator="湖北-疫情确诊趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="湖北-疫情死亡-治愈病例趋势图")
+ak.covid_19_dxy(indicator="湖北-疫情死亡-治愈病例趋势图")
 ```
 
 图片示例-湖北-疫情死亡-治愈病例趋势图
@@ -687,7 +1076,7 @@ ak.epidemic_dxy(indicator="湖北-疫情死亡-治愈病例趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="湖北-疫情病死率趋势图")
+ak.covid_19_dxy(indicator="湖北-疫情病死率趋势图")
 ```
 
 图片示例-湖北-疫情病死率趋势图
@@ -710,7 +1099,7 @@ ak.epidemic_dxy(indicator="湖北-疫情病死率趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="湖北-疫情治愈率趋势图")
+ak.covid_19_dxy(indicator="湖北-疫情治愈率趋势图")
 ```
 
 图片示例-湖北-疫情治愈率趋势图
@@ -733,7 +1122,7 @@ ak.epidemic_dxy(indicator="湖北-疫情治愈率趋势图")
 
 ```python
 import akshare as ak
-ak.epidemic_dxy(indicator="疫情地图")
+ak.covid_19_dxy(indicator="疫情地图")
 ```
 
 图片示例-疫情地图
@@ -769,7 +1158,7 @@ ak.epidemic_dxy(indicator="疫情地图")
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="热门迁入地")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="热门迁入地")
 print(epidemic_baidu_df)
 ```
 
@@ -828,7 +1217,7 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="热门迁出地")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="热门迁出地")
 print(epidemic_baidu_df)
 ```
 
@@ -887,7 +1276,7 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="今日疫情热搜")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="今日疫情热搜")
 print(epidemic_baidu_df)
 ```
 
@@ -933,7 +1322,7 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="防疫知识热搜")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="防疫知识热搜")
 print(epidemic_baidu_df)
 ```
 
@@ -979,7 +1368,7 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="热搜谣言粉碎")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="热搜谣言粉碎")
 print(epidemic_baidu_df)
 ```
 
@@ -1028,7 +1417,7 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="实时播报")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="实时播报")
 print(epidemic_baidu_df)
 ```
 
@@ -1241,7 +1630,7 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="历史")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="历史")
 print(epidemic_baidu_df)
 ```
 
@@ -1278,7 +1667,7 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="国内")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="国内")
 print(epidemic_baidu_df)
 ```
 
@@ -1309,7 +1698,7 @@ unconfirmed            15238
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="国外")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="国外")
 print(epidemic_baidu_df)
 ```
 
@@ -1341,7 +1730,7 @@ cured                   10
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.epidemic_baidu(indicator="浙江")
+epidemic_baidu_df = ak.covid_19_baidu(indicator="浙江")
 print(epidemic_baidu_df)
 ```
 
@@ -1508,7 +1897,7 @@ print(migration_scale_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_area_search_df = ak.epidemic_area_search(province="四川省", city="成都市", district="高新区")
+epidemic_area_search_df = ak.covid_19_area_search(province="四川省", city="成都市", district="高新区")
 print(epidemic_area_search_df)
 ```
 
@@ -1557,7 +1946,7 @@ print(epidemic_area_search_df)
 
 ```python
 import akshare as ak
-epidemic_area_all_df = ak.epidemic_area_all()
+epidemic_area_all_df = ak.covid_19_area_all()
 print(epidemic_area_all_df)
 ```
 
@@ -1609,7 +1998,7 @@ print(epidemic_area_all_df)
 
 ```python
 import akshare as ak
-epidemic_area_detail_df = ak.epidemic_area_detail()
+epidemic_area_detail_df = ak.covid_19_area_detail()
 print(epidemic_area_detail_df)
 ```
 
@@ -1665,7 +2054,7 @@ print(epidemic_area_detail_df)
 
 ```python
 import akshare as ak
-epidemic_trip_df = ak.epidemic_trip()
+epidemic_trip_df = ak.covid_19_trip()
 print(epidemic_trip_df)
 ```
 
@@ -1746,7 +2135,7 @@ print(epidemic_trip_df)
 
 ```python
 import akshare as ak
-epidemic_hist_all_df = ak.epidemic_hist_all()
+epidemic_hist_all_df = ak.covid_19_hist_all()
 print(epidemic_hist_all_df)
 ```
 
@@ -1793,7 +2182,7 @@ print(epidemic_hist_all_df)
 
 ```python
 import akshare as ak
-epidemic_hist_city_df = ak.epidemic_hist_city(city="武汉市")
+epidemic_hist_city_df = ak.covid_19_hist_city(city="武汉市")
 print(epidemic_hist_city_df)
 ```
 
@@ -1840,7 +2229,7 @@ print(epidemic_hist_city_df)
 
 ```python
 import akshare as ak
-epidemic_hist_province_df = ak.epidemic_hist_province(province="湖北省")
+epidemic_hist_province_df = ak.covid_19_hist_province(province="湖北省")
 print(epidemic_hist_province_df)
 ```
 
@@ -1897,7 +2286,7 @@ print(epidemic_hist_province_df)
 
 ```python
 import akshare as ak
-epidemic_history_df = ak.epidemic_history()
+epidemic_history_df = ak.covid_19_history()
 print(epidemic_history_df)
 ```
 
