@@ -1153,4 +1153,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.38: add: futures_sgx_daily to fetch futures data from sgx
 
 0.4.39: refactor: sos.py/covid_19_163 interface
+
+0.4.40: refactor: sos.py interface
 ```
