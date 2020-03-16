@@ -867,9 +867,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.37: add: get_ine_daily to fetch SC and NR data
 0.4.38: add: futures_sgx_daily to fetch futures data from sgx
 0.4.39: refactor: sos.py/covid_19_163 interface
+0.4.40: refactor: sos.py interface
 """
 
-__version__ = "0.4.39"
+__version__ = "0.4.40"
 __author__ = "Albert King"
 
 """
@@ -981,7 +982,6 @@ from akshare.event.sos import (
     covid_19_163,
     covid_19_dxy,
     covid_19_baidu,
-    covid_19_hist_all,
     covid_19_hist_city,
     covid_19_hist_province,
 )

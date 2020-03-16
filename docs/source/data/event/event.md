@@ -1,12 +1,12 @@
 ## [AkShare](https://github.com/jindaxiang/akshare) 事件数据
 
-### COVIP-19-网易
+### COVID-19-网易
 
 接口: covid_19_163
 
 目标地址: https://news.163.com/special/epidemic/
 
-描述: 获取网易-新型冠状病毒肺炎-疫情数据-总入口
+描述: 获取网易-新型冠状病毒肺炎-疫情数据
 
 限量: 单次返回指定 **indicator** 的数据
 
@@ -57,8 +57,8 @@ print(covid_19_163_df)
 
 ```python
 import akshare as ak
-covip_19_163_df = ak.covid_19_163(indicator="中国实时数据")
-print(covip_19_163_df)
+covid_19_163_df = ak.covid_19_163(indicator="中国实时数据")
+print(covid_19_163_df)
 ```
 
 数据示例-中国实时数据
@@ -583,555 +583,449 @@ print(covid_19_163_df)
 4    襄阳：机关事业单位明日全面恢复正常上班  ...  https://news.163.com/20/0315/12/F7OQOBS7000189...
 ```
 
-### 新型冠状病毒-丁香园
+### COVID-19-丁香园
 
-接口: epidemic_dxy
+接口: covid_19_dxy
 
 目标地址: http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0
 
-描述: 获取丁香园-新型冠状病毒-疫情数据
+描述: 获取丁香园-新型冠状病毒肺炎-疫情数据-总入口
 
 限量: 单次返回实时数据
 
-输入参数-info
+输入参数-中国疫情分省统计详情
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="info", 返回全国统计数据|
+| indicator | str | Y | indicator="中国疫情分省统计详情"|
 
-输出参数-info
+输出参数-中国疫情分省统计详情
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| value      | str   | Y        | 统计时间和情况概述   |
+| -      | -   | -        | 参见 **数据示例-中国疫情分省统计详情**  |
 
-接口示例-info
+接口示例-中国疫情分省统计详情
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.covid_19_dxy(indicator="info")
-print(epidemic_dxy_df)
+covid_19_dxy_df = ak.covid_19_dxy(indicator="中国疫情分省统计详情")
+print(covid_19_dxy_df)
 ```
 
-数据示例-info
+数据示例-中国疫情分省统计详情
 
 ```
-数据发布时间  2020-02-13 11:57:23
-现存确诊                  52565
-累计确诊                  59883
-现存疑似                  16067
-治愈                     5950
-死亡                     1368
-现存重症                   8204
+          地区 地区简称  现存确诊   累计确诊     治愈    死亡
+0        湖北省   湖北  9604  67798  55095  3099
+1        北京市   北京    84    452    360     8
+2         香港   香港    67    155     84     4
+3        广东省   广东    47   1361   1306     8
+4         台湾   台湾    46     67     20     1
+..       ...  ...   ...    ...    ...   ...
+29       吉林省   吉林     0     93     92     1
+30  新疆维吾尔自治区   新疆     0     76     73     3
+31   宁夏回族自治区   宁夏     0     75     75     0
+32       青海省   青海     0     18     18     0
+33     西藏自治区   西藏     0      1      1     0
 ```
 
-输入参数-全国
+输入参数-中国疫情分市统计详情
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="全国", 返回全国各省市统计数据|
+| indicator | str | Y | indicator="中国疫情分市统计详情"|
 
-输出参数-全国
+输出参数-中国疫情分市统计详情
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 地区      | str   | Y        | 区域   |
-| 地区简称      | str   | Y        | 区域   |
-| 现存确诊      | str   | Y        | 数据  |
-| 累计确诊      | str   | Y        | 数据  |
-| 治愈      | str   | Y        | 数据  |
-| 死亡      | str   | Y        | 数据  |
-					
-接口示例-全国
+| -      | -   | -        | 参见 **数据示例-中国疫情分市统计详情**  |
+
+接口示例-中国疫情分市统计详情
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.covid_19_dxy(indicator="全国")
-print(epidemic_dxy_df)
+covid_19_dxy_df = ak.covid_19_dxy(indicator="中国疫情分市统计详情")
+print(covid_19_dxy_df)
 ```
 
-数据示例-全国
+数据示例-中国疫情分市统计详情
 
 ```
-       地区 地区简称   现存确诊   累计确诊    治愈    死亡
-0     湖北省   湖北  43455  48206  3441  1310
-1     广东省   广东    950   1241   289     2
-2     河南省   河南    897   1169   262    10
-3     浙江省   浙江    818   1145   327     0
-4     湖南省   湖南    652    968   314     2
-..    ...  ...    ...    ...   ...   ...
-29     香港   香港     48     50     1     1
-30     台湾   台湾     17     18     1     0
-31    青海省   青海      9     18     9     0
-32     澳门   澳门      8     10     2     0
-33  西藏自治区   西藏      0      1     1     0
+    cityName  currentConfirmedCount  ...  locationId  province
+0         武汉                 9149.0  ...    420100.0       湖北省
+1         孝感                  125.0  ...    420900.0       湖北省
+2         鄂州                   62.0  ...    420700.0       湖北省
+3         随州                   41.0  ...    421300.0       湖北省
+4         荆州                   38.0  ...    421000.0       湖北省
+..       ...                    ...  ...         ...       ...
+423       宁东                    0.0  ...         0.0   宁夏回族自治区
+424      石嘴山                    0.0  ...    640200.0   宁夏回族自治区
+425       西宁                    0.0  ...    630100.0       青海省
+426      海北州                    0.0  ...    632200.0       青海省
+427       拉萨                    0.0  ...    540100.0     西藏自治区
 ```
 
-输入参数-global
+输入参数-全球疫情分国家统计详情
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="global", 返回全球统计数据|
+| indicator | str | Y | indicator="全球疫情分国家统计详情"|
 
-输出参数-global
+输出参数-全球疫情分国家统计详情
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        | 字段过多, 不列出   |
-					
-接口示例-global
+| -      | -   | -        | 参见 **数据示例-全球疫情分国家统计详情**  |
+
+接口示例-全球疫情分国家统计详情
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.covid_19_dxy(indicator="global")
-print(epidemic_dxy_df)
+covid_19_dxy_df = ak.covid_19_dxy(indicator="全球疫情分国家统计详情")
+print(covid_19_dxy_df)
 ```
 
-数据示例-global
+数据示例-全球疫情分国家统计详情
 
 ```
-      id     createTime     modifyTime tags  countryType continents  \
-0    953  1580027704000  1580561200000                 2         亚洲   
-1    949  1580027637000  1580495765000                 2         亚洲   
-2    950  1580027655000  1580619404000                 2         亚洲   
-3    954  1580027721000  1580609979000                 2         亚洲   
-4    958  1580027777000  1580620070000                 2        大洋洲   
-..   ...            ...            ...  ...          ...        ...   
-18  1023  1580130061000  1580495965000                 2         亚洲   
-19  1306  1580182019000  1580495982000                 2         亚洲   
-20  1656  1580337882000  1580495991000                 2         欧洲   
-21  2293  1580512517000  1580514491000                 2         欧洲   
-22  2596  1580516851000  1580516851000                 2         欧洲   
-   provinceId provinceName provinceShortName cityName  confirmedCount  \
-0           6           日本                                         20   
-1           2           泰国                                         19   
-2           3          新加坡                                         18   
-3           7           韩国                                         15   
-4          10         澳大利亚                                         12   
-..        ...          ...               ...      ...             ...   
-18         10          柬埔寨                                          1   
-19         10         斯里兰卡                                          1   
-20         10           芬兰                                          1   
-21         10          西班牙                                          1   
-22         10           瑞典                                          1   
-    suspectedCount  curedCount  deadCount comment  sort      operator  \
-0                0           1          0             0          xuyt   
-1                0           5          0             0          xuyt   
-2                0           0          0             0          xuyt   
-3                0           0          0             0          xuyt   
-4                0           2          0             0          xuyt   
-..             ...         ...        ...     ...   ...           ...   
-18               0           0          0             0       hanting   
-19               0           0          0             0  zhuotingting   
-20               0           0          0             0  zhuotingting   
-21               0           0          0             0  zhuotingting   
-22               0           0          0             0     leimanman   
-    locationId  
-0       951002  
-1       952010  
-2       952009  
-3       951004  
-4       990001  
-..         ...  
-18      952003  
-19      953007  
-20      962002  
-21      965015  
-22      962005          
+            id  ...                                     statisticsData
+0    1130342.0  ...  https://file1.dxycdn.com/2020/0315/993/3402160...
+1          NaN  ...  https://file1.dxycdn.com/2020/0315/383/3402160...
+2    1130372.0  ...  https://file1.dxycdn.com/2020/0315/596/3402160...
+3    1130344.0  ...  https://file1.dxycdn.com/2020/0315/812/3402160...
+4    1130329.0  ...  https://file1.dxycdn.com/2020/0315/779/3402160...
+..         ...  ...                                                ...
+146  1130918.0  ...                                                NaN
+147  1130920.0  ...                                                NaN
+148  1130922.0  ...                                                NaN
+149  1130332.0  ...  https://file1.dxycdn.com/2020/0315/813/3402160...
+150  1130881.0  ...  https://file1.dxycdn.com/2020/0315/234/3402176...
 ```
 
-输入参数-具体省份(如: 浙江省)
+输入参数-中国疫情实时统计
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="浙江省", 返回具体省市统计数据|
+| indicator | str | Y | indicator="中国疫情实时统计"|
 
-输出参数-具体省份(如: 浙江省)
+输出参数-中国疫情实时统计
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 区域      | str   | Y        | 区域   |
-| 现在确诊人数      | int   | Y        | 数据   |
-| 确诊人数      | int   | Y        | 数据  |
-| 疑似人数      | int   | Y        | 数据  |
-| 治愈人数      | int   | Y        | 数据  |
-| 死亡人数      | int   | Y        | 数据  |
-					
-接口示例-具体省份(如: 浙江省)
+| -      | -   | -        | 参见 **数据示例-中国疫情实时统计**  |
+
+接口示例-中国疫情实时统计
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.covid_19_dxy(indicator="浙江省")
-print(epidemic_dxy_df)
+covid_19_dxy_df = ak.covid_19_dxy(indicator="中国疫情实时统计")
+print(covid_19_dxy_df)
 ```
 
-数据示例-具体省份(如: 浙江省)
+数据示例-中国疫情实时统计
 
 ```
-    区域  现在确诊人数  确诊人数  疑似人数  治愈人数  死亡人数
-0   温州     370   490     0   120     0
-1   杭州      99   162     0    63     0
-2   宁波     122   153     0    31     0
-3   台州      98   144     0    46     0
-4   金华      32    55     0    23     0
-..  ..     ...   ...   ...   ...   ...
-6   绍兴      26    41     0    15     0
-7   衢州      16    21     0     5     0
-8   丽水       8    17     0     9     0
-9   舟山       5    10     0     5     0
-10  湖州       6    10     0     4     0     
+                        info
+数据发布时间   2020-03-16 19:30:19
+现存确诊                   10002
+累计确诊                   81099
+境外输入                     123
+累计治愈                   67879
+                      ...
+现存确诊较昨日                 -820
+累计确诊较昨日                   51
+累计治愈较昨日                  857
+累计死亡较昨日                   14
+现存重症较昨日                 -194
 ```
 
-输入参数-news
+输入参数-国外疫情实时统计
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="news", 返回全国突发新闻数据|
+| indicator | str | Y | indicator="国外疫情实时统计"|
 
-输出参数-news
+输出参数-国外疫情实时统计
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| title      | str   | Y        |新闻标题   |
-| summary      | str   | Y        | 数据概述  |
-| infoSource      | str   | Y        | 新闻来源  |
-| provinceName      | str   | Y        | 省份  |
-| sourceUrl      | str   | Y        | 新闻地址  |
+| -      | -   | -        | 参见 **数据示例-国外疫情实时统计**  |
 
-接口示例-news
+接口示例-国外疫情实时统计
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.covid_19_dxy(indicator="news")
-print(epidemic_dxy_df)
+covid_19_dxy_df = ak.covid_19_dxy(indicator="国外疫情实时统计")
+print(covid_19_dxy_df)
 ```
 
-数据示例-news
+数据示例-国外疫情实时统计
 
 ```
-                                          title  ...                                          sourceUrl
-0                                    福建新增 1 例病例  ...      http://m.weibo.cn/2656274875/4464277568378388
-1                                      上海启动一级响应  ...      http://m.weibo.cn/2803301701/4464275537960579
-2                                      北京启动一级响应  ...      http://m.weibo.cn/2803301701/4464275537960579
-3                               北京 1 新冠肺炎确诊患者出院  ...      http://m.weibo.cn/2803301701/4464259805726673
-4                           国务院征集新冠肺炎疫情防控工作问题线索  ...  https://mp.weixin.qq.com/s/vQ-m0wW2cVZGYfJtAAMeiQ
-5                                     天津确诊第 7 例  ...      http://m.weibo.cn/2656274875/4464245485576951
-6                                      天津启动一级响应  ...      http://m.weibo.cn/2803301701/4464245166727843
-7                                      安徽启动一级响应  ...      http://m.weibo.cn/2803301701/4464244898679663
-8                            重磅！发热咳嗽非新冠肺炎唯一首发症状  ...    http://m.weibo.cn/2803301701/4464244348901450 ​
-9                                  宁夏新增确诊1例疑似1例  ...      http://m.weibo.cn/2656274875/4464239232497670
-10                     山东今日新增确诊 6 例，山东累计确诊 15 例  ...      http://m.weibo.cn/2803301701/4464230751473157
-11                        福建新增确诊 4 例，福建累计确诊 9 例  ...      http://m.weibo.cn/2803301701/4464229795391738
-12                                     武汉关闭过江隧道  ...      http://m.weibo.cn/2803301701/4464223541240916
-13                                  内蒙古确诊首例新冠肺炎  ...    http://m.weibo.cn/2803301701/4464216926774457 ​
-14                                     辽宁新增确诊1例  ...      http://m.weibo.cn/2803301701/4464215920401389
-15                              转发提醒：这个春节尽量不聚会！  ...      http://m.weibo.cn/2803301701/4464209549089465
-16                        海南新增确诊病例4例，海南累计确诊病例8例  ...     https://m.weibo.cn/2803301701/4464204335127376
-17                      湖南新增确诊 15 例：湖南累计确诊 24 例  ...                             http://dxys.com/xyJAVU
-18                    江苏新增新冠肺炎确诊病例4例，江苏累计新冠肺炎9例  ...        https://m.weibo.cn/status/4464192113565122?
-19                      重庆新增确诊病例18例，重庆累计确诊病例27例  ...        https://m.weibo.cn/status/4464192578727481?
-20        吉林新增2例新型肺炎确诊病例，吉林省累计报告新型冠状病毒感染的肺炎病例3例  ...        https://m.weibo.cn/status/4464191185997393?
-21                   韩联社报道称，韩国出现第二例新型冠状病毒肺炎确诊病例  ...        https://m.weibo.cn/status/4464190838721454?
-22                                 新疆新冠肺炎确诊病例2例  ...        https://m.weibo.cn/status/4464190448434604?
-23                   四川新增新冠肺炎7例，四川累计新冠肺炎确诊病例15例  ...        https://m.weibo.cn/status/4464188997392969?
-24                      浙江新增确诊病例16例，浙江累计确诊病例43例  ...  https://weibo.com/2803301701/IqVPiqaGC?ref=hom...
-25           1月23日0时-24时，湖北省新增新型冠状病毒感染的肺炎病例105例  ...        https://m.weibo.cn/status/4464187650423052?
-26                                 日本确诊2例新型肺炎病例  ...        https://m.weibo.cn/status/4464186283758930?
-27  1月23日0-24时，黑龙江省报告新型冠状病毒感染的肺炎新增确诊病例2例，死亡病例1例  ...        https://m.weibo.cn/status/4464184127847534?
-28        1月23日10时至24时，安徽省报告新型冠状病毒感染的肺炎新增确诊病例6例  ...        https://m.weibo.cn/status/4464183024267897?
-29                               山东新增3例新型肺炎确诊病例  ...  https://weibo.com/2656274875/IqVDCt7bx?ref=hom...
-30                              广东新冠肺炎新增确诊病例21例  ...  https://weibo.com/2803301701/IqVDxtTVg?ref=hom...
-31                               河南新冠肺炎新增确诊病例4例  ...  https://weibo.com/2803301701/IqVxI77w5?ref=hom...
-32                               全国确诊830例新型肺炎病例  ...  https://weibo.com/2656274875/IqVnfb1Hm?from=pa...
-33                               上海新增4例新冠肺炎确诊病例  ...  https://weibo.com/2803301701/IqVhVnT9w?ref=hom...
-34                                 武汉将以小汤山模式建医院  ...  https://weibo.com/2803301701/IqV7dq2sm?ref=hom...
-35                         世卫组织：新型肺炎不构成国际突发卫生事件  ...  https://m.weibo.cn/status/4464150224652866?sud...
-36                     北京新增4例新型肺炎确诊病例，累计确诊病例26例  ...        https://m.weibo.cn/status/4464099343625924?
-37                               天津新增1例新型肺炎确诊病例  ...      http://m.weibo.cn/2656274875/4464091609170082
-38                               广西新增新冠肺炎确诊病例8例  ...  https://www.weibo.com/2803301701/IqSJAANR5?fro...
-39                           【湖北省新冠肺炎疫情防控指挥部通告】  ...  https://www.weibo.com/2803301701/IqSEcDHtL?fro...
-40                           湖南启动重大突发公共卫生事件一级响应  ...  https://www.weibo.com/2803301701/IqSwMxPd0?fro...
-41                         武汉开通24小时电话接收社会各界爱心捐赠  ...  https://mp.weixin.qq.com/s/cICSHZNVynQj7m63RSAv1Q
-42                  文化和旅游部、国家文物局：出现疑似病人就地停止旅游活动  ...  https://mp.weixin.qq.com/s/cICSHZNVynQj7m63RSAv1Q
-43                               河北 1 例新型肺炎病例死亡  ...  https://weibo.com/2656274875/IqSjFocrm?from=pa...
-44                               江西新增 4 例新型肺炎病例  ...        https://m.weibo.cn/status/4464049040965675?
-45                           湖北黄石 10 名疑似患者已隔离治疗  ...        https://m.weibo.cn/status/4464044838788193?
-46                              昆明确诊第 2 例新型肺炎病例  ...        https://m.weibo.cn/status/4464047963266414?
-47                              财政部拨10亿补助湖北防控疫情  ...      http://m.weibo.cn/2803301701/4464041822671982
+                           0
+currentConfirmedCount  76189
+confirmedCount         89793
+suspectedCount             0
+curedCount             10181
+deadCount               3423
+suspectedIncr              0
+currentConfirmedIncr    9347
+confirmedIncr          11091
+curedIncr               1162
+deadIncr                 582
 ```
 
-输入参数-hospital
+输入参数-全球疫情实时统计
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="hospital", 返回全国发热门诊数据|
+| indicator | str | Y | indicator="全球疫情实时统计"|
 
-输出参数-hospital
+输出参数-全球疫情实时统计
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 省级行政区      | str   | Y        |-   |
-| 市级      | str   | Y        | -  |
-| 机构-医院      | str   | Y        | -  |
+| -      | -   | -        | 参见 **数据示例-全球疫情实时统计**  |
 
-接口示例-hospital
+接口示例-全球疫情实时统计
 
 ```python
 import akshare as ak
-epidemic_dxy_df = ak.covid_19_dxy(indicator="hospital")
-print(epidemic_dxy_df)
+covid_19_dxy_df = ak.covid_19_dxy(indicator="全球疫情实时统计")
+print(covid_19_dxy_df)
 ```
 
-数据示例-hospital
+数据示例-全球疫情实时统计
 
 ```
-   省级行政区  市级      机构／医院
-0    湖北省  全省  定点医院/发热门诊
-1    湖北省  武汉  定点医院/发热门诊
-2    湖北省  荆门  定点医院/发热门诊
-3    湖北省  宜昌  定点医院/发热门诊
-4    湖北省  恩施  定点医院/发热门诊
-..   ...  ..        ...
-69    宁夏   /  定点医院/发热门诊
-70    西藏   /  定点医院/发热门诊
-71    新疆   /  定点医院/发热门诊
-72    青海   /       定点医院
-73    甘肃   /       定点医院
+                            0
+currentConfirmedCount   86191
+confirmedCount         170892
+curedCount              78060
+deadCount                6641
+currentConfirmedIncr     8527
+confirmedIncr           11142
+curedIncr                2019
+deadIncr                  596
 ```
 
-输入参数-全国-疫情新增趋势图
+输入参数-中国疫情防控医院
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="全国-疫情新增趋势图", 绘制-全国-疫情新增趋势图|
+| indicator | str | Y | indicator="中国疫情防控医院"|
 
-输出参数-全国疫情新增趋势图
+输出参数-中国疫情防控医院
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 全国-疫情新增趋势图      | pic | Y        |图片, 需要自己保存   |
+| -      | -   | -        | 参见 **数据示例-中国疫情防控医院**  |
 
-接口示例-全国-疫情新增趋势图
+接口示例-中国疫情防控医院
 
 ```python
 import akshare as ak
-ak.covid_19_dxy(indicator="全国-疫情新增趋势图")
+covid_19_dxy_df = ak.covid_19_dxy(indicator="中国疫情防控医院")
+print(covid_19_dxy_df)
 ```
 
-图片示例-全国-疫情新增趋势图
+数据示例-中国疫情防控医院
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD-%E7%96%AB%E6%83%85%E6%96%B0%E5%A2%9E%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+```
+   省级行政区   市级      机构／医院
+0    湖北省  NaN        NaN
+1    湖北省   武汉  定点医院/发热门诊
+2    湖北省   荆门  定点医院/发热门诊
+3    湖北省   宜昌  定点医院/发热门诊
+4    湖北省   恩施       定点医院
+..   ...  ...        ...
+81    宁夏    /  定点医院/发热门诊
+82    西藏    /  定点医院/发热门诊
+83    新疆    /       定点医院
+84    青海    /       定点医院
+85    甘肃    /       定点医院
+```
 
-输入参数-全国-疫情疑似-确诊趋势图
+输入参数-实时播报
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="全国-疫情疑似-确诊趋势图", 绘制-全国-疫情疑似-确诊趋势图|
+| indicator | str | Y | indicator="实时播报"|
 
-输出参数-全国-疫情疑似-确诊趋势图
+输出参数-实时播报
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 全国-疫情疑似-确诊趋势图      | pic | Y        |图片, 需要自己保存   |
+| -      | -   | -        | 参见 **数据示例-实时播报**  |
 
-接口示例-全国-疫情疑似-确诊趋势图
+接口示例-实时播报
 
 ```python
 import akshare as ak
-ak.covid_19_dxy(indicator="全国-疫情疑似-确诊趋势图")
+covid_19_dxy_df = ak.covid_19_dxy(indicator="实时播报")
+print(covid_19_dxy_df)
 ```
 
-图片示例-全国-疫情疑似-确诊趋势图
+数据示例-实时播报
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD-%E7%96%AB%E6%83%85%E7%96%91%E4%BC%BC-%E7%A1%AE%E8%AF%8A%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+```
+                           title  ...                                          sourceUrl
+0     伊朗新增1053例新冠肺炎，累计确诊升至14991例  ...      http://m.weibo.cn/2803301701/4483175407422772
+1                   零死亡！宁夏确诊病例清零  ...      http://m.weibo.cn/2803301701/4483140900884657
+2   北京3月16日0时至14时新增报告境外输入确诊病例6例   ...  http://wjw.beijing.gov.cn/xwzx_20031/xwfb/2020...
+3                       捷克宣布全国隔离  ...      http://m.weibo.cn/2656274875/4483064778472648
+4               好消息！贵州所有确诊病例全部治愈  ...      http://m.weibo.cn/2656274875/4483062924149409
+```
 
-输入参数-全国-疫情死亡-治愈病例趋势图
+输入参数-浙江省
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="全国-疫情死亡-治愈病例趋势图", 绘制-全国-疫情死亡-治愈病例趋势图|
+| indicator | str | Y | indicator="浙江省"; 任意省份|
 
-输出参数-全国-疫情死亡-治愈病例趋势图
+输出参数-浙江省
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 全国-疫情死亡-治愈病例趋势图  | pic | Y        |图片, 需要自己保存   |
+| -      | -   | -        | 参见 **数据示例-浙江省**  |
 
-接口示例-全国-疫情死亡-治愈病例趋势图
+接口示例-浙江省
 
 ```python
 import akshare as ak
-ak.covid_19_dxy(indicator="全国-疫情死亡-治愈病例趋势图")
+covid_19_dxy_df = ak.covid_19_dxy(indicator="浙江省")
+print(covid_19_dxy_df)
 ```
 
-图片示例-全国-疫情死亡-治愈病例趋势图
+数据示例-浙江省
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD-%E7%96%AB%E6%83%85%E6%AD%BB%E4%BA%A1-%E6%B2%BB%E6%84%88%E7%97%85%E4%BE%8B%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+```
+        区域  现在确诊人数  确诊人数  疑似人数  治愈人数  死亡人数
+0       丽水      10    28     0    18     0
+1       湖州       2    12     0    10     0
+2       杭州       1   182     0   181     0
+3       嘉兴       1    45     0    44     0
+4       温州       0   504     0   503     1
+..     ...     ...   ...   ...   ...   ...
+7       金华       0    55     0    55     0
+8       绍兴       0    42     0    42     0
+9   省十里丰监狱       0    36     0    36     0
+10      衢州       0    14     0    14     0
+11      舟山       0    10     0    10     0
+```
 
-输入参数-全国-疫情病死率-治愈率趋势图
+输入参数-中国-新增疑似-新增确诊-趋势图
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="全国-疫情病死率-治愈率趋势图", 绘制-全国-疫情病死率-治愈率趋势图|
+| indicator | str | Y | indicator="中国-新增疑似-新增确诊-趋势图"|
 
-输出参数-全国-疫情病死率-治愈率趋势图
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 全国-疫情病死率-治愈率趋势图  | pic | Y        |图片, 需要自己保存   |
-
-接口示例-全国-疫情病死率-治愈率趋势图
-
-```python
-import akshare as ak
-ak.covid_19_dxy(indicator="全国-疫情病死率-治愈率趋势图")
-```
-
-图片示例-全国-疫情病死率-治愈率趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E5%85%A8%E5%9B%BD-%E7%96%AB%E6%83%85%E7%97%85%E6%AD%BB%E7%8E%87-%E6%B2%BB%E6%84%88%E7%8E%87%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-输入参数-湖北-疫情新增确诊病例趋势图
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="湖北-疫情新增确诊病例趋势图", 绘制-湖北-疫情新增确诊病例趋势图|
-
-输出参数-湖北-疫情新增确诊病例趋势图
+输出参数-中国-新增疑似-新增确诊-趋势图
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 湖北-疫情新增确诊病例趋势图  | pic | Y        |图片, 需要自己保存   |
+| -      | - | -        |在本地输出图片   |
 
-接口示例-湖北-疫情新增确诊病例趋势图
-
-```python
-import akshare as ak
-ak.covid_19_dxy(indicator="湖北-疫情新增确诊病例趋势图")
-```
-
-图片示例-湖北-疫情新增确诊病例趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E6%B9%96%E5%8C%97-%E7%96%AB%E6%83%85%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A%E7%97%85%E4%BE%8B%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-输入参数-湖北-疫情确诊趋势图
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="湖北-疫情确诊趋势图", 绘制-湖北-疫情确诊趋势图|
-
-输出参数-湖北-疫情确诊趋势图
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 湖北-疫情确诊趋势图  | pic | Y        |图片, 需要自己保存   |
-
-接口示例-湖北-疫情确诊趋势图
+接口示例-中国-新增疑似-新增确诊-趋势图
 
 ```python
 import akshare as ak
-ak.covid_19_dxy(indicator="湖北-疫情确诊趋势图")
+ak.covid_19_dxy(indicator="中国-新增疑似-新增确诊-趋势图")
 ```
 
-图片示例-湖北-疫情确诊趋势图
+图片示例-中国-新增疑似-新增确诊-趋势图
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E6%B9%96%E5%8C%97-%E7%96%AB%E6%83%85%E7%A1%AE%E8%AF%8A%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%96%B0%E5%A2%9E%E7%96%91%E4%BC%BC-%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-输入参数-湖北-疫情死亡-治愈病例趋势图
+图片示例-中国-现存确诊-趋势图
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="湖北-疫情死亡-治愈病例趋势图", 绘制-湖北-疫情死亡-治愈病例趋势图|
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E7%8E%B0%E5%AD%98%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-输出参数-湖北-疫情死亡-治愈病例趋势图
+图片示例-中国-现存疑似-趋势图
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 湖北-疫情死亡-治愈病例趋势图  | pic | Y        |图片, 需要自己保存   |
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E7%8E%B0%E5%AD%98%E7%96%91%E4%BC%BC-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-接口示例-湖北-疫情死亡-治愈病例趋势图
+图片示例-中国-治愈-趋势图
 
-```python
-import akshare as ak
-ak.covid_19_dxy(indicator="湖北-疫情死亡-治愈病例趋势图")
-```
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B2%BB%E6%84%88-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-图片示例-湖北-疫情死亡-治愈病例趋势图
+图片示例-中国-死亡-趋势图
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0-%E6%B9%96%E5%8C%97-%E7%96%AB%E6%83%85%E6%AD%BB%E4%BA%A1-%E6%B2%BB%E6%84%88%E7%97%85%E4%BE%8B%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%AD%BB%E4%BA%A1-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-输入参数-湖北-疫情病死率趋势图
+图片示例-中国-非湖北新增确诊-趋势图
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="湖北-疫情病死率趋势图", 绘制-湖北-疫情病死率趋势图|
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E9%9D%9E%E6%B9%96%E5%8C%97%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-输出参数-湖北-疫情病死率趋势图
+图片示例-中国-湖北新增确诊-趋势图
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 湖北-疫情病死率趋势图  | pic | Y        |图片, 需要自己保存   |
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B9%96%E5%8C%97%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-接口示例-湖北-疫情病死率趋势图
+图片示例-中国-湖北现存确诊-趋势图
 
-```python
-import akshare as ak
-ak.covid_19_dxy(indicator="湖北-疫情病死率趋势图")
-```
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B9%96%E5%8C%97%E7%8E%B0%E5%AD%98%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-图片示例-湖北-疫情病死率趋势图
+图片示例-中国-非湖北现存确诊-趋势图
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E6%B9%96%E5%8C%97-%E7%96%AB%E6%83%85%E7%97%85%E6%AD%BB%E7%8E%87%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E9%9D%9E%E6%B9%96%E5%8C%97%E7%8E%B0%E5%AD%98%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-输入参数-湖北-疫情治愈率趋势图
+图片示例-中国-治愈-死亡-趋势图
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="湖北-疫情治愈率趋势图", 绘制-湖北-疫情治愈率趋势图|
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B2%BB%E6%84%88-%E6%AD%BB%E4%BA%A1-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-输出参数-湖北-疫情治愈率趋势图
+图片示例-国外-国外新增确诊-趋势图
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 湖北-疫情治愈率趋势图  | pic | Y        |图片, 需要自己保存   |
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E5%9B%BD%E5%A4%96%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-接口示例-湖北-疫情治愈率趋势图
+图片示例-国外-国外累计确诊-趋势图
 
-```python
-import akshare as ak
-ak.covid_19_dxy(indicator="湖北-疫情治愈率趋势图")
-```
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E5%9B%BD%E5%A4%96%E7%B4%AF%E8%AE%A1%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-图片示例-湖北-疫情治愈率趋势图
+图片示例-国外-国外死亡-趋势图
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E6%B9%96%E5%8C%97-%E7%96%AB%E6%83%85%E6%B2%BB%E6%84%88%E7%8E%87%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E5%9B%BD%E5%A4%96%E6%AD%BB%E4%BA%A1-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-输入参数-疫情地图
+图片示例-国外-重点国家新增确诊-趋势图
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="疫情地图", 绘制-疫情地图|
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E9%87%8D%E7%82%B9%E5%9B%BD%E5%AE%B6%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.jpg)
 
-输出参数-疫情地图
+图片示例-国外-日本新增确诊-趋势图
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 疫情地图  | pic | Y        |图片, 需要自己保存   |
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E6%97%A5%E6%9C%AC%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-接口示例-疫情地图
+图片示例-国外-意大利新增确诊-趋势图
 
-```python
-import akshare as ak
-ak.covid_19_dxy(indicator="疫情地图")
-```
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E6%84%8F%E5%A4%A7%E5%88%A9%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-图片示例-疫情地图
+图片示例-国外-伊朗新增确诊-趋势图
 
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/%E7%96%AB%E6%83%85%E5%9C%B0%E5%9B%BE.png)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E4%BC%8A%E6%9C%97%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-### 新型冠状病毒-百度
+图片示例-国外-美国新增确诊-趋势图
 
-接口: epidemic_baidu
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E7%BE%8E%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+图片示例-国外-法国新增确诊-趋势图
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E6%B3%95%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+图片示例-国外-德国新增确诊-趋势图
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E5%BE%B7%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+图片示例-国外-西班牙新增确诊-趋势图
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E8%A5%BF%E7%8F%AD%E7%89%99%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+图片示例-国外-韩国新增确诊-趋势图
+
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E9%9F%A9%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
+
+### COVID-19-百度
+
+接口: covid_19_baidu
 
 目标地址: https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1
 
@@ -1158,8 +1052,8 @@ ak.covid_19_dxy(indicator="疫情地图")
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="热门迁入地")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="热门迁入地")
+print(covid_19_baidu_df)
 ```
 
 数据示例-热门迁入地
@@ -1217,8 +1111,8 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="热门迁出地")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="热门迁出地")
+print(covid_19_baidu_df)
 ```
 
 数据示例-热门迁入地
@@ -1261,7 +1155,7 @@ print(epidemic_baidu_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="今日疫情热搜", 返回今日疫情热搜数据|
+| indicator | str | Y | indicator="今日疫情热搜"|
 
 输出参数-今日疫情热搜
 
@@ -1276,8 +1170,8 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="今日疫情热搜")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="今日疫情热搜")
+print(covid_19_baidu_df)
 ```
 
 数据示例-今日疫情热搜
@@ -1322,8 +1216,8 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="防疫知识热搜")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="防疫知识热搜")
+print(covid_19_baidu_df)
 ```
 
 数据示例-防疫知识热搜
@@ -1368,8 +1262,8 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="热搜谣言粉碎")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="热搜谣言粉碎")
+print(covid_19_baidu_df)
 ```
 
 数据示例-热搜谣言粉碎
@@ -1395,11 +1289,283 @@ print(epidemic_baidu_df)
 7  https://m.baidu.com/s?word=%E4%B8%96%E5%8D%AB%...  
 ```
 
+输入参数-复工复课热搜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="复工复课热搜"|
+
+输出参数-复工复课热搜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-复工复课热搜**   |
+					
+接口示例-复工复课热搜
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="复工复课热搜")
+print(covid_19_baidu_df)
+```
+
+数据示例-复工复课热搜
+
+```
+    degree describe  ... type                                                url
+0  7536823           ...    1  https://m.baidu.com/s?word=%E7%BD%97%E9%A9%AC%...
+1  6373462           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+2  5037203           ...    0  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...
+3  4037324           ...    0  https://m.baidu.com/s?word=%E6%88%88%E8%B4%9D%...
+4  3647245           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+5  2047481           ...    0  https://m.baidu.com/s?word=%E8%8B%B1%E5%9B%BD%...
+6  1037482           ...    0  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...
+7   703749           ...    0  https://m.baidu.com/s?word=%E5%9B%BD%E6%B0%91%...
+```
+
+输入参数-热门人物榜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="热门人物榜"|
+
+输出参数-热门人物榜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-热门人物榜**   |
+					
+接口示例-热门人物榜
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="热门人物榜")
+print(covid_19_baidu_df)
+```
+
+数据示例-热门人物榜
+
+```
+    degree describe  ... type                                                url
+0  7536823           ...    1  https://m.baidu.com/s?word=%E7%BD%97%E9%A9%AC%...
+1  6373462           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+2  5037203           ...    0  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...
+3  4037324           ...    0  https://m.baidu.com/s?word=%E6%88%88%E8%B4%9D%...
+4  3647245           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+5  2047481           ...    0  https://m.baidu.com/s?word=%E8%8B%B1%E5%9B%BD%...
+6  1037482           ...    0  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...
+7   703749           ...    0  https://m.baidu.com/s?word=%E5%9B%BD%E6%B0%91%...
+```
+
+输入参数-历史疫情热搜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="历史疫情热搜"|
+
+输出参数-历史疫情热搜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-历史疫情热搜**   |
+					
+接口示例-历史疫情热搜
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="历史疫情热搜")
+print(covid_19_baidu_df)
+```
+
+数据示例-历史疫情热搜
+
+```
+    degree describe  ... type                                                url
+0  7536823           ...    1  https://m.baidu.com/s?word=%E7%BD%97%E9%A9%AC%...
+1  6373462           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+2  5037203           ...    0  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...
+3  4037324           ...    0  https://m.baidu.com/s?word=%E6%88%88%E8%B4%9D%...
+4  3647245           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+5  2047481           ...    0  https://m.baidu.com/s?word=%E8%8B%B1%E5%9B%BD%...
+6  1037482           ...    0  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...
+7   703749           ...    0  https://m.baidu.com/s?word=%E5%9B%BD%E6%B0%91%...
+```
+
+输入参数-搜索正能量榜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="搜索正能量榜"|
+
+输出参数-搜索正能量榜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-搜索正能量榜**   |
+					
+接口示例-搜索正能量榜
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="搜索正能量榜")
+print(covid_19_baidu_df)
+```
+
+数据示例-搜索正能量榜
+
+```
+    degree describe  ... type                                                url
+0  7536823           ...    1  https://m.baidu.com/s?word=%E7%BD%97%E9%A9%AC%...
+1  6373462           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+2  5037203           ...    0  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...
+3  4037324           ...    0  https://m.baidu.com/s?word=%E6%88%88%E8%B4%9D%...
+4  3647245           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+5  2047481           ...    0  https://m.baidu.com/s?word=%E8%8B%B1%E5%9B%BD%...
+6  1037482           ...    0  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...
+7   703749           ...    0  https://m.baidu.com/s?word=%E5%9B%BD%E6%B0%91%...
+```
+
+输入参数-游戏榜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="游戏榜"|
+
+输出参数-游戏榜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-游戏榜**   |
+					
+接口示例-游戏榜
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="游戏榜")
+print(covid_19_baidu_df)
+```
+
+数据示例-游戏榜
+
+```
+    degree describe  ... type                                                url
+0  7536823           ...    1  https://m.baidu.com/s?word=%E7%BD%97%E9%A9%AC%...
+1  6373462           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+2  5037203           ...    0  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...
+3  4037324           ...    0  https://m.baidu.com/s?word=%E6%88%88%E8%B4%9D%...
+4  3647245           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+5  2047481           ...    0  https://m.baidu.com/s?word=%E8%8B%B1%E5%9B%BD%...
+6  1037482           ...    0  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...
+7   703749           ...    0  https://m.baidu.com/s?word=%E5%9B%BD%E6%B0%91%...
+```
+
+输入参数-影视榜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="影视榜"|
+
+输出参数-影视榜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-影视榜**   |
+					
+接口示例-影视榜
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="影视榜")
+print(covid_19_baidu_df)
+```
+
+数据示例-影视榜
+
+```
+    degree describe  ... type                                                url
+0  7536823           ...    1  https://m.baidu.com/s?word=%E7%BD%97%E9%A9%AC%...
+1  6373462           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+2  5037203           ...    0  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...
+3  4037324           ...    0  https://m.baidu.com/s?word=%E6%88%88%E8%B4%9D%...
+4  3647245           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+5  2047481           ...    0  https://m.baidu.com/s?word=%E8%8B%B1%E5%9B%BD%...
+6  1037482           ...    0  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...
+7   703749           ...    0  https://m.baidu.com/s?word=%E5%9B%BD%E6%B0%91%...
+```
+
+输入参数-小说榜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="小说榜"|
+
+输出参数-小说榜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-小说榜**   |
+					
+接口示例-小说榜
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="小说榜")
+print(covid_19_baidu_df)
+```
+
+数据示例-小说榜
+
+```
+    degree describe  ... type                                                url
+0  7536823           ...    1  https://m.baidu.com/s?word=%E7%BD%97%E9%A9%AC%...
+1  6373462           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+2  5037203           ...    0  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...
+3  4037324           ...    0  https://m.baidu.com/s?word=%E6%88%88%E8%B4%9D%...
+4  3647245           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+5  2047481           ...    0  https://m.baidu.com/s?word=%E8%8B%B1%E5%9B%BD%...
+6  1037482           ...    0  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...
+7   703749           ...    0  https://m.baidu.com/s?word=%E5%9B%BD%E6%B0%91%...
+```
+
+输入参数-疫期飙升榜
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="疫期飙升榜"|
+
+输出参数-疫期飙升榜
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-疫期飙升榜**   |
+					
+接口示例-疫期飙升榜
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="疫期飙升榜")
+print(covid_19_baidu_df)
+```
+
+数据示例-疫期飙升榜
+
+```
+    degree describe  ... type                                                url
+0  7536823           ...    1  https://m.baidu.com/s?word=%E7%BD%97%E9%A9%AC%...
+1  6373462           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+2  5037203           ...    0  https://m.baidu.com/s?word=%E6%AD%A6%E6%B1%89%...
+3  4037324           ...    0  https://m.baidu.com/s?word=%E6%88%88%E8%B4%9D%...
+4  3647245           ...    0  https://m.baidu.com/s?word=%E6%A2%85%E8%A5%BF%...
+5  2047481           ...    0  https://m.baidu.com/s?word=%E8%8B%B1%E5%9B%BD%...
+6  1037482           ...    0  https://m.baidu.com/s?word=%E9%92%9F%E5%8D%97%...
+7   703749           ...    0  https://m.baidu.com/s?word=%E5%9B%BD%E6%B0%91%...
+```
+
 输入参数-实时播报
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="实时播报", 返回实时播报数据|
+| indicator | str | Y | indicator="实时播报"|
 
 输出参数-实时播报
 
@@ -1417,338 +1583,243 @@ print(epidemic_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="实时播报")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="实时播报")
+print(covid_19_baidu_df)
 ```
 
 数据示例-实时播报
 
 ```
-                                               bjh_na  \
-0   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-1                                                 NaN   
-2   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-3   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-4   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-5   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-6                                                 NaN   
-7   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-8   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-9   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-10                                                NaN   
-11                                                NaN   
-12                                                NaN   
-13  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-14  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-15  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-16                                                NaN   
-17  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-18  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-19  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-20  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-21  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-22                                                NaN   
-23  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-24  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-25                                                NaN   
-26  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-27  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-28  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-29                                                NaN   
-30                                                NaN   
-31  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-32                                                NaN   
-33  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-34  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-35  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...   
-                     eventDescription   eventTime  \
-0            快讯！俄罗斯首次确诊两例新型冠状病毒感染肺炎病例  1580474901   
-1           武汉市金银潭医院20名新型冠状病毒肺炎患者集体出院  1580474200   
-2               财政部：确保居民不因担心费用问题而不敢就诊  1580473684   
-3      湖北民政厅原副厅长文增显去世 是否感染新型冠状病毒肺炎未确诊  1580473063   
-4         中央赴湖北指导组：进一步降低病死率 加强农村和社区防控  1580472650   
-5          芬兰航空取消2月6日至2月29日期间中国内地全部航班  1580472257   
-6      重磅！北京市政府：除必需行业外，各企业2月9日前灵活安排工作  1580472216   
-7                         湖北将适当延长春节假期  1580469318   
-8                长这样！雷神山医院隔离病区整体效果图发布  1580469098   
-9              新加坡后天起禁止过去14天曾到中国的旅客入境  1580469076   
-10       厦门实行口罩预约登记、摇号购买 登记系统今日14点已开放  1580468100   
-11           准备起飞！祖国派专机接滞留马来西亚的武汉同胞回家  1580465635   
-12                快讯！香港：从明日起 发烧旅客不准登机  1580465580   
-13      感染孕产妇是否会对胎儿产生影响？马丁院士：现在还不能下结论  1580465303   
-14            埃及航空暂停2月29日之前往返于中国大陆的航班  1580464878   
-15        多家航司派出包机接湖北籍中国公民返乡，采取自愿购票原则  1580464838   
-16           香港新型肺炎确诊病例增至12例，其中11例属输入  1580464114   
-17       路透社：巴基斯坦暂停往返中国航班，2月2日后将再评估情况  1580463960   
-18                   英国确诊2例新型冠状病毒感染肺炎  1580463912   
-19         中疾控独家回应：“人传人”早有推论，保守下结论有原因  1580463633   
-20           外地返京人员回不了家？北京市民政局：可向我们反映  1580462613   
-21             商务部：前几天部分超市出现空架的情况明显缓解  1580461742   
-22       林郑月娥：全港中小学、幼儿园以及特殊学校最快3月2日复课  1580461620   
-23  北京卫健委发言人：有43例都是被家人感染，建议家人接触也要留有空间  1580461200   
-24      北京市疾控中心副主任：对一般民众不太建议推广使用N95口罩  1580460671   
-25         湖北红十字会对武汉、黄冈、孝感、荆门四市拨付款超1亿  1580460638   
-26           广东31日0-12时新增确诊43例，新增出院1例  1580460300   
-27         广东省卫健委：已做好在广深珠佛莞等市建临时医院的准备  1580459720   
-28             湖北红会纠错莆田系医院口罩数量，结果又出错了  1580459430   
-29         北京市卫健委发言人介绍9月大患者：为家庭密切接触感染  1580459407   
-30       北京市民政局回应社区禁止外地人进入：非确诊病例应自由进入  1580458992   
-31              北京新增7例新型肺炎确诊病例 累计139例  1580458448   
-32       民政部回应家人被隔离后脑瘫儿死亡：加强特殊群体的关心帮扶  1580457600   
-33         民政部回应社区劝阻租户入住：不宜一刀切，人心不能疏离  1580457246   
-34                  卫健委：戴口罩跳广场舞还是有风险的  1580456929   
-35           民政部：疫情解除前社区不能举办各类人员聚集性活动  1580456760   
-                                             eventUrl  \
-0   http://baijiahao.baidu.com/s?id=16572480255696...   
-1   http://baijiahao.baidu.com/s?id=16572472690114...   
-2   http://baijiahao.baidu.com/s?id=16572468473332...   
-3   http://baijiahao.baidu.com/s?id=16572464180335...   
-4   http://baijiahao.baidu.com/s?id=16572458307781...   
-5   http://baijiahao.baidu.com/s?id=16572453392259...   
-6   http://baijiahao.baidu.com/s?id=16572296217201...   
-7   http://baijiahao.baidu.com/s?id=16572423157274...   
-8   http://baijiahao.baidu.com/s?id=16572419102201...   
-9   http://baijiahao.baidu.com/s?id=16572419989469...   
-10  http://baijiahao.baidu.com/s?id=16572274167485...   
-11  http://baijiahao.baidu.com/s?id=16572382862715...   
-12  http://baijiahao.baidu.com/s?id=16572385604862...   
-13  http://baijiahao.baidu.com/s?id=16572379462581...   
-14  http://baijiahao.baidu.com/s?id=16572375985555...   
-15  http://baijiahao.baidu.com/s?id=16572376024466...   
-16  http://baijiahao.baidu.com/s?id=16572368444719...   
-17  http://baijiahao.baidu.com/s?id=16572368038836...   
-18  http://baijiahao.baidu.com/s?id=16572365082310...   
-19  http://baijiahao.baidu.com/s?id=16572363429949...   
-20  http://baijiahao.baidu.com/s?id=16572352076867...   
-21  http://baijiahao.baidu.com/s?id=16572343604491...   
-22  http://baijiahao.baidu.com/s?id=16572344014716...   
-23  http://baijiahao.baidu.com/s?id=16572338358951...   
-24  http://baijiahao.baidu.com/s?id=16572331048794...   
-25  http://baijiahao.baidu.com/s?id=16572331928382...   
-26  http://baijiahao.baidu.com/s?id=16572328951131...   
-27  http://baijiahao.baidu.com/s?id=16572321483350...   
-28  http://baijiahao.baidu.com/s?id=16572337126213...   
-29  http://baijiahao.baidu.com/s?id=16572319400182...   
-30  http://baijiahao.baidu.com/s?id=16572314353418...   
-31  http://baijiahao.baidu.com/s?id=16572309679415...   
-32  http://baijiahao.baidu.com/s?id=16572300663904...   
-33  http://baijiahao.baidu.com/s?id=16572296788198...   
-34  http://baijiahao.baidu.com/s?id=16572291786683...   
-35  http://baijiahao.baidu.com/s?id=16572293117986...   
-                                          homepageUrl  \
-0   https://baijiahao.baidu.com/u?app_id=155196823...   
-1   http://baijiahao.baidu.com/u?app_id=1551968238...   
-2   https://baijiahao.baidu.com/u?app_id=156645361...   
-3   https://baijiahao.baidu.com/u?app_id=156182596...   
-4   https://baijiahao.baidu.com/u?app_id=155286491...   
-5   https://baijiahao.baidu.com/u?app_id=156645361...   
-6   http://baijiahao.baidu.com/u?app_id=1601149438...   
-7   https://baijiahao.baidu.com/u?app_id=156645361...   
-8   https://baijiahao.baidu.com/u?app_id=160114943...   
-9   https://baijiahao.baidu.com/u?app_id=154660853...   
-10  http://baijiahao.baidu.com/u?app_id=1561825967...   
-11  http://baijiahao.baidu.com/u?app_id=1552864910...   
-12  http://baijiahao.baidu.com/u?app_id=1549608413...   
-13  https://baijiahao.baidu.com/u?app_id=156182596...   
-14  https://baijiahao.baidu.com/u?app_id=156645361...   
-15  https://baijiahao.baidu.com/u?app_id=157407200...   
-16  http://baijiahao.baidu.com/u?app_id=1566453612...   
-17  https://baijiahao.baidu.com/u?app_id=154960841...   
-18  https://baijiahao.baidu.com/u?app_id=156182596...   
-19  https://baijiahao.baidu.com/u?app_id=156645361...   
-20  https://baijiahao.baidu.com/u?app_id=156645361...   
-21  https://baijiahao.baidu.com/u?app_id=157316232...   
-22  http://baijiahao.baidu.com/u?app_id=1549608413...   
-23  https://baijiahao.baidu.com/u?app_id=154960841...   
-24  https://baijiahao.baidu.com/u?app_id=156182596...   
-25  http://baijiahao.baidu.com/u?app_id=1566453612...   
-26  https://baijiahao.baidu.com/u?app_id=154960841...   
-27  https://baijiahao.baidu.com/u?app_id=160198381...   
-28  https://baijiahao.baidu.com/u?app_id=157224978...   
-29  http://baijiahao.baidu.com/u?app_id=1566453612...   
-30  http://baijiahao.baidu.com/u?app_id=1566453612...   
-31  https://baijiahao.baidu.com/u?app_id=155286491...   
-32  http://baijiahao.baidu.com/u?app_id=1549608413...   
-33  https://baijiahao.baidu.com/u?app_id=156645361...   
-34  https://baijiahao.baidu.com/u?app_id=160686343...   
-35  https://baijiahao.baidu.com/u?app_id=154960841...   
-                                          item_avatar siteName  
-0   http://timg01.bdimg.com/timg?pacompress&imgtyp...     环球时报  
-1   http://timg01.bdimg.com/timg?pacompress&imgtyp...     环球时报  
-2   http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
-3   http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
-4   http://timg01.bdimg.com/timg?pacompress=&imgty...  人民日报海外网  
-5   http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
-6   http://pic.rmb.bdstatic.com/73c41abfdd401cc72e...  北京日报客户端  
-7   http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
-8   http://pic.rmb.bdstatic.com/73c41abfdd401cc72e...  北京日报客户端  
-9   http://timg01.bdimg.com/timg?pa=&imgtype=0&sec...     观察者网  
-10  http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
-11  http://timg01.bdimg.com/timg?pacompress=&imgty...  人民日报海外网  
-12  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
-13  http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
-14  http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
-15  http://timg01.bdimg.com/timg?pacompress=&imgty...     澎湃新闻  
-16  https://timg01.bdimg.com/timg?pacompress=&imgt...      新京报  
-17  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
-18  http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
-19  http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
-20  http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
-21  http://timg01.bdimg.com/timg?pacompress=&imgty...      金融界  
-22  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
-23  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
-24  http://pic.rmb.bdstatic.com/d882b8d93b19c52206...     红星新闻  
-25  https://timg01.bdimg.com/timg?pacompress=&imgt...      新京报  
-26  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
-27  http://timg01.bdimg.com/timg?pacompress&imgtyp...   金十数据快讯  
-28  http://timg01.bdimg.com/timg?pacompress=&imgty...     上游新闻  
-29  https://timg01.bdimg.com/timg?pacompress=&imgt...      新京报  
-30  https://timg01.bdimg.com/timg?pacompress=&imgt...      新京报  
-31  http://timg01.bdimg.com/timg?pacompress=&imgty...  人民日报海外网  
-32  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
-33  http://timg01.bdimg.com/timg?pacompress=&imgty...      新京报  
-34  http://pic.rmb.bdstatic.com/a51d142ac7625feda1...   潇湘晨报官方  
-35  http://timg01.bdimg.com/timg?pacompress=&imgty...      环球网  
+                                               bjh_na  ... siteName
+0   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...      环球网
+1   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...     人民日报
+2   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...    中国青年网
+3   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...     环球时报
+4   {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...      环球网
+..                                                ...  ...      ...
+31  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...     红星新闻
+32  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...  人民日报海外网
+33  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...      环球网
+34  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...  人民日报海外网
+35  {'easyBrowse': '1', 'easyBrowseConfirm': '1', ...  ...      人民网
 ```
 
-输入参数-历史
+输入参数-中国分省份详情
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="历史", 返回全国疫情统计的历史数据|
+| indicator | str | Y | indicator="中国分省份详情"|
 
-输出参数-历史
+输出参数-中国分省份详情
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 确诊      | str   | Y        |-   |
-| 疑似      | str   | Y        | -  |
-| 治愈      | str   | Y        | -  |
-| 死亡      | str   | Y        | -  |
+| -      | -   | -        |参见 **数据示例-中国分省份详情**   |
 
-接口示例-历史
+接口示例-中国分省份详情
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="历史")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="中国分省份详情")
+print(covid_19_baidu_df)
 ```
 
-数据示例-历史
+数据示例-中国分省份详情
 
 ```
-        确诊     疑似   治愈   死亡
-1.21   440     37    0    0
-1.22   574    393    0   17
-1.23   835   1072   34   25
-1.24  1297   1965   38   41
-1.25  1985   2684   49   56
-1.26  2761   5794   51   80
-1.27  4535   6973   60  106
-1.28  5997   9239  103  132
-1.29  7736  12167  126  170
-1.30  9720  15238  171  213
+   confirmed  died  crued  ... curConfirmRelative icuDisable area
+0          1            1  ...                  0          1   西藏
+1         11           10  ...                  0          1   澳门
+2         18           18  ...                  0          1   青海
+3         67     1     20  ...                  6          1   台湾
+4        155     4     84  ...                  4          1   香港
+..       ...   ...    ...  ...                ...        ...  ...
+29      1018     4   1014  ...                  0          1   湖南
+30      1273    22   1250  ...                  0          1   河南
+31      1361     8   1306  ...                  1          1   广东
+32      1231     1   1216  ...                 -2          1   浙江
+33     67798  3099  55094  ...               -826          1   湖北
 ```
 
-输入参数-国内
+输入参数-中国分城市详情
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="国内", 国内疫情实时统计数据|
+| indicator | str | Y | indicator="中国分城市详情"|
 
-输出参数-国内
+输出参数-中国分城市详情
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| index      | str   | Y        |项目   |
-|  value     | str   | Y        |数值(单位: 人)   |
+| -      | -   | -        |参见 **数据示例-中国分城市详情**   |
 
-接口示例-国内
+接口示例-中国分城市详情
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="国内")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="中国分城市详情")
+print(covid_19_baidu_df)
 ```
 
-数据示例-国内
+数据示例-中国分城市详情
 
 ```
-            2020.01.31 20:52
-confirmed               9811
-died                     213
-cured                    216
-unconfirmed            15238
+     city confirmed died crued confirmedRelative curConfirm cityCode province
+0      拉萨         1          1                 0          0      100       西藏
+1      西宁        15         15                 0          0       66       青海
+2     海北州         3          3                 0          0       67       青海
+3     六盘水        10    1     9                 0          0      147       贵州
+4    毕节地区        23         23                 0          0      206       贵州
+..    ...       ...  ...   ...               ...        ...      ...      ...
+434    黄冈      2907  125  2750                 0         32      271       湖北
+435    孝感      3518  127  3266                 0        125      310       湖北
+436    黄石      1015   38   950                 0         27      311       湖北
+437    荆门       928   39   865                 0         24      217       湖北
+438    鄂州      1394   57  1275                 0         62      122       湖北
 ```
 
-输入参数-国外
+输入参数-国外分国详情
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="国外", 国外疫情实时统计数据|
+| indicator | str | Y | indicator="国外分国详情"|
 
-输出参数-国外
+输出参数-国外分国详情
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| index      | str   | Y        |项目   |
-| value     | str   | Y        |数值(单位: 人)   |
+| -      | -   | -        |参见 **数据示例-国外分国详情**   |
 
-接口示例-国外
+接口示例-国外分国详情
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="国外")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="国外分国详情")
+print(covid_19_baidu_df)
 ```
 
-数据示例-国外
+数据示例-国外分国详情
 
 ```
-          2020.01.31 20:52
-confirmed              122
-died                     0
-cured                   10
+    confirmed died crued  ... curConfirm icuDisable      area
+0           1             ...          1          1      坦桑尼亚
+1           1             ...          1          1      利比里亚
+2           1    1        ...          0          1  圭亚那合作共和国
+3           1             ...          1          1       马约特
+4           1             ...          1          1       巴哈马
+..        ...  ...   ...  ...        ...        ...       ...
+151       368    6    27  ...        335          1      澳大利亚
+152       553         35  ...        518          1      马来西亚
+153       823   25   144  ...        654          1        日本
+154       243        105  ...        138          1       新加坡
+155       147    1    37  ...        109          1        泰国
 ```
 
-输入参数-具体省份(如: 浙江)
+输入参数-国外分城市详情
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="浙江", 浙江疫情实时统计数据|
+| indicator | str | Y | indicator="国外分城市详情"|
 
-输出参数-具体省份(如: 浙江)
+输出参数-国外分城市详情
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| city      | str   | Y        |城市名称   |
-| confirmed     | str   | Y        |确诊人数  |
-| died     | str   | Y        |死亡人数   |
-| crued     | str   | Y        |治愈人数   |
+| -      | -   | -        |参见 **数据示例-国外分城市详情**   |
 
-接口示例-具体省份(如: 浙江)
+接口示例-国外分城市详情
 
 ```python
 import akshare as ak
-epidemic_baidu_df = ak.covid_19_baidu(indicator="浙江")
-print(epidemic_baidu_df)
+covid_19_baidu_df = ak.covid_19_baidu(indicator="国外分城市详情")
+print(covid_19_baidu_df)
 ```
 
-数据示例-具体省份(如: 浙江)
+数据示例-国外分城市详情
 
 ```
-   city confirmed died crued
-0    台州        81          1
-1    嘉兴        16           
-2    湖州         6           
-3    舟山         7          1
-4    绍兴        23           
-5    宁波        46           
-6    杭州        85           
-7    金华        27          2
-8    丽水         7          1
-9    温州       227          7
-10   衢州        12           
+    province  city confirmed died crued
+0         伊朗   德黑兰      2976           
+1         伊朗    吉兰       684           
+2         伊朗    库姆       888           
+3         伊朗  伊斯法罕       902           
+4         伊朗   法尔斯       232           
+..       ...   ...       ...  ...   ...
+105       日本    广岛         1           
+106       日本    群马         5           
+107       日本    福岛         2           
+108       日本    佐贺         1           
+109       日本    长崎         1 
+```
+
+输入参数-全球分洲详情
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="全球分洲详情"|
+
+输出参数-全球分洲详情
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        |参见 **数据示例-全球分洲详情**   |
+
+接口示例-全球分洲详情
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="全球分洲详情")
+print(covid_19_baidu_df)
+```
+
+数据示例-全球分洲详情
+
+```
+  area  died crued confirmed confirmedRelative
+0   亚洲   988  6661     27328              1673
+1   欧洲  2347  3086     56831              6970
+2   非洲     8    42       387                75
+3  大洋洲     6    27       377                13
+4  北美洲    73    71      4306               321
+5  南美洲     6     1       511               152
+6   其他     7   456       712                15
+```
+
+输入参数-全球分洲国家详情
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="全球分洲国家详情"|
+
+输出参数-全球分洲国家详情
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        |参见 **数据示例-全球分洲国家详情**   |
+
+接口示例-全球分洲国家详情
+
+```python
+import akshare as ak
+covid_19_baidu_df = ak.covid_19_baidu(indicator="全球分洲国家详情")
+print(covid_19_baidu_df)
+```
+
+数据示例-全球分洲国家详情
+
+```
+    confirmed died crued  relativeTime confirmedRelative  country province
+0           6             1.584288e+09                 2   乌兹别克斯坦       亚洲
+1           8             1.584202e+09                 2    哈萨克斯坦       亚洲
+2          18             1.584202e+09                12      土耳其       亚洲
+3           1             1.583683e+09                        蒙古国       亚洲
+4          33             1.584202e+09                 7     塞浦路斯       亚洲
+..        ...  ...   ...           ...               ...      ...      ...
+151        45    2     1  1.584115e+09                        阿根廷      南美洲
+152        75             1.584202e+09                14       智利      南美洲
+153        37    2        1.584202e+09                 9     厄瓜多尔      南美洲
+154       200             1.584202e+09                79       巴西      南美洲
+155       712    7   456  1.584202e+09                15  钻石公主号邮轮       其他
 ```
 
 ### 迁徙数据-百度
@@ -1831,7 +1902,7 @@ print(migration_area_baidu_df)
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | 索引   | Y        | 去年和今年的日期  |
-| 迁徙规模指数      | str   | Y        |  定义参见百度, 同 epidemic_baidu 定义 |
+| 迁徙规模指数      | str   | Y        |  定义参见百度, 同 covid_19_baidu 定义 |
 			
 接口示例
 
@@ -1862,7 +1933,7 @@ print(migration_scale_baidu_df)
 
 #### 具体省份-城市-区查询
 
-接口: epidemic_area_search
+接口: covid_19_area_search
 
 目标地址: https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
 
@@ -1872,15 +1943,15 @@ print(migration_scale_baidu_df)
 - 具体数字表示确诊人数
 - 所有数据来源于网络和腾讯
 
-限量: 单次返回省份-城市-区数据, 查询具体的 **省份-城市-区** 的数据请查看 **epidemic_area_all**
+限量: 单次返回省份-城市-区数据, 查询具体的 **省份-城市-区** 的数据请查看 **covid_19_area_all**
 
 输入参数
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| province | str | Y | province="四川省", 输入需要查询的省份; 具体省份格式参照 **epidemic_area_all** |
-| city | str | Y | city="成都市", 输入需要查询的城市; 具体省份格式参照 **epidemic_area_all** |
-| district | str | Y | district="高新区", 输入需要查询的区; 具体省份格式参照 **epidemic_area_all**|
+| province | str | Y | province="四川省", 输入需要查询的省份; 具体省份格式参照 **covid_19_area_all** |
+| city | str | Y | city="成都市", 输入需要查询的城市; 具体省份格式参照 **covid_19_area_all** |
+| district | str | Y | district="高新区", 输入需要查询的区; 具体省份格式参照 **covid_19_area_all**|
 
 输出参数
 
@@ -1897,8 +1968,8 @@ print(migration_scale_baidu_df)
 
 ```python
 import akshare as ak
-epidemic_area_search_df = ak.covid_19_area_search(province="四川省", city="成都市", district="高新区")
-print(epidemic_area_search_df)
+covid_19_area_search_df = ak.covid_19_area_search(province="四川省", city="成都市", district="高新区")
+print(covid_19_area_search_df)
 ```
 
 数据示例
@@ -1920,7 +1991,7 @@ print(epidemic_area_search_df)
 
 #### 省份-城市-区
 
-接口: epidemic_area_all
+接口: covid_19_area_all
 
 目标地址: https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
 
@@ -1946,8 +2017,8 @@ print(epidemic_area_search_df)
 
 ```python
 import akshare as ak
-epidemic_area_all_df = ak.covid_19_area_all()
-print(epidemic_area_all_df)
+covid_19_area_all_df = ak.covid_19_area_all()
+print(covid_19_area_all_df)
 ```
 
 数据示例
@@ -1969,7 +2040,7 @@ print(epidemic_area_all_df)
 
 #### 获取省份-城市-区-小区的所有详细数据
 
-接口: epidemic_area_detail
+接口: covid_19_area_detail
 
 目标地址: https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
 
@@ -1998,8 +2069,8 @@ print(epidemic_area_all_df)
 
 ```python
 import akshare as ak
-epidemic_area_detail_df = ak.covid_19_area_detail()
-print(epidemic_area_detail_df)
+covid_19_area_detail_df = ak.covid_19_area_detail()
+print(covid_19_area_detail_df)
 ```
 
 数据示例
@@ -2030,7 +2101,7 @@ print(epidemic_area_detail_df)
 
 ### 相同行程查询
 
-接口: epidemic_trip
+接口: covid_19_trip
 
 目标地址: https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message
 
@@ -2054,8 +2125,8 @@ print(epidemic_area_detail_df)
 
 ```python
 import akshare as ak
-epidemic_trip_df = ak.covid_19_trip()
-print(epidemic_trip_df)
+covid_19_trip_df = ak.covid_19_trip()
+print(covid_19_trip_df)
 ```
 
 数据示例
@@ -2101,7 +2172,7 @@ print(epidemic_trip_df)
 
 ### 疫情历史数据-细化到地市
 
-接口: epidemic_hist_all
+接口: covid_19_hist_
 
 目标地址: https://github.com/norratek/Ncov2020HistoryData
 
@@ -2109,60 +2180,13 @@ print(epidemic_trip_df)
 
 限量: 单次返回所有细化到地市的所有数据
 
-输入参数-epidemic_hist_all
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
-
-输出参数-epidemic_hist_all
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date | str | Y | 时间（天） |
-| country | str | Y | 国家 |
-| countryCode | float | Y | 国家代码 |
-| province | float | Y | 省 |
-| provinceCode | float | Y | 省代码 |
-| city | float | Y | 市 |
-| cityCode | float | Y | 市代码 |
-| confirmed | str | Y | 确诊人数 |
-| suspected | str | Y | 疑似人数 |
-| cured | str | Y | 治愈人数 |
-| dead | str | Y | 死亡人数 |
-			
-接口示例-epidemic_hist_all
-
-```python
-import akshare as ak
-epidemic_hist_all_df = ak.covid_19_hist_all()
-print(epidemic_hist_all_df)
-```
-
-数据示例-epidemic_hist_all
-
-```
-             date country countryCode  ... suspected cured dead
-0      2019-12-01      中国          CN  ...         0     0    0
-1      2019-12-01      中国          CN  ...         0     0    0
-2      2019-12-01      中国          CN  ...         0     0    0
-3      2019-12-02      中国          CN  ...         0     0    0
-4      2019-12-02      中国          CN  ...         0     0    0
-           ...     ...         ...  ...       ...   ...  ...
-15438  2020-02-23      瑞典          SE  ...         0     0    0
-15439  2020-02-23     新加坡          SG  ...         0    49    0
-15440  2020-02-23      泰国          TH  ...         0    17    0
-15441  2020-02-23      美国          US  ...         0     3    0
-15442  2020-02-23      越南          VN  ...         0     9    0
-```
-
-输入参数-epidemic_hist_city
+输入参数-covid_19_hist_city
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | city | str | Y | city="武汉市" |
 
-输出参数-epidemic_hist_city
+输出参数-covid_19_hist_city
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
@@ -2178,38 +2202,38 @@ print(epidemic_hist_all_df)
 | cured | str | Y | 治愈人数 |
 | dead | str | Y | 死亡人数 |
 			
-接口示例-epidemic_hist_city
+接口示例-covid_19_hist_city
 
 ```python
 import akshare as ak
-epidemic_hist_city_df = ak.covid_19_hist_city(city="武汉市")
-print(epidemic_hist_city_df)
+covid_19_hist_city_df = ak.covid_19_hist_city(city="武汉市")
+print(covid_19_hist_city_df)
 ```
 
-数据示例-epidemic_hist_city
+数据示例-covid_19_hist_city
 
 ```
-             date country countryCode  ... suspected cured  dead
-2      2019-12-01      中国          CN  ...         0     0     0
-5      2019-12-02      中国          CN  ...         0     0     0
-8      2019-12-03      中国          CN  ...         0     0     0
-11     2019-12-04      中国          CN  ...         0     0     0
-14     2019-12-05      中国          CN  ...         0     0     0
-           ...     ...         ...  ...       ...   ...   ...
-12979  2020-02-19      中国          CN  ...         0  4990  1497
-13526  2020-02-20      中国          CN  ...         0  5573  1585
-14071  2020-02-21      中国          CN  ...         0  6280  1684
-14614  2020-02-22      中国          CN  ...         0  7278  1774
-15154  2020-02-23      中国          CN  ...         0  8171  1856
+             date country countryCode  ... suspected  cured  dead
+2      2019-12-01      中国          CN  ...         0      0     0
+5      2019-12-02      中国          CN  ...         0      0     0
+8      2019-12-03      中国          CN  ...         0      0     0
+11     2019-12-04      中国          CN  ...         0      0     0
+14     2019-12-05      中国          CN  ...         0      0     0
+           ...     ...         ...  ...       ...    ...   ...
+25699  2020-03-12      中国          CN  ...         0  34094  2430
+26333  2020-03-13      中国          CN  ...         0  35197  2436
+26980  2020-03-14      中国          CN  ...         0  36465  2446
+27637  2020-03-15      中国          CN  ...         0  37643  2456
+28302  2020-03-16      中国          CN  ...         0  38385  2469
 ```
 
-输入参数-epidemic_hist_province
+输入参数-covid_19_hist_province
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | province | str | Y | province="湖北省" |
 
-输出参数-epidemic_hist_province
+输出参数-covid_19_hist_province
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
@@ -2225,15 +2249,15 @@ print(epidemic_hist_city_df)
 | cured | str | Y | 治愈人数 |
 | dead | str | Y | 死亡人数 |
 			
-接口示例-epidemic_hist_province
+接口示例-covid_19_hist_province
 
 ```python
 import akshare as ak
-epidemic_hist_province_df = ak.covid_19_hist_province(province="湖北省")
-print(epidemic_hist_province_df)
+covid_19_hist_province_df = ak.covid_19_hist_province(province="湖北省")
+print(covid_19_hist_province_df)
 ```
 
-数据示例-epidemic_hist_province
+数据示例-covid_19_hist_province
 
 ```
              date country countryCode  ... suspected cured dead
@@ -2243,16 +2267,16 @@ print(epidemic_hist_province_df)
 5      2019-12-02      中国          CN  ...         0     0    0
 7      2019-12-03      中国          CN  ...         0     0    0
            ...     ...         ...  ...       ...   ...  ...
-15166  2020-02-23      中国          CN  ...         0   123    3
-15167  2020-02-23      中国          CN  ...         0   248   19
-15168  2020-02-23      中国          CN  ...         0    78    8
-15169  2020-02-23      中国          CN  ...         0   232   13
-15170  2020-02-23      中国          CN  ...         0    10    0
+28314  2020-03-16      中国          CN  ...         0   242    7
+28315  2020-03-16      中国          CN  ...         0   529   22
+28316  2020-03-16      中国          CN  ...         0   183    9
+28317  2020-03-16      中国          CN  ...         0   477   15
+28318  2020-03-16      中国          CN  ...         0    11    0
 ```
 
 ### 历史数据查询
 
-接口: epidemic_history
+接口: covid_19_history
 
 目标地址: https://github.com/canghailan/Wuhan-2019-nCoV
 
@@ -2286,8 +2310,8 @@ print(epidemic_hist_province_df)
 
 ```python
 import akshare as ak
-epidemic_history_df = ak.covid_19_history()
-print(epidemic_history_df)
+covid_19_history_df = ak.covid_19_history()
+print(covid_19_history_df)
 ```
 
 数据示例
@@ -2300,9 +2324,9 @@ print(epidemic_history_df)
 3      2019-12-02      中国          CN  ...         0     0    0
 4      2019-12-02      中国          CN  ...         0     0    0
            ...     ...         ...  ...       ...   ...  ...
-14359  2020-02-21      瑞典          SE  ...         0     0    0
-14360  2020-02-21     新加坡          SG  ...         0    37    0
-14361  2020-02-21      泰国          TH  ...         0    17    0
-14362  2020-02-21      美国          US  ...         0     3    0
-14363  2020-02-21      越南          VN  ...         0     9    0
+28682  2020-03-16    委内瑞拉          VE  ...         0     0    0
+28683  2020-03-16      越南          VN  ...         0    16    0
+28684  2020-03-16     马约特          YT  ...         0     0    0
+28685  2020-03-16      南非          ZA  ...         0     1    0
+28686  2020-03-16    纳米比亚        None  ...         0     0    0
 ```
