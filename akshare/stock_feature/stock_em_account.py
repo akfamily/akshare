@@ -11,6 +11,7 @@ http://data.eastmoney.com/cjsj/gpkhsj.html
 import requests
 import demjson
 import pandas as pd
+from tqdm import tqdm
 
 
 # pd.set_option('display.max_columns', 500)
@@ -48,8 +49,7 @@ def stock_em_account():
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
     page_num = _get_page_num_account()
     temp_df = pd.DataFrame()
-    for page in range(1, page_num + 1):
-        print(f"一共{page_num}页, 正在下载第{page}页")
+    for page in tqdm(range(1, page_num + 1)):
         params = {
             "type": "GPKHData",
             "token": "894050c76af8597a853f5b408b759f5d",
