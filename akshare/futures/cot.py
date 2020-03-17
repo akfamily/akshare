@@ -3,6 +3,7 @@
 """
 Author: Albert King
 date: 2019/9/30 13:58
+update: 2020/3/17 13:06
 contact: jindaxiang@163.com
 desc: 从大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所采集前 20 会员持仓数据;
 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定;
@@ -470,7 +471,7 @@ def get_dce_rank_table(date="20180404", vars_list=cons.contract_symbols):
     return big_dict
 
 
-def get_cffex_rank_table(date=None, vars_list=cons.contract_symbols):
+def get_cffex_rank_table(date="20200311", vars_list=cons.contract_symbols):
     """
     中国金融期货交易所前20会员持仓排名数据明细
     注：该交易所既公布品种排名，也公布标的排名
@@ -501,12 +502,17 @@ def get_cffex_rank_table(date=None, vars_list=cons.contract_symbols):
         return {}
     big_dict = {}
     for var in vars_list:
+        # print(var)
         url = cons.CFFEX_VOL_RANK_URL % (date.strftime('%Y%m'), date.strftime('%d'), var)
         r = requests_link(url, encoding='gbk')
         if not r:
             return False
         if '网页错误' not in r.text:
-            table = pd.read_csv(StringIO(r.text.split('\n交易日,')[1]))
+            try:
+                temp_chche = StringIO(r.text.split('\n交易日,')[1])
+            except:
+                temp_chche = StringIO(r.text.split('\n交易日,')[0][4:])  # 20200316开始数据结构变化，统一格式
+            table = pd.read_csv(temp_chche)
             table = table.dropna(how='any')
             table = table.applymap(lambda x: x.strip() if isinstance(x, str) else x)
             for symbol in set(table['合约']):
@@ -547,7 +553,7 @@ if __name__ == '__main__':
     print(get_czce_rank_table_second_df)
     get_czce_rank_table_third_df = get_czce_rank_table(date='20191227')
     print(get_czce_rank_table_third_df)
-    get_cffex_rank_table_df = get_cffex_rank_table(date='20200213')
+    get_cffex_rank_table_df = get_cffex_rank_table(date='20200316')
     print(get_cffex_rank_table_df)
     get_shfe_rank_table_df = get_shfe_rank_table(date='20190711')
     print(get_shfe_rank_table_df)
@@ -557,6 +563,5 @@ if __name__ == '__main__':
     print(get_shfe_rank_table_second_df)
     get_shfe_rank_table_third_df = get_dce_rank_table(date='20191227')
     print(get_shfe_rank_table_third_df)
-    # for k, v in dfs.items():
-    #     print(type(v['long_open_interest'].tolist()[-1]))
-    # get_rank_sum("20180301")
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200311", end_day="20200317")
+    print(get_rank_sum_daily_df)
