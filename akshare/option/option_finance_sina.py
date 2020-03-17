@@ -104,7 +104,7 @@ def option_sina_cffex_hs300_daily(contract: str = "io2004C4450") -> pd.DataFrame
     r = requests.get(url, params=payload)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("["): data_text.rfind("]") + 1])
+        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     return data_df
@@ -369,23 +369,31 @@ if __name__ == "__main__":
     option_sina_cffex_hs300_spot_df = option_sina_cffex_hs300_spot(contract="io2004")
     print(option_sina_cffex_hs300_spot_df)
 
-    option_sina_cffex_hs300_daily_df = option_sina_cffex_hs300_daily(contract="io2004C4450")
+    option_sina_cffex_hs300_daily_df = option_sina_cffex_hs300_daily(
+        contract="io2004C4450"
+    )
     print(option_sina_cffex_hs300_daily_df)
 
     # 期权-上交所-50ETF
     option_sina_sse_list_df = option_sina_sse_list(symbol="50ETF", exchange="null")
     print(option_sina_sse_list_df)
 
-    option_sina_sse_expire_day_df = option_sina_sse_expire_day(trade_date="202002", symbol="50ETF", exchange="null")
+    option_sina_sse_expire_day_df = option_sina_sse_expire_day(
+        trade_date="202002", symbol="50ETF", exchange="null"
+    )
     print(option_sina_sse_expire_day_df)
 
-    option_sina_sse_codes_df = option_sina_sse_codes(trade_date="202002", underlying="510300")
+    option_sina_sse_codes_df = option_sina_sse_codes(
+        trade_date="202002", underlying="510300"
+    )
     print(option_sina_sse_codes_df)
 
     option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10002273")
     print(option_sina_sse_spot_price_df)
 
-    option_sina_sse_underlying_spot_price_df = option_sina_sse_underlying_spot_price(code="sh510300")
+    option_sina_sse_underlying_spot_price_df = option_sina_sse_underlying_spot_price(
+        code="sh510300"
+    )
     print(option_sina_sse_underlying_spot_price_df)
 
     option_sina_sse_greeks_df = option_sina_sse_greeks(code="10002273")
