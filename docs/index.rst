@@ -22,10 +22,10 @@ Welcome to AkShare's Online Documentation!
    introduction
    installation
    tutorial
-   data/data_index
+   data/index
    anaconda
    special
    strategy
    platform
-   topic/subjects_index
+   topic/index
    changelog
