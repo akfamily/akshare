@@ -110,5 +110,5 @@ if __name__ == "__main__":
     print(stock_us_stock_name_df)
     stock_us_spot_df = stock_us_spot()
     print(stock_us_spot_df)
-    stock_us_daily_df = stock_us_daily(symbol="AMZN")
+    stock_us_daily_df = stock_us_daily(symbol="AAPL", factor="qfq")
     print(stock_us_daily_df)
