@@ -1,20 +1,20 @@
+# -*- coding:utf-8 -*-
+# /usr/bin/env python
 """
-wbdata.api: Where all the functions go
+Author: Albert King
+date: 2020/3/17 22:11
+contact: jindaxiang@163.com
+desc: world bank interface
 """
-
 import collections
 import datetime
 import re
 import warnings
 
+import pandas as pd
 import tabulate
-
-try:
-    import pandas as pd
-except ImportError:
-    pd = None
-
 from decorator import decorator
+
 from . import fetcher
 
 BASE_URL = "https://api.worldbank.org/v2"

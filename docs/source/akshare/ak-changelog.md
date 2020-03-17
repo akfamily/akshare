@@ -1159,4 +1159,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.41: fix: cot.py get_rank_sum_daily interface
 
 0.4.42: add: wdbank.py test
+
+0.4.43: add: wdbank.py dependencies
 ```
