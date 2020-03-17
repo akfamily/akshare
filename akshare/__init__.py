@@ -869,9 +869,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.39: refactor: sos.py/covid_19_163 interface
 0.4.40: refactor: sos.py interface
 0.4.41: fix: cot.py get_rank_sum_daily interface
+0.4.42: add: wdbank.py test
 """
 
-__version__ = "0.4.41"
+__version__ = "0.4.42"
 __author__ = "Albert King"
 
 """
