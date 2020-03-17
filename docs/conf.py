@@ -17,8 +17,6 @@ import sphinx_rtd_theme
 
 source_suffix = ['.rst', '.md']
 
-html_theme_path = ["_themes"]
-
 github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 
 # -- Project information -----------------------------------------------------
