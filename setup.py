@@ -60,6 +60,8 @@ setuptools.setup(
         "tqdm>=4.43.0",
         "openpyxl>=3.0.3",
         "jsonpath>=0.82",
+        "tabulate>=0.8.6",
+        "decorator>=4.4.2",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.woff"]},
     keywords=[

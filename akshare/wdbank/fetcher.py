@@ -1,5 +1,10 @@
+# -*- coding:utf-8 -*-
+# /usr/bin/env python
 """
-wbdata.fetcher: retrieve and cache queries
+Author: Albert King
+date: 2020/3/17 22:11
+contact: jindaxiang@163.com
+desc: world bank interface
 """
 
 import datetime
@@ -7,13 +12,12 @@ import json
 import logging
 import pickle
 import pprint
+from pathlib import Path
 
 import appdirs
 import requests
 
 from akshare import wdbank
-
-from pathlib import Path
 
 EXP = 7
 PER_PAGE = 1000
