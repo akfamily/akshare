@@ -19,14 +19,13 @@ Welcome to AkShare's Online Documentation!
    :glob:
    :caption: Table of contents:
 
-   source/akshare/ak-introduction
-   source/akshare/ak-installation
-   source/akshare/ak-tutorial
-   source/data/index
-   source/akshare/ak-anaconda
-   source/akshare/ak-email
-   source/akshare/ak-special
-   source/akshare/ak-strategy
-   source/akshare/ak-platform
-   source/subjects/index
-   source/akshare/ak-changelog
+   akshare/ak-introduction
+   akshare/ak-installation
+   akshare/ak-tutorial
+   data/data_index
+   akshare/ak-anaconda
+   akshare/ak-special
+   akshare/ak-strategy
+   akshare/ak-platform
+   subjects/subjects_index
+   akshare/ak-changelog

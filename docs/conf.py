@@ -27,6 +27,8 @@ project = 'AkShare'
 copyright = '2020, Albert King'
 author = 'Albert King'
 
+templates_path = ['_templates']
+
 # The full version, including alpha/beta/rc tags
 release = '1.0.0'
 
