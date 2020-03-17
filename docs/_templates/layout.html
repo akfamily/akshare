@@ -1,13 +1,9 @@
 {% extends "!layout.html" %}
 
-{% if pagename == 'subjects_index' %}
-    {% block extrahead %}
-        <meta name="referrer" content="no-referrer"/>
-        {{ super() }}
-    {% endblock %}
-{% endif %}
-
-
+{% block extrahead %}
+    <meta name="referrer" content="no-referrer"/>
+    {{ super() }}
+{% endblock %}
 
 
 {% block footer %}
