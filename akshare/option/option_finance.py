@@ -115,7 +115,9 @@ def option_finance_board(symbol="华泰柏瑞沪深300ETF期权", end_month="200
         return raw_df
     elif symbol == "沪深300股指期权":
         raw_df = pd.read_table(CFFEX_OPTION_URL_300, sep=",")
-        raw_df["end_month"] = raw_df["instrument"].str.split("-", expand=True).iloc[:, 0].str.slice(4, )
+        raw_df["end_month"] = (
+            raw_df["instrument"].str.split("-", expand=True).iloc[:, 0].str.slice(4,)
+        )
         raw_df = raw_df[raw_df["end_month"] == end_month]
         del raw_df["end_month"]
         return raw_df

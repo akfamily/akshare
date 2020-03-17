@@ -15,6 +15,7 @@ http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
 "RM": "20200116"
 """
 from io import StringIO
+import warnings
 
 import pandas as pd
 import requests
@@ -40,7 +41,7 @@ def option_czce_hist(symbol="SR", year="2019"):
         "RM": "2020",
     }
     if int(symbol_year_dict[symbol]) > int(year):
-        print(f"{year} year, symbol {symbol} is not on trade")
+        warnings.warn(f"{year} year, symbol {symbol} is not on trade")
         return
     url = "http://app.czce.com.cn/cms/cmsface/czce/newcms/calendarnewAll.jsp"
     payload = {
@@ -57,12 +58,14 @@ def option_czce_hist(symbol="SR", year="2019"):
     res = requests.post(url, data=payload)
     soup = BeautifulSoup(res.text, "lxml")
     # 获取 url 地址
-    url = soup.get_text()[soup.get_text().find("'") + 1:soup.get_text().rfind("'")].split(",")[0][:-1]
+    url = soup.get_text()[
+        soup.get_text().find("'") + 1: soup.get_text().rfind("'")
+    ].split(",")[0][:-1]
     res = requests.get(url)
     option_df = pd.read_table(StringIO(res.text), skiprows=1, sep="|", low_memory=False)
     return option_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     option_czce_hist_df = option_czce_hist(symbol="RM", year="2020")
-    print(option_czce_hist_df.columns)
+    print(option_czce_hist_df)

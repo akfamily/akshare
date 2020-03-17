@@ -22,13 +22,14 @@ from io import StringIO
 import requests
 import pandas as pd
 
-from akshare.option.cons import (get_calendar,
-                                 convert_date,
-                                 DCE_DAILY_OPTION_URL,
-                                 SHFE_OPTION_URL,
-                                 CZCE_DAILY_OPTION_URL_3,
-                                 SHFE_HEADERS)
-
+from akshare.option.cons import (
+    get_calendar,
+    convert_date,
+    DCE_DAILY_OPTION_URL,
+    SHFE_OPTION_URL,
+    CZCE_DAILY_OPTION_URL_3,
+    SHFE_HEADERS,
+)
 
 
 def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
@@ -73,8 +74,8 @@ def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
     """
     calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
-    if day.strftime('%Y%m%d') not in calendar:
-        warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     url = DCE_DAILY_OPTION_URL
     payload = {
@@ -83,28 +84,76 @@ def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
         "year": str(day.year),
         "month": str(day.month - 1),
         "day": str(day.day),
-        "exportFlag": "txt"
+        "exportFlag": "txt",
     }
     res = requests.post(url, data=payload)
     f = StringIO(res.text)
-    table_df = pd.read_table(f, encoding="gbk", skiprows=2, header=None, sep=r"\t\t", engine="python")
-    another_df = table_df.iloc[table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:, [0, 1]]
+    table_df = pd.read_table(
+        f, encoding="gbk", skiprows=2, header=None, sep=r"\t\t", engine="python"
+    )
+    another_df = table_df.iloc[
+        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name :, [0, 1]
+    ]
     another_df.reset_index(inplace=True, drop=True)
     another_df.iloc[0] = another_df.iat[0, 0].split("\t")
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
-    table_df = table_df.join(table_df.iloc[:, 1].str.split(r"\t", expand=True), lsuffix="l")
-    table_df.columns = ["商品名称", "_", "最高价", "最低价", "收盘价", "前结算价", "结算价", "涨跌", "涨跌1", "Delta", "成交量", "持仓量", "持仓量变化",
-                        "成交额", "行权量", "合约名称", "开盘价"]
+    table_df = table_df.join(
+        table_df.iloc[:, 1].str.split(r"\t", expand=True), lsuffix="l"
+    )
+    table_df.columns = [
+        "商品名称",
+        "_",
+        "最高价",
+        "最低价",
+        "收盘价",
+        "前结算价",
+        "结算价",
+        "涨跌",
+        "涨跌1",
+        "Delta",
+        "成交量",
+        "持仓量",
+        "持仓量变化",
+        "成交额",
+        "行权量",
+        "合约名称",
+        "开盘价",
+    ]
     table_df = table_df[
-        ["商品名称", "合约名称", "开盘价", "最高价", "最低价", "收盘价", "前结算价", "结算价", "涨跌", "涨跌1", "Delta", "成交量", "持仓量", "持仓量变化", "成交额",
-         "行权量"]]
+        [
+            "商品名称",
+            "合约名称",
+            "开盘价",
+            "最高价",
+            "最低价",
+            "收盘价",
+            "前结算价",
+            "结算价",
+            "涨跌",
+            "涨跌1",
+            "Delta",
+            "成交量",
+            "持仓量",
+            "持仓量变化",
+            "成交额",
+            "行权量",
+        ]
+    ]
     table_df.dropna(axis=1, how="all", inplace=True)
-    product_one_df = table_df.iloc[:table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name, :]
-    product_two_df = table_df.iloc[table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name + 1:
-                                   table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name, :]
-    product_three_df = table_df.iloc[table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name + 1:
-                                     table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[2].name, :]
+    product_one_df = table_df.iloc[
+        : table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name, :
+    ]
+    product_two_df = table_df.iloc[
+        table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name
+        + 1 : table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name,
+        :,
+    ]
+    product_three_df = table_df.iloc[
+        table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name
+        + 1 : table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[2].name,
+        :,
+    ]
     if symbol == "玉米期权":
         return product_one_df, another_df[another_df.iloc[:, 0].str.contains("c")]
     elif symbol == "铁矿石期权":
@@ -166,11 +215,11 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
     """
     calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
-    if day.strftime('%Y%m%d') not in calendar:
-        warnings.warn('{}非交易日'.format(day.strftime('%Y%m%d')))
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn("{}非交易日".format(day.strftime("%Y%m%d")))
         return None
     if day > datetime.date(2010, 8, 24):
-        url = CZCE_DAILY_OPTION_URL_3.format(day.strftime('%Y'), day.strftime('%Y%m%d'))
+        url = CZCE_DAILY_OPTION_URL_3.format(day.strftime("%Y"), day.strftime("%Y%m%d"))
         try:
             r = requests.get(url)
             f = StringIO(r.text)
@@ -301,21 +350,29 @@ def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
     """
     calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
-    if day.strftime('%Y%m%d') not in calendar:
-        warnings.warn('%s非交易日' % day.strftime('%Y%m%d'))
+    if day.strftime("%Y%m%d") not in calendar:
+        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     if day > datetime.date(2010, 8, 24):
-        url = SHFE_OPTION_URL.format(day.strftime('%Y%m%d'))
+        url = SHFE_OPTION_URL.format(day.strftime("%Y%m%d"))
         try:
             r = requests.get(url, headers=SHFE_HEADERS)
             json_data = r.json()
-            table_df = pd.DataFrame([row for row in json_data['o_curinstrument'] if
-                                     row['INSTRUMENTID'] not in ['小计', '合计'] and row['INSTRUMENTID'] != ''])
+            table_df = pd.DataFrame(
+                [
+                    row
+                    for row in json_data["o_curinstrument"]
+                    if row["INSTRUMENTID"] not in ["小计", "合计"]
+                    and row["INSTRUMENTID"] != ""
+                ]
+            )
             contract_df = table_df[table_df["PRODUCTNAME"].str.strip() == symbol]
-            product_df = pd.DataFrame(json_data['o_curproduct'])
+            product_df = pd.DataFrame(json_data["o_curproduct"])
             product_df = product_df[product_df["PRODUCTNAME"].str.strip() == symbol]
-            volatility_df = pd.DataFrame(json_data['o_cursigma'])
-            volatility_df = volatility_df[volatility_df["PRODUCTNAME"].str.strip() == symbol]
+            volatility_df = pd.DataFrame(json_data["o_cursigma"])
+            volatility_df = volatility_df[
+                volatility_df["PRODUCTNAME"].str.strip() == symbol
+            ]
             return contract_df, product_df, volatility_df
         except:
             return None
