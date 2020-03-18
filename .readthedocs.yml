@@ -1,5 +1,5 @@
 version: 2
-format: all
+formats: all
 sphinx:
   configuration: docs/conf.py
   fail_on_warning: true
