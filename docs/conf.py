@@ -1,5 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
-#
+# sphinx-build -b html . bulid
 # This file only contains a selection of the most common options. For a full
 # list see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
@@ -12,6 +12,7 @@
 
 # sys.path.insert(0, os.path.abspath('.'))
 import recommonmark
+from datetime import datetime
 from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
 
@@ -21,7 +22,7 @@ latex_use_xindy = False
 latex_elements = {
     'preamble': '\\usepackage[UTF8]{ctex}\n',
 }
-
+LATEXMKOPTS="-xelatex"
 
 source_suffix = ['.rst', '.md']
 
@@ -30,7 +31,7 @@ github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 # -- Project information -----------------------------------------------------
 
 project = 'AkShare'
-copyright = '2020, Albert King'
+copyright = '2019–{}, AkShare developers'.format(datetime.now().year)
 author = 'Albert King'
 version = "1.0.0"
 

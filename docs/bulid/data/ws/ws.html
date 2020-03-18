@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 板块实时监控 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AkShare 能源数据" href="../energy/energy.html" />
+    <link rel="prev" title="AkShare 波动率数据" href="../article/article.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">10分钟快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AkShare 板块实时监控</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">商品、外汇、股市、美股、国债、指数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">金融量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">金融量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+      <li>AkShare 板块实时监控</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/ws/ws.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 板块实时监控<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>商品、外汇、股市、美股、国债、指数<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>接口: watch</p>
+<p>目标地址: https://datacenter.jin10.com/market</p>
+<p>描述: 获取商品、外汇、股市、美股、国债、指数实时行情数据, 如需要存储数据请修改 <strong>on_message</strong> 接口</p>
+<p>限量: 主动推送</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>基于 websocket 的接口</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">ak</span><span class="o">.</span><span class="n">watch</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;USDSEK&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;美元/瑞典克朗&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">9.63381</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.00548</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.06</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;USDTRY&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;美元/土耳其里拉&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">5.7359</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.0064</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;CADCHF&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;加元/瑞郎&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">0.74865</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="mf">0.00076</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="mf">0.1</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;AUDUSD&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;澳元/美元&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">0.68114</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.00052</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.08</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;UKX&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;英国富时100指数&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mi">7309</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="mf">6.1</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;AUDNZD&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;澳元/纽元&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">1.06348</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.00134</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.13</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;AUDNZD&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;澳元/纽元&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">1.06369</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.00113</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.11</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;XAUUSD&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;现货黄金&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">1459.18</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">8.74</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.6</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;AUDNZD&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;澳元/纽元&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">1.06346</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.00136</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.13</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;USDCAD&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;美元/加元&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">1.3217</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.00035</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.03</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;AUDNZD&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;澳元/纽元&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">1.06347</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.00135</span><span class="p">}]</span>
+<span class="mi">42</span><span class="p">[</span><span class="s2">&quot;price&quot;</span><span class="p">,{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span><span class="s2">&quot;AUDNZD&quot;</span><span class="p">,</span><span class="s2">&quot;n&quot;</span><span class="p">:</span><span class="s2">&quot;澳元/纽元&quot;</span><span class="p">,</span><span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;lp&quot;</span><span class="p">:</span><span class="mf">1.06369</span><span class="p">,</span><span class="s2">&quot;ch&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.00113</span><span class="p">,</span><span class="s2">&quot;chp&quot;</span><span class="p">:</span><span class="o">-</span><span class="mf">0.11</span><span class="p">}]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../energy/energy.html" class="btn btn-neutral float-right" title="AkShare 能源数据" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../article/article.html" class="btn btn-neutral float-left" title="AkShare 波动率数据" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019–2020, AkShare developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>
