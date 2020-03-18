@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pandas 教程 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="1. Pandas 概览" href="pandas-00.html" />
+    <link rel="prev" title="Anaconda 库管理" href="../anaconda/anaconda-01.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">10分钟快速入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data/index.html">AkShare 数据字典</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">金融量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">金融量化平台</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">专题教程</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../anaconda/index.html">Anaconda 教程</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pandas 教程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pandas-00.html">1. Pandas 概览</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-01.html">2. Pandas 基础用法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-02.html">3. Pandas 25 式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-03.html">4. Pandas 10大新功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-04.html">5. Pandas 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-05.html">6. 时间序列与日期用法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">专题教程</a> &raquo;</li>
+        
+      <li>Pandas 教程</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/topic/pandas/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pandas">
+<h1>Pandas 教程<a class="headerlink" href="#pandas" title="永久链接至标题">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>专题教程-Pandas教程内容来自于 Python 公众号: <em>Python大咖谈</em> ;</p>
+<p>欢迎大家扫码关注公众号, 公众号文章同时也会在本文档持续连载, 方便在线阅读.</p>
+<p>特别感谢 <em>Python大咖谈</em> 作者: 呆鸟</p>
+</div>
+<p><img alt="image0" src="https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" /></p>
+<p>本专题主要介绍 Pandas0.25+ 库的内容;</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pandas-00.html">1. Pandas 概览</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pandas-00.html#id1">1.1. 数据结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-00.html#id3">1.2. 大小可变与数据复制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-00.html#id4">1.3. 获得支持</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-00.html#id5">1.4. 社区</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-00.html#id6">1.5. 项目监管</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-00.html#id7">1.6. 开发团队</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-00.html#id8">1.7. 机构合作伙伴</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-00.html#id9">1.8. 许可协议</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pandas-01.html">2. Pandas 基础用法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#head-tail">2.1. Head 与 Tail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id1">2.2. 属性与底层数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id2">2.3. 加速操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id3">2.4. 二进制操作</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id10">2.5. 描述性统计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id14">2.6. 函数应用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id22">2.7. 重置索引与更换标签</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id27">2.8. 迭代</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#dt">2.9. .dt 访问器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id28">2.10. 矢量化字符串方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id29">2.11. 排序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id36">2.12. 复制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id37">2.13. 数据类型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-01.html#id42">2.14. 基于 <code class="docutils literal notranslate"><span class="pre">dtype</span></code> 选择列</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pandas-02.html">3. Pandas 25 式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id1">3.1. 使用的数据集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#pandas">3.2. 查看 pandas 及其支持项的版本</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#dataframe">3.3. 创建 DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id2">3.4. 重命名列</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id3">3.5. 反转列序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id4">3.6. 反转列序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id5">3.7. 按数据类型选择列</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id6">3.8. 把字符串转换为数值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id7">3.9. 优化 DataFrame 对内存的占用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id8">3.10. 用多个文件建立 DataFrame ~ 按行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id9">3.11. 用多个文件建立 DataFrame ~ 按列</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id10">3.12. 从剪贴板创建 DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id11">3.13. 把 DataFrame 分割为两个随机子集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id12">3.14. 根据多个类别筛选 DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id13">3.15. 根据最大的类别筛选 DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id14">3.16. 处理缺失值</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id15">3.17. 把字符串分割为多列</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#series-dataframe">3.18. 把 Series 里的列表转换为 DataFrame</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id16">3.19. 用多个函数聚合</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id17">3.20. 用一个 DataFrame 合并聚合的输出结果</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id18">3.21. 选择行与列</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#series">3.22. 重塑多重索引 Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id19">3.23. 创建透视表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id20">3.24. 把连续型数据转换为类型数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id21">3.25. 改变显示选项</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id22">3.26. 设置 DataFrame 样式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-02.html#id23">3.27. 彩蛋：预览 DataFrame</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pandas-03.html">4. Pandas 10大新功能</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pandas-03.html#id1">4.1. 四个置顶的警告！</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-03.html#id2">4.2. 新增功能</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pandas-04.html">5. Pandas 数据结构</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pandas-04.html#series">5.1. Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-04.html#dataframe">5.2. DataFrame</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pandas-05.html">6. 时间序列与日期用法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id2">6.1. 时间序列纵览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#vs">6.2. 时间戳 vs. 时间段</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id3">6.3. 转换时间戳</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id9">6.4. 生成时间戳范围</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id11">6.5. 时间戳的界限</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id12">6.6. 索引</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id17">6.7. 日期/时间组件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#dateoffset">6.8. DateOffset 对象</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id27">6.9. 时间序列实例方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id31">6.10. 重采样</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id37">6.11. 时间跨度表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id41">6.12. 界外跨度表示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pandas-05.html#id42">6.13. 时区控制</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pandas-00.html" class="btn btn-neutral float-right" title="1. Pandas 概览" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../anaconda/anaconda-01.html" class="btn btn-neutral float-left" title="Anaconda 库管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019–2020, AkShare developers
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>
