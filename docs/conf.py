@@ -14,7 +14,13 @@
 import recommonmark
 from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
-import akshare
+
+
+latex_engine = 'xelatex'
+latex_use_xindy = False
+latex_elements = {
+    'preamble': '\\usepackage[UTF8]{ctex}\n',
+}
 
 
 source_suffix = ['.rst', '.md']
@@ -26,7 +32,7 @@ github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 project = 'AkShare'
 copyright = '2020, Albert King'
 author = 'Albert King'
-version = akshare.__version__
+version = "1.0.0"
 
 templates_path = ['_templates']
 
@@ -76,11 +82,4 @@ def setup(app):
         'auto_toc_tree_section': 'Contents',
     }, True)
     app.add_transform(AutoStructify)
-
-
-latex_engine = 'xelatex'
-latex_use_xindy = False
-latex_elements = {
-    'preamble': '\\usepackage[UTF8]{ctex}\n',
-}
 
