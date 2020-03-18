@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-1. 本文档更新于 **2020-03-17**;
+1. 本文档更新于 **2020-03-18**;
 
 2. 如有库或者文档的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
