@@ -6,8 +6,6 @@ SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = ReadtheDocsSphinxTheme
 SOURCEDIR     = .
 BUILDDIR      = build
-PDFLATEX      = xelatex
-LATEXMKOPTS   = -xelatex
 
 # Put it first so that "make" without argument is like "make help".
 help:
