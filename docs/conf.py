@@ -22,7 +22,7 @@ latex_use_xindy = False
 latex_elements = {
     'preamble': '\\usepackage[UTF8]{ctex}\n',
 }
-LATEXMKOPTS="-xelatex"
+
 
 source_suffix = ['.rst', '.md']
 
