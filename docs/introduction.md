@@ -11,7 +11,6 @@
         <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方" align="center">
     </a>
 </div>
-
 4. 欢迎关注 **数据科学实战** 微信公众号来获取最新的更新信息;
 
 <div align=center>
