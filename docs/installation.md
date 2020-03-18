@@ -1,6 +1,9 @@
 # 安装指导
 
-**目前 [AkShare](https://github.com/jindaxiang/akshare) 支持 Python 3.6 及以上版本**
+## 重要提示
+
+1. 首先请确认安装 [Python](https://www.python.org/) 3.6 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.7.5 版本;
+2. [AkShare](https://github.com/jindaxiang/akshare) 推荐安装最新版本的 [Anaconda](https://www.anaconda.com/), 可以解决大部分安装问题.
 
 ## 安装 [AkShare](https://github.com/jindaxiang/akshare)
 
@@ -24,20 +27,21 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 
 ## 安装 [Node.js](https://nodejs.org/dist/)
 
-**体验 [AkShare](https://github.com/jindaxiang/akshare) 完整功能, 请安装 [Node.js](https://nodejs.org/dist/)**
+P.S. **体验 [AkShare](https://github.com/jindaxiang/akshare) 完整功能, 请安装 [Node.js](https://nodejs.org/dist/)**
 
 ### Windows 系统
 
-[点击下载 Node.js for win 64](https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi), 按照界面提示完成安装！
+[点击下载 Node.js for win 64](https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi), 按照界面提示完成安装即可！
 
 ### Ubuntu 系统
+
 ```
 sudo apt-get install nodejs
 ```
 
 ## 升级 [AkShare](https://github.com/jindaxiang/akshare)
 
-**由于目前版本更新迭代比较频繁, 请在使用 [AkShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
+> P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
 
 ```
 pip install akshare --upgrade
@@ -45,7 +49,7 @@ pip install akshare --upgrade
 
 ## 安装报错解决方案
 
-### 1. 安装 lxml 库失败的错误
+### 安装 lxml 库失败的错误
 
 - 安装 wheel, 在 CMD 中运行如下命令:
 
@@ -111,7 +115,7 @@ pip install akshare --user
 
 方法二
 
-使用管理员权限打开 Anaconda Prompt 进行安装
+使用管理员权限(右键单击选择管理员权限)打开 Anaconda Prompt 进行安装
 
 ### 4. 提示其他的错误
 
