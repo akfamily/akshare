@@ -392,6 +392,9 @@
  "currency_time_series"  # 指定日期间的时间序列数据-需要权限
  "currency_currencies"  # 查询所支持的货币信息
  "currency_convert"  # 货币换算
+ # 工具-GitHub
+ "tool_github_star_list"  # GitHub Star 的用户
+ "tool_github_email_address"  # GitHub 用户的邮箱
 ```
 
 ## 3. 案例演示
