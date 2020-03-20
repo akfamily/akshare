@@ -871,10 +871,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.41: fix: cot.py get_rank_sum_daily interface
 0.4.42: add: wdbank.py test
 0.4.43: add: wdbank.py dependencies
+0.4.44: add: tool github 
 """
 
-__version__ = "0.4.43"
+__version__ = "0.4.44"
 __author__ = "Albert King"
+
+"""
+tool-github
+"""
+from akshare.tool.tool_github import tool_github_star_list, tool_github_email_address
 
 """
 sgx futures data
