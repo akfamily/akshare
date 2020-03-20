@@ -24,3 +24,4 @@ AkShare 数据字典
     event/event
     nlp/nlp
     others/others
+    tool/tool
