@@ -102,6 +102,8 @@ def index_stock_cons(index: str = "000031") -> pd.DataFrame:
 
 if __name__ == "__main__":
     index_list = index_stock_info()["index_code"].tolist()
+    index_stock_cons_df = index_stock_cons(index="000312")
+    print(index_stock_cons_df)
     for item in index_list:
         index_stock_cons_df = index_stock_cons(index=item)
         print(index_stock_cons_df)
