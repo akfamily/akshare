@@ -53,7 +53,7 @@ print(result_list)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| username str | Y | username="PiotrDabkowski"; owner of the repo; https://github.com/**PiotrDabkowski**/Js2Py |
+| username | str | Y | username="PiotrDabkowski"; owner of the repo; https://github.com/**PiotrDabkowski**/Js2Py |
 
 输出参数
 
