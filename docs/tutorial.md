@@ -291,6 +291,7 @@
  "macro_china_ctci"  # 发改委-中国电煤价格指数-全国综合电煤价格指数
  "macro_china_ctci_detail"  # 发改委-中国电煤价格指数-各价区电煤价格指数
  "macro_china_ctci_detail_hist"  # 发改委-中国电煤价格指数-历史电煤价格指数
+ "macro_china_lpr"  # 中国-利率-贷款报价利率
  # 美国
  "macro_usa_gdp_monthly"  # 金十数据中心-经济指标-美国-经济状况-美国GDP
  "macro_usa_cpi_monthly"  # 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告

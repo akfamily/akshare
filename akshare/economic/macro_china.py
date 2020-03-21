@@ -13,6 +13,7 @@ import time
 
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 from akshare.economic.cons import (
     JS_CHINA_CPI_YEARLY_URL,
@@ -829,6 +830,32 @@ def macro_china_ctci_detail_hist(year="2018"):
     data_df = pd.DataFrame(res.json()["data"])
     data_df.columns = res.json()["names"]
     return data_df
+
+
+# 中国-利率-贷款报价利率
+def macro_china_lpr():
+    """
+    http://data.eastmoney.com/cjsj/globalRateLPR.html
+    LPR品种详细数据
+    :return: LPR品种详细数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://datacenter.eastmoney.com/api/data/get"
+    params = {
+        "type": "RPTA_WEB_RATE",
+        "sty": "ALL",
+        "token": "894050c76af8597a853f5b408b759f5d",
+        "p": "1",
+        "ps": "2000",
+        "st": "TRADE_DATE",
+        "sr": "-1",
+        "var": "WPuRCBoA",
+        "rt": "52826782",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = json.loads(data_text.strip("var WPuRCBoA=")[:-1])
+    return pd.DataFrame(data_json["result"]["data"])
 
 
 if __name__ == "__main__":

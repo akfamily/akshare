@@ -1165,4 +1165,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.44: add: tool github
 
 0.4.45: add: fund_public file and docs
+
+0.4.46: add: macro_china_lpr
 ```
