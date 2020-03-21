@@ -395,6 +395,9 @@
  # 工具-GitHub
  "tool_github_star_list"  # GitHub Star 的用户
  "tool_github_email_address"  # GitHub 用户的邮箱
+ # 公募基金
+ "fund_em_daily"  # 公募基金净值
+ "fund_em_info"  # 公募基金信息
 ```
 
 ## 3. 案例演示
