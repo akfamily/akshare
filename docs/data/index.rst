@@ -13,7 +13,8 @@ AkShare 数据字典
     fx/fx
     currency/currency
     interest_rate/interest_rate
-    fund/fund
+    fund/fund_private
+    fund/fund_public
     index/index
     macro/macro
     dc/dc

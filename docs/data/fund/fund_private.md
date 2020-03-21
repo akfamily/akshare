@@ -1053,6 +1053,3 @@ zdzk_se:
 图片示例
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/zdzd_index.png)
-
-### 公募基金
-
