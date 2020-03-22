@@ -2804,3 +2804,178 @@ print(stock_em_account_df)
 54  2015年05月        415.87  -0.1641  ...   3.829406              627465  73.6062
 55  2015年04月        497.53        -  ...  18.510531              563491  69.4956
 ```
+
+### 分析师指数
+
+#### 分析师指数最新排行
+
+接口: stock_em_analyst_rank
+
+目标地址: http://data.eastmoney.com/invest/invest/list.html
+
+描述: 获取东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数2020最新排行
+
+限量: 单次获取所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |   - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| LastYearIndex          | datetime.date   | Y        | 去年指数     |
+| LastYearSyl          | float   | Y        | 2020年收益率     |
+| StockName         | float   | Y        | 股票名称     |
+| FxsName          | float   | Y        | 分析师名称     |
+| Ssjg          | float   | Y        | 分析师单位     |
+| NewIndex          | float   | Y        | 最新指数     |
+| Earnings_3          | float   | Y        | 3个月收益率     |
+| Earnings_6          | float   | Y        | 6个月收益率     |
+| Earnings_12          | float   | Y        | 12个月收益率     |
+| NewGgpj          | float   | Y        | 最新个股评级     |
+| Jyrq          | float   | Y        | 排名日期     |
+| JyrqStr          | float   | Y        | 排名日期-字符串格式     |
+| FxsCode          | float   | Y        | 分析师代码     |
+| CfgGs          | float   | Y        | 成分股个数     |
+| stockcount          | float   | Y        |  最新个股评级数量    |
+| Industrycode          | float   | Y        | 行业代码     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_em_analyst_rank_df = ak.stock_em_analyst_rank()
+print(stock_em_analyst_rank_df)
+```
+
+数据示例
+
+```
+    LastYearIndex  LastYearSyl StockName  ... CfgGs stockcount  Industrycode
+0     1034.602893        56.88      海康威视  ...     3          1        270000
+1      752.467950        53.58      盈趣科技  ...     0          0        270000
+2     2765.591070        48.64       数据港  ...     0          0        710000
+3      961.117547        47.98      亚光科技  ...     0          0        650000
+4     1146.426880        46.79      卫宁健康  ...     0          0        710000
+..            ...          ...       ...  ...   ...        ...           ...
+95    1306.362676        17.60      奥飞数据  ...    27         20        730000
+96    2748.817054        17.52      先导智能  ...     0          0        640000
+97    1863.038790        17.00      博创科技  ...    22         10        730000
+98    1168.988036        16.94      中公教育  ...     6          0        720000
+99    2584.726648        16.90      昊海生科  ...     3          2        370000
+```
+
+#### 分析师详情
+
+接口: stock_em_analyst_detail
+
+目标地址: http://data.eastmoney.com/invest/invest/list.html
+
+描述: 获取东方财富网-数据中心-研究报告-东方财富分析师指数-分析师详情
+
+限量: 单次获取指定 indicator 指定的数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| analyst_id | str | Y    |  analyst_id="11000257131"; 分析师ID, 从 stock_em_analyst_rank 获取 |
+| indicator | str  | Y    |  indicator="最新跟踪成分股"; 从 {"最新跟踪成分股", "历史跟踪成分股", "历史指数"} 中选择一个 |
+
+输出参数-最新跟踪成分股
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 序号          | str   | Y        | -     |
+| 股票代码          | float   | Y        | -     |
+| 股票名称          | float   | Y        | -     |
+| 相关链接          | float   | Y        | -     |
+| 调入日期          | float   | Y        | -     |
+| 最新评级日期          | float   | Y        | -     |
+| 当前评级名称          | float   | Y        | -     |
+| 成交价格(前复权)          | float   | Y        | -     |
+| 最新价格          | float   | Y        | -     |
+| 阶段涨跌幅          | float   | Y        | -     |
+
+接口示例-最新跟踪成分股
+
+```python
+import akshare as ak
+stock_em_analyst_detail_df = ak.stock_em_analyst_detail(analyst_id="11000257131", indicator="最新跟踪成分股")
+print(stock_em_analyst_detail_df)
+```
+
+数据示例-最新跟踪成分股
+
+```
+   序号    股票代码  股票名称       相关链接  ... 当前评级名称 成交价格  (前复权)   最新价格    阶段涨跌幅
+0   1    2415  海康威视  股吧 资金流 研报  ...     买入       36.83  29.08  -21.04%
+1   2  300578  会畅通讯  股吧 资金流 研报  ...     买入       24.48  51.54  110.54%
+2   3    2859  洁美科技  股吧 资金流 研报  ...     买入       32.63  46.16   41.46%
+```
+
+输出参数-历史跟踪成分股
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 序号          | str   | Y        | -     |
+| 股票代码          | float   | Y        | -     |
+| 股票名称          | float   | Y        | -     |
+| 相关链接          | float   | Y        | -     |
+| 调入日期          | float   | Y        | -     |
+| 调出日期          | float   | Y        | -     |
+| 调入时评级名称          | float   | Y        | -     |
+| 调出原因          | float   | Y        | -     |
+| 累计涨跌幅          | float   | Y        | -     |
+
+接口示例-历史跟踪成分股
+
+```python
+import akshare as ak
+stock_em_analyst_detail_df = ak.stock_em_analyst_detail(analyst_id="11000257131", indicator="历史跟踪成分股")
+print(stock_em_analyst_detail_df)
+```
+
+数据示例-历史跟踪成分股
+
+```
+             序号          股票代码  ...          调出原因         累计涨跌幅
+0  暂无历史跟踪成分股...  暂无历史跟踪成分股...  ...  暂无历史跟踪成分股...  暂无历史跟踪成分股...
+```
+
+输出参数-历史指数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| date          | str   | Y        | 日期     |
+| value          | float   | Y        | 指数数值(此指数为东方财富制定)     |
+
+
+接口示例-历史指数
+
+```python
+import akshare as ak
+stock_em_analyst_detail_df = ak.stock_em_analyst_detail(analyst_id="11000257131", indicator="历史指数")
+print(stock_em_analyst_detail_df)
+```
+
+数据示例-历史指数
+
+```
+           date    value
+0    2018-01-19     1000
+1    2018-01-22  1014.69
+2    2019-08-28     1000
+3    2019-08-29   986.26
+4    2019-08-30   967.94
+..          ...      ...
+132  2020-03-16   1652.5
+133  2020-03-17  1630.49
+134  2020-03-18  1665.77
+135  2020-03-19   1644.8
+136  2020-03-20  1623.11
+```

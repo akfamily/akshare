@@ -399,6 +399,9 @@
  # 公募基金
  "fund_em_daily"  # 公募基金净值
  "fund_em_info"  # 公募基金信息
+ # 分析师指数
+ "stock_em_analyst_rank"  # 分析师排名
+ "stock_em_analyst_detail"  # 分析师详情
 ```
 
 ## 3. 案例演示
