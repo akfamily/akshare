@@ -123,7 +123,7 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
     r_article = requests.get(url_article, params=payload_article)
     article_df = pd.DataFrame(r_article.json()["data"]).iloc[:, 1:]
 
-    # 咨询
+    # 资讯
     url_info = "https://ent.163.com/special/00035080/virus_report_data.js"
     payload_info = {
         "_": int(time.time() * 1000),

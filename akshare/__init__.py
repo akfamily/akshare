@@ -874,10 +874,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.44: add: tool github
 0.4.45: add: fund_public file and docs
 0.4.46: add: macro_china_lpr
+0.4.47: add: stock_em_analyst
 """
 
-__version__ = "0.4.46"
+__version__ = "0.4.47"
 __author__ = "Albert King"
+
+"""
+stock-em-analyst
+"""
+from akshare.stock_feature.stock_em_analyst import stock_em_analyst_detail, stock_em_analyst_rank
 
 """
 tool-github
