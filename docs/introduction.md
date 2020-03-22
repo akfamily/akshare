@@ -11,7 +11,7 @@
         <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方" align="center">
     </a>
 </div>
-4. 欢迎关注 **数据科学实战** 微信公众号来获取最新的更新信息;
+4. 欢迎关注 数据科学实战 微信公众号来获取最新的数据接口更新信息;
 
 <div align=center>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
@@ -19,7 +19,7 @@
 
 ## 引用
 
-如果您想在项目中引用 AkShare, 请使用如下 **bibtex** 格式:
+如果您想在文章或者项目中引用 [AkShare](https://github.com/jindaxiang/akshare), 请使用如下 **bibtex** 格式:
 
 ```
 @misc{akshare,
@@ -36,17 +36,17 @@
 
 首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
 
-[AkShare](https://github.com/jindaxiang/akshare) 于 **2019-10-08** 正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询数据接口！
+[AkShare](https://github.com/jindaxiang/akshare) 于 **2019-10-08** 正式发布, 请访问 [AkShare文档](https://akshare.readthedocs.io) 了解和查询相关数据接口！
 
-[AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的开源金融数据接口库, 目的是实现对股票, 期货, 期权, 基金, 外汇, 债券, 指数, 数字货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集, 数据清洗, 到数据落地的一套开源工具, 满足金融数据科学家, 数据科学爱好者在金融数据获取方面的需求. 
+[AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的开源金融数据接口库, 目的是实现对股票、期货、期权、基金、外汇、债券、指数、数字货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清到数据落地的一套开源工具, 满足金融数据科学家与数据科学爱好者在金融数据获取方面的需求. 
 
 [AkShare](https://github.com/jindaxiang/akshare) 的特点是获取的是相对权威的金融数据网站公布的原始数据, 广大数据科学家可以利用原始数据进行各数据源之间的交叉验证, 进而再加工, 从而得出科学的结论.
 
-**[AkShare](https://github.com/jindaxiang/akshare) 后续会基于学术论文和金融工程研究报告来添加更多指标, 提供相应的计算方法, 敬请关注.**
+**[AkShare](https://github.com/jindaxiang/akshare) 后续会基于学术论文和金融工程研究报告来添加更多数据接口和衍生指标并提供相应的计算代码, 敬请关注.**
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的作者
 
-**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品定价和价格预测、机器学习在金融领域的应用等研究.
+**[Albert King](https://www.jfds.xyz/)** 致力于金融衍生品定价、价格预测和机器学习在金融领域的应用等研究.
 
 <div align=center>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/icon/images.jpg" width = 20% height = 10% align = center/>
@@ -56,12 +56,12 @@
 
 [AkShare](https://github.com/jindaxiang/akshare) 主要改进如下:
 
-1. Python 语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 统一接口函数的命名;
-2. 最佳支持 Python 3.7.3 及其以上版本;
-3. 后续加入 [asyncio](https://www.python.org/dev/peps/pep-3156/) 和 [aiohttp](https://aiohttp.readthedocs.io/en/stable/) 做异步加速;
+1. 程序代码语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 数据接口函数的命名规范;
+2. 最佳支持 Python 3.7.5 及其以上版本;
+3. 提供最佳的文档支持, 每个数据接口提供丰富的说明和示例, 只需要复制粘贴就可以下载数据;
 4. 持续维护由于目标网页变化而导致的部分函数运行异常问题;
-5. 后续更新会主要集中在提供更多金融数据接口, 同时优化源代码;
-6. 增加更多的网络数据采集接口:
+5. 持续更新金融数据接口, 同时优化源代码;
+6. 目前进行数据采集的网站一览:
 
     6.1 增加[奇货可查网站](https://qhkch.com/)提供的数据接口, 提供奇货可查指数数据;
     
@@ -182,15 +182,19 @@
     6.59 新增[慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html)提供的慈善数据;
     
     6.60 新增[Currencyscoop网站](https://currencyscoop.com/)提供的货币数据;
+    
+    6.61 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的公募基金数据;
+    
+    6.62 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的LPR历史数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
-8. 希望您能参与 [AkShare GitHub](https://github.com/jindaxiang/akshare) 的维护与管理.
+8. 欢迎加入 [AkShare GitHub](https://github.com/jindaxiang/akshare) 社区的维护与管理.
 
 ![思维导图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/AkShare.png)
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的初衷
 
-[AkShare](https://github.com/jindaxiang/akshare) 希望能为各位同仁提供一个多源金融数据的接口, 助力个人投资者、机构投资者、各大研究机构方便的搜集和整理关于金融产品, 金融衍生品等相关的数据. 
+[AkShare](https://github.com/jindaxiang/akshare) 希望能为各位同仁提供一个开源的多源金融数据接口, 助力个人投资者、机构投资者、各大研究机构更方便的搜集和整理金融产品的相关数据. 
 
 ![私募基金曲线](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/stock_futures_index.png)
 
