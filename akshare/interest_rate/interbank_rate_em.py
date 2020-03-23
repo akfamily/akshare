@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 from akshare.interest_rate.cons import market_symbol_indicator_dict
 
 
-def _get_page_num(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="隔夜"):
+def _get_page_num(market: str = "上海银行同业拆借市场", symbol: str = "Shibor人民币", indicator: str = "隔夜") -> int:
     """
     获取具体市场具体品种具体指标的页面数量
     http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
@@ -38,7 +38,7 @@ def _get_page_num(market="上海银行同业拆借市场", symbol="Shibor人民�
     return int(page_num)
 
 
-def rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="隔夜"):
+def rate_interbank(market: str = "上海银行同业拆借市场", symbol: str = "Shibor人民币", indicator: str = "隔夜") -> pd.DataFrame:
     """
     具体市场具体品种具体指标的拆借利率数据
     具体 market 和 symbol 参见: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79

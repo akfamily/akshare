@@ -866,8 +866,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.36: fix: macro_cons_opec_month
 0.4.37: add: get_ine_daily to fetch SC and NR data
 0.4.38: add: futures_sgx_daily to fetch futures data from sgx
-0.4.39: refactor: sos.py/covid_19_163 interface
-0.4.40: refactor: sos.py interface
+0.4.39: refactor: covid.py/covid_19_163 interface
+0.4.40: refactor: covid.py interface
 0.4.41: fix: cot.py get_rank_sum_daily interface
 0.4.42: add: wdbank.py test
 0.4.43: add: wdbank.py dependencies
@@ -875,10 +875,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.45: add: fund_public file and docs
 0.4.46: add: macro_china_lpr
 0.4.47: add: stock_em_analyst
+0.4.48: add: stock_em_comment
 """
 
-__version__ = "0.4.47"
+__version__ = "0.4.48"
 __author__ = "Albert King"
+
+"""
+stock-em-comment
+"""
+from akshare.stock_feature.stock_em_comment import stock_em_comment
 
 """
 stock-em-analyst
@@ -974,7 +980,7 @@ from akshare.bond.china_repo import bond_repo_zh_tick
 """
 新型肺炎
 """
-from akshare.event.sos import (
+from akshare.event.covid import (
     covid_19_area_search,
     covid_19_area_all,
     covid_19_area_detail,
@@ -990,12 +996,12 @@ from akshare.fund.fund_em import fund_em_daily, fund_em_info
 """
 百度迁徙地图接口
 """
-from akshare.event.sos import migration_area_baidu, migration_scale_baidu
+from akshare.event.covid import migration_area_baidu, migration_scale_baidu
 
 """
 新增-事件接口新型冠状病毒接口
 """
-from akshare.event.sos import (
+from akshare.event.covid import (
     covid_19_163,
     covid_19_dxy,
     covid_19_baidu,

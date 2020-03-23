@@ -2979,3 +2979,71 @@ print(stock_em_analyst_detail_df)
 135  2020-03-19   1644.8
 136  2020-03-20  1623.11
 ```
+
+### 千股千评
+
+接口: stock_em_comment
+
+目标地址: http://data.eastmoney.com/stockcomment/
+
+描述: 获取东方财富网-数据中心-特色数据-千股千评
+
+限量: 单次获取所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |   - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| TDate          | datetime.date   | Y        | 日期时间     |
+| Code          | float   | Y        | 代码     |
+| Name         | float   | Y        | 名称     |
+| New          | float   | Y        | 最新价     |
+| ChangePercent          | float   | Y        | 涨跌幅     |
+| PERation          | float   | Y        | 市盈率     |
+| TurnoverRate          | float   | Y        | 换手率(注意%)     |
+| ZLCB          | float   | Y        | 主力成本     |
+| JGCYD          | float   | Y        | 机构参与度     |
+| JGCYDType          | float   | Y        | 机构参与度类型     |
+| ZLCB20R          | float   | Y        | 主力成本20日     |
+| ZLCB60R          | float   | Y        | 主力成本60日     |
+| FLOWINXL          | float   | Y        | -     |
+| FLOWOUTXL          | float   | Y        | -     |
+| FLOWINL          | float   | Y        |  -    |
+| FLOWOUTL          | float   | Y        | -     |
+| ZLJLR          | float   | Y        | -     |
+| Market          | float   | Y        | 市场类型     |
+| TotalScore          | float   | Y        | 综合得分     |
+| RankingUp          | float   | Y        | 上升     |
+| Ranking          | float   | Y        | 目前排名     |
+| Focus          | float   | Y        | 关注指数     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_em_comment_df = ak.stock_em_comment()
+print(stock_em_comment_df)
+```
+
+数据示例
+
+```
+                    TDate    Code  Name  ... RankingUp Ranking Focus
+0     2020-03-23T00:00:00  000001  平安银行  ...      -499     741  86.4
+1     2020-03-23T00:00:00  000002   万科A  ...      -726     981  88.8
+2     2020-03-23T00:00:00  000004  国农科技  ...       218    3349  54.4
+3     2020-03-23T00:00:00  000005  世纪星源  ...      1493    1759  58.8
+4     2020-03-23T00:00:00  000006  深振业A  ...       122     681    52
+                   ...     ...   ...  ...       ...     ...   ...
+3951  2020-03-23T00:00:00  900952  锦港B股  ...         -       -     -
+3952  2020-03-23T00:00:00  900953   凯马B  ...         -       -     -
+3953  2020-03-23T00:00:00  900955  海创B股  ...         -       -     -
+3954  2020-03-23T00:00:00  900956  东贝B股  ...         -       -     -
+3955  2020-03-23T00:00:00  900957  凌云B股  ...         -       -     -
+```
