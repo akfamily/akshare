@@ -402,6 +402,15 @@
  # 分析师指数
  "stock_em_analyst_rank"  # 分析师排名
  "stock_em_analyst_detail"  # 分析师详情
+ # 千股千评
+ "stock_em_comment"  # 股市关注度
+ # 沪深港通
+ "stock_em_hsgt_north_net_flow_in"  # 沪深港通北向-净流入
+ "stock_em_hsgt_north_cash"  # 沪深港通北向-资金余额
+ "stock_em_hsgt_north_acc_flow_in"  # 沪深港通北向-累计净流入
+ "stock_em_hsgt_south_net_flow_in"  # 沪深港通南向-净流入
+ "stock_em_hsgt_south_cash"  # 沪深港通南向-资金余额
+ "stock_em_hsgt_south_acc_flow_in"  # 沪深港通南向-累计净流入
 ```
 
 ## 3. 案例演示
