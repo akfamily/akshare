@@ -4851,11 +4851,13 @@ macro_euro_sentix_investor_confidence_se: pandas.Series
 
 #### 全球最大黄金ETF—SPDR Gold Trust持仓报告
 
+##### 总库存
+
 接口: macro_cons_gold_volume
 
 目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
 
-描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告-总库存(吨), 数据区间从20041118-至今
 
 限量: 单次返回所有历史数据
 
@@ -4870,7 +4872,7 @@ macro_euro_sentix_investor_confidence_se: pandas.Series
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 值      | float   | Y        | 总库存(吨)   |
 
 接口示例
 
@@ -4905,13 +4907,13 @@ macro_euro_sentix_investor_confidence_se: pandas.Series
 2019-10-24    918.48
 ```
 
-#### 全球最大黄金ETF—SPDR Gold Trust持仓报告
+##### 增持-减持(吨)
 
 接口: macro_cons_gold_change
 
 目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
 
-描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告-增持-减持(吨), 数据区间从20041118-至今
 
 限量: 单次返回所有历史数据
 
@@ -4926,7 +4928,7 @@ macro_euro_sentix_investor_confidence_se: pandas.Series
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 值      | float   | Y        | 增持-减持(吨)   |
 
 接口示例
 
@@ -4961,13 +4963,13 @@ macro_cons_gold_change_se: pandas.Series
 2019-10-24     0.00
 ```
 
-#### 全球最大黄金ETF—SPDR Gold Trust持仓报告
+##### 总价值(美元)
 
 接口: macro_cons_gold_amount
 
 目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
 
-描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告-总价值(美元), 数据区间从20041118-至今
 
 限量: 单次返回所有历史数据
 
@@ -4982,7 +4984,7 @@ macro_cons_gold_change_se: pandas.Series
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 值      | float   | Y        | 总价值(美元)   |
 
 接口示例
 
@@ -5019,11 +5021,13 @@ macro_cons_gold_amount_se: pandas.Series
 
 #### 全球最大白银ETF--iShares Silver Trust持仓报告
 
+##### 总库存
+
 接口: macro_cons_silver_volume
 
 目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
 
-描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告-总库存(吨), 数据区间从20060429-至今
 
 限量: 单次返回所有历史数据
 
@@ -5038,7 +5042,7 @@ macro_cons_gold_amount_se: pandas.Series
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 值      | float   | Y        | 总库存(吨)   |
 
 接口示例
 
@@ -5073,13 +5077,13 @@ macro_cons_silver_volume_se: pandas.Series
 2019-10-23    11751.96
 ```
 
-#### 全球最大白银ETF--iShares Silver Trust持仓报告
+##### 增持-减持(吨)
 
 接口: macro_cons_silver_change
 
 目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
 
-描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告-增持-减持(吨), 数据区间从20060429-至今
 
 限量: 单次返回所有历史数据
 
@@ -5094,7 +5098,7 @@ macro_cons_silver_volume_se: pandas.Series
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 值      | float   | Y        | 增持-减持(吨)   |
 
 接口示例
 
@@ -5129,13 +5133,13 @@ macro_cons_silver_change_se: pandas.Series
 2020-01-10       0.00
 ```
 
-#### 全球最大白银ETF--iShares Silver Trust持仓报告
+##### 总价值(美元)
 
 接口: macro_cons_silver_amount
 
 目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
 
-描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+描述: 获取全球最大白银ETF--iShares Silver Trust持仓报告-总价值(美元), 数据区间从20060429-至今
 
 限量: 单次返回所有历史数据
 
@@ -5150,7 +5154,7 @@ macro_cons_silver_change_se: pandas.Series
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 值      | float   | Y        | 总价值(美元)   |
 
 接口示例
 
