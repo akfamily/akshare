@@ -186,6 +186,10 @@
     6.61 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的公募基金数据;
     
     6.62 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的LPR历史数据;
+    
+    6.63 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的千股千评数据;
+    
+    6.64 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的沪深港通数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 欢迎加入 [AkShare GitHub](https://github.com/jindaxiang/akshare) 社区的维护与管理.
