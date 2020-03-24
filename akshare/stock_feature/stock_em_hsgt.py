@@ -6,6 +6,7 @@ Date: 2020/3/23 19:12
 Contact: jindaxiang@163.com
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
+http://finance.eastmoney.com/news/1622,20161118685370149.html
 """
 import requests
 import json
@@ -118,7 +119,7 @@ def stock_em_hsgt_south_net_flow_in(indicator="沪股通"):
         temp_df = pd.DataFrame(data_json["data"]["sz2hk"]).iloc[:, 0].str.split(",", expand=True)
         temp_df.columns = ["date", "value"]
         return temp_df
-    if indicator == "北上":
+    if indicator == "南下":
         temp_df = pd.DataFrame(data_json["data"]["n2s"]).iloc[:, 0].str.split(",", expand=True)
         temp_df.columns = ["date", "value"]
         return temp_df
@@ -146,7 +147,7 @@ def stock_em_hsgt_south_cash(indicator="沪股通"):
         temp_df = pd.DataFrame(data_json["data"]["sz2hk"]).iloc[:, 0].str.split(",", expand=True)
         temp_df.columns = ["date", "value"]
         return temp_df
-    if indicator == "北上":
+    if indicator == "南下":
         temp_df = pd.DataFrame(data_json["data"]["n2s"]).iloc[:, 0].str.split(",", expand=True)
         temp_df.columns = ["date", "value"]
         return temp_df
@@ -174,7 +175,7 @@ def stock_em_hsgt_south_acc_flow_in(indicator="沪股通"):
         temp_df = pd.DataFrame(data_json["data"]["sz2hk"]).iloc[:, 0].str.split(",", expand=True)
         temp_df.columns = ["date", "value"]
         return temp_df
-    if indicator == "北上":
+    if indicator == "南下":
         temp_df = pd.DataFrame(data_json["data"]["n2s"]).iloc[:, 0].str.split(",", expand=True)
         temp_df.columns = ["date", "value"]
         return temp_df
