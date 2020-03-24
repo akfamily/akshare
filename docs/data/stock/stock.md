@@ -2185,6 +2185,7 @@ print(stock_em_sy_profile_df)
 | 业绩变动原因          | float   | Y        | -     |
 | 上年度同期净利润(元)          | float   | Y        | -     |
 | 上年商誉          | float   | Y        | -     |
+| 商誉报告日期          | str   | Y        | -     |
 
 接口示例
 
