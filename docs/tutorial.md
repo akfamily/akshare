@@ -27,8 +27,8 @@
  "get_shfe_daily",  # 获取上海期货交易所每日交易数据
  "get_shfe_rank_table",  # 获取上海期货交易所前20会员持仓数据明细
  "get_shfe_v_wap",  # 获取上海期货交易所日成交均价数据
- "get_spot_price",  # 获取某一交易日大宗商品现货价格及相应基差数据
- "get_spot_price_daily"  # 获取一段交易日大宗商品现货价格及相应基差数据
+ "futures_spot_price",  # 获取某一交易日大宗商品现货价格及相应基差数据
+ "futures_spot_price_daily"  # 获取一段交易日大宗商品现货价格及相应基差数据
  # 奇货可查数据
  "get_qhkc_index"  # 获取奇货可查-指数-数值数据
  "get_qhkc_index_profit_loss"  # 获取奇货可查-指数-累计盈亏数据

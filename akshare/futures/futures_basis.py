@@ -3,6 +3,7 @@
 """
 Author: Albert King
 date: 2019/11/28 13:58
+update: 2020/3/24 15:00
 contact: jindaxiang@163.com
 desc: 从生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
@@ -28,7 +29,7 @@ from akshare.futures.symbol_var import chinese_to_english
 calendar = cons.get_calendar()
 
 
-def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
+def futures_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
     """
     获取某段时间大宗商品现货价格及相应基差
     :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
@@ -36,17 +37,17 @@ def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_s
     :param vars_list: list 合约品种如 [RB, AL]; 默认参数为所有商品
     :return: pandas.DataFrame
     展期收益率数据:
-        var               商品品种                      string
-        sp                现货价格                      float
-        near_symbol       临近交割合约                  string
-        near_price        临近交割合约结算价             float
-        dom_symbol        主力合约                      string
-        dom_price         主力合约结算价                 float
-        near_basis        临近交割合约相对现货的基差      float
-        dom_basis         主力合约相对现货的基差          float
-        near_basis_rate   临近交割合约相对现货的基差率    float
-        dom_basis_rate    主力合约相对现货的基差率        float
-        date              日期                          string YYYYMMDD
+    var               商品品种                      string
+    sp                现货价格                      float
+    near_symbol       临近交割合约                  string
+    near_price        临近交割合约结算价             float
+    dom_symbol        主力合约                      string
+    dom_price         主力合约结算价                 float
+    near_basis        临近交割合约相对现货的基差      float
+    dom_basis         主力合约相对现货的基差          float
+    near_basis_rate   临近交割合约相对现货的基差率    float
+    dom_basis_rate    主力合约相对现货的基差率        float
+    date              日期                          string YYYYMMDD
     """
     start_day = (
         cons.convert_date(start_day) if start_day is not None else datetime.date.today()
@@ -59,7 +60,7 @@ def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_s
     df_list = []
     while start_day <= end_day:
         print(start_day)
-        temp_df = get_spot_price(start_day, vars_list)
+        temp_df = futures_spot_price(start_day, vars_list)
         if temp_df is False:
             return pd.concat(df_list).reset_index(drop=True)
         elif temp_df is not None:
@@ -71,24 +72,24 @@ def get_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_s
         return temp_df
 
 
-def get_spot_price(date=None, vars_list=cons.contract_symbols):
+def futures_spot_price(date=None, vars_list=cons.contract_symbols):
     """
     获取某个交易日大宗商品现货价格及相应基差
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
     :return: pandas.DataFrame
     展期收益率数据:
-        var              商品品种                     string
-        sp               现货价格                     float
-        near_symbol      临近交割合约                  string
-        near_price       临近交割合约结算价             float
-        dom_symbol       主力合约                     string
-        dom_price        主力合约结算价                float
-        near_basis       临近交割合约相对现货的基差      float
-        dom_basis        主力合约相对现货的基差         float
-        near_basis_rate  临近交割合约相对现货的基差率    float
-        dom_basis_rate   主力合约相对现货的基差率       float
-        date             日期                         string YYYYMMDD
+    var              商品品种                     string
+    sp               现货价格                     float
+    near_symbol      临近交割合约                  string
+    near_price       临近交割合约结算价             float
+    dom_symbol       主力合约                     string
+    dom_price        主力合约结算价                float
+    near_basis       临近交割合约相对现货的基差      float
+    dom_basis        主力合约相对现货的基差         float
+    near_basis_rate  临近交割合约相对现货的基差率    float
+    dom_basis_rate   主力合约相对现货的基差率       float
+    date             日期                         string YYYYMMDD
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2011, 1, 4):
@@ -131,18 +132,18 @@ def _check_information(df_data, date):
     :param date: datetime.date 具体某一天 YYYYMMDD
     :return: pandas.DataFrame
     中间数据
-       symbol  spot_price near_contract  ...  near_basis_rate dom_basis_rate      date
-         CU    49620.00        cu1811  ...        -0.002418      -0.003426  20181108
-         RB     4551.54        rb1811  ...        -0.013521      -0.134359  20181108
-         ZN    22420.00        zn1811  ...        -0.032114      -0.076271  20181108
-         AL    13900.00        al1812  ...         0.005396       0.003957  20181108
-         AU      274.10        au1811  ...         0.005655       0.020430  20181108
-         WR     4806.25        wr1903  ...        -0.180026      -0.237035  20181108
-         RU    10438.89        ru1811  ...        -0.020969       0.084406  20181108
-         PB    18600.00        pb1811  ...        -0.001344      -0.010215  20181108
-         AG     3542.67        ag1811  ...        -0.000754       0.009408  20181108
-         BU     4045.53        bu1811  ...        -0.129904      -0.149679  20181108
-         HC     4043.33        hc1811  ...        -0.035449      -0.088128  20...
+    symbol  spot_price near_contract  ...  near_basis_rate dom_basis_rate      date
+     CU    49620.00        cu1811  ...        -0.002418      -0.003426  20181108
+     RB     4551.54        rb1811  ...        -0.013521      -0.134359  20181108
+     ZN    22420.00        zn1811  ...        -0.032114      -0.076271  20181108
+     AL    13900.00        al1812  ...         0.005396       0.003957  20181108
+     AU      274.10        au1811  ...         0.005655       0.020430  20181108
+     WR     4806.25        wr1903  ...        -0.180026      -0.237035  20181108
+     RU    10438.89        ru1811  ...        -0.020969       0.084406  20181108
+     PB    18600.00        pb1811  ...        -0.001344      -0.010215  20181108
+     AG     3542.67        ag1811  ...        -0.000754       0.009408  20181108
+     BU     4045.53        bu1811  ...        -0.129904      -0.149679  20181108
+     HC     4043.33        hc1811  ...        -0.035449      -0.088128  20...
     """
     df_data = df_data.loc[:, [0, 1, 2, 3, 5, 6]]
     df_data.columns = [
@@ -232,7 +233,7 @@ def _check_information(df_data, date):
 
 
 if __name__ == "__main__":
-    df = get_spot_price_daily(start_day="20180909", end_day="20180920")
-    print(df)
-    df = get_spot_price("20180912")
-    print(df)
+    get_spot_price_daily_df = futures_spot_price_daily(start_day="20200309", end_day="20200320")
+    print(get_spot_price_daily_df)
+    get_spot_price_df = futures_spot_price("20200320")
+    print(get_spot_price_df)
