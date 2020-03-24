@@ -156,7 +156,7 @@ def stock_em_sy_yq_list(symbol: str = "沪市主板", trade_date: str = "2018-12
         "HYName",
         "HYCode",
         "上年商誉",
-        "商誉报告日期"
+        "商誉报告日期",
     ]
     temp_df = temp_df[
         [
@@ -172,6 +172,7 @@ def stock_em_sy_yq_list(symbol: str = "沪市主板", trade_date: str = "2018-12
             "业绩变动原因",
             "上年度同期净利润(元)",
             "上年商誉",
+            "商誉报告日期",
         ]
     ]
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"])
