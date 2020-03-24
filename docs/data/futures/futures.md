@@ -328,7 +328,7 @@ ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
 
 ```python
 import akshare as ak
-get_spot_price_df = ak.get_spot_price("20180712")
+get_spot_price_df = ak.futures_spot_price("20180712")
 print(get_spot_price_df)
 ```
 
@@ -338,7 +338,7 @@ print(get_spot_price_df)
 
 ```python
 import akshare as ak
-ak.get_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=["CU", "RB"])
+ak.futures_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=["CU", "RB"])
 ```
 
 注意: 1. 现货价格是从生意社网站爬取获得, 仅支持从 2011 年至今每个交易日数据. 

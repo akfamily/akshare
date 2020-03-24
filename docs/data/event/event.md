@@ -1,6 +1,8 @@
 ## [AkShare](https://github.com/jindaxiang/akshare) 事件数据
 
-### COVID-19-网易
+### COVID
+
+#### COVID-19-网易
 
 接口: covid_19_163
 
@@ -583,7 +585,7 @@ print(covid_19_163_df)
 4    襄阳：机关事业单位明日全面恢复正常上班  ...  https://news.163.com/20/0315/12/F7OQOBS7000189...
 ```
 
-### COVID-19-丁香园
+#### COVID-19-丁香园
 
 接口: covid_19_dxy
 
@@ -1023,7 +1025,7 @@ ak.covid_19_dxy(indicator="中国-新增疑似-新增确诊-趋势图")
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E9%9F%A9%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
-### COVID-19-百度
+#### COVID-19-百度
 
 接口: covid_19_baidu
 
@@ -1822,9 +1824,9 @@ print(covid_19_baidu_df)
 155       712    7   456  1.584202e+09                15  钻石公主号邮轮       其他
 ```
 
-### 迁徙数据-百度
+#### 迁徙数据-百度
 
-#### 迁入与迁出地详情
+##### 迁入与迁出地详情
 
 接口: migration_area_baidu
 
@@ -1875,7 +1877,7 @@ print(migration_area_baidu_df)
 99       沈阳市           辽宁省   0.24
 ```
 
-#### 迁徙规模
+##### 迁徙规模
 
 接口: migration_scale_baidu
 
@@ -1929,9 +1931,9 @@ print(migration_scale_baidu_df)
 2020-02-01  15723.072
 ```
 
-### 小区查询
+#### 小区查询
 
-#### 具体省份-城市-区查询
+##### 具体省份-城市-区查询
 
 接口: covid_19_area_search
 
@@ -1989,7 +1991,7 @@ print(covid_19_area_search_df)
 14      四川省  成都市      高新区       龙湖时代天街   四川省成都市高新区龙湖时代天街              -1
 ```
 
-#### 省份-城市-区
+##### 省份-城市-区
 
 接口: covid_19_area_all
 
@@ -2038,7 +2040,7 @@ print(covid_19_area_all_df)
 479      浙江省  嘉兴市      秀洲区
 ```
 
-#### 获取省份-城市-区-小区的所有详细数据
+##### 获取省份-城市-区-小区的所有详细数据
 
 接口: covid_19_area_detail
 
@@ -2099,7 +2101,7 @@ print(covid_19_area_detail_df)
 1843,四川省,成都市,高新区,龙湖时代天街,四川省成都市高新区龙湖时代天街,不详
 ```
 
-### 相同行程查询
+#### 相同行程查询
 
 接口: covid_19_trip
 
@@ -2170,7 +2172,7 @@ print(covid_19_trip_df)
 1786          陵水县新型肺炎疫情防控工作指挥部  
 ```
 
-### 疫情历史数据-细化到地市
+#### 疫情历史数据-细化到地市
 
 接口: covid_19_hist_
 
@@ -2274,7 +2276,7 @@ print(covid_19_hist_province_df)
 28318  2020-03-16      中国          CN  ...         0    11    0
 ```
 
-### 历史数据查询
+#### 历史数据查询
 
 接口: covid_19_history
 

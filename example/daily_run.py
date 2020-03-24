@@ -25,7 +25,7 @@ def down_load(date):
 
     # ----------------------------------------------------------------------
     print("\n" + "-" * 80 + "\n基差")
-    df = akshare.get_spot_price(date)
+    df = akshare.futures_spot_price(date)
     df.to_csv(s["root"] + "基差%s.csv" % date)
 
     # ----------------------------------------------------------------------

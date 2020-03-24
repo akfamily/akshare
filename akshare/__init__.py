@@ -41,7 +41,7 @@
 0.1.31
 规范 cot.py 函数说明
 0.1.32
-update basis.py
+update futures_basis.py
 0.1.33
 增加奇货可查数据三个接口:
 get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss
@@ -1657,7 +1657,7 @@ from akshare.qhkc_web.qhkc_fund import (
 """
 大宗商品现货价格及基差
 """
-from akshare.futures.basis import get_spot_price_daily, get_spot_price
+from akshare.futures.futures_basis import futures_spot_price_daily, futures_spot_price
 
 """
 期货持仓成交排名数据
