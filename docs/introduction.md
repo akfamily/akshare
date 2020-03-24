@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-1. 本文档更新于 **2020-03-22**;
+1. 本文档更新于 **2020-03-25**;
 
 2. 如有库或者文档的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
@@ -190,6 +190,8 @@
     6.63 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的千股千评数据;
     
     6.64 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的沪深港通数据;
+    
+    6.65 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的两市停复牌数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 欢迎加入 [AkShare GitHub](https://github.com/jindaxiang/akshare) 社区的维护与管理.

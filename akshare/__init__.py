@@ -878,10 +878,28 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.48: add: stock_em_comment
 0.4.49: add: stock_em_hsgt
 0.4.50: fix: stock_em_sy_yq_list
+0.4.51: add: stock_em_tfp
 """
 
-__version__ = "0.4.50"
+__version__ = "0.4.51"
 __author__ = "Albert King"
+
+"""
+stock-em-tfp
+"""
+from akshare.stock_feature.stock_em_tfp import stock_em_tfp
+
+"""
+stock-em-hsgt
+"""
+from akshare.stock_feature.stock_em_hsgt import (
+    stock_em_hsgt_north_acc_flow_in,
+    stock_em_hsgt_north_cash,
+    stock_em_hsgt_north_net_flow_in,
+    stock_em_hsgt_south_acc_flow_in,
+    stock_em_hsgt_south_cash,
+    stock_em_hsgt_south_net_flow_in,
+)
 
 """
 stock-em-comment
@@ -891,7 +909,10 @@ from akshare.stock_feature.stock_em_comment import stock_em_comment
 """
 stock-em-analyst
 """
-from akshare.stock_feature.stock_em_analyst import stock_em_analyst_detail, stock_em_analyst_rank
+from akshare.stock_feature.stock_em_analyst import (
+    stock_em_analyst_detail,
+    stock_em_analyst_rank,
+)
 
 """
 tool-github

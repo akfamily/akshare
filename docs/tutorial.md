@@ -411,6 +411,8 @@
  "stock_em_hsgt_south_net_flow_in"  # 沪深港通南向-净流入
  "stock_em_hsgt_south_cash"  # 沪深港通南向-资金余额
  "stock_em_hsgt_south_acc_flow_in"  # 沪深港通南向-累计净流入
+ # 两市停复牌
+ "stock_em_tfp"  # 两市停复牌数据
 ```
 
 ## 3. 案例演示
