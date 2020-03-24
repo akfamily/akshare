@@ -32,12 +32,12 @@ def test():
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n特定日期的现货价格及基差')
-    df = akshare.get_spot_price('20181210')
+    df = akshare.futures_spot_price('20181210')
     print(df)
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n特定品种、特定时段的现货价格及基差')
-    df = akshare.get_spot_price_daily(start_day='20181210', end_day='20181210', vars_list=['CU', 'RB'])
+    df = akshare.futures_spot_price_daily(start_day='20181210', end_day='20181210', vars_list=['CU', 'RB'])
     print(df)
 
     # ----------------------------------------------------------------------
