@@ -3,6 +3,7 @@
 """
 Author: Albert King
 date: 2019/10/30 21:34
+update: 2020/3/25 22:34
 contact: jindaxiang@163.com
 desc: 新浪财经-外盘期货-实时数据获取
 """
@@ -82,6 +83,7 @@ def futures_hf_spot(subscribe_list=hf_subscribe_exchange_symbol()):
         "-",
         "date",
         "symbol",
+        "current_price_rmb",
     ]
     data_df["symbol"] = [
         "NYBOT-棉花",
@@ -112,6 +114,7 @@ def futures_hf_spot(subscribe_list=hf_subscribe_exchange_symbol()):
     return data_df[
         [
             "current_price",
+            "current_price_rmb",
             "bid",
             "ask",
             "high",
