@@ -879,9 +879,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.49: add: stock_em_hsgt
 0.4.50: fix: stock_em_sy_yq_list
 0.4.51: add: stock_em_tfp
+0.4.52: fix: covid.py
 """
 
-__version__ = "0.4.51"
+__version__ = "0.4.52"
 __author__ = "Albert King"
 
 """

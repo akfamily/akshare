@@ -591,7 +591,7 @@ print(covid_19_163_df)
 
 目标地址: http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0
 
-描述: 获取丁香园-新型冠状病毒肺炎-疫情数据-总入口
+描述: 获取丁香园-新型冠状病毒肺炎-疫情数据
 
 限量: 单次返回实时数据
 
@@ -850,27 +850,27 @@ print(covid_19_dxy_df)
 85    甘肃    /       定点医院
 ```
 
-输入参数-实时播报
+输入参数-国内新闻
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="实时播报"|
+| indicator | str | Y | indicator="国内新闻"|
 
-输出参数-实时播报
+输出参数-国内新闻
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        | 参见 **数据示例-实时播报**  |
+| -      | -   | -        | 参见 **数据示例-国内新闻**  |
 
-接口示例-实时播报
+接口示例-国内新闻
 
 ```python
 import akshare as ak
-covid_19_dxy_df = ak.covid_19_dxy(indicator="实时播报")
+covid_19_dxy_df = ak.covid_19_dxy(indicator="国内新闻")
 print(covid_19_dxy_df)
 ```
 
-数据示例-实时播报
+数据示例-国内新闻
 
 ```
                            title  ...                                          sourceUrl
@@ -879,6 +879,37 @@ print(covid_19_dxy_df)
 2   北京3月16日0时至14时新增报告境外输入确诊病例6例   ...  http://wjw.beijing.gov.cn/xwzx_20031/xwfb/2020...
 3                       捷克宣布全国隔离  ...      http://m.weibo.cn/2656274875/4483064778472648
 4               好消息！贵州所有确诊病例全部治愈  ...      http://m.weibo.cn/2656274875/4483062924149409
+```
+
+输入参数-国外新闻
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| indicator | str | Y | indicator="国外新闻"|
+
+输出参数-国外新闻
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -      | -   | -        | 参见 **数据示例-国外新闻**  |
+
+接口示例-国外新闻
+
+```python
+import akshare as ak
+covid_19_dxy_df = ak.covid_19_dxy(indicator="国外新闻")
+print(covid_19_dxy_df)
+```
+
+数据示例-国外新闻
+
+```
+      id        pubDate  ... dataInfoOperator   dataInfoTime
+0  13155  1584960575000  ...                   1584960643000
+1  13152  1584959931000  ...                   1584960023000
+2  13148  1584959209000  ...                   1584959443000
+3  13145  1584958693000  ...                   1584958831000
+4  13136  1584957698000  ...                   1584957999000
 ```
 
 输入参数-浙江省
@@ -918,44 +949,24 @@ print(covid_19_dxy_df)
 11      舟山       0    10     0    10     0
 ```
 
-输入参数-中国-新增疑似-新增确诊-趋势图
+输入参数-中国-非湖北新增确诊-趋势图
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="中国-新增疑似-新增确诊-趋势图"|
+| indicator | str | Y | indicator="中国-非湖北新增确诊-趋势图"|
 
-输出参数-中国-新增疑似-新增确诊-趋势图
+输出参数-中国-中国-非湖北新增确诊-趋势图
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | -      | - | -        |在本地输出图片   |
 
-接口示例-中国-新增疑似-新增确诊-趋势图
+接口示例-中国-非湖北新增确诊-趋势图
 
 ```python
 import akshare as ak
-ak.covid_19_dxy(indicator="中国-新增疑似-新增确诊-趋势图")
+ak.covid_19_dxy(indicator="中国-非湖北新增确诊-趋势图")
 ```
-
-图片示例-中国-新增疑似-新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%96%B0%E5%A2%9E%E7%96%91%E4%BC%BC-%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-中国-现存确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E7%8E%B0%E5%AD%98%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-中国-现存疑似-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E7%8E%B0%E5%AD%98%E7%96%91%E4%BC%BC-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-中国-治愈-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B2%BB%E6%84%88-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-中国-死亡-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%AD%BB%E4%BA%A1-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
 图片示例-中国-非湖北新增确诊-趋势图
 
@@ -976,54 +987,6 @@ ak.covid_19_dxy(indicator="中国-新增疑似-新增确诊-趋势图")
 图片示例-中国-治愈-死亡-趋势图
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B2%BB%E6%84%88-%E6%AD%BB%E4%BA%A1-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-国外新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E5%9B%BD%E5%A4%96%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-国外累计确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E5%9B%BD%E5%A4%96%E7%B4%AF%E8%AE%A1%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-国外死亡-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E5%9B%BD%E5%A4%96%E6%AD%BB%E4%BA%A1-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-重点国家新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E9%87%8D%E7%82%B9%E5%9B%BD%E5%AE%B6%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.jpg)
-
-图片示例-国外-日本新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E6%97%A5%E6%9C%AC%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-意大利新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E6%84%8F%E5%A4%A7%E5%88%A9%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-伊朗新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E4%BC%8A%E6%9C%97%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-美国新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E7%BE%8E%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-法国新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E6%B3%95%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-德国新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E5%BE%B7%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-西班牙新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E8%A5%BF%E7%8F%AD%E7%89%99%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-国外-韩国新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E5%9B%BD%E5%A4%96-%E9%9F%A9%E5%9B%BD%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
 #### COVID-19-百度
 
@@ -2295,7 +2258,7 @@ print(covid_19_hist_province_df)
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
+| --------------- | ----- | -------- | ------- |
 | date | str | Y | 时间（天） |
 | country | str | Y | 国家 |
 | countryCode | float | Y | 国家代码 |
