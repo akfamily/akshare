@@ -134,7 +134,7 @@ Application to add **AkShare-官方** QQ group and talk about [AkShare](https://
 Use the badge in your project's README.md:
 
 ```markdown
-[![Data: akshare](https://img.shields.io/badge/AkShare-Data%20Science-brightgreen)](https://github.com/jindaxiang/akshare)
+[![Data: akshare](https://img.shields.io/badge/Data%20Science-AkShare-green)](https://github.com/jindaxiang/akshare)
 ```
 
 Using the badge in README.rst:
