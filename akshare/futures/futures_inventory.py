@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/9/30 13:58
 contact: jindaxiang@163.com
-desc: 99期货网大宗商品库存数据
+desc: 99期货网-大宗商品库存数据
 """
 import os
 
@@ -146,7 +146,7 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
 if __name__ == "__main__":
     for i in range(10):
         try:
-            data = get_inventory_data(exchange=1, symbol=58, plot=True)
+            data = get_inventory_data(exchange=3, symbol=80, plot=True)
             print(data)
             break
         except:

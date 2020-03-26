@@ -74,6 +74,8 @@
  # 新浪财经-期货
  "futures_zh_spot"  # 获取新浪-国内期货实时行情数据
  "futures_hq_spot"  # 获取新浪-外盘期货实时行情数据
+ "futures_foreign_hist"  # 获取新浪-外盘期货历史行情数据
+ "futures_foreign_detail"  # 获取新浪-外盘期货合约详情
  # 交易所金融期权数据
  "get_finance_option"  # 提供上海证券交易所期权数据
  # 数字货币行情

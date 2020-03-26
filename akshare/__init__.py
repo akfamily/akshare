@@ -881,10 +881,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.51: add: stock_em_tfp
 0.4.52: fix: covid.py
 0.4.53: fix: hf_futures_sina.py
+0.4.54: add: futures_foreign
 """
 
-__version__ = "0.4.53"
+__version__ = "0.4.54"
 __author__ = "Albert King"
+
+"""
+futures-foreign
+"""
+from akshare.futures.futures_foreign import futures_foreign_detail, futures_foreign_hist
 
 """
 stock-em-tfp
