@@ -217,7 +217,7 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
     ]
     json_data = pd.DataFrame(json.loads(temp_json))
     chinese_news = json_data[
-        ["id", "pubDate", "pubDateStr", "title", "summary", "infoSource", "sourceUrl", "provinceId", "infoType", "dataInfoState", "dataInfoOperator", "dataInfoTime"]
+        ["id", "pubDate", "pubDateStr", "title", "summary", "infoSource", "sourceUrl", "provinceId"]
     ]
 
     # news-foreign
