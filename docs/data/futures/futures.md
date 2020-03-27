@@ -771,7 +771,7 @@ while True:
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| date      | str   | Y        | 最新价  |
+| date      | str   | Y        | 交易日  |
 | open      | float   | Y        | 开盘价   |
 | high      | float   | Y        | 最高价        |
 | low        | float   | Y        |最低价    |
