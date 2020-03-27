@@ -49,7 +49,7 @@ pip install akshare --upgrade
 
 ## 安装报错解决方案
 
-### 安装 lxml 库失败的错误
+### 1. 安装 lxml 库失败的错误
 
 - 安装 wheel, 在 CMD 中运行如下命令:
 
