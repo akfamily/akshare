@@ -883,10 +883,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.53: fix: hf_futures_sina.py
 0.4.54: add: futures_foreign
 0.4.55: fix: macro_constitute.py
+0.4.56: add: index_vix
 """
 
-__version__ = "0.4.55"
+__version__ = "0.4.56"
 __author__ = "Albert King"
+
+"""
+index-vix
+"""
+from akshare.economic.macro_other import index_vix
 
 """
 futures-foreign

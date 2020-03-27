@@ -415,6 +415,8 @@
  "stock_em_hsgt_south_acc_flow_in"  # 沪深港通南向-累计净流入
  # 两市停复牌
  "stock_em_tfp"  # 两市停复牌数据
+ # 恐慌指数
+ "index_vix"  # 恐慌指数
 ```
 
 ## 3. 案例演示
