@@ -1,4 +1,4 @@
-# 安装指导
+# [AkShare](https://github.com/jindaxiang/akshare) 安装指导
 
 ## 重要提示
 
@@ -41,7 +41,7 @@ sudo apt-get install nodejs
 
 ## 升级 [AkShare](https://github.com/jindaxiang/akshare)
 
-> P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
+P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
 
 ```
 pip install akshare --upgrade
@@ -49,7 +49,7 @@ pip install akshare --upgrade
 
 ## 安装报错解决方案
 
-### 安装 lxml 库失败的错误
+### 1. 安装 lxml 库失败的错误
 
 - 安装 wheel, 在 CMD 中运行如下命令:
 
