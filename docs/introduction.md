@@ -192,6 +192,10 @@
     6.64 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的沪深港通数据;
     
     6.65 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的两市停复牌数据;
+    
+    6.66 新增[新浪网站](http://sina.com)提供的外盘期货历史行情数据;
+    
+    6.67 新增[金十数据网站](https://www.jin10.com/)提供恐慌指数数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 欢迎加入 [AkShare GitHub](https://github.com/jindaxiang/akshare) 社区的维护与管理.
