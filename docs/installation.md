@@ -1,4 +1,4 @@
-# 安装指导
+# [AkShare](https://github.com/jindaxiang/akshare) 安装指导
 
 ## 重要提示
 

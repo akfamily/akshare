@@ -1,4 +1,4 @@
-# 10分钟快速入门
+# [AkShare](https://github.com/jindaxiang/akshare) 快速入门
 
 ## 1. 先进行 [AkShare](https://github.com/jindaxiang/akshare) 环境配置
 

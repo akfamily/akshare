@@ -1,4 +1,4 @@
-# 金融量化平台
+# [AkShare](https://github.com/jindaxiang/akshare) 量化平台
 
 目录
 
