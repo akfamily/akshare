@@ -41,7 +41,7 @@ sudo apt-get install nodejs
 
 ## 升级 [AkShare](https://github.com/jindaxiang/akshare)
 
-> P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
+P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
 
 ```
 pip install akshare --upgrade
