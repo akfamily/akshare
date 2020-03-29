@@ -593,7 +593,7 @@ print(covid_19_163_df)
 
 描述: 获取丁香园-新型冠状病毒肺炎-疫情数据
 
-限量: 单次返回实时数据
+限量: 单次返回指定 **indicator** 数据
 
 输入参数-中国疫情分省统计详情
 
@@ -766,7 +766,6 @@ print(covid_19_dxy_df)
 数据示例-国外疫情实时统计
 
 ```
-                           0
 currentConfirmedCount  76189
 confirmedCount         89793
 suspectedCount             0
@@ -802,7 +801,6 @@ print(covid_19_dxy_df)
 数据示例-全球疫情实时统计
 
 ```
-                            0
 currentConfirmedCount   86191
 confirmedCount         170892
 curedCount              78060
@@ -948,45 +946,6 @@ print(covid_19_dxy_df)
 10      衢州       0    14     0    14     0
 11      舟山       0    10     0    10     0
 ```
-
-输入参数-中国-非湖北新增确诊-趋势图
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="中国-非湖北新增确诊-趋势图"|
-
-输出参数-中国-中国-非湖北新增确诊-趋势图
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | - | -        |在本地输出图片   |
-
-接口示例-中国-非湖北新增确诊-趋势图
-
-```python
-import akshare as ak
-ak.covid_19_dxy(indicator="中国-非湖北新增确诊-趋势图")
-```
-
-图片示例-中国-非湖北新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E9%9D%9E%E6%B9%96%E5%8C%97%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-中国-湖北新增确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B9%96%E5%8C%97%E6%96%B0%E5%A2%9E%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-中国-湖北现存确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B9%96%E5%8C%97%E7%8E%B0%E5%AD%98%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-中国-非湖北现存确诊-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E9%9D%9E%E6%B9%96%E5%8C%97%E7%8E%B0%E5%AD%98%E7%A1%AE%E8%AF%8A-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
-
-图片示例-中国-治愈-死亡-趋势图
-
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/event/dxy_imgs/%E4%B8%AD%E5%9B%BD-%E6%B2%BB%E6%84%88-%E6%AD%BB%E4%BA%A1-%E8%B6%8B%E5%8A%BF%E5%9B%BE.png)
 
 #### COVID-19-百度
 
@@ -2137,13 +2096,13 @@ print(covid_19_trip_df)
 
 #### 疫情历史数据-细化到地市
 
-接口: covid_19_hist_
+接口: covid_19_hist_city
 
 目标地址: https://github.com/norratek/Ncov2020HistoryData
 
-描述: 获取新型肺炎统计数据颗粒细化到地市
+描述: 获取 **COVID-19** 数据，统计数据细化到地市
 
-限量: 单次返回所有细化到地市的所有数据
+限量: 单次返回指定 **city** 的所有数据
 
 输入参数-covid_19_hist_city
 
@@ -2245,9 +2204,9 @@ print(covid_19_hist_province_df)
 
 目标地址: https://github.com/canghailan/Wuhan-2019-nCoV
 
-描述: 获取新型肺炎感染所有历史数据
+描述: 获取 **COVID-19** 每个自然日的统计数据
 
-限量: 单次返回新型肺炎感染所有历史数据
+限量: 单次返回 **COVID-19** 所有历史数据
 
 输入参数
 
