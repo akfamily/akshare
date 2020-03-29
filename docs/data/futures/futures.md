@@ -1177,7 +1177,7 @@ display_main_df[display_main_df["name"].str.contains("连续")]
 
 ### 南华指数
 
-#### 南华指数-收益率指数
+#### 收益率指数
 
 接口: nh_return_index
 
@@ -1290,7 +1290,7 @@ date
 2019-11-26  779.346
 ```
 
-#### 南华指数-价格指数
+#### 价格指数
 
 接口: nh_price_index
 
@@ -1396,7 +1396,7 @@ date
 2019-11-27  3507.98
 ```
 
-#### 南华指数-波动率指数
+#### 波动率指数
 
 接口: nh_volatility_index
 
@@ -1512,11 +1512,11 @@ date
 
 ### 交易法门
 
-#### 交易法门-工具
+#### 工具
 
-##### 交易法门-工具-套利分析
+##### 套利分析
 
-###### 交易法门-工具-套利分析-跨期价差(自由价差)
+###### 跨期价差(自由价差)
 
 接口: jyfm_tools_futures_spread
 
@@ -1655,7 +1655,7 @@ print(data)
 2020-01-02    195
 ```
 
-###### 交易法门-工具-套利分析-自由价比
+###### 自由价比
 
 接口: jyfm_tools_futures_ratio
 
@@ -1709,7 +1709,7 @@ print(data)
 2019-10-25    134
 ```
 
-###### 交易法门-工具-套利分析-多腿组合
+###### 多腿组合
 
 接口: jyfm_tools_futures_customize
 
@@ -1763,7 +1763,7 @@ print(data)
 2019-10-25    134
 ```
 
-###### 交易法门-工具-套利分析-FullCarry
+###### FullCarry
 
 接口: jyfm_tools_futures_full_carry
 
@@ -1839,7 +1839,7 @@ print(jyfm_tools_futures_full_carry_df)
 57      2543.05              生产日期12个月  
 ```
 
-###### 交易法门-工具-套利分析-跨期价差矩阵
+###### 跨期价差矩阵
 
 接口: jyfm_tools_futures_arbitrage_matrix
 
@@ -1891,9 +1891,9 @@ print(jyfm_tools_futures_arbitrage_matrix_df)
 11  None  rb2102      -141.0  ...         None         None         None
 ```
 
-##### 交易法门-工具-资讯汇总
+##### 资讯汇总
 
-###### 交易法门-工具-资讯汇总-研报查询
+###### 研报查询
 
 接口: jyfm_tools_research_query
 
@@ -2234,7 +2234,7 @@ print(jyfm_tools_research_query_df)
 99        日报          2      0       0  2020-01-08 10:05:05  
 ```
 
-###### 交易法门-工具-资讯汇总-交易日历
+###### 交易日历
 
 接口: jyfm_tools_trade_calendar
 
@@ -2380,9 +2380,9 @@ print(jyfm_tools_trade_calendar_df)
 34  7c09e98d5bff0608f40349b8e2e18757  2020-01-02 18:40:07  2020-01-02 18:40:07 
 ```
 
-##### 交易法门-工具-持仓分析
+##### 持仓分析
 
-###### 交易法门-工具-持仓分析-期货持仓
+###### 期货持仓
 
 接口: jyfm_tools_position_detail
 
@@ -2465,7 +2465,7 @@ print(data)
 19       宏源期货       1045                -30          213  
 ```
 
-###### 交易法门-工具-持仓分析-席位持仓
+###### 席位持仓
 
 接口: jyfm_tools_position_seat
 
@@ -2758,7 +2758,7 @@ print(data)
 125                32.0                  NaN                  32  
 ```
 
-###### 交易法门-工具-持仓分析-持仓季节性
+###### 持仓季节性
 
 接口: jyfm_tools_position_season
 
@@ -2816,9 +2816,9 @@ print(jyfm_tools_position_season_df)
 12-31  1463415  3860045  5972634      NaN      NaN      NaN  3112488      NaN
 ```
 
-##### 交易法门-工具-资金分析
+##### 资金分析
 
-###### 交易法门-工具-资金分析-资金流向
+###### 资金流向
 
 接口: jyfm_tools_position_fund_direction
 
@@ -2888,7 +2888,7 @@ print(jyfm_tools_position_fund_direction_df)
 60  2020-02-24     沪镍 -1.56342e+08
 ```
 
-###### 交易法门-工具-资金分析-沉淀资金
+###### 沉淀资金
 
 接口: jyfm_tools_position_fund_down
 
@@ -2958,7 +2958,7 @@ print(jyfm_tools_position_fund_down_df)
 62  2020-02-24     晚稻         1904
 ```
 
-###### 交易法门-工具-资金分析-资金季节性
+###### 资金季节性
 
 接口: jyfm_tools_position_fund_season
 
@@ -3011,7 +3011,7 @@ print(jyfm_tools_position_fund_season_df)
 356  12-31  2.53406e+09  2.74998e+09  ...          NaN  5.26134e+09          NaN
 ```
 
-###### 交易法门-工具-资金分析-成交排名
+###### 成交排名
 
 接口: jyfm_tools_position_fund_deal
 
@@ -3081,9 +3081,9 @@ print(jyfm_tools_position_fund_deal_df)
 60  2020-02-24     普麦        17968
 ```
 
-##### 交易法门-工具-席位分析
+##### 席位分析
 
-###### 交易法门-工具-席位分析-持仓结构
+###### 持仓结构
 
 接口: jyfm_tools_position_structure
 
@@ -3135,9 +3135,9 @@ print(jyfm_tools_position_structure_df)
 19  12398951   v2009  ...              2936         201
 ```
 
-##### 交易法门-工具-仓单分析
+##### 仓单分析
 
-###### 交易法门-工具-仓单分析-仓单日报
+###### 仓单日报
 
 接口: jyfm_tools_warehouse_receipt_daily
 
@@ -3247,7 +3247,7 @@ print(jyfm_tools_warehouse_receipt_daily_df)
 34  1.797693e+308    37138.00             None  
 ```
 
-###### 交易法门-工具-仓单分析-仓单查询
+###### 仓单查询
 
 接口: jyfm_tools_warehouse_receipt_query
 
@@ -3298,7 +3298,7 @@ print(jyfm_tools_warehouse_receipt_query_df)
 1705  2020-01-08   41990   -275
 ```
 
-###### 交易法门-工具-仓单分析-虚实盘比日报
+###### 虚实盘比日报
 
 接口: jyfm_tools_warehouse_virtual_fact_daily
 
@@ -3352,7 +3352,7 @@ print(jyfm_tools_warehouse_virtual_fact_daily_df)
 42  2020-01-20 00:00:00   沪银       3.054186      0.007524       0.002470
 ```
 
-###### 交易法门-工具-仓单分析-虚实盘比查询
+###### 虚实盘比查询
 
 接口: jyfm_tools_warehouse_virtual_fact_ratio
 
@@ -4107,9 +4107,9 @@ print(jyfm_tools_warehouse_receipt_ratio_df)
 356   3.59903      NaN  
 ```
 
-##### 交易法门-工具-期限分析
+##### 期限分析
 
-###### 交易法门-工具-期限分析-基差日报
+###### 基差日报
 
 接口: jyfm_tools_futures_basis_daily
 
@@ -4206,7 +4206,7 @@ print(jyfm_tools_futures_basis_daily_df)
 27   223.50       15.96           16.10          213
 ```
 
-###### 交易法门-工具-期限分析-基差分析
+###### 基差分析
 
 接口: jyfm_tools_futures_basis_analysis
 
@@ -4258,7 +4258,7 @@ print(jyfm_tools_futures_basis_analysis_df)
 64  23.8  1.0
 ```
 
-###### 交易法门-工具-期限分析-期限结构
+###### 期限结构
 
 接口: jyfm_tools_futures_basis_structure
 
@@ -4322,7 +4322,7 @@ print(jyfm_tools_futures_basis_structure_df)
 11      连11       3226.0  
 ```
 
-###### 交易法门-工具-期限分析-价格季节性
+###### 价格季节性
 
 接口: jyfm_tools_futures_basis_rule
 
@@ -4752,9 +4752,9 @@ print(jyfm_tools_futures_basis_rule_df)
 7           NaN           NaN           NaN
 ```
 
-##### 交易法门-工具-交易规则
+##### 交易规则
 
-###### 交易法门-工具-交易规则-仓单有效期
+###### 仓单有效期
 
 接口: jyfm_tools_receipt_expire_info
 
@@ -4851,7 +4851,7 @@ print(data)
 54  上期所     铜                                               永久有效
 ```
 
-###### 交易法门-工具-交易规则-限仓规定
+###### 限仓规定
 
 接口: jyfm_tools_position_limit_info
 
@@ -4915,7 +4915,7 @@ print(data)
 8       600手  
 ```
 
-###### 交易法门-工具-交易规则-品种手册
+###### 品种手册
 
 接口: jyfm_tools_symbol_handbook
 

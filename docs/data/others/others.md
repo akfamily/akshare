@@ -1003,7 +1003,7 @@ print(franchise_china_df)
 
 ### 慈善中国
 
-#### 慈善中国-慈善组织查询
+#### 慈善组织查询
 
 接口: charity_china_organization
 
@@ -1058,7 +1058,7 @@ print(charity_china_organization_df)
 14  15  123203054665457747        徐州市贾汪区红十字会  Sep 20, 2012         徐州市贾汪区民政局
 ```
 
-#### 慈善中国-慈善信托查询
+#### 慈善信托查询
 
 接口: charity_china_trust
 
@@ -1114,7 +1114,7 @@ print(charity_china_trust_df)
 14  15                光信善·云焕慈善信托  ...     10.00      永续
 ```
 
-#### 慈善中国-募捐方案备案
+#### 募捐方案备案
 
 接口: charity_china_plan
 
@@ -1161,7 +1161,7 @@ print(charity_china_plan_df)
 7       天祝藏族自治县红十字会  ...  募捐方案备案编号：11620623576286750DA20001
 ```
 
-#### 慈善中国-慈善项目进展
+#### 慈善项目进展
 
 接口: charity_china_progress
 
@@ -1209,7 +1209,7 @@ print(charity_china_progress_df)
 7  中国华侨公益基金会  “授渔”-呼和浩特天使公益协会山区贫困儿童家庭精准扶贫项目  ...  中国华侨公益基金会  已完成
 ```
 
-#### 慈善中国-慈善组织年报
+#### 慈善组织年报
 
 接口: charity_china_report
 
@@ -1260,7 +1260,7 @@ print(charity_china_report_df)
 9  10  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
 ```
 
-#### 慈善中国-募捐信息平台
+#### 募捐信息平台
 
 接口: charity_china_platform
 
