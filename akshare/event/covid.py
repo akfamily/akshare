@@ -351,31 +351,31 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
     #     )
     #     img_file.show()
 
-    elif indicator == "中国-非湖北新增确诊-趋势图":
-        img_file = Image.open(
-            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][0]["imgUrl"]).content)
-        )
-        img_file.show()
-    elif indicator == "中国-湖北新增确诊-趋势图":
-        img_file = Image.open(
-            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][1]["imgUrl"]).content)
-        )
-        img_file.show()
-    elif indicator == "中国-湖北现存确诊-趋势图":
-        img_file = Image.open(
-            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][2]["imgUrl"]).content)
-        )
-        img_file.show()
-    elif indicator == "中国-非湖北现存确诊-趋势图":
-        img_file = Image.open(
-            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][3]["imgUrl"]).content)
-        )
-        img_file.show()
-    elif indicator == "中国-治愈-死亡-趋势图":
-        img_file = Image.open(
-            BytesIO(requests.get(data_json["hbFeiHbTrendChart"][4]["imgUrl"]).content)
-        )
-        img_file.show()
+    # elif indicator == "中国-非湖北新增确诊-趋势图":
+    #     img_file = Image.open(
+    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][0]["imgUrl"]).content)
+    #     )
+    #     img_file.show()
+    # elif indicator == "中国-湖北新增确诊-趋势图":
+    #     img_file = Image.open(
+    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][1]["imgUrl"]).content)
+    #     )
+    #     img_file.show()
+    # elif indicator == "中国-湖北现存确诊-趋势图":
+    #     img_file = Image.open(
+    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][2]["imgUrl"]).content)
+    #     )
+    #     img_file.show()
+    # elif indicator == "中国-非湖北现存确诊-趋势图":
+    #     img_file = Image.open(
+    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][3]["imgUrl"]).content)
+    #     )
+    #     img_file.show()
+    # elif indicator == "中国-治愈-死亡-趋势图":
+    #     img_file = Image.open(
+    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][4]["imgUrl"]).content)
+    #     )
+    #     img_file.show()
 
     # elif indicator == "国外-国外新增确诊-趋势图":
     #     img_file = Image.open(
@@ -886,11 +886,6 @@ if __name__ == "__main__":
         "中国疫情防控医院",
         "国内新闻",
         "国外新闻",
-        "中国-非湖北新增确诊-趋势图",
-        "中国-湖北新增确诊-趋势图",
-        "中国-湖北现存确诊-趋势图",
-        "中国-非湖北现存确诊-趋势图",
-        "中国-治愈-死亡-趋势图",
         "浙江省",
     ]
     for item in indicator_list:
