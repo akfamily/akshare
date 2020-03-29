@@ -1635,7 +1635,7 @@ print(stock_em_jgdy_detail_df)
 
 ### 股票质押
 
-#### 股票质押-股权质押市场概况
+#### 股权质押市场概况
 
 接口: stock_em_gpzy_profile
 
@@ -1690,7 +1690,7 @@ print(stock_em_gpzy_profile_df)
 297 2014-03-07   0.418393  ...    162995584.5491   2168.358
 ```
 
-#### 股票质押-上市公司质押比例
+#### 上市公司质押比例
 
 接口: stock_em_gpzy_pledge_ratio
 
@@ -1747,7 +1747,7 @@ print(stock_em_gpzy_pledge_ratio_df)
 3080  002508  老板电器 2019-12-27  家电行业  ...   42       0.67          0   66.13799415
 ```
 
-#### 股票质押-重要股东股权质押明细
+#### 重要股东股权质押明细
 
 接口: stock_em_gpzy_pledge_ratio_detail
 
@@ -1804,7 +1804,7 @@ print(stock_em_gpzy_pledge_ratio_detail_df)
 4999  601127  小康股份  2019-05-30T18:53:29  ...       -             0        -
 ```
 
-#### 股票质押-质押机构分布统计证券公司
+#### 质押机构分布统计证券公司
 
 接口: stock_em_gpzy_distribute_statistics_company
 
@@ -1886,7 +1886,7 @@ print(stock_em_gpzy_distribute_statistics_company_df)
 36   000166    10.0  ...                     0                     0
 ```
 
-#### 股票质押-质押机构分布统计银行
+#### 质押机构分布统计银行
 
 接口: stock_em_gpzy_distribute_statistics_bank
 
@@ -1966,7 +1966,7 @@ print(stock_em_gpzy_distribute_statistics_bank_df)
 34   600928    3.0  ...                    0                    0
 ```
 
-#### 股票质押-股权质押-行业数据
+#### 上市公司质押比例
 
 接口: stock_em_gpzy_industry_data
 
@@ -2021,7 +2021,7 @@ print(stock_em_gpzy_industry_data_df)
 
 ### 商誉专题
 
-#### 商誉-A股商誉市场概况
+#### A股商誉市场概况
 
 接口: stock_em_sy_profile
 
@@ -2153,7 +2153,7 @@ print(stock_em_sy_profile_df)
 43 2010-12-31  8.324721e+11    0.00882602  
 ```
 
-#### 商誉-商誉减值预期明细
+#### 商誉减值预期明细
 
 接口: stock_em_sy_yq_list
 
@@ -2468,7 +2468,7 @@ print(stock_em_sy_yq_list_df)
 65  1.14575e+08  
 ```
 
-#### 商誉-个股商誉减值明细
+#### 个股商誉减值明细
 
 接口: stock_em_sy_jz_list
 
@@ -2534,7 +2534,7 @@ print(stock_em_sy_jz_list_df)
 743             - 2003-05-16  
 ```
 
-#### 商誉-个股商誉明细
+#### 个股商誉明细
 
 接口: stock_em_sy_list
 
@@ -2600,7 +2600,7 @@ print(stock_em_sy_list_df)
 759 -0.371060  9.82162e+07  
 ```
 
-#### 商誉-个股商誉明细
+#### 个股商誉明细
 
 接口: stock_em_sy_hy_list
 
@@ -2704,7 +2704,7 @@ print(stock_em_sy_hy_list_df)
 
 ### 股票账户统计
 
-#### 股票账户统计-股票账户统计详细数据
+#### 股票账户统计详细数据
 
 接口: stock_em_account
 
