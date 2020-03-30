@@ -23,7 +23,7 @@ from akshare.cost.cost_living import cost_living
 
 def test_cost_living():
     """
-
+    just for test aim
     :return:
     :rtype:
     """
