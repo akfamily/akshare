@@ -29,26 +29,30 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 
 P.S. 体验 [AkShare](https://github.com/jindaxiang/akshare) 完整功能, 请安装 [Node.js](https://nodejs.org/dist/)
 
-### Windows 系统
+### 快速安装
+
+#### Windows 系统
 
 [点击下载 Node.js for win 64](https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi), 按照界面提示完成安装即可！
 
-### Ubuntu 系统
+#### Ubuntu 系统
 
 ```shell script
 sudo apt-get install nodejs
 ```
 
-### Node.js 介绍
+### 详细安装
+
+#### Node.js 介绍
 
 Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，它的存在使开发者可以在不依赖游览器的情况下编译和运行 JavaScript 代码。
 
-### Node.js 相关链接
+#### Node.js 相关链接
 
 1. [Node.js 官网](https://nodejs.org)
 2. [NVM 的 GitHub 仓库](https://github.com/nvm-sh/nvm)
 
-### Node.js 详细安装
+#### Node.js 详细安装
 
 我们既可以从 [Node.js 官网](https://nodejs.org) 下载安装包，也可以通过它的版本管理工具 NVM 来安装它。使用 NVM 的好处是可以在计算机中
 安装多个版本的 Node.js，并且安装过程也比较简单。
@@ -116,7 +120,6 @@ node 可用
 ```
 
 代表 Node.js 已经成功安装，并且正常运行。
-
 
 ## 升级 [AkShare](https://github.com/jindaxiang/akshare)
 
