@@ -37,7 +37,7 @@ P.S. 体验 [AkShare](https://github.com/jindaxiang/akshare) 完整功能, 请�
 
 #### Ubuntu 系统
 
-```shell script
+```
 sudo apt-get install nodejs
 ```
 
@@ -59,37 +59,37 @@ Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，它的存�
 
 首先下载并安装 NVM，对应的命令如下：
 
-```shell script
+```
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 ```
 
 然后刷新环境变量，对应的命令如下：
 
-```shell script
+```
 source ~/.bashrc
 ```
 
 接着验证 NVM 是否安装成功。在终端执行以下命令：
 
-```shell script
+```
 command -v nvm
 ```
 
 此时终端会输出如下内容：
 
-```shell script
+```
 nvm
 ```
 
 这代表 NVM 已经成功安装，并且正常运行。接着就可以安装 Node.js 了，在终端执行以下命令：
 
-```shell script
+```
 nvm install node
 ```
 
 此时终端输出如下内容：
 
-```shell script
+```
 Downloading and installing node v13.12.0...
 Downloading https://nodejs.org/dist/v13.12.0/node-v13.12.0-linux-x64.tar.xz...
 ################################################################################################################################################################## 100.0%
@@ -109,13 +109,13 @@ console.log("node 可用");
 
 最后在同级目录下唤起终端，在终端执行以下命令：
 
-```shell script
+```
 node nodev.js
 ```
 
 如果此时终端输出如下内容：
 
-```shell script
+```
 node 可用
 ```
 
@@ -135,7 +135,7 @@ pip install akshare --upgrade
 
 - 安装 wheel, 在 CMD 中运行如下命令:
 
-```shell script
+```
 pip install wheel
 ```
 
