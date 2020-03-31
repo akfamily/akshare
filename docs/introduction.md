@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-1. 本文档更新于 **2020-03-28**;
+1. 本文档更新于 **2020-03-31**;
 
 2. 如有库或者文档的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
@@ -22,7 +22,7 @@
 如果您想在文章或者项目中引用 [AkShare](https://github.com/jindaxiang/akshare), 请使用如下 **bibtex** 格式:
 
 ```
-@misc{akshare,
+@misc{akshare2019,
     author = {Albert King},
     title = {AkShare},
     year = {2019},
