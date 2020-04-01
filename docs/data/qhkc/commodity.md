@@ -1,27 +1,25 @@
-## AkShare 奇货可查
+# 商品
 
-### 商品
+## 持仓数据
 
-#### 持仓数据
+### 多头龙虎榜
 
-##### 多头龙虎榜
-
-###### 接口名称
+#### 接口名称
 
 variety_positions
 
-###### 接口描述
+#### 接口描述
 
 持仓数据接口
 
-###### 请求参数
+#### 请求参数
 
 |参数名|说明|举例|
 |-----  |-----|-----|
 |code |合约代号   |rb1810  |
 |date |查询日期   |2018-08-08  |
 
-###### 返回参数
+#### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|:-----|
@@ -33,7 +31,7 @@ variety_positions
 |short |int   |该席位空头持仓量  |
 |short_chge |int   |该席位空头持仓变化量  |
 
-###### 示例代码
+#### 示例代码
 
 ```python
 from akshare import pro_api
@@ -42,7 +40,7 @@ variety_positions_df = pro.variety_positions(fields="longs", code="rb1810", date
 print(variety_positions_df)
 ```
 
-###### 返回示例
+#### 返回示例
 
 ```
    broker   long  long_chge
@@ -70,24 +68,24 @@ print(variety_positions_df)
 21   国海良时      0     -15721
 ```
 
-##### 空头龙虎榜
+### 空头龙虎榜
 
-###### 接口名称
+#### 接口名称
 
 variety_positions
 
-###### 接口描述
+#### 接口描述
 
 持仓数据接口
 
-###### 请求参数
+#### 请求参数
 
 |参数名|说明|举例|
 |-----  |-----|-----|
 |code |合约代号   |rb1810  |
 |date |查询日期   |2018-08-08  |
 
-###### 返回参数
+#### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|:-----|
@@ -95,7 +93,7 @@ variety_positions
 |short |int   |该席位空头持仓量  |
 |short_chge |int   |该席位空头持仓变化量  |
 
-###### 示例代码
+#### 示例代码
 
 ```python
 from akshare import pro_api
@@ -104,7 +102,7 @@ variety_positions_df = pro.variety_positions(fields="shorts", code="rb1810", dat
 print(variety_positions_df)
 ```
 
-###### 返回示例
+#### 返回示例
 
 ```
    broker  short  short_chge
@@ -131,24 +129,24 @@ print(variety_positions_df)
 20   大地期货      0      -14603
 ```
 
-#### 合约行情数据
+## 合约行情数据
 
-##### 接口名称
+### 接口名称
 
 variety_quotes
 
-##### 接口描述
+### 接口描述
 
 合约行情数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |code |具体合约代号   |rb1810|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
@@ -159,7 +157,7 @@ variety_quotes
 |volume |int   |成交量  |
 |openint |int   |持仓量  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -168,7 +166,7 @@ variety_quotes_df = pro.variety_quotes(code="rb1810", date="2018-08-08")
 print(variety_quotes_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
               variety_quotes
@@ -181,31 +179,31 @@ openint              2160052
 settle_price            4240
 ```
 
-#### 商品沉淀资金数据
+## 商品沉淀资金数据
 
-##### 接口名称
+### 接口名称
 
 variety_money
 
-##### 接口描述
+### 接口描述
 
 商品沉淀资金数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |symbol |品种编码   |RB|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
 |trans_date |date   |查询日期  |
 |total_value |float   |沉淀资金量，单位元  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -214,7 +212,7 @@ variety_money_df = pro.variety_money(symbol="RB", date="2018-08-08")
 print(variety_money_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
             variety_money
@@ -222,31 +220,31 @@ trans_date     2018-08-08
 total_value   7.46824e+09
 ```
 
-#### 合约多空比数据
+## 合约多空比数据
 
-##### 接口名称
+### 接口名称
 
 variety_bbr
 
-##### 接口描述
+### 接口描述
 
 合约多空比数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |code |具体合约代号   |rb1810|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
 |trans_date |date   |查询日期  |
 |bbr |float   |多空比  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -255,7 +253,7 @@ variety_bbr_df = pro.variety_bbr(code="rb1810", date="2018-08-08")
 print(variety_bbr_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
            variety_bbr
@@ -263,31 +261,31 @@ trans_date  2018-08-08
 bbr            54.5111
 ```
 
-#### 合约净持仓保证金变化数据
+## 合约净持仓保证金变化数据
 
-##### 接口名称
+### 接口名称
 
 variety_net_money_chge
 
-##### 接口描述
+### 接口描述
 
 合约净持仓保证金变化数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |code |具体合约代号   |rb1810|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
 |broker |string   |席位  |
 |value |float   |沉淀资金变化量，正数为向多，负数为向空，单位元  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -296,7 +294,7 @@ variety_net_money_chge_df = pro.variety_net_money_chge(code="rb1810", date="2018
 print(variety_net_money_chge_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
    broker     value
@@ -329,31 +327,31 @@ print(variety_net_money_chge_df)
 26   大地期货  55812816
 ```
 
-#### 合约净持仓保证金数据
+## 合约净持仓保证金数据
 
-##### 接口名称
+### 接口名称
 
 variety_net_money
 
-##### 接口描述
+### 接口描述
 
 合约净持仓保证金数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |code |具体合约代号   |rb1810|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
 |broker |string   |席位  |
 |value |float   |净持仓保证金数据，正数为净多，负数为净空，单位元  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -362,7 +360,7 @@ variety_net_money_df = pro.variety_net_money(code="rb1810", date="2018-08-08")
 print(variety_net_money_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
    broker      value
@@ -395,31 +393,31 @@ print(variety_net_money_df)
 26   申银万国  193455936
 ```
 
-#### 合约总持仓保证金数据
+## 合约总持仓保证金数据
 
-##### 接口名称
+### 接口名称
 
 variety_total_money
 
-##### 接口描述
+### 接口描述
 
 合约总持仓保证金数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |code |具体合约代号   |rb1810|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
 |broker |string   |席位  |
 |value |float   |总持仓保证金数据，单位元  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -428,7 +426,7 @@ variety_total_money_df = pro.variety_total_money(code="rb1810", date="2018-08-08
 print(variety_total_money_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
    broker      value
@@ -461,17 +459,17 @@ print(variety_total_money_df)
 26   申银万国  306989568
 ```
 
-#### 商品的席位盈亏数据
+## 商品的席位盈亏数据
 
-##### 接口名称
+### 接口名称
 
 variety_profit
 
-##### 接口描述
+### 接口描述
 
 商品的席位盈亏数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
@@ -479,14 +477,14 @@ variety_profit
 |start_date |查询开始日期   |2018-02-08|
 |end_date |查询结束日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
 |broker |string   |席位  |
 |total_profit |float   |盈亏数据，单位元  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -495,7 +493,7 @@ variety_profit_df = pro.variety_profit(symbol="RB", start_date="2018-02-08", end
 print(variety_profit_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
    broker  total_profit
@@ -562,24 +560,24 @@ print(variety_profit_df)
 87   银河期货     652020020
 ```
 
-#### 自研指标数据
+## 自研指标数据
 
-##### 接口名称
+### 接口名称
 
 variety_strategies
 
-##### 接口描述
+### 接口描述
 
 自研指标数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |code |合约代号   |rb1810|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
@@ -587,7 +585,7 @@ variety_strategies
 |longhu |float   |龙虎比  |
 |niuxiong |float   |牛熊线  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -596,7 +594,7 @@ variety_strategies_df = pro.variety_strategies(code="rb1810", date="2018-08-08")
 print(variety_strategies_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
            variety_strategies
@@ -605,25 +603,25 @@ longhu                  7.954
 niuxiong                   10
 ```
 
-#### 龙虎比排行数据
+## 龙虎比排行数据
 
-##### 多头排行
+### 多头排行
 
-###### 接口名称
+#### 接口名称
 
 variety_longhu_top
 
-###### 接口描述
+#### 接口描述
 
 龙虎比排行数据接口
 
-###### 请求参数
+#### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |date |查询日期   |2018-08-08|
 
-###### 返回参数
+#### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
@@ -631,7 +629,7 @@ variety_longhu_top
 |code |string   |具体合约代号  |
 |value |float   |龙虎比  |
 
-###### 示例代码
+#### 示例代码
 
 ```python
 from akshare import pro_api
@@ -640,7 +638,7 @@ variety_longhu_long_top_df = pro.variety_longhu_top(fields="long", date="2018-08
 print(variety_longhu_long_top_df)
 ```
 
-###### 返回示例
+#### 返回示例
 
 ```
      code symbol      value
@@ -656,23 +654,23 @@ print(variety_longhu_long_top_df)
 9  al1810     AL   3.589835
 ```
 
-##### 空头排行
+### 空头排行
 
-###### 接口名称
+#### 接口名称
 
 variety_longhu_top
 
-###### 接口描述
+#### 接口描述
 
 龙虎比排行数据接口
 
-###### 请求参数
+#### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |date |查询日期   |2018-08-08|
 
-###### 返回参数
+#### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
@@ -680,7 +678,7 @@ variety_longhu_top
 |code |string   |具体合约代号  |
 |value |float   |龙虎比  |
 
-###### 示例代码
+#### 示例代码
 
 ```python
 from akshare import pro_api
@@ -689,7 +687,7 @@ variety_longhu_short_top_df = pro.variety_longhu_top(fields="short", date="2018-
 print(variety_longhu_short_top_df)
 ```
 
-###### 返回示例
+#### 返回示例
 
 ```
      code symbol      value
@@ -705,25 +703,25 @@ print(variety_longhu_short_top_df)
 9  rm1905     RM -19.026835
 ```
 
-#### 牛熊线排行数据
+## 牛熊线排行数据
 
-##### 多头排行
+### 多头排行
 
-###### 接口名称
+#### 接口名称
 
 variety_niuxiong_top
 
-###### 接口描述
+#### 接口描述
 
 牛熊线排行数据接口
 
-###### 请求参数
+#### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |date |查询日期   |2018-08-08|
 
-###### 返回参数
+#### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
@@ -731,7 +729,7 @@ variety_niuxiong_top
 |code |string   |合约代号  |
 |value |float   |牛熊线  |
 
-###### 示例代码
+#### 示例代码
 
 ```python
 from akshare import pro_api
@@ -740,7 +738,7 @@ variety_niuxiong_long_top_df = pro.variety_niuxiong_top(fields="long", date="201
 print(variety_niuxiong_long_top_df)
 ```
 
-###### 返回示例
+#### 返回示例
 
 ```
      code symbol  value
@@ -756,23 +754,23 @@ print(variety_niuxiong_long_top_df)
 9  sf1901     SF     20
 ```
 
-##### 空头排行
+### 空头排行
 
-###### 接口名称
+#### 接口名称
 
 variety_niuxiong_top
 
-###### 接口描述
+#### 接口描述
 
 牛熊线排行数据接口
 
-###### 请求参数
+#### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |date |查询日期   |2018-08-08|
 
-###### 返回参数
+#### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
@@ -780,7 +778,7 @@ variety_niuxiong_top
 |code |string   |合约代号  |
 |value |float   |牛熊线  |
 
-###### 示例代码
+#### 示例代码
 
 ```python
 from akshare import pro_api
@@ -789,7 +787,7 @@ variety_niuxiong_short_top_df = pro.variety_niuxiong_top(fields="short", date="2
 print(variety_niuxiong_short_top_df)
 ```
 
-###### 返回示例
+#### 返回示例
 
 ```
      code symbol  value
@@ -805,24 +803,24 @@ print(variety_niuxiong_short_top_df)
 9   y1901      Y    -14
 ```
 
-#### 商品相关研报数据
+## 商品相关研报数据
 
-##### 接口名称
+### 接口名称
 
 variety_reports
 
-##### 接口描述
+### 接口描述
 
 商品相关研报数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |csymbolode |品种编码   |RB|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
@@ -831,7 +829,7 @@ variety_reports
 |time |datetime   |发布时间  |
 |url |string   |研报地址  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -840,7 +838,7 @@ variety_reports_df = pro.variety_reports(csymbolode="RB", date="2018-08-08")
 print(variety_reports_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
     pub  ...                                                url
@@ -853,24 +851,24 @@ print(variety_reports_df)
 6  兴证期货  ...  https://report.qhkch.com/101/工业品日报/report26db3...
 ```
 
-#### 商品列表数据
+## 商品列表数据
 
-##### 接口名称
+### 接口名称
 
 variety_all
 
-##### 接口描述
+### 接口描述
 
 商品列表数据接口
 
-##### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----|
 |csymbolode |品种编码   |RB|
 |date |查询日期   |2018-08-08|
 
-##### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----|
@@ -878,7 +876,7 @@ variety_all
 |symbol |string   |品种编码  |
 |market |string   |所在市场  |
 
-##### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -887,7 +885,7 @@ variety_all_df = pro.variety_all()
 print(variety_all_df)
 ```
 
-##### 返回示例
+### 返回示例
 
 ```
    market name symbol
