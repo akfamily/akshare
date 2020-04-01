@@ -25,10 +25,5 @@ AkShare 数据字典
     event/event
     nlp/nlp
     others/others
-    qhkc/commodity.md
-    qhkc/broker.md
-    qhkc/index_.md
-    qhkc/fundamental.md
-    qhkc/tools.md
-    qhkc/fund.md
+    qhkc/index
     tool/tool
