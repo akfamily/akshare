@@ -5,7 +5,6 @@ AkShare 奇货可查模块主要介绍奇货可查提供的数据接口的详细
 
 .. toctree::
     :maxdepth: 2
-    :numbered: 2
 
     commodity.md
     broker.md
