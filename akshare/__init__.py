@@ -885,9 +885,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.55: fix: macro_constitute.py
 0.4.56: add: index_vix
 0.4.57: fix: covid-19; desc: delete pic show
+0.4.58: add: qhkc api
 """
 
-__version__ = "0.4.57"
+__version__ = "0.4.58"
 __author__ = "Albert King"
 
 """
