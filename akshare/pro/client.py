@@ -43,7 +43,6 @@ class DataApi:
         headers = {
             "X-Token": self.__token,
         }
-
         url = parse.urljoin(self.__http_url, "/".join([api_name, *kwargs.values()]))
         res = requests.get(url, headers=headers, timeout=self.__timeout)
         if res.status_code != 200:
@@ -53,7 +52,8 @@ class DataApi:
             try:
                 return pd.DataFrame(data_json)
             except ValueError as e:
-                return data_json
+                result_df = pd.DataFrame.from_dict(data_json, orient="index", columns=[api_name])
+                return result_df
         else:
             return pd.DataFrame(data_json[fields])
 
