@@ -12,7 +12,7 @@ desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门-工具-套利分析-自由价比
 交易法门-工具-套利分析-多腿组合
 交易法门-工具-套利分析-FullCarry
-交易法门-工具-套利分析-套利价差矩阵*
+交易法门-工具-套利分析-套利价差矩阵
 
 # 交易法门-工具-资讯汇总
 交易法门-工具-资讯汇总-研报查询
@@ -31,6 +31,8 @@ desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 
 # 交易法门-工具-席位分析
 交易法门-工具-席位分析-持仓结构
+交易法门-工具-席位分析-持仓成本
+交易法门-工具-席位分析-建仓过程
 
 # 交易法门-工具-仓单分析
 交易法门-工具-仓单分析-仓单日报
@@ -43,6 +45,9 @@ desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门-工具-期限分析-基差分析
 交易法门-工具-期限分析-期限结构
 交易法门-工具-期限分析-价格季节性
+
+# 交易法门-工具-行情分析
+交易法门-工具-行情分析-行情数据
 
 # 交易法门-工具-交易规则
 交易法门-工具-交易规则-限仓规定
@@ -590,7 +595,7 @@ def jyfm_tools_position_fund_deal(
 
 # 交易法门-工具-席位分析-持仓结构
 def jyfm_tools_position_structure(
-    trade_date="2020-03-02", seat="永安期货", indicator="long", headers=""
+    trade_date="2020-03-02", seat="永安期货", indicator="持仓变化", headers=""
 ):
     """
     交易法门-工具-席位分析-持仓结构
@@ -599,7 +604,77 @@ def jyfm_tools_position_structure(
     :type trade_date: str
     :param seat: broker name, e.g., seat="永安期货"
     :type seat: str
-    :param indicator: broker name, e.g., long
+    :param indicator: 持仓变化，净持仓分布，总持仓分布; 持仓变化总，净持仓分布总，总持仓分布总
+    :type indicator: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定交易日指定机构的持仓结构
+    :rtype: pandas.DataFrame
+    """
+    indicator_dict = {"持仓变化": 1, "净持仓分布": 2, "总持仓分布": 3}
+    params = {
+        "seat": seat,
+        "day": trade_date,
+        "type": indicator_dict[indicator],
+        "_": int(time.time() * 1000),
+    }
+    url = "https://www.jiaoyifamen.com/tools/position/struct"
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    if indicator == "持仓变化":
+        return pd.DataFrame(data_json["varieties"])
+    if indicator == "净持仓分布":
+        return pd.DataFrame(data_json["varieties"])
+    if indicator == "总持仓分布":
+        return pd.DataFrame(data_json["varieties"])
+    if indicator == "持仓变化总":
+        return pd.DataFrame(data_json["ratio"])
+    if indicator == "净持仓分布总":
+        return pd.DataFrame(data_json["ratio"])
+    if indicator == "总持仓分布总":
+        return pd.DataFrame(data_json["ratio"])
+
+
+# 交易法门-工具-席位分析-持仓成本
+def jyfm_tools_position_seat_cost(seat="永安期货", symbol="RB", code="10", headers=""):
+    """
+    交易法门-工具-席位分析-持仓成本
+    https://www.jiaoyifamen.com/tools/position/seat
+    :param seat: broker name, e.g., seat="永安期货"
+    :type seat: str
+    :param symbol: e.g., RB
+    :type symbol: str
+    :param code: e.g., 10
+    :type code: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return: 指定交易日指定机构的持仓结构
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "seat": seat,
+        "type": symbol,
+        "code": code,
+        "_": int(time.time() * 1000),
+    }
+    url = "https://www.jiaoyifamen.com/tools/position/seat-cost"
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    return pd.DataFrame(data_json["seatCost"])
+
+
+# 交易法门-工具-席位分析-建仓过程
+def jyfm_tools_position_interest_process(seat="永安期货", symbol="RB", instrument="rb2005", indicator="建仓过程", headers=""):
+    """
+    交易法门-工具-席位分析-持仓成本
+    https://www.jiaoyifamen.com/tools/position/seat
+    :param seat: broker name, e.g., seat="永安期货"
+    :type seat: str
+    :param symbol: e.g., RB
+    :type symbol: str
+    :param instrument: e.g., rb2005
+    :type instrument: str
+    :param indicator: e.g., "建仓过程", "净持仓量", "盈亏图"
     :type indicator: str
     :param headers: headers with cookies
     :type headers: dict
@@ -608,19 +683,19 @@ def jyfm_tools_position_structure(
     """
     params = {
         "seat": seat,
-        "day": trade_date,
-        "structure": "structure",
+        "type": symbol,
+        "instrument": instrument,
         "_": int(time.time() * 1000),
     }
-    url = "https://www.jiaoyifamen.com/tools/position/seat"
+    url = "https://www.jiaoyifamen.com/tools/position/interest-process"
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    if indicator == "short":
-        return pd.DataFrame(data_json["shortPosition"])
-    if indicator == "long":
-        return pd.DataFrame(data_json["longPosition"])
-    if indicator == "pure":
-        return pd.DataFrame(data_json["purePosition"])
+    if indicator == "建仓过程":
+        return pd.DataFrame(data_json["kLine"], index=data_json["category"], columns=["open", "close", "low", "high"])
+    if indicator == "净持仓量":
+        return pd.DataFrame(data_json["neatPosition"], index=data_json["category"], columns=["净持仓量"])
+    if indicator == "盈亏图":
+        return pd.DataFrame(data_json["profit"], index=data_json["category"], columns=["持仓盈亏"])
 
 
 # 交易法门-工具-仓单分析
@@ -945,6 +1020,38 @@ def jyfm_tools_futures_basis_rule(
         ).T
 
 
+# 交易法门-工具-行情分析-行情数据
+def jyfm_tools_futures_market(symbol="RB", code="10", start_date="2020-01-02", end_date="2020-04-02", option="daily", headers=""):
+    """
+    交易法门-工具-交易规则-限仓规定
+    :param symbol: e.g., "RB"
+    :type symbol: str
+    :param code: e.g., "10"
+    :type code: str
+    :param start_date: e.g., "2020-01-02"
+    :type start_date: str
+    :param end_date: e.g., "2020-04-02"
+    :type end_date: str
+    :param option: e.g., "daily", "weekly", "monthly"
+    :type option: str
+    :param headers: headers with cookies
+    :type headers: dict
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "type": symbol,
+        "code": code,
+        "beginDay": start_date,
+        "endDay": end_date,
+        "option": option,
+        "_": "1585748470772",
+    }
+    url = "https://www.jiaoyifamen.com/tools/future/market"
+    res = requests.get(url, params=params, headers=headers)
+    return pd.DataFrame(res.json()["tableData"])
+
+
 # 交易法门-工具-交易规则
 def jyfm_tools_position_limit_info(exchange="CFFEX", headers=""):
     """
@@ -1006,7 +1113,7 @@ def jyfm_tools_symbol_handbook(headers=""):
 
 if __name__ == "__main__":
     # 如果要测试函数, 请先在交易法门网站: https://www.jiaoyifamen.com/ 注册帐号密码, 在下面输入对应的帐号和密码后再运行 jyfm_login 函数!
-    headers = jyfm_login(account="", password="")
+    headers = jyfm_login(account="link", password="loveloli888")
 
     # 交易法门-工具-套利分析
     jyfm_tools_futures_spread_df = jyfm_tools_futures_spread(
@@ -1079,9 +1186,15 @@ if __name__ == "__main__":
     # 交易法门-工具-席位分析
     # 交易法门-工具-席位分析-持仓结构
     jyfm_tools_position_structure_df = jyfm_tools_position_structure(
-        trade_date="2020-03-02", seat="永安期货", indicator="long", headers=headers
+        trade_date="2020-03-02", seat="永安期货", indicator="持仓变化", headers=headers
     )
     print(jyfm_tools_position_structure_df)
+    # 交易法门-工具-席位分析-持仓成本
+    jyfm_tools_position_seat_cost_df = jyfm_tools_position_seat_cost(seat="永安期货", symbol="RB", code="10", headers=headers)
+    print(jyfm_tools_position_seat_cost_df)
+    # 交易法门-工具-席位分析-建仓过程
+    jyfm_tools_position_interest_process_df = jyfm_tools_position_interest_process(seat="永安期货", symbol="RB", instrument="rb2005", indicator="建仓过程", headers=headers)
+    print(jyfm_tools_position_interest_process_df)
 
     # 交易法门-工具-仓单分析
     # 交易法门-工具-仓单分析-仓单日报
@@ -1126,6 +1239,11 @@ if __name__ == "__main__":
         symbol="RB", code="05", indicator="期货涨跌统计", headers=headers
     )
     print(jyfm_tools_futures_basis_rule_df)
+
+    # 交易法门-工具-行情分析
+    # 交易法门-工具-行情分析-行情数据
+    jyfm_tools_futures_market_df = jyfm_tools_futures_market(symbol="RB", code="10", start_date="2020-01-02", end_date="2020-04-02", option="daily", headers=headers)
+    print(jyfm_tools_futures_market_df)
 
     # 交易法门-工具-交易规则
     # 交易法门-工具-交易规则-限仓规定

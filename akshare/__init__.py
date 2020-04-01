@@ -886,9 +886,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.56: add: index_vix
 0.4.57: fix: covid-19; desc: delete pic show
 0.4.58: add: qhkc api
+0.4.59: add: jyfm_tools
 """
 
-__version__ = "0.4.58"
+__version__ = "0.4.59"
 __author__ = "Albert King"
 
 """
@@ -1118,7 +1119,7 @@ from akshare.economic.macro_bank import (
 """
 交易法门-工具-席位分析
 """
-from akshare.futures_derivative.jyfm_tools_func import jyfm_tools_position_structure
+from akshare.futures_derivative.jyfm_tools_func import jyfm_tools_position_structure, jyfm_tools_position_seat_cost, jyfm_tools_position_interest_process
 
 """
 交易法门-工具-套利分析
@@ -1179,6 +1180,11 @@ from akshare.futures_derivative.jyfm_tools_func import (
     jyfm_tools_futures_basis_structure,
     jyfm_tools_futures_basis_rule,
 )
+
+"""
+行情分析
+"""
+from akshare.futures_derivative.jyfm_tools_func import jyfm_tools_futures_market
 
 """
 交易法门-工具-交易规则
