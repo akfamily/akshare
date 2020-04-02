@@ -9,8 +9,8 @@ desc: 期货配置文件
 import datetime
 import json
 import os
-import re
 import pickle
+import re
 
 # futures_rule-futures_rule
 futures_rule_url = "http://www.gtjaqh.com/gtqh/html/calendar/dataTable"
@@ -427,6 +427,7 @@ DCE_MAP = {
     "乙二醇": "EG",
     "粳米": "RR",
     "苯乙烯": "EB",
+    "液化石油气": "PG",
 }
 
 
