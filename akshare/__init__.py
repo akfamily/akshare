@@ -890,10 +890,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.60: fix: covid_19_dxy and cot.py
 0.4.61: fix: cot.py dict's keys use strip
 0.4.62: fix: add PG into cons.py map_dict
+0.4.63: add: energy_oil to add energy_oil_hist and energy_oil_detail
 """
 
-__version__ = "0.4.62"
+__version__ = "0.4.63"
 __author__ = "Albert King"
+
+"""
+energy_oil
+"""
+from akshare.energy.energy_oil import energy_oil_detail, energy_oil_hist
 
 """
 index-vix
