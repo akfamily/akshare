@@ -1195,4 +1195,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.59: add: jyfm_tools
 
 0.4.60: fix: covid_19_dxy and cot.py
+
+0.4.61: fix: cot.py dict's keys use strip
 ```
