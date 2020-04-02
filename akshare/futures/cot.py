@@ -401,7 +401,7 @@ def get_czce_rank_table(date="20081015", vars_list=cons.contract_symbols):
             table_cut = table_cut.loc[[x for x in table_cut.index if x in [str(i) for i in range(21)]], :]
 
             table_cut = _table_cut_cal(table_cut, symbol)
-            big_dict[symbol] = table_cut.reset_index(drop=True)
+            big_dict[symbol.strip()] = table_cut.reset_index(drop=True)
 
     return big_dict
 
@@ -552,7 +552,7 @@ def _table_cut_cal(table_cut, symbol):
 if __name__ == '__main__':
     get_czce_rank_table_first_df = get_czce_rank_table(date='20081015', vars_list=["SR"])
     print(get_czce_rank_table_first_df)
-    get_czce_rank_table_second_df = get_czce_rank_table(date='20171227')
+    get_czce_rank_table_second_df = get_czce_rank_table(date='20151112')
     print(get_czce_rank_table_second_df)
     get_czce_rank_table_third_df = get_czce_rank_table(date='20191227')
     print(get_czce_rank_table_third_df)
