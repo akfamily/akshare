@@ -887,9 +887,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.57: fix: covid-19; desc: delete pic show
 0.4.58: add: qhkc api
 0.4.59: add: jyfm_tools
+0.4.60: fix: covid_19_dxy and cot.py
 """
 
-__version__ = "0.4.59"
+__version__ = "0.4.60"
 __author__ = "Albert King"
 
 """
