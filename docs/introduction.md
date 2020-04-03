@@ -63,63 +63,63 @@
 5. 持续更新金融数据接口, 同时优化源代码;
 6. 目前进行数据采集的网站一览:
 
-    6.1 增加[奇货可查网站](https://qhkch.com/)提供的数据接口, 提供奇货可查指数数据;
+    6.1 增加[奇货可查网站](https://qhkch.com/)提供的奇货可查指数数据;
     
-    6.2 增加[智道智科网站](https://www.ziasset.com/)提供的数据接口, 提供私募指数数据;
+    6.2 增加[智道智科网站](https://www.ziasset.com/)提供的私募指数数据;
     
-    6.3 增加[99期货网](http://www.99qh.com/)提供的数据接口, 提供大宗商品库存数据;
+    6.3 增加[99期货网](http://www.99qh.com/)提供的大宗商品库存数据;
     
-    6.4 增加[商品期权](https://github.com/jindaxiang/akshare)提供的数据接口, 提供商品期货数据;
+    6.4 增加[商品期权](https://github.com/jindaxiang/akshare)提供的商品期货数据;
     
-    6.5 增加[英为财情网站-全球指数](https://github.com/jindaxiang/akshare)提供的数据接口, 提供全球股指与期货指数数据;
+    6.5 增加[英为财情网站-全球指数](https://github.com/jindaxiang/akshare)提供的全球股指与期货指数数据;
     
-    6.6 增加[英为财情网站-全球债券](https://github.com/jindaxiang/akshare)提供的数据接口, 提供全球政府债券行情与收益率数据;
+    6.6 增加[英为财情网站-全球债券](https://github.com/jindaxiang/akshare)提供的全球政府债券行情与收益率数据;
     
-    6.7 增加[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)提供的数据接口, 提供中国银行间债券行情和外汇数据;
+    6.7 增加[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)提供的中国银行间债券行情和外汇数据;
 
-    6.8 增加[英为财情网站-商品](https://cn.investing.com/commodities/)提供的数据接口, 提供全球商品历史数据;
+    6.8 增加[英为财情网站-商品](https://cn.investing.com/commodities/)提供的全球商品历史数据;
     
-    6.9 增加[金十数据网站](https://www.jin10.com/)提供的数据接口, 提供全球宏观经济数据接口-中国宏观;
+    6.9 增加[金十数据网站](https://www.jin10.com/)提供的全球宏观经济数据接口-中国宏观;
     
-    6.10 增加[金十数据网站](https://www.jin10.com/)提供的数据接口, 提供全球宏观经济数据接口-美国宏观;
+    6.10 增加[金十数据网站](https://www.jin10.com/)提供的全球宏观经济数据接口-美国宏观;
     
-    6.11 增加[金十数据网站](https://www.jin10.com/)提供的数据接口, 提供全球宏观经济数据接口-欧洲、机构宏观;
+    6.11 增加[金十数据网站](https://www.jin10.com/)提供的全球宏观经济数据接口-欧洲、机构宏观;
 
-    6.12 增加[交易法门网站](https://www.jiaoyifamen.com/)提供的数据接口, 提供交易法门-仓单有效期数据;
+    6.12 增加[交易法门网站](https://www.jiaoyifamen.com/)提供的交易法门-仓单有效期数据;
 
-    6.13 增加[和讯网网站](http://www.hexun.com/)提供的数据接口, 提供股票-企业社会责任数据;
+    6.13 增加[和讯网网站](http://www.hexun.com/)提供的股票-企业社会责任数据;
     
-    6.14 增加[和讯网](http://www.hexun.com/)提供的数据接口, 提供美国-中概股行情及历史数据;
+    6.14 增加[和讯网](http://www.hexun.com/)提供的美国-中概股行情及历史数据;
     
-    6.15 增加[交易法门网站](https://www.jiaoyifamen.com/)提供的数据接口;
+    6.15 增加[交易法门网站](https://www.jiaoyifamen.com/)提供的期货相关数据接口;
     
-    6.16 增加[新浪财经-期货](https://finance.sina.com.cn/futuremarket/)提供的数据接口, 提供实时行情数据;
+    6.16 增加[新浪财经-期货](https://finance.sina.com.cn/futuremarket/)提供的期货实时行情数据;
 
-    6.17 增加[新浪财经-港股](http://finance.sina.com.cn/stock/hkstock/)提供的数据接口, 提供实时行情数据和历史行情数据(包括前复权和后复权因子);
+    6.17 增加[新浪财经-港股](http://finance.sina.com.cn/stock/hkstock/)提供的实时行情数据和历史行情数据(包括前复权和后复权因子);
 
-    6.18 增加[新浪财经-美股](http://finance.sina.com.cn/stock/usstock/sector.shtml)提供的数据接口, 提供实时行情数据和历史行情数据(包括前复权因子);
+    6.18 增加[新浪财经-美股](http://finance.sina.com.cn/stock/usstock/sector.shtml)提供的实时行情数据和历史行情数据(包括前复权因子);
 
-    6.19 增加[上海证券交易所-期权](http://www.sse.com.cn/assortment/options/price/)提供的数据接口, 提供当日期权行情数据;
+    6.19 增加[上海证券交易所-期权](http://www.sse.com.cn/assortment/options/price/)提供的当日期权行情数据;
     
-    6.20 增加[金十数据网站](http://www.sse.com.cn/assortment/options/price/)提供的数据接口, 提供数字货币行情数据;
+    6.20 增加[金十数据网站](http://www.sse.com.cn/assortment/options/price/)提供的数字货币行情数据;
 
-    6.21 增加[腾讯财经网站](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)提供的数据接口, 提供A+H股数据;
+    6.21 增加[腾讯财经网站](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)提供的A+H股数据;
 
-    6.22 增加[新浪财经-A股](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)提供的数据接口, 提供A股数据;
+    6.22 增加[新浪财经-A股](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)提供的A股数据;
 
-    6.23 增加[新浪财经-科创板](http://vip.stock.finance.sina.com.cn/mkt/#cyb)提供的数据接口, 提供科创板数据;
+    6.23 增加[新浪财经-科创板](http://vip.stock.finance.sina.com.cn/mkt/#cyb)提供的科创板数据;
 
-    6.24 增加[银保监分局本级行政处罚](http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/1.html)提供的数据接口, 提供银保监分局本级行政处罚;
+    6.24 增加[银保监分局本级行政处罚](http://www.cbirc.gov.cn/cn/list/9103/910305/ybjfjcf/1.html)提供的银保监分局本级行政处罚;
 
-    6.25 增加[Realized Library](https://realized.oxford-man.ox.ac.uk/)提供的数据接口, Oxford-Man Institute of Quantitative Finance; https://dachxiu.chicagobooth.edu/
+    6.25 增加[Realized Library](https://realized.oxford-man.ox.ac.uk/)提供的Oxford-Man Institute of Quantitative Finance; https://dachxiu.chicagobooth.edu/
 
-    6.26 增加[FF Factors](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)提供的数据接口, 提供多因子模型数据
+    6.26 增加[FF Factors](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)提供的多因子模型数据
 
-    6.27 增加[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)提供的数据接口, 提供历史分笔行情数据(近2年)
+    6.27 增加[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)提供的历史分笔行情数据(近2年)
     
-    6.28 增加[金十数据](https://datacenter.jin10.com/market)提供的多品种实时数据接口, 提供基于 websocket 的数据接口(基础版本);
+    6.28 增加[金十数据](https://datacenter.jin10.com/market)提供的多品种实时数据接口和基于 websocket 的数据接口(基础版本);
 
-    6.29 增加[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)专题教程-pandas专题-连载;
+    6.29 增加[微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png)提供的专题教程-Pandas专题-连载;
 
     6.30 增加[timeanddate网站](https://www.timeanddate.com/)提供的日出和日落数据接口;
     
