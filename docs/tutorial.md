@@ -420,6 +420,8 @@
  # 中国油价
  "energy_oil_hist"  # 汽柴油历史调价信息
  "energy_oil_detail"  # 地区油价
+ # 现货与股票
+ "futures_spot_stock"  # 现货与股票接口
 ```
 
 ## 3. 案例演示

@@ -564,7 +564,9 @@ if __name__ == '__main__':
     print(get_shfe_rank_table_first_df)
     get_shfe_rank_table_second_df = get_dce_rank_table(date='20171227')
     print(get_shfe_rank_table_second_df)
-    get_shfe_rank_table_third_df = get_dce_rank_table(date='20191227')
+    get_shfe_rank_table_third_df = get_dce_rank_table(date='20180718')
     print(get_shfe_rank_table_third_df)
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200317")
     print(get_rank_sum_daily_df)
+
+
