@@ -1,8 +1,8 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 快速入门
 
-## 1. 先进行 [AkShare](https://github.com/jindaxiang/akshare) 环境配置
+## 环境配置
 
-## 2. 再查看 [AkShare](https://github.com/jindaxiang/akshare) 提供的数据接口
+## 查看数据
 
 具体函数使用详情, 请查看 [AkShare 文档](https://akshare.readthedocs.io/) 每个接口的示例代码
 
@@ -424,7 +424,7 @@
  "futures_spot_stock"  # 现货与股票接口
 ```
 
-## 3. 案例演示
+## 案例演示
 
 ### 3.1 获取展期收益率
 
