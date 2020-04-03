@@ -4,14 +4,14 @@
 
 2. 如有库或者文档的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
-3. 您也可以加入 **QQ群** 咨询相关问题: 326900231;
+3. 您也可以加入 **QQ群** 咨询相关问题: 326900231:
 
 <div align=center>
     <a target="_blank" href="https://shang.qq.com/wpa/qunwpa?idkey=aacb87089dd5ecb8c6620ce391de15b92310cfb65e3b37f37eb465769e3fc1a3">
         <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_1569925684166.png" alt="AkShare官方" title="AkShare官方" align="center">
     </a>
 </div>
-4. 欢迎关注 数据科学实战 微信公众号来获取最新的数据接口更新信息;
+4. 欢迎关注 数据科学实战 微信公众号来获取最新的数据接口更新信息:
 
 <div align=center>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
@@ -195,7 +195,11 @@
     
     6.66 新增[新浪网站](http://sina.com)提供的外盘期货历史行情数据;
     
-    6.67 新增[金十数据网站](https://www.jin10.com/)提供恐慌指数数据;
+    6.67 新增[金十数据网站](https://www.jin10.com/)提供的恐慌指数数据;
+    
+    6.68 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的中国油价数据;
+    
+    6.69 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的现货与股票数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 欢迎加入 [AkShare GitHub](https://github.com/jindaxiang/akshare) 社区的维护与管理.
@@ -220,7 +224,7 @@
 import akshare as ak
 import matplotlib.pyplot as plt
 
-plt.rcParams['font.sans-serif'] = 'SimHei'
+plt.rcParams['font.sans-serif'] = 'SimHei'  # Linux 请注意字体设置问题
 plt.rcParams['axes.unicode_minus'] = False
 
 stock_df = ak.zdzk_fund_index(30, plot=False)  # 股票策略数据
