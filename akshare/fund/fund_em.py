@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/2/5 22:48
-contact: jindaxiang@163.com
+date: 2020/4/5 22:48
 desc: 东方财富网站-天天基金网-基金数据
 http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 
@@ -19,7 +17,6 @@ import time
 import demjson
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 
 def fund_em_daily():
@@ -66,7 +63,7 @@ def fund_em_daily():
     return data_df
 
 
-def fund_em_info(fund="710001", indicator="单位净值走势"):
+def fund_em_info(fund="100032", indicator="单位净值走势"):
     """
     single fund info
     :param fund:
@@ -88,7 +85,7 @@ def fund_em_info(fund="710001", indicator="单位净值走势"):
     if indicator == "单位净值走势":
         data_json = demjson.decode(text[text.find("Data_netWorthTrend") + 21: text.find("Data_ACWorthTrend")-15])
         temp_df = pd.DataFrame(data_json)
-        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms")
+        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert('Asia/Shanghai')
         temp_df["x"] = temp_df["x"].dt.date
         return temp_df
 
@@ -97,7 +94,7 @@ def fund_em_info(fund="710001", indicator="单位净值走势"):
         data_json = demjson.decode(text[text.find("Data_ACWorthTrend") + 20: text.find("Data_grandTotal")-16])
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["x", "y"]
-        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms")
+        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert('Asia/Shanghai')
         temp_df["x"] = temp_df["x"].dt.date
         return temp_df
 
@@ -108,7 +105,7 @@ def fund_em_info(fund="710001", indicator="单位净值走势"):
         temp_df_mean = pd.DataFrame(data_json[1]["data"])  # 同类平均
         temp_df_hs = pd.DataFrame(data_json[2]["data"])  # 沪深300
         temp_df_main.columns = ["x", "y"]
-        temp_df_main["x"] = pd.to_datetime(temp_df_main["x"], unit="ms")
+        temp_df_main["x"] = pd.to_datetime(temp_df_main["x"], unit="ms", utc=True).dt.tz_convert('Asia/Shanghai')
         temp_df_main["x"] = temp_df_main["x"].dt.date
         return temp_df_main
 
@@ -116,7 +113,7 @@ def fund_em_info(fund="710001", indicator="单位净值走势"):
     if indicator == "同类排名走势":
         data_json = demjson.decode(text[text.find("Data_rateInSimilarType") + 25: text.find("Data_rateInSimilarPersent")-16])
         temp_df = pd.DataFrame(data_json)
-        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms")
+        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert('Asia/Shanghai')
         temp_df["x"] = temp_df["x"].dt.date
         return temp_df
 
@@ -125,7 +122,7 @@ def fund_em_info(fund="710001", indicator="单位净值走势"):
         data_json = demjson.decode(text[text.find("Data_rateInSimilarPersent") + 26: text.find("Data_fluctuationScale")-23])
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["x", "y"]
-        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms")
+        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert('Asia/Shanghai')
         temp_df["x"] = temp_df["x"].dt.date
         return temp_df
 
@@ -146,7 +143,7 @@ if __name__ == '__main__':
     fund_em_daily_df = fund_em_daily()
     print(fund_em_daily_df)
     time.sleep(3)
-    fund_em_info_net_df = fund_em_info(fund="710001", indicator="单位净值走势")
+    fund_em_info_net_df = fund_em_info(fund="100032", indicator="单位净值走势")
     print(fund_em_info_net_df)
     time.sleep(3)
     fund_em_info_net_acc_df = fund_em_info(fund="710001", indicator="累计净值走势")

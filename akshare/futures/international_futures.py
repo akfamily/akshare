@@ -26,7 +26,7 @@ def get_sector_symbol_name_url():
     """
     url = "https://cn.investing.com/commodities/"
     res = requests.post(url, headers=short_headers)
-    soup = BeautifulSoup(res.text, 'lxml')
+    soup = BeautifulSoup(res.text, "lxml")
     name_url_option_list = soup.find_all(attrs={"class": "linkTitle"})  # 去掉-所有国家及地区
     url_list = [item.find("a")["href"] for item in name_url_option_list]
     name_list = [item.get_text() for item in name_url_option_list]
@@ -56,21 +56,23 @@ def futures_global_commodity_name_url_map(sector="能源"):
     name_url_dict = get_sector_symbol_name_url()
     url = f"https://cn.investing.com{name_url_dict[sector]}"
     res = requests.post(url, headers=short_headers)
-    soup = BeautifulSoup(res.text, 'lxml')
-    url_list = [item.find("a")["href"].split("?")[0]
-                for item in soup.find_all(attrs={"class": "plusIconTd"})]
-    name_list = [item.find("a").get_text()
-                 for item in soup.find_all(attrs={"class": "plusIconTd"})]
+    soup = BeautifulSoup(res.text, "lxml")
+    url_list = [
+        item.find("a")["href"].split("?")[0]
+        for item in soup.find_all(attrs={"class": "plusIconTd"})
+    ]
+    name_list = [
+        item.find("a").get_text()
+        for item in soup.find_all(attrs={"class": "plusIconTd"})
+    ]
     name_code_map_dict = {}
     name_code_map_dict.update(zip(name_list, url_list))
     return name_code_map_dict
 
 
 def get_sector_futures(
-        sector="能源",
-        symbol="WTI原油",
-        start_date='2000/01/01',
-        end_date='2019/10/17'):
+    sector="能源", symbol="WTI原油", start_date="2000/01/01", end_date="2019/10/17"
+):
     """
     具体国家的具体指数的从 start_date 到 end_date 期间的数据
     :param sector: str 对应函数中的国家名称
@@ -95,25 +97,24 @@ def get_sector_futures(
     name_code_dict = futures_global_commodity_name_url_map(sector)
     temp_url = f"https://cn.investing.com/{name_code_dict[symbol]}-historical-data"
     res = requests.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, 'lxml')
+    soup = BeautifulSoup(res.text, "lxml")
     title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
     res = requests.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, 'lxml')
-    data = soup.find_all(text=re.compile(
-        'window.histDataExcessInfo'))[0].strip()
-    para_data = re.findall(r'\d+', data)
+    soup = BeautifulSoup(res.text, "lxml")
+    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
+    para_data = re.findall(r"\d+", data)
     payload = {
-        'curr_id': para_data[0],
-        'smlID': para_data[1],
-        'header': title,
-        'st_date': start_date,
-        'end_date': end_date,
-        'interval_sec': 'Daily',
-        'sort_col': 'date',
-        'sort_ord': 'DESC',
-        'action': 'historical_data'
+        "curr_id": para_data[0],
+        "smlID": para_data[1],
+        "header": title,
+        "st_date": start_date,
+        "end_date": end_date,
+        "interval_sec": "Daily",
+        "sort_col": "date",
+        "sort_ord": "DESC",
+        "action": "historical_data",
     }
-    url = 'https://cn.investing.com/instruments/HistoricalDataAjax'
+    url = "https://cn.investing.com/instruments/HistoricalDataAjax"
     res = requests.post(url, data=payload, headers=long_headers)
     temp_df = pd.read_html(res.text)[0]
     df_data = temp_df
@@ -121,15 +122,34 @@ def get_sector_futures(
     df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
     df_data.index.name = "日期"
     if any(df_data["交易量"].astype(str).str.contains("-")):
-        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][df_data["交易量"].str.contains("-")].replace("-", 0)
+        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
+            df_data["交易量"].str.contains("-")
+        ].replace("-", 0)
     if any(df_data["交易量"].astype(str).str.contains("B")):
-        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)].str.replace("B", "").astype(float) * 1000000000
+        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = (
+            df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
+            .str.replace("B", "")
+            .astype(float)
+            * 1000000000
+        )
     if any(df_data["交易量"].astype(str).str.contains("M")):
-        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)].str.replace("M", "").astype(float) * 1000000
+        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = (
+            df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
+            .str.replace("M", "")
+            .astype(float)
+            * 1000000
+        )
     if any(df_data["交易量"].astype(str).str.contains("K")):
-        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)].str.replace("K", "").astype(float) * 1000
+        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = (
+            df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
+            .str.replace("K", "")
+            .astype(float)
+            * 1000
+        )
     df_data["交易量"] = df_data["交易量"].astype(float)
-    df_data["涨跌幅"] = pd.DataFrame(round(df_data['涨跌幅'].str.replace('%', '').astype(float) / 100, 6))
+    df_data["涨跌幅"] = pd.DataFrame(
+        round(df_data["涨跌幅"].str.replace("%", "").astype(float) / 100, 6)
+    )
     df_data.name = title
     df_data.columns.name = None
     return df_data
@@ -139,9 +159,7 @@ if __name__ == "__main__":
     temp_dict = futures_global_commodity_name_url_map(sector="能源")
     print(temp_dict)
     index_df = get_sector_futures(
-        sector="能源",
-        symbol="伦敦布伦特原油",
-        start_date='2012/01/01',
-        end_date='2020/04/04')
+        sector="能源", symbol="伦敦布伦特原油", start_date="2012/01/01", end_date="2020/04/04"
+    )
     print(index_df.name)
     print(index_df)
