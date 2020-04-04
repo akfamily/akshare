@@ -136,10 +136,12 @@ def get_sector_futures(
 
 
 if __name__ == "__main__":
+    temp_dict = futures_global_commodity_name_url_map(sector="能源")
+    print(temp_dict)
     index_df = get_sector_futures(
         sector="能源",
-        symbol="天然气",
+        symbol="伦敦布伦特原油",
         start_date='2012/01/01',
-        end_date='2015/01/30')
+        end_date='2020/04/04')
     print(index_df.name)
     print(index_df)

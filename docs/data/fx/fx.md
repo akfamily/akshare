@@ -266,7 +266,7 @@ print(fx_df)
 
 ```python
 import akshare as ak
-currency_hist_df = ak.currency_hist(index_name="usd/jpy", start_date="2005/01/01", end_date="2020/01/17")
+currency_hist_df = ak.currency_hist(symbol="usd/jpy", start_date="2005/01/01", end_date="2020/01/17")
 print(currency_hist_df)
 ```
 
