@@ -860,7 +860,7 @@ print(futures_foreign_detail_df)
 
 目标地址: https://cn.investing.com/commodities/
 
-描述: 主要提供全球能源、农业、金属、商品指数历史数据
+描述: 主要提供全球能源、农业、金属、商品指数历史数据, 此处请注意调取数据的时间长度
 
 限量: 单次最大5000行, 建议用 for 获取行数据
 
@@ -869,7 +869,7 @@ print(futures_foreign_detail_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | sector | str  | Y    |  能源、农业、金属、商品指数之一|
-| symbol | str  | Y    |  对应板块中的产品名称, 可以通过查询网页获取|
+| symbol | str  | Y    |  对应板块中的产品名称, 可以通过查询网页获取或者调用 **futures_global_commodity_name_url_map** 获取|
 | start_date | str  | Y    |  需要获取数据的开始时间, e.g., start_date='2005/01/01'|
 | end_date | str  | Y    |  需要获取数据的开始时间, e.g., end_date='2015/01/01' |
 
@@ -888,10 +888,19 @@ print(futures_foreign_detail_df)
 
 ```python
 import akshare as ak
-ak.get_sector_futures(sector="能源", symbol="伦敦布伦特原油", start_date='2005/01/01', end_date='2019/10/17')
+temp_url = ak.futures_global_commodity_name_url_map(sector="能源")
+print(temp_url)
+sector_futures_df = ak.get_sector_futures(sector="能源", symbol="伦敦布伦特原油", start_date='2005/01/01', end_date='2019/10/17')
+print(sector_futures_df)
 ```
 
-数据示例
+数据示例-futures_global_commodity_name_url_map
+
+```
+{'伦敦布伦特原油': '/commodities/brent-oil', 'WTI原油': '/commodities/crude-oil', '伦敦汽油': '/commodities/london-gas-oil', '天然气': '/commodities/natural-gas', '燃料油': '/commodities/heating-oil', '碳排放': '/commodities/carbon-emissions', 'RBOB汽油': '/commodities/gasoline-rbob', '布伦特原油': '/commodities/brent-oil', '原油': '/commodities/crude-oil'}
+```
+
+数据示例-get_sector_futures
 
 ```
 0              收盘     开盘      高      低      涨跌幅

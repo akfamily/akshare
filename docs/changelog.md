@@ -1203,4 +1203,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.63: add: energy_oil to add energy_oil_hist and energy_oil_detail
 
 0.4.64: add: futures_em_spot_stock
+
+0.4.65: add: futures_global_commodity_name_url_map
 ```

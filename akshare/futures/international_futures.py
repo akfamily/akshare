@@ -35,12 +35,14 @@ def get_sector_symbol_name_url():
     return name_code_map_dict
 
 
-def get_symbol_name_url(country="能源"):
+def futures_global_commodity_name_url_map(sector="能源"):
     """
     参考网页: https://cn.investing.com/commodities/
     获取选择板块对应的: 具体期货品种的 url 地址
-    :param country: str 板块, 对应 get_global_country_name_url 品种名称
-    :return: dict
+    :param sector: 板块, 对应 get_global_country_name_url 品种名称
+    :type sector: str
+    :return: dict of name-url
+    :rtype: dict
     {'伦敦布伦特原油': '/commodities/brent-oil',
     'WTI原油': '/commodities/crude-oil',
     '伦敦汽油': '/commodities/london-gas-oil',
@@ -52,10 +54,10 @@ def get_symbol_name_url(country="能源"):
     '原油': '/commodities/crude-oil?cid=49774'}
     """
     name_url_dict = get_sector_symbol_name_url()
-    url = f"https://cn.investing.com{name_url_dict[country]}"
+    url = f"https://cn.investing.com{name_url_dict[sector]}"
     res = requests.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, 'lxml')
-    url_list = [item.find("a")["href"]
+    url_list = [item.find("a")["href"].split("?")[0]
                 for item in soup.find_all(attrs={"class": "plusIconTd"})]
     name_list = [item.find("a").get_text()
                  for item in soup.find_all(attrs={"class": "plusIconTd"})]
@@ -66,7 +68,7 @@ def get_symbol_name_url(country="能源"):
 
 def get_sector_futures(
         sector="能源",
-        symbol="伦敦布伦特原油",
+        symbol="WTI原油",
         start_date='2000/01/01',
         end_date='2019/10/17'):
     """
@@ -90,7 +92,7 @@ def get_sector_futures(
     2005-01-05  40.51  40.80  41.00  39.90   42.23K
     2005-01-04  41.04  39.40  41.25  38.81   40.10K
     """
-    name_code_dict = get_symbol_name_url(sector)
+    name_code_dict = futures_global_commodity_name_url_map(sector)
     temp_url = f"https://cn.investing.com/{name_code_dict[symbol]}-historical-data"
     res = requests.post(temp_url, headers=short_headers)
     soup = BeautifulSoup(res.text, 'lxml')
@@ -118,7 +120,6 @@ def get_sector_futures(
     df_data = df_data.set_index(["日期"])
     df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
     df_data.index.name = "日期"
-    df_data.columns
     if any(df_data["交易量"].astype(str).str.contains("-")):
         df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][df_data["交易量"].str.contains("-")].replace("-", 0)
     if any(df_data["交易量"].astype(str).str.contains("B")):
@@ -137,8 +138,8 @@ def get_sector_futures(
 if __name__ == "__main__":
     index_df = get_sector_futures(
         sector="能源",
-        symbol="WTI原油",
-        start_date='1980/01/01',
-        end_date='1999/01/30')
+        symbol="天然气",
+        start_date='2012/01/01',
+        end_date='2015/01/30')
     print(index_df.name)
     print(index_df)
