@@ -1,13 +1,12 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/1/22 19:56
-contact: jindaxiang@163.com
+date: 2020/4/4 19:56
 desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
 感谢 QQ: 33555115 的建议和部分源码
+感谢 QQ: 417515530 的发现的文档参数问题
 """
 import re
 
@@ -165,5 +164,5 @@ def currency_name_code(symbol="usd/jpy"):
 if __name__ == '__main__':
     currency_name_code_df = currency_name_code(symbol="usd/jpy")
     print(currency_name_code_df)
-    currency_hist_df = currency_hist(symbol="usd/jpy", start_date="2005/01/01", end_date="2020/01/17")
+    currency_hist_df = currency_hist(symbol="kwd-jpy", start_date="2005/01/01", end_date="2020/01/17")
     print(currency_hist_df)
