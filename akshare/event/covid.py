@@ -13,13 +13,12 @@ COVID-19-百度
 """
 import json
 import time
-from io import BytesIO
 
 import demjson
 import jsonpath
 import pandas as pd
 import requests
-from PIL import Image
+from tqdm import tqdm
 from bs4 import BeautifulSoup
 
 from akshare.event.cons import province_dict, city_dict
@@ -312,156 +311,6 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
         return chinese_news
     elif indicator == "国外新闻":
         return foreign_news
-
-    # elif indicator == "中国-新增疑似-新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["quanguoTrendChart"][0]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "中国-现存确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["quanguoTrendChart"][1]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "中国-现存疑似-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["quanguoTrendChart"][2]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "中国-治愈-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["quanguoTrendChart"][3]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "中国-死亡-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["quanguoTrendChart"][4]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-
-    # elif indicator == "中国-非湖北新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][0]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "中国-湖北新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][1]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "中国-湖北现存确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][2]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "中国-非湖北现存确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][3]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "中国-治愈-死亡-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["hbFeiHbTrendChart"][4]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-
-    # elif indicator == "国外-国外新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["foreignTrendChartGlobal"][0]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-国外累计确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["foreignTrendChartGlobal"][1]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-国外死亡-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(requests.get(data_json["foreignTrendChartGlobal"][2]["imgUrl"]).content)
-    #     )
-    #     img_file.show()
-    #
-    # elif indicator == "国外-重点国家新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][0]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-日本新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][1]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-意大利新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][2]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-伊朗新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][3]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-美国新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][4]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-法国新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][5]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-德国新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][6]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-西班牙新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][7]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
-    # elif indicator == "国外-韩国新增确诊-趋势图":
-    #     img_file = Image.open(
-    #         BytesIO(
-    #             requests.get(
-    #                 data_json["importantForeignTrendChartGlobal"][8]["imgUrl"]
-    #             ).content
-    #         )
-    #     )
-    #     img_file.show()
     else:
         try:
             data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
@@ -772,8 +621,7 @@ def covid_19_area_detail():
     """
     temp_df = pd.DataFrame()
     area_df = covid_19_area_all()
-    for item in area_df.iterrows():
-        print(f"一共{area_df.shape[0]}, 正在下载第{item[0] + 1}页")
+    for item in tqdm(area_df.iterrows(), total=area_df.shape[0]):
         small_df = covid_19_area_search(
             province=item[1][0], city=item[1][1], district=item[1][2]
         )
@@ -914,12 +762,10 @@ if __name__ == "__main__":
     migration_area_baidu_df = migration_area_baidu(
         area="上海市", indicator="move_in", date="20200212"
     )
-    # print(migration_area_baidu_df.to_csv("迁入上海市来源地-20200218.csv", encoding="gb2312"))
     print(migration_area_baidu_df)
     migration_scale_baidu_df = migration_scale_baidu(
         area="上海市", indicator="move_in", start_date="20190113", end_date="20200212"
     )
-    # print(migration_scale_baidu_df.to_csv("迁入上海市2019-2020统计-20200218.csv", encoding="gb2312"))
     print(migration_scale_baidu_df)
     # 小区
     epidemic_area_search_df = covid_19_area_search(
@@ -928,9 +774,8 @@ if __name__ == "__main__":
     print(epidemic_area_search_df)
     epidemic_area_all_df = covid_19_area_all()
     print(epidemic_area_all_df)
-    # epidemic_area_detail_df = covid_19_area_detail()
-    # print(epidemic_area_detail_df)
-    # print(epidemic_area_detail_df.to_csv("所有疫情地点-20200218.csv", encoding="gbk"))
+    epidemic_area_detail_df = covid_19_area_detail()
+    print(epidemic_area_detail_df)
     # 行程
     epidemic_trip_df = covid_19_trip()
     print(epidemic_trip_df)
