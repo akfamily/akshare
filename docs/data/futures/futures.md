@@ -5797,7 +5797,7 @@ print(futures_spot_stock_df)
 
 描述: 获取中国期货市场监控中心-各类指数数据
 
-限量: 单次返回指定 **indicator** 的数据
+限量: 单次返回指定 **index_name** 的数据
 
 输入参数
 
