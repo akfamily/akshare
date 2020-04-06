@@ -896,10 +896,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.66: fix: fund_em.py timezone transfer
 0.4.67: fix: covid covid_19_area_detail
 0.4.68: fix: marco_usa
+0.4.69: add: futures_cfmmc
 """
 
-__version__ = "0.4.68"
+__version__ = "0.4.69"
 __author__ = "Albert King"
+
+"""
+futures_cfmmc
+"""
+from akshare.futures.futures_cfmmc import futures_index_dict, futures_index_cfmmc
 
 """
 futures_em_spot_stock
