@@ -422,6 +422,8 @@
  "energy_oil_detail"  # 地区油价
  # 现货与股票
  "futures_spot_stock"  # 现货与股票接口
+ # 中国期货市场监控中心
+ "futures_index_cfmmc"  # 中国期货市场监控中心-指数
 ```
 
 ## 案例演示
