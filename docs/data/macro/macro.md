@@ -4909,7 +4909,7 @@ macro_euro_sentix_investor_confidence_se: pandas.Series
 2019-10-24    918.48
 ```
 
-##### 增持-减持(吨)
+##### 增持-减持
 
 接口: macro_cons_gold_change
 
@@ -4965,7 +4965,7 @@ macro_cons_gold_change_se: pandas.Series
 2019-10-24     0.00
 ```
 
-##### 总价值(美元)
+##### 总价值
 
 接口: macro_cons_gold_amount
 
@@ -5079,7 +5079,7 @@ macro_cons_silver_volume_se: pandas.Series
 2019-10-23    11751.96
 ```
 
-##### 增持-减持(吨)
+##### 增持-减持
 
 接口: macro_cons_silver_change
 
@@ -5135,7 +5135,7 @@ macro_cons_silver_change_se: pandas.Series
 2020-01-10       0.00
 ```
 
-##### 总价值(美元)
+##### 总价值
 
 接口: macro_cons_silver_amount
 
