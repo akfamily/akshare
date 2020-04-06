@@ -895,9 +895,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.65: add: futures_global_commodity_name_url_map
 0.4.66: fix: fund_em.py timezone transfer
 0.4.67: fix: covid covid_19_area_detail
+0.4.68: fix: marco_usa
 """
 
-__version__ = "0.4.67"
+__version__ = "0.4.68"
 __author__ = "Albert King"
 
 """
