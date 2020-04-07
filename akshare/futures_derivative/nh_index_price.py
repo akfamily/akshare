@@ -14,15 +14,21 @@ import requests
 import pandas as pd
 
 
-def num_to_str_data(str_date):
-
+def num_to_str_data(str_date: str) -> str:
+    """
+    transfer date format
+    :param str_date:
+    :type str_date: str
+    :return: data format
+    :rtype: str
+    """
     str_date = str_date / 1000
     str_date = time.localtime(str_date)  # 生成一个元组的时间
     strp_time = time.strftime("%Y-%m-%d %H:%M:%S", str_date)  # 格式化元组
     return strp_time
 
 
-def get_nh_list():
+def get_nh_list() -> pd.DataFrame:
     """
     获取南华期货-南华指数所有品种一览表
     :return: pandas.DataFrame
@@ -102,7 +108,7 @@ def get_nh_list():
     return futures_df
 
 
-def nh_price_index(code="A"):
+def nh_price_index(code: str = "A") -> pd.DataFrame:
     """
     获取南华期货-南华指数单品种所有历史数据
     :param code: str 通过 get_nh_list 提供
@@ -135,5 +141,5 @@ def nh_price_index(code="A"):
 
 
 if __name__ == "__main__":
-    df = nh_price_index(code="A")
-    print(df)
+    nh_price_index_df = nh_price_index(code="A")
+    print(nh_price_index_df)
