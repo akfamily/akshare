@@ -897,10 +897,23 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.67: fix: covid covid_19_area_detail
 0.4.68: fix: marco_usa
 0.4.69: add: futures_cfmmc
+0.4.70: add: covid_19 CSSE 数据接口
 """
 
-__version__ = "0.4.69"
+__version__ = "0.4.70"
 __author__ = "Albert King"
+
+"""
+covid_19 CSSE
+"""
+from akshare.event.covid import (
+    covid_19_csse_daily,
+    covid_19_csse_global_confirmed,
+    covid_19_csse_global_death,
+    covid_19_csse_global_recovered,
+    covid_19_csse_us_death,
+    covid_19_csse_us_confirmed,
+)
 
 """
 futures_cfmmc
@@ -1144,7 +1157,11 @@ from akshare.economic.macro_bank import (
 """
 交易法门-工具-席位分析
 """
-from akshare.futures_derivative.jyfm_tools_func import jyfm_tools_position_structure, jyfm_tools_position_seat_cost, jyfm_tools_position_interest_process
+from akshare.futures_derivative.jyfm_tools_func import (
+    jyfm_tools_position_structure,
+    jyfm_tools_position_seat_cost,
+    jyfm_tools_position_interest_process,
+)
 
 """
 交易法门-工具-套利分析
@@ -1655,7 +1672,10 @@ from akshare.economic.macro_china import (
 """
 全球期货
 """
-from akshare.futures.international_futures import get_sector_futures, futures_global_commodity_name_url_map
+from akshare.futures.international_futures import (
+    get_sector_futures,
+    futures_global_commodity_name_url_map,
+)
 
 """
 外汇

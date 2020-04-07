@@ -2249,3 +2249,715 @@ print(covid_19_history_df)
 28685  2020-03-16      南非          ZA  ...         0     1    0
 28686  2020-03-16    纳米比亚        None  ...         0     0    0
 ```
+
+#### COVID-19-CSSE
+
+##### 每日报告
+
+接口: covid_19_csse_daily
+
+目标地址: https://github.com/CSSEGISandData/COVID-19
+
+描述: 获取 **COVID-19** 每个自然日的全球统计数据
+
+限量: 单次返回指定 **date** 的所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| date | str | Y | date="2020-04-06"; 从 **2020-01-22** 开始至今 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ------- |
+| Province/State | str | Y | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
+| Country/Region | str | Y | country/region name conforming to WHO (will be updated). |
+| Last Update | float | Y | MM/DD/YYYY HH:mm (24 hour format, in UTC). |
+| Confirmed | float | Y |  the number of confirmed cases. For Hubei Province: from Feb 13 (GMT +8), we report both clinically diagnosed and lab-confirmed cases. For lab-confirmed cases only (Before Feb 17), please refer to who_covid_19_situation_reports. For Italy, diagnosis standard might be changed since Feb 27 to "slow the growth of new case numbers." |
+| Deaths | float | Y | the number of deaths. |
+| Recovered | float | Y | the number of recovered cases. |
+			
+接口示例
+
+```python
+import akshare as ak
+covid_19_csse_daily_df = ak.covid_19_csse_daily(date="2020-04-06")
+print(covid_19_csse_daily_df)
+```
+
+数据示例
+
+```
+         FIPS      Admin2  ... Active                   Combined_Key
+0     45001.0   Abbeville  ...      0  Abbeville, South Carolina, US
+1     22001.0      Acadia  ...      0          Acadia, Louisiana, US
+2     51001.0    Accomack  ...      0         Accomack, Virginia, US
+3     16001.0         Ada  ...      0                 Ada, Idaho, US
+4     19001.0       Adair  ...      0                Adair, Iowa, US
+       ...         ...  ...    ...                            ...
+2804      NaN         NaN  ...    229             West Bank and Gaza
+2805      NaN         NaN  ...      4               ,,Western Sahara
+2806      NaN         NaN  ...     33                         Zambia
+2807      NaN         NaN  ...      9                       Zimbabwe
+2808      NaN  unassigned  ...      0        unassigned, Wyoming, US
+```
+
+##### 美国确诊
+
+接口: covid_19_csse_us_confirmed
+
+目标地址: https://github.com/CSSEGISandData/COVID-19
+
+描述: 获取美国确诊数据所有历史数据
+
+限量: 单次返回所有历史数据，每日更新
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ------- |
+| Province/State | str | Y | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
+| Country/Region | str | Y | country/region name conforming to WHO (will be updated). |
+| Lat and Long | float | Y | a coordinates reference for the user. |
+| Date fields | float | Y |  M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file. |
+			
+接口示例
+
+```python
+import akshare as ak
+covid_19_csse_us_confirmed_df = ak.covid_19_csse_us_confirmed()
+print(covid_19_csse_us_confirmed_df)
+```
+
+数据示例
+
+```
+           UID iso2 iso3  code3     FIPS      Admin2  \
+0           16   AS  ASM     16     60.0         NaN   
+1          316   GU  GUM    316     66.0         NaN   
+2          580   MP  MNP    580     69.0         NaN   
+3          630   PR  PRI    630     72.0         NaN   
+4          850   VI  VIR    850     78.0         NaN   
+        ...  ...  ...    ...      ...         ...   
+3248  84090053   US  USA    840  90053.0  Unassigned   
+3249  84090054   US  USA    840  90054.0  Unassigned   
+3250  84090055   US  USA    840  90055.0  Unassigned   
+3251  84090056   US  USA    840  90056.0  Unassigned   
+3252  84099999   US  USA    840  99999.0         NaN   
+                Province_State Country_Region      Lat     Long_  \
+0               American Samoa             US -14.2710 -170.1320   
+1                         Guam             US  13.4443  144.7937   
+2     Northern Mariana Islands             US  15.0979  145.6739   
+3                  Puerto Rico             US  18.2208  -66.5901   
+4               Virgin Islands             US  18.3358  -64.8963   
+                        ...            ...      ...       ...   
+3248                Washington             US   0.0000    0.0000   
+3249             West Virginia             US   0.0000    0.0000   
+3250                 Wisconsin             US   0.0000    0.0000   
+3251                   Wyoming             US   0.0000    0.0000   
+3252            Grand Princess             US   0.0000    0.0000   
+                       Combined_Key  1/22/20  1/23/20  1/24/20  1/25/20  \
+0                American Samoa, US        0        0        0        0   
+1                          Guam, US        0        0        0        0   
+2      Northern Mariana Islands, US        0        0        0        0   
+3                   Puerto Rico, US        0        0        0        0   
+4                Virgin Islands, US        0        0        0        0   
+                             ...      ...      ...      ...      ...   
+3248     Unassigned, Washington, US        0        0        0        0   
+3249  Unassigned, West Virginia, US        0        0        0        0   
+3250      Unassigned, Wisconsin, US        0        0        0        0   
+3251        Unassigned, Wyoming, US        0        0        0        0   
+3252             Grand Princess, US        0        0        0        0   
+      1/26/20  1/27/20  1/28/20  1/29/20  1/30/20  1/31/20  2/1/20  2/2/20  \
+0           0        0        0        0        0        0       0       0   
+1           0        0        0        0        0        0       0       0   
+2           0        0        0        0        0        0       0       0   
+3           0        0        0        0        0        0       0       0   
+4           0        0        0        0        0        0       0       0   
+       ...      ...      ...      ...      ...      ...     ...     ...   
+3248        0        0        0        0        0        0       0       0   
+3249        0        0        0        0        0        0       0       0   
+3250        0        0        0        0        0        0       0       0   
+3251        0        0        0        0        0        0       0       0   
+3252        0        0        0        0        0        0       0       0   
+      2/3/20  2/4/20  2/5/20  2/6/20  2/7/20  2/8/20  2/9/20  2/10/20  \
+0          0       0       0       0       0       0       0        0   
+1          0       0       0       0       0       0       0        0   
+2          0       0       0       0       0       0       0        0   
+3          0       0       0       0       0       0       0        0   
+4          0       0       0       0       0       0       0        0   
+      ...     ...     ...     ...     ...     ...     ...      ...   
+3248       0       0       0       0       0       0       0        0   
+3249       0       0       0       0       0       0       0        0   
+3250       0       0       0       0       0       0       0        0   
+3251       0       0       0       0       0       0       0        0   
+3252       0       0       0       0       0       0       0        0   
+      2/11/20  2/12/20  2/13/20  2/14/20  2/15/20  2/16/20  2/17/20  2/18/20  \
+0           0        0        0        0        0        0        0        0   
+1           0        0        0        0        0        0        0        0   
+2           0        0        0        0        0        0        0        0   
+3           0        0        0        0        0        0        0        0   
+4           0        0        0        0        0        0        0        0   
+       ...      ...      ...      ...      ...      ...      ...      ...   
+3248        0        0        0        0        0        0        0        0   
+3249        0        0        0        0        0        0        0        0   
+3250        0        0        0        0        0        0        0        0   
+3251        0        0        0        0        0        0        0        0   
+3252        0        0        0        0        0        0        0        0   
+      2/19/20  2/20/20  2/21/20  2/22/20  2/23/20  2/24/20  2/25/20  2/26/20  \
+0           0        0        0        0        0        0        0        0   
+1           0        0        0        0        0        0        0        0   
+2           0        0        0        0        0        0        0        0   
+3           0        0        0        0        0        0        0        0   
+4           0        0        0        0        0        0        0        0   
+       ...      ...      ...      ...      ...      ...      ...      ...   
+3248        0        0        0        0        0        0        0        0   
+3249        0        0        0        0        0        0        0        0   
+3250        0        0        0        0        0        0        0        0   
+3251        0        0        0        0        0        0        0        0   
+3252        0        0        0        0        0        0        0        0   
+      2/27/20  2/28/20  2/29/20  3/1/20  3/2/20  3/3/20  3/4/20  3/5/20  \
+0           0        0        0       0       0       0       0       0   
+1           0        0        0       0       0       0       0       0   
+2           0        0        0       0       0       0       0       0   
+3           0        0        0       0       0       0       0       0   
+4           0        0        0       0       0       0       0       0   
+       ...      ...      ...     ...     ...     ...     ...     ...   
+3248        0        0        0       0       0       0       0       0   
+3249        0        0        0       0       0       0       0       0   
+3250        0        0        0       0       0       0       0       0   
+3251        0        0        0       0       0       0       0       0   
+3252        0        0        0       0       0       0       0       0   
+      3/6/20  3/7/20  3/8/20  3/9/20  3/10/20  3/11/20  3/12/20  3/13/20  \
+0          0       0       0       0        0        0        0        0   
+1          0       0       0       0        0        0        0        0   
+2          0       0       0       0        0        0        0        0   
+3          0       0       0       0        0        0        0        0   
+4          0       0       0       0        0        0        0        0   
+      ...     ...     ...     ...      ...      ...      ...      ...   
+3248       0       0       0       0        5        0       36       65   
+3249       0       0       0       0        0        0        0        0   
+3250       0       0       0       0        0        0        0        0   
+3251       0       0       0       0        0        0        0        0   
+3252       0       0       0       0        0        0        0        0   
+      3/14/20  3/15/20  3/16/20  3/17/20  3/18/20  3/19/20  3/20/20  3/21/20  \
+0           0        0        0        0        0        0        0        0   
+1           0        0        3        3        5       12       14       15   
+2           0        0        0        0        0        0        0        0   
+3           0        0        5        5        5        5       14       21   
+4           0        0        1        2        2        3        3        6   
+       ...      ...      ...      ...      ...      ...      ...      ...   
+3248       39        0        0        0        0      151      130      146   
+3249        0        0        0        0        0        0        0        0   
+3250        0        0        0        0        0        0        0        0   
+3251        0        0        0        0        0        0        0        0   
+3252        0        0       20       21       21       22       23       23   
+      3/22/20  3/23/20  3/24/20  3/25/20  3/26/20  3/27/20  3/28/20  3/29/20  \
+0           0        0        0        0        0        0        0        0   
+1          27       29       32       37       45       51       55       56   
+2           0        0        0        0        0        0        0        0   
+3          23       31       39       51       64       79      100      127   
+4           6        7       17       17       17       19       22        0   
+       ...      ...      ...      ...      ...      ...      ...      ...   
+3248      164      145      112       51       69       67        0      125   
+3249        0        0        0        0        0        0        0        0   
+3250        0        0        0        0        0       61        0        0   
+3251        0        0        0        0        0        0        0        0   
+3252       30       28       28       28       28       28      103      103   
+      3/30/20  3/31/20  4/1/20  4/2/20  4/3/20  4/4/20  4/5/20  4/6/20  
+0           0        0       0       0       0       0       0       0  
+1          58       69      77      82      84      93     112     113  
+2           0        2       6       6       6       6       6       6  
+3         174      239     286     316     316     452     475     513  
+4           0       30      30      30      37      40      42      43  
+       ...      ...     ...     ...     ...     ...     ...     ...  
+3248      274      274     303     344     501     483     533     648  
+3249        0        0       0       0       0       0       0       0  
+3250        0        0       0       0       0       0       0       0  
+3251        0        0       0       0       0       0       0       0  
+3252      103      103     103     103     103     103     103     103  
+```
+
+##### 美国死亡
+
+接口: covid_19_csse_us_death
+
+目标地址: https://github.com/CSSEGISandData/COVID-19
+
+描述: 获取美国死亡数据所有历史数据
+
+限量: 单次返回所有历史数据，每日更新
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ------- |
+| Province/State | str | Y | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
+| Country/Region | str | Y | country/region name conforming to WHO (will be updated). |
+| Lat and Long | float | Y | a coordinates reference for the user. |
+| Date fields | float | Y |  M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file. |
+			
+接口示例
+
+```python
+import akshare as ak
+covid_19_csse_us_death_df = ak.covid_19_csse_us_death()
+print(covid_19_csse_us_death_df)
+```
+
+数据示例
+
+```
+           UID iso2 iso3  code3     FIPS      Admin2  \
+0           16   AS  ASM     16     60.0         NaN   
+1          316   GU  GUM    316     66.0         NaN   
+2          580   MP  MNP    580     69.0         NaN   
+3          630   PR  PRI    630     72.0         NaN   
+4          850   VI  VIR    850     78.0         NaN   
+        ...  ...  ...    ...      ...         ...   
+3248  84090053   US  USA    840  90053.0  Unassigned   
+3249  84090054   US  USA    840  90054.0  Unassigned   
+3250  84090055   US  USA    840  90055.0  Unassigned   
+3251  84090056   US  USA    840  90056.0  Unassigned   
+3252  84099999   US  USA    840  99999.0         NaN   
+                Province_State Country_Region      Lat     Long_  \
+0               American Samoa             US -14.2710 -170.1320   
+1                         Guam             US  13.4443  144.7937   
+2     Northern Mariana Islands             US  15.0979  145.6739   
+3                  Puerto Rico             US  18.2208  -66.5901   
+4               Virgin Islands             US  18.3358  -64.8963   
+                        ...            ...      ...       ...   
+3248                Washington             US   0.0000    0.0000   
+3249             West Virginia             US   0.0000    0.0000   
+3250                 Wisconsin             US   0.0000    0.0000   
+3251                   Wyoming             US   0.0000    0.0000   
+3252            Grand Princess             US   0.0000    0.0000   
+                       Combined_Key  1/22/20  1/23/20  1/24/20  1/25/20  \
+0                American Samoa, US        0        0        0        0   
+1                          Guam, US        0        0        0        0   
+2      Northern Mariana Islands, US        0        0        0        0   
+3                   Puerto Rico, US        0        0        0        0   
+4                Virgin Islands, US        0        0        0        0   
+                             ...      ...      ...      ...      ...   
+3248     Unassigned, Washington, US        0        0        0        0   
+3249  Unassigned, West Virginia, US        0        0        0        0   
+3250      Unassigned, Wisconsin, US        0        0        0        0   
+3251        Unassigned, Wyoming, US        0        0        0        0   
+3252             Grand Princess, US        0        0        0        0   
+      1/26/20  1/27/20  1/28/20  1/29/20  1/30/20  1/31/20  2/1/20  2/2/20  \
+0           0        0        0        0        0        0       0       0   
+1           0        0        0        0        0        0       0       0   
+2           0        0        0        0        0        0       0       0   
+3           0        0        0        0        0        0       0       0   
+4           0        0        0        0        0        0       0       0   
+       ...      ...      ...      ...      ...      ...     ...     ...   
+3248        0        0        0        0        0        0       0       0   
+3249        0        0        0        0        0        0       0       0   
+3250        0        0        0        0        0        0       0       0   
+3251        0        0        0        0        0        0       0       0   
+3252        0        0        0        0        0        0       0       0   
+      2/3/20  2/4/20  2/5/20  2/6/20  2/7/20  2/8/20  2/9/20  2/10/20  \
+0          0       0       0       0       0       0       0        0   
+1          0       0       0       0       0       0       0        0   
+2          0       0       0       0       0       0       0        0   
+3          0       0       0       0       0       0       0        0   
+4          0       0       0       0       0       0       0        0   
+      ...     ...     ...     ...     ...     ...     ...      ...   
+3248       0       0       0       0       0       0       0        0   
+3249       0       0       0       0       0       0       0        0   
+3250       0       0       0       0       0       0       0        0   
+3251       0       0       0       0       0       0       0        0   
+3252       0       0       0       0       0       0       0        0   
+      2/11/20  2/12/20  2/13/20  2/14/20  2/15/20  2/16/20  2/17/20  2/18/20  \
+0           0        0        0        0        0        0        0        0   
+1           0        0        0        0        0        0        0        0   
+2           0        0        0        0        0        0        0        0   
+3           0        0        0        0        0        0        0        0   
+4           0        0        0        0        0        0        0        0   
+       ...      ...      ...      ...      ...      ...      ...      ...   
+3248        0        0        0        0        0        0        0        0   
+3249        0        0        0        0        0        0        0        0   
+3250        0        0        0        0        0        0        0        0   
+3251        0        0        0        0        0        0        0        0   
+3252        0        0        0        0        0        0        0        0   
+      2/19/20  2/20/20  2/21/20  2/22/20  2/23/20  2/24/20  2/25/20  2/26/20  \
+0           0        0        0        0        0        0        0        0   
+1           0        0        0        0        0        0        0        0   
+2           0        0        0        0        0        0        0        0   
+3           0        0        0        0        0        0        0        0   
+4           0        0        0        0        0        0        0        0   
+       ...      ...      ...      ...      ...      ...      ...      ...   
+3248        0        0        0        0        0        0        0        0   
+3249        0        0        0        0        0        0        0        0   
+3250        0        0        0        0        0        0        0        0   
+3251        0        0        0        0        0        0        0        0   
+3252        0        0        0        0        0        0        0        0   
+      2/27/20  2/28/20  2/29/20  3/1/20  3/2/20  3/3/20  3/4/20  3/5/20  \
+0           0        0        0       0       0       0       0       0   
+1           0        0        0       0       0       0       0       0   
+2           0        0        0       0       0       0       0       0   
+3           0        0        0       0       0       0       0       0   
+4           0        0        0       0       0       0       0       0   
+       ...      ...      ...     ...     ...     ...     ...     ...   
+3248        0        0        0       0       0       0       0       0   
+3249        0        0        0       0       0       0       0       0   
+3250        0        0        0       0       0       0       0       0   
+3251        0        0        0       0       0       0       0       0   
+3252        0        0        0       0       0       0       0       0   
+      3/6/20  3/7/20  3/8/20  3/9/20  3/10/20  3/11/20  3/12/20  3/13/20  \
+0          0       0       0       0        0        0        0        0   
+1          0       0       0       0        0        0        0        0   
+2          0       0       0       0        0        0        0        0   
+3          0       0       0       0        0        0        0        0   
+4          0       0       0       0        0        0        0        0   
+      ...     ...     ...     ...      ...      ...      ...      ...   
+3248       0       0       0       0        5        0       36       65   
+3249       0       0       0       0        0        0        0        0   
+3250       0       0       0       0        0        0        0        0   
+3251       0       0       0       0        0        0        0        0   
+3252       0       0       0       0        0        0        0        0   
+      3/14/20  3/15/20  3/16/20  3/17/20  3/18/20  3/19/20  3/20/20  3/21/20  \
+0           0        0        0        0        0        0        0        0   
+1           0        0        3        3        5       12       14       15   
+2           0        0        0        0        0        0        0        0   
+3           0        0        5        5        5        5       14       21   
+4           0        0        1        2        2        3        3        6   
+       ...      ...      ...      ...      ...      ...      ...      ...   
+3248       39        0        0        0        0      151      130      146   
+3249        0        0        0        0        0        0        0        0   
+3250        0        0        0        0        0        0        0        0   
+3251        0        0        0        0        0        0        0        0   
+3252        0        0       20       21       21       22       23       23   
+      3/22/20  3/23/20  3/24/20  3/25/20  3/26/20  3/27/20  3/28/20  3/29/20  \
+0           0        0        0        0        0        0        0        0   
+1          27       29       32       37       45       51       55       56   
+2           0        0        0        0        0        0        0        0   
+3          23       31       39       51       64       79      100      127   
+4           6        7       17       17       17       19       22        0   
+       ...      ...      ...      ...      ...      ...      ...      ...   
+3248      164      145      112       51       69       67        0      125   
+3249        0        0        0        0        0        0        0        0   
+3250        0        0        0        0        0       61        0        0   
+3251        0        0        0        0        0        0        0        0   
+3252       30       28       28       28       28       28      103      103   
+      3/30/20  3/31/20  4/1/20  4/2/20  4/3/20  4/4/20  4/5/20  4/6/20  
+0           0        0       0       0       0       0       0       0  
+1          58       69      77      82      84      93     112     113  
+2           0        2       6       6       6       6       6       6  
+3         174      239     286     316     316     452     475     513  
+4           0       30      30      30      37      40      42      43  
+       ...      ...     ...     ...     ...     ...     ...     ...  
+3248      274      274     303     344     501     483     533     648  
+3249        0        0       0       0       0       0       0       0  
+3250        0        0       0       0       0       0       0       0  
+3251        0        0       0       0       0       0       0       0  
+3252      103      103     103     103     103     103     103     103  
+```
+
+##### 全球确诊
+
+接口: covid_19_csse_global_confirmed
+
+目标地址: https://github.com/CSSEGISandData/COVID-19
+
+描述: 获取全球确诊数据所有历史数据
+
+限量: 单次返回所有历史数据，每日更新
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ------- |
+| Province/State | str | Y | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
+| Country/Region | str | Y | country/region name conforming to WHO (will be updated). |
+| Lat and Long | float | Y | a coordinates reference for the user. |
+| Date fields | float | Y |  M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file. |
+			
+接口示例
+
+```python
+import akshare as ak
+covid_19_csse_global_confirmed_df = ak.covid_19_csse_global_confirmed()
+print(covid_19_csse_global_confirmed_df)
+```
+
+数据示例
+
+```
+           UID iso2 iso3  code3     FIPS      Admin2  \
+0           16   AS  ASM     16     60.0         NaN   
+1          316   GU  GUM    316     66.0         NaN   
+2          580   MP  MNP    580     69.0         NaN   
+3          630   PR  PRI    630     72.0         NaN   
+4          850   VI  VIR    850     78.0         NaN   
+        ...  ...  ...    ...      ...         ...   
+3248  84090053   US  USA    840  90053.0  Unassigned   
+3249  84090054   US  USA    840  90054.0  Unassigned   
+3250  84090055   US  USA    840  90055.0  Unassigned   
+3251  84090056   US  USA    840  90056.0  Unassigned   
+3252  84099999   US  USA    840  99999.0         NaN   
+                Province_State Country_Region      Lat     Long_  \
+0               American Samoa             US -14.2710 -170.1320   
+1                         Guam             US  13.4443  144.7937   
+2     Northern Mariana Islands             US  15.0979  145.6739   
+3                  Puerto Rico             US  18.2208  -66.5901   
+4               Virgin Islands             US  18.3358  -64.8963   
+                        ...            ...      ...       ...   
+3248                Washington             US   0.0000    0.0000   
+3249             West Virginia             US   0.0000    0.0000   
+3250                 Wisconsin             US   0.0000    0.0000   
+3251                   Wyoming             US   0.0000    0.0000   
+3252            Grand Princess             US   0.0000    0.0000   
+                       Combined_Key  1/22/20  1/23/20  1/24/20  1/25/20  \
+0                American Samoa, US        0        0        0        0   
+1                          Guam, US        0        0        0        0   
+2      Northern Mariana Islands, US        0        0        0        0   
+3                   Puerto Rico, US        0        0        0        0   
+4                Virgin Islands, US        0        0        0        0   
+                             ...      ...      ...      ...      ...   
+3248     Unassigned, Washington, US        0        0        0        0   
+3249  Unassigned, West Virginia, US        0        0        0        0   
+3250      Unassigned, Wisconsin, US        0        0        0        0   
+3251        Unassigned, Wyoming, US        0        0        0        0   
+3252             Grand Princess, US        0        0        0        0   
+      1/26/20  1/27/20  1/28/20  1/29/20  1/30/20  1/31/20  2/1/20  2/2/20  \
+0           0        0        0        0        0        0       0       0   
+1           0        0        0        0        0        0       0       0   
+2           0        0        0        0        0        0       0       0   
+3           0        0        0        0        0        0       0       0   
+4           0        0        0        0        0        0       0       0   
+       ...      ...      ...      ...      ...      ...     ...     ...   
+3248        0        0        0        0        0        0       0       0   
+3249        0        0        0        0        0        0       0       0   
+3250        0        0        0        0        0        0       0       0   
+3251        0        0        0        0        0        0       0       0   
+3252        0        0        0        0        0        0       0       0   
+      3/30/20  3/31/20  4/1/20  4/2/20  4/3/20  4/4/20  4/5/20  4/6/20  
+0           0        0       0       0       0       0       0       0  
+1          58       69      77      82      84      93     112     113  
+2           0        2       6       6       6       6       6       6  
+3         174      239     286     316     316     452     475     513  
+4           0       30      30      30      37      40      42      43  
+       ...      ...     ...     ...     ...     ...     ...     ...  
+3248      274      274     303     344     501     483     533     648  
+3249        0        0       0       0       0       0       0       0  
+3250        0        0       0       0       0       0       0       0  
+3251        0        0       0       0       0       0       0       0  
+3252      103      103     103     103     103     103     103     103  
+```
+
+##### 全球死亡
+
+接口: covid_19_csse_global_death
+
+目标地址: https://github.com/CSSEGISandData/COVID-19
+
+描述: 获取全球死亡数据所有历史数据
+
+限量: 单次返回所有历史数据，每日更新
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ------- |
+| Province/State | str | Y | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
+| Country/Region | str | Y | country/region name conforming to WHO (will be updated). |
+| Lat and Long | float | Y | a coordinates reference for the user. |
+| Date fields | float | Y |  M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file. |
+			
+接口示例
+
+```python
+import akshare as ak
+covid_19_csse_global_death_df = ak.covid_19_csse_global_death()
+print(covid_19_csse_global_death_df)
+```
+
+数据示例
+
+```
+           UID iso2 iso3  code3     FIPS      Admin2  \
+0           16   AS  ASM     16     60.0         NaN   
+1          316   GU  GUM    316     66.0         NaN   
+2          580   MP  MNP    580     69.0         NaN   
+3          630   PR  PRI    630     72.0         NaN   
+4          850   VI  VIR    850     78.0         NaN   
+        ...  ...  ...    ...      ...         ...   
+3248  84090053   US  USA    840  90053.0  Unassigned   
+3249  84090054   US  USA    840  90054.0  Unassigned   
+3250  84090055   US  USA    840  90055.0  Unassigned   
+3251  84090056   US  USA    840  90056.0  Unassigned   
+3252  84099999   US  USA    840  99999.0         NaN   
+                Province_State Country_Region      Lat     Long_  \
+0               American Samoa             US -14.2710 -170.1320   
+1                         Guam             US  13.4443  144.7937   
+2     Northern Mariana Islands             US  15.0979  145.6739   
+3                  Puerto Rico             US  18.2208  -66.5901   
+4               Virgin Islands             US  18.3358  -64.8963   
+                        ...            ...      ...       ...   
+3248                Washington             US   0.0000    0.0000   
+3249             West Virginia             US   0.0000    0.0000   
+3250                 Wisconsin             US   0.0000    0.0000   
+3251                   Wyoming             US   0.0000    0.0000   
+3252            Grand Princess             US   0.0000    0.0000   
+                       Combined_Key  1/22/20  1/23/20  1/24/20  1/25/20  \
+0                American Samoa, US        0        0        0        0   
+1                          Guam, US        0        0        0        0   
+2      Northern Mariana Islands, US        0        0        0        0   
+3                   Puerto Rico, US        0        0        0        0   
+4                Virgin Islands, US        0        0        0        0   
+                             ...      ...      ...      ...      ...   
+3248     Unassigned, Washington, US        0        0        0        0   
+3249  Unassigned, West Virginia, US        0        0        0        0   
+3250      Unassigned, Wisconsin, US        0        0        0        0   
+3251        Unassigned, Wyoming, US        0        0        0        0   
+3252             Grand Princess, US        0        0        0        0   
+      1/26/20  1/27/20  1/28/20  1/29/20  1/30/20  1/31/20  2/1/20  2/2/20  \
+0           0        0        0        0        0        0       0       0   
+1           0        0        0        0        0        0       0       0   
+2           0        0        0        0        0        0       0       0   
+3           0        0        0        0        0        0       0       0   
+4           0        0        0        0        0        0       0       0   
+       ...      ...      ...      ...      ...      ...     ...     ...   
+3248        0        0        0        0        0        0       0       0   
+3249        0        0        0        0        0        0       0       0   
+3250        0        0        0        0        0        0       0       0   
+3251        0        0        0        0        0        0       0       0   
+3252        0        0        0        0        0        0       0       0   
+      3/30/20  3/31/20  4/1/20  4/2/20  4/3/20  4/4/20  4/5/20  4/6/20  
+0           0        0       0       0       0       0       0       0  
+1          58       69      77      82      84      93     112     113  
+2           0        2       6       6       6       6       6       6  
+3         174      239     286     316     316     452     475     513  
+4           0       30      30      30      37      40      42      43  
+       ...      ...     ...     ...     ...     ...     ...     ...  
+3248      274      274     303     344     501     483     533     648  
+3249        0        0       0       0       0       0       0       0  
+3250        0        0       0       0       0       0       0       0  
+3251        0        0       0       0       0       0       0       0  
+3252      103      103     103     103     103     103     103     103  
+```
+
+##### 全球治愈
+
+接口: covid_19_csse_global_recovered
+
+目标地址: https://github.com/CSSEGISandData/COVID-19
+
+描述: 获取全球治愈数据所有历史数据
+
+限量: 单次返回所有历史数据，每日更新
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ------- |
+| Province/State | str | Y | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
+| Country/Region | str | Y | country/region name conforming to WHO (will be updated). |
+| Lat and Long | float | Y | a coordinates reference for the user. |
+| Date fields | float | Y |  M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file. |
+			
+接口示例
+
+```python
+import akshare as ak
+covid_19_csse_global_recovered_df = ak.covid_19_csse_global_recovered()
+print(covid_19_csse_global_recovered_df)
+```
+
+数据示例
+
+```
+           UID iso2 iso3  code3     FIPS      Admin2  \
+0           16   AS  ASM     16     60.0         NaN   
+1          316   GU  GUM    316     66.0         NaN   
+2          580   MP  MNP    580     69.0         NaN   
+3          630   PR  PRI    630     72.0         NaN   
+4          850   VI  VIR    850     78.0         NaN   
+        ...  ...  ...    ...      ...         ...   
+3248  84090053   US  USA    840  90053.0  Unassigned   
+3249  84090054   US  USA    840  90054.0  Unassigned   
+3250  84090055   US  USA    840  90055.0  Unassigned   
+3251  84090056   US  USA    840  90056.0  Unassigned   
+3252  84099999   US  USA    840  99999.0         NaN   
+                Province_State Country_Region      Lat     Long_  \
+0               American Samoa             US -14.2710 -170.1320   
+1                         Guam             US  13.4443  144.7937   
+2     Northern Mariana Islands             US  15.0979  145.6739   
+3                  Puerto Rico             US  18.2208  -66.5901   
+4               Virgin Islands             US  18.3358  -64.8963   
+                        ...            ...      ...       ...   
+3248                Washington             US   0.0000    0.0000   
+3249             West Virginia             US   0.0000    0.0000   
+3250                 Wisconsin             US   0.0000    0.0000   
+3251                   Wyoming             US   0.0000    0.0000   
+3252            Grand Princess             US   0.0000    0.0000   
+                       Combined_Key  1/22/20  1/23/20  1/24/20  1/25/20  \
+0                American Samoa, US        0        0        0        0   
+1                          Guam, US        0        0        0        0   
+2      Northern Mariana Islands, US        0        0        0        0   
+3                   Puerto Rico, US        0        0        0        0   
+4                Virgin Islands, US        0        0        0        0   
+                             ...      ...      ...      ...      ...   
+3248     Unassigned, Washington, US        0        0        0        0   
+3249  Unassigned, West Virginia, US        0        0        0        0   
+3250      Unassigned, Wisconsin, US        0        0        0        0   
+3251        Unassigned, Wyoming, US        0        0        0        0   
+3252             Grand Princess, US        0        0        0        0   
+      1/26/20  1/27/20  1/28/20  1/29/20  1/30/20  1/31/20  2/1/20  2/2/20  \
+0           0        0        0        0        0        0       0       0   
+1           0        0        0        0        0        0       0       0   
+2           0        0        0        0        0        0       0       0   
+3           0        0        0        0        0        0       0       0   
+4           0        0        0        0        0        0       0       0   
+       ...      ...      ...      ...      ...      ...     ...     ...   
+3248        0        0        0        0        0        0       0       0   
+3249        0        0        0        0        0        0       0       0   
+3250        0        0        0        0        0        0       0       0   
+3251        0        0        0        0        0        0       0       0   
+3252        0        0        0        0        0        0       0       0   
+      3/30/20  3/31/20  4/1/20  4/2/20  4/3/20  4/4/20  4/5/20  4/6/20  
+0           0        0       0       0       0       0       0       0  
+1          58       69      77      82      84      93     112     113  
+2           0        2       6       6       6       6       6       6  
+3         174      239     286     316     316     452     475     513  
+4           0       30      30      30      37      40      42      43  
+       ...      ...     ...     ...     ...     ...     ...     ...  
+3248      274      274     303     344     501     483     533     648  
+3249        0        0       0       0       0       0       0       0  
+3250        0        0       0       0       0       0       0       0  
+3251        0        0       0       0       0       0       0       0  
+3252      103      103     103     103     103     103     103     103  
+```

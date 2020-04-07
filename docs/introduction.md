@@ -202,6 +202,8 @@
     6.69 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的现货与股票数据;
     
     6.70 新增[中国期货市场监控中心](http://index.cfmmc.com/index/views/index.html)提供的期货指数数据;
+    
+    6.71 新增[CSSE开源项目](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)提供的全球疫情数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 欢迎加入 [AkShare GitHub](https://github.com/jindaxiang/akshare) 社区的维护与管理.

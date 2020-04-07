@@ -13,6 +13,7 @@ COVID-19-百度
 """
 import json
 import time
+from datetime import datetime
 
 import demjson
 import jsonpath
@@ -686,6 +687,81 @@ def covid_19_history() -> pd.DataFrame:
     return data_df
 
 
+def covid_19_csse_daily(date: str = "2020-04-06") -> pd.DataFrame:
+    """
+    2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
+    https://github.com/CSSEGISandData/COVID-19
+    采集 GitHub csv 文件需要 raw 地址
+    :param date: from 2020-01-22 to today
+    :type date: str
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/{date.split('-')[1]}-{date.split('-')[2]}-{date.split('-')[0]}.csv"
+    temp_df = pd.read_table(url, sep=",")
+    return temp_df
+
+
+def covid_19_csse_us_confirmed() -> pd.DataFrame:
+    """
+    2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
+    https://github.com/CSSEGISandData/COVID-19
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
+    temp_df = pd.read_table(url, sep=",")
+    return temp_df
+
+
+def covid_19_csse_global_confirmed() -> pd.DataFrame:
+    """
+    2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
+    https://github.com/CSSEGISandData/COVID-19
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
+    temp_df = pd.read_table(url, sep=",")
+    return temp_df
+
+
+def covid_19_csse_us_death() -> pd.DataFrame:
+    """
+    2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
+    https://github.com/CSSEGISandData/COVID-19
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv"
+    temp_df = pd.read_table(url, sep=",")
+    return temp_df
+
+
+def covid_19_csse_global_death() -> pd.DataFrame:
+    """
+    2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
+    https://github.com/CSSEGISandData/COVID-19
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
+    temp_df = pd.read_table(url, sep=",")
+    return temp_df
+
+
+def covid_19_csse_global_recovered() -> pd.DataFrame:
+    """
+    2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
+    https://github.com/CSSEGISandData/COVID-19
+    :return:
+    :rtype: pandas.DataFrame
+    """
+    url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
+    temp_df = pd.read_table(url, sep=",")
+    return temp_df
+
+
 if __name__ == "__main__":
     # 163
     indicator_list = [
@@ -787,3 +863,22 @@ if __name__ == "__main__":
     # 详细历史数据
     epidemic_history_df = covid_19_history()
     print(epidemic_history_df)
+
+    # CSSE
+    covid_19_csse_daily_df = covid_19_csse_daily(date="2020-04-06")
+    print(covid_19_csse_daily_df)
+
+    covid_19_csse_us_confirmed_df = covid_19_csse_us_confirmed()
+    print(covid_19_csse_us_confirmed_df)
+
+    covid_19_csse_global_confirmed_df = covid_19_csse_global_confirmed()
+    print(covid_19_csse_global_confirmed_df)
+
+    covid_19_csse_us_death_df = covid_19_csse_us_death()
+    print(covid_19_csse_us_death_df)
+
+    covid_19_csse_global_death_df = covid_19_csse_global_death()
+    print(covid_19_csse_global_death_df)
+
+    covid_19_csse_global_recovered_df = covid_19_csse_global_recovered()
+    print(covid_19_csse_global_recovered_df)
