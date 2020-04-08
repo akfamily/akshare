@@ -83,6 +83,7 @@ def stock_js_weibo_report(time_period: str = "CNHOUR2") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    print(stock_js_weibo_nlp_time())
-    get_news_df = stock_js_weibo_report(time_period="CNHOUR12")
+    stock_js_weibo_nlp_time_map = stock_js_weibo_nlp_time()
+    print(stock_js_weibo_nlp_time_map)
+    get_news_df = stock_js_weibo_report(time_period="CNHOUR6")
     print(get_news_df)
