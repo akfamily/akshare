@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-1. 本文档更新于 **2020-04-07**;
+1. 本文档更新于 **2020-04-08**;
 
 2. 如有库或者文档的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
@@ -204,6 +204,8 @@
     6.70 新增[中国期货市场监控中心](http://index.cfmmc.com/index/views/index.html)提供的期货指数数据;
     
     6.71 新增[CSSE开源项目](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)提供的全球疫情数据;
+    
+    6.72 新增[宽客在线](https://www.quantinfo.com/Argus/)提供的阿尔戈斯全网监控数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 欢迎加入 [AkShare GitHub](https://github.com/jindaxiang/akshare) 社区的维护与管理.
