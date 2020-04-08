@@ -118,7 +118,7 @@ def on_emit(ws):
     heartbeat.start()
 
 
-def watch():
+def watch_jinshi():
 
     websocket.enableTrace(False)
     ws = websocket.WebSocketApp(
@@ -134,4 +134,4 @@ def watch():
 
 
 if __name__ == "__main__":
-    watch()
+    watch_jinshi()
