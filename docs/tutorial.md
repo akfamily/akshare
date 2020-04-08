@@ -431,6 +431,8 @@
  "futures_spot_stock"  # 现货与股票接口
  # 中国期货市场监控中心
  "futures_index_cfmmc"  # 中国期货市场监控中心-指数
+ # 阿尔戈斯全网监控
+ "watch_argus"  # 阿尔戈斯全网监控
 ```
 
 ## 案例演示
