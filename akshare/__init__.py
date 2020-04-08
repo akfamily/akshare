@@ -898,10 +898,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.68: fix: marco_usa
 0.4.69: add: futures_cfmmc
 0.4.70: add: covid_19 CSSE 数据接口
+0.4.71: add: argus
 """
 
-__version__ = "0.4.70"
+__version__ = "0.4.71"
 __author__ = "Albert King"
+
+"""
+argus
+"""
+from akshare.ws.argus import watch_argus
 
 """
 covid_19 CSSE
@@ -1447,7 +1453,7 @@ from akshare.air.time_and_date import weather_daily, weather_monthly
 """
 金十财经-实时监控
 """
-from akshare.ws.jinshi import watch
+from akshare.ws.jinshi import watch_jinshi
 
 """
 新浪-指数实时行情和历史行情
