@@ -900,9 +900,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.70: add: covid_19 CSSE 数据接口
 0.4.71: add: argus
 0.4.72: add: stock_zh_tick_163
+0.4.73: add: stock_zh_tick_tx_js
 """
 
-__version__ = "0.4.72"
+__version__ = "0.4.73"
 __author__ = "Albert King"
 
 """
@@ -1459,7 +1460,7 @@ from akshare.ws.jinshi import watch_jinshi
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.stock.zh_stock_a_tick_tx_163 import stock_zh_a_tick_tx, stock_zh_a_tick_163
+from akshare.stock.zh_stock_a_tick_tx_163 import stock_zh_a_tick_tx, stock_zh_a_tick_163, stock_zh_a_tick_tx_js
 
 """
 新浪-指数实时行情和历史行情
