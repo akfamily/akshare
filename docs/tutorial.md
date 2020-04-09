@@ -113,7 +113,8 @@
  "stock_zh_index_daily"  # 股票指数历史行情数据
  "stock_zh_index_spot"  # 股票指数实时行情数据
  # 股票分笔数据
- "stock_zh_a_tick"  # A 股票分笔行情数据(近2年)
+ "stock_zh_a_tick_tx"  # A 股票分笔行情数据(近2年)-腾讯
+ "stock_zh_a_tick_163"  # A 股票分笔行情数据(近5个交易日)-163
  # Websocket 实时监控
  "watch"  # 监控外汇实时价格
  # 世界各地区日出和日落数据-日
