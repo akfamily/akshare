@@ -899,9 +899,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.69: add: futures_cfmmc
 0.4.70: add: covid_19 CSSE 数据接口
 0.4.71: add: argus
+0.4.72: add: stock_zh_tick_163
 """
 
-__version__ = "0.4.71"
+__version__ = "0.4.72"
 __author__ = "Albert King"
 
 """
@@ -1458,7 +1459,7 @@ from akshare.ws.jinshi import watch_jinshi
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.stock.zh_stock_a_tick_tx import stock_zh_a_tick
+from akshare.stock.zh_stock_a_tick_tx_163 import stock_zh_a_tick_tx, stock_zh_a_tick_163
 
 """
 新浪-指数实时行情和历史行情

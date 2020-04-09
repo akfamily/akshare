@@ -1217,4 +1217,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.70: add: covid_19 CSSE 数据接口
 
 0.4.71: add: argus
+
+0.4.72: add: stock_zh_tick_163
 ```
