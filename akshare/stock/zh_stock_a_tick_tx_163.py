@@ -14,6 +14,31 @@ import pandas as pd
 import requests
 
 
+def stock_zh_a_tick_tx_js(code: str = "sz000001"):
+    big_df = pd.DataFrame()
+    page = 0
+    while True:
+        try:
+            url = "http://stock.gtimg.cn/data/index.php"
+            params = {
+                "appn": "detail",
+                "action": "data",
+                "c": code,
+                "p": page,
+            }
+            r = requests.get(url, params=params)
+            text_data = r.text
+            temp_df = pd.DataFrame(eval(text_data[text_data.find("["):])[1].split("|")).iloc[:, 0].str.split("/", expand=True)
+            page += 1
+            big_df = big_df.append(temp_df)
+        except:
+            break
+    if not big_df.empty:
+        big_df = big_df.iloc[:, 1:]
+        big_df.columns = ["成交时间", "成交价", "价格变动", "成交量（手）", "成交额（元）", "性质"]
+    return big_df
+
+
 def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20191011") -> pd.DataFrame:
     """
     http://gu.qq.com/sz000001/gp/detail
@@ -68,3 +93,6 @@ if __name__ == "__main__":
             print(data)
     stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20200408")
     print(stock_zh_a_tick_163_df)
+
+    stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
+    print(stock_zh_a_tick_tx_js_df)
