@@ -14,14 +14,14 @@ import requests
 import pandas as pd
 
 
-def num_to_str_data(str_date):
+def num_to_str_data(str_date: int) -> str:
     str_date = str_date / 1000
     str_date = time.localtime(str_date)  # 生成一个元组的时间
     strp_time = time.strftime("%Y-%m-%d %H:%M:%S", str_date)  # 格式化元组
     return strp_time
 
 
-def get_nh_list():
+def get_nh_list_table() -> pd.DataFrame:
     """
     获取南华期货-南华指数所有品种一览表
     :return: pandas.DataFrame
@@ -107,7 +107,7 @@ def get_nh_list():
     return futures_df
 
 
-def nh_volatility_index(code="NHCI", day_count=20):
+def nh_volatility_index(code: str = "NHCI", day_count: int = 20) -> pd.DataFrame:
     """
     获取南华期货-南华指数单品种所有历史数据
     :param code: str 通过 get_nh_list 提供
@@ -127,7 +127,7 @@ def nh_volatility_index(code="NHCI", day_count=20):
     2019-11-25  793.331
     2019-11-26  779.346
     """
-    if code in get_nh_list()["code"].tolist():
+    if code in get_nh_list_table()["code"].tolist():
         t = time.time()
         base_url = f"http://www.nanhua.net/ianalysis/volatility/{day_count}/{code}.json?t={int(round(t * 1000))}"
         res = requests.get(base_url)
@@ -141,5 +141,5 @@ def nh_volatility_index(code="NHCI", day_count=20):
 
 
 if __name__ == "__main__":
-    df = nh_volatility_index(code="AL", day_count=20)
-    print(df)
+    nh_volatility_index_df = nh_volatility_index(code="AL", day_count=20)
+    print(nh_volatility_index_df)

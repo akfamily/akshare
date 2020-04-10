@@ -902,9 +902,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.72: add: stock_zh_tick_163
 0.4.73: add: stock_zh_tick_tx_js
 0.4.74: fix: stock_zh_tick_163 return tips
+0.4.75: fix: nh_index
 """
 
-__version__ = "0.4.74"
+__version__ = "0.4.75"
 __author__ = "Albert King"
 
 """
@@ -1439,7 +1440,7 @@ from akshare.article.epu_index import article_epu_index
 """
 南华期货-南华指数
 """
-from akshare.futures_derivative.nh_index_return import nh_return_index
+from akshare.futures_derivative.nh_index_return import nh_return_index, get_nh_list_table
 from akshare.futures_derivative.nh_index_price import nh_price_index
 from akshare.futures_derivative.nh_index_volatility import nh_volatility_index
 
