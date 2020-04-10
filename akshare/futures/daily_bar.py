@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/02/20 13:58
-contact: jindaxiang@163.com
-desc: 从交易所网站获取日线行情
+Date: 2020/02/20 13:58
+Desc: 从交易所网站获取日线行情
 """
 import datetime
 import json
