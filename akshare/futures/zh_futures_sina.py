@@ -180,15 +180,15 @@ def futures_zh_spot(
 
 if __name__ == "__main__":
     print("开始接收实时行情, 每秒刷新一次")
-    # dce_text = match_main_contract(exchange="dce")
-    # czce_text = match_main_contract(exchange="czce")
-    # shfe_text = match_main_contract(exchange="shfe")
-    # while True:
-    #     time.sleep(3)
-    #     data = futures_zh_spot(
-    #         subscribe_list=",".join([dce_text, czce_text, shfe_text]),
-    #         market="CF")
-    #     print(data)
+    dce_text = match_main_contract(exchange="dce")
+    czce_text = match_main_contract(exchange="czce")
+    shfe_text = match_main_contract(exchange="shfe")
+    while True:
+        time.sleep(3)
+        data = futures_zh_spot(
+            subscribe_list=",".join([dce_text, czce_text, shfe_text]),
+            market="CF")
+        print(data)
 
     # 金融期货单独订阅
     cffex_text = match_main_contract(exchange="cffex")
