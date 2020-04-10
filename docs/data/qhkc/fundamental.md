@@ -98,29 +98,31 @@ print(term_structure_df)
 
 ## 库存数据
 
-### 接口名称
+### 参数类型一
+
+#### 接口名称
 
 inventory
 
-### 接口描述
+#### 接口描述
 
-库存数据接口
+库存数据接口-参数类型一
 
-### 请求参数
+#### 请求参数
 
 |参数名|说明|举例|
 |:-----  |:-----|-----                           |
 |variety |品种编码   |RB|
 |date |查询日期   |2018-08-08|
 
-### 返回参数
+#### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|-----                           |
 |trans_date |date   |查询日期  |
 |vol |float   |库存数据量  |
 
-### 示例代码
+#### 示例代码
 
 ```python
 from akshare import pro_api
@@ -129,12 +131,54 @@ inventory_df = pro.inventory(variety="RB", date="2018-08-08")
 print(inventory_df)
 ```
 
-### 返回示例
+#### 返回示例
 
 ```
              inventory
 trans_date  2018-08-08
 vol             605.76
+```
+
+### 参数类型二
+
+#### 接口名称
+
+inventory
+
+#### 接口描述
+
+库存数据接口-参数类型二
+
+#### 请求参数
+
+|参数名|说明|举例|
+|:-----  |:-----|-----                           |
+|variety |品种编码   |RB|
+|year |查询年份   |2019|
+|week_number |该年第几周   |10|
+
+#### 返回参数
+
+|参数名|类型|说明|
+|:-----  |:-----|-----                           |
+|trans_date |date   |查询日期  |
+|vol |float   |库存数据量  |
+
+#### 示例代码
+
+```python
+from akshare import pro_api
+pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+inventory_df = pro.inventory(variety="RB", year="2019", week_number="10")
+print(inventory_df)
+```
+
+#### 返回示例
+
+```
+             inventory
+trans_date  2019-03-07
+vol            1326.64
 ```
 
 ## 利润数据
