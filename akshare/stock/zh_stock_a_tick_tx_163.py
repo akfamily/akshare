@@ -63,9 +63,9 @@ def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20191011") -> 
     return temp_df
 
 
-def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20200408") -> pd.DataFrame:
+def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20200410") -> pd.DataFrame:
     """
-    成交明细-每个交易日16:00提供当日数据
+    成交明细-每个交易日22:00提供当日数据
     http://quotes.money.163.com/trade/cjmx_000001.html#01b05
     :param code: 带市场标识的股票代码
     :type code: str
@@ -78,8 +78,11 @@ def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20200408") ->
     url = f"http://quotes.money.163.com/cjmx/{trade_date[:4]}/{trade_date}/{name_code_map[code[:2]]}{code[2:]}.xls"
     res = requests.get(url)
     res.encoding = "utf-8"
-    temp_df = pd.read_excel(BytesIO(res.content))
-    return temp_df
+    try:
+        temp_df = pd.read_excel(BytesIO(res.content))
+        return temp_df
+    except:
+        return print("无当前交易日数据，请稍后再试")
 
 
 if __name__ == "__main__":
@@ -91,7 +94,7 @@ if __name__ == "__main__":
         data = stock_zh_a_tick_tx(code="sz000001", trade_date=f"{item}")
         if not data.empty:
             print(data)
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20200408")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20200410")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
