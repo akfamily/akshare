@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 
 
-def fred_md(date="2012-01"):
+def fred_md(date="2020-01"):
     url = f"https://s3.amazonaws.com/files.fred.stlouisfed.org/fred-md/monthly/{date}.csv"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -32,7 +32,7 @@ def fred_md(date="2012-01"):
     return temp_df
 
 
-def fred_qd(date="2012-03"):
+def fred_qd(date="2020-03"):
     url = f"https://s3.amazonaws.com/files.fred.stlouisfed.org/fred-md/quarterly/{date}.csv"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -55,5 +55,5 @@ def fred_qd(date="2012-03"):
 
 
 if __name__ == '__main__':
-    fred_md_df = fred_md(date="2012-01")
+    fred_md_df = fred_md(date="2020-01")
     print(fred_md_df)

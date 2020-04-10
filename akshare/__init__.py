@@ -903,10 +903,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.73: add: stock_zh_tick_tx_js
 0.4.74: fix: stock_zh_tick_163 return tips
 0.4.75: fix: nh_index
+0.4.76: add: fred_md
 """
 
-__version__ = "0.4.75"
+__version__ = "0.4.76"
 __author__ = "Albert King"
+
+"""
+article
+"""
+from akshare.article.fred_md import fred_md, fred_qd
+from akshare.article.agoyal import agoyal_stock_return
 
 """
 argus
