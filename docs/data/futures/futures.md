@@ -701,7 +701,7 @@ while True:
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| subscribe_list | str | Y | 需要订阅的合约代码; e.g., 按照示例获取 **hf_subscribe_exchange_symbol** |
+| subscribe_list | str | Y | 需要订阅的合约代码; e.g., 按照示例获取 **ak.hf_subscribe_exchange_symbol()** |
 
 输出参数
 
