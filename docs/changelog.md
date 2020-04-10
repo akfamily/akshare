@@ -1223,4 +1223,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.73: add: stock_zh_tick_tx_js
 
 0.4.74: fix: stock_zh_tick_163 return tips
+
+0.4.75: fix: nh_index
 ```

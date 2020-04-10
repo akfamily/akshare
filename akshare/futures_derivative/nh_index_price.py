@@ -28,7 +28,7 @@ def num_to_str_data(str_date: str) -> str:
     return strp_time
 
 
-def get_nh_list() -> pd.DataFrame:
+def get_nh_list_table() -> pd.DataFrame:
     """
     获取南华期货-南华指数所有品种一览表
     :return: pandas.DataFrame
@@ -127,7 +127,7 @@ def nh_price_index(code: str = "A") -> pd.DataFrame:
     2019-11-25  793.331
     2019-11-26  779.346
     """
-    if code in get_nh_list()["code"].tolist():
+    if code in get_nh_list_table()["code"].tolist():
         t = time.time()
         base_url = f"http://www.nanhua.net/ianalysis/varietyindex/price/{code}.json?t={int(round(t * 1000))}"
         res = requests.get(base_url)
