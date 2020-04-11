@@ -17,7 +17,7 @@ desc: 获取商品期权数据
 """
 import datetime
 import warnings
-from io import StringIO
+from io import StringIO, BytesIO
 
 import requests
 import pandas as pd
@@ -32,9 +32,9 @@ from akshare.option.cons import (
 )
 
 
-def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
+def get_dce_option_daily(trade_date="20200409", symbol="液化石油气期权"):
     """
-    获取大连商品交易所-期权-日频行情数据
+    大连商品交易所-期权-日频行情数据
     :param trade_date: str format："20191017"
     :param symbol: str "玉米期权" or "豆粕期权"
     :return: pandas.DataFrame
@@ -84,82 +84,27 @@ def get_dce_option_daily(trade_date="20191017", symbol="玉米期权"):
         "year": str(day.year),
         "month": str(day.month - 1),
         "day": str(day.day),
-        "exportFlag": "txt",
+        "exportFlag": "excel",
     }
     res = requests.post(url, data=payload)
-    f = StringIO(res.text)
-    table_df = pd.read_table(
-        f, encoding="gbk", skiprows=2, header=None, sep=r"\t\t", engine="python"
-    )
+
+    f = BytesIO(res.content)
+    table_df = pd.read_excel(f, encoding="gbk", header=0)
     another_df = table_df.iloc[
-        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name :, [0, 1]
+        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:, [0, 1]
     ]
     another_df.reset_index(inplace=True, drop=True)
     another_df.iloc[0] = another_df.iat[0, 0].split("\t")
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
-    table_df = table_df.join(
-        table_df.iloc[:, 1].str.split(r"\t", expand=True), lsuffix="l"
-    )
-    table_df.columns = [
-        "商品名称",
-        "_",
-        "最高价",
-        "最低价",
-        "收盘价",
-        "前结算价",
-        "结算价",
-        "涨跌",
-        "涨跌1",
-        "Delta",
-        "成交量",
-        "持仓量",
-        "持仓量变化",
-        "成交额",
-        "行权量",
-        "合约名称",
-        "开盘价",
-    ]
-    table_df = table_df[
-        [
-            "商品名称",
-            "合约名称",
-            "开盘价",
-            "最高价",
-            "最低价",
-            "收盘价",
-            "前结算价",
-            "结算价",
-            "涨跌",
-            "涨跌1",
-            "Delta",
-            "成交量",
-            "持仓量",
-            "持仓量变化",
-            "成交额",
-            "行权量",
-        ]
-    ]
-    table_df.dropna(axis=1, how="all", inplace=True)
-    product_one_df = table_df.iloc[
-        : table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name, :
-    ]
-    product_two_df = table_df.iloc[
-        table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[0].name
-        + 1 : table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name,
-        :,
-    ]
-    product_three_df = table_df.iloc[
-        table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[1].name
-        + 1 : table_df[table_df.iloc[:, 0].str.contains("小计")].iloc[2].name,
-        :,
-    ]
     if symbol == "玉米期权":
-        return product_one_df, another_df[another_df.iloc[:, 0].str.contains("c")]
+        return table_df[table_df["商品名称"] == "玉米"], another_df[another_df.iloc[:, 0].str.contains("c")]
     elif symbol == "铁矿石期权":
-        return product_two_df, another_df[another_df.iloc[:, 0].str.contains("i")]
-    else:
-        return product_three_df, another_df[another_df.iloc[:, 0].str.contains("m")]
+        return table_df[table_df["商品名称"] == "铁矿石"], another_df[another_df.iloc[:, 0].str.contains("i")]
+    elif symbol == "豆粕期权":
+        return table_df[table_df["商品名称"] == "豆粕"], another_df[another_df.iloc[:, 0].str.contains("m")]
+    elif symbol == "液化石油气期权":
+        return table_df[table_df["商品名称"] == "液化石油气"], another_df[another_df.iloc[:, 0].str.contains("pg")]
 
 
 def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
@@ -381,10 +326,10 @@ def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
 if __name__ == "__main__":
     df_test = get_czce_option_daily(trade_date="20200117", symbol="菜籽粕期权")
     print(df_test)
-    one, two = get_dce_option_daily(trade_date="20191209", symbol="铁矿石期权")
+    one, two = get_dce_option_daily(trade_date="20200211", symbol="玉米期权")
     print(one)
     print(two)
-    one, two, three = get_shfe_option_daily(trade_date="20191220", symbol="黄金期权")
+    one, two, three = get_shfe_option_daily(trade_date="20200410", symbol="黄金期权")
     print(one)
     print(two)
     print(three)

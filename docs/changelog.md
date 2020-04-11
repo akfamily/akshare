@@ -1227,4 +1227,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.75: fix: nh_index
 
 0.4.76: add: fred_md
+
+0.4.77: fix: get_dce_option_daily
 ```
