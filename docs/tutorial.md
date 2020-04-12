@@ -361,6 +361,7 @@
  # 百度迁徙地图接口
  "migration_area_baidu"  # 百度迁徙地图-迁入/出地详情
  "migration_scale_baidu"  # 百度迁徙地图-迁徙规模
+ "internal_flow_history"  # 百度迁徙地图-城内出行强度
  # 新型肺炎-小区查询
  "covid_19_area_search"  # 具体小区查询
  "covid_19_area_all"  # 提供可查询的省份-城市-区一览表

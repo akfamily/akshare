@@ -905,9 +905,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.75: fix: nh_index
 0.4.76: add: fred_md
 0.4.77: fix: get_dce_option_daily
+0.4.78: add: internal_flow_history
 """
 
-__version__ = "0.4.77"
+__version__ = "0.4.78"
 __author__ = "Albert King"
 
 """
@@ -1093,7 +1094,7 @@ from akshare.fund.fund_em import fund_em_daily, fund_em_info
 """
 百度迁徙地图接口
 """
-from akshare.event.covid import migration_area_baidu, migration_scale_baidu
+from akshare.event.covid import migration_area_baidu, migration_scale_baidu, internal_flow_history
 
 """
 新增-事件接口新型冠状病毒接口
