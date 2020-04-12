@@ -331,7 +331,7 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
 
 
-def covid_19_baidu(indicator="浙江"):
+def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     """
     百度-新型冠状病毒肺炎-疫情实时大数据报告
     https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1
@@ -475,7 +475,7 @@ def covid_19_baidu(indicator="浙江"):
         return global_country_df
 
 
-def migration_area_baidu(area="乌鲁木齐市", indicator="move_in", date="20200201"):
+def migration_area_baidu(area: str = "乌鲁木齐市", indicator: str = "move_in", date: str = "20200201") -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-XXX迁入地详情
     百度地图慧眼-百度迁徙-XXX迁出地详情
@@ -510,9 +510,38 @@ def migration_area_baidu(area="乌鲁木齐市", indicator="move_in", date="2020
     return pd.DataFrame(json_data["data"]["list"])
 
 
+def internal_flow_history(area: str = "北京市", date: str = "20200412") -> pd.DataFrame:
+    """
+    百度地图慧眼-百度迁徙-城内出行强度
+    * 城内出行强度: 该城市有出行的人数与该城市居住人口比值的指数化结果.
+    * 当前数据更新于可能有延迟, 具体延迟请看相关页面提示.
+    * 2019年城内出行强度指数将于2020年3月15日停止更新.
+    https://qianxi.baidu.com/
+    :param area: 可以输入 "省份" 或者 "具体城市" 但是需要用全称, 如: 北京市
+    :type area: str
+    :param date: 查询的日期 20200101以后的时间
+    :type date: str
+    :return: 2019-2020 的城市出行强度数据
+    :rtype: pandas.DataFrame
+    """
+    city_dict.update(province_dict)
+    inner_dict = dict(zip(city_dict.values(), city_dict.keys()))
+    url = "https://huiyan.baidu.com/migration/internalflowhistory.jsonp"
+    payload = {
+        "dt": "city",
+        "id": inner_dict[area],
+        "date": date,
+    }
+    r = requests.get(url, params=payload)
+    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
+    temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index").sort_index()
+    temp_df.columns = ["value"]
+    return temp_df
+
+
 def migration_scale_baidu(
-    area="乌鲁木齐市", indicator="move_out", start_date="20190112", end_date="20200201"
-):
+    area: str = "乌鲁木齐市", indicator: str = "move_out", start_date: str = "20190112", end_date: str = "20200201"
+) -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-迁徙规模
     * 迁徙规模指数：反映迁入或迁出人口规模，城市间可横向对比
@@ -839,6 +868,10 @@ if __name__ == "__main__":
         area="上海市", indicator="move_in", date="20200212"
     )
     print(migration_area_baidu_df)
+
+    internal_flow_history_df = internal_flow_history(area="北京市", date="20200412")
+    print(internal_flow_history_df)
+
     migration_scale_baidu_df = migration_scale_baidu(
         area="上海市", indicator="move_in", start_date="20190113", end_date="20200212"
     )
