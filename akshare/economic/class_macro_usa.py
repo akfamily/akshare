@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/23 19:19
-contact: jindaxiang@163.com
-desc: 获取金十数据-数据中心所有连接
+Date: 2019/10/23 19:19
+Desc: 获取金十数据-数据中心所有连接
 """
 from bs4 import BeautifulSoup
 from requests_html import HTMLSession
@@ -40,5 +38,5 @@ def get_js_data_list():
 
 
 if __name__ == "__main__":
-    df = get_js_data_list()
-    print(df["其他"])
+    get_js_data_list_df = get_js_data_list()
+    print(get_js_data_list_df["其他"])

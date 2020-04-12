@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/17 16:55
-contact: jindaxiang@163.com
-desc: 获取北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
+Date: 2019/12/17 16:55
+Desc: 获取北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
 https://www.bjets.com.cn/article/jyxx/
 """
 import pandas as pd
@@ -12,7 +10,7 @@ import requests
 from tqdm import tqdm
 
 
-def energy_carbon():
+def energy_carbon() -> pd.DataFrame:
     """
     北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
     https://www.bjets.com.cn/article/jyxx/

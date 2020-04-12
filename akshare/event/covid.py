@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/1/23 9:07
-update_date: 2020/3/16 9:07
-contact: jindaxiang@163.com
-desc: COVID-19
+Date: 2020/3/16 9:07
+Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
 COVID-19-百度
@@ -13,14 +10,13 @@ COVID-19-百度
 """
 import json
 import time
-from datetime import datetime
 
 import demjson
 import jsonpath
 import pandas as pd
 import requests
-from tqdm import tqdm
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 from akshare.event.cons import province_dict, city_dict
 
@@ -580,7 +576,7 @@ def migration_scale_baidu(
     return temp_df
 
 
-def covid_19_area_search(province="四川省", city="成都市", district="高新区"):
+def covid_19_area_search(province: str = "四川省", city: str = "成都市", district: str = "高新区") -> pd.DataFrame:
     """
     省份-城市-区-数据查询
     https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
@@ -615,7 +611,7 @@ def covid_19_area_search(province="四川省", city="成都市", district="高�
     ]
 
 
-def covid_19_area_all():
+def covid_19_area_all() -> pd.DataFrame:
     """
     可以获取数据的全国所有省份-城市-区域数据
     https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0
@@ -641,7 +637,7 @@ def covid_19_area_all():
     return pd.DataFrame(temp, columns=["province", "city", "district"])
 
 
-def covid_19_area_detail():
+def covid_19_area_detail() -> pd.DataFrame:
     """
     细化到每个小区的确诊人数
     需要遍历每个页面, 如非必要, 请勿运行
@@ -659,7 +655,7 @@ def covid_19_area_detail():
     return temp_df
 
 
-def covid_19_trip():
+def covid_19_trip() -> pd.DataFrame:
     """
     新型肺炎确诊患者-相同行程查询工具
     https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message
