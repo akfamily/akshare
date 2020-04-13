@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-1. 本文档更新于 **2020-04-12**;
+1. 本文档更新于 **2020-04-13**;
 
 2. 如有库或者文档的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
@@ -56,11 +56,11 @@
 
 [AkShare](https://github.com/jindaxiang/akshare) 主要改进如下:
 
-1. 程序代码语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 数据接口函数的命名规范;
+1. 代码语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 数据接口的命名统一;
 2. 最佳支持 Python 3.7.5 及其以上版本;
 3. 提供最佳的文档支持, 每个数据接口提供丰富的说明和示例, 只需要复制粘贴就可以下载数据;
-4. 持续维护由于目标网页变化而导致的部分函数运行异常问题;
-5. 持续更新金融数据接口, 同时优化源代码;
+4. 持续维护由于目标网页变化而导致的部分数据接口运行异常问题;
+5. 持续更新财经数据接口, 同时优化源代码;
 6. 目前进行数据采集的网站一览:
 
     6.1 增加[奇货可查网站](https://qhkch.com/)提供的奇货可查指数数据;
@@ -153,7 +153,7 @@
     
     6.45 新增[国家金融与发展实验室网站](http://www.nifd.cn/)提供的宏观杠杆率数据;
     
-    6.46 新增[IT桔子网站](https://www.itjuzi.com)提供的千里马、独角兽、倒闭公司数据;
+    6.46 新增[IT桔子网站](https://www.itjuzi.com/)提供的千里马、独角兽、倒闭公司数据;
     
     6.47 新增[东方财富网站](http://data.eastmoney.com/jgdy/)提供的机构调研数据;
     
