@@ -894,7 +894,7 @@ if __name__ == "__main__":
     print(epidemic_history_df)
 
     # CSSE
-    covid_19_csse_daily_df = covid_19_csse_daily(date="2020-04-06")
+    covid_19_csse_daily_df = covid_19_csse_daily(date="2020-04-13")
     print(covid_19_csse_daily_df)
 
     covid_19_csse_us_confirmed_df = covid_19_csse_us_confirmed()
