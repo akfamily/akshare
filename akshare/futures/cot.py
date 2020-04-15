@@ -568,5 +568,3 @@ if __name__ == '__main__':
     print(get_shfe_rank_table_third_df)
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200317")
     print(get_rank_sum_daily_df)
-
-

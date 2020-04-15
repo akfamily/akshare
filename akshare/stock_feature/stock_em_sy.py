@@ -100,7 +100,7 @@ def _get_page_num_sy_yq_list(symbol: str = "沪深两市", trade_date: str = "20
     return data_json["pages"]
 
 
-def stock_em_sy_yq_list(symbol: str = "沪市主板", trade_date: str = "2018-12-31") -> pd.DataFrame:
+def stock_em_sy_yq_list(symbol: str = "沪市主板", trade_date: str = "2019-12-31") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-商誉减值预期明细
     http://data.eastmoney.com/sy/yqlist.html
@@ -464,11 +464,11 @@ def stock_em_sy_hy_list(trade_date: str = "2019-09-30") -> pd.DataFrame:
 if __name__ == "__main__":
     stock_em_sy_profile_df = stock_em_sy_profile()
     print(stock_em_sy_profile_df)
-    stock_em_sy_yq_list_df = stock_em_sy_yq_list()
+    stock_em_sy_yq_list_df = stock_em_sy_yq_list(symbol="沪市主板", trade_date="2019-12-31")
     print(stock_em_sy_yq_list_df)
-    stock_em_sy_jz_list_df = stock_em_sy_jz_list()
+    stock_em_sy_jz_list_df = stock_em_sy_jz_list(symbol="沪市主板", trade_date="2019-06-30")
     print(stock_em_sy_jz_list_df)
-    stock_em_sy_list_df = stock_em_sy_list()
+    stock_em_sy_list_df = stock_em_sy_list(symbol="沪市主板", trade_date="2019-09-30")
     print(stock_em_sy_list_df)
-    stock_em_sy_hy_list_df = stock_em_sy_hy_list()
+    stock_em_sy_hy_list_df = stock_em_sy_hy_list(trade_date="2019-09-30")
     print(stock_em_sy_hy_list_df)
