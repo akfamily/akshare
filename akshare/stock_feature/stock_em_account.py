@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/27 18:02
-contact: jindaxiang@163.com
-desc: 东方财富网-数据中心-特色数据-股票账户统计
+Date: 2019/12/27 18:02
+Desc: 东方财富网-数据中心-特色数据-股票账户统计
 东方财富网-数据中心-特色数据-股票账户统计: 股票账户统计详细数据
 http://data.eastmoney.com/cjsj/gpkhsj.html
 """
@@ -18,7 +16,7 @@ from tqdm import tqdm
 # pd.set_option('display.max_rows', 500)
 
 
-def _get_page_num_account():
+def _get_page_num_account() -> int:
     """
     东方财富网-数据中心-特色数据-股票账户统计
     http://data.eastmoney.com/cjsj/gpkhsj.html
@@ -40,7 +38,7 @@ def _get_page_num_account():
     return data_json["pages"]
 
 
-def stock_em_account():
+def stock_em_account() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股票账户统计
     http://data.eastmoney.com/cjsj/gpkhsj.html

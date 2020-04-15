@@ -436,6 +436,8 @@
  "futures_index_cfmmc"  # 中国期货市场监控中心-指数
  # 阿尔戈斯全网监控
  "watch_argus"  # 阿尔戈斯全网监控
+ # 打新收益率
+ "stock_em_dxsyl"  # 打新收益率
 ```
 
 ## 案例演示
