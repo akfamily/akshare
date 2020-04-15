@@ -906,10 +906,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.76: add: fred_md
 0.4.77: fix: get_dce_option_daily
 0.4.78: add: internal_flow_history
+0.4.79: add: stock_em_dxsyl
 """
 
-__version__ = "0.4.78"
+__version__ = "0.4.79"
 __author__ = "Albert King"
+
+"""
+stock
+"""
+from akshare.stock_feature.stock_em_dxsyl import stock_em_dxsyl
 
 """
 article
