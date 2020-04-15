@@ -2222,7 +2222,8 @@ print(stock_em_sy_profile_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| - | -  | -    |   - |
+| symbol | str  | Y    |   symbol="沪市主板"; 参见网页选项 |
+| trade_date | str  | Y    |   trade_date="2019-09-30"; 参见网页选项 |
 
 输出参数
 
@@ -2246,7 +2247,7 @@ print(stock_em_sy_profile_df)
 
 ```python
 import akshare as ak
-stock_em_sy_yq_list_df = ak.stock_em_sy_yq_list()
+stock_em_sy_yq_list_df = ak.stock_em_sy_yq_list(symbol="沪市主板", trade_date="2019-12-31")
 print(stock_em_sy_yq_list_df)
 ```
 
@@ -2537,7 +2538,8 @@ print(stock_em_sy_yq_list_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| - | -  | -    |   - |
+| symbol | str  | Y    |   symbol="沪市主板"; 参见网页选项 |
+| trade_date | str  | Y    |   trade_date="2019-09-30"; 参见网页选项 |
 
 输出参数
 
@@ -2556,7 +2558,7 @@ print(stock_em_sy_yq_list_df)
 
 ```python
 import akshare as ak
-stock_em_sy_jz_list_df = ak.stock_em_sy_jz_list()
+stock_em_sy_jz_list_df = ak.stock_em_sy_jz_list(symbol="沪市主板", trade_date="2019-06-30")
 print(stock_em_sy_jz_list_df)
 ```
 
@@ -2603,7 +2605,8 @@ print(stock_em_sy_jz_list_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| - | -  | -    |   - |
+| symbol | str  | Y    |   symbol="沪市主板"; 参见网页选项 |
+| trade_date | str  | Y    |   trade_date="2019-09-30"; 参见网页选项 |
 
 输出参数
 
@@ -2622,7 +2625,7 @@ print(stock_em_sy_jz_list_df)
 
 ```python
 import akshare as ak
-stock_em_sy_list_df = ak.stock_em_sy_list()
+stock_em_sy_list_df = ak.stock_em_sy_list(symbol="沪市主板", trade_date="2019-09-30")
 print(stock_em_sy_list_df)
 ```
 
@@ -2669,7 +2672,7 @@ print(stock_em_sy_list_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| - | -  | -    |   - |
+| trade_date | str  | Y    |   trade_date="2019-09-30"; 参见网页的选项 |
 
 输出参数
 
@@ -2686,7 +2689,7 @@ print(stock_em_sy_list_df)
 
 ```python
 import akshare as ak
-stock_em_sy_hy_list_df = ak.stock_em_sy_hy_list()
+stock_em_sy_hy_list_df = ak.stock_em_sy_hy_list(trade_date="2019-09-30")
 print(stock_em_sy_hy_list_df)
 ```
 
