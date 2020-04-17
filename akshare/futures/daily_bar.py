@@ -20,7 +20,7 @@ from akshare.futures.requests_fun import requests_link
 calendar = cons.get_calendar()
 
 
-def get_cffex_daily(date=None):
+def get_cffex_daily(date="20200416"):
     """
     中国金融期货交易所日交易数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 为空时为当天
@@ -94,7 +94,7 @@ def get_cffex_daily(date=None):
     return pd.DataFrame(dict_data)[cons.OUTPUT_COLUMNS]
 
 
-def get_ine_daily(date="20200312"):
+def get_ine_daily(date="20200416"):
     """
     上海国际能源交易中心-日频率-量价数据
     上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
@@ -129,7 +129,7 @@ def get_ine_daily(date="20200312"):
     return result_df
 
 
-def get_czce_daily(date=None):
+def get_czce_daily(date="20200416"):
     """
     郑州商品交易所-日频率-量价数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
@@ -198,11 +198,11 @@ def get_czce_daily(date=None):
         html = [
             i.replace(" ", "").split("|")
             for i in html.split("\n")[:-4]
-            if i[0][0] != u"小"
+            if i[0][0] != "小"
         ]
 
         if day > datetime.date(2015, 9, 19):
-            if html[1][0] not in ["品种月份", u"品种代码"]:
+            if html[1][0] not in ["品种月份", "品种代码"]:
                 return
             dict_data = list()
             day_const = int(day.strftime("%Y%m%d"))
@@ -281,7 +281,7 @@ def get_czce_daily(date=None):
         return pd.DataFrame(dict_data)[output_columns]
 
 
-def get_shfe_v_wap(date=None):
+def get_shfe_v_wap(date="20200416"):
     """
         获取上期所日成交均价数据
     Parameters
@@ -327,7 +327,7 @@ def get_shfe_v_wap(date=None):
         return None
 
 
-def get_shfe_daily(date=None):
+def get_shfe_daily(date="20200416"):
     """
     上海期货交易所-日频率-量价数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 默认为当前交易日
@@ -394,9 +394,9 @@ def get_shfe_daily(date=None):
     return df[cons.OUTPUT_COLUMNS]
 
 
-def get_dce_daily(date=None, symbol_type="futures", retries=0):
+def get_dce_daily(date="20200416", symbol_type="futures", retries=0):
     """
-        获取大连商品交易所日交易数据
+    大连商品交易所日交易数据
     Parameters
     ------
         date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -563,7 +563,7 @@ def get_dce_daily(date=None, symbol_type="futures", retries=0):
         )[output_columns]
 
 
-def get_futures_daily(start_day=None, end_day=None, market="CFFEX", index_bar=False):
+def get_futures_daily(start_day="20200413", end_day="20200416", market="CFFEX", index_bar=False):
     """
     交易所日交易数据
     Parameters
@@ -672,8 +672,8 @@ def get_futures_index(df):
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_day="20190107", end_day="20190108", market="SHFE", index_bar=True
+        start_day="20200415", end_day="20200416", market="CZCE", index_bar=False
     )
     print(get_futures_daily_df)
-    get_dce_daily_df = get_dce_daily(date=None, symbol_type="futures", retries=0)
+    get_dce_daily_df = get_dce_daily(date="20200416", symbol_type="futures", retries=0)
     print(get_dce_daily_df)
