@@ -471,7 +471,7 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         return global_country_df
 
 
-def migration_area_baidu(area: str = "乌鲁木齐市", indicator: str = "move_in", date: str = "20200201") -> pd.DataFrame:
+def migration_area_baidu(area: str = "乌鲁木齐市", indicator: str = "move_out", date: str = "20200201") -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-XXX迁入地详情
     百度地图慧眼-百度迁徙-XXX迁出地详情
@@ -485,7 +485,7 @@ def migration_area_baidu(area: str = "乌鲁木齐市", indicator: str = "move_i
     :type indicator: str
     :param date: 查询的日期 20200101以后的时间
     :type date: str
-    :return: 迁入地详情/迁出地详情的前50个
+    :return: 迁入地详情/迁出地详情的前 50 个
     :rtype: pandas.DataFrame
     """
     city_dict.update(province_dict)
@@ -502,7 +502,7 @@ def migration_area_baidu(area: str = "乌鲁木齐市", indicator: str = "move_i
         "date": date,
     }
     r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
+    json_data = json.loads(r.text[r.text.find("({") + 1: r.text.rfind(");")])
     return pd.DataFrame(json_data["data"]["list"])
 
 
@@ -536,7 +536,7 @@ def internal_flow_history(area: str = "北京市", date: str = "20200412") -> pd
 
 
 def migration_scale_baidu(
-    area: str = "乌鲁木齐市", indicator: str = "move_out", start_date: str = "20190112", end_date: str = "20200201"
+    area: str = "乌鲁木齐市", indicator: str = "move_out", start_date: str = "20190112", end_date: str = "20200401"
 ) -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-迁徙规模
@@ -569,11 +569,11 @@ def migration_scale_baidu(
         "endDate": end_date,
     }
     r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
+    json_data = json.loads(r.text[r.text.find("({") + 1: r.text.rfind(");")])
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df.columns = ["迁徙规模指数"]
-    return temp_df
+    return temp_df[start_date: end_date]
 
 
 def covid_19_area_search(province: str = "四川省", city: str = "成都市", district: str = "高新区") -> pd.DataFrame:

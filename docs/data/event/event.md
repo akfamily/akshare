@@ -1757,8 +1757,8 @@ print(covid_19_baidu_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| area | str | Y | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如 浙江省, 乌鲁木齐市 |
-| indicator | str | Y | indicator="move_in", 返回迁入地详情, indicator="move_in", 返回迁出地详情 |
+| area | str | Y | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如: "浙江省", "乌鲁木齐市" |
+| indicator | str | Y | indicator="move_in", 返回迁入地详情, indicator="move_out", 返回迁出地详情 |
 | date | str | Y | date="20200201", 需要滞后一天 |
 
 输出参数
@@ -1811,8 +1811,8 @@ print(migration_area_baidu_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| area | str | Y | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如 浙江省, 乌鲁木齐市 |
-| indicator | str | Y | indicator="move_in", 返回迁入地详情, indicator="move_in", 返回迁出地详情 |
+| area | str | Y | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如: "浙江省", "乌鲁木齐市" |
+| indicator | str | Y | indicator="move_in", 返回迁入地详情, indicator="move_out", 返回迁出地详情 |
 | start_date | str | Y | start_date="20190112", 一般不要变化 |
 | end_date | str | Y | end_date="20200201", 往后查询如 20200202 之后 |
 
