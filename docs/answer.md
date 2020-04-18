@@ -9,9 +9,10 @@
 1. 安装 AkShare 的速度慢，下载时间久
 
    1. 请使用国内的源来安装 AkShare
-      1. 基于纯 Python 的代码如下：```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade ```
-      2. 基于 Anaconda 的代码如下：```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade```
-
+      1. 基于 Python 的代码如下：
+      ```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade ```
+      2. 基于 Anaconda 的代码如下：
+      ```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade```
    2. 使用代理安装，由于相关限制，在这里对代理的安装和使用不做介绍，请自行搜索配置。
 
 2. 运行任意接口发现报错，错误类似：`AttributeError: module 'akshare' has no attribute 'xxx'`
@@ -26,8 +27,19 @@
    1. 由于目标网页的大部分的接口一次性返回所有数据，所以在 AkShare 的部分接口函数中没有设置类似 `start_date` 和 `end_date` 的参数
    2. 如果要获取指定日期间的数据，请在调用接口后自行处理
 
-4. 接口出现类似： `ReadTimeout: HTTPConnectionPool(host="www.xxx.com")` 
+4. 接口报错出现类似错误提示： `ReadTimeout: HTTPConnectionPool(host="www.xxx.com")` 
 
-   1. 重试运行接口
-   2. 更换 IP 地址，可以试用代理访问
+   1. 重新运行接口函数
+   2. 更换 IP 地址，可以使用代理访问
    3. 降低数据访问的频率
+
+5. 接口报错出现类似错误提示：`cannot import name 'StringIO' from 'pandas.compat'`
+
+   1. 建议安装 pandas 版本大于 **0.25.2**，建议 pandas 版本大于 **1.0**
+   2. 升级命令如下: `pip install akshare --upgrade`
+
+6. 出错数据返回数据错位，如日期数据和价格数据返回错位的情况
+
+   1. 多运行几次，是否是网络稳定问题
+   2. 切换 IP 后重试
+   3. 可以在 [GitHub Issues](https://github.com/jindaxiang/akshare/issues) 中反馈
