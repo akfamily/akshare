@@ -3521,3 +3521,128 @@ print(stock_em_dxsyl_df)
 664  601609  金田铜业   6.55         0.11521  ...                                    sh
 665  603682  锦和商业   7.91         0.05912  ...                                    sh
 ```
+
+### 年报季报
+
+#### 业绩预告
+
+接口: stock_em_yjyg
+
+目标地址: http://data.eastmoney.com/bbsj/202003/yjyg.html
+
+描述: 获取东方财富-数据中心-年报季报-业绩预告
+
+限量: 单次获取指定日期的业绩预告数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| date | str | Y    | date="2020-03-31"; choice of {"XXXX-03-31", "XXXX-06-30", "XXXX-09-30", "XXXX-12-31"}; 从 2008-12-31 开始 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| scode          | str   | Y        |  股票代码    |
+| sname          | str   | Y        |   股票简称   |
+| sclx          | float   | Y        |  所属市场    |
+| enddate          | float   | Y        |  查询日期    |
+| forecasttype          | float   | Y        |   预测类型   |
+| ndate          | float   | Y        |  公告日期    |
+| hymc          | float   | Y        |  所属板块    |
+| IsLatest          | float   | Y        |  是否最新    |
+| securitytypecode          | float   | Y        |  -    |
+| trademarketcode          | float   | Y        |  -    |
+| forecastl          | float   | Y        | 预计净利润(元)-下限     |
+| forecastt          | float   | Y        |  预计净利润(元)-上限    |
+| increasel          | float   | Y        |  业绩变动幅度-下限    |
+| increaset          | float   | Y        |  业绩变动幅度-上限    |
+| forecastcontent          | float   | Y        |   业绩变动   |
+| changereasondscrpt          | float   | Y        |  业绩变动原因    |
+| yearearlier          | str   | Y        |  上年同期净利润(元)    |
+| zfpx          | str   | Y        |   -   |
+| jlrpx          | str   | Y        |   -   |
+| forecast          | str   | Y        |   -   |
+
+接口示例
+
+```python
+import akshare as ak
+stock_em_yjyg_df = ak.stock_em_yjyg(date="2019-03-31")
+print(stock_em_yjyg_df)
+```
+
+数据示例
+
+```
+       scode sname    sclx  ...     zfpx      jlrpx   forecast
+0     002699  美盛文化  深交所中小板  ...   -79.46    9500000  reduction
+1     300061  旗天科技  深交所创业板  ...   121.05   57028000   increase
+2     002759  天际股份  深交所中小板  ...  1019.58   96330000   increase
+3     000004  国农科技   深交所主板  ...  203.325    6250000   increase
+4     002719   麦趣尔  深交所中小板  ...      -75    2227500  reduction
+      ...   ...     ...  ...      ...        ...        ...
+1524  300125   易世达  深交所创业板  ...    -71.5    2700000  reduction
+1525  300619   金银河  深交所创业板  ...       10    4336400   increase
+1526  300326   凯利泰  深交所创业板  ...       45   70869000   increase
+1527  002241  歌尔股份  深交所中小板  ...       10  202189350   increase
+1528  300532  今天国际  深交所创业板  ...   30.485   32500000   increase
+```
+
+#### 预约披露时间
+
+接口: stock_em_yysj
+
+目标地址: http://data.eastmoney.com/bbsj/202003/yysj.html
+
+描述: 获取东方财富-数据中心-年报季报-预约披露时间
+
+限量: 单次获取指定日期的预约披露时间数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| date | str | Y    | date="2020-03-31"; choice of {"XXXX-03-31", "XXXX-06-30", "XXXX-09-30", "XXXX-12-31"}; 从 2008-12-31 开始 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| scode          | str   | Y        |  股票代码    |
+| sname          | str   | Y        |   股票简称   |
+| trademarket          | float   | Y        |  所属市场    |
+| reportdate          | float   | Y        |  查询日期    |
+| frdate          | float   | Y        |   首次预约时间   |
+| fcdate          | float   | Y        |  一次变更日期    |
+| scdate          | float   | Y        |  二次变更日期    |
+| tcdate          | float   | Y        |  三次变更日期    |
+| radate          | float   | Y        |  实际披露时间    |
+| securitytypecode          | float   | Y        |  -    |
+| trademarketcode          | float   | Y        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_em_yysj_df = ak.stock_em_yysj(date="2019-03-31")
+print(stock_em_yysj_df)
+```
+
+数据示例
+
+```
+       scode sname  ... securitytypecode trademarketcode
+0     002007  华兰生物  ...        058001001    069001002003
+1     600396  金山股份  ...        058001001    069001001001
+2     002913   奥士康  ...        058001001    069001002003
+3     002838  道恩股份  ...        058001001    069001002003
+4     300208  青岛中程  ...        058001001    069001002002
+      ...   ...  ...              ...             ...
+3813  000566  海南海药  ...        058001001    069001002001
+3814  000548  湖南投资  ...        058001001    069001002001
+3815  600872  中炬高新  ...        058001001    069001001001
+3816  600804   鹏博士  ...        058001001    069001001001
+3817  600635  大众公用  ...        058001001    069001001001
+```

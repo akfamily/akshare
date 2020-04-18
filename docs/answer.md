@@ -43,3 +43,8 @@
    1. 多运行几次，是否是网络稳定问题
    2. 切换 IP 后重试
    3. 可以在 [GitHub Issues](https://github.com/jindaxiang/akshare/issues) 中反馈
+
+7. 全球疫情历史数据接口获取不到数据
+    
+   1. 由于 GitHub 服务器在国外，访问此数据接口最好使用代理访问
+   2. 如没有代理的情况下，多重复请求几次
