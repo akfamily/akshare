@@ -10,9 +10,9 @@
 
    1. 请使用国内的源来安装 AkShare
       1. 基于 Python 的代码如下：
-      ```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade ```
+```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade ```
       2. 基于 Anaconda 的代码如下：
-      ```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade```
+```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade```
    2. 使用代理安装，由于相关限制，在这里对代理的安装和使用不做介绍，请自行搜索配置。
 
 2. 运行任意接口发现报错，错误类似：`AttributeError: module 'akshare' has no attribute 'xxx'`
@@ -38,7 +38,7 @@
    1. 建议安装 pandas 版本大于 **0.25.2**，建议 pandas 版本大于 **1.0**
    2. 升级命令如下: `pip install akshare --upgrade`
 
-6. 出错数据返回数据错位，如日期数据和价格数据返回错位的情况
+6. 出现数据返回错位，如日期数据和价格数据返回错位的情况
 
    1. 多运行几次，是否是网络稳定问题
    2. 切换 IP 后重试
