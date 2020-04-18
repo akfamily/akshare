@@ -1,6 +1,6 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 概览
 
-1. 本文档更新于 **2020-04-16**;
+1. 本文档更新于 **2020-04-18**;
 
 2. 如有库或者文档的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
@@ -210,6 +210,8 @@
     6.73 新增[百度地图慧眼](https://qianxi.baidu.com/)提供的城内出行强度数据;
     
     6.74 新增[东方财富网](http://data.eastmoney.com/xg/xg/dxsyl.html/)提供的打新收益率数据;
+    
+    6.75 新增[东方财富网](http://data.eastmoney.com/bbsj/202003/yjyg.html/)提供的年报季报数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性;
 8. 欢迎加入 [AkShare GitHub](https://github.com/jindaxiang/akshare) 社区的维护与管理.

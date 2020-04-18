@@ -908,10 +908,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.78: add: internal_flow_history
 0.4.79: add: stock_em_dxsyl
 0.4.80: fix: covid and docs
+0.4.81: add: stock_em_yjyg and stock_em_yysj
 """
 
-__version__ = "0.4.80"
+__version__ = "0.4.81"
 __author__ = "Albert King"
+
+"""
+stock_em_yjyg
+"""
+from akshare.stock_feature.stock_em_yjyg import stock_em_yjyg, stock_em_yysj
 
 """
 stock
