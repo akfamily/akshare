@@ -10,9 +10,9 @@
 
    1. 请使用国内的源来安装 AkShare
       1. 基于 Python 的代码如下：
-      ```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade ```
+```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade ```
       2. 基于 Anaconda 的代码如下：
-      ```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade```
+```pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade```
    2. 使用代理安装，由于相关限制，在这里对代理的安装和使用不做介绍，请自行搜索配置。
 
 2. 运行任意接口发现报错，错误类似：`AttributeError: module 'akshare' has no attribute 'xxx'`
