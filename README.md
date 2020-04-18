@@ -119,15 +119,17 @@ Application to add **AkShare-官方** QQ group and talk about [AkShare](https://
 
 ## Statement
 
-1. The data provided by [AkShare](https://github.com/jindaxiang/akshare) is for reference only and does not constitute any investment proposal;
+1. All data provided by [AkShare](https://github.com/jindaxiang/akshare) is just for academic research purpose;
 
-2. Any investor based on [AkShare](https://github.com/jindaxiang/akshare) research should pay more attention to data risk;
+2. The data provided by [AkShare](https://github.com/jindaxiang/akshare) is for reference only and does not constitute any investment proposal;
 
-3. [AkShare](https://github.com/jindaxiang/akshare) will insist on providing open-source financial data;
+3. Any investor based on [AkShare](https://github.com/jindaxiang/akshare) research should pay more attention to data risk;
 
-4. Based on some uncontrollable factors, some data interfaces in [AkShare](https://github.com/jindaxiang/akshare) may be removed;
+4. [AkShare](https://github.com/jindaxiang/akshare) will insist on providing open-source financial data;
 
-5. Please follow the relevant open-source protocol used by [AkShare](https://github.com/jindaxiang/akshare)
+5. Based on some uncontrollable factors, some data interfaces in [AkShare](https://github.com/jindaxiang/akshare) may be removed;
+
+6. Please follow the relevant open-source protocol used by [AkShare](https://github.com/jindaxiang/akshare)
 
 ## Show your style
 
