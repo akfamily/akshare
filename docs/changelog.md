@@ -1237,4 +1237,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.80: fix: covid and docs
 
 0.4.81: add: stock_em_yjyg and stock_em_yysj
+
+0.4.82: fix: futures_xgx_index
 ```
