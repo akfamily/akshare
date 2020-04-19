@@ -909,9 +909,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.79: add: stock_em_dxsyl
 0.4.80: fix: covid and docs
 0.4.81: add: stock_em_yjyg and stock_em_yysj
+0.4.82: fix: futures_xgx_index
 """
 
-__version__ = "0.4.81"
+__version__ = "0.4.82"
 __author__ = "Albert King"
 
 """
@@ -1572,7 +1573,7 @@ from akshare.futures.zh_futures_sina import futures_zh_spot, match_main_contract
 """
 西本新干线-指数数据
 """
-from akshare.futures_derivative.xgx_data import get_code_pic, xgx_data
+from akshare.futures_derivative.futures_xgx import _get_code_pic, futures_xgx_index
 
 """
 生意社-商品与期货-现期图数据
