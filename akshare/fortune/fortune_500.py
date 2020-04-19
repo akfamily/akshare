@@ -4,7 +4,7 @@
 Author: Albert King
 date: 2019/12/10 21:55
 contact: jindaxiang@163.com
-desc: 历年世界500强榜单数据
+desc: 历年世界 500 强榜单数据
 http://www.fortunechina.com/fortune500/index.htm
 特殊情况说明：
 2010年由于网页端没有公布公司所属的国家, 故 2010 年数据没有国家这列
@@ -14,6 +14,8 @@ import json
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
+from akshare.fortune.cons import *
 
 
 def fortune_rank(year="2015"):
@@ -134,8 +136,8 @@ def fortune_rank_eng(year="1995"):
 
 
 if __name__ == '__main__':
-    df = fortune_rank(year=2011)  # 2010 不一样
-    print(df)
+    fortune_rank_df = fortune_rank(year=2011)  # 2010 不一样
+    print(fortune_rank_df)
     for year in range(1995, 2020):
         print(year)
         fortune_eng_df = fortune_rank_eng(year=year)
