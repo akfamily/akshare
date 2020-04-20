@@ -105,7 +105,7 @@ def stock_zh_kcb_daily(symbol="sh688399", factor=""):
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["v"] / temp_df["amount"]
     temp_df.columns = ["开盘价", "最高价", "最低价", "收盘价", "成交", "盘后量", "盘后额", "流通股本", "换手率"]
-    temp_df.columns = ["open", "high", "low", "close", "volume", "after_volume", "after_amount", "outstanding_share", "turnover"]
+    temp_df.columns = ["close", "high", "low", "open", "volume", "after_volume", "after_amount", "outstanding_share", "turnover"]
     if not factor:
         return temp_df
     if factor == "hfq":

@@ -186,7 +186,7 @@ def stock_zh_a_daily(symbol="sh600000", factor=""):
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["volume"] / temp_df["amount"]
-    temp_df.columns = ['open', 'high', 'low', 'close', 'volume', 'outstanding_share', 'turnover']
+    temp_df.columns = ['close', 'high', 'low', 'open', 'volume', 'outstanding_share', 'turnover']
     if not factor:
         return temp_df
     if factor == "hfq":

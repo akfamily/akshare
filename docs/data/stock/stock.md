@@ -107,10 +107,10 @@ print(stock_zh_a_spot_df)
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
 | date          | datetime   | Y        | 交易日     |
-| open          | float      | Y        | 开盘价     |
+| close          | float      | Y        | 收盘价     |
 | high          | float      | Y        | 最高价     |
 | low           | float      | Y        | 最低价     |
-| close         | float      | Y        | 收盘价     |
+| open         | float      | Y        | 开盘价     |
 | volume        | float      | Y        | 成交量(股)     |
 | outstanding_share        | float      | Y        | 流动股本(股)     |
 | turnover        | float      | Y        | 换手率=成交量(股)/流动股本(股)    |
@@ -126,7 +126,7 @@ print(stock_df)
 数据示例-历史行情数据
 
 ```
-             open   high    low  close      volume  outstanding_share  turnover
+             close   high    low  open      volume  outstanding_share  turnover
 date                                                                           
 2002-05-15  31.00  31.60  27.80  27.94  18094659.0       2.500000e+07  0.723786
 2002-05-16  27.50  28.37  27.08  27.72   4128919.0       2.500000e+07  0.165157
@@ -390,7 +390,6 @@ print(stock_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | symbol | str  | Y    |   symbol="sz399552"|
-
 
 输出参数-历史行情数据
 
@@ -694,10 +693,10 @@ print(stock_zh_kcb_spot_df)
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
 | date          | datetime   | Y        | -     |
-| open          | float      | Y        | 开盘价     |
+| close          | float      | Y        | 收盘价     |
 | high          | float      | Y        | 最高价     |
 | low           | float      | Y        | 最低价     |
-| close         | float      | Y        | 收盘价     |
+| open         | float      | Y        | 开盘价     |
 | volume        | float      | Y        | 成交量(股)     |
 | after_volume        | float      | Y        | 盘后量; 参见[科创板盘后固定价格交易](http://www.sse.com.cn/lawandrules/sserules/tib/trading/c/4729491.shtml)     |
 | after_amount        | float      | Y        | 盘后额; 参见[科创板盘后固定价格交易](http://www.sse.com.cn/lawandrules/sserules/tib/trading/c/4729491.shtml)     |
@@ -715,7 +714,7 @@ print(stock_zh_kcb_daily_df)
 数据示例-历史行情数据
 
 ```
-             open    high    low  ...  after_amount  outstanding_share  turnover
+             close    high    low  ...  after_amount  outstanding_share  turnover
 date                              ...                                           
 2019-12-05  52.33   62.50  50.25  ...      508408.0         13338470.0  0.740740
 2019-12-06  52.79   55.89  50.53  ...       30600.0         13338470.0  0.473652
