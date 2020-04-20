@@ -53,12 +53,12 @@ def _plot(plot_df):
 
 
 def get_roll_yield_bar(
-    type_method="symbol", var="RB", date=None, start_day=None, end_day=None, plot=False
+    type_method="date", var="RB", date="20191009", start_day=None, end_day=None, plot=False
 ):
     """
-    获取展期收益率
-    :param type_method: 'symbol'：获取指定交易日指定品种所有交割月合约的收盘价, 'var'：获取某天所有品种两个主力合约的展期收益率（展期收益率横截面）, 'date'：获取某品种每天的两个主力合约的展期收益率（展期收益率时间序列）
-    :param var: 合约品种如 RB、AL 等
+    展期收益率
+    :param type_method: 'symbol': 获取指定交易日指定品种所有交割月合约的收盘价; 'var': 获取指定交易日所有品种两个主力合约的展期收益率(展期收益率横截面); 'date': 获取指定品种每天的两个主力合约的展期收益率(展期收益率时间序列)
+    :param var: 合约品种如 "RB", "AL" 等
     :param date: 指定交易日 format： YYYYMMDD
     :param start_day: 开始日期 format：YYYYMMDD
     :param end_day: 结束日期 format：YYYYMMDD
@@ -157,7 +157,9 @@ def get_roll_yield(date=None, var="CU", symbol1=None, symbol2=None, df=None):
         market = symbol_market(var)
         df = get_futures_daily(start_day=date, end_day=date, market=market)
     if var:
-        df = df[~df["symbol"].str.contains("efp")]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
+        df = df[
+            ~df["symbol"].str.contains("efp")
+        ]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
         df = df[df["variety"] == var].sort_values("open_interest", ascending=False)
         df["close"] = df["close"].astype("float")
         symbol1 = df["symbol"].tolist()[0]
@@ -183,7 +185,7 @@ def get_roll_yield(date=None, var="CU", symbol1=None, symbol2=None, df=None):
 
 if __name__ == "__main__":
     get_roll_yield_bar_df = get_roll_yield_bar(
-        type_method="var", date="20200304", plot=True
+        type_method="date", date="20200415", plot=True
     )
     print(get_roll_yield_bar_df)
     get_roll_yield_bar_range_df = get_roll_yield_bar(
@@ -195,6 +197,6 @@ if __name__ == "__main__":
     )
     print(get_roll_yield_bar_range_df)
     get_roll_yield_bar_symbol = get_roll_yield_bar(
-        type_method="symbol", var="RB", date="20191009", plot=True
+        type_method="date", var="RB", start_day="20191009", end_day="20191030", plot=True
     )
     print(get_roll_yield_bar_symbol)
