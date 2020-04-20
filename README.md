@@ -93,9 +93,8 @@ Application to add **AkShare-官方** QQ group and talk about [AkShare](https://
 
 ## Features
 
-- **Easy**: Just one line to fetch the data;
-- **Fast**: Just copy and paste;
-- **Extensible**: Easy to customize your own code;
+- **Easy of use**: Just one line code to fetch the data;
+- **Extensible**: Easy to customize your own code with other application;
 - **Powerful**: Python ecosystem.
 
 ## Tutorials

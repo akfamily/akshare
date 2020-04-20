@@ -19,6 +19,7 @@ zh_sina_kcb_stock_payload = {
 }
 zh_sina_kcb_stock_count_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=kcb"
 zh_sina_kcb_stock_hist_url = "https://quotes.sina.cn/cn/api/jsonp.php/var%20_{}{}=/KC_MarketDataService.getKLineData?symbol={}"
+zh_sina_kcb_stock_amount_url = "https://stock.finance.sina.com.cn/stock/api/jsonp.php/var%20KKE_ShareAmount_{}=/StockService.getAmountBySymbol?_=20&symbol={}"
 zh_sina_kcb_stock_hfq_url = "https://finance.sina.com.cn/realstock/company/{}/hfq.js"
 zh_sina_kcb_stock_qfq_url = "https://finance.sina.com.cn/realstock/company/{}/qfq.js"
 
@@ -35,6 +36,7 @@ zh_sina_a_stock_payload = {
 }
 zh_sina_a_stock_count_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a"
 zh_sina_a_stock_hist_url = "https://finance.sina.com.cn/realstock/company/{}/hisdata/klc_kl.js"
+zh_sina_a_stock_amount_url = "https://stock.finance.sina.com.cn/stock/api/jsonp.php/var%20KKE_ShareAmount_{}=/StockService.getAmountBySymbol?_=20&symbol={}"
 zh_sina_a_stock_hfq_url = "https://finance.sina.com.cn/realstock/company/{}/hfq.js"
 zh_sina_a_stock_qfq_url = "https://finance.sina.com.cn/realstock/company/{}/qfq.js"
 

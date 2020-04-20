@@ -61,7 +61,7 @@ def stock_hk_daily(symbol="00001", factor=""):
     data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
-    data_df.astype("float")
+    data_df = data_df.astype("float")
     if not factor:
         return data_df
     if factor == "hfq":
@@ -69,17 +69,23 @@ def stock_hk_daily(symbol="00001", factor=""):
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])['data'])
         hfq_factor_df.columns = ["date", "hfq_factor", "cash"]
+        hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
+        del hfq_factor_df["date"]
         return hfq_factor_df
     if factor == "qfq":
         res = requests.get(hk_sina_stock_hist_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])['data'])
         qfq_factor_df.columns = ["date", "qfq_factor"]
+        qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
+        del qfq_factor_df["date"]
         return qfq_factor_df
 
 
 if __name__ == "__main__":
-    hist_data_df = stock_hk_daily(symbol="00005", factor="hfq")
+    hist_data_hfq_df = stock_hk_daily(symbol="00005", factor="hfq")
+    print(hist_data_hfq_df)
+    hist_data_df = stock_hk_daily(symbol="00005", factor="")
     print(hist_data_df)
     current_data_df = stock_hk_spot()
     print(current_data_df)
