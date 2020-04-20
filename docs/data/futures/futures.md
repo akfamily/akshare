@@ -279,29 +279,32 @@ p.s.**库存(左轴)-绿色**, **增减(右轴)-蓝色**
 其中 "date" 类型, 调用方法例子为:
 
 ```
-ak.get_roll_yield_bar(type_method="date", var="RB", date="20191008", plot=True)
+import akshare as ak
+ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20191009", end_day="20191030", plot=True)
 ```
 
 其中 "symbol" 类型, 调用方法例子为: 
 
 ```
+import akshare as ak
 ak.get_roll_yield_bar(type_method="symbol", var="RB", date="20191008", plot=True)
 ```
 
 其中 "var" 类型, 调用方法例子为: 
 
 ```
+import akshare as ak
 ak.get_roll_yield_bar(type_method="var", date="20191008", plot=True)
 ```
 
 利用 **get_roll_yield** 接口, 可以找到特定合约特定日期的主力合约次主力合约展期收益率, 或通过 symbol1 和 symbol2 变量自定义某两个合约的展期收益率. 
 
 ```
+import akshare as ak
 ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811"), 如下图所示: 
 ```
 
 注意: 1. 主力合约和次主力合约的定义, 是由该日的各交割月合约持仓量由大到小排序得到.
-
 
 #### 注册仓单
 
@@ -350,7 +353,8 @@ ak.futures_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=
 
 ```python
 import akshare as ak
-ak.get_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
+get_rank_sum_daily_df = ak.get_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
+print(get_rank_sum_daily_df)
 ```
 
 获取某交易日某品种的持仓排名榜
@@ -534,7 +538,8 @@ print(futures_xgx_index_df)
 
 ```python
 import akshare as ak
-ak.get_futures_daily(start_day="20190107", end_day="20190108", market="SHFE", index_bar=True)
+get_futures_daily_df = ak.get_futures_daily(start_day="20190107", end_day="20190108", market="SHFE", index_bar=True)
+print(get_futures_daily_df)
 ```
 
 market 可以添为四个交易所的简称, 即 "dce" 代表大商所; "ine" 代表能源所; "shfe" 代表上期所; "czce" 代表郑商所; "cffex" 代表中金所. 
