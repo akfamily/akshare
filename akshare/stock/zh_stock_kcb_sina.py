@@ -20,7 +20,8 @@ from akshare.stock.cons import (zh_sina_kcb_stock_payload,
                                 zh_sina_kcb_stock_count_url,
                                 zh_sina_kcb_stock_hist_url,
                                 zh_sina_kcb_stock_hfq_url,
-                                zh_sina_kcb_stock_qfq_url)
+                                zh_sina_kcb_stock_qfq_url,
+                                zh_sina_kcb_stock_amount_url)
 
 
 def get_zh_kcb_page_count():
@@ -56,7 +57,7 @@ def stock_zh_kcb_spot():
     return big_df
 
 
-def stock_zh_kcb_daily(symbol="sh688008", factor=""):
+def stock_zh_kcb_daily(symbol="sh688399", factor=""):
     """
     从新浪财经-A股获取某个股票的历史行情数据, 大量抓取容易封IP
     :param symbol: str e.g., sh600000
@@ -89,25 +90,48 @@ def stock_zh_kcb_daily(symbol="sh688008", factor=""):
     res = requests.get(zh_sina_kcb_stock_hist_url.format(symbol, datetime.datetime.now().strftime("%Y_%m_%d"), symbol))
     data_json = demjson.decode(res.text[res.text.find("["):res.text.rfind("]")+1])
     data_df = pd.DataFrame(data_json)
-    data_df.columns = ["日期", "开盘价", "最高价", "最低价", "收盘价", "成交", "盘后量", "盘后额"]
+    data_df.index = pd.to_datetime(data_df["d"])
+    data_df.index.name = "date"
+    del data_df["d"]
+
+    r = requests.get(zh_sina_kcb_stock_amount_url.format(symbol, symbol))
+    amount_data_json = demjson.decode(r.text[r.text.find("["): r.text.rfind("]")+1])
+    amount_data_df = pd.DataFrame(amount_data_json)
+    amount_data_df.index = pd.to_datetime(amount_data_df.date)
+    del amount_data_df["date"]
+    temp_df = pd.merge(data_df, amount_data_df, left_index=True, right_index=True, how="left")
+    temp_df.fillna(method="ffill", inplace=True)
+    temp_df = temp_df.astype(float)
+    temp_df["amount"] = temp_df["amount"] * 10000
+    temp_df["turnover"] = temp_df["v"] / temp_df["amount"]
+    temp_df.columns = ["开盘价", "最高价", "最低价", "收盘价", "成交", "盘后量", "盘后额", "流通股本", "换手率"]
+    temp_df.columns = ["open", "high", "low", "close", "volume", "after_volume", "after_amount", "outstanding_share", "turnover"]
     if not factor:
-        return data_df
+        return temp_df
     if factor == "hfq":
         res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])['data'])
         hfq_factor_df.columns = ["date", "hfq_factor"]
+        hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
+        del hfq_factor_df["date"]
         return hfq_factor_df
     if factor == "qfq":
         res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])['data'])
         qfq_factor_df.columns = ["date", "qfq_factor"]
+        qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
+        del qfq_factor_df["date"]
         return qfq_factor_df
 
 
 if __name__ == "__main__":
-    stock_zh_kcb_daily_df = stock_zh_kcb_daily(symbol="sh688008", factor="qfq")
+    stock_zh_kcb_daily_qfq_df = stock_zh_kcb_daily(symbol="sh688399", factor="qfq")
+    print(stock_zh_kcb_daily_qfq_df)
+    stock_zh_kcb_daily_hfq_df = stock_zh_kcb_daily(symbol="sh688399", factor="hfq")
+    print(stock_zh_kcb_daily_hfq_df)
+    stock_zh_kcb_daily_df = stock_zh_kcb_daily(symbol="sh688399", factor="")
     print(stock_zh_kcb_daily_df)
-    stock_zh_kcb_spot_df = stock_zh_kcb_spot()
-    print(stock_zh_kcb_spot_df)
+    # stock_zh_kcb_spot_df = stock_zh_kcb_spot()
+    # print(stock_zh_kcb_spot_df)

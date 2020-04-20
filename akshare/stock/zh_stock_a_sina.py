@@ -21,7 +21,8 @@ from akshare.stock.cons import (zh_sina_a_stock_payload,
                                 zh_sina_a_stock_hist_url,
                                 hk_js_decode,
                                 zh_sina_a_stock_hfq_url,
-                                zh_sina_a_stock_qfq_url)
+                                zh_sina_a_stock_qfq_url,
+                                zh_sina_a_stock_amount_url)
 
 
 def get_zh_a_page_count():
@@ -173,27 +174,43 @@ def stock_zh_a_daily(symbol="sh600000", factor=""):
     data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
-    data_df.astype("float")
+    data_df = data_df.astype("float")
+
+    r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
+    amount_data_json = demjson.decode(r.text[r.text.find("["): r.text.rfind("]") + 1])
+    amount_data_df = pd.DataFrame(amount_data_json)
+    amount_data_df.index = pd.to_datetime(amount_data_df.date)
+    del amount_data_df["date"]
+    temp_df = pd.merge(data_df, amount_data_df, left_index=True, right_index=True, how="left")
+    temp_df.fillna(method="ffill", inplace=True)
+    temp_df = temp_df.astype(float)
+    temp_df["amount"] = temp_df["amount"] * 10000
+    temp_df["turnover"] = temp_df["volume"] / temp_df["amount"]
+    temp_df.columns = ['open', 'high', 'low', 'close', 'volume', 'outstanding_share', 'turnover']
     if not factor:
-        return data_df
+        return temp_df
     if factor == "hfq":
         res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])['data'])
         hfq_factor_df.columns = ["date", "hfq_factor"]
+        hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
+        del hfq_factor_df["date"]
         return hfq_factor_df
     if factor == "qfq":
         res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])['data'])
         qfq_factor_df.columns = ["date", "qfq_factor"]
+        qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
+        del qfq_factor_df["date"]
         return qfq_factor_df
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol="sh600582", factor="qfq")
+    stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol="sh600582", factor="hfq")
     print(stock_zh_a_daily_qfq_df)
     stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582")
     print(stock_zh_a_daily_df)
-    stock_zh_a_spot_df = stock_zh_a_spot()
-    print(stock_zh_a_spot_df)
+    # stock_zh_a_spot_df = stock_zh_a_spot()
+    # print(stock_zh_a_spot_df)
