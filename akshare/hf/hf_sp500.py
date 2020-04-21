@@ -4,6 +4,8 @@
 Date: 2020/4/21 15:34
 Desc: 高频数据-标普500指数
 https://github.com/FutureSharks/financial-data
+long history data for S&P 500 index daily
+http://www.econ.yale.edu/~shiller/data.htm
 """
 import pandas as pd
 

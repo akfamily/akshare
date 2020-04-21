@@ -143,7 +143,7 @@ def baidu_info_index(word: str, start_date: str, end_date: str, cookie: str) -> 
             return temp_df_1
 
 
-def baidu_media_index(word: str, start_date: str, end_date: str, cookie: str,) -> str:
+def baidu_media_index(word: str = "口罩", start_date: str = "2018-01-01", end_date: str = "2020-04-20", cookie: str = None) -> str:
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
@@ -189,23 +189,23 @@ def baidu_media_index(word: str, start_date: str, end_date: str, cookie: str,) -
 
 
 if __name__ == "__main__":
-    cookie = ""
+    cookie = ''
     data = baidu_search_index(
-        word="中国原油期货", start_date="2020-01-01", end_date="2020-02-14", cookie=cookie
+        word="口罩", start_date="2020-01-01", end_date="2020-02-14", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
     data.plot()
     plt.show()
     data = baidu_info_index(
-        word="中国原油期货", start_date="2018-07-03", end_date="2020-01-21", cookie=cookie
+        word="口罩", start_date="2018-07-03", end_date="2020-01-21", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
     data.plot()
     plt.show()
     data = baidu_media_index(
-        word="中国原油期货", start_date="2018-10-27", end_date="2020-01-21", cookie=cookie
+        word="口罩", start_date="2020-01-01", end_date="2020-04-20", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
