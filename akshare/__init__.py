@@ -913,10 +913,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.83: fix: fortune_500.py
 0.4.84: fix: a and kcb stock return format
 0.4.85: fix: a and kcb stock field
+0.4.86: add: hf_sp_500
 """
 
-__version__ = "0.4.85"
+__version__ = "0.4.86"
 __author__ = "Albert King"
+
+"""
+hf
+"""
+from akshare.hf.hf_sp500 import hf_sp_500
 
 """
 stock_em_yjyg
