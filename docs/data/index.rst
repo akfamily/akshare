@@ -23,6 +23,7 @@ AkShare 数据字典
     ws/ws
     energy/energy
     event/event
+    hf/hf
     nlp/nlp
     others/others
     qhkc/index

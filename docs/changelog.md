@@ -1245,4 +1245,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.84: fix: a and kcb stock return format
 
 0.4.85: fix: a and kcb stock field
+
+0.4.86: add: hf_sp_500
 ```
