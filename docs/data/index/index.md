@@ -892,7 +892,7 @@ index
 
 ```python
 import akshare as ak
-cookie = "此处输入您在网页端登录百度指数后的 cookie 数据"
+cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
 index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
 print(index_df)
 ```
@@ -947,7 +947,7 @@ date
 
 ```python
 import akshare as ak
-cookie = "此处输入您在网页端登录百度指数后的 cookie 数据"
+cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
 index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01', cookie=cookie)
 print(index_df)
 ```
@@ -1002,7 +1002,7 @@ date
 
 ```python
 import akshare as ak
-cookie = "此处输入您在网页端登录百度指数后的 cookie 数据"
+cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
 index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
 print(index_df)
 ```
