@@ -3887,9 +3887,16 @@ macro_usa_initial_jobless_se: pandas.Series
 
 目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
 
-描述: 获取美国原油产量报告, 数据区间从19830107-至今
+描述: 获取美国原油产量报告, 数据区间从19830107-至今, 每周三公布(美国节假日除外), 美国能源信息署(EIA)
 
 限量: 单次返回所有历史数据
+
+报告内容: 美国能源信息署（EIA）在北京时间每周三晚公布EIA报告，除了公布美国原油库存、汽油库存等数据外，报告还包含美国上周国内原油产量的数据。
+报告组成：美国国内原油产量、美国本土48州原油产量和美国阿拉斯加州原油产量。
+数据关系：美国国内原油产量=美国本土48州原油产量+美国阿拉斯加州原油产量
+单位均为万桶/日。
+
+数据解读: 该数据反映了美国原油供应侧的情况，理论而言，当美国国内原油产量录得增加，通常导致油价下跌；当产量减少，则通常导致油价上扬。
 
 输入参数
 
@@ -3902,151 +3909,36 @@ macro_usa_initial_jobless_se: pandas.Series
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
 | 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 美国国内原油总量_产量      | float   | Y        | -   |
+| 美国国内原油总量_变化      | float   | Y        | -   |
+| 美国本土48州原油产量_产量      | float   | Y        | -   |
+| 美国本土48州原油产量_变化      | float   | Y        | -   |
+| 美国阿拉斯加州原油产量_产量      | float   | Y        | -   |
+| 美国阿拉斯加州原油产量_变化      | float   | Y        | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-macro_usa_crude_inner_se = ak.macro_usa_crude_inner()
-print(macro_usa_crude_inner_se.name)
-print(macro_usa_crude_inner_se)
+macro_usa_crude_inner_df = ak.macro_usa_crude_inner()
+print(macro_usa_crude_inner_df)
 ```
 
 数据示例
 
-macro_usa_crude_inner_se.name
-
 ```
-crude_inner
-```
-
-macro_usa_crude_inner_se: pandas.Series
-
-```
-1983-01-07     863.40
-1983-01-14     863.40
-1983-01-21     863.40
-1983-01-28     863.40
-1983-02-04     866.00
-               ...   
-2019-12-06    1280.00
-2019-12-13    1280.00
-2019-12-20    1290.00
-2019-12-27    1290.00
-2020-01-03    1290.00
-```
-
-##### 美国本土48州原油产量
-
-接口: macro_usa_crude_state
-
-目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
-
-描述: 获取美国本土48州原油产量, 数据区间从19830107-至今
-
-限量: 单次返回所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
-
-接口示例
-
-```python
-import akshare as ak
-macro_usa_crude_state_se = ak.macro_usa_crude_state()
-print(macro_usa_crude_state_se.name)
-print(macro_usa_crude_state_se)
-```
-
-数据示例
-
-macro_usa_crude_state_se.name
-
-```
-crude_state
-```
-
-macro_usa_crude_state_se: pandas.Series
-
-```
-1983-01-07       0.00
-1983-01-14       0.00
-1983-01-21       0.00
-1983-01-28       0.00
-1983-02-04       0.00
-               ...   
-2019-12-06    1230.00
-2019-12-13    1230.00
-2019-12-20    1240.00
-2019-12-27    1240.00
-2020-01-03    1240.00
-```
-
-##### 美国阿拉斯加州原油产量
-
-接口: macro_usa_crude_alaska
-
-目标地址: https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
-
-描述: 获取美国阿拉斯加州原油产量, 数据区间从19830107-至今
-
-限量: 单次返回所有历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
-
-接口示例
-
-```python
-import akshare as ak
-macro_usa_crude_alaska_se = ak.macro_usa_crude_alaska()
-print(macro_usa_crude_alaska_se.name)
-print(macro_usa_crude_alaska_se)
-```
-
-数据示例
-
-macro_usa_crude_alaska_se.name
-
-```
-crude_alaska
-```
-
-macro_usa_crude_alaska_se: pandas.Series
-
-```
-1983-01-07     0.00
-1983-01-14     0.00
-1983-01-21     0.00
-1983-01-28     0.00
-1983-02-04     0.00
-              ...  
-2019-12-06    48.80
-2019-12-13    48.10
-2019-12-20    48.10
-2019-12-27    48.70
-2020-01-03    48.30
+            美国国内原油总量_产量  美国国内原油总量_变化  ...  美国阿拉斯加州原油产量_产量  美国阿拉斯加州原油产量_变化
+2020-04-10       1230.0        -10.0  ...            47.7            -0.4
+2020-04-03       1240.0        -60.0  ...            48.1             0.6
+2020-03-27       1300.0          0.0  ...            47.5             1.6
+2020-03-20       1300.0        -10.0  ...            45.9            -1.9
+2020-03-13       1310.0         10.0  ...            47.8             0.5
+                 ...          ...  ...             ...             ...
+1983-02-04        866.0          2.6  ...             0.0             0.0
+1983-01-28        863.4          0.0  ...             0.0             0.0
+1983-01-21        863.4          0.0  ...             0.0             0.0
+1983-01-14        863.4          0.0  ...             0.0             0.0
+1983-01-07        863.4          NaN  ...             0.0             NaN
 ```
 
 ### 欧元区宏观

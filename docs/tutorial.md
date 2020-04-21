@@ -334,8 +334,6 @@
  "macro_usa_eia_crude_rate"  # 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
  "macro_usa_initial_jobless"  # 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
  "macro_usa_crude_inner"  # 金十数据中心-经济指标-美国-其他-美国原油产量报告
- "macro_usa_crude_state"  # 金十数据中心-经济指标-美国-其他-美国本土48州原油产量
- "macro_usa_crude_alaska"  # 金十数据中心-经济指标-美国-其他-美国阿拉斯加州原油产量
  # 更新宏观数据
  "macro_cons_gold_volume"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
  "macro_cons_gold_change"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告

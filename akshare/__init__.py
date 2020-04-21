@@ -638,8 +638,6 @@ macro_usa_michigan_consumer_sentiment # 金十数据中心-经济指标-美国-�
 macro_usa_eia_crude_rate  # 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
 macro_usa_initial_jobless  # 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
 macro_usa_crude_inner  # 金十数据中心-经济指标-美国-其他-美国原油产量报告
-macro_usa_crude_state  # 金十数据中心-经济指标-美国-其他-美国本土48州原油产量
-macro_usa_crude_alaska  # 金十数据中心-经济指标-美国-其他-美国阿拉斯加州原油产量
 0.3.43
 增加-交易法门-数据-黑色系-焦煤
 0.3.44
@@ -1640,9 +1638,7 @@ from akshare.economic.macro_usa import (
     macro_usa_adp_employment,
     macro_usa_core_pce_price,
     macro_usa_cpi_monthly,
-    macro_usa_crude_alaska,
     macro_usa_crude_inner,
-    macro_usa_crude_state,
     macro_usa_gdp_monthly,
     macro_usa_initial_jobless,
     macro_usa_lmci,
