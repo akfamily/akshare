@@ -24,7 +24,6 @@ from akshare.economic.cons import (
     JS_USA_LMCI_URL,
     JS_USA_ADP_NONFARM_URL,
     JS_USA_GDP_MONTHLY_URL,
-    JS_USA_EIA_CRUDE_PRODUCE_URL,
 )
 
 # pd.set_option('display.max_rows', 10)
@@ -61,7 +60,43 @@ def macro_usa_gdp_monthly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "53",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "gdp"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -87,7 +122,43 @@ def macro_usa_cpi_monthly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "9",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "cpi_monthly"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -111,7 +182,43 @@ def macro_usa_core_cpi_monthly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "6",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_core_cpi"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -135,7 +242,43 @@ def macro_usa_personal_spending():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "35",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_personal_spending"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -159,7 +302,43 @@ def macro_usa_retail_sales():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "39",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_retail_sales"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -183,7 +362,43 @@ def macro_usa_import_price():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "18",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_import_price"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -207,7 +422,43 @@ def macro_usa_export_price():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "79",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_export_price"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -233,7 +484,43 @@ def macro_usa_lmci():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "93",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "lmci"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -768,7 +1055,43 @@ def macro_usa_ppi():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "37",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_ppi"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -792,7 +1115,43 @@ def macro_usa_core_ppi():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "7",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_core_ppi"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -816,7 +1175,43 @@ def macro_usa_api_crude_stock():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(万桶)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "69",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_api_crude_stock"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -840,7 +1235,43 @@ def macro_usa_pmi():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "74",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_pmi"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -864,7 +1295,43 @@ def macro_usa_ism_pmi():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "28",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_ism_pmi"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -888,7 +1355,43 @@ def macro_usa_industrial_production():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "20",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_industrial_production"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -912,7 +1415,43 @@ def macro_usa_durable_goods_orders():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "13",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_durable_goods_orders"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -936,7 +1475,43 @@ def macro_usa_factory_orders():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "16",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_factory_orders"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -960,7 +1535,43 @@ def macro_usa_services_pmi():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "89",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_services_pmi"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -984,7 +1595,43 @@ def macro_usa_business_inventories():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "4",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_business_inventories"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1008,7 +1655,43 @@ def macro_usa_ism_non_pmi():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "29",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_ism_non_pmi"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1032,7 +1715,43 @@ def macro_usa_nahb_house_market_index():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "31",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_nahb_house_market_index"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1056,7 +1775,43 @@ def macro_usa_house_starts():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(万户)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "17",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_house_starts"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1080,7 +1835,43 @@ def macro_usa_new_home_sales():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(万户)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "32",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_new_home_sales"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1104,7 +1895,43 @@ def macro_usa_building_permits():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(万户)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "3",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_building_permits"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1128,7 +1955,43 @@ def macro_usa_exist_home_sales():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(万户)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "15",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_exist_home_sales"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1152,7 +2015,43 @@ def macro_usa_house_price_index():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "51",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "usa_house_price_index"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1450,6 +2349,7 @@ def macro_usa_michigan_consumer_sentiment():
 def macro_usa_eia_crude_rate():
     """
     美国EIA原油库存报告, 数据区间从19950801-至今
+    https://datacenter.jin10.com/reportType/dc_eia_crude_oil
     :return: pandas.Series
     1982-09-01   -262.6
     1982-10-01       -8
@@ -1476,7 +2376,43 @@ def macro_usa_eia_crude_rate():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(万桶)"]
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "10",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
     temp_df.name = "eia_crude_rate"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 
@@ -1554,6 +2490,7 @@ def macro_usa_initial_jobless():
 def macro_usa_crude_inner():
     """
     美国原油产量报告, 数据区间从19830107-至今
+    https://datacenter.jin10.com/reportType/dc_eia_crude_oil_produce
     :return: pandas.Series
     1983-01-07     863.40
     1983-01-14     863.40
@@ -1568,88 +2505,20 @@ def macro_usa_crude_inner():
     2019-10-18    1260.00
     """
     t = time.time()
-    res = requests.get(
-        JS_USA_EIA_CRUDE_PRODUCE_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国国内原油总量"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["产量(万桶/日)"]
-    temp_df.name = "crude_inner"
-    return temp_df
-
-
-# 金十数据中心-经济指标-美国-其他-美国本土48州原油产量
-def macro_usa_crude_state():
-    """
-    美国本土48州原油产量, 数据区间从19830107-至今
-    :return: pandas.Series
-    1983-01-07       0.00
-    1983-01-14       0.00
-    1983-01-21       0.00
-    1983-01-28       0.00
-    1983-02-04       0.00
-                   ...
-    2019-09-20    1200.00
-    2019-09-27    1190.00
-    2019-10-04    1210.00
-    2019-10-11    1210.00
-    2019-10-18    1210.00
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_EIA_CRUDE_PRODUCE_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国本土48州原油产量"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["产量(万桶/日)"]
-    temp_df.name = "crude_state"
-    return temp_df
-
-
-# 金十数据中心-经济指标-美国-其他-美国阿拉斯加州原油产量
-def macro_usa_crude_alaska():
-    """
-    美国阿拉斯加州原油产量, 数据区间从19830107-至今
-    :return: pandas.Series
-    1983-01-07     0.00
-    1983-01-14     0.00
-    1983-01-21     0.00
-    1983-01-28     0.00
-    1983-02-04     0.00
-                  ...
-    2019-09-20    47.20
-    2019-09-27    48.00
-    2019-10-04    47.30
-    2019-10-11    48.50
-    2019-10-18    48.50
-    """
-    t = time.time()
-    res = requests.get(
-        JS_USA_EIA_CRUDE_PRODUCE_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国阿拉斯加州原油产量"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["产量(万桶/日)"]
-    temp_df.name = "crude_alaska"
-    return temp_df
+    params = {
+        "_": t
+    }
+    res = requests.get("https://cdn.jin10.com/data_center/reports/usa_oil.json", params=params)
+    temp_df = pd.DataFrame(res.json().get("values")).T
+    big_df = pd.DataFrame()
+    big_df["美国国内原油总量_产量"] = temp_df["美国国内原油总量"].apply(lambda x: x[0])
+    big_df["美国国内原油总量_变化"] = temp_df["美国国内原油总量"].apply(lambda x: x[1])
+    big_df["美国本土48州原油产量_产量"] = temp_df["美国本土48州原油产量"].apply(lambda x: x[0])
+    big_df["美国本土48州原油产量_变化"] = temp_df["美国本土48州原油产量"].apply(lambda x: x[1])
+    big_df["美国阿拉斯加州原油产量_产量"] = temp_df["美国阿拉斯加州原油产量"].apply(lambda x: x[0])
+    big_df["美国阿拉斯加州原油产量_变化"] = temp_df["美国阿拉斯加州原油产量"].apply(lambda x: x[1])
+    big_df = big_df.astype("float")
+    return big_df
 
 
 if __name__ == "__main__":
@@ -1768,10 +2637,4 @@ if __name__ == "__main__":
     # plt.show()
     # 金十数据中心-经济指标-美国-其他-美国原油产量报告
     macro_usa_crude_inner_df = macro_usa_crude_inner()
-    print(macro_usa_crude_inner_df)
-    # 金十数据中心-经济指标-美国-其他-美国本土48州原油产量
-    macro_usa_crude_state_df = macro_usa_crude_state()
-    print(macro_usa_crude_state_df)
-    # 金十数据中心-经济指标-美国-其他-美国阿拉斯加州原油产量
-    macro_usa_crude_alaska_df = macro_usa_crude_alaska()
-    print(macro_usa_crude_alaska_df)
+    print(macro_usa_crude_inner_df.columns)
