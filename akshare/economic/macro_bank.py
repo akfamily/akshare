@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/1/9 22:52
-contact: jindaxiang@163.com
-desc: 金十数据中心-经济指标-央行利率-主要央行利率
+Date: 2020/4/22 22:52
+Desc: 金十数据中心-经济指标-央行利率-主要央行利率
 https://datacenter.jin10.com/economic
 美联储利率决议报告
 欧洲央行决议报告
