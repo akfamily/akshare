@@ -5,6 +5,7 @@ Author: Albert King
 date: 2020/02/14 11:28
 contact: jindaxiang@163.com
 desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
+http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
 import datetime
 import re
@@ -13,6 +14,7 @@ import demjson
 import execjs
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 from akshare.bond.cons import (
     zh_sina_bond_hs_cov_count_url,
@@ -23,7 +25,7 @@ from akshare.bond.cons import (
 from akshare.stock.cons import hk_js_decode
 
 
-def get_zh_bond_hs_cov_page_count():
+def _get_zh_bond_hs_cov_page_count() -> int:
     """
     行情中心首页-债券-沪深可转债的总页数
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
@@ -41,7 +43,7 @@ def get_zh_bond_hs_cov_page_count():
         return int(page_count) + 1
 
 
-def bond_zh_hs_cov_spot():
+def bond_zh_hs_cov_spot() -> pd.DataFrame:
     """
     新浪财经-债券-沪深可转债的实时行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
@@ -49,10 +51,9 @@ def bond_zh_hs_cov_spot():
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    page_count = get_zh_bond_hs_cov_page_count()
+    page_count = _get_zh_bond_hs_cov_page_count()
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_cov_payload.copy()
-    for page in range(1, page_count + 1):
-        print(page)
+    for page in tqdm(range(1, page_count + 1)):
         zh_sina_bond_hs_payload_copy.update({"page": page})
         res = requests.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(res.text)
@@ -60,7 +61,7 @@ def bond_zh_hs_cov_spot():
     return big_df
 
 
-def bond_zh_hs_cov_daily(symbol="sh113542"):
+def bond_zh_hs_cov_daily(symbol: str = "sh113542") -> pd.DataFrame:
     """
     新浪财经-债券-沪深可转债的的历史行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
