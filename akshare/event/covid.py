@@ -865,7 +865,7 @@ if __name__ == "__main__":
     )
     print(migration_area_baidu_df)
 
-    internal_flow_history_df = internal_flow_history(area="文昌市", date="20200414")
+    internal_flow_history_df = internal_flow_history(area="北京市", date="20200414")
     print(internal_flow_history_df)
 
     migration_scale_baidu_df = migration_scale_baidu(
