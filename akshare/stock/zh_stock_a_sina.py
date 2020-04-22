@@ -25,11 +25,12 @@ from akshare.stock.cons import (zh_sina_a_stock_payload,
                                 zh_sina_a_stock_amount_url)
 
 
-def get_zh_a_page_count():
+def _get_zh_a_page_count():
     """
     所有股票的总页数
     http://vip.stock.finance.sina.com.cn/mkt/#hs_a
-    :return: int 需要抓取的股票总页数
+    :return: 需要抓取的股票总页数
+    :rtype: int
     """
     res = requests.get(zh_sina_a_stock_count_url)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
@@ -82,7 +83,7 @@ def stock_zh_a_spot():
     3759  15:00:07   -6.264  1.465  2.430397e+06  2.430397e+06        0.40782
     """
     big_df = pd.DataFrame()
-    page_count = get_zh_a_page_count()
+    page_count = _get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
     for page in tqdm(range(1, page_count+1), desc="Please wait for a moment"):
         zh_sina_stock_payload_copy.update({"page": page})
@@ -208,7 +209,7 @@ def stock_zh_a_daily(symbol="sh600000", factor=""):
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol="sh600582", factor="hfq")
+    stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol="sh000031", factor="")
     print(stock_zh_a_daily_qfq_df)
     stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582")
     print(stock_zh_a_daily_df)

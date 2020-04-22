@@ -64,7 +64,7 @@ def index_stock_info() -> pd.DataFrame:
     return index_df[["index_code", "display_name", "publish_date"]]
 
 
-def index_stock_cons(index: str = "000031") -> pd.DataFrame:
+def index_stock_cons(index: str = "000312") -> pd.DataFrame:
     """
     最新股票指数的成份股目录
     http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
@@ -102,7 +102,7 @@ def index_stock_cons(index: str = "000031") -> pd.DataFrame:
 
 if __name__ == "__main__":
     index_list = index_stock_info()["index_code"].tolist()
-    index_stock_cons_df = index_stock_cons(index="000312")
+    index_stock_cons_df = index_stock_cons(index="000031")
     print(index_stock_cons_df)
     for item in index_list:
         index_stock_cons_df = index_stock_cons(index=item)
