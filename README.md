@@ -31,7 +31,7 @@
 ### General
 
 ```
-pip install akshare --ugrade
+pip install akshare --upgrade
 ```
 
 ### China
