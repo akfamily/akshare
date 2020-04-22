@@ -63,7 +63,7 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
 
 def bond_zh_hs_cov_daily(symbol: str = "sh113542") -> pd.DataFrame:
     """
-    新浪财经-债券-沪深可转债的的历史行情数据, 大量抓取容易封IP
+    新浪财经-债券-沪深可转债的历史行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
     :param symbol: 沪深可转债代码; e.g., sh010107
     :type symbol: str

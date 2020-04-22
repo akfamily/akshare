@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/21 12:08
-contact: jindaxiang@163.com
-desc: 金十数据-数据中心-中国-中国宏观
+Date: 2019/10/21 12:08
+Desc: 金十数据-数据中心-中国-中国宏观
+https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
 http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
 """
@@ -12,8 +11,8 @@ import json
 import time
 
 import pandas as pd
+import numpy as np
 import requests
-from tqdm import tqdm
 
 from akshare.economic.cons import (
     JS_CHINA_CPI_YEARLY_URL,
@@ -460,24 +459,39 @@ def macro_china_shibor_all():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_shibor_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["O/N"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    value_df.columns = ["O/N"]
-    value_df["1W"] = [item["datas"]["1W"][0] for item in json_data["list"]]
-    value_df["2W"] = [item["datas"]["2W"][0] for item in json_data["list"]]
-    value_df["1M"] = [item["datas"]["1M"][0] for item in json_data["list"]]
-    value_df["3M"] = [item["datas"]["3M"][0] for item in json_data["list"]]
-    value_df["6M"] = [item["datas"]["6M"][0] for item in json_data["list"]]
-    value_df["9M"] = [item["datas"]["9M"][0] for item in json_data["list"]]
-    value_df["1Y"] = [item["datas"]["1Y"][0] for item in json_data["list"]]
-    return value_df
+    params = {
+        "_": t
+    }
+    res = requests.get("https://cdn.jin10.com/data_center/reports/il_1.json", params=params)
+    json_data = res.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    big_df = pd.DataFrame()
+    temp_df.fillna(value="--", inplace=True)
+    big_df["O/N_定价"] = temp_df["O/N"].apply(lambda x: x[0])
+    big_df["O/N_涨跌幅"] = temp_df["O/N"].apply(lambda x: x[1])
+    big_df["1W_定价"] = temp_df["1W"].apply(lambda x: x[0])
+    big_df["1W_涨跌幅"] = temp_df["1W"].apply(lambda x: x[1])
+    big_df["2W_定价"] = temp_df["2W"].apply(lambda x: x[0])
+    big_df["2W_涨跌幅"] = temp_df["2W"].apply(lambda x: x[1])
+    big_df["1M_定价"] = temp_df["1M"].apply(lambda x: x[0])
+    big_df["1M_涨跌幅"] = temp_df["1M"].apply(lambda x: x[1])
+    big_df["3M_定价"] = temp_df["3M"].apply(lambda x: x[0])
+    big_df["3M_涨跌幅"] = temp_df["3M"].apply(lambda x: x[1])
+    big_df["6M_定价"] = temp_df["6M"].apply(lambda x: x[0])
+    big_df["6M_涨跌幅"] = temp_df["6M"].apply(lambda x: x[1])
+    big_df["9M_定价"] = temp_df["9M"].apply(lambda x: x[0])
+    big_df["9M_涨跌幅"] = temp_df["9M"].apply(lambda x: x[1])
+    big_df["1Y_定价"] = temp_df["1Y"].apply(lambda x: x[0])
+    big_df["1Y_涨跌幅"] = temp_df["1Y"].apply(lambda x: x[1])
+    big_df["ON_定价"] = temp_df["ON"].apply(lambda x: x[0])
+    big_df["ON_涨跌幅"] = temp_df["ON"].apply(lambda x: x[1])
+    big_df["2M_定价"] = temp_df["2M"].apply(lambda x: x[0])
+    big_df["2M_涨跌幅"] = temp_df["2M"].apply(lambda x: x[1])
+    big_df = big_df.apply(lambda x: x.replace("-", np.nan))
+    big_df = big_df.apply(lambda x: x.replace([None], np.nan))
+    big_df.sort_index(inplace=True)
+    big_df = big_df.astype("float")
+    return big_df
 
 
 # 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
@@ -490,23 +504,39 @@ def macro_china_hk_market_info():
     :rtype: pandas.Series
     """
     t = time.time()
-    res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_hk_market_info_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["ON"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    value_df.columns = ["ON"]
-    value_df["1W"] = [item["datas"]["1W"][0] for item in json_data["list"]]
-    value_df["2W"] = [item["datas"]["2W"][0] for item in json_data["list"]]
-    value_df["1M"] = [item["datas"]["1M"][0] for item in json_data["list"]]
-    value_df["3M"] = [item["datas"]["3M"][0] for item in json_data["list"]]
-    value_df["6M"] = [item["datas"]["6M"][0] for item in json_data["list"]]
-    value_df["1Y"] = [item["datas"]["1Y"][0] for item in json_data["list"]]
-    return value_df
+    params = {
+        "_": t
+    }
+    res = requests.get("https://cdn.jin10.com/data_center/reports/il_2.json", params=params)
+    json_data = res.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    big_df = pd.DataFrame()
+    temp_df.fillna(value="--", inplace=True)
+    big_df["O/N_定价"] = temp_df["O/N"].apply(lambda x: x[0])
+    big_df["O/N_涨跌幅"] = temp_df["O/N"].apply(lambda x: x[1])
+    big_df["1W_定价"] = temp_df["1W"].apply(lambda x: x[0])
+    big_df["1W_涨跌幅"] = temp_df["1W"].apply(lambda x: x[1])
+    big_df["2W_定价"] = temp_df["2W"].apply(lambda x: x[0])
+    big_df["2W_涨跌幅"] = temp_df["2W"].apply(lambda x: x[1])
+    big_df["1M_定价"] = temp_df["1M"].apply(lambda x: x[0])
+    big_df["1M_涨跌幅"] = temp_df["1M"].apply(lambda x: x[1])
+    big_df["3M_定价"] = temp_df["3M"].apply(lambda x: x[0])
+    big_df["3M_涨跌幅"] = temp_df["3M"].apply(lambda x: x[1])
+    big_df["6M_定价"] = temp_df["6M"].apply(lambda x: x[0])
+    big_df["6M_涨跌幅"] = temp_df["6M"].apply(lambda x: x[1])
+    big_df["9M_定价"] = temp_df["9M"].apply(lambda x: x[0])
+    big_df["9M_涨跌幅"] = temp_df["9M"].apply(lambda x: x[1])
+    big_df["1Y_定价"] = temp_df["1Y"].apply(lambda x: x[0])
+    big_df["1Y_涨跌幅"] = temp_df["1Y"].apply(lambda x: x[1])
+    big_df["ON_定价"] = temp_df["ON"].apply(lambda x: x[0])
+    big_df["ON_涨跌幅"] = temp_df["ON"].apply(lambda x: x[1])
+    big_df["2M_定价"] = temp_df["2M"].apply(lambda x: x[0])
+    big_df["2M_涨跌幅"] = temp_df["2M"].apply(lambda x: x[1])
+    big_df = big_df.apply(lambda x: x.replace("-", np.nan))
+    big_df = big_df.apply(lambda x: x.replace([None], np.nan))
+    big_df.sort_index(inplace=True)
+    big_df = big_df.astype("float")
+    return big_df
 
 
 # 金十数据中心-经济指标-中国-其他-中国日度沿海六大电库存数据
@@ -550,88 +580,90 @@ def macro_china_daily_energy():
 def macro_china_rmb():
     """
     中国人民币汇率中间价报告, 数据区间从20170103-至今
+    https://datacenter.jin10.com/reportType/dc_rmb_data
     :return: pandas.Series
-                         美元/人民币            欧元/人民币         100日元/人民币  \
-    2017-03-01  [6.8798, 48.00]  [7.2648, 126.00]   [6.0913, 73.00]
-    2017-03-02  [6.8798, 48.00]  [7.2648, 126.00]   [6.0913, 73.00]
-    2017-03-03  [6.8809, 11.00]  [7.2536, 112.00]  [6.0381, 532.00]
-    2017-03-04  [6.8896, 87.00]  [7.2334, 202.00]  [6.0253, 128.00]
-    2017-03-05  [6.8896, 87.00]  [7.2334, 202.00]  [6.0253, 128.00]
-                         ...               ...               ...
-    2019-10-16  [7.0746, 38.00]  [7.8052, 132.00]  [6.5010, 185.00]
-    2019-10-17  [7.0789, 43.00]  [7.8405, 353.00]  [6.5111, 101.00]
-    2019-10-18  [7.0690, 99.00]  [7.8625, 220.00]   [6.5081, 30.00]
-    2019-10-21  [7.0680, 10.00]  [7.8843, 218.00]  [6.5201, 120.00]
-    2019-10-22  [7.0668, 12.00]   [7.8802, 41.00]  [6.5055, 146.00]
-                          港元/人民币             英镑/人民币            澳元/人民币  \
-    2017-03-01   [0.88629, 4.90]   [8.5090, 377.00]  [5.2629, 129.00]
-    2017-03-02   [0.88629, 4.90]   [8.5090, 377.00]  [5.2629, 129.00]
-    2017-03-03   [0.88638, 0.90]   [8.4521, 569.00]   [5.2723, 94.00]
-    2017-03-04  [0.88758, 12.00]    [8.4464, 57.00]  [5.2173, 550.00]
-    2017-03-05  [0.88758, 12.00]    [8.4464, 57.00]  [5.2173, 550.00]
-                          ...                ...               ...
-    2019-10-16   [0.90173, 4.00]  [9.0250, 1141.00]  [4.7759, 114.00]
-    2019-10-17   [0.90248, 7.50]   [9.0771, 521.00]   [4.7855, 96.00]
-    2019-10-18  [0.90136, 11.20]   [9.0952, 181.00]  [4.8238, 383.00]
-    2019-10-21   [0.90136, 0.00]   [9.1193, 241.00]  [4.8416, 178.00]
-    2019-10-22   [0.90111, 2.50]   [9.1627, 434.00]  [4.8536, 120.00]
-                        新西兰元/人民币
-    2017-03-01   [4.9320, 66.00]
-    2017-03-02   [4.9320, 66.00]
-    2017-03-03  [4.9076, 244.00]
-    2017-03-04  [4.8647, 429.00]
-    2017-03-05  [4.8647, 429.00]
-                          ...
-    2019-10-16    [4.4529, 4.00]
-    2019-10-17   [4.4539, 10.00]
-    2019-10-18  [4.4885, 346.00]
-    2019-10-21  [4.5140, 255.00]
-    2019-10-22  [4.5305, 165.00]
+                美元/人民币_中间价  美元/人民币_涨跌幅  ...  人民币/泰铢_定价  人民币/泰铢_涨跌幅
+    2018-02-06      6.3072         NaN  ...     5.0191         NaN
+    2018-02-07      6.2882      -190.0  ...     5.0178       -13.0
+    2018-02-08      6.2822       -60.0  ...     5.0429       251.0
+    2018-02-09      6.3194       372.0  ...     5.0406       -23.0
+    2018-02-12      6.3001      -193.0  ...     5.0310       -96.0
+                    ...         ...  ...        ...         ...
+    2020-04-16      7.0714       312.0  ...     4.6260      -156.0
+    2020-04-17      7.0718         4.0  ...     4.6083      -177.0
+    2020-04-20      7.0657       -61.0  ...     4.5977      -106.0
+    2020-04-21      7.0752        95.0  ...     4.5929       -48.0
+    2020-04-22      7.0903       151.0  ...     4.5843       -86.0
     """
     t = time.time()
-    res = requests.get(
-        JS_CHINA_RMB_DAILY_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list_1 = [item["datas"]["美元/人民币"] for item in json_data["list"]]
-    value_list_2 = [item["datas"]["欧元/人民币"] for item in json_data["list"]]
-    value_list_3 = [item["datas"]["100日元/人民币"] for item in json_data["list"]]
-    value_list_4 = [item["datas"]["港元/人民币"] for item in json_data["list"]]
-    value_list_5 = [item["datas"]["英镑/人民币"] for item in json_data["list"]]
-    value_list_6 = [item["datas"]["澳元/人民币"] for item in json_data["list"]]
-    value_list_7 = [item["datas"]["新西兰元/人民币"] for item in json_data["list"]]
-    value_df = pd.DataFrame(
-        [
-            value_list_1,
-            value_list_2,
-            value_list_3,
-            value_list_4,
-            value_list_5,
-            value_list_6,
-            value_list_7,
-        ]
-    ).T
-    value_df.columns = [
-        "美元/人民币",
-        "欧元/人民币",
-        "100日元/人民币",
-        "港元/人民币",
-        "英镑/人民币",
-        "澳元/人民币",
-        "新西兰元/人民币",
-    ]
-    value_df.index = pd.to_datetime(date_list)
-    value_df.name = "currency"
-    return value_df
+    params = {
+        "_": t
+    }
+    res = requests.get("https://cdn.jin10.com/data_center/reports/exchange_rate.json", params=params)
+    json_data = res.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    big_df = pd.DataFrame()
+    temp_df.fillna(value="--", inplace=True)
+    big_df["美元/人民币_中间价"] = temp_df["美元/人民币"].apply(lambda x: x[0])
+    big_df["美元/人民币_涨跌幅"] = temp_df["美元/人民币"].apply(lambda x: x[1])
+    big_df["欧元/人民币_中间价"] = temp_df["欧元/人民币"].apply(lambda x: x[0])
+    big_df["欧元/人民币_涨跌幅"] = temp_df["欧元/人民币"].apply(lambda x: x[1])
+    big_df["100日元/人民币_中间价"] = temp_df["100日元/人民币"].apply(lambda x: x[0])
+    big_df["100日元/人民币_涨跌幅"] = temp_df["100日元/人民币"].apply(lambda x: x[1])
+    big_df["港元/人民币_中间价"] = temp_df["港元/人民币"].apply(lambda x: x[0])
+    big_df["港元/人民币_涨跌幅"] = temp_df["港元/人民币"].apply(lambda x: x[1])
+    big_df["英镑/人民币_中间价"] = temp_df["英镑/人民币"].apply(lambda x: x[0])
+    big_df["英镑/人民币_涨跌幅"] = temp_df["英镑/人民币"].apply(lambda x: x[1])
+    big_df["澳元/人民币_中间价"] = temp_df["澳元/人民币"].apply(lambda x: x[0])
+    big_df["澳元/人民币_涨跌幅"] = temp_df["澳元/人民币"].apply(lambda x: x[1])
+    big_df["新西兰元/人民币_中间价"] = temp_df["新西兰元/人民币"].apply(lambda x: x[0])
+    big_df["新西兰元/人民币_涨跌幅"] = temp_df["新西兰元/人民币"].apply(lambda x: x[1])
+    big_df["新加坡元/人民币_中间价"] = temp_df["新加坡元/人民币"].apply(lambda x: x[0])
+    big_df["新加坡元/人民币_涨跌幅"] = temp_df["新加坡元/人民币"].apply(lambda x: x[1])
+    big_df["瑞郎/人民币_中间价"] = temp_df["瑞郎/人民币"].apply(lambda x: x[0])
+    big_df["瑞郎/人民币_涨跌幅"] = temp_df["瑞郎/人民币"].apply(lambda x: x[1])
+    big_df["加元/人民币_中间价"] = temp_df["加元/人民币"].apply(lambda x: x[0])
+    big_df["加元/人民币_涨跌幅"] = temp_df["加元/人民币"].apply(lambda x: x[1])
+    big_df["人民币/马来西亚林吉特_中间价"] = temp_df["人民币/马来西亚林吉特"].apply(lambda x: x[0])
+    big_df["人民币/马来西亚林吉特_涨跌幅"] = temp_df["人民币/马来西亚林吉特"].apply(lambda x: x[1])
+    big_df["人民币/俄罗斯卢布_中间价"] = temp_df["人民币/俄罗斯卢布"].apply(lambda x: x[0])
+    big_df["人民币/俄罗斯卢布_涨跌幅"] = temp_df["人民币/俄罗斯卢布"].apply(lambda x: x[1])
+    big_df["人民币/南非兰特_中间价"] = temp_df["人民币/南非兰特"].apply(lambda x: x[0])
+    big_df["人民币/南非兰特_涨跌幅"] = temp_df["人民币/南非兰特"].apply(lambda x: x[1])
+    big_df["人民币/韩元_中间价"] = temp_df["人民币/韩元"].apply(lambda x: x[0])
+    big_df["人民币/韩元_涨跌幅"] = temp_df["人民币/韩元"].apply(lambda x: x[1])
+    big_df["人民币/阿联酋迪拉姆_中间价"] = temp_df["人民币/阿联酋迪拉姆"].apply(lambda x: x[0])
+    big_df["人民币/阿联酋迪拉姆_涨跌幅"] = temp_df["人民币/阿联酋迪拉姆"].apply(lambda x: x[1])
+    big_df["人民币/沙特里亚尔_中间价"] = temp_df["人民币/沙特里亚尔"].apply(lambda x: x[0])
+    big_df["人民币/沙特里亚尔_涨跌幅"] = temp_df["人民币/沙特里亚尔"].apply(lambda x: x[1])
+    big_df["人民币/匈牙利福林_中间价"] = temp_df["人民币/匈牙利福林"].apply(lambda x: x[0])
+    big_df["人民币/匈牙利福林_涨跌幅"] = temp_df["人民币/匈牙利福林"].apply(lambda x: x[1])
+    big_df["人民币/波兰兹罗提_中间价"] = temp_df["人民币/波兰兹罗提"].apply(lambda x: x[0])
+    big_df["人民币/波兰兹罗提_涨跌幅"] = temp_df["人民币/波兰兹罗提"].apply(lambda x: x[1])
+    big_df["人民币/丹麦克朗_中间价"] = temp_df["人民币/丹麦克朗"].apply(lambda x: x[0])
+    big_df["人民币/丹麦克朗_涨跌幅"] = temp_df["人民币/丹麦克朗"].apply(lambda x: x[1])
+    big_df["人民币/瑞典克朗_中间价"] = temp_df["人民币/瑞典克朗"].apply(lambda x: x[0])
+    big_df["人民币/瑞典克朗_涨跌幅"] = temp_df["人民币/瑞典克朗"].apply(lambda x: x[1])
+    big_df["人民币/挪威克朗_中间价"] = temp_df["人民币/挪威克朗"].apply(lambda x: x[0])
+    big_df["人民币/挪威克朗_涨跌幅"] = temp_df["人民币/挪威克朗"].apply(lambda x: x[1])
+    big_df["人民币/土耳其里拉_中间价"] = temp_df["人民币/土耳其里拉"].apply(lambda x: x[0])
+    big_df["人民币/土耳其里拉_涨跌幅"] = temp_df["人民币/土耳其里拉"].apply(lambda x: x[1])
+    big_df["人民币/墨西哥比索_中间价"] = temp_df["人民币/墨西哥比索"].apply(lambda x: x[0])
+    big_df["人民币/墨西哥比索_涨跌幅"] = temp_df["人民币/墨西哥比索"].apply(lambda x: x[1])
+    big_df["人民币/泰铢_定价"] = temp_df["人民币/泰铢"].apply(lambda x: x[0])
+    big_df["人民币/泰铢_涨跌幅"] = temp_df["人民币/泰铢"].apply(lambda x: x[1])
+    big_df = big_df.apply(lambda x: x.replace("-", np.nan))
+    big_df = big_df.apply(lambda x: x.replace([None], np.nan))
+    big_df.sort_index(inplace=True)
+    big_df = big_df.astype("float")
+    return big_df
 
 
 # 金十数据中心-经济指标-中国-其他-深圳融资融券报告
 def macro_china_market_margin_sz():
     """
     深圳融资融券报告, 数据区间从20100331-至今
+    https://datacenter.jin10.com/reportType/dc_market_margin_sz
     :return: pandas.DataFrame
                    融资买入额(元)       融资余额(元)  融券卖出量(股)    融券余量(股)     融券余额(元)  \
     2010-03-31       684569        670796      4000       3900       70895
@@ -659,46 +691,23 @@ def macro_china_market_margin_sz():
     2019-12-18  441272701443
     """
     t = time.time()
-    res = requests.get(
-        JS_CHINA_MARKET_MARGIN_SZ_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
-    value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
-    value_list_3 = [item["datas"]["总量"][2] for item in json_data["list"]]
-    value_list_4 = [item["datas"]["总量"][3] for item in json_data["list"]]
-    value_list_5 = [item["datas"]["总量"][4] for item in json_data["list"]]
-    value_list_6 = [item["datas"]["总量"][5] for item in json_data["list"]]
-    value_df = pd.DataFrame(
-        [
-            value_list_1,
-            value_list_2,
-            value_list_3,
-            value_list_4,
-            value_list_5,
-            value_list_6,
-        ]
-    ).T
-    value_df.columns = [
-        "融资余额(元)",
-        "融资买入额(元)",
-        "融券余量(股)",
-        "融券余量金额(元)",
-        "融券卖出量(股)",
-        "融资融券余额(元)",
-    ]
-    value_df.index = pd.to_datetime(date_list)
-    value_df.name = "market_margin_sz"
-    return value_df
+    params = {
+        "_": t
+    }
+    res = requests.get("https://cdn.jin10.com/data_center/reports/fs_2.json", params=params)
+    json_data = res.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    temp_df.columns = ["融资买入额", "融资余额", "融券卖出量", "融券余量", "融券余额", "融资融券余额"]
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.astype("float")
+    return temp_df
 
 
 # 金十数据中心-经济指标-中国-其他-上海融资融券报告
 def macro_china_market_margin_sh():
     """
     上海融资融券报告, 数据区间从20100331-至今
+    https://datacenter.jin10.com/reportType/dc_market_margin_sse
     :return: pandas.DataFrame
                         融资买入额(元)      融资余额(元)    融券卖出量(股)      融券余量(股)    融券余额(元)  \
     2010-03-31       5824813      5866316        2900        24142       3100
@@ -766,20 +775,25 @@ def macro_china_market_margin_sh():
 def macro_china_au_report():
     """
     上海黄金交易所报告, 数据区间从20100331-至今
+    https://datacenter.jin10.com/reportType/dc_sge_report
     :return: pandas.DataFrame
-    格式暂未处理
     """
     t = time.time()
-    res = requests.get(
-        JS_CHINA_REPORT_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list_1 = pd.DataFrame([item["datas"] for item in json_data["list"]])
-    value_list_1.index = pd.to_datetime(date_list)
-    return value_list_1
+    params = {
+        "_": t
+    }
+    res = requests.get("https://cdn.jin10.com/data_center/reports/sge.json", params=params)
+    json_data = res.json()
+    big_df = pd.DataFrame()
+    for item in json_data["values"].keys():
+        temp_df = pd.DataFrame(json_data["values"][item])
+        temp_df["date"] = item
+        temp_df.columns = ['商品', '开盘价', '最高价', '最低价', '收盘价', '涨跌', '涨跌幅', '加权平均价', '成交量', '成交金额', '持仓量', '交收方向', '交收量', "日期"]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.index = pd.to_datetime(big_df["日期"])
+    del big_df["日期"]
+    big_df.sort_index(inplace=True)
+    return big_df
 
 
 # 发改委-中国电煤价格指数-全国综合电煤价格指数

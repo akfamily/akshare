@@ -1247,4 +1247,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.86: add: hf_sp_500
 
 0.4.87: fix: jinshi data update
+
+0.4.88: fix: macro_china
 ```
