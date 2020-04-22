@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/21 15:22
-contact: jindaxiang@163.com
-desc: 
+Date: 2020/4/21 15:22
+Desc: 国家金融与发展实验室-中国宏观杠杆率数据
+http://114.115.232.154:8080/
 """
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -12,9 +11,13 @@ import matplotlib.pyplot as plt
 plt.rcParams["font.sans-serif"] = ["SimHei"]  # 显示中文标签
 
 
-def macro_cnbs():
+def macro_cnbs() -> pd.DataFrame:
     """
-        年份       居民部门     非金融企业部门  ...      实体经济部门    金融部门资产方    金融部门负债方
+    国家金融与发展实验室-中国宏观杠杆率数据
+    http://114.115.232.154:8080/
+    :return: 中国宏观杠杆率数据
+    :rtype: pandas.DataFrame
+         年份       居民部门     非金融企业部门  ...      实体经济部门    金融部门资产方    金融部门负债方
     0   1993-12   8.311222   91.658000  ...  107.791459   8.896441   7.128428
     1   1994-12   7.808230   82.411703  ...   98.354271   9.808787   6.796868
     2   1995-12   8.240004   80.950106  ...   97.850373  10.009081   7.006151
@@ -42,15 +45,13 @@ def macro_cnbs():
         "金融部门负债方",
     ]
     return excel_data
-    # data_info = pd.read_excel(url, sheet_name="Contents", header=0, skiprows=4)
-    # data_info.iloc[:, 2]
 
 
 if __name__ == '__main__':
-    cnbs_df = macro_cnbs()
-    print(cnbs_df)
-    cnbs_df.index = pd.to_datetime(cnbs_df["年份"])
-    cnbs_df["居民部门"].plot()
+    macro_cnbs_df = macro_cnbs()
+    print(macro_cnbs_df)
+    macro_cnbs_df.index = pd.to_datetime(macro_cnbs_df["年份"])
+    macro_cnbs_df["居民部门"].plot()
     plt.ylabel("居民部门杠杆率数据(百分比%)")
     plt.title("中国宏观杠杆率数据-居民部门")
     plt.show()
