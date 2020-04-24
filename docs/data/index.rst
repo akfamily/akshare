@@ -28,3 +28,4 @@ AkShare 数据字典
     others/others
     qhkc/index
     tool/tool
+    strategy/strategy
