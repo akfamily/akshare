@@ -29,5 +29,6 @@ Welcome to AkShare's Online Documentation!
    strategy
    platform
    topic/index
-   changelog
    demo
+   changelog
+
