@@ -30,3 +30,4 @@ Welcome to AkShare's Online Documentation!
    platform
    topic/index
    changelog
+   demo
