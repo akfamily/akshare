@@ -95,76 +95,15 @@ def stock_zh_a_spot():
     return big_df
 
 
-def stock_zh_a_daily(symbol="sh600000", factor=""):
+def stock_zh_a_daily(symbol="sh600582", adjust=""):
     """
-    新浪财经-A股获取某个股票的历史行情数据, 大量抓取容易封IP
-    :param symbol: str sh600000
-    :param factor: str 默认为空, 不复权; qfq, 前复权因子; hfq, 后复权因子;
-    :return: pandas.DataFrame
-    不复权数据
-                     open   high    low  close     volume
-    date
-    1999-11-10  29.50  29.80  27.00  27.75  174085100
-    1999-11-11  27.58  28.38  27.53  27.71   29403500
-    1999-11-12  27.86  28.30  27.77  28.05   15008000
-    1999-11-15  28.20  28.25  27.70  27.75   11921100
-    1999-11-16  27.88  27.97  26.48  26.55   23223100
-               ...    ...    ...    ...        ...
-    2019-10-30  12.75  12.79  12.52  12.59   53734730
-    2019-10-31  12.68  12.70  12.50  12.51   33347533
-    2019-11-01  12.50  12.83  12.44  12.75   62705733
-    2019-11-04  12.75  12.89  12.69  12.74   49737996
-    2019-11-05  12.74  13.19  12.69  12.95   74274389
-
-    后复权因子
-                  date           hfq_factor
-    0   2019-06-11  12.7227249211316980
-    1   2018-07-13  12.3391802422000990
-    2   2017-05-25  12.2102441895126000
-    3   2016-06-23   9.2710670167499010
-    4   2015-06-23   8.1856186501361000
-    5   2014-06-24   7.8226125975203010
-    6   2013-06-03   7.2881483827828000
-    7   2012-06-26   6.9052943607646000
-    8   2011-06-03   6.6571999525935000
-    9   2010-06-10   5.0588982345161000
-    10  2009-06-09   3.8599078005559000
-    11  2008-04-24   2.7363470981385000
-    12  2007-07-18   2.0953391363342000
-    13  2006-05-25   2.0866878599662000
-    14  2006-05-12   2.0595609177866000
-    15  2005-05-12   1.5842776290666000
-    16  2004-05-20   1.5573493974111000
-    17  2003-06-23   1.5391056877503000
-    18  2002-08-22   1.5263436173709000
-    19  2000-07-06   1.0065019505852000
-    20  1999-11-10   1.0000000000000000
-    21  1900-01-01   1.0000000000000000
-
-    前复权因子
-                  date           qfq_factor
-    0   2019-06-11   1.0000000000000000
-    1   2018-07-13   1.0310834813499000
-    2   2017-05-25   1.0419713745004000
-    3   2016-06-23   1.3723042771825000
-    4   2015-06-23   1.5542777479525000
-    5   2014-06-24   1.6264035528443000
-    6   2013-06-03   1.7456731467196000
-    7   2012-06-26   1.8424594602978000
-    8   2011-06-03   1.9111225457747000
-    9   2010-06-10   2.5149201133019000
-    10  2009-06-09   3.2961214563983000
-    11  2008-04-24   4.6495289028892000
-    12  2007-07-18   6.0719168083645000
-    13  2006-05-25   6.0970905928105000
-    14  2006-05-12   6.1773967505679000
-    15  2005-05-12   8.0306157757383010
-    16  2004-05-20   8.1694736854052000
-    17  2003-06-23   8.2663101191762000
-    18  2002-08-22   8.3354264245204000
-    19  2000-07-06  12.6405367756464000
-    20  1999-11-10  12.7227249211316980
-    21  1900-01-01  12.7227249211316980
+    新浪财经-A股-个股的历史行情数据, 大量抓取容易封IP
+    :param symbol: sh600000
+    :type symbol: str
+    :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子
+    :type adjust: str
+    :return: specific data
+    :rtype: pandas.DataFrame
     """
     res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
     js_code = execjs.compile(hk_js_decode)
@@ -187,10 +126,50 @@ def stock_zh_a_daily(symbol="sh600000", factor=""):
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["volume"] / temp_df["amount"]
-    temp_df.columns = ['close', 'high', 'low', 'open', 'volume', 'outstanding_share', 'turnover']
-    if not factor:
+    temp_df.columns = ['open', 'high', 'low', 'close', 'volume', 'outstanding_share', 'turnover']
+
+    if adjust == "":
         return temp_df
-    if factor == "hfq":
+
+    if adjust == "hfq":
+        res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+        hfq_factor_df = pd.DataFrame(
+            eval(res.text.split("=")[1].split("\n")[0])['data'])
+        hfq_factor_df.columns = ["date", "hfq_factor"]
+        hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
+        del hfq_factor_df["date"]
+
+        temp_df = pd.merge(
+            temp_df, hfq_factor_df, left_index=True, right_index=True, how="left"
+        )
+        temp_df.fillna(method="ffill", inplace=True)
+        temp_df = temp_df.astype(float)
+        temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"]
+        temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
+        temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
+        temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"]
+        return temp_df
+
+    if adjust == "qfq":
+        res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+        qfq_factor_df = pd.DataFrame(
+            eval(res.text.split("=")[1].split("\n")[0])['data'])
+        qfq_factor_df.columns = ["date", "qfq_factor"]
+        qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
+        del qfq_factor_df["date"]
+
+        temp_df = pd.merge(
+            temp_df, qfq_factor_df, left_index=True, right_index=True, how="left"
+        )
+        temp_df.fillna(method="ffill", inplace=True)
+        temp_df = temp_df.astype(float)
+        temp_df["open"] = temp_df["open"] / temp_df["qfq_factor"]
+        temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
+        temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
+        temp_df["low"] = temp_df["low"] / temp_df["qfq_factor"]
+        return temp_df
+
+    if adjust == "hfq-factor":
         res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])['data'])
@@ -198,7 +177,8 @@ def stock_zh_a_daily(symbol="sh600000", factor=""):
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
         return hfq_factor_df
-    if factor == "qfq":
+
+    if adjust == "qfq-factor":
         res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])['data'])
@@ -209,9 +189,9 @@ def stock_zh_a_daily(symbol="sh600000", factor=""):
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol="sh000031", factor="")
-    print(stock_zh_a_daily_qfq_df)
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582")
+    stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sh600582", adjust="qfq-factor")
+    print(stock_zh_a_daily_hfq_df)
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582", adjust="hfq")
     print(stock_zh_a_daily_df)
     # stock_zh_a_spot_df = stock_zh_a_spot()
     # print(stock_zh_a_spot_df)
