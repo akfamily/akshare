@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/2/2 15:22
-contact: jindaxiang@163.com
-desc: 
+Date: 2020/2/2 15:22
+Desc: for COVID
 """
 province_dict = {"820000": "澳门",
                  "810000": "香港",
