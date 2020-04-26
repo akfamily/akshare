@@ -199,18 +199,16 @@ print(futures_rule_df)
 79  中金所  10年期国债     T    2.5%                                   -      -
 ```
 
-#### 库存数据
-
-库存数据是从[99期货网站](http://www.99qh.com/d/store.aspx)获取的日频率数据, 
-由于网站限制, 目前可以利用本接口获取历史数据的图片格式和近期数据的 **pandas.DataFrame** 格式. 调用例子如下: 
+#### 库存数据-99期货
 
 接口: get_inventory_data
 
 目标地址: http://www.99qh.com/d/store.aspx
 
-描述: 获取大宗商品库存数据
+描述: 周频率数据, 由于网站限制, 目前可以利用本接口获取历史数据的图片格式和近期数据的 **pandas.DataFrame** 格式. 
+p.s. 由于[99期货网站](http://www.99qh.com/d/store.aspx)服务器不稳定, 接口会自动重复访问, 另外请关注图片下载的路径, 会自动下载到本地出来
 
-限量: 单次一个市场的某个具体品种, 请用 **help(get_inventory_data)** 查看使用方法
+限量: 单次一个市场的某个具体品种, 请用 **help(get_inventory_data)** 查看使用方法, 指定交割仓库的仓单周报数据
 
 输入参数
 
@@ -230,18 +228,10 @@ print(futures_rule_df)
 
 接口示例
 
-p.s. 由于[99期货网站](http://www.99qh.com/d/store.aspx)服务器不稳定, 请加
-try ... except 语句, 如下格式; 另外请关注图片下载的路径, 会自动 **print** 出来
-
 ```python
 import akshare as ak
-for i in range(10):
-    try:
-        data = ak.get_inventory_data(exchange=1, symbol=6, plot=True)
-        print(data)
-        break
-    except:
-        continue
+get_inventory_data_df = ak.get_inventory_data(exchange=1, symbol=6, plot=True)
+print(get_inventory_data_df)
 ```
 
 数据示例
@@ -262,6 +252,61 @@ for i in range(10):
 p.s.**库存(左轴)-绿色**, **增减(右轴)-蓝色**
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/inventory/shfe_cu.jpg)
+
+#### 库存数据-东方财富
+
+接口: futures_inventory_em
+
+目标地址: http://data.eastmoney.com/ifdata/kcsj.html
+
+描述: 可以获取近 20 个交易日的期货库存日频率数据
+
+限量: 返回指定交易所指定品种的指定交割仓库仓单日报数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| exchange | str  | Y    | exchange="上海期货交易所"; choice of {"上海期货交易所", "郑州商品交易所", "大连商品交易所"}|
+| symbol | str  | Y    |  symbol="沪铝"; http://data.eastmoney.com/ifdata/kcsj.html 对应的中文名称, 如: 沪铝|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 日期          | str   | Y        | 日期     |
+| 库存          | str   | Y        | 库存数据     |
+| 增减          | str   | Y        | 相对前一个交易日的增减     |
+
+接口示例
+
+```python
+import akshare as ak
+futures_inventory_em_df = ak.futures_inventory_em(exchange="大连商品交易所", symbol="豆粕")
+print(futures_inventory_em_df)
+```
+
+数据示例
+
+```
+            日期    库存     增减
+0   2020-04-24  5450      0
+1   2020-04-23  5450      0
+2   2020-04-22  5450      0
+3   2020-04-21  5450      0
+4   2020-04-20  5450      0
+5   2020-04-17  5450      0
+6   2020-04-16  5450      0
+7   2020-04-15  5450      0
+8   2020-04-14  5450      0
+9   2020-04-13  5450      0
+10  2020-04-10  5450      0
+11  2020-04-09  5450   2250
+12  2020-04-08  3200   3200
+13  2020-03-31     0  -4011
+14  2020-03-30  4011  -3100
+15  2020-03-27  7111  -1000
+```
 
 #### 展期收益率
 

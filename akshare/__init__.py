@@ -916,9 +916,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.88: fix: macro_china
 0.4.89: fix: macro_other
 0.4.90: fix: stock_zh_a and stock_zh_kcb return adjusted stock price
+0.4.91: add: futures_inventory_em
 """
 
-__version__ = "0.4.90"
+__version__ = "0.4.91"
 __author__ = "Albert King"
 
 """
@@ -1749,9 +1750,14 @@ from akshare.bond.investing_bond import get_country_bond  # 债券-全球政府�
 from akshare.index.index_investing import get_country_index  # 股票指数-全球股指与期货指数数据接口
 
 """
-99期货数据
+99期货-期货库存数据
 """
 from akshare.futures.futures_inventory import get_inventory_data
+
+"""
+东方财富-期货库存数据
+"""
+from akshare.futures.futures_inventory_em import futures_inventory_em
 
 """
 私募指数

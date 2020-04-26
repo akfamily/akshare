@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 99期货网-大宗商品库存数据
+Date: 2020/4/26 13:58
+Desc: 99期货网-大宗商品库存数据
+http://www.99qh.com/d/store.aspx
 """
 import os
 
@@ -18,7 +17,7 @@ from akshare.futures.cons import (qh_headers,
                                   get_pk_data)
 
 
-def get_inventory_data(exchange=1, symbol=6, plot=True):
+def get_inventory_data(exchange=1, symbol=6, plot=False):
     """
     调用此函数, 请调用 try except
     # 交易所代码
@@ -39,115 +38,115 @@ def get_inventory_data(exchange=1, symbol=6, plot=True):
     :param plot: Bool 画出历史库存曲线图
     :return: pandas.DataFrame and picture
     """
-    data_code = get_pk_data("exchange_symbol_value_list.pk")
-    data_name = get_pk_data("exchange_symbol_list.pk")
-    out_exchange_name = get_pk_data("code_exchange_name_dict.pk")
-    name_temp_dict = {}
-    code_temp_dict = {}
-    for num in data_code.keys():
-        name_temp_dict[out_exchange_name[num]] = dict(zip(data_code[num], data_name[num]))
-        code_temp_dict[num] = dict(zip(data_code[num], data_name[num]))
-    # print(name_temp_dict)
-    # print(out_exchange_name)
-    url = "http://service.99qh.com/Storage/Storage.aspx?page=99qh"
-    # print(exchange)
-    res = requests.get(url, headers=sample_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
-    even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0]["value"]
-    # print(symbol)
-    if exchange != 1:
-        payload = {
-            "__EVENTTARGET": "ddlExchName",
-            "__EVENTARGUMENT": "",
-            "__LASTFOCUS": "",
-            "__VIEWSTATE": view_state,
-            "__VIEWSTATEGENERATOR": "6EAC22FA",
-            "__EVENTVALIDATION": even_validation,
-            "ddlExchName": int(exchange),
-            "ddlGoodsName": 6
-        }
-        res = requests.post(url, data=payload, headers=qh_headers)
-        soup = BeautifulSoup(res.text, "lxml")
-        exchange_name = soup.find_all("select")[0].find_all(attrs={"selected": "selected"})[0].get_text()
-        # print("切换后", exchange_name)
-        view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
-        even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0]["value"]
-        payload = {
-            "__EVENTTARGET": "ddlGoodsName",
-            "__EVENTARGUMENT": "",
-            "__LASTFOCUS": "",
-            "__VIEWSTATE": view_state,
-            "__VIEWSTATEGENERATOR": "6EAC22FA",
-            "__EVENTVALIDATION": even_validation,
-            "ddlExchName": int(exchange),
-            "ddlGoodsName": int(symbol)
-        }
-        res = requests.post(url, data=payload, headers=qh_headers)
-        soup = BeautifulSoup(res.text, "lxml")
-        small_code = soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1]
-        # print(small_code)
-        payload = {
-            "__EVENTTARGET": "btnZoomAll",
-            "__EVENTARGUMENT": "",
-            "__LASTFOCUS": "",
-            "__VIEWSTATE": view_state,
-            "__VIEWSTATEGENERATOR": "6EAC22FA",
-            "__EVENTVALIDATION": even_validation,
-            "ddlExchName": int(exchange),
-            "ddlGoodsName": int(symbol)
-        }
-        res = requests.post(url, data=payload, headers=qh_headers)
-        soup = BeautifulSoup(res.text, "lxml")
-        inventory_table = pd.read_html(res.text)[-1]
+    while True:
+        try:
+            data_code = get_pk_data("exchange_symbol_value_list.pk")
+            data_name = get_pk_data("exchange_symbol_list.pk")
+            out_exchange_name = get_pk_data("code_exchange_name_dict.pk")
+            name_temp_dict = {}
+            code_temp_dict = {}
+            for num in data_code.keys():
+                name_temp_dict[out_exchange_name[num]] = dict(zip(data_code[num], data_name[num]))
+                code_temp_dict[num] = dict(zip(data_code[num], data_name[num]))
+            # print(name_temp_dict)
+            # print(out_exchange_name)
+            url = "http://service.99qh.com/Storage/Storage.aspx?page=99qh"
+            # print(exchange)
+            res = requests.get(url, headers=sample_headers)
+            soup = BeautifulSoup(res.text, "lxml")
+            view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
+            even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0]["value"]
+            # print(symbol)
+            if exchange != 1:
+                payload = {
+                    "__EVENTTARGET": "ddlExchName",
+                    "__EVENTARGUMENT": "",
+                    "__LASTFOCUS": "",
+                    "__VIEWSTATE": view_state,
+                    "__VIEWSTATEGENERATOR": "6EAC22FA",
+                    "__EVENTVALIDATION": even_validation,
+                    "ddlExchName": int(exchange),
+                    "ddlGoodsName": 6
+                }
+                res = requests.post(url, data=payload, headers=qh_headers)
+                soup = BeautifulSoup(res.text, "lxml")
+                exchange_name = soup.find_all("select")[0].find_all(attrs={"selected": "selected"})[0].get_text()
+                # print("切换后", exchange_name)
+                view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
+                even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0]["value"]
+                payload = {
+                    "__EVENTTARGET": "ddlGoodsName",
+                    "__EVENTARGUMENT": "",
+                    "__LASTFOCUS": "",
+                    "__VIEWSTATE": view_state,
+                    "__VIEWSTATEGENERATOR": "6EAC22FA",
+                    "__EVENTVALIDATION": even_validation,
+                    "ddlExchName": int(exchange),
+                    "ddlGoodsName": int(symbol)
+                }
+                res = requests.post(url, data=payload, headers=qh_headers)
+                soup = BeautifulSoup(res.text, "lxml")
+                small_code = soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1]
+                # print(small_code)
+                payload = {
+                    "__EVENTTARGET": "btnZoomAll",
+                    "__EVENTARGUMENT": "",
+                    "__LASTFOCUS": "",
+                    "__VIEWSTATE": view_state,
+                    "__VIEWSTATEGENERATOR": "6EAC22FA",
+                    "__EVENTVALIDATION": even_validation,
+                    "ddlExchName": int(exchange),
+                    "ddlGoodsName": int(symbol)
+                }
+                res = requests.post(url, data=payload, headers=qh_headers)
+                soup = BeautifulSoup(res.text, "lxml")
+                inventory_table = pd.read_html(res.text)[-1]
 
-        # print("big code", soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1])
-        params = {
-            "ChartDirectorChartImage": "chart_chartData",
-            "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1],
-            "page": "99qh"
-        }
-        res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=inventory_temp_headers)
-        if plot:
-            with open("{}_{}.jpg".format(exchange_name, code_temp_dict[str(exchange)][str(symbol)]), "wb") as fs:
-                print("保存图片到本地: {}".format(os.getcwd()))
-                fs.write(res.content)
-        return inventory_table
+                # print("big code", soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1])
+                params = {
+                    "ChartDirectorChartImage": "chart_chartData",
+                    "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1],
+                    "page": "99qh"
+                }
+                res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=inventory_temp_headers)
+                if plot:
+                    with open("{}_{}.jpg".format(exchange_name, code_temp_dict[str(exchange)][str(symbol)]), "wb") as fs:
+                        print("保存图片到本地: {}".format(os.getcwd()))
+                        fs.write(res.content)
+                return inventory_table
 
-    else:
-        payload = {
-            "__EVENTTARGET": "btnZoomAll",
-            "__EVENTARGUMENT": "",
-            "__LASTFOCUS": "",
-            "__VIEWSTATE": view_state,
-            "__VIEWSTATEGENERATOR": "6EAC22FA",
-            "__EVENTVALIDATION": even_validation,
-            "ddlExchName": int(exchange),
-            "ddlGoodsName": int(symbol)
-        }
-        res = requests.post(url, data=payload, headers=qh_headers)
-        inventory_table = pd.read_html(res.text)[-1]
+            else:
+                payload = {
+                    "__EVENTTARGET": "btnZoomAll",
+                    "__EVENTARGUMENT": "",
+                    "__LASTFOCUS": "",
+                    "__VIEWSTATE": view_state,
+                    "__VIEWSTATEGENERATOR": "6EAC22FA",
+                    "__EVENTVALIDATION": even_validation,
+                    "ddlExchName": int(exchange),
+                    "ddlGoodsName": int(symbol)
+                }
+                res = requests.post(url, data=payload, headers=qh_headers)
+                inventory_table = pd.read_html(res.text)[-1]
 
-        soup = BeautifulSoup(res.text, "lxml")
-        exchange_name = soup.find_all("select")[0].find_all(attrs={"selected": "selected"})[0].get_text()
-        params = {
-            "ChartDirectorChartImage": "chart_chartData",
-            "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1],
-            "page": "99qh"
-        }
-        res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=inventory_temp_headers)
-        if plot:
-            with open("{}_{}.jpg".format(exchange_name, code_temp_dict[str(exchange)][str(symbol)]), "wb") as fs:
-                print("保存图片到本地: {}".format(os.getcwd()))
-                fs.write(res.content)
-        return inventory_table
+                soup = BeautifulSoup(res.text, "lxml")
+                exchange_name = soup.find_all("select")[0].find_all(attrs={"selected": "selected"})[0].get_text()
+                params = {
+                    "ChartDirectorChartImage": "chart_chartData",
+                    "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1],
+                    "page": "99qh"
+                }
+                res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=inventory_temp_headers)
+                if plot:
+                    with open("{}_{}.jpg".format(exchange_name, code_temp_dict[str(exchange)][str(symbol)]), "wb") as fs:
+                        print("保存图片到本地: {}".format(os.getcwd()))
+                        fs.write(res.content)
+                return inventory_table
+        except:
+            continue
 
 
 if __name__ == "__main__":
-    for i in range(10):
-        try:
-            data = get_inventory_data(exchange=3, symbol=80, plot=True)
-            print(data)
-            break
-        except:
-            continue
+    get_inventory_df = get_inventory_data(exchange=3, symbol=24, plot=False)
+    print(get_inventory_df)
+
