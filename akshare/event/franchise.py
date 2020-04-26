@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/2/16 14:51
-contact: jindaxiang@163.com
-desc: 中国-商业特许经营信息管理
+Date: 2020/2/16 14:51
+Desc: 中国-商业特许经营信息管理
 http://txjy.syggs.mofcom.gov.cn/
 需要定期更新历史数据
 """
