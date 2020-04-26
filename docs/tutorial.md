@@ -443,6 +443,9 @@
  "futures_xgx_index"  # 西本新干线-指数数据
  # 高频数据-标普500指数
  "hf_sp_500"  # 获取标普500指数的分钟数据
+ # 商品期货库存数据
+ "futures_inventory_em"  # 库存数据-东方财富
+ "get_inventory_data"  # 库存数据-99期货
 ```
 
 ## 案例演示
