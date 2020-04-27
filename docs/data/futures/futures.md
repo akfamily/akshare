@@ -1917,7 +1917,7 @@ print(jyfm_exchange_symbol_dict)
 
 ```python
 import akshare as ak
-headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
 data = ak.jyfm_tools_futures_spread(type_1="RB", type_2="RB", code_1="01", code_2="05", headers=headers, plot=True)
 print(data)
@@ -1971,7 +1971,7 @@ print(data)
 
 ```python
 import akshare as ak
-headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
 data = ak.jyfm_tools_futures_ratio(type_1="RB", type_2="RB", code_1="01", code_2="05", headers=headers, plot=True)
 print(data)
@@ -2025,7 +2025,7 @@ print(data)
 
 ```python
 import akshare as ak
-headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
 data = ak.jyfm_tools_futures_customize(formula="RB01-1.6*I01-0.5*J01-1200", headers=headers, plot=True)
 print(data)
@@ -2076,7 +2076,7 @@ print(data)
 
 ```python
 import akshare as ak
-headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
 jyfm_tools_futures_full_carry_df = ak.jyfm_tools_futures_full_carry(begin_code="05", end_code="09", ratio="4", headers=headers)
 print(jyfm_tools_futures_full_carry_df)
@@ -2152,7 +2152,7 @@ print(jyfm_tools_futures_full_carry_df)
 
 ```python
 import akshare as ak
-headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
 jyfm_tools_futures_arbitrage_matrix_df = ak.jyfm_tools_futures_arbitrage_matrix(category="1", type1="RB", type2="RB", headers=headers)
 print(jyfm_tools_futures_arbitrage_matrix_df)
@@ -2696,7 +2696,7 @@ print(jyfm_tools_trade_calendar_df)
 
 ```python
 import akshare as ak
-headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
 data = ak.jyfm_tools_position_detail(symbol="JM", code="jm2005", trade_date="2020-01-03", headers=headers)
 print(data)
@@ -2777,7 +2777,7 @@ print(data)
 
 ```python
 import akshare as ak
-headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
 data = ak.jyfm_tools_position_seat(seat="永安期货", trade_date="2020-01-03", headers=headers)
 print(data)
@@ -3077,7 +3077,7 @@ print(data)
 
 ```python
 import akshare as ak
-headers = headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
+headers = ak.jyfm_login(account="此处输入您在交易法门注册的帐号", password="此处输入您在交易法门注册的帐号的密码")
 # 会弹出验证码图片, 在 IDE 或者 Console 处输入相应的验证码后, 按 Enter 键继续运行
 jyfm_tools_position_season_df = ak.jyfm_tools_position_season(symbol="RB", code="05", headers=headers)
 print(jyfm_tools_position_season_df)
