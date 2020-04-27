@@ -1494,7 +1494,7 @@ from akshare.air.air_hebei import air_hebei
 """
 timeanddate-日出和日落
 """
-from akshare.air.time_and_date import weather_daily, weather_monthly
+from akshare.air.time_and_date import sunrise_daily, sunrise_monthly
 
 """
 金十财经-实时监控

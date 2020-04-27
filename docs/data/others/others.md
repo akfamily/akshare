@@ -4,11 +4,11 @@
 
 #### 日出和日落-天
 
-接口: weather_daily
+接口: sunrise_daily
 
 目标地址: https://www.timeanddate.com/sun/china/
 
-描述: 获取中国各大城市-日出和日落时间, 数据区间从19990101-至今
+描述: 获取中国各大城市-日出和日落时间, 数据区间从19990101-至今, 推荐使用代理访问
 
 限量: 单次返回某一天的数据
 
@@ -41,8 +41,8 @@
 
 ```python
 import akshare as ak
-weather_df = ak.weather_daily(trade_date="20190801", city="北京")
-print(weather_df)
+sunrise_daily_df = ak.sunrise_daily(trade_date="20190801", city="北京")
+print(sunrise_daily_df)
 ```
 
 数据示例
@@ -54,11 +54,11 @@ print(weather_df)
 
 #### 日出和日落-月
 
-接口: weather_monthly
+接口: sunrise_monthly
 
 目标地址: https://www.timeanddate.com/sun/china/
 
-描述: 获取中国各大城市-日出和日落时间, 数据区间从19990101-至今
+描述: 获取中国各大城市-日出和日落时间, 数据区间从19990101-至今, 推荐使用代理访问
 
 限量: 单次返回某一月的数据
 
@@ -91,8 +91,8 @@ print(weather_df)
 
 ```python
 import akshare as ak
-weather_df = ak.weather_monthly(trade_date="20190801", city="北京")
-print(weather_df)
+sunrise_monthly_df = ak.sunrise_monthly(trade_date="20190801", city="北京")
+print(sunrise_monthly_df)
 ```
 
 数据示例

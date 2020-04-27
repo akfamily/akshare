@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/25 20:45
-contact: jindaxiang@163.com
-desc: 空气质量接口配置文件
+Date: 2019/11/25 20:45
+Desc: 空气质量接口配置文件
 """
 city_chinese_list = [
     "北京",

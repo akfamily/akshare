@@ -1,26 +1,25 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/25 19:58
-contact: jindaxiang@163.com
-desc: 日出和日落数据
+Date: 2020/4/28 19:58
+Desc: 日出和日落数据
+https://www.timeanddate.com
 """
 import pandas as pd
 import pypinyin
 import requests
 
 
-def weather_city_df():
+def sunrise_city_df() -> list:
     url = "https://www.timeanddate.com/sun/china"
     res = requests.get(url)
     china_city_df = pd.read_html(res.text)[0]
-    city_list = [item.lower() for item in china_city_df["Location Name"].tolist()]
+    city_list = [item.lower() for item in china_city_df.iloc[:, 0].tolist()]
     return city_list
 
 
-def weather_daily(trade_date="20190801", city="北京"):
-    if pypinyin.slug(city, separator='') in weather_city_df():
+def sunrise_daily(trade_date: str = "20190801", city: str = "北京") -> pd.DataFrame:
+    if pypinyin.slug(city, separator='') in sunrise_city_df():
         year = trade_date[:4]
         month = trade_date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
@@ -36,8 +35,8 @@ def weather_daily(trade_date="20190801", city="北京"):
         return "不存在这个城市的数据"
 
 
-def weather_monthly(trade_date="20190801", city="北京"):
-    if pypinyin.slug(city, separator='') in weather_city_df():
+def sunrise_monthly(trade_date: str = "20190801", city: str = "北京") -> pd.DataFrame:
+    if pypinyin.slug(city, separator='') in sunrise_city_df():
         year = trade_date[:4]
         month = trade_date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
@@ -53,7 +52,7 @@ def weather_monthly(trade_date="20190801", city="北京"):
 
 
 if __name__ == "__main__":
-    weather_day_df = weather_daily(trade_date="20190801", city="北京")
-    weather_month_df = weather_monthly(trade_date="20190801", city="北京")
-    print(weather_day_df)
-    print(weather_month_df)
+    sunrise_daily_df = sunrise_daily(trade_date="20200423", city="北京")
+    print(sunrise_daily_df)
+    sunrise_monthly_df = sunrise_monthly(trade_date="20200423", city="北京")
+    print(sunrise_monthly_df)
