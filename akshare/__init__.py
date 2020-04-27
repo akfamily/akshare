@@ -918,10 +918,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.90: fix: stock_zh_a and stock_zh_kcb return adjusted stock price
 0.4.91: add: futures_inventory_em
 0.4.92: fix: adjust hk_stock_sina, us_stock_sina
+0.4.93: fix: air_quality
 """
 
-__version__ = "0.4.92"
+__version__ = "0.4.93"
 __author__ = "Albert King"
+
+"""
+air-quality
+"""
+from akshare.air_new.air_zhenqi import air_quality_hist, air_quality_rank, air_quality_watch_point
 
 """
 hf
