@@ -1255,4 +1255,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.90: fix: stock_zh_a and stock_zh_kcb return adjusted stock price
 
 0.4.91: add: futures_inventory_em
+
+0.4.92: fix: adjust hk_stock_sina, us_stock_sina
 ```
