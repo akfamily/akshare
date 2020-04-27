@@ -8,7 +8,7 @@
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_a
 
-描述: A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)获取的数据
+描述: A 股数据是从新浪财经获取的数据
 
 限量: 单次返回所有 A 股上市公司的实时行情数据
 
@@ -91,7 +91,7 @@ print(stock_zh_a_spot_df)
 
 目标地址: https://finance.sina.com.cn/realstock/company/sh600006/nc.shtml(示例)
 
-描述: A 股数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_a)获取的数据, 历史数据按日频率更新
+描述: A 股数据是从新浪财经获取的数据, 历史数据按日频率更新
 
 限量: 单次返回具体某个 A 上市公司的所有历史行情数据
 
@@ -185,13 +185,13 @@ date
 
 目标地址: http://gu.qq.com/sz300494/gp/detail(示例)
 
-描述: A 股数据是从[腾讯财经](http://stockapp.finance.qq.com/mstats/#mod=list&id=ssa&module=SS&type=ranka)获取的数据, 历史数据按日频率更新
+描述: A 股数据是从腾讯财经获取的数据, 历史数据按日频率更新
 
 限量: 单次返回具体某个 A 上市公司的近 2 年历史分笔行情数据
 
 P.S. 每个交易日 16:00 提供当日数据, 如遇到数据缺失，请使用 **stock_zh_a_tick_163** 接口，注意数据会有一定差异, 或者使用 **stock_zh_a_tick_tx_js(code="sz000001")** 来获取当日腾讯分笔数据
 
-输入参数
+输入参数-历史行情数据
 
 | 名称   | 类型 | 必选 | 描述       |
 | -------- | ---- | ---- | --- |
@@ -209,7 +209,7 @@ P.S. 每个交易日 16:00 提供当日数据, 如遇到数据缺失，请使用
 | 成交额(元)         | float      | Y        | -     |
 | 性质        | str      | Y        | 买卖盘标记     |
    
-接口示例
+接口示例-历史行情数据
 
 ```python
 import akshare as ak
