@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/30 11:28
-contact: jindaxiang@163.com
-desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前复权和后复权因子)
-优化: 在科创板行情的获取上采用多线程模式(新浪会封IP, 不再优化)
+Date: 2019/10/30 11:28
+Desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前复权和后复权因子)
 """
 import datetime
 import re
@@ -24,7 +21,7 @@ from akshare.stock.cons import (zh_sina_kcb_stock_payload,
                                 zh_sina_kcb_stock_amount_url)
 
 
-def get_zh_kcb_page_count():
+def get_zh_kcb_page_count() -> int:
     """
     所有股票的总页数
     http://vip.stock.finance.sina.com.cn/mkt/#hs_a
@@ -38,7 +35,7 @@ def get_zh_kcb_page_count():
         return int(page_count) + 1
 
 
-def stock_zh_kcb_spot():
+def stock_zh_kcb_spot() -> pd.DataFrame:
     """
     从新浪财经-A股获取所有A股的实时行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
@@ -57,7 +54,7 @@ def stock_zh_kcb_spot():
     return big_df
 
 
-def stock_zh_kcb_daily(symbol="sh688399", adjust=""):
+def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFrame:
     """
     从新浪财经-A股获取某个股票的历史行情数据, 大量抓取容易封IP
     :param symbol: str e.g., sh600000
@@ -126,7 +123,7 @@ def stock_zh_kcb_daily(symbol="sh688399", adjust=""):
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"]
-        return temp_df
+        return temp_df.iloc[:, :-1]
 
     if adjust == "qfq":
         res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol))
@@ -145,7 +142,7 @@ def stock_zh_kcb_daily(symbol="sh688399", adjust=""):
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
         temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
         temp_df["low"] = temp_df["low"] / temp_df["qfq_factor"]
-        return temp_df
+        return temp_df.iloc[:, :-1]
 
     if adjust == "hfq-factor":
         res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol))

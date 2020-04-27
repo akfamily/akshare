@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/30 11:28
-contact: jindaxiang@163.com
-desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
-优化: 在A股行情的获取上采用多线程模式(新浪会封IP, 不再优化)
+Date: 2019/10/30 11:28
+Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 """
 import re
 
@@ -25,7 +22,7 @@ from akshare.stock.cons import (zh_sina_a_stock_payload,
                                 zh_sina_a_stock_amount_url)
 
 
-def _get_zh_a_page_count():
+def _get_zh_a_page_count() -> int:
     """
     所有股票的总页数
     http://vip.stock.finance.sina.com.cn/mkt/#hs_a
@@ -40,7 +37,7 @@ def _get_zh_a_page_count():
         return int(page_count) + 1
 
 
-def stock_zh_a_spot():
+def stock_zh_a_spot() -> pd.DataFrame:
     """
     从新浪财经-A股获取所有A股的实时行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
@@ -95,7 +92,7 @@ def stock_zh_a_spot():
     return big_df
 
 
-def stock_zh_a_daily(symbol="sh600582", adjust=""):
+def stock_zh_a_daily(symbol: str = "sh600582", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-A股-个股的历史行情数据, 大量抓取容易封IP
     :param symbol: sh600000
@@ -148,7 +145,7 @@ def stock_zh_a_daily(symbol="sh600582", adjust=""):
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"]
-        return temp_df
+        return temp_df.iloc[:, :-1]
 
     if adjust == "qfq":
         res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
@@ -167,7 +164,7 @@ def stock_zh_a_daily(symbol="sh600582", adjust=""):
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
         temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
         temp_df["low"] = temp_df["low"] / temp_df["qfq_factor"]
-        return temp_df
+        return temp_df.iloc[:, :-1]
 
     if adjust == "hfq-factor":
         res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
@@ -191,7 +188,7 @@ def stock_zh_a_daily(symbol="sh600582", adjust=""):
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sh600582", adjust="qfq-factor")
     print(stock_zh_a_daily_hfq_df)
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582", adjust="hfq")
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582", adjust="qfq")
     print(stock_zh_a_daily_df)
     # stock_zh_a_spot_df = stock_zh_a_spot()
     # print(stock_zh_a_spot_df)
