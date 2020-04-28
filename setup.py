@@ -62,7 +62,7 @@ setuptools.setup(
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
     ],
-    package_data={"": ["*.py", "*.json", "*.pk", "*.woff"]},
+    package_data={"": ["*.py", "*.json", "*.pk", "*.woff", "*.js"]},
     keywords=[
         "stock",
         "option",
