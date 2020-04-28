@@ -918,10 +918,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.90: fix: stock_zh_a and stock_zh_kcb return adjusted stock price
 0.4.91: add: futures_inventory_em
 0.4.92: fix: adjust hk_stock_sina, us_stock_sina
+0.4.93: fix: air_quality
 """
 
-__version__ = "0.4.92"
+__version__ = "0.4.93"
 __author__ = "Albert King"
+
+"""
+air-quality
+"""
+from akshare.air.air_zhenqi import air_quality_hist, air_quality_rank, air_quality_watch_point, air_city_dict
 
 """
 hf
@@ -1409,11 +1415,6 @@ from akshare.fund.fund_amac import (
 from akshare.fortune.fortune_500 import fortune_rank, fortune_rank_eng
 
 """
-AQI空气质量接口
-"""
-from akshare.air.aqi_study import air_all_city, air_city_list, air_daily, air_hourly
-
-"""
 申万行业一级
 """
 from akshare.index.index_sw import (
@@ -1488,7 +1489,7 @@ from akshare.air.air_hebei import air_hebei
 """
 timeanddate-日出和日落
 """
-from akshare.air.time_and_date import weather_daily, weather_monthly
+from akshare.air.time_and_date import sunrise_daily, sunrise_monthly
 
 """
 金十财经-实时监控

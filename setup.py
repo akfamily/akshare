@@ -51,7 +51,6 @@ setuptools.setup(
         "pillow>=6.2.0",
         "pypinyin>=0.35.0",
         "websocket-client>=0.56.0",
-        "pycryptodomex>=3.9.4",
         "html5lib>=1.0.1",
         "requests-html>=0.10.0",
         "scikit-learn>=0.22",

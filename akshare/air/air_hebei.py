@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/26 16:33
-contact: jindaxiang@163.com
-desc: 河北省空气质量预报信息发布系统
+Date: 2019/11/26 16:33
+Desc: 河北省空气质量预报信息发布系统
 http://110.249.223.67/publish/
 等级划分
 1. 空气污染指数为0－50，空气质量级别为一级，空气质量状况属于优。此时，空气质量令人满意，基本无空气污染，各类人群可正常活动。

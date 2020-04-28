@@ -1,16 +1,14 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/7 14:06
-contact: jindaxiang@163.com
-desc: 不需要控制速度, 但是需要伪装游览器, 不然会被一次封 IP 地址
+Date: 2019/11/7 14:06
+Desc: 不需要控制速度, 但是需要伪装游览器, 不然会被一次封 IP 地址
 """
 import execjs
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-
+# execjs.get().name  # 检测程序是否采用 Node.js 引擎
 from akshare.bank.cons import cbirc_headers_without_cookie_2019
 
 

@@ -60,7 +60,7 @@
 
 感谢[申万指数](http://www.swsindex.com/idx0120.aspx?columnid=8832)提供的相关数据;
 
-感谢[AQI空气质量数据](https://www.aqistudy.cn/)提供空气质量数据;
+感谢[真气网](https://www.zq12369.com/)提供空气质量数据;
 
 感谢[财富网站](http://www.fortunechina.com/)提供财富企业世界500强数据;
 
