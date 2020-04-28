@@ -4,29 +4,61 @@
 Date: 2020/4/27 21:13
 Desc: 真气网-空气质量
 https://www.zq12369.com/environment.php
+空气质量在线监测分析平台的空气质量数据
+https://www.aqistudy.cn/
 """
 import json
+import re
 
 import demjson
 import execjs
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 
 
-def air_quality_watch_point(city="杭州", start_date="2018-01-01", end_date="2020-04-27"):
+def has_month_data(href):
     """
+    Deal with href node
+    :param href: href
+    :type href: str
+    :return: href result
+    :rtype: str
+    """
+    return href and re.compile("monthdata.php").search(href)
 
-    :param city:
-    :type city:
-    :param start_date:
-    :type start_date:
-    :param end_date:
-    :type end_date:
-    :return:
-    :rtype:
+
+def air_city_dict() -> dict:
+    """
+    真气网-空气质量历史数据查询-全部城市列表
+    https://www.aqistudy.cn/historydata/
+    :return: 城市映射
+    :rtype: dict
+    """
+    url = "https://www.aqistudy.cn/historydata/"
+    res = requests.get(url)
+    soup = BeautifulSoup(res.text, "lxml")
+    # 注意 href 的用法
+    link_list = soup.find_all(href=has_month_data)
+    city_list = [item.get_text() for item in link_list]
+    return dict(zip(city_list, city_list))
+
+
+def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01", end_date: str = "2020-04-27") -> pd.DataFrame:
+    """
+    真气网-监测点空气质量-细化到具体城市的每个监测点
+    https://www.zq12369.com/
+    :param city: 调用 air_city_dict 接口获取
+    :type city: str
+    :param start_date: e.g., "2019-03-27"
+    :type start_date: str
+    :param end_date: e.g., ""2020-03-27""
+    :type end_date: str
+    :return: 指定城市指定日期区间的观测点空气质量
+    :rtype: pandas.DataFrame
     """
     url = "https://www.zq12369.com/api/zhenqiapi.php"
-    with open(r"akshare/air_new/crypto.js") as file:
+    with open(r"akshare/air/crypto.js") as file:
         file_data = file.read()
     ctx = execjs.compile(file_data)
     method = "GETCITYPOINTAVG"
@@ -54,10 +86,24 @@ def air_quality_watch_point(city="杭州", start_date="2018-01-01", end_date="20
 
 
 def air_quality_hist(
-    city="杭州", period="day", start_date="2019-03-27", end_date="2020-04-27"
-):
+    city: str = "杭州", period: str = "day", start_date: str = "2019-03-27", end_date: str = "2020-04-27"
+) -> pd.DataFrame:
+    """
+    真气网-空气历史数据
+    https://www.zq12369.com/
+    :param city: 调用 air_city_dict 接口获取所有城市列表
+    :type city: str
+    :param period: "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据
+    :type period: str
+    :param start_date: e.g., "2019-03-27"
+    :type start_date: str
+    :param end_date: e.g., ""2020-03-27""
+    :type end_date: str
+    :return: 指定城市和数据频率下在指定时间段内的空气质量数据
+    :rtype: pandas.DataFrame
+    """
     url = "https://www.zq12369.com/api/newzhenqiapi.php"
-    with open(r"akshare/air_new/outcrypto.js") as file:
+    with open(r"akshare/air/outcrypto.js") as file:
         file_data = file.read()
     out = execjs.compile(file_data)
     appId = "4f0e3a273d547ce6b7147bfa7ceb4b6e"
@@ -155,9 +201,9 @@ def air_quality_rank(date: str = "2020-03-12") -> pd.DataFrame:
     """
     真气网-168城市AQI排行榜
     https://www.zq12369.com/environment.php?date=2020-03-12&tab=rank&order=DESC&type=DAY#rank
-    :param date:
-    :type date:
-    :return:
+    :param date: "实时": 当前时刻空气质量排名; "2020-03-12": 当日空气质量排名; "2020-03": 当月空气质量排名; "2019": 当年空气质量排名;
+    :type date: str
+    :return: 指定 date 类型的空气质量排名数据
     :rtype: pandas.DataFrame
     """
     url = "https://www.zq12369.com/environment.php"
@@ -176,11 +222,11 @@ def air_quality_rank(date: str = "2020-03-12") -> pd.DataFrame:
             "month": date,
             "tab": "rank",
             "order": "DESC",
-            "type": "Month",
+            "type": "MONTH",
         }
         r = requests.get(url, params=params)
         return pd.read_html(r.text)[2].iloc[1:, :]
-    elif len(date.split("-")) == 1:
+    elif len(date.split("-")) == 1 and date != "实时":
         params = {
             "year": date,
             "tab": "rank",
@@ -191,23 +237,27 @@ def air_quality_rank(date: str = "2020-03-12") -> pd.DataFrame:
         return pd.read_html(r.text)[3].iloc[1:, :]
     if date == "实时":
         params = {
-            "date": date,
             "tab": "rank",
             "order": "DESC",
-            "type": "DAY",
+            "type": "MONTH",
         }
         r = requests.get(url, params=params)
         return pd.read_html(r.text)[0].iloc[1:, :]
 
 
 if __name__ == "__main__":
-    air_quality_spot_df = air_quality_watch_point(
+    air_city_dict_map = air_city_dict()
+    print(air_city_dict_map)
+
+    air_quality_watch_point_df = air_quality_watch_point(
         city="杭州", start_date="2018-01-01", end_date="2020-04-27"
     )
-    print(air_quality_spot_df)
+    print(air_quality_watch_point_df.columns)
+
     air_quality_hist_df = air_quality_hist(
-        city="北京", period="month", start_date="2019-03-27", end_date="2020-04-27"
+        city="北京", period="month", start_date="2019-04-25", end_date="2020-04-27"
     )
     print(air_quality_hist_df)
-    air_quality_rank_df = air_quality_rank(date="2020-03-12")
+
+    air_quality_rank_df = air_quality_rank(date="2019")
     print(air_quality_rank_df)

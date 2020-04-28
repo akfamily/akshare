@@ -226,7 +226,7 @@ Thanks for the data provided by [谷歌指数网站](https://trends.google.com/t
 
 Thanks for the data provided by [申万指数网站](http://www.swsindex.com/idx0120.aspx?columnid=8832);
 
-Thanks for the data provided by [真气网网站](https://www.aqistudy.cn/);
+Thanks for the data provided by [真气网网站](https://www.zq12369.com/);
 
 Thanks for the data provided by [财富网站](http://www.fortunechina.com/);
 

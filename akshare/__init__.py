@@ -927,7 +927,7 @@ __author__ = "Albert King"
 """
 air-quality
 """
-from akshare.air_new.air_zhenqi import air_quality_hist, air_quality_rank, air_quality_watch_point
+from akshare.air.air_zhenqi import air_quality_hist, air_quality_rank, air_quality_watch_point, air_city_dict
 
 """
 hf
@@ -1413,11 +1413,6 @@ from akshare.fund.fund_amac import (
 世界五百强公司排名接口
 """
 from akshare.fortune.fortune_500 import fortune_rank, fortune_rank_eng
-
-"""
-AQI空气质量接口
-"""
-from akshare.air.aqi_study import air_all_city, air_city_list, air_daily, air_hourly
 
 """
 申万行业一级

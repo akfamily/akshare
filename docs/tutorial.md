@@ -146,10 +146,10 @@
  "sw_index_daily"  # 获取申万一级历史行情
  "sw_index_daily_indicator"  # 获取申万一级历史行情指标
  # 空气质量
- "air_all_city"  # 获取所有城市天气
- "air_city_list"  # 获取城市列表
- "air_daily"  # 获取每日天气
- "air_hourly"  # 获取每小时天气
+ "air_quality_hist"  # 空气质量历史数据
+ "air_quality_rank"  # 空气质量排行
+ "air_quality_watch_point"  # 空气质量观测点历史数据
+ "air_city_dict"  # 所有城市列表
  # 财富世界五百强公司
  "fortune_rank"  # 获取财富世界500强公司历年排名
  # 中国证券投资基金业协会-信息公示
