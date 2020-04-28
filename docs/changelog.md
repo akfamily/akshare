@@ -1261,4 +1261,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.93: fix: air_quality
 
 0.4.94: fix: air_quality path
+
+0.4.95: add: js file
 ```
