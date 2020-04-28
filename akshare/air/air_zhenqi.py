@@ -9,12 +9,37 @@ https://www.aqistudy.cn/
 """
 import json
 import re
+import os
 
 import demjson
 import execjs
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
+
+def _get_js_path(name, module_file):
+    """
+    获取 JS 文件的路径(从模块所在目录查找)
+    :param name: 文件名
+    :param module_file: filename
+    :return: str json_file_path
+    """
+    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
+    module_json_path = os.path.join(module_folder, "air", name)
+    return module_json_path
+
+
+def _get_file_content(file_name="crypto.js"):
+    """
+    获取交易日历至 2019 年结束, 这里的交易日历需要按年更新
+    :return: json
+    """
+    setting_file_name = file_name
+    setting_file_path = _get_js_path(setting_file_name, __file__)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
 
 
 def has_month_data(href):
@@ -58,8 +83,7 @@ def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01"
     :rtype: pandas.DataFrame
     """
     url = "https://www.zq12369.com/api/zhenqiapi.php"
-    with open(r"akshare/air/crypto.js") as file:
-        file_data = file.read()
+    file_data = _get_file_content(file_name="crypto.js")
     ctx = execjs.compile(file_data)
     method = "GETCITYPOINTAVG"
     ctx.call("encode_param", method)
@@ -103,8 +127,7 @@ def air_quality_hist(
     :rtype: pandas.DataFrame
     """
     url = "https://www.zq12369.com/api/newzhenqiapi.php"
-    with open(r"akshare/air/outcrypto.js") as file:
-        file_data = file.read()
+    file_data = _get_file_content(file_name="outcrypto.js")
     out = execjs.compile(file_data)
     appId = "4f0e3a273d547ce6b7147bfa7ceb4b6e"
     method = "CETCITYPERIOD"

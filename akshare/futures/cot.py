@@ -474,9 +474,9 @@ def get_dce_rank_table(date="20180404", vars_list=cons.contract_symbols):
     return big_dict
 
 
-def get_cffex_rank_table(date="20200311", vars_list=cons.contract_symbols):
+def get_cffex_rank_table(date="20200427", vars_list=cons.contract_symbols):
     """
-    中国金融期货交易所前20会员持仓排名数据明细
+    中国金融期货交易所前 20 会员持仓排名数据明细
     注：该交易所既公布品种排名，也公布标的排名
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品, 数据从20100416开始，每交易日16:30左右更新数据
@@ -506,6 +506,7 @@ def get_cffex_rank_table(date="20200311", vars_list=cons.contract_symbols):
     big_dict = {}
     for var in vars_list:
         # print(var)
+        # var = "IF"
         url = cons.CFFEX_VOL_RANK_URL % (date.strftime('%Y%m'), date.strftime('%d'), var)
         r = requests_link(url, encoding='gbk')
         if not r:
@@ -556,10 +557,13 @@ if __name__ == '__main__':
     print(get_czce_rank_table_second_df)
     get_czce_rank_table_third_df = get_czce_rank_table(date='20191227')
     print(get_czce_rank_table_third_df)
-    get_cffex_rank_table_df = get_cffex_rank_table(date='20200316')
-    print(get_cffex_rank_table_df)
+
+    get_cffex_rank_table_df = get_cffex_rank_table(date='20200325')
+    print(get_cffex_rank_table_df.keys())
+
     get_shfe_rank_table_df = get_shfe_rank_table(date='20190711')
     print(get_shfe_rank_table_df)
+
     get_shfe_rank_table_first_df = get_dce_rank_table(date='20131227')
     print(get_shfe_rank_table_first_df)
     get_shfe_rank_table_second_df = get_dce_rank_table(date='20171227')

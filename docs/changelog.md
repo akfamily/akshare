@@ -1259,4 +1259,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.92: fix: adjust hk_stock_sina, us_stock_sina
 
 0.4.93: fix: air_quality
+
+0.4.94: fix: air_quality path
 ```
