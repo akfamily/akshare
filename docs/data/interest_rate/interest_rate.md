@@ -644,7 +644,7 @@ macro_bank_brazil_interest_rate_se: pandas.Series
 目标地址: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
 
 描述: 获取指定市场指定品种指定指标的拆借利率数据, 可以通过 **need_page** 参数控制更新数据数量, 此函数全量更新
-容易封 IP, 建议增量更新, 或者使用手机热点使用
+容易封 IP, 建议增量更新, 或者使用手机热点使用, 如果被封 IP, 请在约 15 分钟后再次尝试
 
 输入参数
 
