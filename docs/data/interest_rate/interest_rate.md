@@ -644,7 +644,7 @@ macro_bank_brazil_interest_rate_se: pandas.Series
 目标地址: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
 
 描述: 获取指定市场指定品种指定指标的拆借利率数据, 可以通过 **need_page** 参数控制更新数据数量, 此函数全量更新
-容易封 IP, 建议增量更新, 或者使用手机热点使用, 如果被封 IP, 请在约 15 分钟后再次尝试
+容易封 IP, 建议增量更新, 或者使用手机热点使用, 如果被封 IP, 请在约 15 分钟后再次尝试, 增量更新方法请参考本章节中 **增量更新示例**
 
 输入参数
 
@@ -789,4 +789,21 @@ print(rate_interbank_df)
 1579  2012-06-01  0.4217   0.000
 1580  2012-05-31  0.4217   0.000
 1581  2012-05-30  0.4217   0.000
+```
+
+增量更新示例
+
+```python
+import akshare as ak
+
+# 这里 hist_df 可以替换为你本地报错的利用 ak.rate_interbank 获取的历史数据
+hist_df = ak.rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月")
+# 这里 latest_df 为需要更新前两页的数据
+latest_df = ak.rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="2")
+# 合并历史数据和需要更新的数据
+hist_df = hist_df.append(latest_df)
+# 为防止有重复, 这里去除重复值
+hist_df.drop_duplicates(inplace=True)
+# 按日期先后排列
+hist_df.sort_values(by="日期", inplace=True)
 ```

@@ -10,6 +10,7 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+
 from akshare.interest_rate.cons import market_symbol_indicator_dict, headers
 
 
@@ -22,7 +23,7 @@ class IPError(Exception):
 
 def _get_page_num(market: str = "上海银行同业拆借市场", symbol: str = "Shibor人民币", indicator: str = "隔夜") -> int:
     """
-    获取具体市场具体品种具体指标的页面数量
+    具体市场具体品种具体指标的页面数量
     http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
     :param market: ["上海银行同业拆借市场", "中国银行同业拆借市场", "伦敦银行同业拆借市场", "欧洲银行同业拆借市场", "香港银行同业拆借市场", "新加坡银行同业拆借市场"]
     :type market: str
@@ -85,7 +86,13 @@ def rate_interbank(market: str = "上海银行同业拆借市场", symbol: str =
 
 
 if __name__ == "__main__":
-    rate_interbank_df = rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="5")
-    print(rate_interbank_df)
+    rate_interbank_shanghai_df = rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="5")
+    print(rate_interbank_shanghai_df)
     rate_interbank_df = rate_interbank(market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="1月", need_page="2")
     print(rate_interbank_df)
+
+    hist_df = rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="5")
+    latest_df = rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="2")
+    hist_df = hist_df.append(latest_df)
+    hist_df.drop_duplicates(inplace=True)
+    hist_df.sort_values(by="日期", inplace=True)
