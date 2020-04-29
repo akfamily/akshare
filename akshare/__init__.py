@@ -922,9 +922,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.94: fix: air_quality path
 0.4.95: add: js file
 0.4.96: fix: format air interface
+0.4.97: fix: interbank_rate_em.py add need_page parameter to control update content
 """
 
-__version__ = "0.4.96"
+__version__ = "0.4.97"
 __author__ = "Albert King"
 
 """
