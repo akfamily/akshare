@@ -90,9 +90,3 @@ if __name__ == "__main__":
     print(rate_interbank_shanghai_df)
     rate_interbank_df = rate_interbank(market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="1月", need_page="2")
     print(rate_interbank_df)
-
-    hist_df = rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="5")
-    latest_df = rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="2")
-    hist_df = hist_df.append(latest_df)
-    hist_df.drop_duplicates(inplace=True)
-    hist_df.sort_values(by="日期", inplace=True)
