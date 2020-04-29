@@ -643,7 +643,8 @@ macro_bank_brazil_interest_rate_se: pandas.Series
 
 目标地址: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
 
-描述: 获取指定具体市场具体品种具体指标的拆借利率数据
+描述: 获取指定市场指定品种指定指标的拆借利率数据, 可以通过 **need_page** 参数控制更新数据数量, 此函数全量更新
+容易封 IP, 建议增量更新, 或者使用手机热点使用
 
 输入参数
 
@@ -652,6 +653,7 @@ macro_bank_brazil_interest_rate_se: pandas.Series
 | market | str  | Y    |   market="上海银行同业拆借市场"; 参见 **市场-品种-指标一览表**|
 | symbol | str  | Y    |   symbol="Shibor人民币"; 参见 **市场-品种-指标一览表**|
 | indicator | str  | Y    |   indicator="隔夜"; 参见 **市场-品种-指标一览表**|
+| need_page | str  | Y    |need_page="5"; 默认 need_page="", 为全量更新; 设置 need_page="5" 则返回前 need_page 页的数据; e.g., need_page="5", 则只返回前5页的数据, 此参数可以用于增量更新, 以免被封 IP|
 
 市场-品种-指标一览表
 
@@ -768,7 +770,7 @@ macro_bank_brazil_interest_rate_se: pandas.Series
 
 ```python
 import akshare as ak
-rate_interbank_df = ak.rate_interbank(market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="3月")
+rate_interbank_df = ak.rate_interbank(market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="3月", need_page="")
 print(rate_interbank_df)
 ```
 

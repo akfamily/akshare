@@ -6,6 +6,7 @@ date: 2020/1/10 19:51
 contact: jindaxiang@163.com
 desc: 东方财富网-经济数据-银行间拆借利率-配置文件
 
+
 上海银行同业拆借市场
 上海银行同业拆借市场-Shibor人民币
 隔夜: http://data.eastmoney.com/shibor/shibor.aspx?m=sh&t=99&d=99221&cu=cny&type=009016&p=2
@@ -138,6 +139,10 @@ desc: 东方财富网-经济数据-银行间拆借利率-配置文件
 9月: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=87&d=99345&cu=usd&type=009067
 1年: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=87&d=99346&cu=usd&type=009068
 """
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
+}
+
 market_symbol_indicator_dict = {
     "上海银行同业拆借市场": {"Shibor人民币": {
         "隔夜": "http://data.eastmoney.com/shibor/shibor.aspx?m=sh&t=99&d=99221&cu=cny&type=009016",
