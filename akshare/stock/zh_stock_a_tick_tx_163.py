@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/16 20:39
-contact: jindaxiang@163.com
-desc: 腾讯-股票-实时行情-成交明细
+Date: 2020/4/16 20:39
+Desc: 腾讯-股票-实时行情-成交明细
 下载成交明细-每个交易日16:00提供当日数据
 该列表港股报价延时15分钟
 """
@@ -65,7 +63,7 @@ def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20191011") -> 
 
 def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20200410") -> pd.DataFrame:
     """
-    成交明细-每个交易日22:00提供当日数据
+    成交明细-每个交易日 22:00 提供当日数据
     http://quotes.money.163.com/trade/cjmx_000001.html#01b05
     :param code: 带市场标识的股票代码
     :type code: str
@@ -87,14 +85,14 @@ def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20200410") ->
 
 if __name__ == "__main__":
     date_list = pd.date_range(start="20190801", end="20191111").tolist()
-    date_list = pd.date_range(start="20200401", end="20200408").tolist()
+    date_list = pd.date_range(start="20200425", end="20200428").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
         print(item)
         data = stock_zh_a_tick_tx(code="sz000001", trade_date=f"{item}")
         if not data.empty:
             print(data)
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20200410")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20200428")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")

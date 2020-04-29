@@ -921,9 +921,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.93: fix: air_quality
 0.4.94: fix: air_quality path
 0.4.95: add: js file
+0.4.96: fix: format air interface
 """
 
-__version__ = "0.4.95"
+__version__ = "0.4.96"
 __author__ = "Albert King"
 
 """
@@ -1486,7 +1487,7 @@ from akshare.futures_derivative.nh_index_volatility import nh_volatility_index
 """
 空气-河北
 """
-from akshare.air.air_hebei import air_hebei
+from akshare.air.air_hebei import air_quality_hebei
 
 """
 timeanddate-日出和日落
