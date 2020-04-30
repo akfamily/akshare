@@ -123,7 +123,7 @@ QHKC_TOOL_GDP_URL = "https://qhkch.com/dist/views/toolbox/gdp.html?v=1.10.7.1"
 
 BOND_BANK_URL = "http://zhuce.nafmii.org.cn/fans/publicQuery/releFileProjDataGrid"
 
-# 键值对: 键为交易所代码, 值为具体合约代码, TODO 需要及时补充新增的品种
+# 键值对: 键为交易所代码, 值为具体合约代码
 market_exchange_symbols = {
     "cffex": ["IF", "IC", "IH", "T", "TF", "TS"],
     "dce": [
