@@ -20,3 +20,4 @@ openpyxl>=3.0.3
 jsonpath>=0.82
 tabulate>=0.8.6
 decorator>=4.4.2
+mplfinance>=0.12.3a3
