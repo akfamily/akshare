@@ -418,7 +418,7 @@ print(fund_em_money_fund_daily_df)
 
 ### 货币型基金-历史数据
 
-接口: fund_em_money_fund_daily
+接口: fund_em_money_fund_info
 
 目标地址: http://fundf10.eastmoney.com/jjjz_004186.html
 
