@@ -42,8 +42,23 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 
 ### Docker
 
+#### Pull images
+
 ```
 docker pull registry.cn-hangzhou.aliyuncs.com/akshare/akdocker
+```
+
+#### Run AkDocker
+
+```
+docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
+```
+
+#### Test AkDocker
+
+```python
+import akshare as ak
+ak.__version__
 ```
 
 ## Usage
