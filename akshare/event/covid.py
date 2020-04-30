@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/3/16 9:07
+Date: 2020/4/30 9:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
 COVID-19-百度
-20200315 refactor the function
+COVID-19-GitHub
 """
 import json
 import time
@@ -702,7 +702,7 @@ def covid_19_history() -> pd.DataFrame:
     该接口最好用代理速度比较快
     https://github.com/canghailan/Wuhan-2019-nCoV
     2019-12-01开始
-    :return:
+    :return: 疫情数据
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
@@ -719,7 +719,7 @@ def covid_19_csse_daily(date: str = "2020-04-06") -> pd.DataFrame:
     采集 GitHub csv 文件需要 raw 地址
     :param date: from 2020-01-22 to today
     :type date: str
-    :return:
+    :return: CSSE data
     :rtype: pandas.DataFrame
     """
     url = f"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/{date.split('-')[1]}-{date.split('-')[2]}-{date.split('-')[0]}.csv"
@@ -731,7 +731,7 @@ def covid_19_csse_us_confirmed() -> pd.DataFrame:
     """
     2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
     https://github.com/CSSEGISandData/COVID-19
-    :return:
+    :return: us confirmed data
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv"
@@ -743,7 +743,7 @@ def covid_19_csse_global_confirmed() -> pd.DataFrame:
     """
     2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
     https://github.com/CSSEGISandData/COVID-19
-    :return:
+    :return: global data
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
@@ -755,7 +755,7 @@ def covid_19_csse_us_death() -> pd.DataFrame:
     """
     2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
     https://github.com/CSSEGISandData/COVID-19
-    :return:
+    :return: us death data
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv"
@@ -767,7 +767,7 @@ def covid_19_csse_global_death() -> pd.DataFrame:
     """
     2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
     https://github.com/CSSEGISandData/COVID-19
-    :return:
+    :return: global death data
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
@@ -779,7 +779,7 @@ def covid_19_csse_global_recovered() -> pd.DataFrame:
     """
     2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
     https://github.com/CSSEGISandData/COVID-19
-    :return:
+    :return: recovered data
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
