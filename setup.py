@@ -61,6 +61,7 @@ setuptools.setup(
         "jsonpath>=0.82",
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
+        "mplfinance>=0.12.3a3"
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.woff", "*.js"]},
     keywords=[
