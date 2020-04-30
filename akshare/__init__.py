@@ -924,15 +924,21 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.96: fix: format air interface
 0.4.97: fix: interbank_rate_em.py add need_page parameter to control update content
 0.4.98: add: mplfinance package
+0.4.99: add: fund_em
 """
 
-__version__ = "0.4.98"
+__version__ = "0.4.99"
 __author__ = "Albert King"
 
 """
 air-quality
 """
-from akshare.air.air_zhenqi import air_quality_hist, air_quality_rank, air_quality_watch_point, air_city_dict
+from akshare.air.air_zhenqi import (
+    air_quality_hist,
+    air_quality_rank,
+    air_quality_watch_point,
+    air_city_dict,
+)
 
 """
 hf
@@ -1127,12 +1133,28 @@ from akshare.event.covid import (
 """
 基金数据接口
 """
-from akshare.fund.fund_em import fund_em_daily, fund_em_info
+from akshare.fund.fund_em import (
+    fund_em_open_fund_daily,
+    fund_em_open_fund_info,
+    fund_em_etf_fund_daily,
+    fund_em_etf_fund_info,
+    fund_em_financial_fund_daily,
+    fund_em_financial_fund_info,
+    fund_em_fund_name,
+    fund_em_graded_fund_daily,
+    fund_em_graded_fund_info,
+    fund_em_money_fund_daily,
+    fund_em_money_fund_info,
+)
 
 """
 百度迁徙地图接口
 """
-from akshare.event.covid import migration_area_baidu, migration_scale_baidu, internal_flow_history
+from akshare.event.covid import (
+    migration_area_baidu,
+    migration_scale_baidu,
+    internal_flow_history,
+)
 
 """
 新增-事件接口新型冠状病毒接口
@@ -1482,7 +1504,10 @@ from akshare.article.epu_index import article_epu_index
 """
 南华期货-南华指数
 """
-from akshare.futures_derivative.nh_index_return import nh_return_index, get_nh_list_table
+from akshare.futures_derivative.nh_index_return import (
+    nh_return_index,
+    get_nh_list_table,
+)
 from akshare.futures_derivative.nh_index_price import nh_price_index
 from akshare.futures_derivative.nh_index_volatility import nh_volatility_index
 
@@ -1504,7 +1529,11 @@ from akshare.ws.jinshi import watch_jinshi
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.stock.zh_stock_a_tick_tx_163 import stock_zh_a_tick_tx, stock_zh_a_tick_163, stock_zh_a_tick_tx_js
+from akshare.stock.zh_stock_a_tick_tx_163 import (
+    stock_zh_a_tick_tx,
+    stock_zh_a_tick_163,
+    stock_zh_a_tick_tx_js,
+)
 
 """
 新浪-指数实时行情和历史行情
