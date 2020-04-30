@@ -42,7 +42,7 @@ def hf_subscribe_exchange_symbol():
     获取具体的量价数据
     """
     # res = requests.get(hf_subscribe_exchange_symbol_url, headers=hf_sina_spot_headers)
-    res = requests.get(hf_subscribe_exchange_symbol_url)  # TODO for test
+    res = requests.get(hf_subscribe_exchange_symbol_url)
     res.encoding = "gb2312"
     data_json = demjson.decode(
         res.text[res.text.find("var oHF_1 = ") + 12: res.text.find("var oHF_2 = ") - 2]
