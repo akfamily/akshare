@@ -72,7 +72,7 @@ def futures_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contra
         return temp_df
 
 
-def futures_spot_price(date=None, vars_list=cons.contract_symbols):
+def futures_spot_price(date="20200401", vars_list=cons.contract_symbols):
     """
     获取某个交易日大宗商品现货价格及相应基差
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -103,6 +103,7 @@ def futures_spot_price(date=None, vars_list=cons.contract_symbols):
     while True:
         for url in [u2, u1]:
             try:
+                # url = u2
                 r = pandas_read_html_link(url)
                 string = r[0].loc[1, 1]
                 news = "".join(re.findall(r"[0-9]", string))
@@ -233,7 +234,7 @@ def _check_information(df_data, date):
 
 
 if __name__ == "__main__":
-    get_spot_price_daily_df = futures_spot_price_daily(start_day="20200309", end_day="20200320")
+    get_spot_price_daily_df = futures_spot_price_daily(start_day="20200315", end_day="20200320")
     print(get_spot_price_daily_df)
-    get_spot_price_df = futures_spot_price("20200320")
+    get_spot_price_df = futures_spot_price("20200115")
     print(get_spot_price_df)
