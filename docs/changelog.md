@@ -1271,4 +1271,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.98: add: mplfinance package
 
 0.4.99: add: fund_em
+
+0.5.1: fix: add PG to futures list
 ```

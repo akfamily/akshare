@@ -925,9 +925,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.97: fix: interbank_rate_em.py add need_page parameter to control update content
 0.4.98: add: mplfinance package
 0.4.99: add: fund_em
+0.5.1: fix: add PG to futures list
 """
 
-__version__ = "0.4.99"
+__version__ = "0.5.1"
 __author__ = "Albert King"
 
 """
