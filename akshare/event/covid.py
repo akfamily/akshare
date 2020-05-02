@@ -672,7 +672,9 @@ def covid_19_hist_city(city: str = "武汉市") -> pd.DataFrame:
     该接口最好用代理速度比较快
     https://github.com/canghailan/Wuhan-2019-nCoV
     2019-12-01开始
-    :return:
+    :param city: 具体的城市
+    :type city: str
+    :return: COVID-19 具体城市的数据
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
@@ -687,7 +689,9 @@ def covid_19_hist_province(province: str = "湖北省") -> pd.DataFrame:
     该接口最好用代理速度比较快
     https://github.com/canghailan/Wuhan-2019-nCoV
     2019-12-01开始
-    :return: 具体省份的疫情数据
+    :param province: 具体的省份
+    :type province: str
+    :return: COVID-19 具体城市的数据
     :rtype: pandas.DataFrame
     """
     url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
