@@ -16,6 +16,7 @@ import execjs
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 
 def _get_js_path(name, module_file):
@@ -53,27 +54,31 @@ def has_month_data(href):
     return href and re.compile("monthdata.php").search(href)
 
 
-def air_city_dict() -> dict:
+def air_city_list() -> list:
     """
     真气网-空气质量历史数据查询-全部城市列表
-    https://www.aqistudy.cn/historydata/
+    https://www.zq12369.com/environment.php?date=2019-06-05&tab=rank&order=DESC&type=DAY#rank
     :return: 城市映射
-    :rtype: dict
+    :rtype: list
     """
-    url = "https://www.aqistudy.cn/historydata/"
-    res = requests.get(url)
-    soup = BeautifulSoup(res.text, "lxml")
-    # 注意 href 的用法
-    link_list = soup.find_all(href=has_month_data)
-    city_list = [item.get_text() for item in link_list]
-    return dict(zip(city_list, city_list))
+    url = "https://www.zq12369.com/environment.php"
+    date = "2020-05-01"
+    if len(date.split("-")) == 3:
+        params = {
+            "date": date,
+            "tab": "rank",
+            "order": "DESC",
+            "type": "DAY",
+        }
+        r = requests.get(url, params=params)
+    return pd.read_html(r.text)[1].iloc[1:, :]["城市"].tolist()
 
 
 def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01", end_date: str = "2020-04-27") -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
     https://www.zq12369.com/
-    :param city: 调用 air_city_dict 接口获取
+    :param city: 调用 air_city_list 接口获取
     :type city: str
     :param start_date: e.g., "2019-03-27"
     :type start_date: str
@@ -115,7 +120,7 @@ def air_quality_hist(
     """
     真气网-空气历史数据
     https://www.zq12369.com/
-    :param city: 调用 air_city_dict 接口获取所有城市列表
+    :param city: 调用 air_city_list 接口获取所有城市列表
     :type city: str
     :param period: "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据
     :type period: str
@@ -269,16 +274,16 @@ def air_quality_rank(date: str = "2020-03-12") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    air_city_dict_map = air_city_dict()
-    print(air_city_dict_map)
+    air_city_list_map = air_city_list()
+    print(air_city_list_map)
 
     air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="2018-01-01", end_date="2020-04-27"
+        city="杭州", start_date="2018-01-01", end_date="2020-05-01"
     )
-    print(air_quality_watch_point_df.columns)
+    print(air_quality_watch_point_df)
 
     air_quality_hist_df = air_quality_hist(
-        city="北京", period="month", start_date="2019-04-25", end_date="2020-04-27"
+        city="北京", period="month", start_date="2019-04-25", end_date="2020-05-01"
     )
     print(air_quality_hist_df)
 
