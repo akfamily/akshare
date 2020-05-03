@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/21 12:08
-contact: jindaxiang@163.com
-desc: 金十数据中心-经济指标-美国
+Date: 2020/5/3 12:08
+Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
 import json
