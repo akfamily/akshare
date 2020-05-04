@@ -47,5 +47,5 @@ def air_quality_hebei(city: str = "唐山市") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    air_quality_hebei_df = air_quality_hebei(city="辛集市")
+    air_quality_hebei_df = air_quality_hebei(city="石家庄市")
     print(air_quality_hebei_df)
