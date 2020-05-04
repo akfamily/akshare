@@ -187,6 +187,33 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
     elif indicator == "滚动新闻":
         return pd.DataFrame(data_info_json["scrollNews"])
 
+    elif indicator == "境外输入疫情趋势":
+        url = "https://c.m.163.com/ug/api/wuhan/app/data/list-by-area-code"
+        params = {
+            "areaCode": "66",
+            "t": round(int(time.time() * 1000))
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["data"]["list"])
+        today_list = [item.get("input", 0) for item in temp_df["today"]]
+        total_list = [item.get("input", 0) for item in temp_df["total"]]
+        result_df = pd.DataFrame([today_list, total_list]).T
+        result_df.columns = ["境外输入新增确诊", "境外输入累计确诊"]
+        result_df.index = pd.to_datetime(temp_df.date)
+        return result_df
+
+    elif indicator == "境外输入确诊病例来源":
+        url = "https://c.m.163.com/ug/api/wuhan/app/index/input-data-list"
+        params = {
+            "t": round(int(time.time() * 1000))
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["data"]["list"])
+        del temp_df["page"]
+        return temp_df
+
 
 def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
     """
@@ -810,6 +837,8 @@ if __name__ == "__main__":
         "前沿知识",
         "权威发布",
         "滚动新闻",
+        "境外输入疫情趋势",
+        "境外输入确诊病例来源",
     ]
     for item in indicator_list:
         print(item)
