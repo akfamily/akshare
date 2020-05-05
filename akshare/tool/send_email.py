@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 发送提醒邮件邮件
+Date: 2020/5/4 13:58
+Desc: 发送提醒邮件邮件
 """
 import smtplib
 from email.mime.text import MIMEText
