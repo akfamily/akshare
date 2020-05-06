@@ -58,14 +58,14 @@ def sunrise_daily(date: str = "20200428", city: str = "北京") -> pd.DataFrame:
 
 def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFrame:
     """
-
+    每个指定 date 所在月份的每日日出日落数据, 如果当前月份未到月底, 则以预测值填充
     https://www.timeanddate.com/sun/china/shaoxing
-    :param date:
-    :type date:
-    :param city:
-    :type city:
-    :return:
-    :rtype:
+    :param date: 需要查询的日期, 这里用来指定 date 所在的月份; e.g., “20200428”
+    :type date: str
+    :param city: 需要查询的城市; 注意输入的格式, e.g., "北京", "上海"
+    :type city: str
+    :return: 指定 date 所在月份的每日日出日落数据
+    :rtype: pandas.DataFrame
     """
     if pypinyin.slug(city, separator='') in sunrise_city_list():
         year = date[:4]
