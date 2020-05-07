@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 请求网站内容的函数: 在链接失败后可重复 20 次
+Date: 2020/5/7 13:58
+Desc: 请求网站内容的函数: 在链接失败后可重复 20 次
 """
 import time
 from typing import Dict
@@ -27,16 +25,16 @@ def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: 
     while True:
         try:
             if method == "get":
-                r = requests.get(url, timeout=10)
+                r = requests.get(url, timeout=20)
                 r.encoding = encoding
                 return r
             elif method == "post":
-                r = requests.post(url, timeout=10, data=data, headers=headers)
+                r = requests.post(url, timeout=20, data=data, headers=headers)
                 r.encoding = encoding
                 return r
             else:
                 raise ValueError("请提供正确的请求方式")
-        except TimeoutError as e:
+        except requests.exceptions.Timeout as e:
             i += 1
             print(f"第{str(i)}次链接失败, 最多尝试 20 次", e)
             time.sleep(5)
@@ -58,18 +56,18 @@ def pandas_read_html_link(url: str, encoding: str = "utf-8", method: str = "get"
     while True:
         try:
             if method == "get":
-                r = requests.get(url, timeout=10)
+                r = requests.get(url, timeout=20)
                 r.encoding = encoding
                 r = pd.read_html(r.text, encoding=encoding)
                 return r
             elif method == "post":
-                r = requests.post(url, timeout=10, data=data, headers=headers)
+                r = requests.post(url, timeout=20, data=data, headers=headers)
                 r.encoding = encoding
                 r = pd.read_html(r.text, encoding=encoding)
                 return r
             else:
                 raise ValueError("请提供正确的请求方式")
-        except TimeoutError as e:
+        except requests.exceptions.Timeout as e:
             i += 1
             print(f"第{str(i)}次链接失败, 最多尝试20次", e)
             time.sleep(5)
