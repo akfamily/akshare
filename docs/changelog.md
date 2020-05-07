@@ -1277,4 +1277,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.2: fix: air_zhenqi.py rename air_city_dict to air_city_list
 
 0.5.3: add: add two fields into covid_163
+
+0.5.4: fix: fix request_fun timeout and error type
 ```
