@@ -512,16 +512,16 @@ def fund_em_graded_fund_info(fund: str = "150232") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -1])
+    data_json = demjson.decode(text_data[text_data.find("{"): -1])
     temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
     temp_df.columns = [
         "净值日期",
-        "每万份收益",
-        "7日年化收益率",
+        "单位净值",
+        "-",
         "_",
         "_",
         "_",
-        "_",
+        "日增长率",
         "申购状态",
         "赎回状态",
         "_",
@@ -529,7 +529,7 @@ def fund_em_graded_fund_info(fund: str = "150232") -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df = temp_df[["净值日期", "每万份收益", "7日年化收益率", "申购状态", "赎回状态"]]
+    temp_df = temp_df[["净值日期", "单位净值", "日增长率", "申购状态", "赎回状态"]]
     return temp_df
 
 
