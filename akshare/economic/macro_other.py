@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/4 16:36
-contact: jindaxiang@163.com
-desc: 金十数据-其他-加密货币实时行情
+Date: 2019/11/4 16:36
+Desc: 金十数据-其他-加密货币实时行情
 """
 import time
 from datetime import datetime

@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/3/6 16:41
-contact: jindaxiang@163.com
-desc: get currency data from website
+Date: 2020/3/6 16:41
+Desc: get currency data from website
 P.S. you should get the api key from the website, you can register a gmail account to verify your email account
 https://currencyscoop.com/
 """

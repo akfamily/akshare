@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/21 21:11
-contact: jindaxiang@163.com
-desc: 宏观经济配置文件
+Date: 2019/10/21 21:11
+Desc: 宏观经济配置文件
 """
 # bitcoin
 bitcoin_url = "https://datacenter-api.jin10.com/crypto_currency/list"
