@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/3/17 22:11
-contact: jindaxiang@163.com
-desc: world bank interface
+Date: 2020/3/17 22:11
+Desc: world bank interface
 """
 import collections
 import datetime
