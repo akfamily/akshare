@@ -600,6 +600,7 @@ macro_china_au_report  # 金十数据中心-经济指标-中国-其他-上海黄
 macro_china_ctci  # 发改委-中国电煤价格指数-全国综合电煤价格指数
 macro_china_ctci_detail  # 发改委-中国电煤价格指数-各价区电煤价格指数
 macro_china_ctci_detail_hist  # 发改委-中国电煤价格指数-历史电煤价格指数
+macro_china_money_supply  # 中国货币供应量
 # 美国
 macro_usa_gdp_monthly  # 金十数据中心-经济指标-美国-经济状况-美国GDP
 macro_usa_cpi_monthly  # 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告
@@ -932,9 +933,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.5: fix: fund_em_graded_fund_daily return fields
 0.5.6: fix: us_stock_sina.py rename columns
 0.5.7: fix: import akshare only load functions
+0.5.8: add: macro_china_money_supply
 """
 
-__version__ = "0.5.7"
+__version__ = "0.5.8"
 __author__ = "Albert King"
 
 """
@@ -1753,6 +1755,7 @@ from akshare.economic.macro_china import (
     macro_china_shibor_all,
     macro_china_industrial_production_yoy,
     macro_china_lpr,
+    macro_china_money_supply,
 )
 
 """

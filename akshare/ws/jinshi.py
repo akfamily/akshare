@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/16 22:47
-contact: jindaxiang@163.com
-desc: 金十数据 websocket 实时数据接口
+Date: 2019/11/16 22:47
+Desc: 金十数据 websocket 实时数据接口
 先对: https://sshhbhekjf.jin10.com:9081/socket.io/?EIO=3&transport=polling 做长轮询, 后面还有个参数 t 可以去除
 返回: 97:0{"sid":"C10ZwKOEHslD9QOyAGrS","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":60000}
 获取里面的 sid 传入 wss
