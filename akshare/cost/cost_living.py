@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/18 12:32
-contact: jindaxiang@163.com
-desc: 获取世界各大城市生活成本数据
+Date: 2019/12/18 12:32
+Desc: 获取世界各大城市生活成本数据
 https://expatistan.com/cost-of-living/index
 """
 import pandas as pd

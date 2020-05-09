@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/2/21 16:03
-contact: jindaxiang@163.com
-desc: 慈善中国
+Date: 2020/2/21 16:03
+Desc: 慈善中国
 http://cishan.chinanpo.gov.cn/platform/login.html
 # 慈善中国-慈善组织查询
 http://cishan.chinanpo.gov.cn/biz/ma/csmh/a/csmhaindex.html
