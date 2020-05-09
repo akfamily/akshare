@@ -9,6 +9,7 @@ http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
 """
 import json
 import time
+import re
 
 import pandas as pd
 import numpy as np
@@ -872,6 +873,36 @@ def macro_china_lpr():
     return pd.DataFrame(data_json["result"]["data"])
 
 
+# 中国-货币-货币供应量
+def macro_china_money_supply():
+    """
+    http://data.eastmoney.com/cjsj/moneysupply.aspx?p=3
+    中国货币供应量
+    :return: 中国货币供应量
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/moneysupply.aspx"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    params = {
+        "p": 1,
+    }
+    r = requests.get(url, params=params, headers=headers)
+    page_num = int(re.findall(r"\d", pd.read_html(r.text)[0].iloc[-1, 0])[0]) + 1
+    big_df = pd.DataFrame()
+    for page in range(1, page_num):
+        params = {
+            "p": page,
+        }
+        r = requests.get(url, params=params, headers=headers)
+        text_data = r.text
+        temp_df = pd.read_html(text_data)[0].iloc[:-1, :-3]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = ["月份", "M2-数量", "M2-同比增长", "M2-环比增长", "M1-数量", "M1-同比增长", "M1-环比增长", "M0-数量", "M0-同比增长", "M0-环比增长"]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -946,3 +977,7 @@ if __name__ == "__main__":
     # 发改委-中国电煤价格指数-历史电煤价格指数
     macro_china_ctci_detail_hist_df = macro_china_ctci_detail_hist()
     print(macro_china_ctci_detail_hist_df)
+
+    # 中国-货币-货币供应量
+    macro_china_money_supply_df = macro_china_money_supply()
+    print(macro_china_money_supply_df)

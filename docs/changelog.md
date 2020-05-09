@@ -1283,4 +1283,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.5: fix: fund_em_graded_fund_daily return fields
 
 0.5.6: fix: us_stock_sina.py rename columns
+
+0.5.7: fix: import akshare only load functions
+
+0.5.8: add: macro_china_money_supply
 ```
