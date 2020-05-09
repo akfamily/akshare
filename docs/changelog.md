@@ -1281,4 +1281,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.4: fix: fix request_fun timeout and error type
 
 0.5.5: fix: fund_em_graded_fund_daily return fields
+
+0.5.6: fix: us_stock_sina.py rename columns
 ```
