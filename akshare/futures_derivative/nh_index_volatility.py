@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/26 18:52
-contact: jindaxiang@163.com
-desc: 获取南华期货-商品指数历史走势-收益率指数-波动率-http://www.nanhua.net/nhzc/varietytrend.html
+Date: 2019/11/26 18:52
+Desc: 获取南华期货-商品指数历史走势-收益率指数-波动率-http://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
 目标地址: http://www.nanhua.net/ianalysis/volatility/20/NHCI.json?t=1574932291399
 """
@@ -141,5 +139,5 @@ def nh_volatility_index(code: str = "NHCI", day_count: int = 20) -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    nh_volatility_index_df = nh_volatility_index(code="AL", day_count=20)
+    nh_volatility_index_df = nh_volatility_index(code="AL", day_count=5)
     print(nh_volatility_index_df)

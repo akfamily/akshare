@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/3/14 0:25
-contact: jindaxiang@163.com
-desc: Futures data from Singapore Exchange
+Date: 2020/3/14 0:25
+Desc: Futures data from Singapore Exchange
 https://www.sgx.com/zh-hans/research-education/derivatives
 https://links.sgx.com/1.0.0/derivatives-daily/5888/FUTURE.zip
 """
