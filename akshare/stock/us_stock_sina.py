@@ -88,7 +88,7 @@ def stock_us_spot() -> pd.DataFrame:
         res = requests.get(
             us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
         )
-        data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
+        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
         big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     return big_df
 
@@ -115,8 +115,7 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     data_df = data_df.astype("float")
     res = requests.get(us_sina_stock_hist_qfq_url.format(symbol))
     qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])["data"])
-    qfq_factor_df.columns = ["date", "qfq_factor", "adjust"]
-    qfq_factor_df = qfq_factor_df
+    qfq_factor_df.rename(columns={"c": "adjust", "d": "date", "f": "qfq_factor", }, inplace=True)
     qfq_factor_df.index = pd.to_datetime(qfq_factor_df["date"])
     del qfq_factor_df["date"]
 
