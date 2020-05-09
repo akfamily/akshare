@@ -1,11 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/30 21:34
-update: 2020/3/25 22:34
-contact: jindaxiang@163.com
-desc: 新浪财经-外盘期货-实时数据获取
+Date: 2020/5/9 22:34
+Desc: 新浪财经-外盘期货-实时数据获取
 """
 import time
 
@@ -50,7 +47,7 @@ def hf_subscribe_exchange_symbol():
     return list(data_json.keys())
 
 
-def futures_hf_spot(subscribe_list=hf_subscribe_exchange_symbol()):
+def futures_hf_spot(subscribe_list=['CT', 'NID', 'PBD', 'SND', 'ZSD', 'AHD', 'CAD', 'S', 'W', 'C', 'BO', 'SM', 'TRB', 'HG', 'NG', 'CL', 'SI', 'GC', 'LHC', 'OIL', 'XAU', 'XAG', 'XPT', 'XPD']):
     """
     订阅数据处理
     """

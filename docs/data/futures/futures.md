@@ -1832,7 +1832,7 @@ jyfm_exchange_symbol_dict 查看
 
 ```python
 import akshare as ak
-jyfm_exchange_symbol_dict = ak.jyfm_exchange_symbol_dict
+jyfm_exchange_symbol_dict = ak.jyfm_exchange_symbol_dict()
 print(jyfm_exchange_symbol_dict)
 ```
 
