@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
 Date: 2020/4/2 20:24
-Contact: jindaxiang@163.com
 Desc: 东方财富-数据中心-中国油价
 http://data.eastmoney.com/cjsj/oil_default.html
 """
@@ -72,4 +70,4 @@ if __name__ == "__main__":
     energy_oil_hist_df = energy_oil_hist()
     print(energy_oil_hist_df)
     energy_oil_detail_df = energy_oil_detail(date="2020-03-19")
-    print(energy_oil_detail_df.columns)
+    print(energy_oil_detail_df)

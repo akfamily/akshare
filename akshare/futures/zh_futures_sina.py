@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/30 21:34
-contact: jindaxiang@163.com
-desc: 新浪财经-国内期货-实时数据获取
+Date: 2019/10/30 21:34
+Desc: 新浪财经-国内期货-实时数据获取
 P.S. 注意抓取速度, 容易封 IP 地址
 """
 import time

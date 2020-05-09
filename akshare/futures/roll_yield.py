@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/09/07 16:58
-contact: jindaxiang@163.com
-desc: 获取各合约展期收益率, 日线数据从 daily_bar 函数获取
+Date: 2020/09/07 16:58
+Desc: 获取各合约展期收益率, 日线数据从 daily_bar 函数获取
 """
 import datetime
 import re
