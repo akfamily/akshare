@@ -903,6 +903,102 @@ def macro_china_money_supply():
     return big_df
 
 
+# 中国-新房价指数
+def macro_china_new_house_price():
+    """
+    http://data.eastmoney.com/cjsj/newhouse.html
+    中国-新房价指数
+    :return: 新房价指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/newhousepriceindex.aspx"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    params = {
+        "p": 1,
+    }
+    r = requests.get(url, params=params, headers=headers)
+    page_num = int(re.findall(r"\d", pd.read_html(r.text)[0].iloc[-1, 0])[0]) + 1
+    big_df = pd.DataFrame()
+    for page in range(1, page_num):
+        params = {
+            "p": page,
+        }
+        r = requests.get(url, params=params, headers=headers)
+        r.encoding = "gb2312"
+        text_data = r.text
+        temp_df = pd.read_html(text_data)[0].iloc[:-1, :-3]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = ["日期", "城市", "新建住宅价格指数-环比", "新建住宅价格指数-同比", "新建住宅价格指数-定基",
+                      "新建商品住宅价格指数-环比", "新建商品住宅价格指数-同比", "新建商品住宅价格指数-定基",
+                      "二手住宅价格指数-环比", "二手住宅价格指数-同比"]
+    return big_df
+
+
+# 中国-企业景气及企业家信心指数
+def macro_china_enterprise_boom_index():
+    """
+    http://data.eastmoney.com/cjsj/qyjqzs.html
+    中国-企业景气及企业家信心指数
+    :return: 企业景气及企业家信心指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/enterpriseboomindex.aspx"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    params = {
+        "p": 1,
+    }
+    r = requests.get(url, params=params, headers=headers)
+    page_num = int(re.findall(r"\d", pd.read_html(r.text)[0].iloc[-1, 0])[0]) + 1
+    big_df = pd.DataFrame()
+    for page in range(1, page_num):
+        params = {
+            "p": page,
+        }
+        r = requests.get(url, params=params, headers=headers)
+        r.encoding = "gb2312"
+        text_data = r.text
+        temp_df = pd.read_html(text_data)[0].iloc[:-1, :-6]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = ["季度", "企业景气指数-指数", "企业景气指数-同比", "企业景气指数-环比", "企业家信心指数-指数",
+                      "企业家信心指数-同比", "企业家信心指数-环比"]
+    return big_df
+
+
+# 中国-全国税收收入
+def macro_china_national_tax_receipts():
+    """
+    http://data.eastmoney.com/cjsj/nationaltaxreceipts.aspx
+    中国-全国税收收入
+    :return: 全国税收收入
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/nationaltaxreceipts.aspx"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    params = {
+        "p": 1,
+    }
+    r = requests.get(url, params=params, headers=headers)
+    page_num = int(re.findall(r"\d", pd.read_html(r.text)[0].iloc[-1, 0])[0]) + 1
+    big_df = pd.DataFrame()
+    for page in range(1, page_num):
+        params = {
+            "p": page,
+        }
+        r = requests.get(url, params=params, headers=headers)
+        r.encoding = "gb2312"
+        text_data = r.text
+        temp_df = pd.read_html(text_data)[0].iloc[:-1, :-9]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = ["季度", "税收收入合计", "较上年同期", "季度环比"]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -981,3 +1077,15 @@ if __name__ == "__main__":
     # 中国-货币-货币供应量
     macro_china_money_supply_df = macro_china_money_supply()
     print(macro_china_money_supply_df)
+
+    # 中国-新房价指数
+    macro_china_new_house_price_df = macro_china_new_house_price()
+    print(macro_china_new_house_price_df)
+
+    # 中国-企业景气及企业家信心指数
+    macro_china_enterprise_boom_index_df = macro_china_enterprise_boom_index()
+    print(macro_china_enterprise_boom_index_df)
+
+    # 中国-全国税收收入
+    macro_china_national_tax_receipts_df = macro_china_national_tax_receipts()
+    print(macro_china_national_tax_receipts_df)
