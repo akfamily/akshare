@@ -1287,4 +1287,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.7: fix: import akshare only load functions
 
 0.5.8: add: macro_china_money_supply
+
+0.5.9: add: macro_china_new_house_price, macro_china_enterprise_boom_index, macro_china_national_tax_receipts
 ```

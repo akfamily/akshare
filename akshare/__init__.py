@@ -934,9 +934,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.6: fix: us_stock_sina.py rename columns
 0.5.7: fix: import akshare only load functions
 0.5.8: add: macro_china_money_supply
+0.5.9: add: macro_china_new_house_price, macro_china_enterprise_boom_index, macro_china_national_tax_receipts
 """
 
-__version__ = "0.5.8"
+__version__ = "0.5.9"
 __author__ = "Albert King"
 
 """
@@ -1756,6 +1757,9 @@ from akshare.economic.macro_china import (
     macro_china_industrial_production_yoy,
     macro_china_lpr,
     macro_china_money_supply,
+    macro_china_new_house_price,
+    macro_china_enterprise_boom_index,
+    macro_china_national_tax_receipts,
 )
 
 """
