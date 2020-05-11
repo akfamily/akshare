@@ -517,7 +517,7 @@ def fund_em_graded_fund_info(fund: str = "150232") -> pd.DataFrame:
     temp_df.columns = [
         "净值日期",
         "单位净值",
-        "-",
+        "累计净值",
         "_",
         "_",
         "_",
@@ -529,7 +529,7 @@ def fund_em_graded_fund_info(fund: str = "150232") -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df = temp_df[["净值日期", "单位净值", "日增长率", "申购状态", "赎回状态"]]
+    temp_df = temp_df[["净值日期", "单位净值", "累计净值", "日增长率", "申购状态", "赎回状态"]]
     return temp_df
 
 
