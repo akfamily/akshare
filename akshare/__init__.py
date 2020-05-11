@@ -937,9 +937,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.9: add: macro_china_new_house_price, macro_china_enterprise_boom_index, macro_china_national_tax_receipts
 0.5.10: fix: zh_stock_ah_tx
 0.5.11: fix: fund_em return fields
+0.5.12: fix: add date to fund_em daily function
 """
 
-__version__ = "0.5.11"
+__version__ = "0.5.12"
 __author__ = "Albert King"
 
 """
