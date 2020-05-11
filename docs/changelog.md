@@ -1293,4 +1293,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.10: fix: zh_stock_ah_tx
 
 0.5.11: fix: fund_em return fields
+
+0.5.12: fix: add date to fund_em daily function
 ```
