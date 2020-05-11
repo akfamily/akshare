@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/16 13:58
-contact: jindaxiang@163.com
-desc: AkShare's pypi info file
+Date: 2020/5/11 13:58
+Desc: AkShare's pypi info file
 """
 import re
 import ast
@@ -34,7 +32,7 @@ setuptools.setup(
     author="Albert King",
     author_email="jindaxiang@163.com",
     license="MIT",
-    description="A tool for downloading financial data!",
+    description="A tool for downloading economic and financial data!",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jindaxiang/akshare",

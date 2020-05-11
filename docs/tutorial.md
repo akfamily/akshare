@@ -459,6 +459,8 @@
  # 商品期货库存数据
  "futures_inventory_em"  # 库存数据-东方财富
  "get_inventory_data"  # 库存数据-99期货
+ # 个股资金流
+ "stock_individual_fund_flow"  # 个股资金流
 ```
 
 ## 案例演示
