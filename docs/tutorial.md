@@ -461,6 +461,9 @@
  "get_inventory_data"  # 库存数据-99期货
  # 个股资金流
  "stock_individual_fund_flow"  # 个股资金流
+ "stock_individual_fund_flow_rank"  # 个股资金流排名
+ "stock_market_fund_flow"  # 大盘资金流
+ "stock_sector_fund_flow_rank"  # 板块资金流排名
 ```
 
 ## 案例演示
