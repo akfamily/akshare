@@ -941,9 +941,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.13: add: stock_fund
 0.5.14: add: stock_market_fund_flow, stock_sector_fund_flow, stock_individual_fund_flow_rank
 0.5.15: fix: baidu_index
+0.5.16: add: fund_em_value_estimation
 """
 
-__version__ = "0.5.15"
+__version__ = "0.5.16"
 __author__ = "Albert King"
 
 """
@@ -1171,6 +1172,7 @@ from akshare.fund.fund_em import (
     fund_em_graded_fund_info,
     fund_em_money_fund_daily,
     fund_em_money_fund_info,
+    fund_em_value_estimation,
 )
 
 """

@@ -11,6 +11,7 @@ http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;
 用户ID:269993
 """
 import time
+import json
 
 import demjson
 import pandas as pd
@@ -607,6 +608,77 @@ def fund_em_etf_fund_info(fund: str = "511280") -> pd.DataFrame:
     return temp_df
 
 
+def fund_em_value_estimation() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-净值估算
+    http://fund.eastmoney.com/fundguzhi.html
+    :return: 近期净值估算数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://api.fund.eastmoney.com/FundGuZhi/GetFundGZList"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        "Referer": "http://fund.eastmoney.com/fundguzhi.html",
+    }
+    params = {
+        "type": "1",
+        "sort": "3",
+        "orderType": "desc",
+        "canbuy": "0",
+        "pageIndex": "1",
+        "pageSize": "10000",
+        "callback": "jQuery18306504687615774458_1589361322986",
+        "_": int(time.time() * 1000),
+    }
+    r = requests.get(url, params=params, headers=headers)
+    text_data = r.text
+    json_data = json.loads(text_data[text_data.find("{"): -1])
+    temp_df = pd.DataFrame(json_data["Data"]["list"])
+    value_day = json_data["Data"]["gzrq"]
+    cal_day = json_data["Data"]["gxrq"]
+    temp_df.columns = [
+        "基金代码",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "基金类型",
+        "-",
+        "-",
+        "-",
+        "-",
+        "估算日期",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        f"{cal_day}-估算值",
+        f"{cal_day}-估算增长率",
+        "-",
+        f"{value_day}-单位净值",
+        "-",
+        "-",
+        "基金名称",
+        "-",
+        "-",
+        "-",
+    ]
+    temp_df = temp_df[[
+        "基金代码",
+        "基金类型",
+        f"{cal_day}-估算值",
+        f"{cal_day}-估算增长率",
+        f"{value_day}-单位净值",
+        "基金名称",
+    ]]
+    return temp_df
+
+
 if __name__ == "__main__":
     fund_em_fund_name_df = fund_em_fund_name()
     print(fund_em_fund_name_df)
@@ -661,3 +733,6 @@ if __name__ == "__main__":
 
     fund_em_etf_fund_info_df = fund_em_etf_fund_info(fund="511280")
     print(fund_em_etf_fund_info_df)
+
+    fund_em_value_estimation_df = fund_em_value_estimation()
+    print(fund_em_value_estimation_df)
