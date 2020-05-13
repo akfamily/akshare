@@ -422,6 +422,7 @@
  "fund_em_graded_fund_info",  # 分级基金-历史数据
  "fund_em_money_fund_daily",  # 货币型基金-实时数据
  "fund_em_money_fund_info",  # 货币型基金-历史数据
+ "fund_em_value_estimation",  # 基金估值
  # 分析师指数
  "stock_em_analyst_rank"  # 分析师排名
  "stock_em_analyst_detail"  # 分析师详情
