@@ -55,7 +55,7 @@ def get_ptbk(uniqid: str, cookie: str) -> str:
         return ptbk
 
 
-def baidu_search_index(word: str, start_date: str, end_date: str, cookie: str) -> str:
+def baidu_search_index(word: str = "python", start_date: str = "2020-01-01", end_date: str = "2020-05-01", cookie: str = None) -> str:
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
@@ -72,8 +72,14 @@ def baidu_search_index(word: str, start_date: str, end_date: str, cookie: str) -
     }
     session = requests.Session()
     session.headers.update(headers)
+    params = {
+        "area": "0",
+        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ':1}]]',
+        "startDate": start_date,
+        "endDate": end_date,
+    }
     with session.get(
-        url=f"http://index.baidu.com/api/SearchApi/index?word={word}&area=0&startDate={start_date}&endDate={end_date}"
+        url="http://index.baidu.com/api/SearchApi/index", params=params
     ) as response:
         data = response.json()["data"]
         all_data = data["userIndexes"][0]["all"]["data"]
@@ -116,8 +122,14 @@ def baidu_info_index(word: str, start_date: str, end_date: str, cookie: str) -> 
     }
     session = requests.Session()
     session.headers.update(headers)
+    params = {
+        "area": "0",
+        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ':1}]]',
+        "startDate": start_date,
+        "endDate": end_date,
+    }
     with session.get(
-        url=f"http://index.baidu.com/api/FeedSearchApi/getFeedIndex?word={word}&area=0&startDate={start_date}&endDate={end_date}"
+        url=f"http://index.baidu.com/api/FeedSearchApi/getFeedIndex", params=params
     ) as response:
         data = response.json()["data"]
         all_data = data["index"][0]["data"]
@@ -160,8 +172,14 @@ def baidu_media_index(word: str = "口罩", start_date: str = "2018-01-01", end_
     }
     session = requests.Session()
     session.headers.update(headers)
+    params = {
+        "area": "0",
+        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ':1}]]',
+        "startDate": start_date,
+        "endDate": end_date,
+    }
     with session.get(
-        url=f"http://index.baidu.com/api/NewsApi/getNewsIndex?word={word}&area=0&startDate={start_date}&endDate={end_date}"
+        url=f"http://index.baidu.com/api/NewsApi/getNewsIndex", params=params
     ) as response:
         data = response.json()["data"]
         all_data = data["index"][0]["data"]
@@ -191,7 +209,7 @@ def baidu_media_index(word: str = "口罩", start_date: str = "2018-01-01", end_
 if __name__ == "__main__":
     cookie = ''
     data = baidu_search_index(
-        word="口罩", start_date="2020-01-01", end_date="2020-02-14", cookie=cookie
+        word="python", start_date="2020-01-01", end_date="2020-02-14", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
