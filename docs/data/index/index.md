@@ -1034,8 +1034,8 @@ index
 ```python
 import akshare as ak
 cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
-index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
-print(index_df)
+baidu_search_index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
+print(baidu_search_index_df)
 ```
 
 数据示例
@@ -1089,8 +1089,8 @@ date
 ```python
 import akshare as ak
 cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
-index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01', cookie=cookie)
-print(index_df)
+baidu_info_index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01', cookie=cookie)
+print(baidu_info_index_df)
 ```
 
 数据示例
@@ -1144,8 +1144,8 @@ date
 ```python
 import akshare as ak
 cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
-index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
-print(index_df)
+baidu_media_index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
+print(baidu_media_index_df)
 ```
 
 数据示例
@@ -1168,11 +1168,11 @@ date
 
 ### 谷歌趋势指数
 
-接口: google_index **(需要通过代理访问)**
+接口: google_index
 
 目标地址: https://trends.google.com/trends/?geo=US
 
-描述: 获取指定 **词语** 的谷歌趋势指数
+描述: 获取指定 **词语** 的谷歌趋势指数, **需要通过代理访问**
 
 输入参数
 
@@ -1200,8 +1200,8 @@ date
 
 ```python
 import akshare as ak
-index_df = ak.google_index(word="python", start_date='2004-01-01', end_date='2019-12-01', plot=True)
-print(index_df)
+google_index_df = ak.google_index(word="python", start_date='2004-01-01', end_date='2019-12-01', plot=True)
+print(google_index_df)
 ```
 
 数据示例-长时间
@@ -1237,7 +1237,6 @@ print(index_df)
 数据示例-短时间
 
 ```
-date
 date
 2019-12-10 10:00:00    31
 2019-12-10 10:08:00    42
@@ -1289,8 +1288,8 @@ Name: 人工智能, Length: 98, dtype: int32
 
 ```python
 import akshare as ak
-sw_index_df = ak.sw_index_spot()
-print(sw_index_df)
+sw_index_spot_df = ak.sw_index_spot()
+print(sw_index_spot_df)
 ```
 
 数据示例
