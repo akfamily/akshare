@@ -12,7 +12,7 @@ import pandas as pd
 import requests
 
 
-def stock_individual_fund_flow(stock: str = "000425", market: str = "sh") -> pd.DataFrame:
+def stock_individual_fund_flow(stock: str = "600094", market: str = "sh") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-个股
     http://data.eastmoney.com/zjlx/detail.html
@@ -230,9 +230,7 @@ def stock_sector_fund_flow_rank(indicator: str = "5日", sector_type: str = "地
 
 
 if __name__ == "__main__":
-    stock_individual_fund_flow_df = stock_individual_fund_flow(
-        stock="600094", market="sh"
-    )
+    stock_individual_fund_flow_df = stock_individual_fund_flow(stock="600094", market="sh")
     print(stock_individual_fund_flow_df)
 
     stock_individual_fund_flow_rank_df = stock_individual_fund_flow_rank(indicator="今日")
