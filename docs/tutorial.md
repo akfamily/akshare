@@ -465,6 +465,9 @@
  "stock_individual_fund_flow_rank"  # 个股资金流排名
  "stock_market_fund_flow"  # 大盘资金流
  "stock_sector_fund_flow_rank"  # 板块资金流排名
+ # 股票基本面数据
+ "stock_financial_abstract"  # 财务摘要
+ "stock_financial_analysis_indicator"  # 财务指标
 ```
 
 ## 案例演示

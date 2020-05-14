@@ -943,10 +943,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.15: fix: baidu_index
 0.5.16: add: fund_em_value_estimation
 0.5.17: fix: delete macro_euro zero value
+0.5.18: add: stock_financial_abstract, stock_financial_analysis_indicator
 """
 
-__version__ = "0.5.17"
+__version__ = "0.5.18"
 __author__ = "Albert King"
+
+"""
+stock-fundamental
+"""
+from akshare.stock_fundamental.stock_finance import stock_financial_abstract, stock_financial_analysis_indicator
 
 """
 stock_fund
