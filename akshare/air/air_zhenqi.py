@@ -278,12 +278,12 @@ if __name__ == "__main__":
     print(air_city_list_map)
 
     air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="2018-01-01", end_date="2020-05-01"
+        city="杭州", start_date="2018-01-01", end_date="2020-05-13"
     )
     print(air_quality_watch_point_df)
 
     air_quality_hist_df = air_quality_hist(
-        city="北京", period="month", start_date="2019-04-25", end_date="2020-05-01"
+        city="北京", period="day", start_date="2019-04-25", end_date="2020-05-13"
     )
     print(air_quality_hist_df)
 

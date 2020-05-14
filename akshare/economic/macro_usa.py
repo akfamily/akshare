@@ -2290,7 +2290,7 @@ def macro_usa_nfib_small_business():
 def macro_usa_michigan_consumer_sentiment():
     """
     美国密歇根大学消费者信心指数初值报告, 数据区间从19700301-至今
-    https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v=1578576228
+    https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment
     :return: 美国密歇根大学消费者信心指数初值报告-今值
     :rtype: pandas.Series
     """
@@ -2635,4 +2635,4 @@ if __name__ == "__main__":
     # plt.show()
     # 金十数据中心-经济指标-美国-其他-美国原油产量报告
     macro_usa_crude_inner_df = macro_usa_crude_inner()
-    print(macro_usa_crude_inner_df.columns)
+    print(macro_usa_crude_inner_df)

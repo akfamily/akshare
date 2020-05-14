@@ -942,9 +942,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.14: add: stock_market_fund_flow, stock_sector_fund_flow, stock_individual_fund_flow_rank
 0.5.15: fix: baidu_index
 0.5.16: add: fund_em_value_estimation
+0.5.17: fix: delete macro_euro zero value
 """
 
-__version__ = "0.5.16"
+__version__ = "0.5.17"
 __author__ = "Albert King"
 
 """
