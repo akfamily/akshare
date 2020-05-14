@@ -1303,4 +1303,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.15: fix: baidu_index
 
 0.5.16: add: fund_em_value_estimation
+
+0.5.17: fix: delete macro_euro zero value
 ```

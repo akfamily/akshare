@@ -42,6 +42,8 @@ def macro_euro_gdp_yoy():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "gdp_yoy"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -66,6 +68,8 @@ def macro_euro_cpi_mom():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "cpi_mom"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -90,6 +94,8 @@ def macro_euro_cpi_yoy():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "cpi_yoy"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -114,6 +120,8 @@ def macro_euro_ppi_mom():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "ppi_mom"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -162,6 +170,8 @@ def macro_euro_employment_change_qoq():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "employment_change_qoq"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -186,6 +196,8 @@ def macro_euro_unemployment_rate_mom():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "unemployment_rate_mom"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -210,6 +222,8 @@ def macro_euro_trade_balance():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(亿欧元)"]
     temp_df.name = "trade_balance"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -234,6 +248,8 @@ def macro_euro_current_account_mom():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(亿欧元)"]
     temp_df.name = "current_account_mom"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -282,6 +298,8 @@ def macro_euro_manufacturing_pmi():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
     temp_df.name = "manufacturing_pmi"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -306,6 +324,8 @@ def macro_euro_services_pmi():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
     temp_df.name = "services_pmi"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
@@ -330,6 +350,8 @@ def macro_euro_zew_economic_sentiment():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
     temp_df.name = "zew_economic_sentiment"
+    temp_df = temp_df.astype(float)
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 
