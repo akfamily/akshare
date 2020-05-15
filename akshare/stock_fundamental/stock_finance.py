@@ -77,7 +77,7 @@ def stock_financial_analysis_indicator(stock: str = "600004") -> pd.DataFrame:
 
 def stock_history_dividend() -> pd.DataFrame:
     """
-    新浪财经-历史分红
+    新浪财经-发行与分配-历史分红
     http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lsfh/index.phtml?p=1&num=5000
     :return: 所有股票的历史分红数据
     :rtype: pandas.DataFrame
@@ -96,7 +96,7 @@ def stock_history_dividend() -> pd.DataFrame:
 
 def stock_history_dividend_detail(indicator: str = "分红", stock: str = "000541", date: str = "1994-12-24") -> pd.DataFrame:
     """
-    新浪财经-发行情况-分红配股
+    新浪财经-发行与分配-分红配股详情
     https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/300670.phtml
     :param indicator: choice of {"分红", "配股"}
     :type indicator: str
@@ -147,7 +147,7 @@ def stock_history_dividend_detail(indicator: str = "分红", stock: str = "00054
 
 def stock_ipo_info(stock: str = "600004") -> pd.DataFrame:
     """
-    新浪财经-股票-新股发行
+    新浪财经-发行与分配-新股发行
     https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_NewStock/stockid/600004.phtml
     :param stock: 股票代码
     :type stock: str
@@ -163,7 +163,7 @@ def stock_ipo_info(stock: str = "600004") -> pd.DataFrame:
 
 def stock_add_stock(stock: str = "688166") -> pd.DataFrame:
     """
-    新浪财经-股票-增发
+    新浪财经-发行与分配-增发
     https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_AddStock/stockid/600004.phtml
     :param stock: 股票代码
     :type stock: str
@@ -192,10 +192,16 @@ if __name__ == '__main__':
 
     stock_history_dividend_df = stock_history_dividend()
     print(stock_history_dividend_df)
-    stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="配股", stock="600012", date="")
+    stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="分红", stock="600012", date="")
+    print(stock_history_dividend_detail_df)
+
+    stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="分红", stock="600012", date="2019-07-08")
+    print(stock_history_dividend_detail_df)
+
+    stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="配股", stock="000002", date="1999-12-22")
     print(stock_history_dividend_detail_df)
 
     stock_ipo_info_df = stock_ipo_info(stock="600004")
     print(stock_ipo_info_df)
-    stock_add_stock_df = stock_add_stock(stock="688166")
+    stock_add_stock_df = stock_add_stock(stock="600004")
     print(stock_add_stock_df)
