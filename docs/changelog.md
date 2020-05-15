@@ -1307,4 +1307,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.17: fix: delete macro_euro zero value
 
 0.5.18: add: stock_financial_abstract, stock_financial_analysis_indicator
+
+0.5.19: add: stock_add_stock, stock_ipo_info, stock_history_dividend_detail, stock_history_dividend
 ```
