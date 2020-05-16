@@ -469,10 +469,11 @@
  "stock_financial_abstract"  # 财务摘要
  "stock_financial_analysis_indicator"  # 财务指标
  "stock_add_stock"  # 股票增发
- "stock_ipo_info"  # 股票新股发行信息
+ "stock_ipo_info"  # 股票新股
  "stock_history_dividend_detail"  # 分红配股
  "stock_history_dividend"  # 历史分红
-
+ "stock_restricted_shares"  # 限售解禁
+ "stock_circulate_stock_holder"  # 流动股东
 ```
 
 ## 案例演示
