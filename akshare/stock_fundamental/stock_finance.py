@@ -184,6 +184,53 @@ def stock_add_stock(stock: str = "688166") -> pd.DataFrame:
     return big_df
 
 
+def stock_restricted_shares(stock: str = "600000") -> pd.DataFrame:
+    """
+    新浪财经-发行分配-限售解禁
+    https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol=sh600000
+    :param stock: 股票代码
+    :type stock: str
+    :return: 返回限售解禁数据
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol={stock}"
+    r = requests.get(url)
+    temp_df = pd.read_html(r.text)[0]
+    return temp_df
+
+
+def stock_circulate_stock_holder(stock: str = "600000") -> pd.DataFrame:
+    """
+    新浪财经-股东股本-流通股东
+    P.S. 特定股票特定时间只有前 5 个; e.g., 000002
+    https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/600000.phtml
+    :param stock: 股票代码
+    :type stock: str
+    :return: 新浪财经-股东股本-流通股东
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/{stock}.phtml"
+    r = requests.get(url)
+    temp_df = pd.read_html(r.text)[13].iloc[:, :5]
+    temp_df.columns = [*range(5)]
+    big_df = pd.DataFrame()
+    need_range = temp_df[temp_df.iloc[:, 0].str.find("截止日期") == 0].index.tolist() + [len(temp_df)]
+    for i in range(len(need_range)-1):
+        truncated_df = temp_df.iloc[need_range[i]: need_range[i + 1], :]
+        truncated_df = truncated_df.dropna(how="all")
+        temp_truncated = truncated_df.iloc[2:, :]
+        temp_truncated.reset_index(inplace=True, drop=True)
+        concat_df = pd.concat([temp_truncated, truncated_df.iloc[0, :], truncated_df.iloc[1, :]], axis=1)
+        concat_df.columns = concat_df.iloc[0, :]
+        concat_df = concat_df.iloc[1:, :]
+        concat_df["截止日期"] = concat_df["截止日期"].fillna(method="ffill")
+        concat_df["公告日期"] = concat_df["公告日期"].fillna(method="ffill")
+        big_df = pd.concat([big_df, concat_df], axis=0, ignore_index=True)
+    big_df = big_df[["截止日期", "公告日期", "编号", "股东名称", "持股数量(股)", "占流通股比例(%)", "股本性质"]]
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
+
+
 if __name__ == '__main__':
     stock_financial_abstract_df = stock_financial_abstract(stock="600004")
     print(stock_financial_abstract_df)
@@ -205,3 +252,9 @@ if __name__ == '__main__':
     print(stock_ipo_info_df)
     stock_add_stock_df = stock_add_stock(stock="600004")
     print(stock_add_stock_df)
+
+    stock_restricted_shares_df = stock_restricted_shares(stock="600000")
+    print(stock_restricted_shares_df)
+
+    stock_circulate_stock_holder_df = stock_circulate_stock_holder(stock="600000")
+    print(stock_circulate_stock_holder_df)
