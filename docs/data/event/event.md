@@ -1925,7 +1925,7 @@ print(migration_scale_baidu_df)
 
 ##### 城内出行强度
 
-接口: internal_flow_history
+接口: internal_flow_history(百度已关闭该接口20200508)
 
 目标地址: https://qianxi.baidu.com
 

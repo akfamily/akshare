@@ -894,15 +894,15 @@ if __name__ == "__main__":
 
     # 迁徙地图
     migration_area_baidu_df = migration_area_baidu(
-        area="上海市", indicator="move_in", date="20200212"
+        area="上海市", indicator="move_in", date="20200312"
     )
     print(migration_area_baidu_df)
 
-    internal_flow_history_df = internal_flow_history(area="北京市", date="20200414")
-    print(internal_flow_history_df)
+    # internal_flow_history_df = internal_flow_history(area="北京市", date="20200405")
+    # print(internal_flow_history_df)
 
     migration_scale_baidu_df = migration_scale_baidu(
-        area="上海市", indicator="move_in", start_date="20190113", end_date="20200212"
+        area="上海市", indicator="move_in", start_date="20190113", end_date="20200512"
     )
     print(migration_scale_baidu_df)
     # 小区

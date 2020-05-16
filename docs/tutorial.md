@@ -470,7 +470,7 @@
  "stock_financial_analysis_indicator"  # 财务指标
  "stock_add_stock"  # 股票增发
  "stock_ipo_info"  # 股票新股发行信息
- "stock_history_dividend_detail"  # 历史分红详情
+ "stock_history_dividend_detail"  # 分红配股
  "stock_history_dividend"  # 历史分红
 
 ```
