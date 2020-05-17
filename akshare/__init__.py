@@ -947,9 +947,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.19: add: stock_add_stock, stock_ipo_info, stock_history_dividend_detail, stock_history_dividend
 0.5.20: add: stock_restricted_shares, stock_circulate_stock_holder
 0.5.21: add: futures_dce_position_rank
+0.5.22: fix: fix futures_dce_position_rank return format
 """
 
-__version__ = "0.5.21"
+__version__ = "0.5.22"
 __author__ = "Albert King"
 
 """

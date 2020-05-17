@@ -587,7 +587,7 @@ def futures_dce_position_rank(date="20200511"):
         "contract.contract_id": "a2009",
         "contract.variety_id": "a",
         "year": date.year,
-        "month": date.month-1,
+        "month": date.month - 1,
         "day": date.day,
         "batchExportFlag": "batch",
     }
@@ -607,8 +607,19 @@ def futures_dce_position_rank(date="20200511"):
                 part_one = data[start_list[0]: end_list[0]].iloc[1:, :]
                 part_two = data[start_list[1]: end_list[1]].iloc[1:, :]
                 part_three = data[start_list[2]: end_list[2]].iloc[1:, :]
-                temp_df = pd.concat([part_one.reset_index(drop=True), part_two.reset_index(drop=True), part_three.reset_index(drop=True)], axis=1, ignore_index=True)
+                temp_df = pd.concat([part_one.reset_index(drop=True), part_two.reset_index(drop=True),
+                                     part_three.reset_index(drop=True)], axis=1, ignore_index=True)
                 temp_df.columns = ["名次", "会员简称", "成交量", "增减", "名次", "会员简称", "持买单量", "增减", "名次", "会员简称", "持卖单量", "增减"]
+                temp_df["rank"] = range(1, len(temp_df) + 1)
+                del temp_df["名次"]
+                temp_df.columns = ["vol_party_name", "vol", "vol_chg", "long_party_name", "long_open_interest",
+                                   "long_open_interest_chg", "short_party_name", "short_open_interest",
+                                   "short_open_interest_chg", "rank"]
+                temp_df["symbol"] = file_name.split("_")[1]
+                temp_df["variety"] = file_name.split("_")[1][:-4].upper()
+                temp_df = temp_df[["long_open_interest", "long_open_interest_chg", "long_party_name", "rank",
+                                   "short_open_interest", "short_open_interest_chg", "short_party_name",
+                                   "vol", "vol_chg", "vol_party_name", "symbol", "variety"]]
                 big_dict[file_name.split("_")[1]] = temp_df
             except UnicodeDecodeError as e:
                 data = pd.read_table(z.open(i), header=None, sep="\\s+", encoding="gb2312", skiprows=3)
@@ -617,8 +628,19 @@ def futures_dce_position_rank(date="20200511"):
                 part_one = data[start_list[0]: end_list[0]].iloc[1:, :]
                 part_two = data[start_list[1]: end_list[1]].iloc[1:, :]
                 part_three = data[start_list[2]: end_list[2]].iloc[1:, :]
-                temp_df = pd.concat([part_one.reset_index(drop=True), part_two.reset_index(drop=True), part_three.reset_index(drop=True)], axis=1, ignore_index=True)
+                temp_df = pd.concat([part_one.reset_index(drop=True), part_two.reset_index(drop=True),
+                                     part_three.reset_index(drop=True)], axis=1, ignore_index=True)
                 temp_df.columns = ["名次", "会员简称", "成交量", "增减", "名次", "会员简称", "持买单量", "增减", "名次", "会员简称", "持卖单量", "增减"]
+                temp_df["rank"] = range(1, len(temp_df) + 1)
+                del temp_df["名次"]
+                temp_df.columns = ["vol_party_name", "vol", "vol_chg", "long_party_name", "long_open_interest",
+                                   "long_open_interest_chg", "short_party_name", "short_open_interest",
+                                   "short_open_interest_chg", "rank"]
+                temp_df["symbol"] = file_name.split("_")[1]
+                temp_df["variety"] = file_name.split("_")[1][:-4].upper()
+                temp_df = temp_df[["long_open_interest", "long_open_interest_chg", "long_party_name", "rank",
+                                   "short_open_interest", "short_open_interest_chg", "short_party_name",
+                                   "vol", "vol_chg", "vol_party_name", "symbol", "variety"]]
                 big_dict[file_name.split("_")[1]] = temp_df
     return big_dict
 
