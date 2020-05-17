@@ -21,6 +21,7 @@
  "get_futures_daily",  # 获取中国金融期货交易所每日基差数据
  "get_rank_sum",  # 获取四个期货交易所前5, 10, 15, 20会员持仓排名数据
  "get_rank_sum_daily",  # 获取每日四个期货交易所前5, 10, 15, 20会员持仓排名数据
+ "futures_dce_position_rank",  # 大连商品交易所前 20 会员持仓排名数据
  "get_receipt",  # 获取大宗商品注册仓单数据
  "get_roll_yield",  # 获取某一天某品种(主力和次主力)或固定两个合约的展期收益率
  "get_roll_yield_bar",  # 获取展期收益率

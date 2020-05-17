@@ -946,9 +946,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.18: add: stock_financial_abstract, stock_financial_analysis_indicator
 0.5.19: add: stock_add_stock, stock_ipo_info, stock_history_dividend_detail, stock_history_dividend
 0.5.20: add: stock_restricted_shares, stock_circulate_stock_holder
+0.5.21: add: futures_dce_position_rank
 """
 
-__version__ = "0.5.20"
+__version__ = "0.5.21"
 __author__ = "Albert King"
 
 """
@@ -1893,6 +1894,7 @@ from akshare.futures.cot import (
     get_czce_rank_table,
     get_dce_rank_table,
     get_cffex_rank_table,
+    futures_dce_position_rank,
 )
 
 """

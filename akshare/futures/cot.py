@@ -13,6 +13,8 @@ import datetime
 import json
 import re
 import warnings
+import zipfile
+from io import BytesIO
 from io import StringIO
 
 import pandas as pd
@@ -550,25 +552,101 @@ def _table_cut_cal(table_cut, symbol):
     return table_cut
 
 
+def futures_dce_position_rank(date="20200511"):
+    """
+    大连商品交易日每日持仓排名-具体合约
+    http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
+    :param date: 指定交易日; e.g., "20200511"
+    :type date: str
+    :return: 指定日期的持仓排名数据
+    :rtype: pandas.DataFrame
+    """
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
+    if date.strftime('%Y%m%d') not in calendar:
+        warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
+        return {}
+    url = "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesBatchData.html"
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Content-Length": "160",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "www.dce.com.cn",
+        "Origin": "http://www.dce.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    payload = {
+        "memberDealPosiQuotes.variety": "a",
+        "memberDealPosiQuotes.trade_type": "0",
+        "contract.contract_id": "a2009",
+        "contract.variety_id": "a",
+        "year": date.year,
+        "month": date.month-1,
+        "day": date.day,
+        "batchExportFlag": "batch",
+    }
+    r = requests.post(url, payload, headers=headers)
+    big_dict = dict()
+    with zipfile.ZipFile(BytesIO(r.content), "r") as z:
+        for i in z.namelist():
+            file_name = i.encode('cp437').decode('GBK')
+            # print(file_name.split("_")[1])
+            try:
+                data = pd.read_table(z.open(i), header=None, sep="\t").iloc[3:-6]
+                data.dropna(how="all", inplace=True, axis=1)
+                data = data.iloc[0:, [0, 1, 2, 4]]
+                data.reset_index(inplace=True, drop=True)
+                start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
+                end_list = data[data.iloc[:, 0].str.find("总计") == 0].index.tolist()
+                part_one = data[start_list[0]: end_list[0]].iloc[1:, :]
+                part_two = data[start_list[1]: end_list[1]].iloc[1:, :]
+                part_three = data[start_list[2]: end_list[2]].iloc[1:, :]
+                temp_df = pd.concat([part_one.reset_index(drop=True), part_two.reset_index(drop=True), part_three.reset_index(drop=True)], axis=1, ignore_index=True)
+                temp_df.columns = ["名次", "会员简称", "成交量", "增减", "名次", "会员简称", "持买单量", "增减", "名次", "会员简称", "持卖单量", "增减"]
+                big_dict[file_name.split("_")[1]] = temp_df
+            except UnicodeDecodeError as e:
+                data = pd.read_table(z.open(i), header=None, sep="\\s+", encoding="gb2312", skiprows=3)
+                start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
+                end_list = data[data.iloc[:, 0].str.find("总计") == 0].index.tolist()
+                part_one = data[start_list[0]: end_list[0]].iloc[1:, :]
+                part_two = data[start_list[1]: end_list[1]].iloc[1:, :]
+                part_three = data[start_list[2]: end_list[2]].iloc[1:, :]
+                temp_df = pd.concat([part_one.reset_index(drop=True), part_two.reset_index(drop=True), part_three.reset_index(drop=True)], axis=1, ignore_index=True)
+                temp_df.columns = ["名次", "会员简称", "成交量", "增减", "名次", "会员简称", "持买单量", "增减", "名次", "会员简称", "持卖单量", "增减"]
+                big_dict[file_name.split("_")[1]] = temp_df
+    return big_dict
+
+
 if __name__ == '__main__':
+    # 郑州商品交易所
     get_czce_rank_table_first_df = get_czce_rank_table(date='20081015', vars_list=["SR"])
     print(get_czce_rank_table_first_df)
     get_czce_rank_table_second_df = get_czce_rank_table(date='20151112')
     print(get_czce_rank_table_second_df)
     get_czce_rank_table_third_df = get_czce_rank_table(date='20191227')
     print(get_czce_rank_table_third_df)
-
+    # 中国金融期货交易所
     get_cffex_rank_table_df = get_cffex_rank_table(date='20200325')
     print(get_cffex_rank_table_df.keys())
-
+    # 上海期货交易所
     get_shfe_rank_table_df = get_shfe_rank_table(date='20190711')
     print(get_shfe_rank_table_df)
-
-    get_shfe_rank_table_first_df = get_dce_rank_table(date='20131227')
-    print(get_shfe_rank_table_first_df)
-    get_shfe_rank_table_second_df = get_dce_rank_table(date='20171227')
-    print(get_shfe_rank_table_second_df)
-    get_shfe_rank_table_third_df = get_dce_rank_table(date='20180718')
-    print(get_shfe_rank_table_third_df)
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200317")
+    # 大连商品交易所
+    get_dce_rank_table_first_df = get_dce_rank_table(date='20131227')
+    print(get_dce_rank_table_first_df)
+    get_dce_rank_table_second_df = get_dce_rank_table(date='20171227')
+    print(get_dce_rank_table_second_df)
+    get_dce_rank_table_third_df = get_dce_rank_table(date='20180718')
+    print(get_dce_rank_table_third_df)
+    # 总接口
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200315")
     print(get_rank_sum_daily_df)
+
+    futures_dce_detail_dict = futures_dce_position_rank(date="20200513")
+    print(futures_dce_detail_dict)
