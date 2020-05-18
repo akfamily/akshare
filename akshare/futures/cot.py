@@ -1,13 +1,13 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-update: 2020/3/17 13:06
-contact: jindaxiang@163.com
-desc: 从大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所采集前 20 会员持仓数据;
+Date: 2020/3/17 13:06
+Desc:
+大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所
+采集前 20 会员持仓数据;
 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定;
 郑州商品交易所格式分为三类
+大连商品交易所有具体合约的持仓排名, 通过 futures_dce_position_rank 获取
 """
 import datetime
 import json
@@ -670,5 +670,5 @@ if __name__ == '__main__':
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200315")
     print(get_rank_sum_daily_df)
 
-    futures_dce_detail_dict = futures_dce_position_rank(date="20200513")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20050513")
     print(futures_dce_detail_dict)

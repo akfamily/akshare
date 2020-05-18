@@ -67,5 +67,5 @@ def option_czce_hist(symbol="SR", year="2019"):
 
 
 if __name__ == "__main__":
-    option_czce_hist_df = option_czce_hist(symbol="RM", year="2020")
+    option_czce_hist_df = option_czce_hist(symbol="MA", year="2019")
     print(option_czce_hist_df)

@@ -475,6 +475,9 @@
  "stock_history_dividend"  # 历史分红
  "stock_restricted_shares"  # 限售解禁
  "stock_circulate_stock_holder"  # 流动股东
+ # 股票板块
+ "stock_sector_spot"  # 板块行情
+ "stock_sector_detail"  # 板块详情(具体股票)
 ```
 
 ## 案例演示
