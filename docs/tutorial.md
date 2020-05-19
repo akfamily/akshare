@@ -478,6 +478,14 @@
  # 股票板块
  "stock_sector_spot"  # 板块行情
  "stock_sector_detail"  # 板块详情(具体股票)
+ # 股票信息
+ "stock_info_sz_name_code"  # 深证证券交易所股票代码和简称
+ "stock_info_sh_name_code"  # 上海证券交易所股票代码和简称
+ "stock_info_sh_delist"  # 上海证券交易所暂停和终止上市
+ "stock_info_sz_delist"  # 深证证券交易所暂停和终止上市
+ "stock_info_sz_change_name"  # 深证证券交易所股票曾用名详情
+ "stock_info_change_name"  # A 股股票曾用名列表
+ "stock_info_a_code_name"  # A 股股票代码和简称
 ```
 
 ## 案例演示

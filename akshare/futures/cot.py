@@ -674,5 +674,5 @@ if __name__ == '__main__':
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200315")
     print(get_rank_sum_daily_df)
 
-    futures_dce_detail_dict = futures_dce_position_rank(date="20200312")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20101207")
     print(futures_dce_detail_dict)
