@@ -6,9 +6,10 @@ Desc: 新浪行业-板块行情
 http://finance.sina.com.cn/stock/sl/
 """
 import json
-import requests
-import pandas as pd
+
 import demjson
+import pandas as pd
+import requests
 
 
 def stock_sector_spot(indicator: str = "新浪行业") -> pd.DataFrame:
