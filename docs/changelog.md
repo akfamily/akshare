@@ -1321,4 +1321,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.24: fix: futures_dce_position_rank
 
 0.5.25: fix: futures_dce_position_rank return fields
+
+0.5.26: add: stock_info
 ```

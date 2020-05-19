@@ -951,10 +951,24 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.23: add: stock_sector_spot, stock_sector_detail
 0.5.24: fix: futures_dce_position_rank
 0.5.25: fix: futures_dce_position_rank return fields
+0.5.26: add: stock_info
 """
 
-__version__ = "0.5.25"
+__version__ = "0.5.26"
 __author__ = "Albert King"
+
+"""
+stock-info
+"""
+from akshare.stock.stock_info import (
+    stock_info_sh_delist,
+    stock_info_sz_delist,
+    stock_info_a_code_name,
+    stock_info_sh_name_code,
+    stock_info_sz_name_code,
+    stock_info_sz_change_name,
+    stock_info_change_name,
+)
 
 """
 stock-sector
