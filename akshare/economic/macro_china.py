@@ -447,6 +447,7 @@ def macro_china_m2_yearly():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "m2"
+    temp_df = temp_df[temp_df != 0]
     return temp_df
 
 

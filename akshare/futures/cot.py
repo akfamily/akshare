@@ -552,7 +552,7 @@ def _table_cut_cal(table_cut, symbol):
     return table_cut
 
 
-def futures_dce_position_rank(date="20200511"):
+def futures_dce_position_rank(date="20131209"):
     """
     大连商品交易日每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
@@ -600,7 +600,7 @@ def futures_dce_position_rank(date="20200511"):
             try:
                 data = pd.read_table(z.open(i), header=None, sep="\t").iloc[3:-6]
                 data.dropna(how="all", inplace=True, axis=1)
-                data = data.iloc[0:, [0, 1, 2, 4]]
+                data = data.iloc[0:, data.columns[data.iloc[0, :].notnull()]]
                 data.reset_index(inplace=True, drop=True)
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
                 end_list = data[data.iloc[:, 0].str.find("总计") == 0].index.tolist()
@@ -622,7 +622,10 @@ def futures_dce_position_rank(date="20200511"):
                                    "vol", "vol_chg", "vol_party_name", "symbol", "variety"]]
                 big_dict[file_name.split("_")[1]] = temp_df
             except UnicodeDecodeError as e:
-                data = pd.read_table(z.open(i), header=None, sep="\\s+", encoding="gb2312", skiprows=3)
+                try:
+                    data = pd.read_table(z.open(i), header=None, sep="\\s+", encoding="gb2312", skiprows=3)
+                except:
+                    data = pd.read_table(z.open(i), header=None, sep="\\s+", encoding="gb2312", skiprows=4)
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
                 end_list = data[data.iloc[:, 0].str.find("总计") == 0].index.tolist()
                 part_one = data[start_list[0]: end_list[0]].iloc[1:, :]
@@ -670,5 +673,5 @@ if __name__ == '__main__':
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200315")
     print(get_rank_sum_daily_df)
 
-    futures_dce_detail_dict = futures_dce_position_rank(date="20050513")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20101207")
     print(futures_dce_detail_dict)
