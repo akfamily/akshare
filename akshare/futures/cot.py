@@ -596,11 +596,8 @@ def futures_dce_position_rank(date="20200507"):
     with zipfile.ZipFile(BytesIO(r.content), "r") as z:
         for i in z.namelist():
             file_name = i.encode('cp437').decode('GBK')
-            # print(file_name.split("_")[1])
-            # data = pd.read_table(z.open(i), header=None, sep="\t").iloc[3:-6]
             try:
                 data = pd.read_table(z.open(i), header=None, sep="\t").iloc[3:-6]
-                # data.dropna(how="all", inplace=True, axis=1)
                 data = data.iloc[0:, data.columns[data.iloc[0, :].notnull()]]
                 data.reset_index(inplace=True, drop=True)
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
@@ -674,5 +671,5 @@ if __name__ == '__main__':
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200315")
     print(get_rank_sum_daily_df)
 
-    futures_dce_detail_dict = futures_dce_position_rank(date="20101207")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20181206")
     print(futures_dce_detail_dict)
