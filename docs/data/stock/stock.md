@@ -4676,7 +4676,7 @@ print(stock_industry_sina_df)
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| sector | str | Y    | sector="hangye_ZL01"; choice of {"新浪行业", "概念", "地域", "行业"}; "启明星行业" 无详情|
+| sector | str | Y    | sector="hangye_ZL01"; 通过 **stock_sector_spot** 返回数据的 label 字段选择 sector|
 
 输出参数
 

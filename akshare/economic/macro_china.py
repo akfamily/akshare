@@ -448,6 +448,7 @@ def macro_china_m2_yearly():
     temp_df = value_df["今值(%)"]
     temp_df.name = "m2"
     temp_df = temp_df[temp_df != 0]
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
