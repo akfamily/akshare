@@ -436,6 +436,7 @@
  "stock_em_hsgt_south_net_flow_in"  # 沪深港通南向-净流入
  "stock_em_hsgt_south_cash"  # 沪深港通南向-资金余额
  "stock_em_hsgt_south_acc_flow_in"  # 沪深港通南向-累计净流入
+ "stock_em_hsgt_hold_stock"  # 沪深港通持股-个股排行
  # 两市停复牌
  "stock_em_tfp"  # 两市停复牌数据
  # 恐慌指数
@@ -496,7 +497,8 @@
 
 ```python
 import akshare as ak
-ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718", plot=True)
+get_roll_yield_bar_df = ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718", plot=True)
+print(get_roll_yield_bar_df)
 ```
 
 结果显示: 日期, 展期收益率, 最近合约, 下一期合约
@@ -533,7 +535,8 @@ ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_da
 
 ```python
 import akshare as ak
-ak.zdzk_fund_index(index_type=32, plot=True)
+zdzk_fund_index_df = ak.zdzk_fund_index(index_type=32, plot=True)
+print(zdzk_fund_index_df)
 ```
 
 结果显示: 日期, 指数数值

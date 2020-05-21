@@ -3428,6 +3428,82 @@ print(stock_em_hsgt_south_acc_flow_in_df)
 499  2020-03-24  123317119.16
 ```
 
+#### 个股排行
+
+接口: stock_em_hsgt_hold_stock
+
+目标地址: http://data.eastmoney.com/hsgtcg/list.html
+
+描述: 获取东方财富网-数据中心-沪深港通持股-个股排行
+
+限量: 单次获取指定 market 和 indicator 的所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| market | str | Y    |   market="沪股通"; choice of {"北向", "沪股通", "深股通"} |
+| indicator | str | Y    |   indicator="沪股通"; choice of {"今日排行", "3日排行", "5日排行", "10日排行", "月排行", "季排行", "年排行"} |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| DateType          | str   | Y        | -     |
+| HdDate          | float   | Y        | -     |
+| Hkcode          | float   | Y        | -     |
+| SCode          | float   | Y        | -     |
+| SName          | float   | Y        | -     |
+| HYName          | float   | Y        | -     |
+| HYCode          | float   | Y        | -     |
+| ORIGINALCODE          | float   | Y        | -     |
+| DQName          | float   | Y        | -     |
+| DQCode          | float   | Y        | -     |
+| ORIGINALCODE_DQ          | float   | Y        | -     |
+| JG_SUM          | float   | Y        | -     |
+| SharesRate          | float   | Y        | -     |
+| NewPrice          | float   | Y        | -     |
+| Zdf          | float   | Y        | -     |
+| Market          | float   | Y        | -    |
+| ShareHold          | float   | Y        | -   |
+| ShareSZ          | float   | Y        | -    |
+| LTZB          | float   | Y        | -     |
+| ZZB          | float   | Y        | -    |
+| LTSZ          | float   | Y        | -   |
+| ZSZ          | float   | Y        | -     |
+| ShareHold_Before_One          | float   | Y        | -     |
+| ShareSZ_Before_One          | float   | Y        | -    |
+| ShareHold_Chg_One          | float   | Y        | -     |
+| ShareSZ_Chg_One          | float   | Y        | -   |
+| ShareSZ_Chg_Rate_One          | float   | Y        |-    |
+| LTZB_One          | float   | Y        |-     |
+| ZZB_One          | float   | Y        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_em_hsgt_hold_stock_df = ak.stock_em_hsgt_hold_stock(market="北向", indicator="今日排行")
+print(stock_em_hsgt_hold_stock_df)
+```
+
+数据示例
+
+```
+     DateType      HdDate      Hkcode  ... ShareSZ_Chg_Rate_One  LTZB_One   ZZB_One
+0           1  2020-05-20  1001194744  ...             0.041441  0.002589  0.001410
+1           1  2020-05-20  1000240855  ...             0.005372  0.000916  0.000895
+2           1  2020-05-20  1000000456  ...             0.021968  0.002045  0.002044
+3           1  2020-05-20  1000002162  ...             0.002112  0.000179  0.000179
+4           1  2020-05-20  1000009330  ...             0.113253  0.003614  0.003614
+       ...         ...         ...  ...                  ...       ...       ...
+1277        1  2020-05-20  1000001543  ...            -0.010637 -0.000548 -0.000471
+1278        1  2020-05-20  1000008205  ...            -0.032489 -0.002020 -0.001106
+1279        1  2020-05-20  1000006867  ...            -0.014338 -0.001187 -0.000983
+1280        1  2020-05-20  1000010623  ...            -0.023630 -0.000985 -0.000621
+1281        1  2020-05-20  1000002190  ...            -0.011470 -0.001040 -0.001017
+```
+
 ### 两市停复牌
 
 接口: stock_em_tfp
