@@ -63,8 +63,8 @@ def get_roll_yield_bar(
     :param plot: True or False作图
     :return: pandas.DataFrame
     展期收益率数据(DataFrame)
-        ry      展期收益率
-        index   日期或品种
+    ry      展期收益率
+    index   日期或品种
     """
 
     date = cons.convert_date(date) if date is not None else datetime.date.today()
@@ -139,10 +139,10 @@ def get_roll_yield(date=None, var="CU", symbol1=None, symbol2=None, df=None):
     df: DataFrame或None 从dailyBar得到合约价格，如果为空就在函数内部抓dailyBar，直接喂给数据可以让计算加快
     Return
     -------
-        tuple
-        roll_yield
-        near_by
-        deferred
+    tuple
+    roll_yield
+    near_by
+    deferred
     """
     # date = "20200304"
     date = cons.convert_date(date) if date is not None else datetime.date.today()
