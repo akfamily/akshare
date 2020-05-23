@@ -953,9 +953,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.25: fix: futures_dce_position_rank return fields
 0.5.26: add: stock_info
 0.5.27: add: stock_em_hsgt_hold_stock
+0.5.28: add: stock_fund_stock_holder, stock_main_stock_holder
 """
 
-__version__ = "0.5.27"
+__version__ = "0.5.28"
 __author__ = "Albert King"
 
 """
@@ -988,6 +989,8 @@ from akshare.stock_fundamental.stock_finance import (
     stock_history_dividend,
     stock_circulate_stock_holder,
     stock_restricted_shares,
+    stock_fund_stock_holder,
+    stock_main_stock_holder,
 )
 
 """
