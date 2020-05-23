@@ -10,8 +10,10 @@ desc: 东方财富网-数据中心-特色数据-机构调研
 """
 import json
 
-import requests
 import pandas as pd
+import requests
+from tqdm import tqdm
+
 
 # pd.set_option('display.max_columns', 500)
 
@@ -46,7 +48,7 @@ def _get_page_num_detail():
     url = "http://data.eastmoney.com/DataCenter_V3/jgdy/xx.ashx"
     params = {
         "pagesize": "5000",
-        "page": "2",
+        "page": "1",
         "js": "var SZGpIhFb",
         "param": "",
         "sortRule": "-1",
@@ -67,8 +69,7 @@ def stock_em_jgdy_tj():
     url = "http://data.eastmoney.com/DataCenter_V3/jgdy/gsjsdy.ashx"
     page_num = _get_page_num_tj()
     temp_df = pd.DataFrame()
-    for page in range(1, page_num+1):
-        print(f"一共{page_num}页, 正在下载第{page}页")
+    for page in tqdm(range(1, page_num+1)):
         params = {
             "pagesize": "5000",
             "page": str(page),
@@ -88,13 +89,13 @@ def stock_em_jgdy_detail():
     """
     东方财富网-数据中心-特色数据-机构调研-机构调研详细
     http://data.eastmoney.com/jgdy/xx.html
-    :return: pandas.DataFrame
+    :return: 机构调研详细
+    :rtype: pandas.DataFrame
     """
     url = "http://data.eastmoney.com/DataCenter_V3/jgdy/xx.ashx"
     page_num = _get_page_num_detail()
     temp_df = pd.DataFrame()
-    for page in range(1, page_num+1):
-        print(f"一共{page_num}页, 正在下载第{page}页")
+    for page in tqdm(range(1, page_num+1)):
         params = {
             "pagesize": "5000",
             "page": str(page),
@@ -111,8 +112,7 @@ def stock_em_jgdy_detail():
 
 
 if __name__ == '__main__':
-    df_tj = stock_em_jgdy_tj()
-    print(df_tj)
-    df_detail = stock_em_jgdy_detail()
-    print(df_detail)
-
+    stock_em_jgdy_tj_df = stock_em_jgdy_tj()
+    print(stock_em_jgdy_tj_df)
+    stock_em_jgdy_detail_df = stock_em_jgdy_detail()
+    print(stock_em_jgdy_detail_df)

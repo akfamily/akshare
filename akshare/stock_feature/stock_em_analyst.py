@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
 Date: 2020/3/22 15:39
-Contact: jindaxiang@163.com
-Desc: 东方财富网 > 数据中心 > 研究报告 > 东方财富分析师指数
+Desc: 东方财富网-数据中心-研究报告-东方财富分析师指数
 http://data.eastmoney.com/invest/invest/list.html
 """
 import requests

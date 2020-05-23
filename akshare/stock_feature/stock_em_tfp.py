@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
 Date: 2020/3/25 0:05
-Contact: jindaxiang@163.com
 Desc: 东方财富网-数据中心-特色数据-停复牌信息
 http://data.eastmoney.com/tfpxx/
 """
