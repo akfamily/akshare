@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
 Date: 2020/3/23 19:12
-Contact: jindaxiang@163.com
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 http://finance.eastmoney.com/news/1622,20161118685370149.html

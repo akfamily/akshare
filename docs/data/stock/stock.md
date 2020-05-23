@@ -1489,8 +1489,8 @@ print(data)
 
 ```python
 import akshare as ak
-data = ak.stock_zh_a_scr_report()
-print(data)
+stock_zh_a_scr_report_df = ak.stock_zh_a_scr_report()
+print(stock_zh_a_scr_report_df)
 ```
 
 数据示例
