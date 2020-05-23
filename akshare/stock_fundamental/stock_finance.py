@@ -231,6 +231,73 @@ def stock_circulate_stock_holder(stock: str = "600000") -> pd.DataFrame:
     return big_df
 
 
+def stock_fund_stock_holder(stock: str = "600004") -> pd.DataFrame:
+    """
+    新浪财经-股本股东-基金持股
+    https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundStockHolder/stockid/600004.phtml
+    :param stock: 股票代码
+    :type stock: str
+    :return: 新浪财经-股本股东-基金持股
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundStockHolder/stockid/{stock}.phtml"
+    r = requests.get(url)
+    temp_df = pd.read_html(r.text)[13].iloc[:, :5]
+    temp_df.columns = [*range(5)]
+    big_df = pd.DataFrame()
+    need_range = temp_df[temp_df.iloc[:, 0].str.find("截止日期") == 0].index.tolist() + [len(temp_df)]
+    for i in range(len(need_range)-1):
+        truncated_df = temp_df.iloc[need_range[i]: need_range[i + 1], :]
+        truncated_df = truncated_df.dropna(how="all")
+        temp_truncated = truncated_df.iloc[2:, :]
+        temp_truncated.reset_index(inplace=True, drop=True)
+        concat_df = pd.concat([temp_truncated, truncated_df.iloc[0, 1:]], axis=1)
+        concat_df.columns = truncated_df.iloc[1, :].tolist() + ["截止日期"]
+        concat_df["截止日期"] = concat_df["截止日期"].fillna(method="ffill")
+        concat_df["截止日期"] = concat_df["截止日期"].fillna(method="bfill")
+        big_df = pd.concat([big_df, concat_df], axis=0, ignore_index=True)
+    big_df.dropna(inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
+
+
+def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
+    """
+    新浪财经-股本股东-主要股东
+    P.S. 特定股票特定时间只有前 5 个; e.g., 000002
+    https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_StockHolder/stockid/600004.phtml
+    :param stock: 股票代码
+    :type stock: str
+    :return: 新浪财经-股本股东-主要股东
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_StockHolder/stockid/{stock}.phtml"
+    r = requests.get(url)
+    temp_df = pd.read_html(r.text)[13].iloc[:, :5]
+    temp_df.columns = [*range(5)]
+    big_df = pd.DataFrame()
+    need_range = temp_df[temp_df.iloc[:, 0].str.find("截至日期") == 0].index.tolist() + [len(temp_df)]
+    for i in range(len(need_range)-1):
+        truncated_df = temp_df.iloc[need_range[i]: need_range[i + 1], :]
+        truncated_df = truncated_df.dropna(how="all")
+        temp_truncated = truncated_df.iloc[5:, :]
+        temp_truncated.reset_index(inplace=True, drop=True)
+        concat_df = pd.concat([temp_truncated, truncated_df.iloc[0, :], truncated_df.iloc[1, :], truncated_df.iloc[2, :],
+                               truncated_df.iloc[3, :], truncated_df.iloc[4, :]], axis=1)
+        concat_df.columns = concat_df.iloc[0, :]
+        concat_df = concat_df.iloc[1:, :]
+        concat_df["截至日期"] = concat_df["截至日期"].fillna(method="ffill")
+        concat_df["公告日期"] = concat_df["公告日期"].fillna(method="ffill")
+        concat_df["股东总数"] = concat_df["股东总数"].fillna(method="ffill")
+        concat_df["平均持股数"] = concat_df["平均持股数"].fillna(method="ffill")
+        concat_df["股东总数"] = concat_df["股东总数"].str.strip("查看变化趋势")
+        concat_df["平均持股数"] = concat_df["平均持股数"].str.strip("(按总股本计算) 查看变化趋势")
+        big_df = pd.concat([big_df, concat_df], axis=0, ignore_index=True)
+    big_df.dropna(inplace=True, how="all")
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
+
+
 if __name__ == '__main__':
     stock_financial_abstract_df = stock_financial_abstract(stock="600004")
     print(stock_financial_abstract_df)
@@ -258,3 +325,9 @@ if __name__ == '__main__':
 
     stock_circulate_stock_holder_df = stock_circulate_stock_holder(stock="600000")
     print(stock_circulate_stock_holder_df)
+
+    stock_fund_stock_holder_df = stock_fund_stock_holder(stock="300270")
+    print(stock_fund_stock_holder_df)
+
+    stock_main_stock_holder_df = stock_main_stock_holder(stock="600004")
+    print(stock_main_stock_holder_df)
