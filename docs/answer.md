@@ -52,3 +52,23 @@
 8. 返回值字段错位
     
    1. 升级 pandas 到最新版本
+
+9. 将数据一次性全显示，避免折叠显示不全的情况
+
+   1. 如果是用`pandas`，使用方法：
+```python
+import pandas as pd
+##列名与数据对其显示
+pd.set_option('display.unicode.ambiguous_as_wide', True)
+pd.set_option('display.unicode.east_asian_width', True)
+##显示所有列
+pd.set_option('display.max_columns', None)
+##显示所有行
+pd.set_option('display.max_rows', None)
+```
+   2. 对于`akshare`，将其再次被pandas修正之后就可以显示：
+```python
+import pandas as pd
+pd.set_option('display.max_rows', None)
+test_dict_df=pd.DataFrame(data=df)
+```
