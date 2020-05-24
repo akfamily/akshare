@@ -67,6 +67,7 @@ pd.set_option('display.max_columns', None)
 # 显示所有行
 pd.set_option('display.max_rows', None)
 ```
+
    2. 对于 `akshare`，将其再次被 pandas 修正之后就可以显示：
    
 ```python
