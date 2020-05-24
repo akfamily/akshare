@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/1/31 17:02
-contact: jindaxiang@163.com
-desc: 
+Date: 2020/1/31 17:02
+Desc:
 """
 _board_url = "https://maoyan.com/board/1"  # 1 represent domestic or 2 represent abroad
 _headers = {
