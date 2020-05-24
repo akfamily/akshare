@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/16 20:44
-contact: jindaxiang@163.com
-desc: 猫眼电影实时票房
+Date: 2019/12/16 20:44
+Desc: 猫眼电影实时票房
 感谢老铁: https://cloudcrawler.club/cong-mao-yan-zi-ti-fan-pa-fen-xi-tan-tan-zi-ti-fan-pa-de-qian-shi-jin-sheng.html
 """
 import re
@@ -61,6 +59,7 @@ def box_office_spot():
     realtime_stont_temp = []
     total_stont_temp = []
     for dd in dd_li:
+        # dd = dd_li[0]
         p_li = (
             dd.find("div", attrs={"class": "board-item-main"})
             .find("div", attrs={"class": "movie-item-info"})

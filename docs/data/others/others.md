@@ -665,7 +665,7 @@ print(fortune_df)
 
 ### 电影票房-实时
 
-接口: box_office_spot
+接口: box_office_spot(疫情期间，暂无数据)
 
 目标地址: https://maoyan.com/board/1
 
