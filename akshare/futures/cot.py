@@ -688,7 +688,6 @@ def futures_dce_position_rank_other(date="20160104"):
             if len(contract_list[0]) == 4:
                 contract_list = [symbol + item for item in contract_list]
                 for contract in contract_list:
-                    print(contract)
                     payload = {
                         "memberDealPosiQuotes.variety": "c",
                         "memberDealPosiQuotes.trade_type": "0",
