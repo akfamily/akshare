@@ -56,6 +56,7 @@
 9. 将数据一次性全显示，避免折叠显示不全的情况
 
    1. 如果是用 `pandas`，使用方法：
+   
 ```python
 import pandas as pd
 # 列名与数据对其显示
@@ -67,6 +68,7 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 ```
    2. 对于 `akshare`，将其再次被 pandas 修正之后就可以显示：
+   
 ```python
 import pandas as pd
 import akshare as ak
