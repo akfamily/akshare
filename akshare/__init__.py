@@ -956,9 +956,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.28: add: stock_fund_stock_holder, stock_main_stock_holder
 0.5.29: fix: stock_em_sy
 0.5.30: fix: air_zhenqi.py
+0.5.31: fix: add futures_dce_position_rank_other to fix futures_dce_position_rank at 20160104
 """
 
-__version__ = "0.5.30"
+__version__ = "0.5.31"
 __author__ = "Albert King"
 
 """
@@ -1925,6 +1926,7 @@ from akshare.futures.cot import (
     get_dce_rank_table,
     get_cffex_rank_table,
     futures_dce_position_rank,
+    futures_dce_position_rank_other,
 )
 
 """

@@ -449,7 +449,9 @@ print(get_dce_rank_table_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| date | str | Y | date="20200511"; 指定交易日, 该数据接口可以获取从 2000 年开始的数据 |
+| date | str | Y | date="20200511"; 指定交易日, 该数据接口可以获取从 2000 年开始的数据, 20160104 由于交易所数据问题，返回为空可以调用 **futures_dce_position_rank_other** 来返回数据 |
+
+P.S. **futures_dce_position_rank_other** 函数只返回页面显示的活跃合约，返回格式同 **futures_dce_position_rank**
 
 输出参数-字典
 
