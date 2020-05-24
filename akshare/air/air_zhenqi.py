@@ -177,6 +177,9 @@ def air_quality_hist(
     temp_text = out.call("decryptData", r.text)
     data_json = demjson.decode(out.call("b.decode", temp_text))
     temp_df = pd.DataFrame(data_json["result"]["data"]["rows"])
+    temp_df.index = temp_df["time"]
+    del temp_df["time"]
+    temp_df = temp_df.astype(float, errors="ignore")
     return temp_df
 
 
@@ -283,7 +286,7 @@ if __name__ == "__main__":
     print(air_quality_watch_point_df)
 
     air_quality_hist_df = air_quality_hist(
-        city="北京", period="day", start_date="2020-01-25", end_date="2020-05-01"
+        city="北京", period="day", start_date="2020-04-25", end_date="2020-05-01"
     )
     print(air_quality_hist_df)
 
