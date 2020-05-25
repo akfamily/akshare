@@ -958,9 +958,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.30: fix: air_zhenqi.py
 0.5.31: fix: add futures_dce_position_rank_other to fix futures_dce_position_rank at 20160104
 0.5.32: fix: futures_dce_position_rank_other return format
+0.5.33: add: zh_bond_cov_sina
 """
 
-__version__ = "0.5.32"
+__version__ = "0.5.33"
 __author__ = "Albert King"
 
 """
@@ -1180,7 +1181,7 @@ from akshare.event.franchise import franchise_china
 债券-沪深债券
 """
 from akshare.bond.zh_bond_sina import bond_zh_hs_daily, bond_zh_hs_spot
-from akshare.bond.zh_bond_cov_sina import bond_zh_hs_cov_daily, bond_zh_hs_cov_spot
+from akshare.bond.zh_bond_cov_sina import bond_zh_hs_cov_daily, bond_zh_hs_cov_spot, bond_cov_comparison, bond_zh_cov
 
 """
 for pro api

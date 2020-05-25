@@ -87,8 +87,75 @@ def bond_zh_hs_cov_daily(symbol: str = "sh113542") -> pd.DataFrame:
     return data_df
 
 
+def bond_zh_cov():
+    """
+    东方财富网-数据中心-新股数据-可转债数据
+    http://data.eastmoney.com/kzz/default.html
+    :return: 可转债数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    params = {
+        "type": "KZZ_LB2.0",
+        "token": "70f12f2f4f091e459a279469fe49eca5",
+        "cmd": "",
+        "st": "STARTDATE",
+        "sr": "-1",
+        "p": "1",
+        "ps": "5000",
+        "js": "var {jsname}={pages:(tp),data:(x),font:(font)}",
+    }
+    r = requests.get(url, params=params)
+    text_data = r.text
+    json_data = demjson.decode(text_data[text_data.find("=") + 1:])
+    temp_df = pd.DataFrame(json_data["data"])
+    map_dict = {item["code"]: item["value"] for item in json_data["font"]["FontMapping"]}
+    for key, value in map_dict.items():
+        for i in range(1, 9):
+            temp_df.iloc[:, -i] = temp_df.iloc[:, -i].apply(lambda x: x.replace(key, str(value)))
+    return temp_df
+
+
+def bond_cov_comparison():
+    """
+    东方财富网-行情中心-债券市场-可转债比价表
+    http://quote.eastmoney.com/center/fullscreenlist.html#convertible_comparison
+    :return: 可转债比价表数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://77.push2.eastmoney.com/api/qt/clist/get"
+    params = {
+        "cb": "jQuery112406285914172501668_1590386857513",
+        "pn": "1",
+        "pz": "5000",
+        "po": "1",
+        "np": "1",
+        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+        "fltt": "2",
+        "invt": "2",
+        "fid": "f243",
+        "fs": "b:MK0354",
+        "fields": "f1,f152,f2,f3,f12,f13,f14,f227,f228,f229,f230,f231,f232,f233,f234,f235,f236,f237,f238,f239,f240,f241,f242,f26,f243",
+        "_": "1590386857527",
+    }
+    r = requests.get(url, params=params)
+    text_data = r.text
+    json_data = demjson.decode(text_data[text_data.find("{"):-2])
+    temp_df = pd.DataFrame(json_data["data"]["diff"])
+    temp_df.columns = ['f1', 'f2', 'f3', 'f12', 'f13', 'f14', 'f26', 'f152', 'f227', 'f228',
+                       'f229', 'f230', 'f231', 'f232', 'f233', 'f234', 'f235', 'f236', 'f237',
+                       'f238', 'f239', 'f240', 'f241', 'f242', 'f243']
+    return temp_df
+
+
 if __name__ == "__main__":
     bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sh113542")
     print(bond_zh_hs_cov_daily_df)
     bond_zh_hs_cov_spot_df = bond_zh_hs_cov_spot()
     print(bond_zh_hs_cov_spot_df)
+
+    bond_zh_cov_df = bond_zh_cov()
+    print(bond_zh_cov_df)
+
+    bond_cov_comparison_df = bond_cov_comparison()
+    print(bond_cov_comparison_df)
