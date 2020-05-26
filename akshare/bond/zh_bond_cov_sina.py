@@ -107,12 +107,88 @@ def bond_zh_cov():
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("=") + 1:])
+    json_data = demjson.decode(text_data[text_data.find("=") + 1 :])
     temp_df = pd.DataFrame(json_data["data"])
-    map_dict = {item["code"]: item["value"] for item in json_data["font"]["FontMapping"]}
+    map_dict = {
+        item["code"]: item["value"] for item in json_data["font"]["FontMapping"]
+    }
     for key, value in map_dict.items():
         for i in range(1, 9):
-            temp_df.iloc[:, -i] = temp_df.iloc[:, -i].apply(lambda x: x.replace(key, str(value)))
+            temp_df.iloc[:, -i] = temp_df.iloc[:, -i].apply(
+                lambda x: x.replace(key, str(value))
+            )
+    temp_df.shape
+    temp_df.columns = [
+        "债券代码",
+        "交易场所",
+        "_",
+        "债券简称",
+        "申购日期",
+        "申购代码",
+        "_",
+        "正股代码",
+        "正股简称",
+        "债券面值",
+        "发行价格",
+        "转股价",
+        "中签号发布日",
+        "中签率",
+        "上市时间",
+        "_",
+        "备忘录",
+        "正股价",
+        "市场类型",
+        "_",
+        "_",
+        "_",
+        "股权登记日",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "申购上限",
+        "_",
+        "_",
+        "转股价值",
+        "债现价",
+        "转股溢价率",
+        "每股配售额",
+        "发行规模",
+    ]
+    temp_df = temp_df[
+        [
+            "债券代码",
+            "交易场所",
+            "债券简称",
+            "申购日期",
+            "申购代码",
+            "正股代码",
+            "正股简称",
+            "债券面值",
+            "发行价格",
+            "转股价",
+            "中签号发布日",
+            "中签率",
+            "上市时间",
+            "备忘录",
+            "正股价",
+            "市场类型",
+            "股权登记日",
+            "申购上限",
+            "转股价值",
+            "债现价",
+            "转股溢价率",
+            "每股配售额",
+            "发行规模",
+        ]
+    ]
     return temp_df
 
 
@@ -140,11 +216,57 @@ def bond_cov_comparison():
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{"):-2])
+    json_data = demjson.decode(text_data[text_data.find("{") : -2])
     temp_df = pd.DataFrame(json_data["data"]["diff"])
-    temp_df.columns = ['f1', 'f2', 'f3', 'f12', 'f13', 'f14', 'f26', 'f152', 'f227', 'f228',
-                       'f229', 'f230', 'f231', 'f232', 'f233', 'f234', 'f235', 'f236', 'f237',
-                       'f238', 'f239', 'f240', 'f241', 'f242', 'f243']
+    temp_df.columns = [
+        "_",
+        "最新价",
+        "涨跌幅",
+        "转债代码",
+        "_",
+        "转债名称",
+        "上市日期",
+        "_",
+        "纯债价值",
+        "_",
+        "_",
+        "涨跌幅",
+        "_",
+        "正股代码",
+        "_",
+        "正股名称",
+        "转股价",
+        "转股价值",
+        "转股溢价率",
+        "纯债溢价率",
+        "回售触发价",
+        "强赎触发价",
+        "到期赎回价",
+        "开始转股日",
+        "申购日期",
+    ]
+    temp_df = temp_df[
+        [
+            "最新价",
+            "涨跌幅",
+            "转债代码",
+            "转债名称",
+            "上市日期",
+            "纯债价值",
+            "涨跌幅",
+            "正股代码",
+            "正股名称",
+            "转股价",
+            "转股价值",
+            "转股溢价率",
+            "纯债溢价率",
+            "回售触发价",
+            "强赎触发价",
+            "到期赎回价",
+            "开始转股日",
+            "申购日期",
+        ]
+    ]
     return temp_df
 
 

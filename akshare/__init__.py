@@ -960,9 +960,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.32: fix: futures_dce_position_rank_other return format
 0.5.33: add: zh_bond_cov_sina and set pandas version
 0.5.34: fix: set pandas version > 0.25
+0.5.35: add: bond_cov_comparison and bond_zh_cov
 """
 
-__version__ = "0.5.34"
+__version__ = "0.5.35"
 __author__ = "Albert King"
 
 """
