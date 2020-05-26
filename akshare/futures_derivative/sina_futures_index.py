@@ -55,6 +55,11 @@ def match_main_contract(exchange="dce"):
 
 
 def futures_display_main_sina():
+    """
+
+    :return:
+    :rtype:
+    """
     temp_df = pd.DataFrame()
     for item in ["dce", "czce", "shfe", "cffex"]:
         temp_df = temp_df.append(match_main_contract(exchange=item))
@@ -65,6 +70,7 @@ def futures_display_main_sina():
 def futures_main_sina(symbol="V0", trade_date="20191225"):
     """
     获取新浪财经-期货-主力连续日数据
+    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :return:
     """
     trade_date = trade_date[:4] + "_" + trade_date[4:6] + "_" + trade_date[6:]
@@ -80,5 +86,5 @@ if __name__ == "__main__":
     display_main_df = futures_display_main_sina()
     print(display_main_df)
 
-    futures_hist = futures_main_sina(symbol="AU0", trade_date="20181220")
+    futures_hist = futures_main_sina(symbol="V0", trade_date="20181220")
     print(futures_hist)
