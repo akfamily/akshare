@@ -42,7 +42,7 @@ setuptools.setup(
         "lxml>=4.2.1",
         "matplotlib>=3.1.1",
         "numpy>=1.15.4",
-        "pandas>=0.24",
+        "pandas>=0.25",
         "requests>=2.22.0",
         "demjson>=2.2.4",
         "pyexecjs>=1.5.1",
