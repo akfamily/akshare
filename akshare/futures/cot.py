@@ -703,8 +703,8 @@ def futures_dce_position_rank_other(date="20160104"):
                     temp_df.columns = ["rank", "vol_party_name", "vol", "vol_chg", "_", "long_party_name", "long_open_interest",
                                        "long_open_interest_chg", "_", "short_party_name", "short_open_interest",
                                        "short_open_interest_chg"]
-                    temp_df["symbol"] = symbol.upper()
-                    temp_df["variety"] = contract
+                    temp_df["variety"] = symbol.upper()
+                    temp_df["symbol"] = contract
                     temp_df = temp_df[["long_open_interest", "long_open_interest_chg", "long_party_name", "rank",
                                        "short_open_interest", "short_open_interest_chg", "short_party_name",
                                        "vol", "vol_chg", "vol_party_name", "symbol", "variety"]]

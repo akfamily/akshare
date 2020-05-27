@@ -469,8 +469,8 @@ P.S. 这里仅列出值(pandas.DataFrame)的字段信息
 | vol      | str   | Y        |  成交量 |
 | vol_chg      | str   | Y        |  成交量-增减 |
 | vol_party_name      | str   | Y        |  会员简称 |
-| symbol      | str   | Y        |  品种 |
-| variety      | str   | Y        |  具体合约 |
+| symbol      | str   | Y        |  具体合约 |
+| variety      | str   | Y        |  品种 |
 
 接口示例
 
