@@ -5,8 +5,6 @@ date: 2020/4/4 19:56
 desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
-感谢 QQ: 33555115 的建议和部分源码
-感谢 QQ: 417515530 的发现的文档参数问题
 """
 import re
 
@@ -164,5 +162,5 @@ def currency_name_code(symbol="usd/jpy"):
 if __name__ == '__main__':
     currency_name_code_df = currency_name_code(symbol="usd/jpy")
     print(currency_name_code_df)
-    currency_hist_df = currency_hist(symbol="kwd-jpy", start_date="2005/01/01", end_date="2020/01/17")
+    currency_hist_df = currency_hist(symbol="usd-cny", start_date="2013/10/18", end_date="2020/05/26")
     print(currency_hist_df)

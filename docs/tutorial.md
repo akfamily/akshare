@@ -491,6 +491,9 @@
  "stock_info_sz_change_name"  # 深证证券交易所股票曾用名详情
  "stock_info_change_name"  # A 股股票曾用名列表
  "stock_info_a_code_name"  # A 股股票代码和简称
+ # 机构持股
+ "stock_institute_hold"  # 机构持股一览表
+ "stock_institute_hold_detail"  # 机构持股详情
 ```
 
 ## 案例演示
