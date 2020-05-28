@@ -964,10 +964,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.36: fix: stock_info_sz_name_code return code format
 0.5.37: add: stock_hold
 0.5.38: fix: futures_dce_position_rank_other exchange symbol and variety
+0.5.39: add: stock_recommend
 """
 
-__version__ = "0.5.38"
+__version__ = "0.5.39"
 __author__ = "Albert King"
+
+"""
+股票-机构推荐池
+"""
+from akshare.stock_fundamental.stock_recommend import stock_institute_recommend, stock_institute_recommend_detail
 
 """
 股票-机构持股

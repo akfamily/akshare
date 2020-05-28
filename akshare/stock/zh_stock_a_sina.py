@@ -39,7 +39,7 @@ def _get_zh_a_page_count() -> int:
 
 def stock_zh_a_spot() -> pd.DataFrame:
     """
-    从新浪财经-A股获取所有A股的实时行情数据, 大量抓取容易封IP
+    从新浪财经-A股获取所有A股的实时行情数据, 重复运行本函数会被新浪暂时封 IP
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
     :return: pandas.DataFrame
                 symbol    code  name   trade pricechange changepercent     buy  \
@@ -82,13 +82,15 @@ def stock_zh_a_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = _get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
+
     for page in tqdm(range(1, page_count+1), desc="Please wait for a moment"):
         zh_sina_stock_payload_copy.update({"page": page})
-        res = requests.get(
+        r = requests.get(
             zh_sina_a_stock_url,
             params=zh_sina_stock_payload_copy)
-        data_json = demjson.decode(res.text)
+        data_json = demjson.decode(r.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
+
     return big_df
 
 
@@ -190,5 +192,5 @@ if __name__ == "__main__":
     print(stock_zh_a_daily_hfq_df)
     stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz000613", adjust="qfq")
     print(stock_zh_a_daily_df)
-    # stock_zh_a_spot_df = stock_zh_a_spot()
-    # print(stock_zh_a_spot_df)
+    stock_zh_a_spot_df = stock_zh_a_spot()
+    print(stock_zh_a_spot_df)
