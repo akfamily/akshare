@@ -494,7 +494,7 @@
  # 机构持股
  "stock_institute_hold"  # 机构持股一览表
  "stock_institute_hold_detail"  # 机构持股详情
- # 机构推荐池
+ # 机构推荐股票
  "stock_institute_recommend"  # 机构推荐
  "stock_institute_recommend_detail"  # 股票评级记录
 ```
