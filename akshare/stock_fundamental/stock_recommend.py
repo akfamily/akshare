@@ -61,7 +61,7 @@ def stock_institute_recommend(indicator: str = "投资评级选股") -> pd.DataF
         temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :9]
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
         del temp_df["评级明细"]
-        temp_df = temp_df.rename(columns={"关注度↓": "关注度"})
+        temp_df = temp_df.rename(columns={"评级日期↓": "评级日期"})
         return temp_df
     temp_df = pd.read_html(r.text, header=0)[0].iloc[:, :8]
     temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
