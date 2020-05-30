@@ -50,7 +50,6 @@ setuptools.setup(
         "pypinyin>=0.35.0",
         "websocket-client>=0.56.0",
         "html5lib>=1.0.1",
-        "requests-html>=0.10.0",
         "scikit-learn>=0.22",
         "fonttools>=4.2.2",
         "xlrd>=1.2.0",
