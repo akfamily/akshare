@@ -25,11 +25,7 @@ def _get_page_num_dxsyl(market: str = "上海主板") -> int:
     :return: 总页数
     :rtype: int
     """
-    market_map = {
-        "上海主板": "2",
-        "创业板": "3",
-        "中小板": "4"
-    }
+    market_map = {"上海主板": "2", "创业板": "3", "中小板": "4"}
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
     params = {
         "type": "NS",
@@ -56,11 +52,7 @@ def stock_em_dxsyl(market: str = "上海主板") -> pd.DataFrame:
     :return: 指定市场的打新收益率数据
     :rtype: pandas.DataFrame
     """
-    market_map = {
-        "上海主板": "2",
-        "创业板": "3",
-        "中小板": "4"
-    }
+    market_map = {"上海主板": "2", "创业板": "3", "中小板": "4"}
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
     page_num = _get_page_num_dxsyl(market=market)
     temp_df = pd.DataFrame()
@@ -81,8 +73,26 @@ def stock_em_dxsyl(market: str = "上海主板") -> pd.DataFrame:
         data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
-    temp_df.columns = ['股票代码', '股票简称', '发行价', '最新价', '网上发行中签率', '网上有效申购股数', '网上有效申购户数', '网上超额认购倍数', '网下配售中签率',
-                       '网下有效申购股数', '网下有效申购户数', '网下配售认购倍数', "总发行数量", "开盘溢价", "首日涨幅", "打新收益", "上市日期", "市场"]
+    temp_df.columns = [
+        "股票代码",
+        "股票简称",
+        "发行价",
+        "最新价",
+        "网上发行中签率",
+        "网上有效申购股数",
+        "网上有效申购户数",
+        "网上超额认购倍数",
+        "网下配售中签率",
+        "网下有效申购股数",
+        "网下有效申购户数",
+        "网下配售认购倍数",
+        "总发行数量",
+        "开盘溢价",
+        "首日涨幅",
+        "打新收益",
+        "上市日期",
+        "市场",
+    ]
     return temp_df
 
 

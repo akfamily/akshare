@@ -34,7 +34,7 @@ def _get_page_num_account() -> int:
         "rt": "52589731",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -62,8 +62,19 @@ def stock_em_account() -> pd.DataFrame:
         data_text = res.text
         data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
-    temp_df.columns = ['数据日期', '新增投资者-数量(万户)', '新增投资者-环比', '新增投资者-同比', '期末投资者(万户)-总量', '期末投资者(万户)-A股账户', '期末投资者(万户)-B股账户', '上证指数-收盘',
-                       '上证指数-涨跌幅', '沪深总市值', '沪深户均市值']
+    temp_df.columns = [
+        "数据日期",
+        "新增投资者-数量(万户)",
+        "新增投资者-环比",
+        "新增投资者-同比",
+        "期末投资者(万户)-总量",
+        "期末投资者(万户)-A股账户",
+        "期末投资者(万户)-B股账户",
+        "上证指数-收盘",
+        "上证指数-涨跌幅",
+        "沪深总市值",
+        "沪深户均市值",
+    ]
     return temp_df
 
 

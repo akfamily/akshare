@@ -1,12 +1,10 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/11 19:54
-contact: jindaxiang@163.com
-desc:
-获取中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
-获取中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
+Date: 2019/12/11 19:54
+Desc: 中国外汇交易中心暨全国银行间同业拆借中心
+中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
+中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
 http://www.chinamoney.com.cn/chinese/mkdatabond/
 """
 from operator import itemgetter

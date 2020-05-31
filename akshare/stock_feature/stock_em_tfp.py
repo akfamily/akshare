@@ -34,13 +34,23 @@ def stock_em_tfp(trade_date: str = "2020-03-19") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"):])
+    data_json = demjson.decode(data_text[data_text.find("{") :])
     temp_df = pd.DataFrame(data_json["data"]).iloc[:, 0].str.split(",", expand=True)
-    temp_df.columns = ["代码", "名称", "停牌时间", "停牌截止时间", "停牌期限", "停牌原因", "所属市场", "-", "预计复牌时间"]
+    temp_df.columns = [
+        "代码",
+        "名称",
+        "停牌时间",
+        "停牌截止时间",
+        "停牌期限",
+        "停牌原因",
+        "所属市场",
+        "-",
+        "预计复牌时间",
+    ]
     data_df = temp_df[["代码", "名称", "停牌时间", "停牌截止时间", "停牌期限", "停牌原因", "所属市场", "预计复牌时间"]]
     return data_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_em_tfp_df = stock_em_tfp(trade_date="2020-03-25")
     print(stock_em_tfp_df)
