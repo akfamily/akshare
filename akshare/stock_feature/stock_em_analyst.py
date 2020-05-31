@@ -33,13 +33,32 @@ def stock_em_analyst_rank():
     r = requests.get(url, params=params, headers=headers)
     data_json = json.loads(r.text.strip("var nPqXnjcx ="))["data"]
     data_df = pd.DataFrame(data_json)
-    result_df = data_df[['LastYearIndex', 'LastYearSyl', 'StockName', 'FxsName', 'Ssjg',
-                         'NewIndex', 'Earnings_3', 'Earnings_6', 'Earnings_12', 'NewGgpj',
-                         'Jyrq', 'JyrqStr', 'FxsCode', 'CfgGs', 'stockcount', 'Industrycode']]
+    result_df = data_df[
+        [
+            "LastYearIndex",
+            "LastYearSyl",
+            "StockName",
+            "FxsName",
+            "Ssjg",
+            "NewIndex",
+            "Earnings_3",
+            "Earnings_6",
+            "Earnings_12",
+            "NewGgpj",
+            "Jyrq",
+            "JyrqStr",
+            "FxsCode",
+            "CfgGs",
+            "stockcount",
+            "Industrycode",
+        ]
+    ]
     return result_df
 
 
-def stock_em_analyst_detail(analyst_id: str = "11000257131", indicator: str = "最新跟踪成分股") -> pd.DataFrame:
+def stock_em_analyst_detail(
+    analyst_id: str = "11000257131", indicator: str = "最新跟踪成分股"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数2020最新排行-分析师详情
     :param analyst_id: 分析师ID, 从 stock_em_analyst_rank 获取
@@ -69,16 +88,25 @@ def stock_em_analyst_detail(analyst_id: str = "11000257131", indicator: str = "�
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        data_df = pd.DataFrame([data_json["X"].split(","), data_json["Y"][0].split(",")], index=["date", "value"]).T
+        data_df = pd.DataFrame(
+            [data_json["X"].split(","), data_json["Y"][0].split(",")],
+            index=["date", "value"],
+        ).T
         return data_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_em_analyst_rank_df = stock_em_analyst_rank()
     print(stock_em_analyst_rank_df)
-    stock_em_analyst_detail_current_stock_df = stock_em_analyst_detail(analyst_id="11000257131", indicator="最新跟踪成分股")
+    stock_em_analyst_detail_current_stock_df = stock_em_analyst_detail(
+        analyst_id="11000257131", indicator="最新跟踪成分股"
+    )
     print(stock_em_analyst_detail_current_stock_df)
-    stock_em_analyst_detail_history_stock_df = stock_em_analyst_detail(analyst_id="11000257131", indicator="历史跟踪成分股")
+    stock_em_analyst_detail_history_stock_df = stock_em_analyst_detail(
+        analyst_id="11000257131", indicator="历史跟踪成分股"
+    )
     print(stock_em_analyst_detail_history_stock_df)
-    stock_em_analyst_detail_index_df = stock_em_analyst_detail(analyst_id="11000257131", indicator="历史指数")
+    stock_em_analyst_detail_index_df = stock_em_analyst_detail(
+        analyst_id="11000257131", indicator="历史指数"
+    )
     print(stock_em_analyst_detail_index_df)
