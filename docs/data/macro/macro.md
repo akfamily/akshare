@@ -633,9 +633,9 @@ macro_china_pmi_yearly_df:
 
 接口: macro_china_cx_pmi_yearly
 
-目标地址: https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
+目标地址: https://datacenter.jin10.com/reportType/dc_chinese_caixin_manufacturing_pmi
 
-描述: 获取中国年度财新PMI数据, 数据区间从20120120-至今
+描述: 获取中国年度财新 PMI 数据, 数据区间从20120120-至今
 
 限量: 单次返回所有历史数据
 
