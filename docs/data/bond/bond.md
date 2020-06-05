@@ -658,7 +658,7 @@ print(bond_cov_comparison_df)
 
 ### 全球债券行情数据
 
-接口: get_country_bond
+接口: bond_investing_global
 
 目标地址: https://cn.investing.com/rates-bonds/
 
@@ -668,8 +668,8 @@ print(bond_cov_comparison_df)
 
 1. 先查询指数所在的国家名称;
 2. 复制网页上国家名称(推荐复制), 如 **中国**;
-3. 复制所显示的具体债券名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **中国1年期国债**;
-4. 在安装 [AkShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.get_country_bond(country="中国", index_name="中国1年期国债", start_date='2000/01/01', end_date='2019/10/17')**;
+3. 复制所显示的具体债券名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **中国1年期国债**; 也可以调用 **ak.bond_investing_global_country_name_url(country="美国")** 获取需要国家的具体指数名称
+4. 在安装 [AkShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.bond_investing_global(country="中国", index_name="中国1年期国债", period="每周", start_date="2000-01-01", end_date="2020-06-06")**;
 5. 稍后就可以获得所需数据.
 
 限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
@@ -679,7 +679,8 @@ print(bond_cov_comparison_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | country | str  | Y    |   country="中国"|
-| index_name | str  | Y    |  index_name="中国1年期国债"|
+| index_name | str  | Y    |  index_name="中国1年期国债"; 可以通过 ak.bond_investing_global_country_name_url(country="美国") 获取|
+| period | str  | Y    |  period="每月"; choice of {"每日", "每周", "每月"}|
 | start_date | str  | Y    |  start_date='2000/01/01'|
 | end_date | str  | Y    |  end_date='2019/10/17'|
 
@@ -692,39 +693,30 @@ print(bond_cov_comparison_df)
 | 开盘      | float   | Y        | 开盘        |
 | 高        | float   | Y        |高    |
 | 低         | float | Y        | 低         |
-| 交易量      | str | Y        | 涨跌幅      |
+| 交易量      | str | Y        | 涨跌幅, 注意单位: %      |
 
 接口示例
 
 ```python
 import akshare as ak
-bond_df = ak.get_country_bond(country="中国", index_name="中国1年期国债", start_date='2000/01/01', end_date='2019/10/17')
-print(bond_df)
-print(bond_df.name)
+bond_investing_global_df = ak.bond_investing_global(country="中国", index_name="中国1年期国债", period="每周", start_date="2000-01-01", end_date="2020-06-06")
+print(bond_investing_global_df)
 ```
 
 数据示例
 
-bond_df.name:
-
 ```
-中国一年期国债收益率历史数据
-```
-
-bond_df:
-
-```
-0          收盘     开盘      高      低      涨跌幅
-日期                                             
-2019-10-17  2.647  2.656  2.656  2.647   -1.65%
-2019-10-16  2.691  2.700  2.700  2.691    0.67%
-2019-10-15  2.673  2.673  2.673  2.673    0.75%
-2019-10-14  2.653  2.671  2.671  2.653    0.19%
-2019-10-11  2.648  2.677  2.677  2.648   -0.56%
-...           ...    ...    ...    ...      ...
-2002-06-10  1.955  1.955  1.955  1.955    2.20%
-2002-06-07  1.913  1.913  1.913  1.913   -0.42%
-2002-06-06  1.921  1.921  1.921  1.921  -12.60%
-2002-06-05  2.198  2.198  2.198  2.198    0.18%
-2002-06-04  2.194  2.194  2.194  2.194    3.44%
+            收盘     开盘      高      低    涨跌幅
+日期                                           
+2020-05-31  1.720  1.543  1.720  1.543   6.77
+2020-05-24  1.611  1.500  1.611  1.500   7.40
+2020-05-17  1.500  1.400  1.500  1.400  21.95
+2020-05-10  1.230  1.217  1.300  1.217   0.99
+2020-05-03  1.218  1.210  1.227  1.180   6.56
+           ...    ...    ...    ...    ...
+2002-07-07  2.020  2.020  2.020  2.020  -0.30
+2002-06-30  2.026  2.026  2.026  2.026   3.21
+2002-06-23  1.963  1.963  1.963  1.963   1.19
+2002-06-16  1.940  1.940  1.940  1.940   0.88
+2002-06-09  1.923  1.923  1.923  1.923   0.52
 ```

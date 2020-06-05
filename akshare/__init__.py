@@ -967,9 +967,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.39: add: stock_recommend
 0.5.40: fix: stock_recommend output format
 0.5.41: fix: deprecated requests-html module
+0.5.42: fix: reformat investing interface
 """
 
-__version__ = "0.5.41"
+__version__ = "0.5.42"
 __author__ = "Albert King"
 
 """
@@ -1880,12 +1881,12 @@ from akshare.option.option_commodity import (
 """
 英为财情-债券
 """
-from akshare.bond.investing_bond import get_country_bond  # 债券-全球政府债券行情与收益率
+from akshare.bond.bond_investing import bond_investing_global, bond_investing_global_country_name_url
 
 """
 英为财情-指数
 """
-from akshare.index.index_investing import get_country_index  # 股票指数-全球股指与期货指数数据接口
+from akshare.index.index_investing import index_investing_global, index_investing_global_country_name_url
 
 """
 99期货-期货库存数据

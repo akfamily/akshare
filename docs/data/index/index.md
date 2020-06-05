@@ -884,17 +884,17 @@ print(index_stock_cons_df)
 
 ### 全球指数数据
 
-接口: get_country_index
+接口: index_investing_global
 
 目标地址: https://cn.investing.com/indices/
 
-描述: 获取世界主要国家的各种指数, 由于涉及国家和指数(**1000**+个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
+描述: 获取世界主要国家的各种指数, 由于涉及国家和指数(**1000** + 个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
 具体的调用方式可以参照:
 
 1. 先查询指数所在的国家名称;
 2. 复制网页上国家名称(推荐复制), 如 **美国**;
-3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**;
-4. 在安装 [AkShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.get_country_index(country="美国", index_name="美元指数", start_date='2000/01/01', end_date='2019/10/17')**;
+3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**; 也可以调用 **ak.index_investing_global_country_name_url("美国")** 获取需要国家的具体指数名称
+4. 在安装 [AkShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")**;
 5. 稍后就可以获得所需数据.
 
 限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
@@ -904,9 +904,10 @@ print(index_stock_cons_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | country | str  | Y    |   country="美国"|
-| index_name | str  | Y    |  index_name="美元指数"|
-| start_date | str  | Y    |  start_date='2000/01/01'|
-| end_date | str  | Y    |  end_date='2019/10/17'|
+| index_name | str  | Y    |  index_name="美元指数"; 可以通过 ak.index_investing_global_country_name_url("美国") 获取|
+| period | str  | Y    |  period="每月"; choice of {"每日", "每周", "每月"}|
+| start_date | str  | Y    |  start_date='2000-01-01'|
+| end_date | str  | Y    |  end_date='2019-10-17'|
 
 输出参数
 
@@ -918,39 +919,31 @@ print(index_stock_cons_df)
 | 高        | float   | Y        |高    |
 | 低         | float | Y        | 低         |
 | 交易量      | float | Y        | 交易量      |
-| 百分比变化  | str | Y        | 百分比变化  |
 
 接口示例
 
 ```python
 import akshare as ak
-index_df = ak.get_country_index(country="美国", index_name="美元指数", start_date='2000/01/01', end_date='2019/10/17')
-print(index_df)
-print(index_df.name)
+index_investing_global_df = ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")
+print(index_investing_global_df)
 ```
 
 数据示例
 
-index_df.name:
-
-```美元指数历史数据```
-
-index_df:
-
 ```
-0               收盘      开盘       高       低 交易量   百分比变化
-日期                                                    
-2019-05-10   97.33   97.43   97.45   97.13   -  -0.04%
-2019-05-09   97.37   97.58   97.70   97.24   -  -0.26%
-2019-05-08   97.62   97.57   97.68   97.42   -  -0.01%
-2019-05-07   97.63   97.52   97.74   97.38   -   0.11%
-2019-05-06   97.52   97.56   97.70   97.46   -   0.00%
-...            ...     ...     ...     ...  ..     ...
-2000-01-07  100.80  100.49  100.93  100.44   -   0.15%
-2000-01-06  100.65  100.31  100.81   99.81   -   0.27%
-2000-01-05  100.38  100.42  100.47   99.71   -  -0.03%
-2000-01-04  100.41  100.55  100.86  100.01   -   0.19%
-2000-01-03  100.22  101.67  101.83  100.19   -  -1.62%
+               收盘     开盘      高      低  交易量
+日期                                         
+2020-06-01  24.30  28.90  30.60  23.60  0.0
+2020-05-01  27.51  38.17  40.32  25.92  0.0
+2020-04-01  34.15  57.38  60.59  30.54  0.0
+2020-03-01  53.54  34.86  85.47  24.93  0.0
+2020-02-01  40.11  18.64  49.48  13.38  0.0
+           ...    ...    ...    ...  ...
+2005-05-01  13.29  15.45  17.70  11.65  0.0
+2005-04-01  15.31  13.64  18.59  11.20  0.0
+2005-03-01  14.02  11.95  14.89  11.66  0.0
+2005-02-01  12.08  12.80  13.20  10.90  0.0
+2005-01-01  12.82  13.39  14.75  12.29  0.0
 ```
 
 ### 微博指数数据

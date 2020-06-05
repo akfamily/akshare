@@ -1,11 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/17 0:50
-contact: jindaxiang@163.com
-desc: 英为财情-股票指数-全球股指与期货指数数据接口
-
+Date: 2019/10/17 0:50
+Desc: 英为财情-股票指数-全球股指与期货指数数据接口
+https://cn.investing.com/indices/volatility-s-p-500-historical-data
 """
 import re
 
@@ -18,7 +16,7 @@ from akshare.index.cons import short_headers, long_headers
 pd.set_option("mode.chained_assignment", None)
 
 
-def get_global_country_name_url():
+def _get_global_country_name_url() -> dict:
     """
     获取可获得指数数据国家对应的 URL
     :return: dict
@@ -133,7 +131,7 @@ def get_global_country_name_url():
     return name_code_map_dict
 
 
-def get_country_name_url(country="中国"):
+def index_investing_global_country_name_url(country: str = "中国") -> dict:
     """
     参考网页: https://cn.investing.com/indices/
     获取选择国家对应的: 主要指数, 主要行业, 附加指数, 其他指数
@@ -293,7 +291,7 @@ def get_country_name_url(country="中国"):
      '新指数': '/indices/szse-new', '深证治理': '/indices/szse-corp-governance-price', 'TMT50': '/indices/szse-tmt50-price',
      '深证红利': '/indices/szse-dividend-price', '深证综指': '/indices/szse-composite'}
     """
-    name_url_dict = get_global_country_name_url()
+    name_url_dict = _get_global_country_name_url()
     url = f"https://cn.investing.com{name_url_dict[country]}?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on"
     res = requests.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
@@ -309,16 +307,27 @@ def get_country_name_url(country="中国"):
     return name_code_map_dict
 
 
-def get_country_index(
-    country="中国", index_name="上证指数", start_date="2000/01/01", end_date="2019/10/17"
-):
+def index_investing_global(
+    country: str = "中国",
+    index_name: str = "上证指数",
+    period: str = "每日",
+    start_date: str = "2000-01-01",
+    end_date: str = "2019-10-17",
+) -> pd.DataFrame:
     """
     获得具体国家的具体指数的从 start_date 到 end_date 期间的数据
-    :param country: str 对应函数中的国家名称
-    :param index_name: str 对应函数中的指数名称
-    :param start_date: str '2000/01/01', 注意格式
-    :param end_date: str '2019/10/17', 注意格式
-    :return: pandas.DataFrame
+    :param country: 对应函数中的国家名称
+    :type country: str
+    :param index_name: 对应函数中的指数名称
+    :type index_name: str
+    :param period: choice of {"每日", "每周", "每月"}
+    :type period: str
+    :param start_date: '2000-01-01', 注意格式
+    :type start_date: str
+    :param end_date: '2019-10-17', 注意格式
+    :type end_date: str
+    :return: 指定参数的数据
+    :rtype: pandas.DataFrame
     深证战略性新兴产业指数历史数据
     0              日期        收盘        开盘         高         低     交易量   百分比变化
     1     2019年10月16日  1,692.60  1,695.38  1,708.59  1,691.39   4.65B  -0.01%
@@ -333,7 +342,10 @@ def get_country_index(
     1650  2012年12月28日    900.42    892.72    900.42    888.62  13.82K   0.88%
     1651  2012年12月27日    892.59    901.97    905.57    891.83  17.55K  -0.76%
     """
-    name_code_dict = get_country_name_url(country)
+    start_date = start_date.replace("-", "/")
+    end_date = end_date.replace("-", "/")
+    period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
+    name_code_dict = index_investing_global_country_name_url(country)
     temp_url = f"https://cn.investing.com/{name_code_dict[index_name]}-historical-data"
     res = requests.post(temp_url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
@@ -348,67 +360,18 @@ def get_country_index(
         "header": title,
         "st_date": start_date,
         "end_date": end_date,
-        "interval_sec": "Daily",
+        "interval_sec": period_map[period],
         "sort_col": "date",
         "sort_ord": "DESC",
         "action": "historical_data",
     }
     url = "https://cn.investing.com/instruments/HistoricalDataAjax"
     res = requests.post(url, data=payload, headers=long_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    vest_list = [item.get_text().strip().split("\n") for item in soup.find_all("tr")]
-
-    list_date = list()
-    for item in vest_list[:-1]:
-        list_date.append(item[0])
-
-    list_new = list()
-    for item in vest_list[:-1]:
-        list_new.append(item[1])
-
-    list_open = list()
-    for item in vest_list[:-1]:
-        list_open.append(item[2])
-
-    list_high = list()
-    for item in vest_list[:-1]:
-        list_high.append(item[3])
-
-    list_low = list()
-    for item in vest_list[:-1]:
-        list_low.append(item[4])
-
-    list_vol_per = list()
-    for item in vest_list[:-1]:
-        list_vol_per.append(item[5])
-
-    list_vol = list()
-    list_per = list()
-    for item in list_vol_per:
-        list_vol.append(item.split(" ")[0])
-        list_per.append(item.split(" ")[1])
-
-    list_date.append(vest_list[-1][0])
-    list_new.append(vest_list[-1][1])
-    list_open.append(vest_list[-1][2])
-    list_high.append(vest_list[-1][3])
-    list_low.append(vest_list[-1][4])
-
-    df_data = pd.DataFrame(
-        [list_date, list_new, list_open, list_high, list_low, list_vol, list_per]
-    ).T
-    df_data.iloc[0, :][5] = "交易量"
-    df_data.iloc[0, :][6] = "百分比变化"
-    df_data.columns = df_data.iloc[0, :]
-    df_data = df_data.iloc[1:, :]
-    df_data = df_data[:-1]  # 去掉最后一行
-    df_data = df_data.set_index(["日期"])
-    df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
-    df_data.index.name = "日期"
-    df_data["收盘"] = df_data["收盘"].str.replace(",", "").astype(float)
-    df_data["开盘"] = df_data["开盘"].str.replace(",", "").astype(float)
-    df_data["高"] = df_data["高"].str.replace(",", "").astype(float)
-    df_data["低"] = df_data["低"].str.replace(",", "").astype(float)
+    df_data = pd.read_html(res.text)[0]
+    if period == "每月":
+        df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月")
+    else:
+        df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
     if any(df_data["交易量"].astype(str).str.contains("-")):
         df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
             df_data["交易量"].str.contains("-")
@@ -436,12 +399,17 @@ def get_country_index(
         )
     df_data["交易量"] = df_data["交易量"].astype(float)
     df_data = df_data[["收盘", "开盘", "高", "低", "交易量"]]
-    df_data.name = title
+    df_data = df_data.astype(float)
     return df_data
 
 
 if __name__ == "__main__":
-    get_country_name_url_dict = get_country_name_url("新加坡")
-    get_country_index_df = get_country_index(country="新加坡", index_name="FTSE Singapore", start_date="2005/01/01", end_date="2020/03/12")
-    print(get_country_index_df.name)
-    print(get_country_index_df)
+    index_investing_global_country_name_url_dict = index_investing_global_country_name_url("美国")
+    index_investing_global_df = index_investing_global(
+        country="美国",
+        index_name="VIX恐慌指数",
+        period="每月",
+        start_date="2005-01-01",
+        end_date="2020-06-05",
+    )
+    print(index_investing_global_df)
