@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/10 22:52
-contact: jindaxiang@163.com
-desc: 数据接口初始化
+Date: 2019/11/10 22:52
+Desc: 数据接口初始化
 """
 from akshare.pro import client
 from akshare.utils import token_process
@@ -24,4 +22,8 @@ def pro_api(token=''):
 
 
 if __name__ == '__main__':
-    pro_test = pro_api(token="")
+    pro_test = pro_api()
+    variety_all_df = pro_test.variety_all()
+    print(variety_all_df)
+    variety_no_futures_df = pro_test.variety_no_futures(symbol="RB", date="2018-08-08")
+    print(variety_no_futures_df)

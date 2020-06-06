@@ -1,25 +1,24 @@
 # 商品
 
-## 持仓数据
+## 合约持仓数据
 
-### 多头龙虎榜
-
-#### 接口名称
+### 接口名称
 
 variety_positions
 
-#### 接口描述
+### 接口描述
 
-持仓数据接口
+合约持仓数据接口
 
-#### 请求参数
+### 请求参数
 
 |参数名|说明|举例|
 |-----  |-----|-----|
+|fields |多头/空头   |longs: 返回多头数据; shorts: 返回空头数据  |
 |code |合约代号   |rb1810  |
 |date |查询日期   |2018-08-08  |
 
-#### 返回参数
+### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|:-----|
@@ -31,7 +30,7 @@ variety_positions
 |short |int   |该席位空头持仓量  |
 |short_chge |int   |该席位空头持仓变化量  |
 
-#### 示例代码
+### 示例代码
 
 ```python
 from akshare import pro_api
@@ -40,7 +39,7 @@ variety_positions_df = pro.variety_positions(fields="longs", code="rb1810", date
 print(variety_positions_df)
 ```
 
-#### 返回示例
+### 返回示例
 
 ```
    broker   long  long_chge
@@ -68,65 +67,137 @@ print(variety_positions_df)
 21   国海良时      0     -15721
 ```
 
-### 空头龙虎榜
+## 商品持仓数据
 
-#### 接口名称
+### 接口名称
 
-variety_positions
+variety_all_positions
 
 #### 接口描述
 
-持仓数据接口
+商品持仓数据接口
 
 #### 请求参数
 
 |参数名|说明|举例|
 |-----  |-----|-----|
-|code |合约代号   |rb1810  |
+|fields |多头/空头   |longs: 返回多头数据; shorts: 返回空头数据  |
+|symbol |合约代号   |RB  |
 |date |查询日期   |2018-08-08  |
 
 #### 返回参数
 
 |参数名|类型|说明|
 |:-----  |:-----|:-----|
+|longs |array   |多头龙虎榜  |
+|shorts |array   |空头龙虎榜  |
 |broker |string   |席位  |
+|long |int   |该席位多头持仓量  |
+|long_chge |int   |该席位多头持仓变化量  |
 |short |int   |该席位空头持仓量  |
 |short_chge |int   |该席位空头持仓变化量  |
+|code |string   |具体合约  |
 
 #### 示例代码
 
 ```python
 from akshare import pro_api
 pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
-variety_positions_df = pro.variety_positions(fields="shorts", code="rb1810", date="2018-08-08")
-print(variety_positions_df)
+variety_all_positions_df = pro.variety_all_positions(fields="shorts", symbol="RB", date="2018-08-08")
+print(variety_all_positions_df)
 ```
 
 #### 返回示例
 
 ```
-   broker  short  short_chge
-0    银河期货  60987       -4228
-1    永安期货  57520       -1071
-2    中信期货  38120        -620
-3    国泰君安  36498         528
-4    方正中期  32105        4444
-5    海通期货  29638       -2783
-6    东海期货  29250         450
-7    光大期货  28458         -84
-8    南华期货  27853        -144
-9    中辉期货  26101        -553
-10   中大期货  23761        1572
-11   鲁证期货  22501        -598
-12   兴证期货  22262        -842
-13   东证期货  21675        -686
-14   徽商期货  18966        -607
-15   中信建投  18583        -625
-16   华泰期货  17076       -5797
-17   国投安信  16808         349
-18   申银万国  14876         376
-19   广发期货  14588       -2196
-20   大地期货      0      -14603
+   broker   long  long_chge    code
+0    东证期货      0        -60  rb1808
+1    永安期货  80565       3075  rb1810
+2    申银万国  65572       2992  rb1810
+3    华泰期货  49279      -1552  rb1810
+4    中信期货  46272       4286  rb1810
+5    海通期货  42596       -286  rb1810
+6    方正中期  41839      -7504  rb1810
+7    鲁证期货  41520       -550  rb1810
+8    银河期货  38892      -2800  rb1810
+9    一德期货  34618      -1378  rb1810
+10   国泰君安  25854      -2188  rb1810
+11   广发期货  21496      -1695  rb1810
+12   国投安信  21494       2193  rb1810
+13   大地期货  20705         23  rb1810
+14   兴证期货  20166       4071  rb1810
+15   浙商期货  20001       -817  rb1810
+16   南华期货  19311      -2173  rb1810
+17   东海期货  18912      -1259  rb1810
+18   东证期货  15956       -192  rb1810
+19   瑞达期货  15648      -2091  rb1810
+20   光大期货  14758       -910  rb1810
+21   中国国际  12772      12772  rb1810
+22   国海良时      0     -15721  rb1810
+23   永安期货  76193       6726  rb1901
+24   国泰君安  57533      10549  rb1901
+25   东海期货  44408       2666  rb1901
+26   华泰期货  43165      11233  rb1901
+27   鲁证期货  33941        711  rb1901
+28   银河期货  32133       2862  rb1901
+29   一德期货  26147       4950  rb1901
+30   方正中期  24644      -2103  rb1901
+31   海通期货  23176       2234  rb1901
+32   新湖期货  22354       -193  rb1901
+33   金瑞期货  21595        229  rb1901
+34   中信期货  20821       -226  rb1901
+35   瑞达期货  20450       -768  rb1901
+36   中国国际  20158        402  rb1901
+37   华鑫期货  15665       5134  rb1901
+38   海证期货  15444       -202  rb1901
+39   中粮期货  13506        913  rb1901
+40   东航期货  13312        600  rb1901
+41   弘业期货  13267       -246  rb1901
+42   申银万国  13233        631  rb1901
+43   光大期货  10128      10128  rb1901
+44   国投安信   8762       8762  rb1901
+```
+
+## 商品净持仓数据
+
+### 接口名称
+
+variety_net_positions
+
+### 接口描述
+
+商品净持仓数据接口
+
+### 请求参数
+
+|参数名|说明|举例|
+|:-----  |:-----|-----|
+|symbol |查询品种编码   |RB|
+|broker |席位   |永安期货|
+|date |查询日期   |2018-08-08|
+
+### 返回参数
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|trans_date |date   |查询日期  |
+|net_position |int   |净持仓数据  |
+
+### 示例代码
+
+```python
+from akshare import pro_api
+pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+variety_net_positions_df = pro.variety_net_positions(symbol="RB", broker="永安期货", date="2018-08-08")
+print(variety_net_positions_df)
+```
+
+### 返回示例
+
+```
+             variety_net_positions
+trans_date              2018-08-08
+net_position                 58463
 ```
 
 ## 合约行情数据
@@ -950,4 +1021,93 @@ print(variety_all_df)
 62    中金所   五债     TF
 63    中金所   十债      T
 64    大商所  LPG     PG
+```
+
+## 合约索引
+
+### 接口名称
+
+variety_list
+
+### 接口描述
+
+合约索引数据接口
+
+### 请求参数
+
+|参数名|说明|举例|
+|:-----  |:-----|-----|
+|date |查询日期   |2018-08-08|
+
+### 返回参数
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|- |string   | 合约  |
+
+### 示例代码
+
+```python
+from akshare import pro_api
+pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+variety_list_df = pro.variety_list(date="2018-08-08")
+print(variety_list_df)
+```
+
+### 返回示例
+
+```
+          0
+0     a1809
+1     a1811
+2     a1901
+3     a1903
+4     a1905
+..      ...
+495  zn1903
+496  zn1904
+497  zn1905
+498  zn1906
+499  zn1907
+```
+
+## 非期货公司净持仓
+
+### 接口名称
+
+variety_no_futures
+
+### 接口描述
+
+非期货公司净持仓数据接口
+
+### 请求参数
+
+|参数名|说明|举例|
+|:-----  |:-----|-----|
+|symbol |品种编码	   |RB|
+|date |查询日期   |2018-08-08|
+
+### 返回参数
+
+|参数名|类型|说明|
+|:-----  |:-----|-----|
+|trans_date |date   | 查询日期  |
+|net_value |int   | 非期货公司净持仓数据  |
+
+### 示例代码
+
+```python
+from akshare import pro_api
+pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+variety_no_futures_df = pro.variety_no_futures(symbol="RB", date="2018-08-08")
+print(variety_no_futures_df)
+```
+
+### 返回示例
+
+```
+           variety_no_futures
+trans_date         2018-08-08
+net_value               -1000
 ```
