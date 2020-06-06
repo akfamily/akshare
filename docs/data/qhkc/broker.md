@@ -1,47 +1,5 @@
 # 席位
 
-## 商品净持仓数据
-
-### 接口名称
-
-variety_net_positions
-
-### 接口描述
-
-商品净持仓数据接口
-
-### 请求参数
-
-|参数名|说明|举例|
-|:-----  |:-----|-----|
-|symbol |查询品种编码   |RB|
-|broker |席位   |永安期货|
-|date |查询日期   |2018-08-08|
-
-### 返回参数
-
-|参数名|类型|说明|
-|:-----  |:-----|-----|
-|trans_date |date   |查询日期  |
-|net_position |int   |净持仓数据  |
-
-### 示例代码
-
-```python
-from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
-variety_net_positions_df = pro.variety_net_positions(symbol="RB", broker="永安期货", date="2018-08-08")
-print(variety_net_positions_df)
-```
-
-### 返回示例
-
-```
-             variety_net_positions
-trans_date              2018-08-08
-net_position                 58463
-```
-
 ## 席位持仓数据
 
 ### 接口名称

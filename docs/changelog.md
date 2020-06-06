@@ -1355,4 +1355,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.41: fix: deprecated requests-html module
 
 0.5.42: fix: reformat investing interface
+
+0.5.43: fix: qhck interface
 ```
