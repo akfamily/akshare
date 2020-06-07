@@ -2519,6 +2519,137 @@ def macro_usa_crude_inner():
     return big_df
 
 
+# 金十数据中心-美国商品期货交易委员会CFTC外汇类非商业持仓报告
+def macro_usa_cftc_nc_holding():
+    """
+    美国商品期货交易委员会CFTC外汇类非商业持仓报告, 数据区间从 19830107-至今
+    https://datacenter.jin10.com/reportType/dc_cftc_nc_report
+    https://cdn.jin10.com/data_center/reports/cftc_4.json?_=1591535493741
+    :return: pandas.DataFrame
+    """
+    t = time.time()
+    params = {
+        "_": str(int(round(t * 1000)))
+    }
+    r = requests.get("https://cdn.jin10.com/data_center/reports/cftc_4.json", params=params)
+    json_data = r.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    temp_df.fillna("[0, 0, 0]", inplace=True)
+    big_df = pd.DataFrame()
+    for item in temp_df.columns:
+        for i in range(3):
+            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
+            big_df = pd.concat([big_df, inner_temp_df], axis=1)
+    big_df.sort_index(inplace=True)
+    return big_df
+
+
+# 金十数据中心-美国商品期货交易委员会CFTC商品类非商业持仓报告
+def macro_usa_cftc_c_holding():
+    """
+    美国商品期货交易委员会CFTC商品类非商业持仓报告, 数据区间从 19830107-至今
+    https://datacenter.jin10.com/reportType/dc_cftc_c_report
+    https://cdn.jin10.com/data_center/reports/cftc_2.json?_=1591536282271
+    :return: pandas.DataFrame
+    """
+    t = time.time()
+    params = {
+        "_": str(int(round(t * 1000)))
+    }
+    r = requests.get("https://cdn.jin10.com/data_center/reports/cftc_2.json", params=params)
+    json_data = r.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    temp_df.fillna("[0, 0, 0]", inplace=True)
+    big_df = pd.DataFrame()
+    for item in temp_df.columns:
+        for i in range(3):
+            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
+            big_df = pd.concat([big_df, inner_temp_df], axis=1)
+    big_df.sort_index(inplace=True)
+    return big_df
+
+
+# 金十数据中心-美国商品期货交易委员会CFTC外汇类商业持仓报告
+def macro_usa_cftc_merchant_currency_holding():
+    """
+    美国商品期货交易委员会CFTC外汇类商业持仓报告, 数据区间从 19860115-至今
+    https://datacenter.jin10.com/reportType/dc_cftc_merchant_currency
+    https://cdn.jin10.com/data_center/reports/cftc_3.json?_=1591536389283
+    :return: pandas.DataFrame
+    """
+    t = time.time()
+    params = {
+        "_": str(int(round(t * 1000)))
+    }
+    r = requests.get("https://cdn.jin10.com/data_center/reports/cftc_3.json", params=params)
+    json_data = r.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    temp_df.fillna("[0, 0, 0]", inplace=True)
+    big_df = pd.DataFrame()
+    for item in temp_df.columns:
+        for i in range(3):
+            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
+            big_df = pd.concat([big_df, inner_temp_df], axis=1)
+    big_df.sort_index(inplace=True)
+    return big_df
+
+
+# 金十数据中心-美国商品期货交易委员会CFTC商品类商业持仓报告
+def macro_usa_cftc_merchant_goods_holding():
+    """
+    美国商品期货交易委员会CFTC商品类商业持仓报告, 数据区间从 19860115-至今
+    https://datacenter.jin10.com/reportType/dc_cftc_merchant_goods
+    https://cdn.jin10.com/data_center/reports/cftc_1.json?_=1591536502095
+    :return: pandas.DataFrame
+    """
+    t = time.time()
+    params = {
+        "_": str(int(round(t * 1000)))
+    }
+    r = requests.get("https://cdn.jin10.com/data_center/reports/cftc_1.json", params=params)
+    json_data = r.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    temp_df.fillna("[0, 0, 0]", inplace=True)
+    big_df = pd.DataFrame()
+    for item in temp_df.columns:
+        for i in range(3):
+            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
+            big_df = pd.concat([big_df, inner_temp_df], axis=1)
+    big_df.sort_index(inplace=True)
+    return big_df
+
+
+# 金十数据中心-CME-贵金属
+# def macro_usa_cme_merchant_goods_holding():
+#     """
+#     CME-贵金属, 数据区间从 19860115-至今
+#     https://datacenter.jin10.com/org
+#     https://cdn.jin10.com/data_center/reports/cme_3.json?_=1591536643385
+#     :return: pandas.DataFrame
+#     """
+#     t = time.time()
+#     params = {
+#         "_": str(int(round(t * 1000)))
+#     }
+#     r = requests.get("https://cdn.jin10.com/data_center/reports/cme_3.json", params=params)
+#     json_data = r.json()
+#     json_data["values"].keys()
+#     temp_df = pd.DataFrame(json_data["values"]).T
+#     temp_df.fillna("[0, 0, 0]", inplace=True)
+#     big_df = pd.DataFrame()
+#     for item in temp_df.columns:
+#         for i in range(3):
+#             inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+#             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
+#             big_df = pd.concat([big_df, inner_temp_df], axis=1)
+#     big_df.sort_index(inplace=True)
+#     return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-美国-经济状况-美国GDP
     macro_usa_gdp_monthly_df = macro_usa_gdp_monthly()
@@ -2636,3 +2767,16 @@ if __name__ == "__main__":
     # 金十数据中心-经济指标-美国-其他-美国原油产量报告
     macro_usa_crude_inner_df = macro_usa_crude_inner()
     print(macro_usa_crude_inner_df)
+
+    # 金十数据中心-美国商品期货交易委员会CFTC外汇类非商业持仓报告
+    macro_usa_cftc_nc_holding_df = macro_usa_cftc_nc_holding()
+    print(macro_usa_cftc_nc_holding_df)
+    # 金十数据中心-美国商品期货交易委员会CFTC商品类非商业持仓报告
+    macro_usa_cftc_c_holding_df = macro_usa_cftc_c_holding()
+    print(macro_usa_cftc_c_holding_df)
+    # 金十数据中心-美国商品期货交易委员会CFTC外汇类商业持仓报告
+    macro_usa_cftc_merchant_currency_holding_df = macro_usa_cftc_merchant_currency_holding()
+    print(macro_usa_cftc_merchant_currency_holding_df)
+    # 金十数据中心-美国商品期货交易委员会CFTC商品类商业持仓报告
+    macro_usa_cftc_merchant_goods_holding_df = macro_usa_cftc_merchant_goods_holding()
+    print(macro_usa_cftc_merchant_goods_holding_df)
