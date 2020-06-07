@@ -379,6 +379,59 @@ def macro_euro_sentix_investor_confidence():
     return temp_df
 
 
+# 金十数据中心-伦敦金属交易所(LME)-持仓报告
+def macro_euro_lme_holding():
+    """
+    伦敦金属交易所(LME)-持仓报告, 数据区间从 20151022-至今
+    https://datacenter.jin10.com/reportType/dc_lme_traders_report
+    https://cdn.jin10.com/data_center/reports/lme_position.json?_=1591533934658
+    :return: 伦敦金属交易所(LME)-持仓报告
+    :rtype: pandas.DataFrame
+    """
+    t = time.time()
+    params = {
+        "_": str(int(round(t * 1000)))
+    }
+    r = requests.get("https://cdn.jin10.com/data_center/reports/lme_position.json", params=params)
+    json_data = r.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    big_df = pd.DataFrame()
+    for item in temp_df.columns:
+        for i in range(3):
+            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
+            big_df = pd.concat([big_df, inner_temp_df], axis=1)
+    big_df.sort_index(inplace=True)
+    return big_df
+
+
+# 金十数据中心-伦敦金属交易所(LME)-库存报告
+def macro_euro_lme_stock():
+    """
+    伦敦金属交易所(LME)-库存报告, 数据区间从 20140702-至今
+    https://datacenter.jin10.com/reportType/dc_lme_report
+    https://cdn.jin10.com/data_center/reports/lme_stock.json?_=1591535304783
+    :return: 伦敦金属交易所(LME)-库存报告
+    :rtype: pandas.DataFrame
+    """
+    t = time.time()
+    params = {
+        "_": str(int(round(t * 1000)))
+    }
+    r = requests.get("https://cdn.jin10.com/data_center/reports/lme_stock.json", params=params)
+    json_data = r.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    big_df = pd.DataFrame()
+    for item in temp_df.columns:
+        for i in range(3):
+            inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
+            inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
+            big_df = pd.concat([big_df, inner_temp_df], axis=1)
+    big_df.sort_index(inplace=True)
+    return big_df
+
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-欧元区-国民经济运行状况
     # 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况
@@ -431,3 +484,10 @@ if __name__ == "__main__":
     # 金十数据中心-经济指标-欧元区-领先指标-欧元区Sentix投资者信心指数报告
     macro_euro_sentix_investor_confidence_df = macro_euro_sentix_investor_confidence()
     print(macro_euro_sentix_investor_confidence_df)
+
+    # 金十数据中心-伦敦金属交易所(LME)-持仓报告
+    macro_euro_lme_holding_df = macro_euro_lme_holding()
+    print(macro_euro_lme_holding_df)
+    # 金十数据中心-伦敦金属交易所(LME)-库存报告
+    macro_euro_lme_stock_df = macro_euro_lme_stock()
+    print(macro_euro_lme_stock_df)
