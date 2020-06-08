@@ -339,7 +339,7 @@
  "macro_usa_eia_crude_rate"  # 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
  "macro_usa_initial_jobless"  # 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
  "macro_usa_crude_inner"  # 金十数据中心-经济指标-美国-其他-美国原油产量报告
- # 更新宏观数据
+ # 宏观数据
  "macro_cons_gold_volume"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
  "macro_cons_gold_change"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
  "macro_cons_gold_amount"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
@@ -348,6 +348,9 @@
  "macro_cons_silver_amount"  # 全球最大白银ETF--iShares Silver Trust持仓报告
  "macro_cons_opec_near_change"  # 欧佩克报告-变动
  "macro_cons_opec_month"  # 欧佩克报告-月度
+ # 伦敦金属交易所(LME)
+ "macro_euro_lme_holding"  # 伦敦金属交易所(LME)-持仓报告
+ "macro_euro_lme_stock"  # 伦敦金属交易所(LME)-库存报告
  # 货币对-投机情绪报告
  "macro_fx_sentiment"  # 货币对-投机情绪报告
  # COVID-19数据接口

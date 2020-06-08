@@ -969,9 +969,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.41: fix: deprecated requests-html module
 0.5.42: fix: reformat investing interface
 0.5.43: fix: qhck interface
+0.5.44: add: LME holding and stock report
 """
 
-__version__ = "0.5.43"
+__version__ = "0.5.44"
 __author__ = "Albert King"
 
 """
@@ -1313,6 +1314,9 @@ from akshare.economic.macro_euro import (
     macro_euro_trade_balance,
     macro_euro_unemployment_rate_mom,
     macro_euro_zew_economic_sentiment,
+    macro_euro_lme_holding,
+    macro_euro_lme_stock,
+
 )
 
 """
