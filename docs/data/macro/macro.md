@@ -5065,8 +5065,9 @@ macro_euro_sentix_investor_confidence_se: pandas.Series
 2019-12-09      0.7
 2020-01-06      7.6
 ```
+#### 伦敦金属交易所
 
-##### 伦敦金属交易所(LME)-持仓报告
+##### 持仓报告
 
 接口: macro_euro_lme_holding
 
@@ -5113,7 +5114,7 @@ print(macro_euro_lme_holding_df)
 2020-05-29  730646.63  552041.55  178605.08  ...   11648  9110.0  2538.0
 ```
 
-##### 伦敦金属交易所(LME)-库存报告
+##### 库存报告
 
 接口: macro_euro_lme_stock
 
