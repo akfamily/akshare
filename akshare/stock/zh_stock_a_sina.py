@@ -82,7 +82,6 @@ def stock_zh_a_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = _get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
-
     for page in tqdm(range(1, page_count+1), desc="Please wait for a moment"):
         zh_sina_stock_payload_copy.update({"page": page})
         r = requests.get(
@@ -90,7 +89,23 @@ def stock_zh_a_spot() -> pd.DataFrame:
             params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(r.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
-
+    big_df = big_df.astype({"trade": "float",
+                            "pricechange": "float",
+                            "changepercent": "float",
+                            "buy": "float",
+                            "sell": "float",
+                            "settlement": "float",
+                            "open": "float",
+                            "high": "float",
+                            "low": "float",
+                            "volume": "float",
+                            "amount": "float",
+                            "per": "float",
+                            "pb": "float",
+                            "mktcap": "float",
+                            "nmc": "float",
+                            "turnoverratio": "float",
+                            })
     return big_df
 
 
