@@ -971,9 +971,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.43: fix: qhck interface
 0.5.44: add: LME holding and stock report
 0.5.45: fix: transform the data type of stock_zh_a_spot output
+0.5.46: add: CFTC holding and stock
 """
 
-__version__ = "0.5.45"
+__version__ = "0.5.46"
 __author__ = "Albert King"
 
 """
@@ -1820,6 +1821,10 @@ from akshare.economic.macro_usa import (
     macro_usa_ism_non_pmi,
     macro_usa_ism_pmi,
     macro_usa_job_cuts,
+    macro_usa_cftc_nc_holding,
+    macro_usa_cftc_c_holding,
+    macro_usa_cftc_merchant_currency_holding,
+    macro_usa_cftc_merchant_goods_holding,
 )
 
 """
