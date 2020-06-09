@@ -351,6 +351,11 @@
  # 伦敦金属交易所(LME)
  "macro_euro_lme_holding"  # 伦敦金属交易所(LME)-持仓报告
  "macro_euro_lme_stock"  # 伦敦金属交易所(LME)-库存报告
+ # 美国商品期货交易委员会
+ "macro_usa_cftc_nc_holding"  # 外汇类非商业持仓报告
+ "macro_usa_cftc_c_holding"  # 商品类非商业持仓报告
+ "macro_usa_cftc_merchant_currency_holding"  # 外汇类商业持仓报告
+ "macro_usa_cftc_merchant_goods_holding"  # 商品类商业持仓报告
  # 货币对-投机情绪报告
  "macro_fx_sentiment"  # 货币对-投机情绪报告
  # COVID-19数据接口
