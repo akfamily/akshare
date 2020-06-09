@@ -230,11 +230,11 @@ print(fx_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| symbol | str | Y | symbol="usd-jpy"; 可以通过 **currency_name_code_dict** 查询该两种货币可以获取的所有货币对 |
+| symbol | str | Y | symbol="usd-jpy"; 可以通过 **currency_name_code** 查询该两种货币可以获取的所有货币对 |
 | start_date | str | Y | start_date="2005/01/01" |
 | end_date | str | Y | end_date="2020/01/17" |
 
-数据示例-currency_name_code_dict
+数据示例-currency_name_code
 
 ```
           name     code
