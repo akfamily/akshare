@@ -129,6 +129,73 @@ P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://gith
 pip install akshare --upgrade
 ```
 
+## R语言支持
+
+### 安装 Anaconda
+
+[下载 Windows 64 位 Python 3.7 的 Anaconda](https://repo.anaconda.com/archive/Anaconda3-2020.02-Windows-x86_64.exe)
+
+[安装教程参见 AkShare 文档的环境配置专栏](https://www.akshare.xyz/zh_CN/latest/anaconda.html)
+
+### 安装 R 语言
+
+[下载 R](https://mirrors.tuna.tsinghua.edu.cn/CRAN/bin/windows/)
+
+[下载 RStudio](https://download1.rstudio.org/desktop/windows/RStudio-1.3.959.exe)
+
+先安装 R，再安装 RStudio，按一下部安装即可。
+
+### 在 R 语言中安装相应的包
+
+[reticulate](https://rstudio.github.io/reticulate/)
+
+```
+install.packages("reticulate")
+```
+
+在安装完成后通过
+
+```
+library(reticulate)
+use_python("/usr/local/bin/python")
+```
+
+调用本地的 Python 程序，其中 usr 需要替换为你本地电脑的用户名。
+
+最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 AkShare 获取数据：
+
+```
+library(reticulate)  # 导入 reticulate 包
+use_python("/king/local/bin/python")  # 其中的 king 为本地电脑用户名
+ak <- import("akshare")  # 类似于 import akshare as ak
+stock_df <- ak$stock_em_yysj(date="2020-03-31")  # 类似于 ak.stock_em_yysj(date="2020-03-31")
+print(stock_df)  # 查看数据
+```
+
+```
+   scode    sname  trademarket          reportdate              frdate
+1 600396 金山股份   上交所主板 2020-03-31T00:00:00 2020-04-08T00:00:00
+2 002913   奥士康 深交所中小板 2020-03-31T00:00:00 2020-04-08T00:00:00
+3 002007 华兰生物 深交所中小板 2020-03-31T00:00:00 2020-04-08T00:00:00
+4 002838 道恩股份 深交所中小板 2020-03-31T00:00:00 2020-04-09T00:00:00
+5 603186 华正新材   上交所主板 2020-03-31T00:00:00 2020-04-09T00:00:00
+6 300208 青岛中程 深交所创业板 2020-03-31T00:00:00 2020-04-09T00:00:00
+               fcdate scdate tcdate              radate securitytypecode
+1                   -      -      - 2020-04-08T00:00:00        058001001
+2                   -      -      - 2020-04-08T00:00:00        058001001
+3                   -      -      - 2020-04-08T00:00:00        058001001
+4                   -      -      - 2020-04-09T00:00:00        058001001
+5                   -      -      - 2020-04-09T00:00:00        058001001
+6 2020-04-16T00:00:00      -      - 2020-04-16T00:00:00        058001001
+  trademarketcode
+1    069001001001
+2    069001002003
+3    069001002003
+4    069001002003
+5    069001001001
+6    069001002002
+```
+
 ## 安装报错解决方案
 
 ### 1. 安装 lxml 库失败的错误
