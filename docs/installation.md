@@ -129,7 +129,7 @@ P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://gith
 pip install akshare --upgrade
 ```
 
-## R语言支持
+## R 语言支持
 
 ### 安装 Anaconda
 
