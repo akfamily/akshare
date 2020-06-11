@@ -1362,5 +1362,5 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.45: fix: transform the data type of stock_zh_a_spot output
 
-0.5.46: add: CFTC holding and stock interface
+0.5.46: add: CFTC holding and stock
 ```
