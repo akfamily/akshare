@@ -78,11 +78,11 @@ def macro_fx_sentiment(start_date: str = "2020-04-22", end_date: str = "2020-04-
 
 def index_vix(start_date: str = "2020-04-22", end_date: str = "2020-04-22") -> pd.DataFrame:
     """
-    金十数据-市场异动-恐慌指数
+    金十数据-市场异动-恐慌指数; 只能获取当前交易日近一个月内的数据
     https://datacenter.jin10.com/market
-    :param start_date: 具体交易日
+    :param start_date: 具体交易日, 只能获取当前交易日近一个月内的数据
     :type start_date: str
-    :param end_date: 具体交易日, 与 end_date 相同
+    :param end_date: 具体交易日, 与 end_date 相同, 只能获取当前交易日近一个月内的数据
     :type end_date: str
     :return: 恐慌指数
     :rtype: pandas.DataFrame

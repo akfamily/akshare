@@ -1658,8 +1658,8 @@ print(index_yw_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| start_date | str  | Y   |   start_date="2020-03-20"; 注意开始和结束之间的时间跨度不能太长 |
-| end_date | str  | Y   |   end_date="2020-03-27" |
+| start_date | str  | Y   |   start_date="2020-03-20"; 注意开始和结束之间的时间跨度不能太长, 只能获取当前交易日近一个月内的数据 |
+| end_date | str  | Y   |   end_date="2020-03-27"; 只能获取当前交易日近一个月内的数据 |
 
 输出参数
 
@@ -1685,7 +1685,7 @@ VIX全名是芝加哥期权交易所波动率指数（Chicago Board Options Exch
 
 ```python
 import akshare as ak
-index_vix_df = ak.index_vix(start_date="2020-03-20", end_date="2020-03-27")
+index_vix_df = ak.index_vix(start_date="2020-06-11", end_date="2020-06-11")  # 只能获取当前交易日近一个月内的数据
 print(index_vix_df)
 ```
 
