@@ -308,8 +308,8 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
 
 
 def index_investing_global(
-    country: str = "中国",
-    index_name: str = "上证指数",
+    country: str = "台湾",
+    index_name: str = "台湾加权指数",
     period: str = "每日",
     start_date: str = "2000-01-01",
     end_date: str = "2019-10-17",
@@ -380,6 +380,7 @@ def index_investing_global(
         df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = (
             df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
             .str.replace("B", "")
+            .str.replace(",", "")
             .astype(float)
             * 1000000000
         )
@@ -387,6 +388,7 @@ def index_investing_global(
         df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = (
             df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
             .str.replace("M", "")
+            .str.replace(",", "")
             .astype(float)
             * 1000000
         )
@@ -394,6 +396,7 @@ def index_investing_global(
         df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = (
             df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
             .str.replace("K", "")
+            .str.replace(",", "")
             .astype(float)
             * 1000
         )
@@ -406,9 +409,9 @@ def index_investing_global(
 if __name__ == "__main__":
     index_investing_global_country_name_url_dict = index_investing_global_country_name_url("美国")
     index_investing_global_df = index_investing_global(
-        country="美国",
-        index_name="VIX恐慌指数",
-        period="每月",
+        country="中国",
+        index_name="上证指数",
+        period="每日",
         start_date="2005-01-01",
         end_date="2020-06-05",
     )
