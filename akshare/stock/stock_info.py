@@ -39,7 +39,7 @@ def stock_info_sz_name_code(indicator="A股列表"):
         }
     r = requests.get(url, params=params)
     temp_df = pd.read_excel(BytesIO(r.content))
-    temp_df["公司代码"] = temp_df["公司代码"].astype(str).str.zfill(6)
+    temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.zfill(6)
     return temp_df
 
 
@@ -199,8 +199,9 @@ def stock_info_a_code_name():
     stock_sh.columns = ["公司代码", "公司简称"]
 
     stock_sz = stock_info_sz_name_code(indicator="A股列表")
-    stock_sz["公司代码"] = stock_sz["公司代码"].astype(str).str.zfill(6)
-    big_df = big_df.append(stock_sz[["公司代码", "公司简称"]], ignore_index=True)
+    stock_sz["A股代码"] = stock_sz["A股代码"].astype(str).str.zfill(6)
+    big_df = big_df.append(stock_sz[["A股代码", "A股简称"]], ignore_index=True)
+    big_df.columns = ["公司代码", "公司简称"]
     big_df = big_df.append(stock_sh, ignore_index=True)
     big_df.columns = ["code", "name"]
     return big_df
