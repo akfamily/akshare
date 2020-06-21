@@ -135,7 +135,7 @@ def stock_zh_a_daily(symbol: str = "sz000613", adjust: str = "qfq") -> pd.DataFr
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
     del amount_data_df["date"]
-    temp_df = pd.merge(data_df, amount_data_df, left_index=True, right_index=True, how="left")
+    temp_df = pd.merge(data_df, amount_data_df, left_index=True, right_index=True, how="outer")
     temp_df.fillna(method="ffill", inplace=True)
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
