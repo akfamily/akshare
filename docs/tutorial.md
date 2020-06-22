@@ -505,6 +505,9 @@
  # 机构推荐股票
  "stock_institute_recommend"  # 机构推荐
  "stock_institute_recommend_detail"  # 股票评级记录
+ # 股票市场总貌
+ "stock_szse_summary"  # 深圳证券交易所-市场总貌
+ "stock_sse_summary"  # 上海证券交易所-股票数据总貌
 ```
 
 ## 案例演示
