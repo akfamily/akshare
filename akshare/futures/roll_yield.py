@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/09/07 16:58
+Date: 2020/06/22 12:58
 Desc: 获取各合约展期收益率, 日线数据从 daily_bar 函数获取
 """
 import datetime
@@ -51,7 +51,7 @@ def _plot(plot_df):
 
 
 def get_roll_yield_bar(
-    type_method="date", var="RB", date="20191009", start_day=None, end_day=None, plot=False
+    type_method="var", var="RB", date="20200616", start_day=None, end_day=None, plot=False
 ):
     """
     展期收益率
@@ -91,6 +91,7 @@ def get_roll_yield_bar(
                 get_futures_daily(start_day=date, end_day=date, market=market)
             )
         var_list = list(set(df["variety"]))
+        var_list.remove("IO")
         df_l = pd.DataFrame()
         for var in var_list:
             ry = get_roll_yield(date, var, df=df)
@@ -127,7 +128,7 @@ def get_roll_yield_bar(
         return df_l
 
 
-def get_roll_yield(date=None, var="CU", symbol1=None, symbol2=None, df=None):
+def get_roll_yield(date=None, var="LR", symbol1=None, symbol2=None, df=None):
     """
     指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
     Parameters
@@ -160,6 +161,8 @@ def get_roll_yield(date=None, var="CU", symbol1=None, symbol2=None, df=None):
         ]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
         df = df[df["variety"] == var].sort_values("open_interest", ascending=False)
         df["close"] = df["close"].astype("float")
+        if len(df["close"]) < 2:
+            return None
         symbol1 = df["symbol"].tolist()[0]
         symbol2 = df["symbol"].tolist()[1]
 
@@ -190,6 +193,14 @@ if __name__ == "__main__":
         plot=True,
     )
     print(get_roll_yield_bar_range_df)
+
+    get_roll_yield_bar_range_df = get_roll_yield_bar(
+        type_method="var",
+        date="20200617",
+        plot=True,
+    )
+    print(get_roll_yield_bar_range_df)
+
     get_roll_yield_bar_symbol = get_roll_yield_bar(
         type_method="date", var="RB", start_day="20191009", end_day="20191030", plot=True
     )
