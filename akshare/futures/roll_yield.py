@@ -60,7 +60,7 @@ def get_roll_yield_bar(
     :param date: 指定交易日 format： YYYYMMDD
     :param start_day: 开始日期 format：YYYYMMDD
     :param end_day: 结束日期 format：YYYYMMDD
-    :param plot: True or False作图
+    :param plot: True or False 是否作图
     :return: pandas.DataFrame
     展期收益率数据(DataFrame)
     ry      展期收益率
@@ -182,15 +182,11 @@ def get_roll_yield(date=None, var="CU", symbol1=None, symbol2=None, df=None):
 
 
 if __name__ == "__main__":
-    get_roll_yield_bar_df = get_roll_yield_bar(
-        type_method="date", date="20200415", plot=True
-    )
-    print(get_roll_yield_bar_df)
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="date",
         var="CF",
-        start_day="20191210",
-        end_day="20200305",
+        start_day="20200510",
+        end_day="20200621",
         plot=True,
     )
     print(get_roll_yield_bar_range_df)
