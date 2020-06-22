@@ -51,7 +51,7 @@ def _plot(plot_df):
 
 
 def get_roll_yield_bar(
-    type_method="var", var="RB", date="20200616", start_day=None, end_day=None, plot=False
+    type_method="var", var="RB", date="20200622", start_day=None, end_day=None, plot=False
 ):
     """
     展期收益率
@@ -91,7 +91,8 @@ def get_roll_yield_bar(
                 get_futures_daily(start_day=date, end_day=date, market=market)
             )
         var_list = list(set(df["variety"]))
-        var_list.remove("IO")
+        if "IO" in var_list:
+            var_list.remove("IO")  # IO 为期权
         df_l = pd.DataFrame()
         for var in var_list:
             ry = get_roll_yield(date, var, df=df)
@@ -196,7 +197,7 @@ if __name__ == "__main__":
 
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="var",
-        date="20200617",
+        date="20200622",
         plot=True,
     )
     print(get_roll_yield_bar_range_df)
