@@ -975,9 +975,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.47: fix: fix index_investing_global interface
 0.5.48: fix: fix stock_info_a_code_name interface
 0.5.49: fix: fix stock_zh_a_daily interface
+0.5.50: fix: fix get_roll_yield_bar interface
 """
 
-__version__ = "0.5.49"
+__version__ = "0.5.50"
 __author__ = "Albert King"
 
 """
