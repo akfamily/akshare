@@ -978,9 +978,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.50: fix: fix get_roll_yield_bar interface
 0.5.51: add: stock_summary
 0.5.52: fix: fix get_roll_yield_bar interface
+0.5.53: add: add watch_jinshi_quotes interface
 """
 
-__version__ = "0.5.52"
+__version__ = "0.5.53"
 __author__ = "Albert King"
 
 """
@@ -1641,7 +1642,8 @@ from akshare.air.time_and_date import sunrise_daily, sunrise_monthly
 """
 金十财经-实时监控
 """
-from akshare.ws.jinshi import watch_jinshi
+from akshare.ws.js_ws_fx import watch_jinshi_fx
+from akshare.ws.js_ws_quotes import watch_jinshi_quotes
 
 """
 新浪-指数实时行情和历史行情
