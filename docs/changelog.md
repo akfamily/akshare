@@ -1375,4 +1375,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.51: add: stock_summary
 
 0.5.52: fix: fix get_roll_yield_bar interface
+
+0.5.53: add: add watch_jinshi_quotes interface
 ```

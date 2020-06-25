@@ -1,8 +1,8 @@
 ## [AkShare](https://github.com/jindaxiang/akshare) 实时监控
 
-### 金十数据板块监控
+### Websocket-外汇
 
-接口: watch_jinshi
+接口: watch_jinshi_fx
 
 目标地址: https://datacenter.jin10.com/market
 
@@ -26,7 +26,7 @@
 
 ```python
 import akshare as ak
-ak.watch_jinshi()
+ak.watch_jinshi_fx()
 ```
 
 数据示例
@@ -44,6 +44,48 @@ ak.watch_jinshi()
 42["price",{"c":"USDCAD","n":"美元/加元","t":2,"lp":1.3217,"ch":-0.00035,"chp":-0.03}]
 42["price",{"c":"AUDNZD","n":"澳元/纽元","t":2,"lp":1.06347,"ch":-0.00135}]
 42["price",{"c":"AUDNZD","n":"澳元/纽元","t":2,"lp":1.06369,"ch":-0.00113,"chp":-0.11}]
+```
+
+### Websocket-行情
+
+接口: watch_jinshi_quotes
+
+目标地址: https://datacenter.jin10.com/price_wall
+
+描述: 获取股市、外汇、商品、工行、农行实时行情数据, 如需要存储数据请修改 **on_message** 接口
+
+限量: 主动推送
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |  -|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| -     | -   | -        | 基于 websocket 的接口  |  
+
+接口示例
+
+```python
+import akshare as ak
+ak.watch_jinshi_quotes()
+```
+
+数据示例
+
+```
+42["rec_advanced",["USDZAR",17.3842,17.53028,17.25585,17.2754,22120]]
+42["rec_advanced",["EURTRY",7.7123,7.71875,7.66637,7.69485,22613]]
+42["rec_advanced",["DXY",97.226,97.597,97.163,97.35,22420]]
+42["rec_advanced",["COPPER",2.6415,2.663,2.62888,2.644,8655]]
+42["rec_advanced",["GBPCHF",1.1764,1.18245,1.17586,1.1766,26319]]
+42["rec_advanced",["USDCAD",1.36361,1.36662,1.36076,1.36426,23895]]
+42["rec_advanced",["EURCAD",1.53422,1.53538,1.5268,1.53177,31955]]
+42["rec_advanced",["EURNZD",1.75421,1.75743,1.74322,1.74677,28648]]
 ```
 
 ### 阿尔戈斯全网监控
