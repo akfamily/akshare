@@ -700,7 +700,8 @@ def macro_china_market_margin_sz():
     res = requests.get("https://cdn.jin10.com/data_center/reports/fs_2.json", params=params)
     json_data = res.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.columns = ["融资买入额", "融资余额", "融券卖出量", "融券余量", "融券余额", "融资融券余额"]
+    temp_df.index = pd.to_datetime(df1.index)
+    temp_df.columns = ["融资买入额(元)", "融资余额(元)", "融券卖出量(股)", "融券余量(股)", "融券余额(元)", "融券余额(元)"]
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.astype("float")
     return temp_df
@@ -771,6 +772,8 @@ def macro_china_market_margin_sh():
     ]
     value_df.index = pd.to_datetime(date_list)
     value_df.name = "market_margin_sh"
+    value_df.sort_index(inplace=True)
+    value_df = temp_df.astype("float")    
     return value_df
 
 
