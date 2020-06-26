@@ -5673,3 +5673,61 @@ print(stock_institute_recommend_detail_df)
 244  002709  天赐材料  59.82   买入  中泰证券        邵晶鑫  化学制品  2017-09-06
 245  002709  天赐材料    NaN   买入  国海证券        代鹏举  化学制品  2017-09-04
 ```
+
+#### 美港目标价
+
+接口: stock_js_price
+
+目标地址: https://www.ushknews.com/report.html
+
+描述: 获取美港电讯-美港目标价数据
+
+限量: 单次获取所有数据, 数据从 2019-至今
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| category | str | Y    | category="us"; choice of {"us", "hk"}|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| id          | float   | Y        |  -    |
+| indicator_id          | float   | Y        |  -    |
+| latest_rating          | str   | Y        |  -    |
+| previous_rating          | str   | Y        |  -    |
+| latest_target_price          | str   | Y        |  -    |
+| previous_target_price          | str   | Y        |  -    |
+| institution          | str   | Y        |  -    |
+| pub_time          | str   | Y        |  -    |
+| status          | float   | Y        |  -    |
+| name          | str   | Y        |  -    |
+| us          | float   | Y        |  -    |
+| hk          | float   | Y        |  -    |
+
+接口示例
+
+```python
+import akshare as ak
+stock_js_price_df = ak.stock_js_price(category="us")
+print(stock_js_price_df)
+```
+
+数据示例
+
+```
+        id  indicator_id latest_rating  ...            name    us hk
+0     9329          1185          None  ...      苹果（AAPL.O）     1  0
+1     9327          1216          None  ...       万事达(MA.N)     1  0
+2     9326          1232          None  ...  Paypal（PYPL.O）  1360  0
+3     9325          1197          None  ...       Visa（V.N）  1325  0
+4     9323          1258            减持  ...     特斯拉（TSLA.O）     1  0
+    ...           ...           ...  ...             ...   ... ..
+6400    14          1189            买入  ...     亚马逊（AMZN.O）     1  0
+6401    13          1185          跑赢大市  ...      苹果（AAPL.O）     1  0
+6402     3          1185          跑赢大市  ...      苹果（AAPL.O）     1  0
+6403    22          1191            中性  ...       强生(JNJ.N)  1319  0
+6404    12          1203            中性  ...       辉瑞(PFE.N)     1  0
+```
