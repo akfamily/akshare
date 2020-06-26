@@ -45,5 +45,8 @@ def stock_js_price(category="us"):
 
 
 if __name__ == '__main__':
-    stock_js_price_df = stock_js_price(category="us")
-    print(stock_js_price_df)
+    stock_js_price_us_df = stock_js_price(category="us")
+    print(stock_js_price_us_df)
+
+    stock_js_price_hk_df = stock_js_price(category="hk")
+    print(stock_js_price_hk_df)
