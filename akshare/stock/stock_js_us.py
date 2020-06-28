@@ -9,7 +9,7 @@ import requests
 import pandas as pd
 
 
-def stock_js_price(category="us"):
+def stock_js_price(category: str = "us") -> pd.DataFrame:
     """
     美股目标价 or 港股目标价
     :param category: choice of ["us", "hk"]
