@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Date: 2020/2/2 15:22
-Desc: for COVID
+Desc: COVID configure file
 """
 province_dict = {"820000": "澳门",
                  "810000": "香港",
