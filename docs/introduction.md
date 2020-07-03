@@ -3,11 +3,11 @@
 **风险提示：[AkShare](https://github.com/jindaxiang/akshare) 项目所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
 同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
 
-1. 本文档更新于 **2020-07-02**;
+1. 本文档更新于 **2020-07-03**;
 
 2. 如有库、文档及数据的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
-3. 您也可以加入QQ群: 1061759653:
+3. 您也可以加入QQ群: 1061759653
 
 <div align=center>
     <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=8de5f2b616ba185100c45de811736a7cbf2eb4bc2d6b1efcfd3e5cdf9d7760de">
