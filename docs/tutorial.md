@@ -30,6 +30,7 @@
  "get_shfe_v_wap",  # 获取上海期货交易所日成交均价数据
  "futures_spot_price",  # 获取某一交易日大宗商品现货价格及相应基差数据
  "futures_spot_price_daily"  # 获取一段交易日大宗商品现货价格及相应基差数据
+ "futures_czce_warehouse_receipt"  # 郑州商品交易所-交易数据-仓单日报
  # 奇货可查数据
  "get_qhkc_index"  # 获取奇货可查-指数-数值数据
  "get_qhkc_index_profit_loss"  # 获取奇货可查-指数-累计盈亏数据
