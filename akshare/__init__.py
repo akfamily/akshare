@@ -981,15 +981,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.53: add: add watch_jinshi_quotes interface
 0.5.54: add: add stock_js_price interface
 0.5.55: add: add futures_czce_warehouse_receipt interface
+0.5.56: add: add futures_dce_warehouse_receipt, futures_shfe_warehouse_receipt interface
 """
 
-__version__ = "0.5.55"
+__version__ = "0.5.56"
 __author__ = "Albert King"
 
 """
 futures-warehouse-receipt
 """
-from akshare.futures.czce_warehouse_receipt import futures_czce_warehouse_receipt
+from akshare.futures.futures_warehouse_receipt import futures_czce_warehouse_receipt, futures_dce_warehouse_receipt, futures_shfe_warehouse_receipt
 
 """
 stock-js

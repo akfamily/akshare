@@ -8,7 +8,7 @@
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_s
 
-描述: 股票指数数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_s)获取的数据
+描述: 中国股票指数数据-所有指数
 
 限量: 单次返回所有指数的实时行情数据
 
@@ -36,7 +36,6 @@
 | 最高        | float      | Y        | -     |
 | 最低        | float      | Y        | -     |
 
-                
 接口示例
 
 ```python
