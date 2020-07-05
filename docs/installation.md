@@ -147,7 +147,7 @@ pip install akshare --upgrade
 
 ### 在 R 语言中安装相应的包
 
-[reticulate](https://rstudio.github.io/reticulate/)
+[Reticulate](https://rstudio.github.io/reticulate/)
 
 ```
 install.packages("reticulate")
@@ -160,7 +160,7 @@ library(reticulate)
 use_python("/usr/local/bin/python")
 ```
 
-调用本地的 Python 程序，其中 usr 需要替换为你本地电脑的用户名。
+调用本地的 Python 程序，其中 usr 需要替换为本地电脑的用户名。
 
 最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 AkShare 获取数据：
 
@@ -200,7 +200,7 @@ print(stock_df)  # 查看数据
 
 ### 1. 安装 lxml 库失败的错误
 
-- 安装 wheel, 在 CMD 中运行如下命令:
+- 安装 wheel, 需要在 Windows 的命令提示符中运行如下命令:
 
 ```
 pip install wheel
