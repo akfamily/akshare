@@ -146,6 +146,7 @@ def macro_euro_retail_sales_mom():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "retail_sales_mom"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -274,6 +275,7 @@ def macro_euro_industrial_production_mom():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
     temp_df.name = "industrial_production_mom"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -376,6 +378,7 @@ def macro_euro_sentix_investor_confidence():
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值"]
     temp_df.name = "sentix_investor_confidence"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -395,6 +398,7 @@ def macro_euro_lme_holding():
     r = requests.get("https://cdn.jin10.com/data_center/reports/lme_position.json", params=params)
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
+    temp_df.fillna(value="[0, 0, 0]", inplace=True)
     big_df = pd.DataFrame()
     for item in temp_df.columns:
         for i in range(3):

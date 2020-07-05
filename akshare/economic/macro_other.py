@@ -109,7 +109,9 @@ def index_vix(start_date: str = "2020-04-22", end_date: str = "2020-04-22") -> p
         "x-version": "1.0.0",
     }
     res = requests.get(url, params=params, headers=headers)
-    return pd.DataFrame(res.json()["data"]["values"], index=["开盘价", "当前价", "涨跌", "涨跌幅"]).T
+    temp_df = pd.DataFrame(res.json()["data"]["values"], index=["开盘价", "当前价", "涨跌", "涨跌幅"]).T
+    temp_df = temp_df.astype(float)
+    return temp_df
 
 
 if __name__ == "__main__":
