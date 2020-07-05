@@ -3,6 +3,7 @@
 """
 Date: 2019/10/21 12:08
 Desc: 获取金十数据-数据中心-主要机构-宏观经济
+
 """
 import json
 import time
@@ -83,6 +84,7 @@ def macro_cons_gold_volume():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "gold_volume"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -151,6 +153,7 @@ def macro_cons_gold_change():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "gold_change"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -219,6 +222,7 @@ def macro_cons_gold_amount():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "gold_amount"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -287,6 +291,25 @@ def macro_cons_silver_volume():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "silver_volume"
+
+    url = "https://cdn.jin10.com/data_center/reports/etf_2.json"
+    r = requests.get(url)
+    data_json = r.json()
+    append_temp_df = pd.DataFrame(data_json["values"]).T
+    append_temp_df.columns = [item["name"] for item in data_json["keys"]]
+    temp_append_df = append_temp_df["总库存"]
+    temp_append_df.name = "silver_volume"
+
+    temp_df = temp_df.reset_index()
+    temp_df["index"] = temp_df["index"].astype(str)
+    temp_df = temp_df.append(temp_append_df.reset_index())
+    temp_df.drop_duplicates(subset=["index"], keep="last", inplace=True)
+    temp_df.index = pd.to_datetime(temp_df["index"])
+    del temp_df["index"]
+    temp_df = temp_df[temp_df != 'Show All']
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.astype(float)
+
     return temp_df
 
 
@@ -355,6 +378,26 @@ def macro_cons_silver_change():
     temp_df.set_index("index", inplace=True)
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
+    temp_df.name = "silver_change"
+
+    url = "https://cdn.jin10.com/data_center/reports/etf_2.json"
+    r = requests.get(url)
+    data_json = r.json()
+    append_temp_df = pd.DataFrame(data_json["values"]).T
+    append_temp_df.columns = [item["name"] for item in data_json["keys"]]
+    temp_append_df = append_temp_df["增持/减持"]
+    temp_append_df.name = "silver_change"
+
+    temp_df = temp_df.reset_index()
+    temp_df["index"] = temp_df["index"].astype(str)
+    temp_df = temp_df.append(temp_append_df.reset_index())
+    temp_df.drop_duplicates(subset=["index"], keep="last", inplace=True)
+    temp_df.index = pd.to_datetime(temp_df["index"])
+    del temp_df["index"]
+    temp_df = temp_df[temp_df != 'Show All']
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.astype(float)
+
     return temp_df
 
 
@@ -423,6 +466,24 @@ def macro_cons_silver_amount():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "silver_amount"
+
+    url = "https://cdn.jin10.com/data_center/reports/etf_2.json"
+    r = requests.get(url)
+    data_json = r.json()
+    append_temp_df = pd.DataFrame(data_json["values"]).T
+    append_temp_df.columns = [item["name"] for item in data_json["keys"]]
+    temp_append_df = append_temp_df["总价值"]
+    temp_append_df.name = "silver_amount"
+
+    temp_df = temp_df.reset_index()
+    temp_df["index"] = temp_df["index"].astype(str)
+    temp_df = temp_df.append(temp_append_df.reset_index())
+    temp_df.drop_duplicates(subset=["index"], keep="last", inplace=True)
+    temp_df.index = pd.to_datetime(temp_df["index"])
+    del temp_df["index"]
+    temp_df = temp_df[temp_df != 'Show All']
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -523,6 +584,7 @@ def macro_cons_opec_near_change():
         big_df[temp_df.name] = temp_df
     big_df = big_df.T
     big_df.columns.name = "日期"
+    big_df = big_df.astype(float)
     return big_df
 
 
@@ -741,6 +803,7 @@ def macro_cons_opec_month():
         big_df[temp_df.name] = temp_df
     big_df = big_df.T
     big_df.columns.name = "日期"
+    big_df = big_df.astype(float)
     return big_df
 
 

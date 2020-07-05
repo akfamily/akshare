@@ -6,6 +6,7 @@ Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
 http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
+输出数据格式为 float64
 """
 import json
 import time
@@ -716,6 +717,7 @@ def macro_china_market_margin_sz():
     temp_df = pd.DataFrame(json_data["values"]).T
     temp_df.columns = ["融资买入额", "融资余额", "融券卖出量", "融券余量", "融券余额", "融资融券余额"]
     temp_df.sort_index(inplace=True)
+    temp_df.index = pd.to_datetime(temp_df.index)
     temp_df = temp_df.astype("float")
     return temp_df
 
@@ -785,6 +787,7 @@ def macro_china_market_margin_sh():
     ]
     value_df.index = pd.to_datetime(date_list)
     value_df.name = "market_margin_sh"
+    value_df.index = pd.to_datetime(value_df.index)
     value_df = value_df.astype(float)
     return value_df
 

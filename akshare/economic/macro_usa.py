@@ -10,7 +10,6 @@ import time
 
 import pandas as pd
 import requests
-from tqdm import tqdm
 
 from akshare.economic.cons import (
     JS_USA_NON_FARM_URL,
@@ -2109,6 +2108,7 @@ def macro_usa_spcs20():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "usa_spcs20"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -2168,6 +2168,7 @@ def macro_usa_pending_home_sales():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "usa_pending_home_sales"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -2226,6 +2227,7 @@ def macro_usa_cb_consumer_confidence():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "cb_consumer_confidence"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -2283,6 +2285,7 @@ def macro_usa_nfib_small_business():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "nfib_small_business"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
@@ -2340,6 +2343,7 @@ def macro_usa_michigan_consumer_sentiment():
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "michigan_consumer_sentiment"
+    temp_df = temp_df.astype(float)
     return temp_df
 
 
