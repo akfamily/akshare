@@ -52,5 +52,5 @@ def stock_em_tfp(trade_date: str = "2020-03-19") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_em_tfp_df = stock_em_tfp(trade_date="2020-03-25")
+    stock_em_tfp_df = stock_em_tfp(trade_date="2020-06-24")
     print(stock_em_tfp_df)
