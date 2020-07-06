@@ -983,10 +983,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.55: add: add futures_czce_warehouse_receipt interface
 0.5.56: add: add futures_dce_warehouse_receipt, futures_shfe_warehouse_receipt interface
 0.5.57: fix: fix macro data interface
+0.5.58: add: add stock_em_qsjy interface
 """
 
-__version__ = "0.5.57"
+__version__ = "0.5.58"
 __author__ = "Albert King"
+
+"""
+stock-券商业绩月报
+"""
+from akshare.stock_feature.stock_em_qsjy import stock_em_qsjy
 
 """
 futures-warehouse-receipt

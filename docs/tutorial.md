@@ -514,6 +514,8 @@
  "stock_sse_summary"  # 上海证券交易所-股票数据总貌
  # 美股港股目标价
  "stock_js_price"  # 美股港股目标价
+ # 券商业绩月报
+ "stock_em_qsjy"  # 券商业绩月报
 ```
 
 ## 案例演示

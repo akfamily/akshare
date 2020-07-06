@@ -104,5 +104,5 @@ if __name__ == '__main__':
     stock_industry_star_df = stock_sector_spot(indicator="启明星行业")
     print(stock_industry_star_df)
 
-    stock_sector_detail_df = stock_sector_detail(sector="hangye_ZL01")
-    print(stock_sector_detail_df.columns)
+    stock_sector_detail_df = stock_sector_detail(sector="new_zzhy")
+    print(stock_sector_detail_df)
