@@ -682,8 +682,8 @@ def fund_em_value_estimation() -> pd.DataFrame:
 if __name__ == "__main__":
     fund_em_fund_name_df = fund_em_fund_name()
     print(fund_em_fund_name_df)
-    fund_em_daily_df = fund_em_open_fund_daily()
-    print(fund_em_daily_df)
+    fund_em_open_fund_daily_df = fund_em_open_fund_daily()
+    print(fund_em_open_fund_daily_df)
     time.sleep(3)
     fund_em_info_net_df = fund_em_open_fund_info(fund="710001", indicator="单位净值走势")
     print(fund_em_info_net_df)

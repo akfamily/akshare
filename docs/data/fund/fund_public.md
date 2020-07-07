@@ -122,10 +122,10 @@ print(fund_em_open_fund_daily_df)
 
 | 名称   | 类型 | 必选 | 描述 |
 | -------- | ---- | ---- | --- |
-| fund | str| Y    |   fund="710001"; 需要基金代码, 可以通过调用 **fund_em_daily** 获取 |
-| indicator | str  | Y    |   indicator="单位净值走势";  参见 **fund_em_info 参数一览表** |
+| fund | str| Y    |   fund="710001"; 需要基金代码, 可以通过调用 **fund_em_open_fund_daily** 获取 |
+| indicator | str  | Y    |   indicator="单位净值走势";  参见 **fund_em_open_fund_info** 参数一览表** |
 
-fund_em_info 参数一览表
+fund_em_open_fund_info 参数一览表
 
 |参数名称 |备注|
 |---|---|
