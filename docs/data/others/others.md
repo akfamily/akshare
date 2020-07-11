@@ -1489,3 +1489,56 @@ print(stock_js_weibo_report_df)
 48  永太科技   9.65
 49  四维图新   8.76
 ```
+
+### 彭博亿万富豪指数
+
+接口: index_bloomberg_billionaires
+
+目标地址: https://www.bloomberg.com/billionaires/
+
+描述: 获取彭博亿万富豪指数, 全球前 500 名
+
+限量: 单次返回所有数据彭博亿万富豪排名数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | -|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| rank      | str   | Y        | Rank  |
+| name      | str   | Y        | Name   |
+| total_net_worth      | str   | Y        | Total net worth   |
+| last_change      | str   | Y        | $ Last change   |
+| YTD_change      | str   | Y        | $ YTD change   |
+| country      | str   | Y        | Country   |
+| industry      | str   | Y        | Industry   |
+
+接口示例
+
+```python
+import akshare as ak
+index_bloomberg_billionaires_df = ak.index_bloomberg_billionaires()
+print(index_bloomberg_billionaires_df)
+```
+
+数据示例
+
+```
+    rank                        name  ...             country     industry
+0      1                  Jeff Bezos  ...       United States   Technology
+1      2                  Bill Gates  ...       United States   Technology
+2      3             Mark Zuckerberg  ...       United States   Technology
+3      4             Bernard Arnault  ...              France     Consumer
+4      5               Steve Ballmer  ...       United States   Technology
+..   ...                         ...  ...                 ...          ...
+494  496                 Ira Rennert  ...       United States  Commodities
+495  497  Traudl Engelhorn-Vechiatto  ...         Switzerland  Diversified
+496  498            Sergey Galitskiy  ...  Russian Federation       Retail
+497  499                  Xu Jingren  ...               China  Health Care
+498  500                Shi Yonghong  ...           Singapore     Consumer
+```

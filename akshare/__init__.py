@@ -985,10 +985,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.57: fix: fix macro data interface
 0.5.58: add: add stock_em_qsjy interface
 0.5.59: fix: fix fund interface
+0.5.60: fix: add index_bloomberg_billionaires interface
 """
 
-__version__ = "0.5.59"
+__version__ = "0.5.60"
 __author__ = "Albert King"
+
+"""
+彭博亿万富豪指数
+"""
+from akshare.fortune.fortune_bloomberg import index_bloomberg_billionaires
 
 """
 stock-券商业绩月报
@@ -1515,7 +1521,7 @@ from akshare.stock_feature.stock_em_gpzy import (
 from akshare.stock_feature.stock_em_jgdy import stock_em_jgdy_tj, stock_em_jgdy_detail
 
 """
-新浪主力连续接口
+IT桔子
 """
 from akshare.fortune.it_juzi import death_company, maxima_company, nicorn_company
 

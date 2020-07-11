@@ -1389,4 +1389,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.58: add: add stock_em_qsjy interface
 
 0.5.59: fix: fix fund interface
+
+0.5.60: fix: add index_bloomberg_billionaires interface
 ```
