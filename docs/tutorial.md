@@ -516,6 +516,8 @@
  "stock_js_price"  # 美股港股目标价
  # 券商业绩月报
  "stock_em_qsjy"  # 券商业绩月报
+ # 彭博亿万富豪指数
+ "index_bloomberg_billionaires"  # 彭博亿万富豪指数
 ```
 
 ## 案例演示
