@@ -25,10 +25,9 @@ def index_bloomberg_billionaires() -> pd.DataFrame:
     }
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    temp_title_list = soup.find(attrs={"class": "table-chart"}).find(attrs={"class": "table-header"}).text.strip().split("\n")
-    title_list = [item for item in temp_title_list if item != ""]
     big_content_list = list()
-    for row in soup.find(attrs={"class": "table-chart"}).find_all(attrs={"class": "table-row"}):
+    soup_node = soup.find(attrs={"class": "table-chart"}).find_all(attrs={"class": "table-row"})
+    for row in soup_node:
         temp_content_list = row.text.strip().replace("\n", "").split("  ")
         content_list = [item for item in temp_content_list if item != ""]
         big_content_list.append(content_list)
