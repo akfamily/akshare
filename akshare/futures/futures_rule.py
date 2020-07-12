@@ -1,29 +1,34 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/30 21:51
-contact: jindaxiang@163.com
-desc: 国泰君安期货-交易日历数据表
-http://www.gtjaqh.com/jyrl.html
+Date: 2020/7/12 21:51
+Desc: 国泰君安期货-交易日历数据表
+https://www.gtjaqh.com/pc/calendar.html
 """
 import pandas as pd
+import requests
 
-from akshare.futures.cons import futures_rule_url
 
-
-def futures_rule() -> pd.DataFrame:
+def futures_rule(trade_date: str = "20200712") -> pd.DataFrame:
     """
-    国泰君安期货-交易日历数据表, 必须在交易日运行
-    http://www.gtjaqh.com/jyrl.html
+    国泰君安期货-交易日历数据表
+    https://www.gtjaqh.com/pc/calendar.html
     :return: 交易日历数据
     :rtype: pandas.DataFrame
     """
-    temp_df = pd.read_html(futures_rule_url, header=0)[0]
-    temp_df.dropna(subset=["品种"], inplace=True)
-    return temp_df
+    url = "https://www.gtjaqh.com/fn/128"
+    params = {"base_date": f"{trade_date}"}
+    r = requests.post(url, json=params)
+    temp_df = pd.DataFrame(r.json()["data"])
+    temp_df = temp_df[temp_df["tradingday"] == trade_date]
+    if not temp_df["events"].values[0]:
+        return f"{trade_date} 查询时间过早或者不是交易日"
+    else:
+        table_df = pd.read_html(temp_df["events"].values[0][0]["content"], header=1)[0]
+        table_df.dropna(axis=1, how="all", inplace=True)
+    return table_df
 
 
 if __name__ == '__main__':
-    futures_rule_df = futures_rule()
+    futures_rule_df = futures_rule(trade_date="20200713")
     print(futures_rule_df)

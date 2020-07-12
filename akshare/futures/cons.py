@@ -12,9 +12,6 @@ import os
 import pickle
 import re
 
-# futures_rule-futures_rule
-futures_rule_url = "http://www.gtjaqh.com/gtqh/html/calendar/dataTable"
-
 # hf_sina_spot
 hf_subscribe_exchange_symbol_url = "http://finance.sina.com.cn/money/future/hf.html"
 hf_subscribe_url = "http://hq.sinajs.cn/"
