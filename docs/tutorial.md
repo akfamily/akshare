@@ -33,6 +33,7 @@
  "futures_czce_warehouse_receipt"  # 郑州商品交易所-交易数据-仓单日报
  "futures_shfe_warehouse_receipt"  # 上海期货交易所-交易数据-仓单日报
  "futures_dce_warehouse_receipt"  # 大连商品交易所-交易数据-仓单日报
+ "futures_rule"  # 国泰君安-交易日历
  # 奇货可查数据
  "get_qhkc_index"  # 获取奇货可查-指数-数值数据
  "get_qhkc_index_profit_loss"  # 获取奇货可查-指数-累计盈亏数据
