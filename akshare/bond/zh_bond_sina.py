@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/02/14 11:28
-contact: jindaxiang@163.com
-desc: 新浪财经-债券-沪深债券-实时行情数据和历史行情数据
+Date: 2020/02/14 11:28
+Desc: 新浪财经-债券-沪深债券-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hs_z
 """
 import datetime

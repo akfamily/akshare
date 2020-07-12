@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc:
+Date: 2019/9/30 13:58
+Desc:
 获取中国银行间市场交易商协会(http://www.nafmii.org.cn/)中孔雀开屏(http://zhuce.nafmii.org.cn/fans/publicQuery/manager)
 的债券基本信息数据
 """

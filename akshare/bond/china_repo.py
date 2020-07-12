@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/2/9 11:48
-contact: jindaxiang@163.com
-desc: 腾讯-债券-质押式回购-实时行情-成交明细
+Date: 2020/2/9 11:48
+Desc: 腾讯-债券-质押式回购-实时行情-成交明细
 下载成交明细-每个交易日16:00提供当日数据
 http://stockhtm.finance.qq.com/sstock/ggcx/131802.shtml
 """

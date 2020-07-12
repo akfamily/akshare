@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/20 10:21
-contact: jindaxiang@163.com
-desc: 债券配置文件
+Date: 2019/10/20 10:21
+Desc: 债券配置文件
 """
 # bond-cov-sina
 zh_sina_bond_hs_cov_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
