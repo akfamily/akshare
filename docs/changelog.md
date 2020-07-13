@@ -1393,4 +1393,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.60: fix: add index_bloomberg_billionaires interface
 
 0.5.61: fix: fix futures_rule interface
+
+0.5.62: add: add stock_a_pe, stock_a_pb interface
 ```
