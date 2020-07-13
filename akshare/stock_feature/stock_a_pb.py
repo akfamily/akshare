@@ -329,7 +329,7 @@ def stock_a_pb(market: str = "sh") -> pd.DataFrame:
     """
     url = "https://www.legulegu.com/stockdata/market_pb/getmarket_pb"
     params = {
-        "token": token
+        "token": token  # token should be get from js decode
     }
     r = requests.get(url, params=params)
     data_json = r.json()
