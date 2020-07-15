@@ -1,19 +1,28 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/3/23 19:12
+Date: 2020/7/15 19:12
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
-http://finance.eastmoney.com/news/1622,20161118685370149.html
+沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
 """
-import requests
 import json
+
 import demjson
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 
-def stock_em_hsgt_north_net_flow_in(indicator="沪股通"):
+def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-沪深港通持股-净流入
+    http://data.eastmoney.com/hsgtcg/
+    :param indicator: choice of {"沪股通", "深股通", "北上"}
+    :type indicator: str
+    :return: 东方财富网-数据中心-沪深港通持股-净流入
+    :rtype: pandas.DataFrame
+    """
     url = "http://push2his.eastmoney.com/api/qt/kamt.kline/get"
     params = {
         "fields1": "f1,f3,f5",
@@ -41,7 +50,15 @@ def stock_em_hsgt_north_net_flow_in(indicator="沪股通"):
         return temp_df
 
 
-def stock_em_hsgt_north_cash(indicator="沪股通"):
+def stock_em_hsgt_north_cash(indicator: str = "沪股通") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-沪深港通持股-资金余额
+    http://data.eastmoney.com/hsgtcg/
+    :param indicator: choice of {"沪股通", "深股通", "北上"}
+    :type indicator: str
+    :return: 东方财富网-数据中心-沪深港通持股-资金余额
+    :rtype: pandas.DataFrame
+    """
     url = "http://push2his.eastmoney.com/api/qt/kamt.kline/get"
     params = {
         "fields1": "f1,f3,f5",
@@ -69,7 +86,15 @@ def stock_em_hsgt_north_cash(indicator="沪股通"):
         return temp_df
 
 
-def stock_em_hsgt_north_acc_flow_in(indicator="沪股通"):
+def stock_em_hsgt_north_acc_flow_in(indicator: str = "沪股通") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-沪深港通持股-累计净流入
+    http://data.eastmoney.com/hsgtcg/
+    :param indicator: choice of {"沪股通", "深股通", "北上"}
+    :type indicator: str
+    :return: 东方财富网-数据中心-沪深港通持股-累计净流入
+    :rtype: pandas.DataFrame
+    """
     url = "http://push2his.eastmoney.com/api/qt/kamt.kline/get"
     params = {
         "fields1": "f1,f3,f5",
@@ -97,7 +122,15 @@ def stock_em_hsgt_north_acc_flow_in(indicator="沪股通"):
         return temp_df
 
 
-def stock_em_hsgt_south_net_flow_in(indicator="沪股通"):
+def stock_em_hsgt_south_net_flow_in(indicator: str = "沪股通") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-沪深港通持股-南向概括-净流入
+    http://data.eastmoney.com/hsgtcg/
+    :param indicator: choice of {"沪股通", "深股通", "南下"}
+    :type indicator: str
+    :return: 东方财富网-数据中心-沪深港通持股-南向概括-净流入
+    :rtype: pandas.DataFrame
+    """
     url = "http://push2his.eastmoney.com/api/qt/kamt.kline/get"
     params = {
         "fields1": "f2,f4,f6",
@@ -125,7 +158,15 @@ def stock_em_hsgt_south_net_flow_in(indicator="沪股通"):
         return temp_df
 
 
-def stock_em_hsgt_south_cash(indicator="沪股通"):
+def stock_em_hsgt_south_cash(indicator: str = "沪股通") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-沪深港通持股-南向概括-资金余额
+    http://data.eastmoney.com/hsgtcg/
+    :param indicator: choice of {"沪股通", "深股通", "南下"}
+    :type indicator: str
+    :return: 东方财富网-数据中心-沪深港通持股-南向概括-资金余额
+    :rtype: pandas.DataFrame
+    """
     url = "http://push2his.eastmoney.com/api/qt/kamt.kline/get"
     params = {
         "fields1": "f2,f4,f6",
@@ -153,7 +194,15 @@ def stock_em_hsgt_south_cash(indicator="沪股通"):
         return temp_df
 
 
-def stock_em_hsgt_south_acc_flow_in(indicator="沪股通"):
+def stock_em_hsgt_south_acc_flow_in(indicator: str = "沪股通") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-沪深港通持股-南向概括-累计净流入
+    http://data.eastmoney.com/hsgtcg/
+    :param indicator: choice of {"沪股通", "深股通", "南下"}
+    :type indicator: str
+    :return: 东方财富网-数据中心-沪深港通持股-南向概括-累计净流入
+    :rtype: pandas.DataFrame
+    """
     url = "http://push2his.eastmoney.com/api/qt/kamt.kline/get"
     params = {
         "fields1": "f2,f4,f6",
@@ -181,7 +230,7 @@ def stock_em_hsgt_south_acc_flow_in(indicator="沪股通"):
         return temp_df
 
 
-def stock_em_hsgt_hold_stock(market="沪股通", indicator="年排行"):
+def stock_em_hsgt_hold_stock(market: str = "沪股通", indicator: str = "年排行") -> pd.DataFrame:
     """
     东方财富网-数据中心-沪深港通持股-个股排行
     http://data.eastmoney.com/hsgtcg/list.html
@@ -235,6 +284,108 @@ def stock_em_hsgt_hold_stock(market="沪股通", indicator="年排行"):
     return pd.DataFrame(data_json["data"])
 
 
+def stock_em_hsgt_stock_statistics(market="南向持股", start_date="20200713", end_date="20200714"):
+    """
+    东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
+    http://data.eastmoney.com/hsgtcg/StockStatistics.aspx
+    market=001, 沪股通持股
+    market=003, 深股通持股
+    :param market: choice of {"北向持股", "南向持股"}
+    :type market: str
+    :param start_date: 指定数据获取开始的时间, e.g., "20200713"
+    :type start_date: str
+    :param end_date: 指定数据获取结束的时间, e.g., "20200715"
+    :type end_date:str
+    :return: 指定市场和指定时间段的每日个股统计数据
+    :rtype: pandas.DataFrame
+    """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
+    if market == "南向持股":
+        params = {
+            "type": "HSGTHDSTA",
+            "token": "70f12f2f4f091e459a279469fe49eca5",
+            "st": "HDDATE,SHAREHOLDPRICE",
+            "sr": "3",
+            "p": "1",
+            "ps": "10000",
+            "js": "var AxDXinef={pages:(tp),data:(x)}",
+            "filter": f"(MARKET='S')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "rt": "53160469",
+        }
+    elif market == "北向持股":
+        params = {
+            "type": "HSGTHDSTA",
+            "token": "70f12f2f4f091e459a279469fe49eca5",
+            "st": "HDDATE,SHAREHOLDPRICE",
+            "sr": "3",
+            "p": "1",
+            "ps": "10000",
+            "js": "var AxDXinef={pages:(tp),data:(x)}",
+            "filter": f"(MARKET in ('001','003'))(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "rt": "53160469",
+        }
+
+    url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):])
+    temp_df = pd.DataFrame(data_json["data"])
+    return temp_df
+
+
+def stock_em_hsgt_institution_statistics(market="北向持股", start_date="20200713", end_date="20200714"):
+    """
+    东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
+    http://data.eastmoney.com/hsgtcg/InstitutionStatistics.aspx
+    market=001, 沪股通持股
+    market=003, 深股通持股
+    :param market: choice of {"北向持股", "南向持股"}
+    :type market: str
+    :param start_date: 指定数据获取开始的时间, e.g., "20200713"
+    :type start_date: str
+    :param end_date: 指定数据获取结束的时间, e.g., "20200715"
+    :type end_date:str
+    :return: 指定市场和指定时间段的每日个股统计数据
+    :rtype: pandas.DataFrame
+    """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
+    if market == "南向持股":
+        params = {
+            "type": "HSGTCOMSTA",
+            "token": "70f12f2f4f091e459a279469fe49eca5",
+            "st": "HDDATE,SHAREHOLDCOUNT",
+            "sr": "3",
+            "p": "1",
+            "ps": "5000",
+            "js": "var gvfJjbLz={pages:(tp),data:(x)}",
+            "filter": f"(MARKET in ('001','003'))(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "rt": "53160469",
+        }
+    elif market == "北向持股":
+        params = {
+            "type": "HSGTCOMSTA",
+            "token": "70f12f2f4f091e459a279469fe49eca5",
+            "st": "HDDATE,SHAREHOLDCOUNT",
+            "sr": "3",
+            "p": "1",
+            "ps": "5000",
+            "js": "var gvfJjbLz={pages:(tp),data:(x)}",
+            "filter": f"(MARKET in ('001','003'))(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "rt": "53160469",
+        }
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+    }
+    url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+    r = requests.get(url, params=params, headers=headers)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):])
+    temp_df = pd.DataFrame(data_json["data"])
+    return temp_df
+
+
 if __name__ == '__main__':
     stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(indicator="沪股通")
     print(stock_em_hsgt_north_net_flow_in_df)
@@ -250,4 +401,10 @@ if __name__ == '__main__':
     print(stock_em_hsgt_south_acc_flow_in_df)
 
     stock_em_hsgt_hold_stock_df = stock_em_hsgt_hold_stock(market="北向", indicator="今日排行")
-    print(stock_em_hsgt_hold_stock_df.columns)
+    print(stock_em_hsgt_hold_stock_df)
+
+    stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(market="南向持股", start_date="20200713", end_date="20200714")
+    print(stock_em_hsgt_stock_statistics_df)
+
+    stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(market="北向持股", start_date="20200710", end_date="20200714")
+    print(stock_em_hsgt_institution_statistics_df)
