@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Date: 2020/06/22 12:58
-Desc: 获取各合约展期收益率, 日线数据从 daily_bar 函数获取
+Desc: 各合约展期收益率, 日线数据从 daily_bar 函数获取, 需要在收盘后运行
 """
 import datetime
 import re

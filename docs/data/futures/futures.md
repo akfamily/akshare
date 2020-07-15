@@ -331,30 +331,30 @@ print(futures_inventory_em_df)
 
 其中 "date" 类型, 调用方法例子为:
 
-```
+```python
 import akshare as ak
-ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20191009", end_day="20191030", plot=True)
+ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20191009", end_day="20191030", plot=True)  # 需要收盘收运行
 ```
 
 其中 "symbol" 类型, 调用方法例子为: 
 
-```
+```python
 import akshare as ak
-ak.get_roll_yield_bar(type_method="symbol", var="RB", date="20191008", plot=True)
+ak.get_roll_yield_bar(type_method="symbol", var="RB", date="20191008", plot=True)  # 需要收盘收运行
 ```
 
 其中 "var" 类型, 调用方法例子为: 
 
-```
+```python
 import akshare as ak
-ak.get_roll_yield_bar(type_method="var", date="20191008", plot=True)
+ak.get_roll_yield_bar(type_method="var", date="20191008", plot=True)  # 需要收盘收运行
 ```
 
 利用 **get_roll_yield** 接口, 可以找到特定合约特定日期的主力合约次主力合约展期收益率, 或通过 symbol1 和 symbol2 变量自定义某两个合约的展期收益率. 
 
-```
+```python
 import akshare as ak
-ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811"), 如下图所示: 
+ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")  # 需要收盘收运行
 ```
 
 注意: 1. 主力合约和次主力合约的定义, 是由该日的各交割月合约持仓量由大到小排序得到.
