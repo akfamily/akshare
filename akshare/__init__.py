@@ -990,9 +990,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.62: add: add stock_a_pe, stock_a_pb interface
 0.5.63: add: add stock_a_lg_indicator interface
 0.5.64: add: add stock_a_high_low_statistics interface
+0.5.65: add: add stock_a_below_net_asset_statistics interface
 """
 
-__version__ = "0.5.64"
+__version__ = "0.5.65"
 __author__ = "Albert King"
 
 """
@@ -1002,6 +1003,7 @@ from akshare.stock_feature.stock_a_pb import stock_a_pb
 from akshare.stock_feature.stock_a_pe import stock_a_pe
 from akshare.stock_feature.stock_a_indicator import stock_a_lg_indicator
 from akshare.stock_feature.stock_a_high_low import stock_a_high_low_statistics
+from akshare.stock_feature.stock_a_below_net_asset_statistics import stock_a_below_net_asset_statistics
 
 """
 彭博亿万富豪指数
