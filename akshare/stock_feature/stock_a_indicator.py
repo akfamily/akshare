@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Date: 2020/7/13 22:32
-Desc: 市盈率|市净率|股息率查询
+Desc: 市盈率, 市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
 """
