@@ -29,9 +29,8 @@ def stock_a_high_low_statistics(market: str = "all") -> pd.DataFrame:
     r = requests.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms")
+    temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms")
     del temp_df["id"]
-    del temp_df["date"]
     del temp_df["indexCode"]
     return temp_df
 
