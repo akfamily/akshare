@@ -1401,4 +1401,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.64: add: add stock_a_high_low_statistics interface
 
 0.5.65: add: add stock_a_below_net_asset_statistics interface
+
+0.5.66: fix: fix stock_zh_a_daily default return unadjusted data
 ```

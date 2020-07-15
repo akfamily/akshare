@@ -109,7 +109,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_a_daily(symbol: str = "sz000613", adjust: str = "qfq") -> pd.DataFrame:
+def stock_zh_a_daily(symbol: str = "sz000613", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-A股-个股的历史行情数据, 大量抓取容易封IP
     :param symbol: sh600000
@@ -205,7 +205,7 @@ def stock_zh_a_daily(symbol: str = "sz000613", adjust: str = "qfq") -> pd.DataFr
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sh600582", adjust="qfq-factor")
     print(stock_zh_a_daily_hfq_df)
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz000613", adjust="qfq")
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz000010")
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)

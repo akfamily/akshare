@@ -218,8 +218,8 @@ print(stock_zh_a_spot_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| symbol | str  | Y    |symbol="sh600000"|
-| adjust | str  | Y    |默认不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子|
+| symbol | str  | Y    |symbol="sh600000"; 股票代码可以在 **ak.stock_zh_a_spot()** 中获取|
+| adjust | str  | Y    |默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子|
 
 输出参数-历史行情数据
 
