@@ -6072,3 +6072,54 @@ date
 2018-06-26  5160.28       6     56       4     46        2      41
 2018-06-25  5125.03       5    104       3     89        2      73
 ```
+
+#### 破净股统计
+
+接口: stock_a_below_net_asset_statistics
+
+目标地址: https://www.legulegu.com/stockdata/below-net-asset-statistics
+
+描述: 获取 A 股破净股统计数据
+
+限量: 单次获取所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| - | - | -    | -|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| date          | datetime   | Y        |  交易日    |
+| below_net_asset          | float   | Y        |  破净股家数    |
+| total_company          | float   | Y        |  总公司数    |
+| below_net_asset_ratio          | float   | Y        |  破净股比率    |
+
+接口示例
+
+```python
+import akshare as ak
+stock_a_below_net_asset_statistics_df = ak.stock_a_below_net_asset_statistics()
+print(stock_a_below_net_asset_statistics_df)
+```
+
+数据示例
+
+```
+            below_net_asset  total_company  below_net_asset_ratio
+date                                                             
+2005-01-04               36           1352               0.026627
+2005-01-05               31           1352               0.022929
+2005-01-06               32           1352               0.023669
+2005-01-09               33           1352               0.024408
+2005-01-10               29           1352               0.021450
+                     ...            ...                    ...
+2020-07-08              268           3886               0.068966
+2020-07-09              254           3889               0.065312
+2020-07-12              269           3891               0.069134
+2020-07-13              249           3892               0.063977
+2020-07-14              243           3894               0.062404
+```
