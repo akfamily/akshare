@@ -37,9 +37,8 @@ def stock_a_lg_indicator(stock: str = "688388") -> pd.DataFrame:
         r = requests.get(url)
         temp_json = r.json()
         temp_df = pd.DataFrame(temp_json["data"]["items"], columns=temp_json["data"]["fields"])
-        temp_df.index = pd.to_datetime(temp_df["trade_date"])
-        del temp_df["trade_date"]
-        temp_df = temp_df.astype(float)
+        temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"])
+        temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
         return temp_df
 
 
