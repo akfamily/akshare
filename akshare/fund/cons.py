@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 基金配置文件
+Date: 2019/9/30 13:58
+Desc: 基金配置文件
 """
 # 中国证券投资基金业协会-信息公示-会员信息
 # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询

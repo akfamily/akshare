@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/2/25 17:00
-contact: jindaxiang@163.com
-desc: 金十数据中心-实时监控-微博舆情报告
+Date: 2020/2/25 17:00
+Desc: 金十数据中心-实时监控-微博舆情报告
 https://datacenter.jin10.com/market
 报告内容：时间期限可选择2小时、6小时、12小时、1天、1周、1月。
 该表格展示的是在对应的时间期限内，个股在微博讨论中的人气排行指数。

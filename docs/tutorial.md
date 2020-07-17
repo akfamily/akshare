@@ -401,7 +401,7 @@
  "charity_china_progress"  # 慈善中国-慈善项目进展
  "charity_china_report"  # 慈善中国-慈善组织年报
  "charity_china_platform"  # 慈善中国-募捐信息平台
- # 期权-新浪
+ # 金融期权-新浪
  "option_sina_cffex_hs300_list"  # 沪深300期权列表
  "option_sina_cffex_hs300_spot"  # 沪深300期权实时行情
  "option_sina_cffex_hs300_daily"  # 沪深300期权历史行情-日频
@@ -413,6 +413,10 @@
  "option_sina_sse_greeks"  # 上交所期权希腊字母
  "option_sina_sse_minute"  # 上交所期权分钟数据
  "option_sina_sse_daily"  # 上交所期权日频数据
+ # 商品期权-新浪
+ "option_sina_option_commodity_dict"  # 商品期权合约字典查询
+ "option_sina_option_commodity_contract_list"  # 商品期权合约查询
+ "option_sina_option_commodity_hist"  # 商品期权行情历史数据
  # 微博舆情报告
  "stock_js_weibo_report"  # 微博舆情报告
  # 自然语言处理

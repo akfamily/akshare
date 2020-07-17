@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/17 0:50
-contact: jindaxiang@163.com
-desc:
+Date: 2019/10/17 0:50
+Desc:
 from the official website: https://cn.investing.com/indices/world-indices/ get the country index list
 There are 45 countries in OBOR(exclude China), but we get the China data
 We list the countries having financial index data fetched in investing.com

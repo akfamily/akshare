@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/02/22 0:11
-contact: jindaxiang@163.com
-desc: 新浪财经-期权
+Date: 2020/02/22 0:11
+Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深300指数
 https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
@@ -379,16 +377,16 @@ if __name__ == "__main__":
     print(option_sina_sse_list_df)
 
     option_sina_sse_expire_day_df = option_sina_sse_expire_day(
-        trade_date="202002", symbol="50ETF", exchange="null"
+        trade_date="202009", symbol="50ETF", exchange="null"
     )
     print(option_sina_sse_expire_day_df)
 
     option_sina_sse_codes_df = option_sina_sse_codes(
-        trade_date="202002", underlying="510300"
+        trade_date="202009", underlying="510300"
     )
     print(option_sina_sse_codes_df)
 
-    option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10002273")
+    option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10002415")
     print(option_sina_sse_spot_price_df)
 
     option_sina_sse_underlying_spot_price_df = option_sina_sse_underlying_spot_price(
@@ -396,11 +394,11 @@ if __name__ == "__main__":
     )
     print(option_sina_sse_underlying_spot_price_df)
 
-    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10002273")
+    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10002415")
     print(option_sina_sse_greeks_df)
 
-    option_sina_sse_minute_df = option_sina_sse_minute(code="10002273")
+    option_sina_sse_minute_df = option_sina_sse_minute(code="10002415")
     print(option_sina_sse_minute_df)
 
-    option_sina_sse_daily_df = option_sina_sse_daily(code="10002273")
+    option_sina_sse_daily_df = option_sina_sse_daily(code="10002415")
     print(option_sina_sse_daily_df)

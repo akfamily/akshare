@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/17 0:50
-contact: jindaxiang@163.com
-desc: 获取具体指数数据, 科威特剔除
+Date: 2019/10/17 0:50
+Desc: 获取具体指数数据, 科威特剔除
 """
 
 import pandas as pd

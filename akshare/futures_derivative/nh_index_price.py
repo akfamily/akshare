@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/26 18:52
-contact: jindaxiang@163.com
-desc: 获取南华期货-商品指数历史走势-价格指数-数值-http://www.nanhua.net/nhzc/varietytrend.html
+Date: 2019/11/26 18:52
+Desc: 获取南华期货-商品指数历史走势-价格指数-数值-http://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
 目标地址: http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
 """

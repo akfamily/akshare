@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/16 21:40
-contact: jindaxiang@163.com
-desc: 下载猫眼电影的字体文件到本地
+Date: 2019/12/16 21:40
+Desc: 下载猫眼电影的字体文件到本地
 如果更新, 请重新人工标注 get_font_data 里面的数字
 """
 import re

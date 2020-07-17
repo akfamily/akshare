@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/14 14:38
-contact: jindaxiang@163.com
-desc: 
+Date: 2019/11/14 14:38
+Desc:
 """
 import requests
 from bs4 import BeautifulSoup

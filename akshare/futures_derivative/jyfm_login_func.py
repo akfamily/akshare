@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/9 14:23
-contact: jindaxiang@163.com
-desc: 交易法门-登录函数
+Date: 2019/12/9 14:23
+Desc: 交易法门-登录函数
 """
 from io import BytesIO
 

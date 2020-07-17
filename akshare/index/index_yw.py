@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/1/4 19:51
-contact: jindaxiang@163.com
-desc: 义乌小商品指数
+Date: 2020/1/4 19:51
+Desc: 义乌小商品指数
 http://www.ywindex.com/Home/Product/index/
 """
 import pandas as pd

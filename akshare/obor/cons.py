@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 一带一路配置文件
+Date: 2019/9/30 13:58
+Desc: 一带一路配置文件
 """
 
 countries_dict = {

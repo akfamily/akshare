@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/25 15:56
-contact: jindaxiang@163.com
-desc: 股票配置文件
+Date: 2019/10/25 15:56
+Desc: 股票配置文件
 """
 # zh-sina-kcb
 zh_sina_kcb_stock_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"

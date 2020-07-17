@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 奇货可查网站目前已经商业化运营, 特提供奇货可查-工具数据接口, 方便您程序化调用
+Date: 2019/9/30 13:58
+Desc: 奇货可查网站目前已经商业化运营, 特提供奇货可查-工具数据接口, 方便您程序化调用
 注：期货价格为收盘价; 现货价格来自网络; 基差=现货价格-期货价格; 基差率=(现货价格-期货价格)/现货价格 * 100 %.
 """
 from typing import AnyStr

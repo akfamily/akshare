@@ -1405,4 +1405,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.66: fix: fix stock_zh_a_daily default return unadjusted data
 
 0.5.67: fix: fix R and MATLAB compatibility issues
+
+0.5.68: add: add option_commodity_sina interface
 ```
