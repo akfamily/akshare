@@ -185,6 +185,8 @@ def future_hist_sina_kline(ksymbol: str = 'IF0', ktype: str = '5') -> pd.DataFra
 
 
 if __name__ == "__main__":
+    future_hist_sina_kline_df = future_hist_sina_kline(ksymbol="IF0", ktype="5")
+    print(future_hist_sina_kline_df)
     future_hist_sina_kline_df = future_hist_sina_kline('IF0', '5')
     print(future_hist_sina_kline_df)
     print("开始接收实时行情, 每秒刷新一次")
