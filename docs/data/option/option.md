@@ -957,7 +957,7 @@ print(option_sina_sse_daily_df)
 
 #### 历史行情
 
-接口: option_sina_option_commodity_hist
+接口: option_sina_commodity_hist
 
 目标地址: https://stock.finance.sina.com.cn/futures/view/optionsDP.php
 
@@ -986,9 +986,9 @@ print(option_sina_sse_daily_df)
 
 ```python
 import akshare as ak
-ak.option_sina_option_commodity_dict(symbol="黄金期权")  # {'黄金期权': ['au2012', 'au2008', 'au2010', 'au2104', 'au2102', 'au2106', 'au2108']}
-ak.option_sina_option_commodity_contract_list(symbol="黄金期权", contract="au2012")  # 查看 ["看涨期权合约"] 字段来获取具体的期权合约
-option_sina_hist_df = ak.option_sina_option_commodity_hist(contract="au2012C328")
+ak.option_sina_commodity_dict(symbol="黄金期权")  # {'黄金期权': ['au2012', 'au2008', 'au2010', 'au2104', 'au2102', 'au2106', 'au2108']}
+ak.option_sina_commodity_contract_list(symbol="黄金期权", contract="au2012")  # 查看 ["看涨期权合约"] 字段来获取具体的期权合约
+option_sina_hist_df = ak.option_sina_commodity_hist(contract="au2012C328")
 print(option_sina_hist_df)
 ```
 

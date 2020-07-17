@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def option_sina_option_commodity_dict(symbol="玉米期权") -> Dict[str, List[str]]:
+def option_sina_commodity_dict(symbol="玉米期权") -> Dict[str, List[str]]:
     """
     当前可以查询的期权品种的合约日期
     https://stock.finance.sina.com.cn/futures/view/optionsDP.php
@@ -38,7 +38,7 @@ def option_sina_option_commodity_dict(symbol="玉米期权") -> Dict[str, List[s
     return {symbol: contract}
 
 
-def option_sina_option_commodity_contract_list(symbol="黄金期权", contract="au2012"):
+def option_sina_commodity_contract_list(symbol="黄金期权", contract="au2012"):
     """
     当前所有期权合约, 包括看涨期权合约和看跌期权合约
     https://stock.finance.sina.com.cn/futures/view/optionsDP.php
@@ -88,7 +88,7 @@ def option_sina_option_commodity_contract_list(symbol="黄金期权", contract="
     return temp_df
 
 
-def option_sina_option_commodity_hist(contract="au2012C392"):
+def option_sina_commodity_hist(contract="au2012C392"):
     """
     合约历史行情-日频
     https://stock.finance.sina.com.cn/futures/view/optionsDP.php
@@ -111,8 +111,8 @@ def option_sina_option_commodity_hist(contract="au2012C392"):
 
 
 if __name__ == '__main__':
-    option_sina_option_commodity_dict(symbol="黄金期权")
-    option_sina_contract_list_df = option_sina_option_commodity_contract_list(symbol="黄金期权", contract="au2012")
+    option_sina_commodity_dict(symbol="黄金期权")
+    option_sina_contract_list_df = option_sina_commodity_contract_list(symbol="黄金期权", contract="au2012")
     print(option_sina_contract_list_df["看涨期权合约"])
-    option_sina_hist_df = option_sina_option_commodity_hist(contract="au2012C328")
+    option_sina_hist_df = option_sina_commodity_hist(contract="au2012C328")
     print(option_sina_hist_df)
