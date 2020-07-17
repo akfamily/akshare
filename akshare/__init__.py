@@ -995,9 +995,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.67: fix: fix R and MATLAB compatibility issues
 0.5.68: add: add option_commodity_sina interface
 0.5.69: fix: fix option_commodity_sina interface
+0.5.70: merge: merge #4048
 """
 
-__version__ = "0.5.69"
+__version__ = "0.5.70"
 __author__ = "Albert King"
 
 """
@@ -1805,7 +1806,7 @@ from akshare.stock.hk_stock_sina import stock_hk_daily, stock_hk_spot
 """
 新浪-期货实时数据
 """
-from akshare.futures.zh_futures_sina import futures_zh_spot, match_main_contract
+from akshare.futures.futures_zh_sina import futures_zh_spot, match_main_contract
 
 """
 西本新干线-指数数据

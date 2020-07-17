@@ -14,7 +14,7 @@ import pandas as pd
 
 from akshare.bank.cons import cbirc_headers_without_cookie_2020
 
-itemIdlist = {
+item_id_list = {
     '机关': '4113',
     '本级': '4114',
     '分局本级': '4115',
@@ -31,7 +31,7 @@ def bank_fjcf_total_num(item: str = "分局本级") -> int:
     cbirc_headers = cbirc_headers_without_cookie_2020.copy()
     main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
     params = {
-        "itemId": itemIdlist[item],
+        "itemId": item_id_list[item],
         "pageSize": "18",
         "pageIndex": "1",
     }
@@ -49,7 +49,7 @@ def bank_fjcf_total_page(item: str = "分局本级", begin: int = 1) -> int:
     cbirc_headers = cbirc_headers_without_cookie_2020.copy()
     main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
     params = {
-        "itemId": itemIdlist[item],
+        "itemId": item_id_list[item],
         "pageSize": "18",
         "pageIndex": str(begin),
     }
@@ -59,7 +59,7 @@ def bank_fjcf_total_page(item: str = "分局本级", begin: int = 1) -> int:
     return total_page
 
 
-def bank_fjcf_page_url(page: int = 5, item="分局本级", begin: int = 1) -> pd.DataFrame:
+def bank_fjcf_page_url(page: int = 5, item: str = "分局本级", begin: int = 1) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-每一页的 json 数据
     :param page: 需要获取前 page 页的内容, 总页数请通过 bank_fjcf_total_page() 获取
@@ -73,7 +73,7 @@ def bank_fjcf_page_url(page: int = 5, item="分局本级", begin: int = 1) -> pd
     for i_page in range(begin, page+begin):
         print(i_page)
         params = {
-            "itemId": itemIdlist[item],
+            "itemId": item_id_list[item],
             "pageSize": "18",
             "pageIndex": str(i_page),
         }
@@ -143,5 +143,5 @@ def bank_fjcf_table_detail(page: int = 5, item: str = "分局本级", begin: int
 
 
 if __name__ == '__main__':
-    bank_fjcf_detail_df = bank_fjcf_table_detail(page=2)
-    print(bank_fjcf_detail_df)
+    bank_fjcf_table_detail_df = bank_fjcf_table_detail(page=2)
+    print(bank_fjcf_table_detail_df)
