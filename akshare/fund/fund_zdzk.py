@@ -1,9 +1,8 @@
 # coding=utf-8
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/15 18:27
-desc: 获取智道智科的私募基金指数数据, 可以为用户提供私募基金策略发展方向的参考
+Date: 2019/9/15 18:27
+Desc: 获取智道智科的私募基金指数数据, 可以为用户提供私募基金策略发展方向的参考
 """
 import matplotlib.pyplot as plt
 import pandas as pd

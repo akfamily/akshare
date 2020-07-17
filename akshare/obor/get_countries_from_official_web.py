@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/17 0:50
-contact: jindaxiang@163.com
-desc:
+Date: 2019/10/17 0:50
+Desc:
 from the official website: http://www.yidaiyilu.gov.cn/ get the country list
 There are 64 countries in OBOR(exclude China)
 The data here may be old version, so we will reference the

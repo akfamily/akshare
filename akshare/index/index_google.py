@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/4 15:49
-contact: jindaxiang@163.com
-desc: 获取谷歌指数, 必须使用代理, 获得的数据是小时频率的, 所以获取时间周期太长会很慢
+Date: 2019/12/4 15:49
+Desc: 获取谷歌指数, 必须使用代理, 获得的数据是小时频率的, 所以获取时间周期太长会很慢
 """
 from akshare.index.request import TrendReq
 import matplotlib.pyplot as plt

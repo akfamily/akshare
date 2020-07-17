@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/21 13:22
-contact: jindaxiang@163.com
-desc: 提供英为财情-利率国债-全球政府债券行情与收益率
+Date: 2019/10/21 13:22
+Desc: 提供英为财情-利率国债-全球政府债券行情与收益率
 """
 import re
 

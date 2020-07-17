@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/02/22 0:11
-contact: jindaxiang@163.com
-desc: 新浪财经-期权
+Date: 2020/02/22 0:11
+Desc: 新浪财经-期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深300指数
 https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php

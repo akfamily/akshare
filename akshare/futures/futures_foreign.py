@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
 Date: 2020/3/26 19:10
-Contact: jindaxiang@163.com
 Desc: foreign futures detail data
 http://finance.sina.com.cn/money/future/hf.html
 """

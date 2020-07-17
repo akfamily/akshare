@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/7 15:23
-contact: jindaxiang@163.com
-desc: 银保监会配置文件
+Date: 2019/11/7 15:23
+Desc: 银保监会配置文件
 """
 cbirc_headers_without_cookie_2020 = {
     "Accept": "*/*",

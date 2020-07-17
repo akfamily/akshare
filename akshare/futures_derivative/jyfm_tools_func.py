@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/01/02 17:37
-contact: jindaxiang@163.com
-desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
+Date: 2020/01/02 17:37
+Desc: 获取交易法门-工具: https://www.jiaoyifamen.com/tools/
 交易法门首页: https://www.jiaoyifamen.com/
 
 # 交易法门-工具-套利分析

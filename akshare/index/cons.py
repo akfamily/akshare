@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/17 1:19
-contact: jindaxiang@163.com
-desc: 指数配置文件
+Date: 2019/10/17 1:19
+Desc: 指数配置文件
 """
 # spot-goods
 soy_url = "http://stock.finance.sina.com.cn/futures/api/openapi.php/GoodsIndexService.get_goods_index?symbol=SOY&table=0&callback=jsonpCallback_1576728720066_84029"

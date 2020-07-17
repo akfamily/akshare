@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/2 22:24
-contact: jindaxiang@163.com
-desc: 获取微博指数
+Date: 2019/12/2 22:24
+Desc: 获取微博指数
 """
 import re
 import datetime

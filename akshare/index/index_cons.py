@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/1/4 16:19
-contact: jindaxiang@163.com
-desc: 获取股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
+Date: 2020/1/4 16:19
+Desc: 获取股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """

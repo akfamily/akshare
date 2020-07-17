@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-date: 2020/4/4 19:56
-desc: 英为财情-外汇-货币对历史数据
+Date: 2020/4/4 19:56
+Desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
 """

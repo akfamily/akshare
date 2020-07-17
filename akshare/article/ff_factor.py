@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/11/14 20:31
-contact: jindaxiang@163.com
-desc: FF-data-library: http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
+Date: 2019/11/14 20:31
+Desc: FF-data-library
+http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 """
 import pandas as pd
 import requests

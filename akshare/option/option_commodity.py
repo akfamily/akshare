@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 获取商品期权数据
+Date: 2019/9/30 13:58
+Desc: 获取商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
 (2) 价格：元/吨，鸡蛋为元/500千克，纤维板为元/立方米，胶合板为元/张
