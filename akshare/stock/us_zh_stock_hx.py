@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/26 20:34
-contact: jindaxiang@163.com
-desc: 从和讯网获取美股-中概股实时行情数据和历史行情数据(日)
+Date: 2019/10/26 20:34
+Desc: 从和讯网获取美股-中概股实时行情数据和历史行情数据(日)
 注意: 由于涉及到复权问题, 建议使用新浪的接口来获取历史行情数据(日)
 """
 import datetime as dt
@@ -104,7 +102,7 @@ def stock_us_zh_daily(code="NTES"):
 
 
 if __name__ == "__main__":
-    df = stock_us_zh_spot(flag=0)
-    print(df)
-    df = stock_us_zh_daily(code="CEO")
-    print(df)
+    stock_us_zh_spot_df = stock_us_zh_spot(flag=False)
+    print(stock_us_zh_spot_df)
+    stock_us_zh_daily_df = stock_us_zh_daily(code="CEO")
+    print(stock_us_zh_daily_df)
