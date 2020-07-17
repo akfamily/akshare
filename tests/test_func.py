@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/12 18:16
-contact: jindaxiang@163.com
-desc: To test intention, just write test code here!
+Date: 2019/12/12 18:16
+Desc: To test intention, just write test code here!
 """
 from akshare.index.index_weibo import weibo_index
 from akshare.event.franchise import franchise_china
