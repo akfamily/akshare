@@ -25,6 +25,8 @@ def stock_a_below_net_asset_statistics() -> pd.DataFrame:
     temp_df.columns = ["below_net_asset", "total_company", "date"]
     temp_df["below_net_asset_ratio"] = temp_df["below_net_asset"] / temp_df["total_company"]
     temp_df = temp_df[["date", "below_net_asset", "total_company", "below_net_asset_ratio"]]
+    temp_df.date = temp_df.date.astype("str")
+    temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
     return temp_df
 
 

@@ -312,7 +312,6 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
     )
     payload = {"t": str(int(time.time()))}
     r = requests.get(url, params=payload)
-    r.status_code
     hospital_df = pd.read_html(r.text)[0].iloc[:, :-1]
 
     if indicator == "中国疫情分省统计详情":
