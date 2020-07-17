@@ -993,10 +993,20 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.65: add: add stock_a_below_net_asset_statistics interface
 0.5.66: fix: fix stock_zh_a_daily default return unadjusted data
 0.5.67: fix: fix R and MATLAB compatibility issues
+0.5.68: add: add option_commodity_sina interface
 """
 
-__version__ = "0.5.67"
+__version__ = "0.5.68"
 __author__ = "Albert King"
+
+"""
+commodity option
+"""
+from akshare.option.option_commodity_sina import (
+    option_sina_option_commodity_contract_list,
+    option_sina_option_commodity_dict,
+    option_sina_option_commodity_hist,
+)
 
 """
 A 股PE和PB
@@ -1005,7 +1015,9 @@ from akshare.stock_feature.stock_a_pb import stock_a_pb
 from akshare.stock_feature.stock_a_pe import stock_a_pe
 from akshare.stock_feature.stock_a_indicator import stock_a_lg_indicator
 from akshare.stock_feature.stock_a_high_low import stock_a_high_low_statistics
-from akshare.stock_feature.stock_a_below_net_asset_statistics import stock_a_below_net_asset_statistics
+from akshare.stock_feature.stock_a_below_net_asset_statistics import (
+    stock_a_below_net_asset_statistics,
+)
 
 """
 彭博亿万富豪指数
@@ -1020,7 +1032,11 @@ from akshare.stock_feature.stock_em_qsjy import stock_em_qsjy
 """
 futures-warehouse-receipt
 """
-from akshare.futures.futures_warehouse_receipt import futures_czce_warehouse_receipt, futures_dce_warehouse_receipt, futures_shfe_warehouse_receipt
+from akshare.futures.futures_warehouse_receipt import (
+    futures_czce_warehouse_receipt,
+    futures_dce_warehouse_receipt,
+    futures_shfe_warehouse_receipt,
+)
 
 """
 stock-js
@@ -1035,12 +1051,18 @@ from akshare.stock.stock_summary import stock_sse_summary, stock_szse_summary
 """
 股票-机构推荐池
 """
-from akshare.stock_fundamental.stock_recommend import stock_institute_recommend, stock_institute_recommend_detail
+from akshare.stock_fundamental.stock_recommend import (
+    stock_institute_recommend,
+    stock_institute_recommend_detail,
+)
 
 """
 股票-机构持股
 """
-from akshare.stock_fundamental.stock_hold import stock_institute_hold_detail, stock_institute_hold
+from akshare.stock_fundamental.stock_hold import (
+    stock_institute_hold_detail,
+    stock_institute_hold,
+)
 
 """
 stock-info
@@ -1259,7 +1281,12 @@ from akshare.event.franchise import franchise_china
 债券-沪深债券
 """
 from akshare.bond.zh_bond_sina import bond_zh_hs_daily, bond_zh_hs_spot
-from akshare.bond.zh_bond_cov_sina import bond_zh_hs_cov_daily, bond_zh_hs_cov_spot, bond_cov_comparison, bond_zh_cov
+from akshare.bond.zh_bond_cov_sina import (
+    bond_zh_hs_cov_daily,
+    bond_zh_hs_cov_spot,
+    bond_cov_comparison,
+    bond_zh_cov,
+)
 
 """
 for pro api
@@ -1373,7 +1400,6 @@ from akshare.economic.macro_euro import (
     macro_euro_zew_economic_sentiment,
     macro_euro_lme_holding,
     macro_euro_lme_stock,
-
 )
 
 """
@@ -1948,12 +1974,18 @@ from akshare.option.option_commodity import (
 """
 英为财情-债券
 """
-from akshare.bond.bond_investing import bond_investing_global, bond_investing_global_country_name_url
+from akshare.bond.bond_investing import (
+    bond_investing_global,
+    bond_investing_global_country_name_url,
+)
 
 """
 英为财情-指数
 """
-from akshare.index.index_investing import index_investing_global, index_investing_global_country_name_url
+from akshare.index.index_investing import (
+    index_investing_global,
+    index_investing_global_country_name_url,
+)
 
 """
 99期货-期货库存数据
