@@ -14,8 +14,14 @@ import pandas as pd
 
 from akshare.bank.cons import cbirc_headers_without_cookie_2020
 
+itemIdlist = {
+    '机关': '4113',
+    '本级': '4114',
+    '分局本级': '4115',
+}
 
-def bank_fjcf_total_page():
+
+def bank_fjcf_total_num(item: str = "分局本级") -> int:
     """
     获取  首页-政务信息-行政处罚-银保监分局本级 总页数
     http://www.cbirc.gov.cn/cn/view/pages/ItemList.html?itemPId=923&itemId=4115&itemUrl=ItemListRightList.html&itemName=%E9%93%B6%E4%BF%9D%E7%9B%91%E5%88%86%E5%B1%80%E6%9C%AC%E7%BA%A7&itemsubPId=931
@@ -25,9 +31,27 @@ def bank_fjcf_total_page():
     cbirc_headers = cbirc_headers_without_cookie_2020.copy()
     main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
     params = {
-        "itemId": "4115",
+        "itemId": itemIdlist[item],
         "pageSize": "18",
         "pageIndex": "1",
+    }
+    res = requests.get(main_url, params=params, headers=cbirc_headers)
+    return int(res.json()["data"]["total"])
+
+
+def bank_fjcf_total_page(item: str = "分局本级", begin: int = 1) -> int:
+    """
+    获取  首页-政务信息-行政处罚-银保监分局本级 总页数
+    http://www.cbirc.gov.cn/cn/view/pages/ItemList.html?itemPId=923&itemId=4115&itemUrl=ItemListRightList.html&itemName=%E9%93%B6%E4%BF%9D%E7%9B%91%E5%88%86%E5%B1%80%E6%9C%AC%E7%BA%A7&itemsubPId=931
+    :return: 总页数
+    :rtype: int
+    """
+    cbirc_headers = cbirc_headers_without_cookie_2020.copy()
+    main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
+    params = {
+        "itemId": itemIdlist[item],
+        "pageSize": "18",
+        "pageIndex": str(begin),
     }
     res = requests.get(main_url, params=params, headers=cbirc_headers)
     if res.json()["data"]["total"] / 18 > int(res.json()["data"]["total"] / 18):
@@ -35,7 +59,7 @@ def bank_fjcf_total_page():
     return total_page
 
 
-def bank_fjcf_page_url(page=5):
+def bank_fjcf_page_url(page: int = 5, item="分局本级", begin: int = 1) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-每一页的 json 数据
     :param page: 需要获取前 page 页的内容, 总页数请通过 bank_fjcf_total_page() 获取
@@ -46,10 +70,10 @@ def bank_fjcf_page_url(page=5):
     cbirc_headers = cbirc_headers_without_cookie_2020.copy()
     main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
     temp_df = pd.DataFrame()
-    for i_page in range(1, page+1):
+    for i_page in range(begin, page+begin):
         print(i_page)
         params = {
-            "itemId": "4115",
+            "itemId": itemIdlist[item],
             "pageSize": "18",
             "pageIndex": str(i_page),
         }
@@ -58,7 +82,7 @@ def bank_fjcf_page_url(page=5):
     return temp_df[["docId", "docSubtitle", "publishDate", "docFileUrl", "docTitle", "generaltype"]]
 
 
-def bank_fjcf_table_detail(page=5):
+def bank_fjcf_table_detail(page: int = 5, item: str = "分局本级", begin: int = 1) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表 数据
     :param page: 需要获取前 page 页的内容, 总页数请通过 bank_fjcf_total_page() 获取
@@ -66,9 +90,10 @@ def bank_fjcf_table_detail(page=5):
     :return: 返回所有行政处罚信息公开表的集合, 按第一页到最后一页的顺序排列
     :rtype: pandas.DataFrame
     """
-    id_list = bank_fjcf_page_url(page=page)["docId"]
+    id_list = bank_fjcf_page_url(page=page, item=item, begin=begin)["docId"]
     big_df = pd.DataFrame()
     for item in id_list:
+        print(item)
         url = f"http://www.cbirc.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId={item}.json"
         res = requests.get(url)
         # print(res.json()["data"]["docClob"])
@@ -76,10 +101,23 @@ def bank_fjcf_table_detail(page=5):
             table_list = pd.read_html(res.json()["data"]["docClob"])[0]
             table_list = table_list.iloc[:, 3:].values.tolist()
             # 部分旧表缺少字段，所以填充
-            if len(table_list) != 10:
+            if len(table_list) == 7:
+                table_list.insert(2, np.nan)
+                table_list.insert(3, np.nan)
+                table_list.insert(4, np.nan)
+            elif len(table_list) == 8:
+                table_list.insert(1, np.nan)
+                table_list.insert(2, np.nan)
+            elif len(table_list) == 9:
+                table_list.insert(2, np.nan)
+            elif len(table_list) == 11:
+                table_list = table_list[2:]
                 table_list.insert(2, np.nan)
             # 部分会变成嵌套列表, 这里还原
-            table_list = [item[0] if isinstance(item, list) else item for item in table_list]
+            table_list = [item[0] if isinstance(
+                item, list) else item for item in table_list]
+            table_list.append(str(item))
+            table_list.append(res.json()["data"]["publishDate"])
             table_df = pd.DataFrame(table_list)
             table_df.columns = ["内容"]
             big_df = big_df.append(table_df.T, ignore_index=True)
@@ -98,6 +136,8 @@ def bank_fjcf_table_detail(page=5):
         "行政处罚决定",
         "作出处罚决定的机关名称",
         "作出处罚决定的日期",
+        "处罚ID",
+        "处罚公布日期",
     ]
     return big_df
 

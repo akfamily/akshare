@@ -6,6 +6,7 @@ Desc: 新浪财经-国内期货-实时数据获取
 P.S. 注意抓取速度, 容易封 IP 地址
 """
 import time
+import json
 
 import demjson
 import pandas as pd
@@ -176,7 +177,16 @@ def futures_zh_spot(
                         ]]
 
 
+# 股指期货历史行情数据
+def future_hist_sina_kline(ksymbol: str = 'IF0', ktype: str = '5') -> pd.DataFrame:
+    url = f'https://stock2.finance.sina.com.cn/futures/api/jsonp.php/=/InnerFuturesNewService.getFewMinLine?symbol={ksymbol}&type={ktype}'
+    res = requests.get(url)
+    return pd.DataFrame(json.loads(res.text.split('=(')[1].split(");")[0]))
+
+
 if __name__ == "__main__":
+    future_hist_sina_kline_df = future_hist_sina_kline('IF0', '5')
+    print(future_hist_sina_kline_df)
     print("开始接收实时行情, 每秒刷新一次")
     dce_text = match_main_contract(exchange="dce")
     czce_text = match_main_contract(exchange="czce")
