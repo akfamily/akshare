@@ -196,6 +196,8 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
     }
     r = requests.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split('=(')[1].split(");")[0]))
+    temp_df = temp_df.iloc[:, :-1]
+    temp_df.columns = ["date", "open", "high", "low", "close", "volume"]
     return temp_df
 
 
