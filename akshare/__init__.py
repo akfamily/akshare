@@ -997,10 +997,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.69: fix: fix option_commodity_sina interface
 0.5.70: merge: merge #4048
 0.5.71: add: add tool_trade_date_hist interface
+0.5.72: add: add fund_etf_category_sina, fund_etf_hist_sina interface
 """
 
-__version__ = "0.5.71"
+__version__ = "0.5.72"
 __author__ = "Albert King"
+
+"""
+基金行情
+"""
+from akshare.fund.fund_etf import fund_etf_hist_sina, fund_etf_category_sina
 
 """
 交易日历

@@ -1413,4 +1413,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.70: merge: merge #4048
 
 0.5.71: add: add tool_trade_date_hist interface
+
+0.5.72: add: add fund_etf_category_sina, fund_etf_hist_sina interface
 ```
