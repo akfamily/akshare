@@ -999,9 +999,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.71: add: add tool_trade_date_hist interface
 0.5.72: add: add fund_etf_category_sina, fund_etf_hist_sina interface
 0.5.73: add: add stock_report_disclosure interface
+0.5.74: add: add stock_zh_a_minute interface
 """
 
-__version__ = "0.5.73"
+__version__ = "0.5.74"
 __author__ = "Albert King"
 
 """
@@ -1787,7 +1788,7 @@ from akshare.stock.zh_stock_kcb_sina import stock_zh_kcb_spot, stock_zh_kcb_dail
 """
 A股
 """
-from akshare.stock.zh_stock_a_sina import stock_zh_a_spot, stock_zh_a_daily
+from akshare.stock.zh_stock_a_sina import stock_zh_a_spot, stock_zh_a_daily, stock_zh_a_minute
 
 """
 A+H股

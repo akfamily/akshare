@@ -104,6 +104,7 @@
  # A股实时行情数据和历史行情数据
  "stock_zh_a_spot"  # 获取 A 股实时行情数据
  "stock_zh_a_daily"  # 获取 A 股历史行情数据(日频)
+ "stock_zh_a_minute"  # 获取 A 股分时历史行情数据(分钟)
  # 科创板实时行情数据和历史行情数据
  "stock_zh_kcb_spot"  # 获取科创板实时行情数据
  "stock_zh_kcb_daily"  # 获取科创板历史行情数据(日频)

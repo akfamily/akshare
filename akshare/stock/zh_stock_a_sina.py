@@ -232,5 +232,5 @@ if __name__ == "__main__":
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
-    stock_zh_a_minute_df = stock_zh_a_minute('sh000300', '1')
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sh000300', period='1')
     print(stock_zh_a_minute_df)
