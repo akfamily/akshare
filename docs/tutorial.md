@@ -531,6 +531,9 @@
  "stock_a_below_net_asset_statistics"  # 破净股统计
  # 交易日历
  "tool_trade_date_hist"  # 新浪财经-交易日历
+ # 基金行情
+ "fund_etf_category_sina"  # 基金列表
+ "fund_etf_hist_sina"  # 基金行情
 ```
 
 ## 案例演示

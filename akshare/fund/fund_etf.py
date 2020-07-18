@@ -13,13 +13,14 @@ import requests
 from akshare.stock.cons import hk_js_decode
 
 
-def fund_etf_category_sina(symbol="封闭式基金"):
+def fund_etf_category_sina(symbol: str = "封闭式基金") -> pd.DataFrame:
     """
-
-    :param symbol:
-    :type symbol:
-    :return:
-    :rtype:
+    基金列表
+    http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
+    :param symbol: choice of {"封闭式基金", "ETF基金", "LOF基金"}
+    :type symbol: str
+    :return: 指定 symbol 的基金列表
+    :rtype: pandas.DataFrame
     """
     fund_map = {
         "封闭式基金": "close_fund",
@@ -42,10 +43,12 @@ def fund_etf_category_sina(symbol="封闭式基金"):
     return temp_df
 
 
-def fund_etf_hist_sina(symbol="sz159996"):
+def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
     """
     ETF 基金的日行情数据
     http://finance.sina.com.cn/fund/quotes/159996/bc.shtml
+    :param symbol: 基金名称, 可以通过 fund_etf_category_sina 函数获取
+    :type symbol: str
     :return: ETF 基金的日行情数据
     :rtype: pandas.DataFrame
     """
