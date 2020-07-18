@@ -534,6 +534,8 @@
  # 基金行情
  "fund_etf_category_sina"  # 基金列表
  "fund_etf_hist_sina"  # 基金行情
+ # 股票财务报告-预约披露
+ "stock_report_disclosure"  # 股票财务报告-预约披露时间
 ```
 
 ## 案例演示
