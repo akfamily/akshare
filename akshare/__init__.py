@@ -996,10 +996,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.68: add: add option_commodity_sina interface
 0.5.69: fix: fix option_commodity_sina interface
 0.5.70: merge: merge #4048
+0.5.71: add: add tool_trade_date_hist interface
 """
 
-__version__ = "0.5.70"
+__version__ = "0.5.71"
 __author__ = "Albert King"
+
+"""
+交易日历
+"""
+from akshare.tool.trade_date_hist import tool_trade_date_hist
 
 """
 commodity option
