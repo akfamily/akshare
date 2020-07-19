@@ -359,6 +359,30 @@ def option_sina_sse_daily(code: str = "10002273") -> pd.DataFrame:
     return data_df
 
 
+def option_sina_finance_minute(code: str = "10002530") -> pd.DataFrame:
+    """
+    指定期权的分钟频率数据
+    https://stock.finance.sina.com.cn/option/quotes.html
+    :param code: 期权代码
+    :type code: str
+    :return: 指定期权的分钟频率数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionDaylineService.getFiveDayLine"
+    params = {
+        "symbol": f"CON_OP_{code}",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.json()
+    temp_df = pd.DataFrame()
+    for item in data_text["result"]["data"]:
+        temp_df = temp_df.append(pd.DataFrame(item), ignore_index=True)
+    temp_df.fillna(method="ffill", inplace=True)
+    temp_df.columns = ["time", "price", "volume", "_", "average_price", "date"]
+    temp_df = temp_df[["date", "time", "price", "average_price", "volume"]]
+    return temp_df
+
+
 if __name__ == "__main__":
     # 期权-中金所-沪深300指数
     option_sina_cffex_hs300_list_df = option_sina_cffex_hs300_list()
@@ -402,3 +426,6 @@ if __name__ == "__main__":
 
     option_sina_sse_daily_df = option_sina_sse_daily(code="10002415")
     print(option_sina_sse_daily_df)
+
+    option_sina_finance_minute_df = option_sina_finance_minute(code="10002415")
+    print(option_sina_finance_minute_df)

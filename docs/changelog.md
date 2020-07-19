@@ -1421,4 +1421,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.74: add: add stock_zh_a_minute interface
 
 0.5.75: add: add futures_zh_minute_sina interface
+
+0.5.76: add: add option_sina_finance_minute interface
 ```
