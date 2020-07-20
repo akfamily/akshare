@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/4 19:56
+Date: 2020/7/20 14:56
 Desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
@@ -16,6 +16,11 @@ from akshare.index.cons import short_headers, long_headers
 
 
 def _currency_name_url():
+    """
+    货币键值对
+    :return: 货币键值对
+    :rtype: dict
+    """
     url = "https://cn.investing.com/currencies/"
     res = requests.post(url, headers=short_headers)
     data_table = pd.read_html(res.text)[0].iloc[:, 1:]  # 实时货币行情
@@ -25,10 +30,10 @@ def _currency_name_url():
     return name_code_dict
 
 
-def currency_hist(symbol="usd/jpy", start_date="2005/01/01", end_date="2020/01/17"):
+def currency_hist(symbol="usd/jpy", start_date="20050101", end_date="20200717"):
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
-    :param symbol:
+    :param symbol: 货币对
     :type symbol: str
     :param start_date: 日期
     :type start_date: str
@@ -37,6 +42,8 @@ def currency_hist(symbol="usd/jpy", start_date="2005/01/01", end_date="2020/01/1
     :return: 货币对历史数据
     :rtype: pandas.DataFrame
     """
+    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
     temp_url = f"https://cn.investing.com/currencies/{symbol.lower().replace('/', '-')}-historical-data"
     res = requests.post(temp_url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
@@ -65,13 +72,14 @@ def currency_hist(symbol="usd/jpy", start_date="2005/01/01", end_date="2020/01/1
     df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
     df_data["涨跌幅"] = pd.DataFrame(round(df_data['涨跌幅'].str.replace('%', '').astype(float) / 100, 6))
     del df_data["日期"]
+    df_data = df_data.astype(float)
     return df_data
 
 
 def _currency_single():
     """
     英为财情-外汇-单种货币兑换汇率-单种货币列表
-    :return:
+    :return: 单种货币列表
     :rtype: pandas.DataFrame
     """
     url = "https://cn.investing.com/currencies/single-currency-crosses"
@@ -162,5 +170,5 @@ def currency_name_code(symbol="usd/jpy"):
 if __name__ == '__main__':
     currency_name_code_df = currency_name_code(symbol="usd/jpy")
     print(currency_name_code_df)
-    currency_hist_df = currency_hist(symbol="usd-cny", start_date="2013/10/18", end_date="2020/05/26")
+    currency_hist_df = currency_hist(symbol="usd-cny", start_date="20131018", end_date="20200526")
     print(currency_hist_df)
