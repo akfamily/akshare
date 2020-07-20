@@ -231,8 +231,8 @@ print(fx_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | symbol | str | Y | symbol="usd-jpy"; 可以通过 **currency_name_code** 查询该两种货币可以获取的所有货币对 |
-| start_date | str | Y | start_date="2005/01/01" |
-| end_date | str | Y | end_date="2020/01/17" |
+| start_date | str | Y | start_date="20050101" |
+| end_date | str | Y | end_date="20200117" |
 
 数据示例-currency_name_code
 
@@ -266,7 +266,7 @@ print(fx_df)
 
 ```python
 import akshare as ak
-currency_hist_df = ak.currency_hist(symbol="usd-jpy", start_date="2005/01/01", end_date="2020/01/17")
+currency_hist_df = ak.currency_hist(symbol="usd-jpy", start_date="20050101", end_date="20200117")
 print(currency_hist_df)
 ```
 
