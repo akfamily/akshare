@@ -1403,4 +1403,26 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.65: add: add stock_a_below_net_asset_statistics interface
 
 0.5.66: fix: fix stock_zh_a_daily default return unadjusted data
+
+0.5.67: fix: fix R and MATLAB compatibility issues
+
+0.5.68: add: add option_commodity_sina interface
+
+0.5.69: fix: fix option_commodity_sina interface
+
+0.5.70: merge: merge #4048
+
+0.5.71: add: add tool_trade_date_hist interface
+
+0.5.72: add: add fund_etf_category_sina, fund_etf_hist_sina interface
+
+0.5.73: add: add stock_report_disclosure interface
+
+0.5.74: add: add stock_zh_a_minute interface
+
+0.5.75: add: add futures_zh_minute_sina interface
+
+0.5.76: add: add option_sina_finance_minute interface
+
+0.5.77: fix: fix currency_hist interface return data format
 ```

@@ -992,10 +992,50 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.64: add: add stock_a_high_low_statistics interface
 0.5.65: add: add stock_a_below_net_asset_statistics interface
 0.5.66: fix: fix stock_zh_a_daily default return unadjusted data
+0.5.67: fix: fix R and MATLAB compatibility issues
+0.5.68: add: add option_commodity_sina interface
+0.5.69: fix: fix option_commodity_sina interface
+0.5.70: merge: merge #4048
+0.5.71: add: add tool_trade_date_hist interface
+0.5.72: add: add fund_etf_category_sina, fund_etf_hist_sina interface
+0.5.73: add: add stock_report_disclosure interface
+0.5.74: add: add stock_zh_a_minute interface
+0.5.75: add: add futures_zh_minute_sina interface
+0.5.76: add: add option_sina_finance_minute interface
+0.5.77: fix: fix currency_hist interface return data format
 """
 
-__version__ = "0.5.66"
+__version__ = "0.5.77"
 __author__ = "Albert King"
+
+"""
+期货分钟数据
+"""
+from akshare.futures.futures_zh_sina import futures_zh_minute_sina
+
+"""
+股票财务报告预约披露
+"""
+from akshare.stock_feature.stock_cninfo_yjyg import stock_report_disclosure
+
+"""
+基金行情
+"""
+from akshare.fund.fund_etf import fund_etf_hist_sina, fund_etf_category_sina
+
+"""
+交易日历
+"""
+from akshare.tool.trade_date_hist import tool_trade_date_hist
+
+"""
+commodity option
+"""
+from akshare.option.option_commodity_sina import (
+    option_sina_commodity_contract_list,
+    option_sina_commodity_dict,
+    option_sina_commodity_hist,
+)
 
 """
 A 股PE和PB
@@ -1004,7 +1044,9 @@ from akshare.stock_feature.stock_a_pb import stock_a_pb
 from akshare.stock_feature.stock_a_pe import stock_a_pe
 from akshare.stock_feature.stock_a_indicator import stock_a_lg_indicator
 from akshare.stock_feature.stock_a_high_low import stock_a_high_low_statistics
-from akshare.stock_feature.stock_a_below_net_asset_statistics import stock_a_below_net_asset_statistics
+from akshare.stock_feature.stock_a_below_net_asset_statistics import (
+    stock_a_below_net_asset_statistics,
+)
 
 """
 彭博亿万富豪指数
@@ -1019,7 +1061,11 @@ from akshare.stock_feature.stock_em_qsjy import stock_em_qsjy
 """
 futures-warehouse-receipt
 """
-from akshare.futures.futures_warehouse_receipt import futures_czce_warehouse_receipt, futures_dce_warehouse_receipt, futures_shfe_warehouse_receipt
+from akshare.futures.futures_warehouse_receipt import (
+    futures_czce_warehouse_receipt,
+    futures_dce_warehouse_receipt,
+    futures_shfe_warehouse_receipt,
+)
 
 """
 stock-js
@@ -1034,12 +1080,18 @@ from akshare.stock.stock_summary import stock_sse_summary, stock_szse_summary
 """
 股票-机构推荐池
 """
-from akshare.stock_fundamental.stock_recommend import stock_institute_recommend, stock_institute_recommend_detail
+from akshare.stock_fundamental.stock_recommend import (
+    stock_institute_recommend,
+    stock_institute_recommend_detail,
+)
 
 """
 股票-机构持股
 """
-from akshare.stock_fundamental.stock_hold import stock_institute_hold_detail, stock_institute_hold
+from akshare.stock_fundamental.stock_hold import (
+    stock_institute_hold_detail,
+    stock_institute_hold,
+)
 
 """
 stock-info
@@ -1235,6 +1287,7 @@ from akshare.option.option_finance_sina import (
     option_sina_sse_greeks,
     option_sina_sse_minute,
     option_sina_sse_daily,
+    option_sina_finance_minute,
 )
 
 """
@@ -1258,7 +1311,12 @@ from akshare.event.franchise import franchise_china
 债券-沪深债券
 """
 from akshare.bond.zh_bond_sina import bond_zh_hs_daily, bond_zh_hs_spot
-from akshare.bond.zh_bond_cov_sina import bond_zh_hs_cov_daily, bond_zh_hs_cov_spot, bond_cov_comparison, bond_zh_cov
+from akshare.bond.zh_bond_cov_sina import (
+    bond_zh_hs_cov_daily,
+    bond_zh_hs_cov_spot,
+    bond_cov_comparison,
+    bond_zh_cov,
+)
 
 """
 for pro api
@@ -1372,7 +1430,6 @@ from akshare.economic.macro_euro import (
     macro_euro_zew_economic_sentiment,
     macro_euro_lme_holding,
     macro_euro_lme_stock,
-
 )
 
 """
@@ -1740,7 +1797,7 @@ from akshare.stock.zh_stock_kcb_sina import stock_zh_kcb_spot, stock_zh_kcb_dail
 """
 A股
 """
-from akshare.stock.zh_stock_a_sina import stock_zh_a_spot, stock_zh_a_daily
+from akshare.stock.zh_stock_a_sina import stock_zh_a_spot, stock_zh_a_daily, stock_zh_a_minute
 
 """
 A+H股
@@ -1777,7 +1834,7 @@ from akshare.stock.hk_stock_sina import stock_hk_daily, stock_hk_spot
 """
 新浪-期货实时数据
 """
-from akshare.futures.zh_futures_sina import futures_zh_spot, match_main_contract
+from akshare.futures.futures_zh_sina import futures_zh_spot, match_main_contract
 
 """
 西本新干线-指数数据
@@ -1947,12 +2004,18 @@ from akshare.option.option_commodity import (
 """
 英为财情-债券
 """
-from akshare.bond.bond_investing import bond_investing_global, bond_investing_global_country_name_url
+from akshare.bond.bond_investing import (
+    bond_investing_global,
+    bond_investing_global_country_name_url,
+)
 
 """
 英为财情-指数
 """
-from akshare.index.index_investing import index_investing_global, index_investing_global_country_name_url
+from akshare.index.index_investing import (
+    index_investing_global,
+    index_investing_global_country_name_url,
+)
 
 """
 99期货-期货库存数据

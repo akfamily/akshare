@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/6 0:17
-contact: jindaxiang@163.com
-desc: 交易法门-数据
+Date: 2019/12/6 0:17
+Desc: 交易法门-数据
 
 交易法门-数据-黑色系
 交易法门-数据-黑色系-焦煤

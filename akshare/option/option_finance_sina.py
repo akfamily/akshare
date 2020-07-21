@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/02/22 0:11
-contact: jindaxiang@163.com
-desc: 新浪财经-期权
+Date: 2020/02/22 0:11
+Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深300指数
 https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
@@ -361,6 +359,30 @@ def option_sina_sse_daily(code: str = "10002273") -> pd.DataFrame:
     return data_df
 
 
+def option_sina_finance_minute(code: str = "10002530") -> pd.DataFrame:
+    """
+    指定期权的分钟频率数据
+    https://stock.finance.sina.com.cn/option/quotes.html
+    :param code: 期权代码
+    :type code: str
+    :return: 指定期权的分钟频率数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionDaylineService.getFiveDayLine"
+    params = {
+        "symbol": f"CON_OP_{code}",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.json()
+    temp_df = pd.DataFrame()
+    for item in data_text["result"]["data"]:
+        temp_df = temp_df.append(pd.DataFrame(item), ignore_index=True)
+    temp_df.fillna(method="ffill", inplace=True)
+    temp_df.columns = ["time", "price", "volume", "_", "average_price", "date"]
+    temp_df = temp_df[["date", "time", "price", "average_price", "volume"]]
+    return temp_df
+
+
 if __name__ == "__main__":
     # 期权-中金所-沪深300指数
     option_sina_cffex_hs300_list_df = option_sina_cffex_hs300_list()
@@ -379,16 +401,16 @@ if __name__ == "__main__":
     print(option_sina_sse_list_df)
 
     option_sina_sse_expire_day_df = option_sina_sse_expire_day(
-        trade_date="202002", symbol="50ETF", exchange="null"
+        trade_date="202009", symbol="50ETF", exchange="null"
     )
     print(option_sina_sse_expire_day_df)
 
     option_sina_sse_codes_df = option_sina_sse_codes(
-        trade_date="202002", underlying="510300"
+        trade_date="202009", underlying="510300"
     )
     print(option_sina_sse_codes_df)
 
-    option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10002273")
+    option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10002415")
     print(option_sina_sse_spot_price_df)
 
     option_sina_sse_underlying_spot_price_df = option_sina_sse_underlying_spot_price(
@@ -396,11 +418,14 @@ if __name__ == "__main__":
     )
     print(option_sina_sse_underlying_spot_price_df)
 
-    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10002273")
+    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10002415")
     print(option_sina_sse_greeks_df)
 
-    option_sina_sse_minute_df = option_sina_sse_minute(code="10002273")
+    option_sina_sse_minute_df = option_sina_sse_minute(code="10002415")
     print(option_sina_sse_minute_df)
 
-    option_sina_sse_daily_df = option_sina_sse_daily(code="10002273")
+    option_sina_sse_daily_df = option_sina_sse_daily(code="10002415")
     print(option_sina_sse_daily_df)
+
+    option_sina_finance_minute_df = option_sina_finance_minute(code="10002415")
+    print(option_sina_finance_minute_df)

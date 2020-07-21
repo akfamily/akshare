@@ -1,11 +1,13 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/10/30 21:34
+Date: 2020/7/17 21:34
 Desc: 新浪财经-国内期货-实时数据获取
+http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意抓取速度, 容易封 IP 地址
 """
 import time
+import json
 
 import demjson
 import pandas as pd
@@ -176,7 +178,32 @@ def futures_zh_spot(
                         ]]
 
 
+def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.DataFrame:
+    """
+    中国各品种期货分钟频率数据
+    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
+    :param symbol: 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取
+    :type symbol: str
+    :param period: choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}
+    :type period: str
+    :return: 指定 symbol 和 period 的数据
+    :rtype: pandas.DataFrame
+    """
+    url = 'https://stock2.finance.sina.com.cn/futures/api/jsonp.php/=/InnerFuturesNewService.getFewMinLine'
+    params = {
+        "symbol": symbol,
+        "type": period,
+    }
+    r = requests.get(url, params=params)
+    temp_df = pd.DataFrame(json.loads(r.text.split('=(')[1].split(");")[0]))
+    temp_df = temp_df.iloc[:, :-1]
+    temp_df.columns = ["date", "open", "high", "low", "close", "volume"]
+    return temp_df
+
+
 if __name__ == "__main__":
+    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="TF2009", period="1")
+    print(futures_zh_minute_sina_df)
     print("开始接收实时行情, 每秒刷新一次")
     dce_text = match_main_contract(exchange="dce")
     czce_text = match_main_contract(exchange="czce")

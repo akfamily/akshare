@@ -5,6 +5,7 @@ Date: 2019/10/30 11:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 """
 import re
+import json
 
 import demjson
 import execjs
@@ -202,6 +203,28 @@ def stock_zh_a_daily(symbol: str = "sz000613", adjust: str = "") -> pd.DataFrame
         return qfq_factor_df
 
 
+def stock_zh_a_minute(symbol: str = 'sh000300', period: str = '1') -> pd.DataFrame:
+    """
+    股票及股票指数历史行情数据-分钟数据
+    http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
+    :param symbol: sh000300
+    :type symbol: str
+    :param period: 1, 5, 15, 30, 60 分钟的数据
+    :type period: str
+    :return: specific data
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/cn/api/jsonp_v2.php/=/CN_MarketDataService.getKLineData"
+    params = {
+        "symbol": symbol,
+        "scale": period,
+        "datalen": "1023",
+    }
+    res = requests.get(url, params=params)
+    temp_df = pd.DataFrame(json.loads(res.text.split('=(')[1].split(");")[0]))
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sh600582", adjust="qfq-factor")
     print(stock_zh_a_daily_hfq_df)
@@ -209,3 +232,5 @@ if __name__ == "__main__":
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sh000300', period='1')
+    print(stock_zh_a_minute_df)

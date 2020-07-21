@@ -1,3 +1,10 @@
+# -*- coding:utf-8 -*-
+# /usr/bin/env python
+"""
+Date: 2019/10/17 1:19
+Desc: 指数配置文件
+"""
+
 from calendar import monthrange
 from datetime import date, timedelta
 from functools import partial

@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/30 11:28
-contact: jindaxiang@163.com
-desc: 新浪财经-所有指数-实时行情数据和历史行情数据
+Date: 2019/10/30 11:28
+Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 优化: 在指数行情的获取上采用多线程模式(新浪会封IP, 不再优化)
 """
 import re

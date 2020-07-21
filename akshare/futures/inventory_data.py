@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 得到99期货网的原始数据
+Date: 2019/9/30 13:58
+Desc: 得到99期货网的原始数据
 """
 import requests
 import pickle

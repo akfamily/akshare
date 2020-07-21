@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/9/30 13:58
-contact: jindaxiang@163.com
-desc: 获取金融期权数据
+Date: 2019/9/30 13:58
+Desc: 获取金融期权数据
 http://www.sse.com.cn/assortment/options/price/
 """
 import pandas as pd

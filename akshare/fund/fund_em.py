@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-date: 2020/4/5 22:48
-desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
+Date: 2020/4/5 22:48
+Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 # TODO 完善其他类型基金净值数据
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
