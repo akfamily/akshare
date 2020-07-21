@@ -9,9 +9,9 @@
 
 ### 代码及接口设计规范
 
-1. 代码需要符合 PEP 8 要求，请使用 [Black](https://github.com/psf/black) 格式化代码
-2. 函数接口的设计 stock_zh_a_hist_sina 结构，其中 **stock** 为金融产品，**zh** 为国家或地区，**a** 为市场或品种，**hist** 为 history 的缩写表示历史数据，**sina** 表示数据源为新浪。
-3. 接口函数需要增加注释，注释规则请统一为 ![pic_1]()
+1. 代码需要符合 **PEP 8** 要求，请使用 [Black](https://github.com/psf/black) 格式化代码
+2. 函数接口的设计 **stock_zh_a_hist_sina** 结构，其中 **stock** 为金融产品，**zh** 为国家或地区，**a** 为市场或品种，**hist** 为 history 的缩写表示历史数据，**sina** 表示数据源为新浪
+3. 接口函数需要增加注释，注释规则请参考 **stock_zh_a_hist_sina** 接口的源码
 4. 需要在接口函数的注释中增加目标网站的地址（不是具体的数接口地址，而是网页的地址）
 5. 返回数据格式要求：
    1. Pandas 中的 pandas.DataFrame 格式
