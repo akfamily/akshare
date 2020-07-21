@@ -40,6 +40,10 @@ pip install akshare --upgrade
 pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
 ```
 
+### PR
+
+Please check [documentation](https://www.akshare.xyz/zh_CN/latest/contributor.html) if you want to contribute to AkShare
+
 ### Docker
 
 #### Pull images
