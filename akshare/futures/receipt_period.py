@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/25 12:10
-contact: jindaxiang@163.com
-desc: 获取交易法门-工具-仓单工具-仓单有效期
+Date: 2019/10/25 12:10
+Desc: 获取交易法门-工具-仓单工具-仓单有效期
 """
 import requests
 import pandas as pd

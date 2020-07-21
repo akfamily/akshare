@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/19 12:19
-contact: jindaxiang@163.com
-desc: 商品现货价格指数
+Date: 2019/12/19 12:19
+Desc: 商品现货价格指数
 http://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
 """
 import json

@@ -203,20 +203,26 @@ def stock_zh_a_daily(symbol: str = "sz000613", adjust: str = "") -> pd.DataFrame
         return qfq_factor_df
 
 
-# url=f'https://quotes.sina.cn/cn/api/jsonp_v2.php/=/CN_MarketDataService.getKLineData?symbol={ksymbol}&scale={ktype}&ma=no&datalen=1023'
-def stk_hist_sina_kline(ksymbol: str = 'sh000300', ktype: str = '5') -> pd.DataFrame:
+def stock_zh_a_minute(symbol: str = 'sh000300', period: str = '1') -> pd.DataFrame:
     """
-    股票及股票指数历史行情数据
+    股票及股票指数历史行情数据-分钟数据
+    http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
     :param symbol: sh000300
     :type symbol: str
-    :param ktype: 默认为5: 返回5min的数据; 15: 返回15min的数据; 30: 返回30min的数据; 60: 返回60min的数据; hfq-factor: 返回前复权因子
-    :type ktype: str
+    :param period: 1, 5, 15, 30, 60 分钟的数据
+    :type period: str
     :return: specific data
     :rtype: pandas.DataFrame
     """
-    url = f'https://quotes.sina.cn/cn/api/jsonp_v2.php/=/CN_MarketDataService.getKLineData?symbol={ksymbol}&scale={ktype}&datalen=1023'
-    res = requests.get(url)
-    return pd.DataFrame(json.loads(res.text.split('=(')[1].split(");")[0]))
+    url = "https://quotes.sina.cn/cn/api/jsonp_v2.php/=/CN_MarketDataService.getKLineData"
+    params = {
+        "symbol": symbol,
+        "scale": period,
+        "datalen": "1023",
+    }
+    res = requests.get(url, params=params)
+    temp_df = pd.DataFrame(json.loads(res.text.split('=(')[1].split(");")[0]))
+    return temp_df
 
 
 if __name__ == "__main__":
@@ -226,7 +232,5 @@ if __name__ == "__main__":
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
-    stk_hist_sina_kline_df = stk_hist_sina_kline('sh000300', '5')
-    print(stk_hist_sina_kline_df)
-    stk_hist_sina_kline_df = stk_hist_sina_kline('sz300059', '5')
-    print(stk_hist_sina_kline_df)
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sh000300', period='1')
+    print(stock_zh_a_minute_df)

@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/10 22:22
-contact: jindaxiang@163.com
-desc: fortune 配置文件
+Date: 2019/12/10 22:22
+Desc: fortune 配置文件
 """
 # it-juzi
 it_headers = {

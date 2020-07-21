@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/10/27 19:49
-contact: jindaxiang@163.com
-desc: 期货衍生指标配置文件
+Date: 2019/10/27 19:49
+Desc: 期货衍生指标配置文件
 交易法门-数据
 西本新干线-指数数据
 """

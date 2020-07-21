@@ -8,15 +8,13 @@ https://www.zq12369.com/environment.php
 https://www.aqistudy.cn/
 """
 import json
-import re
 import os
+import re
 
 import demjson
 import execjs
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
-from datetime import datetime
 
 
 def _get_js_path(name, module_file):

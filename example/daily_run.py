@@ -1,10 +1,16 @@
 # -*- coding:utf-8 -*-
+# /usr/bin/env python
+"""
+Date: 2020/5/4 9:07
+Desc: test
+"""
+
+import datetime
+import json
+import warnings
+from time import sleep
 
 import akshare
-import json
-import datetime
-from time import sleep
-import warnings
 
 calendar = akshare.cons.get_calendar()
 

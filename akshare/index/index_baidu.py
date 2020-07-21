@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/2 23:53
-contact: jindaxiang@163.com
-desc: 百度指数
+Date: 2019/12/2 23:53
+Desc: 百度指数
 感谢 https://cloudcrawler.club/categories/2019%E5%B9%B4%E6%9C%AB%E9%80%86%E5%90%91%E5%A4%8D%E4%B9%A0/
 """
 import matplotlib.pyplot as plt

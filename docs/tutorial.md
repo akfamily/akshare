@@ -81,6 +81,7 @@
  "futures_hq_spot"  # 获取新浪-外盘期货实时行情数据
  "futures_foreign_hist"  # 获取新浪-外盘期货历史行情数据
  "futures_foreign_detail"  # 获取新浪-外盘期货合约详情
+ "futures_zh_minute_sina"  # 获取新浪-内盘分时数据
  # 交易所金融期权数据
  "get_finance_option"  # 提供上海证券交易所期权数据
  # 数字货币行情
@@ -104,6 +105,7 @@
  # A股实时行情数据和历史行情数据
  "stock_zh_a_spot"  # 获取 A 股实时行情数据
  "stock_zh_a_daily"  # 获取 A 股历史行情数据(日频)
+ "stock_zh_a_minute"  # 获取 A 股分时历史行情数据(分钟)
  # 科创板实时行情数据和历史行情数据
  "stock_zh_kcb_spot"  # 获取科创板实时行情数据
  "stock_zh_kcb_daily"  # 获取科创板历史行情数据(日频)
@@ -401,7 +403,7 @@
  "charity_china_progress"  # 慈善中国-慈善项目进展
  "charity_china_report"  # 慈善中国-慈善组织年报
  "charity_china_platform"  # 慈善中国-募捐信息平台
- # 期权-新浪
+ # 金融期权-新浪
  "option_sina_cffex_hs300_list"  # 沪深300期权列表
  "option_sina_cffex_hs300_spot"  # 沪深300期权实时行情
  "option_sina_cffex_hs300_daily"  # 沪深300期权历史行情-日频
@@ -413,6 +415,11 @@
  "option_sina_sse_greeks"  # 上交所期权希腊字母
  "option_sina_sse_minute"  # 上交所期权分钟数据
  "option_sina_sse_daily"  # 上交所期权日频数据
+ "option_sina_finance_minute"  # 股票期权分时数据
+ # 商品期权-新浪
+ "option_sina_option_commodity_dict"  # 商品期权合约字典查询
+ "option_sina_option_commodity_contract_list"  # 商品期权合约查询
+ "option_sina_option_commodity_hist"  # 商品期权行情历史数据
  # 微博舆情报告
  "stock_js_weibo_report"  # 微博舆情报告
  # 自然语言处理
@@ -525,6 +532,13 @@
  "stock_a_lg_indicator"  # A 股个股市盈率、市净率和股息率指标
  "stock_a_high_low_statistics"  # 创新高和新低的股票数量
  "stock_a_below_net_asset_statistics"  # 破净股统计
+ # 交易日历
+ "tool_trade_date_hist"  # 新浪财经-交易日历
+ # 基金行情
+ "fund_etf_category_sina"  # 基金列表
+ "fund_etf_hist_sina"  # 基金行情
+ # 股票财务报告-预约披露
+ "stock_report_disclosure"  # 股票财务报告-预约披露时间
 ```
 
 ## 案例演示

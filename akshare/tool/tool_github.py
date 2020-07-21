@@ -1,10 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2020/3/10 16:59
-contact: jindaxiang@163.com
-desc: This is a tool for downloading github user email address.
+Date: 2020/3/10 16:59
+Desc: This is a tool for downloading github user email address.
 query url: https://api.github.com/graphql
 reference url: https://thedatapack.com/tools/find-github-user-email/
 """
