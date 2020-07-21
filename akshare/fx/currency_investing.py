@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 from akshare.index.cons import short_headers, long_headers
 
 
-def _currency_name_url():
+def _currency_name_url() -> dict:
     """
     货币键值对
     :return: 货币键值对
@@ -30,7 +30,7 @@ def _currency_name_url():
     return name_code_dict
 
 
-def currency_hist(symbol="usd/jpy", start_date="20050101", end_date="20200717"):
+def currency_hist(symbol: str = "usd/jpy", start_date: str = "20050101", end_date: str = "20200717") -> pd.DataFrame:
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
     :param symbol: 货币对
@@ -76,7 +76,7 @@ def currency_hist(symbol="usd/jpy", start_date="20050101", end_date="20200717"):
     return df_data
 
 
-def _currency_single():
+def _currency_single() -> pd.DataFrame:
     """
     英为财情-外汇-单种货币兑换汇率-单种货币列表
     :return: 单种货币列表
@@ -94,7 +94,7 @@ def _currency_single():
     return temp_df
 
 
-def currency_name_code(symbol="usd/jpy"):
+def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     """
     当前货币对的所有可兑换货币对
     :param symbol: "usd/jpy"
