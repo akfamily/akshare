@@ -21,6 +21,7 @@ Welcome to AkShare's Online Documentation!
 
    introduction
    installation
+   contributor
    answer
    tutorial
    data/index
