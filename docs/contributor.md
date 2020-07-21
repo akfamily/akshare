@@ -39,7 +39,7 @@
 
    2. 示例如下：
 
-    ```markdown
+    ```
       ##### 分时数据
       
       接口: stock_zh_a_minute
