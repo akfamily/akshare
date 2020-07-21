@@ -1003,9 +1003,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.75: add: add futures_zh_minute_sina interface
 0.5.76: add: add option_sina_finance_minute interface
 0.5.77: fix: fix currency_hist interface return data format
+0.5.78: add: add hold field in futures_zh_minute_sina interface
 """
 
-__version__ = "0.5.77"
+__version__ = "0.5.78"
 __author__ = "Albert King"
 
 """
