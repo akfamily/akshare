@@ -194,6 +194,7 @@ market_exchange_symbols = {
         "NR",
         "SP",
         "SS",
+        "PG",
     ],
 }
 

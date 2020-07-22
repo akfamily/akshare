@@ -1429,4 +1429,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.78: add: add hold field in futures_zh_minute_sina interface
 
 0.5.79: add: add stock_report_fund_hold interface
+
+0.5.80: fix: fix PG to futures cons file
 ```

@@ -21,7 +21,7 @@ def symbol_varieties(contract_code: str):
     return symbol_detail
 
 
-def symbol_market(symbol_detail: str):
+def symbol_market(symbol_detail: str = "PG"):
     """
     映射出市场代码
     :param symbol_detail:
