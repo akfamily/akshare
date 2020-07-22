@@ -24,10 +24,10 @@ def stock_info_sz_name_code(indicator="A股列表"):
     if indicator in {"A股列表", "B股列表", "AB股列表"}:
         indicator_map = {"A股列表": "tab1", "B股列表": "tab2", "AB股列表": "tab3"}
         params = {
-             "SHOWTYPE": "xlsx",
-             "CATALOGID": "1110",
-             "TABKEY": indicator_map[indicator],
-             "random": "0.6935816432433362",
+            "SHOWTYPE": "xlsx",
+            "CATALOGID": "1110",
+            "TABKEY": indicator_map[indicator],
+            "random": "0.6935816432433362",
         }
     else:
         indicator_map = {"上市公司列表": "tab1", "主板": "tab2", "中小企业板": "tab3", "创业板": "tab4"}
@@ -76,7 +76,7 @@ def stock_info_sh_name_code(indicator="主板A股"):
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"):-1])
+    json_data = json.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["result"])
     return temp_df
 
@@ -114,7 +114,7 @@ def stock_info_sh_delist(indicator="暂停上市公司"):
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"):-1])
+    json_data = json.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["result"])
     return temp_df
 
@@ -207,7 +207,7 @@ def stock_info_a_code_name():
     return big_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     for item in {"A股列表", "B股列表", "AB股列表", "上市公司列表", "主板", "中小企业板", "创业板"}:
         stock_info_sz_df = stock_info_sz_name_code(indicator=item)
         print(stock_info_sz_df)

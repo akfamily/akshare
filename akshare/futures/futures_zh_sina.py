@@ -13,15 +13,16 @@ import demjson
 import pandas as pd
 import requests
 
-from akshare.futures.cons import (zh_subscribe_exchange_symbol_url,
-                                  zh_match_main_contract_url,
-                                  zh_match_main_contract_payload)
+from akshare.futures.cons import (
+    zh_subscribe_exchange_symbol_url,
+    zh_match_main_contract_url,
+    zh_match_main_contract_payload,
+)
 
 
 def zh_subscribe_exchange_symbol(exchange="dce"):
     res = requests.get(zh_subscribe_exchange_symbol_url)
-    data_json = demjson.decode(
-        res.text[res.text.find("{"): res.text.find("};") + 1])
+    data_json = demjson.decode(res.text[res.text.find("{") : res.text.find("};") + 1])
     if exchange == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
@@ -38,13 +39,12 @@ def zh_subscribe_exchange_symbol(exchange="dce"):
 
 def match_main_contract(exchange="dce"):
     subscribe_cffex_list = []
-    exchange_symbol_list = zh_subscribe_exchange_symbol(
-        exchange).iloc[:, 1].tolist()
+    exchange_symbol_list = zh_subscribe_exchange_symbol(exchange).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
         zh_match_main_contract_payload.update({"node": item})
         res = requests.get(
-            zh_match_main_contract_url,
-            params=zh_match_main_contract_payload)
+            zh_match_main_contract_url, params=zh_match_main_contract_payload
+        )
         data_json = demjson.decode(res.text)
         data_df = pd.DataFrame(data_json)
         try:
@@ -55,16 +55,21 @@ def match_main_contract(exchange="dce"):
             print(item, "无主力合约")
             continue
     print("主力合约获取成功")
-    return ','.join(["nf_" + item for item in subscribe_cffex_list])
+    return ",".join(["nf_" + item for item in subscribe_cffex_list])
 
 
 def futures_zh_spot(
-        subscribe_list="nf_IF1912,nf_TF1912,nf_IH1912,nf_IC1912",
-        market="CF"):
+    subscribe_list="nf_IF1912,nf_TF1912,nf_IH1912,nf_IC1912", market="CF"
+):
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
     res = requests.get(url)
-    data_df = pd.DataFrame([item.strip().split("=")[1].split(
-        ",") for item in res.text.split(";") if item.strip() != ""])
+    data_df = pd.DataFrame(
+        [
+            item.strip().split("=")[1].split(",")
+            for item in res.text.split(";")
+            if item.strip() != ""
+        ]
+    )
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")
     data_df.iloc[:, -1] = data_df.iloc[:, -1].str.replace('"', "")
     if market == "CF":
@@ -96,23 +101,27 @@ def futures_zh_spot(
             "_",
             "_",
             "_",
-            "_"]
-        return data_df[["symbol",
-                        "time",
-                        "open",
-                        "high",
-                        "low",
-                        "current_price",
-                        "bid_price",
-                        "ask_price",
-                        "buy_vol",
-                        "sell_vol",
-                        "hold",
-                        "volume",
-                        "avg_price",
-                        "last_close",
-                        "last_settle_price",
-                        ]]
+            "_",
+        ]
+        return data_df[
+            [
+                "symbol",
+                "time",
+                "open",
+                "high",
+                "low",
+                "current_price",
+                "bid_price",
+                "ask_price",
+                "buy_vol",
+                "sell_vol",
+                "hold",
+                "volume",
+                "avg_price",
+                "last_close",
+                "last_settle_price",
+            ]
+        ]
     else:
         data_df.columns = [
             "open",
@@ -151,8 +160,7 @@ def futures_zh_spot(
             "_",
             "_",
             "_",
-            "_"
-            "_",
+            "_" "_",
             "time",
             "_",
             "_",
@@ -165,17 +173,21 @@ def futures_zh_spot(
             "_",
             "_",
             "_",
-            "symbol"]
-        return data_df[["symbol",
-                        "time",
-                        "open",
-                        "high",
-                        "low",
-                        "current_price",
-                        "hold",
-                        "volume",
-                        "amount"
-                        ]]
+            "symbol",
+        ]
+        return data_df[
+            [
+                "symbol",
+                "time",
+                "open",
+                "high",
+                "low",
+                "current_price",
+                "hold",
+                "volume",
+                "amount",
+            ]
+        ]
 
 
 def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.DataFrame:
@@ -189,13 +201,13 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
     :return: 指定 symbol 和 period 的数据
     :rtype: pandas.DataFrame
     """
-    url = 'https://stock2.finance.sina.com.cn/futures/api/jsonp.php/=/InnerFuturesNewService.getFewMinLine'
+    url = "https://stock2.finance.sina.com.cn/futures/api/jsonp.php/=/InnerFuturesNewService.getFewMinLine"
     params = {
         "symbol": symbol,
         "type": period,
     }
     r = requests.get(url, params=params)
-    temp_df = pd.DataFrame(json.loads(r.text.split('=(')[1].split(");")[0]))
+    temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
     temp_df.columns = ["date", "open", "high", "low", "close", "volume", "hold"]
     return temp_df
 
@@ -210,8 +222,8 @@ if __name__ == "__main__":
     while True:
         time.sleep(3)
         data = futures_zh_spot(
-            subscribe_list=",".join([dce_text, czce_text, shfe_text]),
-            market="CF")
+            subscribe_list=",".join([dce_text, czce_text, shfe_text]), market="CF"
+        )
         print(data)
 
     # 金融期货单独订阅

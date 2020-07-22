@@ -79,17 +79,13 @@ def tool_github_star_list(owner="jindaxiang", name="akshare"):
     }
 
     variables = {"owner": owner, "name": name}
-    payload = {
-        "operationName": "GetStars",
-        "variables": variables,
-        "query": query1
-    }
+    payload = {"operationName": "GetStars", "variables": variables, "query": query1}
     r = requests.post(url, json=payload, headers=headers)
     data_json = r.json()
     big_list = []
-    name_list = jsonpath.jsonpath(data_json, '$..login')
-    next_flag = jsonpath.jsonpath(data_json, '$..endCursor')
-    has_next = jsonpath.jsonpath(data_json, '$..hasNextPage')[0]
+    name_list = jsonpath.jsonpath(data_json, "$..login")
+    next_flag = jsonpath.jsonpath(data_json, "$..endCursor")
+    has_next = jsonpath.jsonpath(data_json, "$..hasNextPage")[0]
     big_list.extend(name_list)
     while has_next:
         print(next_flag[0])
@@ -97,22 +93,20 @@ def tool_github_star_list(owner="jindaxiang", name="akshare"):
         payload.update({"query": query2})
         r = requests.post(url, json=payload, headers=headers)
         data_json = r.json()
-        name_list = jsonpath.jsonpath(data_json, '$..login')
-        next_flag = jsonpath.jsonpath(data_json, '$..endCursor')
-        has_next = jsonpath.jsonpath(data_json, '$..hasNextPage')[0]
+        name_list = jsonpath.jsonpath(data_json, "$..login")
+        next_flag = jsonpath.jsonpath(data_json, "$..endCursor")
+        has_next = jsonpath.jsonpath(data_json, "$..hasNextPage")[0]
         big_list.extend(name_list)
     return big_list
 
 
 def tool_github_email_address(username="lateautumn4lin"):
-    params = {
-        "per_page": "100"
-    }
+    params = {"per_page": "100"}
     r = requests.get(f"https://api.github.com/users/{username}/events", params=params)
     if r.status_code in (403, 443):
         return None
-    if jsonpath.jsonpath(r.json(), '$..email'):
-        res = jsonpath.jsonpath(r.json(), '$..email')
+    if jsonpath.jsonpath(r.json(), "$..email"):
+        res = jsonpath.jsonpath(r.json(), "$..email")
         word_counts = Counter(res)
         top_three = word_counts.most_common(1)
         if len(top_three) > 0:
@@ -121,7 +115,7 @@ def tool_github_email_address(username="lateautumn4lin"):
     return None
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     temp_list = tool_github_star_list(owner="PiotrDabkowski", name="Js2Py")
     print(temp_list)
     tool_github_email_address_df = tool_github_email_address(username="lateautumn4lin")

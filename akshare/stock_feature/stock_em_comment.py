@@ -26,11 +26,11 @@ def stock_em_comment():
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"):])
+    data_json = demjson.decode(data_text[data_text.find("{") :])
     data_df = pd.DataFrame(data_json["data"])
     return data_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_em_comment_df = stock_em_comment()
     print(stock_em_comment_df)

@@ -26,6 +26,6 @@ def hf_sp_500(year="2017"):
     return temp_df.iloc[:, :-1]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     hf_sp_500_df = hf_sp_500(year="2017")
     print(hf_sp_500_df)

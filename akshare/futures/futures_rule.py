@@ -29,6 +29,6 @@ def futures_rule(trade_date: str = "20200712") -> pd.DataFrame:
     return table_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     futures_rule_df = futures_rule(trade_date="20200713")
     print(futures_rule_df)

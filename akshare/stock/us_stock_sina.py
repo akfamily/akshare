@@ -29,14 +29,16 @@ def get_us_page_count() -> int:
     :rtype: int
     """
     page = "1"
-    us_js_decode = f"US_CategoryService.getList?page={page}&num=20&sort=&asc=0&market=&id="
+    us_js_decode = (
+        f"US_CategoryService.getList?page={page}&num=20&sort=&asc=0&market=&id="
+    )
     js_code = execjs.compile(js_hash_text)
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
     us_sina_stock_dict_payload.update({"page": "{}".format(page)})
     res = requests.get(
         us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
     )
-    data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+    data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
     if not isinstance(int(data_json["count"]) / 20, int):
         page_count = int(int(data_json["count"]) / 20) + 1
     else:
@@ -64,7 +66,7 @@ def get_us_stock_name() -> pd.DataFrame:
         res = requests.get(
             us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
         )
-        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+        data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
         big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     return big_df[["name", "cname", "symbol"]]
 
@@ -88,7 +90,7 @@ def stock_us_spot() -> pd.DataFrame:
         res = requests.get(
             us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
         )
-        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+        data_json = json.loads(res.text[res.text.find("({") + 1 : res.text.rfind(");")])
         big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     return big_df
 
@@ -115,7 +117,9 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     data_df = data_df.astype("float")
     res = requests.get(us_sina_stock_hist_qfq_url.format(symbol))
     qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])["data"])
-    qfq_factor_df.rename(columns={"c": "adjust", "d": "date", "f": "qfq_factor", }, inplace=True)
+    qfq_factor_df.rename(
+        columns={"c": "adjust", "d": "date", "f": "qfq_factor",}, inplace=True
+    )
     qfq_factor_df.index = pd.to_datetime(qfq_factor_df["date"])
     del qfq_factor_df["date"]
 
@@ -123,8 +127,8 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     temp_date_range = pd.date_range("1900-01-01", qfq_factor_df.index[0].isoformat())
     temp_df = pd.DataFrame(range(len(temp_date_range)), temp_date_range)
     new_range = pd.merge(
-            temp_df, qfq_factor_df, left_index=True, right_index=True, how="left"
-        )
+        temp_df, qfq_factor_df, left_index=True, right_index=True, how="left"
+    )
     new_range = new_range.fillna(method="ffill")
     new_range = new_range.iloc[:, [1, 2]]
 

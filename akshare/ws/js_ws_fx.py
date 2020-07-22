@@ -34,7 +34,7 @@ def _get_sid() -> str:
     url = "https://sshhbhekjf.jin10.com:9081/socket.io/?EIO=3&transport=polling"
     r = requests.get(url)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{"):])
+    data_json = json.loads(data_text[data_text.find("{") :])
     return data_json["sid"]
 
 
@@ -42,6 +42,7 @@ class HeartbeatThread(Thread):
     """
     心跳
     """
+
     def __init__(self, event, ws):
         super(HeartbeatThread, self).__init__()
         self.event = event

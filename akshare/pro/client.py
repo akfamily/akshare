@@ -50,7 +50,9 @@ class DataApi:
             try:
                 return pd.DataFrame(data_json)
             except ValueError as e:
-                result_df = pd.DataFrame.from_dict(data_json, orient="index", columns=[api_name])
+                result_df = pd.DataFrame.from_dict(
+                    data_json, orient="index", columns=[api_name]
+                )
                 return result_df
         else:  # 此处增加处理
             if api_name == "variety_all_positions":
@@ -68,5 +70,5 @@ class DataApi:
         return partial(self.query, name)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass

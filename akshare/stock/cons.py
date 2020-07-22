@@ -13,7 +13,7 @@ zh_sina_kcb_stock_payload = {
     "asc": "1",
     "node": "kcb",
     "symbol": "",
-    "_s_r_a": "auto"
+    "_s_r_a": "auto",
 }
 zh_sina_kcb_stock_count_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=kcb"
 zh_sina_kcb_stock_hist_url = "https://quotes.sina.cn/cn/api/jsonp.php/var%20_{}{}=/KC_MarketDataService.getKLineData?symbol={}"
@@ -30,17 +30,23 @@ zh_sina_a_stock_payload = {
     "asc": "1",
     "node": "hs_a",
     "symbol": "",
-    "_s_r_a": "init"
+    "_s_r_a": "init",
 }
 zh_sina_a_stock_count_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a"
-zh_sina_a_stock_hist_url = "https://finance.sina.com.cn/realstock/company/{}/hisdata/klc_kl.js"
+zh_sina_a_stock_hist_url = (
+    "https://finance.sina.com.cn/realstock/company/{}/hisdata/klc_kl.js"
+)
 zh_sina_a_stock_amount_url = "https://stock.finance.sina.com.cn/stock/api/jsonp.php/var%20KKE_ShareAmount_{}=/StockService.getAmountBySymbol?_=20&symbol={}"
 zh_sina_a_stock_hfq_url = "https://finance.sina.com.cn/realstock/company/{}/hfq.js"
 zh_sina_a_stock_qfq_url = "https://finance.sina.com.cn/realstock/company/{}/qfq.js"
 
 # us-sina
-us_sina_stock_hist_qfq_url = "https://finance.sina.com.cn/us_stock/company/reinstatement/{}_qfq.js"
-us_sina_stock_hist_url = "https://finance.sina.com.cn/us_stock/company/hisdata/klc_kl_{}.js"
+us_sina_stock_hist_qfq_url = (
+    "https://finance.sina.com.cn/us_stock/company/reinstatement/{}_qfq.js"
+)
+us_sina_stock_hist_url = (
+    "https://finance.sina.com.cn/us_stock/company/hisdata/klc_kl_{}.js"
+)
 us_sina_stock_list_url = "http://stock.finance.sina.com.cn/usstock/api/jsonp.php/IO.XSRV2.CallbackList[{}]/US_CategoryService.getList"
 us_sina_stock_dict_payload = {
     "page": "2",
@@ -48,7 +54,7 @@ us_sina_stock_dict_payload = {
     "sort": "",
     "asc": "0",
     "market": "",
-    "id": ""
+    "id": "",
 }
 js_hash_text = """
     function d(s){
@@ -119,14 +125,14 @@ hk_sina_stock_dict_payload = {
     "sort": "symbol",
     "asc": "1",
     "node": "qbgg_hk",
-    "_s_r_a": "page"
+    "_s_r_a": "page",
 }
 
 # hk-tx
 hk_url = "http://stock.gtimg.cn/data/hk_rank.php"
 hk_headers = {
     "Referer": "http://stockapp.finance.qq.com/mstats/",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
 }
 hk_payload = {
     "board": "A_H",
@@ -134,18 +140,18 @@ hk_payload = {
     "pageSize": "20",
     "reqPage": "1",
     "order": "decs",
-    "var_name": "list_data"
+    "var_name": "list_data",
 }
 
 hk_stock_url = "http://web.ifzq.gtimg.cn/appstock/app/hkfqkline/get"
 hk_stock_headers = {
     "Referer": "http://gu.qq.com/hk00168/gp",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
 }
 hk_stock_payload = {
     "_var": "kline_dayhfq{}",
     "param": "hk{},day,{}-01-01,{}-12-31,640,hfq",
-    "r": ""
+    "r": "",
 }
 
 # usa
@@ -154,7 +160,7 @@ payload_usa_daily = {
     "code": "NASDAQNTES",
     "start": "20191026213000",
     "number": "-1000",
-    "type": "5"
+    "type": "5",
 }
 
 # usa
@@ -166,8 +172,8 @@ payload_usa = {
     "sorttype": "4",
     "updown": "up",
     "page": "1",
-    'count': "200",
-    "time": "203450"
+    "count": "200",
+    "time": "203450",
 }
 
 headers_usa = {
@@ -179,7 +185,7 @@ headers_usa = {
     "Host": "quote.hexun.com",
     "Pragma": "no-cache",
     "Referer": "http://quote.hexun.com/usastock/xqstock.aspx?market=3",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
 }
 
 # china
@@ -195,7 +201,7 @@ hx_headers = {
     "Host": "stockdata.stock.hexun.com",
     "Pragma": "no-cache",
     "Referer": "http://stockdata.stock.hexun.com/zrbg/",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
 }
 
 hx_params = {

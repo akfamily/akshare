@@ -407,7 +407,9 @@ def index_investing_global(
 
 
 if __name__ == "__main__":
-    index_investing_global_country_name_url_dict = index_investing_global_country_name_url("美国")
+    index_investing_global_country_name_url_dict = index_investing_global_country_name_url(
+        "美国"
+    )
     index_investing_global_df = index_investing_global(
         country="中国",
         index_name="上证指数",

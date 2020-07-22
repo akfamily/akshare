@@ -8,6 +8,7 @@ import execjs
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
 # execjs.get().name  # 检测程序是否采用 Node.js 引擎
 from akshare.bank.cons import cbirc_headers_without_cookie_2019
 

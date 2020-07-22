@@ -18,10 +18,13 @@ class IPError(Exception):
     """
     Define IPError
     """
+
     pass
 
 
-def _get_page_num(market: str = "上海银行同业拆借市场", symbol: str = "Shibor人民币", indicator: str = "隔夜") -> int:
+def _get_page_num(
+    market: str = "上海银行同业拆借市场", symbol: str = "Shibor人民币", indicator: str = "隔夜"
+) -> int:
     """
     具体市场具体品种具体指标的页面数量
     http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
@@ -48,7 +51,12 @@ def _get_page_num(market: str = "上海银行同业拆借市场", symbol: str = 
     return int(page_num)
 
 
-def rate_interbank(market: str = "上海银行同业拆借市场", symbol: str = "Shibor人民币", indicator: str = "隔夜", need_page="") -> pd.DataFrame:
+def rate_interbank(
+    market: str = "上海银行同业拆借市场",
+    symbol: str = "Shibor人民币",
+    indicator: str = "隔夜",
+    need_page="",
+) -> pd.DataFrame:
     """
     具体市场具体品种具体指标的拆借利率数据
     具体 market 和 symbol 参见: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
@@ -86,7 +94,11 @@ def rate_interbank(market: str = "上海银行同业拆借市场", symbol: str =
 
 
 if __name__ == "__main__":
-    rate_interbank_shanghai_df = rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="5")
+    rate_interbank_shanghai_df = rate_interbank(
+        market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="5"
+    )
     print(rate_interbank_shanghai_df)
-    rate_interbank_df = rate_interbank(market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="1月", need_page="2")
+    rate_interbank_df = rate_interbank(
+        market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="1月", need_page="2"
+    )
     print(rate_interbank_df)

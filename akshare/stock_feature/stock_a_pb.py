@@ -328,9 +328,7 @@ def stock_a_pb(market: str = "sh") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.legulegu.com/stockdata/market_pb/getmarket_pb"
-    params = {
-        "token": token  # token should be get from js decode
-    }
+    params = {"token": token}  # token should be get from js decode
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["cySharesPBList"])
@@ -349,25 +347,26 @@ def stock_a_pb(market: str = "sh") -> pd.DataFrame:
     temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
     zx_df = temp_df[["close", "pb"]]
 
-    if market in ["000300.XSHG",
-                  "000016.XSHG",
-                  "000010.XSHG",
-                  "000009.XSHG",
-                  "000902.XSHG",
-                  "000903.XSHG",
-                  "000905.XSHG",
-                  "000906.XSHG",
-                  "000852.XSHG"]:
+    if market in [
+        "000300.XSHG",
+        "000016.XSHG",
+        "000010.XSHG",
+        "000009.XSHG",
+        "000902.XSHG",
+        "000903.XSHG",
+        "000905.XSHG",
+        "000906.XSHG",
+        "000852.XSHG",
+    ]:
         url = "https://www.legulegu.com/stockdata/market-index-pb/get-data"
-        params = {
-            "token": token,
-            "marketId": market
-        }
+        params = {"token": token, "marketId": market}
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
-        index_df = temp_df[["equalWeightAveragePB", "middlePB", "weightingAveragePB", "close"]]
+        index_df = temp_df[
+            ["equalWeightAveragePB", "middlePB", "weightingAveragePB", "close"]
+        ]
         return index_df
 
     if market == "sh":
@@ -380,6 +379,6 @@ def stock_a_pb(market: str = "sh") -> pd.DataFrame:
         return zx_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_a_pb_df = stock_a_pb(market="000016.XSHG")
     print(stock_a_pb_df)

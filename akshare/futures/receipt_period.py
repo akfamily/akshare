@@ -76,7 +76,10 @@ def get_receipt_date():
     exchange_name_list = [item["exchangeName"] for item in receipt_dict]
     product_name_list = [item["productName"] for item in receipt_dict]
     expire_date_list = [item["expireDate"] for item in receipt_dict]
-    return pd.DataFrame([exchange_name_list, product_name_list, expire_date_list], index=["交易所", "品种", "到期日"]).T
+    return pd.DataFrame(
+        [exchange_name_list, product_name_list, expire_date_list],
+        index=["交易所", "品种", "到期日"],
+    ).T
 
 
 if __name__ == "__main__":

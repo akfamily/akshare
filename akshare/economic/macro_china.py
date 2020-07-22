@@ -50,7 +50,7 @@ def macro_china_gdp_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国GDP年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -476,10 +476,10 @@ def macro_china_shibor_all():
     :rtype: pandas.Series
     """
     t = time.time()
-    params = {
-        "_": t
-    }
-    res = requests.get("https://cdn.jin10.com/data_center/reports/il_1.json", params=params)
+    params = {"_": t}
+    res = requests.get(
+        "https://cdn.jin10.com/data_center/reports/il_1.json", params=params
+    )
     json_data = res.json()
     temp_df = pd.DataFrame(json_data["values"]).T
     big_df = pd.DataFrame()
@@ -521,10 +521,10 @@ def macro_china_hk_market_info():
     :rtype: pandas.Series
     """
     t = time.time()
-    params = {
-        "_": t
-    }
-    res = requests.get("https://cdn.jin10.com/data_center/reports/il_2.json", params=params)
+    params = {"_": t}
+    res = requests.get(
+        "https://cdn.jin10.com/data_center/reports/il_2.json", params=params
+    )
     json_data = res.json()
     temp_df = pd.DataFrame(json_data["values"]).T
     big_df = pd.DataFrame()
@@ -614,10 +614,10 @@ def macro_china_rmb():
     2020-04-22      7.0903       151.0  ...     4.5843       -86.0
     """
     t = time.time()
-    params = {
-        "_": t
-    }
-    res = requests.get("https://cdn.jin10.com/data_center/reports/exchange_rate.json", params=params)
+    params = {"_": t}
+    res = requests.get(
+        "https://cdn.jin10.com/data_center/reports/exchange_rate.json", params=params
+    )
     json_data = res.json()
     temp_df = pd.DataFrame(json_data["values"]).T
     big_df = pd.DataFrame()
@@ -709,10 +709,10 @@ def macro_china_market_margin_sz():
     2019-12-18  441272701443
     """
     t = time.time()
-    params = {
-        "_": t
-    }
-    res = requests.get("https://cdn.jin10.com/data_center/reports/fs_2.json", params=params)
+    params = {"_": t}
+    res = requests.get(
+        "https://cdn.jin10.com/data_center/reports/fs_2.json", params=params
+    )
     json_data = res.json()
     temp_df = pd.DataFrame(json_data["values"]).T
     temp_df.columns = ["融资买入额", "融资余额", "融券卖出量", "融券余量", "融券余额", "融资融券余额"]
@@ -800,16 +800,31 @@ def macro_china_au_report():
     :return: pandas.DataFrame
     """
     t = time.time()
-    params = {
-        "_": t
-    }
-    res = requests.get("https://cdn.jin10.com/data_center/reports/sge.json", params=params)
+    params = {"_": t}
+    res = requests.get(
+        "https://cdn.jin10.com/data_center/reports/sge.json", params=params
+    )
     json_data = res.json()
     big_df = pd.DataFrame()
     for item in json_data["values"].keys():
         temp_df = pd.DataFrame(json_data["values"][item])
         temp_df["date"] = item
-        temp_df.columns = ['商品', '开盘价', '最高价', '最低价', '收盘价', '涨跌', '涨跌幅', '加权平均价', '成交量', '成交金额', '持仓量', '交收方向', '交收量', "日期"]
+        temp_df.columns = [
+            "商品",
+            "开盘价",
+            "最高价",
+            "最低价",
+            "收盘价",
+            "涨跌",
+            "涨跌幅",
+            "加权平均价",
+            "成交量",
+            "成交金额",
+            "持仓量",
+            "交收方向",
+            "交收量",
+            "日期",
+        ]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.index = pd.to_datetime(big_df["日期"])
     del big_df["日期"]
@@ -932,7 +947,18 @@ def macro_china_money_supply():
         text_data = r.text
         temp_df = pd.read_html(text_data)[0].iloc[:-1, :-3]
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df.columns = ["月份", "M2-数量", "M2-同比增长", "M2-环比增长", "M1-数量", "M1-同比增长", "M1-环比增长", "M0-数量", "M0-同比增长", "M0-环比增长"]
+    big_df.columns = [
+        "月份",
+        "M2-数量",
+        "M2-同比增长",
+        "M2-环比增长",
+        "M1-数量",
+        "M1-同比增长",
+        "M1-环比增长",
+        "M0-数量",
+        "M0-同比增长",
+        "M0-环比增长",
+    ]
     return big_df
 
 
@@ -963,9 +989,18 @@ def macro_china_new_house_price():
         text_data = r.text
         temp_df = pd.read_html(text_data)[0].iloc[:-1, :-3]
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df.columns = ["日期", "城市", "新建住宅价格指数-环比", "新建住宅价格指数-同比", "新建住宅价格指数-定基",
-                      "新建商品住宅价格指数-环比", "新建商品住宅价格指数-同比", "新建商品住宅价格指数-定基",
-                      "二手住宅价格指数-环比", "二手住宅价格指数-同比"]
+    big_df.columns = [
+        "日期",
+        "城市",
+        "新建住宅价格指数-环比",
+        "新建住宅价格指数-同比",
+        "新建住宅价格指数-定基",
+        "新建商品住宅价格指数-环比",
+        "新建商品住宅价格指数-同比",
+        "新建商品住宅价格指数-定基",
+        "二手住宅价格指数-环比",
+        "二手住宅价格指数-同比",
+    ]
     return big_df
 
 
@@ -996,8 +1031,15 @@ def macro_china_enterprise_boom_index():
         text_data = r.text
         temp_df = pd.read_html(text_data)[0].iloc[:-1, :-6]
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df.columns = ["季度", "企业景气指数-指数", "企业景气指数-同比", "企业景气指数-环比", "企业家信心指数-指数",
-                      "企业家信心指数-同比", "企业家信心指数-环比"]
+    big_df.columns = [
+        "季度",
+        "企业景气指数-指数",
+        "企业景气指数-同比",
+        "企业景气指数-环比",
+        "企业家信心指数-指数",
+        "企业家信心指数-同比",
+        "企业家信心指数-环比",
+    ]
     return big_df
 
 

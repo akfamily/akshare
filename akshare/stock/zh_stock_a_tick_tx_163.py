@@ -26,7 +26,11 @@ def stock_zh_a_tick_tx_js(code: str = "sz000001"):
             }
             r = requests.get(url, params=params)
             text_data = r.text
-            temp_df = pd.DataFrame(eval(text_data[text_data.find("["):])[1].split("|")).iloc[:, 0].str.split("/", expand=True)
+            temp_df = (
+                pd.DataFrame(eval(text_data[text_data.find("[") :])[1].split("|"))
+                .iloc[:, 0]
+                .str.split("/", expand=True)
+            )
             page += 1
             big_df = big_df.append(temp_df)
         except:
@@ -37,7 +41,9 @@ def stock_zh_a_tick_tx_js(code: str = "sz000001"):
     return big_df
 
 
-def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20191011") -> pd.DataFrame:
+def stock_zh_a_tick_tx(
+    code: str = "sh600848", trade_date: str = "20191011"
+) -> pd.DataFrame:
     """
     http://gu.qq.com/sz000001/gp/detail
     成交明细-每个交易日16:00提供当日数据
@@ -61,7 +67,9 @@ def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20191011") -> 
     return temp_df
 
 
-def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20200410") -> pd.DataFrame:
+def stock_zh_a_tick_163(
+    code: str = "sh600848", trade_date: str = "20200410"
+) -> pd.DataFrame:
     """
     成交明细-每个交易日 22:00 提供当日数据
     http://quotes.money.163.com/trade/cjmx_000001.html#01b05

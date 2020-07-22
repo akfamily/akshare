@@ -56,6 +56,7 @@
 9. 将数据在 IDE 全显示，避免折叠显示不全的情况
 
     1. 全局设置 `pandas`，使用方法: 
+
 ```python
 import pandas as pd
 import akshare as ak
@@ -69,3 +70,6 @@ pd.set_option('display.max_rows', None)
 stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
+
+10. IP代理池获取
+    1. 使用[ProxyPool](https://github.com/Python3WebSpider/ProxyPool) 

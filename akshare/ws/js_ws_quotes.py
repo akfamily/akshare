@@ -64,7 +64,7 @@ def _get_sid() -> str:
     }
     r = session.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{"):])
+    data_json = json.loads(data_text[data_text.find("{") :])
 
     url = "https://dc-quote-old.jin10.com/socket.io/"
     params = {
@@ -114,6 +114,7 @@ class HeartbeatThread(Thread):
     """
     心跳
     """
+
     def __init__(self, event, ws):
         super(HeartbeatThread, self).__init__()
         self.event = event
@@ -195,7 +196,7 @@ def watch_jinshi_quotes():
         f"wss://dc-quote-old.jin10.com/socket.io/?EIO=3&transport=websocket&sid={_get_sid()}",
         on_message=on_message,
         on_error=on_error,
-        on_close=on_close
+        on_close=on_close,
     )
     ws.on_open = on_open
     t = Timer(20, on_emit, args=(ws,))

@@ -51,7 +51,12 @@ def _plot(plot_df):
 
 
 def get_roll_yield_bar(
-    type_method="var", var="RB", date="20200622", start_day=None, end_day=None, plot=False
+    type_method="var",
+    var="RB",
+    date="20200622",
+    start_day=None,
+    end_day=None,
+    plot=False,
 ):
     """
     展期收益率
@@ -196,13 +201,15 @@ if __name__ == "__main__":
     print(get_roll_yield_bar_range_df)
 
     get_roll_yield_bar_range_df = get_roll_yield_bar(
-        type_method="var",
-        date="20200714",
-        plot=True,
+        type_method="var", date="20200714", plot=True,
     )
     print(get_roll_yield_bar_range_df)
 
     get_roll_yield_bar_symbol = get_roll_yield_bar(
-        type_method="date", var="RB", start_day="20200109", end_day="20200714", plot=True
+        type_method="date",
+        var="RB",
+        start_day="20200109",
+        end_day="20200714",
+        plot=True,
     )
     print(get_roll_yield_bar_symbol)

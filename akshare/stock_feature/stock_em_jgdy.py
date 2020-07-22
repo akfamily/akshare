@@ -35,7 +35,7 @@ def _get_page_num_tj():
         "rt": "52581365",
     }
     res = requests.get(url, params=params)
-    data_json = json.loads(res.text[res.text.find("={")+1:])
+    data_json = json.loads(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -56,7 +56,7 @@ def _get_page_num_detail():
         "rt": "52581407",
     }
     res = requests.get(url, params=params)
-    data_json = json.loads(res.text[res.text.find("={")+1:])
+    data_json = json.loads(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -69,7 +69,7 @@ def stock_em_jgdy_tj():
     url = "http://data.eastmoney.com/DataCenter_V3/jgdy/gsjsdy.ashx"
     page_num = _get_page_num_tj()
     temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num + 1)):
         params = {
             "pagesize": "5000",
             "page": str(page),
@@ -80,7 +80,7 @@ def stock_em_jgdy_tj():
             "rt": "52581365",
         }
         res = requests.get(url, params=params)
-        data_json = json.loads(res.text[res.text.find("={")+1:])
+        data_json = json.loads(res.text[res.text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     return temp_df
 
@@ -95,7 +95,7 @@ def stock_em_jgdy_detail():
     url = "http://data.eastmoney.com/DataCenter_V3/jgdy/xx.ashx"
     page_num = _get_page_num_detail()
     temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num + 1)):
         params = {
             "pagesize": "5000",
             "page": str(page),
@@ -106,12 +106,12 @@ def stock_em_jgdy_detail():
             "rt": "52581407",
         }
         res = requests.get(url, params=params)
-        data_json = json.loads(res.text[res.text.find("={")+1:])
+        data_json = json.loads(res.text[res.text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_em_jgdy_tj_df = stock_em_jgdy_tj()
     print(stock_em_jgdy_tj_df)
     stock_em_jgdy_detail_df = stock_em_jgdy_detail()

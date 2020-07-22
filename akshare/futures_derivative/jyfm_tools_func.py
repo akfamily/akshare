@@ -664,7 +664,9 @@ def jyfm_tools_position_seat_cost(seat="永安期货", symbol="RB", code="10", h
 
 
 # 交易法门-工具-席位分析-建仓过程
-def jyfm_tools_position_interest_process(seat="永安期货", symbol="RB", instrument="rb2005", indicator="建仓过程", headers=""):
+def jyfm_tools_position_interest_process(
+    seat="永安期货", symbol="RB", instrument="rb2005", indicator="建仓过程", headers=""
+):
     """
     交易法门-工具-席位分析-持仓成本
     https://www.jiaoyifamen.com/tools/position/seat
@@ -691,11 +693,19 @@ def jyfm_tools_position_interest_process(seat="永安期货", symbol="RB", instr
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     if indicator == "建仓过程":
-        return pd.DataFrame(data_json["kLine"], index=data_json["category"], columns=["open", "close", "low", "high"])
+        return pd.DataFrame(
+            data_json["kLine"],
+            index=data_json["category"],
+            columns=["open", "close", "low", "high"],
+        )
     if indicator == "净持仓量":
-        return pd.DataFrame(data_json["neatPosition"], index=data_json["category"], columns=["净持仓量"])
+        return pd.DataFrame(
+            data_json["neatPosition"], index=data_json["category"], columns=["净持仓量"]
+        )
     if indicator == "盈亏图":
-        return pd.DataFrame(data_json["profit"], index=data_json["category"], columns=["持仓盈亏"])
+        return pd.DataFrame(
+            data_json["profit"], index=data_json["category"], columns=["持仓盈亏"]
+        )
 
 
 # 交易法门-工具-仓单分析
@@ -1021,7 +1031,14 @@ def jyfm_tools_futures_basis_rule(
 
 
 # 交易法门-工具-行情分析-行情数据
-def jyfm_tools_futures_market(symbol="RB", code="10", start_date="2020-01-02", end_date="2020-04-02", option="daily", headers=""):
+def jyfm_tools_futures_market(
+    symbol="RB",
+    code="10",
+    start_date="2020-01-02",
+    end_date="2020-04-02",
+    option="daily",
+    headers="",
+):
     """
     交易法门-工具-交易规则-限仓规定
     :param symbol: e.g., "RB"
@@ -1190,10 +1207,14 @@ if __name__ == "__main__":
     )
     print(jyfm_tools_position_structure_df)
     # 交易法门-工具-席位分析-持仓成本
-    jyfm_tools_position_seat_cost_df = jyfm_tools_position_seat_cost(seat="永安期货", symbol="RB", code="10", headers=headers)
+    jyfm_tools_position_seat_cost_df = jyfm_tools_position_seat_cost(
+        seat="永安期货", symbol="RB", code="10", headers=headers
+    )
     print(jyfm_tools_position_seat_cost_df)
     # 交易法门-工具-席位分析-建仓过程
-    jyfm_tools_position_interest_process_df = jyfm_tools_position_interest_process(seat="永安期货", symbol="RB", instrument="rb2005", indicator="建仓过程", headers=headers)
+    jyfm_tools_position_interest_process_df = jyfm_tools_position_interest_process(
+        seat="永安期货", symbol="RB", instrument="rb2005", indicator="建仓过程", headers=headers
+    )
     print(jyfm_tools_position_interest_process_df)
 
     # 交易法门-工具-仓单分析
@@ -1242,7 +1263,14 @@ if __name__ == "__main__":
 
     # 交易法门-工具-行情分析
     # 交易法门-工具-行情分析-行情数据
-    jyfm_tools_futures_market_df = jyfm_tools_futures_market(symbol="RB", code="10", start_date="2020-01-02", end_date="2020-04-02", option="daily", headers=headers)
+    jyfm_tools_futures_market_df = jyfm_tools_futures_market(
+        symbol="RB",
+        code="10",
+        start_date="2020-01-02",
+        end_date="2020-04-02",
+        option="daily",
+        headers=headers,
+    )
     print(jyfm_tools_futures_market_df)
 
     # 交易法门-工具-交易规则

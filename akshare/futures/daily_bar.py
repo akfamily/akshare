@@ -114,7 +114,10 @@ def get_ine_daily(date="20200416"):
     result_df = pd.DataFrame()
     temp_df = pd.DataFrame(r.json()["o_curinstrument"]).iloc[:-1, :]
     temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
-    result_df["symbol"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0] + temp_df["DELIVERYMONTH"]
+    result_df["symbol"] = (
+        temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0]
+        + temp_df["DELIVERYMONTH"]
+    )
     result_df["date"] = day.strftime("%Y%m%d")
     result_df["open"] = temp_df["OPENPRICE"]
     result_df["high"] = temp_df["HIGHESTPRICE"]
@@ -125,7 +128,9 @@ def get_ine_daily(date="20200416"):
     result_df["turnover"] = 0
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
-    result_df["variety"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0]
+    result_df["variety"] = (
+        temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0]
+    )
     return result_df
 
 
@@ -563,7 +568,9 @@ def get_dce_daily(date="20200416", symbol_type="futures", retries=0):
         )[output_columns]
 
 
-def get_futures_daily(start_day="20200413", end_day="20200416", market="CFFEX", index_bar=False):
+def get_futures_daily(
+    start_day="20200413", end_day="20200416", market="CFFEX", index_bar=False
+):
     """
     交易所日交易数据
     Parameters

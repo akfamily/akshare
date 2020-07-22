@@ -40,7 +40,7 @@ def macro_cons_gold_volume():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -109,7 +109,7 @@ def macro_cons_gold_change():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -178,7 +178,7 @@ def macro_cons_gold_amount():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["黄金"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -247,7 +247,7 @@ def macro_cons_silver_volume():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -305,7 +305,7 @@ def macro_cons_silver_volume():
     temp_df.drop_duplicates(subset=["index"], keep="last", inplace=True)
     temp_df.index = pd.to_datetime(temp_df["index"])
     del temp_df["index"]
-    temp_df = temp_df[temp_df != 'Show All']
+    temp_df = temp_df[temp_df != "Show All"]
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.astype(float)
 
@@ -334,7 +334,7 @@ def macro_cons_silver_change():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -393,7 +393,7 @@ def macro_cons_silver_change():
     temp_df.drop_duplicates(subset=["index"], keep="last", inplace=True)
     temp_df.index = pd.to_datetime(temp_df["index"])
     del temp_df["index"]
-    temp_df = temp_df[temp_df != 'Show All']
+    temp_df = temp_df[temp_df != "Show All"]
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.astype(float)
 
@@ -422,7 +422,7 @@ def macro_cons_silver_amount():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["白银"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -480,7 +480,7 @@ def macro_cons_silver_amount():
     temp_df.drop_duplicates(subset=["index"], keep="last", inplace=True)
     temp_df.index = pd.to_datetime(temp_df["index"])
     del temp_df["index"]
-    temp_df = temp_df[temp_df != 'Show All']
+    temp_df = temp_df[temp_df != "Show All"]
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.astype(float)
     return temp_df
@@ -560,8 +560,10 @@ def macro_cons_opec_near_change():
         "x-csrf-token": "",
         "x-version": "1.0.0",
     }
-    res = requests.get(f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
-                       headers=headers)  # 日期序列
+    res = requests.get(
+        f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
+        headers=headers,
+    )  # 日期序列
     all_date_list = res.json()["data"]
     bar = tqdm(reversed(all_date_list[:-1]))
 
@@ -569,17 +571,48 @@ def macro_cons_opec_near_change():
         bar.set_description(f"Please wait for a moment, now downing {item}'s data")
         res = requests.get(
             f"https://datacenter-api.jin10.com/reports/list?category=opec&date={item}&_={str(int(round(t * 1000)))}",
-            headers=headers)
-        temp_df = pd.DataFrame(res.json()["data"]["values"],
-                               columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist()).T
+            headers=headers,
+        )
+        temp_df = pd.DataFrame(
+            res.json()["data"]["values"],
+            columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist(),
+        ).T
         temp_df.columns = temp_df.iloc[0, :]
         temp_df = temp_df.iloc[1:, :]
         try:
-            temp_df = temp_df[['阿尔及利亚', '安哥拉', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
-                               '阿联酋', '委内瑞拉', '欧佩克产量']].iloc[-1, :]
+            temp_df = temp_df[
+                [
+                    "阿尔及利亚",
+                    "安哥拉",
+                    "加蓬",
+                    "伊朗",
+                    "伊拉克",
+                    "科威特",
+                    "利比亚",
+                    "尼日利亚",
+                    "沙特",
+                    "阿联酋",
+                    "委内瑞拉",
+                    "欧佩克产量",
+                ]
+            ].iloc[-1, :]
         except:
-            temp_df = temp_df[['阿尔及利亚', '安哥拉', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
-                               '阿联酋', '委内瑞拉', '欧佩克产量']].iloc[-1, :]
+            temp_df = temp_df[
+                [
+                    "阿尔及利亚",
+                    "安哥拉",
+                    "加蓬",
+                    "伊朗",
+                    "伊拉克",
+                    "科威特",
+                    "利比亚",
+                    "尼日利亚",
+                    "沙特",
+                    "阿联酋",
+                    "委内瑞拉",
+                    "欧佩克产量",
+                ]
+            ].iloc[-1, :]
         big_df[temp_df.name] = temp_df
     big_df = big_df.T
     big_df.columns.name = "日期"
@@ -652,7 +685,7 @@ def _macro_cons_opec_month():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     big_df = pd.DataFrame()
     for country in [item["datas"] for item in json_data["list"]][0].keys():
@@ -682,20 +715,43 @@ def _macro_cons_opec_month():
         "x-csrf-token": "",
         "x-version": "1.0.0",
     }
-    res = requests.get(f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
-                       headers=headers)  # 日期序列
+    res = requests.get(
+        f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
+        headers=headers,
+    )  # 日期序列
     all_date_list = res.json()["data"]
-    need_date_list = [item for item in all_date_list if
-                      item.split("-")[0] + item.split("-")[1] + item.split("-")[2] not in date_list]
+    need_date_list = [
+        item
+        for item in all_date_list
+        if item.split("-")[0] + item.split("-")[1] + item.split("-")[2] not in date_list
+    ]
     for item in reversed(need_date_list):
         res = requests.get(
             f"https://datacenter-api.jin10.com/reports/list?category=opec&date={item}&_={str(int(round(t * 1000)))}",
-            headers=headers)
-        temp_df = pd.DataFrame(res.json()["data"]["values"],
-                               columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist()).T
+            headers=headers,
+        )
+        temp_df = pd.DataFrame(
+            res.json()["data"]["values"],
+            columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist(),
+        ).T
         temp_df.columns = temp_df.iloc[0, :]
-        temp_df = temp_df[['阿尔及利亚', '安哥拉', '厄瓜多尔', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
-                           '阿联酋', '委内瑞拉', '欧佩克产量']].iloc[-2, :]
+        temp_df = temp_df[
+            [
+                "阿尔及利亚",
+                "安哥拉",
+                "厄瓜多尔",
+                "加蓬",
+                "伊朗",
+                "伊拉克",
+                "科威特",
+                "利比亚",
+                "尼日利亚",
+                "沙特",
+                "阿联酋",
+                "委内瑞拉",
+                "欧佩克产量",
+            ]
+        ].iloc[-2, :]
         big_df[item] = temp_df
 
     return big_df.T
@@ -779,8 +835,10 @@ def macro_cons_opec_month():
         "x-csrf-token": "",
         "x-version": "1.0.0",
     }
-    res = requests.get(f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
-                       headers=headers)  # 日期序列
+    res = requests.get(
+        f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
+        headers=headers,
+    )  # 日期序列
     all_date_list = res.json()["data"]
     bar = tqdm(reversed(all_date_list))
 
@@ -788,17 +846,48 @@ def macro_cons_opec_month():
         bar.set_description(f"Please wait for a moment, now downing {item}'s data")
         res = requests.get(
             f"https://datacenter-api.jin10.com/reports/list?category=opec&date={item}&_={str(int(round(t * 1000)))}",
-            headers=headers)
-        temp_df = pd.DataFrame(res.json()["data"]["values"],
-                               columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist()).T
+            headers=headers,
+        )
+        temp_df = pd.DataFrame(
+            res.json()["data"]["values"],
+            columns=pd.DataFrame(res.json()["data"]["keys"])["name"].tolist(),
+        ).T
         temp_df.columns = temp_df.iloc[0, :]
         temp_df = temp_df.iloc[1:, :]
         try:
-            temp_df = temp_df[['阿尔及利亚', '安哥拉', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
-                               '阿联酋', '委内瑞拉', '欧佩克产量']].iloc[-2, :]
+            temp_df = temp_df[
+                [
+                    "阿尔及利亚",
+                    "安哥拉",
+                    "加蓬",
+                    "伊朗",
+                    "伊拉克",
+                    "科威特",
+                    "利比亚",
+                    "尼日利亚",
+                    "沙特",
+                    "阿联酋",
+                    "委内瑞拉",
+                    "欧佩克产量",
+                ]
+            ].iloc[-2, :]
         except:
-            temp_df = temp_df[['阿尔及利亚', '安哥拉', '加蓬', '伊朗', '伊拉克', '科威特', '利比亚', '尼日利亚', '沙特',
-                               '阿联酋', '委内瑞拉', '欧佩克产量']].iloc[-1, :]
+            temp_df = temp_df[
+                [
+                    "阿尔及利亚",
+                    "安哥拉",
+                    "加蓬",
+                    "伊朗",
+                    "伊拉克",
+                    "科威特",
+                    "利比亚",
+                    "尼日利亚",
+                    "沙特",
+                    "阿联酋",
+                    "委内瑞拉",
+                    "欧佩克产量",
+                ]
+            ].iloc[-1, :]
         big_df[temp_df.name] = temp_df
     big_df = big_df.T
     big_df.columns.name = "日期"
@@ -813,7 +902,16 @@ if __name__ == "__main__":
     print(macro_cons_gold_change_df)
     macro_cons_gold_amount_df = macro_cons_gold_amount()
     print(macro_cons_gold_amount_df)
-    print(pd.concat([macro_cons_gold_volume_df, macro_cons_gold_change_df, macro_cons_gold_amount_df], axis=1))
+    print(
+        pd.concat(
+            [
+                macro_cons_gold_volume_df,
+                macro_cons_gold_change_df,
+                macro_cons_gold_amount_df,
+            ],
+            axis=1,
+        )
+    )
 
     macro_cons_silver_volume_df = macro_cons_silver_volume()
     print(macro_cons_silver_volume_df)
@@ -821,7 +919,16 @@ if __name__ == "__main__":
     print(macro_cons_silver_change_df)
     macro_cons_silver_amount_df = macro_cons_silver_amount()
     print(macro_cons_silver_amount_df)
-    print(pd.concat([macro_cons_silver_volume_df, macro_cons_silver_change_df, macro_cons_silver_amount_df], axis=1))
+    print(
+        pd.concat(
+            [
+                macro_cons_silver_volume_df,
+                macro_cons_silver_change_df,
+                macro_cons_silver_amount_df,
+            ],
+            axis=1,
+        )
+    )
     macro_cons_opec_near_change_df = macro_cons_opec_near_change()
     print(macro_cons_opec_near_change_df)
     macro_cons_opec_month_df = macro_cons_opec_month()

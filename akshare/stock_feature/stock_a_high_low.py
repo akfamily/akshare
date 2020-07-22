@@ -35,6 +35,6 @@ def stock_a_high_low_statistics(market: str = "all") -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_a_high_low_statistics_df = stock_a_high_low_statistics(market="zz500")
     print(stock_a_high_low_statistics_df)

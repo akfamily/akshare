@@ -41,25 +41,27 @@ def _fetch_data(pytrends, build_payload, timeframe: str) -> pd.DataFrame:
             build_payload(timeframe=timeframe)
         except ResponseError as err:
             print(err)
-            print(f'Trying again in {60 + 5 * attempts} seconds.')
+            print(f"Trying again in {60 + 5 * attempts} seconds.")
             sleep(60 + 5 * attempts)
             attempts += 1
             if attempts > 3:
-                print('Failed after 3 attemps, abort fetching.')
+                print("Failed after 3 attemps, abort fetching.")
                 break
         else:
             fetched = True
     return pytrends.interest_over_time()
 
 
-def get_daily_data(word: str,
-                   start_year: int,
-                   start_mon: int,
-                   stop_year: int,
-                   stop_mon: int,
-                   geo: str = 'US',
-                   verbose: bool = True,
-                   wait_time: float = 5.0) -> pd.DataFrame:
+def get_daily_data(
+    word: str,
+    start_year: int,
+    start_mon: int,
+    stop_year: int,
+    stop_mon: int,
+    geo: str = "US",
+    verbose: bool = True,
+    wait_time: float = 5.0,
+) -> pd.DataFrame:
     """Given a word, fetches daily search volume data from Google Trends and
     returns results in a pandas DataFrame.
 
@@ -101,14 +103,16 @@ def get_daily_data(word: str,
     stop_date = get_last_date_of_month(stop_year, stop_mon)
 
     # Start pytrends for US region
-    pytrends = TrendReq(hl='en-US', tz=360)
+    pytrends = TrendReq(hl="en-US", tz=360)
     # Initialize build_payload with the word we need data for
-    build_payload = partial(pytrends.build_payload,
-                            kw_list=[word], cat=0, geo=geo, gprop='')
+    build_payload = partial(
+        pytrends.build_payload, kw_list=[word], cat=0, geo=geo, gprop=""
+    )
 
     # Obtain monthly data for all months in years [start_year, stop_year]
-    monthly = _fetch_data(pytrends, build_payload,
-                          convert_dates_to_timeframe(start_date, stop_date))
+    monthly = _fetch_data(
+        pytrends, build_payload, convert_dates_to_timeframe(start_date, stop_date)
+    )
 
     # Get daily data, month by month
     results = {}
@@ -118,17 +122,17 @@ def get_daily_data(word: str,
         last_date_of_month = get_last_date_of_month(current.year, current.month)
         timeframe = convert_dates_to_timeframe(current, last_date_of_month)
         if verbose:
-            print(f'{word}:{timeframe}')
+            print(f"{word}:{timeframe}")
         results[current] = _fetch_data(pytrends, build_payload, timeframe)
         current = last_date_of_month + timedelta(days=1)
         sleep(wait_time)  # don't go too fast or Google will send 429s
 
-    daily = pd.concat(results.values()).drop(columns=['isPartial'])
-    complete = daily.join(monthly, lsuffix='_unscaled', rsuffix='_monthly')
+    daily = pd.concat(results.values()).drop(columns=["isPartial"])
+    complete = daily.join(monthly, lsuffix="_unscaled", rsuffix="_monthly")
 
     # Scale daily data by monthly weights so the data is comparable
-    complete[f'{word}_monthly'].ffill(inplace=True)  # fill NaN values
-    complete['scale'] = complete[f'{word}_monthly'] / 100
-    complete[word] = complete[f'{word}_unscaled'] * complete.scale
+    complete[f"{word}_monthly"].ffill(inplace=True)  # fill NaN values
+    complete["scale"] = complete[f"{word}_monthly"] / 100
+    complete[word] = complete[f"{word}_unscaled"] * complete.scale
 
     return complete

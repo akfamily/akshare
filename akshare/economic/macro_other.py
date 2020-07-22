@@ -21,11 +21,7 @@ def get_js_dc_current() -> pd.DataFrame:
     """
     bit_payload = bitcoin_payload.copy()
     bit_payload.update({"_": int(time.time() * 1000)})
-    bit_payload.update(
-        {
-            "_": int(time.time() * 1000)
-        }
-    )
+    bit_payload.update({"_": int(time.time() * 1000)})
     r = requests.get(bitcoin_url, params=bit_payload, headers=bitcoin_headers)
     data_json = r.json()
     data_df = pd.DataFrame(data_json["data"])
@@ -34,7 +30,9 @@ def get_js_dc_current() -> pd.DataFrame:
     return data_df
 
 
-def macro_fx_sentiment(start_date: str = "2020-04-22", end_date: str = "2020-04-22") -> pd.DataFrame:
+def macro_fx_sentiment(
+    start_date: str = "2020-04-22", end_date: str = "2020-04-22"
+) -> pd.DataFrame:
     """
     金十数据-外汇-投机情绪报告
     外汇投机情绪报告显示当前市场多空仓位比例，数据由8家交易平台提供，涵盖11个主要货币对和1个黄金品种。
@@ -76,7 +74,9 @@ def macro_fx_sentiment(start_date: str = "2020-04-22", end_date: str = "2020-04-
     return pd.DataFrame(res.json()["data"]["values"]).T
 
 
-def index_vix(start_date: str = "2020-04-22", end_date: str = "2020-04-22") -> pd.DataFrame:
+def index_vix(
+    start_date: str = "2020-04-22", end_date: str = "2020-04-22"
+) -> pd.DataFrame:
     """
     金十数据-市场异动-恐慌指数; 只能获取当前交易日近一个月内的数据
     https://datacenter.jin10.com/market
@@ -109,7 +109,9 @@ def index_vix(start_date: str = "2020-04-22", end_date: str = "2020-04-22") -> p
         "x-version": "1.0.0",
     }
     res = requests.get(url, params=params, headers=headers)
-    temp_df = pd.DataFrame(res.json()["data"]["values"], index=["开盘价", "当前价", "涨跌", "涨跌幅"]).T
+    temp_df = pd.DataFrame(
+        res.json()["data"]["values"], index=["开盘价", "当前价", "涨跌", "涨跌幅"]
+    ).T
     temp_df = temp_df.astype(float)
     return temp_df
 

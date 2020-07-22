@@ -105,4 +105,3 @@ if __name__ == "__main__":
     for item in index_list:
         index_stock_cons_df = index_stock_cons(index=item)
         print(index_stock_cons_df)
-

@@ -17,13 +17,27 @@ url_2017 = "http://www.fortunechina.com/fortune500/c/2017-07/20/content_286785.h
 url_2016 = "http://www.fortunechina.com/fortune500/c/2016-07/20/content_266955.htm"
 url_2015 = "http://www.fortunechina.com/fortune500/c/2015-07/22/content_244435.htm"
 url_2014 = "http://www.fortunechina.com/fortune500/c/2014-07/07/content_212535.htm"
-url_2013 = "http://www.fortunechina.com/fortune500/c/2013-07/08/content_164375.htm"  # 分 5 页
-url_2012 = "http://www.fortunechina.com/fortune500/c/2012-07/09/content_106535.htm"  # 分 5 页
-url_2011 = "http://www.fortunechina.com/fortune500/c/2011-07/07/content_62335.htm"  # 分 5 页
-url_2010 = "http://www.fortunechina.com/fortune500/c/2010-07/09/content_38195.htm"  # 分 5 页
-url_2009 = "http://www.fortunechina.com/fortune500/c/2009-07/08/content_21391.htm"  # 分 10 页
-url_2008 = "http://www.fortunechina.com/fortune500/c/2008-10/15/content_12413.htm"  # 分 10 页
-url_2007 = "http://www.fortunechina.com/fortune500/c/2007-10/15/content_9517.htm"  # 分 10 页
+url_2013 = (
+    "http://www.fortunechina.com/fortune500/c/2013-07/08/content_164375.htm"  # 分 5 页
+)
+url_2012 = (
+    "http://www.fortunechina.com/fortune500/c/2012-07/09/content_106535.htm"  # 分 5 页
+)
+url_2011 = (
+    "http://www.fortunechina.com/fortune500/c/2011-07/07/content_62335.htm"  # 分 5 页
+)
+url_2010 = (
+    "http://www.fortunechina.com/fortune500/c/2010-07/09/content_38195.htm"  # 分 5 页
+)
+url_2009 = (
+    "http://www.fortunechina.com/fortune500/c/2009-07/08/content_21391.htm"  # 分 10 页
+)
+url_2008 = (
+    "http://www.fortunechina.com/fortune500/c/2008-10/15/content_12413.htm"  # 分 10 页
+)
+url_2007 = (
+    "http://www.fortunechina.com/fortune500/c/2007-10/15/content_9517.htm"  # 分 10 页
+)
 url_2006 = "http://www.fortunechina.com/fortune500/c/2006-10/01/content_9539.htm"
 url_2005 = "http://www.fortunechina.com/fortune500/c/2005-10/01/content_9561.htm"
 url_2004 = "http://www.fortunechina.com/fortune500/c/2004-10/01/content_9581.htm"

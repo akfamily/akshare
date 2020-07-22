@@ -47,7 +47,7 @@ def macro_cnbs() -> pd.DataFrame:
     return excel_data
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     macro_cnbs_df = macro_cnbs()
     print(macro_cnbs_df)
     macro_cnbs_df.index = pd.to_datetime(macro_cnbs_df["年份"])

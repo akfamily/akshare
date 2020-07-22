@@ -4310,6 +4310,7 @@ print(stock_financial_abstract_df)
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
 | stock | str | Y    | stock="600004"; 股票代码|
+| proxies | dict | N    | proxies={'http': 'http://199.195.252.161:8080'}; IP地址代理|
 
 输出参数
 
@@ -4406,6 +4407,9 @@ print(stock_financial_abstract_df)
 ```python
 import akshare as ak
 stock_financial_analysis_indicator_df = ak.stock_financial_analysis_indicator(stock="600004")
+# 使用代理,防止多次爬取数据被封禁IP
+# stock_financial_analysis_indicator_df = ak.stock_financial_analysis_indicator(
+#                stock="600004", proxies={'http': 'http://199.195.252.161:8080'})
 print(stock_financial_analysis_indicator_df)
 ```
 

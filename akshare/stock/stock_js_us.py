@@ -18,10 +18,7 @@ def stock_js_price(category: str = "us") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://calendar-api.ushknews.com/getWebTargetPriceList"
-    params = {
-        "limit": "10000",
-        "category": category
-    }
+    params = {"limit": "10000", "category": category}
     headers = {
         "accept": "application/json, text/plain, */*",
         "accept-encoding": "gzip, deflate, br",
@@ -36,7 +33,7 @@ def stock_js_price(category: str = "us") -> pd.DataFrame:
         "sec-fetch-site": "same-site",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36",
         "x-app-id": "BNsiR9uq7yfW0LVz",
-        "x-version": "1.0.0"
+        "x-version": "1.0.0",
     }
     r = requests.get(url, params=params, headers=headers)
     json_data = r.json()
@@ -44,7 +41,7 @@ def stock_js_price(category: str = "us") -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_js_price_us_df = stock_js_price(category="us")
     print(stock_js_price_us_df)
 

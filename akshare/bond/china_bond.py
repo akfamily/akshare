@@ -27,7 +27,7 @@ def get_quote_data():
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/78.0.3904.108 Safari/537.36",
+        "Chrome/78.0.3904.108 Safari/537.36",
     }
     res = requests.post(url=quote_url, data=payload, headers=headers)  # 请求数据
     res.encoding = "utf-8"
@@ -42,7 +42,7 @@ def get_deal_data():
     deal_url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbtPri?"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/78.0.3904.108 Safari/537.36",
+        "Chrome/78.0.3904.108 Safari/537.36",
     }
     payload = {
         "flag": "1",
@@ -143,5 +143,7 @@ if __name__ == "__main__":
     print(bond_spot_quote_df)
     bond_spot_deal_df = bond_spot_deal()
     print(bond_spot_deal_df)
-    bond_china_yield_df = bond_china_yield(start_date="2018-01-01", end_date="2019-01-01")
+    bond_china_yield_df = bond_china_yield(
+        start_date="2018-01-01", end_date="2019-01-01"
+    )
     print(bond_china_yield_df)

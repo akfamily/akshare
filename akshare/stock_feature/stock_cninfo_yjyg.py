@@ -9,7 +9,9 @@ import pandas as pd
 import requests
 
 
-def stock_report_disclosure(market: str = "科创板", period: str = "2019年报") -> pd.DataFrame:
+def stock_report_disclosure(
+    market: str = "科创板", period: str = "2019年报"
+) -> pd.DataFrame:
     """
     巨潮资讯-首页-数据-预约披露
     http://www.cninfo.com.cn/new/commonUrl?url=data/yypl
@@ -52,7 +54,17 @@ def stock_report_disclosure(market: str = "科创板", period: str = "2019年报
     r = requests.post(url, params=params)
     text_json = r.json()
     temp_df = pd.DataFrame(text_json["prbookinfos"])
-    temp_df.columns = ["股票代码", "股票简称", "首次预约", "实际披露", "首次变更", "二次变更", "三次变更", "报告期", "组织码"]
+    temp_df.columns = [
+        "股票代码",
+        "股票简称",
+        "首次预约",
+        "实际披露",
+        "首次变更",
+        "二次变更",
+        "三次变更",
+        "报告期",
+        "组织码",
+    ]
     return temp_df
 
 

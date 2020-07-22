@@ -57,7 +57,7 @@ def option_czce_hist(symbol="SR", year="2019"):
     soup = BeautifulSoup(res.text, "lxml")
     # 获取 url 地址
     url = soup.get_text()[
-        soup.get_text().find("'") + 1: soup.get_text().rfind("'")
+        soup.get_text().find("'") + 1 : soup.get_text().rfind("'")
     ].split(",")[0][:-1]
     res = requests.get(url)
     option_df = pd.read_table(StringIO(res.text), skiprows=1, sep="|", low_memory=False)

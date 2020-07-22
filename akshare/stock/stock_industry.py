@@ -31,24 +31,18 @@ def stock_sector_spot(indicator: str = "新浪行业") -> pd.DataFrame:
         r.encoding = "gb2312"
     if indicator == "概念":
         url = "http://money.finance.sina.com.cn/q/view/newFLJK.php"
-        params = {
-            "param": "class"
-        }
+        params = {"param": "class"}
         r = requests.get(url, params=params)
     if indicator == "地域":
         url = "http://money.finance.sina.com.cn/q/view/newFLJK.php"
-        params = {
-            "param": "area"
-        }
+        params = {"param": "area"}
         r = requests.get(url, params=params)
     if indicator == "行业":
         url = "http://money.finance.sina.com.cn/q/view/newFLJK.php"
-        params = {
-            "param": "industry"
-        }
+        params = {"param": "industry"}
         r = requests.get(url, params=params)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"):])
+    json_data = json.loads(text_data[text_data.find("{") :])
     temp_df = pd.DataFrame([value.split(",") for key, value in json_data.items()])
     temp_df.columns = [
         "label",
@@ -92,7 +86,7 @@ def stock_sector_detail(sector: str = "hangye_ZL01") -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_industry_sina_df = stock_sector_spot(indicator="新浪行业")
     print(stock_industry_sina_df)
     stock_industry_con_df = stock_sector_spot(indicator="概念")

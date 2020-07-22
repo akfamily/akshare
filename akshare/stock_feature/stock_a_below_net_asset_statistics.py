@@ -23,13 +23,17 @@ def stock_a_below_net_asset_statistics() -> pd.DataFrame:
     temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
     del temp_df["id"]
     temp_df.columns = ["below_net_asset", "total_company", "date"]
-    temp_df["below_net_asset_ratio"] = temp_df["below_net_asset"] / temp_df["total_company"]
-    temp_df = temp_df[["date", "below_net_asset", "total_company", "below_net_asset_ratio"]]
+    temp_df["below_net_asset_ratio"] = (
+        temp_df["below_net_asset"] / temp_df["total_company"]
+    )
+    temp_df = temp_df[
+        ["date", "below_net_asset", "total_company", "below_net_asset_ratio"]
+    ]
     temp_df.date = temp_df.date.astype("str")
     temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_a_below_net_asset_statistics_df = stock_a_below_net_asset_statistics()
     print(stock_a_below_net_asset_statistics_df)

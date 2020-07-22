@@ -26,7 +26,10 @@ def stock_institute_recommend(indicator: str = "投资评级选股") -> pd.DataF
     }
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
-    indicator_map = {item.find("a").text: item.find("a")["href"] for item in soup.find(attrs={"id": "leftMenu"}).find_all("dd")[1].find_all("li")}
+    indicator_map = {
+        item.find("a").text: item.find("a")["href"]
+        for item in soup.find(attrs={"id": "leftMenu"}).find_all("dd")[1].find_all("li")
+    }
     url = indicator_map[indicator]
     params = {
         "num": "10000",
@@ -90,10 +93,22 @@ def stock_institute_recommend_detail(stock: str = "000001") -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == '__main__':
-    for item in ['最新投资评级', '上调评级股票', '下调评级股票', '股票综合评级', '首次评级股票', '目标涨幅排名', '机构关注度', '行业关注度', '投资评级选股']:
+if __name__ == "__main__":
+    for item in [
+        "最新投资评级",
+        "上调评级股票",
+        "下调评级股票",
+        "股票综合评级",
+        "首次评级股票",
+        "目标涨幅排名",
+        "机构关注度",
+        "行业关注度",
+        "投资评级选股",
+    ]:
         stock_institute_recommend_df = stock_institute_recommend(indicator=item)
         print(stock_institute_recommend_df)
 
-    stock_institute_recommend_detail_df = stock_institute_recommend_detail(stock="002709")
+    stock_institute_recommend_detail_df = stock_institute_recommend_detail(
+        stock="002709"
+    )
     print(stock_institute_recommend_detail_df)

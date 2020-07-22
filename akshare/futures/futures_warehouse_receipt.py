@@ -34,8 +34,8 @@ def futures_czce_warehouse_receipt(trade_date: str = "20200702") -> dict:
     index_list = temp_df[temp_df.iloc[:, 0].str.find("品种") == 0.0].index.to_list()
     index_list.append(len(temp_df))
     big_dict = {}
-    for inner_index in range(len(index_list)-1):
-        inner_df = temp_df[index_list[inner_index]: index_list[inner_index+1]]
+    for inner_index in range(len(index_list) - 1):
+        inner_df = temp_df[index_list[inner_index] : index_list[inner_index + 1]]
         inner_key = re.findall(r"[a-zA-Z]+", inner_df.iloc[0, 0])[0]
         inner_df = inner_df.iloc[1:, :]
         inner_df.dropna(axis=0, how="all", inplace=True)
@@ -63,7 +63,7 @@ def futures_dce_warehouse_receipt(trade_date: str = "20200702") -> dict:
     params = {
         "wbillWeeklyQuotes.variety": "all",
         "year": trade_date[:4],
-        "month": str(int(trade_date[4:6])-1),
+        "month": str(int(trade_date[4:6]) - 1),
         "day": trade_date[6:],
     }
     r = requests.get(url, params=params, headers=headers)
@@ -71,12 +71,12 @@ def futures_dce_warehouse_receipt(trade_date: str = "20200702") -> dict:
     index_list = temp_df[temp_df.iloc[:, 0].str.contains("小计") == 1].index.to_list()
     index_list.insert(0, 0)
     big_dict = {}
-    for inner_index in range(len(index_list)-1):
+    for inner_index in range(len(index_list) - 1):
         if inner_index == 0:
             temp_index = 0
         else:
             temp_index = index_list[inner_index] + 1
-        inner_df = temp_df[temp_index: index_list[inner_index+1]+1]
+        inner_df = temp_df[temp_index : index_list[inner_index + 1] + 1]
         inner_key = inner_df.iloc[0, 0]
         inner_df.reset_index(inplace=True, drop=True)
         inner_df = inner_df.fillna(method="ffill")
@@ -102,19 +102,25 @@ def futures_shfe_warehouse_receipt(trade_date: str = "20200702") -> dict:
     temp_df = pd.DataFrame(data_json["o_cursor"])
     temp_df["VARNAME"] = temp_df["VARNAME"].str.split(r"$", expand=True).iloc[:, 0]
     temp_df["REGNAME"] = temp_df["REGNAME"].str.split(r"$", expand=True).iloc[:, 0]
-    temp_df["WHABBRNAME"] = temp_df["WHABBRNAME"].str.split(r"$", expand=True).iloc[:, 0]
+    temp_df["WHABBRNAME"] = (
+        temp_df["WHABBRNAME"].str.split(r"$", expand=True).iloc[:, 0]
+    )
     big_dict = {}
     for item in set(temp_df["VARNAME"]):
         big_dict[item] = temp_df[temp_df["VARNAME"] == item]
     return big_dict
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     czce_warehouse_receipt_df = futures_czce_warehouse_receipt(trade_date="20200702")
     print(czce_warehouse_receipt_df)
 
-    futures_dce_warehouse_receipt_df = futures_dce_warehouse_receipt(trade_date="20200702")
+    futures_dce_warehouse_receipt_df = futures_dce_warehouse_receipt(
+        trade_date="20200702"
+    )
     print(futures_dce_warehouse_receipt_df)
 
-    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(trade_date="20200702")
+    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(
+        trade_date="20200702"
+    )
     print(futures_shfe_warehouse_receipt_df)

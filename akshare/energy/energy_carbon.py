@@ -27,6 +27,6 @@ def energy_carbon() -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     energy_carbon_df = energy_carbon()
     print(energy_carbon_df)

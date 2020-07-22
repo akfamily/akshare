@@ -11,7 +11,13 @@ import pandas as pd
 import requests
 
 
-def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: Dict = None, headers: Dict = None):
+def requests_link(
+    url: str,
+    encoding: str = "utf-8",
+    method: str = "get",
+    data: Dict = None,
+    headers: Dict = None,
+):
     """
     利用 requests 请求网站, 爬取网站内容, 如网站链接失败, 可重复爬取 20 次
     :param url: string 网站地址
@@ -42,7 +48,13 @@ def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: 
                 return None
 
 
-def pandas_read_html_link(url: str, encoding: str = "utf-8", method: str = "get", data: Dict = None, headers: Dict = None):
+def pandas_read_html_link(
+    url: str,
+    encoding: str = "utf-8",
+    method: str = "get",
+    data: Dict = None,
+    headers: Dict = None,
+):
     """
     利用 pandas 提供的 read_html 函数来直接提取网页中的表格内容, 如网站链接失败, 可重复爬取 20 次
     :param url: string 网站地址

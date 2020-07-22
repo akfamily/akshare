@@ -39,7 +39,11 @@ def futures_spot_stock(indicator: str = "能源") -> pd.DataFrame:
     temp_df.columns = temp_columns
 
     soup = BeautifulSoup(r.text, "lxml")
-    temp_soup = soup.find(attrs={"id": f"tab{map_dict.get(indicator)}"}).find(attrs={"class": "tab1"}).find_all(attrs={"onmousemove": "this.className='over'"})
+    temp_soup = (
+        soup.find(attrs={"id": f"tab{map_dict.get(indicator)}"})
+        .find(attrs={"class": "tab1"})
+        .find_all(attrs={"onmousemove": "this.className='over'"})
+    )
     [item.find_all(attrs={"onmouseout": "hideall(1);"}) for item in temp_soup]
 
     big_list = []
@@ -52,12 +56,20 @@ def futures_spot_stock(indicator: str = "能源") -> pd.DataFrame:
                 temp_list.append(hidden_a_item.text)
             big_list.append(temp_list)
 
-    temp_df["生产商"] = [", ".join(item) for key, item in enumerate(big_list) if key in range(0, len(big_list), 2)]
-    temp_df["下游用户"] = [", ".join(item) for key, item in enumerate(big_list) if key in range(1, len(big_list), 2)]
+    temp_df["生产商"] = [
+        ", ".join(item)
+        for key, item in enumerate(big_list)
+        if key in range(0, len(big_list), 2)
+    ]
+    temp_df["下游用户"] = [
+        ", ".join(item)
+        for key, item in enumerate(big_list)
+        if key in range(1, len(big_list), 2)
+    ]
     return temp_df
 
 
-if __name__ == '__main__':
-    for sector in ['能源', '化工', '塑料', '纺织', '有色', '钢铁', '建材', '农副']:
+if __name__ == "__main__":
+    for sector in ["能源", "化工", "塑料", "纺织", "有色", "钢铁", "建材", "农副"]:
         futures_spot_stock_df = futures_spot_stock(indicator=sector)
         print(futures_spot_stock_df)

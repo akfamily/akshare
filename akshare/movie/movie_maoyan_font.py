@@ -77,5 +77,5 @@ def get_font_data() -> List[List[List[int]]]:
     return infos
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(get_font_data())

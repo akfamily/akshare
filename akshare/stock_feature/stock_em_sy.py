@@ -67,7 +67,9 @@ def stock_em_sy_profile() -> pd.DataFrame:
     return data_df
 
 
-def _get_page_num_sy_yq_list(symbol: str = "沪深两市", trade_date: str = "2019-12-31") -> int:
+def _get_page_num_sy_yq_list(
+    symbol: str = "沪深两市", trade_date: str = "2019-12-31"
+) -> int:
     """
     东方财富网-数据中心-特色数据-商誉-商誉减值预期明细
     http://data.eastmoney.com/sy/yqlist.html
@@ -98,7 +100,9 @@ def _get_page_num_sy_yq_list(symbol: str = "沪深两市", trade_date: str = "20
     return data_json["pages"]
 
 
-def stock_em_sy_yq_list(symbol: str = "沪市主板", trade_date: str = "2019-12-31") -> pd.DataFrame:
+def stock_em_sy_yq_list(
+    symbol: str = "沪市主板", trade_date: str = "2019-12-31"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-商誉减值预期明细
     http://data.eastmoney.com/sy/yqlist.html
@@ -129,7 +133,7 @@ def stock_em_sy_yq_list(symbol: str = "沪市主板", trade_date: str = "2019-12
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "股票代码",
@@ -177,7 +181,9 @@ def stock_em_sy_yq_list(symbol: str = "沪市主板", trade_date: str = "2019-12
     return temp_df
 
 
-def _get_page_num_sy_jz_list(symbol: str = "沪市主板", trade_date: str = "2019-06-30") -> int:
+def _get_page_num_sy_jz_list(
+    symbol: str = "沪市主板", trade_date: str = "2019-06-30"
+) -> int:
     """
     东方财富网-数据中心-特色数据-商誉-个股商誉减值明细
     http://data.eastmoney.com/sy/jzlist.html
@@ -208,7 +214,9 @@ def _get_page_num_sy_jz_list(symbol: str = "沪市主板", trade_date: str = "20
     return data_json["pages"]
 
 
-def stock_em_sy_jz_list(symbol: str = "沪市主板", trade_date: str = "2019-06-30") -> pd.DataFrame:
+def stock_em_sy_jz_list(
+    symbol: str = "沪市主板", trade_date: str = "2019-06-30"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-个股商誉减值明细
     http://data.eastmoney.com/sy/jzlist.html
@@ -313,7 +321,9 @@ def _get_page_num_sy_list(symbol: str = "沪市主板", trade_date: str = "2019-
     return data_json["pages"]
 
 
-def stock_em_sy_list(symbol: str = "沪市主板", trade_date: str = "2019-09-30") -> pd.DataFrame:
+def stock_em_sy_list(
+    symbol: str = "沪市主板", trade_date: str = "2019-09-30"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-个股商誉明细
     http://data.eastmoney.com/sy/list.html

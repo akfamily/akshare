@@ -9,9 +9,7 @@ import requests
 import pandas as pd
 from tqdm import tqdm
 
-from akshare.stock.cons import (hx_headers,
-                                hx_params,
-                                hx_url)
+from akshare.stock.cons import hx_headers, hx_params, hx_url
 
 
 def stock_zh_a_scr_report(report_year=2018, page=1):
@@ -47,7 +45,7 @@ def stock_zh_a_scr_report(report_year=2018, page=1):
     hx_params_copy.update({"date": "{}-12-31".format(str(report_year))})
     hx_params_copy.update({"page": page})
     res = requests.get(hx_url, headers=hx_headers, params=hx_params_copy)
-    temp_df = res.text[res.text.find("(") + 1:res.text.rfind(")")]
+    temp_df = res.text[res.text.find("(") + 1 : res.text.rfind(")")]
     py_obj = demjson.decode(temp_df)
     industry = [item["industry"] for item in py_obj["list"]]
     stock_number = [item["stockNumber"] for item in py_obj["list"]]
@@ -57,8 +55,19 @@ def stock_zh_a_scr_report(report_year=2018, page=1):
     r_scramble = [item["rscramble"] for item in py_obj["list"]]
     strong_stock = [item["Strongstock"] for item in py_obj["list"]]
     s_cramble = [item["Scramble"] for item in py_obj["list"]]
-    return pd.DataFrame([industry, stock_number, industry_rate, price_limit, looting_chips, r_scramble, strong_stock, s_cramble],
-                        index=["股票名称", "股东责任", "总得分", "等级", "员工责任", "环境责任", "社会责任", "供应商、客户和消费者权益责任"]).T
+    return pd.DataFrame(
+        [
+            industry,
+            stock_number,
+            industry_rate,
+            price_limit,
+            looting_chips,
+            r_scramble,
+            strong_stock,
+            s_cramble,
+        ],
+        index=["股票名称", "股东责任", "总得分", "等级", "员工责任", "环境责任", "社会责任", "供应商、客户和消费者权益责任"],
+    ).T
 
 
 if __name__ == "__main__":

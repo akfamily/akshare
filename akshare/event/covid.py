@@ -186,10 +186,7 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
 
     elif indicator == "境外输入疫情趋势":
         url = "https://c.m.163.com/ug/api/wuhan/app/data/list-by-area-code"
-        params = {
-            "areaCode": "66",
-            "t": round(int(time.time() * 1000))
-        }
+        params = {"areaCode": "66", "t": round(int(time.time() * 1000))}
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
@@ -202,9 +199,7 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
 
     elif indicator == "境外输入确诊病例来源":
         url = "https://c.m.163.com/ug/api/wuhan/app/index/input-data-list"
-        params = {
-            "t": round(int(time.time() * 1000))
-        }
+        params = {"t": round(int(time.time() * 1000))}
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
@@ -229,21 +224,28 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
     r.encoding = "utf-8"
     soup = BeautifulSoup(r.text, "lxml")
     # news-china
-    text_data_news = str(
-        soup.find_all("script", attrs={"id": "getTimelineService1"})
-    )
+    text_data_news = str(soup.find_all("script", attrs={"id": "getTimelineService1"}))
     temp_json = text_data_news[
-        text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")
+        text_data_news.find("= [{") + 2 : text_data_news.rfind("}catch")
     ]
     json_data = pd.DataFrame(json.loads(temp_json))
     chinese_news = json_data[
-        ["id", "pubDate", "pubDateStr", "title", "summary", "infoSource", "sourceUrl", "provinceId"]
+        [
+            "id",
+            "pubDate",
+            "pubDateStr",
+            "title",
+            "summary",
+            "infoSource",
+            "sourceUrl",
+            "provinceId",
+        ]
     ]
 
     # news-foreign
     text_data_news = str(soup.find_all("script", attrs={"id": "getTimelineService2"}))
     temp_json = text_data_news[
-        text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")
+        text_data_news.find("= [{") + 2 : text_data_news.rfind("}catch")
     ]
     json_data = pd.DataFrame(json.loads(temp_json))
     foreign_news = json_data
@@ -268,14 +270,14 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
         soup.find("script", attrs={"id": "getListByCountryTypeService2true"})
     )
     data_text_json = json.loads(
-        data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
+        data_text[data_text.find("= [{") + 2 : data_text.rfind("catch") - 1]
     )
     global_df = pd.DataFrame(data_text_json)
 
     # info
     dxy_static = soup.find(attrs={"id": "getStatisticsService"}).get_text()
     data_json = json.loads(
-        dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}c")]
+        dxy_static[dxy_static.find("= {") + 2 : dxy_static.rfind("}c")]
     )
     china_statistics = pd.DataFrame(
         [
@@ -289,15 +291,7 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
             data_json["deadCount"],
             data_json["seriousCount"],
         ],
-        index=[
-            "数据发布时间",
-            "现存确诊",
-            "累计确诊",
-            "境外输入",
-            "累计治愈",
-            "累计死亡",
-            "现存重症",
-        ],
+        index=["数据发布时间", "现存确诊", "累计确诊", "境外输入", "累计治愈", "累计死亡", "现存重症",],
         columns=["info"],
     )
     foreign_statistics = pd.DataFrame.from_dict(
@@ -336,7 +330,7 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
         try:
             data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
             data_text_json = json.loads(
-                data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
+                data_text[data_text.find("= [{") + 2 : data_text.rfind("catch") - 1]
             )
             data_df = pd.DataFrame(data_text_json)
             sub_area = pd.DataFrame(
@@ -495,7 +489,9 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         return global_country_df
 
 
-def migration_area_baidu(area: str = "乌鲁木齐市", indicator: str = "move_out", date: str = "20200201") -> pd.DataFrame:
+def migration_area_baidu(
+    area: str = "乌鲁木齐市", indicator: str = "move_out", date: str = "20200201"
+) -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-XXX迁入地详情
     百度地图慧眼-百度迁徙-XXX迁出地详情
@@ -526,7 +522,7 @@ def migration_area_baidu(area: str = "乌鲁木齐市", indicator: str = "move_o
         "date": date,
     }
     r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1: r.text.rfind(");")])
+    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
     return pd.DataFrame(json_data["data"]["list"])
 
 
@@ -554,13 +550,18 @@ def internal_flow_history(area: str = "北京市", date: str = "20200412") -> pd
     }
     r = requests.get(url, params=payload)
     json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
-    temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index").sort_index()
+    temp_df = pd.DataFrame.from_dict(
+        json_data["data"]["list"], orient="index"
+    ).sort_index()
     temp_df.columns = ["value"]
     return temp_df
 
 
 def migration_scale_baidu(
-    area: str = "乌鲁木齐市", indicator: str = "move_out", start_date: str = "20190112", end_date: str = "20200401"
+    area: str = "乌鲁木齐市",
+    indicator: str = "move_out",
+    start_date: str = "20190112",
+    end_date: str = "20200401",
 ) -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-迁徙规模
@@ -593,14 +594,16 @@ def migration_scale_baidu(
         "endDate": end_date,
     }
     r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1: r.text.rfind(");")])
+    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df.columns = ["迁徙规模指数"]
-    return temp_df[start_date: end_date]
+    return temp_df[start_date:end_date]
 
 
-def covid_19_area_search(province: str = "四川省", city: str = "成都市", district: str = "高新区") -> pd.DataFrame:
+def covid_19_area_search(
+    province: str = "四川省", city: str = "成都市", district: str = "高新区"
+) -> pd.DataFrame:
     """
     省份-城市-区-数据查询
     https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0

@@ -36,12 +36,12 @@ def stock_em_yjyg(date: str = "2020-03-31") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"):])
+    data_json = demjson.decode(data_text[data_text.find("{") :])
     font_df = pd.DataFrame(data_json["font"]["FontMapping"])
     data_dict = dict(zip(font_df["code"], font_df["value"]))
     for key, value in data_dict.items():
         data_text = data_text.replace(key, str(value))
-    data_json = demjson.decode(data_text[data_text.find("{"):])
+    data_json = demjson.decode(data_text[data_text.find("{") :])
     temp_df = pd.DataFrame(data_json["data"])
     return temp_df
 
@@ -69,12 +69,12 @@ def stock_em_yysj(date: str = "2020-03-31") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"):])
+    data_json = demjson.decode(data_text[data_text.find("{") :])
     temp_df = pd.DataFrame(data_json["data"])
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_em_yjyg_df = stock_em_yjyg(date="2019-03-31")
     print(stock_em_yjyg_df)
     stock_em_yysj_df = stock_em_yysj(date="2020-03-31")

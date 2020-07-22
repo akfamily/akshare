@@ -89,20 +89,32 @@ def get_dce_option_daily(trade_date="20200409", symbol="液化石油气期权"):
     f = BytesIO(res.content)
     table_df = pd.read_excel(f, encoding="gbk", header=0)
     another_df = table_df.iloc[
-        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:, [0, 1]
+        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name :, [0, 1]
     ]
     another_df.reset_index(inplace=True, drop=True)
     another_df.iloc[0] = another_df.iat[0, 0].split("\t")
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
     if symbol == "玉米期权":
-        return table_df[table_df["商品名称"] == "玉米"], another_df[another_df.iloc[:, 0].str.contains("c")]
+        return (
+            table_df[table_df["商品名称"] == "玉米"],
+            another_df[another_df.iloc[:, 0].str.contains("c")],
+        )
     elif symbol == "铁矿石期权":
-        return table_df[table_df["商品名称"] == "铁矿石"], another_df[another_df.iloc[:, 0].str.contains("i")]
+        return (
+            table_df[table_df["商品名称"] == "铁矿石"],
+            another_df[another_df.iloc[:, 0].str.contains("i")],
+        )
     elif symbol == "豆粕期权":
-        return table_df[table_df["商品名称"] == "豆粕"], another_df[another_df.iloc[:, 0].str.contains("m")]
+        return (
+            table_df[table_df["商品名称"] == "豆粕"],
+            another_df[another_df.iloc[:, 0].str.contains("m")],
+        )
     elif symbol == "液化石油气期权":
-        return table_df[table_df["商品名称"] == "液化石油气"], another_df[another_df.iloc[:, 0].str.contains("pg")]
+        return (
+            table_df[table_df["商品名称"] == "液化石油气"],
+            another_df[another_df.iloc[:, 0].str.contains("pg")],
+        )
 
 
 def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):

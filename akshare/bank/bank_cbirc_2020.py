@@ -15,9 +15,9 @@ import pandas as pd
 from akshare.bank.cons import cbirc_headers_without_cookie_2020
 
 item_id_list = {
-    '机关': '4113',
-    '本级': '4114',
-    '分局本级': '4115',
+    "机关": "4113",
+    "本级": "4114",
+    "分局本级": "4115",
 }
 
 
@@ -59,7 +59,9 @@ def bank_fjcf_total_page(item: str = "分局本级", begin: int = 1) -> int:
     return total_page
 
 
-def bank_fjcf_page_url(page: int = 5, item: str = "分局本级", begin: int = 1) -> pd.DataFrame:
+def bank_fjcf_page_url(
+    page: int = 5, item: str = "分局本级", begin: int = 1
+) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-每一页的 json 数据
     :param page: 需要获取前 page 页的内容, 总页数请通过 bank_fjcf_total_page() 获取
@@ -70,7 +72,7 @@ def bank_fjcf_page_url(page: int = 5, item: str = "分局本级", begin: int = 1
     cbirc_headers = cbirc_headers_without_cookie_2020.copy()
     main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
     temp_df = pd.DataFrame()
-    for i_page in range(begin, page+begin):
+    for i_page in range(begin, page + begin):
         print(i_page)
         params = {
             "itemId": item_id_list[item],
@@ -79,10 +81,14 @@ def bank_fjcf_page_url(page: int = 5, item: str = "分局本级", begin: int = 1
         }
         res = requests.get(main_url, params=params, headers=cbirc_headers)
         temp_df = temp_df.append(pd.DataFrame(res.json()["data"]["rows"]))
-    return temp_df[["docId", "docSubtitle", "publishDate", "docFileUrl", "docTitle", "generaltype"]]
+    return temp_df[
+        ["docId", "docSubtitle", "publishDate", "docFileUrl", "docTitle", "generaltype"]
+    ]
 
 
-def bank_fjcf_table_detail(page: int = 5, item: str = "分局本级", begin: int = 1) -> pd.DataFrame:
+def bank_fjcf_table_detail(
+    page: int = 5, item: str = "分局本级", begin: int = 1
+) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表 数据
     :param page: 需要获取前 page 页的内容, 总页数请通过 bank_fjcf_total_page() 获取
@@ -114,8 +120,9 @@ def bank_fjcf_table_detail(page: int = 5, item: str = "分局本级", begin: int
                 table_list = table_list[2:]
                 table_list.insert(2, np.nan)
             # 部分会变成嵌套列表, 这里还原
-            table_list = [item[0] if isinstance(
-                item, list) else item for item in table_list]
+            table_list = [
+                item[0] if isinstance(item, list) else item for item in table_list
+            ]
             table_list.append(str(item))
             table_list.append(res.json()["data"]["publishDate"])
             table_df = pd.DataFrame(table_list)
@@ -142,6 +149,6 @@ def bank_fjcf_table_detail(page: int = 5, item: str = "分局本级", begin: int
     return big_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     bank_fjcf_table_detail_df = bank_fjcf_table_detail(page=2)
     print(bank_fjcf_table_detail_df)

@@ -26,6 +26,6 @@ def agoyal_stock_return(indicator: str = "monthly"):
         return pd.read_excel(url, sheet_name="Annual")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     agoyal_stock_return_df = agoyal_stock_return(indicator="monthly")
     print(agoyal_stock_return_df)

@@ -17,7 +17,9 @@ from tqdm import tqdm
 from akshare.index.index_investing import index_investing_global
 
 
-def futures_sgx_daily(trade_date: str = "2020/03/06", recent_day: str = "3") -> pd.DataFrame:
+def futures_sgx_daily(
+    trade_date: str = "2020/03/06", recent_day: str = "3"
+) -> pd.DataFrame:
     """
     Futures daily data from sgx
     P.S. it will be slowly if you do not use VPN
@@ -29,7 +31,12 @@ def futures_sgx_daily(trade_date: str = "2020/03/06", recent_day: str = "3") -> 
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    index_df = index_investing_global(country="新加坡", index_name="FTSE Singapore", start_date="2020/01/01", end_date=trade_date)
+    index_df = index_investing_global(
+        country="新加坡",
+        index_name="FTSE Singapore",
+        start_date="2020/01/01",
+        end_date=trade_date,
+    )
     index_df.sort_index(inplace=True)
     index_df.reset_index(inplace=True)
     index_df.reset_index(inplace=True)
@@ -51,6 +58,6 @@ def futures_sgx_daily(trade_date: str = "2020/03/06", recent_day: str = "3") -> 
     return big_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     futures_sgx_daily_df = futures_sgx_daily(trade_date="2020/03/06", recent_day="2")
     print(futures_sgx_daily_df)

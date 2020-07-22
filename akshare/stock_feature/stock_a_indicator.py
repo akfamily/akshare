@@ -36,13 +36,15 @@ def stock_a_lg_indicator(stock: str = "688388") -> pd.DataFrame:
         url = f"https://www.legulegu.com/s/base-info/{stock}"
         r = requests.get(url)
         temp_json = r.json()
-        temp_df = pd.DataFrame(temp_json["data"]["items"], columns=temp_json["data"]["fields"])
+        temp_df = pd.DataFrame(
+            temp_json["data"]["items"], columns=temp_json["data"]["fields"]
+        )
         temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"])
         temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
         return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_a_lg_indicator_all_df = stock_a_lg_indicator(stock="all")
     print(stock_a_lg_indicator_all_df)
     stock_a_lg_indicator_df = stock_a_lg_indicator(stock="000001")

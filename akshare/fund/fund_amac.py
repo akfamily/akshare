@@ -144,7 +144,9 @@ def amac_person_org_list_ext():
     :return:
     :rtype: pandas.DataFrame
     """
-    data = get_data(url=amac_person_org_list_ext_url, payload=amac_person_org_list_ext_payload)
+    data = get_data(
+        url=amac_person_org_list_ext_url, payload=amac_person_org_list_ext_payload
+    )
     need_data = data["content"]
     keys_list = [
         "orgName",
@@ -215,7 +217,9 @@ def amac_manager_classify_info():
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 10 秒")
-    data = get_data(url=amac_manager_classify_info_url, payload=amac_manager_classify_info_payload)
+    data = get_data(
+        url=amac_manager_classify_info_url, payload=amac_manager_classify_info_payload
+    )
     need_data = data["content"]
     keys_list = [
         "managerName",
@@ -423,7 +427,9 @@ def amac_fund_account_info():
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    data = get_data(url=amac_fund_account_info_url, payload=amac_fund_account_info_payload)
+    data = get_data(
+        url=amac_fund_account_info_url, payload=amac_fund_account_info_payload
+    )
     need_data = data["content"]
     keys_list = [
         "registerDate",
@@ -533,8 +539,16 @@ def amac_manager_xxgs_hmd():
     res = requests.get("http://www1.amac.org.cn/xxgs/hmd/", headers=headers)
     res.encoding = "utf-8"
     soup = BeautifulSoup(res.text, "lxml")
-    content_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")]
-    date_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("div", attrs={"class": "newsDate"})]
+    content_list = [
+        item.get_text()
+        for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")
+    ]
+    date_list = [
+        item.get_text()
+        for item in soup.find("div", attrs={"class": "iRight"}).find_all(
+            "div", attrs={"class": "newsDate"}
+        )
+    ]
     manager_data_out = pd.DataFrame([date_list, content_list]).T
     return manager_data_out.iloc[:-1, :]
 
@@ -553,21 +567,45 @@ def amac_manager_xxgs_jlcf():
     res = requests.get("http://www1.amac.org.cn/xxgs/jlcf/index.shtml", headers=headers)
     res.encoding = "utf-8"
     soup = BeautifulSoup(res.text, "lxml")
-    page_num = soup.find(attrs={"onclick": "_PageBar_1574932671465_Go()"}).parent.get_text().split("/")[-1].split('页')[0]
-    content_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")]
-    date_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("div", attrs={"class": "newsDate"})]
+    page_num = (
+        soup.find(attrs={"onclick": "_PageBar_1574932671465_Go()"})
+        .parent.get_text()
+        .split("/")[-1]
+        .split("页")[0]
+    )
+    content_list = [
+        item.get_text()
+        for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")
+    ]
+    date_list = [
+        item.get_text()
+        for item in soup.find("div", attrs={"class": "iRight"}).find_all(
+            "div", attrs={"class": "newsDate"}
+        )
+    ]
     manager_data_out = pd.DataFrame([date_list, content_list]).T
     manager_data_out = manager_data_out.iloc[:-4, :]
     for page in range(1, int(page_num)):
-        res = requests.get(f"http://www1.amac.org.cn/xxgs/jlcf/index_{page}.shtml", headers=headers)
+        res = requests.get(
+            f"http://www1.amac.org.cn/xxgs/jlcf/index_{page}.shtml", headers=headers
+        )
         res.encoding = "utf-8"
         soup = BeautifulSoup(res.text, "lxml")
-        content_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")]
-        date_list = [item.get_text() for item in
-                     soup.find("div", attrs={"class": "iRight"}).find_all("div", attrs={"class": "newsDate"})]
+        content_list = [
+            item.get_text()
+            for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")
+        ]
+        date_list = [
+            item.get_text()
+            for item in soup.find("div", attrs={"class": "iRight"}).find_all(
+                "div", attrs={"class": "newsDate"}
+            )
+        ]
         inner_manager_data_out = pd.DataFrame([date_list, content_list]).T
         inner_manager_data_out = inner_manager_data_out.iloc[:-4, :]
-        manager_data_out = manager_data_out.append(inner_manager_data_out, ignore_index=True)
+        manager_data_out = manager_data_out.append(
+            inner_manager_data_out, ignore_index=True
+        )
     return manager_data_out
 
 
@@ -585,8 +623,16 @@ def amac_manager_xxgs_cxdj():
     res = requests.get("http://www1.amac.org.cn/xxgs/cxdj/", headers=headers)
     res.encoding = "utf-8"
     soup = BeautifulSoup(res.text, "lxml")
-    content_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")]
-    date_list = [item.get_text() for item in soup.find("div", attrs={"class": "iRight"}).find_all("div", attrs={"class": "newsDate"})]
+    content_list = [
+        item.get_text()
+        for item in soup.find("div", attrs={"class": "iRight"}).find_all("a")
+    ]
+    date_list = [
+        item.get_text()
+        for item in soup.find("div", attrs={"class": "iRight"}).find_all(
+            "div", attrs={"class": "newsDate"}
+        )
+    ]
     manager_data_out = pd.DataFrame([date_list, content_list]).T
     manager_data_out = manager_data_out.iloc[:-1, :]
     return manager_data_out
@@ -604,7 +650,9 @@ def amac_manager_cancelled_info():
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    data = get_data(url=amac_manager_cancelled_info_url, payload=amac_manager_cancelled_info_payload)
+    data = get_data(
+        url=amac_manager_cancelled_info_url, payload=amac_manager_cancelled_info_payload
+    )
     need_data = data["content"]
     keys_list = [
         "orgName",

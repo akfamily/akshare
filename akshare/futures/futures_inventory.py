@@ -11,10 +11,12 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from akshare.futures.cons import (qh_headers,
-                                  sample_headers,
-                                  inventory_temp_headers,
-                                  get_pk_data)
+from akshare.futures.cons import (
+    qh_headers,
+    sample_headers,
+    inventory_temp_headers,
+    get_pk_data,
+)
 
 
 def get_inventory_data(exchange=1, symbol=6, plot=False):
@@ -46,7 +48,9 @@ def get_inventory_data(exchange=1, symbol=6, plot=False):
             name_temp_dict = {}
             code_temp_dict = {}
             for num in data_code.keys():
-                name_temp_dict[out_exchange_name[num]] = dict(zip(data_code[num], data_name[num]))
+                name_temp_dict[out_exchange_name[num]] = dict(
+                    zip(data_code[num], data_name[num])
+                )
                 code_temp_dict[num] = dict(zip(data_code[num], data_name[num]))
             # print(name_temp_dict)
             # print(out_exchange_name)
@@ -55,7 +59,9 @@ def get_inventory_data(exchange=1, symbol=6, plot=False):
             res = requests.get(url, headers=sample_headers)
             soup = BeautifulSoup(res.text, "lxml")
             view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
-            even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0]["value"]
+            even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0][
+                "value"
+            ]
             # print(symbol)
             if exchange != 1:
                 payload = {
@@ -66,14 +72,20 @@ def get_inventory_data(exchange=1, symbol=6, plot=False):
                     "__VIEWSTATEGENERATOR": "6EAC22FA",
                     "__EVENTVALIDATION": even_validation,
                     "ddlExchName": int(exchange),
-                    "ddlGoodsName": 6
+                    "ddlGoodsName": 6,
                 }
                 res = requests.post(url, data=payload, headers=qh_headers)
                 soup = BeautifulSoup(res.text, "lxml")
-                exchange_name = soup.find_all("select")[0].find_all(attrs={"selected": "selected"})[0].get_text()
+                exchange_name = (
+                    soup.find_all("select")[0]
+                    .find_all(attrs={"selected": "selected"})[0]
+                    .get_text()
+                )
                 # print("切换后", exchange_name)
                 view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
-                even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0]["value"]
+                even_validation = soup.find_all(attrs={"id": "__EVENTVALIDATION"})[0][
+                    "value"
+                ]
                 payload = {
                     "__EVENTTARGET": "ddlGoodsName",
                     "__EVENTARGUMENT": "",
@@ -82,11 +94,15 @@ def get_inventory_data(exchange=1, symbol=6, plot=False):
                     "__VIEWSTATEGENERATOR": "6EAC22FA",
                     "__EVENTVALIDATION": even_validation,
                     "ddlExchName": int(exchange),
-                    "ddlGoodsName": int(symbol)
+                    "ddlGoodsName": int(symbol),
                 }
                 res = requests.post(url, data=payload, headers=qh_headers)
                 soup = BeautifulSoup(res.text, "lxml")
-                small_code = soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1]
+                small_code = (
+                    soup.find_all(attrs={"id": "chartData"})[0]["src"]
+                    .split("&")[-2]
+                    .split("=")[1]
+                )
                 # print(small_code)
                 payload = {
                     "__EVENTTARGET": "btnZoomAll",
@@ -96,7 +112,7 @@ def get_inventory_data(exchange=1, symbol=6, plot=False):
                     "__VIEWSTATEGENERATOR": "6EAC22FA",
                     "__EVENTVALIDATION": even_validation,
                     "ddlExchName": int(exchange),
-                    "ddlGoodsName": int(symbol)
+                    "ddlGoodsName": int(symbol),
                 }
                 res = requests.post(url, data=payload, headers=qh_headers)
                 soup = BeautifulSoup(res.text, "lxml")
@@ -105,12 +121,23 @@ def get_inventory_data(exchange=1, symbol=6, plot=False):
                 # print("big code", soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1])
                 params = {
                     "ChartDirectorChartImage": "chart_chartData",
-                    "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1],
-                    "page": "99qh"
+                    "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"]
+                    .split("&")[-2]
+                    .split("=")[1],
+                    "page": "99qh",
                 }
-                res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=inventory_temp_headers)
+                res = requests.get(
+                    "http://service.99qh.com/Storage/Storage.aspx",
+                    params=params,
+                    headers=inventory_temp_headers,
+                )
                 if plot:
-                    with open("{}_{}.jpg".format(exchange_name, code_temp_dict[str(exchange)][str(symbol)]), "wb") as fs:
+                    with open(
+                        "{}_{}.jpg".format(
+                            exchange_name, code_temp_dict[str(exchange)][str(symbol)]
+                        ),
+                        "wb",
+                    ) as fs:
                         print("保存图片到本地: {}".format(os.getcwd()))
                         fs.write(res.content)
                 return inventory_table
@@ -124,21 +151,36 @@ def get_inventory_data(exchange=1, symbol=6, plot=False):
                     "__VIEWSTATEGENERATOR": "6EAC22FA",
                     "__EVENTVALIDATION": even_validation,
                     "ddlExchName": int(exchange),
-                    "ddlGoodsName": int(symbol)
+                    "ddlGoodsName": int(symbol),
                 }
                 res = requests.post(url, data=payload, headers=qh_headers)
                 inventory_table = pd.read_html(res.text)[-1]
 
                 soup = BeautifulSoup(res.text, "lxml")
-                exchange_name = soup.find_all("select")[0].find_all(attrs={"selected": "selected"})[0].get_text()
+                exchange_name = (
+                    soup.find_all("select")[0]
+                    .find_all(attrs={"selected": "selected"})[0]
+                    .get_text()
+                )
                 params = {
                     "ChartDirectorChartImage": "chart_chartData",
-                    "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"].split("&")[-2].split("=")[1],
-                    "page": "99qh"
+                    "cacheId": soup.find_all(attrs={"id": "chartData"})[0]["src"]
+                    .split("&")[-2]
+                    .split("=")[1],
+                    "page": "99qh",
                 }
-                res = requests.get("http://service.99qh.com/Storage/Storage.aspx", params=params, headers=inventory_temp_headers)
+                res = requests.get(
+                    "http://service.99qh.com/Storage/Storage.aspx",
+                    params=params,
+                    headers=inventory_temp_headers,
+                )
                 if plot:
-                    with open("{}_{}.jpg".format(exchange_name, code_temp_dict[str(exchange)][str(symbol)]), "wb") as fs:
+                    with open(
+                        "{}_{}.jpg".format(
+                            exchange_name, code_temp_dict[str(exchange)][str(symbol)]
+                        ),
+                        "wb",
+                    ) as fs:
                         print("保存图片到本地: {}".format(os.getcwd()))
                         fs.write(res.content)
                 return inventory_table
@@ -149,4 +191,3 @@ def get_inventory_data(exchange=1, symbol=6, plot=False):
 if __name__ == "__main__":
     get_inventory_df = get_inventory_data(exchange=3, symbol=24, plot=False)
     print(get_inventory_df)
-

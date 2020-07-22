@@ -24,13 +24,19 @@ def _currency_name_url() -> dict:
     url = "https://cn.investing.com/currencies/"
     res = requests.post(url, headers=short_headers)
     data_table = pd.read_html(res.text)[0].iloc[:, 1:]  # 实时货币行情
-    data_table.columns = ['中文名称', '英文名称', '最新', '最高', '最低', '涨跌额', '涨跌幅', '时间']
+    data_table.columns = ["中文名称", "英文名称", "最新", "最高", "最低", "涨跌额", "涨跌幅", "时间"]
     name_code_dict = dict(
-        zip(data_table["中文名称"].tolist(), [item.lower().replace("/", "-") for item in data_table["英文名称"].tolist()]))
+        zip(
+            data_table["中文名称"].tolist(),
+            [item.lower().replace("/", "-") for item in data_table["英文名称"].tolist()],
+        )
+    )
     return name_code_dict
 
 
-def currency_hist(symbol: str = "usd/jpy", start_date: str = "20050101", end_date: str = "20200717") -> pd.DataFrame:
+def currency_hist(
+    symbol: str = "usd/jpy", start_date: str = "20050101", end_date: str = "20200717"
+) -> pd.DataFrame:
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
     :param symbol: 货币对
@@ -70,7 +76,9 @@ def currency_hist(symbol: str = "usd/jpy", start_date: str = "20050101", end_dat
     raw_df = pd.DataFrame(vest_list)
     df_data = pd.DataFrame(vest_list, columns=raw_df.iloc[0, :].tolist()).iloc[1:-1, :]
     df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
-    df_data["涨跌幅"] = pd.DataFrame(round(df_data['涨跌幅'].str.replace('%', '').astype(float) / 100, 6))
+    df_data["涨跌幅"] = pd.DataFrame(
+        round(df_data["涨跌幅"].str.replace("%", "").astype(float) / 100, 6)
+    )
     del df_data["日期"]
     df_data = df_data.astype(float)
     return df_data
@@ -85,8 +93,12 @@ def _currency_single() -> pd.DataFrame:
     url = "https://cn.investing.com/currencies/single-currency-crosses"
     res = requests.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
-    name_url_option_list = soup.find("select", attrs={"class": "newInput selectBox"}).find_all("option")
-    temp_df = pd.DataFrame([item.get_text().split('-', 1) for item in name_url_option_list])
+    name_url_option_list = soup.find(
+        "select", attrs={"class": "newInput selectBox"}
+    ).find_all("option")
+    temp_df = pd.DataFrame(
+        [item.get_text().split("-", 1) for item in name_url_option_list]
+    )
     temp_df.columns = ["short_name", "name"]
     temp_df["short_name"] = temp_df["short_name"].str.strip()
     temp_df["name"] = temp_df["name"].str.strip()
@@ -119,56 +131,74 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     url = "https://cn.investing.com/currencies/Service/ChangeCurrency"
     params = {
         "session_uniq_id": "53bee677662a2336ec07b40738753fc1",
-        "currencies": currency_df[currency_df["short_name"] == symbol.split("/")[0]]["code"].values[0],
+        "currencies": currency_df[currency_df["short_name"] == symbol.split("/")[0]][
+            "code"
+        ].values[0],
     }
-    headers = {"Accept": "application/json, text/javascript, */*; q=0.01",
-               "Accept-Encoding": "gzip, deflate, br",
-               "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-               "Cache-Control": "no-cache",
-               "Connection": "keep-alive",
-               "Host": "cn.investing.com",
-               "Pragma": "no-cache",
-               "Referer": "https://cn.investing.com/currencies/single-currency-crosses",
-               "Sec-Fetch-Mode": "cors",
-               "Sec-Fetch-Site": "same-origin",
-               "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
-               "X-Requested-With": "XMLHttpRequest",
-               }
+    headers = {
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "cn.investing.com",
+        "Pragma": "no-cache",
+        "Referer": "https://cn.investing.com/currencies/single-currency-crosses",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
     res = requests.get(url, params=params, headers=headers)
     temp_df = pd.read_html(res.json()["HTML"])[0].iloc[:, 1:]
     temp_df.rename(columns={"名称.1": "简称"}, inplace=True)
     temp_df["pids"] = [item[:-1] for item in res.json()["pids"]]
-    name_code_dict_one = dict(zip(temp_df["名称"].tolist(), [item.lower().replace("/", "-") for item in temp_df["简称"].tolist()]))
+    name_code_dict_one = dict(
+        zip(
+            temp_df["名称"].tolist(),
+            [item.lower().replace("/", "-") for item in temp_df["简称"].tolist()],
+        )
+    )
     params = {
         "session_uniq_id": "53bee677662a2336ec07b40738753fc1",
-        "currencies": currency_df[currency_df["short_name"] == symbol.split("/")[1]]["code"].values[0],
+        "currencies": currency_df[currency_df["short_name"] == symbol.split("/")[1]][
+            "code"
+        ].values[0],
     }
-    headers = {"Accept": "application/json, text/javascript, */*; q=0.01",
-               "Accept-Encoding": "gzip, deflate, br",
-               "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-               "Cache-Control": "no-cache",
-               "Connection": "keep-alive",
-               "Host": "cn.investing.com",
-               "Pragma": "no-cache",
-               "Referer": "https://cn.investing.com/currencies/single-currency-crosses",
-               "Sec-Fetch-Mode": "cors",
-               "Sec-Fetch-Site": "same-origin",
-               "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
-               "X-Requested-With": "XMLHttpRequest",
-               }
+    headers = {
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "cn.investing.com",
+        "Pragma": "no-cache",
+        "Referer": "https://cn.investing.com/currencies/single-currency-crosses",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
     res = requests.get(url, params=params, headers=headers)
     temp_df = pd.read_html(res.json()["HTML"])[0].iloc[:, 1:]
     temp_df.rename(columns={"名称.1": "简称"}, inplace=True)
     temp_df["pids"] = [item[:-1] for item in res.json()["pids"]]
-    name_code_dict_two = dict(zip(temp_df["名称"].tolist(), [item.lower().replace("/", "-") for item in temp_df["简称"].tolist()]))
+    name_code_dict_two = dict(
+        zip(
+            temp_df["名称"].tolist(),
+            [item.lower().replace("/", "-") for item in temp_df["简称"].tolist()],
+        )
+    )
     name_code_dict_one.update(name_code_dict_two)
     temp_df = pd.DataFrame.from_dict(name_code_dict_one, orient="index").reset_index()
     temp_df.columns = ["name", "code"]
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     currency_name_code_df = currency_name_code(symbol="usd/jpy")
     print(currency_name_code_df)
-    currency_hist_df = currency_hist(symbol="usd-cny", start_date="20131018", end_date="20200526")
+    currency_hist_df = currency_hist(
+        symbol="usd-cny", start_date="20131018", end_date="20200526"
+    )
     print(currency_hist_df)

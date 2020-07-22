@@ -38,12 +38,20 @@ def futures_index_dict():
     url = "http://index.cfmmc.com/index/views/index.html"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    name_list = [item.text.strip() for item in soup.find(attrs={"class": "down_box"}).find_all("b")[1:]]
-    code_list = [item["indexcode"] for item in soup.find(attrs={"class": "down_box"}).find_all("b")[1:]]
+    name_list = [
+        item.text.strip()
+        for item in soup.find(attrs={"class": "down_box"}).find_all("b")[1:]
+    ]
+    code_list = [
+        item["indexcode"]
+        for item in soup.find(attrs={"class": "down_box"}).find_all("b")[1:]
+    ]
     return dict(zip(name_list, code_list))
 
 
-def futures_index_cfmmc(index_name="商品综合指数", start_date="2010-01-01", end_date="2020-04-06"):
+def futures_index_cfmmc(
+    index_name="商品综合指数", start_date="2010-01-01", end_date="2020-04-06"
+):
     """
     中国期货市场监控中心-各类指数数据
     http://index.cfmmc.com/index/views/index.html
@@ -70,9 +78,13 @@ def futures_index_cfmmc(index_name="商品综合指数", start_date="2010-01-01"
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     futures_index_dict_temp = futures_index_dict()
-    futures_index_df = pd.DataFrame.from_dict(futures_index_dict_temp, orient="index", columns=["index_code"])
+    futures_index_df = pd.DataFrame.from_dict(
+        futures_index_dict_temp, orient="index", columns=["index_code"]
+    )
     print(futures_index_df)
-    futures_index_cfmmc_df = futures_index_cfmmc(index_name="林木综合指数", start_date="2010-01-01", end_date="2020-04-06")
+    futures_index_cfmmc_df = futures_index_cfmmc(
+        index_name="林木综合指数", start_date="2010-01-01", end_date="2020-04-06"
+    )
     print(futures_index_cfmmc_df)

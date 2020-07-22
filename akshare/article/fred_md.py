@@ -17,7 +17,9 @@ def fred_md(date: str = "2020-01") -> pd.DataFrame:
     :return: Monthly Data
     :rtype: pandas.DataFrame
     """
-    url = f"https://s3.amazonaws.com/files.fred.stlouisfed.org/fred-md/monthly/{date}.csv"
+    url = (
+        f"https://s3.amazonaws.com/files.fred.stlouisfed.org/fred-md/monthly/{date}.csv"
+    )
     temp_df = pd.read_csv(url)
     return temp_df
 

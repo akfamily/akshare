@@ -8,6 +8,7 @@ https://www.quantinfo.com/Argus/
 import requests
 import pandas as pd
 import urllib3
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
@@ -23,10 +24,12 @@ def watch_argus():
     }
     r = requests.get(url, headers=headers, verify=False)
     temp_df = pd.DataFrame(r.json())
-    temp_df["time"] = pd.to_datetime(temp_df["time"], unit="s", utc=True).dt.tz_convert('Asia/Shanghai')
+    temp_df["time"] = pd.to_datetime(temp_df["time"], unit="s", utc=True).dt.tz_convert(
+        "Asia/Shanghai"
+    )
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     watch_argus_df = watch_argus()
     print(watch_argus_df)

@@ -25,13 +25,23 @@ def option_sina_commodity_dict(symbol="玉米期权") -> Dict[str, List[str]]:
     url = "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    url_list = [item.find("a")["href"] for item in soup.find_all("li", attrs={"class": "active"}) if item.find("a") is not None]
-    commodity_list = [item.find("a").text for item in soup.find_all("li", attrs={"class": "active"}) if item.find("a") is not None]
+    url_list = [
+        item.find("a")["href"]
+        for item in soup.find_all("li", attrs={"class": "active"})
+        if item.find("a") is not None
+    ]
+    commodity_list = [
+        item.find("a").text
+        for item in soup.find_all("li", attrs={"class": "active"})
+        if item.find("a") is not None
+    ]
     comm_list_dict = {key: value for key, value in zip(commodity_list, url_list)}
     url = "https://stock.finance.sina.com.cn" + comm_list_dict[symbol]
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    symbol = soup.find(attrs={"id": "option_symbol"}).find(attrs={"class": "selected"}).text
+    symbol = (
+        soup.find(attrs={"id": "option_symbol"}).find(attrs={"class": "selected"}).text
+    )
     contract = [
         item.text for item in soup.find(attrs={"id": "option_suffix"}).find_all("li")
     ]
@@ -52,8 +62,16 @@ def option_sina_commodity_contract_list(symbol="黄金期权", contract="au2012"
     url = "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    url_list = [item.find("a")["href"] for item in soup.find_all("li", attrs={"class": "active"}) if item.find("a") is not None]
-    commodity_list = [item.find("a").text for item in soup.find_all("li", attrs={"class": "active"}) if item.find("a") is not None]
+    url_list = [
+        item.find("a")["href"]
+        for item in soup.find_all("li", attrs={"class": "active"})
+        if item.find("a") is not None
+    ]
+    commodity_list = [
+        item.find("a").text
+        for item in soup.find_all("li", attrs={"class": "active"})
+        if item.find("a") is not None
+    ]
     comm_list_dict = {key: value for key, value in zip(commodity_list, url_list)}
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/OptionService.getOptionData"
     params = {
@@ -67,24 +85,25 @@ def option_sina_commodity_contract_list(symbol="黄金期权", contract="au2012"
     up_df = pd.DataFrame(data_json["result"]["data"]["up"])
     down_df = pd.DataFrame(data_json["result"]["data"]["down"])
     temp_df = pd.concat([up_df, down_df], axis=1)
-    temp_df.columns = ["买量",
-                       "买价",
-                       "最新价",
-                       "卖价",
-                       "卖量",
-                       "持仓量",
-                       "涨跌",
-                       "行权价",
-                       "看涨期权合约",
-                       "买量",
-                       "买价",
-                       "最新价",
-                       "卖价",
-                       "卖量",
-                       "持仓量",
-                       "涨跌",
-                       "看跌期权合约",
-                       ]
+    temp_df.columns = [
+        "买量",
+        "买价",
+        "最新价",
+        "卖价",
+        "卖量",
+        "持仓量",
+        "涨跌",
+        "行权价",
+        "看涨期权合约",
+        "买量",
+        "买价",
+        "最新价",
+        "卖价",
+        "卖量",
+        "持仓量",
+        "涨跌",
+        "看跌期权合约",
+    ]
     return temp_df
 
 
@@ -98,21 +117,21 @@ def option_sina_commodity_hist(contract="au2012C392"):
     :rtype: pandas.DataFrame
     """
     url = "https://stock.finance.sina.com.cn/futures/api/jsonp.php/var%20_m2009C30002020_7_17=/FutureOptionAllService.getOptionDayline"
-    params = {
-        "symbol": contract
-    }
+    params = {"symbol": contract}
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("["):-2])
+    data_json = demjson.decode(data_text[data_text.find("[") : -2])
     temp_df = pd.DataFrame(data_json)
     temp_df.columns = ["open", "high", "low", "close", "volume", "date"]
     temp_df = temp_df[["date", "open", "high", "low", "close", "volume"]]
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     option_sina_commodity_dict(symbol="黄金期权")
-    option_sina_contract_list_df = option_sina_commodity_contract_list(symbol="黄金期权", contract="au2012")
+    option_sina_contract_list_df = option_sina_commodity_contract_list(
+        symbol="黄金期权", contract="au2012"
+    )
     print(option_sina_contract_list_df["看涨期权合约"])
     option_sina_hist_df = option_sina_commodity_hist(contract="au2012C328")
     print(option_sina_hist_df)

@@ -27,7 +27,9 @@ def sunrise_city_list() -> list:
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 1].tolist()])
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 2].tolist()])
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 3].tolist()])
-    city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 4][:-2].tolist()])
+    city_list.extend(
+        [item.lower() for item in china_city_two_df.iloc[:, 4][:-2].tolist()]
+    )
     return city_list
 
 
@@ -42,13 +44,15 @@ def sunrise_daily(date: str = "20200428", city: str = "北京") -> pd.DataFrame:
     :return: 返回指定日期指定地区的日出日落数据
     :rtype: pandas.DataFrame
     """
-    if pypinyin.slug(city, separator='') in sunrise_city_list():
+    if pypinyin.slug(city, separator="") in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
         res = requests.get(url)
         table = pd.read_html(res.text, header=2)[0]
-        month_df = table.iloc[:-1, ]
+        month_df = table.iloc[
+            :-1,
+        ]
         day_df = month_df[month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]]
         day_df.index = pd.to_datetime([date] * len(day_df), format="%Y%m%d")
         return day_df
@@ -67,13 +71,15 @@ def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFram
     :return: 指定 date 所在月份的每日日出日落数据
     :rtype: pandas.DataFrame
     """
-    if pypinyin.slug(city, separator='') in sunrise_city_list():
+    if pypinyin.slug(city, separator="") in sunrise_city_list():
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
         res = requests.get(url)
         table = pd.read_html(res.text, header=2)[0]
-        month_df = table.iloc[:-1, ]
+        month_df = table.iloc[
+            :-1,
+        ]
         month_df.index = [date[:-2]] * len(month_df)
         return month_df
     else:

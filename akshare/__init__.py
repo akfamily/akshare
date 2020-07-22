@@ -1798,7 +1798,11 @@ from akshare.stock.zh_stock_kcb_sina import stock_zh_kcb_spot, stock_zh_kcb_dail
 """
 A股
 """
-from akshare.stock.zh_stock_a_sina import stock_zh_a_spot, stock_zh_a_daily, stock_zh_a_minute
+from akshare.stock.zh_stock_a_sina import (
+    stock_zh_a_spot,
+    stock_zh_a_daily,
+    stock_zh_a_minute,
+)
 
 """
 A+H股

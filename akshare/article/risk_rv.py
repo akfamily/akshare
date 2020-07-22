@@ -15,7 +15,9 @@ from bs4 import BeautifulSoup
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2", plot: bool = True) -> pd.DataFrame:
+def article_oman_rv(
+    symbol: str = "FTSE", index: str = "rk_th2", plot: bool = True
+) -> pd.DataFrame:
     """
     Oxford-Man Institute of Quantitative Finance Realized Library 的数据
     :param symbol: str ['AEX', 'AORD', 'BFX', 'BSESN', 'BVLG', 'BVSP', 'DJI', 'FCHI', 'FTMIB', 'FTSE', 'GDAXI', 'GSPTSE', 'HSI', 'IBEX', 'IXIC', 'KS11', 'KSE', 'MXX', 'N225', 'NSEI', 'OMXC20', 'OMXHPI', 'OMXSPI', 'OSEAX', 'RUT', 'SMSI', 'SPX', 'SSEC', 'SSMI', 'STI', 'STOXX50E']

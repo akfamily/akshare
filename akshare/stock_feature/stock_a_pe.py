@@ -364,42 +364,44 @@ def stock_a_pe(market: str = "sh") -> pd.DataFrame:
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        kc_df = pd.DataFrame(data_json["data"]["items"], columns=data_json["data"]["fields"])
+        kc_df = pd.DataFrame(
+            data_json["data"]["items"], columns=data_json["data"]["fields"]
+        )
         return kc_df
     elif market == "all":
         url = "https://www.legulegu.com/stockdata/market-ttm-lyr/get-data"
-        params = {
-            "token": token,
-            "marketId": "5"
-        }
+        params = {"token": token, "marketId": "5"}
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
-        all_df = temp_df[["averagePELYR", "averagePETTM", "middlePELYR", "middlePETTM", "close"]]
+        all_df = temp_df[
+            ["averagePELYR", "averagePETTM", "middlePELYR", "middlePETTM", "close"]
+        ]
         return all_df
-    if market in ["000300.XSHG",
-                  "000016.XSHG",
-                  "000010.XSHG",
-                  "000009.XSHG",
-                  "000902.XSHG",
-                  "000903.XSHG",
-                  "000905.XSHG",
-                  "000906.XSHG",
-                  "000852.XSHG"]:
+    if market in [
+        "000300.XSHG",
+        "000016.XSHG",
+        "000010.XSHG",
+        "000009.XSHG",
+        "000902.XSHG",
+        "000903.XSHG",
+        "000905.XSHG",
+        "000906.XSHG",
+        "000852.XSHG",
+    ]:
         url = "https://www.legulegu.com/stockdata/market-ttm-lyr/get-data"
-        params = {
-            "token": token,
-            "marketId": market
-        }
+        params = {"token": token, "marketId": market}
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
-        index_df = temp_df[["averagePELYR", "averagePETTM", "middlePELYR", "middlePETTM", "close"]]
+        index_df = temp_df[
+            ["averagePELYR", "averagePETTM", "middlePELYR", "middlePETTM", "close"]
+        ]
         return index_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_a_pe_df = stock_a_pe(market="000016.XSHG")
     print(stock_a_pe_df)

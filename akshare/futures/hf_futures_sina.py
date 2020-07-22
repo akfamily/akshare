@@ -42,12 +42,39 @@ def hf_subscribe_exchange_symbol():
     res = requests.get(hf_subscribe_exchange_symbol_url)
     res.encoding = "gb2312"
     data_json = demjson.decode(
-        res.text[res.text.find("var oHF_1 = ") + 12: res.text.find("var oHF_2 = ") - 2]
+        res.text[res.text.find("var oHF_1 = ") + 12 : res.text.find("var oHF_2 = ") - 2]
     )
     return list(data_json.keys())
 
 
-def futures_hf_spot(subscribe_list=['CT', 'NID', 'PBD', 'SND', 'ZSD', 'AHD', 'CAD', 'S', 'W', 'C', 'BO', 'SM', 'TRB', 'HG', 'NG', 'CL', 'SI', 'GC', 'LHC', 'OIL', 'XAU', 'XAG', 'XPT', 'XPD']):
+def futures_hf_spot(
+    subscribe_list=[
+        "CT",
+        "NID",
+        "PBD",
+        "SND",
+        "ZSD",
+        "AHD",
+        "CAD",
+        "S",
+        "W",
+        "C",
+        "BO",
+        "SM",
+        "TRB",
+        "HG",
+        "NG",
+        "CL",
+        "SI",
+        "GC",
+        "LHC",
+        "OIL",
+        "XAU",
+        "XAG",
+        "XPT",
+        "XPD",
+    ]
+):
     """
     订阅数据处理
     """

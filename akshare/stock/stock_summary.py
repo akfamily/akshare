@@ -56,7 +56,7 @@ def stock_sse_summary():
     return big_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_szse_summary_df = stock_szse_summary(date="20200619")
     print(stock_szse_summary_df)
 

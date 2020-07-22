@@ -26,7 +26,9 @@ from akshare.futures.symbol_var import chinese_to_english
 calendar = cons.get_calendar()
 
 
-def futures_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
+def futures_spot_price_daily(
+    start_day=None, end_day=None, vars_list=cons.contract_symbols
+):
     """
     获取某段时间大宗商品现货价格及相应基差
     :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
@@ -231,7 +233,9 @@ def _check_information(df_data, date):
 
 
 if __name__ == "__main__":
-    get_spot_price_daily_df = futures_spot_price_daily(start_day="20200315", end_day="20200320")
+    get_spot_price_daily_df = futures_spot_price_daily(
+        start_day="20200315", end_day="20200320"
+    )
     print(get_spot_price_daily_df)
     get_spot_price_df = futures_spot_price("20200115")
     print(get_spot_price_df)

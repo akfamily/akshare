@@ -30,14 +30,18 @@ def stock_financial_abstract(stock: str = "600004") -> pd.DataFrame:
     temp_df = pd.read_html(r.text)[13].iloc[:, :2]
     big_df = pd.DataFrame()
     for i in range(0, len(temp_df), 12):
-        truncated_df = temp_df.iloc[i: i + 11, 1]
-        big_df = pd.concat([big_df, truncated_df.reset_index(drop=True)], axis=1, ignore_index=True)
+        truncated_df = temp_df.iloc[i : i + 11, 1]
+        big_df = pd.concat(
+            [big_df, truncated_df.reset_index(drop=True)], axis=1, ignore_index=True
+        )
     data_df = big_df.T
     data_df.columns = temp_df.iloc[:11, 0].tolist()
     return data_df
 
 
-def stock_financial_analysis_indicator(stock: str = "600004") -> pd.DataFrame:
+def stock_financial_analysis_indicator(
+    stock: str = "600004", proxies: dict = None
+) -> pd.DataFrame:
     """
     新浪财经-财务分析-财务指标
     https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600004/ctrl/2019/displaytype/4.phtml
@@ -47,14 +51,14 @@ def stock_financial_analysis_indicator(stock: str = "600004") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{stock}/ctrl/2020/displaytype/4.phtml"
-    r = requests.get(url)
+    r = requests.get(url, proxies=proxies)
     soup = BeautifulSoup(r.text, "lxml")
     year_context = soup.find(attrs={"id": "con02-1"}).find("table").find_all("a")
     year_list = [item.text for item in year_context]
     out_df = pd.DataFrame()
     for year_item in tqdm(year_list):
         url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{stock}/ctrl/{year_item}/displaytype/4.phtml"
-        r = requests.get(url)
+        r = requests.get(url, proxies=proxies)
         temp_df = pd.read_html(r.text)[12].iloc[:, :-1]
         temp_df.columns = temp_df.iloc[0, :]
         temp_df = temp_df.iloc[1:, :]
@@ -62,9 +66,20 @@ def stock_financial_analysis_indicator(stock: str = "600004") -> pd.DataFrame:
         indicator_list = ["每股指标", "盈利能力", "成长能力", "营运能力", "偿债及资本结构", "现金流量", "其他指标"]
         for i in range(len(indicator_list)):
             if i == 6:
-                inner_df = temp_df[temp_df.loc[temp_df.iloc[:, 0].str.find(indicator_list[i]) == 0, :].index[0]:].T
+                inner_df = temp_df[
+                    temp_df.loc[
+                        temp_df.iloc[:, 0].str.find(indicator_list[i]) == 0, :
+                    ].index[0] :
+                ].T
             else:
-                inner_df = temp_df[temp_df.loc[temp_df.iloc[:, 0].str.find(indicator_list[i]) == 0, :].index[0]: temp_df.loc[temp_df.iloc[:, 0].str.find(indicator_list[i+1]) == 0, :].index[0]-1].T
+                inner_df = temp_df[
+                    temp_df.loc[temp_df.iloc[:, 0].str.find(indicator_list[i]) == 0, :]
+                    .index[0] : temp_df.loc[
+                        temp_df.iloc[:, 0].str.find(indicator_list[i + 1]) == 0, :
+                    ]
+                    .index[0]
+                    - 1
+                ].T
             inner_df = inner_df.reset_index(drop=True)
             big_df = pd.concat([big_df, inner_df], axis=1)
         big_df.columns = big_df.iloc[0, :].tolist()
@@ -83,10 +98,7 @@ def stock_history_dividend() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lsfh/index.phtml"
-    params = {
-        "p": "1",
-        "num": "5000"
-    }
+    params = {"p": "1", "num": "5000"}
     r = requests.get(url, params=params)
     temp_df = pd.read_html(r.text)[0]
     temp_df["代码"] = temp_df["代码"].astype(str)
@@ -94,7 +106,9 @@ def stock_history_dividend() -> pd.DataFrame:
     return temp_df
 
 
-def stock_history_dividend_detail(indicator: str = "分红", stock: str = "000541", date: str = "1994-12-24") -> pd.DataFrame:
+def stock_history_dividend_detail(
+    indicator: str = "分红", stock: str = "000541", date: str = "1994-12-24"
+) -> pd.DataFrame:
     """
     新浪财经-发行与分配-分红配股详情
     https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/300670.phtml
@@ -173,11 +187,11 @@ def stock_add_stock(stock: str = "688166") -> pd.DataFrame:
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_AddStock/stockid/{stock}.phtml"
     r = requests.get(url)
     temp_df = pd.read_html(r.text)[12]
-    if temp_df.at[0, 0] == '对不起，暂时没有相关增发记录':
+    if temp_df.at[0, 0] == "对不起，暂时没有相关增发记录":
         return f"股票 {stock} 无增发记录"
     big_df = pd.DataFrame()
     for i in range(int(len(temp_df.at[0, 1]) / 10)):
-        temp_df = pd.read_html(r.text)[13+i].iloc[:, 1]
+        temp_df = pd.read_html(r.text)[13 + i].iloc[:, 1]
         big_df[temp_df.name.split(" ")[1].split("：")[1][:10]] = temp_df
     big_df = big_df.T
     big_df.columns = ["发行方式", "发行价格", "实际公司募集资金总额", "发行费用总额", "实际发行数量"]
@@ -214,13 +228,17 @@ def stock_circulate_stock_holder(stock: str = "600000") -> pd.DataFrame:
     temp_df = pd.read_html(r.text)[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
     big_df = pd.DataFrame()
-    need_range = temp_df[temp_df.iloc[:, 0].str.find("截止日期") == 0].index.tolist() + [len(temp_df)]
-    for i in range(len(need_range)-1):
-        truncated_df = temp_df.iloc[need_range[i]: need_range[i + 1], :]
+    need_range = temp_df[temp_df.iloc[:, 0].str.find("截止日期") == 0].index.tolist() + [
+        len(temp_df)
+    ]
+    for i in range(len(need_range) - 1):
+        truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[2:, :]
         temp_truncated.reset_index(inplace=True, drop=True)
-        concat_df = pd.concat([temp_truncated, truncated_df.iloc[0, :], truncated_df.iloc[1, :]], axis=1)
+        concat_df = pd.concat(
+            [temp_truncated, truncated_df.iloc[0, :], truncated_df.iloc[1, :]], axis=1
+        )
         concat_df.columns = concat_df.iloc[0, :]
         concat_df = concat_df.iloc[1:, :]
         concat_df["截止日期"] = concat_df["截止日期"].fillna(method="ffill")
@@ -245,9 +263,11 @@ def stock_fund_stock_holder(stock: str = "600004") -> pd.DataFrame:
     temp_df = pd.read_html(r.text)[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
     big_df = pd.DataFrame()
-    need_range = temp_df[temp_df.iloc[:, 0].str.find("截止日期") == 0].index.tolist() + [len(temp_df)]
-    for i in range(len(need_range)-1):
-        truncated_df = temp_df.iloc[need_range[i]: need_range[i + 1], :]
+    need_range = temp_df[temp_df.iloc[:, 0].str.find("截止日期") == 0].index.tolist() + [
+        len(temp_df)
+    ]
+    for i in range(len(need_range) - 1):
+        truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[2:, :]
         temp_truncated.reset_index(inplace=True, drop=True)
@@ -276,14 +296,25 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
     temp_df = pd.read_html(r.text)[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
     big_df = pd.DataFrame()
-    need_range = temp_df[temp_df.iloc[:, 0].str.find("截至日期") == 0].index.tolist() + [len(temp_df)]
-    for i in range(len(need_range)-1):
-        truncated_df = temp_df.iloc[need_range[i]: need_range[i + 1], :]
+    need_range = temp_df[temp_df.iloc[:, 0].str.find("截至日期") == 0].index.tolist() + [
+        len(temp_df)
+    ]
+    for i in range(len(need_range) - 1):
+        truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[5:, :]
         temp_truncated.reset_index(inplace=True, drop=True)
-        concat_df = pd.concat([temp_truncated, truncated_df.iloc[0, :], truncated_df.iloc[1, :], truncated_df.iloc[2, :],
-                               truncated_df.iloc[3, :], truncated_df.iloc[4, :]], axis=1)
+        concat_df = pd.concat(
+            [
+                temp_truncated,
+                truncated_df.iloc[0, :],
+                truncated_df.iloc[1, :],
+                truncated_df.iloc[2, :],
+                truncated_df.iloc[3, :],
+                truncated_df.iloc[4, :],
+            ],
+            axis=1,
+        )
         concat_df.columns = concat_df.iloc[0, :]
         concat_df = concat_df.iloc[1:, :]
         concat_df["截至日期"] = concat_df["截至日期"].fillna(method="ffill")
@@ -298,21 +329,29 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
     return big_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_financial_abstract_df = stock_financial_abstract(stock="600004")
     print(stock_financial_abstract_df)
-    stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(stock="600004")
+    stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(
+        stock="600004"
+    )
     print(stock_financial_analysis_indicator_df)
 
     stock_history_dividend_df = stock_history_dividend()
     print(stock_history_dividend_df)
-    stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="分红", stock="600012", date="")
+    stock_history_dividend_detail_df = stock_history_dividend_detail(
+        indicator="分红", stock="600012", date=""
+    )
     print(stock_history_dividend_detail_df)
 
-    stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="分红", stock="600012", date="2019-07-08")
+    stock_history_dividend_detail_df = stock_history_dividend_detail(
+        indicator="分红", stock="600012", date="2019-07-08"
+    )
     print(stock_history_dividend_detail_df)
 
-    stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="配股", stock="000002", date="1999-12-22")
+    stock_history_dividend_detail_df = stock_history_dividend_detail(
+        indicator="配股", stock="000002", date="1999-12-22"
+    )
     print(stock_history_dividend_detail_df)
 
     stock_ipo_info_df = stock_ipo_info(stock="600004")

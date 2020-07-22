@@ -10,8 +10,17 @@ from email.header import Header
 from email.mime.multipart import MIMEMultipart
 
 
-def send_email(msg: str, from_email: str, password: str, to_email: str, host: str, port: str, attach_name=False,
-               attach_root: bool = False, ssl: bool = False):
+def send_email(
+    msg: str,
+    from_email: str,
+    password: str,
+    to_email: str,
+    host: str,
+    port: str,
+    attach_name=False,
+    attach_root: bool = False,
+    ssl: bool = False,
+):
     """
     发送提醒邮件
     :param msg: string 邮件的主题
@@ -26,19 +35,23 @@ def send_email(msg: str, from_email: str, password: str, to_email: str, host: st
     :return: None
     """
     message = MIMEMultipart()
-    message['From'] = from_email
-    message['To'] = to_email
-    message['Subject'] = Header(msg)
+    message["From"] = from_email
+    message["To"] = to_email
+    message["Subject"] = Header(msg)
 
     if bool(attach_name) and bool(attach_root):
         if isinstance(attach_name, str):
-            part = MIMEText(open(attach_root + attach_name, 'rb').read(), 'base64', 'utf-8')
-            part.add_header('Content-Disposition', 'attachment', filename=attach_name)
+            part = MIMEText(
+                open(attach_root + attach_name, "rb").read(), "base64", "utf-8"
+            )
+            part.add_header("Content-Disposition", "attachment", filename=attach_name)
             message.attach(part)
         elif isinstance(attach_name, list):
             for name in attach_name:
-                part = MIMEText(open(attach_root + name, 'rb').read(), 'base64', 'utf-8')
-                part.add_header('Content-Disposition', 'attachment', filename=name)
+                part = MIMEText(
+                    open(attach_root + name, "rb").read(), "base64", "utf-8"
+                )
+                part.add_header("Content-Disposition", "attachment", filename=name)
                 message.attach(part)
     if ssl:
         smtp_obj = smtplib.SMTP_SSL()

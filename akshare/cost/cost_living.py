@@ -19,8 +19,14 @@ def _get_region():
     """
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "lxml")
-    half_url_list = [item["href"] for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")]
-    name_list = [item["href"].split("/")[-1] for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")]
+    half_url_list = [
+        item["href"]
+        for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")
+    ]
+    name_list = [
+        item["href"].split("/")[-1]
+        for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")
+    ]
     name_url_dict = dict(zip(name_list, half_url_list))
     name_url_dict["world"] = "/cost-of-living/index"
     return name_url_dict
@@ -40,7 +46,6 @@ def cost_living(region="world"):
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cost_living_df = cost_living()
     print(cost_living_df)
-

@@ -34,7 +34,7 @@ def macro_euro_gdp_yoy():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_gdp_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区季度GDP年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -60,7 +60,7 @@ def macro_euro_cpi_mom():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_cpi_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区CPI月率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -86,7 +86,7 @@ def macro_euro_cpi_yoy():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_cpi_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区CPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -112,7 +112,7 @@ def macro_euro_ppi_mom():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_ppi_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区PPI月率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -138,7 +138,7 @@ def macro_euro_retail_sales_mom():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_retail_sales_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区零售销售月率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -163,7 +163,7 @@ def macro_euro_employment_change_qoq():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_employment_change_qoq_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区季调后就业人数季率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -189,7 +189,7 @@ def macro_euro_unemployment_rate_mom():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_unemployment_rate_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区失业率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -215,7 +215,7 @@ def macro_euro_trade_balance():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_trade_balance_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区未季调贸易帐报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -241,7 +241,7 @@ def macro_euro_current_account_mom():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_current_account_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区经常帐报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -267,7 +267,7 @@ def macro_euro_industrial_production_mom():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_industrial_production_mom_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区工业产出月率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -292,7 +292,7 @@ def macro_euro_manufacturing_pmi():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_manufacturing_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区制造业PMI初值报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -318,7 +318,7 @@ def macro_euro_services_pmi():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_services_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区服务业PMI终值报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -344,7 +344,7 @@ def macro_euro_zew_economic_sentiment():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_zew_economic_sentiment_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区ZEW经济景气指数报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -370,7 +370,7 @@ def macro_euro_sentix_investor_confidence():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_eurozone_sentix_investor_confidence_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["欧元区Sentix投资者信心指数报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -392,10 +392,10 @@ def macro_euro_lme_holding():
     :rtype: pandas.DataFrame
     """
     t = time.time()
-    params = {
-        "_": str(int(round(t * 1000)))
-    }
-    r = requests.get("https://cdn.jin10.com/data_center/reports/lme_position.json", params=params)
+    params = {"_": str(int(round(t * 1000)))}
+    r = requests.get(
+        "https://cdn.jin10.com/data_center/reports/lme_position.json", params=params
+    )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
     temp_df.fillna(value="[0, 0, 0]", inplace=True)
@@ -419,10 +419,10 @@ def macro_euro_lme_stock():
     :rtype: pandas.DataFrame
     """
     t = time.time()
-    params = {
-        "_": str(int(round(t * 1000)))
-    }
-    r = requests.get("https://cdn.jin10.com/data_center/reports/lme_stock.json", params=params)
+    params = {"_": str(int(round(t * 1000)))}
+    r = requests.get(
+        "https://cdn.jin10.com/data_center/reports/lme_stock.json", params=params
+    )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
     big_df = pd.DataFrame()

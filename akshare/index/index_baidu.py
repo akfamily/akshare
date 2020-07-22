@@ -53,7 +53,12 @@ def get_ptbk(uniqid: str, cookie: str) -> str:
         return ptbk
 
 
-def baidu_search_index(word: str = "python", start_date: str = "2020-01-01", end_date: str = "2020-05-01", cookie: str = None) -> str:
+def baidu_search_index(
+    word: str = "python",
+    start_date: str = "2020-01-01",
+    end_date: str = "2020-05-01",
+    cookie: str = None,
+) -> str:
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
@@ -72,7 +77,7 @@ def baidu_search_index(word: str = "python", start_date: str = "2020-01-01", end
     session.headers.update(headers)
     params = {
         "area": "0",
-        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ':1}]]',
+        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ":1}]]",
         "startDate": start_date,
         "endDate": end_date,
     }
@@ -122,7 +127,7 @@ def baidu_info_index(word: str, start_date: str, end_date: str, cookie: str) -> 
     session.headers.update(headers)
     params = {
         "area": "0",
-        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ':1}]]',
+        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ":1}]]",
         "startDate": start_date,
         "endDate": end_date,
     }
@@ -153,7 +158,12 @@ def baidu_info_index(word: str, start_date: str, end_date: str, cookie: str) -> 
             return temp_df_1
 
 
-def baidu_media_index(word: str = "口罩", start_date: str = "2018-01-01", end_date: str = "2020-04-20", cookie: str = None) -> str:
+def baidu_media_index(
+    word: str = "口罩",
+    start_date: str = "2018-01-01",
+    end_date: str = "2020-04-20",
+    cookie: str = None,
+) -> str:
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
@@ -172,7 +182,7 @@ def baidu_media_index(word: str = "口罩", start_date: str = "2018-01-01", end_
     session.headers.update(headers)
     params = {
         "area": "0",
-        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ':1}]]',
+        "word": '[[{"name":' + f'"{word}"' + ',"wordType"' + ":1}]]",
         "startDate": start_date,
         "endDate": end_date,
     }
@@ -205,7 +215,7 @@ def baidu_media_index(word: str = "口罩", start_date: str = "2018-01-01", end_
 
 
 if __name__ == "__main__":
-    cookie = ''
+    cookie = ""
     data = baidu_search_index(
         word="python", start_date="2020-01-01", end_date="2020-02-14", cookie=cookie
     )

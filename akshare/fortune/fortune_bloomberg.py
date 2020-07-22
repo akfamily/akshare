@@ -26,16 +26,26 @@ def index_bloomberg_billionaires() -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     big_content_list = list()
-    soup_node = soup.find(attrs={"class": "table-chart"}).find_all(attrs={"class": "table-row"})
+    soup_node = soup.find(attrs={"class": "table-chart"}).find_all(
+        attrs={"class": "table-row"}
+    )
     for row in soup_node:
         temp_content_list = row.text.strip().replace("\n", "").split("  ")
         content_list = [item for item in temp_content_list if item != ""]
         big_content_list.append(content_list)
     temp_df = pd.DataFrame(big_content_list).iloc[:, :-1]
-    temp_df.columns = ["rank", "name", "total_net_worth", "last_change", "YTD_change", "country", "industry"]
+    temp_df.columns = [
+        "rank",
+        "name",
+        "total_net_worth",
+        "last_change",
+        "YTD_change",
+        "country",
+        "industry",
+    ]
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     index_bloomberg_billionaires_df = index_bloomberg_billionaires()
     print(index_bloomberg_billionaires_df)

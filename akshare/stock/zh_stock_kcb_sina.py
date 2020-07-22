@@ -12,13 +12,15 @@ import pandas as pd
 import requests
 from tqdm import tqdm
 
-from akshare.stock.cons import (zh_sina_kcb_stock_payload,
-                                zh_sina_kcb_stock_url,
-                                zh_sina_kcb_stock_count_url,
-                                zh_sina_kcb_stock_hist_url,
-                                zh_sina_kcb_stock_hfq_url,
-                                zh_sina_kcb_stock_qfq_url,
-                                zh_sina_kcb_stock_amount_url)
+from akshare.stock.cons import (
+    zh_sina_kcb_stock_payload,
+    zh_sina_kcb_stock_url,
+    zh_sina_kcb_stock_count_url,
+    zh_sina_kcb_stock_hist_url,
+    zh_sina_kcb_stock_hfq_url,
+    zh_sina_kcb_stock_qfq_url,
+    zh_sina_kcb_stock_amount_url,
+)
 
 
 def get_zh_kcb_page_count() -> int:
@@ -44,11 +46,9 @@ def stock_zh_kcb_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = get_zh_kcb_page_count()
     zh_sina_stock_payload_copy = zh_sina_kcb_stock_payload.copy()
-    for page in tqdm(range(1, page_count+1)):
+    for page in tqdm(range(1, page_count + 1)):
         zh_sina_stock_payload_copy.update({"page": page})
-        res = requests.get(
-            zh_sina_kcb_stock_url,
-            params=zh_sina_kcb_stock_payload)
+        res = requests.get(zh_sina_kcb_stock_url, params=zh_sina_kcb_stock_payload)
         data_json = demjson.decode(res.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
     return big_df
@@ -84,24 +84,40 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     0  2019-07-22  1.0000000000000000
     1  1900-01-01  1.0000000000000000
     """
-    res = requests.get(zh_sina_kcb_stock_hist_url.format(symbol, datetime.datetime.now().strftime("%Y_%m_%d"), symbol))
-    data_json = demjson.decode(res.text[res.text.find("["):res.text.rfind("]")+1])
+    res = requests.get(
+        zh_sina_kcb_stock_hist_url.format(
+            symbol, datetime.datetime.now().strftime("%Y_%m_%d"), symbol
+        )
+    )
+    data_json = demjson.decode(res.text[res.text.find("[") : res.text.rfind("]") + 1])
     data_df = pd.DataFrame(data_json)
     data_df.index = pd.to_datetime(data_df["d"])
     data_df.index.name = "date"
     del data_df["d"]
 
     r = requests.get(zh_sina_kcb_stock_amount_url.format(symbol, symbol))
-    amount_data_json = demjson.decode(r.text[r.text.find("["): r.text.rfind("]")+1])
+    amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
     del amount_data_df["date"]
-    temp_df = pd.merge(data_df, amount_data_df, left_index=True, right_index=True, how="left")
+    temp_df = pd.merge(
+        data_df, amount_data_df, left_index=True, right_index=True, how="left"
+    )
     temp_df.fillna(method="ffill", inplace=True)
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["v"] / temp_df["amount"]
-    temp_df.columns = ["open", "high", "low", "close", "volume", "after_volume", "after_amount", "outstanding_share", "turnover"]
+    temp_df.columns = [
+        "open",
+        "high",
+        "low",
+        "close",
+        "volume",
+        "after_volume",
+        "after_amount",
+        "outstanding_share",
+        "turnover",
+    ]
 
     if not adjust:
         return temp_df
@@ -109,7 +125,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     if adjust == "hfq":
         res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])['data'])
+            eval(res.text.split("=")[1].split("\n")[0])["data"]
+        )
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
@@ -128,7 +145,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     if adjust == "qfq":
         res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])['data'])
+            eval(res.text.split("=")[1].split("\n")[0])["data"]
+        )
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
@@ -147,7 +165,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     if adjust == "hfq-factor":
         res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])['data'])
+            eval(res.text.split("=")[1].split("\n")[0])["data"]
+        )
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
@@ -156,7 +175,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     if adjust == "qfq-factor":
         res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol))
         qfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])['data'])
+            eval(res.text.split("=")[1].split("\n")[0])["data"]
+        )
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]

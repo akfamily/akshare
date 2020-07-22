@@ -39,7 +39,7 @@ def _get_page_num_dxsyl(market: str = "上海主板") -> int:
         "rt": "52898446",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
     return data_json["pages"]
 
 
@@ -70,7 +70,7 @@ def stock_em_dxsyl(market: str = "上海主板") -> pd.DataFrame:
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
     temp_df.columns = [

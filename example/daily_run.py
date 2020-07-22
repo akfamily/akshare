@@ -20,7 +20,9 @@ s = json.load(open(setting_file_path, "r"))
 
 
 def down_load(date):
-    date = akshare.cons.convert_date(date) if date is not None else datetime.date.today()
+    date = (
+        akshare.cons.convert_date(date) if date is not None else datetime.date.today()
+    )
     if date not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return
@@ -46,7 +48,22 @@ def down_load(date):
 
     # ----------------------------------------------------------------------
     if s["qqEmail"] != "*":
-        akshare.send_email("akshare", s["qqEmail"], s["secret"], s["qqEmail"], "smtp.qq.com", "465", ["展期%s.csv" % date, "基差%s.csv" % date, "会员持仓排名%s.csv" % date, "仓单%s.csv" % date], s["root"], True)
+        akshare.send_email(
+            "akshare",
+            s["qqEmail"],
+            s["secret"],
+            s["qqEmail"],
+            "smtp.qq.com",
+            "465",
+            [
+                "展期%s.csv" % date,
+                "基差%s.csv" % date,
+                "会员持仓排名%s.csv" % date,
+                "仓单%s.csv" % date,
+            ],
+            s["root"],
+            True,
+        )
 
 
 def monitor(catch_time="17:00"):

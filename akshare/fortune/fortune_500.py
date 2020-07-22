@@ -23,14 +23,26 @@ def fortune_rank(year="2015"):
     :param year: str 年份
     :return: pandas.DataFrame
     """
-    if int(year) in [item for item in range(2014, 2020)] + [item for item in range(1996, 2007)]:
+    if int(year) in [item for item in range(2014, 2020)] + [
+        item for item in range(1996, 2007)
+    ]:
         if year in ["2006", "2007"]:
             res = requests.get(eval("url_" + year))
             res.encoding = "utf-8"
             df = pd.read_html(res.text)[0].iloc[1:, 2:]
             df.columns = pd.read_html(res.text)[0].iloc[0, 2:].tolist()
             return df
-        elif year in ["1996", "1997", "1998", "1999", "2000", "2001", "2003", "2004", "2005"]:
+        elif year in [
+            "1996",
+            "1997",
+            "1998",
+            "1999",
+            "2000",
+            "2001",
+            "2003",
+            "2004",
+            "2005",
+        ]:
             res = requests.get(eval("url_" + year))
             res.encoding = "utf-8"
             df = pd.read_html(res.text)[0].iloc[1:-1, 1:]
@@ -55,7 +67,12 @@ def fortune_rank(year="2015"):
             temp_df = df
             for page in range(2, 6):
                 # page = 1
-                res = requests.get(eval(f"url_{2011}").rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+                res = requests.get(
+                    eval(f"url_{2011}").rsplit(".", maxsplit=1)[0]
+                    + "_"
+                    + str(page)
+                    + ".htm"
+                )
                 res.encoding = "utf-8"
                 df = pd.read_html(res.text)[0].iloc[:, 2:]
                 temp_df = temp_df.append(df, ignore_index=True)
@@ -67,7 +84,12 @@ def fortune_rank(year="2015"):
         temp_df = df
         for page in range(2, 6):
             # page = 1
-            res = requests.get(eval(f"url_{year}").rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+            res = requests.get(
+                eval(f"url_{year}").rsplit(".", maxsplit=1)[0]
+                + "_"
+                + str(page)
+                + ".htm"
+            )
             res.encoding = "utf-8"
             df = pd.read_html(res.text)[0].iloc[:, 2:]
             temp_df = temp_df.append(df, ignore_index=True)
@@ -81,7 +103,12 @@ def fortune_rank(year="2015"):
         temp_df = df
         for page in range(2, 11):
             # page = 1
-            res = requests.get(eval(f"url_{year}").rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+            res = requests.get(
+                eval(f"url_{year}").rsplit(".", maxsplit=1)[0]
+                + "_"
+                + str(page)
+                + ".htm"
+            )
             res.encoding = "utf-8"
             text_df = pd.read_html(res.text)[0]
             df = text_df.iloc[1:, 2:]
@@ -97,7 +124,12 @@ def fortune_rank(year="2015"):
         temp_df = df
         for page in range(2, 11):
             # page = 1
-            res = requests.get(eval(f"url_{year}").rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+            res = requests.get(
+                eval(f"url_{year}").rsplit(".", maxsplit=1)[0]
+                + "_"
+                + str(page)
+                + ".htm"
+            )
             res.encoding = "utf-8"
             text_df = pd.read_html(res.text)[0]
             df = text_df.iloc[1:, 1:]
@@ -120,11 +152,13 @@ def fortune_rank_eng(year="1995"):
     url = f"https://fortune.com/global500/{year}/search/"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "lxml")
-    code = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).get_text())["identifier"]
+    code = json.loads(
+        soup.find("script", attrs={"type": "application/ld+json"}).get_text()
+    )["identifier"]
     url = f"https://content.fortune.com/wp-json/irving/v1/data/franchise-search-results?list_id={code}"
     res = requests.get(url)
     big_df = pd.DataFrame()
-    for i in range(len(res.json()[1]["items"][0]['fields'])):
+    for i in range(len(res.json()[1]["items"][0]["fields"])):
         temp_df = pd.DataFrame([item["fields"][i] for item in res.json()[1]["items"]])
         big_df[temp_df["key"].values[0]] = temp_df["value"]
     big_df["rank"] = big_df["rank"].astype(int)
@@ -133,7 +167,7 @@ def fortune_rank_eng(year="1995"):
     return big_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     fortune_rank_df = fortune_rank(year=2011)  # 2010 不一样
     print(fortune_rank_df)
     for year in range(1995, 2020):

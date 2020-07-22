@@ -31,8 +31,14 @@ def futures_inventory_em(exchange: str = "上海期货交易所", symbol: str = 
     exchange_dict = dict(zip(temp_key, temp_value))
 
     temp_text = soup.find_all("script", attrs={"type": "text/javascript"})[8].text
-    temp_dict = demjson.decode(temp_text[temp_text.find('cv= ')+4:temp_text.rfind(';\r\n;')])
-    temp_item = [item.get("data") for item in temp_dict if item.get("value") == exchange_dict[exchange]][0]
+    temp_dict = demjson.decode(
+        temp_text[temp_text.find("cv= ") + 4 : temp_text.rfind(";\r\n;")]
+    )
+    temp_item = [
+        item.get("data")
+        for item in temp_dict
+        if item.get("value") == exchange_dict[exchange]
+    ][0]
     symbol_dict = {item[1]: item[0] for item in temp_item}
 
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
@@ -49,7 +55,7 @@ def futures_inventory_em(exchange: str = "上海期货交易所", symbol: str = 
     r = requests.get(url, params=params)
     data_text = r.text
 
-    data_json = demjson.decode(data_text[data_text.find("{"):])
+    data_json = demjson.decode(data_text[data_text.find("{") :])
     temp_df = pd.DataFrame(data_json["data"]).iloc[:, 0].str.split(",", expand=True)
     temp_df.columns = ["日期", "库存", "增减"]
     return temp_df

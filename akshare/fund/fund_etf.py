@@ -38,7 +38,7 @@ def fund_etf_category_sina(symbol: str = "封闭式基金") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("([")+1:-2])
+    data_json = demjson.decode(data_text[data_text.find("([") + 1 : -2])
     temp_df = pd.DataFrame(data_json)
     return temp_df
 
@@ -55,13 +55,15 @@ def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
     url = f"https://finance.sina.com.cn/realstock/company/{symbol}/hisdata/klc_kl.js"
     r = requests.get(url)
     js_code = execjs.compile(hk_js_decode)
-    dict_list = js_code.call('d', r.text.split("=")[1].split(";")[0].replace('"', ""))  # 执行js解密代码
+    dict_list = js_code.call(
+        "d", r.text.split("=")[1].split(";")[0].replace('"', "")
+    )  # 执行js解密代码
     temp_df = pd.DataFrame(dict_list)
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     fund_etf_category_sina_df = fund_etf_category_sina(symbol="LOF基金")
     print(fund_etf_category_sina_df)
 
