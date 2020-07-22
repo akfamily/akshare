@@ -1006,10 +1006,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.78: add: add hold field in futures_zh_minute_sina interface
 0.5.79: add: add stock_report_fund_hold interface
 0.5.80: fix: fix PG to futures cons file
+0.5.81: add: add stock_zh_index_hist_csindex interface
 """
 
-__version__ = "0.5.80"
+__version__ = "0.5.81"
 __author__ = "Albert King"
+
+"""
+中证指数
+"""
+from akshare.index.zh_stock_index_csindex import stock_zh_index_hist_csindex
 
 """
 股票基金持仓数据
