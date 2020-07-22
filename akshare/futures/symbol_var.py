@@ -21,7 +21,7 @@ def symbol_varieties(contract_code: str):
     return symbol_detail
 
 
-def symbol_market(symbol_detail: str = "PG"):
+def symbol_market(symbol_detail: str = "SC"):
     """
     映射出市场代码
     :param symbol_detail:
@@ -141,6 +141,7 @@ def chinese_to_english(chinese_var: str):
         "不锈钢仓库",
         "纯碱",
         "液化石油气",
+        "低硫燃料油",
     ]
     english_list = [
         "RU",
@@ -233,6 +234,7 @@ def chinese_to_english(chinese_var: str):
         "SS",
         "SA",
         "PG",
+        "LU"
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]

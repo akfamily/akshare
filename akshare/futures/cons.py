@@ -141,6 +141,7 @@ market_exchange_symbols = {
         "EG",
         "RR",
         "EB",  # 20191009
+        "PG",
     ],
     "czce": [
         "WH",
@@ -194,7 +195,7 @@ market_exchange_symbols = {
         "NR",
         "SP",
         "SS",
-        "PG",
+        "LU",
     ],
 }
 
