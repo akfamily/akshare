@@ -251,20 +251,19 @@ def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
     :return: pd.DataFrame
-        rank                        排名                        int
-        vol_party_name              成交量排序的当前名次会员        string(中文)
-        vol                         该会员成交量                  int
-        vol_chg                     该会员成交量变化量             int
-        long_party_name             持多单排序的当前名次会员        string(中文)
-        long_open_interest          该会员持多单                  int
-        long_open_interest_chg      该会员持多单变化量             int
-        short_party_name            持空单排序的当前名次会员        string(中文)
-        short_open_interest         该会员持空单                  int
-        short_open_interest_chg     该会员持空单变化量             int
-        symbol                      标的合约                     string
-        var                         品种                        string
-        date                        日期                        string YYYYMMDD
-
+    rank                        排名                        int
+    vol_party_name              成交量排序的当前名次会员        string(中文)
+    vol                         该会员成交量                  int
+    vol_chg                     该会员成交量变化量             int
+    long_party_name             持多单排序的当前名次会员        string(中文)
+    long_open_interest          该会员持多单                  int
+    long_open_interest_chg      该会员持多单变化量             int
+    short_party_name            持空单排序的当前名次会员        string(中文)
+    short_open_interest         该会员持空单                  int
+    short_open_interest_chg     该会员持空单变化量             int
+    symbol                      标的合约                     string
+    var                         品种                        string
+    date                        日期                        string YYYYMMDD
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2002, 1, 7):
@@ -968,7 +967,7 @@ if __name__ == "__main__":
     get_dce_rank_table_third_df = get_dce_rank_table(date="20180718")
     print(get_dce_rank_table_third_df)
     # 总接口
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200313", end_day="20200315")
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200717")
     print(get_rank_sum_daily_df)
 
     futures_dce_detail_dict = futures_dce_position_rank(date="20200506")

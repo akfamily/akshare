@@ -539,6 +539,10 @@
  "fund_etf_hist_sina"  # 基金行情
  # 股票财务报告-预约披露
  "stock_report_disclosure"  # 股票财务报告-预约披露时间
+ # 基金持股
+ "stock_report_fund_hold"  # 个股-基金持股
+ # 中证指数
+ "stock_zh_index_hist_csindex"  # 中证指数
 ```
 
 ## 案例演示
