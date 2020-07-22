@@ -5,17 +5,19 @@ Date: 2020/4/8 14:39
 Desc: 宽客在线-阿尔戈斯全网监控预警系统
 https://www.quantinfo.com/Argus/
 """
-import requests
 import pandas as pd
+import requests
 import urllib3
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def watch_argus():
     """
+    宽客在线-阿尔戈斯全网监控预警系统
     https://www.quantinfo.com/Argus/
-    :return:
-    :rtype:
+    :return: 阿尔戈斯全网监控预警系统的监控数据
+    :rtype: pandas.DataFrame
     """
     url = "https://www.quantinfo.com/API/Argus/predict"
     headers = {
