@@ -6240,3 +6240,59 @@ date
 2020-07-13              249           3892               0.063977
 2020-07-14              243           3894               0.062404
 ```
+
+#### 基金持股
+
+接口: stock_report_fund_hold
+
+目标地址: http://data.eastmoney.com/zlsj/2020-06-30-1-2.html
+
+描述: 获取个股的基金持股数据
+
+限量: 单次返回指定 symbol 和 date 的所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| symbol | str | Y    | symbol="基金持仓"; choice of {"基金持仓", "QFII持仓", "社保持仓", "券商持仓", "保险持仓", "信托持仓"}|
+| date | str | Y    | date="20200630"; 财报发布日期, xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| stock_code          | datetime   | Y        |  股票代码    |
+| stock_name          | float   | Y        |  股票简称    |
+| pub_date          | float   | Y        |  发布时间    |
+| hold_num          | float   | Y        |  持有基金家数(家)    |
+| hold_change          | float   | Y        |  持股变化    |
+| share_hold_num          | float   | Y     |  持股总数(股)    |
+| value_position          | float   | Y     |  持股市值(元)    |
+| hold_value_change          | float   | Y     |  持股变动数值(元)    |
+| hold_rate_change          | float   | Y   |  持股变动比例(%)    |
+
+接口示例
+
+```python
+import akshare as ak
+stock_report_fund_hold_df = ak.stock_report_fund_hold(symbol="基金持仓", date="20200630")
+print(stock_report_fund_hold_df)
+```
+
+数据示例
+
+```
+     stock_code stock_name  ... hold_value_change  hold_rate_change
+0        600519       贵州茅台  ...           -269073         -0.465548
+1        002475       立讯精密  ...         296550063         39.074941
+2        000858        五粮液  ...          37328598         13.212824
+3        600276       恒瑞医药  ...          82717665         24.595093
+4        601318       中国平安  ...         -86279500        -14.373738
+         ...        ...  ...               ...               ...
+1584     603095       越剑智能  ...               315          0.000239
+1585     603439       贵州三力  ...               441          0.000108
+1586     600918       中泰证券  ...              1000          0.000014
+1587     300833       浩洋股份  ...               406          0.000481
+1588     300837       浙矿股份  ...               737          0.000737
+```
