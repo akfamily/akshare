@@ -53,9 +53,15 @@
     
    1. 升级 pandas 到最新版本
 
-9. 将数据在 IDE 全显示，避免折叠显示不全的情况
+9. Linux 系统显示 `execjs._exceptions.RuntimeUnavailableError: Could not find an available JavaScript runtime.`
+
+    1. 需要安装 `nodejs`
+    2. 参考[文章](https://blog.csdn.net/qq_36853469/article/details/106401389)
+
+10. 将数据在 IDE 全显示，避免折叠显示不全的情况
 
     1. 全局设置 `pandas`，使用方法: 
+    
 ```python
 import pandas as pd
 import akshare as ak
@@ -69,8 +75,3 @@ pd.set_option('display.max_rows', None)
 stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
-
-10. Linux 系统显示 `execjs._exceptions.RuntimeUnavailableError: Could not find an available JavaScript runtime.`
-
-    1. 需要安装 `nodejs`
-    2. 参考[文章](https://blog.csdn.net/qq_36853469/article/details/106401389)
