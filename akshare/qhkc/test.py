@@ -142,7 +142,7 @@ broker_all_df = pro.broker_all(offset_days="365")
 print(broker_all_df)
 
 # 席位-建仓过程
-broker_positions_process_df = pro.broker_positions_process(broker="永安期货", code="rb1810")
+broker_positions_process_df = pro.broker_positions_process(broker="永安期货", code="rb2010", start_date="2020-02-03", end_date="2020-06-03")
 print(broker_positions_process_df)
 
 # 席位-席位对对碰

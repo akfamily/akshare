@@ -976,3 +976,6 @@ if __name__ == "__main__":
         date="20160104"
     )
     print(futures_dce_position_rank_other_df)
+
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200717", vars_list=["PG"])
+    print(get_rank_sum_daily_df)
