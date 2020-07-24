@@ -69,3 +69,8 @@ pd.set_option('display.max_rows', None)
 stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
+
+10. Linux 系统显示 `execjs._exceptions.RuntimeUnavailableError: Could not find an available JavaScript runtime.`
+
+    1. 需要安装 `nodejs`
+    2. 参考[文章](https://blog.csdn.net/qq_36853469/article/details/106401389)
