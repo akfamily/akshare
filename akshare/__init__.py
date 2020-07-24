@@ -1009,9 +1009,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.81: add: add stock_zh_index_hist_csindex interface
 0.5.82: fix: fix LU to futures cons file
 0.5.83: fix: fix qhkc broker_positions_process interface
+0.5.84: fix: fix tool_trade_date_hist_sina interface and update calendar.json
 """
 
-__version__ = "0.5.83"
+__version__ = "0.5.84"
 __author__ = "Albert King"
 
 """
@@ -1042,7 +1043,7 @@ from akshare.fund.fund_etf import fund_etf_hist_sina, fund_etf_category_sina
 """
 交易日历
 """
-from akshare.tool.trade_date_hist import tool_trade_date_hist
+from akshare.tool.trade_date_hist import tool_trade_date_hist_sina
 
 """
 commodity option
