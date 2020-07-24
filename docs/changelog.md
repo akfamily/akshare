@@ -1437,4 +1437,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.82: fix: fix LU to futures cons file
 
 0.5.83: fix: fix qhkc broker_positions_process interface
+
+0.5.84: fix: fix tool_trade_date_hist_sina interface and update calendar.json
 ```
