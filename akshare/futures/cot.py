@@ -268,7 +268,13 @@ def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     :param encoding: utf-8 or gbk or gb2312
     :return: pd.DataFrame
     """
-    r = requests_link(url, encoding)
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36",
+        "Host": "www.czce.com.cn",
+        "Cookie": "XquW6dFMPxV380S=CAaD3sMkdXv3fUoaJlICIEv0MVegGq5EoMyBcxkOjCgSjmpuovYFuTLtYFcxTZGw; XquW6dFMPxV380T=5QTTjUlA6f6WiDO7fMGmqNxHBWz.hKIc8lb_tc1o4nHrJM4nsXCAI9VHaKyV_jkHh4cIVvD25kGQAh.MvLL1SHRA20HCG9mVVHPhAzktNdPK3evjm0NYbTg2Gu_XGGtPhecxLvdFQ0.JlAxy_z0C15_KdO8kOI18i4K0rFERNPxjXq5qG1Gs.QiOm976wODY.pe8XCQtAsuLYJ.N4DpTgNfHJp04jhMl0SntHhr.jhh3dFjMXBx.JEHngXBzY6gQAhER7uSKAeSktruxFeuKlebse.vrPghHqWvJm4WPTEvDQ8q",
+    }
+    r = requests_link(url, encoding, headers=headers)
     data = pd.read_html(r.text, match='.+', flavor=None, header=header, index_col=0, skiprows=skip_rows, attrs=None,
                         parse_dates=False, thousands=', ', encoding="gbk", decimal='.',
                         converters=None, na_values=None, keep_default_na=True)
@@ -305,7 +311,10 @@ def get_czce_rank_table(date="20081015", vars_list=cons.contract_symbols):
         return {}
     if date <= datetime.date(2010, 8, 25):
         url = cons.CZCE_VOL_RANK_URL_1 % (date.strftime('%Y%m%d'))
-        r = requests.get(url)
+        headers = {
+            "Cookie": "XquW6dFMPxV380S=CAaD3sMkdXv3fUoaJlICIEv0MVegGq5EoMyBcxkOjCgSjmpuovYFuTLtYFcxTZGw; XquW6dFMPxV380T=5QTTjUlA6f6WiDO7fMGmqNxHBWz.hKIc8lb_tc1o4nHrJM4nsXCAI9VHaKyV_jkHh4cIVvD25kGQAh.MvLL1SHRA20HCG9mVVHPhAzktNdPK3evjm0NYbTg2Gu_XGGtPhecxLvdFQ0.JlAxy_z0C15_KdO8kOI18i4K0rFERNPxjXq5qG1Gs.QiOm976wODY.pe8XCQtAsuLYJ.N4DpTgNfHJp04jhMl0SntHhr.jhh3dFjMXBx.JEHngXBzY6gQAhER7uSKAeSktruxFeuKlebse.vrPghHqWvJm4WPTEvDQ8q",
+        }
+        r = requests.get(url, headers=headers)
         r.encoding = "utf-8"
         soup = BeautifulSoup(r.text, "lxml")
         data = _czce_df_read(url, skip_rows=0)
@@ -346,6 +355,9 @@ def get_czce_rank_table(date="20081015", vars_list=cons.contract_symbols):
 
     elif date <= datetime.date(2015, 11, 11):  # 20200311 格式修正
         url = cons.CZCE_VOL_RANK_URL_2 % (date.year, date.strftime('%Y%m%d'))
+        headers = {
+            "Cookie": "XquW6dFMPxV380S=CAaD3sMkdXv3fUoaJlICIEv0MVegGq5EoMyBcxkOjCgSjmpuovYFuTLtYFcxTZGw; XquW6dFMPxV380T=5QTTjUlA6f6WiDO7fMGmqNxHBWz.hKIc8lb_tc1o4nHrJM4nsXCAI9VHaKyV_jkHh4cIVvD25kGQAh.MvLL1SHRA20HCG9mVVHPhAzktNdPK3evjm0NYbTg2Gu_XGGtPhecxLvdFQ0.JlAxy_z0C15_KdO8kOI18i4K0rFERNPxjXq5qG1Gs.QiOm976wODY.pe8XCQtAsuLYJ.N4DpTgNfHJp04jhMl0SntHhr.jhh3dFjMXBx.JEHngXBzY6gQAhER7uSKAeSktruxFeuKlebse.vrPghHqWvJm4WPTEvDQ8q",
+        }
         data = _czce_df_read(url, skip_rows=0, header=None)[3:]
         big_df = pd.DataFrame()
         for item in data:
@@ -713,11 +725,11 @@ def futures_dce_position_rank_other(date="20160104"):
 
 if __name__ == '__main__':
     # 郑州商品交易所
-    get_czce_rank_table_first_df = get_czce_rank_table(date='20081015', vars_list=["SR"])
+    get_czce_rank_table_first_df = get_czce_rank_table(date='20200724', vars_list=["SR"])
     print(get_czce_rank_table_first_df)
     get_czce_rank_table_second_df = get_czce_rank_table(date='20151112')
     print(get_czce_rank_table_second_df)
-    get_czce_rank_table_third_df = get_czce_rank_table(date='20191227')
+    get_czce_rank_table_third_df = get_czce_rank_table(date='20100726')
     print(get_czce_rank_table_third_df)
     # 中国金融期货交易所
     get_cffex_rank_table_df = get_cffex_rank_table(date='20200325')
