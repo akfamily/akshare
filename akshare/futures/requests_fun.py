@@ -25,7 +25,7 @@ def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: 
     while True:
         try:
             if method == "get":
-                r = requests.get(url, timeout=20)
+                r = requests.get(url, timeout=20, headers=headers)
                 r.encoding = encoding
                 return r
             elif method == "post":
