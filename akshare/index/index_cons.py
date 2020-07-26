@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/1/4 16:19
+Date: 2020/7/26 16:19
 Desc: 获取股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
@@ -98,10 +98,40 @@ def index_stock_cons(index: str = "000312") -> pd.DataFrame:
     return temp_df
 
 
+def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
+    """
+    指数历史成份, 从 2005 年开始
+    http://stock.jrj.com.cn/share,sh000300,2015nlscf_2.shtml
+    :param index: 指数代码, 需要带市场前缀
+    :type index: str
+    :return: 历史成份的进入和退出数据
+    :rtype: pandas.DataFrame
+    """
+    url = f"http://stock.jrj.com.cn/share,{index},2015nlscf.shtml"
+    r = requests.get(url)
+    r.encoding = "gb2312"
+    soup = BeautifulSoup(r.text, "lxml")
+    last_page_num = soup.find_all("a", attrs={"target": "_self"})[-2].text
+    temp_df = pd.read_html(r.text)[-1]
+    for page in range(2, int(last_page_num)+1):
+        url = f"http://stock.jrj.com.cn/share,{index},2015nlscf_{page}.shtml"
+        r = requests.get(url)
+        r.encoding = "gb2312"
+        inner_temp_df = pd.read_html(r.text)[-1]
+        temp_df = temp_df.append(inner_temp_df)
+    temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
+    del temp_df["股票名称"]
+    temp_df.columns = ["stock_code", "in_date", "out_date"]
+    return temp_df
+
+
 if __name__ == "__main__":
-    index_list = index_stock_info()["index_code"].tolist()
-    index_stock_cons_df = index_stock_cons(index="000007")
+
+    index_stock_cons_df = index_stock_cons(index="000300")
     print(index_stock_cons_df)
+    stock_index_hist_df = index_stock_hist(index="sh000300")
+    print(stock_index_hist_df)
+    index_list = index_stock_info()["index_code"].tolist()
     for item in index_list:
         index_stock_cons_df = index_stock_cons(index=item)
         print(index_stock_cons_df)
