@@ -8,6 +8,12 @@ Desc:
 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定;
 郑州商品交易所格式分为三类
 大连商品交易所有具体合约的持仓排名, 通过 futures_dce_position_rank 获取
+20171228
+http://www.czce.com.cn/cn/DFSStaticFiles/Future/2020/20200727/FutureDataHolding.txt
+
+20100825
+http://www.czce.com.cn/cn/exchange/2014/datatradeholding/20140515.txt
+
 """
 import datetime
 import json
@@ -281,7 +287,7 @@ def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     return data
 
 
-def get_czce_rank_table(date="20081015", vars_list=cons.contract_symbols):
+def get_czce_rank_table(date="20161013", vars_list=cons.contract_symbols):
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
@@ -303,120 +309,60 @@ def get_czce_rank_table(date="20081015", vars_list=cons.contract_symbols):
     date                        日期                        string YYYYMMDD
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
-    if date < datetime.date(2005, 5, 9):
-        print("czce数据源开始日期为20050509，跳过")
+    if date < datetime.date(2015, 10, 8):
+        print("CZCE可获取的数据源开始日期为 20151008, 请输入合适的日期参数")
         return {}
     if date.strftime('%Y%m%d') not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
         return {}
-    if date <= datetime.date(2010, 8, 25):
-        url = cons.CZCE_VOL_RANK_URL_1 % (date.strftime('%Y%m%d'))
-        headers = {
-            "Cookie": "XquW6dFMPxV380S=CAaD3sMkdXv3fUoaJlICIEv0MVegGq5EoMyBcxkOjCgSjmpuovYFuTLtYFcxTZGw; XquW6dFMPxV380T=5QTTjUlA6f6WiDO7fMGmqNxHBWz.hKIc8lb_tc1o4nHrJM4nsXCAI9VHaKyV_jkHh4cIVvD25kGQAh.MvLL1SHRA20HCG9mVVHPhAzktNdPK3evjm0NYbTg2Gu_XGGtPhecxLvdFQ0.JlAxy_z0C15_KdO8kOI18i4K0rFERNPxjXq5qG1Gs.QiOm976wODY.pe8XCQtAsuLYJ.N4DpTgNfHJp04jhMl0SntHhr.jhh3dFjMXBx.JEHngXBzY6gQAhER7uSKAeSktruxFeuKlebse.vrPghHqWvJm4WPTEvDQ8q",
-        }
-        r = requests.get(url, headers=headers)
-        r.encoding = "utf-8"
-        soup = BeautifulSoup(r.text, "lxml")
-        data = _czce_df_read(url, skip_rows=0)
-        r = requests_link(url, 'utf-8')
-        r.encoding = 'utf-8'
-        symbols = []
-        for link in soup.find_all('b'):
-            strings = (str(link).split(' '))
+    if date >= datetime.date(2015, 10, 8):
+        url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date.year}/{date.isoformat().replace('-', '')}/FutureDataHolding.xls"
+        r = requests.get(url)
+        temp_df = pd.read_excel(BytesIO(r.content))
 
-            if len(strings) > 5:
-                try:
-                    symbol = chinese_to_english(strings[4])
-                except:
-                    symbol = strings[4]
-                if symbol == "SR905日期:":
-                    symbol = "SR905"
-                symbols.append(symbol)
-        big_dict = {}
-        for i in range(len(symbols)):
-            symbol = symbols[i]
-            table_cut = data[i + 1]
-            table_cut.columns = rank_columns
-            table_cut = table_cut.iloc[:-1, :]
-            table_cut.loc[:, 'rank'] = table_cut.index
-            table_cut.loc['合计', 'rank'] = 999
-            table_cut.loc['合计', ['vol_party_name', 'long_party_name', 'short_party_name']] = None
-            table_cut.loc[:, 'symbol'] = symbol
-            table_cut.loc[:, 'variety'] = symbol_varieties(symbol)
-            table_cut[intColumns] = table_cut[intColumns].fillna(0)
-            table_cut[intColumns] = table_cut[intColumns].astype(str)
-            table_cut[intColumns] = table_cut[intColumns].applymap(lambda x: x.replace(',', ''))
-            table_cut = table_cut.applymap(lambda x: 0 if x == '-' else x)
-
-            table_cut[intColumns] = table_cut[intColumns].astype(float)
-            table_cut[intColumns] = table_cut[intColumns].astype(int)
-            big_dict[symbol] = table_cut.reset_index(drop=True)
-        return big_dict
-
-    elif date <= datetime.date(2015, 11, 11):  # 20200311 格式修正
-        url = cons.CZCE_VOL_RANK_URL_2 % (date.year, date.strftime('%Y%m%d'))
-        headers = {
-            "Cookie": "XquW6dFMPxV380S=CAaD3sMkdXv3fUoaJlICIEv0MVegGq5EoMyBcxkOjCgSjmpuovYFuTLtYFcxTZGw; XquW6dFMPxV380T=5QTTjUlA6f6WiDO7fMGmqNxHBWz.hKIc8lb_tc1o4nHrJM4nsXCAI9VHaKyV_jkHh4cIVvD25kGQAh.MvLL1SHRA20HCG9mVVHPhAzktNdPK3evjm0NYbTg2Gu_XGGtPhecxLvdFQ0.JlAxy_z0C15_KdO8kOI18i4K0rFERNPxjXq5qG1Gs.QiOm976wODY.pe8XCQtAsuLYJ.N4DpTgNfHJp04jhMl0SntHhr.jhh3dFjMXBx.JEHngXBzY6gQAhER7uSKAeSktruxFeuKlebse.vrPghHqWvJm4WPTEvDQ8q",
-        }
-        data = _czce_df_read(url, skip_rows=0, header=None)[3:]
-        big_df = pd.DataFrame()
-        for item in data:
-            big_df = pd.concat([big_df, item], axis=0, ignore_index=False)
-        big_df.columns = big_df.iloc[0, :].tolist()
-        data = big_df.iloc[1:, :]
-    elif date < datetime.date(2017, 12, 28):  # 20200311 格式修正
-        url = cons.CZCE_VOL_RANK_URL_3 % (date.year, date.strftime('%Y%m%d'))
-        data = _czce_df_read(url, skip_rows=0, header=0)[1]
-    else:
-        url = cons.CZCE_VOL_RANK_URL_3 % (date.year, date.strftime('%Y%m%d'))
-        data = _czce_df_read(url, skip_rows=0)[0]
-
-    if len(data.columns) < 6:
-        return {}
-
-    table = pd.DataFrame(data.iloc[:, :9])
-    table.index.name = table.columns[0]
-    table.columns = rank_columns
-    table.loc[:, 'rank'] = table.index
-    table[intColumns] = table[intColumns].astype(str)
-    table[intColumns] = table[intColumns].applymap(lambda x: x.replace(',', ''))
-    table = table.applymap(lambda x: 0 if x == '-' else x)
-    indexes = [i for i in table.index if '合约' in i or '品种' in i]
-    indexes.insert(0, 0)
+    temp_pinzhong_index = [item + 1 for item in temp_df[temp_df.iloc[:, 0].str.contains("合计")].index.to_list()]
+    temp_pinzhong_index.insert(0, 0)
+    temp_pinzhong_index.pop()
+    temp_symbol_index = temp_df.iloc[temp_pinzhong_index, 0].str.split(" ", expand=True).iloc[:, 0]
+    symbol_list = [re.compile(r"[0-9a-zA-Z_]+").findall(item)[0] for item in temp_symbol_index.values]
+    temp_symbol_index_list = temp_symbol_index.index.to_list()
     big_dict = {}
-
-    for i in range(len(indexes)):
-
-        if indexes[i] == 0:
-            table_cut = table.loc[:indexes[i + 1], :]
-            string = table_cut.index.name
-
-        elif i < len(indexes) - 1:
-            table_cut = table.loc[indexes[i]:indexes[i + 1], :]
-            string = table_cut.index[0]
-
-        else:
-            table_cut = table.loc[indexes[i]:, :]
-            string = table_cut.index[0]
-
-        if 'PTA' in string:
-            symbol = 'TA'
-        else:
-            try:
-                symbol = chinese_to_english(find_chinese(re.compile(r'：(.*) ').findall(string)[0]))
-            except:
-                symbol = re.compile(r'：(.*) ').findall(string)[0]
-
-        var = symbol_varieties(symbol)
-
-        if var in vars_list:
-            table_cut = table_cut.dropna(how='any').iloc[1:, :]
-            table_cut = table_cut.loc[[x for x in table_cut.index if x in [str(i) for i in range(21)]], :]
-
-            table_cut = _table_cut_cal(table_cut, symbol)
-            big_dict[symbol.strip()] = table_cut.reset_index(drop=True)
-
-    return big_dict
+    for i in range(len(temp_symbol_index_list)-1):
+        inner_temp_df = temp_df[temp_symbol_index_list[i]+2: temp_symbol_index_list[i+1]-1]
+        inner_temp_df.columns = ["rank",
+                                 "vol_party_name",
+                                 "vol",
+                                 "vol_chg",
+                                 "long_party_name",
+                                 "long_open_interest",
+                                 "long_open_interest_chg",
+                                 "short_party_name",
+                                 "short_open_interest",
+                                 "short_open_interest_chg",
+                                 ]
+        inner_temp_df.reset_index(inplace=True, drop=True)
+        big_dict[symbol_list[i]] = inner_temp_df
+        inner_temp_df = temp_df[temp_symbol_index_list[i+1]+2:-1]
+        inner_temp_df.columns = ["rank",
+                                 "vol_party_name",
+                                 "vol",
+                                 "vol_chg",
+                                 "long_party_name",
+                                 "long_open_interest",
+                                 "long_open_interest_chg",
+                                 "short_party_name",
+                                 "short_open_interest",
+                                 "short_open_interest_chg",
+                                 ]
+        inner_temp_df.reset_index(inplace=True, drop=True)
+        big_dict[symbol_list[-1]] = inner_temp_df
+    new_big_dict = {}
+    for item in vars_list:
+        try:
+            new_big_dict[item] = big_dict[item]
+        except:
+            continue
+    return new_big_dict
 
 
 def get_dce_rank_table(date="20180404", vars_list=cons.contract_symbols):
@@ -727,10 +673,6 @@ if __name__ == '__main__':
     # 郑州商品交易所
     get_czce_rank_table_first_df = get_czce_rank_table(date='20200724', vars_list=["SR"])
     print(get_czce_rank_table_first_df)
-    get_czce_rank_table_second_df = get_czce_rank_table(date='20151112')
-    print(get_czce_rank_table_second_df)
-    get_czce_rank_table_third_df = get_czce_rank_table(date='20100726')
-    print(get_czce_rank_table_third_df)
     # 中国金融期货交易所
     get_cffex_rank_table_df = get_cffex_rank_table(date='20200325')
     print(get_cffex_rank_table_df)
