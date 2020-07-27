@@ -889,7 +889,7 @@ print(index_stock_cons_df)
 
 目标地址: http://stock.jrj.com.cn/share,sh000300,2015nlscf_2.shtml
 
-描述: 获取指定指数的历史成份股票信息
+描述: 获取指定股票指数的历史成份股票信息
 
 输入参数
 
