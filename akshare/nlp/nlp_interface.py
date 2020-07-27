@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def nlp_ownthink(word="人工智能", indicator="entity"):
+def nlp_ownthink(word: str = "人工智能", indicator: str = "entity") -> pd.DataFrame:
     """
     Knowledge Graph interface for financial research
     https://ownthink.com/
