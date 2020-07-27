@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 from sklearn.impute import SimpleImputer
 from sklearn.neighbors import KNeighborsClassifier
+
 from akshare.movie.movie_maoyan_font import get_font_data
 
 

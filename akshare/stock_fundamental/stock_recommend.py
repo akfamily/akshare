@@ -91,8 +91,8 @@ def stock_institute_recommend_detail(stock: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    for item in ['最新投资评级', '上调评级股票', '下调评级股票', '股票综合评级', '首次评级股票', '目标涨幅排名', '机构关注度', '行业关注度', '投资评级选股']:
-        stock_institute_recommend_df = stock_institute_recommend(indicator=item)
+    for indicator in ['最新投资评级', '上调评级股票', '下调评级股票', '股票综合评级', '首次评级股票', '目标涨幅排名', '机构关注度', '行业关注度', '投资评级选股']:
+        stock_institute_recommend_df = stock_institute_recommend(indicator=indicator)
         print(stock_institute_recommend_df)
 
     stock_institute_recommend_detail_df = stock_institute_recommend_detail(stock="002709")

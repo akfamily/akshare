@@ -12,11 +12,11 @@ from typing import Dict, Any
 
 import pandas as pd
 import requests
-from fontTools.ttLib import TTFont
 from bs4 import BeautifulSoup
+from fontTools.ttLib import TTFont
 
-from akshare.movie.movie_maoyan_knn_font import Classify
 from akshare.movie.cons import _board_url, _headers
+from akshare.movie.movie_maoyan_knn_font import Classify
 
 _woff_path = Path(__file__).absolute().parent / "fonts" / "test.woff"
 

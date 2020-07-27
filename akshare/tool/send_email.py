@@ -5,9 +5,9 @@ Date: 2020/5/4 13:58
 Desc: 发送提醒邮件邮件
 """
 import smtplib
-from email.mime.text import MIMEText
 from email.header import Header
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 def send_email(msg: str, from_email: str, password: str, to_email: str, host: str, port: str, attach_name=False,
