@@ -43,7 +43,7 @@ intColumns = ['vol', 'vol_chg', 'long_open_interest', 'long_open_interest_chg', 
               'short_open_interest_chg']
 
 
-def get_rank_sum_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
+def get_rank_sum_daily(start_day="20200721", end_day="20200723", vars_list=cons.contract_symbols):
     """
     采集四个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名;
@@ -85,7 +85,7 @@ def get_rank_sum_daily(start_day=None, end_day=None, vars_list=cons.contract_sym
     return records.reset_index(drop=True)
 
 
-def get_rank_sum(date=None, vars_list=cons.contract_symbols):
+def get_rank_sum(date="20200727", vars_list=cons.contract_symbols):
     """
     抓取四个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名, 没有公布品种的总排名;
@@ -287,7 +287,7 @@ def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     return data
 
 
-def get_czce_rank_table(date="20161013", vars_list=cons.contract_symbols):
+def get_czce_rank_table(date="20200727", vars_list=cons.contract_symbols):
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
@@ -357,15 +357,15 @@ def get_czce_rank_table(date="20161013", vars_list=cons.contract_symbols):
         inner_temp_df.reset_index(inplace=True, drop=True)
         big_dict[symbol_list[-1]] = inner_temp_df
     new_big_dict = {}
-    for item in vars_list:
-        try:
-            new_big_dict[item] = big_dict[item]
-        except:
-            continue
+    for key, value in big_dict.items():
+        value["symbol"] = key
+        value["variety"] = re.compile(r"[a-zA-Z_]+").findall(key)[0]
+        new_big_dict[key] = value
+
     return new_big_dict
 
 
-def get_dce_rank_table(date="20180404", vars_list=cons.contract_symbols):
+def get_dce_rank_table(date="20200727", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细
     注: 该交易所既公布品种排名, 也公布标的合约排名
@@ -629,7 +629,7 @@ def futures_dce_position_rank_other(date="20160104"):
     big_df = dict()
     for symbol in symbol_list:
         payload = {
-            "memberDealPosiQuotes.variety": "c",
+            "memberDealPosiQuotes.variety": symbol,
             "memberDealPosiQuotes.trade_type": "0",
             "year": date.year,
             "month": date.month-1,
@@ -646,7 +646,7 @@ def futures_dce_position_rank_other(date="20160104"):
                 contract_list = [symbol + item for item in contract_list]
                 for contract in contract_list:
                     payload = {
-                        "memberDealPosiQuotes.variety": "c",
+                        "memberDealPosiQuotes.variety": symbol,
                         "memberDealPosiQuotes.trade_type": "0",
                         "year": date.year,
                         "month": date.month - 1,
@@ -671,7 +671,7 @@ def futures_dce_position_rank_other(date="20160104"):
 
 if __name__ == '__main__':
     # 郑州商品交易所
-    get_czce_rank_table_first_df = get_czce_rank_table(date='20200724', vars_list=["SR"])
+    get_czce_rank_table_first_df = get_czce_rank_table(date='20151026', vars_list=["SR"])
     print(get_czce_rank_table_first_df)
     # 中国金融期货交易所
     get_cffex_rank_table_df = get_cffex_rank_table(date='20200325')
@@ -686,13 +686,14 @@ if __name__ == '__main__':
     print(get_dce_rank_table_second_df)
     get_dce_rank_table_third_df = get_dce_rank_table(date='20180718')
     print(get_dce_rank_table_third_df)
+
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200717")
     print(get_rank_sum_daily_df)
 
     futures_dce_detail_dict = futures_dce_position_rank(date="20200506")
     print(futures_dce_detail_dict)
-    futures_dce_position_rank_other_df = futures_dce_position_rank_other(date="20160104")
+    futures_dce_position_rank_other_df = futures_dce_position_rank_other(date="20200727")
     print(futures_dce_position_rank_other_df)
 
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200717", vars_list=["PG"])

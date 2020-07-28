@@ -1012,9 +1012,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.84: fix: fix tool_trade_date_hist_sina interface and update calendar.json
 0.5.85: add: add index_stock_hist interface
 0.5.86: fix: fix code format
+0.5.87: fix: fix cot interface
 """
 
-__version__ = "0.5.86"
+__version__ = "0.5.87"
 __author__ = "Albert King"
 
 """
