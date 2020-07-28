@@ -126,9 +126,9 @@ def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_stock_cons_df = index_stock_cons(index="000300")
+    index_stock_cons_df = index_stock_cons(index="399994")
     print(index_stock_cons_df)
-    stock_index_hist_df = index_stock_hist(index="sh000300")
+    stock_index_hist_df = index_stock_hist(index="sz399994")
     print(stock_index_hist_df)
     index_list = index_stock_info()["index_code"].tolist()
     for item in index_list:
