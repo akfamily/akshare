@@ -1014,9 +1014,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.86: fix: fix code format
 0.5.87: fix: fix cot interface
 0.5.88: fix: fix stock_em_account interface
+0.5.89: add: add macro_china_new_financial_credit interface
 """
 
-__version__ = "0.5.88"
+__version__ = "0.5.89"
 __author__ = "Albert King"
 
 """
