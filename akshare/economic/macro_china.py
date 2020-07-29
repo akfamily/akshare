@@ -9,12 +9,13 @@ http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
 输出数据格式为 float64
 """
 import json
-import time
 import re
+import time
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 import requests
+from tqdm import tqdm
 
 from akshare.economic.cons import (
     JS_CHINA_CPI_YEARLY_URL,
@@ -27,12 +28,10 @@ from akshare.economic.cons import (
     JS_CHINA_FX_RESERVES_YEARLY_URL,
     JS_CHINA_ENERGY_DAILY_URL,
     JS_CHINA_NON_MAN_PMI_MONTHLY_URL,
-    JS_CHINA_RMB_DAILY_URL,
     JS_CHINA_CX_SERVICE_PMI_YEARLY_URL,
-    JS_CHINA_MARKET_MARGIN_SZ_URL,
     JS_CHINA_MARKET_MARGIN_SH_URL,
-    JS_CHINA_REPORT_URL,
 )
+
 
 # pd.set_option('display.max_rows', 10)  # just for debug
 
@@ -1002,7 +1001,7 @@ def macro_china_enterprise_boom_index():
 
 
 # 中国-全国税收收入
-def macro_china_national_tax_receipts():
+def macro_china_national_tax_receipts() -> pd.DataFrame:
     """
     http://data.eastmoney.com/cjsj/nationaltaxreceipts.aspx
     中国-全国税收收入
@@ -1029,6 +1028,35 @@ def macro_china_national_tax_receipts():
         temp_df = pd.read_html(text_data)[0].iloc[:-1, :-9]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = ["季度", "税收收入合计", "较上年同期", "季度环比"]
+    return big_df
+
+
+def macro_china_new_financial_credit() -> pd.DataFrame:
+    """
+    中国-新增信贷数据
+    http://data.eastmoney.com/cjsj/xzxd.html
+    :return: 新增信贷数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/newfinancialcredit.aspx"
+    params = {
+        "p": "1",
+    }
+    r = requests.get(url, params=params)
+    raw_total_page_num = pd.read_html(r.text)[-1].dropna(axis=1).iloc[-1, 0]
+    total_page_num = int(re.compile(r"\d+").findall(raw_total_page_num)[0])
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page_num+1)):
+        params = {
+            "p": page,
+        }
+        r = requests.get(url, params=params)
+        temp_df = pd.read_html(r.text)[-1].dropna(axis=1).iloc[:-1, :]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = ["月份", "当月", "当月-同比增长", "当月-环比增长", "累计", "累计-同比增长"]
+    big_df["当月-同比增长"] = big_df["当月-同比增长"].str.replace("%", "")
+    big_df["当月-环比增长"] = big_df["当月-环比增长"].str.replace("%", "")
+    big_df["累计-同比增长"] = big_df["累计-同比增长"].str.replace("%", "")
     return big_df
 
 
@@ -1122,3 +1150,7 @@ if __name__ == "__main__":
     # 中国-全国税收收入
     macro_china_national_tax_receipts_df = macro_china_national_tax_receipts()
     print(macro_china_national_tax_receipts_df)
+
+    # 中国-新增信贷数据
+    macro_china_new_financial_credit_df = macro_china_new_financial_credit()
+    print(macro_china_new_financial_credit_df)

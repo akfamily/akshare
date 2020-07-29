@@ -1994,6 +1994,7 @@ from akshare.economic.macro_china import (
     macro_china_new_house_price,
     macro_china_enterprise_boom_index,
     macro_china_national_tax_receipts,
+    macro_china_new_financial_credit,
 )
 
 """

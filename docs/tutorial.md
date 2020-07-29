@@ -309,6 +309,7 @@
  "macro_china_new_house_price"  # 中国-新房价指数
  "macro_china_enterprise_boom_index"  # 中国-企业景气及企业家信心指数
  "macro_china_national_tax_receipts"  # 中国-全国税收收入
+ "macro_china_new_financial_credit"  # 中国-新增信贷数据
  # 美国
  "macro_usa_gdp_monthly"  # 金十数据中心-经济指标-美国-经济状况-美国GDP
  "macro_usa_cpi_monthly"  # 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告
