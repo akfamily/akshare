@@ -75,6 +75,7 @@ def air_city_list() -> list:
 def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01", end_date: str = "2020-04-27") -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
+    指定之间段之间的空气质量数据
     https://www.zq12369.com/
     :param city: 调用 air_city_list 接口获取
     :type city: str
@@ -234,7 +235,7 @@ if __name__ == "__main__":
     print(air_city_list_map)
 
     air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="2020-07-01", end_date="2020-07-29"
+        city="杭州", start_date="2020-07-23", end_date="2020-07-30"
     )
     print(air_quality_watch_point_df)
 

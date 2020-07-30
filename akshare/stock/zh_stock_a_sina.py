@@ -220,17 +220,17 @@ def stock_zh_a_minute(symbol: str = 'sh000300', period: str = '1') -> pd.DataFra
         "scale": period,
         "datalen": "1023",
     }
-    res = requests.get(url, params=params)
-    temp_df = pd.DataFrame(json.loads(res.text.split('=(')[1].split(");")[0]))
+    r = requests.get(url, params=params)
+    temp_df = pd.DataFrame(json.loads(r.text.split('=(')[1].split(");")[0]))
     return temp_df
 
 
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sh600582", adjust="qfq-factor")
     print(stock_zh_a_daily_hfq_df)
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz000010")
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582")
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sh000300', period='1')
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sh600582', period='1')
     print(stock_zh_a_minute_df)
