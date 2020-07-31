@@ -49,13 +49,15 @@ def stock_sina_lhb_detail_daily(trade_date: str = "20200729", symbol: str = "涨
     elif symbol == "未完成股改证券":
         temp_df = pd.read_html(r.text, header=1)[9].iloc[0:, :]
     temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
+    del temp_df["查看详情"]
+    temp_df.columns = ["序号", "股票代码", "股票名称", "收盘价", "对应值", "成交量", "成交额"]
     return temp_df
 
 
 def stock_sina_lhb_ggtj(recent_day: str = "5") -> pd.DataFrame:
     """
     龙虎榜-个股上榜统计
-    http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lhb/index.phtml
+    http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/ggtj/index.phtml
     :param recent_day: choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;}
     :type recent_day: str
     :return: 龙虎榜-每日详情
@@ -79,6 +81,7 @@ def stock_sina_lhb_ggtj(recent_day: str = "5") -> pd.DataFrame:
         temp_df = pd.read_html(r.text)[0].iloc[0:, :]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
+    big_df.columns = ["股票代码", "股票名称", "上榜次数", "累积购买额", "累积卖出额", "净额", "买入席位数", "卖出席位数"]
     return big_df
 
 
@@ -108,6 +111,7 @@ def stock_sina_lhb_yytj(recent_day: str = "5") -> pd.DataFrame:
         r = requests.get(url, params=params)
         temp_df = pd.read_html(r.text)[0].iloc[0:, :]
         big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = ['营业部名称', '上榜次数', '累积购买额', '买入席位数', '累积卖出额', '卖出席位数', '买入前三股票']
     return big_df
 
 
@@ -140,6 +144,7 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     del big_df["当前价"]
     del big_df["涨跌幅"]
+    big_df.columns = ['股票代码', '股票名称', '累积买入额', '买入次数', '累积卖出额', '卖出次数', '净额']
     return big_df
 
 
@@ -170,7 +175,7 @@ def stock_sina_lhb_jgmx() -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_sina_lhb_detail_daily_df = stock_sina_lhb_detail_daily(trade_date="20200730", symbol="涨幅偏离值达7%的证券")
+    stock_sina_lhb_detail_daily_df = stock_sina_lhb_detail_daily(trade_date="20200729", symbol="涨幅偏离值达7%的证券")
     print(stock_sina_lhb_detail_daily_df)
 
     stock_sina_lhb_ggtj_df = stock_sina_lhb_ggtj(recent_day="5")
