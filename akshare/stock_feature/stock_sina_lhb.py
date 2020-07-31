@@ -138,6 +138,8 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
         temp_df = pd.read_html(r.text)[0].iloc[0:, :]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
+    del big_df["当前价"]
+    del big_df["涨跌幅"]
     return big_df
 
 
@@ -168,7 +170,7 @@ def stock_sina_lhb_jgmx() -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_sina_lhb_detail_daily_df = stock_sina_lhb_detail_daily(trade_date="20200730", symbol="未完成股改证券")
+    stock_sina_lhb_detail_daily_df = stock_sina_lhb_detail_daily(trade_date="20200730", symbol="涨幅偏离值达7%的证券")
     print(stock_sina_lhb_detail_daily_df)
 
     stock_sina_lhb_ggtj_df = stock_sina_lhb_ggtj(recent_day="5")
