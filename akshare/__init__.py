@@ -1015,10 +1015,22 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.87: fix: fix cot interface
 0.5.88: fix: fix stock_em_account interface
 0.5.89: add: add macro_china_new_financial_credit interface
+0.5.90: add: add stock_sina_lhb interface
 """
 
-__version__ = "0.5.89"
+__version__ = "0.5.90"
 __author__ = "Albert King"
+
+"""
+新浪财经-龙虎榜
+"""
+from akshare.stock_feature.stock_sina_lhb import (
+    stock_sina_lhb_detail_daily,
+    stock_sina_lhb_ggtj,
+    stock_sina_lhb_jgmx,
+    stock_sina_lhb_jgzz,
+    stock_sina_lhb_yytj,
+)
 
 """
 中证指数
@@ -1820,7 +1832,11 @@ from akshare.stock.zh_stock_kcb_sina import stock_zh_kcb_spot, stock_zh_kcb_dail
 """
 A股
 """
-from akshare.stock.zh_stock_a_sina import stock_zh_a_spot, stock_zh_a_daily, stock_zh_a_minute
+from akshare.stock.zh_stock_a_sina import (
+    stock_zh_a_spot,
+    stock_zh_a_daily,
+    stock_zh_a_minute,
+)
 
 """
 A+H股
