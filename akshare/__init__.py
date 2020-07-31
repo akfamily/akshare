@@ -1016,9 +1016,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.88: fix: fix stock_em_account interface
 0.5.89: add: add macro_china_new_financial_credit interface
 0.5.90: add: add stock_sina_lhb interface
+0.5.91: fix: fix covid for python3.8
 """
 
-__version__ = "0.5.90"
+__version__ = "0.5.91"
 __author__ = "Albert King"
 
 """

@@ -230,7 +230,7 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
     soup = BeautifulSoup(r.text, "lxml")
     # news-china
     text_data_news = str(
-        soup.find_all("script", attrs={"id": "getTimelineService1"})
+        soup.find("script", attrs={"id": "getTimelineService1"})
     )
     temp_json = text_data_news[
         text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")
@@ -273,7 +273,7 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
     global_df = pd.DataFrame(data_text_json)
 
     # info
-    dxy_static = soup.find(attrs={"id": "getStatisticsService"}).get_text()
+    dxy_static = str(soup.find("script", attrs={"id": "getStatisticsService"}))
     data_json = json.loads(
         dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}c")]
     )
@@ -404,7 +404,8 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    data_json = demjson.decode(soup.find(attrs={"id": "captain-config"}).text)
+    temp_soup = str(soup.find(attrs={"id": "captain-config"}))
+    data_json = demjson.decode(temp_soup[temp_soup.find("{"): temp_soup.rfind("}")+1])
 
     big_df = pd.DataFrame()
     for i, p in enumerate(
