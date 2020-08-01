@@ -140,8 +140,8 @@ def _death_company():
 
 
 if __name__ == "__main__":
-    # death_company_df = death_company()
-    # death_company_df.to_csv("test.csv", encoding="utf-8")
+    death_company_df = death_company()
+    print(death_company_df)
     nicorn_company_df = nicorn_company()
     print(nicorn_company_df)
     maxima_company_df = maxima_company()

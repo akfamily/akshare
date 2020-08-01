@@ -6345,7 +6345,7 @@ print(stock_sina_lhb_detail_daily_df)
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| recent_day | str | Y    | recent_day="5" |
+| recent_day | str | Y    | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;}  |
 
 输出参数
 
@@ -6399,7 +6399,7 @@ print(stock_sina_lhb_ggtj_df)
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| recent_day | str | Y    | recent_day="5" |
+| recent_day | str | Y    | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
 
 输出参数
 
@@ -6452,7 +6452,7 @@ print(stock_sina_lhb_yytj_df)
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| recent_day | str | Y    | recent_day="5" |
+| recent_day | str | Y    | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
 
 输出参数
 

@@ -400,7 +400,7 @@ if __name__ == '__main__':
     stock_em_hsgt_south_acc_flow_in_df = stock_em_hsgt_south_acc_flow_in(indicator="沪股通")
     print(stock_em_hsgt_south_acc_flow_in_df)
 
-    stock_em_hsgt_hold_stock_df = stock_em_hsgt_hold_stock(market="北向", indicator="今日排行")
+    stock_em_hsgt_hold_stock_df = stock_em_hsgt_hold_stock(market="沪股通", indicator="10日排行")
     print(stock_em_hsgt_hold_stock_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(market="南向持股", start_date="20200713", end_date="20200714")
