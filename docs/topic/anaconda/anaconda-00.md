@@ -2,7 +2,7 @@
 
 本文要解决的问题如下：
 
-1. 为什么是 Anaconda 的 Jupyter Notebook？
+1. 为什么是 Anaconda 的 Jupyter Notebook ？
 2. 在哪里下载 Anaconda，怎么选版本？
 3. 怎么安装 Anaconda ？
 
