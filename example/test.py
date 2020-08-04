@@ -57,7 +57,7 @@ def test():
 
     # ----------------------------------------------------------------------
     print('\n' + '-' * 80 + '\n日线行情获取')
-    df = akshare.get_futures_daily(start_day='20181210', end_day='20181210', market='DCE', index_bar=True)
+    df = akshare.get_futures_daily(start_date='20181210', end_date='20181210', market='DCE', index_bar=True)
     print(df)
 
 
