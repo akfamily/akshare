@@ -908,7 +908,7 @@ print(futures_xgx_index_df)
 
 ```python
 import akshare as ak
-get_futures_daily_df = ak.get_futures_daily(start_day="20190107", end_day="20190108", market="SHFE", index_bar=True)
+get_futures_daily_df = ak.get_futures_daily(start_date="20190107", end_date="20190108", market="SHFE", index_bar=True)
 print(get_futures_daily_df)
 ```
 
@@ -1160,6 +1160,67 @@ while True:
 1   18853.000   9786     975248.030  
 2   41928.000  25164   74617285.400  
 3  113365.000  73086  353463074.600 
+```
+
+#### 内盘-历史行情数据
+
+接口: get_futures_daily
+
+目标地址: 各交易所网站
+
+描述: 提供各交易所各品种的网站的历史行情数据
+
+限量: 单次返回指定时间段指定交易所的所有期货品种历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| start_date | str | Y | start_date="20200701" |
+| end_date | str | Y | end_date="20200716" |
+| market | str | Y | market="DCE"; choice of {"CFFEX", "INE", "CZCE", "DCE", "SHFE"} |
+| index_bar | str | Y | index_bar=False; 是否合成指数 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| symbol      | str   | Y        | 合约  |
+| date      | str   | Y        | 交易日   |
+| open      | float   | Y        | 开盘价        |
+| high        | float   | Y        |最高价    |
+| low         | float | Y        | 最低价         |
+| close      | str | Y        | 收盘价      |
+| volume      | str | Y        | 成交量      |
+| open_interest      | str | Y        | 持仓量      |
+| turnover      | float   | Y        | 成交额        |
+| settle        | float   | Y        |结算价    |
+| pre_settle         | float | Y        | 前结算价         |
+| variety      | str | Y        | 品种      |
+
+接口示例
+
+```python
+import akshare as ak
+get_futures_daily_df = ak.get_futures_daily(start_date="20200701", end_date="20200716", market="DCE", index_bar=True)
+print(get_futures_daily_df)
+```
+
+数据示例
+
+```
+     symbol      date     open  ...   settle pre_settle variety
+0     A2007  20200701     6160  ...     6122       5643       A
+1     A2009  20200701     4871  ...     4874       4839       A
+2     A2011  20200701     4480  ...     4424       4411       A
+3     A2101  20200701     4402  ...     4385       4395       A
+4     A2103  20200701     4422  ...     4394       4412       A
+     ...       ...      ...  ...      ...        ...     ...
+2749   PG99  20200716  3899.35  ...  3881.69    3879.72      PG
+2750    P99  20200716   5257.2  ...  5269.32    5212.02       P
+2751    L99  20200716  7213.86  ...  7156.44    7220.27       L
+2752    M99  20200716  2858.98  ...  2862.43    2855.63       M
+2753   JM99  20200716  1193.58  ...  1195.49    1197.92      JM
 ```
 
 #### 外盘-实时行情数据

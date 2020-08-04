@@ -856,7 +856,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.27: test: automate test
 0.4.28: test: automate test
 0.4.29: feats: add currency interface
-0.4.30: fix: roll_yield.py/get_roll_yield: CUefp error
+0.4.30: fix: futures_roll_yield.py/get_roll_yield: CUefp error
 0.4.31: format: format currency.py
 0.4.32: fix: china_bond.py
 0.4.33: add: jyfm_tools_futures_arbitrage_matrix for jyfm futures
@@ -1017,9 +1017,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.89: add: add macro_china_new_financial_credit interface
 0.5.90: add: add stock_sina_lhb interface
 0.5.91: fix: fix covid for python3.8
+0.5.92: fix: fix futures_daily_bar interface
 """
 
-__version__ = "0.5.91"
+__version__ = "0.5.92"
 __author__ = "Albert King"
 
 """
@@ -2128,12 +2129,12 @@ from akshare.futures.receipt import get_receipt
 """
 大宗商品展期收益率数据
 """
-from akshare.futures.roll_yield import get_roll_yield_bar, get_roll_yield
+from akshare.futures.futures_roll_yield import get_roll_yield_bar, get_roll_yield
 
 """
 交易所日线行情数据
 """
-from akshare.futures.daily_bar import (
+from akshare.futures.futures_daily_bar import (
     get_cffex_daily,
     get_czce_daily,
     get_shfe_v_wap,

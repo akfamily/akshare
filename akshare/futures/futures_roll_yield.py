@@ -15,7 +15,7 @@ import pandas as pd
 from pandas.plotting import register_matplotlib_converters
 
 from akshare.futures import cons
-from akshare.futures.daily_bar import get_futures_daily
+from akshare.futures.futures_daily_bar import get_futures_daily
 from akshare.futures.symbol_var import symbol_market, symbol_varieties
 
 register_matplotlib_converters()
@@ -78,7 +78,7 @@ def get_roll_yield_bar(
     )
 
     if type_method == "symbol":
-        df = get_futures_daily(start_day=date, end_day=date, market=symbol_market(var))
+        df = get_futures_daily(start_date=date, end_date=date, market=symbol_market(var))
         df = df[df["variety"] == var]
         if plot:
             _plot_bar_2(df[["symbol", "close"]])
@@ -88,7 +88,7 @@ def get_roll_yield_bar(
         df = pd.DataFrame()
         for market in ["dce", "cffex", "shfe", "czce"]:
             df = df.append(
-                get_futures_daily(start_day=date, end_day=date, market=market)
+                get_futures_daily(start_date=date, end_date=date, market=market)
             )
         var_list = list(set(df["variety"]))
         if "IO" in var_list:
@@ -155,7 +155,7 @@ def get_roll_yield(date=None, var="LR", symbol1=None, symbol2=None, df=None):
         var = symbol_varieties(symbol1)
     if not isinstance(df, pd.DataFrame):
         market = symbol_market(var)
-        df = get_futures_daily(start_day=date, end_day=date, market=market)
+        df = get_futures_daily(start_date=date, end_date=date, market=market)
     if var:
         df = df[
             ~df["symbol"].str.contains("efp")

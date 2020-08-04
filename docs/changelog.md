@@ -1453,4 +1453,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.90: add: add stock_sina_lhb interface
 
 0.5.91: fix: fix covid for python3.8
+
+0.5.92: fix: fix futures_daily_bar interface
 ```

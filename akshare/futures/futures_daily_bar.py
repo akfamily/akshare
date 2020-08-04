@@ -1,18 +1,19 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/02/20 13:58
-Desc: 从交易所网站获取日线行情
+Date: 2020/08/04 13:58
+Desc: 交易所网站获取期货日线行情
 """
 import datetime
 import json
-import urllib
+import re
 import warnings
+import zipfile
+from io import BytesIO, StringIO
 
 import numpy as np
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
@@ -20,7 +21,7 @@ from akshare.futures.requests_fun import requests_link
 calendar = cons.get_calendar()
 
 
-def get_cffex_daily(date="20200416"):
+def get_cffex_daily(date="20200723"):
     """
     中国金融期货交易所日交易数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 为空时为当天
@@ -44,54 +45,28 @@ def get_cffex_daily(date="20200416"):
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
-    try:
-        html = requests_link(
-            cons.CFFEX_DAILY_URL.format(
-                day.strftime("%Y%m"), day.strftime("%d"), day.strftime("%Y%m%d")
-            ),
-            encoding="gbk",
-            headers=cons.headers,
-        ).text
-    except requests.exceptions.HTTPError as reason:
-        if reason.response != 404:
-            print(
-                cons.CFFEX_DAILY_URL
-                % (day.strftime("%Y%m"), day.strftime("%d"), day.strftime("%Y%m%d")),
-                reason,
-            )
-        return
+    url = f"http://www.cffex.com.cn/sj/historysj/{date[:-2]}/zip/{date[:-2]}.zip"
+    r = requests.get(url)
 
-    if html.find("网页错误") >= 0:
-        return
-    html = [
-        i.replace(" ", "").split(",") for i in html.split("\n")[:-2] if i[0][0] != "小"
-    ]
-
-    if html[0][0] != "合约代码":
-        return
-
-    dict_data = list()
-    day_const = day.strftime("%Y%m%d")
-    for row in html[1:]:
-        m = cons.FUTURES_SYMBOL_PATTERN.match(row[0])
-        if not m:
-            continue
-        row_dict = {"date": day_const, "symbol": row[0], "variety": m.group(1)}
-
-        for i, field in enumerate(cons.CFFEX_COLUMNS):
-            if row[i + 1] == "":
-                row_dict[field] = 0.0
-            elif field in ["volume", "open_interest", "oi_chg"]:
-                row_dict[field] = int(row[i + 1])
-            else:
-                try:
-                    row_dict[field] = float(row[i + 1])
-                except:
-                    pass
-        row_dict["pre_settle"] = row_dict["close"] - row_dict["change1"]
-        dict_data.append(row_dict)
-
-    return pd.DataFrame(dict_data)[cons.OUTPUT_COLUMNS]
+    with zipfile.ZipFile(BytesIO(r.content)) as file:
+        with file.open(f"{date}_1.csv") as my_file:
+            data = my_file.read().decode("gb2312")
+            data_df = pd.read_csv(StringIO(data))
+    data_df = data_df[data_df["合约代码"] != "小计"]
+    data_df = data_df[data_df["合约代码"] != "合计"]
+    data_df = data_df[~data_df["合约代码"].str.contains("IO")]
+    data_df.reset_index(inplace=True, drop=True)
+    data_df["合约代码"] = data_df["合约代码"].str.strip()
+    symbol_list = data_df["合约代码"].to_list()
+    variety_list = [re.compile(r"[a-zA-Z_]+").findall(item)[0] for item in symbol_list]
+    data_df.columns = ["symbol", "open", "high", "low", "volume", "turnover",
+                       "open_interest", "_", "close", "settle", "pre_settle", "_", "_", "_"]
+    data_df["date"] = date
+    data_df["variety"] = variety_list
+    data_df = data_df[
+        ["symbol", "date", "open", "high", "low", "close", "volume", "open_interest", "turnover", "settle",
+         "pre_settle", "variety"]]
+    return data_df
 
 
 def get_ine_daily(date="20200416"):
@@ -394,184 +369,81 @@ def get_shfe_daily(date="20200416"):
     return df[cons.OUTPUT_COLUMNS]
 
 
-def get_dce_daily(date="20200416", symbol_type="futures", retries=0):
+def get_dce_daily(date="20200701"):
     """
     大连商品交易所日交易数据
-    Parameters
-    ------
-        date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-        symbol_type: 数据类型, 为'futures'期货 或 'option'期权二者之一
-        retries: int, 当前重试次数，达到3次则获取数据失败
-    Return
-    -------
-        DataFrame
-            大商所日交易数据(DataFrame):
-                symbol        合约代码
-                date          日期
-                open          开盘价
-                high          最高价
-                low           最低价
-                close         收盘价
-                volume        成交量
-                open_interest   持仓量
-                turnover       成交额
-                settle        结算价
-                pre_settle    前结算价
-                variety       合约类别
-        或
-        DataFrame
-           郑商所每日期权交易数据
-                symbol        合约代码
-                date          日期
-                open          开盘价
-                high          最高价
-                low           最低价
-                close         收盘价
-                pre_settle      前结算价
-                settle         结算价
-                delta          对冲值
-                volume         成交量
-                open_interest     持仓量
-                oi_change       持仓变化
-                turnover        成交额
-                implied_volatility 隐含波动率
-                exercise_volume   行权量
-                variety        合约类别
-        或 None(给定日期没有交易数据)
+    http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
+    :param date: 交易日, e.g., 20200416
+    :type date: str
+    :return: 具体交易日的个品种行情数据
+    :rtype: pandas.DataFrame
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
-    if retries > 3:
-        print("maximum retires for DCE market data: ", day.strftime("%Y%m%d"))
-        return
-
-    if symbol_type == "futures":
-        url = (
-            cons.DCE_DAILY_URL
-            + "?"
-            + urllib.parse.urlencode(
-                {
-                    "currDate": day.strftime("%Y%m%d"),
-                    "year": day.strftime("%Y"),
-                    "month": str(int(day.strftime("%m")) - 1),
-                    "day": day.strftime("%d"),
-                }
-            )
-        )
-        listed_columns = cons.DCE_COLUMNS
-        output_columns = cons.OUTPUT_COLUMNS
-    elif symbol_type == "option":
-        url = (
-            cons.DCE_DAILY_URL
-            + "?"
-            + urllib.parse.urlencode(
-                {
-                    "currDate": day.strftime("%Y%m%d"),
-                    "year": day.strftime("%Y"),
-                    "month": str(int(day.strftime("%m")) - 1),
-                    "day": day.strftime("%d"),
-                    "dayQuotes.trade_type": "1",
-                }
-            )
-        )
-        listed_columns = cons.DCE_OPTION_COLUMNS
-        output_columns = cons.OPTION_OUTPUT_COLUMNS
-    else:
-        print(
-            "invalid symbol_type :"
-            + symbol_type
-            + ', should be one of "futures" or "option"'
-        )
-        return
-
-    try:
-        response = requests_link(url, method="post", headers=cons.headers).text
-    except requests.exceptions.ContentDecodingError as reason:
-        return get_dce_daily(day, retries=retries + 1)
-    except requests.exceptions.HTTPError as reason:
-        if reason.response == 504:
-            return get_dce_daily(day, retries=retries + 1)
-        elif reason.response != 404:
-            print(cons.DCE_DAILY_URL, reason)
-        return
-
-    if "错误：您所请求的网址（URL）无法获取" in response:
-        return get_dce_daily(day, retries=retries + 1)
-    elif "暂无数据" in response:
-        return
-
-    data = BeautifulSoup(response, "html.parser").find_all("tr")
-    if len(data) == 0:
-        return
-
-    dict_data = list()
-    implied_data = list()
-    for i_data in data[1:]:
-        if "小计" in i_data.text or "总计" in i_data.text:
-            continue
-        x = i_data.find_all("td")
-        if symbol_type == "futures":
-            row_dict = {"variety": cons.DCE_MAP[x[0].text.strip()]}
-            row_dict["symbol"] = row_dict["variety"] + x[1].text.strip()
-            for i, field in enumerate(listed_columns):
-                field_content = x[i + 2].text.strip()
-                if "-" in field_content:
-                    row_dict[field] = 0
-                elif field in ["volume", "open_interest"]:
-                    row_dict[field] = int(field_content.replace(",", ""))
-                else:
-                    row_dict[field] = float(field_content.replace(",", ""))
-            dict_data.append(row_dict)
-        elif len(x) == 16:
-            m = cons.FUTURES_SYMBOL_PATTERN.match(x[1].text.strip())
-            if not m:
-                continue
-            row_dict = {
-                "symbol": x[1].text.strip(),
-                "variety": m.group(1).upper(),
-                "contract_id": m.group(0),
-            }
-            for i, field in enumerate(listed_columns):
-                field_content = x[i + 2].text.strip()
-                if "-" in field_content:
-                    row_dict[field] = 0
-                elif field in ["volume", "open_interest"]:
-                    row_dict[field] = int(field_content.replace(",", ""))
-                else:
-                    row_dict[field] = float(field_content.replace(",", ""))
-            dict_data.append(row_dict)
-        elif len(x) == 2:
-            implied_data.append(
-                {
-                    "contract_id": x[0].text.strip(),
-                    "implied_volatility": float(x[1].text.strip()),
-                }
-            )
-    df = pd.DataFrame(dict_data)
-    df["date"] = day.strftime("%Y%m%d")
-    if symbol_type == "futures":
-        return df[output_columns]
-    else:
-        return pd.merge(
-            df,
-            pd.DataFrame(implied_data),
-            on="contract_id",
-            how="left",
-            indicator=False,
-        )[output_columns]
+    url = "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Content-Length": "86",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Host": "www.dce.com.cn",
+        "Origin": "http://www.dce.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "http://www.dce.com.cn/publicweb/quotesdata/dayQuotesCh.html",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
+    }
+    params = {
+        "dayQuotes.variety": "all",
+        "dayQuotes.trade_type": "0",
+        "year": date[:4],
+        "month": str(int(date[4:6]) - 1),
+        "day": date[6:],
+        "exportFlag": "excel",
+    }
+    r = requests.post(url, data=params, headers=headers)
+    data_df = pd.read_excel(BytesIO(r.content))
+    data_df = data_df[~data_df["商品名称"].str.contains("小计")]
+    data_df = data_df[~data_df["商品名称"].str.contains("总计")]
+    data_df["variety"] = data_df["商品名称"].map(lambda x: cons.DCE_MAP[x])
+    data_df["symbol"] = data_df["variety"] + data_df["交割月份"].astype(int).astype(str)
+    del data_df["商品名称"]
+    del data_df["交割月份"]
+    data_df.columns = ["open", "high", "low", "close",
+                       "pre_settle", "settle", "_", "_",
+                       "volume", "open_interest", "_", "turnover", "variety", "symbol"]
+    data_df["date"] = date
+    data_df = data_df[
+        ["symbol", "date", "open", "high", "low", "close", "volume", "open_interest", "turnover", "settle",
+         "pre_settle", "variety"]]
+    data_df = data_df.applymap(lambda x: x.replace(",", ""))
+    data_df = data_df.astype({"open": "float",
+                              "high": "float",
+                              "low": "float",
+                              "close": "float",
+                              "volume": "float",
+                              "open_interest": "float",
+                              "turnover": "float",
+                              "settle": "float",
+                              "pre_settle": "float",
+                              })
+    return data_df
 
 
-def get_futures_daily(start_day="20200413", end_day="20200416", market="CFFEX", index_bar=False):
+def get_futures_daily(start_date="20200701", end_date="20200716", market="DCE", index_bar=False):
     """
     交易所日交易数据
     Parameters
     ------
-        start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-        end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-        market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
-        index_bar: bool  是否合成指数K线
+    start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
+    index_bar: bool  是否合成指数K线
     Return
     -------
         DataFrame
@@ -602,25 +474,25 @@ def get_futures_daily(start_day="20200413", end_day="20200416", market="CFFEX", 
         f = get_ine_daily
     else:
         print("Invalid Market Symbol")
-        return
+        return None
 
-    start_day = (
-        cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+    start_date = (
+        cons.convert_date(start_date) if start_date is not None else datetime.date.today()
     )
-    end_day = (
-        cons.convert_date(end_day)
-        if end_day is not None
+    end_date = (
+        cons.convert_date(end_date)
+        if end_date is not None
         else cons.convert_date(cons.get_latest_data_date(datetime.datetime.now()))
     )
 
     df_list = list()
-    while start_day <= end_day:
-        df = f(start_day)
+    while start_date <= end_date:
+        df = f(date=str(start_date).replace("-", ""))
         if df is not None:
             df_list.append(df)
             if index_bar:
                 df_list.append(get_futures_index(df))
-        start_day += datetime.timedelta(days=1)
+        start_date += datetime.timedelta(days=1)
 
     if len(df_list) > 0:
         return pd.concat(df_list).reset_index(drop=True)
@@ -628,24 +500,11 @@ def get_futures_daily(start_day="20200413", end_day="20200416", market="CFFEX", 
 
 def get_futures_index(df):
     """
-    指数日交易数据
+    指数日交易数据, 指数合成
     :param df: 爬到的原始合约日线行情
     :type df: pandas.DataFrame
     :return: 持仓量加权指数日线行情
     :rtype: pandas.DataFrame
-    中金所日交易数据(DataFrame):
-    symbol      合约代码
-    date       日期
-    open       开盘价
-    high       最高价
-    low       最低价
-    close      收盘价
-    volume      成交量
-    open_interest 持仓量
-    turnover    成交额
-    settle     结算价
-    pre_settle   前结算价
-    variety     合约类别
     """
     index_dfs = []
     for var in set(df["variety"]):
@@ -654,7 +513,7 @@ def get_futures_index(df):
         df_cut = df_cut[df_cut["close"] != ""]
         df_cut = df_cut[df_cut["volume"] != 0]
         if len(df_cut.index) > 0:
-            index_df = pd.Series(index=df_cut.columns)
+            index_df = pd.Series(index=df_cut.columns, dtype="object")
             index_df[["volume", "open_interest", "turnover"]] = df_cut[
                 ["volume", "open_interest", "turnover"]
             ].sum()
@@ -671,9 +530,14 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(
-        start_day="20200701", end_day="20200716", market="DCE", index_bar=False
-    )
+    get_futures_daily_df = get_futures_daily(start_date="20200701", end_date="20200716", market="DCE", index_bar=True)
     print(get_futures_daily_df)
-    get_dce_daily_df = get_dce_daily(date="20200716", symbol_type="futures", retries=0)
+
+    get_dce_daily_df = get_dce_daily(date="20200701")
     print(get_dce_daily_df)
+
+    get_cffex_daily_df = get_cffex_daily(date="20200803")
+    print(get_cffex_daily_df)
+
+    get_ine_daily_df = get_ine_daily(date="20200416")
+    print(get_ine_daily_df)
