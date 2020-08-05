@@ -1178,6 +1178,55 @@ print(macro_china_new_financial_credit_df)
 149  2008年01月份     8058   42.29  1561.44     8058   42.29
 ```
 
+##### 外汇和黄金储备
+
+接口: macro_china_fx_gold
+
+目标地址: http://data.eastmoney.com/cjsj/hjwh.html
+
+描述: 获取中国外汇和黄金储备, 数据区间从 200801 至今, 月度数据
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| date      | str   | Y        | 年度和月份  |
+| foreign_exchange_reserve      | str   | Y        | 注意单位: 亿美元   |
+| gold_reserves      | str   | Y        |   注意单位: 万盎司 |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_fx_gold_df = ak.macro_china_fx_gold()
+print(macro_china_fx_gold_df)
+```
+
+数据示例
+
+```
+      date foreign_exchange_reserve gold_reserves
+0    08年1月                15898.104          1929
+1    08年2月               16471.3371          1929
+2    08年3月                 16821.77          1929
+3    08年4月               17566.5514          1929
+4    08年5月               17969.6074          1929
+..     ...                      ...           ...
+145  20年2月                 31067.18          6264
+146  20年3月                 30606.33          6264
+147  20年4月                 30914.59          6264
+148  20年5月                 31016.92          6264
+149  20年6月                 31123.28          6264
+```
+
 ##### 上海银行业同业拆借报告
 
 接口: macro_china_shibor_all

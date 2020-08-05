@@ -1018,9 +1018,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.90: add: add stock_sina_lhb interface
 0.5.91: fix: fix covid for python3.8
 0.5.92: fix: fix futures_daily_bar interface
+0.5.93: add: add macro_china_fx_gold interface
 """
 
-__version__ = "0.5.92"
+__version__ = "0.5.93"
 __author__ = "Albert King"
 
 """
@@ -2014,6 +2015,7 @@ from akshare.economic.macro_china import (
     macro_china_enterprise_boom_index,
     macro_china_national_tax_receipts,
     macro_china_new_financial_credit,
+    macro_china_fx_gold,
 )
 
 """

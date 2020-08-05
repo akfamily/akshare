@@ -18,6 +18,7 @@
 
 # Temp
 build/
+_build/
 dist/
 *.egg-info/
 colors
