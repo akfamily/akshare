@@ -22,7 +22,7 @@
 **Write less, get more!**
 
 - Documentation: [中文文档](https://akshare.readthedocs.io/zh_CN/latest/)
-- Documentation: [English Forthcoming](https://akshare.readthedocs.io/zh_CN/latest/)
+- Documentation: [中文文档-国内加速访问](https://akshare-4gize6tod19f2d2e-1252952517.tcloudbaseapp.com/index.html)
 
 # ![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare.svg)
 
