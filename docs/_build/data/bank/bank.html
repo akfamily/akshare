@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 银保监数据 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AkShare 波动率数据" href="../article/article.html" />
+    <link rel="prev" title="AkShare 数字货币数据" href="../dc/dc.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AkShare 银保监数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">银保监分局本级行政处罚</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qhkc/index.html">AkShare 奇货可查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+      <li>AkShare 银保监数据</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/bank/bank.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 银保监数据<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>银保监分局本级行政处罚<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>接口: bank_fjcf_table_detail</p>
+<p>目标地址: http://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId=881574&amp;itemId=4115&amp;generaltype=9</p>
+<p>描述: 首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表, 是信息公开表不是处罚决定书书</p>
+<p>限量: 单次返回银保监分局本级行政处罚中的指定页数的所有表格数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>page</td>
+<td>int</td>
+<td>Y</td>
+<td>page=5, 获取前 5 页数据, 并返回处理好后的数据框</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<p>获取银保监分局本级行政处罚</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行政处罚决定书文号</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>姓名</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>单位</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>主要负责人姓名</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>主要违法违规事实（案由）</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>行政处罚依据</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>行政处罚决定</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>作出处罚决定的机关名称</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>作出处罚决定的日期</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">bank_fjcf_table_detail_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">bank_fjcf_table_detail</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">bank_fjcf_table_detail_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          行政处罚决定书文号                   姓名                单位 主要负责人姓名  \
+内容  德银保监罚决字〔2019〕7号                  NaN  山东齐河农村商业银行股份有限公司      刘军   
+内容  德银保监罚决字〔2019〕6号                  黄家信               NaN     NaN   
+内容  德银保监罚决字〔2019〕5号                  NaN  山东宁津农村商业银行股份有限公司     方化臣   
+内容  鹰银保监罚决字〔2019〕7号   刘峰(上饶银行股份有限公司鹰潭分行)               NaN     NaN   
+内容  鹰银保监罚决字〔2019〕6号  张希望(上饶银行股份有限公司鹰潭分行)               NaN     NaN   
+内容  鹰银保监罚决字〔2019〕5号                  NaN    上饶银行股份有限公司鹰潭分行     王新华   
+                              主要违法违规事实（案由）                  行政处罚依据     行政处罚决定  \
+内容                               贷款“三查”不到位  《中华人民共和国银行业监督管理法》第四十六条     罚款35万元   
+内容                  对机构漏报案件及案件风险信息报告负有领导责任  《中华人民共和国银行业监督管理法》第四十八条         警告   
+内容                           漏报案件及案件风险信息报告  《中华人民共和国银行业监督管理法》第四十六条     罚款35万元   
+内容  对上饶银行股份有限公司鹰潭分行向监管部门出具虚假资料的违法违规问题负领导责任  《中华人民共和国银行业监督管理法》第四十八条         警告   
+内容    对上饶银行股份有限公司鹰潭分行贷后管理严重不尽职的违法违规问题负领导责任  《中华人民共和国银行业监督管理法》第四十八条         警告   
+内容                   贷后管理严重不尽职和向监管部门出具虚假资料  《中华人民共和国银行业监督管理法》第四十六条  罚款人民币40万元   
+     作出处罚决定的机关名称    作出处罚决定的日期  
+内容       德州银保监分局  2019年12月27日  
+内容       德州银保监分局  2019年12月27日  
+内容       德州银保监分局  2019年12月27日  
+内容  中国银保监会鹰潭监管分局  2019年12月27日  
+内容  中国银保监会鹰潭监管分局  2019年12月27日  
+内容  中国银保监会鹰潭监管分局  2019年12月27日  
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../article/article.html" class="btn btn-neutral float-right" title="AkShare 波动率数据" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../dc/dc.html" class="btn btn-neutral float-left" title="AkShare 数字货币数据" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

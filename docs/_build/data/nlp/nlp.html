@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 自然语言处理 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AkShare 另类数据" href="../others/others.html" />
+    <link rel="prev" title="AkShare 高频数据" href="../hf/hf.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AkShare 自然语言处理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">知识图谱</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qhkc/index.html">AkShare 奇货可查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+      <li>AkShare 自然语言处理</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/nlp/nlp.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 自然语言处理<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>知识图谱<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>接口: nlp_ownthink</p>
+<p>目标地址: https://ownthink.com/</p>
+<p>描述: 获取思知-知识图谱的接口, 以此来查询知识图谱数据</p>
+<p>限量: 单次返回查询的数据结果</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>word</td>
+<td>str</td>
+<td>Y</td>
+<td>word="人工智能"</td>
+</tr>
+<tr>
+<td>indicator</td>
+<td>str</td>
+<td>Y</td>
+<td>indicator="entity"; Please refer <strong>Indicator Info</strong> table</td>
+</tr>
+</tbody>
+</table><p>Indicator Info</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>fields</th>
+<th>type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>entity</td>
+<td>str</td>
+<td>实体名</td>
+</tr>
+<tr>
+<td>desc</td>
+<td>str</td>
+<td>实体简介</td>
+</tr>
+<tr>
+<td>tag</td>
+<td>list</td>
+<td>实体标签</td>
+</tr>
+<tr>
+<td>avp</td>
+<td>pandas.DataFrame</td>
+<td>实体属性值，第一列为实体的属性，第二列为实体属性所对应的值</td>
+</tr>
+</tbody>
+</table><p>输出参数-entity</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>str</td>
+</tr>
+</tbody>
+</table><p>接口示例-entity</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">nlp_ownthink_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">nlp_ownthink</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;人工智能&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="s2">&quot;entity&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nlp_ownthink_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-entity</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">人工智能</span><span class="p">[</span><span class="n">计算机科学的一个分支</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>输出参数-desc</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>str</td>
+</tr>
+</tbody>
+</table><p>接口示例-desc</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">nlp_ownthink_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">nlp_ownthink</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;人工智能&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="s2">&quot;desc&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nlp_ownthink_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-desc</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>人工智能（Artificial Intelligence），英文缩写为AI。
+</pre></div>
+</div>
+<p>输出参数-avg</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>str</td>
+</tr>
+</tbody>
+</table><p>接口示例-avg</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">nlp_ownthink_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">nlp_ownthink</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;人工智能&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="s2">&quot;avg&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nlp_ownthink_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-avg</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">字段</span>                       <span class="n">值</span>
+<span class="mi">0</span>   <span class="n">中文名</span>                    <span class="n">人工智能</span>
+<span class="mi">1</span>   <span class="n">外文名</span>  <span class="n">ARTIFICIALINTELLIGENCE</span>
+<span class="mi">2</span>    <span class="n">简称</span>                      <span class="n">AI</span>
+<span class="mi">3</span>  <span class="n">提出时间</span>                   <span class="mi">1956</span><span class="n">年</span>
+<span class="mi">4</span>  <span class="n">提出地点</span>             <span class="n">DARTMOUTH学会</span>
+<span class="mi">5</span>  <span class="n">名称来源</span>             <span class="n">雨果·德·加里斯的著作</span>
+</pre></div>
+</div>
+<p>输出参数-tag</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>list</td>
+</tr>
+</tbody>
+</table><p>接口示例-tag</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">nlp_ownthink_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">nlp_ownthink</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;人工智能&quot;</span><span class="p">,</span> <span class="n">indicator</span><span class="o">=</span><span class="s2">&quot;tag&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nlp_ownthink_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-tag</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;中国通信学会&#39;</span><span class="p">,</span> <span class="s1">&#39;学科&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../others/others.html" class="btn btn-neutral float-right" title="AkShare 另类数据" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../hf/hf.html" class="btn btn-neutral float-left" title="AkShare 高频数据" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

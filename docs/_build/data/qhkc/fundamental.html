@@ -1,0 +1,1412 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>基本面 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="工具" href="tools.html" />
+    <link rel="prev" title="指数" href="index_data.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">AkShare 奇货可查</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="commodity.html">商品</a></li>
+<li class="toctree-l3"><a class="reference internal" href="broker.html">席位</a></li>
+<li class="toctree-l3"><a class="reference internal" href="index_data.html">指数</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">基本面</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">基差数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">期限结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">库存数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id31">利润数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id38">现货贸易商报价</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id45">跨期套利数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id52">自由价差数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id59">自由价比数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id66">仓单数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id73">仓单汇总数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id80">虚实盘比数据</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html">工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fund.html">资金</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+          <li><a href="index.html">AkShare 奇货可查</a> &raquo;</li>
+        
+      <li>基本面</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/qhkc/fundamental.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>基本面<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>基差数据<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>接口名称<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>basis</p>
+</div>
+<div class="section" id="id4">
+<h3>接口描述<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>基差数据接口</p>
+</div>
+<div class="section" id="id5">
+<h3>请求参数<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id6">
+<h3>返回参数<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">spot</td>
+<td align="left">float</td>
+<td>现货价格</td>
+</tr>
+<tr>
+<td align="left">basis</td>
+<td align="left">float</td>
+<td>基差，基差 = 现货价格 - 期货价格</td>
+</tr>
+<tr>
+<td align="left">basis_rate</td>
+<td align="left">float</td>
+<td>基差率，基差率 = (现货价格 - 期货价格) / 现货价格 x 100%</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id7">
+<h3>示例代码<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">basis_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">basis</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">basis_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>返回示例<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                 <span class="n">basis</span>
+<span class="n">trans_date</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">08</span>
+<span class="n">spot</span>              <span class="mi">4429</span>
+<span class="n">basis</span>              <span class="mi">193</span>
+<span class="n">basis_rate</span>     <span class="mf">4.35764</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>期限结构<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id10">
+<h3>接口名称<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>term_structure</p>
+</div>
+<div class="section" id="id11">
+<h3>接口描述<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p>期限结构接口</p>
+</div>
+<div class="section" id="id12">
+<h3>请求参数<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id13">
+<h3>返回参数<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">code</td>
+<td align="left">string</td>
+<td>合约代号</td>
+</tr>
+<tr>
+<td align="left">close</td>
+<td align="left">float</td>
+<td>收盘价</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id14">
+<h3>示例代码<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">term_structure_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">term_structure</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">term_structure_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>返回示例<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">close</span>    <span class="n">code</span>
+<span class="mi">0</span>    <span class="mi">4200</span>  <span class="n">rb1808</span>
+<span class="mi">1</span>    <span class="mi">4322</span>  <span class="n">rb1809</span>
+<span class="mi">2</span>    <span class="mi">4236</span>  <span class="n">rb1810</span>
+<span class="mi">3</span>    <span class="mi">4191</span>  <span class="n">rb1811</span>
+<span class="mi">4</span>    <span class="mi">4139</span>  <span class="n">rb1812</span>
+<span class="mi">5</span>    <span class="mi">4094</span>  <span class="n">rb1901</span>
+<span class="mi">6</span>    <span class="mi">4017</span>  <span class="n">rb1902</span>
+<span class="mi">7</span>    <span class="mi">3987</span>  <span class="n">rb1903</span>
+<span class="mi">8</span>    <span class="mi">3977</span>  <span class="n">rb1904</span>
+<span class="mi">9</span>    <span class="mi">3918</span>  <span class="n">rb1905</span>
+<span class="mi">10</span>   <span class="mi">3889</span>  <span class="n">rb1906</span>
+<span class="mi">11</span>   <span class="mi">3881</span>  <span class="n">rb1907</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>库存数据<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id17">
+<h3>参数类型一<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id18">
+<h4>接口名称<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h4>
+<p>inventory</p>
+</div>
+<div class="section" id="id19">
+<h4>接口描述<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h4>
+<p>库存数据接口-参数类型一</p>
+</div>
+<div class="section" id="id20">
+<h4>请求参数<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h4>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id21">
+<h4>返回参数<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h4>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">vol</td>
+<td align="left">float</td>
+<td>库存数据量</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id22">
+<h4>示例代码<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">inventory_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">inventory</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">inventory_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id23">
+<h4>返回示例<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">inventory</span>
+<span class="n">trans_date</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">08</span>
+<span class="n">vol</span>             <span class="mf">605.76</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id24">
+<h3>参数类型二<a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id25">
+<h4>接口名称<a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h4>
+<p>inventory</p>
+</div>
+<div class="section" id="id26">
+<h4>接口描述<a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h4>
+<p>库存数据接口-参数类型二</p>
+</div>
+<div class="section" id="id27">
+<h4>请求参数<a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h4>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">year</td>
+<td align="left">查询年份</td>
+<td>2019</td>
+</tr>
+<tr>
+<td align="left">week_number</td>
+<td align="left">该年第几周</td>
+<td>10</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id28">
+<h4>返回参数<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h4>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">vol</td>
+<td align="left">float</td>
+<td>库存数据量</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id29">
+<h4>示例代码<a class="headerlink" href="#id29" title="永久链接至标题">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">inventory_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">inventory</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">,</span> <span class="n">week_number</span><span class="o">=</span><span class="s2">&quot;10&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">inventory_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id30">
+<h4>返回示例<a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">inventory</span>
+<span class="n">trans_date</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span>
+<span class="n">vol</span>            <span class="mf">1326.64</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id31">
+<h2>利润数据<a class="headerlink" href="#id31" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id32">
+<h3>接口名称<a class="headerlink" href="#id32" title="永久链接至标题">¶</a></h3>
+<p>profit</p>
+</div>
+<div class="section" id="id33">
+<h3>接口描述<a class="headerlink" href="#id33" title="永久链接至标题">¶</a></h3>
+<p>利润数据接口</p>
+</div>
+<div class="section" id="id34">
+<h3>请求参数<a class="headerlink" href="#id34" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-12-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id35">
+<h3>返回参数<a class="headerlink" href="#id35" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">profit</td>
+<td align="left">float</td>
+<td>利润，折盘面价格</td>
+</tr>
+<tr>
+<td align="left">profit_rate</td>
+<td align="left">float</td>
+<td>利润率</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id36">
+<h3>示例代码<a class="headerlink" href="#id36" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">profit_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">profit</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2019-12-12&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">profit_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id37">
+<h3>返回示例<a class="headerlink" href="#id37" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                 <span class="n">profit</span>
+<span class="n">trans_date</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">12</span>
+<span class="n">profit</span>              <span class="mi">559</span>
+<span class="n">profit_rate</span>       <span class="mf">16.58</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id38">
+<h2>现货贸易商报价<a class="headerlink" href="#id38" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id39">
+<h3>接口名称<a class="headerlink" href="#id39" title="永久链接至标题">¶</a></h3>
+<p>trader_prices</p>
+</div>
+<div class="section" id="id40">
+<h3>接口描述<a class="headerlink" href="#id40" title="永久链接至标题">¶</a></h3>
+<p>现货贸易商报价接口</p>
+</div>
+<div class="section" id="id41">
+<h3>请求参数<a class="headerlink" href="#id41" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id42">
+<h3>返回参数<a class="headerlink" href="#id42" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">name</td>
+<td align="left">string</td>
+<td>品种名称</td>
+</tr>
+<tr>
+<td align="left">price</td>
+<td align="left">float</td>
+<td>贸易商报价</td>
+</tr>
+<tr>
+<td align="left">band</td>
+<td align="left">string</td>
+<td>品牌</td>
+</tr>
+<tr>
+<td align="left">model</td>
+<td align="left">string</td>
+<td>型号、规格</td>
+</tr>
+<tr>
+<td align="left">unit</td>
+<td align="left">string</td>
+<td>单位</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id43">
+<h3>示例代码<a class="headerlink" href="#id43" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">trader_prices_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">trader_prices</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2020-03-30&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">trader_prices_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id44">
+<h3>返回示例<a class="headerlink" href="#id44" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">band</span>                      <span class="n">model</span> <span class="n">name</span>  <span class="n">price</span> <span class="n">unit</span>
+<span class="mi">0</span>   <span class="n">永钢</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3500</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+<span class="mi">1</span>   <span class="n">永钢</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3440</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+<span class="mi">2</span>   <span class="n">永钢</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3440</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+<span class="mi">3</span>   <span class="n">中新</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3320</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+<span class="mi">4</span>   <span class="n">镔鑫</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3380</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+<span class="mi">5</span>   <span class="n">永钢</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3470</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+<span class="mi">6</span>   <span class="n">中天</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3490</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+<span class="mi">7</span>   <span class="n">长达</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3400</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+<span class="mi">8</span>   <span class="n">兴鑫</span>  <span class="n">品种</span><span class="p">:</span><span class="n">Ⅲ级螺纹钢</span><span class="p">;</span><span class="n">牌号</span><span class="p">:</span><span class="n">HRB400</span><span class="p">;</span><span class="n">规格</span><span class="p">:</span><span class="n">Φ16</span>  <span class="n">螺纹钢</span>   <span class="mi">3380</span>  <span class="n">元</span><span class="o">/</span><span class="n">吨</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id45">
+<h2>跨期套利数据<a class="headerlink" href="#id45" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id46">
+<h3>接口名称<a class="headerlink" href="#id46" title="永久链接至标题">¶</a></h3>
+<p>intertemporal_arbitrage</p>
+</div>
+<div class="section" id="id47">
+<h3>接口描述<a class="headerlink" href="#id47" title="永久链接至标题">¶</a></h3>
+<p>跨期套利数据接口</p>
+</div>
+<div class="section" id="id48">
+<h3>请求参数<a class="headerlink" href="#id48" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">code1</td>
+<td align="left">合约月份1</td>
+<td>01</td>
+</tr>
+<tr>
+<td align="left">code2</td>
+<td align="left">合约月份2</td>
+<td>05</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id49">
+<h3>返回参数<a class="headerlink" href="#id49" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">code1</td>
+<td align="left">string</td>
+<td>合约1</td>
+</tr>
+<tr>
+<td align="left">code2</td>
+<td align="left">string</td>
+<td>合约2</td>
+</tr>
+<tr>
+<td align="left">close1</td>
+<td align="left">float</td>
+<td>合约1价格</td>
+</tr>
+<tr>
+<td align="left">close2</td>
+<td align="left">float</td>
+<td>合约2价格</td>
+</tr>
+<tr>
+<td align="left">spread</td>
+<td align="left">float</td>
+<td>价差，合约1价格 - 合约2价格</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id50">
+<h3>示例代码<a class="headerlink" href="#id50" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">intertemporal_arbitrage_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">intertemporal_arbitrage</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">code1</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="n">code2</span><span class="o">=</span><span class="s2">&quot;05&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">intertemporal_arbitrage_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id51">
+<h3>返回示例<a class="headerlink" href="#id51" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>           <span class="n">intertemporal_arbitrage</span>
+<span class="n">trans_date</span>              <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">08</span>
+<span class="n">code1</span>                       <span class="n">rb1901</span>
+<span class="n">code2</span>                       <span class="n">rb1905</span>
+<span class="n">close1</span>                        <span class="mi">4109</span>
+<span class="n">close2</span>                        <span class="mi">3930</span>
+<span class="n">spread</span>                         <span class="mi">179</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id52">
+<h2>自由价差数据<a class="headerlink" href="#id52" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id53">
+<h3>接口名称<a class="headerlink" href="#id53" title="永久链接至标题">¶</a></h3>
+<p>free_spread</p>
+</div>
+<div class="section" id="id54">
+<h3>接口描述<a class="headerlink" href="#id54" title="永久链接至标题">¶</a></h3>
+<p>自由价差数据接口</p>
+</div>
+<div class="section" id="id55">
+<h3>请求参数<a class="headerlink" href="#id55" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety1</td>
+<td align="left">品种编码1</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">code1</td>
+<td align="left">合约月份1</td>
+<td>01</td>
+</tr>
+<tr>
+<td align="left">variety2</td>
+<td align="left">品种编码2</td>
+<td>HC</td>
+</tr>
+<tr>
+<td align="left">code2</td>
+<td align="left">合约月份2</td>
+<td>01</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id56">
+<h3>返回参数<a class="headerlink" href="#id56" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">string</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">code1</td>
+<td align="left">string</td>
+<td>合约代号1</td>
+</tr>
+<tr>
+<td align="left">code2</td>
+<td align="left">string</td>
+<td>合约代号2</td>
+</tr>
+<tr>
+<td align="left">code1_close</td>
+<td align="left">float</td>
+<td>合约1价格</td>
+</tr>
+<tr>
+<td align="left">code2_close</td>
+<td align="left">float</td>
+<td>合约2价格</td>
+</tr>
+<tr>
+<td align="left">spread</td>
+<td align="left">float</td>
+<td>价差，合约1价格 - 合约2价格</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id57">
+<h3>示例代码<a class="headerlink" href="#id57" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">free_spread_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">free_spread</span><span class="p">(</span><span class="n">variety1</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">code1</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="n">variety2</span><span class="o">=</span><span class="s2">&quot;HC&quot;</span><span class="p">,</span> <span class="n">code2</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">free_spread_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id58">
+<h3>返回示例<a class="headerlink" href="#id58" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">free_spread</span>
+<span class="n">trans_date</span>   <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">08</span>
+<span class="n">code1</span>            <span class="n">rb1901</span>
+<span class="n">code2</span>            <span class="n">hc1901</span>
+<span class="n">code1_close</span>        <span class="mi">4094</span>
+<span class="n">code2_close</span>        <span class="mi">4100</span>
+<span class="n">spread</span>               <span class="o">-</span><span class="mi">6</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id59">
+<h2>自由价比数据<a class="headerlink" href="#id59" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id60">
+<h3>接口名称<a class="headerlink" href="#id60" title="永久链接至标题">¶</a></h3>
+<p>free_ratio</p>
+</div>
+<div class="section" id="id61">
+<h3>接口描述<a class="headerlink" href="#id61" title="永久链接至标题">¶</a></h3>
+<p>自由价比数据接口</p>
+</div>
+<div class="section" id="id62">
+<h3>请求参数<a class="headerlink" href="#id62" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety1</td>
+<td align="left">品种编码1</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">code1</td>
+<td align="left">合约月份1</td>
+<td>01</td>
+</tr>
+<tr>
+<td align="left">variety2</td>
+<td align="left">品种编码2</td>
+<td>HC</td>
+</tr>
+<tr>
+<td align="left">code2</td>
+<td align="left">合约月份2</td>
+<td>01</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id63">
+<h3>返回参数<a class="headerlink" href="#id63" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">string</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">code1</td>
+<td align="left">string</td>
+<td>合约代号1</td>
+</tr>
+<tr>
+<td align="left">code2</td>
+<td align="left">string</td>
+<td>合约代号2</td>
+</tr>
+<tr>
+<td align="left">code1_close</td>
+<td align="left">float</td>
+<td>合约1价格</td>
+</tr>
+<tr>
+<td align="left">code2_close</td>
+<td align="left">float</td>
+<td>合约2价格</td>
+</tr>
+<tr>
+<td align="left">ratio</td>
+<td align="left">float</td>
+<td>价比，合约1价格 / 合约2价格</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id64">
+<h3>示例代码<a class="headerlink" href="#id64" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">free_ratio_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">free_ratio</span><span class="p">(</span><span class="n">variety1</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">code1</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="n">variety2</span><span class="o">=</span><span class="s2">&quot;HC&quot;</span><span class="p">,</span> <span class="n">code2</span><span class="o">=</span><span class="s2">&quot;01&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">free_ratio_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id65">
+<h3>返回示例<a class="headerlink" href="#id65" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">free_ratio</span>
+<span class="n">trans_date</span>   <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">08</span>
+<span class="n">code1</span>            <span class="n">rb1901</span>
+<span class="n">code2</span>            <span class="n">hc1901</span>
+<span class="n">code1_close</span>        <span class="mi">4094</span>
+<span class="n">code2_close</span>        <span class="mi">4100</span>
+<span class="n">ratio</span>          <span class="mf">0.998537</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id66">
+<h2>仓单数据<a class="headerlink" href="#id66" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id67">
+<h3>接口名称<a class="headerlink" href="#id67" title="永久链接至标题">¶</a></h3>
+<p>warehouse_receipt</p>
+</div>
+<div class="section" id="id68">
+<h3>接口描述<a class="headerlink" href="#id68" title="永久链接至标题">¶</a></h3>
+<p>仓单数据接口</p>
+</div>
+<div class="section" id="id69">
+<h3>请求参数<a class="headerlink" href="#id69" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id70">
+<h3>返回参数<a class="headerlink" href="#id70" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">total_vol</td>
+<td align="left">float</td>
+<td>仓单数据</td>
+</tr>
+<tr>
+<td align="left">total_chge</td>
+<td align="left">float</td>
+<td>仓单变化量</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id71">
+<h3>示例代码<a class="headerlink" href="#id71" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">warehouse_receipt_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">warehouse_receipt</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">warehouse_receipt_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id72">
+<h3>返回示例<a class="headerlink" href="#id72" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>           <span class="n">warehouse_receipt</span>
+<span class="n">trans_date</span>        <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">08</span>
+<span class="n">total_vol</span>               <span class="mi">3856</span>
+<span class="n">total_chge</span>                 <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id73">
+<h2>仓单汇总数据<a class="headerlink" href="#id73" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id74">
+<h3>接口名称<a class="headerlink" href="#id74" title="永久链接至标题">¶</a></h3>
+<p>warehouse_receipt</p>
+</div>
+<div class="section" id="id75">
+<h3>接口描述<a class="headerlink" href="#id75" title="永久链接至标题">¶</a></h3>
+<p>仓单汇总数据接口</p>
+</div>
+<div class="section" id="id76">
+<h3>请求参数<a class="headerlink" href="#id76" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id77">
+<h3>返回参数<a class="headerlink" href="#id77" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">symbol</td>
+<td align="left">string</td>
+<td>品种编码</td>
+</tr>
+<tr>
+<td align="left">total_vol</td>
+<td align="left">float</td>
+<td>仓单数据</td>
+</tr>
+<tr>
+<td align="left">total_chge</td>
+<td align="left">float</td>
+<td>仓单变化量</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id78">
+<h3>示例代码<a class="headerlink" href="#id78" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">warehouse_receipt_sum_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">warehouse_receipt</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">warehouse_receipt_sum_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id79">
+<h3>返回示例<a class="headerlink" href="#id79" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">symbol</span>  <span class="n">total_chge</span>  <span class="n">total_vol</span>
+<span class="mi">0</span>      <span class="n">RB</span>           <span class="mi">0</span>       <span class="mi">3856</span>
+<span class="mi">1</span>       <span class="n">J</span>           <span class="mi">0</span>         <span class="mi">10</span>
+<span class="mi">2</span>      <span class="n">HC</span>           <span class="mi">0</span>        <span class="mi">310</span>
+<span class="mi">3</span>      <span class="n">CF</span>          <span class="mi">39</span>       <span class="mi">9905</span>
+<span class="mi">4</span>      <span class="n">FG</span>           <span class="mi">0</span>       <span class="mi">1378</span>
+<span class="mi">5</span>      <span class="n">OI</span>           <span class="mi">0</span>       <span class="mi">4323</span>
+<span class="mi">6</span>      <span class="n">RM</span>           <span class="mi">0</span>        <span class="mi">200</span>
+<span class="mi">7</span>      <span class="n">SF</span>           <span class="mi">0</span>        <span class="mi">594</span>
+<span class="mi">8</span>      <span class="n">SR</span>         <span class="mi">402</span>      <span class="mi">37828</span>
+<span class="mi">9</span>      <span class="n">TA</span>       <span class="o">-</span><span class="mi">1009</span>      <span class="mi">11795</span>
+<span class="mi">10</span>     <span class="n">CU</span>       <span class="o">-</span><span class="mi">1658</span>      <span class="mi">79843</span>
+<span class="mi">11</span>     <span class="n">AL</span>        <span class="mi">1446</span>     <span class="mi">731544</span>
+<span class="mi">12</span>     <span class="n">ZN</span>        <span class="o">-</span><span class="mi">125</span>       <span class="mi">6950</span>
+<span class="mi">13</span>     <span class="n">PB</span>         <span class="o">-</span><span class="mi">25</span>       <span class="mi">7697</span>
+<span class="mi">14</span>     <span class="n">NI</span>           <span class="mi">0</span>      <span class="mi">15215</span>
+<span class="mi">15</span>     <span class="n">SN</span>          <span class="mi">29</span>       <span class="mi">5823</span>
+<span class="mi">16</span>     <span class="n">AU</span>           <span class="mi">0</span>       <span class="mi">1530</span>
+<span class="mi">17</span>     <span class="n">AG</span>        <span class="mi">1292</span>    <span class="mi">1394784</span>
+<span class="mi">18</span>     <span class="n">BU</span>           <span class="mi">0</span>     <span class="mi">128970</span>
+<span class="mi">19</span>     <span class="n">RU</span>         <span class="mi">720</span>     <span class="mi">491780</span>
+<span class="mi">20</span>      <span class="n">A</span>           <span class="mi">0</span>      <span class="mi">32586</span>
+<span class="mi">21</span>      <span class="n">C</span>           <span class="mi">0</span>      <span class="mi">37968</span>
+<span class="mi">22</span>     <span class="n">JD</span>          <span class="o">-</span><span class="mi">3</span>          <span class="mi">0</span>
+<span class="mi">23</span>      <span class="n">L</span>           <span class="mi">0</span>        <span class="mi">284</span>
+<span class="mi">24</span>      <span class="n">M</span>           <span class="mi">0</span>       <span class="mi">6543</span>
+<span class="mi">25</span>     <span class="n">PP</span>           <span class="mi">0</span>        <span class="mi">765</span>
+<span class="mi">26</span>      <span class="n">V</span>           <span class="mi">0</span>        <span class="mi">180</span>
+<span class="mi">27</span>      <span class="n">Y</span>           <span class="mi">0</span>      <span class="mi">33215</span>
+<span class="mi">28</span>     <span class="n">WH</span>           <span class="mi">0</span>        <span class="mi">414</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id80">
+<h2>虚实盘比数据<a class="headerlink" href="#id80" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id81">
+<h3>接口名称<a class="headerlink" href="#id81" title="永久链接至标题">¶</a></h3>
+<p>virtual_real</p>
+</div>
+<div class="section" id="id82">
+<h3>接口描述<a class="headerlink" href="#id82" title="永久链接至标题">¶</a></h3>
+<p>虚实盘比数据接口</p>
+</div>
+<div class="section" id="id83">
+<h3>请求参数<a class="headerlink" href="#id83" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">品种编码</td>
+<td>RB</td>
+</tr>
+<tr>
+<td align="left">code</td>
+<td align="left">合约月份</td>
+<td>10</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id84">
+<h3>返回参数<a class="headerlink" href="#id84" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">code</td>
+<td align="left">string</td>
+<td>合约代号</td>
+</tr>
+<tr>
+<td align="left">virtual</td>
+<td align="left">float</td>
+<td>虚盘量</td>
+</tr>
+<tr>
+<td align="left">real</td>
+<td align="left">float</td>
+<td>实盘量</td>
+</tr>
+<tr>
+<td align="left">rate</td>
+<td align="left">float</td>
+<td>虚实盘比</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id85">
+<h3>示例代码<a class="headerlink" href="#id85" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">virtual_real_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">virtual_real</span><span class="p">(</span><span class="n">variety</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="s2">&quot;10&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">virtual_real_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id86">
+<h3>返回示例<a class="headerlink" href="#id86" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>           <span class="n">virtual_real</span>
+<span class="n">trans_date</span>   <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">08</span>
+<span class="n">code</span>             <span class="n">rb1810</span>
+<span class="n">virtual</span>         <span class="mi">1080026</span>
+<span class="n">real</span>              <span class="mf">385.6</span>
+<span class="n">rate</span>             <span class="mf">2800.9</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tools.html" class="btn btn-neutral float-right" title="工具" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index_data.html" class="btn btn-neutral float-left" title="指数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

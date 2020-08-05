@@ -1,0 +1,612 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 能源数据 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AkShare 事件数据" href="../event/event.html" />
+    <link rel="prev" title="AkShare 实时监控" href="../ws/ws.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AkShare 能源数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">碳排放权</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">中国油价</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">汽柴油历史调价信息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">地区油价</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qhkc/index.html">AkShare 奇货可查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+      <li>AkShare 能源数据</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/energy/energy.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 能源数据<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>碳排放权<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>接口: energy_carbon</p>
+<p>目标地址: https://www.bjets.com.cn/article/jyxx/</p>
+<p>描述: 获取北京市碳排放权电子交易平台-北京市碳排放权公开交易行情</p>
+<p>限量: 全部历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日期</td>
+<td>str</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr>
+<td>成交量(吨)</td>
+<td>float</td>
+<td>-</td>
+<td>注意单位</td>
+</tr>
+<tr>
+<td>成交均价(元/吨)</td>
+<td>float</td>
+<td>-</td>
+<td>注意单位</td>
+</tr>
+<tr>
+<td>成交额(元)</td>
+<td>str</td>
+<td>-</td>
+<td>注意单位</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">energy_carbon_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">energy_carbon</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_carbon_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>              日期  成交量(吨)  成交均价(元/吨)             成交额(元)
+0     2019-12-13       1      60.00         60.00（BEA）
+1     2019-12-12    9215      74.66    687,957.00（BEA）
+2     2019-12-11   14315      76.48  1,094,789.50（BEA）
+3     2019-12-10     780      75.38     58,800.00（BEA）
+4     2019-12-03    9500      72.11    685,000.00(BEA)
+          ...     ...        ...                ...
+1065  2013-12-11     100      50.50               5050
+1066  2013-12-06     100      50.00               5000
+1067  2013-12-05     100      50.20               5020
+1068  2013-12-02     300      55.10              16530
+1069  2013-11-28     800      51.25              41000
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>中国油价<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>汽柴油历史调价信息<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>接口: energy_oil_hist</p>
+<p>目标地址: http://data.eastmoney.com/cjsj/oil_default.html</p>
+<p>描述: 获取东方财富-数据中心-中国油价-汽柴油历史调价信息</p>
+<p>限量: 全部中国油价的所有历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日期</td>
+<td>str</td>
+<td>-</td>
+<td>价格调整的日期</td>
+</tr>
+<tr>
+<td>汽油价格</td>
+<td>float</td>
+<td>-</td>
+<td>价格(元/吨)</td>
+</tr>
+<tr>
+<td>柴油价格</td>
+<td>float</td>
+<td>-</td>
+<td>价格(元/吨)</td>
+</tr>
+<tr>
+<td>汽油涨幅</td>
+<td>str</td>
+<td>-</td>
+<td>价格(元/吨)</td>
+</tr>
+<tr>
+<td>柴油涨幅</td>
+<td>str</td>
+<td>-</td>
+<td>价格(元/吨)</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">energy_oil_hist_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">energy_oil_hist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_oil_hist_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">日期</span>    <span class="n">汽油价格</span>    <span class="n">柴油价格</span>    <span class="n">汽油涨幅</span>   <span class="n">柴油涨幅</span>
+<span class="mi">0</span>     <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">6090.0</span>  <span class="mf">5165.0</span> <span class="o">-</span><span class="mf">1015.0</span> <span class="o">-</span><span class="mf">975.0</span>
+<span class="mi">1</span>     <span class="mi">2020</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">7105.0</span>  <span class="mf">6140.0</span>  <span class="o">-</span><span class="mf">415.0</span> <span class="o">-</span><span class="mf">400.0</span>
+<span class="mi">2</span>      <span class="mi">2020</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="mi">5</span>  <span class="mf">7520.0</span>  <span class="mf">6540.0</span>  <span class="o">-</span><span class="mf">420.0</span> <span class="o">-</span><span class="mf">405.0</span>
+<span class="mi">3</span>    <span class="mi">2019</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">31</span>  <span class="mf">7940.0</span>  <span class="mf">6945.0</span>   <span class="mf">235.0</span>  <span class="mf">230.0</span>
+<span class="mi">4</span>     <span class="mi">2019</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">3</span>  <span class="mf">7705.0</span>  <span class="mf">6715.0</span>    <span class="mf">55.0</span>   <span class="mf">50.0</span>
+<span class="o">..</span>          <span class="o">...</span>     <span class="o">...</span>     <span class="o">...</span>     <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">194</span>  <span class="mi">2000</span><span class="o">/</span><span class="mi">10</span><span class="o">/</span><span class="mi">20</span>  <span class="mf">3435.0</span>  <span class="mf">3440.0</span>     <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="mi">195</span>   <span class="mi">2000</span><span class="o">/</span><span class="mi">9</span><span class="o">/</span><span class="mi">20</span>  <span class="mf">3615.0</span>  <span class="mf">3070.0</span>     <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="mi">196</span>   <span class="mi">2000</span><span class="o">/</span><span class="mi">8</span><span class="o">/</span><span class="mi">18</span>  <span class="mf">3405.0</span>  <span class="mf">2770.0</span>     <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="mi">197</span>   <span class="mi">2000</span><span class="o">/</span><span class="mi">7</span><span class="o">/</span><span class="mi">15</span>  <span class="mf">3135.0</span>  <span class="mf">2610.0</span>     <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="mi">198</span>    <span class="mi">2000</span><span class="o">/</span><span class="mi">6</span><span class="o">/</span><span class="mi">6</span>  <span class="mf">2935.0</span>  <span class="mf">2430.0</span>     <span class="n">NaN</span>    <span class="n">NaN</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>地区油价<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>接口: energy_oil_detail</p>
+<p>目标地址: http://data.eastmoney.com/cjsj/oil_default.html</p>
+<p>描述: 获取东方财富-数据中心-中国油价-地区油价</p>
+<p>限量: 指定调价日的地区油价历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>date="2020-03-19"; 此日期为调价日期, 通过调用 <strong>energy_oil_hist</strong> 可以获取历史调价日期</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DIM_DATE</td>
+<td>str</td>
+<td>-</td>
+<td>价格调整的日期</td>
+</tr>
+<tr>
+<td>V_0</td>
+<td>float</td>
+<td>-</td>
+<td>0#柴油价格(单位:元/升)</td>
+</tr>
+<tr>
+<td>V_92</td>
+<td>float</td>
+<td>-</td>
+<td>92#汽油价格(单位:元/升)</td>
+</tr>
+<tr>
+<td>V_95</td>
+<td>str</td>
+<td>-</td>
+<td>95#汽油价格(单位:元/升)</td>
+</tr>
+<tr>
+<td>V_89</td>
+<td>str</td>
+<td>-</td>
+<td>89#汽油价格(单位:元/升)</td>
+</tr>
+<tr>
+<td>CITYNAME</td>
+<td>str</td>
+<td>-</td>
+<td>地区</td>
+</tr>
+<tr>
+<td>ZDE_0</td>
+<td>str</td>
+<td>-</td>
+<td>0#柴油涨幅(单位:元/升)</td>
+</tr>
+<tr>
+<td>ZDE_92</td>
+<td>str</td>
+<td>-</td>
+<td>92#汽油涨幅(单位:元/升)</td>
+</tr>
+<tr>
+<td>ZDE_95</td>
+<td>str</td>
+<td>-</td>
+<td>95#汽油涨幅(单位:元/升)</td>
+</tr>
+<tr>
+<td>ZDE_89</td>
+<td>str</td>
+<td>-</td>
+<td>89#汽油涨幅(单位:元/升)</td>
+</tr>
+<tr>
+<td>QE_0</td>
+<td>str</td>
+<td>-</td>
+<td>上一次调整时0#柴油价格(单位:元/升)</td>
+</tr>
+<tr>
+<td>QE_92</td>
+<td>str</td>
+<td>-</td>
+<td>上一次调整时92#汽油价格(单位:元/升)</td>
+</tr>
+<tr>
+<td>QE_95</td>
+<td>str</td>
+<td>-</td>
+<td>上一次调整时95#汽油价格(单位:元/升)</td>
+</tr>
+<tr>
+<td>QE_89</td>
+<td>str</td>
+<td>-</td>
+<td>上一次调整时89#汽油价格(单位:元/升)</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">energy_oil_detail_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">energy_oil_detail</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">energy_oil_detail_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">DIM_DATE</span>       <span class="n">V_0</span>      <span class="n">V_92</span>  <span class="o">...</span>     <span class="n">QE_92</span>     <span class="n">QE_95</span>    <span class="n">QE_89</span>
+<span class="mi">0</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.130000</span>  <span class="mf">5.490000</span>  <span class="o">...</span>  <span class="mf">6.620000</span>  <span class="mf">7.100000</span>  <span class="mf">6.20000</span>
+<span class="mi">1</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.130000</span>  <span class="mf">5.500000</span>  <span class="o">...</span>  <span class="mf">6.650000</span>  <span class="mf">7.080000</span>  <span class="mf">6.23000</span>
+<span class="mi">2</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.100000</span>  <span class="mf">5.490000</span>  <span class="o">...</span>  <span class="mf">6.630000</span>  <span class="mf">7.070000</span>  <span class="mf">6.17000</span>
+<span class="mi">3</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.021243</span>  <span class="mf">5.411418</span>  <span class="o">...</span>  <span class="mf">6.548571</span>  <span class="mf">6.997642</span>  <span class="mf">6.14084</span>
+<span class="mi">4</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.110000</span>  <span class="mf">5.530000</span>  <span class="o">...</span>  <span class="mf">6.670000</span>  <span class="mf">7.230000</span>  <span class="mf">6.20000</span>
+<span class="mi">5</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.170000</span>  <span class="mf">5.570000</span>  <span class="o">...</span>  <span class="mf">6.720000</span>  <span class="mf">7.260000</span>  <span class="mf">6.25000</span>
+<span class="mi">6</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.210000</span>  <span class="mf">5.630000</span>  <span class="o">...</span>  <span class="mf">6.780000</span>  <span class="mf">7.160000</span>  <span class="mf">6.40000</span>
+<span class="mi">7</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.190000</span>  <span class="mf">5.570000</span>  <span class="o">...</span>  <span class="mf">7.770000</span>  <span class="mf">8.240000</span>  <span class="mf">7.18000</span>
+<span class="mi">8</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.090000</span>  <span class="mf">5.490000</span>  <span class="o">...</span>  <span class="mf">6.640000</span>  <span class="mf">7.020000</span>  <span class="mf">6.16000</span>
+<span class="mi">9</span>   <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.090000</span>  <span class="mf">5.500000</span>  <span class="o">...</span>  <span class="mf">6.800000</span>  <span class="mf">7.270000</span>      <span class="n">NaN</span>
+<span class="mi">10</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.090000</span>  <span class="mf">5.510000</span>  <span class="o">...</span>  <span class="mf">7.000000</span>  <span class="mf">7.490000</span>      <span class="n">NaN</span>
+<span class="mi">11</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.159620</span>  <span class="mf">5.474944</span>  <span class="o">...</span>  <span class="mf">6.610000</span>  <span class="mf">7.030000</span>  <span class="mf">6.20000</span>
+<span class="mi">12</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.070000</span>  <span class="mf">5.490000</span>  <span class="o">...</span>  <span class="mf">6.630000</span>  <span class="mf">7.050000</span>  <span class="mf">6.21000</span>
+<span class="mi">13</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.140000</span>  <span class="mf">5.480000</span>  <span class="o">...</span>  <span class="mf">6.620000</span>  <span class="mf">7.110000</span>  <span class="mf">6.15000</span>
+<span class="mi">14</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.010000</span>  <span class="mf">5.430000</span>  <span class="o">...</span>  <span class="mf">6.560000</span>  <span class="mf">6.930000</span>  <span class="mf">6.19000</span>
+<span class="mi">15</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.050000</span>  <span class="mf">5.460000</span>  <span class="o">...</span>  <span class="mf">6.610000</span>  <span class="mf">7.080000</span>  <span class="mf">6.20000</span>
+<span class="mi">16</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.090000</span>  <span class="mf">5.480000</span>  <span class="o">...</span>  <span class="mf">6.970000</span>  <span class="mf">7.480000</span>  <span class="mf">6.48000</span>
+<span class="mi">17</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.150000</span>  <span class="mf">5.480000</span>  <span class="o">...</span>  <span class="mf">6.610000</span>  <span class="mf">7.140000</span>  <span class="mf">6.19000</span>
+<span class="mi">18</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.020000</span>  <span class="mf">5.410000</span>  <span class="o">...</span>  <span class="mf">6.550000</span>  <span class="mf">6.920000</span>  <span class="mf">6.18000</span>
+<span class="mi">19</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.080000</span>  <span class="mf">5.470000</span>  <span class="o">...</span>  <span class="mf">6.620000</span>  <span class="mf">7.040000</span>  <span class="mf">6.17000</span>
+<span class="mi">20</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.210000</span>  <span class="mf">5.560000</span>  <span class="o">...</span>  <span class="mf">6.690000</span>  <span class="mf">7.210000</span>  <span class="mf">6.27000</span>
+<span class="mi">21</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.090000</span>  <span class="mf">5.490000</span>  <span class="o">...</span>  <span class="mf">6.640000</span>  <span class="mf">7.020000</span>  <span class="mf">6.16000</span>
+<span class="mi">22</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.670000</span>  <span class="mf">6.410000</span>  <span class="o">...</span>  <span class="mf">7.690000</span>  <span class="mf">8.130000</span>  <span class="mf">7.25000</span>
+<span class="mi">23</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.190505</span>  <span class="mf">5.648464</span>  <span class="o">...</span>  <span class="mf">7.134902</span>  <span class="mf">7.658112</span>  <span class="mf">6.57120</span>
+<span class="mi">24</span>  <span class="mi">2020</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="mi">19</span>  <span class="mf">5.090000</span>  <span class="mf">5.490000</span>  <span class="o">...</span>  <span class="mf">6.630000</span>  <span class="mf">7.050000</span>  <span class="mf">6.15000</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../event/event.html" class="btn btn-neutral float-right" title="AkShare 事件数据" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ws/ws.html" class="btn btn-neutral float-left" title="AkShare 实时监控" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

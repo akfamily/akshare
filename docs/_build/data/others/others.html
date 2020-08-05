@@ -1,0 +1,2886 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 另类数据 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AkShare 奇货可查" href="../qhkc/index.html" />
+    <link rel="prev" title="AkShare 自然语言处理" href="../nlp/nlp.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AkShare 另类数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">日出和日落</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">日出和日落-天</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">日出和日落-月</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">空气质量-河北</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">近期空气质量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">空气质量-全国</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">城市列表</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">空气质量历史数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">空气质量排名</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">监测点空气质量</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">财富排行榜-中文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">财富排行榜-英文</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">电影票房-实时</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">生活成本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">新经济公司</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id16">倒闭公司</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">独角兽公司</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">千里马公司</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">特许经营许可</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">慈善中国</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id21">慈善组织查询</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id22">慈善信托查询</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">募捐方案备案</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">慈善项目进展</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">慈善组织年报</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id26">募捐信息平台</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id27">微博舆情报告</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id28">彭博亿万富豪指数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../qhkc/index.html">AkShare 奇货可查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+      <li>AkShare 另类数据</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/others/others.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 另类数据<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>日出和日落<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3>日出和日落-天<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>接口: sunrise_daily</p>
+<p>目标地址: https://www.timeanddate.com/sun/china/</p>
+<p>描述: 获取中国各大城市-日出和日落时间, 数据区间从19990101-至今, 推荐使用代理访问</p>
+<p>限量: 单次返回指定日期和指定城市的数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>date="20190801"</td>
+</tr>
+<tr>
+<td>city</td>
+<td>str</td>
+<td>Y</td>
+<td>city="北京"; 注意输入的格式, e.g., "北京", "上海"</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>datetime.datetime</td>
+<td>Y</td>
+<td>日期-索引</td>
+</tr>
+<tr>
+<td>Sunrise</td>
+<td>str</td>
+<td>Y</td>
+<td>日出</td>
+</tr>
+<tr>
+<td>Sunset</td>
+<td>float</td>
+<td>Y</td>
+<td>日落</td>
+</tr>
+<tr>
+<td>Length</td>
+<td>str</td>
+<td>Y</td>
+<td>Daylength-Length</td>
+</tr>
+<tr>
+<td>Difference</td>
+<td>float</td>
+<td>Y</td>
+<td>Daylength-Difference</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>str</td>
+<td>Y</td>
+<td>Astronomical Twilight-Start</td>
+</tr>
+<tr>
+<td>End</td>
+<td>float</td>
+<td>Y</td>
+<td>Astronomical Twilight-End</td>
+</tr>
+<tr>
+<td>Start.1</td>
+<td>str</td>
+<td>Y</td>
+<td>Nautical Twilight-Start</td>
+</tr>
+<tr>
+<td>End.1</td>
+<td>float</td>
+<td>Y</td>
+<td>Nautical Twilight-End</td>
+</tr>
+<tr>
+<td>Start.2</td>
+<td>str</td>
+<td>Y</td>
+<td>Civil Twilight-Start</td>
+</tr>
+<tr>
+<td>End.2</td>
+<td>float</td>
+<td>Y</td>
+<td>Civil Twilight-End</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>str</td>
+<td>Y</td>
+<td>Solar Noon-Time</td>
+</tr>
+<tr>
+<td>Mil. km</td>
+<td>float</td>
+<td>Y</td>
+<td>Solar Noon-Mil. km</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">sunrise_daily_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">sunrise_daily</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="s2">&quot;20190801&quot;</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="s2">&quot;北京&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sunrise_daily_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>八月        Sunrise          Sunset  ...  End.2           Time Mil. km
+2019-08-01  1  05:12 ↑ (65°)  19:28 ↑ (295°)  ...  19:58  12:20 (68,2°)  151857
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>日出和日落-月<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>接口: sunrise_monthly</p>
+<p>目标地址: https://www.timeanddate.com/sun/china/</p>
+<p>描述: 获取中国各大城市-日出和日落时间, 数据区间从19990101-至今, 推荐使用代理访问</p>
+<p>限量: 单次返回指定日期所在月份每天的数据, 如果是未来日期则为预测值</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>date="20190801"</td>
+</tr>
+<tr>
+<td>city</td>
+<td>str</td>
+<td>Y</td>
+<td>city="北京"</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>month</td>
+<td>str</td>
+<td>Y</td>
+<td>日期-索引; XXXX-XX 格式</td>
+</tr>
+<tr>
+<td>Sunrise</td>
+<td>str</td>
+<td>Y</td>
+<td>日出</td>
+</tr>
+<tr>
+<td>Sunset</td>
+<td>float</td>
+<td>Y</td>
+<td>日落</td>
+</tr>
+<tr>
+<td>Length</td>
+<td>str</td>
+<td>Y</td>
+<td>Daylength-Length</td>
+</tr>
+<tr>
+<td>Difference</td>
+<td>float</td>
+<td>Y</td>
+<td>Daylength-Difference</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>str</td>
+<td>Y</td>
+<td>Astronomical Twilight-Start</td>
+</tr>
+<tr>
+<td>End</td>
+<td>float</td>
+<td>Y</td>
+<td>Astronomical Twilight-End</td>
+</tr>
+<tr>
+<td>Start.1</td>
+<td>str</td>
+<td>Y</td>
+<td>Nautical Twilight-Start</td>
+</tr>
+<tr>
+<td>End.1</td>
+<td>float</td>
+<td>Y</td>
+<td>Nautical Twilight-End</td>
+</tr>
+<tr>
+<td>Start.2</td>
+<td>str</td>
+<td>Y</td>
+<td>Civil Twilight-Start</td>
+</tr>
+<tr>
+<td>End.2</td>
+<td>float</td>
+<td>Y</td>
+<td>Civil Twilight-End</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>str</td>
+<td>Y</td>
+<td>Solar Noon-Time</td>
+</tr>
+<tr>
+<td>Mil. km</td>
+<td>float</td>
+<td>Y</td>
+<td>Solar Noon-Mil. km</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">sunrise_monthly_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">sunrise_monthly</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="s2">&quot;20200328&quot;</span><span class="p">,</span> <span class="n">city</span><span class="o">=</span><span class="s2">&quot;北京&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sunrise_monthly_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       Mar        Sunrise          Sunset  ...  End.2           Time  Mil. km
+202003   1  06:47 ↑ (99°)  18:06 ↑ (261°)  ...  18:33  12:26 (42.7°)  148.234
+202003   2  06:46 ↑ (99°)  18:07 ↑ (262°)  ...  18:34  12:26 (43.1°)  148.270
+202003   3  06:44 ↑ (98°)  18:08 ↑ (262°)  ...  18:35  12:26 (43.4°)  148.306
+202003   4  06:43 ↑ (98°)  18:09 ↑ (263°)  ...  18:36  12:26 (43.8°)  148.343
+202003   5  06:41 ↑ (97°)  18:10 ↑ (263°)  ...  18:37  12:25 (44.2°)  148.380
+202003   6  06:40 ↑ (97°)  18:11 ↑ (264°)  ...  18:38  12:25 (44.6°)  148.417
+202003   7  06:38 ↑ (96°)  18:12 ↑ (264°)  ...  18:39  12:25 (45.0°)  148.455
+202003   8  06:37 ↑ (96°)  18:13 ↑ (265°)  ...  18:40  12:25 (45.4°)  148.493
+202003   9  06:35 ↑ (95°)  18:15 ↑ (265°)  ...  18:42  12:24 (45.8°)  148.532
+202003  10  06:33 ↑ (95°)  18:16 ↑ (266°)  ...  18:43  12:24 (46.2°)  148.572
+202003  11  06:32 ↑ (94°)  18:17 ↑ (266°)  ...  18:44  12:24 (46.6°)  148.612
+202003  12  06:30 ↑ (94°)  18:18 ↑ (267°)  ...  18:45  12:24 (46.9°)  148.652
+202003  13  06:29 ↑ (93°)  18:19 ↑ (267°)  ...  18:46  12:23 (47.3°)  148.693
+202003  14  06:27 ↑ (93°)  18:20 ↑ (268°)  ...  18:47  12:23 (47.7°)  148.734
+202003  15  06:25 ↑ (92°)  18:21 ↑ (268°)  ...  18:48  12:23 (48.1°)  148.776
+202003  16  06:24 ↑ (91°)  18:22 ↑ (269°)  ...  18:49  12:23 (48.5°)  148.818
+202003  17  06:22 ↑ (91°)  18:23 ↑ (269°)  ...  18:50  12:22 (48.9°)  148.861
+202003  18  06:21 ↑ (90°)  18:24 ↑ (270°)  ...  18:51  12:22 (49.3°)  148.903
+202003  19  06:19 ↑ (90°)  18:25 ↑ (270°)  ...  18:52  12:22 (49.7°)  148.946
+202003  20  06:17 ↑ (89°)  18:26 ↑ (271°)  ...  18:53  12:21 (50.1°)  148.988
+202003  21  06:16 ↑ (89°)  18:27 ↑ (271°)  ...  18:54  12:21 (50.5°)  149.031
+202003  22  06:14 ↑ (88°)  18:28 ↑ (272°)  ...  18:55  12:21 (50.9°)  149.074
+202003  23  06:13 ↑ (88°)  18:29 ↑ (272°)  ...  18:56  12:20 (51.3°)  149.116
+202003  24  06:11 ↑ (87°)  18:30 ↑ (273°)  ...  18:57  12:20 (51.7°)  149.159
+202003  25  06:09 ↑ (87°)  18:31 ↑ (273°)  ...  18:58  12:20 (52.1°)  149.201
+202003  26  06:08 ↑ (86°)  18:32 ↑ (274°)  ...  18:59  12:20 (52.5°)  149.244
+202003  27  06:06 ↑ (86°)  18:33 ↑ (274°)  ...  19:00  12:19 (52.9°)  149.286
+202003  28  06:04 ↑ (85°)  18:34 ↑ (275°)  ...  19:01  12:19 (53.2°)  149.328
+202003  29  06:03 ↑ (85°)  18:35 ↑ (275°)  ...  19:02  12:19 (53.6°)  149.371
+202003  30  06:01 ↑ (84°)  18:36 ↑ (276°)  ...  19:03  12:18 (54.0°)  149.413
+202003  31  06:00 ↑ (84°)  18:37 ↑ (276°)  ...  19:04  12:18 (54.4°)  149.455
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>空气质量-河北<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id5">
+<h3>近期空气质量<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>接口: air_quality_hebei</p>
+<p>目标地址: http://110.249.223.67/publish/</p>
+<p>描述: 获取河北省近 6 天空气质量情况</p>
+<p>注释:</p>
+<p>注释-等级划分</p>
+<ol class="simple">
+<li><p>空气污染指数为0－50，空气质量级别为一级，空气质量状况属于优。此时，空气质量令人满意，基本无空气污染，各类人群可正常活动。</p></li>
+<li><p>空气污染指数为51－100，空气质量级别为二级，空气质量状况属于良。此时空气质量可接受，但某些污染物可能对极少数异常敏感人群健康有较弱影响，建议极少数异常敏感人群应减少户外活动。</p></li>
+<li><p>空气污染指数为101－150，空气质量级别为三级，空气质量状况属于轻度污染。此时，易感人群症状有轻度加剧，健康人群出现刺激症状。建议儿童、老年人及心脏病、呼吸系统疾病患者应减少长时间、高强度的户外锻炼。</p></li>
+<li><p>空气污染指数为151－200，空气质量级别为四级，空气质量状况属于中度污染。此时，进一步加剧易感人群症状，可能对健康人群心脏、呼吸系统有影响，建议疾病患者避免长时间、高强度的户外锻练，一般人群适量减少户外运动。</p></li>
+<li><p>空气污染指数为201－300，空气质量级别为五级，空气质量状况属于重度污染。此时，心脏病和肺病患者症状显著加剧，运动耐受力降低，健康人群普遍出现症状，建议儿童、老年人和心脏病、肺病患者应停留在室内，停止户外运动，一般人群减少户外运动。</p></li>
+<li><p>空气污染指数大于300，空气质量级别为六级，空气质量状况属于严重污染。此时，健康人群运动耐受力降低，有明显强烈症状，提前出现某些疾病，建议儿童、老年人和病人应当留在室内，避免体力消耗，一般人群应避免户外活动。</p></li>
+</ol>
+<p>注释-发布单位</p>
+<p>河北省环境应急与重污染天气预警中心</p>
+<p>注释-技术支持</p>
+<p>中国科学院大气物理研究所, 中科三清科技有限公司</p>
+<p>限量: 单次返回 6 天的数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>city</td>
+<td>str</td>
+<td>Y</td>
+<td>city="定州市", 返回具体市的数据; city="", 则返回所有城市数据</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>城市</td>
+<td>str</td>
+<td>Y</td>
+<td>城市-索引</td>
+</tr>
+<tr>
+<td>Datadate</td>
+<td>str</td>
+<td>Y</td>
+<td>日期</td>
+</tr>
+<tr>
+<td>Pollutant</td>
+<td>float</td>
+<td>Y</td>
+<td>PM2.5</td>
+</tr>
+<tr>
+<td>MinAQI</td>
+<td>str</td>
+<td>Y</td>
+<td>最小</td>
+</tr>
+<tr>
+<td>MaxAQI</td>
+<td>float</td>
+<td>Y</td>
+<td>最大</td>
+</tr>
+<tr>
+<td>Level</td>
+<td>str</td>
+<td>Y</td>
+<td>程度</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_hebei_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_hebei</span><span class="p">(</span><span class="n">city</span><span class="o">=</span><span class="s2">&quot;定州市&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_hebei_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               <span class="n">Datadate</span> <span class="n">Pollutant</span> <span class="n">MinAQI</span> <span class="n">MaxAQI</span>  <span class="n">Level</span>
+<span class="n">定州市</span>  <span class="mi">2019</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">27</span> <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>     <span class="mi">80</span>    <span class="mi">110</span>   <span class="n">良</span><span class="o">-</span><span class="n">轻度</span>
+<span class="n">定州市</span>  <span class="mi">2019</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">28</span> <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>     <span class="mi">90</span>    <span class="mi">120</span>   <span class="n">良</span><span class="o">-</span><span class="n">轻度</span>
+<span class="n">定州市</span>  <span class="mi">2019</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">29</span> <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>    <span class="mi">175</span>    <span class="mi">205</span>  <span class="n">中度</span><span class="o">-</span><span class="n">重度</span>
+<span class="n">定州市</span>  <span class="mi">2019</span><span class="o">/</span><span class="mi">11</span><span class="o">/</span><span class="mi">30</span> <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>    <span class="mi">175</span>    <span class="mi">205</span>  <span class="n">中度</span><span class="o">-</span><span class="n">重度</span>
+<span class="n">定州市</span>   <span class="mi">2019</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">1</span> <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>    <span class="mi">175</span>    <span class="mi">205</span>  <span class="n">中度</span><span class="o">-</span><span class="n">重度</span>
+<span class="n">定州市</span>   <span class="mi">2019</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">2</span> <span class="mi">0</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>     <span class="mi">80</span>    <span class="mi">110</span>   <span class="n">良</span><span class="o">-</span><span class="n">轻度</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>空气质量-全国<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id7">
+<h3>城市列表<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>接口: air_city_list</p>
+<p>目标地址: https://www.aqistudy.cn/</p>
+<p>描述: 获取所有空气质量数据的城市列表</p>
+<p>限量: 单次返回所有可以获取的城市的列表</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>168城市列表</td>
+<td>list</td>
+<td>Y</td>
+<td>list</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_city_list_map</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_city_list</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_city_list_map</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;北京&#39;</span><span class="p">,</span> <span class="s1">&#39;廊坊&#39;</span><span class="p">,</span> <span class="s1">&#39;承德&#39;</span><span class="p">,</span> <span class="s1">&#39;唐山&#39;</span><span class="p">,</span> <span class="s1">&#39;晋城&#39;</span><span class="p">,</span> <span class="s1">&#39;保定&#39;</span><span class="p">,</span> <span class="s1">&#39;德阳&#39;</span><span class="p">,</span> <span class="s1">&#39;秦皇岛&#39;</span><span class="p">,</span> <span class="s1">&#39;天津&#39;</span><span class="p">,</span> <span class="s1">&#39;朝阳&#39;</span><span class="p">,</span> <span class="s1">&#39;临汾&#39;</span><span class="p">,</span> <span class="s1">&#39;运城&#39;</span><span class="p">,</span> <span class="s1">&#39;成都&#39;</span><span class="p">,</span> <span class="s1">&#39;焦作&#39;</span><span class="p">,</span> <span class="s1">&#39;长治&#39;</span><span class="p">,</span> <span class="s1">&#39;锦州&#39;</span><span class="p">,</span> <span class="s1">&#39;绵阳&#39;</span><span class="p">,</span> <span class="s1">&#39;资阳&#39;</span><span class="p">,</span> <span class="s1">&#39;葫芦岛&#39;</span><span class="p">,</span> <span class="s1">&#39;广安&#39;</span><span class="p">,</span> <span class="s1">&#39;长春&#39;</span><span class="p">,</span> <span class="s1">&#39;石家庄&#39;</span><span class="p">,</span> <span class="s1">&#39;三门峡&#39;</span><span class="p">,</span> <span class="s1">&#39;兰州&#39;</span><span class="p">,</span> <span class="s1">&#39;沧州&#39;</span><span class="p">,</span> <span class="s1">&#39;沈阳&#39;</span><span class="p">,</span> <span class="s1">&#39;哈尔滨&#39;</span><span class="p">,</span> <span class="s1">&#39;衡水&#39;</span><span class="p">,</span> <span class="s1">&#39;洛阳&#39;</span><span class="p">,</span> <span class="s1">&#39;滨州&#39;</span><span class="p">,</span> <span class="s1">&#39;眉山&#39;</span><span class="p">,</span> <span class="s1">&#39;东营&#39;</span><span class="p">,</span> <span class="s1">&#39;阳泉&#39;</span><span class="p">,</span> <span class="s1">&#39;内江&#39;</span><span class="p">,</span> <span class="s1">&#39;铜川&#39;</span><span class="p">,</span> <span class="s1">&#39;宜宾&#39;</span><span class="p">,</span> <span class="s1">&#39;淄博&#39;</span><span class="p">,</span> <span class="s1">&#39;邢台&#39;</span><span class="p">,</span> <span class="s1">&#39;晋中&#39;</span><span class="p">,</span> <span class="s1">&#39;自贡&#39;</span><span class="p">,</span> <span class="s1">&#39;新乡&#39;</span><span class="p">,</span> <span class="s1">&#39;安阳&#39;</span><span class="p">,</span> <span class="s1">&#39;邯郸&#39;</span><span class="p">,</span> <span class="s1">&#39;南充&#39;</span><span class="p">,</span> <span class="s1">&#39;忻州&#39;</span><span class="p">,</span> <span class="s1">&#39;临沂&#39;</span><span class="p">,</span> <span class="s1">&#39;太原&#39;</span><span class="p">,</span> <span class="s1">&#39;重庆&#39;</span><span class="p">,</span> <span class="s1">&#39;乐山&#39;</span><span class="p">,</span> <span class="s1">&#39;潍坊&#39;</span><span class="p">,</span> <span class="s1">&#39;张家口&#39;</span><span class="p">,</span> <span class="s1">&#39;济南&#39;</span><span class="p">,</span> <span class="s1">&#39;德州&#39;</span><span class="p">,</span> <span class="s1">&#39;聊城&#39;</span><span class="p">,</span> <span class="s1">&#39;鹤壁&#39;</span><span class="p">,</span> <span class="s1">&#39;青岛&#39;</span><span class="p">,</span> <span class="s1">&#39;亳州&#39;</span><span class="p">,</span> <span class="s1">&#39;日照&#39;</span><span class="p">,</span> <span class="s1">&#39;枣庄&#39;</span><span class="p">,</span> <span class="s1">&#39;西安&#39;</span><span class="p">,</span> <span class="s1">&#39;咸阳&#39;</span><span class="p">,</span> <span class="s1">&#39;宝鸡&#39;</span><span class="p">,</span> <span class="s1">&#39;宿州&#39;</span><span class="p">,</span> <span class="s1">&#39;泰安&#39;</span><span class="p">,</span> <span class="s1">&#39;商丘&#39;</span><span class="p">,</span> <span class="s1">&#39;达州&#39;</span><span class="p">,</span> <span class="s1">&#39;济宁&#39;</span><span class="p">,</span> <span class="s1">&#39;南阳&#39;</span><span class="p">,</span> <span class="s1">&#39;吕梁&#39;</span><span class="p">,</span> <span class="s1">&#39;连云港&#39;</span><span class="p">,</span> <span class="s1">&#39;雅安&#39;</span><span class="p">,</span> <span class="s1">&#39;郑州&#39;</span><span class="p">,</span> <span class="s1">&#39;南昌&#39;</span><span class="p">,</span> <span class="s1">&#39;阜阳&#39;</span><span class="p">,</span> <span class="s1">&#39;渭南&#39;</span><span class="p">,</span> <span class="s1">&#39;周口&#39;</span><span class="p">,</span> <span class="s1">&#39;宿迁&#39;</span><span class="p">,</span> <span class="s1">&#39;许昌&#39;</span><span class="p">,</span> <span class="s1">&#39;武汉&#39;</span><span class="p">,</span> <span class="s1">&#39;徐州&#39;</span><span class="p">,</span> <span class="s1">&#39;开封&#39;</span><span class="p">,</span> <span class="s1">&#39;泸州&#39;</span><span class="p">,</span> <span class="s1">&#39;平顶山&#39;</span><span class="p">,</span> <span class="s1">&#39;驻马店&#39;</span><span class="p">,</span> <span class="s1">&#39;信阳&#39;</span><span class="p">,</span> <span class="s1">&#39;菏泽&#39;</span><span class="p">,</span> <span class="s1">&#39;淮南&#39;</span><span class="p">,</span> <span class="s1">&#39;漯河&#39;</span><span class="p">,</span> <span class="s1">&#39;朔州&#39;</span><span class="p">,</span> <span class="s1">&#39;孝感&#39;</span><span class="p">,</span> <span class="s1">&#39;濮阳&#39;</span><span class="p">,</span> <span class="s1">&#39;杭州&#39;</span><span class="p">,</span> <span class="s1">&#39;呼和浩特&#39;</span><span class="p">,</span> <span class="s1">&#39;银川&#39;</span><span class="p">,</span> <span class="s1">&#39;遂宁&#39;</span><span class="p">,</span> <span class="s1">&#39;随州&#39;</span><span class="p">,</span> <span class="s1">&#39;湖州&#39;</span><span class="p">,</span> <span class="s1">&#39;襄阳&#39;</span><span class="p">,</span> <span class="s1">&#39;淮安&#39;</span><span class="p">,</span> <span class="s1">&#39;宜昌&#39;</span><span class="p">,</span> <span class="s1">&#39;益阳&#39;</span><span class="p">,</span> <span class="s1">&#39;淮北&#39;</span><span class="p">,</span> <span class="s1">&#39;常州&#39;</span><span class="p">,</span> <span class="s1">&#39;泰州&#39;</span><span class="p">,</span> <span class="s1">&#39;拉萨&#39;</span><span class="p">,</span> <span class="s1">&#39;包头&#39;</span><span class="p">,</span> <span class="s1">&#39;蚌埠&#39;</span><span class="p">,</span> <span class="s1">&#39;盐城&#39;</span><span class="p">,</span> <span class="s1">&#39;六安&#39;</span><span class="p">,</span> <span class="s1">&#39;西宁&#39;</span><span class="p">,</span> <span class="s1">&#39;岳阳&#39;</span><span class="p">,</span> <span class="s1">&#39;九江&#39;</span><span class="p">,</span> <span class="s1">&#39;镇江&#39;</span><span class="p">,</span> <span class="s1">&#39;苏州&#39;</span><span class="p">,</span> <span class="s1">&#39;广州&#39;</span><span class="p">,</span> <span class="s1">&#39;贵阳&#39;</span><span class="p">,</span> <span class="s1">&#39;大同&#39;</span><span class="p">,</span> <span class="s1">&#39;乌鲁木齐&#39;</span><span class="p">,</span> <span class="s1">&#39;荆门&#39;</span><span class="p">,</span> <span class="s1">&#39;铜陵&#39;</span><span class="p">,</span> <span class="s1">&#39;新余&#39;</span><span class="p">,</span> <span class="s1">&#39;扬州&#39;</span><span class="p">,</span> <span class="s1">&#39;鄂州&#39;</span><span class="p">,</span> <span class="s1">&#39;南通&#39;</span><span class="p">,</span> <span class="s1">&#39;常德&#39;</span><span class="p">,</span> <span class="s1">&#39;荆州&#39;</span><span class="p">,</span> <span class="s1">&#39;无锡&#39;</span><span class="p">,</span> <span class="s1">&#39;长沙&#39;</span><span class="p">,</span> <span class="s1">&#39;咸宁&#39;</span><span class="p">,</span> <span class="s1">&#39;嘉兴&#39;</span><span class="p">,</span> <span class="s1">&#39;衢州&#39;</span><span class="p">,</span> <span class="s1">&#39;大连&#39;</span><span class="p">,</span> <span class="s1">&#39;黄冈&#39;</span><span class="p">,</span> <span class="s1">&#39;温州&#39;</span><span class="p">,</span> <span class="s1">&#39;厦门&#39;</span><span class="p">,</span> <span class="s1">&#39;黄石&#39;</span><span class="p">,</span> <span class="s1">&#39;绍兴&#39;</span><span class="p">,</span> <span class="s1">&#39;合肥&#39;</span><span class="p">,</span> <span class="s1">&#39;宜春&#39;</span><span class="p">,</span> <span class="s1">&#39;上海&#39;</span><span class="p">,</span> <span class="s1">&#39;昆明&#39;</span><span class="p">,</span> <span class="s1">&#39;福州&#39;</span><span class="p">,</span> <span class="s1">&#39;株洲&#39;</span><span class="p">,</span> <span class="s1">&#39;金华&#39;</span><span class="p">,</span> <span class="s1">&#39;南京&#39;</span><span class="p">,</span> <span class="s1">&#39;湘潭&#39;</span><span class="p">,</span> <span class="s1">&#39;丽水&#39;</span><span class="p">,</span> <span class="s1">&#39;马鞍山&#39;</span><span class="p">,</span> <span class="s1">&#39;萍乡&#39;</span><span class="p">,</span> <span class="s1">&#39;宣城&#39;</span><span class="p">,</span> <span class="s1">&#39;芜湖&#39;</span><span class="p">,</span> <span class="s1">&#39;滁州&#39;</span><span class="p">,</span> <span class="s1">&#39;安庆&#39;</span><span class="p">,</span> <span class="s1">&#39;池州&#39;</span><span class="p">,</span> <span class="s1">&#39;佛山&#39;</span><span class="p">,</span> <span class="s1">&#39;黄山&#39;</span><span class="p">,</span> <span class="s1">&#39;江门&#39;</span><span class="p">,</span> <span class="s1">&#39;南宁&#39;</span><span class="p">,</span> <span class="s1">&#39;台州&#39;</span><span class="p">,</span> <span class="s1">&#39;惠州&#39;</span><span class="p">,</span> <span class="s1">&#39;宁波&#39;</span><span class="p">,</span> <span class="s1">&#39;肇庆&#39;</span><span class="p">,</span> <span class="s1">&#39;舟山&#39;</span><span class="p">,</span> <span class="s1">&#39;中山&#39;</span><span class="p">,</span> <span class="s1">&#39;东莞&#39;</span><span class="p">,</span> <span class="s1">&#39;深圳&#39;</span><span class="p">,</span> <span class="s1">&#39;珠海&#39;</span><span class="p">,</span> <span class="s1">&#39;海口&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>空气质量历史数据<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>接口: air_quality_hist</p>
+<p>目标地址: https://www.zq12369.com/</p>
+<p>描述: 获取指定城市和数据频率下并且在指定时间段内的空气质量数据</p>
+<p>限量: 单次返回所有的数据, 在提取一小时频率数据时请注意时间跨度不宜过长</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>city</td>
+<td>str</td>
+<td>Y</td>
+<td>city="北京"; 调用 air_city_list 接口获取所有城市列表</td>
+</tr>
+<tr>
+<td>period</td>
+<td>str</td>
+<td>Y</td>
+<td>period="day"; "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="2020-03-20"; 注意 <strong>start_date</strong> 和 <strong>end_date</strong> 跨度不宜过长</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="2020-04-27"; 注意 <strong>start_date</strong> 和 <strong>end_date</strong> 跨度不宜过长</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>time</td>
+<td>str</td>
+<td>Y</td>
+<td>日期时间索引</td>
+</tr>
+<tr>
+<td>aqi</td>
+<td>str</td>
+<td>Y</td>
+<td>AQI</td>
+</tr>
+<tr>
+<td>pm2_5</td>
+<td>float</td>
+<td>Y</td>
+<td>PM2.5</td>
+</tr>
+<tr>
+<td>pm10</td>
+<td>str</td>
+<td>Y</td>
+<td>PM10</td>
+</tr>
+<tr>
+<td>co</td>
+<td>float</td>
+<td>Y</td>
+<td>CO</td>
+</tr>
+<tr>
+<td>no2</td>
+<td>str</td>
+<td>Y</td>
+<td>NO2</td>
+</tr>
+<tr>
+<td>o3</td>
+<td>str</td>
+<td>Y</td>
+<td>O3</td>
+</tr>
+<tr>
+<td>so2</td>
+<td>str</td>
+<td>Y</td>
+<td>SO2</td>
+</tr>
+<tr>
+<td>complexindex</td>
+<td>str</td>
+<td>Y</td>
+<td>综合指数</td>
+</tr>
+<tr>
+<td>rank</td>
+<td>str</td>
+<td>Y</td>
+<td>排名</td>
+</tr>
+<tr>
+<td>primary_pollutant</td>
+<td>str</td>
+<td>Y</td>
+<td>主要污染物</td>
+</tr>
+<tr>
+<td>temp</td>
+<td>str</td>
+<td>Y</td>
+<td>温度</td>
+</tr>
+<tr>
+<td>humi</td>
+<td>str</td>
+<td>Y</td>
+<td>湿度</td>
+</tr>
+<tr>
+<td>windlevel</td>
+<td>str</td>
+<td>Y</td>
+<td>风级</td>
+</tr>
+<tr>
+<td>winddirection</td>
+<td>str</td>
+<td>Y</td>
+<td>风向</td>
+</tr>
+<tr>
+<td>weather</td>
+<td>str</td>
+<td>Y</td>
+<td>天气</td>
+</tr>
+</tbody>
+</table><p>接口示例-小时频率</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_hist_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_hist</span><span class="p">(</span><span class="n">city</span><span class="o">=</span><span class="s2">&quot;北京&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2020-04-25&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2020-04-27&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_hist_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-小时频率</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                   <span class="n">time</span>  <span class="n">aqi</span> <span class="n">pm2_5</span> <span class="n">pm10</span>  <span class="o">...</span> <span class="n">humi</span> <span class="n">windlevel</span> <span class="n">winddirection</span> <span class="n">weather</span>
+<span class="mi">0</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">25</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mi">111</span>    <span class="mi">27</span>  <span class="mi">172</span>  <span class="o">...</span>   <span class="mi">16</span>         <span class="mi">4</span>           <span class="n">东北风</span>    <span class="n">晴转多云</span>
+<span class="mi">1</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">25</span> <span class="mi">01</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mi">103</span>    <span class="mi">20</span>  <span class="mi">156</span>  <span class="o">...</span>   <span class="mi">16</span>         <span class="mi">4</span>           <span class="n">东北风</span>    <span class="n">晴转多云</span>
+<span class="mi">2</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">25</span> <span class="mi">02</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mi">110</span>    <span class="mi">14</span>  <span class="mi">170</span>  <span class="o">...</span>   <span class="mi">18</span>         <span class="mi">3</span>            <span class="n">北风</span>    <span class="n">晴转多云</span>
+<span class="mi">3</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">25</span> <span class="mi">03</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mi">87</span>    <span class="mi">11</span>  <span class="mi">123</span>  <span class="o">...</span>   <span class="mi">18</span>         <span class="mi">4</span>            <span class="n">北风</span>    <span class="n">晴转多云</span>
+<span class="mi">4</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">25</span> <span class="mi">04</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mi">68</span>     <span class="mi">9</span>   <span class="mi">85</span>  <span class="o">...</span>   <span class="mi">16</span>         <span class="mi">4</span>            <span class="n">北风</span>    <span class="n">晴转多云</span>
+<span class="o">..</span>                  <span class="o">...</span>  <span class="o">...</span>   <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>  <span class="o">...</span>       <span class="o">...</span>           <span class="o">...</span>     <span class="o">...</span>
+<span class="mi">67</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">27</span> <span class="mi">19</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mi">68</span>    <span class="mi">48</span>   <span class="mi">85</span>  <span class="o">...</span>   <span class="mi">25</span>         <span class="mi">2</span>           <span class="n">西南风</span>       <span class="n">晴</span>
+<span class="mi">68</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">27</span> <span class="mi">20</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mi">66</span>    <span class="mi">47</span>   <span class="mi">82</span>  <span class="o">...</span>   <span class="mi">25</span>         <span class="mi">2</span>           <span class="n">西南风</span>       <span class="n">晴</span>
+<span class="mi">69</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">27</span> <span class="mi">21</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mi">67</span>    <span class="mi">46</span>   <span class="mi">84</span>  <span class="o">...</span>   <span class="mi">30</span>         <span class="mi">2</span>           <span class="n">西南风</span>       <span class="n">晴</span>
+<span class="mi">70</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">27</span> <span class="mi">22</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mi">68</span>    <span class="mi">42</span>   <span class="mi">86</span>  <span class="o">...</span>   <span class="mi">28</span>         <span class="mi">3</span>           <span class="n">西南风</span>       <span class="n">晴</span>
+<span class="mi">71</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">27</span> <span class="mi">23</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>   <span class="mi">69</span>    <span class="mi">43</span>   <span class="mi">87</span>  <span class="o">...</span>   <span class="mi">32</span>         <span class="mi">2</span>           <span class="n">西南风</span>       <span class="n">晴</span>  
+</pre></div>
+</div>
+<p>接口示例-天频率</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_hist_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_hist</span><span class="p">(</span><span class="n">city</span><span class="o">=</span><span class="s2">&quot;北京&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;day&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2020-03-20&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2020-04-27&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_hist_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-天频率</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="n">time</span>  <span class="n">aqi</span> <span class="n">pm2_5</span> <span class="n">pm10</span>  <span class="o">...</span>    <span class="n">humi</span> <span class="n">windlevel</span> <span class="n">winddirection</span> <span class="n">weather</span>
+<span class="mi">0</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">20</span>   <span class="mi">60</span>    <span class="mi">29</span>   <span class="mi">70</span>  <span class="o">...</span>  <span class="mf">28.667</span>     <span class="mf">1.542</span>                      
+<span class="mi">1</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">21</span>   <span class="mi">72</span>    <span class="mi">27</span>   <span class="mi">94</span>  <span class="o">...</span>  <span class="mf">25.250</span>     <span class="mf">2.042</span>                      
+<span class="mi">2</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">22</span>   <span class="mi">62</span>    <span class="mi">30</span>   <span class="mi">74</span>  <span class="o">...</span>  <span class="mf">32.375</span>     <span class="mf">2.167</span>                      
+<span class="mi">3</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">23</span>   <span class="mi">53</span>    <span class="mi">28</span>   <span class="mi">55</span>  <span class="o">...</span>  <span class="mf">35.333</span>     <span class="mf">1.542</span>                      
+<span class="mi">4</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">24</span>   <span class="mi">70</span>    <span class="mi">51</span>   <span class="mi">68</span>  <span class="o">...</span>  <span class="mf">36.958</span>     <span class="mf">1.458</span>                      
+<span class="mi">5</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">25</span>  <span class="mi">153</span>   <span class="mi">117</span>  <span class="mi">111</span>  <span class="o">...</span>  <span class="mf">49.833</span>     <span class="mf">1.792</span>                      
+<span class="mi">6</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">26</span>   <span class="mi">39</span>     <span class="mi">8</span>   <span class="mi">24</span>  <span class="o">...</span>  <span class="mf">41.500</span>     <span class="mf">3.125</span>                      
+<span class="mi">7</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">27</span>   <span class="mi">40</span>     <span class="mi">5</span>   <span class="mi">21</span>  <span class="o">...</span>  <span class="mf">15.083</span>     <span class="mf">2.500</span>                      
+<span class="mi">8</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">28</span>   <span class="mi">39</span>    <span class="mi">10</span>   <span class="mi">28</span>  <span class="o">...</span>  <span class="mf">23.917</span>     <span class="mf">1.792</span>                      
+<span class="mi">9</span>   <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">29</span>   <span class="mi">63</span>    <span class="mi">45</span>   <span class="mi">72</span>  <span class="o">...</span>  <span class="mf">35.292</span>     <span class="mf">1.958</span>                      
+<span class="mi">10</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">30</span>   <span class="mi">92</span>    <span class="mi">68</span>   <span class="mi">87</span>  <span class="o">...</span>  <span class="mf">48.208</span>     <span class="mf">2.208</span>                      
+<span class="mi">11</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span>   <span class="mi">87</span>    <span class="mi">64</span>   <span class="mi">75</span>  <span class="o">...</span>  <span class="mf">53.826</span>     <span class="mf">2.130</span>                      
+<span class="mi">12</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span>   <span class="mi">42</span>     <span class="mi">9</span>   <span class="mi">21</span>  <span class="o">...</span>  <span class="mf">19.250</span>     <span class="mf">2.250</span>                      
+<span class="mi">13</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">02</span>   <span class="mi">42</span>    <span class="mi">16</span>   <span class="mi">34</span>  <span class="o">...</span>  <span class="mf">34.458</span>     <span class="mf">1.500</span>                      
+<span class="mi">14</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">03</span>   <span class="mi">47</span>    <span class="mi">14</span>   <span class="mi">36</span>  <span class="o">...</span>  <span class="mf">28.000</span>     <span class="mf">2.000</span>                      
+<span class="mi">15</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">04</span>  <span class="mi">102</span>    <span class="mi">23</span>  <span class="mi">154</span>  <span class="o">...</span>  <span class="mf">24.708</span>     <span class="mf">2.500</span>                      
+<span class="mi">16</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">05</span>   <span class="mi">69</span>    <span class="mi">30</span>   <span class="mi">88</span>  <span class="o">...</span>  <span class="mf">32.250</span>     <span class="mf">1.667</span>                      
+<span class="mi">17</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">06</span>   <span class="mi">86</span>    <span class="mi">62</span>  <span class="mi">122</span>  <span class="o">...</span>  <span class="mf">42.500</span>     <span class="mf">1.667</span>                      
+<span class="mi">18</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">07</span>   <span class="mi">77</span>    <span class="mi">45</span>  <span class="mi">103</span>  <span class="o">...</span>  <span class="mf">34.167</span>     <span class="mf">2.042</span>                      
+<span class="mi">19</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>   <span class="mi">55</span>    <span class="mi">21</span>   <span class="mi">60</span>  <span class="o">...</span>  <span class="mf">33.042</span>     <span class="mf">1.750</span>                      
+<span class="mi">20</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span>   <span class="mi">49</span>    <span class="mi">34</span>   <span class="mi">47</span>  <span class="o">...</span>  <span class="mf">56.500</span>     <span class="mf">1.875</span>                      
+<span class="mi">21</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">10</span>   <span class="mi">70</span>    <span class="mi">39</span>   <span class="mi">50</span>  <span class="o">...</span>  <span class="mf">46.542</span>     <span class="mf">1.417</span>                      
+<span class="mi">22</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">11</span>   <span class="mi">51</span>    <span class="mi">20</span>   <span class="mi">38</span>  <span class="o">...</span>  <span class="mf">30.083</span>     <span class="mf">1.708</span>                      
+<span class="mi">23</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">12</span>   <span class="mi">54</span>    <span class="mi">17</span>   <span class="mi">52</span>  <span class="o">...</span>  <span class="mf">13.333</span>     <span class="mf">1.958</span>                      
+<span class="mi">24</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">13</span>   <span class="mi">59</span>    <span class="mi">26</span>   <span class="mi">67</span>  <span class="o">...</span>  <span class="mf">31.435</span>     <span class="mf">1.391</span>                      
+<span class="mi">25</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">14</span>  <span class="mi">104</span>    <span class="mi">66</span>  <span class="mi">102</span>  <span class="o">...</span>  <span class="mf">35.500</span>     <span class="mf">1.750</span>                      
+<span class="mi">26</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">15</span>   <span class="mi">95</span>    <span class="mi">63</span>   <span class="mi">93</span>  <span class="o">...</span>  <span class="mf">45.292</span>     <span class="mf">1.875</span>                      
+<span class="mi">27</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">16</span>   <span class="mi">63</span>    <span class="mi">23</span>   <span class="mi">75</span>  <span class="o">...</span>  <span class="mf">54.583</span>     <span class="mf">2.250</span>                      
+<span class="mi">28</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">17</span>   <span class="mi">78</span>    <span class="mi">23</span>   <span class="mi">37</span>  <span class="o">...</span>  <span class="mf">36.292</span>     <span class="mf">2.167</span>                      
+<span class="mi">29</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">18</span>   <span class="mi">75</span>    <span class="mi">33</span>   <span class="mi">45</span>  <span class="o">...</span>  <span class="mf">40.000</span>     <span class="mf">1.500</span>                      
+<span class="mi">30</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">19</span>   <span class="mi">94</span>    <span class="mi">39</span>   <span class="mi">54</span>  <span class="o">...</span>  <span class="mf">49.227</span>     <span class="mf">2.546</span>                      
+<span class="mi">31</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">20</span>   <span class="mi">45</span>     <span class="mi">7</span>   <span class="mi">31</span>  <span class="o">...</span>  <span class="mf">23.708</span>     <span class="mf">3.167</span>                      
+<span class="mi">32</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">21</span>   <span class="mi">42</span>     <span class="mi">7</span>   <span class="mi">33</span>  <span class="o">...</span>  <span class="mf">18.917</span>     <span class="mf">2.833</span>                      
+<span class="mi">33</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span>   <span class="mi">43</span>     <span class="mi">6</span>   <span class="mi">24</span>  <span class="o">...</span>  <span class="mf">12.125</span>     <span class="mf">2.667</span>                      
+<span class="mi">34</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">23</span>   <span class="mi">45</span>     <span class="mi">7</span>   <span class="mi">21</span>  <span class="o">...</span>  <span class="mf">13.727</span>     <span class="mf">2.091</span>                      
+<span class="mi">35</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">24</span>   <span class="mi">91</span>    <span class="mi">19</span>  <span class="mi">132</span>  <span class="o">...</span>  <span class="mf">12.375</span>     <span class="mf">2.875</span>                      
+<span class="mi">36</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">25</span>   <span class="mi">52</span>    <span class="mi">10</span>   <span class="mi">53</span>  <span class="o">...</span>  <span class="mf">16.375</span>     <span class="mf">2.458</span>                      
+<span class="mi">37</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">26</span>   <span class="mi">50</span>    <span class="mi">14</span>   <span class="mi">33</span>  <span class="o">...</span>  <span class="mf">25.375</span>     <span class="mf">1.792</span>                      
+<span class="mi">38</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">27</span>   <span class="mi">76</span>    <span class="mi">41</span>   <span class="mi">63</span>  <span class="o">...</span>  <span class="mf">35.958</span>     <span class="mf">1.875</span>                      
+</pre></div>
+</div>
+<p>接口示例-月频率</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_hist_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_hist</span><span class="p">(</span><span class="n">city</span><span class="o">=</span><span class="s2">&quot;北京&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;month&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2019-04-25&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2020-04-27&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_hist_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-月频率</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">aqi</span> <span class="n">cityname</span>     <span class="n">time</span>  <span class="o">...</span> <span class="n">complexindex</span> <span class="n">fcomplexindex</span> <span class="n">primary_pollutant</span>
+<span class="mi">0</span>    <span class="mi">94</span>       <span class="n">北京</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">05</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">4.596</span>              <span class="kc">None</span>
+<span class="mi">1</span>   <span class="mi">123</span>       <span class="n">北京</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">06</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">4.629</span>              <span class="kc">None</span>
+<span class="mi">2</span>   <span class="mi">106</span>       <span class="n">北京</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">4.150</span>              <span class="kc">None</span>
+<span class="mi">3</span>    <span class="mi">71</span>       <span class="n">北京</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">08</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">3.206</span>              <span class="kc">None</span>
+<span class="mi">4</span>    <span class="mi">97</span>       <span class="n">北京</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">09</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">4.295</span>              <span class="kc">None</span>
+<span class="mi">5</span>    <span class="mi">68</span>       <span class="n">北京</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">10</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">3.829</span>              <span class="kc">None</span>
+<span class="mi">6</span>    <span class="mi">76</span>       <span class="n">北京</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">11</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">4.402</span>              <span class="kc">None</span>
+<span class="mi">7</span>    <span class="mi">74</span>       <span class="n">北京</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">4.225</span>              <span class="kc">None</span>
+<span class="mi">8</span>    <span class="mi">87</span>       <span class="n">北京</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">01</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">4.774</span>              <span class="kc">None</span>
+<span class="mi">9</span>    <span class="mi">88</span>       <span class="n">北京</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">4.349</span>              <span class="kc">None</span>
+<span class="mi">10</span>   <span class="mi">62</span>       <span class="n">北京</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span>  <span class="o">...</span>         <span class="kc">None</span>         <span class="mf">3.174</span>              <span class="kc">None</span>          
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>空气质量排名<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>接口: air_quality_rank</p>
+<p>目标地址: https://www.zq12369.com/environment.php</p>
+<p>描述: 获取指定 <strong>date</strong> 时间点上所有城市(168个)的空气质量数据</p>
+<p>限量: 单次返回所有的数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>date="2020-03-12"; "实时": 当前时刻空气质量排名; "2020-03-12": 当日空气质量排名; "2020-03": 当月空气质量排名; "2019": 当年空气质量排名;</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>降序</td>
+<td>str</td>
+<td>Y</td>
+<td>排名</td>
+</tr>
+<tr>
+<td>省份</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>城市</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>AQI</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>空气质量</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PM2.5浓度</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>首要污染物</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例-实时</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_rank_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_rank</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="s2">&quot;实时&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_rank_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-实时</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="n">降序</span>  <span class="n">省份</span>  <span class="n">城市</span>    <span class="n">AQI</span>  <span class="n">空气质量</span>   <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span><span class="n">浓度</span>  <span class="n">首要污染物</span>
+<span class="mi">1</span>      <span class="mf">1.0</span>  <span class="n">山西</span>  <span class="n">太原</span>  <span class="mf">123.0</span>  <span class="n">轻度污染</span>  <span class="mi">93</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">2</span>      <span class="mf">2.0</span>  <span class="n">山东</span>  <span class="n">德州</span>  <span class="mf">116.0</span>  <span class="n">轻度污染</span>  <span class="mi">33</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>   <span class="n">PM10</span>
+<span class="mi">3</span>      <span class="mf">3.0</span>  <span class="n">河南</span>  <span class="n">安阳</span>  <span class="mf">111.0</span>  <span class="n">轻度污染</span>  <span class="mi">60</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>   <span class="n">PM10</span>
+<span class="mi">4</span>      <span class="mf">4.0</span>  <span class="n">吉林</span>  <span class="n">长春</span>  <span class="mf">108.0</span>  <span class="n">轻度污染</span>  <span class="mi">81</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">5</span>      <span class="mf">5.0</span>  <span class="n">广东</span>  <span class="n">佛山</span>  <span class="mf">100.0</span>     <span class="n">良</span>  <span class="mi">55</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>     <span class="n">O3</span>
+<span class="o">..</span>     <span class="o">...</span>  <span class="o">..</span>  <span class="o">..</span>    <span class="o">...</span>   <span class="o">...</span>       <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">164</span>  <span class="mf">164.0</span>  <span class="n">广东</span>  <span class="n">珠海</span>   <span class="mf">34.0</span>     <span class="n">优</span>  <span class="mi">16</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>    <span class="n">NaN</span>
+<span class="mi">165</span>  <span class="mf">165.0</span>  <span class="n">江苏</span>  <span class="n">南通</span>   <span class="mf">34.0</span>     <span class="n">优</span>  <span class="mi">23</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>    <span class="n">NaN</span>
+<span class="mi">166</span>  <span class="mf">166.0</span>  <span class="n">浙江</span>  <span class="n">舟山</span>   <span class="mf">30.0</span>     <span class="n">优</span>  <span class="mi">11</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>    <span class="n">NaN</span>
+<span class="mi">167</span>  <span class="mf">167.0</span>  <span class="n">四川</span>  <span class="n">雅安</span>   <span class="mf">30.0</span>     <span class="n">优</span>  <span class="mi">13</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>    <span class="n">NaN</span>
+<span class="mi">168</span>  <span class="mf">168.0</span>  <span class="n">西藏</span>  <span class="n">拉萨</span>   <span class="mf">29.0</span>     <span class="n">优</span>   <span class="mi">9</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>    <span class="n">NaN</span>            
+</pre></div>
+</div>
+<p>接口示例-具体某天</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_rank_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_rank</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="s2">&quot;2020-03-20&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_rank_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-具体某天</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="n">降序</span>   <span class="n">省份</span>    <span class="n">城市</span>    <span class="n">AQI</span>  <span class="n">空气质量</span>   <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span><span class="n">浓度</span> <span class="n">首要污染物</span>
+<span class="mi">1</span>      <span class="mf">1.0</span>   <span class="n">山西</span>    <span class="n">晋城</span>  <span class="mf">124.0</span>  <span class="n">轻度污染</span>  <span class="mi">42</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>  <span class="n">PM10</span>
+<span class="mi">2</span>      <span class="mf">2.0</span>   <span class="n">山东</span>    <span class="n">德州</span>  <span class="mf">120.0</span>  <span class="n">轻度污染</span>  <span class="mi">36</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>  <span class="n">PM10</span>
+<span class="mi">3</span>      <span class="mf">3.0</span>   <span class="n">河南</span>    <span class="n">焦作</span>  <span class="mf">118.0</span>  <span class="n">轻度污染</span>  <span class="mi">42</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>  <span class="n">PM10</span>
+<span class="mi">4</span>      <span class="mf">4.0</span>   <span class="n">山东</span>    <span class="n">菏泽</span>  <span class="mf">118.0</span>  <span class="n">轻度污染</span>  <span class="mi">33</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>  <span class="n">PM10</span>
+<span class="mi">5</span>      <span class="mf">5.0</span>   <span class="n">河南</span>    <span class="n">安阳</span>  <span class="mf">118.0</span>  <span class="n">轻度污染</span>  <span class="mi">44</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>  <span class="n">PM10</span>
+<span class="o">..</span>     <span class="o">...</span>  <span class="o">...</span>   <span class="o">...</span>    <span class="o">...</span>   <span class="o">...</span>       <span class="o">...</span>   <span class="o">...</span>
+<span class="mi">164</span>  <span class="mf">164.0</span>   <span class="n">广东</span>    <span class="n">深圳</span>   <span class="mf">45.0</span>     <span class="n">优</span>  <span class="mi">29</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>   <span class="n">NaN</span>
+<span class="mi">165</span>  <span class="mf">165.0</span>  <span class="n">黑龙江</span>   <span class="n">哈尔滨</span>   <span class="mf">43.0</span>     <span class="n">优</span>  <span class="mi">30</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>   <span class="n">NaN</span>
+<span class="mi">166</span>  <span class="mf">166.0</span>   <span class="n">广东</span>    <span class="n">惠州</span>   <span class="mf">43.0</span>     <span class="n">优</span>  <span class="mi">30</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>   <span class="n">NaN</span>
+<span class="mi">167</span>  <span class="mf">167.0</span>   <span class="n">新疆</span>  <span class="n">乌鲁木齐</span>   <span class="mf">32.0</span>     <span class="n">优</span>  <span class="mi">17</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>   <span class="n">NaN</span>
+<span class="mi">168</span>  <span class="mf">168.0</span>   <span class="n">海南</span>    <span class="n">海口</span>   <span class="mf">29.0</span>     <span class="n">优</span>  <span class="mi">13</span> <span class="n">ug</span><span class="o">/</span><span class="n">m3</span>   <span class="n">NaN</span>
+</pre></div>
+</div>
+<p>接口示例-具体某月</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_rank_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_rank</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="s2">&quot;2020-03&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_rank_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-具体某月</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="n">降序</span>  <span class="n">省份</span>  <span class="n">城市</span>  <span class="n">综合指数</span>  <span class="n">最大指数</span>  <span class="n">首要污染物</span>
+<span class="mi">1</span>      <span class="mf">1.0</span>  <span class="n">河南</span>  <span class="n">安阳</span>  <span class="mf">5.29</span>  <span class="mf">1.60</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">2</span>      <span class="mf">2.0</span>  <span class="n">山东</span>  <span class="n">淄博</span>  <span class="mf">5.27</span>  <span class="mf">1.51</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">3</span>      <span class="mf">3.0</span>  <span class="n">山东</span>  <span class="n">枣庄</span>  <span class="mf">5.19</span>  <span class="mf">1.54</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">4</span>      <span class="mf">4.0</span>  <span class="n">河南</span>  <span class="n">焦作</span>  <span class="mf">5.16</span>  <span class="mf">1.54</span>   <span class="n">PM10</span>
+<span class="mi">5</span>      <span class="mf">5.0</span>  <span class="n">陕西</span>  <span class="n">西安</span>  <span class="mf">5.11</span>  <span class="mf">1.59</span>   <span class="n">PM10</span>
+<span class="o">..</span>     <span class="o">...</span>  <span class="o">..</span>  <span class="o">..</span>   <span class="o">...</span>   <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">164</span>  <span class="mf">164.0</span>  <span class="n">广东</span>  <span class="n">惠州</span>  <span class="mf">2.52</span>  <span class="mf">0.69</span>     <span class="n">O3</span>
+<span class="mi">165</span>  <span class="mf">165.0</span>  <span class="n">广东</span>  <span class="n">中山</span>  <span class="mf">2.51</span>  <span class="mf">0.74</span>     <span class="n">O3</span>
+<span class="mi">166</span>  <span class="mf">166.0</span>  <span class="n">浙江</span>  <span class="n">舟山</span>  <span class="mf">2.27</span>  <span class="mf">0.70</span>     <span class="n">O3</span>
+<span class="mi">167</span>  <span class="mf">167.0</span>  <span class="n">海南</span>  <span class="n">海口</span>  <span class="mf">1.84</span>  <span class="mf">0.58</span>     <span class="n">O3</span>
+<span class="mi">168</span>  <span class="mf">168.0</span>  <span class="n">西藏</span>  <span class="n">拉萨</span>  <span class="mf">1.78</span>  <span class="mf">0.72</span>     <span class="n">O3</span>
+</pre></div>
+</div>
+<p>接口示例-具体某年</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_rank_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_rank</span><span class="p">(</span><span class="n">date</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_rank_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-具体某年</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="n">降序</span>  <span class="n">省份</span>   <span class="n">城市</span>  <span class="n">综合指数</span>  <span class="n">最大指数</span>  <span class="n">首要污染物</span>
+<span class="mi">1</span>      <span class="mf">1.0</span>  <span class="n">河南</span>   <span class="n">安阳</span>  <span class="mf">6.91</span>  <span class="mf">2.03</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">2</span>      <span class="mf">2.0</span>  <span class="n">河北</span>   <span class="n">邢台</span>  <span class="mf">6.85</span>  <span class="mf">1.86</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">3</span>      <span class="mf">3.0</span>  <span class="n">河北</span>  <span class="n">石家庄</span>  <span class="mf">6.80</span>  <span class="mf">1.80</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">4</span>      <span class="mf">4.0</span>  <span class="n">河北</span>   <span class="n">邯郸</span>  <span class="mf">6.77</span>  <span class="mf">1.89</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="mi">5</span>      <span class="mf">5.0</span>  <span class="n">山西</span>   <span class="n">临汾</span>  <span class="mf">6.74</span>  <span class="mf">1.77</span>  <span class="n">PM2</span><span class="o">.</span><span class="mi">5</span>
+<span class="o">..</span>     <span class="o">...</span>  <span class="o">..</span>  <span class="o">...</span>   <span class="o">...</span>   <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">164</span>  <span class="mf">164.0</span>  <span class="n">福建</span>   <span class="n">厦门</span>  <span class="mf">2.98</span>  <span class="mf">0.84</span>     <span class="n">O3</span>
+<span class="mi">165</span>  <span class="mf">165.0</span>  <span class="n">安徽</span>   <span class="n">黄山</span>  <span class="mf">2.95</span>  <span class="mf">0.84</span>     <span class="n">O3</span>
+<span class="mi">166</span>  <span class="mf">166.0</span>  <span class="n">浙江</span>   <span class="n">舟山</span>  <span class="mf">2.68</span>  <span class="mf">0.82</span>     <span class="n">O3</span>
+<span class="mi">167</span>  <span class="mf">167.0</span>  <span class="n">海南</span>   <span class="n">海口</span>  <span class="mf">2.47</span>  <span class="mf">0.90</span>     <span class="n">O3</span>
+<span class="mi">168</span>  <span class="mf">168.0</span>  <span class="n">西藏</span>   <span class="n">拉萨</span>  <span class="mf">2.39</span>  <span class="mf">0.81</span>     <span class="n">O3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h3>监测点空气质量<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>接口: air_quality_watch_point</p>
+<p>目标地址: https://www.zq12369.com/environment.php</p>
+<p>描述: 获取每个城市的所有空气质量监测点的数据</p>
+<p>限量: 单次返回指定城市指定日期区间的所有监测点的空气质量数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>city</td>
+<td>str</td>
+<td>Y</td>
+<td>city="杭州"; 调用 air_city_list 接口获取所有城市列表</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="2018-01-01"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="2020-04-27"</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pointname</td>
+<td>str</td>
+<td>Y</td>
+<td>监测点名称</td>
+</tr>
+<tr>
+<td>aqi</td>
+<td>float</td>
+<td>Y</td>
+<td>AQI</td>
+</tr>
+<tr>
+<td>pm2_5</td>
+<td>float</td>
+<td>Y</td>
+<td>PM2.5</td>
+</tr>
+<tr>
+<td>pm10</td>
+<td>float</td>
+<td>Y</td>
+<td>PM10</td>
+</tr>
+<tr>
+<td>no2</td>
+<td>float</td>
+<td>Y</td>
+<td>NO2</td>
+</tr>
+<tr>
+<td>so2</td>
+<td>float</td>
+<td>Y</td>
+<td>SO2</td>
+</tr>
+<tr>
+<td>o3</td>
+<td>float</td>
+<td>Y</td>
+<td>O3</td>
+</tr>
+<tr>
+<td>co</td>
+<td>float</td>
+<td>Y</td>
+<td>CO</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">air_quality_watch_point_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">air_quality_watch_point</span><span class="p">(</span><span class="n">city</span><span class="o">=</span><span class="s2">&quot;杭州&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2018-01-01&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2020-04-27&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">air_quality_watch_point_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">pointname</span>      <span class="n">aqi</span>  <span class="o">...</span>                  <span class="n">o3</span>                  <span class="n">co</span>
+<span class="mi">0</span>       <span class="n">朝晖五区</span>  <span class="mf">83.9315</span>  <span class="o">...</span>               <span class="mf">162.4</span>  <span class="mf">1.3581999999999999</span>
+<span class="mi">1</span>       <span class="n">浙江农大</span>  <span class="mf">82.7099</span>  <span class="o">...</span>                 <span class="mi">183</span>                 <span class="mf">1.3</span>
+<span class="mi">2</span>        <span class="n">城厢镇</span>  <span class="mf">82.2618</span>  <span class="o">...</span>                 <span class="mi">175</span>              <span class="mf">1.2643</span>
+<span class="mi">3</span>         <span class="n">下沙</span>  <span class="mf">81.5554</span>  <span class="o">...</span>                 <span class="mi">175</span>                 <span class="mf">1.2</span>
+<span class="mi">4</span>        <span class="n">临平镇</span>  <span class="mf">80.2429</span>  <span class="o">...</span>               <span class="mf">174.6</span>              <span class="mf">1.2182</span>
+<span class="mi">5</span>       <span class="n">和睦小学</span>  <span class="mf">79.7488</span>  <span class="o">...</span>                 <span class="mi">170</span>              <span class="mf">1.2209</span>
+<span class="mi">6</span>         <span class="n">西溪</span>  <span class="mf">78.5832</span>  <span class="o">...</span>                 <span class="mi">173</span>                 <span class="mf">1.1</span>
+<span class="mi">7</span>         <span class="n">滨江</span>  <span class="mf">77.9729</span>  <span class="o">...</span>                 <span class="mi">172</span>                 <span class="mf">1.3</span>
+<span class="mi">8</span>        <span class="n">卧龙桥</span>  <span class="mf">71.1863</span>  <span class="o">...</span>                 <span class="mi">161</span>             <span class="mf">1.13265</span>
+<span class="mi">9</span>         <span class="n">云栖</span>  <span class="mf">70.4404</span>  <span class="o">...</span>                 <span class="mi">168</span>                 <span class="mf">1.2</span>
+<span class="mi">10</span>       <span class="n">千岛湖</span>  <span class="mf">55.8762</span>  <span class="o">...</span>  <span class="mf">143.00000000000003</span>                   <span class="mi">1</span>        
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>财富排行榜-中文<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+<p>接口: fortune_rank</p>
+<p>目标地址: http://www.fortunechina.com/fortune500/node_65.htm</p>
+<p>描述: 获取指定年份财富世界500强公司排行榜</p>
+<p>限量: 单次返回某一个年份的所有历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>year</td>
+<td>int</td>
+<td>Y</td>
+<td>year="2019"</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公司名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>营业收入</td>
+<td>float</td>
+<td>Y</td>
+<td>注意单位</td>
+</tr>
+<tr>
+<td>利润</td>
+<td>float</td>
+<td>Y</td>
+<td>注意单位</td>
+</tr>
+<tr>
+<td>国家</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">fortune_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">fortune_rank</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fortune_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>公司名称(中英文)  营业收入(百万美元)  利润(百万美元)   国家
+0                             沃尔玛（WALMART)    514405.0    6670.0   美国
+1                中国石油化工集团公司（SINOPEC GROUP)    414649.9    5845.0   中国
+2            荷兰皇家壳牌石油公司（ROYAL DUTCH SHELL)    396556.0   23352.0   荷兰
+3    中国石油天然气集团公司（CHINA NATIONAL PETROLEUM)    392976.6    2270.5   中国
+4                       国家电网公司（STATE GRID)    387056.0    8174.8   中国
+..                                     ...         ...       ...  ...
+495                              纽柯（NUCOR)     25067.3    2360.8   美国
+496               蒙特利尔银行（BANK OF MONTREAL)     25002.7    4235.1  加拿大
+497        泰康保险集团（TAIKANG INSURANCE GROUP)     24931.7    1794.6   中国
+498        Ultrapar控股公司（ULTRAPAR HOLDINGS)     24816.0     314.8   巴西
+499                  法国液化空气集团（AIR LIQUIDE)     24796.6    2494.2   法国
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>财富排行榜-英文<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
+<p>接口: fortune_rank_eng</p>
+<p>目标地址: https://fortune.com/global500/</p>
+<p>描述: 获取指定年份财富世界500强公司排行榜-英文版本, 从1995年开始, 数据和格式较中文版本完整</p>
+<p>限量: 单次返回某一个年份的所有历史数据, 早期数据可能不足 500 家公司</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>year</td>
+<td>int</td>
+<td>Y</td>
+<td>year="2019"</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rank</td>
+<td>str</td>
+<td>Y</td>
+<td>排名</td>
+</tr>
+<tr>
+<td>-</td>
+<td>float</td>
+<td>Y</td>
+<td>以当年的数据为准, 输入的字段不一</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">fortune_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">fortune_rank_eng</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="s2">&quot;2015&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fortune_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">rank</span>   <span class="n">revenues</span>  <span class="o">...</span> <span class="n">hqCountry</span>                       <span class="n">title</span>
+<span class="mi">476</span>     <span class="mi">1</span>  <span class="mf">175835.60</span>  <span class="o">...</span>     <span class="n">Japan</span>      <span class="n">Mitsubishi</span> <span class="n">Corporation</span>
+<span class="mi">477</span>     <span class="mi">2</span>  <span class="mf">171490.50</span>  <span class="o">...</span>     <span class="n">Japan</span>      <span class="n">Mitsui</span> <span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span> <span class="n">Co</span><span class="o">.</span><span class="p">,</span> <span class="n">Ltd</span><span class="o">.</span>
+<span class="mi">478</span>     <span class="mi">3</span>  <span class="mf">167824.70</span>  <span class="o">...</span>     <span class="n">Japan</span>          <span class="n">Itochu</span> <span class="n">Corporation</span>
+<span class="mi">479</span>     <span class="mi">4</span>  <span class="mf">162475.90</span>  <span class="o">...</span>     <span class="n">Japan</span>        <span class="n">Sumitomo</span> <span class="n">Corporation</span>
+<span class="mi">480</span>     <span class="mi">5</span>  <span class="mf">154951.20</span>  <span class="o">...</span>      <span class="n">U</span><span class="o">.</span><span class="n">S</span><span class="o">.</span>  <span class="n">General</span> <span class="n">Motors</span> <span class="n">Corporation</span>
+<span class="o">..</span>    <span class="o">...</span>        <span class="o">...</span>  <span class="o">...</span>       <span class="o">...</span>                         <span class="o">...</span>
+<span class="mi">194</span>   <span class="mi">496</span>    <span class="mf">7919.20</span>  <span class="o">...</span>   <span class="n">Germany</span>                <span class="n">Quelle</span> <span class="n">Group</span>
+<span class="mi">195</span>   <span class="mi">497</span>    <span class="mf">7868.70</span>  <span class="o">...</span>   <span class="n">Germany</span>             <span class="n">SPAR</span> <span class="n">Handels</span> <span class="n">AG</span>
+<span class="mi">196</span>   <span class="mi">498</span>    <span class="mf">7857.10</span>  <span class="o">...</span>      <span class="n">U</span><span class="o">.</span><span class="n">S</span><span class="o">.</span>        <span class="n">Banc</span> <span class="n">One</span> <span class="n">Corporation</span>
+<span class="mi">197</span>   <span class="mi">499</span>    <span class="mf">7849.50</span>  <span class="o">...</span>     <span class="n">Japan</span>     <span class="n">New</span> <span class="n">Oji</span> <span class="n">Paper</span> <span class="n">Co</span><span class="o">.</span><span class="p">,</span> <span class="n">Ltd</span><span class="o">.</span>
+<span class="mi">198</span>   <span class="mi">500</span>    <span class="mf">7843.80</span>  <span class="o">...</span>     <span class="n">Japan</span>    <span class="n">Toyo</span> <span class="n">Seikan</span> <span class="n">Kaisha</span><span class="p">,</span> <span class="n">Ltd</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>电影票房-实时<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h2>
+<p>接口: box_office_spot(疫情期间，暂无数据)</p>
+<p>目标地址: https://maoyan.com/board/1</p>
+<p>描述: 获取上映中电影的实时票房数据</p>
+<p>限量: 将昨日国内热映的影片, 按照昨日票房从高到低排序, 每天上午 10 点更新</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电影名称</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>主演</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>上映时间</td>
+<td>str</td>
+<td>-</td>
+<td>注意具体时区</td>
+</tr>
+<tr>
+<td>实时票房</td>
+<td>str</td>
+<td>-</td>
+<td>注意票房单位</td>
+</tr>
+<tr>
+<td>总票房</td>
+<td>str</td>
+<td>-</td>
+<td>注意票房单位</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">box_office_spot_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">box_office_spot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">box_office_spot_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          电影名称                           主演             上映时间          实时票房  \
+0           误杀                  主演：肖央,谭卓,陈冲  上映时间：2019-12-13  实时票房:7981.7万   
+1          天·火                 主演：王学圻,昆凌,窦骁  上映时间：2019-12-12  实时票房:3569.5万   
+2        冰雪奇缘2   主演：克里斯汀·贝尔,伊迪娜·门泽尔,乔纳森·格罗夫  上映时间：2019-11-22  实时票房:1649.3万   
+3  勇敢者游戏2：再战巅峰        主演：道恩·强森,凯伦·吉兰,杰克·布莱克  上映时间：2019-12-06  实时票房:1395.1万   
+4       被光抓走的人                 主演：黄渤,王珞丹,谭卓  上映时间：2019-12-13  实时票房:1176.2万   
+5        我为你牺牲                 主演：李琦,国永振,陈姝  上映时间：2019-12-05  实时票房:1012.7万   
+6      南方车站的聚会                 主演：胡歌,桂纶镁,廖凡  上映时间：2019-12-06   实时票房:514.8万   
+7         早安公主               主演：田雨,朱颜曼滋,邱雨铄  上映时间：2019-12-13   实时票房:411.0万   
+8         唐顿庄园     主演：休·博纳维尔,劳拉·卡尔迈克尔,吉姆·卡特  上映时间：2019-12-13   实时票房:403.3万   
+9         利刃出鞘  主演：丹尼尔·克雷格,克里斯·埃文斯,安娜·德·阿玛斯  上映时间：2019-11-29   实时票房:369.6万   
+           总票房  
+0    总票房:2.25亿  
+1    总票房:1.41亿  
+2    总票房:7.84亿  
+3    总票房:2.69亿  
+4  总票房:5894.0万  
+5  总票房:4696.0万  
+6    总票房:1.95亿  
+7  总票房:1170.0万  
+8  总票房:1171.0万  
+9    总票房:1.92亿  
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h2>生活成本<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h2>
+<p>接口: cost_living</p>
+<p>目标地址: https://expatistan.com/cost-of-living/index</p>
+<p>描述: 获取世界各大城市生活成本数据</p>
+<p>限量: 返回当前时点所有数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>region</td>
+<td>str</td>
+<td>-</td>
+<td>region="world", 默认, 返回所有城市数据, 其他城市请查看 <strong>城市一览表</strong></td>
+</tr>
+</tbody>
+</table><p>城市一览表</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>europe</td>
+<td>欧洲</td>
+</tr>
+<tr>
+<td>north-america</td>
+<td>北美洲</td>
+</tr>
+<tr>
+<td>latin-america</td>
+<td>拉丁美洲</td>
+</tr>
+<tr>
+<td>asia</td>
+<td>亚洲</td>
+</tr>
+<tr>
+<td>middle-east</td>
+<td>中东</td>
+</tr>
+<tr>
+<td>africa</td>
+<td>非洲</td>
+</tr>
+<tr>
+<td>oceania</td>
+<td>大洋洲</td>
+</tr>
+<tr>
+<td>world</td>
+<td>默认全球所有城市</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rank</td>
+<td>str</td>
+<td>-</td>
+<td>排名</td>
+</tr>
+<tr>
+<td>city</td>
+<td>str</td>
+<td>-</td>
+<td>城市名称</td>
+</tr>
+<tr>
+<td>index</td>
+<td>str</td>
+<td>-</td>
+<td>价格指数</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">cost_living_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">cost_living</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cost_living_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">rank</span>                                       <span class="n">city</span>  <span class="n">index</span>
+<span class="mi">0</span>      <span class="mi">1</span><span class="n">st</span>              <span class="n">Grand</span> <span class="n">Cayman</span> <span class="p">(</span><span class="n">Cayman</span> <span class="n">Islands</span><span class="p">)</span>    <span class="mi">271</span>
+<span class="mi">1</span>      <span class="mi">2</span><span class="n">nd</span>  <span class="n">Mountain</span> <span class="n">View</span><span class="p">,</span> <span class="n">California</span> <span class="p">(</span><span class="n">United</span> <span class="n">States</span><span class="p">)</span>    <span class="mi">259</span>
+<span class="mi">2</span>      <span class="mi">3</span><span class="n">rd</span>      <span class="n">Palo</span> <span class="n">Alto</span><span class="p">,</span> <span class="n">California</span> <span class="p">(</span><span class="n">United</span> <span class="n">States</span><span class="p">)</span>    <span class="mi">259</span>
+<span class="mi">3</span>      <span class="mi">4</span><span class="n">th</span>              <span class="n">New</span> <span class="n">York</span> <span class="n">City</span> <span class="p">(</span><span class="n">United</span> <span class="n">States</span><span class="p">)</span>    <span class="mi">253</span>
+<span class="mi">4</span>      <span class="mi">5</span><span class="n">th</span>                       <span class="n">Zurich</span> <span class="p">(</span><span class="n">Switzerland</span><span class="p">)</span>    <span class="mi">246</span>
+<span class="o">..</span>     <span class="o">...</span>                                        <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">295</span>  <span class="mi">296</span><span class="n">th</span>                             <span class="n">Indore</span> <span class="p">(</span><span class="n">India</span><span class="p">)</span>     <span class="mi">62</span>
+<span class="mi">296</span>  <span class="mi">297</span><span class="n">th</span>                             <span class="n">Madras</span> <span class="p">(</span><span class="n">India</span><span class="p">)</span>     <span class="mi">62</span>
+<span class="mi">297</span>  <span class="mi">298</span><span class="n">th</span>                        <span class="n">Córdoba</span> <span class="p">(</span><span class="n">Argentina</span><span class="p">)</span>     <span class="mi">58</span>
+<span class="mi">298</span>  <span class="mi">299</span><span class="n">th</span>                        <span class="n">Rosario</span> <span class="p">(</span><span class="n">Argentina</span><span class="p">)</span>     <span class="mi">56</span>
+<span class="mi">299</span>  <span class="mi">300</span><span class="n">th</span>                        <span class="n">Mendoza</span> <span class="p">(</span><span class="n">Argentina</span><span class="p">)</span>     <span class="mi">48</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>新经济公司<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id16">
+<h3>倒闭公司<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
+<p>接口: death_company</p>
+<p>目标地址: https://www.itjuzi.com/deathCompany</p>
+<p>描述: 获取新经济死亡公司数据库</p>
+<p>限量: 返回所有历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公司名称</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>成立时间</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>倒闭时间</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>存活天数</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>总投资</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>所属行业</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>所属省份</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">death_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">death_company</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">death_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">com_name</span>        <span class="n">born</span> <span class="n">com_change_close_date</span>  <span class="o">...</span>  <span class="n">total_money</span> <span class="n">cat_name</span> <span class="n">com_prov</span>
+<span class="mi">0</span>         <span class="n">空车位</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>     <span class="n">汽车交通</span>       <span class="n">北京</span>
+<span class="mi">1</span>        <span class="n">禅啸星空</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>     <span class="n">文娱传媒</span>       <span class="n">北京</span>
+<span class="mi">2</span>         <span class="n">壹校招</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>     <span class="n">企业服务</span>       <span class="n">广东</span>
+<span class="mi">3</span>  <span class="n">灵犀Linkhere</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>     <span class="n">社交网络</span>       <span class="n">上海</span>
+<span class="mi">4</span>        <span class="n">弹个吉他</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>       <span class="n">教育</span>       <span class="n">北京</span>
+<span class="mi">5</span>        <span class="n">共时数据</span>  <span class="mi">2014</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>       <span class="n">金融</span>       <span class="n">浙江</span>
+<span class="mi">6</span>        <span class="n">缘分市集</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>     <span class="n">社交网络</span>       <span class="n">北京</span>
+<span class="mi">7</span>         <span class="n">馋一指</span>  <span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>     <span class="n">电子商务</span>      <span class="n">内蒙古</span>
+<span class="mi">8</span>        <span class="n">红果生活</span>  <span class="mi">2014</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>     <span class="n">本地生活</span>       <span class="n">云南</span>
+<span class="mi">9</span>         <span class="n">壹手车</span>  <span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>            <span class="mi">2017</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="kc">None</span>     <span class="n">汽车交通</span>       <span class="n">北京</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>独角兽公司<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<p>接口: nicorn_company</p>
+<p>目标地址: https://www.itjuzi.com</p>
+<p>描述: 获取独角兽公司数据库</p>
+<p>限量: 返回所有历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公司名称</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>成立时间</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>总投资</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>所属行业</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>所属省份</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">nicorn_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">nicorn_company</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nicorn_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       com_id                                   com_logo_archive com_name  \
+0       18092  https://cdn.itjuzi.com/images/900637e42dec75cc...     蚂蚁金服   
+1    34048160  https://cdn.itjuzi.com/images/c36e423fd300b774...     字节跳动   
+2       24348  https://cdn.itjuzi.com/images/116bef02d9859fbf...      阿里云   
+3         157  https://cdn.itjuzi.com/images/8badb6e5188dbfb3...       滴滴   
+4       16470  https://cdn.itjuzi.com/images/2b4263b060d94abd...      陆金所   
+225      1634  https://cdn.itjuzi.com/images/f2d94f031e8ed8fe...      返利网   
+226       335  https://cdn.itjuzi.com/images/141dd540d2894608...   一起教育科技   
+227     25188  https://cdn.itjuzi.com/images/9d06a4ebeed7bee1...     微鲸科技   
+228     53629  https://cdn.itjuzi.com/images/3acab9539a788f02...  Momenta   
+229     17081  https://cdn.itjuzi.com/images/6948f54e6b3e28c3...     云鸟配送   
+    com_prov com_city  invse_year  invse_month  invse_day  \
+0         浙江       杭州        2018            6         23   
+1         北京      海淀区        2018           10         20   
+2         浙江       杭州        2015            7         29   
+3         北京      海淀区        2019            7         25   
+4         上海     浦东新区        2018           12         15   
+225       上海      崇明县        2015            4         21   
+226       上海      嘉定区        2018            3         20   
+227       上海     浦东新区        2015            8         14   
+228       北京      海淀区        2018           10         18   
+229       北京      海淀区        2017            2         13   
+     invse_guess_particulars  invse_detail_money  invse_currency_id  \
+0                  100000000              160000                  1   
+1                    7500000              400000                  2   
+2                   43550000              600000                  1   
+3                    5800000               60000                  2   
+4                    3940000              133000                  2   
+225                   100000               10000                  2   
+226                   100000               25000                  2   
+227                   650000              200000                  1   
+228                   100000               20000                  2   
+229                   100000               10000                  2   
+     invse_similar_money_id cat_name sub_cat_name  invse_round_id  \
+0                         4       金融       金融综合服务              11   
+1                         4     文娱传媒        媒体及阅读               7   
+2                         4     企业服务       IT基础设施              11   
+3                         4     汽车交通         交通出行              11   
+4                         4       金融           理财               4   
+225                       4     电子商务       电商解决方案               4   
+226                       4       教育          K12               6   
+227                       4       硬件         消费电子               2   
+228                       4     汽车交通      自动/无人驾驶              11   
+229                       4       物流         同城物流               5   
+           money invse_money   round  
+0    15384615.38        ￥16亿    战略投资  
+1     7500000.00        $40亿  F轮-上市前  
+2     6700000.00        ￥60亿    战略投资  
+3     5800000.00         $6亿    战略投资  
+4     3940000.00      $13.3亿      C轮  
+225    100000.00         $1亿      C轮  
+226    100000.00       $2.5亿      E轮  
+227    100000.00        ￥20亿      A轮  
+228    100000.00         $2亿    战略投资  
+229    100000.00         $1亿      D轮  
+</pre></div>
+</div>
+</div>
+<div class="section" id="id18">
+<h3>千里马公司<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<p>接口: maxima_company</p>
+<p>目标地址: https://www.itjuzi.com</p>
+<p>描述: 获取千里马公司数据库</p>
+<p>限量: 返回所有历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>公司名称</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>成立时间</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>总投资</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>所属行业</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>所属省份</td>
+<td>str</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">maxima_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">maxima_company</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">maxima_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       com_id                                   com_logo_archive com_name  \
+0       71450  https://cdn.itjuzi.com/images/f7b24798925366be...  震坤行工业超市   
+1       51816  https://cdn.itjuzi.com/images/aea5b40629a453f8...     能力风暴   
+2       13023  https://cdn.itjuzi.com/images/4875e1ca28fdee9e...       达令   
+3       77478  https://cdn.itjuzi.com/images/a3e1719475670315...     奈雪的茶   
+4       10727  https://cdn.itjuzi.com/images/53dec5f8b5b69de2...      车置宝   
+652     20743  https://cdn.itjuzi.com/images/37c552ea7b695bc0...      未来域   
+653     33390  https://cdn.itjuzi.com/images/6c118658e0e9d487...     慧择保险   
+654  32967275  https://cdn.itjuzi.com/images/da96ddf10e8709bb...      微天下   
+655     15553  https://cdn.itjuzi.com/images/7b8d53bbc21e5ed8...     小熊尼奥   
+656     17958  https://cdn.itjuzi.com/images/435f1f5e7fe4882b...      好彩头   
+     com_scope_id cat_name com_prov  invse_year  invse_month  invse_day  \
+0             145     电子商务       上海        2019            6         18   
+1             103       硬件       上海        2016           10          8   
+2             145     电子商务       北京        2017           11          3   
+3              70     本地生活       广东        2018            3         19   
+4              28     汽车交通       江苏        2018            6          6   
+652            38     房产服务       北京        2017            6          8   
+653            12       金融       广东        2016            8          3   
+654           126     企业服务       浙江        2018            6         15   
+655             1       教育       上海        2016           10         21   
+656           145     电子商务       福建        2015            2         15   
+     invse_similar_money_id  invse_guess_particulars  invse_detail_money  \
+0                         4                    96000               16000   
+1                         4                   600000               60000   
+2                         3                   600000                   0   
+3                         4                   600000                   0   
+4                         4                   600000               80000   
+652                       4                   100000               20000   
+653                       4                   100000               10000   
+654                       4                   100000               20000   
+655                       4                   100000               25000   
+656                       4                   100000               20000   
+     invse_currency_id  invse_round_id     money invse_money round  
+0                    2               5  624000.0       $1.6亿    D轮  
+1                    1               2  600000.0         ￥6亿    A轮  
+2                    1              11  600000.0        ￥数千万  战略投资  
+3                    1              14  600000.0      ￥亿元及以上   A+轮  
+4                    1               5  600000.0         ￥8亿    D轮  
+652                  1               3  100000.0         ￥2亿    B轮  
+653                  1              16  100000.0         ￥1亿   B+轮  
+654                  1               2  100000.0         ￥2亿    A轮  
+655                  1               3  100000.0       ￥2.5亿    B轮  
+656                  1               2  100000.0         ￥2亿    A轮  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>特许经营许可<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h2>
+<p>接口: franchise_china</p>
+<p>目标地址: http://txjy.syggs.mofcom.gov.cn/</p>
+<p>描述: 获取中国-特许经营许可数据</p>
+<p>限量: 单次返回所有特许经营许可数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>特许人名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>备案时间</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>地址</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">franchise_china_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">franchise_china</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">franchise_china_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                             特许人名称  ...                                                 地址
+0             特许人名称：深圳市百果园投资发展有限公司  ...                  地址：深圳市龙岗区南湾街道下李朗社区平吉大道1号建昇大厦B1305
+1                特许人名称：深圳市唯爱控股有限公司  ...                       地址：深圳市福田区福保街道石厦北三街4号雅云轩29楼A室
+2               特许人名称：广州绿色医药贸易有限公司  ...                      地址：广州市白云区京溪桥东侧广州新百佳小商品城B1303室
+3              特许人名称：广州萌茶茶餐饮管理有限公司  ...                         地址：广州市天河区黄埔大道中309号自编3-18-7
+4              特许人名称：福州汕之膳餐饮管理有限公司  ...     地址：福建省福州市台江区瀛洲街道江滨中大道116号君临闽江公寓1-7#楼连地下1层216铺位
+                            ...  ...                                                ...
+5395           特许人名称：北京车爵仕汽车用品有限公司  ...                          地址：北京市宣武区广安门外马连道路11号1125室
+5396          特许人名称：北京风尚引力投资顾问有限公司  ...                             地址：北京市大兴区魏善庄镇工业区龙江路95号
+5397          特许人名称：奥力赛克服装（北京）有限公司  ...                    地址：北京市宣武区宣武门外大街6号（庄胜广场北办公室楼902）
+5398        特许人名称：中达睿信投资管理(北京)有限公司  ...                 地址：北京市丰台区航丰路1号院2号楼1015、1016、1017房间
+5399  特许人名称：DDBR International LLC  ...  地址：The Corporation Trust Company, Corporation ...
+</pre></div>
+</div>
+</div>
+<div class="section" id="id20">
+<h2>慈善中国<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id21">
+<h3>慈善组织查询<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h3>
+<p>接口: charity_china_organization</p>
+<p>目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/a/csmhaindex.html</p>
+<p>描述: 获取慈善中国-慈善组织查询数据</p>
+<p>限量: 单次返回所有慈善中国-慈善组织查询数据, 但是要注意网络稳定性, 建议获取后存储</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>序号</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>统一社会信用代码</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>组织名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>成立时间</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>登记管理机关</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">charity_china_organization_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">charity_china_organization</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">charity_china_organization_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">序号</span>            <span class="n">统一社会信用代码</span>              <span class="n">组织名称</span>          <span class="n">成立时间</span>            <span class="n">登记管理机关</span>
+<span class="mi">0</span>    <span class="mi">1</span>  <span class="mi">53330000501876705</span><span class="n">E</span>        <span class="n">温州市人民教育基金会</span>   <span class="n">Jan</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1989</span>            <span class="n">浙江省民政厅</span>
+<span class="mi">1</span>    <span class="mi">2</span>  <span class="mi">51440100572156377</span><span class="n">E</span>        <span class="n">广州市乐善助学促进会</span>  <span class="n">Mar</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">2011</span>            <span class="n">广州市民政局</span>
+<span class="mi">2</span>    <span class="mi">3</span>  <span class="mi">51440106</span><span class="n">C149234018</span>         <span class="n">广州市天河区慈善会</span>  <span class="n">Mar</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">1995</span>         <span class="n">广州市天河区民政局</span>
+<span class="mi">3</span>    <span class="mi">4</span>  <span class="mi">13220100013829643</span><span class="n">R</span>           <span class="n">长春市红十字会</span>  <span class="n">Nov</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">1998</span>        <span class="n">长春市机构编制委员会</span>
+<span class="mi">4</span>    <span class="mi">5</span>  <span class="mi">514206245037423566</span>            <span class="n">南漳县慈善会</span>   <span class="n">Apr</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1994</span>             <span class="n">南漳民政局</span>
+<span class="mi">5</span>    <span class="mi">6</span>  <span class="mi">12420624</span><span class="n">MB1856281C</span>           <span class="n">南漳县红十字会</span>  <span class="n">Aug</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">2018</span>      <span class="n">南漳县事业单位登记管理局</span>
+<span class="mi">6</span>    <span class="mi">7</span>  <span class="mi">51370103</span><span class="n">MJD7207131</span>          <span class="n">济南市中慈善总会</span>  <span class="n">Aug</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">2005</span>         <span class="n">济南市市中区民政局</span>
+<span class="mi">7</span>    <span class="mi">8</span>  <span class="mi">13330726674784083</span><span class="n">R</span>           <span class="n">浦江县红十字会</span>  <span class="n">Jun</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">2010</span>        <span class="n">浦江县机构编制委员会</span>
+<span class="mi">8</span>    <span class="mi">9</span>  <span class="mi">13450100007578462</span><span class="n">M</span>           <span class="n">南宁市红十字会</span>  <span class="n">Dec</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">2001</span>        <span class="n">南宁市机构编制委员会</span>
+<span class="mi">9</span>   <span class="mi">10</span>  <span class="mi">51222402774243137</span><span class="n">N</span>           <span class="n">图们市慈善总会</span>  <span class="n">Aug</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">2003</span>            <span class="n">图们市民政局</span>
+<span class="mi">10</span>  <span class="mi">11</span>  <span class="mi">51110102500530454</span><span class="n">R</span>          <span class="n">北京西城慈善协会</span>  <span class="n">Sep</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1995</span>         <span class="n">北京市西城区民政局</span>
+<span class="mi">11</span>  <span class="mi">12</span>  <span class="mi">12411402554217009</span><span class="n">W</span>        <span class="n">商丘市梁园区红十字会</span>  <span class="n">Oct</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1998</span>       <span class="n">商丘市梁园区编制委员会</span>
+<span class="mi">12</span>  <span class="mi">13</span>  <span class="mi">51661200697824762</span><span class="n">N</span>  <span class="n">新疆生产建设兵团第十二师红十字会</span>  <span class="n">Oct</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">2008</span>           <span class="n">第十二师民政局</span>
+<span class="mi">13</span>  <span class="mi">14</span>  <span class="mi">11421304</span><span class="n">MB1C163392</span>            <span class="n">随县红十字会</span>  <span class="n">Sep</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">2009</span>  <span class="n">中共随县县委机构编制委员会办公室</span>
+<span class="mi">14</span>  <span class="mi">15</span>  <span class="mi">123203054665457747</span>        <span class="n">徐州市贾汪区红十字会</span>  <span class="n">Sep</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2012</span>         <span class="n">徐州市贾汪区民政局</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id22">
+<h3>慈善信托查询<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
+<p>接口: charity_china_trust</p>
+<p>目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/e/csmheindex.html</p>
+<p>描述: 获取慈善中国-慈善信托查询数据</p>
+<p>限量: 单次返回所有慈善中国-慈善信托查询数据, 但是要注意网络稳定性, 建议获取后存储</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>序号</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>慈善信托名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>备案单位</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>受托人</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>财产总规模（万元）</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>信托期限</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">charity_china_trust_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">charity_china_trust</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">charity_china_trust_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    序号                    慈善信托名称  ... 财产总规模（万元）    信托期限
+0    1     华宝善行•抗击新型冠状病毒肺炎疫情慈善信托  ...    272.81      2年
+1    2           华信信托-抗击新型肺炎慈善信托  ...    100.00   无固定期限
+2    3        “上善”系列赴鄂救援抗击疫情慈善信托  ...    500.00      2年
+3    4                   泰来县红十字会  ...  30000.00      5年
+4    5  天信世嘉·信德众志成城抗击新型肺炎01期慈善信托  ...     50.00      1年
+5    6                  根生博爱慈善信托  ...    114.70      永续
+6    7         中融-深圳市慈善会托普思维慈善信托  ...     50.00      10
+7    8             重庆信托·温暖童心慈善信托  ...      7.00      1年
+8    9             华润信托•银杏乐天慈善信托  ...    100.00     10年
+9   10            光信善·益中专项教育慈善信托  ...   1000.00   无固定期限
+10  11      光信善·祥生扶贫1号阳光益投系列慈善信托  ...      5.00      2年
+11  12                    骏昆慈善信托  ...      5.00   无固定期限
+12  13          厦门信托-星之助公益进堂慈善信托  ...     12.00  不设固定期限
+13  14      光信善·瀚京尊享1号阳光益投系列慈善信托  ...     10.00      3年
+14  15                光信善·云焕慈善信托  ...     10.00      永续
+</pre></div>
+</div>
+</div>
+<div class="section" id="id23">
+<h3>募捐方案备案<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h3>
+<p>接口: charity_china_plan</p>
+<p>目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/c/csmhcindex.html</p>
+<p>描述: 获取慈善中国-募捐方案备案数据</p>
+<p>限量: 单次返回所有慈善中国-募捐方案备案数据, 但是要注意网络稳定性, 建议获取后存储</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>组织</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>备案号</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">charity_china_plan_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">charity_china_plan</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">charity_china_plan_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                 组织  ...                                备案号
+0           重庆市慈善总会  ...  募捐方案备案编号：51500000504029915YA20015
+1           重庆市慈善总会  ...  募捐方案备案编号：51500000504029915YA20014
+2           重庆市慈善总会  ...  募捐方案备案编号：51500000504029915YA20013
+3  新疆维吾尔族自治区资助教育基金会  ...  募捐方案备案编号：536501045762170776A20003
+4           钦州市红十字会  ...  募捐方案备案编号：13450700K32947229MA20001
+5           山东省红十字会  ...  募捐方案备案编号：133700000045025699A20001
+6           南宁市红十字会  ...  募捐方案备案编号：13450100007578462MA20001
+7       天祝藏族自治县红十字会  ...  募捐方案备案编号：11620623576286750DA20001
+</pre></div>
+</div>
+</div>
+<div class="section" id="id24">
+<h3>慈善项目进展<a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h3>
+<p>接口: charity_china_progress</p>
+<p>目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/b/csmhbindex.html</p>
+<p>描述: 获取慈善中国-慈善项目进展数据</p>
+<p>限量: 单次返回所有慈善中国-慈善项目进展数据, 但是要注意网络稳定性, 建议获取后存储</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>组织</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>项目编号</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>发起慈善组织</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>项目状态</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">charity_china_progress_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">charity_china_progress</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">charity_china_progress_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          组织                             名称  ...     发起慈善组织 项目状态
+0  中国华侨公益基金会                爱步寒冷—冰雪徒步志愿服务项目  ...  中国华侨公益基金会  已完成
+1  中国华侨公益基金会      童沐书香 首都图书馆文化志愿服务讲故事智力脱贫项目  ...  中国华侨公益基金会  已完成
+2  中国华侨公益基金会                      经典导读，点亮心灯  ...  中国华侨公益基金会  已完成
+3  中国华侨公益基金会            山区帮扶励志“阳光小讲台”志愿服务活动  ...  中国华侨公益基金会  已完成
+4  中国华侨公益基金会                 青春守护点对点 关爱留守儿童  ...  中国华侨公益基金会  已完成
+5  中国华侨公益基金会                      爱心部落·公益超市  ...  中国华侨公益基金会  已完成
+6  中国华侨公益基金会             农村牧区“12345”扶贫攻坚义工队  ...  中国华侨公益基金会  已完成
+7  中国华侨公益基金会  “授渔”-呼和浩特天使公益协会山区贫困儿童家庭精准扶贫项目  ...  中国华侨公益基金会  已完成
+</pre></div>
+</div>
+</div>
+<div class="section" id="id25">
+<h3>慈善组织年报<a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h3>
+<p>接口: charity_china_report</p>
+<p>目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/d/csmhdindex.html</p>
+<p>描述: 获取慈善中国-慈善组织年报数据</p>
+<p>限量: 单次返回所有慈善中国-慈善组织年报数据, 但是要注意网络稳定性, 建议获取后存储</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>序号</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>统一社会信用代码</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>组织名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>社会组织类别</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>年度</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>操作</td>
+<td>str</td>
+<td>Y</td>
+<td>提供下载 PDF 的地址</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">charity_china_report_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">charity_china_report</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">charity_china_report_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">序号</span>  <span class="o">...</span>                                                 <span class="n">操作</span>
+<span class="mi">0</span>   <span class="mi">1</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">1</span>   <span class="mi">2</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">2</span>   <span class="mi">3</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">3</span>   <span class="mi">4</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">4</span>   <span class="mi">5</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">5</span>   <span class="mi">6</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">6</span>   <span class="mi">7</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">7</span>   <span class="mi">8</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">8</span>   <span class="mi">9</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+<span class="mi">9</span>  <span class="mi">10</span>  <span class="o">...</span>  <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">cishan</span><span class="o">.</span><span class="n">chinanpo</span><span class="o">.</span><span class="n">gov</span><span class="o">.</span><span class="n">cn</span><span class="o">/</span><span class="n">mz</span><span class="o">/</span><span class="n">upload</span><span class="o">/</span><span class="n">pub</span><span class="o">/</span><span class="n">lo</span><span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id26">
+<h3>募捐信息平台<a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h3>
+<p>接口: charity_china_platform</p>
+<p>目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/h/csmhhindex.html</p>
+<p>描述: 获取慈善中国-募捐信息平台数据</p>
+<p>限量: 单次返回所有慈善中国-募捐信息平台数据, 但是要注意网络稳定性, 建议获取后存储</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网址</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>组织</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>联系方式</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">charity_china_platform_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">charity_china_platform</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">charity_china_platform_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                                                   网址  ...                       联系方式
+0                               http://gongyi.qq.com/  ...      gongyi_TS@tencent.com
+1                          https://gongyi.taobao.com/  ...              0571-88157858
+2                            https://love.alipay.com/  ...              0571-88158090
+3                             http://gongyi.weibo.com  ...               010-60618539
+4   http://gongyi.m.jd.com/index.html?&amp;utm_source=...  ...               010-89126602
+5                            http://gongyi.baidu.com/  ...               010-50803597
+6                            http://www.gongyibao.cn/  ...               010-82609011
+7                           http://xhgy.xinhuanet.com  ...                 4000260110
+8                             https://www.qschou.com/  ...                   10101019
+9                  https://www.lianquan.org/index.jsp  ...           021-60146234-801
+10                               http://www.gyufc.org  ...                 4008599595
+11                          http://gongyi.meituan.com  ...                 4000810990
+12                                 javascript:void(0)  ...  didigongyi@didiglobal.com
+13                 https://www.shanyuanfoundation.com  ...        sygy@17shanyuan.com
+14  http://channels1.mall.icbc.com.cn/channels/pc/...  ...                 4009195588
+15                   http://www.shuidichou.com/gongyi  ...      gongyi@shuidichou.com
+16                          https://gongyi.suning.com  ...        gongyi@cnsuning.com
+17                        https://www.bangbangwang.cn  ...               010-85693651
+18                           http://gongyi.yeepay.com  ...               4001-500-800
+19                           http://www.zgshfp.com.cn  ...               400-600-1017
+20                             http://www.mca.gov.cn/  ...                       None
+21              http://www.chinanpo.gov.cn/index.html  ...                       None
+22                      http://www.chinavolunteer.cn/  ...                       None
+23               http://www.jianzai.gov.cn/DRpublish/  ...                       None
+24                         http://www.neusoft.com/cn/  ...                       None
+25                 http://www.foundationcenter.org.cn  ...                       None
+26                                                  #  ...                       None
+27                                                  #  ...                       None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id27">
+<h2>微博舆情报告<a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h2>
+<p>接口: stock_js_weibo_report</p>
+<p>目标地址: https://datacenter.jin10.com/market</p>
+<p>描述: 获取微博舆情报告中近期受关注的股票</p>
+<p>限量: 单次返回指定时间内微博舆情报告中近期受关注的股票</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>time_period</td>
+<td>str</td>
+<td>Y</td>
+<td>time_period="CNHOUR12"; 详见下表<strong>time_period参数一览表</strong>, 可通过调用 <strong>stock_js_weibo_nlp_time</strong> 获取</td>
+</tr>
+</tbody>
+</table><p>time_period参数一览表</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CNHOUR2</td>
+<td>2小时</td>
+</tr>
+<tr>
+<td>CNHOUR6</td>
+<td>6小时</td>
+</tr>
+<tr>
+<td>CNHOUR12</td>
+<td>12小时</td>
+</tr>
+<tr>
+<td>CNHOUR24</td>
+<td>1天</td>
+</tr>
+<tr>
+<td>CNDAY7</td>
+<td>1周</td>
+</tr>
+<tr>
+<td>CNDAY30</td>
+<td>1月</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>str</td>
+<td>Y</td>
+<td>股票名称</td>
+</tr>
+<tr>
+<td>rate</td>
+<td>str</td>
+<td>Y</td>
+<td>人气排行指数</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">stock_js_weibo_report_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">stock_js_weibo_report</span><span class="p">(</span><span class="n">time_period</span><span class="o">=</span><span class="s2">&quot;CNHOUR12&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock_js_weibo_report_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">name</span>   <span class="n">rate</span>
+<span class="mi">0</span>   <span class="n">黄河旋风</span>   <span class="mf">9.86</span>
+<span class="mi">1</span>   <span class="n">东方财富</span>   <span class="mf">6.91</span>
+<span class="mi">2</span>   <span class="n">海王生物</span>  <span class="mf">10.09</span>
+<span class="mi">3</span>   <span class="n">秀强股份</span>   <span class="mf">4.56</span>
+<span class="mi">4</span>   <span class="n">江淮汽车</span>  <span class="mf">10.08</span>
+<span class="mi">5</span>    <span class="n">欧菲光</span>  <span class="mf">10.00</span>
+<span class="mi">6</span>   <span class="n">中兴通讯</span>   <span class="mf">9.98</span>
+<span class="mi">7</span>   <span class="n">鲁抗医药</span>   <span class="mf">9.97</span>
+<span class="mi">8</span>   <span class="n">海陆重工</span>  <span class="mf">10.07</span>
+<span class="mi">9</span>   <span class="n">中通客车</span>   <span class="mf">9.75</span>
+<span class="mi">10</span>  <span class="n">华天科技</span>  <span class="mf">10.02</span>
+<span class="mi">11</span>  <span class="n">亚星客车</span>   <span class="mf">7.70</span>
+<span class="mi">12</span>  <span class="n">中国平安</span>  <span class="o">-</span><span class="mf">0.66</span>
+<span class="mi">13</span>  <span class="n">新日恒力</span>   <span class="mf">9.98</span>
+<span class="mi">14</span>   <span class="n">同花顺</span>  <span class="o">-</span><span class="mf">0.90</span>
+<span class="mi">15</span>  <span class="n">赣锋锂业</span>  <span class="mf">10.00</span>
+<span class="mi">16</span>  <span class="n">北玻股份</span>  <span class="mf">10.09</span>
+<span class="mi">17</span>   <span class="n">比亚迪</span>   <span class="mf">7.02</span>
+<span class="mi">18</span>  <span class="n">沪电股份</span>  <span class="mf">10.00</span>
+<span class="mi">19</span>   <span class="n">太平洋</span>   <span class="mf">9.92</span>
+<span class="mi">20</span>  <span class="n">深康佳A</span>  <span class="o">-</span><span class="mf">8.02</span>
+<span class="mi">21</span>  <span class="n">天齐锂业</span>   <span class="mf">9.34</span>
+<span class="mi">22</span>  <span class="n">泰达股份</span>   <span class="mf">9.99</span>
+<span class="mi">23</span>  <span class="n">中信证券</span>   <span class="mf">0.68</span>
+<span class="mi">24</span>  <span class="n">欣龙控股</span>  <span class="mf">10.00</span>
+<span class="mi">25</span>  <span class="n">均胜电子</span>  <span class="mf">10.00</span>
+<span class="mi">26</span>   <span class="n">安居宝</span>   <span class="mf">9.98</span>
+<span class="mi">27</span>  <span class="n">联环药业</span>  <span class="mf">10.00</span>
+<span class="mi">28</span>  <span class="n">乾照光电</span>   <span class="mf">2.93</span>
+<span class="mi">29</span>  <span class="n">山东黄金</span>  <span class="o">-</span><span class="mf">3.38</span>
+<span class="mi">30</span>  <span class="n">国海证券</span>   <span class="mf">7.20</span>
+<span class="mi">31</span>  <span class="n">永鼎股份</span>  <span class="mf">10.00</span>
+<span class="mi">32</span>   <span class="n">漫步者</span>  <span class="o">-</span><span class="mf">4.51</span>
+<span class="mi">33</span>  <span class="n">江苏吴中</span>  <span class="mf">10.03</span>
+<span class="mi">34</span>  <span class="n">国农科技</span>  <span class="mf">10.00</span>
+<span class="mi">35</span>  <span class="n">中环股份</span>   <span class="mf">9.98</span>
+<span class="mi">36</span>  <span class="n">阳普医疗</span>  <span class="mf">10.01</span>
+<span class="mi">37</span>   <span class="n">新宙邦</span>   <span class="mf">8.91</span>
+<span class="mi">38</span>  <span class="n">兴森科技</span>   <span class="mf">9.98</span>
+<span class="mi">39</span>  <span class="n">南大光电</span>   <span class="mf">7.46</span>
+<span class="mi">40</span>  <span class="n">四环生物</span>   <span class="mf">9.98</span>
+<span class="mi">41</span>  <span class="n">海特高新</span>  <span class="mf">10.01</span>
+<span class="mi">42</span>  <span class="n">光环新网</span>   <span class="mf">7.97</span>
+<span class="mi">43</span>  <span class="n">晶方科技</span>  <span class="o">-</span><span class="mf">2.73</span>
+<span class="mi">44</span>  <span class="n">铜峰电子</span>  <span class="mf">10.04</span>
+<span class="mi">45</span>  <span class="n">华力创通</span>  <span class="mf">10.00</span>
+<span class="mi">46</span>  <span class="n">复星医药</span>   <span class="mf">9.41</span>
+<span class="mi">47</span>  <span class="n">力帆股份</span>  <span class="mf">10.14</span>
+<span class="mi">48</span>  <span class="n">永太科技</span>   <span class="mf">9.65</span>
+<span class="mi">49</span>  <span class="n">四维图新</span>   <span class="mf">8.76</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id28">
+<h2>彭博亿万富豪指数<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h2>
+<p>接口: index_bloomberg_billionaires</p>
+<p>目标地址: https://www.bloomberg.com/billionaires/</p>
+<p>描述: 获取彭博亿万富豪指数, 全球前 500 名</p>
+<p>限量: 单次返回所有数据彭博亿万富豪排名数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rank</td>
+<td>str</td>
+<td>Y</td>
+<td>Rank</td>
+</tr>
+<tr>
+<td>name</td>
+<td>str</td>
+<td>Y</td>
+<td>Name</td>
+</tr>
+<tr>
+<td>total_net_worth</td>
+<td>str</td>
+<td>Y</td>
+<td>Total net worth</td>
+</tr>
+<tr>
+<td>last_change</td>
+<td>str</td>
+<td>Y</td>
+<td>$ Last change</td>
+</tr>
+<tr>
+<td>YTD_change</td>
+<td>str</td>
+<td>Y</td>
+<td>$ YTD change</td>
+</tr>
+<tr>
+<td>country</td>
+<td>str</td>
+<td>Y</td>
+<td>Country</td>
+</tr>
+<tr>
+<td>industry</td>
+<td>str</td>
+<td>Y</td>
+<td>Industry</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">index_bloomberg_billionaires_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">index_bloomberg_billionaires</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">index_bloomberg_billionaires_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">rank</span>                        <span class="n">name</span>  <span class="o">...</span>             <span class="n">country</span>     <span class="n">industry</span>
+<span class="mi">0</span>      <span class="mi">1</span>                  <span class="n">Jeff</span> <span class="n">Bezos</span>  <span class="o">...</span>       <span class="n">United</span> <span class="n">States</span>   <span class="n">Technology</span>
+<span class="mi">1</span>      <span class="mi">2</span>                  <span class="n">Bill</span> <span class="n">Gates</span>  <span class="o">...</span>       <span class="n">United</span> <span class="n">States</span>   <span class="n">Technology</span>
+<span class="mi">2</span>      <span class="mi">3</span>             <span class="n">Mark</span> <span class="n">Zuckerberg</span>  <span class="o">...</span>       <span class="n">United</span> <span class="n">States</span>   <span class="n">Technology</span>
+<span class="mi">3</span>      <span class="mi">4</span>             <span class="n">Bernard</span> <span class="n">Arnault</span>  <span class="o">...</span>              <span class="n">France</span>     <span class="n">Consumer</span>
+<span class="mi">4</span>      <span class="mi">5</span>               <span class="n">Steve</span> <span class="n">Ballmer</span>  <span class="o">...</span>       <span class="n">United</span> <span class="n">States</span>   <span class="n">Technology</span>
+<span class="o">..</span>   <span class="o">...</span>                         <span class="o">...</span>  <span class="o">...</span>                 <span class="o">...</span>          <span class="o">...</span>
+<span class="mi">494</span>  <span class="mi">496</span>                 <span class="n">Ira</span> <span class="n">Rennert</span>  <span class="o">...</span>       <span class="n">United</span> <span class="n">States</span>  <span class="n">Commodities</span>
+<span class="mi">495</span>  <span class="mi">497</span>  <span class="n">Traudl</span> <span class="n">Engelhorn</span><span class="o">-</span><span class="n">Vechiatto</span>  <span class="o">...</span>         <span class="n">Switzerland</span>  <span class="n">Diversified</span>
+<span class="mi">496</span>  <span class="mi">498</span>            <span class="n">Sergey</span> <span class="n">Galitskiy</span>  <span class="o">...</span>  <span class="n">Russian</span> <span class="n">Federation</span>       <span class="n">Retail</span>
+<span class="mi">497</span>  <span class="mi">499</span>                  <span class="n">Xu</span> <span class="n">Jingren</span>  <span class="o">...</span>               <span class="n">China</span>  <span class="n">Health</span> <span class="n">Care</span>
+<span class="mi">498</span>  <span class="mi">500</span>                <span class="n">Shi</span> <span class="n">Yonghong</span>  <span class="o">...</span>           <span class="n">Singapore</span>     <span class="n">Consumer</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../qhkc/index.html" class="btn btn-neutral float-right" title="AkShare 奇货可查" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../nlp/nlp.html" class="btn btn-neutral float-left" title="AkShare 自然语言处理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

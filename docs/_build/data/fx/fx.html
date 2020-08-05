@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 外汇数据 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AkShare 货币数据" href="../currency/currency.html" />
+    <link rel="prev" title="AkShare 期权数据" href="../option/option.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AkShare 外汇数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">人民币外汇即期报价</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">人民币外汇远掉报价</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">外币对即期报价</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">外币对历史数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">货币对-投机情绪报告</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qhkc/index.html">AkShare 奇货可查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+      <li>AkShare 外汇数据</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/fx/fx.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 外汇数据<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>人民币外汇即期报价<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>接口: fx_spot_quote</p>
+<p>目标地址: http://www.chinamoney.com.cn/chinese/mkdatapfx/</p>
+<p>描述: 获取人民币外汇即期报价</p>
+<p>限量: 单次返回实时行情数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<p>人民币外汇即期报价</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>货币对</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>买报价</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>卖报价</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>中间价</td>
+<td>float</td>
+<td>Y</td>
+<td>为空</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>str</td>
+<td>Y</td>
+<td>为空</td>
+</tr>
+</tbody>
+</table><p><strong>注：本行情为询价报价行情(美元为ODM), 实时更新</strong></p>
+<p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">fx_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">fx_spot_quote</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fx_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-人民币外汇即期报价</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               <span class="n">ccyPair</span>   <span class="n">bidPrc</span>   <span class="n">askPrc</span> <span class="n">midprice</span> <span class="n">time</span>
+    <span class="mi">0</span>      <span class="n">USD</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">7.0810</span>   <span class="mf">7.0824</span>      <span class="o">---</span>
+    <span class="mi">1</span>      <span class="n">EUR</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">7.8878</span>   <span class="mf">7.8903</span>      <span class="o">---</span>
+    <span class="mi">2</span>   <span class="mi">100</span><span class="n">JPY</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">6.5252</span>   <span class="mf">6.5275</span>      <span class="o">---</span>
+    <span class="mi">3</span>      <span class="n">HKD</span><span class="o">/</span><span class="n">CNY</span>  <span class="mf">0.90293</span>  <span class="mf">0.90316</span>      <span class="o">---</span>
+    <span class="mi">4</span>      <span class="n">GBP</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">9.1140</span>   <span class="mf">9.1181</span>      <span class="o">---</span>
+    <span class="mi">5</span>      <span class="n">AUD</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">4.8472</span>   <span class="mf">4.8491</span>      <span class="o">---</span>
+    <span class="mi">6</span>      <span class="n">NZD</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">4.5151</span>   <span class="mf">4.5172</span>      <span class="o">---</span>
+    <span class="mi">7</span>      <span class="n">SGD</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">5.1878</span>   <span class="mf">5.1897</span>      <span class="o">---</span>
+    <span class="mi">8</span>      <span class="n">CHF</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">7.1810</span>   <span class="mf">7.1838</span>      <span class="o">---</span>
+    <span class="mi">9</span>      <span class="n">CAD</span><span class="o">/</span><span class="n">CNY</span>   <span class="mf">5.3911</span>   <span class="mf">5.3929</span>      <span class="o">---</span>
+    <span class="mi">10</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">MYR</span>  <span class="mf">0.58726</span>  <span class="mf">0.59527</span>      <span class="o">---</span>
+    <span class="mi">11</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">RUB</span>   <span class="mf">9.0363</span>   <span class="mf">9.0489</span>      <span class="o">---</span>
+    <span class="mi">12</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">ZAR</span>   <span class="mf">2.0883</span>   <span class="mf">2.0923</span>      <span class="o">---</span>
+    <span class="mi">13</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">KRW</span>   <span class="mf">166.55</span>   <span class="mf">166.89</span>      <span class="o">---</span>
+    <span class="mi">14</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">AED</span>  <span class="mf">0.51850</span>  <span class="mf">0.51886</span>      <span class="o">---</span>
+    <span class="mi">15</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">SAR</span>  <span class="mf">0.52949</span>  <span class="mf">0.52979</span>      <span class="o">---</span>
+    <span class="mi">16</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">HUF</span>  <span class="mf">41.8886</span>  <span class="mf">41.9805</span>      <span class="o">---</span>
+    <span class="mi">17</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">PLN</span>  <span class="mf">0.54270</span>  <span class="mf">0.54331</span>      <span class="o">---</span>
+    <span class="mi">18</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">DKK</span>   <span class="mf">0.9468</span>   <span class="mf">0.9473</span>      <span class="o">---</span>
+    <span class="mi">19</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">SEK</span>   <span class="mf">1.3660</span>   <span class="mf">1.3667</span>      <span class="o">---</span>
+    <span class="mi">20</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">NOK</span>   <span class="mf">1.2964</span>   <span class="mf">1.2971</span>      <span class="o">---</span>
+    <span class="mi">21</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">TRY</span>  <span class="mf">0.81723</span>  <span class="mf">0.81918</span>      <span class="o">---</span>
+    <span class="mi">22</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">MXN</span>   <span class="mf">2.7016</span>   <span class="mf">2.7041</span>      <span class="o">---</span>
+    <span class="mi">23</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">THB</span>   <span class="mf">4.2753</span>   <span class="mf">4.2791</span>      <span class="o">---</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>人民币外汇远掉报价<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>接口: fx_swap_quote</p>
+<p>目标地址: http://www.chinamoney.com.cn/chinese/mkdatapfx/</p>
+<p>描述: 获取人民币外汇远掉报价</p>
+<p>限量: 单次返回实时行情数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<p>人民币外汇远掉报价</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>货币对</td>
+<td>str</td>
+<td>Y</td>
+<td>e.g., "USD/CNY"</td>
+</tr>
+<tr>
+<td>1周</td>
+<td>str</td>
+<td>Y</td>
+<td>e.g., "11.50/12.00"</td>
+</tr>
+<tr>
+<td>1月</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>3月</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>6月</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>9月</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>1年</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p><strong>注：本行情为询价报价行情(美元为ODM), 实时更新</strong></p>
+<p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">fx_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">fx_swap_quote</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fx_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-人民币外汇远掉报价</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">ccpair</span>         <span class="n">label_1W</span>         <span class="n">label_1M</span>           <span class="n">label_3M</span>  \
+    <span class="mi">0</span>      <span class="n">USD</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">11.50</span><span class="o">/</span><span class="mf">12.00</span>      <span class="mf">46.00</span><span class="o">/</span><span class="mf">46.00</span>      <span class="mf">125.00</span><span class="o">/</span><span class="mf">125.00</span>
+    <span class="mi">1</span>      <span class="n">EUR</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">51.90</span><span class="o">/</span><span class="mf">52.12</span>    <span class="mf">218.17</span><span class="o">/</span><span class="mf">218.56</span>      <span class="mf">658.41</span><span class="o">/</span><span class="mf">658.56</span>
+    <span class="mi">2</span>   <span class="mi">100</span><span class="n">JPY</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">40.03</span><span class="o">/</span><span class="mf">40.13</span>    <span class="mf">177.78</span><span class="o">/</span><span class="mf">177.83</span>      <span class="mf">530.98</span><span class="o">/</span><span class="mf">531.17</span>
+    <span class="mi">3</span>      <span class="n">HKD</span><span class="o">/</span><span class="n">CNY</span>        <span class="mf">2.15</span><span class="o">/</span><span class="mf">2.17</span>        <span class="mf">8.24</span><span class="o">/</span><span class="mf">8.52</span>        <span class="mf">20.48</span><span class="o">/</span><span class="mf">20.53</span>
+    <span class="mi">4</span>      <span class="n">GBP</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">37.65</span><span class="o">/</span><span class="mf">37.87</span>    <span class="mf">150.56</span><span class="o">/</span><span class="mf">150.58</span>      <span class="mf">445.90</span><span class="o">/</span><span class="mf">446.01</span>
+    <span class="mi">5</span>      <span class="n">AUD</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">16.57</span><span class="o">/</span><span class="mf">16.65</span>      <span class="mf">70.49</span><span class="o">/</span><span class="mf">70.58</span>      <span class="mf">203.26</span><span class="o">/</span><span class="mf">203.75</span>
+    <span class="mi">6</span>      <span class="n">NZD</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">16.07</span><span class="o">/</span><span class="mf">16.22</span>      <span class="mf">60.94</span><span class="o">/</span><span class="mf">61.58</span>      <span class="mf">168.29</span><span class="o">/</span><span class="mf">169.03</span>
+    <span class="mi">7</span>      <span class="n">SGD</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">12.05</span><span class="o">/</span><span class="mf">12.45</span>      <span class="mf">50.49</span><span class="o">/</span><span class="mf">50.84</span>      <span class="mf">144.87</span><span class="o">/</span><span class="mf">146.50</span>
+    <span class="mi">8</span>      <span class="n">CHF</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">51.31</span><span class="o">/</span><span class="mf">52.25</span>    <span class="mf">218.56</span><span class="o">/</span><span class="mf">218.56</span>      <span class="mf">675.03</span><span class="o">/</span><span class="mf">675.18</span>
+    <span class="mi">9</span>      <span class="n">CAD</span><span class="o">/</span><span class="n">CNY</span>      <span class="mf">12.28</span><span class="o">/</span><span class="mf">12.28</span>      <span class="mf">47.65</span><span class="o">/</span><span class="mf">47.69</span>      <span class="mf">138.33</span><span class="o">/</span><span class="mf">138.46</span>
+    <span class="mi">10</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">MYR</span>       <span class="o">-</span><span class="mf">0.30</span><span class="o">/</span><span class="mf">0.17</span>       <span class="o">-</span><span class="mf">0.24</span><span class="o">/</span><span class="mf">0.61</span>        <span class="o">-</span><span class="mf">2.38</span><span class="o">/-</span><span class="mf">0.84</span>
+    <span class="mi">11</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">RUB</span>      <span class="mf">67.89</span><span class="o">/</span><span class="mf">73.27</span>    <span class="mf">296.66</span><span class="o">/</span><span class="mf">320.03</span>      <span class="mf">882.24</span><span class="o">/</span><span class="mf">899.51</span>
+    <span class="mi">12</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">ZAR</span>      <span class="mf">15.55</span><span class="o">/</span><span class="mf">16.41</span>      <span class="mf">72.06</span><span class="o">/</span><span class="mf">72.70</span>      <span class="mf">213.92</span><span class="o">/</span><span class="mf">215.87</span>
+    <span class="mi">13</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">KRW</span>      <span class="o">-</span><span class="mf">6.77</span><span class="o">/-</span><span class="mf">3.84</span>    <span class="o">-</span><span class="mf">29.85</span><span class="o">/-</span><span class="mf">15.77</span>      <span class="o">-</span><span class="mf">90.62</span><span class="o">/-</span><span class="mf">52.66</span>
+    <span class="mi">14</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">AED</span>      <span class="o">-</span><span class="mf">0.90</span><span class="o">/-</span><span class="mf">0.70</span>      <span class="o">-</span><span class="mf">3.38</span><span class="o">/-</span><span class="mf">2.96</span>        <span class="o">-</span><span class="mf">8.08</span><span class="o">/-</span><span class="mf">7.46</span>
+    <span class="mi">15</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">SAR</span>      <span class="o">-</span><span class="mf">1.31</span><span class="o">/-</span><span class="mf">1.14</span>      <span class="o">-</span><span class="mf">4.81</span><span class="o">/-</span><span class="mf">4.27</span>       <span class="o">-</span><span class="mf">10.27</span><span class="o">/-</span><span class="mf">9.88</span>
+    <span class="mi">16</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">HUF</span>  <span class="o">-</span><span class="mf">247.54</span><span class="o">/-</span><span class="mf">213.70</span>  <span class="o">-</span><span class="mf">938.77</span><span class="o">/-</span><span class="mf">908.44</span>  <span class="o">-</span><span class="mf">2937.98</span><span class="o">/-</span><span class="mf">2827.36</span>
+    <span class="mi">17</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">PLN</span>      <span class="o">-</span><span class="mf">1.50</span><span class="o">/-</span><span class="mf">1.37</span>      <span class="o">-</span><span class="mf">5.52</span><span class="o">/-</span><span class="mf">5.32</span>      <span class="o">-</span><span class="mf">14.85</span><span class="o">/-</span><span class="mf">14.02</span>
+    <span class="mi">18</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">DKK</span>      <span class="o">-</span><span class="mf">6.88</span><span class="o">/-</span><span class="mf">6.74</span>    <span class="o">-</span><span class="mf">28.61</span><span class="o">/-</span><span class="mf">28.13</span>      <span class="o">-</span><span class="mf">87.29</span><span class="o">/-</span><span class="mf">83.40</span>
+    <span class="mi">19</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">SEK</span>      <span class="o">-</span><span class="mf">8.83</span><span class="o">/-</span><span class="mf">8.25</span>    <span class="o">-</span><span class="mf">34.51</span><span class="o">/-</span><span class="mf">33.83</span>    <span class="o">-</span><span class="mf">104.48</span><span class="o">/-</span><span class="mf">100.71</span>
+    <span class="mi">20</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">NOK</span>      <span class="o">-</span><span class="mf">3.94</span><span class="o">/-</span><span class="mf">2.84</span>    <span class="o">-</span><span class="mf">13.58</span><span class="o">/-</span><span class="mf">11.24</span>      <span class="o">-</span><span class="mf">34.81</span><span class="o">/-</span><span class="mf">33.72</span>
+    <span class="mi">21</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">TRY</span>      <span class="mf">13.47</span><span class="o">/</span><span class="mf">22.01</span>     <span class="mf">56.52</span><span class="o">/</span><span class="mf">103.43</span>      <span class="mf">229.52</span><span class="o">/</span><span class="mf">242.35</span>
+    <span class="mi">22</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">MXN</span>      <span class="o">-</span><span class="mf">4.58</span><span class="o">/-</span><span class="mf">4.40</span>    <span class="o">-</span><span class="mf">17.57</span><span class="o">/-</span><span class="mf">17.57</span>      <span class="o">-</span><span class="mf">47.68</span><span class="o">/-</span><span class="mf">46.55</span>
+    <span class="mi">23</span>     <span class="n">CNY</span><span class="o">/</span><span class="n">THB</span>      <span class="o">-</span><span class="mf">7.25</span><span class="o">/-</span><span class="mf">6.87</span>    <span class="o">-</span><span class="mf">27.77</span><span class="o">/-</span><span class="mf">27.72</span>      <span class="o">-</span><span class="mf">75.46</span><span class="o">/-</span><span class="mf">75.42</span>
+                 <span class="n">label_6M</span>           <span class="n">label_9M</span>           <span class="n">label_1Y</span>
+    <span class="mi">0</span>       <span class="mf">205.00</span><span class="o">/</span><span class="mf">210.00</span>      <span class="mf">275.00</span><span class="o">/</span><span class="mf">278.00</span>      <span class="mf">342.50</span><span class="o">/</span><span class="mf">345.00</span>
+    <span class="mi">1</span>     <span class="mf">1199.68</span><span class="o">/</span><span class="mf">1201.39</span>    <span class="mf">1723.92</span><span class="o">/</span><span class="mf">1730.71</span>    <span class="mf">2246.18</span><span class="o">/</span><span class="mf">2249.27</span>
+    <span class="mi">2</span>       <span class="mf">963.67</span><span class="o">/</span><span class="mf">967.95</span>    <span class="mf">1402.82</span><span class="o">/</span><span class="mf">1403.96</span>    <span class="mf">1793.50</span><span class="o">/</span><span class="mf">1801.90</span>
+    <span class="mi">3</span>         <span class="mf">32.31</span><span class="o">/</span><span class="mf">32.67</span>        <span class="mf">40.96</span><span class="o">/</span><span class="mf">40.96</span>        <span class="mf">48.84</span><span class="o">/</span><span class="mf">49.03</span>
+    <span class="mi">4</span>       <span class="mf">763.21</span><span class="o">/</span><span class="mf">769.97</span>    <span class="mf">1052.69</span><span class="o">/</span><span class="mf">1054.22</span>    <span class="mf">1336.20</span><span class="o">/</span><span class="mf">1338.15</span>
+    <span class="mi">5</span>       <span class="mf">364.81</span><span class="o">/</span><span class="mf">364.87</span>      <span class="mf">499.29</span><span class="o">/</span><span class="mf">502.99</span>      <span class="mf">623.56</span><span class="o">/</span><span class="mf">627.52</span>
+    <span class="mi">6</span>       <span class="mf">297.93</span><span class="o">/</span><span class="mf">301.14</span>      <span class="mf">404.95</span><span class="o">/</span><span class="mf">407.30</span>      <span class="mf">517.50</span><span class="o">/</span><span class="mf">519.69</span>
+    <span class="mi">7</span>       <span class="mf">257.36</span><span class="o">/</span><span class="mf">259.91</span>      <span class="mf">341.81</span><span class="o">/</span><span class="mf">346.18</span>      <span class="mf">427.37</span><span class="o">/</span><span class="mf">428.44</span>
+    <span class="mi">8</span>     <span class="mf">1237.70</span><span class="o">/</span><span class="mf">1241.00</span>    <span class="mf">1770.44</span><span class="o">/</span><span class="mf">1774.84</span>    <span class="mf">2310.22</span><span class="o">/</span><span class="mf">2311.93</span>
+    <span class="mi">9</span>       <span class="mf">195.51</span><span class="o">/</span><span class="mf">199.29</span>      <span class="mf">231.22</span><span class="o">/</span><span class="mf">231.30</span>      <span class="mf">263.39</span><span class="o">/</span><span class="mf">263.40</span>
+    <span class="mi">10</span>          <span class="mf">2.66</span><span class="o">/</span><span class="mf">5.88</span>        <span class="mf">10.64</span><span class="o">/</span><span class="mf">19.33</span>        <span class="mf">20.53</span><span class="o">/</span><span class="mf">33.38</span>
+    <span class="mi">11</span>    <span class="mf">1780.84</span><span class="o">/</span><span class="mf">1814.49</span>    <span class="mf">2697.91</span><span class="o">/</span><span class="mf">2759.32</span>    <span class="mf">3604.59</span><span class="o">/</span><span class="mf">3663.77</span>
+    <span class="mi">12</span>      <span class="mf">440.35</span><span class="o">/</span><span class="mf">442.99</span>      <span class="mf">676.02</span><span class="o">/</span><span class="mf">682.94</span>      <span class="mf">919.59</span><span class="o">/</span><span class="mf">923.42</span>
+    <span class="mi">13</span>    <span class="o">-</span><span class="mf">167.44</span><span class="o">/-</span><span class="mf">110.12</span>    <span class="o">-</span><span class="mf">233.82</span><span class="o">/-</span><span class="mf">171.47</span>    <span class="o">-</span><span class="mf">304.06</span><span class="o">/-</span><span class="mf">233.52</span>
+    <span class="mi">14</span>      <span class="o">-</span><span class="mf">13.13</span><span class="o">/-</span><span class="mf">11.45</span>      <span class="o">-</span><span class="mf">15.97</span><span class="o">/-</span><span class="mf">14.44</span>      <span class="o">-</span><span class="mf">18.74</span><span class="o">/-</span><span class="mf">17.22</span>
+    <span class="mi">15</span>      <span class="o">-</span><span class="mf">15.74</span><span class="o">/-</span><span class="mf">15.13</span>      <span class="o">-</span><span class="mf">19.89</span><span class="o">/-</span><span class="mf">18.33</span>      <span class="o">-</span><span class="mf">22.75</span><span class="o">/-</span><span class="mf">21.21</span>
+    <span class="mi">16</span>  <span class="o">-</span><span class="mf">5168.11</span><span class="o">/-</span><span class="mf">4910.26</span>  <span class="o">-</span><span class="mf">7171.99</span><span class="o">/-</span><span class="mf">6800.90</span>  <span class="o">-</span><span class="mf">9438.87</span><span class="o">/-</span><span class="mf">8728.19</span>
+    <span class="mi">17</span>      <span class="o">-</span><span class="mf">23.17</span><span class="o">/-</span><span class="mf">21.13</span>      <span class="o">-</span><span class="mf">27.96</span><span class="o">/-</span><span class="mf">25.45</span>      <span class="o">-</span><span class="mf">32.19</span><span class="o">/-</span><span class="mf">28.86</span>
+    <span class="mi">18</span>    <span class="o">-</span><span class="mf">158.56</span><span class="o">/-</span><span class="mf">152.01</span>    <span class="o">-</span><span class="mf">225.33</span><span class="o">/-</span><span class="mf">216.64</span>    <span class="o">-</span><span class="mf">290.38</span><span class="o">/-</span><span class="mf">278.70</span>
+    <span class="mi">19</span>    <span class="o">-</span><span class="mf">180.36</span><span class="o">/-</span><span class="mf">177.42</span>    <span class="o">-</span><span class="mf">250.27</span><span class="o">/-</span><span class="mf">248.86</span>    <span class="o">-</span><span class="mf">318.80</span><span class="o">/-</span><span class="mf">305.83</span>
+    <span class="mi">20</span>      <span class="o">-</span><span class="mf">50.00</span><span class="o">/-</span><span class="mf">47.44</span>      <span class="o">-</span><span class="mf">60.16</span><span class="o">/-</span><span class="mf">56.10</span>      <span class="o">-</span><span class="mf">70.53</span><span class="o">/-</span><span class="mf">60.84</span>
+    <span class="mi">21</span>      <span class="mf">436.90</span><span class="o">/</span><span class="mf">494.04</span>      <span class="mf">651.61</span><span class="o">/</span><span class="mf">750.10</span>      <span class="mf">895.51</span><span class="o">/</span><span class="mf">993.76</span>
+    <span class="mi">22</span>      <span class="o">-</span><span class="mf">79.94</span><span class="o">/-</span><span class="mf">78.15</span>    <span class="o">-</span><span class="mf">105.72</span><span class="o">/-</span><span class="mf">104.72</span>    <span class="o">-</span><span class="mf">131.06</span><span class="o">/-</span><span class="mf">130.29</span>
+    <span class="mi">23</span>    <span class="o">-</span><span class="mf">126.90</span><span class="o">/-</span><span class="mf">123.92</span>    <span class="o">-</span><span class="mf">168.07</span><span class="o">/-</span><span class="mf">166.21</span>    <span class="o">-</span><span class="mf">208.66</span><span class="o">/-</span><span class="mf">207.02</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>外币对即期报价<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>接口: fx_pair_quote</p>
+<p>目标地址: http://www.chinamoney.com.cn/chinese/mkdatapfx/</p>
+<p>描述: 获取外币对即期报价</p>
+<p>限量: 单次返回当前时点最近更新的即时数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+</tr>
+</tbody>
+</table><p>输出参数-获取外币对即期报价</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>货币对</td>
+<td>str</td>
+<td>Y</td>
+<td>e.g., "AUD/USD"</td>
+</tr>
+<tr>
+<td>买报价</td>
+<td>float</td>
+<td>Y</td>
+<td>e.g., "0.68460"</td>
+</tr>
+<tr>
+<td>卖报价</td>
+<td>float</td>
+<td>Y</td>
+<td>e.g., "0.68461"</td>
+</tr>
+<tr>
+<td>中间价</td>
+<td>float</td>
+<td>Y</td>
+<td>为空</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>str</td>
+<td>Y</td>
+<td>为空</td>
+</tr>
+</tbody>
+</table><p><strong>注：本行情为询价报价行情(美元为ODM), 实时更新</strong></p>
+<p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">fx_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">fx_pair_quote</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fx_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-外币对即期报价</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>        <span class="n">ccyPair</span>   <span class="n">bidPrc</span>   <span class="n">askPrc</span> <span class="n">midprice</span> <span class="n">time</span>
+<span class="mi">0</span>   <span class="n">AUD</span><span class="o">/</span><span class="n">USD</span>  <span class="mf">0.68460</span>  <span class="mf">0.68461</span>      <span class="o">---</span>
+<span class="mi">1</span>   <span class="n">EUR</span><span class="o">/</span><span class="n">JPY</span>  <span class="mf">120.897</span>  <span class="mf">120.898</span>      <span class="o">---</span>
+<span class="mi">2</span>   <span class="n">EUR</span><span class="o">/</span><span class="n">USD</span>  <span class="mf">1.11402</span>  <span class="mf">1.11403</span>      <span class="o">---</span>
+<span class="mi">3</span>   <span class="n">GBP</span><span class="o">/</span><span class="n">USD</span>  <span class="mf">1.28724</span>  <span class="mf">1.28727</span>      <span class="o">---</span>
+<span class="mi">4</span>   <span class="n">USD</span><span class="o">/</span><span class="n">CAD</span>  <span class="mf">1.31339</span>  <span class="mf">1.31340</span>      <span class="o">---</span>
+<span class="mi">5</span>   <span class="n">USD</span><span class="o">/</span><span class="n">CHF</span>  <span class="mf">0.98599</span>  <span class="mf">0.98601</span>      <span class="o">---</span>
+<span class="mi">6</span>   <span class="n">USD</span><span class="o">/</span><span class="n">HKD</span>  <span class="mf">7.84215</span>  <span class="mf">7.84217</span>      <span class="o">---</span>
+<span class="mi">7</span>   <span class="n">USD</span><span class="o">/</span><span class="n">JPY</span>  <span class="mf">108.516</span>  <span class="mf">108.517</span>      <span class="o">---</span>
+<span class="mi">8</span>   <span class="n">USD</span><span class="o">/</span><span class="n">SGD</span>  <span class="mf">1.36483</span>  <span class="mf">1.36485</span>      <span class="o">---</span>
+<span class="mi">9</span>   <span class="n">NZD</span><span class="o">/</span><span class="n">USD</span>  <span class="mf">0.63772</span>  <span class="mf">0.63773</span>      <span class="o">---</span>
+<span class="mi">10</span>  <span class="n">EUR</span><span class="o">/</span><span class="n">GBP</span>  <span class="mf">0.86544</span>  <span class="mf">0.86546</span>      <span class="o">---</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>外币对历史数据<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>接口: currency_hist</p>
+<p>目标地址: https://cn.investing.com/currencies/</p>
+<p>描述: 获取指定外币对指定时间的历史数据</p>
+<p>限量: 单次返回指定时间的所有历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symbol</td>
+<td>str</td>
+<td>Y</td>
+<td>symbol="usd-jpy"; 可以通过 <strong>currency_name_code</strong> 查询该两种货币可以获取的所有货币对</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="20050101"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="20200117"</td>
+</tr>
+</tbody>
+</table><p>数据示例-currency_name_code</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="n">name</span>     <span class="n">code</span>
+<span class="mi">0</span>        <span class="n">欧元</span><span class="o">/</span><span class="n">美元</span>  <span class="n">eur</span><span class="o">-</span><span class="n">usd</span>
+<span class="mi">1</span>        <span class="n">英镑</span><span class="o">/</span><span class="n">美元</span>  <span class="n">gbp</span><span class="o">-</span><span class="n">usd</span>
+<span class="mi">2</span>        <span class="n">美元</span><span class="o">/</span><span class="n">日元</span>  <span class="n">usd</span><span class="o">-</span><span class="n">jpy</span>
+<span class="mi">3</span>      <span class="n">美元</span><span class="o">/</span><span class="n">瑞士法郎</span>  <span class="n">usd</span><span class="o">-</span><span class="n">chf</span>
+<span class="mi">4</span>     <span class="n">澳大利亚元</span><span class="o">/</span><span class="n">美元</span>  <span class="n">aud</span><span class="o">-</span><span class="n">usd</span>
+<span class="o">..</span>         <span class="o">...</span>      <span class="o">...</span>
+<span class="mi">268</span>    <span class="n">日元</span><span class="o">/</span><span class="n">新加坡元</span>  <span class="n">jpy</span><span class="o">-</span><span class="n">sgd</span>
+<span class="mi">269</span>  <span class="n">科威特第纳尔</span><span class="o">/</span><span class="n">日元</span>  <span class="n">kwd</span><span class="o">-</span><span class="n">jpy</span>
+<span class="mi">270</span>  <span class="n">日元</span><span class="o">/</span><span class="n">白俄罗斯卢布</span>  <span class="n">jpy</span><span class="o">-</span><span class="n">byn</span>
+<span class="mi">271</span>  <span class="n">日元</span><span class="o">/</span><span class="n">乌克兰赫里纳</span>  <span class="n">jpy</span><span class="o">-</span><span class="n">uah</span>
+<span class="mi">272</span>   <span class="n">日元</span><span class="o">/</span><span class="n">土耳其里拉</span>  <span class="n">jpy</span><span class="o">-</span><span class="k">try</span>
+</pre></div>
+</div>
+<p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日期</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>收盘</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>开盘</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>高</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>低</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>涨跌幅</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>接口示例</p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">currency_hist_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">currency_hist</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;usd-jpy&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;20050101&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;20200117&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">currency_hist_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">收盘</span>      <span class="n">开盘</span>       <span class="n">高</span>       <span class="n">低</span>     <span class="n">涨跌幅</span>
+<span class="n">日期</span>                                                
+<span class="mi">2020</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">17</span>  <span class="mf">110.16</span>  <span class="mf">110.14</span>  <span class="mf">110.30</span>  <span class="mf">110.05</span>   <span class="mf">0.00</span><span class="o">%</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">16</span>  <span class="mf">110.16</span>  <span class="mf">109.89</span>  <span class="mf">110.19</span>  <span class="mf">109.86</span>   <span class="mf">0.25</span><span class="o">%</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">15</span>  <span class="mf">109.89</span>  <span class="mf">110.00</span>  <span class="mf">110.03</span>  <span class="mf">109.78</span>  <span class="o">-</span><span class="mf">0.08</span><span class="o">%</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">14</span>  <span class="mf">109.98</span>  <span class="mf">109.94</span>  <span class="mf">110.22</span>  <span class="mf">109.86</span>   <span class="mf">0.04</span><span class="o">%</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">13</span>  <span class="mf">109.94</span>  <span class="mf">109.49</span>  <span class="mf">109.95</span>  <span class="mf">109.45</span>   <span class="mf">0.43</span><span class="o">%</span>
+            <span class="o">...</span>     <span class="o">...</span>     <span class="o">...</span>     <span class="o">...</span>     <span class="o">...</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">07</span>  <span class="mf">104.80</span>  <span class="mf">104.97</span>  <span class="mf">105.17</span>  <span class="mf">103.83</span>  <span class="o">-</span><span class="mf">0.26</span><span class="o">%</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">06</span>  <span class="mf">105.07</span>  <span class="mf">104.12</span>  <span class="mf">105.20</span>  <span class="mf">103.85</span>   <span class="mf">0.94</span><span class="o">%</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">05</span>  <span class="mf">104.09</span>  <span class="mf">104.56</span>  <span class="mf">105.03</span>  <span class="mf">103.73</span>  <span class="o">-</span><span class="mf">0.50</span><span class="o">%</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">04</span>  <span class="mf">104.61</span>  <span class="mf">102.77</span>  <span class="mf">104.81</span>  <span class="mf">102.41</span>   <span class="mf">1.84</span><span class="o">%</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">03</span>  <span class="mf">102.72</span>  <span class="mf">102.69</span>  <span class="mf">103.47</span>  <span class="mf">102.33</span>   <span class="mf">0.24</span><span class="o">%</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>货币对-投机情绪报告<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>接口: macro_fx_sentiment</p>
+<p>目标地址: https://datacenter.jin10.com/reportType/dc_ssi_trends</p>
+<p>描述: 获取货币对-投机情绪报告</p>
+<p>限量: 单次返回指定日期所有品种的数据(所指定的日期必须在当前交易日之前的30个交易日内)</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="2020-04-07"; 所指定的日期必须在当前交易日之前的30个交易日内</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="2020-04-07"; 与 start_date 一致</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日期索引</td>
+<td>str</td>
+<td>Y</td>
+<td>间隔10分钟</td>
+</tr>
+<tr>
+<td>AUDJPY</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>AUDUSD</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>EURAUD</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>EURJPY</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>EURUSD</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>GBPJPY</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>GBPUSD</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>NZDUSD</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>USDCAD</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>USDCHF</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>USDJPY</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>USDX</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>XAUUSD</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>接口示例</p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="n">test_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+<span class="n">macro_fx_sentiment_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">macro_fx_sentiment</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="n">test_date</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="n">test_date</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">macro_fx_sentiment_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                 <span class="n">AUDJPY</span> <span class="n">AUDUSD</span> <span class="n">EURAUD</span> <span class="n">EURJPY</span>  <span class="o">...</span> <span class="n">USDCHF</span> <span class="n">USDJPY</span>   <span class="n">USDX</span> <span class="n">XAUUSD</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">55.19</span>  <span class="mf">48.96</span>  <span class="mf">47.59</span>  <span class="mf">68.24</span>  <span class="o">...</span>  <span class="mf">59.42</span>  <span class="mf">58.91</span>  <span class="mf">48.07</span>  <span class="mf">45.64</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">10</span>  <span class="mf">55.31</span>  <span class="mf">48.92</span>  <span class="mf">47.83</span>  <span class="mf">68.11</span>  <span class="o">...</span>  <span class="mf">59.38</span>  <span class="mf">57.90</span>  <span class="mf">47.89</span>  <span class="mf">45.63</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">20</span>  <span class="mf">54.93</span>  <span class="mf">48.67</span>  <span class="mf">47.38</span>  <span class="mf">67.91</span>  <span class="o">...</span>  <span class="mf">59.32</span>  <span class="mf">57.78</span>  <span class="mf">47.99</span>  <span class="mf">45.73</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">30</span>  <span class="mf">55.02</span>  <span class="mf">48.77</span>  <span class="mf">47.44</span>  <span class="mf">67.50</span>  <span class="o">...</span>  <span class="mf">59.61</span>  <span class="mf">57.64</span>  <span class="mf">48.02</span>  <span class="mf">45.32</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">00</span><span class="p">:</span><span class="mi">40</span>  <span class="mf">55.07</span>  <span class="mf">48.65</span>  <span class="mf">47.17</span>  <span class="mf">67.56</span>  <span class="o">...</span>  <span class="mf">59.27</span>  <span class="mf">56.99</span>  <span class="mf">47.75</span>  <span class="mf">45.36</span>
+                 <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>  <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">20</span><span class="p">:</span><span class="mi">20</span>  <span class="mf">53.66</span>  <span class="mf">44.01</span>  <span class="mf">47.54</span>  <span class="mf">67.38</span>  <span class="o">...</span>  <span class="mf">59.56</span>  <span class="mf">57.70</span>  <span class="mf">50.78</span>  <span class="mf">47.72</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">20</span><span class="p">:</span><span class="mi">30</span>  <span class="mf">53.91</span>  <span class="mf">44.11</span>  <span class="mf">47.78</span>  <span class="mf">67.43</span>  <span class="o">...</span>  <span class="mf">59.79</span>  <span class="mf">57.70</span>  <span class="mf">50.65</span>  <span class="mf">47.95</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">20</span><span class="p">:</span><span class="mi">40</span>  <span class="mf">54.00</span>  <span class="mf">44.01</span>  <span class="mf">48.00</span>  <span class="mf">67.05</span>  <span class="o">...</span>  <span class="mf">59.57</span>  <span class="mf">57.82</span>  <span class="mf">50.80</span>  <span class="mf">47.70</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">20</span><span class="p">:</span><span class="mi">50</span>  <span class="mf">53.95</span>  <span class="mf">44.11</span>  <span class="mf">48.14</span>  <span class="mf">66.76</span>  <span class="o">...</span>  <span class="mf">59.67</span>  <span class="mf">57.80</span>  <span class="mf">50.87</span>  <span class="mf">47.55</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">22</span> <span class="mi">21</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">53.95</span>  <span class="mf">44.06</span>  <span class="mf">47.99</span>  <span class="mf">67.21</span>  <span class="o">...</span>  <span class="mf">59.59</span>  <span class="mf">57.64</span>  <span class="mf">50.73</span>  <span class="mf">47.35</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../currency/currency.html" class="btn btn-neutral float-right" title="AkShare 货币数据" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../option/option.html" class="btn btn-neutral float-left" title="AkShare 期权数据" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

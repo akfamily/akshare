@@ -1,0 +1,1716 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>席位 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="指数" href="index_data.html" />
+    <link rel="prev" title="商品" href="commodity.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">AkShare 奇货可查</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="commodity.html">商品</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">席位</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">席位持仓数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">席位盈亏数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">席位每日大资金流动数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">席位多空比数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id30">席位净持仓保证金变化数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id37">席位净持仓保证金数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id44">席位总持仓保证金数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id51">席位的商品盈亏数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id58">席位盈利排行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id65">席位亏损排行</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id72">所有席位数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id79">建仓过程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id86">席位对对碰</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="index_data.html">指数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fundamental.html">基本面</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tools.html">工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fund.html">资金</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+          <li><a href="index.html">AkShare 奇货可查</a> &raquo;</li>
+        
+      <li>席位</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/qhkc/broker.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>席位<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>席位持仓数据<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>接口名称<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>broker_positions</p>
+</div>
+<div class="section" id="id4">
+<h3>接口描述<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>席位持仓数据接口</p>
+</div>
+<div class="section" id="id5">
+<h3>请求参数<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id6">
+<h3>返回参数<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">code</td>
+<td align="left">string</td>
+<td>合约代号</td>
+</tr>
+<tr>
+<td align="left">long</td>
+<td align="left">int</td>
+<td>多头持仓</td>
+</tr>
+<tr>
+<td align="left">short</td>
+<td align="left">int</td>
+<td>空头持仓</td>
+</tr>
+<tr>
+<td align="left">long_chge</td>
+<td align="left">int</td>
+<td>多头持仓变化量</td>
+</tr>
+<tr>
+<td align="left">short_chge</td>
+<td align="left">int</td>
+<td>空头持仓变化量</td>
+</tr>
+<tr>
+<td align="left">symbol</td>
+<td align="left">string</td>
+<td>品种编码</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id7">
+<h3>示例代码<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_positions_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_positions</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_positions_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>返回示例<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       <span class="n">code</span>   <span class="n">long</span>  <span class="n">long_chge</span>  <span class="n">short</span>  <span class="n">short_chge</span> <span class="n">symbol</span>
+<span class="mi">0</span>     <span class="n">a1809</span>   <span class="mi">2354</span>       <span class="o">-</span><span class="mi">175</span>      <span class="mi">0</span>           <span class="mi">0</span>      <span class="n">A</span>
+<span class="mi">1</span>     <span class="n">a1901</span>   <span class="mi">4247</span>        <span class="mi">426</span>   <span class="mi">5159</span>         <span class="mi">493</span>      <span class="n">A</span>
+<span class="mi">2</span>    <span class="n">ag1812</span>   <span class="mi">6155</span>        <span class="mi">212</span>  <span class="mi">13692</span>          <span class="mi">99</span>     <span class="n">AG</span>
+<span class="mi">3</span>    <span class="n">al1808</span>    <span class="mi">455</span>         <span class="o">-</span><span class="mi">5</span>      <span class="mi">0</span>           <span class="mi">0</span>     <span class="n">AL</span>
+<span class="mi">4</span>    <span class="n">al1809</span>   <span class="mi">2284</span>       <span class="o">-</span><span class="mi">181</span>      <span class="mi">0</span>           <span class="mi">0</span>     <span class="n">AL</span>
+<span class="mi">5</span>    <span class="n">al1810</span>   <span class="mi">2451</span>        <span class="mi">158</span>      <span class="mi">0</span>           <span class="mi">0</span>     <span class="n">AL</span>
+<span class="mi">6</span>    <span class="n">al1811</span>    <span class="mi">633</span>          <span class="mi">0</span>    <span class="mi">544</span>         <span class="mi">544</span>     <span class="n">AL</span>
+<span class="mi">7</span>    <span class="n">al1812</span>    <span class="mi">419</span>          <span class="mi">8</span>      <span class="mi">0</span>           <span class="mi">0</span>     <span class="n">AL</span>
+<span class="mi">8</span>    <span class="n">ap1810</span>   <span class="mi">1311</span>        <span class="o">-</span><span class="mi">38</span>   <span class="mi">1506</span>        <span class="o">-</span><span class="mi">205</span>     <span class="n">AP</span>
+<span class="mi">9</span>    <span class="n">ap1811</span>      <span class="mi">0</span>          <span class="mi">0</span>    <span class="mi">194</span>         <span class="o">-</span><span class="mi">14</span>     <span class="n">AP</span>
+<span class="mi">10</span>   <span class="n">ap1901</span>   <span class="mi">4090</span>         <span class="mi">58</span>   <span class="mi">4735</span>         <span class="mi">233</span>     <span class="n">AP</span>
+<span class="mi">11</span>   <span class="n">ap1905</span>   <span class="mi">4017</span>         <span class="mi">65</span>   <span class="mi">2386</span>         <span class="o">-</span><span class="mi">17</span>     <span class="n">AP</span>
+<span class="mi">12</span>   <span class="n">au1812</span>   <span class="mi">2381</span>       <span class="o">-</span><span class="mi">226</span>    <span class="mi">837</span>          <span class="mi">98</span>     <span class="n">AU</span>
+<span class="mi">13</span>    <span class="n">b1809</span>      <span class="mi">0</span>      <span class="o">-</span><span class="mi">1153</span>      <span class="mi">0</span>           <span class="mi">0</span>      <span class="n">B</span>
+<span class="mi">14</span>    <span class="n">b1901</span>      <span class="mi">0</span>          <span class="mi">0</span>    <span class="mi">175</span>         <span class="mi">175</span>      <span class="n">B</span>
+<span class="mi">15</span>   <span class="n">bu1812</span>  <span class="mi">18412</span>       <span class="o">-</span><span class="mi">654</span>  <span class="mi">24973</span>        <span class="o">-</span><span class="mi">689</span>     <span class="n">BU</span>
+<span class="mi">16</span>    <span class="n">c1809</span>   <span class="mi">9137</span>        <span class="mi">966</span>  <span class="mi">11309</span>        <span class="o">-</span><span class="mi">613</span>      <span class="n">C</span>
+<span class="mi">17</span>    <span class="n">c1811</span>     <span class="mi">23</span>         <span class="mi">16</span>      <span class="mi">0</span>           <span class="mi">0</span>      <span class="n">C</span>
+<span class="mi">18</span>    <span class="n">c1901</span>  <span class="mi">13987</span>     <span class="o">-</span><span class="mi">12150</span>  <span class="mi">47226</span>        <span class="mi">5144</span>      <span class="n">C</span>
+<span class="mi">19</span>    <span class="n">c1905</span>   <span class="mi">1928</span>        <span class="mi">429</span>   <span class="mi">6739</span>          <span class="mi">15</span>      <span class="n">C</span>
+<span class="mi">20</span>   <span class="n">cf1809</span>   <span class="mi">7983</span>        <span class="mi">729</span>   <span class="mi">2337</span>         <span class="o">-</span><span class="mi">40</span>     <span class="n">CF</span>
+<span class="mi">21</span>   <span class="n">cf1901</span>  <span class="mi">10338</span>       <span class="o">-</span><span class="mi">336</span>  <span class="mi">35354</span>        <span class="o">-</span><span class="mi">798</span>     <span class="n">CF</span>
+<span class="mi">22</span>   <span class="n">cf1905</span>  <span class="mi">14971</span>       <span class="mi">1429</span>   <span class="mi">9244</span>        <span class="mi">2901</span>     <span class="n">CF</span>
+<span class="mi">23</span>   <span class="n">cs1809</span>   <span class="mi">1768</span>       <span class="o">-</span><span class="mi">654</span>   <span class="mi">2343</span>         <span class="mi">629</span>     <span class="n">CS</span>
+<span class="mi">24</span>   <span class="n">cs1901</span>   <span class="mi">2169</span>        <span class="mi">939</span>   <span class="mi">1108</span>         <span class="o">-</span><span class="mi">22</span>     <span class="n">CS</span>
+<span class="mi">25</span>   <span class="n">cu1808</span>      <span class="mi">0</span>          <span class="mi">0</span>      <span class="mi">0</span>           <span class="mi">0</span>     <span class="n">CU</span>
+<span class="mi">26</span>   <span class="n">cu1809</span>   <span class="mi">4197</span>       <span class="o">-</span><span class="mi">104</span>   <span class="mi">2658</span>         <span class="o">-</span><span class="mi">11</span>     <span class="n">CU</span>
+<span class="mi">27</span>   <span class="n">cu1810</span>   <span class="mi">2288</span>        <span class="mi">436</span>   <span class="mi">3520</span>         <span class="mi">167</span>     <span class="n">CU</span>
+<span class="mi">28</span>   <span class="n">cu1811</span>   <span class="mi">1021</span>         <span class="mi">33</span>   <span class="mi">2057</span>           <span class="mi">6</span>     <span class="n">CU</span>
+<span class="mi">29</span>   <span class="n">cu1812</span>    <span class="mi">391</span>          <span class="mi">7</span>      <span class="mi">0</span>           <span class="mi">0</span>     <span class="n">CU</span>
+<span class="o">..</span>      <span class="o">...</span>    <span class="o">...</span>        <span class="o">...</span>    <span class="o">...</span>         <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">82</span>   <span class="n">ru1905</span>    <span class="mi">553</span>        <span class="o">-</span><span class="mi">33</span>   <span class="mi">2218</span>         <span class="mi">149</span>     <span class="n">RU</span>
+<span class="mi">83</span>   <span class="n">sf1809</span>   <span class="mi">2117</span>        <span class="mi">161</span>   <span class="mi">4946</span>         <span class="mi">269</span>     <span class="n">SF</span>
+<span class="mi">84</span>   <span class="n">sf1901</span>   <span class="mi">1373</span>        <span class="mi">351</span>     <span class="mi">74</span>          <span class="mi">74</span>     <span class="n">SF</span>
+<span class="mi">85</span>   <span class="n">sm1809</span>   <span class="mi">2794</span>       <span class="o">-</span><span class="mi">609</span>      <span class="mi">0</span>           <span class="mi">0</span>     <span class="n">SM</span>
+<span class="mi">86</span>   <span class="n">sm1901</span>    <span class="mi">958</span>        <span class="mi">135</span>    <span class="mi">816</span>          <span class="mi">91</span>     <span class="n">SM</span>
+<span class="mi">87</span>   <span class="n">sn1809</span>    <span class="mi">401</span>        <span class="o">-</span><span class="mi">15</span>    <span class="mi">152</span>           <span class="mi">8</span>     <span class="n">SN</span>
+<span class="mi">88</span>   <span class="n">sr1809</span>      <span class="mi">0</span>          <span class="mi">0</span>  <span class="mi">14071</span>       <span class="o">-</span><span class="mi">1029</span>     <span class="n">SR</span>
+<span class="mi">89</span>   <span class="n">sr1901</span>  <span class="mi">16912</span>      <span class="o">-</span><span class="mi">1215</span>  <span class="mi">12602</span>         <span class="mi">634</span>     <span class="n">SR</span>
+<span class="mi">90</span>   <span class="n">sr1905</span>   <span class="mi">3261</span>       <span class="o">-</span><span class="mi">263</span>    <span class="mi">920</span>          <span class="o">-</span><span class="mi">2</span>     <span class="n">SR</span>
+<span class="mi">91</span>    <span class="n">t1809</span>   <span class="mi">3784</span>        <span class="mi">606</span>    <span class="mi">729</span>        <span class="o">-</span><span class="mi">992</span>      <span class="n">T</span>
+<span class="mi">92</span>    <span class="n">t1812</span>    <span class="mi">376</span>         <span class="o">-</span><span class="mi">4</span>   <span class="mi">3688</span>         <span class="mi">855</span>      <span class="n">T</span>
+<span class="mi">93</span>   <span class="n">ta1809</span>  <span class="mi">23345</span>       <span class="mi">2469</span>   <span class="mi">9325</span>       <span class="o">-</span><span class="mi">1143</span>     <span class="n">TA</span>
+<span class="mi">94</span>   <span class="n">ta1811</span>   <span class="mi">3180</span>       <span class="o">-</span><span class="mi">165</span>   <span class="mi">3441</span>       <span class="o">-</span><span class="mi">1042</span>     <span class="n">TA</span>
+<span class="mi">95</span>   <span class="n">ta1901</span>  <span class="mi">57249</span>     <span class="o">-</span><span class="mi">12008</span>  <span class="mi">22708</span>        <span class="mi">7136</span>     <span class="n">TA</span>
+<span class="mi">96</span>   <span class="n">ta1903</span>    <span class="mi">373</span>         <span class="mi">69</span>    <span class="mi">338</span>          <span class="mi">34</span>     <span class="n">TA</span>
+<span class="mi">97</span>   <span class="n">ta1905</span>    <span class="mi">451</span>          <span class="mi">5</span>    <span class="mi">401</span>        <span class="o">-</span><span class="mi">241</span>     <span class="n">TA</span>
+<span class="mi">98</span>   <span class="n">tf1809</span>   <span class="mi">1264</span>        <span class="mi">375</span>      <span class="mi">0</span>           <span class="mi">0</span>     <span class="n">TF</span>
+<span class="mi">99</span>    <span class="n">v1809</span>   <span class="mi">3182</span>       <span class="o">-</span><span class="mi">485</span>  <span class="mi">15277</span>       <span class="o">-</span><span class="mi">7299</span>      <span class="n">V</span>
+<span class="mi">100</span>   <span class="n">v1901</span>   <span class="mi">7957</span>       <span class="mi">3085</span>   <span class="mi">7496</span>        <span class="mi">2581</span>      <span class="n">V</span>
+<span class="mi">101</span>  <span class="n">wh1809</span>     <span class="mi">20</span>          <span class="mi">8</span>    <span class="mi">150</span>           <span class="mi">0</span>     <span class="n">WH</span>
+<span class="mi">102</span>   <span class="n">y1809</span>   <span class="mi">2575</span>       <span class="o">-</span><span class="mi">326</span>   <span class="mi">7995</span>         <span class="mi">520</span>      <span class="n">Y</span>
+<span class="mi">103</span>   <span class="n">y1901</span>  <span class="mi">25191</span>        <span class="mi">838</span>  <span class="mi">13977</span>        <span class="mi">1369</span>      <span class="n">Y</span>
+<span class="mi">104</span>   <span class="n">y1905</span>   <span class="mi">2615</span>        <span class="mi">132</span>   <span class="mi">9344</span>          <span class="mi">53</span>      <span class="n">Y</span>
+<span class="mi">105</span>  <span class="n">zc1809</span>   <span class="mi">5558</span>      <span class="o">-</span><span class="mi">6447</span>   <span class="mi">2611</span>         <span class="mi">616</span>     <span class="n">ZC</span>
+<span class="mi">106</span>  <span class="n">zc1811</span>    <span class="mi">690</span>        <span class="o">-</span><span class="mi">81</span>    <span class="mi">710</span>        <span class="o">-</span><span class="mi">115</span>     <span class="n">ZC</span>
+<span class="mi">107</span>  <span class="n">zc1901</span>   <span class="mi">3908</span>      <span class="o">-</span><span class="mi">2077</span>   <span class="mi">4385</span>         <span class="mi">769</span>     <span class="n">ZC</span>
+<span class="mi">108</span>  <span class="n">zn1808</span>    <span class="mi">175</span>        <span class="o">-</span><span class="mi">15</span>   <span class="mi">1465</span>        <span class="o">-</span><span class="mi">230</span>     <span class="n">ZN</span>
+<span class="mi">109</span>  <span class="n">zn1809</span>   <span class="mi">3858</span>       <span class="o">-</span><span class="mi">335</span>   <span class="mi">3482</span>         <span class="mi">353</span>     <span class="n">ZN</span>
+<span class="mi">110</span>  <span class="n">zn1810</span>   <span class="mi">6913</span>       <span class="mi">1081</span>   <span class="mi">4272</span>         <span class="o">-</span><span class="mi">79</span>     <span class="n">ZN</span>
+<span class="mi">111</span>  <span class="n">zn1811</span>   <span class="mi">1463</span>          <span class="mi">5</span>   <span class="mi">1057</span>          <span class="mi">34</span>     <span class="n">ZN</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>席位盈亏数据<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id10">
+<h3>接口名称<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>broker_calendar</p>
+</div>
+<div class="section" id="id11">
+<h3>接口描述<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p>席位盈亏数据接口</p>
+</div>
+<div class="section" id="id12">
+<h3>请求参数<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">查询开始日期</td>
+<td>2018-07-08</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">查询结束日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id13">
+<h3>返回参数<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>查询日期</td>
+</tr>
+<tr>
+<td align="left">profit</td>
+<td align="left">float</td>
+<td>席位盈亏，单位元</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id14">
+<h3>示例代码<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_calendar_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_calendar</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2018-07-08&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_calendar_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>返回示例<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       <span class="n">profit</span>  <span class="n">trans_date</span>
+<span class="mi">0</span>    <span class="mi">28534980</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">09</span>
+<span class="mi">1</span>     <span class="o">-</span><span class="mi">793730</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">10</span>
+<span class="mi">2</span>   <span class="mi">116090590</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">11</span>
+<span class="mi">3</span>    <span class="mi">71637460</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">12</span>
+<span class="mi">4</span>   <span class="o">-</span><span class="mi">67672690</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">13</span>
+<span class="mi">5</span>  <span class="o">-</span><span class="mi">101844070</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">16</span>
+<span class="mi">6</span>    <span class="mi">12677005</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">17</span>
+<span class="mi">7</span>    <span class="mi">28082910</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">18</span>
+<span class="mi">8</span>    <span class="mi">13328330</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">19</span>
+<span class="mi">9</span>   <span class="mi">152125816</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">20</span>
+<span class="mi">10</span>   <span class="mi">85702590</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">23</span>
+<span class="mi">11</span>  <span class="mi">111615970</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span>
+<span class="mi">12</span>   <span class="mi">66728815</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">25</span>
+<span class="mi">13</span>  <span class="o">-</span><span class="mi">20638805</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">26</span>
+<span class="mi">14</span>  <span class="mi">106367725</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">27</span>
+<span class="mi">15</span>  <span class="mi">170801705</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">30</span>
+<span class="mi">16</span>   <span class="mi">16650180</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">31</span>
+<span class="mi">17</span>  <span class="o">-</span><span class="mi">11149860</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">01</span>
+<span class="mi">18</span>    <span class="mi">7460090</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">02</span>
+<span class="mi">19</span>  <span class="mi">153065340</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">03</span>
+<span class="mi">20</span>  <span class="mi">157935930</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">06</span>
+<span class="mi">21</span>   <span class="mi">95817915</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">07</span>
+<span class="mi">22</span>   <span class="mi">34925715</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">08</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>席位每日大资金流动数据<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id17">
+<h3>接口名称<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<p>broker_flow</p>
+</div>
+<div class="section" id="id18">
+<h3>接口描述<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<p>席位每日大资金流动数据接口</p>
+</div>
+<div class="section" id="id19">
+<h3>请求参数<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+<tr>
+<td align="left">offset</td>
+<td align="left">查询阈值，大于这个值才返回</td>
+<td>1000000</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id20">
+<h3>返回参数<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">variety</td>
+<td align="left">string</td>
+<td>品种编码</td>
+</tr>
+<tr>
+<td align="left">money</td>
+<td align="left">float</td>
+<td>保证金流动量，正数为流多，负数为流空，单位元</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id21">
+<h3>示例代码<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_flow_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_flow</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="s2">&quot;1000000&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_flow_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id22">
+<h3>返回示例<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="n">money</span> <span class="n">variety</span>
+<span class="mi">0</span>  <span class="o">-</span><span class="mf">52131000.00</span>      <span class="n">焦炭</span>
+<span class="mi">1</span>  <span class="o">-</span><span class="mf">36507715.20</span>     <span class="n">动力煤</span>
+<span class="mi">2</span>  <span class="o">-</span><span class="mf">28648310.40</span>     <span class="n">PTA</span>
+<span class="mi">3</span>   <span class="mf">28275580.00</span>      <span class="n">十债</span>
+<span class="mi">4</span>   <span class="mf">26149929.30</span>     <span class="n">螺纹钢</span>
+<span class="mi">5</span>   <span class="mf">21465962.40</span>      <span class="n">沪镍</span>
+<span class="mi">6</span>  <span class="o">-</span><span class="mf">17617080.00</span>     <span class="n">铁矿石</span>
+<span class="mi">7</span>   <span class="mf">14739000.00</span>      <span class="n">五债</span>
+<span class="mi">8</span>  <span class="o">-</span><span class="mf">14430302.50</span>      <span class="n">玉米</span>
+<span class="mi">9</span>   <span class="mf">13557552.50</span>     <span class="n">PVC</span>
+<span class="mi">10</span>  <span class="mf">12419352.00</span>      <span class="n">IC</span>
+<span class="mi">11</span>  <span class="o">-</span><span class="mf">8928432.00</span>      <span class="n">菜粕</span>
+<span class="mi">12</span>   <span class="mf">8908188.00</span>      <span class="n">焦煤</span>
+<span class="mi">13</span>   <span class="mf">8834167.50</span>      <span class="n">豆粕</span>
+<span class="mi">14</span>   <span class="mf">5643888.00</span>      <span class="n">沪锌</span>
+<span class="mi">15</span>   <span class="mf">5459755.20</span>      <span class="n">热卷</span>
+<span class="mi">16</span>  <span class="o">-</span><span class="mf">4566014.60</span>      <span class="n">甲醇</span>
+<span class="mi">17</span>  <span class="o">-</span><span class="mf">4448322.00</span>      <span class="n">IF</span>
+<span class="mi">18</span>  <span class="o">-</span><span class="mf">4361850.00</span>      <span class="n">沪金</span>
+<span class="mi">19</span>   <span class="mf">3838632.00</span>      <span class="n">沪铜</span>
+<span class="mi">20</span>  <span class="o">-</span><span class="mf">3736382.00</span>      <span class="n">豆油</span>
+<span class="mi">21</span>  <span class="o">-</span><span class="mf">3677985.00</span>      <span class="n">PP</span>
+<span class="mi">22</span>  <span class="o">-</span><span class="mf">3081456.00</span>      <span class="n">IH</span>
+<span class="mi">23</span>  <span class="o">-</span><span class="mf">2878634.00</span>      <span class="n">白糖</span>
+<span class="mi">24</span>  <span class="o">-</span><span class="mf">2866627.75</span>      <span class="n">沪铝</span>
+<span class="mi">25</span>  <span class="o">-</span><span class="mf">2269088.00</span>      <span class="n">豆二</span>
+<span class="mi">26</span>  <span class="o">-</span><span class="mf">2136599.00</span>     <span class="n">棕榈油</span>
+<span class="mi">27</span>  <span class="o">-</span><span class="mf">1830276.00</span>     <span class="n">燃料油</span>
+<span class="mi">28</span>  <span class="o">-</span><span class="mf">1723621.90</span>      <span class="n">锰硅</span>
+<span class="mi">29</span>   <span class="mf">1565850.00</span>      <span class="n">塑料</span>
+<span class="mi">30</span>   <span class="mf">1551873.50</span>      <span class="n">菜油</span>
+<span class="mi">31</span>  <span class="o">-</span><span class="mf">1518107.50</span>      <span class="n">棉花</span>
+<span class="mi">32</span>   <span class="mf">1409305.80</span>      <span class="n">鸡蛋</span>
+<span class="mi">33</span>  <span class="o">-</span><span class="mf">1308532.50</span>      <span class="n">橡胶</span>
+<span class="mi">34</span>  <span class="o">-</span><span class="mf">1168420.00</span>      <span class="n">玻璃</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id23">
+<h2>席位多空比数据<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id24">
+<h3>接口名称<a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h3>
+<p>broker_bbr</p>
+</div>
+<div class="section" id="id25">
+<h3>接口描述<a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h3>
+<p>席位多空比数据接口</p>
+</div>
+<div class="section" id="id26">
+<h3>请求参数<a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id27">
+<h3>返回参数<a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">bbr</td>
+<td align="left">float</td>
+<td>多空比</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id28">
+<h3>示例代码<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_bbr_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_bbr</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_bbr_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id29">
+<h3>返回示例<a class="headerlink" href="#id29" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">broker_bbr</span>
+<span class="n">bbr</span>    <span class="mf">54.36208</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id30">
+<h2>席位净持仓保证金变化数据<a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id31">
+<h3>接口名称<a class="headerlink" href="#id31" title="永久链接至标题">¶</a></h3>
+<p>broker_net_money_chge</p>
+</div>
+<div class="section" id="id32">
+<h3>接口描述<a class="headerlink" href="#id32" title="永久链接至标题">¶</a></h3>
+<p>席位净持仓保证金变化数据接口</p>
+</div>
+<div class="section" id="id33">
+<h3>请求参数<a class="headerlink" href="#id33" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id34">
+<h3>返回参数<a class="headerlink" href="#id34" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">symbol</td>
+<td align="left">string</td>
+<td>品种编码</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">float</td>
+<td>净持仓保证金变化量，正数为流多，负数为流空，单位元</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id35">
+<h3>示例代码<a class="headerlink" href="#id35" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_net_money_chge_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_net_money_chge</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_net_money_chge_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id36">
+<h3>返回示例<a class="headerlink" href="#id36" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">symbol</span>        <span class="n">value</span>
+<span class="mi">0</span>       <span class="n">J</span> <span class="o">-</span><span class="mf">52131000.00</span>
+<span class="mi">1</span>      <span class="n">ZC</span> <span class="o">-</span><span class="mf">36507715.20</span>
+<span class="mi">2</span>      <span class="n">TA</span> <span class="o">-</span><span class="mf">28648310.40</span>
+<span class="mi">3</span>       <span class="n">I</span> <span class="o">-</span><span class="mf">17617080.00</span>
+<span class="mi">4</span>       <span class="n">C</span> <span class="o">-</span><span class="mf">14430302.50</span>
+<span class="mi">5</span>      <span class="n">RM</span>  <span class="o">-</span><span class="mf">8928432.00</span>
+<span class="mi">6</span>      <span class="n">MA</span>  <span class="o">-</span><span class="mf">4566014.60</span>
+<span class="mi">7</span>      <span class="n">IF</span>  <span class="o">-</span><span class="mf">4448322.00</span>
+<span class="mi">8</span>      <span class="n">AU</span>  <span class="o">-</span><span class="mf">4361850.00</span>
+<span class="mi">9</span>       <span class="n">Y</span>  <span class="o">-</span><span class="mf">3736382.00</span>
+<span class="mi">10</span>     <span class="n">PP</span>  <span class="o">-</span><span class="mf">3677985.00</span>
+<span class="mi">11</span>     <span class="n">IH</span>  <span class="o">-</span><span class="mf">3081456.00</span>
+<span class="mi">12</span>     <span class="n">SR</span>  <span class="o">-</span><span class="mf">2878634.00</span>
+<span class="mi">13</span>     <span class="n">AL</span>  <span class="o">-</span><span class="mf">2866627.75</span>
+<span class="mi">14</span>      <span class="n">B</span>  <span class="o">-</span><span class="mf">2269088.00</span>
+<span class="mi">15</span>      <span class="n">P</span>  <span class="o">-</span><span class="mf">2136599.00</span>
+<span class="mi">16</span>     <span class="n">FU</span>  <span class="o">-</span><span class="mf">1830276.00</span>
+<span class="mi">17</span>     <span class="n">SM</span>  <span class="o">-</span><span class="mf">1723621.90</span>
+<span class="mi">18</span>     <span class="n">CF</span>  <span class="o">-</span><span class="mf">1518107.50</span>
+<span class="mi">19</span>     <span class="n">RU</span>  <span class="o">-</span><span class="mf">1308532.50</span>
+<span class="mi">20</span>     <span class="n">FG</span>  <span class="o">-</span><span class="mf">1168420.00</span>
+<span class="mi">21</span>      <span class="n">A</span>   <span class="o">-</span><span class="mf">438953.50</span>
+<span class="mi">22</span>     <span class="n">CS</span>   <span class="o">-</span><span class="mf">356861.00</span>
+<span class="mi">23</span>     <span class="n">SN</span>   <span class="o">-</span><span class="mf">236251.40</span>
+<span class="mi">24</span>     <span class="n">PM</span>         <span class="mf">0.00</span>
+<span class="mi">25</span>     <span class="n">WH</span>     <span class="mf">79808.00</span>
+<span class="mi">26</span>     <span class="n">BU</span>     <span class="mf">95480.00</span>
+<span class="mi">27</span>     <span class="n">PB</span>    <span class="mf">167724.00</span>
+<span class="mi">28</span>     <span class="n">AG</span>    <span class="mf">374357.70</span>
+<span class="mi">29</span>     <span class="n">SF</span>    <span class="mf">402589.60</span>
+<span class="mi">30</span>     <span class="n">AP</span>    <span class="mf">980350.80</span>
+<span class="mi">31</span>     <span class="n">JD</span>   <span class="mf">1409305.80</span>
+<span class="mi">32</span>     <span class="n">OI</span>   <span class="mf">1551873.50</span>
+<span class="mi">33</span>      <span class="n">L</span>   <span class="mf">1565850.00</span>
+<span class="mi">34</span>     <span class="n">CU</span>   <span class="mf">3838632.00</span>
+<span class="mi">35</span>     <span class="n">HC</span>   <span class="mf">5459755.20</span>
+<span class="mi">36</span>     <span class="n">ZN</span>   <span class="mf">5643888.00</span>
+<span class="mi">37</span>      <span class="n">M</span>   <span class="mf">8834167.50</span>
+<span class="mi">38</span>     <span class="n">JM</span>   <span class="mf">8908188.00</span>
+<span class="mi">39</span>     <span class="n">IC</span>  <span class="mf">12419352.00</span>
+<span class="mi">40</span>      <span class="n">V</span>  <span class="mf">13557552.50</span>
+<span class="mi">41</span>     <span class="n">TF</span>  <span class="mf">14739000.00</span>
+<span class="mi">42</span>     <span class="n">NI</span>  <span class="mf">21465962.40</span>
+<span class="mi">43</span>     <span class="n">RB</span>  <span class="mf">26149929.30</span>
+<span class="mi">44</span>      <span class="n">T</span>  <span class="mf">28275580.00</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id37">
+<h2>席位净持仓保证金数据<a class="headerlink" href="#id37" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id38">
+<h3>接口名称<a class="headerlink" href="#id38" title="永久链接至标题">¶</a></h3>
+<p>broker_net_money</p>
+</div>
+<div class="section" id="id39">
+<h3>接口描述<a class="headerlink" href="#id39" title="永久链接至标题">¶</a></h3>
+<p>席位净持仓保证金数据接口</p>
+</div>
+<div class="section" id="id40">
+<h3>请求参数<a class="headerlink" href="#id40" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id41">
+<h3>返回参数<a class="headerlink" href="#id41" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">symbol</td>
+<td align="left">string</td>
+<td>品种编码</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">float</td>
+<td>净持仓保证金，正数为净多，负数为净空，单位元</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id42">
+<h3>示例代码<a class="headerlink" href="#id42" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_net_money_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_net_money</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_net_money_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id43">
+<h3>返回示例<a class="headerlink" href="#id43" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">symbol</span>      <span class="n">value</span>
+<span class="mi">0</span>      <span class="n">RU</span> <span class="o">-</span><span class="mi">126518247</span>
+<span class="mi">1</span>      <span class="n">IC</span>  <span class="o">-</span><span class="mi">73082712</span>
+<span class="mi">2</span>      <span class="n">CF</span>  <span class="o">-</span><span class="mi">59002530</span>
+<span class="mi">3</span>       <span class="n">L</span>  <span class="o">-</span><span class="mi">38443465</span>
+<span class="mi">4</span>       <span class="n">C</span>  <span class="o">-</span><span class="mi">37922269</span>
+<span class="mi">5</span>      <span class="n">JM</span>  <span class="o">-</span><span class="mi">27913493</span>
+<span class="mi">6</span>       <span class="n">P</span>  <span class="o">-</span><span class="mi">25204953</span>
+<span class="mi">7</span>      <span class="n">AG</span>  <span class="o">-</span><span class="mi">24969327</span>
+<span class="mi">8</span>       <span class="n">V</span>  <span class="o">-</span><span class="mi">21574018</span>
+<span class="mi">9</span>      <span class="n">BU</span>  <span class="o">-</span><span class="mi">17898408</span>
+<span class="mi">10</span>      <span class="n">I</span>  <span class="o">-</span><span class="mi">17824820</span>
+<span class="mi">11</span>     <span class="n">SR</span>  <span class="o">-</span><span class="mi">17713710</span>
+<span class="mi">12</span>     <span class="n">FG</span>  <span class="o">-</span><span class="mi">14825526</span>
+<span class="mi">13</span>     <span class="n">MA</span>  <span class="o">-</span><span class="mi">14759199</span>
+<span class="mi">14</span>      <span class="n">T</span>   <span class="o">-</span><span class="mi">9789992</span>
+<span class="mi">15</span>     <span class="n">HC</span>   <span class="o">-</span><span class="mi">6135685</span>
+<span class="mi">16</span>     <span class="n">SF</span>   <span class="o">-</span><span class="mi">3881907</span>
+<span class="mi">17</span>     <span class="n">RM</span>   <span class="o">-</span><span class="mi">3477467</span>
+<span class="mi">18</span>      <span class="n">Y</span>   <span class="o">-</span><span class="mi">2180168</span>
+<span class="mi">19</span>     <span class="n">WH</span>   <span class="o">-</span><span class="mi">1296880</span>
+<span class="mi">20</span>     <span class="n">FU</span>   <span class="o">-</span><span class="mi">1029732</span>
+<span class="mi">21</span>      <span class="n">B</span>    <span class="o">-</span><span class="mi">313600</span>
+<span class="mi">22</span>     <span class="n">PM</span>     <span class="o">-</span><span class="mi">17340</span>
+<span class="mi">23</span>     <span class="n">CS</span>     <span class="mi">581311</span>
+<span class="mi">24</span>      <span class="n">A</span>    <span class="mi">2531008</span>
+<span class="mi">25</span>     <span class="n">SN</span>    <span class="mi">2557678</span>
+<span class="mi">26</span>     <span class="n">IH</span>    <span class="mi">5062392</span>
+<span class="mi">27</span>     <span class="n">JD</span>    <span class="mi">5589189</span>
+<span class="mi">28</span>     <span class="n">AP</span>    <span class="mi">8217133</span>
+<span class="mi">29</span>     <span class="n">IF</span>    <span class="mi">8381628</span>
+<span class="mi">30</span>     <span class="n">SM</span>    <span class="mi">8913145</span>
+<span class="mi">31</span>     <span class="n">ZC</span>    <span class="mi">9053171</span>
+<span class="mi">32</span>     <span class="n">CU</span>    <span class="mi">9817385</span>
+<span class="mi">33</span>     <span class="n">ZN</span>   <span class="mi">18126276</span>
+<span class="mi">34</span>     <span class="n">AU</span>   <span class="mi">20786100</span>
+<span class="mi">35</span>     <span class="n">PB</span>   <span class="mi">24281126</span>
+<span class="mi">36</span>     <span class="n">NI</span>   <span class="mi">28679642</span>
+<span class="mi">37</span>     <span class="n">AL</span>   <span class="mi">28819661</span>
+<span class="mi">38</span>     <span class="n">TF</span>   <span class="mi">49680256</span>
+<span class="mi">39</span>     <span class="n">PP</span>   <span class="mi">63960902</span>
+<span class="mi">40</span>     <span class="n">OI</span>   <span class="mi">79174077</span>
+<span class="mi">41</span>     <span class="n">TA</span>   <span class="mi">98338372</span>
+<span class="mi">42</span>      <span class="n">M</span>  <span class="mi">158924122</span>
+<span class="mi">43</span>      <span class="n">J</span>  <span class="mi">199714680</span>
+<span class="mi">44</span>     <span class="n">RB</span>  <span class="mi">218919026</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id44">
+<h2>席位总持仓保证金数据<a class="headerlink" href="#id44" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id45">
+<h3>接口名称<a class="headerlink" href="#id45" title="永久链接至标题">¶</a></h3>
+<p>broker_total_money</p>
+</div>
+<div class="section" id="id46">
+<h3>接口描述<a class="headerlink" href="#id46" title="永久链接至标题">¶</a></h3>
+<p>席位总持仓保证金数据接口</p>
+</div>
+<div class="section" id="id47">
+<h3>请求参数<a class="headerlink" href="#id47" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">date</td>
+<td align="left">查询日期</td>
+<td>2018-08-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id48">
+<h3>返回参数<a class="headerlink" href="#id48" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">symbol</td>
+<td align="left">string</td>
+<td>品种编码</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">float</td>
+<td>总持仓保证金，单位元</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id49">
+<h3>示例代码<a class="headerlink" href="#id49" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_total_money_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_total_money</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_total_money_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id50">
+<h3>返回示例<a class="headerlink" href="#id50" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">symbol</span>      <span class="n">value</span>
+<span class="mi">0</span>       <span class="n">C</span>   <span class="mi">84535414</span>
+<span class="mi">1</span>       <span class="n">L</span>  <span class="mi">100876943</span>
+<span class="mi">2</span>      <span class="n">CF</span>  <span class="mi">348457275</span>
+<span class="mi">3</span>      <span class="n">RU</span>  <span class="mi">441062073</span>
+<span class="mi">4</span>       <span class="n">V</span>   <span class="mi">62613259</span>
+<span class="mi">5</span>       <span class="n">P</span>   <span class="mi">68744951</span>
+<span class="mi">6</span>      <span class="n">FG</span>   <span class="mi">29085142</span>
+<span class="mi">7</span>      <span class="n">AG</span>   <span class="mi">65751126</span>
+<span class="mi">8</span>      <span class="n">SR</span>  <span class="mi">121266350</span>
+<span class="mi">9</span>      <span class="n">BU</span>  <span class="mi">118354280</span>
+<span class="mi">10</span>     <span class="n">MA</span>  <span class="mi">188504328</span>
+<span class="mi">11</span>     <span class="n">JM</span>   <span class="mi">65540875</span>
+<span class="mi">12</span>      <span class="n">I</span>  <span class="mi">173409484</span>
+<span class="mi">13</span>     <span class="n">RM</span>   <span class="mi">30997475</span>
+<span class="mi">14</span>     <span class="n">HC</span>  <span class="mi">165703202</span>
+<span class="mi">15</span>     <span class="n">SF</span>   <span class="mi">21051245</span>
+<span class="mi">16</span>      <span class="n">Y</span>  <span class="mi">180289358</span>
+<span class="mi">17</span>     <span class="n">IC</span>  <span class="mi">355803249</span>
+<span class="mi">18</span>     <span class="n">FU</span>   <span class="mi">49778988</span>
+<span class="mi">19</span>      <span class="n">T</span>  <span class="mi">328004328</span>
+<span class="mi">20</span>      <span class="n">B</span>     <span class="mi">313600</span>
+<span class="mi">21</span>     <span class="n">WH</span>    <span class="mi">1695920</span>
+<span class="mi">22</span>     <span class="n">PM</span>      <span class="mi">17340</span>
+<span class="mi">23</span>     <span class="n">IH</span>   <span class="mi">33529176</span>
+<span class="mi">24</span>     <span class="n">IF</span>  <span class="mi">279349824</span>
+<span class="mi">25</span>     <span class="n">SN</span>    <span class="mi">5680305</span>
+<span class="mi">26</span>     <span class="n">CS</span>    <span class="mi">8618401</span>
+<span class="mi">27</span>     <span class="n">CU</span>  <span class="mi">309904039</span>
+<span class="mi">28</span>     <span class="n">AP</span>  <span class="mi">225718060</span>
+<span class="mi">29</span>     <span class="n">TF</span>   <span class="mi">49680256</span>
+<span class="mi">30</span>      <span class="n">A</span>   <span class="mi">21727647</span>
+<span class="mi">31</span>     <span class="n">AU</span>   <span class="mi">43322325</span>
+<span class="mi">32</span>     <span class="n">JD</span>   <span class="mi">19585812</span>
+<span class="mi">33</span>     <span class="n">ZN</span>  <span class="mi">195664900</span>
+<span class="mi">34</span>     <span class="n">ZC</span>   <span class="mi">66069647</span>
+<span class="mi">35</span>     <span class="n">SM</span>   <span class="mi">13684950</span>
+<span class="mi">36</span>     <span class="n">NI</span>  <span class="mi">280050806</span>
+<span class="mi">37</span>     <span class="n">PB</span>   <span class="mi">36902798</span>
+<span class="mi">38</span>     <span class="n">AL</span>   <span class="mi">34360301</span>
+<span class="mi">39</span>      <span class="n">J</span>  <span class="mi">533383080</span>
+<span class="mi">40</span>     <span class="n">OI</span>  <span class="mi">111939375</span>
+<span class="mi">41</span>     <span class="n">PP</span>  <span class="mi">163976343</span>
+<span class="mi">42</span>     <span class="n">TA</span>  <span class="mi">245508829</span>
+<span class="mi">43</span>     <span class="n">RB</span>  <span class="mi">959491721</span>
+<span class="mi">44</span>      <span class="n">M</span>  <span class="mi">399846143</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id51">
+<h2>席位的商品盈亏数据<a class="headerlink" href="#id51" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id52">
+<h3>接口名称<a class="headerlink" href="#id52" title="永久链接至标题">¶</a></h3>
+<p>broker_profit</p>
+</div>
+<div class="section" id="id53">
+<h3>接口描述<a class="headerlink" href="#id53" title="永久链接至标题">¶</a></h3>
+<p>席位的商品盈亏数据接口</p>
+</div>
+<div class="section" id="id54">
+<h3>请求参数<a class="headerlink" href="#id54" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">查询开始日期</td>
+<td>2018-07-08</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">查询结束日期</td>
+<td>2018-07-08</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id55">
+<h3>返回参数<a class="headerlink" href="#id55" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">symbol</td>
+<td align="left">string</td>
+<td>品种编码</td>
+</tr>
+<tr>
+<td align="left">total_profit</td>
+<td align="left">float</td>
+<td>盈亏数据，单位元</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id56">
+<h3>示例代码<a class="headerlink" href="#id56" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_profit_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_profit</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2018-07-08&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_profit_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id57">
+<h3>返回示例<a class="headerlink" href="#id57" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">symbol</span>  <span class="n">total_profit</span>
+<span class="mi">0</span>       <span class="n">V</span>     <span class="o">-</span><span class="mi">48104250</span>
+<span class="mi">1</span>      <span class="n">MA</span>     <span class="o">-</span><span class="mi">44697020</span>
+<span class="mi">2</span>      <span class="n">ZC</span>     <span class="o">-</span><span class="mi">39435720</span>
+<span class="mi">3</span>       <span class="n">L</span>     <span class="o">-</span><span class="mi">30429900</span>
+<span class="mi">4</span>      <span class="n">PB</span>     <span class="o">-</span><span class="mi">23105875</span>
+<span class="mi">5</span>      <span class="n">RU</span>     <span class="o">-</span><span class="mi">22609450</span>
+<span class="mi">6</span>      <span class="n">AP</span>     <span class="o">-</span><span class="mi">15512460</span>
+<span class="mi">7</span>      <span class="n">CF</span>     <span class="o">-</span><span class="mi">13747625</span>
+<span class="mi">8</span>      <span class="n">AL</span>     <span class="o">-</span><span class="mi">13160850</span>
+<span class="mi">9</span>       <span class="n">Y</span>     <span class="o">-</span><span class="mi">12917280</span>
+<span class="mi">10</span>     <span class="n">NI</span>      <span class="o">-</span><span class="mi">9893720</span>
+<span class="mi">11</span>     <span class="n">AU</span>      <span class="o">-</span><span class="mi">9268650</span>
+<span class="mi">12</span>     <span class="n">TF</span>      <span class="o">-</span><span class="mi">9065400</span>
+<span class="mi">13</span>      <span class="n">C</span>      <span class="o">-</span><span class="mi">7829490</span>
+<span class="mi">14</span>     <span class="n">OI</span>      <span class="o">-</span><span class="mi">7340560</span>
+<span class="mi">15</span>      <span class="n">I</span>      <span class="o">-</span><span class="mi">6386050</span>
+<span class="mi">16</span>     <span class="n">IF</span>      <span class="o">-</span><span class="mi">5309736</span>
+<span class="mi">17</span>      <span class="n">A</span>      <span class="o">-</span><span class="mi">3110200</span>
+<span class="mi">18</span>     <span class="n">FU</span>      <span class="o">-</span><span class="mi">2245870</span>
+<span class="mi">19</span>     <span class="n">JM</span>      <span class="o">-</span><span class="mi">2199690</span>
+<span class="mi">20</span>      <span class="n">P</span>      <span class="o">-</span><span class="mi">2157100</span>
+<span class="mi">21</span>     <span class="n">JD</span>       <span class="o">-</span><span class="mi">981440</span>
+<span class="mi">22</span>      <span class="n">B</span>       <span class="o">-</span><span class="mi">813930</span>
+<span class="mi">23</span>     <span class="n">CS</span>       <span class="o">-</span><span class="mi">416630</span>
+<span class="mi">24</span>     <span class="n">PM</span>         <span class="mi">19200</span>
+<span class="mi">25</span>     <span class="n">WH</span>         <span class="mi">33600</span>
+<span class="mi">26</span>     <span class="n">SN</span>        <span class="mi">297220</span>
+<span class="mi">27</span>     <span class="n">FG</span>        <span class="mi">773020</span>
+<span class="mi">28</span>     <span class="n">RM</span>       <span class="mi">1176220</span>
+<span class="mi">29</span>     <span class="n">SF</span>       <span class="mi">2391770</span>
+<span class="mi">30</span>     <span class="n">IH</span>       <span class="mi">3532800</span>
+<span class="mi">31</span>     <span class="n">ZN</span>       <span class="mi">3822275</span>
+<span class="mi">32</span>     <span class="n">BU</span>       <span class="mi">4279600</span>
+<span class="mi">33</span>     <span class="n">SM</span>       <span class="mi">4757220</span>
+<span class="mi">34</span>     <span class="n">AG</span>       <span class="mi">5508285</span>
+<span class="mi">35</span>     <span class="n">IC</span>      <span class="mi">10934632</span>
+<span class="mi">36</span>     <span class="n">CU</span>      <span class="mi">23284400</span>
+<span class="mi">37</span>     <span class="n">SR</span>      <span class="mi">24980560</span>
+<span class="mi">38</span>      <span class="n">T</span>      <span class="mi">35304400</span>
+<span class="mi">39</span>     <span class="n">HC</span>      <span class="mi">51397670</span>
+<span class="mi">40</span>      <span class="n">M</span>      <span class="mi">76153330</span>
+<span class="mi">41</span>     <span class="n">PP</span>     <span class="mi">109996275</span>
+<span class="mi">42</span>     <span class="n">RB</span>     <span class="mi">200050400</span>
+<span class="mi">43</span>     <span class="n">TA</span>     <span class="mi">422540380</span>
+<span class="mi">44</span>      <span class="n">J</span>     <span class="mi">576955550</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id58">
+<h2>席位盈利排行<a class="headerlink" href="#id58" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id59">
+<h3>接口名称<a class="headerlink" href="#id59" title="永久链接至标题">¶</a></h3>
+<p>broker_in_profit_list</p>
+</div>
+<div class="section" id="id60">
+<h3>接口描述<a class="headerlink" href="#id60" title="永久链接至标题">¶</a></h3>
+<p>席位盈利排行数据接口</p>
+</div>
+<div class="section" id="id61">
+<h3>请求参数<a class="headerlink" href="#id61" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">start_date</td>
+<td align="left">查询开始日期</td>
+<td>2018-07-08</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">查询结束日期</td>
+<td>2018-07-08</td>
+</tr>
+<tr>
+<td align="left">count</td>
+<td align="left">返回数据条数</td>
+<td>10; 默认10条</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id62">
+<h3>返回参数<a class="headerlink" href="#id62" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">string</td>
+<td>席位</td>
+</tr>
+<tr>
+<td align="left">profit</td>
+<td align="left">float</td>
+<td>席位盈利金额，单位元</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id63">
+<h3>示例代码<a class="headerlink" href="#id63" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_in_profit_list_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_in_profit_list</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2018-07-08&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="s2">&quot;10&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_in_profit_list_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id64">
+<h3>返回示例<a class="headerlink" href="#id64" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">broker</span>      <span class="n">profit</span>
+<span class="mi">0</span>   <span class="n">永安期货</span>  <span class="mi">1227449911</span>
+<span class="mi">1</span>   <span class="n">兴证期货</span>   <span class="mi">439465699</span>
+<span class="mi">2</span>   <span class="n">海通期货</span>   <span class="mi">380472107</span>
+<span class="mi">3</span>   <span class="n">国泰君安</span>   <span class="mi">340562538</span>
+<span class="mi">4</span>   <span class="n">东航期货</span>   <span class="mi">258435685</span>
+<span class="mi">5</span>   <span class="n">申银万国</span>   <span class="mi">232668456</span>
+<span class="mi">6</span>   <span class="n">方正中期</span>   <span class="mi">232440966</span>
+<span class="mi">7</span>   <span class="n">华泰期货</span>   <span class="mi">207665450</span>
+<span class="mi">8</span>   <span class="n">中信期货</span>   <span class="mi">187602856</span>
+<span class="mi">9</span>   <span class="n">鲁证期货</span>   <span class="mi">154923679</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id65">
+<h2>席位亏损排行<a class="headerlink" href="#id65" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id66">
+<h3>接口名称<a class="headerlink" href="#id66" title="永久链接至标题">¶</a></h3>
+<p>broker_in_loss_list</p>
+</div>
+<div class="section" id="id67">
+<h3>接口描述<a class="headerlink" href="#id67" title="永久链接至标题">¶</a></h3>
+<p>席位亏损排行数据接口</p>
+</div>
+<div class="section" id="id68">
+<h3>请求参数<a class="headerlink" href="#id68" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">start_date</td>
+<td align="left">查询开始日期</td>
+<td>2018-07-08</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">查询结束日期</td>
+<td>2018-07-08</td>
+</tr>
+<tr>
+<td align="left">count</td>
+<td align="left">返回数据条数</td>
+<td>10; 默认10条</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id69">
+<h3>返回参数<a class="headerlink" href="#id69" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">string</td>
+<td>席位</td>
+</tr>
+<tr>
+<td align="left">profit</td>
+<td align="left">float</td>
+<td>席位亏损金额，单位元</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id70">
+<h3>示例代码<a class="headerlink" href="#id70" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_in_loss_list_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_in_loss_list</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2018-07-08&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2018-08-08&quot;</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="s2">&quot;10&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_in_loss_list_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id71">
+<h3>返回示例<a class="headerlink" href="#id71" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">broker</span>     <span class="n">profit</span>
+<span class="mi">0</span>   <span class="n">银河期货</span> <span class="o">-</span><span class="mi">419310016</span>
+<span class="mi">1</span>   <span class="n">建信期货</span> <span class="o">-</span><span class="mi">331576221</span>
+<span class="mi">2</span>   <span class="n">国贸期货</span> <span class="o">-</span><span class="mi">287396120</span>
+<span class="mi">3</span>   <span class="n">南华期货</span> <span class="o">-</span><span class="mi">286119224</span>
+<span class="mi">4</span>   <span class="n">格林大华</span> <span class="o">-</span><span class="mi">282453330</span>
+<span class="mi">5</span>   <span class="n">光大期货</span> <span class="o">-</span><span class="mi">278484680</span>
+<span class="mi">6</span>   <span class="n">招商期货</span> <span class="o">-</span><span class="mi">200409531</span>
+<span class="mi">7</span>   <span class="n">国富期货</span> <span class="o">-</span><span class="mi">183709404</span>
+<span class="mi">8</span>   <span class="n">中粮期货</span> <span class="o">-</span><span class="mi">181432280</span>
+<span class="mi">9</span>   <span class="n">中辉期货</span> <span class="o">-</span><span class="mi">165149465</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id72">
+<h2>所有席位数据<a class="headerlink" href="#id72" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id73">
+<h3>接口名称<a class="headerlink" href="#id73" title="永久链接至标题">¶</a></h3>
+<p>broker_all</p>
+</div>
+<div class="section" id="id74">
+<h3>接口描述<a class="headerlink" href="#id74" title="永久链接至标题">¶</a></h3>
+<p>所有席位数据接口</p>
+</div>
+<div class="section" id="id75">
+<h3>请求参数<a class="headerlink" href="#id75" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">offset_days</td>
+<td align="left">过滤阈值，N个交易日内上过龙虎榜</td>
+<td>默认为365，即一年内上过榜的席位</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id76">
+<h3>返回参数<a class="headerlink" href="#id76" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">string</td>
+<td>席位</td>
+</tr>
+<tr>
+<td align="left">grade</td>
+<td align="left">string</td>
+<td>盈利评级，最好为A，最差为E</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id77">
+<h3>示例代码<a class="headerlink" href="#id77" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_all_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_all</span><span class="p">(</span><span class="n">offset_days</span><span class="o">=</span><span class="s2">&quot;365&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_all_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id78">
+<h3>返回示例<a class="headerlink" href="#id78" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">broker</span> <span class="n">grade</span>
+<span class="mi">0</span>     <span class="n">安粮期货</span>     <span class="n">C</span>
+<span class="mi">1</span>     <span class="n">渤海期货</span>     <span class="n">B</span>
+<span class="mi">2</span>     <span class="n">北京首创</span>     <span class="n">C</span>
+<span class="mi">3</span>     <span class="n">倍特期货</span>     <span class="n">C</span>
+<span class="mi">4</span>     <span class="n">宝城期货</span>     <span class="n">B</span>
+<span class="mi">5</span>     <span class="n">长江期货</span>     <span class="n">D</span>
+<span class="mi">6</span>     <span class="n">创元期货</span>     <span class="n">D</span>
+<span class="mi">7</span>     <span class="n">长安期货</span>     <span class="n">D</span>
+<span class="mi">8</span>     <span class="n">长城期货</span>     <span class="n">D</span>
+<span class="mi">9</span>     <span class="n">财达期货</span>     <span class="n">D</span>
+<span class="mi">10</span>    <span class="n">东航期货</span>     <span class="n">B</span>
+<span class="mi">11</span>    <span class="n">德盛期货</span>     <span class="n">D</span>
+<span class="mi">12</span>    <span class="n">道通期货</span>     <span class="n">C</span>
+<span class="mi">13</span>    <span class="n">东方期货</span>     <span class="n">C</span>
+<span class="mi">14</span>    <span class="n">大地期货</span>     <span class="n">B</span>
+<span class="mi">15</span>    <span class="n">东亚期货</span>     <span class="n">B</span>
+<span class="mi">16</span>    <span class="n">东海期货</span>     <span class="n">B</span>
+<span class="mi">17</span>    <span class="n">大通期货</span>     <span class="n">D</span>
+<span class="mi">18</span>    <span class="n">大连良运</span>     <span class="n">D</span>
+<span class="mi">19</span>    <span class="n">第一创业</span>     <span class="n">D</span>
+<span class="mi">20</span>    <span class="n">东吴期货</span>     <span class="n">D</span>
+<span class="mi">21</span>    <span class="n">东方财富</span>     <span class="n">E</span>
+<span class="mi">22</span>    <span class="n">大越期货</span>     <span class="n">B</span>
+<span class="mi">23</span>    <span class="n">东华期货</span>     <span class="n">D</span>
+<span class="mi">24</span>    <span class="n">东证期货</span>     <span class="n">D</span>
+<span class="mi">25</span>    <span class="n">东方汇金</span>     <span class="n">D</span>
+<span class="mi">26</span>    <span class="n">大有期货</span>     <span class="n">D</span>
+<span class="mi">27</span>    <span class="n">东兴期货</span>     <span class="n">D</span>
+<span class="mi">28</span>    <span class="n">方正中期</span>     <span class="n">E</span>
+<span class="mi">29</span>    <span class="n">福能期货</span>     <span class="n">C</span>
+<span class="o">..</span>     <span class="o">...</span>   <span class="o">...</span>
+<span class="mi">131</span>   <span class="n">银河期货</span>     <span class="n">B</span>
+<span class="mi">132</span>   <span class="n">永安期货</span>     <span class="n">A</span>
+<span class="mi">133</span>   <span class="n">英大期货</span>     <span class="n">D</span>
+<span class="mi">134</span>   <span class="n">云晨期货</span>     <span class="n">B</span>
+<span class="mi">135</span>   <span class="n">一德期货</span>     <span class="n">A</span>
+<span class="mi">136</span>  <span class="n">云财富期货</span>     <span class="n">D</span>
+<span class="mi">137</span>   <span class="n">浙商期货</span>     <span class="n">C</span>
+<span class="mi">138</span>   <span class="n">中天期货</span>     <span class="n">C</span>
+<span class="mi">139</span>   <span class="n">中融汇信</span>     <span class="n">D</span>
+<span class="mi">140</span>   <span class="n">中信期货</span>     <span class="n">C</span>
+<span class="mi">141</span>   <span class="n">中投期货</span>     <span class="n">D</span>
+<span class="mi">142</span>   <span class="n">中辉期货</span>     <span class="n">E</span>
+<span class="mi">143</span>   <span class="n">中大期货</span>     <span class="n">C</span>
+<span class="mi">144</span>   <span class="n">中航期货</span>     <span class="n">D</span>
+<span class="mi">145</span>   <span class="n">中银国际</span>     <span class="n">B</span>
+<span class="mi">146</span>   <span class="n">中信建投</span>     <span class="n">E</span>
+<span class="mi">147</span>   <span class="n">中投天琪</span>     <span class="n">D</span>
+<span class="mi">148</span>   <span class="n">中财期货</span>     <span class="n">B</span>
+<span class="mi">149</span>   <span class="n">中国国际</span>     <span class="n">D</span>
+<span class="mi">150</span>   <span class="n">中粮期货</span>     <span class="n">B</span>
+<span class="mi">151</span>   <span class="n">中钢期货</span>     <span class="n">C</span>
+<span class="mi">152</span>   <span class="n">招金期货</span>     <span class="n">E</span>
+<span class="mi">153</span>    <span class="n">中电投</span>     <span class="n">D</span>
+<span class="mi">154</span>  <span class="n">浙江新世纪</span>     <span class="n">D</span>
+<span class="mi">155</span>   <span class="n">中州期货</span>     <span class="n">D</span>
+<span class="mi">156</span>   <span class="n">中衍期货</span>     <span class="n">C</span>
+<span class="mi">157</span>   <span class="n">中原期货</span>     <span class="n">D</span>
+<span class="mi">158</span>  <span class="n">中电投先融</span>     <span class="n">C</span>
+<span class="mi">159</span>   <span class="n">中金期货</span>     <span class="n">B</span>
+<span class="mi">160</span>   <span class="n">招商期货</span>     <span class="n">D</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id79">
+<h2>建仓过程<a class="headerlink" href="#id79" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id80">
+<h3>接口名称<a class="headerlink" href="#id80" title="永久链接至标题">¶</a></h3>
+<p>broker_positions_process</p>
+</div>
+<div class="section" id="id81">
+<h3>接口描述<a class="headerlink" href="#id81" title="永久链接至标题">¶</a></h3>
+<p>建仓过程数据接口</p>
+</div>
+<div class="section" id="id82">
+<h3>请求参数<a class="headerlink" href="#id82" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker</td>
+<td align="left">席位</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">code</td>
+<td align="left">合约代号</td>
+<td>rb1810</td>
+</tr>
+<tr>
+<td align="left">start_date</td>
+<td align="left">开始日期</td>
+<td>"2020-02-03"; 可选参数</td>
+</tr>
+<tr>
+<td align="left">end_date</td>
+<td align="left">结束日期</td>
+<td>"2020-06-03"; 可选参数</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id83">
+<h3>返回参数<a class="headerlink" href="#id83" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">long</td>
+<td align="left">int</td>
+<td>多头持仓</td>
+</tr>
+<tr>
+<td align="left">short</td>
+<td align="left">int</td>
+<td>空头持仓</td>
+</tr>
+<tr>
+<td align="left">trans_date</td>
+<td align="left">date</td>
+<td>日期</td>
+</tr>
+<tr>
+<td align="left">code</td>
+<td align="left">string</td>
+<td>合约代号</td>
+</tr>
+<tr>
+<td align="left">profit</td>
+<td align="left">float</td>
+<td>当日盈亏金额，正数为盈利，负数为亏损，单位元</td>
+</tr>
+<tr>
+<td align="left">net_hold</td>
+<td align="left">int</td>
+<td>净持仓，多头持仓-空头持仓</td>
+</tr>
+<tr>
+<td align="left">total_profit</td>
+<td align="left">float</td>
+<td>累计盈亏金额，正数为盈利，负数为亏损，单位元</td>
+</tr>
+<tr>
+<td align="left">cost</td>
+<td align="left">float</td>
+<td>估算盈亏平衡价格</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id84">
+<h3>示例代码<a class="headerlink" href="#id84" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_positions_process_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_positions_process</span><span class="p">(</span><span class="n">broker</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="s2">&quot;rb2010&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2020-02-03&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2020-06-03&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_positions_process_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id85">
+<h3>返回示例<a class="headerlink" href="#id85" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">long</span>  <span class="n">short</span>  <span class="n">trans_date</span>  <span class="o">...</span> <span class="n">settle_price</span>  <span class="n">total_profit</span>     <span class="n">cost</span>
+<span class="mi">0</span>    <span class="mi">42187</span>  <span class="mi">17225</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="o">...</span>         <span class="mi">3196</span>     <span class="o">-</span><span class="mi">26297250</span>  <span class="mf">3301.35</span>
+<span class="mi">1</span>    <span class="mi">50394</span>  <span class="mi">17694</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">04</span>  <span class="o">...</span>         <span class="mi">3260</span>     <span class="o">-</span><span class="mi">10321570</span>  <span class="mf">3291.56</span>
+<span class="mi">2</span>    <span class="mi">52270</span>  <span class="mi">20802</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">05</span>  <span class="o">...</span>         <span class="mi">3292</span>        <span class="mi">142430</span>  <span class="mf">3291.55</span>
+<span class="mi">3</span>    <span class="mi">63213</span>  <span class="mi">24253</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">06</span>  <span class="o">...</span>         <span class="mi">3312</span>       <span class="mi">6436030</span>  <span class="mf">3295.48</span>
+<span class="mi">4</span>    <span class="mi">64025</span>  <span class="mi">27434</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">07</span>  <span class="o">...</span>         <span class="mi">3337</span>      <span class="mi">16176030</span>  <span class="mf">3292.79</span>
+<span class="o">..</span>     <span class="o">...</span>    <span class="o">...</span>         <span class="o">...</span>  <span class="o">...</span>          <span class="o">...</span>           <span class="o">...</span>      <span class="o">...</span>
+<span class="mi">79</span>  <span class="mi">101358</span>  <span class="mi">80513</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">28</span>  <span class="o">...</span>         <span class="mi">3492</span>     <span class="mi">101931690</span>  <span class="mf">3003.00</span>
+<span class="mi">80</span>   <span class="mi">99001</span>  <span class="mi">73076</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">29</span>  <span class="o">...</span>         <span class="mi">3533</span>     <span class="mi">110478140</span>  <span class="mf">3106.85</span>
+<span class="mi">81</span>   <span class="mi">95185</span>  <span class="mi">55351</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>  <span class="o">...</span>         <span class="mi">3580</span>     <span class="mi">122662890</span>  <span class="mf">3272.06</span>
+<span class="mi">82</span>  <span class="mi">133541</span>  <span class="mi">62476</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">02</span>  <span class="o">...</span>         <span class="mi">3608</span>     <span class="mi">133816410</span>  <span class="mf">3419.70</span>
+<span class="mi">83</span>  <span class="mi">144905</span>  <span class="mi">55558</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">03</span>  <span class="o">...</span>         <span class="mi">3640</span>     <span class="mi">156557210</span>  <span class="mf">3464.78</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id86">
+<h2>席位对对碰<a class="headerlink" href="#id86" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id87">
+<h3>接口名称<a class="headerlink" href="#id87" title="永久链接至标题">¶</a></h3>
+<p>broker_pk</p>
+</div>
+<div class="section" id="id88">
+<h3>接口描述<a class="headerlink" href="#id88" title="永久链接至标题">¶</a></h3>
+<p>席位对对碰数据接口</p>
+</div>
+<div class="section" id="id89">
+<h3>请求参数<a class="headerlink" href="#id89" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">broker1</td>
+<td align="left">席位1</td>
+<td>永安期货</td>
+</tr>
+<tr>
+<td align="left">broker2</td>
+<td align="left">席位2</td>
+<td>兴证期货</td>
+</tr>
+<tr>
+<td align="left">symbol</td>
+<td align="left">品种编码</td>
+<td>螺纹钢</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id90">
+<h3>返回参数<a class="headerlink" href="#id90" title="永久链接至标题">¶</a></h3>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">total_count</td>
+<td align="left">int</td>
+<td>统计数据量</td>
+</tr>
+<tr>
+<td align="left">win_count</td>
+<td align="left">int</td>
+<td>席位1获胜次数</td>
+</tr>
+<tr>
+<td align="left">recent_win_count</td>
+<td align="left">int</td>
+<td>席位1最近10次获胜次数</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="id91">
+<h3>示例代码<a class="headerlink" href="#id91" title="永久链接至标题">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">akshare</span> <span class="kn">import</span> <span class="n">pro_api</span>
+<span class="n">pro</span> <span class="o">=</span> <span class="n">pro_api</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;在此处输入您的token，可以通过联系管理员获取&quot;</span><span class="p">)</span>
+<span class="n">broker_pk_df</span> <span class="o">=</span> <span class="n">pro</span><span class="o">.</span><span class="n">broker_pk</span><span class="p">(</span><span class="n">broker1</span><span class="o">=</span><span class="s2">&quot;永安期货&quot;</span><span class="p">,</span> <span class="n">broker2</span><span class="o">=</span><span class="s2">&quot;兴证期货&quot;</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;RB&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">broker_pk_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id92">
+<h3>返回示例<a class="headerlink" href="#id92" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                  <span class="n">broker_pk</span>
+<span class="n">total_count</span>             <span class="mi">614</span>
+<span class="n">win_count</span>               <span class="mi">295</span>
+<span class="n">recent_win_count</span>          <span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="index_data.html" class="btn btn-neutral float-right" title="指数" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="commodity.html" class="btn btn-neutral float-left" title="商品" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

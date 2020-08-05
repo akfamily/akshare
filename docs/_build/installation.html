@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 安装指导 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="AkShare 贡献源码" href="contributor.html" />
+    <link rel="prev" title="AkShare 概览" href="introduction.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AkShare 安装指导</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">重要提示</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">安装 AkShare</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">通用安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python">国内安装-Python</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#anaconda">国内安装-Anaconda</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#node-js">安装 Node.js</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">快速安装</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#windows">Windows 系统</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ubuntu">Ubuntu 系统</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">详细安装</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Node.js 介绍</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Node.js 相关链接</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">Node.js 详细安装</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">升级 AkShare</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#r">R 语言支持</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">安装 Anaconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">安装 R 语言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">在 R 语言中安装相应的包</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">安装报错解决方案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lxml">1. 安装 lxml 库失败的错误</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">2. 安装超时的错误</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">3. 拒绝访问错误</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">4. 提示其他的错误</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/index.html">AkShare 数据字典</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>AkShare 安装指导</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 安装指导<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>重要提示<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>首先请确认安装 <a class="reference external" href="https://www.python.org/">Python</a> 3.6 及以上版本, 这里推荐 <a class="reference external" href="https://www.python.org/">Python</a> 3.7.5 版本;</p></li>
+<li><p><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 推荐安装最新版本的 <a class="reference external" href="https://www.anaconda.com/">Anaconda</a>, 可以解决大部分安装问题.</p></li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>安装 <a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>通用安装<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">akshare</span>  <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="python">
+<h3>国内安装-Python<a class="headerlink" href="#python" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">akshare</span> <span class="o">-</span><span class="n">i</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">aliyun</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pypi</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="o">--</span><span class="n">trusted</span><span class="o">-</span><span class="n">host</span><span class="o">=</span><span class="n">mirrors</span><span class="o">.</span><span class="n">aliyun</span><span class="o">.</span><span class="n">com</span>  <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="anaconda">
+<h3>国内安装-Anaconda<a class="headerlink" href="#anaconda" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">akshare</span> <span class="o">-</span><span class="n">i</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">aliyun</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pypi</span><span class="o">/</span><span class="n">simple</span><span class="o">/</span> <span class="o">--</span><span class="n">trusted</span><span class="o">-</span><span class="n">host</span><span class="o">=</span><span class="n">mirrors</span><span class="o">.</span><span class="n">aliyun</span><span class="o">.</span><span class="n">com</span>  <span class="o">--</span><span class="n">user</span>  <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="node-js">
+<h2>安装 <a class="reference external" href="https://nodejs.org/dist/">Node.js</a><a class="headerlink" href="#node-js" title="永久链接至标题">¶</a></h2>
+<p>P.S. 体验 <a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 完整功能, 请安装 <a class="reference external" href="https://nodejs.org/dist/">Node.js</a></p>
+<div class="section" id="id4">
+<h3>快速安装<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<div class="section" id="windows">
+<h4>Windows 系统<a class="headerlink" href="#windows" title="永久链接至标题">¶</a></h4>
+<p><a class="reference external" href="https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi">点击下载 Node.js for win 64</a>, 按照界面提示完成安装即可！</p>
+</div>
+<div class="section" id="ubuntu">
+<h4>Ubuntu 系统<a class="headerlink" href="#ubuntu" title="永久链接至标题">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">nodejs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>详细安装<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id6">
+<h4>Node.js 介绍<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，它的存在使开发者可以在不依赖游览器的情况下编译和运行 JavaScript 代码。</p>
+</div>
+<div class="section" id="id7">
+<h4>Node.js 相关链接<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
+<ol class="simple">
+<li><p><a class="reference external" href="https://nodejs.org">Node.js 官网</a></p></li>
+<li><p><a class="reference external" href="https://github.com/nvm-sh/nvm">NVM 的 GitHub 仓库</a></p></li>
+</ol>
+</div>
+<div class="section" id="id8">
+<h4>Node.js 详细安装<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
+<p>我们既可以从 <a class="reference external" href="https://nodejs.org">Node.js 官网</a> 下载安装包，也可以通过它的版本管理工具 NVM 来安装它。使用 NVM 的好处是可以在计算机中
+安装多个版本的 Node.js，并且安装过程也比较简单。</p>
+<p>首先下载并安装 NVM，对应的命令如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="o">-</span><span class="n">qO</span><span class="o">-</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">nvm</span><span class="o">-</span><span class="n">sh</span><span class="o">/</span><span class="n">nvm</span><span class="o">/</span><span class="n">v0</span><span class="o">.</span><span class="mf">34.0</span><span class="o">/</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span> <span class="o">|</span> <span class="n">bash</span>
+</pre></div>
+</div>
+<p>然后刷新环境变量，对应的命令如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">~/.</span><span class="n">bashrc</span>
+</pre></div>
+</div>
+<p>接着验证 NVM 是否安装成功。在终端执行以下命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">command</span> <span class="o">-</span><span class="n">v</span> <span class="n">nvm</span>
+</pre></div>
+</div>
+<p>此时终端会输出如下内容：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nvm</span>
+</pre></div>
+</div>
+<p>这代表 NVM 已经成功安装，并且正常运行。接着就可以安装 Node.js 了，在终端执行以下命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nvm</span> <span class="n">install</span> <span class="n">node</span>
+</pre></div>
+</div>
+<p>此时终端输出如下内容：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Downloading and installing node v13.12.0...
+Downloading https://nodejs.org/dist/v13.12.0/node-v13.12.0-linux-x64.tar.xz...
+################################################################################################################################################################## 100.0%
+Computing checksum with sha256sum
+Checksums matched!
+Now using node v13.12.0 (npm v6.14.4)
+Creating default alias: default -&gt; node (-&gt; v13.12.0)
+</pre></div>
+</div>
+<p>这代表 Node.js 最新版本已被下载并安装。</p>
+<p>接下来验证 Node.js 是否已经安装成功。新建一个 nodev.js 的文件，并将以下内容写入文件：</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;node 可用&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>最后在同级目录下唤起终端，在终端执行以下命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="n">nodev</span><span class="o">.</span><span class="n">js</span>
+</pre></div>
+</div>
+<p>如果此时终端输出如下内容：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">node</span> <span class="n">可用</span>
+</pre></div>
+</div>
+<p>代表 Node.js 已经成功安装，并且正常运行。</p>
+</div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>升级 <a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a><a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<p>P.S. <strong>由于目前版本更新迭代频繁, 请在使用 <a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 前先升级, 命令如下所示</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">akshare</span> <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="r">
+<h2>R 语言支持<a class="headerlink" href="#r" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id10">
+<h3>安装 Anaconda<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p><a class="reference external" href="https://repo.anaconda.com/archive/Anaconda3-2020.02-Windows-x86_64.exe">下载 Windows 64 位 Python 3.7 的 Anaconda</a></p>
+<p><a class="reference external" href="https://www.akshare.xyz/zh_CN/latest/anaconda.html">安装教程参见 AkShare 文档的环境配置专栏</a></p>
+</div>
+<div class="section" id="id11">
+<h3>安装 R 语言<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p><a class="reference external" href="https://mirrors.tuna.tsinghua.edu.cn/CRAN/bin/windows/">下载 R</a></p>
+<p><a class="reference external" href="https://download1.rstudio.org/desktop/windows/RStudio-1.3.959.exe">下载 RStudio</a></p>
+<p>先安装 R，再安装 RStudio，按一下部安装即可。</p>
+</div>
+<div class="section" id="id12">
+<h3>在 R 语言中安装相应的包<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<p><a class="reference external" href="https://rstudio.github.io/reticulate/">Reticulate</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">install</span><span class="o">.</span><span class="n">packages</span><span class="p">(</span><span class="s2">&quot;reticulate&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在安装完成后通过</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">library</span><span class="p">(</span><span class="n">reticulate</span><span class="p">)</span>
+<span class="n">use_python</span><span class="p">(</span><span class="s2">&quot;/usr/local/bin/python&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>调用本地的 Python 程序，其中 usr 需要替换为本地电脑的用户名。</p>
+<p>最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 AkShare 获取数据：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>library(reticulate)  # 导入 reticulate 包
+use_python(&quot;/king/local/bin/python&quot;)  # 其中的 king 为本地电脑用户名
+ak &lt;- import(&quot;akshare&quot;)  # 类似于 import akshare as ak
+stock_df &lt;- ak$stock_em_yysj(date=&quot;2020-03-31&quot;)  # 类似于 ak.stock_em_yysj(date=&quot;2020-03-31&quot;)
+print(stock_df)  # 查看数据
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">scode</span>    <span class="n">sname</span>  <span class="n">trademarket</span>          <span class="n">reportdate</span>              <span class="n">frdate</span>
+<span class="mi">1</span> <span class="mi">600396</span> <span class="n">金山股份</span>   <span class="n">上交所主板</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">2</span> <span class="mi">002913</span>   <span class="n">奥士康</span> <span class="n">深交所中小板</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">3</span> <span class="mi">002007</span> <span class="n">华兰生物</span> <span class="n">深交所中小板</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">4</span> <span class="mi">002838</span> <span class="n">道恩股份</span> <span class="n">深交所中小板</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">5</span> <span class="mi">603186</span> <span class="n">华正新材</span>   <span class="n">上交所主板</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="mi">6</span> <span class="mi">300208</span> <span class="n">青岛中程</span> <span class="n">深交所创业板</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">31</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+               <span class="n">fcdate</span> <span class="n">scdate</span> <span class="n">tcdate</span>              <span class="n">radate</span> <span class="n">securitytypecode</span>
+<span class="mi">1</span>                   <span class="o">-</span>      <span class="o">-</span>      <span class="o">-</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>        <span class="mi">058001001</span>
+<span class="mi">2</span>                   <span class="o">-</span>      <span class="o">-</span>      <span class="o">-</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>        <span class="mi">058001001</span>
+<span class="mi">3</span>                   <span class="o">-</span>      <span class="o">-</span>      <span class="o">-</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>        <span class="mi">058001001</span>
+<span class="mi">4</span>                   <span class="o">-</span>      <span class="o">-</span>      <span class="o">-</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>        <span class="mi">058001001</span>
+<span class="mi">5</span>                   <span class="o">-</span>      <span class="o">-</span>      <span class="o">-</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">09</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>        <span class="mi">058001001</span>
+<span class="mi">6</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">16</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>      <span class="o">-</span>      <span class="o">-</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">16</span><span class="n">T00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>        <span class="mi">058001001</span>
+  <span class="n">trademarketcode</span>
+<span class="mi">1</span>    <span class="mi">069001001001</span>
+<span class="mi">2</span>    <span class="mi">069001002003</span>
+<span class="mi">3</span>    <span class="mi">069001002003</span>
+<span class="mi">4</span>    <span class="mi">069001002003</span>
+<span class="mi">5</span>    <span class="mi">069001001001</span>
+<span class="mi">6</span>    <span class="mi">069001002002</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>安装报错解决方案<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h2>
+<div class="section" id="lxml">
+<h3>1. 安装 lxml 库失败的错误<a class="headerlink" href="#lxml" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>安装 wheel, 需要在 Windows 的命令提示符中运行如下命令:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">wheel</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>在<a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml3">这里下载</a>与您的 Python 版本对应的 <strong>.whl</strong> 文件, <strong>注意别改文件名!</strong></p></li>
+</ul>
+<p>以下提供 64 位电脑的版本, 所以下载对应的 64 位就可以, 点击如下链接也可以下载:</p>
+<ol class="simple">
+<li><p><a class="reference external" href="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/software/lxml/lxml-4.5.0-cp36-cp36m-win_amd64.whl">lxml‑4.5.0‑cp36‑cp36m‑win_amd64.whl</a></p></li>
+<li><p><a class="reference external" href="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/software/lxml/lxml-4.5.0-cp37-cp37m-win_amd64.whl">lxml‑4.5.0‑cp37‑cp37m‑win_amd64.whl</a></p></li>
+<li><p><a class="reference external" href="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/software/lxml/lxml-4.5.0-cp38-cp38-win_amd64.whl">lxml‑4.5.0‑cp38‑cp38‑win_amd64.whl</a></p></li>
+</ol>
+<ul class="simple">
+<li><p>进入 <strong>.whl</strong> 所在的文件夹, 执行命令即可完成安装, 如下</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">带后缀的完整路径和文件名</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>2. 安装超时的错误<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<p>1.大致报错如下, 出现关键词 <strong>amt</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+<span class="n">File</span> <span class="s2">&quot;/home/xiaoduc/.pyenv/versions/3.7.3/lib/python3.7/site-packages/pip/_vendor/requests/packages/urllib3/response.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">228</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_error_catcher</span>
+<span class="k">yield</span>
+<span class="n">File</span> <span class="s2">&quot;/home/xiaoduc/.pyenv/versions/3.7.3/lib/python3.7/site-packages/pip/_vendor/requests/packages/urllib3/response.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">310</span><span class="p">,</span> <span class="ow">in</span> <span class="n">read</span>
+<span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fp</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span>
+<span class="n">File</span> <span class="s2">&quot;/home/xiaoduc/.pyenv/versions/3.7.3/lib/python3.7/site-packages/pip/_vendor/cachecontrol/filewrapper.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">49</span><span class="p">,</span> <span class="ow">in</span> <span class="n">read</span>
+<span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__fp</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">amt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>2.解决方案如下:</p>
+<p>方法一</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="o">--</span><span class="n">default</span><span class="o">-</span><span class="n">timeout</span><span class="o">=</span><span class="mi">100</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">akshare</span>
+</pre></div>
+</div>
+<p>方法二</p>
+<p>使用全局代理解决</p>
+</div>
+<div class="section" id="id15">
+<h3>3. 拒绝访问错误<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+<p>1.大致报错如下, 出现关键词 <strong>拒绝访问</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: &#39;/Users/mac/Anaconda/anaconda3/lib/python3.7/site-packages/cv2/__init__.py&#39;
+Consider using the `--user` option or check the permissions.
+</pre></div>
+</div>
+<p>2.解决方案如下:</p>
+<p>方法一</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">akshare</span> <span class="o">--</span><span class="n">user</span>
+</pre></div>
+</div>
+<p>方法二</p>
+<p>使用管理员权限(右键单击选择管理员权限)打开 Anaconda Prompt 进行安装</p>
+</div>
+<div class="section" id="id16">
+<h3>4. 提示其他的错误<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>方法一: 升级您的 Anaconda 或者 Python 到 <strong>Python3.7.5</strong> 及以上版本</p></li>
+<li><p>方法二: 使用 conda 的虚拟环境来安装, 详见 <strong>AkShare 环境配置</strong>板块的内容</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="contributor.html" class="btn btn-neutral float-right" title="AkShare 贡献源码" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="AkShare 概览" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

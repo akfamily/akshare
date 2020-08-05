@@ -1,0 +1,485 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4. Pandas 10大新功能 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="5. Pandas 数据结构" href="pandas-04.html" />
+    <link rel="prev" title="3. Pandas 25 式" href="pandas-02.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data/index.html">AkShare 数据字典</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 专题教程</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../anaconda/index.html">Anaconda 教程</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Pandas 教程</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="pandas-00.html">1. Pandas 概览</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-01.html">2. Pandas 基础用法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-02.html">3. Pandas 25 式</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4. Pandas 10大新功能</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">4.1. 四个置顶的警告！</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">4.2. 新增功能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-04.html">5. Pandas 数据结构</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pandas-05.html">6. 时间序列与日期用法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 专题教程</a> &raquo;</li>
+        
+          <li><a href="index.html">Pandas 教程</a> &raquo;</li>
+        
+      <li><span class="section-number">4. </span>Pandas 10大新功能</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/topic/pandas/pandas-03.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pandas-10">
+<h1><span class="section-number">4. </span>Pandas 10大新功能<a class="headerlink" href="#pandas-10" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2><span class="section-number">4.1. </span>四个置顶的警告！<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>从 0.25 起，pandas 只支持 Python 3.53 及以上版本了，不再支持 Python 2.7，还在使用 Python 2 的朋友可要注意了，享受不了新功能了，不过，貌似用 Python 2 做数据分析这事儿估计已经绝迹了吧！</p></li>
+</ol>
+<p><img alt="https://upload-images.jianshu.io/upload_images/3240514-f06471baa5a83b6a.png" src="https://upload-images.jianshu.io/upload_images/3240514-f06471baa5a83b6a.png" /></p>
+<ol class="simple">
+<li><p>下一版 pandas 将只支持 Python 3.6 及以上版本了，这是因为 f-strings 的缘故吗？嘿嘿。</p></li>
+</ol>
+<p><img alt="https://upload-images.jianshu.io/upload_images/3240514-2382c84ae7b65940.png" src="https://upload-images.jianshu.io/upload_images/3240514-2382c84ae7b65940.png" /></p>
+<ol class="simple">
+<li><p>彻底去掉了 Panel，N 维数据结构以后要用 <a class="reference external" href="https://xarray.pydata.org/en/stable/">xarray</a> 了。 说起来惭愧，呆鸟还没用过 Panel 呢，它怎么就走了。。。。</p></li>
+</ol>
+<p><img alt="https://upload-images.jianshu.io/upload_images/3240514-d13199350b34e881.png" src="https://upload-images.jianshu.io/upload_images/3240514-d13199350b34e881.png" /></p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">read_pickle()</span></code>  与 <code class="docutils literal notranslate"><span class="pre">read_msgpack()</span></code>，只向后兼容到 0.20.3。上一篇文章刚介绍过 <code class="docutils literal notranslate"><span class="pre">read_pickle()</span></code>，它就也要离我们而去了吗？-_-||</p></li>
+</ol>
+<p>看完了这四大警告，咱们再看下 0.25 带来了哪些新东西。</p>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">4.2. </span>新增功能<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="groupby-named-aggregation">
+<h3>1. Groupby 的<strong>命名聚合(Named Aggregation)</strong><a class="headerlink" href="#groupby-named-aggregation" title="永久链接至标题">¶</a></h3>
+<p>这可是个新功能，能直接为指定的聚合输出列命名。先创建一个 DataFrame 示例。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">animals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;品种&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;猫&#39;</span><span class="p">,</span> <span class="s1">&#39;狗&#39;</span><span class="p">,</span> <span class="s1">&#39;猫&#39;</span><span class="p">,</span> <span class="s1">&#39;狗&#39;</span><span class="p">],</span>
+                        <span class="s1">&#39;身高&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">9.1</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">],</span>
+                        <span class="s1">&#39;体重&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">7.9</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="mf">9.9</span><span class="p">,</span> <span class="mf">198.0</span><span class="p">]})</span>
+<span class="n">animals</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>命名聚合示例，居然还支持中文诶！不过，这里是为了演示清晰才写的中文变量名，平时，该用英文还是要用英文的。</p>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">animals</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;品种&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">最低</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NamedAgg</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;身高&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">),</span>
+    <span class="n">最高</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NamedAgg</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;身高&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;max&#39;</span><span class="p">),</span>
+    <span class="n">平均体重</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">NamedAgg</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;体重&#39;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>这么写看起来还是有些繁琐，很不 Pythonic，好在 pandas 提供了更简单的写法，只需传递一个 Tuple 就可以了，Tuple 里的第一个元素是指定列，第二个元素是聚合函数，看看下面的代码，是不是少敲了好多下键盘：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">animals</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;品种&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">最低</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;身高&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="p">),</span>
+    <span class="n">最高</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;身高&#39;</span><span class="p">,</span> <span class="nb">max</span><span class="p">),</span>
+    <span class="n">平均体重</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;体重&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">),</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>这里还可以进一步偷懒，只写 <code class="docutils literal notranslate"><span class="pre">min</span></code> 或 <code class="docutils literal notranslate"><span class="pre">max</span></code>，连单引号都不写了。</p>
+</div></blockquote>
+<p>Pandas 提供了一种叫 <code class="docutils literal notranslate"><span class="pre">pandas.NameAgg</span></code> 的命名元组（namedtuple），但如上面的代码所示，直接使用 Tuple 也没问题。</p>
+<p>这两段代码的效果是一样的，结果都如下图所示。</p>
+<p><img alt="命名聚合" src="https://upload-images.jianshu.io/upload_images/3240514-da0cf5f7919d78e5.png" /></p>
+<p>命名聚合取代了已经废弃的 <code class="docutils literal notranslate"><span class="pre">dict-of-dicts</span></code> 重命名方式，看了一下，之前的操作还真是挺复杂的，这里就不赘述了，有兴趣回顾的朋友，可以自己看下<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/whatsnew/v0.20.0.html#whatsnew-0200-api-breaking-deprecate-group-agg-dict">用 dict 重命名 groupby.agg() 输出结果（已废弃） </a>这部分内容。</p>
+<p>命名聚合还支持 Series 的 groupby 对象，因为 Series 无需指定列名，只要写清楚要应用的函数就可以了。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">animals</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;品种&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">身高</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">最低</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span>
+    <span class="n">最高</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="命名聚合" src="https://upload-images.jianshu.io/upload_images/3240514-435e32238e910bf9.png" /></p>
+<p>更多有关<strong>命名聚合</strong>的介绍，详见官方文档 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#groupby-aggregate-named">Named aggregation</a> 。</p>
+</div>
+<div class="section" id="groupby-lambda">
+<h3>2. Groupby 聚合支持多个 lambda 函数<a class="headerlink" href="#groupby-lambda" title="永久链接至标题">¶</a></h3>
+<p>0.25 版有一个黑科技，以 list 方式向 <code class="docutils literal notranslate"><span class="pre">agg()</span></code> 函数传递多个 lambda 函数。为了减少键盘敲击量，真是无所不用其极啊！</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">animals</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;品种&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">身高</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="多个 lambda 函数1" src="https://upload-images.jianshu.io/upload_images/3240514-31f80d8829eddd6f.png" /></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">animals</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;品种&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+<p><img alt="多个 lambda 函数2" src="https://upload-images.jianshu.io/upload_images/3240514-acadecac59939d08.png" /></p>
+<p>0.25 版前，这样操作会触发 <code class="docutils literal notranslate"><span class="pre">SpecificationError</span></code></p>
+<p><img alt="触发 SpecificationError" src="https://upload-images.jianshu.io/upload_images/3240514-5d2fbbddd89311c5.png" /></p>
+<blockquote>
+<div><p>这个功能也有个小遗憾，多 lambda 函数的输出没有像命名聚合那样可以自定义命名，还要后面手动修改，有些不方便，不知道是我没找到，还是真没有……</p>
+</div></blockquote>
+</div>
+<div class="section" id="multiindex">
+<h3>3. 优化了 MultiIndex 显示输出<a class="headerlink" href="#multiindex" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">MultiIndex</span></code> 输出的每行数据以 Tuple 显示，且垂直对齐，这样一来，<code class="docutils literal notranslate"><span class="pre">MultiIndex</span></code> 的结构显示的更清晰了。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_product</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">],</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">)])</span>
+</pre></div>
+</div>
+<p><img alt="之前，是这样的" src="https://upload-images.jianshu.io/upload_images/3240514-1279f8ecd379e83b.png" /></p>
+<p><img alt="现在，是这样的" src="https://upload-images.jianshu.io/upload_images/3240514-f1e76a879103c5ff.png" /></p>
+<p>真是货比货得扔，以前没感觉，现在一比较，有没有觉得大不相同呢？</p>
+</div>
+<div class="section" id="series-dataframe">
+<h3>4.  精简显示  Series 与 DataFrame<a class="headerlink" href="#series-dataframe" title="永久链接至标题">¶</a></h3>
+<p>超过 60 行的 Series 与 DataFrame，pandas 会默认最多只显示 60 行（见 <code class="docutils literal notranslate"><span class="pre">display.max_rows</span></code> 选项）。这种设置依然会占用大量垂直屏幕空间。因此，0.25 版引入了 <code class="docutils literal notranslate"><span class="pre">display.min_rows</span></code> 选项，默认只显示 10 行：</p>
+<ul class="simple">
+<li><p>数据量小的 Series 与 DataFrame， 显示 <code class="docutils literal notranslate"><span class="pre">max_row</span></code> 行数据，默认为 60 行，前 30 行与后 30 行；</p></li>
+<li><p>数据量大的 Series 与 DataFrame，如果数据量超过 <code class="docutils literal notranslate"><span class="pre">max_rows</span></code>， 只显示 <code class="docutils literal notranslate"><span class="pre">min_rows</span></code> 行，默认为 10 行，即前 5 行与后 5 行。</p></li>
+</ul>
+<p>最大与最小行数这种双重选项，允许在数据量较小时，比如数据量少于 60 行，显示全部数据，在数据量较大时，则只显示数据摘要。</p>
+<p>要去掉 <code class="docutils literal notranslate"><span class="pre">min_rows</span></code> 的设置，可以把该选项设置为 <code class="docutils literal notranslate"><span class="pre">None</span></code>：
+<code class="docutils literal notranslate"><span class="pre">pd.options.display.min_rows</span> <span class="pre">=</span> <span class="pre">None</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sales_date1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;20190101&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<span class="n">amount1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;销售金额&#39;</span><span class="p">]</span>
+<span class="n">sales1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">amount1</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="n">sales_date1</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="min_rows" src="https://upload-images.jianshu.io/upload_images/3240514-432731e9a57fa9de.png" /></p>
+<blockquote>
+<div><p>在 VSCode 里显示正常，只显示了前 5 行与后 5 行，但貌似 Jupyter Notebook 6.0 目前貌似还不支持这个设置，还是显示前 30 行与后 30 行。图片太长，这里就不截图了。如果 Jupyter 可以的话，请告诉我。</p>
+</div></blockquote>
+</div>
+<div class="section" id="json-normalize-max-level">
+<h3>5.  json_normalize()  支持 max_level<a class="headerlink" href="#json-normalize-max-level" title="永久链接至标题">¶</a></h3>
+<p>json_normalize()  支持按层级（level）读取，增加了 <code class="docutils literal notranslate"><span class="pre">max_level</span></code> 控制参数。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pandas.io.json</span> <span class="kn">import</span> <span class="n">json_normalize</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[{</span>
+        <span class="s1">&#39;CreatedBy&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="s1">&#39;User001&#39;</span><span class="p">},</span>
+        <span class="s1">&#39;Lookup&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;TextField&#39;</span><span class="p">:</span> <span class="s1">&#39;Some text&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;UserField&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;Id&#39;</span><span class="p">:</span> <span class="s1">&#39;ID001&#39;</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="s1">&#39;Name001&#39;</span><span class="p">}},</span>
+        <span class="s1">&#39;Image&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
+        <span class="p">}]</span>
+</pre></div>
+</div>
+<p>0.25 以前是这样的，所有层级都读取出来了：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">json_normalize</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="0.25以前" src="https://upload-images.jianshu.io/upload_images/3240514-ed8bf442d0a621bb.png" /></p>
+<p>0.25 以后是这样的，可以通过 <code class="docutils literal notranslate"><span class="pre">max_level</span></code> 参数控制读取的 JSON 数据层级：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">json_normalize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">max_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="0.25以后" src="https://upload-images.jianshu.io/upload_images/3240514-9a5418c4b0e1763a.png" /></p>
+</div>
+<div class="section" id="explode-list">
+<h3>6. 增加 explode() 方法，把 list “炸”成行<a class="headerlink" href="#explode-list" title="永久链接至标题">¶</a></h3>
+<p>Series 与 DataFrame 增加了 explode() 方法，把 list 形式的值转换为单独的行。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span><span class="s1">&#39;变量1&#39;</span><span class="p">:</span> <span class="s1">&#39;a,b,c&#39;</span><span class="p">,</span> <span class="s1">&#39;变量2&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+                   <span class="p">{</span><span class="s1">&#39;变量1&#39;</span><span class="p">:</span> <span class="s1">&#39;d,e,f&#39;</span><span class="p">,</span> <span class="s1">&#39;变量2&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+<p><img alt="https://upload-images.jianshu.io/upload_images/3240514-8a15488ca1c0a96f.png" src="https://upload-images.jianshu.io/upload_images/3240514-8a15488ca1c0a96f.png" /></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">变量1</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">变量1</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="s1">&#39;变量1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="https://upload-images.jianshu.io/upload_images/3240514-f4bb304bc71dfadc.png" src="https://upload-images.jianshu.io/upload_images/3240514-f4bb304bc71dfadc.png" /></p>
+<p>以后再拆分这样的数据就简单多了。具体官方文档说明详见 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/reshaping.html#reshaping-explode">section on Exploding list-like column</a>。</p>
+</div>
+<div class="section" id="sparsedataframe">
+<h3>7.  SparseDataFrame 被废弃了<a class="headerlink" href="#sparsedataframe" title="永久链接至标题">¶</a></h3>
+<p>0.25 以前专门有 <code class="docutils literal notranslate"><span class="pre">SparseDataFrame()</span></code>，生成稀疏矩阵，0.25 以后，这个函数被废弃了，改成 <code class="docutils literal notranslate"><span class="pre">pd.DataFrame</span></code> 里的 <code class="docutils literal notranslate"><span class="pre">pd.SparseArray()</span></code> 了，函数统一了，但是要多敲几下键盘了。</p>
+<p>0.25 以前是这样的：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">SparseDataFrame</span><span class="p">({</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+</pre></div>
+</div>
+<p>0.25 以后是这样的：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;A&quot;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">SparseArray</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])})</span>
+</pre></div>
+</div>
+<p>输出的结果都是一样的：</p>
+<p><img alt="稀疏矩阵" src="https://upload-images.jianshu.io/upload_images/3240514-730edf414eae8910.png" /></p>
+</div>
+<div class="section" id="dataframe-groupby-groupby-apply">
+<h3>8. 对 DataFrame Groupby 后，Groupby.apply 对每组只处理一次<a class="headerlink" href="#dataframe-groupby-groupby-apply" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
+<span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">group</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>有没有想到，0.25 以前输出的结果居然是这样的：</p>
+<p><img alt="0.25以前" src="https://upload-images.jianshu.io/upload_images/3240514-5db1ea42cbf9e600.png" /></p>
+<p><img alt="0.25以后" src="https://upload-images.jianshu.io/upload_images/3240514-6129c1176ca094bf.png" /></p>
+<p>这样才正常嘛~~！</p>
+</div>
+<div class="section" id="dict-dataframe">
+<h3>9. 用 Dict 生成的 DataFrame，终于支持列排序啦<a class="headerlink" href="#dict-dataframe" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;姓 名&#39;</span><span class="p">:</span> <span class="s1">&#39;张三&#39;</span><span class="p">,</span> <span class="s1">&#39;城 市&#39;</span><span class="p">:</span> <span class="s1">&#39;北京&#39;</span><span class="p">,</span> <span class="s1">&#39;年 龄&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;姓 名&#39;</span><span class="p">:</span> <span class="s1">&#39;李四&#39;</span><span class="p">,</span> <span class="s1">&#39;城 市&#39;</span><span class="p">:</span> <span class="s1">&#39;上海&#39;</span><span class="p">,</span> <span class="s1">&#39;年 龄&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span> <span class="s1">&#39;爱 好&#39;</span><span class="p">:</span> <span class="s1">&#39;打游戏&#39;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s1">&#39;姓 名&#39;</span><span class="p">:</span> <span class="s1">&#39;王五&#39;</span><span class="p">,</span> <span class="s1">&#39;城 市&#39;</span><span class="p">:</span> <span class="s1">&#39;广州&#39;</span><span class="p">,</span> <span class="s1">&#39;年 龄&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;财务状况&#39;</span><span class="p">:</span> <span class="s1">&#39;优&#39;</span><span class="p">}</span>
+<span class="p">]</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>以前是乱序的，全凭 pandas 的喜好：</p>
+<p><img alt="0.25以前" src="https://upload-images.jianshu.io/upload_images/3240514-00fb1f275e4614d4.png" /></p>
+<p>现在，我的字典终于我做主了！</p>
+<p><img alt="0.25以后" src="https://upload-images.jianshu.io/upload_images/3240514-4f23dbd90550b434.png" /></p>
+</div>
+<div class="section" id="query">
+<h3>10. Query() 支持列名空格了<a class="headerlink" href="#query" title="永久链接至标题">¶</a></h3>
+<p>用上面的 <code class="docutils literal notranslate"><span class="pre">data</span></code> 生成一个示例 DataFrame，注意列名是有空格的。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>现在用反引号（`）括住列名，就可以直接查询了：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;`年 龄` &lt;19&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="https://upload-images.jianshu.io/upload_images/3240514-32d59324c7429ecf.png" src="https://upload-images.jianshu.io/upload_images/3240514-32d59324c7429ecf.png" /></p>
+<p>好了，本文就先介绍 pandas 0.25 的这些改变，其实，0.25 还包括了很多优化，比如，对 DataFrame GroupBy 后 <code class="docutils literal notranslate"><span class="pre">ffill</span></code>, <code class="docutils literal notranslate"><span class="pre">bfill</span></code> 方法的调整，对类别型数据的 <code class="docutils literal notranslate"><span class="pre">argsort</span></code> 的缺失值排序，<code class="docutils literal notranslate"><span class="pre">groupby</span></code>保留类别数据的数据类型等，如需了解，详见官方文档 <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/whatsnew/v0.25.0.html">What’s new in 0.25.0</a>。</p>
+<p>配套的 Jupyter Notebook 文件链接<a class="reference external" href="https://github.com/jaystone776/pandas_answered/blob/master/10_New_Features_in_Pandas_0.25.ipynb">这里</a>。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pandas-04.html" class="btn btn-neutral float-right" title="5. Pandas 数据结构" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pandas-02.html" class="btn btn-neutral float-left" title="3. Pandas 25 式" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

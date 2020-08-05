@@ -1,0 +1,5650 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 指数数据 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AkShare 宏观数据" href="../macro/macro.html" />
+    <link rel="prev" title="AkShare 公募数据" href="../fund/fund_public.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../currency/currency.html">AkShare 货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AkShare 指数数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">中国股票指数数据</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">实时行情数据</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">历史行情数据</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">中国股票指数成份</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">最新成份</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">历史成份</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">全球指数数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">微博指数数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">百度搜索指数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">百度资讯指数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">百度媒体指数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">谷歌趋势指数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">申万一级行业实时行情</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">申万一级行业成份</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">申万一级行业历史行情</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">申万一级行业历史行情指标</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">商品现货价格指数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">义乌小商品指数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">恐慌指数</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">中证指数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qhkc/index.html">AkShare 奇货可查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+      <li>AkShare 指数数据</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/index/index.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 指数数据<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>中国股票指数数据<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3>实时行情数据<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>接口: stock_zh_index_spot</p>
+<p>目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_s</p>
+<p>描述: 中国股票指数数据-所有指数</p>
+<p>限量: 单次返回所有指数的实时行情数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数-实时行情数据</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>名称</td>
+<td>str</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>最新价</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>涨跌幅</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>涨跌额</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>买入</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>卖出</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>成交量</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>成交额</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>今开</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>昨收</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>最高</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>最低</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">stock_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">stock_zh_index_spot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-实时行情数据</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>       <span class="n">symbol</span>  <span class="n">name</span>      <span class="n">trade</span> <span class="n">pricechange</span> <span class="n">changepercent</span>    <span class="n">buy</span>   <span class="n">sell</span>  \
+<span class="mi">0</span>    <span class="n">sh000001</span>  <span class="n">上证指数</span>  <span class="mf">2891.3431</span>     <span class="o">-</span><span class="mf">18.527</span>        <span class="o">-</span><span class="mf">0.637</span>      <span class="mi">0</span>      <span class="mi">0</span>   
+<span class="mi">1</span>    <span class="n">sh000002</span>  <span class="n">Ａ股指数</span>  <span class="mf">3029.2626</span>     <span class="o">-</span><span class="mf">19.372</span>        <span class="o">-</span><span class="mf">0.635</span>      <span class="mi">0</span>      <span class="mi">0</span>   
+<span class="mi">2</span>    <span class="n">sh000003</span>  <span class="n">Ｂ股指数</span>   <span class="mf">255.2202</span>      <span class="o">-</span><span class="mf">2.955</span>        <span class="o">-</span><span class="mf">1.145</span>      <span class="mi">0</span>      <span class="mi">0</span>   
+<span class="mi">3</span>    <span class="n">sh000004</span>  <span class="n">工业指数</span>  <span class="mf">2265.4238</span>     <span class="o">-</span><span class="mf">19.259</span>        <span class="o">-</span><span class="mf">0.843</span>      <span class="mi">0</span>      <span class="mi">0</span>   
+<span class="mi">4</span>    <span class="n">sh000005</span>  <span class="n">商业指数</span>  <span class="mf">2625.3647</span>     <span class="o">-</span><span class="mf">31.024</span>        <span class="o">-</span><span class="mf">1.168</span>      <span class="mi">0</span>      <span class="mi">0</span>   
+<span class="o">..</span>        <span class="o">...</span>   <span class="o">...</span>        <span class="o">...</span>         <span class="o">...</span>           <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>   
+<span class="mi">556</span>  <span class="n">sz399994</span>  <span class="n">信息安全</span>   <span class="mf">1632.732</span>     <span class="o">-</span><span class="mf">10.892</span>        <span class="o">-</span><span class="mf">0.663</span>  <span class="mf">0.000</span>  <span class="mf">0.000</span>   
+<span class="mi">557</span>  <span class="n">sz399995</span>  <span class="n">基建工程</span>   <span class="mf">3537.133</span>     <span class="o">-</span><span class="mf">60.242</span>        <span class="o">-</span><span class="mf">1.675</span>  <span class="mf">0.000</span>  <span class="mf">0.000</span>   
+<span class="mi">558</span>  <span class="n">sz399996</span>  <span class="n">智能家居</span>   <span class="mf">2542.981</span>     <span class="o">-</span><span class="mf">18.931</span>        <span class="o">-</span><span class="mf">0.739</span>  <span class="mf">0.000</span>  <span class="mf">0.000</span>   
+<span class="mi">559</span>  <span class="n">sz399997</span>  <span class="n">中证白酒</span>   <span class="mf">8291.824</span>     <span class="o">-</span><span class="mf">56.333</span>        <span class="o">-</span><span class="mf">0.675</span>  <span class="mf">0.000</span>  <span class="mf">0.000</span>   
+<span class="mi">560</span>  <span class="n">sz399998</span>  <span class="n">中证煤炭</span>   <span class="mf">1166.536</span>     <span class="o">-</span><span class="mf">14.255</span>        <span class="o">-</span><span class="mf">1.207</span>  <span class="mf">0.000</span>  <span class="mf">0.000</span>   
+    <span class="n">settlement</span>       <span class="nb">open</span>       <span class="n">high</span>        <span class="n">low</span>      <span class="n">volume</span>        <span class="n">amount</span>  \
+<span class="mi">0</span>    <span class="mf">2909.8697</span>  <span class="mf">2911.3500</span>  <span class="mf">2917.8293</span>  <span class="mf">2891.2043</span>   <span class="mi">135519463</span>  <span class="mi">152576392736</span>   
+<span class="mi">1</span>    <span class="mf">3048.6349</span>  <span class="mf">3050.1878</span>  <span class="mf">3057.0351</span>  <span class="mf">3029.1168</span>   <span class="mi">135417123</span>  <span class="mi">152529532272</span>   
+<span class="mi">2</span>     <span class="mf">258.1752</span>   <span class="mf">258.2375</span>   <span class="mf">258.2375</span>   <span class="mf">255.2202</span>      <span class="mi">102341</span>      <span class="mi">46860464</span>   
+<span class="mi">3</span>    <span class="mf">2284.6832</span>  <span class="mf">2284.4955</span>  <span class="mf">2288.8948</span>  <span class="mf">2265.4238</span>    <span class="mi">81989859</span>  <span class="mi">100573430149</span>   
+<span class="mi">4</span>    <span class="mf">2656.3890</span>  <span class="mf">2654.1212</span>  <span class="mf">2661.1885</span>  <span class="mf">2624.7153</span>     <span class="mi">9706663</span>   <span class="mi">10959125999</span>   
+<span class="o">..</span>         <span class="o">...</span>        <span class="o">...</span>        <span class="o">...</span>        <span class="o">...</span>         <span class="o">...</span>           <span class="o">...</span>   
+<span class="mi">556</span>   <span class="mf">1643.624</span>   <span class="mf">1639.190</span>   <span class="mf">1660.037</span>   <span class="mf">1632.520</span>  <span class="mi">2080351534</span>   <span class="mi">37408606715</span>   
+<span class="mi">557</span>   <span class="mf">3597.375</span>   <span class="mf">3592.926</span>   <span class="mf">3593.429</span>   <span class="mf">3537.133</span>   <span class="mi">713555150</span>    <span class="mi">4222607122</span>   
+<span class="mi">558</span>   <span class="mf">2561.912</span>   <span class="mf">2554.687</span>   <span class="mf">2591.331</span>   <span class="mf">2542.960</span>  <span class="mi">3722590965</span>   <span class="mi">53372657908</span>   
+<span class="mi">559</span>   <span class="mf">8348.157</span>   <span class="mf">8348.558</span>   <span class="mf">8365.188</span>   <span class="mf">8284.100</span>   <span class="mi">100483206</span>    <span class="mi">7398284729</span>   
+<span class="mi">560</span>   <span class="mf">1180.791</span>   <span class="mf">1181.090</span>   <span class="mf">1181.739</span>   <span class="mf">1165.898</span>   <span class="mi">338309880</span>    <span class="mi">2216286578</span>   
+       <span class="n">code</span>  <span class="n">ticktime</span>  
+<span class="mi">0</span>    <span class="mi">000001</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">03</span>  
+<span class="mi">1</span>    <span class="mi">000002</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">03</span>  
+<span class="mi">2</span>    <span class="mi">000003</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">03</span>  
+<span class="mi">3</span>    <span class="mi">000004</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">03</span>  
+<span class="mi">4</span>    <span class="mi">000005</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mi">03</span>  
+<span class="o">..</span>      <span class="o">...</span>       <span class="o">...</span>  
+<span class="mi">556</span>  <span class="mi">399994</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">48</span>  
+<span class="mi">557</span>  <span class="mi">399995</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">48</span>  
+<span class="mi">558</span>  <span class="mi">399996</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">48</span>  
+<span class="mi">559</span>  <span class="mi">399997</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">48</span>  
+<span class="mi">560</span>  <span class="mi">399998</span>  <span class="mi">15</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">48</span> 
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>历史行情数据<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id4">
+<h4>历史行情数据-新浪<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h4>
+<p>接口: stock_zh_index_daily</p>
+<p>目标地址: https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml(示例)</p>
+<p>描述: 股票指数数据是从<a class="reference external" href="http://vip.stock.finance.sina.com.cn/mkt/#hs_s">新浪财经</a>获取的数据, 历史数据按日频率更新</p>
+<p>限量: 单次返回具体某个指数的所有历史行情数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symbol</td>
+<td>str</td>
+<td>Y</td>
+<td>symbol="sz399552"</td>
+</tr>
+</tbody>
+</table><p>输出参数-历史行情数据</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>新浪的数据开始时间, 不是证券上市时间</td>
+</tr>
+<tr>
+<td>open</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>close</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>high</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>low</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float</td>
+<td>Y</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">stock_zh_index_daily_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">stock_zh_index_daily</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;sz399552&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock_zh_index_daily_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-历史行情数据</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                <span class="nb">open</span>      <span class="n">high</span>       <span class="n">low</span>     <span class="n">close</span>        <span class="n">volume</span>
+<span class="n">date</span>                                                            
+<span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">06</span>  <span class="mf">3353.536</span>  <span class="mf">3367.362</span>  <span class="mf">3325.742</span>  <span class="mf">3331.724</span>  <span class="mf">6.976691e+08</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">07</span>  <span class="mf">3325.795</span>  <span class="mf">3338.029</span>  <span class="mf">3264.914</span>  <span class="mf">3276.253</span>  <span class="mf">7.975941e+08</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">13</span>  <span class="mf">3227.157</span>  <span class="mf">3227.157</span>  <span class="mf">3138.502</span>  <span class="mf">3170.727</span>  <span class="mf">9.214073e+08</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span>  <span class="mf">3168.941</span>  <span class="mf">3190.161</span>  <span class="mf">3157.245</span>  <span class="mf">3184.553</span>  <span class="mf">7.290986e+08</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">17</span>  <span class="mf">3189.969</span>  <span class="mf">3196.282</span>  <span class="mf">3153.118</span>  <span class="mf">3158.014</span>  <span class="mf">7.514038e+08</span>
+              <span class="o">...</span>       <span class="o">...</span>       <span class="o">...</span>       <span class="o">...</span>           <span class="o">...</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span>  <span class="mf">7903.771</span>  <span class="mf">7903.771</span>  <span class="mf">7812.036</span>  <span class="mf">7827.082</span>  <span class="mf">1.500865e+09</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">12</span>  <span class="mf">7826.054</span>  <span class="mf">7846.032</span>  <span class="mf">7759.229</span>  <span class="mf">7804.985</span>  <span class="mf">1.387154e+09</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">13</span>  <span class="mf">7816.080</span>  <span class="mf">7817.346</span>  <span class="mf">7759.580</span>  <span class="mf">7803.760</span>  <span class="mf">1.169749e+09</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">14</span>  <span class="mf">7815.102</span>  <span class="mf">7826.694</span>  <span class="mf">7785.544</span>  <span class="mf">7803.063</span>  <span class="mf">1.886548e+09</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">15</span>  <span class="mf">7813.952</span>  <span class="mf">7823.045</span>  <span class="mf">7752.760</span>  <span class="mf">7752.760</span>  <span class="mf">1.514993e+09</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>中国股票指数成份<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h3>最新成份<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>接口: index_stock_cons</p>
+<p>目标地址: http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&amp;indexid=399639</p>
+<p>描述: 获取指定指数的最新成份股票信息</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>str</td>
+<td>Y</td>
+<td>index="000300", 获取沪深300最新成份股, 指数代码见 <strong>股票指数信息一览表</strong></td>
+</tr>
+</tbody>
+</table><p>股票指数信息一览表(可以在 AkShare 中通过如下代码获取本表)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">index_stock_info_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">index_stock_info</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">index_stock_info_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>index_code</th>
+<th>display_name</th>
+<th>publish_date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>000001</td>
+<td>上证指数</td>
+<td>1991/7/15</td>
+</tr>
+<tr>
+<td>000002</td>
+<td>A股指数</td>
+<td>1992/2/21</td>
+</tr>
+<tr>
+<td>000003</td>
+<td>B股指数</td>
+<td>1992/2/21</td>
+</tr>
+<tr>
+<td>000004</td>
+<td>工业指数</td>
+<td>1993/5/3</td>
+</tr>
+<tr>
+<td>000005</td>
+<td>商业指数</td>
+<td>1993/5/3</td>
+</tr>
+<tr>
+<td>000006</td>
+<td>地产指数</td>
+<td>1993/5/3</td>
+</tr>
+<tr>
+<td>000007</td>
+<td>公用指数</td>
+<td>1993/5/3</td>
+</tr>
+<tr>
+<td>000008</td>
+<td>综合指数</td>
+<td>1993/5/3</td>
+</tr>
+<tr>
+<td>000009</td>
+<td>上证380</td>
+<td>2010/11/29</td>
+</tr>
+<tr>
+<td>000010</td>
+<td>上证180</td>
+<td>2002/7/1</td>
+</tr>
+<tr>
+<td>000011</td>
+<td>基金指数</td>
+<td>2000/6/9</td>
+</tr>
+<tr>
+<td>000012</td>
+<td>国债指数</td>
+<td>2003/1/2</td>
+</tr>
+<tr>
+<td>000013</td>
+<td>上证企业债指数</td>
+<td>2003/6/9</td>
+</tr>
+<tr>
+<td>000015</td>
+<td>红利指数</td>
+<td>2005/1/4</td>
+</tr>
+<tr>
+<td>000016</td>
+<td>上证50</td>
+<td>2004/1/2</td>
+</tr>
+<tr>
+<td>000017</td>
+<td>新综指</td>
+<td>2006/1/4</td>
+</tr>
+<tr>
+<td>000018</td>
+<td>180金融</td>
+<td>2007/12/10</td>
+</tr>
+<tr>
+<td>000019</td>
+<td>治理指数</td>
+<td>2008/1/2</td>
+</tr>
+<tr>
+<td>000020</td>
+<td>中型综指</td>
+<td>2008/5/12</td>
+</tr>
+<tr>
+<td>000021</td>
+<td>180治理</td>
+<td>2008/9/10</td>
+</tr>
+<tr>
+<td>000022</td>
+<td>上证公司债指数</td>
+<td>2008/11/19</td>
+</tr>
+<tr>
+<td>000025</td>
+<td>180基建</td>
+<td>2008/12/15</td>
+</tr>
+<tr>
+<td>000026</td>
+<td>180资源</td>
+<td>2008/12/15</td>
+</tr>
+<tr>
+<td>000027</td>
+<td>180运输</td>
+<td>2008/12/15</td>
+</tr>
+<tr>
+<td>000028</td>
+<td>180成长</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000029</td>
+<td>180价值</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000030</td>
+<td>180R成长</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000031</td>
+<td>180R价值</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000032</td>
+<td>上证能源</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000033</td>
+<td>上证材料</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000034</td>
+<td>上证工业</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000035</td>
+<td>上证可选</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000036</td>
+<td>上证消费</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000037</td>
+<td>上证医药</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000038</td>
+<td>上证金融</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000039</td>
+<td>上证信息</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000040</td>
+<td>上证电信</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000041</td>
+<td>上证公用</td>
+<td>2009/1/9</td>
+</tr>
+<tr>
+<td>000042</td>
+<td>上证央企</td>
+<td>2009/3/30</td>
+</tr>
+<tr>
+<td>000043</td>
+<td>超大盘</td>
+<td>2009/4/23</td>
+</tr>
+<tr>
+<td>000044</td>
+<td>上证中盘</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000045</td>
+<td>上证小盘</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000046</td>
+<td>上证中小</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000047</td>
+<td>上证全指</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000048</td>
+<td>责任指数</td>
+<td>2009/8/5</td>
+</tr>
+<tr>
+<td>000049</td>
+<td>上证民企</td>
+<td>2009/8/25</td>
+</tr>
+<tr>
+<td>000050</td>
+<td>50等权</td>
+<td>2011/1/4</td>
+</tr>
+<tr>
+<td>000051</td>
+<td>180等权</td>
+<td>2011/5/24</td>
+</tr>
+<tr>
+<td>000052</td>
+<td>50基本</td>
+<td>2012/1/9</td>
+</tr>
+<tr>
+<td>000053</td>
+<td>180基本</td>
+<td>2012/1/9</td>
+</tr>
+<tr>
+<td>000054</td>
+<td>上证海外</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000055</td>
+<td>上证地企</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000056</td>
+<td>上证国企</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000057</td>
+<td>全指成长</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000058</td>
+<td>全指价值</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000059</td>
+<td>全R成长</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000060</td>
+<td>全R价值</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000061</td>
+<td>沪企债30</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000062</td>
+<td>上证沪企</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>000063</td>
+<td>上证周期</td>
+<td>2010/2/3</td>
+</tr>
+<tr>
+<td>000064</td>
+<td>非周期</td>
+<td>2010/2/3</td>
+</tr>
+<tr>
+<td>000065</td>
+<td>上证龙头</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>000066</td>
+<td>上证商品</td>
+<td>2010/4/30</td>
+</tr>
+<tr>
+<td>000067</td>
+<td>上证新兴</td>
+<td>2010/4/30</td>
+</tr>
+<tr>
+<td>000068</td>
+<td>上证资源</td>
+<td>2010/5/28</td>
+</tr>
+<tr>
+<td>000069</td>
+<td>消费80</td>
+<td>2010/5/28</td>
+</tr>
+<tr>
+<td>000070</td>
+<td>能源等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000071</td>
+<td>材料等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000072</td>
+<td>工业等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000073</td>
+<td>可选等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000074</td>
+<td>消费等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000075</td>
+<td>医药等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000076</td>
+<td>金融等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000077</td>
+<td>信息等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000078</td>
+<td>电信等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000079</td>
+<td>公用等权</td>
+<td>2010/8/18</td>
+</tr>
+<tr>
+<td>000090</td>
+<td>上证流通</td>
+<td>2010/12/2</td>
+</tr>
+<tr>
+<td>000091</td>
+<td>沪财中小</td>
+<td>2011/4/6</td>
+</tr>
+<tr>
+<td>000092</td>
+<td>资源50</td>
+<td>2011/5/10</td>
+</tr>
+<tr>
+<td>000093</td>
+<td>180分层</td>
+<td>2011/5/24</td>
+</tr>
+<tr>
+<td>000094</td>
+<td>上证上游</td>
+<td>2011/5/10</td>
+</tr>
+<tr>
+<td>000095</td>
+<td>上证中游</td>
+<td>2011/5/10</td>
+</tr>
+<tr>
+<td>000096</td>
+<td>上证下游</td>
+<td>2011/5/10</td>
+</tr>
+<tr>
+<td>000097</td>
+<td>高端装备</td>
+<td>2011/5/24</td>
+</tr>
+<tr>
+<td>000098</td>
+<td>上证F200</td>
+<td>2011/7/1</td>
+</tr>
+<tr>
+<td>000099</td>
+<td>上证F300</td>
+<td>2011/7/1</td>
+</tr>
+<tr>
+<td>000100</td>
+<td>上证F500</td>
+<td>2011/7/1</td>
+</tr>
+<tr>
+<td>000101</td>
+<td>5年信用</td>
+<td>2013/4/1</td>
+</tr>
+<tr>
+<td>000102</td>
+<td>沪投资品</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000103</td>
+<td>沪消费品</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000104</td>
+<td>380能源</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000105</td>
+<td>380材料</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000106</td>
+<td>380工业</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000107</td>
+<td>380可选</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000108</td>
+<td>380消费</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000109</td>
+<td>380医药</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000110</td>
+<td>380金融</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000111</td>
+<td>380信息</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000112</td>
+<td>380电信</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000113</td>
+<td>380公用</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000114</td>
+<td>持续产业</td>
+<td>2011/8/22</td>
+</tr>
+<tr>
+<td>000115</td>
+<td>380等权</td>
+<td>2011/8/12</td>
+</tr>
+<tr>
+<td>000116</td>
+<td>信用100</td>
+<td>2013/2/26</td>
+</tr>
+<tr>
+<td>000117</td>
+<td>380成长</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>000118</td>
+<td>380价值</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>000119</td>
+<td>380R成长</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>000120</td>
+<td>380R价值</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>000121</td>
+<td>医药主题</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>000122</td>
+<td>农业主题</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>000123</td>
+<td>180动态</td>
+<td>2013/2/8</td>
+</tr>
+<tr>
+<td>000125</td>
+<td>180稳定</td>
+<td>2013/2/8</td>
+</tr>
+<tr>
+<td>000126</td>
+<td>消费50</td>
+<td>2011/12/9</td>
+</tr>
+<tr>
+<td>000128</td>
+<td>380基本</td>
+<td>2012/1/9</td>
+</tr>
+<tr>
+<td>000129</td>
+<td>180波动</td>
+<td>2012/1/9</td>
+</tr>
+<tr>
+<td>000130</td>
+<td>380波动</td>
+<td>2012/1/9</td>
+</tr>
+<tr>
+<td>000131</td>
+<td>上证高新</td>
+<td>2012/2/10</td>
+</tr>
+<tr>
+<td>000132</td>
+<td>上证100</td>
+<td>2012/4/20</td>
+</tr>
+<tr>
+<td>000133</td>
+<td>上证150</td>
+<td>2012/4/20</td>
+</tr>
+<tr>
+<td>000134</td>
+<td>上证银行</td>
+<td>2012/5/29</td>
+</tr>
+<tr>
+<td>000135</td>
+<td>180高贝</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>000136</td>
+<td>180低贝</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>000137</td>
+<td>380高贝</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>000138</td>
+<td>380低贝</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>000139</td>
+<td>上证转债</td>
+<td>2012/9/12</td>
+</tr>
+<tr>
+<td>000141</td>
+<td>380动态</td>
+<td>2013/2/8</td>
+</tr>
+<tr>
+<td>000142</td>
+<td>380稳定</td>
+<td>2013/2/8</td>
+</tr>
+<tr>
+<td>000145</td>
+<td>优势资源</td>
+<td>2012/5/29</td>
+</tr>
+<tr>
+<td>000146</td>
+<td>优势制造</td>
+<td>2012/5/29</td>
+</tr>
+<tr>
+<td>000147</td>
+<td>优势消费</td>
+<td>2012/5/29</td>
+</tr>
+<tr>
+<td>000148</td>
+<td>消费领先</td>
+<td>2012/5/29</td>
+</tr>
+<tr>
+<td>000149</td>
+<td>180红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000150</td>
+<td>380红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000151</td>
+<td>上国红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000152</td>
+<td>上央红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000153</td>
+<td>上民红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000155</td>
+<td>市值百强</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000158</td>
+<td>上证环保</td>
+<td>2012/9/25</td>
+</tr>
+<tr>
+<td>000159</td>
+<td>上证沪股通指数</td>
+<td>2014/11/17</td>
+</tr>
+<tr>
+<td>000160</td>
+<td>上证一带一路主题指数</td>
+<td>2015/6/24</td>
+</tr>
+<tr>
+<td>000161</td>
+<td>上证中国制造2025主题指数</td>
+<td>2015/10/29</td>
+</tr>
+<tr>
+<td>000162</td>
+<td>上证互联网+主题指数</td>
+<td>2015/10/29</td>
+</tr>
+<tr>
+<td>000171</td>
+<td>新兴成指</td>
+<td>2017/1/25</td>
+</tr>
+<tr>
+<td>000188</td>
+<td>中国波指</td>
+<td>2016/11/28</td>
+</tr>
+<tr>
+<td>000300</td>
+<td>沪深300</td>
+<td>2005/4/8</td>
+</tr>
+<tr>
+<td>000801</td>
+<td>资源80</td>
+<td>2011/11/8</td>
+</tr>
+<tr>
+<td>000802</td>
+<td>500沪市</td>
+<td>2011/11/8</td>
+</tr>
+<tr>
+<td>000803</td>
+<td>300波动</td>
+<td>2012/1/9</td>
+</tr>
+<tr>
+<td>000804</td>
+<td>500波动</td>
+<td>2012/1/9</td>
+</tr>
+<tr>
+<td>000805</td>
+<td>A股资源</td>
+<td>2012/1/6</td>
+</tr>
+<tr>
+<td>000806</td>
+<td>消费服务</td>
+<td>2012/2/10</td>
+</tr>
+<tr>
+<td>000807</td>
+<td>食品饮料</td>
+<td>2012/2/17</td>
+</tr>
+<tr>
+<td>000808</td>
+<td>医药生物</td>
+<td>2012/2/17</td>
+</tr>
+<tr>
+<td>000809</td>
+<td>细分农业</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000810</td>
+<td>细分能源</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000811</td>
+<td>细分有色</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000812</td>
+<td>细分机械</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000813</td>
+<td>细分化工</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000814</td>
+<td>细分医药</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000815</td>
+<td>细分食品</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000816</td>
+<td>细分地产</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000817</td>
+<td>兴证海峡</td>
+<td>2011/9/27</td>
+</tr>
+<tr>
+<td>000818</td>
+<td>细分金融</td>
+<td>2012/4/11</td>
+</tr>
+<tr>
+<td>000819</td>
+<td>有色金属</td>
+<td>2012/5/9</td>
+</tr>
+<tr>
+<td>000820</td>
+<td>煤炭指数</td>
+<td>2012/5/9</td>
+</tr>
+<tr>
+<td>000821</td>
+<td>300红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000822</td>
+<td>500红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000823</td>
+<td>中证800有色金属指数</td>
+<td>2012/12/21</td>
+</tr>
+<tr>
+<td>000824</td>
+<td>国企红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000825</td>
+<td>央企红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000826</td>
+<td>民企红利</td>
+<td>2012/7/20</td>
+</tr>
+<tr>
+<td>000827</td>
+<td>中证环保</td>
+<td>2012/9/25</td>
+</tr>
+<tr>
+<td>000828</td>
+<td>300高贝</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>000829</td>
+<td>300低贝</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>000830</td>
+<td>500高贝</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>000831</td>
+<td>500低贝</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>000832</td>
+<td>中证转债</td>
+<td>2012/9/12</td>
+</tr>
+<tr>
+<td>000833</td>
+<td>中高企债</td>
+<td>2012/9/10</td>
+</tr>
+<tr>
+<td>000838</td>
+<td>创业价值</td>
+<td>2012/9/26</td>
+</tr>
+<tr>
+<td>000839</td>
+<td>浙企综指</td>
+<td>2012/11/9</td>
+</tr>
+<tr>
+<td>000840</td>
+<td>浙江民企</td>
+<td>2012/11/9</td>
+</tr>
+<tr>
+<td>000841</td>
+<td>800医药</td>
+<td>2012/12/21</td>
+</tr>
+<tr>
+<td>000842</td>
+<td>800等权</td>
+<td>2012/12/21</td>
+</tr>
+<tr>
+<td>000843</td>
+<td>300动态</td>
+<td>2013/1/7</td>
+</tr>
+<tr>
+<td>000844</td>
+<td>300稳定</td>
+<td>2013/1/7</td>
+</tr>
+<tr>
+<td>000846</td>
+<td>ESG100</td>
+<td>2012/10/16</td>
+</tr>
+<tr>
+<td>000847</td>
+<td>中证腾安价值100指数</td>
+<td>2013/11/18</td>
+</tr>
+<tr>
+<td>000849</td>
+<td>沪深300非银行金融指数</td>
+<td>2012/12/21</td>
+</tr>
+<tr>
+<td>000850</td>
+<td>沪深300有色金属指数</td>
+<td>2012/12/21</td>
+</tr>
+<tr>
+<td>000851</td>
+<td>中证百度百发策略100指数</td>
+<td>2014/7/30</td>
+</tr>
+<tr>
+<td>000852</td>
+<td>中证1000指数</td>
+<td>2014/10/17</td>
+</tr>
+<tr>
+<td>000853</td>
+<td>中证申万一带一路主题投资指数</td>
+<td>2015/4/23</td>
+</tr>
+<tr>
+<td>000854</td>
+<td>500原料</td>
+<td>2013/11/6</td>
+</tr>
+<tr>
+<td>000855</td>
+<td>央视财经500指数</td>
+<td>2014/11/3</td>
+</tr>
+<tr>
+<td>000856</td>
+<td>500工业</td>
+<td>2013/11/6</td>
+</tr>
+<tr>
+<td>000857</td>
+<td>500医药</td>
+<td>2013/11/6</td>
+</tr>
+<tr>
+<td>000858</td>
+<td>500信息</td>
+<td>2013/11/6</td>
+</tr>
+<tr>
+<td>000891</td>
+<td>中国战略新兴产业综合指数</td>
+<td>2017/1/25</td>
+</tr>
+<tr>
+<td>000901</td>
+<td>小康指数</td>
+<td>2010/4/1</td>
+</tr>
+<tr>
+<td>000902</td>
+<td>中证流通</td>
+<td>2006/2/27</td>
+</tr>
+<tr>
+<td>000903</td>
+<td>中证100</td>
+<td>2006/5/29</td>
+</tr>
+<tr>
+<td>000904</td>
+<td>中证200</td>
+<td>2007/1/15</td>
+</tr>
+<tr>
+<td>000905</td>
+<td>中证500</td>
+<td>2007/1/15</td>
+</tr>
+<tr>
+<td>000906</td>
+<td>中证800</td>
+<td>2007/1/15</td>
+</tr>
+<tr>
+<td>000907</td>
+<td>中证700</td>
+<td>2007/1/15</td>
+</tr>
+<tr>
+<td>000908</td>
+<td>300能源</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000909</td>
+<td>300材料</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000910</td>
+<td>300工业</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000911</td>
+<td>300可选</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000912</td>
+<td>300消费</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000913</td>
+<td>300医药</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000914</td>
+<td>300金融</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000915</td>
+<td>300信息</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000916</td>
+<td>300电信</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000917</td>
+<td>300公用</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>000918</td>
+<td>300成长</td>
+<td>2008/1/21</td>
+</tr>
+<tr>
+<td>000919</td>
+<td>300价值</td>
+<td>2008/1/21</td>
+</tr>
+<tr>
+<td>000920</td>
+<td>300R成长</td>
+<td>2008/1/21</td>
+</tr>
+<tr>
+<td>000921</td>
+<td>300R价值</td>
+<td>2008/1/21</td>
+</tr>
+<tr>
+<td>000922</td>
+<td>中证红利</td>
+<td>2008/5/26</td>
+</tr>
+<tr>
+<td>000923</td>
+<td>公司债</td>
+<td>2008/11/19</td>
+</tr>
+<tr>
+<td>000925</td>
+<td>基本面50</td>
+<td>2009/2/26</td>
+</tr>
+<tr>
+<td>000926</td>
+<td>中证央企</td>
+<td>2009/3/30</td>
+</tr>
+<tr>
+<td>000927</td>
+<td>央企100</td>
+<td>2009/3/30</td>
+</tr>
+<tr>
+<td>000928</td>
+<td>中证能源</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000929</td>
+<td>中证材料</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000930</td>
+<td>中证工业</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000931</td>
+<td>中证可选</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000932</td>
+<td>中证消费</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000933</td>
+<td>中证医药</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000934</td>
+<td>中证金融</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000935</td>
+<td>中证信息</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000936</td>
+<td>中证电信</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000937</td>
+<td>中证公用</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>000938</td>
+<td>中证民企</td>
+<td>2009/8/25</td>
+</tr>
+<tr>
+<td>000939</td>
+<td>民企200</td>
+<td>2009/8/25</td>
+</tr>
+<tr>
+<td>000940</td>
+<td>财富大盘</td>
+<td>2009/9/25</td>
+</tr>
+<tr>
+<td>000941</td>
+<td>新能源</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000942</td>
+<td>内地消费</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000943</td>
+<td>内地基建</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000944</td>
+<td>内地资源</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000945</td>
+<td>内地运输</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000946</td>
+<td>内地金融</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000947</td>
+<td>内地银行</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000948</td>
+<td>内地地产</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000949</td>
+<td>内地农业</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000950</td>
+<td>300基建</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000951</td>
+<td>300银行</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000952</td>
+<td>300地产</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>000953</td>
+<td>中证地企</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>000954</td>
+<td>地企100</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>000955</td>
+<td>中证国企</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>000956</td>
+<td>国企200</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>000957</td>
+<td>300运输</td>
+<td>2009/6/16</td>
+</tr>
+<tr>
+<td>000958</td>
+<td>创业成长</td>
+<td>2010/3/24</td>
+</tr>
+<tr>
+<td>000959</td>
+<td>银河99</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>000960</td>
+<td>中证龙头</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>000961</td>
+<td>中证上游</td>
+<td>2010/4/16</td>
+</tr>
+<tr>
+<td>000962</td>
+<td>中证中游</td>
+<td>2010/4/16</td>
+</tr>
+<tr>
+<td>000963</td>
+<td>中证下游</td>
+<td>2010/4/16</td>
+</tr>
+<tr>
+<td>000964</td>
+<td>中证新兴</td>
+<td>2010/4/30</td>
+</tr>
+<tr>
+<td>000965</td>
+<td>基本200</td>
+<td>2010/6/2</td>
+</tr>
+<tr>
+<td>000966</td>
+<td>基本400</td>
+<td>2010/6/2</td>
+</tr>
+<tr>
+<td>000967</td>
+<td>基本600</td>
+<td>2010/6/2</td>
+</tr>
+<tr>
+<td>000968</td>
+<td>300周期</td>
+<td>2010/5/28</td>
+</tr>
+<tr>
+<td>000969</td>
+<td>300非周</td>
+<td>2010/5/28</td>
+</tr>
+<tr>
+<td>000970</td>
+<td>ESG40</td>
+<td>2010/9/17</td>
+</tr>
+<tr>
+<td>000971</td>
+<td>等权90</td>
+<td>2010/12/2</td>
+</tr>
+<tr>
+<td>000972</td>
+<td>300沪市</td>
+<td>2010/12/2</td>
+</tr>
+<tr>
+<td>000973</td>
+<td>技术领先</td>
+<td>2011/1/4</td>
+</tr>
+<tr>
+<td>000974</td>
+<td>中证800金融指数</td>
+<td>2013/5/9</td>
+</tr>
+<tr>
+<td>000975</td>
+<td>钱江30</td>
+<td>2014/1/2</td>
+</tr>
+<tr>
+<td>000976</td>
+<td>新华金牛</td>
+<td>2014/2/18</td>
+</tr>
+<tr>
+<td>000977</td>
+<td>内地低碳</td>
+<td>2011/1/21</td>
+</tr>
+<tr>
+<td>000978</td>
+<td>医药100</td>
+<td>2011/3/18</td>
+</tr>
+<tr>
+<td>000979</td>
+<td>大宗商品</td>
+<td>2011/8/22</td>
+</tr>
+<tr>
+<td>000980</td>
+<td>中证超大</td>
+<td>2011/5/10</td>
+</tr>
+<tr>
+<td>000981</td>
+<td>300分层</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000982</td>
+<td>500等权</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>000983</td>
+<td>智能资产</td>
+<td>2011/6/17</td>
+</tr>
+<tr>
+<td>000984</td>
+<td>300等权</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000985</td>
+<td>中证全指</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000986</td>
+<td>全指能源</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000987</td>
+<td>全指材料</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000988</td>
+<td>全指工业</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000989</td>
+<td>全指可选</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000990</td>
+<td>全指消费</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000991</td>
+<td>全指医药</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000992</td>
+<td>全指金融</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000993</td>
+<td>全指信息</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000994</td>
+<td>全指电信</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000995</td>
+<td>全指公用</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000996</td>
+<td>领先行业</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>000997</td>
+<td>大消费</td>
+<td>2011/11/11</td>
+</tr>
+<tr>
+<td>000998</td>
+<td>中证TMT</td>
+<td>2011/11/8</td>
+</tr>
+<tr>
+<td>000999</td>
+<td>中证两岸三地500指数</td>
+<td>2010/1/18</td>
+</tr>
+<tr>
+<td>399001</td>
+<td>深证成指</td>
+<td>1995/1/23</td>
+</tr>
+<tr>
+<td>399002</td>
+<td>深成指R</td>
+<td>1995/1/23</td>
+</tr>
+<tr>
+<td>399003</td>
+<td>成份B指</td>
+<td>1995/1/23</td>
+</tr>
+<tr>
+<td>399004</td>
+<td>深证100R</td>
+<td>2003/1/2</td>
+</tr>
+<tr>
+<td>399005</td>
+<td>中小板指</td>
+<td>2006/1/24</td>
+</tr>
+<tr>
+<td>399006</td>
+<td>创业板指</td>
+<td>2010/6/1</td>
+</tr>
+<tr>
+<td>399007</td>
+<td>深证300</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399008</td>
+<td>中小300</td>
+<td>2010/3/22</td>
+</tr>
+<tr>
+<td>399009</td>
+<td>深证200</td>
+<td>2011/9/1</td>
+</tr>
+<tr>
+<td>399010</td>
+<td>深证700</td>
+<td>2011/9/1</td>
+</tr>
+<tr>
+<td>399011</td>
+<td>深证1000</td>
+<td>2011/9/1</td>
+</tr>
+<tr>
+<td>399012</td>
+<td>创业300</td>
+<td>2013/1/7</td>
+</tr>
+<tr>
+<td>399013</td>
+<td>深市精选</td>
+<td>2014/5/30</td>
+</tr>
+<tr>
+<td>399015</td>
+<td>深证中小创新指数</td>
+<td>2015/3/24</td>
+</tr>
+<tr>
+<td>399016</td>
+<td>深证创新指数</td>
+<td>2016/12/1</td>
+</tr>
+<tr>
+<td>399017</td>
+<td>中小板创新指数</td>
+<td>2016/12/1</td>
+</tr>
+<tr>
+<td>399018</td>
+<td>创业板创新指数</td>
+<td>2016/12/1</td>
+</tr>
+<tr>
+<td>399050</td>
+<td>创新引擎</td>
+<td>2018/7/31</td>
+</tr>
+<tr>
+<td>399100</td>
+<td>新指数</td>
+<td>2006/2/16</td>
+</tr>
+<tr>
+<td>399101</td>
+<td>中小板综</td>
+<td>2005/12/1</td>
+</tr>
+<tr>
+<td>399102</td>
+<td>创业板综合指数</td>
+<td>2010/8/20</td>
+</tr>
+<tr>
+<td>399103</td>
+<td>乐富指数</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399106</td>
+<td>深证综指</td>
+<td>1991/4/4</td>
+</tr>
+<tr>
+<td>399107</td>
+<td>深证A指</td>
+<td>1992/10/4</td>
+</tr>
+<tr>
+<td>399108</td>
+<td>深证B指</td>
+<td>1992/10/6</td>
+</tr>
+<tr>
+<td>399231</td>
+<td>农林指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399232</td>
+<td>采矿指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399233</td>
+<td>制造指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399234</td>
+<td>水电指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399235</td>
+<td>建筑指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399236</td>
+<td>批零指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399237</td>
+<td>运输指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399238</td>
+<td>餐饮指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399239</td>
+<td>IT指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399240</td>
+<td>金融指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399241</td>
+<td>地产指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399242</td>
+<td>商务指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399243</td>
+<td>科研指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399244</td>
+<td>公共指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399248</td>
+<td>文化指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399249</td>
+<td>综企指数</td>
+<td>2013/3/4</td>
+</tr>
+<tr>
+<td>399286</td>
+<td>区块链50</td>
+<td>2019/12/23</td>
+</tr>
+<tr>
+<td>399290</td>
+<td>深转交债</td>
+<td>2019/6/6</td>
+</tr>
+<tr>
+<td>399291</td>
+<td>创精选88</td>
+<td>2019/11/6</td>
+</tr>
+<tr>
+<td>399292</td>
+<td>民企发展</td>
+<td>2019/3/5</td>
+</tr>
+<tr>
+<td>399293</td>
+<td>创业大盘</td>
+<td>2019/4/18</td>
+</tr>
+<tr>
+<td>399294</td>
+<td>中小创Q</td>
+<td>2019/6/6</td>
+</tr>
+<tr>
+<td>399295</td>
+<td>创业蓝筹</td>
+<td>2019/1/23</td>
+</tr>
+<tr>
+<td>399296</td>
+<td>创成长</td>
+<td>2019/1/23</td>
+</tr>
+<tr>
+<td>399298</td>
+<td>深证中高等级信用债指数</td>
+<td>2014/9/25</td>
+</tr>
+<tr>
+<td>399299</td>
+<td>深证中低等级信用债指数</td>
+<td>2014/9/25</td>
+</tr>
+<tr>
+<td>399300</td>
+<td>沪深300</td>
+<td>2005/4/8</td>
+</tr>
+<tr>
+<td>399301</td>
+<td>深信用债</td>
+<td>2013/1/11</td>
+</tr>
+<tr>
+<td>399302</td>
+<td>深公司债</td>
+<td>2013/1/11</td>
+</tr>
+<tr>
+<td>399303</td>
+<td>国证2000</td>
+<td>2014/3/28</td>
+</tr>
+<tr>
+<td>399305</td>
+<td>基金指数</td>
+<td>2000/7/3</td>
+</tr>
+<tr>
+<td>399306</td>
+<td>深证ETF</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399307</td>
+<td>深证转债</td>
+<td>2014/8/27</td>
+</tr>
+<tr>
+<td>399310</td>
+<td>国证50</td>
+<td>2005/9/5</td>
+</tr>
+<tr>
+<td>399311</td>
+<td>国证1000</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399312</td>
+<td>国证300</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399313</td>
+<td>巨潮100</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399314</td>
+<td>巨潮大盘</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399315</td>
+<td>巨潮中盘</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399316</td>
+<td>巨潮小盘</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399317</td>
+<td>国证A指</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399318</td>
+<td>巨潮B股指数</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399319</td>
+<td>资源优势</td>
+<td>2005/1/4</td>
+</tr>
+<tr>
+<td>399320</td>
+<td>国证服务</td>
+<td>2005/1/4</td>
+</tr>
+<tr>
+<td>399321</td>
+<td>国证红利</td>
+<td>2005/1/4</td>
+</tr>
+<tr>
+<td>399322</td>
+<td>国证治理</td>
+<td>2005/12/12</td>
+</tr>
+<tr>
+<td>399324</td>
+<td>深证红利</td>
+<td>2006/1/24</td>
+</tr>
+<tr>
+<td>399326</td>
+<td>成长40</td>
+<td>2006/1/24</td>
+</tr>
+<tr>
+<td>399328</td>
+<td>深证治理</td>
+<td>2006/1/24</td>
+</tr>
+<tr>
+<td>399330</td>
+<td>深证100</td>
+<td>2006/1/24</td>
+</tr>
+<tr>
+<td>399332</td>
+<td>深证创新(旧)</td>
+<td>2006/2/27</td>
+</tr>
+<tr>
+<td>399333</td>
+<td>中小板R</td>
+<td>2006/12/27</td>
+</tr>
+<tr>
+<td>399335</td>
+<td>深证央企</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399337</td>
+<td>深证民营</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399339</td>
+<td>深证科技</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399341</td>
+<td>深证责任</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399344</td>
+<td>深证300R</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399346</td>
+<td>深证成长</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399348</td>
+<td>深证价值</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399350</td>
+<td>皖江30</td>
+<td>2012/12/18</td>
+</tr>
+<tr>
+<td>399351</td>
+<td>深报指数</td>
+<td>2004/9/1</td>
+</tr>
+<tr>
+<td>399352</td>
+<td>深报综指</td>
+<td>2005/2/3</td>
+</tr>
+<tr>
+<td>399353</td>
+<td>国证物流</td>
+<td>2005/3/1</td>
+</tr>
+<tr>
+<td>399354</td>
+<td>分析师指数</td>
+<td>2006/11/25</td>
+</tr>
+<tr>
+<td>399355</td>
+<td>长三角</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399356</td>
+<td>珠三角</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399357</td>
+<td>环渤海</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399358</td>
+<td>泰达指数</td>
+<td>2008/1/2</td>
+</tr>
+<tr>
+<td>399359</td>
+<td>国证基建</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399360</td>
+<td>国证装备</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399361</td>
+<td>国证商业</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399362</td>
+<td>国证民营</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399363</td>
+<td>计算机指</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399364</td>
+<td>中金消费</td>
+<td>2009/8/3</td>
+</tr>
+<tr>
+<td>399365</td>
+<td>国证农业</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399366</td>
+<td>国证大宗</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399367</td>
+<td>巨潮地产</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399368</td>
+<td>国证军工</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399369</td>
+<td>CBN-兴全</td>
+<td>2009/11/4</td>
+</tr>
+<tr>
+<td>399370</td>
+<td>国证成长</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>399371</td>
+<td>国证价值</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>399372</td>
+<td>大盘成长</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>399373</td>
+<td>大盘价值</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>399374</td>
+<td>中盘成长</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>399375</td>
+<td>中盘价值</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>399376</td>
+<td>小盘成长</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>399377</td>
+<td>小盘价值</td>
+<td>2010/1/4</td>
+</tr>
+<tr>
+<td>399378</td>
+<td>南方低碳</td>
+<td>2010/9/20</td>
+</tr>
+<tr>
+<td>399379</td>
+<td>国证基金</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399380</td>
+<td>国证ETF</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399381</td>
+<td>1000能源</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399382</td>
+<td>1000材料</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399383</td>
+<td>1000工业</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399384</td>
+<td>1000可选</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399385</td>
+<td>1000消费</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399386</td>
+<td>1000医药</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399387</td>
+<td>1000金融</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399388</td>
+<td>1000信息</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399389</td>
+<td>国证通信</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399390</td>
+<td>1000公用</td>
+<td>2011/12/2</td>
+</tr>
+<tr>
+<td>399391</td>
+<td>投资时钟</td>
+<td>2012/3/26</td>
+</tr>
+<tr>
+<td>399392</td>
+<td>国证新兴</td>
+<td>2012/3/28</td>
+</tr>
+<tr>
+<td>399393</td>
+<td>国证地产</td>
+<td>2012/8/20</td>
+</tr>
+<tr>
+<td>399394</td>
+<td>国证医药</td>
+<td>2012/10/29</td>
+</tr>
+<tr>
+<td>399395</td>
+<td>国证有色</td>
+<td>2012/10/29</td>
+</tr>
+<tr>
+<td>399396</td>
+<td>国证食品</td>
+<td>2012/10/29</td>
+</tr>
+<tr>
+<td>399397</td>
+<td>OCT文化</td>
+<td>2012/11/9</td>
+</tr>
+<tr>
+<td>399398</td>
+<td>绩效指数</td>
+<td>2012/11/19</td>
+</tr>
+<tr>
+<td>399399</td>
+<td>中经GDP</td>
+<td>2012/11/23</td>
+</tr>
+<tr>
+<td>399400</td>
+<td>大中盘</td>
+<td>2013/3/20</td>
+</tr>
+<tr>
+<td>399401</td>
+<td>中小盘</td>
+<td>2013/3/20</td>
+</tr>
+<tr>
+<td>399402</td>
+<td>周期100</td>
+<td>2013/10/28</td>
+</tr>
+<tr>
+<td>399403</td>
+<td>防御100</td>
+<td>2013/10/28</td>
+</tr>
+<tr>
+<td>399404</td>
+<td>大盘低波</td>
+<td>2013/12/5</td>
+</tr>
+<tr>
+<td>399405</td>
+<td>大盘高贝</td>
+<td>2013/12/5</td>
+</tr>
+<tr>
+<td>399406</td>
+<td>中盘低波</td>
+<td>2013/12/5</td>
+</tr>
+<tr>
+<td>399407</td>
+<td>中盘高贝</td>
+<td>2013/12/5</td>
+</tr>
+<tr>
+<td>399408</td>
+<td>小盘低波</td>
+<td>2013/12/5</td>
+</tr>
+<tr>
+<td>399409</td>
+<td>小盘高贝</td>
+<td>2013/12/5</td>
+</tr>
+<tr>
+<td>399410</td>
+<td>苏州率先</td>
+<td>2013/12/12</td>
+</tr>
+<tr>
+<td>399411</td>
+<td>红利100</td>
+<td>2014/4/10</td>
+</tr>
+<tr>
+<td>399412</td>
+<td>国证新能</td>
+<td>2014/5/16</td>
+</tr>
+<tr>
+<td>399413</td>
+<td>国证转债</td>
+<td>2014/8/27</td>
+</tr>
+<tr>
+<td>399415</td>
+<td>I100</td>
+<td>2014/9/12</td>
+</tr>
+<tr>
+<td>399416</td>
+<td>I300</td>
+<td>2014/9/12</td>
+</tr>
+<tr>
+<td>399417</td>
+<td>国证新能源汽车指数</td>
+<td>2014/9/24</td>
+</tr>
+<tr>
+<td>399418</td>
+<td>国证国家安全指数</td>
+<td>2014/11/21</td>
+</tr>
+<tr>
+<td>399419</td>
+<td>国证高铁指数</td>
+<td>2014/12/10</td>
+</tr>
+<tr>
+<td>399420</td>
+<td>国证保险证券指数</td>
+<td>2014/12/10</td>
+</tr>
+<tr>
+<td>399423</td>
+<td>中关村50指数</td>
+<td>2015/2/5</td>
+</tr>
+<tr>
+<td>399427</td>
+<td>国证德高行专利领先指数</td>
+<td>2015/2/17</td>
+</tr>
+<tr>
+<td>399428</td>
+<td>国证定向增发指数</td>
+<td>2015/2/17</td>
+</tr>
+<tr>
+<td>399429</td>
+<td>新丝路指数</td>
+<td>2015/1/8</td>
+</tr>
+<tr>
+<td>399431</td>
+<td>国证银行行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399432</td>
+<td>国证汽车与汽车零配件行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399433</td>
+<td>国证交通运输行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399434</td>
+<td>国证传媒行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399435</td>
+<td>国证农牧渔产品行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399436</td>
+<td>国证煤炭行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399437</td>
+<td>国证证券行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399438</td>
+<td>国证电力公用事业行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399439</td>
+<td>国证石油天然气行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399440</td>
+<td>国证黑色金属行业指数</td>
+<td>2014/12/30</td>
+</tr>
+<tr>
+<td>399441</td>
+<td>国证生物医药指数</td>
+<td>2015/1/20</td>
+</tr>
+<tr>
+<td>399481</td>
+<td>企债指数</td>
+<td>2003/1/2</td>
+</tr>
+<tr>
+<td>399550</td>
+<td>央视50</td>
+<td>2012/6/6</td>
+</tr>
+<tr>
+<td>399551</td>
+<td>央视创新</td>
+<td>2013/6/6</td>
+</tr>
+<tr>
+<td>399552</td>
+<td>央视成长</td>
+<td>2013/6/6</td>
+</tr>
+<tr>
+<td>399553</td>
+<td>央视回报</td>
+<td>2013/6/6</td>
+</tr>
+<tr>
+<td>399554</td>
+<td>央视治理</td>
+<td>2013/6/6</td>
+</tr>
+<tr>
+<td>399555</td>
+<td>央视责任</td>
+<td>2013/6/6</td>
+</tr>
+<tr>
+<td>399556</td>
+<td>央视生态</td>
+<td>2014/6/6</td>
+</tr>
+<tr>
+<td>399557</td>
+<td>央视文化</td>
+<td>2014/6/6</td>
+</tr>
+<tr>
+<td>399602</td>
+<td>中小成长</td>
+<td>2010/5/24</td>
+</tr>
+<tr>
+<td>399604</td>
+<td>中小价值</td>
+<td>2010/5/24</td>
+</tr>
+<tr>
+<td>399606</td>
+<td>创业板R</td>
+<td>2010/6/1</td>
+</tr>
+<tr>
+<td>399608</td>
+<td>科技100</td>
+<td>2010/10/18</td>
+</tr>
+<tr>
+<td>399610</td>
+<td>TMT50</td>
+<td>2010/11/8</td>
+</tr>
+<tr>
+<td>399611</td>
+<td>中创100R</td>
+<td>2011/2/28</td>
+</tr>
+<tr>
+<td>399612</td>
+<td>中创100</td>
+<td>2011/2/28</td>
+</tr>
+<tr>
+<td>399613</td>
+<td>深证能源</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399614</td>
+<td>深证材料</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399615</td>
+<td>深证工业</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399616</td>
+<td>深证可选</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399617</td>
+<td>深证消费</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399618</td>
+<td>深证医药</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399619</td>
+<td>深证金融</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399620</td>
+<td>深证信息</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399621</td>
+<td>深证电信</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399622</td>
+<td>深证公用</td>
+<td>2011/6/15</td>
+</tr>
+<tr>
+<td>399623</td>
+<td>中小基础</td>
+<td>2011/7/25</td>
+</tr>
+<tr>
+<td>399624</td>
+<td>中创400</td>
+<td>2011/8/15</td>
+</tr>
+<tr>
+<td>399625</td>
+<td>中创500</td>
+<td>2011/8/15</td>
+</tr>
+<tr>
+<td>399626</td>
+<td>中创成长</td>
+<td>2011/8/15</td>
+</tr>
+<tr>
+<td>399627</td>
+<td>中创价值</td>
+<td>2011/8/15</td>
+</tr>
+<tr>
+<td>399628</td>
+<td>700成长</td>
+<td>2011/9/1</td>
+</tr>
+<tr>
+<td>399629</td>
+<td>700价值</td>
+<td>2011/9/1</td>
+</tr>
+<tr>
+<td>399630</td>
+<td>1000成长</td>
+<td>2011/9/1</td>
+</tr>
+<tr>
+<td>399631</td>
+<td>1000价值</td>
+<td>2011/9/1</td>
+</tr>
+<tr>
+<td>399632</td>
+<td>深100EW</td>
+<td>2011/10/28</td>
+</tr>
+<tr>
+<td>399633</td>
+<td>深300EW</td>
+<td>2011/10/28</td>
+</tr>
+<tr>
+<td>399634</td>
+<td>中小板EW</td>
+<td>2011/10/28</td>
+</tr>
+<tr>
+<td>399635</td>
+<td>创业板EW</td>
+<td>2011/10/28</td>
+</tr>
+<tr>
+<td>399636</td>
+<td>深证装备</td>
+<td>2011/11/15</td>
+</tr>
+<tr>
+<td>399637</td>
+<td>深证地产</td>
+<td>2011/11/15</td>
+</tr>
+<tr>
+<td>399638</td>
+<td>深证环保</td>
+<td>2011/11/15</td>
+</tr>
+<tr>
+<td>399639</td>
+<td>深证大宗</td>
+<td>2011/11/15</td>
+</tr>
+<tr>
+<td>399640</td>
+<td>创业基础</td>
+<td>2012/1/16</td>
+</tr>
+<tr>
+<td>399641</td>
+<td>深证新兴</td>
+<td>2012/2/1</td>
+</tr>
+<tr>
+<td>399642</td>
+<td>中小新兴</td>
+<td>2012/2/1</td>
+</tr>
+<tr>
+<td>399643</td>
+<td>创业新兴</td>
+<td>2012/2/1</td>
+</tr>
+<tr>
+<td>399644</td>
+<td>深证时钟</td>
+<td>2012/3/26</td>
+</tr>
+<tr>
+<td>399645</td>
+<td>100低波</td>
+<td>2012/6/12</td>
+</tr>
+<tr>
+<td>399646</td>
+<td>深消费50</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>399647</td>
+<td>深医药50</td>
+<td>2012/8/6</td>
+</tr>
+<tr>
+<td>399648</td>
+<td>深证GDP</td>
+<td>2012/8/8</td>
+</tr>
+<tr>
+<td>399649</td>
+<td>中小红利</td>
+<td>2012/8/20</td>
+</tr>
+<tr>
+<td>399650</td>
+<td>中小治理</td>
+<td>2012/8/20</td>
+</tr>
+<tr>
+<td>399651</td>
+<td>中小责任</td>
+<td>2012/8/20</td>
+</tr>
+<tr>
+<td>399652</td>
+<td>中创高新</td>
+<td>2012/9/17</td>
+</tr>
+<tr>
+<td>399653</td>
+<td>深证龙头</td>
+<td>2012/9/25</td>
+</tr>
+<tr>
+<td>399654</td>
+<td>深证文化</td>
+<td>2012/11/9</td>
+</tr>
+<tr>
+<td>399655</td>
+<td>深证绩效</td>
+<td>2012/11/19</td>
+</tr>
+<tr>
+<td>399656</td>
+<td>100绩效</td>
+<td>2012/11/19</td>
+</tr>
+<tr>
+<td>399657</td>
+<td>300绩效</td>
+<td>2012/11/19</td>
+</tr>
+<tr>
+<td>399658</td>
+<td>中小绩效</td>
+<td>2012/11/19</td>
+</tr>
+<tr>
+<td>399659</td>
+<td>深成指EW</td>
+<td>2012/11/23</td>
+</tr>
+<tr>
+<td>399660</td>
+<td>中创EW</td>
+<td>2012/11/23</td>
+</tr>
+<tr>
+<td>399661</td>
+<td>深证低波</td>
+<td>2012/12/20</td>
+</tr>
+<tr>
+<td>399662</td>
+<td>深证高贝</td>
+<td>2012/12/20</td>
+</tr>
+<tr>
+<td>399663</td>
+<td>中小低波</td>
+<td>2012/12/20</td>
+</tr>
+<tr>
+<td>399664</td>
+<td>中小高贝</td>
+<td>2012/12/20</td>
+</tr>
+<tr>
+<td>399665</td>
+<td>中创低波</td>
+<td>2012/12/20</td>
+</tr>
+<tr>
+<td>399666</td>
+<td>中创高贝</td>
+<td>2012/12/20</td>
+</tr>
+<tr>
+<td>399667</td>
+<td>创业板G</td>
+<td>2013/1/7</td>
+</tr>
+<tr>
+<td>399668</td>
+<td>创业板V</td>
+<td>2013/1/7</td>
+</tr>
+<tr>
+<td>399669</td>
+<td>深证农业</td>
+<td>2013/6/24</td>
+</tr>
+<tr>
+<td>399670</td>
+<td>深周期50</td>
+<td>2013/10/28</td>
+</tr>
+<tr>
+<td>399671</td>
+<td>深防御50</td>
+<td>2013/10/28</td>
+</tr>
+<tr>
+<td>399672</td>
+<td>深红利50</td>
+<td>2014/4/10</td>
+</tr>
+<tr>
+<td>399673</td>
+<td>创业板50</td>
+<td>2014/6/18</td>
+</tr>
+<tr>
+<td>399674</td>
+<td>深A医药卫生指数</td>
+<td>2015/6/8</td>
+</tr>
+<tr>
+<td>399675</td>
+<td>深A软件与互联网指数</td>
+<td>2015/6/8</td>
+</tr>
+<tr>
+<td>399676</td>
+<td>深A医药卫生等权指数</td>
+<td>2015/6/8</td>
+</tr>
+<tr>
+<td>399677</td>
+<td>深A软件与互联网等权指数</td>
+<td>2015/6/8</td>
+</tr>
+<tr>
+<td>399678</td>
+<td>深证次新股指数</td>
+<td>2015/6/18</td>
+</tr>
+<tr>
+<td>399679</td>
+<td>深证200指数</td>
+<td>2015/6/18</td>
+</tr>
+<tr>
+<td>399680</td>
+<td>深成能源行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399681</td>
+<td>深成原材料行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399682</td>
+<td>深成工业行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399683</td>
+<td>深成可选消费行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399684</td>
+<td>深成主要消费行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399685</td>
+<td>深成医药卫生行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399686</td>
+<td>深成金融地产行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399687</td>
+<td>深成信息技术行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399688</td>
+<td>深成电信业务行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399689</td>
+<td>深成公用事业行业指数</td>
+<td>2015/8/31</td>
+</tr>
+<tr>
+<td>399690</td>
+<td>深证中小板专利领先指数</td>
+<td>2016/5/23</td>
+</tr>
+<tr>
+<td>399691</td>
+<td>深证创业板专利领先指数</td>
+<td>2016/5/23</td>
+</tr>
+<tr>
+<td>399692</td>
+<td>创业300低波动率指数</td>
+<td>2016/12/20</td>
+</tr>
+<tr>
+<td>399693</td>
+<td>安防产业</td>
+<td>2016/6/20</td>
+</tr>
+<tr>
+<td>399694</td>
+<td>创业高贝</td>
+<td>2016/12/20</td>
+</tr>
+<tr>
+<td>399695</td>
+<td>深证节能环保指数</td>
+<td>2017/4/28</td>
+</tr>
+<tr>
+<td>399696</td>
+<td>深证创投</td>
+<td>2016/10/21</td>
+</tr>
+<tr>
+<td>399697</td>
+<td>中关村60</td>
+<td>2017/1/10</td>
+</tr>
+<tr>
+<td>399698</td>
+<td>深证优势成长</td>
+<td>2017/6/15</td>
+</tr>
+<tr>
+<td>399699</td>
+<td>金融科技</td>
+<td>2017/6/9</td>
+</tr>
+<tr>
+<td>399701</td>
+<td>深证F60</td>
+<td>2010/5/10</td>
+</tr>
+<tr>
+<td>399702</td>
+<td>深证F120</td>
+<td>2010/5/10</td>
+</tr>
+<tr>
+<td>399703</td>
+<td>深证F200</td>
+<td>2010/5/10</td>
+</tr>
+<tr>
+<td>399704</td>
+<td>深证上游</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>399705</td>
+<td>深证中游</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>399706</td>
+<td>深证下游</td>
+<td>2011/10/18</td>
+</tr>
+<tr>
+<td>399707</td>
+<td>中证申万证券行业指数</td>
+<td>2015/4/16</td>
+</tr>
+<tr>
+<td>399802</td>
+<td>500深市</td>
+<td>2012/9/5</td>
+</tr>
+<tr>
+<td>399803</td>
+<td>中证工业4.0指数</td>
+<td>2015/3/10</td>
+</tr>
+<tr>
+<td>399804</td>
+<td>中证体育产业指数</td>
+<td>2015/2/9</td>
+</tr>
+<tr>
+<td>399805</td>
+<td>中证互联网金融指数</td>
+<td>2015/2/10</td>
+</tr>
+<tr>
+<td>399806</td>
+<td>中证环境治理指数</td>
+<td>2014/7/21</td>
+</tr>
+<tr>
+<td>399807</td>
+<td>中证高铁产业指数</td>
+<td>2015/1/20</td>
+</tr>
+<tr>
+<td>399808</td>
+<td>中证新能源指数</td>
+<td>2015/2/10</td>
+</tr>
+<tr>
+<td>399809</td>
+<td>中证方正富邦保险主题指数</td>
+<td>2015/2/13</td>
+</tr>
+<tr>
+<td>399810</td>
+<td>中证申万传媒行业投资指数</td>
+<td>2015/8/3</td>
+</tr>
+<tr>
+<td>399811</td>
+<td>中证申万电子行业投资指数</td>
+<td>2015/8/3</td>
+</tr>
+<tr>
+<td>399812</td>
+<td>中证养老产业指数</td>
+<td>2014/6/6</td>
+</tr>
+<tr>
+<td>399813</td>
+<td>中证国防安全指数</td>
+<td>2015/1/29</td>
+</tr>
+<tr>
+<td>399814</td>
+<td>中证大农业指数</td>
+<td>2014/7/22</td>
+</tr>
+<tr>
+<td>399817</td>
+<td>中证阿拉善生态主题100指数</td>
+<td>2015/10/21</td>
+</tr>
+<tr>
+<td>399901</td>
+<td>中证南方小康产业指数</td>
+<td>2010/4/1</td>
+</tr>
+<tr>
+<td>399902</td>
+<td>中证流通指数</td>
+<td>2006/2/27</td>
+</tr>
+<tr>
+<td>399903</td>
+<td>中证100指数</td>
+<td>2006/5/29</td>
+</tr>
+<tr>
+<td>399904</td>
+<td>中证中盘200指数</td>
+<td>2007/1/15</td>
+</tr>
+<tr>
+<td>399905</td>
+<td>中证500</td>
+<td>2007/1/15</td>
+</tr>
+<tr>
+<td>399906</td>
+<td>中证800指数</td>
+<td>2007/1/15</td>
+</tr>
+<tr>
+<td>399907</td>
+<td>中证中小盘700指数</td>
+<td>2007/1/15</td>
+</tr>
+<tr>
+<td>399908</td>
+<td>沪深300能源指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399909</td>
+<td>沪深300原材料指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399910</td>
+<td>沪深300工业指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399911</td>
+<td>沪深300可选消费指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399912</td>
+<td>沪深300主要消费指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399913</td>
+<td>沪深300医药卫生指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399914</td>
+<td>沪深300金融地产指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399915</td>
+<td>沪深300信息技术指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399916</td>
+<td>沪深300电信业务指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399917</td>
+<td>沪深300公用事业指数</td>
+<td>2007/7/2</td>
+</tr>
+<tr>
+<td>399918</td>
+<td>沪深300成长指数</td>
+<td>2008/1/21</td>
+</tr>
+<tr>
+<td>399919</td>
+<td>沪深300价值指数</td>
+<td>2008/1/21</td>
+</tr>
+<tr>
+<td>399920</td>
+<td>沪深300相对成长指数</td>
+<td>2008/1/21</td>
+</tr>
+<tr>
+<td>399922</td>
+<td>中证红利指数</td>
+<td>2008/5/26</td>
+</tr>
+<tr>
+<td>399923</td>
+<td>公司债</td>
+<td>2008/11/19</td>
+</tr>
+<tr>
+<td>399925</td>
+<td>中证锐联基本面50指数</td>
+<td>2009/2/26</td>
+</tr>
+<tr>
+<td>399926</td>
+<td>中证中央企业综合指数</td>
+<td>2009/3/30</td>
+</tr>
+<tr>
+<td>399927</td>
+<td>中证中央企业100指数</td>
+<td>2009/3/30</td>
+</tr>
+<tr>
+<td>399928</td>
+<td>中证能源指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399929</td>
+<td>中证原材料指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399930</td>
+<td>中证工业指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399931</td>
+<td>中证可选消费指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399932</td>
+<td>中证主要消费指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399933</td>
+<td>中证医药卫生指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399934</td>
+<td>中证金融地产指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399935</td>
+<td>中证信息技术指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399936</td>
+<td>中证电信业务指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399937</td>
+<td>中证公用事业指数</td>
+<td>2009/7/3</td>
+</tr>
+<tr>
+<td>399938</td>
+<td>中证民营企业综合指数</td>
+<td>2009/8/25</td>
+</tr>
+<tr>
+<td>399939</td>
+<td>中证民营企业200指数</td>
+<td>2009/8/25</td>
+</tr>
+<tr>
+<td>399940</td>
+<td>中证财富大盘指数</td>
+<td>2009/9/25</td>
+</tr>
+<tr>
+<td>399941</td>
+<td>中证内地新能源主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399942</td>
+<td>中证内地消费主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399943</td>
+<td>中证内地基建主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399944</td>
+<td>中证内地资源主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399945</td>
+<td>中证内地运输主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399946</td>
+<td>中证内地金融主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399947</td>
+<td>中证内地银行主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399948</td>
+<td>中证内地地产主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399949</td>
+<td>中证内地农业主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399950</td>
+<td>沪深300基建主题指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399951</td>
+<td>沪深300银行指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399952</td>
+<td>沪深300地产指数</td>
+<td>2009/10/28</td>
+</tr>
+<tr>
+<td>399953</td>
+<td>中证地方国有企业综合指数</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>399954</td>
+<td>中证地方国有企业100指数</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>399955</td>
+<td>中证国有企业综合指数</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>399956</td>
+<td>中证国有企业200指数</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>399957</td>
+<td>沪深300运输指数</td>
+<td>2009/6/16</td>
+</tr>
+<tr>
+<td>399958</td>
+<td>中证创业成长指数</td>
+<td>2010/3/24</td>
+</tr>
+<tr>
+<td>399959</td>
+<td>军工指数</td>
+<td>2011/8/30</td>
+</tr>
+<tr>
+<td>399960</td>
+<td>中证龙头企业指数</td>
+<td>2010/2/9</td>
+</tr>
+<tr>
+<td>399961</td>
+<td>中证上游资源产业指数</td>
+<td>2010/4/16</td>
+</tr>
+<tr>
+<td>399962</td>
+<td>中证中游制造产业指数</td>
+<td>2010/4/16</td>
+</tr>
+<tr>
+<td>399963</td>
+<td>中证下游消费与服务产业指数</td>
+<td>2010/4/16</td>
+</tr>
+<tr>
+<td>399964</td>
+<td>中证新兴产业指数</td>
+<td>2010/4/30</td>
+</tr>
+<tr>
+<td>399965</td>
+<td>800地产</td>
+<td>2014/4/4</td>
+</tr>
+<tr>
+<td>399966</td>
+<td>800非银</td>
+<td>2014/4/4</td>
+</tr>
+<tr>
+<td>399967</td>
+<td>中证军工</td>
+<td>2013/12/26</td>
+</tr>
+<tr>
+<td>399968</td>
+<td>沪深300周期行业指数</td>
+<td>2010/5/28</td>
+</tr>
+<tr>
+<td>399969</td>
+<td>沪深300非周期行业指数</td>
+<td>2010/5/28</td>
+</tr>
+<tr>
+<td>399970</td>
+<td>中证移动互联网指数</td>
+<td>2014/5/5</td>
+</tr>
+<tr>
+<td>399971</td>
+<td>中证传媒指数</td>
+<td>2014/4/15</td>
+</tr>
+<tr>
+<td>399972</td>
+<td>300深市</td>
+<td>2012/6/21</td>
+</tr>
+<tr>
+<td>399973</td>
+<td>中证国防指数</td>
+<td>2014/4/15</td>
+</tr>
+<tr>
+<td>399974</td>
+<td>中证国有企业改革指数</td>
+<td>2014/8/7</td>
+</tr>
+<tr>
+<td>399975</td>
+<td>中证全指证券公司指数(四级行业)</td>
+<td>2013/7/15</td>
+</tr>
+<tr>
+<td>399976</td>
+<td>中证新能源汽车指数</td>
+<td>2014/11/28</td>
+</tr>
+<tr>
+<td>399977</td>
+<td>中证内地低碳经济主题指数</td>
+<td>2011/1/21</td>
+</tr>
+<tr>
+<td>399978</td>
+<td>中证医药100指数</td>
+<td>2011/3/18</td>
+</tr>
+<tr>
+<td>399979</td>
+<td>中证大宗商品股票指数</td>
+<td>2011/8/22</td>
+</tr>
+<tr>
+<td>399980</td>
+<td>中证超级大盘指数</td>
+<td>2011/5/10</td>
+</tr>
+<tr>
+<td>399981</td>
+<td>沪深300行业分层等权重指数</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>399982</td>
+<td>中证500等权重指数</td>
+<td>2011/6/13</td>
+</tr>
+<tr>
+<td>399983</td>
+<td>沪深300地产等权重指数</td>
+<td>2013/11/22</td>
+</tr>
+<tr>
+<td>399984</td>
+<td>沪深300等权重指数</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>399985</td>
+<td>中证全指指数</td>
+<td>2011/8/2</td>
+</tr>
+<tr>
+<td>399986</td>
+<td>中证银行指数</td>
+<td>2013/7/15</td>
+</tr>
+<tr>
+<td>399987</td>
+<td>中证酒指数</td>
+<td>2014/12/10</td>
+</tr>
+<tr>
+<td>399989</td>
+<td>中证医疗指数</td>
+<td>2014/10/31</td>
+</tr>
+<tr>
+<td>399990</td>
+<td>中证煤炭等权指数</td>
+<td>2015/1/21</td>
+</tr>
+<tr>
+<td>399991</td>
+<td>中证一带一路主题指数</td>
+<td>2015/2/16</td>
+</tr>
+<tr>
+<td>399992</td>
+<td>中证万得并购重组指数</td>
+<td>2015/5/8</td>
+</tr>
+<tr>
+<td>399993</td>
+<td>中证万得生物科技指数</td>
+<td>2015/5/8</td>
+</tr>
+<tr>
+<td>399994</td>
+<td>中证信息安全主题指数</td>
+<td>2015/3/12</td>
+</tr>
+<tr>
+<td>399995</td>
+<td>中证基建工程指数</td>
+<td>2015/3/12</td>
+</tr>
+<tr>
+<td>399996</td>
+<td>中证智能家居指数</td>
+<td>2014/9/17</td>
+</tr>
+<tr>
+<td>399997</td>
+<td>中证白酒指数</td>
+<td>2015/1/21</td>
+</tr>
+<tr>
+<td>399998</td>
+<td>中证煤炭指数</td>
+<td>2015/2/13</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>品种代码</td>
+<td>str</td>
+<td>Y</td>
+<td>股票代码</td>
+</tr>
+<tr>
+<td>品种名称</td>
+<td>str</td>
+<td>Y</td>
+<td>股票名称</td>
+</tr>
+<tr>
+<td>纳入日期</td>
+<td>str</td>
+<td>Y</td>
+<td>成份股纳入日期</td>
+</tr>
+</tbody>
+</table>
+<p>接口示例</p><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">index_stock_cons_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">index_stock_cons</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;000300&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">index_stock_cons_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>     <span class="n">品种代码</span>  <span class="n">品种名称</span>        <span class="n">纳入日期</span>
+<span class="mi">0</span>    <span class="mi">603501</span>  <span class="n">韦尔股份</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span>
+<span class="mi">1</span>    <span class="mi">600989</span>  <span class="n">宝丰能源</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span>
+<span class="mi">2</span>    <span class="mi">000723</span>  <span class="n">美锦能源</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span>
+<span class="mi">3</span>    <span class="mi">601236</span>  <span class="n">红塔证券</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span>
+<span class="mi">4</span>    <span class="mi">603899</span>  <span class="n">晨光文具</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span>
+<span class="o">..</span>      <span class="o">...</span>   <span class="o">...</span>         <span class="o">...</span>
+<span class="mi">295</span>  <span class="mi">000157</span>  <span class="n">中联重科</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>
+<span class="mi">296</span>  <span class="mi">000069</span>  <span class="n">华侨城A</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>
+<span class="mi">297</span>  <span class="mi">000063</span>  <span class="n">中兴通讯</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>
+<span class="mi">298</span>  <span class="mi">000001</span>  <span class="n">深发展A</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>
+<span class="mi">299</span>  <span class="mi">000002</span>   <span class="n">万科A</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>历史成份<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>接口: index_stock_hist</p>
+<p>目标地址: http://stock.jrj.com.cn/share,sh000300,2015nlscf_2.shtml</p>
+<p>描述: 获取指定股票指数的历史成份股票信息</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>str</td>
+<td>Y</td>
+<td>index="sh000300"; 带市场前缀的指数代码</td>
+</tr>
+</tbody>
+</table><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">stock_index_hist_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">index_stock_hist</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;sh000001&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock_index_hist_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stock_code</td>
+<td>str</td>
+<td>Y</td>
+<td>股票代码</td>
+</tr>
+<tr>
+<td>in_date</td>
+<td>str</td>
+<td>Y</td>
+<td>进入时间</td>
+</tr>
+<tr>
+<td>out_date</td>
+<td>str</td>
+<td>Y</td>
+<td>退出时间</td>
+</tr>
+</tbody>
+</table>
+<p>数据示例</p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">stock_code</span>     <span class="n">in_date</span>    <span class="n">out_date</span>
+<span class="mi">0</span>      <span class="mi">000630</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">15</span>
+<span class="mi">1</span>      <span class="mi">002294</span>  <span class="mi">2017</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">11</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">15</span>
+<span class="mi">2</span>      <span class="mi">300070</span>  <span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">15</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">15</span>
+<span class="mi">3</span>      <span class="mi">002411</span>  <span class="mi">2017</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">12</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">15</span>
+<span class="mi">4</span>      <span class="mi">600100</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>  <span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">15</span>
+<span class="o">..</span>        <span class="o">...</span>         <span class="o">...</span>         <span class="o">...</span>
+<span class="mi">20</span>     <span class="mi">600489</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span>
+<span class="mi">21</span>     <span class="mi">000562</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span>
+<span class="mi">22</span>     <span class="mi">600757</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span>
+<span class="mi">23</span>     <span class="mi">600748</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span>
+<span class="mi">24</span>     <span class="mi">600271</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">08</span>  <span class="mi">2005</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>全球指数数据<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<p>接口: index_investing_global</p>
+<p>目标地址: https://cn.investing.com/indices/</p>
+<p>描述: 获取世界主要国家的各种指数, 由于涉及国家和指数(<strong>1000</strong> + 个指数)具体参见<a class="reference external" href="https://cn.investing.com/indices/world-indices?&amp;majorIndices=on&amp;primarySectors=on&amp;additionalIndices=on&amp;otherIndices=on">国家-指数目录</a>
+具体的调用方式可以参照:</p>
+<ol class="simple">
+<li><p>先查询指数所在的国家名称;</p></li>
+<li><p>复制网页上国家名称(推荐复制), 如 <strong>美国</strong>;</p></li>
+<li><p>复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 <strong>美元指数</strong>; 也可以调用 <strong>ak.index_investing_global_country_name_url(“美国”)</strong> 获取需要国家的具体指数名称</p></li>
+<li><p>在安装 <a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 后输入, 如 <strong>ak.index_investing_global(country=”美国”, index_name=”VIX恐慌指数”, period=”每月”, start_date=”2005-01-01”, end_date=”2020-06-05”)</strong>;</p></li>
+<li><p>稍后就可以获得所需数据.</p></li>
+</ol>
+<p>限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>country</td>
+<td>str</td>
+<td>Y</td>
+<td>country="美国"</td>
+</tr>
+<tr>
+<td>index_name</td>
+<td>str</td>
+<td>Y</td>
+<td>index_name="美元指数"; 可以通过 ak.index_investing_global_country_name_url("美国") 获取</td>
+</tr>
+<tr>
+<td>period</td>
+<td>str</td>
+<td>Y</td>
+<td>period="每月"; choice of {"每日", "每周", "每月"}</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date='2000-01-01'</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date='2019-10-17'</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日期</td>
+<td>str</td>
+<td>Y</td>
+<td>日期-索引</td>
+</tr>
+<tr>
+<td>收盘</td>
+<td>float</td>
+<td>Y</td>
+<td>收盘</td>
+</tr>
+<tr>
+<td>开盘</td>
+<td>float</td>
+<td>Y</td>
+<td>开盘</td>
+</tr>
+<tr>
+<td>高</td>
+<td>float</td>
+<td>Y</td>
+<td>高</td>
+</tr>
+<tr>
+<td>低</td>
+<td>float</td>
+<td>Y</td>
+<td>低</td>
+</tr>
+<tr>
+<td>交易量</td>
+<td>float</td>
+<td>Y</td>
+<td>交易量</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">index_investing_global_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">index_investing_global</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;美国&quot;</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="s2">&quot;VIX恐慌指数&quot;</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="s2">&quot;每月&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2005-01-01&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2020-06-05&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">index_investing_global_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               <span class="n">收盘</span>     <span class="n">开盘</span>      <span class="n">高</span>      <span class="n">低</span>  <span class="n">交易量</span>
+<span class="n">日期</span>                                         
+<span class="mi">2020</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">24.30</span>  <span class="mf">28.90</span>  <span class="mf">30.60</span>  <span class="mf">23.60</span>  <span class="mf">0.0</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">27.51</span>  <span class="mf">38.17</span>  <span class="mf">40.32</span>  <span class="mf">25.92</span>  <span class="mf">0.0</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">34.15</span>  <span class="mf">57.38</span>  <span class="mf">60.59</span>  <span class="mf">30.54</span>  <span class="mf">0.0</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">53.54</span>  <span class="mf">34.86</span>  <span class="mf">85.47</span>  <span class="mf">24.93</span>  <span class="mf">0.0</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">40.11</span>  <span class="mf">18.64</span>  <span class="mf">49.48</span>  <span class="mf">13.38</span>  <span class="mf">0.0</span>
+           <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>    <span class="o">...</span>  <span class="o">...</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">13.29</span>  <span class="mf">15.45</span>  <span class="mf">17.70</span>  <span class="mf">11.65</span>  <span class="mf">0.0</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">15.31</span>  <span class="mf">13.64</span>  <span class="mf">18.59</span>  <span class="mf">11.20</span>  <span class="mf">0.0</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">14.02</span>  <span class="mf">11.95</span>  <span class="mf">14.89</span>  <span class="mf">11.66</span>  <span class="mf">0.0</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">12.08</span>  <span class="mf">12.80</span>  <span class="mf">13.20</span>  <span class="mf">10.90</span>  <span class="mf">0.0</span>
+<span class="mi">2005</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">12.82</span>  <span class="mf">13.39</span>  <span class="mf">14.75</span>  <span class="mf">12.29</span>  <span class="mf">0.0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>微博指数数据<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<p>接口: weibo_index</p>
+<p>目标地址: https://data.weibo.com/index/newindex</p>
+<p>描述: 获取指定 <strong>词语</strong> 的微博指数</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>word</td>
+<td>str</td>
+<td>Y</td>
+<td>word="股票"</td>
+</tr>
+<tr>
+<td>time_type</td>
+<td>str</td>
+<td>Y</td>
+<td>time_type="1hour"; 1hour, 1day, 1month, 3month 选其一</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>datetime</td>
+<td>Y</td>
+<td>日期-索引</td>
+</tr>
+<tr>
+<td>index</td>
+<td>float</td>
+<td>Y</td>
+<td>指数</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">df_index</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">weibo_index</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;期货&quot;</span><span class="p">,</span> <span class="n">time_type</span><span class="o">=</span><span class="s2">&quot;3month&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_index</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>             <span class="n">期货</span>
+<span class="n">index</span>          
+<span class="mi">20190901</span>  <span class="mi">13334</span>
+<span class="mi">20190902</span>  <span class="mi">46214</span>
+<span class="mi">20190903</span>  <span class="mi">49017</span>
+<span class="mi">20190904</span>  <span class="mi">53229</span>
+<span class="mi">20190905</span>  <span class="mi">68506</span>
+         <span class="o">...</span>
+<span class="mi">20191127</span>  <span class="mi">68081</span>
+<span class="mi">20191128</span>  <span class="mi">42348</span>
+<span class="mi">20191129</span>  <span class="mi">62141</span>
+<span class="mi">20191130</span>  <span class="mi">23448</span>
+<span class="mi">20191201</span>  <span class="mi">16169</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>百度搜索指数<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<p>接口: baidu_search_index</p>
+<p>目标地址: http://index.baidu.com/v2/main/index.html</p>
+<p>描述: 获取指定 <strong>词语</strong> 的百度搜索指数</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>word</td>
+<td>str</td>
+<td>Y</td>
+<td>word="股票"</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="2010-12-27"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="2019-12-01"</td>
+</tr>
+<tr>
+<td>cookie</td>
+<td>str</td>
+<td>Y</td>
+<td>cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示</td>
+</tr>
+</tbody>
+</table><p>如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可</p>
+<p><img alt="cookies" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png" /></p>
+<p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>datetime</td>
+<td>Y</td>
+<td>日期-索引</td>
+</tr>
+<tr>
+<td>index</td>
+<td>float</td>
+<td>Y</td>
+<td>指数</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">cookie</span> <span class="o">=</span> <span class="s1">&#39;此处输入您在网页端登录百度指数后的 cookie 数据&#39;</span>  <span class="c1"># 此处请用单引号</span>
+<span class="n">baidu_search_index_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">baidu_search_index</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;螺纹钢&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2010-12-27&#39;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s1">&#39;2019-12-01&#39;</span><span class="p">,</span> <span class="n">cookie</span><span class="o">=</span><span class="n">cookie</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">baidu_search_index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>           <span class="n">index</span>
+<span class="n">date</span>            
+<span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span>   <span class="mi">294</span>
+<span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">03</span>   <span class="mi">494</span>
+<span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span>   <span class="mi">527</span>
+<span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">17</span>   <span class="mi">462</span>
+<span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">24</span>   <span class="mi">411</span>
+          <span class="o">...</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">28</span>   <span class="mi">706</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">04</span>   <span class="mi">758</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span>   <span class="mi">810</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">18</span>   <span class="mi">936</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">25</span>   <span class="mi">924</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>百度资讯指数<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+<p>接口: baidu_info_index</p>
+<p>目标地址: http://index.baidu.com/v2/main/index.html</p>
+<p>描述: 获取指定 <strong>词语</strong> 的百度资讯指数</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>word</td>
+<td>str</td>
+<td>Y</td>
+<td>word="股票"</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>datetime.datetime</td>
+<td>Y</td>
+<td>start_date="2017-07-03"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>datetime.datetime</td>
+<td>Y</td>
+<td>end_date="2019-12-01"</td>
+</tr>
+<tr>
+<td>cookie</td>
+<td>str</td>
+<td>Y</td>
+<td>cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示</td>
+</tr>
+</tbody>
+</table><p>如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可</p>
+<p><img alt="cookies" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png" /></p>
+<p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>datetime</td>
+<td>Y</td>
+<td>日期-索引</td>
+</tr>
+<tr>
+<td>index</td>
+<td>float</td>
+<td>Y</td>
+<td>指数</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">cookie</span> <span class="o">=</span> <span class="s1">&#39;此处输入您在网页端登录百度指数后的 cookie 数据&#39;</span>  <span class="c1"># 此处请用单引号</span>
+<span class="n">baidu_info_index_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">baidu_info_index</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;螺纹钢&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2017-07-03&#39;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s1">&#39;2019-12-01&#39;</span><span class="p">,</span> <span class="n">cookie</span><span class="o">=</span><span class="n">cookie</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">baidu_info_index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>            <span class="n">index</span>
+<span class="n">date</span>             
+<span class="mi">2017</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">03</span>  <span class="mi">12727</span>
+<span class="mi">2017</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">10</span>  <span class="mi">12670</span>
+<span class="mi">2017</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">17</span>   <span class="mi">8722</span>
+<span class="mi">2017</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span>   <span class="mi">6054</span>
+<span class="mi">2017</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">31</span>  <span class="mi">10763</span>
+           <span class="o">...</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">28</span>  <span class="mi">24363</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">04</span>  <span class="mi">18594</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span>  <span class="mi">38890</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">18</span>  <span class="mi">30896</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">25</span>  <span class="mi">55445</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>百度媒体指数<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
+<p>接口: baidu_media_index</p>
+<p>目标地址: http://index.baidu.com/v2/main/index.html</p>
+<p>描述: 获取指定 <strong>词语</strong> 的百度媒体指数</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>word</td>
+<td>str</td>
+<td>Y</td>
+<td>word="股票"</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>datetime.datetime</td>
+<td>Y</td>
+<td>start_date="2010-12-27"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>datetime.datetime</td>
+<td>Y</td>
+<td>end_date="2019-12-01"</td>
+</tr>
+<tr>
+<td>cookie</td>
+<td>str</td>
+<td>Y</td>
+<td>cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示</td>
+</tr>
+</tbody>
+</table><p>如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可</p>
+<p><img alt="cookies" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png" /></p>
+<p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>datetime</td>
+<td>Y</td>
+<td>日期-索引</td>
+</tr>
+<tr>
+<td>index</td>
+<td>float</td>
+<td>Y</td>
+<td>指数</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">cookie</span> <span class="o">=</span> <span class="s1">&#39;此处输入您在网页端登录百度指数后的 cookie 数据&#39;</span>  <span class="c1"># 此处请用单引号</span>
+<span class="n">baidu_media_index_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">baidu_media_index</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;螺纹钢&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2010-12-27&#39;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s1">&#39;2019-12-01&#39;</span><span class="p">,</span> <span class="n">cookie</span><span class="o">=</span><span class="n">cookie</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">baidu_media_index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>           <span class="n">index</span>
+<span class="n">date</span>            
+<span class="mi">2010</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">27</span>     <span class="mi">0</span>
+<span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">03</span>    <span class="mi">13</span>
+<span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">10</span>    <span class="mi">30</span>
+<span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">17</span>    <span class="mi">33</span>
+<span class="mi">2011</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">24</span>    <span class="mi">27</span>
+          <span class="o">...</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">28</span>     <span class="mi">5</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">04</span>     <span class="mi">6</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">11</span>     <span class="mi">4</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">18</span>     <span class="mi">5</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">25</span>     <span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>谷歌趋势指数<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h2>
+<p>接口: google_index</p>
+<p>目标地址: https://trends.google.com/trends/?geo=US</p>
+<p>描述: 获取指定 <strong>词语</strong> 的谷歌趋势指数, <strong>需要通过代理访问</strong></p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>word</td>
+<td>str</td>
+<td>Y</td>
+<td>word="python"</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>datetime.datetime</td>
+<td>Y</td>
+<td>start_date="2004-01-01", 如果要获取具体的实时分钟或小时数据, 请输入如 start_date="2019-12-10T10" , end_date="2019-12-10T23"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>datetime.datetime</td>
+<td>Y</td>
+<td>end_date="2019-12-01", 如果要获取具体的实时分钟或小时数据, 请输入如 start_date="2019-12-10T10" , end_date="2019-12-10T23"</td>
+</tr>
+<tr>
+<td>plot</td>
+<td>Bool</td>
+<td>Y</td>
+<td>plot=True, 则画图</td>
+</tr>
+</tbody>
+</table><p><strong>start_date=”2019-12-10T10”</strong> 中的 <strong>T10</strong> 表示 10 点, 以 24 小时制计算, 2019年12月10日上午 <strong>10</strong> 点</p>
+<p><strong>end_date=”2019-12-10T23”</strong> 中的 <strong>T10</strong> 表示 23 点, 以 24 小时制计算, 2019年12月10日晚上 <strong>23</strong> 点</p>
+<p><strong>中美时间会有一天左右时差</strong></p>
+<p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>datetime</td>
+<td>Y</td>
+<td>日期-索引</td>
+</tr>
+<tr>
+<td>index</td>
+<td>float</td>
+<td>Y</td>
+<td>指数</td>
+</tr>
+</tbody>
+</table><p>接口示例-长时间</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">google_index_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">google_index</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s1">&#39;2004-01-01&#39;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s1">&#39;2019-12-01&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">google_index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-长时间</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span>
+<span class="mi">2004</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">43</span>
+<span class="mi">2004</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">40</span>
+<span class="mi">2004</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">41</span>
+<span class="mi">2004</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">38</span>
+<span class="mi">2004</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">40</span>
+             <span class="o">...</span> 
+<span class="mi">2019</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">87</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">98</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">99</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span>    <span class="mi">100</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>     <span class="mi">60</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">python</span><span class="p">,</span> <span class="n">Length</span><span class="p">:</span> <span class="mi">192</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">int32</span>
+</pre></div>
+</div>
+<p>图片示例-长时间</p>
+<p><img alt="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/clipboard_20191204050206.png" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/clipboard_20191204050206.png" /></p>
+<p>接口示例-短时间</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">index_df</span> <span class="o">=</span> <span class="n">df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">google_index</span><span class="p">(</span><span class="n">word</span><span class="o">=</span><span class="s2">&quot;AI&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2019-12-10T10&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2019-12-10T23&quot;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-短时间</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">date</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">31</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">10</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">42</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">10</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">42</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">10</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">73</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">10</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">83</span>
+                       <span class="o">..</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">22</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">12</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">22</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">00</span>     <span class="mi">0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">22</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">12</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">22</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">12</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">10</span> <span class="mi">22</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mi">00</span>    <span class="mi">62</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">人工智能</span><span class="p">,</span> <span class="n">Length</span><span class="p">:</span> <span class="mi">98</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">int32</span>
+</pre></div>
+</div>
+<p>图片示例-短时间</p>
+<p><img alt="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/clipboard_20191211034449.png" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/clipboard_20191211034449.png" /></p>
+</div>
+<div class="section" id="id14">
+<h2>申万一级行业实时行情<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h2>
+<p>接口: sw_index_spot</p>
+<p>目标地址: http://www.swsindex.com/idx0120.aspx?columnid=8832</p>
+<p>描述: 获取申万一级行业实时行情数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指数代码</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>指数名称</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>昨收盘</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>今开盘</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>成交额</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>最高价</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>最低价</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>最新价</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>成交量</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">sw_index_spot_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">sw_index_spot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sw_index_spot_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">指数代码</span>  <span class="n">指数名称</span>       <span class="n">昨收盘</span>       <span class="n">今开盘</span>             <span class="n">成交额</span>       <span class="n">最高价</span>       <span class="n">最低价</span>  \
+<span class="mi">0</span>   <span class="mi">801010</span>  <span class="n">农林牧渔</span>   <span class="mf">3272.12</span>   <span class="mf">3278.67</span>  <span class="mf">10632127513.00</span>   <span class="mf">3301.17</span>   <span class="mf">3263.88</span>   
+<span class="mi">1</span>   <span class="mi">801020</span>    <span class="n">采掘</span>   <span class="mf">2378.17</span>   <span class="mf">2378.25</span>   <span class="mf">3688421635.00</span>   <span class="mf">2378.70</span>   <span class="mf">2365.45</span>   
+<span class="mi">2</span>   <span class="mi">801030</span>    <span class="n">化工</span>   <span class="mf">2493.00</span>   <span class="mf">2492.71</span>  <span class="mf">21243935761.00</span>   <span class="mf">2505.70</span>   <span class="mf">2489.63</span>   
+<span class="mi">3</span>   <span class="mi">801040</span>    <span class="n">钢铁</span>   <span class="mf">2027.81</span>   <span class="mf">2025.36</span>   <span class="mf">2182396591.00</span>   <span class="mf">2034.42</span>   <span class="mf">2019.31</span>   
+<span class="mi">4</span>   <span class="mi">801050</span>  <span class="n">有色金属</span>   <span class="mf">2715.12</span>   <span class="mf">2710.45</span>  <span class="mf">14929258171.00</span>   <span class="mf">2719.40</span>   <span class="mf">2708.82</span>   
+<span class="mi">5</span>   <span class="mi">801080</span>    <span class="n">电子</span>   <span class="mf">3296.53</span>   <span class="mf">3297.50</span>  <span class="mf">83835352265.00</span>   <span class="mf">3346.92</span>   <span class="mf">3293.55</span>   
+<span class="mi">6</span>   <span class="mi">801110</span>  <span class="n">家用电器</span>   <span class="mf">7300.79</span>   <span class="mf">7310.10</span>   <span class="mf">7211608777.00</span>   <span class="mf">7371.99</span>   <span class="mf">7304.79</span>   
+<span class="mi">7</span>   <span class="mi">801120</span>  <span class="n">食品饮料</span>  <span class="mf">14953.12</span>  <span class="mf">14989.38</span>  <span class="mf">18729948179.00</span>  <span class="mf">15286.60</span>  <span class="mf">14989.37</span>   
+<span class="mi">8</span>   <span class="mi">801130</span>  <span class="n">纺织服装</span>   <span class="mf">1785.56</span>   <span class="mf">1783.75</span>   <span class="mf">2820139838.00</span>   <span class="mf">1799.21</span>   <span class="mf">1782.26</span>   
+<span class="mi">9</span>   <span class="mi">801140</span>  <span class="n">轻工制造</span>   <span class="mf">2108.66</span>   <span class="mf">2109.56</span>   <span class="mf">8047875339.00</span>   <span class="mf">2127.92</span>   <span class="mf">2105.88</span>   
+<span class="mi">10</span>  <span class="mi">801150</span>  <span class="n">医药生物</span>   <span class="mf">7722.43</span>   <span class="mf">7733.86</span>  <span class="mf">25595067955.00</span>   <span class="mf">7774.75</span>   <span class="mf">7709.18</span>   
+<span class="mi">11</span>  <span class="mi">801160</span>  <span class="n">公用事业</span>   <span class="mf">1938.40</span>   <span class="mf">1941.14</span>   <span class="mf">5974962455.00</span>   <span class="mf">1941.26</span>   <span class="mf">1930.84</span>   
+<span class="mi">12</span>  <span class="mi">801170</span>  <span class="n">交通运输</span>   <span class="mf">2264.88</span>   <span class="mf">2269.50</span>   <span class="mf">6242927002.00</span>   <span class="mf">2283.77</span>   <span class="mf">2264.84</span>   
+<span class="mi">13</span>  <span class="mi">801180</span>   <span class="n">房地产</span>   <span class="mf">3938.34</span>   <span class="mf">3940.38</span>   <span class="mf">8647068776.00</span>   <span class="mf">3955.22</span>   <span class="mf">3934.40</span>   
+<span class="mi">14</span>  <span class="mi">801200</span>  <span class="n">商业贸易</span>   <span class="mf">3122.51</span>   <span class="mf">3128.76</span>   <span class="mf">4137020879.00</span>   <span class="mf">3153.07</span>   <span class="mf">3128.76</span>   
+<span class="mi">15</span>  <span class="mi">801210</span>  <span class="n">休闲服务</span>   <span class="mf">5859.08</span>   <span class="mf">5883.74</span>   <span class="mf">1647276734.00</span>   <span class="mf">5903.78</span>   <span class="mf">5853.36</span>   
+<span class="mi">16</span>  <span class="mi">801230</span>    <span class="n">综合</span>   <span class="mf">1962.27</span>   <span class="mf">1960.96</span>   <span class="mf">3119372157.00</span>   <span class="mf">1970.41</span>   <span class="mf">1954.48</span>   
+<span class="mi">17</span>  <span class="mi">801710</span>  <span class="n">建筑材料</span>   <span class="mf">5581.24</span>   <span class="mf">5587.85</span>   <span class="mf">5438633403.00</span>   <span class="mf">5602.77</span>   <span class="mf">5564.02</span>   
+<span class="mi">18</span>  <span class="mi">801720</span>  <span class="n">建筑装饰</span>   <span class="mf">1985.84</span>   <span class="mf">1987.95</span>   <span class="mf">5920618857.00</span>   <span class="mf">1991.93</span>   <span class="mf">1982.52</span>   
+<span class="mi">19</span>  <span class="mi">801730</span>  <span class="n">电气设备</span>   <span class="mf">4099.89</span>   <span class="mf">4098.35</span>  <span class="mf">13939419861.00</span>   <span class="mf">4131.52</span>   <span class="mf">4090.35</span>   
+<span class="mi">20</span>  <span class="mi">801740</span>  <span class="n">国防军工</span>   <span class="mf">1092.14</span>   <span class="mf">1092.34</span>   <span class="mf">6157230977.00</span>   <span class="mf">1097.11</span>   <span class="mf">1088.90</span>   
+<span class="mi">21</span>  <span class="mi">801750</span>   <span class="n">计算机</span>   <span class="mf">4465.68</span>   <span class="mf">4464.80</span>  <span class="mf">40529540333.00</span>   <span class="mf">4486.20</span>   <span class="mf">4429.60</span>   
+<span class="mi">22</span>  <span class="mi">801760</span>    <span class="n">传媒</span>    <span class="mf">619.46</span>    <span class="mf">618.81</span>  <span class="mf">24921253034.00</span>    <span class="mf">629.75</span>    <span class="mf">617.73</span>   
+<span class="mi">23</span>  <span class="mi">801770</span>    <span class="n">通信</span>   <span class="mf">2175.99</span>   <span class="mf">2178.60</span>  <span class="mf">14877087262.00</span>   <span class="mf">2196.10</span>   <span class="mf">2168.42</span>   
+<span class="mi">24</span>  <span class="mi">801780</span>    <span class="n">银行</span>   <span class="mf">3690.74</span>   <span class="mf">3697.36</span>   <span class="mf">7989722487.00</span>   <span class="mf">3703.54</span>   <span class="mf">3677.90</span>   
+<span class="mi">25</span>  <span class="mi">801790</span>  <span class="n">非银金融</span>   <span class="mf">1986.05</span>   <span class="mf">1988.34</span>  <span class="mf">21572483701.00</span>   <span class="mf">1991.80</span>   <span class="mf">1978.63</span>   
+<span class="mi">26</span>  <span class="mi">801880</span>    <span class="n">汽车</span>   <span class="mf">3687.03</span>   <span class="mf">3687.86</span>  <span class="mf">13890877424.00</span>   <span class="mf">3687.86</span>   <span class="mf">3660.98</span>   
+<span class="mi">27</span>  <span class="mi">801890</span>  <span class="n">机械设备</span>   <span class="mf">1096.74</span>   <span class="mf">1096.78</span>  <span class="mf">19039342701.00</span>   <span class="mf">1103.92</span>   <span class="mf">1095.24</span>   
+         <span class="n">最新价</span>         <span class="n">成交量</span>  
+<span class="mi">0</span>    <span class="mf">3273.24</span>   <span class="mi">762843661</span>  
+<span class="mi">1</span>    <span class="mf">2378.54</span>   <span class="mi">675383283</span>  
+<span class="mi">2</span>    <span class="mf">2505.70</span>  <span class="mi">2242816595</span>  
+<span class="mi">3</span>    <span class="mf">2033.62</span>   <span class="mi">523542522</span>  
+<span class="mi">4</span>    <span class="mf">2717.11</span>  <span class="mi">1627640796</span>  
+<span class="mi">5</span>    <span class="mf">3346.92</span>  <span class="mi">5865791446</span>  
+<span class="mi">6</span>    <span class="mf">7351.03</span>   <span class="mi">537292047</span>  
+<span class="mi">7</span>   <span class="mf">15286.60</span>   <span class="mi">579595101</span>  
+<span class="mi">8</span>    <span class="mf">1799.20</span>   <span class="mi">418346826</span>  
+<span class="mi">9</span>    <span class="mf">2127.92</span>   <span class="mi">970261252</span>  
+<span class="mi">10</span>   <span class="mf">7774.75</span>  <span class="mi">1510059102</span>  
+<span class="mi">11</span>   <span class="mf">1941.09</span>  <span class="mi">1018563967</span>  
+<span class="mi">12</span>   <span class="mf">2283.77</span>   <span class="mi">913935513</span>  
+<span class="mi">13</span>   <span class="mf">3955.22</span>  <span class="mi">1205411968</span>  
+<span class="mi">14</span>   <span class="mf">3153.07</span>   <span class="mi">628748493</span>  
+<span class="mi">15</span>   <span class="mf">5891.18</span>   <span class="mi">140257228</span>  
+<span class="mi">16</span>   <span class="mf">1969.75</span>   <span class="mi">269570972</span>  
+<span class="mi">17</span>   <span class="mf">5602.77</span>   <span class="mi">548904394</span>  
+<span class="mi">18</span>   <span class="mf">1991.93</span>   <span class="mi">819923009</span>  
+<span class="mi">19</span>   <span class="mf">4131.52</span>  <span class="mi">1390432678</span>  
+<span class="mi">20</span>   <span class="mf">1097.11</span>   <span class="mi">481212023</span>  
+<span class="mi">21</span>   <span class="mf">4486.20</span>  <span class="mi">2659642631</span>  
+<span class="mi">22</span>    <span class="mf">629.75</span>  <span class="mi">3095214341</span>  
+<span class="mi">23</span>   <span class="mf">2195.80</span>  <span class="mi">1092450575</span>  
+<span class="mi">24</span>   <span class="mf">3694.55</span>   <span class="mi">971965702</span>  
+<span class="mi">25</span>   <span class="mf">1991.02</span>  <span class="mi">1642748437</span>  
+<span class="mi">26</span>   <span class="mf">3676.52</span>  <span class="mi">1504640443</span>  
+<span class="mi">27</span>   <span class="mf">1103.92</span>  <span class="mi">1881425427</span>  
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h2>申万一级行业成份<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h2>
+<p>接口: sw_index_cons</p>
+<p>目标地址: http://www.swsindex.com/idx0210.aspx?swindexcode=801010</p>
+<p>描述: 获取申万一级行业成份股数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index_code</td>
+<td>str</td>
+<td>Y</td>
+<td>index_code="801010"</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stock_code</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>stock_name</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>weight</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">sw_index_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">sw_index_cons</span><span class="p">(</span><span class="n">index_code</span><span class="o">=</span><span class="s2">&quot;801010&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sw_index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>   <span class="n">stock_code</span> <span class="n">stock_name</span>          <span class="n">start_date</span>  <span class="n">weight</span>
+<span class="mi">0</span>      <span class="mi">000048</span>        <span class="n">康达尔</span> <span class="mi">2011</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">10</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.4648</span>
+<span class="mi">1</span>      <span class="mi">000505</span>       <span class="n">京粮控股</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.2636</span>
+<span class="mi">2</span>      <span class="mi">000576</span>       <span class="n">广东甘化</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">16</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.3266</span>
+<span class="mi">3</span>      <span class="mi">000592</span>       <span class="n">平潭发展</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">03</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.7277</span>
+<span class="mi">4</span>      <span class="mi">000702</span>       <span class="n">正虹科技</span> <span class="mi">2008</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">02</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.2174</span>
+<span class="o">..</span>        <span class="o">...</span>        <span class="o">...</span>                 <span class="o">...</span>     <span class="o">...</span>
+<span class="mi">79</span>     <span class="mi">603566</span>        <span class="n">普莱柯</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">24</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.5235</span>
+<span class="mi">80</span>     <span class="mi">603609</span>       <span class="n">禾丰牧业</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">31</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.9313</span>
+<span class="mi">81</span>     <span class="mi">603668</span>       <span class="n">天马科技</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">21</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.2899</span>
+<span class="mi">82</span>     <span class="mi">603718</span>       <span class="n">海利生物</span> <span class="mi">2016</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">05</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.4451</span>
+<span class="mi">83</span>     <span class="mi">603739</span>       <span class="n">蔚蓝生物</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">04</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">0.1789</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>申万一级行业历史行情<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
+<p>接口: sw_index_daily</p>
+<p>目标地址: http://www.swsindex.com/idx0200.aspx?columnid=8838&amp;type=Day</p>
+<p>描述: 获取申万一级行业历史行情数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index_code</td>
+<td>str</td>
+<td>Y</td>
+<td>index_code="801010"</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="2019-12-01"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="2019-12-07"</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index_code</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>index_name</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>open</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>high</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>low</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>close</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>vol</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>change_pct</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">sw_index_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">sw_index_daily</span><span class="p">(</span><span class="n">index_code</span><span class="o">=</span><span class="s2">&quot;801010&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2019-12-01&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2019-12-07&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sw_index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">index_code</span> <span class="n">index_name</span>       <span class="n">date</span>     <span class="nb">open</span>     <span class="n">high</span>      <span class="n">low</span>    <span class="n">close</span>   <span class="n">vol</span>  \
+<span class="mi">0</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">06</span>  <span class="mf">3278.67</span>  <span class="mf">3301.18</span>  <span class="mf">3263.89</span>  <span class="mf">3273.24</span>  <span class="mf">7.63</span>   
+<span class="mi">1</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">05</span>  <span class="mf">3278.81</span>  <span class="mf">3278.81</span>  <span class="mf">3252.86</span>  <span class="mf">3272.12</span>  <span class="mf">6.93</span>   
+<span class="mi">2</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">04</span>  <span class="mf">3274.92</span>  <span class="mf">3278.03</span>  <span class="mf">3227.42</span>  <span class="mf">3268.57</span>  <span class="mf">7.44</span>   
+<span class="mi">3</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span>  <span class="mf">3295.98</span>  <span class="mf">3315.15</span>  <span class="mf">3270.35</span>  <span class="mf">3287.12</span>  <span class="mf">6.80</span>   
+<span class="mi">4</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">02</span>  <span class="mf">3280.31</span>  <span class="mf">3321.77</span>  <span class="mf">3280.31</span>  <span class="mf">3297.97</span>  <span class="mf">7.33</span>   
+   <span class="n">amount</span> <span class="n">change_pct</span>  
+<span class="mi">0</span>  <span class="mf">106.32</span>       <span class="mf">0.03</span>  
+<span class="mi">1</span>   <span class="mf">85.40</span>       <span class="mf">0.11</span>  
+<span class="mi">2</span>   <span class="mf">93.57</span>      <span class="o">-</span><span class="mf">0.56</span>  
+<span class="mi">3</span>   <span class="mf">91.33</span>      <span class="o">-</span><span class="mf">0.33</span>  
+<span class="mi">4</span>  <span class="mf">105.91</span>       <span class="mf">1.37</span>  
+</pre></div>
+</div>
+</div>
+<div class="section" id="id17">
+<h2>申万一级行业历史行情指标<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h2>
+<p>接口: sw_index_daily_indicator</p>
+<p>目标地址: http://www.swsindex.com/idx0200.aspx?columnid=8838&amp;type=Day</p>
+<p>描述: 获取申万一级行业历史行情指标数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index_code</td>
+<td>str</td>
+<td>Y</td>
+<td>index_code="801010"</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="2019-12-01"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="2019-12-07"</td>
+</tr>
+<tr>
+<td>data_type</td>
+<td>str</td>
+<td>Y</td>
+<td>data_type="Day"; "Day": 日报表, "Week": 周报表</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index_code</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>index_name</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>close</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>volume</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>chg_pct</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>turn_rate</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>pe</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>pb</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>vwap</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>float_mv</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>avg_float_mv</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>dividend_yield_ratio</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>turnover_pct</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p>接口示例-天</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">sw_index_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">sw_index_daily_indicator</span><span class="p">(</span><span class="n">index_code</span><span class="o">=</span><span class="s2">&quot;801010&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2019-12-01&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2019-12-07&quot;</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;Day&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sw_index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-天</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">index_code</span> <span class="n">index_name</span>       <span class="n">date</span>    <span class="n">close</span> <span class="n">volume</span> <span class="n">chg_pct</span> <span class="n">turn_rate</span>     <span class="n">pe</span>  \
+<span class="mi">0</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">06</span>  <span class="mf">3273.24</span>   <span class="mf">7.63</span>    <span class="mf">0.03</span>    <span class="mf">1.1533</span>  <span class="mf">31.62</span>   
+<span class="mi">1</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">05</span>  <span class="mf">3272.12</span>   <span class="mf">6.93</span>    <span class="mf">0.11</span>    <span class="mf">1.0484</span>  <span class="mf">31.62</span>   
+<span class="mi">2</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">04</span>  <span class="mf">3268.57</span>   <span class="mf">7.44</span>   <span class="o">-</span><span class="mf">0.56</span>    <span class="mf">1.1242</span>  <span class="mf">31.59</span>   
+<span class="mi">3</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">03</span>  <span class="mf">3287.12</span>   <span class="mf">6.80</span>   <span class="o">-</span><span class="mf">0.33</span>    <span class="mf">1.0281</span>  <span class="mf">31.77</span>   
+<span class="mi">4</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">02</span>  <span class="mf">3297.97</span>   <span class="mf">7.33</span>    <span class="mf">1.37</span>    <span class="mf">1.1087</span>  <span class="mf">31.88</span>   
+     <span class="n">pb</span>   <span class="n">vwap</span>  <span class="n">float_mv</span> <span class="n">avg_float_mv</span> <span class="n">dividend_yield_ratio</span> <span class="n">turnover_pct</span>  
+<span class="mi">0</span>  <span class="mf">3.51</span>  <span class="mf">12.24</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">360.39</span>        <span class="mf">99.53</span>                 <span class="mf">1.19</span>         <span class="mf">2.64</span>  
+<span class="mi">1</span>  <span class="mf">3.51</span>  <span class="mf">12.17</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">357.91</span>        <span class="mf">99.50</span>                 <span class="mf">1.19</span>         <span class="mf">2.05</span>  
+<span class="mi">2</span>  <span class="mf">3.50</span>  <span class="mf">12.14</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">354.00</span>        <span class="mf">99.45</span>                 <span class="mf">1.19</span>         <span class="mf">2.68</span>  
+<span class="mi">3</span>  <span class="mf">3.52</span>  <span class="mf">12.19</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">373.92</span>        <span class="mf">99.69</span>                 <span class="mf">1.19</span>         <span class="mf">2.68</span>  
+<span class="mi">4</span>  <span class="mf">3.54</span>  <span class="mf">12.19</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">389.36</span>        <span class="mf">99.87</span>                 <span class="mf">1.18</span>         <span class="mf">3.16</span>  
+</pre></div>
+</div>
+<p>接口示例-周</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">sw_index_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">sw_index_daily_indicator</span><span class="p">(</span><span class="n">index_code</span><span class="o">=</span><span class="s2">&quot;801010&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2019-12-01&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2019-12-07&quot;</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="s2">&quot;Week&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sw_index_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-周</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  <span class="n">index_code</span> <span class="n">index_name</span>       <span class="n">date</span>    <span class="n">close</span> <span class="n">volume</span> <span class="n">chg_pct</span> <span class="n">turn_rate</span>     <span class="n">pe</span>  \
+<span class="mi">0</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">06</span>  <span class="mf">3273.24</span>  <span class="mf">36.13</span>    <span class="mf">0.61</span>    <span class="mf">1.1533</span>  <span class="mf">31.62</span>   
+<span class="mi">1</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">29</span>  <span class="mf">3253.34</span>  <span class="mf">36.30</span>   <span class="o">-</span><span class="mf">1.48</span>    <span class="mf">1.0256</span>  <span class="mf">31.43</span>   
+<span class="mi">2</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">22</span>  <span class="mf">3302.08</span>  <span class="mf">39.75</span>   <span class="o">-</span><span class="mf">1.23</span>    <span class="mf">1.1851</span>  <span class="mf">31.89</span>   
+<span class="mi">3</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">15</span>  <span class="mf">3343.26</span>  <span class="mf">42.56</span>   <span class="o">-</span><span class="mf">4.95</span>    <span class="mf">1.3313</span>  <span class="mf">32.27</span>   
+<span class="mi">4</span>     <span class="mi">801010</span>       <span class="n">农林牧渔</span> <span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">08</span>  <span class="mf">3517.40</span>  <span class="mf">58.51</span>   <span class="o">-</span><span class="mf">1.35</span>    <span class="mf">1.5961</span>  <span class="mf">33.90</span>   
+     <span class="n">pb</span>   <span class="n">vwap</span>  <span class="n">float_mv</span> <span class="n">avg_float_mv</span> <span class="n">dividend_yield_ratio</span> <span class="n">turnover_pct</span>  
+<span class="mi">0</span>  <span class="mf">3.51</span>  <span class="mf">12.24</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">360.39</span>        <span class="mf">99.53</span>                 <span class="mf">1.19</span>         <span class="mf">2.62</span>  
+<span class="mi">1</span>  <span class="mf">3.49</span>  <span class="mf">12.07</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">275.56</span>        <span class="mf">98.52</span>                 <span class="mf">1.20</span>         <span class="mf">2.60</span>  
+<span class="mi">2</span>  <span class="mf">3.54</span>  <span class="mf">12.26</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">411.33</span>       <span class="mf">100.13</span>                 <span class="mf">1.18</span>         <span class="mf">2.69</span>  
+<span class="mi">3</span>  <span class="mf">3.58</span>  <span class="mf">12.44</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">488.62</span>       <span class="mf">101.06</span>                 <span class="mf">1.17</span>         <span class="mf">3.18</span>  
+<span class="mi">4</span>  <span class="mf">3.76</span>  <span class="mf">13.08</span>  <span class="mi">8</span><span class="p">,</span><span class="mf">918.01</span>       <span class="mf">106.17</span>                 <span class="mf">1.11</span>         <span class="mf">4.12</span>  
+</pre></div>
+</div>
+</div>
+<div class="section" id="id18">
+<h2>商品现货价格指数<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h2>
+<p>接口: spot_goods</p>
+<p>目标地址: http://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0</p>
+<p>描述: 获取商品现货价格指数</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symbol</td>
+<td>str</td>
+<td>Y</td>
+<td>symbol="波罗的海干散货指数", 指数目录请参考 <strong>现货指数一览表</strong></td>
+</tr>
+</tbody>
+</table><p>现货指数一览表</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>时间段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进口大豆价格指数</td>
+<td>2000-2016</td>
+</tr>
+<tr>
+<td>波罗的海干散货指数</td>
+<td>2007-至今</td>
+</tr>
+<tr>
+<td>钢坯价格指数</td>
+<td>2005-至今</td>
+</tr>
+<tr>
+<td>普氏62%铁矿石指数</td>
+<td>2011-至今</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日期</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>指数</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>涨跌额</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>涨跌幅</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p>接口示例-天</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">spot_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">spot_goods</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;波罗的海干散货指数&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spot_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例-天</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>              <span class="n">日期</span>       <span class="n">指数</span>     <span class="n">涨跌额</span>      <span class="n">涨跌幅</span>
+<span class="mi">0</span>     <span class="mi">2006</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">23</span>  <span class="mf">2808.00</span>   <span class="mf">83.00</span>   <span class="mf">0.0305</span>
+<span class="mi">1</span>     <span class="mi">2006</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">30</span>  <span class="mf">2964.00</span>  <span class="mf">156.00</span>   <span class="mf">0.0556</span>
+<span class="mi">2</span>     <span class="mi">2006</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">07</span>  <span class="mf">2870.00</span>  <span class="o">-</span><span class="mf">94.00</span>  <span class="o">-</span><span class="mf">0.0317</span>
+<span class="mi">3</span>     <span class="mi">2006</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">14</span>  <span class="mf">2968.00</span>   <span class="mf">98.00</span>   <span class="mf">0.0341</span>
+<span class="mi">4</span>     <span class="mi">2006</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">21</span>  <span class="mf">3191.00</span>  <span class="mf">223.00</span>   <span class="mf">0.0751</span>
+          <span class="o">...</span>      <span class="o">...</span>     <span class="o">...</span>      <span class="o">...</span>
+<span class="mi">2424</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">11</span>  <span class="mf">1460.00</span>  <span class="o">-</span><span class="mf">68.00</span>  <span class="o">-</span><span class="mf">4.4500</span>
+<span class="mi">2425</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">12</span>  <span class="mf">1388.00</span>  <span class="o">-</span><span class="mf">72.00</span>  <span class="o">-</span><span class="mf">4.9300</span>
+<span class="mi">2426</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">13</span>  <span class="mf">1355.00</span>  <span class="o">-</span><span class="mf">33.00</span>  <span class="o">-</span><span class="mf">2.3800</span>
+<span class="mi">2427</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">16</span>  <span class="mf">1315.00</span>  <span class="o">-</span><span class="mf">40.00</span>  <span class="o">-</span><span class="mf">2.9500</span>
+<span class="mi">2428</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">17</span>  <span class="mf">1281.00</span>  <span class="o">-</span><span class="mf">34.00</span>  <span class="o">-</span><span class="mf">2.5900</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>义乌小商品指数<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h2>
+<p>接口: index_yw</p>
+<p>目标地址: http://www.ywindex.com/Home/Product/index/</p>
+<p>描述: 获取义乌小商品指数, 返回所有历史数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symbol</td>
+<td>str</td>
+<td>Y</td>
+<td>symbol="周价格指数", 三选一, "周价格指数", "月价格指数", "月景气指数"</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>期数</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>景气指数</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>规模指数</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>效益指数</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>市场信心指数</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p>接口示例-天</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">index_yw_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">index_yw</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;月景气指数&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">index_yw_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>      <span class="n">期数</span>     <span class="n">景气指数</span>    <span class="n">规模指数</span>    <span class="n">效益指数</span>    <span class="n">市场信心指数</span>
+<span class="mi">0</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1166.21</span>  <span class="mf">876.42</span>   <span class="mf">1714.5</span>   <span class="mf">1004.3</span>
+<span class="mi">1</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1182.63</span>  <span class="mf">889.31</span>  <span class="mf">1750.16</span>   <span class="mf">1006.2</span>
+<span class="mi">2</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1166.56</span>   <span class="mf">904.9</span>  <span class="mf">1673.57</span>  <span class="mf">1008.44</span>
+<span class="mi">3</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1146.21</span>  <span class="mf">901.67</span>  <span class="mf">1608.72</span>  <span class="mf">1009.76</span>
+<span class="mi">4</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1169.04</span>  <span class="mf">900.81</span>  <span class="mf">1686.27</span>  <span class="mf">1009.46</span>
+<span class="mi">5</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1144.33</span>  <span class="mf">888.45</span>  <span class="mf">1619.71</span>   <span class="mf">1010.1</span>
+<span class="mi">6</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1146.25</span>  <span class="mf">889.61</span>  <span class="mf">1620.87</span>  <span class="mf">1013.81</span>
+<span class="mi">7</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1193.03</span>  <span class="mf">903.56</span>  <span class="mf">1767.35</span>  <span class="mf">1004.67</span>
+<span class="mi">8</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1177.85</span>  <span class="mf">885.08</span>  <span class="mf">1745.17</span>  <span class="mf">1000.88</span>
+<span class="mi">9</span>   <span class="mi">2019</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1145.52</span>  <span class="mf">873.83</span>  <span class="mf">1649.29</span>  <span class="mf">1004.01</span>
+<span class="mi">10</span>  <span class="mi">2019</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1150.15</span>  <span class="mf">875.37</span>  <span class="mf">1663.42</span>  <span class="mf">1003.26</span>
+<span class="mi">11</span>  <span class="mi">2018</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">01</span>  <span class="mf">1193.24</span>  <span class="mf">870.16</span>  <span class="mf">1818.35</span>   <span class="mf">998.92</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id20">
+<h2>恐慌指数<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h2>
+<p>接口: index_vix</p>
+<p>目标地址: https://datacenter.jin10.com/market</p>
+<p>描述: 获取恐慌指数-芝加哥期权交易所 VIX 指数(CBOE Volatility Index)的分钟级别数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="2020-03-20"; 注意开始和结束之间的时间跨度不能太长, 只能获取当前交易日近一个月内的数据</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="2020-03-27"; 只能获取当前交易日近一个月内的数据</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日期时间</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>开盘价</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>当前价</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>涨跌</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>涨跌幅</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p>数据解释</p>
+<p>VIX全名是芝加哥期权交易所波动率指数（Chicago Board Options Exchange Volatility Index），用以反映S&amp;P 500指数期货的波动程度，测量未来30天市场预期的波动程度，通常用来评估未来风险，因此它被称作“恐慌指数”。VIX指数虽然是反映未来30天的波动程度，却是以年化百分比表示，并且以常态分布的机率出现。 举个例子，假设VIX指数为15，表示未来30天预期的年化波动率为15%，因此可以推断指数期权市场预期未来30天标准普尔500指数向上或向下波动15%/√12 = 4.33% 。也就是，指数期权的定价假设是：标准普尔500指数未来30天的波动率在正负4.33%以内的几率为68%。</p>
+<p>数据解读</p>
+<ol class="simple">
+<li><p>当VIX指数超过40，表示市场对未来的非理性恐慌，可能于短期内出现反弹。</p></li>
+<li><p>当VIX指数低于15，表示市场出现非理性繁荣，可能会伴随着卖压杀盘。</p></li>
+<li><p>即使在1998年的金融风暴时，VIX指数也未曾超过60，VIX指数不一定能准确预测走向，但是多少反映当时市场的气氛。</p></li>
+</ol>
+<p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">index_vix_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">index_vix</span><span class="p">(</span><span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2020-06-11&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2020-06-11&quot;</span><span class="p">)</span>  <span class="c1"># 只能获取当前交易日近一个月内的数据</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">index_vix_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                    <span class="n">开盘价</span>    <span class="n">当前价</span>    <span class="n">涨跌</span>    <span class="n">涨跌幅</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="mf">76.45</span>  <span class="mf">76.68</span>  <span class="mf">0.23</span>   <span class="mf">0.30</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">01</span>  <span class="mf">76.45</span>  <span class="mf">76.79</span>  <span class="mf">0.34</span>   <span class="mf">0.44</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">02</span>  <span class="mf">76.45</span>  <span class="mf">76.95</span>   <span class="mf">0.5</span>   <span class="mf">0.65</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">03</span>  <span class="mf">76.45</span>  <span class="mf">76.89</span>  <span class="mf">0.44</span>   <span class="mf">0.58</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">20</span> <span class="mi">00</span><span class="p">:</span><span class="mi">04</span>  <span class="mf">76.45</span>  <span class="mf">77.24</span>  <span class="mf">0.79</span>   <span class="mf">1.03</span>
+                 <span class="o">...</span>    <span class="o">...</span>   <span class="o">...</span>    <span class="o">...</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">27</span> <span class="mi">04</span><span class="p">:</span><span class="mi">10</span>     <span class="mi">61</span>  <span class="mf">60.99</span> <span class="o">-</span><span class="mf">0.01</span>  <span class="o">-</span><span class="mf">0.02</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">27</span> <span class="mi">04</span><span class="p">:</span><span class="mi">11</span>     <span class="mi">61</span>  <span class="mf">61.11</span>  <span class="mf">0.11</span>   <span class="mf">0.18</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">27</span> <span class="mi">04</span><span class="p">:</span><span class="mi">12</span>     <span class="mi">61</span>  <span class="mf">61.14</span>  <span class="mf">0.14</span>   <span class="mf">0.23</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">27</span> <span class="mi">04</span><span class="p">:</span><span class="mi">13</span>     <span class="mi">61</span>  <span class="mf">61.17</span>  <span class="mf">0.17</span>   <span class="mf">0.28</span>
+<span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">27</span> <span class="mi">04</span><span class="p">:</span><span class="mi">14</span>     <span class="mi">61</span>     <span class="mi">61</span>     <span class="mi">0</span>   <span class="mf">0.00</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id21">
+<h2>中证指数<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h2>
+<p>接口: stock_zh_index_hist_csindex</p>
+<p>目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/H30374</p>
+<p>描述: 获取中证指数数据, 该接口只返回最近 5 年指数日频率收盘价数据</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>symbol</td>
+<td>str</td>
+<td>Y</td>
+<td>symbol="H30374"; 指数代码</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日期</td>
+<td>str</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>收盘价</td>
+<td>float</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">stock_zh_index_hist_csindex_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">stock_zh_index_hist_csindex</span><span class="p">(</span><span class="n">symbol</span><span class="o">=</span><span class="s2">&quot;H30374&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stock_zh_index_hist_csindex_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>           <span class="n">date</span>    <span class="n">close</span>
+<span class="mi">0</span>    <span class="mi">2015</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">22</span>  <span class="mf">3948.79</span>
+<span class="mi">1</span>    <span class="mi">2015</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">23</span>  <span class="mf">4031.31</span>
+<span class="mi">2</span>    <span class="mi">2015</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">24</span>  <span class="mf">3974.93</span>
+<span class="mi">3</span>    <span class="mi">2015</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">27</span>  <span class="mf">3705.04</span>
+<span class="mi">4</span>    <span class="mi">2015</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">28</span>  <span class="mf">3645.59</span>
+         <span class="o">...</span>      <span class="o">...</span>
+<span class="mi">1290</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">15</span>  <span class="mf">4388.49</span>
+<span class="mi">1291</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">16</span>  <span class="mf">4194.77</span>
+<span class="mi">1292</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">17</span>  <span class="mf">4225.59</span>
+<span class="mi">1293</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">20</span>  <span class="mf">4330.10</span>
+<span class="mi">1294</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">21</span>  <span class="mf">4381.20</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../macro/macro.html" class="btn btn-neutral float-right" title="AkShare 宏观数据" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../fund/fund_public.html" class="btn btn-neutral float-left" title="AkShare 公募数据" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

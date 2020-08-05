@@ -1,0 +1,728 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 货币数据 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="AkShare 利率数据" href="../interest_rate/interest_rate.html" />
+    <link rel="prev" title="AkShare 外汇数据" href="../fx/fx.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributor.html">AkShare 贡献源码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">AkShare 数据字典</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../stock/stock.html">AkShare 股票数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../futures/futures.html">AkShare 期货数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bond/bond.html">AkShare 债券数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../option/option.html">AkShare 期权数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fx/fx.html">AkShare 外汇数据</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">AkShare 货币数据</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">货币报价最新数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">货币报价历史数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">货币报价时间序列数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">货币基础信息查询</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">货币对价格转换</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../interest_rate/interest_rate.html">AkShare 利率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_private.html">AkShare 私募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../fund/fund_public.html">AkShare 公募数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index/index.html">AkShare 指数数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../macro/macro.html">AkShare 宏观数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dc/dc.html">AkShare 数字货币数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../bank/bank.html">AkShare 银保监数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html">AkShare 波动率数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id2">AkShare 多因子数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id3">AkShare 政策不确定性数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../article/article.html#id5">AkShare 学术专栏</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ws/ws.html">AkShare 实时监控</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../energy/energy.html">AkShare 能源数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../event/event.html">AkShare 事件数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hf/hf.html">AkShare 高频数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nlp/nlp.html">AkShare 自然语言处理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/others.html">AkShare 另类数据</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qhkc/index.html">AkShare 奇货可查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool/tool.html">AkShare 工具箱</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">AkShare 数据字典</a> &raquo;</li>
+        
+      <li>AkShare 货币数据</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/data/currency/currency.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 货币数据<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>货币报价最新数据<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>接口: currency_latest</p>
+<p>目标地址: https://currencyscoop.com/</p>
+<p>描述: 获取货币报价最新数据</p>
+<p>限量: 单次返回指定货币的最新报价数据-免费账号每月限量访问 5000 次</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base</td>
+<td>str</td>
+<td>Y</td>
+<td>base="USD"</td>
+</tr>
+<tr>
+<td>api_key</td>
+<td>str</td>
+<td>Y</td>
+<td>api_key="Please put your api key here"; you can register <a href="https://currencyscoop.com/">currencyscoop</a>, <a href="http://mail.google.com/">Gmail</a> well be better</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>日期时间-注意时区</td>
+</tr>
+<tr>
+<td>base</td>
+<td>float</td>
+<td>Y</td>
+<td>货币</td>
+</tr>
+<tr>
+<td>rates</td>
+<td>str</td>
+<td>Y</td>
+<td>比率</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">currency_latest_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">currency_latest</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;Please put your api key here&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">currency_latest_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                         <span class="n">date</span> <span class="n">base</span>       <span class="n">rates</span>
+<span class="n">AED</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>    <span class="mf">3.672500</span>
+<span class="n">AFN</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>   <span class="mf">76.099722</span>
+<span class="n">ALL</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>  <span class="mf">108.450334</span>
+<span class="n">AMD</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>  <span class="mf">479.819972</span>
+<span class="n">ANG</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>    <span class="mf">1.786501</span>
+<span class="o">..</span>                        <span class="o">...</span>  <span class="o">...</span>         <span class="o">...</span>
+<span class="n">XPT</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>    <span class="mf">0.001113</span>
+<span class="n">YER</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>  <span class="mf">250.279406</span>
+<span class="n">ZAR</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>   <span class="mf">15.667657</span>
+<span class="n">ZMW</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>   <span class="mf">15.245795</span>
+<span class="n">ZWD</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">25</span><span class="o">+</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>  <span class="n">USD</span>  <span class="mf">361.899994</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>货币报价历史数据<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>接口: currency_history</p>
+<p>目标地址: https://currencyscoop.com/</p>
+<p>描述: 获取货币报价历史数据</p>
+<p>限量: 单次返回指定货币在指定交易日的报价历史数据-免费账号每月限量访问 5000 次</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base</td>
+<td>str</td>
+<td>Y</td>
+<td>base="USD"</td>
+</tr>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>date="2020-02-03"</td>
+</tr>
+<tr>
+<td>api_key</td>
+<td>str</td>
+<td>Y</td>
+<td>api_key="Please put your api key here"; you can register <a href="https://currencyscoop.com/">currencyscoop</a>, <a href="http://mail.google.com/">Gmail</a> well be better</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>日期时间-注意时区</td>
+</tr>
+<tr>
+<td>base</td>
+<td>float</td>
+<td>Y</td>
+<td>货币</td>
+</tr>
+<tr>
+<td>rates</td>
+<td>str</td>
+<td>Y</td>
+<td>比率</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">currency_history_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">currency_history</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s2">&quot;2020-02-03&quot;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;Please put your api key here&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">currency_history_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="n">date</span> <span class="n">base</span>       <span class="n">rates</span>
+<span class="n">AED</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>    <span class="mf">3.672500</span>
+<span class="n">AFN</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>   <span class="mf">76.350078</span>
+<span class="n">ALL</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>  <span class="mf">110.256982</span>
+<span class="n">AMD</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>  <span class="mf">478.447633</span>
+<span class="n">ANG</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>    <span class="mf">1.790009</span>
+<span class="o">..</span>         <span class="o">...</span>  <span class="o">...</span>         <span class="o">...</span>
+<span class="n">XPT</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>    <span class="mf">0.001032</span>
+<span class="n">YER</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>  <span class="mf">250.312033</span>
+<span class="n">ZAR</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>   <span class="mf">14.826424</span>
+<span class="n">ZMW</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>   <span class="mf">14.627862</span>
+<span class="n">ZWD</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>  <span class="mf">361.899994</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>货币报价时间序列数据<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>接口: currency_time_series</p>
+<p>目标地址: https://currencyscoop.com/</p>
+<p>描述: 获取货币报价时间序列数据</p>
+<p>限量: 单次返回指定货币在指定交易日到另一指定交易日的报价数据-免费账号每月限量访问 5000 次</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base</td>
+<td>str</td>
+<td>Y</td>
+<td>base="USD"</td>
+</tr>
+<tr>
+<td>start_date</td>
+<td>str</td>
+<td>Y</td>
+<td>start_date="2020-02-03"</td>
+</tr>
+<tr>
+<td>end_date</td>
+<td>str</td>
+<td>Y</td>
+<td>end_date="2020-03-04"</td>
+</tr>
+<tr>
+<td>api_key</td>
+<td>str</td>
+<td>Y</td>
+<td>api_key="Please put your api key here"; you can register <a href="https://currencyscoop.com/">currencyscoop</a>, <a href="http://mail.google.com/">Gmail</a> well be better</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>date</td>
+<td>str</td>
+<td>Y</td>
+<td>日期时间-注意时区</td>
+</tr>
+<tr>
+<td>base</td>
+<td>float</td>
+<td>Y</td>
+<td>货币</td>
+</tr>
+<tr>
+<td>rates</td>
+<td>str</td>
+<td>Y</td>
+<td>比率</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">currency_time_series_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">currency_time_series</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="s2">&quot;2020-02-03&quot;</span><span class="p">,</span> <span class="n">end_date</span><span class="o">=</span><span class="s2">&quot;2020-03-04&quot;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;Please put your api key here&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">currency_time_series_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例(由于没有权限，此示例仅作占位)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>          <span class="n">date</span> <span class="n">base</span>       <span class="n">rates</span>
+<span class="n">AED</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>    <span class="mf">3.672500</span>
+<span class="n">AFN</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>   <span class="mf">76.350078</span>
+<span class="n">ALL</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>  <span class="mf">110.256982</span>
+<span class="n">AMD</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>  <span class="mf">478.447633</span>
+<span class="n">ANG</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>    <span class="mf">1.790009</span>
+<span class="o">..</span>         <span class="o">...</span>  <span class="o">...</span>         <span class="o">...</span>
+<span class="n">XPT</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>    <span class="mf">0.001032</span>
+<span class="n">YER</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>  <span class="mf">250.312033</span>
+<span class="n">ZAR</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>   <span class="mf">14.826424</span>
+<span class="n">ZMW</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>   <span class="mf">14.627862</span>
+<span class="n">ZWD</span> <span class="mi">2020</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">03</span>  <span class="n">USD</span>  <span class="mf">361.899994</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>货币基础信息查询<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>接口: currency_currencies</p>
+<p>目标地址: https://currencyscoop.com/</p>
+<p>描述: 获取所有货币的基础信息</p>
+<p>限量: 单次返回指定所有货币基础信息-免费账号每月限量访问 5000 次</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>c_type</td>
+<td>str</td>
+<td>Y</td>
+<td>c_type="fiat"</td>
+</tr>
+<tr>
+<td>api_key</td>
+<td>str</td>
+<td>Y</td>
+<td>api_key="Please put your api key here"; you can register <a href="https://currencyscoop.com/">currencyscoop</a>, <a href="http://mail.google.com/">Gmail</a> well be better</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currency_name</td>
+<td>str</td>
+<td>Y</td>
+<td>货币名称</td>
+</tr>
+<tr>
+<td>currency_code</td>
+<td>str</td>
+<td>Y</td>
+<td>货币代码</td>
+</tr>
+<tr>
+<td>decimal_units</td>
+<td>int</td>
+<td>Y</td>
+<td>小数点位</td>
+</tr>
+<tr>
+<td>countries</td>
+<td>str</td>
+<td>Y</td>
+<td>使用此货币的国家</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">currency_currencies_df</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">currency_currencies</span><span class="p">(</span><span class="n">c_type</span><span class="o">=</span><span class="s2">&quot;fiat&quot;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;Please put your api key here&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">currency_currencies_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>                     <span class="n">currency_name</span>  <span class="o">...</span>                          <span class="n">countries</span>
+<span class="n">AED</span>    <span class="n">United</span> <span class="n">Arab</span> <span class="n">Emirates</span> <span class="n">dirham</span>  <span class="o">...</span>             <span class="p">[</span><span class="n">United</span> <span class="n">Arab</span> <span class="n">Emirates</span><span class="p">]</span>
+<span class="n">AFN</span>                 <span class="n">Afghan</span> <span class="n">afghani</span>  <span class="o">...</span>                      <span class="p">[</span><span class="n">Afghanistan</span><span class="p">]</span>
+<span class="n">ALL</span>                   <span class="n">Albanian</span> <span class="n">lek</span>  <span class="o">...</span>                          <span class="p">[</span><span class="n">Albania</span><span class="p">]</span>
+<span class="n">AMD</span>                  <span class="n">Armenian</span> <span class="n">dram</span>  <span class="o">...</span>                          <span class="p">[</span><span class="n">Armenia</span><span class="p">]</span>
+<span class="n">ANG</span>  <span class="n">Netherlands</span> <span class="n">Antillean</span> <span class="n">guilder</span>  <span class="o">...</span>  <span class="p">[</span><span class="n">Curaçao</span> <span class="p">(</span><span class="n">CW</span><span class="p">),</span> <span class="n">Sint</span> <span class="n">Maarten</span> <span class="p">(</span><span class="n">SX</span><span class="p">)]</span>
+<span class="o">..</span>                             <span class="o">...</span>  <span class="o">...</span>                                <span class="o">...</span>
+<span class="n">XXX</span>                    <span class="n">No</span> <span class="n">currency</span>  <span class="o">...</span>                                 <span class="p">[]</span>
+<span class="n">YER</span>                    <span class="n">Yemeni</span> <span class="n">rial</span>  <span class="o">...</span>                            <span class="p">[</span><span class="n">Yemen</span><span class="p">]</span>
+<span class="n">ZAR</span>             <span class="n">South</span> <span class="n">African</span> <span class="n">rand</span>  <span class="o">...</span>   <span class="p">[</span><span class="n">Lesotho</span><span class="p">,</span> <span class="n">Namibia</span><span class="p">,</span> <span class="n">South</span> <span class="n">Africa</span><span class="p">]</span>
+<span class="n">ZMW</span>                 <span class="n">Zambian</span> <span class="n">kwacha</span>  <span class="o">...</span>                           <span class="p">[</span><span class="n">Zambia</span><span class="p">]</span>
+<span class="n">ZWL</span>              <span class="n">Zimbabwean</span> <span class="n">dollar</span>  <span class="o">...</span>                         <span class="p">[</span><span class="n">Zimbabwe</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>货币对价格转换<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>接口: currency_convert</p>
+<p>目标地址: https://currencyscoop.com/</p>
+<p>描述: 获取指定货币对指定货币数量的转换后价格</p>
+<p>限量: 单次返回指定货币对的转换后价格-免费账号每月限量访问 5000 次</p>
+<p>输入参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>必选</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base</td>
+<td>str</td>
+<td>Y</td>
+<td>base="USD"</td>
+</tr>
+<tr>
+<td>to</td>
+<td>str</td>
+<td>Y</td>
+<td>to="CNY"</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>str</td>
+<td>Y</td>
+<td>amount="10000"</td>
+</tr>
+<tr>
+<td>api_key</td>
+<td>str</td>
+<td>Y</td>
+<td>api_key="Please put your api key here"; you can register <a href="https://currencyscoop.com/">currencyscoop</a>, <a href="http://mail.google.com/">Gmail</a> well be better</td>
+</tr>
+</tbody>
+</table><p>输出参数</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>默认显示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currency_name</td>
+<td>str</td>
+<td>Y</td>
+<td>货币名称</td>
+</tr>
+<tr>
+<td>currency_code</td>
+<td>str</td>
+<td>Y</td>
+<td>货币代码</td>
+</tr>
+<tr>
+<td>decimal_units</td>
+<td>int</td>
+<td>Y</td>
+<td>小数点位</td>
+</tr>
+<tr>
+<td>countries</td>
+<td>str</td>
+<td>Y</td>
+<td>使用此货币的国家</td>
+</tr>
+</tbody>
+</table><p>接口示例</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">akshare</span> <span class="k">as</span> <span class="nn">ak</span>
+<span class="n">currency_convert_se</span> <span class="o">=</span> <span class="n">ak</span><span class="o">.</span><span class="n">currency_convert</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="s2">&quot;USD&quot;</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="s2">&quot;CNY&quot;</span><span class="p">,</span> <span class="n">amount</span><span class="o">=</span><span class="s2">&quot;10000&quot;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;Please put your api key here&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">currency_convert_se</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>数据示例</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">timestamp</span>    <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span> <span class="mi">13</span><span class="p">:</span><span class="mi">45</span><span class="p">:</span><span class="mi">31</span>
+<span class="n">date</span>                  <span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">07</span>
+<span class="kn">from</span>                         <span class="nn">USD</span>
+<span class="n">to</span>                           <span class="n">CNY</span>
+<span class="n">amount</span>                     <span class="mi">10000</span>
+<span class="n">value</span>                      <span class="mi">69320</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../interest_rate/interest_rate.html" class="btn btn-neutral float-right" title="AkShare 利率数据" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../fx/fx.html" class="btn btn-neutral float-left" title="AkShare 外汇数据" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>

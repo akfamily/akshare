@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AkShare 贡献源码 &mdash; AkShare 1.0.0 文档</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="AkShare 答疑专栏" href="answer.html" />
+    <link rel="prev" title="AkShare 安装指导" href="installation.html" />
+    <meta name="referrer" content="no-referrer"/>
+     
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> AkShare
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">AkShare 概览</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">AkShare 安装指导</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AkShare 贡献源码</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">贡献指南</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">克隆及提交代码</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">代码及接口设计规范</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">文档撰写规范</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">声明</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="answer.html">AkShare 答疑专栏</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">AkShare 快速入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/index.html">AkShare 数据字典</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anaconda.html">AkShare 环境配置</a></li>
+<li class="toctree-l1"><a class="reference internal" href="special.html">AkShare 特别说明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="strategy.html">AkShare 量化策略</a></li>
+<li class="toctree-l1"><a class="reference internal" href="platform.html">AkShare 量化平台</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topic/index.html">AkShare 专题教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="demo.html">AkShare 策略示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">AkShare 版本更新</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AkShare</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>AkShare 贡献源码</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/contributor.md.txt" rel="nofollow"> 查看页面源码</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="akshare">
+<h1><a class="reference external" href="https://github.com/jindaxiang/akshare">AkShare</a> 贡献源码<a class="headerlink" href="#akshare" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>贡献指南<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3>克隆及提交代码<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<ol class="simple">
+<li><p>请从 <a class="reference external" href="https://github.com/jindaxiang/akshare/tree/develop">akshare-develop 分支</a> 克隆，develop 分支中包含 AkShare 最新的开发代码</p></li>
+<li><p>请提交修改后的代码到 <a class="reference external" href="https://github.com/jindaxiang/akshare/tree/develop">akshare-develop 分支</a></p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h3>代码及接口设计规范<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<ol class="simple">
+<li><p>代码需要符合 <strong>PEP 8</strong> 要求，请使用 <a class="reference external" href="https://github.com/psf/black">Black</a> 格式化代码</p></li>
+<li><p>函数接口的设计 <strong>stock_zh_a_hist_sina</strong> 结构，其中 <strong>stock</strong> 为金融产品，<strong>zh</strong> 为国家或地区，<strong>a</strong> 为市场或品种，<strong>hist</strong> 为 history 的缩写表示历史数据，<strong>sina</strong> 表示数据源为新浪</p></li>
+<li><p>接口函数需要增加注释，注释规则请参考 <strong>stock_zh_a_hist_sina</strong> 接口的源码</p></li>
+<li><p>需要在接口函数的注释中增加目标网站的地址（不是具体的数接口地址，而是网页的地址）</p></li>
+<li><p>返回数据格式要求：</p>
+<ol class="simple">
+<li><p>Pandas 中的 pandas.DataFrame 格式</p></li>
+<li><p>Pandas 中的 pandas.Series 格式</p></li>
+<li><p>Python 内置的 dict 格式</p></li>
+</ol>
+</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h3>文档撰写规范<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<ol>
+<li><p>在新增或者修改接口后，需要修改相对应的接口文档，保持接口与文档的同步更新</p></li>
+<li><p>具体的接口文档路径（以股票接口的文档为例）为：akshare-&gt;docs-&gt;data-&gt;stock-&gt;stock.md，其中 stock 表示股票文件夹，stock.md 为具体的 Markdown 文件，需要在 stock.md 中对相应的接口文档进行修改或新增</p></li>
+<li><p>以股票分时数据接口文档为例：</p>
+<ol class="simple">
+<li><p>主要包含以下部分内容：</p>
+<ol class="simple">
+<li><p>接口：填写具体的接口名称</p></li>
+<li><p>目标地址：填写具体数据获取网页的地址（不是数据接口地址）</p></li>
+<li><p>描述：简单描述数据接口获取的数据</p></li>
+<li><p>限量：返回数据的情况</p></li>
+<li><p>输入参数：数据接口函数中需要输入的参数</p></li>
+<li><p>输出参数：返回数据的字段，这里需要填写返回数据的字段和类型</p></li>
+<li><p>接口示例：Python 调用该数据接口的代码</p></li>
+<li><p>数据示例：利用 <strong>接口示例</strong> 代码获取的数据的接口，这里只需要复制前 <strong>5</strong> 行和后 <strong>5</strong> 行数据即刻即可。</p></li>
+</ol>
+</li>
+<li><p>示例如下：</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  ##### 分时数据
+
+  接口: stock_zh_a_minute
+
+  目标地址: http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
+
+  描述: 新浪财经获取分时数据，目前可以获取 1, 5, 15, 30, 60 分钟的数据频率
+
+  限量: 单次返回指定公司的指定频率的所有历史分时行情数据
+
+  输入参数
+
+  | 名称   | 类型 | 必选 | 描述|
+  | -------- | ---- | ---- | --- |
+  | symbol | str  | Y    |symbol=&#39;sh000300&#39;; 同日频率数据接口|
+  | period | str  | Y    |period=&#39;1&#39;; 获取 1, 5, 15, 30, 60 分钟的数据频率|
+
+  输出参数
+
+  | 名称           | 类型        | 默认显示 | 描述   |
+  | ------------  | ------      | -------- | -------- |
+  | day           | datetime   | Y         | -     |
+  | open          | float      | Y        | -     |
+  | high          | float      | Y        | -     |
+  | low           | float      | Y        | -     |
+  | close         | float      | Y        | -     |
+  | volume        | float      | Y        | -     |
+  | ma_price5     | float      | Y        | -     |
+  | ma_volume5    | float      | Y        | -     |
+  | ma_price10    | float      | Y        | -     |
+  | ma_volume10   | float      | Y        | -     |
+  | ma_price30    | float      | Y        | -     |
+  | ma_volume30   | float      | Y        | -     |
+
+  接口示例
+
+  \```python
+  import akshare as ak
+  stock_zh_a_minute_df = ak.stock_zh_a_minute(symbol=&#39;sh000300&#39;, period=&#39;1&#39;)
+  print(stock_zh_a_minute_df)
+  \```
+
+  数据示例
+
+  \```
+                        day      open  ... ma_price30 ma_volume30
+  0     2020-07-13 13:53:00  4856.431  ...   4867.211   127410853
+  1     2020-07-13 13:54:00  4857.060  ...   4867.121   125537920
+  2     2020-07-13 13:55:00  4863.072  ...   4866.998   122947250
+  3     2020-07-13 13:56:00  4860.166  ...   4866.953   121234150
+  4     2020-07-13 13:57:00  4860.286  ...   4867.128   119945047
+                     ...       ...  ...        ...         ...
+  1018  2020-07-17 14:55:00  4541.733  ...   4541.585    66625303
+  1019  2020-07-17 14:56:00  4544.026  ...   4541.280    68048570
+  1020  2020-07-17 14:57:00  4545.287  ...   4540.914    69877180
+  1021  2020-07-17 14:58:00  4545.316  ...   4540.709    68099123
+  1022  2020-07-17 15:00:00  4544.218  ...   4540.628    72314413
+  \```
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>声明<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>所提交的代码如不符合上述规范，可能会被拒绝合并</p></li>
+<li><p>由于某些原因，您所提交的代码、数据接口和文档会被修改、删除或被第三方使用</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="answer.html" class="btn btn-neutral float-right" title="AkShare 答疑专栏" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="AkShare 安装指导" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> 上一页</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; 版权所有 2019–2020, AkShare developers
+
+    </p>
+  </div>
+    
+    
+    
+    利用 <a href="http://sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">主题</a>
+    
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+  
+ 
+<script type="text/javascript">
+!function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.1.0";
+analytics.load("8UDQfnf3cyFSTsM4YANnW5sXmgZVILbA");
+analytics.page();
+}}();
+
+analytics.ready(function () {
+    ga('require', 'linker');
+    ga('linker:autoLink', ['scrapinghub.com', 'crawlera.com']);
+});
+</script>
+
+
+</body>
+</html>
