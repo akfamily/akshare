@@ -1060,6 +1060,27 @@ def macro_china_new_financial_credit() -> pd.DataFrame:
     return big_df
 
 
+def macro_china_fx_gold() -> pd.DataFrame:
+    """
+    东方财富-外汇和黄金储备
+    http://data.eastmoney.com/cjsj/hjwh.html
+    :return: 外汇和黄金储备
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/DataCenter_V3/Chart/cjsj/goldforexreserve.ashx"
+    params = {
+        "mkt": "99",
+        "stat": "17",
+        "r": "0.11885134457023705",
+        "isxml": "false",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    data_df = pd.DataFrame([data_json["X"].split(","), data_json["Y"][0].split(","), data_json["Y"][1].split(",")]).T
+    data_df.columns = ["date", "foreign_exchange_reserve", "gold_reserves"]
+    return data_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1154,3 +1175,7 @@ if __name__ == "__main__":
     # 中国-新增信贷数据
     macro_china_new_financial_credit_df = macro_china_new_financial_credit()
     print(macro_china_new_financial_credit_df)
+
+    # 中国-外汇和黄金储备
+    macro_china_fx_gold_df = macro_china_fx_gold()
+    print(macro_china_fx_gold_df)
