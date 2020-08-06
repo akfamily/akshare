@@ -1458,5 +1458,5 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.93: add: add macro_china_fx_gold interface
 
-0.5.94: add: add stock_zh_index_daily_tx, bond_cov_jsl interface
+0.5.94: add: add stock_zh_index_daily_em, bond_cov_jsl interface
 ```
