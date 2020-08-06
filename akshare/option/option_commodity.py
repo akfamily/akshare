@@ -85,9 +85,7 @@ def get_dce_option_daily(trade_date="20200409", symbol="液化石油气期权"):
         "exportFlag": "excel",
     }
     res = requests.post(url, data=payload)
-
-    f = BytesIO(res.content)
-    table_df = pd.read_excel(f, encoding="gbk", header=0)
+    table_df = pd.read_excel(BytesIO(res.content), header=0)
     another_df = table_df.iloc[
         table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:, [0, 1]
     ]
