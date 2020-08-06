@@ -1019,9 +1019,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.91: fix: fix covid for python3.8
 0.5.92: fix: fix futures_daily_bar interface
 0.5.93: add: add macro_china_fx_gold interface
+0.5.94: add: add stock_zh_index_daily_tx, bond_cov_jsl interface
 """
 
-__version__ = "0.5.93"
+__version__ = "0.5.94"
 __author__ = "Albert King"
 
 """
@@ -1354,6 +1355,7 @@ from akshare.bond.zh_bond_cov_sina import (
     bond_cov_comparison,
     bond_zh_cov,
 )
+from akshare.bond.bond_convert import bond_cov_jsl
 
 """
 for pro api
@@ -1798,6 +1800,7 @@ from akshare.index.zh_stock_index_sina import (
     stock_zh_index_daily,
     stock_zh_index_spot,
     stock_zh_index_daily_tx,
+    stock_zh_index_daily_em,
 )
 
 """

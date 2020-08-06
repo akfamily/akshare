@@ -118,6 +118,8 @@
  "ff_crr"  # FF当前因子
  # 指数实时行情和历史行情
  "stock_zh_index_daily"  # 股票指数历史行情数据
+ "stock_zh_index_daily_tx"  # 股票指数历史行情数据-腾讯
+ "stock_zh_index_daily_em"  # 股票指数历史行情数据-东方财富
  "stock_zh_index_spot"  # 股票指数实时行情数据
  # 股票分笔数据
  "stock_zh_a_tick_tx"  # A 股票分笔行情数据(近2年)-腾讯
@@ -397,6 +399,7 @@
  "bond_zh_hs_cov_spot"  # 债券-沪深可转债-实时行情数据
  "bond_zh_cov"  # 债券-可转债数据一览表
  "bond_cov_comparison"  # 债券-可转债数据比价
+ "bond_cov_jsl"  # 可转债转股价变动
  # 中国-商业特许经营数据
  "franchise_china"  # 中国-商业特许经营数据
  # 慈善中国
