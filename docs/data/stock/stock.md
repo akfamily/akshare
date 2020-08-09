@@ -3639,6 +3639,180 @@ print(stock_em_hsgt_hold_stock_df)
 1281        1  2020-05-20  1000002190  ...            -0.011470 -0.001040 -0.001017
 ```
 
+#### 每日个股统计
+
+接口: stock_em_hsgt_stock_statistics
+
+目标地址: http://data.eastmoney.com/hsgtcg/StockStatistics.aspx
+
+描述: 获取东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
+
+限量: 单次获取指定 market 的所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| market | str | Y    |   market="北向持股"; choice of {"北向持股", "南向持股"} |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| HDDATE          | str   | Y        | -     |
+| HKCODE          | float   | Y        | -     |
+| SCODE          | float   | Y        | -     |
+| SNAME          | float   | Y        | -     |
+| SHAREHOLDSUM          | float   | Y        | -     |
+| SHARESRATE          | float   | Y        | -     |
+| CLOSEPRICE          | float   | Y        | -     |
+| ZDF          | float   | Y        | -     |
+| SHAREHOLDPRICE          | float   | Y        | -     |
+| SHAREHOLDPRICEONE          | float   | Y        | -     |
+| SHAREHOLDPRICEFIVE          | float   | Y        | -     |
+| SHAREHOLDPRICETEN          | float   | Y        | -     |
+| MARKET          | float   | Y        | -     |
+| ShareHoldSumChg          | float   | Y        | -     |
+| Zb          | float   | Y        | -     |
+| Zzb          | float   | Y        | -    |
+
+接口示例
+
+```python
+import akshare as ak
+stock_em_hsgt_stock_statistics_df = ak.stock_em_hsgt_stock_statistics(market="南向持股", start_date="20200713", end_date="20200714")
+print(stock_em_hsgt_stock_statistics_df)
+```
+
+数据示例
+
+```
+                  HDDATE      HKCODE  SCODE  ... ShareHoldSumChg   Zb  Zzb
+0    2020-07-14T00:00:00  1000144881  00939  ...      34625000.0  0.0  0.0
+1    2020-07-14T00:00:00  1000145950  00700  ...       2325400.0  0.0  0.0
+2    2020-07-14T00:00:00  1000144214  01398  ...      -1028501.0  0.0  0.0
+3    2020-07-14T00:00:00  1000145283  00005  ...       1388800.0  0.0  0.0
+4    2020-07-14T00:00:00  1000144999  00981  ...      -4277800.0  0.0  0.0
+..                   ...         ...    ...  ...             ...  ...  ...
+947  2020-07-13T00:00:00  1000144464  03368  ...             0.0  0.0  0.0
+948  2020-07-13T00:00:00  1000145937  00687  ...         38000.0  0.0  0.0
+949  2020-07-13T00:00:00  1001375494  02048  ...             0.0  0.0  0.0
+950  2020-07-13T00:00:00  1000145774  00120  ...         16000.0  0.0  0.0
+951  2020-07-13T00:00:00  1000144469  03389  ...             0.0  0.0  0.0
+```
+
+#### 每日机构统计
+
+接口: stock_em_hsgt_institution_statistics
+
+目标地址: http://data.eastmoney.com/hsgtcg/InstitutionStatistics.aspx
+
+描述: 获取东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
+
+限量: 单次获取指定 market 的所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| market | str | Y    |   market="北向持股"; choice of {"北向持股", "南向持股"} |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| HDDATE          | str   | Y        | -     |
+| PARTICIPANTCODE          | float   | Y        | -     |
+| PARTICIPANTNAME          | float   | Y        | -     |
+| SHAREHOLDCOUNT          | float   | Y        | -     |
+| SHAREHOLDPRICE          | float   | Y        | -     |
+| SHAREHOLDPRICEONE          | float   | Y        | -     |
+| SHAREHOLDPRICEFIVE          | float   | Y        | -     |
+| SHAREHOLDPRICETEN          | float   | Y        | -     |
+| MARKET          | float   | Y        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_em_hsgt_institution_statistics_df = ak.stock_em_hsgt_institution_statistics(market="北向持股", start_date="20200710", end_date="20200714")
+print(stock_em_hsgt_institution_statistics_df)
+```
+
+数据示例
+
+```
+                  HDDATE PARTICIPANTCODE  ...   SHAREHOLDPRICETEN  MARKET
+0    2020-07-14T00:00:00          B01110  ...  5969625443.2218475     003
+1    2020-07-14T00:00:00          B01451  ...  2973174022.6518135     003
+2    2020-07-14T00:00:00          B01274  ...  5189900343.9822464     003
+3    2020-07-14T00:00:00          B01161  ...         6.13694e+09     003
+4    2020-07-14T00:00:00          C00019  ...  42115661119.299744     003
+..                   ...             ...  ...                 ...     ...
+866  2020-07-10T00:00:00          B02175  ...                -420     001
+867  2020-07-10T00:00:00          C00099  ...              110390     003
+868  2020-07-10T00:00:00          C00108  ...              124448     001
+869  2020-07-10T00:00:00          B01373  ...                6500     003
+870  2020-07-10T00:00:00          B01897  ...  7759162.6000000015     001
+```
+
+#### 沪深港通历史数据
+
+接口: stock_em_hsgt_hist
+
+目标地址: http://data.eastmoney.com/hsgt/index.html
+
+描述: 获取东方财富网-数据中心-资金流向-沪深港通资金流向-沪深港通历史数据
+
+限量: 单次获取指定 market 的所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| symbol | str | Y    |   symbol="港股通沪"; choice of {"沪股通", "深股通", "港股通沪", "港股通深"} |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 日期          | str   | Y        | -     |
+| 当日资金流入          | float   | Y        | -     |
+| 当日余额          | float   | Y        | -     |
+| 历史资金累计流入          | float   | Y        | -     |
+| 当日成交净买额          | float   | Y        | 注意单位: 人民币/港币     |
+| 买入成交额          | float   | Y        | 注意单位: 人民币/港币     |
+| 卖出成交额          | float   | Y        | 注意单位: 人民币/港币     |
+| 领涨股          | float   | Y        | -     |
+| 领涨股涨跌幅          | float   | Y        | -     |
+| 对应指数          | float   | Y        | 注意: 上证指数/深圳指数/恒生指数     |
+| 涨跌幅          | float   | Y        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_em_hsgt_hist_df = ak.stock_em_hsgt_hist(symbol="港股通沪")
+print(stock_em_hsgt_hist_df)
+```
+
+数据示例
+
+```
+             日期  当日资金流入     当日余额  ...   领涨股涨跌幅     对应指数         涨跌幅
+0    2020-08-07 -2023.0  44023.0  ...   9.1314  24531.6  -0.0160028
+1    2020-08-06   -81.0  42081.0  ...   9.5477  24930.6  -0.0068503
+2    2020-08-05   788.0  41212.0  ...  13.7705  25102.5  0.00624974
+3    2020-08-04  1212.0  40788.0  ...  15.5462  24946.6   0.0199729
+4    2020-08-03  3405.0  38595.0  ...   18.314  24458.1  -0.0055791
+         ...     ...      ...  ...      ...      ...         ...
+1296 2014-11-21   186.0  10314.0  ...   6.4516  23437.1  0.00374652
+1297 2014-11-20   196.0  10304.0  ...    7.916  23349.6 -0.00101269
+1298 2014-11-19   253.0  10247.0  ...   7.5758  23373.3 -0.00662412
+1299 2014-11-18   800.0   9700.0  ...   5.5319  23529.2  -0.0112581
+1300 2014-11-17  1768.0   8732.0  ...   3.7404  23797.1   -0.012052
+```
+
 ### 两市停复牌
 
 接口: stock_em_tfp

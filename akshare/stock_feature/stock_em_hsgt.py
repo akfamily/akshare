@@ -386,6 +386,63 @@ def stock_em_hsgt_institution_statistics(market="北向持股", start_date="2020
     return temp_df
 
 
+def stock_em_hsgt_hist(symbol: str = "港股通沪") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-资金流向-沪深港通资金流向-沪深港通历史数据
+    http://data.eastmoney.com/hsgt/index.html
+    :param symbol: choice of {"沪股通", "深股通", "港股通沪", "港股通深"}
+    :type symbol: str
+    :return: 沪深港通历史数据
+    :rtype: pandas.DataFrame
+    """
+    symbol_map = {"沪股通": "1", "深股通": "3", "港股通沪": "2", "港股通深": "4"}
+    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    params = {
+        "type": "HSGTHIS",
+        "token": "70f12f2f4f091e459a279469fe49eca5",
+        "filter": f"(MarketType={symbol_map[symbol]})",
+        "js": 'var VIIlLPMH={"data":(x),"pages":(tp)}',
+        "ps": "2000",
+        "p": "1",
+        "sr": "-1",
+        "st": "DetailDate",
+        "rt": "53231355",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):])
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.columns = ["_",
+                       "日期",
+                       "当日资金流入",
+                       "当日余额",
+                       "历史资金累计流入",
+                       "当日成交净买额",
+                       "买入成交额",
+                       "卖出成交额",
+                       "_",
+                       "领涨股",
+                       "领涨股涨跌幅",
+                       "对应指数",
+                       "涨跌幅",
+                       ]
+    temp_df = temp_df[[
+                       "日期",
+                       "当日资金流入",
+                       "当日余额",
+                       "历史资金累计流入",
+                       "当日成交净买额",
+                       "买入成交额",
+                       "卖出成交额",
+                       "领涨股",
+                       "领涨股涨跌幅",
+                       "对应指数",
+                       "涨跌幅",
+                       ]]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"])
+    return temp_df
+
+
 if __name__ == '__main__':
     stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(indicator="沪股通")
     print(stock_em_hsgt_north_net_flow_in_df)
@@ -408,3 +465,6 @@ if __name__ == '__main__':
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(market="北向持股", start_date="20200710", end_date="20200714")
     print(stock_em_hsgt_institution_statistics_df)
+
+    stock_em_hsgt_hist_df = stock_em_hsgt_hist(symbol="港股通沪")
+    print(stock_em_hsgt_hist_df)

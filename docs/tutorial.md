@@ -465,6 +465,9 @@
  "stock_em_hsgt_south_cash"  # 沪深港通南向-资金余额
  "stock_em_hsgt_south_acc_flow_in"  # 沪深港通南向-累计净流入
  "stock_em_hsgt_hold_stock"  # 沪深港通持股-个股排行
+ "stock_em_hsgt_stock_statistics"  # 沪深港通持股-每日个股统计
+ "stock_em_hsgt_institution_statistics"  # 沪深港通持股-每日机构统计
+ "stock_em_hsgt_hist"  # 沪深港通历史数据
  # 两市停复牌
  "stock_em_tfp"  # 两市停复牌数据
  # 恐慌指数
