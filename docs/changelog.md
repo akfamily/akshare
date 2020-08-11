@@ -1463,4 +1463,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.95: fix: fix get_dce_option_daily interface
 
 0.5.96: add: add stock_em_hsgt_hist interface
+
+0.5.97: fix: fix remove mplfinance package in requirements.txt
 ```

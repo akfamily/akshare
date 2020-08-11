@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Date: 2020/3/17 13:06
-Desc:
+Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所
 采集前 20 会员持仓数据;
 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定;
@@ -13,7 +13,6 @@ http://www.czce.com.cn/cn/DFSStaticFiles/Future/2020/20200727/FutureDataHolding.
 
 20100825
 http://www.czce.com.cn/cn/exchange/2014/datatradeholding/20140515.txt
-
 """
 import datetime
 import json
