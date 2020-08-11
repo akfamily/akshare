@@ -38,7 +38,7 @@ setuptools.setup(
     url="https://github.com/jindaxiang/akshare",
     packages=setuptools.find_packages(),
     install_requires=[
-        "bs4>=0.0.1",
+        "beautifulsoup4>=4.9.1",
         "lxml>=4.2.1",
         "matplotlib>=3.1.1",
         "numpy>=1.15.4",
@@ -58,7 +58,6 @@ setuptools.setup(
         "jsonpath>=0.82",
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
-        "mplfinance>=0.12.3a3"
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.woff", "*.js"]},
     keywords=[
