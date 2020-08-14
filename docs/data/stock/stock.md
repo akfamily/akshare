@@ -6264,6 +6264,54 @@ trade_date                            ...
 2019-07-22  74.1447  42.6807  5.5091  ...       NaN     NaN  1308143.416
 ```
 
+#### 港股个股指标
+
+接口: stock_hk_eniu_indicator
+
+目标地址: https://eniu.com/gu/hk01093/roe
+
+描述: 获取亿牛网-港股个股指标: 市盈率, 市净率, 股息率, ROE, 市值
+
+限量: 单次获取指定 symbol 和 indicator 的所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| symbol | str | Y    | symbol="hk01093"; 可通过调用 **stock_hk_eniu_indicator(symbol="hk01093", indicator="港股")** 获取股票代码|
+| indicator | str | Y    | indicator="港股"; choice of {"港股", "市盈率", "市净率", "股息率", "ROE", "市值"}|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| -          | -   | -        |  根据 indicator 而异    |
+
+接口示例-ROE
+
+```python
+import akshare as ak
+stock_hk_eniu_indicator_df = ak.stock_hk_eniu_indicator(symbol="hk01093", indicator="市净率")
+print(stock_hk_eniu_indicator_df)
+```
+
+数据示例-ROE
+
+```
+            date    pb  price
+0     2000-01-03  1.17   0.00
+1     2000-01-04  1.24   0.00
+2     2000-01-05  1.19   0.00
+3     2000-01-06  1.06   0.00
+4     2000-01-07  1.08   0.00
+          ...   ...    ...
+5041  2020-08-07  7.31  15.74
+5042  2020-08-10  7.22  15.54
+5043  2020-08-11  7.31  15.74
+5044  2020-08-12  7.15  15.40
+5045  2020-08-13  7.18  15.46
+```
+
 #### 创新高和新低的股票数量
 
 接口: stock_a_high_low_statistics

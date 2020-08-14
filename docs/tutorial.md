@@ -539,6 +539,7 @@
  "stock_a_pb"  # A 股市净率
  "stock_a_pe"  # A 股市盈率
  "stock_a_lg_indicator"  # A 股个股市盈率、市净率和股息率指标
+ "stock_hk_eniu_indicator"  # 港股股个股市盈率、市净率和股息率指标
  "stock_a_high_low_statistics"  # 创新高和新低的股票数量
  "stock_a_below_net_asset_statistics"  # 破净股统计
  # 交易日历

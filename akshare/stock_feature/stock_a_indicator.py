@@ -42,8 +42,44 @@ def stock_a_lg_indicator(stock: str = "688388") -> pd.DataFrame:
         return temp_df
 
 
+def stock_hk_eniu_indicator(symbol="hk01093", indicator="市盈率"):
+    """
+    港股指标
+    https://eniu.com/gu/hk01093/roe
+    :param symbol: 港股代码
+    :type symbol: str
+    :param indicator: 需要获取的指标, choice of {"港股", "市盈率", "市净率", "股息率", "ROE", "市值"}
+    :type indicator: str
+    :return: 指定 symbol 和 indicator 的数据
+    :rtype: pandas.DataFrame
+    """
+    if indicator == "港股":
+        url = "https://eniu.com/static/data/stock_list.json"
+        r = requests.get(url)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json)
+        return temp_df[temp_df["stock_id"].str.contains("hk")]
+    if indicator == "市盈率":
+        url = f"https://eniu.com/chart/peh/{symbol}"
+    elif indicator == "市净率":
+        url = f"https://eniu.com/chart/pbh/{symbol}"
+    elif indicator == "股息率":
+        url = f"https://eniu.com/chart/dvh/{symbol}"
+    elif indicator == "ROE":
+        url = f"https://eniu.com/chart/roeh/{symbol}"
+    elif indicator == "市值":
+        url = f"https://eniu.com/chart/marketvalueh/{symbol}"
+    r = requests.get(url)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json)
+    return temp_df
+
+
 if __name__ == '__main__':
     stock_a_lg_indicator_all_df = stock_a_lg_indicator(stock="all")
     print(stock_a_lg_indicator_all_df)
     stock_a_lg_indicator_df = stock_a_lg_indicator(stock="000001")
     print(stock_a_lg_indicator_df)
+
+    stock_hk_eniu_indicator_df = stock_hk_eniu_indicator(symbol="hk01093", indicator="市净率")
+    print(stock_hk_eniu_indicator_df)
