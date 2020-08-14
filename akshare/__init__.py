@@ -1023,9 +1023,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.95: fix: fix get_dce_option_daily interface
 0.5.96: add: add stock_em_hsgt_hist interface
 0.5.97: fix: fix remove mplfinance package in requirements.txt
+0.5.98: add: add stock_hk_eniu_indicator interface
 """
 
-__version__ = "0.5.97"
+__version__ = "0.5.98"
 __author__ = "Albert King"
 
 """
@@ -1083,7 +1084,7 @@ A 股PE和PB
 """
 from akshare.stock_feature.stock_a_pb import stock_a_pb
 from akshare.stock_feature.stock_a_pe import stock_a_pe
-from akshare.stock_feature.stock_a_indicator import stock_a_lg_indicator
+from akshare.stock_feature.stock_a_indicator import stock_a_lg_indicator, stock_hk_eniu_indicator
 from akshare.stock_feature.stock_a_high_low import stock_a_high_low_statistics
 from akshare.stock_feature.stock_a_below_net_asset_statistics import (
     stock_a_below_net_asset_statistics,
