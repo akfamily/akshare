@@ -1024,9 +1024,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.96: add: add stock_em_hsgt_hist interface
 0.5.97: fix: fix remove mplfinance package in requirements.txt
 0.5.98: add: add stock_hk_eniu_indicator interface
+0.5.99: fix: fix stock_zh_ah_daily interface
 """
 
-__version__ = "0.5.98"
+__version__ = "0.5.99"
 __author__ = "Albert King"
 
 """

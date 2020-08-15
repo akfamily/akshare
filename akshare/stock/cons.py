@@ -139,7 +139,7 @@ hk_payload = {
 
 hk_stock_url = "http://web.ifzq.gtimg.cn/appstock/app/hkfqkline/get"
 hk_stock_headers = {
-    "Referer": "http://gu.qq.com/hk00168/gp",
+    # "Referer": "http://gu.qq.com/hk00168/gp",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
 }
 hk_stock_payload = {

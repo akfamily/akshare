@@ -1017,6 +1017,7 @@ print(stock_zh_ah_spot_df)
 | symbol | str  | Y    |   symbol="02318"; 港股股票代码, 可以通过 **stock_zh_ah_name** 函数获取|
 | start_year | str  | Y    |   start_year="2000"; 开始年份|
 | end_year | str  | Y    |   end_year="2019"; 结束年份|
+| adjust | str  | Y    |   adjust=""; 默认为空不复权; 'qhf': 前复权, 'hfq': 后复权|
 
 输出参数-历史行情数据
 
@@ -1033,14 +1034,14 @@ print(stock_zh_ah_spot_df)
 
 ```python
 import akshare as ak
-stock_zh_ah_daily_df = ak.stock_zh_ah_daily(symbol="02359", start_year="2000", end_year="2019")
+stock_zh_ah_daily_df = ak.stock_zh_ah_daily(symbol="02318", start_year="2000", end_year="2019", adjust="")
 print(stock_zh_ah_daily_df)
 ```
 
 数据示例
 
 ```
-             日期       开盘       收盘       最高       最低           成交量
+     日期       开盘       收盘       最高       最低           成交量
 0    2018-12-13   67.000   68.000   68.700   64.950  20213983.000
 1    2018-12-14   68.000   68.000   68.100   67.000   2579900.000
 2    2018-12-17   68.000   68.000   68.500   67.600   1131467.000
