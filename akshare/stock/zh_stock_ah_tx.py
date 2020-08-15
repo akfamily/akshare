@@ -71,7 +71,7 @@ def stock_zh_ah_name() -> dict:
     return code_name_dict
 
 
-def stock_zh_ah_daily(symbol: str = "02318", start_year: str = "2000", end_year: str = "2019") -> pd.DataFrame:
+def stock_zh_ah_daily(symbol: str = "02318", start_year: str = "2000", end_year: str = "2019", adjust: str = "hfq") -> pd.DataFrame:
     """
     腾讯财经-港股-AH-股票历史行情
     http://gu.qq.com/hk01033/gp
@@ -86,18 +86,46 @@ def stock_zh_ah_daily(symbol: str = "02318", start_year: str = "2000", end_year:
     """
     big_df = pd.DataFrame()
     for year in tqdm(range(int(start_year), int(end_year))):
+        # year = "2003"
         hk_stock_payload_copy = hk_stock_payload.copy()
-        hk_stock_payload_copy.update({"_var": f"kline_dayhfq{year}"})
-        hk_stock_payload_copy.update({"param": f"hk{symbol},day,{year}-01-01,{int(year) + 1}-12-31,640,hfq"})
-        hk_stock_payload_copy.update({"r": random.random()})
-        res = requests.get(hk_stock_url, params=hk_stock_payload_copy, headers=hk_stock_headers)
+        hk_stock_payload_copy.update({"_var": f"kline_day{adjust}{year}"})
+        if adjust == "":
+            hk_stock_payload_copy.update({"param": f"hk{symbol},day,{year}-01-01,{int(year) + 1}-12-31,640,"})
+        else:
+            hk_stock_payload_copy.update({"param": f"hk{symbol},day,{year}-01-01,{int(year) + 1}-12-31,640,{adjust}"})
+        hk_stock_payload_copy.update({"r": str(random.random())})
+        if adjust == "":
+            headers = {
+                "Accept": "*/*",
+                "Accept-Encoding": "gzip, deflate",
+                "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "Host": "web.ifzq.gtimg.cn",
+                "Pragma": "no-cache",
+                "Referer": "http://gu.qq.com/hk01033/gp",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36"
+            }
+            res = requests.get("http://web.ifzq.gtimg.cn/appstock/app/kline/kline", params=hk_stock_payload_copy, headers=headers)
+        else:
+            res = requests.get("http://web.ifzq.gtimg.cn/appstock/app/hkfqkline/get", params=hk_stock_payload_copy, headers=hk_stock_headers)
         data_json = demjson.decode(res.text[res.text.find("{"): res.text.rfind("}") + 1])
         try:
-            temp_df = pd.DataFrame(data_json["data"][f"hk{symbol}"]["hfqday"])
+            if adjust == "":
+                temp_df = pd.DataFrame(data_json["data"][f"hk{symbol}"]["day"])
+            else:
+                temp_df = pd.DataFrame(data_json["data"][f"hk{symbol}"][f"{adjust}day"])
         except:
             continue
-        temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量", "_", "_", "_"]
-        temp_df = temp_df[["日期", "开盘", "收盘", "最高", "最低", "成交量"]]
+        if adjust != "" and not temp_df.empty:
+            temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量", "_", "_", "_"]
+            temp_df = temp_df[["日期", "开盘", "收盘", "最高", "最低", "成交量"]]
+        elif not temp_df.empty:
+            try:
+                temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量", "_"]
+            except:
+                temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量"]
+            temp_df = temp_df[["日期", "开盘", "收盘", "最高", "最低", "成交量"]]
         # print("正在采集{}第{}年的数据".format(symbol, year))
         big_df = big_df.append(temp_df, ignore_index=True)
     return big_df
@@ -108,6 +136,9 @@ if __name__ == "__main__":
     print(stock_zh_ah_spot_df)
     big_dict = stock_zh_ah_name()
     print(big_dict)
-    for item in big_dict.keys():
-        stock_zh_ah_daily_df = stock_zh_ah_daily(symbol=item, start_year="2000", end_year="2019")
-        print(stock_zh_ah_daily_df)
+    stock_zh_ah_daily_df = stock_zh_ah_daily(symbol="02318", start_year="2000", end_year="2020", adjust="")
+    print(stock_zh_ah_daily_df)
+
+    # for item in big_dict.keys():
+    #     stock_zh_ah_daily_df = stock_zh_ah_daily(symbol=item, start_year="2000", end_year="2019")
+    #     print(stock_zh_ah_daily_df)
