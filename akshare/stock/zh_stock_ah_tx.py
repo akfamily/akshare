@@ -71,7 +71,7 @@ def stock_zh_ah_name() -> dict:
     return code_name_dict
 
 
-def stock_zh_ah_daily(symbol: str = "02318", start_year: str = "2000", end_year: str = "2019", adjust: str = "hfq") -> pd.DataFrame:
+def stock_zh_ah_daily(symbol: str = "02318", start_year: str = "2000", end_year: str = "2019", adjust: str = "") -> pd.DataFrame:
     """
     腾讯财经-港股-AH-股票历史行情
     http://gu.qq.com/hk01033/gp
