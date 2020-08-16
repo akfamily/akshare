@@ -136,7 +136,7 @@ if __name__ == "__main__":
     print(stock_zh_ah_spot_df)
     big_dict = stock_zh_ah_name()
     print(big_dict)
-    stock_zh_ah_daily_df = stock_zh_ah_daily(symbol="02318", start_year="2000", end_year="2020", adjust="")
+    stock_zh_ah_daily_df = stock_zh_ah_daily(symbol="02318", start_year="2000", end_year="2020", adjust="hfq")
     print(stock_zh_ah_daily_df)
 
     # for item in big_dict.keys():
