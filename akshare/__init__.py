@@ -1026,9 +1026,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.98: add: add stock_hk_eniu_indicator interface
 0.5.99: fix: fix stock_zh_ah_daily interface
 0.6.1: fix: fix stock_zh_ah_daily interface set default value
+0.6.2: fix: fix stock_zh_a_minute interface and add adjust parameter
 """
 
-__version__ = "0.6.1"
+__version__ = "0.6.2"
 __author__ = "Albert King"
 
 """
