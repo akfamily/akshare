@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/10/30 11:28
+Date: 2020/8/16 11:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 """
 import re
@@ -203,7 +203,7 @@ def stock_zh_a_daily(symbol: str = "sz000613", adjust: str = "") -> pd.DataFrame
         return qfq_factor_df
 
 
-def stock_zh_a_minute(symbol: str = 'sh000300', period: str = '1') -> pd.DataFrame:
+def stock_zh_a_minute(symbol: str = 'sz000613', period: str = '1', adjust: str = "") -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
     http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
@@ -211,6 +211,8 @@ def stock_zh_a_minute(symbol: str = 'sh000300', period: str = '1') -> pd.DataFra
     :type symbol: str
     :param period: 1, 5, 15, 30, 60 分钟的数据
     :type period: str
+    :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据;
+    :type adjust: str
     :return: specific data
     :rtype: pandas.DataFrame
     """
@@ -221,16 +223,52 @@ def stock_zh_a_minute(symbol: str = 'sh000300', period: str = '1') -> pd.DataFra
         "datalen": "1023",
     }
     r = requests.get(url, params=params)
-    temp_df = pd.DataFrame(json.loads(r.text.split('=(')[1].split(");")[0]))
-    return temp_df
+    temp_df = pd.DataFrame(json.loads(r.text.split('=(')[1].split(");")[0])).iloc[:, :6]
+    try:
+        stock_zh_a_daily(symbol=symbol, adjust="qfq")
+    except:
+        return temp_df
+    if adjust == "":
+        return temp_df
+
+    if adjust == "qfq":
+        temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
+        need_df = temp_df[temp_df["time"] == "15:00:00"]
+        need_df.index = need_df["date"]
+        stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
+        result_df = stock_zh_a_daily_qfq_df.iloc[-5:, :]["close"].astype(float) / need_df["close"].astype(float)
+        temp_df.index = pd.to_datetime(temp_df["date"])
+        merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
+        merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
+        merged_df["high"] = merged_df["high"].astype(float) * merged_df["close_y"]
+        merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
+        merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
+        temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
+        temp_df.reset_index(drop=True, inplace=True)
+        return temp_df
+    if adjust == "hfq":
+        temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
+        need_df = temp_df[temp_df["time"] == "15:00:00"]
+        need_df.index = need_df["date"]
+        stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")
+        result_df = stock_zh_a_daily_qfq_df.iloc[-5:, :]["close"].astype(float) / need_df["close"].astype(float)
+        temp_df.index = pd.to_datetime(temp_df["date"])
+        merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
+        merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
+        merged_df["high"] = merged_df["high"].astype(float) * merged_df["close_y"]
+        merged_df["low"] = merged_df["low"].astype(float) * merged_df["close_y"]
+        merged_df["close"] = merged_df["close_x"].astype(float) * merged_df["close_y"]
+        temp_df = merged_df[["day", "open", "high", "low", "close", "volume"]]
+        temp_df.reset_index(drop=True, inplace=True)
+        return temp_df
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sh600582", adjust="qfq-factor")
+    stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sz000876", adjust="")
     print(stock_zh_a_daily_hfq_df)
     stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582")
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sh600582', period='1')
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sz000876', period='1', adjust="qfq")
     print(stock_zh_a_minute_df)
