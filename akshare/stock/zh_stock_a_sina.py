@@ -203,7 +203,7 @@ def stock_zh_a_daily(symbol: str = "sz000613", adjust: str = "") -> pd.DataFrame
         return qfq_factor_df
 
 
-def stock_zh_a_minute(symbol: str = 'sz000613', period: str = '1', adjust: str = "") -> pd.DataFrame:
+def stock_zh_a_minute(symbol: str = 'sz000613', period: str = '5', adjust: str = "") -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
     http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
@@ -235,8 +235,9 @@ def stock_zh_a_minute(symbol: str = 'sz000613', period: str = '1', adjust: str =
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         need_df = temp_df[temp_df["time"] == "15:00:00"]
         need_df.index = need_df["date"]
+
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
-        result_df = stock_zh_a_daily_qfq_df.iloc[-5:, :]["close"].astype(float) / need_df["close"].astype(float)
+        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])
         merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
         merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
@@ -251,7 +252,7 @@ def stock_zh_a_minute(symbol: str = 'sz000613', period: str = '1', adjust: str =
         need_df = temp_df[temp_df["time"] == "15:00:00"]
         need_df.index = need_df["date"]
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")
-        result_df = stock_zh_a_daily_qfq_df.iloc[-5:, :]["close"].astype(float) / need_df["close"].astype(float)
+        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])
         merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
         merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
@@ -270,5 +271,5 @@ if __name__ == "__main__":
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sz000876', period='1', adjust="qfq")
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol='sz000876', period='5', adjust="hfq")
     print(stock_zh_a_minute_df)
