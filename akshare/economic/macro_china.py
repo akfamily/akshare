@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/10/21 12:08
+Date: 2020/8/17 12:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -1282,6 +1282,30 @@ def macro_china_whxd():
     return big_df
 
 
+def macro_china_wbck():
+    """
+    东方财富-本外币存款
+    http://data.eastmoney.com/cjsj/wbck.html
+    :return: 东方财富-本外币存款
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/foreigncurrencydeposit.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/foreigncurrencydeposit.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
+    big_df = big_df.iloc[:, :5]
+    big_df.columns = [
+        "月份",
+        "当月",
+        "同比增长",
+        "环比增长",
+        "累计",
+    ]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1405,4 +1429,5 @@ if __name__ == "__main__":
     macro_china_whxd_df = macro_china_whxd()
     print(macro_china_whxd_df)
 
-
+    macro_china_wbck_df = macro_china_wbck()
+    print(macro_china_wbck_df)

@@ -321,6 +321,7 @@
  "macro_china_hgjck"  # 中国-海关进出口增减情况一览表
  "macro_china_czsr"  # 中国-财政收入
  "macro_china_whxd"  # 中国-外汇贷款数据
+ "macro_china_wbck"  # 中国-本外币存款
  # 美国
  "macro_usa_gdp_monthly"  # 金十数据中心-经济指标-美国-经济状况-美国GDP
  "macro_usa_cpi_monthly"  # 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告
