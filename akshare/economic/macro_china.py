@@ -1081,6 +1081,207 @@ def macro_china_fx_gold() -> pd.DataFrame:
     return data_df
 
 
+def macro_china_cpi():
+    """
+    东方财富-中国居民消费价格指数
+    http://data.eastmoney.com/cjsj/cpi.html
+    :return: 东方财富中国居民消费价格指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/consumerpriceindex.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=2)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/consumerpriceindex.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=2)[-1].iloc[:-1, :])
+    big_df.columns = ["月份",
+                      "全国-当月",
+                      "全国-同比增长",
+                      "全国-环比增长",
+                      "全国-累计",
+                      "城市-当月",
+                      "城市-同比增长",
+                      "城市-环比增长",
+                      "城市-累计",
+                      "农村-当月",
+                      "农村-同比增长",
+                      "农村-环比增长",
+                      "农村-累计",
+                      ]
+    return big_df
+
+
+def macro_china_gdp():
+    """
+    东方财富-中国国内生产总值
+    http://data.eastmoney.com/cjsj/gdp.html
+    :return: 东方财富中国国内生产总值
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/grossdomesticproduct.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=1)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/grossdomesticproduct.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=1)[-1].iloc[:-1, :])
+    big_df = big_df.iloc[:, :9]
+    big_df.columns = ["季度",
+                      "国内生产总值-绝对值",
+                      "国内生产总值-同比增长",
+                      "第一产业-绝对值",
+                      "第一产业-同比增长",
+                      "第二产业-绝对值",
+                      "第二产业-同比增长",
+                      "第三产业-绝对值",
+                      "第三产业-同比增长",
+                      ]
+    return big_df
+
+
+def macro_china_ppi():
+    """
+    东方财富-中国工业品出厂价格指数
+    http://data.eastmoney.com/cjsj/ppi.html
+    :return: 东方财富中国工业品出厂价格指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/productpricesindex.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/productpricesindex.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
+    big_df = big_df.iloc[:, :4]
+    return big_df
+
+
+def macro_china_pmi():
+    """
+    东方财富-中国采购经理人指数
+    http://data.eastmoney.com/cjsj/pmi.html
+    :return: 东方财富中国采购经理人指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/purchasingmanagerindex.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=1)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/purchasingmanagerindex.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=1)[-1].iloc[:-1, :])
+    big_df = big_df.iloc[:, :5]
+    big_df.columns = [
+        "月份",
+        "制造业-指数",
+        "制造业-同比增长",
+        "非制造业-指数",
+        "非制造业-同比增长",
+    ]
+    return big_df
+
+
+def macro_china_gdzctz():
+    """
+    东方财富-中国城镇固定资产投资
+    http://data.eastmoney.com/cjsj/gdzctz.html
+    :return: 东方财富中国城镇固定资产投资
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/townassetsinvest.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/townassetsinvest.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
+    big_df = big_df.iloc[:, :5]
+    big_df.columns = [
+        "月份",
+        "当月",
+        "同比增长",
+        "环比增长",
+        "自年初累计",
+    ]
+    return big_df
+
+
+def macro_china_hgjck():
+    """
+    东方财富-海关进出口增减情况一览表
+    http://data.eastmoney.com/cjsj/hgjck.html
+    :return: 东方财富-海关进出口增减情况一览表
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/importandexport.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=1)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/importandexport.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=1)[-1].iloc[:-1, :])
+    big_df = big_df.iloc[:, :11]
+    big_df.columns = [
+        "月份",
+        "当月出口额-金额",
+        "当月出口额-同比增长",
+        "当月出口额-环比增长",
+        "当月进口额-金额",
+        "当月进口额-同比增长",
+        "当月进口额-环比增长",
+        "累计出口额-金额",
+        "累计出口额-同比增长",
+        "累计进口额-金额",
+        "累计进口额-同比增长",
+    ]
+    return big_df
+
+
+def macro_china_czsr():
+    """
+    东方财富-财政收入
+    http://data.eastmoney.com/cjsj/czsr.html
+    :return: 东方财富-财政收入
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/staterevenue.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/staterevenue.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
+    big_df = big_df.iloc[:, :6]
+    big_df.columns = [
+        "月份",
+        "当月",
+        "当月-同比增长",
+        "当月-环比增长",
+        "累计",
+        "累计-同比增长",
+    ]
+    return big_df
+
+
+def macro_china_whxd():
+    """
+    东方财富-外汇贷款数据
+    http://data.eastmoney.com/cjsj/whxd.html
+    :return: 东方财富-外汇贷款数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/cjsj/foreignexchangeloan.aspx?p=1"
+    page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
+    big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
+    for page in range(2, page_num+1):
+        url = f"http://data.eastmoney.com/cjsj/foreignexchangeloan.aspx?p={page}"
+        big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
+    big_df = big_df.iloc[:, :5]
+    big_df.columns = [
+        "月份",
+        "当月",
+        "同比增长",
+        "环比增长",
+        "累计",
+    ]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1179,3 +1380,29 @@ if __name__ == "__main__":
     # 中国-外汇和黄金储备
     macro_china_fx_gold_df = macro_china_fx_gold()
     print(macro_china_fx_gold_df)
+
+    macro_china_cpi_df = macro_china_cpi()
+    print(macro_china_cpi_df)
+
+    macro_china_gdp_df = macro_china_gdp()
+    print(macro_china_gdp_df)
+
+    macro_china_ppi_df = macro_china_ppi()
+    print(macro_china_ppi_df)
+
+    macro_china_pmi_df = macro_china_pmi()
+    print(macro_china_pmi_df)
+
+    macro_china_gdzctz_df = macro_china_gdzctz()
+    print(macro_china_gdzctz_df)
+
+    macro_china_hgjck_df = macro_china_hgjck()
+    print(macro_china_hgjck_df)
+
+    macro_china_czsr_df = macro_china_czsr()
+    print(macro_china_czsr_df)
+
+    macro_china_whxd_df = macro_china_whxd()
+    print(macro_china_whxd_df)
+
+

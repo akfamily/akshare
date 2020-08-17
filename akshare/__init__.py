@@ -1028,9 +1028,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.1: fix: fix stock_zh_ah_daily interface set default value
 0.6.2: fix: fix stock_zh_a_minute interface and add adjust parameter
 0.6.3: fix: fix stock_zh_a_minute interface
+0.6.4: add: add macro_china interface
 """
 
-__version__ = "0.6.3"
+__version__ = "0.6.4"
 __author__ = "Albert King"
 
 """
@@ -2030,6 +2031,14 @@ from akshare.economic.macro_china import (
     macro_china_national_tax_receipts,
     macro_china_new_financial_credit,
     macro_china_fx_gold,
+    macro_china_cpi,
+    macro_china_gdp,
+    macro_china_ppi,
+    macro_china_pmi,
+    macro_china_gdzctz,
+    macro_china_hgjck,
+    macro_china_czsr,
+    macro_china_whxd,
 )
 
 """
