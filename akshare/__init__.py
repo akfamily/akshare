@@ -1030,9 +1030,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.3: fix: fix stock_zh_a_minute interface
 0.6.4: add: add macro_china interface
 0.6.5: add: add macro_china_wbck interface
+0.6.6: fix: fix macro_china_wbck interface
 """
 
-__version__ = "0.6.5"
+__version__ = "0.6.6"
 __author__ = "Albert King"
 
 """
@@ -2040,6 +2041,7 @@ from akshare.economic.macro_china import (
     macro_china_hgjck,
     macro_china_czsr,
     macro_china_whxd,
+    macro_china_wbck,
 )
 
 """
