@@ -30,11 +30,11 @@ from akshare.option.cons import (
 )
 
 
-def get_dce_option_daily(trade_date="20200409", symbol="液化石油气期权"):
+def get_dce_option_daily(trade_date="20200817", symbol="聚丙烯期权"):
     """
     大连商品交易所-期权-日频行情数据
     :param trade_date: str format："20191017"
-    :param symbol: str "玉米期权" or "豆粕期权"
+    :param symbol: str "玉米期权" or "豆粕期权" or "铁矿石期权", or "液化石油气期权" or "聚乙烯期权" or "聚氯乙烯期权" or "聚丙烯期权"
     :return: pandas.DataFrame
     part-1:
             商品名称          合约名称    开盘价    最高价    最低价    收盘价   前结算价    结算价   涨跌  涨跌1  \
@@ -93,14 +93,20 @@ def get_dce_option_daily(trade_date="20200409", symbol="液化石油气期权"):
     another_df.iloc[0] = another_df.iat[0, 0].split("\t")
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
-    if symbol == "玉米期权":
+    if symbol == "豆粕期权":
+        return table_df[table_df["商品名称"] == "豆粕"], another_df[another_df.iloc[:, 0].str.contains("m")]
+    elif symbol == "玉米期权":
         return table_df[table_df["商品名称"] == "玉米"], another_df[another_df.iloc[:, 0].str.contains("c")]
     elif symbol == "铁矿石期权":
         return table_df[table_df["商品名称"] == "铁矿石"], another_df[another_df.iloc[:, 0].str.contains("i")]
-    elif symbol == "豆粕期权":
-        return table_df[table_df["商品名称"] == "豆粕"], another_df[another_df.iloc[:, 0].str.contains("m")]
     elif symbol == "液化石油气期权":
         return table_df[table_df["商品名称"] == "液化石油气"], another_df[another_df.iloc[:, 0].str.contains("pg")]
+    elif symbol == "聚乙烯期权":
+        return table_df[table_df["商品名称"] == "聚乙烯"], another_df[another_df.iloc[:, 0].str.contains("i")]
+    elif symbol == "聚氯乙烯期权":
+        return table_df[table_df["商品名称"] == "聚氯乙烯"], another_df[another_df.iloc[:, 0].str.contains("v")]
+    elif symbol == "聚丙烯期权":
+        return table_df[table_df["商品名称"] == "聚丙烯"], another_df[another_df.iloc[:, 0].str.contains("pp")]
 
 
 def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
@@ -179,6 +185,10 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
                 return temp_df.iloc[:-1, :]
             elif symbol == "菜籽粕期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("RM")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "动力煤期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("ZC")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
             else:
@@ -320,12 +330,12 @@ def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
 
 
 if __name__ == "__main__":
-    df_test = get_czce_option_daily(trade_date="20200117", symbol="菜籽粕期权")
-    print(df_test)
-    one, two = get_dce_option_daily(trade_date="20200211", symbol="玉米期权")
-    print(one)
-    print(two)
-    one, two, three = get_shfe_option_daily(trade_date="20200410", symbol="黄金期权")
-    print(one)
-    print(two)
-    print(three)
+    get_czce_option_daily_df = get_czce_option_daily(trade_date="20200817", symbol="动力煤期权")
+    print(get_czce_option_daily_df)
+    get_dce_option_daily_one, get_dce_option_daily_two = get_dce_option_daily(trade_date="20200818", symbol="聚氯乙烯期权")
+    print(get_dce_option_daily_one)
+    print(get_dce_option_daily_two)
+    get_shfe_option_daily_one, get_shfe_option_daily_two, get_shfe_option_daily_three = get_shfe_option_daily(trade_date="20200817", symbol="铝期权")
+    print(get_shfe_option_daily_one)
+    print(get_shfe_option_daily_two)
+    print(get_shfe_option_daily_three)

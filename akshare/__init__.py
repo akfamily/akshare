@@ -1032,9 +1032,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.5: add: add macro_china_wbck interface
 0.6.6: fix: fix macro_china_wbck interface
 0.6.7: add: add index_stock_cons_sina interface
+0.6.8: fix: fix option_commodity interface
 """
 
-__version__ = "0.6.7"
+__version__ = "0.6.8"
 __author__ = "Albert King"
 
 """
