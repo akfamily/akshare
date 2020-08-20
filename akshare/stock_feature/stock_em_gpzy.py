@@ -105,11 +105,14 @@ def stock_em_gpzy_profile():
     return temp_df
 
 
-def _get_page_num_gpzy_market_pledge_ratio():
+def _get_page_num_gpzy_market_pledge_ratio(trade_date="2020-08-19"):
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
     http://data.eastmoney.com/gpzy/pledgeRatio.aspx
-    :return: int 获取 上市公司质押比例 的总页数
+    :param trade_date: 指定交易日, 访问 http://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询
+    :type trade_date: str
+    :return: 上市公司质押比例的总页数
+    :rtype: int
     """
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
     params = {
@@ -121,7 +124,7 @@ def _get_page_num_gpzy_market_pledge_ratio():
         "p": "2",
         "ps": "5000",
         "js": "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
-        "filter": "(tdate='2019-12-27')",
+        "filter": f"(tdate='{trade_date}')",
         "rt": "52584436",
     }
     res = requests.get(url, params=params)
@@ -129,14 +132,17 @@ def _get_page_num_gpzy_market_pledge_ratio():
     return data_json["pages"]
 
 
-def stock_em_gpzy_pledge_ratio():
+def stock_em_gpzy_pledge_ratio(trade_date="2020-08-07"):
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
     http://data.eastmoney.com/gpzy/pledgeRatio.aspx
-    :return: pandas.DataFrame
+    :param trade_date: 指定交易日, 访问 http://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询
+    :type trade_date: str
+    :return: 上市公司质押比例
+    :rtype: pandas.DataFrame
     """
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    page_num = _get_page_num_gpzy_market_pledge_ratio()
+    page_num = _get_page_num_gpzy_market_pledge_ratio(trade_date)
     temp_df = pd.DataFrame()
     for page in range(1, page_num + 1):
         print(f"一共{page_num}页, 正在下载第{page}页")
@@ -149,7 +155,7 @@ def stock_em_gpzy_pledge_ratio():
             "p": str(page),
             "ps": "5000",
             "js": "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
-            "filter": "(tdate='2019-12-27')",
+            "filter": f"(tdate='{trade_date}')",
             "rt": "52584436",
         }
         res = requests.get(url, params=params)
@@ -588,7 +594,7 @@ def stock_em_gpzy_industry_data():
 if __name__ == "__main__":
     stock_em_gpzy_profile_df = stock_em_gpzy_profile()
     print(stock_em_gpzy_profile_df)
-    stock_em_gpzy_pledge_ratio_df = stock_em_gpzy_pledge_ratio()
+    stock_em_gpzy_pledge_ratio_df = stock_em_gpzy_pledge_ratio(trade_date="2020-08-07")
     print(stock_em_gpzy_pledge_ratio_df)
     stock_em_gpzy_pledge_ratio_detail_df = stock_em_gpzy_pledge_ratio_detail()
     print(stock_em_gpzy_pledge_ratio_detail_df)
