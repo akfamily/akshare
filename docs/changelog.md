@@ -1485,4 +1485,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.7: add: add index_stock_cons_sina interface
 
 0.6.8: fix: fix option_commodity interface
+
+0.6.9: fix: fix stock_em_gpzy_pledge_ratio interface
 ```
