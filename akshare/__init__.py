@@ -1031,9 +1031,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.4: add: add macro_china interface
 0.6.5: add: add macro_china_wbck interface
 0.6.6: fix: fix macro_china_wbck interface
+0.6.7: add: add index_stock_cons_sina interface
 """
 
-__version__ = "0.6.6"
+__version__ = "0.6.7"
 __author__ = "Albert King"
 
 """
@@ -1598,6 +1599,7 @@ from akshare.index.index_cons import (
     index_stock_info,
     index_stock_cons,
     index_stock_hist,
+    index_stock_cons_sina,
 )
 
 """
