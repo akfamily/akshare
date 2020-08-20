@@ -1075,7 +1075,7 @@ print(option_sina_hist_df)
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | trade_date | str  | Y    |   trade_date="20191017"|
-| symbol | str  | Y    |  symbol_type="铜期权"|
+| symbol | str  | Y    |  symbol="铜期权"|
 
 上海期货交易所提供的商品期权品种
 
@@ -1268,7 +1268,7 @@ part_3: 上海期货交易所隐含波动参考值
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | trade_date | str  | Y    |   trade_date="20191017"|
-| symbol | str  | Y    |  symbol_type="玉米期权"|
+| symbol | str  | Y    |  symbol="玉米期权"|
 
 大连商品交易所提供的商品期权品种
 
@@ -1387,7 +1387,7 @@ part_2: 隐含波动率参考值
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | trade_date | str  | Y    |   trade_date="20191017"|
-| symbol | str  | Y    |  symbol_type="白糖期权"|
+| symbol | str  | Y    |  symbol="白糖期权"|
 
 郑州商品交易所提供的商品期权品种
 
