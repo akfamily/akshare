@@ -6,47 +6,58 @@ Desc: 获取股票指数成份股数据, 新浪有两个接口, 这里使用老�
 新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
-import requests
+import math
+
+import demjson
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 
-# def index_stock_cons(index="000905"):
-#     """
-#     新浪新版股票指数成份页面, 暂时不用
-#     :param index:
-#     :type index:
-#     :return:
-#     :rtype:
-#     """
-#     import demjson
-#     if index == "000300":
-#         temp_df = pd.DataFrame()
-#         for page in range(1, 5):
-#             url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
-#             params = {
-#                 "page": str(page),
-#                 "num": "80",
-#                 "sort": "symbol",
-#                 "asc": "1",
-#                 "node": "hs300",
-#                 "symbol": "",
-#                 "_s_r_a": "init",
-#             }
-#             r = requests.get(url, params=params)
-#             temp_df = temp_df.append(pd.DataFrame(demjson.decode(r.text)), ignore_index=True)
-#         return temp_df
-#     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
-#     params = {
-#         "page": "1",
-#         "num": "3000",
-#         "sort": "symbol",
-#         "asc": "1",
-#         "node": f"zhishu_{index}",
-#         "_s_r_a": "setlen",
-#     }
-#     r = requests.get(url, params=params)
-#     return pd.DataFrame(demjson.decode(r.text))
+def index_stock_cons_sina(index: str = "000300") -> pd.DataFrame:
+    """
+    新浪新版股票指数成份页面, 目前该接口可获取指数数量较少
+    http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000040
+    :param index: 指数代码
+    :type index: str
+    :return: 指数的成份股
+    :rtype: pandas.DataFrame
+    """
+    if index == "000300":
+        index = 'hs300'
+        url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple"
+        params = {
+            "node": f"{index}"
+        }
+        r = requests.get(url, params=params)
+        page_num = math.ceil(int(r.json()) / 80) + 1
+        temp_df = pd.DataFrame()
+        for page in range(1, page_num):
+            url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
+            params = {
+                "page": str(page),
+                "num": "80",
+                "sort": "symbol",
+                "asc": "1",
+                "node": "hs300",
+                "symbol": "",
+                "_s_r_a": "init",
+            }
+            r = requests.get(url, params=params)
+            temp_df = temp_df.append(pd.DataFrame(demjson.decode(r.text)), ignore_index=True)
+        return temp_df
+
+    url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
+    params = {
+        "page": 1,
+        "num": "3000",
+        "sort": "symbol",
+        "asc": "1",
+        "node": f"zhishu_{index}",
+        "_s_r_a": "setlen",
+    }
+    r = requests.get(url, params=params)
+    return pd.DataFrame(demjson.decode(r.text))
 
 
 def index_stock_info() -> pd.DataFrame:
@@ -126,6 +137,8 @@ def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    index_stock_cons_sina_df = index_stock_cons_sina(index="000300")
+    print(index_stock_cons_sina_df)
     index_stock_cons_df = index_stock_cons(index="000300")
     print(index_stock_cons_df)
     stock_index_hist_df = index_stock_hist(index="sz399994")

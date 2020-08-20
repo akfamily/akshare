@@ -254,7 +254,7 @@ print(stock_zh_index_daily_em_df)
 
 目标地址: http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 
-描述: 获取指定指数的最新成份股票信息
+描述: 获取指定指数的最新成份股票信息, 注意该接口返回的数据有部分是重复会导致数据缺失, 可以调用 **index_stock_cons_sina** 获取主流指数数据 
 
 输入参数
 
