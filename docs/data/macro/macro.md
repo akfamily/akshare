@@ -1655,6 +1655,168 @@ print(macro_china_wbck_df)
 17  2008年02月份  13370.18  152.67%  -96.68%   415859.25
 ```
 
+##### 币净投放与净回笼
+
+接口: macro_china_hb
+
+目标地址: http://www.chinamoney.com.cn/chinese/hb/
+
+描述: 央行币净投放与净回笼, 数据区间从 19970310 至今, 周频率
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | ---- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| start_date      | str   | Y        | 开始日期  |
+| net_put_in      | str   | Y        | 净投放(亿)   |
+| back      | str   | Y        |   回笼量(亿) |
+| end_date     | str   | Y        |  结束日期 |
+| put_in      | str   | Y        |  投放量(亿)  |
+| date      | str   | Y        |  周期  |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_hb_df = ak.macro_china_hb()
+print(macro_china_hb_df)
+```
+
+数据示例
+
+```
+      start_date net_put_in  back    end_date put_in     date
+0     1997-03-10          0     0  1997-03-16      0  1997-11
+1     1997-03-17          0     0  1997-03-23      0  1997-12
+2     1997-03-24          0     0  1997-03-30      0  1997-13
+3     1997-03-31          0     0  1997-04-06      0  1997-14
+4     1997-04-07          0     0  1997-04-13      0  1997-15
+          ...        ...   ...         ...    ...      ...
+1215  2020-07-20      -1650  3300  2020-07-26   1650  2020-30
+1216  2020-07-27       1200  1600  2020-08-02   2800  2020-31
+1217  2020-08-03      -2700  2800  2020-08-09    100  2020-32
+1218  2020-08-10       4900   100  2020-08-16   5000  2020-33
+1219  2020-08-17      -3500  5000  2020-08-23   1500  2020-34
+```
+
+##### 央行公开市场操作
+
+接口: macro_china_gksccz
+
+目标地址: http://www.chinamoney.com.cn/chinese/yhgkscczh/
+
+描述: 央行公开市场操作, 数据区间从 20040116 至今, 周频率
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | ---- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| rate      | str   | Y        | 中标利率(%)  |
+| trading_method      | str   | Y        | 正/逆回购   |
+| deal_amount      | str   | Y        |   交易量(亿) |
+| period     | str   | Y        |  期限(天) |
+| operation_from_date      | str   | Y        |  操作日期  |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_gksccz_df = ak.macro_china_gksccz()
+print(macro_china_gksccz_df)
+```
+
+数据示例
+
+```
+      rate trading_method deal_amount period operation_from_date
+0     2.82            逆回购         400     14          2004-01-16
+1     2.83            正回购          50     91          2004-05-13
+2     2.55            正回购         150     28          2004-05-13
+3     2.65            正回购         300     28          2004-05-20
+4     2.69            正回购         200     28          2004-05-27
+    ...            ...         ...    ...                 ...
+1955   2.2            逆回购         500      7          2020-08-17
+1956   2.2            逆回购        1000      7          2020-08-18
+1957   2.2            逆回购        1500      7          2020-08-19
+1958  2.35            逆回购         500     14          2020-08-21
+1959   2.2            逆回购        1500      7          2020-08-21
+```
+
+##### 新债券发行
+
+接口: macro_china_bond_public
+
+目标地址: http://www.chinamoney.com.cn/chinese/xzjfx/
+
+描述: 债券信息披露-新债券发行, 近期债券发行数据
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | ---- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| issue_price      | str   | Y        | -  |
+| emit_enty      | str   | Y        | -   |
+| coupon_type      | str   | Y        |  - |
+| plnd_issue_vlmn_str     | str   | Y        |  - |
+| issue_price_str      | str   | Y        |  -  |
+| issue_date      | str   | Y        |  -  |
+| bond_type      | str   | Y        |  -  |
+| plnd_issue_vlmn      | str   | Y        |  -  |
+| bond_name      | str   | Y        |  -  |
+| bond_code      | str   | Y        |  -  |
+| rtng_shrt      | str   | Y        |  -  |
+| bond_period      | str   | Y        |  -  |
+| defined_code      | str   | Y        |  -  |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_bond_public_df = ak.macro_china_bond_public()
+print(macro_china_bond_public_df)
+```
+
+数据示例
+
+```
+    issue_price emit_enty coupon_type  ... rtng_shrt bond_period defined_code
+0          None      None         未计息  ...      None        340日   eabej8aq8n
+1          None      None         零息式  ...       AAA        340日   eabeitsg7n
+2          None      None     附息式固定利率  ...       AAA         10年   eadgek956e
+3          None      None     附息式固定利率  ...       AAA         15年   eadgdm86f1
+4          None      None     附息式固定利率  ...       AAA          5年   eadgclnd8n
+..          ...       ...         ...  ...       ...         ...          ...
+410        None      None     附息式固定利率  ...       AAA          3年   digaam0gri
+411        None      None     附息式固定利率  ...       AAA          3年   31101hrowk
+412        None      None     附息式固定利率  ...       AA+          5年   277522ta3a
+413        None      None     附息式固定利率  ...       AA-          5年   djbgj9xcxt
+414        None      None     附息式固定利率  ...       AAA          3年   djaabv3nd8
+```
+
 ##### 外汇和黄金储备
 
 接口: macro_china_fx_gold

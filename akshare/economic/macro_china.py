@@ -11,6 +11,7 @@ http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
 import json
 import re
 import time
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
@@ -1306,6 +1307,117 @@ def macro_china_wbck():
     return big_df
 
 
+def macro_china_hb():
+    """
+    中国-货币净投放与净回笼
+    http://www.chinamoney.com.cn/chinese/hb/
+    :return: 货币净投放与净回笼
+    :rtype: pandas.DataFrame
+    """
+    current_year = datetime.today().year
+    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketPutAndBackStatByWeek"
+    params = {
+        "t": "1597986289666",
+        "t": "1597986289666",
+    }
+    big_df = pd.DataFrame()
+    for year in tqdm(range(1997, current_year+1)):
+        payload = {
+            "startWeek": f"{year}-01",
+            "endWeek": f"{year}-52",
+            "pageSize": "5000",
+            "pageNo": "1",
+        }
+        r = requests.post(url, params=params, data=payload)
+        page_num = r.json()["data"]["pageTotal"]
+        for page in range(1, page_num+1):
+            payload = {
+                "startWeek": f"{year}-01",
+                "endWeek": f"{year}-52",
+                "pageSize": "5000",
+                "pageNo": str(page),
+            }
+            r = requests.post(url, params=params, data=payload)
+            temp_df = pd.DataFrame(r.json()["data"]["resultList"])
+            big_df = big_df.append(temp_df, ignore_index=True)
+            # print(big_df)
+    big_df = big_df.sort_values(by=["startDate"])
+    big_df.reset_index(inplace=True, drop=True)
+    big_df.columns = ["start_date", "net_put_in", "back", "end_date", "put_in", "date"]
+    return big_df
+
+
+def macro_china_gksccz():
+    """
+    中国-央行公开市场操作
+    http://www.chinamoney.com.cn/chinese/yhgkscczh/
+    :return: 央行公开市场操作
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketHandle"
+    params = {
+        "t": "1597986289666",
+        "t": "1597986289666",
+    }
+    big_df = pd.DataFrame()
+    payload = {
+        "pageSize": "1000",
+        "pageNo": "1",
+    }
+    r = requests.post(url, params=params, data=payload)
+    page_num = r.json()["data"]["pageTotal"]
+    for page in tqdm(range(1, page_num+1)):
+        payload = {
+            "pageSize": "1000",
+            "pageNo": str(page),
+        }
+        r = requests.post(url, params=params, data=payload)
+        temp_df = pd.DataFrame(r.json()["data"]["resultList"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+        # print(big_df)
+    big_df = big_df.sort_values(by=["operationFromDate"])
+    big_df.reset_index(inplace=True, drop=True)
+    big_df.columns = ["rate", "trading_method", "deal_amount", "period", "operation_from_date"]
+    return big_df
+
+
+def macro_china_bond_public():
+    """
+    中国-债券信息披露-债券发行
+    http://www.chinamoney.com.cn/chinese/xzjfx/
+    :return: 债券发行
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bond-an/bnBondEmit"
+    payload = {
+        "enty": "",
+        "bondType": "",
+        "bondNameCode": "",
+        "leadUnderwriter": "",
+        "pageNo": "1",
+        "pageSize": "1000",
+        "limit": "1",
+    }
+    r = requests.post(url, data=payload)
+    big_df = pd.DataFrame(r.json()['records'])
+    big_df.columns = [
+        "issue_price",
+        "emit_enty",
+        "coupon_type",
+        "plnd_issue_vlmn_str",
+        "issue_price_str",
+        "issue_date",
+        "bond_type",
+        "plnd_issue_vlmn",
+        "bond_name",
+        "bond_code",
+        "rtng_shrt",
+        "bond_period",
+        "defined_code",
+    ]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1431,3 +1543,12 @@ if __name__ == "__main__":
 
     macro_china_wbck_df = macro_china_wbck()
     print(macro_china_wbck_df)
+
+    macro_china_hb_df = macro_china_hb()
+    print(macro_china_hb_df)
+
+    macro_china_gksccz_df = macro_china_gksccz()
+    print(macro_china_gksccz_df)
+
+    macro_china_bond_public_df = macro_china_bond_public()
+    print(macro_china_bond_public_df)
