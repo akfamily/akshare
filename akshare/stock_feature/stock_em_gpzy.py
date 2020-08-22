@@ -398,7 +398,7 @@ def stock_em_gpzy_distribute_statistics_company():
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "质押公司股票代码",
-        "质押笔数",
+        "_",
         "jg_yjx_type_1",
         "jg_yjx_type_2",
         "质押机构",
@@ -413,7 +413,6 @@ def stock_em_gpzy_distribute_statistics_company():
     temp_df = temp_df[
         [
             "质押公司股票代码",
-            "质押笔数",
             "质押机构",
             "行业名称",
             "质押公司数量",
@@ -489,7 +488,7 @@ def stock_em_gpzy_distribute_statistics_bank():
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "质押公司股票代码",
-        "质押笔数",
+        "_",
         "jg_yjx_type_1",
         "jg_yjx_type_2",
         "质押机构",
@@ -504,7 +503,6 @@ def stock_em_gpzy_distribute_statistics_bank():
     temp_df = temp_df[
         [
             "质押公司股票代码",
-            "质押笔数",
             "质押机构",
             "行业名称",
             "质押公司数量",
@@ -594,17 +592,18 @@ def stock_em_gpzy_industry_data():
 if __name__ == "__main__":
     stock_em_gpzy_profile_df = stock_em_gpzy_profile()
     print(stock_em_gpzy_profile_df)
+
     stock_em_gpzy_pledge_ratio_df = stock_em_gpzy_pledge_ratio(trade_date="2020-08-07")
     print(stock_em_gpzy_pledge_ratio_df)
+
     stock_em_gpzy_pledge_ratio_detail_df = stock_em_gpzy_pledge_ratio_detail()
     print(stock_em_gpzy_pledge_ratio_detail_df)
-    stock_em_gpzy_distribute_statistics_company_df = (
-        stock_em_gpzy_distribute_statistics_company()
-    )
+
+    stock_em_gpzy_distribute_statistics_company_df = stock_em_gpzy_distribute_statistics_company()
     print(stock_em_gpzy_distribute_statistics_company_df)
-    stock_em_gpzy_distribute_statistics_bank_df = (
-        stock_em_gpzy_distribute_statistics_bank()
-    )
+
+    stock_em_gpzy_distribute_statistics_bank_df = stock_em_gpzy_distribute_statistics_bank()
     print(stock_em_gpzy_distribute_statistics_bank_df)
+
     stock_em_gpzy_industry_data_df = stock_em_gpzy_industry_data()
     print(stock_em_gpzy_industry_data_df)
