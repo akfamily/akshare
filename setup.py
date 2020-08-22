@@ -32,7 +32,7 @@ setuptools.setup(
     author="Albert King",
     author_email="jindaxiang@163.com",
     license="MIT",
-    description="A tool for downloading economic and financial data!",
+    description="AkShare is an elegant and simple financial data interface library for Python, built for human beings!",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/jindaxiang/akshare",
