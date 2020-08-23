@@ -343,7 +343,7 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
                 data_df[data_df["provinceName"] == indicator]["cities"].values[0]
             )
             if sub_area.empty:
-                return print("暂无分区域数据")
+                return None
             sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "id"]
             sub_area = sub_area[["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]]
             return sub_area

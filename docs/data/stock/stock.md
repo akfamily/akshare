@@ -1289,6 +1289,54 @@ date
 1900-01-01  0.017857142857142  -17.318893443714
 ```
 
+#### 基本面数据
+
+接口: stock_us_fundamental
+
+目标地址: https://www.macrotrends.net/stocks/charts/AAPL/apple/pe-ratio
+
+描述: 获取美股的基本财务数据, 目前提供 PB 和 PE 的数据
+
+限量: 单次返回指定美股和指标的所有数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| stock | str | Y | stock="GOOGL"; 美股 ticker, 可以通过调用 **stock_us_fundamental(stock="GOOGL", symbol="info")** 获取所有 ticker |
+| symbol | str | Y | symbol="info"; info, 返回所有美股列表, PE, 返回 PE 数据, PB, 返回 PB 数据 |
+
+输出参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | 根据 symbol 变化 |
+
+接口示例
+
+```python
+import akshare as ak
+stock_us_fundamental_df = ak.stock_us_fundamental(stock="GOOGL", symbol="PB")
+print(stock_us_fundamental_df)
+```
+
+数据示例
+```
+          date  stock_price book_value_per_share  price_to_book_ratio
+0   2020-08-21      1575.57                  NaN                 5.18
+1   2020-06-30      1418.05              $304.34                 4.66
+2   2020-03-31      1161.95              $297.76                 3.90
+3   2019-12-31      1339.39              $292.65                 4.58
+4   2019-09-30      1221.14              $282.19                 4.33
+..         ...          ...                  ...                  ...
+54  2007-03-31       229.79               $29.60                 7.76
+55  2006-12-31       230.95               $27.57                 8.38
+56  2006-09-30       201.57               $23.66                 8.52
+57  2006-06-30       210.31               $22.07                 9.53
+58  2006-03-31       195.60               $17.36                11.27
+```
+
+
 ### 港股
 
 #### 实时行情数据
