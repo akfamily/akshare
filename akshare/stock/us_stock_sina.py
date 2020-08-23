@@ -6,10 +6,13 @@ Desc: 新浪财经-美股实时行情数据和历史行情数据
 http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
 import json
+import os
 
+import demjson
 import execjs
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 from akshare.stock.cons import (
@@ -150,6 +153,37 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
         return data_df
 
 
+def stock_us_fundamental(stock="GOOGL", symbol="info"):
+    """
+    美股财务指标
+    https://www.macrotrends.net/stocks/charts/AAPL/apple/pe-ratio
+    :return: 指定股票的财务数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.macrotrends.net/stocks/stock-screener"
+    r = requests.get(url)
+    temp_text = r.text[r.text.find("originalData")+15:r.text.find("filterArray")-8]
+    data_json = json.loads(temp_text)
+    temp_df = pd.DataFrame(data_json)
+    if symbol == "info":
+        del temp_df["name_link"]
+        return temp_df
+    else:
+        need_df = temp_df[temp_df["ticker"] == stock]
+        soup = BeautifulSoup(need_df["name_link"].values[0], "lxml")
+        base_url = "https://www.macrotrends.net" + soup.find("a")["href"]
+        if symbol == "PE":
+            url = base_url.rsplit("/", maxsplit=1)[0] + "/pe-ratio"
+            temp_df = pd.read_html(url)[0]
+            temp_df.columns = ["date", "stock_price", "ttm_net_eps", "pe_ratio"]
+            return temp_df
+        elif symbol == "PB":
+            url = base_url.rsplit("/", maxsplit=1)[0] + "/price-book"
+            temp_df = pd.read_html(url)[0]
+            temp_df.columns = ["date", "stock_price", "book_value_per_share", "price_to_book_ratio"]
+            return temp_df
+
+
 if __name__ == "__main__":
     # stock_us_stock_name_df = get_us_stock_name()
     # print(stock_us_stock_name_df)
@@ -161,3 +195,6 @@ if __name__ == "__main__":
     print(stock_us_daily_qfq_df)
     stock_us_daily_qfq_factor_df = stock_us_daily(symbol="AAPL", adjust="qfq-factor")
     print(stock_us_daily_qfq_factor_df)
+
+    stock_us_fundamental_df = stock_us_fundamental(stock="GOOGL", symbol="PB")
+    print(stock_us_fundamental_df)

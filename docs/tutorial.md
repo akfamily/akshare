@@ -98,6 +98,7 @@
  "stock_us_name"  # 获得美股的所有股票代码
  "stock_us_spot"  # 获取美股行情报价
  "stock_us_daily"  # 获取美股的历史数据(包括前复权因子)
+ "stock_us_fundamental"  # 获取美股的基本面数据
  # A+H股实时行情数据和历史行情数据
  "stock_zh_ah_spot"  # 获取 A+H 股实时行情数据(延迟15分钟)
  "stock_zh_ah_daily"  # 获取 A+H 股历史行情数据(日频)

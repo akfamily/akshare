@@ -1037,9 +1037,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.10: add: add macro_china_hb, macro_china_gksccz, macro_china_bond_public interface
 0.6.11: fix: fix python version should be 3.7 later
 0.6.12: fix: fix stock_em_gpzy_distribute_statistics_company interface
+0.6.13: add: add stock_us_fundamental interface
 """
 
-__version__ = "0.6.12"
+__version__ = "0.6.13"
 __author__ = "Albert King"
 
 """
@@ -1890,7 +1891,7 @@ from akshare.option.option_finance import (
 """
 新浪-美股实时行情数据和历史行情数据(前复权)
 """
-from akshare.stock.us_stock_sina import stock_us_daily, stock_us_spot, get_us_stock_name
+from akshare.stock.us_stock_sina import stock_us_daily, stock_us_spot, get_us_stock_name, stock_us_fundamental
 
 """
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)
