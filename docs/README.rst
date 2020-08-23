@@ -8,7 +8,7 @@ This file provides a quick guide on how to compile the AkShare documentation.
 
 
 Setup the environment
-----------------------
+---------------------
 
 To compile the documentation you need Sphinx Python library. To install it
 and all its dependencies run the following command from this dir
@@ -57,3 +57,4 @@ There is a way to recreate the doc automatically when you make changes, you
 need to install watchdog (``pip install watchdog``) and then use::
 
     make watch
+
