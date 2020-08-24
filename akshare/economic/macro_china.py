@@ -759,7 +759,7 @@ def macro_china_market_margin_sh():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
     value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
@@ -778,17 +778,48 @@ def macro_china_market_margin_sh():
         ]
     ).T
     value_df.columns = [
-        "融资余额(元)",
-        "融资买入额(元)",
-        "融券余量(股)",
-        "融券余量金额(元)",
-        "融券卖出量(股)",
-        "融资融券余额(元)",
+        "融资余额",
+        "融资买入额",
+        "融券余量",
+        "融券余额",
+        "融券卖出量",
+        "融资融券余额",
     ]
     value_df.index = pd.to_datetime(date_list)
     value_df.name = "market_margin_sh"
     value_df.index = pd.to_datetime(value_df.index)
     value_df = value_df.astype(float)
+
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "fs",
+        "attr_id": "1",
+        "_": str(int(round(t * 1000)))
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_market_margin_sse",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_df = pd.DataFrame(r.json()["data"]["values"])
+    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
+    temp_df = temp_df.iloc[:, 1:]
+    temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
+    value_df = value_df.append(temp_df)
+    value_df.drop_duplicates(inplace=True)
     return value_df
 
 
