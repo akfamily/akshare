@@ -194,8 +194,11 @@ def stock_info_a_code_name():
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    stock_sh = stock_info_sh_name_code(indicator="主板A股")
-    stock_sh = stock_sh[["SECURITY_CODE_A", "SECURITY_ABBR_A"]]
+    stock_sh_a = stock_info_sh_name_code(indicator="主板A股")
+    stock_sh_a = stock_sh_a[["SECURITY_CODE_A", "SECURITY_ABBR_A"]]
+    stock_sh_c = stock_info_sh_name_code(indicator="科创板")
+    stock_sh_c = stock_sh_c[["SECURITY_CODE_A", "SECURITY_ABBR_A"]]
+    stock_sh = pd.concat([stock_sh_a, stock_sh_c])
     stock_sh.columns = ["公司代码", "公司简称"]
 
     stock_sz = stock_info_sz_name_code(indicator="A股列表")
