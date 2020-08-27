@@ -1,14 +1,12 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/27 18:47
+Date: 2020/8/27 12:47
 Desc: 新浪财经-美股实时行情数据和历史行情数据
 http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
 import json
-import os
 
-import demjson
 import execjs
 import pandas as pd
 import requests
@@ -17,10 +15,9 @@ from tqdm import tqdm
 
 from akshare.stock.cons import (
     js_hash_text,
-    hk_js_decode,
+    zh_js_decode,
     us_sina_stock_list_url,
     us_sina_stock_dict_payload,
-    us_sina_stock_hist_url,
     us_sina_stock_hist_qfq_url,
 )
 
@@ -106,8 +103,8 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     :return: 指定 adjust 的数据
     :rtype: pandas.DataFrame
     """
-    res = requests.get(us_sina_stock_hist_url.format(symbol))
-    js_code = execjs.compile(hk_js_decode)
+    res = requests.get(f"https://finance.sina.com.cn/staticdata/us/{symbol}")
+    js_code = execjs.compile(zh_js_decode)
     dict_list = js_code.call(
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
@@ -132,6 +129,8 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     new_range = new_range.iloc[:, [1, 2]]
 
     if adjust == "qfq":
+        if len(new_range) == 1:
+            new_range.index.values[0] = pd.to_datetime(str(data_df.index.date[0]))
         temp_df = pd.merge(
             data_df, new_range, left_index=True, right_index=True, how="left"
         )
@@ -185,10 +184,10 @@ def stock_us_fundamental(stock="GOOGL", symbol="info"):
 
 
 if __name__ == "__main__":
-    # stock_us_stock_name_df = get_us_stock_name()
-    # print(stock_us_stock_name_df)
-    # stock_us_spot_df = stock_us_spot()
-    # print(stock_us_spot_df)
+    stock_us_stock_name_df = get_us_stock_name()
+    print(stock_us_stock_name_df)
+    stock_us_spot_df = stock_us_spot()
+    print(stock_us_spot_df)
     stock_us_daily_df = stock_us_daily(symbol="AAPL", adjust="")
     print(stock_us_daily_df)
     stock_us_daily_qfq_df = stock_us_daily(symbol="AAPL", adjust="qfq")
