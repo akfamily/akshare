@@ -1503,4 +1503,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.16: fix: fix stock_us_daily time period and adjust for specific stock
 
 0.6.17: fix: fix stock_js_weibo_report interface
+
+0.6.18: fix: fix get_shfe_option_daily interface column name
 ```

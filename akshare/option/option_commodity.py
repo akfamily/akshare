@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/9/30 13:58
+Date: 2020/8/27 20:50
 Desc: 获取商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
@@ -199,105 +199,12 @@ def get_czce_option_daily(trade_date="20191017", symbol="白糖期权"):
             return None
 
 
-def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
+def get_shfe_option_daily(trade_date="20200827", symbol="铝期权"):
     """
     上海期货交易所-期权-日频行情数据
     :param trade_date: str "20191017"
-    :param symbol: str "铜期权" or "天胶期权" or "黄金期权"
-    :return: pandas.DataFrame
-    part-1:
-            PRODUCTID  PRODUCTSORTNO       PRODUCTNAME  \
-    288  ru_o                100  天胶期权
-    289  ru_o                100  天胶期权
-    290  ru_o                100  天胶期权
-    291  ru_o                100  天胶期权
-    292  ru_o                100  天胶期权
-    ..        ...            ...               ...
-    789  ru_o                100  天胶期权
-    790  ru_o                100  天胶期权
-    791  ru_o                100  天胶期权
-    792  ru_o                100  天胶期权
-    793  ru_o                100  天胶期权
-                           INSTRUMENTID  PRESETTLEMENTPRICE OPENPRICE  \
-    288  ru1911C10000                                   729
-    289  ru1911C10250                                   495
-    290  ru1911C10500                                   293
-    291  ru1911C10750                                   146
-    292  ru1911C11000                                    58
-    ..                              ...                 ...       ...
-    789  ru2010P9500                                    155
-    790  ru2010P9600                                    172
-    791  ru2010P9700                                    189
-    792  ru2010P9800                                    209
-    793  ru2010P9900                                    229
-        HIGHESTPRICE LOWESTPRICE  CLOSEPRICE  SETTLEMENTPRICE  ZD1_CHG  ZD2_CHG  \
-    288                                  778              778       49       49
-    289                                  542              542       47       47
-    290                                  334              334       41       41
-    291                                  176              176       30       30
-    292                                   76               76       18       18
-    ..           ...         ...         ...              ...      ...      ...
-    789                                  151              151       -4       -4
-    790                                  167              167       -5       -5
-    791                                  184              184       -5       -5
-    792                                  204              204       -5       -5
-    793                                  224              224       -5       -5
-         VOLUME  OPENINTEREST  OPENINTERESTCHG  ORDERNO EXECVOLUME  TURNOVER  \
-    288       0             0                0        0          0       0.0
-    289       0             0                0        0          0       0.0
-    290       0             0                0        0          0       0.0
-    291       0             0                0        0          0       0.0
-    292       0             4                0        0          0       0.0
-    ..      ...           ...              ...      ...        ...       ...
-    789       0             0                0        0          0       0.0
-    790       0             0                0        0          0       0.0
-    791       0             0                0        0          0       0.0
-    792       0             0                0        0          0       0.0
-    793       0             0                0        0          0       0.0
-            DELTA
-    288  0.976387
-    289  0.908465
-    290  0.757436
-    291  0.531736
-    292  0.299911
-    ..        ...
-    789 -0.112120
-    790 -0.122028
-    791 -0.131944
-    792 -0.142837
-    793 -0.154073
-
-    part-2:
-          PRODUCTID  PRODUCTSORTNO       PRODUCTNAME HIGHESTPRICE LOWESTPRICE  \
-    1  ru_o                100  天胶期权                     2774           2
-      AVGPRICE  VOLUME  TURNOVER  YEARVOLUME  YEARTURNOVER EXECVOLUME  \
-    1  148.573    8290  0.125033    112.5122     34.062215          0
-       YEAREXECVOLUME
-    1          1.0624
-
-    part-3:
-           PRODUCTID  PRODUCTSORTNO       PRODUCTNAME                    INSTRUMENTID  \
-    12  ru_o                100  天胶期权              ru1911
-    13  ru_o                100  天胶期权              ru2001
-    14  ru_o                100  天胶期权              ru2003
-    15  ru_o                100  天胶期权              ru2004
-    16  ru_o                100  天胶期权              ru2005
-    17  ru_o                100  天胶期权              ru2006
-    18  ru_o                100  天胶期权              ru2007
-    19  ru_o                100  天胶期权              ru2008
-    20  ru_o                100  天胶期权              ru2009
-    21  ru_o                100  天胶期权              ru2010
-           SIGMA
-    12  0.242419
-    13  0.234428
-    14  0.218916
-    15  0.208057
-    16  0.205821
-    17  0.205821
-    18  0.240689
-    19  0.240689
-    20  0.216861
-    21  0.216861
+    :param symbol: str "铜期权" or "天胶期权" or "黄金期权" or "铝期权" or "锌期权"
+    :return: tuple(pandas.DataFrame)
     """
     calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
@@ -324,7 +231,73 @@ def get_shfe_option_daily(trade_date="20191220", symbol="黄金期权"):
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
             ]
-            return contract_df, product_df, volatility_df
+            contract_df.columns = [
+                "_",
+                "_",
+                "_",
+                "合约代码",
+                "前结算价",
+                "开盘价",
+                "最高价",
+                "最低价",
+                "收盘价",
+                "结算价",
+                "涨跌1",
+                "涨跌2",
+                "成交量",
+                "持仓量",
+                "持仓量变化",
+                "_",
+                "行权量",
+                "成交额",
+                "德尔塔",
+                "_",
+                "_",
+                "_",
+                "_",
+            ]
+            contract_df = contract_df[[
+                "合约代码",
+                "开盘价",
+                "最高价",
+                "最低价",
+                "收盘价",
+                "前结算价",
+                "结算价",
+                "涨跌1",
+                "涨跌2",
+                "成交量",
+                "持仓量",
+                "持仓量变化",
+                "成交额",
+                "德尔塔",
+                "行权量",
+            ]]
+
+            volatility_df.columns = [
+                "_",
+                "_",
+                "_",
+                "合约系列",
+                "成交量",
+                "持仓量",
+                "持仓量变化",
+                "行权量",
+                "成交额",
+                "隐含波动率",
+                "_",
+            ]
+
+            volatility_df = volatility_df[[
+                "合约系列",
+                "成交量",
+                "持仓量",
+                "持仓量变化",
+                "成交额",
+                "行权量",
+                "隐含波动率",
+            ]]
+            return contract_df, volatility_df
         except:
             return None
 
@@ -335,7 +308,6 @@ if __name__ == "__main__":
     get_dce_option_daily_one, get_dce_option_daily_two = get_dce_option_daily(trade_date="20200818", symbol="聚氯乙烯期权")
     print(get_dce_option_daily_one)
     print(get_dce_option_daily_two)
-    get_shfe_option_daily_one, get_shfe_option_daily_two, get_shfe_option_daily_three = get_shfe_option_daily(trade_date="20200817", symbol="铝期权")
+    get_shfe_option_daily_one, get_shfe_option_daily_two = get_shfe_option_daily(trade_date="20200827", symbol="铝期权")
     print(get_shfe_option_daily_one)
     print(get_shfe_option_daily_two)
-    print(get_shfe_option_daily_three)
