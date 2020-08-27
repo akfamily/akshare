@@ -1041,9 +1041,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.14: fix: fix stock_us_fundamental interface
 0.6.15: fix: fix macro_china_market_margin_sh interface
 0.6.16: fix: fix stock_us_daily time period and adjust for specific stock
+0.6.17: fix: fix stock_js_weibo_report interface
 """
 
-__version__ = "0.6.16"
+__version__ = "0.6.17"
 __author__ = "Albert King"
 
 """
