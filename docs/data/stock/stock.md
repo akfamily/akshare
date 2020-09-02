@@ -1267,7 +1267,7 @@ date
 
 ```python
 import akshare as ak
-qfq_df = ak.stock_us_daily(symbol="AAPL", factor="qfq-factor")
+qfq_df = ak.stock_us_daily(symbol="AAPL", adjust="qfq-factor")
 print(qfq_df)
 ```
 

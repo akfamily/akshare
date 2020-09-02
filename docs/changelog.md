@@ -1507,4 +1507,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.18: fix: fix get_shfe_option_daily interface column name
 
 0.6.19: fix: fix stock_hk_daily interface to process non-dividend stock
+
+0.6.20: fix: fix covid_baidu interface
 ```

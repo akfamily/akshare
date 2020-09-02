@@ -458,28 +458,6 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         return move_in_df
     elif indicator == "热门迁出地":
         return move_out_df
-    elif indicator == "今日疫情热搜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][0]["item"])
-    elif indicator == "防疫知识热搜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][1]["item"])
-    elif indicator == "热搜谣言粉碎":
-        return pd.DataFrame(json_data_news["data"][0]["list"][2]["item"])
-    elif indicator == "复工复课热搜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][3]["item"])
-    elif indicator == "热门人物榜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][4]["item"])
-    elif indicator == "历史疫情热搜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][5]["item"])
-    elif indicator == "搜索正能量榜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][6]["item"])
-    elif indicator == "游戏榜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][7]["item"])
-    elif indicator == "影视榜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][8]["item"])
-    elif indicator == "小说榜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][9]["item"])
-    elif indicator == "疫期飙升榜":
-        return pd.DataFrame(json_data_news["data"][0]["list"][10]["item"])
     elif indicator == "实时播报":
         return spot_report
     elif indicator == "中国分省份详情":
@@ -865,17 +843,6 @@ if __name__ == "__main__":
     indicator_list = [
         "热门迁入地",
         "热门迁出地",
-        "今日疫情热搜",
-        "防疫知识热搜",
-        "热搜谣言粉碎",
-        "复工复课热搜",
-        "热门人物榜",
-        "历史疫情热搜",
-        "搜索正能量榜",
-        "游戏榜",
-        "影视榜",
-        "小说榜",
-        "疫期飙升榜",
         "实时播报",
         "中国分省份详情",
         "中国分城市详情",
