@@ -104,45 +104,13 @@ def get_ine_daily(date="20200416"):
     return result_df
 
 
-def get_czce_daily(date="20200416"):
+def get_czce_daily(date="20200901"):
     """
     郑州商品交易所-日频率-量价数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
     :type date: str or datetime.date
     :return: 郑州商品交易所-日频率-量价数据
     :rtype: pandas.DataFrame or None
-    郑商所每日期货交易数据:
-    symbol        合约代码
-    date          日期
-    open          开盘价
-    high          最高价
-    low           最低价
-    close         收盘价
-    volume        成交量
-    open_interest 持仓量
-    turnover      成交额
-    settle        结算价
-    pre_settle    前结算价
-    variety       合约类别
-    或
-   郑商所每日期权交易数据
-    symbol        合约代码
-    date          日期
-    open          开盘价
-    high          最高价
-    low           最低价
-    close         收盘价
-    pre_settle      前结算价
-    settle         结算价
-    delta          对冲值
-    volume         成交量
-    open_interest     持仓量
-    oi_change       持仓变化
-    turnover        成交额
-    implied_volatility 隐含波动率
-    exercise_volume   行权量
-    variety        合约类别
-    None(类型错误或给定日期没有交易数据)
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
@@ -444,23 +412,6 @@ def get_futures_daily(start_date="20200701", end_date="20200716", market="DCE", 
     end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
     index_bar: bool  是否合成指数K线
-    Return
-    -------
-        DataFrame
-            中金所日交易数据(DataFrame):
-                symbol      合约代码
-                date       日期
-                open       开盘价
-                high       最高价
-                low       最低价
-                close      收盘价
-                volume      成交量
-                open_interest 持仓量
-                turnover    成交额
-                settle     结算价
-                pre_settle   前结算价
-                variety     合约类别
-        或 None(给定日期没有交易数据)
     """
     if market.upper() == "CFFEX":
         f = get_cffex_daily
@@ -510,8 +461,8 @@ def get_futures_index(df):
     for var in set(df["variety"]):
         df_cut = df[df["variety"] == var]
         df_cut = df_cut[df_cut["open_interest"] != 0]
-        df_cut = df_cut[df_cut["close"] != ""]
-        df_cut = df_cut[df_cut["volume"] != 0]
+        df_cut = df_cut[df_cut["close"] != np.nan]
+        df_cut = df_cut[df_cut["volume"] != int(0)]
         if len(df_cut.index) > 0:
             index_df = pd.Series(index=df_cut.columns, dtype="object")
             index_df[["volume", "open_interest", "turnover"]] = df_cut[
@@ -530,7 +481,7 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date="20200701", end_date="20200716", market="DCE", index_bar=True)
+    get_futures_daily_df = get_futures_daily(start_date="20200601", end_date="20200902", market="CZCE", index_bar=True)
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20200701")
