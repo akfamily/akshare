@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/5/9 22:34
+Date: 2020/9/3 10:34
 Desc: 新浪财经-外盘期货-实时数据获取
+http://finance.sina.com.cn/money/future/hf.html
 """
 import time
 
@@ -107,6 +108,7 @@ def futures_hf_spot(subscribe_list=['CT', 'NID', 'PBD', 'SND', 'ZSD', 'AHD', 'CA
         "伦敦银",
         "伦敦铂金",
         "伦敦钯金",
+        "马棕油",
     ]
     return data_df[
         [
