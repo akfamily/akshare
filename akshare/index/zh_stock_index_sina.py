@@ -145,7 +145,7 @@ def _get_tx_start_year(symbol: str = "sh000922") -> pd.DataFrame:
     return start_date
 
 
-def stock_zh_index_daily_tx(symbol: str = "sh000922") -> pd.DataFrame:
+def stock_zh_index_daily_tx(symbol: str = "sz000858") -> pd.DataFrame:
     """
     腾讯证券-日频-股票或者指数历史数据
     作为 stock_zh_index_daily 的补充, 因为在新浪中有部分指数数据缺失
@@ -162,7 +162,6 @@ def stock_zh_index_daily_tx(symbol: str = "sh000922") -> pd.DataFrame:
     range_end = datetime.date.today().year + 1
     temp_df = pd.DataFrame()
     for year in range(range_start, range_end):
-        # print(year)
         params = {
             "_var": f"kline_dayqfq{year}",
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,qfq",
@@ -172,11 +171,11 @@ def stock_zh_index_daily_tx(symbol: str = "sh000922") -> pd.DataFrame:
         text = res.text
         try:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["day"]
+                demjson.decode(text[text.find("={") + 1:])["data"][symbol]["day"]
             )
         except:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
+                demjson.decode(text[text.find("={") + 1:])["data"][symbol]["qfqday"]
             )
         temp_df = temp_df.append(inner_temp_df, ignore_index=True)
     if temp_df.shape[1] == 6:
@@ -187,6 +186,7 @@ def stock_zh_index_daily_tx(symbol: str = "sh000922") -> pd.DataFrame:
     temp_df.index = pd.to_datetime(temp_df["date"])
     del temp_df["date"]
     temp_df = temp_df.astype("float")
+    temp_df.drop_duplicates(inplace=True)
     return temp_df
 
 
@@ -237,7 +237,7 @@ if __name__ == "__main__":
     stock_zh_index_spot_df = stock_zh_index_spot()
     print(stock_zh_index_spot_df)
 
-    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz399812")
+    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz000858")
     print(stock_zh_index_daily_tx_df)
 
     stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="sz399812")
