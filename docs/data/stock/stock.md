@@ -6278,10 +6278,10 @@ date
 | pe          | float   | Y        |  市盈率    |
 | pe_ttm          | float   | Y        |  市盈率TTM    |
 | pb          | float   | Y        |  市净率    |
-| ps          | float   | Y        |  股息率    |
-| ps_ttm          | float   | Y        |  股息率TTM    |
-| dv_ratio          | float   | Y        |  市销率    |
-| dv_ttm          | float   | Y        |  市销率TTM    |
+| ps          | float   | Y        |  市销率    |
+| ps_ttm          | float   | Y        |  市销率TTM    |
+| dv_ratio          | float   | Y        |  股息率    |
+| dv_ttm          | float   | Y        |  股息率TTM    |
 | total_mv          | float   | Y        |  总市值    |
 
 接口示例
