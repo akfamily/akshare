@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/20 14:56
+Date: 2020/9/9 11:56
 Desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
@@ -30,7 +30,7 @@ def _currency_name_url() -> dict:
     return name_code_dict
 
 
-def currency_hist(symbol: str = "usd/jpy", start_date: str = "20050101", end_date: str = "20200717") -> pd.DataFrame:
+def currency_hist(symbol: str = "usd-vnd", start_date: str = "20050101", end_date: str = "20200717") -> pd.DataFrame:
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
     :param symbol: 货币对
@@ -72,6 +72,7 @@ def currency_hist(symbol: str = "usd/jpy", start_date: str = "20050101", end_dat
     df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
     df_data["涨跌幅"] = pd.DataFrame(round(df_data['涨跌幅'].str.replace('%', '').astype(float) / 100, 6))
     del df_data["日期"]
+    df_data.iloc[:, :-1] = df_data.iloc[:, :-1].applymap(lambda x: x.replace(',', ''))
     df_data = df_data.astype(float)
     return df_data
 
@@ -170,5 +171,5 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
 if __name__ == '__main__':
     currency_name_code_df = currency_name_code(symbol="usd/jpy")
     print(currency_name_code_df)
-    currency_hist_df = currency_hist(symbol="usd-cny", start_date="20131018", end_date="20200526")
+    currency_hist_df = currency_hist(symbol="usd-jpy", start_date="20131018", end_date="20200526")
     print(currency_hist_df)
