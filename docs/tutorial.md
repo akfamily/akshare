@@ -573,6 +573,8 @@
  "stock_sina_lhb_yytj"  # 龙虎榜-营业上榜统计
  "stock_sina_lhb_jgzz"  # 龙虎榜-机构席位追踪
  "stock_sina_lhb_jgmx"  # 龙虎榜-机构席位成交明细
+ # 注册制审核
+ "stock_register_kcb"  # 注册制审核-科创板
 ```
 
 ## 案例演示
