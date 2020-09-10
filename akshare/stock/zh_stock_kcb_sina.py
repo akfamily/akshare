@@ -46,9 +46,10 @@ def stock_zh_kcb_spot() -> pd.DataFrame:
     zh_sina_stock_payload_copy = zh_sina_kcb_stock_payload.copy()
     for page in tqdm(range(1, page_count+1)):
         zh_sina_stock_payload_copy.update({"page": page})
+        zh_sina_stock_payload_copy.update({"_s_r_a": "page"})
         res = requests.get(
             zh_sina_kcb_stock_url,
-            params=zh_sina_kcb_stock_payload)
+            params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(res.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
     return big_df
@@ -170,5 +171,5 @@ if __name__ == "__main__":
     print(stock_zh_kcb_daily_hfq_df)
     stock_zh_kcb_daily_df = stock_zh_kcb_daily(symbol="sh688399", adjust="qfq-factor")
     print(stock_zh_kcb_daily_df)
-    # stock_zh_kcb_spot_df = stock_zh_kcb_spot()
-    # print(stock_zh_kcb_spot_df)
+    stock_zh_kcb_spot_df = stock_zh_kcb_spot()
+    print(stock_zh_kcb_spot_df)
