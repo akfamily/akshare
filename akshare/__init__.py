@@ -1048,9 +1048,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.21: fix: fix futures_hf_spot interface
 0.6.22: fix: fix stock_zh_index_daily_tx interface
 0.6.23: fix: fix currency_hist interface
+0.6.24: fix: fix stock_zh_kcb_spot interface
 """
 
-__version__ = "0.6.23"
+__version__ = "0.6.24"
 __author__ = "Albert King"
 
 """
