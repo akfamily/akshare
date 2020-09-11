@@ -575,6 +575,7 @@
  "stock_sina_lhb_jgmx"  # 龙虎榜-机构席位成交明细
  # 注册制审核
  "stock_register_kcb"  # 注册制审核-科创板
+ "stock_register_cyb"  # 注册制审核-创业板
 ```
 
 ## 案例演示
