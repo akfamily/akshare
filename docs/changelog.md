@@ -1521,4 +1521,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.25: add: add stock_register_kcb interface
 
 0.6.26: add: add stock_em_sy_list interface
+
+0.6.27: fix: fix stock_sector_detail interface
 ```

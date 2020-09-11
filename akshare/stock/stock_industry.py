@@ -6,6 +6,7 @@ Desc: 新浪行业-板块行情
 http://finance.sina.com.cn/stock/sl/
 """
 import json
+import math
 
 import demjson
 import pandas as pd
@@ -68,7 +69,7 @@ def stock_sector_spot(indicator: str = "新浪行业") -> pd.DataFrame:
     return temp_df
 
 
-def stock_sector_detail(sector: str = "hangye_ZL01") -> pd.DataFrame:
+def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
     """
     新浪行业-板块行情-成份详情
     http://finance.sina.com.cn/stock/sl/#area_1
@@ -77,19 +78,39 @@ def stock_sector_detail(sector: str = "hangye_ZL01") -> pd.DataFrame:
     :return: 指定 sector 的板块详情
     :rtype: pandas.DataFrame
     """
+    if sector.split("_")[0] == "new":
+        inner_temp_df = stock_sector_spot(indicator="新浪行业")
+        total_num = inner_temp_df[inner_temp_df["label"] == sector]["公司家数"].values[0]
+        total_page_num = math.ceil(int(total_num) / 80)
+    elif sector.split("_")[0] == "gn":
+        inner_temp_df = stock_sector_spot(indicator="概念")
+        total_num = inner_temp_df[inner_temp_df["label"] == sector]["公司家数"].values[0]
+        total_page_num = math.ceil(int(total_num) / 80)
+    elif sector.split("_")[0] == "diyu":
+        inner_temp_df = stock_sector_spot(indicator="地域")
+        total_num = inner_temp_df[inner_temp_df["label"] == sector]["公司家数"].values[0]
+        total_page_num = math.ceil(int(total_num) / 80)
+    elif sector.split("_")[0] == "hangye":
+        inner_temp_df = stock_sector_spot(indicator="行业")
+        total_num = inner_temp_df[inner_temp_df["label"] == sector]["公司家数"].values[0]
+        total_page_num = math.ceil(int(total_num) / 80)
+
+    big_df = pd.DataFrame()
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
-    params = {
-        "page": "1",
-        "num": "40",
-        "sort": "symbol",
-        "asc": "1",
-        "node": sector,
-        "symbol": "",
-        "_s_r_a": "init",
-    }
-    r = requests.get(url, params=params)
-    temp_df = pd.DataFrame(demjson.decode(r.text))
-    return temp_df
+    for page in range(1, total_page_num+1):
+        params = {
+            "page": str(page),
+            "num": "80",
+            "sort": "symbol",
+            "asc": "1",
+            "node": sector,
+            "symbol": "",
+            "_s_r_a": "page",
+        }
+        r = requests.get(url, params=params)
+        temp_df = pd.DataFrame(demjson.decode(r.text))
+        big_df = big_df.append(temp_df, ignore_index=True)
+    return big_df
 
 
 if __name__ == '__main__':
@@ -104,5 +125,5 @@ if __name__ == '__main__':
     stock_industry_star_df = stock_sector_spot(indicator="启明星行业")
     print(stock_industry_star_df)
 
-    stock_sector_detail_df = stock_sector_detail(sector="new_zzhy")
+    stock_sector_detail_df = stock_sector_detail(sector="gn_gfgn")
     print(stock_sector_detail_df)
