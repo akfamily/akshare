@@ -405,6 +405,7 @@ def stock_em_sy_list(symbol: str = "深市主板", trade_date: str = "2019-12-31
         ]
     ]
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"])
+    temp_df["股票代码"] = temp_df["股票代码"].str.zfill(6)
     return temp_df
 
 
