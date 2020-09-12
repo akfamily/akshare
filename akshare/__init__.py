@@ -1054,9 +1054,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.27: fix: fix stock_sector_detail interface
 0.6.28: add: add stock_register_cyb interface
 0.6.29: fix: fix stock_zh_a_daily interface
+0.6.30: add: add energy interface
 """
 
-__version__ = "0.6.29"
+__version__ = "0.6.30"
 __author__ = "Albert King"
 
 """
@@ -1704,9 +1705,9 @@ from akshare.index.index_spot import spot_goods
 from akshare.cost.cost_living import cost_living
 
 """
-能约-碳排放权
+能源-碳排放权
 """
-from akshare.energy.energy_carbon import energy_carbon
+from akshare.energy.energy_carbon import energy_carbon_bj, energy_carbon_eu, energy_carbon_gz, energy_carbon_hb, energy_carbon_sz
 
 """
 猫眼电影实时票房
