@@ -1055,9 +1055,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.28: add: add stock_register_cyb interface
 0.6.29: fix: fix stock_zh_a_daily interface
 0.6.30: add: add energy interface
+0.6.31: fix: fix energy interface
 """
 
-__version__ = "0.6.30"
+__version__ = "0.6.31"
 __author__ = "Albert King"
 
 """

@@ -5,6 +5,18 @@ Date: 2020/9/12 16:55
 Desc: 碳排放交易
 北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
 https://www.bjets.com.cn/article/jyxx/
+
+深圳碳排放交易所-国内碳情
+http://www.cerx.cn/dailynewsCN/index.htm
+
+深圳碳排放交易所-国际碳情
+http://www.cerx.cn/dailynewsOuter/index.htm
+
+湖北碳排放权交易中心-现货交易数据-配额-每日概况
+http://www.cerx.cn/dailynewsOuter/index.htm
+
+广州碳排放权交易中心-行情信息
+http://www.cnemission.com/article/hqxx/
 """
 import pandas as pd
 import requests
