@@ -15,9 +15,9 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 def get_version_string():
     """
-    get the akshare version number
+    Get the akshare version number
     :return: version number
-    :rtype: str, e.g. '0.3.24'
+    :rtype: str, e.g. '0.6.24'
     """
     with open("akshare/__init__.py", "rb") as _f:
         version_line = re.search(
