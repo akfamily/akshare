@@ -284,7 +284,7 @@ class TrendReq(object):
 
         df["date"] = pd.to_datetime(df["time"].astype(dtype="float64"), unit="s")
         df = df.set_index(["date"]).sort_index()
-        # split list columns into seperate ones, remove brackets and split on comma
+        # split list columns into separate ones, remove brackets and split on comma
         result_df = df["value"].apply(
             lambda x: pd.Series(str(x).replace("[", "").replace("]", "").split(","))
         )
@@ -297,7 +297,7 @@ class TrendReq(object):
 
         if "isPartial" in df:
             # make other dataframe from isPartial key data
-            # split list columns into seperate ones, remove brackets and split on comma
+            # split list columns into separate ones, remove brackets and split on comma
             df = df.fillna(False)
             result_df2 = df["isPartial"].apply(
                 lambda x: pd.Series(str(x).replace("[", "").replace("]", "").split(","))
@@ -345,7 +345,7 @@ class TrendReq(object):
 
         # rename the column with the search keyword
         df = df[["geoName", "geoCode", "value"]].set_index(["geoName"]).sort_index()
-        # split list columns into seperate ones, remove brackets and split on comma
+        # split list columns into separate ones, remove brackets and split on comma
         result_df = df["value"].apply(
             lambda x: pd.Series(str(x).replace("[", "").replace("]", "").split(","))
         )
