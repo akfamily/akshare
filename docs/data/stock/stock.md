@@ -3159,7 +3159,7 @@ print(stock_em_hsgt_north_net_flow_in_df)
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
 | date          | str   | Y        | 日期时间     |
-| value          | float   | Y        | 数值(单位: 亿元)     |
+| value          | float   | Y        | 数值(单位: 万元)     |
 
 接口示例
 
@@ -3207,7 +3207,7 @@ print(stock_em_hsgt_north_cash_df)
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
 | date          | str   | Y        | 日期时间     |
-| value          | float   | Y        | 数值(单位: 亿元)     |
+| value          | float   | Y        | 数值(单位: 万元)     |
 
 接口示例
 
@@ -3255,7 +3255,7 @@ print(stock_em_hsgt_north_acc_flow_in_df)
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
 | date          | str   | Y        | 日期时间     |
-| value          | float   | Y        | 数值(单位: 亿元)     |
+| value          | float   | Y        | 数值(单位: 万元)     |
 
 接口示例
 
@@ -3303,7 +3303,7 @@ print(stock_em_hsgt_south_net_flow_in_df)
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
 | date          | str   | Y        | 日期时间     |
-| value          | float   | Y        | 数值(单位: 亿元)     |
+| value          | float   | Y        | 数值(单位: 万元)     |
 
 接口示例
 
@@ -3351,7 +3351,7 @@ print(stock_em_hsgt_south_cash_df)
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
 | date          | str   | Y        | 日期时间     |
-| value          | float   | Y        | 数值(单位: 亿元)     |
+| value          | float   | Y        | 数值(单位: 万元)     |
 
 接口示例
 
