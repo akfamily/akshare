@@ -329,5 +329,5 @@ if __name__ == '__main__':
     stock_fund_stock_holder_df = stock_fund_stock_holder(stock="601318")
     print(stock_fund_stock_holder_df)
 
-    stock_main_stock_holder_df = stock_main_stock_holder(stock="600004")
+    stock_main_stock_holder_df = stock_main_stock_holder(stock="600000")
     print(stock_main_stock_holder_df)

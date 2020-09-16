@@ -171,5 +171,5 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
 if __name__ == '__main__':
     currency_name_code_df = currency_name_code(symbol="usd/jpy")
     print(currency_name_code_df)
-    currency_hist_df = currency_hist(symbol="usd-jpy", start_date="20131018", end_date="20200526")
+    currency_hist_df = currency_hist(symbol="usd-mmk", start_date="20131018", end_date="20200915")
     print(currency_hist_df)

@@ -197,12 +197,10 @@ if __name__ == "__main__":
 
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="var",
-        date="20200714",
+        date="20191008",
         plot=True,
     )
     print(get_roll_yield_bar_range_df)
 
-    get_roll_yield_bar_symbol = get_roll_yield_bar(
-        type_method="symbol", var="PG", start_day="20200109", end_day="20200721", plot=True
-    )
+    get_roll_yield_bar_symbol = get_roll_yield_bar(type_method="symbol", var="PG", start_day="20190109", end_day="20190721", plot=True)
     print(get_roll_yield_bar_symbol)
