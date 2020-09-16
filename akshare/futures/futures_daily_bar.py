@@ -21,7 +21,7 @@ from akshare.futures.requests_fun import requests_link
 calendar = cons.get_calendar()
 
 
-def get_cffex_daily(date="20200723"):
+def get_cffex_daily(date="20191008"):
     """
     中国金融期货交易所日交易数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 为空时为当天
@@ -60,7 +60,7 @@ def get_cffex_daily(date="20200723"):
     symbol_list = data_df["合约代码"].to_list()
     variety_list = [re.compile(r"[a-zA-Z_]+").findall(item)[0] for item in symbol_list]
     data_df.columns = ["symbol", "open", "high", "low", "volume", "turnover",
-                       "open_interest", "_", "close", "settle", "pre_settle", "_", "_", "_"]
+                       "open_interest", "_", "close", "settle", "pre_settle", "_", "_", "_", "_"]
     data_df["date"] = date
     data_df["variety"] = variety_list
     data_df = data_df[
@@ -403,7 +403,7 @@ def get_dce_daily(date="20200701"):
     return data_df
 
 
-def get_futures_daily(start_date="20200701", end_date="20200716", market="DCE", index_bar=False):
+def get_futures_daily(start_date="20191008", end_date="20191008", market="CFFEX", index_bar=False):
     """
     交易所日交易数据
     Parameters
