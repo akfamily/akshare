@@ -113,7 +113,7 @@ def index_stock_cons(index: str = "000312") -> pd.DataFrame:
 
 def index_stock_cons_csindex(index: str = "000300") -> pd.DataFrame:
     """
-    最新股票指数的成份股目录 - 中证指数网站
+    最新股票指数的成份股目录-中证指数网站
     http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
     :param index: 指数代码, 可以通过 index_stock_info 函数获取
     :type index: str
