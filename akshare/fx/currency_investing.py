@@ -30,7 +30,7 @@ def _currency_name_url() -> dict:
     return name_code_dict
 
 
-def currency_hist(symbol: str = "usd-vnd", start_date: str = "20050101", end_date: str = "20200717") -> pd.DataFrame:
+def currency_hist(symbol: str = "usd-iqd", start_date: str = "20030101", end_date: str = "20200717") -> pd.DataFrame:
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
     :param symbol: 货币对
@@ -70,7 +70,7 @@ def currency_hist(symbol: str = "usd-vnd", start_date: str = "20050101", end_dat
     raw_df = pd.DataFrame(vest_list)
     df_data = pd.DataFrame(vest_list, columns=raw_df.iloc[0, :].tolist()).iloc[1:-1, :]
     df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
-    df_data["涨跌幅"] = pd.DataFrame(round(df_data['涨跌幅'].str.replace('%', '').astype(float) / 100, 6))
+    df_data["涨跌幅"] = pd.DataFrame(round(df_data['涨跌幅'].str.replace(',', '').str.replace('%', '').astype(float) / 100, 6))
     del df_data["日期"]
     df_data.iloc[:, :-1] = df_data.iloc[:, :-1].applymap(lambda x: x.replace(',', ''))
     df_data = df_data.astype(float)
@@ -171,5 +171,5 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
 if __name__ == '__main__':
     currency_name_code_df = currency_name_code(symbol="usd/jpy")
     print(currency_name_code_df)
-    currency_hist_df = currency_hist(symbol="usd-mmk", start_date="20131018", end_date="20200915")
+    currency_hist_df = currency_hist(symbol="usd-iqd", start_date="19020101", end_date="20200915")
     print(currency_hist_df)
