@@ -30,5 +30,5 @@ def futures_rule(trade_date: str = "20200712") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    futures_rule_df = futures_rule(trade_date="20200713")
+    futures_rule_df = futures_rule(trade_date="20200915")
     print(futures_rule_df)
