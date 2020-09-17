@@ -12,6 +12,8 @@ import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+import time
+import os
 
 
 def index_stock_cons_sina(index: str = "000300") -> pd.DataFrame:
@@ -107,6 +109,28 @@ def index_stock_cons(index: str = "000312") -> pd.DataFrame:
     temp_df = temp_df.iloc[:, :3]
     temp_df["品种代码"] = temp_df["品种代码"].astype(str).str.zfill(6)
     return temp_df
+
+
+def index_stock_cons_csindex(index: str = "000300") -> pd.DataFrame:
+    """
+    最新股票指数的成份股目录 - 中证指数网站
+    http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+    :param index: 指数代码, 可以通过 index_stock_info 函数获取
+    :type index: str
+    :return: 最新股票指数的成份股目录
+    :rtype: pandas.DataFrame
+    """
+    result_df = pd.DataFrame()
+    timestamp = int(time.time())
+    url = f"http://www.csindex.com.cn/uploads/file/autofile/cons/{index}cons.xls?t={timestamp}"
+    r = requests.get(url)
+    if r.status_code == requests.codes.ok:
+        filename = f"{index}cons.xls"
+        with open(filename, "wb") as f:
+            f.write(r.content)
+        result_df = pd.read_excel(filename, usecols="E:F")
+        os.remove(filename)
+    return result_df
 
 
 def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
