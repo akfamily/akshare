@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/26 16:19
+Date: 2020/9/17 16:19
 Desc: 获取股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
@@ -14,6 +14,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import os
+from io import BytesIO
 
 
 def index_stock_cons_sina(index: str = "000300") -> pd.DataFrame:
@@ -113,24 +114,19 @@ def index_stock_cons(index: str = "000312") -> pd.DataFrame:
 
 def index_stock_cons_csindex(index: str = "000300") -> pd.DataFrame:
     """
-    最新股票指数的成份股目录 - 中证指数网站
+    最新股票指数的成份股目录-中证指数网站
     http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
     :param index: 指数代码, 可以通过 index_stock_info 函数获取
     :type index: str
     :return: 最新股票指数的成份股目录
     :rtype: pandas.DataFrame
     """
-    result_df = pd.DataFrame()
     timestamp = int(time.time())
     url = f"http://www.csindex.com.cn/uploads/file/autofile/cons/{index}cons.xls?t={timestamp}"
     r = requests.get(url)
-    if r.status_code == requests.codes.ok:
-        filename = f"{index}cons.xls"
-        with open(filename, "wb") as f:
-            f.write(r.content)
-        result_df = pd.read_excel(filename, usecols="E:F")
-        os.remove(filename)
-    return result_df
+    temp_df = pd.read_excel(BytesIO(r.content), usecols="E:F")
+    temp_df.columns = ["stock_code", "stock_name"]
+    return temp_df
 
 
 def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
@@ -161,6 +157,8 @@ def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    index_stock_cons_csindex_df = index_stock_cons_csindex(index="000300")
+    print(index_stock_cons_csindex_df)
     index_stock_cons_sina_df = index_stock_cons_sina(index="000300")
     print(index_stock_cons_sina_df)
     index_stock_cons_df = index_stock_cons(index="000300")
