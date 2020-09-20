@@ -1060,9 +1060,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.33: fix: fix get_roll_yield_bar interface
 0.6.34: fix: fix currency_investing and futures_inventory_em interface and add index_stock_cons_csindex interface
 0.6.35: fix: fix get_futures_daily interface
+0.6.36: fix: fix stock_info_a_code_name interface
 """
 
-__version__ = "0.6.35"
+__version__ = "0.6.36"
 __author__ = "Albert King"
 
 """
