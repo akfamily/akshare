@@ -202,7 +202,13 @@ def stock_info_a_code_name():
     stock_sz["A股代码"] = stock_sz["A股代码"].astype(str).str.zfill(6)
     big_df = big_df.append(stock_sz[["A股代码", "A股简称"]], ignore_index=True)
     big_df.columns = ["公司代码", "公司简称"]
+
+    stock_kcb = stock_info_sh_name_code(indicator="科创板")
+    stock_kcb = stock_kcb[["SECURITY_CODE_A", "SECURITY_ABBR_A"]]
+    stock_kcb.columns = ["公司代码", "公司简称"]
+
     big_df = big_df.append(stock_sh, ignore_index=True)
+    big_df = big_df.append(stock_kcb, ignore_index=True)
     big_df.columns = ["code", "name"]
     return big_df
 
