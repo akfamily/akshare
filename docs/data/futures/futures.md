@@ -912,7 +912,7 @@ get_futures_daily_df = ak.get_futures_daily(start_date="20190107", end_date="201
 print(get_futures_daily_df)
 ```
 
-market 可以添为四个交易所的简称, 即 "dce" 代表大商所; "ine" 代表能源所; "shfe" 代表上期所; "czce" 代表郑商所; "cffex" 代表中金所. 
+market 可以添为四个交易所的简称, 即 "DCE" 代表大商所; "INE" 代表能源所; "SHFE" 代表上期所; "CZCE" 代表郑商所, 时间需要大于20100824; "CFFEX" 代表中金所. 
 index_bar 为 True 时, 在生成的 pandas.DataFrame 中通过持仓量加权合成指数合约, 如 RB99.
 
 ### 期货行情数据
