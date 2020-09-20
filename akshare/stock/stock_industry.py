@@ -78,22 +78,13 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
     :return: 指定 sector 的板块详情
     :rtype: pandas.DataFrame
     """
-    if sector.split("_")[0] == "new":
-        inner_temp_df = stock_sector_spot(indicator="新浪行业")
-        total_num = inner_temp_df[inner_temp_df["label"] == sector]["公司家数"].values[0]
-        total_page_num = math.ceil(int(total_num) / 80)
-    elif sector.split("_")[0] == "gn":
-        inner_temp_df = stock_sector_spot(indicator="概念")
-        total_num = inner_temp_df[inner_temp_df["label"] == sector]["公司家数"].values[0]
-        total_page_num = math.ceil(int(total_num) / 80)
-    elif sector.split("_")[0] == "diyu":
-        inner_temp_df = stock_sector_spot(indicator="地域")
-        total_num = inner_temp_df[inner_temp_df["label"] == sector]["公司家数"].values[0]
-        total_page_num = math.ceil(int(total_num) / 80)
-    elif sector.split("_")[0] == "hangye":
-        inner_temp_df = stock_sector_spot(indicator="行业")
-        total_num = inner_temp_df[inner_temp_df["label"] == sector]["公司家数"].values[0]
-        total_page_num = math.ceil(int(total_num) / 80)
+    url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount"
+    params = {
+        "node": sector
+    }
+    r = requests.get(url, params=params)
+    total_num = int(r.json())
+    total_page_num = math.ceil(int(total_num) / 80)
 
     big_df = pd.DataFrame()
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
@@ -125,5 +116,5 @@ if __name__ == '__main__':
     stock_industry_star_df = stock_sector_spot(indicator="启明星行业")
     print(stock_industry_star_df)
 
-    stock_sector_detail_df = stock_sector_detail(sector="gn_gfgn")
+    stock_sector_detail_df = stock_sector_detail(sector="hangye_ZC27")
     print(stock_sector_detail_df)
