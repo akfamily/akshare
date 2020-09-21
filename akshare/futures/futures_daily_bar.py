@@ -76,7 +76,7 @@ def get_cffex_daily(date="20100401"):
     return data_df
 
 
-def get_ine_daily(date="20200416"):
+def get_ine_daily(date="20131016"):
     """
     上海国际能源交易中心-日频率-量价数据
     上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
@@ -94,7 +94,11 @@ def get_ine_daily(date="20200416"):
     url = f"http://www.ine.cn/data/dailydata/kx/kx{day.strftime('%Y%m%d')}.dat"
     r = requests.get(url)
     result_df = pd.DataFrame()
-    temp_df = pd.DataFrame(r.json()["o_curinstrument"]).iloc[:-1, :]
+    try:
+        data_json = r.json()
+    except:
+        return None
+    temp_df = pd.DataFrame(data_json["o_curinstrument"]).iloc[:-1, :]
     temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
     result_df["symbol"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0] + temp_df["DELIVERYMONTH"]
     result_df["date"] = day.strftime("%Y%m%d")
@@ -488,7 +492,7 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date='20200918', end_date='20200918', market='DCE', index_bar=False)
+    get_futures_daily_df = get_futures_daily(start_date='20131016', end_date='20131017', market='INE', index_bar=False)
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20030109")
@@ -497,7 +501,7 @@ if __name__ == "__main__":
     get_cffex_daily_df = get_cffex_daily(date="20101101")
     print(get_cffex_daily_df)
 
-    get_ine_daily_df = get_ine_daily(date="20200416")
+    get_ine_daily_df = get_ine_daily(date="20180416")
     print(get_ine_daily_df)
 
     get_czce_daily_df = get_czce_daily(date="20200901")
