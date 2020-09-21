@@ -405,6 +405,7 @@ OPTION_OUTPUT_COLUMNS = [
 ]
 
 DCE_MAP = {
+    "大豆": "A",
     "豆一": "A",
     "豆二": "B",
     "豆粕": "M",

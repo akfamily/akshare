@@ -21,9 +21,10 @@ from akshare.futures.requests_fun import requests_link
 calendar = cons.get_calendar()
 
 
-def get_cffex_daily(date="20191008"):
+def get_cffex_daily(date="20100401"):
     """
     中国金融期货交易所日交易数据
+    http://www.cffex.com.cn/rtj/
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 为空时为当天
     :return: pandas.DataFrame
     中国金融期货交易所日:
@@ -47,11 +48,13 @@ def get_cffex_daily(date="20191008"):
         return None
     url = f"http://www.cffex.com.cn/sj/historysj/{date[:-2]}/zip/{date[:-2]}.zip"
     r = requests.get(url)
-
-    with zipfile.ZipFile(BytesIO(r.content)) as file:
-        with file.open(f"{date}_1.csv") as my_file:
-            data = my_file.read().decode("gb2312")
-            data_df = pd.read_csv(StringIO(data))
+    try:
+        with zipfile.ZipFile(BytesIO(r.content)) as file:
+            with file.open(f"{date}_1.csv") as my_file:
+                data = my_file.read().decode("gb2312")
+                data_df = pd.read_csv(StringIO(data))
+    except:
+        return None
     data_df = data_df[data_df["合约代码"] != "小计"]
     data_df = data_df[data_df["合约代码"] != "合计"]
     data_df = data_df[~data_df["合约代码"].str.contains("IO")]
@@ -339,7 +342,7 @@ def get_shfe_daily(date="20131016"):
     return df[cons.OUTPUT_COLUMNS]
 
 
-def get_dce_daily(date="20200701"):
+def get_dce_daily(date="20030115"):
     """
     大连商品交易所日交易数据
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
@@ -485,13 +488,13 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date="20131001", end_date="20131030", market="SHFE", index_bar=True)
+    get_futures_daily_df = get_futures_daily(start_date='20200918', end_date='20200918', market='DCE', index_bar=False)
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20200701")
+    get_dce_daily_df = get_dce_daily(date="20030109")
     print(get_dce_daily_df)
 
-    get_cffex_daily_df = get_cffex_daily(date="20191008")
+    get_cffex_daily_df = get_cffex_daily(date="20101101")
     print(get_cffex_daily_df)
 
     get_ine_daily_df = get_ine_daily(date="20200416")
