@@ -40,7 +40,7 @@ def _get_zh_a_page_count() -> int:
 
 def stock_zh_a_spot() -> pd.DataFrame:
     """
-    从新浪财经-A股获取所有A股的实时行情数据, 重复运行本函数会被新浪暂时封 IP
+    新浪财经-A股获取所有A股的实时行情数据, 重复运行本函数会被新浪暂时封 IP
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
     :return: pandas.DataFrame
     """

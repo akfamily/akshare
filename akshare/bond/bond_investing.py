@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/10/17 0:50
+Date: 2020/9/21 12:50
 Desc: 提供英为财情-利率国债-全球政府债券行情与收益率
+
 """
 import re
 
@@ -217,6 +218,6 @@ if __name__ == "__main__":
         index_name="中国1年期国债",
         period="每月",
         start_date="2000-01-01",
-        end_date="2020-06-06",
+        end_date="2020-09-06",
     )
     print(bond_investing_global_df)

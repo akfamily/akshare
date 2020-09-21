@@ -577,6 +577,8 @@
  # 注册制审核
  "stock_register_kcb"  # 注册制审核-科创板
  "stock_register_cyb"  # 注册制审核-创业板
+ # 次新股
+ "stock_zh_a_new"  # 股票数据-次新股
 ```
 
 ## 案例演示
