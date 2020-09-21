@@ -1545,4 +1545,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.37: fix: fix stock_sector_detail interface
 
 0.6.38: fix: fix get_futures_daily interface
+
+0.6.39: add: add stock_em_xgsglb interface
 ```
