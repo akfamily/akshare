@@ -497,6 +497,7 @@
  "watch_argus"  # 阿尔戈斯全网监控
  # 打新收益率
  "stock_em_dxsyl"  # 打新收益率
+ "stock_em_xgsglb"  # 新股申购与中签查询
  # 年报季报
  "stock_em_yjyg"  # 上市公司业绩预告
  "stock_em_yysj"  # 上市公司预约披露时间
