@@ -1067,10 +1067,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.40: add: add stock_zh_a_new interface
 0.6.41: fix: fix get_ine_daily interface
 0.6.42: add: add bond_futures_deliverable_coupons interface
+0.6.43: fix: fix bond_futures_deliverable_coupons interface
 """
 
-__version__ = "0.6.42"
+__version__ = "0.6.43"
 __author__ = "Albert King"
+
+"""
+国债期货可交割券相关指标
+"""
+from akshare.bond.bond_futures import bond_futures_deliverable_coupons
 
 """
 A 股-次新股
