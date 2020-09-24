@@ -579,6 +579,8 @@
  "stock_register_cyb"  # 注册制审核-创业板
  # 次新股
  "stock_zh_a_new"  # 股票数据-次新股
+ # 国债期货可交割券相关指标
+ "bond_futures_deliverable_coupons"  # 国债期货可交割券相关指标
 ```
 
 ## 案例演示

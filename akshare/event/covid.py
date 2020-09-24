@@ -385,21 +385,6 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         text_data.strip("/**/jsonp_1580470773343_11183(").rstrip(");")
     )
 
-    url = "https://opendata.baidu.com/data/inner"
-    payload = {
-        "tn": "reserved_all_res_tn",
-        "dspName": "iphone",
-        "from_sf": "1",
-        "dsp": "iphone",
-        "resource_id": "28565",
-        "alr": "1",
-        "query": "肺炎",
-        "cb": "jsonp_1580470773344_83572",
-    }
-    r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
-    spot_report = pd.DataFrame(json_data["Result"][0]["DisplayData"]["result"]["items"])
-
     # domestic-city
     url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
     r = requests.get(url)
@@ -458,8 +443,6 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         return move_in_df
     elif indicator == "热门迁出地":
         return move_out_df
-    elif indicator == "实时播报":
-        return spot_report
     elif indicator == "中国分省份详情":
         return domestic_province_df
     elif indicator == "中国分城市详情":
@@ -843,7 +826,6 @@ if __name__ == "__main__":
     indicator_list = [
         "热门迁入地",
         "热门迁出地",
-        "实时播报",
         "中国分省份详情",
         "中国分城市详情",
         "国外分国详情",
