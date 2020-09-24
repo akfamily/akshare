@@ -1066,9 +1066,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.39: add: add stock_em_xgsglb interface
 0.6.40: add: add stock_zh_a_new interface
 0.6.41: fix: fix get_ine_daily interface
+0.6.42: add: add bond_futures_deliverable_coupons interface
 """
 
-__version__ = "0.6.41"
+__version__ = "0.6.42"
 __author__ = "Albert King"
 
 """
