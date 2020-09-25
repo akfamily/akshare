@@ -1068,10 +1068,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.41: fix: fix get_ine_daily interface
 0.6.42: add: add bond_futures_deliverable_coupons interface
 0.6.43: fix: fix bond_futures_deliverable_coupons interface
+0.6.44: add: add futures_comex_inventory interface
 """
 
-__version__ = "0.6.43"
+__version__ = "0.6.44"
 __author__ = "Albert King"
+
+"""
+COMEX黄金-白银库存
+"""
+from akshare.futures.futures_comex import futures_comex_inventory
 
 """
 国债期货可交割券相关指标
