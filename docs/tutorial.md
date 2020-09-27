@@ -583,6 +583,8 @@
  "bond_futures_deliverable_coupons"  # 国债期货可交割券相关指标
  # COMEX库存数据
  "futures_comex_inventory"  # COMEX库存数据
+ # 消费者信心指数
+ "macro_china_xfzxx"  # 消费者信心指数
 ```
 
 ## 案例演示

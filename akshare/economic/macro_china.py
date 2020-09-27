@@ -75,7 +75,7 @@ def macro_china_cpi_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国CPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -100,7 +100,7 @@ def macro_china_cpi_monthly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国CPI月率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -125,7 +125,7 @@ def macro_china_ppi_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国PPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -150,7 +150,7 @@ def macro_china_exports_yoy():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_chinese_exports_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国以美元计算出口年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -175,7 +175,7 @@ def macro_china_imports_yoy():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_chinese_imports_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国以美元计算进口年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -200,7 +200,7 @@ def macro_china_trade_balance():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_chinese_trade_balance_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国以美元计算贸易帐报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -225,7 +225,7 @@ def macro_china_industrial_production_yoy():
     res = requests.get(
         f"https://cdn.jin10.com/dc/reports/dc_chinese_industrial_production_yoy_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国规模以上工业增加值年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -251,7 +251,7 @@ def macro_china_pmi_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国官方制造业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -277,7 +277,7 @@ def macro_china_cx_pmi_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国财新制造业PMI终值报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -303,7 +303,7 @@ def macro_china_cx_services_pmi_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国财新服务业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -340,7 +340,7 @@ def macro_china_non_man_pmi():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国官方非制造业PMI报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -416,7 +416,7 @@ def macro_china_fx_reserves_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国外汇储备报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -453,7 +453,7 @@ def macro_china_m2_yearly():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["中国M2货币供应年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -582,7 +582,7 @@ def macro_china_daily_energy():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["沿海六大电厂库存动态报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
@@ -840,7 +840,8 @@ def macro_china_au_report():
     for item in json_data["values"].keys():
         temp_df = pd.DataFrame(json_data["values"][item])
         temp_df["date"] = item
-        temp_df.columns = ['商品', '开盘价', '最高价', '最低价', '收盘价', '涨跌', '涨跌幅', '加权平均价', '成交量', '成交金额', '持仓量', '交收方向', '交收量', "日期"]
+        temp_df.columns = ['商品', '开盘价', '最高价', '最低价', '收盘价', '涨跌', '涨跌幅', '加权平均价', '成交量', '成交金额', '持仓量', '交收方向', '交收量',
+                           "日期"]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.index = pd.to_datetime(big_df["日期"])
     del big_df["日期"]
@@ -1078,7 +1079,7 @@ def macro_china_new_financial_credit() -> pd.DataFrame:
     raw_total_page_num = pd.read_html(r.text)[-1].dropna(axis=1).iloc[-1, 0]
     total_page_num = int(re.compile(r"\d+").findall(raw_total_page_num)[0])
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page_num+1)):
+    for page in tqdm(range(1, total_page_num + 1)):
         params = {
             "p": page,
         }
@@ -1123,7 +1124,7 @@ def macro_china_cpi():
     url = "http://data.eastmoney.com/cjsj/consumerpriceindex.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=2)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/consumerpriceindex.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=2)[-1].iloc[:-1, :])
     big_df.columns = ["月份",
@@ -1153,7 +1154,7 @@ def macro_china_gdp():
     url = "http://data.eastmoney.com/cjsj/grossdomesticproduct.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=1)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/grossdomesticproduct.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=1)[-1].iloc[:-1, :])
     big_df = big_df.iloc[:, :9]
@@ -1180,7 +1181,7 @@ def macro_china_ppi():
     url = "http://data.eastmoney.com/cjsj/productpricesindex.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/productpricesindex.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
     big_df = big_df.iloc[:, :4]
@@ -1197,7 +1198,7 @@ def macro_china_pmi():
     url = "http://data.eastmoney.com/cjsj/purchasingmanagerindex.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=1)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/purchasingmanagerindex.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=1)[-1].iloc[:-1, :])
     big_df = big_df.iloc[:, :5]
@@ -1221,7 +1222,7 @@ def macro_china_gdzctz():
     url = "http://data.eastmoney.com/cjsj/townassetsinvest.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/townassetsinvest.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
     big_df = big_df.iloc[:, :5]
@@ -1245,7 +1246,7 @@ def macro_china_hgjck():
     url = "http://data.eastmoney.com/cjsj/importandexport.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=1)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/importandexport.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=1)[-1].iloc[:-1, :])
     big_df = big_df.iloc[:, :11]
@@ -1275,7 +1276,7 @@ def macro_china_czsr():
     url = "http://data.eastmoney.com/cjsj/staterevenue.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/staterevenue.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
     big_df = big_df.iloc[:, :6]
@@ -1300,7 +1301,7 @@ def macro_china_whxd():
     url = "http://data.eastmoney.com/cjsj/foreignexchangeloan.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/foreignexchangeloan.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
     big_df = big_df.iloc[:, :5]
@@ -1324,7 +1325,7 @@ def macro_china_wbck():
     url = "http://data.eastmoney.com/cjsj/foreigncurrencydeposit.aspx?p=1"
     page_num = int(re.findall(r'\d', pd.read_html(url, header=2)[-1].iloc[-1, 1])[0])
     big_df = pd.read_html(url, header=0)[-1].iloc[:-1, :]
-    for page in range(2, page_num+1):
+    for page in range(2, page_num + 1):
         url = f"http://data.eastmoney.com/cjsj/foreigncurrencydeposit.aspx?p={page}"
         big_df = big_df.append(pd.read_html(url, header=0)[-1].iloc[:-1, :])
     big_df = big_df.iloc[:, :5]
@@ -1352,7 +1353,7 @@ def macro_china_hb():
         "t": "1597986289666",
     }
     big_df = pd.DataFrame()
-    for year in tqdm(range(1997, current_year+1)):
+    for year in tqdm(range(1997, current_year + 1)):
         payload = {
             "startWeek": f"{year}-01",
             "endWeek": f"{year}-52",
@@ -1361,7 +1362,7 @@ def macro_china_hb():
         }
         r = requests.post(url, params=params, data=payload)
         page_num = r.json()["data"]["pageTotal"]
-        for page in range(1, page_num+1):
+        for page in range(1, page_num + 1):
             payload = {
                 "startWeek": f"{year}-01",
                 "endWeek": f"{year}-52",
@@ -1397,7 +1398,7 @@ def macro_china_gksccz():
     }
     r = requests.post(url, params=params, data=payload)
     page_num = r.json()["data"]["pageTotal"]
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num + 1)):
         payload = {
             "pageSize": "1000",
             "pageNo": str(page),
@@ -1447,6 +1448,38 @@ def macro_china_bond_public():
         "defined_code",
     ]
     return big_df
+
+
+def macro_china_xfzxx():
+    """
+    消费者信心指数
+    https://data.eastmoney.com/cjsj/xfzxx.html
+    :return: 消费者信心指数
+    :rtype: pandas.DataFrame
+    """
+    url = "https://data.eastmoney.com/DataCenter_V3/Chart/cjsj/China.ashx"
+    params = {
+        "isxml": "false",
+        "type": "GJZB",
+        "style": "ZGZB",
+        "mkt": "4",
+        "r": "0.43184440663583823",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([
+        ["20" + item for item in data_json["X"].split(",")],
+        [item for item in data_json["Y"][0].split(",")],
+        [item for item in data_json["Y"][1].split(",")],
+        [item for item in data_json["Y"][2].split(",")],
+    ]).T
+    temp_df.columns = ["月份", "消费者信心指数", "消费者满意指数", "消费者预期指数"]
+    temp_df = temp_df.astype({
+        "消费者信心指数": float,
+        "消费者满意指数": float,
+        "消费者预期指数": float,
+    })
+    return temp_df
 
 
 if __name__ == "__main__":
@@ -1583,3 +1616,6 @@ if __name__ == "__main__":
 
     macro_china_bond_public_df = macro_china_bond_public()
     print(macro_china_bond_public_df)
+
+    macro_china_xfzxx_df = macro_china_xfzxx()
+    print(macro_china_xfzxx_df)
