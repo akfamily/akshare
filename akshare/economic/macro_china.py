@@ -1482,6 +1482,33 @@ def macro_china_xfzxx():
     return temp_df
 
 
+def macro_china_reserve_requirement_ratio():
+    """
+    存款准备金率
+    https://data.eastmoney.com/cjsj/ckzbj.html
+    :return: 存款准备金率
+    :rtype: pandas.DataFrame
+    """
+    url = "https://data.eastmoney.com/DataCenter_V3/Chart/cjsj/reserverequirementratio.ashx"
+    params = {
+        "r": "0.12301106148653584",
+        "isxml": "false",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([
+        ["20" + item for item in data_json["X"].split(",")],
+        [item for item in data_json["Y"][0].split(",")],
+        [item for item in data_json["Y"][1].split(",")],
+    ]).T
+    temp_df.columns = ["月份", "大型金融机构-调整后", "中小金融机构-调整后"]
+    temp_df = temp_df.astype({
+        "大型金融机构-调整后": float,
+        "中小金融机构-调整后": float,
+    })
+    return temp_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1619,3 +1646,6 @@ if __name__ == "__main__":
 
     macro_china_xfzxx_df = macro_china_xfzxx()
     print(macro_china_xfzxx_df)
+
+    macro_china_reserve_requirement_ratio_df = macro_china_reserve_requirement_ratio()
+    print(macro_china_reserve_requirement_ratio_df)

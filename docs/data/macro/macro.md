@@ -1867,6 +1867,55 @@ print(macro_china_xfzxx_df)
 162  2020年7月    117.2    111.9    120.6
 ```
 
+##### 存款准备金率
+
+接口: macro_china_reserve_requirement_ratio
+
+目标地址: https://data.eastmoney.com/cjsj/ckzbj.html
+
+描述: 国家统计局-存款准备金率
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | ---- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 月份      | str   | Y        | -  |
+| 大型金融机构-调整后      | float   | Y        | -   |
+| 中小金融机构-调整后      | float   | Y        |  - |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_reserve_requirement_ratio_df = ak.macro_china_reserve_requirement_ratio()
+print(macro_china_reserve_requirement_ratio_df)
+```
+
+数据示例
+
+```
+          月份  大型金融机构-调整后  中小金融机构-调整后
+0    2007年1月         9.5         9.5
+1    2007年2月        10.0        10.0
+2    2007年4月        10.5        10.5
+3    2007年5月        11.0        11.0
+4    2007年6月        11.5        11.5
+..       ...         ...         ...
+42  2018年10月        14.5        12.5
+43   2019年1月        14.0        12.0
+44   2019年1月        13.5        11.5
+45   2019年9月        13.0        11.0
+46   2020年1月        12.5        10.5
+```
+
 ##### 外汇和黄金储备
 
 接口: macro_china_fx_gold

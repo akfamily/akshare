@@ -585,6 +585,8 @@
  "futures_comex_inventory"  # COMEX库存数据
  # 消费者信心指数
  "macro_china_xfzxx"  # 消费者信心指数
+ # 存款准备金率
+ "macro_china_reserve_requirement_ratio"  # 存款准备金率
 ```
 
 ## 案例演示
