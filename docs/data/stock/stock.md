@@ -3526,6 +3526,8 @@ print(stock_em_hsgt_hold_stock_df)
 | -------- | ---- | ---- | --- |
 | market | str | Y    |   market="北向持股"; choice of {"北向持股", "南向持股"} |
 
+P.S. 当日数据请在收盘后获取
+
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/2 23:53
+Date: 2020/9/28 13:53
 Desc: 百度指数
 感谢 https://cloudcrawler.club/categories/2019%E5%B9%B4%E6%9C%AB%E9%80%86%E5%90%91%E5%A4%8D%E4%B9%A0/
 """
@@ -207,21 +207,21 @@ def baidu_media_index(word: str = "口罩", start_date: str = "2018-01-01", end_
 if __name__ == "__main__":
     cookie = ''
     data = baidu_search_index(
-        word="python", start_date="2020-01-01", end_date="2020-02-14", cookie=cookie
+        word="python", start_date="2020-01-01", end_date="2020-09-14", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
     data.plot()
     plt.show()
     data = baidu_info_index(
-        word="口罩", start_date="2018-07-03", end_date="2020-01-21", cookie=cookie
+        word="口罩", start_date="2019-07-03", end_date="2020-09-21", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
     data.plot()
     plt.show()
     data = baidu_media_index(
-        word="口罩", start_date="2020-01-01", end_date="2020-04-20", cookie=cookie
+        word="金融科技", start_date="2020-01-01", end_date="2020-09-20", cookie=cookie
     )
     print(data)
     data.dropna(inplace=True)
