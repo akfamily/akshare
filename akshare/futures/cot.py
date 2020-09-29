@@ -721,5 +721,3 @@ if __name__ == '__main__':
 
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200717")
     print(get_rank_sum_daily_df)
-
-    df = get_rank_sum(date="20200727", vars_list=cons.contract_symbols)
