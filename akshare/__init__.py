@@ -1072,9 +1072,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.45: add: add macro_china_xfzxx interface
 0.6.46: add: add macro_china_reserve_requirement_ratio interface
 0.6.47: fix: fix franchise_china interface
+0.6.48: fix: fix get_rank_sum interface
 """
 
-__version__ = "0.6.47"
+__version__ = "0.6.48"
 __author__ = "Albert King"
 
 """

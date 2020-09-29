@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/3/17 13:06
+Date: 2020/9/29 13:06
 Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所
 采集前 20 会员持仓数据;
@@ -136,13 +136,14 @@ def get_rank_sum(date="20200727", vars_list=cons.contract_symbols):
             return False
         big_dict.update(data)
     records = pd.DataFrame()
-
     for symbol, table in big_dict.items():
         table = table.applymap(lambda x: 0 if x == '' else x)
         for symbol_inner in set(table['symbol']):
-
             var = symbol_varieties(symbol_inner)
             if var in vars_list:
+                if var in czce_var:
+                    for col in [item for item in table.columns if item.find('open_interest') > -1] + ['vol', 'vol_chg']:
+                        table[col] = [float(value.replace(',', '')) if value != '-' else 0.0 for value in table[col]]
                 table_cut = table[table['symbol'] == symbol_inner]
                 table_cut['rank'] = table_cut['rank'].astype('float')
                 table_cut_top5 = table_cut[table_cut['rank'] <= 5]
@@ -697,3 +698,5 @@ if __name__ == '__main__':
 
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200717", vars_list=["PG"])
     print(get_rank_sum_daily_df)
+
+    df = get_rank_sum(date="20200727", vars_list=cons.contract_symbols)
