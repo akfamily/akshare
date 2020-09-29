@@ -136,14 +136,17 @@ def get_rank_sum(date="20200727", vars_list=cons.contract_symbols):
             return False
         big_dict.update(data)
     records = pd.DataFrame()
+
     for symbol, table in big_dict.items():
         table = table.applymap(lambda x: 0 if x == '' else x)
         for symbol_inner in set(table['symbol']):
+
             var = symbol_varieties(symbol_inner)
             if var in vars_list:
                 if var in czce_var:
                     for col in [item for item in table.columns if item.find('open_interest') > -1] + ['vol', 'vol_chg']:
                         table[col] = [float(value.replace(',', '')) if value != '-' else 0.0 for value in table[col]]
+
                 table_cut = table[table['symbol'] == symbol_inner]
                 table_cut['rank'] = table_cut['rank'].astype('float')
                 table_cut_top5 = table_cut[table_cut['rank'] <= 5]
@@ -185,7 +188,7 @@ def get_rank_sum(date="20200727", vars_list=cons.contract_symbols):
                 records = records.append(pd.DataFrame(big_dict, index=[0]))
 
     if len(big_dict.items()) > 0:
-        add_vars = [i for i in cons.market_exchange_symbols['shfe'] + cons.market_exchange_symbols['cffex'] if
+        add_vars = [i for i in cons.market_exchange_symbols['dce'] + cons.market_exchange_symbols['shfe'] + cons.market_exchange_symbols['cffex'] if
                     i in records['variety'].tolist()]
         for var in add_vars:
             records_cut = records[records['variety'] == var]
@@ -365,6 +368,22 @@ def get_czce_rank_table(date="20200727", vars_list=cons.contract_symbols):
     return new_big_dict
 
 
+def _get_dce_contract_list(date, var):
+    """
+    大连商品交易所取消了品种排名，只提供标的合约排名，需要获取标的合约列表
+    :param date: 日期 datetime.date 对象, 为空时为当天
+    :param var: 合约品种
+    :return: list 公布了持仓排名的合约列表
+    """
+    url = cons.DCE_VOL_RANK_URL_2 % (var.lower(), var.lower(), date.year, date.month - 1, date.day)
+    r = requests.post(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    contract_list = [item["onclick"].strip("javascript:setContract_id('").strip("');") for item in
+                     soup.find_all(attrs={"name": "contract"})]
+    contract_list = [var.lower()+item for item in contract_list]
+    return contract_list
+
+
 def get_dce_rank_table(date="20200727", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细
@@ -396,40 +415,42 @@ def get_dce_rank_table(date="20200727", vars_list=cons.contract_symbols):
     vars_list = [i for i in vars_list if i in cons.market_exchange_symbols['dce']]
     big_dict = {}
     for var in vars_list:
-        url = cons.DCE_VOL_RANK_URL % (var.lower(), var.lower(), date.year, date.month - 1, date.day)
-        list_60_name = []
-        list_60 = []
-        list_60_chg = []
-        rank = []
-        texts = requests_link(url).content.splitlines()
-        if not texts:
-            return False
-        if len(texts) > 30:
-            for text in texts:
-                line = text.decode("utf-8")
-                string_list = line.split()
-                try:
-                    if int(string_list[0]) <= 20:
-                        list_60_name.append(string_list[1])
-                        list_60.append(string_list[2])
-                        list_60_chg.append(string_list[3])
-                        rank.append(string_list[0])
-                except:
-                    pass
-            table_cut = pd.DataFrame({'rank': rank[0:20],
-                                      'vol_party_name': list_60_name[0:20],
-                                      'vol': list_60[0:20],
-                                      'vol_chg': list_60_chg[0:20],
-                                      'long_party_name': list_60_name[20:40],
-                                      'long_open_interest': list_60[20:40],
-                                      'long_open_interest_chg': list_60_chg[20:40],
-                                      'short_party_name': list_60_name[40:60],
-                                      'short_open_interest': list_60[40:60],
-                                      'short_open_interest_chg': list_60_chg[40:60]
-                                      })
-            table_cut = table_cut.applymap(lambda x: x.replace(',', ''))
-            table_cut = _table_cut_cal(table_cut, var)
-            big_dict[var] = table_cut.reset_index(drop=True)
+        symbol_list = _get_dce_contract_list(date, var)
+        for symbol in symbol_list:
+            url = cons.DCE_VOL_RANK_URL_1 % (var.lower(), symbol, var.lower(), date.year, date.month - 1, date.day)
+            list_60_name = []
+            list_60 = []
+            list_60_chg = []
+            rank = []
+            texts = requests_link(url).content.splitlines()
+            if not texts:
+                return False
+            if len(texts) > 30:
+                for text in texts:
+                    line = text.decode("utf-8")
+                    string_list = line.split()
+                    try:
+                        if int(string_list[0]) <= 20:
+                            list_60_name.append(string_list[1])
+                            list_60.append(string_list[2])
+                            list_60_chg.append(string_list[3])
+                            rank.append(string_list[0])
+                    except:
+                        pass
+                table_cut = pd.DataFrame({'rank': rank[0:20],
+                                          'vol_party_name': list_60_name[0:20],
+                                          'vol': list_60[0:20],
+                                          'vol_chg': list_60_chg[0:20],
+                                          'long_party_name': list_60_name[20:40],
+                                          'long_open_interest': list_60[20:40],
+                                          'long_open_interest_chg': list_60_chg[20:40],
+                                          'short_party_name': list_60_name[40:60],
+                                          'short_open_interest': list_60[40:60],
+                                          'short_open_interest_chg': list_60_chg[40:60]
+                                          })
+                table_cut = table_cut.applymap(lambda x: x.replace(',', ''))
+                table_cut = _table_cut_cal(table_cut, symbol)
+                big_dict[symbol] = table_cut.reset_index(drop=True)
     return big_dict
 
 
@@ -686,6 +707,8 @@ if __name__ == '__main__':
     print(get_dce_rank_table_second_df)
     get_dce_rank_table_third_df = get_dce_rank_table(date='20180718')
     print(get_dce_rank_table_third_df)
+    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20200928')
+    print(get_dce_rank_table_fourth_df)
 
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200715")
