@@ -705,7 +705,7 @@ if __name__ == '__main__':
     print(get_dce_rank_table_first_df)
     get_dce_rank_table_second_df = get_dce_rank_table(date='20171227')
     print(get_dce_rank_table_second_df)
-    get_dce_rank_table_third_df = get_dce_rank_table(date='20180718')
+    get_dce_rank_table_third_df = get_dce_rank_table(date='20200929')
     print(get_dce_rank_table_third_df)
     get_dce_rank_table_fourth_df = get_dce_rank_table(date='20200928')
     print(get_dce_rank_table_fourth_df)
@@ -719,7 +719,7 @@ if __name__ == '__main__':
     futures_dce_position_rank_other_df = futures_dce_position_rank_other(date="20200727")
     print(futures_dce_position_rank_other_df)
 
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200717", vars_list=["PG"])
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200717")
     print(get_rank_sum_daily_df)
 
     df = get_rank_sum(date="20200727", vars_list=cons.contract_symbols)
