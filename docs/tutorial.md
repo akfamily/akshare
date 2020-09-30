@@ -587,6 +587,10 @@
  "macro_china_xfzxx"  # 消费者信心指数
  # 存款准备金率
  "macro_china_reserve_requirement_ratio"  # 存款准备金率
+ # 社会消费品零售总额
+ "macro_china_consumer_goods_retail"  # 社会消费品零售总额
+ # 海关进出口增减情况
+ "macro_china_hgjck"  # 海关进出口增减情况
 ```
 
 ## 案例演示
