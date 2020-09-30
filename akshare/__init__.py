@@ -1075,9 +1075,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.48: fix: fix get_rank_sum interface
 0.6.49: fix: fix get_dce_rank_table interface
 0.6.50: add: add macro_china_hgjck, macro_china_consumer_goods_retail interface
+0.6.51: fix: fix macro_china_hgjck interface
 """
 
-__version__ = "0.6.50"
+__version__ = "0.6.51"
 __author__ = "Albert King"
 
 """
@@ -2113,7 +2114,6 @@ from akshare.economic.macro_china import (
     macro_china_hb,
     macro_china_xfzxx,
     macro_china_reserve_requirement_ratio,
-    macro_china_hgjck,
     macro_china_consumer_goods_retail,
 )
 
