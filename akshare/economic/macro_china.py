@@ -1509,6 +1509,61 @@ def macro_china_reserve_requirement_ratio():
     return temp_df
 
 
+def macro_china_hgjck():
+    """
+    海关进出口增减情况一览表
+    http://data.eastmoney.com/cjsj/hgjck.html
+    :return: 海关进出口增减情况一览表
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/DataCenter_V3/Chart/cjsj/importandexport.ashx"
+    params = {
+        "r": "0.12301106148653584",
+        "isxml": "false",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([
+        ["20" + item for item in data_json["X"].split(",")],
+        [item for item in data_json["Y"][0].split(",")],
+        [item for item in data_json["Y"][1].split(",")],
+    ]).T
+    temp_df.columns = ["月份", "当月出口额-金额", "当月进口额-金额"]
+    temp_df = temp_df.astype({
+        "当月出口额-金额": float,
+        "当月进口额-金额": float,
+    })
+    return temp_df
+
+
+def macro_china_consumer_goods_retail():
+    """
+    社会消费品零售总额
+    http://data.eastmoney.com/cjsj/xfp.html
+    :return: 社会消费品零售总额
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.eastmoney.com/DataCenter_V3/Chart/cjsj/China.ashx"
+    params = {
+        "isxml": "false",
+        "type": "GJZB",
+        "style": "ZGZB",
+        "mkt": "5",
+        "r": "0.4519648595352628",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([
+        ["20" + item for item in data_json["X"].split(",")],
+        [item for item in data_json["Y"][0].split(",")],
+    ]).T
+    temp_df.columns = ["月份", "当月"]
+    temp_df = temp_df.astype({
+        "当月": float,
+    })
+    return temp_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1649,3 +1704,9 @@ if __name__ == "__main__":
 
     macro_china_reserve_requirement_ratio_df = macro_china_reserve_requirement_ratio()
     print(macro_china_reserve_requirement_ratio_df)
+
+    macro_china_hgjck_df = macro_china_hgjck()
+    print(macro_china_hgjck_df)
+
+    macro_china_consumer_goods_retail_df = macro_china_consumer_goods_retail()
+    print(macro_china_consumer_goods_retail_df)
