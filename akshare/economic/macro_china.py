@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/8/17 12:08
+Date: 2020/10/1 12:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -9,10 +9,12 @@ http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
 输出数据格式为 float64
 """
 import json
+import math
 import re
 import time
 from datetime import datetime
 
+import demjson
 import numpy as np
 import pandas as pd
 import requests
@@ -1537,6 +1539,89 @@ def macro_china_consumer_goods_retail():
     return temp_df
 
 
+def macro_china_society_electricity():
+    """
+    全社会用电分类情况表
+    http://finance.sina.com.cn/mac/#industry-6-0-31-1
+    :return: 全社会用电分类情况表
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601557771972/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "industry",
+        "event": "6",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601557771972",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"])/31)
+    big_df = pd.DataFrame(data_json["data"])
+    for i in range(1, page_num):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+
+    big_df.columns = [
+        "统计时间",
+        "全社会用电量",
+        "全社会用电量同比",
+        "各行业用电量合计",
+        "各行业用电量合计同比",
+        "第一产业用电量",
+        "第一产业用电量同比",
+        "第二产业用电量",
+        "第二产业用电量同比",
+        "第三产业用电量",
+        "第三产业用电量同比",
+        "城乡居民生活用电量合计",
+        "城乡居民生活用电量合计同比",
+        "城镇居民用电量",
+        "城镇居民用电量同比",
+        "乡村居民用电量",
+        "乡村居民用电量同比",
+    ]
+    return big_df
+
+
+def macro_china_society_traffic_volume():
+    """
+    全社会客货运输量
+    http://finance.sina.com.cn/mac/#industry-10-0-31-1
+    :return: 全社会客货运输量
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601559094538/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "industry",
+        "event": "10",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601557771972",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"]) / 31)
+    big_df = pd.DataFrame(data_json["data"]["非累计"])
+    for i in tqdm(range(1, page_num)):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"]["非累计"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1680,3 +1765,9 @@ if __name__ == "__main__":
 
     macro_china_consumer_goods_retail_df = macro_china_consumer_goods_retail()
     print(macro_china_consumer_goods_retail_df)
+
+    macro_china_society_electricity_df = macro_china_society_electricity()
+    print(macro_china_society_electricity_df)
+
+    macro_china_society_traffic_volume_df = macro_china_society_traffic_volume()
+    print(macro_china_society_traffic_volume_df)
