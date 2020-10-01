@@ -591,6 +591,8 @@
  "macro_china_consumer_goods_retail"  # 社会消费品零售总额
  # 海关进出口增减情况
  "macro_china_hgjck"  # 海关进出口增减情况
+ # 全社会用电分类情况表
+ "macro_china_society_electricity"  # 全社会用电分类情况表
 ```
 
 ## 案例演示
