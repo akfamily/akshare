@@ -593,6 +593,16 @@
  "macro_china_hgjck"  # 海关进出口增减情况
  # 全社会用电分类情况表
  "macro_china_society_electricity"  # 全社会用电分类情况表
+ # 全社会客货运输量
+ "macro_china_society_traffic_volume"  # 全社会客货运输量
+ # 邮电业务基本情况
+ "macro_china_postal_telecommunicational"  # 邮电业务基本情况
+ # 国际旅游外汇收入构成
+ "macro_china_international_tourism_fx"  # 国际旅游外汇收入构成
+ # 民航客座率及载运率
+ "macro_china_passenger_load_factor"  # 民航客座率及载运率
+ # 航贸运价指数
+ "macro_china_freight_index"  # 航贸运价指数
 ```
 
 ## 案例演示

@@ -1078,9 +1078,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.51: fix: fix macro_china_hgjck interface
 0.6.52: add: add macro_china_society_electricity interface
 0.6.53: add: add macro_china_society_traffic_volume interface
+0.6.54: add: add macro_china_postal_telecommunicational interface
 """
 
-__version__ = "0.6.53"
+__version__ = "0.6.54"
 __author__ = "Albert King"
 
 """
@@ -2119,6 +2120,10 @@ from akshare.economic.macro_china import (
     macro_china_consumer_goods_retail,
     macro_china_society_electricity,
     macro_china_society_traffic_volume,
+    macro_china_postal_telecommunicational,
+    macro_china_international_tourism_fx,
+    macro_china_passenger_load_factor,
+    macro_china_freight_index,
 )
 
 """

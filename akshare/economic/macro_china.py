@@ -1622,6 +1622,134 @@ def macro_china_society_traffic_volume():
     return big_df
 
 
+def macro_china_postal_telecommunicational():
+    """
+    邮电业务基本情况
+    http://finance.sina.com.cn/mac/#industry-11-0-31-1
+    :return: 邮电业务基本情况
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601624495046/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "industry",
+        "event": "11",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601624495046",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"]) / 31)
+    big_df = pd.DataFrame(data_json["data"]["非累计"])
+    for i in tqdm(range(1, page_num)):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"]["非累计"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
+def macro_china_international_tourism_fx():
+    """
+    国际旅游外汇收入构成
+    http://finance.sina.com.cn/mac/#industry-15-0-31-3
+    :return: 国际旅游外汇收入构成
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601651495761/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "industry",
+        "event": "15",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601624495046",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"]) / 31)
+    big_df = pd.DataFrame(data_json["data"])
+    for i in tqdm(range(1, page_num)):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
+def macro_china_passenger_load_factor():
+    """
+    民航客座率及载运率
+    http://finance.sina.com.cn/mac/#industry-20-0-31-1
+    :return: 民航客座率及载运率
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601651495761/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "industry",
+        "event": "20",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601624495046",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"]) / 31)
+    big_df = pd.DataFrame(data_json["data"])
+    for i in tqdm(range(1, page_num)):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
+def macro_china_freight_index():
+    """
+    航贸运价指数
+    http://finance.sina.com.cn/mac/#industry-22-0-31-2
+    :return: 航贸运价指数
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601651495761/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "industry",
+        "event": "22",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601624495046",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"]) / 31)
+    big_df = pd.DataFrame(data_json["data"])
+    for i in tqdm(range(1, page_num)):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1771,3 +1899,15 @@ if __name__ == "__main__":
 
     macro_china_society_traffic_volume_df = macro_china_society_traffic_volume()
     print(macro_china_society_traffic_volume_df)
+
+    macro_china_postal_telecommunicational_df = macro_china_postal_telecommunicational()
+    print(macro_china_postal_telecommunicational_df)
+
+    macro_china_international_tourism_fx_df = macro_china_international_tourism_fx()
+    print(macro_china_international_tourism_fx_df)
+
+    macro_china_passenger_load_factor_df = macro_china_passenger_load_factor()
+    print(macro_china_passenger_load_factor_df)
+
+    macro_china_freight_index_df = macro_china_freight_index()
+    print(macro_china_freight_index_df)
