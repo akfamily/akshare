@@ -2027,6 +2027,68 @@ print(macro_china_society_electricity_df)
 175  2003.12  188912117.00    15.29  ...     16.12  8806708.00      5.79
 ```
 
+##### 全社会客货运输量
+
+接口: macro_china_society_traffic_volume
+
+目标地址: http://finance.sina.com.cn/mac/#industry-10-0-31-1
+
+描述: 国家统计局-全社会客货运输量-非累计
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | ---- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 统计时间      | str   | Y        | 年月  |
+| 统计对象      | float   | Y        | -  |
+| 货运量      | float   | Y        | 注意单位: 亿吨  |
+| 货运量同比增长      | float   | Y        | 注意单位: %  |
+| 货物周转量      | float   | Y        | 注意单位: 亿  |
+| 公里货物周转量同比增长      | float   | Y        | 注意单位: %  |
+| 客运量      | float   | Y        | 注意单位: 亿人  |
+| 客运量同比增长      | float   | Y        | 注意单位: %  |
+| 旅客周转量      | float   | Y        | 注意单位: 亿  |
+| 公里旅客周转量同比增长      | float   | Y        | 注意单位: %  |
+| 沿海主要港口货物吞吐量      | float   | Y        | 注意单位: 亿吨  |
+| 沿海主要港口货物吞吐量同比增长      | float   | Y        | 注意单位: %  |
+| 其中:外贸货物吞吐量      | float   | Y        | 注意单位: 亿吨  |
+| 其中:外贸货物吞吐量同比增长      | float   | Y        | 注意单位: %  |
+| 民航总周转量      | float   | Y        | 注意单位: 亿  |
+| 公里民航总周转      | float   | Y        | 注意单位: %  |
+
+接口示例
+
+```python
+import akshare as ak
+macro_china_society_traffic_volume_df = ak.macro_china_society_traffic_volume()
+print(macro_china_society_traffic_volume_df)
+```
+
+数据示例
+
+```
+         统计时间 统计对象    货运量 货运量同比增长  ... 其中:外贸货物吞吐量 其中:外贸货物吞吐量同比增长 民航总周转量 公里民航总周转
+0      2020.8   民航  54.94  -12.70  ...       None           None   None    None
+1      2020.8   水运   6.72    0.60  ...       None           None   None    None
+2      2020.8   公路  32.53    5.50  ...       None           None   None    None
+3      2020.8   铁路   3.84    6.50  ...       None           None   None    None
+4      2020.8   合计  43.10    4.80  ...       None           None   None    None
+       ...  ...    ...     ...  ...        ...            ...    ...     ...
+2088  1952.12   水运   None    None  ...       None           None   None    None
+2089  1952.12   公路   None    None  ...       None           None   None    None
+2090  1952.12   铁路   None    None  ...       None           None   None    None
+2091  1952.12   合计   None    None  ...       None           None   None    None
+2092  1952.12   民航   None    None  ...       None           None   None    None
+```
+
 ##### 外汇和黄金储备
 
 接口: macro_china_fx_gold
