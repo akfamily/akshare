@@ -1750,6 +1750,38 @@ def macro_china_freight_index():
     return big_df
 
 
+def macro_china_central_bank_balance():
+    """
+    央行货币当局资产负债
+    http://finance.sina.com.cn/mac/#fininfo-8-0-31-2
+    :return: 央行货币当局资产负债
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601651495761/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "fininfo",
+        "event": "8",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601624495046",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"]) / 31)
+    big_df = pd.DataFrame(data_json["data"])
+    for i in tqdm(range(1, page_num)):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1911,3 +1943,6 @@ if __name__ == "__main__":
 
     macro_china_freight_index_df = macro_china_freight_index()
     print(macro_china_freight_index_df)
+
+    macro_china_central_bank_balance_df = macro_china_central_bank_balance()
+    print(macro_china_central_bank_balance_df)
