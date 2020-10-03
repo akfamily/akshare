@@ -1577,4 +1577,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.53: add: add macro_china_society_traffic_volume interface
 
 0.6.54: add: add macro_china_postal_telecommunicational interface
+
+0.6.55: add: add macro_china_international_tourism_fx interface
 ```

@@ -603,6 +603,8 @@
  "macro_china_passenger_load_factor"  # 民航客座率及载运率
  # 航贸运价指数
  "macro_china_freight_index"  # 航贸运价指数
+ # 央行货币当局资产负债
+ "macro_china_central_bank_balance"  # 央行货币当局资产负债
 ```
 
 ## 案例演示
