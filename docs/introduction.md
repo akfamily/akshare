@@ -214,7 +214,7 @@
 
 ## [AkShare](https://github.com/jindaxiang/akshare) 的初衷
 
-[AkShare](https://github.com/jindaxiang/akshare) 主要目的是服务于财经研究, 解决在财经研究中数据获取困难的问题. 
+[AkShare](https://github.com/jindaxiang/akshare) 主要是用于财经研究, 解决在财经研究中数据获取困难的问题. 
 
 ![私募基金曲线](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/stock_futures_index.png)
 
