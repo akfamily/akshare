@@ -1080,9 +1080,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.53: add: add macro_china_society_traffic_volume interface
 0.6.54: add: add macro_china_postal_telecommunicational interface
 0.6.55: add: add macro_china_international_tourism_fx interface
+0.6.56: add: add macro_china_swap_rate interface
 """
 
-__version__ = "0.6.55"
+__version__ = "0.6.56"
 __author__ = "Albert King"
 
 """
@@ -2126,6 +2127,7 @@ from akshare.economic.macro_china import (
     macro_china_passenger_load_factor,
     macro_china_freight_index,
     macro_china_central_bank_balance,
+    macro_china_swap_rate,
 )
 
 """
