@@ -1782,6 +1782,66 @@ def macro_china_central_bank_balance():
     return big_df
 
 
+def macro_china_swap_rate(start_date: str = "2020-09-06", end_date: str = "2020-10-06") -> pd.DataFrame:
+    """
+    FR007利率互换曲线历史数据
+    http://www.chinamoney.com.cn/chinese/bkcurvfxhis/?cfgItemType=72&curveType=FR007
+    :param start_date: 开始日期, 开始和结束日期不得超过一个月
+    :type start_date: str
+    :param end_date: 结束日期, 开始和结束日期不得超过一个月
+    :type end_date: str
+    :return: FR007利率互换曲线历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-shibor/IfccHis"
+    params = {
+        "cfgItemType": "72",
+        "interestRateType": "0",
+        "startDate": start_date,
+        "endDate": end_date,
+        "bidAskType": "",
+        "lang": "CN",
+        "quoteTime": "全部",
+        "pageSize": "5000",
+        "pageNum": "1",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["records"])
+    temp_df.columns = [
+        "_",
+        "_",
+        "_",
+        "曲线名称",
+        "时刻",
+        "data",
+        "日期",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "价格类型",
+    ]
+    temp_df = temp_df[[
+        "日期",
+        "曲线名称",
+        "时刻",
+        "价格类型",
+        "data",
+    ]]
+    inner_df = pd.DataFrame([item for item in temp_df["data"]])
+    inner_df.columns = data_json["data"]["bigthRowName"]
+    big_df = pd.concat([temp_df, inner_df], axis=1)
+    del big_df["data"]
+    return big_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -1946,3 +2006,6 @@ if __name__ == "__main__":
 
     macro_china_central_bank_balance_df = macro_china_central_bank_balance()
     print(macro_china_central_bank_balance_df)
+
+    macro_china_swap_rate_df = macro_china_swap_rate(start_date="2020-09-06", end_date="2020-10-06")
+    print(macro_china_swap_rate_df)

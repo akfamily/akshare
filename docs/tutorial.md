@@ -605,6 +605,8 @@
  "macro_china_freight_index"  # 航贸运价指数
  # 央行货币当局资产负债
  "macro_china_central_bank_balance"  # 央行货币当局资产负债
+ # FR007利率互换曲线历史数据
+ "macro_china_swap_rate"  # FR007利率互换曲线历史数据
 ```
 
 ## 案例演示
