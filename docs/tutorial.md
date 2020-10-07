@@ -607,6 +607,8 @@
  "macro_china_central_bank_balance"  # 央行货币当局资产负债
  # FR007利率互换曲线历史数据
  "macro_china_swap_rate"  # FR007利率互换曲线历史数据
+ # 收盘收益率曲线历史数据
+ "bond_china_close_return"  # 收盘收益率曲线历史数据
 ```
 
 ## 案例演示
