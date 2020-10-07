@@ -6432,22 +6432,7 @@ print(stock_report_fund_hold_df)
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
 | trade_date | str | Y    | trade_date="20200730"; 交易日 |
-| symbol | str | Y    | symbol="涨幅偏离值达7%的证券"; 参见**股票龙虎榜每日详情栏目表** |
-
-股票龙虎榜每日详情栏目表
-
-|栏目|
-|---|
-|涨幅偏离值达7%的证券|
-|跌幅偏离值达7%的证券|
-|振幅值达15%的证券|
-|换手率达20%的证券|
-|连续三个交易日内，涨幅偏离值累计达20%的证券|
-|退市整理的证券|
-|连续三个交易日内，日均换手率与前五个交易日的日均换手率的比值达到30倍，且换手率累计达20%的股票|
-|连续三个交易日内，跌幅偏离值累计达到12%的ST证券|
-|*ST证券|
-|未完成股改证券|
+| symbol | str | Y    | symbol="涨幅偏离值达7%的证券"; 调用**ak.stock_sina_lhb_detail_daily(trade_date="指定交易日", symbol="返回当前交易日所有可查询的指标")**返回可以获取的指标 |
 
 输出参数
 
@@ -6465,6 +6450,8 @@ print(stock_report_fund_hold_df)
 
 ```python
 import akshare as ak
+indicator_name_list = ak.stock_sina_lhb_detail_daily(trade_date="20200730", symbol="返回当前交易日所有可查询的指标")
+print(indicator_name_list)  # 输出当前交易日可以查询的指标
 stock_sina_lhb_detail_daily_df = ak.stock_sina_lhb_detail_daily(trade_date="20200730", symbol="涨幅偏离值达7%的证券")
 print(stock_sina_lhb_detail_daily_df)
 ```
