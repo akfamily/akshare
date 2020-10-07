@@ -1081,9 +1081,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.54: add: add macro_china_postal_telecommunicational interface
 0.6.55: add: add macro_china_international_tourism_fx interface
 0.6.56: add: add macro_china_swap_rate interface
+0.6.57: fix: fix stock_sina_lhb_detail_daily interface
 """
 
-__version__ = "0.6.56"
+__version__ = "0.6.57"
 __author__ = "Albert King"
 
 """

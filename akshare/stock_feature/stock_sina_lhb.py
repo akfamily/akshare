@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/30 22:17
+Date: 2020/10/7 22:17
 Desc: 新浪财经-龙虎榜
 http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lhb/index.phtml
 """
@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 
-def stock_sina_lhb_detail_daily(trade_date: str = "20200729", symbol: str = "涨幅偏离值达7%的证券") -> pd.DataFrame:
+def stock_sina_lhb_detail_daily(trade_date: str = "20200730", symbol: str = "当日无价格涨跌幅限制的A股，出现异常波动停牌的股票") -> pd.DataFrame:
     """
     龙虎榜-每日详情
     http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lhb/index.phtml
@@ -28,26 +28,19 @@ def stock_sina_lhb_detail_daily(trade_date: str = "20200729", symbol: str = "涨
         "tradedate": trade_date
     }
     r = requests.get(url, params=params)
-    if symbol == "涨幅偏离值达7%的证券":
-        temp_df = pd.read_html(r.text, header=1)[0].iloc[0:, :]
-    elif symbol == "跌幅偏离值达7%的证券":
-        temp_df = pd.read_html(r.text, header=1)[1].iloc[0:, :]
-    elif symbol == "振幅值达15%的证券":
-        temp_df = pd.read_html(r.text, header=1)[2].iloc[0:, :]
-    elif symbol == "换手率达20%的证券":
-        temp_df = pd.read_html(r.text, header=1)[3].iloc[0:, :]
-    elif symbol == "连续三个交易日内，涨幅偏离值累计达20%的证券":
-        temp_df = pd.read_html(r.text, header=1)[4].iloc[0:, :]
-    elif symbol == "退市整理的证券":
-        temp_df = pd.read_html(r.text, header=1)[5].iloc[0:, :]
-    elif symbol == "连续三个交易日内，日均换手率与前五个交易日的日均换手率的比值达到30倍，且换手率累计达20%的股票":
-        temp_df = pd.read_html(r.text, header=1)[6].iloc[0:, :]
-    elif symbol == "连续三个交易日内，跌幅偏离值累计达到12%的ST证券":
-        temp_df = pd.read_html(r.text, header=1)[7].iloc[0:, :]
-    elif symbol == "*ST证券":
-        temp_df = pd.read_html(r.text, header=1)[8].iloc[0:, :]
-    elif symbol == "未完成股改证券":
-        temp_df = pd.read_html(r.text, header=1)[9].iloc[0:, :]
+    soup = BeautifulSoup(r.text, "lxml")
+    table_name_list = [item.get_text().strip() for item in soup.find_all("span", attrs={"style": "font-weight:bold;font-size:14px;"}) if item.get_text().strip() != ""]
+    if symbol == "返回当前交易日所有可查询的指标":
+        return table_name_list
+    else:
+        position_num = table_name_list.index(symbol)
+        if len(table_name_list) == position_num+1:
+            temp_df_1 = pd.read_html(r.text, header=1)[position_num].iloc[0:, :]
+            temp_df_2 = pd.read_html(r.text, header=1)[position_num+1].iloc[0:, :]
+            temp_df_3 = pd.read_html(r.text, header=1)[position_num+2].iloc[0:, :]
+            temp_df = temp_df_1.append(temp_df_2).append(temp_df_3)
+        else:
+            temp_df = pd.read_html(r.text, header=1)[position_num].iloc[0:, :]
     temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
     del temp_df["查看详情"]
     temp_df.columns = ["序号", "股票代码", "股票名称", "收盘价", "对应值", "成交量", "成交额"]
@@ -131,7 +124,10 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
-    last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    try:
+        last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    except:
+        last_page_num = 1
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num+1)):
         params = {
@@ -161,7 +157,10 @@ def stock_sina_lhb_jgmx() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
-    last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    try:
+        last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    except:
+        last_page_num = 1
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num+1)):
         params = {
@@ -175,7 +174,10 @@ def stock_sina_lhb_jgmx() -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_sina_lhb_detail_daily_df = stock_sina_lhb_detail_daily(trade_date="20200729", symbol="涨幅偏离值达7%的证券")
+    indicator_name_list = stock_sina_lhb_detail_daily(trade_date="20200730", symbol="返回当前交易日所有可查询的指标")
+    print(indicator_name_list)
+
+    stock_sina_lhb_detail_daily_df = stock_sina_lhb_detail_daily(trade_date="20200730", symbol="当日无价格涨跌幅限制的A股，出现异常波动停牌的股票")
     print(stock_sina_lhb_detail_daily_df)
 
     stock_sina_lhb_ggtj_df = stock_sina_lhb_ggtj(recent_day="5")
