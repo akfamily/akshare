@@ -1082,10 +1082,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.55: add: add macro_china_international_tourism_fx interface
 0.6.56: add: add macro_china_swap_rate interface
 0.6.57: fix: fix stock_sina_lhb_detail_daily interface
+0.6.58: add: add bond_china_close_return interface
 """
 
-__version__ = "0.6.57"
+__version__ = "0.6.58"
 __author__ = "Albert King"
+
+"""
+收盘收益率曲线历史数据
+"""
+from akshare.bond.bond_china_money import bond_china_close_return, bond_china_close_return_map
 
 """
 COMEX黄金-白银库存
