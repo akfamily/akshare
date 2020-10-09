@@ -63,7 +63,10 @@ def stock_sina_lhb_ggtj(recent_day: str = "5") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
-    last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    try:
+        last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    except:
+        last_page_num = 1
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num+1)):
         params = {
@@ -94,7 +97,10 @@ def stock_sina_lhb_yytj(recent_day: str = "5") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
-    last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    try:
+        last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    except:
+        last_page_num = 1
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num+1)):
         params = {
