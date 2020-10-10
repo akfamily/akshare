@@ -84,7 +84,6 @@ def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20200410") ->
 
 
 if __name__ == "__main__":
-    date_list = pd.date_range(start="20190801", end="20191111").tolist()
     date_list = pd.date_range(start="20200425", end="20200428").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
@@ -92,7 +91,7 @@ if __name__ == "__main__":
         data = stock_zh_a_tick_tx(code="sz000001", trade_date=f"{item}")
         if not data.empty:
             print(data)
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20200428")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20200928")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
