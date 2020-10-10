@@ -66,7 +66,6 @@ def get_roll_yield_bar(
     ry      展期收益率
     index   日期或品种
     """
-
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     start_day = (
         cons.convert_date(start_day) if start_day is not None else datetime.date.today()
@@ -146,7 +145,7 @@ def get_roll_yield(date=None, var="LR", symbol1=None, symbol2=None, df=None):
     near_by
     deferred
     """
-    # date = "20200304"
+    # date = "20200928"
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))

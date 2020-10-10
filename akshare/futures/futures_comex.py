@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/9/25 13:46
+Date: 2020/10/10 13:46
 Desc: 东方财富网-数据中心-COMEX库存数据
 http://data.eastmoney.com/pmetal/comex/by.html
 """
@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def futures_comex_inventory(symbol="黄金"):
+def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
     """
     东方财富网-数据中心-COMEX库存数据
     http://data.eastmoney.com/pmetal/comex/by.html
