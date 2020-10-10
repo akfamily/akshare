@@ -412,7 +412,7 @@ def get_dce_daily(date="20030115"):
     return data_df
 
 
-def get_futures_daily(start_date="20200601", end_date="20200908", market="SHFE", index_bar=True):
+def get_futures_daily(start_date="20200601", end_date="20200908", market="SHFE", index_bar=False):
     """
     交易所日交易数据
     Parameters
@@ -420,7 +420,7 @@ def get_futures_daily(start_date="20200601", end_date="20200908", market="SHFE",
     start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
-    index_bar: bool  是否合成指数K线
+    index_bar: bool  是否合成指数K线, 默认为 False 否则影响 roll_yield 的计算
     """
     if market.upper() == "CFFEX":
         f = get_cffex_daily
