@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/1/19 14:44
+Date: 2020/10/10 14:44
 Desc: 郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
 http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
 自 20200101 起，成交量、空盘量、成交额、行权量均为单边计算
@@ -20,7 +20,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def option_czce_hist(symbol="SR", year="2019"):
+def option_czce_hist(symbol: str = "SR", year: str = "2019"):
     """
     郑州商品交易所-交易数据-历史行情下载-期权历史行情下载
     http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
@@ -56,8 +56,8 @@ def option_czce_hist(symbol="SR", year="2019"):
     res = requests.post(url, data=payload)
     soup = BeautifulSoup(res.text, "lxml")
     # 获取 url 地址
-    url = soup.get_text()[
-        soup.get_text().find("'") + 1: soup.get_text().rfind("'")
+    url = str(soup.find("script"))[
+        str(soup.find("script")).find("'") + 1: str(soup.find("script")).rfind("'")
     ].split(",")[0][:-1]
     res = requests.get(url)
     option_df = pd.read_table(StringIO(res.text), skiprows=1, sep="|", low_memory=False)
