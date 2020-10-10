@@ -69,5 +69,5 @@ def energy_oil_detail(date: str = "2020-03-19") -> pd.DataFrame:
 if __name__ == "__main__":
     energy_oil_hist_df = energy_oil_hist()
     print(energy_oil_hist_df)
-    energy_oil_detail_df = energy_oil_detail(date="2020-03-19")
+    energy_oil_detail_df = energy_oil_detail(date="2020-09-19")
     print(energy_oil_detail_df)
