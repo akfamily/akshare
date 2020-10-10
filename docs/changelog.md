@@ -1589,4 +1589,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.59: add: add macro_china_passenger_load_factor interface
 
 0.6.60: fix: fix stock_sina_lhb_ggtj interface
+
+0.6.61: fix: fix option_czce_hist interface
 ```
