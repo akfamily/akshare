@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/28 19:58
+Date: 2020/10/10 15:58
 Desc: 日出和日落数据
 https://www.timeanddate.com
 """
@@ -19,10 +19,10 @@ def sunrise_city_list() -> list:
     url = "https://www.timeanddate.com/sun/china"
     res = requests.get(url)
     city_list = []
-    china_city_one_df = pd.read_html(res.text)[0]
-    china_city_two_df = pd.read_html(res.text)[1]
+    china_city_one_df = pd.read_html(res.text)[1]
+    china_city_two_df = pd.read_html(res.text)[2]
     city_list.extend([item.lower() for item in china_city_one_df.iloc[:, 0].tolist()])
-    city_list.extend([item.lower() for item in china_city_one_df.iloc[:, 1].tolist()])
+    city_list.extend([item.lower() for item in china_city_one_df.iloc[:, 3].tolist()])
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 0].tolist()])
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 1].tolist()])
     city_list.extend([item.lower() for item in china_city_two_df.iloc[:, 2].tolist()])
@@ -47,7 +47,7 @@ def sunrise_daily(date: str = "20200428", city: str = "北京") -> pd.DataFrame:
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
         res = requests.get(url)
-        table = pd.read_html(res.text, header=2)[0]
+        table = pd.read_html(res.text, header=2)[1]
         month_df = table.iloc[:-1, ]
         day_df = month_df[month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]]
         day_df.index = pd.to_datetime([date] * len(day_df), format="%Y%m%d")
@@ -72,7 +72,7 @@ def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFram
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
         res = requests.get(url)
-        table = pd.read_html(res.text, header=2)[0]
+        table = pd.read_html(res.text, header=2)[1]
         month_df = table.iloc[:-1, ]
         month_df.index = [date[:-2]] * len(month_df)
         return month_df
@@ -81,7 +81,7 @@ def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFram
 
 
 if __name__ == "__main__":
-    sunrise_daily_df = sunrise_daily(date="20200428", city="北京")
+    sunrise_daily_df = sunrise_daily(date="20200928", city="北京")
     print(sunrise_daily_df)
-    sunrise_monthly_df = sunrise_monthly(date="20200328", city="北京")
+    sunrise_monthly_df = sunrise_monthly(date="20200928", city="北京")
     print(sunrise_monthly_df)
