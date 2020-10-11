@@ -1088,9 +1088,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.61: fix: fix option_czce_hist interface
 0.6.62: fix: fix sunrise_daily interface
 0.6.63: fix: fix get_roll_yield_bar interface
+0.6.64: fix: fix macro_china_insurance interface
 """
 
-__version__ = "0.6.63"
+__version__ = "0.6.64"
 __author__ = "Albert King"
 
 """
@@ -2139,6 +2140,8 @@ from akshare.economic.macro_china import (
     macro_china_passenger_load_factor,
     macro_china_freight_index,
     macro_china_central_bank_balance,
+    macro_china_insurance,
+    macro_china_supply_of_money,
     macro_china_swap_rate,
 )
 
