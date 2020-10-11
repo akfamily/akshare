@@ -1782,6 +1782,70 @@ def macro_china_central_bank_balance():
     return big_df
 
 
+def macro_china_insurance():
+    """
+    保险业经营情况
+    http://finance.sina.com.cn/mac/#fininfo-19-0-31-3
+    :return: 保险业经营情况
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601651495761/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "fininfo",
+        "event": "19",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601624495046",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"]) / 31)
+    big_df = pd.DataFrame(data_json["data"])
+    for i in tqdm(range(1, page_num)):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
+def macro_china_supply_of_money():
+    """
+    货币供应量
+    http://finance.sina.com.cn/mac/#fininfo-1-0-31-1
+    :return: 货币供应量
+    :rtype: pandas.DataFrame
+    """
+    url = "https://quotes.sina.cn/mac/api/jsonp_v3.php/SINAREMOTECALLCALLBACK1601651495761/MacPage_Service.get_pagedata"
+    params = {
+        "cate": "fininfo",
+        "event": "1",
+        "from": "0",
+        "num": "31",
+        "condition": "",
+        "_": "1601624495046",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-3])
+    page_num = math.ceil(int(data_json["count"]) / 31)
+    big_df = pd.DataFrame(data_json["data"])
+    for i in tqdm(range(1, page_num)):
+        params.update({"from": i * 31})
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"):-3])
+        temp_df = pd.DataFrame(data_json["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
 def macro_china_swap_rate(start_date: str = "2020-09-06", end_date: str = "2020-10-06") -> pd.DataFrame:
     """
     FR007利率互换曲线历史数据
@@ -2006,6 +2070,12 @@ if __name__ == "__main__":
 
     macro_china_central_bank_balance_df = macro_china_central_bank_balance()
     print(macro_china_central_bank_balance_df)
+
+    macro_china_insurance_df = macro_china_insurance()
+    print(macro_china_insurance_df)
+
+    macro_china_supply_of_money_df = macro_china_supply_of_money()
+    print(macro_china_supply_of_money_df)
 
     macro_china_swap_rate_df = macro_china_swap_rate(start_date="2020-09-06", end_date="2020-10-06")
     print(macro_china_swap_rate_df)

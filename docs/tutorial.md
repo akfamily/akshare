@@ -609,6 +609,10 @@
  "macro_china_swap_rate"  # FR007利率互换曲线历史数据
  # 收盘收益率曲线历史数据
  "bond_china_close_return"  # 收盘收益率曲线历史数据
+ # 保险业经营情况
+ "macro_china_insurance"  # 保险业经营情况
+ # 货币供应量
+ "macro_china_supply_of_money"  # 货币供应量
 ```
 
 ## 案例演示

@@ -169,7 +169,7 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    currency_name_code_df = currency_name_code(symbol="usd/jpy")
+    currency_name_code_df = currency_name_code(symbol="WTI/USD")
     print(currency_name_code_df)
-    currency_hist_df = currency_hist(symbol="usd-iqd", start_date="19020101", end_date="20200915")
+    currency_hist_df = currency_hist(symbol="wti-usd", start_date="20190101", end_date="20201011")
     print(currency_hist_df)
