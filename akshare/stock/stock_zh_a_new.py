@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/9/21 16:36
+Date: 2020/10/10 16:36
 Desc: 行情中心-沪深股市-次新股
 http://vip.stock.finance.sina.com.cn/mkt/#new_stock
 """
@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 
 
-def stock_zh_a_new():
+def stock_zh_a_new() -> pd.DataFrame:
     """
     行情中心-沪深股市-次新股
     http://vip.stock.finance.sina.com.cn/mkt/#new_stock
