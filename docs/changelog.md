@@ -1599,4 +1599,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.64: add: add macro_china_insurance interface
 
 0.6.65: add: add macro_china_supply_of_money interface
+
+0.6.66: add: add support for python 3.9.0
 ```
