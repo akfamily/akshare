@@ -1088,8 +1088,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.61: fix: fix option_czce_hist interface
 0.6.62: fix: fix sunrise_daily interface
 0.6.63: fix: fix get_roll_yield_bar interface
-0.6.64: fix: fix macro_china_insurance interface
-0.6.65: fix: fix macro_china_supply_of_money interface
+0.6.64: add: add macro_china_insurance interface
+0.6.65: add: add macro_china_supply_of_money interface
 """
 
 __version__ = "0.6.65"
