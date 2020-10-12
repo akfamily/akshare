@@ -613,6 +613,8 @@
  "macro_china_insurance"  # 保险业经营情况
  # 货币供应量
  "macro_china_supply_of_money"  # 货币供应量
+ # 央行黄金和外汇储备
+ "macro_china_foreign_exchange_gold"  # 央行黄金和外汇储备
 ```
 
 ## 案例演示
