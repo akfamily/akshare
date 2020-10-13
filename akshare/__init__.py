@@ -1092,9 +1092,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.65: add: add macro_china_supply_of_money interface
 0.6.66: add: add support for python 3.9.0
 0.6.67: add: add macro_china_foreign_exchange_gold interface
+0.6.68: add: add macro_china_retail_price_index interface
 """
 
-__version__ = "0.6.67"
+__version__ = "0.6.68"
 __author__ = "Albert King"
 
 """
@@ -2147,6 +2148,7 @@ from akshare.economic.macro_china import (
     macro_china_supply_of_money,
     macro_china_swap_rate,
     macro_china_foreign_exchange_gold,
+    macro_china_retail_price_index,
 )
 
 """
