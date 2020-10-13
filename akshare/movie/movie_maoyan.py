@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/16 20:44
+Date: 2020/10/13 20:44
 Desc: 猫眼电影实时票房
 感谢老铁: https://cloudcrawler.club/cong-mao-yan-zi-ti-fan-pa-fen-xi-tan-tan-zi-ti-fan-pa-de-qian-shi-jin-sheng.html
 """
@@ -59,15 +59,18 @@ def box_office_spot():
     realtime_stont_temp = []
     total_stont_temp = []
     for dd in dd_li:
-        # dd = dd_li[0]
+        # dd = dd_li[5]
         p_li = (
             dd.find("div", attrs={"class": "board-item-main"})
             .find("div", attrs={"class": "movie-item-info"})
             .find_all("p")
         )
-        title = p_li[0].get_text()
-        star = p_li[1].get_text()
-        release_time = p_li[2].get_text()
+        try:
+            title = p_li[0].get_text()
+            star = p_li[1].get_text()
+            release_time = p_li[2].get_text()
+        except:
+            continue
         p_li = (
             dd.find("div", attrs={"class": "board-item-main"})
             .find("div", attrs={"class": "movie-item-number"})
