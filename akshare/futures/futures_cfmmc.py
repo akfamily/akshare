@@ -1,13 +1,14 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/6 20:37
+Date: 2020/10/14 16:37
 Desc: 中国期货市场监控中心-指数
 http://index.cfmmc.com/index/views/index.html
 """
-import requests
-import pandas as pd
 from io import BytesIO
+
+import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 

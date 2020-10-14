@@ -1095,9 +1095,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.68: add: add macro_china_retail_price_index interface
 0.6.69: fix: fix box_office_spot interface
 0.6.70: fix: fix bond_investing_global interface
+0.6.71: fix: fix nh_return_index interface
 """
 
-__version__ = "0.6.70"
+__version__ = "0.6.71"
 __author__ = "Albert King"
 
 """

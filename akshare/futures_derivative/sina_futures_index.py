@@ -1,14 +1,13 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/25 17:41
-Desc: 获取新浪期货的主力合约数据
+Date: 2020/10/14 16:41
+Desc: 新浪期货的主力合约数据
+https://finance.sina.com.cn/futuremarket/index.shtml
 """
-import requests
-import pandas as pd
 import demjson
-
-# pd.set_option('display.max_rows', 500)
+import pandas as pd
+import requests
 
 from akshare.futures.cons import (
     zh_subscribe_exchange_symbol_url,
@@ -17,7 +16,14 @@ from akshare.futures.cons import (
 )
 
 
-def zh_subscribe_exchange_symbol(exchange="dce"):
+def zh_subscribe_exchange_symbol(exchange: str = "dce") -> pd.DataFrame:
+    """
+    订阅指定交易所品种的代码
+    :param exchange: choice of {"dce", "czce", "shfe", "cffex"}
+    :type exchange: str
+    :return: 订阅指定交易所品种的代码
+    :rtype: pandas.DataFrame
+    """
     res = requests.get(zh_subscribe_exchange_symbol_url)
     data_json = demjson.decode(res.text[res.text.find("{") : res.text.find("};") + 1])
     if exchange == "czce":
@@ -34,7 +40,14 @@ def zh_subscribe_exchange_symbol(exchange="dce"):
         return pd.DataFrame(data_json["cffex"])
 
 
-def match_main_contract(exchange="dce"):
+def match_main_contract(exchange: str = "dce") -> pd.DataFrame:
+    """
+    指定交易所的所有可以提供数据的合约
+    :param exchange: choice of {"dce", "czce", "shfe", "cffex"}
+    :type exchange: str
+    :return: 指定交易所的所有可以提供数据的合约
+    :rtype: pandas.DataFrame
+    """
     subscribe_cffex_list = []
     exchange_symbol_list = zh_subscribe_exchange_symbol(exchange).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
@@ -54,11 +67,11 @@ def match_main_contract(exchange="dce"):
     return pd.DataFrame(subscribe_cffex_list)
 
 
-def futures_display_main_sina():
+def futures_display_main_sina() -> pd.DataFrame:
     """
-
-    :return:
-    :rtype:
+    展示新浪主力连续合约
+    :return: 展示新浪主力连续合约
+    :rtype: pandas.DataFrame
     """
     temp_df = pd.DataFrame()
     for item in ["dce", "czce", "shfe", "cffex"]:
@@ -67,11 +80,16 @@ def futures_display_main_sina():
     return temp_df
 
 
-def futures_main_sina(symbol="V0", trade_date="20191225"):
+def futures_main_sina(symbol: str = "V0", trade_date: str = "20191225") -> pd.DataFrame:
     """
-    获取新浪财经-期货-主力连续日数据
+    新浪财经-期货-主力连续日数据
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
-    :return:
+    :param symbol: 通过 futures_display_main_sina 函数获取 symbol
+    :type symbol: str
+    :param trade_date: 交易日
+    :type trade_date: str
+    :return: 主力连续日数据
+    :rtype: pandas.DataFrame
     """
     trade_date = trade_date[:4] + "_" + trade_date[4:6] + "_" + trade_date[6:]
     url = f"https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_{symbol}{trade_date}=/InnerFuturesNewService.getDailyKLine?symbol={symbol}&_={trade_date}"
