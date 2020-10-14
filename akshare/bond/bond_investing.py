@@ -214,7 +214,9 @@ def bond_investing_global(
 
 
 if __name__ == "__main__":
-    bond_investing_global_country_name_url_dict = bond_investing_global_country_name_url(country="美国")
+    bond_investing_global_country_name_url_dict = (
+        bond_investing_global_country_name_url(country="美国")
+    )
     print(bond_investing_global_country_name_url_dict)
     bond_investing_global_df = bond_investing_global(
         country="美国",

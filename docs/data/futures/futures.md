@@ -1614,8 +1614,8 @@ print(futures_sgx_daily_df)
 
 ```python
 import akshare as ak
-futures_df = ak.futures_main_sina(symbol="IF0", trade_date="20181220")
-print(futures_df)
+futures_main_sina_df = ak.futures_main_sina(symbol="IF0", trade_date="20181220")
+print(futures_main_sina_df)
 ```
 
 数据示例-连续合约数据接口
@@ -1639,8 +1639,8 @@ print(futures_df)
 
 ```python
 import akshare as ak
-display_main_df = ak.futures_display_main_sina()
-print(display_main_df)
+futures_display_main_sina_df = ak.futures_display_main_sina()
+print(futures_display_main_sina_df)
 ```
 
 数据示例-新浪连续合约品种一览表接口
@@ -1826,8 +1826,8 @@ display_main_df[display_main_df["name"].str.contains("连续")]
 
 ```python
 import akshare as ak
-nh_df = ak.nh_return_index(code="Y")
-print(nh_df)
+nh_return_index_df = ak.nh_return_index()
+print(nh_return_index_df)
 ```
 
 数据示例

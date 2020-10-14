@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/11/26 18:52
-Desc: 获取南华期货-商品指数历史走势-收益率指数-波动率-http://www.nanhua.net/nhzc/varietytrend.html
+Date: 2020/10/14 16:52
+Desc: 南华期货-商品指数历史走势-收益率指数-波动率-http://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
 目标地址: http://www.nanhua.net/ianalysis/volatility/20/NHCI.json?t=1574932291399
 """
@@ -111,19 +111,6 @@ def nh_volatility_index(code: str = "NHCI", day_count: int = 20) -> pd.DataFrame
     :param code: str 通过 get_nh_list 提供
     :param day_count: int [5, 20, 60, 120] 任意一个
     :return: pandas.Series
-                      value
-    date
-    2006-01-10     1000
-    2006-01-11   998.82
-    2006-01-12     1000
-    2006-01-13   990.17
-    2006-01-16   994.49
-                 ...
-    2019-11-20  796.433
-    2019-11-21  794.932
-    2019-11-22  792.682
-    2019-11-25  793.331
-    2019-11-26  779.346
     """
     if code in get_nh_list_table()["code"].tolist():
         t = time.time()
