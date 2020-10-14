@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/9/10 16:19
+Date: 2020/10/14 16:19
 Desc: 东方财富网-数据中心-新股数据-注册制审核
 http://data.eastmoney.com/kcb/?type=nsb
 """
@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def stock_register_kcb():
+def stock_register_kcb() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-注册制审核-科创板
     http://data.eastmoney.com/kcb/?type=nsb
@@ -76,7 +76,7 @@ def stock_register_kcb():
     return temp_df
 
 
-def stock_register_cyb():
+def stock_register_cyb() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-注册制审核-创业板
     http://data.eastmoney.com/xg/cyb/
@@ -97,10 +97,9 @@ def stock_register_cyb():
         "var": "mmTmEhWD",
         "rt": "53326609",
     }
-
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = demjson.decode(data_text[data_text.find("{"): -1])
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
         "_",
