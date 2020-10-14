@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/9/21 12:50
+Date: 2020/10/14 12:50
 Desc: 提供英为财情-利率国债-全球政府债券行情与收益率
-
+https://cn.investing.com/rates-bonds/
 """
 import re
 
@@ -17,6 +17,7 @@ from akshare.index.cons import short_headers, long_headers
 def _get_global_country_name_url() -> dict:
     """
     获取可获得指数数据国家对应的 URL
+    https://cn.investing.com/rates-bonds/
     :return: dict
     {'中国': '/indices/china-indices',
     '丹麦': '/indices/denmark-indices',
@@ -161,6 +162,7 @@ def bond_investing_global(
 ) -> pd.DataFrame:
     """
     获得具体国家的具体指数的从 start_date 到 end_date 期间的数据
+    https://cn.investing.com/rates-bonds/
     :param country: 对应函数中的国家名称
     :type country: str
     :param index_name: 对应函数中的指数名称
@@ -206,6 +208,7 @@ def bond_investing_global(
         df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
     df_data = df_data[["收盘", "开盘", "高", "低", "涨跌幅"]]
     df_data["涨跌幅"] = df_data["涨跌幅"].str.replace("%", "")
+    df_data["涨跌幅"] = df_data["涨跌幅"].str.replace(",", "")
     df_data = df_data.astype(float)
     return df_data
 
@@ -214,10 +217,10 @@ if __name__ == "__main__":
     bond_investing_global_country_name_url_dict = bond_investing_global_country_name_url(country="美国")
     print(bond_investing_global_country_name_url_dict)
     bond_investing_global_df = bond_investing_global(
-        country="中国",
-        index_name="中国1年期国债",
-        period="每月",
-        start_date="2000-01-01",
-        end_date="2020-09-06",
+        country="美国",
+        index_name="美国1年期国债",
+        period="每日",
+        start_date="2010-01-01",
+        end_date="2020-10-14",
     )
     print(bond_investing_global_df)
