@@ -322,7 +322,7 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
 
 def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = cons.contract_symbols):
     """
-    获取大宗商品注册仓单数量
+    大宗商品注册仓单数量
     :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type start_day: str
     :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -374,6 +374,8 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
         start_day += datetime.timedelta(days=1)
     records.reset_index(drop=True, inplace=True)
+    if records.empty:
+        return records
     if "MA" in records["var"].to_list():
         replace_index = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0].index
         records.loc[replace_index, "receipt"] = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0]
@@ -381,5 +383,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20200225', end_day='20200225')
+    get_receipt_df = get_receipt(start_day='20201016', end_day='20201016')
     print(get_receipt_df)
