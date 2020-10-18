@@ -617,6 +617,8 @@
  "macro_china_foreign_exchange_gold"  # 央行黄金和外汇储备
  # 商品零售价格指数
  "macro_china_retail_price_index"  # 商品零售价格指数
+ # 新闻联播文字稿
+ "news_cctv"  # 新闻联播文字稿
 ```
 
 ## 案例演示
