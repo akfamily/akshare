@@ -40,15 +40,21 @@ def news_cctv(date: str = "20180902") -> pd.DataFrame:
             url = f"http://www.xwlbo.com/{href}"
         r = requests.get(url)
         soup = BeautifulSoup(r.text, "lxml")
-        content_list = soup.find(attrs={"id": "tab_con2"}).find("div", attrs={"class": "text_content"}).find_all("p")
-        content = ' '.join([item.get_text() for item in content_list])
+        content_list = (
+            soup.find(attrs={"id": "tab_con2"})
+            .find("div", attrs={"class": "text_content"})
+            .find_all("p")
+        )
+        content = " ".join([item.get_text() for item in content_list])
         pure_content = content.strip("央视网消息（新闻联播文字版）：").strip()
         news_content_list.append(pure_content)
-
-    temp_df = pd.DataFrame([[date]*len(title_list), title_list, news_content_list], index=["date", "title", "content"]).T
+    temp_df = pd.DataFrame(
+        [[date] * len(title_list), title_list, news_content_list],
+        index=["date", "title", "content"],
+    ).T
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     news_cctv_df = news_cctv(date="20180901")
     print(news_cctv_df)

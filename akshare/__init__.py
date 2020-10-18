@@ -1094,10 +1094,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.72: fix: fix get_receipt interface
 0.6.73: add: add news_cctv interface
 0.6.74: fix: fix macro and acm interface
+0.6.75: add: add movie_boxoffice interface
 """
 
-__version__ = "0.6.74"
+__version__ = "0.6.75"
 __author__ = "Albert King"
+
+"""
+电影票房
+"""
+from akshare.movie.yien import movie_boxoffice
 
 """
 新闻联播文字稿
@@ -1773,11 +1779,6 @@ from akshare.cost.cost_living import cost_living
 能源-碳排放权
 """
 from akshare.energy.energy_carbon import energy_carbon_bj, energy_carbon_eu, energy_carbon_gz, energy_carbon_hb, energy_carbon_sz
-
-"""
-猫眼电影实时票房
-"""
-from akshare.movie.movie_maoyan import box_office_spot
 
 """
 中国证券投资基金业协会-信息公示

@@ -183,8 +183,6 @@
  "fx_pair_quote"  # 市场行情-债券市场行情-外币对即期报价
  # 能源-碳排放权
  "energy_carbon"  # 北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
- # 电影-实时票房
- "box_office_spot"  # 获取上映影片实时票房数据
  # 生活成本
  "cost_living"  # 获取世界各大城市生活成本数据
  # 商品现货价格指数
@@ -613,6 +611,8 @@
  "macro_china_retail_price_index"  # 商品零售价格指数
  # 新闻联播文字稿
  "news_cctv"  # 新闻联播文字稿
+ # 电影票房
+ "movie_boxoffice"  # 电影票房
 ```
 
 ## 案例演示
