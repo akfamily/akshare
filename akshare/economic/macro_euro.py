@@ -16,8 +16,6 @@ import time
 import pandas as pd
 import requests
 
-pd.set_option("display.max_rows", 10)
-
 
 # 金十数据中心-经济指标-欧元区-国民经济运行状况
 # 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况

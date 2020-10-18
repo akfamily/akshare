@@ -166,7 +166,6 @@
  # 中国证券投资基金业协会-信息公示
  "amac_member_info" # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
  "amac_person_org_list" # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
- "amac_person_org_list_ext" # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册外部公示信息
  "amac_manager_info" # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
  "amac_manager_classify_info" # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
  "amac_member_sub_info" # 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
@@ -177,9 +176,6 @@
  "amac_fund_account_info" # 中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
  "amac_fund_abs" # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
  "amac_futures_info" # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
- "amac_manager_xxgs_hmd" # 中国证券投资基金业协会-信息公示-诚信信息-违反自律规则黑名单
- "amac_manager_xxgs_jlcf" # 中国证券投资基金业协会-信息公示-诚信信息-纪律处分
- "amac_manager_xxgs_cxdj" # 中国证券投资基金业协会-信息公示-诚信信息-撤销管理人登记的名单
  "amac_manager_cancelled_info" # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
  # 全国银行间同业拆借中心-市场数据-市场行情-外汇市场行情
  "fx_spot_quote"  # 市场行情-外汇市场行情-人民币外汇即期报价
@@ -309,7 +305,6 @@
  "macro_china_ctci_detail"  # 发改委-中国电煤价格指数-各价区电煤价格指数
  "macro_china_ctci_detail_hist"  # 发改委-中国电煤价格指数-历史电煤价格指数
  "macro_china_lpr"  # 中国-利率-贷款报价利率
- "macro_china_money_supply"  # 中国-货币-货币供应量
  "macro_china_new_house_price"  # 中国-新房价指数
  "macro_china_enterprise_boom_index"  # 中国-企业景气及企业家信心指数
  "macro_china_national_tax_receipts"  # 中国-全国税收收入
@@ -372,7 +367,6 @@
  "macro_cons_silver_volume"  # 全球最大白银ETF--iShares Silver Trust持仓报告
  "macro_cons_silver_change"  # 全球最大白银ETF--iShares Silver Trust持仓报告
  "macro_cons_silver_amount"  # 全球最大白银ETF--iShares Silver Trust持仓报告
- "macro_cons_opec_near_change"  # 欧佩克报告-变动
  "macro_cons_opec_month"  # 欧佩克报告-月度
  # 伦敦金属交易所(LME)
  "macro_euro_lme_holding"  # 伦敦金属交易所(LME)-持仓报告

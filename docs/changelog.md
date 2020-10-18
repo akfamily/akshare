@@ -840,7 +840,6 @@ macro_cons_gold_amount  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
 macro_cons_silver_volume  # 全球最大白银ETF--iShares Silver Trust持仓报告
 macro_cons_silver_change  # 全球最大白银ETF--iShares Silver Trust持仓报告
 macro_cons_silver_amount  # 全球最大白银ETF--iShares Silver Trust持仓报告
-macro_cons_opec_near_change  # 欧佩克报告-变动
 macro_cons_opec_month  # 欧佩克报告-月度
 
 0.3.45
@@ -849,7 +848,6 @@ macro_cons_opec_month  # 欧佩克报告-月度
 amac_member_info # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
 # 中国证券投资基金业协会-信息公示-从业人员信息
 amac_person_org_list # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-amac_person_org_list_ext # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册外部公示信息
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示
 amac_manager_info # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
 amac_manager_classify_info # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
@@ -863,9 +861,6 @@ amac_fund_account_info # 中国证券投资基金业协会-信息公示-基金�
 amac_fund_abs # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
 amac_futures_info # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
 # 中国证券投资基金业协会-信息公示-诚信信息
-amac_manager_xxgs_hmd # 中国证券投资基金业协会-信息公示-诚信信息-违反自律规则黑名单
-amac_manager_xxgs_jlcf # 中国证券投资基金业协会-信息公示-诚信信息-纪律处分
-amac_manager_xxgs_cxdj # 中国证券投资基金业协会-信息公示-诚信信息-撤销管理人登记的名单
 amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
 
 0.3.46
@@ -1615,4 +1610,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.72: fix: fix get_receipt interface
 
 0.6.73: add: add news_cctv interface
+
+0.6.74: fix: fix macro and acm interface
 ```
