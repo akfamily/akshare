@@ -23,8 +23,6 @@ from akshare.economic.cons import (
     JS_USA_GDP_MONTHLY_URL,
 )
 
-# pd.set_option('display.max_rows', 10)
-
 
 # 金十数据中心-经济指标-美国-经济状况-美国GDP
 def macro_usa_gdp_monthly():

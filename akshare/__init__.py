@@ -649,7 +649,6 @@ macro_cons_gold_amount  # 全球最大黄金ETF—SPDR Gold Trust持仓报告
 macro_cons_silver_volume  # 全球最大白银ETF--iShares Silver Trust持仓报告
 macro_cons_silver_change  # 全球最大白银ETF--iShares Silver Trust持仓报告
 macro_cons_silver_amount  # 全球最大白银ETF--iShares Silver Trust持仓报告
-macro_cons_opec_near_change  # 欧佩克报告-变动
 macro_cons_opec_month  # 欧佩克报告-月度
 0.3.45
 增加中国证券投资基金业协会-信息公示
@@ -657,7 +656,6 @@ macro_cons_opec_month  # 欧佩克报告-月度
 amac_member_info # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
 # 中国证券投资基金业协会-信息公示-从业人员信息
 amac_person_org_list # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-amac_person_org_list_ext # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册外部公示信息
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示
 amac_manager_info # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
 amac_manager_classify_info # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
@@ -671,9 +669,6 @@ amac_fund_account_info # 中国证券投资基金业协会-信息公示-基金�
 amac_fund_abs # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
 amac_futures_info # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
 # 中国证券投资基金业协会-信息公示-诚信信息
-amac_manager_xxgs_hmd # 中国证券投资基金业协会-信息公示-诚信信息-违反自律规则黑名单
-amac_manager_xxgs_jlcf # 中国证券投资基金业协会-信息公示-诚信信息-纪律处分
-amac_manager_xxgs_cxdj # 中国证券投资基金业协会-信息公示-诚信信息-撤销管理人登记的名单
 amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
 0.3.46
 更新-商品期权-菜籽粕期权接口
@@ -1098,9 +1093,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.71: fix: fix nh_return_index interface
 0.6.72: fix: fix get_receipt interface
 0.6.73: add: add news_cctv interface
+0.6.74: fix: fix macro and acm interface
 """
 
-__version__ = "0.6.73"
+__version__ = "0.6.74"
 __author__ = "Albert King"
 
 """
@@ -1799,11 +1795,7 @@ from akshare.fund.fund_amac import (
     amac_securities_info,
     amac_fund_abs,
     amac_manager_classify_info,
-    amac_manager_xxgs_cxdj,
-    amac_manager_xxgs_hmd,
-    amac_manager_xxgs_jlcf,
     amac_person_org_list,
-    amac_person_org_list_ext,
 )
 
 """
@@ -2039,7 +2031,6 @@ from akshare.economic.macro_constitute import (
     macro_cons_gold_change,
     macro_cons_gold_volume,
     macro_cons_opec_month,
-    macro_cons_opec_near_change,
     macro_cons_silver_amount,
     macro_cons_silver_change,
     macro_cons_silver_volume,
@@ -2126,7 +2117,6 @@ from akshare.economic.macro_china import (
     macro_china_shibor_all,
     macro_china_industrial_production_yoy,
     macro_china_lpr,
-    macro_china_money_supply,
     macro_china_new_house_price,
     macro_china_enterprise_boom_index,
     macro_china_national_tax_receipts,
