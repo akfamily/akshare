@@ -161,7 +161,7 @@ if __name__ == "__main__":
     print(index_stock_cons_csindex_df)
     index_stock_cons_sina_df = index_stock_cons_sina(index="000300")
     print(index_stock_cons_sina_df)
-    index_stock_cons_df = index_stock_cons(index="000300")
+    index_stock_cons_df = index_stock_cons(index="399639")
     print(index_stock_cons_df)
     stock_index_hist_df = index_stock_hist(index="sz399994")
     print(stock_index_hist_df)

@@ -1613,4 +1613,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.71: fix: fix nh_return_index interface
 
 0.6.72: fix: fix get_receipt interface
+
+0.6.73: add: add news_cctv interface
 ```
