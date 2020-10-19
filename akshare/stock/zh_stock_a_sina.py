@@ -20,7 +20,8 @@ from akshare.stock.cons import (zh_sina_a_stock_payload,
                                 hk_js_decode,
                                 zh_sina_a_stock_hfq_url,
                                 zh_sina_a_stock_qfq_url,
-                                zh_sina_a_stock_amount_url)
+                                zh_sina_a_stock_amount_url,
+                                zh_sina_a_stock_hist_url_weekly)
 
 
 def _get_zh_a_page_count() -> int:
