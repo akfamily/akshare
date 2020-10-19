@@ -1096,9 +1096,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.74: fix: fix macro and acm interface
 0.6.75: add: add movie_boxoffice interface
 0.6.76: fix: fix remove execjs dependence
+0.6.77: add: add macro_china_real_estate interface
 """
 
-__version__ = "0.6.76"
+__version__ = "0.6.77"
 __author__ = "Albert King"
 
 """
@@ -2151,6 +2152,7 @@ from akshare.economic.macro_china import (
     macro_china_swap_rate,
     macro_china_foreign_exchange_gold,
     macro_china_retail_price_index,
+    macro_china_real_estate,
 )
 
 """

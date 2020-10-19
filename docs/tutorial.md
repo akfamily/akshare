@@ -613,6 +613,8 @@
  "news_cctv"  # 新闻联播文字稿
  # 电影票房
  "movie_boxoffice"  # 电影票房
+ # 国房景气指数
+ "macro_china_real_estate"  # 国房景气指数
 ```
 
 ## 案例演示
