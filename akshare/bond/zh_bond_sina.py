@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/02/14 11:28
+Date: 2020/10/19 9:28
 Desc: 新浪财经-债券-沪深债券-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hs_z
 """
@@ -9,9 +9,10 @@ import datetime
 import re
 
 import demjson
-import execjs
 import pandas as pd
 import requests
+from py_mini_racer import py_mini_racer
+from tqdm import tqdm
 
 from akshare.bond.cons import (
     zh_sina_bond_hs_count_url,
@@ -22,7 +23,7 @@ from akshare.bond.cons import (
 from akshare.stock.cons import hk_js_decode
 
 
-def get_zh_bond_hs_page_count():
+def get_zh_bond_hs_page_count() -> int:
     """
     行情中心首页-债券-沪深债券的总页数
     http://vip.stock.finance.sina.com.cn/mkt/#hs_z
@@ -40,7 +41,7 @@ def get_zh_bond_hs_page_count():
         return int(page_count) + 1
 
 
-def bond_zh_hs_spot():
+def bond_zh_hs_spot() -> pd.DataFrame:
     """
     新浪财经-债券-沪深债券的实时行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#hs_z
@@ -50,8 +51,7 @@ def bond_zh_hs_spot():
     big_df = pd.DataFrame()
     page_count = get_zh_bond_hs_page_count()
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_payload.copy()
-    for page in range(1, page_count + 1):
-        print(page)
+    for page in tqdm(range(1, page_count + 1)):
         zh_sina_bond_hs_payload_copy.update({"page": page})
         res = requests.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(res.text)
@@ -59,7 +59,7 @@ def bond_zh_hs_spot():
     return big_df
 
 
-def bond_zh_hs_daily(symbol="sh010107"):
+def bond_zh_hs_daily(symbol: str = "sh010107") -> pd.DataFrame:
     """
     新浪财经-债券-沪深债券的的历史行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#hs_z
@@ -73,15 +73,15 @@ def bond_zh_hs_daily(symbol="sh010107"):
             symbol, datetime.datetime.now().strftime("%Y_%m_%d")
         )
     )
-    js_code = execjs.compile(hk_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
     dict_list = js_code.call(
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
-    data_df.astype("float")
+    data_df = data_df.astype("float")
     return data_df
 
 

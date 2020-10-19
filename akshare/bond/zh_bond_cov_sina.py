@@ -9,7 +9,7 @@ import datetime
 import re
 
 import demjson
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -73,15 +73,15 @@ def bond_zh_hs_cov_daily(symbol: str = "sh113542") -> pd.DataFrame:
             symbol, datetime.datetime.now().strftime("%Y_%m_%d")
         )
     )
-    js_code = execjs.compile(hk_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
     dict_list = js_code.call(
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
-    data_df.astype("float")
+    data_df = data_df.astype("float")
     return data_df
 
 
@@ -105,7 +105,7 @@ def bond_zh_cov():
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("=") + 1 :])
+    json_data = demjson.decode(text_data[text_data.find("=") + 1:])
     temp_df = pd.DataFrame(json_data["data"])
     map_dict = {
         item["code"]: item["value"] for item in json_data["font"]["FontMapping"]
@@ -115,7 +115,6 @@ def bond_zh_cov():
             temp_df.iloc[:, -i] = temp_df.iloc[:, -i].apply(
                 lambda x: x.replace(key, str(value))
             )
-    temp_df.shape
     temp_df.columns = [
         "债券代码",
         "交易场所",

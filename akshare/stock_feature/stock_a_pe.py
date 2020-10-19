@@ -8,9 +8,9 @@ https://www.legulegu.com/stockdata/market_pe
 """
 from datetime import datetime
 
-import execjs
 import pandas as pd
 import requests
+from py_mini_racer import py_mini_racer
 
 hash_code = """
 function e(n) {
@@ -314,7 +314,8 @@ function E(n, e, t, r, o, f, i) {
     return A(t ^ (e | ~r), n, e, o, f, i)
 }
 """
-js_functions = execjs.compile(hash_code)
+js_functions = py_mini_racer.MiniRacer()
+js_functions.eval(hash_code)
 token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
@@ -401,5 +402,5 @@ def stock_a_pe(market: str = "sh") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_a_pe_df = stock_a_pe(market="000016.XSHG")
+    stock_a_pe_df = stock_a_pe(market="sh")
     print(stock_a_pe_df)

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/27 21:13
+Date: 2020/10/19 9:13
 Desc: 真气网-空气质量
 https://www.zq12369.com/environment.php
 空气质量在线监测分析平台的空气质量数据
@@ -12,7 +12,7 @@ import os
 import re
 
 import demjson
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 
@@ -88,7 +88,8 @@ def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01"
     """
     url = "https://www.zq12369.com/api/zhenqiapi.php"
     file_data = _get_file_content(file_name="crypto.js")
-    ctx = execjs.compile(file_data)
+    ctx = py_mini_racer.MiniRacer()
+    ctx.eval(file_data)
     method = "GETCITYPOINTAVG"
     ctx.call("encode_param", method)
     ctx.call("encode_param", start_date)
@@ -132,10 +133,11 @@ def air_quality_hist(
     """
     url = "https://www.zq12369.com/api/newzhenqiapi.php"
     file_data = _get_file_content(file_name="outcrypto.js")
-    out = execjs.compile(file_data)
+    ctx = py_mini_racer.MiniRacer()
+    ctx.eval(file_data)
     appId = "4f0e3a273d547ce6b7147bfa7ceb4b6e"
     method = "CETCITYPERIOD"
-    timestamp = execjs.eval("timestamp = new Date().getTime()")
+    timestamp = ctx.eval("timestamp = new Date().getTime()")
     p_text = json.dumps(
         {
             "city": city,
@@ -146,7 +148,7 @@ def air_quality_hist(
         ensure_ascii=False,
         indent=None,
     ).replace(' "', '"')
-    secret = out.call("hex_md5", appId + method + str(timestamp) + "WEB" + p_text)
+    secret = ctx.call("hex_md5", appId + method + str(timestamp) + "WEB" + p_text)
     payload = {
         "appId": "4f0e3a273d547ce6b7147bfa7ceb4b6e",
         "method": "CETCITYPERIOD",
@@ -171,10 +173,10 @@ def air_quality_hist(
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
     }
-    params = {"param": out.call("AES.encrypt", need)}
+    params = {"param": ctx.call("AES.encrypt", need)}
     r = requests.post(url, data=params, headers=headers)
-    temp_text = out.call("decryptData", r.text)
-    data_json = demjson.decode(out.call("b.decode", temp_text))
+    temp_text = ctx.call("decryptData", r.text)
+    data_json = demjson.decode(ctx.call("b.decode", temp_text))
     temp_df = pd.DataFrame(data_json["result"]["data"]["rows"])
     temp_df.index = temp_df["time"]
     del temp_df["time"]

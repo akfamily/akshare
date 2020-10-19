@@ -10,15 +10,15 @@ Desc: 东方财富网-数据中心-特色数据-商誉
 东方财富网-数据中心-特色数据-商誉-行业商誉: http://data.eastmoney.com/sy/hylist.html
 """
 import demjson
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from tqdm import tqdm
 
 from akshare.stock_feature.cons import stock_em_sy_js
 
-ctx = execjs.compile(stock_em_sy_js)  # 执行 js 渲染
-
+ctx = py_mini_racer.MiniRacer()
+ctx.eval(stock_em_sy_js)
 
 # pd.set_option('display.max_columns', 500)
 # pd.set_option('display.max_rows', 500)

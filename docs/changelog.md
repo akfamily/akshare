@@ -1614,4 +1614,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.74: fix: fix macro and acm interface
 
 0.6.75: add: add movie_boxoffice interface
+
+0.6.76: fix: fix remove execjs dependence
 ```

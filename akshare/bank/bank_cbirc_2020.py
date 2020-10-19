@@ -23,7 +23,7 @@ item_id_list = {
 
 def bank_fjcf_total_num(item: str = "分局本级") -> int:
     """
-    获取  首页-政务信息-行政处罚-银保监分局本级 总页数
+    首页-政务信息-行政处罚-银保监分局本级 总页数
     http://www.cbirc.gov.cn/cn/view/pages/ItemList.html?itemPId=923&itemId=4115&itemUrl=ItemListRightList.html&itemName=%E9%93%B6%E4%BF%9D%E7%9B%91%E5%88%86%E5%B1%80%E6%9C%AC%E7%BA%A7&itemsubPId=931
     :return: 总页数
     :rtype: int

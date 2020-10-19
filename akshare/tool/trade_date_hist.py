@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/18 13:07
+Date: 2020/10/18 13:07
 Desc: 新浪财经-交易日历
 https://finance.sina.com.cn/realstock/company/klc_td_sh.txt
 """
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 
@@ -21,7 +21,8 @@ def tool_trade_date_hist_sina() -> pd.DataFrame:
     """
     url = "https://finance.sina.com.cn/realstock/company/klc_td_sh.txt"
     r = requests.get(url)
-    js_code = execjs.compile(hk_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
     dict_list = js_code.call('d', r.text.split("=")[1].split(";")[0].replace('"', ""))  # 执行js解密代码
     temp_df = pd.DataFrame(dict_list)
     temp_df.columns = ["trade_date"]

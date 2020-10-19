@@ -6,7 +6,7 @@ Desc: 新浪财经-基金行情
 http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
 import demjson
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 
@@ -54,7 +54,8 @@ def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
     """
     url = f"https://finance.sina.com.cn/realstock/company/{symbol}/hisdata/klc_kl.js"
     r = requests.get(url)
-    js_code = execjs.compile(hk_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
     dict_list = js_code.call('d', r.text.split("=")[1].split(";")[0].replace('"', ""))  # 执行js解密代码
     temp_df = pd.DataFrame(dict_list)
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date

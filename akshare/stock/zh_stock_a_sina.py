@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/9/12 11:28
+Date: 2020/10/19 9:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 """
 import re
 import json
 
 import demjson
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -85,16 +85,15 @@ def stock_zh_a_daily(symbol: str = "sh600751", adjust: str = "") -> pd.DataFrame
     :rtype: pandas.DataFrame
     """
     res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
-    js_code = execjs.compile(hk_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
     dict_list = js_code.call(
         'd', res.text.split("=")[1].split(";")[0].replace(
             '"', ""))  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
     data_df = data_df.astype("float")
-
     r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
     amount_data_json = demjson.decode(r.text[r.text.find("["): r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
@@ -201,7 +200,6 @@ def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str =
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         need_df = temp_df[temp_df["time"] == "15:00:00"]
         need_df.index = need_df["date"]
-
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
         result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])

@@ -8,7 +8,7 @@ from io import BytesIO
 
 from PIL import Image
 import requests
-import execjs
+from py_mini_racer import py_mini_racer
 
 from akshare.futures_derivative import jymf_js
 
@@ -34,11 +34,13 @@ def jyfm_login(account="", password=""):
         f = Image.open(BytesIO(res.content))
         f.show()
         code = input()
-        c_func = execjs.compile(jymf_js.c.replace(r"\n", ""))
+        c_func = py_mini_racer.MiniRacer()
+        c_func.eval(jymf_js.c.replace(r"\n", ""))
         en_psw = c_func.call("e", password)
         payload = {"nameOrEmail": account, "userPassword": en_psw, "captcha": code}
     except:
-        c_func = execjs.compile(jymf_js.c.replace(r"\n", ""))
+        c_func = py_mini_racer.MiniRacer()
+        c_func.eval(jymf_js.c.replace(r"\n", ""))
         en_psw = c_func.call("e", password)
         payload = {"nameOrEmail": account, "userPassword": en_psw}
     res = requests.post(jyfm_login_url, json=payload, headers=jyfm_init_headers)
