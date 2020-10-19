@@ -45,7 +45,6 @@ setuptools.setup(
         "pandas>=0.25",
         "requests>=2.22.0",
         "demjson>=2.2.4",
-        "pyexecjs>=1.5.1",
         "pillow>=6.2.0",
         "pypinyin>=0.35.0",
         "websocket-client>=0.56.0",

@@ -8,7 +8,7 @@ http://stock.finance.sina.com.cn/hkstock/quotes/00700.html
 import requests
 import demjson
 import pandas as pd
-import execjs
+from py_mini_racer import py_mini_racer
 
 from akshare.stock.cons import (hk_js_decode,
                                 hk_sina_stock_dict_payload,
@@ -62,12 +62,12 @@ def stock_hk_daily(symbol: str = "02912", adjust: str = "qfq") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     res = requests.get(hk_sina_stock_hist_url.format(symbol))
-    js_code = execjs.compile(hk_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
     dict_list = js_code.call(
         'd', res.text.split("=")[1].split(";")[0].replace(
             '"', ""))  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
     data_df = data_df.astype("float")
@@ -164,5 +164,5 @@ if __name__ == "__main__":
     print(stock_hk_daily_df)
     stock_hk_daily_hfq_factor_df = stock_hk_daily(symbol="00700", adjust="hfq-factor")
     print(stock_hk_daily_hfq_factor_df)
-    # current_data_df = stock_hk_spot()
-    # print(current_data_df)
+    current_data_df = stock_hk_spot()
+    print(current_data_df)

@@ -5,13 +5,13 @@ Date: 2019/10/30 11:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 优化: 在指数行情的获取上采用多线程模式(新浪会封IP, 不再优化)
 """
-import re
 import datetime
+import re
 
-import requests
 import demjson
 import pandas as pd
-import execjs
+import requests
+from py_mini_racer import py_mini_racer
 
 from akshare.index.cons import (
     zh_sina_index_stock_payload,
@@ -111,12 +111,12 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     """
     params = {"d": "2020_2_4"}
     res = requests.get(zh_sina_index_stock_hist_url.format(symbol), params=params)
-    js_code = execjs.compile(hk_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
     dict_list = js_code.call(
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
     data_df = data_df.astype("float")

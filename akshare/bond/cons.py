@@ -5,7 +5,7 @@ Date: 2019/10/20 10:21
 Desc: 债券配置文件
 """
 # bond-cov-sina
-zh_sina_bond_hs_cov_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
+zh_sina_bond_hs_cov_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
 zh_sina_bond_hs_cov_count_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple"
 zh_sina_bond_hs_cov_hist_url = "https://finance.sina.com.cn/realstock/company/{}/hisdata/klc_kl.js?d={}"
 zh_sina_bond_hs_cov_payload = {

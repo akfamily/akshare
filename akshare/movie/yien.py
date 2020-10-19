@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/18 23:29
+Date: 2020/10/18 20:29
 Desc: 电影票房数据
 https://www.endata.com.cn/BoxOffice/BO/RealTime/reTimeBO.html
 """
@@ -62,11 +62,11 @@ def decrypt(origin_data):
     file_data = _get_file_content(file_name="jm.js")
     ctx = py_mini_racer.MiniRacer()
     ctx.eval(file_data)
-    data = ctx.call('webInstace.shell', origin_data)
+    data = ctx.call("webInstace.shell", origin_data)
     return data
 
 
-def movie_boxoffice(date="20201019", indicator="实时票房"):
+def movie_boxoffice(date: str = "20201019", indicator: str = "实时票房") -> pd.DataFrame:
     """
     电影票房数据
     https://www.endata.com.cn/BoxOffice/BO/RealTime/reTimeBO.html
@@ -100,12 +100,12 @@ def movie_boxoffice(date="20201019", indicator="实时票房"):
     elif indicator == "单周票房":
         payload = {
             "sdate": get_current_week(date="20201010").strftime("%Y-%m-%d"),
-            "MethodName": "BoxOffice_GetWeekInfoData"
+            "MethodName": "BoxOffice_GetWeekInfoData",
         }
     elif indicator == "单月票房":
         payload = {
             "startTime": f"{date[:4]}-{date[4:6]}-01",
-            "MethodName": "BoxOffice_GetMonthBox"
+            "MethodName": "BoxOffice_GetMonthBox",
         }
     elif indicator == "年度票房":
         payload = {
@@ -124,7 +124,6 @@ def movie_boxoffice(date="20201019", indicator="实时票房"):
             "date": "2020-10-17",
             "MethodName": "BoxOffice_GetCinemaDayBoxOffice",
         }
-
     r = requests.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
@@ -132,7 +131,7 @@ def movie_boxoffice(date="20201019", indicator="实时票房"):
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     movie_boxoffice_df = movie_boxoffice(date="20201019", indicator="实时票房")
     print(movie_boxoffice_df)
 

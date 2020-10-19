@@ -7,7 +7,7 @@ http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
 import json
 
-import execjs
+from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -30,7 +30,8 @@ def get_us_page_count() -> int:
     """
     page = "1"
     us_js_decode = f"US_CategoryService.getList?page={page}&num=20&sort=&asc=0&market=&id="
-    js_code = execjs.compile(js_hash_text)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(js_hash_text)
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
     us_sina_stock_dict_payload.update({"page": "{}".format(page)})
     res = requests.get(
@@ -58,7 +59,8 @@ def get_us_stock_name() -> pd.DataFrame:
         us_js_decode = "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(
             page
         )
-        js_code = execjs.compile(js_hash_text)
+        js_code = py_mini_racer.MiniRacer()
+        js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
         res = requests.get(
@@ -82,7 +84,8 @@ def stock_us_spot() -> pd.DataFrame:
         us_js_decode = "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(
             page
         )
-        js_code = execjs.compile(js_hash_text)
+        js_code = py_mini_racer.MiniRacer()
+        js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
         res = requests.get(
@@ -104,12 +107,12 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     res = requests.get(f"https://finance.sina.com.cn/staticdata/us/{symbol}")
-    js_code = execjs.compile(zh_js_decode)
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(zh_js_decode)
     dict_list = js_code.call(
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df["date"] = data_df["date"].str.split("T", expand=True).iloc[:, 0]
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
     data_df = data_df.astype("float")

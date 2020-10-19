@@ -12,7 +12,7 @@ from threading import Timer, Event, Thread
 
 import requests
 import websocket
-import execjs
+from py_mini_racer import py_mini_racer
 
 
 quotes_js = """
@@ -29,7 +29,8 @@ function n(t) {
 function j() {return n(t)}
 """
 
-js_code = execjs.compile(quotes_js)
+js_code = py_mini_racer.MiniRacer()
+js_code.eval(quotes_js)
 js_code.call("j", "")  # 执行js解密代码
 
 
