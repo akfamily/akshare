@@ -35,9 +35,6 @@ from akshare.economic.cons import (
 )
 
 
-# pd.set_option('display.max_rows', 10)  # just for debug
-
-
 # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
 def macro_china_gdp_yearly():
     """
@@ -2082,6 +2079,65 @@ def macro_china_retail_price_index():
     return big_df
 
 
+def macro_china_real_estate():
+    """
+    国房景气指数
+    http://data.eastmoney.com/cjsj/hyzs_list_EMM00121987.html
+    :return: 国房景气指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    params = {
+        "callback": "jQuery1123007722026081503319_1603084293192",
+        "st": "DATADATE",
+        "sr": "-1",
+        "ps": "1000",
+        "p": "1",
+        "type": "HYZS_All",
+        "js": '({data:dataDistinc((x),"DATADATE"),pages:(tp)})',
+        "filter": "(ID='EMM00121987')",
+        "token": "894050c76af8597a853f5b408b759f5d",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_text = r.text
+    data_json = json.loads(data_text[data_text.find("["):data_text.rfind("]")+1])
+    temp_df = pd.DataFrame([item for item in data_json])
+    temp_df.columns = [
+        "日期",
+        "最新值",
+        "涨跌幅",
+        "近3月涨跌幅",
+        "近6月涨跌幅",
+        "近1年涨跌幅",
+        "近2年涨跌幅",
+        "近3年涨跌幅",
+        "_",
+        "_",
+        "_",
+        "_",
+        "地区",
+        "_",
+        "_",
+        "_",
+    ]
+    temp_df = temp_df[[
+        "日期",
+        "最新值",
+        "涨跌幅",
+        "近3月涨跌幅",
+        "近6月涨跌幅",
+        "近1年涨跌幅",
+        "近2年涨跌幅",
+        "近3年涨跌幅",
+        "地区",
+    ]]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"])
+    return temp_df
+
+
 if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
@@ -2257,3 +2313,6 @@ if __name__ == "__main__":
 
     macro_china_retail_price_index_df = macro_china_retail_price_index()
     print(macro_china_retail_price_index_df)
+
+    macro_china_real_estate_df = macro_china_real_estate()
+    print(macro_china_real_estate_df)

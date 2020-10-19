@@ -17,6 +17,7 @@ http://110.249.223.67/publish/
 from datetime import datetime
 
 import pandas as pd
+from tqdm import tqdm
 import requests
 
 
@@ -37,7 +38,7 @@ def air_quality_hebei(city: str = "唐山市") -> pd.DataFrame:
     json_data = r.json()
     city_list = pd.DataFrame.from_dict(json_data["cityPublishDatas"], orient="columns")["CityName"].tolist()
     outer_df = pd.DataFrame()
-    for i in range(1, 7):
+    for i in tqdm(range(1, 7)):
         inner_df = pd.DataFrame([item[f"Date{i}"] for item in json_data["cityPublishDatas"]], index=city_list)
         outer_df = outer_df.append(inner_df)
     if city == "":
