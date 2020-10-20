@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 
-def news_cctv(date: str = "20180902") -> pd.DataFrame:
+def news_cctv(date: str = "20200902") -> pd.DataFrame:
     """
     新闻联播文字稿
     http://www.xwlbo.com/date-2020-7-11.html

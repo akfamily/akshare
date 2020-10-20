@@ -1100,15 +1100,16 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.78: fix: fix movie_boxoffice interface
 0.6.79: fix: split movie_boxoffice to single interface
 0.6.80: fix: movie_boxoffice interface
+0.6.81: fix: fix stock_report_fund_hold interface
 """
 
-__version__ = "0.6.80"
+__version__ = "0.6.81"
 __author__ = "Albert King"
 
 """
 电影票房
 """
-from akshare.movie.yien import (
+from akshare.movie.movie_yien import (
     movie_boxoffice_cinema_daily,
     movie_boxoffice_cinema_weekly,
     movie_boxoffice_weekly,

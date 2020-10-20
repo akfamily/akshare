@@ -36,7 +36,7 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20200630")
         "st": "2",
         "sr": "-1",
         "p": "1",
-        "ps": "2000",
+        "ps": "10000",
         "jsObj": "EKHDBOTH",
         "stat": symbol_map[symbol],
         "cmd": "1",
@@ -80,5 +80,5 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20200630")
 
 
 if __name__ == "__main__":
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="基金持仓", date="20200630")
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="社保持仓", date="20200630")
     print(stock_report_fund_hold_df)
