@@ -96,7 +96,7 @@ def movie_boxoffice_realtime() -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_daily(date: str = "20201019") -> pd.DataFrame:
+def movie_boxoffice_daily(date: str = "20201018") -> pd.DataFrame:
     """
     电影票房-单日票房
     https://www.endata.com.cn/BoxOffice/BO/Day/index.html
@@ -219,7 +219,7 @@ def movie_boxoffice_yearly_first_week(date: str = "20201018") -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_cinema_daily(date: str = "20201019") -> pd.DataFrame:
+def movie_boxoffice_cinema_daily(date: str = "20201018") -> pd.DataFrame:
     """
     电影票房-影院票房-日票房排行
     https://www.endata.com.cn/BoxOffice/BO/Cinema/day.html
@@ -244,7 +244,7 @@ def movie_boxoffice_cinema_daily(date: str = "20201019") -> pd.DataFrame:
     return temp_df
 
 
-def movie_boxoffice_cinema_weekly(date: str = "20201019") -> pd.DataFrame:
+def movie_boxoffice_cinema_weekly(date: str = "20201018") -> pd.DataFrame:
     """
     电影票房-影院票房-周票房排行
     https://www.endata.com.cn/BoxOffice/BO/Cinema/week.html
@@ -273,22 +273,22 @@ if __name__ == "__main__":
     movie_boxoffice_realtime_df = movie_boxoffice_realtime()
     print(movie_boxoffice_realtime_df)
 
-    movie_boxoffice_daily_df = movie_boxoffice_daily(date="20201019")
+    movie_boxoffice_daily_df = movie_boxoffice_daily(date="20201018")
     print(movie_boxoffice_daily_df)
 
     movie_boxoffice_weekly_df = movie_boxoffice_weekly(date="20201018")
     print(movie_boxoffice_weekly_df)
 
-    movie_boxoffice_monthly_df = movie_boxoffice_monthly(date="20201019")
+    movie_boxoffice_monthly_df = movie_boxoffice_monthly(date="20201018")
     print(movie_boxoffice_monthly_df)
 
-    movie_boxoffice_yearly_df = movie_boxoffice_yearly(date="20201019")
+    movie_boxoffice_yearly_df = movie_boxoffice_yearly(date="20201018")
     print(movie_boxoffice_yearly_df)
 
-    movie_boxoffice_yearly_first_week_df = movie_boxoffice_yearly_first_week(date="20201019")
+    movie_boxoffice_yearly_first_week_df = movie_boxoffice_yearly_first_week(date="20201018")
     print(movie_boxoffice_yearly_first_week_df)
 
-    movie_boxoffice_cinema_daily_df = movie_boxoffice_cinema_daily(date="20201019")
+    movie_boxoffice_cinema_daily_df = movie_boxoffice_cinema_daily(date="20201018")
     print(movie_boxoffice_cinema_daily_df)
 
     movie_boxoffice_cinema_weekly_df = movie_boxoffice_cinema_weekly(date="20201018")
