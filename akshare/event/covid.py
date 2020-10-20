@@ -21,9 +21,6 @@ from tqdm import tqdm
 from akshare.event.cons import province_dict, city_dict
 
 
-# pd.set_option('display.max_columns', None)  # just for debug
-
-
 def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
     """
     网易-新冠状病毒
