@@ -1099,9 +1099,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.77: add: add macro_china_real_estate interface
 0.6.78: fix: fix movie_boxoffice interface
 0.6.79: fix: split movie_boxoffice to single interface
+0.6.80: fix: movie_boxoffice interface
 """
 
-__version__ = "0.6.79"
+__version__ = "0.6.80"
 __author__ = "Albert King"
 
 """
