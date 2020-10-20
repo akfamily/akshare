@@ -1098,15 +1098,25 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.76: fix: fix remove execjs dependence
 0.6.77: add: add macro_china_real_estate interface
 0.6.78: fix: fix movie_boxoffice interface
+0.6.79: fix: split movie_boxoffice to single interface
 """
 
-__version__ = "0.6.78"
+__version__ = "0.6.79"
 __author__ = "Albert King"
 
 """
 电影票房
 """
-from akshare.movie.yien import movie_boxoffice
+from akshare.movie.yien import (
+    movie_boxoffice_cinema_daily,
+    movie_boxoffice_cinema_weekly,
+    movie_boxoffice_weekly,
+    movie_boxoffice_daily,
+    movie_boxoffice_monthly,
+    movie_boxoffice_realtime,
+    movie_boxoffice_yearly,
+    movie_boxoffice_yearly_first_week,
+)
 
 """
 新闻联播文字稿
@@ -1116,7 +1126,10 @@ from akshare.news.cctv_news import news_cctv
 """
 债券收盘收益率曲线历史数据
 """
-from akshare.bond.bond_china_money import bond_china_close_return, bond_china_close_return_map
+from akshare.bond.bond_china_money import (
+    bond_china_close_return,
+    bond_china_close_return_map,
+)
 
 """
 COMEX黄金-白银库存
@@ -1136,7 +1149,10 @@ from akshare.stock.stock_zh_a_new import stock_zh_a_new
 """
 东方财富-注册制审核
 """
-from akshare.stock_fundamental.stock_register import stock_register_kcb, stock_register_cyb
+from akshare.stock_fundamental.stock_register import (
+    stock_register_kcb,
+    stock_register_cyb,
+)
 
 """
 新浪财经-龙虎榜
@@ -1193,7 +1209,10 @@ A 股PE和PB
 """
 from akshare.stock_feature.stock_a_pb import stock_a_pb
 from akshare.stock_feature.stock_a_pe import stock_a_pe
-from akshare.stock_feature.stock_a_indicator import stock_a_lg_indicator, stock_hk_eniu_indicator
+from akshare.stock_feature.stock_a_indicator import (
+    stock_a_lg_indicator,
+    stock_hk_eniu_indicator,
+)
 from akshare.stock_feature.stock_a_high_low import stock_a_high_low_statistics
 from akshare.stock_feature.stock_a_below_net_asset_statistics import (
     stock_a_below_net_asset_statistics,
@@ -1781,7 +1800,13 @@ from akshare.cost.cost_living import cost_living
 """
 能源-碳排放权
 """
-from akshare.energy.energy_carbon import energy_carbon_bj, energy_carbon_eu, energy_carbon_gz, energy_carbon_hb, energy_carbon_sz
+from akshare.energy.energy_carbon import (
+    energy_carbon_bj,
+    energy_carbon_eu,
+    energy_carbon_gz,
+    energy_carbon_hb,
+    energy_carbon_sz,
+)
 
 """
 中国证券投资基金业协会-信息公示
@@ -1978,7 +2003,12 @@ from akshare.option.option_finance import (
 """
 新浪-美股实时行情数据和历史行情数据(前复权)
 """
-from akshare.stock.us_stock_sina import stock_us_daily, stock_us_spot, get_us_stock_name, stock_us_fundamental
+from akshare.stock.us_stock_sina import (
+    stock_us_daily,
+    stock_us_spot,
+    get_us_stock_name,
+    stock_us_fundamental,
+)
 
 """
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)

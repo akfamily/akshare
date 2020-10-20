@@ -612,7 +612,14 @@
  # 新闻联播文字稿
  "news_cctv"  # 新闻联播文字稿
  # 电影票房
- "movie_boxoffice"  # 电影票房
+ "movie_boxoffice_realtime"  # 电影实时票房
+ "movie_boxoffice_daily"  # 电影单日票房
+ "movie_boxoffice_weekly"  # 电影单周票房
+ "movie_boxoffice_monthly"  # 电影单月票房
+ "movie_boxoffice_yearly"  # 电影年度票房
+ "movie_boxoffice_yearly_first_week"  # 电影年度首周票房
+ "movie_boxoffice_cinema_daily"  # 电影院单日票房
+ "movie_boxoffice_cinema_weekly"  # 电影院单周票房
  # 国房景气指数
  "macro_china_real_estate"  # 国房景气指数
 ```
