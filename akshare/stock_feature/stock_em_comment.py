@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/3/23 17:28
+Date: 2020/10/21 16:28
 Desc: 东方财富网-数据中心-特色数据-千股千评
 http://data.eastmoney.com/stockcomment/
 """
@@ -10,7 +10,13 @@ import pandas as pd
 import requests
 
 
-def stock_em_comment():
+def stock_em_comment() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-特色数据-千股千评
+    http://data.eastmoney.com/stockcomment/
+    :return: 千股千评数据
+    :rtype: pandas.DataFrame
+    """
     url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
     params = {
         "type": "QGQP_LB",
@@ -28,6 +34,7 @@ def stock_em_comment():
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"):])
     data_df = pd.DataFrame(data_json["data"])
+    data_df["TDate"] = pd.to_datetime(data_df["TDate"])
     return data_df
 
 

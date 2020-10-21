@@ -1101,9 +1101,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.79: fix: split movie_boxoffice to single interface
 0.6.80: fix: movie_boxoffice interface
 0.6.81: fix: fix stock_report_fund_hold interface
+0.6.82: fix: fix stock_em_comment interface
 """
 
-__version__ = "0.6.81"
+__version__ = "0.6.82"
 __author__ = "Albert King"
 
 """
