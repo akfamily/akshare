@@ -159,10 +159,10 @@ def option_sina_sse_codes(
     trade_date: str = "202002", underlying: str = "510300"
 ) -> Tuple[List[str], List[str]]:
     """
-    获取所有看涨看跌合约的代码
+    获取上海证券交易所所有看涨和看跌合约的代码
     :param trade_date: 期权到期月份
     :type trade_date: "202002"
-    :param underlying: 标的产品代码 华夏上证50ETF: 510050 or 华泰柏瑞沪深300ETF: 510300
+    :param underlying: 标的产品代码 华夏上证 50ETF: 510050 or 华泰柏瑞沪深 300ETF: 510300
     :type underlying: str
     :return: 看涨看跌合约的代码
     :rtype: Tuple[List, List]
@@ -300,7 +300,7 @@ def option_sina_sse_greeks(code: str = "10002273") -> pd.DataFrame:
     """
     url = f"http://hq.sinajs.cn/list=CON_SO_{code}"
     data_text = requests.get(url).text
-    data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
+    data_list = data_text[data_text.find('"') + 1: data_text.rfind('"')].split(",")
     field_list = [
         "期权合约简称",
         "成交量",

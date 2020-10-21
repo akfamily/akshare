@@ -804,7 +804,7 @@ print(option_sina_sse_underlying_spot_price_df)
 
 描述: 获取期权希腊字母信息表
 
-限量: 单次返回期权希腊字母信息表
+限量: 单次返回当前交易日的期权希腊字母信息表
 
 输入参数
 
