@@ -65,29 +65,15 @@ def crypto_hist(
     :return: 加密货币历史数据获取
     :rtype: pandas.DataFrame
     """
-    period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
-    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
-    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    url = "https://cn.investing.com/crypto/Service/LoadCryptoCurrencies"
-    payload = {"lastRowId": "0"}
-    r = requests.post(url, data=payload, headers=headers)
-    soup = BeautifulSoup(r.json()["html"], "lxml")
-    crypto_url_list = [
-        "https://cn.investing.com" + item["href"] + "/historical-data"
-        for item in soup.find_all("a")
-        if "-" not in item["href"]
-    ]
-    crypto_url_list.append("https://cn.investing.com/crypto/bitcoin/historical-data")
-    crypto_name_list = [
-        item.get_text() for item in soup.find_all("a") if "-" not in item["href"]
-    ]
-    crypto_name_list.append("比特币")
-    name_url_dict = dict(zip(crypto_name_list, crypto_url_list))
-    temp_url = name_url_dict[symbol]
+    period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
+    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
+    name_url_df = crypto_name_map()
+    temp_url = name_url_df[name_url_df["name"] == symbol]["url"].values[0]
     res = requests.post(temp_url, headers=headers)
     soup = BeautifulSoup(res.text, "lxml")
     data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
@@ -155,6 +141,6 @@ if __name__ == "__main__":
     crypto_name_map_df = crypto_name_map()
     print(crypto_name_map_df)
     crypto_hist_df = crypto_hist(
-        symbol="瑞波币", period="每日", start_date="20151020", end_date="20201023"
+        symbol="比特币", period="每日", start_date="20151020", end_date="20201023"
     )
     print(crypto_hist_df)
