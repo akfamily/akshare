@@ -368,7 +368,7 @@ def stock_a_pe(market: str = "sh") -> pd.DataFrame:
         kc_df = pd.DataFrame(data_json["data"]["items"], columns=data_json["data"]["fields"])
         return kc_df
     elif market == "all":
-        url = "https://www.legulegu.com/stockdata/market-ttm-lyr/get-data"
+        url = "https://www.legulegu.com/api/stockdata/market-ttm-lyr/get-data"
         params = {
             "token": token,
             "marketId": "5"
@@ -388,7 +388,7 @@ def stock_a_pe(market: str = "sh") -> pd.DataFrame:
                   "000905.XSHG",
                   "000906.XSHG",
                   "000852.XSHG"]:
-        url = "https://www.legulegu.com/stockdata/market-ttm-lyr/get-data"
+        url = "https://www.legulegu.com/api/stockdata/market-ttm-lyr/get-data"
         params = {
             "token": token,
             "marketId": market
@@ -402,5 +402,5 @@ def stock_a_pe(market: str = "sh") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_a_pe_df = stock_a_pe(market="sh")
+    stock_a_pe_df = stock_a_pe(market="000852.XSHG")
     print(stock_a_pe_df)
