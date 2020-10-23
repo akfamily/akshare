@@ -359,7 +359,7 @@ def stock_a_pb(market: str = "sh") -> pd.DataFrame:
                   "000905.XSHG",
                   "000906.XSHG",
                   "000852.XSHG"]:
-        url = "https://www.legulegu.com/stockdata/market-index-pb/get-data"
+        url = "https://www.legulegu.com/api/stockdata/market-index-pb/get-data"
         params = {
             "token": token,
             "marketId": market
