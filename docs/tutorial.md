@@ -84,8 +84,8 @@
  "futures_zh_minute_sina"  # 获取新浪-内盘分时数据
  # 交易所金融期权数据
  "get_finance_option"  # 提供上海证券交易所期权数据
- # 数字货币行情
- "get_js_dc_current"  # 提供主流数字货币行情数据接口
+ # 加密货币行情
+ "crypto_js_spot"  # 提供主流加密货币行情数据接口
  # 股票-企业社会责任
  "stock_zh_a_scr_report"  # 企业社会责任数据
  # 美股-中国概念股行情和历史数据
@@ -622,6 +622,9 @@
  "movie_boxoffice_cinema_weekly"  # 电影院单周票房
  # 国房景气指数
  "macro_china_real_estate"  # 国房景气指数
+ # 加密货币历史数据
+ "crypto_hist"  # 加密货币历史数据
+ "crypto_name_map"  # 加密货币货币名称
 ```
 
 ## 案例演示

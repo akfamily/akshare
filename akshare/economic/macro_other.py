@@ -13,9 +13,9 @@ import requests
 from akshare.economic.cons import bitcoin_url, bitcoin_payload, bitcoin_headers
 
 
-def get_js_dc_current() -> pd.DataFrame:
+def crypto_js_spot() -> pd.DataFrame:
     """
-    主流数字货币的实时行情数据, 一次请求返回具体某一时刻行情数据
+    主流加密货币的实时行情数据, 一次请求返回具体某一时刻行情数据
     https://datacenter.jin10.com/reportType/dc_bitcoin_current
     :return: pandas.DataFrame
     """
@@ -115,8 +115,8 @@ def index_vix(start_date: str = "2020-10-15", end_date: str = "2020-10-15") -> p
 
 
 if __name__ == "__main__":
-    get_js_dc_current_df = get_js_dc_current()
-    print(get_js_dc_current_df)
+    crypto_js_spot_df = crypto_js_spot()
+    print(crypto_js_spot_df)
 
     test_date = datetime.now().date().isoformat()
 

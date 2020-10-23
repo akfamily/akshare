@@ -3,7 +3,7 @@
 **风险提示：[AkShare](https://github.com/jindaxiang/akshare) 项目所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
 同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
 
-1. 本文档更新于 **2020-10-22**;
+1. 本文档更新于 **2020-10-23**;
 
 2. 如有库、文档及数据的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
@@ -39,7 +39,7 @@
 
 首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
 
-[AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的财经数据接口库, 目的是实现对股票、期货、期权、基金、外汇、债券、指数、数字货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清洗到数据落地的一套工具, 主要用于学术研究目的. 
+[AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的财经数据接口库, 目的是实现对股票、期货、期权、基金、外汇、债券、指数、加密货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清洗到数据落地的一套工具, 主要用于学术研究目的. 
 
 [AkShare](https://github.com/jindaxiang/akshare) 的特点是获取的是相对权威的财经数据网站公布的原始数据, 通过利用原始数据进行各数据源之间的交叉验证, 进而再加工, 从而得出科学的结论.
 
@@ -94,7 +94,7 @@
 
     6.19 增加[上海证券交易所-期权](http://www.sse.com.cn/assortment/options/price/)提供的当日期权行情数据;
     
-    6.20 增加[金十数据网站](http://www.sse.com.cn/assortment/options/price/)提供的数字货币行情数据;
+    6.20 增加[金十数据网站](http://www.sse.com.cn/assortment/options/price/)提供的加密货币行情数据;
 
     6.21 增加[腾讯财经网站](http://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH)提供的A+H股数据;
 

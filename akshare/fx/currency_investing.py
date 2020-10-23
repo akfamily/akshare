@@ -97,7 +97,7 @@ def _currency_single() -> pd.DataFrame:
 
 def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     """
-    当前货币对的所有可兑换货币对
+    当前所有可兑换货币对
     :param symbol: "usd/jpy"
     :type symbol: str
     :return: 中英文货币对
@@ -169,7 +169,7 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    currency_name_code_df = currency_name_code(symbol="WTI/USD")
+    currency_name_code_df = currency_name_code(symbol="eur/usd")
     print(currency_name_code_df)
     currency_hist_df = currency_hist(symbol="wti-usd", start_date="20190101", end_date="20201011")
     print(currency_hist_df)

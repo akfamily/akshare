@@ -227,7 +227,7 @@ https://cn.investing.com/rates-bonds/
 0.2.3
 增加金融期权
 0.2.4
-增加数字货币行情接口
+增加加密货币行情接口
 0.2.5
 增加 AkShare 接口导图
 0.2.6
@@ -1102,10 +1102,24 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.80: fix: movie_boxoffice interface
 0.6.81: fix: fix stock_report_fund_hold interface
 0.6.82: fix: fix stock_em_comment interface
+0.6.83: add: add crypto_hist and crypto_name_map interface
 """
 
-__version__ = "0.6.82"
+__version__ = "0.6.83"
 __author__ = "Albert King"
+
+import sys
+
+if sys.version_info < (3, 7):
+    print(f"AkShare {__version__} requires Python 3.7+")
+    sys.exit(1)
+
+del sys
+
+"""
+英为财情-加密货币
+"""
+from akshare.crypto.crypto_hist_investing import crypto_hist, crypto_name_map
 
 """
 电影票房
@@ -1991,9 +2005,9 @@ from akshare.stock.zh_stock_ah_tx import (
 )
 
 """
-数字货币
+加密货币
 """
-from akshare.economic.macro_other import get_js_dc_current
+from akshare.economic.macro_other import crypto_js_spot
 
 """
 金融期权

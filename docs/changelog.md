@@ -279,7 +279,7 @@ PCE物价指数年率报告
 增加金融期权
 
 0.2.4
-增加数字货币行情接口
+增加加密货币行情接口
 
 0.2.5
 增加 AkShare 接口导图
@@ -1628,4 +1628,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.81: fix: fix stock_report_fund_hold interface
 
 0.6.82: fix: fix stock_em_comment interface
+
+0.6.83: add: add crypto_hist and crypto_name_map interface
 ```
