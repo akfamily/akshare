@@ -15,7 +15,7 @@
 
 ## Overview
 
-[AkShare](https://github.com/jindaxiang/akshare) support Python 3.7+, aims to make fetch financial data as convenient as possible.
+[AkShare](https://github.com/jindaxiang/akshare) requires Python 3.7 or greater, aims to make fetch financial data as convenient as possible.
 
 **Write less, get more!**
 
