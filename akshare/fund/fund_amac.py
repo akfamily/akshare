@@ -8,7 +8,6 @@ Desc: 获取中国证券投资基金业协会-信息公示数据
 """
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 from akshare.fund.cons import (
     amac_member_info_url,

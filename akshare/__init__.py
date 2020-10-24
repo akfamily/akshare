@@ -1106,9 +1106,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.84: fix: fix crypto_hist interface
 0.6.85: fix: fix stock_a_pb and stock_a_pe interface
 0.6.86: fix: fix stock_zh_a_minute interface
+0.6.87: fix: remove email interface
 """
 
-__version__ = "0.6.86"
+__version__ = "0.6.87"
 __author__ = "Albert King"
 
 import sys
@@ -2332,14 +2333,3 @@ from akshare.futures.futures_daily_bar import (
     get_dce_daily,
     get_futures_daily,
 )
-
-"""
-配置文件
-"""
-from akshare.futures import cons
-from akshare.fund import cons
-
-"""
-发邮件模块
-"""
-from akshare.tool.send_email import send_email
