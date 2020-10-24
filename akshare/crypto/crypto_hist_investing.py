@@ -4,6 +4,8 @@
 Date: 2020/10/23 13:52
 Desc: 加密货币
 https://cn.investing.com/crypto/currencies
+高频数据
+https://bitcoincharts.com/about/markets-api/
 """
 import re
 
