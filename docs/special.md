@@ -118,11 +118,11 @@
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
 </div>
 
-您也可以加入 **QQ群** 咨询相关问题: 1061759653:
+您也可以加入QQ群: 942371170
 
 <div align=center>
     <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=8de5f2b616ba185100c45de811736a7cbf2eb4bc2d6b1efcfd3e5cdf9d7760de">
-        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_md_fold_2_1588856077932.png" alt="AkShare-官方" title="AkShare-官方" align="center">
+        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_qq_3.jpg" alt="AkShare-官方" title="AkShare-官方" align="center">
     </a>
 </div>
 
