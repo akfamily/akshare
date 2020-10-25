@@ -28,7 +28,7 @@ commodity_flow_long
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 commodity_flow_long_df = pro.commodity_flow_long(date="2018-08-08")
 print(commodity_flow_long_df)
 ```
@@ -77,7 +77,7 @@ commodity_flow_short
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 commodity_flow_short_df = pro.commodity_flow_short(date="2018-08-08")
 print(commodity_flow_short_df)
 ```
@@ -126,7 +126,7 @@ stock_flow_long
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 stock_flow_long_df = pro.stock_flow_long(date="2018-08-08")
 print(stock_flow_long_df)
 ```
@@ -175,7 +175,7 @@ stock_flow_short
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 stock_flow_short_df = pro.stock_flow_short(date="2018-08-08")
 print(stock_flow_short_df)
 ```
@@ -223,7 +223,7 @@ money_in_out
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 money_in_out_df = pro.money_in_out(date="2018-08-08")
 print(money_in_out_df)
 ```

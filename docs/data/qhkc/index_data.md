@@ -33,7 +33,7 @@ index_info
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_info_df = pro.index_info(index_id="index0070c0eb-93ba-2da9-6633-fa70cb90e959")
 print(index_info_df)
 ```
@@ -79,7 +79,7 @@ index_weights
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_weights_df = pro.index_weights(index_id="index0070c0eb-93ba-2da9-6633-fa70cb90e959", date="2018-08-08")
 print(index_weights_df)
 ```
@@ -128,7 +128,7 @@ index_quotes
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_quotes_df = pro.index_quotes(index_id="index0070c0eb-93ba-2da9-6633-fa70cb90e959", date="2018-08-08")
 print(index_quotes_df)
 ```
@@ -172,7 +172,7 @@ index_money
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_money_df = pro.index_money(index_id="index0070c0eb-93ba-2da9-6633-fa70cb90e959", date="2018-08-08")
 print(index_money_df)
 ```
@@ -212,7 +212,7 @@ index_official
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_official_df = pro.index_official()
 print(index_official_df)
 ```
@@ -261,7 +261,7 @@ index_mine
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_mine_df = pro.index_mine()
 print(index_mine_df)
 ```
@@ -332,7 +332,7 @@ index_trend
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_trend_df = pro.index_trend(index_id="index0070c0eb-93ba-2da9-6633-fa70cb90e959", date="2018-08-08")
 print(index_trend_df)
 ```
@@ -433,7 +433,7 @@ index_profit
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_profit_df = pro.index_profit(index_id="index0070c0eb-93ba-2da9-6633-fa70cb90e959", start_date="2018-07-08", end_date="2018-08-08")
 print(index_profit_df)
 ```
