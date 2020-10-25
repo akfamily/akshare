@@ -30,7 +30,7 @@ basis
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 basis_df = pro.basis(variety="RB", date="2018-08-08")
 print(basis_df)
 ```
@@ -73,7 +73,7 @@ term_structure
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 term_structure_df = pro.term_structure(variety="RB", date="2018-08-08")
 print(term_structure_df)
 ```
@@ -126,7 +126,7 @@ inventory
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 inventory_df = pro.inventory(variety="RB", date="2018-08-08")
 print(inventory_df)
 ```
@@ -168,7 +168,7 @@ inventory
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 inventory_df = pro.inventory(variety="RB", year="2019", week_number="10")
 print(inventory_df)
 ```
@@ -210,7 +210,7 @@ profit
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 profit_df = pro.profit(variety="RB", date="2019-12-12")
 print(profit_df)
 ```
@@ -255,7 +255,7 @@ trader_prices
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 trader_prices_df = pro.trader_prices(variety="RB", date="2020-03-30")
 print(trader_prices_df)
 ```
@@ -309,7 +309,7 @@ intertemporal_arbitrage
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 intertemporal_arbitrage_df = pro.intertemporal_arbitrage(variety="RB", code1="01", code2="05", date="2018-08-08")
 print(intertemporal_arbitrage_df)
 ```
@@ -361,7 +361,7 @@ free_spread
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 free_spread_df = pro.free_spread(variety1="RB", code1="01", variety2="HC", code2="01", date="2018-08-08")
 print(free_spread_df)
 ```
@@ -413,7 +413,7 @@ free_ratio
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 free_ratio_df = pro.free_ratio(variety1="RB", code1="01", variety2="HC", code2="01", date="2018-08-08")
 print(free_ratio_df)
 ```
@@ -459,7 +459,7 @@ warehouse_receipt
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 warehouse_receipt_df = pro.warehouse_receipt(variety="RB", date="2018-08-08")
 print(warehouse_receipt_df)
 ```
@@ -501,7 +501,7 @@ warehouse_receipt
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 warehouse_receipt_sum_df = pro.warehouse_receipt(date="2018-08-08")
 print(warehouse_receipt_sum_df)
 ```
@@ -573,7 +573,7 @@ virtual_real
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 virtual_real_df = pro.virtual_real(variety="RB", code="10", date="2018-08-08")
 print(virtual_real_df)
 ```

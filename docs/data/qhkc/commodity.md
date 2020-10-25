@@ -34,7 +34,7 @@ variety_positions
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_positions_df = pro.variety_positions(fields="longs", code="rb1810", date="2018-08-08")
 print(variety_positions_df)
 ```
@@ -102,7 +102,7 @@ variety_all_positions
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_all_positions_df = pro.variety_all_positions(fields="shorts", symbol="RB", date="2018-08-08")
 print(variety_all_positions_df)
 ```
@@ -187,7 +187,7 @@ variety_net_positions
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_net_positions_df = pro.variety_net_positions(symbol="RB", broker="永安期货", date="2018-08-08")
 print(variety_net_positions_df)
 ```
@@ -232,7 +232,7 @@ variety_quotes
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_quotes_df = pro.variety_quotes(code="rb1810", date="2018-08-08")
 print(variety_quotes_df)
 ```
@@ -278,7 +278,7 @@ variety_money
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_money_df = pro.variety_money(symbol="RB", date="2018-08-08")
 print(variety_money_df)
 ```
@@ -319,7 +319,7 @@ variety_bbr
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_bbr_df = pro.variety_bbr(code="rb1810", date="2018-08-08")
 print(variety_bbr_df)
 ```
@@ -360,7 +360,7 @@ variety_net_money_chge
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_net_money_chge_df = pro.variety_net_money_chge(code="rb1810", date="2018-08-08")
 print(variety_net_money_chge_df)
 ```
@@ -426,7 +426,7 @@ variety_net_money
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_net_money_df = pro.variety_net_money(code="rb1810", date="2018-08-08")
 print(variety_net_money_df)
 ```
@@ -492,7 +492,7 @@ variety_total_money
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_total_money_df = pro.variety_total_money(code="rb1810", date="2018-08-08")
 print(variety_total_money_df)
 ```
@@ -559,7 +559,7 @@ variety_profit
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_profit_df = pro.variety_profit(symbol="RB", start_date="2018-02-08", end_date="2018-08-08")
 print(variety_profit_df)
 ```
@@ -660,7 +660,7 @@ variety_strategies
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_strategies_df = pro.variety_strategies(code="rb1810", date="2018-08-08")
 print(variety_strategies_df)
 ```
@@ -704,7 +704,7 @@ variety_longhu_top
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_longhu_long_top_df = pro.variety_longhu_top(fields="long", date="2018-08-08")
 print(variety_longhu_long_top_df)
 ```
@@ -753,7 +753,7 @@ variety_longhu_top
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_longhu_short_top_df = pro.variety_longhu_top(fields="short", date="2018-08-08")
 print(variety_longhu_short_top_df)
 ```
@@ -804,7 +804,7 @@ variety_niuxiong_top
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_niuxiong_long_top_df = pro.variety_niuxiong_top(fields="long", date="2018-08-08")
 print(variety_niuxiong_long_top_df)
 ```
@@ -853,7 +853,7 @@ variety_niuxiong_top
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_niuxiong_short_top_df = pro.variety_niuxiong_top(fields="short", date="2018-08-08")
 print(variety_niuxiong_short_top_df)
 ```
@@ -904,7 +904,7 @@ variety_reports
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_reports_df = pro.variety_reports(csymbolode="RB", date="2018-08-08")
 print(variety_reports_df)
 ```
@@ -951,7 +951,7 @@ variety_all
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_all_df = pro.variety_all()
 print(variety_all_df)
 ```
@@ -1049,7 +1049,7 @@ variety_list
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_list_df = pro.variety_list(date="2018-08-08")
 print(variety_list_df)
 ```
@@ -1099,7 +1099,7 @@ variety_no_futures
 
 ```python
 from akshare import pro_api
-pro = pro_api(token="在此处输入您的token，可以通过联系管理员获取")
+pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 variety_no_futures_df = pro.variety_no_futures(symbol="RB", date="2018-08-08")
 print(variety_no_futures_df)
 ```
