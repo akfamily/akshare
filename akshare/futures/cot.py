@@ -378,13 +378,13 @@ def _get_dce_contract_list(date, var):
     url = cons.DCE_VOL_RANK_URL_2 % (var.lower(), var.lower(), date.year, date.month - 1, date.day)
     r = requests.post(url)
     soup = BeautifulSoup(r.text, "lxml")
-    contract_list = [item["onclick"].strip("javascript:setContract_id('").strip("');") for item in
+    contract_list = [re.findall(r"\d+", item["onclick"].strip("javascript:setContract_id('").strip("');"))[0] for item in
                      soup.find_all(attrs={"name": "contract"})]
     contract_list = [var.lower()+item for item in contract_list]
     return contract_list
 
 
-def get_dce_rank_table(date="20200727", vars_list=cons.contract_symbols):
+def get_dce_rank_table(date="20201026", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细
     注: 该交易所既公布品种排名, 也公布标的合约排名
@@ -416,6 +416,7 @@ def get_dce_rank_table(date="20200727", vars_list=cons.contract_symbols):
     big_dict = {}
     for var in vars_list:
         symbol_list = _get_dce_contract_list(date, var)
+        print(symbol_list)
         for symbol in symbol_list:
             url = cons.DCE_VOL_RANK_URL_1 % (var.lower(), symbol, var.lower(), date.year, date.month - 1, date.day)
             list_60_name = []
@@ -423,6 +424,7 @@ def get_dce_rank_table(date="20200727", vars_list=cons.contract_symbols):
             list_60_chg = []
             rank = []
             texts = requests_link(url).content.splitlines()
+            # print(texts)
             if not texts:
                 return False
             if len(texts) > 30:
@@ -707,7 +709,7 @@ if __name__ == '__main__':
     print(get_dce_rank_table_second_df)
     get_dce_rank_table_third_df = get_dce_rank_table(date='20200929')
     print(get_dce_rank_table_third_df)
-    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20200928')
+    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20201026')
     print(get_dce_rank_table_fourth_df)
 
     # 总接口

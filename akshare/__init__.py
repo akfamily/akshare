@@ -1107,9 +1107,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.85: fix: fix stock_a_pb and stock_a_pe interface
 0.6.86: fix: fix stock_zh_a_minute interface
 0.6.87: fix: remove email interface
+0.6.88: fix: fix get_dce_rank_table interface
 """
 
-__version__ = "0.6.87"
+__version__ = "0.6.88"
 __author__ = "Albert King"
 
 import sys
