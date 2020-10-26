@@ -416,7 +416,6 @@ def get_dce_rank_table(date="20201026", vars_list=cons.contract_symbols):
     big_dict = {}
     for var in vars_list:
         symbol_list = _get_dce_contract_list(date, var)
-        print(symbol_list)
         for symbol in symbol_list:
             url = cons.DCE_VOL_RANK_URL_1 % (var.lower(), symbol, var.lower(), date.year, date.month - 1, date.day)
             list_60_name = []
