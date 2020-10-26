@@ -492,7 +492,7 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date='20131016', end_date='20131017', market='SHFE', index_bar=False)
+    get_futures_daily_df = get_futures_daily(start_date='20200701', end_date='20200716', market='SHFE', index_bar=True)
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20030109")
