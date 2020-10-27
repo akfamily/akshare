@@ -290,7 +290,7 @@ def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     return data
 
 
-def get_czce_rank_table(date="20200727", vars_list=cons.contract_symbols):
+def get_czce_rank_table(date="20201026", vars_list=cons.contract_symbols):
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
@@ -694,6 +694,8 @@ def futures_dce_position_rank_other(date="20160104"):
 if __name__ == '__main__':
     # 郑州商品交易所
     get_czce_rank_table_first_df = get_czce_rank_table(date='20151026', vars_list=["SR"])
+    print(get_czce_rank_table_first_df)
+    get_czce_rank_table_first_df = get_czce_rank_table(date='20201026')
     print(get_czce_rank_table_first_df)
     # 中国金融期货交易所
     get_cffex_rank_table_df = get_cffex_rank_table(date='20200325')
