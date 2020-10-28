@@ -625,6 +625,10 @@
  # 加密货币历史数据
  "crypto_hist"  # 加密货币历史数据
  "crypto_name_map"  # 加密货币货币名称
+ # 基金排行
+ "fund_em_open_fund_rank"  # 开放式基金排行
+ "fund_em_exchange_rank"  # 场内交易基金排行
+ "fund_em_money_rank"  # 货币型基金排行
 ```
 
 ## 案例演示
