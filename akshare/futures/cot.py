@@ -387,7 +387,7 @@ def _get_dce_contract_list(date, var):
 def get_dce_rank_table(date="20201026", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细
-    注: 该交易所既公布品种排名, 也公布标的合约排名
+    注: 该交易所只公布标的合约排名
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象, 为空时为当天
     :param vars_list: 合约品种如 RB、AL等列表为空时为所有商品, 数据从 20060104 开始，每交易日 16:30 左右更新数据
     :return: pandas.DataFrame

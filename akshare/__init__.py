@@ -1110,9 +1110,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.88: fix: fix get_dce_rank_table interface
 0.6.89: fix: fix get_dce_rank_table interface
 0.6.90: add: add fund_em_rank interface
+0.6.91: fix: fix get_futures_daily interface
 """
 
-__version__ = "0.6.90"
+__version__ = "0.6.91"
 __author__ = "Albert King"
 
 import sys
