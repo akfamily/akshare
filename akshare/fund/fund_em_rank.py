@@ -4,6 +4,8 @@
 Date: 2020/10/28 14:04
 Desc: 东方财富网-数据中心-开放式基金排行
 http://fund.eastmoney.com/data/fundranking.html
+名词解释
+http://help.1234567.com.cn/list_236.html
 """
 import datetime
 

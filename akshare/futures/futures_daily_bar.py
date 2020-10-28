@@ -412,7 +412,7 @@ def get_dce_daily(date="20030115"):
     return data_df
 
 
-def get_futures_daily(start_date="20200601", end_date="20200908", market="SHFE", index_bar=False):
+def get_futures_daily(start_date="20201026", end_date="20201027", market="SHFE", index_bar=False):
     """
     交易所日交易数据
     Parameters
@@ -479,6 +479,7 @@ def get_futures_index(df):
             ].sum()
             if "efp" in df_cut.iloc[-1, 0]:
                 df_cut = df_cut.iloc[:-1, :]
+            df_cut.replace("", 0, inplace=True)  # 20201026 部分数据开盘价空缺
             index_df[["open", "high", "low", "close", "settle", "pre_settle"]] = np.dot(
                 np.array(
                     df_cut[["open", "high", "low", "close", "settle", "pre_settle"]]
@@ -492,7 +493,7 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date='20200701', end_date='20200716', market='SHFE', index_bar=True)
+    get_futures_daily_df = get_futures_daily(start_date='20201026', end_date='20201027', market="SHFE", index_bar=True)
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20030109")
