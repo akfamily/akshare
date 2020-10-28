@@ -47,7 +47,7 @@ def fund_em_open_fund_daily() -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
     }
-    url = f"http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx"
+    url = "http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx"
     params = {
         "t": "1",
         "lx": "1",
@@ -332,7 +332,7 @@ def fund_em_financial_fund_daily() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -1])
+    data_json = demjson.decode(text_data[text_data.find("{"): -1])
     temp_df = pd.DataFrame(data_json["Data"]["List"])
     show_day = data_json["Data"]["showday"]
     data_df = temp_df[

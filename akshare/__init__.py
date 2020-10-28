@@ -1109,9 +1109,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.87: fix: remove email interface
 0.6.88: fix: fix get_dce_rank_table interface
 0.6.89: fix: fix get_dce_rank_table interface
+0.6.90: add: add fund_em_rank interface
 """
 
-__version__ = "0.6.89"
+__version__ = "0.6.90"
 __author__ = "Albert King"
 
 import sys
@@ -1121,6 +1122,15 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+公募基金排行
+"""
+from akshare.fund.fund_em_rank import (
+    fund_em_exchange_rank,
+    fund_em_money_rank,
+    fund_em_open_fund_rank,
+)
 
 """
 英为财情-加密货币
