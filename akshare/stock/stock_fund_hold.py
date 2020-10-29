@@ -30,55 +30,57 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20200630")
         "信托持仓": "6",
     }
     date = "-".join([date[:4], date[4:6], date[6:]])
-    url = "http://data.eastmoney.com/zlsj/zlsj_list.aspx"
+    url = "http://data.eastmoney.com/dataapi/zlsj/list"
     params = {
-        "type": "ajax",
-        "st": "2",
-        "sr": "-1",
+        "tkn": "eastmoney",
+        "ReportDate": date,
+        "code": "",
+        "type": symbol_map[symbol],
+        "zjc": "0",
+        "sortField": "Count",
+        "sortDirec": "1",
+        "pageNum": "1",
+        "pageSize": "50000",
+        "cfg": "jjsjtj",
         "p": "1",
-        "ps": "10000",
-        "jsObj": "EKHDBOTH",
-        "stat": symbol_map[symbol],
-        "cmd": "1",
-        "date": date,
-        "rt": "53179965",
+        "pageNo": "1",
     }
     r = requests.get(url, params=params)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"):])
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df["RDate"] = pd.to_datetime(
-        temp_df["RDate"].str.strip("/Date(").str.strip(")"), unit="ms"
-    )
+    temp_df.reset_index(inplace=True)
+    temp_df["index"] = list(range(1, len(temp_df)+1))
     temp_df.columns = [
-        "stock_code",
-        "stock_name",
-        "pub_date",
+        "序号",
+        "股票代码",
+        "股票简称",
         "_",
         "_",
-        "hold_num",
-        "hold_change",
-        "share_hold_num",
-        "value_position",
         "_",
+        "持有基金家数",
+        "持股变化",
+        "持股总数",
+        "持股市值",
+        "持股变动比例",
         "_",
-        "hold_value_change",
-        "hold_rate_change",
+        "持股变动数值",
+        "_",
     ]
     temp_df = temp_df[[
-        "stock_code",
-        "stock_name",
-        "pub_date",
-        "hold_num",
-        "hold_change",
-        "share_hold_num",
-        "value_position",
-        "hold_value_change",
-        "hold_rate_change",
+        "序号",
+        "股票代码",
+        "股票简称",
+        "持有基金家数",
+        "持股总数",
+        "持股市值",
+        "持股变化",
+        "持股变动数值",
+        "持股变动比例",
     ]]
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="社保持仓", date="20200630")
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="基金持仓", date="20200630")
     print(stock_report_fund_hold_df)
