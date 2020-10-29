@@ -629,6 +629,8 @@
  "fund_em_open_fund_rank"  # 开放式基金排行
  "fund_em_exchange_rank"  # 场内交易基金排行
  "fund_em_money_rank"  # 货币型基金排行
+ # 回购定盘利率
+ "repo_rate_hist"  # 回购定盘利率
 ```
 
 ## 案例演示
