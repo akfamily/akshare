@@ -818,6 +818,7 @@ def macro_china_market_margin_sh():
     temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
     value_df = value_df.append(temp_df)
     value_df.drop_duplicates(inplace=True)
+    value_df.sort_index(inplace=True)
     return value_df
 
 
