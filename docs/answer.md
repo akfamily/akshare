@@ -75,3 +75,6 @@ pd.set_option('display.max_rows', None)
 stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
+
+11. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
+    1. 需要 64 位的操作系统
