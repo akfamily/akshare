@@ -460,10 +460,10 @@ if __name__ == '__main__':
     stock_em_hsgt_hold_stock_df = stock_em_hsgt_hold_stock(market="沪股通", indicator="10日排行")
     print(stock_em_hsgt_hold_stock_df)
 
-    stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(market="南向持股", start_date="20200922", end_date="20200922")
+    stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(market="南向持股", start_date="20201022", end_date="20201022")
     print(stock_em_hsgt_stock_statistics_df)
 
-    stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(market="北向持股", start_date="20200913", end_date="20200914")
+    stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(market="北向持股", start_date="20201028", end_date="20201028")
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_hist_df = stock_em_hsgt_hist(symbol="港股通沪")
