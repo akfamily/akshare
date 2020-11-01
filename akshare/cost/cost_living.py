@@ -28,7 +28,7 @@ def _get_region():
 
 def cost_living(region="world"):
     """
-    获取国家或地区生活成本数据
+    国家或地区生活成本数据
     https://expatistan.com/cost-of-living/index
     :param region: str ["europe", "north-america", "latin-america", "asia", "middle-east", "africa", "oceania", "world"]
     :return: pandas.DataFrame
