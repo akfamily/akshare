@@ -77,4 +77,4 @@ print(stock_zh_index_daily_df)
 ```
 
 11. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
-    1. 需要 64 位的操作系统
+    1. 安装 64 位的 Python
