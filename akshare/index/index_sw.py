@@ -35,6 +35,13 @@ def sw_index_spot():
 
 
 def sw_index_cons(index_code="801010"):
+    """
+
+    :param index_code:
+    :type index_code:
+    :return:
+    :rtype:
+    """
     url = f'http://www.swsindex.com/downfile.aspx?code={index_code}'
     res = requests.get(url)
     if res is not None:
@@ -169,7 +176,7 @@ def sw_index_daily_indicator(index_code="801010", start_date="2019-12-01", end_d
 if __name__ == "__main__":
     sw_index_df = sw_index_spot()
     print(sw_index_df)
-    sw_index_df = sw_index_cons(index_code="801010")
+    sw_index_df = sw_index_cons(index_code="801020")
     print(sw_index_df)
     sw_index_df = sw_index_daily(index_code="801010", start_date="2019-12-01", end_date="2019-12-07")
     print(sw_index_df)

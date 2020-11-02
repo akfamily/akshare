@@ -61,7 +61,7 @@ def energy_oil_detail(date: str = "2020-03-19") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -1])
+    data_json = json.loads(data_text[data_text.find("{"): -1])
     data_df = pd.DataFrame(data_json["result"]["data"]).iloc[:, 1:]
     return data_df
 

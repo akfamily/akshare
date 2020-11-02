@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/18 12:32
+Date: 2020/12/18 12:32
 Desc: 获取世界各大城市生活成本数据
 https://expatistan.com/cost-of-living/index
 """
@@ -26,7 +26,7 @@ def _get_region():
     return name_url_dict
 
 
-def cost_living(region="world"):
+def cost_living(region: str = "world") -> pd.DataFrame:
     """
     国家或地区生活成本数据
     https://expatistan.com/cost-of-living/index
