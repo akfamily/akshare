@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/18 12:32
+Date: 2020/12/18 12:32
 Desc: 获取世界各大城市生活成本数据
 https://expatistan.com/cost-of-living/index
 """
@@ -19,14 +19,20 @@ def _get_region():
     """
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "lxml")
-    half_url_list = [item["href"] for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")]
-    name_list = [item["href"].split("/")[-1] for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")]
+    half_url_list = [
+        item["href"]
+        for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")
+    ]
+    name_list = [
+        item["href"].split("/")[-1]
+        for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")
+    ]
     name_url_dict = dict(zip(name_list, half_url_list))
     name_url_dict["world"] = "/cost-of-living/index"
     return name_url_dict
 
 
-def cost_living(region="world"):
+def cost_living(region: str = "world") -> pd.DataFrame:
     """
     国家或地区生活成本数据
     https://expatistan.com/cost-of-living/index
@@ -40,7 +46,6 @@ def cost_living(region="world"):
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     cost_living_df = cost_living()
     print(cost_living_df)
-

@@ -19,14 +19,14 @@ from akshare.cost.cost_living import cost_living
 #     assert franchise_china_df.shape[0] > 0
 
 
-# def test_cost_living():
-#     """
-#     just for test aim
-#     :return:
-#     :rtype:
-#     """
-#     cost_living_df = cost_living()
-#     assert cost_living_df.shape[0] > 0
+def test_cost_living():
+    """
+    just for test aim
+    :return:
+    :rtype:
+    """
+    cost_living_df = cost_living()
+    assert cost_living_df.shape[0] > 0
 
 
 # def test_weibo_index():
@@ -39,7 +39,7 @@ from akshare.cost.cost_living import cost_living
 #     assert weibo_index_df.shape[0] > 0
 
 
-# if __name__ == "__main__":
-#     # test_weibo_index()
-#     # test_franchise_china()
-#     # test_cost_living()
+if __name__ == "__main__":
+    # test_weibo_index()
+    # test_franchise_china()
+    test_cost_living()
