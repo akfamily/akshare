@@ -474,6 +474,7 @@
  "stock_em_hsgt_stock_statistics"  # 沪深港通持股-每日个股统计
  "stock_em_hsgt_institution_statistics"  # 沪深港通持股-每日机构统计
  "stock_em_hsgt_hist"  # 沪深港通历史数据
+ "stock_em_hsgt_board_rank"  # 板块排行
  # 两市停复牌
  "stock_em_tfp"  # 两市停复牌数据
  # 恐慌指数
