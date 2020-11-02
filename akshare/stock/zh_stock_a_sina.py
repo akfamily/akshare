@@ -48,7 +48,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = _get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
-    for page in tqdm(range(1, page_count+1), desc="Please wait for a moment"):
+    for page in tqdm(range(1, page_count + 1), desc="Please wait for a moment"):
         zh_sina_stock_payload_copy.update({"page": page})
         r = requests.get(
             zh_sina_a_stock_url,
@@ -85,6 +85,32 @@ def stock_zh_a_daily(symbol: str = "sh600751", adjust: str = "") -> pd.DataFrame
     :return: specific data
     :rtype: pandas.DataFrame
     """
+
+    def _fq_factor(method):
+        if method == 'hfq':
+            res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+            hfq_factor_df = pd.DataFrame(
+                eval(res.text.split("=")[1].split("\n")[0])['data'])
+            if hfq_factor_df.shape[0] == 0:
+                raise ValueError('sina hfq factor not available')
+            hfq_factor_df.columns = ["date", "hfq_factor"]
+            hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
+            del hfq_factor_df["date"]
+            return hfq_factor_df
+        else:
+            res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+            qfq_factor_df = pd.DataFrame(
+                eval(res.text.split("=")[1].split("\n")[0])['data'])
+            if qfq_factor_df.shape[0] == 0:
+                raise ValueError('sina hfq factor not available')
+            qfq_factor_df.columns = ["date", "qfq_factor"]
+            qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
+            del qfq_factor_df["date"]
+            return qfq_factor_df
+
+    if adjust in ("hfq-factor", "qfq-factor"):
+        return _fq_factor(adjust.split('-')[0])
+
     res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
@@ -150,24 +176,6 @@ def stock_zh_a_daily(symbol: str = "sh600751", adjust: str = "") -> pd.DataFrame
         temp_df.dropna(how="any", inplace=True)
         return temp_df.iloc[:, :-1]
 
-    if adjust == "hfq-factor":
-        res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
-        hfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])['data'])
-        hfq_factor_df.columns = ["date", "hfq_factor"]
-        hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
-        del hfq_factor_df["date"]
-        return hfq_factor_df
-
-    if adjust == "qfq-factor":
-        res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
-        qfq_factor_df = pd.DataFrame(
-            eval(res.text.split("=")[1].split("\n")[0])['data'])
-        qfq_factor_df.columns = ["date", "qfq_factor"]
-        qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
-        del qfq_factor_df["date"]
-        return qfq_factor_df
-
 
 def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str = "") -> pd.DataFrame:
     """
@@ -202,7 +210,8 @@ def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str =
         need_df = temp_df[temp_df["time"] == "15:00:00"]
         need_df.index = need_df["date"]
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
-        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
+        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(
+            float)
         temp_df.index = pd.to_datetime(temp_df["date"])
         merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
         merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
@@ -217,7 +226,8 @@ def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str =
         need_df = temp_df[temp_df["time"] == "15:00:00"]
         need_df.index = need_df["date"]
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")
-        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
+        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(
+            float)
         temp_df.index = pd.to_datetime(temp_df["date"])
         merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
         merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
