@@ -45,5 +45,5 @@ def repo_rate_hist(start_date: str = "20200930", end_date: str = "20201029") -> 
 
 
 if __name__ == '__main__':
-    repo_rate_hist_df = repo_rate_hist(start_date="20200930", end_date="20201029")
+    repo_rate_hist_df = repo_rate_hist(start_date="20200830", end_date="20200929")
     print(repo_rate_hist_df)
