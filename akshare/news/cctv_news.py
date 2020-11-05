@@ -56,5 +56,5 @@ def news_cctv(date: str = "20200902") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_cctv_df = news_cctv(date="20201027")
+    news_cctv_df = news_cctv(date="20201104")
     print(news_cctv_df)

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/10 21:55
+Date: 2020/11/5 14:55
 Desc: 历年世界 500 强榜单数据
 http://www.fortunechina.com/fortune500/index.htm
 特殊情况说明：
@@ -16,14 +16,14 @@ from bs4 import BeautifulSoup
 from akshare.fortune.cons import *
 
 
-def fortune_rank(year="2015"):
+def fortune_rank(year: str = "2015") -> pd.DataFrame:
     """
-    财富500强公司从1996年开始的排行榜
+    财富 500 强公司从 1996 年开始的排行榜
     http://www.fortunechina.com/fortune500/index.htm
     :param year: str 年份
     :return: pandas.DataFrame
     """
-    if int(year) in [item for item in range(2014, 2020)] + [item for item in range(1996, 2007)]:
+    if int(year) in [item for item in range(2014, 2021)] + [item for item in range(1996, 2007)]:
         if year in ["2006", "2007"]:
             res = requests.get(eval("url_" + year))
             res.encoding = "utf-8"
@@ -41,6 +41,11 @@ def fortune_rank(year="2015"):
             res.encoding = "utf-8"
             df = pd.read_html(res.text)[0].iloc[1:, 1:]
             df.columns = pd.read_html(res.text)[0].iloc[0, 1:].tolist()
+            return df
+        elif year in ["2020"]:
+            res = requests.get(eval("url_" + year))
+            res.encoding = "utf-8"
+            df = pd.read_html(res.text)[0].iloc[:, :-1]
             return df
         else:
             res = requests.get(eval("url_" + year))
@@ -107,22 +112,26 @@ def fortune_rank(year="2015"):
         return df
 
 
-def fortune_rank_eng(year="1995"):
+def fortune_rank_eng(year: str = "1995") -> pd.DataFrame:
     """
     注意你的网速
     https://fortune.com/global500/
     https://fortune.com/global500/2012/search/
     :param year: "1995"
     :type year: str
-    :return:
+    :return: 历年排名
     :rtype: pandas.DataFrame
     """
     url = f"https://fortune.com/global500/{year}/search/"
     res = requests.get(url)
     soup = BeautifulSoup(res.text, "lxml")
-    code = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).get_text())["identifier"]
-    url = f"https://content.fortune.com/wp-json/irving/v1/data/franchise-search-results?list_id={code}"
-    res = requests.get(url)
+    code = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).string)["identifier"]
+    url = f"https://content.fortune.com/wp-json/irving/v1/data/franchise-search-results"
+    params = {
+        "list_id": code,
+        "token": "Zm9ydHVuZTpCcHNyZmtNZCN5SndjWkkhNHFqMndEOTM=",
+    }
+    res = requests.get(url, params=params)
     big_df = pd.DataFrame()
     for i in range(len(res.json()[1]["items"][0]['fields'])):
         temp_df = pd.DataFrame([item["fields"][i] for item in res.json()[1]["items"]])
@@ -134,9 +143,9 @@ def fortune_rank_eng(year="1995"):
 
 
 if __name__ == '__main__':
-    fortune_rank_df = fortune_rank(year=2011)  # 2010 不一样
+    fortune_rank_df = fortune_rank(year="2020")  # 2010 不一样
     print(fortune_rank_df)
-    for year in range(1995, 2020):
-        print(year)
-        fortune_eng_df = fortune_rank_eng(year=year)
+    for i_year in range(1995, 2020):
+        print(i_year)
+        fortune_eng_df = fortune_rank_eng(year=i_year)
         print(fortune_eng_df)

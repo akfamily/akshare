@@ -1117,9 +1117,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.95: fix: fix macro_china_market_margin_sh interface
 0.6.96: fix: fix stock_zh_a_daily interface
 0.6.97: add: add stock_em_hsgt_board_rank interface
+0.6.98: fix: fix fortune_rank interface
 """
 
-__version__ = "0.6.97"
+__version__ = "0.6.98"
 __author__ = "Albert King"
 
 import sys
