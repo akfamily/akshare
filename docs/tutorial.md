@@ -632,6 +632,8 @@
  "fund_em_money_rank"  # 货币型基金排行
  # 回购定盘利率
  "repo_rate_hist"  # 回购定盘利率
+ # 福布斯中国榜单
+ "forbes_rank"  # 福布斯中国榜单
 ```
 
 ## 案例演示
