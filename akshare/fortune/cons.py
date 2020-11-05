@@ -11,6 +11,7 @@ it_headers = {
 it_url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/juzi.csv"
 
 # fortune
+url_2020 = "http://www.fortunechina.com/fortune500/c/2020-08/10/content_372148.htm"
 url_2019 = "http://www.fortunechina.com/fortune500/c/2019-07/22/content_339535.htm"
 url_2018 = "http://www.fortunechina.com/fortune500/c/2018-07/19/content_311046.htm"
 url_2017 = "http://www.fortunechina.com/fortune500/c/2017-07/20/content_286785.htm"
