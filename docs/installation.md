@@ -2,7 +2,7 @@
 
 ## 重要提示
 
-1. 首先请确认安装 [Python](https://www.python.org/) 3.7 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.7.5 版本;
+1. 首先请确认安装 [Python](https://www.python.org/) 3.7(64 位) 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.8.5(64 位) 版本;
 2. [AkShare](https://github.com/jindaxiang/akshare) 推荐安装最新版本的 [Anaconda](https://www.anaconda.com/), 可以解决大部分安装问题.
 
 ## 安装 [AkShare](https://github.com/jindaxiang/akshare)
@@ -133,7 +133,7 @@ pip install akshare --upgrade
 
 ### 安装 Anaconda
 
-[下载 Windows 64 位 Python 3.7 的 Anaconda](https://repo.anaconda.com/archive/Anaconda3-2020.02-Windows-x86_64.exe)
+[下载 Windows 64 位 Python 3.8 的 Anaconda](https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe)
 
 [安装教程参见 AkShare 文档的环境配置专栏](https://www.akshare.xyz/zh_CN/latest/anaconda.html)
 
@@ -143,7 +143,7 @@ pip install akshare --upgrade
 
 [下载 RStudio](https://download1.rstudio.org/desktop/windows/RStudio-1.3.959.exe)
 
-先安装 R，再安装 RStudio，按一下部安装即可。
+先安装 R，再安装 RStudio，按一下步安装即可。
 
 ### 在 R 语言中安装相应的包
 
@@ -222,7 +222,7 @@ pip install 带后缀的完整路径和文件名
 
 ### 2. 安装超时的错误
 
-1.大致报错如下, 出现关键词 **amt**:
+1.大致报错如下, 出现关键词 **amt** :
 
 ```
 Traceback (most recent call last):
@@ -248,7 +248,7 @@ pip --default-timeout=100 install -U akshare
 
 ### 3. 拒绝访问错误
 
-1.大致报错如下, 出现关键词 **拒绝访问**:
+1.大致报错如下, 出现关键词 **拒绝访问** :
 
 ```
 Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Users/mac/Anaconda/anaconda3/lib/python3.7/site-packages/cv2/__init__.py'
@@ -269,5 +269,5 @@ pip install akshare --user
 
 ### 4. 提示其他的错误
 
-- 方法一: 升级您的 Anaconda 或者 Python 到 **Python3.7.5** 及以上版本
-- 方法二: 使用 conda 的虚拟环境来安装, 详见 **AkShare 环境配置**板块的内容
+- 方法一: 确认并升级您的 Anaconda 或者 Python 到 64 位的 **Python3.7** 及以上版本
+- 方法二: 使用 conda 的虚拟环境来安装, 详见 **AkShare 环境配置** 板块的内容

@@ -10,7 +10,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 
-def forbes_rank(indicator: str = "2020福布斯中国名人榜") -> pd.DataFrame:
+def forbes_rank(indicator: str = "2020福布斯美国富豪榜") -> pd.DataFrame:
     """
     福布斯中国-榜单
     https://www.forbeschina.com/lists
@@ -42,5 +42,5 @@ def forbes_rank(indicator: str = "2020福布斯中国名人榜") -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    forbes_rank_df = forbes_rank(indicator="2020福布斯全球亿万富豪榜")
+    forbes_rank_df = forbes_rank(indicator="2020福布斯美国富豪榜")
     print(forbes_rank_df)
