@@ -4,6 +4,7 @@
 Date: 2020/4/8 14:39
 Desc: 宽客在线-阿尔戈斯全网监控预警系统
 https://www.quantinfo.com/Argus/
+20201104 网站不能访问
 """
 import pandas as pd
 import requests
