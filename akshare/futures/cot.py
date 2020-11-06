@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/9/29 13:06
+Date: 2020/11/6 13:06
 Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所
 采集前 20 会员持仓数据;
@@ -531,7 +531,7 @@ def _table_cut_cal(table_cut, symbol):
     return table_cut
 
 
-def futures_dce_position_rank(date: str = "20160104") -> pd.DataFrame:
+def futures_dce_position_rank(date: str = "20201105") -> pd.DataFrame:
     """
     大连商品交易日每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
@@ -578,6 +578,10 @@ def futures_dce_position_rank(date: str = "20160104") -> pd.DataFrame:
             try:
                 data = pd.read_table(z.open(i), header=None, sep="\t").iloc[:-6]
                 if len(data) < 12:  # 处理没有活跃合约的情况
+                    big_dict[file_name.split("_")[1]] = pd.DataFrame()
+                    continue
+                temp_filter = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
+                if temp_filter[1] - temp_filter[0] < 5:  # 过滤有无成交量但是有买卖持仓的数据, 如 20201105_c2011_成交量_买持仓_卖持仓排名.txt
                     big_dict[file_name.split("_")[1]] = pd.DataFrame()
                     continue
                 start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
@@ -717,7 +721,7 @@ if __name__ == '__main__':
     get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200714", end_day="20200715")
     print(get_rank_sum_daily_df)
 
-    futures_dce_detail_dict = futures_dce_position_rank(date="20200506")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20201105")
     print(futures_dce_detail_dict)
     futures_dce_position_rank_other_df = futures_dce_position_rank_other(date="20200727")
     print(futures_dce_position_rank_other_df)
