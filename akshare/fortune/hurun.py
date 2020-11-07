@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def hurun_rank(indicator="百富榜", year: str = "2012") -> pd.DataFrame:
+def hurun_rank(indicator: str = "百富榜", year: str = "2020") -> pd.DataFrame:
     """
     胡润排行榜
     http://www.hurun.net/CN/HuList/Index?num=3YwKs889SRIm
@@ -73,7 +73,6 @@ def hurun_rank(indicator="百富榜", year: str = "2012") -> pd.DataFrame:
                 "品牌",
             ]
         ]
-
         temp_df["类别"].replace("", np.nan, inplace=True)
         temp_df.fillna(method="ffill", inplace=True)
         return temp_df
