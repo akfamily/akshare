@@ -1664,4 +1664,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.99: add: add forbes_rank interface
 
 0.7.1: fix: fix futures_dce_position_rank interface
+
+0.7.2: add: add xincaifu_rank interface
 ```

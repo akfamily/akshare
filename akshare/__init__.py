@@ -1120,9 +1120,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.98: fix: fix fortune_rank interface
 0.6.99: add: add forbes_rank interface
 0.7.1: fix: fix futures_dce_position_rank interface
+0.7.2: add: add xincaifu_rank interface
 """
 
-__version__ = "0.7.1"
+__version__ = "0.7.2"
 __author__ = "Albert King"
 
 import sys
@@ -1132,6 +1133,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+新财富富豪榜
+"""
+from akshare.fortune.xincaifu_500 import xincaifu_rank
 
 """
 福布斯中国榜单
