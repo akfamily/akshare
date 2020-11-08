@@ -1670,4 +1670,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.3: add: add hurun_rank interface
 
 0.7.4: fix: fix hurun_rank interface
+
+0.7.5: add: add currency_pair_map interface
 ```
