@@ -216,6 +216,54 @@ print(fx_df)
 10  EUR/GBP  0.86544  0.86546      ---
 ```
 
+### 指定币种的所有货币对
+
+接口: currency_pair_map
+
+目标地址: https://cn.investing.com/currencies/cny-jmd
+
+描述: 获取指定币种的所有能够获取到的货币对信息，历史数据可以调用 **currency_history** 获取
+
+限量: 单次返回指定币种的所有能获取数据的货币对
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str | Y | symbol="人民币"; 此处提供中文的币种名称, 可以访问[网页](https://cn.investing.com/currencies/cny-jmd) 的页面下方查看 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| name      | str   | Y        | 货币对中文简称  |
+| code      | float   | Y        | 货币对代码   |
+
+接口示例
+
+```python
+import akshare as ak
+currency_pair_map_df = ak.currency_pair_map(symbol="人民币")
+print(currency_pair_map_df)
+```
+
+数据示例
+
+```
+          name     code
+0     人民币-丹麦克朗  cny-dkk
+1     丹麦克朗-人民币  dkk-cny
+2     人民币-瑞士法郎  cny-chf
+3     瑞士法郎-人民币  chf-cny
+4     人民币-捷克克朗  cny-czk
+..         ...      ...
+85   人民币-澳大利亚元  cny-aud
+86   澳大利亚元-人民币  aud-cny
+87    人民币-新西兰元  cny-nzd
+88    新西兰元-人民币  nzd-cny
+89  人民币-巴拿马巴波亚  cny-pab
+```
+
 ### 外币对历史数据
 
 接口: currency_hist
@@ -228,9 +276,9 @@ print(fx_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述     |
 | -------- | ---- | ---- | --- |
-| symbol | str | Y | symbol="usd-jpy"; 可以通过 **currency_name_code** 查询该两种货币可以获取的所有货币对 |
+| symbol | str | Y | symbol="usd-jpy"; 可以通过 **currency_name_code** 查询该两种货币可以获取的所有货币对或通过 **currency_pair_map** 获取指定币种的所有货币对 |
 | start_date | str | Y | start_date="20050101" |
 | end_date | str | Y | end_date="20200117" |
 

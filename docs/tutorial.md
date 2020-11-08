@@ -442,6 +442,9 @@
  "currency_time_series"  # 指定日期间的时间序列数据-需要权限
  "currency_currencies"  # 查询所支持的货币信息
  "currency_convert"  # 货币换算
+ "currency_hist"  # 指定历史日期的货币对的历史报价
+ "currency_pair_map"  # 指定货币的所有可获取货币对的数据
+ "currency_name_code"  # 当前所有可兑换货币对
  # 工具-GitHub
  "tool_github_star_list"  # GitHub Star 的用户
  "tool_github_email_address"  # GitHub 用户的邮箱

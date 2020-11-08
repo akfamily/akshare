@@ -86,6 +86,7 @@ def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01"
     :return: 指定城市指定日期区间的观测点空气质量
     :rtype: pandas.DataFrame
     """
+
     url = "https://www.zq12369.com/api/zhenqiapi.php"
     file_data = _get_file_content(file_name="crypto.js")
     ctx = py_mini_racer.MiniRacer()
@@ -237,7 +238,7 @@ if __name__ == "__main__":
     print(air_city_list_map)
 
     air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="2020-07-23", end_date="2020-07-30"
+        city="杭州", start_date="2020-11-01", end_date="2020-11-07"
     )
     print(air_quality_watch_point_df)
 

@@ -1123,9 +1123,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.2: add: add xincaifu_rank interface
 0.7.3: add: add hurun_rank interface
 0.7.4: fix: fix hurun_rank interface
+0.7.5: add: add currency_pair_map interface
 """
 
-__version__ = "0.7.4"
+__version__ = "0.7.5"
 __author__ = "Albert King"
 
 import sys
@@ -1629,6 +1630,7 @@ from akshare.event.covid import (
 from akshare.fx.currency_investing import (
     currency_hist,
     currency_name_code,
+    currency_pair_map,
 )
 
 """
