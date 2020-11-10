@@ -274,6 +274,6 @@ if __name__ == "__main__":
     for i_item in currency_pair_map_df["code"].to_list():
         print(i_item)
         currency_hist_df = currency_hist(
-            symbol=i_item, start_date="20000101", end_date="20201108"
+            symbol=i_item, start_date="20000101", end_date="20201109"
         )
         print(currency_hist_df)
