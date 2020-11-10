@@ -48,8 +48,8 @@
  # 智道智科-私募指数数据
  "get_zdzk_fund_index"  # 获取智道智科-私募指数数据
  # 提供英为财情数据接口
- "get_country_index"  # 提供英为财情-股票指数-全球股指与期货指数数据
- "get_country_bond"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
+ "index_investing_global"  # 提供英为财情-股票指数-全球股指与期货指数数据
+ "bond_investing_global"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
  # 交易所商品期权数据
  "get_dce_option_daily"  # 提供大连商品交易所商品期权数据
  "get_czce_option_daily"  # 提供郑州商品交易所商品期权数据
