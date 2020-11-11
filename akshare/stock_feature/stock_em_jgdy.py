@@ -92,22 +92,24 @@ def stock_em_jgdy_detail():
     :return: 机构调研详细
     :rtype: pandas.DataFrame
     """
-    url = "http://data.eastmoney.com/DataCenter_V3/jgdy/xx.ashx"
-    page_num = _get_page_num_detail()
-    temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
-        params = {
-            "pagesize": "5000",
-            "page": str(page),
-            "js": "var SZGpIhFb",
-            "param": "",
-            "sortRule": "-1",
-            "sortType": "0",
-            "rt": "52581407",
-        }
-        res = requests.get(url, params=params)
-        data_json = json.loads(res.text[res.text.find("={")+1:])
-        temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    url = "http://datainterface3.eastmoney.com/EM_DataCenter_V3/api/JGDYMX/GetJGDYMX"
+    params = {
+        "js": "datatable8174128",
+        "tkn": "eastmoney",
+        "secuCode": "",
+        "dateTime": "",
+        "sortfield": "0",
+        "sortdirec": "1",
+        "pageNum": "1",
+        "pageSize": "5000",
+        "cfg": "jgdymx",
+        "_": "1605088363693",
+    }
+    r = requests.get(url, params=params)
+    data_json = json.loads(r.text[r.text.find("(")+1:-1])
+    temp_df = pd.DataFrame([item.split("|") for item in data_json["Data"][0]["Data"]])
+    temp_df.columns = data_json["Data"][0]["FieldName"].split(",") + ["_"]
+    temp_df = temp_df.iloc[:, :-1]
     return temp_df
 
 
