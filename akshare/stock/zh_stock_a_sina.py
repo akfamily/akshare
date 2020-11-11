@@ -242,7 +242,7 @@ def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str =
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sh600751", adjust="hfq")
     print(stock_zh_a_daily_hfq_df)
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600582")
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600751")
     print(stock_zh_a_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
