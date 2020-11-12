@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 
 
-def stock_info_sz_name_code(indicator="AB股列表"):
+def stock_info_sz_name_code(indicator: str = "主板") -> pd.DataFrame:
     """
     深圳证券交易所-股票列表
     http://www.szse.cn/market/companys/company/index.html
@@ -29,6 +29,14 @@ def stock_info_sz_name_code(indicator="AB股列表"):
              "TABKEY": indicator_map[indicator],
              "random": "0.6935816432433362",
         }
+        r = requests.get(url, params=params)
+        temp_df = pd.read_excel(BytesIO(r.content))
+        if indicator == "A股列表":
+            temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.zfill(6)
+            return temp_df
+        else:
+            temp_df["A股代码"] = temp_df["A股代码"].fillna(0).astype(int).astype(str).str.zfill(6).replace("000000", "-")
+            return temp_df
     else:
         indicator_map = {"上市公司列表": "tab1", "主板": "tab2", "中小企业板": "tab3", "创业板": "tab4"}
         params = {
@@ -37,10 +45,10 @@ def stock_info_sz_name_code(indicator="AB股列表"):
             "TABKEY": indicator_map[indicator],
             "random": "0.6935816432433362",
         }
-    r = requests.get(url, params=params)
-    temp_df = pd.read_excel(BytesIO(r.content))
-    temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.zfill(6)
-    return temp_df
+        r = requests.get(url, params=params)
+        temp_df = pd.read_excel(BytesIO(r.content))
+        temp_df["A股代码"] = temp_df["A股代码"].fillna(0).astype(int).astype(str).str.zfill(6).replace("000000", "-")
+        return temp_df
 
 
 def stock_info_sh_name_code(indicator="主板A股"):
@@ -214,10 +222,23 @@ def stock_info_a_code_name():
 
 
 if __name__ == '__main__':
-    for item in ["A股列表", "B股列表", "上市公司列表", "主板", "中小企业板", "创业板"]:
-        print(item)
-        stock_info_sz_df = stock_info_sz_name_code(indicator=item)
-        print(stock_info_sz_df)
+    stock_info_sz_df = stock_info_sz_name_code(indicator="A股列表")
+    print(stock_info_sz_df)
+
+    stock_info_sz_df = stock_info_sz_name_code(indicator="B股列表")
+    print(stock_info_sz_df)
+
+    stock_info_sz_df = stock_info_sz_name_code(indicator="上市公司列表")
+    print(stock_info_sz_df)
+
+    stock_info_sz_df = stock_info_sz_name_code(indicator="主板")
+    print(stock_info_sz_df)
+
+    stock_info_sz_df = stock_info_sz_name_code(indicator="中小企业板")
+    print(stock_info_sz_df)
+
+    stock_info_sz_df = stock_info_sz_name_code(indicator="创业板")
+    print(stock_info_sz_df)
 
     stock_info_sh_df = stock_info_sh_name_code(indicator="科创板")
     print(stock_info_sh_df)

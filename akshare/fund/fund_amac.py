@@ -39,7 +39,7 @@ from akshare.fund.cons import (
 )
 
 
-def _get_pages(url="", payload=""):
+def _get_pages(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示 页数
     暂时不使用本函数, 直接可以获取所有数据
@@ -53,7 +53,7 @@ def _get_pages(url="", payload=""):
     return json_df["totalPages"]
 
 
-def get_data(url="", payload=""):
+def get_data(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示
     """
@@ -68,7 +68,7 @@ def get_data(url="", payload=""):
 
 # 中国证券投资基金业协会-信息公示-会员信息
 # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
-def amac_member_info():
+def amac_member_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
     http://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html
@@ -103,7 +103,7 @@ def amac_member_info():
 
 # 中国证券投资基金业协会-信息公示-从业人员信息
 # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-def amac_person_org_list():
+def amac_person_org_list() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
     http://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
@@ -135,7 +135,7 @@ def amac_person_org_list():
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
-def amac_manager_info():
+def amac_manager_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
     http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
@@ -171,7 +171,7 @@ def amac_manager_info():
 
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
-def amac_manager_classify_info():
+def amac_manager_classify_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/manager/managerList.html
@@ -207,7 +207,7 @@ def amac_manager_classify_info():
 
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
-def amac_member_sub_info():
+def amac_member_sub_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html?primaryInvestType=private
@@ -240,7 +240,7 @@ def amac_member_sub_info():
 
 # 中国证券投资基金业协会-信息公示-基金产品
 # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-def amac_fund_info():
+def amac_fund_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     http://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
@@ -276,7 +276,7 @@ def amac_fund_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
-def amac_securities_info():
+def amac_securities_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
@@ -316,7 +316,7 @@ def amac_securities_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司直投基金
-def amac_aoin_info():
+def amac_aoin_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司直投基金
     http://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
@@ -346,7 +346,7 @@ def amac_aoin_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
-def amac_fund_sub_info():
+def amac_fund_sub_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
     http://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
@@ -379,7 +379,7 @@ def amac_fund_sub_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
-def amac_fund_account_info():
+def amac_fund_account_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
@@ -408,7 +408,7 @@ def amac_fund_account_info():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
-def amac_fund_abs():
+def amac_fund_abs() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
     http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
@@ -446,7 +446,7 @@ def amac_fund_abs():
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
-def amac_futures_info():
+def amac_futures_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
@@ -487,7 +487,7 @@ def amac_futures_info():
 
 # 中国证券投资基金业协会-信息公示-诚信信息
 # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
-def amac_manager_cancelled_info():
+def amac_manager_cancelled_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-诚信信息公示-已注销私募基金管理人名单
     http://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
