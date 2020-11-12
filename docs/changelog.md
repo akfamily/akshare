@@ -1674,4 +1674,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.5: add: add currency_pair_map interface
 
 0.7.6: fix: fix stock_em_jgdy_detail interface
+
+0.7.7: fix: fix stock_info interface
 ```
