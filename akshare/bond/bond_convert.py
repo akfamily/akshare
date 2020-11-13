@@ -32,7 +32,7 @@ def bond_cov_jsl() -> pd.DataFrame:
         "rating_cd": "",
         "is_search": "N",
         "btype": "",
-        "listed": "Y",
+        # "listed": "Y",
         "sw_cd": "",
         "bond_ids": "",
         "rp": "50",
