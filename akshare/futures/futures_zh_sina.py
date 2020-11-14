@@ -83,13 +83,12 @@ def futures_zh_spot(
         market: str = "CF") -> pd.DataFrame:
     """
     期货的实时行情数据
-    # TODO 完善 docstrings
     :param subscribe_list: 行情的字符串组合
     :type subscribe_list: str
-    :param market:
-    :type market:
-    :return:
-    :rtype:
+    :param market: CF 为商品期货
+    :type market: str
+    :return: 期货的实时行情数据
+    :rtype: pandas.DataFrame
     """
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
     res = requests.get(url)
