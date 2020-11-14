@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/17 21:34
+Date: 2020/11/14 21:34
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意抓取速度, 容易封 IP 地址
@@ -18,7 +18,15 @@ from akshare.futures.cons import (zh_subscribe_exchange_symbol_url,
                                   zh_match_main_contract_payload)
 
 
-def zh_subscribe_exchange_symbol(exchange="dce"):
+def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
+    """
+    交易所具体的可交易品种
+    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+    :param exchange: choice of {'czce', 'dce', 'shfe', 'cffex'}
+    :type exchange: str
+    :return: 交易所具体的可交易品种
+    :rtype: dict
+    """
     res = requests.get(zh_subscribe_exchange_symbol_url)
     data_json = demjson.decode(
         res.text[res.text.find("{"): res.text.find("};") + 1])
@@ -36,11 +44,19 @@ def zh_subscribe_exchange_symbol(exchange="dce"):
         return pd.DataFrame(data_json["cffex"])
 
 
-def match_main_contract(exchange="dce"):
-    subscribe_cffex_list = []
+def match_main_contract(exchange: str = "dce") -> str:
+    """
+    获取主力合约
+    :param exchange: choice of {'czce', 'dce', 'shfe', 'cffex'}
+    :type exchange: str
+    :return: 获取主力合约的字符串
+    :rtype: str
+    """
+    subscribe_exchange_list = []
     exchange_symbol_list = zh_subscribe_exchange_symbol(
         exchange).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
+        # item = 'jhb_qh'
         zh_match_main_contract_payload.update({"node": item})
         res = requests.get(
             zh_match_main_contract_url,
@@ -50,17 +66,31 @@ def match_main_contract(exchange="dce"):
         try:
             main_contract = data_df[data_df.iloc[:, 3:].duplicated()]
             print(main_contract["symbol"].values[0])
-            subscribe_cffex_list.append(main_contract["symbol"].values[0])
+            subscribe_exchange_list.append(main_contract["symbol"].values[0])
         except:
-            print(item, "无主力合约")
+            if len(data_df) == 1:
+                subscribe_exchange_list.append(data_df['symbol'].values[0])
+                print(data_df['symbol'].values[0])
+            else:
+                print(item, "无主力合约")
             continue
-    print("主力合约获取成功")
-    return ','.join(["nf_" + item for item in subscribe_cffex_list])
+    print(f"{exchange}主力合约获取成功")
+    return ','.join(["nf_" + item for item in subscribe_exchange_list])
 
 
 def futures_zh_spot(
-        subscribe_list="nf_IF1912,nf_TF1912,nf_IH1912,nf_IC1912",
-        market="CF"):
+        subscribe_list: str = "nf_IF1912,nf_TF1912,nf_IH1912,nf_IC1912",
+        market: str = "CF") -> pd.DataFrame:
+    """
+    期货的实时行情数据
+    # TODO 完善 docstrings
+    :param subscribe_list: 行情的字符串组合
+    :type subscribe_list: str
+    :param market:
+    :type market:
+    :return:
+    :rtype:
+    """
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
     res = requests.get(url)
     data_df = pd.DataFrame([item.strip().split("=")[1].split(
