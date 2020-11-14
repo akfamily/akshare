@@ -1798,8 +1798,6 @@ print(stock_em_jgdy_tj_df)
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
-| ChangePercent          | str   | Y        | 涨跌幅     |
-| Close          | float   | Y        | 最新价     |
 | CompanyCode          | float   | Y        | 公司代码(不是股票代码)     |
 | CompanyName          | float   | Y        | 公司名称     |
 | OrgCode          | float   | Y        | 调研机构代码     |
@@ -1816,6 +1814,9 @@ print(stock_em_jgdy_tj_df)
 | OrgtypeName          | str   | Y        | 调研机构类型     |
 | Personnel          | str   | Y        | 调研人员     |
 | Licostaff          | str   | Y        | 接待人员     |
+| Maincontent          | str   | Y        | -     |
+| ChangePercent          | str   | Y        | 涨跌幅     |
+| Close          | float   | Y        | 最新价     |
 
 接口示例
 
