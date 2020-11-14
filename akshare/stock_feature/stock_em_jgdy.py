@@ -108,8 +108,7 @@ def stock_em_jgdy_detail():
     r = requests.get(url, params=params)
     data_json = json.loads(r.text[r.text.find("(")+1:-1])
     temp_df = pd.DataFrame([item.split("|") for item in data_json["Data"][0]["Data"]])
-    temp_df.columns = data_json["Data"][0]["FieldName"].split(",") + ["_"]
-    temp_df = temp_df.iloc[:, :-1]
+    temp_df.columns = data_json["Data"][0]["FieldName"].split(",")
     return temp_df
 
 
