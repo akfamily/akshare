@@ -79,7 +79,7 @@ def stock_em_analyst_detail(
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数2020最新排行-分析师详情
-
+    http://data.eastmoney.com/invest/invest/11000200926.html
     :param analyst_id: 分析师ID, 从 stock_em_analyst_rank 获取
     :type analyst_id: str
     :param indicator: ["最新跟踪成分股", "历史跟踪成分股", "历史指数"]
