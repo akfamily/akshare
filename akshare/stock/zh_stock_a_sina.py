@@ -3,6 +3,7 @@
 """
 Date: 2020/10/19 9:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
+https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
 import re
 import json
@@ -75,9 +76,10 @@ def stock_zh_a_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_a_daily(symbol: str = "sh600751", adjust: str = "") -> pd.DataFrame:
+def stock_zh_a_daily(symbol: str = "sh600006", adjust: str = "") -> pd.DataFrame:
     """
-    新浪财经-A股-个股的历史行情数据, 大量抓取容易封IP
+    新浪财经-A股-个股的历史行情数据, 大量抓取容易封 IP
+    https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
     :param symbol: sh600000
     :type symbol: str
     :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子
@@ -177,6 +179,29 @@ def stock_zh_a_daily(symbol: str = "sh600751", adjust: str = "") -> pd.DataFrame
         return temp_df.iloc[:, :-1]
 
 
+def stock_zh_a_cdr_daily(symbol: str = "sh689009") -> pd.DataFrame:
+    """
+    新浪财经-A股-CDR个股的历史行情数据, 大量抓取容易封 IP
+    # TODO 观察复权情况
+    https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
+    :param symbol: sh689009
+    :type symbol: str
+    :return: specific data
+    :rtype: pandas.DataFrame
+    """
+    res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(hk_js_decode)
+    dict_list = js_code.call(
+        'd', res.text.split("=")[1].split(";")[0].replace(
+            '"', ""))  # 执行js解密代码
+    data_df = pd.DataFrame(dict_list)
+    data_df.index = pd.to_datetime(data_df["date"])
+    del data_df["date"]
+    data_df = data_df.astype("float")
+    return data_df
+
+
 def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str = "") -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
@@ -242,8 +267,10 @@ def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str =
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sz000002", adjust="hfq")
     print(stock_zh_a_daily_hfq_df)
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh600751")
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz000002")
     print(stock_zh_a_daily_df)
+    stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol='sh689009')
+    print(stock_zh_a_cdr_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
     stock_zh_a_minute_df = stock_zh_a_minute(symbol='sh600751', period='1', adjust="qfq")

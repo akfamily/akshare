@@ -1130,9 +1130,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.9: fix: fix stock_em_jgdy_detail interface
 0.7.10: fix: fix match_main_contract interface
 0.7.11: fix: fix stock_em_analyst_rank and stock_em_analyst_detail interface
+0.7.12: add: add stock_zh_a_cdr_daily interface
 """
 
-__version__ = "0.7.11"
+__version__ = "0.7.12"
 __author__ = "Albert King"
 
 import sys
@@ -2051,6 +2052,7 @@ from akshare.stock.zh_stock_a_sina import (
     stock_zh_a_spot,
     stock_zh_a_daily,
     stock_zh_a_minute,
+    stock_zh_a_cdr_daily,
 )
 
 """
