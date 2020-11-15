@@ -87,7 +87,6 @@ def stock_zh_a_daily(symbol: str = "sh600006", adjust: str = "") -> pd.DataFrame
     :return: specific data
     :rtype: pandas.DataFrame
     """
-
     def _fq_factor(method):
         if method == 'hfq':
             res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
