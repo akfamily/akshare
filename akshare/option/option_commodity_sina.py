@@ -17,7 +17,7 @@ def option_sina_commodity_dict(symbol="玉米期权") -> Dict[str, List[str]]:
     """
     当前可以查询的期权品种的合约日期
     https://stock.finance.sina.com.cn/futures/view/optionsDP.php
-    :param symbol: choice of {"豆粕期权", "玉米期权", "铁矿石期权", "棉花期权", "白糖期权", "PTA期权", "甲醇期权", "橡胶期权", "沪铜期权", "黄金期权", "菜籽粕期权", "液化石油气期权"}
+    :param symbol: choice of {"豆粕期权", "玉米期权", "铁矿石期权", "棉花期权", "白糖期权", "PTA期权", "甲醇期权", "橡胶期权", "沪铜期权", "黄金期权", "菜籽粕期权", "液化石油气期权", "动力煤期权"}
     :type symbol: str
     :return: e.g., {'黄金期权': ['au2012', 'au2008', 'au2010', 'au2104', 'au2102', 'au2106', 'au2108']}
     :rtype: dict
@@ -111,8 +111,8 @@ def option_sina_commodity_hist(contract="au2012C392"):
 
 
 if __name__ == '__main__':
-    option_sina_commodity_dict(symbol="黄金期权")
-    option_sina_contract_list_df = option_sina_commodity_contract_list(symbol="黄金期权", contract="au2012")
+    option_sina_commodity_dict(symbol="动力煤期权")
+    option_sina_contract_list_df = option_sina_commodity_contract_list(symbol="动力煤期权", contract="zc2103")
     print(option_sina_contract_list_df["看涨期权合约"])
-    option_sina_hist_df = option_sina_commodity_hist(contract="au2012C328")
+    option_sina_hist_df = option_sina_commodity_hist(contract="zc2103C560")
     print(option_sina_hist_df)
