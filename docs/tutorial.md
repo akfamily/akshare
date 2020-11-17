@@ -642,6 +642,8 @@
  "xincaifu_rank"  # 新财富500富豪榜
  # 胡润排行榜
  "hurun_rank"  # 胡润排行榜
+ # 期货合约详情
+ "futures_contract_detail"  # 期货合约详情
 ```
 
 ## 案例演示
