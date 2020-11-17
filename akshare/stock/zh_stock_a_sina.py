@@ -76,10 +76,14 @@ def stock_zh_a_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_a_daily(symbol: str = "sh600006", adjust: str = "") -> pd.DataFrame:
+def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end_date: str = '22001220', adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-A股-个股的历史行情数据, 大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
+    :param start_date: 20201103; 开始日期
+    :type start_date: str
+    :param end_date: 20201103; 结束日期
+    :type end_date: str
     :param symbol: sh600000
     :type symbol: str
     :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子
@@ -135,6 +139,7 @@ def stock_zh_a_daily(symbol: str = "sh600006", adjust: str = "") -> pd.DataFrame
     temp_df.columns = ['open', 'high', 'low', 'close', 'volume', 'outstanding_share', 'turnover']
 
     if adjust == "":
+        temp_df = temp_df[start_date:end_date]
         return temp_df
 
     if adjust == "hfq":
@@ -155,7 +160,9 @@ def stock_zh_a_daily(symbol: str = "sh600006", adjust: str = "") -> pd.DataFrame
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"]
         temp_df.dropna(how="any", inplace=True)
-        return temp_df.iloc[:, :-1]
+        temp_df = temp_df.iloc[:, :-1]
+        temp_df = temp_df[start_date:end_date]
+        return temp_df
 
     if adjust == "qfq":
         res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
@@ -175,14 +182,20 @@ def stock_zh_a_daily(symbol: str = "sh600006", adjust: str = "") -> pd.DataFrame
         temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
         temp_df["low"] = temp_df["low"] / temp_df["qfq_factor"]
         temp_df.dropna(how="any", inplace=True)
-        return temp_df.iloc[:, :-1]
+        temp_df = temp_df.iloc[:, :-1]
+        temp_df = temp_df[start_date:end_date]
+        return temp_df
 
 
-def stock_zh_a_cdr_daily(symbol: str = "sh689009") -> pd.DataFrame:
+def stock_zh_a_cdr_daily(symbol: str = "sh689009", start_date: str = '20201103', end_date: str = '20201116') -> pd.DataFrame:
     """
     新浪财经-A股-CDR个股的历史行情数据, 大量抓取容易封 IP
     # TODO 观察复权情况
     https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
+    :param start_date: 20201103; 开始日期
+    :type start_date: str
+    :param end_date: 20201103; 结束日期
+    :type end_date: str
     :param symbol: sh689009
     :type symbol: str
     :return: specific data
@@ -198,7 +211,8 @@ def stock_zh_a_cdr_daily(symbol: str = "sh689009") -> pd.DataFrame:
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
     data_df = data_df.astype("float")
-    return data_df
+    temp_df = data_df[start_date: end_date]
+    return temp_df
 
 
 def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str = "") -> pd.DataFrame:
@@ -264,11 +278,11 @@ def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str =
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sz000002", adjust="hfq")
+    stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sz000002", start_date='20201103', end_date='20201116', adjust="hfq")
     print(stock_zh_a_daily_hfq_df)
     stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz000002")
     print(stock_zh_a_daily_df)
-    stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol='sh689009')
+    stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol='sh689009', start_date='20201103', end_date='20201116')
     print(stock_zh_a_cdr_daily_df)
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
