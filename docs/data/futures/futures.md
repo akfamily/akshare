@@ -932,7 +932,8 @@ index_bar 为 True 时, 在生成的 pandas.DataFrame 中通过持仓量加权�
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
 | subscribe_list | str | Y | 需要订阅的合约代码; e.g., 按照示例获取 |
-| market | str | Y | market="CF", 商品期货; market="FF", 金融期货 |
+| market | str | Y | market="CF"; market="CF": 商品期货, market="FF": 金融期货 |
+| adjust | str | Y | adjust=False; adjust=True: 返回合约、交易所和最小变动单位的实时数据, 返回数据会变慢 |
 
 
 输出参数
@@ -967,7 +968,8 @@ while True:
     time.sleep(3)
     data = ak.futures_zh_spot(
         subscribe_list=",".join([dce_text, czce_text, shfe_text]),
-        market="CF")
+        market="CF",
+        adjust=False)
     print(data)
 ```
 
@@ -1143,7 +1145,7 @@ import akshare as ak
 cffex_text = ak.match_main_contract(exchange="cffex")
 while True:
     time.sleep(3)
-    data = ak.futures_zh_spot(subscribe_list=cffex_text, market="FF")
+    data = ak.futures_zh_spot(subscribe_list=cffex_text, market="FF", adjust=False)
     print(data)
 ```
 

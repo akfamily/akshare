@@ -1133,9 +1133,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.12: add: add stock_zh_a_cdr_daily interface
 0.7.13: fix: fix stock_zh_a_cdr_daily and stock_zh_a_daily interface
 0.7.14: fix: fix get_receipt interface
+0.7.15: add: add futures_contract_detail interface
+0.7.16: fix: fix futures_zh_spot interface
 """
 
-__version__ = "0.7.14"
+__version__ = "0.7.15"
 __author__ = "Albert King"
 
 import sys
@@ -1145,6 +1147,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+期货合约详情
+"""
+from akshare.futures.futures_contract_detail import futures_contract_detail
 
 """
 胡润排行榜
