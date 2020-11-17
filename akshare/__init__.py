@@ -1135,9 +1135,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.14: fix: fix get_receipt interface
 0.7.15: add: add futures_contract_detail interface
 0.7.16: fix: fix futures_zh_spot interface
+0.7.17: del: del zdzk interface
 """
 
-__version__ = "0.7.16"
+__version__ = "0.7.17"
 __author__ = "Albert King"
 
 import sys
@@ -2324,11 +2325,6 @@ from akshare.futures.futures_inventory import get_inventory_data
 东方财富-期货库存数据
 """
 from akshare.futures.futures_inventory_em import futures_inventory_em
-
-"""
-私募指数
-"""
-from akshare.fund.fund_zdzk import zdzk_fund_index
 
 """
 中国银行间市场交易商协会

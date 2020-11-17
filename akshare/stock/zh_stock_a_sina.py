@@ -187,7 +187,7 @@ def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end
         return temp_df
 
 
-def stock_zh_a_cdr_daily(symbol: str = "sh689009", start_date: str = '20201103', end_date: str = '20201116') -> pd.DataFrame:
+def stock_zh_a_cdr_daily(symbol: str = "sh689009", start_date: str = '19900101', end_date: str = '22201116') -> pd.DataFrame:
     """
     新浪财经-A股-CDR个股的历史行情数据, 大量抓取容易封 IP
     # TODO 观察复权情况
@@ -288,3 +288,5 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_df)
     stock_zh_a_minute_df = stock_zh_a_minute(symbol='sh600751', period='1', adjust="qfq")
     print(stock_zh_a_minute_df)
+    stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily()
+    print(stock_zh_a_cdr_daily_df)
