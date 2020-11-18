@@ -140,6 +140,10 @@ def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end
 
     if adjust == "":
         temp_df = temp_df[start_date:end_date]
+        temp_df['open'] = round(temp_df['open'], 2)
+        temp_df['high'] = round(temp_df['high'], 2)
+        temp_df['low'] = round(temp_df['low'], 2)
+        temp_df['close'] = round(temp_df['close'], 2)
         return temp_df
 
     if adjust == "hfq":
@@ -162,6 +166,10 @@ def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end
         temp_df.dropna(how="any", inplace=True)
         temp_df = temp_df.iloc[:, :-1]
         temp_df = temp_df[start_date:end_date]
+        temp_df['open'] = round(temp_df['open'], 2)
+        temp_df['high'] = round(temp_df['high'], 2)
+        temp_df['low'] = round(temp_df['low'], 2)
+        temp_df['close'] = round(temp_df['close'], 2)
         return temp_df
 
     if adjust == "qfq":
@@ -184,6 +192,10 @@ def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end
         temp_df.dropna(how="any", inplace=True)
         temp_df = temp_df.iloc[:, :-1]
         temp_df = temp_df[start_date:end_date]
+        temp_df['open'] = round(temp_df['open'], 2)
+        temp_df['high'] = round(temp_df['high'], 2)
+        temp_df['low'] = round(temp_df['low'], 2)
+        temp_df['close'] = round(temp_df['close'], 2)
         return temp_df
 
 
@@ -212,6 +224,10 @@ def stock_zh_a_cdr_daily(symbol: str = "sh689009", start_date: str = '19900101',
     del data_df["date"]
     data_df = data_df.astype("float")
     temp_df = data_df[start_date: end_date]
+    temp_df['open'] = round(temp_df['open'], 2)
+    temp_df['high'] = round(temp_df['high'], 2)
+    temp_df['low'] = round(temp_df['low'], 2)
+    temp_df['close'] = round(temp_df['close'], 2)
     return temp_df
 
 
@@ -278,7 +294,7 @@ def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str =
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sz000002", start_date='20201103', end_date='20201116', adjust="hfq")
+    stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sz000002", start_date='20101103', end_date='20201116', adjust="qfq")
     print(stock_zh_a_daily_hfq_df)
     stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz000002")
     print(stock_zh_a_daily_df)

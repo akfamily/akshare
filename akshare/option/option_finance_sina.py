@@ -324,7 +324,8 @@ def option_sina_sse_greeks(code: str = "10002273") -> pd.DataFrame:
 
 def option_sina_sse_minute(code: str = "10002273") -> pd.DataFrame:
     """
-    获取指定期权品种在当前交易日的分钟数据, 只能获取当前交易日的数据, 不能获取历史分钟数据
+    指定期权品种在当前交易日的分钟数据, 只能获取当前交易日的数据, 不能获取历史分钟数据
+    https://stock.finance.sina.com.cn/option/quotes.html
     :param code: 期权代码
     :type code: str
     :return: 指定期权的当前交易日的分钟数据
