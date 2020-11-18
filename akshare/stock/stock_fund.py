@@ -12,7 +12,9 @@ import pandas as pd
 import requests
 
 
-def stock_individual_fund_flow(stock: str = "600094", market: str = "sh") -> pd.DataFrame:
+def stock_individual_fund_flow(
+    stock: str = "600094", market: str = "sh"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-个股
     http://data.eastmoney.com/zjlx/detail.html
@@ -72,7 +74,12 @@ def stock_individual_fund_flow_rank(indicator: str = "今日") -> pd.DataFrame:
     :return: 指定 indicator 资金流向排行
     :rtype: pandas.DataFrame
     """
-    indicator_map = {"今日": ["f62", "1"], "3日": ["f267", "3"], "5日": ["f164", "5"], "10日": ["f174", "10"]}
+    indicator_map = {
+        "今日": ["f62", "1"],
+        "3日": ["f267", "3"],
+        "5日": ["f164", "5"],
+        "10日": ["f174", "10"],
+    }
     url = "http://push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
@@ -93,14 +100,46 @@ def stock_individual_fund_flow_rank(indicator: str = "今日") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"):-2])
+    json_data = json.loads(text_data[text_data.find("{") : -2])
     temp_df = pd.DataFrame(json_data["data"]["diff"])
-    temp_df.columns = ["最新价", "涨跌幅", "代码", "名称", "主力净流入-净额", "超大单净流入-净额",
-                       "超大单净流入-净占比", "大单净流入-净额", "大单净流入-净占比", "中单净流入-净额", "中单净流入-净占比",
-                       "小单净流入-净额", "小单净流入-净占比", "-", "主力净流入-净占比", "-", "-", "-"]
-    temp_df = temp_df[["最新价", "涨跌幅", "代码", "名称", "主力净流入-净额", "主力净流入-净占比", "超大单净流入-净额",
-                       "超大单净流入-净占比", "大单净流入-净额", "大单净流入-净占比", "中单净流入-净额", "中单净流入-净占比",
-                       "小单净流入-净额", "小单净流入-净占比"]]
+    temp_df.columns = [
+        "最新价",
+        "涨跌幅",
+        "代码",
+        "名称",
+        "主力净流入-净额",
+        "超大单净流入-净额",
+        "超大单净流入-净占比",
+        "大单净流入-净额",
+        "大单净流入-净占比",
+        "中单净流入-净额",
+        "中单净流入-净占比",
+        "小单净流入-净额",
+        "小单净流入-净占比",
+        "-",
+        "主力净流入-净占比",
+        "-",
+        "-",
+        "-",
+    ]
+    temp_df = temp_df[
+        [
+            "最新价",
+            "涨跌幅",
+            "代码",
+            "名称",
+            "主力净流入-净额",
+            "主力净流入-净占比",
+            "超大单净流入-净额",
+            "超大单净流入-净占比",
+            "大单净流入-净额",
+            "大单净流入-净占比",
+            "中单净流入-净额",
+            "中单净流入-净占比",
+            "小单净流入-净额",
+            "小单净流入-净占比",
+        ]
+    ]
     return temp_df
 
 
@@ -128,7 +167,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"): -2])
+    json_data = json.loads(text_data[text_data.find("{") : -2])
     content_list = json_data["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
@@ -151,7 +190,9 @@ def stock_market_fund_flow() -> pd.DataFrame:
     return temp_df
 
 
-def stock_sector_fund_flow_rank(indicator: str = "5日", sector_type: str = "地域资金流") -> pd.DataFrame:
+def stock_sector_fund_flow_rank(
+    indicator: str = "5日", sector_type: str = "地域资金流"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-板块资金流-排名
     http://data.eastmoney.com/bkzj/hy.html
@@ -186,7 +227,7 @@ def stock_sector_fund_flow_rank(indicator: str = "5日", sector_type: str = "地
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"):-2])
+    json_data = json.loads(text_data[text_data.find("{") : -2])
     temp_df = pd.DataFrame(json_data["data"]["diff"])
     temp_df.columns = [
         "-",
@@ -208,36 +249,44 @@ def stock_sector_fund_flow_rank(indicator: str = "5日", sector_type: str = "地
         "主力净流入最大股代码",
         "是否净流入",
     ]
-    temp_df = temp_df[[
-        "涨跌幅",
-        "板块代码",
-        "板块名称",
-        "主力净流入-净额",
-        "主力净流入-净占比",
-        "超大单净流入-净额",
-        "超大单净流入-净占比",
-        "大单净流入-净额",
-        "大单净流入-净占比",
-        "中单净流入-净额",
-        "中单净流入-净占比",
-        "小单净流入-净额",
-        "小单净流入-净占比",
-        "主力净流入最大股",
-        "主力净流入最大股代码",
-        "是否净流入",
-    ]]
+    temp_df = temp_df[
+        [
+            "涨跌幅",
+            "板块代码",
+            "板块名称",
+            "主力净流入-净额",
+            "主力净流入-净占比",
+            "超大单净流入-净额",
+            "超大单净流入-净占比",
+            "大单净流入-净额",
+            "大单净流入-净占比",
+            "中单净流入-净额",
+            "中单净流入-净占比",
+            "小单净流入-净额",
+            "小单净流入-净占比",
+            "主力净流入最大股",
+            "主力净流入最大股代码",
+            "是否净流入",
+        ]
+    ]
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_individual_fund_flow_df = stock_individual_fund_flow(stock="600094", market="sh")
+    stock_individual_fund_flow_df = stock_individual_fund_flow(
+        stock="600094", market="sh"
+    )
     print(stock_individual_fund_flow_df)
 
-    stock_individual_fund_flow_rank_df = stock_individual_fund_flow_rank(indicator="今日")
+    stock_individual_fund_flow_rank_df = stock_individual_fund_flow_rank(
+        indicator="10日"
+    )
     print(stock_individual_fund_flow_rank_df)
 
     stock_market_fund_flow_df = stock_market_fund_flow()
     print(stock_market_fund_flow_df)
 
-    stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(indicator="5日", sector_type="行业资金流")
+    stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(
+        indicator="5日", sector_type="行业资金流"
+    )
     print(stock_sector_fund_flow_rank_df)
