@@ -76,7 +76,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end_date: str = '22001220', adjust: str = "") -> pd.DataFrame:
+def stock_zh_a_daily(symbol: str = "sz003015", start_date: str = '19900101', end_date: str = '22001220', adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-A股-个股的历史行情数据, 大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
@@ -144,6 +144,7 @@ def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end
         temp_df['high'] = round(temp_df['high'], 2)
         temp_df['low'] = round(temp_df['low'], 2)
         temp_df['close'] = round(temp_df['close'], 2)
+        temp_df.dropna(inplace=True)
         return temp_df
 
     if adjust == "hfq":
@@ -170,6 +171,7 @@ def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end
         temp_df['high'] = round(temp_df['high'], 2)
         temp_df['low'] = round(temp_df['low'], 2)
         temp_df['close'] = round(temp_df['close'], 2)
+        temp_df.dropna(inplace=True)
         return temp_df
 
     if adjust == "qfq":
@@ -196,6 +198,7 @@ def stock_zh_a_daily(symbol: str = "sh600006", start_date: str = '19900101', end
         temp_df['high'] = round(temp_df['high'], 2)
         temp_df['low'] = round(temp_df['low'], 2)
         temp_df['close'] = round(temp_df['close'], 2)
+        temp_df.dropna(inplace=True)
         return temp_df
 
 
@@ -296,7 +299,7 @@ def stock_zh_a_minute(symbol: str = 'sh600751', period: str = '5', adjust: str =
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol="sz000002", start_date='20101103', end_date='20201116', adjust="qfq")
     print(stock_zh_a_daily_hfq_df)
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz000002")
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz003015")
     print(stock_zh_a_daily_df)
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol='sh689009', start_date='20201103', end_date='20201116')
     print(stock_zh_a_cdr_daily_df)
