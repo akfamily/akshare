@@ -1521,9 +1521,9 @@ print(futures_sgx_daily_df)
 
 目标地址: http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_0
 
-描述: 主要提供新浪财经-期货-连续合约历史数据
+描述: 主要提供新浪财经-期货-主力连续合约历史数据
 
-限量: 单次返回单个期货品种的所有历史数据-日频
+限量: 单次返回单个期货品种的主力连续合约的日频历史数据
 
 输入参数
 
@@ -1612,7 +1612,7 @@ print(futures_sgx_daily_df)
 | 成交量      | float   | Y        | 注意单位   |
 | 持仓量      | float   | Y        | 注意单位   |
 
-接口示例-连续合约数据接口
+接口示例-主力连续合约数据接口
 
 ```python
 import akshare as ak
@@ -1620,7 +1620,7 @@ futures_main_sina_df = ak.futures_main_sina(symbol="IF0", trade_date="20181220")
 print(futures_main_sina_df)
 ```
 
-数据示例-连续合约数据接口
+数据示例-主力连续合约数据接口
 
 ```
      日期     开盘价     最高价     最低价     收盘价    成交量    持仓量
@@ -1637,7 +1637,7 @@ print(futures_main_sina_df)
 715  2019-12-25  3996.0  4011.2  3982.4  4002.8  57465  70656
 ```
 
-接口示例-新浪连续合约品种一览表接口
+接口示例-新浪主力连续合约品种一览表接口
 
 ```python
 import akshare as ak
@@ -1645,15 +1645,17 @@ futures_display_main_sina_df = ak.futures_display_main_sina()
 print(futures_display_main_sina_df)
 ```
 
-数据示例-新浪连续合约品种一览表接口
+数据示例-新浪主力连续合约品种一览表接口
 
-**P.S. 部分无连续合约的品种需要剔除, 剔除代码如下**
+**P.S. 部分无主力连续合约的品种需要剔除, 剔除代码如下**
 
 ```python
 import akshare as ak
 display_main_df = ak.futures_display_main_sina()
 display_main_df[display_main_df["name"].str.contains("连续")]
 ```
+
+剔除后结果如下
 
 ```
     symbol exchange          name
