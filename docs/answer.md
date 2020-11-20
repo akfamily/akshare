@@ -78,3 +78,13 @@ print(stock_zh_index_daily_df)
 
 11. 出现 `AttributeError: 'MiniRacer' object has no attribute 'ext'` 报错
     1. 安装 64 位的 Python
+    
+12. 无法下载疫情的海外数据
+    1. 访问 [IPAddress](https://www.ipaddress.com/)
+    2. 查询 ```raw.githubusercontent.com``` 的真实 IP 地址
+    3. 找到系统 host
+        1. Windows 10 在目录 ```C:\Windows\System32\drivers\etc```
+        2. Ubuntu 18.04 在目录 ```/etc/hosts```
+    4. 修改 host
+        1. 添加如下内容: ```199.232.28.133 raw.githubusercontent.com```
+        2. 此处 ```199.232.28.133``` 为查找到的真实 IP

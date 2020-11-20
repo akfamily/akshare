@@ -1945,7 +1945,7 @@ print(covid_19_history_df)
 
 目标地址: https://github.com/CSSEGISandData/COVID-19
 
-描述: 获取 **COVID-19** 每个自然日的全球统计数据
+描述: 获取 **COVID-19** 每个自然日的全球统计数据, 如本地无法读取数据，请参考 **[答疑专栏]** 问题 12 修改本地 host 后获取
 
 限量: 单次返回指定 **date** 的所有历史数据
 
@@ -1997,7 +1997,7 @@ print(covid_19_csse_daily_df)
 
 目标地址: https://github.com/CSSEGISandData/COVID-19
 
-描述: 获取美国确诊数据所有历史数据
+描述: 获取美国确诊数据所有历史数据, 如本地无法读取数据，请参考 **[答疑专栏]** 问题 12 修改本地 host 后获取
 
 限量: 单次返回所有历史数据，每日更新
 
@@ -2083,7 +2083,7 @@ print(covid_19_csse_us_confirmed_df)
 
 目标地址: https://github.com/CSSEGISandData/COVID-19
 
-描述: 获取美国死亡数据所有历史数据
+描述: 获取美国死亡数据所有历史数据, 如本地无法读取数据，请参考 **[答疑专栏]** 问题 12 修改本地 host 后获取
 
 限量: 单次返回所有历史数据，每日更新
 
@@ -2169,7 +2169,7 @@ print(covid_19_csse_us_death_df)
 
 目标地址: https://github.com/CSSEGISandData/COVID-19
 
-描述: 获取全球确诊数据所有历史数据
+描述: 获取全球确诊数据所有历史数据, 如本地无法读取数据，请参考 **[答疑专栏]** 问题 12 修改本地 host 后获取
 
 限量: 单次返回所有历史数据，每日更新
 
@@ -2267,7 +2267,7 @@ print(covid_19_csse_global_confirmed_df)
 
 目标地址: https://github.com/CSSEGISandData/COVID-19
 
-描述: 获取全球死亡数据所有历史数据
+描述: 获取全球死亡数据所有历史数据, 如本地无法读取数据，请参考 **[答疑专栏]** 问题 12 修改本地 host 后获取
 
 限量: 单次返回所有历史数据，每日更新
 
@@ -2365,7 +2365,7 @@ print(covid_19_csse_global_death_df)
 
 目标地址: https://github.com/CSSEGISandData/COVID-19
 
-描述: 获取全球治愈数据所有历史数据
+描述: 获取全球治愈数据所有历史数据, 如本地无法读取数据，请参考 **[答疑专栏]** 问题 12 修改本地 host 后获取
 
 限量: 单次返回所有历史数据，每日更新
 
