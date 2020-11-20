@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Author: Albert King
-date: 2019/12/27 18:02
-contact: jindaxiang@163.com
+date: 2020/11/20 14:02
 desc: 东方财富网-数据中心-特色数据-机构调研
+http://data.eastmoney.com/jgdy/
 东方财富网-数据中心-特色数据-机构调研-机构调研统计: http://data.eastmoney.com/jgdy/tj.html
 东方财富网-数据中心-特色数据-机构调研-机构调研详细: http://data.eastmoney.com/jgdy/xx.html
 """
@@ -12,52 +11,6 @@ import json
 
 import pandas as pd
 import requests
-from tqdm import tqdm
-
-
-# pd.set_option('display.max_columns', 500)
-
-
-def _get_page_num_tj():
-    """
-    东方财富网-数据中心-特色数据-机构调研-机构调研统计
-    http://data.eastmoney.com/jgdy/tj.html
-    :return: int 获取 机构调研统计 的总页数
-    """
-    url = "http://data.eastmoney.com/DataCenter_V3/jgdy/gsjsdy.ashx"
-    params = {
-        "pagesize": "5000",
-        "page": "2",
-        "js": "var sGrabtEb",
-        "param": "",
-        "sortRule": "-1",
-        "sortType": "0",
-        "rt": "52581365",
-    }
-    res = requests.get(url, params=params)
-    data_json = json.loads(res.text[res.text.find("={")+1:])
-    return data_json["pages"]
-
-
-def _get_page_num_detail():
-    """
-    东方财富网-数据中心-特色数据-机构调研-机构调研详细
-    http://data.eastmoney.com/jgdy/xx.html
-    :return: int 获取 机构调研详细 的总页数
-    """
-    url = "http://data.eastmoney.com/DataCenter_V3/jgdy/xx.ashx"
-    params = {
-        "pagesize": "5000",
-        "page": "1",
-        "js": "var SZGpIhFb",
-        "param": "",
-        "sortRule": "-1",
-        "sortType": "0",
-        "rt": "52581407",
-    }
-    res = requests.get(url, params=params)
-    data_json = json.loads(res.text[res.text.find("={")+1:])
-    return data_json["pages"]
 
 
 def stock_em_jgdy_tj():
@@ -66,22 +19,65 @@ def stock_em_jgdy_tj():
     http://data.eastmoney.com/jgdy/tj.html
     :return: pandas.DataFrame
     """
-    url = "http://data.eastmoney.com/DataCenter_V3/jgdy/gsjsdy.ashx"
-    page_num = _get_page_num_tj()
-    temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
-        params = {
-            "pagesize": "5000",
-            "page": str(page),
-            "js": "var sGrabtEb",
-            "param": "",
-            "sortRule": "-1",
-            "sortType": "0",
-            "rt": "52581365",
-        }
-        res = requests.get(url, params=params)
-        data_json = json.loads(res.text[res.text.find("={")+1:])
-        temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    url = "http://datainterface3.eastmoney.com/EM_DataCenter_V3/api/JGDYHZ/GetJGDYMX"
+    params = {
+        "js": "datatable8554018",
+        "tkn": "eastmoney",
+        "secuCode": "",
+        "sortfield": "0",
+        "sortdirec": "1",
+        "pageNum": "1",
+        "pageSize": "50000",
+        "cfg": "jgdyhz",
+        "p": "1",
+        "pageNo": "1",
+        "_": "1605855456546",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = json.loads(data_text[data_text.find("{") : -1])
+    temp_df = pd.DataFrame([item.split("|") for item in data_json["Data"][0]["Data"]])
+    temp_df.reset_index(inplace=True)
+    temp_df["index"] = list(range(1, len(temp_df) + 1))
+    temp_df.columns = [
+        "序号",
+        "_",
+        "_",
+        "_",
+        "_",
+        "接待机构数量",
+        "代码",
+        "名称",
+        "公告日期",
+        "接待日期",
+        "_",
+        "接待地点",
+        "接待方式",
+        "_",
+        "_",
+        "_",
+        "接待人员",
+        "_",
+        "涨跌幅",
+        "最新价",
+        "_",
+    ]
+
+    temp_df = temp_df[
+        [
+            "序号",
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌幅",
+            "接待机构数量",
+            "接待方式",
+            "接待人员",
+            "接待地点",
+            "接待日期",
+            "公告日期",
+        ]
+    ]
     return temp_df
 
 
@@ -94,25 +90,69 @@ def stock_em_jgdy_detail():
     """
     url = "http://datainterface3.eastmoney.com/EM_DataCenter_V3/api/JGDYMX/GetJGDYMX"
     params = {
-        "js": "datatable8174128",
+        "js": "datatable8554018",
         "tkn": "eastmoney",
         "secuCode": "",
         "dateTime": "",
         "sortfield": "0",
         "sortdirec": "1",
         "pageNum": "1",
-        "pageSize": "5000",
+        "pageSize": "50000",
         "cfg": "jgdymx",
-        "_": "1605088363693",
+        "p": "1",
+        "pageNo": "1",
+        "_": "1605855456546",
     }
     r = requests.get(url, params=params)
-    data_json = json.loads(r.text[r.text.find("(")+1:-1])
+    data_text = r.text
+    data_json = json.loads(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame([item.split("|") for item in data_json["Data"][0]["Data"]])
-    temp_df.columns = data_json["Data"][0]["FieldName"].split(",")
+    temp_df.reset_index(inplace=True)
+    temp_df["index"] = list(range(1, len(temp_df) + 1))
+    temp_df.columns = [
+        "序号",
+        "_",
+        "_",
+        "_",
+        "调研机构",
+        "_",
+        "代码",
+        "名称",
+        "公告日期",
+        "调研日期",
+        "_",
+        "接待地点",
+        "接待方式",
+        "_",
+        "机构类型",
+        "调研人员",
+        "接待人员",
+        "_",
+        "涨跌幅",
+        "最新价",
+    ]
+
+    temp_df = temp_df[
+        [
+            "序号",
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌幅",
+            "调研机构",
+            "机构类型",
+            "调研人员",
+            "接待方式",
+            "接待人员",
+            "接待地点",
+            "调研日期",
+            "公告日期",
+        ]
+    ]
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_em_jgdy_tj_df = stock_em_jgdy_tj()
     print(stock_em_jgdy_tj_df)
     stock_em_jgdy_detail_df = stock_em_jgdy_detail()
