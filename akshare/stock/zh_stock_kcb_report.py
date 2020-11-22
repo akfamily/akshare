@@ -71,6 +71,14 @@ def zh_stock_kcb_report() -> pd.DataFrame:
             [item['art_code'] for item in data_json['data']],
         ]).T
         big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [
+        '代码',
+        '名称',
+        '公告标题',
+        '公告类型',
+        '公告日期',
+        '公告代码',
+    ]
     return big_df
 
 
