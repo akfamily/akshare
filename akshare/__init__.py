@@ -1139,9 +1139,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.18: fix: fix stock_zh_a_daily interface
 0.7.19: fix: fix stock_zh_a_daily interface
 0.7.20: fix: fix stock_em_jgdy_tj interface
+0.7.21: fix: fix zh_stock_kcb_report interface
 """
 
-__version__ = "0.7.20"
+__version__ = "0.7.21"
 __author__ = "Albert King"
 
 import sys
@@ -1151,6 +1152,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+科创板报告
+"""
+from akshare.stock.zh_stock_kcb_report import zh_stock_kcb_report
 
 """
 期货合约详情

@@ -642,6 +642,8 @@
  "hurun_rank"  # 胡润排行榜
  # 期货合约详情
  "futures_contract_detail"  # 期货合约详情
+ # 科创板报告
+ "zh_stock_kcb_report"  # 科创板报告
 ```
 
 ## 案例演示
