@@ -140,6 +140,17 @@ def fund_em_open_fund_info(
             "Asia/Shanghai"
         )
         temp_df["x"] = temp_df["x"].dt.date
+        temp_df.columns = [
+            '净值日期',
+            '单位净值',
+            '日增长率',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '净值日期',
+            '单位净值',
+            '日增长率',
+        ]]
         return temp_df
 
     # 累计净值走势
@@ -155,6 +166,14 @@ def fund_em_open_fund_info(
             "Asia/Shanghai"
         )
         temp_df["x"] = temp_df["x"].dt.date
+        temp_df.columns = [
+            '净值日期',
+            '累计净值',
+        ]
+        temp_df = temp_df[[
+            '净值日期',
+            '累计净值',
+        ]]
         return temp_df
 
     # 累计收益率走势
@@ -167,13 +186,21 @@ def fund_em_open_fund_info(
             ]
         )
         temp_df_main = pd.DataFrame(data_json[0]["data"])  # 本产品
-        temp_df_mean = pd.DataFrame(data_json[1]["data"])  # 同类平均
-        temp_df_hs = pd.DataFrame(data_json[2]["data"])  # 沪深300
+        # temp_df_mean = pd.DataFrame(data_json[1]["data"])  # 同类平均
+        # temp_df_hs = pd.DataFrame(data_json[2]["data"])  # 沪深300
         temp_df_main.columns = ["x", "y"]
         temp_df_main["x"] = pd.to_datetime(
             temp_df_main["x"], unit="ms", utc=True
         ).dt.tz_convert("Asia/Shanghai")
         temp_df_main["x"] = temp_df_main["x"].dt.date
+        temp_df_main.columns = [
+            '净值日期',
+            '累计收益率',
+        ]
+        temp_df_main = temp_df_main[[
+            '净值日期',
+            '累计收益率',
+        ]]
         return temp_df_main
 
     # 同类排名走势
@@ -190,6 +217,16 @@ def fund_em_open_fund_info(
             "Asia/Shanghai"
         )
         temp_df["x"] = temp_df["x"].dt.date
+        temp_df.columns = [
+            '报告日期',
+            '同类型排名-每日近三月排名',
+            '总排名-每日近三月排名',
+        ]
+        temp_df = temp_df[[
+            '报告日期',
+            '同类型排名-每日近三月排名',
+            '总排名-每日近三月排名',
+        ]]
         return temp_df
 
     # 同类排名百分比
@@ -207,6 +244,14 @@ def fund_em_open_fund_info(
             "Asia/Shanghai"
         )
         temp_df["x"] = temp_df["x"].dt.date
+        temp_df.columns = [
+            '报告日期',
+            '同类型排名-每日近3月收益排名百分比',
+        ]
+        temp_df = temp_df[[
+            '报告日期',
+            '同类型排名-每日近3月收益排名百分比',
+        ]]
         return temp_df
 
     # 分红送配详情
@@ -308,6 +353,7 @@ def fund_em_money_fund_info(fund: str = "000009") -> pd.DataFrame:
 def fund_em_financial_fund_daily() -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-理财型基金收益
+    # 该接口暂无数据
     http://fund.eastmoney.com/lcjj.html#1_1__0__ljjz,desc_1_os1
     :return: 当前交易日的所有理财型基金收益
     :rtype: pandas.DataFrame
@@ -715,8 +761,8 @@ if __name__ == "__main__":
     fund_em_money_fund_info_df = fund_em_money_fund_info(fund="000009")
     print(fund_em_money_fund_info_df)
 
-    fund_em_financial_fund_daily_df = fund_em_financial_fund_daily()
-    print(fund_em_financial_fund_daily_df)
+    # fund_em_financial_fund_daily_df = fund_em_financial_fund_daily()
+    # print(fund_em_financial_fund_daily_df)
 
     fund_em_financial_fund_info_df = fund_em_financial_fund_info(fund="000134")
     print(fund_em_financial_fund_info_df)
