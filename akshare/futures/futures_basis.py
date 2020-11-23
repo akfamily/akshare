@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/3/24 15:00
+Date: 2020/11/23 15:00
 Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
 黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
@@ -26,9 +26,10 @@ from akshare.futures.symbol_var import chinese_to_english
 calendar = cons.get_calendar()
 
 
-def futures_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contract_symbols):
+def futures_spot_price_daily(start_day: str = '20201015', end_day: str = '20201123', vars_list: str = cons.contract_symbols):
     """
-    获取某段时间大宗商品现货价格及相应基差
+    某段时间大宗商品现货价格及相应基差
+
     :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param end_day: str 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param vars_list: list 合约品种如 [RB, AL]; 默认参数为所有商品
@@ -69,9 +70,9 @@ def futures_spot_price_daily(start_day=None, end_day=None, vars_list=cons.contra
         return temp_df
 
 
-def futures_spot_price(date="20200401", vars_list=cons.contract_symbols):
+def futures_spot_price(date: str = "20201015", vars_list: str = cons.contract_symbols):
     """
-    获取某个交易日大宗商品现货价格及相应基差
+    某个交易日大宗商品现货价格及相应基差
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
     :return: pandas.DataFrame
@@ -231,7 +232,7 @@ def _check_information(df_data, date):
 
 
 if __name__ == "__main__":
-    get_spot_price_daily_df = futures_spot_price_daily(start_day="20200315", end_day="20200325")
+    get_spot_price_daily_df = futures_spot_price_daily(start_day="20201015", end_day="20201123")
     print(get_spot_price_daily_df)
-    get_spot_price_df = futures_spot_price("20200115")
+    get_spot_price_df = futures_spot_price("20201015")
     print(get_spot_price_df)
