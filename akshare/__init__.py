@@ -1143,9 +1143,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.22: fix: fix zh_stock_kcb_report interface
 0.7.23: fix: fix fund_em_open_fund_info interface
 0.7.24: fix: fix futures_spot_price_daily interface
+0.7.25: add: add option_daily_hist_em interface
 """
 
-__version__ = "0.7.24"
+__version__ = "0.7.25"
 __author__ = "Albert King"
 
 import sys
@@ -1155,6 +1156,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+东方财富-期权
+"""
+from akshare.option.option_em import option_daily_hist_em
 
 """
 科创板报告
