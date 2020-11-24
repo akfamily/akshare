@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 
 
-def option_daily_hist_em() -> pd.DataFrame:
+def option_current_em() -> pd.DataFrame:
     """
     东方财富-期权价格
     http://quote.eastmoney.com/center
@@ -95,5 +95,5 @@ def option_daily_hist_em() -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    option_daily_hist_em_df = option_daily_hist_em()
+    option_daily_hist_em_df = option_current_em()
     print(option_daily_hist_em_df)

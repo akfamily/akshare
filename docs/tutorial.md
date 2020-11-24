@@ -645,7 +645,7 @@
  # 科创板报告
  "zh_stock_kcb_report"  # 科创板报告
  # 东方财富-期权
- "option_daily_hist_em"  # 东方财富-期权
+ "option_current_em"  # 东方财富-期权
 ```
 
 ## 案例演示
