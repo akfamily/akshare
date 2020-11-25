@@ -305,7 +305,7 @@ def get_shfe_option_daily(trade_date="20200827", symbol="铝期权"):
 if __name__ == "__main__":
     get_czce_option_daily_df = get_czce_option_daily(trade_date="20200817", symbol="动力煤期权")
     print(get_czce_option_daily_df)
-    get_dce_option_daily_one, get_dce_option_daily_two = get_dce_option_daily(trade_date="20200818", symbol="聚氯乙烯期权")
+    get_dce_option_daily_one, get_dce_option_daily_two = get_dce_option_daily(trade_date="20171207", symbol="豆粕期权")
     print(get_dce_option_daily_one)
     print(get_dce_option_daily_two)
     get_shfe_option_daily_one, get_shfe_option_daily_two = get_shfe_option_daily(trade_date="20200827", symbol="铝期权")
