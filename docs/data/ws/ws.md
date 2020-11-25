@@ -102,7 +102,7 @@ ak.watch_jinshi_quotes()
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| indicator | str  | Y    |  indicator='最新资讯'|
+| indicator | str  | Y    |  indicator='最新资讯'; choice of {'最新资讯', '最新数据'}, 其中 '最新数据' 返回当前发布的重要经济指标|
 
 输出参数
 
