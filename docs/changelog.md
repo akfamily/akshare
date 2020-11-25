@@ -1714,4 +1714,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.25: add: add option_current_em interface
 
 0.7.26: fix: fix option_current_em interface
+
+0.7.27: add: add js_news interface
 ```
