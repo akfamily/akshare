@@ -646,6 +646,8 @@
  "zh_stock_kcb_report"  # 科创板报告
  # 东方财富-期权
  "option_current_em"  # 东方财富-期权
+ # 金十数据-新闻资讯
+ "js_news"  # 金十数据-新闻资讯
 ```
 
 ## 案例演示
