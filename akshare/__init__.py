@@ -1146,9 +1146,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.25: add: add option_current_em interface
 0.7.26: fix: fix option_current_em interface
 0.7.27: add: add js_news interface
+0.7.28: fix: fix js_news interface
 """
 
-__version__ = "0.7.27"
+__version__ = "0.7.28"
 __author__ = "Albert King"
 
 import sys
@@ -1158,6 +1159,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+金十数据-新闻资讯
+"""
+from akshare.ws.js_ws_news import js_news
 
 """
 东方财富-期权
