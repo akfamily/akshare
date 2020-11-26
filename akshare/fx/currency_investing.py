@@ -36,7 +36,7 @@ def _currency_name_url() -> dict:
 
 
 def currency_hist(
-    symbol: str = "usd-iqd", start_date: str = "20030101", end_date: str = "20200717"
+    symbol: str = "usd-jpy", start_date: str = "20030101", end_date: str = "20200717"
 ) -> pd.DataFrame:
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
@@ -73,10 +73,16 @@ def currency_hist(
     url = "https://cn.investing.com/instruments/HistoricalDataAjax"
     res = requests.post(url, data=payload, headers=long_headers)
     soup = BeautifulSoup(res.text, "lxml")
-    vest_list = [item.get_text().strip().split("\n") for item in soup.find_all("tr")]
+    # vest_list = [item.get_text().strip() for item in soup.find_all("tr")]
+    vest_list = [
+        item.get_text().strip().replace(" ", "\n").split("\n")
+        for item in soup.find_all("tr")
+    ]
+    # vest_list = [item.get_text().strip().split("\n") for item in soup.find_all("tr")]
     raw_df = pd.DataFrame(vest_list)
     df_data = pd.DataFrame(vest_list, columns=raw_df.iloc[0, :].tolist()).iloc[1:-1, :]
     df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
+
     df_data["涨跌幅"] = pd.DataFrame(
         round(
             df_data["涨跌幅"].str.replace(",", "").str.replace("%", "").astype(float)
@@ -84,9 +90,48 @@ def currency_hist(
             6,
         )
     )
+
+    if "交易量" in df_data.columns:
+        if any(df_data["交易量"].astype(str).str.contains("-")):
+            df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
+                df_data["交易量"].str.contains("-")
+            ].replace("-", 0)
+
+        if any(df_data["交易量"].astype(str).str.contains("B")):
+            df_data["交易量"] = (
+                df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
+                .str.replace("B", "")
+                .str.replace(",", "")
+                .astype(float)
+                * 1000000000
+            )
+        if any(df_data["交易量"].astype(str).str.contains("M")):
+            df_data["交易量"] = (
+                df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
+                .str.replace("M", "")
+                .str.replace(",", "")
+                .astype(float)
+                * 1000000
+            )
+        if any(df_data["交易量"].astype(str).str.contains("K")):
+            df_data["交易量"] = (
+                df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
+                .str.replace("K", "")
+                .str.replace(",", "")
+                .astype(float)
+                * 1000
+            )
+        # df_data["交易量"] = df_data["交易量"].astype(float)
+
     del df_data["日期"]
-    df_data.iloc[:, :-1] = df_data.iloc[:, :-1].applymap(lambda x: x.replace(",", ""))
+    try:
+        df_data.iloc[:, :-1] = df_data.iloc[:, :-1].applymap(
+            lambda x: x.replace(",", "")
+        )
+    except:
+        pass
     df_data = df_data.astype(float)
+    df_data.dropna(how="all", axis=1, inplace=True)
     return df_data
 
 
@@ -267,7 +312,12 @@ if __name__ == "__main__":
     print(currency_name_code_df)
 
     currency_hist_df = currency_hist(
-        symbol="wti-usd", start_date="20190101", end_date="20201011"
+        symbol="us-dollar-index", start_date="20050907", end_date="20201125"
+    )
+    print(currency_hist_df)
+
+    currency_hist_df = currency_hist(
+        symbol="usd-jpy", start_date="20050907", end_date="20201125"
     )
     print(currency_hist_df)
 

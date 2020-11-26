@@ -757,7 +757,7 @@ def macro_china_market_margin_sh():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
     value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
@@ -816,7 +816,24 @@ def macro_china_market_margin_sh():
     temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
     temp_df = temp_df.iloc[:, 1:]
     temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
-    value_df = value_df.append(temp_df)
+    import math
+    for_times = math.ceil(int(str((temp_df.index[-1] - value_df.index[-1])).split(' ')[0]) / 20)
+    big_df = temp_df
+    for i in range(for_times):
+        params = {
+            "max_date": temp_df.index[-1],
+            "category": "fs",
+            "attr_id": "1",
+            "_": str(int(round(t * 1000))),
+        }
+        r = requests.get(url, params=params, headers=headers)
+        temp_df = pd.DataFrame(r.json()["data"]["values"])
+        temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
+        temp_df = temp_df.iloc[:, 1:]
+        temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
+        big_df = big_df.append(temp_df)
+
+    value_df = value_df.append(big_df)
     value_df.drop_duplicates(inplace=True)
     value_df.sort_index(inplace=True)
     return value_df
