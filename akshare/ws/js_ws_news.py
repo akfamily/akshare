@@ -5,6 +5,7 @@ Date: 2020/11/25 15:47
 Desc: 金十数据 websocket 实时数据接口-新闻
 https://www.jin10.com/
 wss://wss-flash-1.jin10.com/
+# TODO 此接口在 Ubuntu 18.04 里面有问题
 """
 import pandas as pd
 import requests
@@ -19,9 +20,9 @@ def js_news(indicator: str = '最新资讯') -> pd.DataFrame:
     :return: 金十数据
     :rtype: pandas.DataFrame
     """
-    url = 'https://m.jin10.com/flash?maxId=0'
+    url = 'https://m.jin10.com/flash'
     r = requests.get(url)
-    text_data = eval(r.text)
+    text_data = r.json()
     text_data = [item.strip() for item in text_data]
     big_df = pd.DataFrame()
     temp_df_part_one = pd.DataFrame([item.split("#") for item in text_data if item.startswith('0#1#')]).iloc[:, [2, 3]]
@@ -41,7 +42,6 @@ def js_news(indicator: str = '最新资讯') -> pd.DataFrame:
         'before',
         'now',
     ]
-    temp_df_part_three
     if indicator == '最新资讯':
         return big_df
     else:
