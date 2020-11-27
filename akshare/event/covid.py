@@ -850,7 +850,7 @@ if __name__ == "__main__":
 
     # 迁徙地图
     migration_area_baidu_df = migration_area_baidu(
-        area="上海市", indicator="move_in", date="20200312"
+        area="上海市", indicator="move_in", date="20201112"
     )
     print(migration_area_baidu_df)
 

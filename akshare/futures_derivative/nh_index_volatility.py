@@ -2,7 +2,8 @@
 # /usr/bin/env python
 """
 Date: 2020/10/14 16:52
-Desc: 南华期货-商品指数历史走势-收益率指数-波动率-http://www.nanhua.net/nhzc/varietytrend.html
+Desc: 南华期货-商品指数历史走势-收益率指数-波动率
+http://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
 目标地址: http://www.nanhua.net/ianalysis/volatility/20/NHCI.json?t=1574932291399
 """
@@ -107,7 +108,7 @@ def get_nh_list_table() -> pd.DataFrame:
 
 def nh_volatility_index(code: str = "NHCI", day_count: int = 20) -> pd.DataFrame:
     """
-    获取南华期货-南华指数单品种所有历史数据
+    南华期货-南华指数单品种所有历史数据
     :param code: str 通过 get_nh_list 提供
     :param day_count: int [5, 20, 60, 120] 任意一个
     :return: pandas.Series
@@ -126,5 +127,5 @@ def nh_volatility_index(code: str = "NHCI", day_count: int = 20) -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    nh_volatility_index_df = nh_volatility_index(code="AL", day_count=5)
+    nh_volatility_index_df = nh_volatility_index(code="IC", day_count=5)
     print(nh_volatility_index_df)
