@@ -435,6 +435,7 @@
  "stock_js_weibo_report"  # 微博舆情报告
  # 自然语言处理
  "nlp_ownthink"  # 知识图谱
+ "nlp_answer"  # 智能问答
  # 货币
  "currency_latest"  # 最新货币报价
  "currency_history"  # 指定历史日期的所有货币报价

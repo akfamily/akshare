@@ -111,3 +111,39 @@ print(nlp_ownthink_df)
 ```
 ['中国通信学会', '学科']
 ```
+
+### 智能问答
+
+接口: nlp_answer
+
+目标地址: https://ownthink.com/robot.html
+
+描述: 获取思知-对话机器人的接口, 以此来进行智能问答
+
+限量: 单次返回查询的数据结果
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| question | str | Y | question="姚明的身高" |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 答案      | str   | Y| str   |
+
+接口示例
+
+```python
+import akshare as ak
+nlp_answer_df = ak.nlp_answer(question="姚明的身高")
+print(nlp_answer_df)
+```
+
+数据示例
+
+```
+姚明的身高是226厘米
+```
