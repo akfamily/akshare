@@ -206,7 +206,7 @@
     
     6.75 新增[东方财富网](http://data.eastmoney.com/bbsj/202003/yjyg.html/)提供的年报季报数据;
     
-    6.76 新增[FutureSharks](https://github.com/FutureSharks/financial-data/)提供的年报季报数据;
+    6.76 新增[FutureSharks](https://github.com/FutureSharks/financial-data/)提供的高频日内数据;
 
 7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性.
 
