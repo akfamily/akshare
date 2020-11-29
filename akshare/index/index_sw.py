@@ -1,10 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/6 14:34
+Date: 2020/11/29 13:34
 Desc: 获取申万指数-申万一级
 http://www.swsindex.com/IdxMain.aspx
-部分代码要感谢: PKUJson
 """
 import time
 import json
@@ -18,6 +17,12 @@ from akshare.index.cons import sw_headers, sw_payload, sw_url, sw_cons_headers
 
 
 def sw_index_spot():
+    """
+    申万实时行情
+    http://www.swsindex.com/IdxMain.aspx
+    :return: 申万实时行情
+    :rtype: pandas.DataFrame
+    """
     result = []
     for i in range(1, 3):
         payload = sw_payload.copy()
@@ -34,59 +39,82 @@ def sw_index_spot():
     return result
 
 
-def sw_index_cons(index_code="801010"):
+def sw_index_cons(index_code: str = "801010") -> pd.DataFrame:
     """
-
-    :param index_code:
-    :type index_code:
-    :return:
-    :rtype:
+    申万指数成份信息
+    http://www.swsindex.com/IdxMain.aspx
+    :param index_code: 指数代码
+    :type index_code: str
+    :return: 申万指数成份信息
+    :rtype: pandas.DataFrame
     """
-    url = f'http://www.swsindex.com/downfile.aspx?code={index_code}'
+    url = f"http://www.swsindex.com/downfile.aspx?code={index_code}"
     res = requests.get(url)
     if res is not None:
         soup = BeautifulSoup(res.text, "html5lib")
         data = []
-        table = soup.findAll('table')[0]
-        rows = table.findAll('tr')
+        table = soup.findAll("table")[0]
+        rows = table.findAll("tr")
         for row in rows:
-            cols = row.findAll('td')
+            cols = row.findAll("td")
             if len(cols) >= 4:
                 stock_code = cols[0].text
                 stock_name = cols[1].text
                 weight = cols[2].text
                 start_date = cols[3].text
 
-                data.append({
-                    'stock_code': stock_code,
-                    'stock_name': stock_name,
-                    'start_date': start_date,
-                    'weight': weight
-                })
+                data.append(
+                    {
+                        "stock_code": stock_code,
+                        "stock_name": stock_name,
+                        "start_date": start_date,
+                        "weight": weight,
+                    }
+                )
         df = pd.DataFrame(data)
         if len(df) > 0:
-            df['start_date'] = df['start_date'].apply(lambda x: datetime.datetime.strptime(x, '%Y/%m/%d %H:%M:%S'))
+            df["start_date"] = df["start_date"].apply(
+                lambda x: datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
+            )
         return df
-    return '获取数据失败'
+    return "获取数据失败"
 
 
-def sw_index_daily(index_code="801010", start_date="2019-12-01", end_date="2019-12-07"):
-    url = 'http://www.swsindex.com/excel2.aspx?ctable=swindexhistory&where=%s '
-    where_cond = " swindexcode in ('%s') and BargainDate >= '%s' and BargainDate <= '%s'" % (
-        index_code, start_date, end_date)
+def sw_index_daily(
+    index_code: str = "801010",
+    start_date: str = "2019-12-01",
+    end_date: str = "2019-12-07",
+) -> pd.DataFrame:
+    """
+    申万指数日频率行情数据
+    http://www.swsindex.com/IdxMain.aspx
+    :param index_code: 申万指数
+    :type index_code: str
+    :param start_date: 开始日期
+    :type start_date: str
+    :param end_date: 结束日期
+    :type end_date: str
+    :return: 申万指数日频率行情数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.swsindex.com/excel2.aspx?ctable=swindexhistory&where=%s "
+    where_cond = (
+        " swindexcode in ('%s') and BargainDate >= '%s' and BargainDate <= '%s'"
+        % (index_code, start_date, end_date)
+    )
     url = url % where_cond
     # print(url)
 
     response = requests.get(url).text
     if response is None:
-        return None, '获取数据失败'
+        return None, "获取数据失败"
 
     soup = BeautifulSoup(response, "html5lib")
     data = []
-    table = soup.findAll('table')[0]
-    rows = table.findAll('tr')
+    table = soup.findAll("table")[0]
+    rows = table.findAll("tr")
     for row in rows:
-        cols = row.findAll('td')
+        cols = row.findAll("td")
         if len(cols) >= 10:
             index_code = cols[0].text
             index_name = cols[1].text
@@ -99,41 +127,66 @@ def sw_index_daily(index_code="801010", start_date="2019-12-01", end_date="2019-
             amount = cols[8].text
             change_pct = cols[9].text
 
-            data.append({
-                'index_code': index_code.replace(",", ""),
-                'index_name': index_name.replace(",", ""),
-                'date': date.replace(",", ""),
-                'open': open_.replace(",", ""),
-                'high': high.replace(",", ""),
-                'low': low.replace(",", ""),
-                'close': close.replace(",", ""),
-                'vol': vol.replace(",", ""),
-                'amount': amount.replace(",", ""),
-                'change_pct': change_pct.replace(",", ""),
-            })
+            data.append(
+                {
+                    "index_code": index_code.replace(",", ""),
+                    "index_name": index_name.replace(",", ""),
+                    "date": date.replace(",", ""),
+                    "open": open_.replace(",", ""),
+                    "high": high.replace(",", ""),
+                    "low": low.replace(",", ""),
+                    "close": close.replace(",", ""),
+                    "vol": vol.replace(",", ""),
+                    "amount": amount.replace(",", ""),
+                    "change_pct": change_pct.replace(",", ""),
+                }
+            )
 
     df = pd.DataFrame(data)
     if len(df) > 0:
-        df['date'] = df['date'].apply(lambda x: datetime.datetime.strptime(x, '%Y/%m/%d %H:%M:%S'))
+        df["date"] = df["date"].apply(
+            lambda x: datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
+        )
     return df
 
 
-def sw_index_daily_indicator(index_code="801010", start_date="2019-12-01", end_date="2019-12-07", data_type="Day"):
-    url = 'http://www.swsindex.com/excel.aspx?ctable=V_Report&where=%s'
-    where_cond = "swindexcode in ('%s') and BargainDate >= '%s' and BargainDate <= '%s' and type='%s'" % (
-        index_code, start_date, end_date, data_type)
+def sw_index_daily_indicator(
+    index_code: str = "801010",
+    start_date: str = "2019-12-01",
+    end_date: str = "2019-12-07",
+    data_type: str = "Day",
+) -> pd.DataFrame:
+    """
+    申万指数不同频率数据
+    http://www.swsindex.com/IdxMain.aspx
+    :param index_code: 申万指数
+    :type index_code: str
+    :param start_date: 开始时间
+    :type start_date: str
+    :param end_date: 结束时间
+    :type end_date: str
+    :param data_type: 频率
+    :type data_type: str
+    :return: 申万指数不同频率数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.swsindex.com/excel.aspx?ctable=V_Report&where=%s"
+    where_cond = (
+        "swindexcode in ('%s') and BargainDate >= '%s' and BargainDate <= '%s' and type='%s'"
+        % (index_code, start_date, end_date, data_type)
+    )
     url = url % where_cond
 
     response = requests.get(url).text
     if response is None:
-        return None, '获取数据失败'
+        return None, "获取数据失败"
 
     soup = BeautifulSoup(response, "html5lib")
     data = []
-    table = soup.findAll('table')[0]
-    rows = table.findAll('tr')
+    table = soup.findAll("table")[0]
+    rows = table.findAll("tr")
     for row in rows:
-        cols = row.findAll('td')
+        cols = row.findAll("td")
         if len(cols) >= 14:
             index_code = cols[0].text
             index_name = cols[1].text
@@ -150,26 +203,30 @@ def sw_index_daily_indicator(index_code="801010", start_date="2019-12-01", end_d
             avg_float_mv = cols[12].text
             dividend_yield_ratio = cols[13].text
 
-            data.append({
-                'index_code': index_code,
-                'index_name': index_name,
-                'date': date,
-                'close': close,
-                'volume': volume,
-                'chg_pct': chg_pct,
-                'turn_rate': turn_rate,
-                'pe': pe,
-                'pb': pb,
-                'vwap': v_wap,
-                'float_mv': float_mv,
-                'avg_float_mv': avg_float_mv,
-                'dividend_yield_ratio': dividend_yield_ratio,
-                'turnover_pct': turnover_pct
-            })
+            data.append(
+                {
+                    "index_code": index_code,
+                    "index_name": index_name,
+                    "date": date,
+                    "close": close,
+                    "volume": volume,
+                    "chg_pct": chg_pct,
+                    "turn_rate": turn_rate,
+                    "pe": pe,
+                    "pb": pb,
+                    "vwap": v_wap,
+                    "float_mv": float_mv,
+                    "avg_float_mv": avg_float_mv,
+                    "dividend_yield_ratio": dividend_yield_ratio,
+                    "turnover_pct": turnover_pct,
+                }
+            )
 
     df = pd.DataFrame(data)
     if len(df) > 0:
-        df['date'] = df['date'].apply(lambda x: datetime.datetime.strptime(x, '%Y/%m/%d %H:%M:%S'))
+        df["date"] = df["date"].apply(
+            lambda x: datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
+        )
     return df
 
 
@@ -178,7 +235,14 @@ if __name__ == "__main__":
     print(sw_index_df)
     sw_index_df = sw_index_cons(index_code="801020")
     print(sw_index_df)
-    sw_index_df = sw_index_daily(index_code="801010", start_date="2019-12-01", end_date="2019-12-07")
+    sw_index_df = sw_index_daily(
+        index_code="801010", start_date="2019-12-01", end_date="2019-12-07"
+    )
     print(sw_index_df)
-    sw_index_df = sw_index_daily_indicator(index_code="801010", start_date="2019-11-01", end_date="2019-12-07", data_type="Week")
+    sw_index_df = sw_index_daily_indicator(
+        index_code="801010",
+        start_date="2019-11-01",
+        end_date="2019-12-07",
+        data_type="Week",
+    )
     print(sw_index_df)
