@@ -16,11 +16,11 @@ from bs4 import BeautifulSoup
 from akshare.index.cons import sw_headers, sw_payload, sw_url, sw_cons_headers
 
 
-def sw_index_spot():
+def sw_index_spot() -> pd.DataFrame:
     """
-    申万实时行情
-    http://www.swsindex.com/IdxMain.aspx
-    :return: 申万实时行情
+    申万一级行业实时行情数据
+    http://www.swsindex.com/idx0120.aspx?columnid=8832
+    :return: 申万一级行业实时行情数据
     :rtype: pandas.DataFrame
     """
     result = []
@@ -42,7 +42,7 @@ def sw_index_spot():
 def sw_index_cons(index_code: str = "801010") -> pd.DataFrame:
     """
     申万指数成份信息
-    http://www.swsindex.com/IdxMain.aspx
+    http://www.swsindex.com/idx0210.aspx?swindexcode=801010
     :param index_code: 指数代码
     :type index_code: str
     :return: 申万指数成份信息
@@ -87,7 +87,7 @@ def sw_index_daily(
 ) -> pd.DataFrame:
     """
     申万指数日频率行情数据
-    http://www.swsindex.com/IdxMain.aspx
+    http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
     :param index_code: 申万指数
     :type index_code: str
     :param start_date: 开始日期
@@ -157,8 +157,8 @@ def sw_index_daily_indicator(
     data_type: str = "Day",
 ) -> pd.DataFrame:
     """
-    申万指数不同频率数据
-    http://www.swsindex.com/IdxMain.aspx
+    申万一级行业历史行情指标
+    http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
     :param index_code: 申万指数
     :type index_code: str
     :param start_date: 开始时间

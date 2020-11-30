@@ -1722,4 +1722,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.29: fix: fix macro_china_market_margin_sh interface
 
 0.7.30: add: add nlp_answer interface
+
+0.7.31: fix: fix index_sw interface
 ```
