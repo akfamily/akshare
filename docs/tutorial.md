@@ -649,6 +649,9 @@
  "option_current_em"  # 东方财富-期权
  # 金十数据-新闻资讯
  "js_news"  # 金十数据-新闻资讯
+ # 国证指数
+ "index_cni_all"  # 国证指数-所有指数
+ "index_cni_hist"  # 国证指数-指数行情
 ```
 
 ## 案例演示
