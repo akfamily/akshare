@@ -1092,7 +1092,7 @@ print(index_cni_all_df)
 
 #### 指数行情
 
-接口: index_cni_all
+接口: index_cni_hist
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
