@@ -1151,9 +1151,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.30: add: add nlp_answer interface
 0.7.31: fix: fix index_sw interface
 0.7.32: add: add index_cni interface
+0.7.33: add: add more index_cni interface
 """
 
-__version__ = "0.7.32"
+__version__ = "0.7.33"
 __author__ = "Albert King"
 
 import sys
@@ -1167,7 +1168,7 @@ del sys
 """
 国证指数
 """
-from akshare.index.index_cni import index_cni_hist, index_cni_all
+from akshare.index.index_cni import index_cni_hist, index_cni_all, index_cni_detail, index_cni_detail_hist, index_cni_detail_hist_adjust
 
 """
 金十数据-新闻资讯
