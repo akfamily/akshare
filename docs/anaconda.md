@@ -3,12 +3,13 @@
 ## Anaconda 安装说明
 
 Anaconda 是集成上千个常用库的 Python 发行版本, 通过安装 Anaconda 能简化环境管理工作, 非常推荐使用. 
-作者建议根据您计算机的操作系统选择相应版本的安装包, 国内用户可以点击链接访问 [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/) 来加速下载.
-国外用户可以访问 [Anaconda 官网](https://www.anaconda.com/products/individual) 下载.
+作者建议根据您计算机的操作系统选择相应版本的安装包, 国内用户可以点击链接访问 [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/) 来
+加速下载最新的 64 位安装包.
+国外用户可以访问 [Anaconda 官网](https://www.anaconda.com/products/individual) 下载最新的 64 位安装包.
 
 ## Anaconda 安装演示
 
-**以 64 位 windows 版本 Anaconda3-2019.07 为例**
+**以 64 位 Windows 版本 Anaconda3-2019.07 为例**
 
 下图中红框为 64 位 Windows 选择的版本:
 
@@ -95,7 +96,7 @@ ak.__doc__
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_4.png)
 
-还可以在 ak_test 虚拟环境的 Python 环境中输入如下代码可以显示 [AkShare](https://github.com/jindaxiang/akshare) 的版本
+还可以在 ak_test 虚拟环境的 Python 环境中输入如下代码可以显示 [AkShare](https://github.com/jindaxiang/akshare) 的版本信息
 
 ```python
 import akshare as ak
