@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/1 10:59
+Date: 2020/12/1 16:18
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
@@ -118,8 +118,92 @@ def index_cni_hist(index: str = "399001") -> pd.DataFrame:
     return temp_df
 
 
+def index_cni_detail(index: str = '399005', date: str = '2020-11') -> pd.DataFrame:
+    """
+    国证指数-样本详情-指定日期的样本成份
+    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    :param index: 指数代码
+    :type index: str
+    :param date: 指定月份
+    :type date: str
+    :return: 指定日期的样本成份
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://www.cnindex.com.cn/sample-detail/download'
+    params = {
+        'indexcode': index,
+        'dateStr': date
+    }
+    r = requests.get(url, params=params)
+    temp_df = pd.read_excel(r.content)
+    temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
+    temp_df.columns = [
+        '日期',
+        '样本代码',
+        '样本简称',
+        '所属行业',
+        '自由流通市值',
+        '总市值',
+        '权重',
+    ]
+    return temp_df
+
+
+def index_cni_detail_hist(index: str = '399005') -> pd.DataFrame:
+    """
+    国证指数-样本详情-历史样本
+    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    :param index: 指数代码
+    :type index: str
+    :return: 历史样本
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://www.cnindex.com.cn/sample-detail/download-history'
+    params = {
+        'indexcode': index
+    }
+    r = requests.get(url, params=params)
+    temp_df = pd.read_excel(r.content)
+    temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
+    temp_df.columns = [
+        '日期',
+        '样本代码',
+        '样本简称',
+        '所属行业',
+        '自由流通市值',
+        '总市值',
+        '权重',
+    ]
+    return temp_df
+
+
+def index_cni_detail_hist_adjust(index: str = '399005') -> pd.DataFrame:
+    """
+    国证指数-样本详情-历史调样
+    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    :param index: 指数代码
+    :type index: str
+    :return: 历史调样
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://www.cnindex.com.cn/sample-detail/download-adjustment'
+    params = {
+        'indexcode': index
+    }
+    r = requests.get(url, params=params)
+    temp_df = pd.read_excel(r.content)
+    temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
+    return temp_df
+
+
 if __name__ == "__main__":
     index_cni_all_df = index_cni_all()
     print(index_cni_all_df)
     index_cni_hist_df = index_cni_hist(index="399005")
     print(index_cni_hist_df)
+    index_cni_detail_df = index_cni_detail(index='399005', date='2020-11')
+    print(index_cni_detail_df)
+    index_cni_detail_hist_df = index_cni_detail_hist(index='399005')
+    print(index_cni_detail_hist_df)
+    index_cni_detail_hist_adjust_df = index_cni_detail_hist_adjust(index='399005')
+    print(index_cni_detail_hist_adjust_df)
