@@ -214,8 +214,77 @@ def stock_dzjy_mrmx(symbol: str = '债券', start_date: str = '2020-12-04', end_
     return temp_df
 
 
+def stock_dzjy_mrtj(start_date: str = '2020-12-04', end_date: str = '2020-12-04') -> pd.DataFrame:
+    """
+    东方财富网-数据中心-大宗交易-每日统计
+    http://data.eastmoney.com/dzjy/dzjy_mrtj.aspx
+    :param start_date: 开始日期
+    :type start_date: str
+    :param end_date: 结束日期
+    :type end_date: str
+    :return: 每日统计
+    :rtype: pandas.DataFrame
+    """
+    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    params = {
+        "type": "DZJYGGTJ",
+        "token": "70f12f2f4f091e459a279469fe49eca5",
+        "cmd": "",
+        "st": "Cjeltszb",
+        "sr": "-1",
+        "p": "1",
+        "ps": "50000",
+        "js": "var xoqCPdgn={pages:(tp),data:(x)}",
+        'filter': f'(TDATE>=^{start_date}^ and TDATE<=^{end_date}^)',
+        "rt": "53569504",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text.split("=")[1])
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.columns = [
+        "序号",
+        "交易日期",
+        "证券代码",
+        "证券简称",
+        "涨跌幅",
+        "收盘价",
+        "成交均价",
+        "折溢率",
+        "成交笔数",
+        "成交总额",
+        "成交总量",
+        "_",
+        "成交总额/流通市值",
+        "_",
+        "_",
+        "_",
+        "_",
+    ]
+    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
+    temp_df = temp_df[[
+        "序号",
+        "交易日期",
+        "证券代码",
+        "证券简称",
+        "涨跌幅",
+        "收盘价",
+        "成交均价",
+        "折溢率",
+        "成交笔数",
+        "成交总量",
+        "成交总额",
+        "成交总额/流通市值",
+    ]]
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_dzjy_sctj_df = stock_dzjy_sctj()
     print(stock_dzjy_sctj_df)
-    stock_dzjy_mrmx_df = stock_dzjy_mrmx(symbol='A股', start_date='2020-12-04', end_date='2020-12-04')
+    stock_dzjy_mrmx_df = stock_dzjy_mrmx(symbol='债券', start_date='2020-12-04', end_date='2020-12-04')
     print(stock_dzjy_mrmx_df)
+    stock_dzjy_mrtj_df = stock_dzjy_mrtj(start_date='2020-12-04', end_date='2020-12-04')
+    print(stock_dzjy_mrtj_df)
