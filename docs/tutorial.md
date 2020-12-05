@@ -657,6 +657,7 @@
  "index_cni_detail_hist_adjust"  # 国证指数-历史调样
  # 大宗交易
  "stock_dzjy_sctj"  # 大宗交易-市场统计
+ "stock_dzjy_mrmx"  # 大宗交易-每日明细
 ```
 
 ## 案例演示
