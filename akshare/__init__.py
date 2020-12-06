@@ -1159,9 +1159,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.38: add: add stock_dzjy_hyyybtj interface
 0.7.39: add: add stock_dzjy_yybph interface
 0.7.40: fix: fix js_news interface
+0.7.41: add: add stock_em_yzxdr interface
 """
 
-__version__ = "0.7.40"
+__version__ = "0.7.41"
 __author__ = "Albert King"
 
 import sys
@@ -1171,6 +1172,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+股票数据-一致行动人
+"""
+from akshare.stock_feature.stock_em_yzxdr import stock_em_yzxdr
 
 """
 大宗交易

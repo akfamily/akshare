@@ -663,6 +663,8 @@
  "stock_dzjy_yybph"  # 大宗交易-营业部排行
  "stock_dzjy_hyyybtj"  # 大宗交易-活跃营业部统计
  "stock_dzjy_yybph"  # 大宗交易-营业部排行
+  # 一致行动人
+  "stock_em_yzxdr"  # 股票数据-一致行动人
 ```
 
 ## 案例演示
