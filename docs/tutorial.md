@@ -660,6 +660,9 @@
  "stock_dzjy_mrmx"  # 大宗交易-每日明细
  "stock_dzjy_mrtj"  # 大宗交易-每日统计
  "stock_dzjy_hygtj"  # 大宗交易-活跃 A 股统计
+ "stock_dzjy_yybph"  # 大宗交易-营业部排行
+ "stock_dzjy_hyyybtj"  # 大宗交易-活跃营业部统计
+ "stock_dzjy_yybph"  # 大宗交易-营业部排行
 ```
 
 ## 案例演示
