@@ -55,6 +55,9 @@ def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
         "数据日期",
         "股票市场",
     ]
+    temp_df['数据日期'] = pd.to_datetime(temp_df['数据日期'])
+    temp_df['公告日期'] = pd.to_datetime(temp_df['公告日期'])
+
     temp_df = temp_df[
         [
             "序号",
