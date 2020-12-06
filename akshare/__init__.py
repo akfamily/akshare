@@ -1158,9 +1158,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.37: add: add stock_dzjy_hygtj interface
 0.7.38: add: add stock_dzjy_hyyybtj interface
 0.7.39: add: add stock_dzjy_yybph interface
+0.7.40: fix: fix js_news interface
 """
 
-__version__ = "0.7.39"
+__version__ = "0.7.40"
 __author__ = "Albert King"
 
 import sys

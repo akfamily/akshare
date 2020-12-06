@@ -714,7 +714,7 @@ if __name__ == '__main__':
     print(get_dce_rank_table_second_df)
     get_dce_rank_table_third_df = get_dce_rank_table(date='20200929')
     print(get_dce_rank_table_third_df)
-    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20201026')
+    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20201102')
     print(get_dce_rank_table_fourth_df)
 
     # 总接口
