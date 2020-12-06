@@ -281,6 +281,86 @@ def stock_dzjy_mrtj(start_date: str = '2020-12-04', end_date: str = '2020-12-04'
     return temp_df
 
 
+def stock_dzjy_hygtj(period: str = '近三月') -> pd.DataFrame:
+    """
+    东方财富网-数据中心-大宗交易-活跃 A 股统计
+    http://data.eastmoney.com/dzjy/dzjy_hygtj.aspx
+    :param period: choice of {'近一月', '近三月', '近六月', '近一年'}
+    :type period: str
+    :return: 活跃 A 股统计
+    :rtype: pandas.DataFrame
+    """
+    period_map = {
+        '近一月': '1',
+        '近三月': '3',
+        '近六月': '6',
+        '近一年': '12',
+    }
+    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    params = {
+        "type": "DZJY_HHGGTJ",
+        "token": "70f12f2f4f091e459a279469fe49eca5",
+        "cmd": "",
+        "st": "SBSumCount",
+        "sr": "-1",
+        "p": "1",
+        "ps": "50000",
+        "js": "var xoqCPdgn={pages:(tp),data:(x)}",
+        'filter': f'(TYPE={period_map[period]})',
+        "rt": "53569504",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text.split("=")[1])
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.columns = [
+        "序号",
+        "_",
+        "最近上榜日",
+        "证券代码",
+        "证券简称",
+        "涨跌幅",
+        "最新价",
+        "上榜次数-总计",
+        "上榜次数-溢价",
+        "上榜次数-折价",
+        "总成交额",
+        "_",
+        "折溢率",
+        "成交总额/流通市值",
+        "上榜日后平均涨跌幅-1日",
+        "上榜日后平均涨跌幅-5日",
+        "上榜日后平均涨跌幅-10日",
+        "上榜日后平均涨跌幅-20日",
+        "_",
+        "_",
+        "_",
+        "_",
+    ]
+    temp_df["最近上榜日"] = pd.to_datetime(temp_df["最近上榜日"])
+    temp_df = temp_df[[
+        "序号",
+        "证券代码",
+        "证券简称",
+        "最新价",
+        "涨跌幅",
+        "最近上榜日",
+        "上榜次数-总计",
+        "上榜次数-溢价",
+        "上榜次数-折价",
+        "总成交额",
+        "折溢率",
+        "成交总额/流通市值",
+        "上榜日后平均涨跌幅-1日",
+        "上榜日后平均涨跌幅-5日",
+        "上榜日后平均涨跌幅-10日",
+        "上榜日后平均涨跌幅-20日",
+    ]]
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_dzjy_sctj_df = stock_dzjy_sctj()
     print(stock_dzjy_sctj_df)
@@ -288,3 +368,5 @@ if __name__ == "__main__":
     print(stock_dzjy_mrmx_df)
     stock_dzjy_mrtj_df = stock_dzjy_mrtj(start_date='2020-12-04', end_date='2020-12-04')
     print(stock_dzjy_mrtj_df)
+    stock_dzjy_hygtj_df = stock_dzjy_hygtj(period='近三月')
+    print(stock_dzjy_hygtj_df)
