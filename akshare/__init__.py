@@ -1161,9 +1161,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.40: fix: fix js_news interface
 0.7.41: add: add stock_em_yzxdr interface
 0.7.42: fix: fix fund_em_etf_fund_daily interface
+0.7.43: fix: fix match_main_contract interface
 """
 
-__version__ = "0.7.42"
+__version__ = "0.7.43"
 __author__ = "Albert King"
 
 import sys
