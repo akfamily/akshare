@@ -141,16 +141,18 @@ def fund_em_open_fund_info(
         )
         temp_df["x"] = temp_df["x"].dt.date
         temp_df.columns = [
-            '净值日期',
-            '单位净值',
-            '日增长率',
-            '_',
+            "净值日期",
+            "单位净值",
+            "日增长率",
+            "_",
         ]
-        temp_df = temp_df[[
-            '净值日期',
-            '单位净值',
-            '日增长率',
-        ]]
+        temp_df = temp_df[
+            [
+                "净值日期",
+                "单位净值",
+                "日增长率",
+            ]
+        ]
         return temp_df
 
     # 累计净值走势
@@ -167,13 +169,15 @@ def fund_em_open_fund_info(
         )
         temp_df["x"] = temp_df["x"].dt.date
         temp_df.columns = [
-            '净值日期',
-            '累计净值',
+            "净值日期",
+            "累计净值",
         ]
-        temp_df = temp_df[[
-            '净值日期',
-            '累计净值',
-        ]]
+        temp_df = temp_df[
+            [
+                "净值日期",
+                "累计净值",
+            ]
+        ]
         return temp_df
 
     # 累计收益率走势
@@ -194,13 +198,15 @@ def fund_em_open_fund_info(
         ).dt.tz_convert("Asia/Shanghai")
         temp_df_main["x"] = temp_df_main["x"].dt.date
         temp_df_main.columns = [
-            '净值日期',
-            '累计收益率',
+            "净值日期",
+            "累计收益率",
         ]
-        temp_df_main = temp_df_main[[
-            '净值日期',
-            '累计收益率',
-        ]]
+        temp_df_main = temp_df_main[
+            [
+                "净值日期",
+                "累计收益率",
+            ]
+        ]
         return temp_df_main
 
     # 同类排名走势
@@ -218,15 +224,17 @@ def fund_em_open_fund_info(
         )
         temp_df["x"] = temp_df["x"].dt.date
         temp_df.columns = [
-            '报告日期',
-            '同类型排名-每日近三月排名',
-            '总排名-每日近三月排名',
+            "报告日期",
+            "同类型排名-每日近三月排名",
+            "总排名-每日近三月排名",
         ]
-        temp_df = temp_df[[
-            '报告日期',
-            '同类型排名-每日近三月排名',
-            '总排名-每日近三月排名',
-        ]]
+        temp_df = temp_df[
+            [
+                "报告日期",
+                "同类型排名-每日近三月排名",
+                "总排名-每日近三月排名",
+            ]
+        ]
         return temp_df
 
     # 同类排名百分比
@@ -245,13 +253,15 @@ def fund_em_open_fund_info(
         )
         temp_df["x"] = temp_df["x"].dt.date
         temp_df.columns = [
-            '报告日期',
-            '同类型排名-每日近3月收益排名百分比',
+            "报告日期",
+            "同类型排名-每日近3月收益排名百分比",
         ]
-        temp_df = temp_df[[
-            '报告日期',
-            '同类型排名-每日近3月收益排名百分比',
-        ]]
+        temp_df = temp_df[
+            [
+                "报告日期",
+                "同类型排名-每日近3月收益排名百分比",
+            ]
+        ]
         return temp_df
 
     # 分红送配详情
@@ -377,7 +387,7 @@ def fund_em_financial_fund_daily() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{"): -1])
+    data_json = demjson.decode(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(data_json["Data"]["List"])
     show_day = data_json["Data"]["showday"]
     data_df = temp_df[
@@ -562,7 +572,7 @@ def fund_em_graded_fund_info(fund: str = "150232") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{"): -1])
+    data_json = demjson.decode(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
     temp_df.columns = [
         "净值日期",
@@ -603,7 +613,19 @@ def fund_em_etf_fund_daily() -> pd.DataFrame:
     temp_df.columns = temp_df_columns
     temp_df["基金简称"] = temp_df["基金简称"].str.strip("基金吧档案")
     temp_df.reset_index(inplace=True, drop=True)
-    temp_df.columns = ['基金代码', '基金简称', '类型', f'{show_day[0]}-单位净值', f'{show_day[0]}-累计净值', f'{show_day[1]}-单位净值', f'{show_day[1]}-累计净值', '增长值', '增长率', '市价', '折价率']
+    temp_df.columns = [
+        "基金代码",
+        "基金简称",
+        "类型",
+        f"{show_day[0]}-单位净值",
+        f"{show_day[0]}-累计净值",
+        f"{show_day[2]}-单位净值",
+        f"{show_day[2]}-累计净值",
+        "增长值",
+        "增长率",
+        "市价",
+        "折价率",
+    ]
     return temp_df
 
 
@@ -677,7 +699,7 @@ def fund_em_value_estimation() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"): -1])
+    json_data = json.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["Data"]["list"])
     value_day = json_data["Data"]["gzrq"]
     cal_day = json_data["Data"]["gxrq"]
@@ -713,14 +735,16 @@ def fund_em_value_estimation() -> pd.DataFrame:
         "-",
         "-",
     ]
-    temp_df = temp_df[[
-        "基金代码",
-        "基金类型",
-        f"{cal_day}-估算值",
-        f"{cal_day}-估算增长率",
-        f"{value_day}-单位净值",
-        "基金名称",
-    ]]
+    temp_df = temp_df[
+        [
+            "基金代码",
+            "基金类型",
+            f"{cal_day}-估算值",
+            f"{cal_day}-估算增长率",
+            f"{value_day}-单位净值",
+            "基金名称",
+        ]
+    ]
     return temp_df
 
 
