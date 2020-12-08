@@ -61,9 +61,9 @@ def match_main_contract(exchange: str = "dce") -> pd.DataFrame:
             main_contract = data_df.iloc[0, :3]
             subscribe_cffex_list.append(main_contract)
         except:
-            print(item, "无主力连续合约")
+            # print(item, "无主力连续合约")
             continue
-    print("主力连续合约获取成功")
+    # print("主力连续合约获取成功")
     return pd.DataFrame(subscribe_cffex_list)
 
 
