@@ -5,9 +5,9 @@ Date: 2020/12/6 23:24
 Desc: 东方财富网-数据中心-特色数据-一致行动人
 http://data.eastmoney.com/yzxdr/
 """
-import requests
-import pandas as pd
 import demjson
+import pandas as pd
+import requests
 
 
 def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
