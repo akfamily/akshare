@@ -1750,4 +1750,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.43: fix: fix match_main_contract interface
 
 0.7.44: fix: fix stock_hk_daily interface
+
+0.7.45: fix: fix stock_em_yzxdr interface
 ```
