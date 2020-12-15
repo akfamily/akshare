@@ -133,7 +133,7 @@ print(stock_szse_summary_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述       |
 | -------- | ---- | ---- | --- |
 | - | -  | -    |   -|
 
@@ -218,7 +218,7 @@ print(stock_zh_a_spot_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述    |
 | -------- | ---- | ---- | --- |
 | symbol | str  | Y    |symbol='sh600000'; 股票代码可以在 **ak.stock_zh_a_spot()** 中获取|
 | start_date | str  | Y    |start_date='20201103'; 开始查询的日期|
@@ -631,8 +631,6 @@ print(stock_zh_a_new_df)
 | 昨收        | float      | Y        | -     |
 | 最高        | float      | Y        | -     |
 | 最低        | float      | Y        | -     |
-
-                
 接口示例
 
 ```python
