@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/6 23:24
+Date: 2020/12/15 15:18
 Desc: 东方财富网-数据中心-特色数据-一致行动人
 http://data.eastmoney.com/yzxdr/
 """
@@ -25,7 +25,7 @@ def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
         "sty": "ALL",
         "source": "WEB",
         "p": "1",
-        "ps": "50000",
+        "ps": "500",
         "st": "noticedate",
         "sr": "-1",
         "var": "mwUyirVm",
@@ -34,11 +34,30 @@ def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df) + 1)
-    temp_df.columns = [
+    data_json = demjson.decode(data_text[data_text.find("{"): -1])
+    total_pages = data_json['result']['pages']
+    big_df = pd.DataFrame()
+    for page in range(1, total_pages+1):
+        params = {
+            "type": "RPTA_WEB_YZXDRINDEX",
+            "sty": "ALL",
+            "source": "WEB",
+            "p": str(page),
+            "ps": "500",
+            "st": "noticedate",
+            "sr": "-1",
+            "var": "mwUyirVm",
+            "filter": f"(enddate='{date}')",
+            "rt": "53575609",
+        }
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{"): -1])
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = range(1, len(big_df) + 1)
+    big_df.columns = [
         "序号",
         "一致行动人",
         "股票代码",
@@ -55,10 +74,10 @@ def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
         "数据日期",
         "股票市场",
     ]
-    temp_df['数据日期'] = pd.to_datetime(temp_df['数据日期'])
-    temp_df['公告日期'] = pd.to_datetime(temp_df['公告日期'])
+    big_df['数据日期'] = pd.to_datetime(big_df['数据日期'])
+    big_df['公告日期'] = pd.to_datetime(big_df['公告日期'])
 
-    temp_df = temp_df[
+    big_df = big_df[
         [
             "序号",
             "一致行动人",
@@ -73,7 +92,7 @@ def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
             "股票市场",
         ]
     ]
-    return temp_df
+    return big_df
 
 
 if __name__ == "__main__":
