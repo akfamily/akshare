@@ -533,7 +533,7 @@ def _table_cut_cal(table_cut, symbol):
 
 def futures_dce_position_rank(date: str = "20160919") -> pd.DataFrame:
     """
-    大连商品交易日每日持仓排名-具体合约
+    大连商品交易所-每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
     :param date: 指定交易日; e.g., "20200511"
     :type date: str
@@ -575,6 +575,8 @@ def futures_dce_position_rank(date: str = "20160919") -> pd.DataFrame:
     with zipfile.ZipFile(BytesIO(r.content), "r") as z:
         for i in z.namelist():
             file_name = i.encode('cp437').decode('GBK')
+            if not file_name.startswith(date.strftime("%Y%m%d")):
+                continue
             try:
                 data = pd.read_table(z.open(i), header=None, sep="\t").iloc[:-6]
                 if len(data) < 12:  # 处理没有活跃合约的情况
