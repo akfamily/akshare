@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/02/14 11:28
+Date: 2020/12/16 11:28
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
@@ -85,7 +85,7 @@ def bond_zh_hs_cov_daily(symbol: str = "sh113542") -> pd.DataFrame:
     return data_df
 
 
-def bond_zh_cov():
+def bond_zh_cov() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-可转债数据
     http://data.eastmoney.com/kzz/default.html
@@ -102,6 +102,7 @@ def bond_zh_cov():
         "p": "1",
         "ps": "5000",
         "js": "var {jsname}={pages:(tp),data:(x),font:(font)}",
+        "rt": "53603537",
     }
     r = requests.get(url, params=params)
     text_data = r.text
@@ -127,7 +128,7 @@ def bond_zh_cov():
         "正股简称",
         "债券面值",
         "发行价格",
-        "转股价",
+        "_",
         "中签号发布日",
         "中签率",
         "上市时间",
@@ -152,7 +153,7 @@ def bond_zh_cov():
         "_",
         "申购上限",
         "_",
-        "_",
+        "转股价",
         "转股价值",
         "债现价",
         "转股溢价率",
@@ -189,7 +190,7 @@ def bond_zh_cov():
     return temp_df
 
 
-def bond_cov_comparison():
+def bond_cov_comparison() -> pd.DataFrame:
     """
     东方财富网-行情中心-债券市场-可转债比价表
     http://quote.eastmoney.com/center/fullscreenlist.html#convertible_comparison
