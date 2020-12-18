@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/29 12:33
+Date: 2020/12/17 12:33
 Desc: 河北省空气质量预报信息发布系统
 http://110.249.223.67/publish/
 每日 17 时发布
@@ -31,15 +31,18 @@ def air_quality_hebei(city: str = "唐山市") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://110.249.223.67/publishNewServer/api/CityPublishInfo/GetProvinceAndCityPublishData"
-    params = {
-        "publishDate": f"{datetime.today().strftime('%Y-%m-%d')} 16:00:00"
-    }
+    params = {"publishDate": f"{datetime.today().strftime('%Y-%m-%d')} 16:00:00"}
     r = requests.get(url, params=params)
     json_data = r.json()
-    city_list = pd.DataFrame.from_dict(json_data["cityPublishDatas"], orient="columns")["CityName"].tolist()
+    city_list = pd.DataFrame.from_dict(json_data["cityPublishDatas"], orient="columns")[
+        "CityName"
+    ].tolist()
     outer_df = pd.DataFrame()
     for i in tqdm(range(1, 7)):
-        inner_df = pd.DataFrame([item[f"Date{i}"] for item in json_data["cityPublishDatas"]], index=city_list)
+        inner_df = pd.DataFrame(
+            [item[f"Date{i}"] for item in json_data["cityPublishDatas"]],
+            index=city_list,
+        )
         outer_df = outer_df.append(inner_df)
     if city == "":
         return outer_df
