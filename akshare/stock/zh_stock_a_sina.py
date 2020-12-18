@@ -331,6 +331,14 @@ if __name__ == "__main__":
         symbol="sz000002", start_date="20101103", end_date="20201116", adjust="qfq"
     )
     print(stock_zh_a_daily_hfq_df)
+    qfq_factor_df = stock_zh_a_daily(
+        symbol="sz000002", adjust="qfq-factor"
+    )
+    print(qfq_factor_df)
+    hfq_factor_df = stock_zh_a_daily(
+        symbol="sz000002", adjust="hfq-factor"
+    )
+    print(hfq_factor_df)
     stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh601939")
     print(stock_zh_a_daily_df)
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(
