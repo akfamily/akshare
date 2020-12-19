@@ -158,31 +158,6 @@ payload_usa_daily = {
     "type": "5"
 }
 
-# usa
-url_usa = "http://quote.hexun.com/usastock/data/getdjstock.aspx"
-
-payload_usa = {
-    "type": "1",
-    "market": "3",
-    "sorttype": "4",
-    "updown": "up",
-    "page": "1",
-    'count': "200",
-    "time": "203450"
-}
-
-headers_usa = {
-    "Accept": "*/*",
-    "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-    "Cache-Control": "no-cache",
-    "Connection": "keep-alive",
-    "Host": "quote.hexun.com",
-    "Pragma": "no-cache",
-    "Referer": "http://quote.hexun.com/usastock/xqstock.aspx?market=3",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
-}
-
 # china
 hx_url = "http://stockdata.stock.hexun.com/zrbg/data/zrbList.aspx"
 

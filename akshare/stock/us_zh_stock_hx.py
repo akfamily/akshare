@@ -1,41 +1,47 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/18 17:34
+Date: 2020/12/19 10:34
 Desc: 从和讯网获取美股-中概股实时行情数据和历史行情数据(日)
 http://quote.hexun.com/default.html#ustock_0
 注意: 由于涉及到复权问题, 建议使用新浪的接口来获取历史行情数据(日)
 """
-import datetime as dt
 import json
 
 import requests
 import pandas as pd
-from bs4 import BeautifulSoup
-
-from akshare.stock.cons import (
-    url_usa,
-    payload_usa,
-    headers_usa,
-    url_usa_daily,
-    payload_usa_daily,
-)
 
 
 def stock_us_zh_spot() -> pd.DataFrame:
     """
-    美股-中概股实时行情数据
-    http://quote.hexun.com/default.html#ustock_0
+    美股-中概股的实时行情数据
+    http://quote.hexun.com/default.htm#ustock_3
+    :return: 中概股的实时行情数据
     :return: pandas.DataFrame
     """
-    payload_usa_copy = payload_usa.copy()
-    payload_usa_copy.update(
-        {"time": dt.datetime.now().time().strftime("%H%I%M")}
-    )  # 每次更新时间
-    res = requests.get(
-        url_usa, params=payload_usa_copy, headers=headers_usa
-    )  # 上传指定参数, 伪装游览器
-    data_list = eval(res.text.split("=")[1].strip().rsplit(";")[0])  # eval 出列表
+    url = "http://quote.hexun.com/usastock/data/getdjstock.aspx"
+    params = {
+        "type": "1",
+        "market": "3",
+        "sorttype": "4",
+        "updown": "up",
+        "page": "1",
+        'count': "200",
+        "time": "203450"
+    }
+    headers = {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "quote.hexun.com",
+        "Pragma": "no-cache",
+        "Referer": "http://quote.hexun.com/usastock/xqstock.aspx?market=3",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_list = eval(r.text.split("=")[1].strip().rsplit(";")[0])  # eval 出列表
     data_df = pd.DataFrame(
         data_list,
         columns=[
@@ -58,13 +64,20 @@ def stock_us_zh_spot() -> pd.DataFrame:
     return temp_df
 
 
-def stock_us_zh_daily(symbol: str = "NTES") -> pd.DataFrame:
+def stock_us_zh_daily(symbol: str = 'BABA') -> pd.DataFrame:
     """
-    美股-中概股历史行情数据(日)
-    # TODO 数据输出格式
-    :param symbol: 参见代码表
-    :return: pd.DataFrame
+    美股-中概股的日频率历史行情数据
+    http://stockdata.stock.hexun.com/us/BABA.shtml
+    :return: 中概股的日频率历史行情数据
+    :return: pandas.DataFrame
     """
+    url = "http://webusstock.hermes.hexun.com/usa/kline"
+    params = {
+        "code": f"NYSE{symbol}",
+        "start": "20201218223000",
+        "number": "-1000",
+        "type": "5",
+    }
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate",
@@ -78,26 +91,25 @@ def stock_us_zh_daily(symbol: str = "NTES") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
         "X-Requested-With": "ShockwaveFlash/33.0.0.432",
     }
-    url = "http://webusstock.hermes.hexun.com/usa/kline"
-    params = {
-        "code": "NYSEBABA",
-        "start": "20201218223000",
-        "number": "-1000",
-        "type": "5",
-    }
     r = requests.get(url, params=params, headers=headers)
     r.encoding = "utf-8"
-    data_dict = json.loads(r.text[1:-2])  # 加载非规范 json 数据
+    data_dict = json.loads(r.text[1:-2])
     data_df = pd.DataFrame(
         data_dict["Data"][0],
         columns=[list(item.values())[0] for item in data_dict["KLine"]],
-    )  # 设置数据框
-    data_df['时间'] = data_df['时间'].astype(str).str.strip('000000')
+    )
+    data_df['时间'] = data_df['时间'].astype(str).str.slice(0, 8)
+    data_df['前收盘价'] = round(data_df['前收盘价'] / 100, 2)
+    data_df['开盘价'] = round(data_df['开盘价'] / 100, 2)
+    data_df['收盘价'] = round(data_df['收盘价'] / 100, 2)
+    data_df['最高价'] = round(data_df['最高价'] / 100, 2)
+    data_df['最低价'] = round(data_df['最低价'] / 100, 2)
+    del data_df['成交额']
     return data_df
 
 
 if __name__ == "__main__":
     stock_us_zh_spot_df = stock_us_zh_spot()
     print(stock_us_zh_spot_df)
-    stock_us_zh_daily_df = stock_us_zh_daily(symbol="CEO")
+    stock_us_zh_daily_df = stock_us_zh_daily(symbol="BABA")
     print(stock_us_zh_daily_df)
