@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/5/11 19:47
+Date: 2020/12/19 14:26
 Desc: 东方财富网-数据中心-资金流向
 http://data.eastmoney.com/zjlx/detail.html
 """
@@ -62,7 +62,8 @@ def stock_individual_fund_flow(
         "-",
         "-",
     ]
-    return temp_df.iloc[:, :-2]
+    temp_df = temp_df.iloc[:, :-2]
+    return temp_df
 
 
 def stock_individual_fund_flow_rank(indicator: str = "今日") -> pd.DataFrame:
@@ -187,25 +188,59 @@ def stock_market_fund_flow() -> pd.DataFrame:
         "深证-收盘价",
         "深证-涨跌幅",
     ]
+    temp_df = temp_df[
+        [
+            "日期",
+            "上证-收盘价",
+            "上证-涨跌幅",
+            "深证-收盘价",
+            "深证-涨跌幅",
+            "主力净流入-净额",
+            "主力净流入-净占比",
+            "超大单净流入-净额",
+            "超大单净流入-净占比",
+            "大单净流入-净额",
+            "大单净流入-净占比",
+            "中单净流入-净额",
+            "中单净流入-净占比",
+            "小单净流入-净额",
+            "小单净流入-净占比",
+        ]
+    ]
     return temp_df
 
 
 def stock_sector_fund_flow_rank(
-    indicator: str = "5日", sector_type: str = "行业资金流"
+    indicator: str = "10日", sector_type: str = "行业资金流"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-板块资金流-排名
     http://data.eastmoney.com/bkzj/hy.html
-    # TODO 资金流的字段需要确认：http://data.eastmoney.com/js_001/zjlx/base.js
     :param indicator: choice of {"今日", "5日", "10日"}
     :type indicator: str
-    :param sector_type: choice of {"行业资金流": "2", "概念资金流": "3", "地域资金流": "1"}
+    :param sector_type: choice of {"行业资金流", "概念资金流", "地域资金流"}
     :type sector_type: str
     :return: 指定参数的资金流排名数据
     :rtype: pandas.DataFrame
     """
     sector_type_map = {"行业资金流": "2", "概念资金流": "3", "地域资金流": "1"}
-    indicator_map = {"今日": ["f62", "1"], "5日": ["f164", "5"], "10日": ["f174", "10"]}
+    indicator_map = {
+        "今日": [
+            "f62",
+            "1",
+            "f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124",
+        ],
+        "5日": [
+            "f164",
+            "5",
+            "f12,f14,f2,f109,f164,f165,f166,f167,f168,f169,f170,f171,f172,f173,f257,f258,f124",
+        ],
+        "10日": [
+            "f174",
+            "10",
+            "f12,f14,f2,f160,f174,f175,f176,f177,f178,f179,f180,f181,f182,f183,f260,f261,f124",
+        ],
+    }
     url = "http://push2.eastmoney.com/api/qt/clist/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
@@ -221,55 +256,144 @@ def stock_sector_fund_flow_rank(
         "fid0": indicator_map[indicator][0],
         "fs": f"m:90 t:{sector_type_map[sector_type]}",
         "stat": indicator_map[indicator][1],
-        "fields": "f12,f14,f2,f3,f62,f184,f66,f69,f72,f75,f78,f81,f84,f87,f204,f205,f124",
+        "fields": indicator_map[indicator][2],
         "rt": "52975239",
         "cb": "jQuery18308357908311220152_1589256588824",
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
+    json_data = json.loads(text_data[text_data.find("{"): -2])
     temp_df = pd.DataFrame(json_data["data"]["diff"])
-    temp_df.columns = [
-        "-",
-        "涨跌幅",
-        "板块代码",
-        "板块名称",
-        "主力净流入-净额",
-        "超大单净流入-净额",
-        "超大单净流入-净占比",
-        "大单净流入-净额",
-        "大单净流入-净占比",
-        "中单净流入-净额",
-        "中单净流入-净占比",
-        "小单净流入-净额",
-        "小单净流入-净占比",
-        "-",
-        "主力净流入-净占比",
-        "主力净流入最大股",
-        "主力净流入最大股代码",
-        "是否净流入",
-    ]
-    temp_df = temp_df[
-        [
-            "涨跌幅",
-            "板块代码",
-            "板块名称",
-            "主力净流入-净额",
-            "主力净流入-净占比",
-            "超大单净流入-净额",
-            "超大单净流入-净占比",
-            "大单净流入-净额",
-            "大单净流入-净占比",
-            "中单净流入-净额",
-            "中单净流入-净占比",
-            "小单净流入-净额",
-            "小单净流入-净占比",
-            "主力净流入最大股",
-            "主力净流入最大股代码",
+    if indicator == "今日":
+        temp_df.columns = [
+            "-",
+            "今日涨跌幅",
+            "_",
+            "名称",
+            "今日主力净流入-净额",
+            "今日超大单净流入-净额",
+            "今日超大单净流入-净占比",
+            "今日大单净流入-净额",
+            "今日大单净流入-净占比",
+            "今日中单净流入-净额",
+            "今日中单净流入-净占比",
+            "今日小单净流入-净额",
+            "今日小单净流入-净占比",
+            "-",
+            "今日主力净流入-净占比",
+            "今日主力净流入最大股",
+            "今日主力净流入最大股代码",
             "是否净流入",
         ]
-    ]
+
+        temp_df = temp_df[
+            [
+                "名称",
+                "今日涨跌幅",
+                "今日主力净流入-净额",
+                "今日主力净流入-净占比",
+                "今日超大单净流入-净额",
+                "今日超大单净流入-净占比",
+                "今日大单净流入-净额",
+                "今日大单净流入-净占比",
+                "今日中单净流入-净额",
+                "今日中单净流入-净占比",
+                "今日小单净流入-净额",
+                "今日小单净流入-净占比",
+                "今日主力净流入最大股",
+            ]
+        ]
+        temp_df.sort_values(["今日主力净流入-净额"], ascending=False, inplace=True)
+        temp_df.reset_index(inplace=True)
+        temp_df["index"] = range(1, len(temp_df) + 1)
+        temp_df.rename({"index": "序号"}, axis=1, inplace=True)
+    elif indicator == "5日":
+        temp_df.columns = [
+            "-",
+            "_",
+            "名称",
+            "5日涨跌幅",
+            "_",
+            "5日主力净流入-净额",
+            "5日主力净流入-净占比",
+            "5日超大单净流入-净额",
+            "5日超大单净流入-净占比",
+            "5日大单净流入-净额",
+            "5日大单净流入-净占比",
+            "5日中单净流入-净额",
+            "5日中单净流入-净占比",
+            "5日小单净流入-净额",
+            "5日小单净流入-净占比",
+            "5日主力净流入最大股",
+            "_",
+            "_",
+        ]
+
+        temp_df = temp_df[
+            [
+                "名称",
+                "5日涨跌幅",
+                "5日主力净流入-净额",
+                "5日主力净流入-净占比",
+                "5日超大单净流入-净额",
+                "5日超大单净流入-净占比",
+                "5日大单净流入-净额",
+                "5日大单净流入-净占比",
+                "5日中单净流入-净额",
+                "5日中单净流入-净占比",
+                "5日小单净流入-净额",
+                "5日小单净流入-净占比",
+                "5日主力净流入最大股",
+            ]
+        ]
+        temp_df.sort_values(["5日主力净流入-净额"], ascending=False, inplace=True)
+        temp_df.reset_index(inplace=True)
+        temp_df["index"] = range(1, len(temp_df) + 1)
+        temp_df.rename({"index": "序号"}, axis=1, inplace=True)
+    elif indicator == "10日":
+        temp_df.columns = [
+            "-",
+            "_",
+            "名称",
+            "_",
+            "10日涨跌幅",
+            "10日主力净流入-净额",
+            "10日主力净流入-净占比",
+            "10日超大单净流入-净额",
+            "10日超大单净流入-净占比",
+            "10日大单净流入-净额",
+            "10日大单净流入-净占比",
+            "10日中单净流入-净额",
+            "10日中单净流入-净占比",
+            "10日小单净流入-净额",
+            "10日小单净流入-净占比",
+            "10日主力净流入最大股",
+            "_",
+            "_",
+        ]
+
+        temp_df = temp_df[
+            [
+                "名称",
+                "10日涨跌幅",
+                "10日主力净流入-净额",
+                "10日主力净流入-净占比",
+                "10日超大单净流入-净额",
+                "10日超大单净流入-净占比",
+                "10日大单净流入-净额",
+                "10日大单净流入-净占比",
+                "10日中单净流入-净额",
+                "10日中单净流入-净占比",
+                "10日小单净流入-净额",
+                "10日小单净流入-净占比",
+                "10日主力净流入最大股",
+            ]
+        ]
+        temp_df.sort_values(["10日主力净流入-净额"], ascending=False, inplace=True)
+        temp_df.reset_index(inplace=True)
+        temp_df["index"] = range(1, len(temp_df) + 1)
+        temp_df.rename({"index": "序号"}, axis=1, inplace=True)
     return temp_df
 
 
@@ -288,6 +412,9 @@ if __name__ == "__main__":
     print(stock_market_fund_flow_df)
 
     stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(
-        indicator="5日", sector_type="行业资金流"
+        indicator="5日", sector_type="地域资金流"
     )
+    print(stock_sector_fund_flow_rank_df)
+
+    stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(indicator="今日", sector_type="行业资金流")
     print(stock_sector_fund_flow_rank_df)
