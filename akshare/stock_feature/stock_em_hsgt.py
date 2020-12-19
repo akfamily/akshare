@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/15 19:12
+Date: 2020/12/19 11:12
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -369,15 +369,15 @@ def stock_em_hsgt_hold_stock(
 
 
 def stock_em_hsgt_stock_statistics(
-    market="南向持股", start_date="20200713", end_date="20200714"
+    symbol: str = "南向持股", start_date: str = "20201218", end_date: str = "20201218"
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
     http://data.eastmoney.com/hsgtcg/StockStatistics.aspx
     market=001, 沪股通持股
     market=003, 深股通持股
-    :param market: choice of {"北向持股", "南向持股"}
-    :type market: str
+    :param symbol: choice of {"北向持股", "南向持股"}
+    :type symbol: str
     :param start_date: 指定数据获取开始的时间, e.g., "20200713"
     :type start_date: str
     :param end_date: 指定数据获取结束的时间, e.g., "20200715"
@@ -387,7 +387,7 @@ def stock_em_hsgt_stock_statistics(
     """
     start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
-    if market == "南向持股":
+    if symbol == "南向持股":
         params = {
             "type": "HSGTHDSTA",
             "token": "70f12f2f4f091e459a279469fe49eca5",
@@ -399,7 +399,44 @@ def stock_em_hsgt_stock_statistics(
             "filter": f"(MARKET='S')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
             "rt": "53160469",
         }
-    elif market == "北向持股":
+        url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{") :])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.columns = [
+            '持股日期',
+            '_',
+            '股票代码',
+            '股票简称',
+            '持股数量',
+            '持股数量占发行股百分比',
+            '当日收盘价',
+            '当日涨跌幅',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '持股日期',
+            '股票代码',
+            '股票简称',
+            '当日收盘价',
+            '当日涨跌幅',
+            '持股数量',
+            '持股市值',
+            '持股数量占发行股百分比',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+        ]]
+        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+    elif symbol == "北向持股":
         params = {
             "type": "HSGTHDSTA",
             "token": "70f12f2f4f091e459a279469fe49eca5",
@@ -411,24 +448,152 @@ def stock_em_hsgt_stock_statistics(
             "filter": f"(MARKET in ('001','003'))(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
             "rt": "53160469",
         }
+        url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{") :])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.columns = [
+            '持股日期',
+            '_',
+            '股票代码',
+            '股票简称',
+            '持股数量',
+            '持股数量占发行股百分比',
+            '当日收盘价',
+            '当日涨跌幅',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '持股日期',
+            '股票代码',
+            '股票简称',
+            '当日收盘价',
+            '当日涨跌幅',
+            '持股数量',
+            '持股市值',
+            '持股数量占发行股百分比',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+        ]]
+        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+    elif symbol == "沪股通持股":
+        params = {
+            "type": "HSGTHDSTA",
+            "token": "70f12f2f4f091e459a279469fe49eca5",
+            "st": "HDDATE,SHAREHOLDPRICE",
+            "sr": "3",
+            "p": "1",
+            "ps": "10000",
+            "js": "var AxDXinef={pages:(tp),data:(x)}",
+            "filter": f"(MARKET='001')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "rt": "53160469",
+        }
+        url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{") :])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.columns = [
+            '持股日期',
+            '_',
+            '股票代码',
+            '股票简称',
+            '持股数量',
+            '持股数量占发行股百分比',
+            '当日收盘价',
+            '当日涨跌幅',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '持股日期',
+            '股票代码',
+            '股票简称',
+            '当日收盘价',
+            '当日涨跌幅',
+            '持股数量',
+            '持股市值',
+            '持股数量占发行股百分比',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+        ]]
+        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+    elif symbol == "深股通持股":
+        params = {
+            "type": "HSGTHDSTA",
+            "token": "70f12f2f4f091e459a279469fe49eca5",
+            "st": "HDDATE,SHAREHOLDPRICE",
+            "sr": "3",
+            "p": "1",
+            "ps": "10000",
+            "js": "var AxDXinef={pages:(tp),data:(x)}",
+            "filter": f"(MARKET='003')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "rt": "53160469",
+        }
+        url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+        r = requests.get(url, params=params)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{") :])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.columns = [
+            '持股日期',
+            '_',
+            '股票代码',
+            '股票简称',
+            '持股数量',
+            '持股数量占发行股百分比',
+            '当日收盘价',
+            '当日涨跌幅',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '持股日期',
+            '股票代码',
+            '股票简称',
+            '当日收盘价',
+            '当日涨跌幅',
+            '持股数量',
+            '持股市值',
+            '持股数量占发行股百分比',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+        ]]
+        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
 
-    url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") :])
-    temp_df = pd.DataFrame(data_json["data"])
     return temp_df
 
 
 def stock_em_hsgt_institution_statistics(
-    market="北向持股", start_date="20200713", end_date="20200714"
+    market: str = "北向持股", start_date: str = "20201218", end_date: str = "20201218"
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
     http://data.eastmoney.com/hsgtcg/InstitutionStatistics.aspx
-    market=001, 沪股通持股
-    market=003, 深股通持股
-    :param market: choice of {"北向持股", "南向持股"}
+    :param market: choice of {"北向持股", "南向持股", "沪股通持股", "深股通持股"}
     :type market: str
     :param start_date: 指定数据获取开始的时间, e.g., "20200713"
     :type start_date: str
@@ -448,9 +613,40 @@ def stock_em_hsgt_institution_statistics(
             "p": "1",
             "ps": "5000",
             "js": "var gvfJjbLz={pages:(tp),data:(x)}",
-            "filter": f"(MARKET in ('001','003'))(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "filter": f"(MARKET='S')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
             "rt": "53160469",
         }
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        }
+        url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+        r = requests.get(url, params=params, headers=headers)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{") :])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.columns = [
+            '持股日期',
+            '_',
+            '机构名称',
+            '持股只数',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '持股日期',
+            '机构名称',
+            '持股只数',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+        ]]
+        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+        return temp_df
+
     elif market == "北向持股":
         params = {
             "type": "HSGTCOMSTA",
@@ -460,18 +656,123 @@ def stock_em_hsgt_institution_statistics(
             "p": "1",
             "ps": "5000",
             "js": "var gvfJjbLz={pages:(tp),data:(x)}",
-            "filter": f"(MARKET in ('001','003'))(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "filter": f"(MARKET='N')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
             "rt": "53160469",
         }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
-    }
-    url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
-    r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") :])
-    temp_df = pd.DataFrame(data_json["data"])
-    return temp_df
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        }
+        url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+        r = requests.get(url, params=params, headers=headers)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{") :])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.columns = [
+            '持股日期',
+            '_',
+            '机构名称',
+            '持股只数',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '持股日期',
+            '机构名称',
+            '持股只数',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+        ]]
+        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+        return temp_df
+    elif market == "沪股通持股":
+        params = {
+            "type": "HSGTCOMSTA",
+            "token": "70f12f2f4f091e459a279469fe49eca5",
+            "st": "HDDATE,SHAREHOLDCOUNT",
+            "sr": "3",
+            "p": "1",
+            "ps": "5000",
+            "js": "var gvfJjbLz={pages:(tp),data:(x)}",
+            "filter": f"(MARKET='001')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "rt": "53160469",
+        }
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        }
+        url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+        r = requests.get(url, params=params, headers=headers)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{") :])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.columns = [
+            '持股日期',
+            '_',
+            '机构名称',
+            '持股只数',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '持股日期',
+            '机构名称',
+            '持股只数',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+        ]]
+        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+        return temp_df
+    elif market == "深股通持股":
+        params = {
+            "type": "HSGTCOMSTA",
+            "token": "70f12f2f4f091e459a279469fe49eca5",
+            "st": "HDDATE,SHAREHOLDCOUNT",
+            "sr": "3",
+            "p": "1",
+            "ps": "5000",
+            "js": "var gvfJjbLz={pages:(tp),data:(x)}",
+            "filter": f"(MARKET='003')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
+            "rt": "53160469",
+        }
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        }
+        url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+        r = requests.get(url, params=params, headers=headers)
+        data_text = r.text
+        data_json = demjson.decode(data_text[data_text.find("{") :])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.columns = [
+            '持股日期',
+            '_',
+            '机构名称',
+            '持股只数',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '持股日期',
+            '机构名称',
+            '持股只数',
+            '持股市值',
+            '持股市值变化-1日',
+            '持股市值变化-5日',
+            '持股市值变化-10日',
+        ]]
+        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+        return temp_df
 
 
 def stock_em_hsgt_hist(symbol: str = "港股通沪") -> pd.DataFrame:
@@ -663,12 +964,42 @@ if __name__ == "__main__":
     print(stock_em_hsgt_hold_stock_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        market="南向持股", start_date="20201022", end_date="20201022"
+        symbol="南向持股", start_date="20201218", end_date="20201218"
+    )
+    print(stock_em_hsgt_stock_statistics_df)
+
+    stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
+        symbol="北向持股", start_date="20201218", end_date="20201218"
+    )
+    print(stock_em_hsgt_stock_statistics_df)
+
+    stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
+        symbol="沪股通持股", start_date="20201218", end_date="20201218"
+    )
+    print(stock_em_hsgt_stock_statistics_df)
+
+    stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
+        symbol="深股通持股", start_date="20201218", end_date="20201218"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="北向持股", start_date="20201028", end_date="20201028"
+        market="北向持股", start_date="20201218", end_date="20201218"
+    )
+    print(stock_em_hsgt_institution_statistics_df)
+
+    stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
+        market="南向持股", start_date="20201218", end_date="20201218"
+    )
+    print(stock_em_hsgt_institution_statistics_df)
+
+    stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
+        market="沪股通持股", start_date="20201218", end_date="20201218"
+    )
+    print(stock_em_hsgt_institution_statistics_df)
+
+    stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
+        market="深股通持股", start_date="20201218", end_date="20201218"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
