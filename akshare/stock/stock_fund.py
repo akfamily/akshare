@@ -191,11 +191,12 @@ def stock_market_fund_flow() -> pd.DataFrame:
 
 
 def stock_sector_fund_flow_rank(
-    indicator: str = "5日", sector_type: str = "地域资金流"
+    indicator: str = "5日", sector_type: str = "行业资金流"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-板块资金流-排名
     http://data.eastmoney.com/bkzj/hy.html
+    # TODO 资金流的字段需要确认：http://data.eastmoney.com/js_001/zjlx/base.js
     :param indicator: choice of {"今日", "5日", "10日"}
     :type indicator: str
     :param sector_type: choice of {"行业资金流": "2", "概念资金流": "3", "地域资金流": "1"}
