@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
+def stock_em_yzxdr(date: str = "20200930") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-一致行动人
     http://data.eastmoney.com/yzxdr/
@@ -19,6 +19,7 @@ def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
     :return: 一致行动人
     :rtype: pandas.DataFrame
     """
+    date = '-'.join([date[:4], date[4:6], date[6:]])
     url = "http://datacenter.eastmoney.com/api/data/get"
     params = {
         "type": "RPTA_WEB_YZXDRINDEX",
@@ -96,5 +97,5 @@ def stock_em_yzxdr(date: str = "2020-09-30") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_em_yzxdr_df = stock_em_yzxdr(date="2020-09-30")
+    stock_em_yzxdr_df = stock_em_yzxdr(date="20200930")
     print(stock_em_yzxdr_df)

@@ -7410,7 +7410,7 @@ print(stock_dzjy_yybph_df)
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| date | str | Y    | date="2020-09-30"; 每年的季度末时间点 |
+| date | str | Y    | date="20200930"; 每年的季度末时间点 |
 
 输出参数
 
@@ -7432,7 +7432,7 @@ print(stock_dzjy_yybph_df)
 
 ```python
 import akshare as ak
-stock_em_yzxdr_df = ak.stock_em_yzxdr(date="2020-09-30")
+stock_em_yzxdr_df = ak.stock_em_yzxdr(date="20200930")
 print(stock_em_yzxdr_df)
 ```
 
