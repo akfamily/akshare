@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/8/27 12:47
+Date: 2020/12/19 12:47
 Desc: 新浪财经-美股实时行情数据和历史行情数据
 http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
@@ -25,6 +25,7 @@ from akshare.stock.cons import (
 def get_us_page_count() -> int:
     """
     新浪财经-美股-总页数
+    http://finance.sina.com.cn/stock/usstock/sector.shtml
     :return: 美股总页数
     :rtype: int
     """
@@ -49,6 +50,7 @@ def get_us_stock_name() -> pd.DataFrame:
     """
     u.s. stock's english name, chinese name and symbol
     you should use symbol to get apply into the next function
+    http://finance.sina.com.cn/stock/usstock/sector.shtml
     :return: stock's english name, chinese name and symbol
     :rtype: pandas.DataFrame
     """
@@ -74,6 +76,7 @@ def get_us_stock_name() -> pd.DataFrame:
 def stock_us_spot() -> pd.DataFrame:
     """
     新浪财经-所有美股的数据, 注意延迟 15 分钟
+    http://finance.sina.com.cn/stock/usstock/sector.shtml
     :return: 美股所有股票实时行情
     :rtype: pandas.DataFrame
     """
@@ -99,7 +102,8 @@ def stock_us_spot() -> pd.DataFrame:
 def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-美股
-    # TODO 复权问题 ak.stock_us_daily(symbol='CIEN', adjust="qfq")
+    http://finance.sina.com.cn/stock/usstock/sector.shtml
+    备注：CIEN 新浪复权因子错误
     :param symbol: 可以使用 get_us_stock_name 获取
     :type symbol: str
     :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据; qfq-factor: 返回前复权因子和调整;
@@ -159,7 +163,7 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
 def stock_us_fundamental(stock="GOOGL", symbol="info"):
     """
     美股财务指标
-    https://www.macrotrends.net/stocks/charts/AAPL/apple/pe-ratio
+    https://www.macrotrends.net/stocks/stock-screener
     :return: 指定股票的财务数据
     :rtype: pandas.DataFrame
     """
