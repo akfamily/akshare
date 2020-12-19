@@ -98,7 +98,8 @@ def stock_us_spot() -> pd.DataFrame:
 
 def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     """
-    新浪财经-美股-个股的历史行情数据
+    新浪财经-美股
+    # TODO 复权问题 ak.stock_us_daily(symbol='CIEN', adjust="qfq")
     :param symbol: 可以使用 get_us_stock_name 获取
     :type symbol: str
     :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据; qfq-factor: 返回前复权因子和调整;
