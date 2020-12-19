@@ -1310,7 +1310,7 @@ print(us_stock_current_df)
 
 描述: 获取美股历史行情数据，设定 adjust="qfq" 则返回前复权后的数据，默认 adjust="", 则返回未复权的数据，历史数据按日频率更新
 
-限量: 单次返回指定上市公司指定 adjust 后的所有历史行情数据
+限量: 单次返回指定上市公司的指定 adjust 后的所有历史行情数据
 
 输入参数
 
@@ -1341,6 +1341,7 @@ print(us_stock_current_df)
 | adjust          | float      | Y        | 由于前复权会出现负值, 该值为调整因子     |
 
 P.S. 复权计算公式: 未复权数据 * qfq_factor + adjust
+P.S. "CIEN" 股票的新浪美股数据由于复权因子错误，暂不返回前复权数据
 
 接口示例-未复权数据
 
