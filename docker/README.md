@@ -1,6 +1,6 @@
 # AkDocker
 
-AkDocker is a dockerfile for AkShare's latest version test
+AkDocker is a dockerfile for AkShare's latest version
 
 # Installation
 
