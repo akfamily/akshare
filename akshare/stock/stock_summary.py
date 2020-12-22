@@ -1,15 +1,18 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/6/22 14:31
+Date: 2020/12/21 14:31
 Desc: 市场总貌
+http://www.szse.cn/market/overview/index.html
+http://www.sse.com.cn/market/stockdata/statistic/
 """
-import requests
-import pandas as pd
 from io import BytesIO
 
+import pandas as pd
+import requests
 
-def stock_szse_summary(date="20200619"):
+
+def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
     """
     深证证券交易所-总貌
     http://www.szse.cn/market/overview/index.html
@@ -33,7 +36,7 @@ def stock_szse_summary(date="20200619"):
     return temp_df
 
 
-def stock_sse_summary():
+def stock_sse_summary() -> pd.DataFrame:
     """
     上海证券交易所-总貌
     http://www.sse.com.cn/market/stockdata/statistic/
