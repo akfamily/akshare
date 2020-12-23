@@ -1,20 +1,19 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/9/17 16:19
+Date: 2020/12/23 15:19
 Desc: 获取股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
 import math
+import time
+from io import BytesIO
 
 import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-import time
-import os
-from io import BytesIO
 
 
 def index_stock_cons_sina(index: str = "000300") -> pd.DataFrame:
@@ -126,6 +125,7 @@ def index_stock_cons_csindex(index: str = "000300") -> pd.DataFrame:
     r = requests.get(url)
     temp_df = pd.read_excel(BytesIO(r.content), usecols="E:F")
     temp_df.columns = ["stock_code", "stock_name"]
+    temp_df['stock_code'] = temp_df['stock_code'].astype(str)
     return temp_df
 
 
@@ -156,16 +156,32 @@ def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
     return temp_df
 
 
+def stock_a_code_to_symbol(code: str = '000300'):
+    """
+    输入股票代码判断股票市场
+    :return:
+    :rtype:
+    """
+    if code.startswith('60') or code.startswith('900'):
+        return f"sh{code}"
+    else:
+        return f"sz{code}"
+
+
 if __name__ == "__main__":
     index_stock_cons_csindex_df = index_stock_cons_csindex(index="000300")
     print(index_stock_cons_csindex_df)
+    index_stock_cons_csindex_df['symbol'] = index_stock_cons_csindex_df['stock_code'].apply(stock_a_code_to_symbol)
     index_stock_cons_sina_df = index_stock_cons_sina(index="000300")
     print(index_stock_cons_sina_df)
     index_stock_cons_df = index_stock_cons(index="399639")
     print(index_stock_cons_df)
+    index_stock_cons_df['symbol'] = index_stock_cons_df['品种代码'].apply(stock_a_code_to_symbol)
     stock_index_hist_df = index_stock_hist(index="sz399994")
     print(stock_index_hist_df)
     index_list = index_stock_info()["index_code"].tolist()
     for item in index_list:
         index_stock_cons_df = index_stock_cons(index=item)
         print(index_stock_cons_df)
+    stock_a_code_to_symbol_df = stock_a_code_to_symbol(code='000300')
+
