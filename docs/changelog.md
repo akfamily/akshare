@@ -1768,4 +1768,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.52: fix: fix stock_sector_fund_flow_rank interface
 
 0.7.53: fix: fix stock_em_yzxdr interface
+
+0.7.54: add: add stock_a_code_to_symbol interface
 ```
