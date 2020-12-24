@@ -159,8 +159,8 @@ def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
 def stock_a_code_to_symbol(code: str = '000300'):
     """
     输入股票代码判断股票市场
-    :return:
-    :rtype:
+    :return: 带股票市场符号的代码
+    :rtype: str
     """
     if code.startswith('60') or code.startswith('900'):
         return f"sh{code}"
@@ -183,5 +183,4 @@ if __name__ == "__main__":
     for item in index_list:
         index_stock_cons_df = index_stock_cons(index=item)
         print(index_stock_cons_df)
-    stock_a_code_to_symbol_df = stock_a_code_to_symbol(code='000300')
 
