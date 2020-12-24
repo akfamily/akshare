@@ -1173,9 +1173,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.52: fix: fix stock_sector_fund_flow_rank interface
 0.7.53: fix: fix stock_em_yzxdr interface
 0.7.54: add: add stock_a_code_to_symbol interface
+0.7.55: add: add stock_news_em interface
 """
 
-__version__ = "0.7.54"
+__version__ = "0.7.55"
 __author__ = "Albert King"
 
 import sys
@@ -1185,6 +1186,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+新闻-个股新闻
+"""
+from akshare.news.stock_news import stock_news_em
 
 """
 股票数据-一致行动人

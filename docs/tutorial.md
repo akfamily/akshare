@@ -665,6 +665,8 @@
  "stock_dzjy_yybph"  # 大宗交易-营业部排行
   # 一致行动人
   "stock_em_yzxdr"  # 股票数据-一致行动人
+  # 新闻-个股新闻
+  "stock_news_em"  # 新闻-个股新闻
 ```
 
 ## 案例演示
