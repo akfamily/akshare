@@ -49,8 +49,10 @@ def stock_news_em(stock: str = "601628") -> pd.DataFrame:
         "public_time",
         "content",
     ]
+    temp_df['code'] = stock
     temp_df = temp_df[
         [
+            "code",
             "title",
             "content",
             "public_time",
@@ -68,6 +70,7 @@ def stock_news_em(stock: str = "601628") -> pd.DataFrame:
     )
     temp_df["content"] = temp_df["content"].str.replace(r"\u3000", "")
     temp_df["content"] = temp_df["content"].str.replace(r"\r\n", " ")
+
     return temp_df
 
 
