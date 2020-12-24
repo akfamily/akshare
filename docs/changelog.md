@@ -1772,4 +1772,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.54: add: add stock_a_code_to_symbol interface
 
 0.7.55: add: add stock_news_em interface
+
+0.7.56: fix: fix stock_news_em interface
 ```

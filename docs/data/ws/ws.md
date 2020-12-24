@@ -88,7 +88,7 @@ ak.watch_jinshi_quotes()
 42["rec_advanced",["EURNZD",1.75421,1.75743,1.74322,1.74677,28648]]
 ```
 
-### 金十数据-资讯
+### 金十数据-实时资讯
 
 接口: js_news
 
@@ -134,6 +134,66 @@ print(js_news_df)
 168 2020-11-25 15:10:51  【股市资金流向图】今日沪深两市主力资金净流出482.10亿元，占比5.58%；大单资金净流出...
 169 2020-11-25 15:08:03   交易员：印度卢比下跌，因印度央行疑似采取干预措施，部分国有银行在大约73.95的水平买入了美元。
 170 2020-11-25 15:06:42                        交易员：印度卢比兑美元跌幅扩大，疑似印度央行出手干预。
+```
+
+### 个股新闻
+
+接口: stock_news_em
+
+目标地址: http://so.eastmoney.com/news/s
+
+描述: 获取东方财富制定个股的数据新闻资讯数据
+
+限量: 当日最近 20 条新闻资讯数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| stock | str  | Y    | stock="300059"|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| code     | str   | Y        | 股票代码  |  
+| title     | str   | Y        |  新闻标题  |  
+| content     | str   | Y        |  新闻内容  |  
+| public_time     | str   | Y        |  新闻发布时间  |  
+| url     | str   | Y        |  新闻链接  |  
+
+接口示例
+
+```python
+import akshare as ak
+stock_news_em_df = ak.stock_news_em(stock="300059")
+print(stock_news_em_df)
+```
+
+数据示例
+
+```
+      code  ...                                                url
+0   300059  ...  http://stock.eastmoney.com/a/20201224174889118...
+1   300059  ...  http://stock.eastmoney.com/a/20201223174716106...
+2   300059  ...  http://finance.eastmoney.com/a/202012221746629...
+3   300059  ...  http://finance.eastmoney.com/a/202012221746562...
+4   300059  ...  http://stock.eastmoney.com/a/20201222174542268...
+5   300059  ...  http://finance.eastmoney.com/a/202012211744928...
+6   300059  ...  http://stock.eastmoney.com/a/20201221174378617...
+7   300059  ...  http://finance.eastmoney.com/a/202012181742938...
+8   300059  ...  http://stock.eastmoney.com/a/20201218174199233...
+9   300059  ...  http://finance.eastmoney.com/a/202012171741504...
+10  300059  ...  http://futures.eastmoney.com/a/202012171741076...
+11  300059  ...  http://stock.eastmoney.com/a/20201217174036001...
+12  300059  ...  http://finance.eastmoney.com/a/202012161739782...
+13  300059  ...  http://stock.eastmoney.com/a/20201216173977685...
+14  300059  ...  http://stock.eastmoney.com/a/20201216173976708...
+15  300059  ...  http://stock.eastmoney.com/a/20201216173919746...
+16  300059  ...  http://stock.eastmoney.com/a/20201216173874411...
+17  300059  ...  http://finance.eastmoney.com/a/202012151738266...
+18  300059  ...  http://finance.eastmoney.com/a/202012151738240...
+19  300059  ...  http://stock.eastmoney.com/a/20201215173710186...
 ```
 
 ### 阿尔戈斯全网监控
