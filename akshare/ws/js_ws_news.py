@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/11/25 15:47
+Date: 2020/12/24 15:47
 Desc: 金十数据 websocket 实时数据接口-新闻
 https://www.jin10.com/
 wss://wss-flash-1.jin10.com/
@@ -45,6 +45,7 @@ def js_news(indicator: str = '最新资讯') -> pd.DataFrame:
     ]
     big_df['datetime'] = pd.to_datetime(big_df['datetime'])
     big_df.sort_values('datetime', ascending=False, inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     if not temp_df_part_three.empty:
         temp_df_part_three.columns = [
             'datetime',
