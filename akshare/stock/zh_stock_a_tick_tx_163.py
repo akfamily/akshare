@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/16 20:39
+Date: 2020/12/28 16:39
 Desc: 腾讯-股票-实时行情-成交明细
-下载成交明细-每个交易日16:00提供当日数据
-该列表港股报价延时15分钟
+下载成交明细-每个交易日 16:00 提供当日数据
+港股报价延时 15 分钟
 """
 from io import StringIO, BytesIO
 
@@ -12,7 +12,7 @@ import pandas as pd
 import requests
 
 
-def stock_zh_a_tick_tx_js(code: str = "sz000001"):
+def stock_zh_a_tick_tx_js(code: str = "sz000001") -> pd.DataFrame:
     big_df = pd.DataFrame()
     page = 0
     while True:
@@ -33,11 +33,11 @@ def stock_zh_a_tick_tx_js(code: str = "sz000001"):
             break
     if not big_df.empty:
         big_df = big_df.iloc[:, 1:]
-        big_df.columns = ["成交时间", "成交价", "价格变动", "成交量（手）", "成交额（元）", "性质"]
+        big_df.columns = ["成交时间", "成交价", "价格变动", "成交量", "成交额", "性质"]
     return big_df
 
 
-def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20191011") -> pd.DataFrame:
+def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20201111") -> pd.DataFrame:
     """
     http://gu.qq.com/sz000001/gp/detail
     成交明细-每个交易日16:00提供当日数据
@@ -80,18 +80,18 @@ def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20200410") ->
         temp_df = pd.read_excel(BytesIO(res.content))
         return temp_df
     except:
-        return print("无当前交易日数据，请稍后再试")
+        return "无当前交易日数据，请稍后再试"
 
 
 if __name__ == "__main__":
-    date_list = pd.date_range(start="20200425", end="20200428").tolist()
+    date_list = pd.date_range(start="20201111", end="20201130").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
         print(item)
         data = stock_zh_a_tick_tx(code="sz000001", trade_date=f"{item}")
         if not data.empty:
             print(data)
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20200928")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20201222")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
