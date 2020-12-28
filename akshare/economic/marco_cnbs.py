@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/18 15:22
+Date: 2020/12/28 15:22
 Desc: 国家金融与发展实验室-中国宏观杠杆率数据
 http://114.115.232.154:8080/
 """
@@ -16,8 +16,9 @@ def macro_cnbs() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://114.115.232.154:8080/handler/download.ashx"
-    temp_df = pd.read_excel(url, sheet_name="Data", header=0, skiprows=1)
+    temp_df = pd.read_excel(url, sheet_name="Data", header=0, skiprows=1, engine="openpyxl")
     temp_df["Period"] = pd.to_datetime(temp_df["Period"]).dt.strftime("%Y-%m")
+    temp_df.dropna(axis=1, inplace=True)
     temp_df.columns = [
         "年份",
         "居民部门",
