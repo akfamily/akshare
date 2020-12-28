@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/1 16:18
+Date: 2020/12/28 16:18
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
@@ -135,7 +135,7 @@ def index_cni_detail(index: str = '399005', date: str = '2020-11') -> pd.DataFra
         'dateStr': date
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content)
+    temp_df = pd.read_excel(r.content, engine="xlrd")
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
         '日期',
@@ -163,7 +163,7 @@ def index_cni_detail_hist(index: str = '399005') -> pd.DataFrame:
         'indexcode': index
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content)
+    temp_df = pd.read_excel(r.content, engine="xlrd")
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
         '日期',
@@ -191,7 +191,7 @@ def index_cni_detail_hist_adjust(index: str = '399005') -> pd.DataFrame:
         'indexcode': index
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content)
+    temp_df = pd.read_excel(r.content, engine="xlrd")
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     return temp_df
 
