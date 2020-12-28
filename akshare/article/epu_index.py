@@ -23,7 +23,8 @@ def article_epu_index(index: str = "China") -> pd.DataFrame:
     if index == "Hong Kong":
         index = "HK"
         epu_df = pd.read_excel(
-            f"http://www.policyuncertainty.com/media/{index}_EPU_Data_Annotated.xlsx"
+            f"http://www.policyuncertainty.com/media/{index}_EPU_Data_Annotated.xlsx",
+            engine="openpyxl"
         )
         return epu_df
     if index in ["Germany", "France", "Italy"]:  # 欧洲
@@ -34,12 +35,14 @@ def article_epu_index(index: str = "China") -> pd.DataFrame:
         index = "Spain"
     if index in ["Ireland", "Chile", "Colombia", "Netherlands", "Singapore", "Sweden"]:
         epu_df = pd.read_excel(
-            f"http://www.policyuncertainty.com/media/{index}_Policy_Uncertainty_Data.xlsx"
+            f"http://www.policyuncertainty.com/media/{index}_Policy_Uncertainty_Data.xlsx",
+            engine="openpyxl"
         )
         return epu_df
     if index == "Greece":
         epu_df = pd.read_excel(
-            f"http://www.policyuncertainty.com/media/FKT_{index}_Policy_Uncertainty_Data.xlsx"
+            f"http://www.policyuncertainty.com/media/FKT_{index}_Policy_Uncertainty_Data.xlsx",
+            engine="openpyxl"
         )
         return epu_df
     url = f"http://www.policyuncertainty.com/media/{index}_Policy_Uncertainty_Data.csv"
@@ -48,5 +51,5 @@ def article_epu_index(index: str = "China") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    article_epu_index_df = article_epu_index(index="China")
+    article_epu_index_df = article_epu_index(index="Greece")
     print(article_epu_index_df)

@@ -5409,7 +5409,7 @@ print(stock_info_sh_df)
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| indicator | str | Y    | indicator="A股列表"; choice of {"A股列表", "B股列表", "上市公司列表", "主板", "中小企业板", "创业板"}|
+| indicator | str | Y    | indicator="A股列表"; choice of {"A股列表", "B股列表", "CDR列表", "AB股列表"}|
 
 输出参数
 
