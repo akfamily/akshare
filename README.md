@@ -40,7 +40,7 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 
 ### PR
 
-Please check [documentation](https://www.akshare.xyz/zh_CN/latest/contributor.html) if you want to contribute to AkShare
+Please check out [documentation](https://www.akshare.xyz/zh_CN/latest/contributor.html) if you want to contribute to AkShare
 
 ### Docker
 
