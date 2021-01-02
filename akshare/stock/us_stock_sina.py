@@ -7,6 +7,11 @@ http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
 import json
 
+import asyncio
+import aiohttp
+import time
+import math
+
 from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
@@ -21,8 +26,18 @@ from akshare.stock.cons import (
     us_sina_stock_hist_qfq_url,
 )
 
+async def get(url, params=None):
+    session = aiohttp.ClientSession()
+    response = await session.get(url, params=params)
+    res_text = await response.text()
+    await session.close()
+    return res_text
 
-def get_us_page_count() -> int:
+async def request(url, params=None):
+    res_text = await get(url, params)
+    return res_text
+
+def get_us_page_count(count_per_page=200) -> int:
     """
     新浪财经-美股-总页数
     http://finance.sina.com.cn/stock/usstock/sector.shtml
@@ -30,7 +45,9 @@ def get_us_page_count() -> int:
     :rtype: int
     """
     page = "1"
-    us_js_decode = f"US_CategoryService.getList?page={page}&num=20&sort=&asc=0&market=&id="
+    us_js_decode = f"US_CategoryService.getList?page={page}&num={count_per_page}&sort=&asc=0&market=&id="
+    us_sina_stock_dict_payload.update({"num": "{}".format(count_per_page)})
+
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(js_hash_text)
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
@@ -39,10 +56,7 @@ def get_us_page_count() -> int:
         us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
     )
     data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
-    if not isinstance(int(data_json["count"]) / 20, int):
-        page_count = int(int(data_json["count"]) / 20) + 1
-    else:
-        page_count = int(int(data_json["count"]) / 20)
+    page_count = math.ceil(int(data_json["count"]) / count_per_page)
     return page_count
 
 
@@ -56,20 +70,33 @@ def get_us_stock_name() -> pd.DataFrame:
     """
     big_df = pd.DataFrame()
     page_count = get_us_page_count()
-    for page in tqdm(range(1, page_count + 1)):
-        # page = "1"
-        us_js_decode = "US_CategoryService.getList?page={}&num=20&sort=&asc=0&market=&id=".format(
-            page
-        )
+    start = time.time()
+
+    tasks = []
+    count_per_page = us_sina_stock_dict_payload['num']
+    for page in (range(1, page_count + 1)):
+        us_js_decode = f"US_CategoryService.getList?page={page}&num={count_per_page}&sort=&asc=0&market=&id="
+        print(f'us_js_decode={us_js_decode}')
         js_code = py_mini_racer.MiniRacer()
         js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
-        res = requests.get(
-            us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
+        task = asyncio.ensure_future(
+            request(us_sina_stock_list_url.format(dict_list), us_sina_stock_dict_payload)
         )
-        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+        tasks.append(task)
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(tasks))
+
+    for task in tasks:
+        res = task.result()
+        data_json = json.loads(res[res.find("({") + 1: res.rfind(");")])
         big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+
+    end = time.time()
+    print('Cost time:', end - start)
+
     return big_df[["name", "cname", "symbol"]]
 
 
