@@ -1,9 +1,10 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/18 13:07
+Date: 2021/1/4 13:07
 Desc: 新浪财经-交易日历
 https://finance.sina.com.cn/realstock/company/klc_td_sh.txt
+此处可以用来更新 calendar.json 文件，注意末尾没有 "," 号
 """
 from py_mini_racer import py_mini_racer
 import pandas as pd

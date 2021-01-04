@@ -1179,9 +1179,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.58: fix: fix stock_zh_a_tick_tx_js support
 0.7.59: fix: fix read_excel support
 0.7.60: fix: fix fund_em_open_fund_daily interface
+0.7.61: fix: fix calendar.json interface
 """
 
-__version__ = "0.7.60"
+__version__ = "0.7.61"
 __author__ = "Albert King"
 
 import sys
