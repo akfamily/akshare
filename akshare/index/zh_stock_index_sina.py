@@ -186,7 +186,7 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sz399812")
+    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sh000909")
     print(stock_zh_index_daily_df)
 
     stock_zh_index_spot_df = stock_zh_index_spot()
@@ -195,5 +195,5 @@ if __name__ == "__main__":
     stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz000858")
     print(stock_zh_index_daily_tx_df)
 
-    stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="sz399812")
+    stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="sh000909")
     print(stock_zh_index_daily_em_df)
