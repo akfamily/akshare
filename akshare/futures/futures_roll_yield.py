@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/06/22 12:58
+Date: 2021/1/4 12:58
 Desc: 各合约展期收益率, 日线数据从 daily_bar 函数获取, 需要在收盘后运行
 """
 import datetime
@@ -188,8 +188,8 @@ if __name__ == "__main__":
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="date",
         var="CF",
-        start_day="20200510",
-        end_day="20200621",
+        start_day="20201212",
+        end_day="20210104",
         plot=True,
     )
     print(get_roll_yield_bar_range_df)

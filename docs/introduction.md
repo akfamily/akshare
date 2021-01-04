@@ -7,11 +7,11 @@
 
 2. 如有库、文档及数据的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
-3. 您也可以加入QQ群: 606449742
+3. 您也可以加入QQ群: 1001545081
 
 <div align=center>
     <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=8de5f2b616ba185100c45de811736a7cbf2eb4bc2d6b1efcfd3e5cdf9d7760de">
-        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_606449742.png" alt="AkShare-官方" title="AkShare-官方" align="center">
+        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1001545081.png" alt="AkShare-官方" title="AkShare-官方" align="center">
     </a>
 </div>
 4. 欢迎关注 数据科学实战 微信公众号:
