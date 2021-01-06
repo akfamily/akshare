@@ -102,7 +102,7 @@ def option_sina_cffex_hs300_daily(contract: str = "io2004C4450") -> pd.DataFrame
     r = requests.get(url, params=payload)
     data_text = r.text
     data_df = pd.DataFrame(
-        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+        eval(data_text[data_text.find("["): data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
     return data_df
@@ -139,7 +139,7 @@ def option_sina_sse_expire_day(
     :param exchange: null
     :type exchange: str
     :return: (到期时间, 剩余时间)
-    :rtype: Tuple
+    :rtype: tuple
     """
     url = (
         f"http://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionService.getRemainderDay?"
@@ -402,7 +402,7 @@ if __name__ == "__main__":
     print(option_sina_sse_list_df)
 
     option_sina_sse_expire_day_df = option_sina_sse_expire_day(
-        trade_date="202012", symbol="50ETF", exchange="null"
+        trade_date="202101", symbol="50ETF", exchange="null"
     )
     print(option_sina_sse_expire_day_df)
 

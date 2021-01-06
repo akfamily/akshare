@@ -33,5 +33,5 @@ def futures_contract_detail(contract: str = 'AP2101') -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    futures_contract_detail_df = futures_contract_detail(contract='V2001')
+    futures_contract_detail_df = futures_contract_detail(contract='V1903')
     print(futures_contract_detail_df)
