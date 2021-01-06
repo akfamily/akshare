@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/11/17 16:52
+Date: 2021/1/6 12:52
 Desc: 查询期货合约当前时刻的详情
 https://finance.sina.com.cn/futures/quotes/V2101.shtml
 """
@@ -12,6 +12,7 @@ import requests
 def futures_contract_detail(contract: str = 'AP2101') -> pd.DataFrame:
     """
     查询期货合约详情
+    https://finance.sina.com.cn/futures/quotes/V2101.shtml
     :param contract: 合约
     :type contract: str
     :return: 期货合约详情
