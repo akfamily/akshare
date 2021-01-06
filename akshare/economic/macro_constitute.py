@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/18 12:08
+Date: 2021/1/6 12:08
 Desc: 金十数据-数据中心-主要机构-宏观经济
-
+https://datacenter.jin10.com/
 """
 import json
 import time
+import math
 
 import pandas as pd
 import requests
@@ -19,21 +20,12 @@ from akshare.economic.cons import (
 )
 
 
-def macro_cons_gold_volume():
+def macro_cons_gold_volume() -> pd.Series:
     """
-    全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
-    :return: pandas.Series
-    2004-11-18      8.09
-    2004-11-19     57.85
-    2004-11-22     87.09
-    2004-11-23     87.09
-    2004-11-24     96.42
-                   ...
-    2019-10-20    924.64
-    2019-10-21    924.64
-    2019-10-22    919.66
-    2019-10-23    918.48
-    2019-10-24    918.48
+    全球最大黄金 ETF—SPDR Gold Trust 持仓报告, 数据区间从 20041118-至今
+    https://datacenter.jin10.com/reportType/dc_etf_gold
+    :return: 持仓报告
+    :rtype: pandas.Series
     """
     t = time.time()
     res = requests.get(
@@ -81,16 +73,40 @@ def macro_cons_gold_volume():
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", keep="last", inplace=True)
     temp_df.set_index("index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "gold_volume"
-    temp_df = temp_df.astype(float)
-    return temp_df
+
+    for_times = math.ceil(int(str((temp_df.index[-1] - value_df.index[-1])).split(' ')[0]) / 20)
+    big_df = temp_df
+    big_df.columns = ['总库存']
+
+    for i in tqdm(range(for_times)):
+        params = {
+            "max_date": temp_df.index[-1],
+            "category": "etf",
+            "attr_id": "1",
+            "_": str(int(round(t * 1000))),
+        }
+        r = requests.get(url, params=params, headers=headers)
+        temp_df = pd.DataFrame(r.json()["data"]["values"])
+        temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
+        temp_df = temp_df.iloc[:, 1:]
+        temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
+        big_df = big_df.append(temp_df.iloc[:, [0]])
+
+    big_df.dropna(inplace=True)
+    big_df.sort_index(inplace=True)
+    big_df = big_df.reset_index()
+    big_df.drop_duplicates(subset="index", keep="last", inplace=True)
+    big_df.set_index("index", inplace=True)
+    big_df = big_df.squeeze()
+    big_df.index.name = None
+    big_df.name = "gold_volume"
+    big_df = big_df.astype(float)
+    return big_df
 
 
 def macro_cons_gold_change():
     """
-    全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+    全球最大黄金 ETF—SPDR Gold Trust 持仓报告, 数据区间从 20041118-至今
     :return: pandas.Series
     """
     t = time.time()
@@ -139,16 +155,41 @@ def macro_cons_gold_change():
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", keep="last", inplace=True)
     temp_df.set_index("index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "gold_change"
-    temp_df = temp_df.astype(float)
-    return temp_df
+
+    for_times = math.ceil(int(str((temp_df.index[-1] - value_df.index[-1])).split(' ')[0]) / 20)
+    big_df = temp_df
+    big_df.columns = ['增持/减持']
+
+    for i in tqdm(range(for_times)):
+        params = {
+            "max_date": temp_df.index[-1],
+            "category": "etf",
+            "attr_id": "1",
+            "_": str(int(round(t * 1000))),
+        }
+        r = requests.get(url, params=params, headers=headers)
+        temp_df = pd.DataFrame(r.json()["data"]["values"])
+        temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
+        temp_df = temp_df.iloc[:, 1:]
+        temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
+        big_df = big_df.append(temp_df.iloc[:, [1]])
+
+    big_df.dropna(inplace=True)
+    big_df.sort_index(inplace=True)
+    big_df = big_df.reset_index()
+    big_df.drop_duplicates(subset="index", keep="last", inplace=True)
+    big_df.set_index("index", inplace=True)
+
+    big_df = big_df.squeeze()
+    big_df.index.name = None
+    big_df.name = "gold_change"
+    big_df = big_df.astype(float)
+    return big_df
 
 
 def macro_cons_gold_amount():
     """
-    全球最大黄金ETF—SPDR Gold Trust持仓报告, 数据区间从20041118-至今
+    全球最大黄金 ETF—SPDR Gold Trust 持仓报告, 数据区间从 20041118-至今
     :return: pandas.Series
     """
     t = time.time()
@@ -197,16 +238,41 @@ def macro_cons_gold_amount():
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", keep="last", inplace=True)
     temp_df.set_index("index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "gold_amount"
-    temp_df = temp_df.astype(float)
-    return temp_df
+
+    for_times = math.ceil(int(str((temp_df.index[-1] - value_df.index[-1])).split(' ')[0]) / 20)
+    big_df = temp_df
+    big_df.columns = ['总价值']
+
+    for i in tqdm(range(for_times)):
+        params = {
+            "max_date": temp_df.index[-1],
+            "category": "etf",
+            "attr_id": "1",
+            "_": str(int(round(t * 1000))),
+        }
+        r = requests.get(url, params=params, headers=headers)
+        temp_df = pd.DataFrame(r.json()["data"]["values"])
+        temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
+        temp_df = temp_df.iloc[:, 1:]
+        temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
+        big_df = big_df.append(temp_df.iloc[:, [2]])
+
+    big_df.dropna(inplace=True)
+    big_df.sort_index(inplace=True)
+    big_df = big_df.reset_index()
+    big_df.drop_duplicates(subset="index", keep="last", inplace=True)
+    big_df.set_index("index", inplace=True)
+
+    big_df = big_df.squeeze()
+    big_df.index.name = None
+    big_df.name = "gold_change"
+    big_df = big_df.astype(float)
+    return big_df
 
 
 def macro_cons_silver_volume():
     """
-    全球最大白银ETF--iShares Silver Trust持仓报告, 数据区间从20060429-至今
+    全球最大白银 ETF--iShares Silver Trust 持仓报告, 数据区间从 20060429-至今
     :return: pandas.Series
     """
     t = time.time()
