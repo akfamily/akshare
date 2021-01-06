@@ -1181,9 +1181,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.60: fix: fix fund_em_open_fund_daily interface
 0.7.61: fix: fix calendar.json interface
 0.7.62: fix: fix QQ group interface
+0.7.63: add: add bond_summary_sse interface
 """
 
-__version__ = "0.7.62"
+__version__ = "0.7.63"
 __author__ = "Albert King"
 
 import sys
@@ -1193,6 +1194,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+债券概览
+"""
+from akshare.bond.bond_summary import bond_summary_sse
 
 """
 新闻-个股新闻
