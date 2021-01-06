@@ -40,7 +40,7 @@ def energy_oil_hist() -> pd.DataFrame:
 
 def energy_oil_detail(date: str = "2020-03-19") -> pd.DataFrame:
     """
-    地区油价
+    全国各地区的汽油和柴油油价
     http://data.eastmoney.com/cjsj/oil_default.html
     :param date: call function: energy_oil_hist to get the date point
     :type date: str
