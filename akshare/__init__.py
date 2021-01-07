@@ -1183,9 +1183,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.62: fix: fix QQ group interface
 0.7.63: add: add bond_summary_sse interface
 0.7.64: fix: fix macro_cons_gold_volume interface
+0.7.65: fix: fix fund_em_value_estimation interface
 """
 
-__version__ = "0.7.64"
+__version__ = "0.7.65"
 __author__ = "Albert King"
 
 import sys

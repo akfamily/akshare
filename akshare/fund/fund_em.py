@@ -131,7 +131,7 @@ def fund_em_open_fund_info(
         data_json = demjson.decode(
             text[
                 text.find("Data_netWorthTrend")
-                + 21 : text.find("Data_ACWorthTrend")
+                + 21: text.find("Data_ACWorthTrend")
                 - 15
             ]
         )
@@ -693,7 +693,7 @@ def fund_em_value_estimation() -> pd.DataFrame:
         "orderType": "desc",
         "canbuy": "0",
         "pageIndex": "1",
-        "pageSize": "10000",
+        "pageSize": "20000",
         "callback": "jQuery18306504687615774458_1589361322986",
         "_": int(time.time() * 1000),
     }
@@ -800,7 +800,7 @@ if __name__ == "__main__":
     fund_em_etf_fund_daily_df = fund_em_etf_fund_daily()
     print(fund_em_etf_fund_daily_df)
 
-    fund_em_etf_fund_info_df = fund_em_etf_fund_info(fund="511280")
+    fund_em_etf_fund_info_df = fund_em_etf_fund_info(fund="163406")
     print(fund_em_etf_fund_info_df)
 
     fund_em_value_estimation_df = fund_em_value_estimation()
