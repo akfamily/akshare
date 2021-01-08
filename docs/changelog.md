@@ -1792,4 +1792,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.64: fix: fix macro_cons_gold_volume interface
 
 0.7.65: fix: fix fund_em_value_estimation interface
+
+0.7.66: fix: fix fund_em_value_estimation interface
 ```
