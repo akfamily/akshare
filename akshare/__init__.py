@@ -1186,9 +1186,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.65: fix: fix fund_em_value_estimation interface
 0.7.66: fix: fix fund_em_value_estimation interface
 0.7.67: fix: fix get_dce_daily interface
+0.7.68: fix: fix stock_zh_index_spot interface
 """
 
-__version__ = "0.7.67"
+__version__ = "0.7.68"
 __author__ = "Albert King"
 
 import sys

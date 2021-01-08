@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/23 14:28
+Date: 2021/1/8 20:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
@@ -12,6 +12,7 @@ import demjson
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
+from tqdm import tqdm
 
 from akshare.index.cons import (
     zh_sina_index_stock_payload,
@@ -20,6 +21,20 @@ from akshare.index.cons import (
     zh_sina_index_stock_hist_url,
 )
 from akshare.stock.cons import hk_js_decode
+
+
+def _replace_comma(x):
+    """
+    去除单元格中的 ","
+    :param x: 单元格元素
+    :type x: str
+    :return: 处理后的值或原值
+    :rtype: str
+    """
+    if ',' in str(x):
+        return str(x).replace(",", "")
+    else:
+        return x
 
 
 def get_zh_index_page_count() -> int:
@@ -39,7 +54,7 @@ def get_zh_index_page_count() -> int:
 
 def stock_zh_index_spot() -> pd.DataFrame:
     """
-    新浪财经-指数-, 大量抓取容易封IP
+    新浪财经-指数, 大量采集会被目标网站服务器封禁 IP
     http://vip.stock.finance.sina.com.cn/mkt/#hs_s
     :return: 所有指数的实时行情数据
     :rtype: pandas.DataFrame
@@ -47,12 +62,54 @@ def stock_zh_index_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = get_zh_index_page_count()
     zh_sina_stock_payload_copy = zh_sina_index_stock_payload.copy()
-    for page in range(1, page_count + 1):
-        # print(page)
+    for page in tqdm(range(1, page_count + 1)):
         zh_sina_stock_payload_copy.update({"page": page})
         res = requests.get(zh_sina_index_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(res.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
+    big_df = big_df.applymap(_replace_comma)
+    big_df["trade"] = big_df["trade"].astype(float)
+    big_df["pricechange"] = big_df["pricechange"].astype(float)
+    big_df["changepercent"] = big_df["changepercent"].astype(float)
+    big_df["buy"] = big_df["buy"].astype(float)
+    big_df["sell"] = big_df["sell"].astype(float)
+    big_df["settlement"] = big_df["settlement"].astype(float)
+    big_df["open"] = big_df["open"].astype(float)
+    big_df["high"] = big_df["high"].astype(float)
+    big_df["low"] = big_df["low"].astype(float)
+    big_df["low"] = big_df["low"].astype(float)
+    big_df.columns = [
+        '代码',
+        '名称',
+        '最新价',
+        '涨跌额',
+        '涨跌幅',
+        '_',
+        '_',
+        '昨收',
+        '今开',
+        '最高',
+        '最低',
+        '成交量',
+        '成交额',
+        '_',
+        '_',
+    ]
+    big_df = big_df[
+        [
+            '代码',
+            '名称',
+            '最新价',
+            '涨跌额',
+            '涨跌幅',
+            '昨收',
+            '今开',
+            '最高',
+            '最低',
+            '成交量',
+            '成交额',
+        ]
+    ]
     return big_df
 
 
@@ -116,7 +173,7 @@ def stock_zh_index_daily_tx(symbol: str = "sz000858") -> pd.DataFrame:
     range_start = int(start_date.split("-")[0])
     range_end = datetime.date.today().year + 1
     temp_df = pd.DataFrame()
-    for year in range(range_start, range_end):
+    for year in tqdm(range(range_start, range_end)):
         params = {
             "_var": f"kline_dayqfq{year}",
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,qfq",
