@@ -346,7 +346,7 @@ def get_shfe_daily(date="20131016"):
     return df[cons.OUTPUT_COLUMNS]
 
 
-def get_dce_daily(date="20030115"):
+def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
     """
     大连商品交易所日交易数据
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
@@ -496,7 +496,7 @@ if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(start_date='20101112 ', end_date='20101113', market="SHFE", index_bar=True)
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20030109")
+    get_dce_daily_df = get_dce_daily(date="20210108")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20101101")
