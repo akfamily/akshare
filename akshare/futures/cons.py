@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/9/30 13:58
+Date: 2021/1/8 17:58
 Desc: 期货配置文件
 """
 import datetime
@@ -142,6 +142,7 @@ market_exchange_symbols = {
         "RR",
         "EB",  # 20191009
         "PG",
+        "LH",  # 20210108 生猪期货
     ],
     "czce": [
         "WH",
@@ -427,6 +428,7 @@ DCE_MAP = {
     "粳米": "RR",
     "苯乙烯": "EB",
     "液化石油气": "PG",
+    "生猪": "LH",
 }
 
 
