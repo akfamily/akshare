@@ -131,7 +131,7 @@ def fund_em_open_fund_info(
         data_json = demjson.decode(
             text[
                 text.find("Data_netWorthTrend")
-                + 21: text.find("Data_ACWorthTrend")
+                + 21 : text.find("Data_ACWorthTrend")
                 - 15
             ]
         )
@@ -675,10 +675,12 @@ def fund_em_etf_fund_info(fund: str = "511280") -> pd.DataFrame:
     return temp_df
 
 
-def fund_em_value_estimation() -> pd.DataFrame:
+def fund_em_value_estimation(symbol: str = "") -> pd.DataFrame:
     """
     东方财富网-数据中心-净值估算
     http://fund.eastmoney.com/fundguzhi.html
+    :param symbol: choice of {'股票指数', '联接基金', '混合型', '股票型', 'QDII-指数', '债券型', '定开债券', '债券指数', '其他创新', 'QDII', '混合-FOF', '股票-FOF'}
+    :type symbol: str
     :return: 近期净值估算数据
     :rtype: pandas.DataFrame
     """
@@ -745,7 +747,11 @@ def fund_em_value_estimation() -> pd.DataFrame:
             "基金名称",
         ]
     ]
-    return temp_df
+    if symbol == "":
+        return temp_df
+    else:
+        temp_df = temp_df[temp_df["基金类型"] == symbol]
+        return temp_df
 
 
 if __name__ == "__main__":
@@ -803,5 +809,5 @@ if __name__ == "__main__":
     fund_em_etf_fund_info_df = fund_em_etf_fund_info(fund="163406")
     print(fund_em_etf_fund_info_df)
 
-    fund_em_value_estimation_df = fund_em_value_estimation()
+    fund_em_value_estimation_df = fund_em_value_estimation(symbol="混合型")
     print(fund_em_value_estimation_df)
