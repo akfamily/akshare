@@ -143,6 +143,6 @@ if __name__ == "__main__":
     crypto_name_map_df = crypto_name_map()
     print(crypto_name_map_df)
     crypto_hist_df = crypto_hist(
-        symbol="比特币", period="每日", start_date="20151020", end_date="20201023"
+        symbol="比特币", period="每日", start_date="20151020", end_date="20210107"
     )
     print(crypto_hist_df)
