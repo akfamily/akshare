@@ -1,9 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/9/30 13:58
-Desc: 从大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日注册仓单数据, 建议下午 16:30 以后采集当天数据,
-避免交易所数据更新不稳定导致的程序出错
+Date: 2021/1/8 13:58
+Desc: 大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日注册仓单数据, 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定导致的程序出错
 """
 import datetime
 import re
@@ -26,8 +25,7 @@ shfe_20101029 = pd.DataFrame({'var': ['CU', 'AL', 'ZN', 'RU', 'FU', 'AU', 'RB', 
 
 def get_dce_receipt(date: str = None, symbol_list: List = cons.contract_symbols):
     """
-    完成
-    采集大连商品交易所注册仓单数据
+    大连商品交易所注册仓单数据
     :param date: format 开始日期: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 为空时为当天
     :param symbol_list: 合约品种如 RB, AL等列表, 为空时为所有商品数据从 20060106开始，每周五更新仓单数据。直到20090407起，每交易日都更新仓单数据
     :return: pd.DataFrame
@@ -261,8 +259,8 @@ def get_czce_receipt_2(date: str = None, vars_list: List = cons.contract_symbols
 
 def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols):
     """
-    抓取郑州商品交易所注册仓单数据
-    适用20151112(包括)至今
+    郑州商品交易所注册仓单数据
+    适用 20151112-至今
     Parameters
     ------
         date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
