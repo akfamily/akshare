@@ -119,6 +119,7 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
     data_df.index = pd.to_datetime(data_df["date"])
+    del data_df["amount"]
     del data_df["date"]
     data_df = data_df.astype("float")
     res = requests.get(us_sina_stock_hist_qfq_url.format(symbol))
