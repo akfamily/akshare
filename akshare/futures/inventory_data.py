@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/9/30 13:58
-Desc: 得到99期货网的原始数据
+Date: 2021/1/10 13:58
+Desc: 得到 99 期货网的原始数据
 """
 import requests
 import pickle
