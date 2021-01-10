@@ -16,6 +16,7 @@ http://www.czce.com.cn/cn/exchange/2014/datatradeholding/20140515.txt
 """
 import datetime
 import json
+import time
 import re
 import warnings
 import zipfile
@@ -375,13 +376,41 @@ def _get_dce_contract_list(date, var):
     :param var: 合约品种
     :return: list 公布了持仓排名的合约列表
     """
-    url = cons.DCE_VOL_RANK_URL_2 % (var.lower(), var.lower(), date.year, date.month - 1, date.day)
-    r = requests.post(url)
-    soup = BeautifulSoup(r.text, "lxml")
-    contract_list = [re.findall(r"\d+", item["onclick"].strip("javascript:setContract_id('").strip("');"))[0] for item in
-                     soup.find_all(attrs={"name": "contract"})]
-    contract_list = [var.lower()+item for item in contract_list]
-    return contract_list
+    url = 'http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html'
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "close",
+        "Host": "www.dce.com.cn",
+        "Origin": "http://www.dce.com.cn",
+        "Pragma": "no-cache",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    params = {
+        'memberDealPosiQuotes.variety': var.lower(),
+        'memberDealPosiQuotes.trade_type': '0',
+        'year': date.year,
+        'month': date.month - 1,
+        'day': date.day,
+        'contract.contract_id': 'all',
+        'contract.variety_id': var.lower(),
+        'contract': '',
+    }
+
+    while 1:
+        try:
+            r = requests.post(url, params=params, headers=headers)
+            soup = BeautifulSoup(r.text, "lxml")
+            contract_list = [re.findall(r"\d+", item["onclick"].strip("javascript:setContract_id('").strip("');"))[0] for item in
+                             soup.find_all(attrs={"name": "contract"})]
+            contract_list = [var.lower()+item for item in contract_list]
+            return contract_list
+        except:
+            time.sleep(5)
+            continue
 
 
 def get_dce_rank_table(date="20201026", vars_list=cons.contract_symbols):
@@ -407,7 +436,7 @@ def get_dce_rank_table(date="20201026", vars_list=cons.contract_symbols):
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2006, 1, 4):
-        print(Exception("大连商品交易所数据源开始日期为20060104，跳过"))
+        print(Exception("大连商品交易所数据源开始日期为 20060104，跳过"))
         return {}
     if date.strftime('%Y%m%d') not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
@@ -415,7 +444,9 @@ def get_dce_rank_table(date="20201026", vars_list=cons.contract_symbols):
     vars_list = [i for i in vars_list if i in cons.market_exchange_symbols['dce']]
     big_dict = {}
     for var in vars_list:
+        # print(var)
         symbol_list = _get_dce_contract_list(date, var)
+        # print(symbol_list)
         for symbol in symbol_list:
             url = cons.DCE_VOL_RANK_URL_1 % (var.lower(), symbol, var.lower(), date.year, date.month - 1, date.day)
             list_60_name = []
