@@ -1187,9 +1187,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.66: fix: fix fund_em_value_estimation interface
 0.7.67: fix: fix get_dce_daily interface
 0.7.68: fix: fix stock_zh_index_spot interface
+0.7.69: fix: fix covid_19 interface
 """
 
-__version__ = "0.7.68"
+__version__ = "0.7.69"
 __author__ = "Albert King"
 
 import sys
@@ -1687,9 +1688,6 @@ from akshare.bond.china_repo import bond_repo_zh_tick
 新型肺炎
 """
 from akshare.event.covid import (
-    covid_19_area_search,
-    covid_19_area_all,
-    covid_19_area_detail,
     covid_19_trip,
     covid_19_history,
 )
