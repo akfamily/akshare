@@ -1190,9 +1190,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.69: fix: fix covid_19 interface
 0.7.70: fix: fix get_dce_rank_table interface
 0.7.71: fix: fix stock_us_daily interface
+0.7.72: fix: fix get_ine_daily interface
 """
 
-__version__ = "0.7.71"
+__version__ = "0.7.72"
 __author__ = "Albert King"
 
 import sys
