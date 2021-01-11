@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/18 20:08
+Date: 2021/1/11 18:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -2188,6 +2188,33 @@ def macro_china_real_estate():
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"])
     return temp_df
+
+
+def macro_china_money_supply():
+    """
+    http://data.eastmoney.com/cjsj/hbgyl.html
+    中国 货币供应量
+    :return: 货币供应量
+    :rtype: pandas.DataFrame
+    """
+    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    params = {
+        "type": "GJZB",
+        "sty": "ZGZB",
+        "p": "1",
+        "ps": "200",
+        "mkt": "11"
+    }
+    r = requests.get(url=url, params=params)
+    data_text = r.text
+    tmp_list = data_text[data_text.find("[") + 2: -3]
+    tmp_list = tmp_list.split('","')
+    res_list = []
+    for li in tmp_list:
+        res_list.append(li.split(','))
+    columns = ["月份", "货币和准货币(M2)数量(亿元)", "货币和准货币(M2)同比增长", "货币和准货币(M2)环比增长", "货币(M1)数量(亿元)", "货币(M1)同比增长", "货币(M1)环比增长", "流通中的现金(M0)数量(亿元)", "流通中的现金(M0)同比增长", "流通中的现金(M0)环比增长"]
+    data_df = pd.DataFrame(res_list, columns=columns)
+    return data_df
 
 
 if __name__ == "__main__":
