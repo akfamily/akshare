@@ -669,6 +669,8 @@
   "stock_news_em"  # 新闻-个股新闻
   # 债券概览
   "bond_summary_sse"  # 上登债券信息网-债券成交概览
+  # 中国货币供应量
+  "macro_china_money_supply"  # 中国货币供应量
 ```
 
 ## 案例演示
