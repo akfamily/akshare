@@ -11,7 +11,9 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 
-def stock_sina_lhb_detail_daily(trade_date: str = "20200730", symbol: str = "当日无价格涨跌幅限制的A股，出现异常波动停牌的股票") -> pd.DataFrame:
+def stock_sina_lhb_detail_daily(
+    trade_date: str = "20200730", symbol: str = "当日无价格涨跌幅限制的A股，出现异常波动停牌的股票"
+) -> pd.DataFrame:
     """
     龙虎榜-每日详情
     http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lhb/index.phtml
@@ -24,20 +26,24 @@ def stock_sina_lhb_detail_daily(trade_date: str = "20200730", symbol: str = "当
     """
     trade_date = "-".join([trade_date[:4], trade_date[4:6], trade_date[6:]])
     url = "http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lhb/index.phtml"
-    params = {
-        "tradedate": trade_date
-    }
+    params = {"tradedate": trade_date}
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
-    table_name_list = [item.get_text().strip() for item in soup.find_all("span", attrs={"style": "font-weight:bold;font-size:14px;"}) if item.get_text().strip() != ""]
+    table_name_list = [
+        item.get_text().strip()
+        for item in soup.find_all(
+            "span", attrs={"style": "font-weight:bold;font-size:14px;"}
+        )
+        if item.get_text().strip() != ""
+    ]
     if symbol == "返回当前交易日所有可查询的指标":
         return table_name_list
     else:
         position_num = table_name_list.index(symbol)
-        if len(table_name_list) == position_num+1:
+        if len(table_name_list) == position_num + 1:
             temp_df_1 = pd.read_html(r.text, header=1)[position_num].iloc[0:, :]
-            temp_df_2 = pd.read_html(r.text, header=1)[position_num+1].iloc[0:, :]
-            temp_df_3 = pd.read_html(r.text, header=1)[position_num+2].iloc[0:, :]
+            temp_df_2 = pd.read_html(r.text, header=1)[position_num + 1].iloc[0:, :]
+            temp_df_3 = pd.read_html(r.text, header=1)[position_num + 2].iloc[0:, :]
             temp_df = temp_df_1.append(temp_df_2).append(temp_df_3)
         else:
             temp_df = pd.read_html(r.text, header=1)[position_num].iloc[0:, :]
@@ -68,7 +74,7 @@ def stock_sina_lhb_ggtj(recent_day: str = "5") -> pd.DataFrame:
     except:
         last_page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, last_page_num+1)):
+    for page in tqdm(range(1, last_page_num + 1)):
         params = {
             "last": "5",
             "p": page,
@@ -102,7 +108,7 @@ def stock_sina_lhb_yytj(recent_day: str = "5") -> pd.DataFrame:
     except:
         last_page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, last_page_num+1)):
+    for page in tqdm(range(1, last_page_num + 1)):
         params = {
             "last": "5",
             "p": page,
@@ -110,7 +116,7 @@ def stock_sina_lhb_yytj(recent_day: str = "5") -> pd.DataFrame:
         r = requests.get(url, params=params)
         temp_df = pd.read_html(r.text)[0].iloc[0:, :]
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df.columns = ['营业部名称', '上榜次数', '累积购买额', '买入席位数', '累积卖出额', '卖出席位数', '买入前三股票']
+    big_df.columns = ["营业部名称", "上榜次数", "累积购买额", "买入席位数", "累积卖出额", "卖出席位数", "买入前三股票"]
     return big_df
 
 
@@ -135,7 +141,7 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
     except:
         last_page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, last_page_num+1)):
+    for page in tqdm(range(1, last_page_num + 1)):
         params = {
             "last": "5",
             "p": page,
@@ -146,7 +152,7 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     del big_df["当前价"]
     del big_df["涨跌幅"]
-    big_df.columns = ['股票代码', '股票名称', '累积买入额', '买入次数', '累积卖出额', '卖出次数', '净额']
+    big_df.columns = ["股票代码", "股票名称", "累积买入额", "买入次数", "累积卖出额", "卖出次数", "净额"]
     return big_df
 
 
@@ -168,7 +174,7 @@ def stock_sina_lhb_jgmx() -> pd.DataFrame:
     except:
         last_page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, last_page_num+1)):
+    for page in tqdm(range(1, last_page_num + 1)):
         params = {
             "p": page,
         }
@@ -179,11 +185,15 @@ def stock_sina_lhb_jgmx() -> pd.DataFrame:
     return big_df
 
 
-if __name__ == '__main__':
-    indicator_name_list = stock_sina_lhb_detail_daily(trade_date="20200730", symbol="返回当前交易日所有可查询的指标")
+if __name__ == "__main__":
+    indicator_name_list = stock_sina_lhb_detail_daily(
+        trade_date="20200730", symbol="返回当前交易日所有可查询的指标"
+    )
     print(indicator_name_list)
 
-    stock_sina_lhb_detail_daily_df = stock_sina_lhb_detail_daily(trade_date="20200730", symbol="当日无价格涨跌幅限制的A股，出现异常波动停牌的股票")
+    stock_sina_lhb_detail_daily_df = stock_sina_lhb_detail_daily(
+        trade_date="20200730", symbol="当日无价格涨跌幅限制的A股，出现异常波动停牌的股票"
+    )
     print(stock_sina_lhb_detail_daily_df)
 
     stock_sina_lhb_ggtj_df = stock_sina_lhb_ggtj(recent_day="5")
