@@ -1194,9 +1194,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.73: add: add macro_china_money_supply interface
 0.7.74: fix: fix stock_zh_a_minute interface
 0.7.75: add: add bond_cash_summary_sse interface
+0.7.76: fix: fix get_rank_sum_daily interface
 """
 
-__version__ = "0.7.75"
+__version__ = "0.7.76"
 __author__ = "Albert King"
 
 import sys
