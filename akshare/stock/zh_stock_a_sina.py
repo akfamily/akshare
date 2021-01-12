@@ -82,7 +82,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
 def stock_zh_a_daily(
     symbol: str = "sh601939",
     start_date: str = "19900101",
-    end_date: str = "22001220",
+    end_date: str = "20301220",
     adjust: str = "",
 ) -> pd.DataFrame:
     """
@@ -293,11 +293,9 @@ def stock_zh_a_minute(
     if adjust == "qfq":
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         need_df = temp_df[temp_df["time"] == "15:00:00"]
-        need_df.index = need_df["date"]
+        need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
-        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df) :, :]["close"].astype(
-            float
-        ) / need_df["close"].astype(float)
+        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])
         merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
         merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
@@ -310,9 +308,9 @@ def stock_zh_a_minute(
     if adjust == "hfq":
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         need_df = temp_df[temp_df["time"] == "15:00:00"]
-        need_df.index = need_df["date"]
+        need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")
-        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df) :, :]["close"].astype(
+        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(
             float
         ) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])
