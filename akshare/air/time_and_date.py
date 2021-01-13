@@ -81,7 +81,7 @@ def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFram
 
 
 if __name__ == "__main__":
-    sunrise_daily_df = sunrise_daily(date="20200928", city="北京")
+    sunrise_daily_df = sunrise_daily(date="20210112", city="北京")
     print(sunrise_daily_df)
-    sunrise_monthly_df = sunrise_monthly(date="20200928", city="北京")
+    sunrise_monthly_df = sunrise_monthly(date="20210112", city="北京")
     print(sunrise_monthly_df)

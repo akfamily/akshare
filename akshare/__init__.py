@@ -1196,9 +1196,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.75: add: add bond_cash_summary_sse interface
 0.7.76: fix: fix get_rank_sum_daily interface
 0.7.77: fix: fix get_inventory_data interface
+0.7.78: fix: fix futures_inventory_99 interface
 """
 
-__version__ = "0.7.77"
+__version__ = "0.7.78"
 __author__ = "Albert King"
 
 import sys
@@ -2417,7 +2418,7 @@ from akshare.index.index_investing import (
 """
 99期货-期货库存数据
 """
-from akshare.futures.futures_inventory import get_inventory_data
+from akshare.futures.futures_inventory import futures_inventory_99
 
 """
 东方财富-期货库存数据
