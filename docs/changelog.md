@@ -1814,4 +1814,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.75: add: add bond_cash_summary_sse interface
 
 0.7.76: fix: fix get_rank_sum_daily interface
+
+0.7.77: fix: fix get_inventory_data interface
 ```
