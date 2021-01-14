@@ -1,4 +1,74 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 银保监数据
+## [AkShare](https://github.com/jindaxiang/akshare) 银行数据
+
+### 全球银行排名
+
+接口: bank_rank_banker
+
+目标地址: https://www.thebankerdatabase.com/index.cfm/search/ranking
+
+描述: 获取全球银行排名数据返回前 25 个银行数据
+
+限量: 返回前 25 个银行数据, 由于访问外网数据, 数据获取的时间较慢
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述  |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |  -|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| primary_ranking      | str   | Y        | 当前排名  |  
+| previous_ranking      | str   | Y        | 前次排名  |  
+| current_name      | str   | Y        | 名称  |  
+| country_name      | str   | Y        | 国家  |  
+| yearend_datetime      | str   | Y        | 统计年份  |  
+| DP2      | float   | Y        | 统计指标  |  
+| DP2_change      | float   | Y        | 同上  |
+| DP2_rank      | float   | Y        | -  |
+| DP6      | float   | Y        | -  |
+| DP6_change      | float   | Y        | -  |
+
+接口示例
+
+```python
+import akshare as ak
+bank_rank_banker_df = ak.bank_rank_banker()
+print(bank_rank_banker_df)
+```
+
+数据示例
+
+```
+   primary_ranking previous_ranking  ... DP131 DP132
+0                1                1  ...  59.1  61.8
+1                2                2  ...  59.0  59.2
+2                3                3  ...  55.7  62.2
+3                4                4  ...  63.4  62.0
+4                5                5  ...  37.0  56.4
+5                6                6  ...  42.3  61.4
+6                7                7  ...  51.0  64.6
+7                8                8  ...  36.8  59.8
+8                9                9  ...  41.1  31.1
+9               10               10  ...  32.4  34.2
+10              11               11  ...  60.1  62.0
+11              12               12  ...  50.9  27.8
+12              13               13  ...  39.1  30.9
+13              14               14  ...  37.5  28.0
+14              15               15  ...  62.3  39.7
+15              16               16  ...  14.8  56.8
+16              17               19  ...  62.5  62.1
+17              18               17  ...  38.9  28.9
+18              19               18  ...  18.5  35.5
+19              20               24  ...  60.6  67.5
+20              21               23  ...  51.4  71.7
+21              22               22  ...  51.3  48.6
+22              23               28  ...  56.8  76.6
+23              24               26  ...  62.4  75.8
+24              25               20  ...  58.6  31.5
+```
 
 ### 银保监分局本级行政处罚
 
@@ -33,7 +103,6 @@
 | 作出处罚决定的机关名称      | -   | -        | -  |  
 | 作出处罚决定的日期      | -   | -        | -  |  
 
-			
 接口示例
 
 ```python

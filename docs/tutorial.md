@@ -670,6 +670,8 @@
  "bond_deal_summary_sse"  # 上登债券信息网-债券成交概览
  # 中国货币供应量
  "macro_china_money_supply"  # 中国货币供应量
+ # 银行排名
+ "bank_rank_banker"  # 全球银行排名数据及各项指标
 ```
 
 ## 案例演示
