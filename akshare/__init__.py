@@ -1198,9 +1198,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.77: fix: fix get_inventory_data interface
 0.7.78: fix: fix futures_inventory_99 interface
 0.7.79: fix: fix stock_a_below_net_asset_statistics interface
+0.7.80: add: add bank_rank_banker interface
 """
 
-__version__ = "0.7.79"
+__version__ = "0.7.80"
 __author__ = "Albert King"
 
 import sys
@@ -1210,6 +1211,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+银行-全球银行排名
+"""
+from akshare.bank.bank_banker import bank_rank_banker
 
 """
 债券概览
