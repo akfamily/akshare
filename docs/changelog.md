@@ -1818,4 +1818,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.77: fix: fix get_inventory_data interface
 
 0.7.78: fix: fix futures_inventory_99 interface
+
+0.7.79: fix: fix stock_a_below_net_asset_statistics interface
 ```
