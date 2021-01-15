@@ -1806,4 +1806,18 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.71: fix: fix stock_us_daily interface
 
 0.7.72: fix: fix get_ine_daily interface
+
+0.7.73: add: add macro_china_money_supply interface
+
+0.7.74: fix: fix stock_zh_a_minute interface
+
+0.7.75: add: add bond_cash_summary_sse interface
+
+0.7.76: fix: fix get_rank_sum_daily interface
+
+0.7.77: fix: fix get_inventory_data interface
+
+0.7.78: fix: fix futures_inventory_99 interface
+
+0.7.79: fix: fix stock_a_below_net_asset_statistics interface
 ```

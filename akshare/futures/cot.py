@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/11/6 13:06
+Date: 2021/1/12 15:06
 Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所
 采集前 20 会员持仓数据;
@@ -155,8 +155,8 @@ def get_rank_sum(date="20200727", vars_list=cons.contract_symbols):
                 table_cut_top15 = table_cut[table_cut['rank'] <= 15]
                 table_cut_top20 = table_cut[table_cut['rank'] <= 20]
 
-                big_dict = {'symbol': symbol_inner, 'variety': var,
-
+                big_dict = {'symbol': symbol_inner,
+                            'variety': var,
                             'vol_top5': table_cut_top5['vol'].sum(), 'vol_chg_top5': table_cut_top5['vol_chg'].sum(),
                             'long_open_interest_top5': table_cut_top5['long_open_interest'].sum(),
                             'long_open_interest_chg_top5': table_cut_top5['long_open_interest_chg'].sum(),
@@ -415,7 +415,7 @@ def _get_dce_contract_list(date, var):
             continue
 
 
-def get_dce_rank_table(date="20201103", vars_list=cons.contract_symbols):
+def get_dce_rank_table(date: str = "20210108", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细, 由于交易所网站问题, 需要 20200720 之后才有数据
     注: 该交易所只公布标的合约排名
@@ -447,6 +447,7 @@ def get_dce_rank_table(date="20201103", vars_list=cons.contract_symbols):
     vars_list = [i for i in vars_list if i in cons.market_exchange_symbols['dce']]
     big_dict = {}
     for var in vars_list:
+        # var = 'V'
         symbol_list = _get_dce_contract_list(date, var)
         for symbol in symbol_list:
             url = cons.DCE_VOL_RANK_URL_1 % (var.lower(), symbol, var.lower(), date.year, date.month - 1, date.day)
@@ -469,6 +470,14 @@ def get_dce_rank_table(date="20201103", vars_list=cons.contract_symbols):
             temp_df['symbol'] = symbol.upper()
             temp_df['var'] = var
             temp_df['date'] = date_string
+            temp_df = temp_df.applymap(lambda x: str(x).replace("-", "0") if x == "-" else x)
+            temp_df['rank'] = range(1, 21)
+            temp_df['vol'] = temp_df['vol'].astype(float)
+            temp_df['vol_chg'] = temp_df['vol_chg'].astype(float)
+            temp_df['long_open_interest'] = temp_df['long_open_interest'].astype(float)
+            temp_df['long_open_interest_chg'] = temp_df['long_open_interest_chg'].astype(float)
+            temp_df['short_open_interest'] = temp_df['short_open_interest'].astype(float)
+            temp_df['short_open_interest_chg'] = temp_df['short_open_interest_chg'].astype(float)
             big_dict[symbol] = temp_df
     return big_dict
 
@@ -737,14 +746,14 @@ if __name__ == '__main__':
     print(get_dce_rank_table_second_df)
     get_dce_rank_table_third_df = get_dce_rank_table(date='20200929')
     print(get_dce_rank_table_third_df)
-    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20201103')
+    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20210105', vars_list=['V'])
     print(get_dce_rank_table_fourth_df)
 
     # 总接口
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20200720", end_day="20200721")
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210105", end_day="20210105")
     print(get_rank_sum_daily_df)
 
-    futures_dce_detail_dict = futures_dce_position_rank(date="20160919")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20210105")
     print(futures_dce_detail_dict)
     futures_dce_position_rank_other_df = futures_dce_position_rank_other(date="20200727")
     print(futures_dce_position_rank_other_df)

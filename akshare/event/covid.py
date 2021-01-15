@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/21 15:07
+Date: 2021/1/12 14:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
@@ -573,9 +573,8 @@ def covid_19_trip() -> pd.DataFrame:
 
 def covid_19_hist_city(city: str = "武汉市") -> pd.DataFrame:
     """
-    该接口最好用代理速度比较快
+    该接口最好用代理速度比较快, 2019-12-01开始
     https://github.com/canghailan/Wuhan-2019-nCoV
-    2019-12-01开始
     :param city: 具体的城市
     :type city: str
     :return: COVID-19 具体城市的数据
@@ -590,9 +589,8 @@ def covid_19_hist_city(city: str = "武汉市") -> pd.DataFrame:
 
 def covid_19_hist_province(province: str = "湖北省") -> pd.DataFrame:
     """
-    该接口最好用代理速度比较快
+    该接口最好用代理速度比较快, 2019-12-01开始
     https://github.com/canghailan/Wuhan-2019-nCoV
-    2019-12-01开始
     :param province: 具体的省份
     :type province: str
     :return: COVID-19 具体城市的数据
@@ -607,9 +605,8 @@ def covid_19_hist_province(province: str = "湖北省") -> pd.DataFrame:
 
 def covid_19_history() -> pd.DataFrame:
     """
-    接口最好用代理速度比较快
+    接口最好用代理速度比较快, 2019-12-01开始
     https://github.com/canghailan/Wuhan-2019-nCoV
-    2019-12-01开始
     :return: 疫情数据
     :rtype: pandas.DataFrame
     """
@@ -622,9 +619,8 @@ def covid_19_history() -> pd.DataFrame:
 
 def covid_19_csse_daily(date: str = "2020-04-06") -> pd.DataFrame:
     """
-    2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE
+    2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE, 采集 GitHub csv 文件需要 raw 地址
     https://github.com/CSSEGISandData/COVID-19
-    采集 GitHub csv 文件需要 raw 地址
     :param date: from 2020-01-22 to today
     :type date: str
     :return: CSSE data

@@ -1191,9 +1191,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.70: fix: fix get_dce_rank_table interface
 0.7.71: fix: fix stock_us_daily interface
 0.7.72: fix: fix get_ine_daily interface
+0.7.73: add: add macro_china_money_supply interface
+0.7.74: fix: fix stock_zh_a_minute interface
+0.7.75: add: add bond_cash_summary_sse interface
+0.7.76: fix: fix get_rank_sum_daily interface
+0.7.77: fix: fix get_inventory_data interface
+0.7.78: fix: fix futures_inventory_99 interface
+0.7.79: fix: fix stock_a_below_net_asset_statistics interface
+0.7.80: add: add bank_rank_banker interface
 """
 
-__version__ = "0.7.72"
+__version__ = "0.7.80"
 __author__ = "Albert King"
 
 import sys
@@ -1205,9 +1213,14 @@ if sys.version_info < (3, 7):
 del sys
 
 """
+银行-全球银行排名
+"""
+from akshare.bank.bank_banker import bank_rank_banker
+
+"""
 债券概览
 """
-from akshare.bond.bond_summary import bond_summary_sse
+from akshare.bond.bond_summary import bond_deal_summary_sse
 
 """
 新闻-个股新闻
@@ -2412,7 +2425,7 @@ from akshare.index.index_investing import (
 """
 99期货-期货库存数据
 """
-from akshare.futures.futures_inventory import get_inventory_data
+from akshare.futures.futures_inventory import futures_inventory_99
 
 """
 东方财富-期货库存数据

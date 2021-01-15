@@ -542,24 +542,39 @@ print(futures_rule_df)
 82  中金所     10年期国债  ...          50                                         NaN
 ```
 
-#### 库存数据-99期货
+#### 库存数据-99期货网
 
-接口: get_inventory_data
+接口: futures_inventory_99
 
 目标地址: http://www.99qh.com/d/store.aspx
 
 描述: 周频率数据, 由于网站限制, 目前可以利用本接口获取历史数据的图片格式和近期数据的 **pandas.DataFrame** 格式. 
-p.s. 由于[99期货网站](http://www.99qh.com/d/store.aspx)服务器不稳定, 接口会自动重复访问, 另外请关注图片下载的路径, 会自动下载到本地出来
+p.s. 由于99期货网站服务器不稳定, 接口会自动重复访问, 另外请关注图片下载的路径, 会自动下载到本地出来
 
 限量: 单次一个市场的某个具体品种, 请用 **help(get_inventory_data)** 查看使用方法, 指定交割仓库的仓单周报数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述  |
 | -------- | ---- | ---- | --- |
-| exchange | int  | Y    |  默认参数 exchange=1 对应上海期货交易所, 请用 **help(get_inventory_data)** 查看参数|
-| symbol | int  | Y    |  默认参数 symbol=6, 对应上海期货交易所-铜, 请用 **help(get_inventory_data)** 查看参数|
-| plot | Bool  | Y    |  默认参数 plot=True, 是否输出历史数据图片|
+| exchange | int  | Y    |  exchange=1 对应上海期货交易所, 请用 **help(get_inventory_data)** 查看参数|
+| symbol | int  | Y    |  symbol=6, 对应上海期货交易所-铜, 请用 **help(get_inventory_data)** 查看参数|
+| plot | Bool  | Y    |  plot=False, 是否输出历史数据图片|
+
+期货交易所代码
+
+| 交易所名称   | 代码 |
+| -------- | ---- | 
+| 上海期货交易所 | 1  | 
+| 郑州商品交易所 | 2  |
+| 大连商品交易所 | 3  | 
+| 上海国际能源交易中心 | 14  | 
+| LME | 7  | 
+| NYMEX | 8  | 
+| CBOT | 9  | 
+| NYBOT | 11  | 
+| TOCOM | 12  | 
+| OSE | 15  | 
 
 输出参数
 
@@ -573,21 +588,24 @@ p.s. 由于[99期货网站](http://www.99qh.com/d/store.aspx)服务器不稳定,
 
 ```python
 import akshare as ak
-get_inventory_data_df = ak.get_inventory_data(exchange=1, symbol=6, plot=True)
-print(get_inventory_data_df)
+futures_inventory_99_df = ak.futures_inventory_99(exchange=1, symbol=6, plot=True)
+print(futures_inventory_99_df)
 ```
 
 数据示例
 
 ```
-   0           1           2           3           4           5           6   \
-0  日期  2019-10-11  2019-09-30  2019-09-27  2019-09-20  2019-09-12  2019-09-06   
-1  库存      134509      118108      117455      141379      152188      162059   
-2  增减       16401         653      -23924       10809       -9871       18183   
-           7           8           9           10  
-0  2019-08-30  2019-08-23  2019-08-16  2019-08-09  
-1      143876      156573      162830      156367  
-2      -12697       -6257        6463         396 
+      日期      库存      增减
+0  2021-01-08   82342   -4337
+1  2020-12-31   86679   11530
+2  2020-12-25   75149     927
+3  2020-12-18   74222   -7870
+4  2020-12-11   82092  -15691
+5  2020-12-04   97783    4871
+6  2020-11-27   92912   -3854
+7  2020-11-20   96766  -21183
+8  2020-11-13  117949  -13372
+9  2020-11-06  131321   -8336
 ```
 
 图片示例

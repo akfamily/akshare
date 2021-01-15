@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/18 20:08
+Date: 2021/1/11 18:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -733,7 +733,7 @@ def macro_china_market_margin_sh():
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
+    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
     value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
@@ -793,7 +793,9 @@ def macro_china_market_margin_sh():
     temp_df = temp_df.iloc[:, 1:]
     temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
 
-    for_times = math.ceil(int(str((temp_df.index[-1] - value_df.index[-1])).split(' ')[0]) / 20)
+    for_times = math.ceil(
+        int(str((temp_df.index[-1] - value_df.index[-1])).split(" ")[0]) / 20
+    )
     big_df = temp_df
     for i in tqdm(range(for_times)):
         params = {
@@ -1132,31 +1134,38 @@ def macro_china_fx_gold() -> pd.DataFrame:
     ]
     return temp_df
 
+
 def macro_china_money_supply():
     """
+    东方财富-货币供应量
     http://data.eastmoney.com/cjsj/hbgyl.html
-    中国 货币供应量
     :return: 货币供应量
     :rtype: pandas.DataFrame
     """
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "p": "1",
-        "ps": "200",
-        "mkt": "11"
-    }
+    params = {"type": "GJZB", "sty": "ZGZB", "p": "1", "ps": "200", "mkt": "11"}
     r = requests.get(url=url, params=params)
     data_text = r.text
-    tmp_list = data_text[data_text.find("[") + 2: -3]
+    tmp_list = data_text[data_text.find("[") + 2 : -3]
     tmp_list = tmp_list.split('","')
     res_list = []
     for li in tmp_list:
-        res_list.append(li.split(','))
-    columns = ["月份", "货币和准货币(M2)数量(亿元)", "货币和准货币(M2)同比增长", "货币和准货币(M2)环比增长", "货币(M1)数量(亿元)", "货币(M1)同比增长", "货币(M1)环比增长", "流通中的现金(M0)数量(亿元)", "流通中的现金(M0)同比增长", "流通中的现金(M0)环比增长"]
+        res_list.append(li.split(","))
+    columns = [
+        "月份",
+        "货币和准货币(M2)数量(亿元)",
+        "货币和准货币(M2)同比增长",
+        "货币和准货币(M2)环比增长",
+        "货币(M1)数量(亿元)",
+        "货币(M1)同比增长",
+        "货币(M1)环比增长",
+        "流通中的现金(M0)数量(亿元)",
+        "流通中的现金(M0)同比增长",
+        "流通中的现金(M0)环比增长",
+    ]
     data_df = pd.DataFrame(res_list, columns=columns)
-    return data_df 
+    return data_df
+
 
 def macro_china_cpi():
     """
@@ -2309,6 +2318,9 @@ if __name__ == "__main__":
     # 中国-外汇和黄金储备
     macro_china_fx_gold_df = macro_china_fx_gold()
     print(macro_china_fx_gold_df)
+
+    macro_china_money_supply_df = macro_china_money_supply()
+    print(macro_china_money_supply_df)
 
     macro_china_cpi_df = macro_china_cpi()
     print(macro_china_cpi_df)

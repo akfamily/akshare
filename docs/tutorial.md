@@ -1,7 +1,5 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 快速入门
 
-## 环境配置
-
 ## 查看数据
 
 具体函数使用详情, 请查看 [AkShare 文档](https://akshare.readthedocs.io/) 每个接口的示例代码
@@ -503,7 +501,7 @@
  "hf_sp_500"  # 获取标普500指数的分钟数据
  # 商品期货库存数据
  "futures_inventory_em"  # 库存数据-东方财富
- "get_inventory_data"  # 库存数据-99期货
+ "futures_inventory_99"  # 库存数据-99期货
  # 个股资金流
  "stock_individual_fund_flow"  # 个股资金流
  "stock_individual_fund_flow_rank"  # 个股资金流排名
@@ -663,12 +661,17 @@
  "stock_dzjy_yybph"  # 大宗交易-营业部排行
  "stock_dzjy_hyyybtj"  # 大宗交易-活跃营业部统计
  "stock_dzjy_yybph"  # 大宗交易-营业部排行
-  # 一致行动人
-  "stock_em_yzxdr"  # 股票数据-一致行动人
-  # 新闻-个股新闻
-  "stock_news_em"  # 新闻-个股新闻
-  # 债券概览
-  "bond_summary_sse"  # 上登债券信息网-债券成交概览
+ # 一致行动人
+ "stock_em_yzxdr"  # 股票数据-一致行动人
+ # 新闻-个股新闻
+ "stock_news_em"  # 新闻-个股新闻
+ # 债券概览
+ "bond_cash_summary_sse"  # 上登债券信息网-债券现券市场概览
+ "bond_deal_summary_sse"  # 上登债券信息网-债券成交概览
+ # 中国货币供应量
+ "macro_china_money_supply"  # 中国货币供应量
+ # 银行排名
+ "bank_rank_banker"  # 全球银行排名数据及各项指标
 ```
 
 ## 案例演示
