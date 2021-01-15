@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/24 16:59
+Date: 2021/1/15 16:59
 Desc: 个股新闻数据
 http://so.eastmoney.com/news/s?keyword=%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%AF%BF&pageindex=1&searchrange=8192&sortfiled=4
 """
@@ -60,17 +60,16 @@ def stock_news_em(stock: str = "601628") -> pd.DataFrame:
         ]
     ]
     temp_df["title"] = (
-        temp_df["title"].str.replace(r"\(<em>", "").str.replace(r"</em>\)", "")
+        temp_df["title"].str.replace(r"\(<em>", "", regex=True).str.replace(r"</em>\)", "", regex=True)
     )
     temp_df["content"] = (
-        temp_df["content"].str.replace(r"\(<em>", "").str.replace(r"</em>\)", "")
+        temp_df["content"].str.replace(r"\(<em>", "", regex=True).str.replace(r"</em>\)", "", regex=True)
     )
     temp_df["content"] = (
-        temp_df["content"].str.replace(r"<em>", "").str.replace(r"</em>", "")
+        temp_df["content"].str.replace(r"<em>", "", regex=True).str.replace(r"</em>", "", regex=True)
     )
-    temp_df["content"] = temp_df["content"].str.replace(r"\u3000", "")
-    temp_df["content"] = temp_df["content"].str.replace(r"\r\n", " ")
-
+    temp_df["content"] = temp_df["content"].str.replace(r"\u3000", "", regex=True)
+    temp_df["content"] = temp_df["content"].str.replace(r"\r\n", " ", regex=True)
     return temp_df
 
 
