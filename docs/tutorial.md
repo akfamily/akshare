@@ -305,6 +305,7 @@
  "macro_china_national_tax_receipts"  # 中国-全国税收收入
  "macro_china_new_financial_credit"  # 中国-新增信贷数据
  "macro_china_fx_gold"  # 中国-外汇和黄金储备
+ "macro_china_stock_market_cap"  # 中国-全国股票交易统计表
  "macro_china_cpi"  # 中国-居民消费价格指数
  "macro_china_gdp"  # 中国-国内生产总值
  "macro_china_ppi"  # 中国-工业品出厂价格指数

@@ -1199,9 +1199,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.78: fix: fix futures_inventory_99 interface
 0.7.79: fix: fix stock_a_below_net_asset_statistics interface
 0.7.80: add: add bank_rank_banker interface
+0.7.81: add: add macro_china_stock_market_cap interface
+0.7.82: fix: fix macro_china_stock_market_cap interface
 """
 
-__version__ = "0.7.80"
+__version__ = "0.7.82"
 __author__ = "Albert King"
 
 import sys
@@ -2349,6 +2351,8 @@ from akshare.economic.macro_china import (
     macro_china_national_tax_receipts,
     macro_china_new_financial_credit,
     macro_china_fx_gold,
+    macro_china_money_supply,
+    macro_china_stock_market_cap,
     macro_china_cpi,
     macro_china_gdp,
     macro_china_ppi,
