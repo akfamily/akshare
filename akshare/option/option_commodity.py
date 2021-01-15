@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/8/27 20:50
+Date: 2021/1/14 20:50
 Desc: 获取商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
@@ -305,7 +305,7 @@ def get_shfe_option_daily(trade_date="20200827", symbol="铝期权"):
 if __name__ == "__main__":
     get_czce_option_daily_df = get_czce_option_daily(trade_date="20200817", symbol="动力煤期权")
     print(get_czce_option_daily_df)
-    get_dce_option_daily_one, get_dce_option_daily_two = get_dce_option_daily(trade_date="20171207", symbol="豆粕期权")
+    get_dce_option_daily_one, get_dce_option_daily_two = get_dce_option_daily(trade_date="20210113", symbol="玉米期权")
     print(get_dce_option_daily_one)
     print(get_dce_option_daily_two)
     get_shfe_option_daily_one, get_shfe_option_daily_two = get_shfe_option_daily(trade_date="20200827", symbol="铝期权")
