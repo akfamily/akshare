@@ -1161,7 +1161,7 @@ def macro_china_stock_market_cap():
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
     temp_df.columns = [
-        "日期",
+        "数据日期",
         "发行总股本-上海",
         "发行总股本-深圳",
         "市价总值-上海",
@@ -1177,6 +1177,7 @@ def macro_china_stock_market_cap():
     ]
     
     return temp_df
+
 
 def macro_china_money_supply():
     """
@@ -2361,6 +2362,9 @@ if __name__ == "__main__":
     # 中国-外汇和黄金储备
     macro_china_fx_gold_df = macro_china_fx_gold()
     print(macro_china_fx_gold_df)
+
+    macro_china_stock_market_cap_df = macro_china_stock_market_cap()
+    print(macro_china_stock_market_cap_df)
 
     macro_china_money_supply_df = macro_china_money_supply()
     print(macro_china_money_supply_df)
