@@ -1134,6 +1134,7 @@ def macro_china_fx_gold() -> pd.DataFrame:
     ]
     return temp_df
 
+
 def macro_china_stock_market_cap():
     """
     东方财富-全国股票交易统计表
