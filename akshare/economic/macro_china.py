@@ -1134,6 +1134,48 @@ def macro_china_fx_gold() -> pd.DataFrame:
     ]
     return temp_df
 
+def macro_china_stock_market_cap():
+    """
+    东方财富-全国股票交易统计表
+    http://data.eastmoney.com/cjsj/gpjytj.html
+    :return: 全国股票交易统计表
+    :rtype: pandas.DataFrame
+    """
+    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    params = {
+        "cb": "",
+        "type": "GJZB",
+        "sty": "ZGZB",
+        "js": "({data:[(x)],pages:(pc)})",
+        "p": "1",
+        "ps": "200",
+        "mkt": "2",
+        "_": "1608999482942",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
+    temp_df.columns = [
+        "日期",
+        "发行总股本-上海",
+        "发行总股本-深圳",
+        "市价总值-上海",
+        "市价总值-深圳",
+        "成交金额-上海",
+        "成交金额-深圳",
+        "成交量-上海",
+        "成交量-深圳",
+        "A股最高综合股价指数-上海",
+        "A股最高综合股价指数-深圳",
+        "A股最低综合股价指数-上海",
+        "A股最低综合股价指数-深圳",
+    ]
+    
+    return temp_df
 
 def macro_china_money_supply():
     """
