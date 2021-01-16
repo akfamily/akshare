@@ -1832,4 +1832,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.84: fix: fix covid_19_dxy interface
 
 0.7.85: add: add futures_spot_price_previous interface
+
+0.7.86: add: add fund_em_hk_rank interface
 ```
