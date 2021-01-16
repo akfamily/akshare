@@ -1202,9 +1202,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.81: add: add macro_china_stock_market_cap interface
 0.7.82: fix: fix macro_china_stock_market_cap interface
 0.7.83: fix: fix stock_news_em interface
+0.7.84: fix: fix covid_19_dxy interface
 """
 
-__version__ = "0.7.83"
+__version__ = "0.7.84"
 __author__ = "Albert King"
 
 import sys
