@@ -203,7 +203,7 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
         return temp_df
 
 
-def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
+def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     """
     20200315-丁香园接口更新分为国内和国外
     丁香园-全国统计-info
@@ -332,8 +332,8 @@ def covid_19_dxy(indicator: str = "西藏自治区") -> pd.DataFrame:
             )
             if sub_area.empty:
                 return None
-            sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "id"]
-            sub_area = sub_area[["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数"]]
+            sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", "id"]
+            sub_area = sub_area[["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", ]]
             return sub_area
         except IndexError as e:
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
