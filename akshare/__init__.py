@@ -1204,9 +1204,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.83: fix: fix stock_news_em interface
 0.7.84: fix: fix covid_19_dxy interface
 0.7.85: add: add futures_spot_price_previous interface
+0.7.86: add: add fund_em_hk_rank interface
 """
 
-__version__ = "0.7.85"
+__version__ = "0.7.86"
 __author__ = "Albert King"
 
 import sys
@@ -1294,6 +1295,8 @@ from akshare.fund.fund_em_rank import (
     fund_em_exchange_rank,
     fund_em_money_rank,
     fund_em_open_fund_rank,
+    fund_em_hk_rank,
+    fund_em_lcx_rank,
 )
 
 """
