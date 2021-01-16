@@ -1203,9 +1203,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.82: fix: fix macro_china_stock_market_cap interface
 0.7.83: fix: fix stock_news_em interface
 0.7.84: fix: fix covid_19_dxy interface
+0.7.85: add: add futures_spot_price_previous interface
 """
 
-__version__ = "0.7.84"
+__version__ = "0.7.85"
 __author__ = "Albert King"
 
 import sys
@@ -2469,7 +2470,7 @@ from akshare.qhkc_web.qhkc_fund import (
 """
 大宗商品现货价格及基差
 """
-from akshare.futures.futures_basis import futures_spot_price_daily, futures_spot_price
+from akshare.futures.futures_basis import futures_spot_price_daily, futures_spot_price, futures_spot_price_previous
 
 """
 期货持仓成交排名数据

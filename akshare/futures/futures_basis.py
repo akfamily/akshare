@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/11/23 15:00
+Date: 2021/1/16 16:00
 Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
 黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
@@ -13,6 +13,7 @@ Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据
 1. 2018-09-12 周三 数据缺失是因为生意社源数据在该交易日缺失: http://www.100ppi.com/sf/day-2018-09-12.html
 """
 import datetime
+from typing import List
 import re
 import time
 import warnings
@@ -23,13 +24,18 @@ from akshare.futures import cons
 from akshare.futures.requests_fun import pandas_read_html_link
 from akshare.futures.symbol_var import chinese_to_english
 
+
 calendar = cons.get_calendar()
 
 
-def futures_spot_price_daily(start_day: str = '20201015', end_day: str = '20201123', vars_list: str = cons.contract_symbols):
+def futures_spot_price_daily(
+    start_day: str = "20200110",
+    end_day: str = "20200115",
+    vars_list=cons.contract_symbols,
+):
     """
     某段时间大宗商品现货价格及相应基差
-
+    http://www.100ppi.com/sf/
     :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param end_day: str 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param vars_list: list 合约品种如 [RB, AL]; 默认参数为所有商品
@@ -70,9 +76,10 @@ def futures_spot_price_daily(start_day: str = '20201015', end_day: str = '202011
         return temp_df
 
 
-def futures_spot_price(date: str = "20201015", vars_list: str = cons.contract_symbols):
+def futures_spot_price(date: str = "20200110", vars_list=cons.contract_symbols):
     """
     某个交易日大宗商品现货价格及相应基差
+
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
     :return: pandas.DataFrame
@@ -231,8 +238,55 @@ def _check_information(df_data, date):
     return records
 
 
+def _join_head(content: pd.DataFrame) -> List:
+    headers = []
+    for s1, s2 in zip(content.iloc[0], content.iloc[1]):
+        if s1 != s2:
+            s = f'{s1}{s2}'
+        else:
+            s = s1
+        headers.append(s)
+    return headers
+
+
+def futures_spot_price_previous(date: str = "20110110") -> pd.DataFrame:
+    """
+    #TODO 修改该接口并观察历史数据能否获取
+    :param date:
+    :type date:
+    :return:
+    :rtype:
+    """
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
+    if date < datetime.date(2011, 1, 4):
+        raise Exception("数据源开始日期为 20110104, 请将获取数据时间点设置在 20110104 后")
+    if date.strftime("%Y%m%d") not in calendar:
+        warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
+        return None
+    url = date.strftime('http://www.100ppi.com/sf2/day-%Y-%m-%d.html')
+    content = pandas_read_html_link(url)
+    main = content[1]
+    # Header
+    header = _join_head(main)
+    # Values
+    values = main[main[4].str.endswith('%')]
+    values.columns = header
+    # Basis
+    basis = pd.concat(content[2:-1])
+    basis.columns = ['主力合约基差', '主力合约基差(%)']
+    basis['商品'] = values['商品'].tolist()
+    basis = pd.merge(values[["商品", "现货价格", "主力合约代码", "主力合约价格"]], basis)
+    basis = pd.merge(basis, values[["商品", "180日内主力基差最高", "180日内主力基差最低", "180日内主力基差平均"]])
+    return basis
+
+
 if __name__ == "__main__":
-    get_spot_price_daily_df = futures_spot_price_daily(start_day="20201015", end_day="20201123")
+    get_spot_price_daily_df = futures_spot_price_daily(
+        start_day="20200110", end_day="20200115"
+    )
     print(get_spot_price_daily_df)
-    get_spot_price_df = futures_spot_price("20201015")
+    get_spot_price_df = futures_spot_price("20200110")
     print(get_spot_price_df)
+
+    futures_spot_price_previous_df = futures_spot_price_previous('20110110')
+    print(futures_spot_price_previous_df)
