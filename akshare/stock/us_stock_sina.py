@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/19 12:47
+Date: 2021/1/16 20:47
 Desc: 新浪财经-美股实时行情数据和历史行情数据
 http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
@@ -161,7 +161,7 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
         return data_df
 
 
-def stock_us_fundamental(stock="GOOGL", symbol="info"):
+def stock_us_fundamental(stock: str = "GOOGL", symbol: str = "info") -> pd.DataFrame:
     """
     美股财务指标
     https://www.macrotrends.net/stocks/stock-screener
