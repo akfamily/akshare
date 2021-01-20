@@ -293,16 +293,14 @@ print(bond_df)
 
 ```python
 import akshare as ak
-bond_df = ak.bond_spot_deal()
-print(bond_df)
+bond_spot_deal_df = ak.bond_spot_deal()
+print(bond_spot_deal_df)
 ```
 
 数据示例
 
-现券市场成交行情
-
 ```
-             债券简称 成交净价(元) 最新收益率(%)  涨跌(BP) 加权收益率(%) 交易量(亿)
+         债券简称 成交净价(元) 最新收益率(%)  涨跌(BP) 加权收益率(%) 交易量(亿)
 0          19国开15   98.97   3.5750    1.00   3.5826   None
 1        19附息国债03   99.82   2.7714    0.14   2.7772   None
 2        19附息国债11   99.87   2.8000    0.25   2.7963   None
@@ -385,10 +383,10 @@ print(bond_china_yield_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述        |
 | -------- | ---- | ---- | --- |
-| code | str | Y | code="sz131802", 指定质押式回购 |
-| trade_date | str | Y | trade_date="20200207", 指定日期 |
+| code | str | Y | code="sz131802"; 指定质押式回购 |
+| trade_date | str | Y | trade_date="20210120"; 指定日期 |
 
 输出参数
 
@@ -405,7 +403,7 @@ print(bond_china_yield_df)
 
 ```python
 import akshare as ak
-bond_repo_zh_tick_df = ak.bond_repo_zh_tick(code="sz131802", trade_date="20200207")
+bond_repo_zh_tick_df = ak.bond_repo_zh_tick(code="sz131802", trade_date="20210120")
 print(bond_repo_zh_tick_df)
 ```
 
