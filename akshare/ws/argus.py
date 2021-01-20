@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/4/8 14:39
+Date: 2021/1/20 10:39
 Desc: 宽客在线-阿尔戈斯全网监控预警系统
 https://www.quantinfo.com/Argus/
 20201104 网站不能访问
+此接口的目标网站稳定性较差, 可能造成部分时间段无法访问
 """
 import pandas as pd
 import requests
