@@ -16,29 +16,6 @@ import pandas as pd
 from tqdm import tqdm
 
 
-def _get_page_num_gpzy_market_profile() -> int:
-    """
-    东方财富网-数据中心-特色数据-股权质押-股权质押市场概况
-    http://data.eastmoney.com/gpzy/marketProfile.aspx
-    :return: int 获取 股权质押市场概况 的总页数
-    """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    params = {
-        "type": "ZD_SUM",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "tdate",
-        "sr": "-1",
-        "p": "3",
-        "ps": "5000",
-        "js": "var zvxnZOnT={pages:(tp),data:(x),font:(font)}",
-        "rt": "52583914",
-    }
-    res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
-    return data_json["pages"]
-
-
 def stock_em_gpzy_profile() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-股权质押市场概况
@@ -46,33 +23,31 @@ def stock_em_gpzy_profile() -> pd.DataFrame:
     :return: pandas.DataFrame
     """
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    page_num = _get_page_num_gpzy_market_profile()
     temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1)):
-        params = {
-            "type": "ZD_SUM",
-            "token": "70f12f2f4f091e459a279469fe49eca5",
-            "cmd": "",
-            "st": "tdate",
-            "sr": "-1",
-            "p": str(page),
-            "ps": "5000",
-            "js": "var zvxnZOnT={pages:(tp),data:(x),font:(font)}",
-            "rt": "52583914",
-        }
-        res = requests.get(url, params=params)
-        data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        map_dict = dict(
-            zip(
-                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
-            )
+    params = {
+        "type": "ZD_SUM",
+        "token": "70f12f2f4f091e459a279469fe49eca5",
+        "cmd": "",
+        "st": "tdate",
+        "sr": "-1",
+        "p": "1",
+        "ps": "5000",
+        "js": "var zvxnZOnT={pages:(tp),data:(x),font:(font)}",
+        "rt": "52583914",
+    }
+    res = requests.get(url, params=params)
+    data_text = res.text
+    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+    map_dict = dict(
+        zip(
+            pd.DataFrame(data_json["font"]["FontMapping"])["code"],
+            pd.DataFrame(data_json["font"]["FontMapping"])["value"],
         )
-        for key, value in map_dict.items():
-            data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    )
+    for key, value in map_dict.items():
+        data_text = data_text.replace(key, str(value))
+    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+    temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "交易日期",
         "sc_zsz",
@@ -102,33 +77,6 @@ def stock_em_gpzy_profile() -> pd.DataFrame:
     return temp_df
 
 
-def _get_page_num_gpzy_market_pledge_ratio(trade_date: str = "2020-08-19") -> int:
-    """
-    东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
-    http://data.eastmoney.com/gpzy/pledgeRatio.aspx
-    :param trade_date: 指定交易日, 访问 http://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询
-    :type trade_date: str
-    :return: 上市公司质押比例的总页数
-    :rtype: int
-    """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    params = {
-        "type": "ZD_QL_LB",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "amtshareratio",
-        "sr": "-1",
-        "p": "2",
-        "ps": "5000",
-        "js": "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
-        "filter": f"(tdate='{trade_date}')",
-        "rt": "52584436",
-    }
-    res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
-    return data_json["pages"]
-
-
 def stock_em_gpzy_pledge_ratio(trade_date: str = "2020-08-07") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
@@ -139,34 +87,32 @@ def stock_em_gpzy_pledge_ratio(trade_date: str = "2020-08-07") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    page_num = _get_page_num_gpzy_market_pledge_ratio(trade_date)
     temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1)):
-        params = {
-            "type": "ZD_QL_LB",
-            "token": "70f12f2f4f091e459a279469fe49eca5",
-            "cmd": "",
-            "st": "amtshareratio",
-            "sr": "-1",
-            "p": str(page),
-            "ps": "5000",
-            "js": "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
-            "filter": f"(tdate='{trade_date}')",
-            "rt": "52584436",
-        }
-        res = requests.get(url, params=params)
-        data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        map_dict = dict(
-            zip(
-                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
-            )
+    params = {
+        "type": "ZD_QL_LB",
+        "token": "70f12f2f4f091e459a279469fe49eca5",
+        "cmd": "",
+        "st": "amtshareratio",
+        "sr": "-1",
+        "p": "1",
+        "ps": "5000",
+        "js": "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
+        "filter": f"(tdate='{trade_date}')",
+        "rt": "52584436",
+    }
+    res = requests.get(url, params=params)
+    data_text = res.text
+    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+    map_dict = dict(
+        zip(
+            pd.DataFrame(data_json["font"]["FontMapping"])["code"],
+            pd.DataFrame(data_json["font"]["FontMapping"])["value"],
         )
-        for key, value in map_dict.items():
-            data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    )
+    for key, value in map_dict.items():
+        data_text = data_text.replace(key, str(value))
+    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+    temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "股票代码",
         "股票简称",
