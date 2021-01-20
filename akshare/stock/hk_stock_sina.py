@@ -92,21 +92,23 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "qfq") -> pd.DataFrame:
         temp_date_range = pd.date_range("1900-01-01", hfq_factor_df.index[0].isoformat())
         temp_df = pd.DataFrame(range(len(temp_date_range)), temp_date_range)
         new_range = pd.merge(
-            temp_df, hfq_factor_df, left_index=True, right_index=True, how="left"
+            temp_df, hfq_factor_df, left_index=True, right_index=True, how="outer"
         )
         new_range = new_range.fillna(method="ffill")
         new_range = new_range.iloc[:, [1, 2]]
 
         temp_df = pd.merge(
-            data_df, new_range, left_index=True, right_index=True, how="left"
+            data_df, new_range, left_index=True, right_index=True, how="outer"
         )
         temp_df.fillna(method="ffill", inplace=True)
+        temp_df.drop_duplicates(subset=["open", "high", "low", "close", "volume"], inplace=True)
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"] + temp_df["cash"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"] + temp_df["cash"]
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"] + temp_df["cash"]
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"] + temp_df["cash"]
         temp_df = temp_df.apply(lambda x: round(x, 2))
+        temp_df.dropna(how="any", inplace=True)
         return temp_df.iloc[:, :-2]
 
     if adjust == "qfq":
@@ -126,21 +128,23 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "qfq") -> pd.DataFrame:
         temp_date_range = pd.date_range("1900-01-01", qfq_factor_df.index[0].isoformat())
         temp_df = pd.DataFrame(range(len(temp_date_range)), temp_date_range)
         new_range = pd.merge(
-            temp_df, qfq_factor_df, left_index=True, right_index=True, how="left"
+            temp_df, qfq_factor_df, left_index=True, right_index=True, how="outer"
         )
         new_range = new_range.fillna(method="ffill")
         new_range = new_range.iloc[:, [1]]
 
         temp_df = pd.merge(
-            data_df, new_range, left_index=True, right_index=True, how="left"
+            data_df, new_range, left_index=True, right_index=True, how="outer"
         )
         temp_df.fillna(method="ffill", inplace=True)
+        temp_df.drop_duplicates(subset=["open", "high", "low", "close", "volume"], inplace=True)
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] * temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["qfq_factor"]
         temp_df["close"] = temp_df["close"] * temp_df["qfq_factor"]
         temp_df["low"] = temp_df["low"] * temp_df["qfq_factor"]
         temp_df = temp_df.apply(lambda x: round(x, 2))
+        temp_df.dropna(how="any", inplace=True)
         return temp_df.iloc[:, :-1]
 
     if adjust == "hfq-factor":
@@ -166,6 +170,8 @@ if __name__ == "__main__":
     stock_hk_daily_hfq_df = stock_hk_daily(symbol="00772", adjust="hfq")
     print(stock_hk_daily_hfq_df)
     stock_hk_daily_df = stock_hk_daily(symbol="00981", adjust="qfq")
+    print(stock_hk_daily_df)
+    stock_hk_daily_df = stock_hk_daily(symbol="00981", adjust="qfq-factor")
     print(stock_hk_daily_df)
     stock_hk_daily_hfq_factor_df = stock_hk_daily(symbol="00772", adjust="hfq-factor")
     print(stock_hk_daily_hfq_factor_df)
