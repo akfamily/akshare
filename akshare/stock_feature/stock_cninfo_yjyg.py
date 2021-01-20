@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/17 21:34
+Date: 2021/1/20 11:34
 Desc: 巨潮资讯-首页-数据-预约披露
 http://www.cninfo.com.cn/new/commonUrl?url=data/yypl
 """
@@ -9,7 +9,9 @@ import pandas as pd
 import requests
 
 
-def stock_report_disclosure(market: str = "科创板", period: str = "2019年报") -> pd.DataFrame:
+def stock_report_disclosure(
+    market: str = "科创板", period: str = "2019年报"
+) -> pd.DataFrame:
     """
     巨潮资讯-首页-数据-预约披露
     http://www.cninfo.com.cn/new/commonUrl?url=data/yypl
@@ -52,10 +54,31 @@ def stock_report_disclosure(market: str = "科创板", period: str = "2019年报
     r = requests.post(url, params=params)
     text_json = r.json()
     temp_df = pd.DataFrame(text_json["prbookinfos"])
-    temp_df.columns = ["股票代码", "股票简称", "首次预约", "实际披露", "首次变更", "二次变更", "三次变更", "报告期", "组织码"]
+    temp_df.columns = [
+        "股票代码",
+        "股票简称",
+        "首次预约",
+        "实际披露",
+        "初次变更",
+        "二次变更",
+        "三次变更",
+        "报告期",
+        "组织码",
+    ]
+    temp_df = temp_df[
+        [
+            "股票代码",
+            "股票简称",
+            "首次预约",
+            "初次变更",
+            "二次变更",
+            "三次变更",
+            "实际披露",
+        ]
+    ]
     return temp_df
 
 
 if __name__ == "__main__":
-    pre_book_info_done_df = stock_report_disclosure(market="沪深", period="2019年报")
-    print(pre_book_info_done_df)
+    stock_report_disclosure_df = stock_report_disclosure(market="沪深", period="2020年报")
+    print(stock_report_disclosure_df)
