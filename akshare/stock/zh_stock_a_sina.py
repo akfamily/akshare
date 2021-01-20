@@ -157,7 +157,6 @@ def stock_zh_a_daily(
         "outstanding_share",
         "turnover",
     ]
-
     if adjust == "":
         temp_df = temp_df[start_date:end_date]
         temp_df["open"] = round(temp_df["open"], 2)
@@ -166,7 +165,6 @@ def stock_zh_a_daily(
         temp_df["close"] = round(temp_df["close"], 2)
         temp_df.dropna(inplace=True)
         return temp_df
-
     if adjust == "hfq":
         res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
@@ -175,7 +173,6 @@ def stock_zh_a_daily(
         hfq_factor_df.columns = ["date", "hfq_factor"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
         del hfq_factor_df["date"]
-
         temp_df = pd.merge(
             temp_df, hfq_factor_df, left_index=True, right_index=True, how="outer"
         )
