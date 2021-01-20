@@ -50,7 +50,7 @@ def stock_hk_spot() -> pd.DataFrame:
     return data_df
 
 
-def stock_hk_daily(symbol: str = "00772", adjust: str = "qfq") -> pd.DataFrame:
+def stock_hk_daily(symbol: str = "00981", adjust: str = "qfq") -> pd.DataFrame:
     """
     新浪财经-港股-个股的历史行情数据
     https://stock.finance.sina.com.cn/hkstock/quotes/02912.html
@@ -165,7 +165,7 @@ def stock_hk_daily(symbol: str = "00772", adjust: str = "qfq") -> pd.DataFrame:
 if __name__ == "__main__":
     stock_hk_daily_hfq_df = stock_hk_daily(symbol="00772", adjust="hfq")
     print(stock_hk_daily_hfq_df)
-    stock_hk_daily_df = stock_hk_daily(symbol="00772", adjust="")
+    stock_hk_daily_df = stock_hk_daily(symbol="00981", adjust="qfq")
     print(stock_hk_daily_df)
     stock_hk_daily_hfq_factor_df = stock_hk_daily(symbol="00772", adjust="hfq-factor")
     print(stock_hk_daily_hfq_factor_df)

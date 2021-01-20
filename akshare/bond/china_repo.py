@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/29 11:48
+Date: 2021/1/20 11:48
 Desc: 腾讯-债券-质押式回购-实时行情-成交明细
-下载成交明细-每个交易日16:00提供当日数据
+下载成交明细-每个交易日 16:00 提供当日数据
 http://stockhtm.finance.qq.com/sstock/ggcx/131802.shtml
 """
 from io import StringIO
@@ -12,7 +12,9 @@ import pandas as pd
 import requests
 
 
-def bond_repo_zh_tick(code="sz131802", trade_date="20201028"):
+def bond_repo_zh_tick(
+    code: str = "sz131802", trade_date: str = "20201028"
+) -> pd.DataFrame:
     """
     成交明细-每个交易日16:00提供当日数据
     http://stockhtm.finance.qq.com/sstock/ggcx/131802.shtml
@@ -37,7 +39,7 @@ def bond_repo_zh_tick(code="sz131802", trade_date="20201028"):
 
 
 if __name__ == "__main__":
-    date_list = pd.date_range(start="20201001", end="20201028").tolist()
+    date_list = pd.date_range(start="20210101", end="20210120").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
         data = bond_repo_zh_tick(code="sz131802", trade_date=f"{item}")
