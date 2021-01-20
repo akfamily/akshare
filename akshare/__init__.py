@@ -1208,9 +1208,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.87: add: add fund_em_lcx_rank interface
 0.7.88: fix: fix bond_repo_zh_tick interface
 0.7.89: fix: fix stock_hk_daily interface
+0.7.90: fix: fix stock_em_gpzy_pledge_ratio interface
 """
 
-__version__ = "0.7.89"
+__version__ = "0.7.90"
 __author__ = "Albert King"
 
 import sys

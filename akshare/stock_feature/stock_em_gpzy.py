@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/27 18:02
+Date: 2021/1/20 11:02
 Desc: 东方财富网-数据中心-特色数据-股权质押
 东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: http://data.eastmoney.com/gpzy/marketProfile.aspx
 东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: http://data.eastmoney.com/gpzy/pledgeRatio.aspx
@@ -13,12 +13,10 @@ Desc: 东方财富网-数据中心-特色数据-股权质押
 import requests
 import demjson
 import pandas as pd
-
-# pd.set_option('display.max_columns', 500)
-# pd.set_option('display.max_rows', 500)
+from tqdm import tqdm
 
 
-def _get_page_num_gpzy_market_profile():
+def _get_page_num_gpzy_market_profile() -> int:
     """
     东方财富网-数据中心-特色数据-股权质押-股权质押市场概况
     http://data.eastmoney.com/gpzy/marketProfile.aspx
@@ -41,7 +39,7 @@ def _get_page_num_gpzy_market_profile():
     return data_json["pages"]
 
 
-def stock_em_gpzy_profile():
+def stock_em_gpzy_profile() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-股权质押市场概况
     http://data.eastmoney.com/gpzy/marketProfile.aspx
@@ -50,8 +48,7 @@ def stock_em_gpzy_profile():
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
     page_num = _get_page_num_gpzy_market_profile()
     temp_df = pd.DataFrame()
-    for page in range(1, page_num + 1):
-        print(f"一共{page_num}页, 正在下载第{page}页")
+    for page in tqdm(range(1, page_num + 1)):
         params = {
             "type": "ZD_SUM",
             "token": "70f12f2f4f091e459a279469fe49eca5",
@@ -105,7 +102,7 @@ def stock_em_gpzy_profile():
     return temp_df
 
 
-def _get_page_num_gpzy_market_pledge_ratio(trade_date="2020-08-19"):
+def _get_page_num_gpzy_market_pledge_ratio(trade_date: str = "2020-08-19") -> int:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
     http://data.eastmoney.com/gpzy/pledgeRatio.aspx
@@ -132,7 +129,7 @@ def _get_page_num_gpzy_market_pledge_ratio(trade_date="2020-08-19"):
     return data_json["pages"]
 
 
-def stock_em_gpzy_pledge_ratio(trade_date="2020-08-07"):
+def stock_em_gpzy_pledge_ratio(trade_date: str = "2020-08-07") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
     http://data.eastmoney.com/gpzy/pledgeRatio.aspx
@@ -144,8 +141,7 @@ def stock_em_gpzy_pledge_ratio(trade_date="2020-08-07"):
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
     page_num = _get_page_num_gpzy_market_pledge_ratio(trade_date)
     temp_df = pd.DataFrame()
-    for page in range(1, page_num + 1):
-        print(f"一共{page_num}页, 正在下载第{page}页")
+    for page in tqdm(range(1, page_num + 1)):
         params = {
             "type": "ZD_QL_LB",
             "token": "70f12f2f4f091e459a279469fe49eca5",
@@ -204,7 +200,7 @@ def stock_em_gpzy_pledge_ratio(trade_date="2020-08-07"):
     return temp_df
 
 
-def _get_page_num_gpzy_market_pledge_ratio_detail():
+def _get_page_num_gpzy_market_pledge_ratio_detail() -> int:
     """
     东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细
     http://data.eastmoney.com/gpzy/pledgeDetail.aspx
@@ -228,7 +224,7 @@ def _get_page_num_gpzy_market_pledge_ratio_detail():
     return data_json["pages"]
 
 
-def stock_em_gpzy_pledge_ratio_detail():
+def stock_em_gpzy_pledge_ratio_detail() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细
     http://data.eastmoney.com/gpzy/pledgeDetail.aspx
@@ -237,8 +233,7 @@ def stock_em_gpzy_pledge_ratio_detail():
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
     page_num = _get_page_num_gpzy_market_pledge_ratio_detail()
     temp_df = pd.DataFrame()
-    for page in range(1, page_num + 1):
-        print(f"一共{page_num}页, 正在下载第{page}页")
+    for page in tqdm(range(1, page_num + 1)):
         params = {
             "type": "GDZY_LB",
             "token": "70f12f2f4f091e459a279469fe49eca5",
@@ -336,7 +331,7 @@ def stock_em_gpzy_pledge_ratio_detail():
     return temp_df
 
 
-def _get_page_num_gpzy_distribute_statistics_company():
+def _get_page_num_gpzy_distribute_statistics_company() -> int:
     """
     东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司
     http://data.eastmoney.com/gpzy/distributeStatistics.aspx
@@ -360,7 +355,7 @@ def _get_page_num_gpzy_distribute_statistics_company():
     return data_json["pages"]
 
 
-def stock_em_gpzy_distribute_statistics_company():
+def stock_em_gpzy_distribute_statistics_company() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司
     http://data.eastmoney.com/gpzy/distributeStatistics.aspx
@@ -369,8 +364,7 @@ def stock_em_gpzy_distribute_statistics_company():
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
     page_num = _get_page_num_gpzy_distribute_statistics_company()
     temp_df = pd.DataFrame()
-    for page in range(1, page_num + 1):
-        print(f"一共{page_num}页, 正在下载第{page}页")
+    for page in tqdm(range(1, page_num + 1)):
         params = {
             "type": "GDZY_ZYJG_SUM",
             "token": "70f12f2f4f091e459a279469fe49eca5",
@@ -426,7 +420,7 @@ def stock_em_gpzy_distribute_statistics_company():
     return temp_df
 
 
-def _get_page_num_gpzy_distribute_statistics_bank():
+def _get_page_num_gpzy_distribute_statistics_bank() -> int:
     """
     东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行
     http://data.eastmoney.com/gpzy/distributeStatistics.aspx
@@ -450,7 +444,7 @@ def _get_page_num_gpzy_distribute_statistics_bank():
     return data_json["pages"]
 
 
-def stock_em_gpzy_distribute_statistics_bank():
+def stock_em_gpzy_distribute_statistics_bank() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行
     http://data.eastmoney.com/gpzy/distributeStatistics.aspx
@@ -516,7 +510,7 @@ def stock_em_gpzy_distribute_statistics_bank():
     return temp_df
 
 
-def _get_page_num_gpzy_industry_data():
+def _get_page_num_gpzy_industry_data() -> int:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例-行业数据
     http://data.eastmoney.com/gpzy/industryData.aspx
@@ -539,7 +533,7 @@ def _get_page_num_gpzy_industry_data():
     return data_json["pages"]
 
 
-def stock_em_gpzy_industry_data():
+def stock_em_gpzy_industry_data() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例-行业数据
     http://data.eastmoney.com/gpzy/industryData.aspx
@@ -593,7 +587,7 @@ if __name__ == "__main__":
     stock_em_gpzy_profile_df = stock_em_gpzy_profile()
     print(stock_em_gpzy_profile_df)
 
-    stock_em_gpzy_pledge_ratio_df = stock_em_gpzy_pledge_ratio(trade_date="2020-08-07")
+    stock_em_gpzy_pledge_ratio_df = stock_em_gpzy_pledge_ratio(trade_date="2021-01-15")
     print(stock_em_gpzy_pledge_ratio_df)
 
     stock_em_gpzy_pledge_ratio_detail_df = stock_em_gpzy_pledge_ratio_detail()
