@@ -291,9 +291,11 @@ def fund_em_lcx_rank() -> pd.DataFrame:
         "Referer": "http://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -1])
-    temp_df = pd.DataFrame(json_data["Data"])
+    try:
+        data_json = r.json()
+    except:
+        return None
+    temp_df = pd.DataFrame(data_json["Data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
@@ -351,6 +353,7 @@ def fund_em_hk_rank() -> pd.DataFrame:
     :return: 香港基金排行
     :rtype: pandas.DataFrame
     """
+    format_date = datetime.datetime.now().date().isoformat()
     url = "http://overseas.1234567.com.cn/overseasapi/OpenApiHander.ashx"
     params = {
         'api': 'HKFDApi',
@@ -359,12 +362,11 @@ def fund_em_hk_rank() -> pd.DataFrame:
         'pageindex': '0',
         'pagesize': '5000',
         'dy': '1',
-        'date1': '2020-01-16',
-        'date2': '2021-01-16',
+        'date1': format_date,
+        'date2': format_date,
         'sortfield': 'W',
         'sorttype': '-1',
         'isbuy': '0',
-        'callback': 'jQuery18305890705040671196_1610790541905',
         '_': '1610790553848',
     }
     headers = {
@@ -372,15 +374,14 @@ def fund_em_hk_rank() -> pd.DataFrame:
         "Referer": "http://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -1])
-    temp_df = pd.DataFrame(json_data["Data"])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["Data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = list(range(1, len(temp_df) + 1))
     temp_df.columns = [
         "序号",
         "_",
-        "_",
+        "香港基金代码",
         "基金代码",
         "_",
         "基金简称",
@@ -399,7 +400,6 @@ def fund_em_hk_rank() -> pd.DataFrame:
         "今年来",
         "成立来",
         "币种",
-        "_",
     ]
     temp_df = temp_df[
         [
@@ -420,6 +420,7 @@ def fund_em_hk_rank() -> pd.DataFrame:
             "今年来",
             "成立来",
             "可购买",
+            "香港基金代码",
         ]
     ]
     return temp_df
