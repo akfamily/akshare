@@ -1211,9 +1211,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.90: fix: fix stock_em_gpzy_pledge_ratio interface
 0.7.91: fix: fix stock_report_disclosure interface
 0.7.92: add: add fund_em_hk_fund_hist interface
+0.7.93: add: add fund_em_portfolio_hold interface
 """
 
-__version__ = "0.7.92"
+__version__ = "0.7.93"
 __author__ = "Albert King"
 
 import sys
@@ -1223,6 +1224,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+基金持仓
+"""
+from akshare.fund.fund_em_portfolio import fund_em_portfolio_hold
 
 """
 银行-全球银行排名
@@ -1738,6 +1744,7 @@ from akshare.fund.fund_em import (
     fund_em_money_fund_daily,
     fund_em_money_fund_info,
     fund_em_value_estimation,
+    fund_em_hk_fund_hist,
 )
 
 """
