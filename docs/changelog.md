@@ -1848,4 +1848,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.92: add: add fund_em_hk_fund_hist interface
 
 0.7.93: add: add fund_em_portfolio_hold interface
+
+0.7.94: fix: fix futures_spot_price_previous interface
 ```

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/16 16:00
+Date: 2021/1/21 16:00
 Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
 黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
@@ -63,7 +63,6 @@ def futures_spot_price_daily(
     )
     df_list = []
     while start_day <= end_day:
-        print(start_day)
         temp_df = futures_spot_price(start_day, vars_list)
         if temp_df is False:
             return pd.concat(df_list).reset_index(drop=True)
@@ -78,10 +77,10 @@ def futures_spot_price_daily(
 
 def futures_spot_price(date: str = "20200110", vars_list=cons.contract_symbols):
     """
-    某个交易日大宗商品现货价格及相应基差
-
-    :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
+    具体交易日大宗商品现货价格及相应基差
+    http://www.100ppi.com/sf/day-2017-09-12.html
+    :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象; 为空时为当天
+    :param vars_list: 合约品种如 RB、AL 等列表 为空时为所有商品
     :return: pandas.DataFrame
     展期收益率数据:
     var              商品品种                     string
@@ -133,7 +132,7 @@ def futures_spot_price(date: str = "20200110", vars_list=cons.contract_symbols):
 
 def _check_information(df_data, date):
     """
-    进行数据验证和计算模块
+    数据验证和计算模块
     :param df_data: pandas.DataFrame 采集的数据
     :param date: datetime.date 具体某一天 YYYYMMDD
     :return: pandas.DataFrame
@@ -251,11 +250,12 @@ def _join_head(content: pd.DataFrame) -> List:
 
 def futures_spot_price_previous(date: str = "20110110") -> pd.DataFrame:
     """
-    #TODO 修改该接口并观察历史数据能否获取
-    :param date:
-    :type date:
-    :return:
-    :rtype:
+    具体交易日大宗商品现货价格及相应基差
+    http://www.100ppi.com/sf/day-2017-09-12.html
+    :param date: 交易日; 历史日期
+    :type date: str
+    :return: 现货价格及相应基差
+    :rtype: pandas.DataFrame
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2011, 1, 4):
@@ -277,16 +277,29 @@ def futures_spot_price_previous(date: str = "20110110") -> pd.DataFrame:
     basis['商品'] = values['商品'].tolist()
     basis = pd.merge(values[["商品", "现货价格", "主力合约代码", "主力合约价格"]], basis)
     basis = pd.merge(basis, values[["商品", "180日内主力基差最高", "180日内主力基差最低", "180日内主力基差平均"]])
+    basis.columns = [
+        "商品",
+        "现货价格",
+        "主力合约代码",
+        "主力合约价格",
+        "主力合约基差",
+        "主力合约变动百分比",
+        "180日内主力基差最高",
+        "180日内主力基差最低",
+        "180日内主力基差平均",
+    ]
+    basis['主力合约变动百分比'] = basis['主力合约变动百分比'].str.strip("%")
     return basis
 
 
 if __name__ == "__main__":
-    get_spot_price_daily_df = futures_spot_price_daily(
+    futures_spot_price_daily_df = futures_spot_price_daily(
         start_day="20200110", end_day="20200115"
     )
-    print(get_spot_price_daily_df)
-    get_spot_price_df = futures_spot_price("20200110")
-    print(get_spot_price_df)
+    print(futures_spot_price_daily_df)
+
+    futures_spot_price_df = futures_spot_price("20200110")
+    print(futures_spot_price_df)
 
     futures_spot_price_previous_df = futures_spot_price_previous('20110110')
     print(futures_spot_price_previous_df)
