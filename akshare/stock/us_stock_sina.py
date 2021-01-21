@@ -7,6 +7,11 @@ http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
 import json
 
+import asyncio
+import aiohttp
+import time
+import math
+
 from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
@@ -21,8 +26,18 @@ from akshare.stock.cons import (
     us_sina_stock_hist_qfq_url,
 )
 
+async def get(url, params=None):
+    session = aiohttp.ClientSession()
+    response = await session.get(url, params=params)
+    res_text = await response.text()
+    await session.close()
+    return res_text
 
-def get_us_page_count() -> int:
+async def request(url, params=None):
+    res_text = await get(url, params)
+    return res_text
+
+def get_us_page_count(count_per_page: int = 20) -> int:
     """
     新浪财经-美股-总页数
     http://finance.sina.com.cn/stock/usstock/sector.shtml
@@ -30,7 +45,9 @@ def get_us_page_count() -> int:
     :rtype: int
     """
     page = "1"
-    us_js_decode = f"US_CategoryService.getList?page={page}&num=20&sort=&asc=0&market=&id="
+    us_js_decode = f"US_CategoryService.getList?page={page}&num={count_per_page}&sort=&asc=0&market=&id="
+    us_sina_stock_dict_payload.update({"num": "{}".format(count_per_page)})
+
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(js_hash_text)
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
@@ -39,10 +56,7 @@ def get_us_page_count() -> int:
         us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
     )
     data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
-    if not isinstance(int(data_json["count"]) / 20, int):
-        page_count = int(int(data_json["count"]) / 20) + 1
-    else:
-        page_count = int(int(data_json["count"]) / 20)
+    page_count = math.ceil(int(data_json["count"]) / count_per_page)
     return page_count
 
 
@@ -70,6 +84,69 @@ def get_us_stock_name() -> pd.DataFrame:
         )
         data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
         big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    return big_df[["name", "cname", "symbol"]]
+
+def get_us_stock_name_async(request_per_batch: int = 15) -> pd.DataFrame:
+    """
+    asyncio version of get_us_stock_name()
+    Args:
+        request_per_batch (int, optional): 
+          n requests one asyncio loop before pending for a while. Defaults to 15.
+    Returns:
+        pd.DataFrame: same as get_us_stock_name()
+    """
+    return asyncio.run(_get_us_stock_name_async(request_per_batch))
+
+async def _get_us_stock_name_async(request_per_batch: int = 15) -> pd.DataFrame:
+    count_per_page = 20
+    big_df = pd.DataFrame()
+    page_count = get_us_page_count(count_per_page)
+
+    start = time.time()
+    with tqdm(total = page_count) as pbar:
+        all_pages = range(1, page_count+1)
+        finished_pages = []
+        while len(finished_pages) < page_count:
+            to_req_pages = [x for x in all_pages if x not in finished_pages]
+            request_per_batch = min(request_per_batch, len(to_req_pages))
+            tasks = {}
+            for page in to_req_pages:
+                if len(tasks) < request_per_batch:
+                    us_js_decode = f"US_CategoryService.getList?page={page}&num={count_per_page}&sort=&asc=0&market=&id="
+                    js_code = py_mini_racer.MiniRacer()
+                    js_code.eval(js_hash_text)
+                    dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
+                    us_sina_stock_dict_payload.update({"page": "{}".format(page)})
+                    tasks[page] = asyncio.create_task(
+                        request(us_sina_stock_list_url.format(dict_list), us_sina_stock_dict_payload)
+                    )
+                    continue
+
+                # n requests per aio loop
+                for _, task in tasks.items():
+                    await task
+                n_failed_req = 0
+                for page_no, task in tasks.items():
+                    try:
+                        res = task.result()
+                        data_json = json.loads(res[res.find("({") + 1: res.rfind(");")])
+                        big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+                        finished_pages.append(page_no)
+                        pbar.update(1)
+                    except requests.exceptions.ConnectionError as ident:
+                        n_failed_req += 1
+                        print(f'{ident} page_no={page_no}, sleep for longer time and try in next batch')
+                        pass
+                tasks.clear()
+                interval_time = 3
+                if n_failed_req >= 1:
+                   # wait longger for sina anti-spider
+                    interval_time = 10
+                time.sleep(interval_time)
+
+    end = time.time()
+    print('Cost time:', end - start)
+
     return big_df[["name", "cname", "symbol"]]
 
 
@@ -195,6 +272,10 @@ def stock_us_fundamental(stock: str = "GOOGL", symbol: str = "info") -> pd.DataF
 if __name__ == "__main__":
     stock_us_stock_name_df = get_us_stock_name()
     print(stock_us_stock_name_df)
+
+    stock_us_stock_name_async_df = get_us_stock_name_async()
+    print(stock_us_stock_name_async_df)
+
     stock_us_spot_df = stock_us_spot()
     print(stock_us_spot_df)
     stock_us_daily_df = stock_us_daily(symbol="AMZN", adjust="")
