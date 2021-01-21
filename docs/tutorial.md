@@ -26,7 +26,8 @@
  "get_shfe_daily",  # 获取上海期货交易所每日交易数据
  "get_shfe_rank_table",  # 获取上海期货交易所前20会员持仓数据明细
  "get_shfe_v_wap",  # 获取上海期货交易所日成交均价数据
- "futures_spot_price",  # 获取某一交易日大宗商品现货价格及相应基差数据
+ "futures_spot_price",  # 获取具体交易日大宗商品现货价格及相应基差数据
+ "futures_spot_price_previous",  # 获取具体交易日大宗商品现货价格及相应基差数据-该接口补充历史数据
  "futures_spot_price_daily"  # 获取一段交易日大宗商品现货价格及相应基差数据
  "futures_czce_warehouse_receipt"  # 郑州商品交易所-交易数据-仓单日报
  "futures_shfe_warehouse_receipt"  # 上海期货交易所-交易数据-仓单日报
