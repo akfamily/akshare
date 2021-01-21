@@ -37,7 +37,7 @@ def stock_em_gpzy_profile() -> pd.DataFrame:
     }
     res = requests.get(url, params=params)
     data_text = res.text
-    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+    data_json = demjson.decode(data_text[data_text.find("={") + 1:])
     map_dict = dict(
         zip(
             pd.DataFrame(data_json["font"]["FontMapping"])["code"],
@@ -46,7 +46,7 @@ def stock_em_gpzy_profile() -> pd.DataFrame:
     )
     for key, value in map_dict.items():
         data_text = data_text.replace(key, str(value))
-    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+    data_json = demjson.decode(data_text[data_text.find("={") + 1:])
     temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "交易日期",
@@ -102,7 +102,7 @@ def stock_em_gpzy_pledge_ratio(trade_date: str = "2020-08-07") -> pd.DataFrame:
     }
     res = requests.get(url, params=params)
     data_text = res.text
-    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+    data_json = demjson.decode(data_text[data_text.find("={") + 1:])
     map_dict = dict(
         zip(
             pd.DataFrame(data_json["font"]["FontMapping"])["code"],
@@ -111,7 +111,7 @@ def stock_em_gpzy_pledge_ratio(trade_date: str = "2020-08-07") -> pd.DataFrame:
     )
     for key, value in map_dict.items():
         data_text = data_text.replace(key, str(value))
-    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+    data_json = demjson.decode(data_text[data_text.find("={") + 1:])
     temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "股票代码",
@@ -166,7 +166,7 @@ def _get_page_num_gpzy_market_pledge_ratio_detail() -> int:
         "rt": "52584576",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
     return data_json["pages"]
 
 
@@ -194,7 +194,7 @@ def stock_em_gpzy_pledge_ratio_detail() -> pd.DataFrame:
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         map_dict = dict(
             zip(
                 pd.DataFrame(data_json["font"]["FontMapping"])["code"],
@@ -203,7 +203,7 @@ def stock_em_gpzy_pledge_ratio_detail() -> pd.DataFrame:
         )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "股票代码",
@@ -297,7 +297,7 @@ def _get_page_num_gpzy_distribute_statistics_company() -> int:
         "rt": "52584592",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
     return data_json["pages"]
 
 
@@ -325,7 +325,7 @@ def stock_em_gpzy_distribute_statistics_company() -> pd.DataFrame:
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         map_dict = dict(
             zip(
                 pd.DataFrame(data_json["font"]["FontMapping"])["code"],
@@ -334,7 +334,7 @@ def stock_em_gpzy_distribute_statistics_company() -> pd.DataFrame:
         )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "质押公司股票代码",
@@ -386,7 +386,7 @@ def _get_page_num_gpzy_distribute_statistics_bank() -> int:
         "rt": "52584617",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
     return data_json["pages"]
 
 
@@ -415,7 +415,7 @@ def stock_em_gpzy_distribute_statistics_bank() -> pd.DataFrame:
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         map_dict = dict(
             zip(
                 pd.DataFrame(data_json["font"]["FontMapping"])["code"],
@@ -424,7 +424,7 @@ def stock_em_gpzy_distribute_statistics_bank() -> pd.DataFrame:
         )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "质押公司股票代码",
@@ -475,7 +475,7 @@ def _get_page_num_gpzy_industry_data() -> int:
         "rt": "52584617",
     }
     res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
+    data_json = demjson.decode(res.text[res.text.find("={") + 1:])
     return data_json["pages"]
 
 
@@ -503,7 +503,7 @@ def stock_em_gpzy_industry_data() -> pd.DataFrame:
         }
         res = requests.get(url, params=params)
         data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         map_dict = dict(
             zip(
                 pd.DataFrame(data_json["font"]["FontMapping"])["code"],
@@ -512,7 +512,7 @@ def stock_em_gpzy_industry_data() -> pd.DataFrame:
         )
         for key, value in map_dict.items():
             data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
+        data_json = demjson.decode(data_text[data_text.find("={") + 1:])
         temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
     temp_df.columns = [
         "统计时间",

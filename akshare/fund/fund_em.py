@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/11/14 22:48
+Date: 2021/1/20 12:48
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
@@ -11,6 +11,7 @@ http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;
 """
 import time
 import json
+import datetime
 
 import demjson
 import pandas as pd
@@ -368,11 +369,11 @@ def fund_em_financial_fund_daily() -> pd.DataFrame:
     :return: 当前交易日的所有理财型基金收益
     :rtype: pandas.DataFrame
     """
+    url = "http://api.fund.eastmoney.com/FundNetValue/GetLCJJJZ"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
         "Referer": "http://fund.eastmoney.com/lcjj.html",
     }
-    url = "http://api.fund.eastmoney.com/FundNetValue/GetLCJJJZ"
     params = {
         "letter": "",
         "jjgsid": "0",
@@ -382,13 +383,13 @@ def fund_em_financial_fund_daily() -> pd.DataFrame:
         "AttentionCodes": "",
         "cycle": "",
         "OnlySale": "1",
-        "callback": "jQuery18306581512555641693_1588248310204",
         "_": "1588248310234",
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -1])
+    data_json = r.json()
     temp_df = pd.DataFrame(data_json["Data"]["List"])
+    if temp_df.empty:
+        return None
     show_day = data_json["Data"]["showday"]
     data_df = temp_df[
         [
@@ -754,6 +755,100 @@ def fund_em_value_estimation(symbol: str = "") -> pd.DataFrame:
         return temp_df
 
 
+def fund_em_hk_fund_hist(code: str = '1002200683', symbol: str = "历史净值明细") -> pd.DataFrame:
+    """
+    东方财富网站-天天基金网-基金数据-香港基金-历史净值明细
+    http://overseas.1234567.com.cn/f10/FundJz/968092#FHPS
+    :param code: 通过 fund_em_hk_rank 获取
+    :type code: str
+    :param symbol: choice of {"历史净值明细", "分红送配详情"}
+    :type symbol: str
+    :return: 香港基金-历史净值明细(分红送配详情)
+    :rtype: pandas.DataFrame
+    """
+    url = "http://overseas.1234567.com.cn/overseasapi/OpenApiHander.ashx"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
+    if symbol == "历史净值明细":
+        params = {
+            'api': 'HKFDApi',
+            'm': 'MethodJZ',
+            'hkfcode': f'{code}',
+            'action': '2',
+            'pageindex': '0',
+            'pagesize': '1000',
+            'date1': '',
+            'date2': '',
+            '_': '1611131371333',
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_one_df = pd.DataFrame(data_json['Data'])
+        temp_one_df.columns = [
+            "_",
+            "_",
+            "_",
+            "净值日期",
+            "单位净值",
+            "_",
+            "日增长值",
+            "日增长率",
+            "_",
+            "单位",
+        ]
+        temp_one_df = temp_one_df[
+            [
+                "净值日期",
+                "单位净值",
+                "日增长值",
+                "日增长率",
+                "单位",
+            ]
+        ]
+    else:
+        params = {
+            'api': 'HKFDApi',
+            'm': 'MethodJZ',
+            'hkfcode': f'{code}',
+            'action': '3',
+            'pageindex': '0',
+            'pagesize': '1000',
+            'date1': '',
+            'date2': '',
+            '_': '1611131371333',
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_one_df = pd.DataFrame(data_json['Data'])
+        temp_one_df.columns = [
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "年份",
+            "分红金额",
+            "除息日",
+            "权益登记日",
+            "分红发放日",
+            "_",
+            "单位",
+            "_",
+        ]
+        temp_one_df = temp_one_df[
+            [
+                "年份",
+                "权益登记日",
+                "除息日",
+                "分红发放日",
+                "分红金额",
+                "单位",
+            ]
+        ]
+    return temp_one_df
+
+
 if __name__ == "__main__":
     fund_em_fund_name_df = fund_em_fund_name()
     print(fund_em_fund_name_df)
@@ -791,8 +886,8 @@ if __name__ == "__main__":
     fund_em_money_fund_info_df = fund_em_money_fund_info(fund="000009")
     print(fund_em_money_fund_info_df)
 
-    # fund_em_financial_fund_daily_df = fund_em_financial_fund_daily()
-    # print(fund_em_financial_fund_daily_df)
+    fund_em_financial_fund_daily_df = fund_em_financial_fund_daily()
+    print(fund_em_financial_fund_daily_df)
 
     fund_em_financial_fund_info_df = fund_em_financial_fund_info(fund="000134")
     print(fund_em_financial_fund_info_df)
@@ -811,3 +906,9 @@ if __name__ == "__main__":
 
     fund_em_value_estimation_df = fund_em_value_estimation(symbol="混合型")
     print(fund_em_value_estimation_df)
+
+    fund_em_hk_fund_hist_df = fund_em_hk_fund_hist(code='1002200683', symbol="历史净值明细")
+    print(fund_em_hk_fund_hist_df)
+
+    fund_em_hk_fund_hist_df = fund_em_hk_fund_hist(code='1002200683', symbol="分红送配详情")
+    print(fund_em_hk_fund_hist_df)
