@@ -395,7 +395,8 @@
  "covid_19_area_all"  # 提供可查询的省份-城市-区一览表
  "covid_19_area_detail"  # 全国所有小区详细数据
  # 新型肺炎-相同行程查询
- "covid_19_trip"  # 相同行程交通工具所有信息
+ "covid_19_trip"  # 同程交通
+ "covid_19_trace"  # 病患轨迹
  # 债券-沪深债券
  "bond_zh_hs_daily"  # 债券-沪深债券-历史行情数据
  "bond_zh_hs_spot"  # 债券-沪深债券-实时行情数据

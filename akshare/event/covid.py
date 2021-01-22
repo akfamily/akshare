@@ -561,14 +561,77 @@ def migration_scale_baidu(
 
 def covid_19_trip() -> pd.DataFrame:
     """
-    新型肺炎确诊患者-相同行程查询工具
+    新型肺炎确诊患者-同程查询
     https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message
     :return: 新型肺炎确诊患者-相同行程查询工具的所有历史数据
     :rtype: pandas.DataFrame
     """
-    url = "https://rl.inews.qq.com/taf/travelFront"
+    url = "https://r.inews.qq.com/api/travelFront"
     r = requests.get(url)
-    return pd.DataFrame(r.json()["data"]["list"])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]["list"])
+    return temp_df
+
+
+def covid_19_trace():
+    """
+    腾讯新闻-疫情-病患轨迹
+    https://news.qq.com/hdh5/hebeicomeon.htm#/?ADTAG=yqi
+    :return: 病患轨迹
+    :rtype: pandas.DataFrame
+    """
+    url = "https://r.inews.qq.com/api/trackmap/poilist"
+    headers = {
+        "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+    }
+    r = requests.get(url, headers=headers)
+    data_json = r.json()
+    province_list = [item['fullname'] for item in data_json['result']['list']]
+    big_df = pd.DataFrame()
+    for province in province_list:
+        url = "https://apis.map.qq.com/place_cloud/search/region"
+        params = {
+            'region': province,
+            'page_size': '200',
+            'table_id': '5ff7d526b34a3525c3169a0b',
+            'key': 'NFPBZ-D2N3P-T7FDV-VLBQ6-4DVM7-JQFCR',
+            'fliter':'',
+        }
+        headers = {
+            "Referer": "https://news.qq.com/",
+            "Host": "apis.map.qq.com",
+            "Origin": "https://news.qq.com",
+            "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        risk_level = [item['x']['risk_level'] for item in data_json['result']['data']]
+        count_time = [item['x']['datetime'] for item in data_json['result']['data']]
+        temp_df = pd.DataFrame(data_json['result']['data'])
+        del temp_df['location']
+        del temp_df['id']
+        del temp_df['polygon']
+        del temp_df['tel']
+        del temp_df['ud_id']
+        del temp_df['adcode']
+        del temp_df['x']
+        temp_df['update_time'] = pd.to_datetime(temp_df['update_time'], unit='s')
+        temp_df['create_time'] = pd.to_datetime(temp_df['create_time'], unit='s')
+        temp_df['risk_level'] = risk_level
+        temp_df['count_time'] = count_time
+        del temp_df['create_time']
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [
+        "地址",
+        "城市",
+        "区",
+        "省份",
+        "标题",
+        "更新时间",
+        "风险等级",
+        "统计时间",
+    ]
+    return big_df
 
 
 def covid_19_hist_city(city: str = "武汉市") -> pd.DataFrame:
@@ -757,22 +820,28 @@ if __name__ == "__main__":
     )
     print(migration_area_baidu_df)
 
-    # internal_flow_history_df = internal_flow_history(area="北京市", date="20200405")
-    # print(internal_flow_history_df)
+    internal_flow_history_df = internal_flow_history(area="北京市", date="20200405")
+    print(internal_flow_history_df)
 
     migration_scale_baidu_df = migration_scale_baidu(
         area="上海市", indicator="move_in", start_date="20190113", end_date="20200512"
     )
     print(migration_scale_baidu_df)
 
-    # 行程
+    # 同程查询
     epidemic_trip_df = covid_19_trip()
     print(epidemic_trip_df)
+
+    # 病患轨迹
+    covid_19_trace_df = covid_19_trace()
+    print(covid_19_trace_df)
+
     # 历史数据
     epidemic_hist_city_df = covid_19_hist_city(city="武汉市")
     print(epidemic_hist_city_df)
     epidemic_hist_province_df = covid_19_hist_province(province="湖北省")
     print(epidemic_hist_province_df)
+
     # 详细历史数据
     epidemic_history_df = covid_19_history()
     print(epidemic_history_df)
