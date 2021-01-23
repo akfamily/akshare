@@ -183,6 +183,7 @@ def stock_zh_a_daily(
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"]
         temp_df.dropna(how="any", inplace=True)
+        temp_df.drop_duplicates(subset=["volume", "outstanding_share", "turnover"], inplace=True)
         temp_df = temp_df.iloc[:, :-1]
         temp_df = temp_df[start_date:end_date]
         temp_df["open"] = round(temp_df["open"], 2)
@@ -211,6 +212,7 @@ def stock_zh_a_daily(
         temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
         temp_df["low"] = temp_df["low"] / temp_df["qfq_factor"]
         temp_df.dropna(how="any", inplace=True)
+        temp_df.drop_duplicates(subset=["volume", "outstanding_share", "turnover"], inplace=True)
         temp_df = temp_df.iloc[:, :-1]
         temp_df = temp_df[start_date:end_date]
         temp_df["open"] = round(temp_df["open"], 2)
@@ -322,13 +324,12 @@ def stock_zh_a_minute(
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df = stock_zh_a_daily(
-        symbol="sz002340", start_date="19900103", end_date="20210120", adjust="hfq"
-    )
-    print(stock_zh_a_daily_hfq_df)
-    qfq_factor_df = stock_zh_a_daily(
-        symbol="sz000002", adjust="qfq-factor"
-    )
+    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118", adjust="hfq")
+    print(stock_zh_a_daily_hfq_df_one)
+    stock_zh_a_daily_hfq_df_two = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118")
+    print(stock_zh_a_daily_hfq_df_two)
+
+    qfq_factor_df = stock_zh_a_daily(symbol="sz000001", adjust="hfq-factor")
     print(qfq_factor_df)
     hfq_factor_df = stock_zh_a_daily(
         symbol="sz000002", adjust="hfq-factor"
