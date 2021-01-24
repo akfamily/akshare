@@ -1,114 +1,124 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/11 19:54
+Date: 2021/1/24 20:54
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
 http://www.chinamoney.com.cn/chinese/mkdatabond/
 """
-from operator import itemgetter
-
-import numpy as np
 import pandas as pd
 import requests
 
 
-def get_quote_data():
+def bond_spot_quote() -> pd.DataFrame:
     """
-    获取中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
+    处理中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
+    http://www.chinamoney.com.cn/chinese/mkdatabond/
     """
-    quote_url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbMktMakQuot?"
+    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbMktMakQuot"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+    }
     payload = {
         "flag": "1",
         "lang": "cn",
-        "abdAssetEncdShrtDesc": "",
-        "emaEntyEncdShrtDesc": "",
     }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/78.0.3904.108 Safari/537.36",
-    }
-    res = requests.post(url=quote_url, data=payload, headers=headers)  # 请求数据
-    res.encoding = "utf-8"
-    json_df = res.json()
-    return json_df
+    r = requests.post(url=url, data=payload, headers=headers)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["records"])
+    temp_df.columns = [
+        "_",
+        "买入/卖出净价",
+        "_",
+        "_",
+        "_",
+        "_",
+        "债券简称",
+        "_",
+        "_",
+        "_",
+        "报价机构",
+        "_",
+        "_",
+        "_",
+        "买入/卖出收益率",
+        "_",
+        "_",
+    ]
+    temp_df = temp_df[
+        [
+            "报价机构",
+            "债券简称",
+            "买入/卖出净价",
+            "买入/卖出收益率",
+        ]
+    ]
+    temp_df["买入净价"] = temp_df["买入/卖出净价"].str.split("/", expand=True).iloc[:, 0]
+    temp_df["卖出净价"] = temp_df["买入/卖出净价"].str.split("/", expand=True).iloc[:, 1]
+    temp_df["买入收益率"] = temp_df["买入/卖出收益率"].str.split("/", expand=True).iloc[:, 0]
+    temp_df["卖出收益率"] = temp_df["买入/卖出收益率"].str.split("/", expand=True).iloc[:, 1]
+    del temp_df["买入/卖出净价"]
+    del temp_df["买入/卖出收益率"]
+    return temp_df
 
 
-def get_deal_data():
+def bond_spot_deal() -> pd.DataFrame:
     """
-    获取中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
+    中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
+    http://www.chinamoney.com.cn/chinese/mkdatabond/
     """
-    deal_url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbtPri?"
+    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbtPri"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/78.0.3904.108 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
     }
     payload = {
         "flag": "1",
         "lang": "cn",
         "bondName": "",
     }
-    res = requests.post(url=deal_url, data=payload, headers=headers)  # 请求数据
-    res.encoding = "utf-8"
-    json_df = res.json()
-    return json_df
-
-
-def bond_spot_quote():
-    """
-    处理中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
-    """
-    data = get_quote_data()
-    need_data = data["records"]
-    keys_list = [
-        "abdAssetEncdShrtDesc",
-        "emaEntyEncdShrtDesc",
-        "tradeAmnt",
-        "contraRate",
-    ]  # 定义要取的 value 的 keys
-    quote_data_out = pd.DataFrame()
-    for i in range(len(need_data)):
-        quote_data = itemgetter(*keys_list)(need_data[i])
-        quote_data = pd.DataFrame(quote_data).T
-        quote_data.columns = ["债券简称", "报价机构", "买入/卖出净价(元)", "买入/卖出收益率(%)"]
-        quote_data_out = quote_data_out.append(quote_data, ignore_index=True)
-    quote_data_out.replace("---", np.nan, inplace=True)
-    return quote_data_out
-
-
-def bond_spot_deal():
-    """
-    中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
-    """
-    data = get_deal_data()
-    need_data = data["records"]
-    keys_list = [
-        "abdAssetEncdFullDescByRmb",
-        "dmiLatestRateLabel",
-        "dmiLatestContraRateLabel",
-        "bpNum",
-        "dmiWghtdContraRateLabel",
-        "dmiPrvsClsngContraRate",
+    r = requests.post(url=url, data=payload, headers=headers)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["records"])
+    temp_df.columns = [
+        "_",
+        "成交净价",
+        "涨跌",
+        "_",
+        "债券简称",
+        "_",
+        "_",
+        "交易量",
+        "_",
+        "最新收益率",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "加权收益率",
+        "_",
+        "_",
+        "_",
     ]
-    deal_data_out = pd.DataFrame()
-    for j in range(len(need_data)):
-        deal_data = itemgetter(*keys_list)(need_data[j])
-        deal_data = pd.DataFrame(deal_data).T
-        deal_data.columns = [
+    temp_df = temp_df[
+        [
             "债券简称",
-            "成交净价(元)",
-            "最新收益率(%)",
-            "涨跌(BP)",
-            "加权收益率(%)",
-            "交易量(亿)",
+            "成交净价",
+            "最新收益率",
+            "涨跌",
+            "加权收益率",
+            "交易量",
         ]
-        deal_data_out = deal_data_out.append(deal_data, ignore_index=True)
-    deal_data_out.replace("---", np.nan, inplace=True)
-    return deal_data_out
+    ]
+    return temp_df
 
 
-def bond_china_yield(start_date="2019-02-04", end_date="2020-02-04"):
+def bond_china_yield(
+    start_date: str = "2020-02-04", end_date: str = "2021-01-24"
+) -> pd.DataFrame:
     """
     中国债券信息网-国债及其他债券收益率曲线
     https://www.chinabond.com.cn/
@@ -143,5 +153,7 @@ if __name__ == "__main__":
     print(bond_spot_quote_df)
     bond_spot_deal_df = bond_spot_deal()
     print(bond_spot_deal_df)
-    bond_china_yield_df = bond_china_yield(start_date="2018-01-01", end_date="2019-01-01")
+    bond_china_yield_df = bond_china_yield(
+        start_date="2020-02-01", end_date="2021-01-24"
+    )
     print(bond_china_yield_df)
