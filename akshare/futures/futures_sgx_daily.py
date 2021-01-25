@@ -52,5 +52,5 @@ def futures_sgx_daily(trade_date: str = "2020/03/06", recent_day: str = "3") -> 
 
 
 if __name__ == '__main__':
-    futures_sgx_daily_df = futures_sgx_daily(trade_date="2020/03/06", recent_day="2")
+    futures_sgx_daily_df = futures_sgx_daily(trade_date="2021/01/23", recent_day="2")
     print(futures_sgx_daily_df)

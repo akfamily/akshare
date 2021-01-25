@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/18 12:54
+Date: 2021/1/25 12:54
 Desc: 新闻联播文字稿
 http://www.xwlbo.com/date-2020-7-11.html
 """
@@ -17,7 +17,7 @@ def news_cctv(date: str = "20200902") -> pd.DataFrame:
     """
     新闻联播文字稿
     http://www.xwlbo.com/date-2020-7-11.html
-    :param date: 需要获取数据的日期, 2018年后
+    :param date: 需要获取数据的日期; 目前 2018 年后
     :type date: str
     :return: 新闻联播文字稿
     :rtype: pandas.DataFrame
@@ -56,5 +56,5 @@ def news_cctv(date: str = "20200902") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_cctv_df = news_cctv(date="20201201")
+    news_cctv_df = news_cctv(date="20210123")
     print(news_cctv_df)
