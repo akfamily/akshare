@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/25 16:09
+Date: 2021/1/25 20:09
 Desc: 东方财富网-数据中心-主力数据-基金持仓
 http://data.eastmoney.com/zlsj/2020-06-30-1-2.html
 """
@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def stock_report_fund_hold(symbol: str = "QFII持仓", date: str = "20201231") -> pd.DataFrame:
+def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20201231") -> pd.DataFrame:
     """
     东方财富网-数据中心-主力数据-基金持仓
     http://data.eastmoney.com/zlsj/2020-12-31-1-2.html
@@ -83,7 +83,73 @@ def stock_report_fund_hold(symbol: str = "QFII持仓", date: str = "20201231") -
     return temp_df
 
 
+def stock_report_fund_hold_detail(symbol: str = "005827", date: str = "20201231") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-主力数据-基金持仓-明细
+    http://data.eastmoney.com/zlsj/ccjj/2020-12-31-008286.html
+    :param symbol: 基金代码
+    :type symbol: str
+    :param date: 财报发布日期, xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31
+    :type date: str
+    :return: 基金持仓-明细数据
+    :rtype: pandas.DataFrame
+    """
+    date = "-".join([date[:4], date[4:6], date[6:]])
+    url = "http://datainterface3.eastmoney.com/EM_DataCenter_V3/api/ZLCCMX/GetZLCCMX"
+    params = {
+        "js": "datatable8848106",
+        "tkn": "eastmoney",
+        "SHType": "1",
+        "SHCode": symbol,
+        "SCode": "",
+        "ReportDate": date,
+        "sortField": "SCode",
+        "sortDirec": "1",
+        "pageNum": "1",
+        "pageSize": "500",
+        "cfg": "ZLCCMX",
+        "_": "1611579153269",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"):-1])
+    temp_df = pd.DataFrame(data_json["Data"][0])
+    temp_df = temp_df["Data"].str.split("|", expand=True)
+    temp_df.reset_index(inplace=True)
+    temp_df["index"] = range(1, len(temp_df)+1)
+    temp_df.columns = [
+        "序号",
+        "股票代码",
+        "股票简称",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "持股数",
+        "持股市值",
+        "占总股本比例",
+        "占流通股本比例",
+    ]
+    temp_df = temp_df[[
+        "序号",
+        "股票代码",
+        "股票简称",
+        "持股数",
+        "持股市值",
+        "占总股本比例",
+        "占流通股本比例",
+    ]]
+    return temp_df
+
+
 if __name__ == "__main__":
     for item in ["基金持仓", "QFII持仓", "社保持仓", "券商持仓", "保险持仓", "信托持仓"]:
         stock_report_fund_hold_df = stock_report_fund_hold(symbol=item, date="20201231")
         print(stock_report_fund_hold_df)
+        break
+
+    stock_report_fund_hold_detail_df = stock_report_fund_hold_detail(symbol="005827", date="20201231")
+    print(stock_report_fund_hold_detail_df)

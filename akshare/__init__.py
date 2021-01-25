@@ -1218,9 +1218,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.97: fix: fix bond_spot_deal interface
 0.7.98: fix: fix stock_report_fund_hold interface
 0.7.99: fix: fix stock_zh_a_daily interface
+0.8.1: add: add stock_report_fund_hold_detail interface
 """
 
-__version__ = "0.7.99"
+__version__ = "0.8.1"
 __author__ = "Albert King"
 
 import sys
@@ -1391,7 +1392,7 @@ from akshare.index.zh_stock_index_csindex import stock_zh_index_hist_csindex
 """
 股票基金持仓数据
 """
-from akshare.stock.stock_fund_hold import stock_report_fund_hold
+from akshare.stock.stock_fund_hold import stock_report_fund_hold, stock_report_fund_hold_detail
 
 """
 期货分钟数据
