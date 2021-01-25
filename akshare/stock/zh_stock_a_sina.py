@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/12 12:28
+Date: 2021/1/25 16:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -23,7 +23,6 @@ from akshare.stock.cons import (
     zh_sina_a_stock_hfq_url,
     zh_sina_a_stock_qfq_url,
     zh_sina_a_stock_amount_url,
-    zh_sina_a_stock_hist_url_weekly,
 )
 
 
@@ -80,10 +79,10 @@ def stock_zh_a_spot() -> pd.DataFrame:
 
 
 def stock_zh_a_daily(
-    symbol: str = "sh601939",
+    symbol: str = "sz000001",
     start_date: str = "19900101",
-    end_date: str = "20301220",
-    adjust: str = "",
+    end_date: str = "20210118",
+    adjust: str = "hfq",
 ) -> pd.DataFrame:
     """
     新浪财经-A股-个股的历史行情数据, 大量抓取容易封 IP
@@ -159,11 +158,13 @@ def stock_zh_a_daily(
     ]
     if adjust == "":
         temp_df = temp_df[start_date:end_date]
+        temp_df.drop_duplicates(subset=["open", "high", "low", "close"], inplace=True)
         temp_df["open"] = round(temp_df["open"], 2)
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
         temp_df.dropna(inplace=True)
+        temp_df.drop_duplicates(inplace=True)
         return temp_df
     if adjust == "hfq":
         res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
@@ -178,12 +179,12 @@ def stock_zh_a_daily(
         )
         temp_df.fillna(method="ffill", inplace=True)
         temp_df = temp_df.astype(float)
+        temp_df.dropna(inplace=True)
+        temp_df.drop_duplicates(subset=["open", "high", "low", "close"], inplace=True)
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"]
-        temp_df.dropna(how="any", inplace=True)
-        temp_df.drop_duplicates(subset=["volume", "outstanding_share", "turnover"], inplace=True)
         temp_df = temp_df.iloc[:, :-1]
         temp_df = temp_df[start_date:end_date]
         temp_df["open"] = round(temp_df["open"], 2)
@@ -207,12 +208,12 @@ def stock_zh_a_daily(
         )
         temp_df.fillna(method="ffill", inplace=True)
         temp_df = temp_df.astype(float)
+        temp_df.dropna(inplace=True)
+        temp_df.drop_duplicates(subset=["open", "high", "low", "close"], inplace=True)
         temp_df["open"] = temp_df["open"] / temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
         temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
         temp_df["low"] = temp_df["low"] / temp_df["qfq_factor"]
-        temp_df.dropna(how="any", inplace=True)
-        temp_df.drop_duplicates(subset=["volume", "outstanding_share", "turnover"], inplace=True)
         temp_df = temp_df.iloc[:, :-1]
         temp_df = temp_df[start_date:end_date]
         temp_df["open"] = round(temp_df["open"], 2)
@@ -326,6 +327,8 @@ def stock_zh_a_minute(
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118", adjust="hfq")
     print(stock_zh_a_daily_hfq_df_one)
+    stock_zh_a_daily_hfq_df_three = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118", adjust="qfq")
+    print(stock_zh_a_daily_hfq_df_three)
     stock_zh_a_daily_hfq_df_two = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118")
     print(stock_zh_a_daily_hfq_df_two)
 
