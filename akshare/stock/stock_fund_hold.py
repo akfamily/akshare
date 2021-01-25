@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/21 9:23
+Date: 2021/1/25 16:09
 Desc: 东方财富网-数据中心-主力数据-基金持仓
 http://data.eastmoney.com/zlsj/2020-06-30-1-2.html
 """
@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20201231") -> pd.DataFrame:
+def stock_report_fund_hold(symbol: str = "QFII持仓", date: str = "20201231") -> pd.DataFrame:
     """
     东方财富网-数据中心-主力数据-基金持仓
     http://data.eastmoney.com/zlsj/2020-12-31-1-2.html
@@ -51,6 +51,8 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20201231")
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = list(range(1, len(temp_df)+1))
+    if temp_df.empty:
+        return None
     temp_df.columns = [
         "序号",
         "股票代码",
@@ -82,5 +84,6 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20201231")
 
 
 if __name__ == "__main__":
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="基金持仓", date="20201231")
-    print(stock_report_fund_hold_df)
+    for item in ["基金持仓", "QFII持仓", "社保持仓", "券商持仓", "保险持仓", "信托持仓"]:
+        stock_report_fund_hold_df = stock_report_fund_hold(symbol=item, date="20201231")
+        print(stock_report_fund_hold_df)
