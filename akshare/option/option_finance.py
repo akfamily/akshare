@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/9/30 13:58
+Date: 2021/1/26 10:58
 Desc: 获取金融期权数据
 http://www.sse.com.cn/assortment/options/price/
 """
@@ -20,12 +20,14 @@ from akshare.option.cons import (
 )
 
 
-def option_finance_underlying(symbol="50ETF"):
+def option_finance_underlying(symbol: str = "50ETF") -> pd.DataFrame:
     """
-    获取期权标的当日行情, 目前只有 华夏上证50ETF, 华泰柏瑞沪深300ETF 两个产品
+    期权标的当日行情, 目前只有 华夏上证50ETF, 华泰柏瑞沪深300ETF 两个产品
     http://www.sse.com.cn/assortment/options/price/
     :param symbol: 50ETF 或 300ETF
-    :return: pandas.DataFrame
+    :type symbol: str
+    :return: 期权标的当日行情
+    :rtype: pandas.DataFrame
     """
     if symbol == "50ETF":
         res = requests.get(SH_OPTION_URL_50, params=SH_OPTION_PAYLOAD)
@@ -69,15 +71,18 @@ def option_finance_underlying(symbol="50ETF"):
         return raw_data
 
 
-def option_finance_board(symbol="华泰柏瑞沪深300ETF期权", end_month="2003"):
+def option_finance_board(symbol: str = "嘉实沪深300ETF期权", end_month: str = "2103") -> pd.DataFrame:
     """
-    获取期权的当日具体的行情数据, 主要为三个: 华夏上证50ETF期权, 华泰柏瑞沪深300ETF期权, 嘉实沪深300ETF期权, 沪深300股指期权
+    期权的当日具体的行情数据, 主要为三个: 华夏上证50ETF期权, 华泰柏瑞沪深300ETF期权, 嘉实沪深300ETF期权, 沪深300股指期权
     http://www.sse.com.cn/assortment/options/price/
-    http://www.szse.cn/market/derivative/derivative_list/index.html
+    http://www.szse.cn/market/product/option/index.html
     http://www.cffex.com.cn/hs300gzqq/
     :param symbol: 华夏上证50ETF期权 or 华泰柏瑞沪深300ETF期权 or 嘉实沪深300ETF期权 or 沪深300股指期权
-    :param end_month: 2003 2020年3月到期的期权
-    :return: pandas.DataFrame
+    :type symbol: str
+    :param end_month: 2003; 2020年3月到期的期权
+    :type end_month: str
+    :return: 当日行情
+    :rtype: pandas.DataFrame
     """
     end_month = end_month[-2:]
     if symbol == "华夏上证50ETF期权":
@@ -105,12 +110,45 @@ def option_finance_board(symbol="华泰柏瑞沪深300ETF期权", end_month="200
         raw_data["数量"] = [data_json["total"]] * data_json["total"]
         return raw_data
     elif symbol == "嘉实沪深300ETF期权":
-        raw_df = pd.read_excel(SZ_OPTION_URL_300)
-        raw_df["期权行权日"] = pd.to_datetime(raw_df["期权行权日"])
-        raw_df["end_month"] = raw_df["期权行权日"].dt.month.astype(str).str.zfill(2)
-        raw_df = raw_df[raw_df["end_month"] == end_month]
-        del raw_df["end_month"]
-        return raw_df
+        url = "http://www.szse.cn/api/report/ShowReport/data"
+        params = {
+            "SHOWTYPE": "JSON",
+            "CATALOGID": "ysplbrb",
+            "TABKEY": "tab1",
+            "PAGENO": "1",
+            "random": "0.10642298535346595",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        page_num = data_json[0]["metadata"]["pagecount"]
+        big_df = pd.DataFrame()
+        for page in range(1, page_num+1):
+            params = {
+                "SHOWTYPE": "JSON",
+                "CATALOGID": "ysplbrb",
+                "TABKEY": "tab1",
+                "PAGENO": page,
+                "random": "0.10642298535346595",
+            }
+            r = requests.get(url, params=params)
+            data_json = r.json()
+            temp_df = pd.DataFrame(data_json[0]["data"])
+            big_df = big_df.append(temp_df, ignore_index=True)
+        big_df.columns = [
+            "合约编码",
+            "合约简称",
+            "标的名称",
+            "类型",
+            "行权价",
+            "合约单位",
+            "期权行权日",
+            "行权交收日",
+        ]
+        big_df["期权行权日"] = pd.to_datetime(big_df["期权行权日"])
+        big_df["end_month"] = big_df["期权行权日"].dt.month.astype(str).str.zfill(2)
+        big_df = big_df[big_df["end_month"] == end_month]
+        del big_df["end_month"]
+        return big_df
     elif symbol == "沪深300股指期权":
         raw_df = pd.read_table(CFFEX_OPTION_URL_300, sep=",")
         raw_df["end_month"] = (
@@ -124,5 +162,11 @@ def option_finance_board(symbol="华泰柏瑞沪深300ETF期权", end_month="200
 if __name__ == "__main__":
     option_finance_underlying_df = option_finance_underlying(symbol="300ETF")
     print(option_finance_underlying_df)
+    option_finance_board_df = option_finance_board(symbol="华夏上证50ETF期权", end_month="2003")
+    print(option_finance_board_df)
+    option_finance_board_df = option_finance_board(symbol="嘉实沪深300ETF期权", end_month="2103")
+    print(option_finance_board_df)
+    option_finance_board_df = option_finance_board(symbol="华泰柏瑞沪深300ETF期权", end_month="2103")
+    print(option_finance_board_df)
     option_finance_board_df = option_finance_board(symbol="沪深300股指期权", end_month="2003")
     print(option_finance_board_df)
