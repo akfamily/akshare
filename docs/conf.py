@@ -31,7 +31,7 @@ github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 # -- Project information -----------------------------------------------------
 
 project = 'AkShare'
-copyright = '2019–{}, AkShare developers'.format(datetime.now().year)
+copyright = f'2019–{datetime.now().year}, AkShare developers'
 author = 'Albert King'
 version = "1.0.0"
 
@@ -83,4 +83,3 @@ def setup(app):
         'auto_toc_tree_section': 'Contents',
     }, True)
     app.add_transform(AutoStructify)
-

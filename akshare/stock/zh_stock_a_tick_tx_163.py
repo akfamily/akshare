@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/28 16:39
+Date: 2021/1/26 16:39
 Desc: 腾讯-股票-实时行情-成交明细
-下载成交明细-每个交易日 16:00 提供当日数据
+成交明细-每个交易日 16:00 提供当日数据
 港股报价延时 15 分钟
 """
 from io import StringIO, BytesIO
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         data = stock_zh_a_tick_tx(code="sz000001", trade_date=f"{item}")
         if not data.empty:
             print(data)
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20201222")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20210125")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")

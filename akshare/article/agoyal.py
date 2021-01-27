@@ -11,7 +11,7 @@ import pandas as pd
 
 def agoyal_stock_return(indicator: str = "monthly"):
     """
-    This data about will be updated every year at May
+    This data will be updated every year at May
     :param indicator: monthly, quarterly or annual
     :type indicator: str
     :return: return data at specific indicator
