@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/24 15:47
+Date: 2021/1/26 12:47
 Desc: 金十数据 websocket 实时数据接口-新闻
 https://www.jin10.com/
 wss://wss-flash-1.jin10.com/
@@ -17,7 +17,7 @@ def js_news(indicator: str = '最新资讯') -> pd.DataFrame:
     https://www.jin10.com/
     :param indicator: choice of {'最新资讯', '最新数据'}
     :type indicator: str
-    :return: 金十数据
+    :return: 最新资讯
     :rtype: pandas.DataFrame
     """
     url = 'https://m.jin10.com/flash'
