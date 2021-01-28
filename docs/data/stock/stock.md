@@ -474,14 +474,14 @@ print(stock_zh_a_minute_df)
 
 限量: 单次返回具体某个 A 上市公司的近 2 年历史分笔行情数据
 
-P.S. 每个交易日 16:00 提供当日数据, 如遇到数据缺失，请使用 **stock_zh_a_tick_163** 接口，注意数据会有一定差异, 或者使用 **stock_zh_a_tick_tx_js(code="sz000001")** 来获取当日腾讯分笔数据
+P.S. 每个交易日 16:00 提供当日数据; 如遇到数据缺失, 请使用 **stock_zh_a_tick_163** 接口(注意数据会有一定差异)或者使用 **stock_zh_a_tick_tx_js(code="sz000001")** 来获取当日腾讯分笔数据
 
 输入参数-历史行情数据
 
 | 名称   | 类型 | 必选 | 描述       |
 | -------- | ---- | ---- | --- |
 | symbol | str  | Y    |   symbol="sh600000"|
-| trade_date | datetime  | Y    |  trade_date="20191011"|
+| trade_date | str  | Y    |  trade_date="20191011"|
 
 输出参数-历史行情数据
 

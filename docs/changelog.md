@@ -1,41 +1,33 @@
 # [AkShare](https://github.com/jindaxiang/akshare) 版本更新
 
 ```
-0.1.25
-增加奇货可查指数接口 e.g. ak.get_qhkc_data("商品指数")
+0.1.25: 增加奇货可查指数接口 e.g. ak.get_qhkc_data("商品指数")
 
-0.1.26
-修复代码格式问题
+0.1.26: 修复代码格式问题
 
-0.1.27
-修复说明格式问题
+0.1.27: 修复说明格式问题
 
-0.1.28
-更新说明文档
+0.1.28: 更新说明文档
 
-0.1.29
-规范说明文档格式
+0.1.29: 规范说明文档格式
 
-0.1.30
-规范说明文档格式
+0.1.30: 规范说明文档格式
 
-0.1.31
-规范 cot.py 函数说明
+0.1.31: 规范 cot.py 函数说明
 
-0.1.32
-update basis.py
+0.1.32: update basis.py
 
-0.1.33
+0.1.33: 
 增加奇货可查数据三个接口:
 get_qhkc_index, get_qhkc_index_trend, get_qhkc_index_profit_loss
 使用方法请 help(get_qhkc_index) 查看
 
-0.1.34
+0.1.34: 
 增加奇货可查-资金数据三个接口:
 get_qhkc_fund_position_change, get_qhkc_fund_bs, get_qhkc_fund_position
 使用方法请 help(get_qhkc_fund_position_change) 查看
 
-0.1.35
+0.1.35: 
 增加奇货可查-工具-外盘比价接口:
 get_qhkc_tool_foreign
 使用方法请 help(get_qhkc_tool_foreign) 查看
@@ -1864,4 +1856,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.1: add: add stock_report_fund_hold_detail interface
 
 0.8.2: fix: fix option_finance_board interface
+
+0.8.3: fix: fix stock_zh_a_daily interface
 ```

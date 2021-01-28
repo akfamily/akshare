@@ -516,10 +516,10 @@ def internal_flow_history(area: str = "北京市", date: str = "20200412") -> pd
 
 
 def migration_scale_baidu(
-    area: str = "乌鲁木齐市",
+    area: str = "佛山市",
     indicator: str = "move_out",
-    start_date: str = "20190112",
-    end_date: str = "20200401",
+    start_date: str = "20200110",
+    end_date: str = "20200315",
 ) -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-迁徙规模
@@ -824,7 +824,7 @@ if __name__ == "__main__":
     print(internal_flow_history_df)
 
     migration_scale_baidu_df = migration_scale_baidu(
-        area="上海市", indicator="move_in", start_date="20190113", end_date="20200512"
+        area="上海市", indicator="move_in", start_date="20200110", end_date="20200315"
     )
     print(migration_scale_baidu_df)
 
