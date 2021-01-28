@@ -81,7 +81,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
 def stock_zh_a_daily(
     symbol: str = "sz000001",
     start_date: str = "19900101",
-    end_date: str = "20210118",
+    end_date: str = "21000118",
     adjust: str = "hfq",
 ) -> pd.DataFrame:
     """
