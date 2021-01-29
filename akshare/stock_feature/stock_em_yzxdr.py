@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/15 15:18
+Date: 2021/1/28 17:18
 Desc: 东方财富网-数据中心-特色数据-一致行动人
 http://data.eastmoney.com/yzxdr/
 """
@@ -97,5 +97,5 @@ def stock_em_yzxdr(date: str = "20200930") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_em_yzxdr_df = stock_em_yzxdr(date="20200930")
+    stock_em_yzxdr_df = stock_em_yzxdr(date="20201231")
     print(stock_em_yzxdr_df)
