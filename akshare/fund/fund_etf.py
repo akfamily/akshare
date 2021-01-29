@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/18 12:52
+Date: 2021/1/29 12:52
 Desc: 新浪财经-基金行情
 http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
