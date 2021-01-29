@@ -588,7 +588,7 @@ def stock_em_hsgt_stock_statistics(
 
 
 def stock_em_hsgt_institution_statistics(
-    market: str = "北向持股", start_date: str = "20201218", end_date: str = "20201218"
+    market: str = "北向持股", start_date: str = "20200127", end_date: str = "20200127"
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
@@ -964,42 +964,42 @@ if __name__ == "__main__":
     print(stock_em_hsgt_hold_stock_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="南向持股", start_date="20201218", end_date="20201218"
+        symbol="南向持股", start_date="20210127", end_date="20210127"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="北向持股", start_date="20201218", end_date="20201218"
+        symbol="北向持股", start_date="20210127", end_date="20210127"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="沪股通持股", start_date="20201218", end_date="20201218"
+        symbol="沪股通持股", start_date="20210127", end_date="20210127"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="深股通持股", start_date="20201218", end_date="20201218"
+        symbol="深股通持股", start_date="20210127", end_date="20210127"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="北向持股", start_date="20201218", end_date="20201218"
+        market="北向持股", start_date="20210127", end_date="20210127"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="南向持股", start_date="20201218", end_date="20201218"
+        market="南向持股", start_date="20210127", end_date="20210127"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="沪股通持股", start_date="20201218", end_date="20201218"
+        market="沪股通持股", start_date="20210127", end_date="20210127"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="深股通持股", start_date="20201218", end_date="20201218"
+        market="深股通持股", start_date="20210127", end_date="20210127"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
