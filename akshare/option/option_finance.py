@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Date: 2021/1/26 10:58
-Desc: 获取金融期权数据
+Desc: 金融期权数据
 http://www.sse.com.cn/assortment/options/price/
 """
 import pandas as pd
@@ -15,7 +15,6 @@ from akshare.option.cons import (
     SH_OPTION_URL_KING_50,
     SH_OPTION_URL_300,
     SH_OPTION_URL_KING_300,
-    SZ_OPTION_URL_300,
     CFFEX_OPTION_URL_300,
 )
 
