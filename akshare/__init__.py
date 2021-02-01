@@ -1223,9 +1223,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.3: fix: fix stock_zh_a_daily interface
 0.8.4: fix: fix option interface
 0.8.5: fix: fix bond_investing_global interface
+0.8.6: add: add macro_china_shrzgm interface
 """
 
-__version__ = "0.8.5"
+__version__ = "0.8.6"
 __author__ = "Albert King"
 
 import sys
@@ -2362,6 +2363,7 @@ from akshare.economic.macro_china import (
     macro_china_non_man_pmi,
     macro_china_rmb,
     macro_china_gdp_yearly,
+    macro_china_shrzgm,
     macro_china_ppi_yearly,
     macro_china_cx_services_pmi_yearly,
     macro_china_market_margin_sh,

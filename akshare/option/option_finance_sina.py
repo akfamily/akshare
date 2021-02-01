@@ -421,7 +421,7 @@ if __name__ == "__main__":
     )
     print(option_sina_sse_expire_day_df)
 
-    up, down = option_sina_sse_codes(trade_date="202102", underlying="510300")
+    up, down = option_sina_sse_codes(trade_date="202103", underlying="510300")
     print(up)
     print(down)
 
