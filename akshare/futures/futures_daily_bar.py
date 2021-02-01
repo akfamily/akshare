@@ -117,7 +117,7 @@ def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
     return result_df
 
 
-def get_czce_daily(date="20200901"):
+def get_czce_daily(date: str = "20200901") -> pd.DataFrame:
     """
     郑州商品交易所-日频率-量价数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日; 日期需要大于200100824
@@ -498,7 +498,7 @@ if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(start_date='20210111 ', end_date='20210115', market="INE", index_bar=True)
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20210108")
+    get_dce_daily_df = get_dce_daily(date="20210201")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20101101")
@@ -507,5 +507,5 @@ if __name__ == "__main__":
     get_ine_daily_df = get_ine_daily(date="20210111")
     print(get_ine_daily_df)
 
-    get_czce_daily_df = get_czce_daily(date="20200901")
+    get_czce_daily_df = get_czce_daily(date="20210201")
     print(get_czce_daily_df)
