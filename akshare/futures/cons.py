@@ -176,6 +176,7 @@ market_exchange_symbols = {
         "UR",
         "CJ",  # 红枣期货
         "SA",  # 纯碱期货
+        "PK",  # 20210201 花生期货
     ],
     "shfe": [
         "CU",

@@ -201,5 +201,5 @@ if __name__ == "__main__":
     )
     print(get_roll_yield_bar_range_df)
 
-    get_roll_yield_bar_symbol = get_roll_yield_bar(type_method="date", var="BB", start_day="20140104", end_day="20140201", plot=True)
+    get_roll_yield_bar_symbol = get_roll_yield_bar(type_method="date", var="LB", start_day="20210201", end_day="20210201", plot=True)
     print(get_roll_yield_bar_symbol)
