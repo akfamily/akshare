@@ -1224,9 +1224,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.4: fix: fix option interface
 0.8.5: fix: fix bond_investing_global interface
 0.8.6: add: add macro_china_shrzgm interface
+0.8.7: add: add stock_zh_a_tick_163_now interface
 """
 
-__version__ = "0.8.6"
+__version__ = "0.8.7"
 __author__ = "Albert King"
 
 import sys
@@ -2150,6 +2151,7 @@ from akshare.ws.js_ws_quotes import watch_jinshi_quotes
 from akshare.stock.zh_stock_a_tick_tx_163 import (
     stock_zh_a_tick_tx,
     stock_zh_a_tick_163,
+    stock_zh_a_tick_163_now,
     stock_zh_a_tick_tx_js,
 )
 
