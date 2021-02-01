@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/11 18:08
+Date: 2021/2/1 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -33,6 +33,43 @@ from akshare.economic.cons import (
     JS_CHINA_CX_SERVICE_PMI_YEARLY_URL,
     JS_CHINA_MARKET_MARGIN_SH_URL,
 )
+
+
+# 中国社会融资规模数据
+def macro_china_shrzgm() -> pd.DataFrame:
+    """
+    社会融资规模增量统计
+    http://data.mofcom.gov.cn/gnmy/shrzgm.shtml
+    :return: 社会融资规模增量统计
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.mofcom.gov.cn/datamofcom/front/gnmy/shrzgmQuery"
+    r = requests.post(url)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json)
+    temp_df.columns = [
+        "月份",
+        "其中-未贴现银行承兑汇票",
+        "其中-委托贷款",
+        "其中-委托贷款外币贷款(折合人民币)",
+        "其中-人民币贷款",
+        "其中-企业债券",
+        "社会融资规模增量",
+        "其中-非金融企业境内股票融资",
+        "其中-信托贷款",
+    ]
+    temp_df = temp_df[[
+        "月份",
+        "社会融资规模增量",
+        "其中-人民币贷款",
+        "其中-委托贷款外币贷款(折合人民币)",
+        "其中-委托贷款",
+        "其中-信托贷款",
+        "其中-未贴现银行承兑汇票",
+        "其中-企业债券",
+        "其中-非金融企业境内股票融资",
+    ]]
+    return temp_df
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
@@ -2269,6 +2306,9 @@ def macro_china_real_estate():
 
 
 if __name__ == "__main__":
+    # 社会融资规模增量
+    macro_china_shrzgm_df = macro_china_shrzgm()
+    print(macro_china_shrzgm_df)
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()
     print(macro_china_gdp_yearly_df)
