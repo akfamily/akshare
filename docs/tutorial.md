@@ -276,6 +276,7 @@
  "macro_bank_india_interest_rate"  # 印度央行决议报告
  "macro_bank_brazil_interest_rate"  # 巴西央行决议报告
  # 中国
+ "macro_china_shrzgm"  # 社会融资规模增量统计
  "macro_china_gdp_yearly"  # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
  "macro_china_cpi_yearly"  # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
  "macro_china_cpi_monthly"  # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI月率报告
