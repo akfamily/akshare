@@ -816,7 +816,7 @@ print(bond_convert_jsl_df)
 
 目标地址: https://cn.investing.com/rates-bonds/
 
-描述: 获取全球政府债券行情与收益率, 由于涉及国家和债券多(**近1000**个债券)具体参见[国家-债券目录](https://cn.investing.com/rates-bonds/world-government-bonds?maturity_from=10&maturity_to=310)
+描述: 获取全球政府债券行情与收益率, 由于涉及国家和债券多(**近1000**个债券)具体参见[国家-债券目录](https://cn.investing.com/rates-bonds/world-government-bonds?maturity_from=10&maturity_to=310) 
 
 具体的调用方式可以参照: 
 
@@ -824,7 +824,7 @@ print(bond_convert_jsl_df)
 2. 复制网页上国家名称(推荐复制), 如 **中国**;
 3. 复制所显示的具体债券名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **中国1年期国债**; 也可以调用 **ak.bond_investing_global_country_name_url(country="美国")** 获取需要国家的具体指数名称
 4. 在安装 [AkShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.bond_investing_global(country="中国", index_name="中国1年期国债", period="每周", start_date="2000-01-01", end_date="2020-06-06")**;
-5. 稍后就可以获得所需数据.
+5. 稍后就可以获得所需数据, 由于服务器在国外, 如访问失败, 请稍后重试.
 
 限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
 
@@ -835,8 +835,8 @@ print(bond_convert_jsl_df)
 | country | str  | Y    |   country="中国"|
 | index_name | str  | Y    |  index_name="中国1年期国债"; 可以通过 ak.bond_investing_global_country_name_url(country="美国") 获取|
 | period | str  | Y    |  period="每月"; choice of {"每日", "每周", "每月"}|
-| start_date | str  | Y    |  start_date='2000/01/01'|
-| end_date | str  | Y    |  end_date='2019/10/17'|
+| start_date | str  | Y    |  start_date='2000-01-01'|
+| end_date | str  | Y    |  end_date='2019-10-17'|
 
 输出参数
 
@@ -847,7 +847,7 @@ print(bond_convert_jsl_df)
 | 开盘      | float   | Y        | 开盘        |
 | 高        | float   | Y        |高    |
 | 低         | float | Y        | 低         |
-| 交易量      | str | Y        | 涨跌幅, 注意单位: %      |
+| 交易量      | str | Y        | 涨跌幅; 注意单位: %      |
 
 接口示例
 
