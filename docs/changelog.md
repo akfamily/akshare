@@ -1868,4 +1868,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.7: add: add stock_zh_a_tick_163_now interface
 
 0.8.8: fix: fix add PK to CZCE
+
+0.8.9: add: add futures delivery and spot interface
+
+0.8.10: fix: fix fund_em_portfolio_hold interface
 ```

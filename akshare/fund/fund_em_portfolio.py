@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/21 9:54
+Date: 2021/2/2 17:54
 Desc: 天天基金网-基金档案-投资组合-基金持仓
 http://fundf10.eastmoney.com/ccmx_000001.html
 """
@@ -11,7 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def fund_em_portfolio_hold(code: str = "003834", year: str = "2018") -> pd.DataFrame:
+def fund_em_portfolio_hold(code: str = "162411", year: str = "2020") -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-基金持仓
     http://fundf10.eastmoney.com/ccmx_000001.html
@@ -46,6 +46,7 @@ def fund_em_portfolio_hold(code: str = "003834", year: str = "2018") -> pd.DataF
         del temp_df["相关资讯"]
         temp_df["占净值比例"] = temp_df["占净值比例"].str.split("%", expand=True).iloc[:, 0]
         temp_df.rename(columns={"持股数（万股）": "持股数", "持仓市值（万元）": "持仓市值"}, inplace=True)
+        temp_df.rename(columns={"持股数（万股）": "持股数", "持仓市值（万元人民币）": "持仓市值"}, inplace=True)
         temp_df["季度"] = item_label[item]
         temp_df = temp_df[
             [
@@ -63,5 +64,5 @@ def fund_em_portfolio_hold(code: str = "003834", year: str = "2018") -> pd.DataF
 
 
 if __name__ == "__main__":
-    fund_em_portfolio_hold_df = fund_em_portfolio_hold(code="000001", year="2020")
+    fund_em_portfolio_hold_df = fund_em_portfolio_hold(code="162411", year="2020")
     print(fund_em_portfolio_hold_df)
