@@ -3,7 +3,6 @@
 """
 Date: 2021/2/2 11:27
 Desc: 期货-期转现-交割
-三大交易所
 """
 import requests
 import pandas as pd
@@ -34,12 +33,14 @@ def futures_to_spot_shfe(date: str = "202101") -> pd.DataFrame:
         "_",
         "_",
     ]
-    temp_df = temp_df[[
-        "日期",
-        "合约",
-        "交割量",
-        "期转现量",
-    ]]
+    temp_df = temp_df[
+        [
+            "日期",
+            "合约",
+            "交割量",
+            "期转现量",
+        ]
+    ]
     return temp_df
 
 
@@ -58,7 +59,7 @@ def futures_delivery_dce(date: str = "202101") -> pd.DataFrame:
         "year": "",
         "month": "",
         "deliveryQuotes.begin_month": date,
-        "deliveryQuotes.end_month": str(int(date)+1),
+        "deliveryQuotes.end_month": str(int(date) + 1),
     }
     r = requests.post(url, params=params)
     temp_df = pd.read_html(r.text)[0]
@@ -104,10 +105,12 @@ def futures_to_spot_czce(date: str = "20210201") -> pd.DataFrame:
         "合约代码",
         "合约数量",
     ]
-    temp_df = temp_df[[
-        "合约代码",
-        "合约数量",
-    ]]
+    temp_df = temp_df[
+        [
+            "合约代码",
+            "合约数量",
+        ]
+    ]
     return temp_df
 
 
@@ -128,14 +131,15 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
     big_df = pd.DataFrame()
     for i, item in enumerate(index_flag):
         try:
-            temp_inner_df = temp_df[index_flag[i]+1: index_flag[i+1]]
+            temp_inner_df = temp_df[index_flag[i] + 1: index_flag[i + 1]]
         except:
-            temp_inner_df = temp_df[index_flag[i]+1:]
-        # break
+            temp_inner_df = temp_df[index_flag[i] + 1:]
         temp_inner_df.columns = temp_inner_df.iloc[0, :]
         temp_inner_df = temp_inner_df.iloc[1:-1, :]
         temp_inner_df.reset_index(drop=True, inplace=True)
-        date_contract_str = temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].iloc[:, 0].values[i]
+        date_contract_str = (
+            temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].iloc[:, 0].values[i]
+        )
         inner_date = date_contract_str.split("：")[1].split(" ")[0]
         symbol = date_contract_str.split("：")[-1]
         temp_inner_df["配对日期"] = inner_date
@@ -174,7 +178,7 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     futures_to_spot_shfe_df = futures_to_spot_shfe(date="202101")
     print(futures_to_spot_shfe_df)
 
@@ -187,10 +191,8 @@ if __name__ == '__main__':
     futures_delivery_monthly_czce_df = futures_delivery_czce(date="20210112")
     print(futures_delivery_monthly_czce_df)
 
-    futures_delivery_match_dce_df = futures_delivery_match_dce(symbol="a")
+    futures_delivery_match_dce_df = futures_delivery_match_dce(symbol="y")
     print(futures_delivery_match_dce_df)
 
     futures_delivery_match_czce_df = futures_delivery_match_czce(date="20210106")
     print(futures_delivery_match_czce_df)
-
-
