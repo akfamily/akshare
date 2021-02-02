@@ -1226,9 +1226,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.6: add: add macro_china_shrzgm interface
 0.8.7: add: add stock_zh_a_tick_163_now interface
 0.8.8: fix: fix add PK to CZCE
+0.8.9: add: add futures delivery and spot interface
 """
 
-__version__ = "0.8.8"
+__version__ = "0.8.9"
 __author__ = "Albert King"
 
 import sys
@@ -1238,6 +1239,18 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+期货交割和期转现
+"""
+from akshare.futures.futures_to_spot import (
+    futures_to_spot_czce,
+    futures_to_spot_shfe,
+    futures_delivery_dce,
+    futures_delivery_czce,
+    futures_delivery_match_dce,
+    futures_delivery_match_czce
+)
 
 """
 基金持仓
@@ -1267,12 +1280,25 @@ from akshare.stock_feature.stock_em_yzxdr import stock_em_yzxdr
 """
 大宗交易
 """
-from akshare.stock.stock_dzjy import stock_dzjy_sctj, stock_dzjy_mrmx, stock_dzjy_mrtj, stock_dzjy_hygtj, stock_dzjy_yybph, stock_dzjy_hyyybtj
+from akshare.stock.stock_dzjy import (
+    stock_dzjy_sctj,
+    stock_dzjy_mrmx,
+    stock_dzjy_mrtj,
+    stock_dzjy_hygtj,
+    stock_dzjy_yybph,
+    stock_dzjy_hyyybtj,
+)
 
 """
 国证指数
 """
-from akshare.index.index_cni import index_cni_hist, index_cni_all, index_cni_detail, index_cni_detail_hist, index_cni_detail_hist_adjust
+from akshare.index.index_cni import (
+    index_cni_hist,
+    index_cni_all,
+    index_cni_detail,
+    index_cni_detail_hist,
+    index_cni_detail_hist_adjust,
+)
 
 """
 金十数据-新闻资讯
@@ -1399,7 +1425,10 @@ from akshare.index.zh_stock_index_csindex import stock_zh_index_hist_csindex
 """
 股票基金持仓数据
 """
-from akshare.stock.stock_fund_hold import stock_report_fund_hold, stock_report_fund_hold_detail
+from akshare.stock.stock_fund_hold import (
+    stock_report_fund_hold,
+    stock_report_fund_hold_detail,
+)
 
 """
 期货分钟数据
@@ -1948,7 +1977,7 @@ from akshare.index.index_cons import (
     index_stock_hist,
     index_stock_cons_sina,
     index_stock_cons_csindex,
-    stock_a_code_to_symbol
+    stock_a_code_to_symbol,
 )
 
 """
@@ -2503,7 +2532,11 @@ from akshare.qhkc_web.qhkc_fund import (
 """
 大宗商品现货价格及基差
 """
-from akshare.futures.futures_basis import futures_spot_price_daily, futures_spot_price, futures_spot_price_previous
+from akshare.futures.futures_basis import (
+    futures_spot_price_daily,
+    futures_spot_price,
+    futures_spot_price_previous,
+)
 
 """
 期货持仓成交排名数据
