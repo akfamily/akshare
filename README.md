@@ -125,7 +125,7 @@ Pay attention to **数据科学实战** WeChat Official Accounts to get the [AkS
 Application to add **AkShare-官方** QQ group and talk about [AkShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 772100249
 
 <div align=center>
-    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=0IoT65DPFjrKWG2GLPQH5dYkO69b0nre&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_772100249.png" alt="AkShare-官方" title="AkShare-官方"></a>
+    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=nT-L_hfVVFz6XOu2l_d-xQqq-228-eOc&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_772100249.png" alt="AkShare-官方" title="AkShare-官方"></a>
 </div>
 
 ## Features
