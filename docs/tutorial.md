@@ -679,6 +679,13 @@
  "macro_china_money_supply"  # 中国货币供应量
  # 银行排名
  "bank_rank_banker"  # 全球银行排名数据及各项指标
+ # 期货交割和期转现
+ "futures_to_spot_czce"  # 郑商所期转现
+ "futures_to_spot_shfe"  # 上期所期转现
+ "futures_delivery_dce"  # 大商所交割统计
+ "futures_delivery_czce"  # 郑商所交割统计
+ "futures_delivery_match_dce"  # 大商所交割配对
+ "futures_delivery_match_czce"  # 郑商所交割配对
 ```
 
 ## 案例演示
