@@ -67,6 +67,29 @@ def futures_delivery_dce(date: str = "202101") -> pd.DataFrame:
     return temp_df
 
 
+def futures_to_spot_dce(date: str = "202102") -> pd.DataFrame:
+    """
+    大连商品交易所-期转现
+    http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/qzxcx/index.html
+    :param date: 期转现日期
+    :type date: str
+    :return: 大连商品交易所-期转现
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.dce.com.cn/publicweb/quotesdata/ftsDeal.html"
+    params = {
+        "ftsDealQuotes.variety": "all",
+        "year": "",
+        "month": "",
+        "ftsDealQuotes.begin_month": date,
+        "ftsDealQuotes.end_month": date,
+    }
+    r = requests.post(url, params=params)
+    temp_df = pd.read_html(r.text)[0]
+    temp_df["期转现发生日期"] = temp_df["期转现发生日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
+    return temp_df
+
+
 def futures_delivery_match_dce(symbol: str = "a") -> pd.DataFrame:
     """
     大连商品交易所-交割配对表
@@ -179,6 +202,9 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    futures_to_spot_dce_df = futures_to_spot_dce(date="202102")
+    print(futures_to_spot_dce_df)
+
     futures_to_spot_shfe_df = futures_to_spot_shfe(date="202101")
     print(futures_to_spot_shfe_df)
 

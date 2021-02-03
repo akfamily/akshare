@@ -1872,4 +1872,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.9: add: add futures delivery and spot interface
 
 0.8.10: fix: fix fund_em_portfolio_hold interface
+
+0.8.11: add: add futures_to_spot_dce interface
 ```

@@ -1365,6 +1365,48 @@ print(get_futures_daily_df)
 market 可以添为四个交易所的简称, 即 "DCE" 代表大商所; "INE" 代表能源所; "SHFE" 代表上期所; "CZCE" 代表郑商所, 时间需要大于20100824; "CFFEX" 代表中金所. 
 index_bar 为 True 时, 在生成的 pandas.DataFrame 中通过持仓量加权合成指数合约, 如 RB99.
 
+#### 期转现-大商所
+
+接口: futures_to_spot_dce
+
+目标地址: http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/qzxcx/index.html
+
+描述: 提供大连商品交易所-期转现统计数据
+
+限量: 单次返回指定交易日的期转现统计数据
+
+输入参数
+
+| 名称   | 类型  | 必选  | 描述  |
+| -------- | ---- | ---- | --- |
+| date | str | Y | date="202102"; 交易年月 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 合约代码      | str   | Y        | -  |
+| 期转现发生日期      | str   | Y        | -   |
+| 期转现数量      | str   | Y        | 注意单位: 手   |
+
+接口示例
+
+```python
+import akshare as ak
+futures_to_spot_dce_df = ak.futures_to_spot_dce(date="202102")
+print(futures_to_spot_dce_df)
+```
+
+数据示例
+
+```
+     合约代码   期转现发生日期  期转现数量
+0  lh2109  20210202      1
+1  lh2109  20210202      1
+2    生猪小计       nan      2
+3      总计       nan      2
+```
+
 #### 期转现-郑商所
 
 接口: futures_to_spot_czce

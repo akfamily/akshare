@@ -595,7 +595,7 @@ def covid_19_trace():
             'page_size': '200',
             'table_id': '5ff7d526b34a3525c3169a0b',
             'key': 'NFPBZ-D2N3P-T7FDV-VLBQ6-4DVM7-JQFCR',
-            'fliter':'',
+            'fliter': '',
         }
         headers = {
             "Referer": "https://news.qq.com/",
