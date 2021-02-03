@@ -682,6 +682,7 @@
  # 期货交割和期转现
  "futures_to_spot_czce"  # 郑商所期转现
  "futures_to_spot_shfe"  # 上期所期转现
+ "futures_to_spot_dce"  # 大商所期转现
  "futures_delivery_dce"  # 大商所交割统计
  "futures_delivery_czce"  # 郑商所交割统计
  "futures_delivery_match_dce"  # 大商所交割配对
