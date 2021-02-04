@@ -201,6 +201,40 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
     return temp_df
 
 
+def futures_delivery_shfe(date: str = "202003") -> pd.DataFrame:
+    """
+    上海期货交易所-交割情况表
+    http://www.shfe.com.cn/statements/dataview.html?paramid=kx
+    注意: 日期 -> 月度统计 -> 下拉到交割情况表
+    :param date: 年月日
+    :type date: str
+    :return: 上海期货交易所-交割情况表
+    :rtype: pandas.DataFrame
+    """
+    url = f"http://www.shfe.com.cn/data/dailydata/{date}monthvarietystatistics.dat"
+    r = requests.get(url)
+    r.encoding = "utf-8"
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["o_curdelivery"])
+    temp_df.columns = [
+        "品种",
+        "品种代码",
+        "_",
+        "交割量-本月",
+        "交割量-比重",
+        "交割量-本年累计",
+        "交割量-累计同比",
+    ]
+    temp_df = temp_df[[
+        "品种",
+        "交割量-本月",
+        "交割量-比重",
+        "交割量-本年累计",
+        "交割量-累计同比",
+    ]]
+    return temp_df
+
+
 if __name__ == "__main__":
     futures_to_spot_dce_df = futures_to_spot_dce(date="202102")
     print(futures_to_spot_dce_df)
@@ -216,6 +250,9 @@ if __name__ == "__main__":
 
     futures_delivery_monthly_czce_df = futures_delivery_czce(date="20210112")
     print(futures_delivery_monthly_czce_df)
+
+    futures_delivery_shfe_df = futures_delivery_shfe(date="202003")
+    print(futures_delivery_shfe_df)
 
     futures_delivery_match_dce_df = futures_delivery_match_dce(symbol="y")
     print(futures_delivery_match_dce_df)
