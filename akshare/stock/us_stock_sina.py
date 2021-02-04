@@ -103,7 +103,9 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-美股
     http://finance.sina.com.cn/stock/usstock/sector.shtml
-    备注：CIEN 新浪复权因子错误
+    备注：
+    1. CIEN 新浪复权因子错误
+    2. AI 新浪复权因子错误, 该股票刚上市未发生复权, 但是返回复权因子
     :param symbol: 可以使用 get_us_stock_name 获取
     :type symbol: str
     :param adjust: "": 返回未复权的数据 ; qfq: 返回前复权后的数据; qfq-factor: 返回前复权因子和调整;
@@ -111,7 +113,8 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     :return: 指定 adjust 的数据
     :rtype: pandas.DataFrame
     """
-    res = requests.get(f"https://finance.sina.com.cn/staticdata/us/{symbol}")
+    url = f"https://finance.sina.com.cn/staticdata/us/{symbol}"
+    res = requests.get(url)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(zh_js_decode)
     dict_list = js_code.call(
@@ -122,7 +125,8 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
     del data_df["amount"]
     del data_df["date"]
     data_df = data_df.astype("float")
-    res = requests.get(us_sina_stock_hist_qfq_url.format(symbol))
+    url = us_sina_stock_hist_qfq_url.format(symbol)
+    res = requests.get(url)
     qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])["data"])
     qfq_factor_df.rename(columns={"c": "adjust", "d": "date", "f": "qfq_factor", }, inplace=True)
     qfq_factor_df.index = pd.to_datetime(qfq_factor_df["date"])
@@ -152,6 +156,12 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
         temp_df["low"] = temp_df["low"] * temp_df["qfq_factor"] + temp_df["adjust"]
         temp_df = temp_df.apply(lambda x: round(x, 4))
         temp_df = temp_df.astype("float")
+        # 处理复权因子错误的情况-开始
+        check_df = temp_df[["open", "high", "low", "close"]]
+        check_df.dropna(inplace=True)
+        if check_df.empty:
+            return data_df
+        # 处理复权因子错误的情况-结束
         return temp_df.iloc[:, :-2]
 
     if adjust == "qfq-factor":
