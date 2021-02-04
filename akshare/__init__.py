@@ -1229,9 +1229,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.9: add: add futures delivery and spot interface
 0.8.10: fix: fix fund_em_portfolio_hold interface
 0.8.11: add: add futures_to_spot_dce interface
+0.8.12: add: add futures_delivery_shfe interface
 """
 
-__version__ = "0.8.11"
+__version__ = "0.8.12"
 __author__ = "Albert King"
 
 import sys
@@ -1250,6 +1251,7 @@ from akshare.futures.futures_to_spot import (
     futures_to_spot_shfe,
     futures_to_spot_dce,
     futures_delivery_dce,
+    futures_delivery_shfe,
     futures_delivery_czce,
     futures_delivery_match_dce,
     futures_delivery_match_czce

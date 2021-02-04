@@ -573,7 +573,7 @@ def covid_19_trip() -> pd.DataFrame:
     return temp_df
 
 
-def covid_19_trace():
+def covid_19_trace() -> pd.DataFrame:
     """
     腾讯新闻-疫情-病患轨迹
     https://news.qq.com/hdh5/hebeicomeon.htm#/?ADTAG=yqi
