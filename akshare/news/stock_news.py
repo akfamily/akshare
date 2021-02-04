@@ -74,5 +74,5 @@ def stock_news_em(stock: str = "601628") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_news_em_df = stock_news_em(stock="300059")
+    stock_news_em_df = stock_news_em(stock="601318")
     print(stock_news_em_df)
