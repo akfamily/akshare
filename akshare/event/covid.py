@@ -327,12 +327,13 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
                 data_text[data_text.find("= [{") + 2 : data_text.rfind("catch") - 1]
             )
             data_df = pd.DataFrame(data_text_json)
+            # indicator = "浙江省"
             sub_area = pd.DataFrame(
                 data_df[data_df["provinceName"] == indicator]["cities"].values[0]
             )
             if sub_area.empty:
                 return None
-            sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", "id"]
+            sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", "id", "_", "_"]
             sub_area = sub_area[["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", ]]
             return sub_area
         except IndexError as e:

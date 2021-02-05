@@ -892,7 +892,7 @@ print(fund_em_hk_fund_hist_df)
 
 | 名称   | 类型 | 必选 | 描述 |
 | -------- | ---- | ---- | --- |
-| - | -| -    |   - |
+| symbol | str | Y    |   symbol="全部"; choice of {"全部", "股票型", "混合型", "债券型", "指数型", "QDII", "LOF", "FOF"}  |
 
 输出参数
 
@@ -921,7 +921,7 @@ print(fund_em_hk_fund_hist_df)
 
 ```python
 import akshare as ak
-fund_em_open_fund_rank_df = ak.fund_em_open_fund_rank()
+fund_em_open_fund_rank_df = ak.fund_em_open_fund_rank(symbol="全部")
 print(fund_em_open_fund_rank_df)
 ```
 
