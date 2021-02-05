@@ -14,23 +14,35 @@ import pandas as pd
 import requests
 
 
-def fund_em_open_fund_rank() -> pd.DataFrame:
+def fund_em_open_fund_rank(symbol: str = "全部") -> pd.DataFrame:
     """
     东方财富网-数据中心-开放式基金排行
     http://fund.eastmoney.com/data/fundranking.html
+    :param symbol: choice of {"全部", "股票型", "混合型", "债券型", "指数型", "QDII", "LOF", "FOF"}
+    :type symbol: str
     :return: 开放式基金排行数据
     :rtype: pandas.DataFrame
     """
     current_date = datetime.datetime.now().date().isoformat()
     last_date = str(int(current_date[:4]) - 1) + current_date[4:]
     url = "http://fund.eastmoney.com/data/rankhandler.aspx"
+    type_map = {
+        "全部": ["all", "zzf"],
+        "股票型": ["gp", "6yzf"],
+        "混合型": ["hh", "6yzf"],
+        "债券型": ["zq", "6yzf"],
+        "指数型": ["zs", "6yzf"],
+        "QDII": ["qdii", "6yzf"],
+        "LOF": ["lof", "6yzf"],
+        "FOF": ["fof", "6yzf"],
+    }
     params = {
         "op": "ph",
         "dt": "kf",
-        "ft": "all",
+        "ft": type_map[symbol][0],
         "rs": "",
         "gs": "0",
-        "sc": "zzf",
+        "sc": type_map[symbol][1],
         "st": "desc",
         "sd": last_date,
         "ed": current_date,
@@ -427,7 +439,11 @@ def fund_em_hk_rank() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fund_em_open_fund_rank_df = fund_em_open_fund_rank()
+    for item in {"全部", "股票型", "混合型", "债券型", "指数型", "QDII", "LOF", "FOF"}:
+        fund_em_open_fund_rank_df = fund_em_open_fund_rank(symbol=item)
+        print(fund_em_open_fund_rank_df)
+
+    fund_em_open_fund_rank_df = fund_em_open_fund_rank(symbol="全部")
     print(fund_em_open_fund_rank_df)
 
     fund_em_exchange_rank_df = fund_em_exchange_rank()
