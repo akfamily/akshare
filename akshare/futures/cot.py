@@ -31,7 +31,6 @@ from akshare.futures import cons
 from akshare.futures.requests_fun import (
     requests_link
 )
-from akshare.futures.symbol_var import chinese_to_english, find_chinese
 from akshare.futures.symbol_var import (
     symbol_varieties
 )

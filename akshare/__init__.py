@@ -1232,9 +1232,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.12: add: add futures_delivery_shfe interface
 0.8.13: fix: fix stock_us_daily interface
 0.8.14: fix: fix fund_em_open_fund_rank interface
+0.8.15: fix: fix chinese_to_english interface
 """
 
-__version__ = "0.8.14"
+__version__ = "0.8.15"
 __author__ = "Albert King"
 
 import sys
