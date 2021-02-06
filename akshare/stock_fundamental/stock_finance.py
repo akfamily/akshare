@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/5/15 15:35
+Date: 2021/2/6 15:35
 Desc: 股票基本面数据
 新浪财经-财务报表-财务摘要
 https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600004.phtml
@@ -14,6 +14,13 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+
+# from io import BytesIO
+#
+# url = "http://money.finance.sina.com.cn/corp/go.php/vDOWN_ProfitStatement/displaytype/4/stockid/600004/ctrl/all.phtml"
+# r = requests.get(url)
+# r.encoding = "utf-8"
+# pd.read_excel(BytesIO(r.content))
 
 
 def stock_financial_abstract(stock: str = "600004") -> pd.DataFrame:
