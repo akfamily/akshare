@@ -1234,9 +1234,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.14: fix: fix fund_em_open_fund_rank interface
 0.8.15: fix: fix chinese_to_english interface
 0.8.16: fix: fix stock_a_pe interface
+0.8.17: add: add stock_financial_report_sina interface
 """
 
-__version__ = "0.8.16"
+__version__ = "0.8.17"
 __author__ = "Albert King"
 
 import sys
@@ -1550,6 +1551,7 @@ stock-fundamental
 """
 from akshare.stock_fundamental.stock_finance import (
     stock_financial_abstract,
+    stock_financial_report_sina,
     stock_financial_analysis_indicator,
     stock_add_stock,
     stock_ipo_info,
