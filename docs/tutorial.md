@@ -513,6 +513,7 @@
  "stock_sector_fund_flow_rank"  # 板块资金流排名
  # 股票基本面数据
  "stock_financial_abstract"  # 财务摘要
+ "stock_financial_report_sina"  # 三大财务报表
  "stock_financial_analysis_indicator"  # 财务指标
  "stock_add_stock"  # 股票增发
  "stock_ipo_info"  # 股票新股
