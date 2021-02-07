@@ -4478,6 +4478,56 @@ print(stock_sector_fund_flow_rank_df)
 
 ### 基本面数据
 
+#### 财务报表
+
+接口: stock_financial_report_sina
+
+目标地址: https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_BalanceSheet/stockid/600004/ctrl/part/displaytype/4.phtml
+
+描述: 获取新浪财经-财务报表-三大报表
+
+限量: 单次获取指定报表的所有年份数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| stock | str | Y    | stock="600004"; 股票代码|
+| symbol | str | Y    | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"}|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 报表日期          | str   | Y        |   报告日期   |
+| 单位          | str   | Y        |   注意单位: 元   |
+|...          | str   | Y        |   70 多项财务指标   |
+
+接口示例
+
+```python
+import akshare as ak
+stock_financial_report_sina_df = ak.stock_financial_report_sina(stock="600004", symbol="现金流量表")
+print(stock_financial_report_sina_df)
+```
+
+数据示例
+
+```
+        报表日期 单位 一、经营活动产生的现金流量  ... 现金等价物的期末余额 现金等价物的期初余额   现金及现金等价物的净增加额
+1   20200930  元           NaN  ...          0          0               0
+2   20200630  元           NaN  ...          0          0     11724335.23
+3   20200331  元           NaN  ...          0          0               0
+4   20191231  元           NaN  ...          0          0  -1044254625.00
+5   20190930  元           NaN  ...          0          0               0
+..       ... ..           ...  ...        ...        ...             ...
+69  20030930  元           NaN  ...          0          0    -83266325.50
+70  20030630  元           NaN  ...          0          0   -143509055.17
+71  20030331  元           NaN  ...          0          0    115220322.31
+72  20021231  元           NaN  ...          0          0    110751837.42
+73  20020630  元           NaN  ...          0          0               0
+```
+
 #### 财务摘要
 
 接口: stock_financial_abstract
