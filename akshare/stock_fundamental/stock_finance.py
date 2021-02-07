@@ -15,12 +15,11 @@ import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
-# from io import BytesIO
-#
+from io import BytesIO
+
 # url = "http://money.finance.sina.com.cn/corp/go.php/vDOWN_ProfitStatement/displaytype/4/stockid/600004/ctrl/all.phtml"
 # r = requests.get(url)
-# r.encoding = "utf-8"
-# pd.read_excel(BytesIO(r.content))
+# temp_df = pd.read_table(BytesIO(r.content), encoding="gb2312")
 
 
 def stock_financial_abstract(stock: str = "600004") -> pd.DataFrame:
