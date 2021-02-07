@@ -319,7 +319,7 @@ js_functions.eval(hash_code)
 token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
-def stock_a_pe(market: str = "sh") -> pd.DataFrame:
+def stock_a_pe(market: str = "kc") -> pd.DataFrame:
     """
     A 股市盈率
     https://www.legulegu.com/stockdata/market_pe
@@ -359,7 +359,7 @@ def stock_a_pe(market: str = "sh") -> pd.DataFrame:
     elif market == "zx":
         return zx_df
     elif market == "kc":
-        url = "https://www.legulegu.com/stockdata/get-ke-chuang-ban-pe"
+        url = "https://www.legulegu.com/api/stockdata/get-ke-chuang-ban-pe"
         params = {
             "token": token,
         }
@@ -402,5 +402,5 @@ def stock_a_pe(market: str = "sh") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_a_pe_df = stock_a_pe(market="000852.XSHG")
+    stock_a_pe_df = stock_a_pe(market="kc")
     print(stock_a_pe_df)
