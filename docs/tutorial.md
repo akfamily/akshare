@@ -689,6 +689,9 @@
  "futures_delivery_shfe"  # 上期所交割统计
  "futures_delivery_match_dce"  # 大商所交割配对
  "futures_delivery_match_czce"  # 郑商所交割配对
+ # 融资融券
+ "stock_margin_sse"  # 上海证券交易所-融资融券汇总
+ "stock_margin_detail_sse"  # 上海证券交易所-融资融券详情
 ```
 
 ## 案例演示
