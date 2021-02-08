@@ -9,9 +9,12 @@ import pandas as pd
 import requests
 
 
-def stock_margin_sse(start_date: str = "20010106", end_date: str = "20210208") -> pd.DataFrame:
+def stock_margin_sse(
+    start_date: str = "20010106", end_date: str = "20210208"
+) -> pd.DataFrame:
     """
-    海证券交易所-融资融券数据-融资融券汇总
+    上海证券交易所-融资融券数据-融资融券汇总
+    http://www.sse.com.cn/market/othersdata/margin/sum/
     :param start_date: 交易开始日期
     :type start_date: str
     :param end_date: 交易结束日期
@@ -55,15 +58,17 @@ def stock_margin_sse(start_date: str = "20010106", end_date: str = "20210208") -
         "_",
         "_",
     ]
-    temp_df = temp_df[[
-        "信用交易日期",
-        "融资余额",
-        "融资买入额",
-        "融券余量",
-        "融券余量金额",
-        "融券卖出量",
-        "融资融券余额",
-    ]]
+    temp_df = temp_df[
+        [
+            "信用交易日期",
+            "融资余额",
+            "融资买入额",
+            "融券余量",
+            "融券余量金额",
+            "融券卖出量",
+            "融资融券余额",
+        ]
+    ]
     return temp_df
 
 
@@ -114,21 +119,23 @@ def stock_margin_detail_sse(date: str = "20210205") -> pd.DataFrame:
         "标的证券简称",
         "标的证券代码",
     ]
-    temp_df = temp_df[[
-        "信用交易日期",
-        "标的证券代码",
-        "标的证券简称",
-        "融资余额",
-        "融资买入额",
-        "融资偿还额",
-        "融券余量",
-        "融券卖出量",
-        "融券偿还量",
-    ]]
+    temp_df = temp_df[
+        [
+            "信用交易日期",
+            "标的证券代码",
+            "标的证券简称",
+            "融资余额",
+            "融资买入额",
+            "融资偿还额",
+            "融券余量",
+            "融券卖出量",
+            "融券偿还量",
+        ]
+    ]
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_margin_sse_df = stock_margin_sse(start_date="20010106", end_date="20210208")
     print(stock_margin_sse_df)
 
