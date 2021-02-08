@@ -1236,9 +1236,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.16: fix: fix stock_a_pe interface
 0.8.17: add: add stock_financial_report_sina interface
 0.8.18: fix: fix futures_spot_price_daily interface
+0.8.19: add: add stock_margin_sse interface
 """
 
-__version__ = "0.8.18"
+__version__ = "0.8.19"
 __author__ = "Albert King"
 
 import sys
@@ -1248,6 +1249,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+融资融券数据
+"""
+from akshare.stock_feature.stock_sse_margin import stock_margin_detail_sse, stock_margin_sse
 
 """
 期货交割和期转现

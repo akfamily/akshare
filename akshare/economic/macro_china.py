@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/2/1 16:08
+Date: 2021/2/8 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
