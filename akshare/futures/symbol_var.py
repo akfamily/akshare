@@ -151,9 +151,9 @@ def chinese_to_english(chinese_var: str):
         "低硫燃料油仓库",
         "低硫燃料油厂库",
         "短纤",
-        '涤纶短纤'
-        '生猪'
-        '花生'
+        '涤纶短纤',
+        '生猪',
+        '花生',
     ]
     english_list = [
         "RU",
