@@ -29,12 +29,12 @@ calendar = cons.get_calendar()
 
 
 def futures_spot_price_daily(
-    start_day: str = "20200110",
-    end_day: str = "20200115",
+    start_day: str = "20210201",
+    end_day: str = "20210208",
     vars_list=cons.contract_symbols,
 ):
     """
-    某段时间大宗商品现货价格及相应基差
+    指定时间段内大宗商品现货价格及相应基差
     http://www.100ppi.com/sf/
     :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param end_day: str 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
@@ -75,7 +75,7 @@ def futures_spot_price_daily(
         return temp_df
 
 
-def futures_spot_price(date: str = "20200110", vars_list=cons.contract_symbols):
+def futures_spot_price(date: str = "20210201", vars_list=cons.contract_symbols):
     """
     具体交易日大宗商品现货价格及相应基差
     http://www.100ppi.com/sf/day-2017-09-12.html
@@ -294,7 +294,7 @@ def futures_spot_price_previous(date: str = "20110110") -> pd.DataFrame:
 
 if __name__ == "__main__":
     futures_spot_price_daily_df = futures_spot_price_daily(
-        start_day="20200110", end_day="20200115"
+        start_day="20210201", end_day="20210207"
     )
     print(futures_spot_price_daily_df)
 
