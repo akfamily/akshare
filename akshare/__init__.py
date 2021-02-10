@@ -1238,9 +1238,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.18: fix: fix futures_spot_price_daily interface
 0.8.19: add: add stock_margin_sse interface
 0.8.20: add: add stock_margin_detail_sse interface
+0.8.21: fix: fix stock_szse_summary interface
 """
 
-__version__ = "0.8.20"
+__version__ = "0.8.21"
 __author__ = "Albert King"
 
 import sys
