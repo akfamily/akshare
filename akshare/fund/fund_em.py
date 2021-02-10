@@ -111,7 +111,7 @@ def fund_em_open_fund_info(
     """
     东方财富网站-天天基金网-基金数据-开放式基金净值
     http://fund.eastmoney.com/fund.html#os_0;isall_0;ft_;pt_1
-    :param fund: 基金代码, 可以通过调用 fund_em_open_fund_daily 获取所有开放式基金代码
+    :param fund: 基金代码; 可以通过调用 fund_em_open_fund_daily 获取所有开放式基金代码
     :type fund: str
     :param indicator: 需要获取的指标
     :type indicator: str
@@ -159,7 +159,7 @@ def fund_em_open_fund_info(
     if indicator == "累计净值走势":
         data_json = demjson.decode(
             text[
-                text.find("Data_ACWorthTrend") + 20 : text.find("Data_grandTotal") - 16
+                text.find("Data_ACWorthTrend") + 20: text.find("Data_grandTotal") - 16
             ]
         )
         temp_df = pd.DataFrame(data_json)
@@ -214,7 +214,7 @@ def fund_em_open_fund_info(
         data_json = demjson.decode(
             text[
                 text.find("Data_rateInSimilarType")
-                + 25 : text.find("Data_rateInSimilarPersent")
+                + 25: text.find("Data_rateInSimilarPersent")
                 - 16
             ]
         )
