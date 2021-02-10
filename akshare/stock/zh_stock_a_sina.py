@@ -180,7 +180,7 @@ def stock_zh_a_daily(
         temp_df.fillna(method="ffill", inplace=True)
         temp_df = temp_df.astype(float)
         temp_df.dropna(inplace=True)
-        temp_df.drop_duplicates(subset=["open", "high", "low", "close"], inplace=True)
+        temp_df.drop_duplicates(subset=["open", "high", "low", "close", "volume"], inplace=True)
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"]
@@ -209,7 +209,7 @@ def stock_zh_a_daily(
         temp_df.fillna(method="ffill", inplace=True)
         temp_df = temp_df.astype(float)
         temp_df.dropna(inplace=True)
-        temp_df.drop_duplicates(subset=["open", "high", "low", "close"], inplace=True)
+        temp_df.drop_duplicates(subset=["open", "high", "low", "close", "volume"], inplace=True)
         temp_df["open"] = temp_df["open"] / temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
         temp_df["close"] = temp_df["close"] / temp_df["qfq_factor"]
@@ -325,7 +325,7 @@ def stock_zh_a_minute(
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118", adjust="hfq")
+    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="sz000592", start_date="20201106", end_date="20201110", adjust="qfq")
     print(stock_zh_a_daily_hfq_df_one)
     stock_zh_a_daily_hfq_df_three = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118", adjust="qfq")
     print(stock_zh_a_daily_hfq_df_three)
