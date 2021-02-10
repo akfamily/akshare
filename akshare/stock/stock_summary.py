@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/21 14:31
+Date: 2021/2/10 14:31
 Desc: 市场总貌
 http://www.szse.cn/market/overview/index.html
 http://www.sse.com.cn/market/stockdata/statistic/
@@ -30,7 +30,7 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
         "random": "0.39339437497296137",
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(BytesIO(r.content))
+    temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
     temp_df["证券类别"] = temp_df["证券类别"].str.strip()
     temp_df.iloc[:, 2:] = temp_df.iloc[:, 2:].applymap(lambda x: x.replace(",", ""))
     return temp_df
