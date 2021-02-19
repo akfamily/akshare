@@ -347,7 +347,7 @@ if __name__ == "__main__":
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
     stock_zh_a_minute_df = stock_zh_a_minute(
-        symbol="sh600751", period="1", adjust="qfq"
+        symbol="sh600751", period="30", adjust="qfq"
     )
     print(stock_zh_a_minute_df)
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol="sh689009", start_date="19900101", end_date="22201116")
