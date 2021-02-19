@@ -333,10 +333,14 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
             )
             if sub_area.empty:
                 return None
-            sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", "id", "_", "_"]
-            sub_area = sub_area[["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", ]]
+            if sub_area.shape[1] != 10:
+                sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", "id", "_", "_"]
+                sub_area = sub_area[["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", ]]
+            else:
+                sub_area.columns = ["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", "id", "_"]
+                sub_area = sub_area[["区域", "现在确诊人数", "确诊人数", "疑似人数", "治愈人数", "死亡人数", "高危人数", "中危人数", ]]
             return sub_area
-        except IndexError as e:
+        except IndexError:
             print("请输入省/市的全称, 如: 浙江省/上海市 等")
 
 

@@ -64,5 +64,5 @@ def fund_em_portfolio_hold(code: str = "162411", year: str = "2020") -> pd.DataF
 
 
 if __name__ == "__main__":
-    fund_em_portfolio_hold_df = fund_em_portfolio_hold(code="162411", year="2020")
+    fund_em_portfolio_hold_df = fund_em_portfolio_hold(code="000001", year="2020")
     print(fund_em_portfolio_hold_df)

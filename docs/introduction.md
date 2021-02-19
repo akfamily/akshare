@@ -1,17 +1,17 @@
-# [AkShare](https://github.com/jindaxiang/akshare) 概览
+# [AKShare](https://github.com/jindaxiang/akshare) 概览
 
-**风险提示：[AkShare](https://github.com/jindaxiang/akshare) 项目所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
+**风险提示：[AKShare](https://github.com/jindaxiang/akshare) 项目所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
 同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
 
-1. 本文档更新于 **2020-02-10**;
+1. 本文档更新于 **2020-02-19**;
 
-2. 如有库、文档及数据的相关问题, 请在 [AkShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
+2. 如有库、文档及数据的相关问题, 请在 [AKShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
 
 3. 您也可以加入QQ群: 772100249
 
 <div align=center>
     <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=8de5f2b616ba185100c45de811736a7cbf2eb4bc2d6b1efcfd3e5cdf9d7760de">
-        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_772100249.png" alt="AkShare-官方" title="AkShare-官方" align="center">
+        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_772100249.png" alt="AKShare-官方" title="AKShare-官方" align="center">
     </a>
 </div>
 4. 欢迎关注 数据科学实战 微信公众号:
@@ -22,12 +22,12 @@
 
 ## 引用
 
-如果您想在文章或者项目中引用 [AkShare](https://github.com/jindaxiang/akshare), 请使用如下 **bibtex** 格式:
+如果您想在文章或者项目中引用 [AKShare](https://github.com/jindaxiang/akshare), 请使用如下 **bibtex** 格式:
 
 ```
 @misc{akshare2019,
     author = {Albert King},
-    title = {AkShare},
+    title = {AKShare},
     year = {2019},
     publisher = {GitHub},
     journal = {GitHub repository},
@@ -35,23 +35,23 @@
 }
 ```
 
-## [AkShare](https://github.com/jindaxiang/akshare) 的介绍
+## [AKShare](https://github.com/jindaxiang/akshare) 的介绍
 
 首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
 
-[AkShare](https://github.com/jindaxiang/akshare) 是基于 Python 的财经数据接口库, 目的是实现对股票、期货、期权、基金、外汇、债券、指数、加密货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清洗到数据落地的一套工具, 主要用于学术研究目的. 
+[AKShare](https://github.com/jindaxiang/akshare) 是基于 Python 的财经数据接口库, 目的是实现对股票、期货、期权、基金、外汇、债券、指数、加密货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清洗到数据落地的一套工具, 主要用于学术研究目的. 
 
-[AkShare](https://github.com/jindaxiang/akshare) 的特点是获取的是相对权威的财经数据网站公布的原始数据, 通过利用原始数据进行各数据源之间的交叉验证, 进而再加工, 从而得出科学的结论.
+[AKShare](https://github.com/jindaxiang/akshare) 的特点是获取的是相对权威的财经数据网站公布的原始数据, 通过利用原始数据进行各数据源之间的交叉验证, 进而再加工, 从而得出科学的结论.
 
-**[AkShare](https://github.com/jindaxiang/akshare) 后续会基于学术论文和金融工程研究报告来添加更多数据接口和衍生指标并提供相应的计算代码, 敬请关注.**
+**[AKShare](https://github.com/jindaxiang/akshare) 后续会基于学术论文和金融工程研究报告来添加更多数据接口和衍生指标并提供相应的计算代码, 敬请关注.**
 
-## [AkShare](https://github.com/jindaxiang/akshare) 的特色
+## [AKShare](https://github.com/jindaxiang/akshare) 的特色
 
-[AkShare](https://github.com/jindaxiang/akshare) 主要改进如下:
+[AKShare](https://github.com/jindaxiang/akshare) 主要改进如下:
 
 1. 代码语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 数据接口的命名统一;
 2. 最佳支持 Python 3.7.5 及其以上版本;
-3. 提供最佳的文档支持, 每个数据接口提供丰富的说明和示例, 只需要复制粘贴就可以下载数据;
+3. 提供最佳的文档支持, 每个数据接口提供详细的说明和示例, 只需要复制粘贴就可以下载数据;
 4. 持续维护由于目标网页变化而导致的部分数据接口运行异常问题;
 5. 持续更新财经数据接口, 同时优化源代码;
 6. 目前进行数据采集的网站一览:
@@ -208,11 +208,11 @@
     
     6.76 新增[FutureSharks](https://github.com/FutureSharks/financial-data/)提供的高频日内数据;
 
-7. 提供完善的接口文档, 提高 [AkShare](https://github.com/jindaxiang/akshare) 的易用性.
+7. 提供完善的接口文档, 提高 [AKShare](https://github.com/jindaxiang/akshare) 的易用性.
 
-![思维导图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/AkShare.svg)
+![思维导图](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/AKShare.svg)
 
-## [AkShare](https://github.com/jindaxiang/akshare) 的初衷
+## [AKShare](https://github.com/jindaxiang/akshare) 的初衷
 
-[AkShare](https://github.com/jindaxiang/akshare) 主要是用于财经研究, 解决在财经研究中数据获取困难的问题。传统的 CTA 策略以趋势为主, 但是自从 2017 年以来, 无论是长线还是短线的趋势策略都受制于商品波动率的降低, 面临了多多少少的回撤, 
+[AKShare](https://github.com/jindaxiang/akshare) 主要是用于财经研究, 解决在财经研究中数据获取困难的问题。传统的 CTA 策略以趋势为主, 但是自从 2017 年以来, 无论是长线还是短线的趋势策略都受制于商品波动率的降低, 面临了多多少少的回撤, 
 同时市场也逐渐趋于机构化理性化, 因此在传统 CTA 策略的基础上加入基本面的因素显得迫在眉睫. 近几年各券商的研报陆续提出了许多依赖于趋势行情以外的有效信号, 它们的表现都与趋势策略有着很低的甚至负的相关性, 这样通过多种不同类型的信号对冲得到的策略, 就有机会在市场上取得非常棒的夏普率和稳定的收益. 
