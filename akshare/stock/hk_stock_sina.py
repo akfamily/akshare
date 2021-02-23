@@ -107,7 +107,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "qfq") -> pd.DataFrame:
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"] + temp_df["cash"]
         temp_df["close"] = temp_df["close"] * temp_df["hfq_factor"] + temp_df["cash"]
         temp_df["low"] = temp_df["low"] * temp_df["hfq_factor"] + temp_df["cash"]
-        temp_df = temp_df.apply(lambda x: round(x, 2))
+        temp_df = temp_df.apply(lambda x: round(x, 4))
         temp_df.dropna(how="any", inplace=True)
         return temp_df.iloc[:, :-2]
 
@@ -143,7 +143,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "qfq") -> pd.DataFrame:
         temp_df["high"] = temp_df["high"] * temp_df["qfq_factor"]
         temp_df["close"] = temp_df["close"] * temp_df["qfq_factor"]
         temp_df["low"] = temp_df["low"] * temp_df["qfq_factor"]
-        temp_df = temp_df.apply(lambda x: round(x, 2))
+        temp_df = temp_df.apply(lambda x: round(x, 4))
         temp_df.dropna(how="any", inplace=True)
         return temp_df.iloc[:, :-1]
 
@@ -169,7 +169,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "qfq") -> pd.DataFrame:
 if __name__ == "__main__":
     stock_hk_daily_hfq_df = stock_hk_daily(symbol="00772", adjust="hfq")
     print(stock_hk_daily_hfq_df)
-    stock_hk_daily_df = stock_hk_daily(symbol="00981", adjust="hfq")
+    stock_hk_daily_df = stock_hk_daily(symbol="01302", adjust="qfq")
     print(stock_hk_daily_df)
     stock_hk_daily_hfq_factor_df = stock_hk_daily(symbol="00772", adjust="hfq-factor")
     print(stock_hk_daily_hfq_factor_df)
