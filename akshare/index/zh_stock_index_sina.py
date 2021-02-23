@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/8 20:28
+Date: 2021/2/23 20:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
@@ -135,7 +135,7 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     return data_df
 
 
-def _get_tx_start_year(symbol: str = "sh000922") -> pd.DataFrame:
+def _get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
     """
     腾讯证券-获取所有股票数据的第一天, 注意这个数据是腾讯证券的历史数据第一天
     http://gu.qq.com/sh000919/zs
@@ -151,13 +151,24 @@ def _get_tx_start_year(symbol: str = "sh000922") -> pd.DataFrame:
         "_var": "trend_qfq",
         "r": "0.3506048543943414",
     }
-    res = requests.get(url, params=params)
-    text = res.text
-    start_date = demjson.decode(text[text.find("={") + 1 :])["data"][0][0]
+    r = requests.get(url, params=params)
+    data_text = r.text
+    if not demjson.decode(data_text[data_text.find("={") + 1 :])["data"]:
+        url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
+        params = {
+            "_var": "kline_dayqfq",
+            "param": f"{symbol},day,,,320,qfq",
+            "r": "0.751892490072597",
+        }
+        r = requests.get(url, params=params)
+        data_text = r.text
+        start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][symbol]["day"][0][0]
+        return start_date
+    start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][0][0]
     return start_date
 
 
-def stock_zh_index_daily_tx(symbol: str = "sz000858") -> pd.DataFrame:
+def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     """
     腾讯证券-日频-股票或者指数历史数据
     作为 stock_zh_index_daily 的补充, 因为在新浪中有部分指数数据缺失
@@ -169,13 +180,13 @@ def stock_zh_index_daily_tx(symbol: str = "sz000858") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     start_date = _get_tx_start_year(symbol=symbol)
-    url = "http://web.ifzq.gtimg.cn/appstock/app/fqkline/get"
+    url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
     range_start = int(start_date.split("-")[0])
     range_end = datetime.date.today().year + 1
     temp_df = pd.DataFrame()
     for year in tqdm(range(range_start, range_end)):
         params = {
-            "_var": f"kline_dayqfq{year}",
+            "_var": "kline_dayqfq",
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,qfq",
             "r": "0.8205512681390605",
         }
@@ -249,7 +260,7 @@ if __name__ == "__main__":
     stock_zh_index_spot_df = stock_zh_index_spot()
     print(stock_zh_index_spot_df)
 
-    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz000858")
+    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz980017")
     print(stock_zh_index_daily_tx_df)
 
     stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="sh000909")
