@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/8 20:28
+Date: 2021/2/23 20:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
@@ -180,13 +180,13 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     start_date = _get_tx_start_year(symbol=symbol)
-    url = "http://web.ifzq.gtimg.cn/appstock/app/fqkline/get"
+    url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
     range_start = int(start_date.split("-")[0])
     range_end = datetime.date.today().year + 1
     temp_df = pd.DataFrame()
     for year in tqdm(range(range_start, range_end)):
         params = {
-            "_var": f"kline_dayqfq{year}",
+            "_var": "kline_dayqfq",
             "param": f"{symbol},day,{year}-01-01,{year + 1}-12-31,640,qfq",
             "r": "0.8205512681390605",
         }
