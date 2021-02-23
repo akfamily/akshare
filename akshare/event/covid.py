@@ -673,7 +673,7 @@ def covid_19_hist_province(province: str = "湖北省") -> pd.DataFrame:
 
 def covid_19_history() -> pd.DataFrame:
     """
-    接口最好用代理速度比较快, 2019-12-01开始
+    接口最好用代理速度比较快, 2019-12-01 开始
     https://github.com/canghailan/Wuhan-2019-nCoV
     :return: 疫情数据
     :rtype: pandas.DataFrame
