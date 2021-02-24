@@ -9,6 +9,7 @@ import random
 from io import BytesIO
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import requests
 from PIL import Image
@@ -21,17 +22,24 @@ from akshare.futures_derivative.cons import (
     xgx_main_url,
     symbol_dict,
 )
+from akshare.utils import ap
 
 plt.rcParams["font.sans-serif"] = "SimHei"
 plt.rcParams["axes.unicode_minus"] = False
 
 
-def _get_code_pic():
+def _get_code_pic(in_terminal=False):
     payload = {"": round(random.random(), 16)}
     session = requests.session()
     res = session.get(xgx_code_url, params=payload, headers=xgx_short_headers)
     f = Image.open(BytesIO(res.content))
-    f.show()
+    if in_terminal:
+        f = f.convert('L')
+        imgData = np.asarray(f)
+        thresholdedData = (imgData > 50) * 1.0
+        ap.imshow(thresholdedData.T, width=80, ncolors=2)
+    else:
+        f.show()
     return session
 
 
@@ -40,9 +48,10 @@ def futures_xgx_index(
     start_date: str = "2000-10-01",
     end_date: str = "2020-04-17",
     plot: bool = True,
+    in_terminal: bool = False
 ) -> pd.DataFrame:
-    session = _get_code_pic()
-    value = input()
+    session = _get_code_pic(in_terminal)
+    value = input("请输入验证码计算结果:")
     payload = {"txtStartTime": start_date, "txtEndTime": end_date, "txtyzcode": value}
     res = session.post(xgx_main_url.format(symbol), data=payload, headers=xgx_headers)
     soup = BeautifulSoup(res.text, "lxml")
@@ -70,5 +79,10 @@ if __name__ == "__main__":
     print(symbol_dict_df)
     futures_xgx_index_df = futures_xgx_index(
         symbol=161, start_date="2000-10-01", end_date="2020-04-17", plot=True
+    )
+    print(futures_xgx_index_df)
+
+    futures_xgx_index_df = futures_xgx_index(
+        symbol=174, start_date="2000-10-01", end_date="2020-04-17", plot=True, in_terminal=True
     )
     print(futures_xgx_index_df)
