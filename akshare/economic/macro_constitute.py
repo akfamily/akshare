@@ -718,7 +718,7 @@ def macro_cons_opec_month():
     bar = tqdm(reversed(all_date_list))
 
     for item in bar:
-        bar.set_description(f"Please wait for a moment, now downing {item}'s data")
+        bar.set_description(f"Please wait for a moment, now downloading {item}'s data")
         res = requests.get(
             f"https://datacenter-api.jin10.com/reports/list?category=opec&date={item}&_={str(int(round(t * 1000)))}",
             headers=headers)
