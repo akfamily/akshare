@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 
 
-def stock_em_analyst_rank(year: str = '2020') -> pd.DataFrame:
+def stock_em_analyst_rank(year: str = '2021') -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数2020最新排行
     http://data.eastmoney.com/invest/invest/list.html
@@ -23,7 +23,7 @@ def stock_em_analyst_rank(year: str = '2020') -> pd.DataFrame:
     }
     url = "http://data.eastmoney.com/dataapi/invest/data"
     params = {
-        "st": year,
+        "st": "0" if year == "2021" else year,
         "sr": "1",
         "p": "1",
         "ps": "5000",
@@ -172,7 +172,7 @@ def stock_em_analyst_detail(
 
 
 if __name__ == "__main__":
-    stock_em_analyst_rank_df = stock_em_analyst_rank(year='2018')
+    stock_em_analyst_rank_df = stock_em_analyst_rank(year='2021')
     print(stock_em_analyst_rank_df)
     stock_em_analyst_detail_current_stock_df = stock_em_analyst_detail(
         analyst_id="11000200926", indicator="最新跟踪成分股"
