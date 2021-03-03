@@ -414,7 +414,7 @@ def _get_dce_contract_list(date, var):
             continue
 
 
-def get_dce_rank_table(date: str = "20210108", vars_list=cons.contract_symbols):
+def get_dce_rank_table(date: str = "20210302", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细, 由于交易所网站问题, 需要 20200720 之后才有数据
     注: 该交易所只公布标的合约排名
@@ -470,7 +470,7 @@ def get_dce_rank_table(date: str = "20210108", vars_list=cons.contract_symbols):
             temp_df['var'] = var
             temp_df['date'] = date_string
             temp_df = temp_df.applymap(lambda x: str(x).replace("-", "0") if x == "-" else x)
-            temp_df['rank'] = range(1, 21)
+            temp_df['rank'] = range(1, len(temp_df)+1)
             temp_df['vol'] = temp_df['vol'].astype(float)
             temp_df['vol_chg'] = temp_df['vol_chg'].astype(float)
             temp_df['long_open_interest'] = temp_df['long_open_interest'].astype(float)
@@ -744,6 +744,8 @@ if __name__ == '__main__':
     get_dce_rank_table_second_df = get_dce_rank_table(date='20171227')
     print(get_dce_rank_table_second_df)
     get_dce_rank_table_third_df = get_dce_rank_table(date='20200929')
+    print(get_dce_rank_table_third_df)
+    get_dce_rank_table_third_df = get_dce_rank_table(date='20210302')
     print(get_dce_rank_table_third_df)
     get_dce_rank_table_fourth_df = get_dce_rank_table(date='20210105', vars_list=['V'])
     print(get_dce_rank_table_fourth_df)

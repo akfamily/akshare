@@ -263,5 +263,5 @@ if __name__ == "__main__":
     stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz980017")
     print(stock_zh_index_daily_tx_df)
 
-    stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="sh000909")
+    stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="sz399812")
     print(stock_zh_index_daily_em_df)
