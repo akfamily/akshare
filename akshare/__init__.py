@@ -1247,9 +1247,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.27: fix: fix get_dce_rank_table interface
 0.8.28: fix: fix stock_em_analyst_rank interface
 0.8.29: add: add fund_rating interface
+0.8.30: add: add fund_manager interface
 """
 
-__version__ = "0.8.29"
+__version__ = "0.8.30"
 __author__ = "Albert King"
 
 import sys
@@ -1259,6 +1260,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+基金经理
+"""
+from akshare.fund.fund_manager import fund_manager
 
 """
 基金评级
