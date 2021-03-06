@@ -692,6 +692,11 @@
  # 融资融券
  "stock_margin_sse"  # 上海证券交易所-融资融券汇总
  "stock_margin_detail_sse"  # 上海证券交易所-融资融券详情
+ # 基金评级
+ "fund_rating_all"  # 基金评级-基金评级总汇
+ "fund_rating_sh"  # 基金评级-上海证券评级
+ "fund_rating_zs"  # 基金评级-招商证券评级
+ "fund_rating_ja"  # 基金评级-济安金信评级
 ```
 
 ## 案例演示
