@@ -697,6 +697,8 @@
  "fund_rating_sh"  # 基金评级-上海证券评级
  "fund_rating_zs"  # 基金评级-招商证券评级
  "fund_rating_ja"  # 基金评级-济安金信评级
+ # 基金经理
+ "fund_manager"  # 基金经理-基金经理大全
 ```
 
 ## 案例演示
