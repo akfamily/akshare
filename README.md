@@ -1,11 +1,11 @@
-![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare_logo.jpg)
+![](https://github.com/jindaxiang/akshare/blob/master/example/images/AKShare_logo.jpg)
 
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/) 
-[![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/) 
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
+[![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
 [![Downloads](https://pepy.tech/badge/akshare)](https://pepy.tech/project/akshare)
 [![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/zh_CN/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![akshare](https://img.shields.io/badge/Data%20Science-AkShare-green)](https://github.com/jindaxiang/akshare)
+[![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/jindaxiang/akshare)
 [![Actions Status](https://github.com/jindaxiang/akshare/workflows/build/badge.svg)](https://github.com/jindaxiang/akshare/actions)
 [![MIT Licence](https://camo.githubusercontent.com/14a9abb7e83098f2949f26d2190e04fb1bd52c06/68747470733a2f2f626c61636b2e72656164746865646f63732e696f2f656e2f737461626c652f5f7374617469632f6c6963656e73652e737667)](https://github.com/jindaxiang/akshare/blob/master/LICENSE)
 [![](https://img.shields.io/github/forks/jindaxiang/akshare)](https://github.com/jindaxiang/akshare)
@@ -15,14 +15,14 @@
 
 ## Overview
 
-[AkShare](https://github.com/jindaxiang/akshare) requires Python(64 bit) 3.7 or greater, aims to make fetch financial data as convenient as possible.
+[AKShare](https://github.com/jindaxiang/akshare) requires Python(64 bit) 3.7 or greater, aims to make fetch financial data as convenient as possible.
 
 **Write less, get more!**
 
 - Documentation: [中文文档](https://akshare.readthedocs.io/zh_CN/latest/)
 - Documentation: [中文文档-国内加速访问](https://akshare-4gize6tod19f2d2e-1252952517.tcloudbaseapp.com/index.html)
 
-# ![](https://github.com/jindaxiang/akshare/blob/master/example/images/AkShare.svg)
+# ![](https://github.com/jindaxiang/akshare/blob/master/example/images/AKShare.svg)
 
 ## Installation
 
