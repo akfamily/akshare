@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 期货数据
+## [AKShare](https://github.com/jindaxiang/akshare) 期货数据
 
 ### 期货基础信息
 
