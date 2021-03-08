@@ -1,4 +1,4 @@
-# [AkShare](https://github.com/jindaxiang/akshare) 版本更新
+# [AKShare](https://github.com/jindaxiang/akshare) 版本更新
 
 ```
 0.1.25: 增加奇货可查指数接口 e.g. ak.get_qhkc_data("商品指数")
@@ -1910,4 +1910,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.28: fix: fix stock_em_analyst_rank interface
 
 0.8.29: add: add fund_rating interface
+
+0.8.30: add: add fund_manager interface
+
+0.8.31: fix: fix stock_zh_a_minute interface
 ```

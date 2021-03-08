@@ -1248,9 +1248,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.28: fix: fix stock_em_analyst_rank interface
 0.8.29: add: add fund_rating interface
 0.8.30: add: add fund_manager interface
+0.8.31: fix: fix stock_zh_a_minute interface
 """
 
-__version__ = "0.8.30"
+__version__ = "0.8.31"
 __author__ = "Albert King"
 
 import sys
