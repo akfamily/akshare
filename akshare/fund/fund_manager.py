@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/6 22:30
+Date: 2021/3/8 16:30
 Desc: 基金经理大全
 http://fund.eastmoney.com/manager/default.html
 """
