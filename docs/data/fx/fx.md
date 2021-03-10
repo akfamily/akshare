@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 外汇数据
+## [AKShare](https://github.com/jindaxiang/akshare) 外汇数据
 
 ### 人民币外汇即期报价
 

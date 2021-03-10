@@ -1,6 +1,6 @@
-# AkDocker
+# AKDocker
 
-AkDocker is a dockerfile for AkShare's latest version
+AKDocker is a dockerfile for AKShare's latest version
 
 # Installation
 
@@ -16,18 +16,18 @@ AkDocker is a dockerfile for AkShare's latest version
 
 ## Command
 
-### Pull AkDocker
+### Pull AKDocker
 
 ```
 docker pull registry.cn-hangzhou.aliyuncs.com/akshare/akdocker
 ```
 
-### Run AkDocker
+### Run AKDocker
 ```
 docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
 ```
 
-### Test AkDocker
+### Test AKDocker
 
 ```python
 import akshare as ak

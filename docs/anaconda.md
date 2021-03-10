@@ -1,4 +1,4 @@
-# [AkShare](https://github.com/jindaxiang/akshare) 环境配置
+# [AKShare](https://github.com/jindaxiang/akshare) 环境配置
 
 ## Anaconda 安装说明
 

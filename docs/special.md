@@ -1,4 +1,4 @@
-# [AkShare](https://github.com/jindaxiang/akshare) 特别说明
+# [AKShare](https://github.com/jindaxiang/akshare) 特别说明
 
 ## 致谢
 
