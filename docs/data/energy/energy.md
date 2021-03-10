@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 能源数据
+## [AKShare](https://github.com/jindaxiang/akshare) 能源数据
 
 ### 碳排放权-北京
 

@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 宏观数据
+## [AKShare](https://github.com/jindaxiang/akshare) 宏观数据
 
 ### 中国宏观
 

@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 公募数据
+## [AKShare](https://github.com/jindaxiang/akshare) 公募数据
 
 ### 基金基本信息
 

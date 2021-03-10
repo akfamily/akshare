@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 债券数据
+## [AKShare](https://github.com/jindaxiang/akshare) 债券数据
 
 ### 债券基础信息
 
