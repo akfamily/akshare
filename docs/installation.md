@@ -1,11 +1,11 @@
-# [AkShare](https://github.com/jindaxiang/akshare) 安装指导
+# [AKShare](https://github.com/jindaxiang/akshare) 安装指导
 
 ## 重要提示
 
 1. 首先请确认安装 [Python](https://www.python.org/) 3.7(64 位) 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.8.5(64 位) 版本;
-2. [AkShare](https://github.com/jindaxiang/akshare) 推荐安装最新版本的 [Anaconda](https://www.anaconda.com/), 可以解决大部分安装问题.
+2. [AKShare](https://github.com/jindaxiang/akshare) 推荐安装最新版本的 [Anaconda](https://www.anaconda.com/), 可以解决大部分安装问题.
 
-## 安装 [AkShare](https://github.com/jindaxiang/akshare)
+## 安装 [AKShare](https://github.com/jindaxiang/akshare)
 
 ### 通用安装
 
