@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 银行数据
+## [AKShare](https://github.com/jindaxiang/akshare) 银行数据
 
 ### 全球银行排名
 

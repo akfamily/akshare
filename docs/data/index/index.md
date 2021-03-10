@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 指数数据
+## [AKShare](https://github.com/jindaxiang/akshare) 指数数据
 
 ### 中国股票指数数据
 

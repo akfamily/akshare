@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 期权数据
+## [AKShare](https://github.com/jindaxiang/akshare) 期权数据
 
 ### 金融期权-三大交易所
 

@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 私募数据
+## [AKShare](https://github.com/jindaxiang/akshare) 私募数据
 
 ### 中国证券投资基金业协会
 

@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 另类数据
+## [AKShare](https://github.com/jindaxiang/akshare) 另类数据
 
 ### 新闻联播文字稿
 
