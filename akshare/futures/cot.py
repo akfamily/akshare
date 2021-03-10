@@ -414,7 +414,7 @@ def _get_dce_contract_list(date, var):
             continue
 
 
-def get_dce_rank_table(date: str = "20210302", vars_list=cons.contract_symbols):
+def get_dce_rank_table(date: str = "20210309", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细, 由于交易所网站问题, 需要 20200720 之后才有数据
     注: 该交易所只公布标的合约排名
@@ -449,35 +449,79 @@ def get_dce_rank_table(date: str = "20210302", vars_list=cons.contract_symbols):
         # var = 'V'
         symbol_list = _get_dce_contract_list(date, var)
         for symbol in symbol_list:
+            # print(symbol)
             url = cons.DCE_VOL_RANK_URL_1 % (var.lower(), symbol, var.lower(), date.year, date.month - 1, date.day)
-            temp_df = pd.read_excel(url[:-3] + 'excel', header=0, skiprows=3)
-            temp_df.dropna(how='any', axis=0, inplace=True)
-            temp_df = temp_df.applymap(lambda x: str(x).replace(',', ''))
-            del temp_df["名次.1"]
-            del temp_df["名次.2"]
-            temp_df.rename(columns={"名次": "rank",
-                                    "会员简称": "vol_party_name",
-                                    "成交量": "vol",
-                                    "增减": "vol_chg",
-                                    "会员简称.1": "long_party_name",
-                                    "持买单量": "long_open_interest",
-                                    "增减.1": "long_open_interest_chg",
-                                    "会员简称.2": "short_party_name",
-                                    "持卖单量": "short_open_interest",
-                                    "增减.2": "short_open_interest_chg",
-                                    }, inplace=True)
-            temp_df['symbol'] = symbol.upper()
-            temp_df['var'] = var
-            temp_df['date'] = date_string
-            temp_df = temp_df.applymap(lambda x: str(x).replace("-", "0") if x == "-" else x)
-            temp_df['rank'] = range(1, len(temp_df)+1)
-            temp_df['vol'] = temp_df['vol'].astype(float)
-            temp_df['vol_chg'] = temp_df['vol_chg'].astype(float)
-            temp_df['long_open_interest'] = temp_df['long_open_interest'].astype(float)
-            temp_df['long_open_interest_chg'] = temp_df['long_open_interest_chg'].astype(float)
-            temp_df['short_open_interest'] = temp_df['short_open_interest'].astype(float)
-            temp_df['short_open_interest_chg'] = temp_df['short_open_interest_chg'].astype(float)
-            big_dict[symbol] = temp_df
+            try:
+                temp_df = pd.read_excel(url[:-3] + "excel", header=0, skiprows=3)
+                temp_df.dropna(how='any', axis=0, inplace=True)
+                temp_df = temp_df.applymap(lambda x: str(x).replace(',', ''))
+                del temp_df["名次.1"]
+                del temp_df["名次.2"]
+                temp_df.rename(columns={"名次": "rank",
+                                        "会员简称": "vol_party_name",
+                                        "成交量": "vol",
+                                        "增减": "vol_chg",
+                                        "会员简称.1": "long_party_name",
+                                        "持买单量": "long_open_interest",
+                                        "增减.1": "long_open_interest_chg",
+                                        "会员简称.2": "short_party_name",
+                                        "持卖单量": "short_open_interest",
+                                        "增减.2": "short_open_interest_chg",
+                                        }, inplace=True)
+                temp_df['symbol'] = symbol.upper()
+                temp_df['var'] = var
+                temp_df['date'] = date_string
+                temp_df = temp_df.applymap(lambda x: str(x).replace("-", "0") if x == "-" else x)
+                temp_df['rank'] = range(1, len(temp_df)+1)
+                temp_df['vol'] = temp_df['vol'].astype(float)
+                temp_df['vol_chg'] = temp_df['vol_chg'].astype(float)
+                temp_df['long_open_interest'] = temp_df['long_open_interest'].astype(float)
+                temp_df['long_open_interest_chg'] = temp_df['long_open_interest_chg'].astype(float)
+                temp_df['short_open_interest'] = temp_df['short_open_interest'].astype(float)
+                temp_df['short_open_interest_chg'] = temp_df['short_open_interest_chg'].astype(float)
+                big_dict[symbol] = temp_df
+            except:
+                temp_url = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
+                payload = {
+                    "memberDealPosiQuotes.variety": var.lower(),
+                    "memberDealPosiQuotes.trade_type": "0",
+                    "year": date.year,
+                    "month": date.month - 1,
+                    "day": str(date.day).zfill(2),
+                    "contract.contract_id": symbol,
+                    "contract.variety_id": var.lower(),
+                    "contract": ""
+                }
+                r = requests.post(temp_url, data=payload)
+                if r.status_code != 200:
+                    big_dict[symbol] = {}
+                else:
+                    temp_df = pd.read_html(r.text)[1].iloc[:-1, :]
+                    del temp_df["名次.1"]
+                    del temp_df["名次.2"]
+                    temp_df.rename(columns={"名次": "rank",
+                                            "会员简称": "vol_party_name",
+                                            "成交量": "vol",
+                                            "增减": "vol_chg",
+                                            "会员简称.1": "long_party_name",
+                                            "持买单量": "long_open_interest",
+                                            "增减.1": "long_open_interest_chg",
+                                            "会员简称.2": "short_party_name",
+                                            "持卖单量": "short_open_interest",
+                                            "增减.2": "short_open_interest_chg",
+                                            }, inplace=True)
+                    temp_df['symbol'] = symbol.upper()
+                    temp_df['var'] = var
+                    temp_df['date'] = date_string
+                    temp_df = temp_df.applymap(lambda x: str(x).replace("-", "0") if x == "-" else x)
+                    temp_df['rank'] = range(1, len(temp_df)+1)
+                    temp_df['vol'] = temp_df['vol'].astype(float)
+                    temp_df['vol_chg'] = temp_df['vol_chg'].astype(float)
+                    temp_df['long_open_interest'] = temp_df['long_open_interest'].astype(float)
+                    temp_df['long_open_interest_chg'] = temp_df['long_open_interest_chg'].astype(float)
+                    temp_df['short_open_interest'] = temp_df['short_open_interest'].astype(float)
+                    temp_df['short_open_interest_chg'] = temp_df['short_open_interest_chg'].astype(float)
+                    big_dict[symbol] = temp_df
     return big_dict
 
 
@@ -661,7 +705,7 @@ def futures_dce_position_rank(date: str = "20160919") -> pd.DataFrame:
     return big_dict
 
 
-def futures_dce_position_rank_other(date="20160104"):
+def futures_dce_position_rank_other(date: str = "20160104"):
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime('%Y%m%d') not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
@@ -745,7 +789,7 @@ if __name__ == '__main__':
     print(get_dce_rank_table_second_df)
     get_dce_rank_table_third_df = get_dce_rank_table(date='20200929')
     print(get_dce_rank_table_third_df)
-    get_dce_rank_table_third_df = get_dce_rank_table(date='20210302')
+    get_dce_rank_table_third_df = get_dce_rank_table(date='20210309')
     print(get_dce_rank_table_third_df)
     get_dce_rank_table_fourth_df = get_dce_rank_table(date='20210105', vars_list=['V'])
     print(get_dce_rank_table_fourth_df)
