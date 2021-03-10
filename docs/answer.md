@@ -1,4 +1,4 @@
-# [AkShare](https://github.com/jindaxiang/akshare) 答疑专栏
+# [AKShare](https://github.com/jindaxiang/akshare) 答疑专栏
 
 ## 专栏介绍
 

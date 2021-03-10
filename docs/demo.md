@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 策略示例
+## [AKShare](https://github.com/jindaxiang/akshare) 策略示例
 
 ### 股票策略
 
