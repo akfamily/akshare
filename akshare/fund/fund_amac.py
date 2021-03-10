@@ -139,7 +139,7 @@ def amac_manager_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
     http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
-    :return:
+    :return: 私募基金管理人综合查询
     :rtype: pandas.DataFrame
     """
     print("Please waiting for about 10 seconds")
@@ -175,7 +175,7 @@ def amac_manager_classify_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/manager/managerList.html
-    :return:
+    :return: 私募基金管理人分类公示
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 10 秒")
@@ -211,7 +211,7 @@ def amac_member_sub_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html?primaryInvestType=private
-    :return:
+    :return: 证券公司私募基金子公司管理人信息公示
     :rtype: pandas.DataFrame
     """
     data = get_data(url=member_sub_url, payload=member_sub_payload)
@@ -244,7 +244,7 @@ def amac_fund_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     http://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
-    :return:
+    :return: 私募基金管理人基金产品
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 20 秒")
@@ -280,7 +280,7 @@ def amac_securities_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
-    :return:
+    :return: 证券公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
@@ -320,7 +320,7 @@ def amac_aoin_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司直投基金
     http://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
-    :return:
+    :return: 证券公司直投基金
     :rtype: pandas.DataFrame
     """
     data = get_data(url=amac_aoin_info_url, payload=amac_aoin_info_payload)
@@ -350,7 +350,7 @@ def amac_fund_sub_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
     http://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
-    :return:
+    :return: 证券公司私募投资基金
     :rtype: pandas.DataFrame
     """
     data = get_data(url=amac_fund_sub_info_url, payload=amac_fund_sub_info_payload)
@@ -383,7 +383,7 @@ def amac_fund_account_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
-    :return:
+    :return: 基金公司及子公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
@@ -412,7 +412,7 @@ def amac_fund_abs() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
     http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
-    :return:
+    :return: 资产支持专项计划
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
@@ -450,7 +450,7 @@ def amac_futures_info() -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
-    :return:
+    :return: 期货公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
@@ -494,7 +494,7 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
     主动注销: 100
     依公告注销: 200
     协会注销: 300
-    :return:
+    :return: 已注销私募基金管理人名单
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
