@@ -699,6 +699,8 @@
  "fund_rating_ja"  # 基金评级-济安金信评级
  # 基金经理
  "fund_manager"  # 基金经理-基金经理大全
+ # 盈利预测
+ "stock_profit_forecast"  # 盈利预测
 ```
 
 ## 案例演示
