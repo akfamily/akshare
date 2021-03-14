@@ -16,6 +16,33 @@ from akshare.index.cons import short_headers, long_headers
 pd.set_option("mode.chained_assignment", None)
 
 
+def _get_global_index_country_name_url() -> dict:
+    """
+    全球指数-各国的全球指数数据
+    https://cn.investing.com/indices/global-indices?majorIndices=on&primarySectors=on&bonds=on&additionalIndices=on&otherIndices=on&c_id=37
+    :return: 国家和代码
+    :rtype: dict
+    """
+    url = "https://cn.investing.com/indices/global-indices"
+    params = {
+        "majorIndices": "on",
+        "primarySectors": "on",
+        "bonds": "on",
+        "additionalIndices": "on",
+        "otherIndices": "on",
+    }
+    r = requests.get(url, params=params, headers=short_headers)
+    data_text = r.text
+    soup = BeautifulSoup(data_text, "lxml")
+    name_url_option_list = soup.find_all("option")[1:]
+    url_list = [item["value"] for item in name_url_option_list if "c_id" in item["value"]]
+    url_list_code = [item["value"].split("?")[1].split("=")[1] for item in name_url_option_list if "c_id" in item["value"]]
+    name_list = [item.get_text() for item in name_url_option_list][:len(url_list)]
+    _temp_df = pd.DataFrame([name_list, url_list_code]).T
+    name_code_list = dict(zip(_temp_df.iloc[:, 0], _temp_df.iloc[:, 1]))
+    return name_code_list
+
+
 def _get_global_country_name_url() -> dict:
     """
     获取可获得指数数据国家对应的 URL
@@ -292,6 +319,7 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
      '深证红利': '/indices/szse-dividend-price', '深证综指': '/indices/szse-composite'}
     """
     name_url_dict = _get_global_country_name_url()
+    name_code_dict = _get_global_index_country_name_url()
     url = f"https://cn.investing.com{name_url_dict[country]}?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on"
     res = requests.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
@@ -304,6 +332,23 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
     ]
     name_code_map_dict = {}
     name_code_map_dict.update(zip(name_list, url_list))
+
+    url = "https://cn.investing.com/indices/global-indices"
+    params = {
+        "majorIndices": "on",
+        "primarySectors": "on",
+        "bonds": "on",
+        "additionalIndices": "on",
+        "otherIndices": "on",
+        "c_id": name_code_dict[country]
+    }
+    r = requests.get(url, params=params, headers=short_headers)
+    data_text = r.text
+    soup = BeautifulSoup(data_text, "lxml")
+    soup_list = soup.find("table", attrs={"id": "cr_12"}).find_all("a")
+    global_index_url = [item["href"] for item in soup_list]
+    global_index_name = [item["title"] for item in soup_list]
+    name_code_map_dict.update(zip(global_index_name, global_index_url))
     return name_code_map_dict
 
 
@@ -407,12 +452,14 @@ def index_investing_global(
 
 
 if __name__ == "__main__":
-    index_investing_global_country_name_url_dict = index_investing_global_country_name_url("美国")
+    index_investing_global_country_name_url_dict = index_investing_global_country_name_url("中国")
+    temp_df = pd.DataFrame.from_dict(index_investing_global_country_name_url_dict, orient="index")
+    temp_df.index.tolist()
     index_investing_global_df = index_investing_global(
-        country="美国",
-        index_name="美元指数",
+        country="中国",
+        index_name="中证海外中国互联网50指数",
         period="每日",
-        start_date="1950-01-01",
-        end_date="1999-11-25",
+        start_date="2020-01-01",
+        end_date="2021-03-14",
     )
     print(index_investing_global_df)

@@ -114,12 +114,12 @@ def bond_investing_global(
 
 
 if __name__ == "__main__":
-    bond_investing_global_country_name_url("美国")
+    bond_investing_global_country_name_url("中国")
     bond_investing_global_df = bond_investing_global(
-        country="美国",
-        index_name="美国1年期国债",
+        country="中国",
+        index_name="中国10年期国债",
         period="每日",
         start_date="2010-01-01",
-        end_date="2020-10-14",
+        end_date="2021-03-14",
     )
     print(bond_investing_global_df)
