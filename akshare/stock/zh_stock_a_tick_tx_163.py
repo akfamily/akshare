@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/2/1 16:39
+Date: 2021/3/11 15:39
 Desc: 腾讯-网易-股票-实时行情-成交明细
 成交明细-每个交易日 16:00 提供当日数据
 港股报价延时 15 分钟
@@ -148,7 +148,7 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20210127")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20210311")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_163_now_df = stock_zh_a_tick_163_now(code="000001")
