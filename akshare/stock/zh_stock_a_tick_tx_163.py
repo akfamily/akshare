@@ -148,7 +148,7 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20210310")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20210311")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_163_now_df = stock_zh_a_tick_163_now(code="000001")

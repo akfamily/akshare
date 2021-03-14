@@ -1918,4 +1918,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.32: fix: fix get_dce_rank_table interface
 
 0.8.33: add: add stock_profit_forecast interface
+
+0.8.34: fix: fix index_investing_global interface
 ```
