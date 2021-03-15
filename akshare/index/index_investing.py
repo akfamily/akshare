@@ -453,11 +453,9 @@ def index_investing_global(
 
 if __name__ == "__main__":
     index_investing_global_country_name_url_dict = index_investing_global_country_name_url("中国")
-    temp_df = pd.DataFrame.from_dict(index_investing_global_country_name_url_dict, orient="index")
-    temp_df.index.tolist()
     index_investing_global_df = index_investing_global(
-        country="中国",
-        index_name="中证海外中国互联网50指数",
+        country="日本",
+        index_name="富时日本指数",
         period="每日",
         start_date="2020-01-01",
         end_date="2021-03-14",
