@@ -1253,9 +1253,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.33: add: add stock_profit_forecast interface
 0.8.34: fix: fix index_investing_global interface
 0.8.35: add: add bond_zh_us_rate interface
+0.8.36: add: add stock_em_fhps interface
 """
 
-__version__ = "0.8.35"
+__version__ = "0.8.36"
 __author__ = "Albert King"
 
 import sys
@@ -1265,6 +1266,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+分红配送
+"""
+from akshare.stock_feature.stock_em_fhps import stock_em_fhps
 
 """
 中美国债收益率

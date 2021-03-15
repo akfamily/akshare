@@ -13,7 +13,7 @@ import pandas as pd
 import requests
 
 
-def stock_em_yjyg(date: str = "2020-03-31") -> pd.DataFrame:
+def stock_em_yjyg(date: str = "20200331") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩预告
     http://data.eastmoney.com/bbsj/202003/yjyg.html
@@ -31,7 +31,7 @@ def stock_em_yjyg(date: str = "2020-03-31") -> pd.DataFrame:
         "p": "1",
         "ps": "5000",
         "js": "var FtDGPHpn={pages:(tp),data: (x),font:(font)}",
-        "filter": f"(IsLatest='T')(enddate=^{date}^)",
+        "filter": f"(IsLatest='T')(enddate=^{'-'.join([date[:4], date[4:6], date[6:]])}^)",
         "rt": "52907209",
     }
     r = requests.get(url, params=params)
@@ -64,7 +64,7 @@ def stock_em_yysj(date: str = "2020-03-31") -> pd.DataFrame:
         "p": "1",
         "ps": "5000",
         "js": "var HXutCoUP={pages:(tp),data: (x),font:(font)}",
-        "filter": f"(securitytypecode='058001001')(reportdate=^{date}^)",
+        "filter": f"(securitytypecode='058001001')(reportdate=^{'-'.join([date[:4], date[4:6], date[6:]])}^)",
         "rt": "52907209",
     }
     r = requests.get(url, params=params)
@@ -75,7 +75,7 @@ def stock_em_yysj(date: str = "2020-03-31") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_em_yjyg_df = stock_em_yjyg(date="2019-12-31")
+    stock_em_yjyg_df = stock_em_yjyg(date="20191231")
     print(stock_em_yjyg_df)
-    stock_em_yysj_df = stock_em_yysj(date="2019-12-31")
+    stock_em_yysj_df = stock_em_yysj(date="20191231")
     print(stock_em_yysj_df)
