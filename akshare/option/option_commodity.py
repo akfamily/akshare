@@ -308,6 +308,6 @@ if __name__ == "__main__":
     get_dce_option_daily_one, get_dce_option_daily_two = get_dce_option_daily(trade_date="20210113", symbol="玉米期权")
     print(get_dce_option_daily_one)
     print(get_dce_option_daily_two)
-    get_shfe_option_daily_one, get_shfe_option_daily_two = get_shfe_option_daily(trade_date="20200827", symbol="铝期权")
+    get_shfe_option_daily_one, get_shfe_option_daily_two = get_shfe_option_daily(trade_date="20210312", symbol="天胶期权")
     print(get_shfe_option_daily_one)
     print(get_shfe_option_daily_two)

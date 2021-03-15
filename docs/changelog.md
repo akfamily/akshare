@@ -1920,4 +1920,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.33: add: add stock_profit_forecast interface
 
 0.8.34: fix: fix index_investing_global interface
+
+0.8.35: add: add bond_zh_us_rate interface
+
+0.8.36: add: add stock_em_fhps interface
+
+0.8.37: add: add stock_em_yjkb interface
 ```
