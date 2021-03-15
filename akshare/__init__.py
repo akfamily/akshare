@@ -1252,9 +1252,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.32: fix: fix get_dce_rank_table interface
 0.8.33: add: add stock_profit_forecast interface
 0.8.34: fix: fix index_investing_global interface
+0.8.35: add: add bond_zh_us_rate interface
 """
 
-__version__ = "0.8.34"
+__version__ = "0.8.35"
 __author__ = "Albert King"
 
 import sys
@@ -1264,6 +1265,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+中美国债收益率
+"""
+from akshare.bond.bond_em import bond_zh_us_rate
 
 """
 盈利预测
