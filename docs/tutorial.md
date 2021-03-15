@@ -703,6 +703,8 @@
  "stock_profit_forecast"  # 盈利预测
  # 中美国债收益率
  "bond_zh_us_rate"  # 中美国债收益率
+ # 分红配送
+ "stock_em_fhps"  # 分红配送
 ```
 
 ## 案例演示
