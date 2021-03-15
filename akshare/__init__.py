@@ -1254,9 +1254,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.34: fix: fix index_investing_global interface
 0.8.35: add: add bond_zh_us_rate interface
 0.8.36: add: add stock_em_fhps interface
+0.8.37: add: add stock_em_yjkb interface
 """
 
-__version__ = "0.8.36"
+__version__ = "0.8.37"
 __author__ = "Albert King"
 
 import sys
@@ -1640,7 +1641,7 @@ from akshare.hf.hf_sp500 import hf_sp_500
 """
 stock_em_yjyg
 """
-from akshare.stock_feature.stock_em_yjyg import stock_em_yjyg, stock_em_yysj
+from akshare.stock_feature.stock_em_yjyg import stock_em_yjyg, stock_em_yysj, stock_em_yjkb
 
 """
 stock

@@ -22,8 +22,8 @@ from akshare.cost.cost_living import cost_living
 def test_cost_living():
     """
     just for test aim
-    :return:
-    :rtype:
+    :return: assert result
+    :rtype: assert
     """
     cost_living_df = cost_living()
     assert cost_living_df.shape[0] > 0
