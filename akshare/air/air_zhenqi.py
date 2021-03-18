@@ -17,22 +17,28 @@ import pandas as pd
 import requests
 
 
-def _get_js_path(name, module_file):
+def _get_js_path(name: str = None, module_file: str = None) -> str:
     """
     获取 JS 文件的路径(从模块所在目录查找)
     :param name: 文件名
-    :param module_file: filename
-    :return: str json_file_path
+    :type name: str
+    :param module_file: 模块路径
+    :type module_file: str
+    :return: 路径
+    :rtype: str
     """
     module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
     module_json_path = os.path.join(module_folder, "air", name)
     return module_json_path
 
 
-def _get_file_content(file_name="crypto.js"):
+def _get_file_content(file_name: str = "crypto.js") -> str:
     """
-    获取交易日历至 2019 年结束, 这里的交易日历需要按年更新
-    :return: json
+    获取 JS 文件的内容
+    :param file_name:  JS 文件名
+    :type file_name: str
+    :return: 文件内容
+    :rtype: str
     """
     setting_file_name = file_name
     setting_file_path = _get_js_path(setting_file_name, __file__)
