@@ -707,6 +707,8 @@
  "stock_em_fhps"  # 分红配送
  # 业绩快报
  "stock_em_yjkb"  # 业绩快报
+ # 概念板块
+ "stock_board_concept_cons_ths"  # 概念板块-同花顺
 ```
 
 ## 案例演示

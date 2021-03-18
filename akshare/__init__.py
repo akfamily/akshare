@@ -1256,9 +1256,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.36: add: add stock_em_fhps interface
 0.8.37: add: add stock_em_yjkb interface
 0.8.38: fix: fix get_czce_daily interface
+0.8.39: add: add stock_board_concept_cons_ths interface
 """
 
-__version__ = "0.8.38"
+__version__ = "0.8.39"
 __author__ = "Albert King"
 
 import sys
@@ -1268,6 +1269,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+同花顺-概念板块
+"""
+from akshare.stock_feature.stock_board_ths import stock_board_concept_cons_ths, stock_board_concept_name_ths
 
 """
 分红配送
