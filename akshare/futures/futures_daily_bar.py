@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/08/04 13:58
+Date: 2021/3/18 13:58
 Desc: 交易所网站获取期货日线行情
 """
 import datetime
@@ -117,10 +117,10 @@ def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
     return result_df
 
 
-def get_czce_daily(date: str = "20200901") -> pd.DataFrame:
+def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
     """
     郑州商品交易所-日频率-量价数据
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日; 日期需要大于200100824
+    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日; 日期需要大于 20100824
     :type date: str or datetime.date
     :return: 郑州商品交易所-日频率-量价数据
     :rtype: pandas.DataFrame or None
@@ -214,11 +214,10 @@ def get_czce_daily(date: str = "20200901") -> pd.DataFrame:
         listed_columns = cons.CZCE_COLUMNS_2
         output_columns = cons.OUTPUT_COLUMNS
         df = pd.read_html(url)[1].dropna(how="any")
-
         dict_data = list()
         day_const = int(day.strftime("%Y%m%d"))
-
-        for row in df.to_dict(orient="records")[1:]:
+        for row in df.to_dict(orient="records"):
+            row = list(row.values())
             m = cons.FUTURES_SYMBOL_PATTERN.match(row[0])
             if not m:
                 continue
@@ -227,13 +226,10 @@ def get_czce_daily(date: str = "20200901") -> pd.DataFrame:
                 if row[i + 1] == "\r":
                     row_dict[field] = 0.0
                 elif field in ["volume", "open_interest", "oi_chg", "exercise_volume"]:
-
                     row_dict[field] = int(row[i + 1])
                 else:
-
                     row_dict[field] = float(row[i + 1])
             dict_data.append(row_dict)
-
         return pd.DataFrame(dict_data)[output_columns]
 
 
