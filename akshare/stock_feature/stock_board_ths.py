@@ -5,11 +5,43 @@ Date: 2021/3/18 16:48
 Desc: 同花顺-板块-概念板块-成份股
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
+import os
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
+
+
+def _get_js_path_ths(name: str = None, module_file: str = None) -> str:
+    """
+    获取 JS 文件的路径(从模块所在目录查找)
+    :param name: 文件名
+    :type name: str
+    :param module_file: 模块路径
+    :type module_file: str
+    :return: 路径
+    :rtype: str
+    """
+    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
+    module_json_path = os.path.join(module_folder, "stock_feature", name)
+    return module_json_path
+
+
+def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
+    """
+    获取 JS 文件的内容
+    :param file_name:  JS 文件名
+    :type file_name: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_name = file_name
+    setting_file_path = _get_js_path_ths(setting_file_name, __file__)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
 
 
 def stock_board_concept_name_ths() -> pd.DataFrame:
@@ -43,9 +75,8 @@ def stock_board_concept_cons_ths(symbol_code: str = "阿里巴巴概念") -> pd.
     """
     stock_board_ths_map_df = stock_board_concept_name_ths()
     symbol_code = stock_board_ths_map_df[stock_board_ths_map_df['name'] == symbol_code]['url'].values[0].split('/')[-2]
-    with open('./aes.min.js', 'r') as f:
-        js_content = f.read()
     js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
     v_code = js_code.call('v')
     headers = {
