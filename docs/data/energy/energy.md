@@ -1,6 +1,8 @@
 ## [AKShare](https://github.com/jindaxiang/akshare) 能源数据
 
-### 碳排放权-北京
+### 碳排放
+
+#### 碳排放权-北京
 
 接口: energy_carbon_bj
 
@@ -50,7 +52,7 @@ print(energy_carbon_bj_df)
 1292  2013-11-28   800  51.25          41000.0
 ```
 
-### 碳排放权-深圳
+#### 碳排放权-深圳
 
 接口: energy_carbon_sz
 
@@ -105,7 +107,7 @@ print(energy_carbon_sz_df)
 6380  2015-05-18  SZA-2013  36.50  43.45  35.55  35.59  43.45  12000.0  427052.90
 ```
 
-### 碳排放权-国际
+#### 碳排放权-国际
 
 接口: energy_carbon_eu
 
@@ -160,7 +162,7 @@ print(energy_carbon_eu_df)
 1001  2018-11-30  欧盟EUA  NaN  NaN  NaN   NaN  20.50  11203000.0  NaN
 ```
 
-### 碳排放权-湖北
+#### 碳排放权-湖北
 
 接口: energy_carbon_hb
 
@@ -213,7 +215,7 @@ print(energy_carbon_hb_df)
 810  HBEA  2017-04-06  16.55   0.00%  16.55  15.50  11126.00   179145.25  16.55
 ```
 
-### 碳排放权-广州
+#### 碳排放权-广州
 
 接口: energy_carbon_gz
 
