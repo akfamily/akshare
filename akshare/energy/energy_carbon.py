@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/9/12 16:55
+Date: 2021/3/21 16:55
 Desc: 碳排放交易
 北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
 https://www.bjets.com.cn/article/jyxx/
@@ -28,9 +28,15 @@ def energy_carbon_bj() -> pd.DataFrame:
     """
     北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
     https://www.bjets.com.cn/article/jyxx/
+    :return: 北京市碳排放权公开交易行情
+    :rtype: pandas.DataFrame
     """
+    url = 'https://www.bjets.com.cn/article/jyxx/'
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    total_page = soup.find('table').find('script').string.split('=')[-1].strip().strip(';').strip('"')
     temp_df = pd.DataFrame()
-    for i in tqdm(range(1, 74), desc="Please wait for a moment"):
+    for i in tqdm(range(1, int(total_page)+1), desc="Please wait for a moment"):
         if i == 1:
             i = ""
         url = f"https://www.bjets.com.cn/article/jyxx/?{i}"
@@ -135,7 +141,7 @@ if __name__ == '__main__':
     print(energy_carbon_bj_df)
 
     energy_carbon_sz_df = energy_carbon_sz()
-    print(energy_carbon_sz)
+    print(energy_carbon_sz_df)
 
     energy_carbon_eu_df = energy_carbon_eu()
     print(energy_carbon_eu_df)
