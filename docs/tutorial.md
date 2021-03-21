@@ -180,7 +180,11 @@
  "fx_swap_quote"  # 市场行情-债券市场行情-人民币外汇远掉报价
  "fx_pair_quote"  # 市场行情-债券市场行情-外币对即期报价
  # 能源-碳排放权
- "energy_carbon"  # 北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
+ "energy_carbon_bj"  # 碳排放权-北京
+ "energy_carbon_sz"  # 碳排放权-深圳
+ "energy_carbon_eu"  # 碳排放权-国际
+ "energy_carbon_hb"  # 碳排放权-湖北
+ "energy_carbon_gz"  # 碳排放权-广州
  # 生活成本
  "cost_living"  # 获取世界各大城市生活成本数据
  # 商品现货价格指数
