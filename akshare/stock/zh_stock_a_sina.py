@@ -82,7 +82,7 @@ def stock_zh_a_daily(
     symbol: str = "sz000001",
     start_date: str = "19900101",
     end_date: str = "21000118",
-    adjust: str = "hfq",
+    adjust: str = "",
 ) -> pd.DataFrame:
     """
     新浪财经-A股-个股的历史行情数据, 大量抓取容易封 IP
