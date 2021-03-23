@@ -1268,7 +1268,7 @@ __author__ = "Albert King"
 import sys
 
 if sys.version_info < (3, 7):
-    print(f"AkShare {__version__} requires Python 3.7+")
+    print(f"AKShare {__version__} requires Python 3.7+")
     sys.exit(1)
 
 del sys
