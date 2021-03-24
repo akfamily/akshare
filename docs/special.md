@@ -76,7 +76,7 @@
 
 感谢[北京市碳排放权电子交易平台网站](https://www.bjets.com.cn/article/jyxx/)提供的碳排放行情数据;
 
-感谢[IT桔子网站](https://www.itjuzi.com)提供的数据;
+感谢[IT桔子网站](https://www.itjuzi.com/)提供的数据;
 
 感谢[东方财富网站](http://data.eastmoney.com/jgdy/)提供的数据;
 
@@ -112,7 +112,7 @@
 
 ## 交流
 
-欢迎关注 **数据科学实战** 微信公众号来获取最新的更新信息:
+欢迎关注 **数据科学实战** 微信公众号获取更新信息:
 
 <div align=center>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">

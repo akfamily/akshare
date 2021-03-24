@@ -11,6 +11,7 @@ http://data.eastmoney.com/bbsj/202003/yysj.html
 import demjson
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 
 def stock_em_yjkb(date: str = "20200331") -> pd.DataFrame:
@@ -101,28 +102,80 @@ def stock_em_yjyg(date: str = "20200331") -> pd.DataFrame:
     :return: 业绩预告
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
+    url = "http://datacenter.eastmoney.com/securities/api/data/v1/get"
     params = {
-        "type": "YJBB21_YJYG",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "st": "ndate",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var FtDGPHpn={pages:(tp),data: (x),font:(font)}",
-        "filter": f"(IsLatest='T')(enddate=^{'-'.join([date[:4], date[4:6], date[6:]])}^)",
-        "rt": "52907209",
+        'sortColumns': 'NOTICE_DATE,SECURITY_CODE',
+        'sortTypes': '-1,-1',
+        'pageSize': '50',
+        'pageNumber': '1',
+        'reportName': 'RPT_PUBLIC_OP_NEWPREDICT',
+        'columns': 'ALL',
+        'token': '894050c76af8597a853f5b408b759f5d',
+        'filter': f" (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')"
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"):])
-    font_df = pd.DataFrame(data_json["font"]["FontMapping"])
-    data_dict = dict(zip(font_df["code"], font_df["value"]))
-    for key, value in data_dict.items():
-        data_text = data_text.replace(key, str(value))
-    data_json = demjson.decode(data_text[data_text.find("{"):])
-    temp_df = pd.DataFrame(data_json["data"])
-    return temp_df
+    data_json = r.json()
+    big_df = pd.DataFrame()
+    total_page = data_json['result']['pages']
+    for page in tqdm(range(1, total_page+1)):
+        params = {
+            'sortColumns': 'NOTICE_DATE,SECURITY_CODE',
+            'sortTypes': '-1,-1',
+            'pageSize': '50',
+            'pageNumber': page,
+            'reportName': 'RPT_PUBLIC_OP_NEWPREDICT',
+            'columns': 'ALL',
+            'token': '894050c76af8597a853f5b408b759f5d',
+            'filter': f" (REPORT_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')"
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+
+    big_df.reset_index(inplace=True)
+    big_df['index'] = range(1, len(big_df)+1)
+    big_df.columns = [
+        '序号',
+        '_',
+        '股票代码',
+        '股票简称',
+        '_',
+        '公告日期',
+        '报告日期',
+        '_',
+        '预测指标',
+        '_',
+        '_',
+        '_',
+        '_',
+        '业绩变动',
+        '业绩变动原因',
+        '预告类型',
+        '上年同期值',
+        '_',
+        '_',
+        '_',
+        '_',
+        '业绩变动幅度',
+        '预测数值',
+        '_',
+        '_',
+    ]
+    big_df = big_df[[
+        '序号',
+        '股票代码',
+        '股票简称',
+        '预测指标',
+        '业绩变动',
+        '预测数值',
+        '业绩变动幅度',
+        '业绩变动原因',
+        '预告类型',
+        '上年同期值',
+        '公告日期',
+    ]]
+    return big_df
 
 
 def stock_em_yysj(date: str = "20200331") -> pd.DataFrame:
