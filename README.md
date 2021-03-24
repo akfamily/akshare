@@ -99,7 +99,7 @@ Code
 
 ```python
 import akshare as ak
-import mplfinance as mpf  # Please install mplfinance
+import mplfinance as mpf  # Please install mplfinance as follows: pip install mplfinance
 
 stock_us_daily_df = ak.stock_us_daily(symbol="AAPL", adjust="qfq")
 stock_us_daily_df = stock_us_daily_df[["open", "high", "low", "close", "volume"]]
