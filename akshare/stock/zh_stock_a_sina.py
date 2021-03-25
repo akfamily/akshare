@@ -333,28 +333,32 @@ def stock_zh_a_minute(
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="sz000592", start_date="20201106", end_date="20201110", adjust="qfq")
     print(stock_zh_a_daily_hfq_df_one)
+
     stock_zh_a_daily_hfq_df_three = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118", adjust="qfq")
     print(stock_zh_a_daily_hfq_df_three)
+
     stock_zh_a_daily_hfq_df_two = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118")
     print(stock_zh_a_daily_hfq_df_two)
 
     qfq_factor_df = stock_zh_a_daily(symbol="sz000001", adjust="hfq-factor")
     print(qfq_factor_df)
-    hfq_factor_df = stock_zh_a_daily(
-        symbol="sz000002", adjust="hfq-factor"
-    )
-    print(hfq_factor_df)
+
+    stock_zh_a_daily_hfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust="hfq-factor")
+    print(stock_zh_a_daily_hfq_factor_df)
+
     stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh601939")
     print(stock_zh_a_daily_df)
+
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(
         symbol="sh689009", start_date="20201103", end_date="20201116"
     )
     print(stock_zh_a_cdr_daily_df)
+
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
-    stock_zh_a_minute_df = stock_zh_a_minute(
-        symbol="sh600751", period="30", adjust="qfq"
-    )
+
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh600751", period="1", adjust="qfq")
     print(stock_zh_a_minute_df)
+
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol="sh689009", start_date="19900101", end_date="22201116")
     print(stock_zh_a_cdr_daily_df)
