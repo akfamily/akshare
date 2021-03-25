@@ -1936,4 +1936,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.41: fix: fix energy_carbon_bj interface
 
 0.8.42: fix: fix stock_zh_a_daily interface
+
+0.8.43: fix: fix stock_em_yjyg interface
 ```

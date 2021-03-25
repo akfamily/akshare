@@ -331,6 +331,9 @@ if __name__ == '__main__':
     stock_financial_report_sina_df = stock_financial_report_sina(stock="600004", symbol="现金流量表")
     print(stock_financial_report_sina_df)
 
+    stock_financial_report_sina_df = stock_financial_report_sina(stock="600004", symbol="资产负债表")
+    print(stock_financial_report_sina_df)
+
     stock_financial_abstract_df = stock_financial_abstract(stock="600004")
     print(stock_financial_abstract_df)
     stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(stock="600004")
