@@ -7894,13 +7894,13 @@ print(stock_profit_forecast_df)
 
 描述: 获取同花顺-板块-概念板块-成份股数据
 
-限量: 单次返回当前时刻所有成份股
+限量: 单次返回当前时刻所有成份股, 调用 **stock_board_concept_info_ths** 返回该板块信息
 
 输入参数
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| symbol_code | str | Y    | symbol_code="阿里巴巴概念"; 可以通过调用 **stock_board_concept_name_ths** 查看同花顺的所有概念名称|
+| symbol | str | Y    | symbol="阿里巴巴概念"; 可以通过调用 **stock_board_concept_name_ths** 查看同花顺的所有概念名称|
 
 输出参数
 
@@ -7925,7 +7925,7 @@ print(stock_profit_forecast_df)
 
 ```python
 import akshare as ak
-stock_board_concept_cons_ths_df = ak.stock_board_concept_cons_ths(symbol_code="人脸识别")
+stock_board_concept_cons_ths_df = ak.stock_board_concept_cons_ths(symbol="人脸识别")
 print(stock_board_concept_cons_ths_df)
 ```
 
