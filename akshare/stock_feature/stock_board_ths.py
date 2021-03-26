@@ -64,17 +64,17 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     return temp_df
 
 
-def stock_board_concept_cons_ths(symbol_code: str = "阿里巴巴概念") -> pd.DataFrame:
+def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataFrame:
     """
     同花顺-板块-概念板块-成份股
     http://q.10jqka.com.cn/gn/detail/code/301558/
-    :param symbol_code: 板块名称
-    :type symbol_code: str
+    :param symbol: 板块名称
+    :type symbol: str
     :return: 成份股
     :rtype: pandas.DataFrame
     """
     stock_board_ths_map_df = stock_board_concept_name_ths()
-    symbol_code = stock_board_ths_map_df[stock_board_ths_map_df['name'] == symbol_code]['url'].values[0].split('/')[-2]
+    symbol = stock_board_ths_map_df[stock_board_ths_map_df['name'] == symbol]['url'].values[0].split('/')[-2]
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
@@ -83,7 +83,7 @@ def stock_board_concept_cons_ths(symbol_code: str = "阿里巴巴概念") -> pd.
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
         'Cookie': f'v={v_code}'
     }
-    url = f'http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/1/ajax/1/code/{symbol_code}'
+    url = f'http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/1/ajax/1/code/{symbol}'
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     page_num = int(soup.find_all('a', attrs={'class': 'changePage'})[-1]['page'])
@@ -94,7 +94,7 @@ def stock_board_concept_cons_ths(symbol_code: str = "阿里巴巴概念") -> pd.
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
             'Cookie': f'v={v_code}'
         }
-        url = f'http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/{page}/ajax/1/code/{symbol_code}'
+        url = f'http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/{page}/ajax/1/code/{symbol}'
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
         big_df = big_df.append(temp_df, ignore_index=True)
@@ -108,8 +108,36 @@ def stock_board_concept_cons_ths(symbol_code: str = "阿里巴巴概念") -> pd.
     return big_df
 
 
+def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataFrame:
+    """
+    同花顺-板块-概念板块-板块简介
+    http://q.10jqka.com.cn/gn/detail/code/301558/
+    :param symbol: 板块简介
+    :type symbol: str
+    :return: 板块简介
+    :rtype: pandas.DataFrame
+    """
+    stock_board_ths_map_df = stock_board_concept_name_ths()
+    symbol_code = stock_board_ths_map_df[stock_board_ths_map_df['name'] == symbol]['url'].values[0].split('/')[-2]
+    url = f'http://q.10jqka.com.cn/gn/detail/code/{symbol_code}/'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+    }
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, 'lxml')
+    name_list = [item.text for item in soup.find('div', attrs={'class': 'board-infos'}).find_all('dt')]
+    value_list = [item.text.strip().replace('\n', '/') for item in soup.find('div', attrs={'class': 'board-infos'}).find_all('dd')]
+    temp_df = pd.DataFrame([name_list, value_list]).T
+    temp_df.columns = ['项目', "值"]
+    return temp_df
+
+
 if __name__ == '__main__':
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
-    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol_code="人脸识别")
+
+    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="车联网")
     print(stock_board_concept_cons_ths_df)
+
+    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="阿里巴巴概念")
+    print(stock_board_concept_info_ths_df)
