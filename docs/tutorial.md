@@ -547,6 +547,7 @@
  # 股票市场总貌
  "stock_szse_summary"  # 深圳证券交易所-市场总貌
  "stock_sse_summary"  # 上海证券交易所-股票数据总貌
+ "stock_sse_deal_daily"  # 上海证券交易所-每日股票情况
  # 美股港股目标价
  "stock_js_price"  # 美股港股目标价
  # 券商业绩月报
