@@ -1262,9 +1262,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.42: fix: fix stock_zh_a_daily interface
 0.8.43: fix: fix stock_em_yjyg interface
 0.8.44: fix: fix stock_em_comment interface
+0.8.45: add: add stock_sse_deal_daily interface
 """
 
-__version__ = "0.8.44"
+__version__ = "0.8.45"
 __author__ = "Albert King"
 
 import sys
@@ -1572,7 +1573,7 @@ from akshare.stock.stock_js_us import stock_js_price
 """
 stock-summary
 """
-from akshare.stock.stock_summary import stock_sse_summary, stock_szse_summary
+from akshare.stock.stock_summary import stock_sse_summary, stock_szse_summary, stock_sse_deal_daily
 
 """
 股票-机构推荐池
