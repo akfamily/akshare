@@ -1006,5 +1006,5 @@ if __name__ == "__main__":
     stock_em_hsgt_hist_df = stock_em_hsgt_hist(symbol="港股通沪")
     print(stock_em_hsgt_hist_df)
 
-    stock_em_hsgt_industry_rank_df = stock_em_hsgt_board_rank(symbol="北向资金增持行业板块排行", indicator="今日")
+    stock_em_hsgt_industry_rank_df = stock_em_hsgt_board_rank(symbol="北向资金增持行业板块排行", indicator="1年")
     print(stock_em_hsgt_industry_rank_df)
