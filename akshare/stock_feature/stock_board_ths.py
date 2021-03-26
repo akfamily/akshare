@@ -104,11 +104,12 @@ def stock_board_concept_cons_ths(symbol_code: str = "阿里巴巴概念") -> pd.
                    "振幅(%)": "振幅",
                    }, inplace=True, axis=1)
     del big_df['加自选']
+    big_df['代码'] = big_df['代码'].astype(str).str.zfill(6)
     return big_df
 
 
 if __name__ == '__main__':
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
-    stock_board_ths_df = stock_board_concept_cons_ths(symbol_code="人脸识别")
-    print(stock_board_ths_df)
+    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol_code="人脸识别")
+    print(stock_board_concept_cons_ths_df)
