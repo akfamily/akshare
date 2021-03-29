@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/8 13:58
-Desc: 大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日注册仓单数据, 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定导致的程序出错
+Date: 2021/3/29 13:18
+Desc: 大连商品交易所, 上海期货交易所, 郑州商品交易所采集每日注册仓单数据
 """
 import datetime
 import re
@@ -267,13 +267,12 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
         vars_list: 合约品种如CF、TA等列表 为空时为所有商品
     Return
     -------
-        DataFrame:
-            展期收益率数据(DataFrame):`1
-                var             商品品种                     string
-                receipt         仓单数                       int
-                date            日期                         string YYYYMMDD
+    DataFrame:
+        展期收益率数据(DataFrame):`1
+            var             商品品种                     string
+            receipt         仓单数                       int
+            date            日期                         string YYYYMMDD
     """
-
     date = cons.convert_date(date).strftime('%Y%m%d') if date is not None else datetime.date.today()
     if date not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
@@ -381,5 +380,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20210203', end_day='20210205')
+    get_receipt_df = get_receipt(start_day='20210316', end_day='20210318')
     print(get_receipt_df)
