@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/6 20:48
+Date: 2021/3/29 17:48
 Desc: 基金评级
 http://fund.eastmoney.com/data/fundrating.html
 """
@@ -77,7 +77,7 @@ def fund_rating_all() -> pd.DataFrame:
     return temp_df
 
 
-def fund_rating_sh() -> pd.DataFrame:
+def fund_rating_sh(date: str = '20200930') -> pd.DataFrame:
     """
     天天基金网-基金评级-上海证券评级
     http://fund.eastmoney.com/data/fundrating_3.html
@@ -85,6 +85,13 @@ def fund_rating_sh() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://fund.eastmoney.com/data/fundrating_3.html"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    date_list = [item['value'] for item in soup.find('select', attrs={'id': 'rqoptions'})]
+    date_format = '-'.join([date[:4], date[4:6], date[6:]])
+    if date_format not in date_list:
+        return '请访问 http://fund.eastmoney.com/data/fundrating_3.html 获取查询日期'
+    url = f"http://fund.eastmoney.com/data/fundrating_3_{'-'.join([date[:4], date[4:6], date[6:]])}.html"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("div", attrs={"id": "fundinfo"}).find("script").string
@@ -146,7 +153,7 @@ def fund_rating_sh() -> pd.DataFrame:
     return temp_df
 
 
-def fund_rating_zs() -> pd.DataFrame:
+def fund_rating_zs(date: str = '20201030') -> pd.DataFrame:
     """
     天天基金网-基金评级-招商证券评级
     http://fund.eastmoney.com/data/fundrating_2.html
@@ -154,6 +161,13 @@ def fund_rating_zs() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://fund.eastmoney.com/data/fundrating_2.html"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    date_list = [item['value'] for item in soup.find('select', attrs={'id': 'rqoptions'})]
+    date_format = '-'.join([date[:4], date[4:6], date[6:]])
+    if date_format not in date_list:
+        return '请访问 http://fund.eastmoney.com/data/fundrating_2.html 获取查询日期'
+    url = f"http://fund.eastmoney.com/data/fundrating_2_{'-'.join([date[:4], date[4:6], date[6:]])}.html"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("div", attrs={"id": "fundinfo"}).find("script").string
@@ -210,7 +224,7 @@ def fund_rating_zs() -> pd.DataFrame:
     return temp_df
 
 
-def fund_rating_ja() -> pd.DataFrame:
+def fund_rating_ja(date: str = '20200930') -> pd.DataFrame:
     """
     天天基金网-基金评级-济安金信评级
     http://fund.eastmoney.com/data/fundrating_4.html
@@ -218,6 +232,13 @@ def fund_rating_ja() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://fund.eastmoney.com/data/fundrating_4.html"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    date_list = [item['value'] for item in soup.find('select', attrs={'id': 'rqoptions'})]
+    date_format = '-'.join([date[:4], date[4:6], date[6:]])
+    if date_format not in date_list:
+        return '请访问 http://fund.eastmoney.com/data/fundrating_4.html 获取查询日期'
+    url = f"http://fund.eastmoney.com/data/fundrating_4_{'-'.join([date[:4], date[4:6], date[6:]])}.html"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("div", attrs={"id": "fundinfo"}).find("script").string
@@ -279,11 +300,11 @@ if __name__ == "__main__":
     fund_rating_all_df = fund_rating_all()
     print(fund_rating_all_df)
 
-    fund_rating_sh_df = fund_rating_sh()
+    fund_rating_sh_df = fund_rating_sh(date='20200930')
     print(fund_rating_sh_df)
 
-    fund_rating_zs_df = fund_rating_zs()
+    fund_rating_zs_df = fund_rating_zs(date='20201030')
     print(fund_rating_zs_df)
 
-    fund_rating_ja_df = fund_rating_ja()
+    fund_rating_ja_df = fund_rating_ja(date='20200930')
     print(fund_rating_ja_df)

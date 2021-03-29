@@ -1946,4 +1946,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.46: fix: fix stock_board_concept_cons_ths interface
 
 0.8.47: add: add stock_board_concept_info_ths interface
+
+0.8.48: fix: fix fund_rating_sh fund_rating_zs fund_rating_ja interface
 ```
