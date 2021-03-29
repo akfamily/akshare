@@ -136,7 +136,7 @@ if __name__ == '__main__':
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
 
-    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="车联网")
+    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="边缘计算")
     print(stock_board_concept_cons_ths_df)
 
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="阿里巴巴概念")
