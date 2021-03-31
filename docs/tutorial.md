@@ -714,6 +714,8 @@
  "stock_em_yjkb"  # 业绩快报
  # 概念板块
  "stock_board_concept_cons_ths"  # 同花顺
+ # 业绩报告
+ "stock_em_yjbb"  # 业绩报告
 ```
 
 ## 案例演示
