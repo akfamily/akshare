@@ -39,7 +39,7 @@ def _replace_comma(x):
 
 def get_zh_index_page_count() -> int:
     """
-    所有指数的总页数
+    指数的总页数
     http://vip.stock.finance.sina.com.cn/mkt/#hs_s
     :return: 需要抓取的指数的总页数
     :rtype: int
@@ -54,7 +54,8 @@ def get_zh_index_page_count() -> int:
 
 def stock_zh_index_spot() -> pd.DataFrame:
     """
-    新浪财经-指数, 大量采集会被目标网站服务器封禁 IP
+    新浪财经-指数
+    大量采集会被目标网站服务器封禁 IP
     http://vip.stock.finance.sina.com.cn/mkt/#hs_s
     :return: 所有指数的实时行情数据
     :rtype: pandas.DataFrame
