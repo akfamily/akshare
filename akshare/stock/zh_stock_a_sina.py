@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/25 16:28
+Date: 2021/4/4 16:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -43,7 +43,8 @@ def _get_zh_a_page_count() -> int:
 
 def stock_zh_a_spot() -> pd.DataFrame:
     """
-    新浪财经-A股获取所有A股的实时行情数据, 重复运行本函数会被新浪暂时封 IP
+    新浪财经-A股
+    获取所有A股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
     :return: pandas.DataFrame
     """
@@ -75,6 +76,43 @@ def stock_zh_a_spot() -> pd.DataFrame:
             "turnoverratio": "float",
         }
     )
+    big_df.columns = [
+        '代码',
+        '_',
+        '名称',
+        '最新价',
+        '涨跌额',
+        '涨跌幅',
+        '买入',
+        '卖出',
+        '昨收',
+        '今开',
+        '最高',
+        '最低',
+        '成交量',
+        '成交额',
+        '_',
+        '_',
+        '_',
+        '_',
+        '_',
+        '_',
+    ]
+    big_df = big_df[[
+        '代码',
+        '名称',
+        '最新价',
+        '涨跌额',
+        '涨跌幅',
+        '买入',
+        '卖出',
+        '昨收',
+        '今开',
+        '最高',
+        '最低',
+        '成交量',
+        '成交额',
+    ]]
     return big_df
 
 
