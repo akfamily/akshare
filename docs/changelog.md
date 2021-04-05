@@ -1954,4 +1954,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.50: fix: fix stock_zh_index_spot interface
 
 0.8.51: fix: fix stock_zh_a_spot interface
+
+0.8.52: add: add stock_em_zcfz, stock_em_lrb, stock_em_xjll interface
 ```
