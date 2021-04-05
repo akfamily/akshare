@@ -716,6 +716,10 @@
  "stock_board_concept_cons_ths"  # 同花顺
  # 业绩报告
  "stock_em_yjbb"  # 业绩报告
+ # 三大表报
+ "stock_em_zcfz"  # 三大表报-资产负债表
+ "stock_em_lrb"  # 三大表报-利润表
+ "stock_em_xjll"  # 三大表报-现金流量表
 ```
 
 ## 案例演示
