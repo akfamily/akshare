@@ -1270,9 +1270,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.50: fix: fix stock_zh_index_spot interface
 0.8.51: fix: fix stock_zh_a_spot interface
 0.8.52: add: add stock_em_zcfz, stock_em_lrb, stock_em_xjll interface
+0.8.53: fix: fix stock_em_zcfz interface
 """
 
-__version__ = "0.8.52"
+__version__ = "0.8.53"
 __author__ = "Albert King"
 
 import sys
@@ -1282,6 +1283,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+三大报表
+"""
+from akshare.stock_feature.stock_em_report import stock_em_zcfz, stock_em_lrb, stock_em_xjll
 
 """
 业绩报告
