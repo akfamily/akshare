@@ -173,9 +173,122 @@ def stock_register_cyb() -> pd.DataFrame:
     return big_df
 
 
+def stock_register_db() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-新股数据-注册制审核-达标企业
+    http://data.eastmoney.com/xg/cyb/
+    :return: 达标企业
+    :rtype: pandas.DataFrame
+    """
+    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    params = {
+        'st': 'eutime',
+        'sr': '-1',
+        'ps': '5000',
+        'p': '1',
+        'type': 'KCB_LB',
+        'js': '{"data":(x),"pages":(tp)}',
+        'token': '894050c76af8597a853f5b408b759f5d',
+        'filter': "(MKT='fnsb')",
+    }
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    page_num = data_json['pages']
+    big_df = pd.DataFrame()
+    for page in range(1, page_num+1):
+        params = {
+            'st': 'eutime',
+            'sr': '-1',
+            'ps': '5000',
+            'p': page,
+            'type': 'KCB_LB',
+            'js': '{"data":(x),"pages":(tp)}',
+            'token': '894050c76af8597a853f5b408b759f5d',
+            'filter': "(MKT='fnsb')",
+        }
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['data'])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df['index'] = range(1, len(big_df) + 1)
+    big_df.columns = [
+        "序号",
+        "_",
+        "_",
+        "_",
+        "企业名称",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "经营范围",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "近三年营业收入-2019",
+        "近三年净利润-2019",
+        "近三年研发费用-2019",
+        "近三年营业收入-2018",
+        "近三年净利润-2018",
+        "近三年研发费用-2018",
+        "近三年营业收入-2017",
+        "近三年净利润-2017",
+        "近三年研发费用-2017",
+        "近两年累计净利润",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "企业名称",
+            "经营范围",
+            "近三年营业收入-2019",
+            "近三年净利润-2019",
+            "近三年研发费用-2019",
+            "近三年营业收入-2018",
+            "近三年净利润-2018",
+            "近三年研发费用-2018",
+            "近三年营业收入-2017",
+            "近三年净利润-2017",
+            "近三年研发费用-2017",
+            "近两年累计净利润",
+        ]
+    ]
+    return big_df
+
+
 if __name__ == "__main__":
     stock_register_kcb_df = stock_register_kcb()
     print(stock_register_kcb_df)
 
     stock_register_cyb_df = stock_register_cyb()
     print(stock_register_cyb_df)
+
+    stock_register_db_df = stock_register_db()
+    print(stock_register_db_df)

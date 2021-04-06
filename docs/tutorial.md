@@ -582,6 +582,7 @@
  # 注册制审核
  "stock_register_kcb"  # 注册制审核-科创板
  "stock_register_cyb"  # 注册制审核-创业板
+ "stock_register_db"  # 注册制审核-达标企业
  # 次新股
  "stock_zh_a_new"  # 股票数据-次新股
  # 国债期货可交割券相关指标
@@ -720,6 +721,8 @@
  "stock_em_zcfz"  # 三大表报-资产负债表
  "stock_em_lrb"  # 三大表报-利润表
  "stock_em_xjll"  # 三大表报-现金流量表
+ # 首发企业申报
+ "stock_ipo_declare"  # 首发企业申报
 ```
 
 ## 案例演示

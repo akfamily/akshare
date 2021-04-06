@@ -1272,9 +1272,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.52: add: add stock_em_zcfz, stock_em_lrb, stock_em_xjll interface
 0.8.53: fix: fix stock_em_zcfz interface
 0.8.54: fix: fix stock_register_kcb interface
+0.8.55: add: add stock_ipo_declare interface
 """
 
-__version__ = "0.8.54"
+__version__ = "0.8.55"
 __author__ = "Albert King"
 
 import sys
@@ -1284,6 +1285,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+首发企业申报
+"""
+from akshare.stock_fundamental.stock_ipo_declare import stock_ipo_declare
 
 """
 三大报表
@@ -1496,6 +1502,7 @@ from akshare.stock.stock_zh_a_new import stock_zh_a_new
 from akshare.stock_fundamental.stock_register import (
     stock_register_kcb,
     stock_register_cyb,
+    stock_register_db,
 )
 
 """
