@@ -1,11 +1,10 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/14 16:19
+Date: 2021/4/6 15:19
 Desc: 东方财富网-数据中心-新股数据-注册制审核
 http://data.eastmoney.com/kcb/?type=nsb
 """
-import demjson
 import pandas as pd
 import requests
 
@@ -17,95 +16,53 @@ def stock_register_kcb() -> pd.DataFrame:
     :return: 科创板注册制审核结果
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter.eastmoney.com/securities/api/data/get"
     params = {
-        "type": "KCB_YSB",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "st": "update_date",
-        "sr": "-1",
-        "p": "1",
-        "ps": "500",
-        "js": "var CuzkGWQs={pages:(tp),data:(x),font:(font)}",
-        "rt": "53324195",
+        'st': 'UPDATE_DATE',
+        'sr': '-1',
+        'ps': '5000',
+        'p': '1',
+        'type': 'RPT_REGISTERED_INFO',
+        'sty': 'ORG_CODE,ORG_CODE_OLD,ISSUER_NAME,CHECK_STATUS,CHECK_STATUS_CODE,REG_ADDRESS,CSRC_INDUSTRY,RECOMMEND_ORG,LAW_FIRM,ACCOUNT_FIRM,UPDATE_DATE,ACCEPT_DATE,TOLIST_MARKET,SECURITY_CODE',
+        'token': '894050c76af8597a853f5b408b759f5d',
+        'client': 'WEB',
+        'filter': '(TOLIST_MARKET="科创板")',
     }
-
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") :])
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = [
-        "_",
-        "受理日期",
-        "更新日期",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "发行人全称",
-        "_",
-        "_",
-        "审核状态",
-        "注册地",
-        "证监会行业",
-        "保荐机构",
-        "律师事务所",
-        "会计师事务所",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
-    temp_df = temp_df[
-        ["发行人全称", "审核状态", "注册地", "证监会行业", "保荐机构", "律师事务所", "会计师事务所", "更新日期", "受理日期"]
-    ]
-    return temp_df
-
-
-def stock_register_cyb() -> pd.DataFrame:
-    """
-    东方财富网-数据中心-新股数据-注册制审核-创业板
-    http://data.eastmoney.com/xg/cyb/
-    :return: 创业板注册制审核结果
-    :rtype: pandas.DataFrame
-    """
-    url = "http://datacenter.eastmoney.com/api/data/get"
-    params = {
-        "type": "RPT_GEM_REGIPO_BASICINFO",
-        "sty": "ORG_CODE,SECURITY_CODE,ISSUER_NAME,CHECK_STATUS,REG_ADDRESS,CSRC_INDUSTRY,RECOMMEND_ORG,LAW_FIRM,ACCOUNT_FIRM,UPDATE_DATE,ACCEPT_DATE,NUM",
-        "token": "894050c76af8597a853f5b408b759f5d",
-        "source": "GEMREG",
-        "client": "WEB",
-        "p": "1",
-        "ps": "5000",
-        "st": "UPDATE_DATE,ORG_CODE",
-        "sr": "-1,-1",
-        "var": "mmTmEhWD",
-        "rt": "53326609",
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'
     }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"): -1])
-    temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = [
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    page_num = data_json['result']['pages']
+    big_df = pd.DataFrame()
+    for page in range(1, page_num+1):
+        params = {
+            'st': 'UPDATE_DATE',
+            'sr': '-1',
+            'ps': '5000',
+            'p': page,
+            'type': 'RPT_REGISTERED_INFO',
+            'sty': 'ORG_CODE,ORG_CODE_OLD,ISSUER_NAME,CHECK_STATUS,CHECK_STATUS_CODE,REG_ADDRESS,CSRC_INDUSTRY,RECOMMEND_ORG,LAW_FIRM,ACCOUNT_FIRM,UPDATE_DATE,ACCEPT_DATE,TOLIST_MARKET,SECURITY_CODE',
+            'token': '894050c76af8597a853f5b408b759f5d',
+            'client': 'WEB',
+            'filter': '(TOLIST_MARKET="科创板")',
+        }
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df['index'] = range(1, len(big_df) + 1)
+    big_df.columns = [
+        "序号",
         "_",
         "_",
         "发行人全称",
         "审核状态",
+        "_",
         "注册地",
         "证监会行业",
         "保荐机构",
@@ -113,10 +70,12 @@ def stock_register_cyb() -> pd.DataFrame:
         "会计师事务所",
         "更新日期",
         "受理日期",
+        "拟上市地点",
         "_",
     ]
-    temp_df = temp_df[
+    big_df = big_df[
         [
+            "序号",
             "发行人全称",
             "审核状态",
             "注册地",
@@ -126,9 +85,92 @@ def stock_register_cyb() -> pd.DataFrame:
             "会计师事务所",
             "更新日期",
             "受理日期",
+            "拟上市地点",
         ]
     ]
-    return temp_df
+    return big_df
+
+
+def stock_register_cyb() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-新股数据-注册制审核-创业板
+    http://data.eastmoney.com/xg/cyb/
+    :return: 创业板注册制审核结果
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter.eastmoney.com/securities/api/data/get"
+    params = {
+        'st': 'UPDATE_DATE',
+        'sr': '-1',
+        'ps': '5000',
+        'p': '1',
+        'type': 'RPT_REGISTERED_INFO',
+        'sty': 'ORG_CODE,ORG_CODE_OLD,ISSUER_NAME,CHECK_STATUS,CHECK_STATUS_CODE,REG_ADDRESS,CSRC_INDUSTRY,RECOMMEND_ORG,LAW_FIRM,ACCOUNT_FIRM,UPDATE_DATE,ACCEPT_DATE,TOLIST_MARKET,SECURITY_CODE',
+        'token': '894050c76af8597a853f5b408b759f5d',
+        'client': 'WEB',
+        'filter': '(TOLIST_MARKET="创业板")',
+    }
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    page_num = data_json['result']['pages']
+    big_df = pd.DataFrame()
+    for page in range(1, page_num+1):
+        params = {
+            'st': 'UPDATE_DATE',
+            'sr': '-1',
+            'ps': '5000',
+            'p': page,
+            'type': 'RPT_REGISTERED_INFO',
+            'sty': 'ORG_CODE,ORG_CODE_OLD,ISSUER_NAME,CHECK_STATUS,CHECK_STATUS_CODE,REG_ADDRESS,CSRC_INDUSTRY,RECOMMEND_ORG,LAW_FIRM,ACCOUNT_FIRM,UPDATE_DATE,ACCEPT_DATE,TOLIST_MARKET,SECURITY_CODE',
+            'token': '894050c76af8597a853f5b408b759f5d',
+            'client': 'WEB',
+            'filter': '(TOLIST_MARKET="创业板")',
+        }
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df['index'] = range(1, len(big_df) + 1)
+    big_df.columns = [
+        "序号",
+        "_",
+        "_",
+        "发行人全称",
+        "审核状态",
+        "_",
+        "注册地",
+        "证监会行业",
+        "保荐机构",
+        "律师事务所",
+        "会计师事务所",
+        "更新日期",
+        "受理日期",
+        "拟上市地点",
+        "_",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "发行人全称",
+            "审核状态",
+            "注册地",
+            "证监会行业",
+            "保荐机构",
+            "律师事务所",
+            "会计师事务所",
+            "更新日期",
+            "受理日期",
+            "拟上市地点",
+        ]
+    ]
+    return big_df
 
 
 if __name__ == "__main__":
