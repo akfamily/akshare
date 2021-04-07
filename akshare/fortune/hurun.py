@@ -10,13 +10,13 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def hurun_rank(indicator: str = "胡润百富榜", year: str = "2019") -> pd.DataFrame:
+def hurun_rank(indicator: str = "胡润全球独角兽榜", year: str = "2020") -> pd.DataFrame:
     """
     胡润排行榜
     http://www.hurun.net/CN/HuList/Index?num=3YwKs889SRIm
-    :param indicator: choice of {"百富榜", "富豪榜", "至尚优品"}
+    :param indicator: choice of {"胡润百富榜", "胡润全球富豪榜", "胡润印度榜", "胡润全球独角兽榜", "胡润Under30s创业领袖榜", "胡润·平安中国好医生榜", "胡润中国500强民营企业", "胡润世界500强", "胡润艺术榜"}
     :type indicator: str
-    :param year: 指定年份; {"百富榜": "2015至今", "富豪榜": "2015至今", "至尚优品": "2017至今"}
+    :param year: 指定年份; {"胡润百富榜": "2019至今", "胡润全球富豪榜": "2015至今", "至尚优品": "2017至今"}
     :type year: str
     :return: 指定 indicator 和 year 的数据
     :rtype: pandas.DataFrame
@@ -40,9 +40,93 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2019") -> pd.Dat
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
+    if indicator == '胡润百富榜':
+        temp_df.columns = [
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '排名',
+            '财富',
+            '姓名',
+            '_',
+            '_',
+            '企业',
+            '_',
+            '_',
+            '_',
+            '行业',
+            '_',
+            '_',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '排名',
+            '财富',
+            '姓名',
+            '企业',
+            '行业',
+        ]]
+    elif indicator == '胡润全球独角兽榜':
+        temp_df.columns = [
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+            '排名',
+            '财富',
+            '姓名',
+            '_',
+            '_',
+            '企业',
+            '_',
+            '_',
+            '_',
+            '行业',
+            '_',
+            '_',
+        ]
+        temp_df = temp_df[[
+            '排名',
+            '财富',
+            '姓名',
+            '企业',
+            '行业',
+        ]]
     return temp_df
 
 
 if __name__ == "__main__":
-    hurun_rank_df = hurun_rank(indicator="胡润百富榜", year="2020")
+    hurun_rank_df = hurun_rank(indicator="胡润全球独角兽榜", year="2020")
     print(hurun_rank_df)
