@@ -5,7 +5,6 @@ Date: 2021/4/7 13:04
 Desc: 胡润排行榜
 http://www.hurun.net/CN/HuList/Index
 """
-import numpy as np
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
