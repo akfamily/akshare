@@ -1475,13 +1475,13 @@ print(stock_us_fundamental_df)
 
 #### 实时行情数据
 
-港股-实时行情数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk)获取的数据, 更新频率为实时, 由于新浪服务器因素**行情延时 15 分钟**
+港股-实时行情数据是从新浪财经获取的数据, 更新频率为实时, 由于新浪服务器因素行情延时 15 分钟
 
 接口: stock_hk_spot
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
 
-描述: 获取所有港股的实时行情数据(**15**分钟延时)
+描述: 获取所有港股的实时行情数据 15 分钟延时
 
 限量: 单次返回当前时间戳的所有港股的数据
 
