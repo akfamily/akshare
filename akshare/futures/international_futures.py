@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/10/21 13:22
-Desc: 提供英为财情-利率国债-全球政府债券行情与收益率
+Date: 2021/4/8 17:22
+Desc: 提供英为财情-国际大宗商品期货
+https://cn.investing.com/commodities/brent-oil-historical-data
 """
 import re
 
@@ -13,9 +14,9 @@ from bs4 import BeautifulSoup
 from akshare.index.cons import short_headers, long_headers
 
 
-def get_sector_symbol_name_url():
+def get_sector_symbol_name_url() -> dict:
     """
-    获取期货所对应板块的 URL
+    期货所对应板块的 URL
     :return: dict
     {'能源': '/commodities/energy',
     '金属': '/commodities/metals',
@@ -33,7 +34,7 @@ def get_sector_symbol_name_url():
     return name_code_map_dict
 
 
-def futures_global_commodity_name_url_map(sector="能源"):
+def futures_global_commodity_name_url_map(sector: str = "能源") -> pd.DataFrame:
     """
     参考网页: https://cn.investing.com/commodities/
     获取选择板块对应的: 具体期货品种的 url 地址
@@ -69,7 +70,7 @@ def futures_global_commodity_name_url_map(sector="能源"):
 
 
 def get_sector_futures(
-    sector="能源", symbol="WTI原油", start_date="2000/01/01", end_date="2019/10/17"
+    sector="能源", symbol="伦敦布伦特原油", start_date="2000/01/01", end_date="2019/10/17"
 ):
     """
     具体国家的具体指数的从 start_date 到 end_date 期间的数据
@@ -78,19 +79,6 @@ def get_sector_futures(
     :param start_date: str '2000/01/01', 注意格式
     :param end_date: str '2019/10/17', 注意格式
     :return: pandas.DataFrame
-        0              收盘     开盘      高      低      涨跌幅
-    日期
-    2019-10-17  59.91  58.99  60.04  58.69  269.84K
-    2019-10-16  59.42  58.90  59.75  58.36  257.88K
-    2019-10-15  58.74  59.30  59.68  58.00  305.68K
-    2019-10-14  59.35  60.69  60.73  58.50  283.07K
-    2019-10-11  60.51  59.53  60.69  59.21  367.63K
-               ...    ...    ...    ...      ...
-    2005-01-10  42.92  43.20  44.85  42.90   27.65K
-    2005-01-07  43.18  42.75  43.75  42.20   29.64K
-    2005-01-06  42.85  40.43  43.20  39.82   51.63K
-    2005-01-05  40.51  40.80  41.00  39.90   42.23K
-    2005-01-04  41.04  39.40  41.25  38.81   40.10K
     """
     name_code_dict = futures_global_commodity_name_url_map(sector)
     temp_url = f"https://cn.investing.com/{name_code_dict[symbol]}-historical-data"
@@ -113,8 +101,8 @@ def get_sector_futures(
         "action": "historical_data",
     }
     url = "https://cn.investing.com/instruments/HistoricalDataAjax"
-    res = requests.post(url, data=payload, headers=long_headers)
-    temp_df = pd.read_html(res.text)[0]
+    r = requests.post(url, data=payload, headers=long_headers)
+    temp_df = pd.read_html(r.text)[0]
     df_data = temp_df
     df_data = df_data.set_index(["日期"])
     df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
