@@ -1276,9 +1276,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.56: fix: fix index_bloomberg_billionaires interface
 0.8.57: fix: fix hurun_rank interface
 0.8.58: add: add hurun_rank interface
+0.8.59: fix: fix get_sector_futures interface
 """
 
-__version__ = "0.8.58"
+__version__ = "0.8.59"
 __author__ = "Albert King"
 
 import sys
