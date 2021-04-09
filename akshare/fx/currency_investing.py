@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/11/8 19:56
+Date: 2021/4/9 14:56
 Desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
@@ -188,7 +188,6 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     }
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
-        "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
@@ -200,10 +199,10 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    res = requests.get(url, params=params, headers=headers)
-    temp_df = pd.read_html(res.json()["HTML"])[0].iloc[:, 1:]
+    r = requests.get(url, params=params, headers=headers)
+    temp_df = pd.read_html(r.json()["HTML"])[0].iloc[:, 1:]
     temp_df.rename(columns={"名称.1": "简称"}, inplace=True)
-    temp_df["pids"] = [item[:-1] for item in res.json()["pids"]]
+    temp_df["pids"] = [item[:-1] for item in r.json()["pids"]]
     name_code_dict_one = dict(
         zip(
             temp_df["名称"].tolist(),
@@ -218,7 +217,7 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     }
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
-        "Accept-Encoding": "gzip, deflate, br",
+        # "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
@@ -230,10 +229,10 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    res = requests.get(url, params=params, headers=headers)
-    temp_df = pd.read_html(res.json()["HTML"])[0].iloc[:, 1:]
+    r = requests.get(url, params=params, headers=headers)
+    temp_df = pd.read_html(r.json()["HTML"])[0].iloc[:, 1:]
     temp_df.rename(columns={"名称.1": "简称"}, inplace=True)
-    temp_df["pids"] = [item[:-1] for item in res.json()["pids"]]
+    temp_df["pids"] = [item[:-1] for item in r.json()["pids"]]
     name_code_dict_two = dict(
         zip(
             temp_df["名称"].tolist(),
@@ -266,7 +265,7 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
         params = {"region_ID": region_id, "currency_ID": "false"}
         headers = {
             "Accept": "application/json, text/javascript, */*; q=0.01",
-            "Accept-Encoding": "gzip, deflate, br",
+            # "Accept-Encoding": "gzip, deflate, br",
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",

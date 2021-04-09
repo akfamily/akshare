@@ -1970,4 +1970,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.58: add: add hurun_rank interface
 
 0.8.59: fix: fix get_sector_futures interface
+
+0.8.60: fix: fix currency_hist interface
 ```
