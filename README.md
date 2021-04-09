@@ -121,10 +121,10 @@ Pay attention to **数据科学实战** WeChat Official Accounts to get the [AkS
     <img src="https://github.com/jindaxiang/akshare/blob/master/example/images/ds.png">
 </div>
 
-Application to add **AkShare-官方** QQ group and talk about [AkShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 512720929
+Application to add **AkShare-官方** QQ group and talk about [AkShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 328736477
 
 <div align=center>
-    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=lW9uQSc9HkKBmfRg6I25YIMjco_ZzTuN&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_512720929.png" alt="AkShare-官方" title="AkShare-官方"></a>
+    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Hf_P_qZN_iEn8V9rj67ufEWpMOpB6v7t&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_328736477.png" alt="AkShare-官方" title="AkShare-官方"></a>
 </div>
 
 ## Features
