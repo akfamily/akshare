@@ -35,9 +35,15 @@ def _get_global_index_country_name_url() -> dict:
     data_text = r.text
     soup = BeautifulSoup(data_text, "lxml")
     name_url_option_list = soup.find_all("option")[1:]
-    url_list = [item["value"] for item in name_url_option_list if "c_id" in item["value"]]
-    url_list_code = [item["value"].split("?")[1].split("=")[1] for item in name_url_option_list if "c_id" in item["value"]]
-    name_list = [item.get_text() for item in name_url_option_list][:len(url_list)]
+    url_list = [
+        item["value"] for item in name_url_option_list if "c_id" in item["value"]
+    ]
+    url_list_code = [
+        item["value"].split("?")[1].split("=")[1]
+        for item in name_url_option_list
+        if "c_id" in item["value"]
+    ]
+    name_list = [item.get_text() for item in name_url_option_list][: len(url_list)]
     _temp_df = pd.DataFrame([name_list, url_list_code]).T
     name_code_list = dict(zip(_temp_df.iloc[:, 0], _temp_df.iloc[:, 1]))
     return name_code_list
@@ -340,7 +346,7 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
         "bonds": "on",
         "additionalIndices": "on",
         "otherIndices": "on",
-        "c_id": name_code_dict[country]
+        "c_id": name_code_dict[country],
     }
     r = requests.get(url, params=params, headers=short_headers)
     data_text = r.text
@@ -373,19 +379,6 @@ def index_investing_global(
     :type end_date: str
     :return: 指定参数的数据
     :rtype: pandas.DataFrame
-    深证战略性新兴产业指数历史数据
-    0              日期        收盘        开盘         高         低     交易量   百分比变化
-    1     2019年10月16日  1,692.60  1,695.38  1,708.59  1,691.39   4.65B  -0.01%
-    2     2019年10月15日  1,692.79  1,712.84  1,712.84  1,691.32   5.41B  -1.45%
-    3     2019年10月14日  1,717.74  1,713.70  1,726.25  1,710.30   5.99B   1.30%
-    4     2019年10月11日  1,695.62  1,695.28  1,703.79  1,680.60   5.15B   0.24%
-    5     2019年10月10日  1,691.63  1,664.54  1,693.21  1,660.60   5.36B   1.68%
-               ...       ...       ...       ...       ...     ...     ...
-    1647    2013年1月7日    914.17    901.32    914.17    899.97  18.97K   1.45%
-    1648    2013年1月4日    901.11    917.44    918.90    893.13  17.70K  -1.02%
-    1649  2012年12月31日    910.43    902.72    910.43    900.62  15.90K   1.11%
-    1650  2012年12月28日    900.42    892.72    900.42    888.62  13.82K   0.88%
-    1651  2012年12月27日    892.59    901.97    905.57    891.83  17.55K  -0.76%
     """
     start_date = start_date.replace("-", "/")
     end_date = end_date.replace("-", "/")
@@ -452,7 +445,9 @@ def index_investing_global(
 
 
 if __name__ == "__main__":
-    index_investing_global_country_name_url_dict = index_investing_global_country_name_url("中国")
+    index_investing_global_country_name_url_dict = (
+        index_investing_global_country_name_url("中国")
+    )
     index_investing_global_df = index_investing_global(
         country="日本",
         index_name="富时日本指数",
