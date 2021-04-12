@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/11 15:39
+Date: 2021/4/12 15:39
 Desc: 腾讯-网易-股票-实时行情-成交明细
 成交明细-每个交易日 16:00 提供当日数据
 港股报价延时 15 分钟
@@ -70,7 +70,7 @@ def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20201111") -> 
     return temp_df
 
 
-def stock_zh_a_tick_163(code: str = "sh600848", trade_date: str = "20210128") -> pd.DataFrame:
+def stock_zh_a_tick_163(code: str = "sz002352", trade_date: str = "20210408") -> pd.DataFrame:
     """
     成交明细-每个交易日 22:00 提供当日数据
     http://quotes.money.163.com/trade/cjmx_000001.html#01b05
@@ -148,7 +148,7 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sh600848", trade_date="20210311")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz002352", trade_date="20210408")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_163_now_df = stock_zh_a_tick_163_now(code="000001")
@@ -157,7 +157,7 @@ if __name__ == "__main__":
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
     print(stock_zh_a_tick_tx_js_df)
 
-    date_list = pd.date_range(start="20201111", end="20201130").tolist()
+    date_list = pd.date_range(start="20210401", end="20210412").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
         print(item)
