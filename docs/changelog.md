@@ -1974,4 +1974,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.60: fix: fix currency_hist interface
 
 0.8.61: fix: fix stock_em_hsgt_hold_stock interface
+
+0.8.62: fix: fix stock_zh_a_tick_163 interface
 ```
