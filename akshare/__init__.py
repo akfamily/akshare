@@ -1280,9 +1280,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.60: fix: fix currency_hist interface
 0.8.61: fix: fix stock_em_hsgt_hold_stock interface
 0.8.62: fix: fix stock_zh_a_tick_163 interface
+0.8.63: fix: fix futures_zh_daily_sina interface
 """
 
-__version__ = "0.8.62"
+__version__ = "0.8.63"
 __author__ = "Albert King"
 
 import sys
@@ -1539,7 +1540,7 @@ from akshare.stock.stock_fund_hold import (
 """
 期货分钟数据
 """
-from akshare.futures.futures_zh_sina import futures_zh_minute_sina
+from akshare.futures.futures_zh_sina import futures_zh_minute_sina, futures_zh_daily_sina
 
 """
 股票财务报告预约披露
