@@ -6,6 +6,7 @@
 
 - [VN.PY](https://www.vnpy.com/)
 - [功夫量化](https://www.kungfu-trader.com/community/)
+- [Backtrader](https://www.backtrader.com/)
 
 ### 网页端
 
