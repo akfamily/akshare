@@ -18,7 +18,7 @@ import akshare as ak
 plt.rcParams["font.sans-serif"] = ["SimHei"]
 plt.rcParams["axes.unicode_minus"] = False
 
-stock_hfq_df = ak.stock_zh_a_daily(symbol="sh600000", adjust="hfq")  # 利用 AkShare 获取后复权数据
+stock_hfq_df = ak.stock_zh_a_daily(symbol="sh600000", adjust="hfq")  # 利用 AKShare 获取股票的后复权数据
 
 
 class MyStrategy(bt.Strategy):
@@ -43,9 +43,7 @@ class MyStrategy(bt.Strategy):
 
     def next(self):
         """
-
-        :return:
-        :rtype:
+        执行逻辑
         """
         if self.order:  # 检查是否有指令等待执行,
             return
