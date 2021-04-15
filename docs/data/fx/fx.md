@@ -269,7 +269,7 @@ print(currency_pair_map_df)
 
 目标地址: https://cn.investing.com/currencies/
 
-描述: 获取指定外币对指定时间的历史数据
+描述: 获取指定外币对指定时间的历史数据, 此接口需要使用代理访问
 
 限量: 单次返回指定时间的所有历史数据
 
