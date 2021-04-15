@@ -86,7 +86,10 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     url = f'http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/1/ajax/1/code/{symbol}'
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    page_num = int(soup.find_all('a', attrs={'class': 'changePage'})[-1]['page'])
+    try:
+        page_num = int(soup.find_all('a', attrs={'class': 'changePage'})[-1]['page'])
+    except IndexError as e:
+        page_num = 1
     big_df = pd.DataFrame()
     for page in tqdm(range(1, page_num+1)):
         v_code = js_code.call('v')
@@ -136,8 +139,8 @@ if __name__ == '__main__':
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
 
-    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="边缘计算")
+    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="丙烯酸")
     print(stock_board_concept_cons_ths_df)
 
-    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="阿里巴巴概念")
+    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="丙烯酸")
     print(stock_board_concept_info_ths_df)
