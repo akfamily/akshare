@@ -2149,12 +2149,13 @@ print(get_futures_daily_df)
 ```python
 import time
 import akshare as ak
+
 print("开始接收实时行情, 每秒刷新一次")
-subscribe_list = ak.hf_subscribe_exchange_symbol()
+subscribe_list = ak.hq_subscribe_exchange_symbol()
 while True:
     time.sleep(3)
-    futures_hf_spot_df = ak.futures_hf_spot(subscribe_list=subscribe_list)
-    print(futures_hf_spot_df)
+    futures_hq_spot_df = ak.futures_hq_spot(subscribe_list=subscribe_list)
+    print(futures_hq_spot_df)
 ```
 
 数据示例

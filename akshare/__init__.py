@@ -1282,9 +1282,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.62: fix: fix stock_zh_a_tick_163 interface
 0.8.63: fix: fix futures_zh_daily_sina interface
 0.8.64: fix: fix futures_inventory_em interface
+0.8.65: fix: fix futures_hq_spot_df interface
 """
 
-__version__ = "0.8.64"
+__version__ = "0.8.65"
 __author__ = "Albert King"
 
 import sys
@@ -2308,8 +2309,8 @@ from akshare.index.zh_stock_index_sina import (
 外盘期货实时行情
 """
 from akshare.futures.hf_futures_sina import (
-    futures_hf_spot,
-    hf_subscribe_exchange_symbol,
+    futures_hq_spot,
+    hq_subscribe_exchange_symbol,
 )
 
 """
