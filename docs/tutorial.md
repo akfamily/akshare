@@ -714,7 +714,8 @@
  # 业绩快报
  "stock_em_yjkb"  # 业绩快报
  # 概念板块
- "stock_board_concept_cons_ths"  # 同花顺
+ "stock_board_concept_cons_ths"  # 同花顺-成份股
+ "stock_board_concept_index_ths"  # 同花顺-指数日频数据
  # 业绩报告
  "stock_em_yjbb"  # 业绩报告
  # 三大表报

@@ -6,7 +6,9 @@ Desc: 同花顺-板块-概念板块-成份股
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
 import os
+from datetime import datetime
 
+import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -62,6 +64,25 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     url_list = [item['href'] for item in html_list]
     temp_df = pd.DataFrame([name_list, url_list], index=['name', 'url']).T
     return temp_df
+
+
+def _stock_board_concept_code_ths() -> pd.DataFrame:
+    """
+    同花顺-板块-概念板块-概念
+    http://q.10jqka.com.cn/gn/detail/code/301558/
+    :return: 所有概念板块的名称和链接
+    :rtype: pandas.DataFrame
+    """
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
+    }
+    url = 'http://q.10jqka.com.cn/gn/'
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    temp_json = demjson.decode(soup.find('input', attrs={'id': 'gnSection'})['value'])
+    temp_df = pd.DataFrame(temp_json).T
+    temp_map = dict(zip(temp_df['platename'], temp_df['platecode']))
+    return temp_map
 
 
 def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataFrame:
@@ -135,6 +156,60 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     return temp_df
 
 
+def stock_board_concept_index_ths(symbol: str = "丙烯酸") -> pd.DataFrame:
+    """
+    同花顺-板块-概念板块-指数数据
+    http://q.10jqka.com.cn/gn/detail/code/301558/
+    :param symbol: 板块简介
+    :type symbol: str
+    :return: 板块简介
+    :rtype: pandas.DataFrame
+    """
+    code_map = _stock_board_concept_code_ths()
+    symbol_code = code_map[symbol]
+    big_df = pd.DataFrame()
+    current_year = datetime.now().year
+    for year in tqdm(range(2000, current_year+1)):
+        url = f'http://d.10jqka.com.cn/v4/line/bk_{symbol_code}/01/{year}.js'
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+            'Referer': 'http://q.10jqka.com.cn',
+            'Host': 'd.10jqka.com.cn'
+        }
+        r = requests.get(url, headers=headers)
+        data_text = r.text
+        if len(data_text) < 10:
+            continue
+        temp_df = demjson.decode(data_text[data_text.find('{'):-1])
+        temp_df = pd.DataFrame(temp_df['data'].split(';'))
+        temp_df = temp_df.iloc[:, 0].str.split(',', expand=True)
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [
+        '日期',
+        '开盘价',
+        '最高价',
+        '最低价',
+        '收盘价',
+        '成交量',
+        '成交额',
+        '_',
+        '_',
+        '_',
+        '_',
+    ]
+    big_df = big_df[[
+        '日期',
+        '开盘价',
+        '最高价',
+        '最低价',
+        '收盘价',
+        '成交量',
+        '成交额',
+    ]]
+    big_df['日期'] = pd.to_datetime(big_df['日期'])
+    return big_df
+
+
 if __name__ == '__main__':
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
@@ -144,3 +219,6 @@ if __name__ == '__main__':
 
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="丙烯酸")
     print(stock_board_concept_info_ths_df)
+
+    stock_board_concept_index_ths_df = stock_board_concept_index_ths(symbol="丙烯酸")
+    print(stock_board_concept_index_ths_df)
