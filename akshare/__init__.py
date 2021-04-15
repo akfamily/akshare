@@ -1287,9 +1287,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.67: fix: fix requirements.txt interface
 0.8.68: fix: fix bond_investing_global interface
 0.8.69: fix: fix stock_board_concept_cons_ths interface
+0.8.70: add: add stock_board_concept_index_ths interface
 """
 
-__version__ = "0.8.69"
+__version__ = "0.8.70"
 __author__ = "Albert King"
 
 import sys
@@ -1318,7 +1319,7 @@ from akshare.stock_feature.stock_em_yjbb import stock_em_yjbb
 """
 同花顺-概念板块
 """
-from akshare.stock_feature.stock_board_ths import stock_board_concept_cons_ths, stock_board_concept_name_ths, stock_board_concept_info_ths
+from akshare.stock_feature.stock_board_ths import stock_board_concept_cons_ths, stock_board_concept_name_ths, stock_board_concept_info_ths, stock_board_concept_index_ths
 
 """
 分红配送
