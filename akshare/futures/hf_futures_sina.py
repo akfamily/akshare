@@ -12,9 +12,9 @@ import pandas as pd
 import requests
 
 from akshare.futures.cons import (
-    hf_subscribe_exchange_symbol_url,
-    hf_subscribe_url,
-    hf_subscribe_headers,
+    hq_subscribe_exchange_symbol_url,
+    hq_subscribe_url,
+    hq_subscribe_headers,
     # hf_sina_spot_headers,
 )
 
@@ -35,12 +35,12 @@ def _get_real_name_list():
     return name_list
 
 
-def hf_subscribe_exchange_symbol():
+def hq_subscribe_exchange_symbol():
     """
     获取具体的量价数据
     """
     # res = requests.get(hf_subscribe_exchange_symbol_url, headers=hf_sina_spot_headers)
-    res = requests.get(hf_subscribe_exchange_symbol_url)
+    res = requests.get(hq_subscribe_exchange_symbol_url)
     res.encoding = "gb2312"
     data_json = demjson.decode(
         res.text[res.text.find("var oHF_1 = ") + 12: res.text.find("var oHF_2 = ") - 2]
@@ -48,14 +48,14 @@ def hf_subscribe_exchange_symbol():
     return list(data_json.keys())
 
 
-def futures_hf_spot(subscribe_list=['CT', 'NID', 'PBD', 'SND', 'ZSD', 'AHD', 'CAD', 'S', 'W', 'C', 'BO', 'SM', 'TRB', 'HG', 'NG', 'CL', 'SI', 'GC', 'LHC', 'OIL', 'XAU', 'XAG', 'XPT', 'XPD']):
+def futures_hq_spot(subscribe_list=['CT', 'NID', 'PBD', 'SND', 'ZSD', 'AHD', 'CAD', 'S', 'W', 'C', 'BO', 'SM', 'TRB', 'HG', 'NG', 'CL', 'SI', 'GC', 'LHC', 'OIL', 'XAU', 'XAG', 'XPT', 'XPD']):
     """
     订阅数据处理
     """
     payload = "&list=" + ",".join(["hf_" + item for item in subscribe_list])
     prefix = f"rn={round(time.time() * 1000)}"
     res = requests.get(
-        hf_subscribe_url + prefix + payload, headers=hf_subscribe_headers
+        hq_subscribe_url + prefix + payload, headers=hq_subscribe_headers
     )
     data_df = pd.DataFrame(
         [
@@ -130,8 +130,8 @@ def futures_hf_spot(subscribe_list=['CT', 'NID', 'PBD', 'SND', 'ZSD', 'AHD', 'CA
 
 if __name__ == "__main__":
     print("开始接收实时行情, 每秒刷新一次")
-    subscribes = hf_subscribe_exchange_symbol()
+    subscribes = hq_subscribe_exchange_symbol()
     while True:
-        data = futures_hf_spot(subscribe_list=subscribes)
+        data = futures_hq_spot(subscribe_list=subscribes)
         print(data)
         time.sleep(3)

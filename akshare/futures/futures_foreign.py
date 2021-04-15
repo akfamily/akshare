@@ -10,7 +10,7 @@ from datetime import datetime
 import pandas as pd
 import requests
 
-from akshare.futures.hf_futures_sina import hf_subscribe_exchange_symbol
+from akshare.futures.hf_futures_sina import hq_subscribe_exchange_symbol
 
 
 def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
@@ -50,7 +50,7 @@ def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    subscribes = hf_subscribe_exchange_symbol()
+    subscribes = hq_subscribe_exchange_symbol()
     for item in subscribes:
         futures_foreign_hist_df = futures_foreign_hist(symbol="ZSD")
         print(futures_foreign_hist_df)

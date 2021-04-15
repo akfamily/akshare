@@ -11,9 +11,9 @@ import pickle
 import re
 
 # hf_sina_spot
-hf_subscribe_exchange_symbol_url = "http://finance.sina.com.cn/money/future/hf.html"
-hf_subscribe_url = "http://hq.sinajs.cn/"
-hf_subscribe_headers = {
+hq_subscribe_exchange_symbol_url = "http://finance.sina.com.cn/money/future/hf.html"
+hq_subscribe_url = "http://hq.sinajs.cn/"
+hq_subscribe_headers = {
     "Accept": "*/*",
     "Accept-Encoding": "gzip, deflate",
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
@@ -25,7 +25,7 @@ hf_subscribe_headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
 }
 
-hf_sina_spot_headers = {
+hq_sina_spot_headers = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
     "Accept-Encoding": "gzip, deflate",
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",

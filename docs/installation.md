@@ -121,9 +121,9 @@ node 可用
 
 代表 Node.js 已经成功安装，并且正常运行。
 
-## 升级 [AkShare](https://github.com/jindaxiang/akshare)
+## 升级 [AKShare](https://github.com/jindaxiang/akshare)
 
-P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
+P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
 
 ```
 pip install akshare --upgrade
@@ -135,7 +135,7 @@ pip install akshare --upgrade
 
 [下载 Windows 64 位 Python 3.8 的 Anaconda](https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe)
 
-[安装教程参见 AkShare 文档的环境配置专栏](https://www.akshare.xyz/zh_CN/latest/anaconda.html)
+[安装教程参见 AKShare 文档的环境配置专栏](https://www.akshare.xyz/zh_CN/latest/anaconda.html)
 
 ### 安装 R 语言
 
@@ -143,7 +143,7 @@ pip install akshare --upgrade
 
 [下载 RStudio](https://download1.rstudio.org/desktop/windows/RStudio-1.3.959.exe)
 
-先安装 R，再安装 RStudio，按一下步安装即可。
+先安装 R，再安装 RStudio，选择默认步骤安装即可。
 
 ### 在 R 语言中安装相应的包
 
@@ -162,7 +162,7 @@ use_python("/usr/local/bin/python")
 
 调用本地的 Python 程序，其中 usr 需要替换为本地电脑的用户名。
 
-最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 AkShare 获取数据：
+最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 [AKShare](https://github.com/jindaxiang/akshare) 获取数据：
 
 ```
 library(reticulate)  # 导入 reticulate 包
@@ -270,4 +270,4 @@ pip install akshare --user
 ### 4. 提示其他的错误
 
 - 方法一: 确认并升级您的 Anaconda 或者 Python 到 64 位的 **Python3.7** 及以上版本
-- 方法二: 使用 conda 的虚拟环境来安装, 详见 **AkShare 环境配置** 板块的内容
+- 方法二: 使用 conda 的虚拟环境来安装, 详见 **[AKShare](https://github.com/jindaxiang/akshare) 环境配置** 板块的内容
