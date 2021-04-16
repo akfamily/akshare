@@ -1288,9 +1288,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.68: fix: fix bond_investing_global interface
 0.8.69: fix: fix stock_board_concept_cons_ths interface
 0.8.70: add: add stock_board_concept_index_ths interface
+0.8.71: fix: fix remove obor fold
 """
 
-__version__ = "0.8.70"
+__version__ = "0.8.71"
 __author__ = "Albert King"
 
 import sys
