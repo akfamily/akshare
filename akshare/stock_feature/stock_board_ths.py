@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/18 16:48
+Date: 2021/4/16 16:48
 Desc: 同花顺-板块-概念板块-成份股
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
@@ -178,7 +178,9 @@ def stock_board_concept_index_ths(symbol: str = "丙烯酸") -> pd.DataFrame:
         }
         r = requests.get(url, headers=headers)
         data_text = r.text
-        if len(data_text) < 10:
+        try:
+            demjson.decode(data_text[data_text.find('{'):-1])
+        except:
             continue
         temp_df = demjson.decode(data_text[data_text.find('{'):-1])
         temp_df = pd.DataFrame(temp_df['data'].split(';'))
