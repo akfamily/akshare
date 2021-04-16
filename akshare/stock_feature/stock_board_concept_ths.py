@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Date: 2021/4/16 16:48
-Desc: 同花顺-板块-概念板块-成份股
+Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
 import os

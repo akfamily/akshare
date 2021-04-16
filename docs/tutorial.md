@@ -724,6 +724,9 @@
  "stock_em_xjll"  # 三大表报-现金流量表
  # 首发企业申报
  "stock_ipo_declare"  # 首发企业申报
+  # 行业板块
+ "stock_board_industry_cons_ths"  # 同花顺-成份股
+ "stock_board_industry_index_ths"  # 同花顺-指数日频数据
 ```
 
 ## 案例演示
