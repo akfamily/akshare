@@ -1290,9 +1290,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.70: add: add stock_board_concept_index_ths interface
 0.8.71: fix: fix remove obor fold
 0.8.72: fix: fix stock_board_concept_index_ths interface
+0.8.73: add: add stock_board_industry_index_ths interface
 """
 
-__version__ = "0.8.72"
+__version__ = "0.8.73"
 __author__ = "Albert King"
 
 import sys
@@ -1319,9 +1320,14 @@ from akshare.stock_feature.stock_em_report import stock_em_zcfz, stock_em_lrb, s
 from akshare.stock_feature.stock_em_yjbb import stock_em_yjbb
 
 """
+同花顺-行业板块
+"""
+from akshare.stock_feature.stock_board_industry_ths import stock_board_industry_cons_ths, stock_board_industry_name_ths, stock_board_concept_info_ths_df, stock_board_concept_index_ths_df
+
+"""
 同花顺-概念板块
 """
-from akshare.stock_feature.stock_board_ths import stock_board_concept_cons_ths, stock_board_concept_name_ths, stock_board_concept_info_ths, stock_board_concept_index_ths
+from akshare.stock_feature.stock_board_concept_ths import stock_board_concept_cons_ths, stock_board_concept_name_ths, stock_board_concept_info_ths, stock_board_concept_index_ths
 
 """
 分红配送
