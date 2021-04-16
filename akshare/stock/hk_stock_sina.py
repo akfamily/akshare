@@ -22,9 +22,10 @@ from akshare.stock.cons import (
 
 def stock_hk_spot() -> pd.DataFrame:
     """
-    从新浪财经-港股获取所有港股的实时行情数据
+    新浪财经-港股的所有港股的实时行情数据
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
-    :return: pandas.DataFrame
+    :return: 实时行情数据
+    :rtype: pandas.DataFrame
     """
     res = requests.get(hk_sina_stock_list_url, params=hk_sina_stock_dict_payload)
     data_json = [
