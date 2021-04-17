@@ -1293,9 +1293,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.73: add: add stock_board_industry_index_ths interface
 0.8.74: fix: fix test interface
 0.8.75: fix: fix stock_board_industry_index_ths interface
+0.8.76: add: add stock_notice_report interface
 """
 
-__version__ = "0.8.75"
+__version__ = "0.8.76"
 __author__ = "Albert King"
 
 import sys
@@ -1305,6 +1306,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+沪深A股公告
+"""
+from akshare.stock_fundamental.stock_notice import stock_notice_report
 
 """
 首发企业申报
