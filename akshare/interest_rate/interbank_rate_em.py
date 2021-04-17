@@ -73,6 +73,11 @@ def rate_interbank(market: str = "上海银行同业拆借市场", symbol: str =
             res = requests.get(need_url, headers=headers)
             table = pd.read_html(res.text)[0]
             temp_df = temp_df.append(table, ignore_index=True)
+        temp_df.columns = [
+            '日期',
+            '利率',
+            '涨跌',
+        ]
         return temp_df
     else:
         for page in tqdm(range(1, int(need_page) + 1)):
@@ -82,6 +87,11 @@ def rate_interbank(market: str = "上海银行同业拆借市场", symbol: str =
             res = requests.get(need_url, headers=headers)
             table = pd.read_html(res.text)[0]
             temp_df = temp_df.append(table, ignore_index=True)
+        temp_df.columns = [
+            '日期',
+            '利率',
+            '涨跌',
+        ]
         return temp_df
 
 

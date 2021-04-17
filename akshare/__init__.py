@@ -1294,9 +1294,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.74: fix: fix test interface
 0.8.75: fix: fix stock_board_industry_index_ths interface
 0.8.76: add: add stock_notice_report interface
+0.8.77: fix: fix rate_interbank interface
 """
 
-__version__ = "0.8.76"
+__version__ = "0.8.77"
 __author__ = "Albert King"
 
 import sys
