@@ -2006,4 +2006,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.76: add: add stock_notice_report interface
 
 0.8.77: fix: fix rate_interbank interface
+
+0.8.78: fix: fix stock_board_concept_index_ths interface
 ```
