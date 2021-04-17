@@ -76,12 +76,13 @@ def _stock_board_concept_code_ths() -> pd.DataFrame:
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
     }
-    url = 'http://q.10jqka.com.cn/gn/'
+    url = 'http://q.10jqka.com.cn/gn/detail/code/302045/'
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    temp_json = demjson.decode(soup.find('input', attrs={'id': 'gnSection'})['value'])
-    temp_df = pd.DataFrame(temp_json).T
-    temp_map = dict(zip(temp_df['platename'], temp_df['platecode']))
+    html_list = soup.find('div', attrs={'class': 'cate_inner'}).find_all('a')
+    name_list = [item.text for item in html_list]
+    url_list = [item['href'].split('code/')[1].strip('/') for item in html_list]
+    temp_map = dict(zip(name_list, url_list))
     return temp_map
 
 
@@ -156,7 +157,7 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     return temp_df
 
 
-def stock_board_concept_index_ths(symbol: str = "丙烯酸") -> pd.DataFrame:
+def stock_board_concept_index_ths(symbol: str = "安防") -> pd.DataFrame:
     """
     同花顺-板块-概念板块-指数数据
     http://q.10jqka.com.cn/gn/detail/code/301558/
@@ -166,7 +167,13 @@ def stock_board_concept_index_ths(symbol: str = "丙烯酸") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     code_map = _stock_board_concept_code_ths()
-    symbol_code = code_map[symbol]
+    symbol_url = f'http://q.10jqka.com.cn/gn/detail/code/{code_map[symbol]}/'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+    }
+    r = requests.get(symbol_url, headers=headers)
+    soup = BeautifulSoup(r.text, 'lxml')
+    symbol_code = soup.find('div', attrs={'class': 'board-hq'}).find('span').text
     big_df = pd.DataFrame()
     current_year = datetime.now().year
     for year in tqdm(range(2000, current_year+1)):
@@ -222,5 +229,5 @@ if __name__ == '__main__':
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="丙烯酸")
     print(stock_board_concept_info_ths_df)
 
-    stock_board_concept_index_ths_df = stock_board_concept_index_ths(symbol="丙烯酸")
+    stock_board_concept_index_ths_df = stock_board_concept_index_ths(symbol="阿里巴巴概念")
     print(stock_board_concept_index_ths_df)
