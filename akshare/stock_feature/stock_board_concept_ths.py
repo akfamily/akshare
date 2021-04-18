@@ -229,5 +229,5 @@ if __name__ == '__main__':
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="丙烯酸")
     print(stock_board_concept_info_ths_df)
 
-    stock_board_concept_index_ths_df = stock_board_concept_index_ths(symbol="阿里巴巴概念")
+    stock_board_concept_index_ths_df = stock_board_concept_index_ths(symbol="一带一路")
     print(stock_board_concept_index_ths_df)
