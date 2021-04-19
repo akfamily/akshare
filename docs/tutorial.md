@@ -724,9 +724,13 @@
  "stock_em_xjll"  # 三大表报-现金流量表
  # 首发企业申报
  "stock_ipo_declare"  # 首发企业申报
-  # 行业板块
+ # 行业板块
  "stock_board_industry_cons_ths"  # 同花顺-成份股
  "stock_board_industry_index_ths"  # 同花顺-指数日频数据
+ # 营业部
+ "stock_lh_yyb_most"  # 营业部排名-上榜次数最多
+ "stock_lh_yyb_capital"  # 营业部排名-资金实力最强
+ "stock_lh_yyb_control"  # 营业部排名-抱团操作实力
 ```
 
 ## 案例演示

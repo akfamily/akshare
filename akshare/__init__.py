@@ -1296,9 +1296,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.76: add: add stock_notice_report interface
 0.8.77: fix: fix rate_interbank interface
 0.8.78: fix: fix stock_board_concept_index_ths interface
+0.8.79: add: add stock_lh_yyb_most, stock_lh_yyb_capital, stock_lh_yyb_control interface
 """
 
-__version__ = "0.8.78"
+__version__ = "0.8.79"
 __author__ = "Albert King"
 
 import sys
@@ -1308,6 +1309,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+营业部排行
+"""
+from akshare.stock_feature.stock_lh_yybpm import stock_lh_yyb_capital, stock_lh_yyb_most, stock_lh_yyb_control
 
 """
 沪深A股公告
