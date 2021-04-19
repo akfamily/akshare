@@ -1,6 +1,6 @@
 # [AKShare](https://github.com/jindaxiang/akshare) 概览
 
-**风险提示：[AKShare](https://github.com/jindaxiang/akshare) 项目所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
+**风险提示：[AKShare](https://github.com/jindaxiang/akshare) 开源财经数据接口库所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
 同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
 
 1. 本文档更新于 **2021-04-19**;
@@ -43,13 +43,13 @@
 
 [AKShare](https://github.com/jindaxiang/akshare) 的特点是获取的是相对权威的财经数据网站公布的原始数据, 通过利用原始数据进行各数据源之间的交叉验证, 进而再加工, 从而得出科学的结论.
 
-**[AKShare](https://github.com/jindaxiang/akshare) 后续会基于学术论文和金融工程研究报告来添加更多数据接口和衍生指标并提供相应的计算代码, 敬请关注.**
+**[AKShare](https://github.com/jindaxiang/akshare) 后续会基于学术论文和研究报告来添加更多数据接口和衍生指标，并提供相应的计算代码，敬请关注。**
 
 ## [AKShare](https://github.com/jindaxiang/akshare) 的特色
 
 [AKShare](https://github.com/jindaxiang/akshare) 主要改进如下:
 
-1. 代码语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008/) 规范, 数据接口的命名统一;
+1. 代码语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008) 规范, 数据接口的命名统一;
 2. 最佳支持 Python 3.7.5 及其以上版本;
 3. 提供最佳的文档支持, 每个数据接口提供详细的说明和示例, 只需要复制粘贴就可以下载数据;
 4. 持续维护由于目标网页变化而导致的部分数据接口运行异常问题;
@@ -214,5 +214,6 @@
 
 ## [AKShare](https://github.com/jindaxiang/akshare) 的初衷
 
-[AKShare](https://github.com/jindaxiang/akshare) 主要是用于财经研究, 解决在财经研究中数据获取困难的问题。传统的 CTA 策略以趋势为主, 但是自从 2017 年以来, 无论是长线还是短线的趋势策略都受制于商品波动率的降低, 面临了多多少少的回撤, 
-同时市场也逐渐趋于机构化理性化, 因此在传统 CTA 策略的基础上加入基本面的因素显得迫在眉睫. 近几年各券商的研报陆续提出了许多依赖于趋势行情以外的有效信号, 它们的表现都与趋势策略有着很低的甚至负的相关性, 这样通过多种不同类型的信号对冲得到的策略, 就有机会在市场上取得非常棒的夏普率和稳定的收益. 
+[AKShare](https://github.com/jindaxiang/akshare) 主要是用于财经研究，解决在财经研究中数据获取的问题。目前的版本主要是基于 Python 语言，通过调用相关的
+数据接口来获取数据到本地。原理上，就是在用户本地运行 Python 代码，实时从网络采集数据到本地，便利与数据分析。由于网络数据采集需要维护的接口众多，且经常由于目标网站变换
+网页格式需要维护及更新相关接口，所以用户在使用本项目的过程中需要经常更新本项目到最新版本。同时也需要关注项目文档的更新，因为最新的使用方式和接口变更都会第一时间更新到文档中。
