@@ -18,7 +18,7 @@ def stock_notice_report() -> pd.DataFrame:
     """
     url = "http://np-anotice-stock.eastmoney.com/api/security/ann"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 100)):
+    for page in tqdm(range(1, 1000)):
         params = {
             "sr": "-1",
             "page_size": "100",
