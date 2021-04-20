@@ -111,3 +111,108 @@ print(crypto_hist_df)
 2015-10-21  0.00460  0.00480  0.00480  0.00460  9.100000e+02 -0.0417
 2015-10-20  0.00480  0.00508  0.00508  0.00453  9.000000e+01 -0.0553
 ```
+
+### 持仓报告
+
+#### 比特币持仓报告
+
+接口: crypto_bitcoin_hold_report
+
+目标地址: https://datacenter.jin10.com/dc_report?name=bitcoint
+
+描述: 获取比特币持仓报告
+
+限量: 单次返回当前时点的比特币持仓报告数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| 无 | 无 | 无 | 无 |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 代码      | str   | Y        | 日期时间-索引  |
+| 公司名称-英文      | float   | Y        | -   |
+| 公司名称-中文      | str   | Y        | -  |
+| 国家/地区      | float   | Y        | -   |
+| 市值      | str   | Y        | - |
+| 比特币占市值比重      | float   | Y        | 注意单位: %    |
+| 持仓成本      | str   | Y        |  - |
+| 持仓占比      | float   | Y        | 注意单位: %  |
+| 持仓量      | str   | Y        | -  |
+| 当日持仓市值      | str   | Y        | -  |
+| 查询日期      | str   | Y        | -  |
+| 公告链接      | str   | Y        | -  |
+| 分类      | str   | Y        | -  |
+| 倍数      | str   | Y        | -  |
+
+接口示例
+
+```python
+import akshare as ak
+crypto_bitcoin_hold_report_df = ak.crypto_bitcoin_hold_report()
+print(crypto_bitcoin_hold_report_df)
+```
+
+数据示例
+
+```
+               代码                           公司名称-英文  ...      分类   倍数
+0       NADQ:MSTR                MicroStrategy inc.  ...    公开交易  2.2
+1       NADQ:TSLA                       Tesla, Inc.  ...    公开交易  1.7
+2         NADQ:SQ                       Square inc.  ...    公开交易  2.0
+3       NADQ:MARA         Marathon Digital Holdings  ...    公开交易  1.7
+4       NADQ:COIN             Coinbase Global, Inc.  ...    公开交易    1
+5        TSE:GLXY           Galaxy Digital Holdings  ...    公开交易    1
+6          ADE.DE                  Bitcoin Group SE  ...    公开交易    1
+7       TSX:Hut-8                 Hut 8 Mining Corp  ...    公开交易  4.4
+8        CSE:VYGR               Voyager Digital LTD  ...    公开交易  8.4
+9       NADQ:RIOT             Riot Blockchain, Inc.  ...    公开交易  8.8
+10        AKER:NO                         Seetee AS  ...    公开交易  1.1
+11      SEHK:1357                             Meitu  ...    公开交易  1.0
+12    OTCPK:ARBKF               Argo Blockchain PLC  ...    公开交易    1
+13   OTCMKTS:CCTL                  Coin Citadel Inc  ...    公开交易  149
+14      NADQ:BTBT                 Bit Digital, Inc.  ...    公开交易    1
+15       CSE:BITF                  Bitfarms Limited  ...    公开交易  1.7
+16       CSE:HODL          Cypherpunk Holdings Inc.  ...    公开交易    3
+17       CVE:HIVE                   Hive Blockchain  ...    公开交易    1
+18      CNSX:BIGG          BIGG Digital Assets Inc.  ...    公开交易  6.0
+19         ABT:GR  Advanced Bitcoin Technologies AG  ...    公开交易  6.4
+20     TSX-V:DMGI     DMG Blockchain Solutions Inc.  ...    公开交易    1
+21        ASX:DCC                          DigitalX  ...    公开交易   13
+22    TSXV:DGHI.V          Digihost Technology Inc.  ...    公开交易  1.4
+23      TSXV:FORT               Fortress Blockchain  ...    公开交易    1
+24  OTCMKTS:BNXAF                Banxa Holdings Inc  ...    公开交易    1
+25       LON:MODE              Mode Global Holdings  ...    公开交易    5
+26      TSXV:DASH         Neptune Dash Technologies  ...    公开交易    1
+27     OTCQB:BTCS                         BTCS Inc.  ...    公开交易    1
+28   OTCMKTS:FRMO                        FRMO Corp.  ...    公开交易    1
+29      NADQ:MOGO                    MOGO Financing  ...    公开交易    1
+30       NYSE:BLK                         BlackRock  ...    公开交易    1
+31      IST:NETHL        Net Holding Anonim Sirketi  ...    公开交易  1.9
+32           None                        MTGOX K.K.  ...      私募  111
+33           None                         Block.one  ...      私募    1
+34           None              The Tezos Foundation  ...      私募    1
+35           None        Stone Ridge Holdings Group  ...      私募  4.8
+36            gov                 Ukraine (various)  ...  政府人员持仓    1
+37     OTCQX:GBTC           Grayscale Bitcoin Trust  ...   ETF相关  1.0
+38     COINXBT:SS         CoinShares / XBT Provider  ...   ETF相关  4.9
+39       LON:RICA     Ruffer Investment Company Ltd  ...   ETF相关  3.2
+40     TSX:QBTC.U              3iQ The Bitcoin Fund  ...   ETF相关    1
+41        BTCE:GR             ETC Group Bitcoin ETP  ...   ETF相关    1
+42  TSX:BTCC(U/B)              Purpose Bitcoin  ETF  ...   ETF相关    1
+43     OTCQX:BITW      Bitwise 10 Crypto Index Fund  ...   ETF相关    1
+44       multiple                       21Shares AG  ...   ETF相关    1
+45   OTCMKTS:GDLC  Grayscale Digital Large Cap Fund  ...   ETF相关    1
+46        BTCW:SW                WisdomTree Bitcoin  ...   ETF相关    1
+47     TSX:BITC.U           Ninepoint Bitcoin Trust  ...   ETF相关  1.7
+48     TSX:BTCG.U            CI Galaxy Bitcoin Fund  ...   ETF相关    1
+49     XETRA:VBTC        VanEck Vectors Bitcoin ETN  ...   ETF相关    1
+50         UBTCTQ       Leonteq Bitcoin Tracker USD  ...   ETF相关    1
+51           OBTC              Osprey Bitcoin Trust  ...   ETF相关    1
+52      TSX: EBIT               Evolve Bitcoin  ETF  ...   ETF相关    1
+53      NADQ:PHUN                    Phunware, Inc.  ...    公开交易    1
+```
