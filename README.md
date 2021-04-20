@@ -39,7 +39,7 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 
 ### PR
 
-Please check out [documentation](https://www.akshare.xyz/zh_CN/latest/contributor.html) if you want to contribute to AkShare
+Please check out [documentation](https://www.akshare.xyz/zh_CN/latest/contributor.html) if you want to contribute to AKShare
 
 ### Docker
 
@@ -115,16 +115,16 @@ Output
 
 ## Communication
 
-Pay attention to **数据科学实战** WeChat Official Accounts to get the [AkShare](https://github.com/jindaxiang/akshare) updated info:
+Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/jindaxiang/akshare) updated info:
 
 <div align=center>
     <img src="https://github.com/jindaxiang/akshare/blob/master/example/images/ds.png">
 </div>
 
-Application to add **AkShare-官方** QQ group and talk about [AkShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 328736477
+Application to add **AKShare-官方** QQ group and talk about [AKShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 328736477
 
 <div align=center>
-    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Hf_P_qZN_iEn8V9rj67ufEWpMOpB6v7t&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_328736477.png" alt="AkShare-官方" title="AkShare-官方"></a>
+    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Hf_P_qZN_iEn8V9rj67ufEWpMOpB6v7t&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_328736477.png" alt="AKShare-官方" title="AKShare-官方"></a>
 </div>
 
 ## Features
@@ -143,7 +143,7 @@ Application to add **AkShare-官方** QQ group and talk about [AkShare](https://
 
 ## Contribution
 
-[AkShare](https://github.com/jindaxiang/akshare) is still under developing, feel free to open issues and pull requests:
+[AKShare](https://github.com/jindaxiang/akshare) is still under developing, feel free to open issues and pull requests:
 
 - Report or fix bugs
 - Require or publish interface
@@ -154,17 +154,17 @@ Application to add **AkShare-官方** QQ group and talk about [AkShare](https://
 
 ## Statement
 
-1. All data provided by [AkShare](https://github.com/jindaxiang/akshare) is just for academic research purpose;
+1. All data provided by [AKShare](https://github.com/jindaxiang/akshare) is just for academic research purpose;
 
-2. The data provided by [AkShare](https://github.com/jindaxiang/akshare) is for reference only and does not constitute any investment proposal;
+2. The data provided by [AKShare](https://github.com/jindaxiang/akshare) is for reference only and does not constitute any investment proposal;
 
-3. Any investor based on [AkShare](https://github.com/jindaxiang/akshare) research should pay more attention to data risk;
+3. Any investor based on [AKShare](https://github.com/jindaxiang/akshare) research should pay more attention to data risk;
 
-4. [AkShare](https://github.com/jindaxiang/akshare) will insist on providing open-source financial data;
+4. [AKShare](https://github.com/jindaxiang/akshare) will insist on providing open-source financial data;
 
-5. Based on some uncontrollable factors, some data interfaces in [AkShare](https://github.com/jindaxiang/akshare) may be removed;
+5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/jindaxiang/akshare) may be removed;
 
-6. Please follow the relevant open-source protocol used by [AkShare](https://github.com/jindaxiang/akshare)
+6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/jindaxiang/akshare)
 
 ## Show your style
 
@@ -192,7 +192,7 @@ Please use this **bibtex** if you want to cite this repository in your publicati
 ```
 @misc{akshare,
     author = {Albert King},
-    title = {AkShare},
+    title = {AKShare},
     year = {2019},
     publisher = {GitHub},
     journal = {GitHub repository},
