@@ -731,6 +731,8 @@
  "stock_lh_yyb_most"  # 营业部排名-上榜次数最多
  "stock_lh_yyb_capital"  # 营业部排名-资金实力最强
  "stock_lh_yyb_control"  # 营业部排名-抱团操作实力
+ # 比特比持仓
+ "crypto_bitcoin_hold_report"  # 比特比持仓
 ```
 
 ## 案例演示
