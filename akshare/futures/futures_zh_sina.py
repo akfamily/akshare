@@ -430,18 +430,18 @@ if __name__ == "__main__":
     shfe_text = match_main_contract(exchange="shfe")
 
     while True:
-        time.sleep(3)
         data = futures_zh_spot(
             subscribe_list=",".join([dce_text, czce_text, shfe_text]),
             market="CF",
             adjust=True,
         )
         print(data)
+        time.sleep(3)
 
     # 金融期货单独订阅
     cffex_text = match_main_contract(exchange="cffex")
 
     while True:
-        time.sleep(3)
         data = futures_zh_spot(subscribe_list=cffex_text, market="FF")
         print(data)
+        time.sleep(3)
