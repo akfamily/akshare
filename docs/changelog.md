@@ -2016,4 +2016,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.81: add: add crypto_bitcoin_hold_report interface
 
 0.8.82: fix: fix energy_carbon_hb interface
+
+0.8.83: fix: fix get_czce_daily interface
 ```
