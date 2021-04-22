@@ -1300,9 +1300,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.80: fix: fix stock_em_yjkb interface
 0.8.81: add: add crypto_bitcoin_hold_report interface
 0.8.82: fix: fix energy_carbon_hb interface
+0.8.83: fix: fix get_czce_daily interface
 """
 
-__version__ = "0.8.82"
+__version__ = "0.8.83"
 __author__ = "Albert King"
 
 import sys

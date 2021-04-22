@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/18 13:58
+Date: 2021/4/22 13:58
 Desc: 交易所网站获取期货日线行情
 """
 import datetime
@@ -158,7 +158,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         ]
 
         if day > datetime.date(2015, 9, 19):
-            if html[1][0] not in ["品种月份", "品种代码"]:
+            if html[1][0] not in ["品种月份", "品种代码", "合约代码"]:
                 return
             dict_data = list()
             day_const = int(day.strftime("%Y%m%d"))
@@ -168,7 +168,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
                     continue
                 row_dict = {"date": day_const, "symbol": row[0], "variety": m.group(1)}
                 for i, field in enumerate(listed_columns):
-                    if row[i + 1] == "\r":
+                    if row[i + 1] == "\r" or row[i + 1] == '':
                         row_dict[field] = 0.0
                     elif field in [
                         "volume",
@@ -503,5 +503,5 @@ if __name__ == "__main__":
     get_ine_daily_df = get_ine_daily(date="20210111")
     print(get_ine_daily_df)
 
-    get_czce_daily_df = get_czce_daily(date="20210201")
+    get_czce_daily_df = get_czce_daily(date="20210416")
     print(get_czce_daily_df)
