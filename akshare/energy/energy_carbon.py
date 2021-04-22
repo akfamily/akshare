@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/21 16:55
+Date: 2021/4/22 16:05
 Desc: 碳排放交易
 北京市碳排放权电子交易平台-北京市碳排放权公开交易行情
 https://www.bjets.com.cn/article/jyxx/
@@ -18,6 +18,8 @@ http://www.cerx.cn/dailynewsOuter/index.htm
 广州碳排放权交易中心-行情信息
 http://www.cnemission.com/article/hqxx/
 """
+import re
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -91,19 +93,23 @@ def energy_carbon_eu():
 def energy_carbon_hb():
     """
     湖北碳排放权交易中心-现货交易数据-配额-每日概况
-    http://www.cerx.cn/dailynewsOuter/index.htm
+    http://www.hbets.cn/list/13.html?page=42
     :return: 现货交易数据-配额-每日概况行情数据
     :rtype: pandas.DataFrame
     """
-    url = "http://www.hbets.cn/index.php/index-show-tid-13.html?&p=1"
+    url = "http://www.hbets.cn/list/13.html"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    columns = [item.text for item in soup.find(attrs={"class": "title"})]
-    page_num = int(soup.find(attrs={"class": "page"}).text.split("/")[1].strip("共").strip("页"))
+    page_string = soup.find('div', attrs={'class': 'page'}).find_all('span')[-1].text
+    page_num = int(re.findall(r'\d+', page_string)[-1])
+    columns = [item.text for item in soup.find('ul', attrs={"class": "title"}).find_all('li')]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, page_num+1), desc="Please wait for a moment"):
-        url = f"http://www.hbets.cn/index.php/index-show-tid-13.html?&p={page}"
-        r = requests.get(url)
+        url = f"http://www.hbets.cn/list/13.html"
+        params = {
+            'page': page
+        }
+        r = requests.get(url, params=params)
         soup = BeautifulSoup(r.text, "lxml")
         page_node = [item for item in soup.find(attrs={"class": "future_table"}).find_all(attrs={"class": "cont"})]
         temp_list = []
