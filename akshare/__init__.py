@@ -1299,9 +1299,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.79: add: add stock_lh_yyb_most, stock_lh_yyb_capital, stock_lh_yyb_control interface
 0.8.80: fix: fix stock_em_yjkb interface
 0.8.81: add: add crypto_bitcoin_hold_report interface
+0.8.82: fix: fix energy_carbon_hb interface
 """
 
-__version__ = "0.8.81"
+__version__ = "0.8.82"
 __author__ = "Albert King"
 
 import sys
