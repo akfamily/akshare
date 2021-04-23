@@ -1303,9 +1303,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.83: fix: fix get_czce_daily interface
 0.8.84: fix: fix amac_fund_abs interface
 0.8.85: fix: fix rename amac_person_org_list to amac_person_fund_org_list interface
+0.8.86: add: add amac_person_bond_org_list interface
 """
 
-__version__ = "0.8.85"
+__version__ = "0.8.86"
 __author__ = "Albert King"
 
 import sys
