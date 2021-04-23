@@ -1,5 +1,5 @@
 """
-Date: 2020/10/18 19:54
+Date: 2021/4/23 16:28
 Desc: 获取中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版: http://gs.amac.org.cn
 中国证券投资基金业协会-旧版: http://www1.amac.org.cn/
@@ -410,39 +410,49 @@ def amac_fund_account_info() -> pd.DataFrame:
 # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
 def amac_fund_abs() -> pd.DataFrame:
     """
-    中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
-    http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
-    :return: 资产支持专项计划
+    中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划公示信息
+    https://gs.amac.org.cn/amac-infodisc/res/fund/abs/index.html
+    :return: 资产支持专项计划公示信息
     :rtype: pandas.DataFrame
     """
     print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
+    url = 'https://gs.amac.org.cn/amac-infodisc/api/fund/abs'
+    params = {
+        'rand': '0.45416112116335716',
+        'pageNo': '0',
+        'pageSize': '5000',
     }
-    data = requests.post(url=amac_fund_abs_url, data=amac_fund_abs_payload, headers=headers)
-    need_data = data.json()["result"]
-    keys_list = [
-        "ASPI_BA_NUMBER",
-        "ASPI_NAME",
-        "ASPI_GL_NAME",
-        "AII_TGR",
-        "AT_AUDIT_DATE",
-        "ASPI_SURE_FILE_NAME",
-        "ASPI_SURE_FILE_PATH",
-    ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
-    manager_data_out = manager_data_out[keys_list]
-    manager_data_out.columns = [
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["content"])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.columns = [
+        "编号",
+        "_",
+        "_",
+        "专项计划全称",
+        "备案编号",
+        "管理人",
+        "托管人",
+        "备案通过时间",
+        "成立日期",
+        "预期到期时间",
+    ]
+    temp_df["备案通过时间"] = pd.to_datetime(temp_df["备案通过时间"], unit='ms').dt.date
+    temp_df["成立日期"] = pd.to_datetime(temp_df["成立日期"], unit='ms').dt.date
+    temp_df["预期到期时间"] = pd.to_datetime(temp_df["预期到期时间"], unit='ms').dt.date
+    temp_df = temp_df[[
+        "编号",
         "备案编号",
         "专项计划全称",
         "管理人",
         "托管人",
+        "成立日期",
+        "预期到期时间",
         "备案通过时间",
-        "备案函名称",
-        "备案函下载地址",
-    ]
-    manager_data_out["备案通过时间"] = pd.to_datetime(manager_data_out["备案通过时间"])
-    return manager_data_out
+    ]]
+    return temp_df
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
@@ -561,7 +571,8 @@ if __name__ == "__main__":
     print(amac_fund_account_info_df)
     # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
     amac_fund_abs_df = amac_fund_abs()
-    print(amac_fund_abs_df)
+    print(amac_fund_abs_df.info())
+
     # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
     amac_futures_info_df = amac_futures_info()
     print(amac_futures_info_df)
