@@ -61,7 +61,7 @@ print(amac_member_info_df)
 
 ##### 基金从业人员资格注册信息
 
-接口: amac_person_org_list
+接口: amac_person_fund_org_list
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
 
@@ -90,8 +90,8 @@ print(amac_member_info_df)
 
 ```python
 import akshare as ak
-amac_person_org_list_df = ak.amac_person_org_list()
-print(amac_person_org_list_df)
+amac_person_fund_org_list_df = ak.amac_person_fund_org_list()
+print(amac_person_fund_org_list_df)
 ```
 
 数据示例
@@ -109,6 +109,56 @@ print(amac_person_org_list_df)
 23770                  遵义市鑫财基金投资管理有限公司     5       5         0     0     0
 23771  Deutsche Bank (China) Co., Ltd.     3       3         0     0     0
 23772       The Northern Trust Company     1       1         0     0     0
+```
+
+##### 债券投资交易相关人员公示
+
+接口: amac_person_bond_org_list
+
+目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
+
+描述: 获取中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
+
+限量: 单次返回当前时刻所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述 |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |   - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 序号      | str   | Y        | -  |
+| 机构类型      | str   | Y        | -   |
+| 机构名称      | str   | Y        | -   |
+| 公示网址      | str   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+amac_person_bond_org_list_df = ak.amac_person_bond_org_list()
+print(amac_person_bond_org_list_df)
+```
+
+数据示例
+
+```
+      序号  ...                                               公示网址
+0      1  ...  http://www.jxfunds.com.cn/front/common_100362....
+1      2  ...  http://www.pyamc.com/upload/user/1/2021-4-21/1...
+2      3  ...  http://www.cib-fund.com.cn/contents/2019/9/24-...
+3      4  ...  http://www.chinaamc.com/guanyu/gonggao/index.s...
+4      5  ...       http://www.jsfund.cn/AboutHarvest/zqry.shtml
+..   ...  ...                                                ...
+267  268  ...                                     www.tfzqam.com
+268  269  ...  https://www.tebon.com.cn/main/a/20201210/18545...
+269  270  ...  http://fund.piccamc.com/pc/newsInfo/articleInf...
+270  271  ...  https://www.tkfunds.com.cn/aboutus/bondstaff/i...
+271  272  ...         http://www.ebscn.com/gdzb/views/index.html
 ```
 
 #### 私募基金管理人公示
