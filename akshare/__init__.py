@@ -1318,12 +1318,12 @@ if sys.version_info < (3, 7):
 del sys
 
 """
-比特比持仓
+比特币持仓
 """
 from akshare.crypto.crypto_hold import crypto_bitcoin_hold_report
 
 """
-营业部排行
+证券交易营业部排行
 """
 from akshare.stock_feature.stock_lh_yybpm import stock_lh_yyb_capital, stock_lh_yyb_most, stock_lh_yyb_control
 
