@@ -2024,4 +2024,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.85: fix: fix rename amac_person_org_list to amac_person_fund_org_list interface
 
 0.8.86: add: add amac_person_bond_org_list interface
+
+0.8.87: add: add stock_fund_flow_concept interface
 ```

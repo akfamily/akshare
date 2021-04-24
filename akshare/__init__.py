@@ -1304,9 +1304,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.84: fix: fix amac_fund_abs interface
 0.8.85: fix: fix rename amac_person_org_list to amac_person_fund_org_list interface
 0.8.86: add: add amac_person_bond_org_list interface
+0.8.87: add: add stock_fund_flow_concept interface
 """
 
-__version__ = "0.8.86"
+__version__ = "0.8.87"
 __author__ = "Albert King"
 
 import sys
@@ -1318,12 +1319,17 @@ if sys.version_info < (3, 7):
 del sys
 
 """
-比特比持仓
+同花顺-数据中心-资金流向-概念资金流
+"""
+from akshare.stock_feature.stock_fund_flow import stock_fund_flow_concept, stock_fund_flow_industry
+
+"""
+比特币持仓
 """
 from akshare.crypto.crypto_hold import crypto_bitcoin_hold_report
 
 """
-营业部排行
+证券交易营业部排行
 """
 from akshare.stock_feature.stock_lh_yybpm import stock_lh_yyb_capital, stock_lh_yyb_most, stock_lh_yyb_control
 
