@@ -2030,4 +2030,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.88: add: add stock_fund_flow_industry interface
 
 0.8.89: add: add stock_fund_flow_individual interface
+
+0.8.90: add: add stock_fund_flow_big_deal interface
 ```
