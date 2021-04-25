@@ -1306,9 +1306,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.86: add: add amac_person_bond_org_list interface
 0.8.87: add: add stock_fund_flow_concept interface
 0.8.88: add: add stock_fund_flow_industry interface
+0.8.89: add: add stock_fund_flow_individual interface
 """
 
-__version__ = "0.8.88"
+__version__ = "0.8.89"
 __author__ = "Albert King"
 
 import sys
@@ -1322,7 +1323,12 @@ del sys
 """
 同花顺-数据中心-资金流向-概念资金流
 """
-from akshare.stock_feature.stock_fund_flow import stock_fund_flow_concept, stock_fund_flow_industry
+from akshare.stock_feature.stock_fund_flow import (
+    stock_fund_flow_concept,
+    stock_fund_flow_industry,
+    stock_fund_flow_big_deal,
+    stock_fund_flow_individual,
+)
 
 """
 比特币持仓
@@ -1332,7 +1338,11 @@ from akshare.crypto.crypto_hold import crypto_bitcoin_hold_report
 """
 证券交易营业部排行
 """
-from akshare.stock_feature.stock_lh_yybpm import stock_lh_yyb_capital, stock_lh_yyb_most, stock_lh_yyb_control
+from akshare.stock_feature.stock_lh_yybpm import (
+    stock_lh_yyb_capital,
+    stock_lh_yyb_most,
+    stock_lh_yyb_control,
+)
 
 """
 沪深A股公告
@@ -1347,7 +1357,11 @@ from akshare.stock_fundamental.stock_ipo_declare import stock_ipo_declare
 """
 三大报表
 """
-from akshare.stock_feature.stock_em_report import stock_em_zcfz, stock_em_lrb, stock_em_xjll
+from akshare.stock_feature.stock_em_report import (
+    stock_em_zcfz,
+    stock_em_lrb,
+    stock_em_xjll,
+)
 
 """
 业绩报告
@@ -1357,12 +1371,22 @@ from akshare.stock_feature.stock_em_yjbb import stock_em_yjbb
 """
 同花顺-行业板块
 """
-from akshare.stock_feature.stock_board_industry_ths import stock_board_industry_cons_ths, stock_board_industry_name_ths, stock_board_industry_info_ths, stock_board_industry_index_ths
+from akshare.stock_feature.stock_board_industry_ths import (
+    stock_board_industry_cons_ths,
+    stock_board_industry_name_ths,
+    stock_board_industry_info_ths,
+    stock_board_industry_index_ths,
+)
 
 """
 同花顺-概念板块
 """
-from akshare.stock_feature.stock_board_concept_ths import stock_board_concept_cons_ths, stock_board_concept_name_ths, stock_board_concept_info_ths, stock_board_concept_index_ths
+from akshare.stock_feature.stock_board_concept_ths import (
+    stock_board_concept_cons_ths,
+    stock_board_concept_name_ths,
+    stock_board_concept_info_ths,
+    stock_board_concept_index_ths,
+)
 
 """
 分红配送
@@ -1387,12 +1411,20 @@ from akshare.fund.fund_manager import fund_manager
 """
 基金评级
 """
-from akshare.fund.fund_rating import fund_rating_sh, fund_rating_zs, fund_rating_ja, fund_rating_all
+from akshare.fund.fund_rating import (
+    fund_rating_sh,
+    fund_rating_zs,
+    fund_rating_ja,
+    fund_rating_all,
+)
 
 """
 融资融券数据
 """
-from akshare.stock_feature.stock_sse_margin import stock_margin_detail_sse, stock_margin_sse
+from akshare.stock_feature.stock_sse_margin import (
+    stock_margin_detail_sse,
+    stock_margin_sse,
+)
 
 """
 期货交割和期转现
@@ -1405,7 +1437,7 @@ from akshare.futures.futures_to_spot import (
     futures_delivery_shfe,
     futures_delivery_czce,
     futures_delivery_match_dce,
-    futures_delivery_match_czce
+    futures_delivery_match_czce,
 )
 
 """
@@ -1590,7 +1622,10 @@ from akshare.stock.stock_fund_hold import (
 """
 期货分钟数据
 """
-from akshare.futures.futures_zh_sina import futures_zh_minute_sina, futures_zh_daily_sina
+from akshare.futures.futures_zh_sina import (
+    futures_zh_minute_sina,
+    futures_zh_daily_sina,
+)
 
 """
 股票财务报告预约披露
@@ -1657,7 +1692,11 @@ from akshare.stock.stock_js_us import stock_js_price
 """
 stock-summary
 """
-from akshare.stock.stock_summary import stock_sse_summary, stock_szse_summary, stock_sse_deal_daily
+from akshare.stock.stock_summary import (
+    stock_sse_summary,
+    stock_szse_summary,
+    stock_sse_deal_daily,
+)
 
 """
 股票-机构推荐池
@@ -1738,7 +1777,11 @@ from akshare.hf.hf_sp500 import hf_sp_500
 """
 stock_em_yjyg
 """
-from akshare.stock_feature.stock_em_yjyg import stock_em_yjyg, stock_em_yysj, stock_em_yjkb
+from akshare.stock_feature.stock_em_yjyg import (
+    stock_em_yjyg,
+    stock_em_yysj,
+    stock_em_yjkb,
+)
 
 """
 stock

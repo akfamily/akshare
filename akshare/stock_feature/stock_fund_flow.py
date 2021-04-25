@@ -1,12 +1,16 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/24 21:13
+Date: 2021/4/25 15:13
 Desc: 同花顺-数据中心-资金流向
-同花顺-数据中心-资金流向-行业资金流
-http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
+同花顺-数据中心-资金流向-个股资金流
+http://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
 同花顺-数据中心-资金流向-概念资金流
 http://data.10jqka.com.cn/funds/gnzjl/#refCountId=data_55f13c2c_254
+同花顺-数据中心-资金流向-行业资金流
+http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
+同花顺-数据中心-资金流向-打单追踪
+http://data.10jqka.com.cn/funds/ddzz/#refCountId=data_55f13c2c_254
 """
 import os
 
@@ -46,27 +50,27 @@ def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
     return file_data
 
 
-def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
+def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     """
-    同花顺-数据中心-资金流向-行业资金流
-    http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
+    同花顺-数据中心-资金流向-个股资金流
+    http://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
     :param symbol: choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"}
     :type symbol: str
-    :return: 行业资金流
+    :return: 个股资金流
     :rtype: pandas.DataFrame
     """
     if symbol == "3日排行":
-        url = "http://data.10jqka.com.cn/funds/hyzjl/board/3/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+        url = "http://data.10jqka.com.cn/funds/ggzjl/board/3/field/zdf/order/desc/page/{}/ajax/1/free/1/"
     elif symbol == "5日排行":
-        url = "http://data.10jqka.com.cn/funds/hyzjl/board/5/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+        url = "http://data.10jqka.com.cn/funds/ggzjl/board/5/field/zdf/order/desc/page/{}/ajax/1/free/1/"
     elif symbol == "10日排行":
-        url = "http://data.10jqka.com.cn/funds/hyzjl/board/10/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+        url = "http://data.10jqka.com.cn/funds/ggzjl/board/10/field/zdf/order/desc/page/{}/ajax/1/free/1/"
     elif symbol == "20日排行":
-        url = "http://data.10jqka.com.cn/funds/hyzjl/board/20/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+        url = "http://data.10jqka.com.cn/funds/ggzjl/board/20/field/zdf/order/desc/page/{}/ajax/1/free/1/"
     else:
-        url = "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+        url = "http://data.10jqka.com.cn/funds/ggzjl/field/zdf/order/desc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 3)):
+    for page in tqdm(range(1, 85)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
@@ -93,27 +97,26 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
     if symbol == "即时":
         big_df.columns = [
             "序号",
-            "行业",
-            "行业指数",
+            "股票代码",
+            "股票简称",
+            "最新价",
             "涨跌幅",
+            "换手率",
             "流入资金",
             "流出资金",
             "净额",
-            "公司家数",
-            "领涨股",
-            "涨跌幅",
-            "当前价",
+            "成交额",
+            "大单流入",
         ]
     else:
         big_df.columns = [
             "序号",
-            "行业",
-            "公司家数",
-            "行业指数",
+            "股票代码",
+            "股票简称",
+            "最新价",
             "阶段涨跌幅",
-            "流入资金",
-            "流出资金",
-            "净额",
+            "连续换手率",
+            "资金流入净额",
         ]
     return big_df
 
@@ -191,7 +194,158 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
     return big_df
 
 
+def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
+    """
+    同花顺-数据中心-资金流向-行业资金流
+    http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
+    :param symbol: choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"}
+    :type symbol: str
+    :return: 行业资金流
+    :rtype: pandas.DataFrame
+    """
+    if symbol == "3日排行":
+        url = "http://data.10jqka.com.cn/funds/hyzjl/board/3/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+    elif symbol == "5日排行":
+        url = "http://data.10jqka.com.cn/funds/hyzjl/board/5/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+    elif symbol == "10日排行":
+        url = "http://data.10jqka.com.cn/funds/hyzjl/board/10/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+    elif symbol == "20日排行":
+        url = "http://data.10jqka.com.cn/funds/hyzjl/board/20/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+    else:
+        url = "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, 3)):
+        js_code = py_mini_racer.MiniRacer()
+        js_content = _get_file_content_ths("ths.js")
+        js_code.eval(js_content)
+        v_code = js_code.call("v")
+        headers = {
+            "Accept": "text/html, */*; q=0.01",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "hexin-v": v_code,
+            "Host": "data.10jqka.com.cn",
+            "Pragma": "no-cache",
+            "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+            "X-Requested-With": "XMLHttpRequest",
+        }
+        r = requests.get(url.format(page), headers=headers)
+        temp_df = pd.read_html(r.text)[0]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    del big_df["序号"]
+    big_df.reset_index(inplace=True)
+    big_df["index"] = range(1, len(big_df) + 1)
+    if symbol == "即时":
+        big_df.columns = [
+            "序号",
+            "行业",
+            "行业指数",
+            "涨跌幅",
+            "流入资金",
+            "流出资金",
+            "净额",
+            "公司家数",
+            "领涨股",
+            "涨跌幅",
+            "当前价",
+        ]
+    else:
+        big_df.columns = [
+            "序号",
+            "行业",
+            "公司家数",
+            "行业指数",
+            "阶段涨跌幅",
+            "流入资金",
+            "流出资金",
+            "净额",
+        ]
+    return big_df
+
+
+def stock_fund_flow_big_deal() -> pd.DataFrame:
+    """
+    同花顺-数据中心-资金流向-大单追踪
+    http://data.10jqka.com.cn/funds/ddzz/###
+    :return: 大单追踪
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.10jqka.com.cn/funds/ddzz/order/asc/page/{}/ajax/1/free/1/"
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, 101)):
+        js_code = py_mini_racer.MiniRacer()
+        js_content = _get_file_content_ths("ths.js")
+        js_code.eval(js_content)
+        v_code = js_code.call("v")
+        headers = {
+            "Accept": "text/html, */*; q=0.01",
+            "Accept-Encoding": "gzip, deflate",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "hexin-v": v_code,
+            "Host": "data.10jqka.com.cn",
+            "Pragma": "no-cache",
+            "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+            "X-Requested-With": "XMLHttpRequest",
+        }
+        r = requests.get(url.format(page), headers=headers)
+        temp_df = pd.read_html(r.text)[0]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [
+        "成交时间",
+        "股票代码",
+        "股票简称",
+        "成交价格",
+        "成交量",
+        "成交额",
+        "大单性质",
+        "涨跌幅",
+        "涨跌额",
+        "详细",
+    ]
+    del big_df["详细"]
+    return big_df
+
+
 if __name__ == "__main__":
+    # 同花顺-数据中心-资金流向-个股资金流
+    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="即时")
+    print(stock_fund_flow_individual_df)
+
+    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="3日排行")
+    print(stock_fund_flow_individual_df)
+
+    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="5日排行")
+    print(stock_fund_flow_individual_df)
+
+    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="10日排行")
+    print(stock_fund_flow_individual_df)
+
+    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="20日排行")
+    print(stock_fund_flow_individual_df)
+
+    # 同花顺-数据中心-资金流向-概念资金流
+    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="即时")
+    print(stock_fund_flow_concept_df)
+
+    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="3日排行")
+    print(stock_fund_flow_concept_df)
+
+    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="5日排行")
+    print(stock_fund_flow_concept_df)
+
+    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="10日排行")
+    print(stock_fund_flow_concept_df)
+
+    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="20日排行")
+    print(stock_fund_flow_concept_df)
+
+    # 同花顺-数据中心-资金流向-行业资金流
     stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="即时")
     print(stock_fund_flow_industry_df)
 
@@ -207,17 +361,6 @@ if __name__ == "__main__":
     stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="20日排行")
     print(stock_fund_flow_industry_df)
 
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="即时")
-    print(stock_fund_flow_concept_df)
-
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="3日排行")
-    print(stock_fund_flow_concept_df)
-
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="5日排行")
-    print(stock_fund_flow_concept_df)
-
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="10日排行")
-    print(stock_fund_flow_concept_df)
-
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="20日排行")
-    print(stock_fund_flow_concept_df)
+    # 同花顺-数据中心-资金流向-打单追踪
+    stock_fund_flow_big_deal_df = stock_fund_flow_big_deal()
+    print(stock_fund_flow_big_deal_df)

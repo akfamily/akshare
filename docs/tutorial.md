@@ -735,8 +735,10 @@
  # 比特比持仓
  "crypto_bitcoin_hold_report"  # 比特比持仓
  # 同花顺-数据中心-资金流向
+ "stock_fund_flow_individual"  # 同花顺-数据中心-资金流向-个股资金流
  "stock_fund_flow_industry"  # 同花顺-数据中心-资金流向-行业资金流
  "stock_fund_flow_concept"  # 同花顺-数据中心-资金流向-概念资金流
+ "stock_fund_flow_big_deal"  # 同花顺-数据中心-资金流向-大单追踪
 ```
 
 ## 案例演示
