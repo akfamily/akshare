@@ -1308,9 +1308,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.88: add: add stock_fund_flow_industry interface
 0.8.89: add: add stock_fund_flow_individual interface
 0.8.90: add: add stock_fund_flow_big_deal interface
+0.8.91: add: add stock_em_ggcg interface
 """
 
-__version__ = "0.8.90"
+__version__ = "0.8.91"
 __author__ = "Albert King"
 
 import sys
@@ -1320,6 +1321,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+高管持股
+"""
+from akshare.stock_feature.stock_em_gdzjc import stock_em_ggcg
 
 """
 同花顺-数据中心-资金流向-概念资金流
