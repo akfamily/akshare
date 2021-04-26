@@ -739,6 +739,8 @@
  "stock_fund_flow_industry"  # 同花顺-数据中心-资金流向-行业资金流
  "stock_fund_flow_concept"  # 同花顺-数据中心-资金流向-概念资金流
  "stock_fund_flow_big_deal"  # 同花顺-数据中心-资金流向-大单追踪
+ # 高管持股
+ "stock_em_ggcg"  # 高管持股
 ```
 
 ## 案例演示
