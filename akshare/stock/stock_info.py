@@ -3,7 +3,6 @@
 """
 Date: 2020/12/28 16:31
 Desc: 股票基本信息
-# TODO xlrd 支持库后面需要移除
 """
 import json
 from io import BytesIO
