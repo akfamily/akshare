@@ -2035,7 +2035,9 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.91: add: add stock_em_ggcg interface
 
-0.8.92: add: add stock_zh_a_daily interface
+0.8.92: fix: fix stock_zh_a_daily interface
 
-0.8.93: add: add bond_spot_deal interface
+0.8.93: fix: fix bond_spot_deal interface
+
+0.8.94: fix: fix stock_us_daily interface
 ```
