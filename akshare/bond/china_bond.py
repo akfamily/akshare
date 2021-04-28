@@ -81,11 +81,11 @@ def bond_spot_deal() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
-        "_",
+        "债券简称",
         "成交净价",
         "涨跌",
         "_",
-        "债券简称",
+        "_",
         "_",
         "_",
         "交易量",
