@@ -494,7 +494,7 @@ if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(start_date='20210111 ', end_date='20210115', market="INE", index_bar=True)
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20210201")
+    get_dce_daily_df = get_dce_daily(date="20210427")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20101101")
