@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/24 20:54
+Date: 2021/4/28 20:54
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
@@ -81,11 +81,11 @@ def bond_spot_deal() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
-        "_",
+        "债券简称",
         "成交净价",
         "涨跌",
         "_",
-        "债券简称",
+        "_",
         "_",
         "_",
         "交易量",
