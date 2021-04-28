@@ -12,7 +12,7 @@ import json
 import time
 
 import demjson
-import jsonpath  # 读取深层嵌套 Json 的内容
+import jsonpath
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
