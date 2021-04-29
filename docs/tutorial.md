@@ -741,6 +741,8 @@
  "stock_fund_flow_big_deal"  # 同花顺-数据中心-资金流向-大单追踪
  # 高管持股
  "stock_em_ggcg"  # 高管持股
+ # 新发基金
+ "fund_em_new_found"  # 新发基金
 ```
 
 ## 案例演示

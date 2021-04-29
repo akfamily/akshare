@@ -1312,9 +1312,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.92: fix: fix stock_zh_a_daily interface
 0.8.93: fix: fix bond_spot_deal interface
 0.8.94: fix: fix stock_us_daily interface
+0.8.95: add: add fund_em_new_found interface
 """
 
-__version__ = "0.8.94"
+__version__ = "0.8.95"
 __author__ = "Albert King"
 
 import sys
@@ -1324,6 +1325,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+新发基金
+"""
+from akshare.fund.fund_em_init import fund_em_new_found
 
 """
 高管持股
