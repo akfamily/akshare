@@ -291,7 +291,7 @@ def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     return data
 
 
-def get_czce_rank_table(date="20201026", vars_list=cons.contract_symbols):
+def get_czce_rank_table(date="20210428", vars_list=cons.contract_symbols):
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
@@ -324,7 +324,7 @@ def get_czce_rank_table(date="20201026", vars_list=cons.contract_symbols):
         r = requests.get(url)
         temp_df = pd.read_excel(BytesIO(r.content))
 
-    temp_pinzhong_index = [item + 1 for item in temp_df[temp_df.iloc[:, 0].str.contains("合计")].index.to_list()]
+    temp_pinzhong_index = [item + 1 for item in temp_df[temp_df.iloc[:, 0].str.contains("合计", na=False)].index.to_list()]
     temp_pinzhong_index.insert(0, 0)
     temp_pinzhong_index.pop()
     temp_symbol_index = temp_df.iloc[temp_pinzhong_index, 0].str.split(" ", expand=True).iloc[:, 0]
