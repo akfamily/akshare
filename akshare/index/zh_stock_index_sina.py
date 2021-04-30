@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/2/23 20:28
+Date: 2021/4/30 16:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
@@ -117,6 +117,7 @@ def stock_zh_index_spot() -> pd.DataFrame:
 def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     """
     新浪财经-指数-历史行情数据, 大量抓取容易封IP
+    https://finance.sina.com.cn/realstock/company/sh000909/nc.shtml
     :param symbol: sz399998, 指定指数代码
     :type symbol: str
     :return: 历史行情数据
@@ -255,7 +256,7 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sh000909")
+    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sz399005")
     print(stock_zh_index_daily_df)
 
     stock_zh_index_spot_df = stock_zh_index_spot()
