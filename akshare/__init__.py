@@ -1314,9 +1314,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.94: fix: fix stock_us_daily interface
 0.8.95: add: add fund_em_new_found interface
 0.8.96: fix: fix get_czce_rank_table interface
+0.8.97: add: add stock_wc_hot_top interface
 """
 
-__version__ = "0.8.96"
+__version__ = "0.8.97"
 __author__ = "Albert King"
 
 import sys
@@ -1326,6 +1327,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+热门股票
+"""
+from akshare.stock.stock_wencai import stock_wc_hot_top
 
 """
 新发基金
