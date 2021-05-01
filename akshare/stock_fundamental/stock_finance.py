@@ -337,7 +337,7 @@ if __name__ == '__main__':
     stock_financial_abstract_df = stock_financial_abstract(stock="600004")
     print(stock_financial_abstract_df)
 
-    stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(stock="600004")
+    stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(stock="002230")
     print(stock_financial_analysis_indicator_df)
 
     stock_history_dividend_df = stock_history_dividend()

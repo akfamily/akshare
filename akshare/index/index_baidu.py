@@ -205,7 +205,7 @@ def baidu_media_index(word: str = "口罩", start_date: str = "2018-01-01", end_
 
 
 if __name__ == "__main__":
-    cookie = ''
+    cookie = ""
     data = baidu_search_index(
         word="python", start_date="2020-01-01", end_date="2020-09-14", cookie=cookie
     )
