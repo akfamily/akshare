@@ -3045,13 +3045,15 @@ date
 
 ### CFMMC指数
 
+警告：目前由于指数转移到中证商品指数有限责任公司管理，目前尚未发布指数，本接口待网站更新后再行维护
+
 接口: futures_index_cfmmc
 
 目标地址: http://index.cfmmc.com/index/views/index.html
 
 描述: 获取中国期货市场监控中心-各类指数数据
 
-限量: 单次返回指定 **index_name** 的数据
+限量: 单次返回指定 index_name 的数据
 
 输入参数
 
