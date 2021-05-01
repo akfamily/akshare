@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/1/4 19:51
+Date: 2021/5/1 19:51
 Desc: 义乌小商品指数
 http://www.ywindex.com/Home/Product/index/
 """
@@ -10,11 +10,11 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def index_yw(symbol="月景气指数"):
+def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
     """
-    获取义乌小商品指数
+    义乌小商品指数
     http://www.ywindex.com/Home/Product/index/
-    :param symbol: 指数指标:["周价格指数", "月价格指数", "月景气指数"]
+    :param symbol: choice of {"周价格指数", "月价格指数", "月景气指数"}
     :type symbol: str
     :return: 指数结果
     :rtype: pandas.DataFrame
@@ -51,5 +51,11 @@ def index_yw(symbol="月景气指数"):
 
 
 if __name__ == "__main__":
+    index_yw_df = index_yw(symbol="周价格指数")
+    print(index_yw_df)
+
+    index_yw_df = index_yw(symbol="月价格指数")
+    print(index_yw_df)
+
     index_yw_df = index_yw(symbol="月景气指数")
     print(index_yw_df)
