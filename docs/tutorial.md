@@ -743,6 +743,8 @@
  "stock_em_ggcg"  # 高管持股
  # 新发基金
  "fund_em_new_found"  # 新发基金
+ # 柯桥指数
+ "index_kq"  # 柯桥指数
 ```
 
 ## 案例演示
