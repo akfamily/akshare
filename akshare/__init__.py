@@ -1316,9 +1316,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.96: fix: fix get_czce_rank_table interface
 0.8.97: add: add stock_wc_hot_top interface
 0.8.98: add: add index_kq interface
+0.8.99: fix: fix stock_individual_fund_flow_rank interface
 """
 
-__version__ = "0.8.98"
+__version__ = "0.8.99"
 __author__ = "Albert King"
 
 import sys
