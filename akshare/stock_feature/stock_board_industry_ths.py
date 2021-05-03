@@ -227,3 +227,8 @@ if __name__ == '__main__':
 
     stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="半导体及元件")
     print(stock_board_industry_index_ths_df)
+
+    for item in stock_board_industry_name_ths_df['name']:
+        print(item)
+        stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol=item)
+        print(stock_board_industry_index_ths_df)
