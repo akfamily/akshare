@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/11 14:12
+Date: 2021/5/4 15:12
 Desc: 东方财富网-数据中心-研究报告-盈利预测
 http://data.eastmoney.com/report/profitforecast.jshtml
 """
+from datetime import datetime
+
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -18,13 +20,15 @@ def stock_profit_forecast():
     :rtype: pandas.DataFrame
     """
     url = "http://reportapi.eastmoney.com/report/predic"
+    date_now = datetime.now().date().isoformat()
+    date_previous = date_now.replace(date_now[:4], str(int(date_now[:4])-2))
     params = {
         'dyCode': '*',
         'pageNo': '1',
         'pageSize': '100',
         'fields': '',
-        'beginTime': '2019-03-10',
-        'endTime': '2021-03-10',
+        'beginTime': date_previous,
+        'endTime': date_now,
         'hyCode': '*',
         'gnCode': '*',
         'marketCode': '*',
@@ -43,8 +47,8 @@ def stock_profit_forecast():
             'pageNo': page,
             'pageSize': '100',
             'fields': '',
-            'beginTime': '2019-03-10',
-            'endTime': '2021-03-10',
+            'beginTime': date_previous,
+            'endTime': date_now,
             'hyCode': '*',
             'gnCode': '*',
             'marketCode': '*',
@@ -73,17 +77,17 @@ def stock_profit_forecast():
         '_',
         '_',
         '_',
-        '2020预测每股收益',
+        f'{int(date_previous[:4])+2}预测每股收益',
         '_',
         '_',
-        '2021预测每股收益',
+        f'{int(date_previous[:4])+3}预测每股收益',
+        f'{int(date_previous[:4])+4}预测每股收益',
         '_',
         '_',
         '_',
         '_',
         '_',
-        '_',
-        '2019预测每股收益',
+        f'{int(date_previous[:4])+1}预测每股收益',
         '_',
         '_',
         '_',
@@ -123,9 +127,10 @@ def stock_profit_forecast():
         '机构投资评级(近六个月)-中性',
         '机构投资评级(近六个月)-减持',
         '机构投资评级(近六个月)-卖出',
-        '2019预测每股收益',
-        '2020预测每股收益',
-        '2021预测每股收益',
+        f'{int(date_previous[:4])+1}预测每股收益',
+        f'{int(date_previous[:4])+2}预测每股收益',
+        f'{int(date_previous[:4])+3}预测每股收益',
+        f'{int(date_previous[:4])+4}预测每股收益',
     ]]
     return big_df
 
