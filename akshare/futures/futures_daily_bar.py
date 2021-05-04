@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/22 13:58
+Date: 2021/5/4 15:58
 Desc: 交易所网站获取期货日线行情
 """
 import datetime
@@ -76,7 +76,7 @@ def get_cffex_daily(date="20100401"):
     return data_df
 
 
-def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
+def get_ine_daily(date: str = "20210421") -> pd.DataFrame:
     """
     上海国际能源交易中心-日频率-量价数据
     上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
@@ -100,8 +100,8 @@ def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
         return None
     temp_df = pd.DataFrame(data_json["o_curinstrument"]).iloc[:-1, :]
     temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
-
-    result_df["symbol"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0] + temp_df["DELIVERYMONTH"]
+    temp_df = temp_df[~temp_df["PRODUCTNAME"].str.contains("总计")]
+    result_df["symbol"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip() + temp_df["DELIVERYMONTH"]
     result_df["date"] = day.strftime("%Y%m%d")
     result_df["open"] = temp_df["OPENPRICE"]
     result_df["high"] = temp_df["HIGHESTPRICE"]
@@ -114,6 +114,7 @@ def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
     result_df["variety"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0]
     result_df = result_df[result_df["symbol"] != "总计"]
+    result_df = result_df[~result_df["symbol"].str.contains("efp")]
     return result_df
 
 
@@ -410,15 +411,19 @@ def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
     return data_df
 
 
-def get_futures_daily(start_date="20201026", end_date="20201027", market="SHFE", index_bar=False):
+def get_futures_daily(start_date: str = "20210421", end_date: str = "20210426", market: str = "INE", index_bar: bool = True) -> pd.DataFrame:
     """
     交易所日交易数据
-    Parameters
-    ------
-    start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
-    index_bar: bool  是否合成指数K线, 默认为 False 否则影响 roll_yield 的计算
+    :param start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :type start_date: str
+    :param end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :type end_date: str
+    :param market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
+    :type market: str
+    :param index_bar: 是否合成指数K线, 默认为 False 否则影响 roll_yield 的计算
+    :type index_bar: bool
+    :return: 交易所日交易数据
+    :rtype: pandas.DataFrame
     """
     if market.upper() == "CFFEX":
         f = get_cffex_daily
@@ -453,7 +458,9 @@ def get_futures_daily(start_date="20201026", end_date="20201027", market="SHFE",
         start_date += datetime.timedelta(days=1)
 
     if len(df_list) > 0:
-        return pd.concat(df_list).reset_index(drop=True)
+        temp_df = pd.concat(df_list).reset_index(drop=True)
+        temp_df = temp_df[~temp_df['symbol'].str.contains("efp")]
+        return temp_df
 
 
 def get_futures_index(df):
@@ -482,8 +489,8 @@ def get_futures_index(df):
                 np.array(
                     df_cut[["open", "high", "low", "close", "settle", "pre_settle"]]
                 ).T,
-                np.array((df_cut["open_interest"])),
-            ) / np.sum(df_cut["open_interest"])
+                np.array((df_cut["open_interest"].astype(float))),
+            ) / np.sum(df_cut["open_interest"].astype(float))
             index_df[["date", "variety"]] = df_cut[["date", "variety"]].iloc[0, :]
             index_df["symbol"] = index_df["variety"] + "99"
             index_dfs.append(index_df)
@@ -491,7 +498,7 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date='20210111 ', end_date='20210115', market="INE", index_bar=True)
+    get_futures_daily_df = get_futures_daily(start_date='20210121', end_date='20210426', market="INE", index_bar=True)
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20210427")
@@ -500,7 +507,7 @@ if __name__ == "__main__":
     get_cffex_daily_df = get_cffex_daily(date="20101101")
     print(get_cffex_daily_df)
 
-    get_ine_daily_df = get_ine_daily(date="20210111")
+    get_ine_daily_df = get_ine_daily(date="20210426")
     print(get_ine_daily_df)
 
     get_czce_daily_df = get_czce_daily(date="20210416")
