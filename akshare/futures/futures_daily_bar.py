@@ -112,7 +112,7 @@ def get_ine_daily(date: str = "20210421") -> pd.DataFrame:
     result_df["turnover"] = 0
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
-    result_df["variety"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0]
+    result_df["variety"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip()
     result_df = result_df[result_df["symbol"] != "总计"]
     result_df = result_df[~result_df["symbol"].str.contains("efp")]
     return result_df
@@ -278,7 +278,7 @@ def get_shfe_v_wap(date: str = "20131017") -> pd.DataFrame:
         return None
 
 
-def get_shfe_daily(date: str = "20131016") -> pd.DataFrame:
+def get_shfe_daily(date: str = "20210427") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 默认为当前交易日
@@ -326,7 +326,7 @@ def get_shfe_daily(date: str = "20131016") -> pd.DataFrame:
             if row["DELIVERYMONTH"] not in ["小计", "合计"] and row["DELIVERYMONTH"] != ""
         ]
     )
-    df["variety"] = df.PRODUCTID.str.slice(0, -6).str.upper()
+    df["variety"] = df["PRODUCTGROUPID"].str.upper().str.strip()
     df["symbol"] = df["variety"] + df["DELIVERYMONTH"]
     df["date"] = day.strftime("%Y%m%d")
     v_wap_df = get_shfe_v_wap(day)
@@ -342,6 +342,7 @@ def get_shfe_daily(date: str = "20131016") -> pd.DataFrame:
         df["VOLUME"] = df["VOLUME"].apply(lambda x: 0 if x == "" else x)
         df["turnover"] = df["VOLUME"] * df["SETTLEMENTPRICE"]
     df.rename(columns=cons.SHFE_COLUMNS, inplace=True)
+    df = df[~df["symbol"].str.contains("efp")]
     return df[cons.OUTPUT_COLUMNS]
 
 
@@ -498,7 +499,7 @@ def get_futures_index(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date='20210121', end_date='20210426', market="INE", index_bar=True)
+    get_futures_daily_df = get_futures_daily(start_date='20210421', end_date='20210426', market="SHFE", index_bar=True)
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20210427")
@@ -512,3 +513,6 @@ if __name__ == "__main__":
 
     get_czce_daily_df = get_czce_daily(date="20210416")
     print(get_czce_daily_df)
+
+    get_shfe_daily_df = get_shfe_daily(date="20210427")
+    print(get_shfe_daily_df)
