@@ -745,6 +745,8 @@
  "fund_em_new_found"  # 新发基金
  # 柯桥指数
  "index_kq"  # 柯桥指数
+ # 问财-热门股票
+ "stock_wc_hot_rank"  # 问财-热门股票
 ```
 
 ## 案例演示
