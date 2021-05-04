@@ -2054,4 +2054,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.1: fix: fix stock_profit_forecast interface
 
 0.9.2: fix: fix get_futures_daily interface
+
+0.9.3: fix: fix get_futures_daily interface
 ```
