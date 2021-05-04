@@ -45,7 +45,7 @@ def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
 def stock_wc_hot_rank() -> pd.DataFrame:
     """
     问财-热门股票排名
-    http://www.iwencai.com/unifiedwap/home/index
+    http://www.iwencai.com/unifiedwap/result?w=%E7%83%AD%E9%97%A85000%E8%82%A1%E7%A5%A8&querytype=stock&issugs&sign=1620126514335
     :return: 热门股票排名
     :rtype: pandas.DataFrame
     """
@@ -79,6 +79,7 @@ def stock_wc_hot_rank() -> pd.DataFrame:
     )
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
+    rank_date_str = temp_df.columns[1].split("[")[1].strip("]")
     temp_df.columns = [
         "序号",
         "个股热度排名",
@@ -106,6 +107,7 @@ def stock_wc_hot_rank() -> pd.DataFrame:
         ]
     ]
     temp_df["涨跌幅"] = round(temp_df["涨跌幅"].astype(float), 2)
+    temp_df["排名日期"] = rank_date_str
     return temp_df
 
 
