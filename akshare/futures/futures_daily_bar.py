@@ -21,7 +21,7 @@ from akshare.futures.requests_fun import requests_link
 calendar = cons.get_calendar()
 
 
-def get_cffex_daily(date="20100401"):
+def get_cffex_daily(date: str = "20100401") -> pd.DataFrame:
     """
     中国金融期货交易所日交易数据
     http://www.cffex.com.cn/rtj/
@@ -234,7 +234,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         return pd.DataFrame(dict_data)[output_columns]
 
 
-def get_shfe_v_wap(date="20131017"):
+def get_shfe_v_wap(date: str = "20131017") -> pd.DataFrame:
     """
     获取上期所日成交均价数据
     Parameters
@@ -278,7 +278,7 @@ def get_shfe_v_wap(date="20131017"):
         return None
 
 
-def get_shfe_daily(date="20131016"):
+def get_shfe_daily(date: str = "20131016") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 默认为当前交易日
@@ -411,7 +411,7 @@ def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
     return data_df
 
 
-def get_futures_daily(start_date: str = "20210421", end_date: str = "20210426", market: str = "INE", index_bar: bool = True) -> pd.DataFrame:
+def get_futures_daily(start_date: str = "20210421", end_date: str = "20210426", market: str = "INE", index_bar: bool = False) -> pd.DataFrame:
     """
     交易所日交易数据
     :param start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -463,7 +463,7 @@ def get_futures_daily(start_date: str = "20210421", end_date: str = "20210426", 
         return temp_df
 
 
-def get_futures_index(df):
+def get_futures_index(df: pd.DataFrame) -> pd.DataFrame:
     """
     指数日交易数据, 指数合成
     :param df: 爬到的原始合约日线行情
