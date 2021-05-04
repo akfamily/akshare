@@ -1321,9 +1321,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.2: fix: fix get_futures_daily interface
 0.9.3: fix: fix get_futures_daily interface
 0.9.4: fix: fix get_shfe_daily interface
+0.9.5: add: add stock_wc_hot_rank interface
 """
 
-__version__ = "0.9.4"
+__version__ = "0.9.5"
 __author__ = "Albert King"
 
 import sys
@@ -1340,9 +1341,9 @@ del sys
 from akshare.index import index_kq
 
 """
-热门股票
+问财-热门股票
 """
-from akshare.stock.stock_wencai import stock_wc_hot_top
+from akshare.stock_feature.stock_wencai import stock_wc_hot_rank
 
 """
 新发基金
