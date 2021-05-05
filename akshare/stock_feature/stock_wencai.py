@@ -42,10 +42,12 @@ def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
     return file_data
 
 
-def stock_wc_hot_rank() -> pd.DataFrame:
+def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
     """
     问财-热门股票排名
     http://www.iwencai.com/unifiedwap/result?w=%E7%83%AD%E9%97%A85000%E8%82%A1%E7%A5%A8&querytype=stock&issugs&sign=1620126514335
+    :param date: 查询日期
+    :type date: str
     :return: 热门股票排名
     :rtype: pandas.DataFrame
     """
@@ -59,7 +61,7 @@ def stock_wc_hot_rank() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36",
     }
     params = {
-        "question": "热门5000股票",
+        "question": f"{date}热门5000股票",
         "perpage": "5000",
         "page": "1",
         "secondary_intent": "",
@@ -112,5 +114,5 @@ def stock_wc_hot_rank() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_wc_hot_rank_df = stock_wc_hot_rank()
+    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210430")
     print(stock_wc_hot_rank_df)
