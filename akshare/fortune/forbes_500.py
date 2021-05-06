@@ -41,5 +41,5 @@ def forbes_rank(indicator: str = "2020福布斯美国富豪榜") -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    forbes_rank_df = forbes_rank(indicator="2017福布斯全球科技界100富豪榜")
+    forbes_rank_df = forbes_rank(indicator="2020福布斯中国400富豪榜")
     print(forbes_rank_df)

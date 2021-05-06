@@ -751,7 +751,7 @@ print(fortune_rank_eng_df)
 
 |    | name                     | url                                    |
 |---:|:-------------------------|:---------------------------------------|
-|  0 | 2020年福布斯中国400富豪榜         | https://www.forbeschina.com/lists/1750 |
+|  0 | 2020福布斯中国400富豪榜         | https://www.forbeschina.com/lists/1750 |
 |  1 | 2020福布斯菲律宾富豪榜            | https://www.forbeschina.com/lists/1746 |
 |  2 | 2020福布斯美国富豪榜             | https://www.forbeschina.com/lists/1745 |
 |  3 | 2020福布斯中国名人榜             | https://www.forbeschina.com/lists/1744 |
@@ -850,7 +850,7 @@ print(fortune_rank_eng_df)
 
 ```python
 import akshare as ak
-forbes_rank_df = ak.forbes_rank(indicator="2020年福布斯中国400富豪榜")
+forbes_rank_df = ak.forbes_rank(indicator="2020福布斯中国400富豪榜")
 print(forbes_rank_df)
 ```
 
