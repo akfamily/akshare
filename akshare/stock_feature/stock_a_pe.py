@@ -404,3 +404,6 @@ def stock_a_pe(market: str = "kc") -> pd.DataFrame:
 if __name__ == '__main__':
     stock_a_pe_df = stock_a_pe(market="kc")
     print(stock_a_pe_df)
+
+    stock_a_pe_df = stock_a_pe(market="000016.XSHG")
+    print(stock_a_pe_df)
