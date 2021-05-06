@@ -82,19 +82,21 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
     rank_date_str = temp_df.columns[1].split("[")[1].strip("]")
-    temp_df.columns = [
-        "序号",
-        "个股热度排名",
-        "股票代码",
-        "个股热度排名名次",
-        "个股热度",
-        "股票简称",
-        "现价",
-        "涨跌幅",
-        "个股热度排名基数",
-        "_",
-        "_",
-    ]
+    temp_df.rename(
+        columns={
+            "index": "序号",
+            f"个股热度排名[{rank_date_str}]": "个股热度排名",
+            f"个股热度[{rank_date_str}]": "个股热度",
+            "code": "股票代码",
+            f"个股热度排名名次[{rank_date_str}]": "个股热度排名名次",
+            f"个股热度排名基数[{rank_date_str}]": "个股热度排名基数",
+            "market_code": "_",
+            "最新涨跌幅": "涨跌幅",
+            "最新价": "现价",
+            "股票代码": "_",
+        },
+        inplace=True,
+    )
     temp_df = temp_df[
         [
             "序号",
@@ -114,5 +116,5 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210430")
+    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210506")
     print(stock_wc_hot_rank_df)
