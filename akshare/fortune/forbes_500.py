@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/11/5 15:10
+Date: 2021/5/6 17:10
 Desc: 福布斯中国-榜单
 https://www.forbeschina.com/lists
 """
-import requests
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 
@@ -24,8 +24,7 @@ def forbes_rank(indicator: str = "2020福布斯美国富豪榜") -> pd.DataFrame
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     need_list = [
-        item.find_all("a")
-        for item in soup.find_all("div", attrs={"class": "col-sm-6 col-lg-4"})
+        item.find_all("a") for item in soup.find_all("div", attrs={"class": "col-sm-4"})
     ]
     all_list = []
     for item in need_list:
@@ -42,5 +41,5 @@ def forbes_rank(indicator: str = "2020福布斯美国富豪榜") -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    forbes_rank_df = forbes_rank(indicator="2020福布斯美国富豪榜")
+    forbes_rank_df = forbes_rank(indicator="2017福布斯全球科技界100富豪榜")
     print(forbes_rank_df)

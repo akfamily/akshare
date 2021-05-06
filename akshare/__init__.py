@@ -1324,9 +1324,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.5: add: add stock_wc_hot_rank interface
 0.9.6: fix: fix stock_wc_hot_rank interface
 0.9.7: fix: fix stock_wc_hot_rank interface
+0.9.8: fix: fix forbes_rank interface
 """
 
-__version__ = "0.9.7"
+__version__ = "0.9.8"
 __author__ = "Albert King"
 
 import sys
