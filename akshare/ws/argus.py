@@ -10,8 +10,6 @@ import pandas as pd
 import requests
 import urllib3
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
 
 def watch_argus():
     """
@@ -20,6 +18,7 @@ def watch_argus():
     :return: 阿尔戈斯全网监控预警系统的监控数据
     :rtype: pandas.DataFrame
     """
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     url = "https://www.quantinfo.com/API/Argus/predict"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36",

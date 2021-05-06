@@ -7475,26 +7475,26 @@ date
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| - | - | -    | -|
+| symbol | str | Y    | symbol="全部A股"; choice of {"全部A股", "沪深300"}|
 
-输出参数
+输出参数-全部A股
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
-| date          | datetime   | Y        |  交易日    |
-| below_net_asset          | float   | Y        |  破净股家数    |
-| total_company          | float   | Y        |  总公司数    |
-| below_net_asset_ratio          | float   | Y        |  破净股比率    |
+| date          | object   | Y        |  交易日    |
+| below_net_asset          | float64   | Y        |  破净股家数    |
+| total_company          | float64   | Y        |  总公司数    |
+| below_net_asset_ratio          | float64   | Y        |  破净股比率    |
 
-接口示例
+接口示例-全部 A 股
 
 ```python
 import akshare as ak
-stock_a_below_net_asset_statistics_df = ak.stock_a_below_net_asset_statistics()
+stock_a_below_net_asset_statistics_df = ak.stock_a_below_net_asset_statistics(symbol="全部A股")
 print(stock_a_below_net_asset_statistics_df)
 ```
 
-数据示例
+数据示例-全部 A 股
 
 ```
             date  below_net_asset  total_company  below_net_asset_ratio
@@ -7509,6 +7509,40 @@ print(stock_a_below_net_asset_statistics_df)
 3890  2021-01-11            391.0         4149.0               0.094240
 3889  2021-01-12            393.0         4150.0               0.094699
 3891  2021-01-13            406.0         4150.0               0.097831
+```
+
+输出参数-沪深 300
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| date          | object   | Y        |  交易日    |
+| below_net_asset          | float64   | Y        |  破净股家数    |
+| total_company          | float64   | Y        |  总公司数    |
+| below_net_asset_ratio          | float64   | Y        |  破净股比率    |
+
+接口示例-沪深 300
+
+```python
+import akshare as ak
+stock_a_below_net_asset_statistics_df = ak.stock_a_below_net_asset_statistics(symbol="沪深300")
+print(stock_a_below_net_asset_statistics_df)
+```
+
+数据示例-沪深 300
+
+```
+            date  below_net_asset  total_company  below_net_asset_ratio
+0     2005-04-08             22.0          299.0                 0.0736
+1     2005-04-11             21.0          299.0                 0.0702
+2     2005-04-12             23.0          299.0                 0.0769
+3     2005-04-13             20.0          299.0                 0.0669
+4     2005-04-14             22.0          299.0                 0.0736
+          ...              ...            ...                    ...
+3904  2021-04-26             46.0          300.0                 0.1533
+3905  2021-04-27             48.0          300.0                 0.1600
+3906  2021-04-28             48.0          300.0                 0.1600
+3907  2021-04-29             48.0          300.0                 0.1600
+3908  2021-05-05             49.0          300.0                 0.1633
 ```
 
 #### 基金持股

@@ -361,6 +361,6 @@ if __name__ == "__main__":
     stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="20日排行")
     print(stock_fund_flow_industry_df)
 
-    # 同花顺-数据中心-资金流向-打单追踪
+    # 同花顺-数据中心-资金流向-大单追踪
     stock_fund_flow_big_deal_df = stock_fund_flow_big_deal()
     print(stock_fund_flow_big_deal_df)
