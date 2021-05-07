@@ -1338,7 +1338,7 @@ print(index_cni_detail_hist_adjust_df)
 
 目标地址: https://cn.investing.com/indices/
 
-描述: 获取世界主要国家的各种指数, 由于涉及国家和指数(**1000** + 个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
+描述: 获取世界主要国家的各种指数, 该接口需要通过代理访问; 由于涉及国家和指数(**1000** + 个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
 具体的调用方式可以参照:
 
 1. 先查询指数所在的国家名称;
