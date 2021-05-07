@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/2/1 13:50
+Date: 2021/5/7 13:50
 Desc: 英为财情-利率国债-全球政府债券行情与收益率
-https://hk.investing.com/rates-bonds/
+https://cn.investing.com/rates-bonds/
 """
 import re
 
@@ -17,11 +17,11 @@ from akshare.index.cons import short_headers, long_headers
 def _get_global_country_name_url() -> dict:
     """
     指数数据国家对应的 URL
-    https://hk.investing.com/rates-bonds/
+    https://cn.investing.com/rates-bonds/
     :return: 指数数据国家对应的 URL
     :rtype: dict
     """
-    url = "https://hk.investing.com/rates-bonds/"
+    url = "https://cn.investing.com/rates-bonds/"
     res = requests.get(url, headers=short_headers, timeout=30)
     soup = BeautifulSoup(res.text, "lxml")
     name_url_option_list = soup.find("select", attrs={"name": "country"}).find_all("option")[1:]
@@ -34,15 +34,13 @@ def _get_global_country_name_url() -> dict:
 
 def bond_investing_global_country_name_url(country: str = "中国") -> dict:
     """
-    参考网页: https://hk.investing.com/rates-bonds/
+    参考网页: https://cn.investing.com/rates-bonds/
     获取选择国家对应的: 主要指数, 主要行业, 附加指数, 其他指数
     :param country: str 中文国家名称, 对应 get_global_country_name_url 函数返回的国家名称
     :return: dict
     """
     name_url_dict = _get_global_country_name_url()
-    from zhconv import convert
-    country = convert(country, 'zh-hk')
-    url = f"https://hk.investing.com{name_url_dict[country]}"
+    url = f"https://cn.investing.com{name_url_dict[country]}"
     res = requests.get(url, headers=short_headers, timeout=30)
     soup = BeautifulSoup(res.text, "lxml")
     url_list = [
@@ -66,7 +64,7 @@ def bond_investing_global(
 ) -> pd.DataFrame:
     """
     具体国家的具体指数的从 start_date 到 end_date 期间的数据
-    https://hk.investing.com/rates-bonds/
+    https://cn.investing.com/rates-bonds/
     :param country: 对应函数中的国家名称
     :type country: str
     :param index_name: 对应函数中的指数名称
@@ -80,15 +78,11 @@ def bond_investing_global(
     :return: 指定参数的数据
     :rtype: pandas.DataFrame
     """
-    from zhconv import convert
-    country = convert(country, 'zh-hk')
-    index_name = convert(index_name, 'zh-hk')
-    period = convert(period, 'zh-hk')
     start_date = start_date.replace("-", "/")
     end_date = end_date.replace("-", "/")
     period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
     name_code_dict = bond_investing_global_country_name_url(country)
-    temp_url = f"https://hk.investing.com/{name_code_dict[index_name]}-historical-data"
+    temp_url = f"https://cn.investing.com/{name_code_dict[index_name]}-historical-data"
     res = requests.get(temp_url, headers=short_headers, timeout=30)
     soup = BeautifulSoup(res.text, "lxml")
     title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
@@ -105,7 +99,7 @@ def bond_investing_global(
         "sort_ord": "DESC",
         "action": "historical_data",
     }
-    url = "https://hk.investing.com/instruments/HistoricalDataAjax"
+    url = "https://cn.investing.com/instruments/HistoricalDataAjax"
     res = requests.post(url, data=payload, headers=long_headers, timeout=60)
     df_data = pd.read_html(res.text)[0]
     df_data.columns = [
