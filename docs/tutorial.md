@@ -58,8 +58,8 @@
  "get_fx_spot_quote"  # 人民币外汇即期报价数据
  "get_fx_swap_quote"  # 人民币外汇远掉报价数据
  "get_fx_pair_quote"  # 外币对即期报价数据
- # 商品
- "get_sector_futures"  # 全球商品数据数据
+ # 全球大宗商品
+ "futures_global_commodity_hist"  # 全球大宗商品数据
  # 宏观-欧洲
  "get_euro_interest_rate"  # 欧洲央行决议报告
  # 宏观-主要机构

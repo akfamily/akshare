@@ -1330,9 +1330,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.11: add: add drewry_wci_index interface
 0.9.12: fix: fix bond_investing_global interface
 0.9.13: fix: fix currency_hist interface
+0.9.14: fix: fix futures_global_commodity_hist interface
 """
 
-__version__ = "0.9.13"
+__version__ = "0.9.14"
 __author__ = "Albert King"
 
 import sys
@@ -2702,7 +2703,7 @@ from akshare.economic.macro_china import (
 全球期货
 """
 from akshare.futures.international_futures import (
-    get_sector_futures,
+    futures_global_commodity_hist,
     futures_global_commodity_name_url_map,
 )
 
