@@ -2280,13 +2280,13 @@ print(futures_foreign_detail_df)
 
 #### 全球商品期货
 
-接口: get_sector_futures
+接口: futures_global_commodity_hist
 
-目标地址: https://cn.investing.com/commodities/
+目标地址: https://cn.investing.com/commodities
 
 描述: 主要提供全球能源、农业、金属、商品指数历史数据, 此处请注意调取数据的时间长度; 该接口需要通过代理访问
 
-限量: 单次最大5000行, 建议用 for 获取行数据
+限量: 单次最大 5000 行, 建议用 for 获取行数据
 
 输入参数
 
@@ -2294,28 +2294,26 @@ print(futures_foreign_detail_df)
 | -------- | ---- | ---- | --- |
 | sector | str  | Y    |  能源、农业、金属、商品指数之一|
 | symbol | str  | Y    |  对应板块中的产品名称, 可以通过查询网页获取或者调用 **futures_global_commodity_name_url_map** 获取|
-| start_date | str  | Y    |  需要获取数据的开始时间, e.g., start_date='2005/01/01'|
-| end_date | str  | Y    |  需要获取数据的开始时间, e.g., end_date='2015/01/01' |
+| start_date | str  | Y    |  需要获取数据的开始时间; e.g., start_date='2005/01/01'|
+| end_date | str  | Y    |  需要获取数据的开始时间; e.g., end_date='2015/01/01' |
 
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期索引  |
-| 收盘      | float   | Y        | 收盘   |
-| 开盘      | float   | Y        | 开盘        |
-| 高        | float   | Y        |高    |
-| 低         | float | Y        | 低         |
-| 涨跌幅      | str | Y        | 涨跌幅      |
+| 日期      | datetime64   | Y        | 日期  |
+| 收盘      | float64   | Y        | 收盘   |
+| 开盘      | float64   | Y        | 开盘        |
+| 高        | float64   | Y        |高    |
+| 低         | float64 | Y        | 低         |
+| 涨跌幅      | float64 | Y        | 涨跌幅      |
 
-接口示例
+接口示例--futures_global_commodity_name_url_map
 
 ```python
 import akshare as ak
-temp_url = ak.futures_global_commodity_name_url_map(sector="能源")
-print(temp_url)
-sector_futures_df = ak.get_sector_futures(sector="能源", symbol="伦敦布伦特原油", start_date='2005/01/01', end_date='2019/10/17')
-print(sector_futures_df)
+futures_global_commodity_name_url_map_dict = ak.futures_global_commodity_name_url_map(sector="能源")
+print(futures_global_commodity_name_url_map_dict)
 ```
 
 数据示例-futures_global_commodity_name_url_map
@@ -2324,22 +2322,29 @@ print(sector_futures_df)
 {'伦敦布伦特原油': '/commodities/brent-oil', 'WTI原油': '/commodities/crude-oil', '伦敦汽油': '/commodities/london-gas-oil', '天然气': '/commodities/natural-gas', '燃料油': '/commodities/heating-oil', '碳排放': '/commodities/carbon-emissions', 'RBOB汽油': '/commodities/gasoline-rbob', '布伦特原油': '/commodities/brent-oil', '原油': '/commodities/crude-oil'}
 ```
 
-数据示例-get_sector_futures
+接口示例--futures_global_commodity_hist
+
+```python
+import akshare as ak
+futures_global_commodity_hist_df = ak.futures_global_commodity_hist(sector="能源", symbol="伦敦布伦特原油", start_date='2005/01/01', end_date='2019/10/17')
+print(futures_global_commodity_hist_df)
+```
+
+数据示例-futures_global_commodity_hist
 
 ```
-0              收盘     开盘      高      低      涨跌幅
-日期                                             
-2019-10-17  59.91  58.99  60.04  58.69  269.84K
-2019-10-16  59.42  58.90  59.75  58.36  257.88K
-2019-10-15  58.74  59.30  59.68  58.00  305.68K
-2019-10-14  59.35  60.69  60.73  58.50  283.07K
-2019-10-11  60.51  59.53  60.69  59.21  367.63K
-...           ...    ...    ...    ...      ...
-2005-01-10  42.92  43.20  44.85  42.90   27.65K
-2005-01-07  43.18  42.75  43.75  42.20   29.64K
-2005-01-06  42.85  40.43  43.20  39.82   51.63K
-2005-01-05  40.51  40.80  41.00  39.90   42.23K
-2005-01-04  41.04  39.40  41.25  38.81   40.10K
+             日期     收盘     开盘      高      低       交易量     涨跌幅
+0    2020-04-03  1.621  1.551  1.659  1.530  155160.0  0.0445
+1    2020-04-02  1.552  1.591  1.624  1.521  165320.0 -0.0221
+2    2020-04-01  1.587  1.643  1.679  1.580  143670.0 -0.0323
+3    2020-03-31  1.640  1.702  1.731  1.636  142550.0 -0.0296
+4    2020-03-30  1.690  1.630  1.708  1.613  102310.0  0.0343
+...         ...    ...    ...    ...    ...       ...     ...
+2151 2012-01-09  3.011  3.011  3.032  2.977  107250.0 -0.0167
+2152 2012-01-06  3.062  2.960  3.077  2.955  115520.0  0.0275
+2153 2012-01-05  2.980  3.122  3.123  2.947  163140.0 -0.0375
+2154 2012-01-04  3.096  2.978  3.123  2.975  133510.0  0.0344
+2155 2012-01-03  2.993  2.969  3.074  2.936  106190.0  0.0013
 ```
 
 #### 新加坡交易所期货

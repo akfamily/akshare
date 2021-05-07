@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/8 17:22
+Date: 2021/5/7 17:22
 Desc: 提供英为财情-国际大宗商品期货
 https://cn.investing.com/commodities/brent-oil-historical-data
 """
@@ -69,16 +69,22 @@ def futures_global_commodity_name_url_map(sector: str = "能源") -> pd.DataFram
     return name_code_map_dict
 
 
-def get_sector_futures(
+def futures_global_commodity_hist(
     sector="能源", symbol="伦敦布伦特原油", start_date="2000/01/01", end_date="2019/10/17"
 ):
     """
-    具体国家的具体指数的从 start_date 到 end_date 期间的数据
-    :param sector: str 对应函数中的国家名称
-    :param symbol: str 对应函数中的指数名称
-    :param start_date: str '2000/01/01', 注意格式
-    :param end_date: str '2019/10/17', 注意格式
-    :return: pandas.DataFrame
+    国际大宗商品的历史量价数据
+    https://cn.investing.com/commodities
+    :param sector: 板块名称; 调用 futures_global_commodity_name_url_map 函数获取
+    :type sector: str
+    :param symbol: 品种名称; 通过访问网站查询
+    :type symbol: str
+    :param start_date: 开始日期
+    :type start_date: str
+    :param end_date: 结束日期
+    :type end_date: str
+    :return: 国际大宗商品的历史量价数据
+    :rtype: pandas.DataFrame
     """
     name_code_dict = futures_global_commodity_name_url_map(sector)
     temp_url = f"https://cn.investing.com/{name_code_dict[symbol]}-historical-data"
@@ -103,49 +109,45 @@ def get_sector_futures(
     url = "https://cn.investing.com/instruments/HistoricalDataAjax"
     r = requests.post(url, data=payload, headers=long_headers)
     temp_df = pd.read_html(r.text)[0]
-    df_data = temp_df
-    df_data = df_data.set_index(["日期"])
-    df_data.index = pd.to_datetime(df_data.index, format="%Y年%m月%d日")
-    df_data.index.name = "日期"
-    if any(df_data["交易量"].astype(str).str.contains("-")):
-        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
-            df_data["交易量"].str.contains("-")
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], format="%Y年%m月%d日")
+    if any(temp_df["交易量"].astype(str).str.contains("-")):
+        temp_df["交易量"][temp_df["交易量"].str.contains("-")] = temp_df["交易量"][
+            temp_df["交易量"].str.contains("-")
         ].replace("-", 0)
-    if any(df_data["交易量"].astype(str).str.contains("B")):
-        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
+    if any(temp_df["交易量"].astype(str).str.contains("B")):
+        temp_df["交易量"][temp_df["交易量"].str.contains("B").fillna(False)] = (
+            temp_df["交易量"][temp_df["交易量"].str.contains("B").fillna(False)]
             .str.replace("B", "")
             .astype(float)
             * 1000000000
         )
-    if any(df_data["交易量"].astype(str).str.contains("M")):
-        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
+    if any(temp_df["交易量"].astype(str).str.contains("M")):
+        temp_df["交易量"][temp_df["交易量"].str.contains("M").fillna(False)] = (
+            temp_df["交易量"][temp_df["交易量"].str.contains("M").fillna(False)]
             .str.replace("M", "")
             .astype(float)
             * 1000000
         )
-    if any(df_data["交易量"].astype(str).str.contains("K")):
-        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
+    if any(temp_df["交易量"].astype(str).str.contains("K")):
+        temp_df["交易量"][temp_df["交易量"].str.contains("K").fillna(False)] = (
+            temp_df["交易量"][temp_df["交易量"].str.contains("K").fillna(False)]
             .str.replace("K", "")
             .astype(float)
             * 1000
         )
-    df_data["交易量"] = df_data["交易量"].astype(float)
-    df_data["涨跌幅"] = pd.DataFrame(
-        round(df_data["涨跌幅"].str.replace("%", "").astype(float) / 100, 6)
+    temp_df["交易量"] = temp_df["交易量"].astype(float)
+    temp_df["涨跌幅"] = pd.DataFrame(
+        round(temp_df["涨跌幅"].str.replace("%", "").astype(float) / 100, 6)
     )
-    df_data.name = title
-    df_data.columns.name = None
-    return df_data
+    temp_df.name = title
+    temp_df.columns.name = None
+    return temp_df
 
 
 if __name__ == "__main__":
     temp_dict = futures_global_commodity_name_url_map(sector="能源")
     print(temp_dict)
-    index_df = get_sector_futures(
-        sector="能源", symbol="伦敦布伦特原油", start_date="2012/01/01", end_date="2020/04/04"
+    futures_global_commodity_hist_df = futures_global_commodity_hist(
+        sector="能源", symbol="天然气", start_date="2012/01/01", end_date="2020/04/04"
     )
-    print(index_df.name)
-    print(index_df)
+    print(futures_global_commodity_hist_df)
