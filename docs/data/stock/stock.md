@@ -2048,9 +2048,9 @@ print(stock_em_gpzy_profile_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述             |
 | -------- | ---- | ---- | --- |
-| trade_date | str  | Y    |   trade_date="2020-08-14"; 访问 http://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询 |
+| trade_date | str  | Y    |   trade_date="2020-08-14"; 请访问 http://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询具体交易日 |
 
 输出参数
 
