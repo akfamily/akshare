@@ -1328,9 +1328,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.9: fix: fix stock_a_below_net_asset_statistics interface
 0.9.10: fix: fix stock_wc_hot_rank interface
 0.9.11: add: add drewry_wci_index interface
+0.9.12: fix: fix bond_investing_global interface
 """
 
-__version__ = "0.9.11"
+__version__ = "0.9.12"
 __author__ = "Albert King"
 
 import sys

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/11 13:58
+Date: 2021/5/7 16:58
 Desc: AkShare's pypi info file
 """
 import re
@@ -56,7 +56,6 @@ setuptools.setup(
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
         "py_mini_racer>=0.4.0",
-        "zhconv>=1.4.1",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
     keywords=[
