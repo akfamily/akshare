@@ -2935,8 +2935,8 @@ date
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| code | str  | Y    |  code="Y", 请参考南华指数品种一览表, 可以通过 ak.get_nh_list_table() 获取|
-| day_count | int  | Y    |  day_count=20, 必须在 [5, 20, 60, 120] 指定其中一个|
+| code | str  | Y    |  code="Y"; 请参考南华指数品种一览表, 可以通过调用 **ak.get_nh_list_table()** 获取|
+| day_count | int  | Y    |  day_count=20; choice of {5, 20, 60, 120}|
 
 南华指数品种一览表
 
@@ -3062,7 +3062,7 @@ date
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
 | index_name | str | Y | index_name="商品综合指数"; 从 **CFMMC指数一览表** 或者通过调用 **futures_index_dict** 接口获取|
 | start_date | str | Y | start_date="2010-01-01"; 指数数据一般都是 **2010** 年之后开始|
