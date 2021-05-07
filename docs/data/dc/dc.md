@@ -61,7 +61,7 @@ reported_at                                        ...
 
 目标地址: https://cn.investing.com/crypto/ethereum/historical-data
 
-描述: 获取加密货币的历史数据主要是日频, 周频和月频的数据
+描述: 获取加密货币的历史数据主要是日频, 周频和月频的数据; 该接口需要通过代理访问
 
 限量: 单次返回指定加密货币, 频率和时间周期的数据
 
