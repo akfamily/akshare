@@ -1344,7 +1344,7 @@ del sys
 """
 Drewry 集装箱指数
 """
-from index.drewry_index import drewry_wci_index
+from akshare.index.drewry_index import drewry_wci_index
 
 """
 柯桥指数
