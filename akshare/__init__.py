@@ -1327,9 +1327,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.8: fix: fix forbes_rank interface
 0.9.9: fix: fix stock_a_below_net_asset_statistics interface
 0.9.10: fix: fix stock_wc_hot_rank interface
+0.9.11: add: add drewry_wci_index interface
 """
 
-__version__ = "0.9.10"
+__version__ = "0.9.11"
 __author__ = "Albert King"
 
 import sys
@@ -1339,6 +1340,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+Drewry 集装箱指数
+"""
+from index.drewry_index import drewry_wci_index
 
 """
 柯桥指数

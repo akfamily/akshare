@@ -747,6 +747,8 @@
  "index_kq"  # 柯桥指数
  # 问财-热门股票
  "stock_wc_hot_rank"  # 问财-热门股票
+ # Drewry 集装箱指数
+ "drewry_wci_index"  # Drewry 集装箱指数
 ```
 
 ## 案例演示
