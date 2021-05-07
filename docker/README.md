@@ -8,11 +8,19 @@ AKDocker is a dockerfile for AKShare's latest version
 
 ## Windows
 
-[安装教程](https://www.cnblogs.com/skatesky/archive/2019/12/05/11987955.html)
+[安装教程](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+
+## Mac
+
+[Mac](https://docs.docker.com/docker-for-mac/install)
 
 ## Ubuntu
 
-[安装教程](https://www.jianshu.com/p/28d41eb592b0)
+[安装教程](https://docs.docker.com/engine/install/ubuntu)
+
+## CentOS
+
+[安装教程](https://docs.docker.com/engine/install/centos)
 
 ## Command
 
