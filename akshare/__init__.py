@@ -78,18 +78,18 @@ get_bond_bank
 0.1.44
 修复 example --> daily_run.py 函数调用
 0.1.45
-修复 README.md 函数接口调用说明和感谢单位
+修复 akdocker.md 函数接口调用说明和感谢单位
 0.1.46
-修复 README.md 图片显示
+修复 akdocker.md 图片显示
 0.1.47
-修复 README.md 增加说明部分
+修复 akdocker.md 增加说明部分
 0.1.48
 更新大连商品交易所-粳米-RR品种
 0.1.49
 增加智道智科-私募指数数据接口
 使用方法请 help(get_zdzk_fund_index) 查看
 0.1.50
-更新 README.md 文件
+更新 akdocker.md 文件
 0.1.51
 更新官方文档: https://akshare.readthedocs.io
 0.1.52
