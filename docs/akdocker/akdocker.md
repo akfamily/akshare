@@ -44,7 +44,13 @@ import akshare as ak
 ak.__version__
 ```
 
-## 使用 JupyterLab 环境
+## 使用案例
+
+### 背景说明
+
+本案例是基于 AKDocker 容器中已经安装的 JupyterLab 来演示的. 主要是利用 JupyterLab 的 Python 交互式的开发环境, 使用户可以在 Web 输入 AKShare
+的 Python 示例代码(其中仅需要修改一些简单的参数, 并不需要熟悉 Python 语法), 就可以获取需要的数据. 为了能把数据从容器映射到本地, 请在
+容器的 ```/home``` 目录下编辑 ```.ipynb``` 文件, 如果需要下载相关的数据也请保存到该目录.
 
 ### 输入命令
 
