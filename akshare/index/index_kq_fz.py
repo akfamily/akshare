@@ -10,7 +10,7 @@ import requests
 from tqdm import tqdm
 
 
-def index_kq(symbol: str = "价格指数") -> pd.DataFrame:
+def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
     """
     中国柯桥纺织指数
     http://www.kqindex.cn/flzs/jiage
@@ -76,11 +76,11 @@ def index_kq(symbol: str = "价格指数") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_kq_df = index_kq(symbol="价格指数")
+    index_kq_df = index_kq_fz(symbol="价格指数")
     print(index_kq_df)
 
-    index_kq_df = index_kq(symbol="景气指数")
+    index_kq_df = index_kq_fz(symbol="景气指数")
     print(index_kq_df)
 
-    index_kq_df = index_kq(symbol="外贸指数")
+    index_kq_df = index_kq_fz(symbol="外贸指数")
     print(index_kq_df)
