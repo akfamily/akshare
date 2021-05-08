@@ -2078,4 +2078,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.13: fix: fix currency_hist interface
 
 0.9.14: fix: fix futures_global_commodity_hist interface
+
+0.9.15: add: add index_kq_fashion interface
 ```
