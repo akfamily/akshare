@@ -1,49 +1,49 @@
 # [AKShare](https://github.com/jindaxiang/akshare) Docker 部署
 
-AKDocker is a dockerfile for AKShare's latest version
+目前 [AKShare](https://github.com/jindaxiang/akshare) 数据接口是基于 Python 开发的，鉴于部分其他语言的用户难以在短时间部署
+[AKShare](https://github.com/jindaxiang/akshare) 的 Python 使用环境，特此提供基于虚拟化容器技术 Docker 的使用教程。
 
-## Installation
+## 安装 Docker
 
-### Install Docker
+### 官方安装指导
 
-#### Windows
+1. Windows 10: [安装教程](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+2. Mac: [Mac](https://docs.docker.com/docker-for-mac/install)
+3. Ubuntu: [安装教程](https://docs.docker.com/engine/install/ubuntu)
+4. CentOS: [安装教程](https://docs.docker.com/engine/install/centos)
 
-[安装教程](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+### 第三方安装指导
 
-#### Mac
+1. [Docker 安装教程](https://www.runoob.com/docker/docker-tutorial.html)
 
-[Mac](https://docs.docker.com/docker-for-mac/install)
+### 配置国内镜像
 
-#### Ubuntu
+1. [Docker 国内镜像加速教程](https://www.runoob.com/docker/docker-mirror-acceleration.html)
 
-[安装教程](https://docs.docker.com/engine/install/ubuntu)
+## AKDocker 镜像使用
 
-#### CentOS
-
-[安装教程](https://docs.docker.com/engine/install/centos)
-
-### Command
-
-#### Pull AKDocker
+### 拉取 AKDocker 镜像
 
 ```
 docker pull registry.cn-hangzhou.aliyuncs.com/akshare/akdocker
 ```
 
-#### Run AKDocker
+### 运行 AKDocker 容器
 
 ```
 docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
 ```
 
-#### Test AKDocker
+### 测试 AKDocker 容器
 
 ```python
 import akshare as ak
 ak.__version__
 ```
 
-### JupyterLab
+## 开启本地 Jupyterlab
+
+### 配置
 
 ```
 docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-hangzhou.aliyuncs.com/akshare/akdocker jupyter-lab --allow-root --no-browser --ip=0.0.0.0
