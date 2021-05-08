@@ -8,17 +8,20 @@
 ### 官方安装指导
 
 1. Windows 10: [安装教程](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-2. Mac: [Mac](https://docs.docker.com/docker-for-mac/install)
+2. Mac: [安装教程](https://docs.docker.com/docker-for-mac/install)
 3. Ubuntu: [安装教程](https://docs.docker.com/engine/install/ubuntu)
 4. CentOS: [安装教程](https://docs.docker.com/engine/install/centos)
 
 ### 第三方安装指导
 
 1. [Docker 安装教程](https://www.runoob.com/docker/docker-tutorial.html)
+2. 建议 Windows 7 和 8 的用户升级到 Windows 10 系统进行安装
+3. [Windows 镜像下载地址](https://msdn.itellyou.cn/)
 
 ### 配置国内镜像
 
 1. [Docker 国内镜像加速教程](https://www.runoob.com/docker/docker-mirror-acceleration.html)
+2. 请在国内使用的用户务必进行该项配置, 从而加速获取镜像的速度.
 
 ## AKDocker 镜像使用
 
