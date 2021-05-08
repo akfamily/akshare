@@ -46,11 +46,13 @@ ak.__version__
 
 ## 使用 JupyterLab 环境
 
-### 配置
+### 输入命令
 
 ```
 docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-hangzhou.aliyuncs.com/akshare/akdocker jupyter-lab --allow-root --no-browser --ip=0.0.0.0
 ```
+
+### 注意事项
 
 1. 其中 Windows 系统的路径如: ```C:\home``` 需要改写为: ```/c/home``` 的形式;
 2. 打开本地游览器输入地址: ```http://localhost:8888```;
