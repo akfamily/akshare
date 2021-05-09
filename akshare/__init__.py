@@ -1332,9 +1332,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.13: fix: fix currency_hist interface
 0.9.14: fix: fix futures_global_commodity_hist interface
 0.9.15: add: add index_kq_fashion interface
+0.9.16: add: add index_eri interface
 """
 
-__version__ = "0.9.15"
+__version__ = "0.9.16"
 __author__ = "Albert King"
 
 import sys
@@ -1344,6 +1345,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+浙江省排污权交易指数
+"""
+from akshare.index.index_eri import index_eri
 
 """
 Drewry 集装箱指数
