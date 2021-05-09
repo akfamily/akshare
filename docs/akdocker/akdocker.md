@@ -49,10 +49,10 @@ ak.__version__
 ### 背景说明
 
 本案例是基于 AKDocker 容器中已经安装的 JupyterLab 来演示的. 主要是利用 JupyterLab 的 Python 交互式的开发环境, 使用户可以在 Web 输入 AKShare
-的 Python 示例代码(其中仅需要修改一些简单的参数, 并不需要熟悉 Python 语法), 就可以获取需要的数据. 为了能把数据从容器映射到本地, 请在
-容器的 ```/home``` 目录下编辑 ```.ipynb``` 文件, 如果需要下载相关的数据也请保存到该目录.
+的 Python 示例代码, 仅需要修改一些简单的参数, 就可以获取需要的数据. 为了能把 JupyterLab 中下载的数据从容器映射到本地, 请在
+容器的 ```/home``` 目录下编辑 ```.ipynb``` 文件, 如果需要下载相关的文件也请保存到该目录.
 
-### 输入命令
+### 命令行
 
 ```
 docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-hangzhou.aliyuncs.com/akshare/akdocker jupyter-lab --allow-root --no-browser --ip=0.0.0.0
@@ -61,7 +61,6 @@ docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-hangzho
 ### 注意事项
 
 1. 其中 Windows 系统的路径如: ```C:\home``` 需要改写为: ```/c/home``` 的形式;
-2. 打开本地游览器输入地址: ```http://localhost:8888```;
-3. 将 Terminal 显示出来的 Jupyterlab 路径中的 token 复制显示出来的 Jupyterlab 的界面后点击登录;
-4. 步骤 3 中的 token 为在 Terminal 显示出来: ```http://127.0.0.1:8888/lab?token=f398812e277e8f09848eb04b2c9123a6206fbda6694da3cb``` 中的 ```f398812e277e8f09848eb04b2c9123a6206fbda6694da3cb``` 部分;
-5. 在本地游览器中的 JupyterLab 界面进入 ```home``` 文件夹, 该目录内容会与本地的 ```C:\home``` 保持同步, 可以在此编辑 notebook 文件和导入数据到该文件夹从而在本地的 ```C:\home``` 文件夹下获取数据;
+2. 在 Terminal 中运行上述指令后，会在 Terminal 中显示如下信息: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/akdocker/akdocker_terminal.png)
+3. 打开本地游览器输入地址: ```http://127.0.0.1:8888/lab?token=bbe7c8633c098b67df913dce522b82e00828b311a6fc954d```;
+4. 在本地游览器中的 JupyterLab 界面进入 ```home``` 文件夹, 该目录内容会与本地的 ```C:\home``` 保持同步, 可以在此编辑 notebook 文件和导入数据到该文件夹从而在本地的 ```C:\home``` 文件夹下获取数据;
