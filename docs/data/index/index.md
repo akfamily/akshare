@@ -2376,7 +2376,7 @@ print(index_kq_fashion_df)
 16  2016-12-01  154.120000        NaN       NaN
 ```
 
-### 浙江省排污权交易指数
+### 排污权指数
 
 接口: index_eri
 
