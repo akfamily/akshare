@@ -2326,7 +2326,7 @@ print(futures_global_commodity_name_url_map_dict)
 
 ```python
 import akshare as ak
-futures_global_commodity_hist_df = ak.futures_global_commodity_hist(sector="能源", symbol="伦敦布伦特原油", start_date='2005/01/01', end_date='2019/10/17')
+futures_global_commodity_hist_df = ak.futures_global_commodity_hist(sector="能源", symbol="伦敦布伦特原油", start_date='20050101', end_date='20191017')
 print(futures_global_commodity_hist_df)
 ```
 

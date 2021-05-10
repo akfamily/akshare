@@ -1437,8 +1437,8 @@ date
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| stock | str | Y | stock="GOOGL"; 美股 ticker, 可以通过调用 **stock_us_fundamental(stock="GOOGL", symbol="info")** 获取所有 ticker |
-| symbol | str | Y | symbol="info"; info, 返回所有美股列表, PE, 返回 PE 数据, PB, 返回 PB 数据 |
+| stock | str | Y | stock="GOOGL"; 美股 ticker, 可以通过调用 **stock_us_fundamental(symbol="info")** 获取所有 ticker |
+| symbol | str | Y | symbol="info"; info: 返回所有美股列表, PE: 返回 PE 数据, PB: 返回 PB 数据 |
 
 输出参数
 

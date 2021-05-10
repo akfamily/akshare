@@ -411,7 +411,7 @@ if __name__ == "__main__":
     futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="TF2009", period="1")
     print(futures_zh_minute_sina_df)
 
-    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="V2105")
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="LH2109")
     print(futures_zh_daily_sina_df)
 
     # for num in range(11, 21):
