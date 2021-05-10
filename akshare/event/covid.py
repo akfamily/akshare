@@ -265,7 +265,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     # info
     dxy_static = str(soup.find("script", attrs={"id": "getStatisticsService"}))
     data_json = json.loads(
-        dxy_static[dxy_static.find("= {") + 2 : dxy_static.rfind("}c")]
+        dxy_static[dxy_static.find("= {") + 2: dxy_static.rfind("}c")]
     )
     china_statistics = pd.DataFrame(
         [

@@ -115,16 +115,22 @@ Output
 
 ## Communication
 
+Pay attention to 知识星球 **数据科学家** Official Accounts to get more information about Quant, ML, DS and so on.
+
+<div align=center>
+    <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist">
+</div>
+
 Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/jindaxiang/akshare) updated info:
 
 <div align=center>
     <img src="https://github.com/jindaxiang/akshare/blob/master/example/images/ds.png">
 </div>
 
-Application to add **AKShare-官方** QQ group and talk about [AKShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 328736477
+Application to add **AKShare-官方** QQ group and talk about [AKShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 444233982
 
 <div align=center>
-    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=Hf_P_qZN_iEn8V9rj67ufEWpMOpB6v7t&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_328736477.png" alt="AKShare-官方" title="AKShare-官方"></a>
+    <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=M50z_7n-XXg8PHRz_482NysL2ihMBKyK&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_444233982.png" alt="AKShare-官方" title="AKShare-官方"></a>
 </div>
 
 ## Features
