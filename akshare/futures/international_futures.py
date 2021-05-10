@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/7 17:22
+Date: 2021/5/10 17:06
 Desc: 提供英为财情-国际大宗商品期货
 https://cn.investing.com/commodities/brent-oil-historical-data
 """
@@ -34,7 +34,7 @@ def get_sector_symbol_name_url() -> dict:
     return name_code_map_dict
 
 
-def futures_global_commodity_name_url_map(sector: str = "能源") -> pd.DataFrame:
+def futures_global_commodity_name_url_map(sector: str = "能源") -> dict:
     """
     参考网页: https://cn.investing.com/commodities/
     获取选择板块对应的: 具体期货品种的 url 地址
@@ -70,8 +70,11 @@ def futures_global_commodity_name_url_map(sector: str = "能源") -> pd.DataFram
 
 
 def futures_global_commodity_hist(
-    sector="能源", symbol="伦敦布伦特原油", start_date="2000/01/01", end_date="2019/10/17"
-):
+    sector: str = "能源",
+    symbol: str = "伦敦布伦特原油",
+    start_date: str = "20000101",
+    end_date: str = "20191017",
+) -> pd.DataFrame:
     """
     国际大宗商品的历史量价数据
     https://cn.investing.com/commodities
@@ -86,6 +89,8 @@ def futures_global_commodity_hist(
     :return: 国际大宗商品的历史量价数据
     :rtype: pandas.DataFrame
     """
+    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
     name_code_dict = futures_global_commodity_name_url_map(sector)
     temp_url = f"https://cn.investing.com/{name_code_dict[symbol]}-historical-data"
     res = requests.post(temp_url, headers=short_headers)
@@ -141,13 +146,25 @@ def futures_global_commodity_hist(
     )
     temp_df.name = title
     temp_df.columns.name = None
+    temp_df.sort_values(["日期"], ascending=False, inplace=True)
     return temp_df
 
 
 if __name__ == "__main__":
     temp_dict = futures_global_commodity_name_url_map(sector="能源")
     print(temp_dict)
+
     futures_global_commodity_hist_df = futures_global_commodity_hist(
-        sector="能源", symbol="天然气", start_date="2012/01/01", end_date="2020/04/04"
+        sector="能源", symbol="伦敦布伦特原油", start_date="19700101", end_date="20210510"
     )
     print(futures_global_commodity_hist_df)
+
+    # futures_global_commodity_hist_df = futures_global_commodity_hist(
+    #     sector="能源", symbol="伦敦布伦特原油", start_date="1970/01/01", end_date="2021/05/10"
+    # )
+    # print(futures_global_commodity_hist_df.to_csv("伦敦布伦特原油_19880627_20080319.csv", encoding="gb2312"))
+    #
+    # futures_global_commodity_hist_df = futures_global_commodity_hist(
+    #     sector="能源", symbol="伦敦布伦特原油", start_date="2008/03/19", end_date="2021/05/10"
+    # )
+    # print(futures_global_commodity_hist_df.to_csv("伦敦布伦特原油_20080319_20210510.csv", encoding="gb2312"))
