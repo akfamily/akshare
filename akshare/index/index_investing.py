@@ -13,8 +13,6 @@ from bs4 import BeautifulSoup
 
 from akshare.index.cons import short_headers, long_headers
 
-pd.set_option("mode.chained_assignment", None)
-
 
 def _get_global_index_country_name_url() -> dict:
     """
@@ -324,6 +322,7 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
      '新指数': '/indices/szse-new', '深证治理': '/indices/szse-corp-governance-price', 'TMT50': '/indices/szse-tmt50-price',
      '深证红利': '/indices/szse-dividend-price', '深证综指': '/indices/szse-composite'}
     """
+    pd.set_option("mode.chained_assignment", None)
     name_url_dict = _get_global_country_name_url()
     name_code_dict = _get_global_index_country_name_url()
     url = f"https://cn.investing.com{name_url_dict[country]}?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on"
@@ -445,14 +444,12 @@ def index_investing_global(
 
 
 if __name__ == "__main__":
-    index_investing_global_country_name_url_dict = (
-        index_investing_global_country_name_url("中国")
-    )
+    index_investing_global_country_name_url_dict = index_investing_global_country_name_url("中国")
     index_investing_global_df = index_investing_global(
         country="日本",
         index_name="富时日本指数",
         period="每日",
         start_date="2020-01-01",
-        end_date="2021-03-14",
+        end_date="2021-05-09",
     )
     print(index_investing_global_df)

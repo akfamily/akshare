@@ -12,7 +12,7 @@ import pandas as pd
 def index_eri() -> pd.DataFrame:
     """
     浙江省排污权交易指数
-    https://zs.zjpwq.net/
+    https://zs.zjpwq.net
     :return: 浙江省排污权交易指数
     :rtype: pandas.DataFrame
     """
