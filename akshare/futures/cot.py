@@ -42,7 +42,7 @@ intColumns = ['vol', 'vol_chg', 'long_open_interest', 'long_open_interest_chg', 
               'short_open_interest_chg']
 
 
-def get_rank_sum_daily(start_day="20200721", end_day="20200723", vars_list=cons.contract_symbols):
+def get_rank_sum_daily(start_day: str = "20210510", end_day: str = "20210510", vars_list: list = cons.contract_symbols):
     """
     采集四个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名;
@@ -795,10 +795,11 @@ if __name__ == '__main__':
     print(get_dce_rank_table_fourth_df)
 
     # 总接口
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210105", end_day="20210105")
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210510", end_day="20210510")
     print(get_rank_sum_daily_df)
 
     futures_dce_detail_dict = futures_dce_position_rank(date="20210407")
     print(futures_dce_detail_dict)
+
     futures_dce_position_rank_other_df = futures_dce_position_rank_other(date="20200727")
     print(futures_dce_position_rank_other_df)

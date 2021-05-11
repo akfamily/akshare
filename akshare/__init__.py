@@ -1335,9 +1335,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.16: add: add index_eri interface
 0.9.17: fix: fix futures_global_commodity_hist interface
 0.9.18: fix: fix stock_em_dxsyl interface
+0.9.19: add: add stock_legu_market_activity interface
 """
 
-__version__ = "0.9.18"
+__version__ = "0.9.19"
 __author__ = "Albert King"
 
 import sys
@@ -1347,6 +1348,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+赚钱效应分析
+"""
+from akshare.stock_feature.stock_legu_market import stock_legu_market_activity
 
 """
 浙江省排污权交易指数
