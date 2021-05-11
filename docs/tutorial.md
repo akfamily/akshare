@@ -752,6 +752,8 @@
  "drewry_wci_index"  # Drewry 集装箱指数
  # 浙江省排污权交易指数
  "index_eri"  # 浙江省排污权交易指数
+ # 赚钱效应分析
+ "stock_legu_market_activity"  # 赚钱效应分析
 ```
 
 ## 案例演示
