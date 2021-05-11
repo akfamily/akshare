@@ -18,12 +18,12 @@ def _get_page_num_dxsyl(market: str = "上海主板") -> int:
     """
     东方财富网-数据中心-新股数据-打新收益率-总页数
     http://data.eastmoney.com/xg/xg/dxsyl.html
-    :param market: choice of {"上海主板", "中小板", "创业板"}
+    :param market: choice of {"上海主板", "创业板", "深圳主板"}
     :type market: str
     :return: 总页数
     :rtype: int
     """
-    market_map = {"上海主板": "2", "创业板": "3", "中小板": "4"}
+    market_map = {"上海主板": "2", "创业板": "3", "深圳主板": "4"}
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
     params = {
         "type": "NS",
@@ -45,12 +45,12 @@ def stock_em_dxsyl(market: str = "上海主板") -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-打新收益率
     http://data.eastmoney.com/xg/xg/dxsyl.html
-    :param market: choice of {"上海主板", "中小板", "创业板"}
+    :param market: choice of {"上海主板", "创业板", "深圳主板"}
     :type market: str
     :return: 指定市场的打新收益率数据
     :rtype: pandas.DataFrame
     """
-    market_map = {"上海主板": "2", "创业板": "3", "中小板": "4"}
+    market_map = {"上海主板": "2", "创业板": "3", "深圳主板": "4"}
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
     page_num = _get_page_num_dxsyl(market=market)
     temp_df = pd.DataFrame()
@@ -207,6 +207,12 @@ def stock_em_xgsglb(market: str = "上海主板"):
 
 if __name__ == "__main__":
     stock_em_dxsyl_df = stock_em_dxsyl(market="上海主板")
+    print(stock_em_dxsyl_df)
+
+    stock_em_dxsyl_df = stock_em_dxsyl(market="创业板")
+    print(stock_em_dxsyl_df)
+
+    stock_em_dxsyl_df = stock_em_dxsyl(market="深圳主板")
     print(stock_em_dxsyl_df)
 
     stock_em_xgsglb_df = stock_em_xgsglb(market="科创板")
