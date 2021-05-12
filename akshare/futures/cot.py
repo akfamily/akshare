@@ -795,7 +795,7 @@ if __name__ == '__main__':
     print(get_dce_rank_table_fourth_df)
 
     # 总接口
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210510", end_day="20210510")
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210101", end_day="20210510")
     print(get_rank_sum_daily_df)
 
     futures_dce_detail_dict = futures_dce_position_rank(date="20210407")
