@@ -2090,4 +2090,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.19: add: add stock_legu_market_activity interface
 
 0.9.20: fix: fix stock_individual_fund_flow_rank interface
+
+0.9.21: add: add index_cflp_price interface
 ```

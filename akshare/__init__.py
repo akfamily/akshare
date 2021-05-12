@@ -1337,9 +1337,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.18: fix: fix stock_em_dxsyl interface
 0.9.19: add: add stock_legu_market_activity interface
 0.9.20: fix: fix stock_individual_fund_flow_rank interface
+0.9.21: add: add index_cflp_price interface
 """
 
-__version__ = "0.9.20"
+__version__ = "0.9.21"
 __author__ = "Albert King"
 
 import sys
@@ -1349,6 +1350,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+中国公路物流运价、运量指数
+"""
+from akshare.index.index_cflp import index_cflp_price, index_cflp_volume
 
 """
 赚钱效应分析
