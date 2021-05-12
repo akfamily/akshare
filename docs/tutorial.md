@@ -754,6 +754,10 @@
  "index_eri"  # 浙江省排污权交易指数
  # 赚钱效应分析
  "stock_legu_market_activity"  # 赚钱效应分析
+ # 中国公路物流运价指数
+ "index_cflp_price"  # 中国公路物流运价指数
+  # 中国公路物流运量指数
+ "index_cflp_volume"  # 中国公路物流运量指数
 ```
 
 ## 案例演示
