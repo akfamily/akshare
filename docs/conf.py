@@ -31,7 +31,7 @@ github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 # -- Project information -----------------------------------------------------
 
 project = 'AKShare'
-copyright = f'2019–{datetime.now().year}, AkShare developers'
+copyright = f'2019–{datetime.now().year}, AKShare developers'
 author = 'Albert King'
 version = "1.0.0"
 
