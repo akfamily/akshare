@@ -54,7 +54,7 @@ def index_cflp_price(symbol: str = "周指数") -> pd.DataFrame:
     return temp_df
 
 
-def index_cflp_volume(symbol: str = "周指数") -> pd.DataFrame:
+def index_cflp_volume(symbol: str = "月指数") -> pd.DataFrame:
     """
     中国公路物流运量指数
     http://index.0256.cn/expx.htm
