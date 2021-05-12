@@ -85,7 +85,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     params = {
         'fid': indicator_map[indicator][0],
         'po': '1',
-        'pz': '50',
+        'pz': '5000',
         'pn': '1',
         'np': '1',
         'fltt': '2',

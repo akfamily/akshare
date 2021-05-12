@@ -1336,9 +1336,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.17: fix: fix futures_global_commodity_hist interface
 0.9.18: fix: fix stock_em_dxsyl interface
 0.9.19: add: add stock_legu_market_activity interface
+0.9.20: fix: fix stock_individual_fund_flow_rank interface
 """
 
-__version__ = "0.9.19"
+__version__ = "0.9.20"
 __author__ = "Albert King"
 
 import sys
