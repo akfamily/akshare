@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 
 
-def stock_info_sz_name_code(indicator: str = "CDR列表") -> pd.DataFrame:
+def stock_info_sz_name_code(indicator: str = "B股列表") -> pd.DataFrame:
     """
     深圳证券交易所-股票列表
     http://www.szse.cn/market/product/stock/list/index.html
@@ -31,7 +31,7 @@ def stock_info_sz_name_code(indicator: str = "CDR列表") -> pd.DataFrame:
     r = requests.get(url, params=params)
     temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
     if len(temp_df) > 10:
-        temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.zfill(6)
+        temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
         return temp_df
     else:
         return temp_df
