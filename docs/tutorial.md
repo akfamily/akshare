@@ -756,8 +756,11 @@
  "stock_legu_market_activity"  # 赚钱效应分析
  # 中国公路物流运价指数
  "index_cflp_price"  # 中国公路物流运价指数
-  # 中国公路物流运量指数
+ # 中国公路物流运量指数
  "index_cflp_volume"  # 中国公路物流运量指数
+ # 汽车销量
+ "car_gasgoo_sale_rank"  # 盖世汽车-汽车行业制造企业数据库-销量数据
+ "car_cpca_energy_sale"  # 乘联会-新能源细分市场-整体市场
 ```
 
 ## 案例演示
