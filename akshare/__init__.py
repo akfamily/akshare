@@ -1340,9 +1340,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.21: add: add index_cflp_price interface
 0.9.22: add: add index_cflp_volume interface
 0.9.23: fix: fix index_cflp_volume interface
+0.9.24: fix: fix stock_info_sz_name_code interface
 """
 
-__version__ = "0.9.23"
+__version__ = "0.9.24"
 __author__ = "Albert King"
 
 import sys
