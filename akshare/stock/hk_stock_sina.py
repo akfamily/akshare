@@ -76,7 +76,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "qfq") -> pd.DataFrame:
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"])
+    data_df.index = pd.to_datetime(data_df["date"]).dt.date
     del data_df["date"]
     data_df = data_df.astype("float")
 
