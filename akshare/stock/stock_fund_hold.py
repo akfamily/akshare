@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/25 20:09
+Date: 2021/5/15 20:09
 Desc: 东方财富网-数据中心-主力数据-基金持仓
 http://data.eastmoney.com/zlsj/2020-06-30-1-2.html
 """
@@ -64,10 +64,10 @@ def stock_report_fund_hold(symbol: str = "基金持仓", date: str = "20201231")
         "持股变化",
         "持股总数",
         "持股市值",
-        "持股变动比例",
+        "_",
         "_",
         "持股变动数值",
-        "_",
+        "持股变动比例",
     ]
     temp_df = temp_df[[
         "序号",
@@ -146,10 +146,23 @@ def stock_report_fund_hold_detail(symbol: str = "005827", date: str = "20201231"
 
 
 if __name__ == "__main__":
-    for item in ["基金持仓", "QFII持仓", "社保持仓", "券商持仓", "保险持仓", "信托持仓"]:
-        stock_report_fund_hold_df = stock_report_fund_hold(symbol=item, date="20201231")
-        print(stock_report_fund_hold_df)
-        break
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="基金持仓", date="20201231")
+    print(stock_report_fund_hold_df)
+
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="QFII持仓", date="20201231")
+    print(stock_report_fund_hold_df)
+
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="社保持仓", date="20201231")
+    print(stock_report_fund_hold_df)
+
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="券商持仓", date="20201231")
+    print(stock_report_fund_hold_df)
+
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="保险持仓", date="20201231")
+    print(stock_report_fund_hold_df)
+
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="信托持仓", date="20201231")
+    print(stock_report_fund_hold_df)
 
     stock_report_fund_hold_detail_df = stock_report_fund_hold_detail(symbol="005827", date="20201231")
     print(stock_report_fund_hold_detail_df)
