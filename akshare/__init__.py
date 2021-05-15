@@ -1343,9 +1343,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.24: fix: fix stock_info_sz_name_code interface
 0.9.25: add: add car_gasgoo_sale_rank interface
 0.9.26: fix: fix stock_hk_daily interface
+0.9.27: fix: fix stock_report_fund_hold interface
 """
 
-__version__ = "0.9.26"
+__version__ = "0.9.27"
 __author__ = "Albert King"
 
 import sys
