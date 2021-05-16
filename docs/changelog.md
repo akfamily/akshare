@@ -2104,4 +2104,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.26: fix: fix stock_hk_daily interface
 
 0.9.27: fix: fix stock_report_fund_hold interface
+
+0.9.28: add: add stock_legu_average_position interface
 ```

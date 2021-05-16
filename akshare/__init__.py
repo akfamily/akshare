@@ -1344,9 +1344,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.25: add: add car_gasgoo_sale_rank interface
 0.9.26: fix: fix stock_hk_daily interface
 0.9.27: fix: fix stock_report_fund_hold interface
+0.9.28: add: add stock_legu_average_position interface
 """
 
-__version__ = "0.9.27"
+__version__ = "0.9.28"
 __author__ = "Albert King"
 
 import sys
@@ -1356,6 +1357,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+平均持仓
+"""
+from akshare.stock_feature.stock_legu_average_position import stock_legu_average_position
 
 """
 汽车销量
