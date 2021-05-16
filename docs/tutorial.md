@@ -761,6 +761,8 @@
  # 汽车销量
  "car_gasgoo_sale_rank"  # 盖世汽车-汽车行业制造企业数据库-销量数据
  "car_cpca_energy_sale"  # 乘联会-新能源细分市场-整体市场
+ # 平均持仓
+ "stock_legu_average_position"  # 平均持仓
 ```
 
 ## 案例演示
