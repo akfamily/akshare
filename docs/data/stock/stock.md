@@ -9334,7 +9334,7 @@ print(stock_legu_market_activity_df)
 11      统计日期  2021-05-11 15:00:00
 ```
 
-### 平均持仓
+### 调查平均持仓
 
 接口: stock_legu_average_position
 
