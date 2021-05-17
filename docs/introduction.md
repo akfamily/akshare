@@ -60,9 +60,9 @@
     
     6.7 增加[中国外汇交易中心暨全国银行间同业拆借中心网站](http://www.chinamoney.com.cn/chinese/)提供的中国银行间债券行情和外汇数据;
 
-    6.8 增加[英为财情网站-商品](https://cn.investing.com/commodities/)提供的全球商品历史数据;
+    6.8 增加[英为财情网站-商品](https://cn.investing.com/commodities)提供的全球商品历史数据;
     
-    6.9 增加[金十数据网站](https://www.jin10.com/)提供的全球宏观经济数据接口-中国宏观;
+    6.9 增加[金十数据网站](https://www.jin10.com)提供的全球宏观经济数据接口-中国宏观;
     
     6.10 增加[金十数据网站](https://www.jin10.com/)提供的全球宏观经济数据接口-美国宏观;
     
