@@ -763,6 +763,8 @@
  "car_cpca_energy_sale"  # 乘联会-新能源细分市场-整体市场
  # 平均持仓
  "stock_legu_average_position"  # 平均持仓
+ # 增发
+ "stock_em_qbzf"  # 增发
 ```
 
 ## 案例演示
