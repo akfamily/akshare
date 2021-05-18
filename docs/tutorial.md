@@ -767,6 +767,16 @@
  "stock_em_qbzf"  # 增发
  # 配股
  "stock_em_pg"  # 配股
+ # 中国-香港-宏观经济指标
+ "marco_china_hk_cpi"  # 中国-香港-消费者物价指数
+ "marco_china_hk_cpi_ratio"  # 中国-香港-消费者物价指数年率
+ "marco_china_hk_rate_of_unemployment"  # 中国-香港-失业率
+ "marco_china_hk_gbp"  # 中国-香港-香港 GDP
+ "marco_china_hk_gbp_ratio"  # 中国-香港-香港 GDP 同比
+ "marco_china_hk_building_volume"  # 中国-香港-香港楼宇买卖合约数量
+ "marco_china_hk_building_amount"  # 中国-香港-香港楼宇买卖合约成交金额
+ "marco_china_hk_trade_diff_ratio"  # 中国-香港-香港商品贸易差额年率
+ "marco_china_hk_ppi"  # 中国-香港-香港制造业 PPI 年率
 ```
 
 ## 案例演示
