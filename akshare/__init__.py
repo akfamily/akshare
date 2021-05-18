@@ -1346,9 +1346,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.27: fix: fix stock_report_fund_hold interface
 0.9.28: add: add stock_legu_average_position interface
 0.9.29: add: add stock_em_qbzf interface
+0.9.30: add: add stock_em_pg interface
 """
 
-__version__ = "0.9.29"
+__version__ = "0.9.30"
 __author__ = "Albert King"
 
 import sys
@@ -1360,9 +1361,9 @@ if sys.version_info < (3, 7):
 del sys
 
 """
-增发
+增发和配股
 """
-from akshare.stock_feature.stock_additional_shares import stock_em_qbzf
+from akshare.stock_feature.stock_zf_pg import stock_em_qbzf, stock_em_pg
 
 """
 平均持仓
