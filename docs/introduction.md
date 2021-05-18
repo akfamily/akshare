@@ -6,8 +6,6 @@
 1. 本文档更新于 **2021-05-18**;
 2. 想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学家】** 高质量社区，里面有丰富的视频、问答、文章、书籍及代码等内容: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist)
 3. 如有库、文档及数据的相关问题, 请在 [AKShare Issues](https://github.com/jindaxiang/akshare/issues) 中提 Issues;
-
-[comment]: <> (4. 您也可以加入 **QQ** 群: 444233982, <div align=center><a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=M50z_7n-XXg8PHRz_482NysL2ihMBKyK&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_444233982.png" alt="AKShare-官方" title="AKShare-官方" align="center"></a></div>)
 4. 欢迎关注 **数据科学实战** 微信公众号: <div align=center><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>
 
 ## 引用
