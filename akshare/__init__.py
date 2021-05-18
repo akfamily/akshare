@@ -1349,9 +1349,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.30: add: add stock_em_pg interface
 0.9.31: fix: fix index_investing_global interface
 0.9.32: fix: fix bond_investing_global interface
+0.9.33: add: add marco_china_hk interface
 """
 
-__version__ = "0.9.32"
+__version__ = "0.9.33"
 __author__ = "Albert King"
 
 import sys
@@ -1363,6 +1364,21 @@ if sys.version_info < (3, 7):
 del sys
 
 """
+中国-香港-宏观
+"""
+from akshare.economic.macro_china_hk import (
+    marco_china_hk_cpi,
+    marco_china_hk_cpi_ratio,
+    marco_china_hk_trade_diff_ratio,
+    marco_china_hk_gbp_ratio,
+    marco_china_hk_building_amount,
+    marco_china_hk_building_volume,
+    marco_china_hk_gbp,
+    marco_china_hk_ppi,
+    marco_china_hk_rate_of_unemployment,
+)
+
+"""
 增发和配股
 """
 from akshare.stock_feature.stock_zf_pg import stock_em_qbzf, stock_em_pg
@@ -1370,7 +1386,9 @@ from akshare.stock_feature.stock_zf_pg import stock_em_qbzf, stock_em_pg
 """
 平均持仓
 """
-from akshare.stock_feature.stock_legu_average_position import stock_legu_average_position
+from akshare.stock_feature.stock_legu_average_position import (
+    stock_legu_average_position,
+)
 
 """
 汽车销量
