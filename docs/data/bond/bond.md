@@ -835,8 +835,8 @@ print(bond_convert_jsl_df)
 | country | str  | Y    |   country="中国"|
 | index_name | str  | Y    |  index_name="中国1年期国债"; 可以通过 ak.bond_investing_global_country_name_url(country="美国") 获取|
 | period | str  | Y    |  period="每月"; choice of {"每日", "每周", "每月"}|
-| start_date | str  | Y    |  start_date='2000-01-01'|
-| end_date | str  | Y    |  end_date='2019-10-17'|
+| start_date | str  | Y    |  start_date='20000101'|
+| end_date | str  | Y    |  end_date='20191017'|
 
 输出参数
 
@@ -853,7 +853,7 @@ print(bond_convert_jsl_df)
 
 ```python
 import akshare as ak
-bond_investing_global_df = ak.bond_investing_global(country="中国", index_name="中国1年期国债", period="每周", start_date="2000-01-01", end_date="2020-06-06")
+bond_investing_global_df = ak.bond_investing_global(country="中国", index_name="中国1年期国债", period="每周", start_date="20000101", end_date="20200606")
 print(bond_investing_global_df)
 ```
 
