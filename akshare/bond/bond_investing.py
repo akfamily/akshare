@@ -59,8 +59,8 @@ def bond_investing_global(
     country: str = "中国",
     index_name: str = "中国1年期国债",
     period: str = "每日",
-    start_date: str = "2000-01-01",
-    end_date: str = "2019-10-17",
+    start_date: str = "20000101",
+    end_date: str = "20191017",
 ) -> pd.DataFrame:
     """
     具体国家的具体指数的从 start_date 到 end_date 期间的数据
@@ -78,8 +78,8 @@ def bond_investing_global(
     :return: 指定参数的数据
     :rtype: pandas.DataFrame
     """
-    start_date = start_date.replace("-", "/")
-    end_date = end_date.replace("-", "/")
+    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
     period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
     name_code_dict = bond_investing_global_country_name_url(country)
     temp_url = f"https://cn.investing.com/{name_code_dict[index_name]}-historical-data"
@@ -127,7 +127,7 @@ if __name__ == "__main__":
         country="中国",
         index_name="中国10年期国债",
         period="每日",
-        start_date="2010-01-01",
-        end_date="2021-03-14",
+        start_date="20100101",
+        end_date="20210314",
     )
     print(bond_investing_global_df)

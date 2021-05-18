@@ -1356,8 +1356,8 @@ print(index_cni_detail_hist_adjust_df)
 | country | str  | Y    |   country="美国"|
 | index_name | str  | Y    |  index_name="美元指数"; 可以通过 ak.index_investing_global_country_name_url("美国") 获取|
 | period | str  | Y    |  period="每月"; choice of {"每日", "每周", "每月"}|
-| start_date | str  | Y    |  start_date='2000-01-01'|
-| end_date | str  | Y    |  end_date='2019-10-17'|
+| start_date | str  | Y    |  start_date='20000101'|
+| end_date | str  | Y    |  end_date='20191017'|
 
 输出参数
 
@@ -1374,7 +1374,7 @@ print(index_cni_detail_hist_adjust_df)
 
 ```python
 import akshare as ak
-index_investing_global_df = ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")
+index_investing_global_df = ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="20050101", end_date="20200605")
 print(index_investing_global_df)
 ```
 
