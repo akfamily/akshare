@@ -118,13 +118,17 @@
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
 </div>
 
-您也可以加入QQ群: 942371170
+[comment]: <> (您也可以加入QQ群: 942371170)
 
-<div align=center>
-    <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=8de5f2b616ba185100c45de811736a7cbf2eb4bc2d6b1efcfd3e5cdf9d7760de">
-        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_qq_3.jpg" alt="AkShare-官方" title="AkShare-官方" align="center">
-    </a>
-</div>
+[comment]: <> (<div align=center>)
+
+[comment]: <> (    <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=8de5f2b616ba185100c45de811736a7cbf2eb4bc2d6b1efcfd3e5cdf9d7760de">)
+
+[comment]: <> (        <img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/qq/akshare_qq_3.jpg" alt="AkShare-官方" title="AkShare-官方" align="center">)
+
+[comment]: <> (    </a>)
+
+[comment]: <> (</div>)
 
 ## 声明
 
