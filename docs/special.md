@@ -118,6 +118,8 @@
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
 </div>
 
+想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学家】** 高质量社区，里面有丰富的视频、问答、文章、书籍及代码等内容: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist)
+
 ## 声明
 
 1. [AkShare](https://github.com/jindaxiang/akshare) 提供的数据接口和数据仅用于学术研究, 不可做任何商业用途;
