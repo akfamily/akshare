@@ -353,6 +353,7 @@ if __name__ == '__main__':
 
     stock_ipo_info_df = stock_ipo_info(stock="600004")
     print(stock_ipo_info_df)
+
     stock_add_stock_df = stock_add_stock(stock="600004")
     print(stock_add_stock_df)
 

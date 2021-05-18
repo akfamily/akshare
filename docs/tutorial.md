@@ -765,6 +765,8 @@
  "stock_legu_average_position"  # 平均持仓
  # 增发
  "stock_em_qbzf"  # 增发
+ # 配股
+ "stock_em_pg"  # 配股
 ```
 
 ## 案例演示
