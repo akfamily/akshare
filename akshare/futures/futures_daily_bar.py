@@ -278,9 +278,10 @@ def get_shfe_v_wap(date: str = "20131017") -> pd.DataFrame:
         return None
 
 
-def get_shfe_daily(date: str = "20210427") -> pd.DataFrame:
+def get_shfe_daily(date: str = "20160104") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
+    http://www.shfe.com.cn/statements/dataview.html?paramid=kx
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 默认为当前交易日
     :type date: str or datetime.date
     :return: 上海期货交易所-日频率-量价数据
@@ -326,7 +327,10 @@ def get_shfe_daily(date: str = "20210427") -> pd.DataFrame:
             if row["DELIVERYMONTH"] not in ["小计", "合计"] and row["DELIVERYMONTH"] != ""
         ]
     )
-    df["variety"] = df["PRODUCTGROUPID"].str.upper().str.strip()
+    try:
+        df["variety"] = df["PRODUCTGROUPID"].str.upper().str.strip()
+    except KeyError as e:
+        df["variety"] = df["PRODUCTID"].str.upper().str.split('_', expand=True).iloc[:, 0].str.strip()
     df["symbol"] = df["variety"] + df["DELIVERYMONTH"]
     df["date"] = day.strftime("%Y%m%d")
     v_wap_df = get_shfe_v_wap(day)
@@ -499,7 +503,7 @@ def get_futures_index(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date='20210421', end_date='20210426', market="SHFE", index_bar=True)
+    get_futures_daily_df = get_futures_daily(start_date='20160101', end_date='20160201', market="SHFE", index_bar=True)
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20210427")
@@ -514,5 +518,5 @@ if __name__ == "__main__":
     get_czce_daily_df = get_czce_daily(date="20210416")
     print(get_czce_daily_df)
 
-    get_shfe_daily_df = get_shfe_daily(date="20210427")
+    get_shfe_daily_df = get_shfe_daily(date="20160104")
     print(get_shfe_daily_df)

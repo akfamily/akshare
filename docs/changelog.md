@@ -2116,4 +2116,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.32: fix: fix bond_investing_global interface
 
 0.9.33: add: add marco_china_hk interface
+
+0.9.34: fix: fix get_futures_daily interface
 ```
