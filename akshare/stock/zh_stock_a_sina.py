@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/4 16:28
+Date: 2021/5/20 16:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -203,6 +203,7 @@ def stock_zh_a_daily(
         temp_df["close"] = round(temp_df["close"], 2)
         temp_df.dropna(inplace=True)
         temp_df.drop_duplicates(inplace=True)
+        temp_df.reset_index(inplace=True)
         return temp_df
     if adjust == "hfq":
         res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
@@ -230,6 +231,7 @@ def stock_zh_a_daily(
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
         temp_df.dropna(inplace=True)
+        temp_df.reset_index(inplace=True)
         return temp_df
 
     if adjust == "qfq":
@@ -259,6 +261,7 @@ def stock_zh_a_daily(
         temp_df["low"] = round(temp_df["low"], 2)
         temp_df["close"] = round(temp_df["close"], 2)
         temp_df.dropna(inplace=True)
+        temp_df.reset_index(inplace=True)
         return temp_df
 
 
@@ -293,6 +296,8 @@ def stock_zh_a_cdr_daily(
     temp_df["high"] = round(temp_df["high"], 2)
     temp_df["low"] = round(temp_df["low"], 2)
     temp_df["close"] = round(temp_df["close"], 2)
+    temp_df.reset_index(inplace=True)
+    temp_df['date'] = temp_df['date'].dt.date
     return temp_df
 
 
@@ -339,6 +344,7 @@ def stock_zh_a_minute(
         need_df = temp_df[temp_df["time"] == "15:00:00"]
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
+        stock_zh_a_daily_qfq_df.index = pd.to_datetime(stock_zh_a_daily_qfq_df['date'])
         result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])
         merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
@@ -353,10 +359,9 @@ def stock_zh_a_minute(
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         need_df = temp_df[temp_df["time"] == "15:00:00"]
         need_df.index = pd.to_datetime(need_df["date"])
-        stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")
-        result_df = stock_zh_a_daily_qfq_df.iloc[-len(need_df):, :]["close"].astype(
-            float
-        ) / need_df["close"].astype(float)
+        stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")
+        stock_zh_a_daily_hfq_df.index = pd.to_datetime(stock_zh_a_daily_hfq_df['date'])
+        result_df = stock_zh_a_daily_hfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])
         merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
         merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]
@@ -396,6 +401,9 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_df)
 
     stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh600751", period="1", adjust="qfq")
+    print(stock_zh_a_minute_df)
+
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh600751", period="1", adjust="hfq")
     print(stock_zh_a_minute_df)
 
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol="sh689009", start_date="19900101", end_date="22201116")

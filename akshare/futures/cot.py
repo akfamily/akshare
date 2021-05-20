@@ -601,7 +601,7 @@ def _table_cut_cal(table_cut, symbol):
     return table_cut
 
 
-def futures_dce_position_rank(date: str = "20160919") -> pd.DataFrame:
+def futures_dce_position_rank(date: str = "20160919") -> dict:
     """
     大连商品交易所-每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
@@ -795,7 +795,7 @@ if __name__ == '__main__':
     print(get_dce_rank_table_fourth_df)
 
     # 总接口
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210516", end_day="20210517")
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210515", end_day="20210518")
     print(get_rank_sum_daily_df)
 
     futures_dce_detail_dict = futures_dce_position_rank(date="20210407")
