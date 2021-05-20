@@ -136,7 +136,7 @@ def stock_zh_a_daily(
     :return: specific data
     :rtype: pandas.DataFrame
     """
-    def _fq_factor(method):
+    def _fq_factor(method: str) -> pd.DataFrame:
         if method == "hfq":
             res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
             hfq_factor_df = pd.DataFrame(
@@ -147,6 +147,7 @@ def stock_zh_a_daily(
             hfq_factor_df.columns = ["date", "hfq_factor"]
             hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
             del hfq_factor_df["date"]
+            hfq_factor_df.reset_index(inplace=True)
             return hfq_factor_df
         else:
             res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
@@ -158,6 +159,7 @@ def stock_zh_a_daily(
             qfq_factor_df.columns = ["date", "qfq_factor"]
             qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
             del qfq_factor_df["date"]
+            qfq_factor_df.reset_index(inplace=True)
             return qfq_factor_df
 
     if adjust in ("hfq-factor", "qfq-factor"):
