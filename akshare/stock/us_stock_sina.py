@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/16 20:47
+Date: 2021/5/21 20:14
 Desc: 新浪财经-美股实时行情数据和历史行情数据
 http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
@@ -99,7 +99,7 @@ def stock_us_spot() -> pd.DataFrame:
     return big_df
 
 
-def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
+def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-美股
     http://finance.sina.com.cn/stock/usstock/sector.shtml
@@ -121,7 +121,8 @@ def stock_us_daily(symbol: str = "AAPL", adjust: str = "") -> pd.DataFrame:
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"]).dt.date
+    data_df['date'] = pd.to_datetime(data_df["date"]).dt.date
+    data_df.index = pd.to_datetime(data_df["date"])
     del data_df["amount"]
     del data_df["date"]
     data_df = data_df.astype("float")
@@ -203,11 +204,11 @@ def stock_us_fundamental(stock: str = "GOOGL", symbol: str = "info") -> pd.DataF
 
 
 if __name__ == "__main__":
-    stock_us_stock_name_df = get_us_stock_name()
-    print(stock_us_stock_name_df)
+    # stock_us_stock_name_df = get_us_stock_name()
+    # print(stock_us_stock_name_df)
 
-    stock_us_spot_df = stock_us_spot()
-    print(stock_us_spot_df)
+    # stock_us_spot_df = stock_us_spot()
+    # print(stock_us_spot_df)
 
     stock_us_daily_df = stock_us_daily(symbol="AMZN", adjust="")
     print(stock_us_daily_df)
