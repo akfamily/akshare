@@ -187,7 +187,7 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "qfq") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hk_daily_hfq_df = stock_hk_daily(symbol="00373", adjust="qfq")
+    stock_hk_daily_hfq_df = stock_hk_daily(symbol="00700", adjust="hfq")
     print(stock_hk_daily_hfq_df)
     stock_hk_daily_df = stock_hk_daily(symbol="01302", adjust="qfq")
     print(stock_hk_daily_df)
