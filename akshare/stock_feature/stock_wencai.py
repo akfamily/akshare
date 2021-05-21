@@ -81,7 +81,10 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
     )
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
-    rank_date_str = temp_df.columns[1].split("[")[1].strip("]")
+    try:
+        rank_date_str = temp_df.columns[1].split("[")[1].strip("]")
+    except:
+        rank_date_str = temp_df.columns[2].split("[")[1].strip("]")
     temp_df.rename(
         columns={
             "index": "序号",
@@ -116,5 +119,5 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210430")
+    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210521")
     print(stock_wc_hot_rank_df)
