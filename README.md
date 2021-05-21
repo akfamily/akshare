@@ -70,8 +70,8 @@ Code
 
 ```python
 import akshare as ak
-hist_df = ak.stock_us_daily(symbol="AMZN")  # Get U.S. stock Amazon's price info
-print(hist_df)
+stock_us_daily_df = ak.stock_us_daily(symbol="AMZN")  # Get U.S. stock Amazon's price info
+print(stock_us_daily_df)
 ```
 
 Output
