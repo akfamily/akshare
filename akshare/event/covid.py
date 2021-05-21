@@ -8,6 +8,7 @@ COVID-19-丁香园
 COVID-19-百度
 COVID-19-GitHub
 """
+import datetime
 import json
 import time
 
@@ -348,35 +349,36 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     """
     百度-新型冠状病毒肺炎-疫情实时大数据报告
     https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1
+    百度迁徙
+    https://qianxi.baidu.com/
     :param indicator: 看说明文档
     :type indicator: str
     :return: 指定 indicator 的数据
     :rtype: pandas.DataFrame
     """
-    url = "https://huiyan.baidu.com/openapi/v1/migration/rank"
-    payload = {
-        "type": "move",
-        "ak": "kgD2HiDnLdUhwzd3CLuG5AWNfX3fhLYe",
-        "adminType": "country",
-        "name": "全国",
+    url = "https://huiyan.baidu.com/migration/cityrank.jsonp"
+    params = {
+        'dt': 'country',
+        'id': '0',
+        'type': 'move_in',
+        'date': str(int(datetime.datetime.today().date().isoformat().replace("-", ""))-1),
     }
-    r = requests.get(url, params=payload)
-    move_in_df = pd.DataFrame(r.json()["result"]["moveInList"])
-    move_out_df = pd.DataFrame(r.json()["result"]["moveOutList"])
-
-    url = "https://opendata.baidu.com/api.php"
-    payload = {
-        "query": "全国",
-        "resource_id": "39258",
-        "tn": "wisetpl",
-        "format": "json",
-        "cb": "jsonp_1580470773343_11183",
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("(")+1:-1])
+    move_in_df = pd.DataFrame(data_json['data']['list'])
+    move_in_df['date'] = str(int(datetime.datetime.today().date().isoformat().replace("-", ""))-1)
+    params = {
+        'dt': 'country',
+        'id': '0',
+        'type': 'move_out',
+        'date': str(int(datetime.datetime.today().date().isoformat().replace("-", ""))-1),
     }
-    r = requests.get(url, params=payload)
-    text_data = r.text
-    json_data_news = json.loads(
-        text_data.strip("/**/jsonp_1580470773343_11183(").rstrip(");")
-    )
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("(")+1:-1])
+    move_out_df = pd.DataFrame(data_json['data']['list'])
+    move_out_df['date'] = str(int(datetime.datetime.today().date().isoformat().replace("-", ""))-1)
 
     # domestic-city
     url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
