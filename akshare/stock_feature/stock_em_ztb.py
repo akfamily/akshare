@@ -11,7 +11,7 @@ import requests
 
 def stock_em_zt_pool(date: str = '20210521') -> pd.DataFrame:
     """
-    首页-行情中心-涨停板行情-涨停股池
+    东方财富网-行情中心-涨停板行情-涨停股池
     http://quote.eastmoney.com/ztb/detail#type=ztgc
     :return: 涨停股池
     :rtype: pandas.DataFrame
@@ -74,7 +74,7 @@ def stock_em_zt_pool(date: str = '20210521') -> pd.DataFrame:
 
 def stock_em_zt_pool_previous(date: str = '20210521') -> pd.DataFrame:
     """
-    首页-行情中心-涨停板行情-昨日涨停股池
+    东方财富网-行情中心-涨停板行情-昨日涨停股池
     http://quote.eastmoney.com/ztb/detail#type=zrzt
     :return: 昨日涨停股池
     :rtype: pandas.DataFrame
@@ -132,6 +132,9 @@ def stock_em_zt_pool_previous(date: str = '20210521') -> pd.DataFrame:
         '涨停统计',
         '所属行业',
     ]]
+    temp_df['最新价'] = temp_df['最新价'] / 1000
+    temp_df['涨停价'] = temp_df['涨停价'] / 1000
+    temp_df['昨日封板时间'] = temp_df['昨日封板时间'].astype(str).str.zfill(6)
     return temp_df
 
 
@@ -141,5 +144,3 @@ if __name__ == '__main__':
 
     stock_em_zt_pool_previous_df = stock_em_zt_pool_previous(date='20210521')
     print(stock_em_zt_pool_previous_df)
-
-
