@@ -138,9 +138,281 @@ def stock_em_zt_pool_previous(date: str = '20210521') -> pd.DataFrame:
     return temp_df
 
 
+def stock_em_zt_pool_strong(date: str = '20210521') -> pd.DataFrame:
+    """
+    东方财富网-行情中心-涨停板行情-强势股池
+    http://quote.eastmoney.com/ztb/detail#type=qsgc
+    :return: 强势股池
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://push2ex.eastmoney.com/getTopicQSPool'
+    params = {
+        'ut': '7eea3edcaed734bea9cbfc24409ed989',
+        'dpt': 'wz.ztzt',
+        'Pageindex': '0',
+        'pagesize': '170',
+        'sort': 'zdp:desc',
+        'date': date,
+        '_': '1621590489736',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['data']['pool'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.columns = [
+        '序号',
+        '代码',
+        '_',
+        '名称',
+        '最新价',
+        '涨停价',
+        '_',
+        '涨跌幅',
+        '成交额',
+        '流通市值',
+        '总市值',
+        '换手率',
+        '是否新高',
+        '_',
+        '量比',
+        '涨速',
+        '涨停统计',
+        '所属行业',
+    ]
+    temp_df['涨停统计'] = temp_df['涨停统计'].apply(lambda x: dict(x)['days']).astype(str) + "/" + temp_df['涨停统计'].apply(lambda x: dict(x)['ct']).astype(str)
+    temp_df = temp_df[[
+        '序号',
+        '代码',
+        '名称',
+        '涨跌幅',
+        '最新价',
+        '涨停价',
+        '成交额',
+        '流通市值',
+        '总市值',
+        '换手率',
+        '涨速',
+        '是否新高',
+        '量比',
+        '涨停统计',
+        '所属行业',
+    ]]
+    temp_df['最新价'] = temp_df['最新价'] / 1000
+    temp_df['涨停价'] = temp_df['涨停价'] / 1000
+    return temp_df
+
+
+def stock_em_zt_pool_sub_new(date: str = '20210521') -> pd.DataFrame:
+    """
+    东方财富网-行情中心-涨停板行情-次新股池
+    http://quote.eastmoney.com/ztb/detail#type=cxgc
+    :return: 次新股池
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://push2ex.eastmoney.com/getTopicCXPooll'
+    params = {
+        'ut': '7eea3edcaed734bea9cbfc24409ed989',
+        'dpt': 'wz.ztzt',
+        'Pageindex': '0',
+        'pagesize': '170',
+        'sort': 'ods:asc',
+        'date': date,
+        '_': '1621590489736',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['data']['pool'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.columns = [
+        '序号',
+        '代码',
+        '_',
+        '名称',
+        '最新价',
+        '涨停价',
+        '_',
+        '涨跌幅',
+        '成交额',
+        '流通市值',
+        '总市值',
+        '转手率',
+        '开板几日',
+        '开板日期',
+        '上市日期',
+        '_',
+        '是否新高',
+        '涨停统计',
+        '所属行业',
+    ]
+    temp_df['涨停统计'] = temp_df['涨停统计'].apply(lambda x: dict(x)['days']).astype(str) + "/" + temp_df['涨停统计'].apply(lambda x: dict(x)['ct']).astype(str)
+    temp_df = temp_df[[
+        '序号',
+        '代码',
+        '名称',
+        '涨跌幅',
+        '最新价',
+        '涨停价',
+        '成交额',
+        '流通市值',
+        '总市值',
+        '转手率',
+        '开板几日',
+        '开板日期',
+        '上市日期',
+        '是否新高',
+        '涨停统计',
+        '所属行业',
+    ]]
+    temp_df['最新价'] = temp_df['最新价'] / 1000
+    temp_df['涨停价'] = temp_df['涨停价'] / 1000
+    return temp_df
+
+
+def stock_em_zt_pool_zbgc(date: str = '20210521') -> pd.DataFrame:
+    """
+    东方财富网-行情中心-涨停板行情-炸板股池
+    http://quote.eastmoney.com/ztb/detail#type=zbgc
+    :return: 炸板股池
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://push2ex.eastmoney.com/getTopicZBPool'
+    params = {
+        'ut': '7eea3edcaed734bea9cbfc24409ed989',
+        'dpt': 'wz.ztzt',
+        'Pageindex': '0',
+        'pagesize': '170',
+        'sort': 'fbt:asc',
+        'date': date,
+        '_': '1621590489736',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['data']['pool'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.columns = [
+        '序号',
+        '代码',
+        '_',
+        '名称',
+        '最新价',
+        '涨停价',
+        '涨跌幅',
+        '成交额',
+        '流通市值',
+        '总市值',
+        '换手率',
+        '首次封板时间',
+        '炸板次数',
+        '振幅',
+        '涨速',
+        '涨停统计',
+        '所属行业',
+    ]
+    temp_df['涨停统计'] = temp_df['涨停统计'].apply(lambda x: dict(x)['days']).astype(str) + "/" + temp_df['涨停统计'].apply(lambda x: dict(x)['ct']).astype(str)
+    temp_df = temp_df[[
+        '序号',
+        '代码',
+        '名称',
+        '涨跌幅',
+        '最新价',
+        '涨停价',
+        '成交额',
+        '流通市值',
+        '总市值',
+        '换手率',
+        '涨速',
+        '首次封板时间',
+        '炸板次数',
+        '涨停统计',
+        '振幅',
+        '所属行业',
+    ]]
+    temp_df['最新价'] = temp_df['最新价'] / 1000
+    temp_df['涨停价'] = temp_df['涨停价'] / 1000
+    return temp_df
+
+
+def stock_em_zt_pool_dtgc(date: str = '20210521') -> pd.DataFrame:
+    """
+    东方财富网-行情中心-涨停板行情-跌停股池
+    http://quote.eastmoney.com/ztb/detail#type=dtgc
+    :return: 跌停股池
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://push2ex.eastmoney.com/getTopicDTPool'
+    params = {
+        'ut': '7eea3edcaed734bea9cbfc24409ed989',
+        'dpt': 'wz.ztzt',
+        'Pageindex': '0',
+        'pagesize': '170',
+        'sort': 'fund:asc',
+        'date': date,
+        '_': '1621590489736',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['data']['pool'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.columns = [
+        '序号',
+        '代码',
+        '_',
+        '名称',
+        '最新价',
+        '涨跌幅',
+        '成交额',
+        '流通市值',
+        '总市值',
+        '动态市盈率',
+        '换手率',
+        '封单资金',
+        '最后封板时间',
+        '板上成交额',
+        '连续跌停',
+        '开板次数',
+        '所属行业',
+    ]
+    temp_df = temp_df[[
+        '序号',
+        '代码',
+        '名称',
+        '涨跌幅',
+        '最新价',
+        '成交额',
+        '流通市值',
+        '总市值',
+        '动态市盈率',
+        '换手率',
+        '封单资金',
+        '最后封板时间',
+        '板上成交额',
+        '连续跌停',
+        '开板次数',
+        '所属行业',
+    ]]
+    temp_df['最新价'] = temp_df['最新价'] / 1000
+    return temp_df
+
+
 if __name__ == '__main__':
     stock_em_zt_pool_df = stock_em_zt_pool(date='20210521')
     print(stock_em_zt_pool_df)
 
     stock_em_zt_pool_previous_df = stock_em_zt_pool_previous(date='20210521')
     print(stock_em_zt_pool_previous_df)
+
+    stock_em_zt_pool_strong_df = stock_em_zt_pool_strong(date='20210521')
+    print(stock_em_zt_pool_strong_df)
+
+    stock_em_zt_pool_sub_new_df = stock_em_zt_pool_sub_new(date='20210521')
+    print(stock_em_zt_pool_sub_new_df)
+
+    stock_em_zt_pool_zbgc_df = stock_em_zt_pool_zbgc(date='20210521')
+    print(stock_em_zt_pool_zbgc_df)
+
+    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210521')
+    print(stock_em_zt_pool_dtgc_df)
