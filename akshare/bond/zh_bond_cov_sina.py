@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/16 11:28
+Date: 2021/5/22 13:28
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
@@ -197,9 +197,8 @@ def bond_cov_comparison() -> pd.DataFrame:
     :return: 可转债比价表数据
     :rtype: pandas.DataFrame
     """
-    url = "http://77.push2.eastmoney.com/api/qt/clist/get"
+    url = "http://16.push2.eastmoney.com/api/qt/clist/get"
     params = {
-        "cb": "jQuery112406285914172501668_1590386857513",
         "pn": "1",
         "pz": "5000",
         "po": "1",
@@ -214,12 +213,15 @@ def bond_cov_comparison() -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -2])
+    json_data = demjson.decode(text_data)
     temp_df = pd.DataFrame(json_data["data"]["diff"])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
     temp_df.columns = [
+        "序号",
         "_",
-        "最新价",
-        "涨跌幅",
+        "转债最新价",
+        "转债涨跌幅",
         "转债代码",
         "_",
         "转债名称",
@@ -227,8 +229,8 @@ def bond_cov_comparison() -> pd.DataFrame:
         "_",
         "纯债价值",
         "_",
-        "_",
-        "涨跌幅",
+        "正股最新价",
+        "正股涨跌幅",
         "_",
         "正股代码",
         "_",
@@ -245,15 +247,15 @@ def bond_cov_comparison() -> pd.DataFrame:
     ]
     temp_df = temp_df[
         [
-            "最新价",
-            "涨跌幅",
+            "序号",
             "转债代码",
             "转债名称",
-            "上市日期",
-            "纯债价值",
-            "涨跌幅",
+            "转债最新价",
+            "转债涨跌幅",
             "正股代码",
             "正股名称",
+            "正股最新价",
+            "正股涨跌幅",
             "转股价",
             "转股价值",
             "转股溢价率",
@@ -261,7 +263,9 @@ def bond_cov_comparison() -> pd.DataFrame:
             "回售触发价",
             "强赎触发价",
             "到期赎回价",
+            "纯债价值",
             "开始转股日",
+            "上市日期",
             "申购日期",
         ]
     ]
