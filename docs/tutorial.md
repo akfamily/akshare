@@ -780,6 +780,10 @@
  # 涨停板行情
  "stock_em_zt_pool"  # 涨停板行情-涨停股池
  "stock_em_zt_pool_previous"  # 涨停板行情-昨日涨停股池
+ "stock_em_zt_pool_strong"  # 涨停板行情-强势股池
+ "stock_em_zt_pool_sub_new"  # 涨停板行情-次新股池
+ "stock_em_zt_pool_zbgc"  # 涨停板行情-炸板股池
+ "stock_em_zt_pool_dtgc"  # 涨停板行情-跌停股池
 ```
 
 ## 案例演示
