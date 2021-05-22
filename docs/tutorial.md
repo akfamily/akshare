@@ -777,6 +777,9 @@
  "marco_china_hk_building_amount"  # 中国-香港-香港楼宇买卖合约成交金额
  "marco_china_hk_trade_diff_ratio"  # 中国-香港-香港商品贸易差额年率
  "marco_china_hk_ppi"  # 中国-香港-香港制造业 PPI 年率
+ # 涨停板行情
+ "stock_em_zt_pool"  # 涨停板行情-涨停股池
+ "stock_em_zt_pool_previous"  # 涨停板行情-昨日涨停股池
 ```
 
 ## 案例演示
