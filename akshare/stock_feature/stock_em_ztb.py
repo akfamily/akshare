@@ -174,7 +174,7 @@ def stock_em_zt_pool_strong(date: str = '20210521') -> pd.DataFrame:
         '总市值',
         '换手率',
         '是否新高',
-        '_',
+        '入选理由',
         '量比',
         '涨速',
         '涨停统计',
@@ -196,6 +196,7 @@ def stock_em_zt_pool_strong(date: str = '20210521') -> pd.DataFrame:
         '是否新高',
         '量比',
         '涨停统计',
+        '入选理由',
         '所属行业',
     ]]
     temp_df['最新价'] = temp_df['最新价'] / 1000
