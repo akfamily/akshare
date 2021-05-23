@@ -1,19 +1,40 @@
 ## [AKShare](https://github.com/jindaxiang/akshare) 策略示例
 
+本策略示例文档的主要目的是为了方便的展示 [AKShare](https://github.com/jindaxiang/akshare) 的数据接口
+调用、基本的数据处理和回测框架使用，并不涉及任何投资建议，提供的示例代码也仅供参考。
+
+本策略示例都是基于 Python 编程语言的开源回测和交易框架 [Backtrader](https://www.backtrader.com) 来演示的，有兴趣
+想深入了解该框架的小伙伴，可以参考官网文档学习，同时也可以加入合作的知识星球 **数据科学家** 学习：
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist)
+
+注意：本教程的开发是基于：Python (64 位) 3.8.6 来进行的
+
+### Backtrader 介绍
+
+[Backtrader](https://www.backtrader.com) 是基于 Python 编程语言的主要用于量化投资开源回测和交易
+框架，可以用于多种资产的回测。目前，[Backtrader](https://www.backtrader.com) 可以用于实现股票、期
+货、期权、外汇、加密货币等类型资产的回测，同时该开源框架也有强大的第三方社区支持，目前已经实现了
+基于IB、Oanda、VC、CCXT、MT5等接口量化交易，随着该框架的流行，后期会有更多的小伙伴提供更多的第三方模块，学习
+和使用该框架是一个不错的选择！
+
+#### Backtrader 下载和安装
+
+[Backtrader](https://www.backtrader.com) 的下载和安装都比较简单，尤其是在配置好 [AKShare](https://github.com/jindaxiang/akshare) 的
+基础上，我们只需要 ```pip install backtrader``` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/jindaxiang/akshare) 的
+环境配置，请参考 [AKShare 环境配置](https://www.akshare.xyz/zh_CN/latest/anaconda.html) 来设置本地环境。想要
+通过源码来安装的小伙伴，可以访问 [Backtrader 的 GitHub 地址](https://github.com/mementum/backtrader) 来下载安装，由于源码安装比较繁琐
+，建议直接通过 ```pip``` 或 ```conda``` 来安装和使用。
+
 ### 股票策略
 
-#### BackTrader-基本策略
-
-##### 代码
-
-下载和安装 [BackTrader](https://www.backtrader.com/)
+#### 代码
 
 ```python
 from datetime import datetime
 
 import backtrader as bt
 import matplotlib.pyplot as plt
-import akshare as ak
+import akshare as ak  # 升级到最新版
 
 plt.rcParams["font.sans-serif"] = ["SimHei"]
 plt.rcParams["axes.unicode_minus"] = False
@@ -77,7 +98,7 @@ print(f"净收益: {round(pnl, 2)}")
 cerebro.plot(style='candlestick')  # 画图
 ```
 
-##### 结果
+#### 结果
 
 ```
 初始资金: 1000000
@@ -86,15 +107,13 @@ cerebro.plot(style='candlestick')  # 画图
 净收益: 10238.65
 ```
 
-##### 可视化
+#### 可视化
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/Figure_0.png)
 
-#### BackTrader-参数优化
+#### 参数优化
 
 ##### 代码
-
-下载和安装 [BackTrader](https://www.backtrader.com/)
 
 ```python
 import backtrader as bt
@@ -217,7 +236,7 @@ def main(code="sh601318", start_cash=1000000, stake=100, commission_fee=0.001):
     print("期末总资金: %.2f" % cerebro.broker.getvalue())
 ```
 
-##### 结果
+#### 结果
 
 ```
 期初总资金: 1000000.00
