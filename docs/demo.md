@@ -27,7 +27,9 @@
 
 ### 股票策略
 
-#### 代码
+#### 基本策略
+
+##### 代码
 
 ```python
 from datetime import datetime
@@ -98,7 +100,7 @@ print(f"净收益: {round(pnl, 2)}")
 cerebro.plot(style='candlestick')  # 画图
 ```
 
-#### 结果
+##### 结果
 
 ```
 初始资金: 1000000
@@ -107,7 +109,7 @@ cerebro.plot(style='candlestick')  # 画图
 净收益: 10238.65
 ```
 
-#### 可视化
+##### 可视化
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/Figure_0.png)
 
@@ -236,7 +238,7 @@ def main(code="sh601318", start_cash=1000000, stake=100, commission_fee=0.001):
     print("期末总资金: %.2f" % cerebro.broker.getvalue())
 ```
 
-#### 结果
+##### 结果
 
 ```
 期初总资金: 1000000.00
