@@ -1,16 +1,15 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/21 17:50
+Date: 2021/5/25 17:50
 Desc: 首页-行情中心-涨停板行情-涨停股池
 http://quote.eastmoney.com/ztb/detail#type=ztgc
 """
-import numpy as np
 import pandas as pd
 import requests
 
 
-def stock_em_zt_pool(date: str = '20210521') -> pd.DataFrame:
+def stock_em_zt_pool(date: str = '20210525') -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-涨停股池
     http://quote.eastmoney.com/ztb/detail#type=ztgc
@@ -70,6 +69,8 @@ def stock_em_zt_pool(date: str = '20210521') -> pd.DataFrame:
         '连板数',
         '所属行业',
     ]]
+    temp_df['首次封板时间'] = temp_df['首次封板时间'].astype(str).str.zfill(6)
+    temp_df['最后封板时间'] = temp_df['最后封板时间'].astype(str).str.zfill(6)
     return temp_df
 
 
@@ -274,7 +275,7 @@ def stock_em_zt_pool_sub_new(date: str = '20210525') -> pd.DataFrame:
     return temp_df
 
 
-def stock_em_zt_pool_zbgc(date: str = '20210521') -> pd.DataFrame:
+def stock_em_zt_pool_zbgc(date: str = '20210525') -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-炸板股池
     http://quote.eastmoney.com/ztb/detail#type=zbgc
@@ -336,6 +337,7 @@ def stock_em_zt_pool_zbgc(date: str = '20210521') -> pd.DataFrame:
     ]]
     temp_df['最新价'] = temp_df['最新价'] / 1000
     temp_df['涨停价'] = temp_df['涨停价'] / 1000
+    temp_df['首次封板时间'] = temp_df['首次封板时间'].astype(str).str.zfill(6)
     return temp_df
 
 
@@ -399,24 +401,25 @@ def stock_em_zt_pool_dtgc(date: str = '20210521') -> pd.DataFrame:
         '所属行业',
     ]]
     temp_df['最新价'] = temp_df['最新价'] / 1000
+    temp_df['最后封板时间'] = temp_df['最后封板时间'].astype(str).str.zfill(6)
     return temp_df
 
 
 if __name__ == '__main__':
-    stock_em_zt_pool_df = stock_em_zt_pool(date='20210521')
+    stock_em_zt_pool_df = stock_em_zt_pool(date='20210525')
     print(stock_em_zt_pool_df)
 
-    stock_em_zt_pool_previous_df = stock_em_zt_pool_previous(date='20210521')
+    stock_em_zt_pool_previous_df = stock_em_zt_pool_previous(date='20210525')
     print(stock_em_zt_pool_previous_df)
 
-    stock_em_zt_pool_strong_df = stock_em_zt_pool_strong(date='20210521')
+    stock_em_zt_pool_strong_df = stock_em_zt_pool_strong(date='20210525')
     print(stock_em_zt_pool_strong_df)
 
     stock_em_zt_pool_sub_new_df = stock_em_zt_pool_sub_new(date='20210525')
     print(stock_em_zt_pool_sub_new_df)
 
-    stock_em_zt_pool_zbgc_df = stock_em_zt_pool_zbgc(date='20210521')
+    stock_em_zt_pool_zbgc_df = stock_em_zt_pool_zbgc(date='20210525')
     print(stock_em_zt_pool_zbgc_df)
 
-    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210521')
+    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210525')
     print(stock_em_zt_pool_dtgc_df)
