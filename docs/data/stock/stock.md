@@ -239,7 +239,8 @@ print(stock_zh_a_spot_df)
 
 目标地址: https://finance.sina.com.cn/realstock/company/sh600006/nc.shtml(示例)
 
-描述: A 股数据是从新浪财经获取的数据, 历史数据按日频率更新
+描述: A 股数据是从新浪财经获取的数据, 历史数据按日频率更新; 注意其中的 **sh689009** 为 CDR, 请
+通过 **stock_zh_a_cdr_daily** 接口获取
 
 限量: 单次返回指定 A 股上市公司指定日期间的历史行情日频率数据
 
@@ -282,9 +283,9 @@ print(stock_zh_a_spot_df)
 | high          | float      | Y        | 最高价     |
 | low           | float      | Y        | 最低价     |
 | open         | float      | Y        | 开盘价     |
-| volume        | float      | Y        | 成交量(股)     |
-| outstanding_share        | float      | Y        | 流动股本(股)     |
-| turnover        | float      | Y        | 换手率=成交量(股)/流动股本(股)    |
+| volume        | float      | Y        | 成交量; 注意单位: 股     |
+| outstanding_share        | float      | Y        | 流动股本; 注意单位: 股     |
+| turnover        | float      | Y        | 换手率=成交量/流动股本    |
 
 接口示例-历史行情数据(前复权)
 
@@ -610,6 +611,10 @@ print(stock_zh_a_tick_163_df)
 描述: 上海证券交易所-科创板-CDR
 
 限量: 单次返回指定 CDR 的日频率数据, 分钟历史行情数据可以通过 stock_zh_a_minute 获取
+
+名词解释: 
+1. [Investopedia-CDR](https://www.investopedia.com/terms/c/cdr.asp)
+1. [百度百科-中国存托凭证](https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E5%AD%98%E6%89%98%E5%87%AD%E8%AF%81/2489906?fr=aladdin)
 
 输入参数
 
