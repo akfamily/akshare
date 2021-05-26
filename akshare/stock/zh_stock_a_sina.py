@@ -385,8 +385,11 @@ if __name__ == "__main__":
     stock_zh_a_daily_hfq_df_two = stock_zh_a_daily(symbol="sh000001", start_date="20101103", end_date="20210510")
     print(stock_zh_a_daily_hfq_df_two)
 
-    qfq_factor_df = stock_zh_a_daily(symbol="sz300857", adjust='hqf-factor')
+    qfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust='qfq-factor')
     print(qfq_factor_df)
+
+    hfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust='hfq-factor')
+    print(hfq_factor_df)
 
     stock_zh_a_daily_hfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust="hfq-factor")
     print(stock_zh_a_daily_hfq_factor_df)
