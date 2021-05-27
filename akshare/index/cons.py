@@ -1,15 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/10/17 1:19
+Date: 2021/5/27 20:19
 Desc: 指数配置文件
 """
-# spot-goods
-soy_url = "http://stock.finance.sina.com.cn/futures/api/openapi.php/GoodsIndexService.get_goods_index?symbol=SOY&table=0&callback=jsonpCallback_1576728720066_84029"
-bdi_url = "http://stock.finance.sina.com.cn/futures/api/openapi.php/GoodsIndexService.get_goods_index?symbol=BDI&table=0&callback=jsonpCallback_1576728720068_16033"
-gp_url = "http://stock.finance.sina.com.cn/futures/api/openapi.php/GoodsIndexService.get_goods_index?symbol=GP&table=0&callback=jsonpCallback_1576728720069_72764"
-ps_url = "http://stock.finance.sina.com.cn/futures/api/openapi.php/GoodsIndexService.get_goods_index?symbol=PS&table=0&callback=jsonpCallback_1576728720071_26403"
-
 # weibo-user-agent
 index_weibo_headers = {
     "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1",

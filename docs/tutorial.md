@@ -4,7 +4,7 @@
 
 具体函数使用详情, 请查看 [AKShare 文档](https://akshare.readthedocs.io/) 每个接口的示例代码
 
-[AKShare](https://github.com/jindaxiang/akshare) 数据接口一览表
+[AKShare](https://github.com/jindaxiang/akshare) 数据接口一览
 
 ```
  # 交易所期货数据
@@ -61,16 +61,16 @@
  # 全球大宗商品
  "futures_global_commodity_hist"  # 全球大宗商品数据
  # 宏观-欧洲
- "get_euro_interest_rate"  # 欧洲央行决议报告
+ "macro_euro_interest_rate"  # 欧洲央行决议报告
  # 宏观-主要机构
- "get_cons_gold_amount"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-总价值
- "get_cons_gold_change"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-增持/减持
- "get_cons_gold_volume"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-总库存
- "get_cons_opec_month"  # 欧佩克报告-差异
- "get_cons_opec_near_change"  # 欧佩克报告-月份
- "get_cons_silver_amount"  # 全球最大白银ETF--iShares Silver Trust持仓报告-总价值
- "get_cons_silver_change"  # 全球最大白银ETF--iShares Silver Trust持仓报告-增持/减持
- "get_cons_silver_volume"  # 全球最大白银ETF--iShares Silver Trust持仓报告-总库存
+ "macro_cons_gold_amount"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-总价值
+ "macro_cons_gold_change"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-增持/减持
+ "macro_cons_gold_volume"  # 全球最大黄金ETF—SPDR Gold Trust持仓报告-总库存
+ "macro_cons_opec_month"  # 欧佩克报告-差异
+ "macro_cons_opec_near_change"  # 欧佩克报告-月份
+ "macro_cons_silver_amount"  # 全球最大白银ETF--iShares Silver Trust持仓报告-总价值
+ "macro_cons_silver_change"  # 全球最大白银ETF--iShares Silver Trust持仓报告-增持/减持
+ "macro_cons_silver_volume"  # 全球最大白银ETF--iShares Silver Trust持仓报告-总库存
  # 期货-仓单有效期
  "get_receipt_date"  # 期货仓单有效期数据
  # 新浪财经-期货
