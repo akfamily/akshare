@@ -84,7 +84,7 @@ def get_rank_sum_daily(start_day: str = "20210510", end_day: str = "20210510", v
     return records.reset_index(drop=True)
 
 
-def get_rank_sum(date="20200727", vars_list=cons.contract_symbols):
+def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols):
     """
     抓取四个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名, 没有公布品种的总排名;
@@ -291,7 +291,7 @@ def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     return data
 
 
-def get_czce_rank_table(date="20210428", vars_list=cons.contract_symbols):
+def get_czce_rank_table(date: str = "20210428", vars_list: list = cons.contract_symbols):
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
@@ -772,8 +772,9 @@ def futures_dce_position_rank_other(date: str = "20160104"):
 
 if __name__ == '__main__':
     # 郑州商品交易所
-    get_czce_rank_table_first_df = get_czce_rank_table(date='20151026', vars_list=["SR"])
+    get_czce_rank_table_first_df = get_czce_rank_table(date='20210525')
     print(get_czce_rank_table_first_df)
+
     get_czce_rank_table_first_df = get_czce_rank_table(date='20201026')
     print(get_czce_rank_table_first_df)
     # 中国金融期货交易所
@@ -795,7 +796,7 @@ if __name__ == '__main__':
     print(get_dce_rank_table_fourth_df)
 
     # 总接口
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210515", end_day="20210518")
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210515", end_day="20210518", vars_list=['PF'])
     print(get_rank_sum_daily_df)
 
     futures_dce_detail_dict = futures_dce_position_rank(date="20210407")
