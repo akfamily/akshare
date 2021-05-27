@@ -2000,7 +2000,7 @@ print(sw_index_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| symbol | str  | Y   |   symbol="波罗的海干散货指数", 指数目录请参考 **现货指数一览表** |
+| symbol | str  | Y   |   symbol="波罗的海干散货指数"; 指数目录请参考 **现货指数一览表** |
 
 现货指数一览表
 
@@ -2015,21 +2015,20 @@ print(sw_index_df)
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        |   |
-| 指数      | float   | Y        |    |
-| 涨跌额      | float   | Y        |   |
-| 涨跌幅      | float   | Y        |    |
-
+| 日期      | object   | Y        |   |
+| 指数      | object   | Y        |    |
+| 涨跌额      | object   | Y        |   |
+| 涨跌幅      | object   | Y        |    |
 
 接口示例-天
 
 ```python
 import akshare as ak
-spot_df = ak.spot_goods(symbol="波罗的海干散货指数")
-print(spot_df)
+spot_goods_df = ak.spot_goods(symbol="波罗的海干散货指数")
+print(spot_goods_df)
 ```
 
-数据示例-天
+数据示例
 
 ```
               日期       指数     涨跌额      涨跌幅
