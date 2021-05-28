@@ -418,8 +418,8 @@ if __name__ == '__main__':
     stock_em_zt_pool_sub_new_df = stock_em_zt_pool_sub_new(date='20210525')
     print(stock_em_zt_pool_sub_new_df)
 
-    stock_em_zt_pool_zbgc_df = stock_em_zt_pool_zbgc(date='20210525')
+    stock_em_zt_pool_zbgc_df = stock_em_zt_pool_zbgc(date='20210527')
     print(stock_em_zt_pool_zbgc_df)
 
-    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210525')
+    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210527')
     print(stock_em_zt_pool_dtgc_df)
