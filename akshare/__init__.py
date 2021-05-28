@@ -1363,9 +1363,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.44: fix: fix stock_em_zt_pool_sub_new interface
 0.9.45: fix: fix stock_em_zt_pool interface
 0.9.46: fix: fix spot_goods interface
+0.9.47: fix: fix futures_comex_inventory interface
 """
 
-__version__ = "0.9.46"
+__version__ = "0.9.47"
 __author__ = "Albert King"
 
 import sys

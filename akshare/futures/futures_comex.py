@@ -40,11 +40,26 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{"):])
     temp_df = pd.DataFrame(data_json["data"])
     del temp_df["ID"]
-    temp_df["DATADATE"] = pd.to_datetime(temp_df["DATADATE"])
-    temp_df.columns = ["date", "value1", "value2"]
+    temp_df["DATADATE"] = pd.to_datetime(temp_df["DATADATE"]).dt.date
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    if symbol == "黄金":
+        temp_df.columns = [
+            '序号',
+            '日期',
+            f'COMEX{symbol}库存量_1',
+            f'COMEX{symbol}库存量_2',
+        ]
+    elif symbol == "白银":
+        temp_df.columns = [
+            '序号',
+            '日期',
+            f'COMEX{symbol}库存量_1',
+            f'COMEX{symbol}库存量_2',
+        ]
     return temp_df
 
 
 if __name__ == '__main__':
-    futures_comex_inventory_df = futures_comex_inventory(symbol="黄金")
+    futures_comex_inventory_df = futures_comex_inventory(symbol="白银")
     print(futures_comex_inventory_df)
