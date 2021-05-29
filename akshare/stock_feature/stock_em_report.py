@@ -24,7 +24,7 @@ def stock_em_zcfz(date: str = "20200331") -> pd.DataFrame:
     :return: 资产负债表
     :rtype: pandas.DataFrame
     """
-    url = "http://datacenter.eastmoney.com/api/data/get"
+    url = "http://datacenter-web.eastmoney.com/api/data/get"
     params = {
         "st": "NOTICE_DATE,SECURITY_CODE",
         "sr": "-1,-1",
@@ -148,7 +148,7 @@ def stock_em_lrb(date: str = "20200331") -> pd.DataFrame:
     :return: 利润表
     :rtype: pandas.DataFrame
     """
-    url = "http://datacenter.eastmoney.com/api/data/get"
+    url = "http://datacenter-web.eastmoney.com/api/data/get"
     params = {
         "st": "NOTICE_DATE,SECURITY_CODE",
         "sr": "-1,-1",
@@ -261,7 +261,7 @@ def stock_em_xjll(date: str = "20200331") -> pd.DataFrame:
     :return: 现金流量表
     :rtype: pandas.DataFrame
     """
-    url = "http://datacenter.eastmoney.com/api/data/get"
+    url = "http://datacenter-web.eastmoney.com/api/data/get"
     params = {
         "st": "NOTICE_DATE,SECURITY_CODE",
         "sr": "-1,-1",
