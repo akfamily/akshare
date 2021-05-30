@@ -91,8 +91,10 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
                 eval(res.text.split("=")[1].split("\n")[0])["data"]
             )
             if len(hfq_factor_df) == 1:
+                data_df.reset_index(inplace=True)
                 return data_df
         except SyntaxError as e:
+            data_df.reset_index(inplace=True)
             return data_df
         hfq_factor_df.columns = ["date", "hfq_factor", "cash"]
         hfq_factor_df.index = pd.to_datetime(hfq_factor_df.date)
@@ -136,9 +138,11 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
                 eval(res.text.split("=")[1].split("\n")[0])["data"]
             )
             if len(qfq_factor_df) == 1:
+                data_df.reset_index(inplace=True)
                 return data_df
 
         except SyntaxError as e:
+            data_df.reset_index(inplace=True)
             return data_df
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
@@ -204,6 +208,9 @@ if __name__ == "__main__":
     print(stock_hk_daily_hfq_df)
 
     stock_hk_daily_hfq_df = stock_hk_daily(symbol="00700", adjust="hfq")
+    print(stock_hk_daily_hfq_df)
+
+    stock_hk_daily_hfq_df = stock_hk_daily(symbol="01591", adjust="hfq")
     print(stock_hk_daily_hfq_df)
 
     stock_hk_daily_hfq_df = stock_hk_daily(symbol="00700", adjust="qfq")
