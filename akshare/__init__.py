@@ -2921,3 +2921,17 @@ from akshare.futures.futures_daily_bar import (
     get_dce_daily,
     get_futures_daily,
 )
+
+"""
+每日快讯数据
+"""
+from akshare.stock_feature.stock_cls_alerts import (
+    stock_zh_a_alerts_cls,
+)
+
+"""
+涨停数据分析-图片格式
+"""
+from akshare.stock_feature.stock_cls_zt_analyse import (
+    stock_zh_a_zt_analyse_cls,
+)
