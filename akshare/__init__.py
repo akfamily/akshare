@@ -1369,9 +1369,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.50: fix: fix futures_spot_stock interface
 0.9.51: fix: fix stock_hk_daily interface
 0.9.52: fix: remove internal_flow_history interface
+0.9.53: add: add stock_zh_a_alerts_cls interface
 """
 
-__version__ = "0.9.52"
+__version__ = "0.9.53"
 __author__ = "Albert King"
 
 import sys
@@ -1381,6 +1382,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+每日快讯数据
+"""
+from akshare.stock_feature.stock_cls_alerts import stock_zh_a_alerts_cls
 
 """
 涨停板行情
@@ -2920,18 +2926,4 @@ from akshare.futures.futures_daily_bar import (
     get_shfe_daily,
     get_dce_daily,
     get_futures_daily,
-)
-
-"""
-每日快讯数据
-"""
-from akshare.stock_feature.stock_cls_alerts import (
-    stock_zh_a_alerts_cls,
-)
-
-"""
-涨停数据分析-图片格式
-"""
-from akshare.stock_feature.stock_cls_zt_analyse import (
-    stock_zh_a_zt_analyse_cls,
 )
