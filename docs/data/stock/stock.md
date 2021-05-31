@@ -9778,34 +9778,6 @@ print(stock_em_zt_pool_dtgc_df)
 2   3  300157  恒泰艾普 -20.075758  4.22  ...  140548   73337399     1     9  石油行业
 ```
 
-####  涨停分析
-
-接口: stock_zh_a_zt_analyse_cls
-
-目标地址: https://www.cls.cn/searchPage?keyword=5%E6%9C%8812%E6%97%A5%E6%B6%A8%E5%81%9C%E5%88%86%E6%9E%90&type=all
-
-描述: 获取财联社的涨停分析 **返回图片格式**
-
-限量:  单次获取财联社的涨停分析
-
-输入参数：
-
-| 名称     | 类型 | 必选             | 描述     |
-| -------- | ---- | ---------------- | -------- |
-| date     | str  | 否，默认今天     | 日期     |
-| img_path | str  | 否，默认当前路径 | 保存路径 |
-
-输出参数：无
-
-接口示例
-
-```python
-from akshare import stock_zh_a_zt_analyse_cls
-print(stock_zh_a_zt_analyse_cls())
-```
-
-数据示例：无
-
 ### 赚钱效应分析
 
 接口: stock_legu_market_activity

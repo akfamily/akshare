@@ -2154,4 +2154,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.51: fix: fix stock_hk_daily interface
 
 0.9.52: fix: remove internal_flow_history interface
+
+0.9.53: add: add stock_zh_a_alerts_cls interface
 ```
