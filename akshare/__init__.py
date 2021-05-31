@@ -1368,9 +1368,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.49: fix: fix stock_hk_daily interface
 0.9.50: fix: fix futures_spot_stock interface
 0.9.51: fix: fix stock_hk_daily interface
+0.9.52: fix: remove internal_flow_history interface
 """
 
-__version__ = "0.9.51"
+__version__ = "0.9.52"
 __author__ = "Albert King"
 
 import sys
@@ -2144,7 +2145,6 @@ from akshare.fund.fund_em import (
 from akshare.event.covid import (
     migration_area_baidu,
     migration_scale_baidu,
-    internal_flow_history,
 )
 
 """
