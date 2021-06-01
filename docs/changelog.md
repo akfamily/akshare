@@ -2158,4 +2158,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.53: add: add stock_zh_a_alerts_cls interface
 
 0.9.54: fix: fix bond_zh_us_rate interface
+
+0.9.55: fix: fix index_vix interface
 ```

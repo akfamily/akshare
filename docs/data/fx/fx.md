@@ -376,7 +376,7 @@ print(currency_hist_df)
 ```python
 import akshare as ak
 from datetime import datetime
-test_date = datetime.now().date().isoformat()
+test_date = datetime.now().date().isoformat().replace("-", "")
 macro_fx_sentiment_df = ak.macro_fx_sentiment(start_date=test_date, end_date=test_date)
 print(macro_fx_sentiment_df)
 ```
