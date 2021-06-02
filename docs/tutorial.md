@@ -783,6 +783,8 @@
  "stock_em_zt_pool_sub_new"  # 涨停板行情-次新股池
  "stock_em_zt_pool_zbgc"  # 涨停板行情-炸板股池
  "stock_em_zt_pool_dtgc"  # 涨停板行情-跌停股池
+ # 两网及退市
+ "stock_staq_net_stop"  # 两网及退市
 ```
 
 ## 案例演示

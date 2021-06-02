@@ -1374,9 +1374,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.55: fix: fix index_vix interface
 0.9.56: fix: fix macro_fx_sentiment interface
 0.9.57: fix: fix stock_zh_a_alerts_cls interface
+0.9.58: add: add stock_staq_net_stop interface
 """
 
-__version__ = "0.9.57"
+__version__ = "0.9.58"
 __author__ = "Albert King"
 
 import sys
@@ -1386,6 +1387,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+两网及退市
+"""
+from akshare.stock.stock_stop import stock_staq_net_stop
 
 """
 每日快讯数据
