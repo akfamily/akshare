@@ -5,8 +5,8 @@ Date: 2021/6/2 16:33
 Desc: 两网及退市
 http://quote.eastmoney.com/center/gridlist.html#staq_net_board
 """
-import requests
 import pandas as pd
+import requests
 
 
 def stock_staq_net_stop():
