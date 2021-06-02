@@ -4009,7 +4009,7 @@ print(marco_china_hk_trade_diff_ratio_df)
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_8.html
 
-描述: 获取东方财富-经济数据一览-中国香港-香港制造业 PPI 年率
+描述: 获取东方财富-经济数据一览-中国香港-香港制造业PPI年率
 
 限量: 单次返回所有历史数据
 
