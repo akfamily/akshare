@@ -5,8 +5,6 @@ Date: 2021/6/1 14:51
 Desc: 财联社今日快讯
 https://www.cls.cn/searchPage?keyword=%E5%BF%AB%E8%AE%AF&type=all
 """
-from datetime import datetime
-
 import pandas as pd
 import requests
 
@@ -36,7 +34,7 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Dest": "empty",
         "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
     }
     payload = {
         "type": "telegram",
