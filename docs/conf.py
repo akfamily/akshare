@@ -15,6 +15,7 @@ import recommonmark
 from datetime import datetime
 from recommonmark.transform import AutoStructify
 import sphinx_rtd_theme
+from akshare.__init__ import __version__
 
 
 latex_engine = 'xelatex'
@@ -31,9 +32,9 @@ github_doc_root = 'https://github.com/rtfd/recommonmark/tree/master/doc/'
 # -- Project information -----------------------------------------------------
 
 project = 'AKShare'
-copyright = f'2019–{datetime.now().year}, AKShare developers'
+copyright = f'2019–{datetime.now().year}, AKShare Developers'
 author = 'Albert King'
-version = "1.0.0"
+version = __version__
 
 templates_path = ['_templates']
 
