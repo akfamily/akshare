@@ -1,14 +1,13 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/12 14:07
+Date: 2021/6/3 16:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
 COVID-19-百度
 COVID-19-GitHub
 """
-import datetime
 import json
 import time
 
@@ -356,30 +355,6 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     :return: 指定 indicator 的数据
     :rtype: pandas.DataFrame
     """
-    url = "https://huiyan.baidu.com/migration/cityrank.jsonp"
-    params = {
-        'dt': 'country',
-        'id': '0',
-        'type': 'move_in',
-        'date': str(int(datetime.datetime.today().date().isoformat().replace("-", ""))-1),
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("(")+1:-1])
-    move_in_df = pd.DataFrame(data_json['data']['list'])
-    move_in_df['date'] = str(int(datetime.datetime.today().date().isoformat().replace("-", ""))-1)
-    params = {
-        'dt': 'country',
-        'id': '0',
-        'type': 'move_out',
-        'date': str(int(datetime.datetime.today().date().isoformat().replace("-", ""))-1),
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("(")+1:-1])
-    move_out_df = pd.DataFrame(data_json['data']['list'])
-    move_out_df['date'] = str(int(datetime.datetime.today().date().isoformat().replace("-", ""))-1)
-
     # domestic-city
     url = "https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1"
     r = requests.get(url)
@@ -436,11 +411,7 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         ["area", "died", "crued", "confirmed", "confirmedRelative"]
     ]
 
-    if indicator == "热门迁入地":
-        return move_in_df
-    elif indicator == "热门迁出地":
-        return move_out_df
-    elif indicator == "中国分省份详情":
+    if indicator == "中国分省份详情":
         return domestic_province_df
     elif indicator == "中国分城市详情":
         return domestic_city_df
@@ -776,8 +747,6 @@ if __name__ == "__main__":
 
     # baidu
     indicator_list = [
-        "热门迁入地",
-        "热门迁出地",
         "中国分省份详情",
         "中国分城市详情",
         "国外分国详情",
