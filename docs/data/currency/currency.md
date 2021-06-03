@@ -218,9 +218,9 @@ ZWL              Zimbabwean dollar  ...                         [Zimbabwe]
 
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
-| base | str | Y | base="USD" |
-| to | str | Y | to="CNY" |
-| amount | str | Y | amount="10000" |
+| base | str | Y | base="USD"; 基础货币 |
+| to | str | Y | to="CNY"; 需要转换到的货币 |
+| amount | str | Y | amount="10000"; 转换量 |
 | api_key | str | Y | api_key="Please put your api key here"; you can register [currencyscoop](https://currencyscoop.com/), [Gmail](http://mail.google.com/) well be better |
 
 输出参数
