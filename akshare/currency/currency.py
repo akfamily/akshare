@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/3/6 16:41
+Date: 2021/6/3 16:30
 Desc: get currency data from website
 P.S. you should get the api key from the website, you can register a gmail account to verify your email account
 https://currencyscoop.com/
@@ -122,7 +122,7 @@ def currency_convert(
     :rtype: pandas.Series
     """
     payload = {
-        "base": base,
+        "from": base,
         "to": to,
         "amount": amount,
         "api_key": api_key,
@@ -135,9 +135,13 @@ def currency_convert(
 
 
 if __name__ == "__main__":
-    currency_latest_df = currency_latest(base="USD", api_key="")
+    currency_latest_df = currency_latest(
+        base="USD", api_key=""
+    )
     print(currency_latest_df)
-    currency_history_df = currency_history(base="USD", date="2020-02-03", api_key="")
+    currency_history_df = currency_history(
+        base="USD", date="2020-02-03", api_key=""
+    )
     print(currency_history_df)
     # currency_time_series_df = currency_time_series(
     #     base="USD",
@@ -146,7 +150,9 @@ if __name__ == "__main__":
     #     api_key="",
     # )
     # print(currency_time_series_df)
-    currency_currencies_df = currency_currencies(c_type="fiat", api_key="")
+    currency_currencies_df = currency_currencies(
+        c_type="fiat", api_key=""
+    )
     print(currency_currencies_df)
     currency_convert_se = currency_convert(
         base="USD", to="CNY", amount="10000", api_key=""
