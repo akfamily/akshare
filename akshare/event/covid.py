@@ -451,15 +451,17 @@ def migration_area_baidu(
     else:
         dt_flag = "city"
     url = "https://huiyan.baidu.com/migration/cityrank.jsonp"
-    payload = {
+    params = {
         "dt": dt_flag,
         "id": inner_dict[area],
         "type": indicator,
         "date": date,
     }
-    r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
-    return pd.DataFrame(json_data["data"]["list"])
+    r = requests.get(url, params=params)
+    data_text = r.text[r.text.find("({") + 1: r.text.rfind(");")]
+    data_json = json.loads(data_text)
+    temp_df = pd.DataFrame(data_json["data"]["list"])
+    return temp_df
 
 
 def migration_scale_baidu(
@@ -503,7 +505,8 @@ def migration_scale_baidu(
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df.columns = ["迁徙规模指数"]
-    return temp_df[start_date:end_date]
+    temp_df = temp_df[start_date:end_date]
+    return temp_df
 
 
 def covid_19_trip() -> pd.DataFrame:

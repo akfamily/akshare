@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/28 16:31
+Date: 2021/6/4 20:31
 Desc: 股票基本信息
 """
 import json
@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 
 
-def stock_info_sz_name_code(indicator: str = "B股列表") -> pd.DataFrame:
+def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
     """
     深圳证券交易所-股票列表
     http://www.szse.cn/market/product/stock/list/index.html
@@ -31,7 +31,41 @@ def stock_info_sz_name_code(indicator: str = "B股列表") -> pd.DataFrame:
     r = requests.get(url, params=params)
     temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
     if len(temp_df) > 10:
-        temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
+        if indicator == "A股列表":
+            temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
+            temp_df = temp_df[[
+                '板块',
+                'A股代码',
+                'A股简称',
+                'A股上市日期',
+                'A股总股本',
+                'A股流通股本',
+                '所属行业',
+            ]]
+        elif indicator == "B股列表":
+            temp_df["B股代码"] = temp_df["B股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
+            temp_df = temp_df[[
+                '板块',
+                'B股代码',
+                'B股简称',
+                'B股上市日期',
+                'B股总股本',
+                'B股流通股本',
+                '所属行业',
+            ]]
+        elif indicator == "AB股列表":
+            temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
+            temp_df["B股代码"] = temp_df["B股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
+            temp_df = temp_df[[
+                '板块',
+                'A股代码',
+                'A股简称',
+                'A股上市日期',
+                'B股代码',
+                'B股简称',
+                'B股上市日期',
+                '所属行业',
+            ]]
         return temp_df
     else:
         return temp_df
