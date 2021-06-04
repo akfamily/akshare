@@ -13,7 +13,7 @@
 
 [Backtrader](https://www.backtrader.com) 是基于 Python 编程语言的主要用于量化投资开源回测和交易
 框架，可以用于多种资产的回测。目前，[Backtrader](https://www.backtrader.com) 可以用于实现股票、期
-货、期权、外汇、加密货币等类型资产的回测，同时该开源框架也有强大的第三方社区支持，目前已经实现了
+货、期权、外汇、加密货币等资产的回测，同时该开源框架也有强大的第三方社区支持，目前已经实现了
 基于IB、Oanda、VC、CCXT、MT5等接口量化交易，随着该框架的流行，后期会有更多的小伙伴提供更多的第三方模块，学习
 和使用该框架是一个不错的选择！
 
@@ -23,7 +23,7 @@
 基础上，我们只需要 ```pip install backtrader``` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/jindaxiang/akshare) 的
 环境配置，请参考 [AKShare 环境配置](https://www.akshare.xyz/zh_CN/latest/anaconda.html) 来设置本地环境。想要
 通过源码来安装的小伙伴，可以访问 [Backtrader 的 GitHub 地址](https://github.com/mementum/backtrader) 来下载安装，由于源码安装比较繁琐
-，建议直接通过 ```pip``` 或 ```conda``` 来安装和使用。
+，建议直接通过 ```pip``` 或 ```conda``` 来安装和使用。需要注意的是如果要输出图形，请安装 ```pip install matplotlib```
 
 ### 股票策略
 
