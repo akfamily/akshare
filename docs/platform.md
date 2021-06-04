@@ -1,14 +1,12 @@
 # [AKShare](https://github.com/jindaxiang/akshare) 量化平台
 
-## 目录
-
-### 开源平台
+## 开源平台
 
 - [VN.PY](https://www.vnpy.com/)
 - [功夫量化](https://www.kungfu-trader.com/)
 - [Backtrader](https://www.backtrader.com/)
 
-### 网页端
+## 网页端
 
 - [JoinQuant](https://www.joinquant.com/)
 - [MyQuant](https://www.myquant.cn/)
