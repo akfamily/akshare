@@ -1378,9 +1378,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.59: fix: fix covid_19_baidu interface
 0.9.60: fix: fix currency_convert interface
 0.9.61: fix: fix stock_info_sz_name_code interface
+0.9.62: add: add stock_zh_a_gdhs interface
 """
 
-__version__ = "0.9.61"
+__version__ = "0.9.62"
 __author__ = "Albert King"
 
 import sys
@@ -1390,6 +1391,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+股东户数
+"""
+from akshare.stock_feature.stock_gdhs import stock_zh_a_gdhs
 
 """
 两网及退市
