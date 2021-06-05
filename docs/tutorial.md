@@ -785,6 +785,8 @@
  "stock_em_zt_pool_dtgc"  # 涨停板行情-跌停股池
  # 两网及退市
  "stock_staq_net_stop"  # 两网及退市
+ # 股东户数
+ "stock_zh_a_gdhs"  # 股东户数
 ```
 
 ## 案例演示
