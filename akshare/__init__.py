@@ -1380,9 +1380,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.61: fix: fix stock_info_sz_name_code interface
 0.9.62: add: add stock_zh_a_gdhs interface
 0.9.63: fix: fix stock_zh_a_gdhs interface
+0.9.64: add: add futures_sina_hold_pos interface
 """
 
-__version__ = "0.9.63"
+__version__ = "0.9.64"
 __author__ = "Albert King"
 
 import sys
@@ -1392,6 +1393,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+期货持仓
+"""
+from akshare.futures_derivative.futures_sina_cot import futures_sina_hold_pos
 
 """
 股东户数
