@@ -86,7 +86,7 @@ def bond_zh_us_rate() -> pd.DataFrame:
             "美国GDP年增率",
         ]
     ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date.astype(str)
+    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     return big_df
 
 
