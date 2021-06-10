@@ -24,7 +24,7 @@ def get_sector_symbol_name_url() -> dict:
     '商品指数': '/indices/commodities-indices'}
     """
     url = "https://cn.investing.com/commodities/"
-    res = requests.post(url, headers=short_headers)
+    res = requests.get(url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
     name_url_option_list = soup.find_all(attrs={"class": "linkTitle"})  # 去掉-所有国家及地区
     url_list = [item.find("a")["href"] for item in name_url_option_list]

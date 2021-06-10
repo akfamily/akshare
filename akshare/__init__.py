@@ -1385,9 +1385,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.63: fix: fix stock_zh_a_gdhs interface
 0.9.64: add: add futures_sina_hold_pos interface
 0.9.65: fix: fix bond_zh_us_rate interface
+0.9.66: fix: fix set urllib3==1.25.11
 """
 
-__version__ = "0.9.65"
+__version__ = "0.9.66"
 __author__ = "Albert King"
 
 import sys
@@ -2835,7 +2836,7 @@ from akshare.economic.macro_china import (
 """
 全球期货
 """
-from akshare.futures.international_futures import (
+from akshare.futures.futures_international import (
     futures_global_commodity_hist,
     futures_global_commodity_name_url_map,
 )
