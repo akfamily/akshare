@@ -236,7 +236,7 @@ print(stock_zh_index_daily_em_df)
 | -------- | ---- | ---- | --- |
 | index | str  | Y    |   index="000300", 获取沪深 300 最新成份股, 指数代码见 **股票指数信息一览表**|
 
-股票指数信息一览表(可以在 AkShare 中通过如下代码获取本表)
+股票指数信息一览表(可以在 AKShare 中通过如下代码获取本表)
 
 ```python
 import akshare as ak
@@ -1344,7 +1344,7 @@ print(index_cni_detail_hist_adjust_df)
 1. 先查询指数所在的国家名称;
 2. 复制网页上国家名称(推荐复制), 如 **美国**;
 3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**; 也可以调用 **ak.index_investing_global_country_name_url("美国")** 获取需要国家的具体指数名称
-4. 在安装 [AkShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")**;
+4. 在安装 [AKShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")**;
 5. 稍后就可以获得所需数据.
 
 限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!

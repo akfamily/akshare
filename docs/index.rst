@@ -8,7 +8,7 @@ Welcome to AKShare's Online Documentation!
 
 .. note::
 
-   Please visit `AkShare's Github`_ for source code or visit `Github Issues`_ if you have any question!
+   Please visit `AKShare's Github`_ for source code or visit `Github Issues`_ if you have any question!
 
 .. _AkShare's Github: https://github.com/jindaxiang/akshare
 

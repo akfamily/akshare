@@ -673,7 +673,7 @@ print(futures_inventory_em_df)
 
 展期收益率是由不同交割月的价差除以相隔月份数计算得来, 它反映了市场对该品种在近期交割和远期交割的价差预期. 
 
-在 [AkShare](https://github.com/jindaxiang/akshare) 中可以通过 **get_roll_yield_bar** 接口下载展期收益率数据.
+在 [AKShare](https://github.com/jindaxiang/akshare) 中可以通过 **get_roll_yield_bar** 接口下载展期收益率数据.
 
 这里展期收益率列表的序列类型分为三种, 分别可以通过:
 
@@ -732,7 +732,7 @@ ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
 
 #### 现货价格和基差
 
-基差是商品期货非常重要的基本面因素, AkShare 在这里提供 3 中获取基差的方法: 
+基差是商品期货非常重要的基本面因素, AKShare 在这里提供 3 中获取基差的方法: 
 
 1. 获取近期交易日的基差数据
 

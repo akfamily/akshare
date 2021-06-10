@@ -227,7 +227,7 @@ def main(code="sh601318", start_cash=1000000, stake=100, commission_fee=0.001):
     cerebro.optstrategy(MyStrategy, maperiod=range(3, 31))  # 导入策略参数寻优
     stock_zh_a_daily_df = ak.stock_zh_a_daily(
         symbol=code, adjust="hfq"
-    )  # 通过 AkShare 获取需要的数据
+    )  # 通过 AKShare 获取需要的数据
     data = bt.feeds.PandasData(dataname=stock_zh_a_daily_df)  # 规范化数据格式
     cerebro.adddata(data)  # 将数据加载至回测系统
     cerebro.broker.setcash(start_cash)  # broker设置资金
