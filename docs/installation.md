@@ -15,6 +15,8 @@
 pip install akshare  --upgrade
 ```
 
+注意：程序运行时，文件名、文件夹名不能是：akshare
+
 ### 国内安装-Python
 
 ```
