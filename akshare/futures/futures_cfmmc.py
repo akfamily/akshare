@@ -7,7 +7,7 @@ http://index.cfmmc.com/index/views/index.html
 该数据由中国期货市场监控中心转移到中证商品指数有限责任公司进行管理
 中证商品指数有限责任公司：http://www.cscidx.com/index.html
 截止目前该网站还未更新指数上线
-# TODO 等待更新
+# TODO 等待网站更新数据
 """
 from io import BytesIO
 

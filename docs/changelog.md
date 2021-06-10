@@ -2180,4 +2180,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.64: add: add futures_sina_hold_pos interface
 
 0.9.65: fix: fix bond_zh_us_rate interface
+
+0.9.66: fix: fix set urllib3==1.25.11
 ```
