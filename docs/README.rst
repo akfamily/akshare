@@ -1,10 +1,10 @@
 :orphan:
 
 =========================================
-AkShare documentation quick start guide
+AKShare documentation quick start guide
 =========================================
 
-This file provides a quick guide on how to compile the AkShare documentation.
+This file provides a quick guide on how to compile the AKShare documentation.
 
 
 Setup the environment

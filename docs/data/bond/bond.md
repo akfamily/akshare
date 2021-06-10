@@ -4,7 +4,7 @@
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/bond_stock_index.png)
 
-上图是利用 [AkShare](https://github.com/jindaxiang/akshare) 的 **get_bond_bank** 函数获取的中国银行间
+上图是利用 [AKShare](https://github.com/jindaxiang/akshare) 的 **get_bond_bank** 函数获取的中国银行间
 交易商协会发布的债券数据来绘制的, 可以在上面明确看出近几个月发债规模急速上升.
 
 ### 债券基础名词

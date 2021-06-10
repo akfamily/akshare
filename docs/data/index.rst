@@ -1,7 +1,7 @@
 AKShare 数据字典
 =================
 
-数据字典主要介绍 AkShare 提供的数据接口的详细说明
+数据字典主要介绍 AKShare 提供的数据接口的详细说明
 
 .. toctree::
     :maxdepth: 6

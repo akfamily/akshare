@@ -47,7 +47,7 @@ Anaconda 是集成上千个常用库的 Python 发行版本, 通过安装 Anacon
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_1.png)
 
-创建虚拟环境命令, 此处指定 Python 版本为 3.8.5, AkShare 支持 Python 3.7 以上的版本:
+创建虚拟环境命令, 此处指定 Python 版本为 3.8.5, AKShare 支持 Python 3.7 以上的版本:
 
 ```
 conda create -n ak_test python=3.8.5
@@ -63,7 +63,7 @@ Proceed 输入 y
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_2.png)
 
-在虚拟环境中安装 [AkShare](https://github.com/jindaxiang/akshare). 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
+在虚拟环境中安装 [AKShare](https://github.com/jindaxiang/akshare). 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
 
 激活已经创建好的 ak_test 虚拟环境
 
@@ -71,7 +71,7 @@ Proceed 输入 y
 conda activate ak_test
 ```
 
-在 ak_test 虚拟环境中安装并更新 [AkShare](https://github.com/jindaxiang/akshare)
+在 ak_test 虚拟环境中安装并更新 [AKShare](https://github.com/jindaxiang/akshare)
 
 ```
 pip install akshare --upgrade
@@ -92,11 +92,11 @@ import akshare as ak
 ak.__doc__
 ```
 
-显示出如下图则虚拟环境和 [AkShare](https://github.com/jindaxiang/akshare) 安装成功:
+显示出如下图则虚拟环境和 [AKShare](https://github.com/jindaxiang/akshare) 安装成功:
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_4.png)
 
-还可以在 ak_test 虚拟环境的 Python 环境中输入如下代码可以显示 [AkShare](https://github.com/jindaxiang/akshare) 的版本信息
+还可以在 ak_test 虚拟环境的 Python 环境中输入如下代码可以显示 [AKShare](https://github.com/jindaxiang/akshare) 的版本信息
 
 ```python
 import akshare as ak

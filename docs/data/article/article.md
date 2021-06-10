@@ -163,7 +163,7 @@ print(df)
 2019-11-08    0.199549
 ```
 
-## [AkShare](https://github.com/jindaxiang/akshare) 多因子数据
+## [AKShare](https://github.com/jindaxiang/akshare) 多因子数据
 
 ### Current Research Returns
 
@@ -270,7 +270,7 @@ Big Neutral                                            4.49
 Big Aggressive                                        -0.38
 ```
 
-## [AkShare](https://github.com/jindaxiang/akshare) 政策不确定性数据
+## [AKShare](https://github.com/jindaxiang/akshare) 政策不确定性数据
 
 ### 国家和地区指数
 
@@ -349,7 +349,7 @@ print(epu_index_df)
 291  2019      4           502.55000
 ```
 
-## [AkShare](https://github.com/jindaxiang/akshare) 学术专栏
+## [AKShare](https://github.com/jindaxiang/akshare) 学术专栏
 
 ### Amit Goyal
 
