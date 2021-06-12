@@ -303,7 +303,7 @@ def stock_em_hsgt_south_acc_flow_in(indicator: str = "沪股通") -> pd.DataFram
 
 
 def stock_em_hsgt_hold_stock(
-    market: str = "北向", indicator: str = "今日排行"
+    market: str = "沪股通", indicator: str = "5日排行"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-沪深港通持股-个股排行
@@ -327,7 +327,7 @@ def stock_em_hsgt_hold_stock(
     if indicator == "5日排行":
         indicator_type = "5"
     if indicator == "10日排行":
-        indicator_type = "5"
+        indicator_type = "10"
     if indicator == "月排行":
         indicator_type = "m"
     if indicator == "季排行":
@@ -447,7 +447,7 @@ def stock_em_hsgt_stock_statistics(
             "st": "HDDATE,SHAREHOLDPRICE",
             "sr": "3",
             "p": "1",
-            "ps": "10000",
+            "ps": "20000",
             "js": "var AxDXinef={pages:(tp),data:(x)}",
             "filter": f"(MARKET='S')(HDDATE>=^{start_date}^ and HDDATE<=^{end_date}^)",
             "rt": "53160469",
@@ -994,18 +994,23 @@ if __name__ == "__main__":
         indicator="沪股通"
     )
     print(stock_em_hsgt_north_net_flow_in_df)
+
     stock_em_hsgt_north_cash_df = stock_em_hsgt_north_cash(indicator="沪股通")
     print(stock_em_hsgt_north_cash_df)
+
     stock_em_hsgt_north_acc_flow_in_df = stock_em_hsgt_north_acc_flow_in(
         indicator="沪股通"
     )
     print(stock_em_hsgt_north_acc_flow_in_df)
+
     stock_em_hsgt_south_net_flow_in_df = stock_em_hsgt_south_net_flow_in(
         indicator="沪股通"
     )
     print(stock_em_hsgt_south_net_flow_in_df)
+
     stock_em_hsgt_south_cash_df = stock_em_hsgt_south_cash(indicator="沪股通")
     print(stock_em_hsgt_south_cash_df)
+
     stock_em_hsgt_south_acc_flow_in_df = stock_em_hsgt_south_acc_flow_in(
         indicator="沪股通"
     )
@@ -1016,43 +1021,53 @@ if __name__ == "__main__":
     )
     print(stock_em_hsgt_hold_stock_df)
 
+    stock_em_hsgt_hold_stock_df = stock_em_hsgt_hold_stock(
+        market="沪股通", indicator="5日排行"
+    )
+    print(stock_em_hsgt_hold_stock_df)
+
+    stock_em_hsgt_hold_stock_df = stock_em_hsgt_hold_stock(
+        market="沪股通", indicator="10日排行"
+    )
+    print(stock_em_hsgt_hold_stock_df)
+
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="南向持股", start_date="20210401", end_date="20210412"
+        symbol="南向持股", start_date="20210601", end_date="20210612"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="北向持股", start_date="20210401", end_date="20210412"
+        symbol="北向持股", start_date="20210601", end_date="20210612"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="沪股通持股", start_date="20210401", end_date="20210412"
+        symbol="沪股通持股", start_date="20210601", end_date="20210612"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="深股通持股", start_date="20210401", end_date="20210412"
+        symbol="深股通持股", start_date="20210601", end_date="20210612"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="北向持股", start_date="20210401", end_date="20210412"
+        market="北向持股", start_date="20210601", end_date="20210612"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="南向持股", start_date="20210401", end_date="20210412"
+        market="南向持股", start_date="20210601", end_date="20210612"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="沪股通持股", start_date="20210401", end_date="20210412"
+        market="沪股通持股", start_date="20210601", end_date="20210612"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="深股通持股", start_date="20210401", end_date="20210412"
+        market="深股通持股", start_date="20210601", end_date="20210612"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
