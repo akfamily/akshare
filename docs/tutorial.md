@@ -787,6 +787,8 @@
  "stock_staq_net_stop"  # 两网及退市
  # 股东户数
  "stock_zh_a_gdhs"  # 股东户数
+ # 中行人民币牌价历史数据查询
+ "currency_boc_sina"  # 中行人民币牌价历史数据查询
 ```
 
 ## 案例演示
