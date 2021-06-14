@@ -44,7 +44,7 @@ def _currency_boc_sina_map(date: str = "20210614") -> dict:
     return data_dict
 
 
-def currency_boc_sina(symbol: str = "欧元", date: str = "20210614") -> pd.DataFrame:
+def currency_boc_sina(symbol: str = "美元", date: str = "20210614") -> pd.DataFrame:
     """
     新浪财经-中行人民币牌价历史数据查询
     http://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
@@ -86,5 +86,5 @@ def currency_boc_sina(symbol: str = "欧元", date: str = "20210614") -> pd.Data
 
 
 if __name__ == "__main__":
-    currency_boc_sina_df = currency_boc_sina(date="20210614")
+    currency_boc_sina_df = currency_boc_sina(symbol="美元", date="20210614")
     print(currency_boc_sina_df)
