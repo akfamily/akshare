@@ -1387,9 +1387,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.65: fix: fix bond_zh_us_rate interface
 0.9.66: fix: fix set urllib3==1.25.11
 0.9.67: fix: fix stock_em_hsgt_hold_stock interface
+0.9.68: fix: fix stock_zh_a_tick_tx interface
 """
 
-__version__ = "0.9.67"
+__version__ = "0.9.68"
 __author__ = "Albert King"
 
 import sys
