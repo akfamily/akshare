@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/12 15:39
+Date: 2021/6/14 11:08
 Desc: 腾讯-网易-股票-实时行情-成交明细
 成交明细-每个交易日 16:00 提供当日数据
 港股报价延时 15 分钟
@@ -11,6 +11,7 @@ from tqdm import tqdm
 
 import pandas as pd
 import requests
+import warnings
 
 
 def stock_zh_a_tick_tx_js(code: str = "sz000001") -> pd.DataFrame:
@@ -24,6 +25,7 @@ def stock_zh_a_tick_tx_js(code: str = "sz000001") -> pd.DataFrame:
     """
     big_df = pd.DataFrame()
     page = 0
+    warnings.warn("正在下载数据，请稍等")
     while True:
         try:
             url = "http://stock.gtimg.cn/data/index.php"
@@ -46,10 +48,10 @@ def stock_zh_a_tick_tx_js(code: str = "sz000001") -> pd.DataFrame:
     return big_df
 
 
-def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20201111") -> pd.DataFrame:
+def stock_zh_a_tick_tx(code: str = "sz000001", trade_date: str = "20210610") -> pd.DataFrame:
     """
     http://gu.qq.com/sz000001/gp/detail
-    成交明细-每个交易日16:00提供当日数据
+    成交明细-每个交易日 16:00 提供当日数据
     :param code: 带市场标识的股票代码
     :type code: str
     :param trade_date: 需要提取数据的日期
@@ -64,13 +66,13 @@ def stock_zh_a_tick_tx(code: str = "sh600848", trade_date: str = "20201111") -> 
         "c": code,
         "d": trade_date,
     }
-    res = requests.get(url, params=params)
-    res.encoding = "gbk"
-    temp_df = pd.read_table(StringIO(res.text))
+    r = requests.get(url, params=params)
+    r.encoding = "gbk"
+    temp_df = pd.read_table(StringIO(r.text))
     return temp_df
 
 
-def stock_zh_a_tick_163(code: str = "sz002352", trade_date: str = "20210408") -> pd.DataFrame:
+def stock_zh_a_tick_163(code: str = "sz002352", trade_date: str = "20210608") -> pd.DataFrame:
     """
     成交明细-每个交易日 22:00 提供当日数据
     http://quotes.money.163.com/trade/cjmx_000001.html#01b05
@@ -148,19 +150,19 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz002352", trade_date="20210408")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz002352", trade_date="20210608")
     print(stock_zh_a_tick_163_df)
-
-    stock_zh_a_tick_163_now_df = stock_zh_a_tick_163_now(code="000001")
-    print(stock_zh_a_tick_163_now_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
     print(stock_zh_a_tick_tx_js_df)
 
-    date_list = pd.date_range(start="20210401", end="20210412").tolist()
+    date_list = pd.date_range(start="20210601", end="20210613").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
         print(item)
-        data = stock_zh_a_tick_tx(code="sz000001", trade_date=f"{item}")
+        data = stock_zh_a_tick_tx(code="sh601699", trade_date=f"{item}")
         if not data.empty:
             print(data)
+
+    stock_zh_a_tick_163_now_df = stock_zh_a_tick_163_now(code="000001")
+    print(stock_zh_a_tick_163_now_df)
