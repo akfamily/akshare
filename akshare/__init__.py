@@ -1388,9 +1388,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.66: fix: fix set urllib3==1.25.11
 0.9.67: fix: fix stock_em_hsgt_hold_stock interface
 0.9.68: fix: fix stock_zh_a_tick_tx interface
+0.9.69: add: add currency_boc_sina interface
 """
 
-__version__ = "0.9.68"
+__version__ = "0.9.69"
 __author__ = "Albert King"
 
 import sys
@@ -1400,6 +1401,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+中行人民币牌价历史数据查询
+"""
+from akshare.currency.currency_sina_china_bank import currency_boc_sina
 
 """
 期货持仓
