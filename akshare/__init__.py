@@ -1404,6 +1404,11 @@ if sys.version_info < (3, 7):
 del sys
 
 """
+A 股东方财富
+"""
+from akshare.stock_feature.stock_em_hist import stock_zh_a_hist, stock_zh_a_spot_em
+
+"""
 中行人民币牌价历史数据查询
 """
 from akshare.currency.currency_sina_china_bank import currency_boc_sina
