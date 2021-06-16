@@ -1555,9 +1555,9 @@ print(covid_19_hist_province_df)
 
 目标地址: https://github.com/canghailan/Wuhan-2019-nCoV
 
-描述: 获取 **COVID-19** 每个自然日的统计数据
+描述: 获取 COVID-19 每个自然日的统计数据; 该接口已经未更新数据
 
-限量: 单次返回 **COVID-19** 所有历史数据
+限量: 单次返回 COVID-19 所有历史数据; 该接口已经未更新数据
 
 输入参数
 
