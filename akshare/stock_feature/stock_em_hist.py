@@ -139,9 +139,9 @@ def _code_id_map():
 
 
 def stock_zh_a_hist(
-    symbol: str = "601568",
-    start_date: str = "20210601",
-    end_date: str = "20210616",
+    symbol: str = "600070",
+    start_date: str = "19700101",
+    end_date: str = "22220101",
     adjust: str = "",
 ) -> pd.DataFrame:
     """
