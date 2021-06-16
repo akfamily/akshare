@@ -97,6 +97,7 @@ def _code_id_map():
     :rtype: dict
     """
     url = "http://35.push2.eastmoney.com/api/qt/clist/get"
+    url = "http://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "5000",
@@ -115,6 +116,7 @@ def _code_id_map():
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df["market_id"] = 1
     temp_df.columns = ["sh_code", "sh_id"]
+    code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
         "pz": "5000",
@@ -130,10 +132,9 @@ def _code_id_map():
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df["sz_code"] = pd.DataFrame(data_json["data"]["diff"])
-    temp_df["sz_id"] = 0
-    code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
-    code_id_dict.update(dict(zip(temp_df["sz_code"], temp_df["sz_id"])))
+    temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
+    temp_df_sz["sz_id"] = 0
+    code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
     return code_id_dict
 
 
@@ -158,6 +159,7 @@ def stock_zh_a_hist(
     :rtype: pandas.DataFrame
     """
     code_id_dict = _code_id_map()
+    len(code_id_dict.keys())
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
@@ -212,6 +214,6 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="603777", start_date="20210301", end_date="20210616", adjust="hfq"
+        symbol="002415", start_date="20190301", end_date="20210616", adjust="hfq"
     )
     print(stock_zh_a_hist_df)
