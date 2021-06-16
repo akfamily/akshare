@@ -171,6 +171,7 @@ use_python("/usr/local/bin/python")
 ```
 library(reticulate)  # 导入 reticulate 包
 use_python("/king/local/bin/python")  # 其中的 king 为本地电脑用户名
+# use_condaenv(condaenv="ak_test", required = TRUE)  # 也可以使用 conda 创建的虚拟环境，其中的 ak_test 为虚拟环境名称
 ak <- import("akshare")  # 类似于 import akshare as ak
 stock_df <- ak$stock_em_yysj(date="20200331")  # 类似于 ak.stock_em_yysj(date="20200331")
 print(stock_df)  # 查看数据
