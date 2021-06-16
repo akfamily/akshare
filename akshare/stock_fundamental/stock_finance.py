@@ -328,7 +328,7 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_financial_report_sina_df = stock_financial_report_sina(stock="600004", symbol="现金流量表")
+    stock_financial_report_sina_df = stock_financial_report_sina(stock="600009", symbol="现金流量表")
     print(stock_financial_report_sina_df)
 
     stock_financial_report_sina_df = stock_financial_report_sina(stock="600004", symbol="资产负债表")
