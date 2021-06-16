@@ -172,7 +172,7 @@ use_python("/usr/local/bin/python")
 library(reticulate)  # 导入 reticulate 包
 use_python("/king/local/bin/python")  # 其中的 king 为本地电脑用户名
 ak <- import("akshare")  # 类似于 import akshare as ak
-stock_df <- ak$stock_em_yysj(date="2020-03-31")  # 类似于 ak.stock_em_yysj(date="2020-03-31")
+stock_df <- ak$stock_em_yysj(date="20200331")  # 类似于 ak.stock_em_yysj(date="20200331")
 print(stock_df)  # 查看数据
 ```
 
