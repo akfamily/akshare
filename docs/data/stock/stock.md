@@ -1425,7 +1425,65 @@ print(stock_zh_ah_name_dict)
 
 ### 美股
 
-#### 实时行情数据
+#### 实时行情数据-东财
+
+接口: stock_us_spot_em
+
+目标地址: http://quote.eastmoney.com/center/gridlist.html#us_stocks
+
+描述: 获取所有美股实时行情数据, 从东方财富获取且数据有 15 分钟延迟
+
+限量: 单次返回美股所有上市公司的实时行情数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |  -|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 序号          | int32   | Y        | -     |
+| 名称          | object   | Y        | -     |
+| 最新价          | object   | Y        | 注意单位: 美元     |
+| 涨跌额          | object   | Y        | -     |
+| 涨跌幅          | object   | Y        | 注意单位: %     |
+| 开盘价          | object   | Y        | -     |
+| 最高价          | object   | Y        | -     |
+| 最低价          | object   | Y        | -     |
+| 昨收价          | object   | Y        | -     |
+| 总市值          | object   | Y        | 注意单位: 美元     |
+| 市盈率          | object   | Y        | -     |
+| 代码          | object   | Y        | 注意: 用来获取历史数据的代码     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_us_spot_em_df = ak.stock_us_spot_em()
+print(stock_us_spot_em_df)
+```
+
+数据示例
+
+```
+          序号                               名称  ...     市盈率         代码
+0          1           Verve Therapeutics Inc  ...  -27.58   105.VERV
+1          2  Disruptive Acquisition Corp I W  ...       -  105.DISAW
+2          3     Cellect Biotechnology Ltd Wt  ...       -  105.APOPW
+3          4          Midatech Pharma PLC ADR  ...   -1.24    105.MTP
+4          5     Kernel Group Holdings Inc Wt  ...       -  105.KRNLW
+      ...                              ...  ...     ...        ...
+11162  11163                  Urban One Inc-A  ...   11.91   105.UONE
+11163  11164        Gaucho Group Holdings Inc  ...    -8.3   105.VINO
+11164  11165                       CureVac NV  ...  -67.95   105.CVAC
+11165  11166       CM Life Sciences II Inc Wt  ...       -  105.CMIIW
+11166  11167                               联代  ... -203.52   105.UTME
+```
+
+#### 实时行情数据-新浪
 
 接口: stock_us_spot
 
@@ -1508,7 +1566,67 @@ print(us_stock_current_df)
 79   3089789   120621698914   15.65011561    NYSE         750 
 ```
 
-#### 历史行情数据
+#### 历史行情数据-东财
+
+接口: stock_us_hist
+
+目标地址: http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
+
+描述: 获取美股历史行情数据; 设定 adjust="qfq" 则返回前复权的数据, 设定 adjust="hfq" 则返回后复权的数据默认, 设定 adjust="", 则返回未复权的数据, 历史数据按日频率更新
+
+限量: 单次返回指定上市公司的指定 adjust 后的所有历史行情数据, 当日收盘的数据需要交易日晚上 10 点后获取
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| symbol | str  | Y    |   美股代码, 可以通过 **ak.stock_us_spot_em** 函数返回所有的 pandas.DataFrame 里面的 `代码` 字段获取|
+| start_date | str  | Y    |   start_date="20210101"|
+| end_date | str  | Y    |   end_date="20210601"|
+| adjust | str  | Y    |   adjust="qfq" 则返回前复权的数据, adjust="hfq" 则返回后复权的数据, 默认 adjust="", 则返回未复权的数据|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 日期          | datetime   | Y        | -     |
+| 开盘          | float      | Y        | -     |
+| 收盘          | float      | Y        | -     |
+| 最高           | float      | Y        | -     |
+| 最低         | float      | Y        | -     |
+| 成交量        | float      | Y        | -     |
+| 成交额        | float      | Y        | -     |
+| 振幅        | float      | Y        | -     |
+| 涨跌幅        | float      | Y        | -     |
+| 涨跌额        | float      | Y        | -     |
+| 换手率        | float      | Y        | -     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_us_hist_df = ak.stock_us_hist(symbol='105.MTP', start_date="19700101", end_date="22220101", adjust="qfq")
+print(stock_us_hist_df)
+```
+
+数据示例
+
+```
+     日期      开盘      收盘      最高  ...     振幅    涨跌幅    涨跌额     换手率
+0     2015-12-07  404.50  367.50  404.50  ...   0.00   0.00   0.00    0.12
+1     2015-12-08  367.00  314.00  367.00  ...  15.51 -14.56 -53.50    0.31
+2     2015-12-09  312.50  300.00  313.50  ...  14.65  -4.46 -14.00    0.21
+3     2015-12-10  300.00  317.00  322.00  ...   7.33   5.67  17.00    0.17
+4     2015-12-11  315.00  314.50  317.50  ...   5.52  -0.79  -2.50    0.11
+          ...     ...     ...     ...  ...    ...    ...    ...     ...
+1380  2021-06-11    2.09    2.11    2.17  ...   7.84   3.43   0.07    1.43
+1381  2021-06-14    2.14    2.08    2.14  ...   9.00  -1.42  -0.03    0.80
+1382  2021-06-15    2.07    2.00    2.07  ...   3.37  -3.85  -0.08    0.76
+1383  2021-06-16    1.98    2.04    2.05  ...   3.50   2.00   0.04    0.62
+1384  2021-06-17    3.46    2.95    3.61  ...  51.47  44.61   0.91  944.77
+```
+
+#### 历史行情数据-新浪
 
 接口: stock_us_daily
 

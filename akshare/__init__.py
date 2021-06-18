@@ -1395,9 +1395,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.73: fix: fix stock_zh_a_tick_tx_js interface
 0.9.74: add: add stock_changes_em interface
 0.9.75: add: add stock_hk_spot_em, stock_hk_hist interface
+0.9.76: add: add stock_us_spot_em, stock_us_hist interface
 """
 
-__version__ = "0.9.75"
+__version__ = "0.9.76"
 __author__ = "Albert King"
 
 import sys
@@ -1416,7 +1417,14 @@ from akshare.stock_feature.stock_pankou import stock_changes_em
 """
 A 股东方财富
 """
-from akshare.stock_feature.stock_em_hist import stock_zh_a_hist, stock_zh_a_spot_em, stock_hk_spot_em, stock_us_spot_em, stock_hk_hist, stock_us_hist
+from akshare.stock_feature.stock_em_hist import (
+    stock_zh_a_hist,
+    stock_zh_a_spot_em,
+    stock_hk_spot_em,
+    stock_hk_hist,
+    stock_us_spot_em,
+    stock_us_hist,
+)
 
 """
 中行人民币牌价历史数据查询
