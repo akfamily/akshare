@@ -929,7 +929,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.3: add: add two fields into covid_163
 0.5.4: fix: fix request_fun timeout and error type
 0.5.5: fix: fund_em_graded_fund_daily return fields
-0.5.6: fix: us_stock_sina.py rename columns
+0.5.6: fix: stock_us_sina.py rename columns
 0.5.7: fix: import akshare only load functions
 0.5.8: add: macro_china_money_supply
 0.5.9: add: macro_china_new_house_price, macro_china_enterprise_boom_index, macro_china_national_tax_receipts
@@ -1394,9 +1394,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.72: fix: fix stock_zh_a_hist interface
 0.9.73: fix: fix stock_zh_a_tick_tx_js interface
 0.9.74: add: add stock_changes_em interface
+0.9.75: add: add stock_hk_spot_em, stock_hk_hist interface
 """
 
-__version__ = "0.9.74"
+__version__ = "0.9.75"
 __author__ = "Albert King"
 
 import sys
@@ -1415,7 +1416,7 @@ from akshare.stock_feature.stock_pankou import stock_changes_em
 """
 A 股东方财富
 """
-from akshare.stock_feature.stock_em_hist import stock_zh_a_hist, stock_zh_a_spot_em
+from akshare.stock_feature.stock_em_hist import stock_zh_a_hist, stock_zh_a_spot_em, stock_hk_spot_em, stock_us_spot_em, stock_hk_hist, stock_us_hist
 
 """
 中行人民币牌价历史数据查询
@@ -2670,7 +2671,7 @@ from akshare.option.option_finance import (
 """
 新浪-美股实时行情数据和历史行情数据(前复权)
 """
-from akshare.stock.us_stock_sina import (
+from akshare.stock.stock_us_sina import (
     stock_us_daily,
     stock_us_spot,
     get_us_stock_name,
@@ -2712,7 +2713,7 @@ from akshare.futures_derivative.jyfm_tools_func import (
 """
 和讯财经-行情及历史数据
 """
-from akshare.stock.us_zh_stock_hx import stock_us_zh_spot, stock_us_zh_daily
+from akshare.stock.stock_us_zh_hx import stock_us_zh_spot, stock_us_zh_daily
 
 """
 和讯财经-企业社会责任

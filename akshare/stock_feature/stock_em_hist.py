@@ -8,12 +8,12 @@ import requests
 import pandas as pd
 
 
-def stock_zh_a_spot_em():
+def stock_zh_a_spot_em() -> pd.DataFrame:
     """
-    东方财富-股票和市场代码
+    东方财富-A股-实时行情
     http://quote.eastmoney.com/center/gridlist.html#hs_a_board
-    :return: 股票和市场代码
-    :rtype: dict
+    :return: 实时行情
+    :rtype: pandas.DataFrame
     """
     url = "http://35.push2.eastmoney.com/api/qt/clist/get"
     params = {
@@ -89,14 +89,13 @@ def stock_zh_a_spot_em():
     return temp_df
 
 
-def _code_id_map():
+def _code_id_map() -> dict:
     """
     东方财富-股票和市场代码
     http://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 股票和市场代码
     :rtype: dict
     """
-    url = "http://35.push2.eastmoney.com/api/qt/clist/get"
     url = "http://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
@@ -159,7 +158,6 @@ def stock_zh_a_hist(
     :rtype: pandas.DataFrame
     """
     code_id_dict = _code_id_map()
-    len(code_id_dict.keys())
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
@@ -209,11 +207,316 @@ def stock_zh_a_hist(
     return temp_df
 
 
+def stock_hk_spot_em() -> pd.DataFrame:
+    """
+    东方财富-港股-实时行情
+    http://quote.eastmoney.com/center/gridlist.html#hk_stocks
+    :return: 港股-实时行情
+    :rtype: pandas.DataFrame
+    """
+    url = "http://72.push2.eastmoney.com/api/qt/clist/get"
+    params = {
+        'pn': '1',
+        'pz': '5000',
+        'po': '1',
+        'np': '1',
+        'ut': 'bd1d9ddb04089700cf9c27f6f7426281',
+        'fltt': '2',
+        'invt': '2',
+        'fid': 'f3',
+        'fs': 'm:128 t:3,m:128 t:4,m:128 t:1,m:128 t:2',
+        'fields': "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        '_': '1624010056945'
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df.columns = [
+        "_",
+        "最新价",
+        "涨跌幅",
+        "涨跌额",
+        "成交量",
+        "成交额",
+        "振幅",
+        "换手率",
+        "市盈率-动态",
+        "量比",
+        "_",
+        "代码",
+        "_",
+        "名称",
+        "最高",
+        "最低",
+        "今开",
+        "昨收",
+        "_",
+        "_",
+        "_",
+        "市净率",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+                       ]
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.rename(columns={'index': "序号"}, inplace=True)
+    temp_df = temp_df[[
+        "序号",
+        "代码",
+        "名称",
+        "最新价",
+        "涨跌额",
+        "涨跌幅",
+        "今开",
+        "最高",
+        "最低",
+        "昨收",
+        "成交量",
+        "成交额",
+    ]]
+    return temp_df
+
+
+def stock_hk_hist(
+        symbol: str = "00593",
+        start_date: str = "19700101",
+        end_date: str = "22220101",
+        adjust: str = "",
+) -> pd.DataFrame:
+    """
+    东方财富网-行情首页-港股-每日行情
+    http://quote.eastmoney.com/hk/08367.html
+    :param symbol: 港股-每日行情
+    :type symbol: str
+    :param start_date: 开始日期
+    :type start_date: str
+    :param end_date: 结束日期
+    :type end_date: str
+    :param adjust: choice of {"qfq": "1", "hfq": "2", "": "不复权"}
+    :type adjust: str
+    :return: 每日行情
+    :rtype: pandas.DataFrame
+    """
+    adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
+    url = "http://33.push2his.eastmoney.com/api/qt/stock/kline/get"
+    params = {
+        "secid": f"116.{symbol}",
+        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+        "fields1": "f1,f2,f3,f4,f5,f6",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+        "klt": "101",
+        "fqt": adjust_dict[adjust],
+        "end": "20500000",
+        'lmt': '1000000',
+        "_": "1623766962675",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df.columns = [
+        "日期",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "振幅",
+        "涨跌幅",
+        "涨跌额",
+        "换手率",
+    ]
+    temp_df.index = pd.to_datetime(temp_df["日期"])
+    temp_df = temp_df[start_date:end_date]
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.astype(
+        {
+            "开盘": float,
+            "收盘": float,
+            "最高": float,
+            "最低": float,
+            "成交量": int,
+            "成交额": float,
+            "振幅": float,
+            "涨跌幅": float,
+            "涨跌额": float,
+            "换手率": float,
+        }
+    )
+    return temp_df
+
+
+def stock_us_spot_em() -> pd.DataFrame:
+    """
+    东方财富-美股-实时行情
+    http://quote.eastmoney.com/center/gridlist.html#us_stocks
+    :return: 美股-实时行情; 延迟 15 min
+    :rtype: pandas.DataFrame
+    """
+    url = "http://72.push2.eastmoney.com/api/qt/clist/get"
+    params = {
+        'pn': '1',
+        'pz': '20000',
+        'po': '1',
+        'np': '1',
+        'ut': 'bd1d9ddb04089700cf9c27f6f7426281',
+        'fltt': '2',
+        'invt': '2',
+        'fid': 'f3',
+        'fs': 'm:105,m:106,m:107',
+        'fields': "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
+        '_': '1624010056945'
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_df.columns = [
+        "_",
+        "最新价",
+        "涨跌幅",
+        "涨跌额",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "简称",
+        "编码",
+        "名称",
+        "最高价",
+        "最低价",
+        "开盘价",
+        "昨收价",
+        "总市值",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "市盈率",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+                       ]
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df.rename(columns={'index': "序号"}, inplace=True)
+    temp_df["代码"] = temp_df["编码"].astype(str) + '.' + temp_df["简称"]
+    temp_df = temp_df[[
+        "序号",
+        "名称",
+        "最新价",
+        "涨跌额",
+        "涨跌幅",
+        "开盘价",
+        "最高价",
+        "最低价",
+        "昨收价",
+        "总市值",
+        "市盈率",
+        "代码",
+    ]]
+    return temp_df
+
+
+def stock_us_hist(
+        symbol: str = "105.LI",
+        start_date: str = "19700101",
+        end_date: str = "22220101",
+        adjust: str = "",
+) -> pd.DataFrame:
+    """
+    东方财富网-行情首页-美股-每日行情
+    http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
+    :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em 的 `代码` 字段获取
+    :type symbol: str
+    :param start_date: 开始日期
+    :type start_date: str
+    :param end_date: 结束日期
+    :type end_date: str
+    :param adjust: choice of {"qfq": "1", "hfq": "2", "": "不复权"}
+    :type adjust: str
+    :return: 每日行情
+    :rtype: pandas.DataFrame
+    """
+    adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
+    url = "http://63.push2his.eastmoney.com/api/qt/stock/kline/get"
+    params = {
+        "secid": f"{symbol}",
+        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+        "fields1": "f1,f2,f3,f4,f5,f6",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+        "klt": "101",
+        "fqt": adjust_dict[adjust],
+        "end": "20500000",
+        'lmt': '1000000',
+        "_": "1623766962675",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df.columns = [
+        "日期",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "振幅",
+        "涨跌幅",
+        "涨跌额",
+        "换手率",
+    ]
+    temp_df.index = pd.to_datetime(temp_df["日期"])
+    temp_df = temp_df[start_date:end_date]
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df = temp_df.astype(
+        {
+            "开盘": float,
+            "收盘": float,
+            "最高": float,
+            "最低": float,
+            "成交量": int,
+            "成交额": float,
+            "振幅": float,
+            "涨跌幅": float,
+            "涨跌额": float,
+            "换手率": float,
+        }
+    )
+    return temp_df
+
+
 if __name__ == "__main__":
+    stock_hk_spot_em_df = stock_hk_spot_em()
+    print(stock_hk_spot_em_df)
+
+    stock_hk_hist_df = stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="")
+    print(stock_hk_hist_df)
+
+    stock_us_spot_em_df = stock_us_spot_em()
+    print(stock_us_spot_em_df)
+
+    stock_us_hist_df = stock_us_hist(symbol='105.MTP', start_date="19700101", end_date="22220101", adjust="qfq")
+    print(stock_us_hist_df)
+
     stock_zh_a_spot_em_df = stock_zh_a_spot_em()
     print(stock_zh_a_spot_em_df)
 
-    stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="002415", start_date="20190301", end_date="20210616", adjust="hfq"
-    )
+    stock_zh_a_hist_df = stock_zh_a_hist(symbol="002415", start_date="20190301", end_date="20210616", adjust="hfq")
     print(stock_zh_a_hist_df)
