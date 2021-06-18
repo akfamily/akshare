@@ -9727,7 +9727,7 @@ print(stock_wc_hot_rank_df)
 | 代码          | object   | Y        |  -    |
 | 名称          | object   | Y        |  -    |
 | 板块          | object   | Y        |  -    |
-| 相关信息          | object   | Y        |  注意: 不同的 symbol 的单位不同    |
+| 相关信息       | object   | Y        |  注意: 不同的 symbol 的单位不同    |
 
 接口示例
 
