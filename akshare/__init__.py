@@ -1393,9 +1393,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.71: fix: fix stock_zh_a_hist interface
 0.9.72: fix: fix stock_zh_a_hist interface
 0.9.73: fix: fix stock_zh_a_tick_tx_js interface
+0.9.74: add: add stock_changes_em interface
 """
 
-__version__ = "0.9.73"
+__version__ = "0.9.74"
 __author__ = "Albert King"
 
 import sys
@@ -1405,6 +1406,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+盘口异动
+"""
+from akshare.stock_feature.stock_pankou import stock_changes_em
 
 """
 A 股东方财富
