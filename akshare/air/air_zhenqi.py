@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/19 9:13
+Date: 2021/6/18 19:50
 Desc: 真气网-空气质量
 https://www.zq12369.com/environment.php
 空气质量在线监测分析平台的空气质量数据
@@ -78,7 +78,9 @@ def air_city_list() -> list:
     return pd.read_html(r.text)[1].iloc[1:, :]["城市"].tolist()
 
 
-def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01", end_date: str = "2020-04-27") -> pd.DataFrame:
+def air_quality_watch_point(
+    city: str = "杭州", start_date: str = "2018-01-01", end_date: str = "2020-04-27"
+) -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
     指定之间段之间的空气质量数据
@@ -122,7 +124,10 @@ def air_quality_watch_point(city: str = "杭州", start_date: str = "2018-01-01"
 
 
 def air_quality_hist(
-    city: str = "杭州", period: str = "day", start_date: str = "2019-03-27", end_date: str = "2020-04-27"
+    city: str = "杭州",
+    period: str = "day",
+    start_date: str = "2019-03-27",
+    end_date: str = "2020-04-27",
 ) -> pd.DataFrame:
     """
     真气网-空气历史数据
@@ -133,7 +138,7 @@ def air_quality_hist(
     :type period: str
     :param start_date: e.g., "2019-03-27"
     :type start_date: str
-    :param end_date: e.g., ""2020-03-27""
+    :param end_date: e.g., "2020-03-27"
     :type end_date: str
     :return: 指定城市和数据频率下在指定时间段内的空气质量数据
     :rtype: pandas.DataFrame
@@ -244,14 +249,12 @@ if __name__ == "__main__":
     print(air_city_list_map)
 
     air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="2020-11-01", end_date="2020-11-07"
+        city="杭州", start_date="2021-06-01", end_date="2021-06-07"
     )
     print(air_quality_watch_point_df)
 
-    air_quality_hist_df = air_quality_hist(
-        city="北京", period="month", start_date="2021-04-25", end_date="2021-05-04"
-    )
+    air_quality_hist_df = air_quality_hist()
     print(air_quality_hist_df)
 
-    air_quality_rank_df = air_quality_rank(date="2019")
+    air_quality_rank_df = air_quality_rank(date="2020")
     print(air_quality_rank_df)
