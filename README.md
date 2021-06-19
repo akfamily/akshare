@@ -160,16 +160,11 @@ Application to add **AKShare-官方** QQ group and talk about [AKShare](https://
 ## Statement
 
 1. All data provided by [AKShare](https://github.com/jindaxiang/akshare) is just for academic research purpose;
-
 2. The data provided by [AKShare](https://github.com/jindaxiang/akshare) is for reference only and does not constitute any investment proposal;
-
 3. Any investor based on [AKShare](https://github.com/jindaxiang/akshare) research should pay more attention to data risk;
-
 4. [AKShare](https://github.com/jindaxiang/akshare) will insist on providing open-source financial data;
-
 5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/jindaxiang/akshare) may be removed;
-
-6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/jindaxiang/akshare)
+6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/jindaxiang/akshare).
 
 ## Show your style
 
@@ -200,7 +195,7 @@ Please use this **bibtex** if you want to cite this repository in your publicati
     title = {AKShare},
     year = {2019},
     publisher = {GitHub},
-    journal = {GitHub repository},
+    journal = {GitHub Repository},
     howpublished = {\url{https://github.com/jindaxiang/akshare}},
 }
 ```
