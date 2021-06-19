@@ -2202,4 +2202,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.75: add: add stock_hk_spot_em, stock_hk_hist interface
 
 0.9.76: add: add stock_us_spot_em, stock_us_hist interface
+
+0.9.77: fix: fix stock_us_hist interface
 ```
