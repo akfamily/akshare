@@ -1419,8 +1419,8 @@ from akshare.stock_feature.stock_pankou import stock_changes_em
 A 股东方财富
 """
 from akshare.stock_feature.stock_em_hist import (
-    stock_zh_a_hist,
     stock_zh_a_spot_em,
+    stock_zh_a_hist,
     stock_hk_spot_em,
     stock_hk_hist,
     stock_us_spot_em,
