@@ -1572,34 +1572,34 @@ print(us_stock_current_df)
 
 目标地址: http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
 
-描述: 获取美股历史行情数据; 设定 adjust="qfq" 则返回前复权的数据, 设定 adjust="hfq" 则返回后复权的数据默认, 设定 adjust="", 则返回未复权的数据, 历史数据按日频率更新
+描述: 获取美股历史行情日频率数据
 
 限量: 单次返回指定上市公司的指定 adjust 后的所有历史行情数据, 当日收盘的数据需要交易日晚上 10 点后获取
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述 |
 | -------- | ---- | ---- | --- |
 | symbol | str  | Y    |   美股代码, 可以通过 **ak.stock_us_spot_em** 函数返回所有的 pandas.DataFrame 里面的 `代码` 字段获取|
 | start_date | str  | Y    |   start_date="20210101"|
 | end_date | str  | Y    |   end_date="20210601"|
-| adjust | str  | Y    |   adjust="qfq" 则返回前复权的数据, adjust="hfq" 则返回后复权的数据, 默认 adjust="", 则返回未复权的数据|
+| adjust | str  | Y    |   默认 adjust="", 则返回未复权的数据; adjust="qfq" 则返回前复权的数据, adjust="hfq" 则返回后复权的数据, |
 
 输出参数
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
-| 日期          | datetime   | Y        | -     |
-| 开盘          | float      | Y        | -     |
-| 收盘          | float      | Y        | -     |
-| 最高           | float      | Y        | -     |
-| 最低         | float      | Y        | -     |
-| 成交量        | float      | Y        | -     |
-| 成交额        | float      | Y        | -     |
-| 振幅        | float      | Y        | -     |
-| 涨跌幅        | float      | Y        | -     |
-| 涨跌额        | float      | Y        | -     |
-| 换手率        | float      | Y        | -     |
+| 日期          | object   | Y        | -     |
+| 开盘          | float64      | Y        | 注意单位: 美元     |
+| 收盘          | float64      | Y        | 注意单位: 美元     |
+| 最高           | float64      | Y        | 注意单位: 美元     |
+| 最低         | float64      | Y        | 注意单位: 美元     |
+| 成交量        | int32      | Y        | 注意单位: 股     |
+| 成交额        | float64      | Y        | 注意单位: 美元     |
+| 振幅        | float64      | Y        | 注意单位: %     |
+| 涨跌幅        | float64      | Y        | 注意单位: %     |
+| 涨跌额        | float64      | Y        | 注意单位: 美元     |
+| 换手率        | float64      | Y        | 注意单位: %     |
 
 接口示例
 
@@ -1640,31 +1640,32 @@ print(stock_us_hist_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| symbol | str  | Y    |   美股代码, 可以通过 **get_us_stock_name** 函数返回所有美股代码, 由于美股数据量大, 建议按需要获取|
+| symbol | str  | Y    |   美股代码, 可以通过 **ak.get_us_stock_name** 函数返回所有美股代码, 由于美股数据量大, 建议按需要获取|
 | adjust | str  | Y    |   adjust="qfq" 则返回前复权后的数据，默认 adjust="", 则返回未复权的数据|
 
-**get_us_stock_name**: will return a pandas.DataFrame, which contains name, cname and symbol, you should use symbol!
+**ak.get_us_stock_name**: will return a pandas.DataFrame, which contains name, cname and symbol, you should use symbol!
 
 输出参数-历史数据
 
 | 名称          | 类型 | 默认显示 | 描述           |
 | ------------ | ----- | -------- | ---------------- |
-| date          | datetime   | Y        | 日期索引     |
-| open          | float      | Y        | 开盘价     |
-| high          | float      | Y        | 最高价     |
-| low           | float      | Y        | 最低价     |
-| close         | float      | Y        | 收盘价     |
-| volume        | float      | Y        | 成交量     |
+| date          | datetime     | Y        | 日期索引   |
+| open          | float64      | Y        | 开盘价     |
+| high          | float64      | Y        | 最高价     |
+| low           | float64      | Y        | 最低价     |
+| close         | float64      | Y        | 收盘价     |
+| volume        | float64      | Y        | 成交量     |
 
 输出参数-前复权因子
 
-| 名称          | 类型 | 默认显示 | 描述           |
+| 名称          | 类型 | 默认显示 | 描述        |
 | ------------ | ----- | -------- | ---------------- |
 | date          | datetime   | Y        | 日期     |
 | qfq_factor          | float      | Y        | 前复权因子     |
 | adjust          | float      | Y        | 由于前复权会出现负值, 该值为调整因子     |
 
 P.S. 复权计算公式: 未复权数据 * qfq_factor + adjust
+
 P.S. "CIEN" 股票的新浪美股数据由于复权因子错误，暂不返回前复权数据
 
 接口示例-未复权数据
