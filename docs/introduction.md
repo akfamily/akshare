@@ -19,7 +19,7 @@
     title = {AKShare},
     year = {2019},
     publisher = {GitHub},
-    journal = {GitHub repository},
+    journal = {GitHub Repository},
     howpublished = {\url{https://github.com/jindaxiang/akshare}},
 }
 ```
