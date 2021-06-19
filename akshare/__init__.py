@@ -1397,9 +1397,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.75: add: add stock_hk_spot_em, stock_hk_hist interface
 0.9.76: add: add stock_us_spot_em, stock_us_hist interface
 0.9.77: fix: fix stock_us_hist interface
+0.9.78: fix: fix rename python file name interface
 """
 
-__version__ = "0.9.77"
+__version__ = "0.9.78"
 __author__ = "Albert King"
 
 import sys
@@ -1718,7 +1719,7 @@ from akshare.option.option_em import option_current_em
 """
 科创板报告
 """
-from akshare.stock.zh_stock_kcb_report import zh_stock_kcb_report
+from akshare.stock.stock_zh_kcb_report import zh_stock_kcb_report
 
 """
 期货合约详情
@@ -2596,7 +2597,7 @@ from akshare.ws.js_ws_quotes import watch_jinshi_quotes
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.stock.zh_stock_a_tick_tx_163 import (
+from akshare.stock.stock_zh_a_tick_tx_163 import (
     stock_zh_a_tick_tx,
     stock_zh_a_tick_tx_js,
     stock_zh_a_tick_163,
@@ -2643,12 +2644,12 @@ from akshare.bank.bank_cbirc_2020 import bank_fjcf_table_detail
 """
 科创板股票
 """
-from akshare.stock.zh_stock_kcb_sina import stock_zh_kcb_spot, stock_zh_kcb_daily
+from akshare.stock.stock_zh_kcb_sina import stock_zh_kcb_spot, stock_zh_kcb_daily
 
 """
 A股
 """
-from akshare.stock.zh_stock_a_sina import (
+from akshare.stock.stock_zh_a_sina import (
     stock_zh_a_spot,
     stock_zh_a_daily,
     stock_zh_a_minute,
@@ -2658,7 +2659,7 @@ from akshare.stock.zh_stock_a_sina import (
 """
 A+H股
 """
-from akshare.stock.zh_stock_ah_tx import (
+from akshare.stock.stock_zh_ah_tx import (
     stock_zh_ah_spot,
     stock_zh_ah_daily,
     stock_zh_ah_name,
@@ -2690,7 +2691,7 @@ from akshare.stock.stock_us_sina import (
 """
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)
 """
-from akshare.stock.hk_stock_sina import stock_hk_daily, stock_hk_spot
+from akshare.stock.stock_hk_sina import stock_hk_daily, stock_hk_spot
 
 """
 新浪-期货实时数据
@@ -2727,7 +2728,7 @@ from akshare.stock.stock_us_zh_hx import stock_us_zh_spot, stock_us_zh_daily
 """
 和讯财经-企业社会责任
 """
-from akshare.stock.zh_stock_zrbg_hx import stock_zh_a_scr_report
+from akshare.stock.stock_zh_zrbg_hx import stock_zh_a_scr_report
 
 """
 期货-仓单有效期
