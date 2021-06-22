@@ -692,7 +692,7 @@ print(stock_zh_a_minute_df)
 
 目标地址: http://gu.qq.com/sz300494/gp/detail(示例)
 
-描述: A 股数据是从腾讯财经获取的数据, 历史数据按日频率更新
+描述: A 股数据是从腾讯财经获取的数据, 历史数据按日频率更新, 该接口自 20210611 起, 暂时无法获取数据, 等腾讯修复后再使用
 
 限量: 单次返回具体某个 A 上市公司的近 2 年历史分笔行情数据
 
@@ -4216,8 +4216,8 @@ print(stock_em_hsgt_hold_stock_df)
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
 | symbol | str | Y    |   symbol="北向持股"; choice of {"北向持股", "沪股通持股", "深股通持股", "南向持股"} |
-| start_date | str | Y    |   start_date="20200713"; 此处指定近期交易日 |
-| end_date | str | Y    |   end_date="20200714"; 此处指定近期交易日 |
+| start_date | str | Y    |   start_date="20210601"; 此处指定近期交易日 |
+| end_date | str | Y    |   end_date="20210608"; 此处指定近期交易日 |
 
 输出参数
 
