@@ -422,7 +422,7 @@ def stock_em_hsgt_hold_stock(
 
 
 def stock_em_hsgt_stock_statistics(
-    symbol: str = "南向持股", start_date: str = "20201218", end_date: str = "20201218"
+    symbol: str = "南向持股", start_date: str = "20210618", end_date: str = "20210618"
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计

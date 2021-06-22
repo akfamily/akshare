@@ -4216,8 +4216,8 @@ print(stock_em_hsgt_hold_stock_df)
 | 名称   | 类型 | 必选 | 描述   |
 | -------- | ---- | ---- | --- |
 | symbol | str | Y    |   symbol="北向持股"; choice of {"北向持股", "沪股通持股", "深股通持股", "南向持股"} |
-| start_date | str | Y    |   start_date="20200713"; 此处指定近期交易日 |
-| end_date | str | Y    |   end_date="20200714"; 此处指定近期交易日 |
+| start_date | str | Y    |   start_date="20210601"; 此处指定近期交易日 |
+| end_date | str | Y    |   end_date="20210608"; 此处指定近期交易日 |
 
 输出参数
 

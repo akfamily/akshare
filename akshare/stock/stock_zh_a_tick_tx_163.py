@@ -180,11 +180,14 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz000001", trade_date="20210519")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz000001", trade_date="20210617")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
     print(stock_zh_a_tick_tx_js_df)
+
+    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(code="sz000001", trade_date="20210617")
+    print(stock_zh_a_tick_tx_df)
 
     date_list = pd.date_range(start="20210601", end="20210613").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
