@@ -216,3 +216,51 @@ print(crypto_bitcoin_hold_report_df)
 52      TSX: EBIT               Evolve Bitcoin  ETF  ...   ETF相关    1
 53      NADQ:PHUN                    Phunware, Inc.  ...    公开交易    1
 ```
+
+### CME-成交量报告
+
+接口: crypto_bitcoin_cme
+
+目标地址: https://datacenter.jin10.com/reportType/dc_cme_btc_report
+
+描述: 获取芝加哥商业交易所-比特币成交量报告
+
+限量: 单次返回指定交易日的比特币成交量报告数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| date | str | Y | date="20210621" |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 商品      | object   | Y        | -  |
+| 类型      | object   | Y        | -   |
+| 电子交易合约      | int64   | Y        | -  |
+| 场内成交合约      | int64   | Y        | -   |
+| 场外成交合约      | int64   | Y        | - |
+| 成交量      | int64   | Y        | -    |
+| 未平仓合约      | int64   | Y        |  - |
+| 持仓变化      | int64   | Y        | -  |
+
+接口示例
+
+```python
+import akshare as ak
+crypto_bitcoin_cme_df = ak.crypto_bitcoin_cme(date="20210621")
+print(crypto_bitcoin_cme_df)
+```
+
+数据示例
+
+```
+    商品  类型  电子交易合约  场内成交合约  场外成交合约    成交量  未平仓合约  持仓变化
+0    比特币  期货   13015       0      15  13030   8126   -90
+1    比特币  期权      72       0       0     72   1325    32
+2    比特币  看涨      38       0       0     38    525    34
+3    比特币  看跌      34       0       0     34    800    -2
+4  微型比特币  期货   35368       0       0  35368  26779  5551
+```

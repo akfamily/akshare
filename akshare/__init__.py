@@ -1398,9 +1398,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.76: add: add stock_us_spot_em, stock_us_hist interface
 0.9.77: fix: fix stock_us_hist interface
 0.9.78: fix: fix rename python file name interface
+0.9.79: add: add crypto_bitcoin_cme interface
 """
 
-__version__ = "0.9.78"
+__version__ = "0.9.79"
 __author__ = "Albert King"
 
 import sys
@@ -1410,6 +1411,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+CME 比特币成交量
+"""
+from akshare.crypto.crypto_bitcoin_cme import crypto_bitcoin_cme
 
 """
 盘口异动
