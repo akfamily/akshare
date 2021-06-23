@@ -33,4 +33,5 @@ Welcome to AKShare's Online Documentation!
    topic/index
    demo
    changelog
+   dependency
 
