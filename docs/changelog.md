@@ -2214,4 +2214,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.81: add: add crypto_crix interface
 
 0.9.82: fix: fix crypto_crix interface
+
+0.9.83: fix: fix crypto_crix interface
 ```
