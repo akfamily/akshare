@@ -1399,9 +1399,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.77: fix: fix stock_us_hist interface
 0.9.78: fix: fix rename python file name interface
 0.9.79: add: add crypto_bitcoin_cme interface
+0.9.80: fix: fix futures_display_main_sina interface
 """
 
-__version__ = "0.9.79"
+__version__ = "0.9.80"
 __author__ = "Albert King"
 
 import sys

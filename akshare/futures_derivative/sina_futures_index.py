@@ -40,7 +40,7 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> pd.DataFrame:
         return pd.DataFrame(data_json["cffex"])
 
 
-def match_main_contract(exchange: str = "dce") -> pd.DataFrame:
+def match_main_contract(exchange: str = "shfe") -> pd.DataFrame:
     """
     指定交易所的所有可以提供数据的合约
     :param exchange: choice of {"dce", "czce", "shfe", "cffex"}
@@ -58,7 +58,7 @@ def match_main_contract(exchange: str = "dce") -> pd.DataFrame:
         data_json = demjson.decode(res.text)
         data_df = pd.DataFrame(data_json)
         try:
-            main_contract = data_df.iloc[0, :3]
+            main_contract = data_df[data_df['name'].str.contains("连续")].iloc[0, :3]
             subscribe_cffex_list.append(main_contract)
         except:
             # print(item, "无主力连续合约")
@@ -104,5 +104,5 @@ if __name__ == "__main__":
     display_main_df = futures_display_main_sina()
     print(display_main_df)
 
-    futures_hist = futures_main_sina(symbol="V0", trade_date="20181220")
+    futures_hist = futures_main_sina(symbol="SN0", trade_date="20181220")
     print(futures_hist)
