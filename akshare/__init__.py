@@ -1401,9 +1401,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.79: add: add crypto_bitcoin_cme interface
 0.9.80: fix: fix futures_display_main_sina interface
 0.9.81: add: add crypto_crix interface
+0.9.82: fix: fix crypto_crix interface
 """
 
-__version__ = "0.9.81"
+__version__ = "0.9.82"
 __author__ = "Albert King"
 
 import sys
@@ -1413,6 +1414,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+CRIX 数据
+"""
+from akshare.crypto.crypto_crix import crypto_crix
 
 """
 CME 比特币成交量
