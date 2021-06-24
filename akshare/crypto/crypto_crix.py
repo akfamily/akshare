@@ -19,6 +19,9 @@ def crypto_crix(symbol: str = "CRIX") -> pd.DataFrame:
     :return: CRIX 和 VCRIX 指数
     :rtype: pandas.DataFrame
     """
+    from requests.packages.urllib3.exceptions import InsecureRequestWarning
+    requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
     url = "https://thecrix.de/"
     r = requests.get(url, verify=False)
     soup = BeautifulSoup(r.text, "lxml")
@@ -35,7 +38,7 @@ def crypto_crix(symbol: str = "CRIX") -> pd.DataFrame:
             )[0]
         )
         temp_df.columns = ["date", "value"]
-        temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms")
+        temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
         return temp_df
 
     else:
@@ -53,7 +56,7 @@ def crypto_crix(symbol: str = "CRIX") -> pd.DataFrame:
             )[0]
         )
         temp_df.columns = ["date", "value"]
-        temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms")
+        temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
         return temp_df
 
 

@@ -1402,9 +1402,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.80: fix: fix futures_display_main_sina interface
 0.9.81: add: add crypto_crix interface
 0.9.82: fix: fix crypto_crix interface
+0.9.83: fix: fix crypto_crix interface
 """
 
-__version__ = "0.9.82"
+__version__ = "0.9.83"
 __author__ = "Albert King"
 
 import sys
