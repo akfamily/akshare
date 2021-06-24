@@ -28,5 +28,5 @@
 4. [GitHub 地址](https://github.com/pandas-dev/pandas)
 5. [文档地址](https://pandas.pydata.org/)
 6. 选用原因如下
-    1. 该库主要用于采集后的数据清洗，此处建议升级到最新版来使用
+    1. 该库主要用于采集后的数据清洗，此处建议升级到最新版，[AKShare](https://github.com/jindaxiang/akshare) 会优先支持最新的版本
     
