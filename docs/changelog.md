@@ -2210,4 +2210,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.79: add: add crypto_bitcoin_cme interface
 
 0.9.80: fix: fix futures_display_main_sina interface
+
+0.9.81: add: add crypto_crix interface
 ```

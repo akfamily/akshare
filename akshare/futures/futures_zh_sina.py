@@ -31,8 +31,9 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
     :return: 交易所具体的可交易品种
     :rtype: dict
     """
-    res = requests.get(zh_subscribe_exchange_symbol_url)
-    data_json = demjson.decode(res.text[res.text.find("{") : res.text.find("};") + 1])
+    r = requests.get(zh_subscribe_exchange_symbol_url)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"): data_text.find("};") + 1])
     if exchange == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])

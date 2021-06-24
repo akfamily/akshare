@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/14 16:41
+Date: 2021/6/24 14:41
 Desc: 新浪期货的主力合约数据
 https://finance.sina.com.cn/futuremarket/index.shtml
 """
