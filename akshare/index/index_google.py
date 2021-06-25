@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2019/12/4 15:49
+Date: 2021/6/25 15:49
 Desc: 获取谷歌指数, 必须使用代理, 获得的数据是小时频率的, 所以获取时间周期太长会很慢
 """
 from akshare.index.request import TrendReq
@@ -9,7 +9,10 @@ import matplotlib.pyplot as plt
 
 
 def google_index(
-    word="python", start_date="2019-12-01", end_date="2019-12-04", plot=True
+    word: str = "python",
+    start_date: str = "2019-12-01",
+    end_date: str = "2019-12-04",
+    plot: bool = False,
 ):
     """
     返回指定区间的谷歌指数
@@ -30,6 +33,6 @@ def google_index(
 
 if __name__ == "__main__":
     google_index_df = google_index(
-        word="AI", start_date="2019-12-10T10", end_date="2019-12-10T23", plot=True
+        word="bitcoin", start_date="2000-01-01", end_date="2021-06-25", plot=False
     )
     print(google_index_df)
