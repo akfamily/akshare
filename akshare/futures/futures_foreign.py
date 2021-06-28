@@ -10,13 +10,13 @@ from datetime import datetime
 import pandas as pd
 import requests
 
-from akshare.futures.hf_futures_sina import hq_subscribe_exchange_symbol
+from akshare.futures.futures_hq_sina import futures_foreign_commodity_subscribe_exchange_symbol
 
 
 def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
     """
     foreign futures historical data
-    :param symbol: futures symbol, you can get it from hf_subscribe_exchange_symbol function
+    :param symbol: futures symbol, you can get it from futures_foreign_commodity_subscribe_exchange_symbol
     :type symbol: str
     :return: historical data from 2010
     :rtype: pandas.DataFrame
@@ -45,14 +45,17 @@ def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
     url = f"https://finance.sina.com.cn/futures/quotes/{symbol}.shtml"
     r = requests.get(url)
     r.encoding = "gbk"
-    data_df = pd.read_html(r.text)[6]
+    data_text = r.text
+    data_df = pd.read_html(data_text)[6]
     return data_df
 
 
 if __name__ == '__main__':
-    subscribes = hq_subscribe_exchange_symbol()
+    subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
+
+    futures_foreign_hist_df = futures_foreign_hist(symbol="ZSD")
+    print(futures_foreign_hist_df)
+
     for item in subscribes:
-        futures_foreign_hist_df = futures_foreign_hist(symbol="ZSD")
-        print(futures_foreign_hist_df)
-        futures_foreign_detail_df = futures_foreign_detail(symbol="ZSD")
+        futures_foreign_detail_df = futures_foreign_detail(symbol=item)
         print(futures_foreign_detail_df)
