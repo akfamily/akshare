@@ -877,7 +877,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.50: fix: stock_em_sy_yq_list
 0.4.51: add: stock_em_tfp
 0.4.52: fix: covid.py
-0.4.53: fix: hf_futures_sina.py
+0.4.53: fix: futures_hq_sina.py
 0.4.54: add: futures_foreign
 0.4.55: fix: macro_constitute.py
 0.4.56: add: index_vix
@@ -1403,9 +1403,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.81: add: add crypto_crix interface
 0.9.82: fix: fix crypto_crix interface
 0.9.83: fix: fix crypto_crix interface
+0.9.84: fix: fix rename futures_hq_spot to futures_foreign_commodity_realtime interface
 """
 
-__version__ = "0.9.83"
+__version__ = "0.9.84"
 __author__ = "Albert King"
 
 import sys
@@ -2632,9 +2633,9 @@ from akshare.index.zh_stock_index_sina import (
 """
 外盘期货实时行情
 """
-from akshare.futures.hf_futures_sina import (
-    futures_hq_spot,
-    hq_subscribe_exchange_symbol,
+from akshare.futures.futures_hq_sina import (
+    futures_foreign_commodity_realtime,
+    futures_foreign_commodity_subscribe_exchange_symbol,
 )
 
 """
