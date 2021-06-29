@@ -22,7 +22,7 @@ def crypto_crix(symbol: str = "CRIX") -> pd.DataFrame:
     from requests.packages.urllib3.exceptions import InsecureRequestWarning
     requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-    url = "https://thecrix.de/"
+    url: str = "https://thecrix.de/"
     r = requests.get(url, verify=False)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find_all("script")[12].string

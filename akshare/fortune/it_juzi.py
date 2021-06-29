@@ -135,7 +135,6 @@ def _death_company():
                 "com_prov",
             ]
         ]
-        # data_df.to_csv(os.path.join(r"C:\Users\king\Desktop\juzi", str(i)+".csv"))
     return data_df
 
 

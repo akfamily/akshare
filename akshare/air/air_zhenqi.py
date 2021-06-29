@@ -198,7 +198,7 @@ def air_quality_hist(
 
 def air_quality_rank(date: str = "2020-03-12") -> pd.DataFrame:
     """
-    真气网-168城市AQI排行榜
+    真气网-168 城市 AQI 排行榜
     https://www.zq12369.com/environment.php?date=2020-03-12&tab=rank&order=DESC&type=DAY#rank
     :param date: "实时": 当前时刻空气质量排名; "2020-03-12": 当日空气质量排名; "2020-03": 当月空气质量排名; "2019": 当年空气质量排名;
     :type date: str

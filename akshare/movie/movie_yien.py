@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/20 19:29
+Date: 2021/6/28 17:02
 Desc: 电影票房数据
 https://www.endata.com.cn/BoxOffice/BO/RealTime/reTimeBO.html
 """
@@ -47,6 +47,8 @@ def _get_file_content(file_name: str = "jm.js"):
 def get_current_week(date: str = "20201019") -> int:
     """
     当前周的周一
+    :param date: 具体的日期
+    :type date: str
     :return: 当前周的周一
     :rtype: datetime.date
     """
@@ -60,10 +62,10 @@ def get_current_week(date: str = "20201019") -> int:
 def decrypt(origin_data: str = "") -> str:
     """
     解密
-    :param origin_data:
-    :type origin_data:
-    :return:
-    :rtype:
+    :param origin_data: 解密前的字符串
+    :type origin_data: str
+    :return: 解密后的字符串
+    :rtype: str
     """
     file_data = _get_file_content(file_name="jm.js")
     ctx = py_mini_racer.MiniRacer()
@@ -117,9 +119,28 @@ def movie_boxoffice_daily(date: str = "20201018") -> pd.DataFrame:
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排序", "_", "影片名称", "_", "累计票房", "平均票价", "上映天数", "场均人次", "_", "_", "_", "_", "_", "单日票房", "环比变化",
-                       "_", "口碑指数"]
-    temp_df = temp_df[["排序", "影片名称", "单日票房", "环比变化", "累计票房", "平均票价", "场均人次", "口碑指数", "上映天数"]]
+    temp_df.columns = [
+        "排序",
+        "_",
+        "影片名称",
+        "_",
+        "累计票房",
+        "平均票价",
+        "上映天数",
+        "场均人次",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "单日票房",
+        "环比变化",
+        "_",
+        "口碑指数",
+    ]
+    temp_df = temp_df[
+        ["排序", "影片名称", "单日票房", "环比变化", "累计票房", "平均票价", "场均人次", "口碑指数", "上映天数"]
+    ]
     return temp_df
 
 
@@ -140,9 +161,26 @@ def movie_boxoffice_weekly(date: str = "20201018") -> pd.DataFrame:
     r = requests.post(url, data=payload)
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排序", "_", "影片名称", "单周票房", "累计票房", "_", "上映天数", "平均票价", "场均人次", "环比变化", "_", "_", "_", "排名变化",
-                       "口碑指数"]
-    temp_df = temp_df[["排序", "影片名称", "排名变化", "单周票房", "环比变化", "累计票房", "平均票价", "场均人次", "口碑指数", "上映天数"]]
+    temp_df.columns = [
+        "排序",
+        "_",
+        "影片名称",
+        "单周票房",
+        "累计票房",
+        "_",
+        "上映天数",
+        "平均票价",
+        "场均人次",
+        "环比变化",
+        "_",
+        "_",
+        "_",
+        "排名变化",
+        "口碑指数",
+    ]
+    temp_df = temp_df[
+        ["排序", "影片名称", "排名变化", "单周票房", "环比变化", "累计票房", "平均票价", "场均人次", "口碑指数", "上映天数"]
+    ]
     return temp_df
 
 
@@ -164,8 +202,22 @@ def movie_boxoffice_monthly(date: str = "20201018") -> pd.DataFrame:
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排序", "_", "影片名称", "月内天数", "单月票房", "平均票价", "场均人次", "月度占比", "上映日期", "_", "口碑指数"]
-    temp_df = temp_df[["排序", "影片名称", "单月票房", "月度占比", "平均票价", "场均人次", "上映日期", "口碑指数", "月内天数"]]
+    temp_df.columns = [
+        "排序",
+        "_",
+        "影片名称",
+        "月内天数",
+        "单月票房",
+        "平均票价",
+        "场均人次",
+        "月度占比",
+        "上映日期",
+        "_",
+        "口碑指数",
+    ]
+    temp_df = temp_df[
+        ["排序", "影片名称", "单月票房", "月度占比", "平均票价", "场均人次", "上映日期", "口碑指数", "月内天数"]
+    ]
     return temp_df
 
 
@@ -188,7 +240,18 @@ def movie_boxoffice_yearly(date: str = "20201018") -> pd.DataFrame:
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
     temp_df.reset_index(inplace=True)
-    temp_df.columns = ["排序", "_", "影片名称", "类型", "总票房", "平均票价", "场均人次", "国家及地区", "上映日期", "_"]
+    temp_df.columns = [
+        "排序",
+        "_",
+        "影片名称",
+        "类型",
+        "总票房",
+        "平均票价",
+        "场均人次",
+        "国家及地区",
+        "上映日期",
+        "_",
+    ]
     temp_df["排序"] = range(1, len(temp_df) + 1)
     temp_df = temp_df[["排序", "影片名称", "类型", "总票房", "平均票价", "场均人次", "国家及地区", "上映日期"]]
     return temp_df
@@ -213,9 +276,24 @@ def movie_boxoffice_yearly_first_week(date: str = "20201018") -> pd.DataFrame:
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
     temp_df.reset_index(inplace=True)
-    temp_df.columns = ["排序", "_", "_", "影片名称", "首周票房", "场均人次", "上映日期", "首周天数", "类型", "国家及地区", "_", "占总票房比重"]
+    temp_df.columns = [
+        "排序",
+        "_",
+        "_",
+        "影片名称",
+        "首周票房",
+        "场均人次",
+        "上映日期",
+        "首周天数",
+        "类型",
+        "国家及地区",
+        "_",
+        "占总票房比重",
+    ]
     temp_df["排序"] = range(1, len(temp_df) + 1)
-    temp_df = temp_df[["排序", "影片名称", "类型", "首周票房", "占总票房比重", "场均人次", "国家及地区", "上映日期", "首周天数"]]
+    temp_df = temp_df[
+        ["排序", "影片名称", "类型", "首周票房", "占总票房比重", "场均人次", "国家及地区", "上映日期", "首周天数"]
+    ]
     return temp_df
 
 
@@ -239,7 +317,18 @@ def movie_boxoffice_cinema_daily(date: str = "20201018") -> pd.DataFrame:
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排序", "_", "影院名称", "单日票房", "单日场次", "_", "_", "场均票价", "场均人次", "上座率"]
+    temp_df.columns = [
+        "排序",
+        "_",
+        "影院名称",
+        "单日票房",
+        "单日场次",
+        "_",
+        "_",
+        "场均票价",
+        "场均人次",
+        "上座率",
+    ]
     temp_df = temp_df[["排序", "影院名称", "单日票房", "单日场次", "场均人次", "场均票价", "上座率"]]
     return temp_df
 
@@ -255,7 +344,14 @@ def movie_boxoffice_cinema_weekly(date: str = "20201018") -> pd.DataFrame:
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
     payload = {
-        "dateID": str(datetime.date.fromisoformat(f"{date[:4]}-{date[4:6]}-{date[6:]}").isocalendar()[1]-1 - 41 + 1128),
+        "dateID": str(
+            datetime.date.fromisoformat(
+                f"{date[:4]}-{date[4:6]}-{date[6:]}"
+            ).isocalendar()[1]
+            - 1
+            - 41
+            + 1128
+        ),
         "rowNum1": "1",
         "rowNum2": "100",
         "MethodName": "BoxOffice_GetCinemaWeekBoxOffice",
@@ -264,7 +360,17 @@ def movie_boxoffice_cinema_weekly(date: str = "20201018") -> pd.DataFrame:
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    temp_df.columns = ["排序", "_", "影院名称", "当周票房", "_", "单银幕票房", "场均人次", "单日单厅票房", "单日单厅场次"]
+    temp_df.columns = [
+        "排序",
+        "_",
+        "影院名称",
+        "当周票房",
+        "_",
+        "单银幕票房",
+        "场均人次",
+        "单日单厅票房",
+        "单日单厅场次",
+    ]
     temp_df = temp_df[["排序", "影院名称", "当周票房", "单银幕票房", "场均人次", "单日单厅票房", "单日单厅场次"]]
     return temp_df
 
@@ -273,7 +379,7 @@ if __name__ == "__main__":
     movie_boxoffice_realtime_df = movie_boxoffice_realtime()
     print(movie_boxoffice_realtime_df)
 
-    movie_boxoffice_daily_df = movie_boxoffice_daily(date="20201018")
+    movie_boxoffice_daily_df = movie_boxoffice_daily(date="20210618")
     print(movie_boxoffice_daily_df)
 
     movie_boxoffice_weekly_df = movie_boxoffice_weekly(date="20201018")
@@ -285,7 +391,9 @@ if __name__ == "__main__":
     movie_boxoffice_yearly_df = movie_boxoffice_yearly(date="20201018")
     print(movie_boxoffice_yearly_df)
 
-    movie_boxoffice_yearly_first_week_df = movie_boxoffice_yearly_first_week(date="20201018")
+    movie_boxoffice_yearly_first_week_df = movie_boxoffice_yearly_first_week(
+        date="20201018"
+    )
     print(movie_boxoffice_yearly_first_week_df)
 
     movie_boxoffice_cinema_daily_df = movie_boxoffice_cinema_daily(date="20201018")
