@@ -1692,7 +1692,7 @@ from akshare.bond.bond_summary import bond_deal_summary_sse
 """
 新闻-个股新闻
 """
-from akshare.news.stock_news import stock_news_em
+from akshare.news.news_stock import stock_news_em
 
 """
 股票数据-一致行动人
