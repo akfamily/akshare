@@ -1405,9 +1405,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.83: fix: fix crypto_crix interface
 0.9.84: fix: fix rename futures_hq_spot to futures_foreign_commodity_realtime interface
 0.9.85: fix: fix rate_interbank interface
+0.9.86: add: add fund_em_aum interface
 """
 
-__version__ = "0.9.85"
+__version__ = "0.9.86"
 __author__ = "Albert King"
 
 import sys
@@ -1417,6 +1418,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+基金规模和规模趋势
+"""
+from akshare.fund.fund_em_aum import fund_em_aum, fund_em_aum_trend
 
 """
 CRIX 数据
@@ -1796,7 +1802,7 @@ from akshare.movie.movie_yien import (
 """
 新闻联播文字稿
 """
-from akshare.news.cctv_news import news_cctv
+from akshare.news.news_cctv import news_cctv
 
 """
 债券收盘收益率曲线历史数据

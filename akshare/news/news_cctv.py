@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/25 12:54
+Date: 2021/6/29 12:54
 Desc: 新闻联播文字稿
 http://www.xwlbo.com/date-2020-7-11.html
 """
@@ -11,9 +11,10 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+# TODO 部分日期数据缺失
 
 
-def news_cctv(date: str = "20200902") -> pd.DataFrame:
+def news_cctv(date: str = "20210628") -> pd.DataFrame:
     """
     新闻联播文字稿
     http://www.xwlbo.com/date-2020-7-11.html
@@ -56,5 +57,5 @@ def news_cctv(date: str = "20200902") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_cctv_df = news_cctv(date="20210123")
+    news_cctv_df = news_cctv(date="20210622")
     print(news_cctv_df)
