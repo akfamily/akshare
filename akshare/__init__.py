@@ -1406,9 +1406,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.84: fix: fix rename futures_hq_spot to futures_foreign_commodity_realtime interface
 0.9.85: fix: fix rate_interbank interface
 0.9.86: add: add fund_em_aum interface
+0.9.87: fix: fix death_company interface
 """
 
-__version__ = "0.9.86"
+__version__ = "0.9.87"
 __author__ = "Albert King"
 
 import sys
@@ -1752,17 +1753,17 @@ from akshare.futures.futures_contract_detail import futures_contract_detail
 """
 胡润排行榜
 """
-from akshare.fortune.hurun import hurun_rank
+from akshare.fortune.fortune_hurun import hurun_rank
 
 """
 新财富富豪榜
 """
-from akshare.fortune.xincaifu_500 import xincaifu_rank
+from akshare.fortune.fortune_xincaifu_500 import xincaifu_rank
 
 """
 福布斯中国榜单
 """
-from akshare.fortune.forbes_500 import forbes_rank
+from akshare.fortune.fortune_forbes_500 import forbes_rank
 
 """
 回购定盘利率
@@ -2470,7 +2471,7 @@ from akshare.stock_feature.stock_em_jgdy import stock_em_jgdy_tj, stock_em_jgdy_
 """
 IT桔子
 """
-from akshare.fortune.it_juzi import death_company, maxima_company, nicorn_company
+from akshare.fortune.fortune_it_juzi import death_company, maxima_company, nicorn_company
 
 """
 新浪主力连续接口

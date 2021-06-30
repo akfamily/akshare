@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/6 17:10
+Date: 2021/6/30 15:10
 Desc: 福布斯中国-榜单
 https://www.forbeschina.com/lists
 """
@@ -41,5 +41,5 @@ def forbes_rank(indicator: str = "2020福布斯美国富豪榜") -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    forbes_rank_df = forbes_rank(indicator="2020福布斯中国400富豪榜")
+    forbes_rank_df = forbes_rank(indicator="2021福布斯全球富豪榜")
     print(forbes_rank_df)
