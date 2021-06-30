@@ -2222,4 +2222,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.85: fix: fix rate_interbank interface
 
 0.9.86: add: add fund_em_aum interface
+
+0.9.87: fix: fix death_company interface
 ```
