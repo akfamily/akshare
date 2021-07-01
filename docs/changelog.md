@@ -2226,4 +2226,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.87: fix: fix death_company interface
 
 0.9.88: fix: fix stock_financial_analysis_indicator interface
+
+0.9.89: fix: fix fund_manager interface
 ```
