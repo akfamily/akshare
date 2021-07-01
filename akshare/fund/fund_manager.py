@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/8 16:30
+Date: 2021/7/1 16:30
 Desc: 基金经理大全
 http://fund.eastmoney.com/manager/default.html
 """
@@ -11,7 +11,7 @@ import requests
 from tqdm import tqdm
 
 
-def fund_manager() -> pd.DataFrame:
+def fund_manager(explode: bool = False) -> pd.DataFrame:
     """
     天天基金网-基金数据-基金经理大全
     http://fund.eastmoney.com/manager/default.html
@@ -33,7 +33,7 @@ def fund_manager() -> pd.DataFrame:
     data_text = r.text
     data_json = demjson.decode(data_text.strip("var returnjson= "))
     total_page = data_json["pages"]
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         url = "http://fund.eastmoney.com/Data/FundDataPortfolio_Interface.aspx"
         params = {
             "dt": "14",
@@ -72,16 +72,24 @@ def fund_manager() -> pd.DataFrame:
                 "所属公司",
                 "现任基金",
                 "累计从业时间",
-                "现任基金最佳回报",
                 "现任基金资产总规模",
+                "现任基金最佳回报",
             ]
         ]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df["现任基金最佳回报"] = big_df["现任基金最佳回报"].str.split("%", expand=True).iloc[:, 0]
     big_df["现任基金资产总规模"] = big_df["现任基金资产总规模"].str.split("亿元", expand=True).iloc[:, 0]
+    big_df['累计从业时间'] = pd.to_numeric(big_df['累计从业时间'], errors="coerce")
+    big_df['现任基金最佳回报'] = pd.to_numeric(big_df['现任基金最佳回报'], errors="coerce")
+    big_df['现任基金资产总规模'] = pd.to_numeric(big_df['现任基金资产总规模'], errors="coerce")
+    if explode:
+        big_df['现任基金'] = big_df['现任基金'].apply(lambda x: x.split(','))
+        big_df = big_df.explode(column='现任基金')
+        big_df.reset_index(drop=True, inplace=True)
+        return big_df
     return big_df
 
 
 if __name__ == "__main__":
-    fund_manager_df = fund_manager()
+    fund_manager_df = fund_manager(explode=True)
     print(fund_manager_df)
