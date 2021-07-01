@@ -74,7 +74,7 @@ def stock_sina_lhb_ggtj(recent_day: str = "5") -> pd.DataFrame:
     except:
         last_page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, last_page_num + 1)):
+    for page in tqdm(range(1, last_page_num + 1), leave=False):
         params = {
             "last": "5",
             "p": page,
@@ -108,7 +108,7 @@ def stock_sina_lhb_yytj(recent_day: str = "5") -> pd.DataFrame:
     except:
         last_page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, last_page_num + 1)):
+    for page in tqdm(range(1, last_page_num + 1), leave=False):
         params = {
             "last": "5",
             "p": page,
@@ -141,7 +141,7 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
     except:
         last_page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, last_page_num + 1)):
+    for page in tqdm(range(1, last_page_num + 1), leave=False,):
         params = {
             "last": "5",
             "p": page,
@@ -174,7 +174,7 @@ def stock_sina_lhb_jgmx() -> pd.DataFrame:
     except:
         last_page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, last_page_num + 1)):
+    for page in tqdm(range(1, last_page_num + 1), leave=False):
         params = {
             "p": page,
         }

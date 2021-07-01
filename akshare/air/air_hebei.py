@@ -38,7 +38,7 @@ def air_quality_hebei(city: str = "唐山市") -> pd.DataFrame:
         "CityName"
     ].tolist()
     outer_df = pd.DataFrame()
-    for i in tqdm(range(1, 7)):
+    for i in tqdm(range(1, 7), leave=False):
         inner_df = pd.DataFrame(
             [item[f"Date{i}"] for item in json_data["cityPublishDatas"]],
             index=city_list,

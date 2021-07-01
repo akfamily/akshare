@@ -43,15 +43,15 @@ def _get_zh_a_page_count() -> int:
 
 def stock_zh_a_spot() -> pd.DataFrame:
     """
-    新浪财经-A股
-    获取所有A股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
+    新浪财经- A 股
+    获取所有 A 股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
     http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
     :return: pandas.DataFrame
     """
     big_df = pd.DataFrame()
     page_count = _get_zh_a_page_count()
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
-    for page in tqdm(range(1, page_count + 1), desc="Please wait for a moment"):
+    for page in tqdm(range(1, page_count + 1), leave=False, desc="Please wait for a moment"):
         zh_sina_stock_payload_copy.update({"page": page})
         r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(r.text)

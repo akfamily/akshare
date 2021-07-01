@@ -519,7 +519,7 @@ if __name__ == "__main__":
     print(stock_us_spot_em_df)
 
     stock_us_hist_df = stock_us_hist(symbol='105.MTP', start_date="19700101", end_date="22220101", adjust="qfq")
-    print(stock_us_hist_df.info())
+    print(stock_us_hist_df)
 
     stock_zh_a_spot_em_df = stock_zh_a_spot_em()
     print(stock_zh_a_spot_em_df)
