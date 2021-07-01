@@ -51,7 +51,7 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = _get_zh_bond_hs_cov_page_count()
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_cov_payload.copy()
-    for page in tqdm(range(1, page_count + 1)):
+    for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
         res = requests.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(res.text)

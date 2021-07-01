@@ -67,7 +67,7 @@ def charity_china_organization() -> pd.DataFrame:
         "flag": "0",
     }
     outer_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num+1), leave=False):
         # page = 1
         payload_data = {"pageNo": str(page)}
 
@@ -115,7 +115,7 @@ def charity_china_trust() -> pd.DataFrame:
         "sort": "desc",
     }
     outer_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num+1), leave=False):
         # page = 1
         payload_data = {"pageNo": str(page)}
 

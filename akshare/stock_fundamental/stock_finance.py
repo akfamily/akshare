@@ -81,7 +81,7 @@ def stock_financial_analysis_indicator(stock: str = "600004") -> pd.DataFrame:
     year_context = soup.find(attrs={"id": "con02-1"}).find("table").find_all("a")
     year_list = [item.text for item in year_context]
     out_df = pd.DataFrame()
-    for year_item in tqdm(year_list):
+    for year_item in tqdm(year_list, leave=False):
         url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{stock}/ctrl/{year_item}/displaytype/4.phtml"
         r = requests.get(url)
         temp_df = pd.read_html(r.text)[12].iloc[:, :-1]

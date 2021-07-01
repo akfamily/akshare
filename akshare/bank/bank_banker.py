@@ -217,7 +217,7 @@ def bank_rank_banker() -> pd.DataFrame:
         for item in temp_df["current_name"]
     ]
     bank_name_list = []
-    for item in tqdm(bank_url_list):
+    for item in tqdm(bank_url_list, leave=False):
         r = requests.get(item)
         soup = BeautifulSoup(r.text, "lxml")
         bank_name = soup.find("h1", attrs={"class": "bank"}).find("span").text

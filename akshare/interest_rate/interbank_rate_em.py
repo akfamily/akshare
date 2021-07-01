@@ -74,7 +74,7 @@ def rate_interbank(
     page_num = _get_page_num(market=market, symbol=symbol, indicator=indicator)
     temp_df = pd.DataFrame()
     if need_page == "":
-        for page in tqdm(range(1, page_num + 1)):
+        for page in tqdm(range(1, page_num + 1), leave=False):
             need_url = (
                 market_symbol_indicator_dict[market][symbol][indicator] + f"&p={page}"
             )
