@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/6 15:32
+Date: 2021/7/2 15:32
 Desc: 破净股统计历史走势
 https://www.legulegu.com/stockdata/below-net-asset-statistics
 """
@@ -33,6 +33,7 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
     temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
     del temp_df["id"]
     del temp_df["marketId"]
+    temp_df = temp_df.iloc[:, :3]
     temp_df.columns = ["below_net_asset", "total_company", "date"]
     temp_df["below_net_asset_ratio"] = round(
         temp_df["below_net_asset"] / temp_df["total_company"], 4

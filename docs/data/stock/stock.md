@@ -8098,18 +8098,18 @@ date
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="全部A股"; choice of {"全部A股", "沪深300"}|
+| 名称   | 类型 | 描述   |
+| -------- | ---- |--- |
+| symbol | str |  symbol="全部A股"; choice of {"全部A股", "沪深300"}|
 
 输出参数-全部A股
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | object   | Y        |  交易日    |
-| below_net_asset          | float64   | Y        |  破净股家数    |
-| total_company          | float64   | Y        |  总公司数    |
-| below_net_asset_ratio          | float64   | Y        |  破净股比率    |
+| 名称          | 类型 |  描述           |
+| ------------ | ----- | ---------------- |
+| date          | object   |   交易日    |
+| below_net_asset          | float64   |   破净股家数    |
+| total_company          | float64   |  总公司数    |
+| below_net_asset_ratio          | float64   |  破净股比率    |
 
 接口示例-全部 A 股
 
@@ -8138,12 +8138,12 @@ print(stock_a_below_net_asset_statistics_df)
 
 输出参数-沪深 300
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | object   | Y        |  交易日    |
-| below_net_asset          | float64   | Y        |  破净股家数    |
-| total_company          | float64   | Y        |  总公司数    |
-| below_net_asset_ratio          | float64   | Y        |  破净股比率    |
+| 名称          | 类型 |描述           |
+| ------------ | ----- | ---------------- |
+| date          | object   |   交易日    |
+| below_net_asset          | float64   |  破净股家数    |
+| total_company          | float64   |  总公司数    |
+| below_net_asset_ratio          | float64   |   破净股比率    |
 
 接口示例-沪深 300
 
