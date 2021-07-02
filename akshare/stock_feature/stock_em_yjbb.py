@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/3/31 16:27
+Date: 2021/7/3 10:27
 Desc: 东方财富-数据中心-年报季报
 东方财富-数据中心-年报季报-业绩快报-业绩报表
 http://data.eastmoney.com/bbsj/202003/yjbb.html
@@ -35,7 +35,7 @@ def stock_em_yjbb(date: str = "20200331") -> pd.DataFrame:
     data_json = r.json()
     page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1)):
+    for page in tqdm(range(1, page_num + 1), leave=False):
         params = {
             "st": "UPDATE_DATE,SECURITY_CODE",
             "sr": "-1,-1",
