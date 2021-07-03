@@ -33,7 +33,7 @@ def stock_zh_a_gdhs() -> pd.DataFrame:
     data_json = r.json()
     total_page_num = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page_num in tqdm(range(1, total_page_num + 1)):
+    for page_num in tqdm(range(1, total_page_num + 1), leave=False):
         params = {
             "sortColumns": "HOLD_NOTICE_DATE",
             "sortTypes": "-1",
