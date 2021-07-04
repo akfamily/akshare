@@ -50,10 +50,9 @@ def stock_em_tfp(date: str = "20200319") -> pd.DataFrame:
     temp_df = temp_df[
         ["序号", "代码", "名称", "停牌时间", "停牌截止时间", "停牌期限", "停牌原因", "所属市场", "预计复牌时间"]
     ]
-
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_em_tfp_df = stock_em_tfp(date="20200319")
+    stock_em_tfp_df = stock_em_tfp(date="20201209")
     print(stock_em_tfp_df)
