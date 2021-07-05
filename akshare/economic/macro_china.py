@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/2/8 16:08
+Date: 2021/7/5 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
 http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
-输出数据格式为 float64
 """
 import json
 import math
@@ -33,6 +32,100 @@ from akshare.economic.cons import (
     JS_CHINA_CX_SERVICE_PMI_YEARLY_URL,
     JS_CHINA_MARKET_MARGIN_SH_URL,
 )
+
+
+# 企业商品价格指数
+def macro_china_qyspjg() -> pd.DataFrame:
+    """
+    企业商品价格指数
+    http://data.eastmoney.com/cjsj/qyspjg.html
+    :return: 企业商品价格指数
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx'
+    params = {
+        'type': 'GJZB',
+        'sty': 'ZGZB',
+        'js': '({data:[(x)],pages:(pc)})',
+        'p': '1',
+        'ps': '2000',
+        'mkt': '9',
+        'pageNo': '1',
+        'pageNum': '1',
+        '_': '1625474966006'
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[1:-1])
+    temp_df = pd.DataFrame([item.split(',') for item in data_json['data']])
+    temp_df.columns = [
+        '月份',
+        '总指数-指数值',
+        '总指数-同比增长',
+        '总指数-环比增长',
+        '农产品-指数值',
+        '农产品-同比增长',
+        '农产品-环比增长',
+        '矿产品-指数值',
+        '矿产品-同比增长',
+        '矿产品-环比增长',
+        '煤油电-指数值',
+        '煤油电-同比增长',
+        '煤油电-环比增长',
+    ]
+    temp_df['总指数-指数值'] = pd.to_numeric(temp_df['总指数-指数值'])
+    temp_df['总指数-同比增长'] = pd.to_numeric(temp_df['总指数-同比增长'])
+    temp_df['总指数-环比增长'] = pd.to_numeric(temp_df['总指数-环比增长'])
+    temp_df['农产品-指数值'] = pd.to_numeric(temp_df['农产品-指数值'])
+    temp_df['农产品-同比增长'] = pd.to_numeric(temp_df['农产品-同比增长'])
+    temp_df['农产品-环比增长'] = pd.to_numeric(temp_df['农产品-环比增长'])
+    temp_df['矿产品-指数值'] = pd.to_numeric(temp_df['矿产品-指数值'])
+    temp_df['矿产品-同比增长'] = pd.to_numeric(temp_df['矿产品-同比增长'])
+    temp_df['矿产品-环比增长'] = pd.to_numeric(temp_df['矿产品-环比增长'])
+    temp_df['煤油电-指数值'] = pd.to_numeric(temp_df['煤油电-指数值'])
+    temp_df['煤油电-同比增长'] = pd.to_numeric(temp_df['煤油电-同比增长'])
+    temp_df['煤油电-环比增长'] = pd.to_numeric(temp_df['煤油电-环比增长'])
+    return temp_df
+
+
+# 外商直接投资数据
+def macro_china_fdi() -> pd.DataFrame:
+    """
+    外商直接投资数据
+    http://data.eastmoney.com/cjsj/fdi.html
+    :return: 外商直接投资数据
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx'
+    params = {
+        'type': 'GJZB',
+        'sty': 'ZGZB',
+        'js': '({data:[(x)],pages:(pc)})',
+        'p': '1',
+        'ps': '2000',
+        'mkt': '15',
+        'pageNo': '1',
+        'pageNum': '1',
+        '_': '1625474966006'
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[1:-1])
+    temp_df = pd.DataFrame([item.split(',') for item in data_json['data']])
+    temp_df.columns = [
+        '月份',
+        '当月',
+        '当月-同比增长',
+        '当月-环比增长',
+        '累计',
+        '累计-同比增长',
+    ]
+    temp_df['当月'] = pd.to_numeric(temp_df['当月'])
+    temp_df['当月-同比增长'] = pd.to_numeric(temp_df['当月-同比增长'])
+    temp_df['当月-环比增长'] = pd.to_numeric(temp_df['当月-环比增长'])
+    temp_df['累计'] = pd.to_numeric(temp_df['累计'])
+    temp_df['累计-同比增长'] = pd.to_numeric(temp_df['累计-同比增长'])
+    return temp_df
 
 
 # 中国社会融资规模数据
@@ -2306,6 +2399,12 @@ def macro_china_real_estate():
 
 
 if __name__ == "__main__":
+    # 企业商品价格指数
+    macro_china_qyspjg_df = macro_china_qyspjg()
+    print(macro_china_qyspjg_df)
+    # 外商直接投资数据
+    macro_china_fdi_df = macro_china_fdi()
+    print(macro_china_fdi_df)
     # 社会融资规模增量
     macro_china_shrzgm_df = macro_china_shrzgm()
     print(macro_china_shrzgm_df)

@@ -1413,9 +1413,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.91: fix: fix stock_em_yjbb interface
 0.9.92: fix: fix stock_em_tfp interface
 0.9.93: fix: fix stock_zh_a_gdhs interface
+0.9.94: add: add macro_china_qyspjg, macro_china_fdi interface
 """
 
-__version__ = "0.9.93"
+__version__ = "0.9.94"
 __author__ = "Albert King"
 
 import sys
@@ -2895,6 +2896,8 @@ from akshare.economic.macro_china import (
     macro_china_foreign_exchange_gold,
     macro_china_retail_price_index,
     macro_china_real_estate,
+    macro_china_qyspjg,
+    macro_china_fdi
 )
 
 """

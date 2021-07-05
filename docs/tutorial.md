@@ -800,6 +800,9 @@
  # 基金规模和规模趋势
  "fund_em_aum"  # 基金公司规模排名列表
  "fund_em_aum_trend"  # 基金市场管理规模走势图
+ # 企业商品价格指数
+ "macro_china_qyspjg"  # 企业商品价格指数
+ "macro_china_fdi"  # 外商直接投资数据
 ```
 
 ## 案例演示
