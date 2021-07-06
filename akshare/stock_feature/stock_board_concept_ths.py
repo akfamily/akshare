@@ -113,7 +113,7 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     except IndexError as e:
         page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num+1), leave=False):
         v_code = js_code.call('v')
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
@@ -157,10 +157,12 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     return temp_df
 
 
-def stock_board_concept_index_ths(symbol: str = "安防") -> pd.DataFrame:
+def stock_board_concept_index_ths(start_year: str = '2000', symbol: str = "安防") -> pd.DataFrame:
     """
     同花顺-板块-概念板块-指数数据
     http://q.10jqka.com.cn/gn/detail/code/301558/
+    :param start_year: 开始年份; e.g., 2019
+    :type start_year: str
     :param symbol: 板块简介
     :type symbol: str
     :return: 板块简介
@@ -176,7 +178,7 @@ def stock_board_concept_index_ths(symbol: str = "安防") -> pd.DataFrame:
     symbol_code = soup.find('div', attrs={'class': 'board-hq'}).find('span').text
     big_df = pd.DataFrame()
     current_year = datetime.now().year
-    for year in tqdm(range(2000, current_year+1)):
+    for year in tqdm(range(int(start_year), current_year+1), leave=False):
         url = f'http://d.10jqka.com.cn/v4/line/bk_{symbol_code}/01/{year}.js'
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
@@ -215,7 +217,7 @@ def stock_board_concept_index_ths(symbol: str = "安防") -> pd.DataFrame:
         '成交量',
         '成交额',
     ]]
-    big_df['日期'] = pd.to_datetime(big_df['日期'])
+    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
     return big_df
 
 
@@ -229,5 +231,5 @@ if __name__ == '__main__':
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="丙烯酸")
     print(stock_board_concept_info_ths_df)
 
-    stock_board_concept_index_ths_df = stock_board_concept_index_ths(symbol="一带一路")
+    stock_board_concept_index_ths_df = stock_board_concept_index_ths(start_year='2020', symbol="一带一路")
     print(stock_board_concept_index_ths_df)

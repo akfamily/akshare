@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/1 20:23
+Date: 2021/7/5 20:23
 Desc: 中国柯桥纺织指数
 http://www.kqindex.cn/flzs/jiage
 """
@@ -37,7 +37,7 @@ def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
     data_json = r.json()
     page_num = data_json["page"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1)):
+    for page in tqdm(range(1, page_num + 1), leave=False):
         params = {
             "category": "0",
             "start": "",
