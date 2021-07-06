@@ -1,15 +1,16 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/6/4 20:31
+Date: 2021/7/6 20:31
 Desc: 股票基本信息
 """
 import json
+import warnings
 from io import BytesIO
 
 import pandas as pd
 import requests
-import warnings
+
 
 def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
     """
@@ -31,7 +32,7 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
     r = requests.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
+        temp_df = pd.read_excel(BytesIO(r.content))
     if len(temp_df) > 10:
         if indicator == "A股列表":
             temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
@@ -167,9 +168,11 @@ def stock_info_sz_delist(indicator: str = "暂停上市公司") -> pd.DataFrame:
         "random": "0.6935816432433362",
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
-    temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
-    return temp_df
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        temp_df = pd.read_excel(BytesIO(r.content))
+        temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
+        return temp_df
 
 
 def stock_info_sz_change_name(indicator: str = "全称变更") -> pd.DataFrame:
@@ -190,9 +193,11 @@ def stock_info_sz_change_name(indicator: str = "全称变更") -> pd.DataFrame:
         "random": "0.6935816432433362",
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
-    temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
-    return temp_df
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        temp_df = pd.read_excel(BytesIO(r.content))
+        temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
+        return temp_df
 
 
 def stock_info_change_name(stock: str = "688588") -> pd.DataFrame:

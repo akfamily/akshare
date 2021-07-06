@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/30 14:31
+Date: 2021/7/6 14:31
 Desc: 股票数据-总貌-市场总貌
 股票数据-总貌-成交概括
 http://www.szse.cn/market/overview/index.html
@@ -32,7 +32,7 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
         "random": "0.39339437497296137",
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
+    temp_df = pd.read_excel(BytesIO(r.content))
     temp_df["证券类别"] = temp_df["证券类别"].str.strip()
     temp_df.iloc[:, 2:] = temp_df.iloc[:, 2:].applymap(lambda x: x.replace(",", ""))
     return temp_df
@@ -127,7 +127,6 @@ def stock_sse_deal_daily(date: str = "20210325") -> pd.DataFrame:
         "_",
         "_",
     ]
-
     temp_df = temp_df[temp_df["单日情况"] != "_"]
     temp_df["单日情况"] = temp_df["单日情况"].astype("category")
     list_custom_new = [
@@ -142,7 +141,7 @@ def stock_sse_deal_daily(date: str = "20210325") -> pd.DataFrame:
         "次新股换手率",
         "流通换手率",
     ]
-    temp_df["单日情况"].cat.set_categories(list_custom_new, inplace=True)
+    temp_df["单日情况"].cat.set_categories(list_custom_new)
     temp_df.sort_values("单日情况", ascending=True, inplace=True)
     temp_df.reset_index(drop=True, inplace=True)
     return temp_df
