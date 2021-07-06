@@ -4,7 +4,7 @@ matplotlib>=3.1.1
 numpy>=1.17.2
 pandas>=0.25
 requests>=2.22.0
-urllib3==1.25.8
+urllib3==1.26.5
 demjson>=2.2.4
 pillow>=6.2.1
 pypinyin>=0.35.0
