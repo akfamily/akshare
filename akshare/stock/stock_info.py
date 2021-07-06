@@ -32,7 +32,7 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
     r = requests.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
+        temp_df = pd.read_excel(BytesIO(r.content))
     if len(temp_df) > 10:
         if indicator == "A股列表":
             temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
@@ -170,7 +170,7 @@ def stock_info_sz_delist(indicator: str = "暂停上市公司") -> pd.DataFrame:
     r = requests.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
+        temp_df = pd.read_excel(BytesIO(r.content))
         temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
         return temp_df
 
@@ -195,7 +195,7 @@ def stock_info_sz_change_name(indicator: str = "全称变更") -> pd.DataFrame:
     r = requests.get(url, params=params)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
+        temp_df = pd.read_excel(BytesIO(r.content))
         temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
         return temp_df
 

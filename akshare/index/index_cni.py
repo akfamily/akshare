@@ -135,7 +135,7 @@ def index_cni_detail(index: str = '399005', date: str = '2020-11') -> pd.DataFra
         'dateStr': date
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content, engine="xlrd")
+    temp_df = pd.read_excel(r.content)
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
         '日期',
