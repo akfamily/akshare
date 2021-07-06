@@ -4,14 +4,14 @@ matplotlib>=3.1.1
 numpy>=1.17.2
 pandas>=0.25
 requests>=2.22.0
-urllib3==1.26.5
+urllib3==1.25.8
 demjson>=2.2.4
 pillow>=6.2.1
 pypinyin>=0.35.0
 websocket-client>=0.56.0
 html5lib>=1.0.1
 tqdm>=4.43.0
-xlrd==1.2.0
+xlrd>=1.2.0
 openpyxl>=3.0.3
 jsonpath>=0.82
 tabulate>=0.8.6
