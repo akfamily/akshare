@@ -2244,4 +2244,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.96: fix: fix stock_info_sz_name_code interface
 
 0.9.97: fix: fix urllib3 version at 1.25.8
+
+0.9.98: fix: fix js_news interface
 ```
