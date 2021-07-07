@@ -122,7 +122,9 @@ def bond_investing_global(
 
 
 if __name__ == "__main__":
-    bond_investing_global_country_name_url("中国")
+    bond_investing_global_country_name_url_df = bond_investing_global_country_name_url("中国")
+    print(bond_investing_global_country_name_url_df)
+
     bond_investing_global_df = bond_investing_global(
         country="中国",
         index_name="中国10年期国债",
