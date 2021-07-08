@@ -2250,4 +2250,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.99: fix: fix news_cctv interface
 
 1.0.1: add: add macro_usa_phs interface
+
+1.0.2: fix: fix macro_usa_phs interface
 ```
