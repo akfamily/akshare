@@ -1420,9 +1420,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.98: fix: fix js_news interface
 0.9.99: fix: fix news_cctv interface
 1.0.1: add: add macro_usa_phs interface
+1.0.2: fix: fix macro_usa_phs interface
 """
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 __author__ = "Albert King"
 
 import sys
@@ -2835,6 +2836,7 @@ from akshare.economic.macro_usa import (
     macro_usa_cftc_c_holding,
     macro_usa_cftc_merchant_currency_holding,
     macro_usa_cftc_merchant_goods_holding,
+    macro_usa_phs,
 )
 
 """
