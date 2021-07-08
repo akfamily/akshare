@@ -803,6 +803,8 @@
  # 企业商品价格指数
  "macro_china_qyspjg"  # 企业商品价格指数
  "macro_china_fdi"  # 外商直接投资数据
+ # 未决房屋销售月率
+ "macro_usa_phs"  # 未决房屋销售月率
 ```
 
 ## 案例演示

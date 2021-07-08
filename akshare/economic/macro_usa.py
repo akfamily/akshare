@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/5/3 12:08
+Date: 2021/7/8 22:08
 Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
@@ -9,6 +9,7 @@ import json
 import time
 
 import pandas as pd
+import demjson
 import requests
 
 from akshare.economic.cons import (
@@ -22,6 +23,42 @@ from akshare.economic.cons import (
     JS_USA_ADP_NONFARM_URL,
     JS_USA_GDP_MONTHLY_URL,
 )
+
+
+# 东方财富-美国-未决房屋销售月率
+def macro_usa_phs():
+    """
+    未决房屋销售月率
+    http://data.eastmoney.com/cjsj/foreign_0_5.html
+    :return: 未决房屋销售月率
+    :rtype: pandas.DataFrame
+    """
+    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    params = {
+        'type': 'GJZB',
+        'sty': 'HKZB',
+        'js': '({data:[(x)],pages:(pc)})',
+        'p': '1',
+        'ps': '2000',
+        'mkt': '0',
+        'stat': '5',
+        'pageNo': '1',
+        'pageNum': '1',
+        '_': '1625474966006'
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[1:-1])
+    temp_df = pd.DataFrame([item.split(',') for item in data_json['data']])
+    temp_df.columns = [
+        '时间',
+        '前值',
+        '现值',
+        '发布日期',
+    ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    return temp_df
 
 
 # 金十数据中心-经济指标-美国-经济状况-美国GDP
@@ -2653,6 +2690,10 @@ def macro_usa_cftc_merchant_goods_holding():
 
 
 if __name__ == "__main__":
+    # 东方财富-经济指标-美国-未决房屋销售月率
+    macro_usa_phs_df = macro_usa_phs()
+    print(macro_usa_phs_df)
+
     # 金十数据中心-经济指标-美国-经济状况-美国GDP
     macro_usa_gdp_monthly_df = macro_usa_gdp_monthly()
     print(macro_usa_gdp_monthly_df)
