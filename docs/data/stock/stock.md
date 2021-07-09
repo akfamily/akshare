@@ -429,23 +429,23 @@ print(stock_zh_a_hist_df)
 
 ##### 日频率-新浪
 
-接口: stock_zh_a_daily
+接口: stock_zh_a_daily; 建议切换为 stock_zh_a_hist 接口使用(该接口数据质量高, 访问无限制)
 
 目标地址: https://finance.sina.com.cn/realstock/company/sh600006/nc.shtml(示例)
 
 描述: A 股数据是从新浪财经获取的数据, 历史数据按日频率更新; 注意其中的 **sh689009** 为 CDR, 请
-通过 **stock_zh_a_cdr_daily** 接口获取
+通过 **ak.stock_zh_a_cdr_daily** 接口获取
 
 限量: 单次返回指定 A 股上市公司指定日期间的历史行情日频率数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述    |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |symbol='sh600000'; 股票代码可以在 **ak.stock_zh_a_spot()** 中获取|
-| start_date | str  | Y    |start_date='20201103'; 开始查询的日期|
-| end_date | str  | Y    |end_date='20201116'; 结束查询的日期|
-| adjust | str  | Y    |默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子|
+| 名称   | 类型 |  描述    |
+| -------- | ---- |  --- |
+| symbol | str  | symbol='sh600000'; 股票代码可以在 **ak.stock_zh_a_spot** 中获取|
+| start_date | str  | start_date='20201103'; 开始查询的日期|
+| end_date | str  | end_date='20201116'; 结束查询的日期|
+| adjust | str  | 默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子|
 
 **股票数据复权**
 
@@ -470,16 +470,16 @@ print(stock_zh_a_hist_df)
 
 输出参数-历史行情数据
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | datetime   | Y        | 交易日     |
-| close          | float      | Y        | 收盘价     |
-| high          | float      | Y        | 最高价     |
-| low           | float      | Y        | 最低价     |
-| open         | float      | Y        | 开盘价     |
-| volume        | float      | Y        | 成交量; 注意单位: 股     |
-| outstanding_share        | float      | Y        | 流动股本; 注意单位: 股     |
-| turnover        | float      | Y        | 换手率=成交量/流动股本    |
+| 名称          | 类型 |  描述           |
+| ------------ | ----- |  ---------------- |
+| date          | datetime64   |  交易日     |
+| close          | float64      |  收盘价     |
+| high          | float64      | 最高价     |
+| low           | float64      |  最低价     |
+| open         | float64      |  开盘价     |
+| volume        | float64      |  成交量; 注意单位: 股     |
+| outstanding_share        | float64      |  流动股本; 注意单位: 股     |
+| turnover        | float64      |  换手率=成交量/流动股本    |
 
 接口示例-历史行情数据(前复权)
 
@@ -813,7 +813,7 @@ print(stock_zh_a_tick_163_df)
 
 名词解释: 
 1. [Investopedia-CDR](https://www.investopedia.com/terms/c/cdr.asp)
-1. [百度百科-中国存托凭证](https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E5%AD%98%E6%89%98%E5%87%AD%E8%AF%81/2489906?fr=aladdin)
+2. [百度百科-中国存托凭证](https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E5%AD%98%E6%89%98%E5%87%AD%E8%AF%81/2489906?fr=aladdin)
 
 输入参数
 
