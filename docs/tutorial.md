@@ -805,6 +805,15 @@
  "macro_china_fdi"  # 外商直接投资数据
  # 未决房屋销售月率
  "macro_usa_phs"  # 未决房屋销售月率
+ # 德国经济指标
+ "macro_germany_ifo"  # ifo商业景气指数
+ "macro_germany_cpi_monthly"  # 消费者物价指数月率终值
+ "macro_germany_cpi_yearly"  # 消费者物价指数年率终值
+ "macro_germany_trade_adjusted"  # 贸易帐(季调后)
+ "macro_germany_gdp"  # GDP
+ "macro_germany_retail_sale_monthly"  # 实际零售销售月率
+ "macro_germany_retail_sale_yearly"  # 实际零售销售年率
+ "macro_germany_zew"  # ZEW经济景气指数
 ```
 
 ## 案例演示
