@@ -1423,9 +1423,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.2: fix: fix macro_usa_phs interface
 1.0.3: add: add macro_germany interface
 1.0.4: add: add macro_china interface
+1.0.5: add: add macro_china_gyzjz interface
 """
 
-__version__ = "1.0.4"
+__version__ = "1.0.5"
 __author__ = "Albert King"
 
 import sys
@@ -2888,6 +2889,7 @@ from akshare.economic.macro_china import (
     macro_china_trade_balance,
     macro_china_shibor_all,
     macro_china_industrial_production_yoy,
+    macro_china_gyzjz,
     macro_china_lpr,
     macro_china_new_house_price,
     macro_china_enterprise_boom_index,
