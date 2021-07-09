@@ -1862,6 +1862,39 @@ def macro_china_xfzxx():
     return temp_df
 
 
+def macro_china_gyzjz():
+    """
+    工业增加值增长
+    https://data.eastmoney.com/cjsj/gyzjz.html
+    :return: 工业增加值增长
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    params = {
+        'type': 'GJZB',
+        'sty': 'ZGZB',
+        'js': '({data:[(x)],pages:(pc)})',
+        'p': '1',
+        'ps': '2000',
+        'mkt': '0',
+        'pageNo': '1',
+        'pageNum': '1',
+        '_': '1625824314514',
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[1:-1])
+    temp_df = pd.DataFrame([item.split(',') for item in data_json['data']])
+    temp_df.columns = [
+        '月份',
+        '同比增长',
+        '累计增长',
+    ]
+    temp_df['同比增长'] = pd.to_numeric(temp_df['同比增长'])
+    temp_df['累计增长'] = pd.to_numeric(temp_df['累计增长'])
+    return temp_df
+
+
 def macro_china_reserve_requirement_ratio():
     """
     存款准备金率
@@ -2576,6 +2609,9 @@ if __name__ == "__main__":
 
     macro_china_xfzxx_df = macro_china_xfzxx()
     print(macro_china_xfzxx_df)
+
+    macro_china_gyzjz_df = macro_china_gyzjz
+    print(macro_china_gyzjz_df)
 
     macro_china_reserve_requirement_ratio_df = macro_china_reserve_requirement_ratio()
     print(macro_china_reserve_requirement_ratio_df)
