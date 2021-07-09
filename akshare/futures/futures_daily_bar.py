@@ -76,7 +76,7 @@ def get_cffex_daily(date: str = "20100401") -> pd.DataFrame:
     return data_df
 
 
-def get_ine_daily(date: str = "20210421") -> pd.DataFrame:
+def get_ine_daily(date: str = "20200106") -> pd.DataFrame:
     """
     上海国际能源交易中心-日频率-量价数据
     上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
@@ -101,7 +101,10 @@ def get_ine_daily(date: str = "20210421") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["o_curinstrument"]).iloc[:-1, :]
     temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
     temp_df = temp_df[~temp_df["PRODUCTNAME"].str.contains("总计")]
-    result_df["symbol"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip() + temp_df["DELIVERYMONTH"]
+    try:
+        result_df["symbol"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip() + temp_df["DELIVERYMONTH"]
+    except:
+        result_df["symbol"] = temp_df["PRODUCTID"].str.upper().str.strip().str.split("_", expand=True).iloc[:, 0] + temp_df["DELIVERYMONTH"]
     result_df["date"] = day.strftime("%Y%m%d")
     result_df["open"] = temp_df["OPENPRICE"]
     result_df["high"] = temp_df["HIGHESTPRICE"]
@@ -112,7 +115,10 @@ def get_ine_daily(date: str = "20210421") -> pd.DataFrame:
     result_df["turnover"] = 0
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
-    result_df["variety"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip()
+    try:
+        result_df["variety"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip()
+    except:
+        result_df["variety"] = temp_df["PRODUCTID"].str.upper().str.strip().str.split("_", expand=True).iloc[:, 0]
     result_df = result_df[result_df["symbol"] != "总计"]
     result_df = result_df[~result_df["symbol"].str.contains("efp")]
     return result_df
@@ -503,7 +509,7 @@ def get_futures_index(df: pd.DataFrame) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date='20160101', end_date='20160201', market="SHFE", index_bar=True)
+    get_futures_daily_df = get_futures_daily(start_date='20200105', end_date='20200201', market="INE", index_bar=False)
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20210427")
