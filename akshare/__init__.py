@@ -1421,9 +1421,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.99: fix: fix news_cctv interface
 1.0.1: add: add macro_usa_phs interface
 1.0.2: fix: fix macro_usa_phs interface
+1.0.3: add: add macro_germany interface
 """
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 __author__ = "Albert King"
 
 import sys
@@ -1433,6 +1434,20 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+德国-经济指标
+"""
+from akshare.economic.macro_germany import (
+    macro_germany_gdp,
+    macro_germany_ifo,
+    macro_germany_cpi_monthly,
+    macro_germany_retail_sale_monthly,
+    macro_germany_trade_adjusted,
+    macro_germany_retail_sale_yearly,
+    macro_germany_cpi_yearly,
+    macro_germany_zew,
+)
 
 """
 基金规模和规模趋势
@@ -2485,7 +2500,11 @@ from akshare.stock_feature.stock_em_jgdy import stock_em_jgdy_tj, stock_em_jgdy_
 """
 IT桔子
 """
-from akshare.fortune.fortune_it_juzi import death_company, maxima_company, nicorn_company
+from akshare.fortune.fortune_it_juzi import (
+    death_company,
+    maxima_company,
+    nicorn_company,
+)
 
 """
 新浪主力连续接口
@@ -2905,7 +2924,7 @@ from akshare.economic.macro_china import (
     macro_china_retail_price_index,
     macro_china_real_estate,
     macro_china_qyspjg,
-    macro_china_fdi
+    macro_china_fdi,
 )
 
 """
