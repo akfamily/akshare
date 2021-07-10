@@ -1426,9 +1426,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.5: add: add macro_china_gyzjz interface
 1.0.6: fix: fix get_receipt interface
 1.0.7: fix: fix get_ine_daily interface
+1.0.8: fix: fix macro_china_cpi interface
 """
 
-__version__ = "1.0.7"
+__version__ = "1.0.8"
 __author__ = "Albert King"
 
 import sys
