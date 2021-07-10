@@ -139,4 +139,4 @@ if __name__ == '__main__':
     print(stock_em_qbzf_df)
 
     stock_em_pg_df = stock_em_pg()
-    print(stock_em_pg_df.info())
+    print(stock_em_pg_df)

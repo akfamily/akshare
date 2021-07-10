@@ -446,8 +446,8 @@ def index_investing_global(
 if __name__ == "__main__":
     index_investing_global_country_name_url_dict = index_investing_global_country_name_url("中国")
     index_investing_global_df = index_investing_global(
-        country="日本",
-        index_name="富时日本指数",
+        country="中国",
+        index_name="富时中国A50指数",
         period="每日",
         start_date="20200101",
         end_date="20210509",

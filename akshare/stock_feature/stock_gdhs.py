@@ -19,8 +19,8 @@ def stock_zh_a_gdhs() -> pd.DataFrame:
     """
     url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "sortColumns": "HOLD_NOTICE_DATE",
-        "sortTypes": "-1",
+        "sortColumns": "HOLD_NOTICE_DATE,SECURITY_CODE",
+        "sortTypes": "-1,-1",
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_HOLDERNUMLATEST",
@@ -35,8 +35,8 @@ def stock_zh_a_gdhs() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page_num in tqdm(range(1, total_page_num + 1), leave=False):
         params = {
-            "sortColumns": "HOLD_NOTICE_DATE",
-            "sortTypes": "-1",
+            "sortColumns": "HOLD_NOTICE_DATE,SECURITY_CODE",
+            "sortTypes": "-1,-1",
             "pageSize": "500",
             "pageNumber": page_num,
             "reportName": "RPT_HOLDERNUMLATEST",
@@ -90,6 +90,8 @@ def stock_zh_a_gdhs() -> pd.DataFrame:
     big_df['股东户数统计截止日-本次'] = pd.to_datetime(big_df['股东户数统计截止日-本次']).dt.date
     big_df['股东户数统计截止日-上次'] = pd.to_datetime(big_df['股东户数统计截止日-上次']).dt.date
     big_df['公告日期'] = pd.to_datetime(big_df['公告日期']).dt.date
+    big_df['最新价'] = pd.to_numeric(big_df['最新价'], errors="coerce")
+    big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'], errors="coerce")
     return big_df
 
 
