@@ -1391,7 +1391,7 @@ def macro_china_cpi():
     temp_df['农村-同比增长'] = pd.to_numeric(temp_df['农村-同比增长'])
     temp_df['农村-环比增长'] = pd.to_numeric(temp_df['农村-环比增长'])
     temp_df['农村-累计'] = pd.to_numeric(temp_df['农村-累计'])
-    return temp_df.info()
+    return temp_df
 
 
 def macro_china_gdp():
