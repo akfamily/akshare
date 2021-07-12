@@ -1433,9 +1433,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.12: fix: fix macro_china_money_supply interface
 1.0.13: fix: fix rename stock_board_concept_index_ths to stock_board_concept_hist_ths interface
 1.0.14: add: add stock_board_concept_cons_em and stock_board_concept_hist_em interface
+1.0.15: fix: fix stock_hk_hist interface
 """
 
-__version__ = "1.0.14"
+__version__ = "1.0.15"
 __author__ = "Albert King"
 
 import sys
@@ -1449,7 +1450,11 @@ del sys
 """
 东方财富-概念板块
 """
-from akshare.stock.stock_board_concept_em import stock_board_concept_cons_em, stock_board_concept_hist_em, stock_board_concept_name_em
+from akshare.stock.stock_board_concept_em import (
+    stock_board_concept_cons_em,
+    stock_board_concept_hist_em,
+    stock_board_concept_name_em,
+)
 
 """
 德国-经济指标
