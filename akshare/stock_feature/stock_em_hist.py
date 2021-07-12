@@ -350,20 +350,16 @@ def stock_hk_hist(
     temp_df.index = pd.to_datetime(temp_df["日期"])
     temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(inplace=True, drop=True)
-    temp_df = temp_df.astype(
-        {
-            "开盘": float,
-            "收盘": float,
-            "最高": float,
-            "最低": float,
-            "成交量": int,
-            "成交额": float,
-            "振幅": float,
-            "涨跌幅": float,
-            "涨跌额": float,
-            "换手率": float,
-        }
-    )
+    temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
+    temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
+    temp_df['最高'] = pd.to_numeric(temp_df['最高'])
+    temp_df['最低'] = pd.to_numeric(temp_df['最低'])
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+    temp_df['振幅'] = pd.to_numeric(temp_df['振幅'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
+    temp_df['换手率'] = pd.to_numeric(temp_df['换手率'])
     return temp_df
 
 
@@ -520,7 +516,7 @@ if __name__ == "__main__":
     stock_hk_spot_em_df = stock_hk_spot_em()
     print(stock_hk_spot_em_df)
 
-    stock_hk_hist_df = stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="")
+    stock_hk_hist_df = stock_hk_hist(symbol="01246", start_date="19700101", end_date="22220101", adjust="")
     print(stock_hk_hist_df)
 
     stock_hk_hist_qfq_df = stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="qfq")
