@@ -1338,6 +1338,15 @@ def macro_china_money_supply():
         "流通中的现金(M0)环比增长",
     ]
     data_df = pd.DataFrame(res_list, columns=columns)
+    data_df['货币和准货币(M2)数量(亿元)'] = pd.to_numeric(data_df['货币和准货币(M2)数量(亿元)'])
+    data_df['货币和准货币(M2)同比增长'] = pd.to_numeric(data_df['货币和准货币(M2)同比增长'])
+    data_df['货币和准货币(M2)环比增长'] = pd.to_numeric(data_df['货币和准货币(M2)环比增长'])
+    data_df['货币(M1)数量(亿元)'] = pd.to_numeric(data_df['货币(M1)数量(亿元)'])
+    data_df['货币(M1)同比增长'] = pd.to_numeric(data_df['货币(M1)同比增长'])
+    data_df['货币(M1)环比增长'] = pd.to_numeric(data_df['货币(M1)环比增长'])
+    data_df['流通中的现金(M0)数量(亿元)'] = pd.to_numeric(data_df['流通中的现金(M0)数量(亿元)'])
+    data_df['流通中的现金(M0)同比增长'] = pd.to_numeric(data_df['流通中的现金(M0)同比增长'])
+    data_df['流通中的现金(M0)环比增长'] = pd.to_numeric(data_df['流通中的现金(M0)环比增长'])
     return data_df
 
 
