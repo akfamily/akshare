@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/16 16:48
+Date: 2021/7/12 14:48
 Desc: 同花顺-板块-行业板块
 http://q.10jqka.com.cn/thshy/
 """
@@ -60,7 +60,7 @@ def stock_board_industry_name_ths() -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     html_list = soup.find('div', attrs={'class': 'boxShadow'}).find_all('a', attrs={'target': '_blank'})
-    name_list = [item.text for item in html_list]
+    name_list = [item.text.strip() for item in html_list]
     url_list = [item['href'] for item in html_list]
     temp_df = pd.DataFrame([name_list, url_list], index=['name', 'url']).T
     return temp_df
@@ -80,7 +80,7 @@ def _stock_board_concept_code_ths() -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     html_list = soup.find('div', attrs={'class': 'boxShadow'}).find_all('a', attrs={'target': '_blank'})
-    name_list = [item.text for item in html_list]
+    name_list = [item.text.strip() for item in html_list]
     url_list = [item['href'] for item in html_list]
     temp_df = pd.DataFrame([name_list, url_list], index=['name', 'url']).T
     code = [item.split('code/')[1].strip('/') for item in temp_df['url']]
@@ -115,7 +115,7 @@ def stock_board_industry_cons_ths(symbol: str = "半导体及元件") -> pd.Data
     except IndexError as e:
         page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num+1), leave=False):
         v_code = js_code.call('v')
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
@@ -152,7 +152,7 @@ def stock_board_industry_info_ths(symbol: str = "半导体及元件") -> pd.Data
     }
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, 'lxml')
-    name_list = [item.text for item in soup.find('div', attrs={'class': 'board-infos'}).find_all('dt')]
+    name_list = [item.text.strip() for item in soup.find('div', attrs={'class': 'board-infos'}).find_all('dt')]
     value_list = [item.text.strip().replace('\n', '/') for item in soup.find('div', attrs={'class': 'board-infos'}).find_all('dd')]
     temp_df = pd.DataFrame([name_list, value_list]).T
     temp_df.columns = ['项目', "值"]
@@ -172,7 +172,7 @@ def stock_board_industry_index_ths(symbol: str = "半导体及元件") -> pd.Dat
     symbol_code = code_map[symbol]
     big_df = pd.DataFrame()
     current_year = datetime.now().year
-    for year in tqdm(range(2000, current_year+1)):
+    for year in tqdm(range(2000, current_year+1), leave=False):
         url = f'http://d.10jqka.com.cn/v4/line/bk_{symbol_code}/01/{year}.js'
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
@@ -211,7 +211,7 @@ def stock_board_industry_index_ths(symbol: str = "半导体及元件") -> pd.Dat
         '成交量',
         '成交额',
     ]]
-    big_df['日期'] = pd.to_datetime(big_df['日期'])
+    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
     return big_df
 
 
@@ -228,7 +228,7 @@ if __name__ == '__main__':
     stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="半导体及元件")
     print(stock_board_industry_index_ths_df)
 
-    for item in stock_board_industry_name_ths_df['name']:
-        print(item)
-        stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol=item)
+    for stock in stock_board_industry_name_ths_df['name']:
+        print(stock)
+        stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol=stock)
         print(stock_board_industry_index_ths_df)

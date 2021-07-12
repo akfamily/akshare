@@ -9715,28 +9715,28 @@ print(stock_profit_forecast_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths** 查看同花顺的所有概念名称|
+| 名称   | 类型 |  描述   |
+| -------- | ---- |  --- |
+| symbol | str |  symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths** 查看同花顺的所有概念名称|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int64   | Y        |  -    |
-| 代码          | int64   | Y        |  -    |
-| 名称          | object   | Y        |  -    |
-| 现价          | float64   | Y        |  -    |
-| 涨跌幅         | float64   | Y        |  注意单位: %    |
-| 涨跌         | float64   | Y        |  -    |
-| 涨速          | float64   | Y        |  注意单位: %    |
-| 换手          | float64   | Y        |  注意单位: %    |
-| 量比          | float64   | Y     |  -    |
-| 振幅          | float64   | Y     |  注意单位: %    |
-| 成交额          | object   | Y     |  -    |
-| 流通股          | object   | Y     |  -    |
-| 流通市值          | object   | Y     |  -    |
-| 市盈率          | object   | Y     |  -    |
+| 名称          | 类型 |  描述           |
+| ------------ | ----- |  ---------------- |
+| 序号          | int64   |   -    |
+| 代码          | object   |   -    |
+| 名称          | object   |  -    |
+| 现价          | float64   |  -    |
+| 涨跌幅         | float64   |   注意单位: %    |
+| 涨跌         | float64   |   -    |
+| 涨速          | float64   |   注意单位: %    |
+| 换手          | float64   |  注意单位: %    |
+| 量比          | float64   |  -    |
+| 振幅          | float64   |   注意单位: %    |
+| 成交额          | object   |   -    |
+| 流通股          | object   |   -    |
+| 流通市值          | object   |   -    |
+| 市盈率          | object   |   -    |
 
 接口示例
 
@@ -9861,28 +9861,28 @@ print(stock_board_concept_index_ths_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="半导体及元件"; 可以通过调用 **ak.stock_board_industry_name_ths** 查看同花顺的所有行业名称|
+| 名称   | 类型 | 描述   |
+| -------- | ---- |  --- |
+| symbol | str |  symbol="半导体及元件"; 可以通过调用 **ak.stock_board_industry_name_ths** 查看同花顺的所有行业名称|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int64   | Y        |  -    |
-| 代码          | int64   | Y        |  -    |
-| 名称          | object   | Y        |  -    |
-| 现价          | float64   | Y        |  -    |
-| 涨跌幅         | float64   | Y        |  注意单位: %    |
-| 涨跌         | float64   | Y        |  -    |
-| 涨速          | float64   | Y        |  注意单位: %    |
-| 换手          | float64   | Y        |  注意单位: %    |
-| 量比          | float64   | Y     |  -    |
-| 振幅          | float64   | Y     |  注意单位: %    |
-| 成交额          | object   | Y     |  -    |
-| 流通股          | object   | Y     |  -    |
-| 流通市值          | object   | Y     |  -    |
-| 市盈率          | object   | Y     |  -    |
+| 名称          | 类型 | 描述           |
+| ------------ | ----- |  ---------------- |
+| 序号          | int64   |   -    |
+| 代码          | int64   |   -    |
+| 名称          | object   |  -    |
+| 现价          | float64   |   -    |
+| 涨跌幅         | float64   |   注意单位: %    |
+| 涨跌         | float64   |   -    |
+| 涨速          | float64   |  注意单位: %    |
+| 换手          | float64   |   注意单位: %    |
+| 量比          | float64   |   -    |
+| 振幅          | float64   |  注意单位: %    |
+| 成交额          | object   |  -    |
+| 流通股          | object   |   -    |
+| 流通市值          | object   |   -    |
+| 市盈率          | object   |  -    |
 
 接口示例
 
@@ -9921,21 +9921,21 @@ print(stock_board_industry_cons_ths_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="半导体及元件"; 可以通过调用 **ak.stock_board_industry_name_ths** 查看同花顺的所有行业名称|
+| 名称   | 类型 |  描述   |
+| -------- | ---- | --- |
+| symbol | str | symbol="半导体及元件"; 可以通过调用 **ak.stock_board_industry_name_ths** 查看同花顺的所有行业名称|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 日期          | datetime64   | Y        |  -    |
-| 开盘价          | object   | Y        |  -    |
-| 最高价          | object   | Y        |  -    |
-| 最低价          | object   | Y        |  -    |
-| 收盘价          | object   | Y        |  -    |
-| 成交量          | object   | Y        |  -    |
-| 成交额          | object   | Y        |  -    |
+| 名称          | 类型 | 描述           |
+| ------------ | ----- |  ---------------- |
+| 日期          | object   |   -    |
+| 开盘价          | object   |   -    |
+| 最高价          | object   |   -    |
+| 最低价          | object   |   -    |
+| 收盘价          | object   |   -    |
+| 成交量          | object   |   -    |
+| 成交额          | object   |   -    |
 
 接口示例
 
