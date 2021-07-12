@@ -2278,4 +2278,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.14: add: add stock_board_concept_cons_em and stock_board_concept_hist_em interface
 
 1.0.15: fix: fix stock_hk_hist interface
+
+1.0.16: fix: fix tool_trade_date_hist_sina interface
 ```
