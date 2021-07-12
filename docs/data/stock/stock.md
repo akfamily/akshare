@@ -9795,7 +9795,7 @@ print(stock_board_concept_cons_ths_df)
 
 #### 同花顺-指数
 
-接口: stock_board_concept_index_ths
+接口: stock_board_concept_hist_ths
 
 目标地址: http://q.10jqka.com.cn/gn/detail/code/301558/
 
@@ -9815,19 +9815,19 @@ print(stock_board_concept_cons_ths_df)
 | 名称          | 类型 |  描述           |
 | ------------ | ----- |  ---------------- |
 | 日期          | object   |   -    |
-| 开盘价          | object   |  -    |
-| 最高价          | object   |   -    |
-| 最低价          | object   |  -    |
-| 收盘价          | object   |  -    |
-| 成交量          | object   |  -    |
-| 成交额          | object   |   -    |
+| 开盘价          | float64   |  -    |
+| 最高价          | float64   |   -    |
+| 最低价          | float64   |  -    |
+| 收盘价          | float64   |  -    |
+| 成交量          | int64   |  -    |
+| 成交额          | float64   |   -    |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_board_concept_index_ths_df = ak.stock_board_concept_index_ths(start_year='2020', symbol="一带一路")
-print(stock_board_concept_index_ths_df)
+stock_board_concept_hist_ths_df = ak.stock_board_concept_hist_ths(start_year='2020', symbol="一带一路")
+print(stock_board_concept_hist_ths_df)
 ```
 
 数据示例

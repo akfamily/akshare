@@ -1431,9 +1431,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.10: fix: fix stock_zh_a_spot_em interface
 1.0.11: fix: fix stock_board_industry_name_ths interface
 1.0.12: fix: fix macro_china_money_supply interface
+1.0.13: fix: fix rename stock_board_concept_index_ths to stock_board_concept_hist_ths interface
 """
 
-__version__ = "1.0.12"
+__version__ = "1.0.13"
 __author__ = "Albert King"
 
 import sys
@@ -1665,7 +1666,7 @@ from akshare.stock_feature.stock_board_concept_ths import (
     stock_board_concept_cons_ths,
     stock_board_concept_name_ths,
     stock_board_concept_info_ths,
-    stock_board_concept_index_ths,
+    stock_board_concept_hist_ths,
 )
 
 """

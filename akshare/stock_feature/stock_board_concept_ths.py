@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/16 16:48
+Date: 2021/7/12 16:48
 Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
@@ -157,7 +157,7 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     return temp_df
 
 
-def stock_board_concept_index_ths(start_year: str = '2000', symbol: str = "安防") -> pd.DataFrame:
+def stock_board_concept_hist_ths(start_year: str = '2000', symbol: str = "安防") -> pd.DataFrame:
     """
     同花顺-板块-概念板块-指数数据
     http://q.10jqka.com.cn/gn/detail/code/301558/
@@ -218,6 +218,12 @@ def stock_board_concept_index_ths(start_year: str = '2000', symbol: str = "安�
         '成交额',
     ]]
     big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
+    big_df['开盘价'] = pd.to_numeric(big_df['开盘价'])
+    big_df['最高价'] = pd.to_numeric(big_df['最高价'])
+    big_df['最低价'] = pd.to_numeric(big_df['最低价'])
+    big_df['收盘价'] = pd.to_numeric(big_df['收盘价'])
+    big_df['成交量'] = pd.to_numeric(big_df['成交量'])
+    big_df['成交额'] = pd.to_numeric(big_df['成交额'])
     return big_df
 
 
@@ -231,5 +237,5 @@ if __name__ == '__main__':
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="丙烯酸")
     print(stock_board_concept_info_ths_df)
 
-    stock_board_concept_index_ths_df = stock_board_concept_index_ths(start_year='2020', symbol="一带一路")
-    print(stock_board_concept_index_ths_df)
+    stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2020', symbol="一带一路")
+    print(stock_board_concept_hist_ths_df)
