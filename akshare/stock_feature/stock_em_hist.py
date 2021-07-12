@@ -2,7 +2,7 @@
 # /usr/bin/env python
 """
 Date: 2021/6/15 22:26
-Desc: 东方财富网-行情首页-上证A股-每日行情
+Desc: 东方财富网-行情首页-上证 A 股-每日行情
 """
 import requests
 import pandas as pd
@@ -86,6 +86,20 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
         "市盈率-动态",
         "市净率",
     ]]
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'], errors='coerce')
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'], errors='coerce')
+    temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'], errors='coerce')
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'], errors='coerce')
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'], errors='coerce')
+    temp_df['振幅'] = pd.to_numeric(temp_df['振幅'], errors='coerce')
+    temp_df['最高'] = pd.to_numeric(temp_df['最高'], errors='coerce')
+    temp_df['最低'] = pd.to_numeric(temp_df['最低'], errors='coerce')
+    temp_df['今开'] = pd.to_numeric(temp_df['今开'], errors='coerce')
+    temp_df['昨收'] = pd.to_numeric(temp_df['昨收'], errors='coerce')
+    temp_df['量比'] = pd.to_numeric(temp_df['量比'], errors='coerce')
+    temp_df['换手率'] = pd.to_numeric(temp_df['换手率'], errors='coerce')
+    temp_df['市盈率-动态'] = pd.to_numeric(temp_df['市盈率-动态'], errors='coerce')
+    temp_df['市净率'] = pd.to_numeric(temp_df['市净率'], errors='coerce')
     return temp_df
 
 
