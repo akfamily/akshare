@@ -816,6 +816,10 @@
  "macro_germany_retail_sale_monthly"  # 实际零售销售月率
  "macro_germany_retail_sale_yearly"  # 实际零售销售年率
  "macro_germany_zew"  # ZEW经济景气指数
+ # 东方财富-概念板块
+ "stock_board_concept_name_em"  # 概念板块-名称
+ "stock_board_concept_hist_em"  # 概念板块-历史行情
+ "stock_board_concept_cons_em"  # 概念板块-板块成份
 ```
 
 ## 案例演示

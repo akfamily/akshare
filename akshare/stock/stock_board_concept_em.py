@@ -278,5 +278,5 @@ if __name__ == "__main__":
     )
     print(stock_board_concept_hist_em_df)
 
-    stock_board_concept_cons_em_df = stock_board_concept_cons_em(symbol="车联网")
+    stock_board_concept_cons_em_df = stock_board_concept_cons_em(symbol="网络安全")
     print(stock_board_concept_cons_em_df)
