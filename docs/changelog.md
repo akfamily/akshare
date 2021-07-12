@@ -2270,4 +2270,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.10: fix: fix stock_zh_a_spot_em interface
 
 1.0.11: fix: fix stock_board_industry_name_ths interface
+
+1.0.12: fix: fix macro_china_money_supply interface
 ```
