@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/7/9 16:08
+Date: 2021/7/14 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -1163,17 +1163,13 @@ def macro_china_enterprise_boom_index():
 # 中国-全国税收收入
 def macro_china_national_tax_receipts() -> pd.DataFrame:
     """
-    http://data.eastmoney.com/cjsj/nationaltaxreceipts.aspx
     中国-全国税收收入
+    http://data.eastmoney.com/cjsj/qgsssr.html
     :return: 全国税收收入
     :rtype: pandas.DataFrame
     """
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
     params = {
-        "cb": "datatable8330863",
         "type": "GJZB",
         "sty": "ZGZB",
         "js": "({data:[(x)],pages:(pc)})",
@@ -1184,11 +1180,14 @@ def macro_china_national_tax_receipts() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1603023435552",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = requests.get(url, params=params)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
     temp_df.columns = ["季度", "税收收入合计", "较上年同期", "季度环比"]
+    temp_df['税收收入合计'] = pd.to_numeric(temp_df['税收收入合计'])
+    temp_df['较上年同期'] = pd.to_numeric(temp_df['较上年同期'])
+    temp_df['季度环比'] = pd.to_numeric(temp_df['季度环比'])
     return temp_df
 
 
@@ -1273,9 +1272,6 @@ def macro_china_stock_market_cap():
     :rtype: pandas.DataFrame
     """
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
     params = {
         "cb": "",
         "type": "GJZB",
@@ -1286,7 +1282,7 @@ def macro_china_stock_market_cap():
         "mkt": "2",
         "_": "1608999482942",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = requests.get(url, params=params)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
@@ -1305,7 +1301,18 @@ def macro_china_stock_market_cap():
         "A股最低综合股价指数-上海",
         "A股最低综合股价指数-深圳",
     ]
-    
+    temp_df['发行总股本-上海'] = pd.to_numeric(temp_df['发行总股本-上海'])
+    temp_df['发行总股本-深圳'] = pd.to_numeric(temp_df['发行总股本-深圳'])
+    temp_df['市价总值-上海'] = pd.to_numeric(temp_df['市价总值-上海'])
+    temp_df['市价总值-深圳'] = pd.to_numeric(temp_df['市价总值-深圳'])
+    temp_df['成交金额-上海'] = pd.to_numeric(temp_df['成交金额-上海'])
+    temp_df['成交金额-深圳'] = pd.to_numeric(temp_df['成交金额-深圳'])
+    temp_df['成交量-上海'] = pd.to_numeric(temp_df['成交量-上海'])
+    temp_df['成交量-深圳'] = pd.to_numeric(temp_df['成交量-深圳'])
+    temp_df['A股最高综合股价指数-上海'] = pd.to_numeric(temp_df['A股最高综合股价指数-上海'])
+    temp_df['A股最高综合股价指数-深圳'] = pd.to_numeric(temp_df['A股最高综合股价指数-深圳'])
+    temp_df['A股最低综合股价指数-上海'] = pd.to_numeric(temp_df['A股最低综合股价指数-上海'])
+    temp_df['A股最低综合股价指数-深圳'] = pd.to_numeric(temp_df['A股最低综合股价指数-深圳'])
     return temp_df
 
 
@@ -1561,11 +1568,7 @@ def macro_china_hgjck():
     :rtype: pandas.DataFrame
     """
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
     params = {
-        "cb": "datatable938186",
         "type": "GJZB",
         "sty": "ZGZB",
         "js": "({data:[(x)],pages:(pc)})",
@@ -1576,7 +1579,7 @@ def macro_china_hgjck():
         "pageNum": "1",
         "_": "1603023435552",
     }
-    r = requests.get(url, params=params, headers=headers)
+    r = requests.get(url, params=params)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
@@ -1593,6 +1596,16 @@ def macro_china_hgjck():
         "累计进口额-金额",
         "累计进口额-同比增长",
     ]
+    temp_df['当月出口额-金额'] = pd.to_numeric(temp_df['当月出口额-金额'])
+    temp_df['当月出口额-同比增长'] = pd.to_numeric(temp_df['当月出口额-同比增长'])
+    temp_df['当月出口额-环比增长'] = pd.to_numeric(temp_df['当月出口额-环比增长'])
+    temp_df['当月进口额-金额'] = pd.to_numeric(temp_df['当月进口额-金额'])
+    temp_df['当月进口额-同比增长'] = pd.to_numeric(temp_df['当月进口额-同比增长'])
+    temp_df['当月进口额-环比增长'] = pd.to_numeric(temp_df['当月进口额-环比增长'])
+    temp_df['累计出口额-金额'] = pd.to_numeric(temp_df['累计出口额-金额'])
+    temp_df['累计出口额-同比增长'] = pd.to_numeric(temp_df['累计出口额-同比增长'])
+    temp_df['累计进口额-金额'] = pd.to_numeric(temp_df['累计进口额-金额'])
+    temp_df['累计进口额-同比增长'] = pd.to_numeric(temp_df['累计进口额-同比增长'])
     return temp_df
 
 
