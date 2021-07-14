@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/18 18:01
+Date: 2021/7/14 21:21
 Desc: 中国-香港-宏观指标
 https://data.eastmoney.com/cjsj/foreign_8_0.html
 """
@@ -40,6 +40,10 @@ def marco_china_hk_cpi() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
@@ -73,6 +77,10 @@ def marco_china_hk_cpi_ratio() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
@@ -106,6 +114,10 @@ def marco_china_hk_rate_of_unemployment() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
@@ -139,6 +151,10 @@ def marco_china_hk_gbp() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
@@ -172,6 +188,10 @@ def marco_china_hk_gbp_ratio() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
@@ -205,6 +225,10 @@ def marco_china_hk_building_volume() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
@@ -238,6 +262,10 @@ def marco_china_hk_building_amount() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
@@ -271,6 +299,10 @@ def marco_china_hk_trade_diff_ratio() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
@@ -304,6 +336,10 @@ def marco_china_hk_ppi() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
