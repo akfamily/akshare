@@ -2284,4 +2284,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.17: fix: fix calendar.json interface
 
 1.0.18: fix: fix reformat macro_china_national_tax_receipts, macro_china_hgjck, macro_china_stock_market_cap interface
+
+1.0.19: fix: fix marco_china_hk interface
 ```
