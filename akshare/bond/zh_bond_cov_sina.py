@@ -76,7 +76,7 @@ def bond_zh_hs_cov_daily(symbol: str = "sh113542") -> pd.DataFrame:
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
-        "d", res.text.split("=")[1].split(";")[0].replace('"', "")
+        "d", str(res.content, encoding = "utf-8").split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
     data_df.index = pd.to_datetime(data_df["date"])
