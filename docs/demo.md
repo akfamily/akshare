@@ -5,7 +5,7 @@
 
 本策略示例都是基于 Python 编程语言的开源回测和交易框架 [Backtrader](https://www.backtrader.com) 来演示的，有兴趣
 想深入了解该框架的小伙伴，可以参考官网文档学习，同时也可以加入合作的知识星球 **数据科学家** 学习：
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist)
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
 
 注意：本教程的开发是基于：Python (64 位) 3.8.6 来进行的
 
