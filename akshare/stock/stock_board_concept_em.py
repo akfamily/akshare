@@ -94,7 +94,7 @@ def stock_board_concept_name_em() -> pd.DataFrame:
 def stock_board_concept_hist_em(symbol: str = "数字货币", adjust: str = "") -> pd.DataFrame:
     """
     东方财富-沪深板块-概念板块-历史行情
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    http://quote.eastmoney.com/bk/90.BK0715.html
     :param symbol: 板块名称
     :type symbol: str
     :param adjust: choice of {'': 不复权, "qfq": 前复权, "hfq": 后复权}
