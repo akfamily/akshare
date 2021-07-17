@@ -9913,7 +9913,7 @@ print(stock_board_concept_cons_em_df)
 
 接口: stock_board_concept_hist_em
 
-目标地址: http://q.10jqka.com.cn/gn/detail/code/301558/
+目标地址: http://quote.eastmoney.com/bk/90.BK0715.html(示例)
 
 描述: 获取东方财富-沪深板块-概念板块-历史行情数据
 
