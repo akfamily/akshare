@@ -115,7 +115,7 @@ def get_shfe_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     return records.reset_index(drop=True)
 
 
-def get_shfe_receipt_2(date: str = "20210716", vars_list: List = cons.contract_symbols) -> pd.DataFrame:
+def get_shfe_receipt_2(date: str = None, vars_list: List = cons.contract_symbols) -> pd.DataFrame:
     """
     上海商品交易所-注册仓单数据-类型2
     适用 20140519(包括)-至今
@@ -142,8 +142,6 @@ def get_shfe_receipt_2(date: str = "20210716", vars_list: List = cons.contract_s
     if len(data.columns) < 1:
         return pd.DataFrame()
     records = pd.DataFrame()
-    # name_list = data['VARNAME'].tolist()
-    # name_list = [item.split("$$")[0] for item in name_list]
     for var in set(data['VARNAME'].tolist()):
         data_cut = data[data['VARNAME'] == var]
         if "BC" in var:
