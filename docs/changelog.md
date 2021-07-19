@@ -2296,4 +2296,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.23: fix: fix stock_em_dxsyl interface
 
 1.0.24: fix: fix stock_board_concept_hist_em interface
+
+1.0.25: fix: fix get_receipt interface
 ```
