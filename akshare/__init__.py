@@ -1444,9 +1444,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.23: fix: fix stock_em_dxsyl interface
 1.0.24: fix: fix stock_board_concept_hist_em interface
 1.0.25: fix: fix get_receipt interface
+1.0.26: add: add energy_carbon_domestic interface
 """
 
-__version__ = "1.0.25"
+__version__ = "1.0.26"
 __author__ = "Albert King"
 
 import sys
@@ -2564,6 +2565,7 @@ from akshare.cost.cost_living import cost_living
 能源-碳排放权
 """
 from akshare.energy.energy_carbon import (
+    energy_carbon_domestic,
     energy_carbon_bj,
     energy_carbon_eu,
     energy_carbon_gz,
