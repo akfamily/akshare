@@ -1,8 +1,9 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/4 12:58
-Desc: 各合约展期收益率, 日线数据从 daily_bar 函数获取, 需要在收盘后运行
+Date: 2021/7/20 19:58
+Desc: 各合约展期收益率
+日线数据从 daily_bar 函数获取, 需要在收盘后运行
 """
 import datetime
 import re
@@ -22,7 +23,7 @@ register_matplotlib_converters()
 calendar = cons.get_calendar()
 
 
-def _plot_bar(temp_df) -> None:
+def _plot_bar(temp_df: pd.DataFrame) -> None:
     fig = plt.figure(1, dpi=300)
     ax = fig.add_subplot(111)
     ax.bar(range(len(temp_df.index)), temp_df, color="green")
@@ -31,7 +32,7 @@ def _plot_bar(temp_df) -> None:
     plt.show()
 
 
-def _plot_bar_2(temp_df) -> None:
+def _plot_bar_2(temp_df: pd.DataFrame) -> None:
     fig = plt.figure(1, dpi=300)
     ax = fig.add_subplot(111)
     ax.bar(range(len(temp_df.symbol)), temp_df.close, color="green")
@@ -40,7 +41,7 @@ def _plot_bar_2(temp_df) -> None:
     plt.show()
 
 
-def _plot(plot_df):
+def _plot(plot_df: pd.DataFrame) -> None:
     fig = plt.figure(1, dpi=300)
     ax = fig.add_subplot(111)
     ax.xaxis.set_major_formatter(mdate.DateFormatter("%Y-%m-%d"))  # 设置时间标签显示格式
@@ -50,8 +51,59 @@ def _plot(plot_df):
     plt.show()
 
 
+def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
+    """
+    指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
+    Parameters
+    ------
+    date: string 某一天日期 format： YYYYMMDD
+    var: string 合约品种如 RB、AL 等
+    symbol1: string 合约 1 如 rb1810
+    symbol2: string 合约 2 如 rb1812
+    df: DataFrame或None 从dailyBar得到合约价格，如果为空就在函数内部抓dailyBar，直接喂给数据可以让计算加快
+    """
+    # date = "20100104"
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
+    if date.strftime("%Y%m%d") not in calendar:
+        warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
+        return None
+    if symbol1:
+        var = symbol_varieties(symbol1)
+    if not isinstance(df, pd.DataFrame):
+        market = symbol_market(var)
+        df = get_futures_daily(start_date=date, end_date=date, market=market)
+    if var:
+        df = df[
+            ~df["symbol"].str.contains("efp")
+        ]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
+        df = df[df["variety"] == var].sort_values("open_interest", ascending=False)
+        # df["close"] = df["close"].astype("float")
+        df["close"] = pd.to_numeric(df["close"])
+        if len(df["close"]) < 2:
+            return None
+        symbol1 = df["symbol"].tolist()[0]
+        symbol2 = df["symbol"].tolist()[1]
+
+    close1 = df["close"][df["symbol"] == symbol1.upper()].tolist()[0]
+    close2 = df["close"][df["symbol"] == symbol2.upper()].tolist()[0]
+
+    a = re.sub(r"\D", "", symbol1)
+    a_1 = int(a[:-2])
+    a_2 = int(a[-2:])
+    b = re.sub(r"\D", "", symbol2)
+    b_1 = int(b[:-2])
+    b_2 = int(b[-2:])
+    c = (a_1 - b_1) * 12 + (a_2 - b_2)
+    if close1 == 0 or close2 == 0:
+        return False
+    if c > 0:
+        return np.log(close2 / close1) / c * 12, symbol2, symbol1
+    else:
+        return np.log(close2 / close1) / c * 12, symbol1, symbol2
+
+
 def get_roll_yield_bar(
-    type_method="var", var="RB", date="20200622", start_day=None, end_day=None, plot=False
+    type_method: str = "var", var: str = "RB", date: str = "20201030", start_day: str = None, end_day: str = None, plot: bool = False
 ):
     """
     展期收益率
@@ -128,62 +180,6 @@ def get_roll_yield_bar(
         return df_l
 
 
-def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
-    """
-    指定交易日指定品种（主力和次主力）或任意两个合约的展期收益率
-    Parameters
-    ------
-    date: string 某一天日期 format： YYYYMMDD
-    var: string 合约品种如RB、AL等
-    symbol1: string 合约 1如 rb1810
-    symbol2: string 合约 2 如 rb1812
-    df: DataFrame或None 从dailyBar得到合约价格，如果为空就在函数内部抓dailyBar，直接喂给数据可以让计算加快
-    Return
-    -------
-    tuple
-    roll_yield
-    near_by
-    deferred
-    """
-    # date = "20100104"
-    date = cons.convert_date(date) if date is not None else datetime.date.today()
-    if date.strftime("%Y%m%d") not in calendar:
-        warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
-        return None
-    if symbol1:
-        var = symbol_varieties(symbol1)
-    if not isinstance(df, pd.DataFrame):
-        market = symbol_market(var)
-        df = get_futures_daily(start_date=date, end_date=date, market=market)
-    if var:
-        df = df[
-            ~df["symbol"].str.contains("efp")
-        ]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
-        df = df[df["variety"] == var].sort_values("open_interest", ascending=False)
-        df["close"] = df["close"].astype("float")
-        if len(df["close"]) < 2:
-            return None
-        symbol1 = df["symbol"].tolist()[0]
-        symbol2 = df["symbol"].tolist()[1]
-
-    close1 = df["close"][df["symbol"] == symbol1.upper()].tolist()[0]
-    close2 = df["close"][df["symbol"] == symbol2.upper()].tolist()[0]
-
-    a = re.sub(r"\D", "", symbol1)
-    a_1 = int(a[:-2])
-    a_2 = int(a[-2:])
-    b = re.sub(r"\D", "", symbol2)
-    b_1 = int(b[:-2])
-    b_2 = int(b[-2:])
-    c = (a_1 - b_1) * 12 + (a_2 - b_2)
-    if close1 == 0 or close2 == 0:
-        return False
-    if c > 0:
-        return np.log(close2 / close1) / c * 12, symbol2, symbol1
-    else:
-        return np.log(close2 / close1) / c * 12, symbol1, symbol2
-
-
 if __name__ == "__main__":
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="date",
@@ -201,5 +197,5 @@ if __name__ == "__main__":
     )
     print(get_roll_yield_bar_range_df)
 
-    get_roll_yield_bar_symbol = get_roll_yield_bar(type_method="date", var="LB", start_day="20210201", end_day="20210201", plot=True)
+    get_roll_yield_bar_symbol = get_roll_yield_bar(type_method="var", date="20210201", plot=False)
     print(get_roll_yield_bar_symbol)

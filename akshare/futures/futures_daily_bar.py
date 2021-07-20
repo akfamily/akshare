@@ -422,7 +422,7 @@ def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
     return data_df
 
 
-def get_futures_daily(start_date: str = "20210421", end_date: str = "20210426", market: str = "INE", index_bar: bool = False) -> pd.DataFrame:
+def get_futures_daily(start_date: str = "20201031", end_date: str = "20201031", market: str = "CZCE", index_bar: bool = False) -> pd.DataFrame:
     """
     交易所日交易数据
     :param start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
