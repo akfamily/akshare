@@ -1445,9 +1445,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.24: fix: fix stock_board_concept_hist_em interface
 1.0.25: fix: fix get_receipt interface
 1.0.26: add: add energy_carbon_domestic interface
+1.0.27: fix: fix get_roll_yield_bar interface
 """
 
-__version__ = "1.0.26"
+__version__ = "1.0.27"
 __author__ = "Albert King"
 
 import sys

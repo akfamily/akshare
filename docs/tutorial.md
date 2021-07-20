@@ -181,6 +181,7 @@
  "fx_swap_quote"  # 市场行情-债券市场行情-人民币外汇远掉报价
  "fx_pair_quote"  # 市场行情-债券市场行情-外币对即期报价
  # 能源-碳排放权
+ "energy_carbon_domestic"  # 碳排放权-国内
  "energy_carbon_bj"  # 碳排放权-北京
  "energy_carbon_sz"  # 碳排放权-深圳
  "energy_carbon_eu"  # 碳排放权-国际
