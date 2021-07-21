@@ -2151,7 +2151,7 @@ print(get_futures_daily_df)
 import time
 import akshare as ak
 
-print("开始接收实时行情, 每秒刷新一次")
+print("开始接收实时行情, 每 3 秒刷新一次")
 subscribe_list = ak.futures_foreign_commodity_subscribe_exchange_symbol()
 while True:
     time.sleep(3)
