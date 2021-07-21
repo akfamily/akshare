@@ -45,8 +45,8 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
         [
             item.text.strip().split(".")[1]
             for item in soup.find("div", attrs={"class": "data_tip_pop_text"}).find_all(
-                "p"
-            )
+            "p"
+        )
         ]
     )
     data_info_df.columns = ["info"]
@@ -222,8 +222,8 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     # news-china
     text_data_news = str(soup.find("script", attrs={"id": "getTimelineService1"}))
     temp_json = text_data_news[
-        text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")
-    ]
+                text_data_news.find("= [{") + 2: text_data_news.rfind("}catch")
+                ]
     json_data = pd.DataFrame(json.loads(temp_json))
     chinese_news = json_data[
         [
@@ -241,7 +241,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     # data-domestic
     data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
     data_text_json = json.loads(
-        data_text[data_text.find("= [{") + 2 : data_text.rfind("catch") - 1]
+        data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
     )
     big_df = pd.DataFrame()
     for i, p in enumerate(jsonpath.jsonpath(data_text_json, "$..provinceName")):
@@ -258,7 +258,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
         soup.find("script", attrs={"id": "getListByCountryTypeService2true"})
     )
     data_text_json = json.loads(
-        data_text[data_text.find("= [{") + 2 : data_text.rfind("catch") - 1]
+        data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
     )
     global_df = pd.DataFrame(data_text_json)
 
@@ -324,7 +324,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
         try:
             data_text = str(soup.find("script", attrs={"id": "getAreaStat"}))
             data_text_json = json.loads(
-                data_text[data_text.find("= [{") + 2 : data_text.rfind("catch") - 1]
+                data_text[data_text.find("= [{") + 2: data_text.rfind("catch") - 1]
             )
             data_df = pd.DataFrame(data_text_json)
             # indicator = "浙江省"
@@ -361,11 +361,11 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     soup = BeautifulSoup(r.text, "lxml")
     temp_soup = str(soup.find(attrs={"id": "captain-config"}))
     data_json = demjson.decode(
-        temp_soup[temp_soup.find("{") : temp_soup.rfind("}") + 1]
+        temp_soup[temp_soup.find("{"): temp_soup.rfind("}") + 1]
     )
     big_df = pd.DataFrame()
     for i, p in enumerate(
-        jsonpath.jsonpath(data_json["component"][0]["caseList"], "$..area")
+            jsonpath.jsonpath(data_json["component"][0]["caseList"], "$..area")
     ):
         temp_df = pd.DataFrame(
             jsonpath.jsonpath(data_json["component"][0]["caseList"], "$..subList")[i]
@@ -375,12 +375,12 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     domestic_city_df = big_df
 
     domestic_province_df = pd.DataFrame(data_json["component"][0]["caseList"]).iloc[
-        :, :-2
-    ]
+                           :, :-2
+                           ]
 
     big_df = pd.DataFrame()
     for i, p in enumerate(
-        jsonpath.jsonpath(data_json["component"][0]["caseOutsideList"], "$..area")
+            jsonpath.jsonpath(data_json["component"][0]["caseOutsideList"], "$..area")
     ):
         temp_df = pd.DataFrame(
             jsonpath.jsonpath(
@@ -397,7 +397,7 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
 
     big_df = pd.DataFrame()
     for i, p in enumerate(
-        jsonpath.jsonpath(data_json["component"][0]["globalList"], "$..area")
+            jsonpath.jsonpath(data_json["component"][0]["globalList"], "$..area")
     ):
         temp_df = pd.DataFrame(
             jsonpath.jsonpath(data_json["component"][0]["globalList"], "$..subList")[i]
@@ -423,21 +423,22 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['Result'][0]['items_v2'][0]['aladdin_res']['DisplayData']['result']['items'])
-    temp_df.columns = [
-        '新闻',
-        '时间',
-        '链接',
-        '_',
-        '_',
-        '来源',
-        '_',
-    ]
-
+    temp_df.rename(
+        {'bjh_na': '_',
+         'eventDescription': '新闻',
+         'eventTime': '时间',
+         'eventUrl': '链接',
+         'homepageUrl': '_',
+         'item_avatar': '_',
+         'siteName': '来源'
+         }, axis=1, inplace=True
+    )
     temp_df.set_index(pd.to_datetime(temp_df['时间'], unit='s', utc=True), inplace=True)
     temp_df.index = pd.to_datetime(temp_df['时间'], unit='s', utc=True).tz_convert('Asia/Shanghai').index
     del temp_df['时间']
     temp_df.reset_index(inplace=True)
-    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date.astype(str).str.cat(pd.to_datetime(temp_df['时间']).dt.time.astype(str), sep=' ')
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date.astype(str).str.cat(
+        pd.to_datetime(temp_df['时间']).dt.time.astype(str), sep=' ')
     temp_df = temp_df[[
         '新闻',
         '时间',
@@ -458,15 +459,16 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['Result'][0]['items_v2'][0]['aladdin_res']['DisplayData']['result']['items'])
-    temp_df.columns = [
-        '新闻',
-        '时间',
-        '链接',
-        '_',
-        '_',
-        '来源',
-        '_',
-    ]
+    temp_df.rename(
+        {'bjh_na': '_',
+         'eventDescription': '新闻',
+         'eventTime': '时间',
+         'eventUrl': '链接',
+         'homepageUrl': '_',
+         'item_avatar': '_',
+         'siteName': '来源'
+         }, axis=1, inplace=True
+    )
     temp_df = temp_df[[
         '新闻',
         '时间',
@@ -477,7 +479,8 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     temp_df.index = pd.to_datetime(temp_df['时间'], unit='s', utc=True).tz_convert('Asia/Shanghai').index
     del temp_df['时间']
     temp_df.reset_index(inplace=True)
-    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date.astype(str).str.cat(pd.to_datetime(temp_df['时间']).dt.time.astype(str), sep=' ')
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date.astype(str).str.cat(
+        pd.to_datetime(temp_df['时间']).dt.time.astype(str), sep=' ')
     temp_df = temp_df[[
         '新闻',
         '时间',
@@ -505,7 +508,7 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
 
 
 def migration_area_baidu(
-    area: str = "乌鲁木齐市", indicator: str = "move_out", date: str = "20200201"
+        area: str = "乌鲁木齐市", indicator: str = "move_out", date: str = "20200201"
 ) -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-XXX迁入地详情
@@ -544,10 +547,10 @@ def migration_area_baidu(
 
 
 def migration_scale_baidu(
-    area: str = "佛山市",
-    indicator: str = "move_out",
-    start_date: str = "20200110",
-    end_date: str = "20200315",
+        area: str = "佛山市",
+        indicator: str = "move_out",
+        start_date: str = "20200110",
+        end_date: str = "20200315",
 ) -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-迁徙规模
@@ -580,7 +583,7 @@ def migration_scale_baidu(
         "endDate": end_date,
     }
     r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
+    json_data = json.loads(r.text[r.text.find("({") + 1: r.text.rfind(");")])
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df.columns = ["迁徙规模指数"]
