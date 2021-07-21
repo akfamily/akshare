@@ -1448,9 +1448,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.27: fix: fix get_roll_yield_bar interface
 1.0.28: add: add covid_19_baidu interface
 1.0.29: fix: fix covid_19_baidu interface
+1.0.30: fix: fix option_czce_hist interface
 """
 
-__version__ = "1.0.29"
+__version__ = "1.0.30"
 __author__ = "Albert King"
 
 import sys
@@ -2329,7 +2330,7 @@ from akshare.fx.currency_investing import (
 """
 商品期权-郑州商品交易所-期权-历史数据
 """
-from akshare.option.czce_option import option_czce_hist
+from akshare.option.option_czce import option_czce_hist
 
 """
 宏观-经济数据-银行间拆借利率
