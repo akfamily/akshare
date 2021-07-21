@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/7/20 22:07
+Date: 2021/7/21 12:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
@@ -363,7 +363,6 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     data_json = demjson.decode(
         temp_soup[temp_soup.find("{") : temp_soup.rfind("}") + 1]
     )
-
     big_df = pd.DataFrame()
     for i, p in enumerate(
         jsonpath.jsonpath(data_json["component"][0]["caseList"], "$..area")
@@ -433,13 +432,18 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         '来源',
         '_',
     ]
+
+    temp_df.set_index(pd.to_datetime(temp_df['时间'], unit='s', utc=True), inplace=True)
+    temp_df.index = pd.to_datetime(temp_df['时间'], unit='s', utc=True).tz_convert('Asia/Shanghai').index
+    del temp_df['时间']
+    temp_df.reset_index(inplace=True)
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date.astype(str).str.cat(pd.to_datetime(temp_df['时间']).dt.time.astype(str), sep=' ')
     temp_df = temp_df[[
         '新闻',
         '时间',
         '来源',
         '链接',
     ]]
-    temp_df['时间'] = pd.to_datetime(temp_df['时间'], unit='s')
     domestic_news = temp_df
 
     params = {
@@ -469,7 +473,17 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         '来源',
         '链接',
     ]]
-    temp_df['时间'] = pd.to_datetime(temp_df['时间'], unit='s')
+    temp_df.set_index(pd.to_datetime(temp_df['时间'], unit='s', utc=True), inplace=True)
+    temp_df.index = pd.to_datetime(temp_df['时间'], unit='s', utc=True).tz_convert('Asia/Shanghai').index
+    del temp_df['时间']
+    temp_df.reset_index(inplace=True)
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date.astype(str).str.cat(pd.to_datetime(temp_df['时间']).dt.time.astype(str), sep=' ')
+    temp_df = temp_df[[
+        '新闻',
+        '时间',
+        '来源',
+        '链接',
+    ]]
     foreign_news = temp_df
 
     if indicator == "中国分省份详情":

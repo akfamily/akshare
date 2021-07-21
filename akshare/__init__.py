@@ -1447,9 +1447,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.26: add: add energy_carbon_domestic interface
 1.0.27: fix: fix get_roll_yield_bar interface
 1.0.28: add: add covid_19_baidu interface
+1.0.29: fix: fix covid_19_baidu interface
 """
 
-__version__ = "1.0.28"
+__version__ = "1.0.29"
 __author__ = "Albert King"
 
 import sys
