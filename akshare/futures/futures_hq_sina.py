@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/6/28 14:34
+Date: 2021/7/21 14:34
 Desc: 新浪财经-外盘期货-实时数据获取
 http://finance.sina.com.cn/money/future/hf.html
 """
@@ -10,11 +10,12 @@ import time
 import demjson
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 
 
 def _get_real_name_list() -> list:
     """
-    获取新浪-外盘期货所有品种的中文名称
+    新浪-外盘期货所有品种的中文名称
     :return: 外盘期货所有品种的中文名称
     :rtype: list
     """
@@ -49,7 +50,8 @@ def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
 
 def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
     """
-    行情数据
+    新浪-外盘期货-行情数据
+    https://finance.sina.com.cn/money/future/hf.html
     :param subscribe_list: 通过调用 hq_subscribe_exchange_symbol 函数来获取
     :type subscribe_list: list
     :return: 行情数据
@@ -143,7 +145,7 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
         "持仓量",
         "日期",
     ]
-    data_df.dropna(how='any', inplace=True)
+    data_df.dropna(how='all', inplace=True)
     data_df['最新价'] = pd.to_numeric(data_df['最新价'])
     data_df['人民币报价'] = pd.to_numeric(data_df['人民币报价'])
     data_df['买价'] = pd.to_numeric(data_df['买价'])
@@ -171,6 +173,29 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
         "行情时间",
         "日期",
     ]]
+
+    # 获取转换比例数据
+    url = 'https://finance.sina.com.cn/money/future/hf.html'
+    r = requests.get(url)
+    r.encoding = "gb2312"
+    soup = BeautifulSoup(r.text, "lxml")
+    data_text = soup.find_all("script", attrs={'type': 'text/javascript'})[-2].string.strip()
+    raw_text = data_text[data_text.find("oHF_1 = "):data_text.find("oHF_2")]
+    need_text = raw_text[raw_text.find("{"): raw_text.rfind("}")+1]
+    data_json = demjson.decode(need_text)
+    price_mul = pd.DataFrame([[item[0] for item in data_json.values()], [item[1][0] for item in data_json.values()]]).T
+    price_mul.columns = ['symbol', 'price']
+
+    # 获取汇率数据
+    url = 'https://hq.sinajs.cn/?list=USDCNY'
+    r = requests.get(url)
+    data_text = r.text
+    usd_rmb = float(data_text[data_text.find('"')+1:data_text.find(",美元人民币")].split(",")[-1])
+
+    # 计算人民币报价
+    data_df['人民币报价'] = data_df['最新价'] * price_mul['price'] * usd_rmb
+
+    data_df.dropna(thresh=4, inplace=True)
     return data_df
 
 
