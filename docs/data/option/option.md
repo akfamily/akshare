@@ -1420,16 +1420,16 @@ print(option_df)
 
 目标地址: http://www.czce.com.cn/cn/jysj/lshqxz/H770319index_1.htm
 
-描述: 获取郑州商品交易所的商品期权历史行情数据
+描述: 郑州商品交易所的商品期权历史行情数据
 
 限量: 单次返回指定年份指定品种期权历史行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |  symbol="SR"; choice of {"白糖": "SR", "棉花": "CF", "PTA": "TA", "甲醇": "MA", "菜籽粕": "RM", "动力煤": "ZC"}|
-| year | str  | Y    |   year="2019"|
+| 名称   | 类型 | 描述        |
+| -------- | ---- |  --- |
+| symbol | str  |   symbol="SR"; choice of {"白糖": "SR", "棉花": "CF", "PTA": "TA", "甲醇": "MA", "菜籽粕": "RM", "动力煤": "ZC"}|
+| year | str  |   year="2019"|
 
 郑州商品交易所提供的商品期权品种
 
@@ -1446,25 +1446,25 @@ print(option_df)
 
 郑州商品交易所期权合约行情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 交易日期      | str   | Y        |   |
-| 品种代码      | float   | Y        |   |
-| 昨结算      | float   | Y        |   |
-| 今开盘      | float   | Y        |   |
-| 最高价      | float   | Y        |   |
-| 最低价      | float   | Y        |   |
-| 今收盘      | float   | Y        |   |
-| 今结算     | float   | Y        |    |
-| 涨跌1     | float   | Y        |   |
-| 涨跌2      | float   | Y        |    |
-| 成交量(手)      | float   | Y        |    |
-| 空盘量  | float   | Y        |    |
-| 增减量      | float   | Y        |    |
-| 成交额(万元)      | float   | Y        |    |
-| DELTA      | float   | Y        |    |
-| 隐含波动率      | float   | Y        |    |
-| 行权量      | float   | Y        |    |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 交易日期      | object   |    |
+| 品种代码      | object   |    |
+| 昨结算      | float64   |   |
+| 今开盘      | float64   |    |
+| 最高价      | float64   |    |
+| 最低价      | float64   |    |
+| 今收盘      | float64   |    |
+| 今结算     | float64   |     |
+| 涨跌1     | float64   |    |
+| 涨跌2      | float64   |     |
+| 成交量(手)      | object   |     |
+| 空盘量  | object   |     |
+| 增减量      | object   |    |
+| 成交额(万元)      | object   |     |
+| DELTA      | float64   |     |
+| 隐含波动率      | float64   |     |
+| 行权量      | float64   |    |
 
 说明:
 
