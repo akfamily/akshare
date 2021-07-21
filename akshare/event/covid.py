@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/7/1 16:07
+Date: 2021/7/20 22:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
@@ -411,6 +411,67 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         ["area", "died", "crued", "confirmed", "confirmedRelative"]
     ]
 
+    url = "https://opendata.baidu.com/data/inner"
+    params = {
+        'tn': 'reserved_all_res_tn',
+        'dspName': 'iphone',
+        'from_sf': '1',
+        'dsp': 'iphone',
+        'resource_id': '28565',
+        'alr': '1',
+        'query': '国内新型肺炎最新动态',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['Result'][0]['items_v2'][0]['aladdin_res']['DisplayData']['result']['items'])
+    temp_df.columns = [
+        '新闻',
+        '时间',
+        '链接',
+        '_',
+        '_',
+        '来源',
+        '_',
+    ]
+    temp_df = temp_df[[
+        '新闻',
+        '时间',
+        '来源',
+        '链接',
+    ]]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间'], unit='s')
+    domestic_news = temp_df
+
+    params = {
+        'tn': 'reserved_all_res_tn',
+        'dspName': 'iphone',
+        'from_sf': '1',
+        'dsp': 'iphone',
+        'resource_id': '28565',
+        'alr': '1',
+        'query': '国外新型肺炎最新动态',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['Result'][0]['items_v2'][0]['aladdin_res']['DisplayData']['result']['items'])
+    temp_df.columns = [
+        '新闻',
+        '时间',
+        '链接',
+        '_',
+        '_',
+        '来源',
+        '_',
+    ]
+    temp_df = temp_df[[
+        '新闻',
+        '时间',
+        '来源',
+        '链接',
+    ]]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间'], unit='s')
+    foreign_news = temp_df
+
     if indicator == "中国分省份详情":
         return domestic_province_df
     elif indicator == "中国分城市详情":
@@ -423,6 +484,10 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         return global_continent_df
     elif indicator == "全球分洲国家详情":
         return global_country_df
+    elif indicator == "国内新型肺炎最新动态":
+        return domestic_news
+    elif indicator == "国外新型肺炎最新动态":
+        return foreign_news
 
 
 def migration_area_baidu(
@@ -756,6 +821,8 @@ if __name__ == "__main__":
         "国外分城市详情",
         "全球分洲详情",
         "全球分洲国家详情",
+        '国内新型肺炎最新动态',
+        '国外新型肺炎最新动态',
     ]
     for item in indicator_list:
         print(item)
