@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/7/8 21:44
+Date: 2021/7/20 21:44
 Desc: 新闻联播文字稿
 https://tv.cctv.com/lm/xwlb/?spm=C52056131267.P4y8I53JvSWE.0.0
 """
