@@ -1,14 +1,13 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/29 14:24
+Date: 2021/7/20 21:00
 Desc: 东方财富网-数据中心-现货与股票
 http://data.eastmoney.com/ifdata/xhgp.html
 """
 import demjson
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 
 def futures_spot_stock(indicator: str = "能源") -> pd.DataFrame:
@@ -46,14 +45,14 @@ def futures_spot_stock(indicator: str = "能源") -> pd.DataFrame:
     data_text = r.text
     temp_json = demjson.decode(
         data_text[
-            data_text.find("pagedata") : data_text.find(
+            data_text.find("pagedata"): data_text.find(
                 "/newstatic/js/common/emdataview.js"
             )
         ]
         .strip("pagedata= ")
         .strip(';\n        </script>\n        <script src="')
     )
-    date_list = list(temp_json['dates'].values())
+    date_list = list(temp_json["dates"].values())
     temp_json = temp_json["datas"]
     temp_df = temp_json[map_dict.get(indicator)]
     temp_df = pd.DataFrame(temp_df["list"])
