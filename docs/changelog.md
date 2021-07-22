@@ -2312,4 +2312,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.31: fix: fix futures_foreign_commodity_realtime interface
 
 1.0.32: fix: fix covid_19_baidu interface
+
+1.0.33: fix: fix bond_china_close_return interface
 ```
