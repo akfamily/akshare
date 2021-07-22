@@ -26,8 +26,8 @@ def bond_china_close_return_map() -> pd.DataFrame:
 def bond_china_close_return(
     symbol: str = "政策性金融债(进出口行)",
     period: str = "1",
-    start_date: str = "2021-06-21",
-    end_date: str = "2021-07-21",
+    start_date: str = "20210621",
+    end_date: str = "20210721",
 ) -> pd.DataFrame:
     """
     收盘收益率曲线历史数据
@@ -50,8 +50,8 @@ def bond_china_close_return(
         "lang": "CN",
         "reference": "1",
         "bondType": symbol_code,
-        "startDate": start_date,
-        "endDate": end_date,
+        "startDate": '-'.join([start_date[:4], start_date[4:6], start_date[6:]]),
+        "endDate": '-'.join([end_date[:4], end_date[4:6], end_date[6:]]),
         "termId": period,
         "pageNum": "1",
         "pageSize": "5000",
@@ -85,6 +85,6 @@ def bond_china_close_return(
 
 if __name__ == "__main__":
     bond_china_close_return_df = bond_china_close_return(
-        symbol="政策性金融债(进出口行)", period="1", start_date="2021-03-30", end_date="2021-04-30"
+        symbol="政策性金融债(进出口行)", period="1", start_date="20210330", end_date="20210430"
     )
     print(bond_china_close_return_df)

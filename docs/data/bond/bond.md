@@ -952,8 +952,8 @@ print(bond_futures_deliverable_coupons_df)
 | -------- | ---- |  --- |
 | symbol | str  |   symbol="政策性金融债(进出口行)"; 通过网页查询或调用 **ak.bond_china_close_return_map** 获取|
 | period | str  | period: str = "1"; 期限间隔, choice of {'0.1', '0.5', '1'}|
-| start_date | str  |   start_date="2020-08-30"; 结束日期, 结束日期和开始日期不要超过 1 个月|
-| end_date | str  |   end_date="2020-09-30"; 结束日期, 结束日期和开始日期不要超过 1 个月|
+| start_date | str  |   start_date="20200830"; 结束日期, 结束日期和开始日期不要超过 1 个月|
+| end_date | str  |   end_date="20200930"; 结束日期, 结束日期和开始日期不要超过 1 个月|
 
 输出参数
 
@@ -969,7 +969,7 @@ print(bond_futures_deliverable_coupons_df)
 
 ```python
 import akshare as ak
-bond_china_close_return_df = ak.bond_china_close_return(symbol="政策性金融债(进出口行)", period="1", start_date="2021-03-30", end_date="2021-04-30")
+bond_china_close_return_df = ak.bond_china_close_return(symbol="政策性金融债(进出口行)", period="1", start_date="20210330", end_date="20210430")
 ```
 
 数据示例
