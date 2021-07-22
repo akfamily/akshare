@@ -218,6 +218,7 @@ def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
 def get_czce_receipt_2(date: str = None, vars_list: List = cons.contract_symbols):
     """
     郑州商品交易所-注册仓单数据
+    http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
     适用 20100825(包括) - 20151111(包括)
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: str
@@ -265,6 +266,7 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
     """
     郑州商品交易所-注册仓单数据
     适用 20151008-至今
+    http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
     :param date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type date: str
     :param vars_list: 合约品种如 CF、TA 等列表为空时为所有商品
@@ -396,5 +398,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20210701', end_day='20210718')
+    get_receipt_df = get_receipt(start_day='20150201', end_day='20150215')
     print(get_receipt_df)
