@@ -787,21 +787,21 @@ print(bond_cov_comparison_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -   |   -|
+| 名称   | 类型 |  描述     |
+| -------- | ---- |  --- |
+| cookie | str |    cookie=''; 此处输入您的集思录 cookie 就可以获取完整数据，否则只能返回前 30 条|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| -          | -   | -        | 不逐一列出     |
+| 名称          | 类型 |  描述           |
+| ------------ | ----- | ---------------- |
+| -          | -   |  不逐一列出     |
 
 接口示例
 
 ```python
 import akshare as ak
-bond_convert_jsl_df = ak.bond_cov_jsl()
+bond_convert_jsl_df = ak.bond_cov_jsl(cookie="您的集思录 cookie")
 print(bond_convert_jsl_df)
 ```
 
