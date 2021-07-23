@@ -1455,9 +1455,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.34: fix: fix bond_china_close_return interface
 1.0.35: fix: fix bond_cov_jsl interface
 1.0.36: fix: fix stock_em_hsgt_north_net_flow_in interface
+1.0.37: add: add macro_swiss interface
 """
 
-__version__ = "1.0.36"
+__version__ = "1.0.37"
 __author__ = "Albert King"
 
 import sys
@@ -1467,6 +1468,18 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+瑞士-宏观
+"""
+from akshare.economic.macro_swiss import (
+    macro_swiss_trade,
+    macro_swiss_svme,
+    macro_swiss_cpi_yearly,
+    macro_swiss_gbd_yearly,
+    macro_swiss_gbd_bank_rate,
+    macro_swiss_gdp_quarterly,
+)
 
 """
 东方财富-概念板块

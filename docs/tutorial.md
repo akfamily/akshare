@@ -821,6 +821,13 @@
  "stock_board_concept_name_em"  # 概念板块-名称
  "stock_board_concept_hist_em"  # 概念板块-历史行情
  "stock_board_concept_cons_em"  # 概念板块-板块成份
+ # 瑞士-宏观
+ "macro_swiss_svme"  # 瑞士-宏观-SVME采购经理人指数
+ "macro_swiss_trade"  # 瑞士-宏观-贸易帐
+ "macro_swiss_cpi_yearly"  # 瑞士-宏观-消费者物价指数年率
+ "macro_swiss_gdp_quarterly"  # 瑞士-宏观-GDP季率
+ "macro_swiss_gbd_yearly"  # 瑞士-宏观-GDP年率
+ "macro_swiss_gbd_bank_rate"  # 瑞士-宏观-央行公布利率决议
 ```
 
 ## 案例演示
