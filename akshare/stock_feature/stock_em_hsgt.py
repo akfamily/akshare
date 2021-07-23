@@ -43,6 +43,7 @@ def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
             .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
+        temp_df['value'] = pd.to_numeric(temp_df['value'])
         return temp_df
     if indicator == "深股通":
         temp_df = (
@@ -51,6 +52,7 @@ def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
             .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
+        temp_df['value'] = pd.to_numeric(temp_df['value'])
         return temp_df
     if indicator == "北上":
         temp_df = (
@@ -59,6 +61,7 @@ def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
             .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
+        temp_df['value'] = pd.to_numeric(temp_df['value'])
         return temp_df
 
 
@@ -990,9 +993,13 @@ def stock_em_hsgt_board_rank(symbol: str = "北向资金增持行业板块排行
 
 
 if __name__ == "__main__":
-    stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(
-        indicator="沪股通"
-    )
+    stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(indicator="沪股通")
+    print(stock_em_hsgt_north_net_flow_in_df)
+
+    stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(indicator="深股通")
+    print(stock_em_hsgt_north_net_flow_in_df)
+
+    stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(indicator="北上")
     print(stock_em_hsgt_north_net_flow_in_df)
 
     stock_em_hsgt_north_cash_df = stock_em_hsgt_north_cash(indicator="沪股通")
