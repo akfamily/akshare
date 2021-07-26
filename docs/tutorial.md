@@ -828,6 +828,12 @@
  "macro_swiss_gdp_quarterly"  # 瑞士-宏观-GDP季率
  "macro_swiss_gbd_yearly"  # 瑞士-宏观-GDP年率
  "macro_swiss_gbd_bank_rate"  # 瑞士-宏观-央行公布利率决议
+ # 日本-宏观
+ "macro_japan_bank_rate"  # 日本-央行公布利率决议
+ "macro_japan_cpi_yearly"  # 日本-全国消费者物价指数年率
+ "macro_japan_core_cpi_yearly"  # 日本-全国核心消费者物价指数年率
+ "macro_japan_unemployment_rate"  # 日本-失业率
+ "macro_japan_head_indicator"  # 日本-领先指标终值
 ```
 
 ## 案例演示
