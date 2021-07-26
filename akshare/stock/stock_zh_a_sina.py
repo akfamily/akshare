@@ -304,7 +304,7 @@ def stock_zh_a_cdr_daily(
 
 
 def stock_zh_a_minute(
-    symbol: str = "sh600751", period: str = "5", adjust: str = ""
+    symbol: str = "sh603087", period: str = "5", adjust: str = ""
 ) -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
@@ -318,9 +318,7 @@ def stock_zh_a_minute(
     :return: specific data
     :rtype: pandas.DataFrame
     """
-    url = (
-        "https://quotes.sina.cn/cn/api/jsonp_v2.php/=/CN_MarketDataService.getKLineData"
-    )
+    url = "https://quotes.sina.cn/cn/api/jsonp_v2.php/=/CN_MarketDataService.getKLineData"
     params = {
         "symbol": symbol,
         "scale": period,
@@ -328,7 +326,6 @@ def stock_zh_a_minute(
     }
     r = requests.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0])).iloc[:, :6]
-
     if temp_df.empty:
         print(f"{symbol} 股票数据不存在，请检查是否已退市")
         return None
@@ -405,10 +402,10 @@ if __name__ == "__main__":
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh600751", period="1", adjust="qfq")
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh603087", period="5", adjust="")
     print(stock_zh_a_minute_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh600751", period="1", adjust="hfq")
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh603087", period="5", adjust="hfq")
     print(stock_zh_a_minute_df)
 
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol="sh689009", start_date="19900101", end_date="22201116")

@@ -1456,9 +1456,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.35: fix: fix bond_cov_jsl interface
 1.0.36: fix: fix stock_em_hsgt_north_net_flow_in interface
 1.0.37: add: add macro_swiss interface
+1.0.38: add: add macro_japan interface
 """
 
-__version__ = "1.0.37"
+__version__ = "1.0.38"
 __author__ = "Albert King"
 
 import sys
@@ -1468,6 +1469,17 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+日本-宏观
+"""
+from akshare.economic.macro_japan import (
+    macro_japan_bank_rate,
+    macro_japan_core_cpi_yearly,
+    macro_japan_cpi_yearly,
+    macro_japan_head_indicator,
+    macro_japan_unemployment_rate,
+)
 
 """
 瑞士-宏观

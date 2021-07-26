@@ -1006,7 +1006,7 @@ if __name__ == "__main__":
     print(stock_em_hsgt_north_cash_df)
 
     stock_em_hsgt_north_acc_flow_in_df = stock_em_hsgt_north_acc_flow_in(
-        indicator="沪股通"
+        indicator="北上"
     )
     print(stock_em_hsgt_north_acc_flow_in_df)
 
