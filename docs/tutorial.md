@@ -834,6 +834,22 @@
  "macro_japan_core_cpi_yearly"  # 日本-全国核心消费者物价指数年率
  "macro_japan_unemployment_rate"  # 日本-失业率
  "macro_japan_head_indicator"  # 日本-领先指标终值
+ # 英国-宏观
+ "macro_uk_halifax_monthly"  # 英国-Halifax 房价指数月率
+ "macro_uk_halifax_yearly"  # 英国-Halifax 房价指数年率
+ "macro_uk_trade"  # 英国-贸易帐
+ "macro_uk_bank_rate"  # 英国-央行公布利率决议
+ "macro_uk_core_cpi_yearly"  # 英国-核心消费者物价指数年率
+ "macro_uk_core_cpi_monthly"  # 英国-核心消费者物价指数月率
+ "macro_uk_cpi_yearly"  # 英国-消费者物价指数年率
+ "macro_uk_cpi_monthly"  # 英国-消费者物价指数月率
+ "macro_uk_retail_monthly"  # 英国-零售销售月率
+ "macro_uk_retail_yearly"  # 英国-零售销售年率
+ "macro_uk_rightmove_yearly"  # 英国-Rightmove 房价指数年率
+ "macro_uk_rightmove_monthly"  # 英国-Rightmove 房价指数月率
+ "macro_uk_gdp_quarterly"  # 英国-GDP 季率初值
+ "macro_uk_gdp_yearly"  # 英国-GDP 年率初值
+ "macro_uk_unemployment_rate"  # 英国-失业率
 ```
 
 ## 案例演示

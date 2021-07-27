@@ -1457,9 +1457,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.36: fix: fix stock_em_hsgt_north_net_flow_in interface
 1.0.37: add: add macro_swiss interface
 1.0.38: add: add macro_japan interface
+1.0.39: add: add macro_uk interface
 """
 
-__version__ = "1.0.38"
+__version__ = "1.0.39"
 __author__ = "Albert King"
 
 import sys
@@ -1469,6 +1470,27 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+英国-宏观
+"""
+from akshare.economic.macro_uk import (
+    macro_uk_gdp_yearly,
+    macro_uk_gdp_quarterly,
+    macro_uk_retail_yearly,
+    macro_uk_rightmove_monthly,
+    macro_uk_rightmove_yearly,
+    macro_uk_unemployment_rate,
+    macro_uk_halifax_monthly,
+    macro_uk_bank_rate,
+    macro_uk_core_cpi_monthly,
+    macro_uk_core_cpi_yearly,
+    macro_uk_cpi_monthly,
+    macro_uk_cpi_yearly,
+    macro_uk_halifax_yearly,
+    macro_uk_retail_monthly,
+    macro_uk_trade,
+)
 
 """
 日本-宏观
