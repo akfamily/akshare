@@ -139,5 +139,5 @@ if __name__ == "__main__":
     stock_margin_sse_df = stock_margin_sse(start_date="20010106", end_date="20210401")
     print(stock_margin_sse_df)
 
-    stock_margin_detail_sse_df = stock_margin_detail_sse(date="20210401")
+    stock_margin_detail_sse_df = stock_margin_detail_sse(date="20210727")
     print(stock_margin_detail_sse_df)

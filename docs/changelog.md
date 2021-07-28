@@ -2326,4 +2326,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.38: add: add macro_japan interface
 
 1.0.39: add: add macro_uk interface
+
+1.0.40: add: add stock_szse_margin interface
 ```
