@@ -854,6 +854,14 @@
  "stock_margin_underlying_info_szse"  # 标的证券信息
  "stock_margin_detail_szse"  # 融资融券明细
  "stock_margin_szse"  # 融资融券汇总
+ # 宏观-澳大利亚
+ "macro_australia_bank_rate"  # 央行公布利率决议
+ "macro_australia_unemployment_rate"  # 失业率
+ "macro_australia_trade"  # 贸易帐
+ "macro_australia_cpi_quarterly"  # 消费者物价指数季率
+ "macro_australia_cpi_yearly"  # 消费者物价指数年率
+ "macro_australia_ppi_quarterly"  # 生产者物价指数季率
+ "macro_australia_retail_rate_monthly"  # 零售销售月率
 ```
 
 ## 案例演示
