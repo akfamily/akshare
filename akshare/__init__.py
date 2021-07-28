@@ -1459,9 +1459,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.38: add: add macro_japan interface
 1.0.39: add: add macro_uk interface
 1.0.40: add: add stock_szse_margin interface
+1.0.41: add: add macro_australia interface
 """
 
-__version__ = "1.0.40"
+__version__ = "1.0.41"
 __author__ = "Albert King"
 
 import sys
@@ -1471,6 +1472,19 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+宏观-澳大利亚
+"""
+from akshare.economic.macro_australia import (
+    macro_australia_bank_rate,
+    macro_australia_unemployment_rate,
+    macro_australia_trade,
+    macro_australia_cpi_quarterly,
+    macro_australia_cpi_yearly,
+    macro_australia_ppi_quarterly,
+    macro_australia_retail_rate_monthly,
+)
 
 """
 融资融券-深圳
