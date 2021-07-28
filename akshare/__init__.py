@@ -1458,9 +1458,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.37: add: add macro_swiss interface
 1.0.38: add: add macro_japan interface
 1.0.39: add: add macro_uk interface
+1.0.40: add: add stock_szse_margin interface
 """
 
-__version__ = "1.0.39"
+__version__ = "1.0.40"
 __author__ = "Albert King"
 
 import sys
@@ -1470,6 +1471,15 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+融资融券-深圳
+"""
+from akshare.stock_feature.stock_szse_margin import (
+    stock_margin_underlying_info_szse,
+    stock_margin_detail_szse,
+    stock_margin_szse,
+)
 
 """
 英国-宏观

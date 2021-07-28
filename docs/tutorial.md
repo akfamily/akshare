@@ -850,6 +850,10 @@
  "macro_uk_gdp_quarterly"  # 英国-GDP 季率初值
  "macro_uk_gdp_yearly"  # 英国-GDP 年率初值
  "macro_uk_unemployment_rate"  # 英国-失业率
+ # 融资融券-深圳
+ "stock_margin_underlying_info_szse"  # 标的证券信息
+ "stock_margin_detail_szse"  # 融资融券明细
+ "stock_margin_szse"  # 融资融券汇总
 ```
 
 ## 案例演示
