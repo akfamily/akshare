@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/12/23 15:19
-Desc: 获取股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
+Date: 2021/7/28 21:19
+Desc: 股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
@@ -75,7 +75,7 @@ def index_stock_info() -> pd.DataFrame:
     return index_df[["index_code", "display_name", "publish_date"]]
 
 
-def index_stock_cons(index: str = "000312") -> pd.DataFrame:
+def index_stock_cons(index: str = "399639") -> pd.DataFrame:
     """
     最新股票指数的成份股目录
     http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
@@ -121,15 +121,26 @@ def index_stock_cons_csindex(index: str = "000300") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     timestamp = int(time.time())
+    headers = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'Host': 'www.csindex.com.cn',
+        'Pragma': 'no-cache',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
+    }
     url = f"http://www.csindex.com.cn/uploads/file/autofile/cons/{index}cons.xls?t={timestamp}"
-    r = requests.get(url)
+    r = requests.get(url, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content), usecols="E:F")
     temp_df.columns = ["stock_code", "stock_name"]
     temp_df['stock_code'] = temp_df['stock_code'].astype(str)
     return temp_df
 
 
-def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
+def index_stock_hist(index: str = "sz399975") -> pd.DataFrame:
     """
     指数历史成份, 从 2005 年开始
     http://stock.jrj.com.cn/share,sh000300,2015nlscf_2.shtml
@@ -144,6 +155,11 @@ def index_stock_hist(index: str = "sh000001") -> pd.DataFrame:
     soup = BeautifulSoup(r.text, "lxml")
     last_page_num = soup.find_all("a", attrs={"target": "_self"})[-2].text
     temp_df = pd.read_html(r.text)[-1]
+    if type(last_page_num) == str:
+        temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
+        del temp_df["股票名称"]
+        temp_df.columns = ["stock_code", "in_date", "out_date"]
+        return temp_df
     for page in range(2, int(last_page_num)+1):
         url = f"http://stock.jrj.com.cn/share,{index},2015nlscf_{page}.shtml"
         r = requests.get(url)
@@ -169,16 +185,20 @@ def stock_a_code_to_symbol(code: str = '000300'):
 
 
 if __name__ == "__main__":
-    index_stock_cons_csindex_df = index_stock_cons_csindex(index="399905")
+    index_stock_cons_csindex_df = index_stock_cons_csindex(index="000300")
     print(index_stock_cons_csindex_df)
+
     index_stock_cons_csindex_df['symbol'] = index_stock_cons_csindex_df['stock_code'].apply(stock_a_code_to_symbol)
     index_stock_cons_sina_df = index_stock_cons_sina(index="000300")
     print(index_stock_cons_sina_df)
+
     index_stock_cons_df = index_stock_cons(index="399639")
     print(index_stock_cons_df)
+
     index_stock_cons_df['symbol'] = index_stock_cons_df['品种代码'].apply(stock_a_code_to_symbol)
-    stock_index_hist_df = index_stock_hist(index="sz399994")
+    stock_index_hist_df = index_stock_hist(index="sz399975")
     print(stock_index_hist_df)
+
     index_list = index_stock_info()["index_code"].tolist()
     for item in index_list:
         index_stock_cons_df = index_stock_cons(index=item)
