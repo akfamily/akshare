@@ -2336,4 +2336,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.43: fix: fix stock_margin_detail_szse interface
 
 1.0.44: fix: fix stock_margin_detail_szse interface
+
+1.0.45: fix: fix option_dce_daily interface and rename interface in option_commodity
 ```
