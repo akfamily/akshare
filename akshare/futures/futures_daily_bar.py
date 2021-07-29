@@ -7,7 +7,6 @@ Desc: 期货日线行情
 import datetime
 import json
 import re
-import warnings
 import zipfile
 from io import BytesIO, StringIO
 
