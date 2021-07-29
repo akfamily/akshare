@@ -1461,9 +1461,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.40: add: add stock_szse_margin interface
 1.0.41: add: add macro_australia interface
 1.0.42: fix: fix index_stock_hist interface
+1.0.43: fix: fix stock_margin_detail_szse interface
 """
 
-__version__ = "1.0.42"
+__version__ = "1.0.43"
 __author__ = "Albert King"
 
 import sys

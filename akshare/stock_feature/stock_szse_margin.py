@@ -102,7 +102,7 @@ def stock_margin_szse(date: str = "20210727") -> pd.DataFrame:
     return temp_df
 
 
-def stock_margin_detail_szse(date: str = "20210205") -> pd.DataFrame:
+def stock_margin_detail_szse(date: str = "20210728") -> pd.DataFrame:
     """
     深证证券交易所-融资融券数据-融资融券明细
     http://www.szse.cn/disclosure/margin/margin/index.html
@@ -116,7 +116,7 @@ def stock_margin_detail_szse(date: str = "20210205") -> pd.DataFrame:
         "SHOWTYPE": "JSON",
         "CATALOGID": "1837_xxpl",
         "txtDate": "-".join([date[:4], date[4:6], date[6:]]),
-        "tab1PAGENO": "1",
+        "tab2PAGENO": "1",
         "random": "0.7425245522795993",
     }
     headers = {
@@ -128,7 +128,7 @@ def stock_margin_detail_szse(date: str = "20210205") -> pd.DataFrame:
     total_page = data_json[1]["metadata"]["pagecount"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
-        params.update({"tab1PAGENO": page})
+        params.update({"tab2PAGENO": page})
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json[1]["data"])
@@ -161,8 +161,8 @@ if __name__ == "__main__":
     )
     print(stock_margin_underlying_info_szse_df)
 
-    stock_margin_sse_df = stock_margin_szse(date="20210401")
-    print(stock_margin_sse_df)
+    stock_margin_szse_df = stock_margin_szse(date="20210401")
+    print(stock_margin_szse_df)
 
-    stock_margin_detail_sse_df = stock_margin_detail_szse(date="20210727")
-    print(stock_margin_detail_sse_df)
+    stock_margin_detail_szse_df = stock_margin_detail_szse(date="20210727")
+    print(stock_margin_detail_szse_df)
