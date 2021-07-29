@@ -144,13 +144,17 @@ def stock_margin_detail_szse(date: str = "20210728") -> pd.DataFrame:
         "融资融券余额",
     ]
     big_df["证券简称"] = big_df["证券简称"].str.replace("&nbsp;", "")
+    big_df["融资买入额"] = big_df["融资买入额"].str.replace(",", "")
     big_df["融资买入额"] = pd.to_numeric(big_df["融资买入额"])
+    big_df["融资余额"] = big_df["融资余额"].str.replace(",", "")
     big_df["融资余额"] = pd.to_numeric(big_df["融资余额"])
+    big_df["融券卖出量"] = big_df["融券卖出量"].str.replace(",", "")
     big_df["融券卖出量"] = pd.to_numeric(big_df["融券卖出量"])
     big_df["融券余量"] = big_df["融券余量"].str.replace(",", "")
     big_df["融券余量"] = pd.to_numeric(big_df["融券余量"])
     big_df["融券余额"] = big_df["融券余额"].str.replace(",", "")
     big_df["融券余额"] = pd.to_numeric(big_df["融券余额"])
+    big_df["融资融券余额"] = big_df["融资融券余额"].str.replace(",", "")
     big_df["融资融券余额"] = pd.to_numeric(big_df["融资融券余额"])
     return big_df
 
@@ -164,5 +168,5 @@ if __name__ == "__main__":
     stock_margin_szse_df = stock_margin_szse(date="20210401")
     print(stock_margin_szse_df)
 
-    stock_margin_detail_szse_df = stock_margin_detail_szse(date="20210727")
+    stock_margin_detail_szse_df = stock_margin_detail_szse(date="20210728")
     print(stock_margin_detail_szse_df)
