@@ -1463,9 +1463,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.42: fix: fix index_stock_hist interface
 1.0.43: fix: fix stock_margin_detail_szse interface
 1.0.44: fix: fix stock_margin_detail_szse interface
+1.0.45: fix: fix option_dce_daily interface and rename interface in option_commodity
 """
 
-__version__ = "1.0.44"
+__version__ = "1.0.45"
 __author__ = "Albert King"
 
 import sys
@@ -3067,9 +3068,9 @@ from akshare.bond.china_bond import bond_spot_quote, bond_spot_deal, bond_china_
 商品期权
 """
 from akshare.option.option_commodity import (
-    get_dce_option_daily,
-    get_czce_option_daily,
-    get_shfe_option_daily,
+    option_dce_daily,
+    option_czce_daily,
+    option_shfe_daily,
 )
 
 """

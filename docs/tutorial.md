@@ -48,9 +48,9 @@
  "index_investing_global"  # 提供英为财情-股票指数-全球股指与期货指数数据
  "bond_investing_global"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
  # 交易所商品期权数据
- "get_dce_option_daily"  # 提供大连商品交易所商品期权数据
- "get_czce_option_daily"  # 提供郑州商品交易所商品期权数据
- "get_shfe_option_daily"  # 提供上海期货交易所商品期权数据
+ "option_dce_daily"  # 提供大连商品交易所商品期权数据
+ "option_czce_daily"  # 提供郑州商品交易所商品期权数据
+ "option_shfe_daily"  # 提供上海期货交易所商品期权数据
  # 中国银行间市场债券行情数据
  "get_bond_market_quote"  # 债券市场行情-现券市场成交行情数据
  "get_bond_market_trade"  # 债券市场行情-现券市场做市报价数据
