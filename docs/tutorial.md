@@ -862,6 +862,8 @@
  "macro_australia_cpi_yearly"  # 消费者物价指数年率
  "macro_australia_ppi_quarterly"  # 生产者物价指数季率
  "macro_australia_retail_rate_monthly"  # 零售销售月率
+ # 养猪数据中心
+ "futures_pig_info"  # 养猪信息
 ```
 
 ## 案例演示
