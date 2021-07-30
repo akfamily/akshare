@@ -864,6 +864,17 @@
  "macro_australia_retail_rate_monthly"  # 零售销售月率
  # 养猪数据中心
  "futures_pig_info"  # 养猪信息
+ # 宏观-加拿大
+ "macro_canada_new_house_rate"  # 新屋开工
+ "macro_canada_unemployment_rate"  # 失业率
+ "macro_canada_trade"  # 贸易帐
+ "macro_canada_retail_rate_monthly"  # 零售销售月率
+ "macro_canada_bank_rate"  # 央行公布利率决议
+ "macro_canada_core_cpi_yearly"  # 核心消费者物价指数年率
+ "macro_canada_core_cpi_monthly"  # 核心消费者物价指数月率
+ "macro_canada_cpi_yearly"  # 消费者物价指数年率
+ "macro_canada_cpi_monthly"  # 消费者物价指数月率
+ "macro_canada_gdp_monthly"  # GDP 月率
 ```
 
 ## 案例演示

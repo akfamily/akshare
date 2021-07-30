@@ -1466,9 +1466,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.45: fix: fix option_dce_daily interface and rename interface in option_commodity
 1.0.46: add: add futures_pig_info interface
 1.0.47: fix: fix futures_pig_info interface
+1.0.48: add: add macro_canada interface
 """
 
-__version__ = "1.0.47"
+__version__ = "1.0.48"
 __author__ = "Albert King"
 
 import sys
@@ -1478,6 +1479,22 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+宏观-加拿大
+"""
+from akshare.economic.macro_canada import (
+    macro_canada_cpi_monthly,
+    macro_canada_core_cpi_monthly,
+    macro_canada_bank_rate,
+    macro_canada_core_cpi_yearly,
+    macro_canada_cpi_yearly,
+    macro_canada_gdp_monthly,
+    macro_canada_new_house_rate,
+    macro_canada_retail_rate_monthly,
+    macro_canada_trade,
+    macro_canada_unemployment_rate,
+)
 
 """
 猪肉价格信息
