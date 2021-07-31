@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/5/2 16:26
+Date: 2021/7/31 16:26
 Desc: 东方财富网-数据中心-资金流向
 http://data.eastmoney.com/zjlx/detail.html
 """
@@ -62,7 +62,33 @@ def stock_individual_fund_flow(
         "-",
         "-",
     ]
-    temp_df = temp_df.iloc[:, :-2]
+    temp_df = temp_df[[
+        "日期",
+        "收盘价",
+        "涨跌幅",
+        "主力净流入-净额",
+        "主力净流入-净占比",
+        "超大单净流入-净额",
+        "超大单净流入-净占比",
+        "大单净流入-净额",
+        "大单净流入-净占比",
+        "中单净流入-净额",
+        "中单净流入-净占比",
+        "小单净流入-净额",
+        "小单净流入-净占比",
+    ]]
+    temp_df['主力净流入-净额'] = pd.to_numeric(temp_df['主力净流入-净额'])
+    temp_df['小单净流入-净额'] = pd.to_numeric(temp_df['小单净流入-净额'])
+    temp_df['中单净流入-净额'] = pd.to_numeric(temp_df['中单净流入-净额'])
+    temp_df['大单净流入-净额'] = pd.to_numeric(temp_df['大单净流入-净额'])
+    temp_df['超大单净流入-净额'] = pd.to_numeric(temp_df['超大单净流入-净额'])
+    temp_df['主力净流入-净占比'] = pd.to_numeric(temp_df['主力净流入-净占比'])
+    temp_df['小单净流入-净占比'] = pd.to_numeric(temp_df['小单净流入-净占比'])
+    temp_df['中单净流入-净占比'] = pd.to_numeric(temp_df['中单净流入-净占比'])
+    temp_df['大单净流入-净占比'] = pd.to_numeric(temp_df['大单净流入-净占比'])
+    temp_df['超大单净流入-净占比'] = pd.to_numeric(temp_df['超大单净流入-净占比'])
+    temp_df['收盘价'] = pd.to_numeric(temp_df['收盘价'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     return temp_df
 
 
