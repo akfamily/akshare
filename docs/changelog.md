@@ -2344,4 +2344,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.47: fix: fix futures_pig_info interface
 
 1.0.48: add: add macro_canada interface
+
+1.0.49: fix: fix stock_individual_fund_flow interface
 ```
