@@ -105,7 +105,7 @@ if __name__ == '__main__':
     car_cpca_energy_sale_df = car_cpca_energy_sale()
     print(car_cpca_energy_sale_df)
 
-    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="品牌榜", date="202104")
+    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="品牌榜", date="202107")
     print(car_gasgoo_sale_rank_df)
 
     car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="车型榜", date="202104")

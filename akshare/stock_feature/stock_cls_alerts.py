@@ -47,6 +47,7 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
     }
     r = requests.post(url, headers=headers, params=params, json=payload)
     data_json = r.json()
+    data_json['data']['telegram']['total_num']
     temp_df = pd.DataFrame(data_json["data"]["telegram"]["data"])
     temp_df = temp_df[["descr", "time"]]
     temp_df["descr"] = temp_df["descr"].astype(str).str.replace("</em>", "")
