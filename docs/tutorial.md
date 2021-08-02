@@ -875,6 +875,8 @@
  "macro_canada_cpi_yearly"  # 消费者物价指数年率
  "macro_canada_cpi_monthly"  # 消费者物价指数月率
  "macro_canada_gdp_monthly"  # GDP 月率
+ # 奥运奖牌
+ "sport_olympic_hist"  # 奥运奖牌
 ```
 
 ## 案例演示
