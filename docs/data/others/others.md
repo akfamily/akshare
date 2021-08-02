@@ -1,5 +1,90 @@
 ## [AKShare](https://github.com/jindaxiang/akshare) 另类数据
 
+### 奥运奖牌
+
+接口: sport_olympic_hist
+
+目标地址: https://www.kaggle.com/marcogdepinto/let-s-discover-more-about-the-olympic-games
+
+描述: 奥运会-奖牌数据
+
+限量: 单次返回 1896-2016 年度的奥运奖牌数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| - | - | - | - |
+
+输出参数-品牌
+
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| id      | int64   |  每个运动员的唯一ID  |
+| name      | object   |  运动员名字  |
+| sex      | object   |  性别   |
+| age      | float64   |  年龄   |
+| height      | float64   |  身高   |
+| weight      | float64   |  体重   |
+| team      | object   |  所代表的国家队   |
+| noc      | object   |  国家奥委会3个字母的代码   |
+| games      | object   |  年份与季节   |
+| year      | int64   |  比赛年份   |
+| season      | object   |  比赛季节   |
+| city      | object   |  举办城市   |
+| sport      | object   | 运动类别   |
+| event      | object   |  比赛项目   |
+| medal      | object   |  奖牌   |
+
+接口示例
+
+```python
+import akshare as ak
+sport_olympic_hist_df = ak.sport_olympic_hist()
+print(sport_olympic_hist_df)
+```
+
+数据示例
+
+```
+            id                      name sex   age  height  ...  season  \
+0            1                 A Dijiang   M  24.0   180.0  ...  Summer   
+1            2                  A Lamusi   M  23.0   170.0  ...  Summer   
+2            3       Gunnar Nielsen Aaby   M  24.0     NaN  ...  Summer   
+3            4      Edgar Lindenau Aabye   M  34.0     NaN  ...  Summer   
+4            5  Christine Jacoba Aaftink   F  21.0   185.0  ...  Winter   
+        ...                       ...  ..   ...     ...  ...     ...   
+271111  135569                Andrzej ya   M  29.0   179.0  ...  Winter   
+271112  135570                  Piotr ya   M  27.0   176.0  ...  Winter   
+271113  135570                  Piotr ya   M  27.0   176.0  ...  Winter   
+271114  135571        Tomasz Ireneusz ya   M  30.0   185.0  ...  Winter   
+271115  135571        Tomasz Ireneusz ya   M  34.0   185.0  ...  Winter   
+                  city          sport  \
+0            Barcelona     Basketball   
+1               London           Judo   
+2            Antwerpen       Football   
+3                Paris     Tug-Of-War   
+4              Calgary  Speed Skating   
+                ...            ...   
+271111       Innsbruck           Luge   
+271112           Sochi    Ski Jumping   
+271113           Sochi    Ski Jumping   
+271114          Nagano      Bobsleigh   
+271115  Salt Lake City      Bobsleigh   
+                                           event  medal  
+0                    Basketball Men's Basketball    NaN  
+1                   Judo Men's Extra-Lightweight    NaN  
+2                        Football Men's Football    NaN  
+3                    Tug-Of-War Men's Tug-Of-War   Gold  
+4               Speed Skating Women's 500 metres    NaN  
+                                          ...    ...  
+271111                Luge Mixed (Men)'s Doubles    NaN  
+271112  Ski Jumping Men's Large Hill, Individual    NaN  
+271113        Ski Jumping Men's Large Hill, Team    NaN  
+271114                      Bobsleigh Men's Four    NaN  
+271115                      Bobsleigh Men's Four    NaN  
+```
+
 ### 汽车销量排行
 
 #### 乘联会-新能源细分市场
