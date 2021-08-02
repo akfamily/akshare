@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-date: 2020/11/20 14:02
+date: 2021/8/2 16:02
 desc: 东方财富网-数据中心-特色数据-机构调研
 http://data.eastmoney.com/jgdy/
 东方财富网-数据中心-特色数据-机构调研-机构调研统计: http://data.eastmoney.com/jgdy/tj.html
@@ -27,7 +27,7 @@ def stock_em_jgdy_tj():
         "sortfield": "0",
         "sortdirec": "1",
         "pageNum": "1",
-        "pageSize": "50000",
+        "pageSize": "100000",
         "cfg": "jgdyhz",
         "p": "1",
         "pageNo": "1",
@@ -78,6 +78,9 @@ def stock_em_jgdy_tj():
             "公告日期",
         ]
     ]
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df['接待机构数量'] = pd.to_numeric(temp_df['接待机构数量'])
     return temp_df
 
 
@@ -149,11 +152,14 @@ def stock_em_jgdy_detail():
             "公告日期",
         ]
     ]
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     return temp_df
 
 
 if __name__ == "__main__":
     stock_em_jgdy_tj_df = stock_em_jgdy_tj()
     print(stock_em_jgdy_tj_df)
+
     stock_em_jgdy_detail_df = stock_em_jgdy_detail()
     print(stock_em_jgdy_detail_df)
