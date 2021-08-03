@@ -5986,10 +5986,9 @@ print(stock_financial_report_sina_df)
 
 #### 港股财务报表
 
-接口: stock_financial_hk_report_eastmoney
+接口: stock_financial_hk_report_em
 
-目标地址: 
-    https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
 
 描述: 获取东方财富-港股-财务报表-三大报表
 
@@ -5997,27 +5996,26 @@ print(stock_financial_report_sina_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| stock | str | Y    | stock="00700"; 股票代码|
-| symbol | str | Y    | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"}|
-| indicator | str | Y    | symbol="年度"; choice of {"年度", "报告期"}|
+| 名称   | 类型 |  描述   |
+| -------- | ---- |  --- |
+| stock | str |  stock="00700"; 股票代码|
+| symbol | str |  symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"}|
+| indicator | str | symbol="年度"; choice of {"年度", "报告期"}|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 日期索引          | datetime   | Y        |   报告日期   |
-| 流动资产          | str   | Y        |   注意单位: 亿   |
-|...          | str   | Y        |   多项财务指标   |
+| 名称          | 类型 |  描述           |
+| ------------ | ----- |  ---------------- |
+| 日期索引          | datetime     报告日期   |
+| 流动资产          | str   |   注意单位: 亿   |
+|...          | str   |    多项财务指标   |
 
 
 
 ```python
 import akshare as ak
-stock_financial_report_eastmoney_df = stock_financial_hk_report_eastmoney(
-      stock="00700", symbol="资产负债表", indicator="年度")
-print(stock_financial_report_eastmoney_df)
+stock_financial_hk_report_em_df = ak.stock_financial_hk_report_em(stock="00700", symbol="资产负债表", indicator="年度")
+print(stock_financial_hk_report_em_df)
 ```
 
 数据示例
@@ -6035,7 +6033,7 @@ print(stock_financial_report_eastmoney_df)
 
 目标地址: https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600004.phtml
 
-描述: 获取新浪财经-财务报表-财务摘要
+描述: 新浪财经-财务报表-财务摘要
 
 限量: 单次获取财务摘要所有历史数据
 
@@ -6220,7 +6218,7 @@ print(stock_financial_analysis_indicator_df)
 
 #### 港股财务指标
 
-接口: stock_financial_hk_analysis_indicator
+接口: stock_financial_hk_analysis_indicator_em
 
 目标地址: https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600004/ctrl/2019/displaytype/4.phtml
 
@@ -6230,38 +6228,42 @@ print(stock_financial_analysis_indicator_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| stock | str | Y    | stock="00700"; 股票代码|
-| indicator | str | Y    | indicator="年度"; choice of {"年度", "报告期"}|
+| 名称   | 类型 | 描述   |
+| -------- | ---- |  --- |
+| stock | str | stock="00700"; 股票代码|
+| indicator | str |  indicator="年度"; choice of {"年度", "报告期"}|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-|基本每股收益(元)|str   | Y        |   -   |
-|稀释每股收益(元)|str   | Y        |   -   |
-|TTM每股收益(元)|str   | Y        |   -   |
-|...          | str   | Y        |   多项财务指标   |
+| 名称          | 类型 |  描述           |
+| ------------ | ----- | ---------------- |
+|周期|object   |    -   |
+|基本每股收益(元)|object   |    -   |
+|稀释每股收益(元)|object   |    -   |
+|TTM每股收益(元)|object   |    -   |
+|...          | object   |   多项财务指标   |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_financial_analysis_indicator_df = stock_financial_hk_analysis_indicator(
-        stock="00700", indicator="年度")
-print(stock_financial_analysis_indicator_df)
+stock_financial_hk_analysis_indicator_em_df = ak.stock_financial_hk_analysis_indicator_em(stock="00700", indicator="年度")
+print(stock_financial_hk_analysis_indicator_em_df)
 ```
 
 数据示例
 
 ```
-            基本每股收益(元)	稀释每股收益(元)	TTM每股收益(元)	...
-2020-12-31	0.8970	0.8920	0.8928	...
-2019-12-31	1.0490	1.0460	1.0433	...
-2018-12-31	0.7790	0.7780	0.7748 ...
-2017-12-31	0.5260	0.5260	0.5214	...
-2016-12-31	-0.1930	-0.1930	-0.1914	...
+   周期 基本每股收益(元) 稀释每股收益(元)  ... 资产负债率(%) 流动负债/总负债(%)    流动比率
+1  2021-03-31    5.0200    4.9170  ...  40.6137     49.3061  1.1596
+2  2020-12-31   16.8440   16.5230  ...  41.6508     48.4494  1.1805
+3  2020-09-30   10.6010   10.4030  ...  45.6738     47.7102  1.2314
+4  2020-06-30    6.5410    6.4400  ...  47.7145     46.0158  1.3411
+5  2020-03-31    3.0490    2.9990  ...  49.4019     50.5371  1.1081
+6  2019-12-31    9.8560    9.6430  ...  48.7598     51.6285  1.0575
+7  2019-09-30    7.5780    7.4860  ...  48.4319     51.0084  1.2290
+8  2019-06-30    5.4270    5.3620  ...  48.4575     51.0186  1.2047
+9  2019-03-31    2.8770    2.8440  ...  48.9844     56.8520  1.0628
 ```
 
 #### 历史分红

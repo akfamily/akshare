@@ -877,6 +877,9 @@
  "macro_canada_gdp_monthly"  # GDP 月率
  # 奥运奖牌
  "sport_olympic_hist"  # 奥运奖牌
+ # 港股财报
+ "stock_financial_hk_report_em"  # 东方财富-港股-财务报表-三大报表
+ "stock_financial_hk_analysis_indicator_em"  # 东方财富-港股-财务分析-主要指标
 ```
 
 ## 案例演示

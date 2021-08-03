@@ -6,15 +6,11 @@ Desc: 香港股票基本面数据
 新浪财经-财务分析-财务指标
 http://stock.finance.sina.com.cn/hkstock/finance/00700.html#a1
 """
-from io import BytesIO
-
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
-from tqdm import tqdm
 
 
-def stock_financial_hk_report_eastmoney(
+def stock_financial_hk_report_em(
     stock: str = "00700", symbol: str = "现金流量表", indicator: str = "年度"
 ) -> pd.DataFrame:
     """
@@ -29,7 +25,6 @@ def stock_financial_hk_report_eastmoney(
     :return: 东方财富-港股-财务报表-三大报表
     :rtype: pandas.DataFrame
     """
-
     if indicator == "年度":
         rtype = 6
     elif indicator == "报告期":
@@ -47,80 +42,111 @@ def stock_financial_hk_report_eastmoney(
     temp_df = pd.DataFrame(eval(r.text)["data"])
     temp_df.columns = temp_df.loc[0]
     temp_df = temp_df.drop(0, axis=0)
-    temp_df.index = pd.to_datetime(temp_df.loc[:, "截止日期"].values, format="%y-%m-%d")
-    temp_df = temp_df.drop("截止日期", axis=1)
-    temp_df
+    temp_df['截止日期'] = pd.to_datetime(temp_df["截止日期"], format="%y-%m-%d").dt.date
     return temp_df
 
 
-def stock_financial_hk_analysis_indicator(
+def stock_financial_hk_analysis_indicator_em(
     stock: str = "00700", indicator: str = "年度"
 ) -> pd.DataFrame:
     """
     东方财富-港股-财务分析-主要指标
     https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600004/ctrl/2019/displaytype/4.phtml
     :param stock: 股票代码
-    :type stock: str    
+    :type stock: str
     :param indicator: choice of {"年度", "报告期"}
     :type indicator: str
     :return: 新浪财经-港股-财务分析-主要指标
     :rtype: pandas.DataFrame
     """
-
     if indicator == "年度":
         key = "zyzb_an"
     elif indicator == "报告期":
         key = "zyzb_abgq"
     else:
         raise Exception("非法的关键字!", indicator)
-
     url = f"http://emweb.securities.eastmoney.com/PC_HKF10/NewFinancialAnalysis/GetZYZB?code={stock}&color=b"
     r = requests.get(url)
     temp_df = pd.DataFrame.from_records(eval(r.text)["data"][key])
     temp_df.columns = temp_df.loc[0]
     temp_df = temp_df.drop(0, axis=0)
-    temp_df.index = pd.to_datetime(temp_df.loc[:, "每股指标"].values, format="%y-%m-%d")
+    temp_df["周期"] = pd.to_datetime(temp_df["每股指标"], format="%y-%m-%d").dt.date
     temp_df = temp_df.drop("每股指标", axis=1)
+    temp_df = temp_df[
+        [
+            "周期",
+            "基本每股收益(元)",
+            "稀释每股收益(元)",
+            "TTM每股收益(元)",
+            "每股净资产(元)",
+            "每股经营现金流(元)",
+            "每股营业收入(元)",
+            "成长能力指标",
+            "营业总收入(元)",
+            "毛利润",
+            "归母净利润",
+            "营业总收入同比增长(%)",
+            "毛利润同比增长(%)",
+            "归母净利润同比增长(%)",
+            "营业总收入滚动环比增长(%)",
+            "毛利润滚动环比增长(%)",
+            "归母净利润滚动环比增长(%)",
+            "盈利能力指标",
+            "平均净资产收益率(%)",
+            "年化净资产收益率(%)",
+            "总资产净利率(%)",
+            "毛利率(%)",
+            "净利率(%)",
+            "年化投资回报率(%)",
+            "盈利质量指标",
+            "所得税/利润总额(%)",
+            "经营现金流/营业收入(%)",
+            "财务风险指标",
+            "资产负债率(%)",
+            "流动负债/总负债(%)",
+            "流动比率",
+        ]
+    ]
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_financial_analysis_indicator_df = stock_financial_hk_analysis_indicator(
-        stock="00700", indicator="年度"
+    stock_financial_hk_analysis_indicator_em_df = (
+        stock_financial_hk_analysis_indicator_em(stock="00700", indicator="年度")
     )
-    print(stock_financial_analysis_indicator_df)
+    print(stock_financial_hk_analysis_indicator_em_df)
 
-    stock_financial_analysis_indicator_df = stock_financial_hk_analysis_indicator(
-        stock="00700", indicator="报告期"
+    stock_financial_hk_analysis_indicator_em_df = (
+        stock_financial_hk_analysis_indicator_em(stock="00700", indicator="报告期")
     )
-    print(stock_financial_analysis_indicator_df)
+    print(stock_financial_hk_analysis_indicator_em_df)
 
-    stock_financial_report_eastmoney_df = stock_financial_hk_report_eastmoney(
+    stock_financial_hk_report_em_df = stock_financial_hk_report_em(
         stock="00700", symbol="资产负债表", indicator="年度"
     )
-    print(stock_financial_report_eastmoney_df)
+    print(stock_financial_hk_report_em_df)
 
-    stock_financial_report_eastmoney_df = stock_financial_hk_report_eastmoney(
+    stock_financial_hk_report_em_df = stock_financial_hk_report_em(
         stock="00700", symbol="资产负债表", indicator="报告期"
     )
-    print(stock_financial_report_eastmoney_df)
+    print(stock_financial_hk_report_em_df)
 
-    stock_financial_report_eastmoney_df = stock_financial_hk_report_eastmoney(
+    stock_financial_hk_report_em_df = stock_financial_hk_report_em(
         stock="00700", symbol="利润表", indicator="年度"
     )
-    print(stock_financial_report_eastmoney_df)
+    print(stock_financial_hk_report_em_df)
 
-    stock_financial_report_eastmoney_df = stock_financial_hk_report_eastmoney(
+    stock_financial_hk_report_em_df = stock_financial_hk_report_em(
         stock="00700", symbol="利润表", indicator="报告期"
     )
-    print(stock_financial_report_eastmoney_df)
+    print(stock_financial_hk_report_em_df)
 
-    stock_financial_report_eastmoney_df = stock_financial_hk_report_eastmoney(
+    stock_financial_hk_report_em_df = stock_financial_hk_report_em(
         stock="00700", symbol="现金流量表", indicator="年度"
     )
-    print(stock_financial_report_eastmoney_df)
+    print(stock_financial_hk_report_em_df)
 
-    stock_financial_report_eastmoney_df = stock_financial_hk_report_eastmoney(
+    stock_financial_hk_report_em_df = stock_financial_hk_report_em(
         stock="00700", symbol="现金流量表", indicator="报告期"
     )
-    print(stock_financial_report_eastmoney_df)
+    print(stock_financial_hk_report_em_df)
