@@ -1470,9 +1470,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.49: fix: fix stock_individual_fund_flow interface
 1.0.50: fix: fix stock_em_jgdy_tj interface
 1.0.51: add: add sport_olympic_hist interface
+1.0.52: add: add stock_financial_hk interface
 """
 
-__version__ = "1.0.51"
+__version__ = "1.0.52"
 __author__ = "Albert King"
 
 import sys
@@ -2167,6 +2168,14 @@ from akshare.stock_fundamental.stock_finance import (
     stock_restricted_shares,
     stock_fund_stock_holder,
     stock_main_stock_holder,
+)
+
+"""
+stock-HK-fundamental
+"""
+from akshare.stock_fundamental.stock_finance_hk import (
+    stock_financial_hk_analysis_indicator_em,
+    stock_financial_hk_report_em,
 )
 
 """
