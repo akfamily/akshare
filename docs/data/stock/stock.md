@@ -5984,6 +5984,51 @@ print(stock_financial_report_sina_df)
 73  20020630  元           NaN  ...          0          0               0
 ```
 
+#### 港股财务报表
+
+接口: stock_financial_hk_report_eastmoney
+
+目标地址: 
+    https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
+
+描述: 获取东方财富-港股-财务报表-三大报表
+
+限量: 单次获取指定报表的所有年份数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| stock | str | Y    | stock="00700"; 股票代码|
+| symbol | str | Y    | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"}|
+| indicator | str | Y    | symbol="年度"; choice of {"年度", "报告期"}|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+| 日期索引          | datetime   | Y        |   报告日期   |
+| 流动资产          | str   | Y        |   注意单位: 亿   |
+|...          | str   | Y        |   多项财务指标   |
+
+
+
+```python
+import akshare as ak
+stock_financial_report_eastmoney_df = stock_financial_hk_report_eastmoney(
+      stock="00700", symbol="资产负债表", indicator="年度")
+print(stock_financial_report_eastmoney_df)
+```
+
+数据示例
+
+```
+	      流动资产|1	现金及现金等价物	...	
+2020-12-31	--	2212.85亿	...	
+2019-12-31	--	1799.02亿	...	
+2018-12-31	--	1607.32亿	...	
+```
+
 #### 财务摘要
 
 接口: stock_financial_abstract
@@ -6170,6 +6215,53 @@ print(stock_financial_analysis_indicator_df)
 2002-06-30      0.23        --  ...             --           --
 2001-12-31      0.49        --  ...             --           --
 2000-12-31      0.33        --  ...             --           --
+```
+
+
+#### 港股财务指标
+
+接口: stock_financial_hk_analysis_indicator
+
+目标地址: https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600004/ctrl/2019/displaytype/4.phtml
+
+描述: 东方财富-港股-财务分析-主要指标
+
+限量: 单次获取财务指标所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述   |
+| -------- | ---- | ---- | --- |
+| stock | str | Y    | stock="00700"; 股票代码|
+| indicator | str | Y    | indicator="年度"; choice of {"年度", "报告期"}|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| ------------ | ----- | -------- | ---------------- |
+|基本每股收益(元)|str   | Y        |   -   |
+|稀释每股收益(元)|str   | Y        |   -   |
+|TTM每股收益(元)|str   | Y        |   -   |
+|...          | str   | Y        |   多项财务指标   |
+
+接口示例
+
+```python
+import akshare as ak
+stock_financial_analysis_indicator_df = stock_financial_hk_analysis_indicator(
+        stock="00700", indicator="年度")
+print(stock_financial_analysis_indicator_df)
+```
+
+数据示例
+
+```
+            基本每股收益(元)	稀释每股收益(元)	TTM每股收益(元)	...
+2020-12-31	0.8970	0.8920	0.8928	...
+2019-12-31	1.0490	1.0460	1.0433	...
+2018-12-31	0.7790	0.7780	0.7748 ...
+2017-12-31	0.5260	0.5260	0.5214	...
+2016-12-31	-0.1930	-0.1930	-0.1914	...
 ```
 
 #### 历史分红

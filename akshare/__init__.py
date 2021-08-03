@@ -2170,6 +2170,14 @@ from akshare.stock_fundamental.stock_finance import (
 )
 
 """
+stock-HK-fundamental
+"""
+from akshare.stock_fundamental.stock_finance_hk import (
+    stock_financial_hk_analysis_indicator,
+    stock_financial_hk_report_eastmoney,
+)
+
+"""
 stock_fund
 """
 from akshare.stock.stock_fund import (
