@@ -791,6 +791,9 @@ print(bond_cov_comparison_df)
 | -------- | ---- |  --- |
 | cookie | str |    cookie=''; 此处输入您的集思录 cookie 就可以获取完整数据，否则只能返回前 30 条|
 
+1. 需要查看的链接为：https://app.jisilu.cn/data/cbnew/cb_list/?___jsl=LST___t=1628070841431
+2. 需要复制的 Cookie 为：![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_jsl/jsl_cookie.png)
+
 输出参数
 
 | 名称          | 类型 |  描述           |
