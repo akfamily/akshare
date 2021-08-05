@@ -35,7 +35,7 @@ def tool_trade_date_hist_sina() -> pd.DataFrame:
     temp_list = temp_df["trade_date"].to_list()
     temp_list.append(datetime.date(1992, 5, 4))  # 是交易日但是交易日历缺失该日期
     temp_list.sort()
-    temp_df = pd.DataFrame(temp_list)
+    temp_df = pd.DataFrame(temp_list, columns=['trade_date'])
     return temp_df
 
 
