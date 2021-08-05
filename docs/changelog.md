@@ -2352,4 +2352,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.51: add: add sport_olympic_hist interface
 
 1.0.52: add: add stock_financial_hk interface
+
+1.0.53: fix: fix tool_trade_date_hist_sina interface
 ```
