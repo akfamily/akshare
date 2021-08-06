@@ -91,5 +91,5 @@ def fund_manager(explode: bool = False) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fund_manager_df = fund_manager(explode=True)
+    fund_manager_df = fund_manager(explode=False)
     print(fund_manager_df)

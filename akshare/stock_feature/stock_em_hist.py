@@ -522,7 +522,7 @@ if __name__ == "__main__":
     stock_hk_hist_qfq_df = stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="qfq")
     print(stock_hk_hist_qfq_df)
 
-    stock_hk_hist_hfq_df = stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="hfq")
+    stock_hk_hist_hfq_df = stock_hk_hist(symbol="00326", start_date="19700101", end_date="22220101", adjust="hfq")
     print(stock_hk_hist_hfq_df)
 
     stock_us_spot_em_df = stock_us_spot_em()
