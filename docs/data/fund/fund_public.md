@@ -1590,7 +1590,7 @@ print(fund_rating_ja_df)
 
 目标地址: http://fund.eastmoney.com/manager/default.html
 
-描述: 获取天天基金网-基金数据-基金经理大全
+描述: 天天基金网-基金数据-基金经理大全
 
 限量: 单次返回所有基金经理数据
 
