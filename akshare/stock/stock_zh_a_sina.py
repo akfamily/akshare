@@ -405,7 +405,7 @@ if __name__ == "__main__":
     stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh603087", period="5", adjust="")
     print(stock_zh_a_minute_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh603087", period="5", adjust="hfq")
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh603087", period="1", adjust="")
     print(stock_zh_a_minute_df)
 
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol="sh689009", start_date="19900101", end_date="22201116")
