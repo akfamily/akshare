@@ -158,7 +158,7 @@ def stock_zh_a_hist(
     adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-上证A股-每日行情
+    东方财富网-行情首页-上证 A 股-每日行情
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
