@@ -2236,7 +2236,7 @@ def macro_china_passenger_load_factor():
     return big_df
 
 
-def macro_china_freight_index():
+def _macro_china_freight_index():
     """
     航贸运价指数
     http://finance.sina.com.cn/mac/#industry-22-0-31-2
@@ -2265,6 +2265,36 @@ def macro_china_freight_index():
         temp_df = pd.DataFrame(data_json["data"])
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    return big_df
+
+
+def macro_china_freight_index():
+    """
+    航贸运价指数
+    http://finance.sina.com.cn/mac/#industry-22-0-31-2
+    :return: 航贸运价指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://quotes.sina.cn/mac/view/vMacExcle.php"
+    params = {
+        'cate': 'industry',
+        'event': '22',
+        'from': '0',
+        'num': 5000,
+        'condition': '',
+    }
+    r = requests.get(url, params=params)
+    columns_list = r.content.decode('gbk').split('\n')[2].split(", ")
+    columns_list = [item.strip() for item in columns_list]
+    content_list = r.content.decode('gbk').split('\n')[3:]
+    big_df = pd.DataFrame([item.split(", ") for item in content_list], columns=columns_list).dropna(axis=1, how='all').dropna(axis=0).iloc[:, :-1]
+    big_df['波罗的海好望角型船运价指数BCI'] = pd.to_numeric(big_df['波罗的海好望角型船运价指数BCI'])
+    big_df['灵便型船综合运价指数BHMI'] = pd.to_numeric(big_df['灵便型船综合运价指数BHMI'])
+    big_df['波罗的海超级大灵便型船BSI指数'] = pd.to_numeric(big_df['波罗的海超级大灵便型船BSI指数'])
+    big_df['波罗的海综合运价指数BDI'] = pd.to_numeric(big_df['波罗的海综合运价指数BDI'])
+    big_df['HRCI国际集装箱租船指数'] = pd.to_numeric(big_df['HRCI国际集装箱租船指数'])
+    big_df['油轮运价指数成品油运价指数BCTI'] = pd.to_numeric(big_df['油轮运价指数成品油运价指数BCTI'])
+    big_df['油轮运价指数原油运价指数BDTI'] = pd.to_numeric(big_df['油轮运价指数原油运价指数BDTI'])
     return big_df
 
 
