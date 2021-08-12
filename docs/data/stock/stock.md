@@ -345,7 +345,7 @@ print(stock_zh_a_spot_df)
 | 收盘          | float64      | Y        | 收盘价     |
 | 最高           | float64      | Y        | 最高价     |
 | 最低         | float64      | Y        |  最低价    |
-| 成交量        | int32      | Y        | 注意单位: 股     |
+| 成交量        | int32      | Y        | 注意单位: 手     |
 | 成交额        | float64      | Y        | 注意单位: 元     |
 | 振幅        | float64      | Y        | 注意单位: %    |
 | 涨跌幅        | float64      | Y        | 注意单位: %    |
