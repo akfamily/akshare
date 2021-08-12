@@ -2360,4 +2360,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.55: fix: fix macro_china_freight_index interface
 
 1.0.56: add: add stock_a_ttm_lyr interface
+
+1.0.57: add: add stock_a_all_pb interface
 ```
