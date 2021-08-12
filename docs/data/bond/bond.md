@@ -434,7 +434,7 @@ print(bond_repo_zh_tick_df)
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_z
 
-描述: 沪深债券数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_z)获取的数据
+描述: 沪深债券数据是从新浪财经获取的数据
 
 限量: 单次返回所有沪深债券的实时行情数据
 
