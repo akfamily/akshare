@@ -880,6 +880,8 @@
  # 港股财报
  "stock_financial_hk_report_em"  # 东方财富-港股-财务报表-三大报表
  "stock_financial_hk_analysis_indicator_em"  # 东方财富-港股-财务分析-主要指标
+ # 全部 A 股-等权重市盈率、中位数市盈率
+ "stock_a_ttm_lyr"  # 全部 A 股-等权重市盈率、中位数市盈率
 ```
 
 ## 案例演示

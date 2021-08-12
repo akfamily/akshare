@@ -7954,7 +7954,7 @@ date
 
 目标地址: https://www.legulegu.com/stockdata/market_pb
 
-描述: 获取乐咕乐股网站-A 股市净率
+描述: 乐咕乐股网站-A 股市净率
 
 限量: 单次获取指定 market 的所有数据
 
@@ -8071,6 +8071,66 @@ trade_date                            ...
 2019-07-24  72.7053  41.8521  5.4021  ...       NaN     NaN  1282747.056
 2019-07-23  66.6988  38.3945  4.9558  ...       NaN     NaN  1176774.972
 2019-07-22  74.1447  42.6807  5.5091  ...       NaN     NaN  1308143.416
+```
+
+#### A 股等权重市盈率与中位数市盈率
+
+接口: stock_a_ttm_lyr
+
+目标地址: https://www.legulegu.com/stockdata/a-ttm-lyr
+
+描述: 乐咕乐股网站-A 股等权重市盈率与中位数市盈率
+
+限量: 单次返回所有数据
+
+输入参数
+
+| 名称   | 类型 | 描述   |
+| -------- | ---- |  --- |
+| - | - |  -|
+
+输出参数
+
+| 名称          | 类型 | 描述           |
+| ------------ | ----- |  ---------------- |
+| date          | object   |   日期    |
+| middlePETTM          | float64   |   全A股滚动市盈率(TTM)中位数    |
+| averagePETTM          | float64   |   全A股滚动市盈率(TTM)等权平均    |
+| middlePELYR          | float64   |  全A股静态市盈率(LYR)中位数    |
+| averagePELYR          | float64   |  全A股静态市盈率(LYR)等权平均    |
+| quantileInAllHistoryMiddlePeTtm          | float64   |  当前"TTM(滚动市盈率)中位数"在历史数据上的分位数    |
+| quantileInRecent10YearsMiddlePeTtm          | float64   |  当前"TTM(滚动市盈率)中位数"在最近10年数据上的分位数    |
+| quantileInAllHistoryAveragePeTtm          | float64   |  当前"TTM(滚动市盈率)等权平均"在历史数据上的分位数    |
+| quantileInRecent10YearsAveragePeTtm          | float64   |  当前"TTM(滚动市盈率)等权平均"在在最近10年数据上的分位数    |
+| quantileInAllHistoryMiddlePeLyr          | float64   |  当前"LYR(静态市盈率)中位数"在历史数据上的分位数    |
+| quantileInRecent10YearsMiddlePeLyr          | float64   |  当前"LYR(静态市盈率)中位数"在最近10年数据上的分位数    |
+| quantileInAllHistoryAveragePeLyr          | float64   |  当前"LYR(静态市盈率)等权平均"在历史数据上的分位数    |
+| quantileInRecent10YearsAveragePeLyr          | float64   |  当前"LYR(静态市盈率)等权平均"在最近10年数据上的分位数    |
+| close          | float64   |  沪深300指数    |
+
+接口示例
+
+```python
+import akshare as ak
+stock_a_ttm_lyr_df = ak.stock_a_ttm_lyr()
+print(stock_a_ttm_lyr_df)
+```
+
+数据示例
+
+```
+            date  middlePETTM  ...  quantileInRecent10YearsAveragePeLyr    close
+0     2005-01-04        28.79  ...                              1.00000     0.00
+1     2005-01-05        29.18  ...                              1.00000     0.00
+2     2005-01-06        28.73  ...                              0.66667     0.00
+3     2005-01-09        28.84  ...                              0.50000     0.00
+4     2005-01-10        29.09  ...                              1.00000     0.00
+          ...          ...  ...                                  ...      ...
+4028  2021-08-05        32.66  ...                              0.45016  4948.67
+4029  2021-08-08        32.78  ...                              0.45181  4921.56
+4030  2021-08-09        33.15  ...                              0.47364  4985.56
+4031  2021-08-10        33.60  ...                              0.49012  5043.15
+4032  2021-08-11        33.71  ...                              0.49217  5015.34
 ```
 
 #### 港股个股指标
