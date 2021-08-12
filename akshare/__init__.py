@@ -1475,9 +1475,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.54: fix: fix macro_china_gdp_yearly interface
 1.0.55: fix: fix macro_china_freight_index interface
 1.0.56: add: add stock_a_ttm_lyr interface
+1.0.57: add: add stock_a_all_pb interface
 """
 
-__version__ = "1.0.56"
+__version__ = "1.0.57"
 __author__ = "Albert King"
 
 import sys
@@ -1490,8 +1491,10 @@ del sys
 
 """
 全部 A 股-等权重市盈率、中位数市盈率
+全部 A 股-等权重、中位数市净率
 """
 from akshare.stock_feature.stock_ttm_lyr import stock_a_ttm_lyr
+from akshare.stock_feature.stock_all_pb import stock_a_all_pb
 
 """
 奥运奖牌

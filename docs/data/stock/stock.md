@@ -8073,7 +8073,7 @@ trade_date                            ...
 2019-07-22  74.1447  42.6807  5.5091  ...       NaN     NaN  1308143.416
 ```
 
-#### A 股等权重市盈率与中位数市盈率
+#### A 股等权重与中位数市盈率
 
 接口: stock_a_ttm_lyr
 
@@ -8131,6 +8131,61 @@ print(stock_a_ttm_lyr_df)
 4030  2021-08-09        33.15  ...                              0.47364  4985.56
 4031  2021-08-10        33.60  ...                              0.49012  5043.15
 4032  2021-08-11        33.71  ...                              0.49217  5015.34
+```
+
+#### A 股等权重与中位数市净率
+
+接口: stock_a_all_pb
+
+目标地址: https://www.legulegu.com/stockdata/all-pb
+
+描述: 乐咕乐股网站-A 股等权重与中位数市净率
+
+限量: 单次返回所有数据
+
+输入参数
+
+| 名称   | 类型 | 描述   |
+| -------- | ---- |  --- |
+| - | - |  -|
+
+输出参数
+
+| 名称          | 类型 | 描述           |
+| ------------ | ----- |  ---------------- |
+| date          | object   |   日期    |
+| middlePB          | float64   |   全部A股市净率中位数    |
+| equalWeightAveragePB          | float64   |   全部A股市净率等权平均    |
+| close          | float64   |   上证指数    |
+| quantileInAllHistoryMiddlePB          | float64   |   当前市净率中位数在历史数据上的分位数    |
+| quantileInRecent10YearsMiddlePB          | float64   |   当前市净率中位数在最近10年数据上的分位数    |
+| quantileInAllHistoryEqualWeightAveragePB          | float64   |   当前市净率等权平均在历史数据上的分位数    |
+| quantileInRecent10YearsEqualWeightAveragePB          | float64   |   当前市净率等权平均在最近10年数据上的分位数    |
+
+
+接口示例
+
+```python
+import akshare as ak
+stock_a_all_pb_df = ak.stock_a_all_pb()
+print(stock_a_all_pb_df)
+```
+
+数据示例
+
+```
+            date  ...  quantileInRecent10YearsEqualWeightAveragePB
+0     2005-01-03  ...                                      1.00000
+1     2005-01-04  ...                                      1.00000
+2     2005-01-05  ...                                      0.66667
+3     2005-01-06  ...                                      0.75000
+4     2005-01-09  ...                                      1.00000
+          ...  ...                                          ...
+4032  2021-08-04  ...                                      0.65817
+4033  2021-08-05  ...                                      0.66242
+4034  2021-08-08  ...                                      0.67421
+4035  2021-08-09  ...                                      0.69519
+4036  2021-08-10  ...                                      0.69148
 ```
 
 #### 港股个股指标
