@@ -863,7 +863,8 @@
  "macro_australia_ppi_quarterly"  # 生产者物价指数季率
  "macro_australia_retail_rate_monthly"  # 零售销售月率
  # 养猪数据中心
- "futures_pig_info"  # 养猪信息
+ "futures_pig_info"  # 生猪信息
+ "futures_pig_rank"  # 生猪价格排行
  # 宏观-加拿大
  "macro_canada_new_house_rate"  # 新屋开工
  "macro_canada_unemployment_rate"  # 失业率

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/7/29 22:03
+Date: 2021/8/13 17:03
 Desc: 养猪数据中心
 https://zhujia.zhuwang.cc/
 """
@@ -173,6 +173,87 @@ def futures_pig_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         return temp_df
 
 
+def futures_pig_rank(symbol: str = "外三元") -> pd.DataFrame:
+    """
+    价格排行榜
+    https://zhujia.zhuwang.cc/lists.shtml
+    :param symbol: choice of {"外三元", "内三元", "土杂猪", "玉米", "豆粕"}
+    :type symbol: str
+    :return: 价格排行榜
+    :rtype: pandas.DataFrame
+    """
+    if symbol == "外三元":
+        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists.shtml")[0]
+        temp_df.columns = [
+            '排名',
+            '品种',
+            '省份',
+            '价格-公斤',
+            '价格-斤',
+        ]
+        temp_df['价格-公斤'] = temp_df['价格-公斤'].str.strip("元")
+        temp_df['价格-斤'] = temp_df['价格-斤'].str.strip("元")
+        temp_df['价格-公斤'] = pd.to_numeric(temp_df['价格-公斤'])
+        temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
+        return temp_df
+    elif symbol == "内三元":
+        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists-1.shtml")[0]
+        temp_df.columns = [
+            '排名',
+            '品种',
+            '省份',
+            '价格-公斤',
+            '价格-斤',
+        ]
+        temp_df['价格-公斤'] = temp_df['价格-公斤'].str.strip("元")
+        temp_df['价格-斤'] = temp_df['价格-斤'].str.strip("元")
+        temp_df['价格-公斤'] = pd.to_numeric(temp_df['价格-公斤'])
+        temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
+        return temp_df
+    elif symbol == "土杂猪":
+        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists-2.shtml")[0]
+        temp_df.columns = [
+            '排名',
+            '品种',
+            '省份',
+            '价格-公斤',
+            '价格-斤',
+        ]
+        temp_df['价格-公斤'] = temp_df['价格-公斤'].str.strip("元")
+        temp_df['价格-斤'] = temp_df['价格-斤'].str.strip("元")
+        temp_df['价格-公斤'] = pd.to_numeric(temp_df['价格-公斤'])
+        temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
+        return temp_df
+    elif symbol == "玉米":
+        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists-3.shtml")[0]
+        temp_df.columns = [
+            '排名',
+            '品种',
+            '省份',
+            '价格-公斤',
+            '价格-斤',
+        ]
+        temp_df['价格-公斤'] = temp_df['价格-公斤'].str.strip("元")
+        temp_df['价格-斤'] = temp_df['价格-斤'].str.strip("元")
+        temp_df['价格-公斤'] = pd.to_numeric(temp_df['价格-公斤'])
+        temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
+        return temp_df
+    elif symbol == "豆粕":
+        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists-4.shtml")[0]
+        temp_df.columns = [
+            '排名',
+            '品种',
+            '省份',
+            '价格-公斤',
+            '价格-斤',
+        ]
+        temp_df['价格-公斤'] = temp_df['价格-公斤'].str.strip("元")
+        temp_df['价格-斤'] = temp_df['价格-斤'].str.strip("元")
+        temp_df['价格-公斤'] = pd.to_numeric(temp_df['价格-公斤'])
+        temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
+        return temp_df
+
+
 if __name__ == "__main__":
     futures_pig_info_df = futures_pig_info(symbol="猪肉批发价")
     print(futures_pig_info_df)
@@ -215,3 +296,18 @@ if __name__ == "__main__":
 
     futures_pig_info_df = futures_pig_info(symbol="猪企销售简报-销售均价")
     print(futures_pig_info_df)
+
+    futures_pig_rank_df = futures_pig_rank(symbol="外三元")
+    print(futures_pig_rank_df)
+
+    futures_pig_rank_df = futures_pig_rank(symbol="内三元")
+    print(futures_pig_rank_df)
+
+    futures_pig_rank_df = futures_pig_rank(symbol="土杂猪")
+    print(futures_pig_rank_df)
+
+    futures_pig_rank_df = futures_pig_rank(symbol="玉米")
+    print(futures_pig_rank_df)
+
+    futures_pig_rank_df = futures_pig_rank(symbol="豆粕")
+    print(futures_pig_rank_df)

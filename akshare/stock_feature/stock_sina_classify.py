@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/14 17:16
+Date: 2021/8/13 16:16
 Desc: 新浪财经-股票-行业分类
 http://vip.stock.finance.sina.com.cn/mkt/
 """
@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 
-def stock_classify_board():
+def stock_classify_board() -> dict:
     """
     http://vip.stock.finance.sina.com.cn/mkt/
     :return: 股票分类字典
@@ -82,5 +82,5 @@ def stock_classify_result(symbol: str = "热门概念"):
 
 
 if __name__ == "__main__":
-    stock_classify_result_df = stock_classify_result(symbol="热门概念")
+    stock_classify_result_df = stock_classify_result(symbol="申万行业")
     print(stock_classify_result_df)
