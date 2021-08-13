@@ -1476,9 +1476,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.55: fix: fix macro_china_freight_index interface
 1.0.56: add: add stock_a_ttm_lyr interface
 1.0.57: add: add stock_a_all_pb interface
+1.0.58: add: add futures_pig_rank interface
 """
 
-__version__ = "1.0.57"
+__version__ = "1.0.58"
 __author__ = "Albert King"
 
 import sys
@@ -1520,7 +1521,7 @@ from akshare.economic.macro_canada import (
 """
 猪肉价格信息
 """
-from akshare.futures_derivative.futures_pig import futures_pig_info
+from akshare.futures_derivative.futures_pig import futures_pig_info, futures_pig_rank
 
 """
 宏观-澳大利亚

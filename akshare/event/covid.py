@@ -947,6 +947,7 @@ if __name__ == "__main__":
     # 历史数据
     epidemic_hist_city_df = covid_19_hist_city(city="武汉市")
     print(epidemic_hist_city_df)
+
     epidemic_hist_province_df = covid_19_hist_province(province="湖北省")
     print(epidemic_hist_province_df)
 
