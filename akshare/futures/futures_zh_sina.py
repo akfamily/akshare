@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/12 16:34
+Date: 2021/8/13 18:34
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意抓取速度, 容易封 IP 地址
@@ -404,7 +404,14 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
-    temp_df.columns = ["date", "open", "high", "low", "close", "volume", "hold"]
+    temp_df.columns = ["date", "open", "high", "low", "close", "volume", "hold", "settle"]
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df['hold'] = pd.to_numeric(temp_df['hold'])
+    temp_df['settle'] = pd.to_numeric(temp_df['settle'])
     return temp_df
 
 
@@ -413,7 +420,7 @@ if __name__ == "__main__":
     print(futures_zh_minute_sina_df)
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="LH2109")
-    print(futures_zh_daily_sina_df)
+    print(futures_zh_daily_sina_df.info())
 
     # for num in range(11, 21):
     #     print(num)
