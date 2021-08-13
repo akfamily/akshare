@@ -1477,9 +1477,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.56: add: add stock_a_ttm_lyr interface
 1.0.57: add: add stock_a_all_pb interface
 1.0.58: add: add futures_pig_rank interface
+1.0.59: fix: fix futures_zh_daily_sina interface
 """
 
-__version__ = "1.0.58"
+__version__ = "1.0.59"
 __author__ = "Albert King"
 
 import sys
