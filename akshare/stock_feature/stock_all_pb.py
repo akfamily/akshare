@@ -334,7 +334,11 @@ def stock_a_all_pb() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df['date'] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
+    temp_se = temp_df["date"]
+    temp_se.index = pd.to_datetime(temp_se, utc=True, unit="ms")
+    temp_se = pd.to_datetime(temp_se, utc=True, unit="ms").tz_convert('Asia/Shanghai').index.to_frame()['date']
+    temp_se.reset_index(drop=True, inplace=True)
+    temp_df['date'] = pd.to_datetime(temp_se).dt.date
     del temp_df['marketId']
     del temp_df['weightingAveragePB']
     return temp_df
