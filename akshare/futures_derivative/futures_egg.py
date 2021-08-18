@@ -2,7 +2,8 @@
 # /usr/bin/env python
 """
 Date: 2021/8/17 17:59
-Desc: 
+Desc: 鸡蛋价格网站
+https://www.jidan7.com/trend/
 """
 import pandas as pd
 import re
