@@ -534,5 +534,5 @@ if __name__ == "__main__":
     stock_zh_a_spot_em_df = stock_zh_a_spot_em()
     print(stock_zh_a_spot_em_df)
 
-    stock_zh_a_hist_df = stock_zh_a_hist(symbol="603777", start_date="20190301", end_date="20210812", adjust="hfq")
+    stock_zh_a_hist_df = stock_zh_a_hist(symbol="603777", start_date="20101010", end_date="20210812", adjust="hfq")
     print(stock_zh_a_hist_df)
