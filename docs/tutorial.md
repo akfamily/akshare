@@ -228,25 +228,6 @@
  "index_stock_hist"  # 股票指数-历史成份股
  # 义乌小商品指数
  "index_yw"  # 获取义乌小商品指数
- # 交易法门-工具-期限分析
- "jyfm_tools_futures_basis_daily"  # 交易法门-工具-期限分析-基差日报
- "jyfm_tools_futures_basis_analysis"  # 交易法门-工具-期限分析-基差分析
- "jyfm_tools_futures_basis_structure"  # 交易法门-工具-期限分析-期限结构
- "jyfm_tools_futures_basis_rule"  # 交易法门-工具-期限分析-价格季节性
- # 交易法门-工具-资讯汇总
- "jyfm_tools_research_query"  # 交易法门-工具-资讯汇总-研报查询
- "jyfm_tools_trade_calendar"  # 交易法门-工具-资讯汇总-交易日历
- # 交易法门-工具-资金分析
- "jyfm_tools_position_fund_direction"  # 交易法门-工具-资金分析-资金流向
- "jyfm_tools_position_fund_down"  # 交易法门-工具-资金分析-沉淀资金
- "jyfm_tools_position_fund_season"  # 交易法门-工具-资金分析-资金季节性
- "jyfm_tools_position_fund_deal"  # 交易法门-工具-资金分析-成交排名
- # 交易法门-工具-席位分析
- "jyfm_tools_position_structure"  # 交易法门-工具-席位分析-持仓结构
- # 交易法门-工具-仓单分析
- "jyfm_tools_warehouse_receipt_daily"  # 交易法门-工具-仓单分析-仓单日报
- "jyfm_tools_warehouse_receipt_query"  # 交易法门-工具-仓单分析-仓单查询
- "jyfm_tools_warehouse_receipt_ratio"  # 交易法门-工具-仓单分析-虚实盘比查询
  # 世界银行间拆借利率
  "rate_interbank"  #  银行间拆借利率
  # 主要央行利率

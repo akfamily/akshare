@@ -67,13 +67,9 @@
     
     6.11 增加[金十数据网站](https://www.jin10.com/)提供的全球宏观经济数据接口-欧洲、机构宏观;
 
-    6.12 增加[交易法门网站](https://www.jiaoyifamen.com/)提供的交易法门-仓单有效期数据;
-
     6.13 增加[和讯网网站](http://www.hexun.com/)提供的股票-企业社会责任数据;
     
     6.14 增加[和讯网](http://www.hexun.com/)提供的美国-中概股行情及历史数据;
-    
-    6.15 增加[交易法门网站](https://www.jiaoyifamen.com/)提供的期货相关数据接口;
     
     6.16 增加[新浪财经-期货](https://finance.sina.com.cn/futuremarket/)提供的期货实时行情数据;
 
@@ -144,9 +140,7 @@
     6.49 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的商誉专题数据;
     
     6.50 新增[东方财富网站](http://data.eastmoney.com/sy/)提供的股票账户统计数据;
-    
-    6.51 新增[交易法门网站](https://www.jiaoyifamen.com/)提供的商品期货数据数据;
-    
+
     6.52 新增[百度疫情网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的新型冠状病毒-疫情数据;
     
     6.53 新增[丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)提供的新型冠状病毒-疫情数据;
