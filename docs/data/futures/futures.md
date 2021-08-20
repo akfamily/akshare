@@ -2380,33 +2380,33 @@ print(futures_global_commodity_hist_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| trade_date | str  | Y    |  需要获取数据的指定日期, e.g., trade_date="2020/03/06"|
-| recent_day | str  | Y    |  需要获取数据的指定日期的前 **recent_day** 的数据, e.g., recent_day="2" |
+| 名称   | 类型 | 描述     |
+| -------- | ---- |  --- |
+| trade_date | str  |   需要获取数据的指定日期, e.g., trade_date="20200306"|
+| recent_day | str  |  需要获取数据的指定日期的前 **recent_day** 的数据, e.g., recent_day="2" |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| DATE      | str   | Y        | 日期  |
-| COM      | float   | Y        | 品种代码   |
-| COM_MM      | float   | Y        | 品种到期月份        |
-| COM_YY        | float   | Y        |品种年份    |
-| OPEN         | float | Y        | 开盘价         |
-| HIGH      | str | Y        | 最高价      |
-| LOW      | str | Y        | 最低价      |
-| CLOSE      | str | Y        | 收盘价      |
-| SETTLE      | str | Y        | 结算价      |
-| VOLUME      | str | Y        | 交易量      |
-| OINT      | str | Y        | 未平仓合约      |
-| SERIES      | str | Y        | 合约代码      |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| DATE      | str   |  日期  |
+| COM      | float   | 品种代码   |
+| COM_MM      | float   |  品种到期月份        |
+| COM_YY        | float   | 品种年份    |
+| OPEN         | float |  开盘价         |
+| HIGH      | str |  最高价      |
+| LOW      | str |最低价      |
+| CLOSE      | str |  收盘价      |
+| SETTLE      | str | 结算价      |
+| VOLUME      | str |  交易量      |
+| OINT      | str |  未平仓合约      |
+| SERIES      | str | 合约代码      |
 
 接口示例
 
 ```python
 import akshare as ak
-futures_sgx_daily_df = ak.futures_sgx_daily(trade_date="2020/03/06", recent_day="2")
+futures_sgx_daily_df = ak.futures_sgx_daily(trade_date="20200306", recent_day="2")
 print(futures_sgx_daily_df)
 ```
 
@@ -3078,7 +3078,7 @@ date
 
 目标地址: http://index.cfmmc.com/index/views/index.html
 
-描述: 获取中国期货市场监控中心-各类指数数据
+描述: 中国期货市场监控中心-各类指数数据
 
 限量: 单次返回指定 index_name 的数据
 

@@ -2382,4 +2382,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.65: fix: fix stock_em_gpzy_pledge_ratio_detail interface
 
 1.0.66: fix: fix macro_cons_opec_month interface
+
+1.0.67: fix: fix futures_sgx_daily interface
 ```
