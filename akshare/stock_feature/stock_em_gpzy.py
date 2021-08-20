@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/20 11:02
+Date: 2021/8/20 18:02
 Desc: 东方财富网-数据中心-特色数据-股权质押
 东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: http://data.eastmoney.com/gpzy/marketProfile.aspx
 东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: http://data.eastmoney.com/gpzy/pledgeRatio.aspx
@@ -10,6 +10,8 @@ Desc: 东方财富网-数据中心-特色数据-股权质押
 东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
 东方财富网-数据中心-特色数据-股权质押-行业数据: http://data.eastmoney.com/gpzy/industryData.aspx
 """
+import math
+
 import demjson
 import pandas as pd
 import requests
@@ -152,22 +154,22 @@ def _get_page_num_gpzy_market_pledge_ratio_detail() -> int:
     http://data.eastmoney.com/gpzy/pledgeDetail.aspx
     :return: int 获取 重要股东股权质押明细 的总页数
     """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GDZY_LB",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "ndate",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var oiIxTSgC={pages:(tp),data:(x),font:(font)}",
-        "filter": "(datatype=1)",
-        "rt": "52584576",
+        'sortColumns': 'NOTICE_DATE',
+        'sortTypes': '-1',
+        'pageSize': '500',
+        'pageNumber': '1',
+        'reportName': 'RPTA_APP_ACCUMDETAILS',
+        'columns': 'ALL',
+        'quoteColumns': '',
+        'source': 'WEB',
+        'client': 'WEB',
     }
-    res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
-    return data_json["pages"]
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = math.ceil(int(data_json['result']['count']) / 500)
+    return total_page
 
 
 def stock_em_gpzy_pledge_ratio_detail() -> pd.DataFrame:
@@ -176,104 +178,86 @@ def stock_em_gpzy_pledge_ratio_detail() -> pd.DataFrame:
     http://data.eastmoney.com/gpzy/pledgeDetail.aspx
     :return: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
     page_num = _get_page_num_gpzy_market_pledge_ratio_detail()
     temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1)):
+    for page in tqdm(range(1, page_num + 1), leave=False):
         params = {
-            "type": "GDZY_LB",
-            "token": "70f12f2f4f091e459a279469fe49eca5",
-            "cmd": "",
-            "st": "ndate",
-            "sr": "-1",
-            "p": str(page),
-            "ps": "5000",
-            "js": "var oiIxTSgC={pages:(tp),data:(x),font:(font)}",
-            "filter": "(datatype=1)",
-            "rt": "52584576",
+            'sortColumns': 'NOTICE_DATE',
+            'sortTypes': '-1',
+            'pageSize': '500',
+            'pageNumber': page,
+            'reportName': 'RPTA_APP_ACCUMDETAILS',
+            'columns': 'ALL',
+            'quoteColumns': '',
+            'source': 'WEB',
+            'client': 'WEB',
         }
         r = requests.get(url, params=params)
-        data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        map_dict = dict(
-            zip(
-                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
-            )
-        )
-        for key, value in map_dict.items():
-            data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+        data_json = r.json()
+        temp_df = temp_df.append(pd.DataFrame(data_json['result']["data"]), ignore_index=True)
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = range(1, len(temp_df)+1)
     temp_df.columns = [
-        "股票代码",
+        "序号",
         "股票简称",
-        "eitime",
-        "eutime",
-        "eid",
-        "ccode",
-        "公告日期",
-        "upd",
-        "sharehdcode",
-        "gdmc",
+        "_",
+        "股票代码",
         "股东名称",
-        "sharehdnum",
-        "质押开始日期",
-        "jysj",
-        "enddate",
-        "fcode",
+        "_",
+        "_",
+        "_",
+        "公告日期",
         "质押机构",
-        "jglx",
-        "-",
-        "-",
-        "pledgepur",
-        "frozenreason",
-        "remark",
-        "newprice",
-        "instcode",
-        "relinstcode",
-        "jg_scode",
-        "zyjg_ccode",
-        "pname",
-        "yjx_pcx_type",
-        "syscbl",
-        "syscsz",
-        "gd_count",
-        "jg_sname",
-        "yjx_min",
-        "yjx_max",
-        "yjx_row",
-        "pcx_min",
-        "pcx_max",
-        "pcx_row",
-        "datatype",
-        "质押股份数量(股)",
-        "占所持股份比例(%)",
-        "占总股本比例(%)",
-        "最新价(元)",
-        "质押日收盘价(元)",
-        "预估平仓线(元)",
-        "sz",
-        "yjx",
+        "质押股份数量",
+        "占所持股份比例",
+        "占总股本比例",
+        "质押日收盘价",
+        "质押开始日期",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "预估平仓线",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "最新价",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
     ]
     temp_df = temp_df[
         [
+            "序号",
             "股票代码",
             "股票简称",
-            "公告日期",
             "股东名称",
-            "质押开始日期",
+            "质押股份数量",
+            "占所持股份比例",
+            "占总股本比例",
             "质押机构",
-            "质押股份数量(股)",
-            "占所持股份比例(%)",
-            "占总股本比例(%)",
-            "最新价(元)",
-            "质押日收盘价(元)",
-            "预估平仓线(元)",
+            "最新价",
+            "质押日收盘价",
+            "预估平仓线",
+            "质押开始日期",
+            "公告日期",
         ]
     ]
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"])
-    temp_df["质押开始日期"] = pd.to_datetime(temp_df["质押开始日期"])
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
+    temp_df["质押开始日期"] = pd.to_datetime(temp_df["质押开始日期"]).dt.date
     return temp_df
 
 
@@ -310,7 +294,7 @@ def stock_em_gpzy_distribute_statistics_company() -> pd.DataFrame:
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
     page_num = _get_page_num_gpzy_distribute_statistics_company()
     temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1)):
+    for page in tqdm(range(1, page_num + 1), leave=True):
         params = {
             "type": "GDZY_ZYJG_SUM",
             "token": "70f12f2f4f091e459a279469fe49eca5",
@@ -544,9 +528,7 @@ if __name__ == "__main__":
     )
     print(stock_em_gpzy_distribute_statistics_company_df)
 
-    stock_em_gpzy_distribute_statistics_bank_df = (
-        stock_em_gpzy_distribute_statistics_bank()
-    )
+    stock_em_gpzy_distribute_statistics_bank_df = stock_em_gpzy_distribute_statistics_bank()
     print(stock_em_gpzy_distribute_statistics_bank_df)
 
     stock_em_gpzy_industry_data_df = stock_em_gpzy_industry_data()

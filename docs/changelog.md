@@ -2378,4 +2378,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
     2. 只在更新记录中保存
 
 1.0.64: fix: fix rename zh_stock_kcb_report to stock_zh_kcb_report_em interface
+
+1.0.65: fix: fix stock_em_gpzy_pledge_ratio_detail interface
 ```
