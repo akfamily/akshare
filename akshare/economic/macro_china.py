@@ -2395,7 +2395,7 @@ def macro_china_supply_of_money():
 
 
 def macro_china_swap_rate(
-    start_date: str = "2020-09-06", end_date: str = "2020-10-06"
+    start_date: str = "2021-07-06", end_date: str = "2021-08-06"
 ) -> pd.DataFrame:
     """
     FR007利率互换曲线历史数据
