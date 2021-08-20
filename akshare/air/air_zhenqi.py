@@ -94,7 +94,6 @@ def air_quality_watch_point(
     :return: 指定城市指定日期区间的观测点空气质量
     :rtype: pandas.DataFrame
     """
-
     url = "https://www.zq12369.com/api/zhenqiapi.php"
     file_data = _get_file_content(file_name="crypto.js")
     ctx = py_mini_racer.MiniRacer()

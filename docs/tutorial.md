@@ -221,26 +221,6 @@
  "stock_em_sy_hy_list"  # 获取行业商誉
  # 股票账户统计数据
  "stock_em_account"  # 获取股票账户统计数据
- # 交易法门-工具接口-套利分析
- "jyfm_tools_futures_spread"  # 交易法门-工具-套利分析-跨期价差(自由价差)
- "jyfm_tools_futures_ratio"  # 交易法门-工具-套利分析-自由价比
- "jyfm_tools_futures_customize"  # 交易法门-工具-套利分析-多腿组合
- "jyfm_exchange_symbol_dict"  # 交易法门-交易所-品种字典
- # 交易法门-工具接口-套利分析
- "jyfm_tools_position_detail"  # 交易法门-工具-持仓分析-期货分析
- "jyfm_tools_position_seat"  # 交易法门-工具-持仓分析-持仓分析
- "jyfm_tools_position_season"  # 交易法门-工具-持仓分析-季节性分析
- # 交易法门-工具接口-交易规则
- "jyfm_tools_receipt_expire_info"  # 交易法门-工具-交易规则-仓单有效期
- "jyfm_tools_position_limit_info"  # 交易法门-工具-交易规则-限仓规定
- "jyfm_tools_symbol_handbook"  # 交易法门-工具-交易规则-品种手册
- # 交易法门-数据接口-农产品
- "jyfm_data_cocking_coal"  # 交易法门-数据-黑色系-焦煤
- "jyfm_data_palm"  # 交易法门-数据-农产品-棕榈
- "jyfm_data_soybean_meal"  # 交易法门-数据-农产品-豆粕
- "jyfm_data_sugar"  # 交易法门-数据-农产品-白糖
- "jyfm_data_usa_bean"  # 交易法门-数据-农产品-美豆
- "jyfm_data_soybean_oil"  # 交易法门-数据-农产品-豆油
  # 股票指数-成份股
  "index_stock_cons"  # 股票指数-成份股-最新成份股获取
  "index_stock_info"  # 股票指数-成份股-所有可以获取的指数表
@@ -884,6 +864,10 @@
  # 全部 A 股-等权重市盈率、中位数市盈率
  "stock_a_ttm_lyr"  # 全部 A 股-等权重市盈率、中位数市盈率
  "stock_a_all_pb"  # 全部 A 股-等权重市净率、中位数市净率
+ # 鸡蛋价格
+ "futures_egg_price_yearly"  # 各年度产区鸡蛋价格走势
+ "futures_egg_price"  # 2015-2021年鸡蛋价格走势图
+ "futures_egg_price_area"  # 各主产区鸡蛋均价
 ```
 
 ## 案例演示
