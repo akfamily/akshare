@@ -886,6 +886,7 @@ if __name__ == "__main__":
     fund_em_info_cash_df = fund_em_open_fund_info(fund="161606", indicator="分红送配详情")
     print(fund_em_info_cash_df)
     time.sleep(3)
+
     fund_em_info_div_per_df = fund_em_open_fund_info(fund="161725", indicator="拆分详情")
     print(fund_em_info_div_per_df)
 

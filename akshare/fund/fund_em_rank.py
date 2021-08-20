@@ -281,6 +281,7 @@ def fund_em_money_rank() -> pd.DataFrame:
 def fund_em_lcx_rank() -> pd.DataFrame:
     """
     东方财富网-数据中心-理财基金排行
+    # 该接口暂时没有数据
     http://fund.eastmoney.com/data/lcxfundranking.html#t;c0;r;sSYL_Z;ddesc;pn50;f;os1;
     :return: 理财基金排行
     :rtype: pandas.DataFrame

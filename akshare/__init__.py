@@ -1482,9 +1482,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.61: fix: fix stock_a_all_pb interface
 1.0.62: add: add futures_egg_price interface
 1.0.63: fix: fix remove jyfm interface
+1.0.64: fix: fix rename zh_stock_kcb_report to stock_zh_kcb_report_em interface
 """
 
-__version__ = "1.0.63"
+__version__ = "1.0.64"
 __author__ = "Albert King"
 
 import sys
@@ -1945,7 +1946,7 @@ from akshare.option.option_em import option_current_em
 """
 科创板报告
 """
-from akshare.stock.stock_zh_kcb_report import zh_stock_kcb_report
+from akshare.stock.stock_zh_kcb_report import stock_zh_kcb_report_em
 
 """
 期货合约详情
