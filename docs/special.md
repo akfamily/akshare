@@ -20,8 +20,6 @@
 
 感谢[金十数据网站](https://www.jin10.com)提供的相关数据;
 
-感谢[交易法门网站](https://www.jiaoyifamen.com)提供的相关数据;
-
 感谢[和讯财经网站](http://www.hexun.com)提供的相关数据;
 
 感谢[新浪财经网站](https://finance.sina.com.cn)提供的相关数据;
