@@ -2372,4 +2372,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.61: fix: fix stock_a_all_pb interface
 
 1.0.62: add: add futures_egg_price interface
+
+1.0.63: fix: fix remove jyfm interface
+    1. 移除交易法门相关数据接口
+    2. 只在更新记录中保存
 ```

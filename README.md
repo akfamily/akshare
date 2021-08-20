@@ -222,8 +222,6 @@ Thanks for the data provided by [中国外汇交易中心暨全国银行间同�
 
 Thanks for the data provided by [金十数据网站](https://www.jin10.com/);
 
-Thanks for the data provided by [交易法门网站](https://www.jiaoyifamen.com/);
-
 Thanks for the data provided by [和讯财经网站](http://www.hexun.com/);
 
 Thanks for the data provided by [新浪财经网站](https://finance.sina.com.cn/);

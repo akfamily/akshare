@@ -1481,9 +1481,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.60: fix: fix futures_main_sina interface
 1.0.61: fix: fix stock_a_all_pb interface
 1.0.62: add: add futures_egg_price interface
+1.0.63: fix: fix remove jyfm interface
 """
 
-__version__ = "1.0.62"
+__version__ = "1.0.63"
 __author__ = "Albert King"
 
 import sys
@@ -2532,89 +2533,6 @@ from akshare.economic.macro_bank import (
 )
 
 """
-交易法门-工具-席位分析
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_structure,
-    jyfm_tools_position_seat_cost,
-    jyfm_tools_position_interest_process,
-)
-
-"""
-交易法门-工具-套利分析
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_futures_spread,
-    jyfm_tools_futures_ratio,
-    jyfm_tools_futures_customize,
-    jyfm_exchange_symbol_dict,
-    jyfm_tools_futures_full_carry,
-    jyfm_tools_futures_arbitrage_matrix,
-)
-
-"""
-交易法门-工具-资讯汇总
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_research_query,
-    jyfm_tools_trade_calendar,
-)
-
-"""
-交易法门-工具-持仓分析
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_detail,
-    jyfm_tools_position_seat,
-    jyfm_tools_position_season,
-)
-
-"""
-交易法门-工具-资金分析
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_position_fund_direction,
-    jyfm_tools_position_fund_down,
-    jyfm_tools_position_fund_season,
-    jyfm_tools_position_fund_deal,
-)
-
-"""
-交易法门-工具-仓单分析
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_warehouse_receipt_daily,
-    jyfm_tools_warehouse_receipt_query,
-    jyfm_tools_warehouse_virtual_fact_ratio,
-    jyfm_tools_warehouse_virtual_fact_daily,
-)
-
-"""
-交易法门-工具-期限分析
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_futures_basis_daily,
-    jyfm_tools_futures_basis_daily_area,
-    jyfm_tools_futures_basis_analysis,
-    jyfm_tools_futures_basis_structure,
-    jyfm_tools_futures_basis_rule,
-)
-
-"""
-行情分析
-"""
-from akshare.futures_derivative.jyfm_tools_func import jyfm_tools_futures_market
-
-"""
-交易法门-工具-交易规则
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_receipt_expire_info,
-    jyfm_tools_position_limit_info,
-    jyfm_tools_symbol_handbook,
-)
-
-"""
 义乌小商品指数
 """
 from akshare.index.index_yw import index_yw
@@ -2629,14 +2547,6 @@ from akshare.index.index_cons import (
     index_stock_cons_sina,
     index_stock_cons_csindex,
     stock_a_code_to_symbol,
-)
-
-"""
-交易法门-工具-数据-黑色系
-"""
-from akshare.futures_derivative.jyfm_data_func import (
-    jyfm_data_cocking_coal,
-    jyfm_data_coke,
 )
 
 """
@@ -2755,32 +2665,6 @@ from akshare.index.index_sw import (
     sw_index_daily,
     sw_index_daily_indicator,
 )
-
-"""
-交易法门-数据-农产品
-"""
-from akshare.futures_derivative.jyfm_data_func import (
-    jyfm_data_palm,  # 棕榈
-    jyfm_data_soybean_meal,  # 豆粕
-    jyfm_data_sugar,  # 白糖
-    jyfm_data_usa_bean,  # 美豆
-    jyfm_data_soybean_oil,  # 豆油
-)
-
-"""
-交易法门-工具
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_futures_customize,  # 棕榈
-    jyfm_tools_futures_ratio,  # 豆粕
-    jyfm_tools_futures_spread,  # 白糖
-    jyfm_tools_receipt_expire_info,  # 美豆
-)
-
-"""
-交易法门-登录
-"""
-from akshare.futures_derivative.jyfm_login_func import jyfm_login
 
 """
 谷歌指数
@@ -2950,15 +2834,6 @@ from akshare.futures_derivative.sys_spot_futures import (
 )
 
 """
-交易法门-套利工具-跨期价差(自由价差)
-"""
-from akshare.futures_derivative.jyfm_tools_func import (
-    jyfm_tools_futures_ratio,
-    jyfm_tools_futures_customize,
-    jyfm_tools_futures_spread,
-)
-
-"""
 和讯财经-行情及历史数据
 """
 from akshare.stock.stock_us_zh_hx import stock_us_zh_spot, stock_us_zh_daily
@@ -2967,11 +2842,6 @@ from akshare.stock.stock_us_zh_hx import stock_us_zh_spot, stock_us_zh_daily
 和讯财经-企业社会责任
 """
 from akshare.stock.stock_zh_zrbg_hx import stock_zh_a_scr_report
-
-"""
-期货-仓单有效期
-"""
-from akshare.futures.receipt_period import get_receipt_date
 
 """
 全球宏观-机构宏观

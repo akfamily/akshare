@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/1/8 17:58
+Date: 2021/8/20 17:58
 Desc: 期货配置文件
 """
 import datetime
@@ -85,10 +85,6 @@ qh_headers = {
     "Upgrade-Insecure-Requests": "1",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
 }
-# 交易法门
-JYFM_TOOLS_RECEIPT_DATE_URL = (
-    "https://www.jiaoyifamen.com/tools/receipt-expire-info/all?page=1&limit=90"
-)
 #
 QHKC_INDEX_URL = "https://www.qhkch.com/ajax/index_show.php"
 QHKC_INDEX_TREND_URL = "https://qhkch.com/ajax/indexes_trend.php"
