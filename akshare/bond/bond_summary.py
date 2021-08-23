@@ -77,5 +77,6 @@ def bond_deal_summary_sse(date: str = '20210104') -> pd.DataFrame:
 if __name__ == '__main__':
     bond_cash_summary_sse_df = bond_cash_summary_sse(date='20210111')
     print(bond_cash_summary_sse_df)
+
     bond_summary_sse_df = bond_deal_summary_sse(date='20210111')
     print(bond_summary_sse_df)
