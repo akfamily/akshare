@@ -2384,4 +2384,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.66: fix: fix macro_cons_opec_month interface
 
 1.0.67: fix: fix futures_sgx_daily interface
+
+1.0.68: fix: remove agoyal_stock_return interface
 ```
