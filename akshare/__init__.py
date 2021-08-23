@@ -1487,9 +1487,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.66: fix: fix macro_cons_opec_month interface
 1.0.67: fix: fix futures_sgx_daily interface
 1.0.68: fix: remove agoyal_stock_return interface
+1.0.69: fix: remove bank_rank_banker interface
+1.0.70: fix: remove watch_jinshi_quotes interface
 """
 
-__version__ = "1.0.68"
+__version__ = "1.0.70"
 __author__ = "Albert King"
 
 import sys
@@ -1893,11 +1895,6 @@ from akshare.futures.futures_to_spot import (
 基金持仓
 """
 from akshare.fund.fund_em_portfolio import fund_em_portfolio_hold
-
-"""
-银行-全球银行排名
-"""
-from akshare.bank.bank_banker import bank_rank_banker
 
 """
 债券概览
@@ -2718,7 +2715,6 @@ from akshare.air.time_and_date import sunrise_daily, sunrise_monthly
 金十财经-实时监控
 """
 from akshare.ws.js_ws_fx import watch_jinshi_fx
-from akshare.ws.js_ws_quotes import watch_jinshi_quotes
 
 """
 新浪-指数实时行情和历史行情

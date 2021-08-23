@@ -126,7 +126,6 @@
  "stock_zh_a_tick_163"  # A 股票分笔行情数据(近5个交易日)-163
  # Websocket 实时监控
  "watch_jinshi_fx"  # 外汇实时接口
- "watch_jinshi_quotes"  # 行情报价接口
  # 世界各地区日出和日落数据-日
  "weather_daily"  # 每日日出和日落数据
  # 世界各地区日出和日落数据-月
@@ -648,8 +647,6 @@
  "bond_deal_summary_sse"  # 上登债券信息网-债券成交概览
  # 中国货币供应量
  "macro_china_money_supply"  # 中国货币供应量
- # 银行排名
- "bank_rank_banker"  # 全球银行排名数据及各项指标
  # 期货交割和期转现
  "futures_to_spot_czce"  # 郑商所期转现
  "futures_to_spot_shfe"  # 上期所期转现
