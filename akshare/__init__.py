@@ -1489,9 +1489,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.68: fix: remove agoyal_stock_return interface
 1.0.69: fix: remove bank_rank_banker interface
 1.0.70: fix: remove watch_jinshi_quotes interface
+1.0.71: fix: remove watch_argus interface
 """
 
-__version__ = "1.0.70"
+__version__ = "1.0.71"
 __author__ = "Albert King"
 
 import sys
@@ -2246,11 +2247,6 @@ from akshare.stock_feature.stock_em_dxsyl import stock_em_dxsyl, stock_em_xgsglb
 article
 """
 from akshare.article.fred_md import fred_md, fred_qd
-
-"""
-argus
-"""
-from akshare.ws.argus import watch_argus
 
 """
 covid_19 CSSE
