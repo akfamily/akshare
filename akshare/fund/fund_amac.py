@@ -456,7 +456,7 @@ def amac_fund_abs() -> pd.DataFrame:
     params = {
         'rand': '0.45416112116335716',
         'pageNo': '0',
-        'pageSize': '5000',
+        'pageSize': '50000',
     }
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
@@ -477,7 +477,7 @@ def amac_fund_abs() -> pd.DataFrame:
     ]
     temp_df["备案通过时间"] = pd.to_datetime(temp_df["备案通过时间"], unit='ms').dt.date
     temp_df["成立日期"] = pd.to_datetime(temp_df["成立日期"], unit='ms').dt.date
-    temp_df["预期到期时间"] = pd.to_datetime(temp_df["预期到期时间"], unit='ms').dt.date
+    temp_df["预期到期时间"] = pd.to_datetime(temp_df["预期到期时间"], unit='ms', errors='coerce').dt.date
     temp_df = temp_df[[
         "编号",
         "备案编号",
