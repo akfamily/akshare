@@ -1491,9 +1491,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.70: fix: remove watch_jinshi_quotes interface
 1.0.71: fix: remove watch_argus interface
 1.0.72: fix: fix amac_fund_abs interface
+1.0.73: add: add bond_cash_summary_sse interface
 """
 
-__version__ = "1.0.72"
+__version__ = "1.0.73"
 __author__ = "Albert King"
 
 import sys
@@ -1901,7 +1902,7 @@ from akshare.fund.fund_em_portfolio import fund_em_portfolio_hold
 """
 债券概览
 """
-from akshare.bond.bond_summary import bond_deal_summary_sse
+from akshare.bond.bond_summary import bond_deal_summary_sse, bond_cash_summary_sse
 
 """
 新闻-个股新闻

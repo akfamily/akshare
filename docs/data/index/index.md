@@ -2575,9 +2575,9 @@ print(index_cflp_volume_df)
 
 目标地址: https://datacenter.jin10.com/market
 
-描述: 获取恐慌指数-芝加哥期权交易所 VIX 指数(CBOE Volatility Index)的分钟级别数据
+描述: 恐慌指数-芝加哥期权交易所 VIX 指数(CBOE Volatility Index)的分钟级别数据
 
-限量: 只能获取近期的数据; 目前该接口数据源暂未更新
+限量: 只能获取近期的数据; 目前该接口数据源更新有几个交易日的延时
 
 输入参数
 
