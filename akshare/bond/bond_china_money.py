@@ -85,6 +85,6 @@ def bond_china_close_return(
 
 if __name__ == "__main__":
     bond_china_close_return_df = bond_china_close_return(
-        symbol="政策性金融债(进出口行)", period="1", start_date="20210330", end_date="20210430"
+        symbol="政策性金融债(进出口行)", period="1", start_date="20210730", end_date="20210830"
     )
     print(bond_china_close_return_df)
