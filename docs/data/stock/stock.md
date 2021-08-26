@@ -6223,7 +6223,7 @@ print(stock_financial_analysis_indicator_df)
 
 接口: stock_financial_hk_analysis_indicator_em
 
-目标地址: https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600004/ctrl/2019/displaytype/4.phtml
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/NewFinancialAnalysis/index?type=web&code=00700
 
 描述: 东方财富-港股-财务分析-主要指标
 
