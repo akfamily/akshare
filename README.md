@@ -127,10 +127,8 @@ Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKS
     <img src="https://github.com/jindaxiang/akshare/blob/master/example/images/ds.png">
 </div>
 
-Application to add **AKShare-VIP群** QQ group and talk about [AKShare](https://github.com/jindaxiang/akshare) issues, QQ group number: 943508707
-<div align=center>
-<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=5O49TwOftLcjRMZMtM1L0Q0wpF-OWI69&jump_from=webapi"><img border="0" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_943508707.png" alt="AKShare-VIP群" title="AKShare-VIP群" align="center"></a>
-</div>
+Application to add **AKShare-VIP群** QQ group and talk about [AKShare](https://github.com/jindaxiang/akshare) issues, please contact **AKShare-小助手 QQ**: 2875328287
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_2875328287.jpg)
 
 ## Features
 
