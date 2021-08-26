@@ -1495,9 +1495,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.74: fix: fix bond_zh_hs_cov_spot interface
 1.0.75: fix: fix bond_futures_deliverable_coupons interface
 1.0.76: fix: fix stock_financial_hk_analysis_indicator_em interface
+1.0.77: fix: fix macro_china_m2_yearly interface
 """
 
-__version__ = "1.0.76"
+__version__ = "1.0.77"
 __author__ = "Albert King"
 
 import sys
@@ -2268,7 +2269,7 @@ from akshare.event.covid import (
 """
 futures_cfmmc
 """
-from akshare.futures.futures_cfmmc import futures_index_dict, futures_index_cfmmc
+from akshare.futures.futures_cfmmc import futures_index_cscidx_map, futures_index_cscidx
 
 """
 futures_em_spot_stock
