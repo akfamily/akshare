@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/8/6 16:08
+Date: 2021/8/26 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -640,7 +640,7 @@ def macro_china_fx_reserves_yearly():
 # 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
 def macro_china_m2_yearly():
     """
-    中国年度M2数据, 数据区间从19980201-至今
+    中国年度 M2 数据, 数据区间从 19980201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_m2_money_supply_yoy
     https://cdn.jin10.com/dc/reports/dc_chinese_m2_money_supply_yoy_all.js?v=1578818474
     :return: pandas.Series
@@ -658,9 +658,43 @@ def macro_china_m2_yearly():
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
     temp_df = value_df["今值(%)"]
-    temp_df.name = "m2"
-    temp_df = temp_df[temp_df != 0]
-    temp_df = temp_df.astype(float)
+    url = "https://datacenter-api.jin10.com/reports/list_v2"
+    params = {
+        "max_date": "",
+        "category": "ec",
+        "attr_id": "59",
+        "_": str(int(round(t * 1000))),
+    }
+    headers = {
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "origin": "https://datacenter.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
+    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
+    temp_se = temp_se.iloc[:, 1]
+    temp_df = temp_df.append(temp_se)
+    temp_df.dropna(inplace=True)
+    temp_df.sort_index(inplace=True)
+    temp_df = temp_df.reset_index()
+    temp_df.drop_duplicates(subset="index", inplace=True)
+    temp_df.set_index("index", inplace=True)
+    temp_df = temp_df.squeeze()
+    temp_df.index.name = None
+    temp_df.name = "gpd"
+    temp_df = temp_df.astype("float")
     return temp_df
 
 

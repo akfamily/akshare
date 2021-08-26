@@ -1,45 +1,77 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+# !/usr/bin/env python
 """
-Date: 2021/5/1 16:37
-Desc: 中国期货市场监控中心-指数
-http://index.cfmmc.com/index/views/index.html
-该数据由中国期货市场监控中心转移到中证商品指数有限责任公司进行管理
-中证商品指数有限责任公司：http://www.cscidx.com/index.html
-截止目前该网站还未更新指数上线
-# TODO 等待网站更新数据
+Date: 2021/8/26 15:37
+Desc: 中证商品指数
+http://www.cscidx.com/index.html
 """
 from io import BytesIO
 
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 
-def futures_index_dict() -> dict:
+def futures_index_cscidx_map() -> dict:
     """
     name and code map
     :return: name to code
     :rtype: dict
     """
-    url = "http://index.cfmmc.com/index/views/index.html"
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text, "lxml")
-    name_list = [
-        item.text.strip()
-        for item in soup.find(attrs={"class": "down_box"}).find_all("b")[1:]
-    ]
-    code_list = [
-        item["indexcode"]
-        for item in soup.find(attrs={"class": "down_box"}).find_all("b")[1:]
-    ]
-    return dict(zip(name_list, code_list))
+    url = 'http://www.cscidx.com/cscidx/csciAction/getCsciIndexMap'
+    params = {
+        'r': '0.08644997232349438'
+    }
+    headers = {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Content-Length': '45',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Host': 'www.cscidx.com',
+        'Origin': 'http://www.cscidx.com',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://www.cscidx.com/cscidx/quote1',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest',
+    }
+    r = requests.post(url, params=params, headers=headers)
+    r.text
+
+    url = "http://www.cscidx.com/cscidx/csciAction/loadTimeData"
+    params = {
+        'r': '0.08644997232349438'
+    }
+    payload = {
+        'indexCode': '606004.CSCI',
+        'indexType': '0',
+        'pointer': 'all',
+    }
+    headers = {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Content-Length': '45',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Host': 'www.cscidx.com',
+        'Origin': 'http://www.cscidx.com',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://www.cscidx.com/cscidx/quote1',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest',
+    }
+    r = requests.post(url, params=params, json=payload, headers=headers)
+    r.json()
+    return None
 
 
-def futures_index_cfmmc(
-    index_name: str = "商品综合指数",
-    start_date: str = "2010-01-01",
-    end_date: str = "2020-04-06",
+def futures_index_cscidx(
+        index_name: str = "商品综合指数",
+        start_date: str = "2010-01-01",
+        end_date: str = "2020-04-06",
 ) -> pd.DataFrame:
     """
     中国期货市场监控中心-各类指数数据
@@ -53,7 +85,7 @@ def futures_index_cfmmc(
     :return: index data frame
     :rtype: pandas.DataFrame
     """
-    futures_index_map = futures_index_dict()
+    futures_index_map = futures_index_cscidx_map()
     url = "http://index.cfmmc.com/servlet/indexAction"
     params = {
         "function": "DowladIndex",
@@ -68,12 +100,12 @@ def futures_index_cfmmc(
 
 
 if __name__ == "__main__":
-    futures_index_dict_temp = futures_index_dict()
+    futures_index_dict_temp = futures_index_cscidx_map()
     futures_index_df = pd.DataFrame.from_dict(
         futures_index_dict_temp, orient="index", columns=["index_code"]
     )
     print(futures_index_df)
-    futures_index_cfmmc_df = futures_index_cfmmc(
+    futures_index_cfmmc_df = futures_index_cscidx(
         index_name="林木综合指数", start_date="2010-01-01", end_date="2020-12-30"
     )
     print(futures_index_cfmmc_df)

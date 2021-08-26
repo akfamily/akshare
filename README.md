@@ -302,8 +302,6 @@ Thanks for the data provided by [Currencyscoop网站](https://currencyscoop.com/
 
 Thanks for the data provided by [新加坡交易所网站](https://www.sgx.com/zh-hans/research-education/derivatives);
 
-Thanks for the data provided by [中国期货市场监控中心](http://index.cfmmc.com/index/views/index.html);
-
 Thanks for the data provided by [宽客在线](https://www.quantinfo.com/Argus/);
 
 Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png).

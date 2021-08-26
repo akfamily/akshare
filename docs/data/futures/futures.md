@@ -3129,7 +3129,7 @@ CFMMC指数一览表
 
 ```python
 import akshare as ak
-futures_index_cfmmc_df = ak.futures_index_cfmmc(index_name="林木综合指数", start_date="2010-01-01", end_date="2020-04-06")
+futures_index_cfmmc_df = ak.futures_index_cscidx(index_name="林木综合指数", start_date="2010-01-01", end_date="2020-04-06")
 print(futures_index_cfmmc_df)
 ```
 
@@ -3156,7 +3156,7 @@ print(futures_index_cfmmc_df)
 
 目标地址: http://data.eastmoney.com/ifdata/xhgp.html
 
-描述: 获取东方财富网-数据中心-现货与股票
+描述: 东方财富网-数据中心-现货与股票
 
 限量: 单次返回指定 indicator 的所有数据
 
