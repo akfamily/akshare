@@ -304,7 +304,7 @@ def stock_zh_a_cdr_daily(
 
 
 def stock_zh_a_minute(
-    symbol: str = "sh603087", period: str = "5", adjust: str = ""
+    symbol: str = "sh603087", period: str = "1", adjust: str = ""
 ) -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
@@ -329,7 +329,6 @@ def stock_zh_a_minute(
     if temp_df.empty:
         print(f"{symbol} 股票数据不存在，请检查是否已退市")
         return None
-
     try:
         stock_zh_a_daily(symbol=symbol, adjust="qfq")
     except:
