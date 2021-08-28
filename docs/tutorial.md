@@ -847,6 +847,9 @@
  # REITs
  "reits_info_jsl"  #  REITs-信息
  "reits_realtime_em"  #  REITs-行情
+ # 股票分时数据
+ "stock_zh_a_hist_min_em"  # 东财-股票分时
+ "stock_zh_a_hist_pre_min_em"  # 东财-股票盘前分时
 ```
 
 ## 案例演示
