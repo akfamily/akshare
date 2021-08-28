@@ -740,7 +740,7 @@ print(stock_zh_a_hist_min_em_df)
 
 ##### 盘前数据
 
-接口: stock_zh_a_hist_min_em
+接口: stock_zh_a_hist_pre_min_em
 
 目标地址: http://quote.eastmoney.com/concept/sh603777.html?from=classic
 
