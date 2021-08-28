@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/6/15 22:26
+Date: 2021/8/28 21:26
 Desc: 东方财富网-行情首页-上证 A 股-每日行情
 """
 import requests
@@ -152,7 +152,7 @@ def _code_id_map() -> dict:
 
 
 def stock_zh_a_hist(
-    symbol: str = "600070",
+    symbol: str = "000001",
     start_date: str = "19700101",
     end_date: str = "22220101",
     adjust: str = "",
@@ -218,6 +218,93 @@ def stock_zh_a_hist(
             "换手率": float,
         }
     )
+    return temp_df
+
+
+def stock_zh_a_hist_min_em(symbol: str = "000001") -> pd.DataFrame:
+    """
+    东方财富网-行情首页-上证 A 股-每日分时行情
+    http://quote.eastmoney.com/concept/sh603777.html?from=classic
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 每日分时行情
+    :rtype: pandas.DataFrame
+    """
+    code_id_dict = _code_id_map()
+    url = "https://push2his.eastmoney.com/api/qt/stock/trends2/get"
+    params = {
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
+        "ut": "7eea3edcaed734bea9cbfc24409ed989",
+        'ndays': '5',
+        'iscr': '0',
+        "secid": f"{code_id_dict[symbol]}.{symbol}",
+        "_": "1623766962675",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
+    temp_df.columns = [
+        "时间",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "最新价",
+    ]
+    temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
+    temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
+    temp_df['最高'] = pd.to_numeric(temp_df['最高'])
+    temp_df['最低'] = pd.to_numeric(temp_df['最低'])
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    return temp_df
+
+
+def stock_zh_a_hist_pre_min_em(symbol: str = "000001") -> pd.DataFrame:
+    """
+    东方财富网-行情首页-上证 A 股-每日分时行情包含盘前数据
+    http://quote.eastmoney.com/concept/sh603777.html?from=classic
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 每日分时行情包含盘前数据
+    :rtype: pandas.DataFrame
+    """
+    code_id_dict = _code_id_map()
+    url = "https://push2.eastmoney.com/api/qt/stock/trends2/get"
+    params = {
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
+        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+        'ndays': '1',
+        'iscr': '1',
+        'iscca': '0',
+        "secid": f"{code_id_dict[symbol]}.{symbol}",
+        "_": "1623766962675",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
+    temp_df.columns = [
+        "时间",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "最新价",
+    ]
+    temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
+    temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
+    temp_df['最高'] = pd.to_numeric(temp_df['最高'])
+    temp_df['最低'] = pd.to_numeric(temp_df['最低'])
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
     return temp_df
 
 
@@ -534,5 +621,11 @@ if __name__ == "__main__":
     stock_zh_a_spot_em_df = stock_zh_a_spot_em()
     print(stock_zh_a_spot_em_df)
 
-    stock_zh_a_hist_df = stock_zh_a_hist(symbol="603777", start_date="20101010", end_date="20210812", adjust="hfq")
+    stock_zh_a_hist_df = stock_zh_a_hist(symbol="000001", start_date="20101010", end_date="20210812", adjust="hfq")
     print(stock_zh_a_hist_df)
+
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001")
+    print(stock_zh_a_hist_min_em_df)
+
+    stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="000001")
+    print(stock_zh_a_hist_pre_min_em_df)
