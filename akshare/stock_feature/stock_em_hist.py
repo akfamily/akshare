@@ -450,6 +450,48 @@ def stock_hk_hist(
     return temp_df
 
 
+def stock_hk_hist_min_em(symbol: str = "01611") -> pd.DataFrame:
+    """
+    东方财富网-行情首页-港股-每日分时行情
+    http://quote.eastmoney.com/hk/00948.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 每日分时行情
+    :rtype: pandas.DataFrame
+    """
+    url = "http://push2his.eastmoney.com/api/qt/stock/trends2/get"
+    params = {
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
+        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+        'iscr': '0',
+        'ndays': '5',
+        "secid": f"116.{symbol}",
+        "_": "1623766962675",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
+    temp_df.columns = [
+        "时间",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "最新价",
+    ]
+    temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
+    temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
+    temp_df['最高'] = pd.to_numeric(temp_df['最高'])
+    temp_df['最低'] = pd.to_numeric(temp_df['最低'])
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    return temp_df
+
+
 def stock_us_spot_em() -> pd.DataFrame:
     """
     东方财富-美股-实时行情
@@ -599,6 +641,48 @@ def stock_us_hist(
     return temp_df
 
 
+def stock_us_hist_min_em(symbol: str = "105.ATER") -> pd.DataFrame:
+    """
+    东方财富网-行情首页-美股-每日分时行情
+    http://quote.eastmoney.com/us/ATER.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 每日分时行情
+    :rtype: pandas.DataFrame
+    """
+    url = "http://push2his.eastmoney.com/api/qt/stock/trends2/get"
+    params = {
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
+        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+        'iscr': '0',
+        'ndays': '5',
+        "secid": f"{symbol.split('.')[0]}.{symbol.split('.')[1]}",
+        "_": "1623766962675",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
+    temp_df.columns = [
+        "时间",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "最新价",
+    ]
+    temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
+    temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
+    temp_df['最高'] = pd.to_numeric(temp_df['最高'])
+    temp_df['最低'] = pd.to_numeric(temp_df['最低'])
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_hk_spot_em_df = stock_hk_spot_em()
     print(stock_hk_spot_em_df)
@@ -629,3 +713,9 @@ if __name__ == "__main__":
 
     stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="000001")
     print(stock_zh_a_hist_pre_min_em_df)
+
+    stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611")
+    print(stock_hk_hist_min_em_df)
+
+    stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="105.ATER")
+    print(stock_us_hist_min_em_df)
