@@ -1681,7 +1681,7 @@ print(us_stock_current_df)
 
 目标地址: http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
 
-描述: 获取美股历史行情日频率数据
+描述: 美股历史行情日频率数据
 
 限量: 单次返回指定上市公司的指定 adjust 后的所有历史行情数据, 当日收盘的数据需要交易日晚上 10 点后获取
 

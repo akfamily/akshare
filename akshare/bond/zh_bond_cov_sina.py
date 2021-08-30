@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/7/15 19:27
+Date: 2021/8/30 19:27
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
@@ -137,7 +137,7 @@ def bond_zh_cov() -> pd.DataFrame:
         "_",
         "_",
         "_",
-        "股权登记日",
+        "原股东配售-股权登记日",
         "_",
         "_",
         "_",
@@ -155,36 +155,44 @@ def bond_zh_cov() -> pd.DataFrame:
         "转股价值",
         "债现价",
         "转股溢价率",
-        "每股配售额",
+        "原股东配售-每股配售额",
         "发行规模",
     ]
     temp_df = temp_df[
         [
             "债券代码",
-            "交易场所",
             "债券简称",
             "申购日期",
             "申购代码",
+            "申购上限",
             "正股代码",
             "正股简称",
-            "债券面值",
-            "发行价格",
-            "转股价",
-            "中签号发布日",
-            "中签率",
-            "上市时间",
-            "备忘录",
             "正股价",
-            "市场类型",
-            "股权登记日",
-            "申购上限",
+            "转股价",
             "转股价值",
             "债现价",
             "转股溢价率",
-            "每股配售额",
+            "原股东配售-股权登记日",
+            "原股东配售-每股配售额",
             "发行规模",
+            "中签号发布日",
+            "中签率",
+            "上市时间",
         ]
     ]
+    temp_df['申购日期'] = pd.to_datetime(temp_df['申购日期'], errors='coerce').dt.date
+    temp_df['申购上限'] = pd.to_numeric(temp_df['申购上限'], errors='coerce')
+    temp_df['正股价'] = pd.to_numeric(temp_df['正股价'], errors='coerce')
+    temp_df['转股价'] = pd.to_numeric(temp_df['转股价'], errors='coerce')
+    temp_df['转股价值'] = pd.to_numeric(temp_df['转股价值'], errors='coerce')
+    temp_df['债现价'] = pd.to_numeric(temp_df['债现价'], errors='coerce')
+    temp_df['转股溢价率'] = pd.to_numeric(temp_df['转股溢价率'], errors='coerce')
+    temp_df['原股东配售-股权登记日'] = pd.to_datetime(temp_df['原股东配售-股权登记日'], errors='coerce').dt.date
+    temp_df['原股东配售-每股配售额'] = pd.to_numeric(temp_df['原股东配售-每股配售额'], errors='coerce')
+    temp_df['发行规模'] = pd.to_numeric(temp_df['发行规模'], errors='coerce')
+    temp_df['中签号发布日'] = pd.to_datetime(temp_df['中签号发布日'], errors='coerce').dt.date
+    temp_df['中签率'] = pd.to_numeric(temp_df['中签率'], errors='coerce')
+    temp_df['上市时间'] = pd.to_datetime(temp_df['上市时间'], errors='coerce').dt.date
     return temp_df
 
 
