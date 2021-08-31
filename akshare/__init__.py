@@ -1501,9 +1501,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.80: add: add stock_zh_a_hist_min_em, stock_zh_a_hist_pre_min_em interface
 1.0.81: add: add stock_us_hist_min_em, stock_hk_hist_min_em interface
 1.0.82: fix: fix bond_zh_cov interface
+1.0.83: fix: fix macro_china interface
 """
 
-__version__ = "1.0.82"
+__version__ = "1.0.83"
 __author__ = "Albert King"
 
 import sys

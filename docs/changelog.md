@@ -2414,4 +2414,15 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.81: add: add stock_us_hist_min_em, stock_hk_hist_min_em interface
 
 1.0.82: fix: fix bond_zh_cov interface
+
+1.0.83: fix: fix macro_china interface
+    1. macro_china_trade_balance
+    2. macro_china_imports_yoy
+    3. macro_china_exports_yoy
+    4. macro_china_industrial_production_yoy
+    5. macro_china_pmi_yearly 
+    6. macro_china_cx_pmi_yearly
+    7. macro_china_cx_services_pmi_yearly
+    8. macro_china_non_man_pmi
+    9. macro_china_fx_reserves_yearly
 ```
