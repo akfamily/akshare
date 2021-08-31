@@ -688,7 +688,7 @@ print(stock_zh_a_minute_df)
 
 接口: stock_zh_a_hist_min_em
 
-目标地址: http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
+目标地址: http://quote.eastmoney.com/concept/sh603777.html?from=classic
 
 描述: 东方财富网-行情首页-上证 A 股-每日分时行情
 
