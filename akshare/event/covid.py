@@ -22,7 +22,7 @@ from akshare.event.cons import province_dict, city_dict
 
 def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
     """
-    网易-新冠状病毒
+    网易-新型冠状病毒
     https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&#map_block
     https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&
     :return: 返回指定 indicator 的数据
