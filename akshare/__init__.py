@@ -2417,6 +2417,7 @@ from akshare.bond.zh_bond_cov_sina import (
     bond_zh_hs_cov_spot,
     bond_cov_comparison,
     bond_zh_cov,
+    bond_zh_cov_info,
 )
 from akshare.bond.bond_convert import bond_cov_jsl
 

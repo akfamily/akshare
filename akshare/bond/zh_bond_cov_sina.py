@@ -280,25 +280,35 @@ def bond_cov_comparison() -> pd.DataFrame:
     return temp_df
 
 
-def bond_zh_cov_info() -> pd.DataFrame:
+def bond_zh_cov_info(symbol: str = "123121") -> pd.DataFrame:
     """
     https://data.eastmoney.com/kzz/detail/123121.html
     东方财富网-数据中心-新股数据-可转债详情
     :return: 可转债详情
     :rtype: pandas.DataFrame
     """
-    bond_zh_cov_temp = bond_zh_cov()
-    code_list = bond_zh_cov_temp['债券代码'].tolist()
-    big_df = pd.DataFrame()
-    for item in tqdm(code_list, leave=False):
-        url = f"http://data.eastmoney.com/kzz/detail/{item}.html"
+    if symbol == 'all':
+        bond_zh_cov_temp = bond_zh_cov()
+        code_list = bond_zh_cov_temp['债券代码'].tolist()
+        big_df = pd.DataFrame()
+        for item in tqdm(code_list, leave=False):
+            url = f"http://data.eastmoney.com/kzz/detail/{item}.html"
+            r = requests.get(url)
+            soup = BeautifulSoup(r.text, "lxml")
+            data_text = soup.find("script").string.strip()
+            data_json = json.loads(re.findall("var info= (.*)", data_text)[0][:-1])
+            temp_df = pd.json_normalize(data_json)
+            big_df = big_df.append(temp_df, ignore_index=True)
+        return big_df
+    else:
+        url = f"http://data.eastmoney.com/kzz/detail/{symbol}.html"
         r = requests.get(url)
         soup = BeautifulSoup(r.text, "lxml")
         data_text = soup.find("script").string.strip()
         data_json = json.loads(re.findall("var info= (.*)", data_text)[0][:-1])
         temp_df = pd.json_normalize(data_json)
-        big_df = big_df.append(temp_df, ignore_index=True)
-    return big_df
+        return temp_df
+
     # big_df.rename({
     #     'SECURITY_CODE': '债券代码',
     #     'SECUCODE': '申购代码',
@@ -383,5 +393,5 @@ if __name__ == "__main__":
     bond_cov_comparison_df = bond_cov_comparison()
     print(bond_cov_comparison_df)
 
-    bond_zh_cov_info_df = bond_zh_cov_info()
+    bond_zh_cov_info_df = bond_zh_cov_info(symbol="all")
     print(bond_zh_cov_info_df)
