@@ -854,6 +854,8 @@
  "stock_hk_hist_min_em"  # 东财-港股分时数据
  # 美股分时数据
  "stock_us_hist_min_em"  # 东财-美股分时数据
+ # 可转债详情
+ "bond_zh_cov_info"  # 东财-可转债详情
 ```
 
 ## 案例演示

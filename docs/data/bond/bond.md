@@ -704,6 +704,53 @@ print(bond_zh_cov_df)
 594  110026   中海转债  2007-07-02  ...  2007-07-06  1.333453  2007-07-12
 ```
 
+#### 可转债详情
+
+接口: bond_zh_cov_info
+
+目标地址: https://data.eastmoney.com/kzz/detail/123121.html
+
+描述: 东方财富网-数据中心-新股数据-可转债详情
+
+限量: 单次返回指定 symbol 的可转债详情数据
+
+输入参数
+
+| 名称   | 类型 |  描述        |
+| -------- | ---- |  --- |
+| symbol | str  |    symbol="all"; symbol="可转债代码": 返回单个可转债的详情数据, symbol="all": 返回所有可转债的详情数据 |
+
+输出参数
+
+| 名称          | 类型 |  描述           |
+| ------------ | ----- | ---------------- |
+| 债券代码          | object   |  返回 67 个字段     |
+
+接口示例
+
+```python
+import akshare as ak
+bond_zh_cov_info_df = ak.bond_zh_cov_info(symbol="all")
+print(bond_zh_cov_info_df)
+```
+
+数据示例
+
+```
+        SECURITY_CODE   SECUCODE  ... PAYDAYNEW CURRENT_BOND_PRICENEW
+0          113628  113628.SH  ...       -23                   100
+1          123124  123124.SZ  ...       -16                   100
+2          127045  127045.SZ  ...       -16                   100
+3          127044  127044.SZ  ...       -16                   100
+4          118002  118002.SH  ...       -13                  None
+..            ...        ...  ...       ...                   ...
+590        110227  110227.SH  ...       -10                  None
+591        126006  126006.SH  ...       -09                  None
+592        110971  110971.SH  ...       -24                  None
+593        110567  110567.SH  ...       -05                  None
+594        110026  110026.SH  ...       -02                  None
+```
+
 #### 可转债比价表
 
 接口: bond_cov_comparison

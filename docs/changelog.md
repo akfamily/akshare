@@ -2425,4 +2425,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
     7. macro_china_cx_services_pmi_yearly
     8. macro_china_non_man_pmi
     9. macro_china_fx_reserves_yearly
+
+1.0.84: add: add bond_zh_cov_info interface
 ```
