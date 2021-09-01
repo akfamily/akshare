@@ -1,17 +1,19 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/8/30 19:27
+Date: 2021/9/1 19:27
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
 import datetime
+import json
 import re
 
 import demjson
-from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
+from py_mini_racer import py_mini_racer
 from tqdm import tqdm
 
 from akshare.bond.cons import (
@@ -278,6 +280,96 @@ def bond_cov_comparison() -> pd.DataFrame:
     return temp_df
 
 
+def bond_zh_cov_info() -> pd.DataFrame:
+    """
+    https://data.eastmoney.com/kzz/detail/123121.html
+    东方财富网-数据中心-新股数据-可转债详情
+    :return: 可转债详情
+    :rtype: pandas.DataFrame
+    """
+    bond_zh_cov_temp = bond_zh_cov()
+    code_list = bond_zh_cov_temp['债券代码'].tolist()
+    big_df = pd.DataFrame()
+    for item in tqdm(code_list, leave=False):
+        url = f"http://data.eastmoney.com/kzz/detail/{item}.html"
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, "lxml")
+        data_text = soup.find("script").string.strip()
+        data_json = json.loads(re.findall("var info= (.*)", data_text)[0][:-1])
+        temp_df = pd.json_normalize(data_json)
+        big_df = big_df.append(temp_df, ignore_index=True)
+    return big_df
+    # big_df.rename({
+    #     'SECURITY_CODE': '债券代码',
+    #     'SECUCODE': '申购代码',
+    #     'TRADE_MARKET': '交易市场',
+    #     'SECURITY_NAME_ABBR': '债券简称',
+    #     'DELIST_DATE': '_',
+    #     'LISTING_DATE': '上市日',
+    #     'CONVERT_STOCK_CODE': '交易市场',
+    #     'BOND_EXPIRE': '交易市场',
+    #     'RATING',
+    #     'VALUE_DATE',
+    #     'ISSUE_YEAR',
+    #     'CEASE_DATE',
+    #     'EXPIRE_DATE',
+    #     'PAY_INTEREST_DAY',
+    #     'INTEREST_RATE_EXPLAIN',
+    #     'BOND_COMBINE_CODE',
+    #     'ACTUAL_ISSUE_SCALE',
+    #     'ISSUE_PRICE',
+    #     'REMARK',
+    #     'PAR_VALUE',
+    #     'ISSUE_OBJECT',
+    #     'REDEEM_TYPE',
+    #     'EXECUTE_REASON_HS',
+    #     'NOTICE_DATE_HS',
+    #     'NOTICE_DATE_SH',
+    #     'EXECUTE_PRICE_HS',
+    #     'EXECUTE_PRICE_SH',
+    #     'RECORD_DATE_SH',
+    #     'EXECUTE_START_DATESH',
+    #     'EXECUTE_START_DATEHS',
+    #     'EXECUTE_END_DATE',
+    #     'CORRECODE',
+    #     'CORRECODE_NAME_ABBR',
+    #     'PUBLIC_START_DATE',
+    #     'CORRECODEO',
+    #     'CORRECODE_NAME_ABBRO',
+    #     'BOND_START_DATE',
+    #     'SECURITY_START_DATE',
+    #     'SECURITY_SHORT_NAME',
+    #     'FIRST_PER_PREPLACING',
+    #     'ONLINE_GENERAL_AAU',
+    #     'ONLINE_GENERAL_LWR',
+    #     'INITIAL_TRANSFER_PRICE',
+    #     'TRANSFER_END_DATE',
+    #     'TRANSFER_START_DATE',
+    #     'RESALE_CLAUSE',
+    #     'REDEEM_CLAUSE',
+    #     'PARTY_NAME',
+    #     'CONVERT_STOCK_PRICE',
+    #     'TRANSFER_PRICE',
+    #     'TRANSFER_VALUE',
+    #     'CURRENT_BOND_PRICE',
+    #     'TRANSFER_PREMIUM_RATIO',
+    #     'CONVERT_STOCK_PRICEHQ',
+    #     'MARKET',
+    #     'RESALE_TRIG_PRICE',
+    #     'REDEEM_TRIG_PRICE',
+    #     'PBV_RATIO',
+    #     'IB_START_DATE',
+    #     'IB_END_DATE',
+    #     'CASHFLOW_DATE',
+    #     'COUPON_IR',
+    #     'PARAM_NAME',
+    #     'ISSUE_TYPE',
+    #     'EXECUTE_REASON_SH',
+    #     'PAYDAYNEW',
+    #     'CURRENT_BOND_PRICENEW'
+    # })
+
+
 if __name__ == "__main__":
     bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sz123111")
     print(bond_zh_hs_cov_daily_df)
@@ -290,3 +382,6 @@ if __name__ == "__main__":
 
     bond_cov_comparison_df = bond_cov_comparison()
     print(bond_cov_comparison_df)
+
+    bond_zh_cov_info_df = bond_zh_cov_info()
+    print(bond_zh_cov_info_df)
