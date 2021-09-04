@@ -2427,4 +2427,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
     9. macro_china_fx_reserves_yearly
 
 1.0.84: add: add bond_zh_cov_info interface
+
+1.0.85: fix: fix stock_report_fund_hold interface
 ```
