@@ -350,7 +350,7 @@ def stock_em_zt_pool_zbgc(date: str = '20210525') -> pd.DataFrame:
     return temp_df
 
 
-def stock_em_zt_pool_dtgc(date: str = '20210902') -> pd.DataFrame:
+def stock_em_zt_pool_dtgc(date: str = '20210903') -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-跌停股池
     http://quote.eastmoney.com/ztb/detail#type=dtgc
@@ -432,5 +432,5 @@ if __name__ == '__main__':
     stock_em_zt_pool_zbgc_df = stock_em_zt_pool_zbgc(date='20210527')
     print(stock_em_zt_pool_zbgc_df)
 
-    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210902')
+    stock_em_zt_pool_dtgc_df = stock_em_zt_pool_dtgc(date='20210903')
     print(stock_em_zt_pool_dtgc_df)

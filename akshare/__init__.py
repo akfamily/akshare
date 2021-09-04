@@ -1505,9 +1505,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.84: add: add bond_zh_cov_info interface
 1.0.85: fix: fix stock_report_fund_hold interface
 1.0.86: fix: fix stock_em_zt_pool_dtgc interface
+1.0.87: fix: fix macro_china_swap_rate interface
 """
 
-__version__ = "1.0.86"
+__version__ = "1.0.87"
 __author__ = "Albert King"
 
 import sys

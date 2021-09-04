@@ -2744,10 +2744,10 @@ def macro_china_supply_of_money():
 
 
 def macro_china_swap_rate(
-    start_date: str = "2021-07-06", end_date: str = "2021-08-06"
+    start_date: str = "20210706", end_date: str = "20210806"
 ) -> pd.DataFrame:
     """
-    FR007利率互换曲线历史数据
+    FR007利率互换曲线历史数据; 只能获取近一年的数据
     http://www.chinamoney.com.cn/chinese/bkcurvfxhis/?cfgItemType=72&curveType=FR007
     :param start_date: 开始日期, 开始和结束日期不得超过一个月
     :type start_date: str
@@ -2756,6 +2756,8 @@ def macro_china_swap_rate(
     :return: FR007利率互换曲线历史数据
     :rtype: pandas.DataFrame
     """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-shibor/IfccHis"
     params = {
         "cfgItemType": "72",
