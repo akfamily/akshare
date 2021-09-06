@@ -2433,4 +2433,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.86: fix: fix stock_em_zt_pool_dtgc interface
 
 1.0.87: fix: fix macro_china_swap_rate interface
+
+1.0.88: fix: fix stock_zh_a_hist_min_em interface
 ```
