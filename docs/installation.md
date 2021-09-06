@@ -55,6 +55,20 @@ pip install akshare --upgrade -i https://pypi.org/simple
 
 先安装 R，再安装 RStudio，选择默认步骤安装即可。
 
+### 升级 R 语言到最新版本
+
+#### Windows
+
+```
+install.packages('installr')
+library(installr)
+updateR()
+```
+
+#### Mac
+
+从 [CRAN website](https://cran.r-project.org/) 网站下载和安装最新的版本，覆盖升级即可。
+
 ### 在 R 语言中安装相应的包
 
 [Reticulate](https://rstudio.github.io/reticulate/)
@@ -63,7 +77,7 @@ pip install akshare --upgrade -i https://pypi.org/simple
 install.packages("reticulate")
 ```
 
-在安装完成后通过
+在安装完成后通过运行
 
 ```
 library(reticulate)
