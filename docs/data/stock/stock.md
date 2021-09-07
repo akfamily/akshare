@@ -705,12 +705,25 @@ print(stock_zh_a_minute_df)
 | start_date | str  |start_date="1979-09-01 09:32:00"; 日期时间; 默认返回所有数据|
 | end_date | str  |end_date="2222-01-01 09:32:00"; 日期时间; 默认返回所有数据|
 
+输出参数-1分钟数据
+
+| 名称          | 类型 |  描述           |
+| ------------ | ----- |  ---------------- |
+| 时间          | object   |  -     |
+| 开盘          | float64      |  -     |
+| 收盘          | float64      | -     |
+| 最高           | float64      | -     |
+| 最低         | float64      |  -     |
+| 成交量        | float64      |  注意单位: 手     |
+| 成交额        | float64      |  -     |
+| 最新价        | float64      |  -     |
+
 接口示例-1分钟数据
 
 ```python
 import akshare as ak
-stock_hk_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", period='1', adjust='', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
-print(stock_hk_hist_min_em_df)
+stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", period='1', adjust='', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
+print(stock_zh_a_hist_min_em_df)
 ```
 
 数据示例-1分钟数据
@@ -735,14 +748,14 @@ print(stock_hk_hist_min_em_df)
 | 名称          | 类型 |  描述           |
 | ------------ | ----- |  ---------------- |
 | 时间          | object   |  -     |
-| 开盘          | float64      |  注意单位: 港元     |
-| 收盘          | float64      | 注意单位: 港元     |
-| 最高           | float64      | 注意单位: 港元     |
-| 最低         | float64      |  注意单位: 港元     |
+| 开盘          | float64      |  -     |
+| 收盘          | float64      | -     |
+| 最高           | float64      | -     |
+| 最低         | float64      |  -     |
 | 涨跌幅        | float64      |  注意单位: %     |
-| 涨跌额        | float64      |  注意单位: 港元     |
-| 成交量        | float64      |  注意单位: 股     |
-| 成交额        | float64      |  注意单位: 港元     |
+| 涨跌额        | float64      |  -     |
+| 成交量        | float64      |  注意单位: 手     |
+| 成交额        | float64      |  -     |
 | 振幅        | float64      |  注意单位: %     |
 | 换手率        | float64      |  注意单位: %     |
 
