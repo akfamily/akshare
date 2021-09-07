@@ -156,7 +156,7 @@ def _code_id_map() -> dict:
 
 def stock_zh_a_hist(
         symbol: str = "000001",
-        period: str = '日线',
+        period: str = 'daily',
         start_date: str = "19700101",
         end_date: str = "22220101",
         adjust: str = "",
@@ -166,7 +166,7 @@ def stock_zh_a_hist(
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
-    :param period: choice of {'日线', '周线', '月线'}
+    :param period: choice of {'daily', 'weekly', 'monthly'}
     :type period: str
     :param start_date: 开始日期
     :type start_date: str
@@ -179,7 +179,7 @@ def stock_zh_a_hist(
     """
     code_id_dict = _code_id_map()
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
-    period_dict = {'日线': '101', '周线': '102', '月线': '103'}
+    period_dict = {'daily': '101', 'weekly': '102', 'monthly': '103'}
     url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6",
@@ -840,7 +840,7 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="000001", period='月线', start_date="20101010", end_date="20210812", adjust="hfq"
+        symbol="000001", period='monthly', start_date="20101010", end_date="20210812", adjust="hfq"
     )
     print(stock_zh_a_hist_df)
 
@@ -858,3 +858,6 @@ if __name__ == "__main__":
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
     print(stock_zh_a_hist_min_em_df)
+
+    stock_zh_a_hist_df = stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="")
+    print(stock_zh_a_hist_df)
