@@ -5,7 +5,7 @@ numpy>=1.17.2
 pandas>=0.25
 requests>=2.22.0
 urllib3==1.25.8
-demjson>=2.2.4
+demjson
 pillow>=6.2.1
 pypinyin>=0.35.0
 websocket-client>=0.56.0
