@@ -53,7 +53,7 @@ version = get_version_string()
 templates_path = ['_templates']
 
 # The full version, including alpha/beta/rc tags
-release = '1.0.0'
+release = get_version_string()
 
 # -- General configuration ---------------------------------------------------
 
