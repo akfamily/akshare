@@ -381,7 +381,7 @@ def bond_zh_cov_info(symbol: str = "123121") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sz123111")
+    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sz123124")
     print(bond_zh_hs_cov_daily_df)
 
     bond_zh_hs_cov_spot_df = bond_zh_hs_cov_spot()

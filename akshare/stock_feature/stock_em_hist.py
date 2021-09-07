@@ -156,6 +156,7 @@ def _code_id_map() -> dict:
 
 def stock_zh_a_hist(
         symbol: str = "000001",
+        period: str = '日线',
         start_date: str = "19700101",
         end_date: str = "22220101",
         adjust: str = "",
@@ -165,6 +166,8 @@ def stock_zh_a_hist(
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
+    :param period: choice of {'日线', '周线', '月线'}
+    :type period: str
     :param start_date: 开始日期
     :type start_date: str
     :param end_date: 结束日期
@@ -176,12 +179,13 @@ def stock_zh_a_hist(
     """
     code_id_dict = _code_id_map()
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
+    period_dict = {'日线': '101', '周线': '102', '月线': '103'}
     url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
-        "klt": "101",
+        "klt": period_dict[period],
         "fqt": adjust_dict[adjust],
         "secid": f"{code_id_dict[symbol]}.{symbol}",
         "beg": "0",
@@ -836,7 +840,7 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="000001", start_date="20101010", end_date="20210812", adjust="hfq"
+        symbol="000001", period='月线', start_date="20101010", end_date="20210812", adjust="hfq"
     )
     print(stock_zh_a_hist_df)
 

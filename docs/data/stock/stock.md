@@ -304,13 +304,14 @@ print(stock_zh_a_spot_df)
 
 描述: 东方财富-A 股日频率数据; 历史数据按日频率更新, 当日收盘价请在收盘后获取
 
-限量: 单次返回指定 A 股上市公司指定日期间的历史行情日频率数据
+限量: 单次返回指定 A 股上市公司、指定周期和指定日期间的历史行情日频率数据
 
 输入参数
 
 | 名称   | 类型 |  描述    |
 | -------- | ---- |  --- |
 | symbol | str  |symbol='603777'; 股票代码可以在 **ak.stock_zh_a_spot_em()** 中获取|
+| period | str  | period='日线'; choice of {'日线', '周线', '月线'}|
 | start_date | str  | start_date='20210301'; 开始查询的日期|
 | end_date | str  | end_date='20210616'; 结束查询的日期|
 | adjust | str  | 默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据|
@@ -356,7 +357,7 @@ print(stock_zh_a_spot_df)
 
 ```python
 import akshare as ak
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="603777", start_date="20210301", end_date='20210616')
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="603777", period="日线", start_date="20210301", end_date='20210616')
 print(stock_zh_a_hist_df)
 ```
 
@@ -381,7 +382,7 @@ print(stock_zh_a_hist_df)
 
 ```python
 import akshare as ak
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="603777", start_date="20210301", end_date='20210616', adjust="qfq")
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="603777", period="日线", start_date="20210301", end_date='20210616', adjust="qfq")
 print(stock_zh_a_hist_df)
 ```
 
@@ -406,7 +407,7 @@ print(stock_zh_a_hist_df)
 
 ```python
 import akshare as ak
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="603777", start_date="20210301", end_date='20210616', adjust="hfq")
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="603777", period="日线", start_date="20210301", end_date='20210616', adjust="hfq")
 print(stock_zh_a_hist_df)
 ```
 
@@ -692,7 +693,7 @@ print(stock_zh_a_minute_df)
 
 描述: 东方财富网-行情首页-上证 A 股-每日分时行情
 
-限量: 单次返回指定股票指定频率和时间区间的分时数据, 其中 1 分钟数据只返回近 5 个交易日数据且不复权
+限量: 单次返回指定股票、指定频率、复权调整和时间区间的分时数据, 其中 1 分钟数据只返回近 5 个交易日数据且不复权
 
 输入参数
 
