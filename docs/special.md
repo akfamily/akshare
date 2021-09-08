@@ -8,8 +8,6 @@
 
 感谢[奇货可查网站](https://qhkch.com)提供的相关数据;
 
-感谢[智道智科网站](https://www.ziasset.com)提供的相关数据;
-
 感谢[中国银行间市场交易商协会网站](http://www.nafmii.org.cn)提供的相关数据;
 
 感谢[99期货网站](http://www.99qh.com)提供的相关数据;
@@ -62,11 +60,9 @@
 
 感谢[财富网站](http://www.fortunechina.com)提供财富企业世界500强数据;
 
-感谢[中国证券投资基金业协会](http://gs.amac.org.cn)提供私募基金数据;
+感谢[中国证券投资基金业协会网站](http://gs.amac.org.cn)提供私募基金数据;
 
 感谢[微信公众号: Python大咖谈](https://docs.akshare.top)提供的 Pandas 教程;
-
-感谢[猫眼电影网站](https://maoyan.com)提供的实时票房数据;
 
 感谢[Expatistan网站](https://www.expatistan.com)提供的世界各大城市生活成本数据;
 
@@ -84,13 +80,11 @@
 
 感谢[163 网站](https://news.163.com)提供的相关数据;
 
-感谢[丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0)提供的相关数据;
+感谢[丁香园网站](http://3g.dxy.cn)提供的相关数据;
 
-感谢[百度网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1)提供的相关数据;
+感谢[百度网站](https://voice.baidu.com)提供的相关数据;
 
-感谢[百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0)提供的相关数据;
-
-感谢[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message)提供的相关数据;
+感谢[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip)相关数据;
 
 感谢[新型肺炎-小区查询](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
 
@@ -100,13 +94,11 @@
 
 感谢[思知网站](https://www.ownthink.com/)提供的相关数据;
 
-感谢[Currencyscoop 网站](https://currencyscoop.com/)提供的相关数据;
+感谢[Currencyscoop 网站](https://currencyscoop.com)提供的相关数据;
 
 感谢[新加坡交易所](https://www.sgx.com/zh-hans/research-education/derivatives)提供的相关数据;
 
 感谢[中国期货市场监控中心](http://index.cfmmc.com/index/views/index.html)提供的相关数据;
-
-感谢[宽客在线](https://www.quantinfo.com/Argus/)提供的相关数据;
 
 ## 交流
 
