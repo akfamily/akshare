@@ -117,7 +117,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
 
 
 def stock_zh_a_daily(
-    symbol: str = "sz000001",
+    symbol: str = "sh603843",
     start_date: str = "19900101",
     end_date: str = "21000118",
     adjust: str = "",
@@ -198,7 +198,7 @@ def stock_zh_a_daily(
     ]
     if adjust == "":
         temp_df = temp_df[start_date:end_date]
-        temp_df.drop_duplicates(subset=["open", "high", "low", "close"], inplace=True)
+        temp_df.drop_duplicates(subset=["open", "high", "low", "close", "volume"], inplace=True)
         temp_df["open"] = round(temp_df["open"], 2)
         temp_df["high"] = round(temp_df["high"], 2)
         temp_df["low"] = round(temp_df["low"], 2)
@@ -372,7 +372,7 @@ def stock_zh_a_minute(
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="sz000002", start_date="20171103", end_date="20201104", adjust="qfq")
+    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="sh603843", start_date="20171103", end_date="20210908", adjust="")
     print(stock_zh_a_daily_hfq_df_one)
 
     stock_zh_a_daily_hfq_df_three = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118", adjust="qfq")

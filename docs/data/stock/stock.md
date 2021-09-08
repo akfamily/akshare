@@ -430,7 +430,9 @@ print(stock_zh_a_hist_df)
 
 ##### 日频率-新浪
 
-接口: stock_zh_a_daily; 建议切换为 stock_zh_a_hist 接口使用(该接口数据质量高, 访问无限制)
+接口: stock_zh_a_daily
+
+P.S. 建议切换为 stock_zh_a_hist 接口使用(该接口数据质量高, 访问无限制)
 
 目标地址: https://finance.sina.com.cn/realstock/company/sh600006/nc.shtml(示例)
 
