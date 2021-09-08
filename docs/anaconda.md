@@ -3,8 +3,7 @@
 ## Anaconda 安装说明
 
 Anaconda 是集成上千个常用库的 Python 发行版本, 通过安装 Anaconda 能简化环境管理工作, 非常推荐使用. 
-作者建议根据您计算机的操作系统选择相应版本的安装包, 国内用户可以点击链接访问 [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/) 来
-加速下载最新的 64 位安装包.
+作者建议根据您计算机的操作系统选择相应版本的安装包, 国内用户可以点击链接访问 [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/) 来加速下载最新的 64 位安装包.
 国外用户可以访问 [Anaconda 官网](https://www.anaconda.com/products/individual) 下载最新的 64 位安装包.
 
 ## Anaconda 安装演示

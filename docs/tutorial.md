@@ -856,6 +856,8 @@
  "stock_us_hist_min_em"  # 东财-美股分时数据
  # 可转债详情
  "bond_zh_cov_info"  # 东财-可转债详情
+ # 风险警示板
+ "stock_zh_a_st_em"  # 风险警示板
 ```
 
 ## 案例演示
