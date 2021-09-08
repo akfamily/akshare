@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/10/10 16:36
+Date: 2021/9/8 18:36
 Desc: 行情中心-沪深股市-次新股
 http://vip.stock.finance.sina.com.cn/mkt/#new_stock
 """
@@ -53,6 +53,9 @@ def stock_zh_a_new() -> pd.DataFrame:
             "turnoverratio",
         ]
     ]
+    big_df['open'] = pd.to_numeric(big_df['open'])
+    big_df['high'] = pd.to_numeric(big_df['high'])
+    big_df['low'] = pd.to_numeric(big_df['low'])
     return big_df
 
 
