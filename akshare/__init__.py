@@ -1514,9 +1514,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.93: fix: fix stock_hk_hist_min_em interface
 1.0.94: fix: fix stock_zh_a_new interface
 1.0.95: fix: fix stock_zh_a_daily interface
+1.0.96: add: add stock_zh_a_st_em interface
 """
 
-__version__ = "1.0.95"
+__version__ = "1.0.96"
 __author__ = "Albert King"
 
 import sys
@@ -1535,7 +1536,11 @@ from akshare.reits.reits_basic import reits_info_jsl, reits_realtime_em
 """
 鸡蛋价格数据
 """
-from akshare.futures_derivative.futures_egg import futures_egg_price_yearly, futures_egg_price_area, futures_egg_price
+from akshare.futures_derivative.futures_egg import (
+    futures_egg_price_yearly,
+    futures_egg_price_area,
+    futures_egg_price,
+)
 
 """
 全部 A 股-等权重市盈率、中位数市盈率
@@ -2062,9 +2067,14 @@ from akshare.futures.futures_comex import futures_comex_inventory
 from akshare.bond.bond_futures import bond_futures_deliverable_coupons
 
 """
-A 股-次新股
+A 股-特别标的
 """
-from akshare.stock.stock_zh_a_new import stock_zh_a_new
+from akshare.stock.stock_zh_a_special import (
+    stock_zh_a_new,
+    stock_zh_a_st_em,
+    stock_zh_a_new_em,
+    stock_zh_a_stop_em,
+)
 
 """
 东方财富-注册制审核
