@@ -440,16 +440,116 @@ def index_investing_global(
     df_data["交易量"] = df_data["交易量"].astype(float)
     df_data = df_data[["收盘", "开盘", "高", "低", "交易量"]]
     df_data = df_data.astype(float)
+    df_data.sort_index(inplace=True)
+    df_data.reset_index(inplace=True)
+    df_data['日期'] = pd.to_datetime(df_data['日期']).dt.date
+    return df_data
+
+
+def index_investing_global_from_url(
+    url: str = "https://www.investing.com/indices/ftse-epra-nareit-eurozone",
+    period: str = "每日",
+    start_date: str = "20000101",
+    end_date: str = "20210909",
+) -> pd.DataFrame:
+    """
+    获得具体指数的从 start_date 到 end_date 期间的数据
+    https://www.investing.com/indices/ftse-epra-nareit-eurozone
+    :param url: 具体数据链接
+    :type url: str
+    :param period: choice of {"每日", "每周", "每月"}
+    :type period: str
+    :param start_date: '2000-01-01', 注意格式
+    :type start_date: str
+    :param end_date: '2019-10-17', 注意格式
+    :type end_date: str
+    :return: 指定参数的数据
+    :rtype: pandas.DataFrame
+    """
+    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
+    period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
+    url_name = url.split("/")[-1]
+    temp_url = f"https://cn.investing.com/indices/{url_name}-historical-data"
+    res = requests.post(temp_url, headers=short_headers)
+    soup = BeautifulSoup(res.text, "lxml")
+    title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
+    res = requests.post(temp_url, headers=short_headers)
+    soup = BeautifulSoup(res.text, "lxml")
+    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
+    para_data = re.findall(r"\d+", data)
+    payload = {
+        "curr_id": para_data[0],
+        "smlID": para_data[1],
+        "header": title,
+        "st_date": start_date,
+        "end_date": end_date,
+        "interval_sec": period_map[period],
+        "sort_col": "date",
+        "sort_ord": "DESC",
+        "action": "historical_data",
+    }
+    url = "https://cn.investing.com/instruments/HistoricalDataAjax"
+    res = requests.post(url, data=payload, headers=long_headers)
+    df_data = pd.read_html(res.text)[0]
+    if period == "每月":
+        df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月")
+    else:
+        df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
+    if any(df_data["交易量"].astype(str).str.contains("-")):
+        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
+            df_data["交易量"].str.contains("-")
+        ].replace("-", 0)
+    if any(df_data["交易量"].astype(str).str.contains("B")):
+        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = (
+            df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
+            .str.replace("B", "")
+            .str.replace(",", "")
+            .astype(float)
+            * 1000000000
+        )
+    if any(df_data["交易量"].astype(str).str.contains("M")):
+        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = (
+            df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
+            .str.replace("M", "")
+            .str.replace(",", "")
+            .astype(float)
+            * 1000000
+        )
+    if any(df_data["交易量"].astype(str).str.contains("K")):
+        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = (
+            df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
+            .str.replace("K", "")
+            .str.replace(",", "")
+            .astype(float)
+            * 1000
+        )
+    df_data["交易量"] = df_data["交易量"].astype(float)
+    df_data = df_data[["收盘", "开盘", "高", "低", "交易量"]]
+    df_data = df_data.astype(float)
+    df_data.sort_index(inplace=True)
+    df_data.reset_index(inplace=True)
+    df_data['日期'] = pd.to_datetime(df_data['日期']).dt.date
     return df_data
 
 
 if __name__ == "__main__":
-    index_investing_global_country_name_url_dict = index_investing_global_country_name_url("中国")
+    index_investing_global_from_url_df = index_investing_global_from_url(
+        url="https://www.investing.com/indices/ftse-epra-nareit-hong-kong",
+        period="每日",
+        start_date="19900101",
+        end_date="20210909",
+    )
+    print(index_investing_global_from_url_df)
+
+    index_investing_global_country_name_url_dict = (
+        index_investing_global_country_name_url("中国")
+    )
     index_investing_global_df = index_investing_global(
         country="中国",
         index_name="富时中国A50指数",
         period="每日",
-        start_date="20200101",
-        end_date="20210509",
+        start_date="20000101",
+        end_date="20210909",
     )
     print(index_investing_global_df)

@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def reits_realtime_em():
+def reits_realtime_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-REITs-沪深 REITs
     http://quote.eastmoney.com/center/gridlist.html#fund_reits_all
@@ -74,7 +74,7 @@ def reits_realtime_em():
     return temp_df
 
 
-def reits_info_jsl():
+def reits_info_jsl() -> pd.DataFrame:
     """
     集思录-实时数据-REITs-A股 REITs
     https://www.jisilu.cn/data/cnreits/#CnReits
