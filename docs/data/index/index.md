@@ -1351,49 +1351,103 @@ print(index_cni_detail_hist_adjust_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| country | str  | Y    |   country="美国"|
-| index_name | str  | Y    |  index_name="美元指数"; 可以通过 ak.index_investing_global_country_name_url("美国") 获取|
-| period | str  | Y    |  period="每月"; choice of {"每日", "每周", "每月"}|
-| start_date | str  | Y    |  start_date='20000101'|
-| end_date | str  | Y    |  end_date='20191017'|
+| 名称   | 类型 | 描述    |
+| -------- | ---- | --- |
+| country | str  |    country="美国"|
+| index_name | str  |  index_name="美元指数"; 可以通过 ak.index_investing_global_country_name_url("美国") 获取|
+| period | str  |  period="每月"; choice of {"每日", "每周", "每月"}|
+| start_date | str  |   start_date='20000101'|
+| end_date | str  |  end_date='20191017'|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 收盘      | float   | Y        | 收盘   |
-| 开盘      | float   | Y        | 开盘        |
-| 高        | float   | Y        |高    |
-| 低         | float | Y        | 低         |
-| 交易量      | float | Y        | 交易量      |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 日期      | object   |  日期  |
+| 收盘      | float64   |  收盘价   |
+| 开盘      | float64   | 开盘价        |
+| 高        | float64   | 最高价    |
+| 低         | float64 |  最低价         |
+| 交易量      | float64 |  交易量      |
 
 接口示例
 
 ```python
 import akshare as ak
-index_investing_global_df = ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="20050101", end_date="20200605")
+index_investing_global_df = ak.index_investing_global(country="中国", index_name="富时中国A50指数", period="每日", start_date="20000101", end_date="20210909")
 print(index_investing_global_df)
 ```
 
 数据示例
 
 ```
-               收盘     开盘      高      低  交易量
-日期                                         
-2020-06-01  24.30  28.90  30.60  23.60  0.0
-2020-05-01  27.51  38.17  40.32  25.92  0.0
-2020-04-01  34.15  57.38  60.59  30.54  0.0
-2020-03-01  53.54  34.86  85.47  24.93  0.0
-2020-02-01  40.11  18.64  49.48  13.38  0.0
-           ...    ...    ...    ...  ...
-2005-05-01  13.29  15.45  17.70  11.65  0.0
-2005-04-01  15.31  13.64  18.59  11.20  0.0
-2005-03-01  14.02  11.95  14.89  11.66  0.0
-2005-02-01  12.08  12.80  13.20  10.90  0.0
-2005-01-01  12.82  13.39  14.75  12.29  0.0
+       日期        收盘        开盘         高         低  交易量
+0     2010-05-19   9047.81   9106.26   9191.26   8929.31  0.0
+1     2010-05-20   8924.33   9047.81   9143.00   8905.52  0.0
+2     2010-05-21   9026.51   8924.33   9030.58   8686.36  0.0
+3     2010-05-24   9317.78   9026.51   9375.71   9026.51  0.0
+4     2010-05-25   9077.53   9317.78   9317.78   9050.91  0.0
+          ...       ...       ...       ...       ...  ...
+2783  2021-09-03  15136.65  15093.72  15247.63  14902.02  0.0
+2784  2021-09-06  15388.35  15136.65  15462.80  15087.18  0.0
+2785  2021-09-07  15544.89  15388.35  15600.47  15283.45  0.0
+2786  2021-09-08  15397.64  15544.89  15589.33  15347.35  0.0
+2787  2021-09-09  15366.34  15397.64  15402.02  15256.98  0.0
+```
+
+### 全球指数数据-URL版
+
+接口: index_investing_global_from_url
+
+目标地址: https://www.investing.com/indices/ftse-epra-nareit-eurozone
+
+描述: 世界主要国家的各种指数, 该接口需要通过代理访问; 该接口只需要输入相应指数的 URL 地址
+
+限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
+
+输入参数
+
+| 名称   | 类型 | 描述    |
+| -------- | ---- | --- |
+| url | str  |    url="https://www.investing.com/indices/ftse-epra-nareit-eurozone"; 具体指数的页面 URL 地址|
+| period | str  |  period="每月"; choice of {"每日", "每周", "每月"}|
+| start_date | str  |   start_date='20000101'|
+| end_date | str  |  end_date='20191017'|
+
+输出参数
+
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 日期      | object   |  日期  |
+| 收盘      | float64   |  收盘价   |
+| 开盘      | float64   | 开盘价        |
+| 高        | float64   | 最高价    |
+| 低         | float64 |  最低价         |
+| 交易量      | float64 |  交易量      |
+
+接口示例
+
+```python
+import akshare as ak
+index_investing_global_df = ak.index_investing_global_from_url(url="https://www.investing.com/indices/ftse-epra-nareit-hong-kong", period="每日", start_date="19900101", end_date="20210909")
+print(index_investing_global_df)
+```
+
+数据示例
+
+```
+       日期       收盘       开盘        高        低  交易量
+0     2010-05-18  1601.97  1582.11  1605.89  1571.07  0.0
+1     2010-05-19  1577.06  1583.19  1594.69  1569.45  0.0
+2     2010-05-20  1568.02  1585.58  1585.65  1541.22  0.0
+3     2010-05-21  1565.46  1564.88  1565.74  1562.59  0.0
+4     2010-05-24  1611.90  1555.62  1615.30  1555.62  0.0
+          ...      ...      ...      ...      ...  ...
+2959  2021-09-03  1803.02  1813.51  1819.92  1767.47  0.0
+2960  2021-09-06  1792.55  1797.30  1799.81  1790.49  0.0
+2961  2021-09-07  1798.50  1797.41  1802.65  1790.11  0.0
+2962  2021-09-08  1799.42  1793.50  1806.87  1793.24  0.0
+2963  2021-09-09  1803.44  1794.91  1819.65  1794.91  0.0
 ```
 
 ### 微博指数数据
@@ -1402,11 +1456,11 @@ print(index_investing_global_df)
 
 目标地址: https://data.weibo.com/index/newindex
 
-描述: 获取指定 **词语** 的微博指数
+描述: 获取指定 **word** 的微博指数
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
+| 名称   | 类型 | 必选 | 描述  |
 | -------- | ---- | ---- | --- |
 | word | str  | Y    |   word="股票"|
 | time_type | str  | Y    |  time_type="1hour"; 1hour, 1day, 1month, 3month 选其一|
@@ -1422,8 +1476,8 @@ print(index_investing_global_df)
 
 ```python
 import akshare as ak
-df_index = ak.weibo_index(word="期货", time_type="3month")
-print(df_index)
+weibo_index_df = ak.weibo_index(word="期货", time_type="3month")
+print(weibo_index_df)
 ```
 
 数据示例

@@ -12,7 +12,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def futures_egg_price_yearly():
+def futures_egg_price_yearly() -> pd.DataFrame:
     """
     各年度产区鸡蛋价格走势
     https://www.jidan7.com/trend/
@@ -58,7 +58,7 @@ def futures_egg_price_yearly():
     return temp_df
 
 
-def futures_egg_price():
+def futures_egg_price() -> pd.DataFrame:
     """
     2015-2021年鸡蛋价格走势
     https://www.jidan7.com/trend/
@@ -89,7 +89,7 @@ def futures_egg_price():
     return temp_df
 
 
-def futures_egg_price_area():
+def futures_egg_price_area() -> pd.DataFrame:
     """
     各主产区鸡蛋均价
     https://www.jidan7.com/trend/
