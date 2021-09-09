@@ -1516,9 +1516,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.95: fix: fix stock_zh_a_daily interface
 1.0.96: add: add stock_zh_a_st_em interface
 1.0.97: fix: fix futures_spot_stock interface
+1.0.98: add: add stock_zh_a_new_em interface
 """
 
-__version__ = "1.0.97"
+__version__ = "1.0.98"
 __author__ = "Albert King"
 
 import sys
