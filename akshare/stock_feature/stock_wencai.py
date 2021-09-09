@@ -84,7 +84,10 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
     try:
         rank_date_str = temp_df.columns[1].split("[")[1].strip("]")
     except:
-        rank_date_str = temp_df.columns[2].split("[")[1].strip("]")
+        try:
+            rank_date_str = temp_df.columns[2].split("[")[1].strip("]")
+        except:
+            rank_date_str = date
     temp_df.rename(
         columns={
             "index": "序号",
