@@ -859,6 +859,8 @@
  "bond_zh_cov_info"  # 东财-可转债详情
  # 风险警示板
  "stock_zh_a_st_em"  # 风险警示板
+ # 美股-粉单市场
+ "stock_us_pink_spot_em"  # 美股-粉单市场
 ```
 
 ## 案例演示

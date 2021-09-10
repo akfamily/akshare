@@ -1519,9 +1519,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.98: add: add stock_zh_a_new_em interface
 1.0.99: fix: fix stock_wc_hot_rank interface
 1.1.1: add: add index_investing_global_from_url interface
+1.1.2: add: add stock_us_pink_spot_em interface
 """
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 __author__ = "Albert King"
 
 import sys
@@ -1531,6 +1532,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+美股-粉单市场
+"""
+from akshare.stock.stock_us_pink import stock_us_pink_spot_em
 
 """
 REITs
