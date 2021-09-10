@@ -861,6 +861,8 @@
  "stock_zh_a_st_em"  # 风险警示板
  # 美股-粉单市场
  "stock_us_pink_spot_em"  # 美股-粉单市场
+ # 美股-知名美股
+ "stock_us_famous_spot_em"  # 美股-知名美股
 ```
 
 ## 案例演示
