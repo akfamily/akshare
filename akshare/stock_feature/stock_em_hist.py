@@ -753,6 +753,15 @@ def stock_us_spot_em() -> pd.DataFrame:
             "代码",
         ]
     ]
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
+    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
+    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
+    temp_df["昨收价"] = pd.to_numeric(temp_df["昨收价"], errors="coerce")
+    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
+    temp_df["市盈率"] = pd.to_numeric(temp_df["市盈率"], errors="coerce")
     return temp_df
 
 

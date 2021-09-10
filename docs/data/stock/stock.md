@@ -1779,7 +1779,7 @@ print(stock_zh_ah_name_dict)
 
 目标地址: http://quote.eastmoney.com/center/gridlist.html#us_stocks
 
-描述: 获取所有美股实时行情数据, 从东方财富获取且数据有 15 分钟延迟
+描述: 美股实时行情数据, 从东方财富获取且数据有 15 分钟延迟
 
 限量: 单次返回美股所有上市公司的实时行情数据
 
@@ -2182,6 +2182,7 @@ print(stock_us_fundamental_df)
 ```
 
 数据示例
+
 ```
           date  stock_price book_value_per_share  price_to_book_ratio
 0   2020-08-21      1575.57                  NaN                 5.18
@@ -2195,6 +2196,64 @@ print(stock_us_fundamental_df)
 56  2006-09-30       201.57               $23.66                 8.52
 57  2006-06-30       210.31               $22.07                 9.53
 58  2006-03-31       195.60               $17.36                11.27
+```
+
+#### 粉单市场
+
+接口: stock_us_pink_spot_em
+
+目标地址: http://quote.eastmoney.com/center/gridlist.html#us_pinksheet
+
+描述: 美股粉单市场的实时行情数据
+
+限量: 单次返回指定所有粉单市场的行情数据
+
+输入参数
+
+| 名称   | 类型 | 描述   |
+| -------- | ---- |  --- |
+| - | - |  - |
+
+输出参数
+
+| 名称          | 类型 |  描述           |
+| ------------ | ----- |  ---------------- |
+| 序号          | int32   |  -     |
+| 名称          | object   | -     |
+| 最新价          | object   |  注意单位: 美元     |
+| 涨跌额          | object   | 注意单位: 美元     |
+| 涨跌幅          | object   |  注意单位: %     |
+| 开盘价          | object   |  注意单位: 美元     |
+| 最高价          | object   |  注意单位: 美元     |
+| 最低价          | object   | 注意单位: 美元     |
+| 昨收价          | object   |注意单位: 美元    |
+| 总市值          | object   |  注意单位: 美元     |
+| 市盈率          | object   | -    |
+| 代码          | object   |  注意: 用来获取历史数据的代码     |
+
+接口示例
+
+```python
+import akshare as ak
+stock_us_pink_spot_em_df = ak.stock_us_pink_spot_em()
+print(stock_us_pink_spot_em_df)
+```
+
+数据示例
+
+```
+      序号           名称                    最新价  ...  总市值  市盈率  代码
+0      1           LiNiu Technology Group  0.0189  ...  NaN  NaN  153.LINUF
+1      2              NOBILIS HEALTH CORP  0.0016  ...  NaN  NaN  153.NRTSF
+2      3                  Yuma Energy Inc  0.0999  ...  NaN  NaN  153.YUMAQ
+3      4                      HHGregg Inc  0.0120  ...  NaN  NaN  153.HGGGQ
+4      5  Helios and Matheson Analytics I  0.0010  ...  NaN  NaN   153.HMNY
+..   ...                              ...     ...  ...  ...  ...        ...
+215  216              root9B Holdings Inc  0.0100  ...  NaN  NaN   153.RTNB
+216  217       Immune Pharmaceuticals Inc  0.0012  ...  NaN  NaN  153.IMNPQ
+217  218                       JRjr33 Inc  0.0005  ...  NaN  NaN  153.JRJRQ
+218  219         Mad Catz Interactive Inc  0.0001  ...  NaN  NaN  153.MCZAF
+219  220         Taronis Technologies Inc  0.0010  ...  NaN  NaN   153.TRNX
 ```
 
 ### 港股
