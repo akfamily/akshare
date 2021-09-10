@@ -1580,31 +1580,31 @@ print(covid_19_trace_df)
 
 目标地址: https://github.com/norratek/Ncov2020HistoryData
 
-描述: 获取 **COVID-19** 数据，统计数据细化到地市
+描述: 获取 **COVID-19** 数据, 统计数据细化到地市, 该接口需要通过代理访问
 
 限量: 单次返回指定 **city** 的所有数据
 
 输入参数-covid_19_hist_city
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| city | str | Y | city="武汉市" |
+| 名称   | 类型 |  描述      |
+| -------- | ---- |  --- |
+| city | str | city="武汉市" |
 
 输出参数-covid_19_hist_city
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date | str | Y | 时间（天） |
-| country | str | Y | 国家 |
-| countryCode | float | Y | 国家代码 |
-| province | float | Y | 省 |
-| provinceCode | float | Y | 省代码 |
-| city | float | Y | 市 |
-| cityCode | float | Y | 市代码 |
-| confirmed | str | Y | 确诊人数 |
-| suspected | str | Y | 疑似人数 |
-| cured | str | Y | 治愈人数 |
-| dead | str | Y | 死亡人数 |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| date | str |  时间（天） |
+| country | str |  国家 |
+| countryCode | float | 国家代码 |
+| province | float |  省 |
+| provinceCode | float |  省代码 |
+| city | float |  市 |
+| cityCode | float |  市代码 |
+| confirmed | str |  确诊人数 |
+| suspected | str |  疑似人数 |
+| cured | str | 治愈人数 |
+| dead | str |  死亡人数 |
 			
 接口示例-covid_19_hist_city
 
