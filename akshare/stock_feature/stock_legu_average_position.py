@@ -1,19 +1,19 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2021/5/16 18:25
-Desc: 平均持仓
+Date: 2021/9/11 22:25
+Desc: 乐咕乐股网-调查平均持仓数据
 https://www.legulegu.com/stockdata/averageposition
 """
 import pandas as pd
 import requests
 
 
-def stock_legu_average_position():
+def stock_average_position_legu() -> pd.DataFrame:
     """
-    平均持仓
+    乐咕乐股网-调查平均持仓数据
     https://www.legulegu.com/stockdata/averageposition
-    :return: 赚钱效应分析
+    :return: 调查平均持仓数据
     :rtype: pandas.DataFrame
     """
     url = "https://www.legulegu.com/stockdata/averageposition/getaverageposition"
@@ -51,5 +51,5 @@ def stock_legu_average_position():
 
 
 if __name__ == "__main__":
-    stock_legu_average_position_df = stock_legu_average_position()
-    print(stock_legu_average_position_df)
+    stock_average_position_legu_df = stock_average_position_legu()
+    print(stock_average_position_legu_df)

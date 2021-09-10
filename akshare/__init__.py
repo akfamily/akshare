@@ -1338,7 +1338,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.16: add: add index_eri interface
 0.9.17: fix: fix futures_global_commodity_hist interface
 0.9.18: fix: fix stock_em_dxsyl interface
-0.9.19: add: add stock_legu_market_activity interface
+0.9.19: add: add stock_market_activity_legu interface
 0.9.20: fix: fix stock_individual_fund_flow_rank interface
 0.9.21: add: add index_cflp_price interface
 0.9.22: add: add index_cflp_volume interface
@@ -1347,7 +1347,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.25: add: add car_gasgoo_sale_rank interface
 0.9.26: fix: fix stock_hk_daily interface
 0.9.27: fix: fix stock_report_fund_hold interface
-0.9.28: add: add stock_legu_average_position interface
+0.9.28: add: add stock_average_position_legu interface
 0.9.29: add: add stock_em_qbzf interface
 0.9.30: add: add stock_em_pg interface
 0.9.31: fix: fix index_investing_global interface
@@ -1521,9 +1521,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.1: add: add index_investing_global_from_url interface
 1.1.2: add: add stock_us_pink_spot_em interface
 1.1.3: add: add stock_us_famous_spot_em interface
+1.1.4: fix: fix stock_average_position_legu interface
 """
 
-__version__ = "1.1.3"
+__version__ = "1.1.4"
 __author__ = "Albert King"
 
 import sys
@@ -1777,7 +1778,7 @@ from akshare.stock_feature.stock_zf_pg import stock_em_qbzf, stock_em_pg
 平均持仓
 """
 from akshare.stock_feature.stock_legu_average_position import (
-    stock_legu_average_position,
+    stock_average_position_legu,
 )
 
 """
@@ -1793,7 +1794,7 @@ from akshare.index.index_cflp import index_cflp_price, index_cflp_volume
 """
 赚钱效应分析
 """
-from akshare.stock_feature.stock_legu_market import stock_legu_market_activity
+from akshare.stock_feature.stock_legu_market import stock_market_activity_legu
 
 """
 浙江省排污权交易指数
