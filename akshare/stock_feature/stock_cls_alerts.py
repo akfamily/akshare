@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2021/6/1 14:51
-Desc: 财联社今日快讯
+Date: 2021/9/11 22:51
+Desc: 财联社-今日快讯
 https://www.cls.cn/searchPage?keyword=%E5%BF%AB%E8%AE%AF&type=all
 """
 import pandas as pd
@@ -11,17 +11,13 @@ import requests
 
 def stock_zh_a_alerts_cls() -> pd.DataFrame:
     """
-    财联社今日快讯
+    财联社-今日快讯
     https://www.cls.cn/searchPage?keyword=%E5%BF%AB%E8%AE%AF&type=all
-    :return: 财联社今日快讯
+    :return: 财联社-今日快讯
     :rtype: pandas.DataFrame
     """
     url = "https://www.cls.cn/api/sw"
-    params = {
-        'app': 'CailianpressWeb',
-        'os': 'web',
-        'sv': '7.5.5'
-    }
+    params = {"app": "CailianpressWeb", "os": "web", "sv": "7.5.5"}
     headers = {
         "Host": "www.cls.cn",
         "Connection": "keep-alive",
@@ -34,7 +30,7 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Dest": "empty",
         "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7"
+        "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
     }
     payload = {
         "type": "telegram",
@@ -47,17 +43,13 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
     }
     r = requests.post(url, headers=headers, params=params, json=payload)
     data_json = r.json()
-    data_json['data']['telegram']['total_num']
     temp_df = pd.DataFrame(data_json["data"]["telegram"]["data"])
     temp_df = temp_df[["descr", "time"]]
     temp_df["descr"] = temp_df["descr"].astype(str).str.replace("</em>", "")
     temp_df["descr"] = temp_df["descr"].str.replace("<em>", "")
     temp_df["time"] = pd.to_datetime(temp_df["time"], unit="s").dt.date
     temp_df.columns = ["快讯信息", "时间"]
-    temp_df = temp_df[[
-        "时间",
-        "快讯信息"
-    ]]
+    temp_df = temp_df[["时间", "快讯信息"]]
     return temp_df
 
 

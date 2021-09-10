@@ -712,7 +712,7 @@
  # 浙江省排污权交易指数
  "index_eri"  # 浙江省排污权交易指数
  # 赚钱效应分析
- "stock_legu_market_activity"  # 赚钱效应分析
+ "stock_market_activity_legu"  # 赚钱效应分析
  # 中国公路物流运价指数
  "index_cflp_price"  # 中国公路物流运价指数
  # 中国公路物流运量指数
@@ -721,7 +721,7 @@
  "car_gasgoo_sale_rank"  # 盖世汽车-汽车行业制造企业数据库-销量数据
  "car_cpca_energy_sale"  # 乘联会-新能源细分市场-整体市场
  # 平均持仓
- "stock_legu_average_position"  # 平均持仓
+ "stock_average_position_legu"  # 平均持仓
  # 增发
  "stock_em_qbzf"  # 增发
  # 配股

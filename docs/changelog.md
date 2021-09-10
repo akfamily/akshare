@@ -2087,7 +2087,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.18: fix: fix stock_em_dxsyl interface
 
-0.9.19: add: add stock_legu_market_activity interface
+0.9.19: add: add stock_market_activity_legu interface
 
 0.9.20: fix: fix stock_individual_fund_flow_rank interface
 
@@ -2105,7 +2105,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.27: fix: fix stock_report_fund_hold interface
 
-0.9.28: add: add stock_legu_average_position interface
+0.9.28: add: add stock_average_position_legu interface
 
 0.9.29: add: add stock_em_qbzf interface
 
@@ -2463,4 +2463,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.2: add: add stock_us_pink_spot_em interface
 
 1.1.3: add: add stock_us_famous_spot_em interface
+
+1.1.4: fix: fix stock_average_position_legu interface
 ```

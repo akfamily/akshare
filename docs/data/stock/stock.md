@@ -11568,11 +11568,11 @@ print(stock_em_zt_pool_dtgc_df)
 
 ### 赚钱效应分析
 
-接口: stock_legu_market_activity
+接口: stock_market_activity_legu
 
 目标地址: https://www.legulegu.com/stockdata/market-activity
 
-描述: 获取乐咕乐股网-赚钱效应分析数据
+描述: 乐咕乐股网-赚钱效应分析数据
 
 限量: 单次返回当前赚钱效应分析数据
 
@@ -11582,23 +11582,23 @@ print(stock_em_zt_pool_dtgc_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| - | - | -    | -|
+| 名称   | 类型 |  描述   |
+| -------- | ---- |  --- |
+| - | - |  -|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| item          | object   | Y        |  -    |
-| value          | object   | Y        |  -    |
+| 名称          | 类型 |  描述     |
+| ------------ | ----- |  ---------------- |
+| item          | object   |   -    |
+| value          | object   |   -    |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_legu_market_activity_df = ak.stock_legu_market_activity()
-print(stock_legu_market_activity_df)
+stock_market_activity_legu_df = ak.stock_market_activity_legu()
+print(stock_market_activity_legu_df)
 ```
 
 数据示例
@@ -11621,11 +11621,11 @@ print(stock_legu_market_activity_df)
 
 ### 调查平均持仓
 
-接口: stock_legu_average_position
+接口: stock_average_position_legu
 
 目标地址: https://www.legulegu.com/stockdata/averageposition
 
-描述: 获取乐咕乐股网-平均持仓数据
+描述: 乐咕乐股网-调查平均持仓数据; 该数据近期未更新
 
 限量: 单次返回所有平均持仓数据
 
@@ -11636,30 +11636,30 @@ print(stock_legu_market_activity_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| - | - | -    | -|
+| 名称   | 类型 |  描述   |
+| -------- | ---- |  --- |
+| - | - | -    |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 日期          | object   | Y        |  -    |
-| 上证指数          | float64   | Y        |  -    |
-| 满仓+融资          | int64   | Y        |  -    |
-| 80%~99%          | int64   | Y        |  -    |
-| 60%~79%          | int64   | Y        |  -    |
-| 40%~59%          | int64   | Y        |  -    |
-| 20%~39%          | int64   | Y        |  -    |
-| 0%~19%          | int64   | Y        |  -    |
-| 平均持仓         | int64   | Y        |  -    |
+| 名称          | 类型 |  描述           |
+| ------------ | ----- |  ---------------- |
+| 日期          | object   |   -    |
+| 上证指数          | float64   |   -    |
+| 满仓+融资          | int64   |   -    |
+| 80%~99%          | int64   |   -    |
+| 60%~79%          | int64   |  -    |
+| 40%~59%          | int64   |   -    |
+| 20%~39%          | int64   |   -    |
+| 0%~19%          | int64   |   -    |
+| 平均持仓         | int64   |   -    |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_legu_average_position_df = ak.stock_legu_average_position()
-print(stock_legu_average_position_df)
+stock_average_position_legu_df = ak.stock_average_position_legu()
+print(stock_average_position_legu_df)
 ```
 
 数据示例
@@ -11710,22 +11710,22 @@ print(stock_legu_average_position_df)
 
 目标地址：https://www.cls.cn/searchPage?keyword=%E5%BF%AB%E8%AE%AF&type=all
 
-描述：获取财联社快讯数据
+描述：财联社-快讯数据
 
-限量：单次返回财联社快讯数据前 10000 条
+限量：单次返回财联社-快讯最近的 10000 条数据
 
 输入参数
 
-| 名称 | 类型 | 必选 | 描述 |
-| ---- | ---- | ---- | ---- |
-| -    | -    | -    | -    |
+| 名称 | 类型 |  描述 |
+| ---- | ---- |  ---- |
+| -    | -    | -    |
 
 输出参数
 
-| 名称     | 类型           | 默认显示 | 描述 |
-| -------- | -------------- | -------- | ---- |
-| 时间     | object | Y        | -    |
-| 快讯信息 | object         | Y        | -    |
+| 名称     | 类型        | 描述 |
+| -------- | -------- |  ---- |
+| 时间     | object |  -    |
+| 快讯信息 | object  |  -    |
 
 
 接口示例：
@@ -11735,6 +11735,8 @@ import akshare as ak
 stock_zh_a_alerts_cls_df = ak.stock_zh_a_alerts_cls()
 print(stock_zh_a_alerts_cls_df)
 ```
+
+数据示例
 
 ```
               时间                                               快讯信息
