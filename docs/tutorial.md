@@ -46,6 +46,7 @@
  "get_bond_bank"  # 获取中国银行间市场交易商协会-债券数据
  # 提供英为财情数据接口
  "index_investing_global"  # 提供英为财情-股票指数-全球股指与期货指数数据
+ "index_investing_global_from_url"  # 提供英为财情-股票指数-全球股指与期货指数数据-URL版本
  "bond_investing_global"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
  # 交易所商品期权数据
  "option_dce_daily"  # 提供大连商品交易所商品期权数据
