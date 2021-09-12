@@ -3212,28 +3212,28 @@ print(futures_spot_stock_df)
 
 目标地址: http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 
-描述: 获取新浪财经-期货-分时数据
+描述: 新浪财经-期货-分时数据
 
 限量: 单次返回指定 symbol 和 period 的分时数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y | symbol="IF2008"; 具体合约, 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取 |
-| period | str | Y | period="1"; choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"} |
+| 名称   | 类型 | 描述       |
+| -------- | ---- | --- |
+| symbol | str | symbol="IF2008"; 具体合约, 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取 |
+| period | str |  period="1"; choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date      | str   | Y        | -  |
-| open      | float   | Y        | -  |
-| high      | float   | Y        |  - |
-| low      | float   | Y        | -  |
-| close      | float   | Y        |  - |
-| volume      | float   | Y        | -  |
-| hold      | float   | Y        | 持仓量  |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- | ---------------- |
+| datetime      | object   |  -  |
+| open      | float64   |  -  |
+| high      | float64   |   - |
+| low      | float64   |  -  |
+| close      | float64   |   - |
+| volume      | int64   |  -  |
+| hold      | int64   |  持仓量  |
 						
 接口示例
 
@@ -3246,7 +3246,7 @@ print(futures_zh_minute_sina_df)
 数据示例
 
 ```
-                     date     open     high      low    close volume   hold
+                datetime     open     high      low    close volume   hold
 0     2020-07-15 14:47:00  100.610  100.625  100.610  100.610     63  45082
 1     2020-07-15 14:48:00  100.610  100.615  100.595  100.605     45  45068
 2     2020-07-15 14:49:00  100.605  100.610  100.605  100.605     17  45068
@@ -3266,7 +3266,7 @@ print(futures_zh_minute_sina_df)
 
 目标地址: https://finance.sina.com.cn/futures/quotes/V2105.shtml
 
-描述: 获取新浪财经-期货-日频数据
+描述: 新浪财经-期货-日频数据
 
 限量: 单次返回指定 symbol 的所有日频数据
 
