@@ -863,6 +863,8 @@
  "stock_us_pink_spot_em"  # 美股-粉单市场
  # 美股-知名美股
  "stock_us_famous_spot_em"  # 美股-知名美股
+ # 股票-投资评级
+ "stock_rank_forecast_cninfo"  # 股票-投资评级
 ```
 
 ## 案例演示
