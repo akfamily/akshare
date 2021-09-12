@@ -1522,9 +1522,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.2: add: add stock_us_pink_spot_em interface
 1.1.3: add: add stock_us_famous_spot_em interface
 1.1.4: fix: fix stock_average_position_legu interface
+1.1.5: add: add stock_rank_forecast_cninfo interface
 """
 
-__version__ = "1.1.4"
+__version__ = "1.1.5"
 __author__ = "Albert King"
 
 import sys
@@ -1534,6 +1535,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+投资评级
+"""
+from akshare.stock.stock_rank_forecast import stock_rank_forecast_cninfo
 
 """
 美股-知名美股
