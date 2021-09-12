@@ -166,7 +166,7 @@ def stock_report_fund_hold_detail(symbol: str = "005827", date: str = "20201231"
 
 
 if __name__ == "__main__":
-    stock_report_fund_hold_df = stock_report_fund_hold(symbol="基金持仓", date="20210331")
+    stock_report_fund_hold_df = stock_report_fund_hold(symbol="基金持仓", date="20200630")
     print(stock_report_fund_hold_df)
 
     stock_report_fund_hold_df = stock_report_fund_hold(symbol="QFII持仓", date="20210331")
