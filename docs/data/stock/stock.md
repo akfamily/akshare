@@ -8498,32 +8498,26 @@ print(stock_industry_pe_ratio_cninfo_df)
 
 目标地址: https://www.ushknews.com/report.html
 
-描述: 获取美港电讯-美港目标价数据
+描述: 美港电讯-美港目标价数据
 
 限量: 单次获取所有数据, 数据从 2019-至今
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| category | str | Y    | category="us"; choice of {"us", "hk"}|
+| 名称   | 类型 |  描述   |
+| -------- | ---- | --- |
+| category | str | category="us"; choice of {"us", "hk"}|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| id          | float   | Y        |  -    |
-| indicator_id          | float   | Y        |  -    |
-| latest_rating          | str   | Y        |  -    |
-| previous_rating          | str   | Y        |  -    |
-| latest_target_price          | str   | Y        |  -    |
-| previous_target_price          | str   | Y        |  -    |
-| institution          | str   | Y        |  -    |
-| pub_time          | str   | Y        |  -    |
-| status          | float   | Y        |  -    |
-| name          | str   | Y        |  -    |
-| us          | float   | Y        |  -    |
-| hk          | float   | Y        |  -    |
+| 名称          | 类型 |  描述           |
+| ------------ | ----- |  ---------------- |
+| 日期          | object   |   -    |
+| 个股名称          | object   |   -    |
+| 评级          | object   |   -    |
+| 先前目标价          | float64   |   -    |
+| 最新目标价          | float64   |   -    |
+| 机构名称          | object   |   -    |
 
 接口示例
 
@@ -8536,18 +8530,18 @@ print(stock_js_price_df)
 数据示例
 
 ```
-        id  indicator_id latest_rating  ...            name    us hk
-0     9329          1185          None  ...      苹果（AAPL.O）     1  0
-1     9327          1216          None  ...       万事达(MA.N)     1  0
-2     9326          1232          None  ...  Paypal（PYPL.O）  1360  0
-3     9325          1197          None  ...       Visa（V.N）  1325  0
-4     9323          1258            减持  ...     特斯拉（TSLA.O）     1  0
-    ...           ...           ...  ...             ...   ... ..
-6400    14          1189            买入  ...     亚马逊（AMZN.O）     1  0
-6401    13          1185          跑赢大市  ...      苹果（AAPL.O）     1  0
-6402     3          1185          跑赢大市  ...      苹果（AAPL.O）     1  0
-6403    22          1191            中性  ...       强生(JNJ.N)  1319  0
-6404    12          1203            中性  ...       辉瑞(PFE.N)     1  0
+            日期                个股名称  ...         最新目标价              机构名称
+0      2021-09-14 00:00:00  Draftkings(DKNG.O)  ...   70.0    投行Craig-Hallum
+1      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   66.0                高盛
+2      2021-09-14 00:00:00          电子艺界(EA.O)  ...  179.0             德意志银行
+3      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   77.0            投行斯蒂费尔
+4      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   88.0  Societe Generale
+                    ...                 ...  ...    ...               ...
+35395  2019-01-02 00:00:00         亚马逊(AMZN.O)  ...    NaN           加拿大皇家银行
+35396  2019-01-02 00:00:00          苹果(AAPL.O)  ...  228.0              摩根大通
+35397  2019-01-02 00:00:00          苹果(AAPL.O)  ...  220.0           加拿大皇家银行
+35398  2019-01-01 16:00:00           强生(JNJ.N)  ...  148.0                花旗
+35399  2019-01-01 00:00:00           辉瑞(PFE.N)  ...   45.0              瑞士信贷
 ```
 
 #### 券商业绩月报
