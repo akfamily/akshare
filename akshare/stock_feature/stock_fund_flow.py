@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/4/25 15:13
+Date: 2021/9/16 19:13
 Desc: 同花顺-数据中心-资金流向
 同花顺-数据中心-资金流向-个股资金流
 http://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
@@ -18,6 +18,7 @@ import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
+from bs4 import BeautifulSoup
 
 
 def _get_js_path_ths(name: str = None, module_file: str = None) -> str:
@@ -59,6 +60,28 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     :return: 个股资金流
     :rtype: pandas.DataFrame
     """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call("v")
+    headers = {
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "hexin-v": v_code,
+        "Host": "data.10jqka.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    url = "http://data.10jqka.com.cn/funds/ggzjl/field/zdf/order/desc/ajax/1/free/1/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    raw_page = soup.find("span", attrs={"class": "page_info"}).text
+    page_num = raw_page.split("/")[1]
     if symbol == "3日排行":
         url = "http://data.10jqka.com.cn/funds/ggzjl/board/3/field/zdf/order/desc/page/{}/ajax/1/free/1/"
     elif symbol == "5日排行":
@@ -70,7 +93,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     else:
         url = "http://data.10jqka.com.cn/funds/ggzjl/field/zdf/order/desc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 85)):
+    for page in tqdm(range(1, int(page_num)+1)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
@@ -106,7 +129,6 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
             "流出资金",
             "净额",
             "成交额",
-            "大单流入",
         ]
     else:
         big_df.columns = [
@@ -130,6 +152,28 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
     :return: 概念资金流
     :rtype: pandas.DataFrame
     """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call("v")
+    headers = {
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "hexin-v": v_code,
+        "Host": "data.10jqka.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "http://data.10jqka.com.cn/funds/gnzjl/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    url = "http://data.10jqka.com.cn/funds/gnzjl/field/tradezdf/order/desc/ajax/1/free/1/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    raw_page = soup.find("span", attrs={"class": "page_info"}).text
+    page_num = raw_page.split("/")[1]
     if symbol == "3日排行":
         url = "http://data.10jqka.com.cn/funds/gnzjl/board/3/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
     elif symbol == "5日排行":
@@ -141,7 +185,7 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
     else:
         url = "http://data.10jqka.com.cn/funds/gnzjl/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 7)):
+    for page in tqdm(range(1, int(page_num)+1)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
@@ -204,6 +248,28 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
     :return: 行业资金流
     :rtype: pandas.DataFrame
     """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call("v")
+    headers = {
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "hexin-v": v_code,
+        "Host": "data.10jqka.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    url = "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/ajax/1/free/1/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    raw_page = soup.find("span", attrs={"class": "page_info"}).text
+    page_num = raw_page.split("/")[1]
     if symbol == "3日排行":
         url = "http://data.10jqka.com.cn/funds/hyzjl/board/3/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
     elif symbol == "5日排行":
@@ -215,7 +281,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
     else:
         url = "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 3)):
+    for page in tqdm(range(1, int(page_num)+1)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
@@ -254,7 +320,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
             "当前价",
         ]
         big_df['行业-涨跌幅'] = pd.to_numeric(big_df['行业-涨跌幅'], errors="coerce")
-        big_df['领涨股-领涨股'] = pd.to_numeric(big_df['领涨股-领涨股'], errors="coerce")
+        big_df['领涨股-涨跌幅'] = pd.to_numeric(big_df['领涨股-涨跌幅'], errors="coerce")
     else:
         big_df.columns = [
             "序号",
@@ -276,9 +342,31 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
     :return: 大单追踪
     :rtype: pandas.DataFrame
     """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call("v")
+    headers = {
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "hexin-v": v_code,
+        "Host": "data.10jqka.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "http://data.10jqka.com.cn/funds/hyzjl/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    url = "http://data.10jqka.com.cn/funds/ddzz/order/desc/ajax/1/free/1/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    raw_page = soup.find("span", attrs={"class": "page_info"}).text
+    page_num = raw_page.split("/")[1]
     url = "http://data.10jqka.com.cn/funds/ddzz/order/asc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 101)):
+    for page in tqdm(range(1, int(page_num)+1)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
