@@ -483,6 +483,7 @@
  "stock_ipo_info"  # 股票新股
  "stock_history_dividend_detail"  # 分红配股
  "stock_history_dividend"  # 历史分红
+ "stock_dividents_cninfo"  # 个股历史分红
  "stock_restricted_shares"  # 限售解禁
  "stock_circulate_stock_holder"  # 流动股东
  "stock_fund_stock_holder"  # 基金持股
