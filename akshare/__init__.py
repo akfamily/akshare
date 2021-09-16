@@ -1527,9 +1527,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.7: fix: fix covid_19_trace interface
 1.1.8: add: add stock_industry_pe_ratio_cninfo interface
 1.1.9: fix: fix stock_js_price interface
+1.1.10: fix: fix stock_em_hsgt_hold_stock interface
 """
 
-__version__ = "1.1.9"
+__version__ = "1.1.10"
 __author__ = "Albert King"
 
 import sys
