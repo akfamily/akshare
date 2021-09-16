@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/12/19 11:12
+Date: 2021/9/16 11:12
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -28,7 +28,7 @@ def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
         "fields1": "f1,f3,f5",
         "fields2": "f51,f52",
         "klt": "101",
-        "lmt": "500",
+        "lmt": "5000",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "cb": "jQuery18305732402561585701_1584961751919",
         "_": "1584962164273",
@@ -79,7 +79,7 @@ def stock_em_hsgt_north_cash(indicator: str = "沪股通") -> pd.DataFrame:
         "fields1": "f1,f3,f5",
         "fields2": "f51,f53",
         "klt": "101",
-        "lmt": "500",
+        "lmt": "5000",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "cb": "jQuery18305732402561585701_1584961751919",
         "_": "1584962164273",
@@ -127,7 +127,7 @@ def stock_em_hsgt_north_acc_flow_in(indicator: str = "沪股通") -> pd.DataFram
         "fields1": "f1,f3,f5",
         "fields2": "f51,f54",
         "klt": "101",
-        "lmt": "500",
+        "lmt": "5000",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "cb": "jQuery18305732402561585701_1584961751919",
         "_": "1584962164273",
@@ -175,7 +175,7 @@ def stock_em_hsgt_south_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
         "fields1": "f2,f4,f6",
         "fields2": "f51,f52",
         "klt": "101",
-        "lmt": "500",
+        "lmt": "5000",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "cb": "jQuery18307854355493858363_1584963487410",
         "_": "1584964176697",
@@ -223,7 +223,7 @@ def stock_em_hsgt_south_cash(indicator: str = "沪股通") -> pd.DataFrame:
         "fields1": "f2,f4,f6",
         "fields2": "f51,f53",
         "klt": "101",
-        "lmt": "500",
+        "lmt": "5000",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "cb": "jQuery18307854355493858363_1584963487410",
         "_": "1584964176697",
@@ -271,7 +271,7 @@ def stock_em_hsgt_south_acc_flow_in(indicator: str = "沪股通") -> pd.DataFram
         "fields1": "f2,f4,f6",
         "fields2": "f51,f54",
         "klt": "101",
-        "lmt": "500",
+        "lmt": "5000",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "cb": "jQuery18307854355493858363_1584963487410",
         "_": "1584964176697",
@@ -306,10 +306,10 @@ def stock_em_hsgt_south_acc_flow_in(indicator: str = "沪股通") -> pd.DataFram
 
 
 def stock_em_hsgt_hold_stock(
-    market: str = "沪股通", indicator: str = "5日排行"
+    market: str = "北向", indicator: str = "5日排行"
 ) -> pd.DataFrame:
     """
-    东方财富网-数据中心-沪深港通持股-个股排行
+    东方财富-数据中心-沪深港通持股-个股排行
     http://data.eastmoney.com/hsgtcg/list.html
     :param market: choice of {"北向", "沪股通", "深股通"}
     :type market: str
@@ -322,7 +322,7 @@ def stock_em_hsgt_hold_stock(
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     date = soup.find('div', attrs={'class': 'title'}).find("span").text.strip("（").strip("）")
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
     if indicator == "今日排行":
         indicator_type = "1"
     if indicator == "3日排行":
@@ -332,52 +332,63 @@ def stock_em_hsgt_hold_stock(
     if indicator == "10日排行":
         indicator_type = "10"
     if indicator == "月排行":
-        indicator_type = "m"
+        indicator_type = "M"
     if indicator == "季排行":
-        indicator_type = "jd"
+        indicator_type = "Q"
     if indicator == "年排行":
-        indicator_type = "y"
+        indicator_type = "Y"
     if market == "北向":
-        filter_str = "(DateType='" + indicator_type + "' and HdDate='" + f"{date}')"
+        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")"""
     elif market == "沪股通":
-        filter_str = (
-            "(Market='001' and DateType='"
-            + indicator_type
-            + "' and HdDate='"
-            + f"{date}')"
-        )
+        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")(MUTUAL_TYPE="001")"""
     elif market == "深股通":
-        filter_str = (
-            "(Market='003' and DateType='"
-            + indicator_type
-            + "' and HdDate='"
-            + f"{date}')"
-        )
+        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")(MUTUAL_TYPE="001")"""
     params = {
-        "type": "HSGT20_GGTJ_SUM",
-        "token": "894050c76af8597a853f5b408b759f5d",
-        "st": "ShareSZ_Chg_One",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        'js': '{"data":(x),"pages":(tp),"font":(font)}',
-        "filter": filter_str,
-        "rt": "53001697",
+        'sortColumns': 'ADD_MARKET_CAP',
+        'sortTypes': '-1',
+        'pageSize': '50000',
+        'pageNumber': '1',
+        'reportName': 'RPT_MUTUAL_STOCK_NORTHSTA',
+        'columns': 'ALL',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': filter_str
     }
     r = requests.get(url, params=params)
-    r.json()
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") :])
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
-    temp_df.columns = [
+    data_json = r.json()
+    page_num = data_json['result']['pages']
+    big_df = pd.DataFrame()
+    from tqdm import tqdm
+    for page in tqdm(range(1, page_num+1)):
+        params.update({'pageNumber': page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+
+    big_df.reset_index(inplace=True)
+    big_df['index'] = range(1, len(big_df)+1)
+    big_df.columns = [
         '序号',
+        '_',
         '_',
         '日期',
         '_',
-        '代码',
         '名称',
+        '_',
+        '_',
+        '代码',
+        '_',
+        '_',
+        '_',
+        '_',
+        '今日持股-股数',
+        '今日持股-市值',
+        '今日持股-占流通股比',
+        '今日持股-占总股本比',
+        '今日收盘价',
+        '今日涨跌幅',
+        '_',
         '所属板块',
         '_',
         '_',
@@ -386,24 +397,23 @@ def stock_em_hsgt_hold_stock(
         '_',
         '_',
         '_',
-        '今日收盘价',
-        '今日涨跌幅',
-        '_',
-        '今日持股-股数',
-        '今日持股-市值',
-        '今日持股-占流通股比',
-        '今日持股-占总股本比',
         '_',
         '_',
         '_',
+        f'{indicator.split("排")[0]}增持估计-市值',
+        f'{indicator.split("排")[0]}增持估计-股数',
+        f'{indicator.split("排")[0]}增持估计-市值增幅',
+        f'{indicator.split("排")[0]}增持估计-占流通股比',
+        f'{indicator.split("排")[0]}增持估计-占总股本比',
         '_',
-        '增持估计-股数',
-        '增持估计-市值',
-        '增持估计-市值增幅',
-        '增持估计-占流通股比',
-        '增持估计-占总股本比',
-    ]
-    temp_df = temp_df[[
+        '_',
+        '_',
+        '_',
+        '_',
+        '_',
+        '_',
+            ]
+    big_df = big_df[[
         '序号',
         '代码',
         '名称',
@@ -413,15 +423,27 @@ def stock_em_hsgt_hold_stock(
         '今日持股-市值',
         '今日持股-占流通股比',
         '今日持股-占总股本比',
-        '增持估计-股数',
-        '增持估计-市值',
-        '增持估计-市值增幅',
-        '增持估计-占流通股比',
-        '增持估计-占总股本比',
+        f'{indicator.split("排")[0]}增持估计-股数',
+        f'{indicator.split("排")[0]}增持估计-市值',
+        f'{indicator.split("排")[0]}增持估计-市值增幅',
+        f'{indicator.split("排")[0]}增持估计-占流通股比',
+        f'{indicator.split("排")[0]}增持估计-占总股本比',
         '所属板块',
         '日期',
     ]]
-    return temp_df
+    big_df['今日收盘价'] = pd.to_numeric(big_df['今日收盘价'])
+    big_df['今日涨跌幅'] = pd.to_numeric(big_df['今日涨跌幅'])
+    big_df['今日持股-股数'] = pd.to_numeric(big_df['今日持股-股数'])
+    big_df['今日持股-市值'] = pd.to_numeric(big_df['今日持股-市值'])
+    big_df['今日持股-占流通股比'] = pd.to_numeric(big_df['今日持股-占流通股比'])
+    big_df['今日持股-占总股本比'] = pd.to_numeric(big_df['今日持股-占总股本比'])
+    big_df[f'{indicator.split("排")[0]}增持估计-股数'] = pd.to_numeric(big_df[f'{indicator.split("排")[0]}增持估计-股数'])
+    big_df[f'{indicator.split("排")[0]}增持估计-市值'] = pd.to_numeric(big_df[f'{indicator.split("排")[0]}增持估计-市值'])
+    big_df[f'{indicator.split("排")[0]}增持估计-市值增幅'] = pd.to_numeric(big_df[f'{indicator.split("排")[0]}增持估计-市值增幅'])
+    big_df[f'{indicator.split("排")[0]}增持估计-占流通股比'] = pd.to_numeric(big_df[f'{indicator.split("排")[0]}增持估计-占流通股比'])
+    big_df[f'{indicator.split("排")[0]}增持估计-占总股本比'] = pd.to_numeric(big_df[f'{indicator.split("排")[0]}增持估计-占总股本比'])
+    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
+    return big_df
 
 
 def stock_em_hsgt_stock_statistics(
@@ -1039,42 +1061,42 @@ if __name__ == "__main__":
     print(stock_em_hsgt_hold_stock_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="南向持股", start_date="20210801", end_date="20210812"
+        symbol="南向持股", start_date="20210915", end_date="20210916"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="北向持股", start_date="20210801", end_date="20210812"
+        symbol="北向持股", start_date="20210915", end_date="20210916"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="沪股通持股", start_date="20210801", end_date="20210812"
+        symbol="沪股通持股", start_date="20210915", end_date="20210916"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="深股通持股", start_date="20210801", end_date="20210812"
+        symbol="深股通持股", start_date="20210915", end_date="20210916"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="北向持股", start_date="20210801", end_date="20210812"
+        market="北向持股", start_date="20210915", end_date="20210916"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="南向持股", start_date="20210801", end_date="20210812"
+        market="南向持股", start_date="20210915", end_date="20210916"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="沪股通持股", start_date="20210801", end_date="20210812"
+        market="沪股通持股", start_date="20210915", end_date="20210916"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="深股通持股", start_date="20210801", end_date="20210812"
+        market="深股通持股", start_date="20210915", end_date="20210916"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
