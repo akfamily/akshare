@@ -342,6 +342,7 @@ if __name__ == '__main__':
 
     stock_history_dividend_df = stock_history_dividend()
     print(stock_history_dividend_df)
+
     stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="分红", stock="600012", date="")
     print(stock_history_dividend_detail_df)
 
