@@ -868,6 +868,8 @@
  "stock_rank_forecast_cninfo"  # 股票-投资评级
  # 股票-行业市盈率
  "stock_industry_pe_ratio_cninfo"  # 股票-行业市盈率
+ # 新股-新股过会
+ "stock_new_gh_cninfo"  # 新股-新股过会
 ```
 
 ## 案例演示
