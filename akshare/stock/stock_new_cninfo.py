@@ -42,7 +42,7 @@ js_str = """
 """
 
 
-def stock_new__cninfo(symbol: str = "证监会行业分类", date: str = "20210910") -> pd.DataFrame:
+def stock_new_gh_cninfo(symbol: str = "证监会行业分类", date: str = "20210910") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-行业分析-行业市盈率
     http://webapi.cninfo.com.cn/#/thematicStatistics
@@ -123,5 +123,5 @@ def stock_new__cninfo(symbol: str = "证监会行业分类", date: str = "202109
 
 
 if __name__ == "__main__":
-    stock_industry_pe_ratio_cninfo_df = stock_industry_pe_ratio_cninfo(symbol="国证行业分类", date="20210907")
-    print(stock_industry_pe_ratio_cninfo_df)
+    stock_new_gh_cninfo_df = stock_new_gh_cninfo(symbol="国证行业分类", date="20210907")
+    print(stock_new_gh_cninfo_df)
