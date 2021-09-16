@@ -244,15 +244,17 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
             "序号",
             "行业",
             "行业指数",
-            "涨跌幅",
+            "行业-涨跌幅",
             "流入资金",
             "流出资金",
             "净额",
             "公司家数",
             "领涨股",
-            "涨跌幅",
+            "领涨股-涨跌幅",
             "当前价",
         ]
+        big_df['行业-涨跌幅'] = pd.to_numeric(big_df['行业-涨跌幅'], errors="coerce")
+        big_df['领涨股-领涨股'] = pd.to_numeric(big_df['领涨股-领涨股'], errors="coerce")
     else:
         big_df.columns = [
             "序号",
