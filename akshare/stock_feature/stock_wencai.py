@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/5/4 18:11
 Desc: 问财-热门股票排名
@@ -122,5 +122,5 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210907")
+    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210909")
     print(stock_wc_hot_rank_df)

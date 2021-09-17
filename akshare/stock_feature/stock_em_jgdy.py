@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 date: 2021/9/17 16:02
 desc: 东方财富网-数据中心-特色数据-机构调研
