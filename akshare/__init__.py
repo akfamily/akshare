@@ -1535,9 +1535,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.15: add: add stock_new_gh_cninfo interface
 1.1.16: fix: fix stock_em_jgdy_detail interface
 1.1.17: fix: fix stock_em_jgdy_tj interface
+1.1.18: fix: fix stock_fund_flow_concept and stock_fund_flow_industry interface
 """
 
-__version__ = "1.1.17"
+__version__ = "1.1.18"
 __author__ = "Albert King"
 
 import sys

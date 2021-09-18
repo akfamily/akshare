@@ -219,12 +219,14 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
             "流出资金",
             "净额",
             "公司家数",
-            "领涨股-领涨股",
+            "领涨股-涨跌幅",
             "涨跌幅",
             "当前价",
         ]
+        big_df['行业-涨跌幅'] = big_df['行业-涨跌幅'].str.strip("%")
+        big_df['领涨股-涨跌幅'] = big_df['领涨股-涨跌幅'].str.strip("%")
         big_df['行业-涨跌幅'] = pd.to_numeric(big_df['行业-涨跌幅'], errors="coerce")
-        big_df['领涨股-领涨股'] = pd.to_numeric(big_df['领涨股-领涨股'], errors="coerce")
+        big_df['领涨股-涨跌幅'] = pd.to_numeric(big_df['领涨股-涨跌幅'], errors="coerce")
     else:
         big_df.columns = [
             "序号",
@@ -319,6 +321,8 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
             "领涨股-涨跌幅",
             "当前价",
         ]
+        big_df['行业-涨跌幅'] = big_df['行业-涨跌幅'].str.strip("%")
+        big_df['领涨股-涨跌幅'] = big_df['领涨股-涨跌幅'].str.strip("%")
         big_df['行业-涨跌幅'] = pd.to_numeric(big_df['行业-涨跌幅'], errors="coerce")
         big_df['领涨股-涨跌幅'] = pd.to_numeric(big_df['领涨股-涨跌幅'], errors="coerce")
     else:
@@ -405,53 +409,53 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
 
 if __name__ == "__main__":
     # 同花顺-数据中心-资金流向-个股资金流
-    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="即时")
-    print(stock_fund_flow_individual_df)
-
-    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="3日排行")
-    print(stock_fund_flow_individual_df)
-
-    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="5日排行")
-    print(stock_fund_flow_individual_df)
-
-    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="10日排行")
-    print(stock_fund_flow_individual_df)
-
-    stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="20日排行")
-    print(stock_fund_flow_individual_df)
+    # stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="即时")
+    # print(stock_fund_flow_individual_df)
+    #
+    # stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="3日排行")
+    # print(stock_fund_flow_individual_df)
+    #
+    # stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="5日排行")
+    # print(stock_fund_flow_individual_df)
+    #
+    # stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="10日排行")
+    # print(stock_fund_flow_individual_df)
+    #
+    # stock_fund_flow_individual_df = stock_fund_flow_individual(symbol="20日排行")
+    # print(stock_fund_flow_individual_df)
 
     # 同花顺-数据中心-资金流向-概念资金流
     stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="即时")
     print(stock_fund_flow_concept_df)
-
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="3日排行")
-    print(stock_fund_flow_concept_df)
-
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="5日排行")
-    print(stock_fund_flow_concept_df)
-
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="10日排行")
-    print(stock_fund_flow_concept_df)
-
-    stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="20日排行")
-    print(stock_fund_flow_concept_df)
+    #
+    # stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="3日排行")
+    # print(stock_fund_flow_concept_df)
+    #
+    # stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="5日排行")
+    # print(stock_fund_flow_concept_df)
+    #
+    # stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="10日排行")
+    # print(stock_fund_flow_concept_df)
+    #
+    # stock_fund_flow_concept_df = stock_fund_flow_concept(symbol="20日排行")
+    # print(stock_fund_flow_concept_df)
 
     # 同花顺-数据中心-资金流向-行业资金流
     stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="即时")
     print(stock_fund_flow_industry_df)
 
-    stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="3日排行")
-    print(stock_fund_flow_industry_df)
-
-    stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="5日排行")
-    print(stock_fund_flow_industry_df)
-
-    stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="10日排行")
-    print(stock_fund_flow_industry_df)
-
-    stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="20日排行")
-    print(stock_fund_flow_industry_df)
+    # stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="3日排行")
+    # print(stock_fund_flow_industry_df)
+    #
+    # stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="5日排行")
+    # print(stock_fund_flow_industry_df)
+    #
+    # stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="10日排行")
+    # print(stock_fund_flow_industry_df)
+    #
+    # stock_fund_flow_industry_df = stock_fund_flow_industry(symbol="20日排行")
+    # print(stock_fund_flow_industry_df)
 
     # 同花顺-数据中心-资金流向-大单追踪
-    stock_fund_flow_big_deal_df = stock_fund_flow_big_deal()
-    print(stock_fund_flow_big_deal_df)
+    # stock_fund_flow_big_deal_df = stock_fund_flow_big_deal()
+    # print(stock_fund_flow_big_deal_df)

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/9/16 19:29
+Date: 2021/9/17 18:29
 Desc: 巨潮资讯-数据中心-新股数据
 http://webapi.cninfo.com.cn/#/xinguList
 """
@@ -46,10 +46,6 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
     """
     巨潮资讯-数据中心-新股数据
     http://webapi.cninfo.com.cn/#/xinguList
-    :param symbol: choice of {"证监会行业分类", "国证行业分类"}
-    :type symbol: str
-    :param date: 查询日期
-    :type date: str
     :return: 行业市盈率
     :rtype: pandas.DataFrame
     """
