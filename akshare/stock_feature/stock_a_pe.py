@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2020/7/13 21:30
+Date: 2021/9/18 18:30
 Desc: A股市盈率
 https://www.legulegu.com/stockdata/market_pe
 此网站需要 JS 逆向分析 token 代码，本项目分解 JS 加密部分，提取主要的加密参数后本地执行
@@ -319,7 +319,7 @@ js_functions.eval(hash_code)
 token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
-def stock_a_pe(market: str = "kc") -> pd.DataFrame:
+def stock_a_pe(market: str = "sz") -> pd.DataFrame:
     """
     A 股市盈率
     https://www.legulegu.com/stockdata/market_pe
@@ -335,19 +335,19 @@ def stock_a_pe(market: str = "kc") -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["cySharesPEList"])
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
+    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
     cy_df = temp_df[["close", "pe"]]
 
     temp_df = pd.DataFrame(data_json["shSharesPEList"])
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
+    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
     sh_df = temp_df[["close", "pe"]]
 
     temp_df = pd.DataFrame(data_json["szSharesPEList"])
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
+    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
     sz_df = temp_df[["close", "pe"]]
 
     temp_df = pd.DataFrame(data_json["zxSharesPEList"])
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
+    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
     zx_df = temp_df[["close", "pe"]]
 
     if market == "sh":
@@ -376,7 +376,7 @@ def stock_a_pe(market: str = "kc") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
-        temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
+        temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
         all_df = temp_df[["averagePELYR", "averagePETTM", "middlePELYR", "middlePETTM", "close"]]
         return all_df
     if market in ["000300.XSHG",
@@ -396,7 +396,7 @@ def stock_a_pe(market: str = "kc") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
-        temp_df.index = pd.to_datetime(temp_df["date"], unit="ms").dt.date
+        temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
         index_df = temp_df[["averagePELYR", "averagePETTM", "middlePELYR", "middlePETTM", "close"]]
         return index_df
 
@@ -405,5 +405,5 @@ if __name__ == '__main__':
     stock_a_pe_df = stock_a_pe(market="kc")
     print(stock_a_pe_df)
 
-    stock_a_pe_df = stock_a_pe(market="000016.XSHG")
+    stock_a_pe_df = stock_a_pe(market="sh")
     print(stock_a_pe_df)
