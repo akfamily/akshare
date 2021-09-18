@@ -24,8 +24,8 @@
 
 | 名称          | 类型 | 描述           |
 | ------------ | ----- |  ---------------- |
-| type          | str   | -     |
-| item          | str      |  -     |
+| type          | object   | -     |
+| item          | object      |  -     |
 | number          | float      |  -     |
 
 接口示例
