@@ -870,6 +870,8 @@
  "stock_industry_pe_ratio_cninfo"  # 股票-行业市盈率
  # 新股-新股过会
  "stock_new_gh_cninfo"  # 新股-新股过会
+ # 新股-IPO
+ "stock_new_ipo_cninfo"  # 新股-IPO
 ```
 
 ## 案例演示
