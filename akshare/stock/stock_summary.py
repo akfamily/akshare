@@ -1,17 +1,20 @@
 # -*- coding:utf-8 -*-
 # /usr/bin/env python
 """
-Date: 2021/7/6 14:31
+Date: 2021/9/18 22:31
 Desc: 股票数据-总貌-市场总貌
 股票数据-总貌-成交概括
 http://www.szse.cn/market/overview/index.html
 http://www.sse.com.cn/market/stockdata/statistic/
 """
+import warnings
 from io import BytesIO
 
 import demjson
 import pandas as pd
 import requests
+
+warnings.filterwarnings('ignore')
 
 
 def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
@@ -35,6 +38,23 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df["证券类别"] = temp_df["证券类别"].str.strip()
     temp_df.iloc[:, 2:] = temp_df.iloc[:, 2:].applymap(lambda x: x.replace(",", ""))
+    temp_df.columns
+    temp_df.columns = [
+        '证券类别',
+        '数量',
+        '成交金额',
+        '成交量',
+        '总股本',
+        '总市值',
+        '流通股本',
+        '流通市值']
+    temp_df['数量'] = pd.to_numeric(temp_df['数量'])
+    temp_df['成交金额'] = pd.to_numeric(temp_df['成交金额'])
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df['总股本'] = pd.to_numeric(temp_df['总股本'], errors="coerce")
+    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'], errors="coerce")
+    temp_df['流通股本'] = pd.to_numeric(temp_df['流通股本'], errors="coerce")
+    temp_df['流通市值'] = pd.to_numeric(temp_df['流通市值'], errors="coerce")
     return temp_df
 
 
@@ -58,6 +78,7 @@ def stock_sse_summary() -> pd.DataFrame:
     big_df.dropna(how="any", inplace=True)
     big_df.columns = ["item", "number", "type"]
     big_df = big_df[["type", "item", "number"]]
+    big_df['number'] = pd.to_numeric(big_df['number'])
     return big_df
 
 
