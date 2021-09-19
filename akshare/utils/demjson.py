@@ -5398,7 +5398,7 @@ class JSON(object):
             s = s[:-6] + 'Z'  # Change UTC to use 'Z' notation
         self.encode_string(s, state)
 
-    def encode_time(self, t, state):
+    def encode_time(self, dt, state):
         fmt = self.options.datetime_format
         is_iso = not fmt or fmt == 'iso'
         if is_iso:
@@ -5406,7 +5406,7 @@ class JSON(object):
                 fmt = 'T%H:%M:%S%z'
             else:
                 fmt = 'T%H:%M:%S.%f%z'
-        s = t.strftime(fmt)
+        s = dt.strftime(fmt)
         if is_iso and s.endswith('-00:00') or s.endswith('+00:00'):
             s = s[:-6] + 'Z'  # Change UTC to use 'Z' notation
         self.encode_string(s, state)
