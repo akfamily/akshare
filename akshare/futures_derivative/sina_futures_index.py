@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/8/17 18:41
 Desc: 新浪财经-期货的主力合约数据
 https://finance.sina.com.cn/futuremarket/index.shtml
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

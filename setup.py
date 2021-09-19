@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/9/19 13:58
 Desc: AKShare's pypi info file
@@ -38,7 +38,6 @@ setuptools.setup(
     url="https://github.com/jindaxiang/akshare",
     packages=setuptools.find_packages(),
     install_requires=[
-        "setuptools==57.5.0",
         "beautifulsoup4>=4.9.1",
         "lxml>=4.2.1",
         "matplotlib>=3.1.1",
@@ -57,7 +56,6 @@ setuptools.setup(
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
         "py_mini_racer>=0.6.0",
-        "demjson>=2.2.4",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
     keywords=[

@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/1/29 12:52
 Desc: 新浪财经-基金行情
 http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
-import demjson
+from akshare.utils import demjson
 from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests

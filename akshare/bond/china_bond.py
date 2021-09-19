@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/4/28 20:54
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心

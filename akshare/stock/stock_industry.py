@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/5/18 20:49
 Desc: 新浪行业-板块行情
@@ -8,7 +8,7 @@ http://finance.sina.com.cn/stock/sl/
 import json
 import math
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

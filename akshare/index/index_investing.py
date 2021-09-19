@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2019/10/17 0:50
 Desc: 英为财情-股票指数-全球股指与期货指数数据接口

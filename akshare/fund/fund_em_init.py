@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/4/29 14:30
 Desc: 基金数据-新发基金-新成立基金
 http://fund.eastmoney.com/data/xinfound.html
 """
 import requests
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 
 

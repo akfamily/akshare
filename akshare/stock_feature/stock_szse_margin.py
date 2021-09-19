@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/28 16:13
 Desc: 深圳证券交易所-融资融券数据

@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/9/17 13:58
 Desc: 东方财富网-数据中心-期货库存数据
 http://data.eastmoney.com/ifdata/kcsj.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

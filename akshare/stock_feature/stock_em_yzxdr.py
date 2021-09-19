@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/6/5 19:18
 Desc: 东方财富网-数据中心-特色数据-一致行动人
 http://data.eastmoney.com/yzxdr/
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

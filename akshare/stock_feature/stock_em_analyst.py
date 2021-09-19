@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/11/15 13:39
 Desc: 东方财富网-数据中心-研究报告-东方财富分析师指数

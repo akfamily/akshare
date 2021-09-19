@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/4/29 19:51
 Desc: 东方财富网-经济数据-银行间拆借利率-配置文件

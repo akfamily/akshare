@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/5/18 15:06
 Desc: 增发和配股
@@ -10,7 +10,7 @@ http://data.eastmoney.com/xg/pg/
 """
 import requests
 import pandas as pd
-import demjson
+from akshare.utils import demjson
 
 
 def stock_em_qbzf():

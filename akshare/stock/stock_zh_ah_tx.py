@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/5/11 15:20
 Desc: 腾讯财经-A+H股数据, 实时行情数据和历史行情数据(后复权)
@@ -9,7 +9,7 @@ import random
 
 import requests
 import pandas as pd
-import demjson
+from akshare.utils import demjson
 from tqdm import tqdm
 
 from akshare.stock.cons import (hk_url,

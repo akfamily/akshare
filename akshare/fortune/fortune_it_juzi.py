@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/6/30 15:55
 Desc: 获取 IT桔子 的死亡公司数据、千里马和独角兽

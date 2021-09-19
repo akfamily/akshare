@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/10/10 13:46
 Desc: 东方财富网-数据中心-COMEX库存数据
 http://data.eastmoney.com/pmetal/comex/by.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/3/26 15:28
 Desc: 东方财富网-数据中心-特色数据-千股千评
 http://data.eastmoney.com/stockcomment/
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

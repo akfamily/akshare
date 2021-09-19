@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/07/22 15:00
 Desc: 中证指数-所有指数-历史行情数据

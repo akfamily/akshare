@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/12 14:48
 Desc: 同花顺-板块-行业板块
@@ -8,7 +8,7 @@ http://q.10jqka.com.cn/thshy/
 import os
 from datetime import datetime
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

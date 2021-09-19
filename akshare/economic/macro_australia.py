@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/28 18:50
 Desc: 东方财富-经济数据-澳大利亚
@@ -7,7 +7,7 @@ http://data.eastmoney.com/cjsj/foreign_5_0.html
 """
 import pandas as pd
 import requests
-import demjson
+from akshare.utils import demjson
 
 
 # 零售销售月率

@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/23 16:50
 Desc: 东方财富-经济数据-瑞士
@@ -7,7 +7,7 @@ http://data.eastmoney.com/cjsj/foreign_2_0.html
 """
 import pandas as pd
 import requests
-import demjson
+from akshare.utils import demjson
 
 
 # SVME采购经理人指数

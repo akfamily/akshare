@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/10/14 16:52
 Desc: 南华期货-商品指数历史走势-收益率指数-波动率

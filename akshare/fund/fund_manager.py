@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/1 16:30
 Desc: 基金经理大全
 http://fund.eastmoney.com/manager/default.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm

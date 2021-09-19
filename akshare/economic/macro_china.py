@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/8/31 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
@@ -12,7 +12,7 @@ import math
 import time
 from datetime import datetime
 
-import demjson
+from akshare.utils import demjson
 import numpy as np
 import pandas as pd
 import requests

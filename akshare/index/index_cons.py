@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/28 21:19
 Desc: 股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
@@ -10,7 +10,7 @@ import math
 import time
 from io import BytesIO
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

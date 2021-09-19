@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/4/26 12:33
 Desc: 河北省空气质量预报信息发布系统

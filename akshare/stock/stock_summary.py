@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/9/18 22:31
 Desc: 股票数据-总貌-市场总貌
@@ -10,7 +10,7 @@ http://www.sse.com.cn/market/stockdata/statistic/
 import warnings
 from io import BytesIO
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

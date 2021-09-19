@@ -1,12 +1,12 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/5/29 15:28
 Desc: 新浪财经-港股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 http://stock.finance.sina.com.cn/hkstock/quotes/00700.html
 """
 import requests
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 from py_mini_racer import py_mini_racer
 

@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/9 14:05
 Desc: 东方财富-德国-经济数据
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

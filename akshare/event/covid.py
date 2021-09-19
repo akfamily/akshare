@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/21 12:07
 Desc: COVID-19
@@ -11,7 +11,7 @@ COVID-19-GitHub
 import json
 import time
 
-import demjson
+from akshare.utils import demjson
 import jsonpath
 import pandas as pd
 import requests

@@ -2499,4 +2499,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.20: fix: fix stock_a_pe interface
 
 1.1.21 fix: fix setuptools==57.5.0 package
+
+1.1.22 fix: fix remove demjson package
 ```
