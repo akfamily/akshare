@@ -49,7 +49,7 @@ setuptools.setup(
         "websocket-client>=0.56.0",
         "html5lib>=1.0.1",
         "xlrd>=1.2.0",
-        "urllib3==1.25.8",
+        "urllib3>=1.26.6",
         "tqdm>=4.43.0",
         "openpyxl>=3.0.3",
         "jsonpath>=0.82",
