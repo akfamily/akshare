@@ -2139,7 +2139,7 @@ class buffered_stream(object):
         See also methods: skipuntil() and popwhile()
 
         """
-        return popwhile(lambda c: not testfn(c), maxchars=maxchars)
+        return self.popwhile(lambda c: not testfn(c), maxchars=maxchars)
 
     def __getitem__(self, index):
         """Returns the character at the given index relative to the current position.
@@ -5373,11 +5373,11 @@ class JSON(object):
         """Encode a Python Enum value into JSON."""
         eas = self.options.encode_enum_as
         if eas == 'qname':
-            self.encode_string(str(obj), state)
+            self.encode_string(str(val), state)
         elif eas == 'value':
-            self._do_encode(obj.value, state)
+            self._do_encode(val.value, state)
         else:  # eas == 'name'
-            self.encode_string(obj.name, state)
+            self.encode_string(val.name, state)
 
     def encode_date(self, dt, state):
         fmt = self.options.date_format
