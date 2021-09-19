@@ -2108,7 +2108,7 @@ class buffered_stream(object):
         """
         s2 = self.peekstr(len(s))
         if s2 != s:
-            return NULL
+            return None
         self.__pos.advance(s2)
         return s2
 
