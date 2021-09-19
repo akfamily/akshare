@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/6/6 18:14
 Desc: 新浪财经-商品期货-成交持仓

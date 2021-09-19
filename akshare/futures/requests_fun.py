@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/5/7 13:58
 Desc: 请求网站内容的函数: 在链接失败后可重复 20 次

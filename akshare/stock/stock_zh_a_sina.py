@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/9/8 19:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
@@ -8,7 +8,7 @@ https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 import re
 import json
 
-import demjson
+from akshare.utils import demjson
 from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests

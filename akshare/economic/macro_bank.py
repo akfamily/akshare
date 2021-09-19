@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/4/22 22:52
 Desc: 金十数据中心-经济指标-央行利率-主要央行利率

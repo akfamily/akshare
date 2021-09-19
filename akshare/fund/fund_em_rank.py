@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/1/16 20:04
 Desc: 东方财富网-数据中心-开放式基金排行
@@ -9,7 +9,7 @@ http://help.1234567.com.cn/list_236.html
 """
 import datetime
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

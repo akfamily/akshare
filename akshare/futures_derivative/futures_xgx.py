@@ -1,5 +1,5 @@
 # coding=utf-8
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/4/19 14:27
 Desc: 西本新干线-指数数据

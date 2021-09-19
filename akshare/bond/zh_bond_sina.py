@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/10/19 9:28
 Desc: 新浪财经-债券-沪深债券-实时行情数据和历史行情数据
@@ -8,7 +8,7 @@ http://vip.stock.finance.sina.com.cn/mkt/#hs_z
 import datetime
 import re
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer

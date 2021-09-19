@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/2/2 17:54
 Desc: 天天基金网-基金档案-投资组合-基金持仓
 http://fundf10.eastmoney.com/ccmx_000001.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

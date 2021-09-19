@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/8/27 17:00
 Desc: 金十数据中心-实时监控-微博舆情报告

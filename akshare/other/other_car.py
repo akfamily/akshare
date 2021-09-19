@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/5/14 17:52
 Desc: 乘联会
@@ -10,7 +10,7 @@ http://i.gasgoo.com/data/ranking
 """
 import requests
 import pandas as pd
-import demjson
+from akshare.utils import demjson
 
 
 def car_cpca_energy_sale():

@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/9/12 20:08
 Desc: 新浪财经-国内期货-实时数据获取
@@ -9,7 +9,7 @@ P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
 import time
 import json
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

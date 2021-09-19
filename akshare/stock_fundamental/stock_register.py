@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/4/6 15:19
 Desc: 东方财富网-数据中心-新股数据-注册制审核

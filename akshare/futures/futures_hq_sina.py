@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/21 14:34
 Desc: 新浪财经-外盘期货-实时数据获取
@@ -7,7 +7,7 @@ http://finance.sina.com.cn/money/future/hf.html
 """
 import time
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

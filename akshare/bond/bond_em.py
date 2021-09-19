@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/6/1 14:18
 Desc: 东方财富网-数据中心-经济数据-中美国债收益率

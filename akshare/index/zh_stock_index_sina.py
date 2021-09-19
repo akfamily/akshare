@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/4/30 16:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
@@ -8,7 +8,7 @@ https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 import datetime
 import re
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer

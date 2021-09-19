@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/27 15:14
 Desc: 东方财富-经济数据-英国
@@ -7,7 +7,7 @@ http://data.eastmoney.com/cjsj/foreign_4_0.html
 """
 import pandas as pd
 import requests
-import demjson
+from akshare.utils import demjson
 
 
 # Halifax房价指数月率

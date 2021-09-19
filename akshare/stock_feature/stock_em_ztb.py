@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/17 18:50
 Desc: 首页-行情中心-涨停板行情-涨停股池

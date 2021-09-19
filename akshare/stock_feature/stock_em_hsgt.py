@@ -8,7 +8,7 @@ http://data.eastmoney.com/hsgtcg/
 """
 import json
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

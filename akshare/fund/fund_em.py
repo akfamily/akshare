@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/1/21 9:48
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
@@ -12,7 +12,7 @@ http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;
 import time
 import json
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/4/18 21:27
 Desc: 东方财富-数据中心-年报季报
@@ -8,7 +8,7 @@ http://data.eastmoney.com/bbsj/202003/yjyg.html
 东方财富-数据中心-年报季报-预约披露时间
 http://data.eastmoney.com/bbsj/202003/yysj.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm

@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/5/9 17:25
 Desc: 生意社-商品与期货-现期图: 图片和表格

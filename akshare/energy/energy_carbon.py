@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/20 16:05
 Desc: 碳排放交易
@@ -20,7 +20,7 @@ http://www.cnemission.com/article/hqxx/
 """
 import re
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

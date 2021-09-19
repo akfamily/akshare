@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/8/28 21:26
 Desc: 东方财富网-行情首页-上证 A 股-每日行情

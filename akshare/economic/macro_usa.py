@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/8 22:08
 Desc: 金十数据中心-经济指标-美国
@@ -9,7 +9,7 @@ import json
 import time
 
 import pandas as pd
-import demjson
+from akshare.utils import demjson
 import requests
 
 from akshare.economic.cons import (

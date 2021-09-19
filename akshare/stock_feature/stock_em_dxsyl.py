@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/7/16 12:02
 Desc: 东方财富网-数据中心-新股数据-打新收益率
@@ -8,7 +8,7 @@ http://data.eastmoney.com/xg/xg/dxsyl.html
 东方财富网-数据中心-新股数据-新股申购与中签查询
 http://data.eastmoney.com/xg/xg/default_2.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm

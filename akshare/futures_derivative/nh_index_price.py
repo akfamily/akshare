@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2019/11/26 18:52
 Desc: 获取南华期货-商品指数历史走势-价格指数-数值-http://www.nanhua.net/nhzc/varietytrend.html
