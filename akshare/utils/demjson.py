@@ -8,6 +8,8 @@ __date__ = "2015-12-22"
 __version__ = "2.2.4"
 __version_info__ = (2, 2, 4)  # Will be converted into a namedtuple below
 
+__credits__ = "Short of demjson"
+
 # Set demjson version
 try:
     from collections import namedtuple as _namedtuple
