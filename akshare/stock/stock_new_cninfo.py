@@ -6,10 +6,10 @@ Desc: 巨潮资讯-数据中心-新股数据
 http://webapi.cninfo.com.cn/#/xinguList
 """
 import time
-from py_mini_racer import py_mini_racer
-import requests
-import pandas as pd
 
+import pandas as pd
+import requests
+from py_mini_racer import py_mini_racer
 
 js_str = """
     function mcode(input) {  
@@ -87,7 +87,7 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
 
 def stock_new_ipo_cninfo() -> pd.DataFrame:
     """
-    巨潮资讯-数据中心-新股发行-新股发行
+    巨潮资讯-数据中心-新股数据-新股发行
     http://webapi.cninfo.com.cn/#/xinguList
     :return: 新股发行
     :rtype: pandas.DataFrame
@@ -113,8 +113,8 @@ def stock_new_ipo_cninfo() -> pd.DataFrame:
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
-        'timetype': '36',
-        'market': 'ALL',
+        "timetype": "36",
+        "market": "ALL",
     }
     r = requests.post(url, headers=headers, params=params)
     data_json = r.json()
@@ -134,21 +134,23 @@ def stock_new_ipo_cninfo() -> pd.DataFrame:
         "上网发行数量",
         "网上申购上限",
     ]
-    temp_df = temp_df[[
-        "证劵代码",
-        "证券简称",
-        "上市日期",
-        "申购日期",
-        "发行价",
-        "总发行数量",
-        "发行市盈率",
-        "上网发行中签率",
-        "摇号结果公告日",
-        "中签公告日",
-        "中签缴款日",
-        "网上申购上限",
-        "上网发行数量",
-    ]]
+    temp_df = temp_df[
+        [
+            "证劵代码",
+            "证券简称",
+            "上市日期",
+            "申购日期",
+            "发行价",
+            "总发行数量",
+            "发行市盈率",
+            "上网发行中签率",
+            "摇号结果公告日",
+            "中签公告日",
+            "中签缴款日",
+            "网上申购上限",
+            "上网发行数量",
+        ]
+    ]
     temp_df["摇号结果公告日"] = pd.to_datetime(temp_df["摇号结果公告日"]).dt.date
     temp_df["中签公告日"] = pd.to_datetime(temp_df["中签公告日"]).dt.date
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"]).dt.date

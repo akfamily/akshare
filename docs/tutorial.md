@@ -872,6 +872,8 @@
  "stock_new_gh_cninfo"  # 新股-新股过会
  # 新股-IPO
  "stock_new_ipo_cninfo"  # 新股-IPO
+ # 股东人数及持股集中度
+ "stock_hold_num_cninfo"  # 股东人数及持股集中度
 ```
 
 ## 案例演示
