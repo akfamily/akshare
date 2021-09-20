@@ -1,121 +1,5 @@
+# -*- coding:utf-8 -*-
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-#
-r""" A JSON data encoder and decoder.
-
- This Python module implements the JSON (http://json.org/) data
- encoding format; a subset of ECMAScript (aka JavaScript) for encoding
- primitive data types (numbers, strings, booleans, lists, and
- associative arrays) in a language-neutral simple text-based syntax.
- 
- It can encode or decode between JSON formatted strings and native
- Python data types.  Normally you would use the encode() and decode()
- functions defined by this module, but if you want more control over
- the processing you can use the JSON class.
-
- This implementation tries to be as completely cormforming to all
- intricacies of the standards as possible.  It can operate in strict
- mode (which only allows JSON-compliant syntax) or a non-strict mode
- (which allows much more of the whole ECMAScript permitted syntax).
- This includes complete support for Unicode strings (including
- surrogate-pairs for non-BMP characters), and all number formats
- including negative zero and IEEE 754 non-numbers such a NaN or
- Infinity.
-
- The JSON/ECMAScript to Python type mappings are:
-    ---JSON---             ---Python---
-    null                   None
-    undefined              undefined  (note 1)
-    Boolean (true,false)   bool  (True or False)
-    Integer                int or long  (note 2)
-    Float                  float
-    String                 str or unicode  ( "..." or u"..." )
-    Array [a, ...]         list  ( [...] )
-    Object {a:b, ...}      dict  ( {...} )
-    
-    -- Note 1. an 'undefined' object is declared in this module which
-       represents the native Python value for this type when in
-       non-strict mode.
-
-    -- Note 2. some ECMAScript integers may be up-converted to Python
-       floats, such as 1e+40.  Also integer -0 is converted to
-       float -0, so as to preserve the sign (which ECMAScript requires).
-
-    -- Note 3. numbers requiring more significant digits than can be
-       represented by the Python float type will be converted into a
-       Python Decimal type, from the standard 'decimal' module.
-
- In addition, when operating in non-strict mode, several IEEE 754
- non-numbers are also handled, and are mapped to specific Python
- objects declared in this module:
-
-     NaN (not a number)     nan    (float('nan'))
-     Infinity, +Infinity    inf    (float('inf'))
-     -Infinity              neginf (float('-inf'))
-
- When encoding Python objects into JSON, you may use types other than
- native lists or dictionaries, as long as they support the minimal
- interfaces required of all sequences or mappings.  This means you can
- use generators and iterators, tuples, UserDict subclasses, etc.
-
- To make it easier to produce JSON encoded representations of user
- defined classes, if the object has a method named json_equivalent(),
- then it will call that method and attempt to encode the object
- returned from it instead.  It will do this recursively as needed and
- before any attempt to encode the object using it's default
- strategies.  Note that any json_equivalent() method should return
- "equivalent" Python objects to be encoded, not an already-encoded
- JSON-formatted string.  There is no such aid provided to decode
- JSON back into user-defined classes as that would dramatically
- complicate the interface.
- 
- When decoding strings with this module it may operate in either
- strict or non-strict mode.  The strict mode only allows syntax which
- is conforming to RFC 7159 (JSON), while the non-strict allows much
- more of the permissible ECMAScript syntax.
-
- The following are permitted when processing in NON-STRICT mode:
-
-    * Unicode format control characters are allowed anywhere in the input.
-    * All Unicode line terminator characters are recognized.
-    * All Unicode white space characters are recognized.
-    * The 'undefined' keyword is recognized.
-    * Hexadecimal number literals are recognized (e.g., 0xA6, 0177).
-    * String literals may use either single or double quote marks.
-    * Strings may contain \x (hexadecimal) escape sequences, as well as the
-      \v and \0 escape sequences.
-    * Lists may have omitted (elided) elements, e.g., [,,,,,], with
-      missing elements interpreted as 'undefined' values.
-    * Object properties (dictionary keys) can be of any of the
-      types: string literals, numbers, or identifiers (the later of
-      which are treated as if they are string literals)---as permitted
-      by ECMAScript.  JSON only permits strings literals as keys.
-
- Concerning non-strict and non-ECMAScript allowances:
-
-    * Octal numbers: If you allow the 'octal_numbers' behavior (which
-      is never enabled by default), then you can use octal integers
-      and octal character escape sequences (per the ECMAScript
-      standard Annex B.1.2).  This behavior is allowed, if enabled,
-      because it was valid JavaScript at one time.
-
-    * Multi-line string literals:  Strings which are more than one
-      line long (contain embedded raw newline characters) are never
-      permitted. This is neither valid JSON nor ECMAScript.  Some other
-      JSON implementations may allow this, but this module considers
-      that behavior to be a mistake.
-
- References:
-    * JSON (JavaScript Object Notation)
-      <http://json.org/>
-    * RFC 7159. The application/json Media Type for JavaScript Object Notation (JSON)
-      <http://www.ietf.org/rfc/rfc7159.txt>
-    * ECMA-262 3rd edition (1999)
-      <http://www.ecma-international.org/publications/files/ecma-st/ECMA-262.pdf>
-    * IEEE 754-1985: Standard for Binary Floating-Point Arithmetic.
-      <http://www.cs.berkeley.edu/~ejr/Projects/ieee754/>
-    
-"""
 
 __author__ = "Deron Meranda <http://deron.meranda.us/>"
 __homepage__ = "http://deron.meranda.us/python/demjson/"
@@ -123,29 +7,6 @@ __homepage__ = "http://deron.meranda.us/python/demjson/"
 __date__ = "2015-12-22"
 __version__ = "2.2.4"
 __version_info__ = (2, 2, 4)  # Will be converted into a namedtuple below
-
-__credits__ = """Copyright (c) 2006-2015 Deron E. Meranda <http://deron.meranda.us/>
-
-Licensed under GNU LGPL (GNU Lesser General Public License) version 3.0
-or later.  See LICENSE.txt included with this software.
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>
-or <http://www.fsf.org/licensing/>.
-
-"""
-
-# ----------------------------------------------------------------------
 
 # Set demjson version
 try:
@@ -3839,11 +3700,10 @@ class JSON(object):
         return stopchar
 
     def decode_null(self, state):
-        """Intermediate-level decoder for ECMAScript 'null' keyword.
-
+        """
+        Intermediate-level decoder for ECMAScript 'null' keyword.
         Takes a string and a starting index, and returns a Python
         None object and the index of the next unparsed character.
-
         """
         buf = state.buf
         start_position = buf.position
