@@ -1543,9 +1543,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.23 fix: fix update urllib3 package
 1.1.24 fix: fix email address
 1.1.25 add: add stock_hold_num_cninfo interface
+1.1.26 fix: fix stock_fund_flow_industry interface
 """
 
-__version__ = "1.1.25"
+__version__ = "1.1.26"
 __author__ = "Albert King"
 
 import sys
