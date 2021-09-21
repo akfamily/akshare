@@ -219,8 +219,8 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
             "流出资金",
             "净额",
             "公司家数",
+            "领涨股",
             "领涨股-涨跌幅",
-            "涨跌幅",
             "当前价",
         ]
         big_df['行业-涨跌幅'] = big_df['行业-涨跌幅'].str.strip("%")
