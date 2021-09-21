@@ -874,6 +874,8 @@
  "stock_new_ipo_cninfo"  # 新股-IPO
  # 股东人数及持股集中度
  "stock_hold_num_cninfo"  # 股东人数及持股集中度
+ # 实际控制人持股变动
+ "stock_hold_control_cninfo"  # 实际控制人持股变动
 ```
 
 ## 案例演示

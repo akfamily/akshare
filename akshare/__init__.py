@@ -1543,10 +1543,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.23 fix: fix update urllib3 package
 1.1.24 fix: fix email address
 1.1.25 add: add stock_hold_num_cninfo interface
-1.1.26 fix: fix stock_fund_flow_industry interface
+1.1.26 fix: fix stock_fund_flow_concept interface
+1.1.27 add: add stock_hold_control_cninfo interface
 """
 
-__version__ = "1.1.26"
+__version__ = "1.1.27"
 __author__ = "Albert King"
 
 import sys
@@ -1556,6 +1557,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+实际控制人持股变动
+"""
+from akshare.stock.stock_hold_control_cninfo import stock_hold_control_cninfo
 
 """
 股东人数及持股集中度

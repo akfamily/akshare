@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 """
 Date: 2021/9/21 16:19
-Desc: 巨潮资讯-数据中心-专题统计-股东股本-股东人数及持股集中度
+Desc: 巨潮资讯-数据中心-专题统计-股东股本-实际控制人持股变动
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
 import time
@@ -42,16 +42,23 @@ js_str = """
 """
 
 
-def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
+def stock_hold_control_cninfo(symbol: str = "全部") -> pd.DataFrame:
     """
-    巨潮资讯-数据中心-专题统计-股东股本-股东人数及持股集中度
+    巨潮资讯-数据中心-专题统计-股东股本-实际控制人持股变动
     http://webapi.cninfo.com.cn/#/thematicStatistics
-    :param date: choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}; 从 20170331 开始
-    :type date: str
-    :return: 股东人数及持股集中度
+    :param symbol: choice of {"单独控制", "实际控制人", "一致行动人", "家族控制", "全部"}; 从 2010 开始
+    :type symbol: str
+    :return: 实际控制人持股变动
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1034"
+    symbol_map = {
+        "单独控制": "069001",
+        "实际控制人": "069002",
+        "一致行动人": "069003",
+        "家族控制": "069004",
+        "全部": "",
+    }
+    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1033"
     random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(js_str)
@@ -72,45 +79,39 @@ def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
-        "rdate": date,
+        "ctype": symbol_map[symbol],
     }
     r = requests.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
-        "本期人均持股数量",
-        "股东人数增幅",
-        "上期股东人数",
-        "本期股东人数",
+        "控股比例",
+        "控股数量",
         "证券简称",
+        "实际控制人名称",
+        "直接控制人名称",
+        "控制类型",
         "证券代码",
-        "人均持股数量增幅",
         "变动日期",
-        "上期人均持股数量",
     ]
     temp_df = temp_df[
         [
             "证券代码",
             "证券简称",
             "变动日期",
-            "本期股东人数",
-            "上期股东人数",
-            "股东人数增幅",
-            "本期人均持股数量",
-            "上期人均持股数量",
-            "人均持股数量增幅",
+            "实际控制人名称",
+            "控股数量",
+            "控股比例",
+            "直接控制人名称",
+            "控制类型",
         ]
     ]
     temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"]).dt.date
-    temp_df["本期人均持股数量"] = pd.to_numeric(temp_df["本期人均持股数量"])
-    temp_df["股东人数增幅"] = pd.to_numeric(temp_df["股东人数增幅"])
-    temp_df["上期股东人数"] = pd.to_numeric(temp_df["上期股东人数"])
-    temp_df["本期股东人数"] = pd.to_numeric(temp_df["本期股东人数"])
-    temp_df["人均持股数量增幅"] = pd.to_numeric(temp_df["人均持股数量增幅"])
-    temp_df["上期人均持股数量"] = pd.to_numeric(temp_df["上期人均持股数量"])
+    temp_df["控股数量"] = pd.to_numeric(temp_df["控股数量"])
+    temp_df["控股比例"] = pd.to_numeric(temp_df["控股比例"])
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_hold_num_cninfo_df = stock_hold_num_cninfo(date="20210630")
-    print(stock_hold_num_cninfo_df)
+    stock_hold_control_cninfo_df = stock_hold_control_cninfo(symbol="全部")
+    print(stock_hold_control_cninfo_df)

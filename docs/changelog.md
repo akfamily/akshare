@@ -2508,5 +2508,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.25 add: add stock_hold_num_cninfo interface
 
-1.1.26 fix: fix stock_fund_flow_industry interface
+1.1.26 fix: fix stock_fund_flow_concept interface
+
+1.1.27 add: add stock_hold_control_cninfo interface
 ```
