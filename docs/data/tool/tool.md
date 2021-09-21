@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 工具箱
+## [AKShare](https://github.com/akfamily/akshare) 工具箱
 
 ### 交易日历
 

@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 期货数据
+## [AKShare](https://github.com/akfamily/akshare) 期货数据
 
 ### 期货基础信息
 
@@ -684,7 +684,7 @@ print(futures_inventory_em_df)
 
 展期收益率是由不同交割月的价差除以相隔月份数计算得来, 它反映了市场对该品种在近期交割和远期交割的价差预期. 
 
-在 [AKShare](https://github.com/jindaxiang/akshare) 中可以通过 **get_roll_yield_bar** 接口下载展期收益率数据.
+在 [AKShare](https://github.com/akfamily/akshare) 中可以通过 **get_roll_yield_bar** 接口下载展期收益率数据.
 
 这里展期收益率列表的序列类型分为三种, 分别可以通过:
 

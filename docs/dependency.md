@@ -1,9 +1,9 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 依赖说明
+## [AKShare](https://github.com/akfamily/akshare) 依赖说明
 
 ### Python 依赖
 
-1. [AKShare](https://github.com/jindaxiang/akshare) 文档的依赖说明部分主要是为了对 [AKShare](https://github.com/jindaxiang/akshare) 库的所有依赖库做一个描述
-   方便小伙伴在对 [AKShare](https://github.com/jindaxiang/akshare) 进行二次封装进行参考；
+1. [AKShare](https://github.com/akfamily/akshare) 文档的依赖说明部分主要是为了对 [AKShare](https://github.com/akfamily/akshare) 库的所有依赖库做一个描述
+   方便小伙伴在对 [AKShare](https://github.com/akfamily/akshare) 进行二次封装进行参考；
 2. 提供选择该库函数的部分原因说明；
 2. 所有的依赖名称都跟 PYPI 提供的库名称统一。
 
@@ -28,5 +28,5 @@
 4. [GitHub 地址](https://github.com/pandas-dev/pandas)
 5. [文档地址](https://pandas.pydata.org/)
 6. 选用原因如下
-    1. 该库主要用于采集后的数据清洗，此处建议升级到最新版，[AKShare](https://github.com/jindaxiang/akshare) 会优先支持最新的版本
+    1. 该库主要用于采集后的数据清洗，此处建议升级到最新版，[AKShare](https://github.com/akfamily/akshare) 会优先支持最新的版本
     

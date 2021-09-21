@@ -1,10 +1,10 @@
-# [AKShare](https://github.com/jindaxiang/akshare) 快速入门
+# [AKShare](https://github.com/akfamily/akshare) 快速入门
 
 ## 查看数据
 
 具体函数使用详情, 请查看 [AKShare 文档](https://akshare.readthedocs.io/) 每个接口的示例代码
 
-[AKShare](https://github.com/jindaxiang/akshare) 数据接口一览
+[AKShare](https://github.com/akfamily/akshare) 数据接口一览
 
 ```
  # 交易所期货数据

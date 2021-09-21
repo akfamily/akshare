@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/jindaxiang/akshare) 环境配置
+# [AKShare](https://github.com/akfamily/akshare) 环境配置
 
 ## Anaconda 安装说明
 
@@ -62,7 +62,7 @@ Proceed 输入 y
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_2.png)
 
-在虚拟环境中安装 [AKShare](https://github.com/jindaxiang/akshare). 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
+在虚拟环境中安装 [AKShare](https://github.com/akfamily/akshare). 输入如下内容, 会在全新的环境中自动安装所需要的依赖包
 
 激活已经创建好的 ak_test 虚拟环境
 
@@ -70,7 +70,7 @@ Proceed 输入 y
 conda activate ak_test
 ```
 
-在 ak_test 虚拟环境中安装并更新 [AKShare](https://github.com/jindaxiang/akshare)
+在 ak_test 虚拟环境中安装并更新 [AKShare](https://github.com/akfamily/akshare)
 
 ```
 pip install akshare --upgrade
@@ -91,11 +91,11 @@ import akshare as ak
 ak.__doc__
 ```
 
-显示出如下图则虚拟环境和 [AKShare](https://github.com/jindaxiang/akshare) 安装成功:
+显示出如下图则虚拟环境和 [AKShare](https://github.com/akfamily/akshare) 安装成功:
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/anaconda/virtual_env/anaconda_prompt_4.png)
 
-还可以在 ak_test 虚拟环境的 Python 环境中输入如下代码可以显示 [AKShare](https://github.com/jindaxiang/akshare) 的版本信息
+还可以在 ak_test 虚拟环境的 Python 环境中输入如下代码可以显示 [AKShare](https://github.com/akfamily/akshare) 的版本信息
 
 ```python
 import akshare as ak

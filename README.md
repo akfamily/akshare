@@ -1,27 +1,27 @@
-![](https://github.com/jindaxiang/akshare/blob/master/example/images/AKShare_logo.jpg)
+![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
 [![Downloads](https://pepy.tech/badge/akshare)](https://pepy.tech/project/akshare)
 [![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/zh_CN/latest/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/jindaxiang/akshare)
-[![Actions Status](https://github.com/jindaxiang/akshare/workflows/build/badge.svg)](https://github.com/jindaxiang/akshare/actions)
-[![MIT Licence](https://camo.githubusercontent.com/14a9abb7e83098f2949f26d2190e04fb1bd52c06/68747470733a2f2f626c61636b2e72656164746865646f63732e696f2f656e2f737461626c652f5f7374617469632f6c6963656e73652e737667)](https://github.com/jindaxiang/akshare/blob/master/LICENSE)
-[![](https://img.shields.io/github/forks/jindaxiang/akshare)](https://github.com/jindaxiang/akshare)
-[![](https://img.shields.io/github/stars/jindaxiang/akshare)](https://github.com/jindaxiang/akshare)
-[![](https://img.shields.io/github/issues/jindaxiang/akshare)](https://github.com/jindaxiang/akshare)
+[![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
+[![Actions Status](https://github.com/akfamily/akshare/workflows/build/badge.svg)](https://github.com/akfamily/akshare/actions)
+[![MIT Licence](https://camo.githubusercontent.com/14a9abb7e83098f2949f26d2190e04fb1bd52c06/68747470733a2f2f626c61636b2e72656164746865646f63732e696f2f656e2f737461626c652f5f7374617469632f6c6963656e73652e737667)](https://github.com/akfamily/akshare/blob/master/LICENSE)
+[![](https://img.shields.io/github/forks/jindaxiang/akshare)](https://github.com/akfamily/akshare)
+[![](https://img.shields.io/github/stars/jindaxiang/akshare)](https://github.com/akfamily/akshare)
+[![](https://img.shields.io/github/issues/jindaxiang/akshare)](https://github.com/akfamily/akshare)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## Overview
 
-[AKShare](https://github.com/jindaxiang/akshare) requires Python(64 bit) 3.7 or greater, aims to make fetch financial data as convenient as possible.
+[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.7 or greater, aims to make fetch financial data as convenient as possible.
 
 **Write less, get more!**
 
 - Documentation: [中文文档](https://akshare.readthedocs.io/zh_CN/latest/)
 
-# ![](https://github.com/jindaxiang/akshare/blob/master/example/images/AKShare.svg)
+# ![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare.svg)
 
 ## Installation
 
@@ -120,13 +120,13 @@ Pay attention to **数据科学家** Official Accounts to get more information a
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png">
 </div>
 
-Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/jindaxiang/akshare) updated info:
+Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/akfamily/akshare) updated info:
 
 <div align=center>
-    <img src="https://github.com/jindaxiang/akshare/blob/master/example/images/ds.png">
+    <img src="https://github.com/akfamily/akshare/blob/master/example/images/ds.png">
 </div>
 
-Application to add **AKShare-VIP群** QQ group and talk about [AKShare](https://github.com/jindaxiang/akshare) issues, please contact **AKShare-小助手 QQ**: 2875328287
+Application to add **AKShare-VIP群** QQ group and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 2875328287
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_2875328287.jpg)
 
 ## Features
@@ -145,7 +145,7 @@ Application to add **AKShare-VIP群** QQ group and talk about [AKShare](https://
 
 ## Contribution
 
-[AKShare](https://github.com/jindaxiang/akshare) is still under developing, feel free to open issues and pull requests:
+[AKShare](https://github.com/akfamily/akshare) is still under developing, feel free to open issues and pull requests:
 
 - Report or fix bugs
 - Require or publish interface
@@ -156,31 +156,31 @@ Application to add **AKShare-VIP群** QQ group and talk about [AKShare](https://
 
 ## Statement
 
-1. All data provided by [AKShare](https://github.com/jindaxiang/akshare) is just for academic research purpose;
-2. The data provided by [AKShare](https://github.com/jindaxiang/akshare) is for reference only and does not constitute any investment proposal;
-3. Any investor based on [AKShare](https://github.com/jindaxiang/akshare) research should pay more attention to data risk;
-4. [AKShare](https://github.com/jindaxiang/akshare) will insist on providing open-source financial data;
-5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/jindaxiang/akshare) may be removed;
-6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/jindaxiang/akshare).
+1. All data provided by [AKShare](https://github.com/akfamily/akshare) is just for academic research purpose;
+2. The data provided by [AKShare](https://github.com/akfamily/akshare) is for reference only and does not constitute any investment proposal;
+3. Any investor based on [AKShare](https://github.com/akfamily/akshare) research should pay more attention to data risk;
+4. [AKShare](https://github.com/akfamily/akshare) will insist on providing open-source financial data;
+5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/akfamily/akshare) may be removed;
+6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare).
 
 ## Show your style
 
 Use the badge in your project's README.md:
 
 ```markdown
-[![Data: akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/jindaxiang/akshare)
+[![Data: akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
 ```
 
 Using the badge in README.rst:
 
 ```
 .. image:: https://img.shields.io/badge/Data%20Science-AKShare-green
-    :target: https://github.com/jindaxiang/akshare
+    :target: https://github.com/akfamily/akshare
 ```
 
 Looks like this:
 
-[![Data: akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/jindaxiang/akshare)
+[![Data: akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
 
 ## Citation
 
@@ -193,7 +193,7 @@ Please use this **bibtex** if you want to cite this repository in your publicati
     year = {2019},
     publisher = {GitHub},
     journal = {GitHub repository},
-    howpublished = {\url{https://github.com/jindaxiang/akshare}},
+    howpublished = {\url{https://github.com/akfamily/akshare}},
 }
 ```
 
@@ -308,5 +308,5 @@ Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://
 ## Backer and Sponsor
 
 <a href="https://www.jetbrains.com/?from=jindaxiang/akshare" target="_blank">
-<img src="https://github.com/jindaxiang/akshare/blob/master/example/images/jetbrains.svg" width="100px" height="100px">
+<img src="https://github.com/akfamily/akshare/blob/master/example/images/jetbrains.svg" width="100px" height="100px">
 </a>

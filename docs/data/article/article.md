@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 波动率数据
+## [AKShare](https://github.com/akfamily/akshare) 波动率数据
 
 ### 已实现波动率数据
 
@@ -163,7 +163,7 @@ print(df)
 2019-11-08    0.199549
 ```
 
-## [AKShare](https://github.com/jindaxiang/akshare) 多因子数据
+## [AKShare](https://github.com/akfamily/akshare) 多因子数据
 
 ### Current Research Returns
 
@@ -270,7 +270,7 @@ Big Neutral                                            4.49
 Big Aggressive                                        -0.38
 ```
 
-## [AKShare](https://github.com/jindaxiang/akshare) 政策不确定性数据
+## [AKShare](https://github.com/akfamily/akshare) 政策不确定性数据
 
 ### 国家和地区指数
 

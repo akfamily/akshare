@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/jindaxiang/akshare) 版本更新
+# [AKShare](https://github.com/akfamily/akshare) 版本更新
 
 ```
 0.1.25: 增加奇货可查指数接口 e.g. ak.get_qhkc_data("商品指数")
@@ -2511,4 +2511,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.26 fix: fix stock_fund_flow_concept interface
 
 1.1.27 add: add stock_hold_control_cninfo interface
+
+1.1.28 fix: fix move project to AKFamily interface
 ```

@@ -35,7 +35,7 @@ setuptools.setup(
     description="AKShare is an elegant and simple financial data interface library for Python, built for human beings!",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/jindaxiang/akshare",
+    url="https://github.com/akfamily/akshare",
     packages=setuptools.find_packages(),
     install_requires=[
         "beautifulsoup4>=4.9.1",
