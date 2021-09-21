@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 事件数据
+## [AKShare](https://github.com/akfamily/akshare) 事件数据
 
 ### COVID
 

@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 指数数据
+## [AKShare](https://github.com/akfamily/akshare) 指数数据
 
 ### 中国股票指数数据
 
@@ -1344,7 +1344,7 @@ print(index_cni_detail_hist_adjust_df)
 1. 先查询指数所在的国家名称;
 2. 复制网页上国家名称(推荐复制), 如 **美国**;
 3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**; 也可以调用 **ak.index_investing_global_country_name_url("美国")** 获取需要国家的具体指数名称
-4. 在安装 [AKShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")**;
+4. 在安装 [AKShare](https://github.com/akfamily/akshare) 后输入, 如 **ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")**;
 5. 稍后就可以获得所需数据.
 
 限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!

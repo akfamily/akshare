@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 另类数据
+## [AKShare](https://github.com/akfamily/akshare) 另类数据
 
 ### 奥运奖牌
 

@@ -1,13 +1,13 @@
-# [AKShare](https://github.com/jindaxiang/akshare) 安装指导
+# [AKShare](https://github.com/akfamily/akshare) 安装指导
 
 ## 重要提示
 
-1. 目前 [AKShare](https://github.com/jindaxiang/akshare) 仅支持 64 位版本的操作系统安装和使用;
-2. 目前 [AKShare](https://github.com/jindaxiang/akshare) 仅支持 [Python](https://www.python.org/) 3.7(64 位) 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.8.5(64 位) 版本;
-3. [AKShare](https://github.com/jindaxiang/akshare) 推荐安装最新版本的 [Anaconda (64 位)](https://www.anaconda.com/), 可以解决大部分环境配置问题;
+1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用;
+2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.7(64 位) 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.8.5(64 位) 版本;
+3. [AKShare](https://github.com/akfamily/akshare) 推荐安装最新版本的 [Anaconda (64 位)](https://www.anaconda.com/), 可以解决大部分环境配置问题;
 4. 对于熟悉容器技术的小伙伴, 可以安装 Docker 使用, 指导教程如下: [AKShare Docker 部署](https://www.akshare.xyz/zh_CN/latest/akdocker/akdocker.html).
 
-## 安装 [AKShare](https://github.com/jindaxiang/akshare)
+## 安装 [AKShare](https://github.com/akfamily/akshare)
 
 提示：由于 py_mini_racer 库的编译问题，目前 ARM 架构的处理暂时无法安装和使用 AKShare, 已经在跟 py_mini_racer 库作者联系
 
@@ -31,9 +31,9 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade
 ```
 
-## 升级 [AKShare](https://github.com/jindaxiang/akshare)
+## 升级 [AKShare](https://github.com/akfamily/akshare)
 
-P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
+P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://github.com/akfamily/akshare) 前先升级, 命令如下所示**
 
 ```
 pip install akshare --upgrade -i https://pypi.org/simple
@@ -86,7 +86,7 @@ use_python("/usr/local/bin/python")
 
 调用本地的 Python 程序，其中 usr 需要替换为本地电脑的用户名。
 
-最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 [AKShare](https://github.com/jindaxiang/akshare) 获取数据：
+最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 [AKShare](https://github.com/akfamily/akshare) 获取数据：
 
 ```
 library(reticulate)  # 导入 reticulate 包
@@ -195,4 +195,4 @@ pip install akshare --user
 ### 4. 提示其他的错误
 
 - 方法一: 确认并升级您的 Anaconda 或者 Python 到 64 位的 **Python3.7** 及以上版本
-- 方法二: 使用 conda 的虚拟环境来安装, 详见 **[AKShare](https://github.com/jindaxiang/akshare) 环境配置** 板块的内容
+- 方法二: 使用 conda 的虚拟环境来安装, 详见 **[AKShare](https://github.com/akfamily/akshare) 环境配置** 板块的内容

@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 货币数据
+## [AKShare](https://github.com/akfamily/akshare) 货币数据
 
 ### 货币报价最新数据
 

@@ -1,6 +1,6 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 策略示例
+## [AKShare](https://github.com/akfamily/akshare) 策略示例
 
-本策略示例文档的主要目的是为了方便的展示 [AKShare](https://github.com/jindaxiang/akshare) 的数据接口
+本策略示例文档的主要目的是为了方便的展示 [AKShare](https://github.com/akfamily/akshare) 的数据接口
 调用、基本的数据处理和回测框架使用，并不涉及任何投资建议，提供的示例代码也仅供参考。
 
 本策略示例都是基于 Python 编程语言的开源回测和交易框架 [Backtrader](https://www.backtrader.com) 来演示的，有兴趣
@@ -17,8 +17,8 @@
 
 #### Backtrader 下载和安装
 
-[Backtrader](https://www.backtrader.com) 的下载和安装都比较简单，尤其是在配置好 [AKShare](https://github.com/jindaxiang/akshare) 的
-基础上，我们只需要 ```pip install backtrader``` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/jindaxiang/akshare) 的
+[Backtrader](https://www.backtrader.com) 的下载和安装都比较简单，尤其是在配置好 [AKShare](https://github.com/akfamily/akshare) 的
+基础上，我们只需要 ```pip install backtrader``` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/akfamily/akshare) 的
 环境配置，请参考 [AKShare 环境配置](https://www.akshare.xyz/zh_CN/latest/anaconda.html) 来设置本地环境。想要通过源码来安装的小伙伴，可以访问 [Backtrader 的 GitHub 地址](https://github.com/mementum/backtrader) 来下载安装，由于源码安装比较繁琐，建议直接通过 ```pip``` 或 ```conda``` 来安装和使用。需要注意的是如果要输出图形，请安装 ```pip install matplotlib==3.2.2```
 
 ### 股票策略

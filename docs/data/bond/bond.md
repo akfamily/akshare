@@ -1,10 +1,10 @@
-## [AKShare](https://github.com/jindaxiang/akshare) 债券数据
+## [AKShare](https://github.com/akfamily/akshare) 债券数据
 
 ### 债券基础信息
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index/bond_stock_index.png)
 
-上图是利用 [AKShare](https://github.com/jindaxiang/akshare) 的 **get_bond_bank** 函数获取的中国银行间
+上图是利用 [AKShare](https://github.com/akfamily/akshare) 的 **get_bond_bank** 函数获取的中国银行间
 交易商协会发布的债券数据来绘制的, 可以在上面明确看出近几个月发债规模急速上升.
 
 ### 债券基础名词
@@ -880,7 +880,7 @@ print(bond_convert_jsl_df)
 1. 先查询指数所在的国家名称;
 2. 复制网页上国家名称(推荐复制), 如 **中国**;
 3. 复制所显示的具体债券名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **中国1年期国债**; 也可以调用 **ak.bond_investing_global_country_name_url(country="美国")** 获取需要国家的具体指数名称
-4. 在安装 [AKShare](https://github.com/jindaxiang/akshare) 后输入, 如 **ak.bond_investing_global(country="中国", index_name="中国1年期国债", period="每周", start_date="2000-01-01", end_date="2020-06-06")**;
+4. 在安装 [AKShare](https://github.com/akfamily/akshare) 后输入, 如 **ak.bond_investing_global(country="中国", index_name="中国1年期国债", period="每周", start_date="2000-01-01", end_date="2020-06-06")**;
 5. 稍后就可以获得所需数据; 由于服务器在国外, 如访问失败, 请稍后重试.
 
 限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!

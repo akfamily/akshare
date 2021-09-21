@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/jindaxiang/akshare) 量化平台
+# [AKShare](https://github.com/akfamily/akshare) 量化平台
 
 ## 开源平台
 

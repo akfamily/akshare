@@ -1,11 +1,11 @@
-# [AKShare](https://github.com/jindaxiang/akshare) 贡献源码
+# [AKShare](https://github.com/akfamily/akshare) 贡献源码
 
 ## 贡献指南
 
 ### 克隆及提交代码
 
-1. 请从 [akshare-develop 分支](https://github.com/jindaxiang/akshare/tree/develop) 克隆，develop 分支中包含 AKShare 最新的开发代码
-2. 请提交修改后的代码到 [akshare-develop 分支](https://github.com/jindaxiang/akshare/tree/develop)
+1. 请从 [akshare-develop 分支](https://github.com/akfamily/akshare/tree/develop) 克隆，develop 分支中包含 AKShare 最新的开发代码
+2. 请提交修改后的代码到 [akshare-develop 分支](https://github.com/akfamily/akshare/tree/develop)
 
 ### 代码及接口设计规范
 
