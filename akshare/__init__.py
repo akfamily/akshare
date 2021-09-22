@@ -1553,9 +1553,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.31 add: add stock_hold_management_detail_cninfo interface
 1.1.32 add: add sw_index_representation_spot interface
 1.1.33 fix: fix sw_index_xxx interface
+1.1.34 fix: fix drewry_wci_index interface
 """
 
-__version__ = "1.1.33"
+__version__ = "1.1.34"
 __author__ = "Albert King"
 
 import sys
