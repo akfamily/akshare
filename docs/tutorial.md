@@ -150,6 +150,7 @@
  # 谷歌指数
  "google_index"  # 获取谷歌趋势指数
  # 申万行业指数
+ "sw_index_representation_spot"  # 申万市场表征数据
  "sw_index_spot"  # 获取申万一级实时行情
  "sw_index_cons"  # 获取申万一级板块成份
  "sw_index_daily"  # 获取申万一级历史行情
