@@ -1551,9 +1551,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.29 fix: fix urllib3>=1.25.8 package
 1.1.30 fix: fix stock_zh_index_hist_csindex interface
 1.1.31 add: add stock_hold_management_detail_cninfo interface
+1.1.32 add: add sw_index_representation_spot interface
 """
 
-__version__ = "1.1.31"
+__version__ = "1.1.32"
 __author__ = "Albert King"
 
 import sys
@@ -2777,6 +2778,7 @@ from akshare.fortune.fortune_500 import fortune_rank, fortune_rank_eng
 申万行业一级
 """
 from akshare.index.index_sw import (
+    sw_index_representation_spot,
     sw_index_spot,
     sw_index_cons,
     sw_index_daily,

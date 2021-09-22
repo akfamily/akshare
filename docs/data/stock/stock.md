@@ -8809,12 +8809,12 @@ print(stock_hold_control_cninfo_df)
 | 董监高姓名          | object   |  -    |
 | 董监高职务          | object   |  -    |
 | 变动人与董监高关系          | object   |  -    |
-| 期初持股数量          | float64   |  -    |
-| 期末持股数量          | float64   |  -    |
+| 期初持股数量          | float64   |  注意单位: 万股    |
+| 期末持股数量          | float64   |  注意单位: 万股    |
 | 变动数量          | float64   |  -    |
-| 变动比例          | int64   |  -    |
-| 成交均价          | float64   |  -    |
-| 期末市值          | float64   |  -    |
+| 变动比例          | int64   |  注意单位: %    |
+| 成交均价          | float64   |  注意单位: 元    |
+| 期末市值          | float64   |  注意单位: 万元    |
 | 持股变动原因          | object   |  -    |
 | 数据来源          | object   |  -    |
 
