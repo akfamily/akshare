@@ -2515,4 +2515,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.28 fix: fix move project to AKFamily interface
 
 1.1.29 fix: fix urllib3>=1.25.8 package
+
+1.1.30 fix: fix stock_zh_index_hist_csindex interface
 ```
