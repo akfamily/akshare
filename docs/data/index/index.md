@@ -2696,7 +2696,9 @@ print(index_vix_df)
 
 目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/H30374
 
-描述: 获取中证指数数据, 该接口只返回最近 5 年指数日频率收盘价数据
+描述: 中证指数日频率的数据
+
+限量: 该接口只返回最近 5 年指数日频率收盘价数据
 
 输入参数
 
