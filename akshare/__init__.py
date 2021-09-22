@@ -1550,9 +1550,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.28 fix: fix move project to AKFamily interface
 1.1.29 fix: fix urllib3>=1.25.8 package
 1.1.30 fix: fix stock_zh_index_hist_csindex interface
+1.1.31 add: add stock_hold_management_detail_cninfo interface
 """
 
-__version__ = "1.1.30"
+__version__ = "1.1.31"
 __author__ = "Albert King"
 
 import sys
@@ -1566,7 +1567,7 @@ del sys
 """
 实际控制人持股变动
 """
-from akshare.stock.stock_hold_control_cninfo import stock_hold_control_cninfo
+from akshare.stock.stock_hold_control_cninfo import stock_hold_control_cninfo, stock_hold_management_detail_cninfo
 
 """
 股东人数及持股集中度
