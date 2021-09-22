@@ -876,6 +876,8 @@
  "stock_hold_num_cninfo"  # 股东人数及持股集中度
  # 实际控制人持股变动
  "stock_hold_control_cninfo"  # 实际控制人持股变动
+ # 高管持股变动明细
+ "stock_hold_management_detail_cninfo"  # 高管持股变动明细
 ```
 
 ## 案例演示
