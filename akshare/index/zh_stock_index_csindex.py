@@ -38,5 +38,5 @@ def stock_zh_index_hist_csindex(symbol: str = "H30374") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(symbol="H30533")
+    stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(symbol="H30374")
     print(stock_zh_index_hist_csindex_df)
