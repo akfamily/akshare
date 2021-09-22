@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/5/7 15:58
+Date: 2021/9/22 19:38
 Desc: Drewry集装箱指数
 https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry
 https://infogram.com/world-container-index-1h17493095xl4zj
@@ -9,6 +9,7 @@ https://infogram.com/world-container-index-1h17493095xl4zj
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
 from akshare.utils import demjson
 
 
@@ -22,17 +23,17 @@ def drewry_wci_index():
     url = "https://infogram.com/world-container-index-1h17493095xl4zj"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    data_text = soup.find_all('script')[-5].string.strip("window.infographicData=")[:-1]
+    data_text = soup.find_all("script")[-5].string.strip("window.infographicData=")[:-1]
     data_json = demjson.decode(data_text)
-    temp_df = pd.DataFrame(data_json['elements'][2]['data'][0])
+    temp_df = pd.DataFrame(data_json["elements"][2]["data"][0])
     temp_df = temp_df.iloc[1:, :]
-    temp_df.columns = ['date', 'wci']
-    day = temp_df['date'].str.split("-", expand=True).iloc[:, 0].str.strip()
-    month = temp_df['date'].str.split("-", expand=True).iloc[:, 1].str.strip()
-    year = temp_df['date'].str.split("-", expand=True).iloc[:, 2].str.strip()
-    temp_df['date'] = day + "-" + month + "-" + year
-    temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
-    temp_df['wci'] = pd.to_numeric(temp_df['wci'], errors="coerce")
+    temp_df.columns = ["date", "wci"]
+    day = temp_df["date"].str.split("-", expand=True).iloc[:, 0].str.strip()
+    month = temp_df["date"].str.split("-", expand=True).iloc[:, 1].str.strip()
+    year = temp_df["date"].str.split("-", expand=True).iloc[:, 2].str.strip()
+    temp_df["date"] = day + "-" + month + "-" + year
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["wci"] = pd.to_numeric(temp_df["wci"], errors="coerce")
     return temp_df
 
 
