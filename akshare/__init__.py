@@ -1556,9 +1556,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.34 fix: fix drewry_wci_index interface
 1.1.35 fix: fix fund_etf_category_sina interface
 1.1.36 fix: fix sw_index_daily_indicator interface
+1.1.37 fix: fix drewry_wci_index interface
 """
 
-__version__ = "1.1.36"
+__version__ = "1.1.37"
 __author__ = "Albert King"
 
 import sys
