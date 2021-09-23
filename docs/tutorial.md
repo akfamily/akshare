@@ -879,6 +879,8 @@
  "stock_hold_control_cninfo"  # 实际控制人持股变动
  # 高管持股变动明细
  "stock_hold_management_detail_cninfo"  # 高管持股变动明细
+ # 期货手续费
+ "futures_comm_info"  # 期货手续费
 ```
 
 ## 案例演示

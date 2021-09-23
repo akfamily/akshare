@@ -1557,9 +1557,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.35 fix: fix fund_etf_category_sina interface
 1.1.36 fix: fix sw_index_daily_indicator interface
 1.1.37 fix: fix drewry_wci_index interface
+1.1.38 add: add futures_comm_info interface
 """
 
-__version__ = "1.1.37"
+__version__ = "1.1.38"
 __author__ = "Albert King"
 
 import sys
@@ -1569,6 +1570,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+期货手续费
+"""
+from akshare.futures.futures_comm_qihuo import futures_comm_info
 
 """
 实际控制人持股变动
