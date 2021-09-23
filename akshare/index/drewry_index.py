@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/9/22 19:38
+Date: 2021/9/23 15:38
 Desc: Drewry集装箱指数
 https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry
 https://infogram.com/world-container-index-1h17493095xl4zj
@@ -13,19 +13,31 @@ from bs4 import BeautifulSoup
 from akshare.utils import demjson
 
 
-def drewry_wci_index():
+def drewry_wci_index(symbol: str = "composite") -> pd.DataFrame:
     """
     Drewry 集装箱指数
     https://infogram.com/world-container-index-1h17493095xl4zj
+    :return: choice of {"composite", "shanghai-rotterdam", "rotterdam-shanghai", "shanghai-los angeles", "los angeles-shanghai", "shanghai-genoa", "new york-rotterdam", "rotterdam-new york"}
+    :type: str
     :return: Drewry 集装箱指数
     :rtype: pandas.DataFrame
     """
+    symbol_map = {
+        "composite": 0,
+        "shanghai-rotterdam": 1,
+        "rotterdam-shanghai": 2,
+        "shanghai-los angeles": 3,
+        "los angeles-shanghai": 4,
+        "shanghai-genoa": 5,
+        "new york-rotterdam": 6,
+        "rotterdam-new york": 7,
+    }
     url = "https://infogram.com/world-container-index-1h17493095xl4zj"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find_all("script")[-5].string.strip("window.infographicData=")[:-1]
     data_json = demjson.decode(data_text)
-    temp_df = pd.DataFrame(data_json["elements"][2]["data"][0])
+    temp_df = pd.DataFrame(data_json["elements"][2]["data"][symbol_map[symbol]])
     temp_df = temp_df.iloc[1:, :]
     temp_df.columns = ["date", "wci"]
     day = temp_df["date"].str.split("-", expand=True).iloc[:, 0].str.strip()
@@ -37,33 +49,27 @@ def drewry_wci_index():
     return temp_df
 
 
-# def drewry_wci_index() -> pd.DataFrame:
-#     """
-#     Drewry 集装箱指数
-#     https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry
-#     :return: Drewry 集装箱指数
-#     :rtype: pandas.DataFrame
-#     """
-#     url = "https://api.chartblocks.com/v1/chart/data/6083e35c3ba0f6256a0afae3"
-#     r = requests.get(url)
-#     data_json = r.json()
-#     data_text = data_json["data"]["series"]["ds-0"]["raw"]
-#     temp_df = pd.DataFrame(data_text)
-#     temp_df.columns = ["wci", "date"]
-#     temp_df = temp_df.applymap(
-#         lambda x: x.replace(",", "").replace("$", "") if type(x) == str else x
-#     )
-#     temp_df = temp_df.astype({"wci": float})
-#     temp_df["date"] = pd.to_datetime(temp_df["date"])
-#     temp_df = temp_df[
-#         [
-#             "date",
-#             "wci",
-#         ]
-#     ]
-#     return temp_df
-
-
 if __name__ == "__main__":
-    drewry_wci_index_df = drewry_wci_index()
+    drewry_wci_index_df = drewry_wci_index(symbol="composite")
+    print(drewry_wci_index_df)
+
+    drewry_wci_index_df = drewry_wci_index(symbol="shanghai-rotterdam")
+    print(drewry_wci_index_df)
+
+    drewry_wci_index_df = drewry_wci_index(symbol="rotterdam-shanghai")
+    print(drewry_wci_index_df)
+
+    drewry_wci_index_df = drewry_wci_index(symbol="shanghai-los angeles")
+    print(drewry_wci_index_df)
+
+    drewry_wci_index_df = drewry_wci_index(symbol="los angeles-shanghai")
+    print(drewry_wci_index_df)
+
+    drewry_wci_index_df = drewry_wci_index(symbol="shanghai-genoa")
+    print(drewry_wci_index_df)
+
+    drewry_wci_index_df = drewry_wci_index(symbol="new york-rotterdam")
+    print(drewry_wci_index_df)
+
+    drewry_wci_index_df = drewry_wci_index(symbol="rotterdam-new york")
     print(drewry_wci_index_df)

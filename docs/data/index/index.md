@@ -2510,11 +2510,13 @@ print(index_eri_df)
 
 描述: Drewry 集装箱指数的数据
 
+限量: 返回指定 symbol 的数据
+
 输入参数
 
 | 名称   | 类型 |  描述      |
 | -------- | ---- | --- |
-| - | -  |   - |
+| symbol | str  |   symbol="composite"; choice of {"composite", "shanghai-rotterdam", "rotterdam-shanghai", "shanghai-los angeles", "los angeles-shanghai", "shanghai-genoa", "new york-rotterdam", "rotterdam-new york"} |
 
 输出参数
 
@@ -2527,7 +2529,7 @@ print(index_eri_df)
 
 ```python
 import akshare as ak
-drewry_wci_index_df = ak.drewry_wci_index()
+drewry_wci_index_df = ak.drewry_wci_index(symbol="composite")
 print(drewry_wci_index_df)
 ```
 
