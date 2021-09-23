@@ -182,9 +182,9 @@ def sw_index_daily(
 
 
 def sw_index_daily_indicator(
-    index_code: str = "801010",
+    index_code: str = "801003",
     start_date: str = "2019-12-01",
-    end_date: str = "2019-12-07",
+    end_date: str = "2021-09-07",
     data_type: str = "Day",
 ) -> pd.DataFrame:
     """
@@ -249,6 +249,7 @@ def sw_index_daily_indicator(
     temp_df = pd.DataFrame(data)
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["volume"] = temp_df["volume"].apply(lambda x: x.replace(",", ""))
     temp_df["volume"] = pd.to_numeric(temp_df["volume"])
     temp_df["chg_pct"] = pd.to_numeric(temp_df["chg_pct"])
     temp_df["turn_rate"] = pd.to_numeric(temp_df["turn_rate"])
@@ -282,7 +283,7 @@ if __name__ == "__main__":
     print(sw_index_daily_df)
 
     sw_index_daily_indicator_df = sw_index_daily_indicator(
-        index_code="801001",
+        index_code="801003",
         start_date="2019-11-01",
         end_date="2019-12-07",
         data_type="Week",
