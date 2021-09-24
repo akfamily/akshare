@@ -354,7 +354,6 @@
  "covid_19_csse_global_recovered"  # COVID-19-CSSE-全球治愈
  "covid_19_csse_us_death"  # COVID-19-CSSE-美国死亡
  "covid_19_csse_us_confirmed"  # COVID-19-CSSE-美国确诊
- "covid_19_history"  # COVID-19-所有历史数据(中文)
  # 百度迁徙地图接口
  "migration_area_baidu"  # 百度迁徙地图-迁入/出地详情
  "migration_scale_baidu"  # 百度迁徙地图-迁徙规模

@@ -1046,7 +1046,7 @@ if __name__ == "__main__":
     print(stock_em_hsgt_south_acc_flow_in_df)
 
     stock_em_hsgt_hold_stock_df = stock_em_hsgt_hold_stock(
-        market="北向", indicator="今日排行"
+        market="北向", indicator="10日排行"
     )
     print(stock_em_hsgt_hold_stock_df)
 

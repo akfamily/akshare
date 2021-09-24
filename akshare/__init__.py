@@ -1559,9 +1559,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.37 fix: fix drewry_wci_index interface
 1.1.38 add: add futures_comm_info interface
 1.1.39 fix: fix futures_comm_info interface
+1.1.40 fix: fix remove covid_19_history interface
 """
 
-__version__ = "1.1.39"
+__version__ = "1.1.40"
 __author__ = "Albert King"
 
 import sys
@@ -2552,7 +2553,6 @@ from akshare.bond.china_repo import bond_repo_zh_tick
 from akshare.event.covid import (
     covid_19_trip,
     covid_19_trace,
-    covid_19_history,
 )
 
 """

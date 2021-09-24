@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/7/21 12:07
+Date: 2021/9/24 14:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
@@ -788,20 +788,6 @@ def covid_19_hist_province(province: str = "湖北省") -> pd.DataFrame:
     return data_df[data_df["province"] == province]
 
 
-def covid_19_history() -> pd.DataFrame:
-    """
-    接口最好用代理速度比较快, 2019-12-01 开始 2020-12-08
-    https://github.com/canghailan/Wuhan-2019-nCoV
-    :return: 疫情数据
-    :rtype: pandas.DataFrame
-    """
-    url = "https://raw.githubusercontent.com/canghailan/Wuhan-2019-nCoV/master/Wuhan-2019-nCoV.json"
-    r = requests.get(url)
-    data_json = r.json()
-    data_df = pd.DataFrame(data_json)
-    return data_df
-
-
 def covid_19_csse_daily(date: str = "2020-04-06") -> pd.DataFrame:
     """
     2019 Novel Coronavirus COVID-19 (2019-nCoV) Data Repository by Johns Hopkins CSSE, 采集 GitHub csv 文件需要 raw 地址
@@ -961,10 +947,6 @@ if __name__ == "__main__":
 
     epidemic_hist_province_df = covid_19_hist_province(province="湖北省")
     print(epidemic_hist_province_df)
-
-    # 详细历史数据
-    epidemic_history_df = covid_19_history()
-    print(epidemic_history_df)
 
     # CSSE
     covid_19_csse_daily_df = covid_19_csse_daily(date="2020-04-13")
