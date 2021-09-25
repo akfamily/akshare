@@ -340,7 +340,7 @@ def stock_zh_a_minute(
     if adjust == "qfq":
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         # 处理没有最后一分钟的情况
-        need_df = temp_df[[True if "09:31:00" < item <= "15:00:00" else False for item in temp_df["time"]]]
+        need_df = temp_df[[True if "09:31:00" <= item <= "15:00:00" else False for item in temp_df["time"]]]
         need_df.drop_duplicates(subset=['date'], keep='last', inplace=True)
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_a_daily_qfq_df = stock_zh_a_daily(symbol=symbol, adjust="qfq")
@@ -358,7 +358,7 @@ def stock_zh_a_minute(
     if adjust == "hfq":
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         # 处理没有最后一分钟的情况
-        need_df = temp_df[[True if "09:31:00" < item <= "15:00:00" else False for item in temp_df["time"]]]
+        need_df = temp_df[[True if "09:31:00" <= item <= "15:00:00" else False for item in temp_df["time"]]]
         need_df.drop_duplicates(subset=['date'], keep='last', inplace=True)
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_a_daily_hfq_df = stock_zh_a_daily(symbol=symbol, adjust="hfq")

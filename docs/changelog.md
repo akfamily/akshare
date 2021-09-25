@@ -2539,4 +2539,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.40 fix: fix remove covid_19_history interface
 
 1.1.41 add: add stock_zh_b_sina interface
+
+1.1.42 fix: fix stock_zh_a_minute interface
 ```

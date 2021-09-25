@@ -312,7 +312,7 @@ def stock_zh_b_minute(
     if adjust == "qfq":
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         # 处理没有最后一分钟的情况
-        need_df = temp_df[[True if "09:31:00" < item <= "15:00:00" else False for item in temp_df["time"]]]
+        need_df = temp_df[[True if "09:31:00" <= item <= "15:00:00" else False for item in temp_df["time"]]]
         need_df.drop_duplicates(subset=['date'], keep='last', inplace=True)
         need_df.index = pd.to_datetime(need_df["date"])
         stock_zh_b_daily_qfq_df = stock_zh_b_daily(symbol=symbol, adjust="qfq")
@@ -330,12 +330,12 @@ def stock_zh_b_minute(
     if adjust == "hfq":
         temp_df[["date", "time"]] = temp_df["day"].str.split(" ", expand=True)
         # 处理没有最后一分钟的情况
-        need_df = temp_df[[True if "09:31:00" < item <= "15:00:00" else False for item in temp_df["time"]]]
+        need_df = temp_df[[True if "09:31:00" <= item <= "15:00:00" else False for item in temp_df["time"]]]
         need_df.drop_duplicates(subset=['date'], keep='last', inplace=True)
         need_df.index = pd.to_datetime(need_df["date"])
-        stock_zh_a_daily_hfq_df = stock_zh_b_daily(symbol=symbol, adjust="hfq")
-        stock_zh_a_daily_hfq_df.index = pd.to_datetime(stock_zh_a_daily_hfq_df['date'])
-        result_df = stock_zh_a_daily_hfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
+        stock_zh_b_daily_hfq_df = stock_zh_b_daily(symbol=symbol, adjust="hfq")
+        stock_zh_b_daily_hfq_df.index = pd.to_datetime(stock_zh_b_daily_hfq_df['date'])
+        result_df = stock_zh_b_daily_hfq_df.iloc[-len(need_df):, :]["close"].astype(float) / need_df["close"].astype(float)
         temp_df.index = pd.to_datetime(temp_df["date"])
         merged_df = pd.merge(temp_df, result_df, left_index=True, right_index=True)
         merged_df["open"] = merged_df["open"].astype(float) * merged_df["close_y"]

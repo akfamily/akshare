@@ -1561,9 +1561,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.39 fix: fix futures_comm_info interface
 1.1.40 fix: fix remove covid_19_history interface
 1.1.41 add: add stock_zh_b_sina interface
+1.1.42 fix: fix stock_zh_a_minute interface
 """
 
-__version__ = "1.1.41"
+__version__ = "1.1.42"
 __author__ = "Albert King"
 
 import sys
