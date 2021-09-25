@@ -940,5 +940,5 @@ if __name__ == "__main__":
     stock_zh_a_hist_df = stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="")
     print(stock_zh_a_hist_df)
 
-    stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611", period='1', adjust='', start_date="2021-09-14 09:32:00", end_date="2021-09-14 18:32:00")
+    stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611", period='1', adjust='', start_date="2021-09-23 09:32:00", end_date="2021-09-23 18:32:00")
     print(stock_hk_hist_min_em_df)
