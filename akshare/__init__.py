@@ -1560,9 +1560,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.38 add: add futures_comm_info interface
 1.1.39 fix: fix futures_comm_info interface
 1.1.40 fix: fix remove covid_19_history interface
+1.1.41 add: add stock_zh_b_sina interface
 """
 
-__version__ = "1.1.40"
+__version__ = "1.1.41"
 __author__ = "Albert King"
 
 import sys
@@ -1572,6 +1573,15 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+A股
+"""
+from akshare.stock.stock_zh_b_sina import (
+    stock_zh_b_spot,
+    stock_zh_b_daily,
+    stock_zh_b_minute,
+)
 
 """
 期货手续费
@@ -1788,6 +1798,7 @@ from akshare.stock_feature.stock_em_hist import (
     stock_zh_a_hist_pre_min_em,
     stock_hk_hist_min_em,
     stock_us_hist_min_em,
+    stock_zh_b_spot_em,
 )
 
 """
