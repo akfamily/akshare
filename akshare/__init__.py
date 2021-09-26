@@ -1562,9 +1562,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.40 fix: fix remove covid_19_history interface
 1.1.41 add: add stock_zh_b_sina interface
 1.1.42 fix: fix stock_zh_a_minute interface
+1.1.43 add: add stock_cg_guarantee_cninfo interface
 """
 
-__version__ = "1.1.42"
+__version__ = "1.1.43"
 __author__ = "Albert King"
 
 import sys
@@ -1576,7 +1577,12 @@ if sys.version_info < (3, 7):
 del sys
 
 """
-A股
+巨潮资讯-数据中心-专题统计-公司治理-对外担保
+"""
+from akshare.stock.stock_cg_guarantee import stock_cg_guarantee_cninfo
+
+"""
+B 股
 """
 from akshare.stock.stock_zh_b_sina import (
     stock_zh_b_spot,

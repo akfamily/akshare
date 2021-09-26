@@ -422,7 +422,7 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="TF2109", period="5")
+    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="FU2201", period="1")
     print(futures_zh_minute_sina_df)
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="LH2109")

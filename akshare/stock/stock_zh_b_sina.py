@@ -280,8 +280,8 @@ def stock_zh_b_minute(
 ) -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
-    http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
-    :param symbol: sh000300
+    http://finance.sina.com.cn/realstock/company/sh900901/nc.shtml
+    :param symbol: sh900901
     :type symbol: str
     :param period: 1, 5, 15, 30, 60 分钟的数据
     :type period: str
