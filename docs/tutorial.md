@@ -884,6 +884,8 @@
  "stock_zh_b_spot"  # B 股实时行情数据
  "stock_zh_b_daily"  # B 股历史行情数据(日频)
  "stock_zh_b_minute"  # B 股分时历史行情数据(分钟)
+ # 公司治理-对外担保
+ "stock_cg_guarantee_cninfo"  # 公司治理-对外担保
 ```
 
 ## 案例演示
