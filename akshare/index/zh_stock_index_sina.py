@@ -130,11 +130,14 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     dict_list = js_code.call(
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
-    data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"])
-    del data_df["date"]
-    data_df = data_df.astype("float")
-    return data_df
+    temp_df = pd.DataFrame(dict_list)
+    temp_df['date'] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    return temp_df
 
 
 def _get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
@@ -208,9 +211,12 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     else:
         temp_df = temp_df.iloc[:, :6]
         temp_df.columns = ["date", "open", "close", "high", "low", "amount"]
-    temp_df.index = pd.to_datetime(temp_df["date"])
-    del temp_df["date"]
-    temp_df = temp_df.astype("float")
+    temp_df['date'] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['amount'] = pd.to_numeric(temp_df['amount'])
     temp_df.drop_duplicates(inplace=True)
     return temp_df
 
