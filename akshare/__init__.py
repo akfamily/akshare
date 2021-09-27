@@ -1564,9 +1564,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.42 fix: fix stock_zh_a_minute interface
 1.1.43 add: add stock_cg_guarantee_cninfo interface
 1.1.44 fix: fix stock_zh_index_daily interface
+1.1.45 fix: fix stock_zh_index_daily_tx interface
 """
 
-__version__ = "1.1.44"
+__version__ = "1.1.45"
 __author__ = "Albert King"
 
 import sys
