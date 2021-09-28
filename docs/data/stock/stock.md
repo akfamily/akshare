@@ -3405,7 +3405,7 @@ print(stock_zh_a_scr_report_df)
 
 | 名称   | 类型 |  描述       |
 | -------- | ---- | --- |
-| start_date | str  |    start_date="20200928"; 开始查询的时间 |
+| start_date | str  |    start_date="20180928"; 开始查询的时间 |
 
 输出参数
 
@@ -3462,7 +3462,7 @@ print(stock_em_jgdy_tj_df)
 
 | 名称   | 类型 | 描述     |
 | -------- | ---- |  --- |
-| start_date | str  |    start_date="20210915"; 开始查询的时间 |
+| start_date | str  |    start_date="20180928"; 开始查询的时间 |
 
 输出参数
 

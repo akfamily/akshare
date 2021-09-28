@@ -12,7 +12,7 @@ import requests
 from tqdm import tqdm
 
 
-def stock_em_jgdy_tj(start_date: str = "20200928") -> pd.DataFrame:
+def stock_em_jgdy_tj(start_date: str = "20180928") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-机构调研-机构调研统计
     http://data.eastmoney.com/jgdy/tj.html
@@ -81,7 +81,6 @@ def stock_em_jgdy_tj(start_date: str = "20200928") -> pd.DataFrame:
         "涨跌幅",
         "最新价",
     ]
-
     big_df = big_df[
         [
             "序号",
@@ -105,7 +104,7 @@ def stock_em_jgdy_tj(start_date: str = "20200928") -> pd.DataFrame:
     return big_df
 
 
-def stock_em_jgdy_detail(start_date: str = "20200928") -> pd.DataFrame:
+def stock_em_jgdy_detail(start_date: str = "20180928") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-机构调研-机构调研详细
     http://data.eastmoney.com/jgdy/xx.html
@@ -201,7 +200,7 @@ def stock_em_jgdy_detail(start_date: str = "20200928") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_em_jgdy_tj_df = stock_em_jgdy_tj(start_date="20210128")
+    stock_em_jgdy_tj_df = stock_em_jgdy_tj(start_date="20180928")
     print(stock_em_jgdy_tj_df)
 
     stock_em_jgdy_detail_df = stock_em_jgdy_detail(start_date="20210915")
