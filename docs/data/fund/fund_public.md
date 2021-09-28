@@ -1350,39 +1350,39 @@ print(fund_etf_hist_sina_df)
 
 ### 基金持仓
 
-接口: fund_em_portfolio_hold
+接口: fund_portfolio_hold_em
 
 目标地址: http://fundf10.eastmoney.com/ccmx_000001.html
 
-描述: 获取天天基金网-基金档案-投资组合-基金持仓
+描述: 天天基金网-基金档案-投资组合-基金持仓
 
 限量: 单次返回指定 code 和 year 的所有持仓数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述 |
-| -------- | ---- | ---- | --- |
-| code | str| Y    |   code="000001"; 基金代码, 可以通过调用 **fund_em_fund_name** 接口获取 |
-| year | str| Y    |   year="2020"; |
+| 名称   | 类型 | 描述 |
+| -------- | ---- |  --- |
+| code | str|   code="000001"; 基金代码, 可以通过调用 **fund_em_fund_name** 接口获取 |
+| year | str|   year="2020"; |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 序号      | str   | Y        | -  |
-| 股票代码      | str   | Y        | -   |
-| 股票名称      | str   | Y        | -   |
-| 占净值比例      |  float  | Y        | 注意单位: %   |
-| 持股数      | float   | Y        | 注意单位: 万股   |
-| 持仓市值      | float   | Y        | 注意单位: 万元   |
-| 季度      | str   | Y        | -  |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- |  ---------------- |
+| 序号      | int64   |  -  |
+| 股票代码      | object   |  -   |
+| 股票名称      | object   |  -   |
+| 占净值比例      |  float64  |  注意单位: %   |
+| 持股数      | float64   | 注意单位: 万股   |
+| 持仓市值      | float64   |  注意单位: 万元   |
+| 季度      | object   | -  |
 
 接口示例
 
 ```python
 import akshare as ak
-fund_em_portfolio_hold_df = ak.fund_em_portfolio_hold(code="000001", year="2020")
-print(fund_em_portfolio_hold_df)
+fund_portfolio_hold_em_df = ak.fund_portfolio_hold_em(code="000001", year="2020")
+print(fund_portfolio_hold_em_df)
 ```
 
 数据示例
