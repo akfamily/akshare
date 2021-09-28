@@ -2,7 +2,7 @@
 #!/usr/bin/env python
 """
 Date: 2021/8/20 14:41
-Desc: 鸡蛋价格网站
+Desc: 鸡蛋价格
 https://www.jidan7.com/trend/
 """
 import re
