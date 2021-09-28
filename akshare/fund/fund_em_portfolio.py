@@ -5,13 +5,14 @@ Date: 2021/2/2 17:54
 Desc: 天天基金网-基金档案-投资组合-基金持仓
 http://fundf10.eastmoney.com/ccmx_000001.html
 """
-from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
+from akshare.utils import demjson
 
-def fund_em_portfolio_hold(code: str = "162411", year: str = "2020") -> pd.DataFrame:
+
+def fund_portfolio_hold_em(code: str = "162411", year: str = "2020") -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-基金持仓
     http://fundf10.eastmoney.com/ccmx_000001.html
@@ -60,9 +61,10 @@ def fund_em_portfolio_hold(code: str = "162411", year: str = "2020") -> pd.DataF
             ]
         ]
         big_df = big_df.append(temp_df, ignore_index=True)
+    big_df['占净值比例'] = pd.to_numeric(big_df['占净值比例'], errors="coerce")
     return big_df
 
 
 if __name__ == "__main__":
-    fund_em_portfolio_hold_df = fund_em_portfolio_hold(code="000001", year="2020")
-    print(fund_em_portfolio_hold_df)
+    fund_portfolio_hold_em_df = fund_portfolio_hold_em(code="000041", year="2020")
+    print(fund_portfolio_hold_em_df)

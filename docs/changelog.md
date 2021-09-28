@@ -1839,7 +1839,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.92: add: add fund_em_hk_fund_hist interface
 
-0.7.93: add: add fund_em_portfolio_hold interface
+0.7.93: add: add fund_portfolio_hold_em interface
 
 0.7.94: fix: fix futures_spot_price_previous interface
 
@@ -1871,7 +1871,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.9: add: add futures delivery and spot interface
 
-0.8.10: fix: fix fund_em_portfolio_hold interface
+0.8.10: fix: fix fund_portfolio_hold_em interface
 
 0.8.11: add: add futures_to_spot_dce interface
 
@@ -2551,4 +2551,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.46 fix: fix remove watch_jinshi_fx interface
 
 1.1.47 fix: fix stock_em_jgdy_tj and stock_em_jgdy_detail interface
+
+1.1.48 fix: fix rename fund_em_portfolio_hold to fund_portfolio_hold_em interface
 ```

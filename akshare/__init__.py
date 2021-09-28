@@ -1216,7 +1216,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.90: fix: fix stock_em_gpzy_pledge_ratio interface
 0.7.91: fix: fix stock_report_disclosure interface
 0.7.92: add: add fund_em_hk_fund_hist interface
-0.7.93: add: add fund_em_portfolio_hold interface
+0.7.93: add: add fund_portfolio_hold_em interface
 0.7.94: fix: fix futures_spot_price_previous interface
 0.7.95: add: add covid_19_trace interface
 0.7.96: fix: fix bond_spot_quote interface
@@ -1232,7 +1232,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.7: add: add stock_zh_a_tick_163_now interface
 0.8.8: fix: fix add PK to CZCE
 0.8.9: add: add futures delivery and spot interface
-0.8.10: fix: fix fund_em_portfolio_hold interface
+0.8.10: fix: fix fund_portfolio_hold_em interface
 0.8.11: add: add futures_to_spot_dce interface
 0.8.12: add: add futures_delivery_shfe interface
 0.8.13: fix: fix stock_us_daily interface
@@ -1567,9 +1567,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.45 fix: fix stock_zh_index_daily_tx interface
 1.1.46 fix: fix remove watch_jinshi_fx interface
 1.1.47 fix: fix stock_em_jgdy_tj and stock_em_jgdy_detail interface
+1.1.48 fix: fix rename fund_em_portfolio_hold to fund_portfolio_hold_em interface
 """
 
-__version__ = "1.1.47"
+__version__ = "1.1.48"
 __author__ = "Albert King"
 
 import sys
@@ -2045,7 +2046,7 @@ from akshare.futures.futures_to_spot import (
 """
 基金持仓
 """
-from akshare.fund.fund_em_portfolio import fund_em_portfolio_hold
+from akshare.fund.fund_em_portfolio import fund_portfolio_hold_em
 
 """
 债券概览
