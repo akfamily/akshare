@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/5/4 18:11
+Date: 2021/9/29 21:11
 Desc: 问财-热门股票排名
 http://www.iwencai.com/unifiedwap/home/index
 """
@@ -94,8 +94,6 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
             f"个股热度排名[{rank_date_str}]": "个股热度排名",
             f"个股热度[{rank_date_str}]": "个股热度",
             "code": "股票代码",
-            f"个股热度排名名次[{rank_date_str}]": "个股热度排名名次",
-            f"个股热度排名基数[{rank_date_str}]": "个股热度排名基数",
             "market_code": "_",
             "最新涨跌幅": "涨跌幅",
             "最新价": "现价",
@@ -111,16 +109,15 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
             "现价",
             "涨跌幅",
             "个股热度",
-            "个股热度排名名次",
             "个股热度排名",
-            "个股热度排名基数",
         ]
     ]
     temp_df["涨跌幅"] = round(temp_df["涨跌幅"].astype(float), 2)
     temp_df["排名日期"] = rank_date_str
+    temp_df['现价'] = pd.to_numeric(temp_df['现价'])
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210909")
+    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210429")
     print(stock_wc_hot_rank_df)
