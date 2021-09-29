@@ -861,28 +861,35 @@ def fund_em_hk_fund_hist(code: str = '1002200683', symbol: str = "历史净值�
 if __name__ == "__main__":
     fund_em_fund_name_df = fund_em_fund_name()
     print(fund_em_fund_name_df)
+
     fund_em_open_fund_daily_df = fund_em_open_fund_daily()
     print(fund_em_open_fund_daily_df)
     time.sleep(3)
+
     fund_em_info_net_df = fund_em_open_fund_info(fund="000471", indicator="单位净值走势")
     print(fund_em_info_net_df)
     time.sleep(3)
+
     fund_em_info_net_acc_df = fund_em_open_fund_info(fund="710001", indicator="累计净值走势")
     print(fund_em_info_net_acc_df)
     time.sleep(3)
+
     fund_em_info_acc_return_df = fund_em_open_fund_info(
         fund="710001", indicator="累计收益率走势"
     )
     print(fund_em_info_acc_return_df)
     time.sleep(3)
+
     fund_em_info_rank_df = fund_em_open_fund_info(fund="710001", indicator="同类排名走势")
     print(fund_em_info_rank_df)
     time.sleep(3)
+
     fund_em_info_rank_per_df = fund_em_open_fund_info(
         fund="710001", indicator="同类排名百分比"
     )
     print(fund_em_info_rank_per_df)
     time.sleep(3)
+
     fund_em_info_cash_df = fund_em_open_fund_info(fund="161606", indicator="分红送配详情")
     print(fund_em_info_cash_df)
     time.sleep(3)
