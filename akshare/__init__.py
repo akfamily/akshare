@@ -1569,9 +1569,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.47 fix: fix stock_em_jgdy_tj and stock_em_jgdy_detail interface
 1.1.48 fix: fix rename fund_em_portfolio_hold to fund_portfolio_hold_em interface
 1.1.49 fix: fix stock_em_jgdy_tj and stock_em_jgdy_detail interface
+1.1.50 add: add stock_cg_lawsuit_cninfo interface
 """
 
-__version__ = "1.1.49"
+__version__ = "1.1.50"
 __author__ = "Albert King"
 
 import sys
@@ -1581,6 +1582,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+巨潮资讯-数据中心-专题统计-公司治理-对外担保
+"""
+from akshare.stock.stock_cg_lawsuit import stock_cg_lawsuit_cninfo
 
 """
 巨潮资讯-数据中心-专题统计-公司治理-对外担保
