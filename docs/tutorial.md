@@ -884,8 +884,8 @@
  "stock_zh_b_minute"  # B 股分时历史行情数据(分钟)
  # 公司治理-对外担保
  "stock_cg_guarantee_cninfo"  # 公司治理-对外担保
- # 公司治理-对外诉讼
- "stock_cg_lawsuit_cninfo"  # 公司治理-对外诉讼
+ # 公司治理-公司诉讼
+ "stock_cg_lawsuit_cninfo"  # 公司治理-公司诉讼
 ```
 
 ## 案例演示

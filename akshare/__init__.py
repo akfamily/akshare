@@ -1584,7 +1584,7 @@ if sys.version_info < (3, 7):
 del sys
 
 """
-巨潮资讯-数据中心-专题统计-公司治理-对外担保
+巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
 """
 from akshare.stock.stock_cg_lawsuit import stock_cg_lawsuit_cninfo
 
