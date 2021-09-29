@@ -16,7 +16,7 @@ def bond_repo_zh_tick(
     code: str = "sz131802", trade_date: str = "20201028"
 ) -> pd.DataFrame:
     """
-    成交明细-每个交易日16:00提供当日数据
+    成交明细-每个交易日 16:00 提供当日数据
     http://stockhtm.finance.qq.com/sstock/ggcx/131802.shtml
     :param code: 带市场标识的债券-质押式回购代码
     :type code: str
@@ -39,7 +39,7 @@ def bond_repo_zh_tick(
 
 
 if __name__ == "__main__":
-    date_list = pd.date_range(start="20210101", end="20210120").tolist()
+    date_list = pd.date_range(start="20210926", end="20210928").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
         data = bond_repo_zh_tick(code="sz131802", trade_date=f"{item}")

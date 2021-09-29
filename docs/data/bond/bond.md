@@ -379,7 +379,7 @@ print(bond_china_yield_df)
 
 目标地址: http://stockhtm.finance.qq.com/sstock/ggcx/131802.shtml
 
-描述: 提供债券-质押式回购-实时行情-成交明细
+描述: 债券-质押式回购-实时行情-成交明细; 该接口暂不可用
 
 限量: 单次返回所有指定日期的成交明细数据
 
