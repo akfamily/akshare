@@ -1571,9 +1571,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.49 fix: fix stock_em_jgdy_tj and stock_em_jgdy_detail interface
 1.1.50 add: add stock_cg_lawsuit_cninfo interface
 1.1.51 fix: fix stock_wc_hot_rank interface
+1.1.52 add: add stock_cg_equity_mortgage_cninfo interface
 """
 
-__version__ = "1.1.51"
+__version__ = "1.1.52"
 __author__ = "Albert King"
 
 import sys
@@ -1583,6 +1584,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+巨潮资讯-数据中心-专题统计-公司治理-股权质押
+"""
+from akshare.stock.stock_cg_equity_mortgage import stock_cg_equity_mortgage_cninfo
 
 """
 巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
