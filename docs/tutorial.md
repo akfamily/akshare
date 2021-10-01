@@ -886,6 +886,8 @@
  "stock_cg_guarantee_cninfo"  # 公司治理-对外担保
  # 公司治理-公司诉讼
  "stock_cg_lawsuit_cninfo"  # 公司治理-公司诉讼
+ # 公司治理-股权质押
+ "stock_cg_equity_mortgage_cninfo"  # 公司治理-股权质押
 ```
 
 ## 案例演示

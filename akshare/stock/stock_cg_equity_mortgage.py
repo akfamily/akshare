@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/9/29 16:19
-Desc: 巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
+Date: 2021/10/1 19:19
+Desc: 巨潮资讯-数据中心-专题统计-公司治理-股权质押
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
 import time
@@ -42,29 +42,16 @@ js_str = """
 """
 
 
-def stock_cg_lawsuit_cninfo(
-        symbol: str = "全部", start_date: str = "20180630", end_date: str = "20210927"
-) -> pd.DataFrame:
+def stock_cg_equity_mortgage_cninfo(date: str = "20210930") -> pd.DataFrame:
     """
-    巨潮资讯-数据中心-专题统计-公司治理-公司诉讼
+    巨潮资讯-数据中心-专题统计-公司治理-股权质押
     http://webapi.cninfo.com.cn/#/thematicStatistics
-    :param symbol: choice of {"全部", "深市主板", "沪市", "创业板", "科创板"}
-    :type symbol: str
-    :param start_date: 开始统计时间
-    :type start_date: str
-    :param end_date: 结束统计时间
-    :type end_date: str
-    :return: 对外担保
+    :param date: 开始统计时间
+    :type date: str
+    :return: 股权质押
     :rtype: pandas.DataFrame
     """
-    symbol_map = {
-        "全部": '',
-        "深市主板": '012002',
-        "沪市": '012001',
-        "创业板": '012015',
-        "科创板": '012029',
-    }
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1055"
+    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1094"
     random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(js_str)
@@ -85,36 +72,46 @@ def stock_cg_lawsuit_cninfo(
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
-        "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
-        "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
-        "market": symbol_map[symbol],
+        "tdate": "-".join([date[:4], date[4:6], date[6:]]),
     }
     r = requests.post(url, headers=headers, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
-        "公告统计区间",
-        "诉讼金额",
-        "诉讼次数",
-        "证券简称",
-        "证券代码",
+        "质押解除数量",
+        "股票简称",
+        "公告日期",
+        "质押事项",
+        "质权人",
+        "出质人",
+        "股票代码",
+        "占总股本比例",
+        "累计质押占总股本比例",
+        "质押数量",
     ]
     temp_df = temp_df[
         [
-            "证券代码",
-            "证券简称",
-            "公告统计区间",
-            "诉讼次数",
-            "诉讼金额",
+            "股票代码",
+            "股票简称",
+            "公告日期",
+            "出质人",
+            "质权人",
+            "质押数量",
+            "占总股本比例",
+            "质押解除数量",
+            "质押事项",
+            "累计质押占总股本比例",
         ]
     ]
-    temp_df["诉讼次数"] = pd.to_numeric(temp_df["诉讼次数"])
-    temp_df["诉讼金额"] = pd.to_numeric(temp_df["诉讼金额"])
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
+    temp_df["质押数量"] = pd.to_numeric(temp_df["质押数量"])
+    temp_df["占总股本比例"] = pd.to_numeric(temp_df["占总股本比例"])
+    temp_df["质押解除数量"] = pd.to_numeric(temp_df["质押解除数量"])
+    temp_df["累计质押占总股本比例"] = pd.to_numeric(temp_df["累计质押占总股本比例"])
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_cg_lawsuit_cninfo_df = stock_cg_lawsuit_cninfo(
-        symbol="全部", start_date="20180928", end_date="20210927"
-    )
-    print(stock_cg_lawsuit_cninfo_df)
+    pd.set_option('display.max_columns', 4)
+    stock_cg_equity_mortgage_cninfo_df = stock_cg_equity_mortgage_cninfo(date="20210930")
+    print(stock_cg_equity_mortgage_cninfo_df)
