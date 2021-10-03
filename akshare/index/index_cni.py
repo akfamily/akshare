@@ -5,6 +5,8 @@ Date: 2021/6/16 15:18
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
+import zipfile
+
 import pandas as pd
 import requests
 
@@ -177,7 +179,7 @@ def index_cni_detail_hist(index: str = '399005') -> pd.DataFrame:
     return temp_df
 
 
-def index_cni_detail_hist_adjust(index: str = '399005') -> pd.DataFrame:
+def index_cni_detail_hist_adjust(index: str = '399231') -> pd.DataFrame:
     """
     国证指数-样本详情-历史调样
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
@@ -191,7 +193,10 @@ def index_cni_detail_hist_adjust(index: str = '399005') -> pd.DataFrame:
         'indexcode': index
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content)
+    try:
+        temp_df = pd.read_excel(r.content, engine="openpyxl")
+    except zipfile.BadZipFile as e:
+        return
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     return temp_df
 

@@ -1069,7 +1069,7 @@ print(stock_index_hist_df)
 24     600271  2005-04-08  2005-07-01
 ```
 
-### 国政指数
+### 国证指数
 
 #### 全部指数
 
@@ -1077,7 +1077,7 @@ print(stock_index_hist_df)
 
 目标地址: http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
 
-描述: 获取国政指数-所有指数的代码和基本信息
+描述: 国证指数-所有指数的代码和基本信息
 
 输入参数
 
@@ -1131,7 +1131,7 @@ print(index_cni_all_df)
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 获取国政指数-具体指数的日频率行情数据
+描述: 获取国证指数-具体指数的日频率行情数据
 
 输入参数
 
@@ -1183,7 +1183,7 @@ print(index_cni_hist_df)
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 获取国政指数-指数样本详情数据
+描述: 获取国证指数-指数样本详情数据
 
 输入参数
 
@@ -1235,7 +1235,7 @@ print(index_cni_detail_df)
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 获取国政指数-历史样本数据
+描述: 获取国证指数-历史样本数据
 
 输入参数
 
