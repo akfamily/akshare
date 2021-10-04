@@ -112,6 +112,5 @@ def stock_cg_equity_mortgage_cninfo(date: str = "20210930") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    pd.set_option('display.max_columns', 4)
     stock_cg_equity_mortgage_cninfo_df = stock_cg_equity_mortgage_cninfo(date="20210930")
     print(stock_cg_equity_mortgage_cninfo_df)
