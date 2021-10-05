@@ -234,7 +234,7 @@ if __name__ == '__main__':
     stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="丙烯酸")
     print(stock_board_concept_cons_ths_df)
 
-    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="白酒概念")
+    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="国家大基金持股")
     print(stock_board_concept_info_ths_df)
 
     stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2020', symbol="一带一路")

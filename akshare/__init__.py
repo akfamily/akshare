@@ -1573,9 +1573,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.51 fix: fix stock_wc_hot_rank interface
 1.1.52 add: add stock_cg_equity_mortgage_cninfo interface
 1.1.53 fix: fix index_cni_detail_hist_adjust interface
+1.1.54 fix: fix stock_board_concept_hist_ths interface
 """
 
-__version__ = "1.1.53"
+__version__ = "1.1.54"
 __author__ = "Albert King"
 
 import sys

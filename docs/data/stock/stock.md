@@ -11742,7 +11742,7 @@ print(stock_profit_forecast_df)
 
 目标地址: http://q.10jqka.com.cn/gn/detail/code/301558/
 
-描述: 获取同花顺-板块-概念板块-成份股数据
+描述: 同花顺-板块-概念板块-成份股数据
 
 限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths** 返回该板块信息
 
@@ -11750,7 +11750,7 @@ print(stock_profit_forecast_df)
 
 | 名称   | 类型 |  描述   |
 | -------- | ---- |  --- |
-| symbol | str |  symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths** 查看同花顺的所有概念名称|
+| symbol | str |  symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths** 查看同花顺的所有概念名称; 注意：其中 "国家大基金持股" 为 "国家大基金持股 ", 最后有一个空格|
 
 输出参数
 
