@@ -76,7 +76,7 @@ def stock_sina_lhb_ggtj(recent_day: str = "5") -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num + 1), leave=False):
         params = {
-            "last": "5",
+            "last": recent_day,
             "p": page,
         }
         r = requests.get(url, params=params)
@@ -143,7 +143,7 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num + 1), leave=False,):
         params = {
-            "last": "5",
+            "last": recent_day,
             "p": page,
         }
         r = requests.get(url, params=params)
@@ -196,7 +196,7 @@ if __name__ == "__main__":
     )
     print(stock_sina_lhb_detail_daily_df)
 
-    stock_sina_lhb_ggtj_df = stock_sina_lhb_ggtj(recent_day="5")
+    stock_sina_lhb_ggtj_df = stock_sina_lhb_ggtj(recent_day="10")
     print(stock_sina_lhb_ggtj_df)
 
     stock_sina_lhb_yytj_df = stock_sina_lhb_yytj(recent_day="5")
