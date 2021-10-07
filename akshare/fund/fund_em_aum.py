@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/6/29 16:32
-Desc: 
+Date: 2021/10/7 13:32
+Desc: 东方财富-基金
 """
 import pandas as pd
 import requests
@@ -52,9 +52,36 @@ def fund_em_aum_trend() -> pd.DataFrame:
     return temp_df
 
 
+def fund_em_aum_hist(year: str = "2019") -> pd.DataFrame:
+    """
+    东方财富-基金-基金公司历年管理规模排行列表
+    http://fund.eastmoney.com/Company/lsgm.html
+    :return: 基金公司历年管理规模排行列表
+    :rtype: pandas.DataFrame
+    """
+    url = 'http://fund.eastmoney.com/Company/home/HistoryScaleTable'
+    params = {
+        'year': year
+    }
+    r = requests.get(url, params=params)
+    temp_df = pd.read_html(r.text)[0]
+    temp_df.columns = ['序号', '基金公司', '总规模', '股票型', '混合型', '债券型', '指数型', 'QDII', '货币型']
+    temp_df['总规模'] = pd.to_numeric(temp_df['总规模'], errors="coerce")
+    temp_df['股票型'] = pd.to_numeric(temp_df['股票型'], errors="coerce")
+    temp_df['混合型'] = pd.to_numeric(temp_df['混合型'], errors="coerce")
+    temp_df['债券型'] = pd.to_numeric(temp_df['债券型'], errors="coerce")
+    temp_df['指数型'] = pd.to_numeric(temp_df['指数型'], errors="coerce")
+    temp_df['QDII'] = pd.to_numeric(temp_df['QDII'], errors="coerce")
+    temp_df['货币型'] = pd.to_numeric(temp_df['货币型'], errors="coerce")
+    return temp_df
+
+
 if __name__ == '__main__':
     fund_em_aum_df = fund_em_aum()
     print(fund_em_aum_df)
 
     fund_em_aum_trend_df = fund_em_aum_trend()
     print(fund_em_aum_trend_df)
+
+    fund_em_aum_hist_df = fund_em_aum_hist(year="2020")
+    print(fund_em_aum_hist_df)

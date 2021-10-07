@@ -1575,9 +1575,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.53 fix: fix index_cni_detail_hist_adjust interface
 1.1.54 fix: fix stock_board_concept_hist_ths interface
 1.1.55 fix: fix stock_sina_lhb_ggtj and stock_sina_lhb_jgzz interface
+1.1.56 add: add fund_em_aum_hist interface
 """
 
-__version__ = "1.1.55"
+__version__ = "1.1.56"
 __author__ = "Albert King"
 
 import sys
@@ -1796,7 +1797,7 @@ from akshare.economic.macro_germany import (
 """
 基金规模和规模趋势
 """
-from akshare.fund.fund_em_aum import fund_em_aum, fund_em_aum_trend
+from akshare.fund.fund_em_aum import fund_em_aum, fund_em_aum_trend, fund_em_aum_hist
 
 """
 CRIX 数据
