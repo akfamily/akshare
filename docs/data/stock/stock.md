@@ -10544,7 +10544,7 @@ print(stock_sina_lhb_jgzz_df)
 
 目标地址: http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/jgzz/index.phtml
 
-描述: 获取新浪财经-龙虎榜-机构席位成交明细
+描述: 新浪财经-龙虎榜-机构席位成交明细
 
 限量: 单次返回所有历史数据
 

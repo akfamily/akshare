@@ -53,7 +53,36 @@ def stock_sina_lhb_detail_daily(
     return temp_df
 
 
-def stock_sina_lhb_ggtj(recent_day: str = "5") -> pd.DataFrame:
+def _find_last_page(url: str = None, recent_day: str = "60"):
+    url = "http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/ggtj/index.phtml"
+    params = {
+        "last": recent_day,
+        "p": "1",
+    }
+    r = requests.get(url, params=params)
+    soup = BeautifulSoup(r.text, "lxml")
+    try:
+        previous_page = int(soup.find_all(attrs={"class": "page"})[-2].text)
+    except:
+        previous_page = 1
+    if previous_page != 1:
+        while True:
+            params = {
+                "last": recent_day,
+                "p": previous_page,
+            }
+            r = requests.get(url, params=params)
+            soup = BeautifulSoup(r.text, "lxml")
+            last_page = int(soup.find_all(attrs={"class": "page"})[-2].text)
+            if last_page != previous_page:
+                previous_page = last_page
+                continue
+            else:
+                break
+    return previous_page
+
+
+def stock_sina_lhb_ggtj(recent_day: str = "30") -> pd.DataFrame:
     """
     龙虎榜-个股上榜统计
     http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/ggtj/index.phtml
@@ -63,16 +92,7 @@ def stock_sina_lhb_ggtj(recent_day: str = "5") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/ggtj/index.phtml"
-    params = {
-        "last": recent_day,
-        "p": "1",
-    }
-    r = requests.get(url, params=params)
-    soup = BeautifulSoup(r.text, "lxml")
-    try:
-        last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
-    except:
-        last_page_num = 1
+    last_page_num = _find_last_page(url, recent_day)
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num + 1), leave=False):
         params = {
@@ -97,16 +117,7 @@ def stock_sina_lhb_yytj(recent_day: str = "5") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/yytj/index.phtml"
-    params = {
-        "last": recent_day,
-        "p": "1",
-    }
-    r = requests.get(url, params=params)
-    soup = BeautifulSoup(r.text, "lxml")
-    try:
-        last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
-    except:
-        last_page_num = 1
+    last_page_num = _find_last_page(url, recent_day)
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num + 1), leave=False):
         params = {
@@ -130,16 +141,7 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/jgzz/index.phtml"
-    params = {
-        "last": recent_day,
-        "p": "1",
-    }
-    r = requests.get(url, params=params)
-    soup = BeautifulSoup(r.text, "lxml")
-    try:
-        last_page_num = int(soup.find_all(attrs={"class": "page"})[-2].text)
-    except:
-        last_page_num = 1
+    last_page_num = _find_last_page(url, recent_day)
     big_df = pd.DataFrame()
     for page in tqdm(range(1, last_page_num + 1), leave=False):
         params = {
@@ -159,7 +161,7 @@ def stock_sina_lhb_jgzz(recent_day: str = "5") -> pd.DataFrame:
 def stock_sina_lhb_jgmx() -> pd.DataFrame:
     """
     龙虎榜-机构席位成交明细
-    http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/jgzz/index.phtml
+    http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/jgmx/index.phtml
     :return: 龙虎榜-机构席位成交明细
     :rtype: pandas.DataFrame
     """
@@ -199,10 +201,10 @@ if __name__ == "__main__":
     stock_sina_lhb_ggtj_df = stock_sina_lhb_ggtj(recent_day="60")
     print(stock_sina_lhb_ggtj_df)
 
-    stock_sina_lhb_yytj_df = stock_sina_lhb_yytj(recent_day="5")
+    stock_sina_lhb_yytj_df = stock_sina_lhb_yytj(recent_day="60")
     print(stock_sina_lhb_yytj_df)
 
-    stock_sina_lhb_jgzz_df = stock_sina_lhb_jgzz(recent_day="10")
+    stock_sina_lhb_jgzz_df = stock_sina_lhb_jgzz(recent_day="30")
     print(stock_sina_lhb_jgzz_df)
 
     stock_sina_lhb_jgmx_df = stock_sina_lhb_jgmx()
