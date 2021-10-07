@@ -2569,4 +2569,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.55 fix: fix stock_sina_lhb_ggtj and stock_sina_lhb_jgzz interface
 
 1.1.56 add: add fund_em_aum_hist interface
+
+1.1.57 fix: fix stock_sina_lhb_ggtj and stock_sina_lhb_jgzz interface
 ```
