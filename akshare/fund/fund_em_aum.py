@@ -36,7 +36,7 @@ def fund_em_aum() -> pd.DataFrame:
 def fund_em_aum_trend() -> pd.DataFrame:
     """
     东方财富-基金-基金市场管理规模走势图
-    http://fund.eastmoney.com/Company/lsgm.html
+    http://fund.eastmoney.com/Company/default.html
     :return: 基金市场管理规模走势图
     :rtype: pandas.DataFrame
     """

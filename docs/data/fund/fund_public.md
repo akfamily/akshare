@@ -1835,11 +1835,11 @@ print(fund_em_aum_df)
 
 接口: fund_em_aum_trend
 
-目标地址: http://fund.eastmoney.com/Company/lsgm.html
+目标地址: http://fund.eastmoney.com/Company/default.html
 
-描述: 天天基金网-基金数据-基金规模走势
+描述: 天天基金网-基金数据-市场全部基金规模走势
 
-限量: 单次返回所有基金规模走势数据
+限量: 单次返回所有市场全部基金规模走势数据
 
 输入参数
 

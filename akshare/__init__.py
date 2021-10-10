@@ -1592,6 +1592,7 @@ if sys.version_info < (3, 7):
 del sys
 
 """
+巨潮资讯-数据中心-专题统计-债券报表-债券发行
 """
 from akshare.bond.bond_issue_cninfo import bond_treasure_issue_cninfo
 
