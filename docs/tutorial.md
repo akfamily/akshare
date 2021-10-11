@@ -892,9 +892,9 @@
  # 债券报表-债券发行-国债发行
  "bond_treasure_issue_cninfo"  # 债券报表-债券发行-国债发行
  # 债券报表-债券发行-地方债发行
- "bond_local_government_issue_cninfo"  # 债券报表-债券发行-地方债发行
+ "bond_local_government_issue_cninfo"  # 债券报表-债券发行-地方债
  # 债券报表-债券发行-企业债发行
- "bond_corporate_issue_cninfo"  # 债券报表-债券发行-企业债发行
+ "bond_corporate_issue_cninfo"  # 债券报表-债券发行-企业债
 ```
 
 ## 案例演示
