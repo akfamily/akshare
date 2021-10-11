@@ -1579,9 +1579,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.57 fix: fix stock_sina_lhb_ggtj and stock_sina_lhb_jgzz interface
 1.1.58 add: add bond_treasure_issue_cninfo interface
 1.1.59 add: add bond_local_government_issue_cninfo interface
+1.1.60 add: add bond_corporate_issue_cninfo interface
 """
 
-__version__ = "1.1.59"
+__version__ = "1.1.60"
 __author__ = "Albert King"
 
 import sys
@@ -1595,7 +1596,11 @@ del sys
 """
 巨潮资讯-数据中心-专题统计-债券报表-债券发行
 """
-from akshare.bond.bond_issue_cninfo import bond_treasure_issue_cninfo, bond_local_government_issue_cninfo
+from akshare.bond.bond_issue_cninfo import (
+    bond_treasure_issue_cninfo,
+    bond_local_government_issue_cninfo,
+    bond_corporate_issue_cninfo,
+)
 
 """
 巨潮资讯-数据中心-专题统计-公司治理-股权质押
@@ -1629,7 +1634,10 @@ from akshare.futures.futures_comm_qihuo import futures_comm_info
 """
 实际控制人持股变动
 """
-from akshare.stock.stock_hold_control_cninfo import stock_hold_control_cninfo, stock_hold_management_detail_cninfo
+from akshare.stock.stock_hold_control_cninfo import (
+    stock_hold_control_cninfo,
+    stock_hold_management_detail_cninfo,
+)
 
 """
 股东人数及持股集中度
