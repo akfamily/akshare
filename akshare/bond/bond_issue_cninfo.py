@@ -224,6 +224,101 @@ def bond_local_government_issue_cninfo(
     return temp_df
 
 
+def bond_corporate_issue_cninfo(
+        start_date: str = "20210911", end_date: str = "20211110"
+) -> pd.DataFrame:
+    """
+    巨潮资讯-数据中心-专题统计-债券报表-债券发行-企业债发行
+    http://webapi.cninfo.com.cn/#/thematicStatistics
+    :param start_date: 开始统计时间
+    :type start_date: str
+    :param end_date: 开始统计时间
+    :type end_date: str
+    :return: 企业债发行
+    :rtype: pandas.DataFrame
+    """
+    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1122"
+    random_time_str = str(int(time.time()))
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(js_str)
+    mcode = js_code.call("mcode", random_time_str)
+    headers = {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Content-Length": "0",
+        "Host": "webapi.cninfo.com.cn",
+        "mcode": mcode,
+        "Origin": "http://webapi.cninfo.com.cn",
+        "Pragma": "no-cache",
+        "Proxy-Connection": "keep-alive",
+        "Referer": "http://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    params = {
+        "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
+        "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
+    }
+    r = requests.post(url, headers=headers, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["records"])
+    temp_df.rename(
+        columns={
+            "SECNAME": "债券简称",
+            "DECLAREDATE": "公告日期",
+            "F004D": "交易所网上发行终止日",
+            "F003D": "交易所网上发行起始日",
+            "F008N": "发行面值",
+            "SECCODE": "债券代码",
+            "F007N": "发行价格",
+            "F006N": "实际发行总量",
+            "F005N": "计划发行总量",
+            "F022N": "最小认购单位",
+            "F017V": "承销方式",
+            "F052N": "最低认购额",
+            "F015V": "发行范围",
+            "BONDNAME": "债券名称",
+            "F014V": "发行对象",
+            "F013V": "发行方式",
+            "F023V": "募资用途说明",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "债券代码",
+            "债券简称",
+            "公告日期",
+            "交易所网上发行起始日",
+            "交易所网上发行终止日",
+            "计划发行总量",
+            "实际发行总量",
+            "发行面值",
+            "发行价格",
+            "发行方式",
+            "发行对象",
+            "发行范围",
+            "承销方式",
+            "最小认购单位",
+            "募资用途说明",
+            "最低认购额",
+            "债券名称",
+        ]
+    ]
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
+    temp_df["交易所网上发行起始日"] = pd.to_datetime(temp_df["交易所网上发行起始日"]).dt.date
+    temp_df["交易所网上发行终止日"] = pd.to_datetime(temp_df["交易所网上发行终止日"]).dt.date
+    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"])
+    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"])
+    temp_df["发行面值"] = pd.to_numeric(temp_df["发行面值"])
+    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"])
+    temp_df["最小认购单位"] = pd.to_numeric(temp_df["最小认购单位"])
+    temp_df["最低认购额"] = pd.to_numeric(temp_df["最低认购额"])
+    return temp_df
+
+
 if __name__ == "__main__":
     bond_treasure_issue_cninfo_df = bond_treasure_issue_cninfo(
         start_date="20210910", end_date="20211109"
@@ -232,3 +327,6 @@ if __name__ == "__main__":
 
     bond_local_government_issue_cninfo_df = bond_local_government_issue_cninfo(start_date="20210911", end_date="20211110")
     print(bond_local_government_issue_cninfo_df)
+
+    bond_corporate_issue_cninfo_df = bond_corporate_issue_cninfo(start_date="20210911", end_date="20211110")
+    print(bond_corporate_issue_cninfo_df)
