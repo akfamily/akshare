@@ -1580,9 +1580,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.58 add: add bond_treasure_issue_cninfo interface
 1.1.59 add: add bond_local_government_issue_cninfo interface
 1.1.60 add: add bond_corporate_issue_cninfo interface
+1.1.61 add: add bond_cov_issue_cninfo interface
 """
 
-__version__ = "1.1.60"
+__version__ = "1.1.61"
 __author__ = "Albert King"
 
 import sys
@@ -1600,6 +1601,7 @@ from akshare.bond.bond_issue_cninfo import (
     bond_treasure_issue_cninfo,
     bond_local_government_issue_cninfo,
     bond_corporate_issue_cninfo,
+    bond_cov_issue_cninfo,
 )
 
 """

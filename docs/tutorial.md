@@ -895,6 +895,8 @@
  "bond_local_government_issue_cninfo"  # 债券报表-债券发行-地方债
  # 债券报表-债券发行-企业债发行
  "bond_corporate_issue_cninfo"  # 债券报表-债券发行-企业债
+ # 债券报表-债券发行-可转债发行
+ "bond_cov_issue_cninfo"  # 债券报表-债券发行-可转债发行
 ```
 
 ## 案例演示
