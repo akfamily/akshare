@@ -897,6 +897,8 @@
  "bond_corporate_issue_cninfo"  # 债券报表-债券发行-企业债
  # 债券报表-债券发行-可转债发行
  "bond_cov_issue_cninfo"  # 债券报表-债券发行-可转债发行
+ # 债券报表-债券发行-可转债转股
+ "bond_cov_stock_issue_cninfo"  # 债券报表-债券发行-可转债转股
 ```
 
 ## 案例演示
