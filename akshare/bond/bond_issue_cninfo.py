@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/10/13 12:19
+Date: 2021/10/14 12:19
 Desc: 巨潮资讯-数据中心-专题统计-债券报表-债券发行
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
@@ -453,6 +453,72 @@ def bond_cov_issue_cninfo(
     return temp_df
 
 
+def bond_cov_stock_issue_cninfo() -> pd.DataFrame:
+    """
+    巨潮资讯-数据中心-专题统计-债券报表-债券发行-可转债转股
+    http://webapi.cninfo.com.cn/#/thematicStatistics
+    :return: 可转债转股
+    :rtype: pandas.DataFrame
+    """
+    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1124"
+    random_time_str = str(int(time.time()))
+    js_code = py_mini_racer.MiniRacer()
+    js_code.eval(js_str)
+    mcode = js_code.call("mcode", random_time_str)
+    headers = {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Content-Length": "0",
+        "Host": "webapi.cninfo.com.cn",
+        "mcode": mcode,
+        "Origin": "http://webapi.cninfo.com.cn",
+        "Pragma": "no-cache",
+        "Proxy-Connection": "keep-alive",
+        "Referer": "http://webapi.cninfo.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    r = requests.post(url, headers=headers)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["records"])
+    temp_df.rename(
+        columns={
+            'F003N': '转股价格',
+            'SECNAME': '债券简称',
+            'DECLAREDATE': '公告日期',
+            'F005D': '自愿转换期终止日',
+            'F004D': '自愿转换期起始日',
+            'F017V': '标的股票',
+            'BONDNAME': '债券名称',
+            'F002V': '转股简称',
+            'F001V': '转股代码',
+            'SECCODE': '债券代码',
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            '债券代码',
+            '债券简称',
+            '公告日期',
+            '转股代码',
+            '转股简称',
+            '转股价格',
+            '自愿转换期起始日',
+            '自愿转换期终止日',
+            '标的股票',
+            '债券名称',
+        ]
+    ]
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
+    temp_df["自愿转换期起始日"] = pd.to_datetime(temp_df["自愿转换期起始日"]).dt.date
+    temp_df["自愿转换期终止日"] = pd.to_datetime(temp_df["自愿转换期终止日"]).dt.date
+    temp_df["转股价格"] = pd.to_numeric(temp_df["转股价格"])
+    return temp_df
+
+
 if __name__ == "__main__":
     bond_treasure_issue_cninfo_df = bond_treasure_issue_cninfo(
         start_date="20210910", end_date="20211109"
@@ -467,3 +533,6 @@ if __name__ == "__main__":
 
     bond_cov_issue_cninfo_df = bond_cov_issue_cninfo(start_date="20210913", end_date="20211112")
     print(bond_cov_issue_cninfo_df)
+
+    bond_cov_stock_issue_cninfo_df = bond_cov_stock_issue_cninfo()
+    print(bond_cov_stock_issue_cninfo_df)
