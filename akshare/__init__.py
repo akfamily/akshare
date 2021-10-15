@@ -1584,9 +1584,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.62 fix: fix bond_zh_us_rate interface
 1.1.63 add: add bond_cov_stock_issue_cninfo interface
 1.1.64 add: add fund_report_stock_cninfo interface
+1.1.65 fix: fix stock_notice_report interface
 """
 
-__version__ = "1.1.64"
+__version__ = "1.1.65"
 __author__ = "Albert King"
 
 import sys
@@ -1993,7 +1994,7 @@ from akshare.stock_feature.stock_lh_yybpm import (
 )
 
 """
-沪深A股公告
+沪深 A 股公告
 """
 from akshare.stock_fundamental.stock_notice import stock_notice_report
 
