@@ -899,6 +899,8 @@
  "bond_cov_issue_cninfo"  # 债券报表-债券发行-可转债发行
  # 债券报表-债券发行-可转债转股
  "bond_cov_stock_issue_cninfo"  # 债券报表-债券发行-可转债转股
+ # 基金报表-基金重仓股
+ "fund_report_stock_cninfo"  # 基金报表-基金重仓股
 ```
 
 ## 案例演示
