@@ -901,6 +901,8 @@
  "bond_cov_stock_issue_cninfo"  # 债券报表-债券发行-可转债转股
  # 基金报表-基金重仓股
  "fund_report_stock_cninfo"  # 基金报表-基金重仓股
+ # 公告大全-沪深 A 股公告
+ "stock_notice_report"  # 公告大全-沪深 A 股公告
 ```
 
 ## 案例演示

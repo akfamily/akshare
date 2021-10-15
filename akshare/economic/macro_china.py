@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/8/31 16:08
+Date: 2021/10/15 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -2369,7 +2369,7 @@ def macro_china_reserve_requirement_ratio():
 
 def macro_china_consumer_goods_retail():
     """
-    社会消费品零售总额
+    新浪财经-中国宏观经济数据-社会消费品零售总额
     http://data.eastmoney.com/cjsj/xfp.html
     :return: 社会消费品零售总额
     :rtype: pandas.DataFrame
@@ -2408,7 +2408,7 @@ def macro_china_consumer_goods_retail():
 
 def macro_china_society_electricity():
     """
-    全社会用电分类情况表
+    新浪财经-中国宏观经济数据-全社会用电分类情况表
     http://finance.sina.com.cn/mac/#industry-6-0-31-1
     :return: 全社会用电分类情况表
     :rtype: pandas.DataFrame
@@ -2459,7 +2459,7 @@ def macro_china_society_electricity():
 
 def macro_china_society_traffic_volume():
     """
-    全社会客货运输量
+    新浪财经-中国宏观经济数据-全社会客货运输量
     http://finance.sina.com.cn/mac/#industry-10-0-31-1
     :return: 全社会客货运输量
     :rtype: pandas.DataFrame
@@ -2491,7 +2491,7 @@ def macro_china_society_traffic_volume():
 
 def macro_china_postal_telecommunicational():
     """
-    邮电业务基本情况
+    新浪财经-中国宏观经济数据-邮电业务基本情况
     http://finance.sina.com.cn/mac/#industry-11-0-31-1
     :return: 邮电业务基本情况
     :rtype: pandas.DataFrame
@@ -2523,7 +2523,7 @@ def macro_china_postal_telecommunicational():
 
 def macro_china_international_tourism_fx():
     """
-    国际旅游外汇收入构成
+    新浪财经-中国宏观经济数据-国际旅游外汇收入构成
     http://finance.sina.com.cn/mac/#industry-15-0-31-3
     :return: 国际旅游外汇收入构成
     :rtype: pandas.DataFrame
@@ -2555,7 +2555,7 @@ def macro_china_international_tourism_fx():
 
 def macro_china_passenger_load_factor():
     """
-    民航客座率及载运率
+    新浪财经-中国宏观经济数据-民航客座率及载运率
     http://finance.sina.com.cn/mac/#industry-20-0-31-1
     :return: 民航客座率及载运率
     :rtype: pandas.DataFrame
@@ -2587,7 +2587,7 @@ def macro_china_passenger_load_factor():
 
 def _macro_china_freight_index():
     """
-    航贸运价指数
+    新浪财经-中国宏观经济数据-航贸运价指数
     http://finance.sina.com.cn/mac/#industry-22-0-31-2
     :return: 航贸运价指数
     :rtype: pandas.DataFrame
@@ -2619,7 +2619,7 @@ def _macro_china_freight_index():
 
 def macro_china_freight_index():
     """
-    航贸运价指数
+    新浪财经-中国宏观经济数据-航贸运价指数
     http://finance.sina.com.cn/mac/#industry-22-0-31-2
     :return: 航贸运价指数
     :rtype: pandas.DataFrame
@@ -2649,7 +2649,7 @@ def macro_china_freight_index():
 
 def macro_china_central_bank_balance():
     """
-    央行货币当局资产负债
+    新浪财经-中国宏观经济数据-央行货币当局资产负债
     http://finance.sina.com.cn/mac/#fininfo-8-0-31-2
     :return: 央行货币当局资产负债
     :rtype: pandas.DataFrame
@@ -2681,7 +2681,7 @@ def macro_china_central_bank_balance():
 
 def macro_china_insurance():
     """
-    保险业经营情况
+    新浪财经-中国宏观经济数据-保险业经营情况
     http://finance.sina.com.cn/mac/#fininfo-19-0-31-3
     :return: 保险业经营情况
     :rtype: pandas.DataFrame
@@ -2713,7 +2713,7 @@ def macro_china_insurance():
 
 def macro_china_supply_of_money():
     """
-    货币供应量
+    新浪财经-中国宏观经济数据-货币供应量
     http://finance.sina.com.cn/mac/#fininfo-1-0-31-1
     :return: 货币供应量
     :rtype: pandas.DataFrame
