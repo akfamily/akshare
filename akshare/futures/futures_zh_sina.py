@@ -1,15 +1,15 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/11/17 16:34
+Date: 2021/9/12 20:08
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
-P.S. 注意抓取速度, 容易封 IP 地址
+P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
 """
 import time
 import json
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 
@@ -31,8 +31,9 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
     :return: 交易所具体的可交易品种
     :rtype: dict
     """
-    res = requests.get(zh_subscribe_exchange_symbol_url)
-    data_json = demjson.decode(res.text[res.text.find("{") : res.text.find("};") + 1])
+    r = requests.get(zh_subscribe_exchange_symbol_url)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"): data_text.find("};") + 1])
     if exchange == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
@@ -382,30 +383,79 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
     }
     r = requests.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
-    temp_df.columns = ["date", "open", "high", "low", "close", "volume", "hold"]
+    temp_df.columns = ["datetime", "open", "high", "low", "close", "volume", "hold"]
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df['hold'] = pd.to_numeric(temp_df['hold'])
+    return temp_df
+
+
+def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
+    """
+    中国各品种期货日频率数据
+    https://finance.sina.com.cn/futures/quotes/V2105.shtml
+    :param symbol: 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取
+    :type symbol: str
+    :return: 指定 symbol 和 period 的数据
+    :rtype: pandas.DataFrame
+    """
+    date = "20210412"
+    url = "https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_V21052021_4_12=/InnerFuturesNewService.getDailyKLine"
+    params = {
+        "symbol": symbol,
+        "type": '_'.join([date[:4], date[4:6], date[6:]]),
+    }
+    r = requests.get(url, params=params)
+    temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
+    temp_df.columns = ["date", "open", "high", "low", "close", "volume", "hold", "settle"]
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df['hold'] = pd.to_numeric(temp_df['hold'])
+    temp_df['settle'] = pd.to_numeric(temp_df['settle'])
     return temp_df
 
 
 if __name__ == "__main__":
-    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="TF2009", period="1")
+    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="FU2201", period="1")
     print(futures_zh_minute_sina_df)
+
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="LH2109")
+    print(futures_zh_daily_sina_df)
+
+    # for num in range(11, 21):
+    #     print(num)
+    #     for last in range(1, 13):
+    #         try:
+    #             print(f"V{str(num)+str(last).zfill(2)}")
+    #             futures_zh_daily_sina_df = futures_zh_daily_sina(symbol=f"M{str(num)+str(last).zfill(2)}")
+    #             print(futures_zh_daily_sina_df)
+    #         except:
+    #             continue
+
     print("开始接收实时行情, 每秒刷新一次")
     dce_text = match_main_contract(exchange="dce")
     czce_text = match_main_contract(exchange="czce")
     shfe_text = match_main_contract(exchange="shfe")
+
     while True:
-        time.sleep(3)
         data = futures_zh_spot(
             subscribe_list=",".join([dce_text, czce_text, shfe_text]),
             market="CF",
             adjust=True,
         )
         print(data)
+        time.sleep(3)
 
     # 金融期货单独订阅
     cffex_text = match_main_contract(exchange="cffex")
 
     while True:
-        time.sleep(3)
         data = futures_zh_spot(subscribe_list=cffex_text, market="FF")
         print(data)
+        time.sleep(3)

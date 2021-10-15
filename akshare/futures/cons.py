@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2021/1/8 17:58
+Date: 2021/8/20 17:58
 Desc: 期货配置文件
 """
 import datetime
@@ -10,22 +10,7 @@ import os
 import pickle
 import re
 
-# hf_sina_spot
-hf_subscribe_exchange_symbol_url = "http://finance.sina.com.cn/money/future/hf.html"
-hf_subscribe_url = "http://hq.sinajs.cn/"
-hf_subscribe_headers = {
-    "Accept": "*/*",
-    "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-    "Cache-Control": "no-cache",
-    "Connection": "keep-alive",
-    "Host": "hq.sinajs.cn",
-    "Pragma": "no-cache",
-    "Referer": "http://finance.sina.com.cn/money/future/hf.html",
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
-}
-
-hf_sina_spot_headers = {
+hq_sina_spot_headers = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
     "Accept-Encoding": "gzip, deflate",
     "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
@@ -100,10 +85,6 @@ qh_headers = {
     "Upgrade-Insecure-Requests": "1",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
 }
-# 交易法门
-JYFM_TOOLS_RECEIPT_DATE_URL = (
-    "https://www.jiaoyifamen.com/tools/receipt-expire-info/all?page=1&limit=90"
-)
 #
 QHKC_INDEX_URL = "https://www.qhkch.com/ajax/index_show.php"
 QHKC_INDEX_TREND_URL = "https://qhkch.com/ajax/indexes_trend.php"
@@ -176,6 +157,7 @@ market_exchange_symbols = {
         "UR",
         "CJ",  # 红枣期货
         "SA",  # 纯碱期货
+        "PK",  # 20210201 花生期货
     ],
     "shfe": [
         "CU",

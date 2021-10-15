@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/12/28 16:18
+Date: 2021/6/16 15:18
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
+import zipfile
+
 import pandas as pd
 import requests
 
@@ -135,7 +137,7 @@ def index_cni_detail(index: str = '399005', date: str = '2020-11') -> pd.DataFra
         'dateStr': date
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content, engine="xlrd")
+    temp_df = pd.read_excel(r.content)
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
         '日期',
@@ -163,7 +165,7 @@ def index_cni_detail_hist(index: str = '399005') -> pd.DataFrame:
         'indexcode': index
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content, engine="xlrd")
+    temp_df = pd.read_excel(r.content)
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
         '日期',
@@ -177,7 +179,7 @@ def index_cni_detail_hist(index: str = '399005') -> pd.DataFrame:
     return temp_df
 
 
-def index_cni_detail_hist_adjust(index: str = '399005') -> pd.DataFrame:
+def index_cni_detail_hist_adjust(index: str = '399231') -> pd.DataFrame:
     """
     国证指数-样本详情-历史调样
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
@@ -191,7 +193,10 @@ def index_cni_detail_hist_adjust(index: str = '399005') -> pd.DataFrame:
         'indexcode': index
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content, engine="xlrd")
+    try:
+        temp_df = pd.read_excel(r.content, engine="openpyxl")
+    except zipfile.BadZipFile as e:
+        return
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     return temp_df
 
@@ -199,11 +204,15 @@ def index_cni_detail_hist_adjust(index: str = '399005') -> pd.DataFrame:
 if __name__ == "__main__":
     index_cni_all_df = index_cni_all()
     print(index_cni_all_df)
+
     index_cni_hist_df = index_cni_hist(index="399005")
     print(index_cni_hist_df)
+
     index_cni_detail_df = index_cni_detail(index='399005', date='2020-11')
     print(index_cni_detail_df)
+
     index_cni_detail_hist_df = index_cni_detail_hist(index='399005')
     print(index_cni_detail_hist_df)
+
     index_cni_detail_hist_adjust_df = index_cni_detail_hist_adjust(index='399005')
     print(index_cni_detail_hist_adjust_df)

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/7/15 13:32
+Date: 2021/5/6 18:32
 Desc: 创新高、新低的股票数量
 https://www.legulegu.com/stockdata/high-low-statistics
 """
@@ -36,5 +36,14 @@ def stock_a_high_low_statistics(market: str = "all") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
+    stock_a_high_low_statistics_df = stock_a_high_low_statistics(market="all")
+    print(stock_a_high_low_statistics_df)
+
+    stock_a_high_low_statistics_df = stock_a_high_low_statistics(market="sz50")
+    print(stock_a_high_low_statistics_df)
+
+    stock_a_high_low_statistics_df = stock_a_high_low_statistics(market="hs300")
+    print(stock_a_high_low_statistics_df)
+
     stock_a_high_low_statistics_df = stock_a_high_low_statistics(market="zz500")
     print(stock_a_high_low_statistics_df)

@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/12/4 20:31
 Desc: 东方财富网-数据中心-大宗交易-市场统计
 http://data.eastmoney.com/dzjy/dzjy_sctj.aspx
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

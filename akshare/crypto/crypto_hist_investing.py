@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/10/23 13:52
 Desc: 加密货币
@@ -143,6 +143,6 @@ if __name__ == "__main__":
     crypto_name_map_df = crypto_name_map()
     print(crypto_name_map_df)
     crypto_hist_df = crypto_hist(
-        symbol="比特币", period="每日", start_date="20151020", end_date="20210107"
+        symbol="比特币", period="每日", start_date="20151020", end_date="20210407"
     )
     print(crypto_hist_df)

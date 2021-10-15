@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/7/5 22:49
 Desc: 东方财富网-数据中心-特色数据-券商业绩月报
 http://data.eastmoney.com/other/qsjy.html
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

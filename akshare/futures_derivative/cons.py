@@ -1,106 +1,10 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2019/10/27 19:49
+Date: 2021/8/20 16:13
 Desc: 期货衍生指标配置文件
-交易法门-数据
 西本新干线-指数数据
 """
-# 交易法门-数据-农产品
-# 交易法门-数据-农产品-美豆
-jyfm_data_usa_bean_name_url_dict = {
-    "美豆种植进度": "https://www.jiaoyifamen.com/data/usa-bean-grow/grow",
-    "美豆出苗率": "https://www.jiaoyifamen.com/data/usa-bean-emergence/ratio",
-    "美豆开花率": "https://www.jiaoyifamen.com/data/usa-bean-flower/ratio",
-    "美豆优良率": "https://www.jiaoyifamen.com/data/usa-bean-good/ratio",
-    "美豆收割进度": "https://www.jiaoyifamen.com/data/usa-bean-harvest/ratio",
-    "美豆出口情况": "https://www.jiaoyifamen.com/data/usa-bean-export/ratio",
-}
-
-# 交易法门-数据-农产品-豆粕
-jyfm_data_soybean_meal_name_url_dict = {
-    "大豆月度进口": "https://www.jiaoyifamen.com/data/soybean-meal-month-import/import",
-    "大豆原料库存": "https://www.jiaoyifamen.com/data/soybean-meal-ingredient-stock/stock",
-    "压榨开工率": "https://www.jiaoyifamen.com/data/soybean-meal-operate-ratio/ratio",
-    "企业压榨利润": "https://www.jiaoyifamen.com/data/soybean-meal-profit/profit",
-    "豆粕月度产量": "https://www.jiaoyifamen.com/data/soybean-meal-month-product/product",
-    "豆粕每日成交": "https://www.jiaoyifamen.com/data/soybean-meal-profit/profit",
-    "豆粕周度库存": "https://www.jiaoyifamen.com/data/soybean-meal-week-stock/stock",
-    "豆粕平衡表": "https://www.jiaoyifamen.com/data/soybean-meal-balance/balance",
-}
-
-# 交易法门-数据-农产品-豆油
-jyfm_data_soybean_oil_name_url_dict = {
-    "豆油年度产能": "https://www.jiaoyifamen.com/data/soybean-oil-year-produce/produce",
-    "压榨装置开工率": "https://www.jiaoyifamen.com/data/soybean-oil-operate-ratio/ratio",
-    "油厂周度产量": "https://www.jiaoyifamen.com/data/soybean-oil-week-produce/produce",
-    "豆油现货成交": "https://www.jiaoyifamen.com/data/soybean-oil-day-deal/deal",
-    "豆油商业库存": "https://www.jiaoyifamen.com/data/soybean-oil-week-stock/stock",
-    "豆油毛利润": "https://www.jiaoyifamen.com/data/soybean-oil-gross-profit/profit",
-    "豆油月度产量": "https://www.jiaoyifamen.com/data/soybean-oil-month-data/data",  # 获取相应数据
-    "豆油月度进口": "https://www.jiaoyifamen.com/data/soybean-oil-month-data/data",  # 获取相应数据
-    "豆油月度消费": "https://www.jiaoyifamen.com/data/soybean-oil-month-data/data",  # 获取相应数据
-    "豆油月度出口": "https://www.jiaoyifamen.com/data/soybean-oil-month-data/data",  # 获取相应数据
-    "豆油月度库存": "https://www.jiaoyifamen.com/data/soybean-oil-month-data/data",  # 获取相应数据
-}
-
-# 交易法门-数据-农产品-棕榈
-jyfm_data_palm_name_url_dict = {
-    "马棕种植面积": "https://www.jiaoyifamen.com/data/palm-grow-area/grow",
-    "马棕FFB单产": "https://www.jiaoyifamen.com/data/palm-f-f-b-product/product",
-    "马棕出油率": "https://www.jiaoyifamen.com/data/palm-yield/yield",
-    "马棕月度产量": "https://www.jiaoyifamen.com/data/palm-month-product/product",
-    "马棕月度库存": "https://www.jiaoyifamen.com/data/palm-month-stock/stock",
-    "马棕月度出口": "https://www.jiaoyifamen.com/data/palm-month-export/export",
-}
-
-# 交易法门-数据-农产品-白糖
-jyfm_data_sugar_name_url_dict = {
-    "国内种植面积": "https://www.jiaoyifamen.com/data/sugar-year-grow-area/grow",
-    "年度产糖率": "https://www.jiaoyifamen.com/data/sugar-year-yield/yield",
-    "白糖年度产销": "https://www.jiaoyifamen.com/data/sugar-year-data/produce",
-    "白糖进出口量": "https://www.jiaoyifamen.com/data/sugar-year-data/trade",
-    "食糖产需缺口": "https://www.jiaoyifamen.com/data/sugar-year-data/gap",
-    "白糖月度产量": "https://www.jiaoyifamen.com/data/sugar-month-data/produce?category=1",
-    "白糖月度销量": "https://www.jiaoyifamen.com/data/sugar-month-data/produce?category=2",
-    "白糖月度进口": "https://www.jiaoyifamen.com/data/sugar-month-trade/trade",
-    "食糖工业库存": "https://www.jiaoyifamen.com/data/sugar-month-stock/stock",
-    "白糖产区库存": "https://www.jiaoyifamen.com/data/sugar-year-stock/stock",
-}
-
-# 交易法门-数据-黑色系
-# 交易法门-数据-黑色系-焦煤
-jyfm_data_cocking_coal_url_dict = {
-    "焦煤总库存": "https://www.jiaoyifamen.com/data/cocking-coal-total-stock/stock",
-    "焦煤焦企库存-焦煤焦企库存100": "https://www.jiaoyifamen.com/data/cocking-coal100-cocking-stock/stock",
-    "焦煤焦企库存-焦煤焦企库存230": "https://www.jiaoyifamen.com/data/cocking-coal230-cocking-stock/stock",
-    "焦煤钢厂库存": "https://www.jiaoyifamen.com/data/cocking-coal-steel-stock/stock",
-    "焦煤港口库存": "https://www.jiaoyifamen.com/data/cocking-coal-port-stock/stock",
-}
-# 交易法门-数据-黑色系-焦炭
-jyfm_data_coke_url_dict = {
-    "焦企产能利用率-100家独立焦企产能利用率": "https://www.jiaoyifamen.com/data/coke100-availability-ratio/ratio",
-    "焦企产能利用率-230家独立焦企产能利用率": "https://www.jiaoyifamen.com/data/coke230-availability-ratio/ratio",
-    "焦炭日均产量-100家独立焦企焦炭日均产量": "https://www.jiaoyifamen.com/data/coke100-day-produce/produce",
-    "焦炭日均产量-230家独立焦企焦炭日均产量": "https://www.jiaoyifamen.com/data/coke230-day-produce/produce",
-    "焦炭总库存": "https://www.jiaoyifamen.com/data/coke-total-stock/stock",
-    "焦炭焦企库存-100家独立焦企焦炭库存": "https://www.jiaoyifamen.com/data/coke100-cocking-stock/stock",
-    "焦炭焦企库存-230家独立焦企焦炭库存": "https://www.jiaoyifamen.com/data/coke230-cocking-stock/stock",
-    "焦炭钢厂库存": "https://www.jiaoyifamen.com/data/coke-steel-stock/stock",
-    "焦炭港口库存": "https://www.jiaoyifamen.com/data/coke-port-stock/stock",
-    "焦企焦化利润": "https://www.jiaoyifamen.com/data/coke-coking-profit/profit",
-}
-
-
-# 交易法门-登录
-jyfm_init_headers = {"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                     "Accept-Encoding": "gzip, deflate, br",
-                     "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
-                     "Host": "www.jiaoyifamen.com",
-                     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0"
-                     }
-jyfm_login_url = "https://www.jiaoyifamen.com/login"
-
 # xgx
 symbol_dict = {
     '钢材指数': '65',

@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/7/13 22:32
 Desc: 市盈率, 市净率和股息率查询

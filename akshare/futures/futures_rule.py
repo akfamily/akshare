@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/7/12 21:51
 Desc: 国泰君安期货-交易日历数据表
@@ -30,5 +30,5 @@ def futures_rule(trade_date: str = "20200712") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    futures_rule_df = futures_rule(trade_date="20200915")
+    futures_rule_df = futures_rule(trade_date="20210923")
     print(futures_rule_df)

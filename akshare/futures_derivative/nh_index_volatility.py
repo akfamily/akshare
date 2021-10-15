@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/10/14 16:52
 Desc: 南华期货-商品指数历史走势-收益率指数-波动率
@@ -127,5 +127,8 @@ def nh_volatility_index(code: str = "NHCI", day_count: int = 20) -> pd.DataFrame
 
 
 if __name__ == "__main__":
-    nh_volatility_index_df = nh_volatility_index(code="IC", day_count=5)
+    get_nh_list_table_df = get_nh_list_table()
+    print(get_nh_list_table_df)
+
+    nh_volatility_index_df = nh_volatility_index(code="SA", day_count=5)
     print(nh_volatility_index_df)

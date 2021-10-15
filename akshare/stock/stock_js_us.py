@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/6/26 13:30
+Date: 2021/9/14 19:30
 Desc: 美股目标价 or 港股目标价
 https://www.ushknews.com/report.html
 """
@@ -12,14 +12,15 @@ import pandas as pd
 def stock_js_price(category: str = "us") -> pd.DataFrame:
     """
     美股目标价 or 港股目标价
-    :param category: choice of ["us", "hk"]
+    https://www.ushknews.com/report.html
+    :param category: choice of {"us", "hk"}
     :type category: str
     :return: 美股目标价 or 港股目标价
     :rtype: pandas.DataFrame
     """
     url = "https://calendar-api.ushknews.com/getWebTargetPriceList"
     params = {
-        "limit": "10000",
+        "limit": "50000",
         "category": category
     }
     headers = {
@@ -41,6 +42,30 @@ def stock_js_price(category: str = "us") -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["data"]["list"])
+    temp_df.columns = [
+        "_",
+        "_",
+        "评级",
+        "_",
+        "最新目标价",
+        "先前目标价",
+        "机构名称",
+        "日期",
+        "_",
+        "个股名称",
+        "_",
+        "_",
+    ]
+    temp_df = temp_df[[
+        "日期",
+        "个股名称",
+        "评级",
+        "先前目标价",
+        "最新目标价",
+        "机构名称",
+    ]]
+    temp_df['先前目标价'] = pd.to_numeric(temp_df['先前目标价'], errors='coerce')
+    temp_df['最新目标价'] = pd.to_numeric(temp_df['最新目标价'], errors='coerce')
     return temp_df
 
 

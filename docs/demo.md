@@ -1,24 +1,56 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 策略示例
+## [AKShare](https://github.com/akfamily/akshare) 策略示例
+
+本策略示例文档的主要目的是为了方便的展示 [AKShare](https://github.com/akfamily/akshare) 的数据接口
+调用、基本的数据处理和回测框架使用，并不涉及任何投资建议，提供的示例代码也仅供参考。
+
+本策略示例都是基于 Python 编程语言的开源回测和交易框架 [Backtrader](https://www.backtrader.com) 来演示的，有兴趣
+想深入了解该框架的小伙伴，可以参考官网文档学习，同时也可以加入合作的知识星球 **数据科学家** 学习：
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
+
+注意：本教程的开发是基于：Python (64 位) 3.8.6 来进行的
+
+### Backtrader 介绍
+
+[Backtrader](https://www.backtrader.com) 是基于 Python 编程语言的主要用于量化投资开源回测和交易的框架，可以用于多种资产的回测。
+目前，[Backtrader](https://www.backtrader.com) 可以用于实现股票、期货、期权、外汇、加密货币等资产的回测，同时该开源框架也有强大的第三方社区支持，目前已经实现了
+基于 IB、Oanda、VC、CCXT、MT5 等接口量化交易，随着该框架的流行，后期会有更多的小伙伴提供更多的第三方模块，学习和使用该框架是一个不错的选择！
+
+#### Backtrader 下载和安装
+
+[Backtrader](https://www.backtrader.com) 的下载和安装都比较简单，尤其是在配置好 [AKShare](https://github.com/akfamily/akshare) 的
+基础上，我们只需要 ```pip install backtrader``` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/akfamily/akshare) 的
+环境配置，请参考 [AKShare 环境配置](https://www.akshare.xyz/zh_CN/latest/anaconda.html) 来设置本地环境。想要通过源码来安装的小伙伴，可以访问 [Backtrader 的 GitHub 地址](https://github.com/mementum/backtrader) 来下载安装，由于源码安装比较繁琐，建议直接通过 ```pip``` 或 ```conda``` 来安装和使用。需要注意的是如果要输出图形，请安装 ```pip install matplotlib==3.2.2```
 
 ### 股票策略
 
-#### BackTrader-基本策略
+#### 基本策略
 
 ##### 代码
-
-下载和安装 [BackTrader](https://www.backtrader.com/)
 
 ```python
 from datetime import datetime
 
-import backtrader as bt
-import matplotlib.pyplot as plt
-import akshare as ak
+import backtrader as bt  # 升级到最新版
+import matplotlib.pyplot as plt  # 由于 Backtrader 的问题，此处要求 pip install matplotlib==3.2.2
+import akshare as ak  # 升级到最新版
+import pandas as pd
 
 plt.rcParams["font.sans-serif"] = ["SimHei"]
 plt.rcParams["axes.unicode_minus"] = False
 
-stock_hfq_df = ak.stock_zh_a_daily(symbol="sh600000", adjust="hfq")  # 利用 AkShare 获取后复权数据
+# 利用 AKShare 获取股票的后复权数据，这里只获取前 6 列
+stock_hfq_df = ak.stock_zh_a_hist(symbol="000001", adjust="hfq").iloc[:, :6]
+# 处理字段命名，以符合 Backtrader 的要求
+stock_hfq_df.columns = [
+    'date',
+    'open',
+    'close',
+    'high',
+    'low',
+    'volume',
+]
+# 把 date 作为日期索引，以符合 Backtrader 的要求
+stock_hfq_df.index = pd.to_datetime(stock_hfq_df['date'])
 
 
 class MyStrategy(bt.Strategy):
@@ -43,9 +75,7 @@ class MyStrategy(bt.Strategy):
 
     def next(self):
         """
-
-        :return:
-        :rtype:
+        执行逻辑
         """
         if self.order:  # 检查是否有指令等待执行,
             return
@@ -59,8 +89,8 @@ class MyStrategy(bt.Strategy):
 
 
 cerebro = bt.Cerebro()  # 初始化回测系统
-start_date = datetime(2000, 1, 1)  # 回测开始时间
-end_date = datetime(2020, 4, 21)  # 回测结束时间
+start_date = datetime(1991, 4, 3)  # 回测开始时间
+end_date = datetime(2020, 6, 16)  # 回测结束时间
 data = bt.feeds.PandasData(dataname=stock_hfq_df, fromdate=start_date, todate=end_date)  # 加载数据
 cerebro.adddata(data)  # 将数据传入回测系统
 cerebro.addstrategy(MyStrategy)  # 将交易策略加载到回测系统中
@@ -92,16 +122,17 @@ cerebro.plot(style='candlestick')  # 画图
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/strategy/Figure_0.png)
 
-#### BackTrader-参数优化
+#### 参数优化
 
 ##### 代码
 
-下载和安装 [BackTrader](https://www.backtrader.com/)
-
 ```python
-import backtrader as bt
-import matplotlib.pyplot as plt
+from datetime import datetime
+
 import akshare as ak
+import backtrader as bt
+import matplotlib.pyplot as plt  # 由于 Backtrader 的问题，此处要求 pip install matplotlib==3.2.2
+import pandas as pd
 
 plt.rcParams["font.sans-serif"] = ["SimHei"]  # 设置画图时的中文显示
 plt.rcParams["axes.unicode_minus"] = False  # 设置画图时的负号显示
@@ -203,13 +234,25 @@ class MyStrategy(bt.Strategy):
         self.log("(MA均线： %2d日) 期末总资金 %.2f" % (self.params.maperiod, self.broker.getvalue()), do_print=True)
 
 
-def main(code="sh601318", start_cash=1000000, stake=100, commission_fee=0.001):
+def main(code="600070", start_cash=1000000, stake=100, commission_fee=0.001):
     cerebro = bt.Cerebro()  # 创建主控制器
     cerebro.optstrategy(MyStrategy, maperiod=range(3, 31))  # 导入策略参数寻优
-    stock_zh_a_daily_df = ak.stock_zh_a_daily(
-        symbol=code, adjust="hfq"
-    )  # 通过 AkShare 获取需要的数据
-    data = bt.feeds.PandasData(dataname=stock_zh_a_daily_df)  # 规范化数据格式
+    # 利用 AKShare 获取股票的后复权数据，这里只获取前 6 列
+    stock_hfq_df = ak.stock_zh_a_hist(symbol=code, adjust="hfq", start_date='20000101', end_date='20210617').iloc[:, :6]
+    # 处理字段命名，以符合 Backtrader 的要求
+    stock_hfq_df.columns = [
+        'date',
+        'open',
+        'close',
+        'high',
+        'low',
+        'volume',
+    ]
+    # 把 date 作为日期索引，以符合 Backtrader 的要求
+    stock_hfq_df.index = pd.to_datetime(stock_hfq_df['date'])
+    start_date = datetime(1991, 4, 3)  # 回测开始时间
+    end_date = datetime(2021, 6, 16)  # 回测结束时间
+    data = bt.feeds.PandasData(dataname=stock_hfq_df, fromdate=start_date, todate=end_date)  # 规范化数据格式
     cerebro.adddata(data)  # 将数据加载至回测系统
     cerebro.broker.setcash(start_cash)  # broker设置资金
     cerebro.broker.setcommission(commission=commission_fee)  # broker手续费
@@ -217,6 +260,10 @@ def main(code="sh601318", start_cash=1000000, stake=100, commission_fee=0.001):
     print("期初总资金: %.2f" % cerebro.broker.getvalue())
     cerebro.run(maxcpus=1)  # 用单核 CPU 做优化
     print("期末总资金: %.2f" % cerebro.broker.getvalue())
+
+
+if __name__ == '__main__':
+    main(code="600070", start_cash=1000000, stake=100, commission_fee=0.001)
 ```
 
 ##### 结果

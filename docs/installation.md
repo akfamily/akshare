@@ -1,17 +1,23 @@
-# [AkShare](https://github.com/jindaxiang/akshare) 安装指导
+# [AKShare](https://github.com/akfamily/akshare) 安装指导
 
 ## 重要提示
 
-1. 首先请确认安装 [Python](https://www.python.org/) 3.7(64 位) 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.8.5(64 位) 版本;
-2. [AkShare](https://github.com/jindaxiang/akshare) 推荐安装最新版本的 [Anaconda](https://www.anaconda.com/), 可以解决大部分安装问题.
+1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用;
+2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.7(64 位) 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.8.5(64 位) 版本;
+3. [AKShare](https://github.com/akfamily/akshare) 推荐安装最新版本的 [Anaconda (64 位)](https://www.anaconda.com/), 可以解决大部分环境配置问题;
+4. 对于熟悉容器技术的小伙伴, 可以安装 Docker 使用, 指导教程如下: [AKShare Docker 部署](https://www.akshare.xyz/zh_CN/latest/akdocker/akdocker.html).
 
-## 安装 [AkShare](https://github.com/jindaxiang/akshare)
+## 安装 [AKShare](https://github.com/akfamily/akshare)
+
+提示：由于 py_mini_racer 库的编译问题，目前 ARM 架构的处理暂时无法安装和使用 AKShare, 已经在跟 py_mini_racer 库作者联系
 
 ### 通用安装
 
 ```
 pip install akshare  --upgrade
 ```
+
+注意：程序运行时，文件名、文件夹名不能是：akshare
 
 ### 国内安装-Python
 
@@ -25,108 +31,12 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade
 ```
 
-## 安装 [Node.js](https://nodejs.org/dist/)
+## 升级 [AKShare](https://github.com/akfamily/akshare)
 
-P.S. 体验 [AkShare](https://github.com/jindaxiang/akshare) 完整功能, 请安装 [Node.js](https://nodejs.org/dist/)
-
-### 快速安装
-
-#### Windows 系统
-
-[点击下载 Node.js for win 64](https://nodejs.org/dist/v12.13.0/node-v12.13.0-x64.msi), 按照界面提示完成安装即可！
-
-#### Ubuntu 系统
+P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://github.com/akfamily/akshare) 前先升级, 命令如下所示**
 
 ```
-sudo apt-get install nodejs
-```
-
-### 详细安装
-
-#### Node.js 介绍
-
-Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，它的存在使开发者可以在不依赖游览器的情况下编译和运行 JavaScript 代码。
-
-#### Node.js 相关链接
-
-1. [Node.js 官网](https://nodejs.org)
-2. [NVM 的 GitHub 仓库](https://github.com/nvm-sh/nvm)
-
-#### Node.js 详细安装
-
-我们既可以从 [Node.js 官网](https://nodejs.org) 下载安装包，也可以通过它的版本管理工具 NVM 来安装它。使用 NVM 的好处是可以在计算机中
-安装多个版本的 Node.js，并且安装过程也比较简单。
-
-首先下载并安装 NVM，对应的命令如下：
-
-```
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-```
-
-然后刷新环境变量，对应的命令如下：
-
-```
-source ~/.bashrc
-```
-
-接着验证 NVM 是否安装成功。在终端执行以下命令：
-
-```
-command -v nvm
-```
-
-此时终端会输出如下内容：
-
-```
-nvm
-```
-
-这代表 NVM 已经成功安装，并且正常运行。接着就可以安装 Node.js 了，在终端执行以下命令：
-
-```
-nvm install node
-```
-
-此时终端输出如下内容：
-
-```
-Downloading and installing node v13.12.0...
-Downloading https://nodejs.org/dist/v13.12.0/node-v13.12.0-linux-x64.tar.xz...
-################################################################################################################################################################## 100.0%
-Computing checksum with sha256sum
-Checksums matched!
-Now using node v13.12.0 (npm v6.14.4)
-Creating default alias: default -> node (-> v13.12.0)
-```
-
-这代表 Node.js 最新版本已被下载并安装。
-
-接下来验证 Node.js 是否已经安装成功。新建一个 nodev.js 的文件，并将以下内容写入文件：
-
-```javascript
-console.log("node 可用");
-```
-
-最后在同级目录下唤起终端，在终端执行以下命令：
-
-```
-node nodev.js
-```
-
-如果此时终端输出如下内容：
-
-```
-node 可用
-```
-
-代表 Node.js 已经成功安装，并且正常运行。
-
-## 升级 [AkShare](https://github.com/jindaxiang/akshare)
-
-P.S. **由于目前版本更新迭代频繁, 请在使用 [AkShare](https://github.com/jindaxiang/akshare) 前先升级, 命令如下所示**
-
-```
-pip install akshare --upgrade
+pip install akshare --upgrade -i https://pypi.org/simple
 ```
 
 ## R 语言支持
@@ -135,7 +45,7 @@ pip install akshare --upgrade
 
 [下载 Windows 64 位 Python 3.8 的 Anaconda](https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe)
 
-[安装教程参见 AkShare 文档的环境配置专栏](https://www.akshare.xyz/zh_CN/latest/anaconda.html)
+[安装教程参见 AKShare 文档的环境配置专栏](https://www.akshare.xyz/zh_CN/latest/anaconda.html)
 
 ### 安装 R 语言
 
@@ -143,7 +53,21 @@ pip install akshare --upgrade
 
 [下载 RStudio](https://download1.rstudio.org/desktop/windows/RStudio-1.3.959.exe)
 
-先安装 R，再安装 RStudio，按一下步安装即可。
+先安装 R，再安装 RStudio，选择默认步骤安装即可。
+
+### 升级 R 语言到最新版本
+
+#### Windows
+
+```
+install.packages('installr')
+library(installr)
+updateR()
+```
+
+#### Mac
+
+从 [CRAN website](https://cran.r-project.org/) 网站下载和安装最新的版本，覆盖升级即可。
 
 ### 在 R 语言中安装相应的包
 
@@ -153,7 +77,7 @@ pip install akshare --upgrade
 install.packages("reticulate")
 ```
 
-在安装完成后通过
+在安装完成后通过运行
 
 ```
 library(reticulate)
@@ -162,13 +86,14 @@ use_python("/usr/local/bin/python")
 
 调用本地的 Python 程序，其中 usr 需要替换为本地电脑的用户名。
 
-最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 AkShare 获取数据：
+最后展示一段演示代码，此代码在 R 语言中通过 reticulate 包来调用 [AKShare](https://github.com/akfamily/akshare) 获取数据：
 
 ```
 library(reticulate)  # 导入 reticulate 包
 use_python("/king/local/bin/python")  # 其中的 king 为本地电脑用户名
+# use_condaenv(condaenv="ak_test", required = TRUE)  # 也可以使用 conda 创建的虚拟环境，其中的 ak_test 为虚拟环境名称
 ak <- import("akshare")  # 类似于 import akshare as ak
-stock_df <- ak$stock_em_yysj(date="2020-03-31")  # 类似于 ak.stock_em_yysj(date="2020-03-31")
+stock_df <- ak$stock_em_yysj(date="20200331")  # 类似于 ak.stock_em_yysj(date="20200331")
 print(stock_df)  # 查看数据
 ```
 
@@ -270,4 +195,4 @@ pip install akshare --user
 ### 4. 提示其他的错误
 
 - 方法一: 确认并升级您的 Anaconda 或者 Python 到 64 位的 **Python3.7** 及以上版本
-- 方法二: 使用 conda 的虚拟环境来安装, 详见 **AkShare 环境配置** 板块的内容
+- 方法二: 使用 conda 的虚拟环境来安装, 详见 **[AKShare](https://github.com/akfamily/akshare) 环境配置** 板块的内容

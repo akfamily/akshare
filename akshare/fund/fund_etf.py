@@ -1,21 +1,21 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/7/18 12:52
+Date: 2021/9/22 23:33
 Desc: 新浪财经-基金行情
 http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
-import demjson
-from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
+from py_mini_racer import py_mini_racer
 
 from akshare.stock.cons import hk_js_decode
+from akshare.utils import demjson
 
 
-def fund_etf_category_sina(symbol: str = "封闭式基金") -> pd.DataFrame:
+def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
     """
-    基金列表
+    新浪财经-基金列表
     http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
     :param symbol: choice of {"封闭式基金", "ETF基金", "LOF基金"}
     :type symbol: str
@@ -40,6 +40,70 @@ def fund_etf_category_sina(symbol: str = "封闭式基金") -> pd.DataFrame:
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("([")+1:-2])
     temp_df = pd.DataFrame(data_json)
+    if symbol == "封闭式基金":
+        temp_df.columns = [
+            '代码',
+            '名称',
+            '最新价',
+            '涨跌额',
+            '涨跌幅',
+            '买入',
+            '卖出',
+            '昨收',
+            '今开',
+            '最高',
+            '最低',
+            '成交量',
+            '成交额',
+            '_',
+            '_',
+        ]
+    else:
+        temp_df.columns = [
+            '代码',
+            '名称',
+            '最新价',
+            '涨跌额',
+            '涨跌幅',
+            '买入',
+            '卖出',
+            '昨收',
+            '今开',
+            '最高',
+            '最低',
+            '成交量',
+            '成交额',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
+    temp_df = temp_df[[
+        '代码',
+        '名称',
+        '最新价',
+        '涨跌额',
+        '涨跌幅',
+        '买入',
+        '卖出',
+        '昨收',
+        '今开',
+        '最高',
+        '最低',
+        '成交量',
+        '成交额',
+    ]]
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df['买入'] = pd.to_numeric(temp_df['买入'])
+    temp_df['卖出'] = pd.to_numeric(temp_df['卖出'])
+    temp_df['昨收'] = pd.to_numeric(temp_df['昨收'])
+    temp_df['今开'] = pd.to_numeric(temp_df['今开'])
+    temp_df['最高'] = pd.to_numeric(temp_df['最高'])
+    temp_df['最低'] = pd.to_numeric(temp_df['最低'])
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
     return temp_df
 
 
@@ -63,8 +127,14 @@ def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
+    fund_etf_category_sina_df = fund_etf_category_sina(symbol="封闭式基金")
+    print(fund_etf_category_sina_df)
+
+    fund_etf_category_sina_df = fund_etf_category_sina(symbol="ETF基金")
+    print(fund_etf_category_sina_df)
+
     fund_etf_category_sina_df = fund_etf_category_sina(symbol="LOF基金")
     print(fund_etf_category_sina_df)
 
-    fund_etf_hist_sina_df = fund_etf_hist_sina(symbol="sz169103")
+    fund_etf_hist_sina_df = fund_etf_hist_sina(symbol="sh501005")
     print(fund_etf_hist_sina_df)

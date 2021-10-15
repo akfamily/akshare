@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2019/10/21 12:08
 Desc: 金十数据中心-经济指标-欧元区

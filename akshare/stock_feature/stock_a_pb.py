@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/7/13 21:54
 Desc: A股市净率
@@ -321,7 +321,7 @@ token = ctx.call("hex", datetime.now().date().isoformat()).lower()
 
 def stock_a_pb(market: str = "sh") -> pd.DataFrame:
     """
-    A股市净率
+    A 股市净率
     https://www.legulegu.com/stockdata/market_pb
     :param market: choice of {"sh", "sz", "cz", "zx", "000016.XSHG" ...}
     :type market: str

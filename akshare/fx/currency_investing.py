@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/11/8 19:56
+Date: 2021/5/7 14:56
 Desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
@@ -36,7 +36,7 @@ def _currency_name_url() -> dict:
 
 
 def currency_hist(
-    symbol: str = "usd-jpy", start_date: str = "20030101", end_date: str = "20200717"
+        symbol: str = "usd-jpy", start_date: str = "20030101", end_date: str = "20200717"
 ) -> pd.DataFrame:
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
@@ -88,7 +88,7 @@ def currency_hist(
             df_data["涨跌幅"].str.replace(",", "").str.replace("%", "").astype(float)
             / 100,
             6,
-        )
+            )
     )
 
     if "交易量" in df_data.columns:
@@ -99,27 +99,27 @@ def currency_hist(
 
         if any(df_data["交易量"].astype(str).str.contains("B")):
             df_data["交易量"] = (
-                df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
-                .str.replace("B", "")
-                .str.replace(",", "")
-                .astype(float)
-                * 1000000000
+                    df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
+                    .str.replace("B", "")
+                    .str.replace(",", "")
+                    .astype(float)
+                    * 1000000000
             )
         if any(df_data["交易量"].astype(str).str.contains("M")):
             df_data["交易量"] = (
-                df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
-                .str.replace("M", "")
-                .str.replace(",", "")
-                .astype(float)
-                * 1000000
+                    df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
+                    .str.replace("M", "")
+                    .str.replace(",", "")
+                    .astype(float)
+                    * 1000000
             )
         if any(df_data["交易量"].astype(str).str.contains("K")):
             df_data["交易量"] = (
-                df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
-                .str.replace("K", "")
-                .str.replace(",", "")
-                .astype(float)
-                * 1000
+                    df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
+                    .str.replace("K", "")
+                    .str.replace(",", "")
+                    .astype(float)
+                    * 1000
             )
         # df_data["交易量"] = df_data["交易量"].astype(float)
 
@@ -188,7 +188,6 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     }
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
-        "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
@@ -200,10 +199,10 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    res = requests.get(url, params=params, headers=headers)
-    temp_df = pd.read_html(res.json()["HTML"])[0].iloc[:, 1:]
+    r = requests.get(url, params=params, headers=headers)
+    temp_df = pd.read_html(r.json()["HTML"])[0].iloc[:, 1:]
     temp_df.rename(columns={"名称.1": "简称"}, inplace=True)
-    temp_df["pids"] = [item[:-1] for item in res.json()["pids"]]
+    temp_df["pids"] = [item[:-1] for item in r.json()["pids"]]
     name_code_dict_one = dict(
         zip(
             temp_df["名称"].tolist(),
@@ -218,7 +217,7 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     }
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
-        "Accept-Encoding": "gzip, deflate, br",
+        # "Accept-Encoding": "gzip, deflate, br",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
@@ -230,10 +229,10 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    res = requests.get(url, params=params, headers=headers)
-    temp_df = pd.read_html(res.json()["HTML"])[0].iloc[:, 1:]
+    r = requests.get(url, params=params, headers=headers)
+    temp_df = pd.read_html(r.json()["HTML"])[0].iloc[:, 1:]
     temp_df.rename(columns={"名称.1": "简称"}, inplace=True)
-    temp_df["pids"] = [item[:-1] for item in res.json()["pids"]]
+    temp_df["pids"] = [item[:-1] for item in r.json()["pids"]]
     name_code_dict_two = dict(
         zip(
             temp_df["名称"].tolist(),
@@ -266,7 +265,7 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
         params = {"region_ID": region_id, "currency_ID": "false"}
         headers = {
             "Accept": "application/json, text/javascript, */*; q=0.01",
-            "Accept-Encoding": "gzip, deflate, br",
+            # "Accept-Encoding": "gzip, deflate, br",
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",

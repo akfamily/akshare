@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/7/17 14:17
 Desc: 新浪财经-商品期权
@@ -7,7 +7,7 @@ https://stock.finance.sina.com.cn/futures/view/optionsDP.php
 """
 from typing import Dict, List
 
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup

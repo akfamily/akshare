@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/9/28 14:51
 Desc: 中国-商业特许经营信息管理
@@ -53,7 +53,7 @@ def franchise_china() -> pd.DataFrame:
     file_url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/franchise/franchise_china.csv"
     outer_df = pd.read_csv(file_url, encoding="gbk", index_col=0)
     try:
-        for page in tqdm(range(1, int(5))):  # 这里的 5 是硬编码, 长期后需要更新 file_url 文件
+        for page in tqdm(range(1, int(5)), leave=False):  # 这里的 5 是硬编码, 长期后需要更新 file_url 文件
             payload = {
                 "method": "entps",
                 "province": "",

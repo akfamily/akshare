@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2019/9/30 13:58
 Desc:
@@ -149,8 +149,11 @@ def chinese_to_english(chinese_var: str):
         "螺纹钢厂库",
         "纸浆厂库",
         "低硫燃料油仓库",
+        "低硫燃料油厂库",
         "短纤",
-        '涤纶短纤'
+        '涤纶短纤',
+        '生猪',
+        '花生',
     ]
     english_list = [
         "RU",
@@ -251,8 +254,11 @@ def chinese_to_english(chinese_var: str):
         "RB",
         "SP",
         "LU",
+        "LU",
         "PF",
         "PF",
+        "LH",
+        "PK",
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]

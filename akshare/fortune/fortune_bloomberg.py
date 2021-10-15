@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/7/11 21:44
 Desc: 彭博亿万富豪指数
@@ -40,7 +40,7 @@ def index_bloomberg_billionaires() -> pd.DataFrame:
         temp_content_list = row.text.strip().replace("\n", "").split("  ")
         content_list = [item for item in temp_content_list if item != ""]
         big_content_list.append(content_list)
-    temp_df = pd.DataFrame(big_content_list).iloc[:, :-1]
+    temp_df = pd.DataFrame(big_content_list)
     temp_df.columns = ["rank", "name", "total_net_worth", "last_change", "YTD_change", "country", "industry"]
     return temp_df
 

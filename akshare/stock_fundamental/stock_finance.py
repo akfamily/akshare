@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/5/15 15:35
+Date: 2021/2/7 15:35
 Desc: 股票基本面数据
 新浪财经-财务报表-财务摘要
 https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600004.phtml
@@ -14,6 +14,35 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+
+from io import BytesIO
+
+
+def stock_financial_report_sina(stock: str = "600004", symbol: str = "现金流量表") -> pd.DataFrame:
+    """
+    新浪财经-财务报表-三大报表
+    https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_BalanceSheet/stockid/600004/ctrl/part/displaytype/4.phtml
+    :param stock: 股票代码
+    :type stock: str
+    :param symbol: choice of {"资产负债表", "利润表", "现金流量表"}
+    :type symbol:
+    :return: 新浪财经-财务报表-三大报表
+    :rtype: pandas.DataFrame
+    """
+    if symbol == "资产负债表":
+        url = f"http://money.finance.sina.com.cn/corp/go.php/vDOWN_BalanceSheet/displaytype/4/stockid/{stock}/ctrl/all.phtml"  # 资产负债表
+    elif symbol == "利润表":
+        url = f"http://money.finance.sina.com.cn/corp/go.php/vDOWN_ProfitStatement/displaytype/4/stockid/{stock}/ctrl/all.phtml"  # 利润表
+    elif symbol == "现金流量表":
+        url = f"http://money.finance.sina.com.cn/corp/go.php/vDOWN_CashFlow/displaytype/4/stockid/{stock}/ctrl/all.phtml"  # 现金流量表
+    r = requests.get(url)
+    temp_df = pd.read_table(BytesIO(r.content), encoding="gb2312", header=None).iloc[:, :-2]
+    temp_df = temp_df.T
+    temp_df.columns = temp_df.iloc[0, :]
+    temp_df = temp_df.iloc[1:, :]
+    temp_df.index.name = None
+    temp_df.columns.name = None
+    return temp_df
 
 
 def stock_financial_abstract(stock: str = "600004") -> pd.DataFrame:
@@ -52,7 +81,7 @@ def stock_financial_analysis_indicator(stock: str = "600004") -> pd.DataFrame:
     year_context = soup.find(attrs={"id": "con02-1"}).find("table").find_all("a")
     year_list = [item.text for item in year_context]
     out_df = pd.DataFrame()
-    for year_item in tqdm(year_list):
+    for year_item in tqdm(year_list, leave=False):
         url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{stock}/ctrl/{year_item}/displaytype/4.phtml"
         r = requests.get(url)
         temp_df = pd.read_html(r.text)[12].iloc[:, :-1]
@@ -299,13 +328,21 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
+    stock_financial_report_sina_df = stock_financial_report_sina(stock="600009", symbol="现金流量表")
+    print(stock_financial_report_sina_df)
+
+    stock_financial_report_sina_df = stock_financial_report_sina(stock="600004", symbol="资产负债表")
+    print(stock_financial_report_sina_df)
+
     stock_financial_abstract_df = stock_financial_abstract(stock="600004")
     print(stock_financial_abstract_df)
-    stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(stock="600004")
+
+    stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(stock="002230")
     print(stock_financial_analysis_indicator_df)
 
     stock_history_dividend_df = stock_history_dividend()
     print(stock_history_dividend_df)
+
     stock_history_dividend_detail_df = stock_history_dividend_detail(indicator="分红", stock="600012", date="")
     print(stock_history_dividend_detail_df)
 
@@ -317,6 +354,7 @@ if __name__ == '__main__':
 
     stock_ipo_info_df = stock_ipo_info(stock="600004")
     print(stock_ipo_info_df)
+
     stock_add_stock_df = stock_add_stock(stock="600004")
     print(stock_add_stock_df)
 

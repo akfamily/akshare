@@ -1,4 +1,4 @@
-## [AkShare](https://github.com/jindaxiang/akshare) 私募数据
+## [AKShare](https://github.com/akfamily/akshare) 私募数据
 
 ### 中国证券投资基金业协会
 
@@ -61,7 +61,7 @@ print(amac_member_info_df)
 
 ##### 基金从业人员资格注册信息
 
-接口: amac_person_org_list
+接口: amac_person_fund_org_list
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
 
@@ -90,8 +90,8 @@ print(amac_member_info_df)
 
 ```python
 import akshare as ak
-amac_person_org_list_df = ak.amac_person_org_list()
-print(amac_person_org_list_df)
+amac_person_fund_org_list_df = ak.amac_person_fund_org_list()
+print(amac_person_fund_org_list_df)
 ```
 
 数据示例
@@ -109,6 +109,56 @@ print(amac_person_org_list_df)
 23770                  遵义市鑫财基金投资管理有限公司     5       5         0     0     0
 23771  Deutsche Bank (China) Co., Ltd.     3       3         0     0     0
 23772       The Northern Trust Company     1       1         0     0     0
+```
+
+##### 债券投资交易相关人员公示
+
+接口: amac_person_bond_org_list
+
+目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
+
+描述: 获取中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
+
+限量: 单次返回当前时刻所有历史数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述 |
+| -------- | ---- | ---- | --- |
+| - | -  | -    |   - |
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| 序号      | str   | Y        | -  |
+| 机构类型      | str   | Y        | -   |
+| 机构名称      | str   | Y        | -   |
+| 公示网址      | str   | Y        | -   |
+
+接口示例
+
+```python
+import akshare as ak
+amac_person_bond_org_list_df = ak.amac_person_bond_org_list()
+print(amac_person_bond_org_list_df)
+```
+
+数据示例
+
+```
+      序号  ...                                               公示网址
+0      1  ...  http://www.jxfunds.com.cn/front/common_100362....
+1      2  ...  http://www.pyamc.com/upload/user/1/2021-4-21/1...
+2      3  ...  http://www.cib-fund.com.cn/contents/2019/9/24-...
+3      4  ...  http://www.chinaamc.com/guanyu/gonggao/index.s...
+4      5  ...       http://www.jsfund.cn/AboutHarvest/zqry.shtml
+..   ...  ...                                                ...
+267  268  ...                                     www.tfzqam.com
+268  269  ...  https://www.tebon.com.cn/main/a/20201210/18545...
+269  270  ...  http://fund.piccamc.com/pc/newsInfo/articleInf...
+270  271  ...  https://www.tkfunds.com.cn/aboutus/bondstaff/i...
+271  272  ...         http://www.ebscn.com/gdzb/views/index.html
 ```
 
 #### 私募基金管理人公示
@@ -599,26 +649,30 @@ print(amac_fund_account_info_df)
 
 接口: amac_fund_abs
 
-目标地址: http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
+目标地址: https://gs.amac.org.cn/amac-infodisc/res/fund/abs/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
+描述: 中国证券投资基金业协会-信息公示-产品公示-资产支持专项计划
 
 限量: 单次返回当前时刻所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述 |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   - |
+| 名称   | 类型 |  描述 |
+| -------- | ---- |  --- |
+| - | -  |   - |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 成立日期      | str   | Y        | -  |
-| 产品编码      | str   | Y        | -   |
-| 产品名称      | str   | Y        | -   |
-| 管理人名称      | str   | Y        | -   |
+| 名称          | 类型 |  描述           |
+| --------------- | ----- | ---------------- |
+| 编号      | int64   |  -  |
+| 备案编号      | object   |  -   |
+| 专项计划全称      | object   | -   |
+| 管理人      | object   |  -   |
+| 托管人      | object   |  -   |
+| 成立日期      | object   |  -   |
+| 预期到期时间      | object   | -   |
+| 备案通过时间      | object   |  -   |
 
 接口示例
 
@@ -631,30 +685,18 @@ print(amac_fund_abs_df)
 数据示例
 
 ```
-              备案编号                    专项计划全称               管理人  \
-0     016160726001       德邦花呗第二期消费贷款资产支持专项计划        德邦证券股份有限公司   
-1     471160722001       嘉实建信二期信托受益权资产支持专项计划        嘉实资本管理有限公司   
-2     116160721001  广发资管-民生银行安驰15号汇富资产支持专项计划  广发证券资产管理（广东）有限公司   
-3     080160719001          中港锦源租赁一期资产支持专项计划        天风证券股份有限公司   
-4     033160720001         国金-创富租赁二期资产支持专项计划        国金证券股份有限公司   
-            ...                       ...               ...   
-2869  453150512001  国开泰富资管-齐鲁证券-远东天津资产支持专项计划    北京国开泰富资产管理有限公司   
-2870  117150420001       兴证资管-融信租赁一期资产支持专项计划      兴证证券资产管理有限公司   
-2871  484160722001       奥凯航空B2B本票债权资产支持专项计划    上海金元百利资产管理有限公司   
-2872  037160720001  国电电力宁夏新能源电力上网收费权资产支持专项计划  上海国泰君安证券资产管理有限公司   
-2873  521160719001          华夏幸福物业一期资产支持专项计划   上海富诚海富通资产管理有限公司   
-                        托管人     备案通过时间 备案函名称 备案函下载地址  
-0                宁波银行股份有限公司 2016-08-08  None    None  
-1          中国光大银行股份有限公司北京分行 2016-08-08  None    None  
-2              中国民生银行股份有限公司 2016-07-29  None    None  
-3          中国民生银行股份有限公司北京分行 2016-08-08  None    None  
-4              中国邮政储蓄银行上海分行 2016-07-25  None    None  
-                     ...        ...   ...     ...  
-2869             宁波银行股份有限公司 2015-05-18  None    None  
-2870     上海浦东发展银行股份有限公司福州分行 2015-04-24  None    None  
-2871             北京银行股份有限公司 2016-08-08  None    None  
-2872  中国工商银行股份有限公司宁夏回族自治区分行 2016-07-29  None    None  
-2873         广发银行股份有限公司北京分行 2016-07-29  None    None  
+        编号    备案编号  ...      预期到期时间      备案通过时间
+0        1  S27310  ...  2020-07-22  2015-01-01
+1        2  SH5850  ...  2019-12-12  2015-01-02
+2        3  SH5773  ...  2017-12-20  2015-01-03
+3        4  S25723  ...  2015-09-28  2015-01-22
+4        5  S25662  ...  2021-01-24  2015-01-22
+    ...     ...  ...         ...         ...
+4680  4681    None  ...  2026-01-19  2021-04-20
+4681  4682    None  ...  2024-08-25  2021-04-20
+4682  4683    None  ...  2022-04-11  2021-04-20
+4683  4684    None  ...  2023-04-18  2021-04-20
+4684  4685    None  ...  2024-01-30  2021-04-20
 ```
 
 ##### 期货公司集合资管产品公示

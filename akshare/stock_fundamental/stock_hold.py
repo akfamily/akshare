@@ -1,11 +1,11 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2020/5/27 19:57
 Desc: 新浪财经-股票-机构持股
 http://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml
 """
-import demjson
+from akshare.utils import demjson
 import pandas as pd
 import requests
 

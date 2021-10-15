@@ -1,64 +1,64 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/12/24 15:47
-Desc: 金十数据 websocket 实时数据接口-新闻
+Date: 2021/7/7 9:47
+Desc: 金十数据-市场快讯
 https://www.jin10.com/
-wss://wss-flash-1.jin10.com/
-# TODO 此接口在 Ubuntu 18.04 里面有问题
 """
 import pandas as pd
 import requests
 
 
-def js_news(indicator: str = '最新资讯') -> pd.DataFrame:
+def js_news(timestamp: str = "2021-06-05 20:50:18") -> pd.DataFrame:
     """
-    金十数据-最新资讯
+    金十数据-市场快讯
     https://www.jin10.com/
-    :param indicator: choice of {'最新资讯', '最新数据'}
-    :type indicator: str
-    :return: 金十数据
+    :param timestamp: choice of {'最新资讯', '最新数据'}
+    :type timestamp: str
+    :return: 市场快讯
     :rtype: pandas.DataFrame
     """
-    url = 'https://m.jin10.com/flash'
-    r = requests.get(url)
-    text_data = r.json()
-    text_data = [item.strip() for item in text_data]
-    big_df = pd.DataFrame()
-    try:
-        temp_df_part_one = pd.DataFrame([item.split("#") for item in text_data if item.startswith('0#1#')]).iloc[:, [2, 3]]
-    except IndexError:
-        temp_df_part_one = pd.DataFrame()
-    try:
-        temp_df_part_two = pd.DataFrame([item.split('#') for item in text_data if item.startswith('0#0#')]).iloc[:, [2, 3]]
-    except IndexError:
-        temp_df_part_two = pd.DataFrame()
-    try:
-        temp_df_part_three = pd.DataFrame([item.split('#') for item in text_data if item.startswith('1#')]).iloc[:, [8, 2, 3, 5]]
-    except IndexError:
-        temp_df_part_three = pd.DataFrame()
-    big_df = big_df.append(temp_df_part_one, ignore_index=True)
-    big_df = big_df.append(temp_df_part_two, ignore_index=True)
-    big_df.columns = [
-        'datetime',
-        'content',
-    ]
-    big_df['datetime'] = pd.to_datetime(big_df['datetime'])
-    big_df.sort_values('datetime', ascending=False, inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    if not temp_df_part_three.empty:
-        temp_df_part_three.columns = [
-            'datetime',
-            'content',
-            'before',
-            'now',
-        ]
-    if indicator == '最新资讯':
-        return big_df
-    else:
-        return temp_df_part_three
+    url = "https://flash-api.jin10.com/get_flash_list"
+    params = {
+        "channel": "-8200",
+        "vip": "1",
+        "t": "1625623640730",
+        "max_time": timestamp,
+    }
+    headers = {
+        "accept": "application/json, text/plain, */*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "handleerror": "true",
+        "origin": "https://www.jin10.com",
+        "pragma": "no-cache",
+        "referer": "https://www.jin10.com/",
+        "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-site",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "x-app-id": "bVBF4FyRTn5NJF5n",
+        "x-version": "1.0.0",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_list = []
+    for item in temp_df["data"]:
+        if "content" in item.keys():
+            temp_list.append(item["content"])
+        elif "pic" in item.keys():
+            temp_list.append(item["pic"])
+        else:
+            temp_list.append("-")
+    temp_df = pd.DataFrame([temp_df["time"].to_list(), temp_list]).T
+    temp_df.columns = ["datetime", "content"]
+    return temp_df
 
 
-if __name__ == '__main__':
-    js_news_df = js_news(indicator='最新资讯')
+if __name__ == "__main__":
+    js_news_df = js_news(timestamp="2021-09-11 15:27:18")
     print(js_news_df)

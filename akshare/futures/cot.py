@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/1/12 15:06
 Desc: 期货-中国-交易所-会员持仓数据接口
@@ -31,7 +31,6 @@ from akshare.futures import cons
 from akshare.futures.requests_fun import (
     requests_link
 )
-from akshare.futures.symbol_var import chinese_to_english, find_chinese
 from akshare.futures.symbol_var import (
     symbol_varieties
 )
@@ -43,9 +42,9 @@ intColumns = ['vol', 'vol_chg', 'long_open_interest', 'long_open_interest_chg', 
               'short_open_interest_chg']
 
 
-def get_rank_sum_daily(start_day="20200721", end_day="20200723", vars_list=cons.contract_symbols):
+def get_rank_sum_daily(start_day: str = "20210510", end_day: str = "20210510", vars_list: list = cons.contract_symbols):
     """
-    采集四个期货交易所前5、前10、前15、前20会员持仓排名数据
+    采集四个期货交易所前 5、前 10、前 15、前 20 会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名，没有公布品种的总排名;
         所以函数输出的品种排名是由品种中的每个标的加总获得，并不是真实的品种排名列表
     注2：大商所只公布了品种排名，未公布标的排名
@@ -85,7 +84,7 @@ def get_rank_sum_daily(start_day="20200721", end_day="20200723", vars_list=cons.
     return records.reset_index(drop=True)
 
 
-def get_rank_sum(date="20200727", vars_list=cons.contract_symbols):
+def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols):
     """
     抓取四个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名, 没有公布品种的总排名;
@@ -292,7 +291,7 @@ def _czce_df_read(url, skip_rows, encoding='utf-8', header=0):
     return data
 
 
-def get_czce_rank_table(date="20201026", vars_list=cons.contract_symbols):
+def get_czce_rank_table(date: str = "20210428", vars_list: list = cons.contract_symbols):
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
@@ -325,7 +324,7 @@ def get_czce_rank_table(date="20201026", vars_list=cons.contract_symbols):
         r = requests.get(url)
         temp_df = pd.read_excel(BytesIO(r.content))
 
-    temp_pinzhong_index = [item + 1 for item in temp_df[temp_df.iloc[:, 0].str.contains("合计")].index.to_list()]
+    temp_pinzhong_index = [item + 1 for item in temp_df[temp_df.iloc[:, 0].str.contains("合计", na=False)].index.to_list()]
     temp_pinzhong_index.insert(0, 0)
     temp_pinzhong_index.pop()
     temp_symbol_index = temp_df.iloc[temp_pinzhong_index, 0].str.split(" ", expand=True).iloc[:, 0]
@@ -415,7 +414,7 @@ def _get_dce_contract_list(date, var):
             continue
 
 
-def get_dce_rank_table(date: str = "20210108", vars_list=cons.contract_symbols):
+def get_dce_rank_table(date: str = "20210309", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细, 由于交易所网站问题, 需要 20200720 之后才有数据
     注: 该交易所只公布标的合约排名
@@ -450,35 +449,79 @@ def get_dce_rank_table(date: str = "20210108", vars_list=cons.contract_symbols):
         # var = 'V'
         symbol_list = _get_dce_contract_list(date, var)
         for symbol in symbol_list:
+            # print(symbol)
             url = cons.DCE_VOL_RANK_URL_1 % (var.lower(), symbol, var.lower(), date.year, date.month - 1, date.day)
-            temp_df = pd.read_excel(url[:-3] + 'excel', header=0, skiprows=3)
-            temp_df.dropna(how='any', axis=0, inplace=True)
-            temp_df = temp_df.applymap(lambda x: str(x).replace(',', ''))
-            del temp_df["名次.1"]
-            del temp_df["名次.2"]
-            temp_df.rename(columns={"名次": "rank",
-                                    "会员简称": "vol_party_name",
-                                    "成交量": "vol",
-                                    "增减": "vol_chg",
-                                    "会员简称.1": "long_party_name",
-                                    "持买单量": "long_open_interest",
-                                    "增减.1": "long_open_interest_chg",
-                                    "会员简称.2": "short_party_name",
-                                    "持卖单量": "short_open_interest",
-                                    "增减.2": "short_open_interest_chg",
-                                    }, inplace=True)
-            temp_df['symbol'] = symbol.upper()
-            temp_df['var'] = var
-            temp_df['date'] = date_string
-            temp_df = temp_df.applymap(lambda x: str(x).replace("-", "0") if x == "-" else x)
-            temp_df['rank'] = range(1, 21)
-            temp_df['vol'] = temp_df['vol'].astype(float)
-            temp_df['vol_chg'] = temp_df['vol_chg'].astype(float)
-            temp_df['long_open_interest'] = temp_df['long_open_interest'].astype(float)
-            temp_df['long_open_interest_chg'] = temp_df['long_open_interest_chg'].astype(float)
-            temp_df['short_open_interest'] = temp_df['short_open_interest'].astype(float)
-            temp_df['short_open_interest_chg'] = temp_df['short_open_interest_chg'].astype(float)
-            big_dict[symbol] = temp_df
+            try:
+                temp_df = pd.read_excel(url[:-3] + "excel", header=0, skiprows=3)
+                temp_df.dropna(how='any', axis=0, inplace=True)
+                temp_df = temp_df.applymap(lambda x: str(x).replace(',', ''))
+                del temp_df["名次.1"]
+                del temp_df["名次.2"]
+                temp_df.rename(columns={"名次": "rank",
+                                        "会员简称": "vol_party_name",
+                                        "成交量": "vol",
+                                        "增减": "vol_chg",
+                                        "会员简称.1": "long_party_name",
+                                        "持买单量": "long_open_interest",
+                                        "增减.1": "long_open_interest_chg",
+                                        "会员简称.2": "short_party_name",
+                                        "持卖单量": "short_open_interest",
+                                        "增减.2": "short_open_interest_chg",
+                                        }, inplace=True)
+                temp_df['symbol'] = symbol.upper()
+                temp_df['var'] = var
+                temp_df['date'] = date_string
+                temp_df = temp_df.applymap(lambda x: str(x).replace("-", "0") if x == "-" else x)
+                temp_df['rank'] = range(1, len(temp_df)+1)
+                temp_df['vol'] = temp_df['vol'].astype(float)
+                temp_df['vol_chg'] = temp_df['vol_chg'].astype(float)
+                temp_df['long_open_interest'] = temp_df['long_open_interest'].astype(float)
+                temp_df['long_open_interest_chg'] = temp_df['long_open_interest_chg'].astype(float)
+                temp_df['short_open_interest'] = temp_df['short_open_interest'].astype(float)
+                temp_df['short_open_interest_chg'] = temp_df['short_open_interest_chg'].astype(float)
+                big_dict[symbol] = temp_df
+            except:
+                temp_url = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
+                payload = {
+                    "memberDealPosiQuotes.variety": var.lower(),
+                    "memberDealPosiQuotes.trade_type": "0",
+                    "year": date.year,
+                    "month": date.month - 1,
+                    "day": str(date.day).zfill(2),
+                    "contract.contract_id": symbol,
+                    "contract.variety_id": var.lower(),
+                    "contract": ""
+                }
+                r = requests.post(temp_url, data=payload)
+                if r.status_code != 200:
+                    big_dict[symbol] = {}
+                else:
+                    temp_df = pd.read_html(r.text)[1].iloc[:-1, :]
+                    del temp_df["名次.1"]
+                    del temp_df["名次.2"]
+                    temp_df.rename(columns={"名次": "rank",
+                                            "会员简称": "vol_party_name",
+                                            "成交量": "vol",
+                                            "增减": "vol_chg",
+                                            "会员简称.1": "long_party_name",
+                                            "持买单量": "long_open_interest",
+                                            "增减.1": "long_open_interest_chg",
+                                            "会员简称.2": "short_party_name",
+                                            "持卖单量": "short_open_interest",
+                                            "增减.2": "short_open_interest_chg",
+                                            }, inplace=True)
+                    temp_df['symbol'] = symbol.upper()
+                    temp_df['var'] = var
+                    temp_df['date'] = date_string
+                    temp_df = temp_df.applymap(lambda x: str(x).replace("-", "0") if x == "-" else x)
+                    temp_df['rank'] = range(1, len(temp_df)+1)
+                    temp_df['vol'] = temp_df['vol'].astype(float)
+                    temp_df['vol_chg'] = temp_df['vol_chg'].astype(float)
+                    temp_df['long_open_interest'] = temp_df['long_open_interest'].astype(float)
+                    temp_df['long_open_interest_chg'] = temp_df['long_open_interest_chg'].astype(float)
+                    temp_df['short_open_interest'] = temp_df['short_open_interest'].astype(float)
+                    temp_df['short_open_interest_chg'] = temp_df['short_open_interest_chg'].astype(float)
+                    big_dict[symbol] = temp_df
     return big_dict
 
 
@@ -558,7 +601,7 @@ def _table_cut_cal(table_cut, symbol):
     return table_cut
 
 
-def futures_dce_position_rank(date: str = "20160919") -> pd.DataFrame:
+def futures_dce_position_rank(date: str = "20160919") -> dict:
     """
     大连商品交易所-每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
@@ -662,7 +705,7 @@ def futures_dce_position_rank(date: str = "20160919") -> pd.DataFrame:
     return big_dict
 
 
-def futures_dce_position_rank_other(date="20160104"):
+def futures_dce_position_rank_other(date: str = "20160104"):
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime('%Y%m%d') not in calendar:
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
@@ -729,8 +772,9 @@ def futures_dce_position_rank_other(date="20160104"):
 
 if __name__ == '__main__':
     # 郑州商品交易所
-    get_czce_rank_table_first_df = get_czce_rank_table(date='20151026', vars_list=["SR"])
+    get_czce_rank_table_first_df = get_czce_rank_table(date='20210525')
     print(get_czce_rank_table_first_df)
+
     get_czce_rank_table_first_df = get_czce_rank_table(date='20201026')
     print(get_czce_rank_table_first_df)
     # 中国金融期货交易所
@@ -746,14 +790,17 @@ if __name__ == '__main__':
     print(get_dce_rank_table_second_df)
     get_dce_rank_table_third_df = get_dce_rank_table(date='20200929')
     print(get_dce_rank_table_third_df)
-    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20210105', vars_list=['V'])
+    get_dce_rank_table_third_df = get_dce_rank_table(date='20210517')
+    print(get_dce_rank_table_third_df)
+    get_dce_rank_table_fourth_df = get_dce_rank_table(date='20210517', vars_list=['V'])
     print(get_dce_rank_table_fourth_df)
 
     # 总接口
-    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210105", end_day="20210105")
+    get_rank_sum_daily_df = get_rank_sum_daily(start_day="20210515", end_day="20210518", vars_list=['PF'])
     print(get_rank_sum_daily_df)
 
-    futures_dce_detail_dict = futures_dce_position_rank(date="20210105")
+    futures_dce_detail_dict = futures_dce_position_rank(date="20210407")
     print(futures_dce_detail_dict)
+
     futures_dce_position_rank_other_df = futures_dce_position_rank_other(date="20200727")
     print(futures_dce_position_rank_other_df)

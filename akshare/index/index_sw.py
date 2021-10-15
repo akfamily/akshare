@@ -1,19 +1,51 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/11/29 13:34
-Desc: 获取申万指数-申万一级
+Date: 2021/9/22 16:09
+Desc: 申万指数-申万一级
 http://www.swsindex.com/IdxMain.aspx
 """
 import time
 import json
-import datetime
 
 import pandas as pd
+from akshare.utils import demjson
 import requests
 from bs4 import BeautifulSoup
 
 from akshare.index.cons import sw_headers, sw_payload, sw_url, sw_cons_headers
+
+
+def sw_index_representation_spot() -> pd.DataFrame:
+    """
+    申万-市场表征实时行情数据
+    http://www.swsindex.com/idx0120.aspx?columnid=8831
+    :return: 市场表征实时行情数据
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.swsindex.com/handler.aspx"
+    params = {
+        'tablename': 'swzs',
+        'key': 'L1',
+        'p': '1',
+        'where':   "L1 in('801001','801002','801003','801005','801300','801901','801903','801905','801250','801260','801270','801280','802613')",
+        'orderby': '',
+        'fieldlist': 'L1,L2,L3,L4,L5,L6,L7,L8,L11',
+        'pagecount': '9',
+        'timed': '1632300641756',
+    }
+    r = requests.get(url, params=params)
+    data_json = demjson.decode(r.text)
+    temp_df = pd.DataFrame(data_json['root'])
+    temp_df.columns = ["指数代码", "指数名称", "昨收盘", "今开盘", "成交额", "最高价", "最低价", "最新价", "成交量"]
+    temp_df["昨收盘"] = pd.to_numeric(temp_df["昨收盘"])
+    temp_df["今开盘"] = pd.to_numeric(temp_df["今开盘"])
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
+    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"])
+    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"])
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
+    return temp_df
 
 
 def sw_index_spot() -> pd.DataFrame:
@@ -28,15 +60,22 @@ def sw_index_spot() -> pd.DataFrame:
         payload = sw_payload.copy()
         payload.update({"p": i})
         payload.update({"timed": int(time.time() * 1000)})
-        req = requests.post(sw_url, headers=sw_headers, data=payload)
-        data = req.content.decode()
+        r = requests.post(sw_url, headers=sw_headers, data=payload)
+        data = r.content.decode()
         data = data.replace("'", '"')
         data = json.loads(data)
         result.extend(data["root"])
-    result = pd.DataFrame(result)
-    result["L2"] = result["L2"].str.strip()
-    result.columns = ["指数代码", "指数名称", "昨收盘", "今开盘", "成交额", "最高价", "最低价", "最新价", "成交量"]
-    return result
+    temp_df = pd.DataFrame(result)
+    temp_df["L2"] = temp_df["L2"].str.strip()
+    temp_df.columns = ["指数代码", "指数名称", "昨收盘", "今开盘", "成交额", "最高价", "最低价", "最新价", "成交量"]
+    temp_df["昨收盘"] = pd.to_numeric(temp_df["昨收盘"])
+    temp_df["今开盘"] = pd.to_numeric(temp_df["今开盘"])
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
+    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"])
+    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"])
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
+    return temp_df
 
 
 def sw_index_cons(index_code: str = "801010") -> pd.DataFrame:
@@ -49,35 +88,31 @@ def sw_index_cons(index_code: str = "801010") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://www.swsindex.com/downfile.aspx?code={index_code}"
-    res = requests.get(url)
-    if res is not None:
-        soup = BeautifulSoup(res.text, "html5lib")
-        data = []
-        table = soup.findAll("table")[0]
-        rows = table.findAll("tr")
-        for row in rows:
-            cols = row.findAll("td")
-            if len(cols) >= 4:
-                stock_code = cols[0].text
-                stock_name = cols[1].text
-                weight = cols[2].text
-                start_date = cols[3].text
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "html5lib")
+    data = []
+    table = soup.findAll("table")[0]
+    rows = table.findAll("tr")
+    for row in rows:
+        cols = row.findAll("td")
+        if len(cols) >= 4:
+            stock_code = cols[0].text
+            stock_name = cols[1].text
+            weight = cols[2].text
+            start_date = cols[3].text
 
-                data.append(
-                    {
-                        "stock_code": stock_code,
-                        "stock_name": stock_name,
-                        "start_date": start_date,
-                        "weight": weight,
-                    }
-                )
-        df = pd.DataFrame(data)
-        if len(df) > 0:
-            df["start_date"] = df["start_date"].apply(
-                lambda x: datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
+            data.append(
+                {
+                    "stock_code": stock_code,
+                    "stock_name": stock_name,
+                    "start_date": start_date,
+                    "weight": weight,
+                }
             )
-        return df
-    return "获取数据失败"
+    temp_df = pd.DataFrame(data)
+    temp_df["start_date"] = pd.to_datetime(temp_df["start_date"]).dt.date
+    temp_df["weight"] = pd.to_numeric(temp_df["weight"])
+    return temp_df
 
 
 def sw_index_daily(
@@ -97,19 +132,13 @@ def sw_index_daily(
     :return: 申万指数日频率行情数据
     :rtype: pandas.DataFrame
     """
-    url = "http://www.swsindex.com/excel2.aspx?ctable=swindexhistory&where=%s "
-    where_cond = (
-        " swindexcode in ('%s') and BargainDate >= '%s' and BargainDate <= '%s'"
-        % (index_code, start_date, end_date)
-    )
-    url = url % where_cond
-    # print(url)
-
-    response = requests.get(url).text
-    if response is None:
-        return None, "获取数据失败"
-
-    soup = BeautifulSoup(response, "html5lib")
+    url = "http://www.swsindex.com/excel2.aspx"
+    params = {
+        "ctable": "swindexhistory",
+        "where": f" swindexcode in ('{index_code}') and BargainDate >= '{start_date}' and BargainDate <= '{end_date}'",
+    }
+    r = requests.get(url, params=params)
+    soup = BeautifulSoup(r.text, "html5lib")
     data = []
     table = soup.findAll("table")[0]
     rows = table.findAll("tr")
@@ -126,7 +155,6 @@ def sw_index_daily(
             vol = cols[7].text
             amount = cols[8].text
             change_pct = cols[9].text
-
             data.append(
                 {
                     "index_code": index_code.replace(",", ""),
@@ -141,19 +169,22 @@ def sw_index_daily(
                     "change_pct": change_pct.replace(",", ""),
                 }
             )
-
-    df = pd.DataFrame(data)
-    if len(df) > 0:
-        df["date"] = df["date"].apply(
-            lambda x: datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
-        )
-    return df
+    temp_df = pd.DataFrame(data)
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"])
+    temp_df["high"] = pd.to_numeric(temp_df["high"])
+    temp_df["low"] = pd.to_numeric(temp_df["low"])
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["vol"] = pd.to_numeric(temp_df["vol"])
+    temp_df["amount"] = pd.to_numeric(temp_df["amount"])
+    temp_df["change_pct"] = pd.to_numeric(temp_df["change_pct"])
+    return temp_df
 
 
 def sw_index_daily_indicator(
-    index_code: str = "801010",
+    index_code: str = "801003",
     start_date: str = "2019-12-01",
-    end_date: str = "2019-12-07",
+    end_date: str = "2021-09-07",
     data_type: str = "Day",
 ) -> pd.DataFrame:
     """
@@ -165,23 +196,18 @@ def sw_index_daily_indicator(
     :type start_date: str
     :param end_date: 结束时间
     :type end_date: str
-    :param data_type: 频率
+    :param data_type: choice of {"Day": 日报表, "Week": 周报表}
     :type data_type: str
     :return: 申万指数不同频率数据
     :rtype: pandas.DataFrame
     """
-    url = "http://www.swsindex.com/excel.aspx?ctable=V_Report&where=%s"
-    where_cond = (
-        "swindexcode in ('%s') and BargainDate >= '%s' and BargainDate <= '%s' and type='%s'"
-        % (index_code, start_date, end_date, data_type)
-    )
-    url = url % where_cond
-
-    response = requests.get(url).text
-    if response is None:
-        return None, "获取数据失败"
-
-    soup = BeautifulSoup(response, "html5lib")
+    url = "http://www.swsindex.com/excel.aspx"
+    params = {
+        "ctable": "V_Report",
+        "where": f" swindexcode in ('{index_code}') and BargainDate >= '{start_date}' and BargainDate <= '{end_date}' and type='{data_type}'",
+    }
+    r = requests.get(url, params=params)
+    soup = BeautifulSoup(r.text, "html5lib")
     data = []
     table = soup.findAll("table")[0]
     rows = table.findAll("tr")
@@ -202,7 +228,6 @@ def sw_index_daily_indicator(
             float_mv = cols[11].text
             avg_float_mv = cols[12].text
             dividend_yield_ratio = cols[13].text
-
             data.append(
                 {
                     "index_code": index_code,
@@ -221,28 +246,46 @@ def sw_index_daily_indicator(
                     "turnover_pct": turnover_pct,
                 }
             )
-
-    df = pd.DataFrame(data)
-    if len(df) > 0:
-        df["date"] = df["date"].apply(
-            lambda x: datetime.datetime.strptime(x, "%Y/%m/%d %H:%M:%S")
-        )
-    return df
+    temp_df = pd.DataFrame(data)
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["volume"] = temp_df["volume"].apply(lambda x: x.replace(",", ""))
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
+    temp_df["chg_pct"] = pd.to_numeric(temp_df["chg_pct"])
+    temp_df["turn_rate"] = pd.to_numeric(temp_df["turn_rate"])
+    temp_df["pe"] = pd.to_numeric(temp_df["pe"])
+    temp_df["pb"] = pd.to_numeric(temp_df["pb"])
+    temp_df["vwap"] = pd.to_numeric(temp_df["vwap"])
+    temp_df["float_mv"] = temp_df["float_mv"].apply(lambda x: x.replace(",", ""))
+    temp_df["float_mv"] = pd.to_numeric(
+        temp_df["float_mv"],
+    )
+    temp_df["avg_float_mv"] = temp_df["avg_float_mv"].apply(lambda x: x.replace(",", ""))
+    temp_df["avg_float_mv"] = pd.to_numeric(temp_df["avg_float_mv"])
+    temp_df["dividend_yield_ratio"] = pd.to_numeric(temp_df["dividend_yield_ratio"])
+    temp_df["turnover_pct"] = pd.to_numeric(temp_df["turnover_pct"])
+    return temp_df
 
 
 if __name__ == "__main__":
-    sw_index_df = sw_index_spot()
-    print(sw_index_df)
-    sw_index_df = sw_index_cons(index_code="801020")
-    print(sw_index_df)
-    sw_index_df = sw_index_daily(
-        index_code="801010", start_date="2019-12-01", end_date="2019-12-07"
+    sw_index_representation_spot_df = sw_index_representation_spot()
+    print(sw_index_representation_spot_df)
+
+    sw_index_spot_df = sw_index_spot()
+    print(sw_index_spot_df)
+
+    sw_index_cons_df = sw_index_cons(index_code="801001")
+    print(sw_index_cons_df)
+
+    sw_index_daily_df = sw_index_daily(
+        index_code="801001", start_date="2019-12-01", end_date="2019-12-07"
     )
-    print(sw_index_df)
-    sw_index_df = sw_index_daily_indicator(
-        index_code="801010",
+    print(sw_index_daily_df)
+
+    sw_index_daily_indicator_df = sw_index_daily_indicator(
+        index_code="801003",
         start_date="2019-11-01",
         end_date="2019-12-07",
         data_type="Week",
     )
-    print(sw_index_df)
+    print(sw_index_daily_indicator_df)

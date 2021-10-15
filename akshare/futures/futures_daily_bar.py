@@ -1,13 +1,12 @@
 # -*- coding:utf-8 -*-
-# /usr/bin/env python
+#!/usr/bin/env python
 """
-Date: 2020/08/04 13:58
-Desc: 交易所网站获取期货日线行情
+Date: 2021/7/20 20:58
+Desc: 期货日线行情
 """
 import datetime
 import json
 import re
-import warnings
 import zipfile
 from io import BytesIO, StringIO
 
@@ -21,30 +20,18 @@ from akshare.futures.requests_fun import requests_link
 calendar = cons.get_calendar()
 
 
-def get_cffex_daily(date="20100401"):
+def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
     """
-    中国金融期货交易所日交易数据
+    中国金融期货交易所-日频率交易数据
     http://www.cffex.com.cn/rtj/
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 为空时为当天
-    :return: pandas.DataFrame
-    中国金融期货交易所日:
-    symbol        合约代码
-    date          日期
-    open          开盘价
-    high          最高价
-    low          最低价
-    close         收盘价
-    volume        成交量
-    open_interest   持仓量
-    turnover      成交额
-    settle        结算价
-    pre_settle    前结算价
-    variety       合约类别
-    或 None(给定日期没有交易数据)
+    :param date: 交易日; 数据开始时间为 20100416
+    :type date: str
+    :return: 日频率交易数据
+    :rtype: pandas.DataFrame
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
-        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
+        # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     url = f"http://www.cffex.com.cn/sj/historysj/{date[:-2]}/zip/{date[:-2]}.zip"
     r = requests.get(url)
@@ -63,20 +50,62 @@ def get_cffex_daily(date="20100401"):
     symbol_list = data_df["合约代码"].to_list()
     variety_list = [re.compile(r"[a-zA-Z_]+").findall(item)[0] for item in symbol_list]
     if data_df.shape[1] == 15:
-        data_df.columns = ["symbol", "open", "high", "low", "volume", "turnover",
-                           "open_interest", "_", "close", "settle", "pre_settle", "_", "_", "_", "_"]
+        data_df.columns = [
+            "symbol",
+            "open",
+            "high",
+            "low",
+            "volume",
+            "turnover",
+            "open_interest",
+            "_",
+            "close",
+            "settle",
+            "pre_settle",
+            "_",
+            "_",
+            "_",
+            "_",
+        ]
     else:
-        data_df.columns = ["symbol", "open", "high", "low", "volume", "turnover",
-                           "open_interest", "_", "close", "settle", "pre_settle", "_", "_", "_"]
+        data_df.columns = [
+            "symbol",
+            "open",
+            "high",
+            "low",
+            "volume",
+            "turnover",
+            "open_interest",
+            "_",
+            "close",
+            "settle",
+            "pre_settle",
+            "_",
+            "_",
+            "_",
+        ]
     data_df["date"] = date
     data_df["variety"] = variety_list
     data_df = data_df[
-        ["symbol", "date", "open", "high", "low", "close", "volume", "open_interest", "turnover", "settle",
-         "pre_settle", "variety"]]
+        [
+            "symbol",
+            "date",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "open_interest",
+            "turnover",
+            "settle",
+            "pre_settle",
+            "variety",
+        ]
+    ]
     return data_df
 
 
-def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
+def get_ine_daily(date: str = "20200106") -> pd.DataFrame:
     """
     上海国际能源交易中心-日频率-量价数据
     上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
@@ -89,7 +118,7 @@ def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
-        warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
+        # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return None
     url = f"http://www.ine.cn/data/dailydata/kx/kx{day.strftime('%Y%m%d')}.dat"
     r = requests.get(url)
@@ -100,8 +129,20 @@ def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
         return None
     temp_df = pd.DataFrame(data_json["o_curinstrument"]).iloc[:-1, :]
     temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
-
-    result_df["symbol"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0] + temp_df["DELIVERYMONTH"]
+    temp_df = temp_df[~temp_df["PRODUCTNAME"].str.contains("总计")]
+    try:
+        result_df["symbol"] = (
+            temp_df["PRODUCTGROUPID"].str.upper().str.strip() + temp_df["DELIVERYMONTH"]
+        )
+    except:
+        result_df["symbol"] = (
+            temp_df["PRODUCTID"]
+            .str.upper()
+            .str.strip()
+            .str.split("_", expand=True)
+            .iloc[:, 0]
+            + temp_df["DELIVERYMONTH"]
+        )
     result_df["date"] = day.strftime("%Y%m%d")
     result_df["open"] = temp_df["OPENPRICE"]
     result_df["high"] = temp_df["HIGHESTPRICE"]
@@ -112,22 +153,32 @@ def get_ine_daily(date: str = "20210111") -> pd.DataFrame:
     result_df["turnover"] = 0
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
-    result_df["variety"] = temp_df["PRODUCTID"].str.upper().str.split("_", expand=True)[0]
+    try:
+        result_df["variety"] = temp_df["PRODUCTGROUPID"].str.upper().str.strip()
+    except:
+        result_df["variety"] = (
+            temp_df["PRODUCTID"]
+            .str.upper()
+            .str.strip()
+            .str.split("_", expand=True)
+            .iloc[:, 0]
+        )
     result_df = result_df[result_df["symbol"] != "总计"]
+    result_df = result_df[~result_df["symbol"].str.contains("efp")]
     return result_df
 
 
-def get_czce_daily(date="20200901"):
+def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
     """
     郑州商品交易所-日频率-量价数据
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日; 日期需要大于200100824
+    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日; 日期需要大于 20100824
     :type date: str or datetime.date
     :return: 郑州商品交易所-日频率-量价数据
     :rtype: pandas.DataFrame or None
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
-        warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
+        # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return None
     if day > datetime.date(2010, 8, 24):
         if day > datetime.date(2015, 9, 19):
@@ -158,7 +209,7 @@ def get_czce_daily(date="20200901"):
         ]
 
         if day > datetime.date(2015, 9, 19):
-            if html[1][0] not in ["品种月份", "品种代码"]:
+            if html[1][0] not in ["品种月份", "品种代码", "合约代码"]:
                 return
             dict_data = list()
             day_const = int(day.strftime("%Y%m%d"))
@@ -168,7 +219,7 @@ def get_czce_daily(date="20200901"):
                     continue
                 row_dict = {"date": day_const, "symbol": row[0], "variety": m.group(1)}
                 for i, field in enumerate(listed_columns):
-                    if row[i + 1] == "\r":
+                    if row[i + 1] == "\r" or row[i + 1] == "":
                         row_dict[field] = 0.0
                     elif field in [
                         "volume",
@@ -214,11 +265,10 @@ def get_czce_daily(date="20200901"):
         listed_columns = cons.CZCE_COLUMNS_2
         output_columns = cons.OUTPUT_COLUMNS
         df = pd.read_html(url)[1].dropna(how="any")
-
         dict_data = list()
         day_const = int(day.strftime("%Y%m%d"))
-
-        for row in df.to_dict(orient="records")[1:]:
+        for row in df.to_dict(orient="records"):
+            row = list(row.values())
             m = cons.FUTURES_SYMBOL_PATTERN.match(row[0])
             if not m:
                 continue
@@ -227,19 +277,16 @@ def get_czce_daily(date="20200901"):
                 if row[i + 1] == "\r":
                     row_dict[field] = 0.0
                 elif field in ["volume", "open_interest", "oi_chg", "exercise_volume"]:
-
                     row_dict[field] = int(row[i + 1])
                 else:
-
                     row_dict[field] = float(row[i + 1])
             dict_data.append(row_dict)
-
         return pd.DataFrame(dict_data)[output_columns]
 
 
-def get_shfe_v_wap(date="20131017"):
+def get_shfe_v_wap(date: str = "20131017") -> pd.DataFrame:
     """
-    获取上期所日成交均价数据
+    上期所日成交均价数据
     Parameters
     ------
     date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -255,7 +302,7 @@ def get_shfe_v_wap(date="20131017"):
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
-        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
+        # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     try:
         json_data = json.loads(
@@ -281,9 +328,10 @@ def get_shfe_v_wap(date="20131017"):
         return None
 
 
-def get_shfe_daily(date="20131016"):
+def get_shfe_daily(date: str = "20160104") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
+    http://www.shfe.com.cn/statements/dataview.html?paramid=kx
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象, 默认为当前交易日
     :type date: str or datetime.date
     :return: 上海期货交易所-日频率-量价数据
@@ -305,7 +353,7 @@ def get_shfe_daily(date="20131016"):
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
-        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
+        # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     try:
         json_data = json.loads(
@@ -329,7 +377,16 @@ def get_shfe_daily(date="20131016"):
             if row["DELIVERYMONTH"] not in ["小计", "合计"] and row["DELIVERYMONTH"] != ""
         ]
     )
-    df["variety"] = df.PRODUCTID.str.slice(0, -6).str.upper()
+    try:
+        df["variety"] = df["PRODUCTGROUPID"].str.upper().str.strip()
+    except KeyError as e:
+        df["variety"] = (
+            df["PRODUCTID"]
+            .str.upper()
+            .str.split("_", expand=True)
+            .iloc[:, 0]
+            .str.strip()
+        )
     df["symbol"] = df["variety"] + df["DELIVERYMONTH"]
     df["date"] = day.strftime("%Y%m%d")
     v_wap_df = get_shfe_v_wap(day)
@@ -345,6 +402,7 @@ def get_shfe_daily(date="20131016"):
         df["VOLUME"] = df["VOLUME"].apply(lambda x: 0 if x == "" else x)
         df["turnover"] = df["VOLUME"] * df["SETTLEMENTPRICE"]
     df.rename(columns=cons.SHFE_COLUMNS, inplace=True)
+    df = df[~df["symbol"].str.contains("efp")]
     return df[cons.OUTPUT_COLUMNS]
 
 
@@ -359,7 +417,7 @@ def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
     """
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
-        warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
+        # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
     url = "http://www.dce.com.cn/publicweb/quotesdata/exportDayQuotesChData.html"
     headers = {
@@ -393,36 +451,74 @@ def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
     data_df["symbol"] = data_df["variety"] + data_df["交割月份"].astype(int).astype(str)
     del data_df["商品名称"]
     del data_df["交割月份"]
-    data_df.columns = ["open", "high", "low", "close",
-                       "pre_settle", "settle", "_", "_",
-                       "volume", "open_interest", "_", "turnover", "variety", "symbol"]
+    data_df.columns = [
+        "open",
+        "high",
+        "low",
+        "close",
+        "pre_settle",
+        "settle",
+        "_",
+        "_",
+        "volume",
+        "open_interest",
+        "_",
+        "turnover",
+        "variety",
+        "symbol",
+    ]
     data_df["date"] = date
     data_df = data_df[
-        ["symbol", "date", "open", "high", "low", "close", "volume", "open_interest", "turnover", "settle",
-         "pre_settle", "variety"]]
+        [
+            "symbol",
+            "date",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "open_interest",
+            "turnover",
+            "settle",
+            "pre_settle",
+            "variety",
+        ]
+    ]
     data_df = data_df.applymap(lambda x: x.replace(",", ""))
-    data_df = data_df.astype({"open": "float",
-                              "high": "float",
-                              "low": "float",
-                              "close": "float",
-                              "volume": "float",
-                              "open_interest": "float",
-                              "turnover": "float",
-                              "settle": "float",
-                              "pre_settle": "float",
-                              })
+    data_df = data_df.astype(
+        {
+            "open": "float",
+            "high": "float",
+            "low": "float",
+            "close": "float",
+            "volume": "float",
+            "open_interest": "float",
+            "turnover": "float",
+            "settle": "float",
+            "pre_settle": "float",
+        }
+    )
     return data_df
 
 
-def get_futures_daily(start_date="20201026", end_date="20201027", market="SHFE", index_bar=False):
+def get_futures_daily(
+    start_date: str = "20201031",
+    end_date: str = "20201031",
+    market: str = "CZCE",
+    index_bar: bool = False,
+) -> pd.DataFrame:
     """
     交易所日交易数据
-    Parameters
-    ------
-    start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
-    index_bar: bool  是否合成指数K线, 默认为 False 否则影响 roll_yield 的计算
+    :param start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :type start_date: str
+    :param end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :type end_date: str
+    :param market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
+    :type market: str
+    :param index_bar: 是否合成指数K线, 默认为 False 否则影响 roll_yield 的计算
+    :type index_bar: bool
+    :return: 交易所日交易数据
+    :rtype: pandas.DataFrame
     """
     if market.upper() == "CFFEX":
         f = get_cffex_daily
@@ -439,7 +535,9 @@ def get_futures_daily(start_date="20201026", end_date="20201027", market="SHFE",
         return None
 
     start_date = (
-        cons.convert_date(start_date) if start_date is not None else datetime.date.today()
+        cons.convert_date(start_date)
+        if start_date is not None
+        else datetime.date.today()
     )
     end_date = (
         cons.convert_date(end_date)
@@ -457,10 +555,12 @@ def get_futures_daily(start_date="20201026", end_date="20201027", market="SHFE",
         start_date += datetime.timedelta(days=1)
 
     if len(df_list) > 0:
-        return pd.concat(df_list).reset_index(drop=True)
+        temp_df = pd.concat(df_list).reset_index(drop=True)
+        temp_df = temp_df[~temp_df["symbol"].str.contains("efp")]
+        return temp_df
 
 
-def get_futures_index(df):
+def get_futures_index(df: pd.DataFrame) -> pd.DataFrame:
     """
     指数日交易数据, 指数合成
     :param df: 爬到的原始合约日线行情
@@ -482,12 +582,15 @@ def get_futures_index(df):
             if "efp" in df_cut.iloc[-1, 0]:
                 df_cut = df_cut.iloc[:-1, :]
             df_cut.replace("", 0, inplace=True)  # 20201026 部分数据开盘价空缺
-            index_df[["open", "high", "low", "close", "settle", "pre_settle"]] = np.dot(
-                np.array(
-                    df_cut[["open", "high", "low", "close", "settle", "pre_settle"]]
-                ).T,
-                np.array((df_cut["open_interest"])),
-            ) / np.sum(df_cut["open_interest"])
+            index_df[["open", "high", "low", "close", "settle", "pre_settle"]] = (
+                np.dot(
+                    np.array(
+                        df_cut[["open", "high", "low", "close", "settle", "pre_settle"]]
+                    ).T,
+                    np.array((df_cut["open_interest"].astype(float))),
+                )
+                / np.sum(df_cut["open_interest"].astype(float))
+            )
             index_df[["date", "variety"]] = df_cut[["date", "variety"]].iloc[0, :]
             index_df["symbol"] = index_df["variety"] + "99"
             index_dfs.append(index_df)
@@ -495,17 +598,22 @@ def get_futures_index(df):
 
 
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(start_date='20210111 ', end_date='20210114', market="INE", index_bar=True)
+    get_futures_daily_df = get_futures_daily(
+        start_date="20200105", end_date="20200201", market="INE", index_bar=False
+    )
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20210108")
+    get_dce_daily_df = get_dce_daily(date="20210427")
     print(get_dce_daily_df)
 
-    get_cffex_daily_df = get_cffex_daily(date="20101101")
+    get_cffex_daily_df = get_cffex_daily(date="20210719")
     print(get_cffex_daily_df)
 
-    get_ine_daily_df = get_ine_daily(date="20210111")
+    get_ine_daily_df = get_ine_daily(date="20210426")
     print(get_ine_daily_df)
 
-    get_czce_daily_df = get_czce_daily(date="20200901")
+    get_czce_daily_df = get_czce_daily(date="20210416")
     print(get_czce_daily_df)
+
+    get_shfe_daily_df = get_shfe_daily(date="20160104")
+    print(get_shfe_daily_df)
