@@ -903,6 +903,8 @@
  "fund_report_stock_cninfo"  # 基金报表-基金重仓股
  # 公告大全-沪深 A 股公告
  "stock_notice_report"  # 公告大全-沪深 A 股公告
+ # 基金报表-基金行业配置
+ "fund_report_industry_allocation_cninfo"  # 基金报表-基金行业配置
 ```
 
 ## 案例演示
