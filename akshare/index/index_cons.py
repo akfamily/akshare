@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/7/28 21:19
+Date: 2021/10/16 17:19
 Desc: 股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
@@ -120,20 +120,8 @@ def index_stock_cons_csindex(index: str = "000300") -> pd.DataFrame:
     :return: 最新股票指数的成份股目录
     :rtype: pandas.DataFrame
     """
-    timestamp = int(time.time())
-    headers = {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Host': 'www.csindex.com.cn',
-        'Pragma': 'no-cache',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36',
-    }
-    url = f"http://www.csindex.com.cn/uploads/file/autofile/cons/{index}cons.xls?t={timestamp}"
-    r = requests.get(url, headers=headers)
+    url = f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/cons/{index}cons.xls"
+    r = requests.get(url)
     temp_df = pd.read_excel(BytesIO(r.content), usecols="E:F")
     temp_df.columns = ["stock_code", "stock_name"]
     temp_df['stock_code'] = temp_df['stock_code'].astype(str)
