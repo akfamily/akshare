@@ -2589,4 +2589,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.65 fix: fix stock_notice_report interface
 
 1.1.66 add: add fund_report_industry_allocation_cninfo interface
+
+1.1.67 fix: fix stock_zh_index_hist_csindex interface
 ```
