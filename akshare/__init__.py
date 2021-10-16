@@ -1585,9 +1585,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.63 add: add bond_cov_stock_issue_cninfo interface
 1.1.64 add: add fund_report_stock_cninfo interface
 1.1.65 fix: fix stock_notice_report interface
+1.1.66 add: add fund_report_industry_allocation_cninfo interface
 """
 
-__version__ = "1.1.65"
+__version__ = "1.1.66"
 __author__ = "Albert King"
 
 import sys
@@ -1601,7 +1602,7 @@ del sys
 """
 巨潮资讯-数据中心-专题统计-基金报表
 """
-from akshare.fund.fund_report_cninfo import fund_report_stock_cninfo
+from akshare.fund.fund_report_cninfo import fund_report_stock_cninfo, fund_report_industry_allocation_cninfo
 
 """
 巨潮资讯-数据中心-专题统计-债券报表-债券发行
