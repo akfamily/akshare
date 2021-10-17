@@ -173,7 +173,7 @@ def stock_a_code_to_symbol(code: str = '000300'):
 
 
 if __name__ == "__main__":
-    index_stock_cons_csindex_df = index_stock_cons_csindex(index="000300")
+    index_stock_cons_csindex_df = index_stock_cons_csindex(index="931463")
     print(index_stock_cons_csindex_df)
 
     index_stock_cons_csindex_df['symbol'] = index_stock_cons_csindex_df['stock_code'].apply(stock_a_code_to_symbol)
