@@ -870,7 +870,7 @@ if __name__ == "__main__":
     print(fund_em_open_fund_info_df)
     time.sleep(3)
 
-    fund_em_info_net_acc_df = fund_em_open_fund_info(fund="710001", indicator="累计净值走势")
+    fund_em_info_net_acc_df = fund_em_open_fund_info(fund="000212", indicator="累计净值走势")
     print(fund_em_info_net_acc_df)
     time.sleep(3)
 
