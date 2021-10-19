@@ -287,6 +287,7 @@ def amac_fund_info() -> pd.DataFrame:
     data = get_data(url=amac_fund_info_url, payload=amac_fund_info_payload)
     need_data = data["content"]
     keys_list = [
+        "fundNo",
         "fundName",
         "managerName",
         "managerType",
@@ -298,6 +299,7 @@ def amac_fund_info() -> pd.DataFrame:
     manager_data_out = pd.DataFrame(need_data)
     manager_data_out = manager_data_out[keys_list]
     manager_data_out.columns = [
+        "基金编号",
         "基金名称",
         "私募基金管理人名称",
         "私募基金管理人类型",
