@@ -2605,4 +2605,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.73 add: add stock_zh_index_value_csindex interface
 
 1.1.74 fix: fix fund_em_etf_fund_info interface
+
+1.1.75 add: add index_value_hist_funddb interface
 ```

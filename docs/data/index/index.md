@@ -2776,7 +2776,7 @@ print(stock_zh_index_hist_csindex_df)
 1509  2021-10-14  H30374  中证中国内地企业全球综合指数  ...  577.31   8071.84  4261.0
 ```
 
-### 指数估值
+### 指数估值-中证
 
 接口: stock_zh_index_value_csindex
 
@@ -2839,4 +2839,59 @@ print(stock_zh_index_value_csindex_df)
 17  2021-09-23  H30374  中证中国内地企业全球综合指数  中国内地全指  ...  18.23  19.51  1.77  1.58
 18  2021-09-22  H30374  中证中国内地企业全球综合指数  中国内地全指  ...  18.12  19.37  1.78  1.59
 19  2021-09-21  H30374  中证中国内地企业全球综合指数  中国内地全指  ...  18.09  19.36  1.79  1.59
+```
+
+### 指数估值-韭圈儿
+
+接口: index_value_hist_funddb
+
+目标地址: https://funddb.cn/site/index
+
+描述: funddb-指数估值-估值信息
+
+限量: 该接口返回指定指数和指定指标的估值数据
+
+输入参数
+
+| 名称   | 类型 |  描述      |
+| -------- | ---- |  --- |
+| symbol | str  |   symbol="大盘成长"; 指数名称, 通过调用 ak.index_value_name_funddb 来获取 |
+| indicator | str  |   indicator="PB"; choice of {'市盈率', '市净率', '股息率'} |
+
+输出参数
+
+| 名称          | 类型 |  描述           |
+| --------------- | ----- | ---------------- |
+| 日期      | object   |  - |
+| 平均值      | float64   |  - |
+| indicator      | float64   |  注意字段: 依据 indicator 而变化 |
+| 最低30      | float64   |  注意 |
+| 最低10      | float64   |  - |
+| 最高30      | float64   |  - |
+| 最高10      | float64   |  - |
+
+
+接口示例
+
+```python
+import akshare as ak
+index_value_hist_funddb_df = ak.index_value_hist_funddb(symbol="中证能源", indicator="股息率")
+print(index_value_hist_funddb_df)
+```
+
+数据示例
+
+```
+      日期   平均值   股息率  最低30  最低10  最高30  最高10
+0     2011-07-06  3.34  2.50  2.50   NaN   NaN   NaN
+1     2011-07-07  3.34  2.54  2.54   NaN   NaN   NaN
+2     2011-07-08  3.34  2.54  2.54   NaN   NaN   NaN
+3     2011-07-11  3.34  2.54  2.54   NaN   NaN   NaN
+4     2011-07-12  3.34  2.60  2.60   NaN   NaN   NaN
+          ...   ...   ...   ...   ...   ...   ...
+2497  2021-10-15  3.34  4.75   NaN   NaN  4.75  4.75
+2498  2021-10-18  3.34  4.59   NaN   NaN  4.59  4.59
+2499  2021-10-19  3.34  4.61   NaN   NaN  4.61  4.61
+2500  2021-10-20  3.34  4.79   NaN   NaN  4.79  4.79
+2501  2021-10-21  3.34  4.68   NaN   NaN  4.68  4.68
 ```
