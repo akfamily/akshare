@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/1/21 9:48
+Date: 2021/10/21 20:18
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
@@ -10,7 +10,6 @@ http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;
 用户ID:269993
 """
 import time
-import json
 
 from akshare.utils import demjson
 import pandas as pd
@@ -159,7 +158,7 @@ def fund_em_open_fund_info(
     if indicator == "累计净值走势":
         data_json = demjson.decode(
             text[
-                text.find("Data_ACWorthTrend") + 20: text.find("Data_grandTotal") - 16
+                text.find("Data_ACWorthTrend") + 20 : text.find("Data_grandTotal") - 16
             ]
         )
         temp_df = pd.DataFrame(data_json)
@@ -214,7 +213,7 @@ def fund_em_open_fund_info(
         data_json = demjson.decode(
             text[
                 text.find("Data_rateInSimilarType")
-                + 25: text.find("Data_rateInSimilarPersent")
+                + 25 : text.find("Data_rateInSimilarPersent")
                 - 16
             ]
         )
@@ -629,12 +628,18 @@ def fund_em_etf_fund_daily() -> pd.DataFrame:
     return temp_df
 
 
-def fund_em_etf_fund_info(fund: str = "511280") -> pd.DataFrame:
+def fund_em_etf_fund_info(
+    fund: str = "511280", start_date: str = "20000101", end_date: str = "20500101"
+) -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-场内交易基金-历史净值明细
     http://fundf10.eastmoney.com/jjjz_511280.html
     :param fund: 场内交易基金代码, 可以通过 fund_em_etf_fund_daily 来获取
     :type fund: str
+    :param start_date: 开始统计时间
+    :type start_date: str
+    :param end_date: 结束统计时间
+    :type end_date: str
     :return: 东方财富网站-天天基金网-基金数据-场内交易基金-历史净值明细
     :rtype: pandas.DataFrame
     """
@@ -648,8 +653,8 @@ def fund_em_etf_fund_info(fund: str = "511280") -> pd.DataFrame:
         "fundCode": fund,
         "pageIndex": "1",
         "pageSize": "10000",
-        "startDate": "",
-        "endDate": "",
+        "startDate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
+        "endDate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "_": round(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
@@ -672,6 +677,10 @@ def fund_em_etf_fund_info(fund: str = "511280") -> pd.DataFrame:
         "_",
     ]
     temp_df = temp_df[["净值日期", "单位净值", "累计净值", "日增长率", "申购状态", "赎回状态"]]
+    temp_df["净值日期"] = pd.to_datetime(temp_df["净值日期"]).dt.date
+    temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"])
+    temp_df["累计净值"] = pd.to_numeric(temp_df["累计净值"])
+    temp_df["日增长率"] = pd.to_numeric(temp_df["日增长率"])
     return temp_df
 
 
@@ -759,12 +768,14 @@ def fund_em_value_estimation(symbol: str = "全部") -> pd.DataFrame:
         ]
     ]
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df)+1)
+    temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.rename(columns={"index": "序号"}, inplace=True)
     return temp_df
 
 
-def fund_em_hk_fund_hist(code: str = '1002200683', symbol: str = "历史净值明细") -> pd.DataFrame:
+def fund_em_hk_fund_hist(
+    code: str = "1002200683", symbol: str = "历史净值明细"
+) -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-香港基金-历史净值明细(分红送配详情)
     http://overseas.1234567.com.cn/f10/FundJz/968092#FHPS
@@ -781,19 +792,19 @@ def fund_em_hk_fund_hist(code: str = '1002200683', symbol: str = "历史净值�
     }
     if symbol == "历史净值明细":
         params = {
-            'api': 'HKFDApi',
-            'm': 'MethodJZ',
-            'hkfcode': f'{code}',
-            'action': '2',
-            'pageindex': '0',
-            'pagesize': '1000',
-            'date1': '',
-            'date2': '',
-            '_': '1611131371333',
+            "api": "HKFDApi",
+            "m": "MethodJZ",
+            "hkfcode": f"{code}",
+            "action": "2",
+            "pageindex": "0",
+            "pagesize": "1000",
+            "date1": "",
+            "date2": "",
+            "_": "1611131371333",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_one_df = pd.DataFrame(data_json['Data'])
+        temp_one_df = pd.DataFrame(data_json["Data"])
         temp_one_df.columns = [
             "_",
             "_",
@@ -817,19 +828,19 @@ def fund_em_hk_fund_hist(code: str = '1002200683', symbol: str = "历史净值�
         ]
     else:
         params = {
-            'api': 'HKFDApi',
-            'm': 'MethodJZ',
-            'hkfcode': f'{code}',
-            'action': '3',
-            'pageindex': '0',
-            'pagesize': '1000',
-            'date1': '',
-            'date2': '',
-            '_': '1611131371333',
+            "api": "HKFDApi",
+            "m": "MethodJZ",
+            "hkfcode": f"{code}",
+            "action": "3",
+            "pageindex": "0",
+            "pagesize": "1000",
+            "date1": "",
+            "date2": "",
+            "_": "1611131371333",
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_one_df = pd.DataFrame(data_json['Data'])
+        temp_one_df = pd.DataFrame(data_json["Data"])
         temp_one_df.columns = [
             "_",
             "_",
@@ -866,7 +877,9 @@ if __name__ == "__main__":
     print(fund_em_open_fund_daily_df)
     time.sleep(3)
 
-    fund_em_open_fund_info_df = fund_em_open_fund_info(fund="000212", indicator="单位净值走势")
+    fund_em_open_fund_info_df = fund_em_open_fund_info(
+        fund="000212", indicator="单位净值走势"
+    )
     print(fund_em_open_fund_info_df)
     time.sleep(3)
 
@@ -918,14 +931,16 @@ if __name__ == "__main__":
     fund_em_etf_fund_daily_df = fund_em_etf_fund_daily()
     print(fund_em_etf_fund_daily_df)
 
-    fund_em_etf_fund_info_df = fund_em_etf_fund_info(fund="163406")
+    fund_em_etf_fund_info_df = fund_em_etf_fund_info(
+        fund="511280", start_date="20000101", end_date="20500101"
+    )
     print(fund_em_etf_fund_info_df)
 
     fund_em_value_estimation_df = fund_em_value_estimation(symbol="混合型")
     print(fund_em_value_estimation_df)
 
-    fund_em_hk_fund_hist_df = fund_em_hk_fund_hist(code='1002200683', symbol="历史净值明细")
+    fund_em_hk_fund_hist_df = fund_em_hk_fund_hist(code="1002200683", symbol="历史净值明细")
     print(fund_em_hk_fund_hist_df)
 
-    fund_em_hk_fund_hist_df = fund_em_hk_fund_hist(code='1002200683', symbol="分红送配详情")
+    fund_em_hk_fund_hist_df = fund_em_hk_fund_hist(code="1002200683", symbol="分红送配详情")
     print(fund_em_hk_fund_hist_df)

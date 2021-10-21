@@ -50,7 +50,7 @@ def bond_treasure_issue_cninfo(
     http://webapi.cninfo.com.cn/#/thematicStatistics
     :param start_date: 开始统计时间
     :type start_date: str
-    :param end_date: 开始统计时间
+    :param end_date: 结束统计数据
     :type end_date: str
     :return: 国债发行
     :rtype: pandas.DataFrame
