@@ -1591,9 +1591,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.69 add: add fund_scale_open_sina interface
 1.1.70 add: add fund_scale_close_sina interface
 1.1.71 add: add fund_scale_structured_sina interface
+1.1.72 add: add fund_report_asset_allocation_cninfo interface
 """
 
-__version__ = "1.1.71"
+__version__ = "1.1.72"
 __author__ = "Albert King"
 
 import sys
@@ -1607,12 +1608,20 @@ del sys
 """
 基金规模
 """
-from akshare.fund.fund_scale_sina import fund_scale_open_sina, fund_scale_close_sina, fund_scale_structured_sina
+from akshare.fund.fund_scale_sina import (
+    fund_scale_open_sina,
+    fund_scale_close_sina,
+    fund_scale_structured_sina,
+)
 
 """
 巨潮资讯-数据中心-专题统计-基金报表
 """
-from akshare.fund.fund_report_cninfo import fund_report_stock_cninfo, fund_report_industry_allocation_cninfo
+from akshare.fund.fund_report_cninfo import (
+    fund_report_stock_cninfo,
+    fund_report_industry_allocation_cninfo,
+    fund_report_asset_allocation_cninfo,
+)
 
 """
 巨潮资讯-数据中心-专题统计-债券报表-债券发行
