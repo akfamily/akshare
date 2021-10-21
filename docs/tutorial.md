@@ -905,6 +905,7 @@
  "stock_notice_report"  # 公告大全-沪深 A 股公告
  # 基金报表-基金行业配置
  "fund_report_industry_allocation_cninfo"  # 基金报表-基金行业配置
+ "fund_report_asset_allocation_cninfo"  # 基金报表-基金资产配置
  # 基金规模
  "fund_scale_open_sina"  # 基金规模-开放式基金
  "fund_scale_close_sina"  # 基金规模-封闭式基金

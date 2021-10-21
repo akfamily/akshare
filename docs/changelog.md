@@ -2599,4 +2599,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.70 add: add fund_scale_close_sina interface
 
 1.1.71 add: add fund_scale_structured_sina interface
+
+1.1.72 add: add fund_report_asset_allocation_cninfo interface
 ```
