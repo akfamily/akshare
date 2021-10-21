@@ -1594,9 +1594,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.72 add: add fund_report_asset_allocation_cninfo interface
 1.1.73 add: add stock_zh_index_value_csindex interface
 1.1.74 fix: fix fund_em_etf_fund_info interface
+1.1.75 add: add index_value_hist_funddb interface
 """
 
-__version__ = "1.1.74"
+__version__ = "1.1.75"
 __author__ = "Albert King"
 
 import sys
@@ -1606,6 +1607,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+指数估值
+"""
+from akshare.index.zh_stock_index_csindex import index_value_hist_funddb, index_value_name_funddb
 
 """
 基金规模
