@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/10/16 15:00
+Date: 2021/10/21 19:00
 Desc: 中证指数-所有指数-历史行情数据
-http://www.csindex.com.cn/zh-CN/indices/index-detail/H30374
+https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/list?index_series=1
 """
 import pandas as pd
 import requests
@@ -13,7 +13,7 @@ def stock_zh_index_hist_csindex(
     symbol: str = "H30374", start_date: str = "20160101", end_date: str = "20211015"
 ) -> pd.DataFrame:
     """
-    中证指数获取某个指数的 5 年历史行情数据
+    中证指数获取某个指数的历史行情数据
     P.S. 只有收盘价，正常情况下不应使用该接口，除非指数只有中证网站有
     https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
     :param symbol: 指数代码; e.g., H30374
@@ -64,8 +64,42 @@ def stock_zh_index_hist_csindex(
     return temp_df
 
 
+def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
+    """
+    中证指数-指数估值数据
+    https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
+    :param symbol: 指数代码; e.g., H30374
+    :type symbol: str
+    :return: 指数估值数据
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/indicator/{symbol}indicator.xls"
+    temp_df = pd.read_excel(url)
+    temp_df.columns = [
+        "日期",
+        "指数代码",
+        "指数中文全称",
+        "指数中文简称",
+        "指数英文全称",
+        "指数英文简称",
+        "市盈率1",
+        "市盈率2",
+        "股息率1",
+        "股息率2",
+    ]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], format="%Y%m%d").dt.date
+    temp_df["市盈率1"] = pd.to_numeric(temp_df["市盈率1"])
+    temp_df["市盈率2"] = pd.to_numeric(temp_df["市盈率2"])
+    temp_df["股息率1"] = pd.to_numeric(temp_df["股息率1"])
+    temp_df["股息率2"] = pd.to_numeric(temp_df["股息率2"])
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(
         symbol="H30374", start_date="20100101", end_date="20211015"
     )
     print(stock_zh_index_hist_csindex_df)
+
+    stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(symbol="H30374")
+    print(stock_zh_index_value_csindex_df)

@@ -532,6 +532,7 @@
  "stock_report_fund_hold_detail"  # 个股-基金持股-明细
  # 中证指数
  "stock_zh_index_hist_csindex"  # 中证指数
+ "stock_zh_index_value_csindex"  # 中证指数-指数估值
  # A股龙虎榜
  "stock_sina_lhb_detail_daily"  # 龙虎榜-每日详情
  "stock_sina_lhb_ggtj"  # 龙虎榜-个股上榜统计
