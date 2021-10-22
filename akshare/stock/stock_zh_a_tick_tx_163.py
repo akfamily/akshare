@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/6/14 11:08
+Date: 2021/10/22 11:08
 Desc: 腾讯-网易-股票-实时行情-成交明细
 成交明细-每个交易日 16:00 提供当日数据
 港股报价延时 15 分钟
@@ -146,6 +146,8 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
         params = {"symbol": code, "end": item}
         r = requests.get(url, params=params)
         data_json = r.json()
+        if not data_json['zhubi_list']:
+            break
         temp_df = pd.DataFrame(data_json["zhubi_list"])
         del temp_df["_id"]
         del temp_df["TRADE_TYPE"]
@@ -180,13 +182,13 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz000001", trade_date="20210617")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz000001", trade_date="20211021")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
     print(stock_zh_a_tick_tx_js_df)
 
-    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(code="sz000001", trade_date="20210617")
+    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(code="sh600848", trade_date="20211021")
     print(stock_zh_a_tick_tx_df)
 
     date_list = pd.date_range(start="20210601", end="20210613").tolist()
