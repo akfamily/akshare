@@ -1,6 +1,6 @@
 """
-Date: 2021/4/23 16:28
-Desc: 获取中国证券投资基金业协会-信息公示数据
+Date: 2021/10/22 11:28
+Desc: 中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版: http://gs.amac.org.cn
 中国证券投资基金业协会-旧版: http://www1.amac.org.cn/
 目前的网络数据采集基于旧版接口, Guo Yangyang 正在更新新版接口数据
@@ -306,8 +306,8 @@ def amac_fund_info() -> pd.DataFrame:
         "建立时间",
         "托管人名称",
     ]
-    manager_data_out["建立时间"] = pd.to_datetime(manager_data_out["建立时间"], unit="ms")
-    manager_data_out["备案时间"] = pd.to_datetime(manager_data_out["备案时间"], unit="ms")
+    manager_data_out["建立时间"] = pd.to_datetime(manager_data_out["建立时间"], unit="ms").dt.date
+    manager_data_out["备案时间"] = pd.to_datetime(manager_data_out["备案时间"], unit="ms").dt.date
     return manager_data_out
 
 

@@ -29,7 +29,7 @@ member_sub_payload = {"primaryInvestType": ["证券公司私募基金子公司"]
 
 # 中国证券投资基金业协会-信息公示-基金产品
 # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-amac_fund_info_url = "https://gs.amac.org.cn/amac-infodisc/api/pof/fund?rand=0.4453771335054344&page=0&size=150000"
+amac_fund_info_url = "https://gs.amac.org.cn/amac-infodisc/api/pof/fund?rand=0.4453771335054344&page=0&size=200000"
 amac_fund_info_payload = {}
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
