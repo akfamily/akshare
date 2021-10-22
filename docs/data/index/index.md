@@ -2867,10 +2867,10 @@ print(stock_zh_index_value_csindex_df)
 | 日期      | object   |  - |
 | 平均值      | float64   |  - |
 | indicator      | float64   |  注意字段: 依据 indicator 而变化 |
-| 最低30      | float64   |  注意 |
-| 最低10      | float64   |  - |
-| 最高30      | float64   |  - |
-| 最高10      | float64   |  - |
+| 最低30      | float64   |  注意: 最低 30%  |
+| 最低10      | float64   |  注意: 最低 10% |
+| 最高30      | float64   |  注意: 最低 30% |
+| 最高10      | float64   |  注意: 最低 10% |
 
 接口示例
 
