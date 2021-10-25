@@ -138,7 +138,7 @@ print(stock_zh_index_daily_df)
 | close          | float64      |  -     |
 | high           | float64      |  -     |
 | low         | float64      |  -     |
-| amount        | float64      |  -     |
+| amount        | float64      |  注意单位: 手     |
 
 接口示例
 
