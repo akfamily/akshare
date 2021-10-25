@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/4/30 16:28
+Date: 2021/10/25 16:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
@@ -268,7 +268,7 @@ if __name__ == "__main__":
     stock_zh_index_spot_df = stock_zh_index_spot()
     print(stock_zh_index_spot_df)
 
-    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz980017")
+    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz000001")
     print(stock_zh_index_daily_tx_df)
 
     stock_zh_index_daily_em_df = stock_zh_index_daily_em(symbol="sz399812")
