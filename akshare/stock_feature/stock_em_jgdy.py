@@ -42,8 +42,8 @@ def stock_em_jgdy_tj(start_date: str = "20180928") -> pd.DataFrame:
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
-        big_df = pd.DataFrame(data_json['result']['data'])
-        big_df = big_df.append(big_df)
+        temp_df = pd.DataFrame(data_json['result']['data'])
+        big_df = big_df.append(temp_df)
     big_df.reset_index(inplace=True)
     big_df["index"] = list(range(1, len(big_df) + 1))
     big_df.columns = [
@@ -134,9 +134,8 @@ def stock_em_jgdy_detail(start_date: str = "20180928") -> pd.DataFrame:
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
-        big_df = pd.DataFrame(data_json['result']['data'])
-        big_df = big_df.append(big_df)
-
+        temp_df = pd.DataFrame(data_json['result']['data'])
+        big_df = big_df.append(temp_df)
     big_df.reset_index(inplace=True)
     big_df["index"] = list(range(1, len(big_df) + 1))
     big_df.columns = [
