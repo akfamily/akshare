@@ -1,17 +1,19 @@
 # -*- coding:utf-8 -*-
-#!/usr/bin/env python
+# !/usr/bin/env python
 """
-Date: 2021/9/16 11:12
+Date: 2021/10/25 19:12
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
 """
 import json
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from tqdm import tqdm
+
+from akshare.utils import demjson
 
 
 def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFrame:
@@ -35,12 +37,12 @@ def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -2])
+    data_json = json.loads(data_text[data_text.find("{"): -2])
     if indicator == "沪股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["hk2sh"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         temp_df['value'] = pd.to_numeric(temp_df['value'])
@@ -48,8 +50,8 @@ def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
     if indicator == "深股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["hk2sz"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         temp_df['value'] = pd.to_numeric(temp_df['value'])
@@ -57,8 +59,8 @@ def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
     if indicator == "北上":
         temp_df = (
             pd.DataFrame(data_json["data"]["s2n"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         temp_df['value'] = pd.to_numeric(temp_df['value'])
@@ -86,28 +88,28 @@ def stock_em_hsgt_north_cash(indicator: str = "沪股通") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -2])
+    data_json = json.loads(data_text[data_text.find("{"): -2])
     if indicator == "沪股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["hk2sh"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "深股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["hk2sz"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "北上":
         temp_df = (
             pd.DataFrame(data_json["data"]["s2n"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
@@ -134,28 +136,28 @@ def stock_em_hsgt_north_acc_flow_in(indicator: str = "沪股通") -> pd.DataFram
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -2])
+    data_json = json.loads(data_text[data_text.find("{"): -2])
     if indicator == "沪股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["hk2sh"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "深股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["hk2sz"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "北上":
         temp_df = (
             pd.DataFrame(data_json["data"]["s2n"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
@@ -182,28 +184,28 @@ def stock_em_hsgt_south_net_flow_in(indicator: str = "沪股通") -> pd.DataFram
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -2])
+    data_json = json.loads(data_text[data_text.find("{"): -2])
     if indicator == "沪股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["sh2hk"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "深股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["sz2hk"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "南下":
         temp_df = (
             pd.DataFrame(data_json["data"]["n2s"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
@@ -230,28 +232,28 @@ def stock_em_hsgt_south_cash(indicator: str = "沪股通") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -2])
+    data_json = json.loads(data_text[data_text.find("{"): -2])
     if indicator == "沪股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["sh2hk"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "深股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["sz2hk"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "南下":
         temp_df = (
             pd.DataFrame(data_json["data"]["n2s"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
@@ -278,35 +280,35 @@ def stock_em_hsgt_south_acc_flow_in(indicator: str = "沪股通") -> pd.DataFram
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : -2])
+    data_json = json.loads(data_text[data_text.find("{"): -2])
     if indicator == "沪股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["sh2hk"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "深股通":
         temp_df = (
             pd.DataFrame(data_json["data"]["sz2hk"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
     if indicator == "南下":
         temp_df = (
             pd.DataFrame(data_json["data"]["n2s"])
-            .iloc[:, 0]
-            .str.split(",", expand=True)
+                .iloc[:, 0]
+                .str.split(",", expand=True)
         )
         temp_df.columns = ["date", "value"]
         return temp_df
 
 
 def stock_em_hsgt_hold_stock(
-    market: str = "北向", indicator: str = "5日排行"
+        market: str = "北向", indicator: str = "5日排行"
 ) -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通持股-个股排行
@@ -358,8 +360,7 @@ def stock_em_hsgt_hold_stock(
     data_json = r.json()
     page_num = data_json['result']['pages']
     big_df = pd.DataFrame()
-    from tqdm import tqdm
-    for page in tqdm(range(1, page_num+1)):
+    for page in tqdm(range(1, page_num + 1)):
         params.update({'pageNumber': page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -367,7 +368,7 @@ def stock_em_hsgt_hold_stock(
         big_df = big_df.append(temp_df, ignore_index=True)
 
     big_df.reset_index(inplace=True)
-    big_df['index'] = range(1, len(big_df)+1)
+    big_df['index'] = range(1, len(big_df) + 1)
     big_df.columns = [
         '序号',
         '_',
@@ -412,7 +413,7 @@ def stock_em_hsgt_hold_stock(
         '_',
         '_',
         '_',
-            ]
+    ]
     big_df = big_df[[
         '序号',
         '代码',
@@ -447,7 +448,7 @@ def stock_em_hsgt_hold_stock(
 
 
 def stock_em_hsgt_stock_statistics(
-    symbol: str = "南向持股", start_date: str = "20210618", end_date: str = "20210618"
+        symbol: str = "南向持股", start_date: str = "20210618", end_date: str = "20210618"
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
@@ -480,7 +481,7 @@ def stock_em_hsgt_stock_statistics(
         url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
         r = requests.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") :])
+        data_json = demjson.decode(data_text[data_text.find("{"):])
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
             '持股日期',
@@ -529,7 +530,7 @@ def stock_em_hsgt_stock_statistics(
         url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
         r = requests.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") :])
+        data_json = demjson.decode(data_text[data_text.find("{"):])
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
             '持股日期',
@@ -578,7 +579,7 @@ def stock_em_hsgt_stock_statistics(
         url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
         r = requests.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") :])
+        data_json = demjson.decode(data_text[data_text.find("{"):])
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
             '持股日期',
@@ -627,7 +628,7 @@ def stock_em_hsgt_stock_statistics(
         url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
         r = requests.get(url, params=params)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") :])
+        data_json = demjson.decode(data_text[data_text.find("{"):])
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
             '持股日期',
@@ -666,7 +667,7 @@ def stock_em_hsgt_stock_statistics(
 
 
 def stock_em_hsgt_institution_statistics(
-    market: str = "北向持股", start_date: str = "20200127", end_date: str = "20200127"
+        market: str = "北向持股", start_date: str = "20200127", end_date: str = "20200127"
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
@@ -700,7 +701,7 @@ def stock_em_hsgt_institution_statistics(
         url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
         r = requests.get(url, params=params, headers=headers)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") :])
+        data_json = demjson.decode(data_text[data_text.find("{"):])
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
             '持股日期',
@@ -743,7 +744,7 @@ def stock_em_hsgt_institution_statistics(
         url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
         r = requests.get(url, params=params, headers=headers)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") :])
+        data_json = demjson.decode(data_text[data_text.find("{"):])
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
             '持股日期',
@@ -785,7 +786,7 @@ def stock_em_hsgt_institution_statistics(
         url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
         r = requests.get(url, params=params, headers=headers)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") :])
+        data_json = demjson.decode(data_text[data_text.find("{"):])
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
             '持股日期',
@@ -827,7 +828,7 @@ def stock_em_hsgt_institution_statistics(
         url = "http://dcfm.eastmoney.com//em_mutisvcexpandinterface/api/js/get"
         r = requests.get(url, params=params, headers=headers)
         data_text = r.text
-        data_json = demjson.decode(data_text[data_text.find("{") :])
+        data_json = demjson.decode(data_text[data_text.find("{"):])
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
             '持股日期',
@@ -877,7 +878,7 @@ def stock_em_hsgt_hist(symbol: str = "港股通沪") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") :])
+    data_json = demjson.decode(data_text[data_text.find("{"):])
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.columns = [
         "_",
@@ -952,7 +953,7 @@ def stock_em_hsgt_board_rank(symbol: str = "北向资金增持行业板块排行
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") :])
+    data_json = demjson.decode(data_text[data_text.find("{"):])
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = list(range(1, len(temp_df) + 1))
@@ -1014,6 +1015,72 @@ def stock_em_hsgt_board_rank(symbol: str = "北向资金增持行业板块排行
     return temp_df
 
 
+def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
+    """
+    东方财富-数据中心-沪深港通-沪深港通持股-具体股票
+    http://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
+    :param stock: 股票代码
+    :type stock: str
+    :return: 具体股票-沪深港通持股
+    :rtype: pandas.DataFrame
+    """
+    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "TRADE_DATE",
+        "sortTypes": "-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_MUTUAL_HOLDSTOCKNORTH_STA",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"""(SECURITY_CODE="{stock}")(TRADE_DATE>='2020-07-25')""",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']['data'])
+    temp_df.rename(columns={
+        'SECURITY_INNER_CODE': '-',
+        'SECUCODE': '-',
+        'TRADE_DATE': '持股日期',
+        'SECURITY_CODE': '-',
+        'SECURITY_NAME': '-',
+        'MUTUAL_TYPE': '-',
+        'CHANGE_RATE': '当日涨跌幅',
+        'CLOSE_PRICE': '当日收盘价',
+        'HOLD_SHARES': '持股数量',
+        'HOLD_MARKET_CAP': '持股市值',
+        'A_SHARES_RATIO': '-',
+        'HOLD_SHARES_RATIO': '持股数量占A股百分比',
+        'FREE_SHARES_RATIO': '-',
+        'TOTAL_SHARES_RATIO': '-',
+        'HOLD_MARKETCAP_CHG1': '持股市值变化-1日',
+        'HOLD_MARKETCAP_CHG5': '持股市值变化-5日',
+        'HOLD_MARKETCAP_CHG10': '持股市值变化-10日',
+    }, inplace=True)
+    temp_df = temp_df[[
+        '持股日期',
+        '当日收盘价',
+        '当日涨跌幅',
+        '持股数量',
+        '持股市值',
+        '持股数量占A股百分比',
+        '持股市值变化-1日',
+        '持股市值变化-5日',
+        '持股市值变化-10日',
+    ]]
+    temp_df['持股日期'] = pd.to_datetime(temp_df['持股日期']).dt.date
+    temp_df['当日收盘价'] = pd.to_numeric(temp_df['当日收盘价'])
+    temp_df['当日涨跌幅'] = pd.to_numeric(temp_df['当日涨跌幅'])
+    temp_df['持股数量'] = pd.to_numeric(temp_df['持股数量'])
+    temp_df['持股市值'] = pd.to_numeric(temp_df['持股市值'])
+    temp_df['持股数量占A股百分比'] = pd.to_numeric(temp_df['持股数量占A股百分比'])
+    temp_df['持股市值变化-1日'] = pd.to_numeric(temp_df['持股市值变化-1日'])
+    temp_df['持股市值变化-5日'] = pd.to_numeric(temp_df['持股市值变化-5日'])
+    temp_df['持股市值变化-10日'] = pd.to_numeric(temp_df['持股市值变化-10日'])
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(indicator="沪股通")
     print(stock_em_hsgt_north_net_flow_in_df)
@@ -1061,7 +1128,7 @@ if __name__ == "__main__":
     print(stock_em_hsgt_hold_stock_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="南向持股", start_date="20210915", end_date="20210916"
+        symbol="南向持股", start_date="20211015", end_date="20211016"
     )
     print(stock_em_hsgt_stock_statistics_df)
 
@@ -1091,12 +1158,12 @@ if __name__ == "__main__":
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="沪股通持股", start_date="20210915", end_date="20210916"
+        market="沪股通持股", start_date="20211015", end_date="20211016"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="深股通持股", start_date="20210915", end_date="20210916"
+        market="深股通持股", start_date="20211015", end_date="20211016"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
@@ -1105,3 +1172,6 @@ if __name__ == "__main__":
 
     stock_em_hsgt_industry_rank_df = stock_em_hsgt_board_rank(symbol="北向资金增持行业板块排行", indicator="1年")
     print(stock_em_hsgt_industry_rank_df)
+
+    stock_hsgt_individual_em_df = stock_hsgt_individual_em(stock="002008")
+    print(stock_hsgt_individual_em_df)

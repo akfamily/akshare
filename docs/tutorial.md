@@ -913,6 +913,8 @@
  "fund_scale_structured_sina"  # 基金规模-分级子基金
  # 指数估值
  "index_value_hist_funddb"  # 指数估值
+ # 沪深港通持股
+ "stock_hsgt_individual_em"  # 沪深港通持股-具体股票
 ```
 
 ## 案例演示
