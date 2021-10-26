@@ -19,7 +19,7 @@
 
 **Write less, get more!**
 
-- Documentation: [中文文档](https://akshare.readthedocs.io/zh_CN/latest/)
+- Documentation: [中文文档](https://www.akshare.xyz/)
 
 # ![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare.svg)
 
