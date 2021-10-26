@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/10/25 19:12
+Date: 2021/10/26 17:12
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -1081,6 +1081,85 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
     return temp_df
 
 
+def stock_hsgt_individual_detail_em(stock: str = "002008", start_date: str = "20210830", end_date: str = "20211026") -> pd.DataFrame:
+    """
+    东方财富-数据中心-沪深港通-沪深港通持股-具体股票详情
+    http://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
+    :param stock: 股票代码
+    :type stock: str
+    :param start_date: 开始时间
+    :type start_date: str
+    :param end_date: 结束时间
+    :type end_date: str
+    :return: 沪深港通持股-具体股票详情
+    :rtype: pandas.DataFrame
+    """
+    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "HOLD_DATE",
+        "sortTypes": "-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_MUTUAL_HOLD_DET",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"""(SECURITY_CODE="{stock}")(MARKET_CODE="003")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json['result']['pages']
+    big_df = pd.DataFrame()
+    from tqdm import tqdm
+    for page in tqdm(range(1, int(total_page)+1), leave=False):
+        params.update({'pageNumber': page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']['data'])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.rename(columns={
+        'SECUCODE': '-',
+        'SECURITY_CODE': '-',
+        'SECURITY_INNER_CODE': '-',
+        'SECURITY_NAME_ABBR': '-',
+        'HOLD_DATE': '持股日期',
+        'ORG_CODE': '-',
+        'ORG_NAME': '机构名称',
+        'HOLD_NUM': '持股数量',
+        'MARKET_CODE': '-',
+        'HOLD_SHARES_RATIO': '持股数量占A股百分比',
+        'HOLD_MARKET_CAP': '持股市值',
+        'CLOSE_PRICE': '当日收盘价',
+        'CHANGE_RATE': '当日涨跌幅',
+        'HOLD_MARKET_CAPONE': '持股市值变化-1日',
+        'HOLD_MARKET_CAPFIVE': '持股市值变化-5日',
+        'HOLD_MARKET_CAPTEN': '持股市值变化-10日',
+        'PARTICIPANT_CODE': '-',
+    }, inplace=True)
+    big_df = big_df[[
+        '持股日期',
+        '当日收盘价',
+        '当日涨跌幅',
+        '机构名称',
+        '持股数量',
+        '持股市值',
+        '持股数量占A股百分比',
+        '持股市值变化-1日',
+        '持股市值变化-5日',
+        '持股市值变化-10日',
+    ]]
+    big_df['持股日期'] = pd.to_datetime(big_df['持股日期']).dt.date
+    big_df['当日收盘价'] = pd.to_numeric(big_df['当日收盘价'])
+    big_df['当日涨跌幅'] = pd.to_numeric(big_df['当日涨跌幅'])
+    big_df['持股数量'] = pd.to_numeric(big_df['持股数量'])
+    big_df['持股市值'] = pd.to_numeric(big_df['持股市值'])
+    big_df['持股数量占A股百分比'] = pd.to_numeric(big_df['持股数量占A股百分比'])
+    big_df['持股市值变化-1日'] = pd.to_numeric(big_df['持股市值变化-1日'])
+    big_df['持股市值变化-5日'] = pd.to_numeric(big_df['持股市值变化-5日'])
+    big_df['持股市值变化-10日'] = pd.to_numeric(big_df['持股市值变化-10日'])
+    return big_df
+
+
 if __name__ == "__main__":
     stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(indicator="沪股通")
     print(stock_em_hsgt_north_net_flow_in_df)
@@ -1175,3 +1254,6 @@ if __name__ == "__main__":
 
     stock_hsgt_individual_em_df = stock_hsgt_individual_em(stock="002008")
     print(stock_hsgt_individual_em_df)
+
+    stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(stock="002008", start_date="20210830", end_date="20211026")
+    print(stock_hsgt_individual_detail_em_df)
