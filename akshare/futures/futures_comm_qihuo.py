@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/9/23 17:07
 Desc: 九期网-期货手续费

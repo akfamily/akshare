@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/7/16 12:02
 Desc: 东方财富网-数据中心-新股数据-打新收益率

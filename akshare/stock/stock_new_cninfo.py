@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/9/18 16:29
 Desc: 巨潮资讯-数据中心-新股数据

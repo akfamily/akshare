@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/6/22 17:41
 Desc: 芝加哥商业交易所-比特币成交量报告

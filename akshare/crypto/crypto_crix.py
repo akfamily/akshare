@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/6/24 16:08
 Desc: CRIX 和 VCRIX 指数

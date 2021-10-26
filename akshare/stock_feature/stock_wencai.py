@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-#!/usr/bin/env python
+
 """
 Date: 2021/9/29 21:11
 Desc: 问财-热门股票排名

@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 
 __author__ = "Deron Meranda <http://deron.meranda.us/>"
 __homepage__ = "http://deron.meranda.us/python/demjson/"

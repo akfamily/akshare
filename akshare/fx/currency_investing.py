@@ -1,7 +1,7 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
-Date: 2021/5/7 14:56
+Date: 2021/10/26 20:23
 Desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
@@ -260,7 +260,7 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
     def has_data_sml_id_but_no_id(tag):
         return tag.has_attr("data-sml-id") and not tag.has_attr("title")
 
-    for region_id in tqdm(["4", "1", "8", "7", "6"]):
+    for region_id in tqdm(["4", "1", "8", "7", "6"], leave=False):
         url = "https://cn.investing.com/currencies/Service/region"
         params = {"region_ID": region_id, "currency_ID": "false"}
         headers = {

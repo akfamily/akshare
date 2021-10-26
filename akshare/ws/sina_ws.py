@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2020/12/1 10:47
 Desc: 新浪 websocket 实时数据接口-行情报价

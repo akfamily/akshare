@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2020/12/19 10:34
 Desc: 从和讯网获取美股-中概股实时行情数据和历史行情数据(日)

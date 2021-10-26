@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/4/6 16:02
 Desc: 东方财富网-数据中心-新股申购-首发申报信息-首发申报企业信息

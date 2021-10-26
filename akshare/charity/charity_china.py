@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
-#!/usr/bin/env python
+#!/usr/bin/env python# -*- coding:utf-8 -*-
+
 """
 Date: 2021/7/15 18:03
 Desc: 慈善中国

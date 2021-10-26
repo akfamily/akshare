@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/9/25 16:28
 Desc: 新浪财经-B 股-实时行情数据和历史行情数据(包含前复权和后复权因子)
