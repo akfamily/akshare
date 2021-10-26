@@ -1161,7 +1161,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.4.50: fix: stock_em_sy_yq_list
 
-0.4.51: add: stock_em_tfp
+0.4.51: add: stock_tfp_em
 
 0.4.52: fix: covid.py
 
@@ -2233,7 +2233,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.91: fix: fix stock_em_yjbb interface
 
-0.9.92: fix: fix stock_em_tfp interface
+0.9.92: fix: fix stock_tfp_em interface
 
 0.9.93: fix: fix stock_zh_a_gdhs interface
 
@@ -2619,4 +2619,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.80 add: add support for Python 3.10 interface
 
 1.1.81 add: add stock_hsgt_individual_detail_em interface
+
+1.1.82 fix: fix stock_tfp_em interface
+    1. rename stock_em_tfp to stock_tfp_em
+    2. reformat output data type
 ```

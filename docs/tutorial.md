@@ -445,7 +445,7 @@
  "stock_em_hsgt_hist"  # 沪深港通历史数据
  "stock_em_hsgt_board_rank"  # 板块排行
  # 两市停复牌
- "stock_em_tfp"  # 两市停复牌数据
+ "stock_tfp_em"  # 两市停复牌数据
  # 恐慌指数
  "index_vix"  # 恐慌指数
  # 中国油价
