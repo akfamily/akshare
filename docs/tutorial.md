@@ -915,6 +915,7 @@
  "index_value_hist_funddb"  # 指数估值
  # 沪深港通持股
  "stock_hsgt_individual_em"  # 沪深港通持股-具体股票
+ "stock_hsgt_individual_detail_em"  # 沪深港通持股-具体股票-详情
 ```
 
 ## 案例演示
