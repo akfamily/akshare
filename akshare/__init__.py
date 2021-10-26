@@ -877,7 +877,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.48: add: stock_em_comment
 0.4.49: add: stock_em_hsgt
 0.4.50: fix: stock_em_sy_yq_list
-0.4.51: add: stock_em_tfp
+0.4.51: add: stock_tfp_em
 0.4.52: fix: covid.py
 0.4.53: fix: futures_hq_sina.py
 0.4.54: add: futures_foreign
@@ -1413,7 +1413,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.89: fix: fix fund_manager interface
 0.9.90: fix: fix stock_a_below_net_asset_statistics interface
 0.9.91: fix: fix stock_em_yjbb interface
-0.9.92: fix: fix stock_em_tfp interface
+0.9.92: fix: fix stock_tfp_em interface
 0.9.93: fix: fix stock_zh_a_gdhs interface
 0.9.94: add: add macro_china_qyspjg, macro_china_fdi interface
 0.9.95: fix: fix stock_board_concept_index_ths interface
@@ -1601,15 +1601,18 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.79 fix: fix stock_em_jgdy_tj interface
 1.1.80 add: add support for Python 3.10 interface
 1.1.81 add: add stock_hsgt_individual_detail_em interface
+1.1.82 fix: fix stock_tfp_em interface
+    1. rename stock_em_tfp to stock_tfp_em
+    2. reformat output data type
 """
 
-__version__ = "1.1.81"
+__version__ = "1.1.82"
 __author__ = "Albert King"
 
 import sys
 
 if sys.version_info < (3, 7):
-    print(f"AKShare {__version__} requires Python 3.7+")
+    print(f"AKShare {__version__} requires Python 3.7+ and 64 bit OS")
     sys.exit(1)
 
 del sys
@@ -2529,7 +2532,7 @@ from akshare.futures.futures_foreign import futures_foreign_detail, futures_fore
 """
 stock-em-tfp
 """
-from akshare.stock_feature.stock_em_tfp import stock_em_tfp
+from akshare.stock_feature.stock_em_tfp import stock_tfp_em
 
 """
 stock-em-hsgt

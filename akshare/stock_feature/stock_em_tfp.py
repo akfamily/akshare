@@ -5,12 +5,13 @@ Date: 2021/7/3 10:05
 Desc: 东方财富网-数据中心-特色数据-停复牌信息
 http://data.eastmoney.com/tfpxx/
 """
-from akshare.utils import demjson
 import pandas as pd
 import requests
 
+from akshare.utils import demjson
 
-def stock_em_tfp(date: str = "20200319") -> pd.DataFrame:
+
+def stock_tfp_em(date: str = "20211026") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-停复牌信息
     http://data.eastmoney.com/tfpxx/
@@ -34,7 +35,7 @@ def stock_em_tfp(date: str = "20200319") -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame(data_json["data"]).iloc[:, 0].str.split(",", expand=True)
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df["index"] = range(1, len(temp_df) + 1)
     temp_df.columns = [
         "序号",
         "代码",
@@ -50,9 +51,12 @@ def stock_em_tfp(date: str = "20200319") -> pd.DataFrame:
     temp_df = temp_df[
         ["序号", "代码", "名称", "停牌时间", "停牌截止时间", "停牌期限", "停牌原因", "所属市场", "预计复牌时间"]
     ]
+    temp_df['停牌时间'] = pd.to_datetime(temp_df['停牌时间']).dt.date
+    temp_df['停牌截止时间'] = pd.to_datetime(temp_df['停牌截止时间']).dt.date
+    temp_df['预计复牌时间'] = pd.to_datetime(temp_df['预计复牌时间']).dt.date
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_em_tfp_df = stock_em_tfp(date="20201209")
-    print(stock_em_tfp_df)
+    stock_tfp_em_df = stock_tfp_em(date="20211026")
+    print(stock_tfp_em_df)
