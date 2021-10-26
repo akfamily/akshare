@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/5/21 20:14
 Desc: 新浪财经-美股实时行情数据和历史行情数据

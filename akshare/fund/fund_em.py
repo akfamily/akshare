@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/10/21 20:18
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值

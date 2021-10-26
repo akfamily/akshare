@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/9/12 18:29
 Desc: 巨潮资讯-数据中心-评级预测-投资评级

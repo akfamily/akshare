@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2020/10/10 13:46
 Desc: 东方财富网-数据中心-COMEX库存数据

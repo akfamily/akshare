@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2020/5/11 15:20
 Desc: 腾讯财经-A+H股数据, 实时行情数据和历史行情数据(后复权)

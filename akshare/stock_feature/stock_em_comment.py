@@ -1,5 +1,5 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
 Date: 2021/3/26 15:28
 Desc: 东方财富网-数据中心-特色数据-千股千评
