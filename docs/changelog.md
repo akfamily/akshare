@@ -2632,4 +2632,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.85 fix: fix stock_em_hsgt_stock_statistics interface
 
 1.1.86 fix: fix stock_em_hsgt_stock_statistics interface
+
+1.1.87 fix: fix stock_em_hsgt_hist interface
 ```
