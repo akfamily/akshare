@@ -2623,4 +2623,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.82 fix: fix stock_tfp_em interface
     1. rename stock_em_tfp to stock_tfp_em
     2. reformat output data type
+
+1.1.83 add: add stock_ipo_benefit_ths interface
 ```

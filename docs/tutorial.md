@@ -916,6 +916,8 @@
  # 沪深港通持股
  "stock_hsgt_individual_em"  # 沪深港通持股-具体股票
  "stock_hsgt_individual_detail_em"  # 沪深港通持股-具体股票-详情
+ # IPO 受益股
+ "stock_ipo_benefit_ths"  # IPO 受益股
 ```
 
 ## 案例演示
