@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/10/26 17:12
+Date: 2021/10/28 19:12
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -1010,7 +1010,7 @@ def stock_em_hsgt_institution_statistics(
         return temp_df
 
 
-def stock_em_hsgt_hist(symbol: str = "港股通沪") -> pd.DataFrame:
+def stock_em_hsgt_hist(symbol: str = "沪股通") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-沪深港通资金流向-沪深港通历史数据
     http://data.eastmoney.com/hsgt/index.html
@@ -1020,54 +1020,77 @@ def stock_em_hsgt_hist(symbol: str = "港股通沪") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     symbol_map = {"沪股通": "1", "深股通": "3", "港股通沪": "2", "港股通深": "4"}
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "HSGTHIS",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "filter": f"(MarketType={symbol_map[symbol]})",
-        "js": 'var VIIlLPMH={"data":(x),"pages":(tp)}',
-        "ps": "2000",
-        "p": "1",
-        "sr": "-1",
-        "st": "DetailDate",
-        "rt": "53231355",
+        'sortColumns': 'TRADE_DATE',
+        'sortTypes': '-1',
+        'pageSize': '1000',
+        'pageNumber': '1',
+        'reportName': 'RPT_MUTUAL_DEAL_HISTORY',
+        'columns': 'ALL',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f'(MUTUAL_TYPE="00{symbol_map[symbol]}")',
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"):])
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.columns = [
-        "_",
+    data_json = r.json()
+    total_page = data_json['result']['pages']
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, int(total_page)+1), leave=False):
+        params.update({'pageNumber': page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]['data'])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    if symbol == "沪股通":
+        index_name = "上证指数"
+    elif symbol == "深股通":
+        index_name = "深证指数"
+    else:
+        index_name = "恒生指数"
+
+    big_df.rename(columns={
+        'MUTUAL_TYPE': '-',
+        'TRADE_DATE': '日期',
+        'FUND_INFLOW': '当日资金流入',
+        'NET_DEAL_AMT': '当日成交净买额',
+        'QUOTA_BALANCE': '当日余额',
+        'ACCUM_DEAL_AMT': '历史累计净买额',
+        'BUY_AMT': '买入成交额',
+        'SELL_AMT': '卖出成交额',
+        'LEAD_STOCKS_CODE': '-',
+        'LEAD_STOCKS_NAME': '领涨股',
+        'LS_CHANGE_RATE': '领涨股涨跌幅',
+        'INDEX_CLOSE_PRICE': index_name,
+        'INDEX_CHANGE_RATE': '涨跌幅'
+    }, inplace=True)
+    big_df = big_df[[
         "日期",
-        "当日资金流入",
-        "当日余额",
-        "历史资金累计流入",
         "当日成交净买额",
         "买入成交额",
         "卖出成交额",
-        "_",
+        "历史累计净买额",
+        "当日资金流入",
+        "当日余额",
         "领涨股",
         "领涨股涨跌幅",
-        "对应指数",
+        index_name,
         "涨跌幅",
-    ]
-    temp_df = temp_df[
-        [
-            "日期",
-            "当日资金流入",
-            "当日余额",
-            "历史资金累计流入",
-            "当日成交净买额",
-            "买入成交额",
-            "卖出成交额",
-            "领涨股",
-            "领涨股涨跌幅",
-            "对应指数",
-            "涨跌幅",
-        ]
-    ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"])
-    return temp_df
+    ]]
+    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
+    big_df['当日资金流入'] = pd.to_numeric(big_df['当日资金流入']) / 100
+    big_df['当日余额'] = pd.to_numeric(big_df['当日余额']) / 100
+    if symbol == "沪股通" or symbol == "深股通":
+        big_df['历史累计净买额'] = pd.to_numeric(big_df['历史累计净买额']) / 100
+    else:
+        big_df['历史累计净买额'] = pd.to_numeric(big_df['历史累计净买额']) / 100 / 10000
+    big_df['当日成交净买额'] = pd.to_numeric(big_df['当日成交净买额']) / 100
+    big_df['买入成交额'] = pd.to_numeric(big_df['买入成交额']) / 100
+    big_df['卖出成交额'] = pd.to_numeric(big_df['卖出成交额']) / 100
+    big_df['领涨股涨跌幅'] = pd.to_numeric(big_df['领涨股涨跌幅'])
+    big_df[index_name] = pd.to_numeric(big_df[index_name])
+    big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'])
+    return big_df
 
 
 def stock_em_hsgt_board_rank(symbol: str = "北向资金增持行业板块排行", indicator: str = "今日") -> pd.DataFrame:
