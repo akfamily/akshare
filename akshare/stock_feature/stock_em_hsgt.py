@@ -819,7 +819,7 @@ def stock_em_hsgt_stock_statistics(
         big_df['持股市值变化-1日'] = pd.to_numeric(big_df['持股市值变化-1日'])
         big_df['持股市值变化-5日'] = pd.to_numeric(big_df['持股市值变化-5日'])
         big_df['持股市值变化-10日'] = pd.to_numeric(big_df['持股市值变化-10日'])
-    return temp_df
+    return big_df
 
 
 def stock_em_hsgt_institution_statistics(
