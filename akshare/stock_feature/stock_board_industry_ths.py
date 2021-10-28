@@ -159,10 +159,14 @@ def stock_board_industry_info_ths(symbol: str = "半导体及元件") -> pd.Data
     return temp_df
 
 
-def stock_board_industry_index_ths(symbol: str = "半导体及元件") -> pd.DataFrame:
+def stock_board_industry_index_ths(symbol: str = "半导体及元件", start_date: str = "20200101", end_date: str = "20211027") -> pd.DataFrame:
     """
     同花顺-板块-行业板块-指数数据
     http://q.10jqka.com.cn/gn/detail/code/301558/
+    :param start_date: 开始时间
+    :type start_date: str
+    :param end_date: 结束时间
+    :type end_date: str
     :param symbol: 指数数据
     :type symbol: str
     :return: 指数数据
@@ -212,6 +216,16 @@ def stock_board_industry_index_ths(symbol: str = "半导体及元件") -> pd.Dat
         '成交额',
     ]]
     big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
+    condition_one = pd.to_datetime(start_date) < big_df['日期']
+    condition_two = pd.to_datetime(end_date) > big_df['日期']
+    big_df = big_df[condition_one & condition_two]
+    big_df['开盘价'] = pd.to_numeric(big_df['开盘价'])
+    big_df['最高价'] = pd.to_numeric(big_df['最高价'])
+    big_df['最低价'] = pd.to_numeric(big_df['最低价'])
+    big_df['收盘价'] = pd.to_numeric(big_df['收盘价'])
+    big_df['成交量'] = pd.to_numeric(big_df['成交量'])
+    big_df['成交额'] = pd.to_numeric(big_df['成交额'])
+    big_df
     return big_df
 
 

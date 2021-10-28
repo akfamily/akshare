@@ -2625,4 +2625,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
     2. reformat output data type
 
 1.1.83 add: add stock_ipo_benefit_ths interface
+
+1.1.84 fix: fix stock_board_industry_index_ths interface
+    1. add start_date and end_date parameters
 ```
