@@ -1604,9 +1604,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.82 fix: fix stock_tfp_em interface
     1. rename stock_em_tfp to stock_tfp_em
     2. reformat output data type
+1.1.83 add: add stock_ipo_benefit_ths interface
 """
 
-__version__ = "1.1.82"
+__version__ = "1.1.83"
 __author__ = "Albert King"
 
 import sys
@@ -2067,6 +2068,7 @@ from akshare.stock_feature.stock_board_industry_ths import (
     stock_board_industry_name_ths,
     stock_board_industry_info_ths,
     stock_board_industry_index_ths,
+    stock_ipo_benefit_ths,
 )
 
 """

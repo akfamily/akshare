@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/12 14:48
+Date: 2021/10/28 14:48
 Desc: 同花顺-板块-行业板块
 http://q.10jqka.com.cn/thshy/
 """
@@ -215,6 +215,52 @@ def stock_board_industry_index_ths(symbol: str = "半导体及元件") -> pd.Dat
     return big_df
 
 
+def stock_ipo_benefit_ths() -> pd.DataFrame:
+    """
+    同花顺-数据中心-新股数据-IPO受益股
+    http://data.10jqka.com.cn/ipo/syg/
+    :return: IPO受益股
+    :rtype: pandas.DataFrame
+    """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call('v')
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+        'Cookie': f'v={v_code}'
+    }
+    url = f'http://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/2/ajax/1/free/1/'
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    page_num = soup.find('span', attrs={'class': 'page_info'}).text.split('/')[1]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, int(page_num)+1), leave=False):
+        url = f'http://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/{page}/ajax/1/free/1/'
+        r = requests.get(url, headers=headers)
+        temp_df = pd.read_html(r.text)[0]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [
+        '序号',
+        '股票代码',
+        '股票简称',
+        '收盘价',
+        '涨跌幅',
+        '市值',
+        '参股家数',
+        '投资总额',
+        '投资占市值比',
+        '参股对象',
+    ]
+    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df['序号'] = pd.to_numeric(big_df['序号'], errors='coerce')
+    big_df['收盘价'] = pd.to_numeric(big_df['收盘价'], errors='coerce')
+    big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'], errors='coerce')
+    big_df['参股家数'] = pd.to_numeric(big_df['参股家数'], errors='coerce')
+    big_df['投资占市值比'] = pd.to_numeric(big_df['投资占市值比'], errors='coerce')
+    return big_df
+
+
 if __name__ == '__main__':
     stock_board_industry_name_ths_df = stock_board_industry_name_ths()
     print(stock_board_industry_name_ths_df)
@@ -227,6 +273,9 @@ if __name__ == '__main__':
 
     stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="半导体及元件")
     print(stock_board_industry_index_ths_df)
+
+    stock_ipo_benefit_ths_df = stock_ipo_benefit_ths()
+    print(stock_ipo_benefit_ths_df)
 
     for stock in stock_board_industry_name_ths_df['name']:
         print(stock)
