@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/5/18 20:49
+Date: 2021/10/29 19:06
 Desc: 新浪行业-板块行情
 http://finance.sina.com.cn/stock/sl/
 """
@@ -22,7 +22,6 @@ def stock_sector_spot(indicator: str = "新浪行业") -> pd.DataFrame:
     :return: 指定 indicator 的数据
     :rtype: pandas.DataFrame
     """
-
     if indicator == "新浪行业":
         url = "http://vip.stock.finance.sina.com.cn/q/view/newSinaHy.php"
         r = requests.get(url)
@@ -58,14 +57,23 @@ def stock_sector_spot(indicator: str = "新浪行业") -> pd.DataFrame:
         "平均价格",
         "涨跌额",
         "涨跌幅",
-        "总成交量(手)",
-        "总成交额(万元)",
+        "总成交量",
+        "总成交额",
         "股票代码",
-        "涨跌幅",
-        "当前价",
-        "涨跌额",
+        "个股-涨跌幅",
+        "个股-当前价",
+        "个股-涨跌额",
         "股票名称",
     ]
+    temp_df['公司家数'] = pd.to_numeric(temp_df['公司家数'])
+    temp_df['平均价格'] = pd.to_numeric(temp_df['平均价格'])
+    temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df['总成交量'] = pd.to_numeric(temp_df['总成交量'])
+    temp_df['总成交额'] = pd.to_numeric(temp_df['总成交额'])
+    temp_df['个股-涨跌幅'] = pd.to_numeric(temp_df['个股-涨跌幅'])
+    temp_df['个股-当前价'] = pd.to_numeric(temp_df['个股-当前价'])
+    temp_df['个股-涨跌额'] = pd.to_numeric(temp_df['个股-涨跌额'])
     return temp_df
 
 
@@ -107,14 +115,18 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
 if __name__ == '__main__':
     stock_industry_sina_df = stock_sector_spot(indicator="新浪行业")
     print(stock_industry_sina_df)
+
     stock_industry_con_df = stock_sector_spot(indicator="概念")
     print(stock_industry_con_df)
+
     stock_industry_area_df = stock_sector_spot(indicator="地域")
     print(stock_industry_area_df)
+
     stock_industry_ind_df = stock_sector_spot(indicator="行业")
     print(stock_industry_ind_df)
+
     stock_industry_star_df = stock_sector_spot(indicator="启明星行业")
     print(stock_industry_star_df)
 
     stock_sector_detail_df = stock_sector_detail(sector="hangye_ZC27")
-    print(stock_sector_detail_df)
+    print(stock_sector_detail_df.info())
