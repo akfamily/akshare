@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/10/28 19:12
+Date: 2021/10/30 21:12
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -1260,7 +1260,7 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
     return temp_df
 
 
-def stock_hsgt_individual_detail_em(stock: str = "002008", start_date: str = "20210830", end_date: str = "20211026") -> pd.DataFrame:
+def stock_hsgt_individual_detail_em(stock: str = "600596", start_date: str = "20210830", end_date: str = "20211026") -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票详情
     http://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
@@ -1287,9 +1287,16 @@ def stock_hsgt_individual_detail_em(stock: str = "002008", start_date: str = "20
     }
     r = requests.get(url, params=params)
     data_json = r.json()
+    try:
+        data_json['result']['pages']
+    except TypeError as e:
+        params.update({
+            "filter": f"""(SECURITY_CODE="{stock}")(MARKET_CODE="001")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+        })
+        r = requests.get(url, params=params)
+        data_json = r.json()
     total_page = data_json['result']['pages']
     big_df = pd.DataFrame()
-    from tqdm import tqdm
     for page in tqdm(range(1, int(total_page)+1), leave=False):
         params.update({'pageNumber': page})
         r = requests.get(url, params=params)
@@ -1434,5 +1441,5 @@ if __name__ == "__main__":
     stock_hsgt_individual_em_df = stock_hsgt_individual_em(stock="002008")
     print(stock_hsgt_individual_em_df)
 
-    stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(stock="002008", start_date="20210830", end_date="20211026")
+    stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(stock="600596", start_date="20210830", end_date="20211026")
     print(stock_hsgt_individual_detail_em_df)
