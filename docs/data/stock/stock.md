@@ -12040,6 +12040,56 @@ print(stock_profit_forecast_df)
 
 ### 概念板块
 
+#### 同花顺-概念时间表
+
+接口: stock_board_concept_name_ths
+
+目标地址: http://q.10jqka.com.cn/gn/detail/code/301558/
+
+描述: 同花顺-板块-概念板块-概念
+
+限量: 单次返回当前所有概念时间表数据
+
+输入参数
+
+| 名称   | 类型 |  描述   |
+| -------- | ---- |  --- |
+| - | - | -|
+
+输出参数
+
+| 名称          | 类型 |  描述           |
+| ------------ | ----- |  ---------------- |
+| 日期          | object   |   -    |
+| 概念名称          | object   |   -    |
+| 成分股数量          | int64   |   -    |
+| 代码          | object   |   -    |
+
+接口示例
+
+```python
+import akshare as ak
+stock_board_concept_name_ths_df = ak.stock_board_concept_name_ths()
+print(stock_board_concept_name_ths_df)
+```
+
+数据示例
+
+```
+        日期   概念名称  成分股数量                                         代码
+0    2021-10-18   换电概念     15  http://q.10jqka.com.cn/gn/detail/code/308775/
+1    2021-10-15   培育钻石      8  http://q.10jqka.com.cn/gn/detail/code/308774/
+2    2021-09-23  三季报预增    432  http://q.10jqka.com.cn/gn/detail/code/308458/
+3    2021-09-22   绿色电力     70  http://q.10jqka.com.cn/gn/detail/code/308760/
+4    2021-09-08    元宇宙     26  http://q.10jqka.com.cn/gn/detail/code/308752/
+..          ...    ...    ...                                            ...
+280  2012-09-05  氟化工概念     21  http://q.10jqka.com.cn/gn/detail/code/300085/
+281  2012-09-05   横琴新区     44  http://q.10jqka.com.cn/gn/detail/code/300087/
+282  2012-09-05    磷化工     35  http://q.10jqka.com.cn/gn/detail/code/300098/
+283  2012-09-05   参股券商    124  http://q.10jqka.com.cn/gn/detail/code/300100/
+284  2012-09-05   生物疫苗     53  http://q.10jqka.com.cn/gn/detail/code/300106/
+```
+
 #### 同花顺-成份股
 
 接口: stock_board_concept_cons_ths
