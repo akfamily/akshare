@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/12 16:48
+Date: 2021/10/30 17:10
 Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
 import os
 from datetime import datetime
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
+
+from akshare.utils import demjson
 
 
 def _get_js_path_ths(name: str = None, module_file: str = None) -> str:
@@ -46,9 +47,9 @@ def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
     return file_data
 
 
-def stock_board_concept_name_ths() -> pd.DataFrame:
+def __stock_board_concept_name_ths() -> pd.DataFrame:
     """
-    同花顺-板块-概念板块-概念
+    同花顺-板块-概念板块-概念-缩放页
     http://q.10jqka.com.cn/gn/detail/code/301558/
     :return: 所有概念板块的名称和链接
     :rtype: pandas.DataFrame
@@ -64,6 +65,57 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     url_list = [item['href'] for item in html_list]
     temp_df = pd.DataFrame([name_list, url_list], index=['name', 'url']).T
     return temp_df
+
+
+def stock_board_concept_name_ths() -> pd.DataFrame:
+    """
+    同花顺-板块-概念板块-概念
+    http://q.10jqka.com.cn/gn/detail/code/301558/
+    :return: 所有概念板块的名称和链接
+    :rtype: pandas.DataFrame
+    """
+    url = "http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call('v')
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+        'Cookie': f'v={v_code}'
+    }
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    total_page = soup.find('span', attrs={'class': 'page_info'}).text.split('/')[1]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, int(total_page)+1), leave=False):
+        url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
+        js_code = py_mini_racer.MiniRacer()
+        js_content = _get_file_content_ths("ths.js")
+        js_code.eval(js_content)
+        v_code = js_code.call('v')
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+            'Cookie': f'v={v_code}'
+        }
+        r = requests.get(url, headers=headers)
+        soup = BeautifulSoup(r.text, "lxml")
+        soup.find('table', attrs={'class': 'm-table m-pager-table'}).find('tbody')
+        url_list = []
+        for item in soup.find('table', attrs={'class': 'm-table m-pager-table'}).find('tbody').find_all('tr'):
+            inner_url = item.find_all("td")[1].find('a')['href']
+            url_list.append(inner_url)
+        temp_df = pd.read_html(r.text)[0]
+        temp_df['代码'] = url_list
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df = big_df[[
+        '日期',
+        '概念名称',
+        '成分股数量',
+        '代码'
+    ]]
+    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
+    big_df['成分股数量'] = pd.to_numeric(big_df['成分股数量'])
+    return big_df
 
 
 def _stock_board_concept_code_ths() -> pd.DataFrame:
@@ -96,7 +148,7 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     :rtype: pandas.DataFrame
     """
     stock_board_ths_map_df = stock_board_concept_name_ths()
-    symbol = stock_board_ths_map_df[stock_board_ths_map_df['name'] == symbol]['url'].values[0].split('/')[-2]
+    symbol = stock_board_ths_map_df[stock_board_ths_map_df['概念名称'] == symbol]['代码'].values[0].split('/')[-2]
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
@@ -143,7 +195,7 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     :rtype: pandas.DataFrame
     """
     stock_board_ths_map_df = stock_board_concept_name_ths()
-    symbol_code = stock_board_ths_map_df[stock_board_ths_map_df['name'] == symbol]['url'].values[0].split('/')[-2]
+    symbol_code = stock_board_ths_map_df[stock_board_ths_map_df['概念名称'] == symbol]['代码'].values[0].split('/')[-2]
     url = f'http://q.10jqka.com.cn/gn/detail/code/{symbol_code}/'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
@@ -227,11 +279,56 @@ def stock_board_concept_hist_ths(start_year: str = '2000', symbol: str = "安防
     return big_df
 
 
+def stock_board_concept_name_info():
+    url = "http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call('v')
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+        'Cookie': f'v={v_code}'
+    }
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    total_page = soup.find('span', attrs={'class': 'page_info'}).text.split('/')[1]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, int(total_page)+1), leave=False):
+        url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
+        js_code = py_mini_racer.MiniRacer()
+        js_content = _get_file_content_ths("ths.js")
+        js_code.eval(js_content)
+        v_code = js_code.call('v')
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
+            'Cookie': f'v={v_code}'
+        }
+        r = requests.get(url, headers=headers)
+        soup = BeautifulSoup(r.text, "lxml")
+        soup.find('table', attrs={'class': 'm-table m-pager-table'}).find('tbody')
+        url_list = []
+        for item in soup.find('table', attrs={'class': 'm-table m-pager-table'}).find('tbody').find_all('tr'):
+            inner_url = item.find_all("td")[1].find('a')['href']
+            url_list.append(inner_url)
+        temp_df = pd.read_html(r.text)[0]
+        temp_df['代码'] = [item.split('/')[-2] for item in url_list]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df = big_df[[
+        '日期',
+        '概念名称',
+        '成分股数量',
+        '代码'
+    ]]
+    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
+    big_df['成分股数量'] = pd.to_numeric(big_df['成分股数量'])
+    return big_df
+
+
 if __name__ == '__main__':
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
 
-    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="丙烯酸")
+    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="PVDF概念")
     print(stock_board_concept_cons_ths_df)
 
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="国家大基金持股")
