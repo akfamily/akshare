@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/29 19:06
+Date: 2021/10/30 16:06
 Desc: 新浪行业-板块行情
 http://finance.sina.com.cn/stock/sl/
 """
 import json
 import math
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
+
+from akshare.utils import demjson
+from tqdm import tqdm
 
 
 def stock_sector_spot(indicator: str = "新浪行业") -> pd.DataFrame:
@@ -93,10 +95,9 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
     r = requests.get(url, params=params)
     total_num = int(r.json())
     total_page_num = math.ceil(int(total_num) / 80)
-
     big_df = pd.DataFrame()
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
-    for page in range(1, total_page_num+1):
+    for page in tqdm(range(1, total_page_num+1), leave=True):
         params = {
             "page": str(page),
             "num": "80",
@@ -107,8 +108,26 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
             "_s_r_a": "page",
         }
         r = requests.get(url, params=params)
-        temp_df = pd.DataFrame(demjson.decode(r.text))
+        data_text = r.text
+        data_json = demjson.decode(data_text)
+        temp_df = pd.DataFrame(data_json)
         big_df = big_df.append(temp_df, ignore_index=True)
+    big_df['trade'] = pd.to_numeric(big_df['trade'])
+    big_df['pricechange'] = pd.to_numeric(big_df['pricechange'])
+    big_df['changepercent'] = pd.to_numeric(big_df['changepercent'])
+    big_df['buy'] = pd.to_numeric(big_df['buy'])
+    big_df['sell'] = pd.to_numeric(big_df['sell'])
+    big_df['settlement'] = pd.to_numeric(big_df['settlement'])
+    big_df['open'] = pd.to_numeric(big_df['open'])
+    big_df['high'] = pd.to_numeric(big_df['high'])
+    big_df['low'] = pd.to_numeric(big_df['low'])
+    big_df['volume'] = pd.to_numeric(big_df['volume'])
+    big_df['amount'] = pd.to_numeric(big_df['amount'])
+    big_df['per'] = pd.to_numeric(big_df['per'])
+    big_df['pb'] = pd.to_numeric(big_df['pb'])
+    big_df['mktcap'] = pd.to_numeric(big_df['mktcap'])
+    big_df['nmc'] = pd.to_numeric(big_df['nmc'])
+    big_df['turnoverratio'] = pd.to_numeric(big_df['turnoverratio'])
     return big_df
 
 
