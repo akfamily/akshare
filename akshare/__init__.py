@@ -1614,9 +1614,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.89 fix: fix stock_sector_detail interface
 1.1.90 fix: fix stock_board_concept_name_ths interface
 1.1.91 fix: fix stock_hsgt_individual_detail_em interface
+1.1.92 add: add stock_rank_cxg_ths interface
 """
 
-__version__ = "1.1.91"
+__version__ = "1.1.92"
 __author__ = "Albert King"
 
 import sys
@@ -1626,6 +1627,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+同花顺-数据中心-技术选股-创新高
+"""
+from akshare.stock_feature.stock_technology_ths import stock_rank_cxg_ths, stock_rank_cxd_ths
 
 """
 沪深港通持股

@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/28 14:48
+Date: 2021/10/31 14:48
 Desc: 同花顺-板块-行业板块
 http://q.10jqka.com.cn/thshy/
 """
 import os
 from datetime import datetime
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
+
+from akshare.utils import demjson
 
 
 def _get_js_path_ths(name: str = None, module_file: str = None) -> str:
@@ -225,7 +226,6 @@ def stock_board_industry_index_ths(symbol: str = "半导体及元件", start_dat
     big_df['收盘价'] = pd.to_numeric(big_df['收盘价'])
     big_df['成交量'] = pd.to_numeric(big_df['成交量'])
     big_df['成交额'] = pd.to_numeric(big_df['成交额'])
-    big_df
     return big_df
 
 
