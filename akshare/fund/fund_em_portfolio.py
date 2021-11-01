@@ -8,6 +8,7 @@ http://fundf10.eastmoney.com/ccmx_000001.html
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 from akshare.utils import demjson
 
@@ -41,9 +42,9 @@ def fund_portfolio_hold_em(code: str = "162411", year: str = "2020") -> pd.DataF
         for item in soup.find_all("h4", attrs={"class": "t"})
     ]
     big_df = pd.DataFrame()
-    for item in range(len(item_label)):
-        temp_df = pd.read_html(data_json["content"])[item]
-        temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
+    for item in tqdm(range(len(item_label)), leave=False):
+        temp_df = pd.read_html(data_json["content"], converters={"股票代码": str})[item]
+        # temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
         del temp_df["相关资讯"]
         temp_df["占净值比例"] = temp_df["占净值比例"].str.split("%", expand=True).iloc[:, 0]
         temp_df.rename(columns={"持股数（万股）": "持股数", "持仓市值（万元）": "持仓市值"}, inplace=True)
@@ -62,9 +63,12 @@ def fund_portfolio_hold_em(code: str = "162411", year: str = "2020") -> pd.DataF
         ]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df['占净值比例'] = pd.to_numeric(big_df['占净值比例'], errors="coerce")
+    big_df['持股数'] = pd.to_numeric(big_df['持股数'], errors="coerce")
+    big_df['持仓市值'] = pd.to_numeric(big_df['持仓市值'], errors="coerce")
+    big_df['序号'] = range(1, len(big_df)+1)
     return big_df
 
 
 if __name__ == "__main__":
-    fund_portfolio_hold_em_df = fund_portfolio_hold_em(code="000041", year="2020")
+    fund_portfolio_hold_em_df = fund_portfolio_hold_em(code="162411", year="2020")
     print(fund_portfolio_hold_em_df)
