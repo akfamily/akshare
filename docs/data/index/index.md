@@ -1345,7 +1345,7 @@ print(index_cni_detail_hist_adjust_df)
 4. 在安装 [AKShare](https://github.com/akfamily/akshare) 后输入, 如 **ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")**;
 5. 稍后就可以获得所需数据.
 
-限量: 单次返回某一个国家的具体某一个指数, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
+限量: 单次返回某一个国家的具体某一个指数, 每次最大返回 5000 条, 想获取较长时间的历史数据请分时间段获取, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
 
 输入参数
 
