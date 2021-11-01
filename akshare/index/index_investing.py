@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2019/10/17 0:50
+Date: 2021/10/31 17:03
 Desc: 英为财情-股票指数-全球股指与期货指数数据接口
 https://cn.investing.com/indices/volatility-s-p-500-historical-data
 """
@@ -359,13 +359,13 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
 
 def index_investing_global(
     country: str = "美国",
-    index_name: str = "美元指数",
+    index_name: str = "纳斯达克100",
     period: str = "每日",
-    start_date: str = "20000101",
-    end_date: str = "20191017",
+    start_date: str = "20100101",
+    end_date: str = "20211031",
 ) -> pd.DataFrame:
     """
-    获得具体国家的具体指数的从 start_date 到 end_date 期间的数据
+    具体国家的具体指数的从 start_date 到 end_date 期间的数据
     :param country: 对应函数中的国家名称
     :type country: str
     :param index_name: 对应函数中的指数名称
@@ -543,11 +543,12 @@ if __name__ == "__main__":
     print(index_investing_global_from_url_df)
 
     index_investing_global_country_name_url_dict = (
-        index_investing_global_country_name_url("中国")
+        index_investing_global_country_name_url("美国")
     )
+
     index_investing_global_df = index_investing_global(
-        country="中国",
-        index_name="富时中国A50指数",
+        country="美国",
+        index_name="纳斯达克100",
         period="每日",
         start_date="20000101",
         end_date="20210909",

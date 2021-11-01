@@ -920,6 +920,7 @@
  "stock_ipo_benefit_ths"  # IPO 受益股
  # 同花顺-数据中心-技术选股-创新高
  "stock_rank_cxg_ths"  # 创新高
+ "stock_rank_cxd_ths"  # 创新低
 ```
 
 ## 案例演示
