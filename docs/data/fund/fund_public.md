@@ -1365,7 +1365,7 @@ print(fund_etf_hist_sina_df)
 | 名称   | 类型 | 描述 |
 | -------- | ---- |  --- |
 | code | str|   code="000001"; 基金代码, 可以通过调用 **fund_em_fund_name** 接口获取 |
-| year | str|   year="2020"; |
+| year | str|   year="2020"; 指定年份 |
 
 输出参数
 
