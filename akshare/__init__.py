@@ -1619,9 +1619,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.94 fix: fix fund_portfolio_hold_em interface
 1.1.95 fix: fix stock_board_concept_hist_ths interface
 1.1.96 add: add bond_zh_hs_cov_min interface
+1.1.97 add: add stock_rank_lxsz_ths interface
 """
 
-__version__ = "1.1.96"
+__version__ = "1.1.97"
 __author__ = "Albert King"
 
 import sys
@@ -1633,19 +1634,30 @@ if sys.version_info < (3, 7):
 del sys
 
 """
-同花顺-数据中心-技术选股-创新高
+同花顺-数据中心-技术选股
 """
-from akshare.stock_feature.stock_technology_ths import stock_rank_cxg_ths, stock_rank_cxd_ths
+from akshare.stock_feature.stock_technology_ths import (
+    stock_rank_cxg_ths,
+    stock_rank_cxd_ths,
+    stock_rank_lxsz_ths,
+    stock_rank_lxxd_ths,
+)
 
 """
 沪深港通持股
 """
-from akshare.stock_feature.stock_em_hsgt import stock_hsgt_individual_em, stock_hsgt_individual_detail_em
+from akshare.stock_feature.stock_em_hsgt import (
+    stock_hsgt_individual_em,
+    stock_hsgt_individual_detail_em,
+)
 
 """
 指数估值
 """
-from akshare.index.zh_stock_index_csindex import index_value_hist_funddb, index_value_name_funddb
+from akshare.index.zh_stock_index_csindex import (
+    index_value_hist_funddb,
+    index_value_name_funddb,
+)
 
 """
 基金规模
@@ -2321,7 +2333,10 @@ from akshare.stock_feature.stock_sina_lhb import (
 """
 中证指数
 """
-from akshare.index.zh_stock_index_csindex import stock_zh_index_hist_csindex, stock_zh_index_value_csindex
+from akshare.index.zh_stock_index_csindex import (
+    stock_zh_index_hist_csindex,
+    stock_zh_index_value_csindex,
+)
 
 """
 股票基金持仓数据

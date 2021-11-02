@@ -110,7 +110,7 @@ def stock_em_yjbb(date: str = "20200331") -> pd.DataFrame:
             "最新公告日期",
         ]
     ]
-    return big_df.info()
+    return big_df
 
 
 if __name__ == "__main__":
