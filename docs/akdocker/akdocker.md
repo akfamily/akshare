@@ -28,13 +28,13 @@
 ### 拉取 AKDocker 镜像
 
 ```
-docker pull registry.cn-hangzhou.aliyuncs.com/akshare/akdocker
+docker pull registry.cn-beijing.aliyuncs.com/akshare/akdocker
 ```
 
 ### 运行 AKDocker 容器
 
 ```
-docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
+docker run -it registry.cn-beijing.aliyuncs.com/akshare/akdocker
 ```
 
 ### 测试 AKDocker 容器
