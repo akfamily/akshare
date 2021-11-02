@@ -1618,9 +1618,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.93 add: add stock_rank_cxd_ths interface
 1.1.94 fix: fix fund_portfolio_hold_em interface
 1.1.95 fix: fix stock_board_concept_hist_ths interface
+1.1.96 add: add bond_zh_hs_cov_min interface
 """
 
-__version__ = "1.1.95"
+__version__ = "1.1.96"
 __author__ = "Albert King"
 
 import sys
@@ -2660,6 +2661,7 @@ from akshare.bond.bond_zh_cov_sina import (
     bond_cov_comparison,
     bond_zh_cov,
     bond_zh_cov_info,
+    bond_zh_hs_cov_min,
 )
 from akshare.bond.bond_convert import bond_cov_jsl
 
