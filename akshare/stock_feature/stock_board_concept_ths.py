@@ -125,15 +125,9 @@ def _stock_board_concept_code_ths() -> pd.DataFrame:
     :return: 所有概念板块的名称和链接
     :rtype: pandas.DataFrame
     """
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
-    }
-    url = 'http://q.10jqka.com.cn/gn/detail/code/302045/'
-    r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    html_list = soup.find('div', attrs={'class': 'cate_inner'}).find_all('a')
-    name_list = [item.text for item in html_list]
-    url_list = [item['href'].split('code/')[1].strip('/') for item in html_list]
+    _stock_board_concept_name_ths_df = stock_board_concept_name_ths()
+    name_list = _stock_board_concept_name_ths_df['概念名称'].tolist()
+    url_list = [item.split('/')[-2] for item in _stock_board_concept_name_ths_df['代码'].tolist()]
     temp_map = dict(zip(name_list, url_list))
     return temp_map
 
@@ -331,8 +325,8 @@ if __name__ == '__main__':
     stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="PVDF概念")
     print(stock_board_concept_cons_ths_df)
 
-    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="国家大基金持股")
+    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="PVDF概念")
     print(stock_board_concept_info_ths_df)
 
-    stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2020', symbol="一带一路")
+    stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2021', symbol="PVDF概念")
     print(stock_board_concept_hist_ths_df)

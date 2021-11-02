@@ -1393,7 +1393,7 @@ if __name__ == "__main__":
     print(stock_em_hsgt_hold_stock_df)
 
     stock_em_hsgt_stock_statistics_df = stock_em_hsgt_stock_statistics(
-        symbol="北向持股", start_date="20211027", end_date="20211027"
+        symbol="北向持股", start_date="20211031", end_date="20211031"
     )
     print(stock_em_hsgt_stock_statistics_df)
 

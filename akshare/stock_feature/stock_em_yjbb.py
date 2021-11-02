@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/3 10:27
+Date: 2021/11/2 10:27
 Desc: 东方财富-数据中心-年报季报
 东方财富-数据中心-年报季报-业绩快报-业绩报表
 http://data.eastmoney.com/bbsj/202003/yjbb.html
@@ -110,7 +110,7 @@ def stock_em_yjbb(date: str = "20200331") -> pd.DataFrame:
             "最新公告日期",
         ]
     ]
-    return big_df
+    return big_df.info()
 
 
 if __name__ == "__main__":
