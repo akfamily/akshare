@@ -11986,7 +11986,7 @@ print(stock_margin_underlying_info_szse_df)
 
 目标地址: http://data.eastmoney.com/report/profitforecast.jshtml
 
-描述: 获取东方财富网-数据中心-研究报告-盈利预测
+描述: 东方财富网-数据中心-研究报告-盈利预测
 
 限量: 单次返回所有历史数据
 
