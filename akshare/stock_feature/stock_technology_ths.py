@@ -373,38 +373,38 @@ def stock_rank_cxsl_ths() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    # stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="创月新高")
-    # print(stock_rank_cxg_ths_df)
-    #
-    # stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="半年新高")
-    # print(stock_rank_cxg_ths_df)
-    #
-    # stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="一年新高")
-    # print(stock_rank_cxg_ths_df)
-    #
-    # stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="历史新高")
-    # print(stock_rank_cxg_ths_df)
-    #
-    # stock_rank_cxd_ths_df = stock_rank_cxd_ths(symbol="创月新低")
-    # print(stock_rank_cxd_ths_df)
-    #
-    # stock_rank_cxd_ths_df = stock_rank_cxd_ths(symbol="半年新低")
-    # print(stock_rank_cxd_ths_df)
-    #
-    # stock_rank_cxd_ths_df = stock_rank_cxd_ths(symbol="一年新低")
-    # print(stock_rank_cxd_ths_df)
-    #
-    # stock_rank_cxd_ths_df = stock_rank_cxd_ths(symbol="历史新低")
-    # print(stock_rank_cxd_ths_df)
-    #
-    # stock_rank_lxsz_ths_df = stock_rank_lxsz_ths()
-    # print(stock_rank_lxsz_ths_df)
-    #
-    # stock_rank_lxxd_ths_df = stock_rank_lxxd_ths()
-    # print(stock_rank_lxxd_ths_df)
-    #
-    # stock_rank_cxfl_ths_df = stock_rank_cxfl_ths()
-    # print(stock_rank_cxfl_ths_df)
+    stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="创月新高")
+    print(stock_rank_cxg_ths_df)
+
+    stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="半年新高")
+    print(stock_rank_cxg_ths_df)
+
+    stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="一年新高")
+    print(stock_rank_cxg_ths_df)
+
+    stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="历史新高")
+    print(stock_rank_cxg_ths_df)
+
+    stock_rank_cxd_ths_df = stock_rank_cxd_ths(symbol="创月新低")
+    print(stock_rank_cxd_ths_df)
+
+    stock_rank_cxd_ths_df = stock_rank_cxd_ths(symbol="半年新低")
+    print(stock_rank_cxd_ths_df)
+
+    stock_rank_cxd_ths_df = stock_rank_cxd_ths(symbol="一年新低")
+    print(stock_rank_cxd_ths_df)
+
+    stock_rank_cxd_ths_df = stock_rank_cxd_ths(symbol="历史新低")
+    print(stock_rank_cxd_ths_df)
+
+    stock_rank_lxsz_ths_df = stock_rank_lxsz_ths()
+    print(stock_rank_lxsz_ths_df)
+
+    stock_rank_lxxd_ths_df = stock_rank_lxxd_ths()
+    print(stock_rank_lxxd_ths_df)
+
+    stock_rank_cxfl_ths_df = stock_rank_cxfl_ths()
+    print(stock_rank_cxfl_ths_df)
 
     stock_rank_cxsl_ths_df = stock_rank_cxsl_ths()
     print(stock_rank_cxsl_ths_df)
