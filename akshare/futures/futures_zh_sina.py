@@ -32,6 +32,7 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
     :rtype: dict
     """
     r = requests.get(zh_subscribe_exchange_symbol_url)
+    r.encoding = 'gbk'
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): data_text.find("};") + 1])
     if exchange == "czce":
