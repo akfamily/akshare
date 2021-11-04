@@ -921,6 +921,10 @@
  # 同花顺-数据中心-技术选股-创新高
  "stock_rank_cxg_ths"  # 创新高
  "stock_rank_cxd_ths"  # 创新低
+ "stock_rank_lxsz_ths"  # 连续上涨
+ "stock_rank_lxxd_ths"  # 连续下跌
+ "stock_rank_cxfl_ths"  # 持续放量
+ "stock_rank_cxsl_ths"  # 持续缩量
  # 可转债分时数据
  "bond_zh_hs_cov_min"  # 可转债分时数据
 ```
