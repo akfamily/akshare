@@ -925,6 +925,8 @@
  "stock_rank_lxxd_ths"  # 连续下跌
  "stock_rank_cxfl_ths"  # 持续放量
  "stock_rank_cxsl_ths"  # 持续缩量
+ "stock_rank_xstp_ths"  # 向上突破
+ "stock_rank_xxtp_ths"  # 向下突破
  # 可转债分时数据
  "bond_zh_hs_cov_min"  # 可转债分时数据
 ```
