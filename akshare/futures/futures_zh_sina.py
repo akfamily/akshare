@@ -6,10 +6,9 @@ Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
 """
-import time
 import json
+import time
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
 
@@ -18,8 +17,8 @@ from akshare.futures.cons import (
     zh_match_main_contract_url,
     zh_match_main_contract_payload,
 )
-
 from akshare.futures.futures_contract_detail import futures_contract_detail
+from akshare.utils import demjson
 
 
 def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
@@ -32,6 +31,7 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
     :rtype: dict
     """
     r = requests.get(zh_subscribe_exchange_symbol_url)
+    r.encoding = "gbk"
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): data_text.find("};") + 1])
     if exchange == "czce":
