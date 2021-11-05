@@ -1622,9 +1622,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.97 add: add stock_rank_lxsz_ths interface
 1.1.98 add: add stock_rank_lxxd_ths interface
 1.1.99 add: add stock_rank_cxfl_ths interface
+1.2.1 add: add stock_rank_cxsl_ths interface
 """
 
-__version__ = "1.1.99"
+__version__ = "1.2.1"
 __author__ = "Albert King"
 
 import sys
