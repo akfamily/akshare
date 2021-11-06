@@ -500,6 +500,112 @@ def stock_rank_xxtp_ths(symbol: str = "500日均线") -> pd.DataFrame:
     return big_df
 
 
+def stock_rank_ljqs_ths() -> pd.DataFrame:
+    """
+    同花顺-数据中心-技术选股-量价齐升
+    http://data.10jqka.com.cn/rank/ljqs/
+    :return: 量价齐升
+    :rtype: pandas.DataFrame
+    """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call("v")
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "Cookie": f"v={v_code}",
+    }
+    url = f"http://data.10jqka.com.cn/rank/ljqs/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    try:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError as e:
+        total_page = 1
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+        v_code = js_code.call("v")
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+            "Cookie": f"v={v_code}",
+        }
+        url = f"http://data.10jqka.com.cn/rank/ljqs/field/count/order/desc/ajax/1/free/1/page/{page}/free/1/"
+        r = requests.get(url, headers=headers)
+        temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [
+        '序号',
+        '股票代码',
+        '股票简称',
+        '最新价',
+        '量价齐升天数',
+        '阶段涨幅',
+        '累计换手率',
+        '所属行业',
+    ]
+    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df["阶段涨幅"] = big_df["阶段涨幅"].astype(str).str.strip("%")
+    big_df["累计换手率"] = big_df["累计换手率"].astype(str).str.strip("%")
+    big_df["阶段涨幅"] = pd.to_numeric(big_df["阶段涨幅"], errors='coerce')
+    big_df["累计换手率"] = pd.to_numeric(big_df["累计换手率"])
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"])
+    big_df["量价齐升天数"] = pd.to_numeric(big_df["量价齐升天数"])
+    return big_df
+
+
+def stock_rank_ljqd_ths() -> pd.DataFrame:
+    """
+    同花顺-数据中心-技术选股-量价齐跌
+    http://data.10jqka.com.cn/rank/ljqd/
+    :return: 量价齐跌
+    :rtype: pandas.DataFrame
+    """
+    js_code = py_mini_racer.MiniRacer()
+    js_content = _get_file_content_ths("ths.js")
+    js_code.eval(js_content)
+    v_code = js_code.call("v")
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "Cookie": f"v={v_code}",
+    }
+    url = f"http://data.10jqka.com.cn/rank/ljqd/field/count/order/desc/ajax/1/free/1/page/1/free/1/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    try:
+        total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    except AttributeError as e:
+        total_page = 1
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+        v_code = js_code.call("v")
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+            "Cookie": f"v={v_code}",
+        }
+        url = f"http://data.10jqka.com.cn/rank/ljqd/field/count/order/desc/ajax/1/free/1/page/{page}/free/1/"
+        r = requests.get(url, headers=headers)
+        temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [
+        '序号',
+        '股票代码',
+        '股票简称',
+        '最新价',
+        '量价齐跌天数',
+        '阶段涨幅',
+        '累计换手率',
+        '所属行业',
+    ]
+    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df["阶段涨幅"] = big_df["阶段涨幅"].astype(str).str.strip("%")
+    big_df["累计换手率"] = big_df["累计换手率"].astype(str).str.strip("%")
+    big_df["阶段涨幅"] = pd.to_numeric(big_df["阶段涨幅"], errors='coerce')
+    big_df["累计换手率"] = pd.to_numeric(big_df["累计换手率"])
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"])
+    big_df["量价齐跌天数"] = pd.to_numeric(big_df["量价齐跌天数"])
+    return big_df
+
+
 if __name__ == "__main__":
     stock_rank_cxg_ths_df = stock_rank_cxg_ths(symbol="创月新高")
     print(stock_rank_cxg_ths_df)
@@ -542,3 +648,9 @@ if __name__ == "__main__":
 
     stock_rank_xxtp_ths_df = stock_rank_xxtp_ths(symbol="500日均线")
     print(stock_rank_xxtp_ths_df)
+
+    stock_rank_ljqs_ths_df = stock_rank_ljqs_ths()
+    print(stock_rank_ljqs_ths_df)
+
+    stock_rank_ljqd_ths_df = stock_rank_ljqd_ths()
+    print(stock_rank_ljqd_ths_df)
