@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/16 17:19
+Date: 2021/11/6 18:19
 Desc: 股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
 import math
-import time
 from io import BytesIO
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from tqdm import tqdm
+
+from akshare.utils import demjson
 
 
 def index_stock_cons_sina(index: str = "000300") -> pd.DataFrame:
@@ -124,11 +125,11 @@ def index_stock_cons_csindex(index: str = "000300") -> pd.DataFrame:
     r = requests.get(url)
     temp_df = pd.read_excel(BytesIO(r.content), usecols="E:F")
     temp_df.columns = ["stock_code", "stock_name"]
-    temp_df['stock_code'] = temp_df['stock_code'].astype(str)
+    temp_df['stock_code'] = temp_df['stock_code'].astype(str).str.zfill(6)
     return temp_df
 
 
-def index_stock_hist(index: str = "sz399975") -> pd.DataFrame:
+def index_stock_hist(index: str = "sh000300") -> pd.DataFrame:
     """
     指数历史成份, 从 2005 年开始
     http://stock.jrj.com.cn/share,sh000300,2015nlscf_2.shtml
@@ -143,12 +144,12 @@ def index_stock_hist(index: str = "sz399975") -> pd.DataFrame:
     soup = BeautifulSoup(r.text, "lxml")
     last_page_num = soup.find_all("a", attrs={"target": "_self"})[-2].text
     temp_df = pd.read_html(r.text)[-1]
-    if type(last_page_num) == str:
+    if last_page_num == '历史成份':
         temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
         del temp_df["股票名称"]
         temp_df.columns = ["stock_code", "in_date", "out_date"]
         return temp_df
-    for page in range(2, int(last_page_num)+1):
+    for page in tqdm(range(2, int(last_page_num)+1), leave=False):
         url = f"http://stock.jrj.com.cn/share,{index},2015nlscf_{page}.shtml"
         r = requests.get(url)
         r.encoding = "gb2312"
@@ -184,7 +185,7 @@ if __name__ == "__main__":
     print(index_stock_cons_df)
 
     index_stock_cons_df['symbol'] = index_stock_cons_df['品种代码'].apply(stock_a_code_to_symbol)
-    stock_index_hist_df = index_stock_hist(index="sz399975")
+    stock_index_hist_df = index_stock_hist(index="sh000300")
     print(stock_index_hist_df)
 
     index_list = index_stock_info()["index_code"].tolist()

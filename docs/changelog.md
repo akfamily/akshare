@@ -2667,4 +2667,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.3 add: add stock_rank_xstp_ths interface
 
 1.2.4 fix: fix fund_portfolio_hold_em interface
+
+1.2.5 fix: fix index_stock_hist interface
 ```
