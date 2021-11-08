@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/31 14:48
+Date: 2021/11/8 17:48
 Desc: 同花顺-板块-行业板块
 http://q.10jqka.com.cn/thshy/
 """
