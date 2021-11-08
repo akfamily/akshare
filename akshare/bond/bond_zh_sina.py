@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/10/19 9:28
+Date: 2020/11/8 17:28
 Desc: 新浪财经-债券-沪深债券-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hs_z
 """
@@ -43,7 +43,7 @@ def get_zh_bond_hs_page_count() -> int:
 
 def bond_zh_hs_spot() -> pd.DataFrame:
     """
-    新浪财经-债券-沪深债券的实时行情数据, 大量抓取容易封IP
+    新浪财经-债券-沪深债券-实时行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#hs_z
     :return: 所有沪深债券在当前时刻的实时行情数据
     :rtype: pandas.DataFrame
@@ -56,12 +56,56 @@ def bond_zh_hs_spot() -> pd.DataFrame:
         res = requests.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(res.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
+    big_df.columns = [
+        '代码',
+        '-',
+        '名称',
+        '最新价',
+        '涨跌额',
+        '涨跌幅',
+        '买入',
+        '卖出',
+        '昨收',
+        '今开',
+        '最高',
+        '最低',
+        '成交量',
+        '成交额',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+    ]
+    big_df = big_df[[
+        '代码',
+        '名称',
+        '最新价',
+        '涨跌额',
+        '涨跌幅',
+        '买入',
+        '卖出',
+        '昨收',
+        '今开',
+        '最高',
+        '最低',
+        '成交量',
+        '成交额',
+    ]]
+    big_df['最新价'] = pd.to_numeric(big_df['最新价'])
+    big_df['买入'] = pd.to_numeric(big_df['买入'])
+    big_df['卖出'] = pd.to_numeric(big_df['卖出'])
+    big_df['昨收'] = pd.to_numeric(big_df['昨收'])
+    big_df['今开'] = pd.to_numeric(big_df['今开'])
+    big_df['最高'] = pd.to_numeric(big_df['最高'])
+    big_df['最低'] = pd.to_numeric(big_df['最低'])
     return big_df
 
 
 def bond_zh_hs_daily(symbol: str = "sh010107") -> pd.DataFrame:
     """
-    新浪财经-债券-沪深债券的的历史行情数据, 大量抓取容易封IP
+    新浪财经-债券-沪深债券-历史行情数据, 大量抓取容易封IP
     http://vip.stock.finance.sina.com.cn/mkt/#hs_z
     :param symbol: 沪深债券代码; e.g., sh010107
     :type symbol: str
@@ -79,14 +123,17 @@ def bond_zh_hs_daily(symbol: str = "sh010107") -> pd.DataFrame:
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df.index = pd.to_datetime(data_df["date"])
-    del data_df["date"]
-    data_df = data_df.astype("float")
+    data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
+    data_df['open'] = pd.to_numeric(data_df['open'])
+    data_df['high'] = pd.to_numeric(data_df['high'])
+    data_df['low'] = pd.to_numeric(data_df['low'])
+    data_df['close'] = pd.to_numeric(data_df['close'])
     return data_df
 
 
 if __name__ == "__main__":
-    bond_zh_hs_daily_df = bond_zh_hs_daily(symbol="sh010107")
-    print(bond_zh_hs_daily_df)
     bond_zh_hs_spot_df = bond_zh_hs_spot()
     print(bond_zh_hs_spot_df)
+
+    bond_zh_hs_daily_df = bond_zh_hs_daily(symbol="sh110033")
+    print(bond_zh_hs_daily_df)
