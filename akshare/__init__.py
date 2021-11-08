@@ -1630,9 +1630,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.6 add: add stock_rank_xxtp_ths interface
 1.2.7 add: add stock_rank_ljqd_ths interface
 1.2.8 add: add stock_rank_ljqs_ths interface
+1.2.9 fix: fix stock_zh_a_gdhs interface
 """
 
-__version__ = "1.2.8"
+__version__ = "1.2.9"
 __author__ = "Albert King"
 
 import sys
