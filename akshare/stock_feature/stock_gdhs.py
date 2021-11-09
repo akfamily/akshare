@@ -10,7 +10,7 @@ import requests
 from tqdm import tqdm
 
 
-def stock_zh_a_gdhs(symbol: str = "20210331") -> pd.DataFrame:
+def stock_zh_a_gdhs(symbol: str = "20210930") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股东户数
     http://data.eastmoney.com/gdhs/
@@ -201,7 +201,7 @@ def stock_zh_a_gdhs_detail_em(symbol: str = "000002") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_gdhs_df = stock_zh_a_gdhs()
+    stock_zh_a_gdhs_df = stock_zh_a_gdhs(symbol='20210930')
     print(stock_zh_a_gdhs_df)
 
     stock_zh_a_gdhs_detail_em_df = stock_zh_a_gdhs_detail_em(symbol="000002")
