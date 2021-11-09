@@ -930,6 +930,7 @@
  "stock_rank_xxtp_ths"  # 向下突破
  "stock_rank_ljqs_ths"  # 量价齐升
  "stock_rank_ljqd_ths"  # 量价齐跌
+ "stock_rank_xzjp_ths"  # 险资举牌
  # 可转债分时数据
  "bond_zh_hs_cov_min"  # 可转债分时数据
 ```
