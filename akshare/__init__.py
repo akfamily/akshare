@@ -1635,9 +1635,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.11 add: add stock_zh_a_gdhs_detail_em interface
 1.2.12 fix: fix stock_zh_a_gdhs interface
 1.2.13 add: add stock_rank_xzjp_ths interface
+1.2.14 add: add sw_index_second_spot interface
 """
 
-__version__ = "1.2.13"
+__version__ = "1.2.14"
 __author__ = "Albert King"
 
 import sys
@@ -2962,6 +2963,7 @@ from akshare.fortune.fortune_500 import fortune_rank, fortune_rank_eng
 from akshare.index.index_sw import (
     sw_index_representation_spot,
     sw_index_spot,
+    sw_index_second_spot,
     sw_index_cons,
     sw_index_daily,
     sw_index_daily_indicator,

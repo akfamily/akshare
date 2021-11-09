@@ -149,10 +149,11 @@
  "google_index"  # 获取谷歌趋势指数
  # 申万行业指数
  "sw_index_representation_spot"  # 申万市场表征数据
- "sw_index_spot"  # 获取申万一级实时行情
- "sw_index_cons"  # 获取申万一级板块成份
- "sw_index_daily"  # 获取申万一级历史行情
- "sw_index_daily_indicator"  # 获取申万一级历史行情指标
+ "sw_index_spot"  # 申万一级实时行情
+ "sw_index_second_spot"  # 申万二级实时行情
+ "sw_index_cons"  # 申万一级、二级板块成份
+ "sw_index_daily"  # 申万一级、二级历史行情
+ "sw_index_daily_indicator"  # 申万一级、二级历史行情指标
  # 空气质量
  "air_quality_hist"  # 空气质量历史数据
  "air_quality_rank"  # 空气质量排行
