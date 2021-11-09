@@ -12284,7 +12284,7 @@ print(stock_board_concept_cons_ths_df)
 
 接口: stock_board_cons_ths
 
-目标地址: http://q.10jqka.com.cn/thshy/detail/code/881121/
+目标地址: http://q.10jqka.com.cn/thshy/detail/code/885611/
 
 描述: 同花顺-板块-概念板块-成份股数据
 
@@ -12346,7 +12346,7 @@ print(stock_board_cons_ths_df)
 
 目标地址: http://q.10jqka.com.cn/gn/detail/code/301558/
 
-描述: 获取同花顺-板块-概念板块-指数日频率数据
+描述: 同花顺-板块-概念板块-指数日频率数据
 
 限量: 单次返回所有日频指数数据
 
@@ -12516,7 +12516,7 @@ print(stock_board_concept_hist_em_df)
 
 ### 行业板块
 
-#### 同花顺-成份股-概念名称
+#### 同花顺-成份股-行业名称
 
 接口: stock_board_industry_cons_ths
 
@@ -12576,13 +12576,13 @@ print(stock_board_industry_cons_ths_df)
 114  115  300666  江丰电子   41.97  ...   3.59亿   1.36亿   56.97亿  133.870000
 ```
 
-#### 同花顺-成份股-概念代码
+#### 同花顺-成份股-行业代码
 
 接口: stock_board_cons_ths
 
 目标地址: http://q.10jqka.com.cn/thshy/detail/code/881121/
 
-描述: 同花顺-板块-概念板块-成份股数据
+描述: 同花顺-板块-行业板块-成份股数据
 
 限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_industry_info_ths** 返回该板块信息
 
