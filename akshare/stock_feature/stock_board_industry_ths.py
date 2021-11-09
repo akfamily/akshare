@@ -370,28 +370,6 @@ def stock_board_industry_name_ths() -> pd.DataFrame:
     return temp_df
 
 
-def _stock_board_concept_code_ths() -> pd.DataFrame:
-    """
-    同花顺-板块-行业板块-行业
-    http://q.10jqka.com.cn/thshy/
-    :return: 所有行业板块的名称和链接
-    :rtype: pandas.DataFrame
-    """
-    url = 'http://q.10jqka.com.cn/thshy/'
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
-    }
-    r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    html_list = soup.find('div', attrs={'class': 'boxShadow'}).find_all('a', attrs={'target': '_blank'})
-    name_list = [item.text.strip() for item in html_list]
-    url_list = [item['href'] for item in html_list]
-    temp_df = pd.DataFrame([name_list, url_list], index=['name', 'url']).T
-    code = [item.split('code/')[1].strip('/') for item in temp_df['url']]
-    temp_map = dict(zip(temp_df['name'], code))
-    return temp_map
-
-
 def stock_board_industry_cons_ths(symbol: str = "半导体及元件") -> pd.DataFrame:
     """
     同花顺-板块-行业板块-成份股
