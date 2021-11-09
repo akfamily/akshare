@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/1/21 16:00
+Date: 2021/11/9 22:30
 Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
 黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
@@ -77,7 +77,7 @@ def futures_spot_price_daily(
 
 def futures_spot_price(date: str = "20210201", vars_list=cons.contract_symbols):
     """
-    具体交易日大宗商品现货价格及相应基差
+    指定交易日大宗商品现货价格及相应基差
     http://www.100ppi.com/sf/day-2017-09-12.html
     :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象; 为空时为当天
     :param vars_list: 合约品种如 RB、AL 等列表 为空时为所有商品
@@ -298,8 +298,8 @@ if __name__ == "__main__":
     )
     print(futures_spot_price_daily_df)
 
-    futures_spot_price_df = futures_spot_price("20200110")
+    futures_spot_price_df = futures_spot_price("20211109")
     print(futures_spot_price_df)
 
-    futures_spot_price_previous_df = futures_spot_price_previous('20110110')
+    futures_spot_price_previous_df = futures_spot_price_previous('20211108')
     print(futures_spot_price_previous_df)
