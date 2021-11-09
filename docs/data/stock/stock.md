@@ -13833,7 +13833,7 @@ print(stock_rank_ljqd_ths_df)
 
 #### 险资举牌
 
-接口: stock_rank_ljqd_ths
+接口: stock_rank_xzjp_ths
 
 目标地址: http://data.10jqka.com.cn/financial/xzjp/
 

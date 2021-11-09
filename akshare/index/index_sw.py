@@ -78,9 +78,48 @@ def sw_index_spot() -> pd.DataFrame:
     return temp_df
 
 
-def sw_index_cons(index_code: str = "801010") -> pd.DataFrame:
+def sw_index_second_spot() -> pd.DataFrame:
     """
-    申万指数成份信息
+    申万二级行业-实时行情数据
+    http://www.swsindex.com/idx0120.aspx?columnId=8833
+    :return: 申万二级行业-实时行情数据
+    :rtype: pandas.DataFrame
+    """
+    result = []
+    for i in range(1, 6):
+        payload = {
+            "tablename": "swzs",
+            "key": "L1",
+            "p": "1",
+            "where": "L1 in('801011','801012','801013','801014','801015','801016','801021','801022','801023','801032','801033','801034','801035','801036','801037','801041','801051','801072','801073','801074','801075','801081','801082','801083','801084','801092','801093','801094','801101','801102','801111','801112','801123','801131','801132','801141','801142','801143','801151','801152','801153','801154','801155','801156','801161','801162','801163','801164','801171','801172','801173','801174','801175','801176','801177','801178','801181','801182','801191','801192','801193','801194','801202','801211','801212','801213','801214','801222','801223','801053','801054','801055','801076','801203','801204','801205','801711','801712','801713','801721','801722','801723','801724','801725','801731','801732','801733','801734','801741','801742','801743','801744','801751','801752','801761','801881','801017','801018')",
+            "orderby": "",
+            "fieldlist": "L1,L2,L3,L4,L5,L6,L7,L8,L11",
+            "pagecount": "98",
+            "timed": "",
+        }
+        payload.update({"p": i})
+        payload.update({"timed": int(time.time() * 1000)})
+        r = requests.post(sw_url, headers=sw_headers, data=payload)
+        data = r.content.decode()
+        data = data.replace("'", '"')
+        data = json.loads(data)
+        result.extend(data["root"])
+    temp_df = pd.DataFrame(result)
+    temp_df["L2"] = temp_df["L2"].str.strip()
+    temp_df.columns = ["指数代码", "指数名称", "昨收盘", "今开盘", "成交额", "最高价", "最低价", "最新价", "成交量"]
+    temp_df["昨收盘"] = pd.to_numeric(temp_df["昨收盘"])
+    temp_df["今开盘"] = pd.to_numeric(temp_df["今开盘"])
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
+    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"])
+    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"])
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
+    return temp_df
+
+
+def sw_index_cons(index_code: str = "801011") -> pd.DataFrame:
+    """
+    申万指数成份信息-包括一级和二级行业都可以查询
     http://www.swsindex.com/idx0210.aspx?swindexcode=801010
     :param index_code: 指数代码
     :type index_code: str
@@ -116,12 +155,12 @@ def sw_index_cons(index_code: str = "801010") -> pd.DataFrame:
 
 
 def sw_index_daily(
-    index_code: str = "801010",
+    index_code: str = "801011",
     start_date: str = "2019-12-01",
-    end_date: str = "2019-12-07",
+    end_date: str = "2020-12-07",
 ) -> pd.DataFrame:
     """
-    申万指数日频率行情数据
+    申万指数一级和二级日频率行情数据
     http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
     :param index_code: 申万指数
     :type index_code: str
@@ -182,13 +221,13 @@ def sw_index_daily(
 
 
 def sw_index_daily_indicator(
-    index_code: str = "801003",
+    index_code: str = "801011",
     start_date: str = "2019-12-01",
     end_date: str = "2021-09-07",
     data_type: str = "Day",
 ) -> pd.DataFrame:
     """
-    申万一级行业历史行情指标
+    申万一级和二级行业历史行情指标
     http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
     :param index_code: 申万指数
     :type index_code: str
@@ -273,6 +312,9 @@ if __name__ == "__main__":
 
     sw_index_spot_df = sw_index_spot()
     print(sw_index_spot_df)
+
+    sw_index_second_spot_df = sw_index_second_spot()
+    print(sw_index_second_spot_df)
 
     sw_index_cons_df = sw_index_cons(index_code="801001")
     print(sw_index_cons_df)
