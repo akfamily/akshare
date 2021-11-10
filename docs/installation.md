@@ -121,6 +121,205 @@ print(stock_df)  # 查看数据
 6    069001002002
 ```
 
+## MATLAB 调用支持
+
+### 安装 Anaconda
+
+[下载 Windows 64 位 Python 3.8 的 Anaconda](https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe)
+
+[安装教程参见 AKShare 文档的环境配置专栏](https://www.akshare.xyz/zh_CN/latest/anaconda.html)
+
+### 安装 MATLAB
+
+[下载 64位 MATLAB R2021b](https://ww2.mathworks.cn/downloads/message/error_page/unlicensed?release=R2021b)
+
+[安装 64位 MATLAB](https://ww2.mathworks.cn/help/install/ug/install-products-on-client-machines.html)
+
+### 配置环境
+
+[配置您的系统使用 Python](https://ww2.mathworks.cn/help/matlab/matlab_external/install-supported-python-implementation.html)
+
+#### 测试环境配置
+
+在 MATLAB 命令行窗口输入
+
+```
+pyenv
+```
+
+如返回
+
+```
+pe = 
+
+  PythonEnvironment - 属性:
+
+          Version: "3.8"
+       Executable: "C:\Anaconda3\envs\ak_test\python.exe"
+          Library: "C:\Anaconda3\envs\ak_test\python38.dll"
+             Home: "C:\Anaconda3\envs\ak_test"
+           Status: Loaded
+    ExecutionMode: InProcess
+        ProcessID: "26560"
+      ProcessName: "MATLAB"
+```
+
+则表示可以正常使用 ```C:\Anaconda3\envs\ak_test\python.exe``` 环境的 Python，同时确保在该
+环境中已经安装最新版的 AKShare。
+
+#### 测试调用 AKShare 接口
+
+在 MATLAB 命令行窗口输入
+
+```
+py.akshare.stock_zh_a_hist
+```
+
+如返回
+
+```
+ans = 
+
+  Python DataFrame - 属性:
+
+          T: [1×1 py.pandas.core.frame.DataFrame]
+         at: [1×1 py.pandas.core.indexing._AtIndexer]
+      attrs: [1×1 py.dict]
+       axes: [1×2 py.list]
+    columns: [1×1 py.pandas.core.indexes.base.Index]
+     dtypes: [1×1 py.pandas.core.series.Series]
+      empty: 0
+        iat: [1×1 py.pandas.core.indexing._iAtIndexer]
+       iloc: [1×1 py.pandas.core.indexing._iLocIndexer]
+      index: [1×1 py.pandas.core.indexes.range.RangeIndex]
+        loc: [1×1 py.pandas.core.indexing._LocIndexer]
+       ndim: [1×1 py.int]
+      shape: [1×2 py.tuple]
+       size: [1×1 py.numpy.int32]
+      style: [1×1 py.pandas.io.formats.style.Styler]
+     values: [1×1 py.numpy.ndarray]
+
+                  日期     开盘     收盘     最高  ...    振幅    涨跌幅   涨跌额   换手率
+    0     1991-04-03  49.00  49.00  49.00  ...  0.00  22.50  9.00  0.00
+    1     1991-04-04  48.76  48.76  48.76  ...  0.00  -0.49 -0.24  0.00
+    2     1991-04-05  48.52  48.52  48.52  ...  0.00  -0.49 -0.24  0.00
+    3     1991-04-06  48.28  48.28  48.28  ...  0.00  -0.49 -0.24  0.00
+    4     1991-04-08  48.04  48.04  48.04  ...  0.00  -0.50 -0.24  0.00
+    ...          ...    ...    ...    ...  ...   ...    ...   ...   ...
+    7298  2021-11-04  18.08  17.87  18.10  ...  1.66  -0.89 -0.16  0.51
+    7299  2021-11-05  17.85  17.64  18.00  ...  2.41  -1.29 -0.23  0.56
+    7300  2021-11-08  17.62  17.42  17.81  ...  2.55  -1.25 -0.22  0.71
+    7301  2021-11-09  17.48  17.53  17.65  ...  2.24   0.63  0.11  0.64
+    7302  2021-11-10  17.46  17.40  17.47  ...  1.77  -0.74 -0.13  0.63
+    
+    [7303 rows x 11 columns]
+```
+
+则表示可以在 MATLAB 中调用 AKShare 的数据接口。
+
+### 调用 AKShare
+
+#### 不带参数接口调用
+
+在 MATLAB 命令行窗口输入
+
+```
+py.akshare.macro_cnbs
+```
+
+如返回
+
+```
+ans = 
+
+  Python DataFrame - 属性:
+
+          T: [1×1 py.pandas.core.frame.DataFrame]
+         at: [1×1 py.pandas.core.indexing._AtIndexer]
+      attrs: [1×1 py.dict]
+       axes: [1×2 py.list]
+    columns: [1×1 py.pandas.core.indexes.base.Index]
+     dtypes: [1×1 py.pandas.core.series.Series]
+      empty: 0
+        iat: [1×1 py.pandas.core.indexing._iAtIndexer]
+       iloc: [1×1 py.pandas.core.indexing._iLocIndexer]
+      index: [1×1 py.pandas.core.indexes.range.RangeIndex]
+        loc: [1×1 py.pandas.core.indexing._LocIndexer]
+       ndim: [1×1 py.int]
+      shape: [1×2 py.tuple]
+       size: [1×1 py.numpy.int32]
+      style: [1×1 py.pandas.io.formats.style.Styler]
+     values: [1×1 py.numpy.ndarray]
+
+              年份       居民部门     非金融企业部门  ...      实体经济部门    金融部门资产方    金融部门负债方
+    0    1993-12   8.311222   91.658000  ...  107.791459   8.896441   7.128428
+    1    1994-12   7.808230   82.411703  ...   98.354271   9.808787   6.796868
+    2    1995-12   8.200000   81.000000  ...   97.900000  10.000000   7.000000
+    3    1996-03   8.400000   81.700000  ...   99.200000  10.200000   7.200000
+    4    1996-06   8.600000   82.100000  ...   99.700000  10.400000   7.400000
+    ..       ...        ...         ...  ...         ...        ...        ...
+    101  2020-09  61.700000  164.600000  ...  271.200000  55.800000  62.400000
+    102  2020-12  62.200000  162.300000  ...  270.100000  54.200000  62.700000
+    103  2021-03  62.100000  161.400000  ...  267.800000  52.800000  62.300000
+    104  2021-06  62.000000  158.800000  ...  265.400000  51.300000  61.700000
+    105  2021-09  62.100000  157.200000  ...  264.800000  49.200000  61.900000
+    
+    [106 rows x 9 columns]
+```
+
+则表示可以在 MATLAB 中调用 AKShare 的不带参数的接口。
+
+#### 带参数接口调用
+
+在 MATLAB 命令行窗口输入
+
+```
+% 注意其中的传参方式，从左到右，依次传递参数，形参（及其‘=’）都不需要，参数必须按顺序传递
+py.akshare.stock_zh_a_hist("000001", "daily", "20170301", '20210907', "")
+```
+
+如返回
+
+```
+ans = 
+
+  Python DataFrame - 属性:
+
+          T: [1×1 py.pandas.core.frame.DataFrame]
+         at: [1×1 py.pandas.core.indexing._AtIndexer]
+      attrs: [1×1 py.dict]
+       axes: [1×2 py.list]
+    columns: [1×1 py.pandas.core.indexes.base.Index]
+     dtypes: [1×1 py.pandas.core.series.Series]
+      empty: 0
+        iat: [1×1 py.pandas.core.indexing._iAtIndexer]
+       iloc: [1×1 py.pandas.core.indexing._iLocIndexer]
+      index: [1×1 py.pandas.core.indexes.range.RangeIndex]
+        loc: [1×1 py.pandas.core.indexing._LocIndexer]
+       ndim: [1×1 py.int]
+      shape: [1×2 py.tuple]
+       size: [1×1 py.numpy.int32]
+      style: [1×1 py.pandas.io.formats.style.Styler]
+     values: [1×1 py.numpy.ndarray]
+
+                  日期     开盘     收盘     最高  ...    振幅   涨跌幅   涨跌额   换手率
+    0     2017-03-01   9.49   9.49   9.55  ...  0.84  0.11  0.01  0.21
+    1     2017-03-02   9.51   9.43   9.54  ...  1.26 -0.63 -0.06  0.24
+    2     2017-03-03   9.41   9.40   9.43  ...  0.74 -0.32 -0.03  0.20
+    3     2017-03-06   9.40   9.45   9.46  ...  0.74  0.53  0.05  0.24
+    4     2017-03-07   9.44   9.45   9.46  ...  0.63  0.00  0.00  0.17
+    ...          ...    ...    ...    ...  ...   ...   ...   ...   ...
+    1100  2021-09-01  17.48  17.88  17.92  ...  5.11  0.45  0.08  1.19
+    1101  2021-09-02  18.00  18.40  18.78  ...  5.48  2.91  0.52  1.25
+    1102  2021-09-03  18.50  18.04  18.50  ...  4.35 -1.96 -0.36  0.72
+    1103  2021-09-06  17.93  18.45  18.60  ...  4.55  2.27  0.41  0.78
+    1104  2021-09-07  18.60  19.24  19.56  ...  6.56  4.28  0.79  0.84
+    
+    [1105 rows x 11 columns]
+```
+
+则表示可以在 MATLAB 中调用 AKShare 的带参数的接口。
+
 ## 安装报错解决方案
 
 ### 1. 安装 lxml 库失败的错误
