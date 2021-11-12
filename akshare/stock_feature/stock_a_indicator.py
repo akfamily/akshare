@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 def stock_a_lg_indicator(stock: str = "688388") -> pd.DataFrame:
     """
     市盈率, 市净率, 股息率数据接口
+    https://www.legulegu.com/stocklist
     :param stock: 通过 stock_a_indicator(stock="all") 来获取所有股票的代码
     :type stock: str
     :return: 市盈率, 市净率, 股息率查询
@@ -76,8 +77,9 @@ def stock_hk_eniu_indicator(symbol="hk01093", indicator="市盈率"):
 
 
 if __name__ == '__main__':
-    stock_a_lg_indicator_all_df = stock_a_lg_indicator(stock="all")
+    stock_a_lg_indicator_all_df = stock_a_lg_indicator(stock="688388")
     print(stock_a_lg_indicator_all_df)
+
     stock_a_lg_indicator_df = stock_a_lg_indicator(stock="000001")
     print(stock_a_lg_indicator_df)
 
