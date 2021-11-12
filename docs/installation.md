@@ -320,6 +320,26 @@ ans =
 
 则表示可以在 MATLAB 中调用 AKShare 的带参数的接口。
 
+### 转换数据格式
+
+#### 友情提示
+
+1. 首先感谢群友的帮助，特此提供在 MATLAB 中转化 Pandas 格式数据为在 MATLAB 中可以用的数据类型
+2. [下载该函数文件]((https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/py2matlab.m))到当前用户文件统一目录下
+
+#### 演示
+
+```
+% 导入 AKShare 库
+ak = py.importlib.import_module('akshare');
+% 代用 AKShare 数据接口
+temp_df = ak.stock_zh_a_hist();
+% 转化数据格式
+df = py2matlab(temp_df);
+% 展示获取到本地的数据
+disp(df)
+```
+
 ## 安装报错解决方案
 
 ### 1. 安装 lxml 库失败的错误
