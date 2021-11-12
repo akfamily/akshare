@@ -2691,4 +2691,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.15 fix: fix stock_board_industry_name_ths interface
 
 1.2.16 add: add stock_board_cons_ths interface
+
+1.2.17 fix: fix amac_fund_info interface
 ```
