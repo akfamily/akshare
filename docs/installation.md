@@ -39,7 +39,7 @@ P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://gith
 pip install akshare --upgrade -i https://pypi.org/simple
 ```
 
-## R 语言支持
+## R 语言调用支持
 
 ### 安装 Anaconda
 
@@ -393,5 +393,5 @@ pip install akshare --user
 
 ### 4. 提示其他的错误
 
-- 方法一: 确认并升级您的 Anaconda 或者 Python 到 64 位的 **Python3.7** 及以上版本
+- 方法一: 确认并升级您已安装 64 位的 **Python3.7** 及以上版本
 - 方法二: 使用 conda 的虚拟环境来安装, 详见 **[AKShare](https://github.com/akfamily/akshare) 环境配置** 板块的内容
