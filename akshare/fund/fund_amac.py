@@ -1,5 +1,5 @@
 """
-Date: 2021/10/22 11:28
+Date: 2021/11/12 17:28
 Desc: 中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版: http://gs.amac.org.cn
 中国证券投资基金业协会-旧版: http://www1.amac.org.cn/
@@ -8,6 +8,7 @@ Desc: 中国证券投资基金业协会-信息公示数据
 """
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 from akshare.fund.cons import (
     amac_member_info_url,
@@ -283,9 +284,22 @@ def amac_fund_info() -> pd.DataFrame:
     :return: 私募基金管理人基金产品
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 20 秒")
-    data = get_data(url=amac_fund_info_url, payload=amac_fund_info_payload)
-    need_data = data["content"]
+    url = 'https://gs.amac.org.cn/amac-infodisc/api/pof/fund'
+    params = {
+        'rand': '0.7665138514630696',
+        'page': '1',
+        'size': '100',
+    }
+    r = requests.post(url, params=params, json={}, verify=False)
+    data_json = r.json()
+    total_page = data_json['totalPages']
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, int(total_page)+1), leave=False):
+        params.update({'page': page})
+        r = requests.post(url, params=params, json={}, verify=False)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["content"])
+        big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "fundName",
         "managerName",
@@ -295,8 +309,7 @@ def amac_fund_info() -> pd.DataFrame:
         "establishDate",
         "mandatorName",
     ]  # 定义要取的 value 的 keys
-    manager_data_out = pd.DataFrame(need_data)
-    manager_data_out = manager_data_out[keys_list]
+    manager_data_out = big_df[keys_list]
     manager_data_out.columns = [
         "基金名称",
         "私募基金管理人名称",
