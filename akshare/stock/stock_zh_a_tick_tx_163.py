@@ -94,7 +94,7 @@ def stock_zh_a_tick_tx(
 
 
 def stock_zh_a_tick_163(
-    code: str = "sz000001", trade_date: str = "20210616"
+    code: str = "sz000400", trade_date: str = "20211112"
 ) -> pd.DataFrame:
     """
     成交明细-每个交易日 22:00 提供当日数据
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
     print(stock_zh_a_tick_tx_js_df)
 
-    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(code="sh600848", trade_date="20211104")
+    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(code="sh600848", trade_date="20211112")
     print(stock_zh_a_tick_tx_df)
 
     date_list = pd.date_range(start="20210601", end="20210613").tolist()
