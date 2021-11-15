@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/8 19:28
+Date: 2021/11/15 19:28
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -44,7 +44,7 @@ def _get_zh_a_page_count() -> int:
 def stock_zh_a_spot() -> pd.DataFrame:
     """
     新浪财经-所有 A 股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
-    http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
+    http://vip.stock.finance.sina.com.cn/mkt/#hs_a
     :return: 所有股票的实时行情数据
     :rtype: pandas.DataFrame
     """
@@ -376,7 +376,7 @@ def stock_zh_a_minute(
 
 
 if __name__ == "__main__":
-    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="sh600308", start_date="20171103", end_date="20211021", adjust="qfq")
+    stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(symbol="bj430047", start_date="20171103", end_date="20211115", adjust="qfq")
     print(stock_zh_a_daily_hfq_df_one)
 
     stock_zh_a_daily_hfq_df_three = stock_zh_a_daily(symbol="sz000001", start_date="19900103", end_date="20210118", adjust="qfq")
@@ -385,10 +385,10 @@ if __name__ == "__main__":
     stock_zh_a_daily_hfq_df_two = stock_zh_a_daily(symbol="sh000001", start_date="20101103", end_date="20210510")
     print(stock_zh_a_daily_hfq_df_two)
 
-    qfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust='qfq-factor')
+    qfq_factor_df = stock_zh_a_daily(symbol="bj430047", adjust='qfq-factor')
     print(qfq_factor_df)
 
-    hfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust='hfq-factor')
+    hfq_factor_df = stock_zh_a_daily(symbol="bj430047", adjust='hfq-factor')
     print(hfq_factor_df)
 
     stock_zh_a_daily_hfq_factor_df = stock_zh_a_daily(symbol="sz000002", adjust="hfq-factor")
@@ -405,10 +405,10 @@ if __name__ == "__main__":
     stock_zh_a_spot_df = stock_zh_a_spot()
     print(stock_zh_a_spot_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh603087", period="5", adjust="")
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol="bj430047", period="5", adjust="")
     print(stock_zh_a_minute_df)
 
-    stock_zh_a_minute_df = stock_zh_a_minute(symbol="sh603087", period="1", adjust="")
+    stock_zh_a_minute_df = stock_zh_a_minute(symbol="bj430047", period="1", adjust="")
     print(stock_zh_a_minute_df)
 
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(symbol="sh689009", start_date="19900101", end_date="22201116")

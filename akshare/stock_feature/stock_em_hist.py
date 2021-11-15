@@ -1039,10 +1039,10 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_hist_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454")
     print(stock_zh_a_hist_min_em_df)
 
-    stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="000001")
+    stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="833454")
     print(stock_zh_a_hist_pre_min_em_df)
 
     stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611")
@@ -1051,7 +1051,7 @@ if __name__ == "__main__":
     stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="105.ATER")
     print(stock_us_hist_min_em_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
     print(stock_zh_a_hist_min_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(symbol="833454", period="daily", start_date="20170301", end_date='20211115', adjust="hfq")
