@@ -333,10 +333,14 @@ def amac_member_sub_info() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-基金产品
 # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-def amac_fund_info() -> pd.DataFrame:
+def amac_fund_info(start_page: str = '1', end_page: str = "2000") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     http://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
+    :param start_page: 开始页码, 获取指定页码直接的数据
+    :type start_page: str
+    :param end_page: 结束页码, 获取指定页码直接的数据
+    :type end_page: str
     :return: 私募基金管理人基金产品
     :rtype: pandas.DataFrame
     """
@@ -348,9 +352,13 @@ def amac_fund_info() -> pd.DataFrame:
     }
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
-    total_page = data_json["totalPages"]
+    total_page = int(data_json["totalPages"])
+    if total_page > int(end_page):
+        real_end_page = int(end_page)
+    else:
+        real_end_page = total_page
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(int(start_page)-1, real_end_page), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -759,7 +767,7 @@ if __name__ == "__main__":
 
     # 中国证券投资基金业协会-信息公示-基金产品
     # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-    amac_fund_info_df = amac_fund_info()
+    amac_fund_info_df = amac_fund_info(start_page="1", end_page='5')
     print(amac_fund_info_df)
     example_df = amac_fund_info_df[amac_fund_info_df["私募基金管理人名称"].str.contains("聚宽")]
     print(example_df)
