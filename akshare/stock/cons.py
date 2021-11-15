@@ -30,7 +30,7 @@ zh_sina_a_stock_payload = {
     "asc": "1",
     "node": "hs_a",
     "symbol": "",
-    "_s_r_a": "init"
+    "_s_r_a": "page"
 }
 zh_sina_a_stock_count_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_a"
 zh_sina_a_stock_hist_url = "https://finance.sina.com.cn/realstock/company/{}/hisdata/klc_kl.js"
