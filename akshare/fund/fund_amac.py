@@ -248,7 +248,7 @@ def amac_manager_classify_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
