@@ -1644,9 +1644,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.20 fix: fix stock_zh_a_spot_em interface
 1.2.21 fix: fix stock_zh_a_hist interface
 1.2.22 fix: fix amac_fund_info interface
+1.2.23 add: add video_tv interface
 """
 
-__version__ = "1.2.22"
+__version__ = "1.2.23"
 __author__ = "Albert King"
 
 import sys
@@ -1656,6 +1657,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+艺恩-视频放映
+"""
+from akshare.movie.video_yien import video_variety_show, video_tv
 
 """
 同花顺-数据中心-技术选股

@@ -1747,7 +1747,7 @@ print(movie_boxoffice_monthly_df)
 
 目标地址: https://www.endata.com.cn/BoxOffice/BO/Year/index.html
 
-描述: 获取指定日期所在年度的票房数据
+描述: 指定日期所在年度的票房数据
 
 限量: 指定日期所在年度的票房数据, 只能获取最近年度的数据
 
