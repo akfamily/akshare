@@ -10,7 +10,7 @@ import pandas as pd
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
     """
-    东方财富-A股-实时行情
+    东方财富-沪深京 A 股-实时行情
     http://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
@@ -108,7 +108,7 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
 
 def stock_zh_b_spot_em() -> pd.DataFrame:
     """
-    东方财富-B 股-实时行情
+    东方财富- B 股-实时行情
     http://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
@@ -249,6 +249,25 @@ def _code_id_map() -> dict:
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
+
+    params = {
+        "pn": "1",
+        "pz": "5000",
+        "po": "1",
+        "np": "1",
+        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+        "fltt": "2",
+        "invt": "2",
+        "fid": "f3",
+        "fs": "m:0 t:81 s:2048",
+        "fields": "f12",
+        "_": "1623833739532",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
+    temp_df_sz["bj_id"] = 0
+    code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
     return code_id_dict
 
 
@@ -1016,7 +1035,7 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="000001", period='monthly', start_date="20101010", end_date="20210812", adjust="hfq"
+        symbol="833454", period='monthly', start_date="20101010", end_date="20210812", adjust="hfq"
     )
     print(stock_zh_a_hist_df)
 
@@ -1035,7 +1054,7 @@ if __name__ == "__main__":
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
     print(stock_zh_a_hist_min_em_df)
 
-    stock_zh_a_hist_df = stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="")
+    stock_zh_a_hist_df = stock_zh_a_hist(symbol="833454", period="daily", start_date="20170301", end_date='20211115', adjust="hfq")
     print(stock_zh_a_hist_df)
 
     stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611", period='1', adjust='', start_date="2021-11-01 09:32:00", end_date="2021-11-01 18:32:00")
