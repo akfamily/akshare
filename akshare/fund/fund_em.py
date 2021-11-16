@@ -37,7 +37,7 @@ def fund_em_fund_name() -> pd.DataFrame:
 
 def fund_em_open_fund_daily() -> pd.DataFrame:
     """
-    东方财富网站-天天基金网-基金数据-开放式基金净值
+    东方财富网-天天基金网-基金数据-开放式基金净值
     http://fund.eastmoney.com/fund.html#os_0;isall_0;ft_;pt_1
     :return: 当前交易日的所有开放式基金净值数据
     :rtype: pandas.DataFrame
