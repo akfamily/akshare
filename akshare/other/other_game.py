@@ -7,6 +7,7 @@ http://rank.uuu9.com/player/ranking
 """
 import requests
 import pandas as pd
+from bs4 import BeautifulSoup
 
 
 def club_rank_game(symbol: str = "英雄联盟") -> pd.DataFrame:
@@ -29,6 +30,9 @@ def club_rank_game(symbol: str = "英雄联盟") -> pd.DataFrame:
     url = "http://rank.uuu9.com/club/ranking"
     params = {"gameId": symbol_map[symbol], "type": "0"}
     r = requests.get(url, params=params)
+    soup = BeautifulSoup(r.text, "lxml")
+    data_text = soup.find("div", attrs={"class": "ec_data"}).text
+    report_date = data_text.split("：")[-1]
     temp_df = pd.read_html(r.text)[0]
     if symbol in {"英雄联盟", "王者荣耀", "DOTA2"}:
         temp_df.columns = [
@@ -72,6 +76,7 @@ def club_rank_game(symbol: str = "英雄联盟") -> pd.DataFrame:
                 "排名变动",
             ]
         ]
+    temp_df['更新时间'] = report_date
     return temp_df
 
 
@@ -95,6 +100,9 @@ def player_rank_game(symbol: str = "英雄联盟") -> pd.DataFrame:
     url = "http://rank.uuu9.com/player/ranking"
     params = {"gameId": symbol_map[symbol], "type": "0"}
     r = requests.get(url, params=params)
+    soup = BeautifulSoup(r.text, "lxml")
+    data_text = soup.find("div", attrs={"class": "ec_data"}).text
+    report_date = data_text.split("：")[-1]
     temp_df = pd.read_html(r.text)[0]
     if symbol == "王者荣耀":
         temp_df.columns = [
@@ -120,6 +128,7 @@ def player_rank_game(symbol: str = "英雄联盟") -> pd.DataFrame:
                 "排名变动",
             ]
         ]
+        temp_df['更新时间'] = report_date
         return temp_df
     if symbol in {"英雄联盟", "DOTA2"}:
         temp_df.columns = [
@@ -171,6 +180,7 @@ def player_rank_game(symbol: str = "英雄联盟") -> pd.DataFrame:
                 "排名变动",
             ]
         ]
+    temp_df['更新时间'] = report_date
     return temp_df
 
 

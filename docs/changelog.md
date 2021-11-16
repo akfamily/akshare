@@ -2715,4 +2715,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.27 add: add online_value_artist interface
 
 1.2.28 add: add club_rank_game interface
+
+1.2.29 add: add player_rank_game interface
 ```
