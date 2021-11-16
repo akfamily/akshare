@@ -941,6 +941,9 @@
  # 视频
  "video_tv"  # 电视剧集
  "video_variety_show"  # 综艺节目
+ # 电竞
+ "club_rank_game"  # 俱乐部排名
+ "player_rank_game"  # 选手排行榜
 ```
 
 ## 案例演示
