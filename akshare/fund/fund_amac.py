@@ -1,5 +1,5 @@
 """
-Date: 2021/11/13 20:48
+Date: 2021/11/16 15:48
 Desc: 中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版: http://gs.amac.org.cn
 中国证券投资基金业协会-旧版: http://www1.amac.org.cn/
@@ -60,7 +60,7 @@ def amac_member_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -113,7 +113,7 @@ def amac_person_fund_org_list() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(
             url, params=params, json={"orgType": "gmjjglgs", "page": "1"}, verify=False
@@ -195,7 +195,7 @@ def amac_manager_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -301,7 +301,7 @@ def amac_member_sub_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -410,7 +410,7 @@ def amac_securities_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -463,7 +463,7 @@ def amac_aoin_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -507,7 +507,7 @@ def amac_fund_sub_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -554,7 +554,7 @@ def amac_fund_account_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -596,7 +596,7 @@ def amac_fund_abs() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -654,7 +654,7 @@ def amac_futures_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
@@ -711,7 +711,7 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+    for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
