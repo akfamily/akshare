@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/15 20:40
-Desc: 艺恩-视频放映
-电视剧集
-综艺节目
-https://www.endata.com.cn/Video/index.html
+Date: 2021/11/16 20:40
+Desc: 艺恩-艺人
+艺人商业价值
+艺人流量价值
+https://www.endata.com.cn/Marketing/Artist/business.html
 """
 import json
 import os
+import datetime
 
 import pandas as pd  # type: ignore
 import requests
@@ -60,49 +61,59 @@ def decrypt(origin_data: str = "") -> str:
     return data
 
 
-def video_tv() -> pd.DataFrame:
+def business_value_artist() -> pd.DataFrame:
     """
-    艺恩-视频放映-电视剧集
-    https://www.endata.com.cn/Video/index.html
-    :return: 电视剧集
+    艺恩-艺人-艺人商业价值
+    https://www.endata.com.cn/Marketing/Artist/business.html
+    :return: 艺人商业价值
     :rtype: pandas.DataFrame
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
-    payload = {"tvType": 2, "MethodName": "BoxOffice_GetTvData_PlayIndexRank"}
+    payload = {
+            "Order": "BusinessValueIndex_L1",
+            "OrderType": "DESC",
+            "PageIndex": '1',
+            "PageSize": '100',
+            "MethodName": "Data_GetList_Star"
+    }
     r = requests.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    report_date = data_json["Data"]["Table1"][0]["MaxDate"]
-    temp_df.columns = ["排序", "名称", "类型", "播映指数", "用户热度", "媒体热度", "观看度", "好评度"]
-    temp_df = temp_df[["排序", "名称", "类型", "播映指数", "媒体热度", "用户热度", "好评度", "观看度"]]
-    temp_df["统计日期"] = report_date
+    temp_df.columns = ["排名", "-", "艺人", "商业价值", "-", "专业热度", "关注热度", "预测热度", "美誉度", "-"]
+    temp_df = temp_df[["排名", "艺人", "商业价值", "专业热度", "关注热度", "预测热度", "美誉度"]]
+    temp_df["统计日期"] = datetime.datetime.now().date().isoformat()
     return temp_df
 
 
-def video_variety_show() -> pd.DataFrame:
+def online_value_artist() -> pd.DataFrame:
     """
-    艺恩-视频放映-综艺节目
-    https://www.endata.com.cn/Video/index.html
-    :return: 综艺节目
+    艺恩-艺人-艺人流量价值
+    https://www.endata.com.cn/Marketing/Artist/business.html
+    :return: 艺人流量价值
     :rtype: pandas.DataFrame
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
-    payload = {"tvType": 8, "MethodName": "BoxOffice_GetTvData_PlayIndexRank"}
+    payload = {
+        "Order": "FlowValueIndex_L1",
+        "OrderType": "DESC",
+        "PageIndex": 1,
+        "PageSize": 100,
+        "MethodName": "Data_GetList_Star"
+    }
     r = requests.post(url, data=payload)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
-    report_date = data_json["Data"]["Table1"][0]["MaxDate"]
-    temp_df.columns = ["排序", "名称", "类型", "播映指数", "用户热度", "媒体热度", "观看度", "好评度"]
-    temp_df = temp_df[["排序", "名称", "类型", "播映指数", "媒体热度", "用户热度", "好评度", "观看度"]]
-    temp_df["统计日期"] = report_date
+    temp_df.columns = ["排名", "-", "艺人", "-", "流量价值", "专业热度", "关注热度", "预测热度", "-", "带货力"]
+    temp_df = temp_df[["排名", "艺人", "流量价值", "专业热度", "关注热度", "预测热度", "带货力"]]
+    temp_df["统计日期"] = datetime.datetime.now().date().isoformat()
     return temp_df
 
 
 if __name__ == "__main__":
-    video_tv_df = video_tv()
-    print(video_tv_df)
+    business_value_artist_df = business_value_artist()
+    print(business_value_artist_df)
 
-    video_variety_show_df = video_variety_show()
-    print(video_variety_show_df)
+    online_value_artist_df = online_value_artist()
+    print(online_value_artist_df)
