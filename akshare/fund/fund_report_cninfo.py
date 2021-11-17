@@ -234,7 +234,7 @@ if __name__ == "__main__":
     fund_report_stock_cninfo_df = fund_report_stock_cninfo(date="20210630")
     print(fund_report_stock_cninfo_df)
 
-    fund_report_industry_allocation_cninfo_df = fund_report_industry_allocation_cninfo(date="20210630")
+    fund_report_industry_allocation_cninfo_df = fund_report_industry_allocation_cninfo(date="20210930")
     print(fund_report_industry_allocation_cninfo_df)
 
     fund_report_asset_allocation_cninfo_df = fund_report_asset_allocation_cninfo()
