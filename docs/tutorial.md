@@ -944,6 +944,10 @@
  # 电竞
  "club_rank_game"  # 俱乐部排名
  "player_rank_game"  # 选手排行榜
+ # 基金数据-分红送配
+ "fund_cf_em"  # 基金拆分
+ "fund_fh_rank_em"  # 基金分红排行
+ "fund_fh_em"  # 基金分红
 ```
 
 ## 案例演示

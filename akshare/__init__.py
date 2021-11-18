@@ -1654,9 +1654,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.30 add: add business_value_artist interface
 1.2.31 fix: fix stock_em_zt_pool interface
 1.2.32 add: add video_variety_show interface
+1.2.33 add: add fund_fh_em interface
 """
 
-__version__ = "1.2.32"
+__version__ = "1.2.33"
 __author__ = "Albert King"
 
 import sys
@@ -1666,6 +1667,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+天天基金网-基金数据-分红送配
+"""
+from akshare.fund.fund_fhsp_em import fund_cf_em, fund_fh_rank_em, fund_fh_em
 
 """
 中国电竞价值排行榜

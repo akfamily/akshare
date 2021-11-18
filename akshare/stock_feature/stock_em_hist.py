@@ -249,7 +249,6 @@ def _code_id_map() -> dict:
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
-
     params = {
         "pn": "1",
         "pz": "5000",
@@ -279,7 +278,7 @@ def stock_zh_a_hist(
         adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-上证 A 股-每日行情
+    东方财富网-行情首页-沪深京 A 股-每日行情
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
@@ -353,7 +352,7 @@ def stock_zh_a_hist_min_em(
         end_date: str = "2222-01-01 09:32:00",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-上证 A 股-每日分时行情
+    东方财富网-行情首页-沪深京 A 股-每日分时行情
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
@@ -474,7 +473,7 @@ def stock_zh_a_hist_pre_min_em(symbol: str = "000001",
                                end_time: str = "15:50:00",
                                ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-上证 A 股-每日分时行情包含盘前数据
+    东方财富网-行情首页-沪深京 A 股-每日分时行情包含盘前数据
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
@@ -611,7 +610,7 @@ def stock_hk_hist(
         adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-港股-每日行情
+    东方财富网-行情-港股-每日行情
     http://quote.eastmoney.com/hk/08367.html
     :param symbol: 港股-每日行情
     :type symbol: str
@@ -676,7 +675,7 @@ def stock_hk_hist_min_em(symbol: str = "01611",
                          end_date: str = "2222-01-01 09:32:00",
                          ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-港股-每日分时行情
+    东方财富网-行情-港股-每日分时行情
     http://quote.eastmoney.com/hk/00948.html
     :param symbol: 股票代码
     :type symbol: str
@@ -889,7 +888,7 @@ def stock_us_hist(
         adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-美股-每日行情
+    东方财富网-行情-美股-每日行情
     http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
     :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em 的 `代码` 字段获取
     :type symbol: str
