@@ -777,7 +777,7 @@ def fund_em_hk_fund_hist(
     code: str = "1002200683", symbol: str = "历史净值明细"
 ) -> pd.DataFrame:
     """
-    东方财富网站-天天基金网-基金数据-香港基金-历史净值明细(分红送配详情)
+    东方财富网-天天基金网-基金数据-香港基金-历史净值明细(分红送配详情)
     http://overseas.1234567.com.cn/f10/FundJz/968092#FHPS
     :param code: 通过 fund_em_hk_rank 获取
     :type code: str
