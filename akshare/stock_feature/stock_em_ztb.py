@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/17 18:50
+Date: 2021/11/18 14:50
 Desc: 首页-行情中心-涨停板行情-涨停股池
 http://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -18,7 +18,7 @@ import pandas as pd
 import requests
 
 
-def stock_em_zt_pool(date: str = '20210525') -> pd.DataFrame:
+def stock_em_zt_pool(date: str = '20211118') -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-涨停股池
     http://quote.eastmoney.com/ztb/detail#type=ztgc
@@ -80,6 +80,7 @@ def stock_em_zt_pool(date: str = '20210525') -> pd.DataFrame:
     ]]
     temp_df['首次封板时间'] = temp_df['首次封板时间'].astype(str).str.zfill(6)
     temp_df['最后封板时间'] = temp_df['最后封板时间'].astype(str).str.zfill(6)
+    temp_df['最新价'] = temp_df['最新价'] / 1000
     return temp_df
 
 
@@ -417,7 +418,7 @@ def stock_em_zt_pool_dtgc(date: str = '20210903') -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_em_zt_pool_df = stock_em_zt_pool(date='20210525')
+    stock_em_zt_pool_df = stock_em_zt_pool(date='20211118')
     print(stock_em_zt_pool_df)
 
     stock_em_zt_pool_previous_df = stock_em_zt_pool_previous(date='20210525')

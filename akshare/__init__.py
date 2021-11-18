@@ -1652,9 +1652,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.28 add: add club_rank_game interface
 1.2.29 add: add player_rank_game interface
 1.2.30 add: add business_value_artist interface
+1.2.31 fix: fix stock_em_zt_pool interface
 """
 
-__version__ = "1.2.30"
+__version__ = "1.2.31"
 __author__ = "Albert King"
 
 import sys
