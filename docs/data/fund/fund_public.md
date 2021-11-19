@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/akfamily/akshare) 公募数据
+## [AKShare](https://github.com/akfamily/akshare) 公募基金数据
 
 ### 基金基本信息
 

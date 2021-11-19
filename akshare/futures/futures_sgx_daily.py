@@ -5,7 +5,6 @@ Date: 2020/3/14 0:25
 Desc: Futures data from Singapore Exchange
 https://www.sgx.com/zh-hans/research-education/derivatives
 https://links.sgx.com/1.0.0/derivatives-daily/5888/FUTURE.zip
-
 """
 import zipfile
 from io import BytesIO
@@ -53,5 +52,5 @@ def futures_sgx_daily(trade_date: str = "20200306", recent_day: str = "3") -> pd
 
 
 if __name__ == '__main__':
-    futures_sgx_daily_df = futures_sgx_daily(trade_date="20210123", recent_day="2")
+    futures_sgx_daily_df = futures_sgx_daily(trade_date="20211118", recent_day="2")
     print(futures_sgx_daily_df)
