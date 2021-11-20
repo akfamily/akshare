@@ -105,7 +105,7 @@ def fund_em_open_fund_daily() -> pd.DataFrame:
 
 
 def fund_em_open_fund_info(
-    fund: str = "710001", indicator: str = "单位净值走势"
+    fund: str = "580007", indicator: str = "单位净值走势"
 ) -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-开放式基金净值
@@ -279,13 +279,21 @@ def fund_em_open_fund_info(
     if indicator == "分红送配详情":
         url = f"http://fundf10.eastmoney.com/fhsp_{fund}.html"
         r = requests.get(url, headers=headers)
-        return pd.read_html(r.text)[1]
+        temp_df = pd.read_html(r.text)[1]
+        if temp_df.iloc[0, 1] == '暂无分红信息!':
+            return None
+        else:
+            return temp_df
 
     # 拆分详情
     if indicator == "拆分详情":
         url = f"http://fundf10.eastmoney.com/fhsp_{fund}.html"
         r = requests.get(url, headers=headers)
-        return pd.read_html(r.text)[2]
+        temp_df = pd.read_html(r.text)[2]
+        if temp_df.iloc[0, 1] == '暂无拆分信息!':
+            return None
+        else:
+            return temp_df
 
 
 def fund_em_money_fund_daily() -> pd.DataFrame:

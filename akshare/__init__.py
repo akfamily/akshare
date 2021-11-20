@@ -1656,9 +1656,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.32 add: add video_variety_show interface
 1.2.33 add: add fund_fh_em interface
 1.2.34 fix: fix fund_em_open_fund_info interface
+1.2.35 fix: fix fund_em_open_fund_info interface
 """
 
-__version__ = "1.2.34"
+__version__ = "1.2.35"
 __author__ = "Albert King"
 
 import sys
