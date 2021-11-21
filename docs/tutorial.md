@@ -493,6 +493,7 @@
  # 股票信息
  "stock_info_sz_name_code"  # 深证证券交易所股票代码和简称
  "stock_info_sh_name_code"  # 上海证券交易所股票代码和简称
+ "stock_info_bj_name_code"  # 北京证券交易所股票代码和简称
  "stock_info_sh_delist"  # 上海证券交易所暂停和终止上市
  "stock_info_sz_delist"  # 深证证券交易所暂停和终止上市
  "stock_info_sz_change_name"  # 深证证券交易所股票曾用名详情
