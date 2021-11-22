@@ -17,7 +17,7 @@ def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://push2ex.eastmoney.com/getAllStockChanges"
-    type_map = {
+    symbol_map = {
         "火箭发射": "8201",
         "快速反弹": "8202",
         "大笔买入": "8193",
@@ -41,9 +41,9 @@ def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
         "60日新低": "8214",
         "60日大幅下跌": "8216",
     }
-    reversed_type_map = {v: k for k, v in type_map.items()}
+    reversed_symbol_map = {v: k for k, v in symbol_map.items()}
     params = {
-        "type": type_map[symbol],
+        "type": symbol_map[symbol],
         "pageindex": "0",
         "pagesize": "5000",
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
@@ -72,11 +72,14 @@ def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
         ]
     ]
     temp_df["板块"] = temp_df["板块"].astype(str)
-    temp_df["板块"] = temp_df["板块"].map(reversed_type_map)
+    temp_df["板块"] = temp_df["板块"].map(reversed_symbol_map)
     return temp_df
 
 
 if __name__ == "__main__":
+    stock_changes_em_df = stock_changes_em(symbol='火箭发射')
+    print(stock_changes_em_df)
+
     for item in {'火箭发射', '快速反弹', '大笔买入', '封涨停板', '打开跌停板', '有大买盘', '竞价上涨', '高开5日线', '向上缺口', '60日新高', '60日大幅上涨', '加速下跌', '高台跳水', '大笔卖出', '封跌停板', '打开涨停板', '有大卖盘', '竞价下跌', '低开5日线', '向下缺口', '60日新低', '60日大幅下跌'}:
         stock_changes_em_df = stock_changes_em(symbol=item)
         print(stock_changes_em_df)
