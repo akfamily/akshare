@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/21 14:34
-Desc: 新浪财经-外盘期货-实时数据获取
+Date: 2021/11/22 16:34
+Desc: 新浪财经-外盘期货-实时数据
 http://finance.sina.com.cn/money/future/hf.html
 """
 import time
@@ -114,6 +114,7 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
         "伦敦铂金",
         "伦敦钯金",
         "马棕油",
+        "欧洲碳排放",
     ]
     data_df = data_df[
         [
