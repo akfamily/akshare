@@ -110,7 +110,7 @@ def fund_cf_em() -> pd.DataFrame:
 def fund_fh_rank_em() -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金分红排行
-    http://fund.eastmoney.com/data/fundleijifenhong.html#FHFCZ,desc,1,,
+    http://fund.eastmoney.com/data/fundleijifenhong.html
     :return: 基金分红排行
     :rtype: pandas.DataFrame
     """
