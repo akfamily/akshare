@@ -3288,7 +3288,7 @@ print(futures_spot_stock_df)
 
 | 名称   | 类型 | 描述       |
 | -------- | ---- | --- |
-| symbol | str | symbol="IF2008"; 具体合约, 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取 |
+| symbol | str | symbol="IF2008"; 具体合约(期货品种符号需要大写), 可以通过调用 ak.match_main_contract(exchange="cffex") 接口获取, 或者访问网页获取 |
 | period | str |  period="1"; choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"} |
 
 输出参数

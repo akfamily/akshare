@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/21 21:31
+Date: 2021/11/23 20:31
 Desc: 股票基本信息
 """
 import json
@@ -144,6 +144,32 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
     text_data = r.text
     json_data = json.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["result"])
+    temp_df.columns = [
+        '-',
+        '公司简称',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '简称',
+        '代码',
+        '-',
+        '-',
+        '公司代码',
+        '-',
+        '上市日期',
+    ]
+    temp_df = temp_df[[
+        '公司代码',
+        '公司简称',
+        '代码',
+        '简称',
+        '上市日期',
+    ]]
+    temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期']).dt.date
     return temp_df
 
 
@@ -242,7 +268,7 @@ def stock_info_bj_name_code() -> pd.DataFrame:
     return big_df
 
 
-def stock_info_sh_delist(indicator: str = "暂停上市公司"):
+def stock_info_sh_delist(indicator: str = "终止上市公司") -> pd.DataFrame:
     """
     上海证券交易所-暂停上市公司-终止上市公司
     http://www.sse.com.cn/assortment/stock/list/firstissue/
@@ -277,6 +303,34 @@ def stock_info_sh_delist(indicator: str = "暂停上市公司"):
     text_data = r.text
     json_data = json.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["result"])
+    temp_df.columns = [
+        '-',
+        '-',
+        '终止上市后股份转让代码',
+        '-',
+        '终止上市后股份转让主办券商',
+        '终止上市后股份转让副主办券商',
+        '终止上市日期',
+        '-',
+        '原公司简称',
+        '原公司代码',
+        '-',
+        '-',
+        '-',
+        '-',
+        '上市日期',
+    ]
+    temp_df = temp_df[[
+        '原公司代码',
+        '原公司简称',
+        '上市日期',
+        '终止上市日期',
+        '终止上市后股份转让代码',
+        '终止上市后股份转让主办券商',
+        '终止上市后股份转让副主办券商',
+    ]]
+    temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期']).dt.date
+    temp_df['终止上市日期'] = pd.to_datetime(temp_df['终止上市日期']).dt.date
     return temp_df
 
 
