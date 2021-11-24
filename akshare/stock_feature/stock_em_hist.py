@@ -10,7 +10,7 @@ import pandas as pd
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
     """
-    东方财富-沪深京 A 股-实时行情
+    东方财富网-沪深京 A 股-实时行情
     http://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
@@ -288,7 +288,7 @@ def stock_zh_a_hist(
     :type start_date: str
     :param end_date: 结束日期
     :type end_date: str
-    :param adjust: choice of {"qfq": "1", "hfq": "2", "": "不复权"}
+    :param adjust: choice of {"qfq": "前复权", "hfq": "后复权", "": "不复权"}
     :type adjust: str
     :return: 每日行情
     :rtype: pandas.DataFrame
@@ -1034,7 +1034,7 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="833454", period='monthly', start_date="20101010", end_date="20210812", adjust="hfq"
+        symbol="000001", period='daily', start_date="20101010", end_date="20211124", adjust="hfq"
     )
     print(stock_zh_a_hist_df)
 
