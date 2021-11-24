@@ -7,12 +7,13 @@ http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjgmall
 """
 import pandas as pd
 import requests
+
 from akshare.utils import demjson
 
 
 def fund_scale_open_sina(symbol: str = "股票型基金") -> pd.DataFrame:
     """
-    基金数据中心-基金规模-开放式基金
+    新浪财经-基金数据中心-基金规模-开放式基金
     http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
     :param symbol: choice of {"股票型基金", "混合型基金", "债券型基金", "货币型基金", "QDII基金"}
     :type symbol: str
@@ -89,7 +90,7 @@ def fund_scale_open_sina(symbol: str = "股票型基金") -> pd.DataFrame:
 
 def fund_scale_close_sina() -> pd.DataFrame:
     """
-    基金数据中心-基金规模-封闭式基金
+    新浪财经-基金数据中心-基金规模-封闭式基金
     http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
     :return: 基金规模
     :rtype: pandas.DataFrame
@@ -157,7 +158,7 @@ def fund_scale_close_sina() -> pd.DataFrame:
 
 def fund_scale_structured_sina() -> pd.DataFrame:
     """
-    基金数据中心-基金规模-分级子基金
+    新浪财经-基金数据中心-基金规模-分级子基金
     http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
     :return: 基金规模
     :rtype: pandas.DataFrame
