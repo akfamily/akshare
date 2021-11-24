@@ -3,7 +3,7 @@
 """
 Date: 2021/11/24 15:39
 Desc: 天天基金网-基金数据-规模份额
-http://fund.eastmoney.com/data/cyrjglist.html#dt11;pi1;pn50;stdesc;screportdate
+http://fund.eastmoney.com/data/cyrjglist.html
 """
 import requests
 import pandas as pd
