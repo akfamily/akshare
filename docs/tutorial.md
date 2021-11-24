@@ -949,6 +949,9 @@
  "fund_cf_em"  # 基金拆分
  "fund_fh_rank_em"  # 基金分红排行
  "fund_fh_em"  # 基金分红
+ # 基金数据-规模变动
+ "fund_scale_change_em"  # 规模变动
+ "fund_hold_structure_em"  # 持有人结构
 ```
 
 ## 案例演示

@@ -11,7 +11,7 @@ import pandas as pd
 
 def stock_board_concept_name_em() -> pd.DataFrame:
     """
-    东方财富-沪深板块-概念板块-名称
+    东方财富网-沪深板块-概念板块-名称
     http://quote.eastmoney.com/center/boardlist.html#concept_board
     :return: 概念板块-名称
     :rtype: pandas.DataFrame
@@ -93,7 +93,7 @@ def stock_board_concept_name_em() -> pd.DataFrame:
 
 def stock_board_concept_hist_em(symbol: str = "数字货币", adjust: str = "") -> pd.DataFrame:
     """
-    东方财富-沪深板块-概念板块-历史行情
+    东方财富网-沪深板块-概念板块-历史行情
     http://quote.eastmoney.com/bk/90.BK0715.html
     :param symbol: 板块名称
     :type symbol: str
