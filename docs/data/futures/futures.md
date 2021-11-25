@@ -3142,67 +3142,41 @@ date
 2019-11-27  4.83678
 ```
 
-### CFMMC指数
+### CSCIDX指数
 
-警告：目前由于指数转移到中证商品指数有限责任公司管理，目前尚未发布指数，本接口待网站更新后再行维护
+接口: futures_index_cscidx
 
-接口: futures_index_cfmmc
+目标地址: http://www.cscidx.com/index.html
 
-目标地址: http://index.cfmmc.com/index/views/index.html
+描述: 中证商品指数-指数分时数据
 
-描述: 中国期货市场监控中心-各类指数数据
-
-限量: 单次返回指定 index_name 的数据
+限量: 单次返回指定 symbol 的指数分时数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| index_name | str | Y | index_name="商品综合指数"; 从 **CFMMC指数一览表** 或者通过调用 **futures_index_dict** 接口获取|
-| start_date | str | Y | start_date="2010-01-01"; 指数数据一般都是 **2010** 年之后开始|
-| end_date | str | Y | end_date="2020-04-06"; 自定义结束时间|
-
-CFMMC指数一览表
-
-|指数名称|指定代码|
-|----|----|
-|商品期货指数     |    CCFI        |
-|农产品期货指数    |    CAFI        |
-|油脂油料期货指数   |    OOFI        |
-|谷物期货指数     |    CRFI        |
-|油脂期货指数     |    OIFI        |
-|粮食期货指数     |    GRFI        |
-|软商品期货指数    |    SOFI        |
-|饲料期货指数     |    FEFI        |
-|工业品期货指数    |    CIFI        |
-|钢铁期货指数     |    STFI        |
-|建材期货指数     |    BMFI        |
-|能化期货指数     |    ECFI        |
-|商品综合指数     |    CCCI        |
-|林木综合指数     |    FWCI        |
-|能化综合指数     |    ECCI        |
-|金属综合指数     |    MECI        |
-|农畜综合指数     |    ALCI        |
+| 名称   | 类型 |  描述   |
+| -------- | ---- |  --- |
+| symbol | str |  symbol="中证监控油脂油料期货指数"; choice of {"中证监控软商品期货指数", "中证监控油脂油料期货指数", "中证监控饲料期货指数", "中证监控能化期货指数", "中证监控钢铁期货指数", "中证监控建材期货指数"}|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 交易日期      | str   | Y        |   |
-| 指数名称      | str   | Y        |   |
-| 昨收盘      | float   | Y        |   |
-| 今开盘      | float   | Y        |   |
-| 最高价      | float   | Y        |   |
-| 最低价      | float   | Y        |   |
-| 今收盘      | float   | Y        |   |
-| 涨幅      | float   | Y        |   |
+| 名称          | 类型 | 描述           |
+| --------------- | ----- |  ---------------- |
+| 交易日期      | str   |   |
+| 指数名称      | str   |    |
+| 昨收盘      | float   |    |
+| 今开盘      | float   |    |
+| 最高价      | float   |   |
+| 最低价      | float   |    |
+| 今收盘      | float   |    |
+| 涨幅      | float   |   |
 						
 接口示例
 
 ```python
 import akshare as ak
-futures_index_cfmmc_df = ak.futures_index_cscidx(index_name="林木综合指数", start_date="2010-01-01", end_date="2020-04-06")
-print(futures_index_cfmmc_df)
+futures_index_cscidx_df = ak.futures_index_cscidx(index_name="林木综合指数", start_date="2010-01-01", end_date="2020-04-06")
+print(futures_index_cscidx_df)
 ```
 
 数据示例
