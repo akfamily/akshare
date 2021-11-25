@@ -403,7 +403,7 @@ def stock_info_change_name(stock: str = "688588") -> pd.DataFrame:
         name_list = temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
         return name_list
     except:
-        return None
+        return pd.DataFrame()
 
 
 def stock_info_a_code_name() -> pd.DataFrame:
@@ -414,8 +414,7 @@ def stock_info_a_code_name() -> pd.DataFrame:
     """
     big_df = pd.DataFrame()
     stock_sh = stock_info_sh_name_code(indicator="主板A股")
-    stock_sh = stock_sh[["SECURITY_CODE_A", "SECURITY_ABBR_A"]]
-    stock_sh.columns = ["公司代码", "公司简称"]
+    stock_sh = stock_sh[["公司代码", "公司简称"]]
 
     stock_sz = stock_info_sz_name_code(indicator="A股列表")
     stock_sz["A股代码"] = stock_sz["A股代码"].astype(str).str.zfill(6)
@@ -423,8 +422,7 @@ def stock_info_a_code_name() -> pd.DataFrame:
     big_df.columns = ["公司代码", "公司简称"]
 
     stock_kcb = stock_info_sh_name_code(indicator="科创板")
-    stock_kcb = stock_kcb[["SECURITY_CODE_A", "SECURITY_ABBR_A"]]
-    stock_kcb.columns = ["公司代码", "公司简称"]
+    stock_kcb = stock_kcb[["公司代码", "公司简称"]]
 
     stock_bse = stock_info_bj_name_code()
     stock_bse = stock_bse[["证券代码", "证券简称"]]
