@@ -403,7 +403,7 @@ def stock_info_change_name(stock: str = "688588") -> pd.DataFrame:
         name_list = temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
         return name_list
     except:
-        return None
+        return pd.DataFrame()
 
 
 def stock_info_a_code_name() -> pd.DataFrame:
