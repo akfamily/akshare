@@ -13,7 +13,7 @@ def stock_zh_index_hist_csindex(
     symbol: str = "H30374", start_date: str = "20160101", end_date: str = "20211015"
 ) -> pd.DataFrame:
     """
-    中证指数获取某个指数的历史行情数据
+    中证指数-具体指数-历史行情数据
     P.S. 只有收盘价，正常情况下不应使用该接口，除非指数只有中证网站有
     https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/detail?indexCode=H30374
     :param symbol: 指数代码; e.g., H30374
@@ -222,7 +222,7 @@ def index_value_hist_funddb(
 
 if __name__ == "__main__":
     stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(
-        symbol="H30374", start_date="20100101", end_date="20211015"
+        symbol="H30374", start_date="20100101", end_date="20211125"
     )
     print(stock_zh_index_hist_csindex_df)
 
