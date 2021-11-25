@@ -1026,7 +1026,7 @@ if __name__ == "__main__":
     print(stock_us_spot_em_df)
 
     stock_us_hist_df = stock_us_hist(
-        symbol="105.MTP", start_date="19700101", end_date="22220101", adjust="qfq"
+        symbol="105.LCID", start_date="19700101", end_date="22220101", adjust="qfq"
     )
     print(stock_us_hist_df)
 
