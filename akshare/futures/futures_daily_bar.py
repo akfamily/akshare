@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/20 20:58
+Date: 2021/11/25 17:23
 Desc: 期货日线行情
 """
 import datetime
@@ -181,17 +181,20 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return None
     if day > datetime.date(2010, 8, 24):
-        if day > datetime.date(2015, 9, 19):
+        if day > datetime.date(2015, 11, 11):
             u = cons.CZCE_DAILY_URL_3
             url = u % (day.strftime("%Y"), day.strftime("%Y%m%d"))
-        elif day < datetime.date(2015, 9, 19):
+        elif day <= datetime.date(2015, 11, 11):
             u = cons.CZCE_DAILY_URL_2
             url = u % (day.strftime("%Y"), day.strftime("%Y%m%d"))
         listed_columns = cons.CZCE_COLUMNS
         output_columns = cons.OUTPUT_COLUMNS
         try:
             r = requests.get(url)
-            html = r.text
+            if datetime.date(2015, 11, 12) <= day <= datetime.date(2017, 12, 27):
+                html = str(r.content, encoding="gbk")
+            else:
+                html = r.text
         except requests.exceptions.HTTPError as reason:
             if reason.response.status_code != 404:
                 print(
@@ -199,16 +202,16 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
                     % (day.strftime("%Y"), day.strftime("%Y%m%d")),
                     reason,
                 )
-            return
+            return None
         if html.find("您的访问出错了") >= 0 or html.find("无期权每日行情交易记录") >= 0:
-            return
+            return None
         html = [
             i.replace(" ", "").split("|")
             for i in html.split("\n")[:-4]
             if i[0][0] != "小"
         ]
 
-        if day > datetime.date(2015, 9, 19):
+        if day > datetime.date(2015, 11, 11):
             if html[1][0] not in ["品种月份", "品种代码", "合约代码"]:
                 return
             dict_data = list()
@@ -235,7 +238,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
                 dict_data.append(row_dict)
 
             return pd.DataFrame(dict_data)[output_columns]
-        elif day < datetime.date(2015, 9, 19):
+        elif day <= datetime.date(2015, 11, 11):
             dict_data = list()
             day_const = int(day.strftime("%Y%m%d"))
             for row in html[1:]:
@@ -612,7 +615,7 @@ if __name__ == "__main__":
     get_ine_daily_df = get_ine_daily(date="20210426")
     print(get_ine_daily_df)
 
-    get_czce_daily_df = get_czce_daily(date="20210416")
+    get_czce_daily_df = get_czce_daily(date="20151111")
     print(get_czce_daily_df)
 
     get_shfe_daily_df = get_shfe_daily(date="20160104")
