@@ -209,7 +209,6 @@ def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
