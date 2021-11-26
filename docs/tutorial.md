@@ -952,6 +952,10 @@
  # 基金数据-规模变动
  "fund_scale_change_em"  # 规模变动
  "fund_hold_structure_em"  # 持有人结构
+ # 行业板块
+ "stock_board_industry_cons_em"  # 行业板块-板块成份
+ "stock_board_industry_hist_em"  # 行业板块-历史行情
+ "stock_board_industry_name_em"  # 行业板块-板块名称
 ```
 
 ## 案例演示
