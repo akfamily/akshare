@@ -633,9 +633,9 @@ print(covid_19_163_df)
 
 接口: covid_19_dxy
 
-目标地址: http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0
+目标地址: https://ncov.dxy.cn/ncovh5/view/pneumonia
 
-描述: 获取丁香园-新型冠状病毒肺炎-疫情数据
+描述: 丁香园-新型冠状病毒肺炎-疫情数据
 
 限量: 单次返回指定 **indicator** 数据
 
