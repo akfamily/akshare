@@ -182,7 +182,7 @@ def stock_board_industry_hist_em(symbol: str = "小金属", adjust: str = "") ->
 
 def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
     """
-    东方财富-沪深板块-行业板块-板块成份
+    东方财富网-沪深板块-行业板块-板块成份
     https://data.eastmoney.com/bkzj/BK1027.html
     :param symbol: 板块名称
     :type symbol: str
@@ -209,7 +209,6 @@ def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
