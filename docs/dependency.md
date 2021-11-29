@@ -18,7 +18,7 @@
     1. 由于 [PyExecJS](https://pypi.org/project/PyExecJS/) 在 20180118 推出最后一个版本后，主要的开发者
     不再对该库进行升级维护，导致部分问题无法通过升级该库来修复，该库的 [GitHub 地址](https://github.com/doloopwhile/PyExecJS) 可以访问如下地址，所以未采用该库;
     2. [Js2Py](https://pypi.org/project/Js2Py/) 是目前比较使用量较大和维护较好的库，其 [GitHub 地址](https://github.com/PiotrDabkowski/Js2Py) 但是
-    考虑到在测试中，对部分 Javascript 代码的运行不稳定，所以未采用该库。
+    考虑到在测试中，对部分 Javascript 代码的运行不稳定，所以没有使用该库。
 
 #### pandas
 
