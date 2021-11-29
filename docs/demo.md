@@ -21,6 +21,11 @@
 基础上，我们只需要 ```pip install backtrader``` 就可以实现一键安装。如果需要了解 [AKShare](https://github.com/akfamily/akshare) 的
 环境配置，请参考 [AKShare 环境配置](https://www.akshare.xyz/zh_CN/latest/anaconda.html) 来设置本地环境。想要通过源码来安装的小伙伴，可以访问 [Backtrader 的 GitHub 地址](https://github.com/mementum/backtrader) 来下载安装，由于源码安装比较繁琐，建议直接通过 ```pip``` 或 ```conda``` 来安装和使用。需要注意的是如果要输出图形，请安装 ```pip install matplotlib==3.2.2```
 
+### Backtrader 系列教程
+
+1. [Backtrader-系列教程-01-介绍](https://zhuanlan.zhihu.com/p/418247765)
+2. [Backtrader-系列教程-02-环境配置](https://zhuanlan.zhihu.com/p/418255493)
+
 ### 股票策略
 
 #### 基本策略
