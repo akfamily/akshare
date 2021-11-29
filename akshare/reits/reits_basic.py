@@ -54,7 +54,6 @@ def reits_realtime_em() -> pd.DataFrame:
         axis=1,
         inplace=True,
     )
-
     temp_df = temp_df[
         [
             "序号",
@@ -76,7 +75,7 @@ def reits_realtime_em() -> pd.DataFrame:
 
 def reits_info_jsl() -> pd.DataFrame:
     """
-    集思录-实时数据-REITs-A股 REITs
+    集思录-实时数据-REITs-A 股 REITs
     https://www.jisilu.cn/data/cnreits/#CnReits
     :return: A股 REITs
     :rtype: pandas.DataFrame
@@ -110,7 +109,6 @@ def reits_info_jsl() -> pd.DataFrame:
         axis=1,
         inplace=True,
     )
-
     temp_df = temp_df[
         [
             "代码",
