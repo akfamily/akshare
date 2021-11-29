@@ -8,7 +8,7 @@
 
 目标地址: https://datacenter.jin10.com/reportType/dc_usa_interest_rate_decision
 
-描述: 获取美联储利率决议报告, 数据区间从19820927-至今
+描述: 美联储利率决议报告, 数据区间从 19820927-至今
 
 限量: 单次返回所有历史数据
 
@@ -62,7 +62,7 @@ macro_bank_usa_interest_rate_se: pandas.Series
 
 目标地址: https://datacenter.jin10.com/reportType/dc_interest_rate_decision
 
-描述: 获取欧洲央行决议报告, 数据区间从19990101-至今
+描述: 欧洲央行决议报告, 数据区间从19990101-至今
 
 限量: 单次返回所有历史数据
 
@@ -643,7 +643,7 @@ macro_bank_brazil_interest_rate_se: pandas.Series
 
 目标地址: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
 
-描述: 获取指定市场指定品种指定指标的拆借利率数据, 可以通过 **need_page** 参数控制更新数据数量, 此函数全量更新
+描述: 指定市场指定品种指定指标的拆借利率数据, 可以通过 **need_page** 参数控制更新数据数量, 此函数全量更新
 容易封 IP, 建议增量更新, 或者使用手机热点使用, 如果被封 IP, 请在约 15 分钟后再次尝试, 增量更新方法请参考本章节中 **增量更新示例**
 
 输入参数
@@ -787,7 +787,7 @@ print(rate_interbank_df)
 数据示例
 
 ```
-            日期      利率     涨跌
+        日期      利率     涨跌
 0   2019-06-12  1.8843  0.000
 1   2019-06-11  1.8843  0.000
 2   2019-06-10  1.8843 -0.025
