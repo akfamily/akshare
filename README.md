@@ -207,8 +207,6 @@ Thanks for the data provided by [生意社网站](http://www.100ppi.com/);
 
 Thanks for the data provided by [奇货可查网站](https://qhkch.com/);
 
-Thanks for the data provided by [智道智科网站](https://www.ziasset.com/);
-
 Thanks for the data provided by [中国银行间市场交易商协会网站](http://www.nafmii.org.cn/);
 
 Thanks for the data provided by [99期货网站](http://www.99qh.com/);
@@ -230,6 +228,8 @@ Thanks for the data provided by [DACHENG-XIU 网站](https://dachxiu.chicagoboot
 Thanks for the data provided by [上海证券交易所网站](http://www.sse.com.cn/assortment/options/price/);
 
 Thanks for the data provided by [深证证券交易所网站](http://www.szse.cn/);
+
+Thanks for the data provided by [北京证券交易所网站](http://www.bse.cn/);
 
 Thanks for the data provided by [中国金融期货交易所网站](http://www.cffex.com.cn/);
 
@@ -263,8 +263,6 @@ Thanks for the data provided by [财富网站](http://www.fortunechina.com/);
 
 Thanks for the data provided by [中国证券投资基金业协会网站](http://gs.amac.org.cn/);
 
-Thanks for the data provided by [猫眼电影网站](https://maoyan.com/board/1);
-
 Thanks for the data provided by [Expatistan 网站](https://www.expatistan.com/cost-of-living);
 
 Thanks for the data provided by [北京市碳排放权电子交易平台网站](https://www.bjets.com.cn/article/jyxx/);
@@ -297,11 +295,9 @@ Thanks for the data provided by [慈善中国网站](http://cishan.chinanpo.gov.
 
 Thanks for the data provided by [思知网站](https://www.ownthink.com/);
 
-Thanks for the data provided by [Currencyscoop网站](https://currencyscoop.com/);
+Thanks for the data provided by [Currencyscoop 网站](https://currencyscoop.com/);
 
 Thanks for the data provided by [新加坡交易所网站](https://www.sgx.com/zh-hans/research-education/derivatives);
-
-Thanks for the data provided by [宽客在线](https://www.quantinfo.com/Argus/);
 
 Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://upload-images.jianshu.io/upload_images/3240514-61004f2c71be4a0b.png).
 
