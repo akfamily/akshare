@@ -68,7 +68,8 @@ if __name__ == "__main__":
     # 国内线材社会库存量 68
     symbol_dict_df = pd.DataFrame.from_dict(symbol_dict, orient="index")
     print(symbol_dict_df)
+
     futures_xgx_index_df = futures_xgx_index(
-        symbol=161, start_date="2000-10-01", end_date="2020-04-17", plot=True
+        symbol=161, start_date="2000-10-01", end_date="2021-11-17", plot=True
     )
     print(futures_xgx_index_df)
