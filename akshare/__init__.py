@@ -1674,9 +1674,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.50 fix: fix nh_price_index interface
 1.2.51 add: add futures_hq_subscribe_exchange_symbol interface
 1.2.52 fix: fix futures_foreign_commodity_realtime interface
+1.2.53 add: add get_ine_daily interface
 """
 
-__version__ = "1.2.52"
+__version__ = "1.2.53"
 __author__ = "Albert King"
 
 import sys
@@ -3476,4 +3477,5 @@ from akshare.futures.futures_daily_bar import (
     get_shfe_daily,
     get_dce_daily,
     get_futures_daily,
+    get_ine_daily,
 )
