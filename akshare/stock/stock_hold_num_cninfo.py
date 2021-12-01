@@ -112,5 +112,5 @@ def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hold_num_cninfo_df = stock_hold_num_cninfo(date="20210630")
+    stock_hold_num_cninfo_df = stock_hold_num_cninfo(date="20211130")
     print(stock_hold_num_cninfo_df)
