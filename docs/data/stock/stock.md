@@ -5222,16 +5222,15 @@ print(stock_em_hsgt_industry_rank_df)
 | 名称          | object   |  -     |
 | 今日收盘价          | float64   |  -     |
 | 今日涨跌幅          | float64   |  注意单位: %     |
-| 今日持股-占总股本比          | float64   |  -     |
-| 今日持股-股数          | float64   | -     |
-| 今日持股-市值         | float64   | -     |
-| 今日持股-占流通股比         | float64   |  -     |
-| 今日持股-占总股本比         | float64   |  -    |
-| 增持估计-股数         | float64   |  主要字段名根据 indicator 变化     |
-| 增持估计-市值         | float64   |  主要字段名根据 indicator 变化     |
-| 增持估计-市值增幅         | object   |  主要字段名根据 indicator 变化     |
-| 增持估计-占流通股比         | float64   |  主要字段名根据 indicator 变化     |
-| 增持估计-占总股本比         | float64   |  主要字段名根据 indicator 变化     |
+| 今日持股-股数          | float64   | 注意单位: 万     |
+| 今日持股-市值         | float64   | 注意单位: 万     |
+| 今日持股-占流通股比         | float64   |  注意单位: %     |
+| 今日持股-占总股本比         | float64   |  注意单位: %    |
+| 增持估计-股数         | float64   |  注意单位: 万; 主要字段名根据 indicator 变化     |
+| 增持估计-市值         | float64   |  注意单位: 万; 主要字段名根据 indicator 变化     |
+| 增持估计-市值增幅         | object   |  注意单位: %; 主要字段名根据 indicator 变化     |
+| 增持估计-占流通股比         | float64   |  注意单位: ‰; 主要字段名根据 indicator 变化   |
+| 增持估计-占总股本比         | float64   |  注意单位: ‰; 主要字段名根据 indicator 变化   |
 | 所属板块         | object   |  -     |
 | 日期         | object   |  -     |
 
