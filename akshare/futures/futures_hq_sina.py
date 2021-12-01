@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/24 15:23
+Date: 2021/12/1 14:23
 Desc: 新浪财经-外盘期货
 http://finance.sina.com.cn/money/future/hf.html
 """
@@ -25,8 +25,8 @@ def _get_real_name_list() -> list:
     r.encoding = "gb2312"
     data_text = r.text
     need_text = data_text[
-        data_text.find("var oHF_1 = ") + 12 : data_text.find("var oHF_2") - 2
-    ].replace("\n\t", "")
+                data_text.find("var oHF_1 = ") + 12: data_text.find("var oHF_2") - 2
+                ].replace("\n\t", "")
     data_json = demjson.decode(need_text)
     name_list = [item[0].strip() for item in data_json.values()]
     return name_list
@@ -44,25 +44,64 @@ def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
     data_text = r.text
     data_json = demjson.decode(
         data_text[
-            data_text.find("var oHF_1 = ") + 12 : data_text.find("var oHF_2 = ") - 2
+        data_text.find("var oHF_1 = ") + 12: data_text.find("var oHF_2 = ") - 2
         ]
     )
     code_list = list(data_json.keys())
     return code_list
 
 
+def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
+    """
+    将品种字典转化为 pandas.DataFrame
+    :return: 品种对应表
+    :rtype: pandas.DataFrame
+    """
+    inner_dict = {
+        "NYBOT-棉花": 'CT',
+        "LME镍3个月": 'NID',
+        "LME铅3个月": 'PBD',
+        "LME锡3个月": 'SND',
+        "LME锌3个月": 'ZSD',
+        "LME铝3个月": 'AHD',
+        "LME铜3个月": 'CAD',
+        "CBOT-黄豆": 'S',
+        "CBOT-小麦": 'W',
+        "CBOT-玉米": 'C',
+        "CBOT-黄豆油": 'BO',
+        "CBOT-黄豆粉": 'SM',
+        "日本橡胶": 'TRB',
+        "COMEX铜": 'HG',
+        "NYMEX天然气": 'NG',
+        "NYMEX原油": 'CL',
+        "COMEX白银": 'SI',
+        "COMEX黄金": 'GC',
+        "CME-瘦肉猪": 'LHC',
+        "布伦特原油": 'OIL',
+        "伦敦金": 'XAU',
+        "伦敦银": 'XAG',
+        "伦敦铂金": 'XPT',
+        "伦敦钯金": 'XPD',
+        "马棕油": 'FCPO',
+        "欧洲碳排放": 'EUA',
+    }
+    temp_df = pd.DataFrame.from_dict(inner_dict, orient='index')
+    temp_df.reset_index(inplace=True)
+    temp_df.columns = ['symbol', 'code']
+    return temp_df
+
+
 def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
     """
     新浪-外盘期货-行情数据
     https://finance.sina.com.cn/money/future/hf.html
-    :param subscribe_list: 通过调用 ak.hq_subscribe_exchange_symbol 函数来获取
+    :param subscribe_list: 通过调用 ak.futures_hq_subscribe_exchange_symbol 函数来获取
     :type subscribe_list: list
     :return: 行情数据
     :rtype: pandas.DataFrame
     """
-    payload = "&list=" + ",".join(["hf_" + item for item in subscribe_list])
-    prefix = f"rn={round(time.time() * 1000)}"
-    url = "http://hq.sinajs.cn/" + prefix + payload
+    payload = "?list=" + ",".join(["hf_" + item for item in subscribe_list])
+    url = "http://hq.sinajs.cn/" + payload
     r = requests.get(url)
     data_text = r.text
     data_df = pd.DataFrame(
@@ -91,34 +130,9 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
         "symbol",
         "current_price_rmb",
     ]
-    data_df["symbol"] = [
-        "NYBOT-棉花",
-        "LME镍3个月",
-        "LME铅3个月",
-        "LME锡3个月",
-        "LME锌3个月",
-        "LME铝3个月",
-        "LME铜3个月",
-        "CBOT-黄豆",
-        "CBOT-小麦",
-        "CBOT-玉米",
-        "CBOT-黄豆油",
-        "CBOT-黄豆粉",
-        "日本橡胶",
-        "COMEX铜",
-        "NYMEX天然气",
-        "NYMEX原油",
-        "COMEX白银",
-        "COMEX黄金",
-        "CME-瘦肉猪",
-        "布伦特原油",
-        "伦敦金",
-        "伦敦银",
-        "伦敦铂金",
-        "伦敦钯金",
-        "马棕油",
-        "欧洲碳排放",
-    ]
+    temp_symbol_code_df = futures_hq_subscribe_exchange_symbol()
+    temp_symbol_code_dict = dict(zip(temp_symbol_code_df['code'], temp_symbol_code_df['symbol']))
+    data_df["symbol"] = [temp_symbol_code_dict[subscribe] for subscribe in subscribe_list]
     data_df = data_df[
         [
             "symbol",
@@ -188,8 +202,8 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
     data_text = soup.find_all("script", attrs={"type": "text/javascript"})[
         -2
     ].string.strip()
-    raw_text = data_text[data_text.find("oHF_1 = ") : data_text.find("oHF_2")]
-    need_text = raw_text[raw_text.find("{") : raw_text.rfind("}") + 1]
+    raw_text = data_text[data_text.find("oHF_1 = "): data_text.find("oHF_2")]
+    need_text = raw_text[raw_text.find("{"): raw_text.rfind("}") + 1]
     data_json = demjson.decode(need_text)
     price_mul = pd.DataFrame(
         [
@@ -204,12 +218,11 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
     r = requests.get(url)
     data_text = r.text
     usd_rmb = float(
-        data_text[data_text.find('"') + 1 : data_text.find(",美元人民币")].split(",")[-1]
+        data_text[data_text.find('"') + 1: data_text.find(",美元人民币")].split(",")[-1]
     )
 
     # 计算人民币报价
     data_df["人民币报价"] = data_df["最新价"] * price_mul["price"] * usd_rmb
-
     data_df.dropna(thresh=4, inplace=True)
     return data_df
 
@@ -219,7 +232,7 @@ if __name__ == "__main__":
     subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
 
     futures_foreign_commodity_realtime_df = futures_foreign_commodity_realtime(
-        subscribe_list=subscribes
+        subscribe_list=['CT', 'NID']
     )
     print(futures_foreign_commodity_realtime_df)
 
@@ -229,3 +242,5 @@ if __name__ == "__main__":
         )
         print(futures_foreign_commodity_realtime_df)
         time.sleep(3)
+
+

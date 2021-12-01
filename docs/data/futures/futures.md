@@ -2202,7 +2202,7 @@ print(get_futures_daily_df)
 
 | 名称   | 类型 |  描述     |
 | -------- | ---- | --- |
-| subscribe_list | list | 需要订阅的合约代码; 调用 **ak.futures_foreign_commodity_subscribe_exchange_symbol()** 获取数据  |
+| subscribe_list | list | 需要订阅的合约代码; 调用 **ak.futures_hq_subscribe_exchange_symbol()** 获取字段及代码对应表  |
 
 输出参数
 
