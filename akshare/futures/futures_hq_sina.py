@@ -54,6 +54,7 @@ def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
 def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
     """
     将品种字典转化为 pandas.DataFrame
+    https://finance.sina.com.cn/money/future/hf.html
     :return: 品种对应表
     :rtype: pandas.DataFrame
     """
@@ -228,6 +229,9 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    futures_hq_subscribe_exchange_symbol_df = futures_hq_subscribe_exchange_symbol()
+    print(futures_hq_subscribe_exchange_symbol_df)
+
     print("开始接收实时行情, 每秒刷新一次")
     subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
 
