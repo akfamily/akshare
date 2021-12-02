@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/2 16:27
+Date: 2021/12/2 11:22
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
@@ -134,14 +134,14 @@ def _code_id_map() -> dict:
 
 
 def bond_zh_hs_cov_min(
-        symbol: str = "sz123106",
+        symbol: str = "sh113570",
         period: str = '15',
         adjust: str = '',
         start_date: str = "1979-09-01 09:32:00",
         end_date: str = "2222-01-01 09:32:00",
 ) -> pd.DataFrame:
     """
-    东方财富-可转债-分时行情
+    东方财富网-可转债-分时行情
     https://quote.eastmoney.com/concept/sz128039.html
     :param symbol: 转债代码
     :type symbol: str
@@ -156,6 +156,7 @@ def bond_zh_hs_cov_min(
     :return: 分时行情
     :rtype: pandas.DataFrame
     """
+    market_type = {'sh': '1', 'sz': '0'}
     if period == '1':
         url = 'https://push2.eastmoney.com/api/qt/stock/trends2/get'
         params = {
@@ -165,7 +166,7 @@ def bond_zh_hs_cov_min(
             "ndays": "5",
             "iscr": "0",
             'iscca': '0',
-            "secid": f"0.{symbol[2:]}",
+            "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
             "_": "1623766962675",
         }
         r = requests.get(url, params=params)
@@ -206,7 +207,7 @@ def bond_zh_hs_cov_min(
             'ut': '7eea3edcaed734bea9cbfc24409ed989',
             'klt': period,
             'fqt': adjust_map[adjust],
-            'secid': f"0.{symbol[2:]}",
+            'secid': f"{market_type[symbol[:2]]}.{symbol[2:]}",
             'beg': '0',
             'end': '20500000',
             '_': '1630930917857',
