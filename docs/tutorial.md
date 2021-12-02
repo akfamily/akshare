@@ -956,6 +956,10 @@
  "stock_board_industry_cons_em"  # 行业板块-板块成份
  "stock_board_industry_hist_em"  # 行业板块-历史行情
  "stock_board_industry_name_em"  # 行业板块-板块名称
+ # 股票回购数据
+ "stock_repurchase_em"  # 股票回购数据
+ # 品种字典
+ "futures_hq_subscribe_exchange_symbol"  # 品种字典
 ```
 
 ## 案例演示
