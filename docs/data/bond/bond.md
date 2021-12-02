@@ -657,7 +657,7 @@ print(bond_zh_hs_cov_daily_df)
 
 目标地址: https://quote.eastmoney.com/concept/sz128039.html
 
-描述: 东方财富-可转债-分时行情
+描述: 东方财富网-可转债-分时行情
 
 限量: 单次返回指定可转债、指定频率、复权调整和时间区间的分时数据, 其中 1 分钟数据只返回近 1 个交易日数据且不复权
 
