@@ -1678,9 +1678,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.54 fix: fix bond_zh_hs_cov_min interface
 1.2.55 add: add stock_repurchase_em interface
 1.2.56 fix: fix stock_zh_a_tick_163 interface
+1.2.57 add: add stock_us_hist_fu interface
 """
 
-__version__ = "1.2.56"
+__version__ = "1.2.57"
 __author__ = "Albert King"
 
 import sys
@@ -1690,6 +1691,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+富途牛牛-美股
+"""
+from akshare.stock_feature.stock_us_hist_futunn import stock_us_hist_fu
 
 """
 股票回购
