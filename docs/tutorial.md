@@ -960,6 +960,8 @@
  "stock_repurchase_em"  # 股票回购数据
  # 品种字典
  "futures_hq_subscribe_exchange_symbol"  # 品种字典
+ # 富途-美股
+ "stock_us_hist_fu"  # 富途-美股
 ```
 
 ## 案例演示
