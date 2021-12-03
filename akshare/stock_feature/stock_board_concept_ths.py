@@ -273,8 +273,16 @@ def stock_board_concept_hist_ths(start_year: str = '2000', symbol: str = "安防
     return big_df
 
 
-def stock_board_concept_name_info():
-    url = "http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
+def stock_board_cons_ths(symbol: str = "885611") -> pd.DataFrame:
+    """
+    行业板块或者概念板块的成份股
+    http://q.10jqka.com.cn/thshy/detail/code/881121/
+    http://q.10jqka.com.cn/gn/detail/code/301558/
+    :param symbol: 行业板块或者概念板块的代码
+    :type symbol: str
+    :return: 行业板块或者概念板块的成份股
+    :rtype: pandas.DataFrame
+    """
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
@@ -283,38 +291,31 @@ def stock_board_concept_name_info():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
         'Cookie': f'v={v_code}'
     }
+    url = f'http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}'
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    total_page = soup.find('span', attrs={'class': 'page_info'}).text.split('/')[1]
+    try:
+        page_num = int(soup.find_all('a', attrs={'class': 'changePage'})[-1]['page'])
+    except IndexError as e:
+        page_num = 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page)+1), leave=False):
-        url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
-        js_code = py_mini_racer.MiniRacer()
-        js_content = _get_file_content_ths("ths.js")
-        js_code.eval(js_content)
+    for page in tqdm(range(1, page_num+1), leave=False):
         v_code = js_code.call('v')
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
             'Cookie': f'v={v_code}'
         }
+        url = f'http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}'
         r = requests.get(url, headers=headers)
-        soup = BeautifulSoup(r.text, "lxml")
-        soup.find('table', attrs={'class': 'm-table m-pager-table'}).find('tbody')
-        url_list = []
-        for item in soup.find('table', attrs={'class': 'm-table m-pager-table'}).find('tbody').find_all('tr'):
-            inner_url = item.find_all("td")[1].find('a')['href']
-            url_list.append(inner_url)
         temp_df = pd.read_html(r.text)[0]
-        temp_df['代码'] = [item.split('/')[-2] for item in url_list]
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df = big_df[[
-        '日期',
-        '概念名称',
-        '成分股数量',
-        '代码'
-    ]]
-    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
-    big_df['成分股数量'] = pd.to_numeric(big_df['成分股数量'])
+    big_df.rename({"涨跌幅(%)": "涨跌幅",
+                   "涨速(%)": "涨速",
+                   "换手(%)": "换手",
+                   "振幅(%)": "振幅",
+                   }, inplace=True, axis=1)
+    del big_df['加自选']
+    big_df['代码'] = big_df['代码'].astype(str).str.zfill(6)
     return big_df
 
 
@@ -330,3 +331,6 @@ if __name__ == '__main__':
 
     stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2021', symbol="PVDF概念")
     print(stock_board_concept_hist_ths_df)
+
+    stock_board_cons_ths_df = stock_board_cons_ths(symbol="885611")
+    print(stock_board_cons_ths_df)

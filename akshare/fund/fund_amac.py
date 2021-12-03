@@ -53,14 +53,23 @@ def _get_pages(url: str = "", payload: str = "") -> pd.DataFrame:
     return json_df["totalPages"]
 
 
-def get_data(url: str = "", payload: str = "") -> pd.DataFrame:
+def get_data(url: str = "", payload: str = "", params: dict = {}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示
     """
     headers = {
         "Content-Type": "application/json",
     }
-    res = requests.post(url=url, json=payload, headers=headers, verify=False)
+    base_url, raw_params = url.split('?')
+    url_params = dict(x.split('=') for x in raw_params.split('&'))
+    for k, v in params.items():
+        if k in url_params:
+            url_params[k] = str(v)
+    res = requests.post(url=base_url,
+                        json={"page": 1},
+                        headers=headers,
+                        params=url_params,
+                        verify=False)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df
@@ -68,14 +77,14 @@ def get_data(url: str = "", payload: str = "") -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-会员信息
 # 中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
-def amac_member_info() -> pd.DataFrame:
+def amac_member_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-会员信息-会员机构综合查询
     http://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html
     :return: 会员机构综合查询
     :rtype: pandas.DataFrame
     """
-    data = get_data(url=amac_member_info_url, payload=amac_member_info_payload)
+    data = get_data(url=amac_member_info_url, payload=amac_member_info_payload, params=params)
     need_data = data["content"]
     keys_list = [
         "managerName",
@@ -103,14 +112,14 @@ def amac_member_info() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-从业人员信息
 # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-def amac_person_fund_org_list() -> pd.DataFrame:
+def amac_person_fund_org_list(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
     https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
     :return: 基金从业人员资格注册信息
     :rtype: pandas.DataFrame
     """
-    data = get_data(url=amac_person_org_list_url, payload=amac_person_org_list_payload)
+    data = get_data(url=amac_person_org_list_url, payload=amac_person_org_list_payload, params=params)
     need_data = data["content"]
     keys_list = [
         "orgName",
@@ -134,7 +143,7 @@ def amac_person_fund_org_list() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
-def amac_person_bond_org_list() -> pd.DataFrame:
+def amac_person_bond_org_list(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
     https://human.amac.org.cn/web/org/personPublicity.html
@@ -142,12 +151,15 @@ def amac_person_bond_org_list() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = 'https://human.amac.org.cn/web/api/publicityAddress'
-    params = {
+    _params = {
         'rand': '0.1965383823100506',
         'pageNum': '0',
         'pageSize': '5000'
     }
-    r = requests.get(url, params=params)
+    for k, v in params.items():
+        if k in _params:
+            _params[k] = v
+    r = requests.get(url, params=_params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['list'])
     temp_df.reset_index(inplace=True)
@@ -171,15 +183,15 @@ def amac_person_bond_org_list() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
-def amac_manager_info() -> pd.DataFrame:
+def amac_manager_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
     http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
     :return: 私募基金管理人综合查询
     :rtype: pandas.DataFrame
     """
-    print("Please waiting for about 10 seconds")
-    data = get_data(url=amac_manager_info_url, payload=amac_manager_info_payload)
+    # print("Please waiting for about 10 seconds")
+    data = get_data(url=amac_manager_info_url, payload=amac_manager_info_payload, params=params)
     need_data = data["content"]
     keys_list = [
         "managerName",
@@ -214,7 +226,7 @@ def amac_manager_classify_info() -> pd.DataFrame:
     :return: 私募基金管理人分类公示
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 10 秒")
+    # print("正在下载, 由于数据量比较大, 请等待大约 10 秒")
     data = get_data(url=amac_manager_classify_info_url, payload=amac_manager_classify_info_payload)
     need_data = data["content"]
     keys_list = [
@@ -276,15 +288,15 @@ def amac_member_sub_info() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-基金产品
 # 中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
-def amac_fund_info() -> pd.DataFrame:
+def amac_fund_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品-私募基金管理人基金产品
     http://gs.amac.org.cn/amac-infodisc/res/pof/fund/index.html
     :return: 私募基金管理人基金产品
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 20 秒")
-    data = get_data(url=amac_fund_info_url, payload=amac_fund_info_payload)
+    # print("正在下载, 由于数据量比较大, 请等待大约 20 秒")
+    data = get_data(url=amac_fund_info_url, payload=amac_fund_info_payload, params=params)
     need_data = data["content"]
     keys_list = [
         "fundNo",
@@ -321,7 +333,7 @@ def amac_securities_info() -> pd.DataFrame:
     :return: 证券公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
+    # print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
     data = get_data(url=amac_securities_info_url, payload=amac_securities_info_payload)
     need_data = data["content"]
     keys_list = [
@@ -424,7 +436,7 @@ def amac_fund_account_info() -> pd.DataFrame:
     :return: 基金公司及子公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
+    # print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
     data = get_data(url=amac_fund_account_info_url, payload=amac_fund_account_info_payload)
     need_data = data["content"]
     keys_list = [
@@ -453,7 +465,7 @@ def amac_fund_abs() -> pd.DataFrame:
     :return: 资产支持专项计划公示信息
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
+    # print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
     url = 'https://gs.amac.org.cn/amac-infodisc/api/fund/abs'
     params = {
         'rand': '0.45416112116335716',
@@ -501,7 +513,7 @@ def amac_futures_info() -> pd.DataFrame:
     :return: 期货公司集合资管产品公示
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
+    # print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
     data = get_data(url=amac_futures_info_url, payload=amac_futures_info_payload)
     need_data = data["content"]
     keys_list = [
@@ -535,7 +547,7 @@ def amac_futures_info() -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-诚信信息
 # 中国证券投资基金业协会-信息公示-诚信信息-已注销私募基金管理人名单
-def amac_manager_cancelled_info() -> pd.DataFrame:
+def amac_manager_cancelled_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-诚信信息公示-已注销私募基金管理人名单
     http://gs.amac.org.cn/amac-infodisc/res/cancelled/manager/index.html
@@ -545,8 +557,8 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
     :return: 已注销私募基金管理人名单
     :rtype: pandas.DataFrame
     """
-    print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
-    data = get_data(url=amac_manager_cancelled_info_url, payload=amac_manager_cancelled_info_payload)
+    # print("正在下载, 由于数据量比较大, 请等待大约 5 秒")
+    data = get_data(url=amac_manager_cancelled_info_url, payload=amac_manager_cancelled_info_payload, params=params)
     need_data = data["content"]
     keys_list = [
         "orgName",
