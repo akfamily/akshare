@@ -253,6 +253,7 @@ def stock_board_concept_hist_ths(start_year: str = '2000', symbol: str = "安防
         '_',
         '_',
         '_',
+        '_',
     ]
     big_df = big_df[[
         '日期',
@@ -329,7 +330,7 @@ if __name__ == '__main__':
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="PVDF概念")
     print(stock_board_concept_info_ths_df)
 
-    stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2021', symbol="PVDF概念")
+    stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2021', symbol="注册制次新股")
     print(stock_board_concept_hist_ths_df)
 
     stock_board_cons_ths_df = stock_board_cons_ths(symbol="885611")
