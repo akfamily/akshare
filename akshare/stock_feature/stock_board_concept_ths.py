@@ -241,20 +241,35 @@ def stock_board_concept_hist_ths(start_year: str = '2000', symbol: str = "安防
         temp_df = pd.DataFrame(temp_df['data'].split(';'))
         temp_df = temp_df.iloc[:, 0].str.split(',', expand=True)
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df.columns = [
-        '日期',
-        '开盘价',
-        '最高价',
-        '最低价',
-        '收盘价',
-        '成交量',
-        '成交额',
-        '_',
-        '_',
-        '_',
-        '_',
-        '_',
-    ]
+    if big_df.columns.shape[0] == 12:
+        big_df.columns = [
+            '日期',
+            '开盘价',
+            '最高价',
+            '最低价',
+            '收盘价',
+            '成交量',
+            '成交额',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
+    else:
+        big_df.columns = [
+            '日期',
+            '开盘价',
+            '最高价',
+            '最低价',
+            '收盘价',
+            '成交量',
+            '成交额',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
     big_df = big_df[[
         '日期',
         '开盘价',
