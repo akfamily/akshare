@@ -152,8 +152,8 @@ def macro_china_hk_gbp() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
-    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
-    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['前值'] = pd.to_numeric(temp_df['前值']) / 100
+    temp_df['现值'] = pd.to_numeric(temp_df['现值']) / 100
     temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
@@ -263,8 +263,8 @@ def macro_china_hk_building_amount() -> pd.DataFrame:
         "现值",
         "发布日期",
     ]
-    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
-    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['前值'] = pd.to_numeric(temp_df['前值']) / 100
+    temp_df['现值'] = pd.to_numeric(temp_df['现值']) / 100
     temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
