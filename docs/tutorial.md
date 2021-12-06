@@ -962,6 +962,8 @@
  "futures_hq_subscribe_exchange_symbol"  # 品种字典
  # 富途-美股
  "stock_us_hist_fu"  # 富途-美股
+ # 上海黄金交易所
+ "spot_hist_sge"  # 上海黄金交易所-历史行情走势
 ```
 
 ## 案例演示
