@@ -12,6 +12,7 @@ AKShare 数据字典
     option/option
     fx/fx
     currency/currency
+    spot/spot
     interest_rate/interest_rate
     fund/fund_private
     fund/fund_public

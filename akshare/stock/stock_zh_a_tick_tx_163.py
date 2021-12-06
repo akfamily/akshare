@@ -94,7 +94,7 @@ def stock_zh_a_tick_tx(
 
 
 def stock_zh_a_tick_163(
-    code: str = "sh600848", trade_date: str = "20211201"
+    code: str = "sz000001", trade_date: str = "20211201"
 ) -> pd.DataFrame:
     """
     成交明细-每个交易日 22:00 提供当日数据; 该接口目前还不支持北交所的股票
