@@ -3774,11 +3774,11 @@ print(macro_china_ctci_detail_hist_df)
 
 #### 消费者物价指数
 
-接口: marco_china_hk_cpi
+接口: macro_china_hk_cpi
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_0.html
 
-描述: 获取东方财富-经济数据一览-中国香港-消费者物价指数
+描述: 东方财富-经济数据一览-中国香港-消费者物价指数
 
 限量: 单次返回所有历史数据
 
@@ -3801,8 +3801,8 @@ print(macro_china_ctci_detail_hist_df)
 
 ```python
 import akshare as ak
-marco_china_hk_cpi_df = ak.marco_china_hk_cpi()
-print(marco_china_hk_cpi_df)
+macro_china_hk_cpi_df = ak.macro_china_hk_cpi()
+print(macro_china_hk_cpi_df)
 ```
 
 数据示例
@@ -3824,11 +3824,11 @@ print(marco_china_hk_cpi_df)
 
 #### 消费者物价指数年率
 
-接口: marco_china_hk_cpi_ratio
+接口: macro_china_hk_cpi_ratio
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_1.html
 
-描述: 获取东方财富-经济数据一览-中国香港-消费者物价指数年率
+描述: 东方财富-经济数据一览-中国香港-消费者物价指数年率
 
 限量: 单次返回所有历史数据
 
@@ -3851,8 +3851,8 @@ print(marco_china_hk_cpi_df)
 
 ```python
 import akshare as ak
-marco_china_hk_cpi_ratio_df = ak.marco_china_hk_cpi_ratio()
-print(marco_china_hk_cpi_ratio_df)
+macro_china_hk_cpi_ratio_df = ak.macro_china_hk_cpi_ratio()
+print(macro_china_hk_cpi_ratio_df)
 ```
 
 数据示例
@@ -3874,11 +3874,11 @@ print(marco_china_hk_cpi_ratio_df)
 
 #### 失业率
 
-接口: marco_china_hk_rate_of_unemployment
+接口: macro_china_hk_rate_of_unemployment
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_2.html
 
-描述: 获取东方财富-经济数据一览-中国香港-失业率
+描述: 东方财富-经济数据一览-中国香港-失业率
 
 限量: 单次返回所有历史数据
 
@@ -3901,8 +3901,8 @@ print(marco_china_hk_cpi_ratio_df)
 
 ```python
 import akshare as ak
-marco_china_hk_rate_of_unemployment_df = ak.marco_china_hk_rate_of_unemployment()
-print(marco_china_hk_rate_of_unemployment_df)
+macro_china_hk_rate_of_unemployment_df = ak.macro_china_hk_rate_of_unemployment()
+print(macro_china_hk_rate_of_unemployment_df)
 ```
 
 数据示例
@@ -3924,11 +3924,11 @@ print(marco_china_hk_rate_of_unemployment_df)
 
 #### GDP
 
-接口: marco_china_hk_gbp
+接口: macro_china_hk_gbp
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_3.html
 
-描述: 获取东方财富-经济数据一览-中国香港-香港 GDP
+描述: 东方财富-经济数据一览-中国香港-香港 GDP
 
 限量: 单次返回所有历史数据
 
@@ -3951,8 +3951,8 @@ print(marco_china_hk_rate_of_unemployment_df)
 
 ```python
 import akshare as ak
-marco_china_hk_gbp_df = ak.marco_china_hk_gbp()
-print(marco_china_hk_gbp_df)
+macro_china_hk_gbp_df = ak.macro_china_hk_gbp()
+print(macro_china_hk_gbp_df)
 ```
 
 数据示例
@@ -3975,11 +3975,11 @@ print(marco_china_hk_gbp_df)
 
 #### GDP 同比
 
-接口: marco_china_hk_gbp_ratio
+接口: macro_china_hk_gbp_ratio
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_4.html
 
-描述: 获取东方财富-经济数据一览-中国香港-香港 GDP 同比
+描述: 东方财富-经济数据一览-中国香港-香港 GDP 同比
 
 限量: 单次返回所有历史数据
 
@@ -4002,8 +4002,8 @@ print(marco_china_hk_gbp_df)
 
 ```python
 import akshare as ak
-marco_china_hk_gbp_ratio_df = ak.marco_china_hk_gbp_ratio()
-print(marco_china_hk_gbp_ratio_df)
+macro_china_hk_gbp_ratio_df = ak.macro_china_hk_gbp_ratio()
+print(macro_china_hk_gbp_ratio_df)
 ```
 
 数据示例
@@ -4025,11 +4025,11 @@ print(marco_china_hk_gbp_ratio_df)
 
 #### 香港楼宇买卖合约数量
 
-接口: marco_china_hk_building_volume
+接口: macro_china_hk_building_volume
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_5.html
 
-描述: 获取东方财富-经济数据一览-中国香港-香港楼宇买卖合约数量
+描述: 东方财富-经济数据一览-中国香港-香港楼宇买卖合约数量
 
 限量: 单次返回所有历史数据
 
@@ -4052,8 +4052,8 @@ print(marco_china_hk_gbp_ratio_df)
 
 ```python
 import akshare as ak
-marco_china_hk_building_volume_df = ak.marco_china_hk_building_volume()
-print(marco_china_hk_building_volume_df)
+macro_china_hk_building_volume_df = ak.macro_china_hk_building_volume()
+print(macro_china_hk_building_volume_df)
 ```
 
 数据示例
@@ -4075,11 +4075,11 @@ print(marco_china_hk_building_volume_df)
 
 #### 香港楼宇买卖合约成交金额
 
-接口: marco_china_hk_building_amount
+接口: macro_china_hk_building_amount
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_6.html
 
-描述: 获取东方财富-经济数据一览-中国香港-香港楼宇买卖合约成交金额
+描述: 东方财富-经济数据一览-中国香港-香港楼宇买卖合约成交金额
 
 限量: 单次返回所有历史数据
 
@@ -4102,8 +4102,8 @@ print(marco_china_hk_building_volume_df)
 
 ```python
 import akshare as ak
-marco_china_hk_building_amount_df = ak.marco_china_hk_building_amount()
-print(marco_china_hk_building_amount_df)
+macro_china_hk_building_amount_df = ak.macro_china_hk_building_amount()
+print(macro_china_hk_building_amount_df)
 ```
 
 数据示例
@@ -4125,19 +4125,19 @@ print(marco_china_hk_building_amount_df)
 
 #### 香港商品贸易差额年率
 
-接口: marco_china_hk_trade_diff_ratio
+接口: macro_china_hk_trade_diff_ratio
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_7.html
 
-描述: 获取东方财富-经济数据一览-中国香港-香港商品贸易差额年率
+描述: 东方财富-经济数据一览-中国香港-香港商品贸易差额年率
 
 限量: 单次返回所有历史数据
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- | --- |
-| 无 | 无 | 无 |
+| 名称   | 类型 | 描述   |
+| -------- | ---- |------|
+| 无 | 无 | 无    |
 
 输出参数
 
@@ -4152,8 +4152,8 @@ print(marco_china_hk_building_amount_df)
 
 ```python
 import akshare as ak
-marco_china_hk_trade_diff_ratio_df = ak.marco_china_hk_trade_diff_ratio()
-print(marco_china_hk_trade_diff_ratio_df)
+macro_china_hk_trade_diff_ratio_df = ak.macro_china_hk_trade_diff_ratio()
+print(macro_china_hk_trade_diff_ratio_df)
 ```
 
 数据示例
@@ -4175,11 +4175,11 @@ print(marco_china_hk_trade_diff_ratio_df)
 
 #### 香港制造业 PPI 年率
 
-接口: marco_china_hk_ppi
+接口: macro_china_hk_ppi
 
 目标地址: https://data.eastmoney.com/cjsj/foreign_8_8.html
 
-描述: 获取东方财富-经济数据一览-中国香港-香港制造业PPI年率
+描述: 东方财富-经济数据一览-中国香港-香港制造业PPI年率
 
 限量: 单次返回所有历史数据
 
@@ -4202,8 +4202,8 @@ print(marco_china_hk_trade_diff_ratio_df)
 
 ```python
 import akshare as ak
-marco_china_hk_ppi_df = ak.marco_china_hk_ppi()
-print(marco_china_hk_ppi_df)
+macro_china_hk_ppi_df = ak.macro_china_hk_ppi()
+print(macro_china_hk_ppi_df)
 ```
 
 数据示例

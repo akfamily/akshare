@@ -1680,9 +1680,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.56 fix: fix stock_zh_a_tick_163 interface
 1.2.57 add: add stock_us_hist_fu interface
 1.2.58 fix: fix stock_board_concept_hist_ths interface
+1.2.59 fix: fix macro_china_hk interface
 """
 
-__version__ = "1.2.58"
+__version__ = "1.2.59"
 __author__ = "Albert King"
 
 import sys
@@ -2085,15 +2086,15 @@ from akshare.stock_feature.stock_em_ztb import (
 中国-香港-宏观
 """
 from akshare.economic.macro_china_hk import (
-    marco_china_hk_cpi,
-    marco_china_hk_cpi_ratio,
-    marco_china_hk_trade_diff_ratio,
-    marco_china_hk_gbp_ratio,
-    marco_china_hk_building_amount,
-    marco_china_hk_building_volume,
-    marco_china_hk_gbp,
-    marco_china_hk_ppi,
-    marco_china_hk_rate_of_unemployment,
+    macro_china_hk_cpi,
+    macro_china_hk_cpi_ratio,
+    macro_china_hk_trade_diff_ratio,
+    macro_china_hk_gbp_ratio,
+    macro_china_hk_building_amount,
+    macro_china_hk_building_volume,
+    macro_china_hk_gbp,
+    macro_china_hk_ppi,
+    macro_china_hk_rate_of_unemployment,
 )
 
 """
