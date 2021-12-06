@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/12/4 20:31
+Date: 2021/12/6 17:31
 Desc: 东方财富网-数据中心-大宗交易-市场统计
 http://data.eastmoney.com/dzjy/dzjy_sctj.aspx
 """
-from akshare.utils import demjson
 import pandas as pd
 import requests
+
+from akshare.utils import demjson
 
 
 def stock_dzjy_sctj() -> pd.DataFrame:
@@ -33,7 +34,10 @@ def stock_dzjy_sctj() -> pd.DataFrame:
     data_text = r.text
     data_json = demjson.decode(data_text.split("=")[1])
     temp_df = pd.DataFrame(data_json["data"])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = temp_df['index'] + 1
     temp_df.columns = [
+        "序号",
         "交易日期",
         "上证指数",
         "上证指数涨跌幅",
@@ -43,14 +47,14 @@ def stock_dzjy_sctj() -> pd.DataFrame:
         "折价成交总额",
         "折价成交总额占比",
     ]
-    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
-    temp_df["上证指数"] = round(temp_df["上证指数"], 2)
-    temp_df["上证指数涨跌幅"] = round(temp_df["上证指数涨跌幅"], 4)
-    temp_df["大宗交易成交总额"] = round(temp_df["大宗交易成交总额"].astype(float), 2)
-    temp_df["溢价成交总额"] = round(temp_df["溢价成交总额"].astype(float), 2)
-    temp_df["溢价成交总额占比"] = round(temp_df["溢价成交总额占比"].astype(float), 4)
-    temp_df["折价成交总额"] = round(temp_df["折价成交总额"].astype(float), 2)
-    temp_df["折价成交总额占比"] = round(temp_df["折价成交总额占比"].astype(float), 4)
+    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"]).dt.date
+    temp_df["上证指数"] = pd.to_numeric(temp_df["上证指数"])
+    temp_df["上证指数涨跌幅"] = pd.to_numeric(temp_df["上证指数涨跌幅"])
+    temp_df["大宗交易成交总额"] = pd.to_numeric(temp_df["大宗交易成交总额"])
+    temp_df["溢价成交总额"] = pd.to_numeric(temp_df["溢价成交总额"])
+    temp_df["溢价成交总额占比"] = pd.to_numeric(temp_df["溢价成交总额占比"])
+    temp_df["折价成交总额"] = pd.to_numeric(temp_df["折价成交总额"])
+    temp_df["折价成交总额占比"] = pd.to_numeric(temp_df["折价成交总额占比"])
     return temp_df
 
 
