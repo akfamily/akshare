@@ -2785,4 +2785,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.62 fix: fix stock_dzjy_sctj interface
 
 1.2.63 add: add spot_hist_sge interface
+
+1.2.64 add: add spot_silver_benchmark_sge interface
 ```

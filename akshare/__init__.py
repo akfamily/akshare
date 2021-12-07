@@ -1685,9 +1685,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.61 fix: fix stock_board_concept_hist_ths interface
 1.2.62 fix: fix stock_dzjy_sctj interface
 1.2.63 add: add spot_hist_sge interface
+1.2.64 add: add spot_silver_benchmark_sge interface
 """
 
-__version__ = "1.2.63"
+__version__ = "1.2.64"
 __author__ = "Albert King"
 
 import sys
@@ -1701,7 +1702,7 @@ del sys
 """
 上海黄金交易所-数据资讯-行情走势
 """
-from akshare.spot.spot_sge import spot_hist_sge, spot_symbol_list_sge
+from akshare.spot.spot_sge import spot_hist_sge, spot_symbol_list_sge, spot_silver_benchmark_sge, spot_golden_benchmark_sge
 
 """
 富途牛牛-美股
