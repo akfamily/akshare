@@ -1,4 +1,4 @@
-## [AKShare](https://github.com/akfamily/akshare) 私募数据
+## [AKShare](https://github.com/akfamily/akshare) 私募基金数据
 
 ### 中国证券投资基金业协会
 
@@ -343,13 +343,14 @@ print(amac_member_sub_info_df)
 
 描述: 中国证券投资基金业协会-信息公示-基金产品公示-私募基金管理人基金产品
 
-限量: 单次返回当前时刻所有历史数据
+限量: 单次返回指定页码之间的所有历史数据, 其中与每页 100 条的目标网站对应; 默认返回所有数据
 
 输入参数
 
 | 名称   | 类型 |  描述 |
 | -------- | ---- |  --- |
-| - | -  |    - |
+| start_page | str  |    start_page='1'; 开始页码 |
+| end_page | str  |    end_page="2000"; 结束页码 |
 
 输出参数
 

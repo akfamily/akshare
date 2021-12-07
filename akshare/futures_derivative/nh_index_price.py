@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2019/11/26 18:52
-Desc: 获取南华期货-商品指数历史走势-价格指数-数值-http://www.nanhua.net/nhzc/varietytrend.html
+Date: 2021/11/30 18:52
+Desc: 南华期货-商品指数历史走势-价格指数-数值-http://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
-目标地址: http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
+http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
 """
 import time
 
@@ -15,7 +15,7 @@ import pandas as pd
 def num_to_str_data(str_date: str) -> str:
     """
     transfer date format
-    :param str_date:
+    :param str_date: date
     :type str_date: str
     :return: data format
     :rtype: str
@@ -28,8 +28,10 @@ def num_to_str_data(str_date: str) -> str:
 
 def get_nh_list_table() -> pd.DataFrame:
     """
-    获取南华期货-南华指数所有品种一览表
-    :return: pandas.DataFrame
+    南华期货-南华指数所有品种一览表
+    http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
+    :return: 南华指数所有品种一览表
+    :rtype: pandas.DataFrame
     | id | code  | exchange             | firstday   | category | name           |
     |----|-------|----------------------|------------|----------|----------------|
     | 7  | A     | 大连商品交易所       | 1994/9/19  | 品种     | 大豆           |
@@ -108,22 +110,12 @@ def get_nh_list_table() -> pd.DataFrame:
 
 def nh_price_index(code: str = "A") -> pd.DataFrame:
     """
-    获取南华期货-南华指数单品种所有历史数据
-    :param code: str 通过 get_nh_list 提供
-    :return: pandas.Series
-                      value
-    date
-    2006-01-10     1000
-    2006-01-11   998.82
-    2006-01-12     1000
-    2006-01-13   990.17
-    2006-01-16   994.49
-                 ...
-    2019-11-20  796.433
-    2019-11-21  794.932
-    2019-11-22  792.682
-    2019-11-25  793.331
-    2019-11-26  779.346
+    南华期货-南华指数单品种所有历史数据
+    http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
+    :param code: 通过 get_nh_list 提供
+    :type code: str
+    :return: 南华指数单品种所有历史数据
+    :rtype: pandas.Series
     """
     if code in get_nh_list_table()["code"].tolist():
         t = time.time()

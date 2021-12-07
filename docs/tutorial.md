@@ -455,7 +455,7 @@
  # 现货与股票
  "futures_spot_stock"  # 现货与股票接口
  # 中国期货市场监控中心
- "futures_index_cfmmc"  # 中国期货市场监控中心-指数
+ "futures_index_cscidx"  # 中国期货市场监控中心-指数
  # 打新收益率
  "stock_em_dxsyl"  # 打新收益率
  "stock_em_xgsglb"  # 新股申购与中签查询
@@ -493,6 +493,7 @@
  # 股票信息
  "stock_info_sz_name_code"  # 深证证券交易所股票代码和简称
  "stock_info_sh_name_code"  # 上海证券交易所股票代码和简称
+ "stock_info_bj_name_code"  # 北京证券交易所股票代码和简称
  "stock_info_sh_delist"  # 上海证券交易所暂停和终止上市
  "stock_info_sz_delist"  # 深证证券交易所暂停和终止上市
  "stock_info_sz_change_name"  # 深证证券交易所股票曾用名详情
@@ -729,15 +730,15 @@
  # 配股
  "stock_em_pg"  # 配股
  # 中国-香港-宏观经济指标
- "marco_china_hk_cpi"  # 中国-香港-消费者物价指数
- "marco_china_hk_cpi_ratio"  # 中国-香港-消费者物价指数年率
- "marco_china_hk_rate_of_unemployment"  # 中国-香港-失业率
- "marco_china_hk_gbp"  # 中国-香港-香港 GDP
- "marco_china_hk_gbp_ratio"  # 中国-香港-香港 GDP 同比
- "marco_china_hk_building_volume"  # 中国-香港-香港楼宇买卖合约数量
- "marco_china_hk_building_amount"  # 中国-香港-香港楼宇买卖合约成交金额
- "marco_china_hk_trade_diff_ratio"  # 中国-香港-香港商品贸易差额年率
- "marco_china_hk_ppi"  # 中国-香港-香港制造业 PPI 年率
+ "macro_china_hk_cpi"  # 中国-香港-消费者物价指数
+ "macro_china_hk_cpi_ratio"  # 中国-香港-消费者物价指数年率
+ "macro_china_hk_rate_of_unemployment"  # 中国-香港-失业率
+ "macro_china_hk_gbp"  # 中国-香港-香港 GDP
+ "macro_china_hk_gbp_ratio"  # 中国-香港-香港 GDP 同比
+ "macro_china_hk_building_volume"  # 中国-香港-香港楼宇买卖合约数量
+ "macro_china_hk_building_amount"  # 中国-香港-香港楼宇买卖合约成交金额
+ "macro_china_hk_trade_diff_ratio"  # 中国-香港-香港商品贸易差额年率
+ "macro_china_hk_ppi"  # 中国-香港-香港制造业 PPI 年率
  # 涨停板行情
  "stock_em_zt_pool"  # 涨停板行情-涨停股池
  "stock_em_zt_pool_previous"  # 涨停板行情-昨日涨停股池
@@ -935,11 +936,39 @@
  "stock_rank_xzjp_ths"  # 险资举牌
  # 可转债分时数据
  "bond_zh_hs_cov_min"  # 可转债分时数据
+ # 艺人
+ "business_value_artist"  # 艺人商业价值
+ "online_value_artist"  # 艺人流量价值
+ # 视频
+ "video_tv"  # 电视剧集
+ "video_variety_show"  # 综艺节目
+ # 电竞
+ "club_rank_game"  # 俱乐部排名
+ "player_rank_game"  # 选手排行榜
+ # 基金数据-分红送配
+ "fund_cf_em"  # 基金拆分
+ "fund_fh_rank_em"  # 基金分红排行
+ "fund_fh_em"  # 基金分红
+ # 基金数据-规模变动
+ "fund_scale_change_em"  # 规模变动
+ "fund_hold_structure_em"  # 持有人结构
+ # 行业板块
+ "stock_board_industry_cons_em"  # 行业板块-板块成份
+ "stock_board_industry_hist_em"  # 行业板块-历史行情
+ "stock_board_industry_name_em"  # 行业板块-板块名称
+ # 股票回购数据
+ "stock_repurchase_em"  # 股票回购数据
+ # 品种字典
+ "futures_hq_subscribe_exchange_symbol"  # 品种字典
+ # 富途-美股
+ "stock_us_hist_fu"  # 富途-美股
+ # 上海黄金交易所
+ "spot_hist_sge"  # 上海黄金交易所-历史行情走势
 ```
 
 ## 案例演示
 
-### 获取展期收益率
+### 期货展期收益率
 
 示例代码
 

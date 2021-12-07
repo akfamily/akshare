@@ -28,7 +28,6 @@ Welcome to AKShare's Online Documentation!
    data/index
    anaconda
    special
-   strategy
    platform
    topic/index
    demo

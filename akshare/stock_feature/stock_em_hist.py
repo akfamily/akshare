@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/25 15:26
+Date: 2021/11/15 16:26
 Desc: 东方财富网-行情首页-上证 A 股-每日行情
 """
 import requests
@@ -10,12 +10,12 @@ import pandas as pd
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
     """
-    东方财富-A股-实时行情
+    东方财富网-沪深京 A 股-实时行情
     http://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
-    url = "http://35.push2.eastmoney.com/api/qt/clist/get"
+    url = "http://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "5000",
@@ -25,7 +25,7 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
         "fltt": "2",
         "invt": "2",
         "fid": "f3",
-        "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23",
+        "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
@@ -108,7 +108,7 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
 
 def stock_zh_b_spot_em() -> pd.DataFrame:
     """
-    东方财富-B 股-实时行情
+    东方财富- B 股-实时行情
     http://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
@@ -249,6 +249,24 @@ def _code_id_map() -> dict:
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
+    params = {
+        "pn": "1",
+        "pz": "5000",
+        "po": "1",
+        "np": "1",
+        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+        "fltt": "2",
+        "invt": "2",
+        "fid": "f3",
+        "fs": "m:0 t:81 s:2048",
+        "fields": "f12",
+        "_": "1623833739532",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
+    temp_df_sz["bj_id"] = 0
+    code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
     return code_id_dict
 
 
@@ -260,7 +278,7 @@ def stock_zh_a_hist(
         adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-上证 A 股-每日行情
+    东方财富网-行情首页-沪深京 A 股-每日行情
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
@@ -270,7 +288,7 @@ def stock_zh_a_hist(
     :type start_date: str
     :param end_date: 结束日期
     :type end_date: str
-    :param adjust: choice of {"qfq": "1", "hfq": "2", "": "不复权"}
+    :param adjust: choice of {"qfq": "前复权", "hfq": "后复权", "": "不复权"}
     :type adjust: str
     :return: 每日行情
     :rtype: pandas.DataFrame
@@ -334,7 +352,7 @@ def stock_zh_a_hist_min_em(
         end_date: str = "2222-01-01 09:32:00",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-上证 A 股-每日分时行情
+    东方财富网-行情首页-沪深京 A 股-每日分时行情
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
@@ -455,7 +473,7 @@ def stock_zh_a_hist_pre_min_em(symbol: str = "000001",
                                end_time: str = "15:50:00",
                                ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-上证 A 股-每日分时行情包含盘前数据
+    东方财富网-行情首页-沪深京 A 股-每日分时行情包含盘前数据
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
@@ -592,7 +610,7 @@ def stock_hk_hist(
         adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-港股-每日行情
+    东方财富网-行情-港股-每日行情
     http://quote.eastmoney.com/hk/08367.html
     :param symbol: 港股-每日行情
     :type symbol: str
@@ -657,7 +675,7 @@ def stock_hk_hist_min_em(symbol: str = "01611",
                          end_date: str = "2222-01-01 09:32:00",
                          ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-港股-每日分时行情
+    东方财富网-行情-港股-每日分时行情
     http://quote.eastmoney.com/hk/00948.html
     :param symbol: 股票代码
     :type symbol: str
@@ -870,7 +888,7 @@ def stock_us_hist(
         adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富网-行情首页-美股-每日行情
+    东方财富网-行情-美股-每日行情
     http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
     :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em 的 `代码` 字段获取
     :type symbol: str
@@ -1008,7 +1026,7 @@ if __name__ == "__main__":
     print(stock_us_spot_em_df)
 
     stock_us_hist_df = stock_us_hist(
-        symbol="105.MTP", start_date="19700101", end_date="22220101", adjust="qfq"
+        symbol="105.LCID", start_date="19700101", end_date="22220101", adjust="qfq"
     )
     print(stock_us_hist_df)
 
@@ -1016,14 +1034,14 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="000001", period='monthly', start_date="20101010", end_date="20210812", adjust="hfq"
+        symbol="000001", period='daily', start_date="20101010", end_date="20211124", adjust="hfq"
     )
     print(stock_zh_a_hist_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454")
     print(stock_zh_a_hist_min_em_df)
 
-    stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="000001")
+    stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="833454")
     print(stock_zh_a_hist_pre_min_em_df)
 
     stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611")
@@ -1032,10 +1050,10 @@ if __name__ == "__main__":
     stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="105.ATER")
     print(stock_us_hist_min_em_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
     print(stock_zh_a_hist_min_em_df)
 
-    stock_zh_a_hist_df = stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="")
+    stock_zh_a_hist_df = stock_zh_a_hist(symbol="833454", period="daily", start_date="20170301", end_date='20211115', adjust="hfq")
     print(stock_zh_a_hist_df)
 
     stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611", period='1', adjust='', start_date="2021-11-01 09:32:00", end_date="2021-11-01 18:32:00")

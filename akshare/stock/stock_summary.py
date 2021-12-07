@@ -38,7 +38,6 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df["证券类别"] = temp_df["证券类别"].str.strip()
     temp_df.iloc[:, 2:] = temp_df.iloc[:, 2:].applymap(lambda x: x.replace(",", ""))
-    temp_df.columns
     temp_df.columns = [
         '证券类别',
         '数量',
@@ -169,7 +168,7 @@ def stock_sse_deal_daily(date: str = "20210325") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_szse_summary_df = stock_szse_summary(date="20210619")
+    stock_szse_summary_df = stock_szse_summary(date="20211202")
     print(stock_szse_summary_df)
 
     stock_sse_summary_df = stock_sse_summary()

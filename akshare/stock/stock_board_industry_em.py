@@ -1,22 +1,22 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/12 15:47
-Desc: 东方财富-沪深板块-概念板块
-http://quote.eastmoney.com/center/boardlist.html#concept_board
+Date: 2021/11/26 11:47
+Desc: 东方财富-沪深板块-行业板块
+http://quote.eastmoney.com/center/boardlist.html#industry_board
 """
 import requests
 import pandas as pd
 
 
-def stock_board_concept_name_em() -> pd.DataFrame:
+def stock_board_industry_name_em() -> pd.DataFrame:
     """
-    东方财富网-沪深板块-概念板块-名称
-    http://quote.eastmoney.com/center/boardlist.html#concept_board
-    :return: 概念板块-名称
+    东方财富网-沪深板块-行业板块-名称
+    http://quote.eastmoney.com/center/boardlist.html#industry_board
+    :return: 行业板块-名称
     :rtype: pandas.DataFrame
     """
-    url = "http://79.push2.eastmoney.com/api/qt/clist/get"
+    url = "http://17.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "2000",
@@ -26,43 +26,58 @@ def stock_board_concept_name_em() -> pd.DataFrame:
         "fltt": "2",
         "invt": "2",
         "fid": "f3",
-        "fs": "m:90 t:3 f:!50",
-        "fields": "f2,f3,f4,f8,f12,f14,f15,f16,f17,f18,f20,f21,f24,f25,f22,f33,f11,f62,f128,f124,f107,f104,f105,f136",
+        "fs": "m:90 t:2 f:!50",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152,f124,f107,f104,f105,f140,f141,f207,f208,f209,f222",
         "_": "1626075887768",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df) + 1)
+    temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "排名",
+        '-',
         "最新价",
         "涨跌幅",
         "涨跌额",
+        "-",
+        "_",
+        "-",
         "换手率",
-        "_",
+        "-",
+        "-",
+        "-",
         "板块代码",
+        "-",
         "板块名称",
-        "_",
-        "_",
-        "_",
-        "_",
+        "-",
+        "-",
+        "-",
+        "-",
         "总市值",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
         "上涨家数",
         "下跌家数",
-        "_",
-        "_",
+        "-",
+        "-",
+        "-",
         "领涨股票",
-        "_",
-        "_",
+        "-",
+        "-",
         "领涨股票-涨跌幅",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
     ]
     temp_df = temp_df[
         [
@@ -91,10 +106,10 @@ def stock_board_concept_name_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_board_concept_hist_em(symbol: str = "数字货币", adjust: str = "") -> pd.DataFrame:
+def stock_board_industry_hist_em(symbol: str = "小金属", adjust: str = "") -> pd.DataFrame:
     """
-    东方财富网-沪深板块-概念板块-历史行情
-    http://quote.eastmoney.com/bk/90.BK0715.html
+    东方财富网-沪深板块-行业板块-历史行情
+    http://quote.eastmoney.com/bk/90.BK1027.html
     :param symbol: 板块名称
     :type symbol: str
     :param adjust: choice of {'': 不复权, "qfq": 前复权, "hfq": 后复权}
@@ -102,12 +117,12 @@ def stock_board_concept_hist_em(symbol: str = "数字货币", adjust: str = "") 
     :return: 历史行情
     :rtype: pandas.DataFrame
     """
-    stock_board_concept_em_map = stock_board_concept_name_em()
+    stock_board_concept_em_map = stock_board_industry_name_em()
     stock_board_code = stock_board_concept_em_map[
         stock_board_concept_em_map["板块名称"] == symbol
     ]["板块代码"].values[0]
     adjust_map = {"": "0", "qfq": "1", "hfq": "2"}
-    url = "http://91.push2his.eastmoney.com/api/qt/stock/kline/get"
+    url = "http://7.push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "secid": f"90.{stock_board_code}",
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
@@ -165,16 +180,16 @@ def stock_board_concept_hist_em(symbol: str = "数字货币", adjust: str = "") 
     return temp_df
 
 
-def stock_board_concept_cons_em(symbol: str = "车联网") -> pd.DataFrame:
+def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
     """
-    东方财富-沪深板块-概念板块-板块成份
-    http://quote.eastmoney.com/center/boardlist.html#boards-BK06551
+    东方财富网-沪深板块-行业板块-板块成份
+    https://data.eastmoney.com/bkzj/BK1027.html
     :param symbol: 板块名称
     :type symbol: str
     :return: 板块成份
     :rtype: pandas.DataFrame
     """
-    stock_board_concept_em_map = stock_board_concept_name_em()
+    stock_board_concept_em_map = stock_board_industry_name_em()
     stock_board_code = stock_board_concept_em_map[
         stock_board_concept_em_map["板块名称"] == symbol
     ]["板块代码"].values[0]
@@ -194,7 +209,6 @@ def stock_board_concept_cons_em(symbol: str = "车联网") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
@@ -270,13 +284,13 @@ def stock_board_concept_cons_em(symbol: str = "车联网") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_board_concept_em_df = stock_board_concept_name_em()
-    print(stock_board_concept_em_df)
+    stock_board_industry_name_em_df = stock_board_industry_name_em()
+    print(stock_board_industry_name_em_df)
 
-    stock_board_concept_hist_em_df = stock_board_concept_hist_em(
-        symbol="车联网", adjust=""
+    stock_board_industry_hist_em_df = stock_board_industry_hist_em(
+        symbol="小金属", adjust=""
     )
-    print(stock_board_concept_hist_em_df)
+    print(stock_board_industry_hist_em_df)
 
-    stock_board_concept_cons_em_df = stock_board_concept_cons_em(symbol="网络安全")
-    print(stock_board_concept_cons_em_df)
+    stock_board_industry_cons_em_df = stock_board_industry_cons_em(symbol="小金属")
+    print(stock_board_industry_cons_em_df)

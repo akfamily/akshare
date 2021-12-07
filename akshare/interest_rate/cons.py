@@ -215,7 +215,7 @@ market_symbol_indicator_dict = {
         "1年": "http://data.eastmoney.com/shibor/shibor.aspx?m=eu&t=93&d=992815&cu=eur&type=009084",
     }},
     "香港银行同业拆借市场": {"Hibor港元": {
-        "1天": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=91&d=99301&cu=hkd&type=009048",
+        "隔夜": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=91&d=99301&cu=hkd&type=009048",
         "1周": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=91&d=99302&cu=hkd&type=009049",
         "2周": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=91&d=99303&cu=hkd&type=009050",
         "1月": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=91&d=99304&cu=hkd&type=009051",
@@ -232,7 +232,7 @@ market_symbol_indicator_dict = {
         "1年": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=91&d=993015&cu=hkd&type=009062",
     },
         "Hibor美元": {
-            "1天": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=90&d=99311&cu=usd&type=009048",
+            "隔夜": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=90&d=99311&cu=usd&type=009048",
             "1周": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=90&d=99312&cu=usd&type=009049",
             "2周": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=90&d=99313&cu=usd&type=009050",
             "1月": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=90&d=99314&cu=usd&type=009051",
@@ -249,7 +249,7 @@ market_symbol_indicator_dict = {
             "1年": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=90&d=993115&cu=usd&type=009062",
         },
         "Hibor人民币": {
-            "1天": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=89&d=99321&cu=cny&type=009048",
+            "隔夜": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=89&d=99321&cu=cny&type=009048",
             "1周": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=89&d=99322&cu=cny&type=009049",
             "2周": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=89&d=99323&cu=cny&type=009050",
             "1月": "http://data.eastmoney.com/shibor/shibor.aspx?m=hk&t=89&d=99324&cu=cny&type=009051",

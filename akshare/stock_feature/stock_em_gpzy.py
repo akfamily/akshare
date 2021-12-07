@@ -22,10 +22,10 @@ def stock_em_gpzy_profile() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-股权质押市场概况
     http://data.eastmoney.com/gpzy/marketProfile.aspx
-    :return: pandas.DataFrame
+    :return: 股权质押市场概况
+    :rtype: pandas.DataFrame
     """
     url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    temp_df = pd.DataFrame()
     params = {
         "type": "ZD_SUM",
         "token": "70f12f2f4f091e459a279469fe49eca5",
@@ -37,6 +37,7 @@ def stock_em_gpzy_profile() -> pd.DataFrame:
         "js": "var zvxnZOnT={pages:(tp),data:(x),font:(font)}",
         "rt": "52583914",
     }
+    temp_df = pd.DataFrame()
     res = requests.get(url, params=params)
     data_text = res.text
     data_json = demjson.decode(data_text[data_text.find("={") + 1 :])

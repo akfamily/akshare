@@ -206,6 +206,7 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
 def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     """
     20200315-丁香园接口更新分为国内和国外
+    https://ncov.dxy.cn/ncovh5/view/pneumonia
     丁香园-全国统计-info
     丁香园-分地区统计-data
     丁香园-全国发热门诊一览表-hospital
@@ -215,7 +216,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     :return: 返回指定 indicator 的数据
     :rtype: pandas.DataFrame
     """
-    url = "https://3g.dxy.cn/newh5/view/pneumonia"
+    url = "https://ncov.dxy.cn/ncovh5/view/pneumonia"
     r = requests.get(url)
     r.encoding = "utf-8"
     soup = BeautifulSoup(r.text, "lxml")

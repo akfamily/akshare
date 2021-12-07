@@ -2691,4 +2691,98 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.15 fix: fix stock_board_industry_name_ths interface
 
 1.2.16 add: add stock_board_cons_ths interface
+
+1.2.17 fix: fix amac_fund_info interface
+
+1.2.18 fix: fix amac interface
+
+1.2.19 fix: fix amac cons.py interface
+
+1.2.20 fix: fix stock_zh_a_spot_em interface
+
+1.2.21 fix: fix stock_zh_a_hist interface
+
+1.2.22 fix: fix amac_fund_info interface
+
+1.2.23 add: add video_tv interface
+
+1.2.24 fix: fix car_gasgoo_sale_rank interface
+
+1.2.25 fix: fix amac_manager_classify_info interface
+
+1.2.26 fix: fix amac interface
+
+1.2.27 add: add online_value_artist interface
+
+1.2.28 add: add club_rank_game interface
+
+1.2.29 add: add player_rank_game interface
+
+1.2.30 add: add business_value_artist interface
+
+1.2.31 fix: fix stock_em_zt_pool interface
+
+1.2.32 add: add video_variety_show interface
+
+1.2.33 add: add fund_fh_em interface
+
+1.2.34 fix: fix fund_em_open_fund_info interface
+
+1.2.35 fix: fix fund_em_open_fund_info interface
+
+1.2.36 add: add stock_info_bj_name_code interface
+
+1.2.37 fix: fix stock_info_a_code_name interface
+
+1.2.38 fix: fix futures_foreign_commodity_realtime interface
+
+1.2.39 fix: fix stock_info_sh_delist interface
+
+1.2.40 add: add fund_scale_change_em interface
+
+1.2.41 add: add fund_hold_structure_em interface
+
+1.2.42 fix: fix fund_manager interface
+
+1.2.43 fix: fix get_czce_daily interface
+
+1.2.44 add: add futures_index_cscidx interface
+
+1.2.45 fix: fix stock_info_a_code_name interface
+
+1.2.46 add: add stock_board_industry_cons_em interface
+
+1.2.47 fix: fix covid_19_dxy interface
+
+1.2.48 fix: fix covid_19_dxy interface
+
+1.2.49 fix: fix rate_interbank interface
+
+1.2.50 fix: fix nh_price_index interface
+
+1.2.51 add: add futures_hq_subscribe_exchange_symbol interface
+
+1.2.52 fix: fix futures_foreign_commodity_realtime interface
+
+1.2.53 add: add get_ine_daily interface
+
+1.2.54 fix: fix bond_zh_hs_cov_min interface
+
+1.2.55 add: add stock_repurchase_em interface
+
+1.2.56 fix: fix stock_zh_a_tick_163 interface
+
+1.2.57 add: add stock_us_hist_fu interface
+
+1.2.58 fix: fix stock_board_concept_hist_ths interface
+
+1.2.59 fix: fix macro_china_hk interface
+
+1.2.60 fix: fix macro_china_hk interface
+
+1.2.61 fix: fix stock_board_concept_hist_ths interface
+
+1.2.62 fix: fix stock_dzjy_sctj interface
+
+1.2.63 add: add spot_hist_sge interface
 ```

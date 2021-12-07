@@ -94,10 +94,10 @@ def stock_zh_a_tick_tx(
 
 
 def stock_zh_a_tick_163(
-    code: str = "sz000001", trade_date: str = "20210616"
+    code: str = "sz000001", trade_date: str = "20211201"
 ) -> pd.DataFrame:
     """
-    成交明细-每个交易日 22:00 提供当日数据
+    成交明细-每个交易日 22:00 提供当日数据; 该接口目前还不支持北交所的股票
     http://quotes.money.163.com/trade/cjmx_000001.html#01b05
     :param code: 带市场标识的股票代码
     :type code: str
@@ -182,13 +182,13 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz000001", trade_date="20211104")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz000001", trade_date="20211201")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
     print(stock_zh_a_tick_tx_js_df)
 
-    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(code="sh600848", trade_date="20211104")
+    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(code="sh600848", trade_date="20211112")
     print(stock_zh_a_tick_tx_df)
 
     date_list = pd.date_range(start="20210601", end="20210613").tolist()

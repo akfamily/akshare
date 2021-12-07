@@ -1638,9 +1638,56 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.14 add: add sw_index_second_spot interface
 1.2.15 fix: fix stock_board_industry_name_ths interface
 1.2.16 add: add stock_board_cons_ths interface
+1.2.17 fix: fix amac_fund_info interface
+1.2.18 fix: fix amac interface
+1.2.19 fix: fix amac cons.py interface
+1.2.20 fix: fix stock_zh_a_spot_em interface
+1.2.21 fix: fix stock_zh_a_hist interface
+1.2.22 fix: fix amac_fund_info interface
+1.2.23 add: add video_tv interface
+1.2.24 fix: fix car_gasgoo_sale_rank interface
+1.2.25 fix: fix amac_manager_classify_info interface
+1.2.26 fix: fix amac interface
+1.2.27 add: add online_value_artist interface
+1.2.28 add: add club_rank_game interface
+1.2.29 add: add player_rank_game interface
+1.2.30 add: add business_value_artist interface
+1.2.31 fix: fix stock_em_zt_pool interface
+1.2.32 add: add video_variety_show interface
+1.2.33 add: add fund_fh_em interface
+1.2.34 fix: fix fund_em_open_fund_info interface
+1.2.35 fix: fix fund_em_open_fund_info interface
+1.2.36 add: add stock_info_bj_name_code interface
+1.2.37 fix: fix stock_info_a_code_name interface
+1.2.38 fix: fix futures_foreign_commodity_realtime interface
+1.2.39 fix: fix stock_info_sh_delist interface
+1.2.40 add: add fund_scale_change_em interface
+1.2.41 add: add fund_hold_structure_em interface
+1.2.42 fix: fix fund_manager interface
+1.2.43 fix: fix get_czce_daily interface
+1.2.44 add: add futures_index_cscidx interface
+1.2.45 fix: fix stock_info_a_code_name interface
+1.2.46 add: add stock_board_industry_cons_em interface
+1.2.47 fix: fix covid_19_dxy interface
+1.2.48 fix: fix covid_19_dxy interface
+1.2.49 fix: fix rate_interbank interface
+1.2.50 fix: fix nh_price_index interface
+1.2.51 add: add futures_hq_subscribe_exchange_symbol interface
+1.2.52 fix: fix futures_foreign_commodity_realtime interface
+1.2.53 add: add get_ine_daily interface
+1.2.54 fix: fix bond_zh_hs_cov_min interface
+1.2.55 add: add stock_repurchase_em interface
+1.2.56 fix: fix stock_zh_a_tick_163 interface
+1.2.57 add: add stock_us_hist_fu interface
+1.2.58 fix: fix stock_board_concept_hist_ths interface
+1.2.59 fix: fix macro_china_hk interface
+1.2.60 fix: fix macro_china_hk interface
+1.2.61 fix: fix stock_board_concept_hist_ths interface
+1.2.62 fix: fix stock_dzjy_sctj interface
+1.2.63 add: add spot_hist_sge interface
 """
 
-__version__ = "1.2.16"
+__version__ = "1.2.63"
 __author__ = "Albert King"
 
 import sys
@@ -1650,6 +1697,55 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+上海黄金交易所-数据资讯-行情走势
+"""
+from akshare.spot.spot_sge import spot_hist_sge, spot_symbol_list_sge
+
+"""
+富途牛牛-美股
+"""
+from akshare.stock_feature.stock_us_hist_futunn import stock_us_hist_fu
+
+"""
+股票回购
+"""
+from akshare.stock.stock_repurchase_em import stock_repurchase_em
+
+"""
+东方财富-行业板块
+"""
+from akshare.stock.stock_board_industry_em import (
+    stock_board_industry_cons_em,
+    stock_board_industry_hist_em,
+    stock_board_industry_name_em,
+)
+
+"""
+天天基金网-基金数据-规模变动
+"""
+from akshare.fund.fund_scale_em import fund_scale_change_em, fund_hold_structure_em
+
+"""
+天天基金网-基金数据-分红送配
+"""
+from akshare.fund.fund_fhsp_em import fund_cf_em, fund_fh_rank_em, fund_fh_em
+
+"""
+中国电竞价值排行榜
+"""
+from akshare.other.other_game import club_rank_game, player_rank_game
+
+"""
+艺恩-艺人
+"""
+from akshare.movie.artist_yien import online_value_artist, business_value_artist
+
+"""
+艺恩-视频放映
+"""
+from akshare.movie.video_yien import video_variety_show, video_tv
 
 """
 同花顺-数据中心-技术选股
@@ -1999,15 +2095,15 @@ from akshare.stock_feature.stock_em_ztb import (
 中国-香港-宏观
 """
 from akshare.economic.macro_china_hk import (
-    marco_china_hk_cpi,
-    marco_china_hk_cpi_ratio,
-    marco_china_hk_trade_diff_ratio,
-    marco_china_hk_gbp_ratio,
-    marco_china_hk_building_amount,
-    marco_china_hk_building_volume,
-    marco_china_hk_gbp,
-    marco_china_hk_ppi,
-    marco_china_hk_rate_of_unemployment,
+    macro_china_hk_cpi,
+    macro_china_hk_cpi_ratio,
+    macro_china_hk_trade_diff_ratio,
+    macro_china_hk_gbp_ratio,
+    macro_china_hk_building_amount,
+    macro_china_hk_building_volume,
+    macro_china_hk_gbp,
+    macro_china_hk_ppi,
+    macro_china_hk_rate_of_unemployment,
 )
 
 """
@@ -2475,6 +2571,7 @@ from akshare.stock.stock_info import (
     stock_info_sz_delist,
     stock_info_a_code_name,
     stock_info_sh_name_code,
+    stock_info_bj_name_code,
     stock_info_sz_name_code,
     stock_info_sz_change_name,
     stock_info_change_name,
@@ -2567,9 +2664,9 @@ from akshare.event.covid import (
 )
 
 """
-futures_cfmmc
+futures_cscidx
 """
-from akshare.futures.futures_cfmmc import futures_index_cscidx_map, futures_index_cscidx
+from akshare.futures.futures_cscidx import futures_index_cscidx
 
 """
 futures_em_spot_stock
@@ -3042,6 +3139,7 @@ from akshare.index.zh_stock_index_sina import (
 from akshare.futures.futures_hq_sina import (
     futures_foreign_commodity_realtime,
     futures_foreign_commodity_subscribe_exchange_symbol,
+    futures_hq_subscribe_exchange_symbol,
 )
 
 """
@@ -3404,4 +3502,5 @@ from akshare.futures.futures_daily_bar import (
     get_shfe_daily,
     get_dce_daily,
     get_futures_daily,
+    get_ine_daily,
 )

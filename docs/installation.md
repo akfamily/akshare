@@ -39,7 +39,26 @@ P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://gith
 pip install akshare --upgrade -i https://pypi.org/simple
 ```
 
-## R 语言支持
+## 苹果 M1 处理器支持
+
+### 缘起
+
+AKShare 由于使用 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-into-python/) 项目来支持在 Python 中运行 JavaScript
+代码，所以要完整的使用 AKShare 的全部功能需要安装该库。
+
+但是由于苹果的 M1 芯片采用 ARM 架构，而 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-into-python/) 并没有编译相对于的
+版本，所以造成在 M1 芯片的计算机上使用 AKShare 会出问题。
+
+### 解决方案
+
+本次的解决方案是提供编译好的文件供大家下载使用：[libmini_racer.dylib](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/software/pyminiracer/libmini_racer.dylib) ， 
+只需要把该文件放在提示的路径下即可！
+
+### 扩展阅读
+
+如果需要编译，请参考该文章：[Building V8 on an M1 MacBook](https://joyeecheung.github.io/blog/2021/08/27/binding-v8-on-an-m1-macbook/)
+
+## R 语言调用支持
 
 ### 安装 Anaconda
 
@@ -320,6 +339,26 @@ ans =
 
 则表示可以在 MATLAB 中调用 AKShare 的带参数的接口。
 
+### 转换数据格式
+
+#### 友情提示
+
+1. 首先感谢群友的帮助，特此提供在 MATLAB 中转化 Pandas 格式数据为在 MATLAB 中可以用的数据类型
+2. [下载该函数文件](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/py2matlab.m) 到当前用户文件统一目录下
+
+#### 演示
+
+```
+% 导入 AKShare 库
+ak = py.importlib.import_module('akshare');
+% 代用 AKShare 数据接口
+temp_df = ak.stock_zh_a_hist();
+% 转化数据格式
+df = py2matlab(temp_df);
+% 展示获取到本地的数据
+disp(df)
+```
+
 ## 安装报错解决方案
 
 ### 1. 安装 lxml 库失败的错误
@@ -393,5 +432,5 @@ pip install akshare --user
 
 ### 4. 提示其他的错误
 
-- 方法一: 确认并升级您的 Anaconda 或者 Python 到 64 位的 **Python3.7** 及以上版本
+- 方法一: 确认并升级您已安装 64 位的 **Python3.7** 及以上版本
 - 方法二: 使用 conda 的虚拟环境来安装, 详见 **[AKShare](https://github.com/akfamily/akshare) 环境配置** 板块的内容

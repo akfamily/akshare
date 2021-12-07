@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/6 20:31
+Date: 2021/11/23 20:31
 Desc: 股票基本信息
 """
 import json
@@ -10,6 +10,7 @@ from io import BytesIO
 
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 
 def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
@@ -24,10 +25,10 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
     url = "http://www.szse.cn/api/report/ShowReport"
     indicator_map = {"A股列表": "tab1", "B股列表": "tab2", "CDR列表": "tab3", "AB股列表": "tab4"}
     params = {
-         "SHOWTYPE": "xlsx",
-         "CATALOGID": "1110",
-         "TABKEY": indicator_map[indicator],
-         "random": "0.6935816432433362",
+        "SHOWTYPE": "xlsx",
+        "CATALOGID": "1110",
+        "TABKEY": indicator_map[indicator],
+        "random": "0.6935816432433362",
     }
     r = requests.get(url, params=params)
     with warnings.catch_warnings(record=True):
@@ -35,40 +36,74 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
         temp_df = pd.read_excel(BytesIO(r.content))
     if len(temp_df) > 10:
         if indicator == "A股列表":
-            temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
-            temp_df = temp_df[[
-                '板块',
-                'A股代码',
-                'A股简称',
-                'A股上市日期',
-                'A股总股本',
-                'A股流通股本',
-                '所属行业',
-            ]]
+            temp_df["A股代码"] = (
+                temp_df["A股代码"]
+                .astype(str)
+                .str.split(".", expand=True)
+                .iloc[:, 0]
+                .str.zfill(6)
+                .str.replace("000nan", "")
+            )
+            temp_df = temp_df[
+                [
+                    "板块",
+                    "A股代码",
+                    "A股简称",
+                    "A股上市日期",
+                    "A股总股本",
+                    "A股流通股本",
+                    "所属行业",
+                ]
+            ]
         elif indicator == "B股列表":
-            temp_df["B股代码"] = temp_df["B股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
-            temp_df = temp_df[[
-                '板块',
-                'B股代码',
-                'B股简称',
-                'B股上市日期',
-                'B股总股本',
-                'B股流通股本',
-                '所属行业',
-            ]]
+            temp_df["B股代码"] = (
+                temp_df["B股代码"]
+                .astype(str)
+                .str.split(".", expand=True)
+                .iloc[:, 0]
+                .str.zfill(6)
+                .str.replace("000nan", "")
+            )
+            temp_df = temp_df[
+                [
+                    "板块",
+                    "B股代码",
+                    "B股简称",
+                    "B股上市日期",
+                    "B股总股本",
+                    "B股流通股本",
+                    "所属行业",
+                ]
+            ]
         elif indicator == "AB股列表":
-            temp_df["A股代码"] = temp_df["A股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
-            temp_df["B股代码"] = temp_df["B股代码"].astype(str).str.split('.', expand=True).iloc[:, 0].str.zfill(6).str.replace("000nan", "")
-            temp_df = temp_df[[
-                '板块',
-                'A股代码',
-                'A股简称',
-                'A股上市日期',
-                'B股代码',
-                'B股简称',
-                'B股上市日期',
-                '所属行业',
-            ]]
+            temp_df["A股代码"] = (
+                temp_df["A股代码"]
+                .astype(str)
+                .str.split(".", expand=True)
+                .iloc[:, 0]
+                .str.zfill(6)
+                .str.replace("000nan", "")
+            )
+            temp_df["B股代码"] = (
+                temp_df["B股代码"]
+                .astype(str)
+                .str.split(".", expand=True)
+                .iloc[:, 0]
+                .str.zfill(6)
+                .str.replace("000nan", "")
+            )
+            temp_df = temp_df[
+                [
+                    "板块",
+                    "A股代码",
+                    "A股简称",
+                    "A股上市日期",
+                    "B股代码",
+                    "B股简称",
+                    "B股上市日期",
+                    "所属行业",
+                ]
+            ]
         return temp_df
     else:
         return temp_df
@@ -107,12 +142,133 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"):-1])
+    json_data = json.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["result"])
+    temp_df.columns = [
+        '-',
+        '公司简称',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '简称',
+        '代码',
+        '-',
+        '-',
+        '公司代码',
+        '-',
+        '上市日期',
+    ]
+    temp_df = temp_df[[
+        '公司代码',
+        '公司简称',
+        '代码',
+        '简称',
+        '上市日期',
+    ]]
+    temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期']).dt.date
     return temp_df
 
 
-def stock_info_sh_delist(indicator: str = "暂停上市公司"):
+def stock_info_bj_name_code() -> pd.DataFrame:
+    """
+    北京证券交易所-股票列表
+    http://www.bse.cn/nq/listedcompany.html
+    :return: 股票列表
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.bse.cn/nqxxController/nqxxCnzq.do"
+    payload = {
+        "page": "0",
+        "typejb": "T",
+        "xxfcbj[]": "2",
+        "xxzqdm": "",
+        "sortfield": "xxzqdm",
+        "sorttype": "asc",
+    }
+    r = requests.post(url, data=payload)
+    data_text = r.text
+    data_json = json.loads(data_text[data_text.find("[") : -1])
+    total_page = data_json[0]["totalPages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(total_page)):
+        payload.update({"page": page})
+        r = requests.post(url, data=payload)
+        data_text = r.text
+        data_json = json.loads(data_text[data_text.find("[") : -1])
+        temp_df = data_json[0]["content"]
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.columns = [
+        "上市日期",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "流通股本",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "所属行业",
+        "-",
+        "-",
+        "-",
+        "-",
+        "报告日期",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "地区",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "券商",
+        "总股本",
+        "-",
+        "证券代码",
+        "-",
+        "证券简称",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ]
+    big_df = big_df[
+        [
+            "证券代码",
+            "证券简称",
+            "总股本",
+            "流通股本",
+            "上市日期",
+            "所属行业",
+            "地区",
+            "报告日期",
+        ]
+    ]
+    big_df['报告日期'] = pd.to_datetime(big_df['报告日期']).dt.date
+    big_df['上市日期'] = pd.to_datetime(big_df['上市日期']).dt.date
+    return big_df
+
+
+def stock_info_sh_delist(indicator: str = "终止上市公司") -> pd.DataFrame:
     """
     上海证券交易所-暂停上市公司-终止上市公司
     http://www.sse.com.cn/assortment/stock/list/firstissue/
@@ -145,8 +301,36 @@ def stock_info_sh_delist(indicator: str = "暂停上市公司"):
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{"):-1])
+    json_data = json.loads(text_data[text_data.find("{") : -1])
     temp_df = pd.DataFrame(json_data["result"])
+    temp_df.columns = [
+        '-',
+        '-',
+        '终止上市后股份转让代码',
+        '-',
+        '终止上市后股份转让主办券商',
+        '终止上市后股份转让副主办券商',
+        '终止上市日期',
+        '-',
+        '原公司简称',
+        '原公司代码',
+        '-',
+        '-',
+        '-',
+        '-',
+        '上市日期',
+    ]
+    temp_df = temp_df[[
+        '原公司代码',
+        '原公司简称',
+        '上市日期',
+        '终止上市日期',
+        '终止上市后股份转让代码',
+        '终止上市后股份转让主办券商',
+        '终止上市后股份转让副主办券商',
+    ]]
+    temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期']).dt.date
+    temp_df['终止上市日期'] = pd.to_datetime(temp_df['终止上市日期']).dt.date
     return temp_df
 
 
@@ -219,19 +403,18 @@ def stock_info_change_name(stock: str = "688588") -> pd.DataFrame:
         name_list = temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
         return name_list
     except:
-        return None
+        return pd.DataFrame()
 
 
 def stock_info_a_code_name() -> pd.DataFrame:
     """
-    沪深 A 股列表
-    :return: 沪深 A 股数据
+    沪深京 A 股列表
+    :return: 沪深京 A 股数据
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
     stock_sh = stock_info_sh_name_code(indicator="主板A股")
-    stock_sh = stock_sh[["SECURITY_CODE_A", "SECURITY_ABBR_A"]]
-    stock_sh.columns = ["公司代码", "公司简称"]
+    stock_sh = stock_sh[["公司代码", "公司简称"]]
 
     stock_sz = stock_info_sz_name_code(indicator="A股列表")
     stock_sz["A股代码"] = stock_sz["A股代码"].astype(str).str.zfill(6)
@@ -239,16 +422,20 @@ def stock_info_a_code_name() -> pd.DataFrame:
     big_df.columns = ["公司代码", "公司简称"]
 
     stock_kcb = stock_info_sh_name_code(indicator="科创板")
-    stock_kcb = stock_kcb[["SECURITY_CODE_A", "SECURITY_ABBR_A"]]
-    stock_kcb.columns = ["公司代码", "公司简称"]
+    stock_kcb = stock_kcb[["公司代码", "公司简称"]]
+
+    stock_bse = stock_info_bj_name_code()
+    stock_bse = stock_bse[["证券代码", "证券简称"]]
+    stock_bse.columns = ["公司代码", "公司简称"]
 
     big_df = big_df.append(stock_sh, ignore_index=True)
     big_df = big_df.append(stock_kcb, ignore_index=True)
+    big_df = big_df.append(stock_bse, ignore_index=True)
     big_df.columns = ["code", "name"]
     return big_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_info_sz_df = stock_info_sz_name_code(indicator="A股列表")
     print(stock_info_sz_df)
 
@@ -275,3 +462,6 @@ if __name__ == '__main__':
 
     stock_info_a_code_name_df = stock_info_a_code_name()
     print(stock_info_a_code_name_df)
+
+    stock_info_bj_name_code_df = stock_info_bj_name_code()
+    print(stock_info_bj_name_code_df)
