@@ -976,6 +976,7 @@
 
 ```python
 import akshare as ak
+
 get_roll_yield_bar_df = ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718", plot=True)
 print(get_roll_yield_bar_df)
 ```
@@ -983,7 +984,7 @@ print(get_roll_yield_bar_df)
 结果显示: 日期, 展期收益率, 最近合约, 下一期合约
 
 ```
-            roll_yield near_by deferred
+              roll_yield  near_by deferred
 2018-06-19    0.191289  RB1810   RB1901
 2018-06-20    0.192123  RB1810   RB1901
 2018-06-21    0.183304  RB1810   RB1901

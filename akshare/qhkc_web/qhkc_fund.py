@@ -417,5 +417,5 @@ if __name__ == "__main__":
     # print(df1)
     # print(df2)
 
-    df = get_qhkc_fund_money_change(20190925)
+    df = get_qhkc_fund_money_change(20211208)
     print(df)
