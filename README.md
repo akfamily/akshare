@@ -1,4 +1,4 @@
-**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP Server 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！**
+**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP Server 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南**
 
 ![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare_logo.jpg)
 
