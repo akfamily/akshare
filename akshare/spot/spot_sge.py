@@ -64,17 +64,17 @@ def spot_golden_benchmark_sge() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["wp"])
     temp_df.columns = [
-        '交易时间',
-        '晚盘价',
+        "交易时间",
+        "晚盘价",
     ]
-    temp_df['交易时间'] = pd.to_datetime(temp_df['交易时间'], unit='ms').dt.date
+    temp_df["交易时间"] = pd.to_datetime(temp_df["交易时间"], unit="ms").dt.date
     temp_zp_df = pd.DataFrame(data_json["zp"])
     temp_zp_df.columns = [
-        '交易时间',
-        '早盘价',
+        "交易时间",
+        "早盘价",
     ]
-    temp_zp_df['交易时间'] = pd.to_datetime(temp_zp_df['交易时间'], unit='ms').dt.date
-    temp_df['早盘价'] = temp_zp_df['早盘价']
+    temp_zp_df["交易时间"] = pd.to_datetime(temp_zp_df["交易时间"], unit="ms").dt.date
+    temp_df["早盘价"] = temp_zp_df["早盘价"]
     return temp_df
 
 
@@ -91,25 +91,25 @@ def spot_silver_benchmark_sge() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["wp"])
     temp_df.columns = [
-        '交易时间',
-        '晚盘价',
+        "交易时间",
+        "晚盘价",
     ]
-    temp_df['交易时间'] = pd.to_datetime(temp_df['交易时间'], unit='ms').dt.date
+    temp_df["交易时间"] = pd.to_datetime(temp_df["交易时间"], unit="ms").dt.date
     temp_zp_df = pd.DataFrame(data_json["zp"])
     temp_zp_df.columns = [
-        '交易时间',
-        '早盘价',
+        "交易时间",
+        "早盘价",
     ]
-    temp_zp_df['交易时间'] = pd.to_datetime(temp_zp_df['交易时间'], unit='ms').dt.date
-    temp_df['早盘价'] = temp_zp_df['早盘价']
+    temp_zp_df["交易时间"] = pd.to_datetime(temp_zp_df["交易时间"], unit="ms").dt.date
+    temp_df["早盘价"] = temp_zp_df["早盘价"]
     return temp_df
 
 
 if __name__ == "__main__":
-    spot_list = spot_symbol_list_sge()
-    print(spot_list)
+    spot_symbol_list_sge_list = spot_symbol_list_sge()
+    print(spot_symbol_list_sge_list)
 
-    spot_hist_sge_df = spot_hist_sge(symbol='Au99.99')
+    spot_hist_sge_df = spot_hist_sge(symbol="Au99.99")
     print(spot_hist_sge_df)
 
     spot_golden_benchmark_sge_df = spot_golden_benchmark_sge()
@@ -118,6 +118,6 @@ if __name__ == "__main__":
     spot_silver_benchmark_sge_df = spot_silver_benchmark_sge()
     print(spot_silver_benchmark_sge_df)
 
-    for spot in spot_list:
+    for spot in spot_symbol_list_sge_list:
         spot_hist_sge_df = spot_hist_sge(symbol=spot)
         print(spot_hist_sge_df)

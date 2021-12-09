@@ -35,7 +35,6 @@ def car_cpca_energy_sale():
             temp_current_year_list.append(item[temp_df.columns[1]])
         except:
             continue
-
     temp_current_year_df = pd.DataFrame(temp_current_year_list)
     temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
     big_df = pd.DataFrame([temp_current_year_df.iloc[:, 2], temp_previous_year_df.iloc[:, 2]]).T
