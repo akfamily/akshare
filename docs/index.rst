@@ -33,4 +33,4 @@ Welcome to AKShare's Online Documentation!
    demo
    changelog
    dependency
-
+   deploy_http
