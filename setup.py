@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/26 13:58
-Desc: AKShare's pypi info file
+Date: 2021/12/8 17:09
+Desc: AKShare's PYPI info file
 """
 import re
 import ast
@@ -13,7 +13,7 @@ with open("README.md", "r", encoding="utf-8") as f:
     long_description = f.read()
 
 
-def get_version_string():
+def get_version_string() -> str:
     """
     Get the akshare version number
     :return: version number
