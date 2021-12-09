@@ -21,7 +21,6 @@ Welcome to AKShare's Online Documentation!
 
    introduction
    installation
-   akdocker/akdocker
    contributor
    answer
    tutorial
@@ -34,3 +33,4 @@ Welcome to AKShare's Online Documentation!
    changelog
    dependency
    deploy_http
+   akdocker/akdocker
