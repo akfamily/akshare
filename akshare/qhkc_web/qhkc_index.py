@@ -190,5 +190,5 @@ if __name__ == "__main__":
     print(data)
     data = get_qhkc_index_trend("奇货贵金属")
     print(data)
-    data = get_qhkc_index_profit_loss("奇货贵金属", end_date="20190716")
+    data = get_qhkc_index_profit_loss("奇货贵金属", end_date="20211207")
     print(data)

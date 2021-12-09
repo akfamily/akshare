@@ -469,12 +469,14 @@ def get_pk_data(file_name):
 
 def get_calendar():
     """
-    获取交易日历至 2019 年结束, 这里的交易日历需要按年更新
-    :return: json
+    获取交易日历, 这里的交易日历需要按年更新, 主要是从新浪获取的
+    :return: 交易日历
+    :rtype: json
     """
     setting_file_name = "calendar.json"
     setting_file_path = get_json_path(setting_file_name, __file__)
-    return json.load(open(setting_file_path, "r"))
+    data_json = json.load(open(setting_file_path, "r"))
+    return data_json
 
 
 def last_trading_day(day):

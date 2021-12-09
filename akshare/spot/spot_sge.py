@@ -1,9 +1,11 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/12/6 21:59
+Date: 2021/12/7 17:00
 Desc: 上海黄金交易所-数据资讯-行情走势
 https://www.sge.com.cn/sjzx/mrhq
+上海黄金交易所-数据资讯-上海金基准价-历史数据
+上海黄金交易所-数据资讯-上海银基准价-历史数据
 """
 import pandas as pd
 import requests
@@ -49,13 +51,73 @@ def spot_hist_sge(symbol: str = "Au99.99") -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == "__main__":
-    spot_list = spot_symbol_list_sge()
-    print(spot_list)
+def spot_golden_benchmark_sge() -> pd.DataFrame:
+    """
+    上海黄金交易所-数据资讯-上海金基准价-历史数据
+    https://www.sge.com.cn/sjzx/jzj
+    :return: 历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.sge.com.cn/graph/DayilyJzj"
+    payload = {}
+    r = requests.post(url, data=payload)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["wp"])
+    temp_df.columns = [
+        "交易时间",
+        "晚盘价",
+    ]
+    temp_df["交易时间"] = pd.to_datetime(temp_df["交易时间"], unit="ms").dt.date
+    temp_zp_df = pd.DataFrame(data_json["zp"])
+    temp_zp_df.columns = [
+        "交易时间",
+        "早盘价",
+    ]
+    temp_zp_df["交易时间"] = pd.to_datetime(temp_zp_df["交易时间"], unit="ms").dt.date
+    temp_df["早盘价"] = temp_zp_df["早盘价"]
+    return temp_df
 
-    spot_hist_sge_df = spot_hist_sge(symbol='Au99.99')
+
+def spot_silver_benchmark_sge() -> pd.DataFrame:
+    """
+    上海黄金交易所-数据资讯-上海银基准价-历史数据
+    https://www.sge.com.cn/sjzx/mrhq
+    :return: 历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.sge.com.cn/graph/DayilyShsilverJzj"
+    payload = {}
+    r = requests.post(url, data=payload)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["wp"])
+    temp_df.columns = [
+        "交易时间",
+        "晚盘价",
+    ]
+    temp_df["交易时间"] = pd.to_datetime(temp_df["交易时间"], unit="ms").dt.date
+    temp_zp_df = pd.DataFrame(data_json["zp"])
+    temp_zp_df.columns = [
+        "交易时间",
+        "早盘价",
+    ]
+    temp_zp_df["交易时间"] = pd.to_datetime(temp_zp_df["交易时间"], unit="ms").dt.date
+    temp_df["早盘价"] = temp_zp_df["早盘价"]
+    return temp_df
+
+
+if __name__ == "__main__":
+    spot_symbol_list_sge_list = spot_symbol_list_sge()
+    print(spot_symbol_list_sge_list)
+
+    spot_hist_sge_df = spot_hist_sge(symbol="Au99.99")
     print(spot_hist_sge_df)
 
-    for spot in spot_list:
+    spot_golden_benchmark_sge_df = spot_golden_benchmark_sge()
+    print(spot_golden_benchmark_sge_df)
+
+    spot_silver_benchmark_sge_df = spot_silver_benchmark_sge()
+    print(spot_silver_benchmark_sge_df)
+
+    for spot in spot_symbol_list_sge_list:
         spot_hist_sge_df = spot_hist_sge(symbol=spot)
         print(spot_hist_sge_df)
