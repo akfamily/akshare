@@ -111,6 +111,7 @@ def stock_financial_hk_analysis_indicator_em(
     ]
     temp_df.reset_index(drop=True, inplace=True)
     temp_df.columns.name = None
+    temp_df['周期'] = pd.to_datetime(temp_df['周期']).dt.date
     return temp_df
 
 
