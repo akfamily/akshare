@@ -11,7 +11,7 @@
 
 ## 引用
 
-如果您想在文章或者项目中引用 [AKShare](https://github.com/akfamily/akshare), 请使用如下 **bibtex** 格式:
+如果您想在文章或者项目中引用 [AKShare](https://github.com/akfamily/akshare/), 请使用如下 **bibtex** 格式:
 
 ```
 @misc{akshare2019,
@@ -39,7 +39,7 @@
 [AKShare](https://github.com/akfamily/akshare) 主要改进如下:
 
 1. 代码语法符合 [PEP8](https://www.python.org/dev/peps/pep-0008) 规范, 数据接口的命名统一;
-2. 最佳支持 Python 3.7.5 及其以上版本;
+2. 最佳支持 Python 3.8.5 及其以上版本;
 3. 提供最佳的文档支持, 每个数据接口提供详细的说明和示例, 只需要复制粘贴就可以下载数据;
 4. 持续维护由于目标网页变化而导致的部分数据接口运行异常问题;
 5. 持续更新财经数据接口, 同时优化源代码;
