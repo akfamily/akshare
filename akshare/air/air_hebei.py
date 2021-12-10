@@ -21,16 +21,16 @@ from tqdm import tqdm
 import requests
 
 
-def air_quality_hebei(city: str = "唐山市") -> pd.DataFrame:
+def air_quality_hebei(symbol: str = "唐山市") -> pd.DataFrame:
     """
     河北省空气质量预报信息发布系统-空气质量预报, 未来 6 天
     http://110.249.223.67/publish/
-    :param city: choice of {'石家庄市', '唐山市', '秦皇岛市', '邯郸市', '邢台市', '保定市', '张家口市', '承德市', '沧州市', '廊坊市', '衡水市', '辛集市', '定州市'}
-    :type city: str
+    :param symbol: choice of {'石家庄市', '唐山市', '秦皇岛市', '邯郸市', '邢台市', '保定市', '张家口市', '承德市', '沧州市', '廊坊市', '衡水市', '辛集市', '定州市'}
+    :type symbol: str
     :return: city = "", 返回所有地区的数据; city="唐山市", 返回唐山市的数据
     :rtype: pandas.DataFrame
     """
-    url = "http://110.249.223.67/publishNewServer/api/CityPublishInfo/GetProvinceAndCityPublishData"
+    url = "http://110.249.223.67/server/api/CityPublishInfo/GetProvinceAndCityPublishData"
     params = {"publishDate": f"{datetime.today().strftime('%Y-%m-%d')} 16:00:00"}
     r = requests.get(url, params=params)
     json_data = r.json()
@@ -44,12 +44,38 @@ def air_quality_hebei(city: str = "唐山市") -> pd.DataFrame:
             index=city_list,
         )
         outer_df = outer_df.append(inner_df)
-    if city == "":
-        return outer_df
+    if symbol == "":
+        temp_df = outer_df.reset_index()
+        temp_df.columns = [
+            'city',
+            'date',
+            'pollutant',
+            'minAQI',
+            'maxAQI',
+            'level',
+        ]
+        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+        temp_df['minaqi'] = pd.to_numeric(temp_df['minaqi'])
+        temp_df['maxaqi'] = pd.to_numeric(temp_df['maxaqi'])
+        return temp_df
     else:
-        return outer_df[outer_df.index == city]
+        temp_df = outer_df.reset_index()
+        temp_df.columns = [
+            'city',
+            'date',
+            'pollutant',
+            'minaqi',
+            'maxaqi',
+            'level',
+        ]
+        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+        temp_df['minaqi'] = pd.to_numeric(temp_df['minaqi'])
+        temp_df['maxaqi'] = pd.to_numeric(temp_df['maxaqi'])
+        temp_df = temp_df[temp_df['city'] == symbol]
+        temp_df.reset_index(inplace=True, drop=True)
+        return temp_df
 
 
 if __name__ == "__main__":
-    air_quality_hebei_df = air_quality_hebei(city="石家庄市")
+    air_quality_hebei_df = air_quality_hebei(symbol="定州市")
     print(air_quality_hebei_df)

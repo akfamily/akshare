@@ -578,7 +578,7 @@ print(sunrise_monthly_df)
 
 目标地址: http://110.249.223.67/publish/
 
-描述: 获取河北省近 6 天空气质量情况
+描述: 河北省指定 symbol 的最近 6 天空气质量数据
 
 注释: 
 
@@ -599,43 +599,44 @@ print(sunrise_monthly_df)
 
 中国科学院大气物理研究所, 中科三清科技有限公司
 
-限量: 单次返回 6 天的数据
+限量: 单次指定 symbol 的最近 6 天的数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| city | str | Y | city="定州市", 返回具体市的数据; city="", 则返回所有城市数据 |
+| 名称     | 类型  | 描述                                           |
+|--------|-----|----------------------------------------------|
+| symbol | str | symbol="定州市", 返回具体市的数据; symbol="", 则返回所有城市数据 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 城市      | str   | Y        | 城市-索引  |
-| Datadate      | str   | Y        | 日期  |
-| Pollutant      | float   | Y        | PM2.5   |
-| MinAQI     | str   | Y        | 最小  |
-| MaxAQI      | float   | Y        | 最大   |
-| Level      | str   | Y        | 程度  |
+| 名称        | 类型     | 描述    |
+|-----------|--------|-------|
+| city      | object | 城市-索引 |
+| date      | object | 日期    |
+| pollutant | object | 污染物   |
+| minaqi    | int64  | 最小    |
+| maxaqi    | int64  | 最大    |
+| level     | object | 程度    |
 
 接口示例
 
 ```python
 import akshare as ak
-air_quality_hebei_df = ak.air_quality_hebei(city="定州市")
+
+air_quality_hebei_df = ak.air_quality_hebei(symbol="定州市")
 print(air_quality_hebei_df)
 ```
 
 数据示例
 
 ```
-               Datadate Pollutant MinAQI MaxAQI  Level
-定州市  2019/11/27 0:00:00     PM2.5     80    110   良-轻度
-定州市  2019/11/28 0:00:00     PM2.5     90    120   良-轻度
-定州市  2019/11/29 0:00:00     PM2.5    175    205  中度-重度
-定州市  2019/11/30 0:00:00     PM2.5    175    205  中度-重度
-定州市   2019/12/1 0:00:00     PM2.5    175    205  中度-重度
-定州市   2019/12/2 0:00:00     PM2.5     80    110   良-轻度
+   city        date    pollutant  minaqi  maxaqi  level
+0  定州市  2021-12-11      PM2.5     150     180  轻度-中度
+1  定州市  2021-12-12   PM10,NO2      45      75    优-良
+2  定州市  2021-12-13  PM2.5,NO2      80     110   良-轻度
+3  定州市  2021-12-14  PM2.5,NO2      95     125   良-轻度
+4  定州市  2021-12-15      PM2.5     110     140     轻度
+5  定州市  2021-12-16   PM10,NO2      60      90      良
 ```
 
 ### 空气质量-全国
