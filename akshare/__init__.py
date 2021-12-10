@@ -1689,9 +1689,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.65 remove: remove wdbank interface
 1.2.66 add: add spot_golden_benchmark_sge interface
 1.2.67 fix: fix air_quality_hebei interface
+1.2.68 fix: fix stock_financial_hk_analysis_indicator_em interface
 """
 
-__version__ = "1.2.67"
+__version__ = "1.2.68"
 __author__ = "Albert King"
 
 import sys
