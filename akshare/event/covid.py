@@ -11,13 +11,13 @@ COVID-19-GitHub
 import json
 import time
 
-from akshare.utils import demjson
 import jsonpath
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 from akshare.event.cons import province_dict, city_dict
+from akshare.utils import demjson
 
 
 def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
@@ -211,7 +211,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     丁香园-分地区统计-data
     丁香园-全国发热门诊一览表-hospital
     丁香园-全国新闻-news
-    :param indicator: ["info", "data", "hospital", "news"]
+    :param indicator: choice of {"info", "data", "hospital", "news"}
     :type indicator: str
     :return: 返回指定 indicator 的数据
     :rtype: pandas.DataFrame
@@ -333,7 +333,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
                 data_df[data_df["provinceName"] == indicator]["cities"].values[0]
             )
             if sub_area.empty:
-                return None
+                return
             if sub_area.shape[1] != 10:
                 sub_area.columns = [
                     "区域",
