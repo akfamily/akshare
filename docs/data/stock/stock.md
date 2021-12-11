@@ -880,6 +880,7 @@ P.S. 每个交易日 16:00 提供当日数据; 如遇到数据缺失, 请使用 
 
 ```python
 import akshare as ak
+
 stock_zh_a_tick_tx_df = ak.stock_zh_a_tick_tx(code="sh600848", trade_date="20191011")
 print(stock_zh_a_tick_tx_df)
 
