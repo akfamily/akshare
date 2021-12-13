@@ -10,7 +10,13 @@ AKShare HTTP 版本的部署主要依赖 AKTools、AKShare、FastAPI、Uvicorn �
 ### 安装库
 
 ```shell
-pip install aktools akshare fastapi uvicorn
+pip install aktools
+```
+
+### 运行库
+
+```shell
+python -m aktools
 ```
 
 ### 使用文档
