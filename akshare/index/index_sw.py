@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/22 16:09
+Date: 2021/12/14 16:30
 Desc: 申万指数-申万一级
 http://www.swsindex.com/IdxMain.aspx
 """
@@ -55,12 +55,13 @@ def sw_index_spot() -> pd.DataFrame:
     :return: 申万一级行业实时行情数据
     :rtype: pandas.DataFrame
     """
+    url = "http://www.swsindex.com/handler.aspx"
     result = []
     for i in range(1, 3):
         payload = sw_payload.copy()
         payload.update({"p": i})
         payload.update({"timed": int(time.time() * 1000)})
-        r = requests.post(sw_url, headers=sw_headers, data=payload)
+        r = requests.post(url, headers=sw_headers, data=payload)
         data = r.content.decode()
         data = data.replace("'", '"')
         data = json.loads(data)

@@ -48,7 +48,7 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
         return pd.DataFrame(data_json["cffex"])
 
 
-def match_main_contract(exchange: str = "dce") -> str:
+def match_main_contract(exchange: str = "cffex") -> str:
     """
     获取主力合约
     :param exchange: choice of {'czce', 'dce', 'shfe', 'cffex'}
@@ -59,7 +59,7 @@ def match_main_contract(exchange: str = "dce") -> str:
     subscribe_exchange_list = []
     exchange_symbol_list = zh_subscribe_exchange_symbol(exchange).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
-        # item = 'jhb_qh'
+        # item = 'sngz_qh'
         zh_match_main_contract_payload.update({"node": item})
         res = requests.get(
             zh_match_main_contract_url, params=zh_match_main_contract_payload
@@ -442,6 +442,7 @@ if __name__ == "__main__":
     dce_text = match_main_contract(exchange="dce")
     czce_text = match_main_contract(exchange="czce")
     shfe_text = match_main_contract(exchange="shfe")
+    cffex_text = match_main_contract(exchange="cffex")
 
     while True:
         data = futures_zh_spot(
