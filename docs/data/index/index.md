@@ -1886,28 +1886,29 @@ print(sw_index_spot_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| --------------- | ----- | ---------------- |
-| 指数代码      | object   |    |
-| 指数名称      | object   |    |
-| 昨收盘      | float64   |   |
-| 今开盘      | float64   |    |
-| 成交额      | float64   |  注意单位: 元 |
-| 最高价      | float64   |    |
-| 最低价      | float64   |   |
-| 最新价      | float64   |    |
-| 成交量      | int64   | 注意单位: 股  |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 指数代码 | object  |         |
+| 指数名称 | object  |         |
+| 昨收盘  | float64 |         |
+| 今开盘  | float64 |         |
+| 成交额  | float64 | 注意单位: 元 |
+| 最高价  | float64 |         |
+| 最低价  | float64 |         |
+| 最新价  | float64 |         |
+| 成交量  | int64   | 注意单位: 股 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 sw_index_second_spot_df = ak.sw_index_second_spot()
 print(sw_index_second_spot_df)
 ```
@@ -1929,6 +1930,136 @@ print(sw_index_second_spot_df)
 97  801881  其他交运设备  2259.17  2256.25  ...  2287.34  2244.92  2282.82   113560625
 ```
 
+### 申万三级行业信息
+
+接口: sw_index_third_info
+
+目标地址: https://legulegu.com/stockdata/sw-industry-overview#level1
+
+描述: 申万三级行业信息
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称         | 类型      | 描述  |
+|------------|---------|-----|
+| 行业代码       | object  |     |
+| 行业名称       | object  |     |
+| 成份个数       | int64   |     |
+| 静态市盈率      | float64 |     |
+| TTM(滚动)市盈率 | float64 |     |
+| 市净率        | float64 |     |
+| 静态股息率      | float64 |     |
+
+接口示例
+
+```python
+import akshare as ak
+
+sw_index_third_info_df = ak.sw_index_third_info()
+print(sw_index_third_info_df)
+```
+
+数据示例
+
+```
+     行业代码     行业名称  成份个数  静态市盈率  TTM(滚动)市盈率  市净率  静态股息率
+0    850211.SI    石油开采     3  46.67       10.62  0.71   3.16
+1    850221.SI    煤炭开采    28  12.02        8.12  1.20   3.85
+2    850222.SI    焦炭加工     8  37.99       15.86  2.38   1.03
+3    850231.SI    其他采掘    12  36.74       14.54  2.98   0.99
+4    850241.SI  油气钻采服务    14  32.44       30.13  1.53   1.14
+..         ...     ...   ...    ...         ...   ...    ...
+222  851911.SI      银行    41   5.90        5.35  0.63   4.93
+223  851931.SI      证券    50  23.15       19.75  1.80   1.18
+224  851941.SI      保险     7   9.48       10.04  1.33   3.38
+225  851921.SI    多元金融    31  12.54       12.41  1.04   2.16
+226  852311.SI      综合    39  41.84       37.98  2.72   0.69
+```
+
+### 申万三级行业成份
+
+接口: sw_index_third_cons
+
+目标地址: https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
+
+描述: 申万三级行业成份
+
+输入参数
+
+| 名称     | 类型  | 描述                                                               |
+|--------|-----|------------------------------------------------------------------|
+| symbol | str | symbol="851921.SI"; 行业代码; 可以通过 ak.sw_index_third_info() 获取所有行业代码 |
+
+输出参数
+
+| 名称     | 类型      | 描述       |
+|--------|---------|----------|
+| 序号     | int64   |          |
+| 股票代码   | object  |          |
+| 股票简称   | object  |          |
+| 纳入时间   | object  |          |
+| 申万1级   | object  |          |
+| 申万2级   | object  |          |
+| 申万3级   | object  |          |
+| 价格     | float64 |          |
+| 市盈率    | float64 |          |
+| 市盈率ttm | float64 |          |
+| 市净率    | float64 |          |
+| 股息率    | float64 | 注意单位: %  |
+| 市值     | float64 | 注意单位: 亿元 |
+
+接口示例
+
+```python
+import akshare as ak
+
+sw_index_third_cons_df = ak.sw_index_third_cons(symbol="851921.SI")
+print(sw_index_third_cons_df)
+```
+
+数据示例
+
+```
+    序号 股票代码   股票简称        纳入时间  ...   市盈率ttm   市净率 股息率   市值
+0    1  000617.SZ   中油资本  2018-07-16  ...     8.04     0.68  3.75  630.84
+1    2  600830.SH   香溢融通  2008-06-03  ...      NaN     1.16   NaN   24.49
+2    3  000046.SZ   泛海控股  2020-12-02  ...      NaN     0.63   NaN   94.57
+3    4  600599.SH   ST熊猫  2018-07-16  ...    31.38     2.11   NaN   14.48
+4    5  300309.SZ   吉艾科技  2018-07-16  ...      NaN      NaN   NaN   30.13
+5    6  600643.SH   爱建集团  1993-04-26  ...     7.95     0.87  3.90  107.53
+6    7  002961.SZ   瑞达期货  2019-09-12  ...    41.81     4.90  1.15  104.05
+7    8  000416.SZ   民生控股  2016-07-01  ...    61.66     2.42  0.74   21.59
+8    9  002647.SZ   仁东控股  2018-07-16  ...      NaN     9.20   NaN   46.92
+9   10  000415.SZ   渤海租赁  2011-10-10  ...      NaN     0.67   NaN  181.82
+10  11  600816.SH   ST安信  2006-05-09  ...      NaN      NaN   NaN  256.50
+11  12  600695.SH  *ST绿庭  2018-07-16  ...      NaN     5.99   NaN   38.97
+12  13  600053.SH   九鼎投资  2018-07-16  ...    79.80     2.52   NaN   69.24
+13  14  000890.SZ    法尔胜  2019-07-08  ...   122.52  2866.80   NaN   19.55
+14  15  600705.SH   中航产融  2013-07-01  ...    10.57     0.96  2.86  346.10
+15  16  600093.SH  *ST易见  2017-07-03  ...      NaN      NaN   NaN   33.79
+16  17  603093.SH   南华期货  2019-09-06  ...    82.66     2.61   NaN   77.84
+17  18  600783.SH   鲁信创投  2011-10-10  ...    29.47     2.57  1.13   98.70
+18  19  000958.SZ   东方能源  2020-12-01  ...    20.59     1.51  1.23  261.63
+19  20  000563.SZ   陕国投A  1994-01-10  ...    18.15     1.03  0.96  124.47
+20  21  002423.SZ   中粮资本  2019-07-08  ...    18.02     1.06  0.55  189.86
+21  22  600120.SH   浙江东方  2019-07-08  ...    13.85     0.89  0.71  125.12
+22  23  600901.SH   江苏租赁  2018-03-08  ...     8.08     1.11  5.91  151.72
+23  24  603300.SH   华铁应急  2015-06-05  ...    37.13     3.30   NaN  119.86
+24  25  300023.SZ  *ST宝德  2016-07-01  ...      NaN     4.04   NaN   21.50
+25  26  600696.SH   岩石股份  2019-07-08  ...  1528.11    24.50   NaN  122.58
+26  27  000567.SZ   海德股份  2018-07-16  ...    91.80     2.56   NaN  117.33
+27  28  600318.SH   新力金融  2017-07-03  ...      NaN     4.68   NaN   67.32
+28  29  300176.SZ   派生科技  2018-07-16  ...   163.96     2.75   NaN   25.48
+29  30  600390.SH   五矿资本  2017-07-03  ...     6.21     0.59  6.80  233.00
+30  31  000666.SZ   经纬纺机  2013-07-01  ...    14.37     0.62  1.34   59.01
+```
+
 ### 申万行业成份
 
 接口: sw_index_cons
@@ -1939,23 +2070,24 @@ print(sw_index_second_spot_df)
 
 输入参数
 
-| 名称   | 类型 |描述         |
-| -------- | ---- |  --- |
-| index_code | str  |  index_code="801010"|
+| 名称         | 类型  | 描述                  |
+|------------|-----|---------------------|
+| index_code | str | index_code="801010" |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| stock_code      | object   |    |
-| stock_name      | object   |     |
-| start_date      | object   |   |
-| weight      | float64   |    |
+| 名称         | 类型      | 描述  |
+|------------|---------|-----|
+| stock_code | object  |     |
+| stock_name | object  |     |
+| start_date | object  |     |
+| weight     | float64 |     |
 
 接口示例
 
 ```python
 import akshare as ak
+
 sw_index_cons_df = ak.sw_index_cons(index_code="801010")
 print(sw_index_cons_df)
 ```
@@ -1987,31 +2119,32 @@ print(sw_index_cons_df)
 
 输入参数
 
-| 名称   | 类型 |  描述         |
-| -------- | ---- |  --- |
-| index_code | str  |   index_code="801010"|
-| start_date | str  |    start_date="2019-12-01"|
-| end_date | str  |    end_date="2019-12-07"|
+| 名称         | 类型  | 描述                      |
+|------------|-----|-------------------------|
+| index_code | str | index_code="801010"     |
+| start_date | str | start_date="2019-12-01" |
+| end_date   | str | end_date="2019-12-07"   |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| --------------- | ----- |  ---------------- |
-| index_code      | object   |    |
-| index_name      | object   |     |
-| date      | object   |   |
-| open      | float64   |     |
-| high      | float64   |    |
-| low      | float64   |     |
-| close      | float64   |     |
-| vol      | float64   |    |
-| amount      | float64   |     |
-| change_pct      | float64   |     |
+| 名称         | 类型      | 描述  |
+|------------|---------|-----|
+| index_code | object  |     |
+| index_name | object  |     |
+| date       | object  |     |
+| open       | float64 |     |
+| high       | float64 |     |
+| low        | float64 |     |
+| close      | float64 |     |
+| vol        | float64 |     |
+| amount     | float64 |     |
+| change_pct | float64 |     |
 
 接口示例
 
 ```python
 import akshare as ak
+
 sw_index_daily_df = ak.sw_index_daily(index_code="801010", start_date="2019-12-01", end_date="2019-12-07")
 print(sw_index_daily_df)
 ```
@@ -2037,36 +2170,37 @@ print(sw_index_daily_df)
 
 输入参数
 
-| 名称   | 类型 |  描述      |
-| -------- | ---- |  --- |
-| index_code | str  |   index_code="801010"|
-| start_date | str  |   start_date="2019-12-01"|
-| end_date | str  |   end_date="2019-12-07"|
-| data_type | str  |   data_type="Day"; "Day": 日报表, "Week": 周报表|
+| 名称         | 类型  | 描述                                       |
+|------------|-----|------------------------------------------|
+| index_code | str | index_code="801010"                      |
+| start_date | str | start_date="2019-12-01"                  |
+| end_date   | str | end_date="2019-12-07"                    |
+| data_type  | str | data_type="Day"; "Day": 日报表, "Week": 周报表 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| index_code      | object   |    |
-| index_name      | object   |     |
-| date      | object   |    |
-| close      | float64   |     |
-| volume      | float64   |    |
-| chg_pct      | float64   |     |
-| turn_rate      | float64   |     |
-| pe      | float64   |    |
-| pb      | float64   |     |
-| vwap      | float64   |    |
-| float_mv      | float64   |    |
-| avg_float_mv      | float64   |     |
-| dividend_yield_ratio      | float64   |     |
-| turnover_pct      | float64   |     |
+| 名称                   | 类型      | 描述  |
+|----------------------|---------|-----|
+| index_code           | object  |     |
+| index_name           | object  |     |
+| date                 | object  |     |
+| close                | float64 |     |
+| volume               | float64 |     |
+| chg_pct              | float64 |     |
+| turn_rate            | float64 |     |
+| pe                   | float64 |     |
+| pb                   | float64 |     |
+| vwap                 | float64 |     |
+| float_mv             | float64 |     |
+| avg_float_mv         | float64 |     |
+| dividend_yield_ratio | float64 |     |
+| turnover_pct         | float64 |     |
 
 接口示例-天
 
 ```python
 import akshare as ak
+
 sw_index_daily_indicator_df = ak.sw_index_daily_indicator(index_code="801010", start_date="2019-12-01", end_date="2019-12-07", data_type="Day")
 print(sw_index_daily_indicator_df)
 ```
