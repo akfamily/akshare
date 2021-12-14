@@ -154,6 +154,8 @@
  "sw_index_cons"  # 申万一级、二级板块成份
  "sw_index_daily"  # 申万一级、二级历史行情
  "sw_index_daily_indicator"  # 申万一级、二级历史行情指标
+ "sw_index_third_info"  # 申万三级信息
+ "sw_index_third_cons"  # 申万三级信息成份
  # 空气质量
  "air_quality_hist"  # 空气质量历史数据
  "air_quality_rank"  # 空气质量排行
