@@ -51,7 +51,7 @@ def sw_index_representation_spot() -> pd.DataFrame:
 
 def sw_index_spot() -> pd.DataFrame:
     """
-    申万一级行业实时行情数据
+    申万一级行业-实时行情数据
     http://www.swsindex.com/idx0120.aspx?columnid=8832
     :return: 申万一级行业实时行情数据
     :rtype: pandas.DataFrame
@@ -157,15 +157,15 @@ def sw_index_cons(index_code: str = "801011") -> pd.DataFrame:
 
 
 def sw_index_daily(
-    index_code: str = "801011",
-    start_date: str = "2019-12-01",
-    end_date: str = "2020-12-07",
+    symbol: str = "801011",
+    start_date: str = "20191201",
+    end_date: str = "20201207",
 ) -> pd.DataFrame:
     """
     申万指数一级和二级日频率行情数据
     http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
-    :param index_code: 申万指数
-    :type index_code: str
+    :param symbol: 申万指数
+    :type symbol: str
     :param start_date: 开始日期
     :type start_date: str
     :param end_date: 结束日期
@@ -173,10 +173,12 @@ def sw_index_daily(
     :return: 申万指数日频率行情数据
     :rtype: pandas.DataFrame
     """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "http://www.swsindex.com/excel2.aspx"
     params = {
         "ctable": "swindexhistory",
-        "where": f" swindexcode in ('{index_code}') and BargainDate >= '{start_date}' and BargainDate <= '{end_date}'",
+        "where": f" swindexcode in ('{symbol}') and BargainDate >= '{start_date}' and BargainDate <= '{end_date}'",
     }
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "html5lib")
@@ -186,7 +188,7 @@ def sw_index_daily(
     for row in rows:
         cols = row.findAll("td")
         if len(cols) >= 10:
-            index_code = cols[0].text
+            symbol = cols[0].text
             index_name = cols[1].text
             date = cols[2].text
             open_ = cols[3].text
@@ -198,7 +200,7 @@ def sw_index_daily(
             change_pct = cols[9].text
             data.append(
                 {
-                    "index_code": index_code.replace(",", ""),
+                    "index_code": symbol.replace(",", ""),
                     "index_name": index_name.replace(",", ""),
                     "date": date.replace(",", ""),
                     "open": open_.replace(",", ""),
@@ -223,16 +225,16 @@ def sw_index_daily(
 
 
 def sw_index_daily_indicator(
-    index_code: str = "801011",
-    start_date: str = "2019-12-01",
-    end_date: str = "2021-09-07",
+    symbol: str = "801011",
+    start_date: str = "20191201",
+    end_date: str = "20210907",
     data_type: str = "Day",
 ) -> pd.DataFrame:
     """
     申万一级和二级行业历史行情指标
     http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
-    :param index_code: 申万指数
-    :type index_code: str
+    :param symbol: 申万指数
+    :type symbol: str
     :param start_date: 开始时间
     :type start_date: str
     :param end_date: 结束时间
@@ -242,10 +244,12 @@ def sw_index_daily_indicator(
     :return: 申万指数不同频率数据
     :rtype: pandas.DataFrame
     """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "http://www.swsindex.com/excel.aspx"
     params = {
         "ctable": "V_Report",
-        "where": f" swindexcode in ('{index_code}') and BargainDate >= '{start_date}' and BargainDate <= '{end_date}' and type='{data_type}'",
+        "where": f" swindexcode in ('{symbol}') and BargainDate >= '{start_date}' and BargainDate <= '{end_date}' and type='{data_type}'",
     }
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "html5lib")
@@ -255,7 +259,7 @@ def sw_index_daily_indicator(
     for row in rows:
         cols = row.findAll("td")
         if len(cols) >= 14:
-            index_code = cols[0].text
+            symbol = cols[0].text
             index_name = cols[1].text
             date = cols[2].text
             close = cols[3].text
@@ -271,7 +275,7 @@ def sw_index_daily_indicator(
             dividend_yield_ratio = cols[13].text
             data.append(
                 {
-                    "index_code": index_code,
+                    "index_code": symbol,
                     "index_name": index_name,
                     "date": date,
                     "close": close,
@@ -415,14 +419,14 @@ if __name__ == "__main__":
     print(sw_index_cons_df)
 
     sw_index_daily_df = sw_index_daily(
-        index_code="801001", start_date="2019-12-01", end_date="2019-12-07"
+        symbol="801733", start_date="20001201", end_date="20211207"
     )
     print(sw_index_daily_df)
 
     sw_index_daily_indicator_df = sw_index_daily_indicator(
-        index_code="801003",
-        start_date="2019-11-01",
-        end_date="2019-12-07",
+        symbol="801003",
+        start_date="20191101",
+        end_date="20191207",
         data_type="Week",
     )
     print(sw_index_daily_indicator_df)
