@@ -1698,9 +1698,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.74 fix: fix macro_australia and macro_canada interface
 1.2.75 fix: fix docs interface
 1.2.76 fix: fix amac_person_fund_org_list interface
+1.2.77 add: add bond_conv_adj_logs_jsl interface
 """
 
-__version__ = "1.2.76"
+__version__ = "1.2.77"
 __author__ = "Albert King"
 
 import sys
@@ -2814,7 +2815,7 @@ from akshare.bond.bond_zh_cov_sina import (
     bond_zh_cov_info,
     bond_zh_hs_cov_min,
 )
-from akshare.bond.bond_convert import bond_cov_jsl
+from akshare.bond.bond_convert import bond_cov_jsl, bond_conv_adj_logs_jsl
 
 """
 for pro api

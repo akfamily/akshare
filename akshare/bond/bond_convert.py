@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/23 14:24
+Date: 2021/12/15 19:50
 Desc: 债券-集思录-可转债
 集思录：https://app.jisilu.cn/data/cbnew/#cb
 """
@@ -13,6 +13,8 @@ def bond_cov_jsl(cookie: None = '') -> pd.DataFrame:
     """
     集思录可转债
     https://app.jisilu.cn/data/cbnew/#cb
+    :param cookie: 输入获取到的游览器 cookie
+    :type cookie: str
     :return: 集思录可转债
     :rtype: pandas.DataFrame
     """
@@ -71,22 +73,32 @@ def bond_conv_adj_logs_jsl(symbol: str = "128013") -> pd.DataFrame:
     """
     集思录可转债转股价调整记录
     https://app.jisilu.cn/data/cbnew/#cb
+    :param symbol: 可转债代码
+    :type symbol: str
     :return: 转股价调整记录
     :rtype: pandas.DataFrame
     """
-    url = "https://www.jisilu.cn/data/cbnew/adj_logs/?bond_id=%s" % symbol
-    response = requests.get(url).text
-    if '</table>' not in response:
+    url = f"https://www.jisilu.cn/data/cbnew/adj_logs/?bond_id={symbol}"
+    r = requests.get(url)
+    data_text = r.text
+    if '</table>' not in data_text:
         # 1. 该可转债没有转股价调整记录，服务端返回文本 '暂无数据'
         # 2. 无效可转债代码，服务端返回 {"timestamp":1639565628,"isError":1,"msg":"无效代码格式"}
         # 以上两种情况，返回空的 DataFrame
         return pd.DataFrame()
     else:
-        return pd.read_html(response, parse_dates=True)[0]
+        temp_df = pd.read_html(data_text, parse_dates=True)[0]
+        temp_df['股东大会日'] = pd.to_datetime(temp_df['股东大会日']).dt.date
+        temp_df['下修前转股价'] = pd.to_numeric(temp_df['下修前转股价'])
+        temp_df['下修后转股价'] = pd.to_numeric(temp_df['下修后转股价'])
+        temp_df['新转股价生效日期'] = pd.to_datetime(temp_df['新转股价生效日期']).dt.date
+        temp_df['下修底价'] = pd.to_numeric(temp_df['下修底价'])
+        return temp_df
 
 
 if __name__ == '__main__':
     bond_convert_jsl_df = bond_cov_jsl(cookie='')
     print(bond_convert_jsl_df)
-    bond_conv_adj_logs_jsl_df = bond_conv_adj_logs_jsl()
+
+    bond_conv_adj_logs_jsl_df = bond_conv_adj_logs_jsl(symbol="128013")
     print(bond_conv_adj_logs_jsl_df)

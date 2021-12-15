@@ -373,7 +373,8 @@
  "bond_zh_hs_cov_spot"  # 债券-沪深可转债-实时行情数据
  "bond_zh_cov"  # 债券-可转债数据一览表
  "bond_cov_comparison"  # 债券-可转债数据比价
- "bond_cov_jsl"  # 可转债转股价变动
+ "bond_cov_jsl"  # 可转债实时数据-集思录
+ "bond_conv_adj_logs_jsl"  # 可转债转股价变动-集思录
  # 中国-商业特许经营数据
  "franchise_china"  # 中国-商业特许经营数据
  # 慈善中国

@@ -939,23 +939,24 @@ print(bond_cov_comparison_df)
 
 输入参数
 
-| 名称   | 类型 |  描述     |
-| -------- | ---- |  --- |
-| cookie | str |    cookie=''; 此处输入您的集思录 cookie 就可以获取完整数据，否则只能返回前 30 条|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| cookie | str | cookie=''; 此处输入您的集思录 cookie 就可以获取完整数据，否则只能返回前 30 条 |
 
 1. 需要查看的链接为：https://app.jisilu.cn/data/cbnew/cb_list/?___jsl=LST___t=1628070841431
 2. 需要复制的 Cookie 为：![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_jsl/jsl_cookie.png)
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| -          | -   |  不逐一列出     |
+| 名称  | 类型  | 描述    |
+|-----|-----|-------|
+| -   | -   | 不逐一列出 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 bond_convert_jsl_df = ak.bond_cov_jsl(cookie="您的集思录 cookie")
 print(bond_convert_jsl_df)
 ```
@@ -977,11 +978,11 @@ print(bond_convert_jsl_df)
 297  128062    亚药转债  ...  128062；2019-10-09 开始转股   全价：79.521 最后更新：15:00:03
 ```
 
-### 可转债转股价变动
+### 可转债转股价变动-集思录
 
 接口: bond_conv_adj_logs_jsl
 
-目标地址: https://app.jisilu.cn/data/cbnew/#cb （点击带红色星号的转股价会弹出转股价调整记录）
+目标地址: https://app.jisilu.cn/data/cbnew/#cb; 点击带红色星号的转股价会弹出转股价调整记录
 
 描述: 从集思录获取单个可转债的转股价格调整记录
 
@@ -989,27 +990,34 @@ print(bond_convert_jsl_df)
 
 输入参数
 
-| 名称   | 类型 |  描述     |
-| -------- | ---- |  --- |
-| symbol | str | 可转债代码 |
+| 名称     | 类型  | 描述                     |
+|--------|-----|------------------------|
+| symbol | str | symbol="128013"; 可转债代码 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| -          | -   |  不逐一列出     |
+| 名称       | 类型      | 描述  |
+|----------|---------|-----|
+| 转债名称     | object  | -   |
+| 股东大会日    | object  | -   |
+| 下修前转股价   | float64 | -   |
+| 下修后转股价   | float64 | -   |
+| 新转股价生效日期 | object  | -   |
+| 下修底价     | float64 | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 bond_convert_adj_logs_jsl_df = ak.bond_conv_adj_logs_jsl(symbol="128013")
 print(bond_convert_adj_logs_jsl_df)
 ```
 
 数据示例
+
 ```
-   转债名称       股东大会日  下修前转股价  下修后转股价    新转股价生效日期  下修底价
+   转债名称  股东大会日  下修前转股价 下修后转股价 新转股价生效日期 下修底价
 0  洪涛转债  2021-02-23    3.10    2.32  2021-02-24  2.32
 1  洪涛转债  2020-06-29    8.00    3.12  2020-06-30  3.12
 2  洪涛转债  2019-11-20    9.97    8.00  2019-11-21  3.10
