@@ -93,7 +93,7 @@ print(amac_member_info_df)
 ```python
 import akshare as ak
 
-amac_person_fund_org_list_df = ak.amac_person_fund_org_list()
+amac_person_fund_org_list_df = ak.amac_person_fund_org_list(symbol="公募基金管理公司")
 print(amac_person_fund_org_list_df)
 ```
 
