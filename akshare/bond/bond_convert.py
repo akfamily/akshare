@@ -67,6 +67,26 @@ def bond_cov_jsl(cookie: None = '') -> pd.DataFrame:
     return temp_df
 
 
+def bond_conv_adj_logs_jsl(symbol: str = "128013") -> pd.DataFrame:
+    """
+    集思录可转债转股价调整记录
+    https://app.jisilu.cn/data/cbnew/#cb
+    :return: 转股价调整记录
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.jisilu.cn/data/cbnew/adj_logs/?bond_id=%s" % symbol
+    response = requests.get(url).text
+    if '</table>' not in response:
+        # 1. 该可转债没有转股价调整记录，服务端返回文本 '暂无数据'
+        # 2. 无效可转债代码，服务端返回 {"timestamp":1639565628,"isError":1,"msg":"无效代码格式"}
+        # 以上两种情况，返回空的 DataFrame
+        return pd.DataFrame()
+    else:
+        return pd.read_html(response, parse_dates=True)[0]
+
+
 if __name__ == '__main__':
     bond_convert_jsl_df = bond_cov_jsl(cookie='')
     print(bond_convert_jsl_df)
+    bond_conv_adj_logs_jsl_df = bond_conv_adj_logs_jsl()
+    print(bond_conv_adj_logs_jsl_df)
