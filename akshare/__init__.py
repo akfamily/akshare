@@ -1697,9 +1697,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.73 fix: fix sw_index_third_cons interface
 1.2.74 fix: fix macro_australia and macro_canada interface
 1.2.75 fix: fix docs interface
+1.2.76 fix: fix amac_person_fund_org_list interface
 """
 
-__version__ = "1.2.75"
+__version__ = "1.2.76"
 __author__ = "Albert King"
 
 import sys
