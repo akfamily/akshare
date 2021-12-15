@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/28 18:50
+Date: 2021/12/15 15:26
 Desc: 东方财富-经济数据-澳大利亚
 http://data.eastmoney.com/cjsj/foreign_5_0.html
 """
 import pandas as pd
 import requests
+
 from akshare.utils import demjson
 
 
 # 零售销售月率
-def macro_australia_retail_rate_monthly():
+def macro_australia_retail_rate_monthly() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-零售销售月率
     http://data.eastmoney.com/cjsj/foreign_5_0.html
@@ -41,13 +42,15 @@ def macro_australia_retail_rate_monthly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 贸易帐
-def macro_australia_trade():
+def macro_australia_trade() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-贸易帐
     http://data.eastmoney.com/cjsj/foreign_5_1.html
@@ -77,13 +80,15 @@ def macro_australia_trade():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 失业率
-def macro_australia_unemployment_rate():
+def macro_australia_unemployment_rate() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-失业率
     http://data.eastmoney.com/cjsj/foreign_5_2.html
@@ -111,13 +116,15 @@ def macro_australia_unemployment_rate():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 生产者物价指数季率
-def macro_australia_ppi_quarterly():
+def macro_australia_ppi_quarterly() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-生产者物价指数季率
     http://data.eastmoney.com/cjsj/foreign_5_3.html
@@ -147,13 +154,15 @@ def macro_australia_ppi_quarterly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 消费者物价指数季率
-def macro_australia_cpi_quarterly():
+def macro_australia_cpi_quarterly() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-消费者物价指数季率
     http://data.eastmoney.com/cjsj/foreign_5_4.html
@@ -183,13 +192,15 @@ def macro_australia_cpi_quarterly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 消费者物价指数年率
-def macro_australia_cpi_yearly():
+def macro_australia_cpi_yearly() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-消费者物价指数年率
     http://data.eastmoney.com/cjsj/foreign_5_5.html
@@ -219,13 +230,15 @@ def macro_australia_cpi_yearly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 央行公布利率决议
-def macro_australia_bank_rate():
+def macro_australia_bank_rate() -> pd.DataFrame:
     """
     东方财富-经济数据-澳大利亚-央行公布利率决议
     http://data.eastmoney.com/cjsj/foreign_5_6.html
@@ -255,8 +268,10 @@ def macro_australia_bank_rate():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 

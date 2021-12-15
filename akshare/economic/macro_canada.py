@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/30 19:50
+Date: 2021/12/15 19:50
 Desc: 东方财富-经济数据-加拿大
 http://data.eastmoney.com/cjsj/foreign_5_0.html
 """
 import pandas as pd
 import requests
+
 from akshare.utils import demjson
 
 
 # 新屋开工
-def macro_canada_new_house_rate():
+def macro_canada_new_house_rate() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-新屋开工
     http://data.eastmoney.com/cjsj/foreign_7_0.html
@@ -41,13 +42,15 @@ def macro_canada_new_house_rate():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 失业率
-def macro_canada_unemployment_rate():
+def macro_canada_unemployment_rate() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-失业率
     http://data.eastmoney.com/cjsj/foreign_7_1.html
@@ -77,13 +80,15 @@ def macro_canada_unemployment_rate():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 贸易帐
-def macro_canada_trade():
+def macro_canada_trade() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-贸易帐
     http://data.eastmoney.com/cjsj/foreign_7_2.html
@@ -113,13 +118,15 @@ def macro_canada_trade():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"]) / 100
     temp_df["现值"] = pd.to_numeric(temp_df["现值"]) / 100
     return temp_df
 
 
 # 零售销售月率
-def macro_canada_retail_rate_monthly():
+def macro_canada_retail_rate_monthly() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-零售销售月率
     http://data.eastmoney.com/cjsj/foreign_7_3.html
@@ -149,13 +156,15 @@ def macro_canada_retail_rate_monthly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
     return temp_df
 
 
 # 央行公布利率决议
-def macro_canada_bank_rate():
+def macro_canada_bank_rate() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-央行公布利率决议
     http://data.eastmoney.com/cjsj/foreign_7_4.html
@@ -185,13 +194,15 @@ def macro_canada_bank_rate():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
     return temp_df
 
 
 # 核心消费者物价指数年率
-def macro_canada_core_cpi_yearly():
+def macro_canada_core_cpi_yearly() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-核心消费者物价指数年率
     http://data.eastmoney.com/cjsj/foreign_7_5.html
@@ -221,13 +232,15 @@ def macro_canada_core_cpi_yearly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
     return temp_df
 
 
 # 核心消费者物价指数月率
-def macro_canada_core_cpi_monthly():
+def macro_canada_core_cpi_monthly() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-核心消费者物价指数月率
     http://data.eastmoney.com/cjsj/foreign_7_6.html
@@ -257,13 +270,15 @@ def macro_canada_core_cpi_monthly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
     return temp_df
 
 
 # 消费者物价指数年率
-def macro_canada_cpi_yearly():
+def macro_canada_cpi_yearly() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-消费者物价指数年率
     http://data.eastmoney.com/cjsj/foreign_7_7.html
@@ -293,13 +308,15 @@ def macro_canada_cpi_yearly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
     return temp_df
 
 
 # 消费者物价指数月率
-def macro_canada_cpi_monthly():
+def macro_canada_cpi_monthly() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-消费者物价指数月率
     http://data.eastmoney.com/cjsj/foreign_7_8.html
@@ -329,13 +346,15 @@ def macro_canada_cpi_monthly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
     return temp_df
 
 
 # GDP 月率
-def macro_canada_gdp_monthly():
+def macro_canada_gdp_monthly() -> pd.DataFrame:
     """
     东方财富-经济数据-加拿大-GDP 月率
     http://data.eastmoney.com/cjsj/foreign_7_9.html
@@ -365,6 +384,8 @@ def macro_canada_gdp_monthly():
         "现值",
         "发布日期",
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
     return temp_df
