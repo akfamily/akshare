@@ -121,7 +121,7 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(
-            url, params=params, json={"orgType": "symbol_trans", "page": "1"}, verify=False
+            url, params=params, json={"orgType": symbol_trans, "page": "1"}, verify=False
         )
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
