@@ -2119,11 +2119,11 @@ print(sw_index_cons_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                      |
-|------------|-----|-------------------------|
-| index_code | str | index_code="801010"     |
-| start_date | str | start_date="2019-12-01" |
-| end_date   | str | end_date="2019-12-07"   |
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="801010"; 行业代码 |
+| start_date | str | start_date="20191201" |
+| end_date   | str | end_date="20191207"   |
 
 输出参数
 
@@ -2145,7 +2145,7 @@ print(sw_index_cons_df)
 ```python
 import akshare as ak
 
-sw_index_daily_df = ak.sw_index_daily(index_code="801010", start_date="2019-12-01", end_date="2019-12-07")
+sw_index_daily_df = ak.sw_index_daily(symbol="801010", start_date="20191201", end_date="20191207")
 print(sw_index_daily_df)
 ```
 
@@ -2172,9 +2172,9 @@ print(sw_index_daily_df)
 
 | 名称         | 类型  | 描述                                       |
 |------------|-----|------------------------------------------|
-| index_code | str | index_code="801010"                      |
-| start_date | str | start_date="2019-12-01"                  |
-| end_date   | str | end_date="2019-12-07"                    |
+| symbol     | str | symbol="801010"; 行业代码                    |
+| start_date | str | start_date="20191201"                    |
+| end_date   | str | end_date="20191207"                      |
 | data_type  | str | data_type="Day"; "Day": 日报表, "Week": 周报表 |
 
 输出参数
@@ -2201,7 +2201,7 @@ print(sw_index_daily_df)
 ```python
 import akshare as ak
 
-sw_index_daily_indicator_df = ak.sw_index_daily_indicator(index_code="801010", start_date="2019-12-01", end_date="2019-12-07", data_type="Day")
+sw_index_daily_indicator_df = ak.sw_index_daily_indicator(symbol="801010", start_date="20191201", end_date="20191207", data_type="Day")
 print(sw_index_daily_indicator_df)
 ```
 
@@ -2241,7 +2241,8 @@ print(sw_index_daily_indicator_df)
 
 ```python
 import akshare as ak
-sw_index_daily_indicator_df = ak.sw_index_daily_indicator(index_code="801010", start_date="2019-12-01", end_date="2019-12-07", data_type="Week")
+
+sw_index_daily_indicator_df = ak.sw_index_daily_indicator(symbol="801010", start_date="2019-12-01", end_date="2019-12-07", data_type="Week")
 print(sw_index_daily_indicator_df)
 ```
 
