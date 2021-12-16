@@ -1,5 +1,7 @@
 # [AKShare](https://github.com/akfamily/akshare) 概览
 
+**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP Server 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南**
+
 **风险提示：[AKShare](https://github.com/akfamily/akshare) 开源财经数据接口库所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
 同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
 
