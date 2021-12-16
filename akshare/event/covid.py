@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/22 14:07
+Date: 2021/12/16 14:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
@@ -37,6 +37,7 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
     }
     r = requests.get(url, params=payload, headers=headers)
     data_json = r.json()
+
     # data info
     url = "https://news.163.com/special/epidemic/"
     r = requests.get(url, headers=headers)
@@ -250,10 +251,10 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
         temp_df["province"] = p
         big_df = big_df.append(temp_df, ignore_index=True)
     domestic_city_df = big_df
-
     data_df = pd.DataFrame(data_text_json).iloc[:, :7]
     data_df.columns = ["地区", "地区简称", "现存确诊", "累计确诊", "-", "治愈", "死亡"]
     domestic_province_df = data_df[["地区", "地区简称", "现存确诊", "累计确诊", "治愈", "死亡"]]
+
     # data-global
     data_text = str(
         soup.find("script", attrs={"id": "getListByCountryTypeService2true"})
@@ -297,6 +298,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     global_statistics = pd.DataFrame.from_dict(
         data_json["globalStatistics"], orient="index"
     )
+
     # hospital
     url = (
         "https://assets.dxycdn.com/gitrepo/tod-assets/output/default/pneumonia/index.js"
@@ -601,7 +603,7 @@ def migration_area_baidu(
     :type area: str
     :param indicator: move_in 迁入 move_out 迁出
     :type indicator: str
-    :param date: 查询的日期 20200101以后的时间
+    :param date: 查询的日期 20200101 以后的时间
     :type date: str
     :return: 迁入地详情/迁出地详情的前 50 个
     :rtype: pandas.DataFrame
@@ -620,7 +622,7 @@ def migration_area_baidu(
         "date": date,
     }
     r = requests.get(url, params=params)
-    data_text = r.text[r.text.find("({") + 1 : r.text.rfind(");")]
+    data_text = r.text[r.text.find("({") + 1: r.text.rfind(");")]
     data_json = json.loads(data_text)
     temp_df = pd.DataFrame(data_json["data"]["list"])
     return temp_df
