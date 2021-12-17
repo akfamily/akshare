@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/10/29 13:04
+Date: 2021/12/17 20:04
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心-回购定盘利率-历史数据
 """
 import pandas as pd
