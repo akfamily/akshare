@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/18 18:30
-Desc: A股市盈率
+Date: 2021/12/19 12:54
+Desc: 乐咕乐股-A 股市盈率
 https://www.legulegu.com/stockdata/market_pe
 此网站需要 JS 逆向分析 token 代码，本项目分解 JS 加密部分，提取主要的加密参数后本地执行
 """
@@ -319,55 +319,30 @@ js_functions.eval(hash_code)
 token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
-def stock_a_pe(market: str = "sz") -> pd.DataFrame:
+def stock_a_pe(symbol: str = "sz") -> pd.DataFrame:
     """
-    A 股市盈率
+    乐咕乐股-A 股市盈率
     https://www.legulegu.com/stockdata/market_pe
-    :param market: choice of {"sh", "sz", "cz", "zx"}
-    :type market: str
+    :param symbol: choice of {"sh", "sz", "cy", "zx", "000016.XSHG" ...}
+    :type symbol: str
     :return: 指定市场的 A 股平均市盈率
     :rtype: pandas.DataFrame
     """
-    url = "https://www.legulegu.com/stockdata/market_pe/getmarket_pe"
-    params = {
-        "token": token,
-    }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["cySharesPEList"])
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    cy_df = temp_df[["close", "pe"]]
-
-    temp_df = pd.DataFrame(data_json["shSharesPEList"])
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    sh_df = temp_df[["close", "pe"]]
-
-    temp_df = pd.DataFrame(data_json["szSharesPEList"])
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    sz_df = temp_df[["close", "pe"]]
-
-    temp_df = pd.DataFrame(data_json["zxSharesPEList"])
-    temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    zx_df = temp_df[["close", "pe"]]
-
-    if market == "sh":
-        return sh_df
-    elif market == "sz":
-        return sz_df
-    elif market == "cy":
-        return cy_df
-    elif market == "zx":
-        return zx_df
-    elif market == "kc":
+    if symbol == "kc":
         url = "https://www.legulegu.com/api/stockdata/get-ke-chuang-ban-pe"
         params = {
             "token": token,
         }
         r = requests.get(url, params=params)
         data_json = r.json()
-        kc_df = pd.DataFrame(data_json["data"]["items"], columns=data_json["data"]["fields"])
+        temp_df = pd.DataFrame(data_json["data"])
+        temp_df.index = pd.to_datetime(
+            temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
+        kc_df = temp_df[["close", "pe"]]
+        kc_df.reset_index(inplace=True)
         return kc_df
-    elif market == "all":
+
+    if symbol == "all":
         url = "https://www.legulegu.com/api/stockdata/market-ttm-lyr/get-data"
         params = {
             "token": token,
@@ -376,10 +351,14 @@ def stock_a_pe(market: str = "sz") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
-        temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-        all_df = temp_df[["averagePELYR", "averagePETTM", "middlePELYR", "middlePETTM", "close"]]
+        temp_df.index = pd.to_datetime(
+            temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
+        all_df = temp_df[["averagePELYR", "averagePETTM",
+                          "middlePELYR", "middlePETTM", "close"]]
+        all_df.reset_index(inplace=True)
         return all_df
-    if market in ["000300.XSHG",
+
+    if symbol in ["000300.XSHG",
                   "000016.XSHG",
                   "000010.XSHG",
                   "000009.XSHG",
@@ -391,19 +370,61 @@ def stock_a_pe(market: str = "sz") -> pd.DataFrame:
         url = "https://www.legulegu.com/api/stockdata/market-ttm-lyr/get-data"
         params = {
             "token": token,
-            "marketId": market
+            "marketId": symbol
         }
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
-        temp_df.index = pd.to_datetime(temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-        index_df = temp_df[["averagePELYR", "averagePETTM", "middlePELYR", "middlePETTM", "close"]]
+        temp_df.index = pd.to_datetime(
+            temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
+        index_df = temp_df[["averagePELYR", "averagePETTM",
+                            "middlePELYR", "middlePETTM", "close"]]
+        index_df.reset_index(inplace=True)
         return index_df
+
+    url = "https://www.legulegu.com/stockdata/market_pe/getmarket_pe"
+    params = {
+        "token": token,
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["cySharesPEList"])
+    temp_df.index = pd.to_datetime(
+        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
+    cy_df = temp_df[["close", "pe"]]
+    cy_df.reset_index(inplace=True)
+
+    temp_df = pd.DataFrame(data_json["shSharesPEList"])
+    temp_df.index = pd.to_datetime(
+        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
+    sh_df = temp_df[["close", "pe"]]
+    sh_df.reset_index(inplace=True)
+
+    temp_df = pd.DataFrame(data_json["szSharesPEList"])
+    temp_df.index = pd.to_datetime(
+        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
+    sz_df = temp_df[["close", "pe"]]
+    sz_df.reset_index(inplace=True)
+
+    temp_df = pd.DataFrame(data_json["zxSharesPEList"])
+    temp_df.index = pd.to_datetime(
+        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
+    zx_df = temp_df[["close", "pe"]]
+    zx_df.reset_index(inplace=True)
+
+    if symbol == "sh":
+        return sh_df
+    elif symbol == "sz":
+        return sz_df
+    elif symbol == "cy":
+        return cy_df
+    elif symbol == "zx":
+        return zx_df
 
 
 if __name__ == '__main__':
-    stock_a_pe_df = stock_a_pe(market="kc")
+    stock_a_pe_df = stock_a_pe(symbol="kc")
     print(stock_a_pe_df)
 
-    stock_a_pe_df = stock_a_pe(market="sh")
+    stock_a_pe_df = stock_a_pe(symbol="000300.XSHG")
     print(stock_a_pe_df)

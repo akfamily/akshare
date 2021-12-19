@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/19 12:54
-Desc: 乐咕乐股-A 股市净率
-https://www.legulegu.com/stockdata/market_pb
+Date: 2021/12/19 13:24
+Desc: 乐咕乐股-A 股市盈率和市净率
+https://legulegu.com/stockdata/hs300-ttm-lyr
+https://legulegu.com/stockdata/hs300-pb
 此网站需要 JS 逆向分析 token 代码，本项目分解 JS 加密部分，提取主要的加密参数后本地执行
 """
 from datetime import datetime
+from os import replace
 
 import pandas as pd
 import requests
@@ -57,7 +59,8 @@ function t(n) {
             } else {
                 o = n.charCodeAt(e + 1);
                 f = n.charCodeAt(e + 2);
-                i[t] = String.fromCharCode((r & 15) << 12 | (o & 63) << 6 | f & 63);
+                i[t] = String.fromCharCode(
+                    (r & 15) << 12 | (o & 63) << 6 | f & 63);
                 e += 3
             }
         }
@@ -314,87 +317,51 @@ function E(n, e, t, r, o, f, i) {
     return A(t ^ (e | ~r), n, e, o, f, i)
 }
 """
-ctx = py_mini_racer.MiniRacer()
-ctx.eval(hash_code)
-token = ctx.call("hex", datetime.now().date().isoformat()).lower()
+js_functions = py_mini_racer.MiniRacer()
+js_functions.eval(hash_code)
+token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
-def stock_a_pb(symbol: str = "sh") -> pd.DataFrame:
+def stock_a_pe_and_pb(symbol: str = "sz") -> pd.DataFrame:
     """
-    乐咕乐股-A 股市净率
-    https://www.legulegu.com/stockdata/market_pb
-    :param symbol: choice of {"sh", "sz", "cy", "zx", "000016.XSHG" ...}
+    乐咕乐股-A 股市盈率和市净率
+    https://legulegu.com/stockdata/hs300-ttm-lyr
+    https://legulegu.com/stockdata/hs300-pb
+    两个网页分别展示市盈率和市净率，但实际上是来自同一个API的数据
+    :param symbol: choice of {"sh", "sz", "cy", "zx", "000300.SH" ...}
     :type symbol: str
-    :return: 指定市场的 A 股平均市盈率
+    :return: 指定市场的 A 股的市盈率和市净率，包括等权和加权
     :rtype: pandas.DataFrame
     """
-    if symbol in ["000300.XSHG",
-                  "000016.XSHG",
-                  "000010.XSHG",
-                  "000009.XSHG",
-                  "000902.XSHG",
-                  "000903.XSHG",
-                  "000905.XSHG",
-                  "000906.XSHG",
-                  "000852.XSHG"]:
-        url = "https://www.legulegu.com/api/stockdata/market-index-pb/get-data"
-        params = {
-            "token": token,
-            "marketId": symbol
-        }
-        r = requests.get(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json)
-        temp_df.index = pd.to_datetime(
-            temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-        index_df = temp_df[["equalWeightAveragePB",
-                            "middlePB", "weightingAveragePB", "close"]]
-        index_df.reset_index(inplace=True)
-        return index_df
-
-    url = "https://www.legulegu.com/stockdata/market_pb/getmarket_pb"
+    url = "https://legulegu.com/api/stockdata/index-basic"
     params = {
-        "token": token  # token should be get from js decode
+        "token": token,
+        "indexCode": symbol
     }
+    if symbol == "sh":
+        params["indexCode"] = "1"
+    if symbol == "sz":
+        params["indexCode"] = "2"
+    if symbol == "cy":
+        params["indexCode"] = "4"
+    if symbol == "kc":
+        params["indexCode"] = "7"
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["cySharesPBList"])
+    temp_df = pd.DataFrame(data_json["data"])
     temp_df.index = pd.to_datetime(
         temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    cy_df = temp_df[["close", "pb"]]
-    cy_df.reset_index(inplace=True)
-
-    temp_df = pd.DataFrame(data_json["shSharesPBList"])
-    temp_df.index = pd.to_datetime(
-        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    sh_df = temp_df[["close", "pb"]]
-    sh_df.reset_index(inplace=True)
-
-    temp_df = pd.DataFrame(data_json["szSharesPBList"])
-    temp_df.index = pd.to_datetime(
-        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    sz_df = temp_df[["close", "pb"]]
-    sz_df.reset_index(inplace=True)
-
-    temp_df = pd.DataFrame(data_json["zxSharesPBList"])
-    temp_df.index = pd.to_datetime(
-        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    zx_df = temp_df[["close", "pb"]]
-    zx_df.reset_index(inplace=True)
-
-    if symbol == "sh":
-        return sh_df
-    elif symbol == "sz":
-        return sz_df
-    elif symbol == "cy":
-        return cy_df
-    elif symbol == "zx":
-        return zx_df
+    index_df = temp_df[["addTtmPe", "middleTtmPe", "addLyrPe", "middleLyrPe", "addPb",
+                        "ttmPe", "lyrPe", "pb", "middlePb", "close"]]
+    index_df.columns = ["addTtmPe", "middleAddTtmPe", "addLyrPe", "middleAddLyrPe", "addPb",
+                        "averageTtmPe", "averageLyr", "averagePb", "middleAveragePb", "close"]
+    index_df.reset_index(inplace=True)
+    return index_df
 
 
 if __name__ == '__main__':
-    stock_a_pb_df = stock_a_pb(symbol="sh")
-    print(stock_a_pb_df)
+    stock_a_pe_and_pb_df = stock_a_pe_and_pb(symbol="sh")
+    print(stock_a_pe_and_pb_df)
 
-    stock_a_pb_df = stock_a_pb(symbol="000902.XSHG")
-    print(stock_a_pb_df)
+    stock_a_pe_and_pb_df = stock_a_pe_and_pb(symbol="000300.SH")
+    print(stock_a_pe_and_pb_df)
