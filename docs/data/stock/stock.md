@@ -9918,36 +9918,36 @@ print(stock_js_price_df)
 
 目标地址: http://data.eastmoney.com/other/qsjy.html
 
-描述: 获取东方财富网-数据中心-特色数据-券商业绩月报
+描述: 东方财富网-数据中心-特色数据-券商业绩月报
 
 限量: 单次获取所有数据, 数据从 20100601-至今, 月频率
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| category | str | Y    | category="us"; choice of {"us", "hk"}|
+| 名称       | 类型  | 必选  | 描述                                    |
+|----------|-----|-----|---------------------------------------|
+| category | str | Y   | category="us"; choice of {"us", "hk"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 开始日期          | datetime   | Y        |  -    |
-| 结束日期          | datetime   | Y        |  -    |
-| 简称          | str   | Y        |  -    |
-| 代码          | str   | Y        |  -    |
-| 当月净利润_净利润          | str   | Y        |  注意单位: 万元    |
-| 当月净利润_同比增长          | str   | Y        |  -    |
-| 当月净利润_环比增长          | str   | Y        |  -    |
-| 当年累计净利润_累计净利润          | str   | Y        |  注意单位: 万元    |
-| 当年累计净利润_同比增长          | float   | Y        |  -    |
-| 当月营业收入_营业收入          | str   | Y        |  注意单位: 万元    |
-| 当月营业收入_环比增长          | float   | Y        |  -    |
-| 当月营业收入_同比增长          | float   | Y        |  -    |
-| 当年累计营业收入_累计营业收入          | float   | Y        |  注意单位: 万元    |
-| 当年累计营业收入_同比增长          | float   | Y        |  -    |
-| 净资产_净资产          | float   | Y        |  注意单位: 万元    |
-| 净资产_同比增长          | float   | Y        |  -    |
+| 名称              | 类型       | 默认显示 | 描述       |
+|-----------------|----------|------|----------|
+| 开始日期            | datetime | Y    | -        |
+| 结束日期            | datetime | Y    | -        |
+| 简称              | str      | Y    | -        |
+| 代码              | str      | Y    | -        |
+| 当月净利润_净利润       | str      | Y    | 注意单位: 万元 |
+| 当月净利润_同比增长      | str      | Y    | -        |
+| 当月净利润_环比增长      | str      | Y    | -        |
+| 当年累计净利润_累计净利润   | str      | Y    | 注意单位: 万元 |
+| 当年累计净利润_同比增长    | float    | Y    | -        |
+| 当月营业收入_营业收入     | str      | Y    | 注意单位: 万元 |
+| 当月营业收入_环比增长     | float    | Y    | -        |
+| 当月营业收入_同比增长     | float    | Y    | -        |
+| 当年累计营业收入_累计营业收入 | float    | Y    | 注意单位: 万元 |
+| 当年累计营业收入_同比增长   | float    | Y    | -        |
+| 净资产_净资产         | float    | Y    | 注意单位: 万元 |
+| 净资产_同比增长        | float    | Y    | -        |
 
 接口示例
 
@@ -10007,70 +10007,71 @@ print(stock_em_qsjy_df)
 
 目标地址: https://www.legulegu.com/stockdata/market_pe
 
-描述: 获取乐咕乐股网站-A股市盈率
+描述: 乐咕乐股网站-A股市盈率
 
-限量: 单次获取指定 market 的所有数据
+限量: 单次获取指定 symbol 的所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| market | str | Y    | market="000016.XSHG"; 参见 **stock_a_pe** 一览表|
+| 名称     | 类型  | 描述                                          |
+|--------|-----|---------------------------------------------|
+| symbol | str | symbol="000016.XSHG"; 参见 **stock_a_pe** 一览表 |
 
 stock_a_pe 一览表
 
-|栏目|参数|
-| ------------ | ----- |
-| 上证A股市盈率          | sh   |
-| 深圳A股市盈率          | sz   |
-| 中小板市盈率          | zx   |
-| 创业板市盈率          | cy   |
-| 科创板市盈率          | kc   |
-| 全部A股市盈率-平均数-中位数 | all   |
-| 沪深300市盈率 | 000300.XSHG   |
-| 上证50市盈率 | 000016.XSHG   |
-| 上证180市盈率 | 000010.XSHG   |
-| 上证380市盈率 | 000009.XSHG   |
-| 中证流通市盈率 | 000902.XSHG   |
-| 中证100市盈率 | 000903.XSHG   |
-| 中证500市盈率 | 000905.XSHG   |
-| 中证800市盈率 | 000906.XSHG   |
-| 中证1000市盈率 | 000852.XSHG   |
+| 栏目              | 参数          |
+|-----------------|-------------|
+| 上证A股市盈率         | sh          |
+| 深圳A股市盈率         | sz          |
+| 中小板市盈率          | zx          |
+| 创业板市盈率          | cy          |
+| 科创板市盈率          | kc          |
+| 全部A股市盈率-平均数-中位数 | all         |
+| 沪深300市盈率        | 000300.XSHG |
+| 上证50市盈率         | 000016.XSHG |
+| 上证180市盈率        | 000010.XSHG |
+| 上证380市盈率        | 000009.XSHG |
+| 中证流通市盈率         | 000902.XSHG |
+| 中证100市盈率        | 000903.XSHG |
+| 中证500市盈率        | 000905.XSHG |
+| 中证800市盈率        | 000906.XSHG |
+| 中证1000市盈率       | 000852.XSHG |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| averagePELYR          | datetime   | Y        |  中位数    |
-| averagePETTM          | datetime   | Y        |  中位数    |
-| middlePELYR          | str   | Y        |  等权平均    |
-| middlePETTM          | str   | Y        |  等权平均    |
-| close          | str   | Y        |  收盘价    |
+| 名称           | 类型      | 描述        |
+|--------------|---------|-----------|
+| date         | object  | -         |
+| averagePELYR | float64 | 中位数PELYR  |
+| averagePETTM | float64 | 中位数PETTM  |
+| middlePELYR  | float64 | 等权平均PELYR |
+| middlePETTM  | float64 | 等权平均PETTM |
+| close        | float64 | 收盘价       |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_a_pe_df = ak.stock_a_pe(market="000016.XSHG")
+
+stock_a_pe_df = ak.stock_a_pe(symbol="000016.XSHG")
 print(stock_a_pe_df)
 ```
 
 数据示例
 
 ```
-            averagePELYR  averagePETTM  middlePELYR  middlePETTM    close
-date                                                                     
-2005-01-04         35.64         29.52        17.91        18.97   831.43
-2005-01-05         35.85         29.88        17.95        18.88   822.50
-2005-01-06         37.17         29.74        19.17        18.81   823.62
-2005-01-09         35.27         29.81        17.98        18.73   832.99
-2005-01-10         37.49         30.14        19.35        19.07   837.86
-                  ...           ...          ...          ...      ...
-2020-07-06         36.48         36.32        17.85        21.10  3374.14
-2020-07-07         36.45         36.33        17.88        21.16  3381.76
-2020-07-08         37.53         37.04        18.29        21.82  3429.94
-2020-07-09         38.33         37.60        18.40        21.79  3442.02
-2020-07-12         37.57         37.09        17.77        21.14  3351.78
+            date  averagePELYR  averagePETTM  middlePELYR  middlePETTM    close
+0     2005-01-05         35.64         29.52        17.91        18.97   831.43
+1     2005-01-06         35.85         29.88        17.95        18.88   822.50
+2     2005-01-07         37.17         29.74        19.17        18.81   823.62
+3     2005-01-10         35.27         29.81        17.98        18.73   832.99
+4     2005-01-11         37.49         30.14        19.35        19.07   837.86
+          ...           ...           ...          ...          ...      ...
+4110  2021-12-12         43.59         32.11        27.79        17.05  3353.63
+4111  2021-12-13         43.66         32.18        27.81        17.47  3366.07
+4112  2021-12-14         43.63         32.23        27.08        17.53  3350.50
+4113  2021-12-15         42.94         31.71        27.09        17.50  3318.98
+4114  2021-12-16         42.98         31.77        27.33        17.62  3330.86
 ```
 
 #### A 股市净率
@@ -10081,65 +10082,66 @@ date
 
 描述: 乐咕乐股网站-A 股市净率
 
-限量: 单次获取指定 market 的所有数据
+限量: 单次获取指定 symbol 的所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| market | str | Y    | market="000016.XSHG"; 参见 **stock_a_pb** 一览表|
+| 名称     | 类型  | 描述                                          |
+|--------|-----|---------------------------------------------|
+| symbol | str | symbol="000016.XSHG"; 参见 **stock_a_pb** 一览表 |
 
 stock_a_pb 一览表
 
-|栏目|参数|
-| ------------ | ----- |
-| 上证A股市净率          | sh   |
-| 深圳A股市净率          | sz   |
-| 中小板市净率          | zx   |
-| 创业板市净率          | cy   |
-| 沪深300市净率 | 000300.XSHG   |
-| 上证50市净率 | 000016.XSHG   |
-| 上证180市净率 | 000010.XSHG   |
-| 上证380市净率 | 000009.XSHG   |
-| 中证流通市净率 | 000902.XSHG   |
-| 中证100市净率 | 000903.XSHG   |
-| 中证500市净率 | 000905.XSHG   |
-| 中证800市净率 | 000906.XSHG   |
-| 中证1000市净率 | 000852.XSHG   |
+| 栏目        | 参数          |
+|-----------|-------------|
+| 上证A股市净率   | sh          |
+| 深圳A股市净率   | sz          |
+| 中小板市净率    | zx          |
+| 创业板市净率    | cy          |
+| 沪深300市净率  | 000300.XSHG |
+| 上证50市净率   | 000016.XSHG |
+| 上证180市净率  | 000010.XSHG |
+| 上证380市净率  | 000009.XSHG |
+| 中证流通市净率   | 000902.XSHG |
+| 中证100市净率  | 000903.XSHG |
+| 中证500市净率  | 000905.XSHG |
+| 中证800市净率  | 000906.XSHG |
+| 中证1000市净率 | 000852.XSHG |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| equalWeightAveragePB          | datetime   | Y        |  等权平均    |
-| middlePB          | datetime   | Y        |  中位数    |
-| weightingAveragePB          | str   | Y        |  -    |
-| close          | str   | Y        |  收盘价    |
+| 名称                   | 类型      | 描述   |
+|----------------------|---------|------|
+| date                 | object  | -    |
+| equalWeightAveragePB | float64 | 等权平均 |
+| middlePB             | float64 | 中位数  |
+| weightingAveragePB   | float64 | 加权平均 |
+| close                | float64 | 收盘价  |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_a_pb_df = ak.stock_a_pb(market="000016.XSHG")
+
+stock_a_pb_df = ak.stock_a_pb(symbol="000902.XSHG")
 print(stock_a_pb_df)
 ```
 
 数据示例
 
 ```
-            equalWeightAveragePB  middlePB  weightingAveragePB    close
-date                                                                   
-2005-01-04                  2.32      2.07                 0.0   831.43
-2005-01-05                  2.33      2.07                 0.0   822.50
-2005-01-06                  2.31      2.08                 0.0   823.62
-2005-01-09                  2.31      2.08                 0.0   832.99
-2005-01-10                  2.33      2.11                 0.0   837.86
-                          ...       ...                 ...      ...
-2020-07-06                  4.41      2.02                 0.0  3374.14
-2020-07-07                  4.46      1.99                 0.0  3381.76
-2020-07-08                  4.56      2.06                 0.0  3429.94
-2020-07-09                  4.64      2.06                 0.0  3442.02
-2020-07-12                  4.58      1.96                 0.0  3351.78
+            date  equalWeightAveragePB  middlePB  weightingAveragePB    close
+0     2006-02-27                  1.90      1.64                 0.0  1081.88
+1     2006-02-28                  1.89      1.62                 0.0  1087.72
+2     2006-03-01                  1.90      1.63                 0.0  1096.32
+3     2006-03-02                  1.91      1.64                 0.0  1071.56
+4     2006-03-03                  1.87      1.60                 0.0  1074.12
+          ...                   ...       ...                 ...      ...
+3834  2021-12-12                  4.57      2.80                 0.0  4623.96
+3835  2021-12-13                  4.59      2.82                 0.0  4623.96
+3836  2021-12-14                  4.60      2.84                 0.0  4623.96
+3837  2021-12-15                  4.61      2.84                 0.0  4623.96
+3838  2021-12-16                  4.64      2.87                 0.0  4623.96
 ```
 
 #### A 股个股指标
@@ -10148,54 +10150,54 @@ date
 
 目标地址: https://www.legulegu.com/stocklist
 
-描述: 乐咕乐股网站-A 股个股指标: 市盈率, 市净率, 股息率
+描述: 乐咕乐股-A 股个股指标: 市盈率, 市净率, 股息率
 
-限量: 单次获取指定 stock 的所有历史数据
+限量: 单次获取指定 symbol 的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| stock | str | Y    | stock="000001"; 参见 **stock_a_lg_indicator(stock="all")** 获取股票代码|
+| 名称   | 类型 |  描述   |
+| -------- | ---- | - --- |
+| symbol | str |  symbol="000001"; 参见 **ak.stock_a_lg_indicator(stock="all")** 获取股票代码|
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| trade_date          | datetime   | Y        |  交易日    |
-| pe          | float   | Y        |  市盈率    |
-| pe_ttm          | float   | Y        |  市盈率TTM    |
-| pb          | float   | Y        |  市净率    |
-| ps          | float   | Y        |  市销率    |
-| ps_ttm          | float   | Y        |  市销率TTM    |
-| dv_ratio          | float   | Y        |  股息率    |
-| dv_ttm          | float   | Y        |  股息率TTM    |
-| total_mv          | float   | Y        |  总市值    |
+| 名称         | 类型      | 描述     |
+|------------|---------|--------|
+| trade_date | object  | 交易日    |
+| pe         | float64 | 市盈率    |
+| pe_ttm     | float64 | 市盈率TTM |
+| pb         | float64 | 市净率    |
+| ps         | float64 | 市销率    |
+| ps_ttm     | float64 | 市销率TTM |
+| dv_ratio   | float64 | 股息率    |
+| dv_ttm     | float64 | 股息率TTM |
+| total_mv   | float64 | 总市值    |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_a_indicator_df = ak.stock_a_lg_indicator(stock="000001")
+
+stock_a_indicator_df = ak.stock_a_lg_indicator(symbol="000001")
 print(stock_a_indicator_df)
 ```
 
 数据示例
 
 ```
-                 pe   pe_ttm      pb  ...  dv_ratio  dv_ttm     total_mv
-trade_date                            ...                               
-2020-07-13  46.3530  55.9041  6.2434  ...       NaN     NaN  1528399.120
-2020-07-10  47.1162  56.8245  6.3462  ...       NaN     NaN  1553564.604
-2020-07-09  48.2786  58.2264  6.5027  ...       NaN     NaN  1591890.020
-2020-07-08  47.0532  56.7485  6.3377  ...       NaN     NaN  1551486.720
-2020-07-07  44.2874  53.4129  5.9651  ...       NaN     NaN  1460290.700
-             ...      ...     ...  ...       ...     ...          ...
-2019-07-26  75.4664  43.4415  5.6073  ...       NaN     NaN  1331461.892
-2019-07-25  77.1806  44.4283  5.7346  ...       NaN     NaN  1361706.648
-2019-07-24  72.7053  41.8521  5.4021  ...       NaN     NaN  1282747.056
-2019-07-23  66.6988  38.3945  4.9558  ...       NaN     NaN  1176774.972
-2019-07-22  74.1447  42.6807  5.5091  ...       NaN     NaN  1308143.416
+     trade_date       pe   pe_ttm  ...  dv_ratio  dv_ttm      total_mv
+0    2021-12-17  11.7866   9.5601  ...    1.2408  1.0245  3.409620e+07
+1    2021-12-16  11.8872   9.6417  ...    1.2302  1.0158  3.438729e+07
+2    2021-12-15  11.7732   9.5492  ...    1.2422  1.0256  3.405739e+07
+3    2021-12-14  11.7933   9.5656  ...    1.2400  1.0239  3.411560e+07
+4    2021-12-13  12.2562   9.9410  ...    1.1932  0.9852  3.545461e+07
+         ...      ...      ...  ...       ...     ...           ...
+4685 2001-12-28  46.7103  42.8792  ...    0.0000     NaN  2.366120e+06
+4686 2001-12-27  46.4798  42.6676  ...    0.0000     NaN  2.354445e+06
+4687 2001-12-26  47.2481  43.3729  ...    0.0000     NaN  2.393361e+06
+4688 2001-12-25  46.5951  42.7734  ...    0.0000     NaN  2.360282e+06
+4689 2001-12-24  46.4798  42.6676  ...    0.0000     NaN  2.354445e+06
 ```
 
 #### A 股等权重与中位数市盈率
@@ -10204,39 +10206,40 @@ trade_date                            ...
 
 目标地址: https://www.legulegu.com/stockdata/a-ttm-lyr
 
-描述: 乐咕乐股网站-A 股等权重市盈率与中位数市盈率
+描述: 乐咕乐股-A 股等权重市盈率与中位数市盈率
 
 限量: 单次返回所有数据
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| date          | object   |   日期    |
-| middlePETTM          | float64   |   全A股滚动市盈率(TTM)中位数    |
-| averagePETTM          | float64   |   全A股滚动市盈率(TTM)等权平均    |
-| middlePELYR          | float64   |  全A股静态市盈率(LYR)中位数    |
-| averagePELYR          | float64   |  全A股静态市盈率(LYR)等权平均    |
-| quantileInAllHistoryMiddlePeTtm          | float64   |  当前"TTM(滚动市盈率)中位数"在历史数据上的分位数    |
-| quantileInRecent10YearsMiddlePeTtm          | float64   |  当前"TTM(滚动市盈率)中位数"在最近10年数据上的分位数    |
-| quantileInAllHistoryAveragePeTtm          | float64   |  当前"TTM(滚动市盈率)等权平均"在历史数据上的分位数    |
-| quantileInRecent10YearsAveragePeTtm          | float64   |  当前"TTM(滚动市盈率)等权平均"在在最近10年数据上的分位数    |
-| quantileInAllHistoryMiddlePeLyr          | float64   |  当前"LYR(静态市盈率)中位数"在历史数据上的分位数    |
-| quantileInRecent10YearsMiddlePeLyr          | float64   |  当前"LYR(静态市盈率)中位数"在最近10年数据上的分位数    |
-| quantileInAllHistoryAveragePeLyr          | float64   |  当前"LYR(静态市盈率)等权平均"在历史数据上的分位数    |
-| quantileInRecent10YearsAveragePeLyr          | float64   |  当前"LYR(静态市盈率)等权平均"在最近10年数据上的分位数    |
-| close          | float64   |  沪深300指数    |
+| 名称                                  | 类型      | 描述                               |
+|-------------------------------------|---------|----------------------------------|
+| date                                | object  | 日期                               |
+| middlePETTM                         | float64 | 全A股滚动市盈率(TTM)中位数                 |
+| averagePETTM                        | float64 | 全A股滚动市盈率(TTM)等权平均                |
+| middlePELYR                         | float64 | 全A股静态市盈率(LYR)中位数                 |
+| averagePELYR                        | float64 | 全A股静态市盈率(LYR)等权平均                |
+| quantileInAllHistoryMiddlePeTtm     | float64 | 当前"TTM(滚动市盈率)中位数"在历史数据上的分位数      |
+| quantileInRecent10YearsMiddlePeTtm  | float64 | 当前"TTM(滚动市盈率)中位数"在最近10年数据上的分位数   |
+| quantileInAllHistoryAveragePeTtm    | float64 | 当前"TTM(滚动市盈率)等权平均"在历史数据上的分位数     |
+| quantileInRecent10YearsAveragePeTtm | float64 | 当前"TTM(滚动市盈率)等权平均"在在最近10年数据上的分位数 |
+| quantileInAllHistoryMiddlePeLyr     | float64 | 当前"LYR(静态市盈率)中位数"在历史数据上的分位数      |
+| quantileInRecent10YearsMiddlePeLyr  | float64 | 当前"LYR(静态市盈率)中位数"在最近10年数据上的分位数   |
+| quantileInAllHistoryAveragePeLyr    | float64 | 当前"LYR(静态市盈率)等权平均"在历史数据上的分位数     |
+| quantileInRecent10YearsAveragePeLyr | float64 | 当前"LYR(静态市盈率)等权平均"在最近10年数据上的分位数  |
+| close                               | float64 | 沪深300指数                          |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_a_ttm_lyr_df = ak.stock_a_ttm_lyr()
 print(stock_a_ttm_lyr_df)
 ```
@@ -10264,34 +10267,35 @@ print(stock_a_ttm_lyr_df)
 
 目标地址: https://www.legulegu.com/stockdata/all-pb
 
-描述: 乐咕乐股网站-A 股等权重与中位数市净率
+描述: 乐咕乐股-A 股等权重与中位数市净率
 
 限量: 单次返回所有数据
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| date          | object   |   日期    |
-| middlePB          | float64   |   全部A股市净率中位数    |
-| equalWeightAveragePB          | float64   |   全部A股市净率等权平均    |
-| close          | float64   |   上证指数    |
-| quantileInAllHistoryMiddlePB          | float64   |   当前市净率中位数在历史数据上的分位数    |
-| quantileInRecent10YearsMiddlePB          | float64   |   当前市净率中位数在最近10年数据上的分位数    |
-| quantileInAllHistoryEqualWeightAveragePB          | float64   |   当前市净率等权平均在历史数据上的分位数    |
-| quantileInRecent10YearsEqualWeightAveragePB          | float64   |   当前市净率等权平均在最近10年数据上的分位数    |
+| 名称                                          | 类型      | 描述                     |
+|---------------------------------------------|---------|------------------------|
+| date                                        | object  | 日期                     |
+| middlePB                                    | float64 | 全部A股市净率中位数             |
+| equalWeightAveragePB                        | float64 | 全部A股市净率等权平均            |
+| close                                       | float64 | 上证指数                   |
+| quantileInAllHistoryMiddlePB                | float64 | 当前市净率中位数在历史数据上的分位数     |
+| quantileInRecent10YearsMiddlePB             | float64 | 当前市净率中位数在最近10年数据上的分位数  |
+| quantileInAllHistoryEqualWeightAveragePB    | float64 | 当前市净率等权平均在历史数据上的分位数    |
+| quantileInRecent10YearsEqualWeightAveragePB | float64 | 当前市净率等权平均在最近10年数据上的分位数 |
 
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_a_all_pb_df = ak.stock_a_all_pb()
 print(stock_a_all_pb_df)
 ```
@@ -10319,76 +10323,76 @@ print(stock_a_all_pb_df)
 
 目标地址: https://legulegu.com/stockdata/hs300-ttm-lyr https://legulegu.com/stockdata/hs300-pb
 
-描述: 获取乐咕乐股网站-指定市场的A股的市盈率和市净率，包括等权和加权。目标的两个网页分别展示市盈率和市净率，但实际上是来自同一个API的数据
+描述: 乐咕乐股-指定市场的A股的市盈率和市净率，包括等权和加权。目标的两个网页分别展示市盈率和市净率，但实际上是来自同一个API的数据
 
 限量: 单次获取指定 market 的所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| market | str | Y    | market="000300.SH"; 参见 **stock_a_pe_and_pb** 一览表|
+| 名称     | 类型  | 描述                                               |
+|--------|-----|--------------------------------------------------|
+| symbol | str | symbol="000300.SH"; 参见 **stock_a_pe_and_pb** 一览表 |
 
 stock_a_pe_and_pb 一览表
 
-| 栏目 | 参数 |
-| ------------ | ----- |
-| 上证A股 | sh |
-| 深圳A股 | sz |
-| 创业板 | cy |
-| 科创板 | kc |
-| 沪深300 | 000300.SH |
-| 上证50 | 000016.SH |
-| 上证红利 | 000015.SH |
-| 深证红利 | 399324.SZ |
-| 上证180 | 000010.SH |
-| 上证380 | 000009.SH |
-| 中证100 | 000903.SH |
-| 中证500 | 000905.SH |
-| 中证800 | 000906.SH |
+| 栏目     | 参数        |
+|--------|-----------|
+| 上证A股   | sh        |
+| 深圳A股   | sz        |
+| 创业板    | cy        |
+| 科创板    | kc        |
+| 沪深300  | 000300.SH |
+| 上证50   | 000016.SH |
+| 上证红利   | 000015.SH |
+| 深证红利   | 399324.SZ |
+| 上证180  | 000010.SH |
+| 上证380  | 000009.SH |
+| 中证100  | 000903.SH |
+| 中证500  | 000905.SH |
+| 中证800  | 000906.SH |
 | 中证1000 | 000852.SH |
 
 
 输出参数
 
-| 名称 | 类型 | 描述 |
-| ------------ | ----- | ---------------- |
-| date | datetime | 日期 |
-| addTtmPe | str | (加权)滚动市盈率 |
-| middleAddTtmPe | str | (加权)滚动市盈率中位数 |
-| addLyrPe | str | (加权)静态市盈率 |
-| middleAddLyrPe | str | (加权)静态市盈率中位数 |
-| addPb | str | (加权)市净率 |
-| averageTtmPe | str | 等权滚动市盈率 |
-| averageLyrPe | str | 等权静态市盈率 |
-| averagePb | str | 等权市净率 |
-| middleAveragePb | str | 等权市净率中位数 |
-| close | str | 收盘点位 |
+| 名称              | 类型      | 描述           |
+|-----------------|---------|--------------|
+| date            | object  | 日期           |
+| addTtmPe        | float64 | (加权)滚动市盈率    |
+| middleAddTtmPe  | float64 | (加权)滚动市盈率中位数 |
+| addLyrPe        | float64 | (加权)静态市盈率    |
+| middleAddLyrPe  | float64 | (加权)静态市盈率中位数 |
+| addPb           | float64 | (加权)市净率      |
+| averageTtmPe    | float64 | 等权滚动市盈率      |
+| averageLyrPe    | float64 | 等权静态市盈率      |
+| averagePb       | float64 | 等权市净率        |
+| middleAveragePb | float64 | 等权市净率中位数     |
+| close           | float64 | 收盘点位         |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_a_pe_and_pb_df = ak.stock_a_pe_and_pb(market="000300.SH")
+
+stock_a_pe_and_pb_df = ak.stock_a_pe_and_pb(symbol="000300.SH")
 print(stock_a_pe_and_pb_df)
 ```
 
 数据示例
 
 ```
-            addTtmPe  middleAddTtmPe  addLyrPe  middleAddLyrPe  ...  averageLyr  averagePb  middleAveragePb    close
-date                                                            ...                                                 
-2014-10-17     49.19           62.39     54.60           66.47  ...       78.12       5.16             4.08  6058.67
-2014-10-20     49.35           62.26     54.77           66.02  ...       78.60       5.17             4.08  6154.52
-2014-10-21     49.01           61.31     54.35           65.41  ...       77.75       5.14             4.04  6103.01
-2014-10-22     48.42           59.91     53.76           64.51  ...       78.12       5.08             4.01  6027.51
-2014-10-23     47.49           58.72     52.92           63.46  ...       76.99       4.98             3.96  5930.48
-...              ...             ...       ...             ...  ...         ...        ...              ...      ...
-2021-12-13     28.92           35.68     37.61           42.06  ...       60.41       4.21             3.09  7984.90
-2021-12-14     29.08           35.62     37.81           42.56  ...       60.85       4.24             3.11  7981.83
-2021-12-15     29.10           36.18     37.85           43.26  ...       61.16       4.27             3.20  7955.58
-2021-12-16     28.99           36.49     37.72           43.08  ...       60.98       4.25             3.20  8005.98
-2021-12-17     29.24           36.51     38.04           43.50  ...       61.47       4.28             3.23  7894.10
+            date  addTtmPe  middleAddTtmPe  ...  averagePb  middleAveragePb    close
+0     2005-04-08     14.98           20.65  ...       2.12             1.92  1003.45
+1     2005-04-11     15.12           20.65  ...       2.14             1.95   995.42
+2     2005-04-12     14.75           20.30  ...       2.09             1.88   978.70
+3     2005-04-13     15.12           20.78  ...       2.15             1.95  1000.90
+4     2005-04-14     14.99           20.56  ...       2.11             1.93   986.98
+          ...       ...             ...  ...        ...              ...      ...
+4056  2021-12-13     12.78           25.81  ...       5.29             3.15  5083.80
+4057  2021-12-14     12.83           25.87  ...       5.29             3.18  5049.70
+4058  2021-12-15     12.74           25.82  ...       5.27             3.15  5005.90
+4059  2021-12-16     12.65           25.93  ...       5.20             3.13  5034.73
+4060  2021-12-17     12.73           25.67  ...       5.23             3.16  4954.76
 ```
 
 #### 港股个股指标
@@ -10397,27 +10401,28 @@ date                                                            ...
 
 目标地址: https://eniu.com/gu/hk01093/roe
 
-描述: 获取亿牛网-港股个股指标: 市盈率, 市净率, 股息率, ROE, 市值
+描述: 亿牛网-港股个股指标: 市盈率, 市净率, 股息率, ROE, 市值
 
 限量: 单次获取指定 symbol 和 indicator 的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="hk01093"; 可通过调用 **stock_hk_eniu_indicator(symbol="hk01093", indicator="港股")** 获取股票代码|
-| indicator | str | Y    | indicator="港股"; choice of {"港股", "市盈率", "市净率", "股息率", "ROE", "市值"}|
+| 名称        | 类型  | 描述                                                                                              |
+|-----------|-----|-------------------------------------------------------------------------------------------------|
+| symbol    | str | symbol="hk01093"; 可通过调用 **ak.stock_hk_eniu_indicator(symbol="hk01093", indicator="港股")** 获取股票代码 |
+| indicator | str | indicator="港股"; choice of {"港股", "市盈率", "市净率", "股息率", "ROE", "市值"}                              |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| -          | -   | -        |  根据 indicator 而异    |
+| 名称  | 类型  | 描述              |
+|-----|-----|-----------------|
+| -   | -   | 根据 indicator 而异 |
 
 接口示例-ROE
 
 ```python
 import akshare as ak
+
 stock_hk_eniu_indicator_df = ak.stock_hk_eniu_indicator(symbol="hk01093", indicator="市净率")
 print(stock_hk_eniu_indicator_df)
 ```
@@ -10445,53 +10450,53 @@ print(stock_hk_eniu_indicator_df)
 
 目标地址: https://www.legulegu.com/stockdata/high-low-statistics
 
-描述: 获取不同市场的创新高和新低的股票数量
+描述: 不同市场的创新高和新低的股票数量
 
 限量: 单次获取指定 market 的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| market | str | Y    | market="all"; {"all": "全部A股", "sz50": "上证50", "hs300": "沪深300", "zz500": "中证500"}|
+| 名称     | 类型  | 描述                                                                                |
+|--------|-----|-----------------------------------------------------------------------------------|
+| market | str | market="all"; {"all": "全部A股", "sz50": "上证50", "hs300": "沪深300", "zz500": "中证500"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | datetime   | Y        |  交易日    |
-| close          | float   | Y        |  收盘价    |
-| high20          | float   | Y        |  20日新高    |
-| low20          | float   | Y        |  20日新低    |
-| high60          | float   | Y        |  60日新高    |
-| low60          | float   | Y        |  60日新低    |
-| high120          | float   | Y        |  120日新高    |
-| low120          | float   | Y        |  60日新低    |
+| 名称      | 类型      | 描述     |
+|---------|---------|--------|
+| date    | object  | 交易日    |
+| close   | float64 | 收盘价    |
+| high20  | float64 | 20日新高  |
+| low20   | float64 | 20日新低  |
+| high60  | float64 | 60日新高  |
+| low60   | float64 | 60日新低  |
+| high120 | float64 | 120日新高 |
+| low120  | float64 | 60日新低  |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_a_high_low_statistics_df = ak.stock_a_high_low_statistics(market="zz500")
+
+stock_a_high_low_statistics_df = ak.stock_a_high_low_statistics(symbol="zz500")
 print(stock_a_high_low_statistics_df)
 ```
 
 数据示例
 
 ```
-              close  high20  low20  high60  low60  high120  low120
-date                                                              
-2020-07-14  6807.73     114      0      96      0       71       0
-2020-07-13  6899.52     319      0     280      0      164       0
-2020-07-10  6676.44     139      0     123      0       92       0
-2020-07-09  6693.75     375      0     310      0      142       0
-2020-07-08  6535.42     333      1     265      1      134       1
-             ...     ...    ...     ...    ...      ...     ...
-2018-06-29  5217.76      18      1       7      1        6       1
-2018-06-28  5055.11       2    150       0    121        0     109
-2018-06-27  5109.50       3    100       0     77        0      71
-2018-06-26  5160.28       6     56       4     46        2      41
-2018-06-25  5125.03       5    104       3     89        2      73
+           date    close  high20  low20  high60  low60  high120  low120
+0    2021-12-17  3632.36     612    557     246     63      166      23
+1    2021-12-16  3675.02     802    168     305     23      183       8
+2    2021-12-15  3647.63     600    243     241     31      163      13
+3    2021-12-14  3661.53     582    170     272     15      172       2
+4    2021-12-13  3681.08     514    177     208     12      128       3
+..          ...      ...     ...    ...     ...    ...      ...     ...
+495  2019-12-05  2899.47     418     56     125     28      102      19
+496  2019-12-04  2878.12     294    307      76    169       53      85
+497  2019-12-03  2884.70     315    309      88    185       61     100
+498  2019-12-02  2875.81     224    551      73    357       56     208
+499  2019-11-29  2871.98     175    563      60    386       47     219
 ```
 
 #### 破净股统计
@@ -10500,29 +10505,30 @@ date
 
 目标地址: https://www.legulegu.com/stockdata/below-net-asset-statistics
 
-描述: 获取 A 股破净股统计数据
+描述: 乐咕乐股-A 股破净股统计数据
 
 限量: 单次获取所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |--- |
-| symbol | str |  symbol="全部A股"; choice of {"全部A股", "沪深300"}|
+| 名称     | 类型  | 描述                                         |
+|--------|-----|--------------------------------------------|
+| symbol | str | symbol="全部A股"; choice of {"全部A股", "沪深300"} |
 
 输出参数-全部A股
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| date          | object   |   交易日    |
-| below_net_asset          | float64   |   破净股家数    |
-| total_company          | float64   |  总公司数    |
-| below_net_asset_ratio          | float64   |  破净股比率    |
+| 名称                    | 类型      | 描述    |
+|-----------------------|---------|-------|
+| date                  | object  | 交易日   |
+| below_net_asset       | float64 | 破净股家数 |
+| total_company         | float64 | 总公司数  |
+| below_net_asset_ratio | float64 | 破净股比率 |
 
 接口示例-全部 A 股
 
 ```python
 import akshare as ak
+
 stock_a_below_net_asset_statistics_df = ak.stock_a_below_net_asset_statistics(symbol="全部A股")
 print(stock_a_below_net_asset_statistics_df)
 ```
@@ -10546,17 +10552,18 @@ print(stock_a_below_net_asset_statistics_df)
 
 输出参数-沪深 300
 
-| 名称          | 类型 |描述           |
-| ------------ | ----- | ---------------- |
-| date          | object   |   交易日    |
-| below_net_asset          | float64   |  破净股家数    |
-| total_company          | float64   |  总公司数    |
-| below_net_asset_ratio          | float64   |   破净股比率    |
+| 名称                    | 类型      | 描述    |
+|-----------------------|---------|-------|
+| date                  | object  | 交易日   |
+| below_net_asset       | float64 | 破净股家数 |
+| total_company         | float64 | 总公司数  |
+| below_net_asset_ratio | float64 | 破净股比率 |
 
 接口示例-沪深 300
 
 ```python
 import akshare as ak
+
 stock_a_below_net_asset_statistics_df = ak.stock_a_below_net_asset_statistics(symbol="沪深300")
 print(stock_a_below_net_asset_statistics_df)
 ```
@@ -10584,35 +10591,36 @@ print(stock_a_below_net_asset_statistics_df)
 
 目标地址: http://data.eastmoney.com/zlsj/2020-06-30-1-2.html
 
-描述: 获取个股的基金持股数据
+描述: 东方财富网-数据中心-主力数据-基金持仓
 
 限量: 单次返回指定 symbol 和 date 的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="基金持仓"; choice of {"基金持仓", "QFII持仓", "社保持仓", "券商持仓", "保险持仓", "信托持仓"}|
-| date | str | Y    | date="20200630"; 财报发布日期, xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31|
+| 名称     | 类型  | 描述                                                                          |
+|--------|-----|-----------------------------------------------------------------------------|
+| symbol | str | symbol="基金持仓"; choice of {"基金持仓", "QFII持仓", "社保持仓", "券商持仓", "保险持仓", "信托持仓"} |
+| date   | str | date="20200630"; 财报发布日期, xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31     |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | datetime   | Y        |  -    |
-| 股票代码          | float   | Y        |  -    |
-| 股票简称          | float   | Y        |  -    |
-| 持有基金家数          | float   | Y        |  注意单位: 家    |
-| 持股总数          | float   | Y        |  注意单位: 股    |
-| 持股市值          | float   | Y     |  注意单位: 元    |
-| 持股变化          | float   | Y     |  -    |
-| 持股变动数值          | float   | Y     |  注意单位: 股    |
-| 持股变动比例          | float   | Y   |  注意单位: %    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 持有基金家数 | int64   | 注意单位: 家 |
+| 持股总数   | int64   | 注意单位: 股 |
+| 持股市值   | float64 | 注意单位: 元 |
+| 持股变化   | object  | -       |
+| 持股变动数值 | int64   | 注意单位: 股 |
+| 持股变动比例 | float64 | 注意单位: % |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_report_fund_hold_df = ak.stock_report_fund_hold(symbol="基金持仓", date="20200630")
 print(stock_report_fund_hold_df)
 ```

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/19 13:30
-Desc: A股市盈率和市净率
+Date: 2021/12/19 13:24
+Desc: 乐咕乐股-A 股市盈率和市净率
 https://legulegu.com/stockdata/hs300-ttm-lyr
 https://legulegu.com/stockdata/hs300-pb
 此网站需要 JS 逆向分析 token 代码，本项目分解 JS 加密部分，提取主要的加密参数后本地执行
@@ -322,29 +322,29 @@ js_functions.eval(hash_code)
 token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
-def stock_a_pe_and_pb(market: str = "sz") -> pd.DataFrame:
+def stock_a_pe_and_pb(symbol: str = "sz") -> pd.DataFrame:
     """
-    A股市盈率和市净率
+    乐咕乐股-A 股市盈率和市净率
     https://legulegu.com/stockdata/hs300-ttm-lyr
     https://legulegu.com/stockdata/hs300-pb
     两个网页分别展示市盈率和市净率，但实际上是来自同一个API的数据
-    :param market: choice of {"sh", "sz", "cy", "zx", "000300.SH" ...}
-    :type market: str
-    :return: 指定市场的A股的市盈率和市净率，包括等权和加权
+    :param symbol: choice of {"sh", "sz", "cy", "zx", "000300.SH" ...}
+    :type symbol: str
+    :return: 指定市场的 A 股的市盈率和市净率，包括等权和加权
     :rtype: pandas.DataFrame
     """
     url = "https://legulegu.com/api/stockdata/index-basic"
     params = {
         "token": token,
-        "indexCode": market
+        "indexCode": symbol
     }
-    if(market == "sh"):
+    if symbol == "sh":
         params["indexCode"] = "1"
-    if(market == "sz"):
+    if symbol == "sz":
         params["indexCode"] = "2"
-    if(market == "cy"):
+    if symbol == "cy":
         params["indexCode"] = "4"
-    if(market == "kc"):
+    if symbol == "kc":
         params["indexCode"] = "7"
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -355,12 +355,13 @@ def stock_a_pe_and_pb(market: str = "sz") -> pd.DataFrame:
                         "ttmPe", "lyrPe", "pb", "middlePb", "close"]]
     index_df.columns = ["addTtmPe", "middleAddTtmPe", "addLyrPe", "middleAddLyrPe", "addPb",
                         "averageTtmPe", "averageLyr", "averagePb", "middleAveragePb", "close"]
+    index_df.reset_index(inplace=True)
     return index_df
 
 
 if __name__ == '__main__':
-    stock_a_pe_df = stock_a_pe_and_pb(market="sh")
-    print(stock_a_pe_df)
+    stock_a_pe_and_pb_df = stock_a_pe_and_pb(symbol="sh")
+    print(stock_a_pe_and_pb_df)
 
-    stock_a_pe_df = stock_a_pe_and_pb(market="000852.SH")
-    print(stock_a_pe_df)
+    stock_a_pe_and_pb_df = stock_a_pe_and_pb(symbol="000300.SH")
+    print(stock_a_pe_and_pb_df)
