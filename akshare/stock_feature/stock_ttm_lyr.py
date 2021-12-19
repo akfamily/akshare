@@ -321,9 +321,9 @@ token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 def stock_a_ttm_lyr() -> pd.DataFrame:
     """
-    全部 A 股-等权重市盈率、中位数市盈率
+    全部A股-等权重市盈率、中位数市盈率
     https://www.legulegu.com/stockdata/a-ttm-lyr
-    :return: 全部 A 股-等权重市盈率、中位数市盈率
+    :return: 全部A股-等权重市盈率、中位数市盈率
     :rtype: pandas.DataFrame
     """
     url = "https://www.legulegu.com/api/stock-data/market-ttm-lyr"
@@ -334,7 +334,8 @@ def stock_a_ttm_lyr() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_df['date'] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
+    temp_df['date'] = pd.to_datetime(
+        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
     del temp_df['marketId']
     return temp_df
 
