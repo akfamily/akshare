@@ -2499,6 +2499,7 @@ A 股PE和PB
 """
 from akshare.stock_feature.stock_a_pb import stock_a_pb
 from akshare.stock_feature.stock_a_pe import stock_a_pe
+from akshare.stock_feature.stock_a_pe_and_pb import stock_a_pe_and_pb
 from akshare.stock_feature.stock_a_indicator import (
     stock_a_lg_indicator,
     stock_hk_eniu_indicator,

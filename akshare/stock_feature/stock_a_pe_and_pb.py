@@ -12,7 +12,6 @@ from os import replace
 
 import pandas as pd
 import requests
-from akshare.stock_feature.stock_ttm_lyr import stock_a_ttm_lyr
 from py_mini_racer import py_mini_racer
 
 hash_code = """
