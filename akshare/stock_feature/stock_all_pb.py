@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2021/8/12 15:57
-Desc: 全部 A 股-等权重、中位数市净率
+Desc: 全部A股-等权重市净率、中位数市净率
 https://www.legulegu.com/stockdata/all-pb
 此网站需要 JS 逆向分析 token 代码，本项目分解 JS 加密部分，提取主要的加密参数后本地执行
 """
@@ -321,9 +321,9 @@ token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 def stock_a_all_pb() -> pd.DataFrame:
     """
-    全部 A 股-等权重、中位数市净率
+    全部A股-等权重市净率、中位数市净率
     https://www.legulegu.com/stockdata/all-pb
-    :return: 等权重、中位数市净率
+    :return: 全部A股-等权重市盈率、中位数市盈率
     :rtype: pandas.DataFrame
     """
     url = "https://www.legulegu.com/api/stock-data/market-index-pb"
@@ -334,11 +334,8 @@ def stock_a_all_pb() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    temp_se = temp_df["date"]
-    temp_se.index = pd.to_datetime(temp_se, utc=True, unit="ms")
-    temp_se = pd.to_datetime(temp_se, utc=True, unit="ms").tz_convert('Asia/Shanghai').index.to_frame()['date']
-    temp_se.reset_index(drop=True, inplace=True)
-    temp_df['date'] = pd.to_datetime(temp_se).dt.date
+    temp_df['date'] = pd.to_datetime(
+        temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
     del temp_df['marketId']
     del temp_df['weightingAveragePB']
     return temp_df
