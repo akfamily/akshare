@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2021/11/15 19:28
-Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
+Desc: 新浪财经-A 股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
 import re
@@ -328,7 +328,7 @@ def stock_zh_a_minute(
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0])).iloc[:, :6]
     if temp_df.empty:
         print(f"{symbol} 股票数据不存在，请检查是否已退市")
-        return None
+        return
     try:
         stock_zh_a_daily(symbol=symbol, adjust="qfq")
     except:

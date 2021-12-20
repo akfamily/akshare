@@ -2,7 +2,8 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2021/11/15 20:40
-Desc: 艺恩-视频放映
+Desc: 艺恩
+视频放映
 电视剧集
 综艺节目
 https://www.endata.com.cn/Video/index.html

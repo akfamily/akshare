@@ -476,19 +476,35 @@ def stock_board_industry_index_ths(symbol: str = "半导体及元件", start_dat
         temp_df = pd.DataFrame(temp_df['data'].split(';'))
         temp_df = temp_df.iloc[:, 0].str.split(',', expand=True)
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df.columns = [
-        '日期',
-        '开盘价',
-        '最高价',
-        '最低价',
-        '收盘价',
-        '成交量',
-        '成交额',
-        '_',
-        '_',
-        '_',
-        '_',
-    ]
+    if len(big_df.columns) == 11:
+        big_df.columns = [
+            '日期',
+            '开盘价',
+            '最高价',
+            '最低价',
+            '收盘价',
+            '成交量',
+            '成交额',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
+    else:
+        big_df.columns = [
+            '日期',
+            '开盘价',
+            '最高价',
+            '最低价',
+            '收盘价',
+            '成交量',
+            '成交额',
+            '_',
+            '_',
+            '_',
+            '_',
+            '_',
+        ]
     big_df = big_df[[
         '日期',
         '开盘价',
@@ -567,7 +583,7 @@ if __name__ == '__main__':
     stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="涂料油墨")
     print(stock_board_industry_info_ths_df)
 
-    stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="涂料油墨")
+    stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="半导体及元件", start_date="20200101", end_date="20211027")
     print(stock_board_industry_index_ths_df)
 
     stock_ipo_benefit_ths_df = stock_ipo_benefit_ths()
