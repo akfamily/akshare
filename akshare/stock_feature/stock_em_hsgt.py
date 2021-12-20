@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/10/30 21:12
+Date: 2021/12/20 12:12
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -14,6 +14,85 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 from akshare.utils import demjson
+
+
+def stock_hk_ggt_components_em() -> pd.DataFrame:
+    """
+    东方财富网-行情中心-港股市场-港股通成份股
+    https://quote.eastmoney.com/center/gridlist.html#hk_components
+    :return: 港股通成份股
+    :rtype: pandas.DataFrame
+    """
+    url = "https://33.push2.eastmoney.com/api/qt/clist/get"
+    params = {
+        'pn': '1',
+        'pz': '5000',
+        'po': '1',
+        'np': '1',
+        'ut': 'bd1d9ddb04089700cf9c27f6f7426281',
+        'fltt': '2',
+        'fid': 'f3',
+        'fs': 'b:DLMK0146,b:DLMK0144',
+        'fields': 'f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f19,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152',
+        '_': '1639974456250',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['data']['diff'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = temp_df.index + 1
+    temp_df.columns = [
+        '序号',
+        '-',
+        '最新价',
+        '涨跌幅',
+        '涨跌额',
+        '成交量',
+        '成交额',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '代码',
+        '-',
+        '名称',
+        '最高',
+        '最低',
+        '今开',
+        '昨收',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+        '-',
+    ]
+    temp_df = temp_df[[
+        '序号',
+        '代码',
+        '名称',
+        '最新价',
+        '涨跌额',
+        '涨跌幅',
+        '今开',
+        '最高',
+        '最低',
+        '昨收',
+        '成交量',
+        '成交额',
+    ]]
+    return temp_df
 
 
 def stock_em_hsgt_north_net_flow_in(indicator: str = "沪股通") -> pd.DataFrame:
@@ -1347,6 +1426,9 @@ def stock_hsgt_individual_detail_em(stock: str = "600596", start_date: str = "20
 
 
 if __name__ == "__main__":
+    stock_hk_ggt_components_em_df = stock_hk_ggt_components_em()
+    print(stock_hk_ggt_components_em_df)
+
     stock_em_hsgt_north_net_flow_in_df = stock_em_hsgt_north_net_flow_in(indicator="沪股通")
     print(stock_em_hsgt_north_net_flow_in_df)
 
