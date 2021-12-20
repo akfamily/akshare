@@ -60,6 +60,8 @@ AKShare 由于使用 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-
 
 ## R 语言调用支持
 
+**推荐使用 [AKTools 项目](https://github.com/akfamily/aktools) 来部署 AKShare 的 HTTP API 使用，运行速度更快，更稳定，兼容各种编程语言，详情参考 [AKTools 文档](https://aktools.readthedocs.io/)**
+
 ### 安装 Anaconda
 
 [下载 Windows 64 位 Python 3.8 的 Anaconda](https://repo.anaconda.com/archive/Anaconda3-2020.07-Windows-x86_64.exe)
@@ -141,6 +143,8 @@ print(stock_df)  # 查看数据
 ```
 
 ## MATLAB 调用支持
+
+**推荐使用 [AKTools 项目](https://github.com/akfamily/aktools) 来部署 AKShare 的 HTTP API 使用，运行速度更快，更稳定，兼容各种编程语言，详情参考 [AKTools 文档](https://aktools.readthedocs.io/)**
 
 ### 安装 Anaconda
 
