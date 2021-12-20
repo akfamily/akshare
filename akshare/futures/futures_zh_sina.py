@@ -115,7 +115,7 @@ def futures_zh_spot(
         for contract_name in contract_name_list:
             # print(contract_name)
             # contract_name = 'AP2101'
-            temp_df = futures_contract_detail(contract=contract_name)
+            temp_df = futures_contract_detail(symbol=contract_name)
             exchange_name = temp_df[temp_df["item"] == "上市交易所"]["value"].values[0]
             contract_exchange_list.append(exchange_name)
             contract_min = temp_df[temp_df["item"] == "最小变动价位"]["value"].values[0]

@@ -132,11 +132,11 @@
  # 河北空气质量数据(期货-钢铁)
  "air_quality_hebei"  # 河北空气质量数据
  # 南华期货-南华指数-波动率指数
- "nh_volatility_index"  # 波动率指数
+ "futures_nh_volatility_index"  # 波动率指数
  # 南华期货-南华指数-价格指数
- "nh_price_index"  # 价格指数
+ "futures_nh_price_index"  # 价格指数
  # 南华期货-南华指数-收益率指数
- "nh_return_index"  # 收益率指数
+ "futures_nh_return_index"  # 收益率指数
  # 经济政策不确定性(EPU)指数
  "article_epu_index"  # 主要国家和地区的经济政策不确定性(EPU)指数
  # 微博指数

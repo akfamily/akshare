@@ -1597,7 +1597,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.6.70: fix: fix bond_investing_global interface
 
-0.6.71: fix: fix nh_return_index interface
+0.6.71: fix: fix futures_nh_return_index interface
 
 0.6.72: fix: fix get_receipt interface
 
@@ -2758,7 +2758,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.2.49 fix: fix rate_interbank interface
 
-1.2.50 fix: fix nh_price_index interface
+1.2.50 fix: fix futures_nh_price_index interface
 
 1.2.51 add: add futures_hq_subscribe_exchange_symbol interface
 
@@ -2833,4 +2833,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.86 add: add stock_a_pe_and_pb interface
 
 1.2.87 add: add stock_hk_ggt_components_em interface
+
+1.2.88 fix: fix futures_nh_index interface
 ```
