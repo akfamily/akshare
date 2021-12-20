@@ -1708,9 +1708,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.84 fix: fix repo_rate_hist interface
 1.2.85 fix: fix repo_rate_hist interface
 1.2.86 add: add stock_a_pe_and_pb interface
+1.2.87 add: add stock_hk_ggt_components_em interface
 """
 
-__version__ = "1.2.86"
+__version__ = "1.2.87"
 __author__ = "Albert King"
 
 import sys
@@ -2726,6 +2727,7 @@ from akshare.stock_feature.stock_em_tfp import stock_tfp_em
 stock-em-hsgt
 """
 from akshare.stock_feature.stock_em_hsgt import (
+    stock_hk_ggt_components_em,
     stock_em_hsgt_north_acc_flow_in,
     stock_em_hsgt_north_cash,
     stock_em_hsgt_north_net_flow_in,

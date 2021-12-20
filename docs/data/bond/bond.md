@@ -873,39 +873,40 @@ print(bond_zh_cov_info_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -   |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int32   | Y        | -     |
-| 转债代码          | object      | Y        | -     |
-| 转债名称           | object      | Y        | -     |
-| 转债最新价          | object   | Y        | -     |
-| 转债涨跌幅          | object      | Y        | 注意单位: %     |
-| 正股代码        | object      | Y        | -     |
-| 正股名称        | object      | Y        | -     |
-| 正股最新价        | object      | Y        | -     |
-| 正股涨跌幅        | object      | Y        | 注意单位: %     |
-| 转股价        | object      | Y        | -     |
-| 转股价值        | object      | Y        | -     |
-| 转股溢价率        | object      | Y        | 注意单位: %     |
-| 纯债溢价率        | object      | Y        | 注意单位: %     |
-| 回售触发价        | object      | Y        | -     |
-| 强赎触发价        | object      | Y        | -     |
-| 到期赎回价        | object      | Y        | -     |
-| 纯债价值        | float64      | Y        | -     |
-| 开始转股日        | object      | Y        | -     |
-| 上市日期         | object      | Y        | -     |
-| 申购日期        | object      | Y        | -     |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 序号    | int32   | -       |
+| 转债代码  | object  | -       |
+| 转债名称  | object  | -       |
+| 转债最新价 | object  | -       |
+| 转债涨跌幅 | object  | 注意单位: % |
+| 正股代码  | object  | -       |
+| 正股名称  | object  | -       |
+| 正股最新价 | object  | -       |
+| 正股涨跌幅 | object  | 注意单位: % |
+| 转股价   | object  | -       |
+| 转股价值  | object  | -       |
+| 转股溢价率 | object  | 注意单位: % |
+| 纯债溢价率 | object  | 注意单位: % |
+| 回售触发价 | object  | -       |
+| 强赎触发价 | object  | -       |
+| 到期赎回价 | object  | -       |
+| 纯债价值  | float64 | -       |
+| 开始转股日 | object  | -       |
+| 上市日期  | object  | -       |
+| 申购日期  | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 bond_cov_comparison_df = ak.bond_cov_comparison()
 print(bond_cov_comparison_df)
 ```
@@ -978,13 +979,13 @@ print(bond_convert_jsl_df)
 297  128062    亚药转债  ...  128062；2019-10-09 开始转股   全价：79.521 最后更新：15:00:03
 ```
 
-### 可转债转股价变动-集思录
+### 可转债转股价格调整记录-集思录
 
 接口: bond_conv_adj_logs_jsl
 
 目标地址: https://app.jisilu.cn/data/cbnew/#cb; 点击带红色星号的转股价会弹出转股价调整记录
 
-描述: 从集思录获取单个可转债的转股价格调整记录
+描述: 集思录-单个可转债的转股价格-调整记录
 
 限量: 返回当前时刻该可转债的所有转股价格调整记录
 
