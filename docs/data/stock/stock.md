@@ -32,6 +32,7 @@
 
 ```python
 import akshare as ak
+
 stock_sse_summary_df = ak.stock_sse_summary()
 print(stock_sse_summary_df)
 ```
@@ -96,6 +97,7 @@ print(stock_sse_summary_df)
 
 ```python
 import akshare as ak
+
 stock_szse_summary_df = ak.stock_szse_summary(date="20200619")
 print(stock_szse_summary_df)
 ```
@@ -152,6 +154,7 @@ print(stock_szse_summary_df)
 
 ```python
 import akshare as ak
+
 stock_sse_deal_daily_df = ak.stock_sse_deal_daily(date="20201111")
 print(stock_sse_deal_daily_df)
 ```
@@ -216,6 +219,7 @@ print(stock_sse_deal_daily_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_spot_em_df = ak.stock_zh_a_spot_em()
 print(stock_zh_a_spot_em_df)
 ```
@@ -275,6 +279,7 @@ print(stock_zh_a_spot_em_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_spot_df = ak.stock_zh_a_spot()
 print(stock_zh_a_spot_df)
 ```
@@ -359,6 +364,7 @@ print(stock_zh_a_spot_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="")
 print(stock_zh_a_hist_df)
 ```
@@ -384,6 +390,7 @@ print(stock_zh_a_hist_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="qfq")
 print(stock_zh_a_hist_df)
 ```
@@ -409,6 +416,7 @@ print(stock_zh_a_hist_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="hfq")
 print(stock_zh_a_hist_df)
 ```
@@ -490,6 +498,7 @@ P.S. 建议切换为 stock_zh_a_hist 接口使用(该接口数据质量高, 访�
 
 ```python
 import akshare as ak
+
 stock_zh_a_daily_qfq_df = ak.stock_zh_a_daily(symbol="sz000002", start_date="20101103", end_date="20201116", adjust="qfq")
 print(stock_zh_a_daily_qfq_df)
 ```
@@ -516,6 +525,7 @@ date                             ...
 
 ```python
 import akshare as ak
+
 stock_zh_a_daily_hfq_df = ak.stock_zh_a_daily(symbol="sz000002", start_date='20201103', end_date='20201116', adjust="hfq")
 print(stock_zh_a_daily_hfq_df)
 ```
@@ -541,6 +551,7 @@ date                                   ...
 
 ```python
 import akshare as ak
+
 qfq_factor_df = ak.stock_zh_a_daily(symbol="sz000002", adjust="qfq-factor")
 print(qfq_factor_df)
 ```
@@ -590,6 +601,7 @@ date
 
 ```python
 import akshare as ak
+
 hfq_factor_df = ak.stock_zh_a_daily(symbol="sz000002", adjust="hfq-factor")
 print(hfq_factor_df)
 ```
@@ -668,6 +680,7 @@ date
 
 ```python
 import akshare as ak
+
 stock_zh_a_minute_df = ak.stock_zh_a_minute(symbol='sh600751', period='1', adjust="qfq")
 print(stock_zh_a_minute_df)
 ```
@@ -726,6 +739,7 @@ print(stock_zh_a_minute_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", period='1', adjust='', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
 print(stock_zh_a_hist_min_em_df)
 ```
@@ -767,6 +781,7 @@ print(stock_zh_a_hist_min_em_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
 print(stock_zh_a_hist_min_em_df)
 ```
@@ -823,6 +838,7 @@ print(stock_zh_a_hist_min_em_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_hist_pre_min_em_df = ak.stock_zh_a_hist_pre_min_em(symbol="000001")
 print(stock_zh_a_hist_pre_min_em_df)
 ```
@@ -939,6 +955,7 @@ print(stock_zh_a_tick_tx_js_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_tick_163_df = ak.stock_zh_a_tick_163(code="sh600848", trade_date="20210127")
 print(stock_zh_a_tick_163_df)
 ```
@@ -999,6 +1016,7 @@ print(stock_zh_a_tick_163_df)
 
 ```python
 import akshare as ak
+
 stock_zh_a_cdr_daily_df = ak.stock_zh_a_cdr_daily(symbol='sh689009', start_date='20201103', end_date='20201116')
 print(stock_zh_a_cdr_daily_df)
 ```
@@ -1036,36 +1054,37 @@ print(stock_zh_a_cdr_daily_df)
 
 输入参数
 
-| 名称   | 类型 |描述       |
-| -------- | ---- | --- |
-| - | -  |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int64   |  -     |
-| 代码          | object   | -     |
-| 名称          | object      |  -     |
-| 最新价          | float64      | -     |
-| 涨跌幅         | float64      |  注意单位: %     |
-| 涨跌额          | float64      | -     |
-| 成交量          | float64      |  注意单位: 手     |
-| 成交额          | float64      | 注意单位: 元     |
-| 振幅          | float64      |  注意单位: %     |
-| 最高        | float64      |  -     |
-| 最低        | float64      |  -     |
-| 今开        | float64      |  -     |
-| 昨收        | float64      |  -     |
-| 量比        | float64      |  -     |
-| 换手率        | float64      | 注意单位: %     |
-| 市盈率-动态        | float64      |  -     |
-| 市净率        | float64      | -     |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 代码     | object  | -       |
+| 名称     | object  | -       |
+| 最新价    | float64 | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 涨跌额    | float64 | -       |
+| 成交量    | float64 | 注意单位: 手 |
+| 成交额    | float64 | 注意单位: 元 |
+| 振幅     | float64 | 注意单位: % |
+| 最高     | float64 | -       |
+| 最低     | float64 | -       |
+| 今开     | float64 | -       |
+| 昨收     | float64 | -       |
+| 量比     | float64 | -       |
+| 换手率    | float64 | 注意单位: % |
+| 市盈率-动态 | float64 | -       |
+| 市净率    | float64 | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_b_spot_em_df = ak.stock_zh_b_spot_em()
 print(stock_zh_b_spot_em_df)
 ```
@@ -1073,7 +1092,7 @@ print(stock_zh_b_spot_em_df)
 数据示例
 
 ```
-      序号      代码    名称     最新价   涨跌幅  ...      昨收    量比   换手率  市盈率-动态   市净率
+      序号  代码   名称    最新价   涨跌幅  ...   昨收   量比  换手率 市盈率-动态 市净率
 0      1  900920  上柴Ｂ股   0.585  3.72  ...   0.564  3.89  1.16   13.90  0.63
 1      2  200054   建车B   6.100  3.39  ...   5.900  4.46  0.47  -38.36  3.66
 2      3  900926   宝信Ｂ   3.759  1.54  ...   3.702  1.40  0.54   19.95  4.57
@@ -1099,32 +1118,33 @@ print(stock_zh_b_spot_em_df)
 
 输入参数-实时行情数据
 
-| 名称   | 类型 |  描述       |
-| -------- | ---- |  --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数-实时行情数据
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 代码          | str   | -     |
-| 名称          | str      |  -     |
-| 最新价          | float      |  -     |
-| 涨跌额         | float      |  -     |
-| 涨跌幅           | float      |  注意单位: %     |
-| 买入        | float      |  -     |
-| 卖出        | float      |  -     |
-| 昨收        | float      | -     |
-| 今开        | float      | -     |
-| 最高        | float      |  -     |
-| 最低        | float      |  -     |
-| 成交量        | float      |  注意单位: 股     |
-| 成交额        | float      |  注意单位: 元     |
+| 名称  | 类型    | 描述      |
+|-----|-------|---------|
+| 代码  | str   | -       |
+| 名称  | str   | -       |
+| 最新价 | float | -       |
+| 涨跌额 | float | -       |
+| 涨跌幅 | float | 注意单位: % |
+| 买入  | float | -       |
+| 卖出  | float | -       |
+| 昨收  | float | -       |
+| 今开  | float | -       |
+| 最高  | float | -       |
+| 最低  | float | -       |
+| 成交量 | float | 注意单位: 股 |
+| 成交额 | float | 注意单位: 元 |
 
 接口示例-实时行情数据
 
 ```python
 import akshare as ak
+
 stock_zh_b_spot_df = ak.stock_zh_b_spot()
 print(stock_zh_b_spot_df)
 ```
@@ -1160,12 +1180,12 @@ print(stock_zh_b_spot_df)
 
 输入参数
 
-| 名称   | 类型 |  描述    |
-| -------- | ---- |  --- |
-| symbol | str  | symbol='sh900901'; 股票代码可以在 **ak.stock_zh_b_spot()** 中获取|
-| start_date | str  | start_date='20201103'; 开始查询的日期|
-| end_date | str  | end_date='20201116'; 结束查询的日期|
-| adjust | str  | 默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子|
+| 名称         | 类型  | 描述                                                                                   |
+|------------|-----|--------------------------------------------------------------------------------------|
+| symbol     | str | symbol='sh900901'; 股票代码可以在 **ak.stock_zh_b_spot()** 中获取                              |
+| start_date | str | start_date='20201103'; 开始查询的日期                                                       |
+| end_date   | str | end_date='20201116'; 结束查询的日期                                                         |
+| adjust     | str | 默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; qfq-factor: 返回前复权因子 |
 
 **股票数据复权**
 
@@ -1190,21 +1210,22 @@ print(stock_zh_b_spot_df)
 
 输出参数-历史行情数据
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| date          | datetime64   |  交易日     |
-| close          | float64      |  收盘价     |
-| high          | float64      | 最高价     |
-| low           | float64      |  最低价     |
-| open         | float64      |  开盘价     |
-| volume        | float64      |  成交量; 注意单位: 股     |
-| outstanding_share        | float64      |  流动股本; 注意单位: 股     |
-| turnover        | float64      |  换手率=成交量/流动股本    |
+| 名称                | 类型         | 描述            |
+|-------------------|------------|---------------|
+| date              | datetime64 | 交易日           |
+| close             | float64    | 收盘价           |
+| high              | float64    | 最高价           |
+| low               | float64    | 最低价           |
+| open              | float64    | 开盘价           |
+| volume            | float64    | 成交量; 注意单位: 股  |
+| outstanding_share | float64    | 流动股本; 注意单位: 股 |
+| turnover          | float64    | 换手率=成交量/流动股本  |
 
 接口示例-历史行情数据(前复权)
 
 ```python
 import akshare as ak
+
 stock_zh_b_daily_qfq_df = ak.stock_zh_b_daily(symbol="sh900901", start_date="20101103", end_date="20201116", adjust="qfq")
 print(stock_zh_b_daily_qfq_df)
 ```
@@ -1230,6 +1251,7 @@ print(stock_zh_b_daily_qfq_df)
 
 ```python
 import akshare as ak
+
 stock_zh_b_daily_hfq_df = ak.stock_zh_b_daily(symbol="sh900901", start_date='20201103', end_date='20201116', adjust="hfq")
 print(stock_zh_b_daily_hfq_df)
 ```
@@ -1254,6 +1276,7 @@ print(stock_zh_b_daily_hfq_df)
 
 ```python
 import akshare as ak
+
 qfq_factor_df = ak.stock_zh_b_daily(symbol="sh900901", adjust="qfq-factor")
 print(qfq_factor_df)
 ```
@@ -1290,6 +1313,7 @@ print(qfq_factor_df)
 
 ```python
 import akshare as ak
+
 hfq_factor_df = ak.stock_zh_b_daily(symbol="sh900901", adjust="hfq-factor")
 print(hfq_factor_df)
 ```
@@ -1334,27 +1358,28 @@ print(hfq_factor_df)
 
 输入参数
 
-| 名称   | 类型 | 描述      |
-| -------- | ---- |--- |
-| symbol | str  |symbol='sh900901'; 同日频率数据接口|
-| period | str  | period='1'; 获取 1, 5, 15, 30, 60 分钟的数据频率|
-| adjust | str  | adjust=""; 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据;|
+| 名称     | 类型  | 描述                                                         |
+|--------|-----|------------------------------------------------------------|
+| symbol | str | symbol='sh900901'; 同日频率数据接口                                |
+| period | str | period='1'; 获取 1, 5, 15, 30, 60 分钟的数据频率                    |
+| adjust | str | adjust=""; 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| day          | object   |  -     |
-| open          | float64      |  -     |
-| high          | float64      | -     |
-| low           | float64      | -     |
-| close         | float64      |  -     |
-| volume        | float64      |  -     |
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| day    | object  | -   |
+| open   | float64 | -   |
+| high   | float64 | -   |
+| low    | float64 | -   |
+| close  | float64 | -   |
+| volume | float64 | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_b_minute_df = ak.stock_zh_b_minute(symbol='sh900901', period='1', adjust="qfq")
 print(stock_zh_b_minute_df)
 ```
@@ -1388,29 +1413,30 @@ print(stock_zh_b_minute_df)
 
 输入参数
 
-| 名称   | 类型 |  描述  |
-| -------- | ---- | --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| symbol          | object   |  新浪代码     |
-| code          | object      |  股票代码     |
-| name          | object      |  股票简称     |
-| open           | float64      |  开盘价     |
-| high         | float64      | 最高价     |
-| low        | float64      |  最低价     |
-| volume        | int64      | 成交量     |
-| amount        | int64      |  成交额     |
-| mktcap        | float64      |  市值     |
-| turnoverratio        | float64      |  换手率     |
+| 名称            | 类型      | 描述   |
+|---------------|---------|------|
+| symbol        | object  | 新浪代码 |
+| code          | object  | 股票代码 |
+| name          | object  | 股票简称 |
+| open          | float64 | 开盘价  |
+| high          | float64 | 最高价  |
+| low           | float64 | 最低价  |
+| volume        | int64   | 成交量  |
+| amount        | int64   | 成交额  |
+| mktcap        | float64 | 市值   |
+| turnoverratio | float64 | 换手率  |
                 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_a_new_df = ak.stock_zh_a_new()
 print(stock_zh_a_new_df)
 ```
@@ -1444,36 +1470,37 @@ print(stock_zh_a_new_df)
 
 输入参数
 
-| 名称   | 类型 |  描述  |
-| -------- | ---- | --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| 序号          | int64   |  -     |
-| 代码          | object      |  -     |
-| 名称          | object      |  -     |
-| 最新价           | float64      |  -     |
-| 涨跌幅         | float64      | 注意单位: %     |
-| 涨跌额        | float64      |  -     |
-| 成交量        | float64      | -     |
-| 成交额        | float64      |  -     |
-| 振幅        | float64      |  注意单位: %     |
-| 最高        | float64      |  -     |
-| 最低        | float64      |  -     |
-| 今开        | float64      |  -     |
-| 昨收        | float64      |  -     |
-| 量比        | float64      |  -     |
-| 换手率        | float64      |  注意单位: %     |
-| 市盈率-动态        | float64      |  -     |
-| 市净率        | float64      |  -     |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 代码     | object  | -       |
+| 名称     | object  | -       |
+| 最新价    | float64 | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 涨跌额    | float64 | -       |
+| 成交量    | float64 | -       |
+| 成交额    | float64 | -       |
+| 振幅     | float64 | 注意单位: % |
+| 最高     | float64 | -       |
+| 最低     | float64 | -       |
+| 今开     | float64 | -       |
+| 昨收     | float64 | -       |
+| 量比     | float64 | -       |
+| 换手率    | float64 | 注意单位: % |
+| 市盈率-动态 | float64 | -       |
+| 市净率    | float64 | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_a_st_em_df = ak.stock_zh_a_st_em()
 print(stock_zh_a_st_em_df)
 ```
@@ -1507,36 +1534,37 @@ print(stock_zh_a_st_em_df)
 
 输入参数
 
-| 名称   | 类型 |  描述  |
-| -------- | ---- | --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| 序号          | int64   |  -     |
-| 代码          | object      |  -     |
-| 名称          | object      |  -     |
-| 最新价           | float64      |  -     |
-| 涨跌幅         | float64      | 注意单位: %     |
-| 涨跌额        | float64      |  -     |
-| 成交量        | float64      | -     |
-| 成交额        | float64      |  -     |
-| 振幅        | float64      |  注意单位: %     |
-| 最高        | float64      |  -     |
-| 最低        | float64      |  -     |
-| 今开        | float64      |  -     |
-| 昨收        | float64      |  -     |
-| 量比        | float64      |  -     |
-| 换手率        | float64      |  注意单位: %     |
-| 市盈率-动态        | float64      |  -     |
-| 市净率        | float64      |  -     |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 代码     | object  | -       |
+| 名称     | object  | -       |
+| 最新价    | float64 | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 涨跌额    | float64 | -       |
+| 成交量    | float64 | -       |
+| 成交额    | float64 | -       |
+| 振幅     | float64 | 注意单位: % |
+| 最高     | float64 | -       |
+| 最低     | float64 | -       |
+| 今开     | float64 | -       |
+| 昨收     | float64 | -       |
+| 量比     | float64 | -       |
+| 换手率    | float64 | 注意单位: % |
+| 市盈率-动态 | float64 | -       |
+| 市净率    | float64 | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_a_new_em_df = ak.stock_zh_a_new_em()
 print(stock_zh_a_new_em_df)
 ```
@@ -1570,29 +1598,30 @@ print(stock_zh_a_new_em_df)
 
 输入参数
 
-| 名称   | 类型 |  描述  |
-| -------- | ---- | --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| 序号          | int64   |  -     |
-| 股票代码          | object   |  -     |
-| 股票简称          | object   |  -     |
-| 收盘价          | float64   |  注意单位: 元     |
-| 涨跌幅          | float64   |  注意单位: %     |
-| 市值          | object   |  注意单位: 元      |
-| 参股家数          | int64   |  -     |
-| 投资总额          | object   |  注意单位: 元     |
-| 投资占市值比          | float64   |  注意单位: %     |
-| 参股对象          | object   |  -     |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 收盘价    | float64 | 注意单位: 元 |
+| 涨跌幅    | float64 | 注意单位: % |
+| 市值     | object  | 注意单位: 元 |
+| 参股家数   | int64   | -       |
+| 投资总额   | object  | 注意单位: 元 |
+| 投资占市值比 | float64 | 注意单位: % |
+| 参股对象   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_ipo_benefit_ths_df = ak.stock_ipo_benefit_ths()
 print(stock_ipo_benefit_ths_df)
 ```
@@ -1626,36 +1655,37 @@ print(stock_ipo_benefit_ths_df)
 
 输入参数
 
-| 名称   | 类型 |  描述  |
-| -------- | ---- | --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| 序号          | int64   |  -     |
-| 代码          | object      |  -     |
-| 名称          | object      |  -     |
-| 最新价           | float64      |  -     |
-| 涨跌幅         | float64      | 注意单位: %     |
-| 涨跌额        | float64      |  -     |
-| 成交量        | float64      | -     |
-| 成交额        | float64      |  -     |
-| 振幅        | float64      |  注意单位: %     |
-| 最高        | float64      |  -     |
-| 最低        | float64      |  -     |
-| 今开        | float64      |  -     |
-| 昨收        | float64      |  -     |
-| 量比        | float64      |  -     |
-| 换手率        | float64      |  注意单位: %     |
-| 市盈率-动态        | float64      |  -     |
-| 市净率        | float64      |  -     |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 代码     | object  | -       |
+| 名称     | object  | -       |
+| 最新价    | float64 | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 涨跌额    | float64 | -       |
+| 成交量    | float64 | -       |
+| 成交额    | float64 | -       |
+| 振幅     | float64 | 注意单位: % |
+| 最高     | float64 | -       |
+| 最低     | float64 | -       |
+| 今开     | float64 | -       |
+| 昨收     | float64 | -       |
+| 量比     | float64 | -       |
+| 换手率    | float64 | 注意单位: % |
+| 市盈率-动态 | float64 | -       |
+| 市净率    | float64 | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_a_stop_em_df = ak.stock_zh_a_stop_em()
 print(stock_zh_a_stop_em_df)
 ```
@@ -1691,30 +1721,31 @@ print(stock_zh_a_stop_em_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 代码          | str   | Y        | -     |
-| 名称          | str      | Y        | -     |
-| 最新价          | float      | Y        | -     |
-| 涨跌额         | float      | Y        | -     |
-| 涨跌幅           | float      | Y        | 注意单位: %     |
-| 昨收        | float      | Y        | -     |
-| 今开        | float      | Y        | -     |
-| 最高        | float      | Y        | -     |
-| 最低        | float      | Y        | -     |
-| 成交量        | float      | Y        | 注意单位: 手     |
-| 成交额        | float      | Y        | 注意单位: 万     |
+| 名称  | 类型      | 描述      |
+|-----|---------|---------|
+| 代码  | object  | -       |
+| 名称  | object  | -       |
+| 最新价 | float64 | -       |
+| 涨跌额 | float64 | -       |
+| 涨跌幅 | float64 | 注意单位: % |
+| 昨收  | float64 | -       |
+| 今开  | float64 | -       |
+| 最高  | float64 | -       |
+| 最低  | float64 | -       |
+| 成交量 | float64 | 注意单位: 手 |
+| 成交额 | float64 | 注意单位: 万 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_index_spot_df = ak.stock_zh_index_spot()
 print(stock_zh_index_spot_df)
 ```
@@ -1722,7 +1753,7 @@ print(stock_zh_index_spot_df)
 数据示例
 
 ```
-           代码    名称        最新价  ...         最低         成交量           成交额
+     代码       名称     最新价  ...       最低         成交量           成交额
 0    sh000001  上证指数  3484.3924  ...  3462.8321   262654873  317953200768
 1    sh000002  Ａ股指数  3652.2918  ...  3629.6721   262507126  317711821774
 2    sh000003  Ｂ股指数   246.1128  ...   245.3968      121902      62088261
@@ -1744,31 +1775,32 @@ print(stock_zh_index_spot_df)
 
 目标地址: https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml(示例)
 
-描述: 股票指数数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#hs_s)获取的数据, 历史数据按日频率更新
+描述: 股票指数数据是从新浪财经获取的数据, 历史数据按日频率更新
 
 限量: 单次返回具体某个指数的所有历史行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |   symbol="sz399552"|
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="sz399552" |
 
 输出参数-历史行情数据
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | str   | Y        | 新浪的数据开始时间, 不是证券上市时间     |
-| open          | float      | Y        | -     |
-| close          | float      | Y        | -     |
-| high           | float      | Y        | -     |
-| low         | float      | Y        | -     |
-| amount        | float      | Y        | -     |
+| 名称     | 类型      | 描述                  |
+|--------|---------|---------------------|
+| date   | object  | 新浪的数据开始时间, 不是证券上市时间 |
+| open   | float64 | -                   |
+| close  | float64 | -                   |
+| high   | float64 | -                   |
+| low    | float64 | -                   |
+| amount | float64 | -                   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
@@ -1776,8 +1808,7 @@ print(stock_zh_index_daily_df)
 数据示例-历史行情数据
 
 ```
-                open      high       low     close        volume
-date                                                            
+  date       open      high       low     close        volume                                                         
 2013-06-06  3353.536  3367.362  3325.742  3331.724  6.976691e+08
 2013-06-07  3325.795  3338.029  3264.914  3276.253  7.975941e+08
 2013-06-13  3227.157  3227.157  3138.502  3170.727  9.214073e+08
@@ -1803,25 +1834,26 @@ date
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |   symbol="sh000919"|
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="sh000919" |
 
 输出参数-历史行情数据
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | datetime   | Y        | 腾讯的数据开始时间, 不是证券上市时间     |
-| open          | float      | Y        | -     |
-| close          | float      | Y        | -     |
-| high           | float      | Y        | -     |
-| low         | float      | Y        | -     |
-| amount        | float      | Y        | -     |
+| 名称     | 类型      | 描述                  |
+|--------|---------|---------------------|
+| date   | object  | 腾讯的数据开始时间, 不是证券上市时间 |
+| open   | float64 | -                   |
+| close  | float64 | -                   |
+| high   | float64 | -                   |
+| low    | float64 | -                   |
+| amount | float64 | -                   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_index_daily_tx_df = ak.stock_zh_index_daily_tx(symbol="sh000919")
 print(stock_zh_index_daily_tx_df)
 ```
@@ -1852,26 +1884,27 @@ date
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#kcb
 
-描述: 从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#kcb)获取科创板股票数据
+描述: 从新浪财经获取科创板股票数据
 
 限量: 单次返回所有科创板上市公司的实时行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数-实时行情数据
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| -          | -   | -        | 新浪默认返回字段     |
+| 名称  | 类型  | 描述       |
+|-----|-----|----------|
+| -   | -   | 新浪默认返回字段 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_kcb_spot_df = ak.stock_zh_kcb_spot()
 print(stock_zh_kcb_spot_df)
 ```
@@ -1899,36 +1932,37 @@ print(stock_zh_kcb_spot_df)
 
 目标地址: https://finance.sina.com.cn/realstock/company/sh688001/nc.shtml(示例)
 
-描述: 科创板股票数据是从[新浪财经](http://vip.stock.finance.sina.com.cn/mkt/#kcb)获取
+描述: 科创板股票数据是从新浪财经获取
 
 限量: 单次返回指定上市公司的所有历史行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |   symbol="sh688008"|
-| adjust | str  | Y    |默认不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子|
+| 名称     | 类型  | 描述                                                                                 |
+|--------|-----|------------------------------------------------------------------------------------|
+| symbol | str | symbol="sh688008"                                                                  |
+| adjust | str | 默认不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子 |
 
 输出参数-历史行情数据
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | datetime   | Y        | -     |
-| close          | float      | Y        | 收盘价     |
-| high          | float      | Y        | 最高价     |
-| low           | float      | Y        | 最低价     |
-| open         | float      | Y        | 开盘价     |
-| volume        | float      | Y        | 成交量(股)     |
-| after_volume        | float      | Y        | 盘后量; 参见[科创板盘后固定价格交易](http://www.sse.com.cn/lawandrules/sserules/tib/trading/c/4729491.shtml)     |
-| after_amount        | float      | Y        | 盘后额; 参见[科创板盘后固定价格交易](http://www.sse.com.cn/lawandrules/sserules/tib/trading/c/4729491.shtml)     |
-| outstanding_share        | float      | Y        |  流通股本(股)    |
-| turnover        | float      | Y        | 换手率=成交量(股)/流通股本(股)     |
+| 名称                | 类型       | 描述                                                                                           |
+|-------------------|----------|----------------------------------------------------------------------------------------------|
+| date              | datetime | -                                                                                            |
+| close             | float    | 收盘价                                                                                          |
+| high              | float    | 最高价                                                                                          |
+| low               | float    | 最低价                                                                                          |
+| open              | float    | 开盘价                                                                                          |
+| volume            | float    | 成交量(股)                                                                                       |
+| after_volume      | float    | 盘后量; 参见[科创板盘后固定价格交易](http://www.sse.com.cn/lawandrules/sserules/tib/trading/c/4729491.shtml) |
+| after_amount      | float    | 盘后额; 参见[科创板盘后固定价格交易](http://www.sse.com.cn/lawandrules/sserules/tib/trading/c/4729491.shtml) |
+| outstanding_share | float    | 流通股本(股)                                                                                      |
+| turnover          | float    | 换手率=成交量(股)/流通股本(股)                                                                           |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_kcb_daily_df = ak.stock_zh_kcb_daily(symbol="sh688399", adjust="hfq")
 print(stock_zh_kcb_daily_df)
 ```
@@ -1981,26 +2015,27 @@ date
 
 输入参数
 
-| 名称   | 类型 |  描述    |
-| -------- | ---- | --- |
-| from_page | int  |    from_page=1; 始获取的页码|
-| to_page | int  |    to_page=100; 结束获取的页码|
+| 名称        | 类型  | 描述                   |
+|-----------|-----|----------------------|
+| from_page | int | from_page=1; 始获取的页码  |
+| to_page   | int | to_page=100; 结束获取的页码 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 代码          | object   |  -     |
-| 名称          | object   | -     |
-| 公告标题          | object   | -     |
-| 公告类型          | object   |  -     |
-| 公告日期          | object   |  -     |
-| 公告代码          | object   |  本代码可以用来获取公告详情: http://data.eastmoney.com/notices/detail/688595/{替换到此处}.html     |
+| 名称   | 类型     | 描述                                                                          |
+|------|--------|-----------------------------------------------------------------------------|
+| 代码   | object | -                                                                           |
+| 名称   | object | -                                                                           |
+| 公告标题 | object | -                                                                           |
+| 公告类型 | object | -                                                                           |
+| 公告日期 | object | -                                                                           |
+| 公告代码 | object | 本代码可以用来获取公告详情: http://data.eastmoney.com/notices/detail/688595/{替换到此处}.html |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_kcb_report_em_df = ak.stock_zh_kcb_report_em(from_page=1, to_page=100)
 print(stock_zh_kcb_report_em_df)
 ```
@@ -12967,28 +13002,29 @@ print(stock_board_cons_ths_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- | --- |
-| symbol | str | symbol="半导体及元件"; 可以通过调用 **ak.stock_board_industry_name_ths** 查看同花顺的所有行业名称|
-| start_date | str | start_date="20200101"; 开始时间|
-| end_date | str | end_date="20211027"; 结束时间|
+| 名称         | 类型  | 描述                                                                          |
+|------------|-----|-----------------------------------------------------------------------------|
+| symbol     | str | symbol="半导体及元件"; 可以通过调用 **ak.stock_board_industry_name_ths()** 查看同花顺的所有行业名称 |
+| start_date | str | start_date="20200101"; 开始时间                                                 |
+| end_date   | str | end_date="20211027"; 结束时间                                                   |
 
 输出参数
 
-| 名称            | 类型  | 描述           |
-| ------------   | ----- |  ---------------- |
-| 日期            | object   |   -    |
-| 开盘价          | float64   |   -    |
-| 最高价          | float64   |   -    |
-| 最低价          | float64   |   -    |
-| 收盘价          | float64   |   -    |
-| 成交量          | int64   |   -    |
-| 成交额          | float64   |   -    |
+| 名称  | 类型      | 描述  |
+|-----|---------|-----|
+| 日期  | object  | -   |
+| 开盘价 | float64 | -   |
+| 最高价 | float64 | -   |
+| 最低价 | float64 | -   |
+| 收盘价 | float64 | -   |
+| 成交量 | int64   | -   |
+| 成交额 | float64 | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_industry_index_ths_df = ak.stock_board_industry_index_ths(symbol="半导体及元件", start_date="20200101", end_date="20211027")
 print(stock_board_industry_index_ths_df)
 ```
@@ -13278,30 +13314,31 @@ print(stock_wc_hot_rank_df)
 
 目标地址: http://quote.eastmoney.com/changes/
 
-描述: 获取东方财富-行情中心-盘口异动数据
+描述: 东方财富-行情中心-盘口异动数据
 
 限量: 单次指定 symbol 的最近交易日的盘口异动数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="大笔买入"; choice of {'火箭发射', '快速反弹', '大笔买入', '封涨停板', '打开跌停板', '有大买盘', '竞价上涨', '高开5日线', '向上缺口', '60日新高', '60日大幅上涨', '加速下跌', '高台跳水', '大笔卖出', '封跌停板', '打开涨停板', '有大卖盘', '竞价下跌', '低开5日线', '向下缺口', '60日新低', '60日大幅下跌'}|
+| 名称     | 类型  | 描述                                                                                                                                                                                                                    |
+|--------|-----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="大笔买入"; choice of {'火箭发射', '快速反弹', '大笔买入', '封涨停板', '打开跌停板', '有大买盘', '竞价上涨', '高开5日线', '向上缺口', '60日新高', '60日大幅上涨', '加速下跌', '高台跳水', '大笔卖出', '封跌停板', '打开涨停板', '有大卖盘', '竞价下跌', '低开5日线', '向下缺口', '60日新低', '60日大幅下跌'} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 时间          | object   | Y        |  -    |
-| 代码          | object   | Y        |  -    |
-| 名称          | object   | Y        |  -    |
-| 板块          | object   | Y        |  -    |
-| 相关信息       | object   | Y        |  注意: 不同的 symbol 的单位不同    |
+| 名称   | 类型     | 描述                   |
+|------|--------|----------------------|
+| 时间   | object | -                    |
+| 代码   | object | -                    |
+| 名称   | object | -                    |
+| 板块   | object | -                    |
+| 相关信息 | object | 注意: 不同的 symbol 的单位不同 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_changes_em_df = ak.stock_changes_em(symbol="大笔买入")
 print(stock_changes_em_df)
 ```
@@ -13337,35 +13374,36 @@ print(stock_changes_em_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date='20210525'|
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date='20210525' |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int64   |   -    |
-| 代码          | object   |   -    |
-| 名称          | object   |  -    |
-| 涨跌幅          | float64   |   注意单位: %    |
-| 最新价          | int64   |   -    |
-| 成交额          | int64   |   -    |
-| 流通市值          | float64   |   -    |
-| 总市值          | float64   |   -    |
-| 换手率          | float64   |   注意单位: %    |
-| 封板资金          | int64   |  -    |
-| 首次封板时间          | object   |  注意格式: 09:25:00    |
-| 最后封板时间          | object   |   注意格式: 09:25:00    |
-| 炸板次数          | int64   |   -    |
-| 涨停统计          | object   |   -    |
-| 连板数          | int64   |   注意格式: 1 为首板    |
-| 所属行业          | object   |  -    |
+| 名称     | 类型      | 描述             |
+|--------|---------|----------------|
+| 序号     | int64   | -              |
+| 代码     | object  | -              |
+| 名称     | object  | -              |
+| 涨跌幅    | float64 | 注意单位: %        |
+| 最新价    | int64   | -              |
+| 成交额    | int64   | -              |
+| 流通市值   | float64 | -              |
+| 总市值    | float64 | -              |
+| 换手率    | float64 | 注意单位: %        |
+| 封板资金   | int64   | -              |
+| 首次封板时间 | object  | 注意格式: 09:25:00 |
+| 最后封板时间 | object  | 注意格式: 09:25:00 |
+| 炸板次数   | int64   | -              |
+| 涨停统计   | object  | -              |
+| 连板数    | int64   | 注意格式: 1 为首板    |
+| 所属行业   | object  | -              |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_em_zt_pool_df = ak.stock_em_zt_pool(date='20210525')
 print(stock_em_zt_pool_df)
 ```
@@ -13441,35 +13479,36 @@ print(stock_em_zt_pool_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date='20210521'|
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date='20210521' |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |   -    |
-| 代码          | object   |   -    |
-| 名称          | object   |  -    |
-| 涨跌幅          | float64   |  注意单位: %    |
-| 最新价          | int64   |   -    |
-| 涨停价          | int64   |   -    |
-| 成交额          | int64   |   -    |
-| 流通市值          | float64   |   -    |
-| 总市值          | float64   |   -    |
-| 换手率          | float64   |   注意单位: %    |
-| 涨速          | float64   |   注意单位: %     |
-| 振幅          | float64   |  注意单位: %     |
-| 昨日封板时间          | int64   |  注意格式: 09:25:00    |
-| 昨日连板数          | int64   |   注意格式: 1 为首板    |
-| 涨停统计          | object   |   -    |
-| 所属行业          | object   |  -    |
+| 名称     | 类型      | 描述             |
+|--------|---------|----------------|
+| 序号     | int32   | -              |
+| 代码     | object  | -              |
+| 名称     | object  | -              |
+| 涨跌幅    | float64 | 注意单位: %        |
+| 最新价    | int64   | -              |
+| 涨停价    | int64   | -              |
+| 成交额    | int64   | -              |
+| 流通市值   | float64 | -              |
+| 总市值    | float64 | -              |
+| 换手率    | float64 | 注意单位: %        |
+| 涨速     | float64 | 注意单位: %        |
+| 振幅     | float64 | 注意单位: %        |
+| 昨日封板时间 | int64   | 注意格式: 09:25:00 |
+| 昨日连板数  | int64   | 注意格式: 1 为首板    |
+| 涨停统计   | object  | -              |
+| 所属行业   | object  | -              |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_em_zt_pool_previous_df = ak.stock_em_zt_pool_previous(date='20210521')
 print(stock_em_zt_pool_previous_df)
 ```
@@ -13502,35 +13541,36 @@ print(stock_em_zt_pool_previous_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |date='20210521'|
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date='20210521' |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| 序号          | int32   |   -    |
-| 代码          | object   |   -    |
-| 名称          | object   |   -    |
-| 涨跌幅          | float64   |  注意单位: %    |
-| 最新价          | float64   |   -    |
-| 涨停价          | float64   |  -    |
-| 成交额          | int64   |   -    |
-| 流通市值          | float64   |  -    |
-| 总市值          | float64   |  -    |
-| 换手率          | float64   |   注意单位: %    |
-| 涨速          | float64   |   注意单位: %     |
-| 是否新高          | int64   |   -     |
-| 量比          | float64   |   -    |
-| 涨停统计          | object   |   -    |
-| 入选理由          | object   |   {'1': '60日新高', '2': '近期多次涨停', '3': '60日新高且近期多次涨停'}    |
-| 所属行业          | object   |  -    |
+| 名称   | 类型      | 描述                                                 |
+|------|---------|----------------------------------------------------|
+| 序号   | int32   | -                                                  |
+| 代码   | object  | -                                                  |
+| 名称   | object  | -                                                  |
+| 涨跌幅  | float64 | 注意单位: %                                            |
+| 最新价  | float64 | -                                                  |
+| 涨停价  | float64 | -                                                  |
+| 成交额  | int64   | -                                                  |
+| 流通市值 | float64 | -                                                  |
+| 总市值  | float64 | -                                                  |
+| 换手率  | float64 | 注意单位: %                                            |
+| 涨速   | float64 | 注意单位: %                                            |
+| 是否新高 | int64   | -                                                  |
+| 量比   | float64 | -                                                  |
+| 涨停统计 | object  | -                                                  |
+| 入选理由 | object  | {'1': '60日新高', '2': '近期多次涨停', '3': '60日新高且近期多次涨停'} |
+| 所属行业 | object  | -                                                  |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_em_zt_pool_strong_df = ak.stock_em_zt_pool_strong(date='20210521')
 print(stock_em_zt_pool_strong_df)
 ```
@@ -13564,35 +13604,36 @@ print(stock_em_zt_pool_strong_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- | --- |
-| date | str |  date='20210521'|
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date='20210521' |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |  -    |
-| 代码          | object   |   -    |
-| 名称          | object   |   -    |
-| 涨跌幅          | float64   |   注意单位: %    |
-| 最新价          | float64   |  -    |
-| 涨停价          | float64   |   -    |
-| 成交额          | int64   | -    |
-| 流通市值          | float64   |   -    |
-| 总市值          | float64   |  -    |
-| 转手率          | float64   |  注意单位: %    |
-| 开板几日          | int64   |   -     |
-| 开板日期          | int64   |   -     |
-| 上市日期          | int64   |   -    |
-| 是否新高          | int64   |   -    |
-| 涨停统计          | object  |   -    |
-| 所属行业          | object  |   -    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 序号   | int32   | -       |
+| 代码   | object  | -       |
+| 名称   | object  | -       |
+| 涨跌幅  | float64 | 注意单位: % |
+| 最新价  | float64 | -       |
+| 涨停价  | float64 | -       |
+| 成交额  | int64   | -       |
+| 流通市值 | float64 | -       |
+| 总市值  | float64 | -       |
+| 转手率  | float64 | 注意单位: % |
+| 开板几日 | int64   | -       |
+| 开板日期 | int64   | -       |
+| 上市日期 | int64   | -       |
+| 是否新高 | int64   | -       |
+| 涨停统计 | object  | -       |
+| 所属行业 | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_em_zt_pool_sub_new_df = ak.stock_em_zt_pool_sub_new(date='20210521')
 print(stock_em_zt_pool_sub_new_df)
 ```
@@ -13626,35 +13667,36 @@ print(stock_em_zt_pool_sub_new_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date='20210525'|
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date='20210525' |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |  -    |
-| 代码          | object   |   -    |
-| 名称          | object   |   -    |
-| 涨跌幅          | float64   |   注意单位: %    |
-| 最新价          | float64   |  -    |
-| 涨停价          | float64   |  -    |
-| 成交额          | int64   |   -    |
-| 流通市值          | float64   |   -    |
-| 总市值          | float64   |   -    |
-| 换手率          | float64   |   注意单位: %    |
-| 涨速          | int64   |   -     |
-| 首次封板时间          | object   |   注意格式: 09:25:00     |
-| 炸板次数          | int64   |   -    |
-| 涨停统计          | int64   |   -    |
-| 振幅          | object   |   -    |
-| 所属行业          | object   |   -    |
+| 名称     | 类型      | 描述             |
+|--------|---------|----------------|
+| 序号     | int32   | -              |
+| 代码     | object  | -              |
+| 名称     | object  | -              |
+| 涨跌幅    | float64 | 注意单位: %        |
+| 最新价    | float64 | -              |
+| 涨停价    | float64 | -              |
+| 成交额    | int64   | -              |
+| 流通市值   | float64 | -              |
+| 总市值    | float64 | -              |
+| 换手率    | float64 | 注意单位: %        |
+| 涨速     | int64   | -              |
+| 首次封板时间 | object  | 注意格式: 09:25:00 |
+| 炸板次数   | int64   | -              |
+| 涨停统计   | int64   | -              |
+| 振幅     | object  | -              |
+| 所属行业   | object  | -              |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_em_zt_pool_zbgc_df = ak.stock_em_zt_pool_zbgc(date='20210525')
 print(stock_em_zt_pool_zbgc_df)
 ```
@@ -13694,35 +13736,36 @@ print(stock_em_zt_pool_zbgc_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str | date='20210525'|
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date='20210525' |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |   -    |
-| 代码          | object   |   -    |
-| 名称          | object   |  -    |
-| 涨跌幅          | float64   |   注意单位: %    |
-| 最新价          | float64   |   -    |
-| 成交额          | int64   |   -    |
-| 流通市值          | float64   |   -    |
-| 总市值          | float64   |   -    |
-| 动态市盈率          | float64   |   -    |
-| 换手率          | float64   |   注意单位: %    |
-| 封单资金          | int64   |   -     |
-| 最后封板时间          | object   |   注意格式: 09:25:00     |
-| 板上成交额          | int64   |   -    |
-| 连续跌停          | int64   |   -    |
-| 开板次数          | object   |   -    |
-| 所属行业          | object   |   -    |
+| 名称     | 类型      | 描述             |
+|--------|---------|----------------|
+| 序号     | int32   | -              |
+| 代码     | object  | -              |
+| 名称     | object  | -              |
+| 涨跌幅    | float64 | 注意单位: %        |
+| 最新价    | float64 | -              |
+| 成交额    | int64   | -              |
+| 流通市值   | float64 | -              |
+| 总市值    | float64 | -              |
+| 动态市盈率  | float64 | -              |
+| 换手率    | float64 | 注意单位: %        |
+| 封单资金   | int64   | -              |
+| 最后封板时间 | object  | 注意格式: 09:25:00 |
+| 板上成交额  | int64   | -              |
+| 连续跌停   | int64   | -              |
+| 开板次数   | object  | -              |
+| 所属行业   | object  | -              |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_em_zt_pool_dtgc_df = ak.stock_em_zt_pool_dtgc(date='20210525')
 print(stock_em_zt_pool_dtgc_df)
 ```
@@ -13752,21 +13795,22 @@ print(stock_em_zt_pool_dtgc_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述     |
-| ------------ | ----- |  ---------------- |
-| item          | object   |   -    |
-| value          | object   |   -    |
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_market_activity_legu_df = ak.stock_market_activity_legu()
 print(stock_market_activity_legu_df)
 ```
@@ -13806,28 +13850,29 @@ print(stock_market_activity_legu_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| - | - | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 日期          | object   |   -    |
-| 上证指数          | float64   |   -    |
-| 满仓+融资          | int64   |   -    |
-| 80%~99%          | int64   |   -    |
-| 60%~79%          | int64   |  -    |
-| 40%~59%          | int64   |   -    |
-| 20%~39%          | int64   |   -    |
-| 0%~19%          | int64   |   -    |
-| 平均持仓         | int64   |   -    |
+| 名称      | 类型      | 描述  |
+|---------|---------|-----|
+| 日期      | object  | -   |
+| 上证指数    | float64 | -   |
+| 满仓+融资   | int64   | -   |
+| 80%~99% | int64   | -   |
+| 60%~79% | int64   | -   |
+| 40%~59% | int64   | -   |
+| 20%~39% | int64   | -   |
+| 0%~19%  | int64   | -   |
+| 平均持仓    | int64   | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_average_position_legu_df = ak.stock_average_position_legu()
 print(stock_average_position_legu_df)
 ```
@@ -13835,7 +13880,7 @@ print(stock_average_position_legu_df)
 数据示例
 
 ```
-            日期     上证指数  满仓+融资  80%~99%  ...  40%~59%  20%~39%  0%~19%   平均持仓
+    日期     上证指数  满仓+融资  80%~99%  ...  40%~59%  20%~39%  0%~19%   平均持仓
 0   2020-02-13  2917.01     14       35  ...       12       15      16  62.41
 1   2020-02-20  3039.67     14       55  ...       13       20      25  62.03
 2   2020-02-27  2880.30     15       45  ...       14       13      22  63.19
@@ -13886,22 +13931,23 @@ print(stock_average_position_legu_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| -    | -    | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 时间     | object |  -    |
-| 快讯信息 | object  |  -    |
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 时间   | object | -   |
+| 快讯信息 | object | -   |
 
 
 接口示例：
 
 ```python
 import akshare as ak
+
 stock_zh_a_alerts_cls_df = ak.stock_zh_a_alerts_cls()
 print(stock_zh_a_alerts_cls_df)
 ```
@@ -13931,44 +13977,43 @@ print(stock_zh_a_alerts_cls_df)
 
 深证证券交易所
 
-|项目|费用|收取部门|
-|---|---|---|
-|过户费|万 0.2|由中国结算收取|
-|证管费|万 0.2|由证监会收取|
-|经手费|万 0.487|由交易所收取|
-|券商收入|万 1.613|由券商收取|
+| 项目   | 费用      | 收取部门    |
+|------|---------|---------|
+| 过户费  | 万 0.2   | 由中国结算收取 |
+| 证管费  | 万 0.2   | 由证监会收取  |
+| 经手费  | 万 0.487 | 由交易所收取  |
+| 券商收入 | 万 1.613 | 由券商收取   |
 
 上海证券交易所
 
-|项目|费用|收取部门|
-|---|---|---|
-|证管费|万 0.2|由证监会收取|
-|经手费|万 0.487|由交易所收取|
-|券商收入|万 1.813|由券商收取|
+| 项目   | 费用      | 收取部门   |
+|------|---------|--------|
+| 证管费  | 万 0.2   | 由证监会收取 |
+| 经手费  | 万 0.487 | 由交易所收取 |
+| 券商收入 | 万 1.813 | 由券商收取  |
 
 ##### 以万 1.2 佣金结构为例
 
 深证证券交易所
 
-|项目|费用|收取部门|
-|---|---|---|
-|过户费|万 0.2|由中国结算收取|
-|证管费|万 0.2|由证监会收取|
-|经手费|万 0.487|由交易所收取|
-|券商收入|万 0.313|由券商收取|
+| 项目   | 费用      | 收取部门    |
+|------|---------|---------|
+| 过户费  | 万 0.2   | 由中国结算收取 |
+| 证管费  | 万 0.2   | 由证监会收取  |
+| 经手费  | 万 0.487 | 由交易所收取  |
+| 券商收入 | 万 0.313 | 由券商收取   |
 
 上海证券交易所
 
-|项目|费用|收取部门|
-|---|---|---|
-|证管费|万 0.2|由证监会收取|
-|经手费|万 0.487|由交易所收取|
-|券商收入|万 0.513|由券商收取|
+| 项目   | 费用      | 收取部门   |
+|------|---------|--------|
+| 证管费  | 万 0.2   | 由证监会收取 |
+| 经手费  | 万 0.487 | 由交易所收取 |
+| 券商收入 | 万 0.513 | 由券商收取  |
 
 ##### 结构图
 
 ![交易费用](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/cost_of_trade.svg)
-
 
 ### 技术指标
 
@@ -13984,27 +14029,28 @@ print(stock_zh_a_alerts_cls_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| symbol    | str    | symbol="创月新高"; choice of {"创月新高", "半年新高", "一年新高", "历史新高"}    |
+| 名称     | 类型  | 描述                                                        |
+|--------|-----|-----------------------------------------------------------|
+| symbol | str | symbol="创月新高"; choice of {"创月新高", "半年新高", "一年新高", "历史新高"} |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 涨跌幅 | float64  |  注意单位: %    |
-| 换手率 | float64  |  注意单位: %    |
-| 最新价 | float64  |  注意单位: 元    |
-| 前期高点 | float64  |  -    |
-| 前期高点日期 | object  |  -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 换手率    | float64 | 注意单位: % |
+| 最新价    | float64 | 注意单位: 元 |
+| 前期高点   | float64 | -       |
+| 前期高点日期 | object  | -       |
 
 接口示例：
 
 ```python
 import akshare as ak
+
 stock_rank_cxg_ths_df = ak.stock_rank_cxg_ths(symbol="创月新高")
 print(stock_rank_cxg_ths_df)
 ```
@@ -14038,27 +14084,28 @@ print(stock_rank_cxg_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| symbol    | str    | symbol="创月新低"; choice of {"创月新低", "半年新低", "一年新低", "历史新低"}    |
+| 名称     | 类型  | 描述                                                        |
+|--------|-----|-----------------------------------------------------------|
+| symbol | str | symbol="创月新低"; choice of {"创月新低", "半年新低", "一年新低", "历史新低"} |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 涨跌幅 | float64  |  注意单位: %    |
-| 换手率 | float64  |  注意单位: %    |
-| 最新价 | float64  |  注意单位: 元    |
-| 前期低点 | float64  |  -    |
-| 前期低点日期 | object  |  -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 换手率    | float64 | 注意单位: % |
+| 最新价    | float64 | 注意单位: 元 |
+| 前期低点   | float64 | -       |
+| 前期低点日期 | object  | -       |
 
 接口示例：
 
 ```python
 import akshare as ak
+
 stock_rank_cxd_ths_df = ak.stock_rank_cxd_ths(symbol="创月新低")
 print(stock_rank_cxd_ths_df)
 ```
@@ -14092,29 +14139,30 @@ print(stock_rank_cxd_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| -    | -    | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 收盘价 | float64  |  注意单位: 元    |
-| 最高价 | float64  |  注意单位: 元    |
-| 最低价 | float64  |  注意单位: 元    |
-| 连涨天数 | int64  |  -    |
-| 连续涨跌幅 | float64  |  注意单位: %    |
-| 累计换手率 | float64  |  注意单位: %    |
-| 所属行业 | object  |  -    |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 序号    | int64   | -       |
+| 股票代码  | object  | -       |
+| 股票简称  | object  | -       |
+| 收盘价   | float64 | 注意单位: 元 |
+| 最高价   | float64 | 注意单位: 元 |
+| 最低价   | float64 | 注意单位: 元 |
+| 连涨天数  | int64   | -       |
+| 连续涨跌幅 | float64 | 注意单位: % |
+| 累计换手率 | float64 | 注意单位: % |
+| 所属行业  | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_lxsz_ths_df = ak.stock_rank_lxsz_ths()
 print(stock_rank_lxsz_ths_df)
 ```
@@ -14148,29 +14196,30 @@ print(stock_rank_lxsz_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| -    | -    | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 收盘价 | float64  |  注意单位: 元    |
-| 最高价 | float64  |  注意单位: 元    |
-| 最低价 | float64  |  注意单位: 元    |
-| 连涨天数 | int64  |  -    |
-| 连续涨跌幅 | float64  |  注意单位: %    |
-| 累计换手率 | float64  |  注意单位: %    |
-| 所属行业 | object  |  -    |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 序号    | int64   | -       |
+| 股票代码  | object  | -       |
+| 股票简称  | object  | -       |
+| 收盘价   | float64 | 注意单位: 元 |
+| 最高价   | float64 | 注意单位: 元 |
+| 最低价   | float64 | 注意单位: 元 |
+| 连涨天数  | int64   | -       |
+| 连续涨跌幅 | float64 | 注意单位: % |
+| 累计换手率 | float64 | 注意单位: % |
+| 所属行业  | object  | -       |
 
 接口示例：
 
 ```python
 import akshare as ak
+
 stock_rank_lxxd_ths_df = ak.stock_rank_lxxd_ths()
 print(stock_rank_lxxd_ths_df)
 ```
@@ -14204,29 +14253,30 @@ print(stock_rank_lxxd_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| -    | -    | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 涨跌幅 | float64  |  注意单位: %    |
-| 最新价 | float64  |  注意单位: 元    |
-| 成交量 | object  |  注意单位: 股    |
-| 基准日成交量 | object  |  注意单位: 股    |
-| 放量天数 | int64  |  -    |
-| 阶段涨跌幅 | float64  |  注意单位: %    |
-| 所属行业 | object  |  -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 最新价    | float64 | 注意单位: 元 |
+| 成交量    | object  | 注意单位: 股 |
+| 基准日成交量 | object  | 注意单位: 股 |
+| 放量天数   | int64   | -       |
+| 阶段涨跌幅  | float64 | 注意单位: % |
+| 所属行业   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_cxfl_ths_df = ak.stock_rank_cxfl_ths()
 print(stock_rank_cxfl_ths_df)
 ```
@@ -14260,29 +14310,30 @@ print(stock_rank_cxfl_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| -    | -    | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 涨跌幅 | float64  |  注意单位: %    |
-| 最新价 | float64  |  注意单位: 元    |
-| 成交量 | object  |  注意单位: 股    |
-| 基准日成交量 | object  |  注意单位: 股    |
-| 缩量天数 | int64  |  -    |
-| 阶段涨跌幅 | float64  |  注意单位: %    |
-| 所属行业 | object  |  -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 最新价    | float64 | 注意单位: 元 |
+| 成交量    | object  | 注意单位: 股 |
+| 基准日成交量 | object  | 注意单位: 股 |
+| 缩量天数   | int64   | -       |
+| 阶段涨跌幅  | float64 | 注意单位: % |
+| 所属行业   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_cxsl_ths_df = ak.stock_rank_cxsl_ths()
 print(stock_rank_cxsl_ths_df)
 ```
@@ -14316,27 +14367,28 @@ print(stock_rank_cxsl_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| symbol    | str    | symbol="500日均线"; choice of {"5日均线", "10日均线", "20日均线", "30日均线", "60日均线", "90日均线", "250日均线", "500日均线"}    |
+| 名称     | 类型  | 描述                                                                                                   |
+|--------|-----|------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="500日均线"; choice of {"5日均线", "10日均线", "20日均线", "30日均线", "60日均线", "90日均线", "250日均线", "500日均线"} |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 最新价 | float64  |  注意单位: 元    |
-| 成交额 | object  |  注意单位: 元    |
-| 成交量 | object  |  注意单位: 股    |
-| 涨跌幅 | float64  |  注意单位: %    |
-| 换手率 | float64  |  注意单位: %    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 序号   | int64   | -       |
+| 股票代码 | object  | -       |
+| 股票简称 | object  | -       |
+| 最新价  | float64 | 注意单位: 元 |
+| 成交额  | object  | 注意单位: 元 |
+| 成交量  | object  | 注意单位: 股 |
+| 涨跌幅  | float64 | 注意单位: % |
+| 换手率  | float64 | 注意单位: % |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_xstp_ths_df = ak.stock_rank_xstp_ths(symbol="500日均线")
 print(stock_rank_xstp_ths_df)
 ```
@@ -14370,27 +14422,28 @@ print(stock_rank_xstp_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| symbol    | str    | symbol="500日均线"; choice of {"5日均线", "10日均线", "20日均线", "30日均线", "60日均线", "90日均线", "250日均线", "500日均线"}    |
+| 名称     | 类型  | 描述                                                                                                   |
+|--------|-----|------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="500日均线"; choice of {"5日均线", "10日均线", "20日均线", "30日均线", "60日均线", "90日均线", "250日均线", "500日均线"} |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 最新价 | float64  |  注意单位: 元    |
-| 成交额 | object  |  注意单位: 元    |
-| 成交量 | object  |  注意单位: 股    |
-| 涨跌幅 | float64  |  注意单位: %    |
-| 换手率 | float64  |  注意单位: %    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 序号   | int64   | -       |
+| 股票代码 | object  | -       |
+| 股票简称 | object  | -       |
+| 最新价  | float64 | 注意单位: 元 |
+| 成交额  | object  | 注意单位: 元 |
+| 成交量  | object  | 注意单位: 股 |
+| 涨跌幅  | float64 | 注意单位: % |
+| 换手率  | float64 | 注意单位: % |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_xxtp_ths_df = ak.stock_rank_xxtp_ths(symbol="500日均线")
 print(stock_rank_xxtp_ths_df)
 ```
@@ -14424,27 +14477,28 @@ print(stock_rank_xxtp_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| -    | -    | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 最新价 | float64  |  注意单位: 元    |
-| 量价齐升天数 | int64  |  -    |
-| 阶段涨幅 | float64  |  注意单位: %    |
-| 累计换手率 | float64  |  注意单位: %    |
-| 所属行业 | object  |  -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 最新价    | float64 | 注意单位: 元 |
+| 量价齐升天数 | int64   | -       |
+| 阶段涨幅   | float64 | 注意单位: % |
+| 累计换手率  | float64 | 注意单位: % |
+| 所属行业   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_ljqs_ths_df = ak.stock_rank_ljqs_ths()
 print(stock_rank_ljqs_ths_df)
 ```
@@ -14478,27 +14532,28 @@ print(stock_rank_ljqs_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| -    | -    | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 股票代码     | object |  -    |
-| 股票简称 | object  |  -    |
-| 最新价 | float64  |  注意单位: 元    |
-| 量价齐跌天数 | int64  |  -    |
-| 阶段涨幅 | float64  |  注意单位: %    |
-| 累计换手率 | float64  |  注意单位: %    |
-| 所属行业 | object  |  -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 最新价    | float64 | 注意单位: 元 |
+| 量价齐跌天数 | int64   | -       |
+| 阶段涨幅   | float64 | 注意单位: % |
+| 累计换手率  | float64 | 注意单位: % |
+| 所属行业   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_ljqd_ths_df = ak.stock_rank_ljqd_ths()
 print(stock_rank_ljqd_ths_df)
 ```
@@ -14532,31 +14587,32 @@ print(stock_rank_ljqd_ths_df)
 
 输入参数
 
-| 名称 | 类型 |  描述 |
-| ---- | ---- |  ---- |
-| -    | -    | -    |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称     | 类型        | 描述 |
-| -------- | -------- |  ---- |
-| 序号     | int64 |  -    |
-| 举牌公告日     | object |  -    |
-| 股票代码 | object  |  -    |
-| 股票简称 | object  |  -    |
-| 现价 | float64  |  注意单位: 元    |
-| 涨跌幅 | float64  |  注意单位: %    |
-| 举牌方 | object  |  -    |
-| 增持数量 | object  |  注意单位: 股    |
-| 交易均价 | float64  |  注意单位: 元    |
-| 增持数量占总股本比例 | float64  |  注意单位: %    |
-| 变动后持股总数 | object  |  注意单位: 股    |
-| 变动后持股比例 | float64  |  注意单位: %    |
+| 名称         | 类型      | 描述      |
+|------------|---------|---------|
+| 序号         | int64   | -       |
+| 举牌公告日      | object  | -       |
+| 股票代码       | object  | -       |
+| 股票简称       | object  | -       |
+| 现价         | float64 | 注意单位: 元 |
+| 涨跌幅        | float64 | 注意单位: % |
+| 举牌方        | object  | -       |
+| 增持数量       | object  | 注意单位: 股 |
+| 交易均价       | float64 | 注意单位: 元 |
+| 增持数量占总股本比例 | float64 | 注意单位: % |
+| 变动后持股总数    | object  | 注意单位: 股 |
+| 变动后持股比例    | float64 | 注意单位: % |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_xzjp_ths_df = ak.stock_rank_xzjp_ths()
 print(stock_rank_xzjp_ths_df)
 ```
