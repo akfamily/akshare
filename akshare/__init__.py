@@ -1095,7 +1095,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.68: add: add macro_china_retail_price_index interface
 0.6.69: fix: fix box_office_spot interface
 0.6.70: fix: fix bond_investing_global interface
-0.6.71: fix: fix nh_return_index interface
+0.6.71: fix: fix futures_nh_return_index interface
 0.6.72: fix: fix get_receipt interface
 0.6.73: add: add news_cctv interface
 0.6.74: fix: fix macro and acm interface
@@ -1671,7 +1671,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.47 fix: fix covid_19_dxy interface
 1.2.48 fix: fix covid_19_dxy interface
 1.2.49 fix: fix rate_interbank interface
-1.2.50 fix: fix nh_price_index interface
+1.2.50 fix: fix futures_nh_price_index interface
 1.2.51 add: add futures_hq_subscribe_exchange_symbol interface
 1.2.52 fix: fix futures_foreign_commodity_realtime interface
 1.2.53 add: add get_ine_daily interface
@@ -1709,9 +1709,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.85 fix: fix repo_rate_hist interface
 1.2.86 add: add stock_a_pe_and_pb interface
 1.2.87 add: add stock_hk_ggt_components_em interface
+1.2.88 fix: fix futures_nh_index interface
 """
 
-__version__ = "1.2.87"
+__version__ = "1.2.88"
 __author__ = "Albert King"
 
 import sys
@@ -3129,12 +3130,12 @@ from akshare.article.epu_index import article_epu_index
 """
 南华期货-南华指数
 """
-from akshare.futures_derivative.nh_index_return import (
-    nh_return_index,
-    get_nh_list_table,
+from akshare.futures_derivative.nh_index_return import futures_nh_return_index
+from akshare.futures_derivative.nh_index_price import (
+    futures_nh_price_index,
+    futures_nh_index_symbol_table,
 )
-from akshare.futures_derivative.nh_index_price import nh_price_index
-from akshare.futures_derivative.nh_index_volatility import nh_volatility_index
+from akshare.futures_derivative.nh_index_volatility import futures_nh_volatility_index
 
 """
 空气-河北
