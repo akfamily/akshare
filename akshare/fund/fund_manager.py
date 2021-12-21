@@ -12,7 +12,7 @@ from tqdm import tqdm
 from akshare.utils import demjson
 
 
-def fund_manager(explode: bool = False) -> pd.DataFrame:
+def fund_manager(adjust: str = '0') -> pd.DataFrame:
     """
     天天基金网-基金数据-基金经理大全
     http://fund.eastmoney.com/manager/default.html
@@ -84,7 +84,7 @@ def fund_manager(explode: bool = False) -> pd.DataFrame:
     big_df['累计从业时间'] = pd.to_numeric(big_df['累计从业时间'], errors="coerce")
     big_df['现任基金最佳回报'] = pd.to_numeric(big_df['现任基金最佳回报'], errors="coerce")
     big_df['现任基金资产总规模'] = pd.to_numeric(big_df['现任基金资产总规模'], errors="coerce")
-    if explode:
+    if adjust == '1':
         big_df['现任基金'] = big_df['现任基金'].apply(lambda x: x.split(','))
         big_df = big_df.explode(column='现任基金')
         big_df.reset_index(drop=True, inplace=True)
@@ -93,8 +93,8 @@ def fund_manager(explode: bool = False) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fund_manager_df = fund_manager(explode=False)
+    fund_manager_df = fund_manager(adjust='0')
     print(fund_manager_df)
 
-    fund_manager_df = fund_manager(explode=True)
+    fund_manager_df = fund_manager(adjust='1')
     print(fund_manager_df)

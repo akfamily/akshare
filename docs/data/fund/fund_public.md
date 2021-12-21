@@ -1814,27 +1814,28 @@ print(fund_rating_ja_df)
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- | --- |
-| explode | str |    默认 explode=False, 返回目标地址相同格式; explode=True, 返回根据 `现任基金` 打散后的数据 |
+| 名称      | 类型  | 描述                                                             |
+|---------|-----|----------------------------------------------------------------|
+| explode | str | 默认 explode=False, 返回目标地址相同格式; explode=True, 返回根据 `现任基金` 打散后的数据 |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| --------------- | ----- |  ---------------- |
-| 序号      | int32   |  -  |
-| 姓名      | object   |  -   |
-| 所属公司      | object   |  -   |
-| 现任基金      |  object  |  -   |
-| 累计从业时间      | int64   |  注意单位: 天   |
-| 现任基金资产总规模      | float64   | 注意单位: 亿元  |
-| 现任基金最佳回报      | float64   |  注意单位: %   |
+| 名称        | 类型      | 描述       |
+|-----------|---------|----------|
+| 序号        | int32   | -        |
+| 姓名        | object  | -        |
+| 所属公司      | object  | -        |
+| 现任基金      | object  | -        |
+| 累计从业时间    | int64   | 注意单位: 天  |
+| 现任基金资产总规模 | float64 | 注意单位: 亿元 |
+| 现任基金最佳回报  | float64 | 注意单位: %  |
 
 接口示例-explode=False
 
 ```python
 import akshare as ak
-fund_manager_df = ak.fund_manager(explode=False)
+
+fund_manager_df = ak.fund_manager(adjust=False)
 print(fund_manager_df)
 ```
 
@@ -1859,7 +1860,8 @@ print(fund_manager_df)
 
 ```python
 import akshare as ak
-fund_manager_df = ak.fund_manager(explode=True)
+
+fund_manager_df = ak.fund_manager(adjust=True)
 print(fund_manager_df)
 ```
 
@@ -1886,7 +1888,7 @@ print(fund_manager_df)
 
 目标地址: http://fund.eastmoney.com/data/xinfound.html
 
-描述: 获取天天基金网-基金数据-新发基金
+描述: 天天基金网-基金数据-新发基金
 
 限量: 单次返回所有新发基金数据
 

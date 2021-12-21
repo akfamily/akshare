@@ -2841,4 +2841,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.90 fix: fix stock_board_industry_index_ths interface
 
 1.2.91 fix: fix fund_etf_hist_sina interface
+
+1.2.92 fix: fix futures_zh_spot interface
 ```
