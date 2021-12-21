@@ -1715,9 +1715,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.91 fix: fix fund_etf_hist_sina interface
 1.2.92 fix: fix futures_zh_spot interface
 1.2.93 fix: fix fund_manager interface
+1.2.94 fix: fix fund_em_new_found interface
 """
 
-__version__ = "1.2.93"
+__version__ = "1.2.94"
 __author__ = "Albert King"
 
 import sys
