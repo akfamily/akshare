@@ -1814,9 +1814,9 @@ print(fund_rating_ja_df)
 
 输入参数
 
-| 名称      | 类型  | 描述                                                             |
-|---------|-----|----------------------------------------------------------------|
-| explode | str | 默认 explode=False, 返回目标地址相同格式; explode=True, 返回根据 `现任基金` 打散后的数据 |
+| 名称     | 类型  | 描述                                                         |
+|--------|-----|------------------------------------------------------------|
+| adjust | str | 默认 adjust='0', 返回目标地址相同格式; explode='1', 返回根据 `现任基金` 打散后的数据 |
 
 输出参数
 
@@ -1830,16 +1830,16 @@ print(fund_rating_ja_df)
 | 现任基金资产总规模 | float64 | 注意单位: 亿元 |
 | 现任基金最佳回报  | float64 | 注意单位: %  |
 
-接口示例-explode=False
+接口示例-explode='0'
 
 ```python
 import akshare as ak
 
-fund_manager_df = ak.fund_manager(adjust=False)
+fund_manager_df = ak.fund_manager(adjust='0')
 print(fund_manager_df)
 ```
 
-数据示例-explode=False
+数据示例-explode='0'
 
 ```
        序号  姓名    所属公司  ... 累计从业时间  现任基金资产总规模  现任基金最佳回报
@@ -1856,16 +1856,16 @@ print(fund_manager_df)
 2737  2738  孙少鹏    华夏基金  ...     40        NaN       NaN
 ```
 
-接口示例-explode=True
+接口示例-explode='1'
 
 ```python
 import akshare as ak
 
-fund_manager_df = ak.fund_manager(adjust=True)
+fund_manager_df = ak.fund_manager(adjust='1')
 print(fund_manager_df)
 ```
 
-数据示例-explode=True
+数据示例-explode='1'
 
 ```
         序号  姓名    所属公司                   现任基金  累计从业时间  现任基金资产总规模  现任基金最佳回报
