@@ -1886,54 +1886,90 @@ print(futures_delivery_match_czce_df)
 
 目标地址: https://finance.sina.com.cn/futuremarket/
 
-描述: 提供新浪财经-期货页面的实时行情数据
+描述: 新浪财经-期货页面的实时行情数据
 
 限量: 单次返回当日可以订阅的所有期货品种数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| subscribe_list | str | Y | 需要订阅的合约代码; e.g., 按照示例获取 |
-| market | str | Y | market="CF"; market="CF": 商品期货, market="FF": 金融期货 |
-| adjust | str | Y | adjust=False; adjust=True: 返回合约、交易所和最小变动单位的实时数据, 返回数据会变慢 |
-
+| 名称             | 类型  | 描述                                                    |
+|----------------|-----|-------------------------------------------------------|
+| subscribe_list | str | 需要订阅的合约代码; e.g., 按照示例获取                               |
+| market         | str | market="CF"; market="CF": 商品期货, market="FF": 金融期货     |
+| adjust         | str | adjust='0'; adjust='1': 返回合约、交易所和最小变动单位的实时数据, 返回数据会变慢 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| symbol      | str   | Y        | 品种  |
-| time      | float   | Y        | 时间, e.g., 144050表示下午14点40分50秒   |
-| open      | float   | Y        | 开盘        |
-| high        | float   | Y        |高    |
-| low         | float | Y        | 低         |
-| current_price      | str | Y        | 当前价格(买价)      |
-| bid_price      | str | Y        | 买      |
-| ask_price      | str | Y        | 卖价      |
-| buy_vol      | float   | Y        | 买量        |
-| sell_vol        | float   | Y        |卖量    |
-| hold         | float | Y        | 持仓量         |
-| volume      | str | Y        | 成交量      |
-| avg_price        | float   | Y        |均价    |
-| last_close         | float | Y        | 上一个交易日的收盘价         |
-| last_settle_price      | str | Y        | 上一个交易日的结算价      |
+| 名称                | 类型      | 描述                            |
+|-------------------|---------|-------------------------------|
+| symbol            | object  | 品种                            |
+| time              | object  | 时间, e.g., 144050表示下午14点40分50秒 |
+| open              | float64 | 开盘                            |
+| high              | float64 | 高                             |
+| low               | float64 | 低                             |
+| current_price     | float64 | 当前价格(买价)                      |
+| bid_price         | float64 | 买                             |
+| ask_price         | float64 | 卖价                            |
+| buy_vol           | int64   | 买量                            |
+| sell_vol          | int64   | 卖量                            |
+| hold              | float64 | 持仓量                           |
+| volume            | int64   | 成交量                           |
+| avg_price         | float64 | 均价                            |
+| last_close        | float64 | 上一个交易日的收盘价                    |
+| last_settle_price | float64 | 上一个交易日的结算价                    |
+
+接口示例-单品种获取
+
+```python
+import akshare as ak
+
+futures_zh_spot_df = ak.futures_zh_spot(symbol='V2205', market="CF", adjust='0')
+print(futures_zh_spot_df)
+```
+
+数据示例--单品种获取
+
+```
+    symbol    time    open  ...  avg_price  last_close  last_settle_price
+0  PVC2205  151039  8280.0  ...     8449.0      8423.0             8397.0
+```
+
+接口示例-多品种获取
+
+```python
+import akshare as ak
+
+futures_zh_spot_df = ak.futures_zh_spot(symbol='V2205, P2205, B2201, M2205', market="CF", adjust='0')
+print(futures_zh_spot_df)
+```
+
+数据示例--多品种获取
+
+```
+    symbol    time    open  ...  avg_price  last_close  last_settle_price
+0  PVC2205  151039  8280.0  ...     8449.0      8423.0             8397.0
+1  棕榈油2205  151039  7690.0  ...     7844.0      7926.0             7848.0
+2   豆二2201  151039  4165.0  ...     4193.0      4203.0             4203.0
+3   豆粕2205  151039  3151.0  ...     3164.0      3153.0             3159.0
+```
 
 接口示例-订阅所有商品期货(大商所, 上期所, 郑商所主力合约)
 
 ```python
 import time
 import akshare as ak
+
 dce_text = ak.match_main_contract(exchange="dce")
 czce_text = ak.match_main_contract(exchange="czce")
 shfe_text = ak.match_main_contract(exchange="shfe")
+
 while True:
     time.sleep(3)
-    data = ak.futures_zh_spot(
-        subscribe_list=",".join([dce_text, czce_text, shfe_text]),
+    futures_zh_spot_df = ak.futures_zh_spot(
+        symbol=",".join([dce_text, czce_text, shfe_text]),
         market="CF",
-        adjust=False)
-    print(data)
+        adjust='0')
+    print(futures_zh_spot_df)
 ```
 
 数据示例-商品期货
@@ -2105,11 +2141,13 @@ while True:
 ```python
 import time
 import akshare as ak
+
 cffex_text = ak.match_main_contract(exchange="cffex")
+
 while True:
     time.sleep(3)
-    data = ak.futures_zh_spot(subscribe_list=cffex_text, market="FF", adjust=False)
-    print(data)
+    futures_zh_spot_df = ak.futures_zh_spot(subscribe_list=cffex_text, market="FF", adjust='0')
+    print(futures_zh_spot_df)
 ```
 
 数据示例-金融期货
