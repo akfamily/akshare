@@ -16,6 +16,8 @@ def fund_manager(adjust: str = '0') -> pd.DataFrame:
     """
     天天基金网-基金数据-基金经理大全
     http://fund.eastmoney.com/manager/default.html
+    :param adjust: 默认 adjust='0', 返回目标地址相同格式; adjust='1', 返回根据 `现任基金` 打散后的数据
+    :type adjust: str
     :return: 基金经理大全
     :rtype: pandas.DataFrame
     """

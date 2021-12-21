@@ -485,18 +485,8 @@ if __name__ == "__main__":
     futures_zh_spot_df = futures_zh_spot(symbol='V2205, P2205, B2201, M2205', market="CF", adjust='0')
     print(futures_zh_spot_df.info())
 
-    futures_zh_spot_df = futures_zh_spot(symbol='V2205', market="CF", adjust='0')
+    futures_zh_spot_df = futures_zh_spot(symbol='NR0', market="CF", adjust='0')
     print(futures_zh_spot_df)
-
-    # for num in range(11, 21):
-    #     print(num)
-    #     for last in range(1, 13):
-    #         try:
-    #             print(f"V{str(num)+str(last).zfill(2)}")
-    #             futures_zh_daily_sina_df = futures_zh_daily_sina(symbol=f"M{str(num)+str(last).zfill(2)}")
-    #             print(futures_zh_daily_sina_df)
-    #         except:
-    #             continue
 
     print("开始接收实时行情, 每秒刷新一次")
     dce_text = match_main_contract(exchange="dce")
