@@ -109,7 +109,7 @@ def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
 
 def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
     """
-    ETF 基金的日行情数据
+    新浪财经-FUND-ETF 基金的日行情数据
     http://finance.sina.com.cn/fund/quotes/159996/bc.shtml
     :param symbol: 基金名称, 可以通过 fund_etf_category_sina 函数获取
     :type symbol: str
@@ -122,6 +122,8 @@ def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
     js_code.eval(hk_js_decode)
     dict_list = js_code.call('d', r.text.split("=")[1].split(";")[0].replace('"', ""))  # 执行js解密代码
     temp_df = pd.DataFrame(dict_list)
+    if temp_df.empty:  # 处理获取数据为空的问题
+        return
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     return temp_df
 
