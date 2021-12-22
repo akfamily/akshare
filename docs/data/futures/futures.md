@@ -1959,9 +1959,9 @@ print(futures_zh_spot_df)
 import time
 import akshare as ak
 
-dce_text = ak.match_main_contract(exchange="dce")
-czce_text = ak.match_main_contract(exchange="czce")
-shfe_text = ak.match_main_contract(exchange="shfe")
+dce_text = ak.match_main_contract(symbol="dce")
+czce_text = ak.match_main_contract(symbol="czce")
+shfe_text = ak.match_main_contract(symbol="shfe")
 
 while True:
     time.sleep(3)
@@ -2142,7 +2142,7 @@ while True:
 import time
 import akshare as ak
 
-cffex_text = ak.match_main_contract(exchange="cffex")
+cffex_text = ak.match_main_contract(symbol="cffex")
 
 while True:
     time.sleep(3)
@@ -3367,10 +3367,10 @@ print(futures_spot_stock_df)
 
 输入参数
 
-| 名称     | 类型  | 描述                                                                                                |
-|--------|-----|---------------------------------------------------------------------------------------------------|
-| symbol | str | symbol="IF2008"; 具体合约(期货品种符号需要大写), 可以通过调用 ak.match_main_contract(exchange="cffex") 接口获取, 或者访问网页获取 |
-| period | str | period="1"; choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}          |
+| 名称     | 类型  | 描述                                                                                              |
+|--------|-----|-------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="IF2008"; 具体合约(期货品种符号需要大写), 可以通过调用 ak.match_main_contract(symbol="cffex") 接口获取, 或者访问网页获取 |
+| period | str | period="1"; choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}        |
 
 输出参数
 
@@ -3422,27 +3422,28 @@ print(futures_zh_minute_sina_df)
 
 输入参数
 
-| 名称   | 类型 |  描述    |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="V2105"; 具体合约可以通过 match_main_contract(exchange="shfe") 获取或者访问网页 |
+| 名称     | 类型  | 描述                                                                      |
+|--------|-----|-------------------------------------------------------------------------|
+| symbol | str | symbol="V2105"; 具体合约可以通过 ak.match_main_contract(symbol="shfe") 获取或者访问网页 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| date      | object   | -  |
-| open      | float64   |  开盘价  |
-| high      | float64   |  最高价 |
-| low      | float64   |  最低价  |
-| close      | float64   |   收盘价 |
-| volume      | int64   | 成交量  |
-| hold      | int64   |  持仓量  |
-| settle      | float64   | 结算价  |
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| date   | object  | -   |
+| open   | float64 | 开盘价 |
+| high   | float64 | 最高价 |
+| low    | float64 | 最低价 |
+| close  | float64 | 收盘价 |
+| volume | int64   | 成交量 |
+| hold   | int64   | 持仓量 |
+| settle | float64 | 结算价 |
 						
 接口示例
 
 ```python
 import akshare as ak
+
 futures_zh_daily_sina_df = ak.futures_zh_daily_sina(symbol="V2105")
 print(futures_zh_daily_sina_df)
 ```
@@ -3470,31 +3471,30 @@ print(futures_zh_daily_sina_df)
 
 目标地址: http://data.eastmoney.com/pmetal/comex/by.html
 
-频率: 日频
-
 描述: 获取东方财富网-数据中心-COMEX库存的日数据
 
 限量: 单次返回指定 symbol 的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y | symbol="黄金"; choice of {"黄金", "白银"} |
+| 名称     | 类型  | 描述                                  |
+|--------|-----|-------------------------------------|
+| symbol | str | symbol="黄金"; choice of {"黄金", "白银"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 序号      | int32   | Y        | -  |
-| 日期      | object   | Y        | -  |
-| COMEX黄金库存量_1      | float64   | Y        | 注意单位: 盎司  |
-| COMEX黄金库存量_2      | object   | Y        |  注意单位: 吨 |
+| 名称           | 类型      | 描述       |
+|--------------|---------|----------|
+| 序号           | int64   | -        |
+| 日期           | object  | -        |
+| COMEX黄金库存量_1 | float64 | 注意单位: 盎司 |
+| COMEX黄金库存量_2 | object  | 注意单位: 吨  |
 						
 接口示例
 
 ```python
 import akshare as ak
+
 futures_comex_inventory_df = ak.futures_comex_inventory(symbol="黄金")
 print(futures_comex_inventory_df)
 ```
@@ -3528,21 +3528,22 @@ print(futures_comex_inventory_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |--- |
-| symbol | str |  symbol="猪肉批发价"; choice of {"猪肉批发价", "仔猪价格", "生猪期货指数", "二元母猪价格", "生猪产能数据", "饲料原料数据", "中央储备冻猪肉", "白条肉", "育肥猪配合饲料", "肉类价格指数", "猪粮比价", "猪企销售简报-销售量", "猪企销售简报-销售额", "猪企销售简报-销售均价"} |
+| 名称     | 类型  | 描述                                                                                                                                                                            |
+|--------|-----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="猪肉批发价"; choice of {"猪肉批发价", "仔猪价格", "生猪期货指数", "二元母猪价格", "生猪产能数据", "饲料原料数据", "中央储备冻猪肉", "白条肉", "育肥猪配合饲料", "肉类价格指数", "猪粮比价", "猪企销售简报-销售量", "猪企销售简报-销售额", "猪企销售简报-销售均价"} |
 
 输出参数-猪肉批发价
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| date      | object   | -  |
-| value      | float64   | 注意单位: 元/公斤  |
+| 名称    | 类型      | 描述         |
+|-------|---------|------------|
+| date  | object  | -          |
+| value | float64 | 注意单位: 元/公斤 |
 
 接口示例-猪肉批发价
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="猪肉批发价")
 print(futures_pig_info_df)
 ```
@@ -3566,15 +3567,16 @@ print(futures_pig_info_df)
 
 输出参数-仔猪价格
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| date      | object   | -  |
-| value      | float64   | 注意单位: 元/公斤  |
+| 名称    | 类型      | 描述         |
+|-------|---------|------------|
+| date  | object  | -          |
+| value | float64 | 注意单位: 元/公斤 |
 
 接口示例-仔猪价格
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="仔猪价格")
 print(futures_pig_info_df)
 ```
@@ -3605,20 +3607,21 @@ print(futures_pig_info_df)
 
 输出参数-生猪期货指数
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 日期      | object   | -  |
-| 生猪XXXX开盘价      | int64   | 期货价格; 其中 XXXX 为合约代码  |
-| 生猪XXXX收盘价      | int64   | 期货价格; 其中 XXXX 为合约代码  |
-| 生猪XXXX开盘价      | int64   | 期货价格; 其中 XXXX 为合约代码  |
-| 生猪XXXX收盘价      | int64   | 期货价格; 其中 XXXX 为合约代码  |
-| 生猪XXXX开盘价      | int64   | 期货价格; 其中 XXXX 为合约代码  |
-| 生猪XXXX收盘价      | int64   | 期货价格; 其中 XXXX 为合约代码  |
+| 名称        | 类型     | 描述                  |
+|-----------|--------|---------------------|
+| 日期        | object | -                   |
+| 生猪XXXX开盘价 | int64  | 期货价格; 其中 XXXX 为合约代码 |
+| 生猪XXXX收盘价 | int64  | 期货价格; 其中 XXXX 为合约代码 |
+| 生猪XXXX开盘价 | int64  | 期货价格; 其中 XXXX 为合约代码 |
+| 生猪XXXX收盘价 | int64  | 期货价格; 其中 XXXX 为合约代码 |
+| 生猪XXXX开盘价 | int64  | 期货价格; 其中 XXXX 为合约代码 |
+| 生猪XXXX收盘价 | int64  | 期货价格; 其中 XXXX 为合约代码 |
 
 接口示例-生猪期货指数
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="生猪期货指数")
 print(futures_pig_info_df)
 ```
@@ -3642,15 +3645,16 @@ print(futures_pig_info_df)
 
 输出参数-二元母猪价格
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| date      | object   | -  |
-| value      | float64   | 注意单位: 元/公斤  |
+| 名称    | 类型      | 描述         |
+|-------|---------|------------|
+| date  | object  | -          |
+| value | float64 | 注意单位: 元/公斤 |
 
 接口示例-二元母猪价格
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="二元母猪价格")
 print(futures_pig_info_df)
 ```
@@ -3674,18 +3678,19 @@ print(futures_pig_info_df)
 
 输出参数-生猪产能数据
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 周期      | object   | -  |
-| 能繁母猪存栏      | float64   | 注意单位: 万头  |
-| 猪肉产量      | float64   | 注意单位: 万吨  |
-| 生猪存栏      | float64   | 注意单位: 万头  |
-| 生猪出栏      | float64   | 注意单位: 万头  |
+| 名称     | 类型      | 描述       |
+|--------|---------|----------|
+| 周期     | object  | -        |
+| 能繁母猪存栏 | float64 | 注意单位: 万头 |
+| 猪肉产量   | float64 | 注意单位: 万吨 |
+| 生猪存栏   | float64 | 注意单位: 万头 |
+| 生猪出栏   | float64 | 注意单位: 万头 |
 
 接口示例-生猪产能数据
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="生猪产能数据")
 print(futures_pig_info_df)
 ```
@@ -3712,18 +3717,19 @@ print(futures_pig_info_df)
 
 输出参数-饲料原料数据
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 周期      | object   | -  |
-| 大豆进口金额      | float64   | 注意单位: 万美元  |
-| 大豆播种面积      | float64   | 注意单位: 千公顷  |
-| 玉米进口金额      | float64   | 注意单位: 万美元  |
-| 玉米播种面积      | float64   | 注意单位: 千公顷  |
+| 名称     | 类型      | 描述        |
+|--------|---------|-----------|
+| 周期     | object  | -         |
+| 大豆进口金额 | float64 | 注意单位: 万美元 |
+| 大豆播种面积 | float64 | 注意单位: 千公顷 |
+| 玉米进口金额 | float64 | 注意单位: 万美元 |
+| 玉米播种面积 | float64 | 注意单位: 千公顷 |
 
 接口示例-饲料原料数据
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="饲料原料数据")
 print(futures_pig_info_df)
 ```
@@ -3743,15 +3749,16 @@ print(futures_pig_info_df)
 
 输出参数-中央储备冻猪肉
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| date      | object   | -  |
-| value      | float64   | 注意单位: 万吨  |
+| 名称    | 类型      | 描述       |
+|-------|---------|----------|
+| date  | object  | -        |
+| value | float64 | 注意单位: 万吨 |
 
 接口示例-中央储备冻猪肉
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="中央储备冻猪肉")
 print(futures_pig_info_df)
 ```
@@ -3787,17 +3794,18 @@ print(futures_pig_info_df)
 
 输出参数-白条肉
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 周期      | object   | -  |
-| 白条肉平均出厂价格      | float64   | 注意单位: 元/公斤  |
-| 环比      | float64   | 注意单位: %  |
-| 同比      | float64   | 注意单位: %  |
+| 名称        | 类型      | 描述         |
+|-----------|---------|------------|
+| 周期        | object  | -          |
+| 白条肉平均出厂价格 | float64 | 注意单位: 元/公斤 |
+| 环比        | float64 | 注意单位: %    |
+| 同比        | float64 | 注意单位: %    |
 
 接口示例-白条肉
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="白条肉")
 print(futures_pig_info_df)
 ```
@@ -3821,18 +3829,19 @@ print(futures_pig_info_df)
 
 输出参数-育肥猪配合饲料
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 发布日期      | object   | -  |
-| 周期      | object   | -  |
-| 本周      | float64   | 注意单位: 元/公斤  |
-| 去年同期      | float64   | 注意单位: 元/公斤  |
-| 上一周      | float64   | 注意单位: 元/公斤  |
+| 名称   | 类型      | 描述         |
+|------|---------|------------|
+| 发布日期 | object  | -          |
+| 周期   | object  | -          |
+| 本周   | float64 | 注意单位: 元/公斤 |
+| 去年同期 | float64 | 注意单位: 元/公斤 |
+| 上一周  | float64 | 注意单位: 元/公斤 |
 
 接口示例-育肥猪配合饲料
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="育肥猪配合饲料")
 print(futures_pig_info_df)
 ```
@@ -3856,15 +3865,16 @@ print(futures_pig_info_df)
 
 输出参数-肉类价格指数
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| date      | object   | -  |
-| value      | object   | 注意单位: 元/公斤  |
+| 名称    | 类型     | 描述         |
+|-------|--------|------------|
+| date  | object | -          |
+| value | object | 注意单位: 元/公斤 |
 
 接口示例-肉类价格指数
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="肉类价格指数")
 print(futures_pig_info_df)
 ```
@@ -3900,15 +3910,16 @@ print(futures_pig_info_df)
 
 输出参数-猪粮比价
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| date      | object   | -  |
-| value      | object   | 注意单位: 元/公斤  |
+| 名称    | 类型     | 描述         |
+|-------|--------|------------|
+| date  | object | -          |
+| value | object | 注意单位: 元/公斤 |
 
 接口示例-猪粮比价
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="猪粮比价")
 print(futures_pig_info_df)
 ```
@@ -3932,18 +3943,19 @@ print(futures_pig_info_df)
 
 输出参数-猪企销售简报-销售量
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 周期      | object   | -  |
-| 温氏      | object   | 注意单位: 万头  |
-| 正邦      | object   | 注意单位: 万头  |
-| 新希望      | object   | 注意单位: 万头  |
-| 牧原      | object   | 注意单位: 万头  |
+| 名称  | 类型     | 描述       |
+|-----|--------|----------|
+| 周期  | object | -        |
+| 温氏  | object | 注意单位: 万头 |
+| 正邦  | object | 注意单位: 万头 |
+| 新希望 | object | 注意单位: 万头 |
+| 牧原  | object | 注意单位: 万头 |
 
 接口示例-猪企销售简报-销售量
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="猪企销售简报-销售量")
 print(futures_pig_info_df)
 ```
@@ -3962,18 +3974,19 @@ print(futures_pig_info_df)
 
 输出参数-猪企销售简报-销售额
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 周期      | object   | -  |
-| 温氏      | object   | 注意单位: 亿元  |
-| 正邦      | object   | 注意单位: 亿元  |
-| 新希望      | object   | 注意单位: 亿元  |
-| 牧原      | object   | 注意单位: 亿元  |
+| 名称  | 类型     | 描述       |
+|-----|--------|----------|
+| 周期  | object | -        |
+| 温氏  | object | 注意单位: 亿元 |
+| 正邦  | object | 注意单位: 亿元 |
+| 新希望 | object | 注意单位: 亿元 |
+| 牧原  | object | 注意单位: 亿元 |
 
 接口示例-猪企销售简报-销售额
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="猪企销售简报-销售额")
 print(futures_pig_info_df)
 ```
@@ -3992,18 +4005,19 @@ print(futures_pig_info_df)
 
 输出参数-猪企销售简报-销售均价
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 周期      | object   | -  |
-| 温氏      | object   | 注意单位: 元/公斤  |
-| 正邦      | object   | 注意单位: 元/公斤  |
-| 新希望      | object   | 注意单位: 元/公斤  |
-| 牧原      | object   | 注意单位: 元/公斤  |
+| 名称  | 类型     | 描述         |
+|-----|--------|------------|
+| 周期  | object | -          |
+| 温氏  | object | 注意单位: 元/公斤 |
+| 正邦  | object | 注意单位: 元/公斤 |
+| 新希望 | object | 注意单位: 元/公斤 |
+| 牧原  | object | 注意单位: 元/公斤 |
 
 接口示例-猪企销售简报-销售均价
 
 ```python
 import akshare as ak
+
 futures_pig_info_df = ak.futures_pig_info(symbol="猪企销售简报-销售均价")
 print(futures_pig_info_df)
 ```
@@ -4032,24 +4046,25 @@ print(futures_pig_info_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |--- |
-| symbol | str |  symbol="外三元"; choice of {"外三元", "内三元", "土杂猪", "玉米", "豆粕"} |
+| 名称     | 类型  | 描述                                                        |
+|--------|-----|-----------------------------------------------------------|
+| symbol | str | symbol="外三元"; choice of {"外三元", "内三元", "土杂猪", "玉米", "豆粕"} |
 
 输出参数-外三元
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 排名      | int32   | -  |
-| 品种      | object   | -  |
-| 省份      | object   | -  |
-| 价格-公斤      | float64   | 注意单位: 元/公斤  |
-| 价格-元      | float64   | 注意单位: 元/斤  |
+| 名称    | 类型      | 描述         |
+|-------|---------|------------|
+| 排名    | int64   | -          |
+| 品种    | object  | -          |
+| 省份    | object  | -          |
+| 价格-公斤 | float64 | 注意单位: 元/公斤 |
+| 价格-元  | float64 | 注意单位: 元/斤  |
 
 接口示例-外三元
 
 ```python
 import akshare as ak
+
 futures_pig_rank_df = ak.futures_pig_rank(symbol="外三元")
 print(futures_pig_rank_df)
 ```
@@ -4093,18 +4108,19 @@ print(futures_pig_rank_df)
 
 输出参数-内三元
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 排名      | int32   | -  |
-| 品种      | object   | -  |
-| 省份      | object   | -  |
-| 价格-公斤      | float64   | 注意单位: 元/公斤  |
-| 价格-元      | float64   | 注意单位: 元/斤  |
+| 名称    | 类型      | 描述         |
+|-------|---------|------------|
+| 排名    | int32   | -          |
+| 品种    | object  | -          |
+| 省份    | object  | -          |
+| 价格-公斤 | float64 | 注意单位: 元/公斤 |
+| 价格-元  | float64 | 注意单位: 元/斤  |
 
 接口示例-内三元
 
 ```python
 import akshare as ak
+
 futures_pig_rank_df = ak.futures_pig_rank(symbol="内三元")
 print(futures_pig_rank_df)
 ```
@@ -4148,18 +4164,19 @@ print(futures_pig_rank_df)
 
 输出参数-土杂猪
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 排名      | int32   | -  |
-| 品种      | object   | -  |
-| 省份      | object   | -  |
-| 价格-公斤      | float64   | 注意单位: 元/公斤  |
-| 价格-元      | float64   | 注意单位: 元/斤  |
+| 名称    | 类型      | 描述         |
+|-------|---------|------------|
+| 排名    | int32   | -          |
+| 品种    | object  | -          |
+| 省份    | object  | -          |
+| 价格-公斤 | float64 | 注意单位: 元/公斤 |
+| 价格-元  | float64 | 注意单位: 元/斤  |
 
 接口示例-土杂猪
 
 ```python
 import akshare as ak
+
 futures_pig_rank_df = ak.futures_pig_rank(symbol="土杂猪")
 print(futures_pig_rank_df)
 ```
@@ -4203,18 +4220,19 @@ print(futures_pig_rank_df)
 
 输出参数-玉米
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 排名      | int32   | -  |
-| 品种      | object   | -  |
-| 省份      | object   | -  |
-| 价格-公斤      | float64   | 注意单位: 元/吨  |
-| 价格-元      | float64   | 注意单位: 元/斤  |
+| 名称    | 类型      | 描述        |
+|-------|---------|-----------|
+| 排名    | int32   | -         |
+| 品种    | object  | -         |
+| 省份    | object  | -         |
+| 价格-公斤 | float64 | 注意单位: 元/吨 |
+| 价格-元  | float64 | 注意单位: 元/斤 |
 
 接口示例-玉米
 
 ```python
 import akshare as ak
+
 futures_pig_rank_df = ak.futures_pig_rank(symbol="玉米")
 print(futures_pig_rank_df)
 ```
@@ -4258,18 +4276,19 @@ print(futures_pig_rank_df)
 
 输出参数-豆粕
 
-| 名称          | 类型 |描述           |
-| --------------- | ----- | ---------------- |
-| 排名      | int32   | -  |
-| 品种      | object   | -  |
-| 省份      | object   | -  |
-| 价格-公斤      | float64   | 注意单位: 元/吨  |
-| 价格-元      | float64   | 注意单位: 元/斤  |
+| 名称    | 类型      | 描述        |
+|-------|---------|-----------|
+| 排名    | int32   | -         |
+| 品种    | object  | -         |
+| 省份    | object  | -         |
+| 价格-公斤 | float64 | 注意单位: 元/吨 |
+| 价格-元  | float64 | 注意单位: 元/斤 |
 
 接口示例-豆粕
 
 ```python
 import akshare as ak
+
 futures_pig_rank_df = ak.futures_pig_rank(symbol="豆粕")
 print(futures_pig_rank_df)
 ```
@@ -4325,27 +4344,28 @@ print(futures_pig_rank_df)
 
 输入参数
 
-| 名称   | 类型 |  描述  |
-| -------- | ---- | --- |
-| - | -  |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 日期     | object   |    |  
-| 2015年     | float64   | 注意单位: 元/斤 |  
-| 2016年     | float64   |  注意单位: 元/斤  |  
-| 2017年     | float64   | 注意单位: 元/斤  |  
-| 2018年     | float64   | 注意单位: 元/斤  |  
-| 2019年     | float64   | 注意单位: 元/斤  |  
-| 2020年     | float64   | 注意单位: 元/斤  |  
-| 2021年     | float64   | 注意单位: 元/斤  |  
+| 名称    | 类型      | 描述        |
+|-------|---------|-----------|
+| 日期    | object  |           |  
+| 2015年 | float64 | 注意单位: 元/斤 |  
+| 2016年 | float64 | 注意单位: 元/斤 |  
+| 2017年 | float64 | 注意单位: 元/斤 |  
+| 2018年 | float64 | 注意单位: 元/斤 |  
+| 2019年 | float64 | 注意单位: 元/斤 |  
+| 2020年 | float64 | 注意单位: 元/斤 |  
+| 2021年 | float64 | 注意单位: 元/斤 |  
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_egg_price_yearly_df = ak.futures_egg_price_yearly()
 print(futures_egg_price_yearly_df)
 ```
@@ -4379,21 +4399,22 @@ print(futures_egg_price_yearly_df)
 
 输入参数
 
-| 名称   | 类型 |  描述  |
-| -------- | ---- | --- |
-| - | -  |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| date     | object   |  注意其中的日期并非严格对齐  |  
-| price     | float64   | 注意单位: 元/斤 |  
+| 名称    | 类型      | 描述            |
+|-------|---------|---------------|
+| date  | object  | 注意其中的日期并非严格对齐 |  
+| price | float64 | 注意单位: 元/斤     |  
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_egg_price_df = ak.futures_egg_price()
 print(futures_egg_price_df)
 ```
@@ -4427,26 +4448,27 @@ print(futures_egg_price_df)
 
 输入参数
 
-| 名称   | 类型 |  描述  |
-| -------- | ---- | --- |
-| - | -  |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| date       | object   |  注意其中的日期并非严格对齐  |  
-| 山东均价     | float64   | 注意单位: 元/斤 |  
-| 河南均价     | float64   | 注意单位: 元/斤 |  
-| 河北均价     | float64   | 注意单位: 元/斤 |  
-| 辽宁均价     | float64   | 注意单位: 元/斤 |  
-| 江苏均价     | float64   | 注意单位: 元/斤 |  
-| 湖北均价     | float64   | 注意单位: 元/斤 |  
+| 名称   | 类型      | 描述            |
+|------|---------|---------------|
+| date | object  | 注意其中的日期并非严格对齐 |  
+| 山东均价 | float64 | 注意单位: 元/斤     |  
+| 河南均价 | float64 | 注意单位: 元/斤     |  
+| 河北均价 | float64 | 注意单位: 元/斤     |  
+| 辽宁均价 | float64 | 注意单位: 元/斤     |  
+| 江苏均价 | float64 | 注意单位: 元/斤     |  
+| 湖北均价 | float64 | 注意单位: 元/斤     |  
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_egg_price_area_df = ak.futures_egg_price_area()
 print(futures_egg_price_area_df)
 ```
