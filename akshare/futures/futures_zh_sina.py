@@ -21,12 +21,12 @@ from akshare.futures.futures_contract_detail import futures_contract_detail
 from akshare.utils import demjson
 
 
-def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
+def zh_subscribe_exchange_symbol(symbol: str = "dce") -> dict:
     """
     交易所具体的可交易品种
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
-    :param exchange: choice of {'czce', 'dce', 'shfe', 'cffex'}
-    :type exchange: str
+    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex'}
+    :type symbol: str
     :return: 交易所具体的可交易品种
     :rtype: dict
     """
@@ -34,31 +34,31 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
     r.encoding = "gbk"
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): data_text.find("};") + 1])
-    if exchange == "czce":
+    if symbol == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
-    if exchange == "dce":
+    if symbol == "dce":
         data_json["dce"].remove("大连商品交易所")
         return pd.DataFrame(data_json["dce"])
-    if exchange == "shfe":
+    if symbol == "shfe":
         data_json["shfe"].remove("上海期货交易所")
         return pd.DataFrame(data_json["shfe"])
-    if exchange == "cffex":
+    if symbol == "cffex":
         data_json["cffex"].remove("中国金融期货交易所")
         return pd.DataFrame(data_json["cffex"])
 
 
-def match_main_contract(exchange: str = "cffex") -> str:
+def match_main_contract(symbol: str = "cffex") -> str:
     """
     新浪财经-期货-主力合约
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
-    :param exchange: choice of {'czce', 'dce', 'shfe', 'cffex'}
-    :type exchange: str
+    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex'}
+    :type symbol: str
     :return: 主力合约的字符串
     :rtype: str
     """
     subscribe_exchange_list = []
-    exchange_symbol_list = zh_subscribe_exchange_symbol(exchange).iloc[:, 1].tolist()
+    exchange_symbol_list = zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
         # item = 'sngz_qh'
         zh_match_main_contract_payload.update({"node": item})
@@ -78,7 +78,7 @@ def match_main_contract(exchange: str = "cffex") -> str:
             else:
                 print(item, "无主力合约")
             continue
-    print(f"{exchange}主力合约获取成功")
+    print(f"{symbol}主力合约获取成功")
     return ",".join([item for item in subscribe_exchange_list])
 
 
@@ -423,7 +423,7 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
     """
     中国各品种期货分钟频率数据
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
-    :param symbol: 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取
+    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
     :type symbol: str
     :param period: choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}
     :type period: str
@@ -451,7 +451,7 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
     """
     中国各品种期货日频率数据
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
-    :param symbol: 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取
+    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
     :type symbol: str
     :return: 指定 symbol 和 period 的数据
     :rtype: pandas.DataFrame
@@ -489,10 +489,10 @@ if __name__ == "__main__":
     print(futures_zh_spot_df)
 
     print("开始接收实时行情, 每秒刷新一次")
-    dce_text = match_main_contract(exchange="dce")
-    czce_text = match_main_contract(exchange="czce")
-    shfe_text = match_main_contract(exchange="shfe")
-    cffex_text = match_main_contract(exchange="cffex")
+    dce_text = match_main_contract(symbol="dce")
+    czce_text = match_main_contract(symbol="czce")
+    shfe_text = match_main_contract(symbol="shfe")
+    cffex_text = match_main_contract(symbol="cffex")
 
     while True:
         futures_zh_spot_df = futures_zh_spot(
