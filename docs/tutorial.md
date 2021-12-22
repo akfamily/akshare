@@ -971,6 +971,8 @@
  "spot_hist_sge"  # 上海黄金交易所-历史行情走势
  "spot_golden_benchmark_sge"  # 上海金基准价
  "spot_silver_benchmark_sge"  # 上海银基准价
+ # 个股信息查询
+ "stock_individual_info_em"  # 个股信息查询
 ```
 
 ## 案例演示

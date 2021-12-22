@@ -1716,9 +1716,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.92 fix: fix futures_zh_spot interface
 1.2.93 fix: fix fund_manager interface
 1.2.94 fix: fix fund_em_new_found interface
+1.2.95 add: add stock_individual_info_em interface
 """
 
-__version__ = "1.2.94"
+__version__ = "1.2.95"
 __author__ = "Albert King"
 
 import sys
@@ -1728,6 +1729,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+东方财富-个股信息
+"""
+from akshare.stock.stock_info_em import stock_individual_info_em
 
 """
 上海黄金交易所-数据资讯-行情走势

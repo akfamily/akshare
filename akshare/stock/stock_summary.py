@@ -78,6 +78,7 @@ def stock_sse_summary() -> pd.DataFrame:
     big_df.columns = ["item", "number", "type"]
     big_df = big_df[["type", "item", "number"]]
     big_df['number'] = pd.to_numeric(big_df['number'])
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
