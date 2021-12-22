@@ -123,8 +123,8 @@ def stock_zh_a_daily(
     adjust: str = "",
 ) -> pd.DataFrame:
     """
-    新浪财经-A股-个股的历史行情数据, 大量抓取容易封 IP
-    https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
+    新浪财经-A 股-个股的历史行情数据, 大量抓取容易封 IP
+    https://finance.sina.com.cn/realstock/company/sh603843/nc.shtml
     :param start_date: 20201103; 开始日期
     :type start_date: str
     :param end_date: 20201103; 结束日期
