@@ -3314,9 +3314,9 @@ print(futures_index_cscidx_df)
 
 输入参数
 
-| 名称        | 类型  | 描述                                                                         |
-|-----------|-----|----------------------------------------------------------------------------|
-| indicator | str | indicator="能源"; choice of {'能源', '化工', '塑料', '纺织', '有色', '钢铁', '建材', '农副'} |
+| 名称     | 类型  | 描述                                                                      |
+|--------|-----|-------------------------------------------------------------------------|
+| symbol | str | symbol="能源"; choice of {'能源', '化工', '塑料', '纺织', '有色', '钢铁', '建材', '农副'} |
 
 输出参数
 
@@ -3338,7 +3338,7 @@ print(futures_index_cscidx_df)
 ```python
 import akshare as ak
 
-futures_spot_stock_df = ak.futures_spot_stock(indicator="能源")
+futures_spot_stock_df = ak.futures_spot_stock(symbol="能源")
 print(futures_spot_stock_df)
 ```
 
@@ -3471,7 +3471,7 @@ print(futures_zh_daily_sina_df)
 
 目标地址: http://data.eastmoney.com/pmetal/comex/by.html
 
-描述: 获取东方财富网-数据中心-COMEX库存的日数据
+描述: 东方财富网-数据中心-COMEX 库存的日数据
 
 限量: 单次返回指定 symbol 的所有历史数据
 
@@ -3502,7 +3502,7 @@ print(futures_comex_inventory_df)
 数据示例
 
 ```
-        序号         日期  COMEX黄金库存量_1 COMEX黄金库存量_2
+        序号    日期  COMEX黄金库存量_1 COMEX黄金库存量_2
 0        1 2021-05-27    34569004.0  1075.217016
 1        2 2021-05-26    34571863.0  1075.305941
 2        3 2021-05-25    34574114.0  1075.375955
