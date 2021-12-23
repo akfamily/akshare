@@ -3025,7 +3025,7 @@ print(futures_nh_return_index_df)
 
 南华指数品种一览表
 
-|   id | name  | firstday   | code | exchange   | indexcategory |
+|  id | name  | firstday   | code | exchange   | indexcategory |
 |----:|:------|:-----------|:-----|:-----------|:--------------|
 |   0 | 大豆    | 1994-09-19 | A    | 大连商品交易所    | 品种            |
 |   1 | 铝     | 1994-10-12 | AL   | 上海期货交易所    | 品种            |

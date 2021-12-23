@@ -2855,4 +2855,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.97 fix: fix stock_profit_forecast interface
 
 1.2.98 fix: fix futures_spot_stock interface
+
+1.2.99 fix: fix PYPI info
 ```
