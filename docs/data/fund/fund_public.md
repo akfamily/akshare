@@ -12,24 +12,25 @@
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- |  --- |
-| - | -  |    - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 基金代码      | object   |  -  |
-| 拼音缩写      | object   |  -   |
-| 基金简称      | object   |  -   |
-| 基金类型      | object   |  -   |
-| 拼音全称      | object   |  -   |
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 基金代码 | object | -   |
+| 拼音缩写 | object | -   |
+| 基金简称 | object | -   |
+| 基金类型 | object | -   |
+| 拼音全称 | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_em_fund_name_df = ak.fund_em_fund_name()
 print(fund_em_fund_name_df)
 ```
@@ -65,30 +66,31 @@ print(fund_em_fund_name_df)
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- |  --- |
-| - | -  |    - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- | ---------------- |
-| 基金代码      | str   |  -  |
-| 基金简称      | str   |  -   |
-| 单位净值      | float   |  随时间变动   |
-| 累计净值      | float   |  随时间变动   |
-| 前交易日-单位净值      | float   |  随时间变动   |
-| 前交易日-累计净值      | float   |  随时间变动   |
-| 日增长值      | float   |  -   |
-| 日增长率      | float   |  -   |
-| 申购状态      | str   |  -   |
-| 赎回状态      | str   | -   |
-| 手续费      | str   |  注意单位: %   |
+| 名称        | 类型    | 描述      |
+|-----------|-------|---------|
+| 基金代码      | str   | -       |
+| 基金简称      | str   | -       |
+| 单位净值      | float | 随时间变动   |
+| 累计净值      | float | 随时间变动   |
+| 前交易日-单位净值 | float | 随时间变动   |
+| 前交易日-累计净值 | float | 随时间变动   |
+| 日增长值      | float | -       |
+| 日增长率      | float | -       |
+| 申购状态      | str   | -       |
+| 赎回状态      | str   | -       |
+| 手续费       | str   | 注意单位: % |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_em_open_fund_daily_df = ak.fund_em_open_fund_daily()
 print(fund_em_open_fund_daily_df)
 ```
@@ -122,37 +124,38 @@ print(fund_em_open_fund_daily_df)
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- |  --- |
-| fund | str|    fund="710001"; 需要基金代码, 可以通过调用 **fund_em_open_fund_daily** 获取 |
-| indicator | str  |    indicator="单位净值走势";  参见 **fund_em_open_fund_info** 参数一览表 |
+| 名称        | 类型  | 描述                                                           |
+|-----------|-----|--------------------------------------------------------------|
+| fund      | str | fund="710001"; 需要基金代码, 可以通过调用 **fund_em_open_fund_daily** 获取 |
+| indicator | str | indicator="单位净值走势";  参见 **fund_em_open_fund_info** 参数一览表     |
 
 fund_em_open_fund_info 参数一览表
 
-|参数名称 |备注|
-|---|---|
-|单位净值走势     |   - |
-|累计净值走势     |   - |
-|累计收益率走势   |   - |
-|同类排名走势     |   - |
-|同类排名百分比   | - |
-|分红送配详情     | - |
-|拆分详情        | - |
+| 参数名称    | 备注  |
+|---------|-----|
+| 单位净值走势  | -   |
+| 累计净值走势  | -   |
+| 累计收益率走势 | -   |
+| 同类排名走势  | -   |
+| 同类排名百分比 | -   |
+| 分红送配详情  | -   |
+| 拆分详情    | -   |
 
 输出参数-单位净值走势
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 净值日期      | object   |  -  |
-| 单位净值      | float64   |  -   |
-| 日增长率      | float64   |  注意单位: %   |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 净值日期 | object  | -       |
+| 单位净值 | float64 | -       |
+| 日增长率 | float64 | 注意单位: % |
 
 接口示例-单位净值走势
 
 ```python
 import akshare as ak
-fund_em_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="单位净值走势")
-print(fund_em_info_df)
+
+fund_em_open_fund_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="单位净值走势")
+print(fund_em_open_fund_info_df)
 ```
 
 数据示例-单位净值走势
@@ -174,17 +177,18 @@ print(fund_em_info_df)
 
 输出参数-累计净值走势
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 净值日期      | object   |  -        |
-| 累计净值      | float64   |  -        |
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| 净值日期 | object  | -   |
+| 累计净值 | float64 | -   |
 
 接口示例-累计净值走势
 
 ```python
 import akshare as ak
-fund_em_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="累计净值走势")
-print(fund_em_info_df)
+
+fund_em_open_fund_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="累计净值走势")
+print(fund_em_open_fund_info_df)
 ```
 
 数据示例-累计净值走势
@@ -206,17 +210,18 @@ print(fund_em_info_df)
 
 输出参数-累计收益率走势
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- | ---------------- |
-| 净值日期      | object   | -  |
-| 累计收益率      | float64   |  注意单位: %   |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 净值日期  | object  | -       |
+| 累计收益率 | float64 | 注意单位: % |
 
 接口示例-累计收益率走势
 
 ```python
 import akshare as ak
-fund_em_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="累计收益率走势")
-print(fund_em_info_df)
+
+fund_em_open_fund_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="累计收益率走势")
+print(fund_em_open_fund_info_df)
 ```
 
 数据示例-累计收益率走势
@@ -238,18 +243,19 @@ print(fund_em_info_df)
 
 输出参数-同类排名走势
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 报告日期      | object   | -        |
-| 同类型排名-每日近三月排名      | float64   |  -        |
-| 总排名-每日近三月排名      | float64   | -       |
+| 名称            | 类型      | 描述  |
+|---------------|---------|-----|
+| 报告日期          | object  | -   |
+| 同类型排名-每日近三月排名 | float64 | -   |
+| 总排名-每日近三月排名   | float64 | -   |
 
 接口示例-同类排名走势
 
 ```python
 import akshare as ak
-fund_em_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="同类排名走势")
-print(fund_em_info_df)
+
+fund_em_open_fund_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="同类排名走势")
+print(fund_em_open_fund_info_df)
 ```
 
 数据示例-同类排名走势
@@ -271,17 +277,18 @@ print(fund_em_info_df)
 
 输出参数-同类排名百分比
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 报告日期      | object   | -        |
-| 同类型排名-每日近3月收益排名百分比      | float64   |-        |
+| 名称                 | 类型      | 描述  |
+|--------------------|---------|-----|
+| 报告日期               | object  | -   |
+| 同类型排名-每日近3月收益排名百分比 | float64 | -   |
 
 接口示例-同类排名百分比
 
 ```python
 import akshare as ak
-fund_em_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="同类排名百分比")
-print(fund_em_info_df)
+
+fund_em_open_fund_info_df = ak.fund_em_open_fund_info(fund="710001", indicator="同类排名百分比")
+print(fund_em_open_fund_info_df)
 ```
 
 数据示例-同类排名百分比
@@ -303,20 +310,21 @@ print(fund_em_info_df)
 
 输出参数-分红送配详情
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- | ---------------- |
-| 年份      | object   |  -        |
-| 权益登记日      | object   |  -        |
-| 除息日      | object   | -        |
-| 每份分红      | object   |  -        |
-| 分红发放日      | object   |  -        |
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| 年份    | object | -   |
+| 权益登记日 | object | -   |
+| 除息日   | object | -   |
+| 每份分红  | object | -   |
+| 分红发放日 | object | -   |
 
 接口示例-分红送配详情
 
 ```python
 import akshare as ak
-fund_em_info_df = ak.fund_em_open_fund_info(fund="161606", indicator="分红送配详情")
-print(fund_em_info_df)
+
+fund_em_open_fund_info_df = ak.fund_em_open_fund_info(fund="161606", indicator="分红送配详情")
+print(fund_em_open_fund_info_df)
 ```
 
 数据示例-分红送配详情
@@ -330,19 +338,19 @@ print(fund_em_info_df)
 
 输出参数-拆分详情
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 年份      | object   |  -        |
-| 拆分折算日      | object   |  -        |
-| 拆分类型      | object   |  -        |
-| 拆分折算比例      | object   |  -        |
+| 名称     | 类型     | 描述  |
+|--------|--------|-----|
+| 年份     | object | -   |
+| 拆分折算日  | object | -   |
+| 拆分类型   | object | -   |
+| 拆分折算比例 | object | -   |
 
 接口示例-拆分详情
 
 ```python
 import akshare as ak
-fund_em_info_df = ak.fund_em_open_fund_info(fund="161606", indicator="拆分详情")
-print(fund_em_info_df)
+fund_em_open_fund_info_df = ak.fund_em_open_fund_info(fund="161606", indicator="拆分详情")
+print(fund_em_open_fund_info_df)
 ```
 
 数据示例-拆分详情
@@ -370,32 +378,33 @@ print(fund_em_info_df)
 
 输入参数
 
-| 名称   | 类型 | 描述 |
-| -------- | ---- |  --- |
-| - | -  |    - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 基金代码      | str   |  -  |
-| 基金简称      | str   |  -   |
-| 当前交易日-万份收益      | float   |  -   |
-| 当前交易日-7日年化%      | float   |  -   |
-| 当前交易日-单位净值      | float   |  -   |
-| 前一交易日-万份收益      | float   |  -   |
-| 前一交易日-7日年化%      | float   |  -   |
-| 前一交易日-单位净值      | float   |  -   |
-| 日涨幅      | str   |  -   |
-| 成立日期      | str   |  -   |
-| 基金经理      | str   |  -   |
-| 手续费      | str   |  -   |
-| 可购全部      | str   |  -   |
+| 名称          | 类型    | 描述  |
+|-------------|-------|-----|
+| 基金代码        | str   | -   |
+| 基金简称        | str   | -   |
+| 当前交易日-万份收益  | float | -   |
+| 当前交易日-7日年化% | float | -   |
+| 当前交易日-单位净值  | float | -   |
+| 前一交易日-万份收益  | float | -   |
+| 前一交易日-7日年化% | float | -   |
+| 前一交易日-单位净值  | float | -   |
+| 日涨幅         | str   | -   |
+| 成立日期        | str   | -   |
+| 基金经理        | str   | -   |
+| 手续费         | str   | -   |
+| 可购全部        | str   | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_em_money_fund_daily_df = ak.fund_em_money_fund_daily()
 print(fund_em_money_fund_daily_df)
 ```
@@ -429,24 +438,25 @@ print(fund_em_money_fund_daily_df)
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- |  --- |
-| fund | str|    fund="000009"; 需要基金代码, 可以通过调用 **fund_em_money_fund_daily** 获取 |
+| 名称   | 类型  | 描述                                                                 |
+|------|-----|--------------------------------------------------------------------|
+| fund | str | fund="000009"; 需要基金代码, 可以通过调用 **ak.fund_em_money_fund_daily()** 获取 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 净值日期      | str   |  -  |
-| 每万份收益      | str   |  -   |
-| 7日年化收益率      | float   |  -   |
-| 申购状态      |  str  |  -   |
-| 赎回状态      | str   |  -   |
+| 名称      | 类型    | 描述  |
+|---------|-------|-----|
+| 净值日期    | str   | -   |
+| 每万份收益   | str   | -   |
+| 7日年化收益率 | float | -   |
+| 申购状态    | str   | -   |
+| 赎回状态    | str   | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_em_money_fund_info_df = ak.fund_em_money_fund_info(fund="000009")
 print(fund_em_money_fund_info_df)
 ```
@@ -454,7 +464,7 @@ print(fund_em_money_fund_info_df)
 数据示例
 
 ```
-            净值日期    每万份收益 7日年化收益率  申购状态  赎回状态
+      净值日期    每万份收益 7日年化收益率  申购状态  赎回状态
 0     2020-04-30   0.4991  1.8490  开放申购  开放赎回
 1     2020-04-29   0.5266  1.8250  开放申购  开放赎回
 2     2020-04-28   0.4840  1.8230  开放申购  开放赎回
@@ -480,29 +490,30 @@ print(fund_em_money_fund_info_df)
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- |  --- |
-| - | -  |    - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 序号      | int   |  -  |
-| 基金代码      | str   |  -  |
-| 基金简称      | str   |  -   |
-| 上一期年化收益率      | float   |  -   |
-| 当前交易日-万份收益      | float   |  -   |
-| 当前交易日-7日年华      | float   |  -   |
-| 前一个交易日-万份收益      | float   |-   |
-| 前一个交易日-7日年华      | float   | -   |
-| 封闭期      | float   |  -   |
-| 申购状态      | str   |  -   |
+| 名称          | 类型    | 描述  |
+|-------------|-------|-----|
+| 序号          | int   | -   |
+| 基金代码        | str   | -   |
+| 基金简称        | str   | -   |
+| 上一期年化收益率    | float | -   |
+| 当前交易日-万份收益  | float | -   |
+| 当前交易日-7日年华  | float | -   |
+| 前一个交易日-万份收益 | float | -   |
+| 前一个交易日-7日年华 | float | -   |
+| 封闭期         | float | -   |
+| 申购状态        | str   | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_em_financial_fund_daily_df = ak.fund_em_financial_fund_daily()
 print(fund_em_financial_fund_daily_df)
 ```
@@ -510,7 +521,7 @@ print(fund_em_financial_fund_daily_df)
 数据示例
 
 ```
-   序号    基金代码          基金简称 上一期年化收益率  ... 前一个交易日-万份收益 前一个交易日-7日年华  封闭期 申购状态
+   序号 基金代码   基金简称  上一期年化收益率  ... 前一个交易日-万份收益 前一个交易日-7日年华  封闭期 申购状态
 0   1  000134     信诚理财28日盈A   2.1010  ...      0.4548      1.8150  28天  限大额
 1   2  090021      大成月添利债券A   4.7470  ...      0.5243      1.8540  1个月  限大额
 2   3  110051   易方达月月利理财债券B   2.4040  ...      0.6606      2.2450  1个月  限大额
@@ -535,24 +546,25 @@ print(fund_em_financial_fund_daily_df)
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- | --- |
-| fund | str|    fund="000134"; 需要基金代码, 可以通过调用 **fund_em_financial_fund_daily** 获取 |
+| 名称   | 类型  | 描述                                                                |
+|------|-----|-------------------------------------------------------------------|
+| fund | str | fund="000134"; 需要基金代码, 可以通过调用 **fund_em_financial_fund_daily** 获取 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 净值日期      | str   |  -  |
-| 每万份收益      | str   | -   |
-| 7日年化收益率      | float   | -   |
-| 申购状态      |  str  | -   |
-| 赎回状态      | str   |  -   |
+| 名称      | 类型    | 描述  |
+|---------|-------|-----|
+| 净值日期    | str   | -   |
+| 每万份收益   | str   | -   |
+| 7日年化收益率 | float | -   |
+| 申购状态    | str   | -   |
+| 赎回状态    | str   | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_em_financial_fund_info_df = ak.fund_em_financial_fund_info(fund="000134")
 print(fund_em_financial_fund_info_df)
 ```
@@ -586,30 +598,31 @@ print(fund_em_financial_fund_info_df)
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- |  --- |
-| - | -  |   - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 基金代码      | str   |  -  |
-| 基金简称      | str   |  -   |
-| 单位净值      | float   |  -   |
-| 累计净值      | float   |  -   |
-| 前交易日-单位净值      | float   |  -   |
-| 前交易日-累计净值      | float   |  -   |
-| 日增长值      | float   |  -   |
-| 日增长率      | float   |  注意单位: %   |
-| 市价      | str   |  -   |
-| 折价率      | str   |  -   |
-| 手续费      | str   |  -   |
+| 名称        | 类型    | 描述      |
+|-----------|-------|---------|
+| 基金代码      | str   | -       |
+| 基金简称      | str   | -       |
+| 单位净值      | float | -       |
+| 累计净值      | float | -       |
+| 前交易日-单位净值 | float | -       |
+| 前交易日-累计净值 | float | -       |
+| 日增长值      | float | -       |
+| 日增长率      | float | 注意单位: % |
+| 市价        | str   | -       |
+| 折价率       | str   | -       |
+| 手续费       | str   | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_em_graded_fund_daily_df = ak.fund_em_graded_fund_daily()
 print(fund_em_graded_fund_daily_df)
 ```
@@ -643,25 +656,26 @@ print(fund_em_graded_fund_daily_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述 |
-| -------- | ---- | ---- | --- |
-| fund | str| Y    |   fund="150232"; 需要基金代码, 可以通过调用 **fund_em_graded_fund_daily** 获取 |
+| 名称   | 类型  | 描述                                                             |
+|------|-----|----------------------------------------------------------------|
+| fund | str | fund="150232"; 需要基金代码, 可以通过调用 **fund_em_graded_fund_daily** 获取 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 净值日期      | str   | Y        | -  |
-| 单位净值      | float   | Y        | -   |
-| 累计净值      | float   | Y        | -   |
-| 日增长率      | float   | Y        | 注意单位: %; 日增长率为空原因如下: 1. 非交易日净值不参与日增长率计算(灰色数据行). 2. 上一交易日净值未披露, 日增长率无法计算.   |
-| 申购状态      |  str  | Y        | -   |
-| 赎回状态      | str   | Y        | -   |
+| 名称   | 类型    | 描述                                                                       |
+|------|-------|--------------------------------------------------------------------------|
+| 净值日期 | str   | -                                                                        |
+| 单位净值 | float | -                                                                        |
+| 累计净值 | float | -                                                                        |
+| 日增长率 | float | 注意单位: %; 日增长率为空原因如下: 1. 非交易日净值不参与日增长率计算(灰色数据行). 2. 上一交易日净值未披露, 日增长率无法计算. |
+| 申购状态 | str   | -                                                                        |
+| 赎回状态 | str   | -                                                                        |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_em_graded_fund_info_df = ak.fund_em_graded_fund_info(fund="150232")
 print(fund_em_graded_fund_info_df)
 ```
@@ -689,7 +703,7 @@ print(fund_em_graded_fund_info_df)
 
 目标地址: http://fund.eastmoney.com/cnjy_dwjz.html
 
-描述: 获取东方财富网站-天天基金网-基金数据-场内交易基金-实时数据, 此接口数据每个交易日 **16:00～23:00**
+描述: 东方财富网站-天天基金网-基金数据-场内交易基金-实时数据, 此接口数据每个交易日 **16:00～23:00**
 
 限量: 单次返回当前时刻所有数据
 
@@ -861,6 +875,7 @@ print(fund_em_hk_fund_hist_df)
 
 ```python
 import akshare as ak
+
 fund_em_hk_fund_hist_df = ak.fund_em_hk_fund_hist(code='1002200683', symbol="分红送配详情")
 print(fund_em_hk_fund_hist_df)
 ```

@@ -9,7 +9,7 @@
 
 ## 安装 [AKShare](https://github.com/akfamily/akshare)
 
-提示：由于 py_mini_racer 库的编译问题，目前 ARM 架构的处理暂时无法安装和使用 AKShare, 已经在跟 py_mini_racer 库作者联系
+提示：目前已经支持苹果 M1 处理器安装 AKShare，请参考[AKShare 文档-苹果 M1 处理器支持](https://www.akshare.xyz/installation.html#m1)
 
 ### 通用安装
 

@@ -19,92 +19,64 @@ def stock_profit_forecast():
     :return: 盈利预测
     :rtype: pandas.DataFrame
     """
-    url = "http://reportapi.eastmoney.com/report/predic"
-    date_now = datetime.now().date().isoformat()
-    date_previous = date_now.replace(date_now[:4], str(int(date_now[:4]) - 2))
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "dyCode": "*",
-        "pageNo": "1",
-        "pageSize": "100",
-        "fields": "",
-        "beginTime": date_previous,
-        "endTime": date_now,
-        "hyCode": "*",
-        "gnCode": "*",
-        "marketCode": "*",
-        "sort": "count,desc",
-        "p": "1",
-        "pageNum": "1",
-        "_": "1615374649216",
+        'reportName': 'RPT_WEB_RESPREDICT',
+        'columns': 'WEB_RESPREDICT',
+        'pageNumber': '1',
+        'pageSize': '500',
+        'sortTypes': '-1',
+        'sortColumns': 'RATING_ORG_NUM',
+        'p': '1',
+        'pageNo': '1',
+        'pageNum': '1',
+        'filter': '',
+        '_': '1640241417037',
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    page_num = data_json["TotalPage"]
+    page_num = int(data_json['result']['pages'])
     big_df = pd.DataFrame()
     for page in tqdm(range(1, page_num + 1)):
-        params = {
-            "dyCode": "*",
-            "pageNo": page,
-            "pageSize": "100",
-            "fields": "",
-            "beginTime": date_previous,
-            "endTime": date_now,
-            "hyCode": "*",
-            "gnCode": "*",
-            "marketCode": "*",
-            "sort": "count,desc",
-            "p": page,
-            "pageNum": page,
-            "_": "1615374649216",
-        }
+        params.update({
+            'pageNumber': page,
+            'p': page,
+            'pageNo': page,
+            'pageNum': page,
+        })
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"])
+        temp_df = pd.DataFrame(data_json['result']['data'])
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = range(1, len(big_df) + 1)
+    year1 = list(set(big_df['YEAR1']))[0]
+    year2 = list(set(big_df['YEAR2']))[0]
+    year3 = list(set(big_df['YEAR3']))[0]
+    year4 = list(set(big_df['YEAR4']))[0]
     big_df.columns = [
         "序号",
-        "名称",
+        "-",
         "代码",
+        "名称",
         "研报数",
         "机构投资评级(近六个月)-买入",
         "机构投资评级(近六个月)-增持",
         "机构投资评级(近六个月)-中性",
         "机构投资评级(近六个月)-减持",
         "机构投资评级(近六个月)-卖出",
+        "-",
         "_",
+        f"{year1}预测每股收益",
+        "-",
         "_",
+        f"{year2}预测每股收益",
+        "-",
         "_",
+        f"{year3}预测每股收益",
+        "-",
         "_",
-        f"{int(date_previous[:4])+2}预测每股收益",
-        "_",
-        "_",
-        f"{int(date_previous[:4])+3}预测每股收益",
-        f"{int(date_previous[:4])+4}预测每股收益",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        f"{int(date_previous[:4])+1}预测每股收益",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
+        f"{year4}预测每股收益",
         "_",
         "_",
         "_",
@@ -128,12 +100,14 @@ def stock_profit_forecast():
             "机构投资评级(近六个月)-中性",
             "机构投资评级(近六个月)-减持",
             "机构投资评级(近六个月)-卖出",
-            f"{int(date_previous[:4])+1}预测每股收益",
-            f"{int(date_previous[:4])+2}预测每股收益",
-            f"{int(date_previous[:4])+3}预测每股收益",
-            f"{int(date_previous[:4])+4}预测每股收益",
+            f"{year1}预测每股收益",
+            f"{year2}预测每股收益",
+            f"{year3}预测每股收益",
+            f"{year4}预测每股收益",
         ]
     ]
+    big_df['机构投资评级(近六个月)-减持'] = pd.to_numeric(big_df['机构投资评级(近六个月)-减持'])
+    big_df['机构投资评级(近六个月)-卖出'] = pd.to_numeric(big_df['机构投资评级(近六个月)-卖出'])
     return big_df
 
 
