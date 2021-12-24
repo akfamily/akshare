@@ -19,6 +19,7 @@ from io import StringIO, BytesIO
 
 import requests
 import pandas as pd
+from typing import Tuple, Any
 
 from akshare.option.cons import (
     get_calendar,
@@ -30,7 +31,7 @@ from akshare.option.cons import (
 )
 
 
-def option_dce_daily(trade_date: str = "20210728", symbol: str = "聚乙烯期权") -> pd.DataFrame:
+def option_dce_daily(symbol: str = "聚乙烯期权", trade_date: str = "20210728") -> Tuple[Any, Any]:
     """
     大连商品交易所-期权-日频行情数据
     :param trade_date: 交易日
@@ -44,7 +45,7 @@ def option_dce_daily(trade_date: str = "20210728", symbol: str = "聚乙烯期�
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return None
+        return
     url = DCE_DAILY_OPTION_URL
     payload = {
         "dayQuotes.variety": "all",
@@ -81,7 +82,7 @@ def option_dce_daily(trade_date: str = "20210728", symbol: str = "聚乙烯期�
         return table_df[table_df["商品名称"] == "棕榈油"], another_df[another_df.iloc[:, 0].str.contains(r'^p\d')]
 
 
-def option_czce_daily(trade_date: str = "20191017", symbol: str = "白糖期权") -> pd.DataFrame:
+def option_czce_daily(symbol: str = "白糖期权", trade_date: str = "20191017") -> pd.DataFrame:
     """
     郑州商品交易所-期权-日频行情数据
     :param trade_date: 交易日
@@ -95,7 +96,7 @@ def option_czce_daily(trade_date: str = "20191017", symbol: str = "白糖期权"
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("{}非交易日".format(day.strftime("%Y%m%d")))
-        return None
+        return
     if day > datetime.date(2010, 8, 24):
         url = CZCE_DAILY_OPTION_URL_3.format(day.strftime("%Y"), day.strftime("%Y%m%d"))
         try:
@@ -127,10 +128,10 @@ def option_czce_daily(trade_date: str = "20191017", symbol: str = "白糖期权"
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
         except:
-            return None
+            return
 
 
-def option_shfe_daily(trade_date: str = "20200827", symbol: str = "铝期权") -> pd.DataFrame:
+def option_shfe_daily(symbol: str = "铝期权", trade_date: str = "20200827") -> pd.DataFrame:
     """
     上海期货交易所-期权-日频行情数据
     :param trade_date: 交易日
@@ -144,7 +145,7 @@ def option_shfe_daily(trade_date: str = "20200827", symbol: str = "铝期权") -
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return None
+        return
     if day > datetime.date(2010, 8, 24):
         url = SHFE_OPTION_URL.format(day.strftime("%Y%m%d"))
         try:
@@ -233,17 +234,17 @@ def option_shfe_daily(trade_date: str = "20200827", symbol: str = "铝期权") -
             ]]
             return contract_df, volatility_df
         except:
-            return None
+            return
 
 
 if __name__ == "__main__":
-    option_czce_daily_df = option_czce_daily(trade_date="20200817", symbol="动力煤期权")
+    option_czce_daily_df = option_czce_daily(symbol="动力煤期权", trade_date="20200817")
     print(option_czce_daily_df)
 
-    option_dce_daily_one, option_dce_daily_two = option_dce_daily(trade_date="20210113", symbol="聚乙烯期权")
+    option_dce_daily_one, option_dce_daily_two = option_dce_daily(symbol="聚乙烯期权", trade_date="20210113")
     print(option_dce_daily_one)
     print(option_dce_daily_two)
 
-    option_shfe_daily_one, option_shfe_daily_two = option_shfe_daily(trade_date="20210312", symbol="天胶期权")
+    option_shfe_daily_one, option_shfe_daily_two = option_shfe_daily(symbol="天胶期权", trade_date="20210312")
     print(option_shfe_daily_one)
     print(option_shfe_daily_two)
