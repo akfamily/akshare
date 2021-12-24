@@ -46,7 +46,7 @@ pip install akshare --upgrade -i https://pypi.org/simple
 AKShare 由于使用 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-into-python/) 项目来支持在 Python 中运行 JavaScript
 代码，所以要完整的使用 AKShare 的全部功能需要安装该库。
 
-但是由于苹果的 M1 芯片采用 ARM 架构，而 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-into-python/) 并没有编译相对于的
+但是由于苹果的 M1 芯片采用 ARM 架构，而 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-into-python/) 并没有编译相对应的
 版本，所以造成在 M1 芯片的计算机上使用 AKShare 会出问题。
 
 ### 解决方案
