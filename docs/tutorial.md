@@ -415,9 +415,6 @@
  "currency_hist"  # 指定历史日期的货币对的历史报价
  "currency_pair_map"  # 指定货币的所有可获取货币对的数据
  "currency_name_code"  # 当前所有可兑换货币对
- # 工具-GitHub
- "tool_github_star_list"  # GitHub Star 的用户
- "tool_github_email_address"  # GitHub 用户的邮箱
  # 公募基金
  "fund_em_fund_name",  # 基金基本信息
  "fund_em_open_fund_daily",  # 开放式基金-实时数据
