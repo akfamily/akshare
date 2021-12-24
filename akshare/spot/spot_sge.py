@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-# !/usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2021/12/7 17:00
 Desc: 上海黄金交易所-数据资讯-行情走势

@@ -8,7 +8,7 @@ https://www.kaggle.com/marcogdepinto/let-s-discover-more-about-the-olympic-games
 import pandas as pd
 
 
-def sport_olympic_hist():
+def sport_olympic_hist() -> pd.DataFrame:
     """
     运动-奥运会-奖牌数据
     https://www.kaggle.com/marcogdepinto/let-s-discover-more-about-the-olympic-games
