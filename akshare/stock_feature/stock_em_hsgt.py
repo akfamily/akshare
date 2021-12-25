@@ -527,7 +527,7 @@ def stock_em_hsgt_hold_stock(
 
 
 def stock_em_hsgt_stock_statistics(
-        symbol: str = "南向持股", start_date: str = "20211027", end_date: str = "20211027"
+        symbol: str = "北向持股", start_date: str = "20211027", end_date: str = "20211027"
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
@@ -902,7 +902,7 @@ def stock_em_hsgt_stock_statistics(
 
 
 def stock_em_hsgt_institution_statistics(
-        market: str = "北向持股", start_date: str = "20200127", end_date: str = "20200127"
+        market: str = "北向持股", start_date: str = "20211216", end_date: str = "20211217"
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
@@ -958,7 +958,12 @@ def stock_em_hsgt_institution_statistics(
             '持股市值变化-5日',
             '持股市值变化-10日',
         ]]
-        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+        temp_df['持股日期'] = pd.to_datetime(temp_df['持股日期']).dt.date
+        temp_df['持股只数'] = pd.to_numeric(temp_df['持股只数'])
+        temp_df['持股市值'] = pd.to_numeric(temp_df['持股市值'])
+        temp_df['持股市值变化-1日'] = pd.to_numeric(temp_df['持股市值变化-1日'])
+        temp_df['持股市值变化-5日'] = pd.to_numeric(temp_df['持股市值变化-5日'])
+        temp_df['持股市值变化-10日'] = pd.to_numeric(temp_df['持股市值变化-10日'])
         return temp_df
 
     elif market == "北向持股":
@@ -1001,7 +1006,12 @@ def stock_em_hsgt_institution_statistics(
             '持股市值变化-5日',
             '持股市值变化-10日',
         ]]
-        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+        temp_df['持股日期'] = pd.to_datetime(temp_df['持股日期']).dt.date
+        temp_df['持股只数'] = pd.to_numeric(temp_df['持股只数'])
+        temp_df['持股市值'] = pd.to_numeric(temp_df['持股市值'])
+        temp_df['持股市值变化-1日'] = pd.to_numeric(temp_df['持股市值变化-1日'])
+        temp_df['持股市值变化-5日'] = pd.to_numeric(temp_df['持股市值变化-5日'])
+        temp_df['持股市值变化-10日'] = pd.to_numeric(temp_df['持股市值变化-10日'])
         return temp_df
     elif market == "沪股通持股":
         params = {
@@ -1043,7 +1053,12 @@ def stock_em_hsgt_institution_statistics(
             '持股市值变化-5日',
             '持股市值变化-10日',
         ]]
-        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+        temp_df['持股日期'] = pd.to_datetime(temp_df['持股日期']).dt.date
+        temp_df['持股只数'] = pd.to_numeric(temp_df['持股只数'])
+        temp_df['持股市值'] = pd.to_numeric(temp_df['持股市值'])
+        temp_df['持股市值变化-1日'] = pd.to_numeric(temp_df['持股市值变化-1日'])
+        temp_df['持股市值变化-5日'] = pd.to_numeric(temp_df['持股市值变化-5日'])
+        temp_df['持股市值变化-10日'] = pd.to_numeric(temp_df['持股市值变化-10日'])
         return temp_df
     elif market == "深股通持股":
         params = {
@@ -1085,7 +1100,12 @@ def stock_em_hsgt_institution_statistics(
             '持股市值变化-5日',
             '持股市值变化-10日',
         ]]
-        temp_df['持股日期'] = temp_df['持股日期'].str.slice(0, 10)
+        temp_df['持股日期'] = pd.to_datetime(temp_df['持股日期']).dt.date
+        temp_df['持股只数'] = pd.to_numeric(temp_df['持股只数'])
+        temp_df['持股市值'] = pd.to_numeric(temp_df['持股市值'])
+        temp_df['持股市值变化-1日'] = pd.to_numeric(temp_df['持股市值变化-1日'])
+        temp_df['持股市值变化-5日'] = pd.to_numeric(temp_df['持股市值变化-5日'])
+        temp_df['持股市值变化-10日'] = pd.to_numeric(temp_df['持股市值变化-10日'])
         return temp_df
 
 
@@ -1495,7 +1515,7 @@ if __name__ == "__main__":
     print(stock_em_hsgt_stock_statistics_df)
 
     stock_em_hsgt_institution_statistics_df = stock_em_hsgt_institution_statistics(
-        market="北向持股", start_date="20210915", end_date="20210916"
+        market="北向持股", start_date="20211215", end_date="20211216"
     )
     print(stock_em_hsgt_institution_statistics_df)
 
