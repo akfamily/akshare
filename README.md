@@ -164,7 +164,8 @@ Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://git
 3. Any investor based on [AKShare](https://github.com/akfamily/akshare) research should pay more attention to data risk;
 4. [AKShare](https://github.com/akfamily/akshare) will insist on providing open-source financial data;
 5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/akfamily/akshare) may be removed;
-6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare).
+6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare);
+7. Provide HTTP API for the person who uses other program language: [AKTools](https://aktools.readthedocs.io/).
 
 ## Show your style
 

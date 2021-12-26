@@ -61,7 +61,7 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     return big_df
 
 
-def bond_zh_hs_cov_daily(symbol: str = "sz123111") -> pd.DataFrame:
+def bond_zh_hs_cov_daily(symbol: str = "sh010107") -> pd.DataFrame:
     """
     新浪财经-债券-沪深可转债的历史行情数据, 大量抓取容易封 IP
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
@@ -457,6 +457,8 @@ def bond_zh_cov_info(symbol: str = "123121") -> pd.DataFrame:
     """
     https://data.eastmoney.com/kzz/detail/123121.html
     东方财富网-数据中心-新股数据-可转债详情
+    :param symbol: 可转债代码
+    :type symbol: str
     :return: 可转债详情
     :rtype: pandas.DataFrame
     """

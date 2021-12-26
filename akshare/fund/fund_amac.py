@@ -8,8 +8,8 @@ Desc: 中国证券投资基金业协会-信息公示数据
 """
 import pandas as pd
 import requests
-from tqdm import tqdm
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from tqdm import tqdm
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
