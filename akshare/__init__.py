@@ -1727,9 +1727,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.3 fix: fix stock_em_ztb interface
 1.3.4 fix: fix stock_em_hsgt_stock_statistics interface
 1.3.5 fix: update QQ info
+1.3.6 fix: fix stock_dzjy_sctj interface
 """
 
-__version__ = "1.3.5"
+__version__ = "1.3.6"
 __author__ = "Albert King"
 
 import sys
