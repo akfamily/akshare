@@ -2319,7 +2319,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.0.35: fix: fix bond_cov_jsl interface
 
-1.0.36: fix: fix stock_em_hsgt_north_net_flow_in interface
+1.0.36: fix: fix stock_hsgt_north_net_flow_in_em interface
 
 1.0.37: add: add macro_swiss interface
 
@@ -2869,4 +2869,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.5 fix: update QQ info
 
 1.3.6 fix: fix stock_dzjy_sctj interface
+
+1.3.7 fix: fix stock_hsgt_north_xxxx interface
 ```
