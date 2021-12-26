@@ -5045,33 +5045,34 @@ print(stock_hk_ggt_components_em_df)
 
 #### 北向净流入
 
-接口: stock_em_hsgt_north_net_flow_in
+接口: stock_hsgt_north_net_flow_in_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/
 
-描述: 东方财富网-数据中心-特色数据-沪深港通持股; 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 北向资金是沪股通与深股通的资金加总
+描述: 东方财富网-数据中心-沪深港通持股-北向概况-北向净流入; 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 北向资金是沪股通与深股通的资金加总
 
-限量: 单次获取所有数据
+限量: 单次返回指定 symbol 的所有数据
 
 输入参数
 
-| 名称        | 类型  | 描述                                              |
-|-----------|-----|-------------------------------------------------|
-| indicator | str | indicator="沪股通"; choice of {"沪股通", "深股通", "北上"} |
+| 名称     | 类型  | 描述                                           |
+|--------|-----|----------------------------------------------|
+| symbol | str | symbol="沪股通"; choice of {"沪股通", "深股通", "北上"} |
 
 输出参数
 
-| 名称    | 类型      | 描述         |
-|-------|---------|------------|
-| date  | object  | 日期时间       |
-| value | float64 | 数值(单位: 亿元) |
+| 名称    | 类型      | 描述       |
+|-------|---------|----------|
+| date  | object  | 日期时间     |
+| value | float64 | 注意单位: 万元 |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_em_hsgt_north_net_flow_in_df = ak.stock_em_hsgt_north_net_flow_in(indicator="沪股通")
-print(stock_em_hsgt_north_net_flow_in_df)
+
+stock_hsgt_north_net_flow_in_em_df = ak.stock_hsgt_north_net_flow_in_em(symbol="沪股通")
+print(stock_hsgt_north_net_flow_in_em_df)
 ```
 
 数据示例
@@ -5093,32 +5094,33 @@ print(stock_em_hsgt_north_net_flow_in_df)
 
 #### 北向资金余额
 
-接口: stock_em_hsgt_north_cash
+接口: stock_hsgt_north_cash_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/
 
-描述: 东方财富网-数据中心-特色数据-沪深港通持股; 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 北向资金是沪股通与深股通的资金加总
+描述: 东方财富网-数据中心-沪深港通持股-北向概况-北向资金余额; 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 北向资金是沪股通与深股通的资金加总
 
-限量: 单次获取所有数据
+限量: 单次返回指定 symbol 的所有数据
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| indicator | str |    indicator="沪股通"; 三选一 ("沪股通", "深股通", "北上") |
+| 名称     | 类型  | 描述                                           |
+|--------|-----|----------------------------------------------|
+| symbol | str | symbol="沪股通"; choice of {"沪股通", "深股通", "北上"} |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| date          | str   |  日期时间     |
-| value          | float   |  数值(单位: 万元)     |
+| 名称    | 类型      | 描述       |
+|-------|---------|----------|
+| date  | object  | 日期时间     |
+| value | float64 | 注意单位: 万元 |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_em_hsgt_north_cash_df = ak.stock_em_hsgt_north_cash(indicator="沪股通")
+
+stock_em_hsgt_north_cash_df = ak.stock_hsgt_north_cash_em(symbol="沪股通")
 print(stock_em_hsgt_north_cash_df)
 ```
 
@@ -5141,33 +5143,34 @@ print(stock_em_hsgt_north_cash_df)
 
 #### 北向累计净流入
 
-接口: stock_em_hsgt_north_acc_flow_in
+接口: stock_hsgt_north_acc_flow_in_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/
 
-描述: 获取东方财富网-数据中心-特色数据-沪深港通持股, 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 北向资金是沪股通与深股通的资金加总
+描述: 东方财富网-数据中心-沪深港通持股-北向概况-北向累计净流入, 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 北向资金是沪股通与深股通的资金加总
 
-限量: 单次获取所有数据
+限量: 单次返回指定 symbol 的所有数据
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| indicator | str |    indicator="沪股通"; 三选一 ("沪股通", "深股通", "北上") |
+| 名称     | 类型  | 描述                                           |
+|--------|-----|----------------------------------------------|
+| symbol | str | symbol="沪股通"; choice of {"沪股通", "深股通", "北上"} |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| date          | str   |  日期时间     |
-| value          | float   |  数值(单位: 万元)     |
+| 名称    | 类型    | 描述         |
+|-------|-------|------------|
+| date  | str   | 日期时间       |
+| value | float | 数值(单位: 万元) |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_em_hsgt_north_acc_flow_in_df = ak.stock_em_hsgt_north_acc_flow_in(indicator="沪股通")
-print(stock_em_hsgt_north_acc_flow_in_df)
+
+stock_hsgt_north_acc_flow_in_em_df = ak.stock_hsgt_north_acc_flow_in_em(symbol="沪股通")
+print(stock_hsgt_north_acc_flow_in_em_df)
 ```
 
 数据示例
@@ -5189,33 +5192,34 @@ print(stock_em_hsgt_north_acc_flow_in_df)
 
 #### 南向净流入
 
-接口: stock_em_hsgt_south_net_flow_in
+接口: stock_hsgt_south_net_flow_in_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/
 
-描述: 获取东方财富网-数据中心-特色数据-沪深港通持股; 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 南向资金是沪股通与深股通的资金加总
+描述: 东方财富网-数据中心-沪深港通持股-南向概括-南向净流入; 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 南向资金是沪股通与深股通的资金加总
 
-限量: 单次获取指定 indicator 的所有数据
+限量: 单次返回指定 symbol 的所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y    |   indicator="沪股通"; choice of {"沪股通", "深股通", "南下"} |
+| 名称     | 类型  | 描述                                           |
+|--------|-----|----------------------------------------------|
+| symbol | str | symbol="沪股通"; choice of {"沪股通", "深股通", "南下"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | str   | Y        | 日期     |
-| value          | float   | Y        | 注意单位: 万元    |
+| 名称    | 类型      | 描述       |
+|-------|---------|----------|
+| date  | object  | 日期       |
+| value | float64 | 注意单位: 万元 |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_em_hsgt_south_net_flow_in_df = ak.stock_em_hsgt_south_net_flow_in(indicator="沪股通")
-print(stock_em_hsgt_south_net_flow_in_df)
+
+stock_hsgt_south_net_flow_in_em_df = ak.stock_hsgt_south_net_flow_in_em(symbol="沪股通")
+print(stock_hsgt_south_net_flow_in_em_df)
 ```
 
 数据示例
@@ -5237,33 +5241,34 @@ print(stock_em_hsgt_south_net_flow_in_df)
 
 #### 南向资金余额
 
-接口: stock_em_hsgt_south_cash
+接口: stock_hsgt_south_cash_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/
 
-描述: 获取东方财富网-数据中心-特色数据-沪深港通持股, 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 南向资金是沪股通与深股通的资金加总
+描述: 东方财富网-数据中心-沪深港通持股-南向概括-南向资金余额, 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 南向资金是沪股通与深股通的资金加总
 
-限量: 单次获取指定 indicator 的所有数据
+限量: 单次返回指定 symbol 的所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y    |   indicator="沪股通"; 三选一 ("沪股通", "深股通", "南下") |
+| 名称     | 类型  | 描述                                           |
+|--------|-----|----------------------------------------------|
+| symbol | str | symbol="沪股通"; choice of {"沪股通", "深股通", "南下"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | str   | Y        | 日期     |
-| value          | float   | Y        | 注意单位: 万元     |
+| 名称    | 类型      | 描述       |
+|-------|---------|----------|
+| date  | object  | 日期       |
+| value | float64 | 注意单位: 万元 |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_em_hsgt_south_cash_df = ak.stock_em_hsgt_south_cash(indicator="沪股通")
-print(stock_em_hsgt_south_cash_df)
+
+stock_hsgt_south_cash_em_df = ak.stock_hsgt_south_cash_em(symbol="沪股通")
+print(stock_hsgt_south_cash_em_df)
 ```
 
 数据示例
@@ -5285,33 +5290,34 @@ print(stock_em_hsgt_south_cash_df)
 
 #### 南向累计净流入
 
-接口: stock_em_hsgt_south_acc_flow_in
+接口: stock_hsgt_south_acc_flow_in_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/
 
-描述: 获取东方财富网-数据中心-特色数据-沪深港通持股, 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 南向资金是沪股通与深股通的资金加总
+描述: 东方财富网-数据中心-沪深港通持股-南向概括-累计净流入, 注: 资金净流入=当日资金限额-当日资金余额; 资金净流入包含当日成交净买额和当日买入申报未成交金额; 南向资金是沪股通与深股通的资金加总
 
-限量: 单次获取指定 indicator 的所有数据
+限量: 单次返回指定 symbol 的所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y    |   indicator="沪股通"; choice of {"沪股通", "深股通", "南下"} |
+| 名称     | 类型  | 描述                                           |
+|--------|-----|----------------------------------------------|
+| symbol | str | symbol="沪股通"; choice of {"沪股通", "深股通", "南下"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | str   | Y        | 日期时间     |
-| value          | float   | Y        | 注意单位: 万元     |
+| 名称    | 类型      | 描述       |
+|-------|---------|----------|
+| date  | object  | 日期时间     |
+| value | float64 | 注意单位: 万元 |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_em_hsgt_south_acc_flow_in_df = ak.stock_em_hsgt_south_acc_flow_in(indicator="沪股通")
-print(stock_em_hsgt_south_acc_flow_in_df)
+
+stock_hsgt_south_acc_flow_in_em_df = ak.stock_hsgt_south_acc_flow_in_em(symbol="沪股通")
+print(stock_hsgt_south_acc_flow_in_em_df)
 ```
 
 数据示例
@@ -5337,42 +5343,43 @@ print(stock_em_hsgt_south_acc_flow_in_df)
 
 目标地址: http://data.eastmoney.com/hsgtcg/hy.html
 
-描述: 获取东方财富网-数据中心-沪深港通持股-行业板块排行
+描述: 东方财富网-数据中心-沪深港通持股-板块排行
 
 限量: 单次获取指定 symbol 和 indicator 的所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    |   symbol="北向资金增持行业板块排行"; choice of {"北向资金增持行业板块排行", "北向资金增持概念板块排行", "北向资金增持地域板块排行"} |
-| indicator | str | Y    |   indicator="今日"; choice of {"今日", "3日", "5日", "10日", "1月", "1季", "1年"} |
+| 名称        | 类型  | 必选  | 描述                                                                                |
+|-----------|-----|-----|-----------------------------------------------------------------------------------|
+| symbol    | str | Y   | symbol="北向资金增持行业板块排行"; choice of {"北向资金增持行业板块排行", "北向资金增持概念板块排行", "北向资金增持地域板块排行"} |
+| indicator | str | Y   | indicator="今日"; choice of {"今日", "3日", "5日", "10日", "1月", "1季", "1年"}             |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int   | Y        | -     |
-| 名称          | str   | Y        | -     |
-| 最新涨跌幅          | float   | Y        | 注意单位: %     |
-| 北向资金今日持股-股票只数          | float   | Y        | -     |
-| 北向资金今日持股-市值          | float   | Y        | 注意单位: 元     |
-| 北向资金今日持股-占板块比          | float   | Y        | -    |
-| 北向资金今日持股-占北向资金比          | float   | Y        | -     |
-| 北向资金今日增持估计-股票只数          | float   | Y        | -     |
-| 北向资金今日增持估计-市值          | float   | Y        | 注意单位: 元     |
-| 北向资金今日增持估计-市值增幅          | float   | Y        | -     |
-| 北向资金今日增持估计-占板块比          | float   | Y        | -     |
-| 北向资金今日增持估计-占北向资金比          | float   | Y        | -     |
-| 今日增持最大股-市值          | float   | Y        | -     |
-| 今日增持最大股-占股本比          | float   | Y        | -     |
-| 今日减持最大股-占股本比          | float   | Y        | -     |
-| 今日减持最大股-市值          | float   | Y        | -     |
+| 名称                | 类型    | 默认显示 | 描述      |
+|-------------------|-------|------|---------|
+| 序号                | int   | Y    | -       |
+| 名称                | str   | Y    | -       |
+| 最新涨跌幅             | float | Y    | 注意单位: % |
+| 北向资金今日持股-股票只数     | float | Y    | -       |
+| 北向资金今日持股-市值       | float | Y    | 注意单位: 元 |
+| 北向资金今日持股-占板块比     | float | Y    | -       |
+| 北向资金今日持股-占北向资金比   | float | Y    | -       |
+| 北向资金今日增持估计-股票只数   | float | Y    | -       |
+| 北向资金今日增持估计-市值     | float | Y    | 注意单位: 元 |
+| 北向资金今日增持估计-市值增幅   | float | Y    | -       |
+| 北向资金今日增持估计-占板块比   | float | Y    | -       |
+| 北向资金今日增持估计-占北向资金比 | float | Y    | -       |
+| 今日增持最大股-市值        | float | Y    | -       |
+| 今日增持最大股-占股本比      | float | Y    | -       |
+| 今日减持最大股-占股本比      | float | Y    | -       |
+| 今日减持最大股-市值        | float | Y    | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_em_hsgt_industry_rank_df = ak.stock_em_hsgt_board_rank(symbol="北向资金增持行业板块排行", indicator="今日")
 print(stock_em_hsgt_industry_rank_df)
 ```
@@ -5406,36 +5413,37 @@ print(stock_em_hsgt_industry_rank_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| market | str |    market="沪股通"; choice of {"北向", "沪股通", "深股通"} |
-| indicator | str |    indicator="沪股通"; choice of {"今日排行", "3日排行", "5日排行", "10日排行", "月排行", "季排行", "年排行"} |
+| 名称        | 类型  | 描述                                                                                |
+|-----------|-----|-----------------------------------------------------------------------------------|
+| market    | str | market="沪股通"; choice of {"北向", "沪股通", "深股通"}                                      |
+| indicator | str | indicator="沪股通"; choice of {"今日排行", "3日排行", "5日排行", "10日排行", "月排行", "季排行", "年排行"} |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |  -     |
-| 代码          | object   |  -     |
-| 名称          | object   |  -     |
-| 今日收盘价          | float64   |  -     |
-| 今日涨跌幅          | float64   |  注意单位: %     |
-| 今日持股-股数          | float64   | 注意单位: 万     |
-| 今日持股-市值         | float64   | 注意单位: 万     |
-| 今日持股-占流通股比         | float64   |  注意单位: %     |
-| 今日持股-占总股本比         | float64   |  注意单位: %    |
-| 增持估计-股数         | float64   |  注意单位: 万; 主要字段名根据 indicator 变化     |
-| 增持估计-市值         | float64   |  注意单位: 万; 主要字段名根据 indicator 变化     |
-| 增持估计-市值增幅         | object   |  注意单位: %; 主要字段名根据 indicator 变化     |
-| 增持估计-占流通股比         | float64   |  注意单位: ‰; 主要字段名根据 indicator 变化   |
-| 增持估计-占总股本比         | float64   |  注意单位: ‰; 主要字段名根据 indicator 变化   |
-| 所属板块         | object   |  -     |
-| 日期         | object   |  -     |
+| 名称         | 类型      | 描述                            |
+|------------|---------|-------------------------------|
+| 序号         | int32   | -                             |
+| 代码         | object  | -                             |
+| 名称         | object  | -                             |
+| 今日收盘价      | float64 | -                             |
+| 今日涨跌幅      | float64 | 注意单位: %                       |
+| 今日持股-股数    | float64 | 注意单位: 万                       |
+| 今日持股-市值    | float64 | 注意单位: 万                       |
+| 今日持股-占流通股比 | float64 | 注意单位: %                       |
+| 今日持股-占总股本比 | float64 | 注意单位: %                       |
+| 增持估计-股数    | float64 | 注意单位: 万; 主要字段名根据 indicator 变化 |
+| 增持估计-市值    | float64 | 注意单位: 万; 主要字段名根据 indicator 变化 |
+| 增持估计-市值增幅  | object  | 注意单位: %; 主要字段名根据 indicator 变化 |
+| 增持估计-占流通股比 | float64 | 注意单位: ‰; 主要字段名根据 indicator 变化 |
+| 增持估计-占总股本比 | float64 | 注意单位: ‰; 主要字段名根据 indicator 变化 |
+| 所属板块       | object  | -                             |
+| 日期         | object  | -                             |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_em_hsgt_hold_stock_df = ak.stock_em_hsgt_hold_stock(market="北向", indicator="今日排行")
 print(stock_em_hsgt_hold_stock_df)
 ```
@@ -5517,21 +5525,23 @@ print(stock_em_hsgt_stock_statistics_df)
 1440  2021-10-27  600519  贵州茅台  ... -3.964678e+09 -2.334647e+09 -5.475161e+09
 ```
 
-#### 每日机构统计
+#### 机构排行
 
 接口: stock_em_hsgt_institution_statistics
 
 目标地址: http://data.eastmoney.com/hsgtcg/InstitutionStatistics.aspx
 
-描述: 东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
+描述: 东方财富网-数据中心-沪深港通-沪深港通持股-机构排行
 
 限量: 单次获取指定 market 的所有数据, 该接口只能获取近期的数据
 
 输入参数
 
-| 名称     | 类型  | 描述                                                          |
-|--------|-----|-------------------------------------------------------------|
-| market | str | market="北向持股"; choice of {"北向持股", "沪股通持股", "深股通持股", "南向持股"} |
+| 名称         | 类型  | 描述                                                          |
+|------------|-----|-------------------------------------------------------------|
+| market     | str | market="北向持股"; choice of {"北向持股", "沪股通持股", "深股通持股", "南向持股"} |
+| start_date | str | start_date="20201218"; 此处指定近期交易日                            |
+| end_date   | str | end_date="20201218"; 此处指定近期交易日                              |
 
 输出参数
 

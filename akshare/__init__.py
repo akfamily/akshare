@@ -1457,7 +1457,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.33: fix: fix bond_china_close_return interface
 1.0.34: fix: fix bond_china_close_return interface
 1.0.35: fix: fix bond_cov_jsl interface
-1.0.36: fix: fix stock_em_hsgt_north_net_flow_in interface
+1.0.36: fix: fix stock_hsgt_north_net_flow_in_em interface
 1.0.37: add: add macro_swiss interface
 1.0.38: add: add macro_japan interface
 1.0.39: add: add macro_uk interface
@@ -1728,9 +1728,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.4 fix: fix stock_em_hsgt_stock_statistics interface
 1.3.5 fix: update QQ info
 1.3.6 fix: fix stock_dzjy_sctj interface
+1.3.7 fix: fix stock_hsgt_north_xxxx interface
 """
 
-__version__ = "1.3.6"
+__version__ = "1.3.7"
 __author__ = "Albert King"
 
 import sys
@@ -2752,12 +2753,12 @@ stock-em-hsgt
 """
 from akshare.stock_feature.stock_em_hsgt import (
     stock_hk_ggt_components_em,
-    stock_em_hsgt_north_acc_flow_in,
-    stock_em_hsgt_north_cash,
-    stock_em_hsgt_north_net_flow_in,
-    stock_em_hsgt_south_acc_flow_in,
-    stock_em_hsgt_south_cash,
-    stock_em_hsgt_south_net_flow_in,
+    stock_hsgt_north_acc_flow_in_em,
+    stock_hsgt_north_cash_em,
+    stock_hsgt_north_net_flow_in_em,
+    stock_hsgt_south_acc_flow_in_em,
+    stock_hsgt_south_cash_em,
+    stock_hsgt_south_net_flow_in_em,
     stock_em_hsgt_hold_stock,
     stock_em_hsgt_hist,
     stock_em_hsgt_institution_statistics,

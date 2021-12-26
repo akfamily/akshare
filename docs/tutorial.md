@@ -435,12 +435,12 @@
  "stock_em_comment"  # 股市关注度
  # 沪深港通
  "stock_hk_ggt_components_em"  # 港股通成份股
- "stock_em_hsgt_north_net_flow_in"  # 沪深港通北向-净流入
- "stock_em_hsgt_north_cash"  # 沪深港通北向-资金余额
- "stock_em_hsgt_north_acc_flow_in"  # 沪深港通北向-累计净流入
- "stock_em_hsgt_south_net_flow_in"  # 沪深港通南向-净流入
- "stock_em_hsgt_south_cash"  # 沪深港通南向-资金余额
- "stock_em_hsgt_south_acc_flow_in"  # 沪深港通南向-累计净流入
+ "stock_hsgt_north_net_flow_in_em"  # 沪深港通北向-净流入
+ "stock_hsgt_north_cash_em"  # 沪深港通北向-资金余额
+ "stock_hsgt_north_acc_flow_in_em"  # 沪深港通北向-累计净流入
+ "stock_hsgt_south_net_flow_in_em"  # 沪深港通南向-净流入
+ "stock_hsgt_south_cash_em"  # 沪深港通南向-资金余额
+ "stock_hsgt_south_acc_flow_in_em"  # 沪深港通南向-累计净流入
  "stock_em_hsgt_hold_stock"  # 沪深港通持股-个股排行
  "stock_em_hsgt_stock_statistics"  # 沪深港通持股-每日个股统计
  "stock_em_hsgt_institution_statistics"  # 沪深港通持股-每日机构统计
