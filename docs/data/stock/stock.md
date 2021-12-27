@@ -9004,32 +9004,41 @@ print(stock_info_sh_delist_df)
 
 描述: 新浪财经-股票曾用名
 
-限量: 单次获取新浪财经-股票曾用名所有历史曾用名称
+限量: 单次指定 symbol 的所有历史曾用名称
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| stock | str | Y    | stock="000503"; 股票代码|
+| 名称     | 类型  | 描述                    |
+|--------|-----|-----------------------|
+| symbol | str | symbol="000503"; 股票代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| list or None          | str   | Y        |  有曾用名则返回列表,  无曾用名则返回 None    |
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| index | int64  | -   |
+| name  | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_info_change_name_list = ak.stock_info_change_name(stock="000503")
+
+stock_info_change_name_list = ak.stock_info_change_name(symbol="000503")
 print(stock_info_change_name_list)
 ```
 
 数据示例
 
 ```
-['琼海虹', '海虹控股', 'ST海虹', '海虹控股', 'G海虹', '海虹控股', '国新健康']
+   index  name
+0      1   琼海虹
+1      2  海虹控股
+2      3  ST海虹
+3      4  海虹控股
+4      5   G海虹
+5      6  海虹控股
+6      7  国新健康
 ```
 
 #### 股票更名-深证
