@@ -5339,7 +5339,7 @@ print(stock_hsgt_south_acc_flow_in_em_df)
 
 #### 板块排行
 
-接口: stock_em_hsgt_board_rank
+接口: stock_hsgt_board_rank_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/hy.html
 
@@ -5349,39 +5349,39 @@ print(stock_hsgt_south_acc_flow_in_em_df)
 
 输入参数
 
-| 名称        | 类型  | 必选  | 描述                                                                                |
-|-----------|-----|-----|-----------------------------------------------------------------------------------|
-| symbol    | str | Y   | symbol="北向资金增持行业板块排行"; choice of {"北向资金增持行业板块排行", "北向资金增持概念板块排行", "北向资金增持地域板块排行"} |
-| indicator | str | Y   | indicator="今日"; choice of {"今日", "3日", "5日", "10日", "1月", "1季", "1年"}             |
+| 名称        | 类型  | 描述                                                                                |
+|-----------|-----|-----------------------------------------------------------------------------------|
+| symbol    | str | symbol="北向资金增持行业板块排行"; choice of {"北向资金增持行业板块排行", "北向资金增持概念板块排行", "北向资金增持地域板块排行"} |
+| indicator | str | indicator="今日"; choice of {"今日", "3日", "5日", "10日", "1月", "1季", "1年"}             |
 
 输出参数
 
-| 名称                | 类型    | 默认显示 | 描述      |
-|-------------------|-------|------|---------|
-| 序号                | int   | Y    | -       |
-| 名称                | str   | Y    | -       |
-| 最新涨跌幅             | float | Y    | 注意单位: % |
-| 北向资金今日持股-股票只数     | float | Y    | -       |
-| 北向资金今日持股-市值       | float | Y    | 注意单位: 元 |
-| 北向资金今日持股-占板块比     | float | Y    | -       |
-| 北向资金今日持股-占北向资金比   | float | Y    | -       |
-| 北向资金今日增持估计-股票只数   | float | Y    | -       |
-| 北向资金今日增持估计-市值     | float | Y    | 注意单位: 元 |
-| 北向资金今日增持估计-市值增幅   | float | Y    | -       |
-| 北向资金今日增持估计-占板块比   | float | Y    | -       |
-| 北向资金今日增持估计-占北向资金比 | float | Y    | -       |
-| 今日增持最大股-市值        | float | Y    | -       |
-| 今日增持最大股-占股本比      | float | Y    | -       |
-| 今日减持最大股-占股本比      | float | Y    | -       |
-| 今日减持最大股-市值        | float | Y    | -       |
+| 名称                | 类型      | 描述      |
+|-------------------|---------|---------|
+| 序号                | int64   | -       |
+| 名称                | object  | -       |
+| 最新涨跌幅             | float64 | 注意单位: % |
+| 北向资金今日持股-股票只数     | float64 | -       |
+| 北向资金今日持股-市值       | float64 | 注意单位: 元 |
+| 北向资金今日持股-占板块比     | float64 | -       |
+| 北向资金今日持股-占北向资金比   | float64 | -       |
+| 北向资金今日增持估计-股票只数   | float64 | -       |
+| 北向资金今日增持估计-市值     | float64 | 注意单位: 元 |
+| 北向资金今日增持估计-市值增幅   | float64 | -       |
+| 北向资金今日增持估计-占板块比   | float64 | -       |
+| 北向资金今日增持估计-占北向资金比 | float64 | -       |
+| 今日增持最大股-市值        | float64 | -       |
+| 今日增持最大股-占股本比      | float64 | -       |
+| 今日减持最大股-占股本比      | float64 | -       |
+| 今日减持最大股-市值        | float64 | -       |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_em_hsgt_industry_rank_df = ak.stock_em_hsgt_board_rank(symbol="北向资金增持行业板块排行", indicator="今日")
-print(stock_em_hsgt_industry_rank_df)
+stock_hsgt_board_rank_em_df = ak.stock_hsgt_board_rank_em(symbol="北向资金增持行业板块排行", indicator="今日")
+print(stock_hsgt_board_rank_em_df)
 ```
 
 数据示例
@@ -5403,7 +5403,7 @@ print(stock_em_hsgt_industry_rank_df)
 
 #### 个股排行
 
-接口: stock_em_hsgt_hold_stock
+接口: stock_hsgt_hold_stock_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/list.html
 
@@ -5444,7 +5444,7 @@ print(stock_em_hsgt_industry_rank_df)
 ```python
 import akshare as ak
 
-stock_em_hsgt_hold_stock_df = ak.stock_em_hsgt_hold_stock(market="北向", indicator="今日排行")
+stock_em_hsgt_hold_stock_df = ak.stock_hsgt_hold_stock_em(market="北向", indicator="今日排行")
 print(stock_em_hsgt_hold_stock_df)
 ```
 
@@ -5467,7 +5467,7 @@ print(stock_em_hsgt_hold_stock_df)
 
 #### 每日个股统计
 
-接口: stock_em_hsgt_stock_statistics
+接口: stock_hsgt_stock_statistics_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/StockStatistics.aspx
 
@@ -5504,8 +5504,8 @@ print(stock_em_hsgt_hold_stock_df)
 ```python
 import akshare as ak
 
-stock_em_hsgt_stock_statistics_df = ak.stock_em_hsgt_stock_statistics(symbol="北向持股", start_date="20211027", end_date="20211027")
-print(stock_em_hsgt_stock_statistics_df)
+stock_hsgt_stock_statistics_em_df = ak.stock_hsgt_stock_statistics_em(symbol="北向持股", start_date="20211027", end_date="20211027")
+print(stock_hsgt_stock_statistics_em_df)
 ```
 
 数据示例
@@ -5527,7 +5527,7 @@ print(stock_em_hsgt_stock_statistics_df)
 
 #### 机构排行
 
-接口: stock_em_hsgt_institution_statistics
+接口: stock_hsgt_institution_statistics_em
 
 目标地址: http://data.eastmoney.com/hsgtcg/InstitutionStatistics.aspx
 
@@ -5560,8 +5560,8 @@ print(stock_em_hsgt_stock_statistics_df)
 ```python
 import akshare as ak
 
-stock_em_hsgt_institution_statistics_df = ak.stock_em_hsgt_institution_statistics(market="北向持股", start_date="20201218", end_date="20201218")
-print(stock_em_hsgt_institution_statistics_df)
+stock_hsgt_institution_statistics_em_df = ak.stock_hsgt_institution_statistics_em(market="北向持股", start_date="20201218", end_date="20201218")
+print(stock_hsgt_institution_statistics_em_df)
 ```
 
 数据示例
@@ -5583,7 +5583,7 @@ print(stock_em_hsgt_institution_statistics_df)
 
 #### 沪深港通历史数据
 
-接口: stock_em_hsgt_hist
+接口: stock_hsgt_hist_em
 
 目标地址: http://data.eastmoney.com/hsgt/index.html
 
@@ -5618,8 +5618,8 @@ print(stock_em_hsgt_institution_statistics_df)
 ```python
 import akshare as ak
 
-stock_em_hsgt_hist_df = ak.stock_em_hsgt_hist(symbol="沪股通")
-print(stock_em_hsgt_hist_df)
+stock_hsgt_hist_em_df = ak.stock_hsgt_hist_em(symbol="沪股通")
+print(stock_hsgt_hist_em_df)
 ```
 
 数据示例-沪股通
@@ -5660,8 +5660,8 @@ print(stock_em_hsgt_hist_df)
 ```python
 import akshare as ak
 
-stock_em_hsgt_hist_df = ak.stock_em_hsgt_hist(symbol="港股通沪")
-print(stock_em_hsgt_hist_df)
+stock_hsgt_hist_em_df = ak.stock_hsgt_hist_em(symbol="港股通沪")
+print(stock_hsgt_hist_em_df)
 ```
 
 数据示例-港股通沪
@@ -5904,7 +5904,7 @@ print(stock_tfp_em_df)
 
 描述: 东方财富网-数据中心-新股数据-打新收益率
 
-限量: 单次获取指定市场的打新收益率数据
+限量: 单次获取指定 market 的打新收益率数据
 
 输入参数
 

@@ -953,7 +953,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.24: fix: futures_dce_position_rank
 0.5.25: fix: futures_dce_position_rank return fields
 0.5.26: add: stock_info
-0.5.27: add: stock_em_hsgt_hold_stock
+0.5.27: add: stock_hsgt_hold_stock_em
 0.5.28: add: stock_fund_stock_holder, stock_main_stock_holder
 0.5.29: fix: stock_em_sy
 0.5.30: fix: air_zhenqi.py
@@ -1022,7 +1022,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.93: add: add macro_china_fx_gold interface
 0.5.94: add: add stock_zh_index_daily_em, bond_cov_jsl interface
 0.5.95: fix: fix get_dce_option_daily interface
-0.5.96: add: add stock_em_hsgt_hist interface
+0.5.96: add: add stock_hsgt_hist_em interface
 0.5.97: fix: fix remove mplfinance package in requirements.txt
 0.5.98: add: add stock_hk_eniu_indicator interface
 0.5.99: fix: fix stock_zh_ah_daily interface
@@ -1122,7 +1122,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.94: fix: fix docs interface
 0.6.95: fix: fix macro_china_market_margin_sh interface
 0.6.96: fix: fix stock_zh_a_daily interface
-0.6.97: add: add stock_em_hsgt_board_rank interface
+0.6.97: add: add stock_hsgt_board_rank_em interface
 0.6.98: fix: fix fortune_rank interface
 0.6.99: add: add forbes_rank interface
 0.7.1: fix: fix futures_dce_position_rank interface
@@ -1174,7 +1174,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.47: fix: fix bond_zh_cov interface
 0.7.48: fix: fix futures_dce_position_rank interface
 0.7.49: fix: fix stock_us_zh_spot interface
-0.7.50: fix: fix stock_em_hsgt_stock_statistics interface
+0.7.50: fix: fix stock_hsgt_stock_statistics_em interface
 0.7.51: fix: fix stock_us_daily interface
 0.7.52: fix: fix stock_sector_fund_flow_rank interface
 0.7.53: fix: fix stock_em_yzxdr interface
@@ -1284,7 +1284,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.58: add: add hurun_rank interface
 0.8.59: fix: fix get_sector_futures interface
 0.8.60: fix: fix currency_hist interface
-0.8.61: fix: fix stock_em_hsgt_hold_stock interface
+0.8.61: fix: fix stock_hsgt_hold_stock_em interface
 0.8.62: fix: fix stock_zh_a_tick_163 interface
 0.8.63: fix: fix futures_zh_daily_sina interface
 0.8.64: fix: fix futures_inventory_em interface
@@ -1389,7 +1389,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.64: add: add futures_sina_hold_pos interface
 0.9.65: fix: fix bond_zh_us_rate interface
 0.9.66: fix: fix set urllib3==1.25.11
-0.9.67: fix: fix stock_em_hsgt_hold_stock interface
+0.9.67: fix: fix stock_hsgt_hold_stock_em interface
 0.9.68: fix: fix stock_zh_a_tick_tx interface
 0.9.69: add: add currency_boc_sina interface
 0.9.70: add: add stock_zh_a_hist interface
@@ -1530,7 +1530,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.7: fix: fix covid_19_trace interface
 1.1.8: add: add stock_industry_pe_ratio_cninfo interface
 1.1.9: fix: fix stock_js_price interface
-1.1.10: fix: fix stock_em_hsgt_hold_stock interface
+1.1.10: fix: fix stock_hsgt_hold_stock_em interface
 1.1.11: fix: fix stock_fund_flow_concept interface
 1.1.12: fix: fix stock_fund_flow_industry interface
 1.1.13: add: add stock_dividents_cninfo interface
@@ -1608,9 +1608,9 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.83 add: add stock_ipo_benefit_ths interface
 1.1.84 fix: fix stock_board_industry_index_ths interface
     1. add start_date and end_date parameters
-1.1.85 fix: fix stock_em_hsgt_stock_statistics interface
-1.1.86 fix: fix stock_em_hsgt_stock_statistics interface
-1.1.87 fix: fix stock_em_hsgt_hist interface
+1.1.85 fix: fix stock_hsgt_stock_statistics_em interface
+1.1.86 fix: fix stock_hsgt_stock_statistics_em interface
+1.1.87 fix: fix stock_hsgt_hist_em interface
 1.1.88 fix: fix stock_sector_spot interface
 1.1.89 fix: fix stock_sector_detail interface
 1.1.90 fix: fix stock_board_concept_name_ths interface
@@ -1725,7 +1725,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.1 fix: fix option_shfe_daily interface
 1.3.2 fix: remove github interface
 1.3.3 fix: fix stock_em_ztb interface
-1.3.4 fix: fix stock_em_hsgt_stock_statistics interface
+1.3.4 fix: fix stock_hsgt_stock_statistics_em interface
 1.3.5 fix: update QQ info
 1.3.6 fix: fix stock_dzjy_sctj interface
 1.3.7 fix: fix stock_hsgt_north_xxxx interface
@@ -1733,9 +1733,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.9 add: add index_sugar_msweet interface
 1.3.10 fix: fix index_sugar_msweet interface
 1.3.11 fix: fix index_cflp_price interface
+1.3.12 add: add index_inner_quote_sugar_msweet interface
 """
 
-__version__ = "1.3.11"
+__version__ = "1.3.12"
 __author__ = "Albert King"
 
 import sys
@@ -1749,7 +1750,7 @@ del sys
 """
 中国食糖指数
 """
-from akshare.index.index_sugar import index_sugar_msweet
+from akshare.index.index_sugar import index_sugar_msweet, index_inner_quote_sugar_msweet, index_outer_quote_sugar_msweet
 
 """
 东方财富-个股信息
@@ -2768,11 +2769,11 @@ from akshare.stock_feature.stock_em_hsgt import (
     stock_hsgt_south_acc_flow_in_em,
     stock_hsgt_south_cash_em,
     stock_hsgt_south_net_flow_in_em,
-    stock_em_hsgt_hold_stock,
-    stock_em_hsgt_hist,
-    stock_em_hsgt_institution_statistics,
-    stock_em_hsgt_stock_statistics,
-    stock_em_hsgt_board_rank,
+    stock_hsgt_hold_stock_em,
+    stock_hsgt_hist_em,
+    stock_hsgt_institution_statistics_em,
+    stock_hsgt_stock_statistics_em,
+    stock_hsgt_board_rank_em,
 )
 
 """

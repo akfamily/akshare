@@ -441,11 +441,11 @@
  "stock_hsgt_south_net_flow_in_em"  # 沪深港通南向-净流入
  "stock_hsgt_south_cash_em"  # 沪深港通南向-资金余额
  "stock_hsgt_south_acc_flow_in_em"  # 沪深港通南向-累计净流入
- "stock_em_hsgt_hold_stock"  # 沪深港通持股-个股排行
- "stock_em_hsgt_stock_statistics"  # 沪深港通持股-每日个股统计
- "stock_em_hsgt_institution_statistics"  # 沪深港通持股-每日机构统计
- "stock_em_hsgt_hist"  # 沪深港通历史数据
- "stock_em_hsgt_board_rank"  # 板块排行
+ "stock_hsgt_hold_stock_em"  # 沪深港通持股-个股排行
+ "stock_hsgt_stock_statistics_em"  # 沪深港通持股-每日个股统计
+ "stock_hsgt_institution_statistics_em"  # 沪深港通持股-每日机构统计
+ "stock_hsgt_hist_em"  # 沪深港通历史数据
+ "stock_hsgt_board_rank_em"  # 板块排行
  # 两市停复牌
  "stock_tfp_em"  # 两市停复牌数据
  # 恐慌指数
@@ -972,6 +972,10 @@
  "stock_individual_info_em"  # 个股信息查询
  # 中国食糖指数
  "index_sugar_msweet"  # 中国食糖指数
+ # 配额内进口糖估算指数
+ "index_inner_quote_sugar_msweet"  # 配额内进口糖估算指数
+ # 配额外进口糖估算指数
+ "index_outer_quote_sugar_msweet"  # 配额外进口糖估算指数
 ```
 
 ## 案例演示

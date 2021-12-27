@@ -1311,7 +1311,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.26: add: stock_info
 
-0.5.27: add: stock_em_hsgt_hold_stock
+0.5.27: add: stock_hsgt_hold_stock_em
 
 0.5.28: add: stock_fund_stock_holder, stock_main_stock_holder
 
@@ -1449,7 +1449,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.95: fix: fix get_dce_option_daily interface
 
-0.5.96: add: add stock_em_hsgt_hist interface
+0.5.96: add: add stock_hsgt_hist_em interface
 
 0.5.97: fix: fix remove mplfinance package in requirements.txt
 
@@ -1649,7 +1649,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.6.96: fix: fix stock_zh_a_daily interface
 
-0.6.97: add: add stock_em_hsgt_board_rank interface
+0.6.97: add: add stock_hsgt_board_rank_em interface
 
 0.6.98: fix: fix fortune_rank interface
 
@@ -1753,7 +1753,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.49: fix: fix stock_us_zh_spot interface
 
-0.7.50: fix: fix stock_em_hsgt_stock_statistics interface
+0.7.50: fix: fix stock_hsgt_stock_statistics_em interface
 
 0.7.51: fix: fix stock_us_daily interface
 
@@ -1973,7 +1973,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.60: fix: fix currency_hist interface
 
-0.8.61: fix: fix stock_em_hsgt_hold_stock interface
+0.8.61: fix: fix stock_hsgt_hold_stock_em interface
 
 0.8.62: fix: fix stock_zh_a_tick_163 interface
 
@@ -2183,7 +2183,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.66: fix: fix set urllib3==1.25.11
 
-0.9.67: fix: fix stock_em_hsgt_hold_stock interface
+0.9.67: fix: fix stock_hsgt_hold_stock_em interface
 
 0.9.68: fix: fix stock_zh_a_tick_tx interface
 
@@ -2476,7 +2476,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.9: fix: fix stock_js_price interface
 
-1.1.10: fix: fix stock_em_hsgt_hold_stock interface
+1.1.10: fix: fix stock_hsgt_hold_stock_em interface
 
 1.1.11: fix: fix stock_fund_flow_concept interface
 
@@ -2629,11 +2629,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.84 fix: fix stock_board_industry_index_ths interface
     1. add start_date and end_date parameters
 
-1.1.85 fix: fix stock_em_hsgt_stock_statistics interface
+1.1.85 fix: fix stock_hsgt_stock_statistics_em interface
 
-1.1.86 fix: fix stock_em_hsgt_stock_statistics interface
+1.1.86 fix: fix stock_hsgt_stock_statistics_em interface
 
-1.1.87 fix: fix stock_em_hsgt_hist interface
+1.1.87 fix: fix stock_hsgt_hist_em interface
 
 1.1.88 fix: fix stock_sector_spot interface
 
@@ -2864,7 +2864,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.3.3 fix: fix stock_em_ztb interface
 
-1.3.4 fix: fix stock_em_hsgt_stock_statistics interface
+1.3.4 fix: fix stock_hsgt_stock_statistics_em interface
 
 1.3.5 fix: update QQ info
 
@@ -2879,4 +2879,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.10 fix: fix index_sugar_msweet interface
 
 1.3.11 fix: fix index_cflp_price interface
+
+1.3.12 add: add index_inner_quote_sugar_msweet interface
 ```
