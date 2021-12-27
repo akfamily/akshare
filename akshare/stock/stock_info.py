@@ -384,16 +384,16 @@ def stock_info_sz_change_name(indicator: str = "全称变更") -> pd.DataFrame:
         return temp_df
 
 
-def stock_info_change_name(stock: str = "688588") -> pd.DataFrame:
+def stock_info_change_name(symbol: str = "000503") -> pd.DataFrame:
     """
     新浪财经-股票曾用名
     http://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CorpInfo/stockid/300378.phtml
-    :param stock: 股票代码
-    :type stock: str
-    :return: 股票曾用名列表
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 股票曾用名
     :rtype: list
     """
-    url = f"http://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CorpInfo/stockid/{stock}.phtml"
+    url = f"http://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CorpInfo/stockid/{symbol}.phtml"
     r = requests.get(url)
     temp_df = pd.read_html(r.text)[3].iloc[:, :2]
     temp_df.dropna(inplace=True)
@@ -401,8 +401,12 @@ def stock_info_change_name(stock: str = "688588") -> pd.DataFrame:
     temp_df["item"] = temp_df["item"].str.split("：", expand=True)[0]
     try:
         name_list = temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
-        return name_list
-    except:
+        big_df = pd.DataFrame(name_list)
+        big_df.reset_index(inplace=True)
+        big_df['index'] = big_df.index + 1
+        big_df.columns = ['index', 'name']
+        return big_df
+    except IndexError as e:
         return pd.DataFrame()
 
 
@@ -457,8 +461,8 @@ if __name__ == "__main__":
     stock_info_sz_change_name_df = stock_info_sz_change_name(indicator="全称变更")
     print(stock_info_sz_change_name_df)
 
-    stock_info_change_name_list = stock_info_change_name(stock="000503")
-    print(stock_info_change_name_list)
+    stock_info_change_name_df = stock_info_change_name(symbol="000503")
+    print(stock_info_change_name_df)
 
     stock_info_a_code_name_df = stock_info_a_code_name()
     print(stock_info_a_code_name_df)
