@@ -16,9 +16,9 @@ def futures_rule(trade_date: str = "20200712") -> pd.DataFrame:
     :return: 交易日历数据
     :rtype: pandas.DataFrame
     """
-    url = "https://www.gtjaqh.com/fn/128"
+    url = "https://www.gtjaqh.com/do/4600.128"
     params = {"base_date": f"{trade_date}"}
-    r = requests.post(url, json=params)
+    r = requests.get(url, params=params)
     temp_df = pd.DataFrame(r.json()["data"])
     temp_df = temp_df[temp_df["tradingday"] == trade_date]
     if not temp_df["events"].values[0]:
