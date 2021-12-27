@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/5/12 17:47
+Date: 2021/12/27 15:47
 Desc: 中国公路物流运价、运量指数
 http://index.0256.cn/expx.htm
 """
@@ -51,6 +51,10 @@ def index_cflp_price(symbol: str = "周指数") -> pd.DataFrame:
         ]
     ).T
     temp_df.columns = ["日期", "定基指数", "环比指数", "同比指数"]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["定基指数"] = pd.to_numeric(temp_df["定基指数"])
+    temp_df["环比指数"] = pd.to_numeric(temp_df["环比指数"])
+    temp_df["同比指数"] = pd.to_numeric(temp_df["同比指数"])
     return temp_df
 
 
@@ -95,6 +99,10 @@ def index_cflp_volume(symbol: str = "月指数") -> pd.DataFrame:
         ]
     ).T
     temp_df.columns = ["日期", "定基指数", "环比指数", "同比指数"]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["定基指数"] = pd.to_numeric(temp_df["定基指数"])
+    temp_df["环比指数"] = pd.to_numeric(temp_df["环比指数"])
+    temp_df["同比指数"] = pd.to_numeric(temp_df["同比指数"])
     return temp_df
 
 

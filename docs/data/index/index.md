@@ -2703,23 +2703,24 @@ print(index_sugar_msweet_df)
 
 输入参数
 
-| 名称   | 类型 |  描述      |
-| -------- | ---- |  --- |
-| - | -  |   - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 日期      | object   |    |
-| 交易指数      | float64   |     |
-| 成交量      | float64   |  注意单位: 吨   |
-| 更新时间      | object   |    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 日期   | object  |         |
+| 交易指数 | float64 |         |
+| 成交量  | float64 | 注意单位: 吨 |
+| 更新时间 | object  |         |
 
 接口示例
 
 ```python
 import akshare as ak
+
 index_eri_df = ak.index_eri()
 print(index_eri_df)
 ```
@@ -2753,21 +2754,22 @@ print(index_eri_df)
 
 输入参数
 
-| 名称   | 类型 |  描述      |
-| -------- | ---- | --- |
-| symbol | str  |   symbol="composite"; choice of {"composite", "shanghai-rotterdam", "rotterdam-shanghai", "shanghai-los angeles", "los angeles-shanghai", "shanghai-genoa", "new york-rotterdam", "rotterdam-new york"} |
+| 名称     | 类型  | 描述                                                                                                                                                                                                    |
+|--------|-----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="composite"; choice of {"composite", "shanghai-rotterdam", "rotterdam-shanghai", "shanghai-los angeles", "los angeles-shanghai", "shanghai-genoa", "new york-rotterdam", "rotterdam-new york"} |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| --------------- | ----- |  ---------------- |
-| date      | object   |    |
-| wci      | float64   |     |
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| date | object  |     |
+| wci  | float64 |     |
 
 接口示例
 
 ```python
 import akshare as ak
+
 drewry_wci_index_df = ak.drewry_wci_index(symbol="composite")
 print(drewry_wci_index_df)
 ```
@@ -2801,23 +2803,24 @@ print(drewry_wci_index_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述      |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y   |  symbol="周指数"; choice of {"周指数", "月指数", "季度指数", "年度指数"} |
+| 名称     | 类型  | 描述                                                     |
+|--------|-----|--------------------------------------------------------|
+| symbol | str | symbol="周指数"; choice of {"周指数", "月指数", "季度指数", "年度指数"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | object   | Y        |   |
-| 定基指数      | object   | Y        |    |
-| 环比指数      | object   | Y        |    |
-| 同比指数      | object   | Y        |    |
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| 日期   | object  | -   |
+| 定基指数 | float64 | -   |
+| 环比指数 | float64 | -   |
+| 同比指数 | float64 | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 index_cflp_price_df = ak.index_cflp_price(symbol="周指数")
 print(index_cflp_price_df)
 ```
@@ -2845,27 +2848,28 @@ print(index_cflp_price_df)
 
 目标地址: http://index.0256.cn/expx.htm
 
-描述: 获取指定 symbol 的中国公路物流运量指数的数据
+描述: 指定 symbol 的中国公路物流运量指数的数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述      |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y   |  symbol="周指数"; choice of {"月指数", "季度指数", "年度指数"} |
+| 名称     | 类型  | 描述                                              |
+|--------|-----|-------------------------------------------------|
+| symbol | str | symbol="周指数"; choice of {"月指数", "季度指数", "年度指数"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | object   | Y        |   |
-| 定基指数      | object   | Y        |    |
-| 环比指数      | object   | Y        |    |
-| 同比指数      | object   | Y        |    |
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| 日期   | object  | -   |
+| 定基指数 | float64 | -   |
+| 环比指数 | float64 | -   |
+| 同比指数 | float64 | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 index_cflp_volume_df = ak.index_cflp_volume(symbol="月指数")
 print(index_cflp_volume_df)
 ```
