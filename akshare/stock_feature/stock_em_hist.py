@@ -346,24 +346,24 @@ def stock_zh_a_hist(
 
 def stock_zh_a_hist_min_em(
         symbol: str = "000001",
-        period: str = '1',
-        adjust: str = '',
         start_date: str = "1979-09-01 09:32:00",
         end_date: str = "2222-01-01 09:32:00",
+        period: str = '5',
+        adjust: str = '',
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日分时行情
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
-    :param period: choice of {'1', '5', '15', '30', '60'}
-    :type period: str
-    :param adjust: choice of {'', 'qfq', 'hfq'}
-    :type adjust: str
     :param start_date: 开始日期
     :type start_date: str
     :param end_date: 结束日期
     :type end_date: str
+    :param period: choice of {'1', '5', '15', '30', '60'}
+    :type period: str
+    :param adjust: choice of {'', 'qfq', 'hfq'}
+    :type adjust: str
     :return: 每日分时行情
     :rtype: pandas.DataFrame
     """

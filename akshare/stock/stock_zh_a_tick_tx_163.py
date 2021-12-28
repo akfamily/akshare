@@ -14,12 +14,12 @@ import requests
 import warnings
 
 
-def stock_zh_a_tick_tx_js(code: str = "sz000001") -> pd.DataFrame:
+def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
     """
     腾讯财经-历史分笔数据
     http://gu.qq.com/sz300494/gp/detail
-    :param code: 股票代码
-    :type code: str
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 股票代码
     :rtype: pandas.DataFrame
     """
@@ -32,7 +32,7 @@ def stock_zh_a_tick_tx_js(code: str = "sz000001") -> pd.DataFrame:
             params = {
                 "appn": "detail",
                 "action": "data",
-                "c": code,
+                "c": symbol,
                 "p": page,
             }
             r = requests.get(url, params=params)
@@ -68,13 +68,13 @@ def stock_zh_a_tick_tx_js(code: str = "sz000001") -> pd.DataFrame:
 
 
 def stock_zh_a_tick_tx(
-    code: str = "sz000001", trade_date: str = "20210316"
+    symbol: str = "sz000001", trade_date: str = "20210316"
 ) -> pd.DataFrame:
     """
     http://gu.qq.com/sz000001/gp/detail
     成交明细-每个交易日 16:00 提供当日数据
-    :param code: 带市场标识的股票代码
-    :type code: str
+    :param symbol: 带市场标识的股票代码
+    :type symbol: str
     :param trade_date: 需要提取数据的日期
     :type trade_date: str
     :return: 返回当日股票成交明细的数据
@@ -84,7 +84,7 @@ def stock_zh_a_tick_tx(
     params = {
         "appn": "detail",
         "action": "download",
-        "c": code,
+        "c": symbol,
         "d": trade_date,
     }
     r = requests.get(url, params=params)
@@ -94,20 +94,20 @@ def stock_zh_a_tick_tx(
 
 
 def stock_zh_a_tick_163(
-    code: str = "sz000001", trade_date: str = "20211201"
+    symbol: str = "sz000001", trade_date: str = "20211201"
 ) -> pd.DataFrame:
     """
     成交明细-每个交易日 22:00 提供当日数据; 该接口目前还不支持北交所的股票
     http://quotes.money.163.com/trade/cjmx_000001.html#01b05
-    :param code: 带市场标识的股票代码
-    :type code: str
+    :param symbol: 带市场标识的股票代码
+    :type symbol: str
     :param trade_date: 需要提取数据的日期
     :type trade_date: str
     :return: 返回当日股票成交明细的数据
     :rtype: pandas.DataFrame
     """
     name_code_map = {"sh": "0", "sz": "1"}
-    url = f"http://quotes.money.163.com/cjmx/{trade_date[:4]}/{trade_date}/{name_code_map[code[:2]]}{code[2:]}.xls"
+    url = f"http://quotes.money.163.com/cjmx/{trade_date[:4]}/{trade_date}/{name_code_map[symbol[:2]]}{symbol[2:]}.xls"
     r = requests.get(url)
     r.encoding = "utf-8"
     temp_df = pd.read_excel(BytesIO(r.content))
@@ -122,12 +122,12 @@ def stock_zh_a_tick_163(
     return temp_df
 
 
-def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
+def stock_zh_a_tick_163_now(symbol: str = "000001") -> pd.DataFrame:
     """
     成交明细-收盘后获取, 补充 stock_zh_a_tick_163 接口, 用来尽快获取数据
     http://quotes.money.163.com/trade/cjmx_000001.html#01b05
-    :param code: 带市场标识的股票代码
-    :type code: str
+    :param symbol: 带市场标识的股票代码
+    :type symbol: str
     :return: 返回当日股票成交明细的数据
     :rtype: pandas.DataFrame
     """
@@ -143,7 +143,7 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
     big_df = pd.DataFrame()
     for item in tqdm(time_list_one):
         url = "http://quotes.money.163.com/service/zhubi_ajax.html"
-        params = {"symbol": code, "end": item}
+        params = {"symbol": symbol, "end": item}
         r = requests.get(url, params=params)
         data_json = r.json()
         if not data_json['zhubi_list']:
@@ -182,22 +182,22 @@ def stock_zh_a_tick_163_now(code: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(code="sz000001", trade_date="20211201")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(symbol="sz000001", trade_date="20211201")
     print(stock_zh_a_tick_163_df)
 
-    stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(code="sz000001")
+    stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(symbol="sz000001")
     print(stock_zh_a_tick_tx_js_df)
 
-    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(code="sh600848", trade_date="20211112")
+    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(symbol="sh600848", trade_date="20211112")
     print(stock_zh_a_tick_tx_df)
 
     date_list = pd.date_range(start="20210601", end="20210613").tolist()
     date_list = [item.strftime("%Y%m%d") for item in date_list]
     for item in date_list:
         print(item)
-        data = stock_zh_a_tick_tx(code="sh601699", trade_date=f"{item}")
+        data = stock_zh_a_tick_tx(symbol="sh601699", trade_date=f"{item}")
         if not data.empty:
             print(data)
 
-    stock_zh_a_tick_163_now_df = stock_zh_a_tick_163_now(code="000001")
+    stock_zh_a_tick_163_now_df = stock_zh_a_tick_163_now(symbol="000001")
     print(stock_zh_a_tick_163_now_df)

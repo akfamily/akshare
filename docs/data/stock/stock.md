@@ -754,19 +754,19 @@ print(stock_zh_a_minute_df)
 
 目标地址: http://quote.eastmoney.com/concept/sh603777.html?from=classic
 
-描述: 东方财富网-行情首页-沪深京 A 股-每日分时行情
+描述: 东方财富网-行情首页-沪深京 A 股-每日分时行情; 只能获取近期的分时数据
 
-限量: 单次返回指定股票、指定频率、复权调整和时间区间的分时数据, 其中 1 分钟数据只返回近 5 个交易日数据且不复权
+限量: 单次返回指定股票、频率、复权调整和时间区间的分时数据, 其中 1 分钟数据只返回近 5 个交易日数据且不复权
 
 输入参数
 
 | 名称         | 类型  | 描述                                                                                                  |
 |------------|-----|-----------------------------------------------------------------------------------------------------|
 | symbol     | str | symbol='sh000300'; 股票代码                                                                             |
-| period     | str | period='5'; choice of {'1', '5', '15', '30', '60'}; 其中 1 分钟数据返回近 5 个交易日数据且不复权                       |
-| adjust     | str | adjust=''; choice of {'', 'qfq', 'hfq'}; '': 不复权, 'qfq': 前复权, 'hfq': 后复权, 其中 1 分钟数据返回近 5 个交易日数据且不复权 |
 | start_date | str | start_date="1979-09-01 09:32:00"; 日期时间; 默认返回所有数据                                                    |
 | end_date   | str | end_date="2222-01-01 09:32:00"; 日期时间; 默认返回所有数据                                                      |
+| period     | str | period='5'; choice of {'1', '5', '15', '30', '60'}; 其中 1 分钟数据返回近 5 个交易日数据且不复权                       |
+| adjust     | str | adjust=''; choice of {'', 'qfq', 'hfq'}; '': 不复权, 'qfq': 前复权, 'hfq': 后复权, 其中 1 分钟数据返回近 5 个交易日数据且不复权 |
 
 输出参数-1分钟数据
 
@@ -786,7 +786,7 @@ print(stock_zh_a_minute_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", period='1', adjust='', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
+stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00", period='1', adjust='')
 print(stock_zh_a_hist_min_em_df)
 ```
 
@@ -828,7 +828,7 @@ print(stock_zh_a_hist_min_em_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
+stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00", period='5', adjust='hfq')
 print(stock_zh_a_hist_min_em_df)
 ```
 
@@ -918,7 +918,7 @@ print(stock_zh_a_hist_pre_min_em_df)
 
 限量: 单次返回具体某个 A 上市公司的近 2 年历史分笔行情数据
 
-P.S. 每个交易日 16:00 提供当日数据; 如遇到数据缺失, 请使用 **stock_zh_a_tick_163** 接口(注意数据会有一定差异)或者使用 **stock_zh_a_tick_tx_js(code="sz000001")** 来获取当日腾讯分笔数据
+P.S. 每个交易日 16:00 提供当日数据; 如遇到数据缺失, 请使用 **ak.stock_zh_a_tick_163()** 接口(注意数据会有一定差异)或者使用 **ak.stock_zh_a_tick_tx_js(symbol="sz000001")** 来获取当日腾讯分笔数据
 
 输入参数-历史行情数据
 
@@ -943,11 +943,11 @@ P.S. 每个交易日 16:00 提供当日数据; 如遇到数据缺失, 请使用 
 ```python
 import akshare as ak
 
-stock_zh_a_tick_tx_df = ak.stock_zh_a_tick_tx(code="sh600848", trade_date="20191011")
+stock_zh_a_tick_tx_df = ak.stock_zh_a_tick_tx(symbol="sh600848", trade_date="20191011")
 print(stock_zh_a_tick_tx_df)
 
 # 当前交易日的分时数据可以通过下接口获取
-stock_zh_a_tick_tx_js_df = ak.stock_zh_a_tick_tx_js(code="sz000001")
+stock_zh_a_tick_tx_js_df = ak.stock_zh_a_tick_tx_js(symbol="sz000001")
 print(stock_zh_a_tick_tx_js_df)
 ```
 
@@ -974,7 +974,7 @@ print(stock_zh_a_tick_tx_js_df)
 
 目标地址: http://quotes.money.163.com/trade/cjmx_000001.html#01b05(示例)
 
-描述: A 股 Tick 数据是从网易财经获取, 历史数据按日频率更新, 晚上 10 更新数据; 可以调用 **stock_zh_a_tick_163_now(code="000001")** 接口获取
+描述: A 股 Tick 数据是从网易财经获取, 历史数据按日频率更新, 晚上 10 更新数据; 可以调用 **ak.stock_zh_a_tick_163_now(symbol="000001")** 接口获取
 当日数据(该接口只能在交易日获取数据), 主要参数无市场标识
 
 限量: 单次返回具体某个 A 上市公司的近 5 个交易日的历史分笔行情数据; 该接口目前还不支持北交所的股票; 该接口目前不能返回 上交所 数据
@@ -1002,7 +1002,7 @@ print(stock_zh_a_tick_tx_js_df)
 ```python
 import akshare as ak
 
-stock_zh_a_tick_163_df = ak.stock_zh_a_tick_163(code="sh600848", trade_date="20210127")
+stock_zh_a_tick_163_df = ak.stock_zh_a_tick_163(symbol="sh600848", trade_date="20210127")
 print(stock_zh_a_tick_163_df)
 ```
 
