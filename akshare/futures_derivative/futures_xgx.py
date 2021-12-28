@@ -39,7 +39,7 @@ def futures_xgx_index(
     symbol: str = 67,
     start_date: str = "2000-10-01",
     end_date: str = "2020-04-17",
-    plot: bool = True,
+    plot: bool = False,
 ) -> pd.DataFrame:
     session = _get_code_pic()
     value = input()

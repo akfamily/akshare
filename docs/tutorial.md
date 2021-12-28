@@ -132,11 +132,11 @@
  # 河北空气质量数据(期货-钢铁)
  "air_quality_hebei"  # 河北空气质量数据
  # 南华期货-南华指数-波动率指数
- "nh_volatility_index"  # 波动率指数
+ "futures_nh_volatility_index"  # 波动率指数
  # 南华期货-南华指数-价格指数
- "nh_price_index"  # 价格指数
+ "futures_nh_price_index"  # 价格指数
  # 南华期货-南华指数-收益率指数
- "nh_return_index"  # 收益率指数
+ "futures_nh_return_index"  # 收益率指数
  # 经济政策不确定性(EPU)指数
  "article_epu_index"  # 主要国家和地区的经济政策不确定性(EPU)指数
  # 微博指数
@@ -154,6 +154,8 @@
  "sw_index_cons"  # 申万一级、二级板块成份
  "sw_index_daily"  # 申万一级、二级历史行情
  "sw_index_daily_indicator"  # 申万一级、二级历史行情指标
+ "sw_index_third_info"  # 申万三级信息
+ "sw_index_third_cons"  # 申万三级信息成份
  # 空气质量
  "air_quality_hist"  # 空气质量历史数据
  "air_quality_rank"  # 空气质量排行
@@ -371,7 +373,8 @@
  "bond_zh_hs_cov_spot"  # 债券-沪深可转债-实时行情数据
  "bond_zh_cov"  # 债券-可转债数据一览表
  "bond_cov_comparison"  # 债券-可转债数据比价
- "bond_cov_jsl"  # 可转债转股价变动
+ "bond_cov_jsl"  # 可转债实时数据-集思录
+ "bond_conv_adj_logs_jsl"  # 可转债转股价变动-集思录
  # 中国-商业特许经营数据
  "franchise_china"  # 中国-商业特许经营数据
  # 慈善中国
@@ -412,9 +415,6 @@
  "currency_hist"  # 指定历史日期的货币对的历史报价
  "currency_pair_map"  # 指定货币的所有可获取货币对的数据
  "currency_name_code"  # 当前所有可兑换货币对
- # 工具-GitHub
- "tool_github_star_list"  # GitHub Star 的用户
- "tool_github_email_address"  # GitHub 用户的邮箱
  # 公募基金
  "fund_em_fund_name",  # 基金基本信息
  "fund_em_open_fund_daily",  # 开放式基金-实时数据
@@ -434,17 +434,18 @@
  # 千股千评
  "stock_em_comment"  # 股市关注度
  # 沪深港通
- "stock_em_hsgt_north_net_flow_in"  # 沪深港通北向-净流入
- "stock_em_hsgt_north_cash"  # 沪深港通北向-资金余额
- "stock_em_hsgt_north_acc_flow_in"  # 沪深港通北向-累计净流入
- "stock_em_hsgt_south_net_flow_in"  # 沪深港通南向-净流入
- "stock_em_hsgt_south_cash"  # 沪深港通南向-资金余额
- "stock_em_hsgt_south_acc_flow_in"  # 沪深港通南向-累计净流入
- "stock_em_hsgt_hold_stock"  # 沪深港通持股-个股排行
- "stock_em_hsgt_stock_statistics"  # 沪深港通持股-每日个股统计
- "stock_em_hsgt_institution_statistics"  # 沪深港通持股-每日机构统计
- "stock_em_hsgt_hist"  # 沪深港通历史数据
- "stock_em_hsgt_board_rank"  # 板块排行
+ "stock_hk_ggt_components_em"  # 港股通成份股
+ "stock_hsgt_north_net_flow_in_em"  # 沪深港通北向-净流入
+ "stock_hsgt_north_cash_em"  # 沪深港通北向-资金余额
+ "stock_hsgt_north_acc_flow_in_em"  # 沪深港通北向-累计净流入
+ "stock_hsgt_south_net_flow_in_em"  # 沪深港通南向-净流入
+ "stock_hsgt_south_cash_em"  # 沪深港通南向-资金余额
+ "stock_hsgt_south_acc_flow_in_em"  # 沪深港通南向-累计净流入
+ "stock_hsgt_hold_stock_em"  # 沪深港通持股-个股排行
+ "stock_hsgt_stock_statistics_em"  # 沪深港通持股-每日个股统计
+ "stock_hsgt_institution_statistics_em"  # 沪深港通持股-每日机构统计
+ "stock_hsgt_hist_em"  # 沪深港通历史数据
+ "stock_hsgt_board_rank_em"  # 板块排行
  # 两市停复牌
  "stock_tfp_em"  # 两市停复牌数据
  # 恐慌指数
@@ -518,6 +519,7 @@
  # A 股市盈率和市净率
  "stock_a_pb"  # A 股市净率
  "stock_a_pe"  # A 股市盈率
+ "stock_a_pe_and_pb"  # A 股市盈率和市净率
  "stock_a_lg_indicator"  # A 股个股市盈率、市净率和股息率指标
  "stock_hk_eniu_indicator"  # 港股股个股市盈率、市净率和股息率指标
  "stock_a_high_low_statistics"  # 创新高和新低的股票数量
@@ -966,6 +968,14 @@
  "spot_hist_sge"  # 上海黄金交易所-历史行情走势
  "spot_golden_benchmark_sge"  # 上海金基准价
  "spot_silver_benchmark_sge"  # 上海银基准价
+ # 个股信息查询
+ "stock_individual_info_em"  # 个股信息查询
+ # 中国食糖指数
+ "index_sugar_msweet"  # 中国食糖指数
+ # 配额内进口糖估算指数
+ "index_inner_quote_sugar_msweet"  # 配额内进口糖估算指数
+ # 配额外进口糖估算指数
+ "index_outer_quote_sugar_msweet"  # 配额外进口糖估算指数
 ```
 
 ## 案例演示

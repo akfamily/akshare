@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/8 22:08
+Date: 2021/12/24 12:08
 Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
@@ -26,9 +26,9 @@ from akshare.economic.cons import (
 
 
 # 东方财富-美国-未决房屋销售月率
-def macro_usa_phs():
+def macro_usa_phs() -> pd.DataFrame:
     """
-    未决房屋销售月率
+    东方财富-经济数据一览-美国-未决房屋销售月率
     http://data.eastmoney.com/cjsj/foreign_0_5.html
     :return: 未决房屋销售月率
     :rtype: pandas.DataFrame
@@ -56,28 +56,19 @@ def macro_usa_phs():
         '现值',
         '发布日期',
     ]
+    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
     temp_df['前值'] = pd.to_numeric(temp_df['前值'])
     temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
 
 # 金十数据中心-经济指标-美国-经济状况-美国GDP
-def macro_usa_gdp_monthly():
+def macro_usa_gdp_monthly() -> pd.DataFrame:
     """
-    美国国内生产总值(GDP)报告, 数据区间从20080228-至今
+    金十数据-美国国内生产总值(GDP)报告, 数据区间从 20080228-至今
     https://datacenter.jin10.com/reportType/dc_usa_gdp
     :return: pandas.Series
-    2008-02-28    0.6
-    2008-03-27    0.6
-    2008-04-30    0.9
-    2008-06-26      1
-    2008-07-31    1.9
-                 ...
-    2019-06-27    3.1
-    2019-07-26    2.1
-    2019-08-29      2
-    2019-09-26      2
-    2019-10-30      0
     """
     t = time.time()
     res = requests.get(
@@ -2153,7 +2144,7 @@ def macro_usa_pending_home_sales():
     美国成屋签约销售指数月率报告, 数据区间从20010301-至今
     https://datacenter.jin10.com/reportType/dc_usa_pending_home_sales
     https://cdn.jin10.com/dc/reports/dc_usa_pending_home_sales_all.js?v=1578747959
-    :return: 美国成屋签约销售指数月率报告-今值(%)
+    :return: 美国成屋签约销售指数月率报告
     :rtype: pandas.Series
     """
     t = time.time()
@@ -2210,7 +2201,7 @@ def macro_usa_pending_home_sales():
 # 金十数据中心-经济指标-美国-领先指标-美国谘商会消费者信心指数报告
 def macro_usa_cb_consumer_confidence():
     """
-    美国谘商会消费者信心指数报告, 数据区间从19700101-至今
+    金十数据中心-经济指标-美国-领先指标-美国谘商会消费者信心指数报告, 数据区间从 19700101-至今
     https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v=1578576859
     :return: 美国谘商会消费者信心指数报告-今值
     :rtype: pandas.Series
@@ -2637,12 +2628,13 @@ def macro_usa_cftc_merchant_currency_holding():
 
 
 # 金十数据中心-美国商品期货交易委员会CFTC商品类商业持仓报告
-def macro_usa_cftc_merchant_goods_holding():
+def macro_usa_cftc_merchant_goods_holding() -> pd.DataFrame:
     """
     美国商品期货交易委员会CFTC商品类商业持仓报告, 数据区间从 19860115-至今
     https://datacenter.jin10.com/reportType/dc_cftc_merchant_goods
     https://cdn.jin10.com/data_center/reports/cftc_1.json?_=1591536502095
-    :return: pandas.DataFrame
+    :return: 美国商品期货交易委员会CFTC商品类商业持仓报告
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {

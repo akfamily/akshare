@@ -1,9 +1,11 @@
+**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP Server 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南**
+
 ![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
 [![Downloads](https://pepy.tech/badge/akshare)](https://pepy.tech/project/akshare)
-[![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/zh_CN/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/?badge=latest)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
 [![Actions Status](https://github.com/akfamily/akshare/workflows/build/badge.svg)](https://github.com/akfamily/akshare/actions)
@@ -70,6 +72,7 @@ Code
 
 ```python
 import akshare as ak
+
 stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="")
 print(stock_zh_a_hist_df)
 ```
@@ -116,18 +119,18 @@ Output
 
 Pay attention to **数据科学家** Official Accounts to get more information about Quant, ML, DS and so on.
 
-<div align=center>
+<div>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png">
 </div>
 
 Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/akfamily/akshare) updated info:
 
-<div align=center>
+<div>
     <img src="https://github.com/akfamily/akshare/blob/master/example/images/ds.png">
 </div>
 
-Application to add **AKShare-VIP群** QQ group and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 2875328287
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_2875328287.jpg)
+Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 1254836886
+![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
 
 ## Features
 
@@ -161,7 +164,8 @@ Application to add **AKShare-VIP群** QQ group and talk about [AKShare](https://
 3. Any investor based on [AKShare](https://github.com/akfamily/akshare) research should pay more attention to data risk;
 4. [AKShare](https://github.com/akfamily/akshare) will insist on providing open-source financial data;
 5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/akfamily/akshare) may be removed;
-6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare).
+6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare);
+7. Provide HTTP API for the person who uses other program language: [AKTools](https://aktools.readthedocs.io/).
 
 ## Show your style
 

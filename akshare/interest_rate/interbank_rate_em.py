@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/6/22 16:13
+Date: 2021/12/17 20:13
 Desc: 东方财富网-经济数据-银行间拆借利率
 http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
 Attention: 大量获取容易封 IP, 建议 20 分钟后再尝试或者切换 WIFI 为手机热点, 也可以修改本函数只更新增量
@@ -85,6 +85,9 @@ def rate_interbank(
             "利率",
             "涨跌",
         ]
+        temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+        temp_df['利率'] = pd.to_numeric(temp_df['利率'])
+        temp_df['涨跌'] = pd.to_numeric(temp_df['涨跌'])
         return temp_df
     else:
         for page in tqdm(range(1, int(need_page) + 1)):
@@ -99,6 +102,9 @@ def rate_interbank(
             "利率",
             "涨跌",
         ]
+        temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+        temp_df['利率'] = pd.to_numeric(temp_df['利率'])
+        temp_df['涨跌'] = pd.to_numeric(temp_df['涨跌'])
         return temp_df
 
 

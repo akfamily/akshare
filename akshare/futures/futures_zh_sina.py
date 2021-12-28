@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/23 20:08
+Date: 2021/12/21 17:48
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
@@ -21,12 +21,12 @@ from akshare.futures.futures_contract_detail import futures_contract_detail
 from akshare.utils import demjson
 
 
-def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
+def zh_subscribe_exchange_symbol(symbol: str = "dce") -> dict:
     """
     交易所具体的可交易品种
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
-    :param exchange: choice of {'czce', 'dce', 'shfe', 'cffex'}
-    :type exchange: str
+    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex'}
+    :type symbol: str
     :return: 交易所具体的可交易品种
     :rtype: dict
     """
@@ -34,32 +34,33 @@ def zh_subscribe_exchange_symbol(exchange: str = "dce") -> dict:
     r.encoding = "gbk"
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): data_text.find("};") + 1])
-    if exchange == "czce":
+    if symbol == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
-    if exchange == "dce":
+    if symbol == "dce":
         data_json["dce"].remove("大连商品交易所")
         return pd.DataFrame(data_json["dce"])
-    if exchange == "shfe":
+    if symbol == "shfe":
         data_json["shfe"].remove("上海期货交易所")
         return pd.DataFrame(data_json["shfe"])
-    if exchange == "cffex":
+    if symbol == "cffex":
         data_json["cffex"].remove("中国金融期货交易所")
         return pd.DataFrame(data_json["cffex"])
 
 
-def match_main_contract(exchange: str = "dce") -> str:
+def match_main_contract(symbol: str = "cffex") -> str:
     """
-    获取主力合约
-    :param exchange: choice of {'czce', 'dce', 'shfe', 'cffex'}
-    :type exchange: str
-    :return: 获取主力合约的字符串
+    新浪财经-期货-主力合约
+    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex'}
+    :type symbol: str
+    :return: 主力合约的字符串
     :rtype: str
     """
     subscribe_exchange_list = []
-    exchange_symbol_list = zh_subscribe_exchange_symbol(exchange).iloc[:, 1].tolist()
+    exchange_symbol_list = zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
-        # item = 'jhb_qh'
+        # item = 'sngz_qh'
         zh_match_main_contract_payload.update({"node": item})
         res = requests.get(
             zh_match_main_contract_url, params=zh_match_main_contract_payload
@@ -77,45 +78,47 @@ def match_main_contract(exchange: str = "dce") -> str:
             else:
                 print(item, "无主力合约")
             continue
-    print(f"{exchange}主力合约获取成功")
-    return ",".join(["nf_" + item for item in subscribe_exchange_list])
+    print(f"{symbol}主力合约获取成功")
+    return ",".join([item for item in subscribe_exchange_list])
 
 
 def futures_zh_spot(
-    subscribe_list: str = "nf_IF1912,nf_TF1912,nf_IH1912,nf_IC1912",
+    symbol: str = 'V2205, P2205, B2201, M2205',
     market: str = "CF",
-    adjust: bool = False,
+    adjust: str = '0',
 ) -> pd.DataFrame:
     """
     期货的实时行情数据
-    :param subscribe_list: 行情的字符串组合
-    :type subscribe_list: str
+    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+    :param symbol: 合约名称的字符串组合
+    :type symbol: str
     :param market: CF 为商品期货
     :type market: str
-    :param adjust: True or False
-    :type adjust: bool
+    :param adjust: '1' or '0'; 字符串的 0 或 1
+    :type adjust: str
     :return: 期货的实时行情数据
     :rtype: pandas.DataFrame
     """
+    subscribe_list = ','.join(['nf_' + item.strip() for item in symbol.split(',')])
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
-    res = requests.get(url)
+    r = requests.get(url)
     data_df = pd.DataFrame(
         [
             item.strip().split("=")[1].split(",")
-            for item in res.text.split(";")
+            for item in r.text.split(";")
             if item.strip() != ""
         ]
     )
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")
     data_df.iloc[:, -1] = data_df.iloc[:, -1].str.replace('"', "")
-    if adjust:
+    if adjust == '1':
         contract_name_list = [item.split("_")[1] for item in subscribe_list.split(",")]
         contract_min_list = []
         contract_exchange_list = []
         for contract_name in contract_name_list:
             # print(contract_name)
             # contract_name = 'AP2101'
-            temp_df = futures_contract_detail(contract=contract_name)
+            temp_df = futures_contract_detail(symbol=contract_name)
             exchange_name = temp_df[temp_df["item"] == "上市交易所"]["value"].values[0]
             contract_exchange_list.append(exchange_name)
             contract_min = temp_df[temp_df["item"] == "最小变动价位"]["value"].values[0]
@@ -173,6 +176,22 @@ def futures_zh_spot(
             data_df["exchange"] = contract_exchange_list
             data_df["contract"] = contract_name_list
             data_df["contract_min_change"] = contract_min_list
+
+            data_df['open'] = pd.to_numeric(data_df['open'])
+            data_df['high'] = pd.to_numeric(data_df['high'])
+            data_df['low'] = pd.to_numeric(data_df['low'])
+            data_df['current_price'] = pd.to_numeric(data_df['current_price'])
+            data_df['bid_price'] = pd.to_numeric(data_df['bid_price'])
+            data_df['ask_price'] = pd.to_numeric(data_df['ask_price'])
+            data_df['buy_vol'] = pd.to_numeric(data_df['buy_vol'])
+            data_df['sell_vol'] = pd.to_numeric(data_df['sell_vol'])
+            data_df['hold'] = pd.to_numeric(data_df['hold'])
+            data_df['volume'] = pd.to_numeric(data_df['volume'])
+            data_df['avg_price'] = pd.to_numeric(data_df['avg_price'])
+            data_df['last_close'] = pd.to_numeric(data_df['last_close'])
+            data_df['last_settle_price'] = pd.to_numeric(data_df['last_settle_price'])
+
+            data_df.dropna(subset=['current_price'], inplace=True)
             return data_df
         else:
             data_df.columns = [
@@ -243,6 +262,16 @@ def futures_zh_spot(
             data_df["exchange"] = contract_exchange_list
             data_df["contract"] = contract_name_list
             data_df["contract_min_change"] = contract_min_list
+
+            data_df['open'] = pd.to_numeric(data_df['open'])
+            data_df['high'] = pd.to_numeric(data_df['high'])
+            data_df['low'] = pd.to_numeric(data_df['low'])
+            data_df['current_price'] = pd.to_numeric(data_df['current_price'])
+            data_df['hold'] = pd.to_numeric(data_df['hold'])
+            data_df['volume'] = pd.to_numeric(data_df['volume'])
+            data_df['amount'] = pd.to_numeric(data_df['amount'])
+
+            data_df.dropna(subset=['current_price'], inplace=True)
             return data_df
     else:
         if market == "CF":
@@ -295,6 +324,22 @@ def futures_zh_spot(
                     "last_settle_price",
                 ]
             ]
+
+            data_df['open'] = pd.to_numeric(data_df['open'])
+            data_df['high'] = pd.to_numeric(data_df['high'])
+            data_df['low'] = pd.to_numeric(data_df['low'])
+            data_df['current_price'] = pd.to_numeric(data_df['current_price'])
+            data_df['bid_price'] = pd.to_numeric(data_df['bid_price'])
+            data_df['ask_price'] = pd.to_numeric(data_df['ask_price'])
+            data_df['buy_vol'] = pd.to_numeric(data_df['buy_vol'])
+            data_df['sell_vol'] = pd.to_numeric(data_df['sell_vol'])
+            data_df['hold'] = pd.to_numeric(data_df['hold'])
+            data_df['volume'] = pd.to_numeric(data_df['volume'])
+            data_df['avg_price'] = pd.to_numeric(data_df['avg_price'])
+            data_df['last_close'] = pd.to_numeric(data_df['last_close'])
+            data_df['last_settle_price'] = pd.to_numeric(data_df['last_settle_price'])
+
+            data_df.dropna(subset=['current_price'], inplace=True)
             return data_df
         else:
             data_df.columns = [
@@ -362,6 +407,15 @@ def futures_zh_spot(
                     "amount",
                 ]
             ]
+            data_df['open'] = pd.to_numeric(data_df['open'])
+            data_df['high'] = pd.to_numeric(data_df['high'])
+            data_df['low'] = pd.to_numeric(data_df['low'])
+            data_df['current_price'] = pd.to_numeric(data_df['current_price'])
+            data_df['hold'] = pd.to_numeric(data_df['hold'])
+            data_df['volume'] = pd.to_numeric(data_df['volume'])
+            data_df['amount'] = pd.to_numeric(data_df['amount'])
+
+            data_df.dropna(subset=['current_price'], inplace=True)
             return data_df
 
 
@@ -369,7 +423,7 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
     """
     中国各品种期货分钟频率数据
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
-    :param symbol: 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取
+    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
     :type symbol: str
     :param period: choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}
     :type period: str
@@ -397,7 +451,7 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
     """
     中国各品种期货日频率数据
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
-    :param symbol: 可以通过 match_main_contract(exchange="cffex") 获取, 或者访问网页获取
+    :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
     :type symbol: str
     :return: 指定 symbol 和 period 的数据
     :rtype: pandas.DataFrame
@@ -428,34 +482,23 @@ if __name__ == "__main__":
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="LH2109")
     print(futures_zh_daily_sina_df)
 
-    # for num in range(11, 21):
-    #     print(num)
-    #     for last in range(1, 13):
-    #         try:
-    #             print(f"V{str(num)+str(last).zfill(2)}")
-    #             futures_zh_daily_sina_df = futures_zh_daily_sina(symbol=f"M{str(num)+str(last).zfill(2)}")
-    #             print(futures_zh_daily_sina_df)
-    #         except:
-    #             continue
+    futures_zh_spot_df = futures_zh_spot(symbol='V2205, P2205, B2201, M2205', market="CF", adjust='0')
+    print(futures_zh_spot_df.info())
+
+    futures_zh_spot_df = futures_zh_spot(symbol='NR0', market="CF", adjust='0')
+    print(futures_zh_spot_df)
 
     print("开始接收实时行情, 每秒刷新一次")
-    dce_text = match_main_contract(exchange="dce")
-    czce_text = match_main_contract(exchange="czce")
-    shfe_text = match_main_contract(exchange="shfe")
+    dce_text = match_main_contract(symbol="dce")
+    czce_text = match_main_contract(symbol="czce")
+    shfe_text = match_main_contract(symbol="shfe")
+    cffex_text = match_main_contract(symbol="cffex")
 
     while True:
-        data = futures_zh_spot(
-            subscribe_list=",".join([dce_text, czce_text, shfe_text]),
+        futures_zh_spot_df = futures_zh_spot(
+            symbol=",".join([dce_text, czce_text, shfe_text]),
             market="CF",
-            adjust=True,
+            adjust='0',
         )
-        print(data)
-        time.sleep(3)
-
-    # 金融期货单独订阅
-    cffex_text = match_main_contract(exchange="cffex")
-
-    while True:
-        data = futures_zh_spot(subscribe_list=cffex_text, market="FF")
-        print(data)
+        print(futures_zh_spot_df)
         time.sleep(3)

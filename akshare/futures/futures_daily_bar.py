@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/25 17:23
+Date: 2021/12/13 12:23
 Desc: 期货日线行情
 """
 import datetime
@@ -119,14 +119,14 @@ def get_ine_daily(date: str = "20200106") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
-        return None
+        return
     url = f"http://www.ine.cn/data/dailydata/kx/kx{day.strftime('%Y%m%d')}.dat"
     r = requests.get(url)
     result_df = pd.DataFrame()
     try:
         data_json = r.json()
     except:
-        return None
+        return
     temp_df = pd.DataFrame(data_json["o_curinstrument"]).iloc[:-1, :]
     temp_df = temp_df[temp_df["DELIVERYMONTH"] != "小计"]
     temp_df = temp_df[~temp_df["PRODUCTNAME"].str.contains("总计")]
@@ -171,7 +171,8 @@ def get_ine_daily(date: str = "20200106") -> pd.DataFrame:
 def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
     """
     郑州商品交易所-日频率-量价数据
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日; 日期需要大于 20100824
+    http://www.czce.com.cn/cn/jysj/mrhq/H770301index_1.htm
+    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象，默认为当前交易日; 日期需要大于 20100824
     :type date: str or datetime.date
     :return: 郑州商品交易所-日频率-量价数据
     :rtype: pandas.DataFrame or None
@@ -179,7 +180,7 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
-        return None
+        return
     if day > datetime.date(2010, 8, 24):
         if day > datetime.date(2015, 11, 11):
             u = cons.CZCE_DAILY_URL_3
@@ -202,9 +203,9 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
                     % (day.strftime("%Y"), day.strftime("%Y%m%d")),
                     reason,
                 )
-            return None
+            return
         if html.find("您的访问出错了") >= 0 or html.find("无期权每日行情交易记录") >= 0:
-            return None
+            return
         html = [
             i.replace(" ", "").split("|")
             for i in html.split("\n")[:-4]
@@ -236,7 +237,6 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
                         row[i + 1] = row[i + 1].replace(",", "")
                         row_dict[field] = float(row[i + 1])
                 dict_data.append(row_dict)
-
             return pd.DataFrame(dict_data)[output_columns]
         elif day <= datetime.date(2015, 11, 11):
             dict_data = list()
@@ -615,7 +615,7 @@ if __name__ == "__main__":
     get_ine_daily_df = get_ine_daily(date="20211201")
     print(get_ine_daily_df)
 
-    get_czce_daily_df = get_czce_daily(date="20151111")
+    get_czce_daily_df = get_czce_daily(date="20211112")
     print(get_czce_daily_df)
 
     get_shfe_daily_df = get_shfe_daily(date="20160104")

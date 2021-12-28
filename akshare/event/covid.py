@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/22 14:07
+Date: 2021/12/16 14:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
@@ -11,13 +11,13 @@ COVID-19-GitHub
 import json
 import time
 
-from akshare.utils import demjson
 import jsonpath
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 from akshare.event.cons import province_dict, city_dict
+from akshare.utils import demjson
 
 
 def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
@@ -25,6 +25,8 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
     网易-新型冠状病毒
     https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&#map_block
     https://news.163.com/special/epidemic/?spssid=93326430940df93a37229666dfbc4b96&spsw=4&spss=other&
+    :param indicator: 参数
+    :type indicator: str
     :return: 返回指定 indicator 的数据
     :rtype: pandas.DataFrame
     """
@@ -37,6 +39,7 @@ def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
     }
     r = requests.get(url, params=payload, headers=headers)
     data_json = r.json()
+
     # data info
     url = "https://news.163.com/special/epidemic/"
     r = requests.get(url, headers=headers)
@@ -211,7 +214,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     丁香园-分地区统计-data
     丁香园-全国发热门诊一览表-hospital
     丁香园-全国新闻-news
-    :param indicator: ["info", "data", "hospital", "news"]
+    :param indicator: choice of {"info", "data", "hospital", "news"}
     :type indicator: str
     :return: 返回指定 indicator 的数据
     :rtype: pandas.DataFrame
@@ -250,10 +253,10 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
         temp_df["province"] = p
         big_df = big_df.append(temp_df, ignore_index=True)
     domestic_city_df = big_df
-
     data_df = pd.DataFrame(data_text_json).iloc[:, :7]
     data_df.columns = ["地区", "地区简称", "现存确诊", "累计确诊", "-", "治愈", "死亡"]
     domestic_province_df = data_df[["地区", "地区简称", "现存确诊", "累计确诊", "治愈", "死亡"]]
+
     # data-global
     data_text = str(
         soup.find("script", attrs={"id": "getListByCountryTypeService2true"})
@@ -297,6 +300,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     global_statistics = pd.DataFrame.from_dict(
         data_json["globalStatistics"], orient="index"
     )
+
     # hospital
     url = (
         "https://assets.dxycdn.com/gitrepo/tod-assets/output/default/pneumonia/index.js"
@@ -333,7 +337,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
                 data_df[data_df["provinceName"] == indicator]["cities"].values[0]
             )
             if sub_area.empty:
-                return None
+                return
             if sub_area.shape[1] != 10:
                 sub_area.columns = [
                     "区域",
@@ -601,7 +605,7 @@ def migration_area_baidu(
     :type area: str
     :param indicator: move_in 迁入 move_out 迁出
     :type indicator: str
-    :param date: 查询的日期 20200101以后的时间
+    :param date: 查询的日期 20200101 以后的时间
     :type date: str
     :return: 迁入地详情/迁出地详情的前 50 个
     :rtype: pandas.DataFrame
@@ -620,7 +624,7 @@ def migration_area_baidu(
         "date": date,
     }
     r = requests.get(url, params=params)
-    data_text = r.text[r.text.find("({") + 1 : r.text.rfind(");")]
+    data_text = r.text[r.text.find("({") + 1: r.text.rfind(");")]
     data_json = json.loads(data_text)
     temp_df = pd.DataFrame(data_json["data"]["list"])
     return temp_df

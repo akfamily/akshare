@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2", plot: bool = True) -> pd.DataFrame:
+def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2", plot: bool = False) -> pd.DataFrame:
     """
     Oxford-Man Institute of Quantitative Finance Realized Library 的数据
     :param symbol: str ['AEX', 'AORD', 'BFX', 'BSESN', 'BVLG', 'BVSP', 'DJI', 'FCHI', 'FTMIB', 'FTSE', 'GDAXI', 'GSPTSE', 'HSI', 'IBEX', 'IXIC', 'KS11', 'KSE', 'MXX', 'N225', 'NSEI', 'OMXC20', 'OMXHPI', 'OMXSPI', 'OSEAX', 'RUT', 'SMSI', 'SPX', 'SSEC', 'SSMI', 'STI', 'STOXX50E']
@@ -86,7 +86,7 @@ def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2", plot: bool = Tr
         return temp_df
 
 
-def article_oman_rv_short(symbol: str = "FTSE", plot: str = True) -> pd.DataFrame:
+def article_oman_rv_short(symbol: str = "FTSE", plot: str = False) -> pd.DataFrame:
     """
     Oxford-Man Institute of Quantitative Finance Realized Library 的数据
     :param symbol: str FTSE: FTSE 100, GDAXI: DAX, RUT: Russel 2000, SPX: S&P 500 Index, STOXX50E: EURO STOXX 50, SSEC: Shanghai Composite Index, N225: Nikkei 225
@@ -136,7 +136,7 @@ def article_oman_rv_short(symbol: str = "FTSE", plot: str = True) -> pd.DataFram
         return temp_df
 
 
-def article_rlab_rv(symbol: str = "39693", plot: bool = True) -> pd.DataFrame:
+def article_rlab_rv(symbol: str = "39693", plot: bool = False) -> pd.DataFrame:
     """
     修大成主页-Risk Lab-Realized Volatility
     :param symbol: str 股票代码

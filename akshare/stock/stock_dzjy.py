@@ -18,25 +18,30 @@ def stock_dzjy_sctj() -> pd.DataFrame:
     :return: 市场统计表
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "DZJYSCTJ",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "TDATE",
-        "sr": "-1",
-        "p": "1",
-        "ps": "50000",
-        "js": "var xoqCPdgn={pages:(tp),data:(x)}",
-        "rt": "53569504",
+        'sortColumns': 'TRADE_DATE',
+        'sortTypes': '-1',
+        'pageSize': '500',
+        'pageNumber': '1',
+        'reportName': 'PRT_BLOCKTRADE_MARKET_STA',
+        'columns': 'TRADE_DATE,SZ_INDEX,SZ_CHANGE_RATE,BLOCKTRADE_DEAL_AMT,PREMIUM_DEAL_AMT,PREMIUM_RATIO,DISCOUNT_DEAL_AMT,DISCOUNT_RATIO',
+        'source': 'WEB',
+        'client': 'WEB',
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text.split("=")[1])
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.reset_index(inplace=True)
-    temp_df['index'] = temp_df['index'] + 1
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = int(data_json['result']["pages"])
+    big_df = pd.DataFrame()
+    for page in range(1, total_page+1):
+        params.update({'pageNumber': page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df['index'] = big_df['index'] + 1
+    big_df.columns = [
         "序号",
         "交易日期",
         "上证指数",
@@ -47,15 +52,15 @@ def stock_dzjy_sctj() -> pd.DataFrame:
         "折价成交总额",
         "折价成交总额占比",
     ]
-    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"]).dt.date
-    temp_df["上证指数"] = pd.to_numeric(temp_df["上证指数"])
-    temp_df["上证指数涨跌幅"] = pd.to_numeric(temp_df["上证指数涨跌幅"])
-    temp_df["大宗交易成交总额"] = pd.to_numeric(temp_df["大宗交易成交总额"])
-    temp_df["溢价成交总额"] = pd.to_numeric(temp_df["溢价成交总额"])
-    temp_df["溢价成交总额占比"] = pd.to_numeric(temp_df["溢价成交总额占比"])
-    temp_df["折价成交总额"] = pd.to_numeric(temp_df["折价成交总额"])
-    temp_df["折价成交总额占比"] = pd.to_numeric(temp_df["折价成交总额占比"])
-    return temp_df
+    big_df["交易日期"] = pd.to_datetime(big_df["交易日期"]).dt.date
+    big_df["上证指数"] = pd.to_numeric(big_df["上证指数"])
+    big_df["上证指数涨跌幅"] = pd.to_numeric(big_df["上证指数涨跌幅"])
+    big_df["大宗交易成交总额"] = pd.to_numeric(big_df["大宗交易成交总额"])
+    big_df["溢价成交总额"] = pd.to_numeric(big_df["溢价成交总额"])
+    big_df["溢价成交总额占比"] = pd.to_numeric(big_df["溢价成交总额占比"])
+    big_df["折价成交总额"] = pd.to_numeric(big_df["折价成交总额"])
+    big_df["折价成交总额占比"] = pd.to_numeric(big_df["折价成交总额占比"])
+    return big_df
 
 
 def stock_dzjy_mrmx(symbol: str = '债券', start_date: str = '2020-12-04', end_date: str = '2020-12-04') -> pd.DataFrame:

@@ -8,8 +8,8 @@ Desc: 中国证券投资基金业协会-信息公示数据
 """
 import pandas as pd
 import requests
-from tqdm import tqdm
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from tqdm import tqdm
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
@@ -103,13 +103,18 @@ def amac_member_info(params: dict={}) -> pd.DataFrame:
 
 # 中国证券投资基金业协会-信息公示-从业人员信息
 # 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
-def amac_person_fund_org_list(params: dict={}) -> pd.DataFrame:
+def amac_person_fund_org_list(symbol: str = "公募基金管理公司", params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
     https://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
+    :param symbol: choice of {"公募基金管理公司", "公募基金管理公司资管子公司", "商业银行", "证券公司", "证券公司子公司", "私募基金管理人", "保险公司子公司", "保险公司", "外包服务机构", "期货公司", "期货公司资管子公司", "媒体机构", "证券投资咨询机构", "评价机构", "外资私募证券基金管理人", "支付结算", "独立服务机构", "地方自律组织", "境外机构", "律师事务所", "会计师事务所", "交易所", "独立第三方销售机构", "证券公司资管子公司", "证券公司私募基金子公司", "其他"}
+    :type symbol: str
     :return: 基金从业人员资格注册信息
     :rtype: pandas.DataFrame
     """
+    from pypinyin import lazy_pinyin
+    pinyin_raw_list = lazy_pinyin(symbol)
+    symbol_trans = ''.join([item[0] for item in pinyin_raw_list])
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/personOrg"
     params = {
         "rand": "0.7665138514630696",
@@ -117,7 +122,7 @@ def amac_person_fund_org_list(params: dict={}) -> pd.DataFrame:
         "size": "100",
     }.update(params)
     r = requests.post(
-        url, params=params, json={"orgType": "gmjjglgs", "page": "1"}, verify=False
+        url, params=params, json={"orgType": symbol_trans, "page": "1"}, verify=False
     )
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -125,13 +130,14 @@ def amac_person_fund_org_list(params: dict={}) -> pd.DataFrame:
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
         r = requests.post(
-            url, params=params, json={"orgType": "gmjjglgs", "page": "1"}, verify=False
+            url, params=params, json={"orgType": symbol_trans, "page": "1"}, verify=False
         )
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = big_df.append(temp_df, ignore_index=True)
     keys_list = [
         "orgName",
+        "orgType",
         "workerTotalNum",
         "operNum",
         "salesmanNum",
@@ -140,14 +146,23 @@ def amac_person_fund_org_list(params: dict={}) -> pd.DataFrame:
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
+    manager_data_out.reset_index(inplace=True)
+    manager_data_out['index'] = manager_data_out.index + 1
     manager_data_out.columns = [
+        "序号",
         "机构名称",
+        "机构类型",
         "员工人数",
         "基金从业资格",
         "基金销售业务资格",
         "基金经理",
         "投资经理",
     ]
+    manager_data_out['员工人数'] = pd.to_numeric(manager_data_out['员工人数'])
+    manager_data_out['基金从业资格'] = pd.to_numeric(manager_data_out['基金从业资格'])
+    manager_data_out['基金销售业务资格'] = pd.to_numeric(manager_data_out['基金销售业务资格'])
+    manager_data_out['基金经理'] = pd.to_numeric(manager_data_out['基金经理'])
+    manager_data_out['投资经理'] = pd.to_numeric(manager_data_out['投资经理'])
     return manager_data_out
 
 
@@ -371,7 +386,7 @@ def amac_fund_info(start_page: str = '1', end_page: str = "2000", params: dict={
     else:
         real_end_page = total_page
     big_df = pd.DataFrame()
-    for page in tqdm(range(int(start_page)-1, real_end_page), leave=False):
+    for page in tqdm(range(int(start_page) - 1, real_end_page), leave=False):
         params.update({"page": page})
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()

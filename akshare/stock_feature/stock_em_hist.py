@@ -204,7 +204,7 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-def _code_id_map() -> dict:
+def code_id_map_em() -> dict:
     """
     东方财富-股票和市场代码
     http://quote.eastmoney.com/center/gridlist.html#hs_a_board
@@ -293,13 +293,13 @@ def stock_zh_a_hist(
     :return: 每日行情
     :rtype: pandas.DataFrame
     """
-    code_id_dict = _code_id_map()
+    code_id_dict = code_id_map_em()
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     period_dict = {'daily': '101', 'weekly': '102', 'monthly': '103'}
     url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6",
-        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f116",
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "klt": period_dict[period],
         "fqt": adjust_dict[adjust],
@@ -346,28 +346,28 @@ def stock_zh_a_hist(
 
 def stock_zh_a_hist_min_em(
         symbol: str = "000001",
-        period: str = '1',
-        adjust: str = '',
         start_date: str = "1979-09-01 09:32:00",
         end_date: str = "2222-01-01 09:32:00",
+        period: str = '5',
+        adjust: str = '',
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日分时行情
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
-    :param period: choice of {'1', '5', '15', '30', '60'}
-    :type period: str
-    :param adjust: choice of {'', 'qfq', 'hfq'}
-    :type adjust: str
     :param start_date: 开始日期
     :type start_date: str
     :param end_date: 结束日期
     :type end_date: str
+    :param period: choice of {'1', '5', '15', '30', '60'}
+    :type period: str
+    :param adjust: choice of {'', 'qfq', 'hfq'}
+    :type adjust: str
     :return: 每日分时行情
     :rtype: pandas.DataFrame
     """
-    code_id_dict = _code_id_map()
+    code_id_dict = code_id_map_em()
     adjust_map = {
         '': '0',
         'qfq': '1',
@@ -484,7 +484,7 @@ def stock_zh_a_hist_pre_min_em(symbol: str = "000001",
     :return: 每日分时行情包含盘前数据
     :rtype: pandas.DataFrame
     """
-    code_id_dict = _code_id_map()
+    code_id_dict = code_id_map_em()
     url = "https://push2.eastmoney.com/api/qt/stock/trends2/get"
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",

@@ -72,6 +72,7 @@ def stock_us_hist_fu(
         "成交量",
         "成交额",
         "换手率",
+        "-",
         "昨收",
     ]
     temp_df = temp_df[

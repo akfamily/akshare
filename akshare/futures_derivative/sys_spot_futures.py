@@ -28,7 +28,7 @@ def get_sys_spot_futures_dict() -> dict:
     return name_url_dict
 
 
-def get_sys_spot_futures(symbol: str = "铜", plot: bool = True) -> pd.DataFrame:
+def get_sys_spot_futures(symbol: str = "铜", plot: bool = False) -> pd.DataFrame:
     """
     生意社-商品与期货-现期图: 图和表格
     :param symbol: str 品种
@@ -92,6 +92,7 @@ def get_sys_spot_futures(symbol: str = "铜", plot: bool = True) -> pd.DataFrame
 if __name__ == "__main__":
     get_sys_spot_futures_dict_map = get_sys_spot_futures_dict()
     print(get_sys_spot_futures_dict_map)
+
     df_one, df_two, df_three = get_sys_spot_futures(symbol="白银", plot=False)
     print(df_one)
     print(df_two)

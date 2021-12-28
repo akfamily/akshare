@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/10/29 13:04
+Date: 2021/12/17 20:04
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心-回购定盘利率-历史数据
 """
 import pandas as pd
@@ -41,9 +41,16 @@ def repo_rate_hist(start_date: str = "20200930", end_date: str = "20201029") -> 
         "FDR007",
         "FDR014",
     ]]
+    temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+    temp_df['FR001'] = pd.to_numeric(temp_df['FR001'])
+    temp_df['FR007'] = pd.to_numeric(temp_df['FR007'])
+    temp_df['FR014'] = pd.to_numeric(temp_df['FR014'])
+    temp_df['FDR001'] = pd.to_numeric(temp_df['FDR001'])
+    temp_df['FDR007'] = pd.to_numeric(temp_df['FDR007'])
+    temp_df['FDR014'] = pd.to_numeric(temp_df['FDR014'])
     return temp_df
 
 
 if __name__ == '__main__':
-    repo_rate_hist_df = repo_rate_hist(start_date="20200830", end_date="20200929")
+    repo_rate_hist_df = repo_rate_hist(start_date="20210829", end_date="20210929")
     print(repo_rate_hist_df)

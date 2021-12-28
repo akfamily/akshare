@@ -53,8 +53,13 @@ def futures_index_cscidx(symbol: str = "中证监控油脂油料期货指数") -
     }
     r = requests.post(url, params=params, data=payload, headers=headers)
     data_json = r.json()
-    # TODO
-    return data_json
+    temp_df = pd.DataFrame([data_json['dataMap']['axisList'], data_json['dataMap']['lineList']]).T
+    temp_df.columns = [
+        'datetime',
+        'value',
+    ]
+    temp_df['value'] = pd.to_numeric(temp_df['value'])
+    return temp_df
 
 
 if __name__ == "__main__":

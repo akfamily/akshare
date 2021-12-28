@@ -36,6 +36,7 @@
 
 ```python
 import akshare as ak
+
 amac_member_info_df = ak.amac_member_info()
 print(amac_member_info_df)
 ```
@@ -65,50 +66,52 @@ print(amac_member_info_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
 
-描述: 获取中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
+描述: 中国证券投资基金业协会-信息公示-从业人员信息-基金从业人员资格注册信息
 
 限量: 单次返回当前时刻所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述 |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   - |
+| 名称     | 类型  | 描述                                                                                                                                                                                                                                                                                                         |
+|--------|-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="公募基金管理公司"; choice of {"公募基金管理公司", "公募基金管理公司资管子公司", "商业银行", "证券公司", "证券公司子公司", "私募基金管理人", "保险公司子公司", "保险公司", "外包服务机构", "期货公司", "期货公司资管子公司", "媒体机构", "证券投资咨询机构", "评价机构", "外资私募证券基金管理人", "支付结算", "独立服务机构", "地方自律组织", "境外机构", "律师事务所", "会计师事务所", "交易所", "独立第三方销售机构", "证券公司资管子公司", "证券公司私募基金子公司", "其他"} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 机构名称      | str   | Y        | -  |
-| 员工人数      | str   | Y        | -   |
-| 基金从业资格      | str   | Y        | -   |
-| 基金销售业务资格      | str   | Y        | -   |
-| 基金经理      | datetime.date   | Y        | -   |
-| 投资经理      | str   | Y        | -   |
+| 名称       | 类型     | 描述  |
+|----------|--------|-----|
+| 序号       | int64  | -   |
+| 机构名称     | object | -   |
+| 员工人数     | object | -   |
+| 基金从业资格   | int64  | -   |
+| 基金销售业务资格 | int64  | -   |
+| 基金经理     | int64  | -   |
+| 投资经理     | int64  | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-amac_person_fund_org_list_df = ak.amac_person_fund_org_list()
+
+amac_person_fund_org_list_df = ak.amac_person_fund_org_list(symbol="公募基金管理公司")
 print(amac_person_fund_org_list_df)
 ```
 
 数据示例
 
 ```
-                                  机构名称  员工人数  基金从业资格  基金销售业务资格  基金经理  投资经理
-0                    阿尔法未来（北京）投资管理有限公司    10      10         0     0     0
-1                   艾邦股权投资基金管理（上海）有限公司     3       3         0     0     0
-2                          爱凡哲投资管理有限公司     7       7         0     0     0
-3                   艾格（天津）股权投资基金管理有限公司    13      12         0     0     0
-4                       爱晖资产管理(上海)有限公司    12      11         0     0     0
-                                ...   ...     ...       ...   ...   ...
-23768                  尊方德投资管理（上海）有限公司     6       3         0     0     0
-23769                     遵义启迪投资管理有限公司     3       3         0     0     0
-23770                  遵义市鑫财基金投资管理有限公司     5       5         0     0     0
-23771  Deutsche Bank (China) Co., Ltd.     3       3         0     0     0
-23772       The Northern Trust Company     1       1         0     0     0
+      序号         机构名称      机构类型  员工人数  基金从业资格  基金销售业务资格  基金经理  投资经理
+0      1    安信基金管理有限责任公司  公募基金管理公司   223     221         0    14    32
+1      2      百嘉基金管理有限公司  公募基金管理公司    32      32         0     3     3
+2      3      宝盈基金管理有限公司  公募基金管理公司   155     154         0     7    15
+3      4     贝莱德基金管理有限公司  公募基金管理公司    60      55         0     0     3
+4      5    北信瑞丰基金管理有限公司  公募基金管理公司   113     109         0     4    11
+..   ...             ...       ...   ...     ...       ...   ...   ...
+132  133    中信保诚基金管理有限公司  公募基金管理公司   195     191         0    11    23
+133  134    中信建投基金管理有限公司  公募基金管理公司   146     138         0     8    15
+134  135      中银基金管理有限公司  公募基金管理公司   372     368         0    14    37
+135  136  中邮创业基金管理股份有限公司  公募基金管理公司   199     198         0     6    20
+136  137      朱雀基金管理有限公司  公募基金管理公司   101     100         0    11     5
 ```
 
 ##### 债券投资交易相关人员公示
@@ -117,29 +120,30 @@ print(amac_person_fund_org_list_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/person/personOrgList.html
 
-描述: 获取中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
+描述: 中国证券投资基金业协会-信息公示-从业人员信息-债券投资交易相关人员公示
 
 限量: 单次返回当前时刻所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述 |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 序号      | str   | Y        | -  |
-| 机构类型      | str   | Y        | -   |
-| 机构名称      | str   | Y        | -   |
-| 公示网址      | str   | Y        | -   |
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 序号   | int64  | -   |
+| 机构类型 | object | -   |
+| 机构名称 | object | -   |
+| 公示网址 | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 amac_person_bond_org_list_df = ak.amac_person_bond_org_list()
 print(amac_person_bond_org_list_df)
 ```
@@ -169,7 +173,7 @@ print(amac_person_bond_org_list_df)
 
 目标地址: http://gs.amac.org.cn/amac-infodisc/res/pof/manager/index.html
 
-描述: 获取中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
+描述: 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人综合查询
 
 限量: 单次返回当前时刻所有历史数据
 
@@ -195,6 +199,7 @@ print(amac_person_bond_org_list_df)
 
 ```python
 import akshare as ak
+
 amac_manager_info_df = ak.amac_manager_info()
 print(amac_manager_info_df)
 ```
@@ -248,6 +253,7 @@ print(amac_manager_info_df)
 
 ```python
 import akshare as ak
+
 amac_manager_classify_info_df = ak.amac_manager_classify_info()
 print(amac_manager_classify_info_df)
 ```
@@ -312,6 +318,7 @@ print(amac_manager_classify_info_df)
 
 ```python
 import akshare as ak
+
 amac_member_sub_info_df = ak.amac_member_sub_info()
 print(amac_member_sub_info_df)
 ```
@@ -368,6 +375,7 @@ print(amac_member_sub_info_df)
 
 ```python
 import akshare as ak
+
 amac_fund_info_df = ak.amac_fund_info()
 print(amac_fund_info_df)
 ```
@@ -436,6 +444,7 @@ print(amac_fund_info_df)
 
 ```python
 import akshare as ak
+
 amac_securities_info_df = ak.amac_securities_info()
 print(amac_securities_info_df)
 ```
@@ -499,6 +508,7 @@ print(amac_securities_info_df)
 
 ```python
 import akshare as ak
+
 amac_aoin_info_df = ak.amac_aoin_info()
 print(amac_aoin_info_df)
 ```
@@ -563,6 +573,7 @@ print(amac_aoin_info_df)
 
 ```python
 import akshare as ak
+
 amac_fund_sub_info_df = ak.amac_fund_sub_info()
 print(amac_fund_sub_info_df)
 ```
@@ -625,6 +636,7 @@ print(amac_fund_sub_info_df)
 
 ```python
 import akshare as ak
+
 amac_fund_account_info_df = ak.amac_fund_account_info()
 print(amac_fund_account_info_df)
 ```
@@ -679,6 +691,7 @@ print(amac_fund_account_info_df)
 
 ```python
 import akshare as ak
+
 amac_fund_abs_df = ak.amac_fund_abs()
 print(amac_fund_abs_df)
 ```
@@ -735,6 +748,7 @@ print(amac_fund_abs_df)
 
 ```python
 import akshare as ak
+
 amac_futures_info_df = ak.amac_futures_info()
 print(amac_futures_info_df)
 ```
@@ -800,6 +814,7 @@ print(amac_futures_info_df)
 
 ```python
 import akshare as ak
+
 amac_manager_cancelled_info_df = ak.amac_manager_cancelled_info()
 print(amac_manager_cancelled_info_df)
 ```

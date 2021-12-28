@@ -1311,7 +1311,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.26: add: stock_info
 
-0.5.27: add: stock_em_hsgt_hold_stock
+0.5.27: add: stock_hsgt_hold_stock_em
 
 0.5.28: add: stock_fund_stock_holder, stock_main_stock_holder
 
@@ -1449,7 +1449,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.95: fix: fix get_dce_option_daily interface
 
-0.5.96: add: add stock_em_hsgt_hist interface
+0.5.96: add: add stock_hsgt_hist_em interface
 
 0.5.97: fix: fix remove mplfinance package in requirements.txt
 
@@ -1597,7 +1597,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.6.70: fix: fix bond_investing_global interface
 
-0.6.71: fix: fix nh_return_index interface
+0.6.71: fix: fix futures_nh_return_index interface
 
 0.6.72: fix: fix get_receipt interface
 
@@ -1649,7 +1649,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.6.96: fix: fix stock_zh_a_daily interface
 
-0.6.97: add: add stock_em_hsgt_board_rank interface
+0.6.97: add: add stock_hsgt_board_rank_em interface
 
 0.6.98: fix: fix fortune_rank interface
 
@@ -1753,7 +1753,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.49: fix: fix stock_us_zh_spot interface
 
-0.7.50: fix: fix stock_em_hsgt_stock_statistics interface
+0.7.50: fix: fix stock_hsgt_stock_statistics_em interface
 
 0.7.51: fix: fix stock_us_daily interface
 
@@ -1973,7 +1973,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.60: fix: fix currency_hist interface
 
-0.8.61: fix: fix stock_em_hsgt_hold_stock interface
+0.8.61: fix: fix stock_hsgt_hold_stock_em interface
 
 0.8.62: fix: fix stock_zh_a_tick_163 interface
 
@@ -2183,7 +2183,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.66: fix: fix set urllib3==1.25.11
 
-0.9.67: fix: fix stock_em_hsgt_hold_stock interface
+0.9.67: fix: fix stock_hsgt_hold_stock_em interface
 
 0.9.68: fix: fix stock_zh_a_tick_tx interface
 
@@ -2319,7 +2319,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.0.35: fix: fix bond_cov_jsl interface
 
-1.0.36: fix: fix stock_em_hsgt_north_net_flow_in interface
+1.0.36: fix: fix stock_hsgt_north_net_flow_in_em interface
 
 1.0.37: add: add macro_swiss interface
 
@@ -2476,7 +2476,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.9: fix: fix stock_js_price interface
 
-1.1.10: fix: fix stock_em_hsgt_hold_stock interface
+1.1.10: fix: fix stock_hsgt_hold_stock_em interface
 
 1.1.11: fix: fix stock_fund_flow_concept interface
 
@@ -2629,11 +2629,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.84 fix: fix stock_board_industry_index_ths interface
     1. add start_date and end_date parameters
 
-1.1.85 fix: fix stock_em_hsgt_stock_statistics interface
+1.1.85 fix: fix stock_hsgt_stock_statistics_em interface
 
-1.1.86 fix: fix stock_em_hsgt_stock_statistics interface
+1.1.86 fix: fix stock_hsgt_stock_statistics_em interface
 
-1.1.87 fix: fix stock_em_hsgt_hist interface
+1.1.87 fix: fix stock_hsgt_hist_em interface
 
 1.1.88 fix: fix stock_sector_spot interface
 
@@ -2758,7 +2758,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.2.49 fix: fix rate_interbank interface
 
-1.2.50 fix: fix nh_price_index interface
+1.2.50 fix: fix futures_nh_price_index interface
 
 1.2.51 add: add futures_hq_subscribe_exchange_symbol interface
 
@@ -2791,4 +2791,98 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.65 remove: remove wdbank interface
 
 1.2.66 add: add spot_golden_benchmark_sge interface
+
+1.2.67 fix: fix air_quality_hebei interface
+
+1.2.68 fix: fix stock_financial_hk_analysis_indicator_em interface
+
+1.2.69 fix: fix get_futures_daily interface
+
+1.2.70 fix: fix sw_index_spot interface
+
+1.2.71 add: add sw_index_third_info interface
+
+1.2.72 add: add sw_index_third_cons interface
+
+1.2.73 fix: fix sw_index_third_cons interface
+
+1.2.74 fix: fix macro_australia and macro_canada interface
+
+1.2.75 fix: fix docs interface
+
+1.2.76 fix: fix amac_person_fund_org_list interface
+
+1.2.77 add: add bond_conv_adj_logs_jsl interface
+
+1.2.78 fix: fix amac_person_fund_org_list interface
+
+1.2.79 fix: fix amac_person_fund_org_list interface
+
+1.2.80 fix: fix sw_index_daily interface
+
+1.2.81 fix: fix stock_us_hist_fu interface
+
+1.2.82 fix: fix spot_symbol_table_sge interface
+
+1.2.83 fix: fix macro_bank interface
+
+1.2.84 fix: fix repo_rate_hist interface
+
+1.2.85 fix: fix repo_rate_hist interface
+
+1.2.86 add: add stock_a_pe_and_pb interface
+
+1.2.87 add: add stock_hk_ggt_components_em interface
+
+1.2.88 fix: fix futures_nh_index interface
+
+1.2.89 fix: fix futures_index_cscidx interface
+
+1.2.90 fix: fix stock_board_industry_index_ths interface
+
+1.2.91 fix: fix fund_etf_hist_sina interface
+
+1.2.92 fix: fix futures_zh_spot interface
+
+1.2.93 fix: fix fund_manager interface
+
+1.2.94 fix: fix fund_em_new_found interface
+
+1.2.95 add: add stock_individual_info_em interface
+
+1.2.96 add: add match_main_contract interface
+
+1.2.97 fix: fix stock_profit_forecast interface
+
+1.2.98 fix: fix futures_spot_stock interface
+
+1.2.99 fix: fix PYPI info
+
+1.3.1 fix: fix option_shfe_daily interface
+
+1.3.2 fix: remove github interface
+
+1.3.3 fix: fix stock_em_ztb interface
+
+1.3.4 fix: fix stock_hsgt_stock_statistics_em interface
+
+1.3.5 fix: update QQ info
+
+1.3.6 fix: fix stock_dzjy_sctj interface
+
+1.3.7 fix: fix stock_hsgt_north_xxxx interface
+
+1.3.8 fix: fix stock_info_change_name interface
+
+1.3.9 add: add index_sugar_msweet interface
+
+1.3.10 fix: fix index_sugar_msweet interface
+
+1.3.11 fix: fix index_cflp_price interface
+
+1.3.12 add: add index_inner_quote_sugar_msweet interface
+
+1.3.13 fix: fix stock_zh_a_tick_163 interface
+
+1.3.14 fix: fix stock_zh_a_scr_report interface
 ```

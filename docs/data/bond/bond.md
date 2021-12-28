@@ -600,25 +600,26 @@ print(bond_zh_hs_cov_spot_df)
 
 输入参数
 
-| 名称   | 类型 |  描述 |
-| -------- | ---- | --- |
-| symbol | str  |   symbol="sh113542"|
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="sh113542" |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| date          | object   |  -     |
-| open          | float64      |  -     |
-| high          | float64      |  -     |
-| low           | float64      | -     |
-| close         | float64      |  -     |
-| volume        | float64      |  -     |
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| date   | object  | -   |
+| open   | float64 | -   |
+| high   | float64 | -   |
+| low    | float64 | -   |
+| close  | float64 | -   |
+| volume | float64 | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 bond_zh_hs_cov_daily_df = ak.bond_zh_hs_cov_daily(symbol="sh113542")
 print(bond_zh_hs_cov_daily_df)
 ```
@@ -663,31 +664,32 @@ print(bond_zh_hs_cov_daily_df)
 
 输入参数
 
-| 名称   | 类型 | 描述      |
-| -------- | ---- |--- |
-| symbol | str  |symbol='sz123106'; 转债代码|
-| period | str  |period='5'; choice of {'1', '5', '15', '30', '60'}; 其中 1 分钟数据返回近 1 个交易日数据且不复权|
-| adjust | str  |adjust=''; choice of {'', 'qfq', 'hfq'}; '': 不复权, 'qfq': 前复权, 'hfq': 后复权, 其中 1 分钟数据返回近 1 个交易日数据且不复权|
-| start_date | str  |start_date="1979-09-01 09:32:00"; 日期时间; 默认返回所有数据|
-| end_date | str  |end_date="2222-01-01 09:32:00"; 日期时间; 默认返回所有数据|
+| 名称         | 类型  | 描述                                                                                                  |
+|------------|-----|-----------------------------------------------------------------------------------------------------|
+| symbol     | str | symbol='sz123106'; 转债代码                                                                             |
+| period     | str | period='5'; choice of {'1', '5', '15', '30', '60'}; 其中 1 分钟数据返回近 1 个交易日数据且不复权                       |
+| adjust     | str | adjust=''; choice of {'', 'qfq', 'hfq'}; '': 不复权, 'qfq': 前复权, 'hfq': 后复权, 其中 1 分钟数据返回近 1 个交易日数据且不复权 |
+| start_date | str | start_date="1979-09-01 09:32:00"; 日期时间; 默认返回所有数据                                                    |
+| end_date   | str | end_date="2222-01-01 09:32:00"; 日期时间; 默认返回所有数据                                                      |
 
 输出参数-1分钟数据
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 时间          | object   |  -     |
-| 开盘          | float64      |  -     |
-| 收盘          | float64      | -     |
-| 最高           | float64      | -     |
-| 最低         | float64      |  -     |
-| 成交量        | float64      |  注意单位: 手     |
-| 成交额        | float64      |  -     |
-| 最新价        | float64      |  -     |
+| 名称  | 类型      | 描述      |
+|-----|---------|---------|
+| 时间  | object  | -       |
+| 开盘  | float64 | -       |
+| 收盘  | float64 | -       |
+| 最高  | float64 | -       |
+| 最低  | float64 | -       |
+| 成交量 | float64 | 注意单位: 手 |
+| 成交额 | float64 | -       |
+| 最新价 | float64 | -       |
 
 接口示例-1分钟数据
 
 ```python
 import akshare as ak
+
 bond_zh_hs_cov_min_df = ak.bond_zh_hs_cov_min(symbol="sz123124", period='1', adjust='', start_date="1979-09-01 09:32:00", end_date="2222-01-01 09:32:00")
 print(bond_zh_hs_cov_min_df)
 ```
@@ -711,24 +713,25 @@ print(bond_zh_hs_cov_min_df)
 
 输出参数-其他
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 时间          | object   |  -     |
-| 开盘          | float64      |  -     |
-| 收盘          | float64      | -     |
-| 最高           | float64      | -     |
-| 最低         | float64      |  -     |
-| 涨跌幅        | float64      |  注意单位: %     |
-| 涨跌额        | float64      |  -     |
-| 成交量        | float64      |  注意单位: 手     |
-| 成交额        | float64      |  -     |
-| 振幅        | float64      |  注意单位: %     |
-| 换手率        | float64      |  注意单位: %     |
+| 名称  | 类型      | 描述      |
+|-----|---------|---------|
+| 时间  | object  | -       |
+| 开盘  | float64 | -       |
+| 收盘  | float64 | -       |
+| 最高  | float64 | -       |
+| 最低  | float64 | -       |
+| 涨跌幅 | float64 | 注意单位: % |
+| 涨跌额 | float64 | -       |
+| 成交量 | float64 | 注意单位: 手 |
+| 成交额 | float64 | -       |
+| 振幅  | float64 | 注意单位: % |
+| 换手率 | float64 | 注意单位: % |
 
 接口示例-其他
 
 ```python
 import akshare as ak
+
 bond_zh_hs_cov_min_df = ak.bond_zh_hs_cov_min(symbol="sz123124", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
 print(bond_zh_hs_cov_min_df)
 ```
@@ -762,37 +765,38 @@ print(bond_zh_hs_cov_min_df)
 
 输入参数
 
-| 名称   | 类型 |  描述        |
-| -------- | ---- |  --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| 债券代码          | object   |  -     |
-| 债券简称          | object      | -     |
-| 申购日期           | object      |  -     |
-| 申购代码         | object      |  -     |
-| 申购上限        | float64      |  注意单位: 万元     |
-| 正股代码        | object      | -     |
-| 正股简称        | object      |  -     |
-| 正股价        | float64      |  -     |
-| 转股价        | float64      |  -     |
-| 转股价值        | float64      |  -     |
-| 债现价        | float64      | -     |
-| 转股溢价率        | float64      |  注意单位: %     |
-| 原股东配售-股权登记日        | float64      |  -     |
-| 原股东配售-每股配售额        | object      |  -     |
-| 发行规模        | float64      | 注意单位: 亿元     |
-| 中签号发布日        | object      |  -     |
-| 中签率        | float64      |  注意单位: %     |
-| 上市时间        | object      | -     |
+| 名称          | 类型      | 描述       |
+|-------------|---------|----------|
+| 债券代码        | object  | -        |
+| 债券简称        | object  | -        |
+| 申购日期        | object  | -        |
+| 申购代码        | object  | -        |
+| 申购上限        | float64 | 注意单位: 万元 |
+| 正股代码        | object  | -        |
+| 正股简称        | object  | -        |
+| 正股价         | float64 | -        |
+| 转股价         | float64 | -        |
+| 转股价值        | float64 | -        |
+| 债现价         | float64 | -        |
+| 转股溢价率       | float64 | 注意单位: %  |
+| 原股东配售-股权登记日 | float64 | -        |
+| 原股东配售-每股配售额 | object  | -        |
+| 发行规模        | float64 | 注意单位: 亿元 |
+| 中签号发布日      | object  | -        |
+| 中签率         | float64 | 注意单位: %  |
+| 上市时间        | object  | -        |
 
 接口示例
 
 ```python
 import akshare as ak
+
 bond_zh_cov_df = ak.bond_zh_cov()
 print(bond_zh_cov_df)
 ```
@@ -826,15 +830,15 @@ print(bond_zh_cov_df)
 
 输入参数
 
-| 名称   | 类型 |  描述        |
-| -------- | ---- |  --- |
-| symbol | str  |    symbol="all"; symbol="可转债代码": 返回单个可转债的详情数据, symbol="all": 返回所有可转债的详情数据 |
+| 名称     | 类型  | 描述                                                                     |
+|--------|-----|------------------------------------------------------------------------|
+| symbol | str | symbol="all"; symbol="可转债代码": 返回单个可转债的详情数据, symbol="all": 返回所有可转债的详情数据 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| 债券代码          | object   |  返回 67 个字段     |
+| 名称   | 类型     | 描述        |
+|------|--------|-----------|
+| 债券代码 | object | 返回 67 个字段 |
 
 接口示例
 
@@ -873,39 +877,40 @@ print(bond_zh_cov_info_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -   |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int32   | Y        | -     |
-| 转债代码          | object      | Y        | -     |
-| 转债名称           | object      | Y        | -     |
-| 转债最新价          | object   | Y        | -     |
-| 转债涨跌幅          | object      | Y        | 注意单位: %     |
-| 正股代码        | object      | Y        | -     |
-| 正股名称        | object      | Y        | -     |
-| 正股最新价        | object      | Y        | -     |
-| 正股涨跌幅        | object      | Y        | 注意单位: %     |
-| 转股价        | object      | Y        | -     |
-| 转股价值        | object      | Y        | -     |
-| 转股溢价率        | object      | Y        | 注意单位: %     |
-| 纯债溢价率        | object      | Y        | 注意单位: %     |
-| 回售触发价        | object      | Y        | -     |
-| 强赎触发价        | object      | Y        | -     |
-| 到期赎回价        | object      | Y        | -     |
-| 纯债价值        | float64      | Y        | -     |
-| 开始转股日        | object      | Y        | -     |
-| 上市日期         | object      | Y        | -     |
-| 申购日期        | object      | Y        | -     |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 序号    | int32   | -       |
+| 转债代码  | object  | -       |
+| 转债名称  | object  | -       |
+| 转债最新价 | object  | -       |
+| 转债涨跌幅 | object  | 注意单位: % |
+| 正股代码  | object  | -       |
+| 正股名称  | object  | -       |
+| 正股最新价 | object  | -       |
+| 正股涨跌幅 | object  | 注意单位: % |
+| 转股价   | object  | -       |
+| 转股价值  | object  | -       |
+| 转股溢价率 | object  | 注意单位: % |
+| 纯债溢价率 | object  | 注意单位: % |
+| 回售触发价 | object  | -       |
+| 强赎触发价 | object  | -       |
+| 到期赎回价 | object  | -       |
+| 纯债价值  | float64 | -       |
+| 开始转股日 | object  | -       |
+| 上市日期  | object  | -       |
+| 申购日期  | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 bond_cov_comparison_df = ak.bond_cov_comparison()
 print(bond_cov_comparison_df)
 ```
@@ -927,35 +932,36 @@ print(bond_cov_comparison_df)
 374  375  110801  继峰定01     -     -  ...      -   95.7854         -    -         -
 ```
 
-### 可转债转股价变动
+### 可转债实时数据-集思录
 
 接口: bond_cov_jsl
 
 目标地址: https://app.jisilu.cn/data/cbnew/#cb
 
-描述: 集思录可转债
+描述: 集思录可转债实时数据，包含行情数据（涨跌幅，成交量和换手率等）及可转债基本信息（转股价，溢价率和到期收益率等）
 
 限量: 单次返回当前交易时刻的所有数据
 
 输入参数
 
-| 名称   | 类型 |  描述     |
-| -------- | ---- |  --- |
-| cookie | str |    cookie=''; 此处输入您的集思录 cookie 就可以获取完整数据，否则只能返回前 30 条|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| cookie | str | cookie=''; 此处输入您的集思录 cookie 就可以获取完整数据，否则只能返回前 30 条 |
 
 1. 需要查看的链接为：https://app.jisilu.cn/data/cbnew/cb_list/?___jsl=LST___t=1628070841431
 2. 需要复制的 Cookie 为：![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_jsl/jsl_cookie.png)
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| -          | -   |  不逐一列出     |
+| 名称  | 类型  | 描述    |
+|-----|-----|-------|
+| -   | -   | 不逐一列出 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 bond_convert_jsl_df = ak.bond_cov_jsl(cookie="您的集思录 cookie")
 print(bond_convert_jsl_df)
 ```
@@ -975,6 +981,51 @@ print(bond_convert_jsl_df)
 295  128010    顺昌转债  ...  128010；2016-07-29 开始转股  全价：106.131 最后更新：15:00:03
 296  128037    岩土转债  ...  128037；2018-09-21 开始转股   全价：98.021 最后更新：15:00:03
 297  128062    亚药转债  ...  128062；2019-10-09 开始转股   全价：79.521 最后更新：15:00:03
+```
+
+### 可转债转股价格调整记录-集思录
+
+接口: bond_conv_adj_logs_jsl
+
+目标地址: https://app.jisilu.cn/data/cbnew/#cb; 点击带红色星号的转股价会弹出转股价调整记录
+
+描述: 集思录-单个可转债的转股价格-调整记录
+
+限量: 返回当前时刻该可转债的所有转股价格调整记录
+
+输入参数
+
+| 名称     | 类型  | 描述                     |
+|--------|-----|------------------------|
+| symbol | str | symbol="128013"; 可转债代码 |
+
+输出参数
+
+| 名称       | 类型      | 描述  |
+|----------|---------|-----|
+| 转债名称     | object  | -   |
+| 股东大会日    | object  | -   |
+| 下修前转股价   | float64 | -   |
+| 下修后转股价   | float64 | -   |
+| 新转股价生效日期 | object  | -   |
+| 下修底价     | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+bond_convert_adj_logs_jsl_df = ak.bond_conv_adj_logs_jsl(symbol="128013")
+print(bond_convert_adj_logs_jsl_df)
+```
+
+数据示例
+
+```
+   转债名称  股东大会日  下修前转股价 下修后转股价 新转股价生效日期 下修底价
+0  洪涛转债  2021-02-23    3.10    2.32  2021-02-24  2.32
+1  洪涛转债  2020-06-29    8.00    3.12  2020-06-30  3.12
+2  洪涛转债  2019-11-20    9.97    8.00  2019-11-21  3.10
 ```
 
 ### 全球债券行情数据

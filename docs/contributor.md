@@ -12,22 +12,16 @@
 1. 代码需要符合 **PEP 8** 要求，请使用 [Black](https://github.com/psf/black) 格式化代码
 2. 函数接口的设计 **stock_zh_a_hist_sina** 结构，其中 **stock** 为金融产品，**zh** 为国家或地区，**a** 为市场或品种，**hist** 为 history 的缩写表示历史数据，**sina** 表示数据源为新浪
 3. 接口函数需要增加注释，注释规则请参考 **stock_zh_a_hist_sina** 接口的源码
-4. 需要在接口函数的注释中增加目标网站的地址（不是具体的数接口地址，而是网页的地址）
+4. 需要在接口函数的注释中增加目标网站的地址（不是具体的数据接口地址，而是网页的地址）
 5. 返回数据格式要求：
-   1. Pandas 中的 pandas.DataFrame 格式
-   2. Pandas 中的 pandas.Series 格式
-   3. Python 内置的 dict 格式
+   1. 为了兼容 HTTP API 接口，所有返回的数据格式统一为 Pandas 中的 pandas.DataFrame 格式
 
 ### 文档撰写规范
 
-1. 在新增或者修改接口后，需要修改相对应的接口文档，保持接口与文档的同步更新
-
-2. 具体的接口文档路径（以股票接口的文档为例）为：akshare->docs->data->stock->stock.md，其中 stock 表示股票文件夹，stock.md 为具体的 Markdown 文件，需要在 stock.md 中对相应的接口文档进行修改或新增
-
+1. 在新增或者修改接口后，需要修改相对应的接口文档，保持接口与文档的同步更新；
+2. 具体的接口文档路径（以股票接口的文档为例）为：akshare->docs->data->stock->stock.md，其中 stock 表示股票文件夹，stock.md 为具体的 Markdown 文件，需要在 stock.md 中对相应的接口文档进行修改或新增；
 3. 以股票分时数据接口文档为例：
-
    1. 主要包含以下部分内容：
-
       1. 接口：填写具体的接口名称
       2. 目标地址：填写具体数据获取网页的地址（不是数据接口地址）
       3. 描述：简单描述数据接口获取的数据
@@ -52,32 +46,33 @@
       
       输入参数
       
-      | 名称   | 类型 | 必选 | 描述|
-      | -------- | ---- | ---- | --- |
-      | symbol | str  | Y    |symbol='sh000300'; 同日频率数据接口|
-      | period | str  | Y    |period='1'; 获取 1, 5, 15, 30, 60 分钟的数据频率|
+      | 名称   | 类型 |  描述|
+      | -------- | ---- |  --- |
+      | symbol | str  | symbol='sh000300'; 同日频率数据接口|
+      | period | str  | period='1'; 获取 1, 5, 15, 30, 60 分钟的数据频率|
       
       输出参数
       
-      | 名称           | 类型        | 默认显示 | 描述   |
-      | ------------  | ------      | -------- | -------- |
-      | day           | datetime   | Y         | -     |
-      | open          | float      | Y        | -     |
-      | high          | float      | Y        | -     |
-      | low           | float      | Y        | -     |
-      | close         | float      | Y        | -     |
-      | volume        | float      | Y        | -     |
-      | ma_price5     | float      | Y        | -     |
-      | ma_volume5    | float      | Y        | -     |
-      | ma_price10    | float      | Y        | -     |
-      | ma_volume10   | float      | Y        | -     |
-      | ma_price30    | float      | Y        | -     |
-      | ma_volume30   | float      | Y        | -     |
+      | 名称           | 类型        |  描述   |
+      | ------------  | ------      |  -------- |
+      | day           | object   |  -     |
+      | open          | float64      |  -     |
+      | high          | float64      |  -     |
+      | low           | float64      |  -     |
+      | close         | float64      |  -     |
+      | volume        | float64      |  -     |
+      | ma_price5     | float64      |  -     |
+      | ma_volume5    | float64      |  -     |
+      | ma_price10    | float64      |  -     |
+      | ma_volume10   | float64      |  -     |
+      | ma_price30    | float64      |  -     |
+      | ma_volume30   | float64      |  -     |
       
       接口示例
       
       \```python
       import akshare as ak
+
       stock_zh_a_minute_df = ak.stock_zh_a_minute(symbol='sz000876', period='1', adjust="qfq")
       print(stock_zh_a_minute_df)
       \```
@@ -103,4 +98,5 @@
 ## 声明
 
 1. 所提交的代码如不符合上述规范，则可能会被拒绝合并；
-2. 由于某些原因，您所提交的代码、数据接口和文档会被修改、删除或被第三方使用。
+2. 由于某些原因，您所提交的代码、数据接口和文档会被修改、删除或被第三方使用；
+3. **输出参数**里面的字段类型必须在 int64 float64 object 三种类型之一，整数为 int64，浮点数为 float64，日期及字符串为 object

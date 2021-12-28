@@ -29,8 +29,8 @@ def get_version_string() -> str:
 setuptools.setup(
     name="akshare",
     version=get_version_string(),
-    author="Albert King",
-    author_email="akshare@akshare.email.cn",
+    author="AKFamily",
+    author_email="akshare@akfamily.email.cn",
     license="MIT",
     description="AKShare is an elegant and simple financial data interface library for Python, built for human beings!",
     long_description=long_description,

@@ -61,7 +61,7 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     return big_df
 
 
-def bond_zh_hs_cov_daily(symbol: str = "sz123111") -> pd.DataFrame:
+def bond_zh_hs_cov_daily(symbol: str = "sh010107") -> pd.DataFrame:
     """
     新浪财经-债券-沪深可转债的历史行情数据, 大量抓取容易封 IP
     http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
@@ -457,6 +457,8 @@ def bond_zh_cov_info(symbol: str = "123121") -> pd.DataFrame:
     """
     https://data.eastmoney.com/kzz/detail/123121.html
     东方财富网-数据中心-新股数据-可转债详情
+    :param symbol: 可转债代码
+    :type symbol: str
     :return: 可转债详情
     :rtype: pandas.DataFrame
     """
@@ -481,76 +483,6 @@ def bond_zh_cov_info(symbol: str = "123121") -> pd.DataFrame:
         data_json = json.loads(re.findall("var info= (.*)", data_text)[0][:-1])
         temp_df = pd.json_normalize(data_json)
         return temp_df
-
-    # big_df.rename({
-    #     'SECURITY_CODE': '债券代码',
-    #     'SECUCODE': '申购代码',
-    #     'TRADE_MARKET': '交易市场',
-    #     'SECURITY_NAME_ABBR': '债券简称',
-    #     'DELIST_DATE': '_',
-    #     'LISTING_DATE': '上市日',
-    #     'CONVERT_STOCK_CODE': '交易市场',
-    #     'BOND_EXPIRE': '交易市场',
-    #     'RATING',
-    #     'VALUE_DATE',
-    #     'ISSUE_YEAR',
-    #     'CEASE_DATE',
-    #     'EXPIRE_DATE',
-    #     'PAY_INTEREST_DAY',
-    #     'INTEREST_RATE_EXPLAIN',
-    #     'BOND_COMBINE_CODE',
-    #     'ACTUAL_ISSUE_SCALE',
-    #     'ISSUE_PRICE',
-    #     'REMARK',
-    #     'PAR_VALUE',
-    #     'ISSUE_OBJECT',
-    #     'REDEEM_TYPE',
-    #     'EXECUTE_REASON_HS',
-    #     'NOTICE_DATE_HS',
-    #     'NOTICE_DATE_SH',
-    #     'EXECUTE_PRICE_HS',
-    #     'EXECUTE_PRICE_SH',
-    #     'RECORD_DATE_SH',
-    #     'EXECUTE_START_DATESH',
-    #     'EXECUTE_START_DATEHS',
-    #     'EXECUTE_END_DATE',
-    #     'CORRECODE',
-    #     'CORRECODE_NAME_ABBR',
-    #     'PUBLIC_START_DATE',
-    #     'CORRECODEO',
-    #     'CORRECODE_NAME_ABBRO',
-    #     'BOND_START_DATE',
-    #     'SECURITY_START_DATE',
-    #     'SECURITY_SHORT_NAME',
-    #     'FIRST_PER_PREPLACING',
-    #     'ONLINE_GENERAL_AAU',
-    #     'ONLINE_GENERAL_LWR',
-    #     'INITIAL_TRANSFER_PRICE',
-    #     'TRANSFER_END_DATE',
-    #     'TRANSFER_START_DATE',
-    #     'RESALE_CLAUSE',
-    #     'REDEEM_CLAUSE',
-    #     'PARTY_NAME',
-    #     'CONVERT_STOCK_PRICE',
-    #     'TRANSFER_PRICE',
-    #     'TRANSFER_VALUE',
-    #     'CURRENT_BOND_PRICE',
-    #     'TRANSFER_PREMIUM_RATIO',
-    #     'CONVERT_STOCK_PRICEHQ',
-    #     'MARKET',
-    #     'RESALE_TRIG_PRICE',
-    #     'REDEEM_TRIG_PRICE',
-    #     'PBV_RATIO',
-    #     'IB_START_DATE',
-    #     'IB_END_DATE',
-    #     'CASHFLOW_DATE',
-    #     'COUPON_IR',
-    #     'PARAM_NAME',
-    #     'ISSUE_TYPE',
-    #     'EXECUTE_REASON_SH',
-    #     'PAYDAYNEW',
-    #     'CURRENT_BOND_PRICENEW'
-    # })
 
 
 if __name__ == "__main__":

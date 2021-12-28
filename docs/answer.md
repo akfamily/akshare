@@ -90,3 +90,7 @@ print(stock_zh_index_daily_df)
     4. 修改 host
         1. 添加如下内容: ```199.232.28.133 raw.githubusercontent.com```
         2. 此处 ```199.232.28.133``` 为查找到的真实 IP
+
+13. 使用代理的时候报错 `check_hostname requires server_hostname`
+
+    1. 降低 urllib3 的版本到 1.25.8：`pip install urllib3==1.25.8`
