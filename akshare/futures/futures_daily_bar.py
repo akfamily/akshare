@@ -8,6 +8,7 @@ import datetime
 import json
 import re
 import zipfile
+from concurrent.futures.thread import ThreadPoolExecutor
 from io import BytesIO, StringIO
 
 import numpy as np
@@ -549,13 +550,18 @@ def get_futures_daily(
     )
 
     df_list = list()
-    while start_date <= end_date:
-        df = f(date=str(start_date).replace("-", ""))
-        if df is not None:
-            df_list.append(df)
-            if index_bar:
-                df_list.append(get_futures_index(df))
-        start_date += datetime.timedelta(days=1)
+    future_list = list()
+    with ThreadPoolExecutor(max_workers=128) as executor:
+        while start_date <= end_date:
+            future_list.append(executor.submit(f, str(start_date).replace("-", "")))
+            start_date += datetime.timedelta(days=1)
+
+        for future in future_list:
+            df = future.result()
+            if df is not None:
+                df_list.append(df)
+                if index_bar:
+                    df_list.append(get_futures_index(df))
 
     if len(df_list) > 0:
         temp_df = pd.concat(df_list).reset_index(drop=True)
