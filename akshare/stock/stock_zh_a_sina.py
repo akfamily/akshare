@@ -304,7 +304,7 @@ def stock_zh_a_cdr_daily(
 
 
 def stock_zh_a_minute(
-    symbol: str = "sh603087", period: str = "1", adjust: str = ""
+    symbol: str = "sh603087", period: str = "1", adjust: str = "", datalen: int = 20000,
 ) -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
@@ -322,7 +322,7 @@ def stock_zh_a_minute(
     params = {
         "symbol": symbol,
         "scale": period,
-        "datalen": "20000",
+        "datalen": datalen,
     }
     r = requests.get(url, params=params)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0])).iloc[:, :6]
