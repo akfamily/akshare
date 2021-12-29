@@ -396,6 +396,9 @@ def option_sina_finance_minute(code: str = "10002530") -> pd.DataFrame:
     temp_df.fillna(method="ffill", inplace=True)
     temp_df.columns = ["time", "price", "volume", "_", "average_price", "date"]
     temp_df = temp_df[["date", "time", "price", "average_price", "volume"]]
+    temp_df['price'] = pd.to_numeric(temp_df['price'])
+    temp_df['average_price'] = pd.to_numeric(temp_df['average_price'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
     return temp_df
 
 

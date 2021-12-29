@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/11/24 21:44
-Desc: 东方财富-期权价格
+Date: 2021/12/29 10:54
+Desc: 东方财富网-行情中心-期权市场
 http://quote.eastmoney.com/center
 """
 import json
@@ -13,7 +13,7 @@ import requests
 
 def option_current_em() -> pd.DataFrame:
     """
-    东方财富-期权价格
+    东方财富网-行情中心-期权市场
     http://quote.eastmoney.com/center
     :return: 期权价格
     :rtype: pandas.DataFrame
@@ -91,6 +91,17 @@ def option_current_em() -> pd.DataFrame:
         '昨结',
         '今开'
     ]]
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'], errors='coerce')
+    temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'], errors='coerce')
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'], errors='coerce')
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'], errors='coerce')
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'], errors='coerce')
+    temp_df['持仓量'] = pd.to_numeric(temp_df['持仓量'], errors='coerce')
+    temp_df['行权价'] = pd.to_numeric(temp_df['行权价'], errors='coerce')
+    temp_df['剩余日'] = pd.to_numeric(temp_df['剩余日'], errors='coerce')
+    temp_df['日增'] = pd.to_numeric(temp_df['日增'], errors='coerce')
+    temp_df['昨结'] = pd.to_numeric(temp_df['昨结'], errors='coerce')
+    temp_df['今开'] = pd.to_numeric(temp_df['今开'], errors='coerce')
     return temp_df
 
 

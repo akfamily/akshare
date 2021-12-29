@@ -112,7 +112,9 @@ def option_sina_commodity_hist(contract="au2012C392"):
 
 if __name__ == '__main__':
     option_sina_commodity_dict(symbol="动力煤期权")
+
     option_sina_contract_list_df = option_sina_commodity_contract_list(symbol="动力煤期权", contract="zc2103")
     print(option_sina_contract_list_df["看涨期权合约"])
+
     option_sina_hist_df = option_sina_commodity_hist(contract="zc2103C560")
     print(option_sina_hist_df)

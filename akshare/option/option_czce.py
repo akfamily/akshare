@@ -18,7 +18,6 @@ import warnings
 
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 
 def option_czce_hist(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
