@@ -222,7 +222,7 @@
  "stock_em_sy_list"  # 获取个股商誉明细
  "stock_em_sy_hy_list"  # 获取行业商誉
  # 股票账户统计数据
- "stock_em_account"  # 获取股票账户统计数据
+ "stock_account_statistics_em"  # 获取股票账户统计数据
  # 股票指数-成份股
  "index_stock_cons"  # 股票指数-成份股-最新成份股获取
  "index_stock_info"  # 股票指数-成份股-所有可以获取的指数表

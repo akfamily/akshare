@@ -973,7 +973,7 @@ print(option_sina_finance_minute_df)
 1223  2020-07-17  15:00:00  1.3757        1.3679      1
 ```
 
-### 实时期权-东方财富
+### 期权实时行情-东方财富
 
 接口: option_current_em
 
@@ -1047,9 +1047,9 @@ print(option_daily_hist_em_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| contract | str | Y | contract="au2012C328"; |
+| 名称       | 类型  | 必选  | 描述                     |
+|----------|-----|-----|------------------------|
+| contract | str | Y   | contract="au2012C328"; |
 
 输出参数
 
