@@ -1433,7 +1433,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.87: fix: fix cot interface
 
-0.5.88: fix: fix stock_em_account interface
+0.5.88: fix: fix stock_account_statistics_em interface
 
 0.5.89: add: add macro_china_new_financial_credit interface
 
@@ -2887,4 +2887,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.14 fix: fix stock_zh_a_scr_report interface
 
 1.3.15 fix: fix option_current_em interface
+
+1.3.16 fix: fix stock_account_statistics_em interface
 ```
