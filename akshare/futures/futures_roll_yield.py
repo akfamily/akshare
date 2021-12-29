@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2021/7/20 19:58
-Desc: 各合约展期收益率
+Desc: 中国期货各合约展期收益率
 日线数据从 daily_bar 函数获取, 需要在收盘后运行
 """
 import datetime
@@ -24,6 +24,13 @@ calendar = cons.get_calendar()
 
 
 def _plot_bar(temp_df: pd.DataFrame) -> None:
+    """
+    绘图
+    :param temp_df:
+    :type temp_df: pandas.DataFrame
+    :return:
+    :rtype:
+    """
     fig = plt.figure(1, dpi=300)
     ax = fig.add_subplot(111)
     ax.bar(range(len(temp_df.index)), temp_df, color="green")
@@ -33,6 +40,13 @@ def _plot_bar(temp_df: pd.DataFrame) -> None:
 
 
 def _plot_bar_2(temp_df: pd.DataFrame) -> None:
+    """
+    绘图2
+    :param temp_df:
+    :type temp_df:
+    :return:
+    :rtype:
+    """
     fig = plt.figure(1, dpi=300)
     ax = fig.add_subplot(111)
     ax.bar(range(len(temp_df.symbol)), temp_df.close, color="green")
