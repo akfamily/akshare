@@ -2891,4 +2891,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.16 fix: fix stock_account_statistics_em interface
 
 1.3.17 fix: fix stock_sse_deal_daily interface
+
+1.3.18 fix: fix stock_sse_summary interface
 ```
