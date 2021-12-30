@@ -64,22 +64,42 @@ def stock_sse_summary() -> pd.DataFrame:
     :return: 上海证券交易所-总貌
     :rtype: pandas.DataFrame
     """
-    url = "http://www.sse.com.cn/market/stockdata/statistic/"
-    r = requests.get(url)
-    r.encoding = "utf-8"
-    big_df = pd.DataFrame()
-    temp_list = ["总貌", "主板", "科创板"]
-    for i in range(len(pd.read_html(r.text))):
-        for j in range(0, 2):
-            inner_df = pd.read_html(r.text)[i].iloc[:, j].str.split("  ", expand=True)
-            inner_df["item"] = temp_list[i]
-            big_df = big_df.append(inner_df)
-    big_df.dropna(how="any", inplace=True)
-    big_df.columns = ["item", "number", "type"]
-    big_df = big_df[["type", "item", "number"]]
-    big_df['number'] = pd.to_numeric(big_df['number'])
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
+    url = "http://query.sse.com.cn/commonQuery.do"
+    params = {
+        'sqlId': 'COMMON_SSE_SJ_GPSJ_GPSJZM_TJSJ_L',
+        'PRODUCT_NAME': '股票,主板,科创板',
+        'type': 'inParams',
+        '_': '1640855495128',
+    }
+    headers = {
+        "Referer": "http://www.sse.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    data_json.keys()
+    temp_df = pd.DataFrame(data_json['result']).T
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = [
+        "流通股本",
+        "总市值",
+        "平均市盈率",
+        "上市公司",
+        "上市股票",
+        "流通市值",
+        "报告时间",
+        "-",
+        "总股本",
+        "项目",
+    ]
+    temp_df = temp_df[temp_df['index'] != '-'].iloc[:-1, :]
+    temp_df.columns = [
+        '项目',
+        '股票',
+        '科创板',
+        '主板',
+    ]
+    return temp_df
 
 
 def stock_sse_deal_daily(date: str = "20211228") -> pd.DataFrame:
