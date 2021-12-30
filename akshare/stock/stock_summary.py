@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/18 22:31
+Date: 2021/12/30 11:31
 Desc: 股票数据-总貌-市场总貌
 股票数据-总貌-成交概括
 http://www.szse.cn/market/overview/index.html
@@ -82,90 +82,160 @@ def stock_sse_summary() -> pd.DataFrame:
     return big_df
 
 
-def stock_sse_deal_daily(date: str = "20210325") -> pd.DataFrame:
+def stock_sse_deal_daily(date: str = "20211228") -> pd.DataFrame:
     """
     上海证券交易所-数据-股票数据-成交概况-股票成交概况-每日股票情况
     http://www.sse.com.cn/market/stockdata/overview/day/
     :return: 每日股票情况
     :rtype: pandas.DataFrame
     """
-    url = "http://query.sse.com.cn/commonQuery.do"
-    params = {
-        "jsonCallBack": "jsonpCallback89906",
-        "searchDate": "-".join([date[:4], date[4:6], date[6:]]),
-        "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C",
-        "stockType": "90",
-        "_": "1616744620492",
-    }
-    headers = {
-        "Referer": "http://www.sse.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
-    }
-    r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = demjson.decode(data_text.strip("\r\njsonpCallback89906(")[:-1])
-    temp_df = pd.DataFrame(data_json["result"])
-    temp_df = temp_df.T
-    temp_df.reset_index(inplace=True)
-    temp_df.columns = [
-        "单日情况",
-        "主板A",
-        "股票",
-        "主板B",
-        "_",
-        "股票回购",
-        "科创板",
-    ]
-    temp_df = temp_df[
-        [
+    if int(date) <= 20211224:
+        url = "http://query.sse.com.cn/commonQuery.do"
+        params = {
+            "searchDate": "-".join([date[:4], date[4:6], date[6:]]),
+            "sqlId": "COMMON_SSE_SJ_GPSJ_CJGK_DAYCJGK_C",
+            "stockType": "90",
+            "_": "1616744620492",
+        }
+        headers = {
+            "Referer": "http://www.sse.com.cn/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"])
+        temp_df = temp_df.T
+        temp_df.reset_index(inplace=True)
+        temp_df.columns = [
             "单日情况",
+            "主板A",
             "股票",
+            "主板B",
+            "_",
+            "股票回购",
+            "科创板",
+        ]
+        temp_df = temp_df[
+            [
+                "单日情况",
+                "股票",
+                "主板A",
+                "主板B",
+                "科创板",
+                "股票回购",
+            ]
+        ]
+        temp_df["单日情况"] = [
+            "流通市值",
+            "流通换手率",
+            "平均市盈率",
+            "_",
+            "市价总值",
+            "_",
+            "换手率",
+            "_",
+            "挂牌数",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "成交笔数",
+            "成交金额",
+            "成交量",
+            "次新股换手率",
+            "_",
+            "_",
+        ]
+        temp_df = temp_df[temp_df["单日情况"] != "_"]
+        temp_df["单日情况"] = temp_df["单日情况"].astype("category")
+        list_custom_new = [
+            "挂牌数",
+            "市价总值",
+            "流通市值",
+            "成交金额",
+            "成交量",
+            "成交笔数",
+            "平均市盈率",
+            "换手率",
+            "次新股换手率",
+            "流通换手率",
+        ]
+        temp_df["单日情况"].cat.set_categories(list_custom_new)
+        temp_df.sort_values("单日情况", ascending=True, inplace=True)
+        temp_df.reset_index(drop=True, inplace=True)
+        temp_df['股票'] = pd.to_numeric(temp_df['股票'], errors="coerce")
+        temp_df['主板A'] = pd.to_numeric(temp_df['主板A'], errors="coerce")
+        temp_df['主板B'] = pd.to_numeric(temp_df['主板B'], errors="coerce")
+        temp_df['科创板'] = pd.to_numeric(temp_df['科创板'], errors="coerce")
+        temp_df['股票回购'] = pd.to_numeric(temp_df['股票回购'], errors="coerce")
+        return temp_df
+    else:
+        url = "http://query.sse.com.cn/commonQuery.do"
+        params = {
+            'sqlId': 'COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C',
+            'SEARCH_DATE': "-".join([date[:4], date[4:6], date[6:]]),
+            '_': '1640836561673',
+        }
+        headers = {
+            "Referer": "http://www.sse.com.cn/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"])
+        temp_df = temp_df.T
+        temp_df.reset_index(inplace=True)
+        temp_df.columns = [
+            "单日情况",
             "主板A",
             "主板B",
             "科创板",
-            "股票回购",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
         ]
-    ]
-    temp_df["单日情况"] = [
-        "流通市值",
-        "流通换手率",
-        "平均市盈率",
-        "_",
-        "市价总值",
-        "_",
-        "换手率",
-        "_",
-        "挂牌数",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "成交笔数",
-        "成交金额",
-        "成交量",
-        "次新股换手率",
-        "_",
-        "_",
-    ]
-    temp_df = temp_df[temp_df["单日情况"] != "_"]
-    temp_df["单日情况"] = temp_df["单日情况"].astype("category")
-    list_custom_new = [
-        "挂牌数",
-        "市价总值",
-        "流通市值",
-        "成交金额",
-        "成交量",
-        "成交笔数",
-        "平均市盈率",
-        "换手率",
-        "次新股换手率",
-        "流通换手率",
-    ]
-    temp_df["单日情况"].cat.set_categories(list_custom_new)
-    temp_df.sort_values("单日情况", ascending=True, inplace=True)
-    temp_df.reset_index(drop=True, inplace=True)
-    return temp_df
+        temp_df = temp_df[[
+            "单日情况",
+            "主板A",
+            "主板B",
+            "科创板",
+        ]]
+        temp_df["单日情况"] = [
+            "市价总值",
+            "成交量",
+            "平均市盈率",
+            "换手率",
+            "成交金额",
+            "-",
+            "流通市值",
+            "流通换手率",
+            "报告日期",
+            "挂牌数",
+            "-",
+        ]
+        temp_df = temp_df[temp_df["单日情况"] != "-"]
+        temp_df["单日情况"] = temp_df["单日情况"].astype("category")
+        list_custom_new = [
+            "挂牌数",
+            "市价总值",
+            "流通市值",
+            "成交金额",
+            "成交量",
+            "平均市盈率",
+            "换手率",
+            "流通换手率",
+        ]
+        temp_df["单日情况"].cat.set_categories(list_custom_new)
+        temp_df.sort_values("单日情况", ascending=True, inplace=True)
+        temp_df.reset_index(inplace=True, drop=True)
+        temp_df['主板A'] = pd.to_numeric(temp_df['主板A'], errors="coerce")
+        temp_df['主板B'] = pd.to_numeric(temp_df['主板B'], errors="coerce")
+        temp_df['科创板'] = pd.to_numeric(temp_df['科创板'], errors="coerce")
+        return temp_df
 
 
 if __name__ == "__main__":
@@ -175,5 +245,5 @@ if __name__ == "__main__":
     stock_sse_summary_df = stock_sse_summary()
     print(stock_sse_summary_df)
 
-    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20201111")
+    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20211227")
     print(stock_sse_deal_daily_df)
