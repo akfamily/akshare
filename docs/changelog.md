@@ -2562,7 +2562,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.52 add: add stock_cg_equity_mortgage_cninfo interface
 
-1.1.53 fix: fix index_cni_detail_hist_adjust interface
+1.1.53 fix: fix index_detail_hist_adjust_cni interface
 
 1.1.54 fix: fix stock_board_concept_hist_ths interface
 
@@ -2893,4 +2893,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.17 fix: fix stock_sse_deal_daily interface
 
 1.3.18 fix: fix stock_sse_summary interface
+
+1.3.19 add: add index_stock_cons_weight_csindex interface
 ```
