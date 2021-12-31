@@ -2232,14 +2232,14 @@ def macro_china_gksccz() -> pd.DataFrame:
     return big_df
 
 
-def macro_china_bond_public():
+def macro_china_bond_public() -> pd.DataFrame:
     """
     中国-债券信息披露-债券发行
     http://www.chinamoney.com.cn/chinese/xzjfx/
     :return: 债券发行
     :rtype: pandas.DataFrame
     """
-    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bond-an/bnBondEmit"
+    url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-an/bnBondEmit"
     payload = {
         "enty": "",
         "bondType": "",
@@ -2250,23 +2250,36 @@ def macro_china_bond_public():
         "limit": "1",
     }
     r = requests.post(url, data=payload)
-    big_df = pd.DataFrame(r.json()["records"])
-    big_df.columns = [
-        "issue_price",
-        "emit_enty",
-        "coupon_type",
-        "plnd_issue_vlmn_str",
-        "issue_price_str",
-        "issue_date",
-        "bond_type",
-        "plnd_issue_vlmn",
-        "bond_name",
-        "bond_code",
-        "rtng_shrt",
-        "bond_period",
-        "defined_code",
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["records"])
+    temp_df.columns = [
+        "债券全称",
+        "债券类型",
+        "-",
+        "发行日期",
+        "-",
+        "计息方式",
+        "-",
+        "债券期限",
+        "-",
+        "债券评级",
+        "-",
+        "价格",
+        "计划发行量",
     ]
-    return big_df
+    temp_df = temp_df[[
+        "债券全称",
+        "债券类型",
+        "发行日期",
+        "计息方式",
+        "价格",
+        "债券期限",
+        "计划发行量",
+        "债券评级",
+    ]]
+    temp_df['价格'] = pd.to_numeric(temp_df['价格'])
+    temp_df['计划发行量'] = pd.to_numeric(temp_df['计划发行量'])
+    return temp_df
 
 
 def macro_china_xfzxx():
@@ -2316,9 +2329,9 @@ def macro_china_xfzxx():
     return temp_df
 
 
-def macro_china_gyzjz():
+def macro_china_gyzjz() -> pd.DataFrame:
     """
-    工业增加值增长
+    东方财富网-经济数据-工业增加值增长
     https://data.eastmoney.com/cjsj/gyzjz.html
     :return: 工业增加值增长
     :rtype: pandas.DataFrame
@@ -2349,7 +2362,7 @@ def macro_china_gyzjz():
     return temp_df
 
 
-def macro_china_reserve_requirement_ratio():
+def macro_china_reserve_requirement_ratio() -> pd.DataFrame:
     """
     存款准备金率
     https://data.eastmoney.com/cjsj/ckzbj.html
@@ -2380,7 +2393,7 @@ def macro_china_reserve_requirement_ratio():
     return temp_df
 
 
-def macro_china_consumer_goods_retail():
+def macro_china_consumer_goods_retail() -> pd.DataFrame:
     """
     新浪财经-中国宏观经济数据-社会消费品零售总额
     http://data.eastmoney.com/cjsj/xfp.html
@@ -2419,7 +2432,7 @@ def macro_china_consumer_goods_retail():
     return temp_df
 
 
-def macro_china_society_electricity():
+def macro_china_society_electricity() -> pd.DataFrame:
     """
     新浪财经-中国宏观经济数据-全社会用电分类情况表
     http://finance.sina.com.cn/mac/#industry-6-0-31-1
@@ -2470,7 +2483,7 @@ def macro_china_society_electricity():
     return big_df
 
 
-def macro_china_society_traffic_volume():
+def macro_china_society_traffic_volume() -> pd.DataFrame:
     """
     新浪财经-中国宏观经济数据-全社会客货运输量
     http://finance.sina.com.cn/mac/#industry-10-0-31-1
@@ -2502,7 +2515,7 @@ def macro_china_society_traffic_volume():
     return big_df
 
 
-def macro_china_postal_telecommunicational():
+def macro_china_postal_telecommunicational() -> pd.DataFrame:
     """
     新浪财经-中国宏观经济数据-邮电业务基本情况
     http://finance.sina.com.cn/mac/#industry-11-0-31-1
