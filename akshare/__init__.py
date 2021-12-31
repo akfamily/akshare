@@ -1573,7 +1573,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.50 add: add stock_cg_lawsuit_cninfo interface
 1.1.51 fix: fix stock_wc_hot_rank interface
 1.1.52 add: add stock_cg_equity_mortgage_cninfo interface
-1.1.53 fix: fix index_cni_detail_hist_adjust interface
+1.1.53 fix: fix index_detail_hist_adjust_cni interface
 1.1.54 fix: fix stock_board_concept_hist_ths interface
 1.1.55 fix: fix stock_sina_lhb_ggtj and stock_sina_lhb_jgzz interface
 1.1.56 add: add fund_em_aum_hist interface
@@ -1740,9 +1740,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.16 fix: fix stock_account_statistics_em interface
 1.3.17 fix: fix stock_sse_deal_daily interface
 1.3.18 fix: fix stock_sse_summary interface
+1.3.19 add: add index_stock_cons_weight_csindex interface
 """
 
-__version__ = "1.3.18"
+__version__ = "1.3.19"
 __author__ = "Albert King"
 
 import sys
@@ -2392,11 +2393,11 @@ from akshare.stock.stock_dzjy import (
 国证指数
 """
 from akshare.index.index_cni import (
-    index_cni_hist,
-    index_cni_all,
-    index_cni_detail,
-    index_cni_detail_hist,
-    index_cni_detail_hist_adjust,
+    index_hist_cni,
+    index_all_cni,
+    index_detail_cni,
+    index_detail_hist_cni,
+    index_detail_hist_adjust_cni,
 )
 
 """
@@ -3014,6 +3015,7 @@ from akshare.index.index_cons import (
     index_stock_hist,
     index_stock_cons_sina,
     index_stock_cons_csindex,
+    index_stock_cons_weight_csindex,
     stock_a_code_to_symbol,
 )
 

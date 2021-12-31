@@ -226,18 +226,19 @@ print(stock_zh_index_daily_em_df)
 
 目标地址: http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 
-描述: 获取指定指数的最新成份股票信息, 注意该接口返回的数据有部分是重复会导致数据缺失, 可以调用 **index_stock_cons_sina** 获取主流指数数据, 或调用**index_stock_cons_csindex**获取中证指数网提供的成分数据
+描述: 指定指数的最新成份股票信息, 注意该接口返回的数据有部分是重复会导致数据缺失, 可以调用 **ak.index_stock_cons_sina()** 获取主流指数数据, 或调用**ak.index_stock_cons_csindex()**获取中证指数网提供的成分数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index="000300", 获取沪深 300 最新成份股, 指数代码见 **股票指数信息一览表**|
+| 名称     | 类型  | 描述                                                   |
+|--------|-----|------------------------------------------------------|
+| symbol | str | symbol="000300", 获取沪深 300 最新成份股, 指数代码见 **股票指数信息一览表** |
 
 股票指数信息一览表(可以在 AKShare 中通过如下代码获取本表)
 
 ```python
 import akshare as ak
+
 index_stock_info_df = ak.index_stock_info()
 print(index_stock_info_df)
 ```
@@ -930,17 +931,18 @@ print(index_stock_info_df)
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 品种代码      | str   | Y        | 股票代码  |
-| 品种名称      | str   | Y        | 股票名称  |
-| 纳入日期      | str   | Y        | 成份股纳入日期  |
+| 名称   | 类型     | 描述      |
+|------|--------|---------|
+| 品种代码 | object | 股票代码    |
+| 品种名称 | object | 股票名称    |
+| 纳入日期 | object | 成份股纳入日期 |
 
 接口示例
 
 ```python
 import akshare as ak
-index_stock_cons_df = ak.index_stock_cons(index="000300")
+
+index_stock_cons_df = ak.index_stock_cons(symbol="000300")
 print(index_stock_cons_df)
 ```
 
@@ -963,17 +965,18 @@ print(index_stock_cons_df)
 
 输出参数-按市场归类
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 品种代码      | str   | Y        | 股票代码  |
-| 品种名称      | str   | Y        | 股票名称  |
-| 纳入日期      | str   | Y        | 成份股纳入日期  |
+| 名称   | 类型     | 描述      |
+|------|--------|---------|
+| 品种代码 | object | 股票代码    |
+| 品种名称 | object | 股票名称    |
+| 纳入日期 | object | 成份股纳入日期 |
 
 接口示例-按市场归类
 
 ```python
 import akshare as ak
-index_stock_cons_df = ak.index_stock_cons(index="000300")  # 主要调用 ak.stock_a_code_to_symbol 来进行转换
+
+index_stock_cons_df = ak.index_stock_cons(symbol="000300")  # 主要调用 ak.stock_a_code_to_symbol 来进行转换
 index_stock_cons_df['symbol'] = index_stock_cons_df['品种代码'].apply(ak.stock_a_code_to_symbol)
 print(index_stock_cons_df)
 ```
@@ -981,7 +984,7 @@ print(index_stock_cons_df)
 数据示例-按市场归类
 
 ```
-      品种代码  品种名称        纳入日期    symbol
+      品种代码  品种名称  纳入日期    symbol
 0   000688  国城矿业  2020-12-14  sz000688
 1   002409  雅克科技  2020-12-14  sz002409
 2   002683  宏大爆破  2020-12-14  sz002683
@@ -1024,6 +1027,115 @@ print(index_stock_cons_df)
 39  000060  中金岭南  2011-11-15  sz000060
 ```
 
+#### 中证指数成份股
+
+接口: index_stock_cons_csindex
+
+目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+
+描述: 中证指数网站-成份股目录
+
+输入参数
+
+| 名称     | 类型  | 描述                    |
+|--------|-----|-----------------------|
+| symbol | str | symbol="000300"; 指数代码 |
+
+输出参数
+
+| 名称      | 类型     | 描述  |
+|---------|--------|-----|
+| 日期      | object | -   |
+| 指数代码    | object | -   |
+| 指数名称    | object | -   |
+| 指数英文名称  | object | -   |
+| 成分券代码   | object | -   |
+| 成分券名称   | object | -   |
+| 成分券英文名称 | object | -   |
+| 交易所     | object | -   |
+| 交易所英文名称 | object | -   |
+
+示例代码
+
+```python
+import akshare as ak
+
+index_stock_cons_csindex_df = ak.index_stock_cons_csindex(symbol="931463")
+print(index_stock_cons_csindex_df)
+```
+
+数据示例
+
+```
+         日期    指数代码  ...      交易所             交易所英文名称
+0    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+1    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+2    2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
+3    2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
+4    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+..          ...     ...  ...      ...                 ...
+295  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+296  2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
+297  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+298  2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
+299  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+```
+
+#### 中证指数成份股权重
+
+接口: index_stock_cons_weight_csindex
+
+目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+
+描述: 中证指数网站-成份股权重
+
+输入参数
+
+| 名称     | 类型  | 描述                    |
+|--------|-----|-----------------------|
+| symbol | str | symbol="000300"; 指数代码 |
+
+输出参数
+
+| 名称      | 类型      | 描述 |
+|---------|---------|--|
+| 日期      | object  | - |
+| 指数代码    | object  | - |
+| 指数名称    | object  | - |
+| 指数英文名称  | object  | - |
+| 成分券代码   | object  | - |
+| 成分券名称   | object  | - |
+| 成分券英文名称 | object  | - |
+| 交易所     | object  | - |
+| 交易所英文名称 | object  | - |
+| 权重      | float64 | 注意单位: % |
+
+示例代码
+
+```python
+import akshare as ak
+
+index_stock_cons_weight_csindex_df = ak.index_stock_cons_weight_csindex(symbol="000300")
+print(index_stock_cons_weight_csindex_df)
+```
+
+数据示例
+
+```
+      日期    指数代码   指数名称  ...         交易所                  交易所英文名称     权重
+0    2021-11-30  000300  沪深300  ...  深圳证券交易所_股票  Shenzhen Stock Exchange  0.838
+1    2021-11-30  000300  沪深300  ...  深圳证券交易所_股票  Shenzhen Stock Exchange  0.584
+2    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.217
+3    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.104
+4    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  1.124
+..          ...     ...    ...  ...         ...                      ...    ...
+295  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.074
+296  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.085
+297  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.040
+298  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.022
+299  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.063
+```
+
 #### 历史成份
 
 接口: index_stock_hist
@@ -1034,23 +1146,24 @@ print(index_stock_cons_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index="sh000300"; 带市场前缀的指数代码|
+| 名称     | 类型  | 描述                            |
+|--------|-----|-------------------------------|
+| symbol | str | symbol="sh000300"; 带市场前缀的指数代码 |
 
 ```python
 import akshare as ak
-stock_index_hist_df = ak.index_stock_hist(index="sh000001")
+
+stock_index_hist_df = ak.index_stock_hist(symbol="sh000001")
 print(stock_index_hist_df)
 ```
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| stock_code      | str   | Y        | 股票代码  |
-| in_date      | str   | Y        | 进入时间  |
-| out_date      | str   | Y        | 退出时间  |
+| 名称         | 类型     | 描述   |
+|------------|--------|------|
+| stock_code | object | 股票代码 |
+| in_date    | object | 进入时间 |
+| out_date   | object | 退出时间 |
 		
 数据示例
 
@@ -1073,7 +1186,7 @@ print(stock_index_hist_df)
 
 #### 全部指数
 
-接口: index_cni_all
+接口: index_all_cni
 
 目标地址: http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
 
@@ -1081,31 +1194,32 @@ print(stock_index_hist_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 指数代码      | str   | Y        | -  |
-| 指数简称      | str   | Y        | -   |
-| 样本数      | int   | Y        | -   |
-| 收盘点位      | float   | Y        | -   |
-| 涨跌幅      | float   | Y        | -   |
-| PE滚动      | float   | Y        | -   |
-| 成交量      | float   | Y        | -   |
-| 成交额      | float   | Y        | -   |
-| 总市值      | float   | Y        | -   |
-| 自由流通市值      | float   | Y        | -   |
+| 名称     | 类型    | 描述  |
+|--------|-------|-----|
+| 指数代码   | str   | -   |
+| 指数简称   | str   | -   |
+| 样本数    | int   | -   |
+| 收盘点位   | float | -   |
+| 涨跌幅    | float | -   |
+| PE滚动   | float | -   |
+| 成交量    | float | -   |
+| 成交额    | float | -   |
+| 总市值    | float | -   |
+| 自由流通市值 | float | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_all_df = ak.index_cni_all()
-print(index_cni_all_df)
+
+index_all_cni_df = ak.index_all_cni()
+print(index_all_cni_df)
 ```
 
 数据示例
@@ -1127,7 +1241,7 @@ print(index_cni_all_df)
 
 #### 指数行情
 
-接口: index_cni_hist
+接口: index_hist_cni
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
@@ -1135,29 +1249,30 @@ print(index_cni_all_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index="399005"; 从 **index_cni_all** 接口获取指数代码|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| symbol | str | symbol="399005"; 从 **ak.index_all_cni()** 接口获取指数代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | -  |
-| 开盘价      | float   | Y        | -   |
-| 最高价      | float   | Y        | -   |
-| 最低价      | float   | Y        | -   |
-| 收盘价      | float   | Y        | -   |
-| 涨跌幅      | float   | Y        | -   |
-| 成交量      | float   | Y        | -   |
-| 成交额      | float   | Y        | -   |
+| 名称  | 类型    | 描述  |
+|-----|-------|-----|
+| 日期  | str   | -   |
+| 开盘价 | float | -   |
+| 最高价 | float | -   |
+| 最低价 | float | -   |
+| 收盘价 | float | -   |
+| 涨跌幅 | float | -   |
+| 成交量 | float | -   |
+| 成交额 | float | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_hist_df = ak.index_cni_hist(index="399005")
-print(index_cni_hist_df)
+
+index_hist_cni_df = ak.index_hist_cni(symbol="399005")
+print(index_hist_cni_df)
 ```
 
 数据示例
@@ -1179,7 +1294,7 @@ print(index_cni_hist_df)
 
 #### 指数样本详情
 
-接口: index_cni_detail
+接口: index_detail_cni
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
@@ -1187,29 +1302,30 @@ print(index_cni_hist_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index='399005'; 从 **index_cni_all** 接口获取指数代码|
-| date | str  | Y    |   date='2020-11'; 指定月份|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| symbol | str | symbol='399005'; 从 **ak.index_all_cni()** 接口获取指数代码 |
+| date   | str | date='2020-11'; 指定月份                               |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | -  |
-| 样本代码      | str   | Y        | -   |
-| 样本简称      | str   | Y        | -   |
-| 所属行业      | str   | Y        | -   |
-| 自由流通市值      | float   | Y        | 注意单位: 亿元   |
-| 总市值      | float   | Y        | 注意单位: 亿元   |
-| 权重      | float   | Y        | 注意单位: %   |
+| 名称     | 类型    | 描述       |
+|--------|-------|----------|
+| 日期     | str   | -        |
+| 样本代码   | str   | -        |
+| 样本简称   | str   | -        |
+| 所属行业   | str   | -        |
+| 自由流通市值 | float | 注意单位: 亿元 |
+| 总市值    | float | 注意单位: 亿元 |
+| 权重     | float | 注意单位: %  |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_detail_df = ak.index_cni_detail(index='399005', date='2020-11')
-print(index_cni_detail_df)
+
+index_detail_cni_df = ak.index_detail_cni(symbol='399005', date='2020-11')
+print(index_detail_cni_df)
 ```
 
 数据示例
@@ -1231,36 +1347,37 @@ print(index_cni_detail_df)
 
 #### 历史样本
 
-接口: index_cni_detail_hist
+接口: index_detail_hist_cni
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 获取国证指数-历史样本数据
+描述: 国证指数-历史样本数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index='399005'; 从 **index_cni_all** 接口获取指数代码|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| symbol | str | symbol='399005'; 从 **ak.index_all_cni()** 接口获取指数代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | -  |
-| 样本代码      | str   | Y        | -   |
-| 样本简称      | str   | Y        | -   |
-| 所属行业      | str   | Y        | -   |
-| 自由流通市值      | float   | Y        | 注意单位: 亿元   |
-| 总市值      | float   | Y        | 注意单位: 亿元   |
-| 权重      | float   | Y        | 注意单位: %   |
+| 名称     | 类型    | 描述       |
+|--------|-------|----------|
+| 日期     | str   | -        |
+| 样本代码   | str   | -        |
+| 样本简称   | str   | -        |
+| 所属行业   | str   | -        |
+| 自由流通市值 | float | 注意单位: 亿元 |
+| 总市值    | float | 注意单位: 亿元 |
+| 权重     | float | 注意单位: %  |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_detail_hist_df = ak.index_cni_detail_hist(index='399005')
-print(index_cni_detail_hist_df)
+
+index_detail_hist_cni_df = ak.index_detail_hist_cni(symbol='399005')
+print(index_detail_hist_cni_df)
 ```
 
 数据示例
@@ -1282,35 +1399,36 @@ print(index_cni_detail_hist_df)
 
 #### 历史调样
 
-接口: index_cni_detail_hist_adjust
+接口: index_detail_hist_adjust_cni
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 获取国证指数-样本详情-历史调样
+描述: 国证指数-样本详情-历史调样
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index='399005'; 从 **index_cni_all** 接口获取指数代码|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| symbol | str | symbol='399005'; 从 **ak.index_all_cni()** 接口获取指数代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 开始日期      | str   | Y        | -  |
-| 结束日期      | str   | Y        | -   |
-| 样本代码      | str   | Y        | -   |
-| 样本简称      | str   | Y        | -   |
-| 所属行业      | str   | Y        | -   |
-| 调整类型      | str   | Y        | 注意单位: 亿元   |
+| 名称   | 类型  | 描述       |
+|------|-----|----------|
+| 开始日期 | str | -        |
+| 结束日期 | str | -        |
+| 样本代码 | str | -        |
+| 样本简称 | str | -        |
+| 所属行业 | str | -        |
+| 调整类型 | str | 注意单位: 亿元 |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_detail_hist_adjust_df = ak.index_cni_detail_hist_adjust(index='399005')
-print(index_cni_detail_hist_adjust_df)
+
+index_detail_hist_adjust_cni_df = ak.index_detail_hist_adjust_cni(symbol='399005')
+print(index_detail_hist_adjust_cni_df)
 ```
 
 数据示例
