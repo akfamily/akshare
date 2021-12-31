@@ -2905,4 +2905,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.23 fix: fix macro_china_gksccz interface
 
 1.3.24 fix: fix macro_china_bond_public interface
+
+1.3.25 fix: fix stock_hk_hist interface
 ```
