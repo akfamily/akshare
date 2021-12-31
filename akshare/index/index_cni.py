@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/6/16 15:18
+Date: 2021/12/31 14:13
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
@@ -13,7 +13,7 @@ import requests
 
 def index_all_cni() -> pd.DataFrame:
     """
-    国证指数-所有指数
+    国证指数-最近交易日的所有指数
     http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
     :return: 国证指数-所有指数
     :rtype: pandas.DataFrame
@@ -67,6 +67,10 @@ def index_all_cni() -> pd.DataFrame:
             "自由流通市值",
         ]
     ]
+    temp_df['成交量'] = temp_df['成交量'] / 100000
+    temp_df['成交额'] = temp_df['成交额'] / 100000000
+    temp_df['总市值'] = temp_df['总市值'] / 100000000
+    temp_df['自由流通市值'] = temp_df['自由流通市值'] / 100000000
     return temp_df
 
 
@@ -179,7 +183,7 @@ def index_detail_hist_cni(symbol: str = '399005') -> pd.DataFrame:
     return temp_df
 
 
-def index_detail_hist_adjust_cni(symbol: str = '399231') -> pd.DataFrame:
+def index_detail_hist_adjust_cni(symbol: str = '399001') -> pd.DataFrame:
     """
     国证指数-样本详情-历史调样
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
@@ -202,17 +206,17 @@ def index_detail_hist_adjust_cni(symbol: str = '399231') -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_cni_all_df = index_all_cni()
-    print(index_cni_all_df)
+    index_all_cni_df = index_all_cni()
+    print(index_all_cni_df)
 
-    index_cni_hist_df = index_hist_cni(symbol="399005")
-    print(index_cni_hist_df)
+    index_hist_cni_df = index_hist_cni(symbol="399005")
+    print(index_hist_cni_df)
 
-    index_cni_detail_df = index_detail_cni(symbol='399005', date='2020-11')
-    print(index_cni_detail_df)
+    index_detail_cni_df = index_detail_cni(symbol='399005', date='2020-11')
+    print(index_detail_cni_df)
 
-    index_cni_detail_hist_df = index_detail_hist_cni(symbol='399005')
-    print(index_cni_detail_hist_df)
+    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399005')
+    print(index_detail_hist_cni_df)
 
-    index_cni_detail_hist_adjust_df = index_detail_hist_adjust_cni(symbol='399005')
-    print(index_cni_detail_hist_adjust_df)
+    index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol='399005')
+    print(index_detail_hist_adjust_cni_df)
