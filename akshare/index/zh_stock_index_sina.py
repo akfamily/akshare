@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/25 16:28
+Date: 2021/12/31 14:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
@@ -54,8 +54,8 @@ def get_zh_index_page_count() -> int:
 
 def stock_zh_index_spot() -> pd.DataFrame:
     """
-    新浪财经-指数
-    大量采集会被目标网站服务器封禁 IP
+    新浪财经-行情中心首页-A股-分类-所有指数
+    大量采集会被目标网站服务器封禁 IP, 如果被封禁 IP, 请 10 分钟后再试
     http://vip.stock.finance.sina.com.cn/mkt/#hs_s
     :return: 所有指数的实时行情数据
     :rtype: pandas.DataFrame
@@ -116,7 +116,7 @@ def stock_zh_index_spot() -> pd.DataFrame:
 
 def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     """
-    新浪财经-指数-历史行情数据, 大量抓取容易封IP
+    新浪财经-指数-历史行情数据, 大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh000909/nc.shtml
     :param symbol: sz399998, 指定指数代码
     :type symbol: str
