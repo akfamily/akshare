@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/15 16:08
+Date: 2021/12/31 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -2180,42 +2180,55 @@ def macro_china_hb():
     return big_df
 
 
-def macro_china_gksccz():
+def macro_china_gksccz() -> pd.DataFrame:
     """
     中国-央行公开市场操作
     http://www.chinamoney.com.cn/chinese/yhgkscczh/
     :return: 央行公开市场操作
     :rtype: pandas.DataFrame
     """
-    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketHandle"
+    url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketHandle"
     params = {
         "t": "1597986289666",
         "t": "1597986289666",
     }
-    big_df = pd.DataFrame()
     payload = {
-        "pageSize": "1000",
+        "pageSize": "15",
         "pageNo": "1",
     }
-    r = requests.post(url, params=params, data=payload)
-    page_num = r.json()["data"]["pageTotal"]
-    for page in tqdm(range(1, page_num + 1)):
-        payload = {
-            "pageSize": "1000",
-            "pageNo": str(page),
-        }
+    headers = {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Referer': 'https://www.chinamoney.com.cn/chinese/yhgkscczh/',
+        'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest',
+    }
+    r = requests.post(url, params=params, data=payload, headers=headers)
+    data_json = r.json()
+    total_page = data_json["data"]["pageTotal"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1)):
+        payload.update({
+            "pageNo": page,
+        })
         r = requests.post(url, params=params, data=payload)
-        temp_df = pd.DataFrame(r.json()["data"]["resultList"])
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["data"]["resultList"])
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df = big_df.sort_values(by=["operationFromDate"])
-    big_df.reset_index(inplace=True, drop=True)
     big_df.columns = [
-        "rate",
-        "trading_method",
-        "deal_amount",
-        "period",
-        "operation_from_date",
+        "操作日期",
+        "期限",
+        "交易量",
+        "中标利率",
+        "正/逆回购",
     ]
+    big_df['操作日期'] = pd.to_datetime(big_df['操作日期']).dt.date
+    big_df['期限'] = pd.to_numeric(big_df['期限'])
+    big_df['交易量'] = pd.to_numeric(big_df['交易量'])
+    big_df['中标利率'] = pd.to_numeric(big_df['中标利率'])
     return big_df
 
 
