@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/15 16:26
+Date: 2021/12/31 16:26
 Desc: 东方财富网-行情首页-上证 A 股-每日行情
 """
 import requests
@@ -604,7 +604,7 @@ def stock_hk_spot_em() -> pd.DataFrame:
 
 
 def stock_hk_hist(
-        symbol: str = "00593",
+        symbol: str = "40224",
         start_date: str = "19700101",
         end_date: str = "22220101",
         adjust: str = "",
@@ -639,6 +639,8 @@ def stock_hk_hist(
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    if temp_df.empty:
+        return pd.DataFrame()
     temp_df.columns = [
         "日期",
         "开盘",
@@ -654,6 +656,8 @@ def stock_hk_hist(
     ]
     temp_df.index = pd.to_datetime(temp_df["日期"])
     temp_df = temp_df[start_date:end_date]
+    if temp_df.empty:
+        return pd.DataFrame()
     temp_df.reset_index(inplace=True, drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
