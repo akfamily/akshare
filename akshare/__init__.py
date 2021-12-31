@@ -1742,9 +1742,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.18 fix: fix stock_sse_summary interface
 1.3.19 add: add index_stock_cons_weight_csindex interface
 1.3.20 fix: fix index_cni_xx interface
+1.3.21 fix: fix index_detail_hist_adjust_cni interface
 """
 
-__version__ = "1.3.20"
+__version__ = "1.3.21"
 __author__ = "Albert King"
 
 import sys
