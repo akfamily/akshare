@@ -1907,7 +1907,7 @@ print(macro_china_hb_df)
 
 目标地址: http://www.chinamoney.com.cn/chinese/yhgkscczh/
 
-描述: 央行公开市场操作, 数据区间从 20040116 至今, 周频率
+描述: 央行公开市场操作; 数据区间从 20040116 至今
 
 限量: 单次返回所有历史数据
 
