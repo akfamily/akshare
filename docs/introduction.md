@@ -5,11 +5,11 @@
 **风险提示：[AKShare](https://github.com/akfamily/akshare) 开源财经数据接口库所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
 同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
 
-1. 本文档更新于 **2021-01-01**;
+1. 本文档更新于 **2021-01-02**;
 2. 想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学家】** 高质量社区，里面有丰富的视频、问答、文章、书籍及代码等内容: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
 3. 如有库、文档及数据的相关问题, 请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提 Issues;
 4. 如果您的问题未能在文档中找到答案，您也可以加入 **AKShare-VIP QQ 群**: 为了提高问答质量，此群为收费群(一杯咖啡钱即可入群)，可以添加 **AKShare-小助手** QQ：1254836886，由小助手邀请入群 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
-5. 欢迎关注 **数据科学实战** 微信公众号: <div align=center><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>
+5. 欢迎关注 **数据科学实战** 微信公众号: <div><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>
 
 ## 引用
 
@@ -46,7 +46,7 @@
 4. 持续维护由于目标网页变化而导致的部分数据接口运行异常问题;
 5. 持续更新财经数据接口, 同时优化源代码;
 6. 提供完善的接口文档, 提高 [AKShare](https://github.com/akfamily/akshare) 的易用性;
-7. 对于非 Python 用户，提供 HTTP API 接口: [AKTools](https://aktools.readthedocs.io/)
+7. 对于非 Python 用户，提供 HTTP API 接口工具: [AKTools](https://aktools.readthedocs.io/)
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/mindmap/AKShare.svg)
 
