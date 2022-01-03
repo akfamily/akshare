@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/01/01 18:26
+Date: 2022/01/03 18:26
 Desc: 东方财富网-行情首页-上证 A 股-每日行情
 """
 import requests
@@ -894,7 +894,7 @@ def stock_us_spot_em() -> pd.DataFrame:
 
 
 def stock_us_hist(
-        symbol: str = "105.NTRB",
+        symbol: str = "105.APCX",
         start_date: str = "19700101",
         end_date: str = "22220101",
         adjust: str = "",
@@ -928,6 +928,8 @@ def stock_us_hist(
     }
     r = requests.get(url, params=params)
     data_json = r.json()
+    if not data_json["data"]["klines"]:
+        return pd.DataFrame()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
         "日期",
@@ -986,6 +988,8 @@ def stock_us_hist_min_em(symbol: str = "105.ATER",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
+    if not data_json["data"]["trends"]:
+        return pd.DataFrame()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
     temp_df.columns = [
         "时间",
