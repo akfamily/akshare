@@ -1749,9 +1749,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.25 fix: fix stock_hk_hist interface
 1.3.26 fix: fix stock_us_spot_em interface
 1.3.27 fix: fix stock_us_hist interface
+1.3.28 fix: fix stock_zh_a_hist interface
 """
 
-__version__ = "1.3.27"
+__version__ = "1.3.28"
 __author__ = "Albert King"
 
 import sys

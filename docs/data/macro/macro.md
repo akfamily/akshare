@@ -1953,13 +1953,13 @@ print(macro_china_gksccz_df)
 2315  2004-01-16  14   400  2.82   逆回购
 ```
 
-##### 新债券发行
+##### 新债发行
 
 接口: macro_china_bond_public
 
 目标地址: http://www.chinamoney.com.cn/chinese/xzjfx/
 
-描述: 债券信息披露-新债券发行, 近期债券发行数据
+描述: 中国外汇交易中心暨全国银行间同业拆借中心-债券信息披露-新债发行; 近期债券发行数据
 
 限量: 单次返回所有历史数据
 
@@ -2014,7 +2014,7 @@ print(macro_china_bond_public_df)
 
 目标地址: https://data.eastmoney.com/cjsj/xfzxx.html
 
-描述: 东方财富-消费者信心指数
+描述: 东方财富网-消费者信心指数
 
 限量: 单次返回所有历史数据
 

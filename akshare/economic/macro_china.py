@@ -166,7 +166,7 @@ def macro_china_shrzgm() -> pd.DataFrame:
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
-def macro_china_gdp_yearly():
+def macro_china_gdp_yearly() -> pd.DataFrame:
     """
     中国年度 GDP 数据, 数据区间从 20110120-至今
     https://datacenter.jin10.com/reportType/dc_chinese_gdp_yoy
@@ -226,7 +226,7 @@ def macro_china_gdp_yearly():
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
-def macro_china_cpi_yearly():
+def macro_china_cpi_yearly() -> pd.DataFrame:
     """
     中国年度 CPI 数据, 数据区间从 19860201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_cpi_yoy
@@ -2140,7 +2140,7 @@ def macro_china_wbck():
     return temp_df
 
 
-def macro_china_hb():
+def macro_china_hb() -> pd.DataFrame:
     """
     中国-货币净投放与净回笼
     http://www.chinamoney.com.cn/chinese/hb/
@@ -2282,9 +2282,9 @@ def macro_china_bond_public() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_xfzxx():
+def macro_china_xfzxx() -> pd.DataFrame:
     """
-    消费者信心指数
+    东方财富网-经济数据一览-消费者信心指数
     https://data.eastmoney.com/cjsj/xfzxx.html
     :return: 消费者信心指数
     :rtype: pandas.DataFrame
