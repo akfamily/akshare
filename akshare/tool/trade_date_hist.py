@@ -42,3 +42,4 @@ def tool_trade_date_hist_sina() -> pd.DataFrame:
 if __name__ == "__main__":
     tool_trade_date_hist_df = tool_trade_date_hist_sina()
     print(tool_trade_date_hist_df)
+    tool_trade_date_hist_df['trade_date'].to_clipboard()
