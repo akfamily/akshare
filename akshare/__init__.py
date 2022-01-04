@@ -1751,9 +1751,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.27 fix: fix stock_us_hist interface
 1.3.28 fix: fix stock_zh_a_hist interface
 1.3.29 fix: fix update calendar.json to 2022
+1.3.30 fix: fix stock_zh_index_daily_em interface
 """
 
-__version__ = "1.3.29"
+__version__ = "1.3.30"
 __author__ = "Albert King"
 
 import sys
