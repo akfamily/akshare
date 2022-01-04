@@ -9,7 +9,7 @@
 
 ## 安装 [AKShare](https://github.com/akfamily/akshare)
 
-提示：目前已经支持苹果 M1 处理器安装 AKShare，请参考[AKShare 文档-苹果 M1 处理器支持](https://www.akshare.xyz/installation.html#m1)
+提示：目前已经支持苹果 M1 处理器安装 [AKShare](https://github.com/akfamily/akshare)，请参考[AKShare 文档-苹果 M1 处理器支持](https://www.akshare.xyz/installation.html#m1)
 
 ### 通用安装
 
