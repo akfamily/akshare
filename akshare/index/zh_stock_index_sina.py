@@ -223,7 +223,7 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
 
 def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
     """
-    东方财富股票指数数据
+    东方财富网-股票指数数据
     http://quote.eastmoney.com/center/hszs.html
     :param symbol: 带市场标识的指数代码
     :type symbol: str
@@ -241,7 +241,7 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
         "klt": "101",  # 日频率
         "fqt": "0",
         "beg": "19900101",
-        "end": "20220101",
+        "end": "20320101",
         "_": "1596700547039",
     }
     r = requests.get(url, params=params)
@@ -250,14 +250,12 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = ["date", "open", "close", "high", "low", "volume", "amount", "_"]
     temp_df = temp_df[["date", "open", "close", "high", "low", "volume", "amount"]]
-    temp_df = temp_df.astype({
-        "open": float,
-        "close": float,
-        "high": float,
-        "low": float,
-        "volume": float,
-        "amount": float,
-    })
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df['amount'] = pd.to_numeric(temp_df['amount'])
     return temp_df
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/1/12 15:06
+Date: 2022/1/12 15:06
 Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所
 采集前 20 会员持仓数据;
@@ -16,8 +16,8 @@ http://www.czce.com.cn/cn/exchange/2014/datatradeholding/20140515.txt
 """
 import datetime
 import json
-import time
 import re
+import time
 import warnings
 import zipfile
 from io import BytesIO
