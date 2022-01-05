@@ -354,12 +354,12 @@ def stock_dzjy_hygtj(symbol: str = '近三月') -> pd.DataFrame:
     return big_df
 
 
-def stock_dzjy_hyyybtj(period: str = '近3日') -> pd.DataFrame:
+def stock_dzjy_hyyybtj(symbol: str = '近3日') -> pd.DataFrame:
     """
     东方财富网-数据中心-大宗交易-活跃营业部统计
-    http://data.eastmoney.com/dzjy/dzjy_hyyybtj.aspx
-    :param period: choice of {'当前交易日', '近3日', '近5日', '近10日', '近30日'}
-    :type period: str
+    https://data.eastmoney.com/dzjy/dzjy_hyyybtj.html
+    :param symbol: choice of {'当前交易日', '近3日', '近5日', '近10日', '近30日'}
+    :type symbol: str
     :return: 活跃营业部统计
     :rtype: pandas.DataFrame
     """
@@ -370,40 +370,44 @@ def stock_dzjy_hyyybtj(period: str = '近3日') -> pd.DataFrame:
         '近10日': '10',
         '近30日': '30',
     }
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "DZJY_HHYYBTJ",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "BCount",
-        "sr": "-1",
-        "p": "1",
-        "ps": "50000",
-        "js": "var xoqCPdgn={pages:(tp),data:(x)}",
-        'filter': f'(TYPE={period_map[period]})',
-        "rt": "53569504",
+        'sortColumns': 'BUYER_NUM,TOTAL_BUYAMT',
+        'sortTypes': '-1,-1',
+        'pageSize': '5000',
+        'pageNumber': '1',
+        'reportName': 'RPT_BLOCKTRADE_OPERATEDEPTSTATISTICS',
+        'columns': 'OPERATEDEPT_CODE,OPERATEDEPT_NAME,ONLIST_DATE,STOCK_DETAILS,BUYER_NUM,SELLER_NUM,TOTAL_BUYAMT,TOTAL_SELLAMT,TOTAL_NETAMT,N_DATE',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f'(N_DATE=-{period_map[symbol]})',
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text.split("=")[1])
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = data_json['result']["pages"]
+    big_df = pd.DataFrame()
+    for page in range(1, int(total_page)+1):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df['index'] = big_df.index + 1
+    big_df.columns = [
         "序号",
         "_",
-        "最近上榜日",
-        "_",
         "营业部名称",
+        "最近上榜日",
+        "买入的股票",
         "次数总计-买入",
         "次数总计-卖出",
         "成交金额统计-买入",
         "成交金额统计-卖出",
         "成交金额统计-净买入额",
-        "买入的股票",
+        "_",
     ]
-    temp_df["最近上榜日"] = pd.to_datetime(temp_df["最近上榜日"])
-    temp_df = temp_df[[
+    big_df = big_df[[
         "序号",
         "最近上榜日",
         "营业部名称",
@@ -414,80 +418,102 @@ def stock_dzjy_hyyybtj(period: str = '近3日') -> pd.DataFrame:
         "成交金额统计-净买入额",
         "买入的股票",
     ]]
-    return temp_df
+    big_df["最近上榜日"] = pd.to_datetime(big_df["最近上榜日"]).dt.date
+    big_df["次数总计-买入"] = pd.to_numeric(big_df["次数总计-买入"])
+    big_df["次数总计-卖出"] = pd.to_numeric(big_df["次数总计-卖出"])
+    big_df["成交金额统计-买入"] = pd.to_numeric(big_df["成交金额统计-买入"])
+    big_df["成交金额统计-卖出"] = pd.to_numeric(big_df["成交金额统计-卖出"])
+    big_df["成交金额统计-净买入额"] = pd.to_numeric(big_df["成交金额统计-净买入额"])
+    return big_df
 
 
-def stock_dzjy_yybph(period: str = '近三月') -> pd.DataFrame:
+def stock_dzjy_yybph(symbol: str = '近三月') -> pd.DataFrame:
     """
     东方财富网-数据中心-大宗交易-营业部排行
     http://data.eastmoney.com/dzjy/dzjy_yybph.aspx
-    :param period: choice of {'近一月', '近三月', '近六月', '近一年'}
-    :type period: str
+    :param symbol: choice of {'近一月', '近三月', '近六月', '近一年'}
+    :type symbol: str
     :return: 营业部排行
     :rtype: pandas.DataFrame
     """
     period_map = {
-        '近一月': '1',
-        '近三月': '3',
-        '近六月': '6',
-        '近一年': '12',
+        '近一月': '30',
+        '近三月': '90',
+        '近六月': '120',
+        '近一年': '360',
     }
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "DZJY_YYBHB",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "BCount",
-        "sr": "-1",
-        "p": "1",
-        "ps": "50000",
-        "js": "var xoqCPdgn={pages:(tp),data:(x)}",
-        'filter': f'(TYPE={period_map[period]})',
-        "rt": "53569504",
+        'sortColumns': 'D5_BUYER_NUM,D1_AVERAGE_INCREASE',
+        'sortTypes': '-1,-1',
+        'pageSize': '5000',
+        'pageNumber': '1',
+        'reportName': 'RPT_BLOCKTRADE_OPERATEDEPT_RANK',
+        'columns': 'OPERATEDEPT_CODE,OPERATEDEPT_NAME,D1_BUYER_NUM,D1_AVERAGE_INCREASE,D1_RISE_PROBABILITY,D5_BUYER_NUM,D5_AVERAGE_INCREASE,D5_RISE_PROBABILITY,D10_BUYER_NUM,D10_AVERAGE_INCREASE,D10_RISE_PROBABILITY,D20_BUYER_NUM,D20_AVERAGE_INCREASE,D20_RISE_PROBABILITY,N_DATE,RELATED_ORG_CODE',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f'(N_DATE=-{period_map[symbol]})',
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text.split("=")[1])
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = data_json['result']["pages"]
+    big_df = pd.DataFrame()
+    for page in range(1, int(total_page)+1):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df['index'] = big_df.index + 1
+    big_df.columns = [
         "序号",
-        "_",
         "_",
         "营业部名称",
         "上榜后1天-买入次数",
         "上榜后1天-平均涨幅",
-        "_",
-        "_",
         "上榜后1天-上涨概率",
+        "上榜后5天-买入次数",
         "上榜后5天-平均涨幅",
-        "_",
-        "_",
         "上榜后5天-上涨概率",
+        "上榜后10天-买入次数",
         "上榜后10天-平均涨幅",
-        "_",
-        "_",
         "上榜后10天-上涨概率",
+        "上榜后20天-买入次数",
         "上榜后20天-平均涨幅",
+        "上榜后20天-上涨概率",
         "_",
         "_",
-        "上榜后20天-上涨概率"
     ]
-    temp_df = temp_df[[
+    big_df = big_df[[
         "序号",
         "营业部名称",
         "上榜后1天-买入次数",
         "上榜后1天-平均涨幅",
         "上榜后1天-上涨概率",
+        "上榜后5天-买入次数",
         "上榜后5天-平均涨幅",
         "上榜后5天-上涨概率",
+        "上榜后10天-买入次数",
         "上榜后10天-平均涨幅",
         "上榜后10天-上涨概率",
+        "上榜后20天-买入次数",
         "上榜后20天-平均涨幅",
-        "上榜后20天-上涨概率"
+        "上榜后20天-上涨概率",
     ]]
-    return temp_df
+    big_df['上榜后1天-买入次数'] = pd.to_numeric(big_df['上榜后1天-买入次数'])
+    big_df['上榜后1天-平均涨幅'] = pd.to_numeric(big_df['上榜后1天-平均涨幅'])
+    big_df['上榜后1天-上涨概率'] = pd.to_numeric(big_df['上榜后1天-上涨概率'])
+    big_df['上榜后5天-买入次数'] = pd.to_numeric(big_df['上榜后5天-买入次数'])
+    big_df['上榜后5天-平均涨幅'] = pd.to_numeric(big_df['上榜后5天-平均涨幅'])
+    big_df['上榜后5天-上涨概率'] = pd.to_numeric(big_df['上榜后5天-上涨概率'])
+    big_df['上榜后10天-买入次数'] = pd.to_numeric(big_df['上榜后10天-买入次数'])
+    big_df['上榜后10天-平均涨幅'] = pd.to_numeric(big_df['上榜后10天-平均涨幅'])
+    big_df['上榜后10天-上涨概率'] = pd.to_numeric(big_df['上榜后10天-上涨概率'])
+    big_df['上榜后20天-买入次数'] = pd.to_numeric(big_df['上榜后20天-买入次数'])
+    big_df['上榜后20天-平均涨幅'] = pd.to_numeric(big_df['上榜后20天-平均涨幅'])
+    big_df['上榜后20天-上涨概率'] = pd.to_numeric(big_df['上榜后20天-上涨概率'])
+    return big_df
 
 
 if __name__ == "__main__":
@@ -503,8 +529,8 @@ if __name__ == "__main__":
     stock_dzjy_hygtj_df = stock_dzjy_hygtj(symbol='近三月')
     print(stock_dzjy_hygtj_df)
 
-    stock_dzjy_hyyybtj_df = stock_dzjy_hyyybtj(period='近3日')
+    stock_dzjy_hyyybtj_df = stock_dzjy_hyyybtj(symbol='近3日')
     print(stock_dzjy_hyyybtj_df)
 
-    stock_dzjy_yybph_df = stock_dzjy_yybph(period='近三月')
+    stock_dzjy_yybph_df = stock_dzjy_yybph(symbol='近三月')
     print(stock_dzjy_yybph_df)
