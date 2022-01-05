@@ -188,7 +188,7 @@ def stock_dzjy_mrmx(symbol: str = '基金', start_date: str = '20220104', end_da
     return temp_df
 
 
-def stock_dzjy_mrtj(start_date: str = '2020-12-04', end_date: str = '2020-12-04') -> pd.DataFrame:
+def stock_dzjy_mrtj(start_date: str = '20220105', end_date: str = '20220105') -> pd.DataFrame:
     """
     东方财富网-数据中心-大宗交易-每日统计
     http://data.eastmoney.com/dzjy/dzjy_mrtj.aspx
@@ -199,45 +199,43 @@ def stock_dzjy_mrtj(start_date: str = '2020-12-04', end_date: str = '2020-12-04'
     :return: 每日统计
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "DZJYGGTJ",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "Cjeltszb",
-        "sr": "-1",
-        "p": "1",
-        "ps": "50000",
-        "js": "var xoqCPdgn={pages:(tp),data:(x)}",
-        'filter': f'(TDATE>=^{start_date}^ and TDATE<=^{end_date}^)',
-        "rt": "53569504",
+        'sortColumns': 'TURNOVERRATE',
+        'sortTypes': '-1',
+        'pageSize': '5000',
+        'pageNumber': '1',
+        'reportName': 'RPT_BLOCKTRADE_STA',
+        'columns': 'TRADE_DATE,SECURITY_CODE,SECUCODE,SECURITY_NAME_ABBR,CHANGE_RATE,CLOSE_PRICE,AVERAGE_PRICE,PREMIUM_RATIO,DEAL_NUM,VOLUME,DEAL_AMT,TURNOVERRATE,D1_CLOSE_ADJCHRATE,D5_CLOSE_ADJCHRATE,D10_CLOSE_ADJCHRATE,D20_CLOSE_ADJCHRATE',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f"(TRADE_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(TRADE_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')"
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text.split("=")[1])
-    temp_df = pd.DataFrame(data_json["data"])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']["data"])
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df['index'] = temp_df.index + 1
     temp_df.columns = [
         "序号",
         "交易日期",
         "证券代码",
+        "-",
         "证券简称",
         "涨跌幅",
         "收盘价",
-        "成交均价",
+        "成交价",
         "折溢率",
         "成交笔数",
-        "成交总额",
         "成交总量",
-        "_",
+        "成交总额",
         "成交总额/流通市值",
         "_",
         "_",
         "_",
         "_",
     ]
-    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
+    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"]).dt.date
     temp_df = temp_df[[
         "序号",
         "交易日期",
@@ -245,22 +243,30 @@ def stock_dzjy_mrtj(start_date: str = '2020-12-04', end_date: str = '2020-12-04'
         "证券简称",
         "涨跌幅",
         "收盘价",
-        "成交均价",
+        "成交价",
         "折溢率",
         "成交笔数",
         "成交总量",
         "成交总额",
         "成交总额/流通市值",
     ]]
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df['收盘价'] = pd.to_numeric(temp_df['收盘价'])
+    temp_df['成交价'] = pd.to_numeric(temp_df['成交价'])
+    temp_df['折溢率'] = pd.to_numeric(temp_df['折溢率'])
+    temp_df['成交笔数'] = pd.to_numeric(temp_df['成交笔数'])
+    temp_df['成交总量'] = pd.to_numeric(temp_df['成交总量'])
+    temp_df['成交总额'] = pd.to_numeric(temp_df['成交总额'])
+    temp_df['成交总额/流通市值'] = pd.to_numeric(temp_df['成交总额/流通市值'])
     return temp_df
 
 
-def stock_dzjy_hygtj(period: str = '近三月') -> pd.DataFrame:
+def stock_dzjy_hygtj(symbol: str = '近三月') -> pd.DataFrame:
     """
     东方财富网-数据中心-大宗交易-活跃 A 股统计
     http://data.eastmoney.com/dzjy/dzjy_hygtj.aspx
-    :param period: choice of {'近一月', '近三月', '近六月', '近一年'}
-    :type period: str
+    :param symbol: choice of {'近一月', '近三月', '近六月', '近一年'}
+    :type symbol: str
     :return: 活跃 A 股统计
     :rtype: pandas.DataFrame
     """
@@ -270,51 +276,51 @@ def stock_dzjy_hygtj(period: str = '近三月') -> pd.DataFrame:
         '近六月': '6',
         '近一年': '12',
     }
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "DZJY_HHGGTJ",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "SBSumCount",
-        "sr": "-1",
-        "p": "1",
-        "ps": "50000",
-        "js": "var xoqCPdgn={pages:(tp),data:(x)}",
-        'filter': f'(TYPE={period_map[period]})',
-        "rt": "53569504",
+        'sortColumns': 'DEAL_NUM,SECURITY_CODE',
+        'sortTypes': '-1,-1',
+        'pageSize': '5000',
+        'pageNumber': '1',
+        'reportName': 'RPT_BLOCKTRADE_ACSTA',
+        'columns': 'SECURITY_CODE,SECUCODE,SECURITY_NAME_ABBR,CLOSE_PRICE,CHANGE_RATE,TRADE_DATE,DEAL_AMT,PREMIUM_RATIO,SUM_TURNOVERRATE,DEAL_NUM,PREMIUM_TIMES,DISCOUNT_TIMES,D1_AVG_ADJCHRATE,D5_AVG_ADJCHRATE,D10_AVG_ADJCHRATE,D20_AVG_ADJCHRATE,DATE_TYPE_CODE',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f'(DATE_TYPE_CODE={period_map[symbol]})',
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text.split("=")[1])
-    temp_df = pd.DataFrame(data_json["data"])
-    temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = data_json['result']["pages"]
+    big_df = pd.DataFrame()
+    for page in range(1, int(total_page)+1):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df['index'] = big_df.index + 1
+    big_df.columns = [
         "序号",
-        "_",
-        "最近上榜日",
         "证券代码",
+        "_",
         "证券简称",
-        "涨跌幅",
         "最新价",
+        "涨跌幅",
+        "最近上榜日",
+        "总成交额",
+        "折溢率",
+        "成交总额/流通市值",
         "上榜次数-总计",
         "上榜次数-溢价",
         "上榜次数-折价",
-        "总成交额",
-        "_",
-        "折溢率",
-        "成交总额/流通市值",
         "上榜日后平均涨跌幅-1日",
         "上榜日后平均涨跌幅-5日",
         "上榜日后平均涨跌幅-10日",
         "上榜日后平均涨跌幅-20日",
         "_",
-        "_",
-        "_",
-        "_",
     ]
-    temp_df["最近上榜日"] = pd.to_datetime(temp_df["最近上榜日"])
-    temp_df = temp_df[[
+    big_df = big_df[[
         "序号",
         "证券代码",
         "证券简称",
@@ -332,7 +338,20 @@ def stock_dzjy_hygtj(period: str = '近三月') -> pd.DataFrame:
         "上榜日后平均涨跌幅-10日",
         "上榜日后平均涨跌幅-20日",
     ]]
-    return temp_df
+    big_df["最近上榜日"] = pd.to_datetime(big_df["最近上榜日"]).dt.date
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"])
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
+    big_df["上榜次数-总计"] = pd.to_numeric(big_df["上榜次数-总计"])
+    big_df["上榜次数-溢价"] = pd.to_numeric(big_df["上榜次数-溢价"])
+    big_df["上榜次数-折价"] = pd.to_numeric(big_df["上榜次数-折价"])
+    big_df["总成交额"] = pd.to_numeric(big_df["总成交额"])
+    big_df["折溢率"] = pd.to_numeric(big_df["折溢率"])
+    big_df["成交总额/流通市值"] = pd.to_numeric(big_df["成交总额/流通市值"])
+    big_df["上榜日后平均涨跌幅-1日"] = pd.to_numeric(big_df["上榜日后平均涨跌幅-1日"])
+    big_df["上榜日后平均涨跌幅-5日"] = pd.to_numeric(big_df["上榜日后平均涨跌幅-5日"])
+    big_df["上榜日后平均涨跌幅-10日"] = pd.to_numeric(big_df["上榜日后平均涨跌幅-10日"])
+    big_df["上榜日后平均涨跌幅-20日"] = pd.to_numeric(big_df["上榜日后平均涨跌幅-20日"])
+    return big_df
 
 
 def stock_dzjy_hyyybtj(period: str = '近3日') -> pd.DataFrame:
@@ -478,10 +497,10 @@ if __name__ == "__main__":
     stock_dzjy_mrmx_df = stock_dzjy_mrmx(symbol='债券', start_date='20201204', end_date='20201204')
     print(stock_dzjy_mrmx_df)
 
-    stock_dzjy_mrtj_df = stock_dzjy_mrtj(start_date='2020-12-04', end_date='2020-12-04')
+    stock_dzjy_mrtj_df = stock_dzjy_mrtj(start_date='20201204', end_date='20201204')
     print(stock_dzjy_mrtj_df)
 
-    stock_dzjy_hygtj_df = stock_dzjy_hygtj(period='近三月')
+    stock_dzjy_hygtj_df = stock_dzjy_hygtj(symbol='近三月')
     print(stock_dzjy_hygtj_df)
 
     stock_dzjy_hyyybtj_df = stock_dzjy_hyyybtj(period='近3日')
