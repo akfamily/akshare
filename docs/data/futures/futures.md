@@ -2177,34 +2177,35 @@ while True:
 
 输入参数
 
-| 名称   | 类型  | 必选  | 描述  |
-| -------- | ---- | ---- | --- |
-| start_date | str | Y | start_date="20200701" |
-| end_date | str | Y | end_date="20200716" |
-| market | str | Y | market="DCE"; choice of {"CFFEX", "INE", "CZCE", "DCE", "SHFE"} |
-| index_bar | str | Y | index_bar=False; 是否合成指数 |
+| 名称         | 类型  | 描述                                                              |
+|------------|-----|-----------------------------------------------------------------|
+| start_date | str | start_date="20200701"                                           |
+| end_date   | str | end_date="20200716"                                             |
+| market     | str | market="DCE"; choice of {"CFFEX", "INE", "CZCE", "DCE", "SHFE"} |
+| index_bar  | str | index_bar=False; 是否合成指数                                         |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| symbol      | str   | Y        | 合约  |
-| date      | str   | Y        | 交易日   |
-| open      | float   | Y        | 开盘价        |
-| high        | float   | Y        |最高价    |
-| low         | float | Y        | 最低价         |
-| close      | str | Y        | 收盘价      |
-| volume      | str | Y        | 成交量      |
-| open_interest      | str | Y        | 持仓量      |
-| turnover      | float   | Y        | 成交额        |
-| settle        | float   | Y        |结算价    |
-| pre_settle         | float | Y        | 前结算价         |
-| variety      | str | Y        | 品种      |
+| 名称            | 类型    | 描述   |
+|---------------|-------|------|
+| symbol        | str   | 合约   |
+| date          | str   | 交易日  |
+| open          | float | 开盘价  |
+| high          | float | 最高价  |
+| low           | float | 最低价  |
+| close         | str   | 收盘价  |
+| volume        | str   | 成交量  |
+| open_interest | str   | 持仓量  |
+| turnover      | float | 成交额  |
+| settle        | float | 结算价  |
+| pre_settle    | float | 前结算价 |
+| variety       | str   | 品种   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 get_futures_daily_df = ak.get_futures_daily(start_date="20200701", end_date="20200716", market="DCE", index_bar=True)
 print(get_futures_daily_df)
 ```
@@ -2238,21 +2239,22 @@ print(get_futures_daily_df)
 
 输入参数
 
-| 名称   | 类型 |  描述     |
-| -------- | ---- | --- |
-| - | - | -  |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ------- |  ---------------- |
-| symbol      | object   |  -  |
-| code      | object   | -  |
+| 名称     | 类型     | 描述  |
+|--------|--------|-----|
+| symbol | object | -   |
+| code   | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_hq_subscribe_exchange_symbol_df = ak.futures_hq_subscribe_exchange_symbol()
 print(futures_hq_subscribe_exchange_symbol_df)
 ```

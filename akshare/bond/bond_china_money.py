@@ -24,10 +24,10 @@ def bond_china_close_return_map() -> pd.DataFrame:
 
 
 def bond_china_close_return(
-    symbol: str = "政策性金融债(进出口行)",
+    symbol: str = "国债",
     period: str = "1",
-    start_date: str = "20210621",
-    end_date: str = "20210721",
+    start_date: str = "20220104",
+    end_date: str = "20220104",
 ) -> pd.DataFrame:
     """
     收盘收益率曲线历史数据
@@ -45,18 +45,22 @@ def bond_china_close_return(
     """
     name_code_df = bond_china_close_return_map()
     symbol_code = name_code_df[name_code_df["cnLabel"] == symbol]["value"].values[0]
-    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvHis"
+    url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvHis"
     params = {
         "lang": "CN",
-        "reference": "1",
+        "reference": "1,2,3",
         "bondType": symbol_code,
         "startDate": '-'.join([start_date[:4], start_date[4:6], start_date[6:]]),
         "endDate": '-'.join([end_date[:4], end_date[4:6], end_date[6:]]),
         "termId": period,
         "pageNum": "1",
-        "pageSize": "5000",
+        "pageSize": "15",
     }
-    r = requests.post(url, params=params)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'
+    }
+    r = requests.get(url, params=params, headers=headers)
+    r.json()
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     del temp_df["newDateValue"]
@@ -85,6 +89,6 @@ def bond_china_close_return(
 
 if __name__ == "__main__":
     bond_china_close_return_df = bond_china_close_return(
-        symbol="政策性金融债(进出口行)", period="1", start_date="20210730", end_date="20210830"
+        symbol="国债", period="1", start_date="20220104", end_date="20220104"
     )
     print(bond_china_close_return_df)

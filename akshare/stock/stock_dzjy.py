@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/6 17:31
+Date: 2022/1/5 15:31
 Desc: 东方财富网-数据中心-大宗交易-市场统计
 http://data.eastmoney.com/dzjy/dzjy_sctj.aspx
 """
@@ -63,11 +63,11 @@ def stock_dzjy_sctj() -> pd.DataFrame:
     return big_df
 
 
-def stock_dzjy_mrmx(symbol: str = '债券', start_date: str = '2020-12-04', end_date: str = '2020-12-04') -> pd.DataFrame:
+def stock_dzjy_mrmx(symbol: str = '基金', start_date: str = '20220104', end_date: str = '20220104') -> pd.DataFrame:
     """
     东方财富网-数据中心-大宗交易-每日明细
     http://data.eastmoney.com/dzjy/dzjy_mrmxa.aspx
-    :param symbol: choice of {'A股', 'B股', '债券'}
+    :param symbol: choice of {'A股', 'B股', '基金', '债券'}
     :type symbol: str
     :param start_date: 开始日期
     :type start_date: str
@@ -77,56 +77,54 @@ def stock_dzjy_mrmx(symbol: str = '债券', start_date: str = '2020-12-04', end_
     :rtype: pandas.DataFrame
     """
     symbol_map = {
-        'A股': 'EQA',
-        'B股': 'EQB',
-        '债券': 'BD0',
+        'A股': '1',
+        'B股': '2',
+        '基金': '3',
+        '债券': '4',
     }
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "DZJYXQ",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "SECUCODE",
-        "sr": "1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var kBPzKdtj={pages:(tp),data:(x)}",
-        'filter': f"(Stype='{symbol_map[symbol]}')(TDATE>=^{start_date}^ and TDATE<=^{end_date}^)",
-        "rt": "53569504",
+        'sortColumns': 'SECURITY_CODE',
+        'sortTypes': '1',
+        'pageSize': '5000',
+        'pageNumber': '1',
+        'reportName': 'RPT_DATA_BLOCKTRADE',
+        'columns': 'TRADE_DATE,SECURITY_CODE,SECUCODE,SECURITY_NAME_ABBR,CHANGE_RATE,CLOSE_PRICE,DEAL_PRICE,PREMIUM_RATIO,DEAL_VOLUME,DEAL_AMT,TURNOVER_RATE,BUYER_NAME,SELLER_NAME,CHANGE_RATE_1DAYS,CHANGE_RATE_5DAYS,CHANGE_RATE_10DAYS,CHANGE_RATE_20DAYS,BUYER_CODE,SELLER_CODE',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f"""(SECURITY_TYPE_WEB={symbol_map[symbol]})(TRADE_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(TRADE_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')"""
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text.split("=")[1])
-    temp_df = pd.DataFrame(data_json["data"])
+    data_json = r.json()
+    if not data_json['result']["data"]:
+        return pd.DataFrame()
+    temp_df = pd.DataFrame(data_json['result']["data"])
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df['index'] = temp_df.index + 1
     if symbol in {'A股'}:
         temp_df.columns = [
             "序号",
             "交易日期",
             "证券代码",
+            "-",
             "证券简称",
-            "成交价",
-            "成交量",
-            "成交额",
-            "_",
-            "买方营业部",
-            "_",
-            "卖方营业部",
-            "_",
-            "_",
             "涨跌幅",
             "收盘价",
-            "_",
+            "成交价",
             "折溢率",
+            "成交量",
+            "成交额",
             "成交额/流通市值",
+            "买方营业部",
+            "卖方营业部",
+            "_",
             "_",
             "_",
             "_",
             "_",
             "_",
         ]
-        temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
+        temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"]).dt.date
         temp_df = temp_df[[
             "序号",
             "交易日期",
@@ -142,19 +140,28 @@ def stock_dzjy_mrmx(symbol: str = '债券', start_date: str = '2020-12-04', end_
             "买方营业部",
             "卖方营业部",
         ]]
-        return temp_df
-    if symbol in {'B股'}:
+        temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+        temp_df['收盘价'] = pd.to_numeric(temp_df['收盘价'])
+        temp_df['成交价'] = pd.to_numeric(temp_df['成交价'])
+        temp_df['折溢率'] = pd.to_numeric(temp_df['折溢率'])
+        temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+        temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+        temp_df['成交额/流通市值'] = pd.to_numeric(temp_df['成交额/流通市值'])
+    if symbol in {'B股', '基金', '债券'}:
         temp_df.columns = [
             "序号",
             "交易日期",
             "证券代码",
+            "-",
             "证券简称",
+            "-",
+            "-",
             "成交价",
+            "-",
             "成交量",
             "成交额",
-            "_",
+            "-",
             "买方营业部",
-            "_",
             "卖方营业部",
             "_",
             "_",
@@ -162,14 +169,8 @@ def stock_dzjy_mrmx(symbol: str = '债券', start_date: str = '2020-12-04', end_
             "_",
             "_",
             "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
         ]
-        temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
+        temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"]).dt.date
         temp_df = temp_df[[
             "序号",
             "交易日期",
@@ -181,45 +182,9 @@ def stock_dzjy_mrmx(symbol: str = '债券', start_date: str = '2020-12-04', end_
             "买方营业部",
             "卖方营业部",
         ]]
-        return temp_df
-    if symbol in {'债券'}:
-        temp_df.columns = [
-            "序号",
-            "交易日期",
-            "证券代码",
-            "证券简称",
-            "成交价",
-            "成交量",
-            "成交额",
-            "_",
-            "买方营业部",
-            "_",
-            "卖方营业部",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-        ]
-    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
-    temp_df = temp_df[[
-        "序号",
-        "交易日期",
-        "证券代码",
-        "证券简称",
-        "成交价",
-        "成交量",
-        "成交额",
-        "买方营业部",
-        "卖方营业部",
-    ]]
+        temp_df['成交价'] = pd.to_numeric(temp_df['成交价'])
+        temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+        temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
     return temp_df
 
 
@@ -509,13 +474,18 @@ def stock_dzjy_yybph(period: str = '近三月') -> pd.DataFrame:
 if __name__ == "__main__":
     stock_dzjy_sctj_df = stock_dzjy_sctj()
     print(stock_dzjy_sctj_df)
-    stock_dzjy_mrmx_df = stock_dzjy_mrmx(symbol='债券', start_date='2020-12-04', end_date='2020-12-04')
+
+    stock_dzjy_mrmx_df = stock_dzjy_mrmx(symbol='债券', start_date='20201204', end_date='20201204')
     print(stock_dzjy_mrmx_df)
+
     stock_dzjy_mrtj_df = stock_dzjy_mrtj(start_date='2020-12-04', end_date='2020-12-04')
     print(stock_dzjy_mrtj_df)
+
     stock_dzjy_hygtj_df = stock_dzjy_hygtj(period='近三月')
     print(stock_dzjy_hygtj_df)
+
     stock_dzjy_hyyybtj_df = stock_dzjy_hyyybtj(period='近3日')
     print(stock_dzjy_hyyybtj_df)
+
     stock_dzjy_yybph_df = stock_dzjy_yybph(period='近三月')
     print(stock_dzjy_yybph_df)
