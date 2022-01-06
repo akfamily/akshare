@@ -1,24 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-__author__ = "Deron Meranda <http://deron.meranda.us/>"
-__homepage__ = "http://deron.meranda.us/python/demjson/"
-
-__date__ = "2015-12-22"
-__version__ = "2.2.4"
-__version_info__ = (2, 2, 4)  # Will be converted into a namedtuple below
-
-__credits__ = "Short of demjson"
-
 # Set demjson version
 try:
     from collections import namedtuple as _namedtuple
-
-    __version_info__ = _namedtuple('version_info', ['major', 'minor', 'micro'])(*__version_info__)
 except ImportError:
     raise ImportError("demjson %s requires a Python 2.6 or later" % __version__)
-
-version, version_info = __version__, __version_info__
 
 # Determine Python version
 _py_major, _py_minor = None, None
