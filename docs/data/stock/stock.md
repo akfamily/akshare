@@ -11519,38 +11519,39 @@ print(stock_register_cyb_df)
 
 目标地址: http://data.eastmoney.com/xg/cyb/
 
-描述: 获取东方财富网-数据中心-新股数据-注册制审核-达标企业
+描述: 东方财富网-数据中心-新股数据-注册制审核-达标企业
 
 限量: 单次返回所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| - | - | -    | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int32   | Y        |  -    |
-| 企业名称          | object   | Y        |  -    |
-| 经营范围          | object   | Y        |  -    |
-| 近三年营业收入-2019          | float64   | Y        |  注意单位: 元    |
-| 近三年净利润-2019          | float64   | Y        |  注意单位: 元    |
-| 近三年研发费用-2019          | object   | Y        |  注意单位: 元    |
-| 近三年营业收入-2018          | float64   | Y        |  注意单位: 元    |
-| 近三年净利润-2018          | float64   | Y        |  注意单位: 元    |
-| 近三年研发费用-2018          | object   | Y        |  注意单位: 元    |
-| 近三年营业收入-2017          | object   | Y        |  注意单位: 元    |
-| 近三年净利润-2017          | object   | Y        |  注意单位: 元    |
-| 近三年研发费用-2017          | object   | Y        |  注意单位: 元    |
-| 近两年累计净利润          | float64   | Y        |  注意单位: 元    |
+| 名称           | 类型      | 描述      |
+|--------------|---------|---------|
+| 序号           | int32   | -       |
+| 企业名称         | object  | -       |
+| 经营范围         | object  | -       |
+| 近三年营业收入-2019 | float64 | 注意单位: 元 |
+| 近三年净利润-2019  | float64 | 注意单位: 元 |
+| 近三年研发费用-2019 | object  | 注意单位: 元 |
+| 近三年营业收入-2018 | float64 | 注意单位: 元 |
+| 近三年净利润-2018  | float64 | 注意单位: 元 |
+| 近三年研发费用-2018 | object  | 注意单位: 元 |
+| 近三年营业收入-2017 | object  | 注意单位: 元 |
+| 近三年净利润-2017  | object  | 注意单位: 元 |
+| 近三年研发费用-2017 | object  | 注意单位: 元 |
+| 近两年累计净利润     | float64 | 注意单位: 元 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_register_db_df = ak.stock_register_db()
 print(stock_register_db_df)
 ```
@@ -11578,7 +11579,7 @@ print(stock_register_db_df)
 
 目标地址: http://data.eastmoney.com/other/gkzf.html
 
-描述: 获取东方财富网-数据中心-新股数据-增发-全部增发
+描述: 东方财富网-数据中心-新股数据-增发-全部增发
 
 限量: 单次返回所有历史数据
 
@@ -11608,6 +11609,7 @@ print(stock_register_db_df)
 
 ```python
 import akshare as ak
+
 stock_em_qbzf_df = ak.stock_em_qbzf()
 print(stock_em_qbzf_df)
 ```
@@ -11733,6 +11735,7 @@ print(stock_em_pg_df)
 
 ```python
 import akshare as ak
+
 stock_repurchase_em_df = ak.stock_repurchase_em()
 print(stock_repurchase_em_df)
 ```
@@ -12094,8 +12097,8 @@ print(stock_dzjy_mrtj_df)
 | 涨跌幅           | float64 | 注意单位: %  |
 | 最近上榜日         | object  | -        |
 | 上榜次数-总计       | int64   | -        |
-| 上榜次数-溢价       | int64 | -        |
-| 上榜次数-折价       | int64 |          |
+| 上榜次数-溢价       | int64   | -        |
+| 上榜次数-折价       | int64   |          |
 | 总成交额          | float64 | 注意单位: 万元 |
 | 折溢率           | float64 | 注意单位: 万元 |
 | 成交总额/流通市值     | float64 | -        |
