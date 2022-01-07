@@ -137,7 +137,7 @@ def stock_register_cyb() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json['result']["data"])
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.reset_index(inplace=True)
-    big_df['index'] = range(1, len(big_df) + 1)
+    big_df['index'] = big_df.index + 1
     big_df.columns = [
         "序号",
         "_",
