@@ -1756,9 +1756,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.32 fix: fix stock_dzjy_mrtj interface
 1.3.33 fix: fix stock_dzjy_yybph interface
 1.3.34 fix: fix stock_history_dividend interface
+1.3.35 add: add fund_purchase_em interface
 """
 
-__version__ = "1.3.34"
+__version__ = "1.3.35"
 __author__ = "Albert King"
 
 import sys
@@ -2926,6 +2927,7 @@ from akshare.fund.fund_em import (
     fund_em_money_fund_info,
     fund_em_value_estimation,
     fund_em_hk_fund_hist,
+    fund_purchase_em,
 )
 
 """
