@@ -14,6 +14,7 @@ from bs4 import BeautifulSoup
 def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFrame:
     """
     期货手续费数据细节处理函数
+    http://www.9qihuo.com/qihuoshouxufei
     :param df: 获取到的 pandas.DataFrame 数据
     :type df: pandas.DataFrame
     :param name: 交易所名称
@@ -217,5 +218,5 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_comm_info_df = futures_comm_info(symbol="所有")
+    futures_comm_info_df = futures_comm_info(symbol="上海期货交易所")
     print(futures_comm_info_df)

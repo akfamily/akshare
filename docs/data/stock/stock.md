@@ -9379,27 +9379,28 @@ print(stock_institute_hold_detail_df)
 
 目标地址: http://stock.finance.sina.com.cn/stock/go.php/vIR_RatingNewest/index.phtml
 
-描述: 获取新浪财经-机构推荐池-具体指标的数据
+描述: 新浪财经-机构推荐池-具体指标的数据
 
 限量: 单次获取新浪财经-机构推荐池-具体指标的所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y    | indicator="行业关注度"; choice of {'最新投资评级', '上调评级股票', '下调评级股票', '股票综合评级', '首次评级股票', '目标涨幅排名', '机构关注度', '行业关注度', '投资评级选股'}|
+| 名称     | 类型  | 描述                                                                                                                 |
+|--------|-----|--------------------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="行业关注度"; choice of {'最新投资评级', '上调评级股票', '下调评级股票', '股票综合评级', '首次评级股票', '目标涨幅排名', '机构关注度', '行业关注度', '投资评级选股'} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| -          | -   | -        |  根据特定 indicator 而定    |
+| 名称  | 类型  | 描述                |
+|-----|-----|-------------------|
+| -   | -   | 根据特定 indicator 而定 |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_institute_recommend_df = ak.stock_institute_recommend(indicator="投资评级选股")
+
+stock_institute_recommend_df = ak.stock_institute_recommend(symbol="投资评级选股")
 print(stock_institute_recommend_df)
 ```
 
@@ -9432,28 +9433,29 @@ print(stock_institute_recommend_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| stock | str | Y    | stock="000001"|
+| 名称     | 类型  | 描述              |
+|--------|-----|-----------------|
+| symbol | str | symbol="000001" |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 股票代码          | str   | Y        |  -    |
-| 股票名称          | str   | Y        |  -    |
-| 目标价          | str   | Y        |  -    |
-| 最新评级          | str   | Y        |  -    |
-| 评级机构          | str   | Y        |  -    |
-| 分析师          | str   | Y        |  -    |
-| 行业          | str   | Y        |  -    |
-| 评级日期          | str   | Y        |  -    |
+| 名称   | 类型  | 描述  |
+|------|-----|-----|
+| 股票代码 | str | -   |
+| 股票名称 | str | -   |
+| 目标价  | str | -   |
+| 最新评级 | str | -   |
+| 评级机构 | str | -   |
+| 分析师  | str | -   |
+| 行业   | str | -   |
+| 评级日期 | str | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_institute_recommend_detail_df = ak.stock_institute_recommend_detail(stock="002709")
+
+stock_institute_recommend_detail_df = ak.stock_institute_recommend_detail(symbol="002709")
 print(stock_institute_recommend_detail_df)
 ```
 
@@ -9486,30 +9488,31 @@ print(stock_institute_recommend_detail_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date="20210910"; 交易日|
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| date | str | date="20210910"; 交易日 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 证券代码          | object   |   -    |
-| 证券简称          | object   |   -    |
-| 发布日期          | object   |  -    |
-| 研究机构简称          | object   |   -    |
-| 研究员名称          | object   |  -    |
-| 投资评级          | object   |   -    |
-| 是否首次评级          | object   |   -    |
-| 评级变化          | object   |   -    |
-| 前一次投资评级          | object   |   -    |
-| 目标价格-下限          | float64   | -    |
-| 目标价格-上限          | float64   |   -    |
+| 名称      | 类型      | 描述  |
+|---------|---------|-----|
+| 证券代码    | object  | -   |
+| 证券简称    | object  | -   |
+| 发布日期    | object  | -   |
+| 研究机构简称  | object  | -   |
+| 研究员名称   | object  | -   |
+| 投资评级    | object  | -   |
+| 是否首次评级  | object  | -   |
+| 评级变化    | object  | -   |
+| 前一次投资评级 | object  | -   |
+| 目标价格-下限 | float64 | -   |
+| 目标价格-上限 | float64 | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_rank_forecast_cninfo_df = ak.stock_rank_forecast_cninfo(date="20210907")
 print(stock_rank_forecast_cninfo_df)
 ```
@@ -9543,32 +9546,33 @@ print(stock_rank_forecast_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="证监会行业分类"; choice of {"证监会行业分类", "国证行业分类"}|
-| date | str |  date="20210910"; 交易日|
+| 名称     | 类型  | 描述                                                |
+|--------|-----|---------------------------------------------------|
+| symbol | str | symbol="证监会行业分类"; choice of {"证监会行业分类", "国证行业分类"} |
+| date   | str | date="20210910"; 交易日                              |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 变动日期          | object   |   -    |
-| 行业分类          | object   |   -    |
-| 行业层级          | int64   |  -    |
-| 行业编码          | object   |   -    |
-| 行业名称          | object   |  -    |
-| 公司数量          | float64   |   -    |
-| 纳入计算公司数量          | float64   |   -    |
-| 总市值-静态          | float64   |   注意单位: 亿元    |
-| 净利润-静态          | float64   |   注意单位: 亿元    |
-| 静态市盈率-加权平均          | float64   | -    |
-| 静态市盈率-中位数          | float64   |   -    |
-| 静态市盈率-算术平均          | float64   |   -    |
+| 名称         | 类型      | 描述       |
+|------------|---------|----------|
+| 变动日期       | object  | -        |
+| 行业分类       | object  | -        |
+| 行业层级       | int64   | -        |
+| 行业编码       | object  | -        |
+| 行业名称       | object  | -        |
+| 公司数量       | float64 | -        |
+| 纳入计算公司数量   | float64 | -        |
+| 总市值-静态     | float64 | 注意单位: 亿元 |
+| 净利润-静态     | float64 | 注意单位: 亿元 |
+| 静态市盈率-加权平均 | float64 | -        |
+| 静态市盈率-中位数  | float64 | -        |
+| 静态市盈率-算术平均 | float64 | -        |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_industry_pe_ratio_cninfo_df = ak.stock_industry_pe_ratio_cninfo(symbol="国证行业分类", date="20210907")
 print(stock_industry_pe_ratio_cninfo_df)
 ```
@@ -9602,25 +9606,26 @@ print(stock_industry_pe_ratio_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 公司名称          | object   |   -    |
-| 上会日期          | object   |   -    |
-| 审核类型          | object   |  -    |
-| 审议内容          | object   |   -    |
-| 审核结果          | object   |   -    |
-| 审核公告日          | object   |   -    |
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| 公司名称  | object | -   |
+| 上会日期  | object | -   |
+| 审核类型  | object | -   |
+| 审议内容  | object | -   |
+| 审核结果  | object | -   |
+| 审核公告日 | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_new_gh_cninfo_df = ak.stock_new_gh_cninfo()
 print(stock_new_gh_cninfo_df)
 ```
