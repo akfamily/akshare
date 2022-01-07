@@ -13,6 +13,7 @@ from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from tqdm import tqdm
+from retry import retry
 
 from akshare.stock.cons import (
     zh_sina_a_stock_payload,
@@ -303,6 +304,7 @@ def stock_zh_a_cdr_daily(
     return temp_df
 
 
+@retry(exceptions=Exception, tries=3, delay=5)
 def stock_zh_a_minute(
     symbol: str = "sh603087", period: str = "1", adjust: str = "", datalen: int = 20000,
 ) -> pd.DataFrame:
