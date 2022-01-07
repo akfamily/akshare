@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2021/4/6 15:19
+Date: 2022/1/7 17:19
 Desc: 东方财富网-数据中心-新股数据-注册制审核
 http://data.eastmoney.com/kcb/?type=nsb
 """
@@ -88,6 +88,8 @@ def stock_register_kcb() -> pd.DataFrame:
             "拟上市地点",
         ]
     ]
+    big_df['更新日期'] = pd.to_datetime(big_df['更新日期']).dt.date
+    big_df['受理日期'] = pd.to_datetime(big_df['受理日期']).dt.date
     return big_df
 
 
@@ -170,6 +172,8 @@ def stock_register_cyb() -> pd.DataFrame:
             "拟上市地点",
         ]
     ]
+    big_df['更新日期'] = pd.to_datetime(big_df['更新日期']).dt.date
+    big_df['受理日期'] = pd.to_datetime(big_df['受理日期']).dt.date
     return big_df
 
 
@@ -180,16 +184,17 @@ def stock_register_db() -> pd.DataFrame:
     :return: 达标企业
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        'st': 'eutime',
-        'sr': '-1',
-        'ps': '5000',
-        'p': '1',
-        'type': 'KCB_LB',
-        'js': '{"data":(x),"pages":(tp)}',
-        'token': '894050c76af8597a853f5b408b759f5d',
-        'filter': "(MKT='fnsb')",
+        'sortColumns': 'NOTICE_DATE,SECURITY_CODE',
+        'sortTypes': '-1,-1',
+        'pageSize': '50',
+        'pageNumber': '2',
+        'reportName': 'RPT_KCB_IPO',
+        'columns': 'KCB_LB',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': '(ORG_TYPE_CODE="03")',
     }
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'
@@ -280,6 +285,7 @@ def stock_register_db() -> pd.DataFrame:
             "近两年累计净利润",
         ]
     ]
+
     return big_df
 
 

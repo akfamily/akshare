@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/4/6 16:02
+Date: 2022/1/7 17:02
 Desc: 东方财富网-数据中心-新股申购-首发申报信息-首发申报企业信息
 https://data.eastmoney.com/xg/xg/sbqy.html
 """
 import pandas as pd
 import requests
+
 from akshare.utils import demjson
 
 
-def stock_ipo_declare():
+def stock_ipo_declare() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股申购-首发申报信息-首发申报企业信息
     https://data.eastmoney.com/xg/xg/sbqy.html
@@ -34,7 +35,7 @@ def stock_ipo_declare():
     data_json = demjson.decode(data_text[1:-1])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df) + 1)
+    temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
         "会计师事务所",
