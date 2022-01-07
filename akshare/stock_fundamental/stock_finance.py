@@ -72,23 +72,23 @@ def stock_financial_abstract(stock: str = "600004") -> pd.DataFrame:
     return data_df
 
 
-def stock_financial_analysis_indicator(stock: str = "600004") -> pd.DataFrame:
+def stock_financial_analysis_indicator(symbol: str = "600004") -> pd.DataFrame:
     """
     新浪财经-财务分析-财务指标
     https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600004/ctrl/2019/displaytype/4.phtml
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 新浪财经-财务分析-财务指标
     :rtype: pandas.DataFrame
     """
-    url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{stock}/ctrl/2020/displaytype/4.phtml"
+    url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{symbol}/ctrl/2020/displaytype/4.phtml"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     year_context = soup.find(attrs={"id": "con02-1"}).find("table").find_all("a")
     year_list = [item.text for item in year_context]
     out_df = pd.DataFrame()
     for year_item in tqdm(year_list, leave=False):
-        url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{stock}/ctrl/{year_item}/displaytype/4.phtml"
+        url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{symbol}/ctrl/{year_item}/displaytype/4.phtml"
         r = requests.get(url)
         temp_df = pd.read_html(r.text)[12].iloc[:, :-1]
         temp_df.columns = temp_df.iloc[0, :]
@@ -118,6 +118,8 @@ def stock_financial_analysis_indicator(stock: str = "600004") -> pd.DataFrame:
         big_df.index = temp_df.columns.tolist()[1:]
         out_df = out_df.append(big_df)
     out_df.dropna(inplace=True)
+    out_df.reset_index(inplace=True)
+    out_df.rename(columns={'index': '日期'}, inplace=True)
     return out_df
 
 
@@ -425,7 +427,7 @@ if __name__ == "__main__":
     print(stock_financial_abstract_df)
 
     stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(
-        stock="002230"
+        symbol="002230"
     )
     print(stock_financial_analysis_indicator_df)
 
