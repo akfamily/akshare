@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/6/16 15:18
+Date: 2021/12/31 14:13
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
@@ -11,9 +11,9 @@ import pandas as pd
 import requests
 
 
-def index_cni_all() -> pd.DataFrame:
+def index_all_cni() -> pd.DataFrame:
     """
-    国证指数-所有指数
+    国证指数-最近交易日的所有指数
     http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
     :return: 国证指数-所有指数
     :rtype: pandas.DataFrame
@@ -67,21 +67,25 @@ def index_cni_all() -> pd.DataFrame:
             "自由流通市值",
         ]
     ]
+    temp_df['成交量'] = temp_df['成交量'] / 100000
+    temp_df['成交额'] = temp_df['成交额'] / 100000000
+    temp_df['总市值'] = temp_df['总市值'] / 100000000
+    temp_df['自由流通市值'] = temp_df['自由流通市值'] / 100000000
     return temp_df
 
 
-def index_cni_hist(index: str = "399001") -> pd.DataFrame:
+def index_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     """
     指数历史行情数据
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
-    :param index: 指数代码
-    :type index: str
+    :param symbol: 指数代码
+    :type symbol: str
     :return: 指数历史行情数据
     :rtype: pandas.DataFrame
     """
     url = "http://hq.cnindex.com.cn/market/market/getIndexDailyDataWithDataFormat"
     params = {
-        "indexCode": index,
+        "indexCode": symbol,
         "startDate": "",
         "endDate": "",
         "frequency": "day",
@@ -120,12 +124,12 @@ def index_cni_hist(index: str = "399001") -> pd.DataFrame:
     return temp_df
 
 
-def index_cni_detail(index: str = '399005', date: str = '2020-11') -> pd.DataFrame:
+def index_detail_cni(symbol: str = '399005', date: str = '2020-11') -> pd.DataFrame:
     """
     国证指数-样本详情-指定日期的样本成份
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
-    :param index: 指数代码
-    :type index: str
+    :param symbol: 指数代码
+    :type symbol: str
     :param date: 指定月份
     :type date: str
     :return: 指定日期的样本成份
@@ -133,7 +137,7 @@ def index_cni_detail(index: str = '399005', date: str = '2020-11') -> pd.DataFra
     """
     url = 'http://www.cnindex.com.cn/sample-detail/download'
     params = {
-        'indexcode': index,
+        'indexcode': symbol,
         'dateStr': date
     }
     r = requests.get(url, params=params)
@@ -151,18 +155,18 @@ def index_cni_detail(index: str = '399005', date: str = '2020-11') -> pd.DataFra
     return temp_df
 
 
-def index_cni_detail_hist(index: str = '399005') -> pd.DataFrame:
+def index_detail_hist_cni(symbol: str = '399005') -> pd.DataFrame:
     """
     国证指数-样本详情-历史样本
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
-    :param index: 指数代码
-    :type index: str
+    :param symbol: 指数代码
+    :type symbol: str
     :return: 历史样本
     :rtype: pandas.DataFrame
     """
     url = 'http://www.cnindex.com.cn/sample-detail/download-history'
     params = {
-        'indexcode': index
+        'indexcode': symbol
     }
     r = requests.get(url, params=params)
     temp_df = pd.read_excel(r.content)
@@ -179,40 +183,40 @@ def index_cni_detail_hist(index: str = '399005') -> pd.DataFrame:
     return temp_df
 
 
-def index_cni_detail_hist_adjust(index: str = '399231') -> pd.DataFrame:
+def index_detail_hist_adjust_cni(symbol: str = '399001') -> pd.DataFrame:
     """
     国证指数-样本详情-历史调样
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
-    :param index: 指数代码
-    :type index: str
+    :param symbol: 指数代码
+    :type symbol: str
     :return: 历史调样
     :rtype: pandas.DataFrame
     """
     url = 'http://www.cnindex.com.cn/sample-detail/download-adjustment'
     params = {
-        'indexcode': index
+        'indexcode': symbol
     }
     r = requests.get(url, params=params)
     try:
         temp_df = pd.read_excel(r.content, engine="openpyxl")
     except zipfile.BadZipFile as e:
-        return
+        return pd.DataFrame()
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     return temp_df
 
 
 if __name__ == "__main__":
-    index_cni_all_df = index_cni_all()
-    print(index_cni_all_df)
+    index_all_cni_df = index_all_cni()
+    print(index_all_cni_df)
 
-    index_cni_hist_df = index_cni_hist(index="399005")
-    print(index_cni_hist_df)
+    index_hist_cni_df = index_hist_cni(symbol="399005")
+    print(index_hist_cni_df)
 
-    index_cni_detail_df = index_cni_detail(index='399005', date='2020-11')
-    print(index_cni_detail_df)
+    index_detail_cni_df = index_detail_cni(symbol='399005', date='2020-11')
+    print(index_detail_cni_df)
 
-    index_cni_detail_hist_df = index_cni_detail_hist(index='399005')
-    print(index_cni_detail_hist_df)
+    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399005')
+    print(index_detail_hist_cni_df)
 
-    index_cni_detail_hist_adjust_df = index_cni_detail_hist_adjust(index='399005')
-    print(index_cni_detail_hist_adjust_df)
+    index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol='399005')
+    print(index_detail_hist_adjust_cni_df)

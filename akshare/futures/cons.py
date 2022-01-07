@@ -50,7 +50,7 @@ zh_sina_spot_headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36",
 }
 
-# 99期货
+# 99 期货
 inventory_temp_headers = {
     "Accept": "image/webp,image/apng,image/*,*/*;q=0.8",
     "Accept-Encoding": "gzip, deflate",
@@ -85,7 +85,7 @@ qh_headers = {
     "Upgrade-Insecure-Requests": "1",
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
 }
-#
+# 奇货可查
 QHKC_INDEX_URL = "https://www.qhkch.com/ajax/index_show.php"
 QHKC_INDEX_TREND_URL = "https://qhkch.com/ajax/indexes_trend.php"
 QHKC_INDEX_PROFIT_LOSS_URL = "https://qhkch.com/ajax/indexes_profit_loss.php"

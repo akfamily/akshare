@@ -11,11 +11,11 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def stock_a_lg_indicator(symbol: str = "688388") -> pd.DataFrame:
+def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
     """
     市盈率, 市净率, 股息率数据接口
     https://www.legulegu.com/stocklist
-    :param symbol: 通过 ak.stock_a_indicator(stock="all") 来获取所有股票的代码
+    :param symbol: 通过 ak.stock_a_lg_indicator(stock="all") 来获取所有股票的代码
     :type symbol: str
     :return: 市盈率, 市净率, 股息率查询
     :rtype: pandas.DataFrame
@@ -77,7 +77,7 @@ def stock_hk_eniu_indicator(symbol: str = "hk01093", indicator: str = "市盈率
 
 
 if __name__ == '__main__':
-    stock_a_lg_indicator_all_df = stock_a_lg_indicator(symbol="688388")
+    stock_a_lg_indicator_all_df = stock_a_lg_indicator(symbol="000001")
     print(stock_a_lg_indicator_all_df)
 
     stock_a_lg_indicator_df = stock_a_lg_indicator(symbol="000001")

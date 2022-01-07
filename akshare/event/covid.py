@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/16 14:07
+Date: 2021/12/31 17:07
 Desc: COVID-19
 COVID-19-网易
 COVID-19-丁香园
@@ -638,8 +638,7 @@ def migration_scale_baidu(
 ) -> pd.DataFrame:
     """
     百度地图慧眼-百度迁徙-迁徙规模
-    * 迁徙规模指数：反映迁入或迁出人口规模，城市间可横向对比
-    * 城市迁徙边界采用该城市行政区划，包含该城市管辖的区、县、乡、村
+    迁徙规模指数：反映迁入或迁出人口规模，城市间可横向对比城市迁徙边界采用该城市行政区划，包含该城市管辖的区、县、乡、村
     https://qianxi.baidu.com/?from=shoubai#city=0
     :param area: 可以输入 省份 或者 具体城市 但是需要用全称
     :type area: str
@@ -659,15 +658,15 @@ def migration_scale_baidu(
     else:
         dt_flag = "city"
     url = "https://huiyan.baidu.com/migration/historycurve.jsonp"
-    payload = {
+    params = {
         "dt": dt_flag,
         "id": inner_dict[area],
         "type": indicator,
         "startDate": start_date,
         "endDate": end_date,
     }
-    r = requests.get(url, params=payload)
-    json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
+    r = requests.get(url, params=params)
+    json_data = json.loads(r.text[r.text.find("({") + 1: r.text.rfind(");")])
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df.columns = ["迁徙规模指数"]

@@ -18,7 +18,7 @@ def stock_us_hist_fu(
     """
     富途牛牛-行情-美股-每日行情
     https://www.futunn.com/stock/HON-US
-    :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em 的 `代码` 字段获取
+    :param symbol: 股票代码; 此股票代码可以通过调用 ak.stock_us_spot_em() 的 `代码` 字段获取
     :type symbol: str
     :param start_date: 开始日期
     :type start_date: str
@@ -27,7 +27,7 @@ def stock_us_hist_fu(
     :return: 每日行情
     :rtype: pandas.DataFrame
     """
-    raw_url = "https://www.futunn.com/stock/HON-US?seo_redirect=1&channel=1244&subchannel=2&from=BaiduAladdin&utm_source=alading_user&utm_medium=website_growth"
+    url = "https://www.futunn.com/stock/HON-US?seo_redirect=1&channel=1244&subchannel=2&from=BaiduAladdin&utm_source=alading_user&utm_medium=website_growth"
     headers = {
         "accept": "application/json, text/plain, */*",
         "accept-encoding": "gzip, deflate, br",
@@ -39,7 +39,7 @@ def stock_us_hist_fu(
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36",
     }
     session = requests.session()
-    r = session.get(raw_url, headers=headers)
+    r = session.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     url = "https://www.futunn.com/quote-api/get-kline"
     params = {

@@ -21,9 +21,13 @@ def hf_sp_500(year: str = "2017") -> pd.DataFrame:
     url = f"https://github.com/FutureSharks/financial-data/raw/master/pyfinancialdata/data/stocks/histdata/SPXUSD/DAT_ASCII_SPXUSD_M1_{year}.csv"
     temp_df = pd.read_table(url, header=None, sep=";")
     temp_df.columns = ["date", "open", "high", "low", "close", "price"]
-    temp_df.index = pd.to_datetime(temp_df.date)
-    del temp_df["date"]
-    return temp_df.iloc[:, :-1]
+    temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['price'] = pd.to_numeric(temp_df['price'])
+    return temp_df
 
 
 if __name__ == '__main__':

@@ -1433,7 +1433,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.87: fix: fix cot interface
 
-0.5.88: fix: fix stock_em_account interface
+0.5.88: fix: fix stock_account_statistics_em interface
 
 0.5.89: add: add macro_china_new_financial_credit interface
 
@@ -2562,7 +2562,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.52 add: add stock_cg_equity_mortgage_cninfo interface
 
-1.1.53 fix: fix index_cni_detail_hist_adjust interface
+1.1.53 fix: fix index_detail_hist_adjust_cni interface
 
 1.1.54 fix: fix stock_board_concept_hist_ths interface
 
@@ -2885,4 +2885,44 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.13 fix: fix stock_zh_a_tick_163 interface
 
 1.3.14 fix: fix stock_zh_a_scr_report interface
+
+1.3.15 fix: fix option_current_em interface
+
+1.3.16 fix: fix stock_account_statistics_em interface
+
+1.3.17 fix: fix stock_sse_deal_daily interface
+
+1.3.18 fix: fix stock_sse_summary interface
+
+1.3.19 add: add index_stock_cons_weight_csindex interface
+
+1.3.20 fix: fix index_cni_xx interface
+
+1.3.21 fix: fix index_detail_hist_adjust_cni interface
+
+1.3.22 fix: fix hf_sp_500 interface
+
+1.3.23 fix: fix macro_china_gksccz interface
+
+1.3.24 fix: fix macro_china_bond_public interface
+
+1.3.25 fix: fix stock_hk_hist interface
+
+1.3.26 fix: fix stock_us_spot_em interface
+
+1.3.27 fix: fix stock_us_hist interface
+
+1.3.28 fix: fix stock_zh_a_hist interface
+
+1.3.29 fix: fix update calendar.json to 2022
+
+1.3.30 fix: fix stock_zh_index_daily_em interface
+
+1.3.31 fix: fix stock_dzjy_mrmx interface
+
+1.3.32 fix: fix stock_dzjy_mrtj interface
+
+1.3.33 fix: fix stock_dzjy_yybph interface
+
+1.3.34 fix: fix stock_history_dividend interface
 ```

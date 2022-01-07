@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/21 17:48
+Date: 2021/12/31 13:20
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
@@ -482,8 +482,8 @@ if __name__ == "__main__":
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="LH2109")
     print(futures_zh_daily_sina_df)
 
-    futures_zh_spot_df = futures_zh_spot(symbol='V2205, P2205, B2201, M2205', market="CF", adjust='0')
-    print(futures_zh_spot_df.info())
+    futures_zh_spot_df = futures_zh_spot(symbol='V2204', market="CF", adjust='0')
+    print(futures_zh_spot_df)
 
     futures_zh_spot_df = futures_zh_spot(symbol='NR0', market="CF", adjust='0')
     print(futures_zh_spot_df)

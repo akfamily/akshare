@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/25 16:28
+Date: 2021/12/31 14:28
 Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
@@ -54,8 +54,8 @@ def get_zh_index_page_count() -> int:
 
 def stock_zh_index_spot() -> pd.DataFrame:
     """
-    新浪财经-指数
-    大量采集会被目标网站服务器封禁 IP
+    新浪财经-行情中心首页-A股-分类-所有指数
+    大量采集会被目标网站服务器封禁 IP, 如果被封禁 IP, 请 10 分钟后再试
     http://vip.stock.finance.sina.com.cn/mkt/#hs_s
     :return: 所有指数的实时行情数据
     :rtype: pandas.DataFrame
@@ -116,7 +116,7 @@ def stock_zh_index_spot() -> pd.DataFrame:
 
 def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     """
-    新浪财经-指数-历史行情数据, 大量抓取容易封IP
+    新浪财经-指数-历史行情数据, 大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh000909/nc.shtml
     :param symbol: sz399998, 指定指数代码
     :type symbol: str
@@ -223,7 +223,7 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
 
 def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
     """
-    东方财富股票指数数据
+    东方财富网-股票指数数据
     http://quote.eastmoney.com/center/hszs.html
     :param symbol: 带市场标识的指数代码
     :type symbol: str
@@ -241,7 +241,7 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
         "klt": "101",  # 日频率
         "fqt": "0",
         "beg": "19900101",
-        "end": "20220101",
+        "end": "20320101",
         "_": "1596700547039",
     }
     r = requests.get(url, params=params)
@@ -250,14 +250,12 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = ["date", "open", "close", "high", "low", "volume", "amount", "_"]
     temp_df = temp_df[["date", "open", "close", "high", "low", "volume", "amount"]]
-    temp_df = temp_df.astype({
-        "open": float,
-        "close": float,
-        "high": float,
-        "low": float,
-        "volume": float,
-        "amount": float,
-    })
+    temp_df['open'] = pd.to_numeric(temp_df['open'])
+    temp_df['close'] = pd.to_numeric(temp_df['close'])
+    temp_df['high'] = pd.to_numeric(temp_df['high'])
+    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df['amount'] = pd.to_numeric(temp_df['amount'])
     return temp_df
 
 

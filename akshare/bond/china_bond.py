@@ -13,7 +13,7 @@ import requests
 
 def bond_spot_quote() -> pd.DataFrame:
     """
-    处理中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
+    中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
     http://www.chinamoney.com.cn/chinese/mkdatabond/
     """
     url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbMktMakQuot"

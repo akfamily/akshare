@@ -1,7 +1,7 @@
 # coding=utf-8
 #!/usr/bin/env python
 """
-Date: 2020/4/19 14:27
+Date: 2021/12/29 10:27
 Desc: 西本新干线-指数数据
 http://nanjing.96369.net/
 """
@@ -27,6 +27,11 @@ plt.rcParams["axes.unicode_minus"] = False
 
 
 def _get_code_pic():
+    """
+    显示验证码
+    :return:
+    :rtype:
+    """
     payload = {"": round(random.random(), 16)}
     session = requests.session()
     res = session.get(xgx_code_url, params=payload, headers=xgx_short_headers)

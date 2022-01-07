@@ -1014,7 +1014,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.85: add: add index_stock_hist interface
 0.5.86: fix: fix code format
 0.5.87: fix: fix cot interface
-0.5.88: fix: fix stock_em_account interface
+0.5.88: fix: fix stock_account_statistics_em interface
 0.5.89: add: add macro_china_new_financial_credit interface
 0.5.90: add: add stock_sina_lhb interface
 0.5.91: fix: fix covid for python3.8
@@ -1573,7 +1573,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.50 add: add stock_cg_lawsuit_cninfo interface
 1.1.51 fix: fix stock_wc_hot_rank interface
 1.1.52 add: add stock_cg_equity_mortgage_cninfo interface
-1.1.53 fix: fix index_cni_detail_hist_adjust interface
+1.1.53 fix: fix index_detail_hist_adjust_cni interface
 1.1.54 fix: fix stock_board_concept_hist_ths interface
 1.1.55 fix: fix stock_sina_lhb_ggtj and stock_sina_lhb_jgzz interface
 1.1.56 add: add fund_em_aum_hist interface
@@ -1736,9 +1736,29 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.12 add: add index_inner_quote_sugar_msweet interface
 1.3.13 fix: fix stock_zh_a_tick_163 interface
 1.3.14 fix: fix stock_zh_a_scr_report interface
+1.3.15 fix: fix option_current_em interface
+1.3.16 fix: fix stock_account_statistics_em interface
+1.3.17 fix: fix stock_sse_deal_daily interface
+1.3.18 fix: fix stock_sse_summary interface
+1.3.19 add: add index_stock_cons_weight_csindex interface
+1.3.20 fix: fix index_cni_xx interface
+1.3.21 fix: fix index_detail_hist_adjust_cni interface
+1.3.22 fix: fix hf_sp_500 interface
+1.3.23 fix: fix macro_china_gksccz interface
+1.3.24 fix: fix macro_china_bond_public interface
+1.3.25 fix: fix stock_hk_hist interface
+1.3.26 fix: fix stock_us_spot_em interface
+1.3.27 fix: fix stock_us_hist interface
+1.3.28 fix: fix stock_zh_a_hist interface
+1.3.29 fix: fix update calendar.json to 2022
+1.3.30 fix: fix stock_zh_index_daily_em interface
+1.3.31 fix: fix stock_dzjy_mrmx interface
+1.3.32 fix: fix stock_dzjy_mrtj interface
+1.3.33 fix: fix stock_dzjy_yybph interface
+1.3.34 fix: fix stock_history_dividend interface
 """
 
-__version__ = "1.3.14"
+__version__ = "1.3.34"
 __author__ = "Albert King"
 
 import sys
@@ -2388,11 +2408,11 @@ from akshare.stock.stock_dzjy import (
 国证指数
 """
 from akshare.index.index_cni import (
-    index_cni_hist,
-    index_cni_all,
-    index_cni_detail,
-    index_cni_detail_hist,
-    index_cni_detail_hist_adjust,
+    index_hist_cni,
+    index_all_cni,
+    index_detail_cni,
+    index_detail_hist_cni,
+    index_detail_hist_adjust_cni,
 )
 
 """
@@ -3010,13 +3030,14 @@ from akshare.index.index_cons import (
     index_stock_hist,
     index_stock_cons_sina,
     index_stock_cons_csindex,
+    index_stock_cons_weight_csindex,
     stock_a_code_to_symbol,
 )
 
 """
 东方财富-股票账户
 """
-from akshare.stock_feature.stock_em_account import stock_em_account
+from akshare.stock_feature.stock_account_em import stock_account_statistics_em
 
 """
 期货规则
@@ -3286,7 +3307,7 @@ from akshare.futures.futures_zh_sina import futures_zh_spot, match_main_contract
 """
 西本新干线-指数数据
 """
-from akshare.futures_derivative.futures_xgx import _get_code_pic, futures_xgx_index
+from akshare.futures_derivative.futures_xgx import futures_xgx_index
 
 """
 生意社-商品与期货-现期图数据

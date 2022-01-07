@@ -222,9 +222,11 @@
  "stock_em_sy_list"  # 获取个股商誉明细
  "stock_em_sy_hy_list"  # 获取行业商誉
  # 股票账户统计数据
- "stock_em_account"  # 获取股票账户统计数据
+ "stock_account_statistics_em"  # 获取股票账户统计数据
  # 股票指数-成份股
  "index_stock_cons"  # 股票指数-成份股-最新成份股获取
+ "index_stock_cons_csindex"  # 中证指数-成份股
+ "index_stock_cons_weight_csindex"  # 中证指数成份股的权重
  "index_stock_info"  # 股票指数-成份股-所有可以获取的指数表
  "index_stock_info_sina"  # 股票指数-成份股-所有可以获取的指数表-新浪新接口
  "index_stock_hist"  # 股票指数-历史成份股
@@ -628,11 +630,11 @@
  # 金十数据-新闻资讯
  "js_news"  # 金十数据-新闻资讯
  # 国证指数
- "index_cni_all"  # 国证指数-所有指数
- "index_cni_hist"  # 国证指数-指数行情
- "index_cni_detail"  # 国证指数-样本详情
- "index_cni_detail_hist"  # 国证指数-历史样本
- "index_cni_detail_hist_adjust"  # 国证指数-历史调样
+ "index_all_cni"  # 国证指数-所有指数
+ "index_hist_cni"  # 国证指数-指数行情
+ "index_detail_cni"  # 国证指数-样本详情
+ "index_detail_hist_cni"  # 国证指数-历史样本
+ "index_detail_hist_adjust_cni"  # 国证指数-历史调样
  # 大宗交易
  "stock_dzjy_sctj"  # 大宗交易-市场统计
  "stock_dzjy_mrmx"  # 大宗交易-每日明细

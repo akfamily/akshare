@@ -8,36 +8,37 @@
 
 目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_s
 
-描述: 中国股票指数数据; 注意该股票指数指新浪提供的国内股票指数
+描述: 新浪财经-中国股票指数数据
 
 限量: 单次返回所有指数的实时行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 代码          | str   | Y        | -     |
-| 名称          | str      | Y        | -     |
-| 最新价          | float      | Y        | -     |
-| 涨跌额         | float      | Y        | -     |
-| 涨跌幅           | float      | Y        | 注意单位: %     |
-| 昨收        | float      | Y        | -     |
-| 今开        | float      | Y        | -     |
-| 最高        | float      | Y        | -     |
-| 最低        | float      | Y        | -     |
-| 成交量        | float      | Y        | 注意单位: 手     |
-| 成交额        | float      | Y        | 注意单位: 万     |
+| 名称  | 类型      | 描述      |
+|-----|---------|---------|
+| 代码  | object  | -       |
+| 名称  | object  | -       |
+| 最新价 | float64 | -       |
+| 涨跌额 | float64 | -       |
+| 涨跌幅 | float64 | 注意单位: % |
+| 昨收  | float64 | -       |
+| 今开  | float64 | -       |
+| 最高  | float64 | -       |
+| 最低  | float64 | -       |
+| 成交量 | float64 | 注意单位: 手 |
+| 成交额 | float64 | 注意单位: 万 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_index_spot_df = ak.stock_zh_index_spot()
 print(stock_zh_index_spot_df)
 ```
@@ -45,7 +46,7 @@ print(stock_zh_index_spot_df)
 数据示例
 
 ```
-           代码    名称        最新价  ...         最低         成交量           成交额
+        代码    名称        最新价  ...      最低       成交量           成交额
 0    sh000001  上证指数  3484.3924  ...  3462.8321   262654873  317953200768
 1    sh000002  Ａ股指数  3652.2918  ...  3629.6721   262507126  317711821774
 2    sh000003  Ｂ股指数   246.1128  ...   245.3968      121902      62088261
@@ -73,25 +74,26 @@ print(stock_zh_index_spot_df)
 
 输入参数
 
-| 名称   | 类型 | 描述       |
-| -------- | ---- |  --- |
-| symbol | str  |    symbol="sz399552"|
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="sz399552" |
 
 输出参数-历史行情数据
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| date          | object   | 新浪的数据开始时间, 不是该指数的上市时间     |
-| open          | float64      |  -     |
-| high          | float64      |  -     |
-| low           | float64      |  -     |
-| close         | float64      |-     |
-| volume        | int64      |  -     |
+| 名称     | 类型      | 描述                    |
+|--------|---------|-----------------------|
+| date   | object  | 新浪的数据开始时间, 不是该指数的上市时间 |
+| open   | float64 | -                     |
+| high   | float64 | -                     |
+| low    | float64 | -                     |
+| close  | float64 | -                     |
+| volume | int64   | -                     |
 
 接口示例-历史行情数据
 
 ```python
 import akshare as ak
+
 stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```
@@ -125,25 +127,26 @@ print(stock_zh_index_daily_df)
 
 输入参数-历史行情数据
 
-| 名称   | 类型 | 描述          |
-| -------- | ---- | --- |
-| symbol | str  |   symbol="sh000919"|
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="sh000919" |
 
 输出参数-历史行情数据
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| date          | object   |  腾讯的数据开始时间, 不是证券上市时间     |
-| open          | float64      |  -     |
-| close          | float64      |  -     |
-| high           | float64      |  -     |
-| low         | float64      |  -     |
-| amount        | float64      |  注意单位: 手     |
+| 名称     | 类型      | 描述                  |
+|--------|---------|---------------------|
+| date   | object  | 腾讯的数据开始时间, 不是证券上市时间 |
+| open   | float64 | -                   |
+| close  | float64 | -                   |
+| high   | float64 | -                   |
+| low    | float64 | -                   |
+| amount | float64 | 注意单位: 手             |
 
-接口示例
+接口示例-历史行情数据
 
 ```python
 import akshare as ak
+
 stock_zh_index_daily_tx_df = ak.stock_zh_index_daily_tx(symbol="sh000919")
 print(stock_zh_index_daily_tx_df)
 ```
@@ -177,26 +180,27 @@ print(stock_zh_index_daily_tx_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述      |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |   symbol="sz399552"|
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="sz399552" |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| date          | str   | Y        | 东方财富的数据开始时间, 不是证券上市时间     |
-| open          | float      | Y        | -     |
-| close          | float      | Y        | -     |
-| high           | float      | Y        | -     |
-| low         | float      | Y        | -     |
-| volume         | float      | Y        | -     |
-| amount        | float      | Y        | -     |
+| 名称     | 类型    | 描述                    |
+|--------|-------|-----------------------|
+| date   | str   | 东方财富的数据开始时间, 不是证券上市时间 |
+| open   | float | -                     |
+| close  | float | -                     |
+| high   | float | -                     |
+| low    | float | -                     |
+| volume | float | -                     |
+| amount | float | -                     |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_index_daily_em_df = ak.stock_zh_index_daily_em(symbol="sz399812")
 print(stock_zh_index_daily_em_df)
 ```
@@ -226,18 +230,19 @@ print(stock_zh_index_daily_em_df)
 
 目标地址: http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 
-描述: 获取指定指数的最新成份股票信息, 注意该接口返回的数据有部分是重复会导致数据缺失, 可以调用 **index_stock_cons_sina** 获取主流指数数据, 或调用**index_stock_cons_csindex**获取中证指数网提供的成分数据
+描述: 指定指数的最新成份股票信息, 注意该接口返回的数据有部分是重复会导致数据缺失, 可以调用 **ak.index_stock_cons_sina()** 获取主流指数数据, 或调用**ak.index_stock_cons_csindex()**获取中证指数网提供的成分数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index="000300", 获取沪深 300 最新成份股, 指数代码见 **股票指数信息一览表**|
+| 名称     | 类型  | 描述                                                   |
+|--------|-----|------------------------------------------------------|
+| symbol | str | symbol="000300", 获取沪深 300 最新成份股, 指数代码见 **股票指数信息一览表** |
 
 股票指数信息一览表(可以在 AKShare 中通过如下代码获取本表)
 
 ```python
 import akshare as ak
+
 index_stock_info_df = ak.index_stock_info()
 print(index_stock_info_df)
 ```
@@ -930,17 +935,18 @@ print(index_stock_info_df)
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 品种代码      | str   | Y        | 股票代码  |
-| 品种名称      | str   | Y        | 股票名称  |
-| 纳入日期      | str   | Y        | 成份股纳入日期  |
+| 名称   | 类型     | 描述      |
+|------|--------|---------|
+| 品种代码 | object | 股票代码    |
+| 品种名称 | object | 股票名称    |
+| 纳入日期 | object | 成份股纳入日期 |
 
 接口示例
 
 ```python
 import akshare as ak
-index_stock_cons_df = ak.index_stock_cons(index="000300")
+
+index_stock_cons_df = ak.index_stock_cons(symbol="000300")
 print(index_stock_cons_df)
 ```
 
@@ -963,17 +969,18 @@ print(index_stock_cons_df)
 
 输出参数-按市场归类
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 品种代码      | str   | Y        | 股票代码  |
-| 品种名称      | str   | Y        | 股票名称  |
-| 纳入日期      | str   | Y        | 成份股纳入日期  |
+| 名称   | 类型     | 描述      |
+|------|--------|---------|
+| 品种代码 | object | 股票代码    |
+| 品种名称 | object | 股票名称    |
+| 纳入日期 | object | 成份股纳入日期 |
 
 接口示例-按市场归类
 
 ```python
 import akshare as ak
-index_stock_cons_df = ak.index_stock_cons(index="000300")  # 主要调用 ak.stock_a_code_to_symbol 来进行转换
+
+index_stock_cons_df = ak.index_stock_cons(symbol="000300")  # 主要调用 ak.stock_a_code_to_symbol 来进行转换
 index_stock_cons_df['symbol'] = index_stock_cons_df['品种代码'].apply(ak.stock_a_code_to_symbol)
 print(index_stock_cons_df)
 ```
@@ -981,7 +988,7 @@ print(index_stock_cons_df)
 数据示例-按市场归类
 
 ```
-      品种代码  品种名称        纳入日期    symbol
+      品种代码  品种名称  纳入日期    symbol
 0   000688  国城矿业  2020-12-14  sz000688
 1   002409  雅克科技  2020-12-14  sz002409
 2   002683  宏大爆破  2020-12-14  sz002683
@@ -1024,33 +1031,143 @@ print(index_stock_cons_df)
 39  000060  中金岭南  2011-11-15  sz000060
 ```
 
+#### 中证指数成份股
+
+接口: index_stock_cons_csindex
+
+目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+
+描述: 中证指数网站-成份股目录
+
+输入参数
+
+| 名称     | 类型  | 描述                    |
+|--------|-----|-----------------------|
+| symbol | str | symbol="000300"; 指数代码 |
+
+输出参数
+
+| 名称      | 类型     | 描述  |
+|---------|--------|-----|
+| 日期      | object | -   |
+| 指数代码    | object | -   |
+| 指数名称    | object | -   |
+| 指数英文名称  | object | -   |
+| 成分券代码   | object | -   |
+| 成分券名称   | object | -   |
+| 成分券英文名称 | object | -   |
+| 交易所     | object | -   |
+| 交易所英文名称 | object | -   |
+
+示例代码
+
+```python
+import akshare as ak
+
+index_stock_cons_csindex_df = ak.index_stock_cons_csindex(symbol="931463")
+print(index_stock_cons_csindex_df)
+```
+
+数据示例
+
+```
+         日期    指数代码  ...      交易所             交易所英文名称
+0    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+1    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+2    2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
+3    2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
+4    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+..          ...     ...  ...      ...                 ...
+295  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+296  2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
+297  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+298  2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
+299  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+```
+
+#### 中证指数成份股权重
+
+接口: index_stock_cons_weight_csindex
+
+目标地址: http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+
+描述: 中证指数网站-成份股权重
+
+输入参数
+
+| 名称     | 类型  | 描述                    |
+|--------|-----|-----------------------|
+| symbol | str | symbol="000300"; 指数代码 |
+
+输出参数
+
+| 名称      | 类型      | 描述 |
+|---------|---------|--|
+| 日期      | object  | - |
+| 指数代码    | object  | - |
+| 指数名称    | object  | - |
+| 指数英文名称  | object  | - |
+| 成分券代码   | object  | - |
+| 成分券名称   | object  | - |
+| 成分券英文名称 | object  | - |
+| 交易所     | object  | - |
+| 交易所英文名称 | object  | - |
+| 权重      | float64 | 注意单位: % |
+
+示例代码
+
+```python
+import akshare as ak
+
+index_stock_cons_weight_csindex_df = ak.index_stock_cons_weight_csindex(symbol="000300")
+print(index_stock_cons_weight_csindex_df)
+```
+
+数据示例
+
+```
+      日期    指数代码   指数名称  ...         交易所                  交易所英文名称     权重
+0    2021-11-30  000300  沪深300  ...  深圳证券交易所_股票  Shenzhen Stock Exchange  0.838
+1    2021-11-30  000300  沪深300  ...  深圳证券交易所_股票  Shenzhen Stock Exchange  0.584
+2    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.217
+3    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.104
+4    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  1.124
+..          ...     ...    ...  ...         ...                      ...    ...
+295  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.074
+296  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.085
+297  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.040
+298  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.022
+299  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.063
+```
+
 #### 历史成份
 
 接口: index_stock_hist
 
 目标地址: http://stock.jrj.com.cn/share,sh000300,2015nlscf_2.shtml
 
-描述: 获取指定股票指数的历史成份股票信息
+描述: 金融界-股票指数的历史成份股票信息
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index="sh000300"; 带市场前缀的指数代码|
+| 名称     | 类型  | 描述                            |
+|--------|-----|-------------------------------|
+| symbol | str | symbol="sh000300"; 带市场前缀的指数代码 |
 
 ```python
 import akshare as ak
-stock_index_hist_df = ak.index_stock_hist(index="sh000001")
+
+stock_index_hist_df = ak.index_stock_hist(symbol="sh000001")
 print(stock_index_hist_df)
 ```
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| stock_code      | str   | Y        | 股票代码  |
-| in_date      | str   | Y        | 进入时间  |
-| out_date      | str   | Y        | 退出时间  |
+| 名称         | 类型     | 描述   |
+|------------|--------|------|
+| stock_code | object | 股票代码 |
+| in_date    | object | 进入时间 |
+| out_date   | object | 退出时间 |
 		
 数据示例
 
@@ -1073,97 +1190,99 @@ print(stock_index_hist_df)
 
 #### 全部指数
 
-接口: index_cni_all
+接口: index_all_cni
 
 目标地址: http://www.cnindex.com.cn/zh_indices/sese/index.html?act_menu=1&index_type=-1
 
-描述: 国证指数-所有指数的代码和基本信息
+描述: 国证指数-最近交易日的所有指数的代码和基本信息
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 指数代码      | str   | Y        | -  |
-| 指数简称      | str   | Y        | -   |
-| 样本数      | int   | Y        | -   |
-| 收盘点位      | float   | Y        | -   |
-| 涨跌幅      | float   | Y        | -   |
-| PE滚动      | float   | Y        | -   |
-| 成交量      | float   | Y        | -   |
-| 成交额      | float   | Y        | -   |
-| 总市值      | float   | Y        | -   |
-| 自由流通市值      | float   | Y        | -   |
+| 名称     | 类型      | 描述                               |
+|--------|---------|----------------------------------|
+| 指数代码   | object  | -                                |
+| 指数简称   | object  | -                                |
+| 样本数    | int64   | -                                |
+| 收盘点位   | float64 | -                                |
+| 涨跌幅    | float64 | -                                |
+| PE滚动   | float64 | -                                |
+| 成交量    | float64 | 注意单位: 债券指数成交量单位为亿张，非债券指数成交量单位为万手 |
+| 成交额    | float64 | 注意单位: 亿元                         |
+| 总市值    | float64 | 注意单位: 亿元                         |
+| 自由流通市值 | float64 | 注意单位: 亿元                         |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_all_df = ak.index_cni_all()
-print(index_cni_all_df)
+
+index_all_cni_df = ak.index_all_cni()
+print(index_all_cni_df)
 ```
 
 数据示例
 
 ```
-         指数代码         指数简称  样本数  ...           成交额           总市值        自由流通市值
-0      399001         深证成指  500  ...  3.019119e+11  2.235488e+13  1.032938e+13
-1      399002         深成指R  500  ...  3.019119e+11  2.235488e+13  1.032938e+13
-2      399003         成份B指   10  ...  2.151528e+08           NaN           NaN
-3      399004       深证100R  100  ...  1.586337e+11  1.348989e+13  6.170117e+12
-4      399005         中小板指  100  ...  8.945327e+10  7.052534e+12  3.026932e+12
-       ...          ...  ...  ...           ...           ...           ...
-1051  MOTHKDG    中华港股通护城河R   40  ...  3.831779e+10           NaN           NaN
-1052  PELHKDG  中华港股通泛休闲娱乐R   30  ...  2.501472e+10           NaN           NaN
-1053  RETHKDG   中华房地产信托基金R   30  ...  1.322452e+09           NaN           NaN
-1054  VALHKDG     中华港股通价值R   40  ...  1.822428e+10           NaN           NaN
-1055  YLVHKDG   中华港股通高息低波R   40  ...  3.408036e+10           NaN           NaN
+        指数代码          指数简称  样本数  ...     成交额       总市值         自由流通市值
+0       399001          深证成指  500  ...  2688.670489  268279.167557  132450.782860
+1       399002          深成指R  500  ...  2688.670489  268279.167557  132450.782860
+2       399003          成份B指   10  ...     0.214070            NaN            NaN
+3       399004        深证100R  100  ...  1172.363209  161878.002203   78936.109204
+4       399005         中小100  100  ...   703.432288   81516.146527   39554.742388
+        ...           ...  ...  ...          ...            ...            ...
+1136  CNB20013   高等级绿色债券（全价）    0  ...          NaN            NaN            NaN
+1137  CNB20014  高等级非贴标绿债（全价）    0  ...          NaN            NaN            NaN
+1138  CNB20015   高等级贴标绿债（全价）    0  ...          NaN            NaN            NaN
+1139      CNYR       人民币实际指数    0  ...     0.000000            NaN            NaN
+1140      CNYX         人民币指数    0  ...     0.000000            NaN            NaN
 ```
 
 #### 指数行情
 
-接口: index_cni_hist
+接口: index_hist_cni
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 获取国证指数-具体指数的日频率行情数据
+描述: 国证指数-具体指数的日频率行情数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index="399005"; 从 **index_cni_all** 接口获取指数代码|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| symbol | str | symbol="399005"; 从 **ak.index_all_cni()** 接口获取指数代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | -  |
-| 开盘价      | float   | Y        | -   |
-| 最高价      | float   | Y        | -   |
-| 最低价      | float   | Y        | -   |
-| 收盘价      | float   | Y        | -   |
-| 涨跌幅      | float   | Y        | -   |
-| 成交量      | float   | Y        | -   |
-| 成交额      | float   | Y        | -   |
+| 名称  | 类型      | 描述 |
+|-----|---------|--|
+| 日期  | object  | - |
+| 开盘价 | float64 | - |
+| 最高价 | float64 | - |
+| 最低价 | float64 | - |
+| 收盘价 | float64 | - |
+| 涨跌幅 | float64 | - |
+| 成交量 | float64 | 注意单位: 万手 |
+| 成交额 | float64 | 注意单位: 亿元 |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_hist_df = ak.index_cni_hist(index="399005")
-print(index_cni_hist_df)
+
+index_hist_cni_df = ak.index_hist_cni(symbol="399005")
+print(index_hist_cni_df)
 ```
 
 数据示例
 
 ```
-              日期      开盘价      最高价      最低价      收盘价     涨跌幅       成交量      成交额
+      日期         开盘价    最高价    最低价    收盘价    涨跌幅   成交量      成交额
 0     2020-11-30  9063.78  9118.59  8988.38  9042.47  0.0016  14140.85  1808.14
 1     2020-11-27  8966.50  9028.19  8917.51  9028.19  0.0096  12107.15  1467.90
 2     2020-11-26  8966.24  8991.66  8832.09  8942.48 -0.0022  12466.98  1544.96
@@ -1179,7 +1298,7 @@ print(index_cni_hist_df)
 
 #### 指数样本详情
 
-接口: index_cni_detail
+接口: index_detail_cni
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
@@ -1187,136 +1306,139 @@ print(index_cni_hist_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index='399005'; 从 **index_cni_all** 接口获取指数代码|
-| date | str  | Y    |   date='2020-11'; 指定月份|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| symbol | str | symbol='399005'; 从 **ak.index_all_cni()** 接口获取指数代码 |
+| date   | str | date='2020-11'; 指定月份                               |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | -  |
-| 样本代码      | str   | Y        | -   |
-| 样本简称      | str   | Y        | -   |
-| 所属行业      | str   | Y        | -   |
-| 自由流通市值      | float   | Y        | 注意单位: 亿元   |
-| 总市值      | float   | Y        | 注意单位: 亿元   |
-| 权重      | float   | Y        | 注意单位: %   |
+| 名称     | 类型      | 描述       |
+|--------|---------|----------|
+| 日期     | object  | -        |
+| 样本代码   | object  | -        |
+| 样本简称   | object  | -        |
+| 所属行业   | object  | -        |
+| 自由流通市值 | float64 | 注意单位: 亿元 |
+| 总市值    | float64 | 注意单位: 亿元 |
+| 权重     | float64 | 注意单位: %  |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_detail_df = ak.index_cni_detail(index='399005', date='2020-11')
-print(index_cni_detail_df)
+
+index_detail_cni_df = ak.index_detail_cni(symbol='399005', date='2020-11')
+print(index_detail_cni_df)
 ```
 
 数据示例
 
 ```
-            日期  样本代码  样本简称  所属行业  自由流通市值(亿元)  总市值(亿元)  权重（%）
-0   2020-11-30  2475  立讯精密  信息技术     2054.87  3618.18   6.79
-1   2020-11-30  2415  海康威视  信息技术     1499.80  4267.87   4.95
-2   2020-11-30  2594   比亚迪  可选消费     1317.61  3121.33   4.35
-3   2020-11-30  2714  牧原股份  主要消费     1251.56  2885.83   4.13
-4   2020-11-30  2352  顺丰控股    工业     1130.70  3645.15   3.74
-..         ...   ...   ...   ...         ...      ...    ...
-95  2020-11-30  2468  申通快递    工业       63.81   194.41   0.21
-96  2020-11-30  2563  森马服饰  可选消费       57.12   240.36   0.19
-97  2020-11-30  2399   海普瑞  医药卫生       52.09   233.35   0.17
-98  2020-11-30  2901  大博医疗  医药卫生       27.70   277.90   0.09
-99  2020-11-30  2966  苏州银行    金融       26.13   261.33   0.09
+     日期    样本代码  样本简称  所属行业   自由流通市值  总市值    权重
+0   2020-11-30  002475  立讯精密  信息技术  2054.87  3618.18  6.79
+1   2020-11-30  002415  海康威视  信息技术  1499.80  4267.87  4.95
+2   2020-11-30  002594   比亚迪  可选消费  1317.61  3121.33  4.35
+3   2020-11-30  002714  牧原股份  主要消费  1251.56  2885.83  4.13
+4   2020-11-30  002352  顺丰控股    工业  1130.70  3645.15  3.74
+..         ...     ...   ...   ...      ...      ...   ...
+95  2020-11-30  002468  申通快递    工业    63.81   194.41  0.21
+96  2020-11-30  002563  森马服饰  可选消费    57.12   240.36  0.19
+97  2020-11-30  002399   海普瑞  医药卫生    52.09   233.35  0.17
+98  2020-11-30  002901  大博医疗  医药卫生    27.70   277.90  0.09
+99  2020-11-30  002966  苏州银行    金融    26.13   261.33  0.09
 ```
 
 #### 历史样本
 
-接口: index_cni_detail_hist
+接口: index_detail_hist_cni
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 获取国证指数-历史样本数据
+描述: 国证指数-历史样本数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index='399005'; 从 **index_cni_all** 接口获取指数代码|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| symbol | str | symbol='399005'; 从 **ak.index_all_cni()** 接口获取指数代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | -  |
-| 样本代码      | str   | Y        | -   |
-| 样本简称      | str   | Y        | -   |
-| 所属行业      | str   | Y        | -   |
-| 自由流通市值      | float   | Y        | 注意单位: 亿元   |
-| 总市值      | float   | Y        | 注意单位: 亿元   |
-| 权重      | float   | Y        | 注意单位: %   |
+| 名称     | 类型      | 描述       |
+|--------|---------|----------|
+| 日期     | object  | -        |
+| 样本代码   | object  | -        |
+| 样本简称   | object  | -        |
+| 所属行业   | object  | -        |
+| 自由流通市值 | float64 | 注意单位: 亿元 |
+| 总市值    | float64 | 注意单位: 亿元 |
+| 权重     | float64 | 注意单位: %  |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_detail_hist_df = ak.index_cni_detail_hist(index='399005')
-print(index_cni_detail_hist_df)
+
+index_detail_hist_cni_df = ak.index_detail_hist_cni(symbol='399005')
+print(index_detail_hist_cni_df)
 ```
 
 数据示例
 
 ```
-         日期  样本代码   样本简称  所属行业  自由流通市值(亿元)  总市值(亿元)  权重（%）
-0     2020-11-30  2001  新 和 成  医药卫生      342.88   683.27   1.13
-1     2020-11-30  2007   华兰生物  医药卫生      418.01   785.21   1.38
-2     2020-11-30  2008   大族激光  信息技术      319.26   421.92   1.05
-3     2020-11-30  2010   传化智联    工业       65.53   182.76   0.22
-4     2020-11-30  2013   中航机电    工业      210.73   420.73   0.70
-          ...   ...    ...   ...         ...      ...    ...
-6095  2015-11-30  2653    海思科  医药卫生       62.97   237.55   0.49
-6096  2015-11-30  2657   中科金财  信息技术      121.85   269.34   0.94
-6097  2015-11-30  2673   西部证券    金融      333.84  1001.93   2.57
-6098  2015-11-30  2701    奥瑞金   原材料      137.86   268.50   1.06
-6099  2015-11-30  2736   国信证券    金融      227.04  1551.44   1.75
+      日期    样本代码   样本简称  所属行业  自由流通市值  总市值    权重
+0     2021-11-30  002001  新 和 成  医药卫生  375.40   748.51  1.02
+1     2021-11-30  002007   华兰生物  医药卫生  246.64   527.24  0.67
+2     2021-11-30  002008   大族激光  信息技术  364.89   481.78  0.99
+3     2021-11-30  002013   中航机电    工业  325.53   660.42  0.88
+4     2021-11-30  002019   亿帆医药  医药卫生  117.41   207.95  0.32
+          ...     ...    ...   ...     ...      ...   ...
+6095  2016-11-30  002657   中科金财  信息技术   78.99   168.01  0.61
+6096  2016-11-30  002673   西部证券    金融  345.48   691.90  2.68
+6097  2016-11-30  002701    奥瑞金   原材料  111.21   217.62  0.86
+6098  2016-11-30  002736   国信证券    金融  291.29  1449.76  2.26
+6099  2016-11-30  002739   万达院线  可选消费  270.31   781.85  2.10
 ```
 
 #### 历史调样
 
-接口: index_cni_detail_hist_adjust
+接口: index_detail_hist_adjust_cni
 
 目标地址: http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
 
-描述: 获取国证指数-样本详情-历史调样
+描述: 国证指数-样本详情-历史调样
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |   index='399005'; 从 **index_cni_all** 接口获取指数代码|
+| 名称     | 类型  | 描述                                                 |
+|--------|-----|----------------------------------------------------|
+| symbol | str | symbol='399005'; 从 **ak.index_all_cni()** 接口获取指数代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 开始日期      | str   | Y        | -  |
-| 结束日期      | str   | Y        | -   |
-| 样本代码      | str   | Y        | -   |
-| 样本简称      | str   | Y        | -   |
-| 所属行业      | str   | Y        | -   |
-| 调整类型      | str   | Y        | 注意单位: 亿元   |
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 开始日期 | object | -   |
+| 结束日期 | object | -   |
+| 样本代码 | object | -   |
+| 样本简称 | object | -   |
+| 所属行业 | object | -   |
+| 调整类型 | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-index_cni_detail_hist_adjust_df = ak.index_cni_detail_hist_adjust(index='399005')
-print(index_cni_detail_hist_adjust_df)
+
+index_detail_hist_adjust_cni_df = ak.index_detail_hist_adjust_cni(symbol='399005')
+print(index_detail_hist_adjust_cni_df)
 ```
 
 数据示例
 
 ```
-            开始日期        结束日期    样本代码   样本简称  所属行业 调整类型
+      开始日期     结束日期    样本代码   样本简称  所属行业 调整类型
 0     2020-06-15  2020-12-11  002001  新 和 成  医药卫生  OLD
 1     2020-06-15  2020-12-11  002007   华兰生物  医药卫生  OLD
 2     2020-06-15  2020-12-11  002008   大族激光  信息技术  OLD
@@ -1336,7 +1458,7 @@ print(index_cni_detail_hist_adjust_df)
 
 目标地址: https://cn.investing.com/indices/
 
-描述: 获取世界主要国家的各种指数, 该接口需要通过代理访问; 由于涉及国家和指数(**1000** + 个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
+描述: 世界主要国家的各种指数, 该接口需要通过代理访问; 由于涉及国家和指数(**1000** + 个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
 具体的调用方式可以参照:
 
 1. 先查询指数所在的国家名称;
@@ -1349,29 +1471,30 @@ print(index_cni_detail_hist_adjust_df)
 
 输入参数
 
-| 名称   | 类型 | 描述    |
-| -------- | ---- | --- |
-| country | str  |    country="美国"|
-| index_name | str  |  index_name="美元指数"; 可以通过 ak.index_investing_global_country_name_url("美国") 获取|
-| period | str  |  period="每月"; choice of {"每日", "每周", "每月"}|
-| start_date | str  |   start_date='20000101'|
-| end_date | str  |  end_date='20191017'|
+| 名称         | 类型  | 描述                                                                          |
+|------------|-----|-----------------------------------------------------------------------------|
+| country    | str | country="美国"                                                                |
+| index_name | str | index_name="美元指数"; 可以通过 ak.index_investing_global_country_name_url("美国") 获取 |
+| period     | str | period="每月"; choice of {"每日", "每周", "每月"}                                   |
+| start_date | str | start_date='20000101'                                                       |
+| end_date   | str | end_date='20191017'                                                         |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 日期      | object   |  日期  |
-| 收盘      | float64   |  收盘价   |
-| 开盘      | float64   | 开盘价        |
-| 高        | float64   | 最高价    |
-| 低         | float64 |  最低价         |
-| 交易量      | float64 |  交易量      |
+| 名称  | 类型      | 描述  |
+|-----|---------|-----|
+| 日期  | object  | 日期  |
+| 收盘  | float64 | 收盘价 |
+| 开盘  | float64 | 开盘价 |
+| 高   | float64 | 最高价 |
+| 低   | float64 | 最低价 |
+| 交易量 | float64 | 交易量 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 index_investing_global_df = ak.index_investing_global(country="中国", index_name="富时中国A50指数", period="每日", start_date="20000101", end_date="20210909")
 print(index_investing_global_df)
 ```
@@ -2499,6 +2622,7 @@ print(index_kq_df)
 
 ```python
 import akshare as ak
+
 index_kq_df = ak.index_kq_fz(symbol="景气指数")
 print(index_kq_df)
 ```
@@ -2522,18 +2646,19 @@ print(index_kq_df)
 
 输出参数-外贸指数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 期次      | object   | Y        |  - |
-| 价格指数      | object   | Y        |  -  |
-| 涨跌幅      | object   | Y        | 注意单位: %  |
-| 景气指数      | object   | Y        | -  |
-| 涨跌幅      | object   | Y        | 注意单位: %  |
+| 名称   | 类型     | 默认显示 | 描述      |
+|------|--------|------|---------|
+| 期次   | object | Y    | -       |
+| 价格指数 | object | Y    | -       |
+| 涨跌幅  | object | Y    | 注意单位: % |
+| 景气指数 | object | Y    | -       |
+| 涨跌幅  | object | Y    | 注意单位: % |
 
 接口示例-外贸指数
 
 ```python
 import akshare as ak
+
 index_kq_df = ak.index_kq_fz(symbol="外贸指数")
 print(index_kq_df)
 ```
@@ -2565,23 +2690,24 @@ print(index_kq_df)
 
 输入参数
 
-| 名称   | 类型 |  描述    |
-| -------- | ---- | --- |
-| symbol | str  | symbol="柯桥时尚指数"; choice of {'柯桥时尚指数', '时尚创意指数', '时尚设计人才数', '新花型推出数', '创意产品成交数', '创意企业数量', '时尚活跃度指数', '电商运行数', '时尚平台拓展数', '新产品销售额占比', '企业合作占比', '品牌传播费用', '时尚推广度指数', '国际交流合作次数', '企业参展次数', '外商驻点数量变化', '时尚评价指数'} |
+| 名称     | 类型  | 描述                                                                                                                                                                                                              |
+|--------|-----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="柯桥时尚指数"; choice of {'柯桥时尚指数', '时尚创意指数', '时尚设计人才数', '新花型推出数', '创意产品成交数', '创意企业数量', '时尚活跃度指数', '电商运行数', '时尚平台拓展数', '新产品销售额占比', '企业合作占比', '品牌传播费用', '时尚推广度指数', '国际交流合作次数', '企业参展次数', '外商驻点数量变化', '时尚评价指数'} |
 
 输出参数-柯桥时尚指数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 日期      | object   |   - |
-| 指数      | float64   |   -  |
-| 涨跌值      | float64   |  -  |
-| 涨跌幅      | float64   |  -  |
+| 名称  | 类型      | 描述  |
+|-----|---------|-----|
+| 日期  | object  | -   |
+| 指数  | float64 | -   |
+| 涨跌值 | float64 | -   |
+| 涨跌幅 | float64 | -   |
 
 接口示例-柯桥时尚指数
 
 ```python
 import akshare as ak
+
 index_kq_fashion_df = ak.index_kq_fashion(symbol='柯桥时尚指数')
 print(index_kq_fashion_df)
 ```
@@ -2617,6 +2743,7 @@ print(index_kq_fashion_df)
 
 ```python
 import akshare as ak
+
 index_kq_fashion_df = ak.index_kq_fashion(symbol='时尚评价指数')
 print(index_kq_fashion_df)
 ```
@@ -3012,20 +3139,20 @@ print(index_cflp_volume_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| start_date | str  | Y   |   start_date="20200320"; 注意开始和结束之间的时间跨度不能太长, 只能获取当前交易日近一个月内的数据 |
-| end_date | str  | Y   |   end_date="20200327"; 只能获取当前交易日近一个月内的数据 |
+| 名称         | 类型  | 描述                                                           |
+|------------|-----|--------------------------------------------------------------|
+| start_date | str | start_date="20200320"; 注意开始和结束之间的时间跨度不能太长, 只能获取当前交易日近一个月内的数据 |
+| end_date   | str | end_date="20200327"; 只能获取当前交易日近一个月内的数据                       |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期时间      | str   | Y        |   |
-| 开盘价      | float   | Y        |    |
-| 当前价      | float   | Y        |   |
-| 涨跌      | float   | Y        |    |
-| 涨跌幅      | float   | Y        |    |
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| 日期时间 | object  |     |
+| 开盘价  | float64 |     |
+| 当前价  | float64 |     |
+| 涨跌   | float64 |     |
+| 涨跌幅  | float64 |     |
 
 数据解释
 
@@ -3046,6 +3173,7 @@ VIX全名是芝加哥期权交易所波动率指数（Chicago Board Options Exch
 
 ```python
 import akshare as ak
+
 index_vix_df = ak.index_vix(start_date="20200611", end_date="20200611")  # 只能获取当前交易日近一个月内的数据
 print(index_vix_df)
 ```
@@ -3075,40 +3203,41 @@ print(index_vix_df)
 
 描述: 中证指数日频率的数据
 
-限量: 该接口返回指定的 start_date 和 end_date 的指数日频率数据
+限量: 该接口返回指定 symbol 的 start_date 和 end_date 的指数日频率数据
 
 输入参数
 
-| 名称   | 类型 |  描述      |
-| -------- | ---- |  --- |
-| symbol | str  |   symbol="H30374"; 指数代码 |
-| start_date | str  |   start_date="20100101" |
-| end_date | str  |   end_date="20211015" |
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="H30374"; 指数代码 |
+| start_date | str | start_date="20100101" |
+| end_date   | str | end_date="20211015"   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- | ---------------- |
-| 日期      | object   |  - |
-| 指数代码      | object   |  -  |
-| 指数中文全称      | object   |  -  |
-| 指数中文简称      | object   |  -  |
-| 指数英文全称      | object   |  -  |
-| 指数英文简称      | object   |  -  |
-| 开盘      | float64   |  -  |
-| 最高      | float64   |  -  |
-| 最低      | float64   |  -  |
-| 收盘      | float64   |  -  |
-| 涨跌      | float64   |  -  |
-| 涨跌幅      | float64   |  注意单位: %  |
-| 成交量      | float64   |  注意单位: 万手  |
-| 成交金额      | float64   |  注意单位: 亿元  |
-| 样本数量      | float64   |  -  |
+| 名称     | 类型      | 描述       |
+|--------|---------|----------|
+| 日期     | object  | -        |
+| 指数代码   | object  | -        |
+| 指数中文全称 | object  | -        |
+| 指数中文简称 | object  | -        |
+| 指数英文全称 | object  | -        |
+| 指数英文简称 | object  | -        |
+| 开盘     | float64 | -        |
+| 最高     | float64 | -        |
+| 最低     | float64 | -        |
+| 收盘     | float64 | -        |
+| 涨跌     | float64 | -        |
+| 涨跌幅    | float64 | 注意单位: %  |
+| 成交量    | float64 | 注意单位: 万手 |
+| 成交金额   | float64 | 注意单位: 亿元 |
+| 样本数量   | float64 | -        |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_index_hist_csindex_df = ak.stock_zh_index_hist_csindex(symbol="H30374", start_date="20100101", end_date="20211015")
 print(stock_zh_index_hist_csindex_df)
 ```
@@ -3140,33 +3269,34 @@ print(stock_zh_index_hist_csindex_df)
 
 描述: 中证指数-指数估值数据
 
-限量: 该接口返回指定的指数的指数估值数据, 该接口只能返回近期的数据
+限量: 该接口返回指定的指数的估值数据, 该接口只能返回近期的数据
 
 输入参数
 
-| 名称   | 类型 |  描述      |
-| -------- | ---- |  --- |
-| symbol | str  |   symbol="H30374"; 指数代码 |
+| 名称     | 类型  | 描述                    |
+|--------|-----|-----------------------|
+| symbol | str | symbol="H30374"; 指数代码 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- | ---------------- |
-| 日期      | object   |  - |
-| 指数代码      | object   |  - |
-| 指数中文全称      | object   |  - |
-| 指数中文简称      | object   |  - |
-| 指数英文全称      | object   |  - |
-| 指数英文简称      | object   |  - |
-| 市盈率1      | float64   |  注意: （总股本）P/E1 |
-| 市盈率2      | float64   |  注意: （计算用股本）P/E2 |
-| 股息率1      | float64   |  注意: （总股本）D/P1 |
-| 股息率2      | float64   |  注意: （计算用股本）D/P2 |
+| 名称     | 类型      | 描述              |
+|--------|---------|-----------------|
+| 日期     | object  | -               |
+| 指数代码   | object  | -               |
+| 指数中文全称 | object  | -               |
+| 指数中文简称 | object  | -               |
+| 指数英文全称 | object  | -               |
+| 指数英文简称 | object  | -               |
+| 市盈率1   | float64 | 注意: （总股本）P/E1   |
+| 市盈率2   | float64 | 注意: （计算用股本）P/E2 |
+| 股息率1   | float64 | 注意: （总股本）D/P1   |
+| 股息率2   | float64 | 注意: （计算用股本）D/P2 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_zh_index_value_csindex_df = ak.stock_zh_index_value_csindex(symbol="H30374")
 print(stock_zh_index_value_csindex_df)
 ```
@@ -3209,27 +3339,28 @@ print(stock_zh_index_value_csindex_df)
 
 输入参数
 
-| 名称   | 类型 |  描述      |
-| -------- | ---- |  --- |
-| symbol | str  |   symbol="大盘成长"; 指数名称, 通过调用 ak.index_value_name_funddb 来获取 |
-| indicator | str  |   indicator="PB"; choice of {'市盈率', '市净率', '股息率'} |
+| 名称        | 类型  | 描述                                                         |
+|-----------|-----|------------------------------------------------------------|
+| symbol    | str | symbol="大盘成长"; 指数名称, 通过调用 ak.index_value_name_funddb() 来获取 |
+| indicator | str | indicator="股息率"; choice of {'市盈率', '市净率', '股息率'}           |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- | ---------------- |
-| 日期      | object   |  - |
-| 平均值      | float64   |  - |
-| indicator      | float64   |  注意字段: 依据 indicator 而变化 |
-| 最低30      | float64   |  注意: 最低 30%  |
-| 最低10      | float64   |  注意: 最低 10% |
-| 最高30      | float64   |  注意: 最低 30% |
-| 最高10      | float64   |  注意: 最低 10% |
+| 名称        | 类型      | 描述                     |
+|-----------|---------|------------------------|
+| 日期        | object  | -                      |
+| 平均值       | float64 | -                      |
+| indicator | float64 | 注意字段: 依据 indicator 而变化 |
+| 最低30      | float64 | 注意: 最低 30%             |
+| 最低10      | float64 | 注意: 最低 10%             |
+| 最高30      | float64 | 注意: 最低 30%             |
+| 最高10      | float64 | 注意: 最低 10%             |
 
 接口示例
 
 ```python
 import akshare as ak
+
 index_value_hist_funddb_df = ak.index_value_hist_funddb(symbol="中证能源", indicator="股息率")
 print(index_value_hist_funddb_df)
 ```
