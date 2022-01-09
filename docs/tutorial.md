@@ -979,6 +979,9 @@
  "index_inner_quote_sugar_msweet"  # 配额内进口糖估算指数
  # 配额外进口糖估算指数
  "index_outer_quote_sugar_msweet"  # 配额外进口糖估算指数
+ # 东方财富网-数据中心-股东分析-股东持股分析
+ "stock_gdfx_free_holding_analyse_em"  # 东方财富网-数据中心-股东分析-股东持股分析-十大流通股东
+ "stock_gdfx_holding_analyse_em"  # 东方财富网-数据中心-股东分析-股东持股分析-十大股东
 ```
 
 ## 案例演示

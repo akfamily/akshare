@@ -1761,9 +1761,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.37 fix: fix stock_financial_analysis_indicator interface
 1.3.38 fix: fix index_value_name_funddb interface
 1.3.39 fix: fix macro_china_hb interface
+1.3.40 add: add stock_gdfx_free_holding_analyse_em interface
 """
 
-__version__ = "1.3.39"
+__version__ = "1.3.40"
 __author__ = "Albert King"
 
 import sys
@@ -1773,6 +1774,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+东方财富网-数据中心-股东分析-股东持股分析-十大流通股东
+"""
+from akshare.stock_feature.stock_gdfx_em import stock_gdfx_holding_analyse_em, stock_gdfx_free_holding_analyse_em
 
 """
 中国食糖指数
