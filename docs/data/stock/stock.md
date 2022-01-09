@@ -7893,7 +7893,116 @@ print(stock_history_dividend_df)
 4609  688981  中芯国际  2020-07-16    0.0  0.00     0  525.1560     1
 ```
 
-#### 十大流通股东
+#### 十大流通股东(个股)
+
+接口: stock_gdfx_free_top_10_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/ShareholderResearch/Index?type=web&code=SH688686#sdltgd-0
+
+描述: 东方财富网-个股-十大流通股东
+
+限量: 单次返回指定 symbol 和 date 的所有数据
+
+输入参数
+
+| 名称     | 类型  | 描述                            |
+|--------|-----|-------------------------------|
+| symbol | str | symbol="sh688686"; 带市场标识的股票代码 |
+| date   | str | date="20210630"; 财报发布季度最后日    |
+
+输出参数
+
+| 名称         | 类型      | 描述      |
+|------------|---------|---------|
+| 名次         | int64   | -       |
+| 股东名称       | object  | -       |
+| 股东性质       | object  | -       |
+| 股份类型       | object  | -       |
+| 持股数        | int64   | 注意单位: 股 |
+| 占总流通股本持股比例 | float64 | 注意单位: % |
+| 增减         | object  | 注意单位: 股 |
+| 变动比率       | float64 | 注意单位: % |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_gdfx_free_top_10_em_df = ak.stock_gdfx_free_top_10_em(symbol="sh688686", date="20210630")
+print(stock_gdfx_free_top_10_em_df)
+```
+
+数据示例
+
+```
+   名次                                     股东名称  ...       增减       变动比率
+0   1               高华-汇丰-GOLDMAN,SACHS&CO.LLC  ...   946997  54.311934
+1   2         铭基国际投资公司-MATTHEWS ASIA FUNDS(US)  ...  -358837 -15.460528
+2   3  MORGAN STANLEY & CO. INTERNATIONAL PLC.  ...    70003   4.082755
+3   4                   FMR 有限公司-富达新兴市场基金(交易所)  ...    80100   9.086784
+4   5             摩根资产管理(新加坡)有限公司-摩根中国A股市场机会基金  ...       新进        NaN
+5   6                                   UBS AG  ...  -400254 -45.037994
+6   7             中国工商银行股份有限公司-万家自主创新混合型证券投资基金  ...       新进        NaN
+7   8      铭基国际投资公司-Matthews Asia Funds(SICAV)  ...     6123   2.132424
+8   9                               中信证券股份有限公司  ...       新进        NaN
+9  10                    泰康人寿保险有限责任公司-投连-多策略优选  ...       新进        NaN
+```
+
+#### 十大股东(个股)
+
+接口: stock_gdfx_top_10_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/ShareholderResearch/Index?type=web&code=SH688686#sdltgd-0
+
+描述: 东方财富网-个股-十大股东
+
+限量: 单次返回指定 symbol 和 date 的所有数据
+
+输入参数
+
+| 名称     | 类型  | 描述                            |
+|--------|-----|-------------------------------|
+| symbol | str | symbol="sh688686"; 带市场标识的股票代码 |
+| date   | str | date="20210630"; 财报发布季度最后日    |
+
+输出参数
+
+| 名称       | 类型      | 描述      |
+|----------|---------|---------|
+| 名次       | int64   | -       |
+| 股东名称     | object  | -       |
+| 股份类型     | object  | -       |
+| 持股数      | int64   | 注意单位: 股 |
+| 占总股本持股比例 | float64 | 注意单位: % |
+| 增减       | object  | 注意单位: 股 |
+| 变动比率     | float64 | 注意单位: % |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_gdfx_top_10_em_df = ak.stock_gdfx_top_10_em(symbol="sh688686", date="20210630")
+print(stock_gdfx_top_10_em_df)
+```
+
+数据示例
+
+```
+   名次                                        股东名称  ...       增减       变动比率
+0   1                                         卢治临  ...       不变        NaN
+1   2                                         卢盛林  ...       不变        NaN
+2   3                                         许学亮  ...       不变        NaN
+3   4                          东莞千智股权投资合伙企业(有限合伙)  ...       不变        NaN
+4   5                  高华-汇丰-GOLDMAN,SACHS&CO.LLC  ...   946997  54.311934
+5   6            铭基国际投资公司-MATTHEWS ASIA FUNDS(US)  ...  -358837 -15.460528
+6   7     MORGAN STANLEY & CO. INTERNATIONAL PLC.  ...    70003   4.082755
+7   8  宁波梅山保税港区晨道投资合伙企业-长江晨道(湖北)新能源产业投资合伙企业(有限合伙)  ...       不变        NaN
+8   9          国信证券-招商银行-国信证券鼎信10号科创板战略配售集合资产管理计划  ...  -639100 -30.994180
+9  10                      FMR 有限公司-富达新兴市场基金(交易所)  ...       新进        NaN
+```
+
+#### 十大流通股东(所有股票)
 
 接口: stock_gdfx_free_holding_analyse_em
 
@@ -7955,7 +8064,7 @@ print(stock_gdfx_free_holding_analyse_em_df)
 46540  46541  ...      -1.977232
 ```
 
-#### 十大股东
+#### 十大股东(所有股票)
 
 接口: stock_gdfx_holding_analyse_em
 
@@ -8603,7 +8712,7 @@ print(stock_restricted_shares_df)
 
 目标地址: https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/600000.phtml
 
-描述: 获取新浪财经-股东股本-流通股东
+描述: 新浪财经-股东股本-流通股东
 
 限量: 单次获取流通股东数据
 
@@ -8615,20 +8724,21 @@ print(stock_restricted_shares_df)
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 截止日期          | str   | Y        |   -   |
-| 公告日期          | str   | Y        |   -   |
-| 编号          | str   | Y        |   -   |
-| 股东名称          | str   | Y        |   -   |
-| 持股数量(股)         | float   | Y        |   -   |
-| 占流通股比例(%)          | float   | Y        |   -   |
-| 股本性质          | str   | Y        |   -   |
+| 名称        | 类型    | 默认显示 | 描述  |
+|-----------|-------|------|-----|
+| 截止日期      | str   | Y    | -   |
+| 公告日期      | str   | Y    | -   |
+| 编号        | str   | Y    | -   |
+| 股东名称      | str   | Y    | -   |
+| 持股数量(股)   | float | Y    | -   |
+| 占流通股比例(%) | float | Y    | -   |
+| 股本性质      | str   | Y    | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_circulate_stock_holder_df = ak.stock_circulate_stock_holder(stock="600000")
 print(stock_circulate_stock_holder_df)
 ```
