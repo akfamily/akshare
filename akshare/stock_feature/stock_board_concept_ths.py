@@ -345,7 +345,7 @@ if __name__ == '__main__':
     stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="PVDF概念")
     print(stock_board_concept_info_ths_df)
 
-    stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2021', symbol="注册制次新股")
+    stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(start_year='2021', symbol="一带一路")
     print(stock_board_concept_hist_ths_df)
 
     stock_board_cons_ths_df = stock_board_cons_ths(symbol="885611")
