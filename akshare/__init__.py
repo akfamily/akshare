@@ -1778,7 +1778,7 @@ if sys.version_info < (3, 7):
 del sys
 
 """
-东方财富网-数据中心-股东分析-股东持股分析-十大流通股东
+东方财富网-数据中心-股东分析
 """
 from akshare.stock_feature.stock_gdfx_em import (
     stock_gdfx_holding_analyse_em,
