@@ -6698,30 +6698,31 @@ print(stock_em_fhps_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="即时"; choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"} |
+| 名称     | 类型  | 描述                                                              |
+|--------|-----|-----------------------------------------------------------------|
+| symbol | str | symbol="即时"; choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"} |
 
 输出参数-即时
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int32   | Y        |  -    |
-| 股票代码          | int64   | Y        |   -   |
-| 股票简称          | object   | Y        |  -    |
-| 最新价          | float64   | Y        |  -    |
-| 涨跌幅          | object   | Y        |  注意单位: %    |
-| 换手率          | object   | Y        |  -    |
-| 流入资金          | object   | Y        |  注意单位: 元    |
-| 流出资金          | object   | Y        |  注意单位: 元    |
-| 净额          | object   | Y        |  注意单位: 元    |
-| 成交额          | object   | Y        |  注意单位: 元    |
-| 大单流入          | object   | Y        |  注意单位: 元    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 序号   | int32   | -       |
+| 股票代码 | int64   | -       |
+| 股票简称 | object  | -       |
+| 最新价  | float64 | -       |
+| 涨跌幅  | object  | 注意单位: % |
+| 换手率  | object  | -       |
+| 流入资金 | object  | 注意单位: 元 |
+| 流出资金 | object  | 注意单位: 元 |
+| 净额   | object  | 注意单位: 元 |
+| 成交额  | object  | 注意单位: 元 |
+| 大单流入 | object  | 注意单位: 元 |
 
 接口示例-即时
 
 ```python
 import akshare as ak
+
 stock_fund_flow_individual_df = ak.stock_fund_flow_individual(symbol="即时")
 print(stock_fund_flow_individual_df)
 ```
@@ -6792,30 +6793,31 @@ print(stock_fund_flow_individual_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="即时"; choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"} |
+| 名称     | 类型  | 描述                                                              |
+|--------|-----|-----------------------------------------------------------------|
+| symbol | str | symbol="即时"; choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"} |
 
 输出参数-即时
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |   -    |
-| 行业          | object   |    -   |
-| 行业指数          | float64   |   -    |
-| 行业-涨跌幅          | float64   |  注意单位: %    |
-| 流入资金          | float64   |   注意单位: 亿    |
-| 流出资金          | float64   |  注意单位: 亿    |
-| 净额          | float64   |   注意单位: 亿    |
-| 公司家数          | float64   |   -    |
-| 领涨股          | object   |  -    |
-| 领涨股-涨跌幅          | float64   |   注意单位: %    |
-| 当前价          | float64   |   注意单位: 元    |
+| 名称      | 类型      | 描述      |
+|---------|---------|---------|
+| 序号      | int32   | -       |
+| 行业      | object  | -       |
+| 行业指数    | float64 | -       |
+| 行业-涨跌幅  | float64 | 注意单位: % |
+| 流入资金    | float64 | 注意单位: 亿 |
+| 流出资金    | float64 | 注意单位: 亿 |
+| 净额      | float64 | 注意单位: 亿 |
+| 公司家数    | float64 | -       |
+| 领涨股     | object  | -       |
+| 领涨股-涨跌幅 | float64 | 注意单位: % |
+| 当前价     | float64 | 注意单位: 元 |
 
 接口示例-即时
 
 ```python
 import akshare as ak
+
 stock_fund_flow_concept_df = ak.stock_fund_flow_concept(symbol="即时")
 print(stock_fund_flow_concept_df)
 ```
@@ -6839,21 +6841,22 @@ print(stock_fund_flow_concept_df)
 
 输出参数-3日、5日、10日和20日
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |  -    |
-| 行业          | object   |    -   |
-| 公司家数          | int64   |    -   |
-| 行业指数          | float64   |   -    |
-| 阶段涨跌幅          | object   | 注意单位: %    |
-| 流入资金          | float64   |   注意单位: 亿    |
-| 流出资金          | float64   |   注意单位: 亿    |
-| 净额          | float64   |   注意单位: 亿    |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 序号    | int32   | -       |
+| 行业    | object  | -       |
+| 公司家数  | int64   | -       |
+| 行业指数  | float64 | -       |
+| 阶段涨跌幅 | object  | 注意单位: % |
+| 流入资金  | float64 | 注意单位: 亿 |
+| 流出资金  | float64 | 注意单位: 亿 |
+| 净额    | float64 | 注意单位: 亿 |
 
 接口示例-3日、5日、10日和20日
 
 ```python
 import akshare as ak
+
 stock_fund_flow_concept_df = ak.stock_fund_flow_concept(symbol="3日排行")
 print(stock_fund_flow_concept_df)
 ```
@@ -6887,30 +6890,31 @@ print(stock_fund_flow_concept_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
+| 名称     | 类型  | 描述                                                              |
+|--------|-----|-----------------------------------------------------------------|
 | symbol | str | symbol="即时"; choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"} |
 
 输出参数-即时
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |   -    |
-| 行业          | object   |   -   |
-| 行业指数          | float64   |   -    |
-| 行业-涨跌幅          | object   |  注意单位: %    |
-| 流入资金          | float64   |  注意单位: 亿    |
-| 流出资金          | float64   |   注意单位: 亿    |
-| 净额          | float64   |  注意单位: 亿    |
-| 公司家数          | float64   |   -    |
-| 领涨股          | object   |  -    |
-| 领涨股-涨跌幅          | object   |   注意单位: %    |
-| 当前价          | float64   |   -    |
+| 名称      | 类型      | 描述      |
+|---------|---------|---------|
+| 序号      | int32   | -       |
+| 行业      | object  | -       |
+| 行业指数    | float64 | -       |
+| 行业-涨跌幅  | object  | 注意单位: % |
+| 流入资金    | float64 | 注意单位: 亿 |
+| 流出资金    | float64 | 注意单位: 亿 |
+| 净额      | float64 | 注意单位: 亿 |
+| 公司家数    | float64 | -       |
+| 领涨股     | object  | -       |
+| 领涨股-涨跌幅 | object  | 注意单位: % |
+| 当前价     | float64 | -       |
 
 接口示例-即时
 
 ```python
 import akshare as ak
+
 stock_fund_flow_industry_df = ak.stock_fund_flow_industry(symbol="即时")
 print(stock_fund_flow_industry_df)
 ```
@@ -6934,21 +6938,22 @@ print(stock_fund_flow_industry_df)
 
 输出参数-3日、5日、10日和20日
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |   -    |
-| 行业          | object   |    -   |
-| 公司家数          | int64   |   -   |
-| 行业指数          | float64   |   -    |
-| 阶段涨跌幅          | object   |   注意单位: %    |
-| 流入资金          | float64   |   注意单位: 亿    |
-| 流出资金          | float64   |  注意单位: 亿    |
-| 净额          | float64   |  注意单位: 亿    |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 序号    | int32   | -       |
+| 行业    | object  | -       |
+| 公司家数  | int64   | -       |
+| 行业指数  | float64 | -       |
+| 阶段涨跌幅 | object  | 注意单位: % |
+| 流入资金  | float64 | 注意单位: 亿 |
+| 流出资金  | float64 | 注意单位: 亿 |
+| 净额    | float64 | 注意单位: 亿 |
 
 接口示例-3日、5日、10日和20日
 
 ```python
 import akshare as ak
+
 stock_fund_flow_industry_df = ak.stock_fund_flow_industry(symbol="3日排行")
 print(stock_fund_flow_industry_df)
 ```
@@ -6981,7 +6986,7 @@ print(stock_fund_flow_industry_df)
 
 目标地址: http://data.10jqka.com.cn/funds/ddzz/###
 
-描述: 获取同花顺-数据中心-资金流向-大单追踪
+描述: 同花顺-数据中心-资金流向-大单追踪
 
 限量: 单次获取当前时点的所有大单追踪数据
 
@@ -7242,6 +7247,7 @@ print(stock_individual_fund_flow_rank_df)
 
 ```python
 import akshare as ak
+
 stock_individual_fund_flow_rank_df = ak.stock_individual_fund_flow_rank(indicator="5日")
 print(stock_individual_fund_flow_rank_df)
 ```
@@ -7297,6 +7303,7 @@ print(stock_individual_fund_flow_rank_df)
 
 ```python
 import akshare as ak
+
 stock_individual_fund_flow_rank_df = ak.stock_individual_fund_flow_rank(indicator="10日")
 print(stock_individual_fund_flow_rank_df)
 ```
@@ -7368,6 +7375,7 @@ print(stock_individual_fund_flow_rank_df)
 
 ```python
 import akshare as ak
+
 stock_market_fund_flow_df = ak.stock_market_fund_flow()
 print(stock_market_fund_flow_df)
 ```
@@ -7375,7 +7383,7 @@ print(stock_market_fund_flow_df)
 数据示例
 
 ```
-   日期   上证-收盘价 上证-涨跌幅  ... 中单净流入-净占比        小单净流入-净额 小单净流入-净占比
+       日期   上证-收盘价 上证-涨跌幅  ... 中单净流入-净占比        小单净流入-净额 小单净流入-净占比
 0    2020-07-22  3333.16   0.37  ...     -0.51   21186158592.0      1.77
 1    2020-07-23  3325.11  -0.24  ...      0.22   53341659136.0      4.28
 2    2020-07-24  3196.77  -3.86  ...      2.15  100321820672.0      7.52
@@ -7395,7 +7403,7 @@ print(stock_market_fund_flow_df)
 
 目标地址: http://data.eastmoney.com/bkzj/hy.html
 
-描述: 获取东方财富网-数据中心-资金流向-板块资金流-排名
+描述: 东方财富网-数据中心-资金流向-板块资金流-排名
 
 限量: 单次获取指定板块的指定期限的资金流排名数据
 
@@ -7559,30 +7567,31 @@ print(stock_financial_report_sina_df)
 
 目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
 
-描述: 获取东方财富-港股-财务报表-三大报表
+描述: 东方财富-港股-财务报表-三大报表
 
 限量: 单次获取指定报表的所有年份数据
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| stock | str |  stock="00700"; 股票代码|
-| symbol | str |  symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"}|
-| indicator | str | symbol="年度"; choice of {"年度", "报告期"}|
+| 名称        | 类型  | 描述                                                  |
+|-----------|-----|-----------------------------------------------------|
+| stock     | str | stock="00700"; 股票代码                                 |
+| symbol    | str | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
+| indicator | str | symbol="年度"; choice of {"年度", "报告期"}                |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 日期索引          | datetime     报告日期   |
-| 流动资产          | str   |   注意单位: 亿   |
-|...          | str   |    多项财务指标   |
+| 名称   | 类型                | 描述      |
+|------|-------------------|---------|
+| 日期索引 | datetime     报告日期 |
+| 流动资产 | str               | 注意单位: 亿 |
+| ...  | str               | 多项财务指标  |
 
 
 
 ```python
 import akshare as ak
+
 stock_financial_hk_report_em_df = ak.stock_financial_hk_report_em(stock="00700", symbol="资产负债表", indicator="年度")
 print(stock_financial_hk_report_em_df)
 ```
@@ -13144,6 +13153,7 @@ print(stock_profit_forecast_df)
 | 日期    | object | -   |
 | 概念名称  | object | -   |
 | 成分股数量 | int64  | -   |
+| 网址    | object | -   |
 | 代码    | object | -   |
 
 接口示例
@@ -13158,18 +13168,18 @@ print(stock_board_concept_name_ths_df)
 数据示例
 
 ```
-        日期   概念名称  成分股数量                                         代码
-0    2021-10-18   换电概念     15  http://q.10jqka.com.cn/gn/detail/code/308775/
-1    2021-10-15   培育钻石      8  http://q.10jqka.com.cn/gn/detail/code/308774/
-2    2021-09-23  三季报预增    432  http://q.10jqka.com.cn/gn/detail/code/308458/
-3    2021-09-22   绿色电力     70  http://q.10jqka.com.cn/gn/detail/code/308760/
-4    2021-09-08    元宇宙     26  http://q.10jqka.com.cn/gn/detail/code/308752/
-..          ...    ...    ...                                            ...
-280  2012-09-05  氟化工概念     21  http://q.10jqka.com.cn/gn/detail/code/300085/
-281  2012-09-05   横琴新区     44  http://q.10jqka.com.cn/gn/detail/code/300087/
-282  2012-09-05    磷化工     35  http://q.10jqka.com.cn/gn/detail/code/300098/
-283  2012-09-05   参股券商    124  http://q.10jqka.com.cn/gn/detail/code/300100/
-284  2012-09-05   生物疫苗     53  http://q.10jqka.com.cn/gn/detail/code/300106/
+             日期     概念名称  ...                                             网址      代码
+0    2022-01-07      电子纸  ...  http://q.10jqka.com.cn/gn/detail/code/301135/  301135
+1    2022-01-05  幽门螺杆菌概念  ...  http://q.10jqka.com.cn/gn/detail/code/308818/  308818
+2    2022-01-04      预制菜  ...  http://q.10jqka.com.cn/gn/detail/code/308814/  308814
+3    2021-12-28      沪股通  ...  http://q.10jqka.com.cn/gn/detail/code/301490/  301490
+4    2021-12-15      冬奥会  ...  http://q.10jqka.com.cn/gn/detail/code/301544/  301544
+..          ...      ...  ...                                            ...     ...
+295  2012-09-05    氟化工概念  ...  http://q.10jqka.com.cn/gn/detail/code/300085/  300085
+296  2012-09-05     横琴新区  ...  http://q.10jqka.com.cn/gn/detail/code/300087/  300087
+297  2012-09-05      磷化工  ...  http://q.10jqka.com.cn/gn/detail/code/300098/  300098
+298  2012-09-05     参股券商  ...  http://q.10jqka.com.cn/gn/detail/code/300100/  300100
+299  2012-09-05     生物疫苗  ...  http://q.10jqka.com.cn/gn/detail/code/300106/  300106
 ```
 
 #### 同花顺-成份股-概念名称
@@ -13184,33 +13194,34 @@ print(stock_board_concept_name_ths_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths** 查看同花顺的所有概念名称; 注意：其中 "国家大基金持股" 为 "国家大基金持股 ", 最后有一个空格|
+| 名称     | 类型  | 描述                                                                                                                |
+|--------|-----|-------------------------------------------------------------------------------------------------------------------|
+| symbol | str | symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths()** 查看同花顺的所有概念名称; 注意：其中 "国家大基金持股" 为 "国家大基金持股 ", 最后有一个空格 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int64   |   -    |
-| 代码          | object   |   -    |
-| 名称          | object   |  -    |
-| 现价          | float64   |  -    |
-| 涨跌幅         | float64   |   注意单位: %    |
-| 涨跌         | float64   |   -    |
-| 涨速          | float64   |   注意单位: %    |
-| 换手          | float64   |  注意单位: %    |
-| 量比          | float64   |  -    |
-| 振幅          | float64   |   注意单位: %    |
-| 成交额          | object   |   -    |
-| 流通股          | object   |   -    |
-| 流通市值          | object   |   -    |
-| 市盈率          | object   |   -    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 序号   | int64   | -       |
+| 代码   | object  | -       |
+| 名称   | object  | -       |
+| 现价   | float64 | -       |
+| 涨跌幅  | float64 | 注意单位: % |
+| 涨跌   | float64 | -       |
+| 涨速   | float64 | 注意单位: % |
+| 换手   | float64 | 注意单位: % |
+| 量比   | float64 | -       |
+| 振幅   | float64 | 注意单位: % |
+| 成交额  | object  | -       |
+| 流通股  | object  | -       |
+| 流通市值 | object  | -       |
+| 市盈率  | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_concept_cons_ths_df = ak.stock_board_concept_cons_ths(symbol="人脸识别")
 print(stock_board_concept_cons_ths_df)
 ```
@@ -13270,37 +13281,38 @@ print(stock_board_concept_cons_ths_df)
 
 描述: 同花顺-板块-概念板块-成份股数据
 
-限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths** 返回该板块信息
+限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths()** 返回该板块信息
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="885611"; 输入概念代码|
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="885611"; 输入概念代码 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int64   |   -    |
-| 代码          | object   |   -    |
-| 名称          | object   |  -    |
-| 现价          | float64   |  -    |
-| 涨跌幅         | float64   |   注意单位: %    |
-| 涨跌         | float64   |   -    |
-| 涨速          | float64   |   注意单位: %    |
-| 换手          | float64   |  注意单位: %    |
-| 量比          | float64   |  -    |
-| 振幅          | float64   |   注意单位: %    |
-| 成交额          | object   |   -    |
-| 流通股          | object   |   -    |
-| 流通市值          | object   |   -    |
-| 市盈率          | object   |   -    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 序号   | int64   | -       |
+| 代码   | object  | -       |
+| 名称   | object  | -       |
+| 现价   | float64 | -       |
+| 涨跌幅  | float64 | 注意单位: % |
+| 涨跌   | float64 | -       |
+| 涨速   | float64 | 注意单位: % |
+| 换手   | float64 | 注意单位: % |
+| 量比   | float64 | -       |
+| 振幅   | float64 | 注意单位: % |
+| 成交额  | object  | -       |
+| 流通股  | object  | -       |
+| 流通市值 | object  | -       |
+| 市盈率  | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_cons_ths_df = ak.stock_board_cons_ths(symbol="885611")
 print(stock_board_cons_ths_df)
 ```
@@ -13334,27 +13346,28 @@ print(stock_board_cons_ths_df)
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| start_year | str |  start_year='2000'; 指定开始年份|
-| symbol | str |  symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths** 查看同花顺的所有概念名称|
+| 名称         | 类型  | 描述                                                                         |
+|------------|-----|----------------------------------------------------------------------------|
+| start_year | str | start_year='2000'; 指定开始年份                                                  |
+| symbol     | str | symbol="阿里巴巴概念"; 可以通过调用 **ak.stock_board_concept_name_ths()** 查看同花顺的所有概念名称 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 日期          | object   |   -    |
-| 开盘价          | float64   |  -    |
-| 最高价          | float64   |   -    |
-| 最低价          | float64   |  -    |
-| 收盘价          | float64   |  -    |
-| 成交量          | int64   |  -    |
-| 成交额          | float64   |   -    |
+| 名称  | 类型      | 描述  |
+|-----|---------|-----|
+| 日期  | object  | -   |
+| 开盘价 | float64 | -   |
+| 最高价 | float64 | -   |
+| 最低价 | float64 | -   |
+| 收盘价 | float64 | -   |
+| 成交量 | int64   | -   |
+| 成交额 | float64 | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_concept_hist_ths_df = ak.stock_board_concept_hist_ths(start_year='2020', symbol="一带一路")
 print(stock_board_concept_hist_ths_df)
 ```
@@ -13388,31 +13401,32 @@ print(stock_board_concept_hist_ths_df)
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| 排名          | int64   |   -    |
-| 板块名称          | object   |   -    |
-| 板块代码          | object   |   -    |
-| 最新价          | float64   |   -    |
-| 涨跌额          | float64   |   -    |
-| 涨跌幅          | float64   |   注意单位：%    |
-| 总市值          | int64   |   -    |
-| 换手率          | float64   |   注意单位：%    |
-| 上涨家数          | int64   |   -    |
-| 下跌家数          | int64   |   -    |
-| 领涨股票          | object   |   -    |
-| 领涨股票-涨跌幅          | float64   |   注意单位：%    |
+| 名称       | 类型      | 描述     |
+|----------|---------|--------|
+| 排名       | int64   | -      |
+| 板块名称     | object  | -      |
+| 板块代码     | object  | -      |
+| 最新价      | float64 | -      |
+| 涨跌额      | float64 | -      |
+| 涨跌幅      | float64 | 注意单位：% |
+| 总市值      | int64   | -      |
+| 换手率      | float64 | 注意单位：% |
+| 上涨家数     | int64   | -      |
+| 下跌家数     | int64   | -      |
+| 领涨股票     | object  | -      |
+| 领涨股票-涨跌幅 | float64 | 注意单位：% |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_concept_name_em_df = ak.stock_board_concept_name_em()
 print(stock_board_concept_name_em_df)
 ```
@@ -13446,35 +13460,36 @@ print(stock_board_concept_name_em_df)
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="车联网"; 可以通过调用 **ak.stock_board_concept_name_em** 查看东方财富-概念板块的所有行业名称|
+| 名称     | 类型  | 描述                                                                           |
+|--------|-----|------------------------------------------------------------------------------|
+| symbol | str | symbol="车联网"; 可以通过调用 **ak.stock_board_concept_name_em()** 查看东方财富-概念板块的所有行业名称 |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int64   |   -    |
-| 代码          | object   |   -    |
-| 名称          | object   |  -    |
-| 最新价          | float64   |   -    |
-| 涨跌幅         | float64   |   注意单位: %    |
-| 涨跌额         | float64   |   -    |
-| 成交量          | float64   |  注意单位: 手    |
-| 成交额          | float64   |   -    |
-| 振幅          | float64   |   注意单位: %    |
-| 最高          | float64   |  -    |
-| 最低          | float64   |  -    |
-| 今开          | float64   |   -    |
-| 昨收          | float64   |   -    |
-| 换手率          | float64   |  注意单位: %    |
-| 市盈率-动态          | float64   |  -    |
-| 市净率          | float64   |  -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int64   | -       |
+| 代码     | object  | -       |
+| 名称     | object  | -       |
+| 最新价    | float64 | -       |
+| 涨跌幅    | float64 | 注意单位: % |
+| 涨跌额    | float64 | -       |
+| 成交量    | float64 | 注意单位: 手 |
+| 成交额    | float64 | -       |
+| 振幅     | float64 | 注意单位: % |
+| 最高     | float64 | -       |
+| 最低     | float64 | -       |
+| 今开     | float64 | -       |
+| 昨收     | float64 | -       |
+| 换手率    | float64 | 注意单位: % |
+| 市盈率-动态 | float64 | -       |
+| 市净率    | float64 | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_concept_cons_em_df = ak.stock_board_concept_cons_em(symbol="车联网")
 print(stock_board_concept_cons_em_df)
 ```
@@ -13508,31 +13523,32 @@ print(stock_board_concept_cons_em_df)
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="网络安全"; 可以通过调用 **ak.stock_board_concept_name_em** 查看东方财富-概念板块的所有概念代码|
-| adjust | str |  adjust=""; choice of {'': 不复权, 默认; "qfq": 前复权, "hfq": 后复权}|
+| 名称     | 类型  | 描述                                                                            |
+|--------|-----|-------------------------------------------------------------------------------|
+| symbol | str | symbol="网络安全"; 可以通过调用 **ak.stock_board_concept_name_em()** 查看东方财富-概念板块的所有概念代码 |
+| adjust | str | adjust=""; choice of {'': 不复权, 默认; "qfq": 前复权, "hfq": 后复权}                    |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 日期          | object   |   -    |
-| 开盘          | float64   |  -    |
-| 收盘          | float64   |   -    |
-| 最高          | float64   |  -    |
-| 最低          | float64   |  -    |
-| 涨跌幅          | float64   |  注意单位: %    |
-| 涨跌额          | float64   |   -    |
-| 成交量          | int64   |   -    |
-| 成交额          | float64   |   -    |
-| 振幅          | float64   |   注意单位: %    |
-| 换手率          | float64   |   注意单位: %    |
+| 名称  | 类型      | 描述      |
+|-----|---------|---------|
+| 日期  | object  | -       |
+| 开盘  | float64 | -       |
+| 收盘  | float64 | -       |
+| 最高  | float64 | -       |
+| 最低  | float64 | -       |
+| 涨跌幅 | float64 | 注意单位: % |
+| 涨跌额 | float64 | -       |
+| 成交量 | int64   | -       |
+| 成交额 | float64 | -       |
+| 振幅  | float64 | 注意单位: % |
+| 换手率 | float64 | 注意单位: % |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_concept_hist_em_df = ak.stock_board_concept_hist_em(symbol="车联网", adjust="")
 print(stock_board_concept_hist_em_df)
 ```
@@ -13564,37 +13580,38 @@ print(stock_board_concept_hist_em_df)
 
 描述: 同花顺-板块-行业板块-成份股数据
 
-限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_industry_info_ths** 返回该板块信息
+限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_industry_info_ths()** 返回该板块信息
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="半导体及元件"; 可以通过调用 **ak.stock_board_industry_name_ths** 查看同花顺的所有行业名称|
+| 名称     | 类型  | 描述                                                                          |
+|--------|-----|-----------------------------------------------------------------------------|
+| symbol | str | symbol="半导体及元件"; 可以通过调用 **ak.stock_board_industry_name_ths()** 查看同花顺的所有行业名称 |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int64   |   -    |
-| 代码          | int64   |   -    |
-| 名称          | object   |  -    |
-| 现价          | float64   |   -    |
-| 涨跌幅         | float64   |   注意单位: %    |
-| 涨跌         | float64   |   -    |
-| 涨速          | float64   |  注意单位: %    |
-| 换手          | float64   |   注意单位: %    |
-| 量比          | float64   |   -    |
-| 振幅          | float64   |  注意单位: %    |
-| 成交额          | object   |  -    |
-| 流通股          | object   |   -    |
-| 流通市值          | object   |   -    |
-| 市盈率          | object   |  -    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 序号   | int64   | -       |
+| 代码   | int64   | -       |
+| 名称   | object  | -       |
+| 现价   | float64 | -       |
+| 涨跌幅  | float64 | 注意单位: % |
+| 涨跌   | float64 | -       |
+| 涨速   | float64 | 注意单位: % |
+| 换手   | float64 | 注意单位: % |
+| 量比   | float64 | -       |
+| 振幅   | float64 | 注意单位: % |
+| 成交额  | object  | -       |
+| 流通股  | object  | -       |
+| 流通市值 | object  | -       |
+| 市盈率  | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_industry_cons_ths_df = ak.stock_board_industry_cons_ths(symbol="半导体及元件")
 print(stock_board_industry_cons_ths_df)
 ```
@@ -13624,37 +13641,38 @@ print(stock_board_industry_cons_ths_df)
 
 描述: 同花顺-板块-行业板块-成份股数据
 
-限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_industry_info_ths** 返回该板块信息
+限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_industry_info_ths()** 返回该板块信息
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="881121"; 输入行业代码|
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="881121"; 输入行业代码 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int64   |   -    |
-| 代码          | object   |   -    |
-| 名称          | object   |  -    |
-| 现价          | float64   |  -    |
-| 涨跌幅         | float64   |   注意单位: %    |
-| 涨跌         | float64   |   -    |
-| 涨速          | float64   |   注意单位: %    |
-| 换手          | float64   |  注意单位: %    |
-| 量比          | float64   |  -    |
-| 振幅          | float64   |   注意单位: %    |
-| 成交额          | object   |   -    |
-| 流通股          | object   |   -    |
-| 流通市值          | object   |   -    |
-| 市盈率          | object   |   -    |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 序号   | int64   | -       |
+| 代码   | object  | -       |
+| 名称   | object  | -       |
+| 现价   | float64 | -       |
+| 涨跌幅  | float64 | 注意单位: % |
+| 涨跌   | float64 | -       |
+| 涨速   | float64 | 注意单位: % |
+| 换手   | float64 | 注意单位: % |
+| 量比   | float64 | -       |
+| 振幅   | float64 | 注意单位: % |
+| 成交额  | object  | -       |
+| 流通股  | object  | -       |
+| 流通市值 | object  | -       |
+| 市盈率  | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_cons_ths_df = ak.stock_board_cons_ths(symbol="881121")
 print(stock_board_cons_ths_df)
 ```
