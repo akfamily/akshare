@@ -47,26 +47,6 @@ def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
     return file_data
 
 
-def __stock_board_concept_name_ths() -> pd.DataFrame:
-    """
-    同花顺-板块-概念板块-概念-缩放页
-    http://q.10jqka.com.cn/gn/detail/code/301558/
-    :return: 所有概念板块的名称和链接
-    :rtype: pandas.DataFrame
-    """
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
-    }
-    url = 'http://q.10jqka.com.cn/gn/'
-    r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    html_list = soup.find('div', attrs={'class': 'boxShadow'}).find_all('a', attrs={'target': '_blank'})
-    name_list = [item.text for item in html_list]
-    url_list = [item['href'] for item in html_list]
-    temp_df = pd.DataFrame([name_list, url_list], index=['name', 'url']).T
-    return temp_df
-
-
 def stock_board_concept_name_ths() -> pd.DataFrame:
     """
     同花顺-板块-概念板块-概念
@@ -105,16 +85,17 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
             inner_url = item.find_all("td")[1].find('a')['href']
             url_list.append(inner_url)
         temp_df = pd.read_html(r.text)[0]
-        temp_df['代码'] = url_list
+        temp_df['网址'] = url_list
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df = big_df[[
         '日期',
         '概念名称',
         '成分股数量',
-        '代码'
+        '网址'
     ]]
     big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
     big_df['成分股数量'] = pd.to_numeric(big_df['成分股数量'])
+    big_df['代码'] = big_df['网址'].str.split("/", expand=True).iloc[:, 6]
     return big_df
 
 
@@ -127,7 +108,7 @@ def _stock_board_concept_code_ths() -> pd.DataFrame:
     """
     _stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     name_list = _stock_board_concept_name_ths_df['概念名称'].tolist()
-    url_list = [item.split('/')[-2] for item in _stock_board_concept_name_ths_df['代码'].tolist()]
+    url_list = [item.split('/')[-2] for item in _stock_board_concept_name_ths_df['网址'].tolist()]
     temp_map = dict(zip(name_list, url_list))
     return temp_map
 
@@ -142,7 +123,7 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     :rtype: pandas.DataFrame
     """
     stock_board_ths_map_df = stock_board_concept_name_ths()
-    symbol = stock_board_ths_map_df[stock_board_ths_map_df['概念名称'] == symbol]['代码'].values[0].split('/')[-2]
+    symbol = stock_board_ths_map_df[stock_board_ths_map_df['概念名称'] == symbol]['网址'].values[0].split('/')[-2]
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
@@ -189,7 +170,7 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     :rtype: pandas.DataFrame
     """
     stock_board_ths_map_df = stock_board_concept_name_ths()
-    symbol_code = stock_board_ths_map_df[stock_board_ths_map_df['概念名称'] == symbol]['代码'].values[0].split('/')[-2]
+    symbol_code = stock_board_ths_map_df[stock_board_ths_map_df['概念名称'] == symbol]['网址'].values[0].split('/')[-2]
     url = f'http://q.10jqka.com.cn/gn/detail/code/{symbol_code}/'
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36',
