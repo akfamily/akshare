@@ -986,6 +986,8 @@
  "stock_gdfx_top_10_em"  # 东方财富网-个股-十大股东
  "stock_gdfx_free_holding_detail_em"  # 股东持股明细-十大流通股东
  "stock_gdfx_holding_detail_em"  # 股东持股明细-十大股东
+ "stock_gdfx_free_holding_change_em"  # 股东持股变动统计-十大流通股东
+ "stock_gdfx_holding_change_em"  # 股东持股变动统计-十大股东
 ```
 
 ## 案例演示
