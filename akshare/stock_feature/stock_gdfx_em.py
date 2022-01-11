@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/1/9 16:40
+Date: 2022/1/11 14:15
 Desc: 东方财富网-数据中心-股东分析
 https://data.eastmoney.com/gdfx/
 """
@@ -10,8 +10,161 @@ import requests
 from tqdm import tqdm
 
 
+def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-股东分析-股东持股变动统计-十大流通股东
+    https://data.eastmoney.com/gdfx/HoldingAnalyse.html
+    :param date: 报告期
+    :type date: str
+    :return: 十大流通股东
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "HOLDER_NUM,HOLDER_NEW",
+        "sortTypes": "-1,-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_FREEHOLDERS_BASIC_INFONEW",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"(END_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1)):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df.index + 1
+    big_df.columns = [
+        "序号",
+        "-",
+        "-",
+        "股东名称",
+        "-",
+        "股东类型",
+        "-",
+        "-",
+        "-",
+        "期末持股只数统计-总持有",
+        "期末持股只数统计-新进",
+        "期末持股只数统计-增加",
+        "期末持股只数统计-减少",
+        "期末持股只数统计-不变",
+        "-",
+        "流通市值统计",
+        "持有个股",
+        "-",
+        "-",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "股东名称",
+            "股东类型",
+            "期末持股只数统计-总持有",
+            "期末持股只数统计-新进",
+            "期末持股只数统计-增加",
+            "期末持股只数统计-不变",
+            "期末持股只数统计-减少",
+            "流通市值统计",
+            "持有个股",
+        ]
+    ]
+    big_df["期末持股只数统计-总持有"] = pd.to_numeric(big_df["期末持股只数统计-总持有"])
+    big_df["期末持股只数统计-新进"] = pd.to_numeric(big_df["期末持股只数统计-新进"])
+    big_df["期末持股只数统计-增加"] = pd.to_numeric(big_df["期末持股只数统计-增加"])
+    big_df["期末持股只数统计-不变"] = pd.to_numeric(big_df["期末持股只数统计-不变"])
+    big_df["期末持股只数统计-减少"] = pd.to_numeric(big_df["期末持股只数统计-减少"])
+    big_df["流通市值统计"] = pd.to_numeric(big_df["流通市值统计"])
+    return big_df
+
+
+def stock_gdfx_holding_change_em(date: str = "20210930") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-股东分析-股东持股变动统计-十大股东
+    https://data.eastmoney.com/gdfx/HoldingAnalyse.html
+    :param date: 报告期
+    :type date: str
+    :return: 十大流通股东
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "HOLDER_NUM,HOLDER_NEW",
+        "sortTypes": "-1,-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_HOLDERS_BASIC_INFO",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"(END_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1)):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df.index + 1
+    big_df.columns = [
+        "序号",
+        "-",
+        "-",
+        "股东名称",
+        "-",
+        "股东类型",
+        "-",
+        "-",
+        "-",
+        "期末持股只数统计-总持有",
+        "期末持股只数统计-新进",
+        "期末持股只数统计-增加",
+        "期末持股只数统计-减少",
+        "期末持股只数统计-不变",
+        "-",
+        "-",
+        "持有个股",
+        "流通市值统计",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "股东名称",
+            "股东类型",
+            "期末持股只数统计-总持有",
+            "期末持股只数统计-新进",
+            "期末持股只数统计-增加",
+            "期末持股只数统计-不变",
+            "期末持股只数统计-减少",
+            "流通市值统计",
+            "持有个股",
+        ]
+    ]
+    big_df["期末持股只数统计-总持有"] = pd.to_numeric(big_df["期末持股只数统计-总持有"])
+    big_df["期末持股只数统计-新进"] = pd.to_numeric(big_df["期末持股只数统计-新进"])
+    big_df["期末持股只数统计-增加"] = pd.to_numeric(big_df["期末持股只数统计-增加"])
+    big_df["期末持股只数统计-不变"] = pd.to_numeric(big_df["期末持股只数统计-不变"])
+    big_df["期末持股只数统计-减少"] = pd.to_numeric(big_df["期末持股只数统计-减少"])
+    big_df["流通市值统计"] = pd.to_numeric(big_df["流通市值统计"])
+    return big_df
+
+
 def stock_gdfx_free_top_10_em(
-        symbol: str = "sh688686", date: str = "20210630"
+    symbol: str = "sh688686", date: str = "20210630"
 ) -> pd.DataFrame:
     """
     东方财富网-个股-十大流通股东
@@ -68,7 +221,7 @@ def stock_gdfx_free_top_10_em(
 
 
 def stock_gdfx_top_10_em(
-        symbol: str = "sh688686", date: str = "20210630"
+    symbol: str = "sh688686", date: str = "20210630"
 ) -> pd.DataFrame:
     """
     东方财富网-个股-十大股东
@@ -284,7 +437,6 @@ def stock_gdfx_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
         "股东类型",
         "-",
         "-",
-
     ]
     big_df = big_df[
         [
@@ -312,9 +464,6 @@ def stock_gdfx_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
     big_df["期末持股-数量变化比例"] = pd.to_numeric(big_df["期末持股-数量变化比例"])
     big_df["期末持股-流通市值"] = pd.to_numeric(big_df["期末持股-流通市值"])
     return big_df
-
-
-
 
 
 def stock_gdfx_free_holding_analyse_em(date: str = "20210930") -> pd.DataFrame:
@@ -521,6 +670,14 @@ def stock_gdfx_holding_analyse_em(date: str = "20210930") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    stock_gdfx_free_holding_change_em_df = stock_gdfx_free_holding_change_em(
+        date="20210930"
+    )
+    print(stock_gdfx_free_holding_change_em_df)
+
+    stock_gdfx_holding_change_em_df = stock_gdfx_holding_change_em(date="20210930")
+    print(stock_gdfx_holding_change_em_df)
+
     stock_gdfx_free_top_10_em_df = stock_gdfx_free_top_10_em(
         symbol="sh688686", date="20210630"
     )
@@ -529,7 +686,9 @@ if __name__ == "__main__":
     stock_gdfx_top_10_em_df = stock_gdfx_top_10_em(symbol="sh688686", date="20210630")
     print(stock_gdfx_top_10_em_df)
 
-    stock_gdfx_free_holding_detail_em_df = stock_gdfx_free_holding_detail_em(date="20210930")
+    stock_gdfx_free_holding_detail_em_df = stock_gdfx_free_holding_detail_em(
+        date="20210930"
+    )
     print(stock_gdfx_free_holding_detail_em_df)
 
     stock_gdfx_holding_detail_em_df = stock_gdfx_holding_detail_em(date="20210930")
