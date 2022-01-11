@@ -1766,9 +1766,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.42 add: add stock_gdfx_free_holding_detail_em interface
 1.3.43 add: add stock_gdfx_free_holding_change_em interface
 1.3.44 fix: fix stock_board_concept_name_ths interface
+1.3.45 add: add stock_gdfx_holding_change_em interface
 """
 
-__version__ = "1.3.44"
+__version__ = "1.3.45"
 __author__ = "Albert King"
 
 import sys
@@ -1788,7 +1789,9 @@ from akshare.stock_feature.stock_gdfx_em import (
     stock_gdfx_free_top_10_em,
     stock_gdfx_top_10_em,
     stock_gdfx_free_holding_detail_em,
-    stock_gdfx_holding_detail_em
+    stock_gdfx_holding_detail_em,
+    stock_gdfx_free_holding_change_em,
+    stock_gdfx_holding_change_em,
 )
 
 """
