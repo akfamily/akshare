@@ -16,7 +16,7 @@ def stock_notice_report(
     """
     东方财富网-数据中心-公告大全-沪深 A 股公告
     http://data.eastmoney.com/notices/hsa/5.html
-    :param report_type: 报告类型; choice of {"财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"}
+    :param report_type: 报告类型; choice of {"全部", "财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"}
     :type report_type: str
     :param recent_page: 返回最近的页数
     :type recent_page: int
@@ -25,6 +25,7 @@ def stock_notice_report(
     """
     url = "http://np-anotice-stock.eastmoney.com/api/security/ann"
     report_map = {
+        "全部":"0",
         "财务报告": "1",
         "融资公告": "2",
         "风险提示": "3",
@@ -91,7 +92,7 @@ def stock_notice_report(
 
 
 if __name__ == "__main__":
-    item_list = ["财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"]
+    item_list = ["全部","财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"]
     for temp_item in item_list:
         stock_notice_report_df = stock_notice_report(report_type=temp_item, recent_page="10")
         print(stock_notice_report_df)
