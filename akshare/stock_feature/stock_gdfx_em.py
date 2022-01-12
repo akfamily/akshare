@@ -1,13 +1,179 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/1/11 14:15
+Date: 2022/1/12 14:55
 Desc: 东方财富网-数据中心-股东分析
 https://data.eastmoney.com/gdfx/
 """
 import pandas as pd
 import requests
 from tqdm import tqdm
+
+
+def stock_gdfx_free_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-股东分析-股东持股统计-十大流通股东
+    https://data.eastmoney.com/gdfx/HoldingAnalyse.html
+    :param date: 报告期
+    :type date: str
+    :return: 十大流通股东
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "STATISTICS_TIMES,COOPERATION_HOLDER_MARK",
+        "sortTypes": "-1,-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_COOPFREEHOLDERS_ANALYSISNEW",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"""(HOLDNUM_CHANGE_TYPE="001")(END_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')""",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1)):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df.index + 1
+    big_df.columns = [
+        "序号",
+        "-",
+        "-",
+        "股东名称",
+        "股东类型",
+        "-",
+        "统计次数",
+        "公告日后涨幅统计-10个交易日-平均涨幅",
+        "公告日后涨幅统计-10个交易日-最大涨幅",
+        "公告日后涨幅统计-10个交易日-最小涨幅",
+        "公告日后涨幅统计-30个交易日-平均涨幅",
+        "公告日后涨幅统计-30个交易日-最大涨幅",
+        "公告日后涨幅统计-30个交易日-最小涨幅",
+        "公告日后涨幅统计-60个交易日-平均涨幅",
+        "公告日后涨幅统计-60个交易日-最大涨幅",
+        "公告日后涨幅统计-60个交易日-最小涨幅",
+        "持有个股",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "股东名称",
+            "股东类型",
+            "统计次数",
+            "公告日后涨幅统计-10个交易日-平均涨幅",
+            "公告日后涨幅统计-10个交易日-最大涨幅",
+            "公告日后涨幅统计-10个交易日-最小涨幅",
+            "公告日后涨幅统计-30个交易日-平均涨幅",
+            "公告日后涨幅统计-30个交易日-最大涨幅",
+            "公告日后涨幅统计-30个交易日-最小涨幅",
+            "公告日后涨幅统计-60个交易日-平均涨幅",
+            "公告日后涨幅统计-60个交易日-最大涨幅",
+            "公告日后涨幅统计-60个交易日-最小涨幅",
+            "持有个股",
+        ]
+    ]
+    big_df["统计次数"] = pd.to_numeric(big_df["统计次数"])
+    big_df["公告日后涨幅统计-10个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-10个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-10个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-最小涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-最小涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-最小涨幅"])
+    return big_df
+
+
+def stock_gdfx_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-股东分析-股东持股统计-十大股东
+    https://data.eastmoney.com/gdfx/HoldingAnalyse.html
+    :param date: 报告期
+    :type date: str
+    :return: 十大股东
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "STATISTICS_TIMES,COOPERATION_HOLDER_MARK",
+        "sortTypes": "-1,-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_COOPHOLDERS_ANALYSIS",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"""(HOLDNUM_CHANGE_TYPE="001")(END_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')""",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1)):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df.index + 1
+    big_df.columns = [
+        "序号",
+        "-",
+        "-",
+        "股东名称",
+        "股东类型",
+        "-",
+        "统计次数",
+        "公告日后涨幅统计-10个交易日-平均涨幅",
+        "公告日后涨幅统计-10个交易日-最大涨幅",
+        "公告日后涨幅统计-10个交易日-最小涨幅",
+        "公告日后涨幅统计-30个交易日-平均涨幅",
+        "公告日后涨幅统计-30个交易日-最大涨幅",
+        "公告日后涨幅统计-30个交易日-最小涨幅",
+        "公告日后涨幅统计-60个交易日-平均涨幅",
+        "公告日后涨幅统计-60个交易日-最大涨幅",
+        "公告日后涨幅统计-60个交易日-最小涨幅",
+        "持有个股",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "股东名称",
+            "股东类型",
+            "统计次数",
+            "公告日后涨幅统计-10个交易日-平均涨幅",
+            "公告日后涨幅统计-10个交易日-最大涨幅",
+            "公告日后涨幅统计-10个交易日-最小涨幅",
+            "公告日后涨幅统计-30个交易日-平均涨幅",
+            "公告日后涨幅统计-30个交易日-最大涨幅",
+            "公告日后涨幅统计-30个交易日-最小涨幅",
+            "公告日后涨幅统计-60个交易日-平均涨幅",
+            "公告日后涨幅统计-60个交易日-最大涨幅",
+            "公告日后涨幅统计-60个交易日-最小涨幅",
+            "持有个股",
+        ]
+    ]
+    big_df["统计次数"] = pd.to_numeric(big_df["统计次数"])
+    big_df["公告日后涨幅统计-10个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-10个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-10个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-最小涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-最小涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-最小涨幅"])
+    return big_df
 
 
 def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
@@ -670,6 +836,12 @@ def stock_gdfx_holding_analyse_em(date: str = "20210930") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    stock_gdfx_free_holding_statistics_em_df = stock_gdfx_free_holding_statistics_em(date="20210930")
+    print(stock_gdfx_free_holding_statistics_em_df)
+
+    stock_gdfx_holding_statistics_em_df = stock_gdfx_holding_statistics_em(date="20210930")
+    print(stock_gdfx_holding_statistics_em_df)
+
     stock_gdfx_free_holding_change_em_df = stock_gdfx_free_holding_change_em(
         date="20210930"
     )

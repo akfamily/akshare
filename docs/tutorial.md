@@ -988,6 +988,8 @@
  "stock_gdfx_holding_detail_em"  # 股东持股明细-十大股东
  "stock_gdfx_free_holding_change_em"  # 股东持股变动统计-十大流通股东
  "stock_gdfx_holding_change_em"  # 股东持股变动统计-十大股东
+ "stock_gdfx_free_holding_statistics_em"  # 股东持股统计-十大流通股东
+ "stock_gdfx_holding_statistics_em"  # 股东持股统计-十大股东
 ```
 
 ## 案例演示
