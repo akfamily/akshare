@@ -7473,7 +7473,7 @@ print(stock_sector_fund_flow_rank_df)
 
 | 名称   | 类型 |  描述   |
 | -------- | ---- |  --- |
-| report_type | str |  report_type="财务报告"; choice of {"财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"}|
+| report_type | str |  report_type="财务报告"; choice of {"全部","财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"}|
 | recent_page | str | recent_page="10"; 指定返回最近的页数|
 
 输出参数
