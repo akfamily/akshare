@@ -1770,9 +1770,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.46 fix: fix futures_main_sina interface
 1.3.47 add: add stock_gdfx_free_holding_statistics_em interface
 1.3.48 add: add stock_gdfx_free_holding_teamwork_em interface
+1.3.49 fix: fix fund_em_open_fund_info interface
 """
 
-__version__ = "1.3.48"
+__version__ = "1.3.49"
 __author__ = "Albert King"
 
 import sys
