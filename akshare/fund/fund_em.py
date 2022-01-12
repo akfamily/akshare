@@ -169,7 +169,7 @@ def fund_em_open_fund_daily() -> pd.DataFrame:
 
 
 def fund_em_open_fund_info(
-    fund: str = "580007", indicator: str = "单位净值走势"
+    fund: str = "000002", indicator: str = "单位净值走势"
 ) -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-开放式基金净值
@@ -191,13 +191,16 @@ def fund_em_open_fund_info(
 
     # 单位净值走势
     if indicator == "单位净值走势":
-        data_json = demjson.decode(
-            data_text[
-                data_text.find("Data_netWorthTrend")
-                + 21 : data_text.find("Data_ACWorthTrend")
-                - 15
-            ]
-        )
+        try:
+            data_json = demjson.decode(
+                data_text[
+                    data_text.find("Data_netWorthTrend")
+                    + 21 : data_text.find("Data_ACWorthTrend")
+                    - 15
+                ]
+            )
+        except:
+            return pd.DataFrame()
         temp_df = pd.DataFrame(data_json)
         temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
             "Asia/Shanghai"
@@ -223,11 +226,14 @@ def fund_em_open_fund_info(
 
     # 累计净值走势
     if indicator == "累计净值走势":
-        data_json = demjson.decode(
-            data_text[
-                data_text.find("Data_ACWorthTrend") + 20 : data_text.find("Data_grandTotal") - 16
-            ]
-        )
+        try:
+            data_json = demjson.decode(
+                data_text[
+                    data_text.find("Data_ACWorthTrend") + 20 : data_text.find("Data_grandTotal") - 16
+                ]
+            )
+        except:
+            return pd.DataFrame()
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["x", "y"]
         temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
