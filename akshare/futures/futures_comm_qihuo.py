@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/23 17:07
+Date: 2022/1/12 22:07
 Desc: 九期网-期货手续费
 http://www.9qihuo.com/qihuoshouxufei
 """
@@ -22,7 +22,7 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     :return: 处理后的数据
     :rtype: pandas.DataFrame
     """
-    common_temp_df = df
+    common_temp_df = df.copy()
 
     common_temp_df["合约名称"] = (
         common_temp_df["合约品种"].str.split("(", expand=True).iloc[:, 0].str.strip()
@@ -174,6 +174,8 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
         "手续费(开+平)",
         "每跳净利",
         "备注",
+        "-",
+        "-",
     ]
     df_0 = temp_df[temp_df["合约品种"].str.contains("上海期货交易所")].index.values[0]
     df_1 = temp_df[temp_df["合约品种"].str.contains("大连商品交易所")].index.values[0]
