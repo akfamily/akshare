@@ -10,6 +10,118 @@ import requests
 from tqdm import tqdm
 
 
+def stock_gdfx_free_holding_teamwork_em() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-股东分析-股东协同-十大流通股东
+    https://data.eastmoney.com/gdfx/HoldingAnalyse.html
+    :return: 十大流通股东
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "COOPERAT_NUM,HOLDER_NEW,COOPERAT_HOLDER_NEW",
+        "sortTypes": "-1,-1,-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_COOPFREEHOLDER",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1)):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df.index + 1
+    big_df.columns = [
+        "序号",
+        "-",
+        "股东名称",
+        "股东类型",
+        "-",
+        "协同股东名称",
+        "协同股东类型",
+        "协同次数",
+        "个股详情",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "股东名称",
+            "股东类型",
+            "协同股东名称",
+            "协同股东类型",
+            "协同次数",
+            "个股详情",
+        ]
+    ]
+    big_df["协同次数"] = pd.to_numeric(big_df["协同次数"])
+    return big_df
+
+
+def stock_gdfx_holding_teamwork_em() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-股东分析-股东协同-十大股东
+    https://data.eastmoney.com/gdfx/HoldingAnalyse.html
+    :return: 十大股东
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "sortColumns": "COOPERAT_NUM,HOLDER_NEW,COOPERAT_HOLDER_NEW",
+        "sortTypes": "-1,-1,-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_TENHOLDERS_COOPHOLDERS",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1)):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = big_df.append(temp_df, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df.index + 1
+    big_df.columns = [
+        "序号",
+        "-",
+        "股东名称",
+        "股东类型",
+        "-",
+        "协同股东名称",
+        "协同股东类型",
+        "协同次数",
+        "个股详情",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "股东名称",
+            "股东类型",
+            "协同股东名称",
+            "协同股东类型",
+            "协同次数",
+            "个股详情",
+        ]
+    ]
+    big_df["协同次数"] = pd.to_numeric(big_df["协同次数"])
+    return big_df
+
+
 def stock_gdfx_free_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
     """
     东方财富网-数据中心-股东分析-股东持股统计-十大流通股东
@@ -836,6 +948,12 @@ def stock_gdfx_holding_analyse_em(date: str = "20210930") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    stock_gdfx_free_holding_teamwork_em_df = stock_gdfx_free_holding_teamwork_em()
+    print(stock_gdfx_free_holding_teamwork_em_df)
+
+    stock_gdfx_holding_teamwork_em_df = stock_gdfx_holding_teamwork_em()
+    print(stock_gdfx_holding_teamwork_em_df)
+
     stock_gdfx_free_holding_statistics_em_df = stock_gdfx_free_holding_statistics_em(date="20210930")
     print(stock_gdfx_free_holding_statistics_em_df)
 
