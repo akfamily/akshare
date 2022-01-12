@@ -963,8 +963,8 @@
  "stock_board_industry_name_em"  # 行业板块-板块名称
  # 股票回购数据
  "stock_repurchase_em"  # 股票回购数据
- # 品种字典
- "futures_hq_subscribe_exchange_symbol"  # 品种字典
+ # 期货品种字典
+ "futures_hq_subscribe_exchange_symbol"  # 期货品种字典
  # 富途-美股
  "stock_us_hist_fu"  # 富途-美股
  # 上海黄金交易所

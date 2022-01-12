@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/10/15 15:49
+Date: 2022/1/12 19:45
 Desc: 东方财富网-数据中心-公告大全-沪深 A 股公告
 http://data.eastmoney.com/notices/hsa/5.html
 """
@@ -14,18 +14,18 @@ def stock_notice_report(
     report_type: str = "财务报告", recent_page: str = "10"
 ) -> pd.DataFrame:
     """
-    东方财富网-数据中心-公告大全-沪深 A 股公告
+    东方财富网-数据中心-公告大全-沪深京 A 股公告
     http://data.eastmoney.com/notices/hsa/5.html
-    :param report_type: 报告类型; choice of {"全部", "财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"}
+    :param report_type: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
     :type report_type: str
     :param recent_page: 返回最近的页数
     :type recent_page: int
-    :return: 沪深 A 股公告
+    :return: 沪深京 A 股公告
     :rtype: pandas.DataFrame
     """
     url = "http://np-anotice-stock.eastmoney.com/api/security/ann"
     report_map = {
-        "全部":"0",
+        "全部": "0",
         "财务报告": "1",
         "融资公告": "2",
         "风险提示": "3",
@@ -35,7 +35,7 @@ def stock_notice_report(
         "持股变动": "7",
     }
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(recent_page)+1), leave=False):
+    for page in tqdm(range(1, int(recent_page) + 1), leave=False):
         params = {
             "sr": "-1",
             "page_size": "100",
@@ -87,13 +87,14 @@ def stock_notice_report(
             "公告日期",
         ]
     ]
-    big_df['公告日期'] = pd.to_datetime(big_df['公告日期']).dt.date
+    big_df["公告日期"] = pd.to_datetime(big_df["公告日期"]).dt.date
     return big_df
 
 
 if __name__ == "__main__":
-    item_list = ["全部","财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"]
+    item_list = ["全部", "财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"]
     for temp_item in item_list:
-        stock_notice_report_df = stock_notice_report(report_type=temp_item, recent_page="10")
+        stock_notice_report_df = stock_notice_report(
+            report_type=temp_item, recent_page="10"
+        )
         print(stock_notice_report_df)
-        break
