@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/5/27 12:19
+Date: 2022/1/13 17:50
 Desc: 商品现货价格指数
 http://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
 """
@@ -11,7 +11,7 @@ import pandas as pd
 
 def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
     """
-    商品现货价格指数
+    新浪财经-商品现货价格指数
     http://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
     :param symbol: choice of {"进口大豆价格指数", "波罗的海干散货指数", "钢坯价格指数", "普氏62%铁矿石指数"}
     :type symbol: str
@@ -32,9 +32,13 @@ def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
     temp_df = temp_df[["opendate", "price", "zde", "zdf"]]
     temp_df.columns = ["日期", "指数", "涨跌额", "涨跌幅"]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df['指数'] = pd.to_numeric(temp_df['指数'])
+    temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     return temp_df
 
 
 if __name__ == "__main__":
-    spot_df = spot_goods(symbol="钢坯价格指数")
-    print(spot_df)
+    spot_goods_df = spot_goods(symbol="钢坯价格指数")
+    print(spot_goods_df)

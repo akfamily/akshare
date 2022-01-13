@@ -1848,6 +1848,7 @@ Name: python, Length: 192, dtype: int32
 
 ```python
 import akshare as ak
+
 index_df = df = ak.google_index(word="AI", start_date="2019-12-10T10", end_date="2019-12-10T23", plot=True)
 print(index_df)
 ```
@@ -1884,23 +1885,23 @@ Name: 人工智能, Length: 98, dtype: int32
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| - | -  |    -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| --------------- | ----- | ---------------- |
-| 指数代码      | object   |    |
-| 指数名称      | object   |    |
-| 昨收盘      | float64   |   |
-| 今开盘      | float64   |    |
-| 成交额      | float64   |  注意单位: 元 |
-| 最高价      | float64   |    |
-| 最低价      | float64   |   |
-| 最新价      | float64   |    |
-| 成交量      | int64   | 注意单位: 股  |
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 指数代码 | object  |         |
+| 指数名称 | object  |         |
+| 昨收盘  | float64 |         |
+| 今开盘  | float64 |         |
+| 成交额  | float64 | 注意单位: 元 |
+| 最高价  | float64 |         |
+| 最低价  | float64 |         |
+| 最新价  | float64 |         |
+| 成交量  | int64   | 注意单位: 股 |
 
 接口示例
 
@@ -2193,9 +2194,9 @@ print(sw_index_third_cons_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                  |
-|------------|-----|---------------------|
-| index_code | str | index_code="801010" |
+| 名称     | 类型  | 描述              |
+|--------|-----|-----------------|
+| symbol | str | symbol="801010" |
 
 输出参数
 
@@ -2211,7 +2212,7 @@ print(sw_index_third_cons_df)
 ```python
 import akshare as ak
 
-sw_index_cons_df = ak.sw_index_cons(index_code="801010")
+sw_index_cons_df = ak.sw_index_cons(symbol="801010")
 print(sw_index_cons_df)
 ```
 
@@ -2386,36 +2387,37 @@ print(sw_index_daily_indicator_df)
 
 目标地址: http://finance.sina.com.cn/futuremarket/spotprice.shtml#titlePos_0
 
-描述: 获取商品现货价格指数
+描述: 新浪财经-商品现货价格指数
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y   |   symbol="波罗的海干散货指数"; 指数目录请参考 **现货指数一览表** |
+| 名称     | 类型  | 描述                                      |
+|--------|-----|-----------------------------------------|
+| symbol | str | symbol="波罗的海干散货指数"; 指数目录请参考 **现货指数一览表** |
 
 现货指数一览表
 
-| 名称          | 时间段 | 
-| --------------- | ----- |
-| 进口大豆价格指数      | 2000-2016   |
-| 波罗的海干散货指数      | 2007-至今   |
-| 钢坯价格指数      | 2005-至今   | 
-| 普氏62%铁矿石指数      | 2011-至今  |
+| 名称         | 时间段       | 
+|------------|-----------|
+| 进口大豆价格指数   | 2000-2016 |
+| 波罗的海干散货指数  | 2007-至今   |
+| 钢坯价格指数     | 2005-至今   | 
+| 普氏62%铁矿石指数 | 2011-至今   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | object   | Y        |   |
-| 指数      | object   | Y        |    |
-| 涨跌额      | object   | Y        |   |
-| 涨跌幅      | object   | Y        |    |
+| 名称  | 类型      | 描述  |
+|-----|---------|-----|
+| 日期  | object  |     |
+| 指数  | float64 |     |
+| 涨跌额 | float64 |     |
+| 涨跌幅 | float64 |     |
 
 接口示例-天
 
 ```python
 import akshare as ak
+
 spot_goods_df = ak.spot_goods(symbol="波罗的海干散货指数")
 print(spot_goods_df)
 ```
