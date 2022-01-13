@@ -1436,13 +1436,13 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
 
 
 def stock_hsgt_individual_detail_em(
-    stock: str = "600596", start_date: str = "20210830", end_date: str = "20211026"
+    symbol: str = "600596", start_date: str = "20210830", end_date: str = "20211026"
 ) -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票详情
     http://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :param start_date: 开始时间
     :type start_date: str
     :param end_date: 结束时间
@@ -1460,7 +1460,7 @@ def stock_hsgt_individual_detail_em(
         "columns": "ALL",
         "source": "WEB",
         "client": "WEB",
-        "filter": f"""(SECURITY_CODE="{stock}")(MARKET_CODE="003")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+        "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="003")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -1469,7 +1469,7 @@ def stock_hsgt_individual_detail_em(
     except TypeError as e:
         params.update(
             {
-                "filter": f"""(SECURITY_CODE="{stock}")(MARKET_CODE="001")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+                "filter": f"""(SECURITY_CODE="{symbol}")(MARKET_CODE="001")(HOLD_DATE>='{'-'.join([start_date[:4], start_date[4:6], start_date[6:]])}')(HOLD_DATE<='{'-'.join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
             }
         )
         r = requests.get(url, params=params)
@@ -1629,6 +1629,6 @@ if __name__ == "__main__":
     print(stock_hsgt_individual_em_df)
 
     stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(
-        stock="600596", start_date="20210830", end_date="20211026"
+        symbol="600596", start_date="20210830", end_date="20211026"
     )
     print(stock_hsgt_individual_detail_em_df)
