@@ -119,16 +119,16 @@ def sw_index_second_spot() -> pd.DataFrame:
     return temp_df
 
 
-def sw_index_cons(index_code: str = "801011") -> pd.DataFrame:
+def sw_index_cons(symbol: str = "801011") -> pd.DataFrame:
     """
     申万指数成份信息-包括一级和二级行业都可以查询
     http://www.swsindex.com/idx0210.aspx?swindexcode=801010
-    :param index_code: 指数代码
-    :type index_code: str
+    :param symbol: 指数代码
+    :type symbol: str
     :return: 申万指数成份信息
     :rtype: pandas.DataFrame
     """
-    url = f"http://www.swsindex.com/downfile.aspx?code={index_code}"
+    url = f"http://www.swsindex.com/downfile.aspx?code={symbol}"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "html5lib")
     data = []
@@ -415,7 +415,7 @@ if __name__ == "__main__":
     sw_index_second_spot_df = sw_index_second_spot()
     print(sw_index_second_spot_df)
 
-    sw_index_cons_df = sw_index_cons(index_code="801001")
+    sw_index_cons_df = sw_index_cons(symbol="801193")
     print(sw_index_cons_df)
 
     sw_index_daily_df = sw_index_daily(
