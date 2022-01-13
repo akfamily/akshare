@@ -5833,15 +5833,15 @@ print(stock_hsgt_individual_em_df)
 
 描述: 东方财富网-数据中心-沪深港通-沪深港通持股-具体股票-个股详情
 
-限量: 单次获取指定 stock 的在 start_date 和 end_date 之间的所有数据
+限量: 单次获取指定 symbol 的在 start_date 和 end_date 之间的所有数据; 注意只能返回 90 个交易日内的数据
 
 输入参数
 
-| 名称         | 类型  | 描述                    |
-|------------|-----|-----------------------|
-| stock      | str | stock="002008"        |
-| start_date | str | start_date="20210830" |
-| end_date   | str | end_date="20211026"   |
+| 名称         | 类型  | 描述                                              |
+|------------|-----|-------------------------------------------------|
+| symbol     | str | symbol="002008"                                 |
+| start_date | str | start_date="20210830"; 注意只能返回离最近交易日 90 个交易日内的数据 |
+| end_date   | str | end_date="20211026"; 注意只能返回离最近交易日 90 个交易日内的数据   |
 
 输出参数
 
@@ -5863,7 +5863,7 @@ print(stock_hsgt_individual_em_df)
 ```python
 import akshare as ak
 
-stock_hsgt_individual_detail_em_df = ak.stock_hsgt_individual_detail_em(stock="002008", start_date="20210830", end_date="20211026")
+stock_hsgt_individual_detail_em_df = ak.stock_hsgt_individual_detail_em(symbol="002008", start_date="20210830", end_date="20211026")
 print(stock_hsgt_individual_detail_em_df)
 ```
 
