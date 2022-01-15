@@ -1197,21 +1197,21 @@ print(stock_zh_b_spot_em_df)
 
 输出参数-实时行情数据
 
-| 名称  | 类型    | 描述      |
-|-----|-------|---------|
-| 代码  | str   | -       |
-| 名称  | str   | -       |
-| 最新价 | float | -       |
-| 涨跌额 | float | -       |
-| 涨跌幅 | float | 注意单位: % |
-| 买入  | float | -       |
-| 卖出  | float | -       |
-| 昨收  | float | -       |
-| 今开  | float | -       |
-| 最高  | float | -       |
-| 最低  | float | -       |
-| 成交量 | float | 注意单位: 股 |
-| 成交额 | float | 注意单位: 元 |
+| 名称  | 类型      | 描述      |
+|-----|---------|---------|
+| 代码  | object  | -       |
+| 名称  | object  | -       |
+| 最新价 | float64 | -       |
+| 涨跌额 | float64 | -       |
+| 涨跌幅 | float64 | 注意单位: % |
+| 买入  | float64 | -       |
+| 卖出  | float64 | -       |
+| 昨收  | float64 | -       |
+| 今开  | float64 | -       |
+| 最高  | float64 | -       |
+| 最低  | float64 | -       |
+| 成交量 | float64 | 注意单位: 股 |
+| 成交额 | float64 | 注意单位: 元 |
 
 接口示例-实时行情数据
 
@@ -1283,16 +1283,16 @@ print(stock_zh_b_spot_df)
 
 输出参数-历史行情数据
 
-| 名称                | 类型         | 描述            |
-|-------------------|------------|---------------|
-| date              | datetime64 | 交易日           |
-| close             | float64    | 收盘价           |
-| high              | float64    | 最高价           |
-| low               | float64    | 最低价           |
-| open              | float64    | 开盘价           |
-| volume            | float64    | 成交量; 注意单位: 股  |
-| outstanding_share | float64    | 流动股本; 注意单位: 股 |
-| turnover          | float64    | 换手率=成交量/流动股本  |
+| 名称                | 类型      | 描述            |
+|-------------------|---------|---------------|
+| date              | object  | 交易日           |
+| close             | float64 | 收盘价           |
+| high              | float64 | 最高价           |
+| low               | float64 | 最低价           |
+| open              | float64 | 开盘价           |
+| volume            | float64 | 成交量; 注意单位: 股  |
+| outstanding_share | float64 | 流动股本; 注意单位: 股 |
+| turnover          | float64 | 换手率=成交量/流动股本  |
 
 接口示例-历史行情数据(前复权)
 
