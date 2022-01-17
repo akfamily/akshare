@@ -2965,4 +2965,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.53 fix: fix sw_index_cons interface
 
 1.3.54 fix: fix stock_em_qbzf interface
+
+1.3.55 fix: fix futures_comm_info interface
 ```
