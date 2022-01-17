@@ -1,12 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/31 17:07
-Desc: COVID-19
-COVID-19-网易
-COVID-19-丁香园
-COVID-19-百度
-COVID-19-GitHub
+Date: 2022/1/17 16:07
+Desc: COVID-19、COVID-19-网易、COVID-19-丁香园、COVID-19-百度、COVID-19-GitHub
 """
 import json
 import time
