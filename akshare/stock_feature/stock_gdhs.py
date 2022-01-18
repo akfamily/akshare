@@ -14,7 +14,7 @@ def stock_zh_a_gdhs(symbol: str = "20210930") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股东户数
     http://data.eastmoney.com/gdhs/
-    :param symbol: choice of {"最新", 每个季度末}
+    :param symbol: choice of {"最新", "每个季度末"}
     :type symbol: str
     :return: 股东户数
     :rtype: pandas.DataFrame
