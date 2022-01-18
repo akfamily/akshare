@@ -85,12 +85,16 @@ def futures_display_main_sina() -> pd.DataFrame:
     return temp_df
 
 
-def futures_main_sina(symbol: str = "V0") -> pd.DataFrame:
+def futures_main_sina(symbol: str = "V0", start_date: str = "19900101", end_date: str = "22220101") -> pd.DataFrame:
     """
     新浪财经-期货-主力连续日数据
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: 通过 ak.futures_display_main_sina() 函数获取 symbol
     :type symbol: str
+    :param start_date: 开始时间
+    :type start_date: str
+    :param end_date: 结束时间
+    :type end_date: str
     :return: 主力连续日数据
     :rtype: pandas.DataFrame
     """
@@ -102,6 +106,11 @@ def futures_main_sina(symbol: str = "V0") -> pd.DataFrame:
     data_json = data_text[data_text.find("([") + 1: data_text.rfind("])") + 1]
     temp_df = pd.read_json(data_json)
     temp_df.columns = ["日期", "开盘价", "最高价", "最低价", "收盘价", "成交量", "持仓量", "动态结算价"]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df.set_index(['日期'], inplace=True)
+    temp_df.index = pd.to_datetime(temp_df.index)
+    temp_df = temp_df[start_date:end_date]
+    temp_df.reset_index(inplace=True)
     temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
     temp_df['开盘价'] = pd.to_numeric(temp_df['开盘价'])
     temp_df['最高价'] = pd.to_numeric(temp_df['最高价'])
@@ -117,5 +126,5 @@ if __name__ == "__main__":
     futures_display_main_sina_df = futures_display_main_sina()
     print(futures_display_main_sina_df)
 
-    futures_main_sina_hist = futures_main_sina(symbol="V0")
+    futures_main_sina_hist = futures_main_sina(symbol="V0", start_date="20200101", end_date="20220101")
     print(futures_main_sina_hist)
