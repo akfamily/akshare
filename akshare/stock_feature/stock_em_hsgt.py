@@ -1274,38 +1274,40 @@ def stock_hsgt_board_rank_em(
     :return: 北向资金增持行业板块排行
     :rtype: pandas.DataFrame
     """
+    current_date = (pd.Timestamp('now') - pd.Timedelta('1 day')).date().isoformat()
     symbol_map = {
-        "北向资金增持行业板块排行": "HSGT20_HYTJ_SUM",
-        "北向资金增持概念板块排行": "HSGT20_GNTJ_SUM",
-        "北向资金增持地域板块排行": "HSGT20_DQTJ_SUM",
+        "北向资金增持行业板块排行": "5",
+        "北向资金增持概念板块排行": "4",
+        "北向资金增持地域板块排行": "3",
     }
     indicator_map = {
         "今日": "1",
         "3日": "3",
         "5日": "5",
         "10日": "10",
-        "1月": "m",
-        "1季": "jd",
-        "1年": "y",
+        "1月": "M",
+        "1季": "Q",
+        "1年": "Y",
     }
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": symbol_map[symbol],
-        "token": "894050c76af8597a853f5b408b759f5d",
-        "st": "ShareSZ_ZC",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var WCCFPIdQ={pages:(tp),data:(x)}",
-        "filter": f"(DateType='{indicator_map[indicator]}')",
-        "rt": "53477178",
+        'sortColumns': 'ADD_MARKET_CAP',
+        'sortTypes': '-1',
+        'pageSize': '500',
+        'pageNumber': '1',
+        'reportName': 'RPT_MUTUAL_BOARD_HOLDRANK_WEB',
+        'columns': 'ALL',
+        'quoteColumns': 'f3~05~SECURITY_CODE~INDEX_CHANGE_RATIO',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f"""(BOARD_TYPE="{symbol_map[symbol]}")(TRADE_DATE='{current_date}')(INTERVAL_TYPE="{indicator_map[indicator]}")""",
     }
+
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") :])
-    temp_df = pd.DataFrame(data_json["data"])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']["data"])
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = list(range(1, len(temp_df) + 1))
+    temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
         "_",
@@ -1313,32 +1315,32 @@ def stock_hsgt_board_rank_em(
         "名称",
         "_",
         "最新涨跌幅",
+        "报告时间",
+        "_",
+        "_",
         "北向资金今日增持估计-股票只数",
         "北向资金今日持股-股票只数",
-        "北向资金今日持股-占北向资金比",
         "北向资金今日增持估计-市值",
         "北向资金今日增持估计-市值增幅",
+        "-",
         "北向资金今日增持估计-占板块比",
         "北向资金今日增持估计-占北向资金比",
-        "_",
         "北向资金今日持股-市值",
+        "北向资金今日持股-占北向资金比",
+        "北向资金今日持股-占板块比",
+        "_",
         "_",
         "今日增持最大股-市值",
         "_",
         "_",
-        "_",
         "今日减持最大股-市值",
+        "今日增持最大股-占总市值比",
+        "_",
+        "_",
+        "今日减持最大股-占总市值比",
         "_",
         "_",
         "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "北向资金今日持股-占板块比",
-        "今日增持最大股-占股本比",
-        "_",
-        "今日减持最大股-占股本比",
         "_",
     ]
     temp_df = temp_df[
@@ -1356,11 +1358,23 @@ def stock_hsgt_board_rank_em(
             "北向资金今日增持估计-占板块比",
             "北向资金今日增持估计-占北向资金比",
             "今日增持最大股-市值",
-            "今日增持最大股-占股本比",
-            "今日减持最大股-占股本比",
+            "今日增持最大股-占总市值比",
             "今日减持最大股-市值",
+            "今日减持最大股-占总市值比",
+            "报告时间",
         ]
     ]
+    temp_df['最新涨跌幅'] = pd.to_numeric(temp_df['最新涨跌幅'])
+    temp_df['北向资金今日持股-股票只数'] = pd.to_numeric(temp_df['北向资金今日持股-股票只数'])
+    temp_df['北向资金今日持股-市值'] = pd.to_numeric(temp_df['北向资金今日持股-市值'])
+    temp_df['北向资金今日持股-占板块比'] = pd.to_numeric(temp_df['北向资金今日持股-占板块比'])
+    temp_df['北向资金今日持股-占北向资金比'] = pd.to_numeric(temp_df['北向资金今日持股-占北向资金比'])
+    temp_df['北向资金今日增持估计-股票只数'] = pd.to_numeric(temp_df['北向资金今日增持估计-股票只数'])
+    temp_df['北向资金今日增持估计-市值'] = pd.to_numeric(temp_df['北向资金今日增持估计-市值'])
+    temp_df['北向资金今日增持估计-市值增幅'] = pd.to_numeric(temp_df['北向资金今日增持估计-市值增幅'])
+    temp_df['北向资金今日增持估计-占板块比'] = pd.to_numeric(temp_df['北向资金今日增持估计-占板块比'])
+    temp_df['北向资金今日增持估计-占北向资金比'] = pd.to_numeric(temp_df['北向资金今日增持估计-占北向资金比'])
+    temp_df['报告时间'] = pd.to_datetime(temp_df['报告时间']).dt.date
     return temp_df
 
 
