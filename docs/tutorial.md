@@ -419,6 +419,7 @@
  "currency_name_code"  # 当前所有可兑换货币对
  # 公募基金
  "fund_em_fund_name",  # 基金基本信息
+ "fund_purchase_em",  # 基金申购状态
  "fund_em_open_fund_daily",  # 开放式基金-实时数据
  "fund_em_open_fund_info",  # 开放式基金-历史数据
  "fund_em_etf_fund_daily",  # 场内交易基金-实时数据
@@ -962,8 +963,8 @@
  "stock_board_industry_name_em"  # 行业板块-板块名称
  # 股票回购数据
  "stock_repurchase_em"  # 股票回购数据
- # 品种字典
- "futures_hq_subscribe_exchange_symbol"  # 品种字典
+ # 期货品种字典
+ "futures_hq_subscribe_exchange_symbol"  # 期货品种字典
  # 富途-美股
  "stock_us_hist_fu"  # 富途-美股
  # 上海黄金交易所
@@ -978,6 +979,19 @@
  "index_inner_quote_sugar_msweet"  # 配额内进口糖估算指数
  # 配额外进口糖估算指数
  "index_outer_quote_sugar_msweet"  # 配额外进口糖估算指数
+ # 东方财富网-数据中心-股东分析-股东持股分析
+ "stock_gdfx_free_holding_analyse_em"  # 股东持股分析-十大流通股东
+ "stock_gdfx_holding_analyse_em"  # 股东持股分析-十大股东
+ "stock_gdfx_free_top_10_em"  # 东方财富网-个股-十大流通股东
+ "stock_gdfx_top_10_em"  # 东方财富网-个股-十大股东
+ "stock_gdfx_free_holding_detail_em"  # 股东持股明细-十大流通股东
+ "stock_gdfx_holding_detail_em"  # 股东持股明细-十大股东
+ "stock_gdfx_free_holding_change_em"  # 股东持股变动统计-十大流通股东
+ "stock_gdfx_holding_change_em"  # 股东持股变动统计-十大股东
+ "stock_gdfx_free_holding_statistics_em"  # 股东持股统计-十大流通股东
+ "stock_gdfx_holding_statistics_em"  # 股东持股统计-十大股东
+ "stock_gdfx_free_holding_teamwork_em"  # 股东协同-十大流通股东
+ "stock_gdfx_holding_teamwork_em"  # 股东协同-十大股东
 ```
 
 ## 案例演示
@@ -989,7 +1003,7 @@
 ```python
 import akshare as ak
 
-get_roll_yield_bar_df = ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718", plot=True)
+get_roll_yield_bar_df = ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718", plot=False)
 print(get_roll_yield_bar_df)
 ```
 

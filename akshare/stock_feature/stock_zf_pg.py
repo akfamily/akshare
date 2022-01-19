@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/5/18 15:06
+Date: 2022/1/14 14:23
 Desc: 增发和配股
 东方财富网-数据中心-新股数据-增发-全部增发
 http://data.eastmoney.com/other/gkzf.html
@@ -14,7 +14,7 @@ import requests
 from akshare.utils import demjson
 
 
-def stock_em_qbzf():
+def stock_em_qbzf() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-增发-全部增发
     http://data.eastmoney.com/other/gkzf.html
@@ -70,10 +70,15 @@ def stock_em_qbzf():
         ]
     ]
     temp_df["锁定期"] = "1-3年"
+    temp_df['发行总数'] = pd.to_numeric(temp_df['发行总数'])
+    temp_df['发行价格'] = pd.to_numeric(temp_df['发行价格'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['发行日期'] = pd.to_datetime(temp_df['发行日期']).dt.date
+    temp_df['增发上市日期'] = pd.to_datetime(temp_df['增发上市日期']).dt.date
     return temp_df
 
 
-def stock_em_pg():
+def stock_em_pg() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-配股
     http://data.eastmoney.com/xg/pg/
@@ -136,6 +141,15 @@ def stock_em_pg():
         ]
     ]
     temp_df["配股比例"] = "10配" + temp_df["配股比例"]
+    temp_df["配股数量"] = pd.to_numeric(temp_df["配股数量"])
+    temp_df["配股价"] = pd.to_numeric(temp_df["配股价"])
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+    temp_df["配股前总股本"] = pd.to_numeric(temp_df["配股前总股本"])
+    temp_df["配股后总股本"] = pd.to_numeric(temp_df["配股后总股本"])
+    temp_df["股权登记日"] = pd.to_datetime(temp_df["股权登记日"]).dt.date
+    temp_df["缴款起始日期"] = pd.to_datetime(temp_df["缴款起始日期"]).dt.date
+    temp_df["缴款截止日期"] = pd.to_datetime(temp_df["缴款截止日期"]).dt.date
+    temp_df["上市日"] = pd.to_datetime(temp_df["上市日"]).dt.date
     return temp_df
 
 

@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/1/13 13:58
+Date: 2022/1/7 14:22
 Desc: 99 期货网-大宗商品库存数据
 http://www.99qh.com/d/store.aspx
 """
-import os
-
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -19,32 +17,17 @@ from akshare.futures.cons import (
 
 
 def futures_inventory_99(
-    exchange: int = 3, symbol: int = 11, plot: bool = False
+    exchange: str = '大连商品交易所', symbol: str = '豆一'
 ) -> pd.DataFrame:
     """
-    调用此函数, 请调用 try except
-    # 交易所代码
-    {'1': '上海期货交易所', '2': '郑州商品交易所', '3': '大连商品交易所', '7': 'LME', '8': 'NYMEX', '9': 'CBOT', '11': 'NYBOT', '12': 'TOCOM', '14': '上海国际能源交易中心', '15': 'OSE'}
-    # 交易所对应合约代码
-    '上海期货交易所': {'6': '铜', '7': '铝', '8': '橡胶', '21': '燃料油', '54': '锌', '58': '黄金', '59': '螺纹钢', '62': '线材', '64': '铅', '69': '白银', '78': '石油沥青', '85': '热轧卷板', '93': '锡', '94': '镍', '103': '纸浆', '109': '不锈钢'},
-    '郑州商品交易所': {'9': '强麦', '10': '硬麦', '23': '一号棉', '51': '白糖', '53': 'PTA', '55': '菜籽油', '60': '早籼稻', '66': '甲醇',
-    '67': '普麦', '72': '玻璃', '73': '油菜籽', '74': '菜籽粕', '81': '粳稻', '88': '晚籼稻',
-    '90': '硅铁', '91': '锰硅', '99': '棉纱', '100': '苹果', '105': '红枣', '106': '尿素', '111': '纯碱'},
-    '大连商品交易所': {'11': '豆一', '12': '豆二', '16': '豆粕', '24': '玉米', '52': '豆油', '56': '聚乙烯',
-    '57': '棕榈油', '61': '聚氯乙烯', '65': '焦炭', '75': '焦煤', '79': '铁矿石', '80': '鸡蛋',
-    '82': '中密度纤维板', '83': '细木工板', '84': '聚丙烯', '92': '玉米淀粉', '104': '乙二醇', '108': '粳米', '110': '苯乙烯', '112': '纤维板', '113': '液化石油气'},
-    '上海国际能源交易中心': {'102': '原油', '107': '20号胶', '114': '低硫燃料油'}}
-    'LME': {'18': 'LME铜', '19': 'LME铝', '25': 'LME镍', '26': 'LME铅', '27': 'LME锌', '45': 'LME锡', '50': 'LME铝合金'},
-    'NYMEX': {'20': 'COMEX铜', '31': 'COMEX金', '32': 'COMEX银'},
-    'CBOT': {'22': 'CBOT大豆', '46': 'CBOT小麦', '47': 'CBOT玉米', '48': 'CBOT燕麦', '49': 'CBOT糙米'},
-    'NYBOT': {'30': 'NYBOT2号棉'}
-    'TOCOM': {'44': 'TOCOM橡胶'}
-    'OSE': {'44': 'OSE橡胶'}
-    :param exchange: int 交易所, 请对照 __doc__ 中的代码输入
-    :param symbol: int 品种, 请对照 __doc__ 中的代码输入对应交易所的品种
-    # :param dir_path: str 存放图片的目录
-    :param plot: Bool 画出历史库存曲线图
-    :return: pandas.DataFrame and picture
+    99 期货网-大宗商品库存数据
+    http://www.99qh.com/d/store.aspx
+    :param exchange: 交易所名称; choice of {"上海期货交易所", "郑州商品交易所", "大连商品交易所", "LME", "NYMEX", "CBOT", "NYBOT", "TOCOM", "上海国际能源交易中心", "OSE"}
+    :type exchange: str
+    :param symbol: 交易所对应的具体品种; 如：大连商品交易所的 豆一
+    :type symbol: str
+    :return: 大宗商品库存数据
+    :rtype: pandas.DataFrame
     """
     data_code = {
         "1": [
@@ -194,6 +177,22 @@ def futures_inventory_99(
         "14": ["原油", '20号胶', '低硫燃料油'],
         "15": ["OSE橡胶"],
     }
+    temp_out_exchange_name = {
+        "1": "上海期货交易所",
+        "2": "郑州商品交易所",
+        "3": "大连商品交易所",
+        "7": "LME",
+        "8": "NYMEX",
+        "9": "CBOT",
+        "11": "NYBOT",
+        "12": "TOCOM",
+        "14": "上海国际能源交易中心",
+        "15": "OSE",
+    }
+    exchange_map = {value: key for key, value in temp_out_exchange_name.items()}
+    exchange = exchange_map[exchange]
+    temp_symbol_code_map = dict(zip(data_name[exchange], data_code[exchange]))
+    symbol = temp_symbol_code_map[symbol]
     out_exchange_name = {
         "1": "上海期货交易所",
         "2": "郑州商品交易所",
@@ -298,15 +297,9 @@ def futures_inventory_99(
                     params=params,
                     headers=inventory_temp_headers,
                 )
-                if plot:
-                    with open(
-                        "{}_{}.jpg".format(
-                            exchange_name, code_temp_dict[str(exchange)][str(symbol)]
-                        ),
-                        "wb",
-                    ) as fs:
-                        print("保存图片到本地: {}".format(os.getcwd()))
-                        fs.write(res.content)
+                inventory_table['日期'] = pd.to_datetime(inventory_table['日期']).dt.date
+                inventory_table['库存'] = pd.to_numeric(inventory_table['库存'])
+                inventory_table['增减'] = pd.to_numeric(inventory_table['增减'])
                 return inventory_table
 
             else:
@@ -366,20 +359,14 @@ def futures_inventory_99(
                     params=params,
                     headers=inventory_temp_headers,
                 )
-                if plot:
-                    with open(
-                        "{}_{}.jpg".format(
-                            exchange_name, code_temp_dict[str(exchange)][str(symbol)]
-                        ),
-                        "wb",
-                    ) as fs:
-                        print("保存图片到本地: {}".format(os.getcwd()))
-                        fs.write(res.content)
+                inventory_table['日期'] = pd.to_datetime(inventory_table['日期']).dt.date
+                inventory_table['库存'] = pd.to_numeric(inventory_table['库存'])
+                inventory_table['增减'] = pd.to_numeric(inventory_table['增减'])
                 return inventory_table
         except:
             continue
 
 
 if __name__ == "__main__":
-    futures_inventory_99_df = futures_inventory_99(exchange=1, symbol=6, plot=False)
+    futures_inventory_99_df = futures_inventory_99(exchange='大连商品交易所', symbol='豆一')
     print(futures_inventory_99_df)

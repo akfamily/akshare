@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/20 18:18
+Date: 2022/1/7 12:18
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
@@ -14,6 +14,70 @@ import time
 from akshare.utils import demjson
 import pandas as pd
 import requests
+
+
+def fund_purchase_em() -> pd.DataFrame:
+    """
+    东方财富网站-天天基金网-基金数据-基金申购状态
+    http://fund.eastmoney.com/Fund_sgzt_bzdm.html#fcode,asc_1
+    :return: 基金申购状态
+    :rtype: pandas.DataFrame
+    """
+    url = "http://fund.eastmoney.com/Data/Fund_JJJZ_Data.aspx"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
+    params = {
+        't': '8',
+        'page': '1,50000',
+        'js': 'reData',
+        'sort': 'fcode,asc',
+        # 'callback': '?',
+        '_': '1641528557742',
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_text = r.text
+    data_json = demjson.decode(data_text.strip("var reData="))
+    temp_df = pd.DataFrame(data_json['datas'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = temp_df.index + 1
+    temp_df.columns = [
+        "序号",
+        "基金代码",
+        "基金简称",
+        "基金类型",
+        "最新净值/万份收益",
+        "最新净值/万份收益-报告时间",
+        "申购状态",
+        "赎回状态",
+        "下一开放日",
+        "购买起点",
+        "日累计限定金额",
+        "-",
+        "-",
+        "手续费",
+    ]
+    temp_df = temp_df[[
+        "序号",
+        "基金代码",
+        "基金简称",
+        "基金类型",
+        "最新净值/万份收益",
+        "最新净值/万份收益-报告时间",
+        "申购状态",
+        "赎回状态",
+        "下一开放日",
+        "购买起点",
+        "日累计限定金额",
+        "手续费",
+    ]]
+    temp_df['下一开放日'] = pd.to_datetime(temp_df['下一开放日']).dt.date
+    temp_df['最新净值/万份收益'] = pd.to_numeric(temp_df['最新净值/万份收益'])
+    temp_df['购买起点'] = pd.to_numeric(temp_df['购买起点'])
+    temp_df['日累计限定金额'] = pd.to_numeric(temp_df['日累计限定金额'])
+    temp_df['手续费'] = temp_df['手续费'].str.strip("%")
+    temp_df['手续费'] = pd.to_numeric(temp_df['手续费'])
+    return temp_df
 
 
 def fund_em_fund_name() -> pd.DataFrame:
@@ -105,7 +169,7 @@ def fund_em_open_fund_daily() -> pd.DataFrame:
 
 
 def fund_em_open_fund_info(
-    fund: str = "580007", indicator: str = "单位净值走势"
+    fund: str = "000002", indicator: str = "单位净值走势"
 ) -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-开放式基金净值
@@ -127,13 +191,16 @@ def fund_em_open_fund_info(
 
     # 单位净值走势
     if indicator == "单位净值走势":
-        data_json = demjson.decode(
-            data_text[
-                data_text.find("Data_netWorthTrend")
-                + 21 : data_text.find("Data_ACWorthTrend")
-                - 15
-            ]
-        )
+        try:
+            data_json = demjson.decode(
+                data_text[
+                    data_text.find("Data_netWorthTrend")
+                    + 21 : data_text.find("Data_ACWorthTrend")
+                    - 15
+                ]
+            )
+        except:
+            return pd.DataFrame()
         temp_df = pd.DataFrame(data_json)
         temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
             "Asia/Shanghai"
@@ -159,11 +226,14 @@ def fund_em_open_fund_info(
 
     # 累计净值走势
     if indicator == "累计净值走势":
-        data_json = demjson.decode(
-            data_text[
-                data_text.find("Data_ACWorthTrend") + 20 : data_text.find("Data_grandTotal") - 16
-            ]
-        )
+        try:
+            data_json = demjson.decode(
+                data_text[
+                    data_text.find("Data_ACWorthTrend") + 20 : data_text.find("Data_grandTotal") - 16
+                ]
+            )
+        except:
+            return pd.DataFrame()
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["x", "y"]
         temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
@@ -890,6 +960,9 @@ def fund_em_hk_fund_hist(
 
 
 if __name__ == "__main__":
+    fund_purchase_em_df = fund_purchase_em()
+    print(fund_purchase_em_df)
+
     fund_em_fund_name_df = fund_em_fund_name()
     print(fund_em_fund_name_df)
 

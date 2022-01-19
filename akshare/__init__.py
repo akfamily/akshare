@@ -1756,9 +1756,33 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.32 fix: fix stock_dzjy_mrtj interface
 1.3.33 fix: fix stock_dzjy_yybph interface
 1.3.34 fix: fix stock_history_dividend interface
+1.3.35 add: add fund_purchase_em interface
+1.3.36 fix: fix futures_inventory_99 interface
+1.3.37 fix: fix stock_financial_analysis_indicator interface
+1.3.38 fix: fix index_value_name_funddb interface
+1.3.39 fix: fix macro_china_hb interface
+1.3.40 add: add stock_gdfx_free_holding_analyse_em interface
+1.3.41 add: add stock_gdfx_free_top_10_em interface
+1.3.42 add: add stock_gdfx_free_holding_detail_em interface
+1.3.43 add: add stock_gdfx_free_holding_change_em interface
+1.3.44 fix: fix stock_board_concept_name_ths interface
+1.3.45 add: add stock_gdfx_holding_change_em interface
+1.3.46 fix: fix futures_main_sina interface
+1.3.47 add: add stock_gdfx_free_holding_statistics_em interface
+1.3.48 add: add stock_gdfx_free_holding_teamwork_em interface
+1.3.49 fix: fix fund_em_open_fund_info interface
+1.3.50 fix: fix stock_notice_report interface
+1.3.51 fix: fix futures_comm_info interface
+1.3.52 fix: fix stock_hsgt_individual_detail_em interface
+1.3.53 fix: fix sw_index_cons interface
+1.3.54 fix: fix stock_em_qbzf interface
+1.3.55 fix: fix futures_comm_info interface
+1.3.56 fix: fix stock_hsgt_board_rank_em interface
+1.3.57 fix: fix futures_main_sina interface
+1.3.58 fix: fix stock_margin_detail_szse interface
 """
 
-__version__ = "1.3.34"
+__version__ = "1.3.58"
 __author__ = "Albert King"
 
 import sys
@@ -1770,9 +1794,31 @@ if sys.version_info < (3, 7):
 del sys
 
 """
+东方财富网-数据中心-股东分析
+"""
+from akshare.stock_feature.stock_gdfx_em import (
+    stock_gdfx_holding_analyse_em,
+    stock_gdfx_free_holding_analyse_em,
+    stock_gdfx_free_top_10_em,
+    stock_gdfx_top_10_em,
+    stock_gdfx_free_holding_detail_em,
+    stock_gdfx_holding_detail_em,
+    stock_gdfx_free_holding_change_em,
+    stock_gdfx_holding_change_em,
+    stock_gdfx_free_holding_statistics_em,
+    stock_gdfx_holding_statistics_em,
+    stock_gdfx_free_holding_teamwork_em,
+    stock_gdfx_holding_teamwork_em,
+)
+
+"""
 中国食糖指数
 """
-from akshare.index.index_sugar import index_sugar_msweet, index_inner_quote_sugar_msweet, index_outer_quote_sugar_msweet
+from akshare.index.index_sugar import (
+    index_sugar_msweet,
+    index_inner_quote_sugar_msweet,
+    index_outer_quote_sugar_msweet,
+)
 
 """
 东方财富-个股信息
@@ -2926,6 +2972,7 @@ from akshare.fund.fund_em import (
     fund_em_money_fund_info,
     fund_em_value_estimation,
     fund_em_hk_fund_hist,
+    fund_purchase_em,
 )
 
 """

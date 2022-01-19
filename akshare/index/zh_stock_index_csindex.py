@@ -145,6 +145,8 @@ def index_value_name_funddb() -> pd.DataFrame:
         "-",
         "-",
         "-",
+        "-",
+        "-",
     ]
     temp_df = temp_df[
         [
@@ -163,7 +165,7 @@ def index_value_hist_funddb(
     """
     funddb-指数估值-估值信息
     https://funddb.cn/site/index
-    :param symbol: 指数名称; 通过调用 ak.index_value_name_funddb 来获取
+    :param symbol: 指数名称; 通过调用 ak.index_value_name_funddb() 来获取
     :type symbol: str
     :param indicator: choice of {'市盈率', '市净率', '股息率'}
     :type indicator: str

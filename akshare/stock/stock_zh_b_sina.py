@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/25 16:28
+Date: 2022/1/14 17:28
 Desc: 新浪财经-B 股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -15,7 +15,6 @@ import requests
 from tqdm import tqdm
 
 from akshare.stock.cons import (
-    zh_sina_a_stock_payload,
     zh_sina_a_stock_url,
     zh_sina_a_stock_hist_url,
     hk_js_decode,
@@ -25,10 +24,10 @@ from akshare.stock.cons import (
 )
 
 
-def _get_zh_a_page_count() -> int:
+def _get_zh_b_page_count() -> int:
     """
     所有股票的总页数
-    http://vip.stock.finance.sina.com.cn/mkt/#hs_a
+    http://vip.stock.finance.sina.com.cn/mkt/#hs_b
     :return: 需要采集的股票总页数
     :rtype: int
     """
@@ -49,7 +48,7 @@ def stock_zh_b_spot() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    page_count = _get_zh_a_page_count()
+    page_count = _get_zh_b_page_count()
     zh_sina_stock_payload_copy = {
         'page': '1',
         'num': '80',
@@ -121,6 +120,17 @@ def stock_zh_b_spot() -> pd.DataFrame:
         '成交量',
         '成交额',
     ]]
+    big_df['最新价'] = pd.to_numeric(big_df['最新价'])
+    big_df['涨跌额'] = pd.to_numeric(big_df['涨跌额'])
+    big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'])
+    big_df['买入'] = pd.to_numeric(big_df['买入'])
+    big_df['卖出'] = pd.to_numeric(big_df['卖出'])
+    big_df['昨收'] = pd.to_numeric(big_df['昨收'])
+    big_df['今开'] = pd.to_numeric(big_df['今开'])
+    big_df['最高'] = pd.to_numeric(big_df['最高'])
+    big_df['最低'] = pd.to_numeric(big_df['最低'])
+    big_df['成交量'] = pd.to_numeric(big_df['成交量'])
+    big_df['成交额'] = pd.to_numeric(big_df['成交额'])
     return big_df
 
 
@@ -215,6 +225,7 @@ def stock_zh_b_daily(
         temp_df.drop_duplicates(inplace=True)
         temp_df.reset_index(inplace=True)
         return temp_df
+
     if adjust == "hfq":
         res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
         hfq_factor_df = pd.DataFrame(
