@@ -2820,14 +2820,14 @@ print(futures_sgx_daily_df)
 ```python
 import akshare as ak
 
-futures_main_sina_hist = ak.futures_main_sina(symbol="V0")
+futures_main_sina_hist = ak.futures_main_sina(symbol="V0", start_date="20200101", end_date="20220101")
 print(futures_main_sina_hist)
 ```
 
 数据示例-主力连续合约
 
 ```
-     日期        开盘价  最高价 最低价 收盘价  成交量   持仓量  动态结算价
+     日期        开盘价  最高价 最低价 收盘价  成交量  持仓量  动态结算价
 0    2020-01-02  6520  6530  6485  6500    54491  230632   6500
 1    2020-01-03  6500  6510  6480  6495    72391  229655   6495
 2    2020-01-06  6495  6590  6480  6545   174761  237376   6535
