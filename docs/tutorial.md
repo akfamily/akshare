@@ -348,6 +348,7 @@
  # 货币对-投机情绪报告
  "macro_fx_sentiment"  # 货币对-投机情绪报告
  # COVID-19数据接口
+ "covid_19_risk_area"  # 疫情风险等级查询
  "covid_19_163"  # COVID-19-网易
  "covid_19_dxy"  # COVID-19-丁香园
  "covid_19_baidu"  # COVID-19-百度
