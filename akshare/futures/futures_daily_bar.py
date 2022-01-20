@@ -602,11 +602,11 @@ def get_futures_index(df: pd.DataFrame) -> pd.DataFrame:
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20200105", end_date="20200201", market="INE", index_bar=False
+        start_date="20220112", end_date="20220120", market="CZCE", index_bar=False
     )
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20210427")
+    get_dce_daily_df = get_dce_daily(date="20220112")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20210719")
@@ -615,7 +615,7 @@ if __name__ == "__main__":
     get_ine_daily_df = get_ine_daily(date="20211201")
     print(get_ine_daily_df)
 
-    get_czce_daily_df = get_czce_daily(date="20211112")
+    get_czce_daily_df = get_czce_daily(date="20220112")
     print(get_czce_daily_df)
 
     get_shfe_daily_df = get_shfe_daily(date="20160104")
