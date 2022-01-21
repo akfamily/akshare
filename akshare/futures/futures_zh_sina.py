@@ -101,7 +101,18 @@ def futures_zh_spot(
     """
     subscribe_list = ','.join(['nf_' + item.strip() for item in symbol.split(',')])
     url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
-    r = requests.get(url)
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url, headers=headers)
     data_df = pd.DataFrame(
         [
             item.strip().split("=")[1].split(",")
