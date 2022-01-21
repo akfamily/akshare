@@ -603,6 +603,7 @@ print(option_sina_sse_expire_day_df)
 
 ```python
 import akshare as ak
+
 option_sina_sse_codes_df = ak.option_sina_sse_codes(trade_date="202002", underlying="510300")
 print(option_sina_sse_codes_df)
 ```
@@ -619,28 +620,29 @@ print(option_sina_sse_codes_df)
 
 目标地址: https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 
-描述: 获取期权实时数据
+描述: 期权实时数据
 
 限量: 单次返回期权实时数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述         |
-| --------------- | ----- | -------- | ---------------- |
-| code | str | Y | code="10002273"  |
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="10002273" |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 字段      | str   | Y| -  |
-| 值      | str   | Y| -  |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| 字段  | str | -   |
+| 值   | str | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-option_sina_sse_spot_price_df = ak.option_sina_sse_spot_price(code="10002273")
+
+option_sina_sse_spot_price_df = ak.option_sina_sse_spot_price(symbol="10002273")
 print(option_sina_sse_spot_price_df)
 ```
 

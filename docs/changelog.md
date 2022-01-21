@@ -2979,4 +2979,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.60 fix: fix covid_19_risk_area interface
 
 1.3.61 fix: fix futures_zh_spot interface
+
+1.3.62 fix: fix option_sina_sse_spot_price interface
 ```
