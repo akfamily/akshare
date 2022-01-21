@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/1/29 15:11
+Date: 2022/1/21 22:26
 Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
-期权-中金所-沪深300指数
+期权-中金所-沪深 300 指数
 https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 期权-上交所-50ETF
 期权-上交所-300ETF
@@ -182,27 +182,49 @@ def option_sina_sse_codes(
     url_down = "".join(
         ["http://hq.sinajs.cn/list=OP_DOWN_", underlying, str(trade_date)[-4:]]
     )
-    r = requests.get(url_up)
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url_up, headers=headers)
     data_text = r.text
     data_up = data_text.replace('"', ",").split(",")
     codes_up = [i[7:] for i in data_up if i.startswith("CON_OP_")]
-    r = requests.get(url_down)
+    r = requests.get(url_down, headers=headers)
     data_text = r.text
     data_down = data_text.replace('"', ",").split(",")
     codes_down = [i[7:] for i in data_down if i.startswith("CON_OP_")]
     return codes_up, codes_down
 
 
-def option_sina_sse_spot_price(code: str = "10002273") -> pd.DataFrame:
+def option_sina_sse_spot_price(symbol: str = "10002273") -> pd.DataFrame:
     """
-    期权实时数据
-    :param code: 期权代码
-    :type code: str
+    新浪财经-期权-期权实时数据
+    :param symbol: 期权代码
+    :type symbol: str
     :return: 期权量价数据
     :rtype: pandas.DataFrame
     """
-    url = f"http://hq.sinajs.cn/list=CON_OP_{code}"
-    r = requests.get(url)
+    url = f"http://hq.sinajs.cn/list=CON_OP_{symbol}"
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url, headers=headers)
     data_text = r.text
     data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
     field_list = [
@@ -263,7 +285,18 @@ def option_sina_sse_underlying_spot_price(code: str = "sh510300") -> pd.DataFram
     :rtype: pandas.DataFrame
     """
     url = f"http://hq.sinajs.cn/list={code}"
-    r = requests.get(url)
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url, headers=headers)
     data_text = r.text
     data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
     field_list = [
@@ -314,7 +347,18 @@ def option_sina_sse_greeks(code: str = "10003045") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://hq.sinajs.cn/list=CON_SO_{code}"
-    r = requests.get(url)
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url, headers=headers)
     data_text = r.text
     data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
     field_list = [
@@ -349,7 +393,18 @@ def option_sina_sse_minute(code: str = "10003045") -> pd.DataFrame:
     """
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionDaylineService.getOptionMinline"
     params = {"symbol": f"CON_OP_{code}"}
-    r = requests.get(url, params=params)
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = data_json["result"]["data"]
     data_df = pd.DataFrame(temp_df)
@@ -367,7 +422,18 @@ def option_sina_sse_daily(code: str = "10002273") -> pd.DataFrame:
     """
     url = "http://stock.finance.sina.com.cn/futures/api/jsonp_v2.php//StockOptionDaylineService.getSymbolInfo"
     params = {"symbol": f"CON_OP_{code}"}
-    r = requests.get(url, params=params)
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("(") + 1 : data_text.rfind(")")])
     temp_df = pd.DataFrame(data_json)
@@ -388,7 +454,18 @@ def option_sina_finance_minute(code: str = "10002530") -> pd.DataFrame:
     params = {
         "symbol": f"CON_OP_{code}",
     }
-    r = requests.get(url, params=params)
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_text = r.json()
     temp_df = pd.DataFrame()
     for item in data_text["result"]["data"]:
@@ -407,11 +484,11 @@ if __name__ == "__main__":
     option_sina_cffex_hs300_list_df = option_sina_cffex_hs300_list()
     print(option_sina_cffex_hs300_list_df)
 
-    option_sina_cffex_hs300_spot_df = option_sina_cffex_hs300_spot(contract="io2104")
+    option_sina_cffex_hs300_spot_df = option_sina_cffex_hs300_spot(contract="io2202")
     print(option_sina_cffex_hs300_spot_df)
 
     option_sina_cffex_hs300_daily_df = option_sina_cffex_hs300_daily(
-        contract="io2106C3600"
+        contract="io2202P4350"
     )
     print(option_sina_cffex_hs300_daily_df)
 
@@ -420,15 +497,15 @@ if __name__ == "__main__":
     print(option_sina_sse_list_df)
 
     option_sina_sse_expire_day_df = option_sina_sse_expire_day(
-        trade_date="202102", symbol="50ETF", exchange="null"
+        trade_date="202202", symbol="50ETF", exchange="null"
     )
     print(option_sina_sse_expire_day_df)
 
-    up, down = option_sina_sse_codes(trade_date="202103", underlying="510300")
+    up, down = option_sina_sse_codes(trade_date="202202", underlying="510050")
     print(up)
     print(down)
 
-    option_sina_sse_spot_price_df = option_sina_sse_spot_price(code="10003045")
+    option_sina_sse_spot_price_df = option_sina_sse_spot_price(symbol="10002273")
     print(option_sina_sse_spot_price_df)
 
     option_sina_sse_underlying_spot_price_df = option_sina_sse_underlying_spot_price(
@@ -436,14 +513,14 @@ if __name__ == "__main__":
     )
     print(option_sina_sse_underlying_spot_price_df)
 
-    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10003045")
+    option_sina_sse_greeks_df = option_sina_sse_greeks(code="10003889")
     print(option_sina_sse_greeks_df)
 
-    option_sina_sse_minute_df = option_sina_sse_minute(code="10003045")
+    option_sina_sse_minute_df = option_sina_sse_minute(code="10003889")
     print(option_sina_sse_minute_df)
 
-    option_sina_sse_daily_df = option_sina_sse_daily(code="10003045")
+    option_sina_sse_daily_df = option_sina_sse_daily(code="10003889")
     print(option_sina_sse_daily_df)
 
-    option_sina_finance_minute_df = option_sina_finance_minute(code="10003045")
+    option_sina_finance_minute_df = option_sina_finance_minute(code="10003889")
     print(option_sina_finance_minute_df)
