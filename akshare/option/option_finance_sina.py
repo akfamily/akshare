@@ -193,11 +193,11 @@ def option_sina_sse_expire_day(
     return data["expireDay"], int(data["remainderDays"])
 
 
-def option_sina_sse_codes(
-    trade_date: str = "202202", underlying: str = "510300"
-) -> Tuple[List[str], List[str]]:
+def option_sina_sse_codes(symbol: str = "看涨期权", trade_date: str = "202202", underlying: str = "510300") -> pd.DataFrame:
     """
     上海证券交易所-所有看涨和看跌合约的代码
+    :param symbol: choice of {"看涨期权", "看跌期权"}
+    :type symbol: str
     :param trade_date: 期权到期月份
     :type trade_date: "202002"
     :param underlying: 标的产品代码 华夏上证 50ETF: 510050 or 华泰柏瑞沪深 300ETF: 510300
@@ -205,12 +205,14 @@ def option_sina_sse_codes(
     :return: 看涨看跌合约的代码
     :rtype: Tuple[List, List]
     """
-    url_up = "".join(
-        ["http://hq.sinajs.cn/list=OP_UP_", underlying, str(trade_date)[-4:]]
-    )
-    url_down = "".join(
-        ["http://hq.sinajs.cn/list=OP_DOWN_", underlying, str(trade_date)[-4:]]
-    )
+    if symbol == "看涨期权":
+        url = "".join(
+            ["http://hq.sinajs.cn/list=OP_UP_", underlying, str(trade_date)[-4:]]
+        )
+    else:
+        url = "".join(
+            ["http://hq.sinajs.cn/list=OP_DOWN_", underlying, str(trade_date)[-4:]]
+        )
     headers = {
         'Accept': '*/*',
         'Accept-Encoding': 'gzip, deflate',
@@ -222,15 +224,18 @@ def option_sina_sse_codes(
         'Referer': 'http://vip.stock.finance.sina.com.cn/',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
     }
-    r = requests.get(url_up, headers=headers)
+    r = requests.get(url, headers=headers)
     data_text = r.text
-    data_up = data_text.replace('"', ",").split(",")
-    codes_up = [i[7:] for i in data_up if i.startswith("CON_OP_")]
-    r = requests.get(url_down, headers=headers)
-    data_text = r.text
-    data_down = data_text.replace('"', ",").split(",")
-    codes_down = [i[7:] for i in data_down if i.startswith("CON_OP_")]
-    return codes_up, codes_down
+    data_temp = data_text.replace('"', ",").split(",")
+    temp_list = [i[7:] for i in data_temp if i.startswith("CON_OP_")]
+    temp_df = pd.DataFrame(temp_list)
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = temp_df.index + 1
+    temp_df.columns = [
+        '序号',
+        '期权代码',
+    ]
+    return temp_df
 
 
 def option_sina_sse_spot_price(symbol: str = "10002273") -> pd.DataFrame:
@@ -562,9 +567,8 @@ if __name__ == "__main__":
     )
     print(option_sina_sse_expire_day_df)
 
-    up, down = option_sina_sse_codes(trade_date="202201", underlying="510050")
-    print(up)
-    print(down)
+    option_sina_sse_codes_df = option_sina_sse_codes(symbol="看涨期权", trade_date="202201", underlying="510050")
+    print(option_sina_sse_codes_df)
 
     option_sina_sse_spot_price_df = option_sina_sse_spot_price(symbol="10003720")
     print(option_sina_sse_spot_price_df)
