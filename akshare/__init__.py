@@ -1787,9 +1787,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.63 fix: fix option_sina_finance_minute interface
 1.3.64 fix: fix futures_foreign_commodity_realtime interface
 1.3.65 fix: fix option_sina_sse_codes interface
+1.3.66 fix: fix option_commodity_hist_sina interface
 """
 
-__version__ = "1.3.65"
+__version__ = "1.3.66"
 __author__ = "Albert King"
 
 import sys
@@ -2634,9 +2635,9 @@ from akshare.tool.trade_date_hist import tool_trade_date_hist_sina
 commodity option
 """
 from akshare.option.option_commodity_sina import (
-    option_sina_commodity_contract_list,
-    option_sina_commodity_dict,
-    option_sina_commodity_hist,
+    option_commodity_contract_table_sina,
+    option_commodity_contract_sina,
+    option_commodity_hist_sina,
 )
 
 """
