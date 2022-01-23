@@ -1069,13 +1069,13 @@ print(option_daily_hist_em_df)
 9365    v2202c9000   聚氯乙烯22年02月购9000   1.5 -35.5  ...  NaN   1.0  37.0  50.0
 ```
 
-### 期权龙虎榜-东方财富
+### 期权龙虎榜-金融期权
 
 接口: option_lhb_em
 
 目标地址: https://data.eastmoney.com/other/qqlhb.html
 
-描述: 东方财富网-数据中心-特色数据-期权龙虎榜单
+描述: 东方财富网-数据中心-特色数据-期权龙虎榜单-金融期权
 
 限量: 单次返回指定 symbol, indicator 和 trade_date 的所有数据
 
@@ -1089,18 +1089,18 @@ print(option_daily_hist_em_df)
 
 输出参数
 
-| 名称      | 类型      | 描述  |
-|---------|---------|-----|
-| 交易类型    | object  | -   |
-| 交易日期    | object  | -   |
-| 证券代码    | object  | -   |
-| 标的名称    | object  | -   |
-| 名次      | float64 | -   |
-| 机构      | object  | -   |
-| 持仓量     | float64 | -   |
-| 增减      | float64 | -   |
-| 净持仓量    | float64 | -   |
-| 占总交易量比例 | float64 | -   |
+| 名称      | 类型      | 描述                   |
+|---------|---------|----------------------|
+| 交易类型    | object  | -                    |
+| 交易日期    | object  | -                    |
+| 证券代码    | object  | -                    |
+| 标的名称    | object  | -                    |
+| 名次      | float64 | -                    |
+| 机构      | object  | -                    |
+| XX量     | float64 | 注意: 根据 indicator 而变化 |
+| 增减      | float64 | -                    |
+| 净XX量    | float64 | 注意: 根据 indicator 而变化 |
+| 占总交易量比例 | float64 | -                    |
 
 接口示例
 
