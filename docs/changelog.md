@@ -2987,4 +2987,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.64 fix: fix futures_foreign_commodity_realtime interface
 
 1.3.65 fix: fix option_sina_sse_codes interface
+
+1.3.66 fix: fix option_commodity_hist_sina interface
 ```
