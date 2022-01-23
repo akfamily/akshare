@@ -993,6 +993,8 @@
  "stock_gdfx_holding_statistics_em"  # 股东持股统计-十大股东
  "stock_gdfx_free_holding_teamwork_em"  # 股东协同-十大流通股东
  "stock_gdfx_holding_teamwork_em"  # 股东协同-十大股东
+ # 期权龙虎榜
+ "option_lhb_em"  # 期权龙虎榜
 ```
 
 ## 案例演示

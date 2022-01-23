@@ -1788,9 +1788,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.64 fix: fix futures_foreign_commodity_realtime interface
 1.3.65 fix: fix option_sina_sse_codes interface
 1.3.66 fix: fix option_commodity_hist_sina interface
+1.3.67 add: add option_lhb_em interface
 """
 
-__version__ = "1.3.66"
+__version__ = "1.3.67"
 __author__ = "Albert King"
 
 import sys
@@ -1800,6 +1801,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+期权龙虎榜
+"""
+from akshare.option.option_lhb_em import option_lhb_em
 
 """
 东方财富网-数据中心-股东分析
