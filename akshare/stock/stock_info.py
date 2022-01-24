@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/23 20:31
+Date: 2022/1/24 22:31
 Desc: 股票基本信息
 """
 import json
@@ -268,66 +268,61 @@ def stock_info_bj_name_code() -> pd.DataFrame:
     return big_df
 
 
-def stock_info_sh_delist(indicator: str = "终止上市公司") -> pd.DataFrame:
+def stock_info_sh_delist() -> pd.DataFrame:
     """
-    上海证券交易所-暂停上市公司-终止上市公司
-    http://www.sse.com.cn/assortment/stock/list/firstissue/
-    :param indicator: choice of {"终止上市公司": "5", "暂停上市公司": "4"}
-    :type indicator: str
-    :return: 暂停上市公司 or 终止上市公司 的数据
+    上海证券交易所-终止上市公司
+    http://www.sse.com.cn/assortment/stock/list/delisting/
+    :return: 终止上市公司
     :rtype: pandas.DataFrame
     """
-    indicator_map = {"终止上市公司": "5", "暂停上市公司": "4"}
-    url = "http://query.sse.com.cn/security/stock/getStockListData2.do"
+    url = "http://query.sse.com.cn/commonQuery.do"
     headers = {
-        "Host": "query.sse.com.cn",
-        "Pragma": "no-cache",
-        "Referer": "http://www.sse.com.cn/assortment/stock/list/share/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Host': 'query.sse.com.cn',
+        'Pragma': 'no-cache',
+        'Referer': 'http://www.sse.com.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
     }
     params = {
-        "jsonCallBack": "jsonpCallback66942",
-        "isPagination": "true",
-        "stockCode": "",
-        "csrcCode": "",
-        "areaName": "",
-        "stockType": indicator_map[indicator],
-        "pageHelp.cacheSize": "1",
-        "pageHelp.beginPage": "1",
-        "pageHelp.pageSize": "2000",
-        "pageHelp.pageNo": "1",
-        "pageHelp.endPage": "11",
-        "_": "1589881387934",
+        'sqlId': 'COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L',
+        'isPagination': 'true',
+        'STOCK_CODE': '',
+        'CSRC_CODE': '',
+        'REG_PROVINCE': '',
+        'STOCK_TYPE': '1,2',
+        'COMPANY_STATUS': '3',
+        'type': 'inParams',
+        'pageHelp.cacheSize': '1',
+        'pageHelp.beginPage': '1',
+        'pageHelp.pageSize': '500',
+        'pageHelp.pageNo': '1',
+        'pageHelp.endPage': '1',
+        '_': '1643035608183',
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -1])
-    temp_df = pd.DataFrame(json_data["result"])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"])
     temp_df.columns = [
         '-',
         '-',
-        '终止上市后股份转让代码',
-        '-',
-        '终止上市后股份转让主办券商',
-        '终止上市后股份转让副主办券商',
-        '终止上市日期',
+        '上市日期',
         '-',
         '原公司简称',
         '原公司代码',
+        '终止上市日期',
+        '序号',
         '-',
-        '-',
-        '-',
-        '-',
-        '上市日期',
     ]
     temp_df = temp_df[[
+        '序号',
         '原公司代码',
         '原公司简称',
         '上市日期',
         '终止上市日期',
-        '终止上市后股份转让代码',
-        '终止上市后股份转让主办券商',
-        '终止上市后股份转让副主办券商',
     ]]
     temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期']).dt.date
     temp_df['终止上市日期'] = pd.to_datetime(temp_df['终止上市日期']).dt.date
@@ -452,11 +447,8 @@ if __name__ == "__main__":
     stock_info_sz_df = stock_info_sz_name_code(indicator="CDR列表")
     print(stock_info_sz_df)
 
-    stock_info_sh_delist_df = stock_info_sh_delist(indicator="终止上市公司")
+    stock_info_sh_delist_df = stock_info_sh_delist()
     print(stock_info_sh_delist_df)
-
-    stock_info_sz_delist_df = stock_info_sz_delist(indicator="终止上市公司")
-    print(stock_info_sz_delist_df)
 
     stock_info_sz_change_name_df = stock_info_sz_change_name(indicator="全称变更")
     print(stock_info_sz_change_name_df)
