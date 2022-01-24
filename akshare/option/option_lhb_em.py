@@ -249,21 +249,21 @@ def option_lhb_em(
 
 if __name__ == "__main__":
     option_lhb_em_df = option_lhb_em(
-        symbol="510300", indicator="期权交易情况-认购交易量", trade_date="20220121"
+        symbol="510300", indicator="期权交易情况-认购交易量", trade_date="20220124"
     )
     print(option_lhb_em_df)
 
     option_lhb_em_df = option_lhb_em(
-        symbol="510300", indicator="期权交易情况-认沽交易量", trade_date="20220121"
+        symbol="510300", indicator="期权交易情况-认沽交易量", trade_date="20220124"
     )
     print(option_lhb_em_df)
 
     option_lhb_em_df = option_lhb_em(
-        symbol="510300", indicator="期权持仓情况-认购持仓量", trade_date="20220121"
+        symbol="510300", indicator="期权持仓情况-认购持仓量", trade_date="20220124"
     )
     print(option_lhb_em_df)
 
     option_lhb_em_df = option_lhb_em(
-        symbol="510300", indicator="期权持仓情况-认沽持仓量", trade_date="20220121"
+        symbol="510300", indicator="期权持仓情况-认沽持仓量", trade_date="20220124"
     )
     print(option_lhb_em_df)
