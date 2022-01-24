@@ -1791,9 +1791,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.67 add: add option_lhb_em interface
 1.3.68 fix: fix stock_hsgt_board_rank_em interface
 1.3.69 fix: fix stock_gdfx_free_holding_statistics_em interface
+1.3.70 fix: fix option_sina_sse_spot_price interface
 """
 
-__version__ = "1.3.69"
+__version__ = "1.3.70"
 __author__ = "Albert King"
 
 import sys
