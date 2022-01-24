@@ -10,7 +10,7 @@ import requests
 from tqdm import tqdm
 
 
-def stock_gdfx_free_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
+def stock_gdfx_free_holding_statistics_em(date: str = "20210630") -> pd.DataFrame:
     """
     东方财富网-数据中心-股东分析-股东持股统计-十大流通股东
     https://data.eastmoney.com/gdfx/HoldingAnalyse.html
@@ -25,7 +25,7 @@ def stock_gdfx_free_holding_statistics_em(date: str = "20210930") -> pd.DataFram
         "sortTypes": "-1,-1",
         "pageSize": "500",
         "pageNumber": "1",
-        "reportName": "RPT_COOPFREEHOLDERS_ANALYSISNEW",
+        "reportName": "RPT_COOPFREEHOLDERS_ANALYSIS",
         "columns": "ALL",
         "source": "WEB",
         "client": "WEB",
@@ -191,7 +191,7 @@ def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
         "sortTypes": "-1,-1",
         "pageSize": "500",
         "pageNumber": "1",
-        "reportName": "RPT_FREEHOLDERS_BASIC_INFONEW",
+        "reportName": "RPT_FREEHOLDERS_BASIC_INFO",
         "columns": "ALL",
         "source": "WEB",
         "client": "WEB",
@@ -227,7 +227,6 @@ def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
         "-",
         "流通市值统计",
         "持有个股",
-        "-",
         "-",
     ]
     big_df = big_df[
