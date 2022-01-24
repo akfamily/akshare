@@ -193,7 +193,7 @@ def option_sina_sse_expire_day(
     return data["expireDay"], int(data["remainderDays"])
 
 
-def option_sina_sse_codes(symbol: str = "看涨期权", trade_date: str = "202202", underlying: str = "510300") -> pd.DataFrame:
+def option_sina_sse_codes(symbol: str = "看涨期权", trade_date: str = "202202", underlying: str = "510050") -> pd.DataFrame:
     """
     上海证券交易所-所有看涨和看跌合约的代码
     :param symbol: choice of {"看涨期权", "看跌期权"}
@@ -215,13 +215,19 @@ def option_sina_sse_codes(symbol: str = "看涨期权", trade_date: str = "20220
         )
     headers = {
         'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
         'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
         'Host': 'hq.sinajs.cn',
         'Pragma': 'no-cache',
-        'Proxy-Connection': 'keep-alive',
-        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'Referer': 'https://stock.finance.sina.com.cn/',
+        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'Sec-Fetch-Dest': 'script',
+        'Sec-Fetch-Mode': 'no-cors',
+        'Sec-Fetch-Site': 'cross-site',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
     }
     r = requests.get(url, headers=headers)
@@ -238,7 +244,7 @@ def option_sina_sse_codes(symbol: str = "看涨期权", trade_date: str = "20220
     return temp_df
 
 
-def option_sina_sse_spot_price(symbol: str = "10002273") -> pd.DataFrame:
+def option_sina_sse_spot_price(symbol: str = "10003720") -> pd.DataFrame:
     """
     新浪财经-期权-期权实时数据
     :param symbol: 期权代码
@@ -249,13 +255,19 @@ def option_sina_sse_spot_price(symbol: str = "10002273") -> pd.DataFrame:
     url = f"http://hq.sinajs.cn/list=CON_OP_{symbol}"
     headers = {
         'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
         'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
         'Host': 'hq.sinajs.cn',
         'Pragma': 'no-cache',
-        'Proxy-Connection': 'keep-alive',
-        'Referer': 'http://vip.stock.finance.sina.com.cn/',
+        'Referer': 'https://stock.finance.sina.com.cn/',
+        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'Sec-Fetch-Dest': 'script',
+        'Sec-Fetch-Mode': 'no-cors',
+        'Sec-Fetch-Site': 'cross-site',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
     }
     r = requests.get(url, headers=headers)
@@ -567,7 +579,7 @@ if __name__ == "__main__":
     )
     print(option_sina_sse_expire_day_df)
 
-    option_sina_sse_codes_df = option_sina_sse_codes(symbol="看涨期权", trade_date="202201", underlying="510050")
+    option_sina_sse_codes_df = option_sina_sse_codes(symbol="看涨期权", trade_date="202202", underlying="510050")
     print(option_sina_sse_codes_df)
 
     option_sina_sse_spot_price_df = option_sina_sse_spot_price(symbol="10003720")
