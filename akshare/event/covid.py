@@ -36,7 +36,7 @@ def _get_js_path(name: str = None, module_file: str = None) -> str:
 
 def _get_file_content(file_name: str = "crypto.js") -> str:
     """
-    获取 JS 文件的内容
+    读取 JS 文件的内容
     :param file_name:  JS 文件名
     :type file_name: str
     :return: 文件内容
@@ -958,7 +958,7 @@ def covid_19_csse_global_recovered() -> pd.DataFrame:
 
 if __name__ == "__main__":
     covid_19_risk_area_df = covid_19_risk_area(symbol="高风险等级地区")
-    print(covid_19_risk_area_df.info())
+    print(covid_19_risk_area_df)
 
     covid_19_risk_area_df = covid_19_risk_area(symbol="中等风险等级地区")
     print(covid_19_risk_area_df)
