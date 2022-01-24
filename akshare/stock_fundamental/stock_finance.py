@@ -178,6 +178,8 @@ def stock_history_dividend_detail(
             "查看详细",
         ]
         del temp_df["查看详细"]
+        if temp_df.iloc[0, 0] == '暂时没有数据！':
+            return pd.DataFrame()
         temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
         temp_df["送股"] = pd.to_numeric(temp_df["送股"])
         temp_df["转增"] = pd.to_numeric(temp_df["转增"])
@@ -217,6 +219,8 @@ def stock_history_dividend_detail(
             "查看详细",
         ]
         del temp_df["查看详细"]
+        if temp_df.iloc[0, 0] == '暂时没有数据！':
+            return pd.DataFrame()
         temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
         temp_df["配股方案"] = pd.to_numeric(temp_df["配股方案"])
         temp_df["配股价格"] = pd.to_numeric(temp_df["配股价格"])
