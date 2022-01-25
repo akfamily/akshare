@@ -996,6 +996,7 @@
  # 期权龙虎榜
  "option_lhb_em"  # 期权龙虎榜
  "option_value_analysis_em"  # 期权价值分析
+ "option_risk_analysis_em"  # 期权风险分析
 ```
 
 ## 案例演示
