@@ -66,7 +66,7 @@ def option_value_analysis_em() -> pd.DataFrame:
         '标的近一年波动率',
         '到期日',
     ]]
-    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'], errors="coerce")
     temp_df['时间价值'] = pd.to_numeric(temp_df['时间价值'])
     temp_df['内在价值'] = pd.to_numeric(temp_df['内在价值'])
     temp_df['隐含波动率'] = pd.to_numeric(temp_df['隐含波动率'])
