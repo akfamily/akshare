@@ -1797,9 +1797,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.73 fix: fix stock_info_sh_delist interface
 1.3.74 fix: fix option_value_analysis_em interface
 1.3.75 add: add option_risk_analysis_em interface
+1.3.76 add: add option_premium_analysis_em interface
 """
 
-__version__ = "1.3.75"
+__version__ = "1.3.76"
 __author__ = "Albert King"
 
 import sys
@@ -1811,7 +1812,12 @@ if sys.version_info < (3, 7):
 del sys
 
 """
-期权价值分析
+期权折溢价分析
+"""
+from akshare.option.option_premium_analysis_em import option_premium_analysis_em
+
+"""
+期权风险分析
 """
 from akshare.option.option_risk_analysis_em import option_risk_analysis_em
 

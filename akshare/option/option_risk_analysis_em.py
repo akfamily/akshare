@@ -79,4 +79,4 @@ def option_risk_analysis_em() -> pd.DataFrame:
 
 if __name__ == "__main__":
     option_risk_analysis_em_df = option_risk_analysis_em()
-    print(option_risk_analysis_em_df)
+    print(option_risk_analysis_em_df.info())
