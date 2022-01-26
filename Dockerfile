@@ -1,7 +1,6 @@
-# https://github.com/nikolaik/docker-python-nodejs
-FROM nikolaik/python-nodejs:python3.8-nodejs16
+FROM python:3.10.1-buster
 
-MAINTAINER Albert King <akshare@akfamily.email.cn>
+MAINTAINER AKFamily <aktools@akfamily.email.cn>
 
-# RUN pip install akshare jupyterlab -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
-RUN pip install akshare jupyterlab scikit-learn scipy --upgrade
+RUN pip install --no-cache-dir akshare fastapi uvicorn -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
+RUN pip install --no-cache-dir aktools --upgrade -i https://pypi.org/simple
