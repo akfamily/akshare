@@ -5,7 +5,7 @@ on:
     branchs:
       - master
     tags:
-      - "v*.*.*"
+      - "release-v*.*.*"
 
 jobs:
   build:
