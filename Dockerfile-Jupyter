@@ -12,4 +12,8 @@ RUN set -x \
     && rm -rf /var/lib/apt/lists/*
 
 # RUN pip install akshare jupyterlab -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
-RUN pip install akshare jupyterlab scikit-learn scipy
+RUN pip install jupyterlab
+RUN pip install scikit-learn
+RUN pip install scipy
+RUN pip install pandas
+RUN pip install akshare --upgrade

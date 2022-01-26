@@ -15,4 +15,4 @@ RUN set -x \
 RUN pip install --no-cache-dir fastapi
 RUN pip install --no-cache-dir uvicorn
 RUN pip install --no-cache-dir aktools
-RUN pip install --no-cache-dir akshare
+RUN pip install --no-cache-dir akshare --upgrade
