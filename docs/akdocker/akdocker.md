@@ -67,4 +67,6 @@ docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-shangha
 2. 在 Terminal 中运行上述指令后，会在 Terminal 中显示如下信息: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/akdocker/akdocker_terminal.png)
 3. 打开本地游览器输入地址: ```http://127.0.0.1:8888/lab?token=bbe7c8633c098b67df913dce522b82e00828b311a6fc954d```;
 4. 在本地游览器中的 JupyterLab 界面进入 ```home``` 文件夹, 该目录内容会与本地的 ```C:\home``` 保持同步, 可以在此编辑 notebook 文件和导入数据到该文件夹从而在本地的 ```C:\home``` 文件夹下获取数据;
-5. 如果在 JupyterLab 中的 AKShare 版本不是最新版，请在 JupyterLab 中运行如下代码升级 AKShare 到最新版: `!pip install akshare --upgrade`
+5. 如果在 JupyterLab 中的 AKShare 版本不是最新版，有以下两种方法：
+   1. `docker pull registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter` 重新拉取镜像或者，
+   2. 在 JupyterLab 中运行 `!pip install akshare --upgrade` 命令来升级 AKShare 到最新版。
