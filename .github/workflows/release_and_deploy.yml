@@ -4,6 +4,8 @@ on:
   push:
     branchs:
       - master
+    tags:
+      - "release-v*.*.*"
 
 jobs:
   build:
@@ -43,7 +45,6 @@ jobs:
         uses: actions/checkout@v2
       - name: release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: set up python

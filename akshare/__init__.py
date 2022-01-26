@@ -1806,9 +1806,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.82 fix: fix dockerfile interface
 1.3.83 fix: fix dockerfile-jupyter
 1.3.84 fix: fix release_and_deploy
+1.3.85 fix: fix release_and_deploy.yml
 """
 
-__version__ = "1.3.84"
+__version__ = "1.3.85"
 __author__ = "Albert King"
 
 import sys
