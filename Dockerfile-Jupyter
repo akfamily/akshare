@@ -16,4 +16,5 @@ RUN pip install --no-cache-dir jupyterlab
 RUN pip install --no-cache-dir scikit-learn
 RUN pip install --no-cache-dir scipy
 RUN pip install --no-cache-dir pandas
+RUN pip install --no-cache-dir aktools
 RUN pip install --no-cache-dir akshare --upgrade
