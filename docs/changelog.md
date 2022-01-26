@@ -3037,4 +3037,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.89 fix: fix master_develop_check.yml
 
 1.3.90 fix: fix master_develop_check.yml
+
+1.3.91 fix: fix master_develop_check.yml
 ```
