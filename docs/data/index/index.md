@@ -2192,6 +2192,8 @@ print(sw_index_third_cons_df)
 
 描述: 申万一级和二级行业成份股数据
 
+限量: 由于申万源问题该接口暂不能获取数据
+
 输入参数
 
 | 名称     | 类型  | 描述              |
@@ -2240,6 +2242,8 @@ print(sw_index_cons_df)
 目标地址: http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
 
 描述: 申万一级和二级行业历史行情数据
+
+限量: 由于申万源问题该接口暂不能获取数据
 
 输入参数
 
@@ -2291,6 +2295,8 @@ print(sw_index_daily_df)
 目标地址: http://www.swsindex.com/idx0200.aspx?columnid=8838&type=Day
 
 描述: 申万一级和二级行业历史行情指标数据
+
+限量: 由于申万源问题该接口暂不能获取数据
 
 输入参数
 
