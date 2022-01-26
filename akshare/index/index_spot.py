@@ -40,5 +40,5 @@ def spot_goods(symbol: str = "波罗的海干散货指数") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    spot_goods_df = spot_goods(symbol="钢坯价格指数")
+    spot_goods_df = spot_goods(symbol="波罗的海干散货指数")
     print(spot_goods_df)
