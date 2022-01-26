@@ -3,5 +3,13 @@ FROM nikolaik/python-nodejs:python3.8-nodejs16
 
 MAINTAINER AKFamily <akshare@akfamily.email.cn>
 
+RUN set -x \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update \
+    && apt-get install -y tzdata \
+    && ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone \
+    && rm -rf /var/lib/apt/lists/*
+
 # RUN pip install akshare jupyterlab -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
 RUN pip install akshare jupyterlab scikit-learn scipy
