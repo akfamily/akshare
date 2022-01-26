@@ -2,8 +2,6 @@ name: release and deploy
 
 on:
   push:
-    branchs:
-      - master
     tags:
       - "release-v*.*.*"
 
@@ -12,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.7, 3.8]
+        os: [ubuntu-latest]
+        python-version: [3.7]
 
     steps:
       - uses: actions/checkout@v2
