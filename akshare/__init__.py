@@ -1816,9 +1816,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.92 fix: fix docker image of akshare for jupyter and aktools
 1.3.93 fix: fix docs
 1.3.94 fix: fix akdocker.md
+1.3.95 fix: fix covid_19_risk_area interface
 """
 
-__version__ = "1.3.94"
+__version__ = "1.3.95"
 __author__ = "Albert King"
 
 import sys
@@ -2850,6 +2851,7 @@ from akshare.event.covid import (
     covid_19_csse_global_recovered,
     covid_19_csse_us_death,
     covid_19_csse_us_confirmed,
+    covid_19_risk_area,
 )
 
 """
