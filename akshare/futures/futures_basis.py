@@ -248,7 +248,7 @@ def _join_head(content: pd.DataFrame) -> List:
     return headers
 
 
-def futures_spot_price_previous(date: str = "20110110") -> pd.DataFrame:
+def futures_spot_price_previous(date: str = "20220127") -> pd.DataFrame:
     """
     具体交易日大宗商品现货价格及相应基差
     http://www.100ppi.com/sf/day-2017-09-12.html
@@ -301,5 +301,5 @@ if __name__ == "__main__":
     futures_spot_price_df = futures_spot_price("20211109")
     print(futures_spot_price_df)
 
-    futures_spot_price_previous_df = futures_spot_price_previous('20211108')
+    futures_spot_price_previous_df = futures_spot_price_previous('20220127')
     print(futures_spot_price_previous_df)
