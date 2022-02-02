@@ -2458,6 +2458,7 @@ print(us_stock_current_df)
 | 名称         | 类型  | 描述                                                                          |
 |------------|-----|-----------------------------------------------------------------------------|
 | symbol     | str | 美股代码, 可以通过 **ak.stock_us_spot_em()** 函数返回所有的 pandas.DataFrame 里面的 `代码` 字段获取 |
+| period     | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}                    |
 | start_date | str | start_date="20210101"                                                       |
 | end_date   | str | end_date="20210601"                                                         |
 | adjust     | str | 默认 adjust="", 则返回未复权的数据; adjust="qfq" 则返回前复权的数据, adjust="hfq" 则返回后复权的数据,    |
@@ -2483,7 +2484,7 @@ print(us_stock_current_df)
 ```python
 import akshare as ak
 
-stock_us_hist_df = ak.stock_us_hist(symbol='105.MTP', start_date="19700101", end_date="22220101", adjust="qfq")
+stock_us_hist_df = ak.stock_us_hist(symbol='105.MTP', period="daily", start_date="19700101", end_date="22220101", adjust="qfq")
 print(stock_us_hist_df)
 ```
 
