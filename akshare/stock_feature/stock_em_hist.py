@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/01/04 18:26
+Date: 2022/2/2 23:26
 Desc: 东方财富网-行情首页-沪深京 A 股
 """
 import requests
@@ -911,6 +911,7 @@ def stock_us_spot_em() -> pd.DataFrame:
 
 def stock_us_hist(
         symbol: str = "105.APCX",
+        period: str = "daily",
         start_date: str = "19700101",
         end_date: str = "22220101",
         adjust: str = "",
@@ -920,6 +921,8 @@ def stock_us_hist(
     http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
     :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em 的 `代码` 字段获取
     :type symbol: str
+    :param period: choice of {'daily', 'weekly', 'monthly'}
+    :type period: str
     :param start_date: 开始日期
     :type start_date: str
     :param end_date: 结束日期
@@ -929,6 +932,7 @@ def stock_us_hist(
     :return: 每日行情
     :rtype: pandas.DataFrame
     """
+    period_dict = {'daily': '101', 'weekly': '102', 'monthly': '103'}
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     url = "http://63.push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
@@ -936,7 +940,7 @@ def stock_us_hist(
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "fields1": "f1,f2,f3,f4,f5,f6",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
-        "klt": "101",
+        "klt": period_dict[period],
         "fqt": adjust_dict[adjust],
         "end": "20500000",
         "lmt": "1000000",
@@ -1054,7 +1058,7 @@ if __name__ == "__main__":
     print(stock_us_spot_em_df)
 
     stock_us_hist_df = stock_us_hist(
-        symbol="105.LCID", start_date="19700101", end_date="22220101", adjust="qfq"
+        symbol="105.LCID", period="weekly", start_date="19700101", end_date="22220101", adjust="qfq"
     )
     print(stock_us_hist_df)
 
