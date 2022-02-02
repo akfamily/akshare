@@ -1,7 +1,7 @@
-#!/usr/bin/env python# -*- coding:utf-8 -*-
-
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
-Date: 2021/7/22 22:43
+Date: 2022/2/2 22:43
 Desc: 收盘收益率曲线历史数据
 http://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 """
@@ -60,16 +60,15 @@ def bond_china_close_return(
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'
     }
     r = requests.get(url, params=params, headers=headers)
-    r.json()
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     del temp_df["newDateValue"]
     temp_df.columns = [
-        "到期收益率",
-        "远期收益率",
         "日期",
         "期限",
+        "到期收益率",
         "即期收益率",
+        "远期收益率",
     ]
     temp_df = temp_df[
         [
@@ -80,6 +79,7 @@ def bond_china_close_return(
             "远期收益率",
         ]
     ]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
     temp_df['期限'] = pd.to_numeric(temp_df['期限'])
     temp_df['到期收益率'] = pd.to_numeric(temp_df['到期收益率'], errors='coerce')
     temp_df['即期收益率'] = pd.to_numeric(temp_df['即期收益率'], errors='coerce')
