@@ -3190,6 +3190,7 @@ print(stock_hk_hist_min_em_df)
 | 名称         | 类型  | 描述                                                             |
 |------------|-----|----------------------------------------------------------------|
 | symbol     | str | symbol="00593"; 港股代码,可以通过 **ak.stock_hk_spot_em()** 函数返回所有港股代码 |
+| period     | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}       |
 | start_date | str | start_date="19700101"; 开始日期                                    |
 | end_date   | str | end_date="22220101"; 结束日期                                      |
 | adjust     | str | adjust="": 返回未复权的数据, 默认; qfq: 返回前复权数据; hfq: 返回后复权数据;           |
@@ -3215,7 +3216,7 @@ print(stock_hk_hist_min_em_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_df = ak.stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="")
+stock_hk_hist_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="")
 print(stock_hk_hist_df)
 ```
 
@@ -3257,7 +3258,7 @@ print(stock_hk_hist_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_qfq_df = ak.stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="qfq")
+stock_hk_hist_qfq_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="qfq")
 print(stock_hk_hist_qfq_df)
 ```
 
@@ -3299,7 +3300,7 @@ print(stock_hk_hist_qfq_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_hfq_df = ak.stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="hfq")
+stock_hk_hist_hfq_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="hfq")
 print(stock_hk_hist_hfq_df)
 ```
 
@@ -3334,7 +3335,7 @@ print(stock_hk_hist_hfq_df)
 
 | 名称     | 类型  | 描述                                                                                             |
 |--------|-----|------------------------------------------------------------------------------------------------|
-| symbol | str | 港股代码,可以通过 **stock_hk_spot** 函数返回所有港股代码                                                         |
+| symbol | str | 港股代码,可以通过 **ak.stock_hk_spot()** 函数返回所有港股代码                                                    |
 | adjust | str | "": 返回未复权的数据 ; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; qfq-factor: 返回前复权因子和调整; hfq-factor: 返回后复权因子和调整; |
 
 输出参数-历史行情数据(后复权)
