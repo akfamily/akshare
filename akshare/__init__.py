@@ -1819,9 +1819,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.95 fix: fix covid_19_risk_area interface
 1.3.96 fix: fix bond_china_close_return interface
 1.3.97 fix: fix stock_us_hist interface
+1.3.98 fix: fix stock_hk_hist interface
 """
 
-__version__ = "1.3.97"
+__version__ = "1.3.98"
 __author__ = "Albert King"
 
 import sys
