@@ -1,7 +1,7 @@
 # [AKShare](https://github.com/akfamily/akshare) Docker 部署
 
 目前 [AKShare](https://github.com/akfamily/akshare) 数据接口是基于 Python 开发的，鉴于部分小伙伴难以在短时间部署
-[AKShare](https://github.com/akfamily/akshare) 的 Python 使用环境，特此提供基于虚拟化容器技术 Docker 的使用教程。
+[AKShare](https://github.com/akfamily/akshare) 的 Python 使用环境，特此提供基于 Docker 容器技术的使用教程。
 
 ## 安装 Docker
 
