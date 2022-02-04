@@ -2451,29 +2451,30 @@ print(spot_goods_df)
 
 目标地址: http://www.ywindex.com/Home/Product/index/
 
-描述: 获取指定 symbol 的义乌小商品指数的近期历史数据
+描述: 指定 symbol 的义乌小商品指数的近期历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y   | symbol="周价格指数"; choice of {"周价格指数", "月价格指数", "月景气指数"} |
+| 名称     | 类型  | 描述                                                    |
+|--------|-----|-------------------------------------------------------|
+| symbol | str | symbol="周价格指数"; choice of {"周价格指数", "月价格指数", "月景气指数"} |
 
 输出参数-周价格指数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 期数      | object   | Y        | -  |
-| 价格指数      | object   | Y        |   - |
-| 场内价格指数      | object   | Y        |  - |
-| 网上价格指数      | object   | Y        |  -  |
-| 订单价格指数      | object   | Y        |   - |
-| 出口价格指数      | object   | Y        |  -  |
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| 期数     | object  | -   |
+| 价格指数   | float64 | -   |
+| 场内价格指数 | float64 | -   |
+| 网上价格指数 | float64 | -   |
+| 订单价格指数 | float64 | -   |
+| 出口价格指数 | float64 | -   |
 
 接口示例-周价格指数
 
 ```python
 import akshare as ak
+
 index_yw_df = ak.index_yw(symbol="周价格指数")
 print(index_yw_df)
 ```
@@ -2498,19 +2499,20 @@ print(index_yw_df)
 
 输出参数-月价格指数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 期数      | object   | Y        | -  |
-| 价格指数      | object   | Y        |   - |
-| 场内价格指数      | object   | Y        |  - |
-| 网上价格指数      | object   | Y        |  -  |
-| 订单价格指数      | object   | Y        |   - |
-| 出口价格指数      | object   | Y        |  -  |
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| 期数     | object  | -   |
+| 价格指数   | float64 | -   |
+| 场内价格指数 | float64 | -   |
+| 网上价格指数 | float64 | -   |
+| 订单价格指数 | float64 | -   |
+| 出口价格指数 | float64 | -   |
 
 接口示例-月价格指数
 
 ```python
 import akshare as ak
+
 index_yw_df = ak.index_yw(symbol="月价格指数")
 print(index_yw_df)
 ```
@@ -2535,18 +2537,19 @@ print(index_yw_df)
 
 输出参数-月景气指数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 期数      | str   | Y        |   |
-| 景气指数      | float   | Y        |    |
-| 规模指数      | float   | Y        |   |
-| 效益指数      | float   | Y        |    |
-| 市场信心指数      | float   | Y        |    |
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| 期数     | object  | -   |
+| 景气指数   | float64 | -   |
+| 规模指数   | float64 | -   |
+| 效益指数   | float64 | -   |
+| 市场信心指数 | float64 | -   |
 
 接口示例-月景气指数
 
 ```python
 import akshare as ak
+
 index_yw_df = ak.index_yw(symbol="月景气指数")
 print(index_yw_df)
 ```
