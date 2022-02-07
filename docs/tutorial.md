@@ -998,6 +998,12 @@
  "option_value_analysis_em"  # 期权价值分析
  "option_risk_analysis_em"  # 期权风险分析
  "option_premium_analysis_em"  # 期权折溢价分析
+ # 财新指数
+ "index_dei_cx"  # 财新数据-指数报告-数字经济指数
+ "index_ii_cx"  # 财新数据-指数报告-产业指数
+ "index_si_cx"  # 财新数据-指数报告-溢出指数
+ "index_fi_cx"  # 财新数据-指数报告-融合指数
+ "index_bi_cx"  # 财新数据-指数报告-基础指数
 ```
 
 ## 案例演示
