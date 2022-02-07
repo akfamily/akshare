@@ -1822,9 +1822,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.98 fix: fix stock_hk_hist interface
 1.3.99 fix: fix index_yw interface
 1.4.1 fix: fix index_yw interface
+1.4.2 add: add index_dei_cx interface
 """
 
-__version__ = "1.4.1"
+__version__ = "1.4.2"
 __author__ = "Albert King"
 
 import sys
@@ -1834,6 +1835,24 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+财新指数
+"""
+from akshare.index.index_cx import (
+    index_bi_cx,
+    index_ii_cx,
+    index_si_cx,
+    index_dei_cx,
+    index_ci_cx,
+    index_awpr_cx,
+    index_cci_cx,
+    index_fi_cx,
+    index_li_cx,
+    index_neaw_cx,
+    index_nei_cx,
+    index_ti_cx,
+)
 
 """
 期权折溢价分析
