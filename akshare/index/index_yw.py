@@ -59,6 +59,7 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
         table_df['网上价格指数'] = pd.to_numeric(table_df['网上价格指数'])
         table_df['订单价格指数'] = pd.to_numeric(table_df['订单价格指数'])
         table_df['出口价格指数'] = pd.to_numeric(table_df['出口价格指数'])
+        return table_df
     elif symbol == "月价格指数":
         table_df = pd.DataFrame([item.split("\n") for item in table_content]).iloc[:, :6]
         table_df.columns = table_name
@@ -68,7 +69,7 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
         table_df['网上价格指数'] = pd.to_numeric(table_df['网上价格指数'])
         table_df['订单价格指数'] = pd.to_numeric(table_df['订单价格指数'])
         table_df['出口价格指数'] = pd.to_numeric(table_df['出口价格指数'])
-    return table_df
+        return table_df
 
 
 if __name__ == "__main__":
