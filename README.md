@@ -129,9 +129,6 @@ Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKS
     <img src="https://github.com/akfamily/akshare/blob/master/example/images/ds.png">
 </div>
 
-Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 1254836886
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
-
 ## Features
 
 - **Easy of use**: Just one line code to fetch the data;
