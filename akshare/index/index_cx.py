@@ -9,6 +9,78 @@ import pandas as pd
 import requests
 
 
+def index_pmi_com_cx() -> pd.DataFrame():
+    """
+    财新数据-指数报告-财新中国 PMI-综合 PMI
+    https://s.ccxe.com.cn/indices/pmi
+    :return: 财新中国 PMI-综合 PMI
+    :rtype: pandas.DataFrame
+    """
+    url = "https://s.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
+    params = {"type": "com"}
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.columns = ["变化值", "综合PMI", "日期"]
+    temp_df = temp_df[
+        [
+            "日期",
+            "综合PMI",
+            "变化值",
+        ]
+    ]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], unit="ms").dt.date
+    return temp_df
+
+
+def index_pmi_man_cx() -> pd.DataFrame():
+    """
+    财新数据-指数报告-财新中国 PMI-制造业 PMI
+    https://s.ccxe.com.cn/indices/pmi
+    :return: 财新中国 PMI-制造业 PMI
+    :rtype: pandas.DataFrame
+    """
+    url = "https://s.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
+    params = {"type": "man"}
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.columns = ["变化值", "制造业PMI", "日期"]
+    temp_df = temp_df[
+        [
+            "日期",
+            "制造业PMI",
+            "变化值",
+        ]
+    ]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], unit="ms").dt.date
+    return temp_df
+
+
+def index_pmi_ser_cx() -> pd.DataFrame():
+    """
+    财新数据-指数报告-财新中国 PMI-服务业 PMI
+    https://s.ccxe.com.cn/indices/pmi
+    :return: 财新中国 PMI-服务业 PMI
+    :rtype: pandas.DataFrame
+    """
+    url = "https://s.ccxe.com.cn/api/index/pro/cxIndexTrendInfo"
+    params = {"type": "ser"}
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.columns = ["变化值", "服务业PMI", "日期"]
+    temp_df = temp_df[
+        [
+            "日期",
+            "服务业PMI",
+            "变化值",
+        ]
+    ]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], unit="ms").dt.date
+    return temp_df
+
+
 def index_dei_cx() -> pd.DataFrame():
     """
     财新数据-指数报告-数字经济指数
@@ -302,6 +374,15 @@ def index_cci_cx() -> pd.DataFrame():
 
 
 if __name__ == "__main__":
+    index_pmi_com_cx_df = index_pmi_com_cx()
+    print(index_pmi_com_cx_df)
+
+    index_pmi_man_cx_df = index_pmi_man_cx()
+    print(index_pmi_man_cx_df)
+
+    index_pmi_ser_cx_df = index_pmi_ser_cx()
+    print(index_pmi_ser_cx_df)
+
     index_dei_cx_df = index_dei_cx()
     print(index_dei_cx_df)
 
