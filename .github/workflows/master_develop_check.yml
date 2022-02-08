@@ -1,4 +1,4 @@
-name: build
+name: Master and Develop Check
 
 on:
   push:

@@ -1,4 +1,4 @@
-**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP Server 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南**
+**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南**
 
 ![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare_logo.jpg)
 
@@ -128,9 +128,6 @@ Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKS
 <div>
     <img src="https://github.com/akfamily/akshare/blob/master/example/images/ds.png">
 </div>
-
-Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 1254836886
-![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
 
 ## Features
 

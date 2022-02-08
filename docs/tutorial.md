@@ -348,6 +348,7 @@
  # 货币对-投机情绪报告
  "macro_fx_sentiment"  # 货币对-投机情绪报告
  # COVID-19数据接口
+ "covid_19_risk_area"  # 疫情风险等级查询
  "covid_19_163"  # COVID-19-网易
  "covid_19_dxy"  # COVID-19-丁香园
  "covid_19_baidu"  # COVID-19-百度
@@ -992,6 +993,27 @@
  "stock_gdfx_holding_statistics_em"  # 股东持股统计-十大股东
  "stock_gdfx_free_holding_teamwork_em"  # 股东协同-十大流通股东
  "stock_gdfx_holding_teamwork_em"  # 股东协同-十大股东
+ # 期权龙虎榜
+ "option_lhb_em"  # 期权龙虎榜
+ "option_value_analysis_em"  # 期权价值分析
+ "option_risk_analysis_em"  # 期权风险分析
+ "option_premium_analysis_em"  # 期权折溢价分析
+ # 财新指数
+ "index_pmi_com_cx"  # 财新数据-指数报告-财新中国 PMI-综合 PMI
+ "index_pmi_man_cx"  # 财新数据-指数报告-财新中国 PMI-制造业 PMI
+ "index_pmi_ser_cx"  # 财新数据-指数报告-财新中国 PMI-服务业 PMI
+ "index_dei_cx"  # 财新数据-指数报告-数字经济指数
+ "index_ii_cx"  # 财新数据-指数报告-产业指数
+ "index_si_cx"  # 财新数据-指数报告-溢出指数
+ "index_fi_cx"  # 财新数据-指数报告-融合指数
+ "index_bi_cx"  # 财新数据-指数报告-基础指数
+ "index_nei_cx"  # 财新数据-指数报告-中国新经济指数
+ "index_li_cx"  # 财新数据-指数报告-劳动力投入指数
+ "index_ci_cx"  # 财新数据-指数报告-资本投入指数
+ "index_ti_cx"  # 财新数据-指数报告-科技投入指数
+ "index_neaw_cx"  # 财新数据-指数报告-新经济行业入职平均工资水平
+ "index_awpr_cx"  # 财新数据-指数报告-新经济入职工资溢价水平
+ "index_cci_cx"  # 财新数据-指数报告-大宗商品指数
 ```
 
 ## 案例演示

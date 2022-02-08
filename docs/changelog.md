@@ -2973,4 +2973,100 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.57 fix: fix futures_main_sina interface
 
 1.3.58 fix: fix stock_margin_detail_szse interface
+
+1.3.59 add: add covid_19_risk_area interface
+
+1.3.60 fix: fix covid_19_risk_area interface
+
+1.3.61 fix: fix futures_zh_spot interface
+
+1.3.62 fix: fix option_sina_sse_spot_price interface
+
+1.3.63 fix: fix option_sina_finance_minute interface
+
+1.3.64 fix: fix futures_foreign_commodity_realtime interface
+
+1.3.65 fix: fix option_sina_sse_codes interface
+
+1.3.66 fix: fix option_commodity_hist_sina interface
+
+1.3.67 add: add option_lhb_em interface
+
+1.3.68 fix: fix stock_hsgt_board_rank_em interface
+
+1.3.69 fix: fix stock_gdfx_free_holding_statistics_em interface
+
+1.3.70 fix: fix option_sina_sse_spot_price interface
+
+1.3.71 fix: fix stock_history_dividend_detail interface
+
+1.3.72 add: add option_value_analysis_em interface
+
+1.3.73 fix: fix stock_info_sh_delist interface
+
+1.3.74 fix: fix option_value_analysis_em interface
+
+1.3.75 add: add option_risk_analysis_em interface
+
+1.3.76 add: add option_premium_analysis_em interface
+
+1.3.77 fix: fix sw_index_daily_indicator interface
+
+1.3.78 fix: fix forbes_rank interface
+
+1.3.79 add: add dockerfile for aktools interface
+
+1.3.80 fix: fix dockerfile for aktools interface
+
+1.3.81 fix: fix release_and_deploy interface
+
+1.3.82 fix: fix dockerfile interface
+
+1.3.83 fix: fix dockerfile-jupyter
+
+1.3.84 fix: fix release_and_deploy
+
+1.3.85 fix: fix release_and_deploy.yml
+
+1.3.86 fix: fix build.yml
+
+1.3.87 fix: fix master_develop_check.yml
+
+1.3.88 fix: fix master_develop_check.yml
+
+1.3.89 fix: fix master_develop_check.yml
+
+1.3.90 fix: fix master_develop_check.yml
+
+1.3.91 fix: fix master_develop_check.yml
+
+1.3.92 fix: fix docker image of akshare for jupyter and aktools
+
+1.3.93 fix: fix docs
+
+1.3.94 fix: fix akdocker.md
+
+1.3.95 fix: fix covid_19_risk_area interface
+
+1.3.96 fix: fix bond_china_close_return interface
+
+1.3.97 fix: fix stock_us_hist interface
+
+1.3.98 fix: fix stock_hk_hist interface
+
+1.3.99 fix: fix index_yw interface
+
+1.4.1 fix: fix index_yw interface
+
+1.4.2 add: add index_dei_cx interface
+
+1.4.3 add: add index_ii_cx interface
+
+1.4.4 add: add index_si_cx interface
+
+1.4.5 add: add index_pmi_com_cx interface
+
+1.4.6 add: add index_pmi_man_cx interface
+
+1.4.7 add: add index_pmi_ser_cx interface
 ```

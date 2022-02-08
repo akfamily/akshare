@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/1 14:23
+Date: 2022/1/25 11:35
 Desc: 新浪财经-外盘期货
 http://finance.sina.com.cn/money/future/hf.html
 """
@@ -103,7 +103,24 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
     """
     payload = "?list=" + ",".join(["hf_" + item for item in subscribe_list])
     url = "http://hq.sinajs.cn/" + payload
-    r = requests.get(url)
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Host': 'hq.sinajs.cn',
+        'Pragma': 'no-cache',
+        'Referer': 'https://finance.sina.com.cn/',
+        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'Sec-Fetch-Dest': 'script',
+        'Sec-Fetch-Mode': 'no-cors',
+        'Sec-Fetch-Site': 'cross-site',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+    }
+    r = requests.get(url, headers=headers)
     data_text = r.text
     data_df = pd.DataFrame(
         [
@@ -216,7 +233,7 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
 
     # 获取汇率数据
     url = "https://hq.sinajs.cn/?list=USDCNY"
-    r = requests.get(url)
+    r = requests.get(url, headers=headers)
     data_text = r.text
     usd_rmb = float(
         data_text[data_text.find('"') + 1: data_text.find(",美元人民币")].split(",")[-1]

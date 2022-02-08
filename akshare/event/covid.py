@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/17 16:07
+Date: 2022/1/20 16:07
 Desc: COVID-19、COVID-19-网易、COVID-19-丁香园、COVID-19-百度、COVID-19-GitHub
 """
 import json
 import time
+import os
 
 import jsonpath
 import pandas as pd
@@ -14,6 +15,99 @@ from bs4 import BeautifulSoup
 
 from akshare.event.cons import province_dict, city_dict
 from akshare.utils import demjson
+
+import py_mini_racer
+
+
+def _get_js_path(name: str = None, module_file: str = None) -> str:
+    """
+    获取 JS 文件的路径(从模块所在目录查找)
+    :param name: 文件名
+    :type name: str
+    :param module_file: 模块路径
+    :type module_file: str
+    :return: 路径
+    :rtype: str
+    """
+    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
+    module_json_path = os.path.join(module_folder, "event", name)
+    return module_json_path
+
+
+def _get_file_content(file_name: str = "crypto.js") -> str:
+    """
+    读取 JS 文件的内容
+    :param file_name:  JS 文件名
+    :type file_name: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_name = file_name
+    setting_file_path = _get_js_path(setting_file_name, __file__)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
+
+
+def covid_19_risk_area(symbol: str = "高风险等级地区") -> pd.DataFrame:
+    """
+    卫生健康委-疫情风险等级查询
+    http://bmfw.www.gov.cn/yqfxdjcx/risk.html
+    :param symbol: choice of {"高风险等级地区", "中风险等级地区"}
+    :type symbol: str
+    :return: 疫情风险等级查询
+    :rtype: pandas.DataFrame
+    """
+    file_data = _get_file_content(file_name="covid.js")
+    ctx = py_mini_racer.MiniRacer()
+    ctx.eval(file_data)
+    decode_ajax_dict = ctx.call('generateAjaxParmas', "xxx")
+    decode_header_dict = ctx.call('generateHeaderParmas', "xxx")
+    url = "http://103.66.32.242:8005/zwfwMovePortal/interface/interfaceJson"
+    payload = {
+        "appId": "NcApplication",
+        "key": "3C502C97ABDA40D0A60FBEE50FAAD1DA",
+        "nonceHeader": "123456789abcdefg",
+        "paasHeader": "zdww",
+        "signatureHeader": eval(decode_ajax_dict)["signatureHeader"],
+        "timestampHeader": eval(decode_ajax_dict)["timestampHeader"]
+    }
+    headers = {
+        'Accept': 'application/json, text/javascript, */*; q=0.01',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Content-Length': '235',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Host': '103.66.32.242:8005',
+        'Origin': 'http://bmfw.www.gov.cn',
+        'Pragma': 'no-cache',
+        'Proxy-Connection': 'keep-alive',
+        'Referer': 'http://bmfw.www.gov.cn/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
+        'x-wif-nonce': 'QkjjtiLM2dCratiA',
+        'x-wif-paasid': 'smt-application',
+        'x-wif-signature': eval(decode_header_dict)["signatureHeader"],
+        'x-wif-timestamp': eval(decode_header_dict)["timestampHeader"],
+    }
+    r = requests.post(url, json=payload, headers=headers)
+    data_json = r.json()
+    if symbol == "高风险等级地区":
+        temp_df = pd.DataFrame(data_json['data']['highlist'])
+        temp_df = temp_df.explode(['communitys'])
+        del temp_df['type']
+        temp_df['grade'] = '高风险'
+        temp_df['report_date'] = data_json['data']['end_update_time']
+        temp_df['number'] = data_json['data']['hcount']
+        return temp_df
+    else:
+        temp_df = pd.DataFrame(data_json['data']['middlelist'])
+        temp_df = temp_df.explode(['communitys'])
+        del temp_df['type']
+        temp_df['grade'] = '高风险'
+        temp_df['report_date'] = data_json['data']['end_update_time']
+        temp_df['number'] = data_json['data']['mcount']
+        return temp_df
 
 
 def covid_19_163(indicator: str = "实时") -> pd.DataFrame:
@@ -863,6 +957,12 @@ def covid_19_csse_global_recovered() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    covid_19_risk_area_df = covid_19_risk_area(symbol="高风险等级地区")
+    print(covid_19_risk_area_df)
+
+    covid_19_risk_area_df = covid_19_risk_area(symbol="中等风险等级地区")
+    print(covid_19_risk_area_df)
+
     # 163
     indicator_list = [
         "数据说明",

@@ -94,7 +94,7 @@ def stock_zh_a_tick_tx(
 
 
 def stock_zh_a_tick_163(
-    symbol: str = "sz000001", trade_date: str = "20211201"
+    symbol: str = "sz000001", trade_date: str = "20220125"
 ) -> pd.DataFrame:
     """
     成交明细-每个交易日 22:00 提供当日数据; 该接口目前还不支持北交所的股票
@@ -119,6 +119,10 @@ def stock_zh_a_tick_163(
         "成交额",
         "性质",
     ]
+    temp_df['成交价'] = pd.to_numeric(temp_df['成交价'])
+    temp_df['价格变动'] = pd.to_numeric(temp_df['价格变动'])
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
     return temp_df
 
 

@@ -1,7 +1,7 @@
 # [AKShare](https://github.com/akfamily/akshare) Docker 部署
 
-目前 [AKShare](https://github.com/akfamily/akshare) 数据接口是基于 Python 开发的，鉴于部分其他语言的用户难以在短时间部署
-[AKShare](https://github.com/akfamily/akshare) 的 Python 使用环境，特此提供基于虚拟化容器技术 Docker 的使用教程。
+目前 [AKShare](https://github.com/akfamily/akshare) 数据接口是基于 Python 开发的，鉴于部分小伙伴难以在短时间部署
+[AKShare](https://github.com/akfamily/akshare) 的 Python 使用环境，特此提供基于 Docker 容器技术的使用教程。
 
 ## 安装 Docker
 
@@ -15,7 +15,7 @@
 ### 第三方安装指导
 
 1. [Docker 安装教程](https://www.runoob.com/docker/docker-tutorial.html)
-2. 建议 Windows 7 和 8 的用户升级到 Windows 10 系统进行安装
+2. 建议 Windows 7 和 8 的用户升级到 Windows 10/11 系统进行安装
 3. [Windows 镜像下载地址](https://msdn.itellyou.cn/)
 
 ### 配置国内镜像
@@ -27,20 +27,23 @@
 
 ### 拉取 AKDocker 镜像
 
+此镜像会在每次 AKShare 更新版本时自动更新
+
 ```
-docker pull registry.cn-beijing.aliyuncs.com/akshare/akdocker
+docker pull registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter
 ```
 
 ### 运行 AKDocker 容器
 
 ```
-docker run -it registry.cn-beijing.aliyuncs.com/akshare/akdocker
+docker run -it registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter
 ```
 
 ### 测试 AKDocker 容器
 
 ```python
 import akshare as ak
+
 ak.__version__
 ```
 
@@ -55,7 +58,7 @@ ak.__version__
 ### 命令行
 
 ```
-docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-hangzhou.aliyuncs.com/akshare/akdocker jupyter-lab --allow-root --no-browser --ip=0.0.0.0
+docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter jupyter-lab --allow-root --no-browser --ip=0.0.0.0
 ```
 
 ### 注意事项
@@ -64,3 +67,6 @@ docker run -it -p 8888:8888 --name akdocker -v /c/home:/home registry.cn-hangzho
 2. 在 Terminal 中运行上述指令后，会在 Terminal 中显示如下信息: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/akdocker/akdocker_terminal.png)
 3. 打开本地游览器输入地址: ```http://127.0.0.1:8888/lab?token=bbe7c8633c098b67df913dce522b82e00828b311a6fc954d```;
 4. 在本地游览器中的 JupyterLab 界面进入 ```home``` 文件夹, 该目录内容会与本地的 ```C:\home``` 保持同步, 可以在此编辑 notebook 文件和导入数据到该文件夹从而在本地的 ```C:\home``` 文件夹下获取数据;
+5. 如果在 JupyterLab 中的 AKShare 版本不是最新版，有以下两种方法：
+   1. `docker pull registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter` 重新拉取镜像或者，
+   2. 在 JupyterLab 中运行 `!pip install akshare --upgrade` 命令来升级 AKShare 到最新版。

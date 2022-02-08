@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/14 16:30
+Date: 2022/1/26 13:10
 Desc: 申万指数-申万一级、二级和三级
 http://www.swsindex.com/IdxMain.aspx
 https://legulegu.com/stockdata/index-composition?industryCode=851921.SI

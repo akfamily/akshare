@@ -2458,6 +2458,7 @@ print(us_stock_current_df)
 | 名称         | 类型  | 描述                                                                          |
 |------------|-----|-----------------------------------------------------------------------------|
 | symbol     | str | 美股代码, 可以通过 **ak.stock_us_spot_em()** 函数返回所有的 pandas.DataFrame 里面的 `代码` 字段获取 |
+| period     | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}                    |
 | start_date | str | start_date="20210101"                                                       |
 | end_date   | str | end_date="20210601"                                                         |
 | adjust     | str | 默认 adjust="", 则返回未复权的数据; adjust="qfq" 则返回前复权的数据, adjust="hfq" 则返回后复权的数据,    |
@@ -2483,7 +2484,7 @@ print(us_stock_current_df)
 ```python
 import akshare as ak
 
-stock_us_hist_df = ak.stock_us_hist(symbol='105.MTP', start_date="19700101", end_date="22220101", adjust="qfq")
+stock_us_hist_df = ak.stock_us_hist(symbol='105.MTP', period="daily", start_date="19700101", end_date="22220101", adjust="qfq")
 print(stock_us_hist_df)
 ```
 
@@ -3189,6 +3190,7 @@ print(stock_hk_hist_min_em_df)
 | 名称         | 类型  | 描述                                                             |
 |------------|-----|----------------------------------------------------------------|
 | symbol     | str | symbol="00593"; 港股代码,可以通过 **ak.stock_hk_spot_em()** 函数返回所有港股代码 |
+| period     | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}       |
 | start_date | str | start_date="19700101"; 开始日期                                    |
 | end_date   | str | end_date="22220101"; 结束日期                                      |
 | adjust     | str | adjust="": 返回未复权的数据, 默认; qfq: 返回前复权数据; hfq: 返回后复权数据;           |
@@ -3214,7 +3216,7 @@ print(stock_hk_hist_min_em_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_df = ak.stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="")
+stock_hk_hist_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="")
 print(stock_hk_hist_df)
 ```
 
@@ -3256,7 +3258,7 @@ print(stock_hk_hist_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_qfq_df = ak.stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="qfq")
+stock_hk_hist_qfq_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="qfq")
 print(stock_hk_hist_qfq_df)
 ```
 
@@ -3298,7 +3300,7 @@ print(stock_hk_hist_qfq_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_hfq_df = ak.stock_hk_hist(symbol="00593", start_date="19700101", end_date="22220101", adjust="hfq")
+stock_hk_hist_hfq_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="hfq")
 print(stock_hk_hist_hfq_df)
 ```
 
@@ -3333,7 +3335,7 @@ print(stock_hk_hist_hfq_df)
 
 | 名称     | 类型  | 描述                                                                                             |
 |--------|-----|------------------------------------------------------------------------------------------------|
-| symbol | str | 港股代码,可以通过 **stock_hk_spot** 函数返回所有港股代码                                                         |
+| symbol | str | 港股代码,可以通过 **ak.stock_hk_spot()** 函数返回所有港股代码                                                    |
 | adjust | str | "": 返回未复权的数据 ; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; qfq-factor: 返回前复权因子和调整; hfq-factor: 返回后复权因子和调整; |
 
 输出参数-历史行情数据(后复权)
@@ -9708,57 +9710,56 @@ print(stock_staq_net_stop_df)
 97  98  400025  宏  业 3
 ```
 
-#### 终止(暂停)上市-上证
+#### 终止上市-上证
 
 接口: stock_info_sh_delist
 
-目标地址: http://www.sse.com.cn/assortment/stock/list/firstissue/
+目标地址: http://www.sse.com.cn/assortment/stock/list/delisting/
 
-描述: 上海证券交易所终止(暂停)上市股票
+描述: 上海证券交易所终止上市股票
 
-限量: 单次获取上海证券交易所终止(暂停)上市股票
+限量: 单次获取上海证券交易所终止上市股票
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| indicator | str | indicator="终止上市公司"; choice of {"暂停上市公司", "终止上市公司"}|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| 原公司代码          | object   |   -   |
-| 原公司简称          | object   |   -   |
-| 上市日期          | object   |   -   |
-| 终止上市日期          | object   |   -   |
-| 终止上市后股份转让代码          | object   |   -   |
-| 终止上市后股份转让主办券商          | object   |   -   |
-| 终止上市后股份转让副主办券商          | object   |   -   |
+| 名称     | 类型     | 描述  |
+|--------|--------|-----|
+| 序号     | object | -   |
+| 原公司代码  | object | -   |
+| 原公司简称  | object | -   |
+| 上市日期   | object | -   |
+| 终止上市日期 | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_info_sh_delist_df = ak.stock_info_sh_delist(indicator="终止上市公司")
+
+stock_info_sh_delist_df = ak.stock_info_sh_delist()
 print(stock_info_sh_delist_df)
 ```
 
 数据示例
 
 ```
-     原公司代码  原公司简称   上市日期  ... 终止上市后股份转让代码 终止上市后股份转让主办券商 终止上市后股份转让副主办券商
-0   600723   首商股份  1996-07-16  ...           -             -              -
-1   600068    葛洲坝  1997-05-26  ...           -             -              -
-2   600634   退市富控  1993-03-04  ...           -             -              -
-3   600614   退市鹏起  1992-08-28  ...           -             -              -
-4   600485  *ST信威  2003-08-07  ...           -             -              -
-..     ...    ...         ...  ...         ...           ...            ...
-70  600878  *ST北科  1995-10-13  ...      400030    大鹏证券有限责任公司              -
-71  600646   ST国嘉  1993-05-04  ...      400017  申银万国证券股份有限公司              -
-72  600709   ST生态  1996-06-18  ...      400027  国泰君安证券股份有限公司              -
-73  600813  ST鞍一工  1994-01-14  ...      400021  申银万国证券股份有限公司              -
-74  600625   PT水仙  1993-01-06  ...      400008  申银万国证券股份有限公司   国泰君安证券股份有限公司
+    序号 原公司代码 原公司简称 上市日期      终止上市日期
+0    1  600001    邯郸钢铁  1998-01-22  2009-12-29
+1    2  600002    齐鲁退市  1998-04-08  2006-04-24
+2    3  600003   ST东北高  1999-08-10  2010-02-26
+3    4  600005    武钢股份  1999-08-03  2017-02-14
+4    5  600065  *ST联 谊  1997-05-23  2007-12-13
+..  ..     ...     ...         ...         ...
+74  75       -    阳晨Ｂ股  1995-07-27  2016-12-16
+75  76       -    东电Ｂ股  1997-09-23  2013-11-07
+76  77       -    新城Ｂ股  1997-10-16  2015-11-23
+77  78       -    退市大化  1997-10-21  2020-08-28
+78  79       -    东贝Ｂ股  1999-07-15  2020-11-23
 ```
 
 #### 股票更名

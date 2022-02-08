@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/6/30 15:10
+Date: 2022/1/26 15:10
 Desc: 福布斯中国-榜单
 https://www.forbeschina.com/lists
 """
@@ -10,13 +10,13 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def forbes_rank(indicator: str = "2020福布斯美国富豪榜") -> pd.DataFrame:
+def forbes_rank(symbol: str = "2021福布斯中国创投人100") -> pd.DataFrame:
     """
     福布斯中国-榜单
     https://www.forbeschina.com/lists
     https://www.forbeschina.com/lists/1750
-    :param indicator: choice of {"2020福布斯美国富豪榜", "2020福布斯新加坡富豪榜", "2020福布斯中国名人榜", *}
-    :type indicator: str
+    :param symbol: choice of {"2020福布斯美国富豪榜", "2020福布斯新加坡富豪榜", "2020福布斯中国名人榜", *}
+    :type symbol: str
     :return: 具体指标的榜单
     :rtype: pandas.DataFrame
     """
@@ -35,11 +35,11 @@ def forbes_rank(indicator: str = "2020福布斯美国富豪榜") -> pd.DataFrame
             ["https://www.forbeschina.com" + item["href"] for item in all_list],
         )
     )
-    r = requests.get(name_url_dict[indicator])
+    r = requests.get(name_url_dict[symbol])
     temp_df = pd.read_html(r.text)[0]
     return temp_df
 
 
 if __name__ == "__main__":
-    forbes_rank_df = forbes_rank(indicator="2021福布斯全球富豪榜")
+    forbes_rank_df = forbes_rank(symbol="2021福布斯中国香港富豪榜")
     print(forbes_rank_df)
