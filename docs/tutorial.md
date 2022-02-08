@@ -1014,6 +1014,8 @@
  "index_neaw_cx"  # 财新数据-指数报告-新经济行业入职平均工资水平
  "index_awpr_cx"  # 财新数据-指数报告-新经济入职工资溢价水平
  "index_cci_cx"  # 财新数据-指数报告-大宗商品指数
+ # 冬奥会
+ "sport_olympic_winter_hist"  # 冬奥会-历届奖牌榜
 ```
 
 ## 案例演示
