@@ -94,7 +94,7 @@
 
 感谢[思知网站](https://www.ownthink.com/)提供的相关数据;
 
-感谢[Currencyscoop 网站](https://currencyscoop.com)提供的相关数据;
+感谢[Currencyscoop 网站](https://currencyscoop.com/)提供的相关数据;
 
 感谢[新加坡交易所](https://www.sgx.com/zh-hans/research-education/derivatives)提供的相关数据;
 
@@ -102,13 +102,11 @@
 
 欢迎关注 **数据科学实战** 微信公众号获取更新信息:
 
-<div align=center>
+<div>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png">
 </div>
 
 想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学家】** 高质量社区，里面有丰富的视频、问答、文章、书籍及代码等内容: ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
-
-您也可以加入 **AKShare-VIP QQ 群**: 为了提高问答质量，此群为收费群(一杯咖啡钱即可入群)，可以添加 **AKShare-小助手** QQ：1254836886，由小助手邀请入群：![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
 
 ## 声明
 
