@@ -1,8 +1,8 @@
-#!/usr/bin/env python# -*- coding:utf-8 -*-
-
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
-Date: 2019/11/30 13:14
-Desc: 网站的经济政策不确定性指数
+Date: 2022/2/9 12:14
+Desc: 经济政策不确定性指数
 http://www.policyuncertainty.com/index.html
 """
 import pandas as pd
@@ -10,7 +10,8 @@ import pandas as pd
 
 def article_epu_index(index: str = "China") -> pd.DataFrame:
     """
-    网站的经济政策不确定性指数
+    经济政策不确定性指数
+    http://www.policyuncertainty.com/index.html
     :param index: 指定的国家名称, e.g. “China”
     :type index: str
     :return: 指定 index 的数据
