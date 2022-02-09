@@ -150,7 +150,7 @@ def get_ine_daily(date: str = "20200106") -> pd.DataFrame:
     result_df["close"] = temp_df["CLOSEPRICE"]
     result_df["volume"] = temp_df["VOLUME"]
     result_df["open_interest"] = temp_df["OPENINTEREST"]
-    result_df["turnover"] = 0
+    result_df["turnover"] = temp_df["TURNOVER"]
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
     try:
