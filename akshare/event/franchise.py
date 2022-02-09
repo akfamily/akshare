@@ -53,7 +53,7 @@ def franchise_china() -> pd.DataFrame:
     file_url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/franchise/franchise_china.csv"
     outer_df = pd.read_csv(file_url, encoding="gbk", index_col=0)
     try:
-        for page in tqdm(range(1, int(5)), leave=False):  # 这里的 5 是硬编码, 长期后需要更新 file_url 文件
+        for page in tqdm(range(1, 5), leave=False):  # 这里的 5 是硬编码, 长期后需要更新 file_url 文件
             payload = {
                 "method": "entps",
                 "province": "",
@@ -68,7 +68,7 @@ def franchise_china() -> pd.DataFrame:
             temp_df = pd.read_html(r.text)[1]
             inner_df = temp_df.iloc[:, 0].str.split("  ", expand=True)
             inner_df.columns = ["特许人名称", "备案时间", "地址"]
-            outer_df = outer_df.append(inner_df, ignore_index=True)
+            outer_df = outer_df.concat(inner_df, ignore_index=True)
     except:
         pass
     outer_df.drop_duplicates(inplace=True)
