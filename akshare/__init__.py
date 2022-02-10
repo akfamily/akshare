@@ -1834,9 +1834,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.11 fix: fix futures_spot_price_previous interface
 1.4.12 add: add stock_hot_rank_em interface
 1.4.13 add: add stock_hot_rank_detail_em interface
+1.4.14 add: add index_bi_cx interface
 """
 
-__version__ = "1.4.13"
+__version__ = "1.4.14"
 __author__ = "Albert King"
 
 import sys
