@@ -13,7 +13,6 @@ from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
 from tqdm import tqdm
-from retry import retry
 
 from akshare.stock.cons import (
     zh_sina_a_stock_payload,
@@ -26,8 +25,7 @@ from akshare.stock.cons import (
     zh_sina_a_stock_amount_url,
 )
 
-
-def _get_zh_a_page_count() -> int:
+def _get_zh_a_page_count(num_per_page: int=80) -> int:
     """
     所有股票的总页数
     http://vip.stock.finance.sina.com.cn/mkt/#hs_a
@@ -35,14 +33,14 @@ def _get_zh_a_page_count() -> int:
     :rtype: int
     """
     res = requests.get(zh_sina_a_stock_count_url)
-    page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
+    page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / num_per_page
     if isinstance(page_count, int):
         return page_count
     else:
         return int(page_count) + 1
 
 
-def stock_zh_a_spot() -> pd.DataFrame:
+def stock_zh_a_spot(num_per_page=80) -> pd.DataFrame:
     """
     新浪财经-所有 A 股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
     http://vip.stock.finance.sina.com.cn/mkt/#hs_a
@@ -50,10 +48,10 @@ def stock_zh_a_spot() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    page_count = _get_zh_a_page_count()
+    page_count = _get_zh_a_page_count(num_per_page=num_per_page)
     zh_sina_stock_payload_copy = zh_sina_a_stock_payload.copy()
     for page in tqdm(range(1, page_count + 1), leave=False, desc="Please wait for a moment"):
-        zh_sina_stock_payload_copy.update({"page": page})
+        zh_sina_stock_payload_copy.update({"page": page, "num": num_per_page})
         r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(r.text)
         big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
@@ -304,7 +302,6 @@ def stock_zh_a_cdr_daily(
     return temp_df
 
 
-@retry(exceptions=Exception, tries=3, delay=5)
 def stock_zh_a_minute(
     symbol: str = "sh603087", period: str = "1", adjust: str = "", datalen: int = 20000,
 ) -> pd.DataFrame:
