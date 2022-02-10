@@ -1831,9 +1831,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.8 add: add sport_olympic_winter_hist interface
 1.4.9 fix: fix macro_cnbs interface
 1.4.10 fix: fix get_futures_daily interface
+1.4.11 fix: fix futures_spot_price_previous interface
 """
 
-__version__ = "1.4.10"
+__version__ = "1.4.11"
 __author__ = "Albert King"
 
 import sys
