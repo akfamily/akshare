@@ -12,34 +12,35 @@
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数-品牌
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| id      | int64   |  每个运动员的唯一ID  |
-| name      | object   |  运动员名字  |
-| sex      | object   |  性别   |
-| age      | float64   |  年龄   |
-| height      | float64   |  身高   |
-| weight      | float64   |  体重   |
-| team      | object   |  所代表的国家队   |
-| noc      | object   |  国家奥委会3个字母的代码   |
-| games      | object   |  年份与季节   |
-| year      | int64   |  比赛年份   |
-| season      | object   |  比赛季节   |
-| city      | object   |  举办城市   |
-| sport      | object   | 运动类别   |
-| event      | object   |  比赛项目   |
-| medal      | object   |  奖牌   |
+| 名称     | 类型      | 描述           |
+|--------|---------|--------------|
+| id     | int64   | 每个运动员的唯一ID   |
+| name   | object  | 运动员名字        |
+| sex    | object  | 性别           |
+| age    | float64 | 年龄           |
+| height | float64 | 身高           |
+| weight | float64 | 体重           |
+| team   | object  | 所代表的国家队      |
+| noc    | object  | 国家奥委会3个字母的代码 |
+| games  | object  | 年份与季节        |
+| year   | int64   | 比赛年份         |
+| season | object  | 比赛季节         |
+| city   | object  | 举办城市         |
+| sport  | object  | 运动类别         |
+| event  | object  | 比赛项目         |
+| medal  | object  | 奖牌           |
 
 接口示例
 
 ```python
 import akshare as ak
+
 sport_olympic_hist_df = ak.sport_olympic_hist()
 print(sport_olympic_hist_df)
 ```
@@ -83,6 +84,60 @@ print(sport_olympic_hist_df)
 271113        Ski Jumping Men's Large Hill, Team    NaN  
 271114                      Bobsleigh Men's Four    NaN  
 271115                      Bobsleigh Men's Four    NaN  
+```
+
+### 冬奥会历届奖牌榜
+
+接口: sport_olympic_winter_hist
+
+目标地址: https://m.sports.qq.com/g/sv3/winter-oly22/winter-olympic-rank.htm?type=0
+
+描述: 腾讯运动-冬奥会-历届奖牌榜
+
+限量: 单次返回 1924-2018 年度的冬奥会历届奖牌榜数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数-品牌
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| 序号    | int64  | -   |
+| 举办年份  | object | -   |
+| 届数    | object | -   |
+| 举办地点  | object | -   |
+| 国家及地区 | object | -   |
+| 金牌数   | int64  | -   |
+| 总奖牌数  | int64  | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+sport_olympic_winter_hist_df = ak.sport_olympic_winter_hist()
+print(sport_olympic_winter_hist_df)
+```
+
+数据示例
+
+```
+      序号  举办年份  届数 举办地点 国家及地区  金牌数  总奖牌数
+0      1  2018  23   平昌    挪威   14    39
+1      2  2018  23   平昌    德国   14    31
+2      3  2018  23   平昌   加拿大   11    29
+3      4  2018  23   平昌    美国    9    23
+4      5  2018  23   平昌    荷兰    8    20
+..   ...   ...  ..  ...   ...  ...   ...
+404  405  1924   1  霞慕尼    英国    1     4
+405  406  1924   1  霞慕尼    瑞典    1     2
+406  407  1924   1  霞慕尼   加拿大    1     1
+407  408  1924   1  霞慕尼    法国    0     3
+408  409  1924   1  霞慕尼   比利时    0     1
 ```
 
 ### 汽车销量排行

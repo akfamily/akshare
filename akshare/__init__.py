@@ -1828,9 +1828,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.5 add: add index_pmi_com_cx interface
 1.4.6 add: add index_pmi_man_cx interface
 1.4.7 add: add index_pmi_ser_cx interface
+1.4.8 add: add sport_olympic_winter_hist interface
+1.4.9 add: fix macro_cnbs interface
 """
 
-__version__ = "1.4.7"
+__version__ = "1.4.9"
 __author__ = "Albert King"
 
 import sys
@@ -1840,6 +1842,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+冬奥会历届奖牌榜
+"""
+from akshare.sport.sport_olympic_winter import sport_olympic_winter_hist
 
 """
 财新指数
