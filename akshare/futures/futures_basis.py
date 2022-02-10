@@ -75,7 +75,7 @@ def futures_spot_price_daily(
         return temp_df
 
 
-def futures_spot_price(date: str = "20210201", vars_list=cons.contract_symbols):
+def futures_spot_price(date: str = "20210201", vars_list: list = cons.contract_symbols) -> pd.DataFrame:
     """
     指定交易日大宗商品现货价格及相应基差
     http://www.100ppi.com/sf/day-2017-09-12.html
@@ -100,7 +100,7 @@ def futures_spot_price(date: str = "20210201", vars_list=cons.contract_symbols):
         raise Exception("数据源开始日期为 20110104, 请将获取数据时间点设置在 20110104 后")
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
-        return None
+        return
     u1 = cons.SYS_SPOT_PRICE_LATEST_URL
     u2 = cons.SYS_SPOT_PRICE_URL.format(date.strftime("%Y-%m-%d"))
     i = 1
@@ -248,7 +248,7 @@ def _join_head(content: pd.DataFrame) -> List:
     return headers
 
 
-def futures_spot_price_previous(date: str = "20220127") -> pd.DataFrame:
+def futures_spot_price_previous(date: str = "20220209") -> pd.DataFrame:
     """
     具体交易日大宗商品现货价格及相应基差
     http://www.100ppi.com/sf/day-2017-09-12.html
@@ -262,7 +262,7 @@ def futures_spot_price_previous(date: str = "20220127") -> pd.DataFrame:
         raise Exception("数据源开始日期为 20110104, 请将获取数据时间点设置在 20110104 后")
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
-        return None
+        return
     url = date.strftime('http://www.100ppi.com/sf2/day-%Y-%m-%d.html')
     content = pandas_read_html_link(url)
     main = content[1]
@@ -301,5 +301,5 @@ if __name__ == "__main__":
     futures_spot_price_df = futures_spot_price("20211109")
     print(futures_spot_price_df)
 
-    futures_spot_price_previous_df = futures_spot_price_previous('20220127')
+    futures_spot_price_previous_df = futures_spot_price_previous('20220209')
     print(futures_spot_price_previous_df)
