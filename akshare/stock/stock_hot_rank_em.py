@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
-# !/usr/bin/env python
+#!/usr/bin/env python
 """
 Date: 2022/2/11 14:15
-Desc: 东方财富个股人气榜-人气榜
+Desc: 东方财富个股人气榜
 http://guba.eastmoney.com/rank/
 """
 import requests
@@ -59,7 +59,7 @@ def stock_hot_rank_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_hot_rank_detail_em(symbol: str = "SH603123") -> pd.DataFrame:
+def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富个股人气榜-历史趋势及粉丝特征
     http://guba.eastmoney.com/rank/stock?code=000665
@@ -75,17 +75,12 @@ def stock_hot_rank_detail_em(symbol: str = "SH603123") -> pd.DataFrame:
         "marketType": "",
         "srcSecurityCode": symbol,
     }
-
-    url_price = "https://emappdata.eastmoney.com/hisClosePrice/getHisClosePriceList"
-    r = requests.post(url_price, json=payload)
-    data_json = r.json()
-
-    temp_df = pd.DataFrame(data_json["data"])
     r = requests.post(url_rank, json=payload)
     data_json = r.json()
-    temp_df["rank"] = pd.DataFrame(data_json["data"])["rank"]
-    temp_df.columns = ["证券代码", "时间", "收盘价", "排名"]
-    temp_df = temp_df[["时间", "收盘价", "排名", "证券代码"]]
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df["证券代码"] = symbol
+    temp_df.columns = ["时间", "排名", "证券代码"]
+    temp_df = temp_df[["时间", "排名", "证券代码"]]
 
     url_follow = "https://emappdata.eastmoney.com/stockrank/getHisProfileList"
     r = requests.post(url_follow, json=payload)
