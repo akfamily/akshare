@@ -21,7 +21,7 @@ from akshare.option.cons import (
 
 def option_finance_underlying(symbol: str = "50ETF") -> pd.DataFrame:
     """
-    期权标的当日行情, 目前只有 华夏上证50ETF, 华泰柏瑞沪深300ETF 两个产品
+    期权标的当日行情, 目前只有 华夏上证 50 ETF, 华泰柏瑞沪深 300 ETF 两个产品
     http://www.sse.com.cn/assortment/options/price/
     :param symbol: 50ETF 或 300ETF
     :type symbol: str
