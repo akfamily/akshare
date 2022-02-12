@@ -715,7 +715,7 @@
  "index_kq_fz"  # 柯桥纺织指数
  "index_kq_fashion"  # 柯桥时尚指数
  # 问财-热门股票
- "stock_wc_hot_rank"  # 问财-热门股票
+ "stock_hot_rank_wc"  # 问财-热门股票
  # Drewry 集装箱指数
  "drewry_wci_index"  # Drewry 集装箱指数
  # 浙江省排污权交易指数

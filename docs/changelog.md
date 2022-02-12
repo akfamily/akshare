@@ -2059,17 +2059,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.4: fix: fix get_shfe_daily interface
 
-0.9.5: add: add stock_wc_hot_rank interface
+0.9.5: add: add stock_hot_rank_wc interface
 
-0.9.6: fix: fix stock_wc_hot_rank interface
+0.9.6: fix: fix stock_hot_rank_wc interface
 
-0.9.7: fix: fix stock_wc_hot_rank interface
+0.9.7: fix: fix stock_hot_rank_wc interface
 
 0.9.8: fix: fix forbes_rank interface
 
 0.9.9: fix: fix stock_a_below_net_asset_statistics interface
 
-0.9.10: fix: fix stock_wc_hot_rank interface
+0.9.10: fix: fix stock_hot_rank_wc interface
 
 0.9.11: add: add drewry_wci_index interface
 
@@ -2123,7 +2123,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.36: fix: fix stock_zh_a_daily hfq and qfq interface
 
-0.9.37: fix: fix stock_wc_hot_rank interface
+0.9.37: fix: fix stock_hot_rank_wc interface
 
 0.9.38: add: add stock_em_zt_pool interface
 
@@ -2456,7 +2456,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.0.98: add: add stock_zh_a_new_em interface
 
-1.0.99: fix: fix stock_wc_hot_rank interface
+1.0.99: fix: fix stock_hot_rank_wc interface
 
 1.1.1: add: add index_investing_global_from_url interface
 
@@ -2558,7 +2558,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.50 add: add stock_cg_lawsuit_cninfo interface
 
-1.1.51 fix: fix stock_wc_hot_rank interface
+1.1.51 fix: fix stock_hot_rank_wc interface
 
 1.1.52 add: add stock_cg_equity_mortgage_cninfo interface
 
@@ -3087,4 +3087,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.15 add: add stock_hot_rank_detail_realtime_em interface
 
 1.4.16 fix: fix stock_hot_rank_detail_em interface
+
+1.4.17 fix: fix stock_hot_rank_wc interface
 ```
