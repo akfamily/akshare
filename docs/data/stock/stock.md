@@ -14194,7 +14194,7 @@ print(stock_board_industry_hist_em_df)
 
 ### 股票热度
 
-接口: stock_wc_hot_rank
+接口: stock_hot_rank_wc
 
 目标地址: http://www.iwencai.com/unifiedwap/home/index
 
@@ -14204,29 +14204,30 @@ print(stock_board_industry_hist_em_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date="20210218"; 查询日期|
+| 名称   | 类型  | 描述                    |
+|------|-----|-----------------------|
+| date | str | date="20210218"; 查询日期 |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |   -    |
-| 股票代码          | object   |   -    |
-| 股票简称          | object   |  -    |
-| 现价          | float64   |   注意单位: 元    |
-| 涨跌幅          | float64   |   注意单位: %    |
-| 个股热度          | float64   |   -    |
-| 个股热度排名          | object   |   -    |
-| 排名日期          | object   |   -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int32   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 现价     | float64 | 注意单位: 元 |
+| 涨跌幅    | float64 | 注意单位: % |
+| 个股热度   | float64 | -       |
+| 个股热度排名 | object  | -       |
+| 排名日期   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_wc_hot_rank_df = ak.stock_wc_hot_rank(date="20210928")
-print(stock_wc_hot_rank_df)
+
+stock_hot_rank_wc_df = ak.stock_hot_rank_wc(date="20210928")
+print(stock_hot_rank_wc_df)
 ```
 
 数据示例

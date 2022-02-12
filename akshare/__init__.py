@@ -1327,12 +1327,12 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.2: fix: fix get_futures_daily interface
 0.9.3: fix: fix get_futures_daily interface
 0.9.4: fix: fix get_shfe_daily interface
-0.9.5: add: add stock_wc_hot_rank interface
-0.9.6: fix: fix stock_wc_hot_rank interface
-0.9.7: fix: fix stock_wc_hot_rank interface
+0.9.5: add: add stock_hot_rank_wc interface
+0.9.6: fix: fix stock_hot_rank_wc interface
+0.9.7: fix: fix stock_hot_rank_wc interface
 0.9.8: fix: fix forbes_rank interface
 0.9.9: fix: fix stock_a_below_net_asset_statistics interface
-0.9.10: fix: fix stock_wc_hot_rank interface
+0.9.10: fix: fix stock_hot_rank_wc interface
 0.9.11: add: add drewry_wci_index interface
 0.9.12: fix: fix bond_investing_global interface
 0.9.13: fix: fix currency_hist interface
@@ -1359,7 +1359,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.34: fix: fix get_futures_daily interface
 0.9.35: fix: fix stock_zh_a_daily interface
 0.9.36: fix: fix stock_zh_a_daily hfq and qfq interface
-0.9.37: fix: fix stock_wc_hot_rank interface
+0.9.37: fix: fix stock_hot_rank_wc interface
 0.9.38: add: add stock_em_zt_pool interface
 0.9.39: fix: fix stock_us_daily interface
 0.9.40: fix: fix bond_cov_comparison interface
@@ -1520,7 +1520,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.96: add: add stock_zh_a_st_em interface
 1.0.97: fix: fix futures_spot_stock interface
 1.0.98: add: add stock_zh_a_new_em interface
-1.0.99: fix: fix stock_wc_hot_rank interface
+1.0.99: fix: fix stock_hot_rank_wc interface
 1.1.1: add: add index_investing_global_from_url interface
 1.1.2: add: add stock_us_pink_spot_em interface
 1.1.3: add: add stock_us_famous_spot_em interface
@@ -1571,7 +1571,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.48 fix: fix rename fund_em_portfolio_hold to fund_portfolio_hold_em interface
 1.1.49 fix: fix stock_em_jgdy_tj and stock_em_jgdy_detail interface
 1.1.50 add: add stock_cg_lawsuit_cninfo interface
-1.1.51 fix: fix stock_wc_hot_rank interface
+1.1.51 fix: fix stock_hot_rank_wc interface
 1.1.52 add: add stock_cg_equity_mortgage_cninfo interface
 1.1.53 fix: fix index_detail_hist_adjust_cni interface
 1.1.54 fix: fix stock_board_concept_hist_ths interface
@@ -1837,9 +1837,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.14 add: add index_bi_cx interface
 1.4.15 add: add stock_hot_rank_detail_realtime_em interface
 1.4.16 fix: fix stock_hot_rank_detail_em interface
+1.4.17 fix: fix stock_hot_rank_wc interface
 """
 
-__version__ = "1.4.16"
+__version__ = "1.4.17"
 __author__ = "Albert King"
 
 import sys
@@ -2399,7 +2400,7 @@ from akshare.index.index_kq_ss import index_kq_fashion
 """
 问财-热门股票
 """
-from akshare.stock_feature.stock_wencai import stock_wc_hot_rank
+from akshare.stock_feature.stock_wencai import stock_hot_rank_wc
 
 """
 新发基金
