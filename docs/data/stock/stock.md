@@ -10802,7 +10802,7 @@ print(stock_cg_equity_mortgage_cninfo_df)
 
 #### 美港目标价
 
-接口: stock_js_price
+接口: stock_price_js
 
 目标地址: https://www.ushknews.com/report.html
 
@@ -10812,44 +10812,45 @@ print(stock_cg_equity_mortgage_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- | --- |
-| category | str | category="us"; choice of {"us", "hk"}|
+| 名称     | 类型  | 描述                                  |
+|--------|-----|-------------------------------------|
+| symbol | str | symbol="us"; choice of {"us", "hk"} |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 日期          | object   |   -    |
-| 个股名称          | object   |   -    |
-| 评级          | object   |   -    |
-| 先前目标价          | float64   |   -    |
-| 最新目标价          | float64   |   -    |
-| 机构名称          | object   |   -    |
+| 名称    | 类型      | 描述  |
+|-------|---------|-----|
+| 日期    | object  | -   |
+| 个股名称  | object  | -   |
+| 评级    | object  | -   |
+| 先前目标价 | float64 | -   |
+| 最新目标价 | float64 | -   |
+| 机构名称  | object  | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_js_price_df = ak.stock_js_price(category="us")
-print(stock_js_price_df)
+
+stock_price_js_df = ak.stock_price_js(symbol="us")
+print(stock_price_js_df)
 ```
 
 数据示例
 
 ```
-            日期                个股名称  ...         最新目标价              机构名称
-0      2021-09-14 00:00:00  Draftkings(DKNG.O)  ...   70.0    投行Craig-Hallum
-1      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   66.0                高盛
-2      2021-09-14 00:00:00          电子艺界(EA.O)  ...  179.0             德意志银行
-3      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   77.0            投行斯蒂费尔
-4      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   88.0  Societe Generale
-                    ...                 ...  ...    ...               ...
-35395  2019-01-02 00:00:00         亚马逊(AMZN.O)  ...    NaN           加拿大皇家银行
-35396  2019-01-02 00:00:00          苹果(AAPL.O)  ...  228.0              摩根大通
-35397  2019-01-02 00:00:00          苹果(AAPL.O)  ...  220.0           加拿大皇家银行
-35398  2019-01-01 16:00:00           强生(JNJ.N)  ...  148.0                花旗
-35399  2019-01-01 00:00:00           辉瑞(PFE.N)  ...   45.0              瑞士信贷
+               日期                    个股名称     评级  先前目标价  最新目标价       机构名称
+0      2022-02-12  Teladoc Health(TDOC.N)     买入    NaN  121.0         高盛
+1      2022-02-12       Cloudflare(NET.N)   None  132.0  150.0    KeyBanc
+2      2022-02-12             Zillow(Z.O)   None   74.0   76.0      摩根士丹利
+3      2022-02-11             Zillow(Z.O)   None  105.0  115.0  Benchmark
+4      2022-02-11       Cloudflare(NET.N)     中性  210.0  130.0         贝雅
+...           ...                     ...    ...    ...    ...        ...
+46039  2019-01-02             美国银行(BAC.N)  与大市持平   37.0   34.0        巴克莱
+46040  2019-01-02             亚马逊(AMZN.O)     买入    NaN    NaN    加拿大皇家银行
+46041  2019-01-02              苹果(AAPL.O)   跑赢大市  266.0  228.0       摩根大通
+46042  2019-01-02              苹果(AAPL.O)   跑赢大市    NaN  220.0    加拿大皇家银行
+46043  2019-01-01               强生(JNJ.N)     中性  139.0  148.0         花旗
 ```
 
 #### 券商业绩月报
