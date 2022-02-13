@@ -1360,14 +1360,14 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.35: fix: fix stock_zh_a_daily interface
 0.9.36: fix: fix stock_zh_a_daily hfq and qfq interface
 0.9.37: fix: fix stock_hot_rank_wc interface
-0.9.38: add: add stock_em_zt_pool interface
+0.9.38: add: add stock_zt_pool_em interface
 0.9.39: fix: fix stock_us_daily interface
 0.9.40: fix: fix bond_cov_comparison interface
-0.9.41: fix: fix stock_em_zt_pool_previous interface
-0.9.42: add: add stock_em_zt_pool_strong interface
-0.9.43: fix: fix stock_em_zt_pool_strong interface
-0.9.44: fix: fix stock_em_zt_pool_sub_new interface
-0.9.45: fix: fix stock_em_zt_pool interface
+0.9.41: fix: fix stock_zt_pool_previous_em interface
+0.9.42: add: add stock_zt_pool_strong_em interface
+0.9.43: fix: fix stock_zt_pool_strong_em interface
+0.9.44: fix: fix stock_zt_pool_sub_new_em interface
+0.9.45: fix: fix stock_zt_pool_em interface
 0.9.46: fix: fix spot_goods interface
 0.9.47: fix: fix futures_comex_inventory interface
 0.9.48: fix: fix stock_em_zcfz interface
@@ -1507,7 +1507,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.83: fix: fix macro_china interface
 1.0.84: add: add bond_zh_cov_info interface
 1.0.85: fix: fix stock_report_fund_hold interface
-1.0.86: fix: fix stock_em_zt_pool_dtgc interface
+1.0.86: fix: fix stock_zt_pool_dtgc_em interface
 1.0.87: fix: fix macro_china_swap_rate interface
 1.0.88: fix: fix stock_zh_a_hist_min_em interface
 1.0.89: fix: fix stock_hk_hist_min_em interface
@@ -1653,7 +1653,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.28 add: add club_rank_game interface
 1.2.29 add: add player_rank_game interface
 1.2.30 add: add business_value_artist interface
-1.2.31 fix: fix stock_em_zt_pool interface
+1.2.31 fix: fix stock_zt_pool_em interface
 1.2.32 add: add video_variety_show interface
 1.2.33 add: add fund_fh_em interface
 1.2.34 fix: fix fund_em_open_fund_info interface
@@ -1841,9 +1841,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.18 fix: fix stock_hot_rank_wc interface
 1.4.19 fix: fix stock_price_js interface
 1.4.20 add: add index_awpr_cx interface
+1.4.21 fix: fix stock_zt_pool_em interface
 """
 
-__version__ = "1.4.20"
+__version__ = "1.4.21"
 __author__ = "Albert King"
 
 import sys
@@ -2334,12 +2335,12 @@ from akshare.stock_feature.stock_cls_alerts import stock_zh_a_alerts_cls
 涨停板行情
 """
 from akshare.stock_feature.stock_em_ztb import (
-    stock_em_zt_pool,
-    stock_em_zt_pool_previous,
-    stock_em_zt_pool_dtgc,
-    stock_em_zt_pool_zbgc,
-    stock_em_zt_pool_strong,
-    stock_em_zt_pool_sub_new,
+    stock_zt_pool_em,
+    stock_zt_pool_previous_em,
+    stock_zt_pool_dtgc_em,
+    stock_zt_pool_zbgc_em,
+    stock_zt_pool_strong_em,
+    stock_zt_pool_sub_new_em,
 )
 
 """

@@ -746,12 +746,12 @@
  "macro_china_hk_trade_diff_ratio"  # 中国-香港-香港商品贸易差额年率
  "macro_china_hk_ppi"  # 中国-香港-香港制造业 PPI 年率
  # 涨停板行情
- "stock_em_zt_pool"  # 涨停板行情-涨停股池
- "stock_em_zt_pool_previous"  # 涨停板行情-昨日涨停股池
- "stock_em_zt_pool_strong"  # 涨停板行情-强势股池
- "stock_em_zt_pool_sub_new"  # 涨停板行情-次新股池
- "stock_em_zt_pool_zbgc"  # 涨停板行情-炸板股池
- "stock_em_zt_pool_dtgc"  # 涨停板行情-跌停股池
+ "stock_zt_pool_em"  # 涨停板行情-涨停股池
+ "stock_zt_pool_previous_em"  # 涨停板行情-昨日涨停股池
+ "stock_zt_pool_strong_em"  # 涨停板行情-强势股池
+ "stock_zt_pool_sub_new_em"  # 涨停板行情-次新股池
+ "stock_zt_pool_zbgc_em"  # 涨停板行情-炸板股池
+ "stock_zt_pool_dtgc_em"  # 涨停板行情-跌停股池
  # 两网及退市
  "stock_staq_net_stop"  # 两网及退市
  # 股东户数
