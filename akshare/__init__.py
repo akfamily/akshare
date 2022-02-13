@@ -1840,9 +1840,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.17 fix: fix stock_hot_rank_wc interface
 1.4.18 fix: fix stock_hot_rank_wc interface
 1.4.19 fix: fix stock_price_js interface
+1.4.20 add: add index_awpr_cx interface
 """
 
-__version__ = "1.4.19"
+__version__ = "1.4.20"
 __author__ = "Albert King"
 
 import sys
