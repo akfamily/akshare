@@ -14304,7 +14304,7 @@ print(stock_changes_em_df)
 
 #### 涨停股池
 
-接口: stock_em_zt_pool
+接口: stock_zt_pool_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -14344,8 +14344,8 @@ print(stock_changes_em_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_df = ak.stock_em_zt_pool(date='20210525')
-print(stock_em_zt_pool_df)
+stock_zt_pool_em_df = ak.stock_zt_pool_em(date='20210525')
+print(stock_zt_pool_em_df)
 ```
 
 数据示例
@@ -14409,7 +14409,7 @@ print(stock_em_zt_pool_df)
 
 #### 昨日涨停股池
 
-接口: stock_em_zt_pool_previous
+接口: stock_zt_pool_previous_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=zrzt
 
@@ -14449,8 +14449,8 @@ print(stock_em_zt_pool_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_previous_df = ak.stock_em_zt_pool_previous(date='20210521')
-print(stock_em_zt_pool_previous_df)
+stock_zt_pool_previous_em_df = ak.stock_zt_pool_previous_em(date='20210521')
+print(stock_zt_pool_previous_em_df)
 ```
 
 数据示例
@@ -14471,7 +14471,7 @@ print(stock_em_zt_pool_previous_df)
 
 #### 强势股池
 
-接口: stock_em_zt_pool_strong
+接口: stock_zt_pool_strong_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=qsgc
 
@@ -14511,8 +14511,8 @@ print(stock_em_zt_pool_previous_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_strong_df = ak.stock_em_zt_pool_strong(date='20210521')
-print(stock_em_zt_pool_strong_df)
+stock_zt_pool_strong_em_df = ak.stock_zt_pool_strong_em(date='20210521')
+print(stock_zt_pool_strong_em_df)
 ```
 
 数据示例
@@ -14534,7 +14534,7 @@ print(stock_em_zt_pool_strong_df)
 
 #### 次新股池
 
-接口: stock_em_zt_pool_sub_new
+接口: stock_zt_pool_sub_new_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=cxgc
 
@@ -14574,8 +14574,8 @@ print(stock_em_zt_pool_strong_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_sub_new_df = ak.stock_em_zt_pool_sub_new(date='20210521')
-print(stock_em_zt_pool_sub_new_df)
+stock_zt_pool_sub_new_em_df = ak.stock_zt_pool_sub_new_em(date='20210521')
+print(stock_zt_pool_sub_new_em_df)
 ```
 
 数据示例
@@ -14597,7 +14597,7 @@ print(stock_em_zt_pool_sub_new_df)
 
 #### 炸板股池
 
-接口: stock_em_zt_pool_zbgc
+接口: stock_zt_pool_zbgc_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=zbgc
 
@@ -14637,8 +14637,8 @@ print(stock_em_zt_pool_sub_new_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_zbgc_df = ak.stock_em_zt_pool_zbgc(date='20210525')
-print(stock_em_zt_pool_zbgc_df)
+stock_zt_pool_zbgc_em_df = ak.stock_zt_pool_zbgc_em(date='20210525')
+print(stock_zt_pool_zbgc_em_df)
 ```
 
 数据示例
@@ -14666,7 +14666,7 @@ print(stock_em_zt_pool_zbgc_df)
 
 #### 跌停股池
 
-接口: stock_em_zt_pool_dtgc
+接口: stock_zt_pool_dtgc_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=zbgc
 
@@ -14706,8 +14706,8 @@ print(stock_em_zt_pool_zbgc_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_dtgc_df = ak.stock_em_zt_pool_dtgc(date='20210525')
-print(stock_em_zt_pool_dtgc_df)
+stock_zt_pool_dtgc_em_df = ak.stock_zt_pool_dtgc_em(date='20210525')
+print(stock_zt_pool_dtgc_em_df)
 ```
 
 数据示例
