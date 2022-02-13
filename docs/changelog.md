@@ -1365,7 +1365,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.53: add: add watch_jinshi_quotes interface
 
-0.5.54: add: add stock_js_price interface
+0.5.54: add: add stock_price_js interface
 
 0.5.55: add: add futures_czce_warehouse_receipt interface
 
@@ -2474,7 +2474,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.8: add: add stock_industry_pe_ratio_cninfo interface
 
-1.1.9: fix: fix stock_js_price interface
+1.1.9: fix: fix stock_price_js interface
 
 1.1.10: fix: fix stock_hsgt_hold_stock_em interface
 
@@ -3091,4 +3091,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.17 fix: fix stock_hot_rank_wc interface
 
 1.4.18 fix: fix stock_hot_rank_wc interface
+
+1.4.19 fix: fix stock_price_js interface
 ```

@@ -515,7 +515,7 @@
  "stock_sse_summary"  # 上海证券交易所-股票数据总貌
  "stock_sse_deal_daily"  # 上海证券交易所-每日股票情况
  # 美股港股目标价
- "stock_js_price"  # 美股港股目标价
+ "stock_price_js"  # 美股港股目标价
  # 券商业绩月报
  "stock_em_qsjy"  # 券商业绩月报
  # 彭博亿万富豪指数
