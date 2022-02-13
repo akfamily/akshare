@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/14 19:30
+Date: 2022/2/13 13:30
 Desc: 美股目标价 or 港股目标价
 https://www.ushknews.com/report.html
 """
@@ -9,19 +9,19 @@ import requests
 import pandas as pd
 
 
-def stock_js_price(category: str = "us") -> pd.DataFrame:
+def stock_price_js(symbol: str = "us") -> pd.DataFrame:
     """
     美股目标价 or 港股目标价
     https://www.ushknews.com/report.html
-    :param category: choice of {"us", "hk"}
-    :type category: str
+    :param symbol: choice of {"us", "hk"}
+    :type symbol: str
     :return: 美股目标价 or 港股目标价
     :rtype: pandas.DataFrame
     """
     url = "https://calendar-api.ushknews.com/getWebTargetPriceList"
     params = {
         "limit": "50000",
-        "category": category
+        "category": symbol
     }
     headers = {
         "accept": "application/json, text/plain, */*",
@@ -64,14 +64,15 @@ def stock_js_price(category: str = "us") -> pd.DataFrame:
         "最新目标价",
         "机构名称",
     ]]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
     temp_df['先前目标价'] = pd.to_numeric(temp_df['先前目标价'], errors='coerce')
     temp_df['最新目标价'] = pd.to_numeric(temp_df['最新目标价'], errors='coerce')
     return temp_df
 
 
 if __name__ == '__main__':
-    stock_js_price_us_df = stock_js_price(category="us")
-    print(stock_js_price_us_df)
+    stock_price_js_df = stock_price_js(symbol="us")
+    print(stock_price_js_df)
 
-    stock_js_price_hk_df = stock_js_price(category="hk")
-    print(stock_js_price_hk_df)
+    stock_price_js_df = stock_price_js(symbol="hk")
+    print(stock_price_js_df)

@@ -980,7 +980,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.51: add: stock_summary
 0.5.52: fix: fix get_roll_yield_bar interface
 0.5.53: add: add watch_jinshi_quotes interface
-0.5.54: add: add stock_js_price interface
+0.5.54: add: add stock_price_js interface
 0.5.55: add: add futures_czce_warehouse_receipt interface
 0.5.56: add: add futures_dce_warehouse_receipt, futures_shfe_warehouse_receipt interface
 0.5.57: fix: fix macro data interface
@@ -1529,7 +1529,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.6: fix: fix futures_zh_minute_sina interface
 1.1.7: fix: fix covid_19_trace interface
 1.1.8: add: add stock_industry_pe_ratio_cninfo interface
-1.1.9: fix: fix stock_js_price interface
+1.1.9: fix: fix stock_price_js interface
 1.1.10: fix: fix stock_hsgt_hold_stock_em interface
 1.1.11: fix: fix stock_fund_flow_concept interface
 1.1.12: fix: fix stock_fund_flow_industry interface
@@ -1839,9 +1839,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.16 fix: fix stock_hot_rank_detail_em interface
 1.4.17 fix: fix stock_hot_rank_wc interface
 1.4.18 fix: fix stock_hot_rank_wc interface
+1.4.19 fix: fix stock_price_js interface
 """
 
-__version__ = "1.4.18"
+__version__ = "1.4.19"
 __author__ = "Albert King"
 
 import sys
@@ -2786,7 +2787,7 @@ from akshare.futures.futures_warehouse_receipt import (
 """
 stock-js
 """
-from akshare.stock.stock_js_us import stock_js_price
+from akshare.stock.stock_us_js import stock_price_js
 
 """
 stock-summary
