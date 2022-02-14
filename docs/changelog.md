@@ -1665,13 +1665,13 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.5: add: add currency_pair_map interface
 
-0.7.6: fix: fix stock_em_jgdy_detail interface
+0.7.6: fix: fix stock_jgdy_detail_em interface
 
 0.7.7: fix: fix stock_info interface
 
 0.7.8: fix: fix bond_cov_jsl interface
 
-0.7.9: fix: fix stock_em_jgdy_detail interface
+0.7.9: fix: fix stock_jgdy_detail_em interface
 
 0.7.10: fix: fix match_main_contract interface
 
@@ -1693,7 +1693,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.19: fix: fix stock_zh_a_daily interface
 
-0.7.20: fix: fix stock_em_jgdy_tj interface
+0.7.20: fix: fix stock_jgdy_tj_em interface
 
 0.7.21: fix: fix zh_stock_kcb_report interface
 
@@ -2347,7 +2347,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.0.49: fix: fix stock_individual_fund_flow interface
 
-1.0.50: fix: fix stock_em_jgdy_tj interface
+1.0.50: fix: fix stock_jgdy_tj_em interface
 
 1.0.51: add: add sport_olympic_hist interface
 
@@ -2488,9 +2488,9 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.15: add: add stock_new_gh_cninfo interface
 
-1.1.16: fix: fix stock_em_jgdy_detail interface
+1.1.16: fix: fix stock_jgdy_detail_em interface
 
-1.1.17: fix: fix stock_em_jgdy_tj interface
+1.1.17: fix: fix stock_jgdy_tj_em interface
 
 1.1.18: fix: fix stock_fund_flow_concept and stock_fund_flow_industry interface
 
@@ -2550,11 +2550,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.46 fix: fix remove watch_jinshi_fx interface
 
-1.1.47 fix: fix stock_em_jgdy_tj and stock_em_jgdy_detail interface
+1.1.47 fix: fix stock_jgdy_tj_em and stock_jgdy_detail_em interface
 
 1.1.48 fix: fix rename fund_em_portfolio_hold to fund_portfolio_hold_em interface
 
-1.1.49 fix: fix stock_em_jgdy_tj and stock_em_jgdy_detail interface
+1.1.49 fix: fix stock_jgdy_tj_em and stock_jgdy_detail_em interface
 
 1.1.50 add: add stock_cg_lawsuit_cninfo interface
 
@@ -2614,7 +2614,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.78 add: add stock_hsgt_individual_em interface
 
-1.1.79 fix: fix stock_em_jgdy_tj interface
+1.1.79 fix: fix stock_jgdy_tj_em interface
 
 1.1.80 add: add support for Python 3.10 interface
 
@@ -3101,4 +3101,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.22 fix: fix option_sse_greeks_sina interface
 
 1.4.23 fix: rename all interface in option_finance_sina.py
+
+1.4.24 fix: fix stock_em_jgdy_tj interface
 ```
