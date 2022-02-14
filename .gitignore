@@ -34,4 +34,7 @@ colors
 #docs/source/_templates/
 
 
+# other
+.DS_Store
+*.tmp
 
