@@ -206,8 +206,8 @@
  # 千里马公司数据
  "maxima_company"  # 获取千里马公司名单
  # 机构调研数据
- "stock_em_jgdy_tj"  # 获取机构调研数据-统计
- "stock_em_jgdy_detail"  # 获取机构调研数据-详细
+ "stock_jgdy_tj_em"  # 获取机构调研数据-统计
+ "stock_jgdy_detail_em"  # 获取机构调研数据-详细
  # 股权质押数据
  "stock_em_gpzy_profile"  # 获取股权质押市场概况
  "stock_em_gpzy_pledge_ratio"  # 获取上市公司质押比例
