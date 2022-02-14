@@ -3628,7 +3628,7 @@ print(stock_zh_a_scr_report_df)
 
 #### 机构调研-统计
 
-接口: stock_em_jgdy_tj
+接口: stock_jgdy_tj_em
 
 目标地址: http://data.eastmoney.com/jgdy/tj.html
 
@@ -3638,9 +3638,9 @@ print(stock_zh_a_scr_report_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                             |
-|------------|-----|--------------------------------|
-| start_date | str | start_date="20180928"; 开始查询的时间 |
+| 名称   | 类型  | 描述                       |
+|------|-----|--------------------------|
+| date | str | date="20180928"; 开始查询的时间 |
 
 输出参数
 
@@ -3663,8 +3663,8 @@ print(stock_zh_a_scr_report_df)
 ```python
 import akshare as ak
 
-stock_em_jgdy_tj_df = ak.stock_em_jgdy_tj(start_date="20210128")
-print(stock_em_jgdy_tj_df)
+stock_jgdy_tj_em_df = ak.stock_jgdy_tj_em(date="20210128")
+print(stock_jgdy_tj_em_df)
 ```
 
 数据示例
@@ -3686,7 +3686,7 @@ print(stock_em_jgdy_tj_df)
 
 #### 机构调研-详细
 
-接口: stock_em_jgdy_detail
+接口: stock_jgdy_detail_em
 
 目标地址: http://data.eastmoney.com/jgdy/xx.html
 
@@ -3696,9 +3696,9 @@ print(stock_em_jgdy_tj_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                             |
-|------------|-----|--------------------------------|
-| start_date | str | start_date="20180928"; 开始查询的时间 |
+| 名称   | 类型  | 描述                       |
+|------|-----|--------------------------|
+| date | str | date="20180928"; 开始查询的时间 |
 
 输出参数
 
@@ -3723,8 +3723,8 @@ print(stock_em_jgdy_tj_df)
 ```python
 import akshare as ak
 
-stock_em_jgdy_detail_df = ak.stock_em_jgdy_detail(start_date="20210915")
-print(stock_em_jgdy_detail_df)
+stock_jgdy_detail_em_df = ak.stock_jgdy_detail_em(date="20210915")
+print(stock_jgdy_detail_em_df)
 ```
 
 数据示例
