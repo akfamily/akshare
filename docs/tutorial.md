@@ -388,18 +388,18 @@
  "charity_china_report"  # 慈善中国-慈善组织年报
  "charity_china_platform"  # 慈善中国-募捐信息平台
  # 金融期权-新浪
- "option_sina_cffex_hs300_list"  # 沪深300期权列表
- "option_sina_cffex_hs300_spot"  # 沪深300期权实时行情
- "option_sina_cffex_hs300_daily"  # 沪深300期权历史行情-日频
- "option_sina_sse_list"  # 上交所期权列表
- "option_sina_sse_expire_day"  # 上交所期权剩余到期日
- "option_sina_sse_codes"  # 上交所期权代码
- "option_sina_sse_spot_price"  # 上交所期权实时行情
- "option_sina_sse_underlying_spot_price"  # 上交所期权标的物实时行情
- "option_sina_sse_greeks"  # 上交所期权希腊字母
- "option_sina_sse_minute"  # 上交所期权分钟数据
- "option_sina_sse_daily"  # 上交所期权日频数据
- "option_sina_finance_minute"  # 股票期权分时数据
+ "option_cffex_hs300_list_sina"  # 沪深300期权列表
+ "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
+ "option_cffex_hs300_daily_sina"  # 沪深300期权历史行情-日频
+ "option_sse_list_sina"  # 上交所期权列表
+ "option_sse_expire_day_sina"  # 上交所期权剩余到期日
+ "option_sse_codes_sina"  # 上交所期权代码
+ "option_sse_spot_price_sina"  # 上交所期权实时行情
+ "option_sse_underlying_spot_price_sina"  # 上交所期权标的物实时行情
+ "option_sse_greeks_sina"  # 上交所期权希腊字母
+ "option_sse_minute_sina"  # 上交所期权分钟数据
+ "option_sse_daily_sina"  # 上交所期权日频数据
+ "option_finance_minute_sina"  # 股票期权分时数据
  # 商品期权-新浪
  "option_sina_option_commodity_dict"  # 商品期权合约字典查询
  "option_sina_option_commodity_contract_list"  # 商品期权合约查询

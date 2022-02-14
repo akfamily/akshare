@@ -815,17 +815,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_hist_city
 修复-epidemic_hist_province
 0.4.9
-新增-option_sina_cffex_hs300_list
-新增-option_sina_cffex_hs300_spot
-新增-option_sina_cffex_hs300_daily
-新增-option_sina_sse_list
-新增-option_sina_sse_expire_day
-新增-option_sina_sse_codes
-新增-option_sina_sse_spot_price
-新增-option_sina_sse_underlying_spot_price
-新增-option_sina_sse_greeks
-新增-option_sina_sse_minute
-新增-option_sina_sse_daily
+新增-option_cffex_hs300_list_sina
+新增-option_cffex_hs300_spot_sina
+新增-option_cffex_hs300_daily_sina
+新增-option_sse_list_sina
+新增-option_sse_expire_day_sina
+新增-option_sse_codes_sina
+新增-option_sse_spot_price_sina
+新增-option_sse_underlying_spot_price_sina
+新增-option_sse_greeks_sina
+新增-option_sse_minute_sina
+新增-option_sse_daily_sina
 0.4.10
 修复-金十数据websocket接口
 0.4.11
@@ -1002,7 +1002,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.73: add: add stock_report_disclosure interface
 0.5.74: add: add stock_zh_a_minute interface
 0.5.75: add: add futures_zh_minute_sina interface
-0.5.76: add: add option_sina_finance_minute interface
+0.5.76: add: add option_finance_minute_sina interface
 0.5.77: fix: fix currency_hist interface return data format
 0.5.78: add: add hold field in futures_zh_minute_sina interface
 0.5.79: add: add stock_report_fund_hold interface
@@ -1783,15 +1783,15 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.59 add: add covid_19_risk_area interface
 1.3.60 fix: fix covid_19_risk_area interface
 1.3.61 fix: fix futures_zh_spot interface
-1.3.62 fix: fix option_sina_sse_spot_price interface
-1.3.63 fix: fix option_sina_finance_minute interface
+1.3.62 fix: fix option_sse_spot_price_sina interface
+1.3.63 fix: fix option_finance_minute_sina interface
 1.3.64 fix: fix futures_foreign_commodity_realtime interface
-1.3.65 fix: fix option_sina_sse_codes interface
+1.3.65 fix: fix option_sse_codes_sina interface
 1.3.66 fix: fix option_commodity_hist_sina interface
 1.3.67 add: add option_lhb_em interface
 1.3.68 fix: fix stock_hsgt_board_rank_em interface
 1.3.69 fix: fix stock_gdfx_free_holding_statistics_em interface
-1.3.70 fix: fix option_sina_sse_spot_price interface
+1.3.70 fix: fix option_sse_spot_price_sina interface
 1.3.71 fix: fix stock_history_dividend_detail interface
 1.3.72 add: add option_value_analysis_em interface
 1.3.73 fix: fix stock_info_sh_delist interface
@@ -1842,10 +1842,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.19 fix: fix stock_price_js interface
 1.4.20 add: add index_awpr_cx interface
 1.4.21 fix: fix stock_zt_pool_em interface
-1.4.22 fix: fix option_sina_sse_greeks interface
+1.4.22 fix: fix option_sse_greeks_sina interface
+1.4.23 fix: rename all interface in option_finance_sina.py
 """
 
-__version__ = "1.4.22"
+__version__ = "1.4.23"
 __author__ = "Albert King"
 
 import sys
@@ -3009,18 +3010,18 @@ from akshare.stock.stock_weibo_nlp import stock_js_weibo_nlp_time, stock_js_weib
 金融期权-新浪
 """
 from akshare.option.option_finance_sina import (
-    option_sina_cffex_hs300_list,
-    option_sina_cffex_hs300_spot,
-    option_sina_cffex_hs300_daily,
-    option_sina_sse_list,
-    option_sina_sse_expire_day,
-    option_sina_sse_codes,
-    option_sina_sse_spot_price,
-    option_sina_sse_underlying_spot_price,
-    option_sina_sse_greeks,
-    option_sina_sse_minute,
-    option_sina_sse_daily,
-    option_sina_finance_minute,
+    option_cffex_hs300_list_sina,
+    option_cffex_hs300_spot_sina,
+    option_cffex_hs300_daily_sina,
+    option_sse_list_sina,
+    option_sse_expire_day_sina,
+    option_sse_codes_sina,
+    option_sse_spot_price_sina,
+    option_sse_underlying_spot_price_sina,
+    option_sse_greeks_sina,
+    option_sse_minute_sina,
+    option_sse_daily_sina,
+    option_finance_minute_sina,
 )
 
 """

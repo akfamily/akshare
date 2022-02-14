@@ -1056,17 +1056,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 修复-epidemic_hist_province
 
 0.4.9
-新增-option_sina_cffex_hs300_list
-新增-option_sina_cffex_hs300_spot
-新增-option_sina_cffex_hs300_daily
-新增-option_sina_sse_list
-新增-option_sina_sse_expire_day
-新增-option_sina_sse_codes
-新增-option_sina_sse_spot_price
-新增-option_sina_sse_underlying_spot_price
-新增-option_sina_sse_greeks
-新增-option_sina_sse_minute
-新增-option_sina_sse_daily
+新增-option_cffex_hs300_list_sina
+新增-option_cffex_hs300_spot_sina
+新增-option_cffex_hs300_daily_sina
+新增-option_sse_list_sina
+新增-option_sse_expire_day_sina
+新增-option_sse_codes_sina
+新增-option_sse_spot_price_sina
+新增-option_sse_underlying_spot_price_sina
+新增-option_sse_greeks_sina
+新增-option_sse_minute_sina
+新增-option_sse_daily_sina
 
 0.4.10
 修复-金十数据websocket接口
@@ -1409,7 +1409,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.75: add: add futures_zh_minute_sina interface
 
-0.5.76: add: add option_sina_finance_minute interface
+0.5.76: add: add option_finance_minute_sina interface
 
 0.5.77: fix: fix currency_hist interface return data format
 
@@ -2980,13 +2980,13 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.3.61 fix: fix futures_zh_spot interface
 
-1.3.62 fix: fix option_sina_sse_spot_price interface
+1.3.62 fix: fix option_sse_spot_price_sina interface
 
-1.3.63 fix: fix option_sina_finance_minute interface
+1.3.63 fix: fix option_finance_minute_sina interface
 
 1.3.64 fix: fix futures_foreign_commodity_realtime interface
 
-1.3.65 fix: fix option_sina_sse_codes interface
+1.3.65 fix: fix option_sse_codes_sina interface
 
 1.3.66 fix: fix option_commodity_hist_sina interface
 
@@ -2996,7 +2996,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.3.69 fix: fix stock_gdfx_free_holding_statistics_em interface
 
-1.3.70 fix: fix option_sina_sse_spot_price interface
+1.3.70 fix: fix option_sse_spot_price_sina interface
 
 1.3.71 fix: fix stock_history_dividend_detail interface
 
@@ -3098,5 +3098,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.4.21 fix: fix stock_zt_pool_em interface
 
-1.4.22 fix: fix option_sina_sse_greeks interface
+1.4.22 fix: fix option_sse_greeks_sina interface
+
+1.4.23 fix: rename all interface in option_finance_sina.py
 ```
