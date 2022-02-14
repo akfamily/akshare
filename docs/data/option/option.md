@@ -803,7 +803,7 @@ print(option_sina_sse_underlying_spot_price_df)
 
 目标地址: https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 
-描述: 期权希腊字母信息表
+描述: 新浪财经-期权希腊字母信息表
 
 限量: 单次返回当前交易日的期权希腊字母信息表
 

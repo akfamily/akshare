@@ -547,7 +547,7 @@ def option_sina_finance_minute(symbol: str = "10002530") -> pd.DataFrame:
     data_text = r.json()
     temp_df = pd.DataFrame()
     for item in data_text["result"]["data"]:
-        temp_df = temp_df.append(pd.DataFrame(item), ignore_index=True)
+        temp_df = pd.concat([temp_df, pd.DataFrame(item)], ignore_index=True)
     temp_df.fillna(method="ffill", inplace=True)
     temp_df.columns = ["time", "price", "volume", "_", "average_price", "date"]
     temp_df = temp_df[["date", "time", "price", "average_price", "volume"]]
@@ -575,14 +575,14 @@ if __name__ == "__main__":
     print(option_sina_sse_list_df)
 
     option_sina_sse_expire_day_df = option_sina_sse_expire_day(
-        trade_date="202202", symbol="50ETF", exchange="null"
+        trade_date="202206", symbol="50ETF", exchange="null"
     )
     print(option_sina_sse_expire_day_df)
 
-    option_sina_sse_codes_df = option_sina_sse_codes(symbol="看涨期权", trade_date="202202", underlying="510050")
+    option_sina_sse_codes_df = option_sina_sse_codes(symbol="看涨期权", trade_date="202206", underlying="510050")
     print(option_sina_sse_codes_df)
 
-    option_sina_sse_spot_price_df = option_sina_sse_spot_price(symbol="10003720")
+    option_sina_sse_spot_price_df = option_sina_sse_spot_price(symbol="10004023")
     print(option_sina_sse_spot_price_df)
 
     option_sina_sse_underlying_spot_price_df = option_sina_sse_underlying_spot_price(
@@ -590,14 +590,14 @@ if __name__ == "__main__":
     )
     print(option_sina_sse_underlying_spot_price_df)
 
-    option_sina_sse_greeks_df = option_sina_sse_greeks(symbol="10003720")
+    option_sina_sse_greeks_df = option_sina_sse_greeks(symbol="10004023")
     print(option_sina_sse_greeks_df)
 
-    option_sina_sse_minute_df = option_sina_sse_minute(symbol="10003720")
+    option_sina_sse_minute_df = option_sina_sse_minute(symbol="10004023")
     print(option_sina_sse_minute_df)
 
-    option_sina_sse_daily_df = option_sina_sse_daily(symbol="10003889")
+    option_sina_sse_daily_df = option_sina_sse_daily(symbol="10004023")
     print(option_sina_sse_daily_df)
 
-    option_sina_finance_minute_df = option_sina_finance_minute(symbol="10003889")
+    option_sina_finance_minute_df = option_sina_finance_minute(symbol="10004023")
     print(option_sina_finance_minute_df)
