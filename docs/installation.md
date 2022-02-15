@@ -52,7 +52,7 @@ AKShare 由于使用 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-
 ### 解决方案
 
 本次的解决方案是提供编译好的文件供大家下载使用：[libmini_racer.dylib](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/software/pyminiracer/libmini_racer.dylib) ， 
-只需要把该文件放在提示的路径下即可！
+只需要把该文件下载到本地，然后存放在任意路径即可！
 
 ### 扩展阅读
 
