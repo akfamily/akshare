@@ -419,19 +419,19 @@
  "currency_pair_map"  # 指定货币的所有可获取货币对的数据
  "currency_name_code"  # 当前所有可兑换货币对
  # 公募基金
- "fund_em_fund_name",  # 基金基本信息
+ "fund_name_em",  # 基金基本信息
  "fund_purchase_em",  # 基金申购状态
- "fund_em_open_fund_daily",  # 开放式基金-实时数据
- "fund_em_open_fund_info",  # 开放式基金-历史数据
- "fund_em_etf_fund_daily",  # 场内交易基金-实时数据
- "fund_em_etf_fund_info",  # 场内交易基金-历史数据
- "fund_em_financial_fund_daily",  # 理财型基金-实时数据
- "fund_em_financial_fund_info",  # 理财型基金-历史数据
- "fund_em_graded_fund_daily",  # 分级基金-实时数据
- "fund_em_graded_fund_info",  # 分级基金-历史数据
- "fund_em_money_fund_daily",  # 货币型基金-实时数据
- "fund_em_money_fund_info",  # 货币型基金-历史数据
- "fund_em_value_estimation",  # 基金估值
+ "fund_open_fund_daily_em",  # 开放式基金-实时数据
+ "fund_open_fund_info_em",  # 开放式基金-历史数据
+ "fund_etf_fund_daily_em",  # 场内交易基金-实时数据
+ "fund_etf_fund_info_em",  # 场内交易基金-历史数据
+ "fund_financial_fund_daily_em",  # 理财型基金-实时数据
+ "fund_financial_fund_info_em",  # 理财型基金-历史数据
+ "fund_graded_fund_daily_em",  # 分级基金-实时数据
+ "fund_graded_fund_info_em",  # 分级基金-历史数据
+ "fund_money_fund_daily_em",  # 货币型基金-实时数据
+ "fund_money_fund_info_em",  # 货币型基金-历史数据
+ "fund_value_estimation_em",  # 基金估值
  # 分析师指数
  "stock_em_analyst_rank"  # 分析师排名
  "stock_em_analyst_detail"  # 分析师详情

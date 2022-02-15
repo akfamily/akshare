@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/22 23:33
+Date: 2022/2/15 17:33
 Desc: 新浪财经-基金行情
 http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
 """
@@ -138,5 +138,8 @@ if __name__ == '__main__':
     fund_etf_category_sina_df = fund_etf_category_sina(symbol="LOF基金")
     print(fund_etf_category_sina_df)
 
-    fund_etf_hist_sina_df = fund_etf_hist_sina(symbol="sh501005")
+    fund_etf_hist_sina_df = fund_etf_hist_sina(symbol="sh510050")
+    print(fund_etf_hist_sina_df)
+
+    fund_etf_hist_sina_df = fund_etf_hist_sina(symbol="sh510300")
     print(fund_etf_hist_sina_df)
