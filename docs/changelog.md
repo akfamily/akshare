@@ -1267,7 +1267,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.4: fix: fix request_fun timeout and error type
 
-0.5.5: fix: fund_em_graded_fund_daily return fields
+0.5.5: fix: fund_graded_fund_daily_em return fields
 
 0.5.6: fix: us_stock_sina.py rename columns
 
@@ -1289,7 +1289,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.5.15: fix: baidu_index
 
-0.5.16: add: fund_em_value_estimation
+0.5.16: add: fund_value_estimation_em
 
 0.5.17: fix: delete macro_euro zero value
 
@@ -1699,7 +1699,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.22: fix: fix zh_stock_kcb_report interface
 
-0.7.23: fix: fix fund_em_open_fund_info interface
+0.7.23: fix: fix fund_open_fund_info_em interface
 
 0.7.24: fix: fix futures_spot_price_daily interface
 
@@ -1737,7 +1737,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.41: add: add stock_em_yzxdr interface
 
-0.7.42: fix: fix fund_em_etf_fund_daily interface
+0.7.42: fix: fix fund_etf_fund_daily_em interface
 
 0.7.43: fix: fix match_main_contract interface
 
@@ -1773,7 +1773,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.59: fix: fix read_excel support
 
-0.7.60: fix: fix fund_em_open_fund_daily interface
+0.7.60: fix: fix fund_open_fund_daily_em interface
 
 0.7.61: fix: fix calendar.json interface
 
@@ -1783,9 +1783,9 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.64: fix: fix macro_cons_gold_volume interface
 
-0.7.65: fix: fix fund_em_value_estimation interface
+0.7.65: fix: fix fund_value_estimation_em interface
 
-0.7.66: fix: fix fund_em_value_estimation interface
+0.7.66: fix: fix fund_value_estimation_em interface
 
 0.7.67: fix: fix get_dce_daily interface
 
@@ -1837,7 +1837,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.7.91: fix: fix stock_report_disclosure interface
 
-0.7.92: add: add fund_em_hk_fund_hist interface
+0.7.92: add: add fund_hk_fund_hist_em interface
 
 0.7.93: add: add fund_portfolio_hold_em interface
 
@@ -1899,7 +1899,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.23: fix: fix covid_19_dxy interface
 
-0.8.24: fix: fix fund_em_value_estimation interface
+0.8.24: fix: fix fund_value_estimation_em interface
 
 0.8.25: fix: fix stock_zh_index_daily_tx interface
 
@@ -2604,7 +2604,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.1.73 add: add stock_zh_index_value_csindex interface
 
-1.1.74 fix: fix fund_em_etf_fund_info interface
+1.1.74 fix: fix fund_etf_fund_info_em interface
 
 1.1.75 add: add index_value_hist_funddb interface
 
@@ -2726,9 +2726,9 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.2.33 add: add fund_fh_em interface
 
-1.2.34 fix: fix fund_em_open_fund_info interface
+1.2.34 fix: fix fund_open_fund_info_em interface
 
-1.2.35 fix: fix fund_em_open_fund_info interface
+1.2.35 fix: fix fund_open_fund_info_em interface
 
 1.2.36 add: add stock_info_bj_name_code interface
 
@@ -2954,7 +2954,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.3.48 add: add stock_gdfx_free_holding_teamwork_em interface
 
-1.3.49 fix: fix fund_em_open_fund_info interface
+1.3.49 fix: fix fund_open_fund_info_em interface
 
 1.3.50 fix: fix stock_notice_report interface
 
@@ -3105,4 +3105,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.24 fix: fix stock_em_jgdy_tj interface
 
 1.4.25 add: add index_ci_cx interface
+
+1.4.26 fix: fix fund_purchase_em interface
 ```

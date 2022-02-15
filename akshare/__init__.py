@@ -931,7 +931,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.2: fix: air_zhenqi.py rename air_city_dict to air_city_list
 0.5.3: add: add two fields into covid_163
 0.5.4: fix: fix request_fun timeout and error type
-0.5.5: fix: fund_em_graded_fund_daily return fields
+0.5.5: fix: fund_graded_fund_daily_em return fields
 0.5.6: fix: stock_us_sina.py rename columns
 0.5.7: fix: import akshare only load functions
 0.5.8: add: macro_china_money_supply
@@ -942,7 +942,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.13: add: stock_fund
 0.5.14: add: stock_market_fund_flow, stock_sector_fund_flow, stock_individual_fund_flow_rank
 0.5.15: fix: baidu_index
-0.5.16: add: fund_em_value_estimation
+0.5.16: add: fund_value_estimation_em
 0.5.17: fix: delete macro_euro zero value
 0.5.18: add: stock_financial_abstract, stock_financial_analysis_indicator
 0.5.19: add: stock_add_stock, stock_ipo_info, stock_history_dividend_detail, stock_history_dividend
@@ -1147,7 +1147,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.20: fix: fix stock_jgdy_tj_em interface
 0.7.21: fix: fix zh_stock_kcb_report interface
 0.7.22: fix: fix zh_stock_kcb_report interface
-0.7.23: fix: fix fund_em_open_fund_info interface
+0.7.23: fix: fix fund_open_fund_info_em interface
 0.7.24: fix: fix futures_spot_price_daily interface
 0.7.25: add: add option_current_em interface
 0.7.26: fix: fix option_current_em interface
@@ -1166,7 +1166,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.39: add: add stock_dzjy_yybph interface
 0.7.40: fix: fix js_news interface
 0.7.41: add: add stock_em_yzxdr interface
-0.7.42: fix: fix fund_em_etf_fund_daily interface
+0.7.42: fix: fix fund_etf_fund_daily_em interface
 0.7.43: fix: fix match_main_contract interface
 0.7.44: fix: fix stock_hk_daily interface
 0.7.45: fix: fix stock_em_yzxdr interface
@@ -1184,13 +1184,13 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.57: fix: fix xlrd support
 0.7.58: fix: fix stock_zh_a_tick_tx_js support
 0.7.59: fix: fix read_excel support
-0.7.60: fix: fix fund_em_open_fund_daily interface
+0.7.60: fix: fix fund_open_fund_daily_em interface
 0.7.61: fix: fix calendar.json interface
 0.7.62: fix: fix QQ group interface
 0.7.63: add: add bond_summary_sse interface
 0.7.64: fix: fix macro_cons_gold_volume interface
-0.7.65: fix: fix fund_em_value_estimation interface
-0.7.66: fix: fix fund_em_value_estimation interface
+0.7.65: fix: fix fund_value_estimation_em interface
+0.7.66: fix: fix fund_value_estimation_em interface
 0.7.67: fix: fix get_dce_daily interface
 0.7.68: fix: fix stock_zh_index_spot interface
 0.7.69: fix: fix covid_19 interface
@@ -1216,7 +1216,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.89: fix: fix stock_hk_daily interface
 0.7.90: fix: fix stock_em_gpzy_pledge_ratio interface
 0.7.91: fix: fix stock_report_disclosure interface
-0.7.92: add: add fund_em_hk_fund_hist interface
+0.7.92: add: add fund_hk_fund_hist_em interface
 0.7.93: add: add fund_portfolio_hold_em interface
 0.7.94: fix: fix futures_spot_price_previous interface
 0.7.95: add: add covid_19_trace interface
@@ -1247,7 +1247,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.21: fix: fix stock_szse_summary interface
 0.8.22: fix: fix stock_zh_a_daily interface
 0.8.23: fix: fix covid_19_dxy interface
-0.8.24: fix: fix fund_em_value_estimation interface
+0.8.24: fix: fix fund_value_estimation_em interface
 0.8.25: fix: fix stock_zh_index_daily_tx interface
 0.8.26: fix: fix stock_hk_daily interface
 0.8.27: fix: fix get_dce_rank_table interface
@@ -1594,7 +1594,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.71 add: add fund_scale_structured_sina interface
 1.1.72 add: add fund_report_asset_allocation_cninfo interface
 1.1.73 add: add stock_zh_index_value_csindex interface
-1.1.74 fix: fix fund_em_etf_fund_info interface
+1.1.74 fix: fix fund_etf_fund_info_em interface
 1.1.75 add: add index_value_hist_funddb interface
 1.1.76 fix: fix amac_fund_info interface
 1.1.77 fix: fix stock_zh_a_tick_163_now interface
@@ -1656,8 +1656,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.31 fix: fix stock_zt_pool_em interface
 1.2.32 add: add video_variety_show interface
 1.2.33 add: add fund_fh_em interface
-1.2.34 fix: fix fund_em_open_fund_info interface
-1.2.35 fix: fix fund_em_open_fund_info interface
+1.2.34 fix: fix fund_open_fund_info_em interface
+1.2.35 fix: fix fund_open_fund_info_em interface
 1.2.36 add: add stock_info_bj_name_code interface
 1.2.37 fix: fix stock_info_a_code_name interface
 1.2.38 fix: fix futures_foreign_commodity_realtime interface
@@ -1770,7 +1770,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.3.46 fix: fix futures_main_sina interface
 1.3.47 add: add stock_gdfx_free_holding_statistics_em interface
 1.3.48 add: add stock_gdfx_free_holding_teamwork_em interface
-1.3.49 fix: fix fund_em_open_fund_info interface
+1.3.49 fix: fix fund_open_fund_info_em interface
 1.3.50 fix: fix stock_notice_report interface
 1.3.51 fix: fix futures_comm_info interface
 1.3.52 fix: fix stock_hsgt_individual_detail_em interface
@@ -1846,9 +1846,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.23 fix: rename all interface in option_finance_sina.py
 1.4.24 fix: fix stock_em_jgdy_tj interface
 1.4.25 add: add index_ci_cx interface
+1.4.26 fix: fix fund_purchase_em interface
 """
 
-__version__ = "1.4.25"
+__version__ = "1.4.26"
 __author__ = "Albert King"
 
 import sys
@@ -2740,7 +2741,7 @@ from akshare.stock_feature.stock_cninfo_yjyg import stock_report_disclosure
 """
 基金行情
 """
-from akshare.fund.fund_etf import fund_etf_hist_sina, fund_etf_category_sina
+from akshare.fund.fund_etf_sina import fund_etf_hist_sina, fund_etf_category_sina
 
 """
 交易日历
@@ -3084,19 +3085,19 @@ from akshare.event.covid import (
 基金数据接口
 """
 from akshare.fund.fund_em import (
-    fund_em_open_fund_daily,
-    fund_em_open_fund_info,
-    fund_em_etf_fund_daily,
-    fund_em_etf_fund_info,
-    fund_em_financial_fund_daily,
-    fund_em_financial_fund_info,
-    fund_em_fund_name,
-    fund_em_graded_fund_daily,
-    fund_em_graded_fund_info,
-    fund_em_money_fund_daily,
-    fund_em_money_fund_info,
-    fund_em_value_estimation,
-    fund_em_hk_fund_hist,
+    fund_open_fund_daily_em,
+    fund_open_fund_info_em,
+    fund_etf_fund_daily_em,
+    fund_etf_fund_info_em,
+    fund_financial_fund_daily_em,
+    fund_financial_fund_info_em,
+    fund_name_em,
+    fund_graded_fund_daily_em,
+    fund_graded_fund_info_em,
+    fund_money_fund_daily_em,
+    fund_money_fund_info_em,
+    fund_value_estimation_em,
+    fund_hk_fund_hist_em,
     fund_purchase_em,
 )
 
