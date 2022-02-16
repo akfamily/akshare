@@ -1847,9 +1847,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.24 fix: fix stock_em_jgdy_tj interface
 1.4.25 add: add index_ci_cx interface
 1.4.26 fix: fix fund_purchase_em interface
+1.4.27 add: add index_cci_cx interface
 """
 
-__version__ = "1.4.26"
+__version__ = "1.4.27"
 __author__ = "Albert King"
 
 import sys
