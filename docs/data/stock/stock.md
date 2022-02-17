@@ -3628,7 +3628,7 @@ print(stock_zh_a_scr_report_df)
 
 #### 机构调研-统计
 
-接口: stock_em_jgdy_tj
+接口: stock_jgdy_tj_em
 
 目标地址: http://data.eastmoney.com/jgdy/tj.html
 
@@ -3638,9 +3638,9 @@ print(stock_zh_a_scr_report_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                             |
-|------------|-----|--------------------------------|
-| start_date | str | start_date="20180928"; 开始查询的时间 |
+| 名称   | 类型  | 描述                       |
+|------|-----|--------------------------|
+| date | str | date="20180928"; 开始查询的时间 |
 
 输出参数
 
@@ -3663,8 +3663,8 @@ print(stock_zh_a_scr_report_df)
 ```python
 import akshare as ak
 
-stock_em_jgdy_tj_df = ak.stock_em_jgdy_tj(start_date="20210128")
-print(stock_em_jgdy_tj_df)
+stock_jgdy_tj_em_df = ak.stock_jgdy_tj_em(date="20210128")
+print(stock_jgdy_tj_em_df)
 ```
 
 数据示例
@@ -3686,7 +3686,7 @@ print(stock_em_jgdy_tj_df)
 
 #### 机构调研-详细
 
-接口: stock_em_jgdy_detail
+接口: stock_jgdy_detail_em
 
 目标地址: http://data.eastmoney.com/jgdy/xx.html
 
@@ -3696,9 +3696,9 @@ print(stock_em_jgdy_tj_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                             |
-|------------|-----|--------------------------------|
-| start_date | str | start_date="20180928"; 开始查询的时间 |
+| 名称   | 类型  | 描述                       |
+|------|-----|--------------------------|
+| date | str | date="20180928"; 开始查询的时间 |
 
 输出参数
 
@@ -3723,8 +3723,8 @@ print(stock_em_jgdy_tj_df)
 ```python
 import akshare as ak
 
-stock_em_jgdy_detail_df = ak.stock_em_jgdy_detail(start_date="20210915")
-print(stock_em_jgdy_detail_df)
+stock_jgdy_detail_em_df = ak.stock_jgdy_detail_em(date="20210915")
+print(stock_jgdy_detail_em_df)
 ```
 
 数据示例
@@ -10802,7 +10802,7 @@ print(stock_cg_equity_mortgage_cninfo_df)
 
 #### 美港目标价
 
-接口: stock_js_price
+接口: stock_price_js
 
 目标地址: https://www.ushknews.com/report.html
 
@@ -10812,44 +10812,45 @@ print(stock_cg_equity_mortgage_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- | --- |
-| category | str | category="us"; choice of {"us", "hk"}|
+| 名称     | 类型  | 描述                                  |
+|--------|-----|-------------------------------------|
+| symbol | str | symbol="us"; choice of {"us", "hk"} |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 日期          | object   |   -    |
-| 个股名称          | object   |   -    |
-| 评级          | object   |   -    |
-| 先前目标价          | float64   |   -    |
-| 最新目标价          | float64   |   -    |
-| 机构名称          | object   |   -    |
+| 名称    | 类型      | 描述  |
+|-------|---------|-----|
+| 日期    | object  | -   |
+| 个股名称  | object  | -   |
+| 评级    | object  | -   |
+| 先前目标价 | float64 | -   |
+| 最新目标价 | float64 | -   |
+| 机构名称  | object  | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_js_price_df = ak.stock_js_price(category="us")
-print(stock_js_price_df)
+
+stock_price_js_df = ak.stock_price_js(symbol="us")
+print(stock_price_js_df)
 ```
 
 数据示例
 
 ```
-            日期                个股名称  ...         最新目标价              机构名称
-0      2021-09-14 00:00:00  Draftkings(DKNG.O)  ...   70.0    投行Craig-Hallum
-1      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   66.0                高盛
-2      2021-09-14 00:00:00          电子艺界(EA.O)  ...  179.0             德意志银行
-3      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   77.0            投行斯蒂费尔
-4      2021-09-14 00:00:00         甲骨文(ORCL.N)  ...   88.0  Societe Generale
-                    ...                 ...  ...    ...               ...
-35395  2019-01-02 00:00:00         亚马逊(AMZN.O)  ...    NaN           加拿大皇家银行
-35396  2019-01-02 00:00:00          苹果(AAPL.O)  ...  228.0              摩根大通
-35397  2019-01-02 00:00:00          苹果(AAPL.O)  ...  220.0           加拿大皇家银行
-35398  2019-01-01 16:00:00           强生(JNJ.N)  ...  148.0                花旗
-35399  2019-01-01 00:00:00           辉瑞(PFE.N)  ...   45.0              瑞士信贷
+               日期                    个股名称     评级  先前目标价  最新目标价       机构名称
+0      2022-02-12  Teladoc Health(TDOC.N)     买入    NaN  121.0         高盛
+1      2022-02-12       Cloudflare(NET.N)   None  132.0  150.0    KeyBanc
+2      2022-02-12             Zillow(Z.O)   None   74.0   76.0      摩根士丹利
+3      2022-02-11             Zillow(Z.O)   None  105.0  115.0  Benchmark
+4      2022-02-11       Cloudflare(NET.N)     中性  210.0  130.0         贝雅
+...           ...                     ...    ...    ...    ...        ...
+46039  2019-01-02             美国银行(BAC.N)  与大市持平   37.0   34.0        巴克莱
+46040  2019-01-02             亚马逊(AMZN.O)     买入    NaN    NaN    加拿大皇家银行
+46041  2019-01-02              苹果(AAPL.O)   跑赢大市  266.0  228.0       摩根大通
+46042  2019-01-02              苹果(AAPL.O)   跑赢大市    NaN  220.0    加拿大皇家银行
+46043  2019-01-01               强生(JNJ.N)     中性  139.0  148.0         花旗
 ```
 
 #### 券商业绩月报
@@ -14145,31 +14146,32 @@ print(stock_board_industry_cons_em_df)
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="小金属"; 可以通过调用 **ak.stock_board_industry_name_em()** 查看东方财富-行业板块的所有行业代码|
-| adjust | str |  adjust=""; choice of {'': 不复权, 默认; "qfq": 前复权, "hfq": 后复权}|
+| 名称     | 类型  | 描述                                                                            |
+|--------|-----|-------------------------------------------------------------------------------|
+| symbol | str | symbol="小金属"; 可以通过调用 **ak.stock_board_industry_name_em()** 查看东方财富-行业板块的所有行业代码 |
+| adjust | str | adjust=""; choice of {'': 不复权, 默认; "qfq": 前复权, "hfq": 后复权}                    |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 日期          | object   |   -    |
-| 开盘          | float64   |  -    |
-| 收盘          | float64   |   -    |
-| 最高          | float64   |  -    |
-| 最低          | float64   |  -    |
-| 涨跌幅          | float64   |  注意单位: %    |
-| 涨跌额          | float64   |   -    |
-| 成交量          | int64   |   -    |
-| 成交额          | float64   |   -    |
-| 振幅          | float64   |   注意单位: %    |
-| 换手率          | float64   |   注意单位: %    |
+| 名称  | 类型      | 描述      |
+|-----|---------|---------|
+| 日期  | object  | -       |
+| 开盘  | float64 | -       |
+| 收盘  | float64 | -       |
+| 最高  | float64 | -       |
+| 最低  | float64 | -       |
+| 涨跌幅 | float64 | 注意单位: % |
+| 涨跌额 | float64 | -       |
+| 成交量 | int64   | -       |
+| 成交额 | float64 | -       |
+| 振幅  | float64 | 注意单位: % |
+| 换手率 | float64 | 注意单位: % |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_board_industry_hist_em_df = ak.stock_board_industry_hist_em(symbol="小金属", adjust="")
 print(stock_board_industry_hist_em_df)
 ```
@@ -14194,7 +14196,9 @@ print(stock_board_industry_hist_em_df)
 
 ### 股票热度
 
-接口: stock_wc_hot_rank
+#### 股票热度-问财
+
+接口: stock_hot_rank_wc
 
 目标地址: http://www.iwencai.com/unifiedwap/home/index
 
@@ -14204,29 +14208,30 @@ print(stock_board_industry_hist_em_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date="20210218"; 查询日期|
+| 名称   | 类型  | 描述                    |
+|------|-----|-----------------------|
+| date | str | date="20210218"; 查询日期 |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| 序号          | int32   |   -    |
-| 股票代码          | object   |   -    |
-| 股票简称          | object   |  -    |
-| 现价          | float64   |   注意单位: 元    |
-| 涨跌幅          | float64   |   注意单位: %    |
-| 个股热度          | float64   |   -    |
-| 个股热度排名          | object   |   -    |
-| 排名日期          | object   |   -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int32   | -       |
+| 股票代码   | object  | -       |
+| 股票简称   | object  | -       |
+| 现价     | float64 | 注意单位: 元 |
+| 涨跌幅    | float64 | 注意单位: % |
+| 个股热度   | float64 | -       |
+| 个股热度排名 | object  | -       |
+| 排名日期   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_wc_hot_rank_df = ak.stock_wc_hot_rank(date="20210928")
-print(stock_wc_hot_rank_df)
+
+stock_hot_rank_wc_df = ak.stock_hot_rank_wc(date="20210928")
+print(stock_hot_rank_wc_df)
 ```
 
 数据示例
@@ -14244,6 +14249,110 @@ print(stock_wc_hot_rank_df)
 4522  4523  688285  高铁电气    NaN    NaN      35.0  4523/4525  20210929
 4523  4524  300728  天常股份    NaN    NaN      31.5  4524/4525  20210929
 4524  4525  603302  鑫广绿环    NaN    NaN      20.0  4525/4525  20210929
+```
+
+#### 股票热度-东财
+
+接口: stock_hot_rank_em
+
+目标地址: http://guba.eastmoney.com/rank/
+
+描述: 东方财富网站-股票热度
+
+限量: 单次返回所有股票当前交易日的人气排名数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| 当前排名 | int64   | -   |
+| 代码   | object  | -   |
+| 股票名称 | object  | -   |
+| 最新价  | float64 | -   |
+| 涨跌幅  | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hot_rank_em_df = ak.stock_hot_rank_em()
+print(stock_hot_rank_em_df)
+```
+
+数据示例
+
+```
+    当前排名  代码     股票名称  最新价  涨跌幅
+0      1  SZ300059  东方财富  27.36  -0.47
+1      2  SZ002432  九安医疗  56.91   3.19
+2      3  SZ002349  精华制药  13.71  10.03
+3      4  SH603123  翠微股份  25.05  -1.14
+4      5  SZ002400  省广集团   6.12  -5.26
+..   ...       ...   ...    ...    ...
+95    96  SZ000958  东方能源   5.03  -6.68
+96    97  SZ000925  众合科技   9.98  10.03
+97    98  SZ002155  湖南黄金  11.56   3.21
+98    99  SH601899  紫金矿业  10.90  -1.45
+99   100  SZ002232  启明信息  17.36  -3.50
+```
+
+#### 历史趋势及粉丝特征
+
+接口: stock_hot_rank_detail_em
+
+目标地址: http://guba.eastmoney.com/rank/stock?code=000665
+
+描述: 东方财富网站-股票热度-历史趋势及粉丝特征
+
+限量: 单次返回指定 symbol 的股票近期历史数据
+
+输入参数
+
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="SZ000665" |
+
+输出参数
+
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| 时间   | object  | -   |
+| 排名   | int64   | -   |
+| 证券代码 | object  | -   |
+| 新晋粉丝 | float64 | -   |
+| 铁杆粉丝 | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hot_rank_detail_em_df = ak.stock_hot_rank_detail_em(symbol="SZ000665")
+print(stock_hot_rank_detail_em_df)
+```
+
+数据示例
+
+```
+          时间    排名  证券代码    新晋粉丝 铁杆粉丝
+0    2021-10-19  3369  SZ000665  0.6241  0.3759
+1    2021-10-20  3788  SZ000665  0.5462  0.4538
+2    2021-10-21  3656  SZ000665  0.5341  0.4659
+3    2021-10-22  3952  SZ000665  0.5227  0.4773
+4    2021-10-23  3975  SZ000665  0.5048  0.4952
+..          ...   ...       ...     ...     ...
+115  2022-02-11    11  SZ000665  0.2307  0.7693
+116  2022-02-12    61  SZ000665  0.2520  0.7480
+117  2022-02-13    81  SZ000665  0.2593  0.7407
+118  2022-02-14    75  SZ000665  0.2263  0.7737
+119  2022-02-15    35  SZ000665  0.1977  0.8023
 ```
 
 ### 盘口异动
@@ -14302,7 +14411,7 @@ print(stock_changes_em_df)
 
 #### 涨停股池
 
-接口: stock_em_zt_pool
+接口: stock_zt_pool_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -14342,8 +14451,8 @@ print(stock_changes_em_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_df = ak.stock_em_zt_pool(date='20210525')
-print(stock_em_zt_pool_df)
+stock_zt_pool_em_df = ak.stock_zt_pool_em(date='20210525')
+print(stock_zt_pool_em_df)
 ```
 
 数据示例
@@ -14407,7 +14516,7 @@ print(stock_em_zt_pool_df)
 
 #### 昨日涨停股池
 
-接口: stock_em_zt_pool_previous
+接口: stock_zt_pool_previous_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=zrzt
 
@@ -14447,8 +14556,8 @@ print(stock_em_zt_pool_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_previous_df = ak.stock_em_zt_pool_previous(date='20210521')
-print(stock_em_zt_pool_previous_df)
+stock_zt_pool_previous_em_df = ak.stock_zt_pool_previous_em(date='20210521')
+print(stock_zt_pool_previous_em_df)
 ```
 
 数据示例
@@ -14469,7 +14578,7 @@ print(stock_em_zt_pool_previous_df)
 
 #### 强势股池
 
-接口: stock_em_zt_pool_strong
+接口: stock_zt_pool_strong_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=qsgc
 
@@ -14509,8 +14618,8 @@ print(stock_em_zt_pool_previous_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_strong_df = ak.stock_em_zt_pool_strong(date='20210521')
-print(stock_em_zt_pool_strong_df)
+stock_zt_pool_strong_em_df = ak.stock_zt_pool_strong_em(date='20210521')
+print(stock_zt_pool_strong_em_df)
 ```
 
 数据示例
@@ -14532,7 +14641,7 @@ print(stock_em_zt_pool_strong_df)
 
 #### 次新股池
 
-接口: stock_em_zt_pool_sub_new
+接口: stock_zt_pool_sub_new_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=cxgc
 
@@ -14572,8 +14681,8 @@ print(stock_em_zt_pool_strong_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_sub_new_df = ak.stock_em_zt_pool_sub_new(date='20210521')
-print(stock_em_zt_pool_sub_new_df)
+stock_zt_pool_sub_new_em_df = ak.stock_zt_pool_sub_new_em(date='20210521')
+print(stock_zt_pool_sub_new_em_df)
 ```
 
 数据示例
@@ -14595,7 +14704,7 @@ print(stock_em_zt_pool_sub_new_df)
 
 #### 炸板股池
 
-接口: stock_em_zt_pool_zbgc
+接口: stock_zt_pool_zbgc_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=zbgc
 
@@ -14635,8 +14744,8 @@ print(stock_em_zt_pool_sub_new_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_zbgc_df = ak.stock_em_zt_pool_zbgc(date='20210525')
-print(stock_em_zt_pool_zbgc_df)
+stock_zt_pool_zbgc_em_df = ak.stock_zt_pool_zbgc_em(date='20210525')
+print(stock_zt_pool_zbgc_em_df)
 ```
 
 数据示例
@@ -14664,7 +14773,7 @@ print(stock_em_zt_pool_zbgc_df)
 
 #### 跌停股池
 
-接口: stock_em_zt_pool_dtgc
+接口: stock_zt_pool_dtgc_em
 
 目标地址: http://quote.eastmoney.com/ztb/detail#type=zbgc
 
@@ -14704,8 +14813,8 @@ print(stock_em_zt_pool_zbgc_df)
 ```python
 import akshare as ak
 
-stock_em_zt_pool_dtgc_df = ak.stock_em_zt_pool_dtgc(date='20210525')
-print(stock_em_zt_pool_dtgc_df)
+stock_zt_pool_dtgc_em_df = ak.stock_zt_pool_dtgc_em(date='20210525')
+print(stock_zt_pool_dtgc_em_df)
 ```
 
 数据示例

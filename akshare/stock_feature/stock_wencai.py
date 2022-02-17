@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/29 21:11
+Date: 2022/2/12 16:11
 Desc: 问财-热门股票排名
 http://www.iwencai.com/unifiedwap/home/index
 """
@@ -42,7 +42,7 @@ def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
     return file_data
 
 
-def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
+def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
     """
     问财-热门股票排名
     http://www.iwencai.com/unifiedwap/result?w=%E7%83%AD%E9%97%A85000%E8%82%A1%E7%A5%A8&querytype=stock&issugs&sign=1620126514335
@@ -119,5 +119,5 @@ def stock_wc_hot_rank(date: str = "20210430") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_wc_hot_rank_df = stock_wc_hot_rank(date="20210429")
-    print(stock_wc_hot_rank_df)
+    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20220214")
+    print(stock_hot_rank_wc_df)

@@ -816,6 +816,7 @@ ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
 
 ```python
 import akshare as ak
+
 futures_spot_price_df = ak.futures_spot_price("20180712")
 print(futures_spot_price_df)
 ```
