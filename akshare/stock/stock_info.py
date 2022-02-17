@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/24 22:31
+Date: 2022/2/17 15:00
 Desc: 股票基本信息
 """
 import json
@@ -200,7 +200,8 @@ def stock_info_bj_name_code() -> pd.DataFrame:
         data_text = r.text
         data_json = json.loads(data_text[data_text.find("[") : -1])
         temp_df = data_json[0]["content"]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        temp_df = pd.DataFrame(temp_df)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "上市日期",
         "-",
@@ -417,7 +418,7 @@ def stock_info_a_code_name() -> pd.DataFrame:
 
     stock_sz = stock_info_sz_name_code(indicator="A股列表")
     stock_sz["A股代码"] = stock_sz["A股代码"].astype(str).str.zfill(6)
-    big_df = big_df.append(stock_sz[["A股代码", "A股简称"]], ignore_index=True)
+    big_df = pd.concat([big_df, stock_sz[["A股代码", "A股简称"]]], ignore_index=True)
     big_df.columns = ["公司代码", "公司简称"]
 
     stock_kcb = stock_info_sh_name_code(indicator="科创板")
@@ -427,9 +428,9 @@ def stock_info_a_code_name() -> pd.DataFrame:
     stock_bse = stock_bse[["证券代码", "证券简称"]]
     stock_bse.columns = ["公司代码", "公司简称"]
 
-    big_df = big_df.append(stock_sh, ignore_index=True)
-    big_df = big_df.append(stock_kcb, ignore_index=True)
-    big_df = big_df.append(stock_bse, ignore_index=True)
+    big_df = pd.concat([big_df, stock_sh], ignore_index=True)
+    big_df = pd.concat([big_df, stock_kcb], ignore_index=True)
+    big_df = pd.concat([big_df, stock_bse], ignore_index=True)
     big_df.columns = ["code", "name"]
     return big_df
 
