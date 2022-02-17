@@ -206,8 +206,8 @@
  # 千里马公司数据
  "maxima_company"  # 获取千里马公司名单
  # 机构调研数据
- "stock_em_jgdy_tj"  # 获取机构调研数据-统计
- "stock_em_jgdy_detail"  # 获取机构调研数据-详细
+ "stock_jgdy_tj_em"  # 获取机构调研数据-统计
+ "stock_jgdy_detail_em"  # 获取机构调研数据-详细
  # 股权质押数据
  "stock_em_gpzy_profile"  # 获取股权质押市场概况
  "stock_em_gpzy_pledge_ratio"  # 获取上市公司质押比例
@@ -388,18 +388,18 @@
  "charity_china_report"  # 慈善中国-慈善组织年报
  "charity_china_platform"  # 慈善中国-募捐信息平台
  # 金融期权-新浪
- "option_sina_cffex_hs300_list"  # 沪深300期权列表
- "option_sina_cffex_hs300_spot"  # 沪深300期权实时行情
- "option_sina_cffex_hs300_daily"  # 沪深300期权历史行情-日频
- "option_sina_sse_list"  # 上交所期权列表
- "option_sina_sse_expire_day"  # 上交所期权剩余到期日
- "option_sina_sse_codes"  # 上交所期权代码
- "option_sina_sse_spot_price"  # 上交所期权实时行情
- "option_sina_sse_underlying_spot_price"  # 上交所期权标的物实时行情
- "option_sina_sse_greeks"  # 上交所期权希腊字母
- "option_sina_sse_minute"  # 上交所期权分钟数据
- "option_sina_sse_daily"  # 上交所期权日频数据
- "option_sina_finance_minute"  # 股票期权分时数据
+ "option_cffex_hs300_list_sina"  # 沪深300期权列表
+ "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
+ "option_cffex_hs300_daily_sina"  # 沪深300期权历史行情-日频
+ "option_sse_list_sina"  # 上交所期权列表
+ "option_sse_expire_day_sina"  # 上交所期权剩余到期日
+ "option_sse_codes_sina"  # 上交所期权代码
+ "option_sse_spot_price_sina"  # 上交所期权实时行情
+ "option_sse_underlying_spot_price_sina"  # 上交所期权标的物实时行情
+ "option_sse_greeks_sina"  # 上交所期权希腊字母
+ "option_sse_minute_sina"  # 上交所期权分钟数据
+ "option_sse_daily_sina"  # 上交所期权日频数据
+ "option_finance_minute_sina"  # 股票期权分时数据
  # 商品期权-新浪
  "option_sina_option_commodity_dict"  # 商品期权合约字典查询
  "option_sina_option_commodity_contract_list"  # 商品期权合约查询
@@ -419,19 +419,19 @@
  "currency_pair_map"  # 指定货币的所有可获取货币对的数据
  "currency_name_code"  # 当前所有可兑换货币对
  # 公募基金
- "fund_em_fund_name",  # 基金基本信息
+ "fund_name_em",  # 基金基本信息
  "fund_purchase_em",  # 基金申购状态
- "fund_em_open_fund_daily",  # 开放式基金-实时数据
- "fund_em_open_fund_info",  # 开放式基金-历史数据
- "fund_em_etf_fund_daily",  # 场内交易基金-实时数据
- "fund_em_etf_fund_info",  # 场内交易基金-历史数据
- "fund_em_financial_fund_daily",  # 理财型基金-实时数据
- "fund_em_financial_fund_info",  # 理财型基金-历史数据
- "fund_em_graded_fund_daily",  # 分级基金-实时数据
- "fund_em_graded_fund_info",  # 分级基金-历史数据
- "fund_em_money_fund_daily",  # 货币型基金-实时数据
- "fund_em_money_fund_info",  # 货币型基金-历史数据
- "fund_em_value_estimation",  # 基金估值
+ "fund_open_fund_daily_em",  # 开放式基金-实时数据
+ "fund_open_fund_info_em",  # 开放式基金-历史数据
+ "fund_etf_fund_daily_em",  # 场内交易基金-实时数据
+ "fund_etf_fund_info_em",  # 场内交易基金-历史数据
+ "fund_financial_fund_daily_em",  # 理财型基金-实时数据
+ "fund_financial_fund_info_em",  # 理财型基金-历史数据
+ "fund_graded_fund_daily_em",  # 分级基金-实时数据
+ "fund_graded_fund_info_em",  # 分级基金-历史数据
+ "fund_money_fund_daily_em",  # 货币型基金-实时数据
+ "fund_money_fund_info_em",  # 货币型基金-历史数据
+ "fund_value_estimation_em",  # 基金估值
  # 分析师指数
  "stock_em_analyst_rank"  # 分析师排名
  "stock_em_analyst_detail"  # 分析师详情
@@ -515,7 +515,7 @@
  "stock_sse_summary"  # 上海证券交易所-股票数据总貌
  "stock_sse_deal_daily"  # 上海证券交易所-每日股票情况
  # 美股港股目标价
- "stock_js_price"  # 美股港股目标价
+ "stock_price_js"  # 美股港股目标价
  # 券商业绩月报
  "stock_em_qsjy"  # 券商业绩月报
  # 彭博亿万富豪指数
@@ -715,7 +715,7 @@
  "index_kq_fz"  # 柯桥纺织指数
  "index_kq_fashion"  # 柯桥时尚指数
  # 问财-热门股票
- "stock_wc_hot_rank"  # 问财-热门股票
+ "stock_hot_rank_wc"  # 问财-热门股票
  # Drewry 集装箱指数
  "drewry_wci_index"  # Drewry 集装箱指数
  # 浙江省排污权交易指数
@@ -746,12 +746,12 @@
  "macro_china_hk_trade_diff_ratio"  # 中国-香港-香港商品贸易差额年率
  "macro_china_hk_ppi"  # 中国-香港-香港制造业 PPI 年率
  # 涨停板行情
- "stock_em_zt_pool"  # 涨停板行情-涨停股池
- "stock_em_zt_pool_previous"  # 涨停板行情-昨日涨停股池
- "stock_em_zt_pool_strong"  # 涨停板行情-强势股池
- "stock_em_zt_pool_sub_new"  # 涨停板行情-次新股池
- "stock_em_zt_pool_zbgc"  # 涨停板行情-炸板股池
- "stock_em_zt_pool_dtgc"  # 涨停板行情-跌停股池
+ "stock_zt_pool_em"  # 涨停板行情-涨停股池
+ "stock_zt_pool_previous_em"  # 涨停板行情-昨日涨停股池
+ "stock_zt_pool_strong_em"  # 涨停板行情-强势股池
+ "stock_zt_pool_sub_new_em"  # 涨停板行情-次新股池
+ "stock_zt_pool_zbgc_em"  # 涨停板行情-炸板股池
+ "stock_zt_pool_dtgc_em"  # 涨停板行情-跌停股池
  # 两网及退市
  "stock_staq_net_stop"  # 两网及退市
  # 股东户数

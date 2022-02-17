@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/13 12:23
+Date: 2022/2/10 18:19
 Desc: 期货日线行情
 """
 import datetime
@@ -105,7 +105,7 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
     return data_df
 
 
-def get_ine_daily(date: str = "20200106") -> pd.DataFrame:
+def get_ine_daily(date: str = "20220208") -> pd.DataFrame:
     """
     上海国际能源交易中心-日频率-量价数据
     上海国际能源交易中心: 原油期货(上市时间: 20180326); 20号胶期货(上市时间: 20190812)
@@ -150,7 +150,10 @@ def get_ine_daily(date: str = "20200106") -> pd.DataFrame:
     result_df["close"] = temp_df["CLOSEPRICE"]
     result_df["volume"] = temp_df["VOLUME"]
     result_df["open_interest"] = temp_df["OPENINTEREST"]
-    result_df["turnover"] = 0
+    try:
+        result_df["turnover"] = temp_df["TURNOVER"]
+    except:
+        result_df["turnover"] = 0
     result_df["settle"] = temp_df["SETTLEMENTPRICE"]
     result_df["pre_settle"] = temp_df["PRESETTLEMENTPRICE"]
     try:
@@ -505,9 +508,9 @@ def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
 
 
 def get_futures_daily(
-    start_date: str = "20201031",
-    end_date: str = "20201031",
-    market: str = "CZCE",
+    start_date: str = "20220208",
+    end_date: str = "20220208",
+    market: str = "INE",
     index_bar: bool = False,
 ) -> pd.DataFrame:
     """
@@ -535,7 +538,7 @@ def get_futures_daily(
         f = get_ine_daily
     else:
         print("Invalid Market Symbol")
-        return None
+        return
 
     start_date = (
         cons.convert_date(start_date)

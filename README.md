@@ -117,7 +117,7 @@ Output
 
 ## Communication
 
-Pay attention to **数据科学家** Official Accounts to get more information about Quant, ML, DS and so on.
+Pay attention to **数据科学家** Official Accounts to get more information about Quant, ML, DS and so on, please visit [数据科学家](https://www.akshare.xyz/introduction.html) for more information:
 
 <div>
     <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png">
