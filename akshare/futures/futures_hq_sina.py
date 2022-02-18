@@ -96,7 +96,7 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
     """
     新浪-外盘期货-行情数据
     https://finance.sina.com.cn/money/future/hf.html
-    :param subscribe_list: 通过调用 ak.futures_hq_subscribe_exchange_symbol 函数来获取
+    :param subscribe_list: 通过调用 ak.futures_hq_subscribe_exchange_symbol() 函数来获取
     :type subscribe_list: list
     :return: 行情数据
     :rtype: pandas.DataFrame
