@@ -908,7 +908,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.78: add: internal_flow_history
 0.4.79: add: stock_em_dxsyl
 0.4.80: fix: covid and docs
-0.4.81: add: stock_em_yjyg and stock_em_yysj
+0.4.81: add: stock_yjyg_em and stock_yysj_em
 0.4.82: fix: futures_xgx_index
 0.4.83: fix: fortune_500.py
 0.4.84: fix: a and kcb stock return format
@@ -1260,19 +1260,19 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.34: fix: fix index_investing_global interface
 0.8.35: add: add bond_zh_us_rate interface
 0.8.36: add: add stock_em_fhps interface
-0.8.37: add: add stock_em_yjkb interface
+0.8.37: add: add stock_yjkb_em interface
 0.8.38: fix: fix get_czce_daily interface
 0.8.39: add: add stock_board_concept_cons_ths interface
 0.8.40: fix: fix stock_board_concept_cons_ths interface
 0.8.41: fix: fix energy_carbon_bj interface
 0.8.42: fix: fix stock_zh_a_daily interface
-0.8.43: fix: fix stock_em_yjyg interface
+0.8.43: fix: fix stock_yjyg_em interface
 0.8.44: fix: fix stock_em_comment interface
 0.8.45: add: add stock_sse_deal_daily interface
 0.8.46: fix: fix stock_board_concept_cons_ths interface
 0.8.47: add: add stock_board_concept_info_ths interface
 0.8.48: fix: fix fund_rating_sh fund_rating_zs fund_rating_ja interface
-0.8.49: add: add stock_em_yjbb interface
+0.8.49: add: add stock_yjbb_em interface
 0.8.50: fix: fix stock_zh_index_spot interface
 0.8.51: fix: fix stock_zh_a_spot interface
 0.8.52: add: add stock_em_zcfz, stock_em_lrb, stock_em_xjll interface
@@ -1303,7 +1303,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.77: fix: fix rate_interbank interface
 0.8.78: fix: fix stock_board_concept_index_ths interface
 0.8.79: add: add stock_lh_yyb_most, stock_lh_yyb_capital, stock_lh_yyb_control interface
-0.8.80: fix: fix stock_em_yjkb interface
+0.8.80: fix: fix stock_yjkb_em interface
 0.8.81: add: add crypto_bitcoin_hold_report interface
 0.8.82: fix: fix energy_carbon_hb interface
 0.8.83: fix: fix get_czce_daily interface
@@ -1413,7 +1413,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.88: fix: fix stock_financial_analysis_indicator interface
 0.9.89: fix: fix fund_manager interface
 0.9.90: fix: fix stock_a_below_net_asset_statistics interface
-0.9.91: fix: fix stock_em_yjbb interface
+0.9.91: fix: fix stock_yjbb_em interface
 0.9.92: fix: fix stock_tfp_em interface
 0.9.93: fix: fix stock_zh_a_gdhs interface
 0.9.94: add: add macro_china_qyspjg, macro_china_fdi interface
@@ -1855,9 +1855,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.32 add: add index_neaw_cx interface
 1.4.33 fix: fix docs interface
 1.4.34 add: add index_neaw_cx interface
+1.4.35 fix: fix stock_yysj_em interface
 """
 
-__version__ = "1.4.34"
+__version__ = "1.4.35"
 __author__ = "AKFamily"
 
 import sys
@@ -2475,7 +2476,7 @@ from akshare.stock_feature.stock_em_report import (
 """
 业绩报告
 """
-from akshare.stock_feature.stock_em_yjbb import stock_em_yjbb
+from akshare.stock_feature.stock_yjbb_em import stock_yjbb_em
 
 """
 同花顺-行业板块
@@ -2899,12 +2900,12 @@ hf
 from akshare.hf.hf_sp500 import hf_sp_500
 
 """
-stock_em_yjyg
+stock_yjyg_em
 """
-from akshare.stock_feature.stock_em_yjyg import (
-    stock_em_yjyg,
-    stock_em_yysj,
-    stock_em_yjkb,
+from akshare.stock_feature.stock_yjyg_em import (
+    stock_yjyg_em,
+    stock_yysj_em,
+    stock_yjkb_em,
 )
 
 """

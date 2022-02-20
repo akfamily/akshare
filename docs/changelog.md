@@ -1221,7 +1221,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.4.80: fix: covid and docs
 
-0.4.81: add: stock_em_yjyg and stock_em_yysj
+0.4.81: add: stock_yjyg_em and stock_yysj_em
 
 0.4.82: fix: futures_xgx_index
 
@@ -1925,7 +1925,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.36: add: add stock_em_fhps interface
 
-0.8.37: add: add stock_em_yjkb interface
+0.8.37: add: add stock_yjkb_em interface
 
 0.8.38: fix: fix get_czce_daily interface
 
@@ -1937,7 +1937,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.42: fix: fix stock_zh_a_daily interface
 
-0.8.43: fix: fix stock_em_yjyg interface
+0.8.43: fix: fix stock_yjyg_em interface
 
 0.8.44: fix: fix stock_em_comment interface
 
@@ -1949,7 +1949,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.48: fix: fix fund_rating_sh fund_rating_zs fund_rating_ja interface
 
-0.8.49: add: add stock_em_yjbb interface
+0.8.49: add: add stock_yjbb_em interface
 
 0.8.50: fix: fix stock_zh_index_spot interface
 
@@ -2011,7 +2011,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.79: add: add stock_lh_yyb_most, stock_lh_yyb_capital, stock_lh_yyb_control interface
 
-0.8.80: fix: fix stock_em_yjkb interface
+0.8.80: fix: fix stock_yjkb_em interface
 
 0.8.81: add: add crypto_bitcoin_hold_report interface
 
@@ -2231,7 +2231,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.90: fix: fix stock_a_below_net_asset_statistics interface
 
-0.9.91: fix: fix stock_em_yjbb interface
+0.9.91: fix: fix stock_yjbb_em interface
 
 0.9.92: fix: fix stock_tfp_em interface
 
@@ -3123,4 +3123,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.33 fix: fix docs interface
 
 1.4.34 add: add index_neaw_cx interface
+
+1.4.35 fix: fix stock_yysj_em interface
 ```

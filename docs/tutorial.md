@@ -465,8 +465,8 @@
  "stock_em_dxsyl"  # 打新收益率
  "stock_em_xgsglb"  # 新股申购与中签查询
  # 年报季报
- "stock_em_yjyg"  # 上市公司业绩预告
- "stock_em_yysj"  # 上市公司预约披露时间
+ "stock_yjyg_em"  # 上市公司业绩预告
+ "stock_yysj_em"  # 上市公司预约披露时间
  # 西本新干线-指数数据
  "futures_xgx_index"  # 西本新干线-指数数据
  # 高频数据-标普500指数
@@ -680,13 +680,13 @@
  # 分红配送
  "stock_em_fhps"  # 分红配送
  # 业绩快报
- "stock_em_yjkb"  # 业绩快报
+ "stock_yjkb_em"  # 业绩快报
  # 概念板块
  "stock_board_concept_cons_ths"  # 同花顺-概念板块-成份股
  "stock_board_concept_hist_ths"  # 同花顺-概念板块-指数日频数据
  "stock_board_cons_ths"  # 同花顺-成份股
  # 业绩报告
- "stock_em_yjbb"  # 业绩报告
+ "stock_yjbb_em"  # 业绩报告
  # 三大表报
  "stock_em_zcfz"  # 三大表报-资产负债表
  "stock_em_lrb"  # 三大表报-利润表
