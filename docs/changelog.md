@@ -3125,4 +3125,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.34 add: add index_neaw_cx interface
 
 1.4.35 fix: fix stock_yysj_em interface
+
+1.4.36 add: add index_nei_cx interface
 ```
