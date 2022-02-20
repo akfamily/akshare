@@ -1477,7 +1477,7 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
 
 
 def stock_hsgt_individual_detail_em(
-    symbol: str = "600596", start_date: str = "20210830", end_date: str = "20211026"
+    symbol: str = "600596", start_date: str = "202120830", end_date: str = "20221026"
 ) -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票详情
@@ -1670,6 +1670,6 @@ if __name__ == "__main__":
     print(stock_hsgt_individual_em_df)
 
     stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(
-        symbol="600596", start_date="20210830", end_date="20211026"
+        symbol="600596", start_date="20220101", end_date="20220220"
     )
     print(stock_hsgt_individual_detail_em_df)
