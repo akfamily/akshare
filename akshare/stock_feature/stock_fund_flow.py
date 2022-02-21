@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/16 19:13
+Date: 2022/2/21 16:03
 Desc: 同花顺-数据中心-资金流向
 同花顺-数据中心-资金流向-个股资金流
 http://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
@@ -113,7 +113,8 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
         }
         r = requests.get(url.format(page), headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     del big_df["序号"]
     big_df.reset_index(inplace=True)
     big_df["index"] = range(1, len(big_df) + 1)
@@ -205,7 +206,8 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
         }
         r = requests.get(url.format(page), headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     del big_df["序号"]
     big_df.reset_index(inplace=True)
     big_df["index"] = range(1, len(big_df) + 1)
@@ -303,7 +305,8 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
         }
         r = requests.get(url.format(page), headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     del big_df["序号"]
     big_df.reset_index(inplace=True)
     big_df["index"] = range(1, len(big_df) + 1)
@@ -390,7 +393,8 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
         }
         r = requests.get(url.format(page), headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.columns = [
         "成交时间",
         "股票代码",
