@@ -1859,9 +1859,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.36 add: add index_nei_cx interface
 1.4.37 add: add index_ti_cx interface
 1.4.38 fix: fix stock_fund_flow_individual interface
+1.4.39 add: add index_zh_a_hist_min_em interface
 """
 
-__version__ = "1.4.38"
+__version__ = "1.4.39"
 __author__ = "AKFamily"
 
 import sys
@@ -1871,6 +1872,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+指数行情数据
+"""
+from akshare.index.index_zh_em import index_zh_a_hist, index_zh_a_hist_min_em, index_code_id_map_em
 
 """
 东方财富个股人气榜
