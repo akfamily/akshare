@@ -281,7 +281,7 @@ def code_id_map_em() -> dict:
 
 
 def stock_zh_a_hist(
-        symbol: str = "000001",
+        symbol: str = "000016",
         period: str = 'daily',
         start_date: str = "19700101",
         end_date: str = "22220101",
@@ -1070,7 +1070,7 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="000001", period='daily', start_date="20101010", end_date="20211124", adjust="hfq"
+        symbol="000016", period='daily', start_date="20101010", end_date="20211124", adjust="hfq"
     )
     print(stock_zh_a_hist_df)
 

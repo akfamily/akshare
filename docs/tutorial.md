@@ -1016,6 +1016,10 @@
  "index_cci_cx"  # 财新数据-指数报告-大宗商品指数
  # 冬奥会
  "sport_olympic_winter_hist"  # 冬奥会-历届奖牌榜
+ # 指数历史数据
+ "index_zh_a_hist"  # 中国股票指数历史数据
+ # 指数分时数据
+ "index_zh_a_hist_min_em"  # 中国股票指数-指数分时数据
 ```
 
 ## 案例演示
