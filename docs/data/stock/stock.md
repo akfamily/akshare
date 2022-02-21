@@ -6696,7 +6696,7 @@ print(stock_em_fhps_df)
 
 目标地址: http://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
 
-描述: 获取同花顺-数据中心-资金流向-个股资金流
+描述: 同花顺-数据中心-资金流向-个股资金流
 
 限量: 单次获取指定 symbol 的概念资金流数据
 
@@ -6750,20 +6750,21 @@ print(stock_fund_flow_individual_df)
 
 输出参数-3日、5日、10日和20日
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int32   | Y        |  -    |
-| 股票代码          | int64   | Y        |   -   |
-| 股票简称          | object   | Y        |   -   |
-| 最新价          | float64   | Y        |  -    |
-| 阶段涨跌幅          | object   | Y        |  注意单位: %    |
-| 连续换手率          | object   | Y        |  注意单位: %    |
-| 资金流入净额          | float64   | Y        |  注意单位: 元    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 序号     | int32   | -       |
+| 股票代码   | int64   | -       |
+| 股票简称   | object  | -       |
+| 最新价    | float64 | -       |
+| 阶段涨跌幅  | object  | 注意单位: % |
+| 连续换手率  | object  | 注意单位: % |
+| 资金流入净额 | float64 | 注意单位: 元 |
 
 接口示例-3日、5日、10日和20日
 
 ```python
 import akshare as ak
+
 stock_fund_flow_individual_df = ak.stock_fund_flow_individual(symbol="3日排行")
 print(stock_fund_flow_individual_df)
 ```
@@ -6996,28 +6997,29 @@ print(stock_fund_flow_industry_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| - | - | -    | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数-即时
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 成交时间          | object   | Y        |  -    |
-| 股票代码          | int64   | Y        |  -    |
-| 股票简称          | object   | Y        |  -    |
-| 成交价格          | float64   | Y        |  -    |
-| 成交量          | int64   | Y        |  注意单位: 股    |
-| 成交额          | float64   | Y        |  注意单位: 万元    |
-| 大单性质          | object   | Y        |  -    |
-| 涨跌幅          | object   | Y        |  -    |
-| 涨跌额          | object   | Y        |  -    |
+| 名称   | 类型      | 描述       |
+|------|---------|----------|
+| 成交时间 | object  | -        |
+| 股票代码 | int64   | -        |
+| 股票简称 | object  | -        |
+| 成交价格 | float64 | -        |
+| 成交量  | int64   | 注意单位: 股  |
+| 成交额  | float64 | 注意单位: 万元 |
+| 大单性质 | object  | -        |
+| 涨跌幅  | object  | -        |
+| 涨跌额  | object  | -        |
 
 接口示例-即时
 
 ```python
 import akshare as ak
+
 stock_fund_flow_big_deal_df = ak.stock_fund_flow_big_deal()
 print(stock_fund_flow_big_deal_df)
 ```

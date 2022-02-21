@@ -1858,9 +1858,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.35 fix: fix stock_yysj_em interface
 1.4.36 add: add index_nei_cx interface
 1.4.37 add: add index_ti_cx interface
+1.4.38 fix: fix stock_fund_flow_individual interface
 """
 
-__version__ = "1.4.37"
+__version__ = "1.4.38"
 __author__ = "AKFamily"
 
 import sys
