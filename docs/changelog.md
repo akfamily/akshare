@@ -3135,4 +3135,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.39 add: add index_zh_a_hist_min_em interface
 
 1.4.40 add: add index_code_id_map_em interface
+
+1.4.41 fix: fix stock_hk_ggt_components_em interface
 ```

@@ -94,7 +94,7 @@ def stock_hk_ggt_components_em() -> pd.DataFrame:
             "成交额",
         ]
     ]
-    return temp_df.info()
+    return temp_df
 
 
 def stock_hsgt_north_net_flow_in_em(symbol: str = "沪股通") -> pd.DataFrame:

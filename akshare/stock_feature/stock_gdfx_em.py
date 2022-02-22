@@ -35,7 +35,7 @@ def stock_gdfx_free_holding_statistics_em(date: str = "20210630") -> pd.DataFram
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -118,7 +118,7 @@ def stock_gdfx_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -202,7 +202,7 @@ def stock_gdfx_free_holding_change_em(date: str = "20210930") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -279,7 +279,7 @@ def stock_gdfx_holding_change_em(date: str = "20210930") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -466,7 +466,7 @@ def stock_gdfx_free_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -566,7 +566,7 @@ def stock_gdfx_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -661,7 +661,7 @@ def stock_gdfx_free_holding_analyse_em(date: str = "20210930") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -766,7 +766,7 @@ def stock_gdfx_holding_analyse_em(date: str = "20210930") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -863,7 +863,7 @@ def stock_gdfx_free_holding_teamwork_em() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -920,7 +920,7 @@ def stock_gdfx_holding_teamwork_em() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
