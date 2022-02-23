@@ -1259,7 +1259,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.33: add: add stock_profit_forecast interface
 0.8.34: fix: fix index_investing_global interface
 0.8.35: add: add bond_zh_us_rate interface
-0.8.36: add: add stock_em_fhps interface
+0.8.36: add: add stock_fhps_em interface
 0.8.37: add: add stock_yjkb_em interface
 0.8.38: fix: fix get_czce_daily interface
 0.8.39: add: add stock_board_concept_cons_ths interface
@@ -1863,9 +1863,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.40 add: add index_code_id_map_em interface
 1.4.41 fix: fix stock_hk_ggt_components_em interface
 1.4.42 add: add stock_hot_keyword_em interface
+1.4.43 fix: fix stock_fhps_em interface
 """
 
-__version__ = "1.4.42"
+__version__ = "1.4.43"
 __author__ = "AKFamily"
 
 import sys
@@ -2515,7 +2516,7 @@ from akshare.stock_feature.stock_board_concept_ths import (
 """
 分红配送
 """
-from akshare.stock_feature.stock_em_fhps import stock_em_fhps
+from akshare.stock_feature.stock_fhps_em import stock_fhps_em
 
 """
 中美国债收益率
