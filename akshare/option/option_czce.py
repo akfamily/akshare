@@ -51,4 +51,4 @@ def option_czce_hist(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
 
 if __name__ == "__main__":
     option_czce_hist_df = option_czce_hist(symbol="ZC", year="2021")
-    print(option_czce_hist_df.info())
+    print(option_czce_hist_df)

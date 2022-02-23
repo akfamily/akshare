@@ -1923,7 +1923,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.8.35: add: add bond_zh_us_rate interface
 
-0.8.36: add: add stock_em_fhps interface
+0.8.36: add: add stock_fhps_em interface
 
 0.8.37: add: add stock_yjkb_em interface
 
@@ -3139,4 +3139,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.41 fix: fix stock_hk_ggt_components_em interface
 
 1.4.42 add: add stock_hot_keyword_em interface
+
+1.4.43 fix: fix stock_fhps_em interface
 ```
