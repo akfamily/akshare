@@ -60,11 +60,13 @@ def amac_member_info(params: dict={}) -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/pofMember"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
-    }.update(params)
+    }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -116,11 +118,13 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司", params: 
     pinyin_raw_list = lazy_pinyin(symbol)
     symbol_trans = ''.join([item[0] for item in pinyin_raw_list])
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/personOrg"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
-    }.update(params)
+    }
+    _params.update(params)
+    params = _params
     r = requests.post(
         url, params=params, json={"orgType": symbol_trans, "page": "1"}, verify=False
     )
@@ -175,11 +179,13 @@ def amac_person_bond_org_list(params: dict={}) -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://human.amac.org.cn/web/api/publicityAddress"
-    params = {
+    _params = {
         'rand': '0.1965383823100506',
         'pageNum': '0',
         'pageSize': '5000'
-    }.update(params)
+    }
+    _params.update(params)
+    params = _params
     r = requests.get(url, params=_params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["list"])
@@ -214,11 +220,13 @@ def amac_manager_info(params: dict={}) -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/manager"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
-    }.update(params)
+    }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -259,7 +267,7 @@ def amac_manager_info(params: dict={}) -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
-def amac_manager_classify_info() -> pd.DataFrame:
+def amac_manager_classify_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-私募基金管理人分类公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/manager/managerList.html
@@ -267,11 +275,13 @@ def amac_manager_classify_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/manager"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
     }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -312,7 +322,7 @@ def amac_manager_classify_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
-def amac_member_sub_info() -> pd.DataFrame:
+def amac_member_sub_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示-证券公司私募基金子公司管理人信息公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/member/index.html?primaryInvestType=private
@@ -320,11 +330,13 @@ def amac_member_sub_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/pofMember"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
     }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -373,11 +385,13 @@ def amac_fund_info(start_page: str = '1', end_page: str = "2000", params: dict={
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/fund"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
-    }.update(params)
+    }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = int(data_json["totalPages"])
@@ -423,7 +437,7 @@ def amac_fund_info(start_page: str = '1', end_page: str = "2000", params: dict={
 
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司集合资管产品公示
-def amac_securities_info() -> pd.DataFrame:
+def amac_securities_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/securities/index.html
@@ -431,11 +445,13 @@ def amac_securities_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/securities"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
     }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -476,7 +492,7 @@ def amac_securities_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品-证券公司直投基金
-def amac_aoin_info() -> pd.DataFrame:
+def amac_aoin_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司直投基金
     http://gs.amac.org.cn/amac-infodisc/res/aoin/product/index.html
@@ -484,11 +500,13 @@ def amac_aoin_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/aoin/product"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
     }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -520,7 +538,7 @@ def amac_aoin_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
-def amac_fund_sub_info() -> pd.DataFrame:
+def amac_fund_sub_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-证券公司私募投资基金
     http://gs.amac.org.cn/amac-infodisc/res/pof/subfund/index.html
@@ -528,11 +546,13 @@ def amac_fund_sub_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/subfund"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
     }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -567,7 +587,7 @@ def amac_fund_sub_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
-def amac_fund_account_info() -> pd.DataFrame:
+def amac_fund_account_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-基金公司及子公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/fund/account/index.html
@@ -575,11 +595,13 @@ def amac_fund_account_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/fund/account"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
     }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -609,7 +631,7 @@ def amac_fund_account_info() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划
-def amac_fund_abs() -> pd.DataFrame:
+def amac_fund_abs(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-资产支持专项计划公示信息
     https://gs.amac.org.cn/amac-infodisc/res/fund/abs/index.html
@@ -617,11 +639,13 @@ def amac_fund_abs() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/fund/abs"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
     }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -667,7 +691,7 @@ def amac_fund_abs() -> pd.DataFrame:
 
 
 # 中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
-def amac_futures_info() -> pd.DataFrame:
+def amac_futures_info(params: dict={}) -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-基金产品公示-期货公司集合资管产品公示
     http://gs.amac.org.cn/amac-infodisc/res/pof/futures/index.html
@@ -675,11 +699,13 @@ def amac_futures_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/pof/futures"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
     }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -732,11 +758,13 @@ def amac_manager_cancelled_info(params: dict={}) -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://gs.amac.org.cn/amac-infodisc/api/cancelled/manager"
-    params = {
+    _params = {
         "rand": "0.7665138514630696",
         "page": "1",
         "size": "100",
-    }.update(params)
+    }
+    _params.update(params)
+    params = _params
     r = requests.post(url, params=params, json={}, verify=False)
     data_json = r.json()
     total_page = data_json["totalPages"]
