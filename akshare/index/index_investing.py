@@ -547,10 +547,10 @@ if __name__ == "__main__":
     )
 
     index_investing_global_df = index_investing_global(
-        country="美国",
-        index_name="纳斯达克100",
+        country="香港",
+        index_name="恒生指数",
         period="每日",
-        start_date="20000101",
-        end_date="20210909",
+        start_date="20100101",
+        end_date="20220221",
     )
     print(index_investing_global_df)

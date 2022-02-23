@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/2 10:27
+Date: 2022/2/20 15:27
 Desc: 东方财富-数据中心-年报季报
 东方财富-数据中心-年报季报-业绩快报-业绩报表
 http://data.eastmoney.com/bbsj/202003/yjbb.html
@@ -11,7 +11,7 @@ import requests
 from tqdm import tqdm
 
 
-def stock_em_yjbb(date: str = "20200331") -> pd.DataFrame:
+def stock_yjbb_em(date: str = "20200331") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩快报-业绩报表
     http://data.eastmoney.com/bbsj/202003/yjbb.html
@@ -49,7 +49,7 @@ def stock_em_yjbb(date: str = "20200331") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
     big_df["index"] = range(1, len(big_df) + 1)
@@ -114,5 +114,5 @@ def stock_em_yjbb(date: str = "20200331") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_em_yjbb_df = stock_em_yjbb(date="20200331")
-    print(stock_em_yjbb_df)
+    stock_yjbb_em_df = stock_yjbb_em(date="20200331")
+    print(stock_yjbb_em_df)

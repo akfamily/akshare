@@ -72,6 +72,7 @@ pd.set_option('display.unicode.east_asian_width', True)
 pd.set_option('display.max_columns', None)
 # 显示所有行
 pd.set_option('display.max_rows', None)
+
 stock_zh_index_daily_df = ak.stock_zh_index_daily(symbol="sz399552")
 print(stock_zh_index_daily_df)
 ```

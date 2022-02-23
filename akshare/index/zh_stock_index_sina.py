@@ -63,7 +63,7 @@ def stock_zh_index_spot() -> pd.DataFrame:
     big_df = pd.DataFrame()
     page_count = get_zh_index_page_count()
     zh_sina_stock_payload_copy = zh_sina_index_stock_payload.copy()
-    for page in tqdm(range(1, page_count + 1)):
+    for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_stock_payload_copy.update({"page": page})
         res = requests.get(zh_sina_index_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(res.text)
@@ -260,7 +260,7 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sz399005")
+    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sh000016")
     print(stock_zh_index_daily_df)
 
     stock_zh_index_spot_df = stock_zh_index_spot()
