@@ -1,7 +1,7 @@
 # https://github.com/nikolaik/docker-python-nodejs
 FROM nikolaik/python-nodejs:python3.8-nodejs16
 
-MAINTAINER AKFamily <akshare@akfamily.email.cn>
+MAINTAINER AKFamily <akfamily.akshare@gmail.com>
 
 RUN set -x \
     && export DEBIAN_FRONTEND=noninteractive \
