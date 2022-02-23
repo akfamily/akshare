@@ -148,4 +148,4 @@ if __name__ == '__main__':
     print(stock_industry_star_df)
 
     stock_sector_detail_df = stock_sector_detail(sector="hangye_ZC27")
-    print(stock_sector_detail_df.info())
+    print(stock_sector_detail_df)
