@@ -906,7 +906,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.76: add: fred_md
 0.4.77: fix: get_dce_option_daily
 0.4.78: add: internal_flow_history
-0.4.79: add: stock_em_dxsyl
+0.4.79: add: stock_dxsyl_em
 0.4.80: fix: covid and docs
 0.4.81: add: stock_yjyg_em and stock_yysj_em
 0.4.82: fix: futures_xgx_index
@@ -1064,7 +1064,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.36: fix: fix stock_info_a_code_name interface
 0.6.37: fix: fix stock_sector_detail interface
 0.6.38: fix: fix get_futures_daily interface
-0.6.39: add: add stock_em_xgsglb interface
+0.6.39: add: add stock_xgsglb_em interface
 0.6.40: add: add stock_zh_a_new interface
 0.6.41: fix: fix get_ine_daily interface
 0.6.42: add: add bond_futures_deliverable_coupons interface
@@ -1340,7 +1340,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.15: add: add index_kq_fashion interface
 0.9.16: add: add index_eri interface
 0.9.17: fix: fix futures_global_commodity_hist interface
-0.9.18: fix: fix stock_em_dxsyl interface
+0.9.18: fix: fix stock_dxsyl_em interface
 0.9.19: add: add stock_market_activity_legu interface
 0.9.20: fix: fix stock_individual_fund_flow_rank interface
 0.9.21: add: add index_cflp_price interface
@@ -1443,8 +1443,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.19: fix: fix marco_china_hk interface
 1.0.20: fix: fix bond_zh_hs_cov_daily interface
 1.0.21: fix: fix charity_china interface
-1.0.22: fix: fix stock_em_xgsglb interface
-1.0.23: fix: fix stock_em_dxsyl interface
+1.0.22: fix: fix stock_xgsglb_em interface
+1.0.23: fix: fix stock_dxsyl_em interface
 1.0.24: fix: fix stock_board_concept_hist_em interface
 1.0.25: fix: fix get_receipt interface
 1.0.26: add: add energy_carbon_domestic interface
@@ -1864,9 +1864,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.41 fix: fix stock_hk_ggt_components_em interface
 1.4.42 add: add stock_hot_keyword_em interface
 1.4.43 fix: fix stock_fhps_em interface
+1.4.44 fix: fix stock_dxsyl_em interface
 """
 
-__version__ = "1.4.43"
+__version__ = "1.4.44"
 __author__ = "AKFamily"
 
 import sys
@@ -2924,7 +2925,7 @@ from akshare.stock_feature.stock_yjyg_em import (
 """
 stock
 """
-from akshare.stock_feature.stock_em_dxsyl import stock_em_dxsyl, stock_em_xgsglb
+from akshare.stock_feature.stock_dxsyl_em import stock_dxsyl_em, stock_xgsglb_em
 
 """
 article
