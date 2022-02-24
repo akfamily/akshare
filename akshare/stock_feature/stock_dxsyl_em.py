@@ -260,7 +260,7 @@ def stock_xgsglb_em(symbol: str = "京市A股") -> pd.DataFrame:
             r = requests.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json['result']['data'])
-            big_df = big_df.append(temp_df, ignore_index=True)
+            big_df = pd.concat([big_df, temp_df], ignore_index=True)
         big_df.columns = [
             "股票代码",
             "股票简称",

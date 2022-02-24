@@ -698,38 +698,56 @@ print(air_quality_hebei_df)
 
 #### 城市列表
 
-接口: air_city_list
+接口: air_city_table
 
 目标地址: https://www.aqistudy.cn/
 
-描述: 获取所有空气质量数据的城市列表
+描述: 所有能获取空气质量数据的城市表
 
-限量: 单次返回所有可以获取的城市的列表
+限量: 单次返回所有可以获取的城市表数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-|  168城市列表     | list  | Y        | list  |
+| 名称      | 类型      | 描述  |
+|---------|---------|-----|
+| 序号      | int64   | -   |
+| 省份      | object  | -   |
+| 城市      | object  | -   |
+| AQI     | float64 | -   |
+| 空气质量    | object  | -   |
+| PM2.5浓度 | object  | -   |
+| 首要污染物   | object  | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-air_city_list_map = ak.air_city_list()
-print(air_city_list_map)
+
+air_city_table_df = ak.air_city_table()
+print(air_city_table_df)
 ```
 
 数据示例
 
 ```
-['北京', '廊坊', '承德', '唐山', '晋城', '保定', '德阳', '秦皇岛', '天津', '朝阳', '临汾', '运城', '成都', '焦作', '长治', '锦州', '绵阳', '资阳', '葫芦岛', '广安', '长春', '石家庄', '三门峡', '兰州', '沧州', '沈阳', '哈尔滨', '衡水', '洛阳', '滨州', '眉山', '东营', '阳泉', '内江', '铜川', '宜宾', '淄博', '邢台', '晋中', '自贡', '新乡', '安阳', '邯郸', '南充', '忻州', '临沂', '太原', '重庆', '乐山', '潍坊', '张家口', '济南', '德州', '聊城', '鹤壁', '青岛', '亳州', '日照', '枣庄', '西安', '咸阳', '宝鸡', '宿州', '泰安', '商丘', '达州', '济宁', '南阳', '吕梁', '连云港', '雅安', '郑州', '南昌', '阜阳', '渭南', '周口', '宿迁', '许昌', '武汉', '徐州', '开封', '泸州', '平顶山', '驻马店', '信阳', '菏泽', '淮南', '漯河', '朔州', '孝感', '濮阳', '杭州', '呼和浩特', '银川', '遂宁', '随州', '湖州', '襄阳', '淮安', '宜昌', '益阳', '淮北', '常州', '泰州', '拉萨', '包头', '蚌埠', '盐城', '六安', '西宁', '岳阳', '九江', '镇江', '苏州', '广州', '贵阳', '大同', '乌鲁木齐', '荆门', '铜陵', '新余', '扬州', '鄂州', '南通', '常德', '荆州', '无锡', '长沙', '咸宁', '嘉兴', '衢州', '大连', '黄冈', '温州', '厦门', '黄石', '绍兴', '合肥', '宜春', '上海', '昆明', '福州', '株洲', '金华', '南京', '湘潭', '丽水', '马鞍山', '萍乡', '宣城', '芜湖', '滁州', '安庆', '池州', '佛山', '黄山', '江门', '南宁', '台州', '惠州', '宁波', '肇庆', '舟山', '中山', '东莞', '深圳', '珠海', '海口']
+      序号  省份  城市    AQI  空气质量    PM2.5浓度 首要污染物
+0      1  北京  北京  204.0  重度污染  108 ug/m3    O3
+1      2  河北  廊坊  199.0  中度污染   54 ug/m3    O3
+2      3  河北  承德  198.0  中度污染   59 ug/m3    O3
+3      4  河北  唐山  176.0  中度污染   74 ug/m3    O3
+4      5  山西  晋城  164.0  中度污染   51 ug/m3    O3
+..   ...  ..  ..    ...   ...        ...   ...
+163  164  广东  中山   40.0     优   19 ug/m3   NaN
+164  165  广东  东莞   39.0     优   20 ug/m3   NaN
+165  166  广东  深圳   38.0     优   21 ug/m3   NaN
+166  167  广东  珠海   34.0     优   17 ug/m3   NaN
+167  168  海南  海口   32.0     优   14 ug/m3   NaN
 ```
 
 #### 空气质量历史数据
@@ -744,39 +762,40 @@ print(air_city_list_map)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| city | str | Y | city="北京"; 调用 air_city_list 接口获取所有城市列表 |
-| period | str | Y | period="day"; "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据 |
-| start_date | str | Y | start_date="2020-03-20"; 注意 **start_date** 和 **end_date** 跨度不宜过长 |
-| end_date | str | Y | end_date="2020-04-27"; 注意 **start_date** 和 **end_date** 跨度不宜过长 |
+| 名称         | 类型  | 描述                                                                             |
+|------------|-----|--------------------------------------------------------------------------------|
+| city       | str | city="北京"; 调用 ak.air_city_table() 接口获取所有城市列表                                   |
+| period     | str | period="day"; "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据 |
+| start_date | str | start_date="20200320"; 注意 **start_date** 和 **end_date** 跨度不宜过长                 |
+| end_date   | str | end_date="20200427"; 注意 **start_date** 和 **end_date** 跨度不宜过长                   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| time      | str   | Y        | 日期时间索引  |
-| aqi      | str   | Y        | AQI  |
-| pm2_5      | float   | Y        | PM2.5   |
-| pm10     | str   | Y        | PM10  |
-| co      | float   | Y        | CO   |
-| no2      | str   | Y        | NO2  |
-| o3      | str   | Y        | O3  |
-| so2      | str   | Y        | SO2  |
-| complexindex      | str   | Y        | 综合指数  |
-| rank      | str   | Y        | 排名  |
-| primary_pollutant      | str   | Y        | 主要污染物  |
-| temp      | str   | Y        | 温度  |
-| humi      | str   | Y        | 湿度  |
-| windlevel      | str   | Y        | 风级  |
-| winddirection      | str   | Y        | 风向  |
-| weather      | str   | Y        | 天气  |
+| 名称                | 类型      | 描述     |
+|-------------------|---------|--------|
+| time              | object  | 日期时间索引 |
+| aqi               | object  | AQI    |
+| pm2_5             | float64 | PM2.5  |
+| pm10              | object  | PM10   |
+| co                | float64 | CO     |
+| no2               | object  | NO2    |
+| o3                | object  | O3     |
+| so2               | object  | SO2    |
+| complexindex      | object  | 综合指数   |
+| rank              | object  | 排名     |
+| primary_pollutant | object  | 主要污染物  |
+| temp              | object  | 温度     |
+| humi              | object  | 湿度     |
+| windlevel         | object  | 风级     |
+| winddirection     | object  | 风向     |
+| weather           | object  | 天气     |
 
 接口示例-小时频率
 
 ```python
 import akshare as ak
-air_quality_hist_df = ak.air_quality_hist(city="北京", period="hour", start_date="2020-04-25", end_date="2020-04-27")
+
+air_quality_hist_df = ak.air_quality_hist(city="北京", period="hour", start_date="20200425", end_date="20200427")
 print(air_quality_hist_df)
 ```
 
@@ -801,7 +820,8 @@ print(air_quality_hist_df)
 
 ```python
 import akshare as ak
-air_quality_hist_df = ak.air_quality_hist(city="北京", period="day", start_date="2020-03-20", end_date="2020-04-27")
+
+air_quality_hist_df = ak.air_quality_hist(city="北京", period="day", start_date="20200320", end_date="20200427")
 print(air_quality_hist_df)
 ```
 
@@ -854,7 +874,8 @@ print(air_quality_hist_df)
 
 ```python
 import akshare as ak
-air_quality_hist_df = ak.air_quality_hist(city="北京", period="month", start_date="2019-04-25", end_date="2020-04-27")
+
+air_quality_hist_df = ak.air_quality_hist(city="北京", period="month", start_date="20190425", end_date="20200427")
 print(air_quality_hist_df)
 ```
 
@@ -881,33 +902,34 @@ print(air_quality_hist_df)
 
 目标地址: https://www.zq12369.com/environment.php
 
-描述: 获取指定 **date** 时间点上所有城市(168个)的空气质量数据
+描述: 获取指定 date 时间点上所有城市(168个)的空气质量数据
 
 限量: 单次返回所有的数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="2020-03-12"; "实时": 当前时刻空气质量排名; "2020-03-12": 当日空气质量排名; "2020-03": 当月空气质量排名; "2019": 当年空气质量排名; |
+| 名称   | 类型  | 描述                                                                                       |
+|------|-----|------------------------------------------------------------------------------------------|
+| date | str | date=""; "": 当前时刻空气质量排名, 默认; "20200312": 当日空气质量排名; "202003": 当月空气质量排名; "2019": 当年空气质量排名; |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 降序      | str  | Y        | 排名  |
-| 省份      | str   | Y        | -  |
-| 城市      | str   | Y        | -   |
-| AQI     | float   | Y        | -  |
-| 空气质量      | str   | Y        | -   |
-| PM2.5浓度      | str   | Y        | -  |
-| 首要污染物      | str   | Y        | -  |
+| 名称      | 类型    | 描述  |
+|---------|-------|-----|
+| 降序      | str   | 排名  |
+| 省份      | str   | -   |
+| 城市      | str   | -   |
+| AQI     | float | -   |
+| 空气质量    | str   | -   |
+| PM2.5浓度 | str   | -   |
+| 首要污染物   | str   | -   |
 
 接口示例-实时
 
 ```python
 import akshare as ak
-air_quality_rank_df = ak.air_quality_rank(date="实时")
+
+air_quality_rank_df = ak.air_quality_rank(date="")
 print(air_quality_rank_df)
 ```
 
@@ -1017,7 +1039,7 @@ print(air_quality_rank_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| city | str | Y | city="杭州"; 调用 air_city_list 接口获取所有城市列表 | |
+| city | str | Y | city="杭州"; 调用 air_city_table 接口获取所有城市列表 | |
 | start_date | str | Y | start_date="2018-01-01" |
 | end_date | str | Y | end_date="2020-04-27" |
 
