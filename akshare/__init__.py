@@ -1866,9 +1866,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.43 fix: fix stock_fhps_em interface
 1.4.44 fix: fix stock_dxsyl_em interface
 1.4.45 fix: fix air_quality_rank interface
+1.4.46 fix: fix energy_oil_detail interface
 """
 
-__version__ = "1.4.45"
+__version__ = "1.4.46"
 __author__ = "AKFamily"
 
 import sys
