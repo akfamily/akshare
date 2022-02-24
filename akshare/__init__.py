@@ -928,7 +928,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.98: add: mplfinance package
 0.4.99: add: fund_em
 0.5.1: fix: add PG to futures list
-0.5.2: fix: air_zhenqi.py rename air_city_dict to air_city_list
+0.5.2: fix: air_zhenqi.py rename air_city_dict to air_city_table
 0.5.3: add: add two fields into covid_163
 0.5.4: fix: fix request_fun timeout and error type
 0.5.5: fix: fund_graded_fund_daily_em return fields
@@ -1865,9 +1865,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.42 add: add stock_hot_keyword_em interface
 1.4.43 fix: fix stock_fhps_em interface
 1.4.44 fix: fix stock_dxsyl_em interface
+1.4.45 fix: fix air_quality_rank interface
 """
 
-__version__ = "1.4.44"
+__version__ = "1.4.45"
 __author__ = "AKFamily"
 
 import sys
@@ -2905,7 +2906,7 @@ from akshare.air.air_zhenqi import (
     air_quality_hist,
     air_quality_rank,
     air_quality_watch_point,
-    air_city_list,
+    air_city_table,
 )
 
 """
