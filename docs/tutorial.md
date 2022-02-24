@@ -160,7 +160,7 @@
  "air_quality_hist"  # 空气质量历史数据
  "air_quality_rank"  # 空气质量排行
  "air_quality_watch_point"  # 空气质量观测点历史数据
- "air_city_list"  # 所有城市列表
+ "air_city_table"  # 所有城市列表
  # 财富世界五百强公司
  "fortune_rank"  # 获取财富世界500强公司历年排名
  # 中国证券投资基金业协会-信息公示
