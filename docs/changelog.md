@@ -1217,7 +1217,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.4.78: add: internal_flow_history
 
-0.4.79: add: stock_em_dxsyl
+0.4.79: add: stock_dxsyl_em
 
 0.4.80: fix: covid and docs
 
@@ -1533,7 +1533,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.6.38: fix: fix get_futures_daily interface
 
-0.6.39: add: add stock_em_xgsglb interface
+0.6.39: add: add stock_xgsglb_em interface
 
 0.6.40: add: add stock_zh_a_new interface
 
@@ -2085,7 +2085,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 0.9.17: fix: fix futures_global_commodity_hist interface
 
-0.9.18: fix: fix stock_em_dxsyl interface
+0.9.18: fix: fix stock_dxsyl_em interface
 
 0.9.19: add: add stock_market_activity_legu interface
 
@@ -2291,9 +2291,9 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 
 1.0.21: fix: fix charity_china interface
 
-1.0.22: fix: fix stock_em_xgsglb interface
+1.0.22: fix: fix stock_xgsglb_em interface
 
-1.0.23: fix: fix stock_em_dxsyl interface
+1.0.23: fix: fix stock_dxsyl_em interface
 
 1.0.24: fix: fix stock_board_concept_hist_em interface
 
@@ -3141,4 +3141,6 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.42 add: add stock_hot_keyword_em interface
 
 1.4.43 fix: fix stock_fhps_em interface
+
+1.4.44 fix: fix stock_dxsyl_em interface
 ```
