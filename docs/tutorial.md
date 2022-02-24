@@ -462,8 +462,8 @@
  # 中国期货市场监控中心
  "futures_index_cscidx"  # 中国期货市场监控中心-指数
  # 打新收益率
- "stock_em_dxsyl"  # 打新收益率
- "stock_em_xgsglb"  # 新股申购与中签查询
+ "stock_dxsyl_em"  # 打新收益率
+ "stock_xgsglb_em"  # 新股申购与中签查询
  # 年报季报
  "stock_yjyg_em"  # 上市公司业绩预告
  "stock_yysj_em"  # 上市公司预约披露时间
