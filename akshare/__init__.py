@@ -1868,9 +1868,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.45 fix: fix air_quality_rank interface
 1.4.46 fix: fix energy_oil_detail interface
 1.4.47 add: add interface change log
+1.4.48 add: add stock_sse_deal_daily interface
 """
 
-__version__ = "1.4.47"
+__version__ = "1.4.48"
 __author__ = "AKFamily"
 
 import sys

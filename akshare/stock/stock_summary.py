@@ -102,7 +102,7 @@ def stock_sse_summary() -> pd.DataFrame:
     return temp_df
 
 
-def stock_sse_deal_daily(date: str = "20211228") -> pd.DataFrame:
+def stock_sse_deal_daily(date: str = "20220225") -> pd.DataFrame:
     """
     上海证券交易所-数据-股票数据-成交概况-股票成交概况-每日股票情况
     http://www.sse.com.cn/market/stockdata/overview/day/
@@ -208,9 +208,17 @@ def stock_sse_deal_daily(date: str = "20211228") -> pd.DataFrame:
         temp_df.reset_index(inplace=True)
         temp_df.columns = [
             "单日情况",
+            "-",
             "主板A",
             "主板B",
             "科创板",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
             "-",
             "-",
             "-",
@@ -266,4 +274,7 @@ if __name__ == "__main__":
     print(stock_sse_summary_df)
 
     stock_sse_deal_daily_df = stock_sse_deal_daily(date="20211227")
+    print(stock_sse_deal_daily_df)
+
+    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20220225")
     print(stock_sse_deal_daily_df)

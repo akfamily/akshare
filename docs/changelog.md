@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.48 add: add stock_sse_deal_daily interface
+
+    1. 修复 stock_sse_deal_daily 接口，因为请求返回值新增了字段
+
 1.4.47 add: add interface change log
 
     1. 增加接口更新的详细说明文档
@@ -20,6 +24,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.48 add: add stock_sse_deal_daily interface
 
 1.4.47 add: add interface change log
 
