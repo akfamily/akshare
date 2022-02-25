@@ -190,6 +190,72 @@ def stock_sse_deal_daily(date: str = "20220225") -> pd.DataFrame:
         temp_df['科创板'] = pd.to_numeric(temp_df['科创板'], errors="coerce")
         temp_df['股票回购'] = pd.to_numeric(temp_df['股票回购'], errors="coerce")
         return temp_df
+    elif int(date) <= 20220224:
+        url = "http://query.sse.com.cn/commonQuery.do"
+        params = {
+            'sqlId': 'COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C',
+            'SEARCH_DATE': "-".join([date[:4], date[4:6], date[6:]]),
+            '_': '1640836561673',
+        }
+        headers = {
+            "Referer": "http://www.sse.com.cn/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        }
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"])
+        temp_df = temp_df.T
+        temp_df.reset_index(inplace=True)
+        temp_df.columns = [
+            "单日情况",
+            "主板A",
+            "主板B",
+            "科创板",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+        ]
+        temp_df = temp_df[[
+            "单日情况",
+            "主板A",
+            "主板B",
+            "科创板",
+        ]]
+        temp_df["单日情况"] = [
+            "市价总值",
+            "成交量",
+            "平均市盈率",
+            "换手率",
+            "成交金额",
+            "-",
+            "流通市值",
+            "流通换手率",
+            "报告日期",
+            "挂牌数",
+            "-",
+        ]
+        temp_df = temp_df[temp_df["单日情况"] != "-"]
+        temp_df["单日情况"] = temp_df["单日情况"].astype("category")
+        list_custom_new = [
+            "挂牌数",
+            "市价总值",
+            "流通市值",
+            "成交金额",
+            "成交量",
+            "平均市盈率",
+            "换手率",
+            "流通换手率",
+        ]
+        temp_df["单日情况"].cat.set_categories(list_custom_new)
+        temp_df.sort_values("单日情况", ascending=True, inplace=True)
+        temp_df.reset_index(inplace=True, drop=True)
+        temp_df['主板A'] = pd.to_numeric(temp_df['主板A'], errors="coerce")
+        temp_df['主板B'] = pd.to_numeric(temp_df['主板B'], errors="coerce")
+        temp_df['科创板'] = pd.to_numeric(temp_df['科创板'], errors="coerce")
+        return temp_df
     else:
         url = "http://query.sse.com.cn/commonQuery.do"
         params = {
@@ -272,6 +338,9 @@ if __name__ == "__main__":
 
     stock_sse_summary_df = stock_sse_summary()
     print(stock_sse_summary_df)
+
+    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20211221")
+    print(stock_sse_deal_daily_df)
 
     stock_sse_deal_daily_df = stock_sse_deal_daily(date="20211227")
     print(stock_sse_deal_daily_df)
