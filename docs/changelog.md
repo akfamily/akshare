@@ -2,7 +2,12 @@
 
 ## 接口更新说明
 
-1.4.48 add: add stock_sse_deal_daily interface
+1.4.49 fix: fix stock_sse_deal_daily interface
+
+    1. 修复 stock_sse_deal_daily 接口，因为请求返回值新增了字段
+    2. 划分为 20211224、20220224 和 20220225 之后三个时间段进行请求
+
+1.4.48 fix: fix stock_sse_deal_daily interface
 
     1. 修复 stock_sse_deal_daily 接口，因为请求返回值新增了字段
 
@@ -25,7 +30,9 @@
 
 ## 版本更新说明
 
-1.4.48 add: add stock_sse_deal_daily interface
+1.4.49 fix: fix stock_sse_deal_daily interface
+
+1.4.48 fix: fix stock_sse_deal_daily interface
 
 1.4.47 add: add interface change log
 
