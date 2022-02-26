@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.50 add: add stock_hot_rank_detail_realtime_em interface
+
+    1. 新增 stock_hot_rank_detail_realtime_em 接口，该接口可以获取东方财富个股人气榜-实时变动数据
+
 1.4.49 fix: fix stock_sse_deal_daily interface
 
     1. 修复 stock_sse_deal_daily 接口，因为请求返回值新增了字段
@@ -29,6 +33,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.50 add: add stock_hot_rank_detail_realtime_em interface
 
 1.4.49 fix: fix stock_sse_deal_daily interface
 
