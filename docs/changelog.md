@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.52 add: add stock_hot_rank_latest_em interface
+
+    1. 新增 stock_hot_rank_latest_em 接口，该接口可以获取个股的最新人气排名数据
+
 1.4.51 add: add stock_hot_keyword_em interface
 
     1. 新增 stock_hot_keyword_em 接口，该接口可以获取指定股票的相关实时热门概念数据
@@ -38,6 +42,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.52 add: add stock_hot_rank_latest_em interface
 
 1.4.51 add: add stock_hot_keyword_em interface
 

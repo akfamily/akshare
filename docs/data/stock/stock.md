@@ -14507,6 +14507,102 @@ print(stock_hot_keyword_em_df)
 9  2022-02-28 12:00:00  SZ000665   超清视频  BK0859     1
 ```
 
+#### 个股人气榜-最新排名
+
+接口: stock_hot_rank_latest_em
+
+目标地址: http://guba.eastmoney.com/rank/stock?code=000665
+
+描述: 东方财富-个股人气榜-最新排名
+
+限量: 单次返回指定 symbol 的股票近期历史数据
+
+输入参数
+
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="SZ000665" |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hot_rank_latest_em_df = ak.stock_hot_rank_latest_em(symbol="SZ000665")
+print(stock_hot_rank_latest_em_df)
+```
+
+数据示例
+
+```
+                 item                value
+0          marketType               000001
+1      marketAllCount                 4735
+2            calcTime  2022-02-28 13:30:00
+3           innerCode               000665
+4     srcSecurityCode             SZ000665
+5                rank                  155
+6          rankChange                   -2
+7       hisRankChange                  141
+8  hisRankChange_rank                 1654
+9                flag                    0
+```
+
+#### 相关股票-最新排名
+
+接口: stock_hot_rank_relate_em
+
+目标地址: http://guba.eastmoney.com/rank/stock?code=000665
+
+描述: 东方财富-个股人气榜-相关股票
+
+限量: 单次返回指定 symbol 的股票近期历史数据
+
+输入参数
+
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="SZ000665" |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hot_rank_relate_em_df = ak.stock_hot_rank_relate_em(symbol="SZ000665")
+print(stock_hot_rank_relate_em_df)
+```
+
+数据示例
+
+```
+          时间           股票代码   相关股票代码  涨跌幅
+0  2022-02-28 12:00:00  SZ000665  SH601789  9.41
+1  2022-02-28 12:00:00  SZ000665  SH600996  8.76
+2  2022-02-28 12:00:00  SZ000665  SZ002432  8.28
+3  2022-02-28 12:00:00  SZ000665  SZ002104  7.25
+4  2022-02-28 12:00:00  SZ000665  SH603123  6.75
+5  2022-02-28 12:00:00  SZ000665  SH600096  4.52
+6  2022-02-28 12:00:00  SZ000665  SZ002349  4.45
+7  2022-02-28 12:00:00  SZ000665  SZ002354  3.72
+8  2022-02-28 12:00:00  SZ000665  SZ000815  3.69
+9  2022-02-28 12:00:00  SZ000665  SZ002530  3.46
+```
+
 ### 盘口异动
 
 接口: stock_changes_em
