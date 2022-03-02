@@ -14555,7 +14555,7 @@ print(stock_hot_rank_latest_em_df)
 9                flag                    0
 ```
 
-#### 相关股票-最新排名
+#### 相关股票
 
 接口: stock_hot_rank_relate_em
 
