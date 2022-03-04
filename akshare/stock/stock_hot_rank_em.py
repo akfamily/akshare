@@ -56,6 +56,8 @@ def stock_hot_rank_em() -> pd.DataFrame:
             "涨跌幅",
         ]
     ]
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     return temp_df
 
 
