@@ -2,6 +2,15 @@
 
 ## 接口更新说明
 
+1.4.55 fix: fix energy_carbon interface
+
+    1. 修复 energy_carbon_gz 接口的返回字段格式并且按日期排序
+    2. 修复 energy_carbon_hb 接口的返回字段格式并且按日期排序
+    3. 修复 energy_carbon_eu 接口的返回字段格式并且按日期排序
+    4. 修复 energy_carbon_sz 接口的返回字段格式并且按日期排序
+    5. 修复 energy_carbon_bj 接口的返回字段格式并且按日期排序
+    6. 修复上述接口的文档描述信息
+
 1.4.54 fix: fix stock_hot_rank_relate_em interface
 
     1. 修复 stock_hot_rank_relate_em 接口的字段描述信息
@@ -49,6 +58,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.55 fix: fix energy_carbon interface
 
 1.4.54 fix: fix stock_hot_rank_relate_em interface
 
