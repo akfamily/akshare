@@ -29,8 +29,8 @@ def bond_spot_quote() -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
         "_",
-        "买入/卖出净价",
         "_",
+        "报价机构",
         "_",
         "_",
         "_",
@@ -38,11 +38,11 @@ def bond_spot_quote() -> pd.DataFrame:
         "_",
         "_",
         "_",
-        "报价机构",
-        "_",
-        "_",
         "_",
         "买入/卖出收益率",
+        "_",
+        "买入/卖出净价",
+        "_",
         "_",
         "_",
     ]
@@ -60,6 +60,10 @@ def bond_spot_quote() -> pd.DataFrame:
     temp_df["卖出收益率"] = temp_df["买入/卖出收益率"].str.split("/", expand=True).iloc[:, 1]
     del temp_df["买入/卖出净价"]
     del temp_df["买入/卖出收益率"]
+    temp_df['买入净价'] = pd.to_numeric(temp_df['买入净价'])
+    temp_df['卖出净价'] = pd.to_numeric(temp_df['卖出净价'])
+    temp_df['买入收益率'] = pd.to_numeric(temp_df['买入收益率'])
+    temp_df['卖出收益率'] = pd.to_numeric(temp_df['卖出收益率'])
     return temp_df
 
 
@@ -81,24 +85,24 @@ def bond_spot_deal() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
+        "_",
+        "_",
         "债券简称",
-        "成交净价",
+        "_",
+        "_",
+        "_",
+        "_",
         "涨跌",
         "_",
         "_",
         "_",
+        "加权收益率",
+        "成交净价",
         "_",
-        "交易量",
         "_",
         "最新收益率",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "加权收益率",
+        "-",
+        "交易量",
         "_",
         "_",
         "_",
@@ -113,11 +117,16 @@ def bond_spot_deal() -> pd.DataFrame:
             "交易量",
         ]
     ]
+    temp_df['成交净价'] = pd.to_numeric(temp_df['成交净价'])
+    temp_df['最新收益率'] = pd.to_numeric(temp_df['最新收益率'], errors="coerce")
+    temp_df['涨跌'] = pd.to_numeric(temp_df['涨跌'])
+    temp_df['加权收益率'] = pd.to_numeric(temp_df['加权收益率'], errors="coerce")
+    temp_df['交易量'] = pd.to_numeric(temp_df['交易量'])
     return temp_df
 
 
 def bond_china_yield(
-    start_date: str = "2020-02-04", end_date: str = "2021-01-24"
+    start_date: str = "20200204", end_date: str = "20210124"
 ) -> pd.DataFrame:
     """
     中国债券信息网-国债及其他债券收益率曲线
@@ -133,8 +142,8 @@ def bond_china_yield(
     """
     url = "http://yield.chinabond.com.cn/cbweb-pbc-web/pbc/historyQuery"
     params = {
-        "startDate": start_date,
-        "endDate": end_date,
+        "startDate": '-'.join([start_date[:4], start_date[4:6], start_date[6:]]),
+        "endDate": '-'.join([end_date[:4], end_date[4:6], end_date[6:]]),
         "gjqx": "0",
         "qxId": "ycqx",
         "locale": "cn_ZH",
@@ -145,15 +154,29 @@ def bond_china_yield(
     res = requests.get(url, params=params, headers=headers)
     data_text = res.text.replace("&nbsp", "")
     data_df = pd.read_html(data_text, header=0)[1]
+
+    data_df['日期'] = pd.to_datetime(data_df['日期']).dt.date
+    data_df['3月'] = pd.to_numeric(data_df['3月'])
+    data_df['6月'] = pd.to_numeric(data_df['6月'])
+    data_df['1年'] = pd.to_numeric(data_df['1年'])
+    data_df['3年'] = pd.to_numeric(data_df['3年'])
+    data_df['5年'] = pd.to_numeric(data_df['5年'])
+    data_df['7年'] = pd.to_numeric(data_df['7年'])
+    data_df['10年'] = pd.to_numeric(data_df['10年'])
+    data_df['30年'] = pd.to_numeric(data_df['30年'])
+    data_df.sort_values('日期', inplace=True)
+    data_df.reset_index(inplace=True, drop=True)
     return data_df
 
 
 if __name__ == "__main__":
     bond_spot_quote_df = bond_spot_quote()
     print(bond_spot_quote_df)
+
     bond_spot_deal_df = bond_spot_deal()
     print(bond_spot_deal_df)
+
     bond_china_yield_df = bond_china_yield(
-        start_date="2020-02-01", end_date="2021-01-24"
+        start_date="20210201", end_date="20220201"
     )
     print(bond_china_yield_df)

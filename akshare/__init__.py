@@ -312,7 +312,7 @@ https://cn.investing.com/rates-bonds/
 0.2.41
 更新说明文件
 0.2.42
-更新mindmap
+更新 MindMap
 0.2.43
 重构说明文档-模块化处理, 将 github 说明文档和 docs 在线文档分开处理
 重构私募指数接口
@@ -888,7 +888,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.58: add: qhkc api
 0.4.59: add: jyfm_tools
 0.4.60: fix: covid_19_dxy and cot.py
-0.4.61: fix: cot.py dict's keys use strip
+0.4.61: fix: cot.py dict keys use strip
 0.4.62: fix: add PG into cons.py map_dict
 0.4.63: add: energy_oil to add energy_oil_hist and energy_oil_detail
 0.4.64: add: futures_em_spot_stock
@@ -1877,9 +1877,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.54 fix: fix stock_hot_rank_relate_em interface
 1.4.55 fix: fix energy_carbon interface
 1.4.56 fix: fix index_detail_hist_cni and index_detail_cni interface
+1.4.57 fix: fix bond_spot_quote interface
 """
 
-__version__ = "1.4.56"
+__version__ = "1.4.57"
 __author__ = "AKFamily"
 
 import sys

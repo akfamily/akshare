@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/4/26 12:33
+Date: 2022/3/5 12:33
 Desc: 河北省空气质量预报信息发布系统
 http://110.249.223.67/publish/
 每日 17 时发布
@@ -17,8 +17,8 @@ http://110.249.223.67/publish/
 from datetime import datetime
 
 import pandas as pd
-from tqdm import tqdm
 import requests
+from tqdm import tqdm
 
 
 def air_quality_hebei(symbol: str = "唐山市") -> pd.DataFrame:
@@ -43,7 +43,7 @@ def air_quality_hebei(symbol: str = "唐山市") -> pd.DataFrame:
             [item[f"Date{i}"] for item in json_data["cityPublishDatas"]],
             index=city_list,
         )
-        outer_df = outer_df.append(inner_df)
+        outer_df = pd.concat([outer_df, inner_df])
     if symbol == "":
         temp_df = outer_df.reset_index()
         temp_df.columns = [

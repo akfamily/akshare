@@ -288,7 +288,7 @@ def macro_china_cpi_yearly() -> pd.DataFrame:
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI月率报告
-def macro_china_cpi_monthly():
+def macro_china_cpi_monthly() -> pd.DataFrame:
     """
     中国月度 CPI 数据, 数据区间从 19960201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_cpi_mom
@@ -349,7 +349,7 @@ def macro_china_cpi_monthly():
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国PPI年率报告
-def macro_china_ppi_yearly():
+def macro_china_ppi_yearly() -> pd.DataFrame:
     """
     中国年度 PPI 数据, 数据区间从 19950801-至今
     https://datacenter.jin10.com/reportType/dc_chinese_ppi_yoy
@@ -410,7 +410,7 @@ def macro_china_ppi_yearly():
 
 
 # 金十数据中心-经济指标-中国-贸易状况-以美元计算出口年率报告
-def macro_china_exports_yoy():
+def macro_china_exports_yoy() -> pd.DataFrame:
     """
     中国以美元计算出口年率报告, 数据区间从19820201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_exports_yoy
@@ -470,7 +470,7 @@ def macro_china_exports_yoy():
 
 
 # 金十数据中心-经济指标-中国-贸易状况-以美元计算进口年率
-def macro_china_imports_yoy():
+def macro_china_imports_yoy() -> pd.DataFrame:
     """
     中国以美元计算进口年率报告, 数据区间从 19960201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_imports_yoy
@@ -530,7 +530,7 @@ def macro_china_imports_yoy():
 
 
 # 金十数据中心-经济指标-中国-贸易状况-以美元计算贸易帐(亿美元)
-def macro_china_trade_balance():
+def macro_china_trade_balance() -> pd.DataFrame:
     """
     中国以美元计算贸易帐报告, 数据区间从 19810201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_trade_balance
@@ -590,7 +590,7 @@ def macro_china_trade_balance():
 
 
 # 金十数据中心-经济指标-中国-产业指标-规模以上工业增加值年率
-def macro_china_industrial_production_yoy():
+def macro_china_industrial_production_yoy() -> pd.DataFrame:
     """
     中国规模以上工业增加值年率报告, 数据区间从19900301-至今
     https://datacenter.jin10.com/reportType/dc_chinese_industrial_production_yoy
@@ -650,7 +650,7 @@ def macro_china_industrial_production_yoy():
 
 
 # 金十数据中心-经济指标-中国-产业指标-官方制造业PMI
-def macro_china_pmi_yearly():
+def macro_china_pmi_yearly() -> pd.DataFrame:
     """
     中国年度 PMI 数据, 数据区间从20050201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_manufacturing_pmi
@@ -711,7 +711,7 @@ def macro_china_pmi_yearly():
 
 
 # 金十数据中心-经济指标-中国-产业指标-财新制造业PMI终值
-def macro_china_cx_pmi_yearly():
+def macro_china_cx_pmi_yearly() -> pd.DataFrame:
     """
     中国年度财新PMI数据, 数据区间从 20120120-至今
     https://datacenter.jin10.com/reportType/dc_chinese_caixin_manufacturing_pmi
@@ -772,7 +772,7 @@ def macro_china_cx_pmi_yearly():
 
 
 # 金十数据中心-经济指标-中国-产业指标-财新服务业PMI
-def macro_china_cx_services_pmi_yearly():
+def macro_china_cx_services_pmi_yearly() -> pd.DataFrame:
     """
     中国财新服务业PMI报告, 数据区间从 20120405-至今
     https://datacenter.jin10.com/reportType/dc_chinese_caixin_services_pmi
@@ -833,7 +833,7 @@ def macro_china_cx_services_pmi_yearly():
 
 
 # 金十数据中心-经济指标-中国-产业指标-中国官方非制造业PMI
-def macro_china_non_man_pmi():
+def macro_china_non_man_pmi() -> pd.DataFrame:
     """
     中国官方非制造业 PMI, 数据区间从 20160101-至今
     https://datacenter.jin10.com/reportType/dc_chinese_non_manufacturing_pmi
@@ -894,7 +894,7 @@ def macro_china_non_man_pmi():
 
 
 # 金十数据中心-经济指标-中国-金融指标-外汇储备(亿美元)
-def macro_china_fx_reserves_yearly():
+def macro_china_fx_reserves_yearly() -> pd.DataFrame:
     """
     中国年度外汇储备数据, 数据区间从 20140115-至今
     https://datacenter.jin10.com/reportType/dc_chinese_fx_reserves
@@ -955,7 +955,7 @@ def macro_china_fx_reserves_yearly():
 
 
 # 金十数据中心-经济指标-中国-金融指标-M2货币供应年率
-def macro_china_m2_yearly():
+def macro_china_m2_yearly() -> pd.DataFrame:
     """
     中国年度 M2 数据, 数据区间从 19980201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_m2_money_supply_yoy
@@ -1016,7 +1016,7 @@ def macro_china_m2_yearly():
 
 
 # 金十数据中心-经济指标-中国-金融指标-上海银行业同业拆借报告
-def macro_china_shibor_all():
+def macro_china_shibor_all() -> pd.DataFrame:
     """
     上海银行业同业拆借报告, 数据区间从20170317-至今
     https://datacenter.jin10.com/reportType/dc_shibor
@@ -1061,7 +1061,7 @@ def macro_china_shibor_all():
 
 
 # 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
-def macro_china_hk_market_info():
+def macro_china_hk_market_info() -> pd.DataFrame:
     """
     香港同业拆借报告, 数据区间从20170320-至今
     https://datacenter.jin10.com/reportType/dc_hk_market_info
@@ -1106,7 +1106,7 @@ def macro_china_hk_market_info():
 
 
 # 金十数据中心-经济指标-中国-其他-中国日度沿海六大电库存数据
-def macro_china_daily_energy():
+def macro_china_daily_energy() -> pd.DataFrame:
     """
     中国日度沿海六大电库存数据, 数据区间从20160101-至今
     https://datacenter.jin10.com/reportType/dc_qihuo_energy_report
@@ -1144,7 +1144,7 @@ def macro_china_daily_energy():
 
 
 # 金十数据中心-经济指标-中国-其他-中国人民币汇率中间价报告
-def macro_china_rmb():
+def macro_china_rmb() -> pd.DataFrame:
     """
     中国人民币汇率中间价报告, 数据区间从20170103-至今
     https://datacenter.jin10.com/reportType/dc_rmb_data
@@ -1227,7 +1227,7 @@ def macro_china_rmb():
 
 
 # 金十数据中心-经济指标-中国-其他-深圳融资融券报告
-def macro_china_market_margin_sz():
+def macro_china_market_margin_sz() -> pd.DataFrame:
     """
     深圳融资融券报告, 数据区间从20100331-至今
     https://datacenter.jin10.com/reportType/dc_market_margin_sz
@@ -1272,7 +1272,7 @@ def macro_china_market_margin_sz():
 
 
 # 金十数据中心-经济指标-中国-其他-上海融资融券报告
-def macro_china_market_margin_sh():
+def macro_china_market_margin_sh() -> pd.DataFrame:
     """
     上海融资融券报告, 数据区间从 20100331-至今
     https://datacenter.jin10.com/reportType/dc_market_margin_sse
@@ -1369,7 +1369,7 @@ def macro_china_market_margin_sh():
 
 
 # 金十数据中心-经济指标-中国-其他-上海黄金交易所报告
-def macro_china_au_report():
+def macro_china_au_report() -> pd.DataFrame:
     """
     上海黄金交易所报告, 数据区间从20100331-至今
     https://datacenter.jin10.com/reportType/dc_sge_report
@@ -1409,7 +1409,7 @@ def macro_china_au_report():
 
 
 # 发改委-中国电煤价格指数-全国综合电煤价格指数
-def macro_china_ctci():
+def macro_china_ctci() -> pd.DataFrame:
     """
     中国电煤价格指数-全国综合电煤价格指数
     http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
@@ -1425,7 +1425,7 @@ def macro_china_ctci():
 
 
 # 发改委-中国电煤价格指数-各价区电煤价格指数
-def macro_china_ctci_detail():
+def macro_china_ctci_detail() -> pd.DataFrame:
     """
     2019年11月各价区电煤价格指数
     http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
@@ -1443,7 +1443,7 @@ def macro_china_ctci_detail():
 
 
 # 发改委-中国电煤价格指数-历史电煤价格指数
-def macro_china_ctci_detail_hist(year="2018"):
+def macro_china_ctci_detail_hist(year: str = "2018") -> pd.DataFrame:
     """
     历史电煤价格指数
     http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
@@ -1468,7 +1468,7 @@ def macro_china_ctci_detail_hist(year="2018"):
 
 
 # 中国-利率-贷款报价利率
-def macro_china_lpr():
+def macro_china_lpr() -> pd.DataFrame:
     """
     http://data.eastmoney.com/cjsj/globalRateLPR.html
     LPR品种详细数据
@@ -1498,7 +1498,7 @@ def macro_china_lpr():
 
 
 # 中国-新房价指数
-def macro_china_new_house_price():
+def macro_china_new_house_price() -> pd.DataFrame:
     """
     中国-新房价指数
     http://data.eastmoney.com/cjsj/newhouse.html
@@ -1542,7 +1542,7 @@ def macro_china_new_house_price():
 
 
 # 中国-企业景气及企业家信心指数
-def macro_china_enterprise_boom_index():
+def macro_china_enterprise_boom_index() -> pd.DataFrame:
     """
     http://data.eastmoney.com/cjsj/qyjqzs.html
     中国-企业景气及企业家信心指数
@@ -1685,7 +1685,7 @@ def macro_china_fx_gold() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_stock_market_cap():
+def macro_china_stock_market_cap() -> pd.DataFrame:
     """
     东方财富-全国股票交易统计表
     http://data.eastmoney.com/cjsj/gpjytj.html
@@ -1737,7 +1737,7 @@ def macro_china_stock_market_cap():
     return temp_df
 
 
-def macro_china_money_supply():
+def macro_china_money_supply() -> pd.DataFrame:
     """
     东方财富-货币供应量
     http://data.eastmoney.com/cjsj/hbgyl.html
@@ -1778,7 +1778,7 @@ def macro_china_money_supply():
     return data_df
 
 
-def macro_china_cpi():
+def macro_china_cpi() -> pd.DataFrame:
     """
     东方财富-中国居民消费价格指数
     http://data.eastmoney.com/cjsj/cpi.html
@@ -1831,7 +1831,7 @@ def macro_china_cpi():
     return temp_df
 
 
-def macro_china_gdp():
+def macro_china_gdp() -> pd.DataFrame:
     """
     东方财富-中国国内生产总值
     http://data.eastmoney.com/cjsj/gdp.html
@@ -1876,7 +1876,7 @@ def macro_china_gdp():
     return temp_df
 
 
-def macro_china_ppi():
+def macro_china_ppi() -> pd.DataFrame:
     """
     东方财富-中国工业品出厂价格指数
     http://data.eastmoney.com/cjsj/ppi.html
@@ -1907,7 +1907,7 @@ def macro_china_ppi():
     return temp_df
 
 
-def macro_china_pmi():
+def macro_china_pmi() -> pd.DataFrame:
     """
     东方财富-中国采购经理人指数
     http://data.eastmoney.com/cjsj/pmi.html
@@ -1944,7 +1944,7 @@ def macro_china_pmi():
     return temp_df
 
 
-def macro_china_gdzctz():
+def macro_china_gdzctz() -> pd.DataFrame:
     """
     东方财富-中国城镇固定资产投资
     http://data.eastmoney.com/cjsj/gdzctz.html
@@ -1981,7 +1981,7 @@ def macro_china_gdzctz():
     return temp_df
 
 
-def macro_china_hgjck():
+def macro_china_hgjck() -> pd.DataFrame:
     """
     东方财富-海关进出口增减情况一览表
     http://data.eastmoney.com/cjsj/hgjck.html
@@ -2030,7 +2030,7 @@ def macro_china_hgjck():
     return temp_df
 
 
-def macro_china_czsr():
+def macro_china_czsr() -> pd.DataFrame:
     """
     东方财富-财政收入
     http://data.eastmoney.com/cjsj/czsr.html
@@ -2068,7 +2068,7 @@ def macro_china_czsr():
     return temp_df
 
 
-def macro_china_whxd():
+def macro_china_whxd() -> pd.DataFrame:
     """
     东方财富-外汇贷款数据
     http://data.eastmoney.com/cjsj/whxd.html
@@ -2105,7 +2105,7 @@ def macro_china_whxd():
     return temp_df
 
 
-def macro_china_wbck():
+def macro_china_wbck() -> pd.DataFrame:
     """
     东方财富-本外币存款
     http://data.eastmoney.com/cjsj/wbck.html

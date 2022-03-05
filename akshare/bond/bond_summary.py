@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/1/6 12:55
+Date: 2022/3/5 12:55
 Desc: 上登债券信息网-债券成交概览
 http://bond.sse.com.cn/data/statistics/overview/turnover/
 """
@@ -39,6 +39,10 @@ def bond_cash_summary_sse(date: str = '20210111') -> pd.DataFrame:
         '托管面值',
         '数据日期',
     ]
+    temp_df['托管只数'] = pd.to_numeric(temp_df['托管只数'])
+    temp_df['托管市值'] = pd.to_numeric(temp_df['托管市值'])
+    temp_df['托管面值'] = pd.to_numeric(temp_df['托管面值'])
+    temp_df['数据日期'] = pd.to_datetime(temp_df['数据日期']).dt.date
     return temp_df
 
 
@@ -71,6 +75,11 @@ def bond_deal_summary_sse(date: str = '20210104') -> pd.DataFrame:
         '当年成交金额',
         '数据日期',
     ]
+    temp_df['当日成交笔数'] = pd.to_numeric(temp_df['当日成交笔数'])
+    temp_df['当日成交金额'] = pd.to_numeric(temp_df['当日成交金额'])
+    temp_df['当年成交笔数'] = pd.to_numeric(temp_df['当年成交笔数'])
+    temp_df['当年成交金额'] = pd.to_numeric(temp_df['当年成交金额'])
+    temp_df['数据日期'] = pd.to_datetime(temp_df['数据日期']).dt.date
     return temp_df
 
 
