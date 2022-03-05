@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/31 14:13
+Date: 2022/3/5 23:50
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
@@ -124,7 +124,7 @@ def index_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     return temp_df
 
 
-def index_detail_cni(symbol: str = '399005', date: str = '2020-11') -> pd.DataFrame:
+def index_detail_cni(symbol: str = '399005', date: str = '202011') -> pd.DataFrame:
     """
     国证指数-样本详情-指定日期的样本成份
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
@@ -138,7 +138,7 @@ def index_detail_cni(symbol: str = '399005', date: str = '2020-11') -> pd.DataFr
     url = 'http://www.cnindex.com.cn/sample-detail/download'
     params = {
         'indexcode': symbol,
-        'dateStr': date
+        'dateStr': '-'.join([date[:4], date[4:]])
     }
     r = requests.get(url, params=params)
     temp_df = pd.read_excel(r.content)
@@ -152,24 +152,63 @@ def index_detail_cni(symbol: str = '399005', date: str = '2020-11') -> pd.DataFr
         '总市值',
         '权重',
     ]
+    temp_df['自由流通市值'] = pd.to_numeric(temp_df['自由流通市值'])
+    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'])
+    temp_df['权重'] = pd.to_numeric(temp_df['权重'])
     return temp_df
 
 
-def index_detail_hist_cni(symbol: str = '399005') -> pd.DataFrame:
+def index_detail_hist_cni(symbol: str = '399001', date: str = "") -> pd.DataFrame:
     """
     国证指数-样本详情-历史样本
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    :param date: 指数代码
+    :type date: str
     :param symbol: 指数代码
     :type symbol: str
     :return: 历史样本
     :rtype: pandas.DataFrame
     """
-    url = 'http://www.cnindex.com.cn/sample-detail/download-history'
-    params = {
-        'indexcode': symbol
-    }
-    r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content)
+    if date:
+        url = 'http://www.cnindex.com.cn/sample-detail/detail'
+        params = {
+            'indexcode': symbol,
+            'dateStr': '-'.join([date[:4], date[4:]]),
+            'pageNum': '1',
+            'rows': '50000',
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['data']['rows'])
+        temp_df.columns = [
+            '-',
+            '-',
+            '日期',
+            '样本代码',
+            '样本简称',
+            '所属行业',
+            '-',
+            '自由流通市值',
+            '总市值',
+            '权重',
+            '-',
+        ]
+        temp_df = temp_df[[
+            '日期',
+            '样本代码',
+            '样本简称',
+            '所属行业',
+            '自由流通市值',
+            '总市值',
+            '权重',
+        ]]
+    else:
+        url = 'http://www.cnindex.com.cn/sample-detail/download-history'
+        params = {
+            'indexcode': symbol
+        }
+        r = requests.get(url, params=params)
+        temp_df = pd.read_excel(r.content)
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
         '日期',
@@ -180,13 +219,16 @@ def index_detail_hist_cni(symbol: str = '399005') -> pd.DataFrame:
         '总市值',
         '权重',
     ]
+    temp_df['自由流通市值'] = pd.to_numeric(temp_df['自由流通市值'])
+    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'])
+    temp_df['权重'] = pd.to_numeric(temp_df['权重'])
     return temp_df
 
 
-def index_detail_hist_adjust_cni(symbol: str = '399001') -> pd.DataFrame:
+def index_detail_hist_adjust_cni(symbol: str = '399005') -> pd.DataFrame:
     """
     国证指数-样本详情-历史调样
-    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
+    http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399005
     :param symbol: 指数代码
     :type symbol: str
     :return: 历史调样
@@ -215,7 +257,7 @@ if __name__ == "__main__":
     index_detail_cni_df = index_detail_cni(symbol='399005', date='2020-11')
     print(index_detail_cni_df)
 
-    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399005')
+    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399005', date='202201')
     print(index_detail_hist_cni_df)
 
     index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol='399005')
