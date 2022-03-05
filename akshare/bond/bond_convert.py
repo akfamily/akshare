@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 
 
-def bond_cov_jsl(cookie: None = '') -> pd.DataFrame:
+def bond_cov_jsl(cookie: str = None) -> pd.DataFrame:
     """
     集思录可转债
     https://app.jisilu.cn/data/cbnew/#cb

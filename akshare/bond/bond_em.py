@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/13 14:18
+Date: 2022/3/5 14:18
 Desc: 东方财富网-数据中心-经济数据-中美国债收益率
 http://data.eastmoney.com/cjsj/zmgzsyl.html
 """
@@ -34,7 +34,7 @@ def bond_zh_us_rate() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params = {
             "type": "RPTA_WEB_TREASURYYIELD",
             "sty": "ALL",
@@ -50,7 +50,7 @@ def bond_zh_us_rate() -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.rename(
         columns={
             "SOLAR_DATE": "日期",
@@ -87,6 +87,20 @@ def bond_zh_us_rate() -> pd.DataFrame:
         ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df["中国国债收益率2年"] = pd.to_numeric(big_df["中国国债收益率2年"])
+    big_df["中国国债收益率5年"] = pd.to_numeric(big_df["中国国债收益率5年"])
+    big_df["中国国债收益率10年"] = pd.to_numeric(big_df["中国国债收益率10年"])
+    big_df["中国国债收益率30年"] = pd.to_numeric(big_df["中国国债收益率30年"])
+    big_df["中国国债收益率10年-2年"] = pd.to_numeric(big_df["中国国债收益率10年-2年"])
+    big_df["中国GDP年增率"] = pd.to_numeric(big_df["中国GDP年增率"])
+    big_df["美国国债收益率2年"] = pd.to_numeric(big_df["美国国债收益率2年"])
+    big_df["美国国债收益率5年"] = pd.to_numeric(big_df["美国国债收益率5年"])
+    big_df["美国国债收益率10年"] = pd.to_numeric(big_df["美国国债收益率10年"])
+    big_df["美国国债收益率30年"] = pd.to_numeric(big_df["美国国债收益率30年"])
+    big_df["美国国债收益率10年-2年"] = pd.to_numeric(big_df["美国国债收益率10年-2年"])
+    big_df["美国GDP年增率"] = pd.to_numeric(big_df["美国GDP年增率"])
+    big_df.sort_values("日期", inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 

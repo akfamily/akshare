@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.57 fix: fix bond_spot_quote interface
+
+    1. 修复 bond_spot_quote 接口数据错位问题
+
 1.4.56 fix: fix index_detail_hist_cni and index_detail_cni interface
 
     1. 修改 index_detail_hist_cni 接口，新增 date 参数，可以指定 date 来获取数据
@@ -63,6 +67,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.57 fix: fix bond_spot_quote interface
 
 1.4.56 fix: fix index_detail_hist_cni and index_detail_cni interface
 

@@ -11,10 +11,11 @@ import json
 import os
 import re
 
-from akshare.utils import demjson
-from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
+from py_mini_racer import py_mini_racer
+
+from akshare.utils import demjson
 
 
 def _get_js_path(name: str = None, module_file: str = None) -> str:
@@ -267,11 +268,16 @@ if __name__ == "__main__":
     print(air_city_table_df)
 
     air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="20210601", end_date="20210607"
+        city="杭州", start_date="20220101", end_date="20220305"
     )
     print(air_quality_watch_point_df)
 
-    air_quality_hist_df = air_quality_hist()
+    air_quality_hist_df = air_quality_hist(
+        city="杭州",
+        period="day",
+        start_date="20220101",
+        end_date="20220305",
+    )
     print(air_quality_hist_df)
 
     air_quality_rank_df = air_quality_rank()
