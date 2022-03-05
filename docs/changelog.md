@@ -2,6 +2,11 @@
 
 ## 接口更新说明
 
+1.4.56 fix: fix index_detail_hist_cni and index_detail_cni interface
+
+    1. 修改 index_detail_hist_cni 接口，新增 date 参数，可以指定 date 来获取数据
+    2. 修改 index_detail_cni 的 date 参数的格式为 "202201"
+
 1.4.55 fix: fix energy_carbon interface
 
     1. 修复 energy_carbon_gz 接口的返回字段格式并且按日期排序
@@ -58,6 +63,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.56 fix: fix index_detail_hist_cni and index_detail_cni interface
 
 1.4.55 fix: fix energy_carbon interface
 

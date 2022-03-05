@@ -1876,9 +1876,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.53 add: add stock_hot_rank_relate_em interface
 1.4.54 fix: fix stock_hot_rank_relate_em interface
 1.4.55 fix: fix energy_carbon interface
+1.4.56 fix: fix index_detail_hist_cni and index_detail_cni interface
 """
 
-__version__ = "1.4.55"
+__version__ = "1.4.56"
 __author__ = "AKFamily"
 
 import sys
