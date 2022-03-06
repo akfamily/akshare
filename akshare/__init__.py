@@ -1878,9 +1878,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.55 fix: fix energy_carbon interface
 1.4.56 fix: fix index_detail_hist_cni and index_detail_cni interface
 1.4.57 fix: fix bond_spot_quote interface
+1.4.58 fix: fix stock_zh_kcb_daily interface
 """
 
-__version__ = "1.4.57"
+__version__ = "1.4.58"
 __author__ = "AKFamily"
 
 import sys
@@ -3062,23 +3063,6 @@ from akshare.option.option_finance_sina import (
     option_sse_daily_sina,
     option_finance_minute_sina,
 )
-
-"""
-中国-慈善
-"""
-from akshare.charity.charity_china import (
-    charity_china_organization,
-    charity_china_plan,
-    charity_china_platform,
-    charity_china_progress,
-    charity_china_report,
-    charity_china_trust,
-)
-
-"""
-中国-特许经营数据
-"""
-from akshare.event.franchise import franchise_china
 
 """
 债券-沪深债券

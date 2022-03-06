@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.58 fix: fix stock_zh_kcb_daily interface
+
+    1. 修复 stock_zh_kcb_daily 返回数据的类型
+
 1.4.57 fix: fix bond_spot_quote interface
 
     1. 修复 bond_spot_quote 接口数据错位问题
@@ -67,6 +71,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.58 fix: fix stock_zh_kcb_daily interface
 
 1.4.57 fix: fix bond_spot_quote interface
 

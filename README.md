@@ -29,13 +29,13 @@
 
 ### General
 
-```
+```shell
 pip install akshare --upgrade
 ```
 
 ### China
 
-```cmd
+```shell
 pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
 ```
 
@@ -47,13 +47,13 @@ Please check out [documentation](https://www.akshare.xyz/zh_CN/latest/contributo
 
 #### Pull images
 
-```
+```shell
 docker pull registry.cn-hangzhou.aliyuncs.com/akshare/akdocker
 ```
 
 #### Run AKDocker
 
-```
+```shell
 docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
 ```
 
@@ -61,6 +61,7 @@ docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
 
 ```python
 import akshare as ak
+
 ak.__version__
 ```
 
@@ -187,7 +188,7 @@ Looks like this:
 
 Please use this **bibtex** if you want to cite this repository in your publications:
 
-```
+```markdown
 @misc{akshare,
     author = {Albert King},
     title = {AKShare},
