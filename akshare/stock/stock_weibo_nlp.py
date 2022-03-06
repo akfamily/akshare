@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/8/27 17:00
+Date: 2022/3/5 17:00
 Desc: 金十数据中心-实时监控-微博舆情报告
 https://datacenter.jin10.com/market
 报告内容：时间期限可选择2小时、6小时、12小时、1天、1周、1月。
@@ -77,11 +77,14 @@ def stock_js_weibo_report(time_period: str = "CNHOUR12") -> pd.DataFrame:
     }
 
     r = requests.get(url, params=payload, headers=headers)
-    return pd.DataFrame(r.json()["data"])
+    temp_df = pd.DataFrame(r.json()["data"])
+    temp_df['rate'] = pd.to_numeric(temp_df['rate'])
+    return temp_df
 
 
 if __name__ == '__main__':
     stock_js_weibo_nlp_time_map = stock_js_weibo_nlp_time()
     print(stock_js_weibo_nlp_time_map)
+
     get_news_df = stock_js_weibo_report(time_period="CNHOUR6")
     print(get_news_df)

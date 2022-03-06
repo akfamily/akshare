@@ -378,15 +378,6 @@
  "bond_cov_comparison"  # 债券-可转债数据比价
  "bond_cov_jsl"  # 可转债实时数据-集思录
  "bond_conv_adj_logs_jsl"  # 可转债转股价变动-集思录
- # 中国-商业特许经营数据
- "franchise_china"  # 中国-商业特许经营数据
- # 慈善中国
- "charity_china_organization"  # 慈善中国-慈善组织查询
- "charity_china_trust"  # 慈善中国-慈善信托查询
- "charity_china_plan"  # 慈善中国-募捐方案备案
- "charity_china_progress"  # 慈善中国-慈善项目进展
- "charity_china_report"  # 慈善中国-慈善组织年报
- "charity_china_platform"  # 慈善中国-募捐信息平台
  # 金融期权-新浪
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情

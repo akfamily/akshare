@@ -26,7 +26,7 @@ def get_token():
         return str(df.iloc[0]['token'])
     else:
         print(cons.TOKEN_ERR_MSG)
-        return None
+        return
 
 
 if __name__ == '__main__':

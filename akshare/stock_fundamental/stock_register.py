@@ -184,12 +184,13 @@ def stock_register_db() -> pd.DataFrame:
     :return: 达标企业
     :rtype: pandas.DataFrame
     """
+    # TODO
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         'sortColumns': 'NOTICE_DATE,SECURITY_CODE',
         'sortTypes': '-1,-1',
         'pageSize': '50',
-        'pageNumber': '2',
+        'pageNumber': '1',
         'reportName': 'RPT_KCB_IPO',
         'columns': 'KCB_LB',
         'source': 'WEB',
@@ -201,25 +202,16 @@ def stock_register_db() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    page_num = data_json['pages']
+    page_num = data_json['result']['pages']
     big_df = pd.DataFrame()
     for page in range(1, page_num+1):
-        params = {
-            'st': 'eutime',
-            'sr': '-1',
-            'ps': '5000',
-            'p': page,
-            'type': 'KCB_LB',
-            'js': '{"data":(x),"pages":(tp)}',
-            'token': '894050c76af8597a853f5b408b759f5d',
-            'filter': "(MKT='fnsb')",
-        }
+        params.update({'pageNumber': page})
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36'
         }
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json['data'])
+        temp_df = pd.DataFrame(data_json['result']['data'])
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df['index'] = range(1, len(big_df) + 1)
