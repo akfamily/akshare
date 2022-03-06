@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.59 add: add stock_zh_a_hist_163 interface
+
+    1. 新增 stock_zh_a_hist_163 接口，用于获取沪深 A 股票的日频率量价数据，主要可以获取总市值和流通市值数据
+
 1.4.58 fix: fix stock_zh_kcb_daily interface
 
     1. 修复 stock_zh_kcb_daily 返回数据的类型
@@ -71,6 +75,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.59 add: add stock_zh_a_hist_163 interface
 
 1.4.58 fix: fix stock_zh_kcb_daily interface
 

@@ -580,10 +580,10 @@ if __name__ == '__main__':
     stock_board_industry_cons_ths_df = stock_board_industry_cons_ths(symbol="涂料油墨")
     print(stock_board_industry_cons_ths_df)
 
-    stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="涂料油墨")
+    stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="小家电")
     print(stock_board_industry_info_ths_df)
 
-    stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="半导体及元件", start_date="20200101", end_date="20211027")
+    stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="小家电", start_date="20200101", end_date="20211027")
     print(stock_board_industry_index_ths_df)
 
     stock_ipo_benefit_ths_df = stock_ipo_benefit_ths()
