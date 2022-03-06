@@ -8,7 +8,7 @@ http://quote.eastmoney.com/concept/sh603777.html?from=classic
 import pandas as pd
 import requests
 
-from akshare.stock_feature.stock_em_hist import code_id_map_em
+from akshare.stock_feature.stock_hist_em import code_id_map_em
 
 
 def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:

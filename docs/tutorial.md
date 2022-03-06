@@ -1018,6 +1018,8 @@
  "stock_hot_keyword_em"  # 东方财富-个股人气榜-关键词
  "stock_hot_rank_latest_em"  # 东方财富-个股人气榜-最新排名
  "stock_hot_rank_relate_em"  # 东方财富-个股人气榜-相关股票
+ # 网易财经-行情首页-沪深 A 股-每日行情
+ "stock_zh_a_hist_163"  # 网易财经-行情首页-沪深 A 股-每日行情
 ```
 
 ## 案例演示

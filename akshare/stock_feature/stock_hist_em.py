@@ -282,7 +282,7 @@ def code_id_map_em() -> dict:
 
 def stock_zh_a_hist(
         symbol: str = "000016",
-        period: str = 'daily',
+        period: str = "daily",
         start_date: str = "19700101",
         end_date: str = "22220101",
         adjust: str = "",
