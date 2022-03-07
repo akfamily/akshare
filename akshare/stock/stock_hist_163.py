@@ -84,9 +84,11 @@ def stock_zh_a_hist_163(
     temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
     temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
+
     temp_df.dropna(subset=["日期"], inplace=True)
     temp_df.sort_values("日期", inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
+
     return temp_df
 
 
