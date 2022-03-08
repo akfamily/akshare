@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.61 fix: fix get_dce_daily interface
+
+    1. 修复 get_dce_daily 接口的索引问题
+
 1.4.60 fix: fix stock_zh_a_hist_163 interface
     
     1. 修复 stock_zh_a_hist_163 接口的冗余变量问题
@@ -79,6 +83,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.61 fix: fix get_dce_daily interface
 
 1.4.60 fix: fix stock_zh_a_hist_163 interface
 
