@@ -504,6 +504,7 @@ def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
             "pre_settle": "float",
         }
     )
+    data_df.reset_index(inplace=True, drop=True)
     return data_df
 
 
@@ -605,11 +606,11 @@ def get_futures_index(df: pd.DataFrame) -> pd.DataFrame:
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20220112", end_date="20220120", market="CZCE", index_bar=False
+        start_date="20220308", end_date="20220308", market="DCE", index_bar=False
     )
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20220112")
+    get_dce_daily_df = get_dce_daily(date="20220308")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20210719")

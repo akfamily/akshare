@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/12/19 10:34
-Desc: 从和讯网获取美股-中概股实时行情数据和历史行情数据(日)
+Date: 2022/3/8 18:34
+Desc: 和讯网获取美股-中概股实时行情数据和历史行情数据(日)
 http://quote.hexun.com/default.html#ustock_0
 注意: 由于涉及到复权问题, 建议使用新浪的接口来获取历史行情数据(日)
 """
@@ -111,5 +111,6 @@ def stock_us_zh_daily(symbol: str = 'BABA') -> pd.DataFrame:
 if __name__ == "__main__":
     stock_us_zh_spot_df = stock_us_zh_spot()
     print(stock_us_zh_spot_df)
+
     stock_us_zh_daily_df = stock_us_zh_daily(symbol="BABA")
     print(stock_us_zh_daily_df)
