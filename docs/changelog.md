@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.62 fix: fix option_finance_board interface
+
+    1. 修复 option_finance_board 参数为 华泰柏瑞沪深300ETF期权 时的文档说明
+
 1.4.61 fix: fix get_dce_daily interface
 
     1. 修复 get_dce_daily 接口的索引问题

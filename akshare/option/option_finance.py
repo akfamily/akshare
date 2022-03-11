@@ -169,7 +169,7 @@ if __name__ == "__main__":
     print(option_finance_board_df)
 
     option_finance_board_df = option_finance_board(symbol="华泰柏瑞沪深300ETF期权", end_month="2103")
-    print(option_finance_board_df)
+    print(option_finance_board_df.info())
 
     option_finance_board_df = option_finance_board(symbol="沪深300股指期权", end_month="2003")
     print(option_finance_board_df)
