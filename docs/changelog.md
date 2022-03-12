@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.63 fix: fix macro_china_swap_rate interface
+
+    1. 修复 macro_china_swap_rate 接口，并规范返回数据的类型
+
 1.4.62 fix: fix option_finance_board interface
 
     1. 修复 option_finance_board 参数为 华泰柏瑞沪深300ETF期权 时的文档说明
@@ -87,6 +91,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.63 fix: fix macro_china_swap_rate interface
+
+1.4.62 fix: fix option_finance_board interface
 
 1.4.61 fix: fix get_dce_daily interface
 
