@@ -2806,7 +2806,7 @@ def macro_china_supply_of_money() -> pd.DataFrame:
 
 
 def macro_china_swap_rate(
-    start_date: str = "20210706", end_date: str = "20210806"
+    start_date: str = "20220212", end_date: str = "20220312"
 ) -> pd.DataFrame:
     """
     FR007利率互换曲线历史数据; 只能获取近一年的数据
@@ -2836,38 +2836,71 @@ def macro_china_swap_rate(
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
-        "_",
-        "_",
-        "_",
-        "曲线名称",
-        "时刻",
-        "data",
         "日期",
         "_",
         "_",
-        "_",
-        "_",
-        "_",
+        "时刻",
         "_",
         "_",
         "_",
         "_",
         "_",
         "价格类型",
+        "_",
+        "曲线名称",
+        "_",
+        "_",
+        "_",
+        "_",
+        "data",
+
     ]
-    temp_df = temp_df[
+    price_df = pd.DataFrame([item for item in temp_df['data']])
+    price_df.columns = [
+        '1M',
+        '3M',
+        '6M',
+        '9M',
+        '1Y',
+        '2Y',
+        '3Y',
+        '4Y',
+        '5Y',
+        '7Y',
+        '10Y',
+    ]
+    big_df = pd.concat([temp_df, price_df], axis=1)
+    big_df = big_df[
         [
             "日期",
             "曲线名称",
             "时刻",
             "价格类型",
-            "data",
+            '1M',
+            '3M',
+            '6M',
+            '9M',
+            '1Y',
+            '2Y',
+            '3Y',
+            '4Y',
+            '5Y',
+            '7Y',
+            '10Y',
         ]
     ]
-    inner_df = pd.DataFrame([item for item in temp_df["data"]])
-    inner_df.columns = data_json["data"]["bigthRowName"]
-    big_df = pd.concat([temp_df, inner_df], axis=1)
-    del big_df["data"]
+    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
+    big_df['1M'] = pd.to_numeric(big_df['1M'])
+    big_df['3M'] = pd.to_numeric(big_df['3M'])
+    big_df['6M'] = pd.to_numeric(big_df['6M'])
+    big_df['9M'] = pd.to_numeric(big_df['9M'])
+    big_df['1Y'] = pd.to_numeric(big_df['1Y'])
+    big_df['2Y'] = pd.to_numeric(big_df['2Y'])
+    big_df['3Y'] = pd.to_numeric(big_df['3Y'])
+    big_df['4Y'] = pd.to_numeric(big_df['4Y'])
+    big_df['5Y'] = pd.to_numeric(big_df['5Y'])
+    big_df['7Y'] = pd.to_numeric(big_df['7Y'])
+    big_df['10Y'] = pd.to_numeric(big_df['10Y'])
     return big_df
 
 
