@@ -26,8 +26,8 @@ def bond_china_close_return_map() -> pd.DataFrame:
 def bond_china_close_return(
     symbol: str = "国债",
     period: str = "1",
-    start_date: str = "20220104",
-    end_date: str = "20220104",
+    start_date: str = "20220311",
+    end_date: str = "20220311",
 ) -> pd.DataFrame:
     """
     收盘收益率曲线历史数据
@@ -91,4 +91,7 @@ if __name__ == "__main__":
     bond_china_close_return_df = bond_china_close_return(
         symbol="国债", period="1", start_date="20220104", end_date="20220104"
     )
+    print(bond_china_close_return_df)
+
+    bond_china_close_return_df = bond_china_close_return(symbol="政策性金融债(进出口行)", period="1", start_date="20220104", end_date="20220104")
     print(bond_china_close_return_df)
