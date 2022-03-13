@@ -32,6 +32,7 @@
 
 ```python
 import akshare as ak
+
 spot_hist_sge_df = ak.spot_hist_sge(symbol='Au99.99')
 print(spot_hist_sge_df)
 ```
@@ -81,6 +82,7 @@ print(spot_hist_sge_df)
 
 ```python
 import akshare as ak
+
 spot_golden_benchmark_sge_df = ak.spot_golden_benchmark_sge()
 print(spot_golden_benchmark_sge_df)
 ```
@@ -130,6 +132,7 @@ print(spot_golden_benchmark_sge_df)
 
 ```python
 import akshare as ak
+
 spot_silver_benchmark_sge_df = ak.spot_silver_benchmark_sge()
 print(spot_silver_benchmark_sge_df)
 ```
