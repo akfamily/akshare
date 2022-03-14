@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.66 fix: fix stock_em_gpzy_profile interface
+
+    1. 修复 stock_em_gpzy_profile 接口并设定返回数据的数据类型
+
 1.4.65 fix: fix spot_hist_sge interface
 
     1. 修复 spot_hist_sge 接口的数据输出格式
@@ -99,6 +103,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.66 fix: fix stock_em_gpzy_profile interface
 
 1.4.65 fix: fix spot_hist_sge interface
 
