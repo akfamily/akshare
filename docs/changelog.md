@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.67 fix: fix crypto_name_map interface
+
+    1. 修复 crypto_name_map 获取货币名称
+
 1.4.66 fix: fix stock_em_gpzy_profile interface
 
     1. 修复 stock_em_gpzy_profile 接口并设定返回数据的数据类型

@@ -19,6 +19,7 @@ pd.set_option("mode.chained_assignment", None)
 def crypto_name_map() -> dict:
     """
     加密货币名称
+    https://cn.investing.com/crypto/ethereum/historical-data
     :return: 加密货币历史数据获取
     :rtype: pandas.DataFrame
     """
@@ -27,19 +28,20 @@ def crypto_name_map() -> dict:
         "X-Requested-With": "XMLHttpRequest",
     }
     url = "https://cn.investing.com/crypto/Service/LoadCryptoCurrencies"
-    payload = {"lastRowId": "0"}
+    payload = {"lastRowId": "0", 'page': '1'}
     r = requests.post(url, data=payload, headers=headers)
-    soup = BeautifulSoup(r.json()["html"], "lxml")
+    soup = BeautifulSoup(r.text, "lxml")
     crypto_url_list = [
-        "https://cn.investing.com" + item["href"] + "/historical-data"
+        "https://cn.investing.com/" + item["href"].split("/")[1].strip(r"\\") + '/' + item["href"].split("/")[2][:-2]
+        + "/historical-data"
         for item in soup.find_all("a")
         if "-" not in item["href"]
     ]
-    crypto_url_list.append("https://cn.investing.com/crypto/bitcoin/historical-data")
     crypto_name_list = [
-        item.get_text() for item in soup.find_all("a") if "-" not in item["href"]
+        item["href"].split("/")[2][:-2]
+        for item in soup.find_all("a")
+        if "-" not in item["href"]
     ]
-    crypto_name_list.append("比特币")
     name_url_dict = dict(zip(crypto_name_list, crypto_url_list))
     temp_df = pd.DataFrame.from_dict(name_url_dict, orient="index")
     temp_df.reset_index(inplace=True)
@@ -48,7 +50,7 @@ def crypto_name_map() -> dict:
 
 
 def crypto_hist(
-    symbol: str = "以太坊",
+    symbol: str = "bitcoin",
     period: str = "每日",
     start_date: str = "20191020",
     end_date: str = "20201020",
@@ -142,7 +144,8 @@ def crypto_hist(
 if __name__ == "__main__":
     crypto_name_map_df = crypto_name_map()
     print(crypto_name_map_df)
+
     crypto_hist_df = crypto_hist(
-        symbol="比特币", period="每日", start_date="20151020", end_date="20210407"
+        symbol="bitcoin", period="每日", start_date="20151020", end_date="20210407"
     )
     print(crypto_hist_df)
