@@ -61,36 +61,37 @@ reported_at                                        ...
 
 目标地址: https://cn.investing.com/crypto/ethereum/historical-data
 
-描述: 获取加密货币的历史数据主要是日频, 周频和月频的数据; 该接口需要通过代理访问
+描述: 加密货币的历史数据主要是日频, 周频和月频的数据; 该接口需要通过代理访问
 
 限量: 单次返回指定加密货币, 频率和时间周期的数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y | symbol="以太坊"; 通过调用 **crypto_name_map** 获取所有货币对的名称|
-| period | str | Y | period="每日"; choice of {"每日", "每周", "每月"} |
-| start_date | str | Y | start_date="20191020" |
-| end_date | str | Y | end_date="20201020" |
+| 名称         | 类型  | 描述                                                         |
+|------------|-----|------------------------------------------------------------|
+| symbol     | str | symbol="bitcoin"; 通过调用 **ak.crypto_name_map()** 获取所有货币对的名称 |
+| period     | str | period="每日"; choice of {"每日", "每周", "每月"}                  |
+| start_date | str | start_date="20191020"                                      |
+| end_date   | str | end_date="20201020"                                        |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期时间-索引  |
-| 收盘      | str   | Y        | 注意单位: 美元  |
-| 开盘      | float   | Y        | 注意单位: 美元   |
-| 高      | str   | Y        | 注意单位: 美元  |
-| 低      | float   | Y        | 注意单位: 美元   |
-| 交易量      | str   | Y        | 已简化  |
-| 涨跌幅      | float   | Y        | 已简化   |
+| 名称  | 类型    | 默认显示 | 描述       |
+|-----|-------|------|----------|
+| 日期  | str   | Y    | 日期时间-索引  |
+| 收盘  | str   | Y    | 注意单位: 美元 |
+| 开盘  | float | Y    | 注意单位: 美元 |
+| 高   | str   | Y    | 注意单位: 美元 |
+| 低   | float | Y    | 注意单位: 美元 |
+| 交易量 | str   | Y    | 已简化      |
+| 涨跌幅 | float | Y    | 已简化      |
 
 接口示例
 
 ```python
 import akshare as ak
-crypto_hist_df = ak.crypto_hist(symbol="瑞波币", period="每日", start_date="20151020", end_date="20201023")
+
+crypto_hist_df = ak.crypto_hist(symbol="bitcoin", period="每日", start_date="20151020", end_date="20201023")
 print(crypto_hist_df)
 ```
 
