@@ -1020,6 +1020,10 @@
  "stock_hot_rank_relate_em"  # 东方财富-个股人气榜-相关股票
  # 网易财经-行情首页-沪深 A 股-每日行情
  "stock_zh_a_hist_163"  # 网易财经-行情首页-沪深 A 股-每日行情
+ # 东方财富-股票数据-龙虎榜
+ "stock_lhb_detail_em"  # 东方财富网-数据中心-龙虎榜单-龙虎榜详情
+ "stock_lhb_stock_statistic_em"  # 东方财富网-数据中心-龙虎榜单-个股上榜统计
+ "stock_lhb_stock_detail_em"  # 东方财富网-数据中心-龙虎榜单-个股龙虎榜详情
 ```
 
 ## 案例演示
