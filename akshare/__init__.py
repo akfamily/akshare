@@ -1890,9 +1890,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.67 fix: fix crypto_name_url_table interface
 1.4.68 fix: fix crypto_hist interface
 1.4.69 fix: fix crypto_js_spot interface
+1.4.70 add: add stock_lhb_detail_em interface
 """
 
-__version__ = "1.4.69"
+__version__ = "1.4.70"
 __author__ = "AKFamily"
 
 import sys
@@ -1904,6 +1905,16 @@ if sys.version_info < (3, 7):
 del sys
 
 """
+东方财富-股票数据-龙虎榜
+"""
+from akshare.stock_feature.stock_lhb_em import (
+    stock_lhb_stock_detail_em,
+    stock_lhb_detail_em,
+    stock_lhb_stock_statistic_em,
+    stock_lhb_stock_detail_date_em,
+)
+
+"""
 网易财经-行情首页-沪深 A 股-每日行情
 """
 from akshare.stock.stock_hist_163 import stock_zh_a_hist_163
@@ -1911,7 +1922,11 @@ from akshare.stock.stock_hist_163 import stock_zh_a_hist_163
 """
 指数行情数据
 """
-from akshare.index.index_zh_em import index_zh_a_hist, index_zh_a_hist_min_em, index_code_id_map_em
+from akshare.index.index_zh_em import (
+    index_zh_a_hist,
+    index_zh_a_hist_min_em,
+    index_code_id_map_em,
+)
 
 """
 东方财富个股人气榜
