@@ -1108,7 +1108,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.80: fix: movie_boxoffice interface
 0.6.81: fix: fix stock_report_fund_hold interface
 0.6.82: fix: fix stock_em_comment interface
-0.6.83: add: add crypto_hist and crypto_name_map interface
+0.6.83: add: add crypto_hist and crypto_name_url_table interface
 0.6.84: fix: fix crypto_hist interface
 0.6.85: fix: fix stock_a_pb and stock_a_pe interface
 0.6.86: fix: fix stock_zh_a_minute interface
@@ -1887,10 +1887,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.64 fix: fix bond_china_close_return interface
 1.4.65 fix: fix spot_hist_sge interface
 1.4.66 fix: fix stock_em_gpzy_profile interface
-1.4.67 fix: fix crypto_name_map interface
+1.4.67 fix: fix crypto_name_url_table interface
+1.4.68 fix: fix crypto_hist interface
 """
 
-__version__ = "1.4.67"
+__version__ = "1.4.68"
 __author__ = "AKFamily"
 
 import sys
@@ -2691,7 +2692,7 @@ from akshare.fund.fund_em_rank import (
 """
 英为财情-加密货币
 """
-from akshare.crypto.crypto_hist_investing import crypto_hist, crypto_name_map
+from akshare.crypto.crypto_hist_investing import crypto_hist, crypto_name_url_table
 
 """
 电影票房
