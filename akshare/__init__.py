@@ -1891,9 +1891,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.68 fix: fix crypto_hist interface
 1.4.69 fix: fix crypto_js_spot interface
 1.4.70 add: add stock_lhb_detail_em interface
+1.4.71 add: add stock_lhb_stock_detail_em interface
 """
 
-__version__ = "1.4.70"
+__version__ = "1.4.71"
 __author__ = "AKFamily"
 
 import sys

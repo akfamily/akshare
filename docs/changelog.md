@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.71 add: add stock_lhb_stock_detail_em interface
+
+    1. 新增 stock_lhb_stock_detail_em 接口，该接口获取龙虎榜个股详情数据
+
 1.4.70 add: add stock_lhb_detail_em interface
 
     1. 新增 stock_lhb_detail_em 接口获取东方财富-股票数据-龙虎榜详情
@@ -119,6 +123,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.71 add: add stock_lhb_stock_detail_em interface
 
 1.4.70 add: add stock_lhb_detail_em interface
 
