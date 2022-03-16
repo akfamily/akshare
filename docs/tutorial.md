@@ -1024,6 +1024,7 @@
  "stock_lhb_detail_em"  # 东方财富网-数据中心-龙虎榜单-龙虎榜详情
  "stock_lhb_stock_statistic_em"  # 东方财富网-数据中心-龙虎榜单-个股上榜统计
  "stock_lhb_stock_detail_em"  # 东方财富网-数据中心-龙虎榜单-个股龙虎榜详情
+ "stock_lhb_jgmmtj_em"  # 东方财富网-数据中心-龙虎榜单-机构买卖每日统计
 ```
 
 ## 案例演示
