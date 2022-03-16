@@ -1,4 +1,4 @@
-**《AKShare 源码解析》课程即将上线，可加入【知识星球-数据科学家】学习！应广大小伙伴的需求，特此开设 AKShare 源码解析课程，本课程会系统的给大家手把手讲解 AKShare 数据接口的源码及财经数据的网络数据采集知识！[点击链接](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492078&idx=2&sn=84e6327cef5371239f8595be12305835&chksm=eb221980dc559096f790d47965afce5dc26dead40638f754734d4b7fed8424f3f9d2b954bd15&mpshare=1&scene=23&srcid=0310QLpVIIgkY4UeQjLhgoWK&sharer_sharetime=1646886587696&sharer_shareid=a4c6299b7a875e1e5ddbc56b4c71e4dd#rd) 查看课程信息**
+**《AKShare 源码解析》课程即将上线，可加入【知识星球-数据科学家】学习！应广大小伙伴的需求，特此开设 AKShare 源码解析课程，本课程会系统的给大家手把手讲解 AKShare 数据接口的源码及财经数据的网络数据采集知识！[点击链接](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492193&idx=2&sn=a02b305b57a4b0756d5842494de96011&chksm=eb221a0fdc5593196168927217fc8b5486ab43e479f13cc643096069bb829e4a50067534a0b2&mpshare=1&scene=23&srcid=0316bvNDuCQ9P2E08BgK1Bnt&sharer_sharetime=1647406328931&sharer_shareid=2a5935b93d26c84266d2170040c3643c#rd) 查看课程信息**
 
 **本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源**
 
