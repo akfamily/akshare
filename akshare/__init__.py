@@ -1894,9 +1894,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.71 add: add stock_lhb_stock_detail_em interface
 1.4.72 add: add stock_lhb_stock_statistic_em interface
 1.4.73 add: add stock_lhb_jgmmtj_em interface
+1.4.74 fix: fix stock_lhb_stock_detail_em interface
 """
 
-__version__ = "1.4.73"
+__version__ = "1.4.74"
 __author__ = "AKFamily"
 
 import sys

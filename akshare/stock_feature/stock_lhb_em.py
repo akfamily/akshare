@@ -302,7 +302,7 @@ def stock_lhb_stock_detail_date_em(symbol: str = "600077") -> pd.DataFrame:
     return temp_df
 
 
-def stock_lhb_stock_detail_em(symbol: str = "600077", date: str = "20220310", flag: str = "卖出") -> pd.DataFrame:
+def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", flag: str = "卖出") -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-个股龙虎榜详情
     https://data.eastmoney.com/stock/lhb/600077.html
@@ -341,41 +341,94 @@ def stock_lhb_stock_detail_em(symbol: str = "600077", date: str = "20220310", fl
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = temp_df.index + 1
-    temp_df.columns = [
-        "序号",
-        "-",
-        "-",
-        "-",
-        "-",
-        "交易营业部名称",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "买入金额",
-        "卖出金额",
-        "净额",
-        "-",
-        "-",
-        "-",
-        "-",
-        "买入金额-占总成交比例",
-        "卖出金额-占总成交比例",
-        "-",
-    ]
-    temp_df = temp_df[
-        [
+
+    if flag == "买入":
+        temp_df.drop_duplicates(subset=['OPERATEDEPT_CODE'], inplace=True)
+        temp_df = temp_df[temp_df['NET'] > 0]
+        temp_df.columns = [
             "序号",
+            "-",
+            "-",
+            "-",
+            "-",
             "交易营业部名称",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
             "买入金额",
+            "卖出金额",
+            "净额",
+            "-",
+            "-",
+            "-",
+            "-",
             "买入金额-占总成交比例",
             "卖出金额-占总成交比例",
-            "净额",
+            "-",
         ]
-    ]
-    temp_df['买入金额-占总成交比例'] = pd.to_numeric(temp_df['买入金额-占总成交比例'])
-    temp_df['卖出金额-占总成交比例'] = pd.to_numeric(temp_df['卖出金额-占总成交比例'])
+        temp_df = temp_df[
+            [
+                "序号",
+                "交易营业部名称",
+                "买入金额",
+                "买入金额-占总成交比例",
+                "卖出金额",
+                "卖出金额-占总成交比例",
+                "净额",
+            ]
+        ]
+        temp_df['卖出金额'] + temp_df['净额']
+        temp_df['买入金额'] = pd.to_numeric(temp_df['买入金额'])
+        temp_df['买入金额-占总成交比例'] = pd.to_numeric(temp_df['买入金额-占总成交比例'])
+        temp_df['卖出金额'] = pd.to_numeric(temp_df['卖出金额'])
+        temp_df['卖出金额-占总成交比例'] = pd.to_numeric(temp_df['卖出金额-占总成交比例'])
+        temp_df['序号'] = range(1, len(temp_df['序号'])+1)
+        temp_df.reset_index(inplace=True, drop=True)
+    else:
+        temp_df.drop_duplicates(subset=['OPERATEDEPT_CODE'], inplace=True, keep="last")
+        temp_df = temp_df[temp_df['NET'] < 0]
+        temp_df.columns = [
+            "序号",
+            "-",
+            "-",
+            "-",
+            "-",
+            "交易营业部名称",
+            "-",
+            "-",
+            "-",
+            "-",
+            "-",
+            "买入金额",
+            "卖出金额",
+            "净额",
+            "-",
+            "-",
+            "-",
+            "-",
+            "买入金额-占总成交比例",
+            "卖出金额-占总成交比例",
+            "-",
+        ]
+        temp_df = temp_df[
+            [
+                "序号",
+                "交易营业部名称",
+                "买入金额",
+                "买入金额-占总成交比例",
+                "卖出金额",
+                "卖出金额-占总成交比例",
+                "净额",
+            ]
+        ]
+        temp_df['买入金额'] = pd.to_numeric(temp_df['买入金额'])
+        temp_df['买入金额-占总成交比例'] = pd.to_numeric(temp_df['买入金额-占总成交比例'])
+        temp_df['卖出金额'] = pd.to_numeric(temp_df['卖出金额'])
+        temp_df['卖出金额-占总成交比例'] = pd.to_numeric(temp_df['卖出金额-占总成交比例'])
+        temp_df['序号'] = range(1, len(temp_df['序号'])+1)
+        temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
@@ -403,5 +456,8 @@ if __name__ == "__main__":
     stock_lhb_stock_detail_date_em_df = stock_lhb_stock_detail_date_em(symbol="600077")
     print(stock_lhb_stock_detail_date_em_df)
 
-    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(symbol="600077", date="20070416", flag="买入")
+    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(symbol="000788", date="20220315", flag="买入")
+    print(stock_lhb_stock_detail_em_df)
+
+    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(symbol="000788", date="20220315", flag="卖出")
     print(stock_lhb_stock_detail_em_df)
