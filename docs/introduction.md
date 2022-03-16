@@ -9,7 +9,7 @@
 2. 如有 [AKShare](https://github.com/akfamily/akshare) 库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提 Issues;
 3. 欢迎关注 **数据科学实战** 微信公众号：<div><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>
 4. **知识星球【数据科学家】** 已上线，想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学家】** 高质量社区，里面有丰富的视频、问答、文章、书籍及代码等内容:
-   - 加入【知识星球-数据科学家】可以观看 **[《AKShare-源码解析》](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492078&idx=2&sn=84e6327cef5371239f8595be12305835&chksm=eb221980dc559096f790d47965afce5dc26dead40638f754734d4b7fed8424f3f9d2b954bd15&mpshare=1&scene=23&srcid=0310QLpVIIgkY4UeQjLhgoWK&sharer_sharetime=1646886587696&sharer_shareid=a4c6299b7a875e1e5ddbc56b4c71e4dd#rd)** 课程，快速掌握关于财经数据的网络数据采集技能，同时还能认识更多志同道合的小伙伴；
+   - 加入【知识星球-数据科学家】可以观看 **[《AKShare-源码解析》](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492193&idx=2&sn=a02b305b57a4b0756d5842494de96011&chksm=eb221a0fdc5593196168927217fc8b5486ab43e479f13cc643096069bb829e4a50067534a0b2&mpshare=1&scene=23&srcid=0316bvNDuCQ9P2E08BgK1Bnt&sharer_sharetime=1647406328931&sharer_shareid=2a5935b93d26c84266d2170040c3643c#rd)** 课程，快速掌握关于财经数据的网络数据采集技能，同时还能认识更多志同道合的小伙伴；
    - 不定时分享国内外优质资源（金融量化、Python、数据科学、人工智能等领域的内容）及相关解读；
    - 优先阅读星球内发布的高质量财经相关文章和代码，并解答相关问题；
    - 提供 VIP 提问通道，向优质嘉宾提问，指点迷津；
