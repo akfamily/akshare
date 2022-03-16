@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.73 add: add stock_lhb_jgmmtj_em interface
+
+    1. 新增 stock_lhb_jgmmtj_em 接口，该接口获取机构买卖每日统计数据
+
 1.4.72 add: add stock_lhb_stock_statistic_em interface
 
     1. 新增 stock_lhb_stock_statistic_em 接口，该接口获取股票龙虎榜统计详情
@@ -127,6 +131,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.73 add: add stock_lhb_jgmmtj_em interface
 
 1.4.72 add: add stock_lhb_stock_statistic_em interface
 

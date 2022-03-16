@@ -175,6 +175,89 @@ def stock_lhb_stock_statistic_em(symbol: str = "近一月") -> pd.DataFrame:
     return temp_df
 
 
+def stock_lhb_jgmmtj_em(start_date: str = "20220311", end_date: str = "20220315") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-龙虎榜单-机构买卖每日统计
+    https://data.eastmoney.com/stock/jgmmtj.html
+    :param start_date: 开始日期
+    :type start_date: str
+    :param end_date: 结束日期
+    :type end_date: str
+    :return: 机构买卖每日统计
+    :rtype: pandas.DataFrame
+    """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        'sortColumns': 'NET_BUY_AMT,TRADE_DATE,SECURITY_CODE',
+        'sortTypes': '-1,-1,1',
+        'pageSize': '5000',
+        'pageNumber': '1',
+        'reportName': 'RPT_ORGANIZATION_TRADE_DETAILS',
+        'columns': 'ALL',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f"(TRADE_DATE>='{start_date}')(TRADE_DATE<='{end_date}')",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.reset_index(inplace=True)
+    temp_df["index"] = temp_df.index + 1
+    temp_df.columns = [
+        "序号",
+        "-",
+        "名称",
+        "代码",
+        "上榜日期",
+        "收盘价",
+        "涨跌幅",
+        "买方机构数",
+        "卖方机构数",
+        "机构买入总额",
+        "机构卖出总额",
+        "机构买入净额",
+        "市场总成交额",
+        "机构净买额占总成交额比",
+        "换手率",
+        "-",
+        "上榜原因",
+        "上榜后1日",
+        "上榜后2日",
+        "-",
+        "上榜后5日",
+        "上榜后10日",
+        "-",
+        "-",
+    ]
+    temp_df = temp_df[
+        [
+            "序号",
+            "代码",
+            "名称",
+            "上榜日期",
+            "收盘价",
+            "涨跌幅",
+            "买方机构数",
+            "卖方机构数",
+            "机构买入总额",
+            "机构卖出总额",
+            "机构买入净额",
+            "市场总成交额",
+            "机构净买额占总成交额比",
+            "换手率",
+            "上榜原因",
+            "上榜后1日",
+            "上榜后2日",
+            "上榜后5日",
+            "上榜后10日",
+        ]
+    ]
+    temp_df["上榜日期"] = pd.to_datetime(temp_df["上榜日期"]).dt.date
+    return temp_df
+
+
 def stock_lhb_stock_detail_date_em(symbol: str = "600077") -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-个股龙虎榜详情-日期
@@ -313,6 +396,9 @@ if __name__ == "__main__":
 
     stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(symbol="近一年")
     print(stock_lhb_stock_statistic_em_df)
+
+    stock_lhb_jgmmtj_em_df = stock_lhb_jgmmtj_em(start_date="20220311", end_date="20220315")
+    print(stock_lhb_jgmmtj_em_df)
 
     stock_lhb_stock_detail_date_em_df = stock_lhb_stock_detail_date_em(symbol="600077")
     print(stock_lhb_stock_detail_date_em_df)
