@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.74 fix: fix stock_lhb_stock_detail_em interface
+
+    1. 修复 stock_lhb_stock_detail_em 接口返回数据与目标网站统一
+
 1.4.73 add: add stock_lhb_jgmmtj_em interface
 
     1. 新增 stock_lhb_jgmmtj_em 接口，该接口获取机构买卖每日统计数据
@@ -131,6 +135,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.74 fix: fix stock_lhb_stock_detail_em interface
 
 1.4.73 add: add stock_lhb_jgmmtj_em interface
 
