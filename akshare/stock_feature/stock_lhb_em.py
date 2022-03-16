@@ -343,8 +343,6 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
     temp_df["index"] = temp_df.index + 1
 
     if flag == "买入":
-        temp_df.drop_duplicates(subset=['OPERATEDEPT_CODE'], inplace=True)
-        temp_df = temp_df[temp_df['NET'] > 0]
         temp_df.columns = [
             "序号",
             "-",
@@ -352,7 +350,7 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
             "-",
             "-",
             "交易营业部名称",
-            "-",
+            "类型",
             "-",
             "-",
             "-",
@@ -377,6 +375,7 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
                 "卖出金额",
                 "卖出金额-占总成交比例",
                 "净额",
+                "类型",
             ]
         ]
         temp_df['卖出金额'] + temp_df['净额']
@@ -384,11 +383,10 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
         temp_df['买入金额-占总成交比例'] = pd.to_numeric(temp_df['买入金额-占总成交比例'])
         temp_df['卖出金额'] = pd.to_numeric(temp_df['卖出金额'])
         temp_df['卖出金额-占总成交比例'] = pd.to_numeric(temp_df['卖出金额-占总成交比例'])
-        temp_df['序号'] = range(1, len(temp_df['序号'])+1)
+        temp_df.sort_values('类型', inplace=True)
         temp_df.reset_index(inplace=True, drop=True)
+        temp_df['序号'] = range(1, len(temp_df['序号'])+1)
     else:
-        temp_df.drop_duplicates(subset=['OPERATEDEPT_CODE'], inplace=True, keep="last")
-        temp_df = temp_df[temp_df['NET'] < 0]
         temp_df.columns = [
             "序号",
             "-",
@@ -396,7 +394,7 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
             "-",
             "-",
             "交易营业部名称",
-            "-",
+            "类型",
             "-",
             "-",
             "-",
@@ -421,14 +419,16 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
                 "卖出金额",
                 "卖出金额-占总成交比例",
                 "净额",
+                "类型",
             ]
         ]
         temp_df['买入金额'] = pd.to_numeric(temp_df['买入金额'])
         temp_df['买入金额-占总成交比例'] = pd.to_numeric(temp_df['买入金额-占总成交比例'])
         temp_df['卖出金额'] = pd.to_numeric(temp_df['卖出金额'])
         temp_df['卖出金额-占总成交比例'] = pd.to_numeric(temp_df['卖出金额-占总成交比例'])
-        temp_df['序号'] = range(1, len(temp_df['序号'])+1)
+        temp_df.sort_values('类型', inplace=True)
         temp_df.reset_index(inplace=True, drop=True)
+        temp_df['序号'] = range(1, len(temp_df['序号'])+1)
     return temp_df
 
 
@@ -459,5 +459,5 @@ if __name__ == "__main__":
     stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(symbol="000788", date="20220315", flag="买入")
     print(stock_lhb_stock_detail_em_df)
 
-    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(symbol="000788", date="20220315", flag="卖出")
+    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(symbol="600077", date="20220315", flag="买入")
     print(stock_lhb_stock_detail_em_df)
