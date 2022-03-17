@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.76 add: add stock_lhb_stock_statistic_em interface
+
+    1. 新增 stock_lhb_stock_statistic_em 接口，获取个股上榜统计数据
+
 1.4.75 fix: fix stock_lhb_stock_detail_em interface
 
     1. 修复 stock_lhb_stock_detail_em 接口，处理有多种排行标准的数据
@@ -139,6 +143,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.76 add: add stock_lhb_stock_statistic_em interface
 
 1.4.75 fix: fix stock_lhb_stock_detail_em interface
 
