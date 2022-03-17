@@ -18,7 +18,11 @@
 ## 博客文章
 
 1. [akshare做mfi策略](https://blog.csdn.net/qq_26742269/article/details/123024482)
-2. [akshare sma策略](https://blog.csdn.net/qq_26742269/article/details/122916796)
-3. [akshare 布林通道策略](https://blog.csdn.net/qq_26742269/article/details/122916783)
-4. [akshare 配对策略](https://blog.csdn.net/qq_26742269/article/details/122916800)
-5. [获取财经数据神器akshare 基本使用总结](https://blog.csdn.net/fyfugoyfa/article/details/113131184)
+2. [akshare写etf动量滚动策略](https://blog.csdn.net/qq_26742269/article/details/123490942)
+3. [akshare改写公募基金轮动策略](https://blog.csdn.net/qq_26742269/article/details/123488096)
+4. [价值投资/指标选股（akshare）](https://blog.csdn.net/qq_26742269/article/details/123377668)
+5. [akshare sma策略](https://blog.csdn.net/qq_26742269/article/details/122916796)
+6. [akshare 布林通道策略](https://blog.csdn.net/qq_26742269/article/details/122916783)
+7. [akshare 配对策略](https://blog.csdn.net/qq_26742269/article/details/122916800)
+8. [获取财经数据神器akshare 基本使用总结](https://blog.csdn.net/fyfugoyfa/article/details/113131184)
+9. [股债收益模型 量化实战篇（一）](https://bbs.csdn.net/topics/605332332)

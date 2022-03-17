@@ -1670,6 +1670,6 @@ if __name__ == "__main__":
     print(stock_hsgt_individual_em_df)
 
     stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(
-        symbol="600596", start_date="20220101", end_date="20220220"
+        symbol="600596", start_date="20220101", end_date="20220317"
     )
     print(stock_hsgt_individual_detail_em_df)
