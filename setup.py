@@ -40,11 +40,9 @@ setuptools.setup(
     install_requires=[
         "beautifulsoup4>=4.9.1",
         "lxml>=4.2.1",
-        "matplotlib>=3.1.1",
         "numpy>=1.15.4",
         "pandas>=0.25",
         "requests>=2.22.0",
-        "pillow>=6.2.0",
         "pypinyin>=0.35.0",
         "websocket-client>=0.56.0",
         "html5lib>=1.0.1",
@@ -56,6 +54,7 @@ setuptools.setup(
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
         "py_mini_racer>=0.6.0",
+        "requests-cache>=0.9.3",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
     keywords=[

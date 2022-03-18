@@ -2,6 +2,16 @@
 
 ## 接口更新说明
 
+1.4.78 add: add remove matplotlib module and support cache
+
+    1. 移除 matplotlib 模块，让 AKShare 更专注于数据采集
+    2. 新增缓存，对于速度较慢的接口逐步增加缓存支持
+    3. 移除所有接口中的绘图功能
+    4. 修复 google_index 接口
+    5. 移除 西本新干线 接口
+    6. 在 utils 模块中新增 ak_session 以支持缓存
+    7. 添加 requests-cache 作为依赖库
+
 1.4.77 fix: fix stock_hk_ggt_components_em interface
 
     1. 修复 stock_hsgt_em 文件中的所有 pandas.DataFrame 的 append 方法为 concat
@@ -147,6 +157,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.78 add: add remove matplotlib module and support cache
 
 1.4.77 fix: fix stock_hk_ggt_components_em interface
 
