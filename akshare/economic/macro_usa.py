@@ -2790,15 +2790,11 @@ if __name__ == "__main__":
     # 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
     macro_usa_eia_crude_rate_df = macro_usa_eia_crude_rate()
     print(macro_usa_eia_crude_rate_df)
+
     # 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
     macro_usa_initial_jobless_df = macro_usa_initial_jobless()
     print(macro_usa_initial_jobless_df)
-    # import matplotlib.pyplot as plt
-    # macro_usa_initial_jobless_df.plot()
-    # plt.title(macro_usa_initial_jobless_df.name)
-    # plt.xlabel("year")
-    # plt.ylabel("10 thousand")
-    # plt.show()
+
     # 金十数据中心-经济指标-美国-其他-美国原油产量报告
     macro_usa_crude_inner_df = macro_usa_crude_inner()
     print(macro_usa_crude_inner_df)

@@ -33,7 +33,7 @@ def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
     http://www.tanjiaoyi.com/
     :param symbol: choice of {'湖北', '上海', '北京', '重庆', '广东', '天津', '深圳', '福建'}
     :type symbol: str
-    :return:
+    :return: 行情信息
     :rtype: pandas.DataFrame
     """
     url = "http://k.tanjiaoyi.com:8080/KDataController/getHouseDatasInAverage.do"
@@ -45,7 +45,6 @@ def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("(") + 1 : -1])
-    data_json.keys()
     temp_df = pd.DataFrame(data_json[symbol])
     temp_df.columns = [
         "成交价",

@@ -458,8 +458,6 @@
  # 年报季报
  "stock_yjyg_em"  # 上市公司业绩预告
  "stock_yysj_em"  # 上市公司预约披露时间
- # 西本新干线-指数数据
- "futures_xgx_index"  # 西本新干线-指数数据
  # 高频数据-标普500指数
  "hf_sp_500"  # 获取标普500指数的分钟数据
  # 商品期货库存数据
@@ -1036,7 +1034,7 @@
 ```python
 import akshare as ak
 
-get_roll_yield_bar_df = ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718", plot=False)
+get_roll_yield_bar_df = ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718")
 print(get_roll_yield_bar_df)
 ```
 

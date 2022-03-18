@@ -14,11 +14,10 @@
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |  symbol="FTSE", 具体指数请查看如下 **已实现波动率指数一览表**|
-| index | str  | Y     |  index="rk_th2", 具体指标请查看如下 **已实现波动率指标一览表**|
-| plot | Bool  | Y    |  plot=True, 是否画图|
+| 名称     | 类型  | 必选  | 描述                                        |
+|--------|-----|-----|-------------------------------------------|
+| symbol | str | Y   | symbol="FTSE", 具体指数请查看如下 **已实现波动率指数一览表**  |
+| index  | str | Y   | index="rk_th2", 具体指标请查看如下 **已实现波动率指标一览表** |
 
 已实现波动率指数一览表
 
@@ -83,18 +82,18 @@
 
 Oxford-Man-已实现波动率数据
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| index      | datetime.datetime   | Y        | 日期  |  
-| data      | float   | Y        | 数据  |  
-
+| 名称    | 类型                | 默认显示 | 描述  |
+|-------|-------------------|------|-----|
+| index | datetime.datetime | Y    | 日期  |  
+| data  | float             | Y    | 数据  |  
 
 接口示例
 
 ```python
 import akshare as ak
-df = ak.article_oman_rv(symbol="FTSE", index="rk_th2", plot=True)
-print(df)
+
+article_oman_rv_df = ak.article_oman_rv(symbol="FTSE", index="rk_th2")
+print(article_oman_rv_df)
 ```
 
 数据示例
@@ -124,28 +123,26 @@ print(df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str  | Y    |  symbol="39693", 某个具体指数 help(article_rlab_rv)|
-| plot | Bool  | Y    |  plot=True, 是否画图|
-
+| 名称     | 类型  | 描述                                           |
+|--------|-----|----------------------------------------------|
+| symbol | str | symbol="39693", 某个具体指数 help(article_rlab_rv) |
 
 输出参数
 
 Risk-Lab-已实现波动率数据
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| index      | datetime.datetime   | Y        | 日期  |  
-| data      | float   | Y        | 数据  |  
-
+| 名称    | 类型                | 描述  |
+|-------|-------------------|-----|
+| index | datetime.datetime | 日期  |  
+| data  | float             | 数据  |  
 
 接口示例
 
 ```python
 import akshare as ak
-df = ak.article_rlab_rv(symbol="39693")
-print(df)
+
+article_rlab_rv_df = ak.article_rlab_rv(symbol="39693")
+print(article_rlab_rv_df)
 ```
 
 数据示例
@@ -177,9 +174,9 @@ print(df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |  -|
+| 名称  | 类型  | 必选  | 描述  |
+|-----|-----|-----|-----|
+| -   | -   | -   | -   |
 
 输出参数
 

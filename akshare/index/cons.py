@@ -81,7 +81,7 @@ long_headers = {
     'accept': 'text/plain, */*; q=0.01',
     # 'accept-encoding': 'gzip, deflate, br',
     'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-    'cache-control': 'no-cache',
+    # 'cache-control': 'no-cache',
     'content-length': '267',
     'content-type': 'application/x-www-form-urlencoded',
     'origin': 'https://cn.investing.com',

@@ -1898,9 +1898,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.75 fix: fix stock_lhb_stock_detail_em interface
 1.4.76 add: add stock_lhb_stock_statistic_em interface
 1.4.77 fix: fix stock_hk_ggt_components_em interface
+1.4.78 add: add remove matplotlib module and support cache
 """
 
-__version__ = "1.4.77"
+__version__ = "1.4.78"
 __author__ = "AKFamily"
 
 import sys
@@ -3535,11 +3536,6 @@ from akshare.stock.stock_hk_sina import stock_hk_daily, stock_hk_spot
 新浪-期货实时数据
 """
 from akshare.futures.futures_zh_sina import futures_zh_spot, match_main_contract
-
-"""
-西本新干线-指数数据
-"""
-from akshare.futures_derivative.futures_xgx import futures_xgx_index
 
 """
 生意社-商品与期货-现期图数据
