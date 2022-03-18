@@ -1897,9 +1897,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.74 fix: fix stock_lhb_stock_detail_em interface
 1.4.75 fix: fix stock_lhb_stock_detail_em interface
 1.4.76 add: add stock_lhb_stock_statistic_em interface
+1.4.77 fix: fix stock_hk_ggt_components_em interface
 """
 
-__version__ = "1.4.76"
+__version__ = "1.4.77"
 __author__ = "AKFamily"
 
 import sys
@@ -2099,7 +2100,7 @@ from akshare.stock_feature.stock_technology_ths import (
 """
 沪深港通持股
 """
-from akshare.stock_feature.stock_em_hsgt import (
+from akshare.stock_feature.stock_hsgt_em import (
     stock_hsgt_individual_em,
     stock_hsgt_individual_detail_em,
 )
@@ -3030,7 +3031,7 @@ from akshare.stock_feature.stock_em_tfp import stock_tfp_em
 """
 stock-em-hsgt
 """
-from akshare.stock_feature.stock_em_hsgt import (
+from akshare.stock_feature.stock_hsgt_em import (
     stock_hk_ggt_components_em,
     stock_hsgt_north_acc_flow_in_em,
     stock_hsgt_north_cash_em,
