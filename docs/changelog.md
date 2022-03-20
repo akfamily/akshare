@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.81 add: add fund_portfolio_change_em interface
+
+    1. 新增 fund_portfolio_change_em 接口，获取天天基金网-基金档案-投资组合-重大变动数据
+
 1.4.80 add: add stock_board_concept_hist_min_em interface
 
     1. 新增 stock_board_concept_hist_min_em 接口，获取东方财富-沪深板块-概念板块-分时历史行情数据
@@ -165,6 +169,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.81 add: add fund_portfolio_change_em interface
 
 1.4.80 add: add stock_board_concept_hist_min_em interface
 
