@@ -212,7 +212,7 @@ def stock_a_code_to_symbol(symbol: str = "000300") -> str:
     :return: 股票市场
     :rtype: str
     """
-    if symbol.startswith("60") or symbol.startswith("900"):
+    if symbol.startswith("6") or symbol.startswith("900"):
         return f"sh{symbol}"
     else:
         return f"sz{symbol}"
