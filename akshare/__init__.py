@@ -1901,9 +1901,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.78 add: add remove matplotlib module and support cache
 1.4.79 add: add stock_board_industry_hist_min_em interface
 1.4.80 add: add stock_board_concept_hist_min_em interface
+1.4.81 add: add fund_portfolio_change_em interface
 """
 
-__version__ = "1.4.80"
+__version__ = "1.4.81"
 __author__ = "AKFamily"
 
 import sys
@@ -2627,7 +2628,7 @@ from akshare.futures.futures_to_spot import (
 """
 基金持仓
 """
-from akshare.fund.fund_em_portfolio import fund_portfolio_hold_em
+from akshare.fund.fund_em_portfolio import fund_portfolio_hold_em, fund_portfolio_change_em
 
 """
 债券概览
