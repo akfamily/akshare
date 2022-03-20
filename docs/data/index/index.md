@@ -1099,7 +1099,7 @@ print(index_stock_cons_df)
 ```python
 import akshare as ak
 
-index_stock_cons_df = ak.index_stock_cons(symbol="000300")  # 主要调用 ak.stock_a_code_to_symbol 来进行转换
+index_stock_cons_df = ak.index_stock_cons(symbol="000300")  # 主要调用 ak.stock_a_code_to_symbol() 来进行转换
 index_stock_cons_df['symbol'] = index_stock_cons_df['品种代码'].apply(ak.stock_a_code_to_symbol)
 print(index_stock_cons_df)
 ```
