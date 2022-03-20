@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.79 add: add stock_board_industry_hist_min_em interface
+
+    1. 新增 stock_board_industry_hist_min_em 接口，获取东方财富-沪深板块-行业板块-分时历史行情数据
+
 1.4.78 add: add remove matplotlib module and support cache
 
     1. 移除 matplotlib 模块，让 AKShare 更专注于数据采集
@@ -157,6 +161,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.79 add: add stock_board_industry_hist_min_em interface
 
 1.4.78 add: add remove matplotlib module and support cache
 
