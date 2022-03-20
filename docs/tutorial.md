@@ -777,6 +777,7 @@
  # 东方财富-概念板块
  "stock_board_concept_name_em"  # 概念板块-名称
  "stock_board_concept_hist_em"  # 概念板块-历史行情
+ "stock_board_concept_hist_min_em"  # 概念板块-分时历史行情
  "stock_board_concept_cons_em"  # 概念板块-板块成份
  # 瑞士-宏观
  "macro_swiss_svme"  # 瑞士-宏观-SVME采购经理人指数
@@ -950,6 +951,7 @@
  # 行业板块
  "stock_board_industry_cons_em"  # 行业板块-板块成份
  "stock_board_industry_hist_em"  # 行业板块-历史行情
+ "stock_board_industry_hist_min_em"  # 行业板块-分时历史行情
  "stock_board_industry_name_em"  # 行业板块-板块名称
  # 股票回购数据
  "stock_repurchase_em"  # 股票回购数据
