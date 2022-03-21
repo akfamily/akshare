@@ -2596,11 +2596,11 @@ print(stock_us_hist_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                    |
-|------------|-----|-----------------------|
-| symbol     | str | 美股代码                  |
-| start_date | str | start_date="20210101" |
-| end_date   | str | end_date="20210601"   |
+| 名称         | 类型  | 描述                                                |
+|------------|-----|---------------------------------------------------|
+| symbol     | str | 美股代码; 调用 ak.stock_us_code_table_fu() 函数获取 `代码` 字段 |
+| start_date | str | start_date="20210101"                             |
+| end_date   | str | end_date="20210601"                               |
 
 输出参数
 
