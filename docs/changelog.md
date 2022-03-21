@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.84 fix: fix fund_portfolio_change_em interface
+
+    1. 修复 fund_portfolio_change_em 接口，新增 indicator 字段
+
 1.4.83 add: add stock_us_code_table_fu interface
 
     1. 新增 stock_us_code_table_fu 接口，获取股票代码
@@ -177,6 +181,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.84 fix: fix fund_portfolio_change_em interface
 
 1.4.83 add: add stock_us_code_table_fu interface
 

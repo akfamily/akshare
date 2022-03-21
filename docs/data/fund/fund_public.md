@@ -1660,10 +1660,11 @@ print(fund_portfolio_hold_em_df)
 
 输入参数
 
-| 名称     | 类型  | 描述                                                       |
-|--------|-----|----------------------------------------------------------|
-| symbol | str | symbol="000001"; 基金代码, 可以通过调用 **ak.fund_name_em()** 接口获取 |
-| date   | str | date="2020"; 指定年份                                        |
+| 名称        | 类型  | 描述                                                       |
+|-----------|-----|----------------------------------------------------------|
+| symbol    | str | symbol="003567"; 基金代码, 可以通过调用 **ak.fund_name_em()** 接口获取 |
+| indicator | str | indicator="累计买入"; choice of {"累计买入", "累计卖出"}             |
+| date      | str | date="2020"; 指定年份                                        |
 
 输出参数
 
@@ -1672,7 +1673,6 @@ print(fund_portfolio_hold_em_df)
 | 序号          | int64   | -        |
 | 股票代码        | object  | -        |
 | 股票名称        | object  | -        |
-| 占净值比例       | float64 |          |
 | 本期累计买入金额    | float64 | 注意单位: 万元 |
 | 占期初基金资产净值比例 | float64 | 注意单位: %  |
 | 季度          | object  | -        |
@@ -1682,14 +1682,14 @@ print(fund_portfolio_hold_em_df)
 ```python
 import akshare as ak
 
-fund_portfolio_hold_em_df = ak.fund_portfolio_hold_em(symbol="000001", year="2020")
-print(fund_portfolio_hold_em_df)
+fund_portfolio_change_em_df = ak.fund_portfolio_change_em(symbol="003567", indicator="累计买入", year="2020")
+print(fund_portfolio_change_em_df)
 ```
 
 数据示例
 
 ```
-      序号 股票代码  股票名称  本期累计买入金额 占期初基金资产净值比例         季度
+      序号 股票代码 股票名称  本期累计买入金额  占期初基金资产净值比例         季度
 0      1  603026  石大胜华   1029.76        19.83  2020年4季度累计买入股票明细
 1      2  300041  回天新材    699.23        13.46  2020年4季度累计买入股票明细
 2      3  688051  佳华科技    668.38        12.87  2020年4季度累计买入股票明细
