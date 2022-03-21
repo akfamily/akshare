@@ -1903,9 +1903,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.80 add: add stock_board_concept_hist_min_em interface
 1.4.81 add: add fund_portfolio_change_em interface
 1.4.82 fix: fix stock_a_code_to_symbol interface
+1.4.83 add: add stock_us_code_table_fu interface
 """
 
-__version__ = "1.4.82"
+__version__ = "1.4.83"
 __author__ = "AKFamily"
 
 import sys
@@ -2044,7 +2045,7 @@ from akshare.spot.spot_sge import (
 """
 富途牛牛-美股
 """
-from akshare.stock_feature.stock_us_hist_futunn import stock_us_hist_fu
+from akshare.stock_feature.stock_us_hist_futunn import stock_us_hist_fu, stock_us_code_table_fu
 
 """
 股票回购

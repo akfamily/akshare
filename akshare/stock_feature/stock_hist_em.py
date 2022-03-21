@@ -1062,7 +1062,7 @@ if __name__ == "__main__":
     print(stock_us_spot_em_df)
 
     stock_us_hist_df = stock_us_hist(
-        symbol="105.LCID", period="weekly", start_date="19700101", end_date="22220101", adjust="qfq"
+        symbol="105.TKNO", period="weekly", start_date="19700101", end_date="22220101", adjust="qfq"
     )
     print(stock_us_hist_df)
 
@@ -1083,7 +1083,10 @@ if __name__ == "__main__":
     stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611")
     print(stock_hk_hist_min_em_df)
 
-    stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="105.ATER")
+    stock_us_spot_em_df = stock_us_spot_em()
+    print(stock_us_spot_em_df)
+
+    stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="106.TTE")
     print(stock_us_hist_min_em_df)
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2022-02-22 09:32:00", end_date="2022-02-24 09:32:00")
