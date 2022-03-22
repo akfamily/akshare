@@ -1656,7 +1656,7 @@ print(fund_portfolio_hold_em_df)
 
 描述: 天天基金网-基金档案-投资组合-重大变动
 
-限量: 单次返回指定 symbol 和 date 的所有重大变动数据
+限量: 单次返回指定 symbol、indicator 和 date 的所有重大变动数据
 
 输入参数
 
