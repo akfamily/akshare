@@ -2,6 +2,10 @@
 
 ## 接口更新说明
 
+1.4.85 add: add fund_portfolio_bond_hold_em interface
+
+    1. 新增 fund_portfolio_bond_hold_em 接口，获取天天基金网-基金档案-投资组合-债券持仓数据
+
 1.4.84 fix: fix fund_portfolio_change_em interface
 
     1. 修复 fund_portfolio_change_em 接口，新增 indicator 字段
@@ -181,6 +185,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.85 add: add fund_portfolio_bond_hold_em interface
 
 1.4.84 fix: fix fund_portfolio_change_em interface
 

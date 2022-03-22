@@ -1027,6 +1027,7 @@
  "stock_lhb_jgmmtj_em"  # 东方财富网-数据中心-龙虎榜单-机构买卖每日统计
  # 投资组合-基金持仓
  "fund_portfolio_hold_em"  # 天天基金网-基金档案-投资组合-基金持仓
+ "fund_portfolio_bond_hold_em"  # 天天基金网-基金档案-投资组合-债券持仓
  # 投资组合-重大变动
  "fund_portfolio_change_em"  # 天天基金网-基金档案-投资组合-重大变动
 ```

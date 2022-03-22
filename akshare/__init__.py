@@ -1905,9 +1905,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.82 fix: fix stock_a_code_to_symbol interface
 1.4.83 add: add stock_us_code_table_fu interface
 1.4.84 fix: fix fund_portfolio_change_em interface
+1.4.85 add: add fund_portfolio_bond_hold_em interface
 """
 
-__version__ = "1.4.84"
+__version__ = "1.4.85"
 __author__ = "AKFamily"
 
 import sys
@@ -2631,7 +2632,7 @@ from akshare.futures.futures_to_spot import (
 """
 基金持仓
 """
-from akshare.fund.fund_portfolio_em import fund_portfolio_hold_em, fund_portfolio_change_em
+from akshare.fund.fund_portfolio_em import fund_portfolio_hold_em, fund_portfolio_change_em, fund_portfolio_bond_hold_em
 
 """
 债券概览
