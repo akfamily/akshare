@@ -757,9 +757,9 @@
  # 加密货币全球市场指数
  "crypto_crix"  # 加密货币全球市场指数
  # 基金规模和规模趋势
- "fund_em_aum"  # 基金公司规模排名列表
- "fund_em_aum_trend"  # 基金市场管理规模走势图
- "fund_em_aum_hist"  # 基金市场管理规模历史
+ "fund_aum_em"  # 基金公司规模排名列表
+ "fund_aum_trend_em"  # 基金市场管理规模走势图
+ "fund_aum_hist_em"  # 基金市场管理规模历史
  # 企业商品价格指数
  "macro_china_qyspjg"  # 企业商品价格指数
  "macro_china_fdi"  # 外商直接投资数据

@@ -1,6 +1,20 @@
 # [AKShare](https://github.com/akfamily/akshare) 版本更新
 
+## 接口更名一览表
+
+| AKShare 版本 | 旧接口名称             | 新接口名称             | 修改日期     |
+|------------|-------------------|-------------------|----------|
+| 1.4.86     | fund_em_aum_hist  | fund_aum_hist_em  | 20220322 |
+| 1.4.86     | fund_em_aum_trend | fund_aum_trend_em | 20220322 |
+| 1.4.86     | fund_em_aum       | fund_aum_em       | 20220322 |
+
 ## 接口更新说明
+
+1.4.86 fix: fix rename all interface in fund_aum_em.py
+
+    1. 修改 fund_em_aum_hist 接口，重名为 fund_aum_hist_em
+    2. 修改 fund_em_aum_trend 接口，重名为 fund_aum_trend_em
+    3. 修改 fund_em_aum 接口，重名为 fund_aum_em
 
 1.4.85 add: add fund_portfolio_bond_hold_em interface
 
@@ -185,6 +199,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.86 fix: fix rename all interface in fund_aum_em.py
 
 1.4.85 add: add fund_portfolio_bond_hold_em interface
 
