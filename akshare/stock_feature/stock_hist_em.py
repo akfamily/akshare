@@ -232,7 +232,7 @@ def code_id_map_em() -> dict:
     r = requests.get(url, params=params)
     data_json = r.json()
     if not data_json["data"]["diff"]:
-        return pd.DataFrame()
+        return dict()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df["market_id"] = 1
     temp_df.columns = ["sh_code", "sh_id"]
@@ -253,7 +253,7 @@ def code_id_map_em() -> dict:
     r = requests.get(url, params=params)
     data_json = r.json()
     if not data_json["data"]["diff"]:
-        return pd.DataFrame()
+        return dict()
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
@@ -273,7 +273,7 @@ def code_id_map_em() -> dict:
     r = requests.get(url, params=params)
     data_json = r.json()
     if not data_json["data"]["diff"]:
-        return pd.DataFrame()
+        return dict()
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["bj_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
