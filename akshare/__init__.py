@@ -1408,7 +1408,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.83: fix: fix crypto_crix interface
 0.9.84: fix: fix rename futures_hq_spot to futures_foreign_commodity_realtime interface
 0.9.85: fix: fix rate_interbank interface
-0.9.86: add: add fund_em_aum interface
+0.9.86: add: add fund_aum_em interface
 0.9.87: fix: fix death_company interface
 0.9.88: fix: fix stock_financial_analysis_indicator interface
 0.9.89: fix: fix fund_manager interface
@@ -1576,7 +1576,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.1.53 fix: fix index_detail_hist_adjust_cni interface
 1.1.54 fix: fix stock_board_concept_hist_ths interface
 1.1.55 fix: fix stock_sina_lhb_ggtj and stock_sina_lhb_jgzz interface
-1.1.56 add: add fund_em_aum_hist interface
+1.1.56 add: add fund_aum_hist_em interface
 1.1.57 fix: fix stock_sina_lhb_ggtj and stock_sina_lhb_jgzz interface
 1.1.58 add: add bond_treasure_issue_cninfo interface
 1.1.59 add: add bond_local_government_issue_cninfo interface
@@ -1906,9 +1906,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.83 add: add stock_us_code_table_fu interface
 1.4.84 fix: fix fund_portfolio_change_em interface
 1.4.85 add: add fund_portfolio_bond_hold_em interface
+1.4.86 fix: fix rename all interface in fund_aum_em.py
 """
 
-__version__ = "1.4.85"
+__version__ = "1.4.86"
 __author__ = "AKFamily"
 
 import sys
@@ -2363,7 +2364,7 @@ from akshare.economic.macro_germany import (
 """
 基金规模和规模趋势
 """
-from akshare.fund.fund_em_aum import fund_em_aum, fund_em_aum_trend, fund_em_aum_hist
+from akshare.fund.fund_aum_em import fund_aum_em, fund_aum_trend_em, fund_aum_hist_em
 
 """
 CRIX 数据

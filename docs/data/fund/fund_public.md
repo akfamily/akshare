@@ -1648,7 +1648,6 @@ print(fund_portfolio_hold_em_df)
 155  10  603806   福斯特  1.63   175.98   7165.78  2020年1季度股票投资明细
 ```
 
-
 ### 债券持仓
 
 接口: fund_portfolio_bond_hold_em
@@ -2334,7 +2333,7 @@ print(fund_scale_structured_sina_df)
 
 #### 基金规模详情
 
-接口: fund_em_aum
+接口: fund_aum_em
 
 目标地址: http://fund.eastmoney.com/Company/lsgm.html
 
@@ -2365,8 +2364,8 @@ print(fund_scale_structured_sina_df)
 ```python
 import akshare as ak
 
-fund_em_aum_df = ak.fund_em_aum()
-print(fund_em_aum_df)
+fund_aum_em_df = ak.fund_aum_em()
+print(fund_aum_em_df)
 ```
 
 数据示例
@@ -2388,7 +2387,7 @@ print(fund_em_aum_df)
 
 #### 基金规模走势
 
-接口: fund_em_aum_trend
+接口: fund_aum_trend_em
 
 目标地址: http://fund.eastmoney.com/Company/default.html
 
@@ -2414,8 +2413,8 @@ print(fund_em_aum_df)
 ```python
 import akshare as ak
 
-fund_em_aum_trend_df = ak.fund_em_aum_trend()
-print(fund_em_aum_trend_df)
+fund_aum_trend_em_df = ak.fund_aum_trend_em()
+print(fund_aum_trend_em_df)
 ```
 
 数据示例
@@ -2447,7 +2446,7 @@ print(fund_em_aum_trend_df)
 
 #### 基金公司历年管理规模
 
-接口: fund_em_aum_hist
+接口: fund_aum_hist_em
 
 目标地址: http://fund.eastmoney.com/Company/lsgm.html
 
@@ -2480,8 +2479,8 @@ print(fund_em_aum_trend_df)
 ```python
 import akshare as ak
 
-fund_em_aum_hist_df = ak.fund_em_aum_hist(year="2020")
-print(fund_em_aum_hist_df)
+fund_aum_hist_em_df = ak.fund_aum_hist_em(year="2020")
+print(fund_aum_hist_em_df)
 ```
 
 数据示例
