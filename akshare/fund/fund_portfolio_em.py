@@ -116,6 +116,77 @@ def fund_portfolio_bond_hold_em(symbol: str = "000001", date: str = "2021") -> p
     return big_df
 
 
+def fund_portfolio_industry_allocation_em(symbol: str = "000001", date: str = "2021") -> pd.DataFrame:
+    """
+    天天基金网-基金档案-投资组合-行业配置
+    http://fundf10.eastmoney.com/hytz_000001.html
+    :param symbol: 基金代码
+    :type symbol: str
+    :param date: 查询年份
+    :type date: str
+    :return: 行业配置
+    :rtype: pandas.DataFrame
+    """
+    url = "http://api.fund.eastmoney.com/f10/HYPZ/"
+    headers = {
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Host': 'api.fund.eastmoney.com',
+        'Pragma': 'no-cache',
+        'Referer': 'http://fundf10.eastmoney.com/',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36',
+    }
+    params = {
+        'fundCode': symbol,
+        'year': date,
+        'callback': 'jQuery183006997159478989867_1648016188499',
+        '_': '1648016377955',
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    temp_list = []
+    for item in data_json["Data"]["QuarterInfos"]:
+        temp_list.extend(item["HYPZInfo"])
+    temp_df = pd.DataFrame(temp_list)
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = temp_df.index + 1
+    temp_df.columns = [
+        "序号",
+        "-",
+        "截止时间",
+        "-",
+        "行业类别",
+        "市值",
+        "-",
+        "占净值比例",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ]
+    temp_df = temp_df[
+        [
+            "序号",
+            "行业类别",
+            "占净值比例",
+            "市值",
+            "截止时间",
+        ]
+    ]
+    temp_df["市值"] = pd.to_numeric(temp_df["市值"])
+    temp_df["占净值比例"] = pd.to_numeric(temp_df["占净值比例"], errors="coerce")
+    return temp_df
+
+
 def fund_portfolio_change_em(
     symbol: str = "003567", indicator: str = "累计买入", date: str = "2020"
 ) -> pd.DataFrame:
@@ -194,6 +265,9 @@ if __name__ == "__main__":
 
     fund_portfolio_bond_hold_em_df = fund_portfolio_bond_hold_em(symbol="000001", date="2021")
     print(fund_portfolio_bond_hold_em_df)
+
+    fund_portfolio_industry_allocation_em_df = fund_portfolio_industry_allocation_em(symbol="000001", date="2021")
+    print(fund_portfolio_industry_allocation_em_df)
 
     fund_portfolio_change_em_df = fund_portfolio_change_em(
         symbol="003567", indicator="累计买入", date="2020"

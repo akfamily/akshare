@@ -1030,6 +1030,7 @@
  "fund_portfolio_bond_hold_em"  # 天天基金网-基金档案-投资组合-债券持仓
  # 投资组合-重大变动
  "fund_portfolio_change_em"  # 天天基金网-基金档案-投资组合-重大变动
+ "fund_portfolio_industry_allocation_em"  # 天天基金网-基金档案-投资组合-行业配置
 ```
 
 ## 案例演示
