@@ -2192,7 +2192,7 @@ print(fund_manager_df)
 
 ### 新发基金
 
-接口: fund_em_new_found
+接口: fund_new_found_em
 
 目标地址: http://fund.eastmoney.com/data/xinfound.html
 
@@ -2227,8 +2227,8 @@ print(fund_manager_df)
 ```python
 import akshare as ak
 
-fund_em_new_found_df = ak.fund_em_new_found()
-print(fund_em_new_found_df)
+fund_new_found_em_df = ak.fund_new_found_em()
+print(fund_new_found_em_df)
 ```
 
 数据示例
