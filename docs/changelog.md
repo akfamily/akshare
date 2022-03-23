@@ -8,7 +8,7 @@
 | 1.4.86     | fund_em_aum_trend | fund_aum_trend_em | 20220322 |
 | 1.4.86     | fund_em_aum       | fund_aum_em       | 20220322 |
 
-## 接口更新说明
+## 更新说明
 
 1.4.86 fix: fix rename all interface in fund_aum_em.py
 
