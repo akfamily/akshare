@@ -1907,9 +1907,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.84 fix: fix fund_portfolio_change_em interface
 1.4.85 add: add fund_portfolio_bond_hold_em interface
 1.4.86 fix: fix rename all interface in fund_aum_em.py
+1.4.87 add: add fund_portfolio_industry_allocation_em interface
 """
 
-__version__ = "1.4.86"
+__version__ = "1.4.87"
 __author__ = "AKFamily"
 
 import sys
@@ -2048,7 +2049,10 @@ from akshare.spot.spot_sge import (
 """
 富途牛牛-美股
 """
-from akshare.stock_feature.stock_us_hist_futunn import stock_us_hist_fu, stock_us_code_table_fu
+from akshare.stock_feature.stock_us_hist_futunn import (
+    stock_us_hist_fu,
+    stock_us_code_table_fu,
+)
 
 """
 股票回购
@@ -2633,7 +2637,12 @@ from akshare.futures.futures_to_spot import (
 """
 基金持仓
 """
-from akshare.fund.fund_portfolio_em import fund_portfolio_hold_em, fund_portfolio_change_em, fund_portfolio_bond_hold_em
+from akshare.fund.fund_portfolio_em import (
+    fund_portfolio_hold_em,
+    fund_portfolio_change_em,
+    fund_portfolio_bond_hold_em,
+    fund_portfolio_industry_allocation_em,
+)
 
 """
 债券概览

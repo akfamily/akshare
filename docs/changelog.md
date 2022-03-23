@@ -10,6 +10,10 @@
 
 ## 更新说明
 
+1.4.87 add: add fund_portfolio_industry_allocation_em interface
+
+    1. 新增 fund_portfolio_industry_allocation_em 接口，获取天天基金网-基金档案-投资组合-行业配置数据
+
 1.4.86 fix: fix rename all interface in fund_aum_em.py
 
     1. 修改 fund_em_aum_hist 接口，重名为 fund_aum_hist_em
@@ -199,6 +203,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.87 add: add fund_portfolio_industry_allocation_em interface
 
 1.4.86 fix: fix rename all interface in fund_aum_em.py
 
