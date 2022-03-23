@@ -4,11 +4,16 @@
 
 | AKShare 版本 | 旧接口名称             | 新接口名称             | 修改日期     |
 |------------|-------------------|-------------------|----------|
+| 1.4.88     | fund_em_new_found | fund_new_found_em | 20220323 |
 | 1.4.86     | fund_em_aum_hist  | fund_aum_hist_em  | 20220322 |
 | 1.4.86     | fund_em_aum_trend | fund_aum_trend_em | 20220322 |
 | 1.4.86     | fund_em_aum       | fund_aum_em       | 20220322 |
 
 ## 更新说明
+
+1.4.88 fix: fix fund_new_found_em interface
+    
+    1. 修复 fund_em_new_found 接口命名为 fund_new_found_em 接口
 
 1.4.87 add: add fund_portfolio_industry_allocation_em interface
 
@@ -203,6 +208,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.88 fix: fix fund_new_found_em interface
 
 1.4.87 add: add fund_portfolio_industry_allocation_em interface
 

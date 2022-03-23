@@ -11,7 +11,7 @@ import requests
 from akshare.utils import demjson
 
 
-def fund_em_new_found() -> pd.DataFrame:
+def fund_new_found_em() -> pd.DataFrame:
     """
     基金数据-新发基金-新成立基金
     http://fund.eastmoney.com/data/xinfound.html
@@ -78,5 +78,5 @@ def fund_em_new_found() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    fund_em_new_found_df = fund_em_new_found()
-    print(fund_em_new_found_df)
+    fund_new_found_em_df = fund_new_found_em()
+    print(fund_new_found_em_df)

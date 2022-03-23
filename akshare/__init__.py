@@ -1318,7 +1318,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.92: fix: fix stock_zh_a_daily interface
 0.8.93: fix: fix bond_spot_deal interface
 0.8.94: fix: fix stock_us_daily interface
-0.8.95: add: add fund_em_new_found interface
+0.8.95: add: add fund_new_found_em interface
 0.8.96: fix: fix get_czce_rank_table interface
 0.8.97: add: add stock_wc_hot_top interface
 0.8.98: add: add index_kq interface
@@ -1716,7 +1716,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.91 fix: fix fund_etf_hist_sina interface
 1.2.92 fix: fix futures_zh_spot interface
 1.2.93 fix: fix fund_manager interface
-1.2.94 fix: fix fund_em_new_found interface
+1.2.94 fix: fix fund_new_found_em interface
 1.2.95 add: add stock_individual_info_em interface
 1.2.96 fix: fix match_main_contract interface
 1.2.97 fix: fix stock_profit_forecast interface
@@ -1908,9 +1908,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.85 add: add fund_portfolio_bond_hold_em interface
 1.4.86 fix: fix rename all interface in fund_aum_em.py
 1.4.87 add: add fund_portfolio_industry_allocation_em interface
+1.4.88 fix: fix fund_new_found_em interface
 """
 
-__version__ = "1.4.87"
+__version__ = "1.4.88"
 __author__ = "AKFamily"
 
 import sys
@@ -2505,7 +2506,7 @@ from akshare.stock_feature.stock_wencai import stock_hot_rank_wc
 """
 新发基金
 """
-from akshare.fund.fund_em_init import fund_em_new_found
+from akshare.fund.fund_init_em import fund_new_found_em
 
 """
 高管持股
