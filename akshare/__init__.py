@@ -1911,9 +1911,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.88 fix: fix fund_new_found_em interface
 1.4.89 fix: fix stock_us_hist interface
 1.4.90 add: add macro_china_bank_financing interface
+1.4.91 fix: fix macro_china_new_financial_credit interface
 """
 
-__version__ = "1.4.90"
+__version__ = "1.4.91"
 __author__ = "AKFamily"
 
 import sys

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/31 16:08
+Date: 2022/3/24 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -1688,6 +1688,16 @@ def macro_china_new_financial_credit() -> pd.DataFrame:
     temp_df["当月-同比增长"] = temp_df["当月-同比增长"].str.replace("%", "")
     temp_df["当月-环比增长"] = temp_df["当月-环比增长"].str.replace("%", "")
     temp_df["累计-同比增长"] = temp_df["累计-同比增长"].str.replace("%", "")
+
+    temp_df['月份'] = pd.to_datetime(temp_df['月份']).dt.date
+    temp_df['当月'] = pd.to_numeric(temp_df['当月'])
+    temp_df['当月-同比增长'] = pd.to_numeric(temp_df['当月-同比增长'])
+    temp_df['当月-环比增长'] = pd.to_numeric(temp_df['当月-环比增长'])
+    temp_df['累计'] = pd.to_numeric(temp_df['累计'])
+    temp_df['累计-同比增长'] = pd.to_numeric(temp_df['累计-同比增长'])
+
+    temp_df.sort_values(['月份'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 

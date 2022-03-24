@@ -11,6 +11,10 @@
 
 ## 更新说明
 
+1.4.91 fix: fix macro_china_new_financial_credit interface
+
+    1. 修复 macro_china_new_financial_credit 接口，规范返回字段的类型和按时间排序
+
 1.4.90 add: add macro_china_bank_financing interface
 
     1. 新增 macro_china_bank_financing 接口，获取银行理财产品发行数量数据
@@ -216,6 +220,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.91 fix: fix macro_china_new_financial_credit interface
 
 1.4.90 add: add macro_china_bank_financing interface
 
