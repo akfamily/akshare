@@ -276,6 +276,7 @@
  "macro_china_new_house_price"  # 中国-新房价指数
  "macro_china_enterprise_boom_index"  # 中国-企业景气及企业家信心指数
  "macro_china_national_tax_receipts"  # 中国-全国税收收入
+ "macro_china_bank_financing"  # 中国-银行理财产品发行数量
  "macro_china_new_financial_credit"  # 中国-新增信贷数据
  "macro_china_fx_gold"  # 中国-外汇和黄金储备
  "macro_china_stock_market_cap"  # 中国-全国股票交易统计表
