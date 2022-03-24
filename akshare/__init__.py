@@ -1910,9 +1910,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.87 add: add fund_portfolio_industry_allocation_em interface
 1.4.88 fix: fix fund_new_found_em interface
 1.4.89 fix: fix stock_us_hist interface
+1.4.90 add: add macro_china_bank_financing interface
 """
 
-__version__ = "1.4.89"
+__version__ = "1.4.90"
 __author__ = "AKFamily"
 
 import sys

@@ -1612,6 +1612,51 @@ def macro_china_national_tax_receipts() -> pd.DataFrame:
     return temp_df
 
 
+# 中国-银行理财产品发行数量
+def macro_china_bank_financing() -> pd.DataFrame:
+    """
+    银行理财产品发行数量
+    https://data.eastmoney.com/cjsj/hyzs_list_EMI01516267.html
+    :return: 银行理财产品发行数量
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        'sortColumns': 'REPORT_DATE',
+        'sortTypes': '-1',
+        'pageSize': '1000',
+        'pageNumber': '1',
+        'reportName': 'RPT_INDUSTRY_INDEX',
+        'columns': 'REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y',
+        'filter': '(INDICATOR_ID="EMI01516267")',
+        'source': 'WEB',
+        'client': 'WEB',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']["data"])
+    temp_df.columns = ["日期",
+                       "最新值",
+                       "涨跌幅",
+                       '近3月涨跌幅',
+                       '近6月涨跌幅',
+                       '近1年涨跌幅',
+                       '近2年涨跌幅',
+                       '近3年涨跌幅',
+                       ]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["最新值"] = pd.to_numeric(temp_df["最新值"])
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
+    temp_df["近3月涨跌幅"] = pd.to_numeric(temp_df["近3月涨跌幅"])
+    temp_df["近6月涨跌幅"] = pd.to_numeric(temp_df["近6月涨跌幅"])
+    temp_df["近1年涨跌幅"] = pd.to_numeric(temp_df["近1年涨跌幅"])
+    temp_df["近2年涨跌幅"] = pd.to_numeric(temp_df["近2年涨跌幅"])
+    temp_df["近3年涨跌幅"] = pd.to_numeric(temp_df["近3年涨跌幅"])
+    temp_df.sort_values(['日期'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
+    return temp_df
+
+
 def macro_china_new_financial_credit() -> pd.DataFrame:
     """
     中国-新增信贷数据
