@@ -1912,9 +1912,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.89 fix: fix stock_us_hist interface
 1.4.90 add: add macro_china_bank_financing interface
 1.4.91 fix: fix macro_china_new_financial_credit interface
+1.4.92 add: add stock_lhb_hyyyb_em interface
 """
 
-__version__ = "1.4.91"
+__version__ = "1.4.92"
 __author__ = "AKFamily"
 
 import sys
@@ -1929,6 +1930,7 @@ del sys
 东方财富-股票数据-龙虎榜
 """
 from akshare.stock_feature.stock_lhb_em import (
+    stock_lhb_hyyyb_em,
     stock_lhb_detail_em,
     stock_lhb_stock_detail_em,
     stock_lhb_jgmmtj_em,
@@ -3648,6 +3650,7 @@ from akshare.economic.macro_usa import (
 全球宏观-中国宏观
 """
 from akshare.economic.macro_china import (
+    macro_china_bank_financing,
     macro_china_cpi_monthly,
     macro_china_cpi_yearly,
     macro_china_m2_yearly,
