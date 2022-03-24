@@ -914,7 +914,7 @@ def stock_us_spot_em() -> pd.DataFrame:
 
 
 def stock_us_hist(
-        symbol: str = "105.APCX",
+        symbol: str = "105.MSFT",
         period: str = "daily",
         start_date: str = "19700101",
         end_date: str = "22220101",
@@ -923,7 +923,7 @@ def stock_us_hist(
     """
     东方财富网-行情-美股-每日行情
     http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
-    :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em 的 `代码` 字段获取
+    :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em() 的 `代码` 字段获取
     :type symbol: str
     :param period: choice of {'daily', 'weekly', 'monthly'}
     :type period: str
@@ -981,6 +981,7 @@ def stock_us_hist(
     temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
     temp_df['换手率'] = pd.to_numeric(temp_df['换手率'])
+    temp_df.sort_values(['日期'], inplace=True)
     return temp_df
 
 

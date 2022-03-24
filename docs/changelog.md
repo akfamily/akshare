@@ -11,6 +11,10 @@
 
 ## 更新说明
 
+1.4.89 fix: fix stock_us_hist interface
+
+    1. 修复 stock_us_hist 接口，结果数据根据日期排序
+
 1.4.88 fix: fix fund_new_found_em interface
     
     1. 修复 fund_em_new_found 接口命名为 fund_new_found_em 接口
@@ -208,6 +212,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.89 fix: fix stock_us_hist interface
 
 1.4.88 fix: fix fund_new_found_em interface
 
