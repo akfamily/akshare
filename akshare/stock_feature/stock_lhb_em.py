@@ -258,6 +258,82 @@ def stock_lhb_jgmmtj_em(start_date: str = "20220311", end_date: str = "20220315"
     return temp_df
 
 
+def stock_lhb_hyyyb_em(start_date: str = "20220324", end_date: str = "20220324") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-龙虎榜单-每日活跃营业部
+    https://data.eastmoney.com/stock/jgmmtj.html
+    :param start_date: 开始日期
+    :type start_date: str
+    :param end_date: 结束日期
+    :type end_date: str
+    :return: 每日活跃营业部
+    :rtype: pandas.DataFrame
+    """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        'sortColumns': 'TOTAL_NETAMT,ONLIST_DATE,OPERATEDEPT_CODE',
+        'sortTypes': '-1,-1,1',
+        'pageSize': '5000',
+        'pageNumber': '1',
+        'reportName': 'RPT_OPERATEDEPT_ACTIVE',
+        'columns': 'ALL',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f"(ONLIST_DATE>='{start_date}')(ONLIST_DATE<='{end_date}')",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    from tqdm import tqdm
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page+1)):
+        params.update({'pageNumber': page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df.index + 1
+    big_df.columns = [
+        "序号",
+        "营业部名称",
+        "上榜日",
+        "买入个股数",
+        "卖出个股数",
+        "买入总金额",
+        "卖出总金额",
+        "总买卖净额",
+        "-",
+        "-",
+        "买入股票",
+        "-",
+        "-",
+    ]
+    big_df = big_df[
+        [
+            "序号",
+            "营业部名称",
+            "上榜日",
+            "买入个股数",
+            "卖出个股数",
+            "买入总金额",
+            "卖出总金额",
+            "总买卖净额",
+            "买入股票",
+        ]
+    ]
+
+    big_df["上榜日"] = pd.to_datetime(big_df["上榜日"]).dt.date
+    big_df["买入个股数"] = pd.to_numeric(big_df["买入个股数"])
+    big_df["卖出个股数"] = pd.to_numeric(big_df["卖出个股数"])
+    big_df["买入总金额"] = pd.to_numeric(big_df["买入总金额"])
+    big_df["卖出总金额"] = pd.to_numeric(big_df["卖出总金额"])
+    big_df["总买卖净额"] = pd.to_numeric(big_df["总买卖净额"])
+    return big_df
+
+
 def stock_lhb_stock_detail_date_em(symbol: str = "600077") -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-个股龙虎榜详情-日期
@@ -452,6 +528,9 @@ if __name__ == "__main__":
 
     stock_lhb_jgmmtj_em_df = stock_lhb_jgmmtj_em(start_date="20220311", end_date="20220315")
     print(stock_lhb_jgmmtj_em_df)
+
+    stock_lhb_hyyyb_em_df = stock_lhb_hyyyb_em(start_date="20220324", end_date="20220324")
+    print(stock_lhb_hyyyb_em_df)
 
     stock_lhb_stock_detail_date_em_df = stock_lhb_stock_detail_date_em(symbol="600077")
     print(stock_lhb_stock_detail_date_em_df)
