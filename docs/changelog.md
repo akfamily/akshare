@@ -11,6 +11,10 @@
 
 ## 更新说明
 
+1.4.93 add: add macro_china_insurance_income interface
+
+    1. 新增 macro_china_insurance_income 接口，获取原保险保费收入数据
+
 1.4.92 add: add stock_lhb_hyyyb_em interface
 
     1. 新增 stock_lhb_hyyyb_em 接口，获取东方财富网-数据中心-龙虎榜单-每日活跃营业部数据 
@@ -224,6 +228,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.93 add: add macro_china_insurance_income interface
 
 1.4.92 add: add stock_lhb_hyyyb_em interface
 
