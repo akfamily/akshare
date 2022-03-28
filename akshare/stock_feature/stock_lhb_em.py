@@ -5,8 +5,9 @@ Date: 2022/3/15 17:32
 Desc: 东方财富网-数据中心-龙虎榜单
 https://data.eastmoney.com/stock/tradedetail.html
 """
-import requests
 import pandas as pd
+import requests
+from tqdm import tqdm
 
 
 def stock_lhb_detail_em(
@@ -175,7 +176,9 @@ def stock_lhb_stock_statistic_em(symbol: str = "近一月") -> pd.DataFrame:
     return temp_df
 
 
-def stock_lhb_jgmmtj_em(start_date: str = "20220311", end_date: str = "20220315") -> pd.DataFrame:
+def stock_lhb_jgmmtj_em(
+    start_date: str = "20220311", end_date: str = "20220315"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-机构买卖每日统计
     https://data.eastmoney.com/stock/jgmmtj.html
@@ -190,15 +193,15 @@ def stock_lhb_jgmmtj_em(start_date: str = "20220311", end_date: str = "20220315"
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        'sortColumns': 'NET_BUY_AMT,TRADE_DATE,SECURITY_CODE',
-        'sortTypes': '-1,-1,1',
-        'pageSize': '5000',
-        'pageNumber': '1',
-        'reportName': 'RPT_ORGANIZATION_TRADE_DETAILS',
-        'columns': 'ALL',
-        'source': 'WEB',
-        'client': 'WEB',
-        'filter': f"(TRADE_DATE>='{start_date}')(TRADE_DATE<='{end_date}')",
+        "sortColumns": "NET_BUY_AMT,TRADE_DATE,SECURITY_CODE",
+        "sortTypes": "-1,-1,1",
+        "pageSize": "5000",
+        "pageNumber": "1",
+        "reportName": "RPT_ORGANIZATION_TRADE_DETAILS",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"(TRADE_DATE>='{start_date}')(TRADE_DATE<='{end_date}')",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -258,7 +261,9 @@ def stock_lhb_jgmmtj_em(start_date: str = "20220311", end_date: str = "20220315"
     return temp_df
 
 
-def stock_lhb_hyyyb_em(start_date: str = "20220324", end_date: str = "20220324") -> pd.DataFrame:
+def stock_lhb_hyyyb_em(
+    start_date: str = "20220324", end_date: str = "20220324"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-每日活跃营业部
     https://data.eastmoney.com/stock/jgmmtj.html
@@ -273,23 +278,23 @@ def stock_lhb_hyyyb_em(start_date: str = "20220324", end_date: str = "20220324")
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        'sortColumns': 'TOTAL_NETAMT,ONLIST_DATE,OPERATEDEPT_CODE',
-        'sortTypes': '-1,-1,1',
-        'pageSize': '5000',
-        'pageNumber': '1',
-        'reportName': 'RPT_OPERATEDEPT_ACTIVE',
-        'columns': 'ALL',
-        'source': 'WEB',
-        'client': 'WEB',
-        'filter': f"(ONLIST_DATE>='{start_date}')(ONLIST_DATE<='{end_date}')",
+        "sortColumns": "TOTAL_NETAMT,ONLIST_DATE,OPERATEDEPT_CODE",
+        "sortTypes": "-1,-1,1",
+        "pageSize": "5000",
+        "pageNumber": "1",
+        "reportName": "RPT_OPERATEDEPT_ACTIVE",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f"(ONLIST_DATE>='{start_date}')(ONLIST_DATE<='{end_date}')",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
-    from tqdm import tqdm
+
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page+1)):
-        params.update({'pageNumber': page})
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
@@ -345,15 +350,15 @@ def stock_lhb_stock_detail_date_em(symbol: str = "600077") -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        'reportName': 'RPT_LHB_BOARDDATE',
-        'columns': 'SECURITY_CODE,TRADE_DATE,TR_DATE',
-        'filter': f'(SECURITY_CODE="{symbol}")',
-        'pageNumber': '1',
-        'pageSize': '1000',
-        'sortTypes': '-1',
-        'sortColumns': 'TRADE_DATE',
-        'source': 'WEB',
-        'client': 'WEB',
+        "reportName": "RPT_LHB_BOARDDATE",
+        "columns": "SECURITY_CODE,TRADE_DATE,TR_DATE",
+        "filter": f'(SECURITY_CODE="{symbol}")',
+        "pageNumber": "1",
+        "pageSize": "1000",
+        "sortTypes": "-1",
+        "sortColumns": "TRADE_DATE",
+        "source": "WEB",
+        "client": "WEB",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -371,14 +376,15 @@ def stock_lhb_stock_detail_date_em(symbol: str = "600077") -> pd.DataFrame:
             "序号",
             "股票代码",
             "交易日",
-
         ]
     ]
-    temp_df['交易日'] = pd.to_datetime(temp_df['交易日']).dt.date
+    temp_df["交易日"] = pd.to_datetime(temp_df["交易日"]).dt.date
     return temp_df
 
 
-def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", flag: str = "卖出") -> pd.DataFrame:
+def stock_lhb_stock_detail_em(
+    symbol: str = "000788", date: str = "20220315", flag: str = "卖出"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-龙虎榜单-个股龙虎榜详情
     https://data.eastmoney.com/stock/lhb/600077.html
@@ -401,16 +407,16 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
     }
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        'reportName': report_map[flag],
-        'columns': 'ALL',
-        'filter': f"""(TRADE_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')(SECURITY_CODE="{symbol}")""",
-        'pageNumber': '1',
-        'pageSize': '500',
-        'sortTypes': '-1',
-        'sortColumns': flag_map[flag],
-        'source': 'WEB',
-        'client': 'WEB',
-        '_': '1647338693644',
+        "reportName": report_map[flag],
+        "columns": "ALL",
+        "filter": f"""(TRADE_DATE='{'-'.join([date[:4], date[4:6], date[6:]])}')(SECURITY_CODE="{symbol}")""",
+        "pageNumber": "1",
+        "pageSize": "500",
+        "sortTypes": "-1",
+        "sortColumns": flag_map[flag],
+        "source": "WEB",
+        "client": "WEB",
+        "_": "1647338693644",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -454,14 +460,14 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
                 "类型",
             ]
         ]
-        temp_df['卖出金额'] + temp_df['净额']
-        temp_df['买入金额'] = pd.to_numeric(temp_df['买入金额'])
-        temp_df['买入金额-占总成交比例'] = pd.to_numeric(temp_df['买入金额-占总成交比例'])
-        temp_df['卖出金额'] = pd.to_numeric(temp_df['卖出金额'])
-        temp_df['卖出金额-占总成交比例'] = pd.to_numeric(temp_df['卖出金额-占总成交比例'])
-        temp_df.sort_values('类型', inplace=True)
+        temp_df["卖出金额"] + temp_df["净额"]
+        temp_df["买入金额"] = pd.to_numeric(temp_df["买入金额"])
+        temp_df["买入金额-占总成交比例"] = pd.to_numeric(temp_df["买入金额-占总成交比例"])
+        temp_df["卖出金额"] = pd.to_numeric(temp_df["卖出金额"])
+        temp_df["卖出金额-占总成交比例"] = pd.to_numeric(temp_df["卖出金额-占总成交比例"])
+        temp_df.sort_values("类型", inplace=True)
         temp_df.reset_index(inplace=True, drop=True)
-        temp_df['序号'] = range(1, len(temp_df['序号'])+1)
+        temp_df["序号"] = range(1, len(temp_df["序号"]) + 1)
     else:
         temp_df.columns = [
             "序号",
@@ -498,13 +504,13 @@ def stock_lhb_stock_detail_em(symbol: str = "000788", date: str = "20220315", fl
                 "类型",
             ]
         ]
-        temp_df['买入金额'] = pd.to_numeric(temp_df['买入金额'])
-        temp_df['买入金额-占总成交比例'] = pd.to_numeric(temp_df['买入金额-占总成交比例'])
-        temp_df['卖出金额'] = pd.to_numeric(temp_df['卖出金额'])
-        temp_df['卖出金额-占总成交比例'] = pd.to_numeric(temp_df['卖出金额-占总成交比例'])
-        temp_df.sort_values('类型', inplace=True)
+        temp_df["买入金额"] = pd.to_numeric(temp_df["买入金额"])
+        temp_df["买入金额-占总成交比例"] = pd.to_numeric(temp_df["买入金额-占总成交比例"])
+        temp_df["卖出金额"] = pd.to_numeric(temp_df["卖出金额"])
+        temp_df["卖出金额-占总成交比例"] = pd.to_numeric(temp_df["卖出金额-占总成交比例"])
+        temp_df.sort_values("类型", inplace=True)
         temp_df.reset_index(inplace=True, drop=True)
-        temp_df['序号'] = range(1, len(temp_df['序号'])+1)
+        temp_df["序号"] = range(1, len(temp_df["序号"]) + 1)
     return temp_df
 
 
@@ -526,17 +532,25 @@ if __name__ == "__main__":
     stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(symbol="近一年")
     print(stock_lhb_stock_statistic_em_df)
 
-    stock_lhb_jgmmtj_em_df = stock_lhb_jgmmtj_em(start_date="20220311", end_date="20220315")
+    stock_lhb_jgmmtj_em_df = stock_lhb_jgmmtj_em(
+        start_date="20220311", end_date="20220315"
+    )
     print(stock_lhb_jgmmtj_em_df)
 
-    stock_lhb_hyyyb_em_df = stock_lhb_hyyyb_em(start_date="20220324", end_date="20220324")
+    stock_lhb_hyyyb_em_df = stock_lhb_hyyyb_em(
+        start_date="20220324", end_date="20220324"
+    )
     print(stock_lhb_hyyyb_em_df)
 
     stock_lhb_stock_detail_date_em_df = stock_lhb_stock_detail_date_em(symbol="600077")
     print(stock_lhb_stock_detail_date_em_df)
 
-    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(symbol="000788", date="20220315", flag="买入")
+    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(
+        symbol="000788", date="20220315", flag="买入"
+    )
     print(stock_lhb_stock_detail_em_df)
 
-    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(symbol="600077", date="20220315", flag="买入")
+    stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(
+        symbol="600016", date="20220324", flag="买入"
+    )
     print(stock_lhb_stock_detail_em_df)
