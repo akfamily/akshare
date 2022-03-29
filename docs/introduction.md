@@ -25,6 +25,7 @@
      - 数据科学家 06 期直播：利用 AKTools 搭建 AKShare 的 HTTP API 接口
      - 数据科学家 07 期直播：利用 Python 进行中文文本分析的相关库介绍
      - 数据科学家 08 期直播：手把手搭建本地数据科学环境
+     - 数据科学家 09 期直播：如何给开源项目贡献代码——以 AKShare 项目为例
    - ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
    
 ## 引用
