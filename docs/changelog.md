@@ -11,6 +11,10 @@
 
 ## 更新说明
 
+1.4.94 add: add macro_china_mobile_number interface
+
+    1. 新增 macro_china_mobile_number 接口，获取手机出货量数据
+
 1.4.93 add: add macro_china_insurance_income interface
 
     1. 新增 macro_china_insurance_income 接口，获取原保险保费收入数据
@@ -228,6 +232,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.94 add: add macro_china_mobile_number interface
 
 1.4.93 add: add macro_china_insurance_income interface
 
