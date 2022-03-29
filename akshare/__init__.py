@@ -1914,9 +1914,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.91 fix: fix macro_china_new_financial_credit interface
 1.4.92 add: add stock_lhb_hyyyb_em interface
 1.4.93 add: add macro_china_insurance_income interface
+1.4.94 add: add macro_china_mobile_number interface
 """
 
-__version__ = "1.4.93"
+__version__ = "1.4.94"
 __author__ = "AKFamily"
 
 import sys
@@ -3653,6 +3654,7 @@ from akshare.economic.macro_usa import (
 from akshare.economic.macro_china import (
     macro_china_bank_financing,
     macro_china_insurance_income,
+    macro_china_mobile_number,
     macro_china_cpi_monthly,
     macro_china_cpi_yearly,
     macro_china_m2_yearly,

@@ -1033,6 +1033,9 @@
  # 投资组合-重大变动
  "fund_portfolio_change_em"  # 天天基金网-基金档案-投资组合-重大变动
  "fund_portfolio_industry_allocation_em"  # 天天基金网-基金档案-投资组合-行业配置
+ # 中国宏观
+ "macro_china_insurance_income"  # 原保险保费收入
+ "macro_china_mobile_number"  # 手机出货量
 ```
 
 ## 案例演示
