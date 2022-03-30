@@ -1036,6 +1036,9 @@
  # 中国宏观
  "macro_china_insurance_income"  # 原保险保费收入
  "macro_china_mobile_number"  # 手机出货量
+ # 可转债溢价率分析和可转债价值分析
+ "bond_zh_cov_value_analysis"  # 可转债溢价率分析
+ "bond_zh_cov_value_analysis"  # 可转债价值分析
 ```
 
 ## 案例演示
