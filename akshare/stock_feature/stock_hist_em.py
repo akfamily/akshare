@@ -337,6 +337,7 @@ def stock_zh_a_hist(
     temp_df.index = pd.to_datetime(temp_df["日期"])
     temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(inplace=True, drop=True)
+
     temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
     temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
     temp_df['最高'] = pd.to_numeric(temp_df['最高'])
@@ -347,6 +348,7 @@ def stock_zh_a_hist(
     temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
     temp_df['换手率'] = pd.to_numeric(temp_df['换手率'])
+
     return temp_df
 
 
