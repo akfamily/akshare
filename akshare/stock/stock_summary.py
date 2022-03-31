@@ -102,7 +102,7 @@ def stock_sse_summary() -> pd.DataFrame:
     return temp_df
 
 
-def stock_sse_deal_daily(date: str = "20220225") -> pd.DataFrame:
+def stock_sse_deal_daily(date: str = "20220331") -> pd.DataFrame:
     """
     上海证券交易所-数据-股票数据-成交概况-股票成交概况-每日股票情况
     http://www.sse.com.cn/market/stockdata/overview/day/
@@ -216,7 +216,6 @@ def stock_sse_deal_daily(date: str = "20220225") -> pd.DataFrame:
             "-",
             "-",
             "-",
-            "-",
         ]
         temp_df = temp_df[[
             "单日情况",
@@ -260,6 +259,8 @@ def stock_sse_deal_daily(date: str = "20220225") -> pd.DataFrame:
         url = "http://query.sse.com.cn/commonQuery.do"
         params = {
             'sqlId': 'COMMON_SSE_SJ_GPSJ_CJGK_MRGK_C',
+            'PRODUCT_CODE': '01,02,03,11,17',
+            'type': 'inParams',
             'SEARCH_DATE': "-".join([date[:4], date[4:6], date[6:]]),
             '_': '1640836561673',
         }
@@ -272,31 +273,31 @@ def stock_sse_deal_daily(date: str = "20220225") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"])
         temp_df = temp_df.T
         temp_df.reset_index(inplace=True)
-        temp_df.columns = [
-            "单日情况",
-            "-",
-            "主板A",
-            "主板B",
-            "科创板",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-        ]
+        if len(temp_df.T) == 5:
+            temp_df.columns = [
+                "单日情况",
+                "主板A",
+                "主板B",
+                "科创板",
+                "股票",
+            ]
+            temp_df['股票回购'] = '-'
+        else:
+            temp_df.columns = [
+                "单日情况",
+                "主板A",
+                "主板B",
+                "科创板",
+                "股票回购",
+                "股票",
+            ]
         temp_df = temp_df[[
             "单日情况",
+            "股票",
             "主板A",
             "主板B",
             "科创板",
+            "股票回购",
         ]]
         temp_df["单日情况"] = [
             "市价总值",
@@ -329,6 +330,8 @@ def stock_sse_deal_daily(date: str = "20220225") -> pd.DataFrame:
         temp_df['主板A'] = pd.to_numeric(temp_df['主板A'], errors="coerce")
         temp_df['主板B'] = pd.to_numeric(temp_df['主板B'], errors="coerce")
         temp_df['科创板'] = pd.to_numeric(temp_df['科创板'], errors="coerce")
+        temp_df['股票'] = pd.to_numeric(temp_df['股票'], errors="coerce")
+        temp_df['股票回购'] = pd.to_numeric(temp_df['股票回购'], errors="coerce")
         return temp_df
 
 
