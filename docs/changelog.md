@@ -11,6 +11,10 @@
 
 ## 更新说明
 
+1.4.96 fix: fix stock_sse_deal_daily interface
+
+    1. 修复 stock_sse_deal_daily 接口，最近接口调用新的地址
+
 1.4.95 add: add bond_zh_cov_value_analysis interface
 
     1. 新增 bond_zh_cov_value_analysis 接口，获取可转债溢价率分析和可转债价值分析数据
@@ -236,6 +240,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.4.96 fix: fix stock_sse_deal_daily interface
 
 1.4.95 add: add bond_zh_cov_value_analysis interface
 

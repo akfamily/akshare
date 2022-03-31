@@ -108,7 +108,7 @@ def stock_lhb_stock_statistic_em(symbol: str = "近一月") -> pd.DataFrame:
     params = {
         "sortColumns": "BILLBOARD_TIMES,LATEST_TDATE,SECURITY_CODE",
         "sortTypes": "-1,-1,1",
-        "pageSize": "50",
+        "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_BILLBOARD_TRADEALL",
         "columns": "ALL",
@@ -460,7 +460,6 @@ def stock_lhb_stock_detail_em(
                 "类型",
             ]
         ]
-        temp_df["卖出金额"] + temp_df["净额"]
         temp_df["买入金额"] = pd.to_numeric(temp_df["买入金额"])
         temp_df["买入金额-占总成交比例"] = pd.to_numeric(temp_df["买入金额-占总成交比例"])
         temp_df["卖出金额"] = pd.to_numeric(temp_df["卖出金额"])
