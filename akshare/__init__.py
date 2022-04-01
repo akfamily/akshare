@@ -1917,9 +1917,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.94 add: add macro_china_mobile_number interface
 1.4.95 add: add bond_zh_cov_value_analysis interface
 1.4.96 fix: fix stock_sse_deal_daily interface
+1.4.97 fix: fix bond_spot_deal interface
 """
 
-__version__ = "1.4.96"
+__version__ = "1.4.97"
 __author__ = "AKFamily"
 
 import sys
