@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/3/24 16:08
+Date: 2022/4/1 16:08
 Desc: 金十数据-数据中心-中国-中国宏观
 https://datacenter.jin10.com/economic
 首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
@@ -1745,6 +1745,59 @@ def macro_china_mobile_number() -> pd.DataFrame:
     temp_df.sort_values(['日期'], inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df
+
+
+def macro_china_vegetable_basket() -> pd.DataFrame:
+    """
+    菜篮子产品批发价格指数
+    https://data.eastmoney.com/cjsj/hyzs_list_EMI00009275.html
+    :return: 菜篮子产品批发价格指数
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        'sortColumns': 'REPORT_DATE',
+        'sortTypes': '-1',
+        'pageSize': '500',
+        'pageNumber': '1',
+        'reportName': 'RPT_INDUSTRY_INDEX',
+        'columns': 'REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y',
+        'filter': '(INDICATOR_ID="EMI00009275")',
+        'source': 'WEB',
+        'client': 'WEB',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json['result']["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page+1), leave=False):
+        params.update({'pageNumber': page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df.drop_duplicates(inplace=True)
+    big_df.columns = [
+        "日期",
+        "最新值",
+        "涨跌幅",
+        '近3月涨跌幅',
+        '近6月涨跌幅',
+        '近1年涨跌幅',
+        '近2年涨跌幅',
+        '近3年涨跌幅',
+    ]
+    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df["最新值"] = pd.to_numeric(big_df["最新值"])
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
+    big_df["近3月涨跌幅"] = pd.to_numeric(big_df["近3月涨跌幅"])
+    big_df["近6月涨跌幅"] = pd.to_numeric(big_df["近6月涨跌幅"])
+    big_df["近1年涨跌幅"] = pd.to_numeric(big_df["近1年涨跌幅"])
+    big_df["近2年涨跌幅"] = pd.to_numeric(big_df["近2年涨跌幅"])
+    big_df["近3年涨跌幅"] = pd.to_numeric(big_df["近3年涨跌幅"])
+    big_df.sort_values(['日期'], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
 
 
 def macro_china_new_financial_credit() -> pd.DataFrame:
