@@ -1037,6 +1037,7 @@
  "macro_china_insurance_income"  # 原保险保费收入
  "macro_china_mobile_number"  # 手机出货量
  "macro_china_vegetable_basket"  # 菜篮子产品批发价格指数
+ "macro_china_agricultural_product"  # 农产品批发价格总指数
  # 可转债溢价率分析和可转债价值分析
  "bond_zh_cov_value_analysis"  # 可转债溢价率分析
  "bond_zh_cov_value_analysis"  # 可转债价值分析
