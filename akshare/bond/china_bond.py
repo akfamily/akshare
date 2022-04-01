@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/4/28 20:54
+Date: 2022/4/1 17:24
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
@@ -15,6 +15,8 @@ def bond_spot_quote() -> pd.DataFrame:
     """
     中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
     http://www.chinamoney.com.cn/chinese/mkdatabond/
+    :return: 现券市场做市报价
+    :rtype: pandas.DataFrame
     """
     url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbMktMakQuot"
     headers = {
@@ -71,6 +73,8 @@ def bond_spot_deal() -> pd.DataFrame:
     """
     中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
     http://www.chinamoney.com.cn/chinese/mkdatabond/
+    :return: 现券市场成交行情
+    :rtype: pandas.DataFrame
     """
     url = "http://www.chinamoney.com.cn/ags/ms/cm-u-md-bond/CbtPri"
     headers = {
@@ -117,11 +121,11 @@ def bond_spot_deal() -> pd.DataFrame:
             "交易量",
         ]
     ]
-    temp_df['成交净价'] = pd.to_numeric(temp_df['成交净价'])
+    temp_df['成交净价'] = pd.to_numeric(temp_df['成交净价'], errors="coerce")
     temp_df['最新收益率'] = pd.to_numeric(temp_df['最新收益率'], errors="coerce")
-    temp_df['涨跌'] = pd.to_numeric(temp_df['涨跌'])
+    temp_df['涨跌'] = pd.to_numeric(temp_df['涨跌'], errors="coerce")
     temp_df['加权收益率'] = pd.to_numeric(temp_df['加权收益率'], errors="coerce")
-    temp_df['交易量'] = pd.to_numeric(temp_df['交易量'])
+    temp_df['交易量'] = pd.to_numeric(temp_df['交易量'], errors="coerce")
     return temp_df
 
 
