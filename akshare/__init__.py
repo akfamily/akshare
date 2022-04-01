@@ -1920,9 +1920,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.97 fix: fix bond_spot_deal interface
 1.4.98 fix: fix stock_board_industry_hist_em interface
 1.4.99 add: add macro_china_vegetable_basket interface
+1.5.1 add: add macro_china_agricultural_product interface
 """
 
-__version__ = "1.4.99"
+__version__ = "1.5.1"
 __author__ = "AKFamily"
 
 import sys
@@ -3662,6 +3663,7 @@ from akshare.economic.macro_china import (
     macro_china_insurance_income,
     macro_china_mobile_number,
     macro_china_vegetable_basket,
+    macro_china_agricultural_product,
     macro_china_cpi_monthly,
     macro_china_cpi_yearly,
     macro_china_m2_yearly,
