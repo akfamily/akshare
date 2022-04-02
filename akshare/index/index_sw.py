@@ -415,11 +415,11 @@ if __name__ == "__main__":
     sw_index_second_spot_df = sw_index_second_spot()
     print(sw_index_second_spot_df)
 
-    sw_index_cons_df = sw_index_cons(symbol="801193")
+    sw_index_cons_df = sw_index_cons(symbol="801011")
     print(sw_index_cons_df)
 
     sw_index_daily_df = sw_index_daily(
-        symbol="801733", start_date="20001201", end_date="20211207"
+        symbol="801010", start_date="20191201", end_date="20191207"
     )
     print(sw_index_daily_df)
 
