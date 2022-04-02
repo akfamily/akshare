@@ -583,7 +583,7 @@ if __name__ == '__main__':
     stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="小家电")
     print(stock_board_industry_info_ths_df)
 
-    stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="小家电", start_date="20200101", end_date="20211027")
+    stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol="养殖业", start_date="20150101", end_date="20211027")
     print(stock_board_industry_index_ths_df)
 
     stock_ipo_benefit_ths_df = stock_ipo_benefit_ths()
