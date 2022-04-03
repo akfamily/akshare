@@ -1039,6 +1039,7 @@
  "macro_china_vegetable_basket"  # 菜篮子产品批发价格指数
  "macro_china_agricultural_product"  # 农产品批发价格总指数
  "macro_china_agricultural_index"  # 农副指数
+ "macro_china_energy_index"  # 能源指数
  # 可转债溢价率分析和可转债价值分析
  "bond_zh_cov_value_analysis"  # 可转债溢价率分析
  "bond_zh_cov_value_analysis"  # 可转债价值分析

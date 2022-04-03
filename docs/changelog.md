@@ -11,6 +11,10 @@
 
 ## 更新说明
 
+1.5.3 add: add macro_china_energy_index interface
+
+    1. 新增 macro_china_energy_index 接口，获取能源指数数据
+
 1.5.2 add: add macro_china_agricultural_index interface
 
     1. 新增 macro_china_agricultural_index 接口，获取农副指数数据
@@ -260,6 +264,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.3 add: add macro_china_energy_index interface
 
 1.5.2 add: add macro_china_agricultural_index interface
 
