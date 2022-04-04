@@ -1040,6 +1040,7 @@
  "macro_china_agricultural_product"  # 农产品批发价格总指数
  "macro_china_agricultural_index"  # 农副指数
  "macro_china_energy_index"  # 能源指数
+ "macro_china_commodity_price_index"  # 大宗商品价格
  # 可转债溢价率分析和可转债价值分析
  "bond_zh_cov_value_analysis"  # 可转债溢价率分析
  "bond_zh_cov_value_analysis"  # 可转债价值分析
