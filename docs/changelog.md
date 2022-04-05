@@ -11,6 +11,10 @@
 
 ## 更新说明
 
+1.5.5 add: add macro_global_sox_index interface
+
+    1. 新增 macro_global_sox_index 接口，获取费城半导体指数数据
+
 1.5.4 add: add macro_china_commodity_price_index interface
 
     1. 新增 macro_china_commodity_price_index 接口，获取大宗商品价格数据
@@ -268,6 +272,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.5 add: add macro_global_sox_index interface
 
 1.5.4 add: add macro_china_commodity_price_index interface
 
