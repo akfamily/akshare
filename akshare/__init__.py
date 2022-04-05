@@ -1924,9 +1924,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.2 add: add macro_china_agricultural_index interface
 1.5.3 add: add macro_china_energy_index interface
 1.5.4 add: add macro_china_commodity_price_index interface
+1.5.5 add: add macro_global_sox_index interface
 """
 
-__version__ = "1.5.4"
+__version__ = "1.5.5"
 __author__ = "AKFamily"
 
 import sys
@@ -3670,6 +3671,7 @@ from akshare.economic.macro_china import (
     macro_china_agricultural_index,
     macro_china_energy_index,
     macro_china_commodity_price_index,
+    macro_global_sox_index,
     macro_china_cpi_monthly,
     macro_china_cpi_yearly,
     macro_china_m2_yearly,
