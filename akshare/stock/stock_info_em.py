@@ -39,6 +39,7 @@ def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:
     del temp_df['svr']
     del temp_df['lt']
     del temp_df['full']
+    del temp_df['dlmkts']
     code_name_map = {
         'f57': '股票代码',
         'f58': '股票简称',
