@@ -304,12 +304,12 @@ def macro_euro_manufacturing_pmi():
 
 
 # 金十数据中心-经济指标-欧元区-产业指标-欧元区服务业PMI终值报告
-def macro_euro_services_pmi():
+def macro_euro_services_pmi() -> pd.DataFrame:
     """
-    欧元区服务业PMI终值报告, 数据区间从20080222-至今
+    欧元区服务业PMI终值报告, 数据区间从 20080222-至今
     https://datacenter.jin10.com/reportType/dc_eurozone_services_pmi
     https://cdn.jin10.com/dc/reports/dc_eurozone_services_pmi_all.js?v=1578577639
-    :return:欧元区服务业PMI终值报告-今值
+    :return: 欧元区服务业PMI终值报告-今值
     :rtype: pandas.Series
     """
     t = time.time()
@@ -475,13 +475,16 @@ if __name__ == "__main__":
     # 金十数据中心-经济指标-欧元区-产业指标-欧元区制造业PMI初值报告
     macro_euro_manufacturing_pmi_df = macro_euro_manufacturing_pmi()
     print(macro_euro_manufacturing_pmi_df)
+
     # 金十数据中心-经济指标-欧元区-产业指标-欧元区服务业PMI终值报告
     macro_euro_services_pmi_df = macro_euro_services_pmi()
     print(macro_euro_services_pmi_df)
+
     # 金十数据中心-经济指标-欧元区-领先指标
     # 金十数据中心-经济指标-欧元区-领先指标-欧元区ZEW经济景气指数报告
     macro_euro_zew_economic_sentiment_df = macro_euro_zew_economic_sentiment()
     print(macro_euro_zew_economic_sentiment_df)
+
     # 金十数据中心-经济指标-欧元区-领先指标-欧元区Sentix投资者信心指数报告
     macro_euro_sentix_investor_confidence_df = macro_euro_sentix_investor_confidence()
     print(macro_euro_sentix_investor_confidence_df)
@@ -489,6 +492,7 @@ if __name__ == "__main__":
     # 金十数据中心-伦敦金属交易所(LME)-持仓报告
     macro_euro_lme_holding_df = macro_euro_lme_holding()
     print(macro_euro_lme_holding_df)
+
     # 金十数据中心-伦敦金属交易所(LME)-库存报告
     macro_euro_lme_stock_df = macro_euro_lme_stock()
     print(macro_euro_lme_stock_df)

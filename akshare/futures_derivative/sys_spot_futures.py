@@ -5,11 +5,9 @@ Date: 2020/5/9 17:25
 Desc: 生意社-商品与期货-现期图: 图片和表格
 http://www.100ppi.com/sf/792.html
 """
-from io import BytesIO
 
 import pandas as pd
 import requests
-from PIL import Image
 from bs4 import BeautifulSoup
 
 
@@ -28,72 +26,26 @@ def get_sys_spot_futures_dict() -> dict:
     return name_url_dict
 
 
-def get_sys_spot_futures(symbol: str = "铜", plot: bool = False) -> pd.DataFrame:
+def get_sys_spot_futures(symbol: str = "铜") -> pd.DataFrame:
     """
     生意社-商品与期货-现期图: 图和表格
     :param symbol: str 品种
-    :param plot: Bool
     :return: pd.DataFrame or pic
-    日期       现货价格 主力合约 最近合约
-    07-30  594.25  586  595
-    08-08  589.25  577  577
-    08-17  578.25    -    -
-    08-26  584.25  588  586
-    09-04  581.25  588  571
-    09-13  587.25    -    -
-    09-22  588.25    -    -
-    10-01  588.25    -    -
-    10-10  586.25  565  581
-    10-19  579.25    -    -
-    10-27  572.25    -    -
-    日期        基差率
-    07-30   1.25%
-    08-08   1.98%
-    08-17       -
-    08-26  -0.71%
-    09-04  -1.26%
-    09-13       -
-    09-22       -
-    10-01       -
-    10-10   3.59%
-    10-19       -
-    10-27       -
-    日期      主力基差
-    07-30   7.45
-    08-08  11.65
-    08-17      -
-    08-26  -4.15
-    09-04  -7.35
-    09-13      -
-    09-22      -
-    10-01      -
-    10-10  21.05
-    10-19      -
-    10-27      -
     """
     name_url_dict = get_sys_spot_futures_dict()
     url = name_url_dict[symbol]
     res = requests.get(url)
-    soup = BeautifulSoup(res.text, "lxml")
-    temp_item = [item.find("img")["src"] for item in soup.find("div", attrs={"class": "content_left fl"}).find_all("div", attrs={"class": "pic"})]
     table_df_one = pd.read_html(res.text, header=0, index_col=0)[1].T
     table_df_two = pd.read_html(res.text, header=0, index_col=0)[2].T
     table_df_three = pd.read_html(res.text, header=0, index_col=0)[3].T
-    if plot:
-        for item_url in temp_item:
-            res = requests.get(item_url)
-            f = Image.open(BytesIO(res.content))
-            f.show()
-        return table_df_one, table_df_two, table_df_three
-    else:
-        return table_df_one, table_df_two, table_df_three
+    return table_df_one, table_df_two, table_df_three
 
 
 if __name__ == "__main__":
     get_sys_spot_futures_dict_map = get_sys_spot_futures_dict()
     print(get_sys_spot_futures_dict_map)
 
-    df_one, df_two, df_three = get_sys_spot_futures(symbol="白银", plot=False)
+    df_one, df_two, df_three = get_sys_spot_futures(symbol="白银")
     print(df_one)
     print(df_two)
     print(df_three)

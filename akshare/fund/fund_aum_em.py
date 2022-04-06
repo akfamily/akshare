@@ -8,7 +8,7 @@ import pandas as pd
 import requests
 
 
-def fund_em_aum() -> pd.DataFrame:
+def fund_aum_em() -> pd.DataFrame:
     """
     东方财富-基金-基金公司排名列表
     http://fund.eastmoney.com/Company/lsgm.html
@@ -33,7 +33,7 @@ def fund_em_aum() -> pd.DataFrame:
     return temp_df
 
 
-def fund_em_aum_trend() -> pd.DataFrame:
+def fund_aum_trend_em() -> pd.DataFrame:
     """
     东方财富-基金-基金市场管理规模走势图
     http://fund.eastmoney.com/Company/default.html
@@ -52,7 +52,7 @@ def fund_em_aum_trend() -> pd.DataFrame:
     return temp_df
 
 
-def fund_em_aum_hist(year: str = "2019") -> pd.DataFrame:
+def fund_aum_hist_em(year: str = "2019") -> pd.DataFrame:
     """
     东方财富-基金-基金公司历年管理规模排行列表
     http://fund.eastmoney.com/Company/lsgm.html
@@ -77,11 +77,11 @@ def fund_em_aum_hist(year: str = "2019") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    fund_em_aum_df = fund_em_aum()
-    print(fund_em_aum_df)
+    fund_aum_em_df = fund_aum_em()
+    print(fund_aum_em_df)
 
-    fund_em_aum_trend_df = fund_em_aum_trend()
-    print(fund_em_aum_trend_df)
+    fund_aum_trend_em_df = fund_aum_trend_em()
+    print(fund_aum_trend_em_df)
 
-    fund_em_aum_hist_df = fund_em_aum_hist(year="2020")
+    fund_em_aum_hist_df = fund_aum_hist_em(year="2020")
     print(fund_em_aum_hist_df)

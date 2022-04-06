@@ -698,38 +698,56 @@ print(air_quality_hebei_df)
 
 #### 城市列表
 
-接口: air_city_list
+接口: air_city_table
 
 目标地址: https://www.aqistudy.cn/
 
-描述: 获取所有空气质量数据的城市列表
+描述: 所有能获取空气质量数据的城市表
 
-限量: 单次返回所有可以获取的城市的列表
+限量: 单次返回所有可以获取的城市表数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-|  168城市列表     | list  | Y        | list  |
+| 名称      | 类型      | 描述  |
+|---------|---------|-----|
+| 序号      | int64   | -   |
+| 省份      | object  | -   |
+| 城市      | object  | -   |
+| AQI     | float64 | -   |
+| 空气质量    | object  | -   |
+| PM2.5浓度 | object  | -   |
+| 首要污染物   | object  | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-air_city_list_map = ak.air_city_list()
-print(air_city_list_map)
+
+air_city_table_df = ak.air_city_table()
+print(air_city_table_df)
 ```
 
 数据示例
 
 ```
-['北京', '廊坊', '承德', '唐山', '晋城', '保定', '德阳', '秦皇岛', '天津', '朝阳', '临汾', '运城', '成都', '焦作', '长治', '锦州', '绵阳', '资阳', '葫芦岛', '广安', '长春', '石家庄', '三门峡', '兰州', '沧州', '沈阳', '哈尔滨', '衡水', '洛阳', '滨州', '眉山', '东营', '阳泉', '内江', '铜川', '宜宾', '淄博', '邢台', '晋中', '自贡', '新乡', '安阳', '邯郸', '南充', '忻州', '临沂', '太原', '重庆', '乐山', '潍坊', '张家口', '济南', '德州', '聊城', '鹤壁', '青岛', '亳州', '日照', '枣庄', '西安', '咸阳', '宝鸡', '宿州', '泰安', '商丘', '达州', '济宁', '南阳', '吕梁', '连云港', '雅安', '郑州', '南昌', '阜阳', '渭南', '周口', '宿迁', '许昌', '武汉', '徐州', '开封', '泸州', '平顶山', '驻马店', '信阳', '菏泽', '淮南', '漯河', '朔州', '孝感', '濮阳', '杭州', '呼和浩特', '银川', '遂宁', '随州', '湖州', '襄阳', '淮安', '宜昌', '益阳', '淮北', '常州', '泰州', '拉萨', '包头', '蚌埠', '盐城', '六安', '西宁', '岳阳', '九江', '镇江', '苏州', '广州', '贵阳', '大同', '乌鲁木齐', '荆门', '铜陵', '新余', '扬州', '鄂州', '南通', '常德', '荆州', '无锡', '长沙', '咸宁', '嘉兴', '衢州', '大连', '黄冈', '温州', '厦门', '黄石', '绍兴', '合肥', '宜春', '上海', '昆明', '福州', '株洲', '金华', '南京', '湘潭', '丽水', '马鞍山', '萍乡', '宣城', '芜湖', '滁州', '安庆', '池州', '佛山', '黄山', '江门', '南宁', '台州', '惠州', '宁波', '肇庆', '舟山', '中山', '东莞', '深圳', '珠海', '海口']
+      序号  省份  城市    AQI  空气质量    PM2.5浓度 首要污染物
+0      1  北京  北京  204.0  重度污染  108 ug/m3    O3
+1      2  河北  廊坊  199.0  中度污染   54 ug/m3    O3
+2      3  河北  承德  198.0  中度污染   59 ug/m3    O3
+3      4  河北  唐山  176.0  中度污染   74 ug/m3    O3
+4      5  山西  晋城  164.0  中度污染   51 ug/m3    O3
+..   ...  ..  ..    ...   ...        ...   ...
+163  164  广东  中山   40.0     优   19 ug/m3   NaN
+164  165  广东  东莞   39.0     优   20 ug/m3   NaN
+165  166  广东  深圳   38.0     优   21 ug/m3   NaN
+166  167  广东  珠海   34.0     优   17 ug/m3   NaN
+167  168  海南  海口   32.0     优   14 ug/m3   NaN
 ```
 
 #### 空气质量历史数据
@@ -744,39 +762,40 @@ print(air_city_list_map)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| city | str | Y | city="北京"; 调用 air_city_list 接口获取所有城市列表 |
-| period | str | Y | period="day"; "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据 |
-| start_date | str | Y | start_date="2020-03-20"; 注意 **start_date** 和 **end_date** 跨度不宜过长 |
-| end_date | str | Y | end_date="2020-04-27"; 注意 **start_date** 和 **end_date** 跨度不宜过长 |
+| 名称         | 类型  | 描述                                                                             |
+|------------|-----|--------------------------------------------------------------------------------|
+| city       | str | city="北京"; 调用 ak.air_city_table() 接口获取所有城市列表                                   |
+| period     | str | period="day"; "hour": 每小时一个数据, 由于数据量比较大, 下载较慢; "day": 每天一个数据; "month": 每个月一个数据 |
+| start_date | str | start_date="20200320"; 注意 **start_date** 和 **end_date** 跨度不宜过长                 |
+| end_date   | str | end_date="20200427"; 注意 **start_date** 和 **end_date** 跨度不宜过长                   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| time      | str   | Y        | 日期时间索引  |
-| aqi      | str   | Y        | AQI  |
-| pm2_5      | float   | Y        | PM2.5   |
-| pm10     | str   | Y        | PM10  |
-| co      | float   | Y        | CO   |
-| no2      | str   | Y        | NO2  |
-| o3      | str   | Y        | O3  |
-| so2      | str   | Y        | SO2  |
-| complexindex      | str   | Y        | 综合指数  |
-| rank      | str   | Y        | 排名  |
-| primary_pollutant      | str   | Y        | 主要污染物  |
-| temp      | str   | Y        | 温度  |
-| humi      | str   | Y        | 湿度  |
-| windlevel      | str   | Y        | 风级  |
-| winddirection      | str   | Y        | 风向  |
-| weather      | str   | Y        | 天气  |
+| 名称                | 类型      | 描述     |
+|-------------------|---------|--------|
+| time              | object  | 日期时间索引 |
+| aqi               | object  | AQI    |
+| pm2_5             | float64 | PM2.5  |
+| pm10              | object  | PM10   |
+| co                | float64 | CO     |
+| no2               | object  | NO2    |
+| o3                | object  | O3     |
+| so2               | object  | SO2    |
+| complexindex      | object  | 综合指数   |
+| rank              | object  | 排名     |
+| primary_pollutant | object  | 主要污染物  |
+| temp              | object  | 温度     |
+| humi              | object  | 湿度     |
+| windlevel         | object  | 风级     |
+| winddirection     | object  | 风向     |
+| weather           | object  | 天气     |
 
 接口示例-小时频率
 
 ```python
 import akshare as ak
-air_quality_hist_df = ak.air_quality_hist(city="北京", period="hour", start_date="2020-04-25", end_date="2020-04-27")
+
+air_quality_hist_df = ak.air_quality_hist(city="北京", period="hour", start_date="20200425", end_date="20200427")
 print(air_quality_hist_df)
 ```
 
@@ -801,7 +820,8 @@ print(air_quality_hist_df)
 
 ```python
 import akshare as ak
-air_quality_hist_df = ak.air_quality_hist(city="北京", period="day", start_date="2020-03-20", end_date="2020-04-27")
+
+air_quality_hist_df = ak.air_quality_hist(city="北京", period="day", start_date="20200320", end_date="20200427")
 print(air_quality_hist_df)
 ```
 
@@ -854,7 +874,8 @@ print(air_quality_hist_df)
 
 ```python
 import akshare as ak
-air_quality_hist_df = ak.air_quality_hist(city="北京", period="month", start_date="2019-04-25", end_date="2020-04-27")
+
+air_quality_hist_df = ak.air_quality_hist(city="北京", period="month", start_date="20190425", end_date="20200427")
 print(air_quality_hist_df)
 ```
 
@@ -881,33 +902,34 @@ print(air_quality_hist_df)
 
 目标地址: https://www.zq12369.com/environment.php
 
-描述: 获取指定 **date** 时间点上所有城市(168个)的空气质量数据
+描述: 获取指定 date 时间点上所有城市(168个)的空气质量数据
 
 限量: 单次返回所有的数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="2020-03-12"; "实时": 当前时刻空气质量排名; "2020-03-12": 当日空气质量排名; "2020-03": 当月空气质量排名; "2019": 当年空气质量排名; |
+| 名称   | 类型  | 描述                                                                                       |
+|------|-----|------------------------------------------------------------------------------------------|
+| date | str | date=""; "": 当前时刻空气质量排名, 默认; "20200312": 当日空气质量排名; "202003": 当月空气质量排名; "2019": 当年空气质量排名; |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 降序      | str  | Y        | 排名  |
-| 省份      | str   | Y        | -  |
-| 城市      | str   | Y        | -   |
-| AQI     | float   | Y        | -  |
-| 空气质量      | str   | Y        | -   |
-| PM2.5浓度      | str   | Y        | -  |
-| 首要污染物      | str   | Y        | -  |
+| 名称      | 类型    | 描述  |
+|---------|-------|-----|
+| 降序      | str   | 排名  |
+| 省份      | str   | -   |
+| 城市      | str   | -   |
+| AQI     | float | -   |
+| 空气质量    | str   | -   |
+| PM2.5浓度 | str   | -   |
+| 首要污染物   | str   | -   |
 
 接口示例-实时
 
 ```python
 import akshare as ak
-air_quality_rank_df = ak.air_quality_rank(date="实时")
+
+air_quality_rank_df = ak.air_quality_rank(date="")
 print(air_quality_rank_df)
 ```
 
@@ -1017,7 +1039,7 @@ print(air_quality_rank_df)
 
 | 名称   | 类型 | 必选 | 描述                                                                              |
 | -------- | ---- | ---- | --- |
-| city | str | Y | city="杭州"; 调用 air_city_list 接口获取所有城市列表 | |
+| city | str | Y | city="杭州"; 调用 air_city_table 接口获取所有城市列表 | |
 | start_date | str | Y | start_date="2018-01-01" |
 | end_date | str | Y | end_date="2020-04-27" |
 
@@ -2572,23 +2594,24 @@ print(nicorn_company_df)
 
 输入参数
 
-| 名称   | 类型 |  描述                |
-| -------- | ---- |  --- |
-| -     | -   | -     -  |  
+| 名称  | 类型  | 描述      |
+|-----|-----|---------|
+| -   | -   | -     - |  
 
 输出参数
 
-| 名称          | 类型 | 描述       |
-| --------------- | ----- |  ------------ |
-| 序号     | int32   |  -  |  
-| 公司     | object   |  - |  
-| 行业    | object   |  -  |  
-| 地区    | object   |  -  |
+| 名称  | 类型     | 描述  |
+|-----|--------|-----|
+| 序号  | int32  | -   |  
+| 公司  | object | -   |  
+| 行业  | object | -   |  
+| 地区  | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 maxima_company_df = ak.maxima_company()
 print(maxima_company_df)
 ```
@@ -2610,419 +2633,45 @@ print(maxima_company_df)
 661  662      编程猫    教育  广东
 ```
 
-### 特许经营许可
-
-接口: franchise_china
-
-目标地址: http://txjy.syggs.mofcom.gov.cn/
-
-描述: 获取中国-特许经营许可数据
-
-限量: 单次返回所有特许经营许可数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 特许人名称      | str   | Y        | -  |
-| 备案时间      | str   | Y        | -  |
-| 地址      | str   | Y        | -   |
-
-接口示例
-
-```python
-import akshare as ak
-franchise_china_df = ak.franchise_china()
-print(franchise_china_df)
-```
-
-数据示例
-
-```
-                             特许人名称  ...                                                 地址
-0             特许人名称：深圳市百果园投资发展有限公司  ...                  地址：深圳市龙岗区南湾街道下李朗社区平吉大道1号建昇大厦B1305
-1                特许人名称：深圳市唯爱控股有限公司  ...                       地址：深圳市福田区福保街道石厦北三街4号雅云轩29楼A室
-2               特许人名称：广州绿色医药贸易有限公司  ...                      地址：广州市白云区京溪桥东侧广州新百佳小商品城B1303室
-3              特许人名称：广州萌茶茶餐饮管理有限公司  ...                         地址：广州市天河区黄埔大道中309号自编3-18-7
-4              特许人名称：福州汕之膳餐饮管理有限公司  ...     地址：福建省福州市台江区瀛洲街道江滨中大道116号君临闽江公寓1-7#楼连地下1层216铺位
-                            ...  ...                                                ...
-5395           特许人名称：北京车爵仕汽车用品有限公司  ...                          地址：北京市宣武区广安门外马连道路11号1125室
-5396          特许人名称：北京风尚引力投资顾问有限公司  ...                             地址：北京市大兴区魏善庄镇工业区龙江路95号
-5397          特许人名称：奥力赛克服装（北京）有限公司  ...                    地址：北京市宣武区宣武门外大街6号（庄胜广场北办公室楼902）
-5398        特许人名称：中达睿信投资管理(北京)有限公司  ...                 地址：北京市丰台区航丰路1号院2号楼1015、1016、1017房间
-5399  特许人名称：DDBR International LLC  ...  地址：The Corporation Trust Company, Corporation ...
-```
-
-### 慈善中国
-
-#### 慈善组织查询
-
-接口: charity_china_organization
-
-目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/a/csmhaindex.html
-
-描述: 获取慈善中国-慈善组织查询数据
-
-限量: 单次返回所有慈善中国-慈善组织查询数据, 但是要注意网络稳定性, 建议获取后存储
-
-输入参数
-
-| 名称   | 类型 |描述 |
-| -------- | ---- |  --- |
-| - | - | - |
-
-输出参数
-
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 序号      | str   |  -  |
-| 统一社会信用代码      | str   |  -  |
-| 组织名称      | str   |  -   |
-| 成立时间      | str   |  -   |
-| 登记管理机关      | str   |  -   |
-
-接口示例
-
-```python
-import akshare as ak
-charity_china_organization_df = ak.charity_china_organization()
-print(charity_china_organization_df)
-```
-
-数据示例
-
-```
-    序号            统一社会信用代码              组织名称          成立时间            登记管理机关
-0    1  53330000501876705E        温州市人民教育基金会   Jan 1, 1989            浙江省民政厅
-1    2  51440100572156377E        广州市乐善助学促进会  Mar 14, 2011            广州市民政局
-2    3  51440106C149234018         广州市天河区慈善会  Mar 26, 1995         广州市天河区民政局
-3    4  13220100013829643R           长春市红十字会  Nov 11, 1998        长春市机构编制委员会
-4    5  514206245037423566            南漳县慈善会   Apr 3, 1994             南漳民政局
-5    6  12420624MB1856281C           南漳县红十字会  Aug 13, 2018      南漳县事业单位登记管理局
-6    7  51370103MJD7207131          济南市中慈善总会  Aug 30, 2005         济南市市中区民政局
-7    8  13330726674784083R           浦江县红十字会  Jun 15, 2010        浦江县机构编制委员会
-8    9  13450100007578462M           南宁市红十字会  Dec 29, 2001        南宁市机构编制委员会
-9   10  51222402774243137N           图们市慈善总会  Aug 29, 2003            图们市民政局
-10  11  51110102500530454R          北京西城慈善协会  Sep 10, 1995         北京市西城区民政局
-11  12  12411402554217009W        商丘市梁园区红十字会  Oct 16, 1998       商丘市梁园区编制委员会
-12  13  51661200697824762N  新疆生产建设兵团第十二师红十字会  Oct 24, 2008           第十二师民政局
-13  14  11421304MB1C163392            随县红十字会  Sep 30, 2009  中共随县县委机构编制委员会办公室
-14  15  123203054665457747        徐州市贾汪区红十字会  Sep 20, 2012         徐州市贾汪区民政局
-```
-
-#### 慈善信托查询
-
-接口: charity_china_trust
-
-目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/e/csmheindex.html
-
-描述: 获取慈善中国-慈善信托查询数据
-
-限量: 单次返回所有慈善中国-慈善信托查询数据, 但是要注意网络稳定性, 建议获取后存储
-
-输入参数
-
-| 名称   | 类型 |  描述 |
-| -------- | ---- |  --- |
-| - | - | - |
-
-输出参数
-
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 序号      | str   |  -  |
-| 慈善信托名称      | str   |  -  |
-| 备案单位      | str   | -   |
-| 受托人      | str   |  -   |
-| 财产总规模（万元）      | str   |  -   |
-| 信托期限      | str   |  -   |
-
-接口示例
-
-```python
-import akshare as ak
-charity_china_trust_df = ak.charity_china_trust()
-print(charity_china_trust_df)
-```
-
-数据示例
-
-```
-    序号                    慈善信托名称  ... 财产总规模（万元）    信托期限
-0    1     华宝善行•抗击新型冠状病毒肺炎疫情慈善信托  ...    272.81      2年
-1    2           华信信托-抗击新型肺炎慈善信托  ...    100.00   无固定期限
-2    3        “上善”系列赴鄂救援抗击疫情慈善信托  ...    500.00      2年
-3    4                   泰来县红十字会  ...  30000.00      5年
-4    5  天信世嘉·信德众志成城抗击新型肺炎01期慈善信托  ...     50.00      1年
-5    6                  根生博爱慈善信托  ...    114.70      永续
-6    7         中融-深圳市慈善会托普思维慈善信托  ...     50.00      10
-7    8             重庆信托·温暖童心慈善信托  ...      7.00      1年
-8    9             华润信托•银杏乐天慈善信托  ...    100.00     10年
-9   10            光信善·益中专项教育慈善信托  ...   1000.00   无固定期限
-10  11      光信善·祥生扶贫1号阳光益投系列慈善信托  ...      5.00      2年
-11  12                    骏昆慈善信托  ...      5.00   无固定期限
-12  13          厦门信托-星之助公益进堂慈善信托  ...     12.00  不设固定期限
-13  14      光信善·瀚京尊享1号阳光益投系列慈善信托  ...     10.00      3年
-14  15                光信善·云焕慈善信托  ...     10.00      永续
-```
-
-#### 募捐方案备案
-
-接口: charity_china_plan
-
-目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/c/csmhcindex.html
-
-描述: 获取慈善中国-募捐方案备案数据
-
-限量: 单次返回所有慈善中国-募捐方案备案数据, 但是要注意网络稳定性, 建议获取后存储
-
-输入参数
-
-| 名称   | 类型 | 描述     |
-| -------- | ---- | --- |
-| - | - | - |
-
-输出参数
-
-| 名称          | 类型 | 描述           |
-| --------------- | ----- |  ---------------- |
-| 组织      | str   | -  |
-| 状态      | str   |  -  |
-| 名称      | str   |  -   |
-| 备案号      | str   |  -   |
-
-接口示例
-
-```python
-import akshare as ak
-charity_china_plan_df = ak.charity_china_plan()
-print(charity_china_plan_df)
-```
-
-数据示例
-
-```
-                 组织  ...                                备案号
-0           重庆市慈善总会  ...  募捐方案备案编号：51500000504029915YA20015
-1           重庆市慈善总会  ...  募捐方案备案编号：51500000504029915YA20014
-2           重庆市慈善总会  ...  募捐方案备案编号：51500000504029915YA20013
-3  新疆维吾尔族自治区资助教育基金会  ...  募捐方案备案编号：536501045762170776A20003
-4           钦州市红十字会  ...  募捐方案备案编号：13450700K32947229MA20001
-5           山东省红十字会  ...  募捐方案备案编号：133700000045025699A20001
-6           南宁市红十字会  ...  募捐方案备案编号：13450100007578462MA20001
-7       天祝藏族自治县红十字会  ...  募捐方案备案编号：11620623576286750DA20001
-```
-
-#### 慈善项目进展
-
-接口: charity_china_progress
-
-目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/b/csmhbindex.html
-
-描述: 获取慈善中国-慈善项目进展数据
-
-限量: 单次返回所有慈善中国-慈善项目进展数据, 但是要注意网络稳定性, 建议获取后存储
-
-输入参数
-
-| 名称   | 类型 |  描述     |
-| -------- | ---- | --- |
-| - | - | - |
-
-输出参数
-
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 组织      | str   | -  |
-| 名称      | str   |  -   |
-| 项目编号      | str   |  -   |
-| 发起慈善组织      | str   |  -   |
-| 项目状态      | str   | -   |
-
-接口示例
-
-```python
-import akshare as ak
-charity_china_progress_df = ak.charity_china_progress()
-print(charity_china_progress_df)
-```
-
-数据示例
-
-```
-          组织                             名称  ...     发起慈善组织 项目状态
-0  中国华侨公益基金会                爱步寒冷—冰雪徒步志愿服务项目  ...  中国华侨公益基金会  已完成
-1  中国华侨公益基金会      童沐书香 首都图书馆文化志愿服务讲故事智力脱贫项目  ...  中国华侨公益基金会  已完成
-2  中国华侨公益基金会                      经典导读，点亮心灯  ...  中国华侨公益基金会  已完成
-3  中国华侨公益基金会            山区帮扶励志“阳光小讲台”志愿服务活动  ...  中国华侨公益基金会  已完成
-4  中国华侨公益基金会                 青春守护点对点 关爱留守儿童  ...  中国华侨公益基金会  已完成
-5  中国华侨公益基金会                      爱心部落·公益超市  ...  中国华侨公益基金会  已完成
-6  中国华侨公益基金会             农村牧区“12345”扶贫攻坚义工队  ...  中国华侨公益基金会  已完成
-7  中国华侨公益基金会  “授渔”-呼和浩特天使公益协会山区贫困儿童家庭精准扶贫项目  ...  中国华侨公益基金会  已完成
-```
-
-#### 慈善组织年报
-
-接口: charity_china_report
-
-目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/d/csmhdindex.html
-
-描述: 获取慈善中国-慈善组织年报数据
-
-限量: 单次返回所有慈善中国-慈善组织年报数据, 但是要注意网络稳定性, 建议获取后存储
-
-输入参数
-
-| 名称   | 类型 | 描述  |
-| -------- | ---- | --- |
-| - | - | - |
-
-输出参数
-
-| 名称          | 类型 | 描述           |
-| --------------- | ----- |  ---------------- |
-| 序号      | str   | -  |
-| 统一社会信用代码      | str   |  -   |
-| 组织名称      | str   |  -   |
-| 社会组织类别      | str   | -   |
-| 年度      | str   | -   |
-| 操作      | str   |  提供下载 PDF 的地址   |
-
-接口示例
-
-```python
-import akshare as ak
-charity_china_report_df = ak.charity_china_report()
-print(charity_china_report_df)
-```
-
-数据示例
-
-```
-   序号  ...                                                 操作
-0   1  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-1   2  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-2   3  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-3   4  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-4   5  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-5   6  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-6   7  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-7   8  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-8   9  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-9  10  ...  http://cishan.chinanpo.gov.cn/mz/upload/pub/lo...
-```
-
-#### 募捐信息平台
-
-接口: charity_china_platform
-
-目标地址: http://cishan.chinanpo.gov.cn/biz/ma/csmh/h/csmhhindex.html
-
-描述: 获取慈善中国-募捐信息平台数据
-
-限量: 单次返回所有慈善中国-募捐信息平台数据, 但是要注意网络稳定性, 建议获取后存储
-
-输入参数
-
-| 名称   | 类型 | 描述  |
-| -------- | ---- | --- |
-| - | - |  - |
-
-输出参数
-
-| 名称          | 类型 | 描述           |
-| --------------- | ----- | ---------------- |
-| 网址      | str   |  -  |
-| 组织      | str   |  -   |
-| 名称      | str   |  -   |
-| 联系方式      | str   |  -   |
-
-接口示例
-
-```python
-import akshare as ak
-charity_china_platform_df = ak.charity_china_platform()
-print(charity_china_platform_df)
-```
-
-数据示例
-
-```
-                                                   网址  ...                       联系方式
-0                               http://gongyi.qq.com/  ...      gongyi_TS@tencent.com
-1                          https://gongyi.taobao.com/  ...              0571-88157858
-2                            https://love.alipay.com/  ...              0571-88158090
-3                             http://gongyi.weibo.com  ...               010-60618539
-4   http://gongyi.m.jd.com/index.html?&utm_source=...  ...               010-89126602
-5                            http://gongyi.baidu.com/  ...               010-50803597
-6                            http://www.gongyibao.cn/  ...               010-82609011
-7                           http://xhgy.xinhuanet.com  ...                 4000260110
-8                             https://www.qschou.com/  ...                   10101019
-9                  https://www.lianquan.org/index.jsp  ...           021-60146234-801
-10                               http://www.gyufc.org  ...                 4008599595
-11                          http://gongyi.meituan.com  ...                 4000810990
-12                                 javascript:void(0)  ...  didigongyi@didiglobal.com
-13                 https://www.shanyuanfoundation.com  ...        sygy@17shanyuan.com
-14  http://channels1.mall.icbc.com.cn/channels/pc/...  ...                 4009195588
-15                   http://www.shuidichou.com/gongyi  ...      gongyi@shuidichou.com
-16                          https://gongyi.suning.com  ...        gongyi@cnsuning.com
-17                        https://www.bangbangwang.cn  ...               010-85693651
-18                           http://gongyi.yeepay.com  ...               4001-500-800
-19                           http://www.zgshfp.com.cn  ...               400-600-1017
-20                             http://www.mca.gov.cn/  ...                       None
-21              http://www.chinanpo.gov.cn/index.html  ...                       None
-22                      http://www.chinavolunteer.cn/  ...                       None
-23               http://www.jianzai.gov.cn/DRpublish/  ...                       None
-24                         http://www.neusoft.com/cn/  ...                       None
-25                 http://www.foundationcenter.org.cn  ...                       None
-26                                                  #  ...                       None
-27                                                  #  ...                       None
-```
-
 ### 微博舆情报告
 
 接口: stock_js_weibo_report
 
 目标地址: https://datacenter.jin10.com/market
 
-描述: 获取微博舆情报告中近期受关注的股票
+描述: 微博舆情报告中近期受关注的股票
 
 限量: 单次返回指定时间内微博舆情报告中近期受关注的股票
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| time_period | str | Y | time_period="CNHOUR12"; 详见下表**time_period参数一览表**, 可通过调用 **stock_js_weibo_nlp_time** 获取|
+| 名称          | 类型  | 描述                                                                                     |
+|-------------|-----|----------------------------------------------------------------------------------------|
+| time_period | str | time_period="CNHOUR12"; 详见下表**time_period参数一览表**, 可通过调用 **stock_js_weibo_nlp_time** 获取 |
 
-time_period参数一览表
+time_period 参数一览表
 
-|参数|说明|
-|---|---|
-|CNHOUR2|2小时|
-|CNHOUR6|6小时|
-|CNHOUR12|12小时|
-|CNHOUR24|1天| 
-|CNDAY7|1周| 
-|CNDAY30|1月|
+| 参数       | 说明   |
+|----------|------|
+| CNHOUR2  | 2小时  |
+| CNHOUR6  | 6小时  |
+| CNHOUR12 | 12小时 |
+| CNHOUR24 | 1天   | 
+| CNDAY7   | 1周   | 
+| CNDAY30  | 1月   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| name      | str   | Y        | 股票名称  |
-| rate      | str   | Y        | 人气排行指数   |
+| 名称   | 类型  | 描述     |
+|------|-----|--------|
+| name | str | 股票名称   |
+| rate | str | 人气排行指数 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_js_weibo_report_df = ak.stock_js_weibo_report(time_period="CNHOUR12")
 print(stock_js_weibo_report_df)
 ```
@@ -3089,32 +2738,33 @@ print(stock_js_weibo_report_df)
 
 目标地址: https://www.bloomberg.com/billionaires/
 
-描述: 获取彭博亿万富豪指数, 全球前 500 名
+描述: 彭博亿万富豪指数, 全球前 500 名
 
 限量: 单次返回所有数据彭博亿万富豪排名数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | -|
+| 名称  | 类型  | 必选  | 描述  |
+|-----|-----|-----|-----|
+| -   | -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| rank      | str   | Y        | Rank  |
-| name      | str   | Y        | Name   |
-| total_net_worth      | str   | Y        | Total net worth   |
-| last_change      | str   | Y        | $ Last change   |
-| YTD_change      | str   | Y        | $ YTD change   |
-| country      | str   | Y        | Country   |
-| industry      | str   | Y        | Industry   |
+| 名称              | 类型  | 默认显示 | 描述              |
+|-----------------|-----|------|-----------------|
+| rank            | str | Y    | Rank            |
+| name            | str | Y    | Name            |
+| total_net_worth | str | Y    | Total net worth |
+| last_change     | str | Y    | $ Last change   |
+| YTD_change      | str | Y    | $ YTD change    |
+| country         | str | Y    | Country         |
+| industry        | str | Y    | Industry        |
 
 接口示例
 
 ```python
 import akshare as ak
+
 index_bloomberg_billionaires_df = ak.index_bloomberg_billionaires()
 print(index_bloomberg_billionaires_df)
 ```

@@ -6,7 +6,6 @@ Desc: 修大成主页-Risk Lab-Realized Volatility; Oxford-Man Institute of Quan
 """
 import json
 
-import matplotlib.pyplot as plt
 import pandas as pd
 import requests
 import urllib3
@@ -15,12 +14,11 @@ from bs4 import BeautifulSoup
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2", plot: bool = False) -> pd.DataFrame:
+def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2") -> pd.DataFrame:
     """
     Oxford-Man Institute of Quantitative Finance Realized Library 的数据
     :param symbol: str ['AEX', 'AORD', 'BFX', 'BSESN', 'BVLG', 'BVSP', 'DJI', 'FCHI', 'FTMIB', 'FTSE', 'GDAXI', 'GSPTSE', 'HSI', 'IBEX', 'IXIC', 'KS11', 'KSE', 'MXX', 'N225', 'NSEI', 'OMXC20', 'OMXHPI', 'OMXSPI', 'OSEAX', 'RUT', 'SMSI', 'SPX', 'SSEC', 'SSMI', 'STI', 'STOXX50E']
     :param index: str 指标 ['medrv', 'rk_twoscale', 'bv', 'rv10', 'rv5', 'rk_th2', 'rv10_ss', 'rsv', 'rv5_ss', 'bv_ss', 'rk_parzen', 'rsv_ss']
-    :param plot: Bool 是否画图
     :return: pandas.DataFrame
 
     The Oxford-Man Institute's "realised library" contains daily non-parametric measures of how volatility financial assets or indexes were in the past. Each day's volatility measure depends solely on financial data from that day. They are driven by the use of the latest innovations in econometric modelling and theory to design them, while we draw our high frequency data from the Thomson Reuters DataScope Tick History database. Realised measures are not volatility forecasts. However, some researchers use these measures as an input into forecasting models. The aim of this line of research is to make financial markets more transparent by exposing how volatility changes through time.
@@ -76,21 +74,13 @@ def article_oman_rv(symbol: str = "FTSE", index: str = "rk_th2", plot: bool = Fa
     temp_df = temp_df.iloc[:, 1]
     temp_df.index.name = "date"
     temp_df.name = f"{symbol}-{index}"
-    if plot:
-        temp_df.plot()
-        plt.title(title_list)
-        plt.legend()
-        plt.show()
-        return temp_df
-    else:
-        return temp_df
+    return temp_df
 
 
-def article_oman_rv_short(symbol: str = "FTSE", plot: str = False) -> pd.DataFrame:
+def article_oman_rv_short(symbol: str = "FTSE") -> pd.DataFrame:
     """
     Oxford-Man Institute of Quantitative Finance Realized Library 的数据
     :param symbol: str FTSE: FTSE 100, GDAXI: DAX, RUT: Russel 2000, SPX: S&P 500 Index, STOXX50E: EURO STOXX 50, SSEC: Shanghai Composite Index, N225: Nikkei 225
-    :param plot: Bool 是否画图
     :return: pandas.DataFrame
 
     The Oxford-Man Institute's "realised library" contains daily non-parametric measures of how volatility financial assets or indexes were in the past. Each day's volatility measure depends solely on financial data from that day. They are driven by the use of the latest innovations in econometric modelling and theory to design them, while we draw our high frequency data from the Thomson Reuters DataScope Tick History database. Realised measures are not volatility forecasts. However, some researchers use these measures as an input into forecasting models. The aim of this line of research is to make financial markets more transparent by exposing how volatility changes through time.
@@ -126,21 +116,13 @@ def article_oman_rv_short(symbol: str = "FTSE", plot: str = False) -> pd.DataFra
     temp_df = temp_df.iloc[:, 1]
     temp_df.index.name = "date"
     temp_df.name = f"{symbol}"
-    if plot:
-        temp_df.plot()
-        plt.title(title_list)
-        plt.legend()
-        plt.show()
-        return temp_df
-    else:
-        return temp_df
+    return temp_df
 
 
-def article_rlab_rv(symbol: str = "39693", plot: bool = False) -> pd.DataFrame:
+def article_rlab_rv(symbol: str = "39693") -> pd.DataFrame:
     """
     修大成主页-Risk Lab-Realized Volatility
     :param symbol: str 股票代码
-    :param plot: Bool 是否绘图
     :return: pandas.DataFrame
     1996-01-02    0.000000
     1996-01-04    0.000000
@@ -200,14 +182,7 @@ def article_rlab_rv(symbol: str = "39693", plot: bool = False) -> pd.DataFrame:
     data_se.name = "RV"
     temp_df = data_se.astype("float", errors="ignore")
     temp_df.index.name = "date"
-    if plot:
-        temp_df.plot()
-        plt.title("-".join(title_list))
-        plt.legend()
-        plt.show()
-        return temp_df
-    else:
-        return temp_df
+    return temp_df
 
 
 if __name__ == "__main__":

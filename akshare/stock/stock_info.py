@@ -436,8 +436,11 @@ def stock_info_a_code_name() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_info_sz_df = stock_info_sz_name_code(indicator="A股列表")
-    print(stock_info_sz_df)
+    stock_info_sh_name_code_df = stock_info_sh_name_code(indicator="主板A股")
+    print(stock_info_sh_name_code_df)
+
+    stock_info_sz_name_code_df = stock_info_sz_name_code(indicator="A股列表")
+    print(stock_info_sz_name_code_df)
 
     stock_info_sz_df = stock_info_sz_name_code(indicator="B股列表")
     print(stock_info_sz_df)

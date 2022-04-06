@@ -160,7 +160,7 @@
  "air_quality_hist"  # 空气质量历史数据
  "air_quality_rank"  # 空气质量排行
  "air_quality_watch_point"  # 空气质量观测点历史数据
- "air_city_list"  # 所有城市列表
+ "air_city_table"  # 所有城市列表
  # 财富世界五百强公司
  "fortune_rank"  # 获取财富世界500强公司历年排名
  # 中国证券投资基金业协会-信息公示
@@ -276,6 +276,7 @@
  "macro_china_new_house_price"  # 中国-新房价指数
  "macro_china_enterprise_boom_index"  # 中国-企业景气及企业家信心指数
  "macro_china_national_tax_receipts"  # 中国-全国税收收入
+ "macro_china_bank_financing"  # 中国-银行理财产品发行数量
  "macro_china_new_financial_credit"  # 中国-新增信贷数据
  "macro_china_fx_gold"  # 中国-外汇和黄金储备
  "macro_china_stock_market_cap"  # 中国-全国股票交易统计表
@@ -378,15 +379,6 @@
  "bond_cov_comparison"  # 债券-可转债数据比价
  "bond_cov_jsl"  # 可转债实时数据-集思录
  "bond_conv_adj_logs_jsl"  # 可转债转股价变动-集思录
- # 中国-商业特许经营数据
- "franchise_china"  # 中国-商业特许经营数据
- # 慈善中国
- "charity_china_organization"  # 慈善中国-慈善组织查询
- "charity_china_trust"  # 慈善中国-慈善信托查询
- "charity_china_plan"  # 慈善中国-募捐方案备案
- "charity_china_progress"  # 慈善中国-慈善项目进展
- "charity_china_report"  # 慈善中国-慈善组织年报
- "charity_china_platform"  # 慈善中国-募捐信息平台
  # 金融期权-新浪
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
@@ -462,13 +454,11 @@
  # 中国期货市场监控中心
  "futures_index_cscidx"  # 中国期货市场监控中心-指数
  # 打新收益率
- "stock_em_dxsyl"  # 打新收益率
- "stock_em_xgsglb"  # 新股申购与中签查询
+ "stock_dxsyl_em"  # 打新收益率
+ "stock_xgsglb_em"  # 新股申购与中签查询
  # 年报季报
  "stock_yjyg_em"  # 上市公司业绩预告
  "stock_yysj_em"  # 上市公司预约披露时间
- # 西本新干线-指数数据
- "futures_xgx_index"  # 西本新干线-指数数据
  # 高频数据-标普500指数
  "hf_sp_500"  # 获取标普500指数的分钟数据
  # 商品期货库存数据
@@ -608,7 +598,7 @@
  "macro_china_real_estate"  # 国房景气指数
  # 加密货币历史数据
  "crypto_hist"  # 加密货币历史数据
- "crypto_name_map"  # 加密货币货币名称
+ "crypto_name_url_table"  # 加密货币货币名称
  # 基金排行
  "fund_em_open_fund_rank"  # 开放式基金排行
  "fund_em_exchange_rank"  # 场内交易基金排行
@@ -678,7 +668,7 @@
  # 中美国债收益率
  "bond_zh_us_rate"  # 中美国债收益率
  # 分红配送
- "stock_em_fhps"  # 分红配送
+ "stock_fhps_em"  # 分红配送
  # 业绩快报
  "stock_yjkb_em"  # 业绩快报
  # 概念板块
@@ -710,7 +700,7 @@
  # 高管持股
  "stock_em_ggcg"  # 高管持股
  # 新发基金
- "fund_em_new_found"  # 新发基金
+ "fund_new_found_em"  # 新发基金
  # 柯桥指数
  "index_kq_fz"  # 柯桥纺织指数
  "index_kq_fashion"  # 柯桥时尚指数
@@ -768,9 +758,9 @@
  # 加密货币全球市场指数
  "crypto_crix"  # 加密货币全球市场指数
  # 基金规模和规模趋势
- "fund_em_aum"  # 基金公司规模排名列表
- "fund_em_aum_trend"  # 基金市场管理规模走势图
- "fund_em_aum_hist"  # 基金市场管理规模历史
+ "fund_aum_em"  # 基金公司规模排名列表
+ "fund_aum_trend_em"  # 基金市场管理规模走势图
+ "fund_aum_hist_em"  # 基金市场管理规模历史
  # 企业商品价格指数
  "macro_china_qyspjg"  # 企业商品价格指数
  "macro_china_fdi"  # 外商直接投资数据
@@ -788,6 +778,7 @@
  # 东方财富-概念板块
  "stock_board_concept_name_em"  # 概念板块-名称
  "stock_board_concept_hist_em"  # 概念板块-历史行情
+ "stock_board_concept_hist_min_em"  # 概念板块-分时历史行情
  "stock_board_concept_cons_em"  # 概念板块-板块成份
  # 瑞士-宏观
  "macro_swiss_svme"  # 瑞士-宏观-SVME采购经理人指数
@@ -961,6 +952,7 @@
  # 行业板块
  "stock_board_industry_cons_em"  # 行业板块-板块成份
  "stock_board_industry_hist_em"  # 行业板块-历史行情
+ "stock_board_industry_hist_min_em"  # 行业板块-分时历史行情
  "stock_board_industry_name_em"  # 行业板块-板块名称
  # 股票回购数据
  "stock_repurchase_em"  # 股票回购数据
@@ -1020,6 +1012,39 @@
  "index_zh_a_hist"  # 中国股票指数历史数据
  # 指数分时数据
  "index_zh_a_hist_min_em"  # 中国股票指数-指数分时数据
+ # 东方财富-个股人气榜
+ "stock_hot_rank_em"  # 东方财富-个股人气榜-人气榜
+ "stock_hot_rank_detail_em"  # 东方财富-个股人气榜-历史趋势及粉丝特征
+ "stock_hot_rank_detail_realtime_em"  # 东方财富-个股人气榜-实时变动
+ "stock_hot_keyword_em"  # 东方财富-个股人气榜-关键词
+ "stock_hot_rank_latest_em"  # 东方财富-个股人气榜-最新排名
+ "stock_hot_rank_relate_em"  # 东方财富-个股人气榜-相关股票
+ # 网易财经-行情首页-沪深 A 股-每日行情
+ "stock_zh_a_hist_163"  # 网易财经-行情首页-沪深 A 股-每日行情
+ # 东方财富-股票数据-龙虎榜
+ "stock_lhb_detail_em"  # 东方财富网-数据中心-龙虎榜单-龙虎榜详情
+ "stock_lhb_stock_statistic_em"  # 东方财富网-数据中心-龙虎榜单-个股上榜统计
+ "stock_lhb_stock_detail_em"  # 东方财富网-数据中心-龙虎榜单-个股龙虎榜详情
+ "stock_lhb_jgmmtj_em"  # 东方财富网-数据中心-龙虎榜单-机构买卖每日统计
+ "stock_lhb_hyyyb_em"  # 东方财富网-数据中心-龙虎榜单-每日活跃营业部
+ # 投资组合-基金持仓
+ "fund_portfolio_hold_em"  # 天天基金网-基金档案-投资组合-基金持仓
+ "fund_portfolio_bond_hold_em"  # 天天基金网-基金档案-投资组合-债券持仓
+ # 投资组合-重大变动
+ "fund_portfolio_change_em"  # 天天基金网-基金档案-投资组合-重大变动
+ "fund_portfolio_industry_allocation_em"  # 天天基金网-基金档案-投资组合-行业配置
+ # 中国宏观
+ "macro_china_insurance_income"  # 原保险保费收入
+ "macro_china_mobile_number"  # 手机出货量
+ "macro_china_vegetable_basket"  # 菜篮子产品批发价格指数
+ "macro_china_agricultural_product"  # 农产品批发价格总指数
+ "macro_china_agricultural_index"  # 农副指数
+ "macro_china_energy_index"  # 能源指数
+ "macro_china_commodity_price_index"  # 大宗商品价格
+ "macro_global_sox_index"  # 费城半导体指数
+ # 可转债溢价率分析和可转债价值分析
+ "bond_zh_cov_value_analysis"  # 可转债溢价率分析
+ "bond_zh_cov_value_analysis"  # 可转债价值分析
 ```
 
 ## 案例演示
@@ -1031,7 +1056,7 @@
 ```python
 import akshare as ak
 
-get_roll_yield_bar_df = ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718", plot=False)
+get_roll_yield_bar_df = ak.get_roll_yield_bar(type_method="date", var="RB", start_day="20180618", end_day="20180718")
 print(get_roll_yield_bar_df)
 ```
 

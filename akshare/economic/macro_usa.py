@@ -124,7 +124,7 @@ def macro_usa_gdp_monthly() -> pd.DataFrame:
 
 
 # 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告
-def macro_usa_cpi_monthly():
+def macro_usa_cpi_monthly() -> pd.DataFrame:
     """
     美国CPI月率报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_cpi
@@ -186,7 +186,7 @@ def macro_usa_cpi_monthly():
 
 
 # 金十数据中心-经济指标-美国-物价水平-美国核心CPI月率报告
-def macro_usa_core_cpi_monthly():
+def macro_usa_core_cpi_monthly() -> pd.DataFrame:
     """
     美国核心CPI月率报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_core_cpi
@@ -246,7 +246,7 @@ def macro_usa_core_cpi_monthly():
 
 
 # 金十数据中心-经济指标-美国-物价水平-美国个人支出月率报告
-def macro_usa_personal_spending():
+def macro_usa_personal_spending() -> pd.DataFrame:
     """
     美国个人支出月率报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_personal_spending
@@ -306,7 +306,7 @@ def macro_usa_personal_spending():
 
 
 # 金十数据中心-经济指标-美国-物价水平-美国零售销售月率报告
-def macro_usa_retail_sales():
+def macro_usa_retail_sales() -> pd.DataFrame:
     """
     美国零售销售月率报告, 数据区间从19920301-至今
     https://datacenter.jin10.com/reportType/dc_usa_retail_sales
@@ -366,7 +366,7 @@ def macro_usa_retail_sales():
 
 
 # 金十数据中心-经济指标-美国-物价水平-美国进口物价指数报告
-def macro_usa_import_price():
+def macro_usa_import_price() -> pd.DataFrame:
     """
     美国进口物价指数报告, 数据区间从19890201-至今
     https://datacenter.jin10.com/reportType/dc_usa_import_price
@@ -426,7 +426,7 @@ def macro_usa_import_price():
 
 
 # 金十数据中心-经济指标-美国-物价水平-美国出口价格指数报告
-def macro_usa_export_price():
+def macro_usa_export_price() -> pd.DataFrame:
     """
     美国出口价格指数报告, 数据区间从19890201-至今
     https://datacenter.jin10.com/reportType/dc_usa_export_price
@@ -486,7 +486,7 @@ def macro_usa_export_price():
 
 
 # 金十数据中心-经济指标-美国-劳动力市场-LMCI
-def macro_usa_lmci():
+def macro_usa_lmci() -> pd.DataFrame:
     """
     美联储劳动力市场状况指数报告, 数据区间从20141006-至今
     https://datacenter.jin10.com/reportType/dc_usa_lmci
@@ -548,7 +548,7 @@ def macro_usa_lmci():
 
 
 # 金十数据中心-经济指标-美国-劳动力市场-失业率-美国失业率报告
-def macro_usa_unemployment_rate():
+def macro_usa_unemployment_rate() -> pd.DataFrame:
     """
     美国失业率报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_unemployment_rate
@@ -609,7 +609,7 @@ def macro_usa_unemployment_rate():
 
 
 # 金十数据中心-经济指标-美国-劳动力市场-失业率-美国挑战者企业裁员人数报告
-def macro_usa_job_cuts():
+def macro_usa_job_cuts() -> pd.DataFrame:
     """
     美国挑战者企业裁员人数报告, 数据区间从19940201-至今
     https://datacenter.jin10.com/reportType/dc_usa_job_cuts
@@ -668,7 +668,7 @@ def macro_usa_job_cuts():
 
 
 # 金十数据中心-经济指标-美国-劳动力市场-就业人口-美国非农就业人数报告
-def macro_usa_non_farm():
+def macro_usa_non_farm() -> pd.DataFrame:
     """
     美国非农就业人数报告, 数据区间从19700102-至今
     https://datacenter.jin10.com/reportType/dc_nonfarm_payrolls
@@ -729,7 +729,7 @@ def macro_usa_non_farm():
 
 
 # 金十数据中心-经济指标-美国-劳动力市场-就业人口-美国ADP就业人数报告
-def macro_usa_adp_employment():
+def macro_usa_adp_employment() -> pd.DataFrame:
     """
     美国ADP就业人数报告, 数据区间从20010601-至今
     https://datacenter.jin10.com/reportType/dc_adp_nonfarm_employment
@@ -790,7 +790,7 @@ def macro_usa_adp_employment():
 
 
 # 金十数据中心-经济指标-美国-劳动力市场-消费者收入与支出-美国核心PCE物价指数年率报告
-def macro_usa_core_pce_price():
+def macro_usa_core_pce_price() -> pd.DataFrame:
     """
     美国核心PCE物价指数年率报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_core_pce_price
@@ -851,7 +851,7 @@ def macro_usa_core_pce_price():
 
 
 # 金十数据中心-经济指标-美国-劳动力市场-消费者收入与支出-美国实际个人消费支出季率初值报告
-def macro_usa_real_consumer_spending():
+def macro_usa_real_consumer_spending() -> pd.DataFrame:
     """
     美国实际个人消费支出季率初值报告, 数据区间从20131107-至今
     https://datacenter.jin10.com/reportType/dc_usa_real_consumer_spending
@@ -910,7 +910,7 @@ def macro_usa_real_consumer_spending():
 
 
 # 金十数据中心-经济指标-美国-贸易状况-美国贸易帐报告
-def macro_usa_trade_balance():
+def macro_usa_trade_balance() -> pd.DataFrame:
     """
     美国贸易帐报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_trade_balance
@@ -969,7 +969,7 @@ def macro_usa_trade_balance():
 
 
 # 金十数据中心-经济指标-美国-贸易状况-美国经常帐报告
-def macro_usa_current_account():
+def macro_usa_current_account() -> pd.DataFrame:
     """
     美国经常帐报告, 数据区间从20080317-至今
     https://datacenter.jin10.com/reportType/dc_usa_current_account
@@ -1028,7 +1028,7 @@ def macro_usa_current_account():
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-贝克休斯钻井报告
-def macro_usa_rig_count():
+def macro_usa_rig_count() -> pd.DataFrame:
     """
     贝克休斯钻井报告, 数据区间从20080317-至今
     https://datacenter.jin10.com/reportType/dc_rig_count_summary
@@ -1059,7 +1059,7 @@ def macro_usa_rig_count():
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国生产者物价指数(PPI)报告
-def macro_usa_ppi():
+def macro_usa_ppi() -> pd.DataFrame:
     """
     美国生产者物价指数(PPI)报告, 数据区间从20080226-至今
     https://datacenter.jin10.com/reportType/dc_usa_ppi
@@ -1119,7 +1119,7 @@ def macro_usa_ppi():
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国核心生产者物价指数(PPI)报告
-def macro_usa_core_ppi():
+def macro_usa_core_ppi() -> pd.DataFrame:
     """
     美国核心生产者物价指数(PPI)报告, 数据区间从20080318-至今
     https://datacenter.jin10.com/reportType/dc_usa_core_ppi
@@ -1179,7 +1179,7 @@ def macro_usa_core_ppi():
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国API原油库存报告
-def macro_usa_api_crude_stock():
+def macro_usa_api_crude_stock() -> pd.DataFrame:
     """
     美国API原油库存报告, 数据区间从20120328-至今
     https://datacenter.jin10.com/reportType/dc_usa_api_crude_stock
@@ -1239,7 +1239,7 @@ def macro_usa_api_crude_stock():
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国Markit制造业PMI初值报告
-def macro_usa_pmi():
+def macro_usa_pmi() -> pd.DataFrame:
     """
     美国Markit制造业PMI初值报告, 数据区间从20120601-至今
     https://datacenter.jin10.com/reportType/dc_usa_pmi
@@ -1299,7 +1299,7 @@ def macro_usa_pmi():
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国ISM制造业PMI报告
-def macro_usa_ism_pmi():
+def macro_usa_ism_pmi() -> pd.DataFrame:
     """
     美国ISM制造业PMI报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_ism_pmi
@@ -1359,7 +1359,7 @@ def macro_usa_ism_pmi():
 
 
 # 金十数据中心-经济指标-美国-产业指标-工业-美国工业产出月率报告
-def macro_usa_industrial_production():
+def macro_usa_industrial_production() -> pd.DataFrame:
     """
     美国工业产出月率报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_industrial_production
@@ -1419,7 +1419,7 @@ def macro_usa_industrial_production():
 
 
 # 金十数据中心-经济指标-美国-产业指标-工业-美国耐用品订单月率报告
-def macro_usa_durable_goods_orders():
+def macro_usa_durable_goods_orders() -> pd.DataFrame:
     """
     美国耐用品订单月率报告, 数据区间从20080227-至今
     https://datacenter.jin10.com/reportType/dc_usa_durable_goods_orders
@@ -1479,7 +1479,7 @@ def macro_usa_durable_goods_orders():
 
 
 # 金十数据中心-经济指标-美国-产业指标-工业-美国工厂订单月率报告
-def macro_usa_factory_orders():
+def macro_usa_factory_orders() -> pd.DataFrame:
     """
     美国工厂订单月率报告, 数据区间从19920401-至今
     https://datacenter.jin10.com/reportType/dc_usa_factory_orders
@@ -1539,7 +1539,7 @@ def macro_usa_factory_orders():
 
 
 # 金十数据中心-经济指标-美国-产业指标-服务业-美国Markit服务业PMI初值报告
-def macro_usa_services_pmi():
+def macro_usa_services_pmi() -> pd.DataFrame:
     """
     美国Markit服务业PMI初值报告, 数据区间从20120701-至今
     https://datacenter.jin10.com/reportType/dc_usa_services_pmi
@@ -1599,7 +1599,7 @@ def macro_usa_services_pmi():
 
 
 # 金十数据中心-经济指标-美国-产业指标-服务业-美国商业库存月率报告
-def macro_usa_business_inventories():
+def macro_usa_business_inventories() -> pd.DataFrame:
     """
     美国商业库存月率报告, 数据区间从19920301-至今
     https://datacenter.jin10.com/reportType/dc_usa_business_inventories
@@ -1659,7 +1659,7 @@ def macro_usa_business_inventories():
 
 
 # 金十数据中心-经济指标-美国-产业指标-服务业-美国ISM非制造业PMI报告
-def macro_usa_ism_non_pmi():
+def macro_usa_ism_non_pmi() -> pd.DataFrame:
     """
     美国ISM非制造业PMI报告, 数据区间从19970801-至今
     https://datacenter.jin10.com/reportType/dc_usa_ism_non_pmi
@@ -1719,7 +1719,7 @@ def macro_usa_ism_non_pmi():
 
 
 # 金十数据中心-经济指标-美国-产业指标-房地产-美国NAHB房产市场指数报告
-def macro_usa_nahb_house_market_index():
+def macro_usa_nahb_house_market_index() -> pd.DataFrame:
     """
     美国NAHB房产市场指数报告, 数据区间从19850201-至今
     https://datacenter.jin10.com/reportType/dc_usa_nahb_house_market_index
@@ -1779,7 +1779,7 @@ def macro_usa_nahb_house_market_index():
 
 
 # 金十数据中心-经济指标-美国-产业指标-房地产-美国新屋开工总数年化报告
-def macro_usa_house_starts():
+def macro_usa_house_starts() -> pd.DataFrame:
     """
     美国新屋开工总数年化报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_house_starts
@@ -1839,7 +1839,7 @@ def macro_usa_house_starts():
 
 
 # 金十数据中心-经济指标-美国-产业指标-房地产-美国新屋销售总数年化报告
-def macro_usa_new_home_sales():
+def macro_usa_new_home_sales() -> pd.DataFrame:
     """
     美国新屋销售总数年化报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_new_home_sales
@@ -1899,7 +1899,7 @@ def macro_usa_new_home_sales():
 
 
 # 金十数据中心-经济指标-美国-产业指标-房地产-美国营建许可总数报告
-def macro_usa_building_permits():
+def macro_usa_building_permits() -> pd.DataFrame:
     """
     美国营建许可总数报告, 数据区间从20080220-至今
     https://datacenter.jin10.com/reportType/dc_usa_building_permits
@@ -1959,7 +1959,7 @@ def macro_usa_building_permits():
 
 
 # 金十数据中心-经济指标-美国-产业指标-房地产-美国成屋销售总数年化报告
-def macro_usa_exist_home_sales():
+def macro_usa_exist_home_sales() -> pd.DataFrame:
     """
     美国成屋销售总数年化报告, 数据区间从19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_exist_home_sales
@@ -2019,7 +2019,7 @@ def macro_usa_exist_home_sales():
 
 
 # 金十数据中心-经济指标-美国-产业指标-房地产-美国FHFA房价指数月率报告
-def macro_usa_house_price_index():
+def macro_usa_house_price_index() -> pd.DataFrame:
     """
     美国FHFA房价指数月率报告, 数据区间从19910301-至今
     https://datacenter.jin10.com/reportType/dc_usa_house_price_index
@@ -2079,7 +2079,7 @@ def macro_usa_house_price_index():
 
 
 # 金十数据中心-经济指标-美国-产业指标-房地产-美国S&P/CS20座大城市房价指数年率报告
-def macro_usa_spcs20():
+def macro_usa_spcs20() -> pd.DataFrame:
     """
     美国S&P/CS20座大城市房价指数年率报告, 数据区间从20010201-至今
     https://datacenter.jin10.com/reportType/dc_usa_spcs20
@@ -2139,7 +2139,7 @@ def macro_usa_spcs20():
 
 
 # 金十数据中心-经济指标-美国-产业指标-房地产-美国成屋签约销售指数月率报告
-def macro_usa_pending_home_sales():
+def macro_usa_pending_home_sales() -> pd.DataFrame:
     """
     美国成屋签约销售指数月率报告, 数据区间从20010301-至今
     https://datacenter.jin10.com/reportType/dc_usa_pending_home_sales
@@ -2199,7 +2199,7 @@ def macro_usa_pending_home_sales():
 
 
 # 金十数据中心-经济指标-美国-领先指标-美国谘商会消费者信心指数报告
-def macro_usa_cb_consumer_confidence():
+def macro_usa_cb_consumer_confidence() -> pd.DataFrame:
     """
     金十数据中心-经济指标-美国-领先指标-美国谘商会消费者信心指数报告, 数据区间从 19700101-至今
     https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v=1578576859
@@ -2258,7 +2258,7 @@ def macro_usa_cb_consumer_confidence():
 
 
 # 金十数据中心-经济指标-美国-领先指标-美国NFIB小型企业信心指数报告
-def macro_usa_nfib_small_business():
+def macro_usa_nfib_small_business() -> pd.DataFrame:
     """
     美国NFIB小型企业信心指数报告, 数据区间从19750201-至今
     https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v=1578576631
@@ -2316,7 +2316,7 @@ def macro_usa_nfib_small_business():
 
 
 # 金十数据中心-经济指标-美国-领先指标-美国密歇根大学消费者信心指数初值报告
-def macro_usa_michigan_consumer_sentiment():
+def macro_usa_michigan_consumer_sentiment() -> pd.DataFrame:
     """
     美国密歇根大学消费者信心指数初值报告, 数据区间从19700301-至今
     https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment
@@ -2374,7 +2374,7 @@ def macro_usa_michigan_consumer_sentiment():
 
 
 # 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
-def macro_usa_eia_crude_rate():
+def macro_usa_eia_crude_rate() -> pd.DataFrame:
     """
     美国EIA原油库存报告, 数据区间从19950801-至今
     https://datacenter.jin10.com/reportType/dc_eia_crude_oil
@@ -2445,7 +2445,7 @@ def macro_usa_eia_crude_rate():
 
 
 # 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
-def macro_usa_initial_jobless():
+def macro_usa_initial_jobless() -> pd.DataFrame:
     """
     美国初请失业金人数报告, 数据区间从19700101-至今
     :return: pandas.Series
@@ -2515,7 +2515,7 @@ def macro_usa_initial_jobless():
 
 
 # 金十数据中心-经济指标-美国-其他-美国原油产量报告
-def macro_usa_crude_inner():
+def macro_usa_crude_inner() -> pd.DataFrame:
     """
     美国原油产量报告, 数据区间从19830107-至今
     https://datacenter.jin10.com/reportType/dc_eia_crude_oil_produce
@@ -2550,7 +2550,7 @@ def macro_usa_crude_inner():
 
 
 # 金十数据中心-美国商品期货交易委员会CFTC外汇类非商业持仓报告
-def macro_usa_cftc_nc_holding():
+def macro_usa_cftc_nc_holding() -> pd.DataFrame:
     """
     美国商品期货交易委员会CFTC外汇类非商业持仓报告, 数据区间从 19830107-至今
     https://datacenter.jin10.com/reportType/dc_cftc_nc_report
@@ -2576,7 +2576,7 @@ def macro_usa_cftc_nc_holding():
 
 
 # 金十数据中心-美国商品期货交易委员会CFTC商品类非商业持仓报告
-def macro_usa_cftc_c_holding():
+def macro_usa_cftc_c_holding() -> pd.DataFrame:
     """
     美国商品期货交易委员会CFTC商品类非商业持仓报告, 数据区间从 19830107-至今
     https://datacenter.jin10.com/reportType/dc_cftc_c_report
@@ -2602,7 +2602,7 @@ def macro_usa_cftc_c_holding():
 
 
 # 金十数据中心-美国商品期货交易委员会CFTC外汇类商业持仓报告
-def macro_usa_cftc_merchant_currency_holding():
+def macro_usa_cftc_merchant_currency_holding() -> pd.DataFrame:
     """
     美国商品期货交易委员会CFTC外汇类商业持仓报告, 数据区间从 19860115-至今
     https://datacenter.jin10.com/reportType/dc_cftc_merchant_currency
@@ -2790,15 +2790,11 @@ if __name__ == "__main__":
     # 金十数据中心-经济指标-美国-其他-美国EIA原油库存报告
     macro_usa_eia_crude_rate_df = macro_usa_eia_crude_rate()
     print(macro_usa_eia_crude_rate_df)
+
     # 金十数据中心-经济指标-美国-其他-美国初请失业金人数报告
     macro_usa_initial_jobless_df = macro_usa_initial_jobless()
     print(macro_usa_initial_jobless_df)
-    # import matplotlib.pyplot as plt
-    # macro_usa_initial_jobless_df.plot()
-    # plt.title(macro_usa_initial_jobless_df.name)
-    # plt.xlabel("year")
-    # plt.ylabel("10 thousand")
-    # plt.show()
+
     # 金十数据中心-经济指标-美国-其他-美国原油产量报告
     macro_usa_crude_inner_df = macro_usa_crude_inner()
     print(macro_usa_crude_inner_df)

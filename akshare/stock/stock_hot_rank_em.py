@@ -11,7 +11,7 @@ import pandas as pd
 
 def stock_hot_rank_em() -> pd.DataFrame:
     """
-    东方财富个股人气榜-人气榜
+    东方财富-个股人气榜-人气榜
     http://guba.eastmoney.com/rank/
     :return: 人气榜
     :rtype: pandas.DataFrame
@@ -56,12 +56,14 @@ def stock_hot_rank_em() -> pd.DataFrame:
             "涨跌幅",
         ]
     ]
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     return temp_df
 
 
 def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
-    东方财富个股人气榜-历史趋势及粉丝特征
+    东方财富-个股人气榜-历史趋势及粉丝特征
     http://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
@@ -96,7 +98,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
 
 def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
-    东方财富个股人气榜-实时变动
+    东方财富-个股人气榜-实时变动
     http://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
@@ -119,7 +121,7 @@ def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
 
 def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
-    东方财富个股人气榜-关键词
+    东方财富-个股人气榜-关键词
     http://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
@@ -142,7 +144,7 @@ def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
 
 def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
-    东方财富个股人气榜-最新排名
+    东方财富-个股人气榜-最新排名
     http://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
@@ -166,7 +168,7 @@ def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
 
 def stock_hot_rank_relate_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
-    东方财富个股人气榜-相关股票
+    东方财富-个股人气榜-相关股票
     http://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
@@ -184,6 +186,8 @@ def stock_hot_rank_relate_em(symbol: str = "SZ000665") -> pd.DataFrame:
     temp_df = pd.DataFrame.from_dict(data_json['data'])
     temp_df.columns = ['时间', '-', '股票代码', '-', '相关股票代码', '涨跌幅', '-']
     temp_df = temp_df[['时间', '股票代码', '相关股票代码', '涨跌幅']]
+    temp_df['涨跌幅'] = temp_df['涨跌幅'].str.strip('%')
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     return temp_df
 
 

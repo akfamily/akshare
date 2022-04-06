@@ -25,58 +25,53 @@ def stock_em_gpzy_profile() -> pd.DataFrame:
     :return: 股权质押市场概况
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "ZD_SUM",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "tdate",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var zvxnZOnT={pages:(tp),data:(x),font:(font)}",
-        "rt": "52583914",
+        'sortColumns': 'TRADE_DATE',
+        'sortTypes': '-1',
+        'pageSize': '5000',
+        'pageNumber': '1',
+        'reportName': 'RPT_CSDC_STATISTICS',
+        'columns': 'ALL',
+        'quoteColumns':'',
+        'source': 'WEB',
+        'client': 'WEB',
     }
-    temp_df = pd.DataFrame()
-    res = requests.get(url, params=params)
-    data_text = res.text
-    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-    map_dict = dict(
-        zip(
-            pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-            pd.DataFrame(data_json["font"]["FontMapping"])["value"],
-        )
-    )
-    for key, value in map_dict.items():
-        data_text = data_text.replace(key, str(value))
-    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-    temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']['data'])
     temp_df.columns = [
         "交易日期",
-        "sc_zsz",
-        "平均质押比例(%)",
+        "质押总股数",
+        "质押总市值",
+        "沪深300指数",
         "涨跌幅",
-        "A股质押总比例(%)",
+        "A股质押总比例",
         "质押公司数量",
         "质押笔数",
-        "质押总股数(股)",
-        "质押总市值(元)",
-        "沪深300指数",
-    ]
+            ]
     temp_df = temp_df[
         [
             "交易日期",
-            "平均质押比例(%)",
-            "涨跌幅",
-            "A股质押总比例(%)",
+            "A股质押总比例",
             "质押公司数量",
             "质押笔数",
-            "质押总股数(股)",
-            "质押总市值(元)",
+            "质押总股数",
+            "质押总市值",
             "沪深300指数",
+            "涨跌幅",
         ]
     ]
-    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
+    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"]).dt.date
+    temp_df["A股质押总比例"] = pd.to_numeric(temp_df["A股质押总比例"])
+    temp_df["质押公司数量"] = pd.to_numeric(temp_df["质押公司数量"])
+    temp_df["质押笔数"] = pd.to_numeric(temp_df["质押笔数"])
+    temp_df["质押总股数"] = pd.to_numeric(temp_df["质押总股数"])
+    temp_df["质押总市值"] = pd.to_numeric(temp_df["质押总市值"])
+    temp_df["沪深300指数"] = pd.to_numeric(temp_df["沪深300指数"])
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
+
+    temp_df["A股质押总比例"] = temp_df["A股质押总比例"]/100
     return temp_df
 
 

@@ -29,8 +29,25 @@ def crypto_js_spot() -> pd.DataFrame:
     r = requests.get(bitcoin_url, params=bit_payload, headers=bitcoin_headers)
     data_json = r.json()
     data_df = pd.DataFrame(data_json["data"])
-    data_df.set_index("reported_at", drop=True, inplace=True)
-    data_df.index = pd.to_datetime(data_df.index)
+    data_df['reported_at'] = pd.to_datetime(data_df['reported_at'])
+    data_df.columns = [
+        '市场',
+        '交易品种',
+        '最近报价',
+        '涨跌额',
+        '涨跌幅',
+        '24小时最高',
+        '24小时最低',
+        '24小时成交量',
+        '更新时间',
+    ]
+    data_df['最近报价'] = pd.to_numeric(data_df['最近报价'])
+    data_df['涨跌额'] = pd.to_numeric(data_df['涨跌额'])
+    data_df['涨跌幅'] = pd.to_numeric(data_df['涨跌幅'])
+    data_df['24小时最高'] = pd.to_numeric(data_df['24小时最高'])
+    data_df['24小时最低'] = pd.to_numeric(data_df['24小时最低'])
+    data_df['24小时成交量'] = pd.to_numeric(data_df['24小时成交量'])
+    data_df['更新时间'] = data_df['更新时间'].astype(str)
     return data_df
 
 
@@ -127,5 +144,5 @@ if __name__ == "__main__":
     macro_fx_sentiment_df = macro_fx_sentiment(start_date=test_date, end_date=test_date)
     print(macro_fx_sentiment_df)
 
-    index_vix_df = index_vix(start_date='20210811', end_date='20210816')
+    index_vix_df = index_vix(start_date='20220314', end_date='20220315')
     print(index_vix_df)

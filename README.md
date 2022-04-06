@@ -1,3 +1,5 @@
+**《AKShare 源码解析》课程即将上线，可加入【知识星球-数据科学家】学习！应广大小伙伴的需求，特此开设 AKShare 源码解析课程，本课程会系统的给大家手把手讲解 AKShare 数据接口的源码及财经数据的网络数据采集知识！[点击链接](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492193&idx=2&sn=a02b305b57a4b0756d5842494de96011&chksm=eb221a0fdc5593196168927217fc8b5486ab43e479f13cc643096069bb829e4a50067534a0b2&mpshare=1&scene=23&srcid=0316bvNDuCQ9P2E08BgK1Bnt&sharer_sharetime=1647406328931&sharer_shareid=2a5935b93d26c84266d2170040c3643c#rd) 查看课程信息**
+
 **本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源**
 
 ![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare_logo.jpg)
@@ -29,13 +31,13 @@
 
 ### General
 
-```
+```shell
 pip install akshare --upgrade
 ```
 
 ### China
 
-```cmd
+```shell
 pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
 ```
 
@@ -47,13 +49,13 @@ Please check out [documentation](https://www.akshare.xyz/zh_CN/latest/contributo
 
 #### Pull images
 
-```
+```shell
 docker pull registry.cn-hangzhou.aliyuncs.com/akshare/akdocker
 ```
 
 #### Run AKDocker
 
-```
+```shell
 docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
 ```
 
@@ -61,6 +63,7 @@ docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
 
 ```python
 import akshare as ak
+
 ak.__version__
 ```
 
@@ -187,7 +190,7 @@ Looks like this:
 
 Please use this **bibtex** if you want to cite this repository in your publications:
 
-```
+```markdown
 @misc{akshare,
     author = {Albert King},
     title = {AKShare},

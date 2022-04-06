@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/4/29 14:30
+Date: 2022/3/22 14:30
 Desc: 基金数据-新发基金-新成立基金
 http://fund.eastmoney.com/data/xinfound.html
 """
@@ -11,7 +11,7 @@ import requests
 from akshare.utils import demjson
 
 
-def fund_em_new_found() -> pd.DataFrame:
+def fund_new_found_em() -> pd.DataFrame:
     """
     基金数据-新发基金-新成立基金
     http://fund.eastmoney.com/data/xinfound.html
@@ -67,14 +67,16 @@ def fund_em_new_found() -> pd.DataFrame:
             "优惠费率",
         ]
     ]
+
     temp_df['募集份额'] = pd.to_numeric(temp_df['募集份额'])
     temp_df['成立日期'] = pd.to_datetime(temp_df['成立日期']).dt.date
     temp_df['成立来涨幅'] = pd.to_numeric(temp_df['成立来涨幅'].str.replace(',', ''))
     temp_df['优惠费率'] = temp_df['优惠费率'].str.strip("%")
     temp_df['优惠费率'] = pd.to_numeric(temp_df['优惠费率'])
+
     return temp_df
 
 
 if __name__ == "__main__":
-    fund_em_new_found_df = fund_em_new_found()
-    print(fund_em_new_found_df)
+    fund_new_found_em_df = fund_new_found_em()
+    print(fund_new_found_em_df)

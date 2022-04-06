@@ -2,18 +2,15 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2019/12/2 22:24
-Desc: 获取微博指数
+Desc: 微博指数
 """
-import re
 import datetime
+import re
 
 import pandas as pd
 import requests
-import matplotlib.pyplot as plt
 
 from akshare.index.cons import index_weibo_headers  # 伪装游览器, 必备
-
-plt.rcParams["font.sans-serif"] = ["SimHei"]  # 显示中文标签
 
 
 def _get_items(word="股票"):
@@ -79,5 +76,3 @@ def weibo_index(word="python", time_type="3month"):
 if __name__ == "__main__":
     df_index = weibo_index(word="口罩", time_type="1hour")
     print(df_index)
-    df_index.plot()
-    plt.show()

@@ -232,7 +232,7 @@ def code_id_map_em() -> dict:
     r = requests.get(url, params=params)
     data_json = r.json()
     if not data_json["data"]["diff"]:
-        return pd.DataFrame()
+        return dict()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df["market_id"] = 1
     temp_df.columns = ["sh_code", "sh_id"]
@@ -253,7 +253,7 @@ def code_id_map_em() -> dict:
     r = requests.get(url, params=params)
     data_json = r.json()
     if not data_json["data"]["diff"]:
-        return pd.DataFrame()
+        return dict()
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["sz_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
@@ -273,7 +273,7 @@ def code_id_map_em() -> dict:
     r = requests.get(url, params=params)
     data_json = r.json()
     if not data_json["data"]["diff"]:
-        return pd.DataFrame()
+        return dict()
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["bj_id"] = 0
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["bj_id"])))
@@ -282,7 +282,7 @@ def code_id_map_em() -> dict:
 
 def stock_zh_a_hist(
         symbol: str = "000016",
-        period: str = 'daily',
+        period: str = "daily",
         start_date: str = "19700101",
         end_date: str = "22220101",
         adjust: str = "",
@@ -337,6 +337,7 @@ def stock_zh_a_hist(
     temp_df.index = pd.to_datetime(temp_df["日期"])
     temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(inplace=True, drop=True)
+
     temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
     temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
     temp_df['最高'] = pd.to_numeric(temp_df['最高'])
@@ -347,6 +348,7 @@ def stock_zh_a_hist(
     temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
     temp_df['换手率'] = pd.to_numeric(temp_df['换手率'])
+
     return temp_df
 
 
@@ -914,7 +916,7 @@ def stock_us_spot_em() -> pd.DataFrame:
 
 
 def stock_us_hist(
-        symbol: str = "105.APCX",
+        symbol: str = "105.MSFT",
         period: str = "daily",
         start_date: str = "19700101",
         end_date: str = "22220101",
@@ -923,7 +925,7 @@ def stock_us_hist(
     """
     东方财富网-行情-美股-每日行情
     http://quote.eastmoney.com/us/ENTX.html#fullScreenChart
-    :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em 的 `代码` 字段获取
+    :param symbol: 股票代码; 此股票代码需要通过调用 ak.stock_us_spot_em() 的 `代码` 字段获取
     :type symbol: str
     :param period: choice of {'daily', 'weekly', 'monthly'}
     :type period: str
@@ -981,6 +983,7 @@ def stock_us_hist(
     temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
     temp_df['换手率'] = pd.to_numeric(temp_df['换手率'])
+    temp_df.sort_values(['日期'], inplace=True)
     return temp_df
 
 
@@ -1062,7 +1065,7 @@ if __name__ == "__main__":
     print(stock_us_spot_em_df)
 
     stock_us_hist_df = stock_us_hist(
-        symbol="105.LCID", period="weekly", start_date="19700101", end_date="22220101", adjust="qfq"
+        symbol="105.TKNO", period="weekly", start_date="19700101", end_date="22220101", adjust="qfq"
     )
     print(stock_us_hist_df)
 
@@ -1083,10 +1086,13 @@ if __name__ == "__main__":
     stock_hk_hist_min_em_df = stock_hk_hist_min_em(symbol="01611")
     print(stock_hk_hist_min_em_df)
 
-    stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="105.ATER")
+    stock_us_spot_em_df = stock_us_spot_em()
+    print(stock_us_spot_em_df)
+
+    stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="106.TTE")
     print(stock_us_hist_min_em_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454", period='5', adjust='hfq', start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2022-02-22 09:32:00", end_date="2022-02-24 09:32:00")
     print(stock_zh_a_hist_min_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(symbol="833454", period="daily", start_date="20170301", end_date='20211115', adjust="hfq")

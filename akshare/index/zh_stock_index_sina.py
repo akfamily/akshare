@@ -8,7 +8,6 @@ https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 import datetime
 import re
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
@@ -21,6 +20,7 @@ from akshare.index.cons import (
     zh_sina_index_stock_hist_url,
 )
 from akshare.stock.cons import hk_js_decode
+from akshare.utils import demjson
 
 
 def _replace_comma(x):
@@ -31,7 +31,7 @@ def _replace_comma(x):
     :return: 处理后的值或原值
     :rtype: str
     """
-    if ',' in str(x):
+    if "," in str(x):
         return str(x).replace(",", "")
     else:
         return x
@@ -80,35 +80,35 @@ def stock_zh_index_spot() -> pd.DataFrame:
     big_df["low"] = big_df["low"].astype(float)
     big_df["low"] = big_df["low"].astype(float)
     big_df.columns = [
-        '代码',
-        '名称',
-        '最新价',
-        '涨跌额',
-        '涨跌幅',
-        '_',
-        '_',
-        '昨收',
-        '今开',
-        '最高',
-        '最低',
-        '成交量',
-        '成交额',
-        '_',
-        '_',
+        "代码",
+        "名称",
+        "最新价",
+        "涨跌额",
+        "涨跌幅",
+        "_",
+        "_",
+        "昨收",
+        "今开",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "_",
+        "_",
     ]
     big_df = big_df[
         [
-            '代码',
-            '名称',
-            '最新价',
-            '涨跌额',
-            '涨跌幅',
-            '昨收',
-            '今开',
-            '最高',
-            '最低',
-            '成交量',
-            '成交额',
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "昨收",
+            "今开",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
         ]
     ]
     return big_df
@@ -131,12 +131,12 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     temp_df = pd.DataFrame(dict_list)
-    temp_df['date'] = pd.to_datetime(temp_df["date"]).dt.date
-    temp_df['open'] = pd.to_numeric(temp_df['open'])
-    temp_df['close'] = pd.to_numeric(temp_df['close'])
-    temp_df['high'] = pd.to_numeric(temp_df['high'])
-    temp_df['low'] = pd.to_numeric(temp_df['low'])
-    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"])
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["high"] = pd.to_numeric(temp_df["high"])
+    temp_df["low"] = pd.to_numeric(temp_df["low"])
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
     return temp_df
 
 
@@ -167,7 +167,9 @@ def _get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
         }
         r = requests.get(url, params=params)
         data_text = r.text
-        start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][symbol]["day"][0][0]
+        start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][
+            symbol
+        ]["day"][0][0]
         return start_date
     start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][0][0]
     return start_date
@@ -199,11 +201,11 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
         text = res.text
         try:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1:])["data"][symbol]["day"]
+                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["day"]
             )
         except:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1:])["data"][symbol]["qfqday"]
+                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
             )
         temp_df = temp_df.append(inner_temp_df, ignore_index=True)
     if temp_df.shape[1] == 6:
@@ -211,12 +213,12 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     else:
         temp_df = temp_df.iloc[:, :6]
         temp_df.columns = ["date", "open", "close", "high", "low", "amount"]
-    temp_df['date'] = pd.to_datetime(temp_df["date"]).dt.date
-    temp_df['open'] = pd.to_numeric(temp_df['open'])
-    temp_df['close'] = pd.to_numeric(temp_df['close'])
-    temp_df['high'] = pd.to_numeric(temp_df['high'])
-    temp_df['low'] = pd.to_numeric(temp_df['low'])
-    temp_df['amount'] = pd.to_numeric(temp_df['amount'])
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"])
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["high"] = pd.to_numeric(temp_df["high"])
+    temp_df["low"] = pd.to_numeric(temp_df["low"])
+    temp_df["amount"] = pd.to_numeric(temp_df["amount"])
     temp_df.drop_duplicates(inplace=True)
     return temp_df
 
@@ -246,16 +248,17 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{"):-2])
+    data_json = demjson.decode(data_text[data_text.find("{") : -2])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = ["date", "open", "close", "high", "low", "volume", "amount", "_"]
     temp_df = temp_df[["date", "open", "close", "high", "low", "volume", "amount"]]
-    temp_df['open'] = pd.to_numeric(temp_df['open'])
-    temp_df['close'] = pd.to_numeric(temp_df['close'])
-    temp_df['high'] = pd.to_numeric(temp_df['high'])
-    temp_df['low'] = pd.to_numeric(temp_df['low'])
-    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
-    temp_df['amount'] = pd.to_numeric(temp_df['amount'])
+
+    temp_df["open"] = pd.to_numeric(temp_df["open"])
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["high"] = pd.to_numeric(temp_df["high"])
+    temp_df["low"] = pd.to_numeric(temp_df["low"])
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
+    temp_df["amount"] = pd.to_numeric(temp_df["amount"])
     return temp_df
 
 
