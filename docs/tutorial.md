@@ -1044,6 +1044,7 @@
  "macro_global_sox_index"  # 费城半导体指数
  "macro_china_yw_electronic_index"  # 义乌小商品指数-电子元器件
  "macro_china_construction_index"  # 建材指数
+ "macro_china_construction_price_index"  # 建材价格指数
  # 可转债溢价率分析和可转债价值分析
  "bond_zh_cov_value_analysis"  # 可转债溢价率分析
  "bond_zh_cov_value_analysis"  # 可转债价值分析
