@@ -86,7 +86,7 @@ def air_city_table() -> pd.DataFrame:
 
 
 def air_quality_watch_point(
-    city: str = "杭州", start_date: str = "20180101", end_date: str = "20200427"
+        city: str = "杭州", start_date: str = "20220408", end_date: str = "20220409"
 ) -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
@@ -132,10 +132,10 @@ def air_quality_watch_point(
 
 
 def air_quality_hist(
-    city: str = "杭州",
-    period: str = "day",
-    start_date: str = "20190327",
-    end_date: str = "20200427",
+        city: str = "杭州",
+        period: str = "day",
+        start_date: str = "20190327",
+        end_date: str = "20200427",
 ) -> pd.DataFrame:
     """
     真气网-空气历史数据
@@ -186,16 +186,37 @@ def air_quality_hist(
     }
     need = (
         json.dumps(payload, ensure_ascii=False, indent=None, sort_keys=False)
-        .replace(' "', '"')
-        .replace("\\", "")
-        .replace('p": ', 'p":')
-        .replace('t": ', 't":')
+            .replace(' "', '"')
+            .replace("\\", "")
+            .replace('p": ', 'p":')
+            .replace('t": ', 't":')
     )
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
+        # 'Accept': '*/*',
+        # 'Accept-Encoding': 'gzip, deflate, br',
+        # 'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        # 'Cache-Control': 'no-cache',
+        # 'Connection': 'keep-alive',
+        # 'Content-Length': '1174',
+        # 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        # 'Cookie': 'UM_distinctid=1800e5142c5b85-04b8f11aa852f3-1a343370-1fa400-1800e5142c6b7e; CNZZDATA1254317176=1502593570-1649496979-%7C1649507817; city=%E6%9D%AD%E5%B7%9E; SECKEY_ABVK=eSrbUhd28Mjo7jf8Rfh+uY5E9C+tAhQ8mOfYJHSjSfY%3D; BMAP_SECKEY=N5fGcwdWpeJW46eZRpR9GW3qdVnODGQwGm6JE0ELECQHJOTFc9MCuNdyf8OWUspFI6Xq4MMPxgVVr5I13odFOW6AQMgSPOtEvVHciC2NsQwb1pnmFtEaqyKHOUeavelt0ejBy6ETRD_4FXAhZb9FSbVIMPew7qwFX_kdPDxVJH-vHfCVhRx9XDZgb41B_T4D',
+        # 'Host': 'www.zq12369.com',
+        # 'Origin': 'https://www.zq12369.com',
+        # 'Pragma': 'no-cache',
+        # 'Referer': 'https://www.zq12369.com/environment.php?catid=4',
+        # 'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"',
+        # 'sec-ch-ua-mobile': '?0',
+        # 'sec-ch-ua-platform': '"Windows"',
+        # 'Sec-Fetch-Dest': 'empty',
+        # 'Sec-Fetch-Mode': 'cors',
+        # 'Sec-Fetch-Site': 'same-origin',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
+        'X-Requested-With': 'XMLHttpRequest',
     }
     params = {"param": ctx.call("AES.encrypt", need)}
+    params = {"param": ctx.call("encode_param", need)}
+
     r = requests.post(url, data=params, headers=headers)
     temp_text = ctx.call("decryptData", r.text)
     data_json = demjson.decode(ctx.call("b.decode", temp_text))
@@ -268,15 +289,15 @@ if __name__ == "__main__":
     print(air_city_table_df)
 
     air_quality_watch_point_df = air_quality_watch_point(
-        city="杭州", start_date="20220101", end_date="20220305"
+        city="杭州", start_date="20220408", end_date="20220409"
     )
     print(air_quality_watch_point_df)
 
     air_quality_hist_df = air_quality_hist(
         city="杭州",
         period="day",
-        start_date="20220101",
-        end_date="20220305",
+        start_date="20220309",
+        end_date="20220409",
     )
     print(air_quality_hist_df)
 

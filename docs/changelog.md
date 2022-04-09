@@ -11,6 +11,10 @@
 
 ## 更新说明
 
+1.5.9 fix: fix air_quality_hist interface
+
+    1. 修复 air_quality_hist 接口，主要修改接口的加密及解密逻辑
+
 1.5.8 add: add macro_china_construction_price_index interface
 
     1. 新增 macro_china_construction_price_index 接口，获取建材价格指数数据
@@ -284,6 +288,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.9 fix: fix air_quality_hist interface
 
 1.5.8 add: add macro_china_construction_price_index interface
 

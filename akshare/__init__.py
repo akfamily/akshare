@@ -1928,9 +1928,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.6 add: add macro_china_yw_electronic_index interface
 1.5.7 add: add macro_china_construction_index interface
 1.5.8 add: add macro_china_construction_price_index interface
+1.5.9 fix: fix air_quality_hist interface
 """
 
-__version__ = "1.5.8"
+__version__ = "1.5.9"
 __author__ = "AKFamily"
 
 import sys
