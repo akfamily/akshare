@@ -2734,6 +2734,7 @@ print(stock_js_weibo_report_df)
 
 ### 彭博亿万富豪指数
 
+#### 彭博实时亿万富豪指数
 接口: index_bloomberg_billionaires
 
 目标地址: https://www.bloomberg.com/billionaires/
@@ -2767,6 +2768,59 @@ import akshare as ak
 
 index_bloomberg_billionaires_df = ak.index_bloomberg_billionaires()
 print(index_bloomberg_billionaires_df)
+```
+
+数据示例
+
+```
+    rank                        name  ...             country     industry
+0      1                  Jeff Bezos  ...       United States   Technology
+1      2                  Bill Gates  ...       United States   Technology
+2      3             Mark Zuckerberg  ...       United States   Technology
+3      4             Bernard Arnault  ...              France     Consumer
+4      5               Steve Ballmer  ...       United States   Technology
+..   ...                         ...  ...                 ...          ...
+494  496                 Ira Rennert  ...       United States  Commodities
+495  497  Traudl Engelhorn-Vechiatto  ...         Switzerland  Diversified
+496  498            Sergey Galitskiy  ...  Russian Federation       Retail
+497  499                  Xu Jingren  ...               China  Health Care
+498  500                Shi Yonghong  ...           Singapore     Consumer
+```
+
+#### 历史彭博亿万富豪指数
+接口: index_bloomberg_billionaires_history
+
+目标地址: https://stats.areppim.com/stats/links_billionairexlists.htm
+
+描述: 按照年份查询彭博亿万富豪指数
+
+限量: 单次返回当年所有数据彭博亿万富豪排名数据
+
+输入参数
+
+| 名称   | 类型 | 必选 | 描述                                                                              |
+| -------- | ---- | ---- | --- |
+| year | str | Y | 年份,格式 21,19,18|
+
+输出参数
+
+| 名称          | 类型 | 默认显示 | 描述           |
+| --------------- | ----- | -------- | ---------------- |
+| rank      | str   | Y        | Rank  |
+| name      | str   | Y        | Name   |
+| total_net_worth      | str   | Y        | Total net worth   |
+| last_change      | str   | N        | $ Last change   |
+| YTD_change      | str   | N        | $ YTD change   |
+| country      | str   | Y        | Country   |
+| industry      | str   | N        | Industry   |
+| age      | str   | N        | Age   |
+
+接口示例
+
+```python
+import akshare as ak
+index_bloomberg_billionaires_history_df=ak.index_bloomberg_billionaires_history('19')
+print(index_bloomberg_billionaires_history_df)
 ```
 
 数据示例
