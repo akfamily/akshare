@@ -13,6 +13,10 @@
 
 ## 更新说明
 
+1.5.11 add: add index_bloomberg_billionaires_hist interface
+
+    1. 新增 index_bloomberg_billionaires_hist 接口，获取彭博亿万富豪历史数据
+
 1.5.10 fix: fix stock_gpzy_pledge_ratio_em and stock_gpzy_profile_em interface
 
     1. 修复 stock_gpzy_profile_em 接口，对该接口重命名，并对返回的数据按时间升序排列
@@ -295,6 +299,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.11 add: add index_bloomberg_billionaires_hist interface
 
 1.5.10 fix: fix stock_gpzy_pledge_ratio_em and stock_gpzy_profile_em interface
 

@@ -2735,6 +2735,7 @@ print(stock_js_weibo_report_df)
 ### 彭博亿万富豪指数
 
 #### 彭博实时亿万富豪指数
+
 接口: index_bloomberg_billionaires
 
 目标地址: https://www.bloomberg.com/billionaires/
@@ -2745,21 +2746,21 @@ print(stock_js_weibo_report_df)
 
 输入参数
 
-| 名称  | 类型  | 必选  | 描述  |
-|-----|-----|-----|-----|
-| -   | -   | -   | -   |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称              | 类型  | 默认显示 | 描述              |
-|-----------------|-----|------|-----------------|
-| rank            | str | Y    | Rank            |
-| name            | str | Y    | Name            |
-| total_net_worth | str | Y    | Total net worth |
-| last_change     | str | Y    | $ Last change   |
-| YTD_change      | str | Y    | $ YTD change    |
-| country         | str | Y    | Country         |
-| industry        | str | Y    | Industry        |
+| 名称              | 类型  | 描述              |
+|-----------------|-----|-----------------|
+| rank            | str | Rank            |
+| name            | str | Name            |
+| total_net_worth | str | Total net worth |
+| last_change     | str | $ Last change   |
+| YTD_change      | str | $ YTD change    |
+| country         | str | Country         |
+| industry        | str | Industry        |
 
 接口示例
 
@@ -2788,7 +2789,8 @@ print(index_bloomberg_billionaires_df)
 ```
 
 #### 历史彭博亿万富豪指数
-接口: index_bloomberg_billionaires_history
+
+接口: index_bloomberg_billionaires_hist
 
 目标地址: https://stats.areppim.com/stats/links_billionairexlists.htm
 
@@ -2798,29 +2800,30 @@ print(index_bloomberg_billionaires_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| year | str | Y | 年份,格式 21,19,18|
+| 名称   | 类型  | 描述                 |
+|------|-----|--------------------|
+| year | str | year: str = "2021" |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| rank      | str   | Y        | Rank  |
-| name      | str   | Y        | Name   |
-| total_net_worth      | str   | Y        | Total net worth   |
-| last_change      | str   | N        | $ Last change   |
-| YTD_change      | str   | N        | $ YTD change   |
-| country      | str   | Y        | Country   |
-| industry      | str   | N        | Industry   |
-| age      | str   | N        | Age   |
+| 名称              | 类型  | 描述              |
+|-----------------|-----|-----------------|
+| rank            | str | Rank            |
+| name            | str | Name            |
+| total_net_worth | str | Total net worth |
+| last_change     | str | $ Last change   |
+| YTD_change      | str | $ YTD change    |
+| country         | str | Country         |
+| industry        | str | Industry        |
+| age             | str | Age             |
 
 接口示例
 
 ```python
 import akshare as ak
-index_bloomberg_billionaires_history_df=ak.index_bloomberg_billionaires_history('19')
-print(index_bloomberg_billionaires_history_df)
+
+index_bloomberg_billionaires_hist_df=ak.index_bloomberg_billionaires_hist(year='2019')
+print(index_bloomberg_billionaires_hist_df)
 ```
 
 数据示例

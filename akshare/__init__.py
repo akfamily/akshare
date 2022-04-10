@@ -1930,9 +1930,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.8 add: add macro_china_construction_price_index interface
 1.5.9 fix: fix air_quality_hist interface
 1.5.10 fix: fix stock_gpzy_pledge_ratio_em and stock_gpzy_profile_em interface
+1.5.11 add: add index_bloomberg_billionaires_hist interface
 """
 
-__version__ = "1.5.10"
+__version__ = "1.5.11"
 __author__ = "AKFamily"
 
 import sys
@@ -2894,7 +2895,7 @@ from akshare.stock_feature.stock_a_below_net_asset_statistics import (
 """
 彭博亿万富豪指数
 """
-from akshare.fortune.fortune_bloomberg import index_bloomberg_billionaires
+from akshare.fortune.fortune_bloomberg import index_bloomberg_billionaires, index_bloomberg_billionaires_hist
 
 """
 stock-券商业绩月报

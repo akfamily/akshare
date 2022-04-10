@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/7/11 21:44
+Date: 2022/4/10 18:24
 Desc: 彭博亿万富豪指数
 https://www.bloomberg.com/billionaires/
 """
@@ -10,7 +10,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def index_bloomberg_billionaires_history(year: str = "21") -> pd.DataFrame:
+def index_bloomberg_billionaires_hist(year: str = "2021") -> pd.DataFrame:
     """
     Bloomberg Billionaires Index
     https://stats.areppim.com/stats/links_billionairexlists.htm
@@ -19,9 +19,9 @@ def index_bloomberg_billionaires_history(year: str = "21") -> pd.DataFrame:
     :return: 彭博亿万富豪指数历史数据
     :rtype: pandas.DataFrame
     """
-    url = "https://stats.areppim.com/listes/list_billionairesx%sxwor.htm" % (year)
+    url = f"https://stats.areppim.com/listes/list_billionairesx{year[-2:]}xwor.htm"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, "html.parser")
+    soup = BeautifulSoup(r.text, "lxml")
     trs = soup.findAll("table")[0].findAll("tr")
     heads = trs[1]
     if "Rank" not in heads.text:
@@ -109,5 +109,6 @@ def index_bloomberg_billionaires() -> pd.DataFrame:
 if __name__ == "__main__":
     index_bloomberg_billionaires_df = index_bloomberg_billionaires()
     print(index_bloomberg_billionaires_df)
-    index_bloomberg_billionaires_history_df = index_bloomberg_billionaires_history("19")
-    print(index_bloomberg_billionaires_history_df)
+
+    index_bloomberg_billionaires_hist_df = index_bloomberg_billionaires_hist(year="2021")
+    print(index_bloomberg_billionaires_hist_df)

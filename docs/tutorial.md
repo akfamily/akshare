@@ -510,6 +510,7 @@
  "stock_em_qsjy"  # 券商业绩月报
  # 彭博亿万富豪指数
  "index_bloomberg_billionaires"  # 彭博亿万富豪指数
+ "index_bloomberg_billionaires_hist"  # 彭博亿万富豪历史指数
  # A 股市盈率和市净率
  "stock_a_pb"  # A 股市净率
  "stock_a_pe"  # A 股市盈率
