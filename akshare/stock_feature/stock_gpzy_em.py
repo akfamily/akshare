@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/8/20 18:02
+Date: 2022/4/10 17:42
 Desc: 东方财富网-数据中心-特色数据-股权质押
 东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: http://data.eastmoney.com/gpzy/marketProfile.aspx
 东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: http://data.eastmoney.com/gpzy/pledgeRatio.aspx
@@ -12,13 +12,14 @@ Desc: 东方财富网-数据中心-特色数据-股权质押
 """
 import math
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
 from tqdm import tqdm
 
+from akshare.utils import demjson
 
-def stock_em_gpzy_profile() -> pd.DataFrame:
+
+def stock_gpzy_profile_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-股权质押市场概况
     http://data.eastmoney.com/gpzy/marketProfile.aspx
@@ -72,76 +73,91 @@ def stock_em_gpzy_profile() -> pd.DataFrame:
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
 
     temp_df["A股质押总比例"] = temp_df["A股质押总比例"]/100
+
+    temp_df.sort_values(['交易日期'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
-def stock_em_gpzy_pledge_ratio(trade_date: str = "2020-08-07") -> pd.DataFrame:
+def stock_gpzy_pledge_ratio_em(date: str = "20220408") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
     http://data.eastmoney.com/gpzy/pledgeRatio.aspx
-    :param trade_date: 指定交易日, 访问 http://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询
-    :type trade_date: str
+    :param date: 指定交易日, 访问 http://data.eastmoney.com/gpzy/pledgeRatio.aspx 查询
+    :type date: str
     :return: 上市公司质押比例
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    temp_df = pd.DataFrame()
+    trade_date = "-".join([date[:4], date[4:6], date[6:]])
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "ZD_QL_LB",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "amtshareratio",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var rlJqyOhv={pages:(tp),data:(x),font:(font)}",
-        "filter": f"(tdate='{trade_date}')",
-        "rt": "52584436",
+        'sortColumns': 'PLEDGE_RATIO',
+        'sortTypes': '-1',
+        'pageSize': '500',
+        'pageNumber': '1',
+        'reportName': 'RPT_CSDC_LIST',
+        'columns': 'ALL',
+        'quoteColumns':'',
+        'source': 'WEB',
+        'client': 'WEB',
+        'filter': f"(TRADE_DATE='{trade_date}')",
     }
-    res = requests.get(url, params=params)
-    data_text = res.text
-    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-    map_dict = dict(
-        zip(
-            pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-            pd.DataFrame(data_json["font"]["FontMapping"])["value"],
-        )
-    )
-    for key, value in map_dict.items():
-        data_text = data_text.replace(key, str(value))
-    data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-    temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
-    temp_df.columns = [
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json['result']['pages']
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page+1), leave=False):
+        params.update({'pageNumber': page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']['data'])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
+    big_df.reset_index(inplace=True)
+    big_df['index'] = big_df.index + 1
+    big_df.columns = [
+        "序号",
+        "-",
         "股票代码",
         "股票简称",
         "交易日期",
-        "所属行业",
-        "blfb",
-        "质押比例(%)",
-        "质押股数(股)",
-        "质押市值(元)",
+        "质押比例",
+        "质押股数",
         "质押笔数",
-        "无限售股质押数(股)",
-        "限售股质押数(股)",
-        "近一年涨跌幅(%)",
+        "无限售股质押数",
+        "限售股质押数",
+        "质押市值",
+        "所属行业",
+        "近一年涨跌幅",
+        "-",
     ]
-    temp_df = temp_df[
+    big_df = big_df[
         [
+            "序号",
             "股票代码",
             "股票简称",
             "交易日期",
             "所属行业",
-            "质押比例(%)",
-            "质押股数(股)",
-            "质押市值(元)",
+            "质押比例",
+            "质押股数",
+            "质押市值",
             "质押笔数",
-            "无限售股质押数(股)",
-            "限售股质押数(股)",
-            "近一年涨跌幅(%)",
+            "无限售股质押数",
+            "限售股质押数",
+            "近一年涨跌幅",
         ]
     ]
-    temp_df["交易日期"] = pd.to_datetime(temp_df["交易日期"])
-    return temp_df
+
+    big_df['质押比例'] = pd.to_numeric(big_df['质押比例'])
+    big_df['质押股数'] = pd.to_numeric(big_df['质押股数'])
+    big_df['质押市值'] = pd.to_numeric(big_df['质押市值'])
+    big_df['质押笔数'] = pd.to_numeric(big_df['质押笔数'])
+    big_df['无限售股质押数'] = pd.to_numeric(big_df['无限售股质押数'])
+    big_df['限售股质押数'] = pd.to_numeric(big_df['限售股质押数'])
+    big_df['近一年涨跌幅'] = pd.to_numeric(big_df['近一年涨跌幅'])
+
+    big_df["交易日期"] = pd.to_datetime(big_df["交易日期"]).dt.date
+    return big_df
 
 
 def _get_page_num_gpzy_market_pledge_ratio_detail() -> int:
@@ -510,10 +526,10 @@ def stock_em_gpzy_industry_data() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_em_gpzy_profile_df = stock_em_gpzy_profile()
-    print(stock_em_gpzy_profile_df)
+    stock_gpzy_profile_em_df = stock_gpzy_profile_em()
+    print(stock_gpzy_profile_em_df)
 
-    stock_em_gpzy_pledge_ratio_df = stock_em_gpzy_pledge_ratio(trade_date="2021-04-30")
+    stock_em_gpzy_pledge_ratio_df = stock_gpzy_pledge_ratio_em(date="20220408")
     print(stock_em_gpzy_pledge_ratio_df)
 
     stock_em_gpzy_pledge_ratio_detail_df = stock_em_gpzy_pledge_ratio_detail()

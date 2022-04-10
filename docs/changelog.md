@@ -2,14 +2,25 @@
 
 ## 接口更名一览表
 
-| AKShare 版本 | 旧接口名称             | 新接口名称             | 修改日期     |
-|------------|-------------------|-------------------|----------|
-| 1.4.88     | fund_em_new_found | fund_new_found_em | 20220323 |
-| 1.4.86     | fund_em_aum_hist  | fund_aum_hist_em  | 20220322 |
-| 1.4.86     | fund_em_aum_trend | fund_aum_trend_em | 20220322 |
-| 1.4.86     | fund_em_aum       | fund_aum_em       | 20220322 |
+| AKShare 版本 | 旧接口名称                      | 新接口名称                      | 修改日期     |
+|------------|----------------------------|----------------------------|----------|
+| 1.5.10     | stock_em_gpzy_pledge_ratio | stock_gpzy_pledge_ratio_em | 20220410 |
+| 1.5.10     | stock_em_gpzy_profile      | stock_gpzy_profile_em      | 20220410 |
+| 1.4.88     | fund_em_new_found          | fund_new_found_em          | 20220323 |
+| 1.4.86     | fund_em_aum_hist           | fund_aum_hist_em           | 20220322 |
+| 1.4.86     | fund_em_aum_trend          | fund_aum_trend_em          | 20220322 |
+| 1.4.86     | fund_em_aum                | fund_aum_em                | 20220322 |
 
 ## 更新说明
+
+1.5.11 add: add index_bloomberg_billionaires_hist interface
+
+    1. 新增 index_bloomberg_billionaires_hist 接口，获取彭博亿万富豪历史数据
+
+1.5.10 fix: fix stock_gpzy_pledge_ratio_em and stock_gpzy_profile_em interface
+
+    1. 修复 stock_gpzy_profile_em 接口，对该接口重命名，并对返回的数据按时间升序排列
+    2. 修复 stock_gpzy_pledge_ratio_em 接口，对该接口重名，并对返回的字段规范化
 
 1.5.9 fix: fix air_quality_hist interface
 
@@ -187,9 +198,9 @@
 
     1. 修复 crypto_name_url_table 获取可以获得历史数据的货币名称
 
-1.4.66 fix: fix stock_em_gpzy_profile interface
+1.4.66 fix: fix stock_gpzy_profile_em interface
 
-    1. 修复 stock_em_gpzy_profile 接口并设定返回数据的数据类型
+    1. 修复 stock_gpzy_profile_em 接口并设定返回数据的数据类型
 
 1.4.65 fix: fix spot_hist_sge interface
 
@@ -289,6 +300,10 @@
 
 ## 版本更新说明
 
+1.5.11 add: add index_bloomberg_billionaires_hist interface
+
+1.5.10 fix: fix stock_gpzy_pledge_ratio_em and stock_gpzy_profile_em interface
+
 1.5.9 fix: fix air_quality_hist interface
 
 1.5.8 add: add macro_china_construction_price_index interface
@@ -373,7 +388,7 @@
 
 1.4.67 fix: fix crypto_name_url_table interface
 
-1.4.66 fix: fix stock_em_gpzy_profile interface
+1.4.66 fix: fix stock_gpzy_profile_em interface
 
 1.4.65 fix: fix spot_hist_sge interface
 
