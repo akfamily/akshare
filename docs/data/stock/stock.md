@@ -3941,7 +3941,7 @@ print(stock_gpzy_pledge_ratio_em_df)
 
 #### 重要股东股权质押明细
 
-接口: stock_em_gpzy_pledge_ratio_detail
+接口: stock_gpzy_pledge_ratio_detail_em
 
 目标地址: http://data.eastmoney.com/gpzy/pledgeDetail.aspx
 
@@ -3978,8 +3978,8 @@ print(stock_gpzy_pledge_ratio_em_df)
 ```python
 import akshare as ak
 
-stock_em_gpzy_pledge_ratio_detail_df = ak.stock_em_gpzy_pledge_ratio_detail()
-print(stock_em_gpzy_pledge_ratio_detail_df)
+stock_gpzy_pledge_ratio_detail_em_df = ak.stock_gpzy_pledge_ratio_detail_em()
+print(stock_gpzy_pledge_ratio_detail_em_df)
 ```
 
 数据示例
