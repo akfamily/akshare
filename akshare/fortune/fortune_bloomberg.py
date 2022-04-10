@@ -10,6 +10,57 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def index_bloomberg_billionaires_history(year: str = "21") -> pd.DataFrame:
+    """
+    Bloomberg Billionaires Index
+    https://stats.areppim.com/stats/links_billionairexlists.htm
+    :param year: choice of {"21", "19", "18", *}
+    :type year: str
+    :return: 彭博亿万富豪指数历史数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://stats.areppim.com/listes/list_billionairesx%sxwor.htm" % (year)
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "html.parser")
+    trs = soup.findAll("table")[0].findAll("tr")
+    heads = trs[1]
+    if "Rank" not in heads.text:
+        heads = trs[0]
+    dic_keys = []
+    dic = {}
+    for head in heads:
+        head = head.text
+        dic_keys.append(head)
+    for dic_key in dic_keys:
+        dic[dic_key] = []
+
+    for l in trs:
+        item = l.findAll("td")
+        for i in range(len(item)):
+            v = item[i].text
+            if i == 0 and not v.isdigit():
+                break
+            dic[dic_keys[i]].append(v)
+
+    temp_df = pd.DataFrame(dic)
+    temp_df = temp_df.rename(
+        {
+            "Rank": "rank",
+            "Name": "name",
+            "Age": "age",
+            "Citizenship": "country",
+            "Country": "country",
+            "Net Worth(bil US$)": "total_net_worth",
+            "Total net worth$Billion": "total_net_worth",
+            "$ Last change": "last_change",
+            "$ YTD change": "ytd_change",
+            "Industry": "industry",
+        },
+        axis=1,
+    )
+    return temp_df
+
+
 def index_bloomberg_billionaires() -> pd.DataFrame:
     """
     Bloomberg Billionaires Index
@@ -35,16 +86,28 @@ def index_bloomberg_billionaires() -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     big_content_list = list()
-    soup_node = soup.find(attrs={"class": "table-chart"}).find_all(attrs={"class": "table-row"})
+    soup_node = soup.find(attrs={"class": "table-chart"}).find_all(
+        attrs={"class": "table-row"}
+    )
     for row in soup_node:
         temp_content_list = row.text.strip().replace("\n", "").split("  ")
         content_list = [item for item in temp_content_list if item != ""]
         big_content_list.append(content_list)
     temp_df = pd.DataFrame(big_content_list)
-    temp_df.columns = ["rank", "name", "total_net_worth", "last_change", "YTD_change", "country", "industry"]
+    temp_df.columns = [
+        "rank",
+        "name",
+        "total_net_worth",
+        "last_change",
+        "YTD_change",
+        "country",
+        "industry",
+    ]
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     index_bloomberg_billionaires_df = index_bloomberg_billionaires()
     print(index_bloomberg_billionaires_df)
+    index_bloomberg_billionaires_history_df = index_bloomberg_billionaires_history("19")
+    print(index_bloomberg_billionaires_history_df)
