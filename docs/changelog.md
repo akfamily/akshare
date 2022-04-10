@@ -2,16 +2,21 @@
 
 ## 接口更名一览表
 
-| AKShare 版本 | 旧接口名称                      | 新接口名称                      | 修改日期     |
-|------------|----------------------------|----------------------------|----------|
-| 1.5.10     | stock_em_gpzy_pledge_ratio | stock_gpzy_pledge_ratio_em | 20220410 |
-| 1.5.10     | stock_em_gpzy_profile      | stock_gpzy_profile_em      | 20220410 |
-| 1.4.88     | fund_em_new_found          | fund_new_found_em          | 20220323 |
-| 1.4.86     | fund_em_aum_hist           | fund_aum_hist_em           | 20220322 |
-| 1.4.86     | fund_em_aum_trend          | fund_aum_trend_em          | 20220322 |
-| 1.4.86     | fund_em_aum                | fund_aum_em                | 20220322 |
+| AKShare 版本 | 旧接口名称                             | 新接口名称                             | 修改日期     |
+|------------|-----------------------------------|-----------------------------------|----------|
+| 1.5.12     | stock_em_gpzy_pledge_ratio_detail | stock_gpzy_pledge_ratio_detail_em | 20220410 |
+| 1.5.10     | stock_em_gpzy_pledge_ratio        | stock_gpzy_pledge_ratio_em        | 20220410 |
+| 1.5.10     | stock_em_gpzy_profile             | stock_gpzy_profile_em             | 20220410 |
+| 1.4.88     | fund_em_new_found                 | fund_new_found_em                 | 20220323 |
+| 1.4.86     | fund_em_aum_hist                  | fund_aum_hist_em                  | 20220322 |
+| 1.4.86     | fund_em_aum_trend                 | fund_aum_trend_em                 | 20220322 |
+| 1.4.86     | fund_em_aum                       | fund_aum_em                       | 20220322 |
 
 ## 更新说明
+
+1.5.12 fix: fix stock_gpzy_pledge_ratio_detail_em interface
+
+    1. 修复 stock_gpzy_pledge_ratio_detail_em 接口并重命名
 
 1.5.11 add: add index_bloomberg_billionaires_hist interface
 
@@ -299,6 +304,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.12 fix: fix stock_gpzy_pledge_ratio_detail_em interface
 
 1.5.11 add: add index_bloomberg_billionaires_hist interface
 

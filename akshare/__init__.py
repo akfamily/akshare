@@ -1486,7 +1486,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.62: add: add futures_egg_price interface
 1.0.63: fix: fix remove jyfm interface
 1.0.64: fix: fix rename zh_stock_kcb_report to stock_zh_kcb_report_em interface
-1.0.65: fix: fix stock_em_gpzy_pledge_ratio_detail interface
+1.0.65: fix: fix stock_gpzy_pledge_ratio_detail_em interface
 1.0.66: fix: fix macro_cons_opec_month interface
 1.0.67: fix: fix futures_sgx_daily interface
 1.0.68: fix: remove agoyal_stock_return interface
@@ -1931,9 +1931,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.9 fix: fix air_quality_hist interface
 1.5.10 fix: fix stock_gpzy_pledge_ratio_em and stock_gpzy_profile_em interface
 1.5.11 add: add index_bloomberg_billionaires_hist interface
+1.5.12 fix: fix stock_gpzy_pledge_ratio_detail_em interface
 """
 
-__version__ = "1.5.11"
+__version__ = "1.5.12"
 __author__ = "AKFamily"
 
 import sys
@@ -3341,7 +3342,7 @@ from akshare.stock_feature.stock_gpzy_em import (
     stock_em_gpzy_distribute_statistics_bank,
     stock_em_gpzy_distribute_statistics_company,
     stock_em_gpzy_industry_data,
-    stock_em_gpzy_pledge_ratio_detail,
+    stock_gpzy_pledge_ratio_detail_em,
 )
 
 """
