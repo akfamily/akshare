@@ -1034,7 +1034,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.6: fix: fix macro_china_wbck interface
 0.6.7: add: add index_stock_cons_sina interface
 0.6.8: fix: fix option_commodity interface
-0.6.9: fix: fix stock_em_gpzy_pledge_ratio interface
+0.6.9: fix: fix stock_gpzy_pledge_ratio_em interface
 0.6.10: add: add macro_china_hb, macro_china_gksccz, macro_china_bond_public interface
 0.6.11: fix: fix python version should be 3.7 later
 0.6.12: fix: fix stock_em_gpzy_distribute_statistics_company interface
@@ -1214,7 +1214,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.87: add: add fund_em_lcx_rank interface
 0.7.88: fix: fix bond_repo_zh_tick interface
 0.7.89: fix: fix stock_hk_daily interface
-0.7.90: fix: fix stock_em_gpzy_pledge_ratio interface
+0.7.90: fix: fix stock_gpzy_pledge_ratio_em interface
 0.7.91: fix: fix stock_report_disclosure interface
 0.7.92: add: add fund_hk_fund_hist_em interface
 0.7.93: add: add fund_portfolio_hold_em interface
@@ -1886,7 +1886,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.4.63 fix: fix macro_china_swap_rate interface
 1.4.64 fix: fix bond_china_close_return interface
 1.4.65 fix: fix spot_hist_sge interface
-1.4.66 fix: fix stock_em_gpzy_profile interface
+1.4.66 fix: fix stock_gpzy_profile_em interface
 1.4.67 fix: fix crypto_name_url_table interface
 1.4.68 fix: fix crypto_hist interface
 1.4.69 fix: fix crypto_js_spot interface
@@ -1929,9 +1929,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.7 add: add macro_china_construction_index interface
 1.5.8 add: add macro_china_construction_price_index interface
 1.5.9 fix: fix air_quality_hist interface
+1.5.10 fix: fix stock_gpzy_pledge_ratio_em and stock_gpzy_profile_em interface
 """
 
-__version__ = "1.5.9"
+__version__ = "1.5.10"
 __author__ = "AKFamily"
 
 import sys
@@ -3333,9 +3334,9 @@ from akshare.stock_feature.stock_em_sy import (
 """
 东方财富-股票质押
 """
-from akshare.stock_feature.stock_em_gpzy import (
-    stock_em_gpzy_pledge_ratio,
-    stock_em_gpzy_profile,
+from akshare.stock_feature.stock_gpzy_em import (
+    stock_gpzy_pledge_ratio_em,
+    stock_gpzy_profile_em,
     stock_em_gpzy_distribute_statistics_bank,
     stock_em_gpzy_distribute_statistics_company,
     stock_em_gpzy_industry_data,

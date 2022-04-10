@@ -209,8 +209,8 @@
  "stock_jgdy_tj_em"  # 获取机构调研数据-统计
  "stock_jgdy_detail_em"  # 获取机构调研数据-详细
  # 股权质押数据
- "stock_em_gpzy_profile"  # 获取股权质押市场概况
- "stock_em_gpzy_pledge_ratio"  # 获取上市公司质押比例
+ "stock_gpzy_profile_em"  # 获取股权质押市场概况
+ "stock_gpzy_pledge_ratio_em"  # 获取上市公司质押比例
  "stock_em_gpzy_pledge_ratio_detail"  # 获取重要股东股权质押明细
  "stock_em_gpzy_distribute_statistics_company"  # 获取质押机构分布统计-证券公司
  "stock_em_gpzy_distribute_statistics_bank"  # 获取质押机构分布统计-银行
