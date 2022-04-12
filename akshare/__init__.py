@@ -1933,9 +1933,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.11 add: add index_bloomberg_billionaires_hist interface
 1.5.12 fix: fix stock_gpzy_pledge_ratio_detail_em interface
 1.5.13 add: add macro_china_lpi_index interface
+1.5.14 add: add macro_china_bdti_index interface
 """
 
-__version__ = "1.5.13"
+__version__ = "1.5.14"
 __author__ = "AKFamily"
 
 import sys
@@ -3684,6 +3685,7 @@ from akshare.economic.macro_china import (
     macro_china_construction_index,
     macro_china_construction_price_index,
     macro_china_lpi_index,
+    macro_china_bdti_index,
     macro_china_cpi_monthly,
     macro_china_cpi_yearly,
     macro_china_m2_yearly,
