@@ -14,6 +14,10 @@
 
 ## 更新说明
 
+1.5.13 add: add macro_china_lpi_index interface
+
+    1. 新增 macro_china_lpi_index 接口，获取物流景气指数数据
+
 1.5.12 fix: fix stock_gpzy_pledge_ratio_detail_em interface
 
     1. 修复 stock_gpzy_pledge_ratio_detail_em 接口并重命名
@@ -304,6 +308,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.13 add: add macro_china_lpi_index interface
 
 1.5.12 fix: fix stock_gpzy_pledge_ratio_detail_em interface
 
