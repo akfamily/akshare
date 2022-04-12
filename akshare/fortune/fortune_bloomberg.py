@@ -14,7 +14,7 @@ def index_bloomberg_billionaires_hist(year: str = "2021") -> pd.DataFrame:
     """
     Bloomberg Billionaires Index
     https://stats.areppim.com/stats/links_billionairexlists.htm
-    :param year: choice of {"21", "19", "18", *}
+    :param year: choice of {"2021", "2019", "2018", ...}
     :type year: str
     :return: 彭博亿万富豪指数历史数据
     :rtype: pandas.DataFrame
