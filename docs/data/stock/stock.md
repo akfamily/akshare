@@ -9479,34 +9479,34 @@ print(stock_industry_sina_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| sector | str | sector="hangye_ZL01"; 通过 **ak.stock_sector_spot** 返回数据的 label 字段选择 sector|
+| 名称     | 类型  | 描述                                                                        |
+|--------|-----|---------------------------------------------------------------------------|
+| sector | str | sector="hangye_ZL01"; 通过 **ak.stock_sector_spot** 返回数据的 label 字段选择 sector |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- |  ---------------- |
-| symbol          | object   |   -   |
-| code          | object   |    -   |
-| name          | object   |    -   |
-| trade          | float64   |   -   |
-| pricechange         | float64   |   -   |
-| changepercent          | float64   |    -   |
-| buy          | float64   |    -   |
-| sell          | float64   |   -   |
-| settlement          | float64   |    -   |
-| open          | float64   |   -   |
-| high          | float64   |    -   |
-| low          | float64   |   -   |
-| volume          | int64   |    -   |
-| amount          | int64   |    -   |
-| ticktime          | object   |   -   |
-| per          | float64   |    -   |
-| pb          | float64   |    -   |
-| mktcap          | float64   |    -   |
-| nmc          | float64   |    -   |
-| turnoverratio          | float64   |  -   |
+| 名称            | 类型      | 描述  |
+|---------------|---------|-----|
+| symbol        | object  | -   |
+| code          | object  | -   |
+| name          | object  | -   |
+| trade         | float64 | -   |
+| pricechange   | float64 | -   |
+| changepercent | float64 | -   |
+| buy           | float64 | -   |
+| sell          | float64 | -   |
+| settlement    | float64 | -   |
+| open          | float64 | -   |
+| high          | float64 | -   |
+| low           | float64 | -   |
+| volume        | int64   | -   |
+| amount        | int64   | -   |
+| ticktime      | object  | -   |
+| per           | float64 | -   |
+| pb            | float64 | -   |
+| mktcap        | float64 | -   |
+| nmc           | float64 | -   |
+| turnoverratio | float64 | -   |
 
 接口示例
 
@@ -9548,21 +9548,22 @@ print(stock_sector_detail_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- | --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 描述     |
-| ------------ | ----- |  ---------------- |
-| item          | str   |    -   |
-| value          | str   |  -   |
+| 名称    | 类型  | 描述  |
+|-------|-----|-----|
+| item  | str | -   |
+| value | str | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_info_a_code_name_df = ak.stock_info_a_code_name()
 print(stock_info_a_code_name_df)
 ```
@@ -9596,26 +9597,27 @@ print(stock_info_a_code_name_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| indicator | str |  indicator="主板A股"; choice of {"主板A股", "主板B股", "科创板"}|
+| 名称        | 类型  | 描述                                                  |
+|-----------|-----|-----------------------------------------------------|
+| indicator | str | indicator="主板A股"; choice of {"主板A股", "主板B股", "科创板"} |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 公司代码          | object   |    -   |
-| 公司简称          | object   |    -   |
-| 代码          | object   |    -   |
-| 简称          | object   |    -   |
-| 上市日期          | object   |    -   |
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 公司代码 | object | -   |
+| 公司简称 | object | -   |
+| 代码   | object | -   |
+| 简称   | object | -   |
+| 上市日期 | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_info_sh_df = ak.stock_info_sh_name_code(indicator="主板A股")
-print(stock_info_sh_df)
+
+stock_info_sh_name_code_df = ak.stock_info_sh_name_code(indicator="主板A股")
+print(stock_info_sh_name_code_df)
 ```
 
 数据示例
@@ -9647,26 +9649,27 @@ print(stock_info_sh_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| indicator | str |  indicator="A股列表"; choice of {"A股列表", "B股列表", "CDR列表", "AB股列表"}|
+| 名称        | 类型  | 描述                                                             |
+|-----------|-----|----------------------------------------------------------------|
+| indicator | str | indicator="A股列表"; choice of {"A股列表", "B股列表", "CDR列表", "AB股列表"} |
 
 输出参数-A股列表
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 板块          | object   |    -   |
-| A股代码          | object   |    -   |
-| A股简称          | object   |    -   |
-| A股上市日期          | object   |   -   |
-| A股总股本          | object   |  -   |
-| A股流通股本          | object   |    -   |
-| 所属行业          | object   |   -   |
+| 名称     | 类型     | 描述  |
+|--------|--------|-----|
+| 板块     | object | -   |
+| A股代码   | object | -   |
+| A股简称   | object | -   |
+| A股上市日期 | object | -   |
+| A股总股本  | object | -   |
+| A股流通股本 | object | -   |
+| 所属行业   | object | -   |
 
 接口示例-A股列表
 
 ```python
 import akshare as ak
+
 stock_info_sz_name_code_df = ak.stock_info_sz_name_code(indicator="A股列表")
 print(stock_info_sz_name_code_df)
 ```
@@ -9700,27 +9703,28 @@ print(stock_info_sz_name_code_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 描述           |
-| ------------ | ----- | ---------------- |
-| 证券代码          | object   |    -   |
-| 证券简称          | object   |    -   |
-| 总股本          | int64   |    注意单位: 股   |
-| 流通股本          | int64   |    注意单位: 股   |
-| 上市日期          | object   |    -   |
-| 所属行业          | object   |    -   |
-| 地区          | object   |    -   |
-| 报告日期          | object   |    -   |
+| 名称   | 类型     | 描述      |
+|------|--------|---------|
+| 证券代码 | object | -       |
+| 证券简称 | object | -       |
+| 总股本  | int64  | 注意单位: 股 |
+| 流通股本 | int64  | 注意单位: 股 |
+| 上市日期 | object | -       |
+| 所属行业 | object | -       |
+| 地区   | object | -       |
+| 报告日期 | object | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_info_bj_name_code_df = ak.stock_info_bj_name_code()
 print(stock_info_bj_name_code_df)
 ```
@@ -9771,6 +9775,7 @@ print(stock_info_bj_name_code_df)
 
 ```python
 import akshare as ak
+
 stock_info_sz_delist_df = ak.stock_info_sz_delist(indicator="终止上市公司")
 print(stock_info_sz_delist_df)
 ```
@@ -9804,22 +9809,23 @@ print(stock_info_sz_delist_df)
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- | ---------------- |
-| 序号          | int32   |   -   |
-| 代码          | object   |    -   |
-| 名称          | object   |    -   |
+| 名称  | 类型     | 描述  |
+|-----|--------|-----|
+| 序号  | int32  | -   |
+| 代码  | object | -   |
+| 名称  | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_staq_net_stop_df = ak.stock_staq_net_stop()
 print(stock_staq_net_stop_df)
 ```
