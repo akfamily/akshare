@@ -1048,6 +1048,7 @@
  "macro_china_construction_price_index"  # 建材价格指数
  "macro_china_lpi_index"  # 物流景气指数
  "macro_china_bdti_index"  # 原油运输指数
+ "macro_china_bsi_index"  # 超灵便型船运价指数
  # 可转债溢价率分析和可转债价值分析
  "bond_zh_cov_value_analysis"  # 可转债溢价率分析
  "bond_zh_cov_value_analysis"  # 可转债价值分析
