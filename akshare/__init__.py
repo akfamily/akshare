@@ -1934,9 +1934,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.12 fix: fix stock_gpzy_pledge_ratio_detail_em interface
 1.5.13 add: add macro_china_lpi_index interface
 1.5.14 add: add macro_china_bdti_index interface
+1.5.15 fix: fix bond_cov_jsl interface
 """
 
-__version__ = "1.5.14"
+__version__ = "1.5.15"
 __author__ = "AKFamily"
 
 import sys
