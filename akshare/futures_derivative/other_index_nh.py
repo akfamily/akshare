@@ -108,7 +108,7 @@ def futures_correlation_nh(date: str = "20220104", period: str = "20") -> pd.Dat
     http://www.nanhua.net/nhzc/correltable.html
     :param date: 开始时间
     :type date: str
-    :param period: 结束时间
+    :param period: 周期; choice of {"5", "20", "60", "120"}
     :type period: str
     :return: 相关系数矩阵
     :rtype: pandas.DataFrame
