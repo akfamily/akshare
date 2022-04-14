@@ -10,13 +10,13 @@ http://www.nanhua.net/nhzc/varietychange.html
 南华期货-相关系数矩阵
 http://www.nanhua.net/nhzc/correltable.html
 """
-import requests
 import pandas as pd
+import requests
 
 
 def futures_board_index_nh(start_date: str = "20220104", end_date: str = "20220413") -> pd.DataFrame:
     """
-    南华期货-板块指数涨跌
+    南华期货-市场涨跌-板块指数涨跌
     http://www.nanhua.net/nhzc/platechange.html
     :param start_date: 开始时间
     :type start_date: str
@@ -60,7 +60,7 @@ def futures_board_index_nh(start_date: str = "20220104", end_date: str = "202204
 
 def futures_variety_index_nh(start_date: str = "20220104", end_date: str = "20220413") -> pd.DataFrame:
     """
-    南华期货-品种指数涨跌
+    南华期货-市场涨跌-品种指数涨跌
     http://www.nanhua.net/nhzc/varietychange.html
     :param start_date: 开始时间
     :type start_date: str
@@ -104,7 +104,7 @@ def futures_variety_index_nh(start_date: str = "20220104", end_date: str = "2022
 
 def futures_correlation_nh(date: str = "20220104", period: str = "20") -> pd.DataFrame:
     """
-    南华期货-相关系数矩阵
+    南华期货-统计监控-相关系数矩阵
     http://www.nanhua.net/nhzc/correltable.html
     :param date: 开始时间
     :type date: str

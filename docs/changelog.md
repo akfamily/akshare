@@ -15,6 +15,10 @@
 
 ## 更新说明
 
+1.5.20 add: add futures_board_index_nh interface
+
+    1. 新增 futures_board_index_nh 接口，获取板块指数涨跌数据
+
 1.5.19 add: add futures_correlation_nh interface
 
     1. 新增 futures_correlation_nh 接口，获取相关系数矩阵数据
@@ -333,6 +337,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.20 add: add futures_board_index_nh interface
 
 1.5.19 add: add futures_correlation_nh interface
 
