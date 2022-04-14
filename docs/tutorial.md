@@ -1052,6 +1052,10 @@
  # 可转债溢价率分析和可转债价值分析
  "bond_zh_cov_value_analysis"  # 可转债溢价率分析
  "bond_zh_cov_value_analysis"  # 可转债价值分析
+ # 南华期货
+ "futures_correlation_nh"  # 相关系数矩阵
+ "futures_board_index_nh"  # 板块指数涨跌
+ "futures_variety_index_nh"  # 品种指数涨跌
 ```
 
 ## 案例演示

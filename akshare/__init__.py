@@ -1938,9 +1938,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.16 fix: fix stock_info_sh_delist interface
 1.5.17 add: add macro_china_bsi_index interface
 1.5.18 fix: fix fund_open_fund_rank_em interface
+1.5.19 add: add futures_correlation_nh interface
 """
 
-__version__ = "1.5.18"
+__version__ = "1.5.19"
 __author__ = "AKFamily"
 
 import sys
@@ -1950,6 +1951,17 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+南华期货-板块指数涨跌
+南华期货-品种指数涨跌
+南华期货-相关系数矩阵
+"""
+from akshare.futures_derivative.other_index_nh import (
+    futures_correlation_nh,
+    futures_board_index_nh,
+    futures_variety_index_nh,
+)
 
 """
 东方财富-股票数据-龙虎榜
@@ -2902,7 +2914,10 @@ from akshare.stock_feature.stock_a_below_net_asset_statistics import (
 """
 彭博亿万富豪指数
 """
-from akshare.fortune.fortune_bloomberg import index_bloomberg_billionaires, index_bloomberg_billionaires_hist
+from akshare.fortune.fortune_bloomberg import (
+    index_bloomberg_billionaires,
+    index_bloomberg_billionaires_hist,
+)
 
 """
 stock-券商业绩月报
