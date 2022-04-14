@@ -1121,7 +1121,7 @@ print(fund_fh_rank_em_df)
 
 #### 开放式基金排行
 
-接口: fund_em_open_fund_rank
+接口: fund_open_fund_rank_em
 
 目标地址: http://fund.eastmoney.com/data/fundranking.html
 
@@ -1163,8 +1163,8 @@ print(fund_fh_rank_em_df)
 ```python
 import akshare as ak
 
-fund_em_open_fund_rank_df = ak.fund_em_open_fund_rank(symbol="全部")
-print(fund_em_open_fund_rank_df)
+fund_open_fund_rank_em_df = ak.fund_open_fund_rank_em(symbol="全部")
+print(fund_open_fund_rank_em_df)
 ```
 
 数据示例
