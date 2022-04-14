@@ -1940,9 +1940,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.18 fix: fix fund_open_fund_rank_em interface
 1.5.19 add: add futures_correlation_nh interface
 1.5.20 add: add futures_board_index_nh interface
+1.5.21 add: add futures_variety_index_nh interface
 """
 
-__version__ = "1.5.20"
+__version__ = "1.5.21"
 __author__ = "AKFamily"
 
 import sys
