@@ -15,6 +15,10 @@
 
 ## 更新说明
 
+1.5.19 add: add futures_correlation_nh interface
+
+    1. 新增 futures_correlation_nh 接口，获取相关系数矩阵数据
+
 1.5.18 fix: fix fund_open_fund_rank_em interface
 
     1. 修复 fund_open_fund_rank_em 接口，重命名 fund_em_open_fund_rank 为 fund_open_fund_rank_em
@@ -329,6 +333,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.19 add: add futures_correlation_nh interface
 
 1.5.18 fix: fix fund_open_fund_rank_em interface
 
