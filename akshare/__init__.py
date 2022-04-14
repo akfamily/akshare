@@ -1237,7 +1237,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.11: add: add futures_to_spot_dce interface
 0.8.12: add: add futures_delivery_shfe interface
 0.8.13: fix: fix stock_us_daily interface
-0.8.14: fix: fix fund_em_open_fund_rank interface
+0.8.14: fix: fix fund_open_fund_rank_em interface
 0.8.15: fix: fix chinese_to_english interface
 0.8.16: fix: fix stock_a_pe interface
 0.8.17: add: add stock_financial_report_sina interface
@@ -1937,9 +1937,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.15 fix: fix bond_cov_jsl interface
 1.5.16 fix: fix stock_info_sh_delist interface
 1.5.17 add: add macro_china_bsi_index interface
+1.5.18 fix: fix fund_open_fund_rank_em interface
 """
 
-__version__ = "1.5.17"
+__version__ = "1.5.18"
 __author__ = "AKFamily"
 
 import sys
@@ -2755,10 +2756,10 @@ from akshare.rate.repo_rate import repo_rate_hist
 """
 公募基金排行
 """
-from akshare.fund.fund_em_rank import (
+from akshare.fund.fund_rank_em import (
     fund_em_exchange_rank,
     fund_em_money_rank,
-    fund_em_open_fund_rank,
+    fund_open_fund_rank_em,
     fund_em_hk_rank,
     fund_em_lcx_rank,
 )

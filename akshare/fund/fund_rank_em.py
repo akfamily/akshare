@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/17 17:04
+Date: 2022/4/14 17:04
 Desc: 东方财富网-数据中心-开放基金排行
 http://fund.eastmoney.com/data/fundranking.html
 名词解释
@@ -9,12 +9,13 @@ http://help.1234567.com.cn/list_236.html
 """
 import datetime
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
 
+from akshare.utils import demjson
 
-def fund_em_open_fund_rank(symbol: str = "全部") -> pd.DataFrame:
+
+def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
     """
     东方财富网-数据中心-开放基金排行
     http://fund.eastmoney.com/data/fundranking.html
@@ -441,11 +442,11 @@ def fund_em_hk_rank() -> pd.DataFrame:
 
 if __name__ == "__main__":
     for item in {"全部", "股票型", "混合型", "债券型", "指数型", "QDII", "LOF", "FOF"}:
-        fund_em_open_fund_rank_df = fund_em_open_fund_rank(symbol=item)
-        print(fund_em_open_fund_rank_df)
+        fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol=item)
+        print(fund_open_fund_rank_em_df)
 
-    fund_em_open_fund_rank_df = fund_em_open_fund_rank(symbol="全部")
-    print(fund_em_open_fund_rank_df)
+    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="全部")
+    print(fund_open_fund_rank_em_df)
 
     fund_em_exchange_rank_df = fund_em_exchange_rank()
     print(fund_em_exchange_rank_df)
