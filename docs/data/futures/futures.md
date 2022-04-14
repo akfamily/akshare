@@ -3368,7 +3368,7 @@ print(futures_variety_index_nh_df)
 
 #### 统计监控
 
-##### 相关系数走势
+##### 相关系数矩阵
 
 接口: futures_correlation_nh
 
@@ -3380,10 +3380,10 @@ print(futures_variety_index_nh_df)
 
 输入参数
 
-| 名称     | 类型  | 描述               |
-|--------|-----|------------------|
-| date   | str | date="20220104"; |
-| period | str | period="20";     |
+| 名称     | 类型  | 描述                                              |
+|--------|-----|-------------------------------------------------|
+| date   | str | date="20220104";                                |
+| period | str | period="20"; choice of {"5", "20", "60", "120"} |
 
 输出参数
 
