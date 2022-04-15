@@ -4912,8 +4912,8 @@ print(stock_account_statistics_em_df)
 ```python
 import akshare as ak
 
-stock_em_analyst_rank_df = ak.stock_analyst_rank_em(year='2021')
-print(stock_em_analyst_rank_df)
+stock_analyst_rank_em_df = ak.stock_analyst_rank_em(year='2021')
+print(stock_analyst_rank_em_df)
 ```
 
 数据示例
@@ -4969,8 +4969,8 @@ print(stock_em_analyst_rank_df)
 ```python
 import akshare as ak
 
-stock_em_analyst_detail_df = ak.stock_analyst_detail_em(analyst_id="11000200926", indicator="最新跟踪成分股")
-print(stock_em_analyst_detail_df)
+stock_analyst_detail_em_df = ak.stock_analyst_detail_em(analyst_id="11000200926", indicator="最新跟踪成分股")
+print(stock_analyst_detail_em_df)
 ```
 
 数据示例-最新跟踪成分股
