@@ -60,11 +60,12 @@ def fund_portfolio_hold_em(symbol: str = "162411", date: str = "2020") -> pd.Dat
             ]
         ]
         big_df = big_df.append(temp_df, ignore_index=True)
-    big_df["占净值比例"] = pd.to_numeric(big_df["占净值比例"], errors="coerce")
-    big_df["持股数"] = pd.to_numeric(big_df["持股数"], errors="coerce")
-    big_df["持仓市值"] = pd.to_numeric(big_df["持仓市值"], errors="coerce")
-    big_df["序号"] = range(1, len(big_df) + 1)
-    return big_df
+    if len(item_label) > 0:
+        big_df["占净值比例"] = pd.to_numeric(big_df["占净值比例"], errors="coerce")
+        big_df["持股数"] = pd.to_numeric(big_df["持股数"], errors="coerce")
+        big_df["持仓市值"] = pd.to_numeric(big_df["持仓市值"], errors="coerce")
+        big_df["序号"] = range(1, len(big_df) + 1)
+        return big_df
 
 
 def fund_portfolio_bond_hold_em(symbol: str = "000001", date: str = "2021") -> pd.DataFrame:
