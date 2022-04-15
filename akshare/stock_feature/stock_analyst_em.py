@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/11/15 13:39
+Date: 2022/4/15 19:39
 Desc: 东方财富网-数据中心-研究报告-东方财富分析师指数
 http://data.eastmoney.com/invest/invest/list.html
 """
@@ -9,13 +9,13 @@ import pandas as pd
 import requests
 
 
-def stock_em_analyst_rank(year: str = '2021') -> pd.DataFrame:
+def stock_analyst_rank_em(year: str = '2022') -> pd.DataFrame:
     """
-    东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数2020最新排行
+    东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数
     http://data.eastmoney.com/invest/invest/list.html
     :param year: 从 2015 年至今
     :type year: str
-    :return: 东方财富分析师指数2020最新排行
+    :return: 东方财富分析师指数
     :rtype: pandas.DataFrame
     """
     headers = {
@@ -23,7 +23,7 @@ def stock_em_analyst_rank(year: str = '2021') -> pd.DataFrame:
     }
     url = "http://data.eastmoney.com/dataapi/invest/data"
     params = {
-        "st": "0" if year == "2021" else year,
+        "st": "0" if year == "2022" else year,
         "sr": "1",
         "p": "1",
         "ps": "5000",
@@ -32,6 +32,7 @@ def stock_em_analyst_rank(year: str = '2021') -> pd.DataFrame:
         "industrycode": "all",
         "pageNo": "1",
         "pageNum": "1",
+        "pageNumber": "1",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -74,13 +75,13 @@ def stock_em_analyst_rank(year: str = '2021') -> pd.DataFrame:
     return data_df
 
 
-def stock_em_analyst_detail(
+def stock_analyst_detail_em(
     analyst_id: str = "11000200926", indicator: str = "最新跟踪成分股"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数2020最新排行-分析师详情
     http://data.eastmoney.com/invest/invest/11000200926.html
-    :param analyst_id: 分析师ID, 从 stock_em_analyst_rank 获取
+    :param analyst_id: 分析师ID, 从 stock_analyst_rank_em 获取
     :type analyst_id: str
     :param indicator: ["最新跟踪成分股", "历史跟踪成分股", "历史指数"]
     :type indicator: str
@@ -124,6 +125,11 @@ def stock_em_analyst_detail(
             '最新价格',
             '阶段涨跌幅',
         ]]
+        temp_df['调入日期'] = pd.to_datetime(temp_df['调入日期']).dt.date
+        temp_df['最新评级日期'] = pd.to_datetime(temp_df['最新评级日期']).dt.date
+        temp_df['成交价格(前复权)'] = pd.to_numeric(temp_df['成交价格(前复权)'])
+        temp_df['最新价格'] = pd.to_numeric(temp_df['最新价格'])
+        temp_df['阶段涨跌幅'] = pd.to_numeric(temp_df['阶段涨跌幅'])
         return temp_df
     elif indicator == "历史跟踪成分股":
         params = {
@@ -156,6 +162,9 @@ def stock_em_analyst_detail(
             '调出原因',
             '累计涨跌幅',
         ]]
+        temp_df['调入日期'] = pd.to_datetime(temp_df['调入日期']).dt.date
+        temp_df['调出日期'] = pd.to_datetime(temp_df['调出日期']).dt.date
+        temp_df['累计涨跌幅'] = pd.to_numeric(temp_df['累计涨跌幅'])
         return temp_df
     elif indicator == "历史指数":
         params = {
@@ -168,21 +177,26 @@ def stock_em_analyst_detail(
             [json_data["X"].split(","), json_data["Y"][0].split(",")],
             index=["date", "value"],
         ).T
+        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+        temp_df['value'] = pd.to_numeric(temp_df['value'])
         return temp_df
 
 
 if __name__ == "__main__":
-    stock_em_analyst_rank_df = stock_em_analyst_rank(year='2021')
-    print(stock_em_analyst_rank_df)
-    stock_em_analyst_detail_current_stock_df = stock_em_analyst_detail(
+    stock_analyst_rank_em_df = stock_analyst_rank_em(year='2021')
+    print(stock_analyst_rank_em_df)
+
+    stock_analyst_detail_em_df = stock_analyst_detail_em(
         analyst_id="11000200926", indicator="最新跟踪成分股"
     )
-    print(stock_em_analyst_detail_current_stock_df)
-    stock_em_analyst_detail_history_stock_df = stock_em_analyst_detail(
+    print(stock_analyst_detail_em_df)
+
+    stock_analyst_detail_em_df = stock_analyst_detail_em(
         analyst_id="11000200926", indicator="历史跟踪成分股"
     )
-    print(stock_em_analyst_detail_history_stock_df)
-    stock_em_analyst_detail_index_df = stock_em_analyst_detail(
+    print(stock_analyst_detail_em_df)
+
+    stock_analyst_detail_em_df = stock_analyst_detail_em(
         analyst_id="11000200926", indicator="历史指数"
     )
-    print(stock_em_analyst_detail_index_df)
+    print(stock_analyst_detail_em_df)

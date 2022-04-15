@@ -1135,7 +1135,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.8: fix: fix bond_cov_jsl interface
 0.7.9: fix: fix stock_jgdy_detail_em interface
 0.7.10: fix: fix match_main_contract interface
-0.7.11: fix: fix stock_em_analyst_rank and stock_em_analyst_detail interface
+0.7.11: fix: fix stock_analyst_rank_em and stock_analyst_detail_em interface
 0.7.12: add: add stock_zh_a_cdr_daily interface
 0.7.13: fix: fix stock_zh_a_cdr_daily and stock_zh_a_daily interface
 0.7.14: fix: fix get_receipt interface
@@ -1251,7 +1251,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.25: fix: fix stock_zh_index_daily_tx interface
 0.8.26: fix: fix stock_hk_daily interface
 0.8.27: fix: fix get_dce_rank_table interface
-0.8.28: fix: fix stock_em_analyst_rank interface
+0.8.28: fix: fix stock_analyst_rank_em interface
 0.8.29: add: add fund_rating interface
 0.8.30: add: add fund_manager interface
 0.8.31: fix: fix stock_zh_a_minute interface
@@ -1944,9 +1944,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.22 fix: fix futures_correlation_nh interface
 1.5.23 fix: fix stock_board_concept_name_em interface
 1.5.24 fix: fix stock_profit_forecast interface
+1.5.25 fix: fix stock_analyst_rank_em and stock_analyst_detail_em interface
 """
 
-__version__ = "1.5.24"
+__version__ = "1.5.25"
 __author__ = "AKFamily"
 
 import sys
@@ -3125,9 +3126,9 @@ from akshare.stock_feature.stock_em_comment import stock_em_comment
 """
 stock-em-analyst
 """
-from akshare.stock_feature.stock_em_analyst import (
-    stock_em_analyst_detail,
-    stock_em_analyst_rank,
+from akshare.stock_feature.stock_analyst_em import (
+    stock_analyst_detail_em,
+    stock_analyst_rank_em,
 )
 
 """

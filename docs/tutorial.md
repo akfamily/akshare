@@ -425,8 +425,8 @@
  "fund_money_fund_info_em",  # 货币型基金-历史数据
  "fund_value_estimation_em",  # 基金估值
  # 分析师指数
- "stock_em_analyst_rank"  # 分析师排名
- "stock_em_analyst_detail"  # 分析师详情
+ "stock_analyst_rank_em"  # 分析师排名
+ "stock_analyst_detail_em"  # 分析师详情
  # 千股千评
  "stock_em_comment"  # 股市关注度
  # 沪深港通
