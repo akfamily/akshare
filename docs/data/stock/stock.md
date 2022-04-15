@@ -5054,45 +5054,42 @@ print(stock_em_analyst_detail_df)
 
 ### 千股千评
 
-接口: stock_em_comment
+接口: stock_comment_em
 
 目标地址: http://data.eastmoney.com/stockcomment/
 
-描述: 获取东方财富网-数据中心-特色数据-千股千评
+描述: 东方财富网-数据中心-特色数据-千股千评
 
 限量: 单次获取所有数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | -  | -    |   - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          |  int32  | Y        | -     |
-| 代码          | object   | Y        | -     |
-| 名称         | object   | Y        | -     |
-| 最新价          | object   | Y        | -     |
-| 涨跌幅          | object   | Y        | 注意单位: %     |
-| 换手率          | object   | Y        | 注意单位: %     |
-| 市盈率          | object   | Y        | -     |
-| 主力成本          | float64   | Y        | -     |
-| 机构参与度          | object   | Y        | -     |
-| 综合得分          | object   | Y        | -     |
-| 上升          | object   | Y        | 注意: 正负号     |
-| 目前排名          | object   | Y        | -     |
-| 关注指数          | object   | Y        | -     |
-| 发布时间          | object   | Y        | -     |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 序号    | int64   | -       |
+| 代码    | object  | -       |
+| 名称    | object  | -       |
+| 最新价   | float64 | -       |
+| 主力成本  | float64 | -       |
+| 机构参与度 | float64 | -       |
+| 综合得分  | float64 | -       |
+| 上升    | int64   | 注意: 正负号 |
+| 目前排名  | int64   | -       |
+| 关注指数  | float64 | -       |
 
 接口示例
 
 ```python
 import akshare as ak
-stock_em_comment_df = ak.stock_em_comment()
-print(stock_em_comment_df)
+
+stock_comment_em_df = ak.stock_comment_em()
+print(stock_comment_em_df)
 ```
 
 数据示例

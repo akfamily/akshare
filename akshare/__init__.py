@@ -875,7 +875,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.45: add: fund_public file and docs
 0.4.46: add: macro_china_lpr
 0.4.47: add: stock_em_analyst
-0.4.48: add: stock_em_comment
+0.4.48: add: stock_comment_em
 0.4.49: add: stock_em_hsgt
 0.4.50: fix: stock_em_sy_yq_list
 0.4.51: add: stock_tfp_em
@@ -1107,7 +1107,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.79: fix: split movie_boxoffice to single interface
 0.6.80: fix: movie_boxoffice interface
 0.6.81: fix: fix stock_report_fund_hold interface
-0.6.82: fix: fix stock_em_comment interface
+0.6.82: fix: fix stock_comment_em interface
 0.6.83: add: add crypto_hist and crypto_name_url_table interface
 0.6.84: fix: fix crypto_hist interface
 0.6.85: fix: fix stock_a_pb and stock_a_pe interface
@@ -1267,7 +1267,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.41: fix: fix energy_carbon_bj interface
 0.8.42: fix: fix stock_zh_a_daily interface
 0.8.43: fix: fix stock_yjyg_em interface
-0.8.44: fix: fix stock_em_comment interface
+0.8.44: fix: fix stock_comment_em interface
 0.8.45: add: add stock_sse_deal_daily interface
 0.8.46: fix: fix stock_board_concept_cons_ths interface
 0.8.47: add: add stock_board_concept_info_ths interface
@@ -1945,9 +1945,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.23 fix: fix stock_board_concept_name_em interface
 1.5.24 fix: fix stock_profit_forecast interface
 1.5.25 fix: fix stock_analyst_rank_em and stock_analyst_detail_em interface
+1.5.26 fix: fix stock_comment_em interface
 """
 
-__version__ = "1.5.25"
+__version__ = "1.5.26"
 __author__ = "AKFamily"
 
 import sys
@@ -3121,7 +3122,7 @@ from akshare.stock_feature.stock_hsgt_em import (
 """
 stock-em-comment
 """
-from akshare.stock_feature.stock_em_comment import stock_em_comment
+from akshare.stock_feature.stock_comment_em import stock_comment_em
 
 """
 stock-em-analyst
