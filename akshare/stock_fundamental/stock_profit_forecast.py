@@ -5,8 +5,6 @@ Date: 2021/5/4 15:12
 Desc: 东方财富网-数据中心-研究报告-盈利预测
 http://data.eastmoney.com/report/profitforecast.jshtml
 """
-from datetime import datetime
-
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -37,7 +35,7 @@ def stock_profit_forecast():
     data_json = r.json()
     page_num = int(data_json['result']['pages'])
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1)):
+    for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({
             'pageNumber': page,
             'p': page,
@@ -47,12 +45,13 @@ def stock_profit_forecast():
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['result']['data'])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.reset_index(inplace=True)
-    big_df["index"] = range(1, len(big_df) + 1)
-    year1 = list(set(big_df['YEAR1']))[0]
-    year2 = list(set(big_df['YEAR2']))[0]
-    year3 = list(set(big_df['YEAR3']))[0]
+    big_df["index"] = big_df.index + 1
+    year1 = list(set(big_df['YEAR1']))[-1]
+    year2 = list(set(big_df['YEAR2']))[-1]
+    year3 = list(set(big_df['YEAR3']))[-1]
     year4 = list(set(big_df['YEAR4']))[0]
     big_df.columns = [
         "序号",
@@ -106,8 +105,16 @@ def stock_profit_forecast():
             f"{year4}预测每股收益",
         ]
     ]
+    big_df['研报数'] = pd.to_numeric(big_df['研报数'])
+    big_df['机构投资评级(近六个月)-买入'] = pd.to_numeric(big_df['机构投资评级(近六个月)-买入'])
+    big_df['机构投资评级(近六个月)-增持'] = pd.to_numeric(big_df['机构投资评级(近六个月)-增持'])
+    big_df['机构投资评级(近六个月)-中性'] = pd.to_numeric(big_df['机构投资评级(近六个月)-中性'])
     big_df['机构投资评级(近六个月)-减持'] = pd.to_numeric(big_df['机构投资评级(近六个月)-减持'])
     big_df['机构投资评级(近六个月)-卖出'] = pd.to_numeric(big_df['机构投资评级(近六个月)-卖出'])
+    big_df[f"{year1}预测每股收益"] = pd.to_numeric(big_df[f"{year1}预测每股收益"])
+    big_df[f"{year2}预测每股收益"] = pd.to_numeric(big_df[f"{year2}预测每股收益"])
+    big_df[f"{year3}预测每股收益"] = pd.to_numeric(big_df[f"{year3}预测每股收益"])
+    big_df[f"{year4}预测每股收益"] = pd.to_numeric(big_df[f"{year4}预测每股收益"])
     return big_df
 
 
