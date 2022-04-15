@@ -176,16 +176,16 @@ def stock_board_industry_hist_em(
             "换手率",
         ]
     ]
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
     return temp_df
 
 

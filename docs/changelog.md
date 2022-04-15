@@ -15,6 +15,10 @@
 
 ## 更新说明
 
+1.5.23 fix: fix stock_board_concept_name_em interface
+
+    1. 修复 stock_board_concept_name_em 接口，增加字段的容错
+
 1.5.22 fix: fix futures_correlation_nh interface
 
     1. 修复 futures_correlation_nh 接口，修改接口描述
@@ -345,6 +349,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.23 fix: fix stock_board_concept_name_em interface
 
 1.5.22 fix: fix futures_correlation_nh interface
 
