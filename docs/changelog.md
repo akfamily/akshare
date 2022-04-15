@@ -4,7 +4,9 @@
 
 | AKShare 版本 | 旧接口名称                             | 新接口名称                             | 修改日期     |
 |------------|-----------------------------------|-----------------------------------|----------|
-| 1.5.18     | fund_open_fund_rank_em            | fund_open_fund_rank_em            | 20220414 |
+| 1.5.25     | stock_em_analyst_detail           | stock_analyst_detail_em           | 20220415 |
+| 1.5.25     | stock_em_analyst_rank             | stock_analyst_rank_em             | 20220415 |
+| 1.5.18     | fund_em_open_fund_rank            | fund_open_fund_rank_em            | 20220414 |
 | 1.5.12     | stock_em_gpzy_pledge_ratio_detail | stock_gpzy_pledge_ratio_detail_em | 20220410 |
 | 1.5.10     | stock_em_gpzy_pledge_ratio        | stock_gpzy_pledge_ratio_em        | 20220410 |
 | 1.5.10     | stock_em_gpzy_profile             | stock_gpzy_profile_em             | 20220410 |
@@ -14,6 +16,11 @@
 | 1.4.86     | fund_em_aum                       | fund_aum_em                       | 20220322 |
 
 ## 更新说明
+
+1.5.25 fix: fix stock_analyst_rank_em and stock_analyst_detail_em interface
+
+    1. 修复 stock_analyst_rank_em 接口，将接口重命名为 stock_analyst_rank_em
+    2. 修复 stock_analyst_detail_em 接口，将接口重命名为 stock_analyst_detail_em
 
 1.5.24 fix: fix stock_profit_forecast interface
 
@@ -353,6 +360,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.25 fix: fix stock_analyst_rank_em and stock_analyst_detail_em interface
 
 1.5.24 fix: fix stock_profit_forecast interface
 
