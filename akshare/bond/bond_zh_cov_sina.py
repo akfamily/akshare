@@ -265,54 +265,37 @@ def bond_zh_cov() -> pd.DataFrame:
     :return: 可转债数据
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "KZZ_LB2.0",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "STARTDATE",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var {jsname}={pages:(tp),data:(x),font:(font)}",
-        "rt": "53603537",
+        'sortColumns': 'PUBLIC_START_DATE',
+        'sortTypes': '-1',
+        'pageSize': '500',
+        'pageNumber': '1',
+        'reportName': 'RPT_BOND_CB_LIST',
+        'columns': 'ALL',
+        'quoteColumns': 'f2~01~CONVERT_STOCK_CODE~CONVERT_STOCK_PRICE,f235~10~SECURITY_CODE~TRANSFER_PRICE,f236~10~SECURITY_CODE~TRANSFER_VALUE,f2~10~SECURITY_CODE~CURRENT_BOND_PRICE,f237~10~SECURITY_CODE~TRANSFER_PREMIUM_RATIO,f239~10~SECURITY_CODE~RESALE_TRIG_PRICE,f240~10~SECURITY_CODE~REDEEM_TRIG_PRICE,f23~01~CONVERT_STOCK_CODE~PBV_RATIO',
+        'source': 'WEB',
+        'client': 'WEB',
     }
     r = requests.get(url, params=params)
-    text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("=") + 1:])
-    temp_df = pd.DataFrame(json_data["data"])
-    map_dict = {
-        item["code"]: item["value"] for item in json_data["font"]["FontMapping"]
-    }
-    for key, value in map_dict.items():
-        for i in range(1, 9):
-            temp_df.iloc[:, -i] = temp_df.iloc[:, -i].apply(
-                lambda x: x.replace(key, str(value))
-            )
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
+    big_df.columns = [
         "债券代码",
-        "交易场所",
+        "_",
         "_",
         "债券简称",
-        "申购日期",
-        "申购代码",
         "_",
-        "正股代码",
-        "正股简称",
-        "债券面值",
-        "发行价格",
-        "_",
-        "中签号发布日",
-        "中签率",
         "上市时间",
-        "_",
-        "备忘录",
-        "正股价",
-        "市场类型",
-        "_",
-        "_",
-        "_",
-        "原股东配售-股权登记日",
+        "正股代码",
         "_",
         "_",
         "_",
@@ -322,18 +305,62 @@ def bond_zh_cov() -> pd.DataFrame:
         "_",
         "_",
         "_",
-        "_",
-        "_",
+        "发行规模",
         "申购上限",
         "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "申购代码",
+        "_",
+        "申购日期",
+        "_",
+        "_",
+        "中签号发布日",
+        "原股东配售-股权登记日",
+        "正股简称",
+        "原股东配售-每股配售额",
+        "_",
+        "中签率",
+        "-",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "正股价",
         "转股价",
         "转股价值",
         "债现价",
         "转股溢价率",
-        "原股东配售-每股配售额",
-        "发行规模",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
+        "_",
     ]
-    temp_df = temp_df[
+    big_df = big_df[
         [
             "债券代码",
             "债券简称",
@@ -355,20 +382,22 @@ def bond_zh_cov() -> pd.DataFrame:
             "上市时间",
         ]
     ]
-    temp_df['申购日期'] = pd.to_datetime(temp_df['申购日期'], errors='coerce').dt.date
-    temp_df['申购上限'] = pd.to_numeric(temp_df['申购上限'], errors='coerce')
-    temp_df['正股价'] = pd.to_numeric(temp_df['正股价'], errors='coerce')
-    temp_df['转股价'] = pd.to_numeric(temp_df['转股价'], errors='coerce')
-    temp_df['转股价值'] = pd.to_numeric(temp_df['转股价值'], errors='coerce')
-    temp_df['债现价'] = pd.to_numeric(temp_df['债现价'], errors='coerce')
-    temp_df['转股溢价率'] = pd.to_numeric(temp_df['转股溢价率'], errors='coerce')
-    temp_df['原股东配售-股权登记日'] = pd.to_datetime(temp_df['原股东配售-股权登记日'], errors='coerce').dt.date
-    temp_df['原股东配售-每股配售额'] = pd.to_numeric(temp_df['原股东配售-每股配售额'], errors='coerce')
-    temp_df['发行规模'] = pd.to_numeric(temp_df['发行规模'], errors='coerce')
-    temp_df['中签号发布日'] = pd.to_datetime(temp_df['中签号发布日'], errors='coerce').dt.date
-    temp_df['中签率'] = pd.to_numeric(temp_df['中签率'], errors='coerce')
-    temp_df['上市时间'] = pd.to_datetime(temp_df['上市时间'], errors='coerce').dt.date
-    return temp_df
+    big_df['申购日期'] = pd.to_datetime(big_df['申购日期'], errors='coerce').dt.date
+    big_df['申购上限'] = pd.to_numeric(big_df['申购上限'], errors='coerce')
+    big_df['正股价'] = pd.to_numeric(big_df['正股价'], errors='coerce')
+    big_df['转股价'] = pd.to_numeric(big_df['转股价'], errors='coerce')
+    big_df['转股价值'] = pd.to_numeric(big_df['转股价值'], errors='coerce')
+    big_df['债现价'] = pd.to_numeric(big_df['债现价'], errors='coerce')
+    big_df['转股溢价率'] = pd.to_numeric(big_df['转股溢价率'], errors='coerce')
+    big_df['原股东配售-股权登记日'] = pd.to_datetime(big_df['原股东配售-股权登记日'], errors='coerce').dt.date
+    big_df['原股东配售-每股配售额'] = pd.to_numeric(big_df['原股东配售-每股配售额'], errors='coerce')
+    big_df['发行规模'] = pd.to_numeric(big_df['发行规模'], errors='coerce')
+    big_df['中签号发布日'] = pd.to_datetime(big_df['中签号发布日'], errors='coerce').dt.date
+    big_df['中签率'] = pd.to_numeric(big_df['中签率'], errors='coerce')
+    big_df['上市时间'] = pd.to_datetime(big_df['上市时间'], errors='coerce').dt.date
+
+    big_df['债现价'] = big_df['债现价'].fillna(100)
+    return big_df
 
 
 def bond_cov_comparison() -> pd.DataFrame:
