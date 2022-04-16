@@ -103,4 +103,4 @@ def stock_comment_em() -> pd.DataFrame:
 
 if __name__ == "__main__":
     stock_comment_em_df = stock_comment_em()
-    print(stock_comment_em_df.info())
+    print(stock_comment_em_df)
