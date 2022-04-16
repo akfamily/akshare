@@ -24,7 +24,7 @@ def stock_comment_em() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_DMSK_TS_STOCKNEW",
-        "quoteColumns": "f2~01~SECURITY_CODE~CLOSE_PRICE, f8~01~SECURITY_CODE~TURNOVERRATE, f3~01~SECURITY_CODE~CHANGE_RATE, f9~01~SECURITY_CODE~PE_DYNAMIC",
+        "quoteColumns": "f2~01~SECURITY_CODE~CLOSE_PRICE,f8~01~SECURITY_CODE~TURNOVERRATE,f3~01~SECURITY_CODE~CHANGE_RATE,f9~01~SECURITY_CODE~PE_DYNAMIC",
         "columns": "ALL",
         "filter": "",
         "token": "894050c76af8597a853f5b408b759f5d",
@@ -47,17 +47,17 @@ def stock_comment_em() -> pd.DataFrame:
         "-",
         "代码",
         "-",
-        "-",
+        "交易日",
         "名称",
         "-",
         "-",
         "-",
         "最新价",
+        "涨跌幅",
         "-",
-        "-",
-        "-",
+        "换手率",
         "主力成本",
-        "-",
+        "市盈率",
         "-",
         "-",
         "机构参与度",
@@ -81,23 +81,30 @@ def stock_comment_em() -> pd.DataFrame:
             "代码",
             "名称",
             "最新价",
+            "涨跌幅",
+            "换手率",
+            "市盈率",
             "主力成本",
             "机构参与度",
             "综合得分",
             "上升",
             "目前排名",
             "关注指数",
+            "交易日",
         ]
     ]
 
     big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
+    big_df["换手率"] = pd.to_numeric(big_df["换手率"], errors="coerce")
+    big_df["市盈率"] = pd.to_numeric(big_df["市盈率"], errors="coerce")
     big_df["主力成本"] = pd.to_numeric(big_df["主力成本"], errors="coerce")
     big_df["机构参与度"] = pd.to_numeric(big_df["机构参与度"], errors="coerce")
     big_df["综合得分"] = pd.to_numeric(big_df["综合得分"], errors="coerce")
     big_df["上升"] = pd.to_numeric(big_df["上升"], errors="coerce")
     big_df["目前排名"] = pd.to_numeric(big_df["目前排名"], errors="coerce")
     big_df["关注指数"] = pd.to_numeric(big_df["关注指数"], errors="coerce")
-
+    big_df['交易日'] = pd.to_datetime(big_df['交易日']).dt.date
     return big_df
 
 

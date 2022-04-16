@@ -1946,9 +1946,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.24 fix: fix stock_profit_forecast interface
 1.5.25 fix: fix stock_analyst_rank_em and stock_analyst_detail_em interface
 1.5.26 fix: fix stock_comment_em interface
+1.5.27 fix: fix stock_comment_em interface
 """
 
-__version__ = "1.5.26"
+__version__ = "1.5.27"
 __author__ = "AKFamily"
 
 import sys
