@@ -179,15 +179,15 @@ def index_zh_a_hist(
 
 
 def index_zh_a_hist_min_em(
-    symbol: str = "000016",
-    period: str = "5",
+    symbol: str = "399006",
+    period: str = "1",
     start_date: str = "1979-09-01 09:32:00",
     end_date: str = "2222-01-01 09:32:00",
 ) -> pd.DataFrame:
     """
     东方财富网-指数数据-每日分时行情
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
-    :param symbol: 股票代码
+    :param symbol: 指数代码
     :type symbol: str
     :param period: choice of {'1', '5', '15', '30', '60'}
     :type period: str
@@ -262,17 +262,30 @@ def index_zh_a_hist_min_em(
         return temp_df
     else:
         url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
-        params = {
-            "secid": f"{code_id_dict[symbol]}.{symbol}",
-            "ut": "7eea3edcaed734bea9cbfc24409ed989",
-            "fields1": "f1,f2,f3,f4,f5,f6",
-            "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
-            "klt": period,
-            "fqt": "1",
-            "beg": "0",
-            "end": "20500000",
-            "_": "1630930917857",
-        }
+        try:
+            params = {
+                "secid": f"{code_id_dict[symbol]}.{symbol}",
+                "ut": "7eea3edcaed734bea9cbfc24409ed989",
+                "fields1": "f1,f2,f3,f4,f5,f6",
+                "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+                "klt": period,
+                "fqt": "1",
+                "beg": "0",
+                "end": "20500000",
+                "_": "1630930917857",
+            }
+        except:
+            params = {
+                "secid": f"0.{symbol}",
+                "ut": "7eea3edcaed734bea9cbfc24409ed989",
+                "fields1": "f1,f2,f3,f4,f5,f6",
+                "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+                "klt": period,
+                "fqt": "1",
+                "beg": "0",
+                "end": "20500000",
+                "_": "1630930917857",
+            }
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(
@@ -333,7 +346,7 @@ if __name__ == "__main__":
     print(index_zh_a_hist_df)
 
     index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
-        symbol="000016",
+        symbol="399006",
         period="1",
         start_date="1979-09-01 09:32:00",
         end_date="2222-01-01 09:32:00",
