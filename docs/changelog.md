@@ -18,6 +18,10 @@
 
 ## 更新说明
 
+1.5.28 fix: fix bond_zh_cov interface
+
+    1. 修复 bond_zh_cov 接口
+
 1.5.27 fix: fix stock_comment_em interface
 
     1. 修复 stock_comment_em 接口，补充字段跟网页数据源统一并新增`交易日`字段
@@ -369,6 +373,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.28 fix: fix bond_zh_cov interface
 
 1.5.27 fix: fix stock_comment_em interface
 
