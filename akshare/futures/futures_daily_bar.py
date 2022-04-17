@@ -334,7 +334,7 @@ def get_shfe_v_wap(date: str = "20131017") -> pd.DataFrame:
         return None
 
 
-def get_shfe_daily(date: str = "20160104") -> pd.DataFrame:
+def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     """
     上海期货交易所-日频率-量价数据
     http://www.shfe.com.cn/statements/dataview.html?paramid=kx
@@ -360,7 +360,7 @@ def get_shfe_daily(date: str = "20160104") -> pd.DataFrame:
     day = cons.convert_date(date) if date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return None
+        return
     try:
         json_data = json.loads(
             requests_link(
