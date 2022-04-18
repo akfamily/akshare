@@ -423,7 +423,7 @@ def stock_a_pe(symbol: str = "sz") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_a_pe_df = stock_a_pe(symbol="kc")
+    stock_a_pe_df = stock_a_pe(symbol="sh")
     print(stock_a_pe_df)
 
     stock_a_pe_df = stock_a_pe(symbol="000016.XSHG")

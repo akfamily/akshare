@@ -60,5 +60,5 @@ def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_individual_info_em_df = stock_individual_info_em(symbol="601816")
+    stock_individual_info_em_df = stock_individual_info_em(symbol="600062")
     print(stock_individual_info_em_df)
