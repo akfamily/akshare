@@ -104,7 +104,7 @@ def stock_comment_em() -> pd.DataFrame:
     big_df["上升"] = pd.to_numeric(big_df["上升"], errors="coerce")
     big_df["目前排名"] = pd.to_numeric(big_df["目前排名"], errors="coerce")
     big_df["关注指数"] = pd.to_numeric(big_df["关注指数"], errors="coerce")
-    big_df['交易日'] = pd.to_datetime(big_df['交易日']).dt.date
+    big_df["交易日"] = pd.to_datetime(big_df["交易日"]).dt.date
     return big_df
 
 

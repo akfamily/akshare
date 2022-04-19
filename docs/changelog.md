@@ -18,6 +18,10 @@
 
 ## 更新说明
 
+1.5.30 fix: fix hurun_rank interface
+
+    1. 修复 hurun_rank 接口，新增多个排行榜及统一数据输出格式
+
 1.5.29 fix: fix index_zh_a_hist_min_em interface
 
     1. 修复 index_zh_a_hist_min_em 接口，个别指数数据获取
@@ -377,6 +381,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.30 fix: fix hurun_rank interface
 
 1.5.29 fix: fix index_zh_a_hist_min_em interface
 
