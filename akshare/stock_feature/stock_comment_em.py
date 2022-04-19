@@ -8,6 +8,7 @@ http://data.eastmoney.com/stockcomment/
 import pandas as pd
 import requests
 from tqdm import tqdm
+from datetime import datetime
 
 
 def stock_comment_em() -> pd.DataFrame:
@@ -108,6 +109,31 @@ def stock_comment_em() -> pd.DataFrame:
     return big_df
 
 
+def stock_comment_detail_zlkp_jgcyd_em(symbol: str = "600000") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-特色数据-千股千评-主力控盘-机构参与度
+    https://data.eastmoney.com/stockcomment/stock/600000.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 主力控盘-机构参与度
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://data.eastmoney.com/stockcomment/api/{symbol}.json"
+    r = requests.get(url)
+    data_json = r.json()
+    temp_df = pd.DataFrame([data_json['ApiResults']['zlkp']['jgcyd']['XData'], data_json['ApiResults']['zlkp']['jgcyd']['Ydata']['JGCYD']]).T
+    temp_df.columns = ['date', 'value']
+    temp_df['date'] = str(datetime.now().year) + '-' + temp_df['date']
+    temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+    temp_df.sort_values(['date'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df['value'] = pd.to_numeric(temp_df['value'])
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_comment_em_df = stock_comment_em()
     print(stock_comment_em_df)
+
+    stock_comment_detail_zlkp_jgcyd_em_df = stock_comment_detail_zlkp_jgcyd_em(symbol="600000")
+    print(stock_comment_detail_zlkp_jgcyd_em_df)

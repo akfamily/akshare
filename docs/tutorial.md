@@ -429,6 +429,7 @@
  "stock_analyst_detail_em"  # 分析师详情
  # 千股千评
  "stock_comment_em"  # 股市关注度
+ "stock_comment_detail_zlkp_jgcyd_em"  # 机构参与度
  # 沪深港通
  "stock_hk_ggt_components_em"  # 港股通成份股
  "stock_hsgt_north_net_flow_in_em"  # 沪深港通北向-净流入

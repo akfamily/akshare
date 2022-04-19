@@ -1951,9 +1951,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.29 fix: fix index_zh_a_hist_min_em interface
 1.5.30 fix: fix hurun_rank interface
 1.5.31 fix: fix stock_individual_info_em interface
+1.5.32 add: add stock_comment_detail_zlkp_jgcyd_em interface
 """
 
-__version__ = "1.5.31"
+__version__ = "1.5.32"
 __author__ = "AKFamily"
 
 import sys
@@ -3127,7 +3128,7 @@ from akshare.stock_feature.stock_hsgt_em import (
 """
 stock-em-comment
 """
-from akshare.stock_feature.stock_comment_em import stock_comment_em
+from akshare.stock_feature.stock_comment_em import stock_comment_em, stock_comment_detail_zlkp_jgcyd_em
 
 """
 stock-em-analyst
