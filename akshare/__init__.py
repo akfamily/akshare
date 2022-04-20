@@ -1952,9 +1952,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.30 fix: fix hurun_rank interface
 1.5.31 fix: fix stock_individual_info_em interface
 1.5.32 add: add stock_comment_detail_zlkp_jgcyd_em interface
+1.5.33 fix: fix fund_fh_em interface
 """
 
-__version__ = "1.5.32"
+__version__ = "1.5.33"
 __author__ = "AKFamily"
 
 import sys
