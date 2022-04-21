@@ -26,3 +26,4 @@
 7. [akshare 配对策略](https://blog.csdn.net/qq_26742269/article/details/122916800)
 8. [获取财经数据神器akshare 基本使用总结](https://blog.csdn.net/fyfugoyfa/article/details/113131184)
 9. [股债收益模型 量化实战篇（一）](https://bbs.csdn.net/topics/605332332)
+10. [配对交易（一）：期货品种相关性研究](https://blog.csdn.net/anddyyhuang/article/details/124307032)
