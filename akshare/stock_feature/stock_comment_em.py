@@ -131,9 +131,61 @@ def stock_comment_detail_zlkp_jgcyd_em(symbol: str = "600000") -> pd.DataFrame:
     return temp_df
 
 
+def stock_comment_detail_zhpj_lspf_em(symbol: str = "600000") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-特色数据-千股千评-综合评价-历史评分
+    https://data.eastmoney.com/stockcomment/stock/600000.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 综合评价-历史评分
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://data.eastmoney.com/stockcomment/api/{symbol}.json"
+    r = requests.get(url)
+    data_json = r.json()
+    temp_df = pd.DataFrame([data_json['ApiResults']['zhpj']['HistoryScore']['XData'], data_json['ApiResults']['zhpj']['HistoryScore']['Ydata']['Score'], data_json['ApiResults']['zhpj']['HistoryScore']['Ydata']['Price']]).T
+    temp_df.columns = ['日期', '评分', "股价"]
+    temp_df['日期'] = str(datetime.now().year) + '-' + temp_df['日期']
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df.sort_values(['日期'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df['评分'] = pd.to_numeric(temp_df['评分'])
+    temp_df['股价'] = pd.to_numeric(temp_df['股价'])
+    return temp_df
+
+
+def stock_comment_detail_scrd_focus_em(symbol: str = "600000") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-特色数据-千股千评-市场热度-用户关注指数
+    https://data.eastmoney.com/stockcomment/stock/600000.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 市场热度-用户关注指数
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://data.eastmoney.com/stockcomment/api/{symbol}.json"
+    r = requests.get(url)
+    data_json = r.json()
+    temp_df = pd.DataFrame([data_json['ApiResults']['scrd']['focus'][1]['XData'], data_json['ApiResults']['scrd']['focus'][1]['Ydata']['StockFocus'], data_json['ApiResults']['scrd']['focus'][1]['Ydata']['ClosePrice']]).T
+    temp_df.columns = ['日期', '用户关注指数', "收盘价"]
+    temp_df['日期'] = str(datetime.now().year) + '-' + temp_df['日期']
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df.sort_values(['日期'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df['用户关注指数'] = pd.to_numeric(temp_df['用户关注指数'])
+    temp_df['收盘价'] = pd.to_numeric(temp_df['收盘价'])
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_comment_em_df = stock_comment_em()
     print(stock_comment_em_df)
 
     stock_comment_detail_zlkp_jgcyd_em_df = stock_comment_detail_zlkp_jgcyd_em(symbol="600000")
     print(stock_comment_detail_zlkp_jgcyd_em_df)
+
+    stock_comment_detail_zhpj_lspf_em_df = stock_comment_detail_zhpj_lspf_em(symbol="600000")
+    print(stock_comment_detail_zhpj_lspf_em_df)
+
+    stock_comment_detail_scrd_focus_em_df = stock_comment_detail_scrd_focus_em(symbol="600000")
+    print(stock_comment_detail_scrd_focus_em_df)

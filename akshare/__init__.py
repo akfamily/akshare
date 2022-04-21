@@ -1954,9 +1954,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.32 add: add stock_comment_detail_zlkp_jgcyd_em interface
 1.5.33 fix: fix fund_fh_em interface
 1.5.34 fix: fix stock_gpzy_industry_data_em interface
+1.5.35 add: add stock_comment_detail_zhpj_lspf_em interface
 """
 
-__version__ = "1.5.34"
+__version__ = "1.5.35"
 __author__ = "AKFamily"
 
 import sys
@@ -3130,7 +3131,12 @@ from akshare.stock_feature.stock_hsgt_em import (
 """
 stock-em-comment
 """
-from akshare.stock_feature.stock_comment_em import stock_comment_em, stock_comment_detail_zlkp_jgcyd_em
+from akshare.stock_feature.stock_comment_em import (
+    stock_comment_em,
+    stock_comment_detail_zlkp_jgcyd_em,
+    stock_comment_detail_scrd_focus_em,
+    stock_comment_detail_zhpj_lspf_em,
+)
 
 """
 stock-em-analyst
