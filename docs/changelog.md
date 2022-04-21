@@ -19,6 +19,10 @@
 
 ## 更新说明
 
+1.5.35 add: add stock_comment_detail_zhpj_lspf_em interface
+
+    1. 新增 stock_comment_detail_zhpj_lspf_em 接口，获取综合评价-历史评分数据
+
 1.5.34 fix: fix stock_gpzy_industry_data_em interface
 
     1. 修复 stock_gpzy_industry_data_em 接口，并重命名为 stock_gpzy_industry_data_em
@@ -398,6 +402,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.35 add: add stock_comment_detail_zhpj_lspf_em interface
 
 1.5.34 fix: fix stock_gpzy_industry_data_em interface
 
