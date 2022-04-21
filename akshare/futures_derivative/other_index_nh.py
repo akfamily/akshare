@@ -48,13 +48,14 @@ def futures_board_index_nh(start_date: str = "20220104", end_date: str = "202204
         'code',
         'end_date',
     ]
-    start_df[end_date] = end_df['end_date']
 
+    start_df[end_date] = end_df['end_date']
     start_df['gap'] = start_df[end_date] - start_df[start_date]
     start_df['return'] = start_df['gap']/start_df[start_date]
 
     temp_df = start_df
     temp_df = temp_df[['name', 'return']]
+
     return temp_df
 
 
