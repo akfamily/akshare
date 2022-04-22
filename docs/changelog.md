@@ -19,6 +19,14 @@
 
 ## 更新说明
 
+1.5.37 add: add stock_comment_detail_scrd_desire_em interface
+
+    1. 新增 stock_comment_detail_scrd_desire_em 接口，获取市场参与意愿数据
+
+1.5.36 add: add stock_comment_detail_scrd_focus_em interface
+
+    1. 新增 stock_comment_detail_scrd_focus_em 接口，获取用户关注指数数据
+
 1.5.35 add: add stock_comment_detail_zhpj_lspf_em interface
 
     1. 新增 stock_comment_detail_zhpj_lspf_em 接口，获取综合评价-历史评分数据
@@ -402,6 +410,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.37 add: add stock_comment_detail_scrd_desire_em interface
+
+1.5.36 add: add stock_comment_detail_scrd_focus_em interface
 
 1.5.35 add: add stock_comment_detail_zhpj_lspf_em interface
 

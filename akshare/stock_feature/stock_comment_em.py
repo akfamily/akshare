@@ -177,6 +177,34 @@ def stock_comment_detail_scrd_focus_em(symbol: str = "600000") -> pd.DataFrame:
     return temp_df
 
 
+def stock_comment_detail_scrd_desire_em(symbol: str = "600000") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-特色数据-千股千评-市场热度-市场参与意愿
+    https://data.eastmoney.com/stockcomment/stock/600000.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 市场热度-市场参与意愿
+    :rtype: pandas.DataFrame
+    """
+    url = f"https://data.eastmoney.com/stockcomment/api/{symbol}.json"
+    r = requests.get(url)
+    data_json = r.json()
+    date_str = data_json['ApiResults']['scrd']['desire'][0][0]['UpdateTime'].split(" ")[0].replace("/", "-")
+
+    temp_df = pd.DataFrame([data_json['ApiResults']['scrd']['desire'][1]['XData'], data_json['ApiResults']['scrd']['desire'][1]['Ydata']['MajorPeopleNumChg'], data_json['ApiResults']['scrd']['desire'][1]['Ydata']['PeopleNumChange'], data_json['ApiResults']['scrd']['desire'][1]['Ydata']['RetailPeopleNumChg']]).T
+    temp_df.columns = ['日期时间', '大户', "全部", "散户"]
+    temp_df['日期时间'] = date_str + ' ' + temp_df['日期时间']
+    temp_df['日期时间'] = pd.to_datetime(temp_df['日期时间'])
+
+    temp_df.sort_values(['日期时间'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df['大户'] = pd.to_numeric(temp_df['大户'])
+    temp_df['全部'] = pd.to_numeric(temp_df['全部'])
+    temp_df['散户'] = pd.to_numeric(temp_df['散户'])
+
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_comment_em_df = stock_comment_em()
     print(stock_comment_em_df)
@@ -189,3 +217,6 @@ if __name__ == "__main__":
 
     stock_comment_detail_scrd_focus_em_df = stock_comment_detail_scrd_focus_em(symbol="600000")
     print(stock_comment_detail_scrd_focus_em_df)
+
+    stock_comment_detail_scrd_desire_em_df = stock_comment_detail_scrd_desire_em(symbol="600000")
+    print(stock_comment_detail_scrd_desire_em_df)
