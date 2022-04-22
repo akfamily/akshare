@@ -1955,9 +1955,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.33 fix: fix fund_fh_em interface
 1.5.34 fix: fix stock_gpzy_industry_data_em interface
 1.5.35 add: add stock_comment_detail_zhpj_lspf_em interface
+1.5.36 add: add stock_comment_detail_scrd_focus_em interface
 """
 
-__version__ = "1.5.35"
+__version__ = "1.5.36"
 __author__ = "AKFamily"
 
 import sys
