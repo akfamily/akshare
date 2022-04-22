@@ -6,13 +6,14 @@
 
 #### 期货交易所
 
-| 交易所名称                                 | 交易所代码 | 合约后缀 | 首页地址                     |
-|---------------------------------------|-------|------|--------------------------|
-| [中国金融期货交易所](http://www.cffex.com.cn/) | CFFEX | .CFX | http://www.cffex.com.cn/ |
-| [上海期货交易所](http://www.shfe.com.cn/)    | SHFE  | .SHF | http://www.shfe.com.cn/  |
-| [上海国际能源交易中心](http://www.ine.cn/)      | INE   | .INE | http://www.ine.cn/       |
-| [郑州商品交易所](http://www.czce.com.cn/)    | CZCE  | .ZCE | http://www.czce.com.cn/  |
-| [大连商品交易所](http://www.dce.com.cn/)     | DCE   | .DCE | http://www.dce.com.cn/   |
+| 交易所名称                                 | 交易所代码 | 合约后缀  | 首页地址                     |
+|---------------------------------------|-------|-------|--------------------------|
+| [中国金融期货交易所](http://www.cffex.com.cn/) | CFFEX | .CFX  | http://www.cffex.com.cn/ |
+| [上海期货交易所](http://www.shfe.com.cn/)    | SHFE  | .SHF  | http://www.shfe.com.cn/  |
+| [上海国际能源交易中心](http://www.ine.cn/)      | INE   | .INE  | http://www.ine.cn/       |
+| [郑州商品交易所](http://www.czce.com.cn/)    | CZCE  | .ZCE  | http://www.czce.com.cn/  |
+| [大连商品交易所](http://www.dce.com.cn/)     | DCE   | .DCE  | http://www.dce.com.cn/   |
+| [广州期货交易所](http://www.gfex.com.cn/)    | GFEX  | .GFEX | http://www.gfex.com.cn/  |
 
 #### 期货交易时间
 
@@ -373,7 +374,6 @@
 | 大连商品交易所 | 聚氯乙烯期权  | 聚氯乙烯期权合约不超过20000手     | 聚氯乙烯期权合约不超过20000手     | 聚氯乙烯期权合约不超过20000手     | 聚氯乙烯期权合约不超过20000手     |
 | 大连商品交易所 | 聚乙烯期权   | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 |
 | 大连商品交易所 | 棕榈油期权   | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 |
-
 
 #### 金融期货
 
