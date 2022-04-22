@@ -11332,9 +11332,9 @@ stock_a_pe 一览表
 | 名称           | 类型      | 描述        |
 |--------------|---------|-----------|
 | date         | object  | -         |
-| averagePELYR | float64 | 中位数PELYR  |
+| averagePELYR | float64 | 等权平均PELYR |
 | averagePETTM | float64 | 中位数PETTM  |
-| middlePELYR  | float64 | 等权平均PELYR |
+| middlePELYR  | float64 | 中位数PELYR  |
 | middlePETTM  | float64 | 等权平均PETTM |
 | close        | float64 | 收盘价       |
 
