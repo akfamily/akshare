@@ -1957,9 +1957,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.35 add: add stock_comment_detail_zhpj_lspf_em interface
 1.5.36 add: add stock_comment_detail_scrd_focus_em interface
 1.5.37 add: add stock_comment_detail_scrd_desire_em interface
+1.5.38 add: add stock_comment_detail_scrd_cost_em interface
 """
 
-__version__ = "1.5.37"
+__version__ = "1.5.38"
 __author__ = "AKFamily"
 
 import sys
@@ -3139,6 +3140,7 @@ from akshare.stock_feature.stock_comment_em import (
     stock_comment_detail_scrd_focus_em,
     stock_comment_detail_zhpj_lspf_em,
     stock_comment_detail_scrd_desire_em,
+    stock_comment_detail_scrd_cost_em,
 )
 
 """
