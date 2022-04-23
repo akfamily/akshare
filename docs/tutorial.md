@@ -433,6 +433,7 @@
  "stock_comment_detail_zhpj_lspf_em"  # 综合评价-历史评分
  "stock_comment_detail_scrd_focus_em"  # 市场热度-用户关注指数
  "stock_comment_detail_scrd_desire_em"  # 市场热度-市场参与意愿
+ "stock_comment_detail_scrd_cost_em"  # 市场热度-市场成本
  # 沪深港通
  "stock_hk_ggt_components_em"  # 港股通成份股
  "stock_hsgt_north_net_flow_in_em"  # 沪深港通北向-净流入
