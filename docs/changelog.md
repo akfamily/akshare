@@ -19,6 +19,10 @@
 
 ## 更新说明
 
+1.5.39 add: add stock_comment_detail_scrd_desire_daily_em interface
+
+    1. 新增 stock_comment_detail_scrd_desire_daily_em 接口，获取日度市场参与意愿数据数据
+
 1.5.38 add: add stock_comment_detail_scrd_cost_em interface
 
     1. 新增 stock_comment_detail_scrd_cost_em 接口，获取市场成本数据
@@ -414,6 +418,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.39 add: add stock_comment_detail_scrd_desire_daily_em interface
 
 1.5.38 add: add stock_comment_detail_scrd_cost_em interface
 
