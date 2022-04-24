@@ -5386,6 +5386,50 @@ print(stock_comment_detail_scrd_desire_em_df)
 25 2022-04-22 15:00:00 -0.12 -0.26 -0.41
 ```
 
+##### 日度市场参与意愿
+
+接口: stock_comment_detail_scrd_desire_daily_em
+
+目标地址: https://data.eastmoney.com/stockcomment/stock/600000.html
+
+描述: 东方财富网-数据中心-特色数据-千股千评-市场热度-日度市场参与意愿
+
+限量: 单次获取所有数据
+
+输入参数
+
+| 名称     | 类型  | 描述              |
+|--------|-----|-----------------|
+| symbol | str | symbol="600000" |
+
+输出参数
+
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| 日期     | object  | -   |
+| 当日意愿下降 | float64 | -   |
+| 五日累计意愿 | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_comment_detail_scrd_desire_daily_em_df = ak.stock_comment_detail_scrd_desire_daily_em(symbol="600000")
+print(stock_comment_detail_scrd_desire_daily_em_df)
+```
+
+数据示例
+
+```
+       日期 当日意愿下降 五日累计意愿
+0  2022-04-18    0.28    0.28
+1  2022-04-19   -0.71   -0.44
+2  2022-04-20   -0.26   -0.70
+3  2022-04-21   -0.24   -0.93
+4  2022-04-22   -0.26   -1.19
+```
+
 ##### 市场成本
 
 接口: stock_comment_detail_scrd_cost_em
