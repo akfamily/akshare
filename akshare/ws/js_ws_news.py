@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/7 9:47
+Date: 2022/4/25 17:47
 Desc: 金十数据-市场快讯
 https://www.jin10.com/
 """
@@ -56,9 +56,11 @@ def js_news(timestamp: str = "2021-06-05 20:50:18") -> pd.DataFrame:
             temp_list.append("-")
     temp_df = pd.DataFrame([temp_df["time"].to_list(), temp_list]).T
     temp_df.columns = ["datetime", "content"]
+    temp_df.sort_values(['datetime'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
 if __name__ == "__main__":
-    js_news_df = js_news(timestamp="2022-03-05 16:21:18")
+    js_news_df = js_news(timestamp="2022-04-25 17:57:18")
     print(js_news_df)
