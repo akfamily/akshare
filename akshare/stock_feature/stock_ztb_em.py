@@ -361,10 +361,12 @@ def stock_zt_pool_zbgc_em(date: str = '20210525') -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_dtgc_em(date: str = '20210903') -> pd.DataFrame:
+def stock_zt_pool_dtgc_em(date: str = '20220425') -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-跌停股池
     http://quote.eastmoney.com/ztb/detail#type=dtgc
+    :param date: 交易日
+    :type date: str
     :return: 跌停股池
     :rtype: pandas.DataFrame
     """
@@ -373,7 +375,7 @@ def stock_zt_pool_dtgc_em(date: str = '20210903') -> pd.DataFrame:
         'ut': '7eea3edcaed734bea9cbfc24409ed989',
         'dpt': 'wz.ztzt',
         'Pageindex': '0',
-        'pagesize': '170',
+        'pagesize': '10000',
         'sort': 'fund:asc',
         'date': date,
         '_': '1621590489736',
@@ -424,6 +426,20 @@ def stock_zt_pool_dtgc_em(date: str = '20210903') -> pd.DataFrame:
     ]]
     temp_df['最新价'] = temp_df['最新价'] / 1000
     temp_df['最后封板时间'] = temp_df['最后封板时间'].astype(str).str.zfill(6)
+
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+    temp_df['流通市值'] = pd.to_numeric(temp_df['流通市值'])
+    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'])
+    temp_df['动态市盈率'] = pd.to_numeric(temp_df['动态市盈率'])
+    temp_df['换手率'] = pd.to_numeric(temp_df['换手率'])
+    temp_df['封单资金'] = pd.to_numeric(temp_df['封单资金'])
+    temp_df['板上成交额'] = pd.to_numeric(temp_df['板上成交额'])
+    temp_df['连续跌停'] = pd.to_numeric(temp_df['连续跌停'])
+    temp_df['开板次数'] = pd.to_numeric(temp_df['开板次数'])
+    temp_df['开板次数'] = pd.to_numeric(temp_df['开板次数'])
+
     return temp_df
 
 
@@ -443,5 +459,5 @@ if __name__ == '__main__':
     stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date='20211224')
     print(stock_zt_pool_zbgc_em_df)
 
-    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date='20211224')
+    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date='20220425')
     print(stock_zt_pool_dtgc_em_df)
