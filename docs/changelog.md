@@ -19,6 +19,10 @@
 
 ## 更新说明
 
+1.5.42 fix: fix stock_zt_pool_dtgc_em interface
+
+    1. 修复 stock_zt_pool_dtgc_em 接口，获取所有股票的数据
+
 1.5.41 fix: fix stock_margin_underlying_info_szse interface
 
     1. 修复 stock_margin_underlying_info_szse 接口，利用 pandas.concate 替换 pandas.DataFrame.append 方法
@@ -426,6 +430,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.42 fix: fix stock_zt_pool_dtgc_em interface
 
 1.5.41 fix: fix stock_margin_underlying_info_szse interface
 

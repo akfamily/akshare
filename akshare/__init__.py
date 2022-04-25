@@ -1961,9 +1961,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.39 add: add stock_comment_detail_scrd_desire_daily_em interface
 1.5.40 fix: fix js_news interface
 1.5.41 fix: fix stock_margin_underlying_info_szse interface
+1.5.42 fix: fix stock_zt_pool_dtgc_em interface
 """
 
-__version__ = "1.5.41"
+__version__ = "1.5.42"
 __author__ = "AKFamily"
 
 import sys
