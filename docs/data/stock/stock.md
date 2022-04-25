@@ -14017,25 +14017,26 @@ print(stock_margin_detail_sse_df)
 
 输入参数
 
-| 名称   | 类型 | 描述   |
-| -------- | ---- |  --- |
-| date | str |  start_date="20210401" |
+| 名称   | 类型  | 描述                    |
+|------|-----|-----------------------|
+| date | str | start_date="20210401" |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 融资买入额          | float64   |   注意单位: 亿元    |
-| 融资余额         | float64   |  注意单位: 亿元    |
-| 融券卖出量          | float64   |   注意单位: 亿股/亿份    |
-| 融券余量          | float64   |  注意单位: 亿股/亿份    |
-| 融券余额          | float64   |  注意单位: 亿元    |
-| 融资融券余额          | float64   |   注意单位: 亿元    |
+| 名称     | 类型      | 描述          |
+|--------|---------|-------------|
+| 融资买入额  | float64 | 注意单位: 亿元    |
+| 融资余额   | float64 | 注意单位: 亿元    |
+| 融券卖出量  | float64 | 注意单位: 亿股/亿份 |
+| 融券余量   | float64 | 注意单位: 亿股/亿份 |
+| 融券余额   | float64 | 注意单位: 亿元    |
+| 融资融券余额 | float64 | 注意单位: 亿元    |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_margin_sse_df = ak.stock_margin_szse(date="20210401")
 print(stock_margin_sse_df)
 ```
@@ -14114,27 +14115,28 @@ print(stock_margin_detail_sse_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date="20210205" |
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date="20210205" |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 证券代码          | object   |   -    |
-| 证券简称          | object   |   -    |
-| 融资标的          | object   |   -    |
-| 融券标的          | object   |  -    |
-| 当日可融资         | object   |   -    |
-| 当日可融券         | object   |   -    |
-| 融券卖出价格限制          | object   |   -    |
-| 涨跌幅限制          | object   |   -   |
+| 名称       | 类型     | 描述  |
+|----------|--------|-----|
+| 证券代码     | object | -   |
+| 证券简称     | object | -   |
+| 融资标的     | object | -   |
+| 融券标的     | object | -   |
+| 当日可融资    | object | -   |
+| 当日可融券    | object | -   |
+| 融券卖出价格限制 | object | -   |
+| 涨跌幅限制    | object | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_margin_underlying_info_szse_df = ak.stock_margin_underlying_info_szse(date="20210727")
 print(stock_margin_underlying_info_szse_df)
 ```

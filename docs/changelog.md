@@ -19,6 +19,10 @@
 
 ## 更新说明
 
+1.5.41 fix: fix stock_margin_underlying_info_szse interface
+
+    1. 修复 stock_margin_underlying_info_szse 接口，利用 pandas.concate 替换 pandas.DataFrame.append 方法
+
 1.5.40 fix: fix js_news interface
 
     1. 修复 js_news 接口，规范输出数据的格式
@@ -422,6 +426,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.41 fix: fix stock_margin_underlying_info_szse interface
 
 1.5.40 fix: fix js_news interface
 
