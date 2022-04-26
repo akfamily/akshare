@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/13 15:30
+Date: 2022/4/26 15:30
 Desc: 首页-行情中心-涨停板行情-涨停股池
 http://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -18,7 +18,7 @@ import pandas as pd
 import requests
 
 
-def stock_zt_pool_em(date: str = '20211224') -> pd.DataFrame:
+def stock_zt_pool_em(date: str = '20220426') -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-涨停股池
     http://quote.eastmoney.com/ztb/detail#type=ztgc
@@ -30,7 +30,7 @@ def stock_zt_pool_em(date: str = '20211224') -> pd.DataFrame:
         'ut': '7eea3edcaed734bea9cbfc24409ed989',
         'dpt': 'wz.ztzt',
         'Pageindex': '0',
-        'pagesize': '320',
+        'pagesize': '10000',
         'sort': 'fbt:asc',
         'date': date,
         '_': '1621590489736',
@@ -83,6 +83,16 @@ def stock_zt_pool_em(date: str = '20211224') -> pd.DataFrame:
     temp_df['首次封板时间'] = temp_df['首次封板时间'].astype(str).str.zfill(6)
     temp_df['最后封板时间'] = temp_df['最后封板时间'].astype(str).str.zfill(6)
     temp_df['最新价'] = temp_df['最新价'] / 1000
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+    temp_df['流通市值'] = pd.to_numeric(temp_df['流通市值'])
+    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'])
+    temp_df['换手率'] = pd.to_numeric(temp_df['换手率'])
+    temp_df['封板资金'] = pd.to_numeric(temp_df['封板资金'])
+    temp_df['炸板次数'] = pd.to_numeric(temp_df['炸板次数'])
+    temp_df['连板数'] = pd.to_numeric(temp_df['连板数'])
+
     return temp_df
 
 
@@ -444,7 +454,7 @@ def stock_zt_pool_dtgc_em(date: str = '20220425') -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_zt_pool_em_df = stock_zt_pool_em(date='20210104')
+    stock_zt_pool_em_df = stock_zt_pool_em(date='20220411')
     print(stock_zt_pool_em_df)
 
     stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date='20211224')
@@ -459,5 +469,5 @@ if __name__ == '__main__':
     stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date='20211224')
     print(stock_zt_pool_zbgc_em_df)
 
-    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date='20220425')
+    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date='20220426')
     print(stock_zt_pool_dtgc_em_df)

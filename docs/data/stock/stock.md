@@ -15605,7 +15605,7 @@ print(stock_changes_em_df)
 | 代码     | object  | -              |
 | 名称     | object  | -              |
 | 涨跌幅    | float64 | 注意单位: %        |
-| 最新价    | int64   | -              |
+| 最新价    | float64 | -              |
 | 成交额    | int64   | -              |
 | 流通市值   | float64 | -              |
 | 总市值    | float64 | -              |
