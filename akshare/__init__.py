@@ -1165,11 +1165,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.38: add: add stock_dzjy_hyyybtj interface
 0.7.39: add: add stock_dzjy_yybph interface
 0.7.40: fix: fix js_news interface
-0.7.41: add: add stock_em_yzxdr interface
+0.7.41: add: add stock_yzxdr_em interface
 0.7.42: fix: fix fund_etf_fund_daily_em interface
 0.7.43: fix: fix match_main_contract interface
 0.7.44: fix: fix stock_hk_daily interface
-0.7.45: fix: fix stock_em_yzxdr interface
+0.7.45: fix: fix stock_yzxdr_em interface
 0.7.46: fix: fix option_czce_hist interface
 0.7.47: fix: fix bond_zh_cov interface
 0.7.48: fix: fix futures_dce_position_rank interface
@@ -1177,7 +1177,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.50: fix: fix stock_hsgt_stock_statistics_em interface
 0.7.51: fix: fix stock_us_daily interface
 0.7.52: fix: fix stock_sector_fund_flow_rank interface
-0.7.53: fix: fix stock_em_yzxdr interface
+0.7.53: fix: fix stock_yzxdr_em interface
 0.7.54: add: add stock_a_code_to_symbol interface
 0.7.55: add: add stock_news_em interface
 0.7.56: fix: fix stock_news_em interface
@@ -1965,9 +1965,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.43 fix: fix stock_zt_pool_em interface
 1.5.44 fix: fix futures_to_spot_czce interface
 1.5.45 add: add stock_hot_deal_xq interface
+1.5.46 fix: fix stock_yzxdr_em interface
 """
 
-__version__ = "1.5.45"
+__version__ = "1.5.46"
 __author__ = "AKFamily"
 
 import sys
@@ -2740,7 +2741,7 @@ from akshare.news.news_stock import stock_news_em
 """
 股票数据-一致行动人
 """
-from akshare.stock_feature.stock_em_yzxdr import stock_em_yzxdr
+from akshare.stock_feature.stock_yzxdr_em import stock_yzxdr_em
 
 """
 大宗交易
