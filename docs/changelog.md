@@ -19,6 +19,12 @@
 
 ## 更新说明
 
+1.5.44 fix: fix futures_to_spot_czce interface
+
+    1. 修复 futures_to_spot_czce 接口，直接读取 Excel 文件并规范输出的字段类型
+    2. 修复 futures_delivery_czce 接口，直接读取 Excel 文件并规范输出的字段类型
+    3. 修复 futures_delivery_match_czce 接口，直接读取 Excel 文件并规范输出的字段类型
+
 1.5.43 fix: fix stock_zt_pool_em interface
 
     1. 修复 stock_zt_pool_em 接口，获取所有股票的数据
@@ -434,6 +440,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.44 fix: fix futures_to_spot_czce interface
 
 1.5.43 fix: fix stock_zt_pool_em interface
 

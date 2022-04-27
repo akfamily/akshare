@@ -111,7 +111,7 @@ def futures_delivery_match_dce(symbol: str = "a") -> pd.DataFrame:
     return temp_df
 
 
-def futures_to_spot_czce(date: str = "20210201") -> pd.DataFrame:
+def futures_to_spot_czce(date: str = "20210112") -> pd.DataFrame:
     """
     郑州商品交易所-期转现统计
     http://www.czce.com.cn/cn/jysj/qzxtj/H770311index_1.htm
@@ -120,10 +120,23 @@ def futures_to_spot_czce(date: str = "20210201") -> pd.DataFrame:
     :return: 郑州商品交易所-期转现统计
     :rtype: pandas.DataFrame
     """
-    url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataTrdtrades.htm"
-    r = requests.get(url)
+    url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataTrdtrades.xls"
+    headers = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Host': 'www.czce.com.cn',
+        'Pragma': 'no-cache',
+        'Referer': 'http://www.czce.com.cn/',
+        'Upgrade-Insecure-Requests': '1',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+    }
+    r = requests.get(url, headers=headers)
     r.encoding = "utf-8"
-    temp_df = pd.read_html(r.text)[0]
+    temp_df = pd.read_excel(r.content, skiprows=1)
+
     temp_df.columns = [
         "合约代码",
         "合约数量",
@@ -134,6 +147,8 @@ def futures_to_spot_czce(date: str = "20210201") -> pd.DataFrame:
             "合约数量",
         ]
     ]
+    temp_df['合约数量'] = temp_df['合约数量'].str.replace(",", "")
+    temp_df['合约数量'] = pd.to_numeric(temp_df['合约数量'])
     return temp_df
 
 
@@ -146,10 +161,10 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
     :return: 郑州商品交易所-交割配对
     :rtype: pandas.DataFrame
     """
-    url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataDelsettle.htm"
+    url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataDelsettle.xls"
     r = requests.get(url)
     r.encoding = "utf-8"
-    temp_df = pd.read_html(r.text)[0]
+    temp_df = pd.read_excel(r.content, skiprows=0)
     index_flag = temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].index.values
     big_df = pd.DataFrame()
     for i, item in enumerate(index_flag):
@@ -167,7 +182,8 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
         symbol = date_contract_str.split("：")[-1]
         temp_inner_df["配对日期"] = inner_date
         temp_inner_df["合约代码"] = symbol
-        big_df = big_df.append(temp_inner_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_inner_df], ignore_index=True)
+
     big_df.columns = [
         "卖方会员",
         "卖方会员-会员简称",
@@ -177,6 +193,8 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
         "配对日期",
         "合约代码",
     ]
+    big_df['交割量'] = big_df['交割量'].str.replace(',', "")
+    big_df['交割量'] = pd.to_numeric(big_df['交割量'])
     return big_df
 
 
@@ -189,15 +207,20 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
     :return: 郑州商品交易所-月度交割查询
     :rtype: pandas.DataFrame
     """
-    url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataSettlematched.htm"
+    url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataSettlematched.xls"
     r = requests.get(url)
     r.encoding = "utf-8"
-    temp_df = pd.read_html(r.text)[0].iloc[:-1, :]
+    temp_df = pd.read_excel(r.content, skiprows=1)
     temp_df.columns = [
         "品种",
         "交割数量",
         "交割额",
     ]
+    temp_df['交割数量'] = temp_df['交割数量'].str.replace(',', '')
+    temp_df['交割额'] = temp_df['交割额'].str.replace(',', '')
+
+    temp_df['交割数量'] = pd.to_numeric(temp_df['交割数量'])
+    temp_df['交割额'] = pd.to_numeric(temp_df['交割额'])
     return temp_df
 
 

@@ -1963,9 +1963,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.41 fix: fix stock_margin_underlying_info_szse interface
 1.5.42 fix: fix stock_zt_pool_dtgc_em interface
 1.5.43 fix: fix stock_zt_pool_em interface
+1.5.44 fix: fix futures_to_spot_czce interface
 """
 
-__version__ = "1.5.43"
+__version__ = "1.5.44"
 __author__ = "AKFamily"
 
 import sys

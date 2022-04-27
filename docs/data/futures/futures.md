@@ -1346,27 +1346,28 @@ print(futures_to_spot_dce_df)
 
 目标地址: http://www.czce.com.cn/cn/jysj/qzxtj/H770311index_1.htm
 
-描述: 提供郑州商品交易所-期转现统计数据
+描述: 郑州商品交易所-期转现统计数据
 
 限量: 单次返回指定交易日的期转现统计数据
 
 输入参数
 
-| 名称   | 类型  | 必选  | 描述  |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="20210112"; 交易日 |
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| date | str | date="20210112"; 交易日 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 合约代码      | str   | Y        | -  |
-| 合约数量      | str   | Y        | 注意: 单边计算   |
+| 名称   | 类型     | 描述       |
+|------|--------|----------|
+| 合约代码 | object | -        |
+| 合约数量 | int64  | 注意: 单边计算 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_to_spot_czce_df = ak.futures_to_spot_czce(date="20210112")
 print(futures_to_spot_czce_df)
 ```
@@ -1507,28 +1508,29 @@ print(futures_delivery_dce_df)
 
 目标地址: http://www.czce.com.cn/cn/jysj/ydjgcx/H770316index_1.htm
 
-描述: 提供郑州商品交易所-交割统计
+描述: 郑州商品交易所-交割统计
 
 限量: 单次返回指定交易月份的交割统计数据
 
 输入参数
 
-| 名称   | 类型  | 必选  | 描述  |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="20210112"; 交易日 |
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| date | str | date="20210112"; 交易日 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 品种      | str   | Y        | -  |
-| 交割数量      | str   | Y        | 按单边统计   |
-| 交割额      | str   | Y        | 注意单位: 元; 按单边统计   |
+| 名称   | 类型     | 描述             |
+|------|--------|----------------|
+| 品种   | object | -              |
+| 交割数量 | int64  | 按单边统计          |
+| 交割额  | int64  | 注意单位: 元; 按单边统计 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_delivery_monthly_czce_df = ak.futures_delivery_czce(date="20210112")
 print(futures_delivery_monthly_czce_df)
 ```
@@ -1670,32 +1672,33 @@ print(futures_delivery_match_dce_df)
 
 目标地址: http://www.czce.com.cn/cn/jysj/jgpd/H770308index_1.htm
 
-描述: 提供郑州商品交易所-交割配对
+描述: 郑州商品交易所-交割配对
 
 限量: 单次返回指定品种的的交割配对数据
 
 输入参数
 
-| 名称   | 类型  | 必选  | 描述  |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="20210106"; 交易日 |
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| date | str | date="20210106"; 交易日 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 卖方会员      | str   | Y        | -  |
-| 卖方会员-会员简称      | str   | Y        | -   |
-| 买方会员      | str   | Y        | -   |
-| 买方会员-会员简称      | str   | Y        | -   |
-| 交割量      | str   | Y        | 注意单位: 手(单边计算)   |
-| 配对日期      | str   | Y        | -   |
-| 合约代码      | str   | Y        | -   |
+| 名称        | 类型      | 描述            |
+|-----------|---------|---------------|
+| 卖方会员      | object  | -             |
+| 卖方会员-会员简称 | object  | -             |
+| 买方会员      | object  | -             |
+| 买方会员-会员简称 | object  | -             |
+| 交割量       | float64 | 注意单位: 手(单边计算) |
+| 配对日期      | object  | -             |
+| 合约代码      | object  | -             |
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_delivery_match_czce_df = ak.futures_delivery_match_czce(date="20210106")
 print(futures_delivery_match_czce_df)
 ```
