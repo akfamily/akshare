@@ -1964,9 +1964,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.42 fix: fix stock_zt_pool_dtgc_em interface
 1.5.43 fix: fix stock_zt_pool_em interface
 1.5.44 fix: fix futures_to_spot_czce interface
+1.5.45 add: add stock_hot_deal_xq interface
 """
 
-__version__ = "1.5.44"
+__version__ = "1.5.45"
 __author__ = "AKFamily"
 
 import sys
@@ -1976,6 +1977,20 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+股票热度-淘股吧
+"""
+from akshare.stock_feature.stock_hot_tgb import stock_hot_tgb
+
+"""
+股票热度-雪球
+"""
+from akshare.stock_feature.stock_hot_xq import (
+    stock_hot_deal_xq,
+    stock_hot_follow_xq,
+    stock_hot_tweet_xq,
+)
 
 """
 南华期货-板块指数涨跌

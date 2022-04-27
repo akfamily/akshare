@@ -1062,6 +1062,12 @@
  "futures_correlation_nh"  # 相关系数矩阵
  "futures_board_index_nh"  # 板块指数涨跌
  "futures_variety_index_nh"  # 品种指数涨跌
+ # 股票热度-雪球
+ "stock_hot_follow_xq"  # 雪球-沪深股市-热度排行榜-关注排行榜
+ "stock_hot_tweet_xq"  # 雪球-沪深股市-热度排行榜-讨论排行榜
+ "stock_hot_deal_xq"  # 雪球-沪深股市-热度排行榜-分享交易排行榜
+ # 股票热度-淘股吧
+ "stock_hot_tgb"  # 淘股吧-热门股票
 ```
 
 ## 案例演示
