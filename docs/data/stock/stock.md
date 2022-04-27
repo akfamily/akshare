@@ -13835,7 +13835,7 @@ print(stock_dzjy_yybph_df)
 
 ### 一致行动人
 
-接口: stock_em_yzxdr
+接口: stock_yzxdr_em
 
 目标地址: http://data.eastmoney.com/yzxdr/
 
@@ -13869,8 +13869,8 @@ print(stock_dzjy_yybph_df)
 ```python
 import akshare as ak
 
-stock_em_yzxdr_df = ak.stock_em_yzxdr(date="20210331")
-print(stock_em_yzxdr_df)
+stock_yzxdr_em_df = ak.stock_yzxdr_em(date="20210331")
+print(stock_yzxdr_em_df)
 ```
 
 数据示例
