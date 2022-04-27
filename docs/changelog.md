@@ -19,6 +19,10 @@
 
 ## 更新说明
 
+1.5.45 add: add stock_hot_deal_xq interface
+
+    1. 新增 stock_hot_deal_xq 接口，获取雪球-沪深股市-热度排行榜-分享交易排行榜数据
+
 1.5.44 fix: fix futures_to_spot_czce interface
 
     1. 修复 futures_to_spot_czce 接口，直接读取 Excel 文件并规范输出的字段类型
@@ -440,6 +444,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.45 add: add stock_hot_deal_xq interface
 
 1.5.44 fix: fix futures_to_spot_czce interface
 
