@@ -12,7 +12,6 @@ import math
 import time
 from datetime import datetime
 
-from akshare.utils import demjson
 import numpy as np
 import pandas as pd
 import requests
@@ -32,6 +31,7 @@ from akshare.economic.cons import (
     JS_CHINA_CX_SERVICE_PMI_YEARLY_URL,
     JS_CHINA_MARKET_MARGIN_SH_URL,
 )
+from akshare.utils import demjson
 
 
 # 企业商品价格指数
@@ -1491,9 +1491,13 @@ def macro_china_lpr() -> pd.DataFrame:
     data_text = r.text
     data_json = json.loads(data_text.strip("var WPuRCBoA=")[:-1])
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.index = pd.to_datetime(temp_df["TRADE_DATE"])
-    del temp_df["TRADE_DATE"]
-    temp_df = temp_df.astype(float)
+    temp_df['TRADE_DATE'] = pd.to_datetime(temp_df["TRADE_DATE"]).dt.date
+    temp_df['LPR1Y'] = pd.to_numeric(temp_df["LPR1Y"])
+    temp_df['LPR5Y'] = pd.to_numeric(temp_df["LPR5Y"])
+    temp_df['RATE_1'] = pd.to_numeric(temp_df["RATE_1"])
+    temp_df['RATE_2'] = pd.to_numeric(temp_df["RATE_2"])
+    temp_df.sort_values(['TRADE_DATE'], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
