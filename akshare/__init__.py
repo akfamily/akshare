@@ -1966,9 +1966,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.44 fix: fix futures_to_spot_czce interface
 1.5.45 add: add stock_hot_deal_xq interface
 1.5.46 fix: fix stock_yzxdr_em interface
+1.5.47 fix: fix macro_china_lpr interface
 """
 
-__version__ = "1.5.46"
+__version__ = "1.5.47"
 __author__ = "AKFamily"
 
 import sys
