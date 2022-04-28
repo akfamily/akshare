@@ -4,6 +4,9 @@
 
 | AKShare 版本 | 旧接口名称                             | 新接口名称                             | 修改日期     |
 |------------|-----------------------------------|-----------------------------------|----------|
+| 1.5.48     | futures_nh_price_index            | futures_price_index_nh            | 20220428 |
+| 1.5.48     | futures_nh_index_symbol_table     | futures_index_symbol_table_nh     | 20220428 |
+| 1.5.48     | futures_nh_return_index           | futures_return_index_nh           | 20220428 |
 | 1.5.46     | stock_em_yzxdr                    | stock_yzxdr_em                    | 20220427 |
 | 1.5.34     | stock_em_gpzy_industry_data       | stock_gpzy_industry_data_em       | 20220420 |
 | 1.5.26     | stock_em_comment                  | stock_comment_em                  | 20220415 |
@@ -19,6 +22,12 @@
 | 1.4.86     | fund_em_aum                       | fund_aum_em                       | 20220322 |
 
 ## 更新说明
+
+1.5.48 fix: fix futures_return_index_nh interface
+
+    1. 修复 futures_return_index_nh 接口，重命名接口及规范数据输出格式
+    2. 修复 futures_index_symbol_table_nh 接口，重名接口
+    3. 修复 futures_price_index_nh 接口，重名接口
 
 1.5.47 fix: fix macro_china_lpr interface
 
@@ -453,6 +462,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.48 fix: fix futures_return_index_nh interface
 
 1.5.47 fix: fix macro_china_lpr interface
 

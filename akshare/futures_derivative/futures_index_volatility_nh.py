@@ -12,21 +12,21 @@ import time
 import requests
 import pandas as pd
 
-from akshare.futures_derivative.nh_index_price import futures_nh_index_symbol_table
+from akshare.futures_derivative.futures_index_price_nh import futures_index_symbol_table_nh
 
 
 def futures_nh_volatility_index(symbol: str = "NHCI", period: str = '20') -> pd.DataFrame:
     """
     南华期货-南华指数单品种-波动率-所有历史数据
     http://www.nanhua.net/nhzc/varietytrend.html
-    :param symbol: 通过 ak.futures_nh_index_symbol_table() 获取
+    :param symbol: 通过 ak.futures_index_symbol_table_nh() 获取
     :type symbol: str
     :param period: 波动周期 choice of {'5', '20', '60', '120'}
     :type period: str
     :return: 波动率-所有历史数据
     :rtype: pandas.DataFrame
     """
-    symbol_df = futures_nh_index_symbol_table()
+    symbol_df = futures_index_symbol_table_nh()
     if symbol in symbol_df["code"].tolist():
         t = time.time()
         url = f"http://www.nanhua.net/ianalysis/volatility/{period}/{symbol}.json?t={int(round(t * 1000))}"
