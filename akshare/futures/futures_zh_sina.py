@@ -490,7 +490,10 @@ if __name__ == "__main__":
     futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="V2201", period="5")
     print(futures_zh_minute_sina_df)
 
-    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="V2204")
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="IC2206")
+    print(futures_zh_daily_sina_df)
+
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="V2205")
     print(futures_zh_daily_sina_df)
 
     futures_zh_spot_df = futures_zh_spot(symbol='V2204', market="CF", adjust='0')
