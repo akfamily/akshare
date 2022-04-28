@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/20 14:52
+Date: 2022/4/28 16:25
 Desc: 南华期货-商品指数历史走势-价格指数-数值
 http://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
@@ -13,7 +13,7 @@ import requests
 import pandas as pd
 
 
-def futures_nh_index_symbol_table() -> pd.DataFrame:
+def futures_index_symbol_table_nh() -> pd.DataFrame:
     """
     南华期货-南华指数所有品种一览表
     http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
@@ -28,16 +28,16 @@ def futures_nh_index_symbol_table() -> pd.DataFrame:
     return temp_df
 
 
-def futures_nh_price_index(symbol: str = "A") -> pd.DataFrame:
+def futures_price_index_nh(symbol: str = "A") -> pd.DataFrame:
     """
     南华期货-南华指数单品种-价格-所有历史数据
     http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
-    :param symbol: 通过 ak.futures_nh_index_symbol_table() 获取
+    :param symbol: 通过 ak.futures_index_symbol_table_nh() 获取
     :type symbol: str
     :return: 南华期货-南华指数单品种-价格-所有历史数据
     :rtype: pandas.Series
     """
-    symbol_df = futures_nh_index_symbol_table()
+    symbol_df = futures_index_symbol_table_nh()
     if symbol in symbol_df["code"].tolist():
         t = time.time()
         url = f"http://www.nanhua.net/ianalysis/varietyindex/price/{symbol}.json?t={int(round(t * 1000))}"
@@ -50,8 +50,8 @@ def futures_nh_price_index(symbol: str = "A") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_nh_index_symbol_table_df = futures_nh_index_symbol_table()
-    print(futures_nh_index_symbol_table_df)
+    futures_index_symbol_table_nh_df = futures_index_symbol_table_nh()
+    print(futures_index_symbol_table_nh_df)
 
-    futures_nh_price_index_df = futures_nh_price_index(symbol="NHAI")
-    print(futures_nh_price_index_df)
+    futures_price_index_nh_df = futures_price_index_nh(symbol="NHAI")
+    print(futures_price_index_nh_df)

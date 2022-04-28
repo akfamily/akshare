@@ -2854,7 +2854,7 @@ print(futures_contract_detail_df)
 
 #### 收益率指数
 
-接口: futures_nh_return_index
+接口: futures_return_index_nh
 
 目标地址: http://www.nanhua.net/nhzc/varietytrend.html
 
@@ -2866,7 +2866,7 @@ print(futures_contract_detail_df)
 
 | 名称     | 类型  | 描述                                                                   |
 |--------|-----|----------------------------------------------------------------------|
-| symbol | str | symbol="Y", 请参考南华指数品种一览表, 可以通过 ak.futures_nh_index_symbol_table() 获取 |
+| symbol | str | symbol="Y", 请参考南华指数品种一览表, 可以通过 ak.futures_index_symbol_table_nh() 获取 |
 
 南华指数品种一览表
 
@@ -2957,8 +2957,8 @@ print(futures_contract_detail_df)
 ```python
 import akshare as ak
 
-futures_nh_return_index_df = ak.futures_nh_return_index()
-print(futures_nh_return_index_df)
+futures_return_index_nh_df = ak.futures_return_index_nh()
+print(futures_return_index_nh_df)
 ```
 
 数据示例
@@ -2980,7 +2980,7 @@ print(futures_nh_return_index_df)
 
 #### 价格指数
 
-接口: futures_nh_price_index
+接口: futures_price_index_nh
 
 目标地址: http://www.nanhua.net/nhzc/varietytrend.html
 
@@ -2992,7 +2992,7 @@ print(futures_nh_return_index_df)
 
 | 名称     | 类型  | 描述                                                                   |
 |--------|-----|----------------------------------------------------------------------|
-| symbol | str | symbol="Y", 请参考南华指数品种一览表, 可以通过 ak.futures_nh_index_symbol_table() 获取 |
+| symbol | str | symbol="Y", 请参考南华指数品种一览表, 可以通过 ak.futures_index_symbol_table_nh() 获取 |
 
 南华指数品种一览表
 
@@ -3076,8 +3076,8 @@ print(futures_nh_return_index_df)
 ```python
 import akshare as ak
 
-futures_nh_price_index_df = ak.futures_nh_price_index(symbol="Y")
-print(futures_nh_price_index_df)
+futures_price_index_nh_df = ak.futures_price_index_nh(symbol="Y")
+print(futures_price_index_nh_df)
 ```
 
 数据示例
@@ -3111,7 +3111,7 @@ print(futures_nh_price_index_df)
 
 | 名称     | 类型  | 描述                                                                                         |
 |--------|-----|--------------------------------------------------------------------------------------------|
-| symbol | str | symbol="Y"; 注意是具体品种(不包含指数); 请参考南华指数品种一览表, 可以通过调用 **ak.futures_nh_index_symbol_table()** 获取 |
+| symbol | str | symbol="Y"; 注意是具体品种(不包含指数); 请参考南华指数品种一览表, 可以通过调用 **ak.futures_index_symbol_table_nh()** 获取 |
 | period | str | period='20'; 波动周期; choice of {'5', '20', '60', '120'}                                      |
 
 南华指数品种一览表
