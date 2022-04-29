@@ -23,6 +23,10 @@
 
 ## 更新说明
 
+1.5.50 fix: fix covid_19_baidu interface
+
+    1. 修复 covid_19_baidu 接口中的国内分省份详情和城市详情
+
 1.5.49 add: add stock_inner_trade_xq interface
 
     1. 新增 stock_inner_trade_xq 接口，获取股票的内部交易数据
@@ -466,6 +470,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.50 fix: fix covid_19_baidu interface
 
 1.5.49 add: add stock_inner_trade_xq interface
 
