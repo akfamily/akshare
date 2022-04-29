@@ -1068,6 +1068,8 @@
  "stock_hot_deal_xq"  # 雪球-沪深股市-热度排行榜-分享交易排行榜
  # 股票热度-淘股吧
  "stock_hot_tgb"  # 淘股吧-热门股票
+ # 内部交易
+ "stock_inner_trade_xq"  # 内部交易
 ```
 
 ## 案例演示

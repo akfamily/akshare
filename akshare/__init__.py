@@ -1968,9 +1968,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.46 fix: fix stock_yzxdr_em interface
 1.5.47 fix: fix macro_china_lpr interface
 1.5.48 fix: fix futures_return_index_nh interface
+1.5.49 add: add stock_inner_trade_xq interface
 """
 
-__version__ = "1.5.48"
+__version__ = "1.5.49"
 __author__ = "AKFamily"
 
 import sys
@@ -1980,6 +1981,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+内部交易
+"""
+from akshare.stock_feature.stock_inner_trade_xq import stock_inner_trade_xq
 
 """
 股票热度-淘股吧
