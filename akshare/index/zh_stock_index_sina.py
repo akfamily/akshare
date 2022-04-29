@@ -78,7 +78,6 @@ def stock_zh_index_spot() -> pd.DataFrame:
     big_df["open"] = big_df["open"].astype(float)
     big_df["high"] = big_df["high"].astype(float)
     big_df["low"] = big_df["low"].astype(float)
-    big_df["low"] = big_df["low"].astype(float)
     big_df.columns = [
         "代码",
         "名称",

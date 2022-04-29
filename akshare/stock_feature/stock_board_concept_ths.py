@@ -79,7 +79,6 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
         }
         r = requests.get(url, headers=headers)
         soup = BeautifulSoup(r.text, "lxml")
-        soup.find('table', attrs={'class': 'm-table m-pager-table'}).find('tbody')
         url_list = []
         for item in soup.find('table', attrs={'class': 'm-table m-pager-table'}).find('tbody').find_all('tr'):
             inner_url = item.find_all("td")[1].find('a')['href']
