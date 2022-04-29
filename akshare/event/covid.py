@@ -505,11 +505,12 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
     )
     big_df = pd.DataFrame()
     for i, p in enumerate(
-        jsonpath.jsonpath(data_json["component"][0]["caseList"], "$..area")
+        [item['area'] for item in data_json["component"][0]["caseList"]]
     ):
         temp_df = pd.DataFrame(
-            jsonpath.jsonpath(data_json["component"][0]["caseList"], "$..subList")[i]
+            jsonpath.jsonpath(data_json["component"][0]["caseList"][i], "$.subList")[0]
         )
+
         temp_df["province"] = p
         big_df = big_df.append(temp_df, ignore_index=True)
     domestic_city_df = big_df
