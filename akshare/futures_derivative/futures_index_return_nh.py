@@ -17,6 +17,7 @@ from akshare.futures_derivative.futures_index_price_nh import futures_index_symb
 def futures_return_index_nh(symbol: str = "Y") -> pd.DataFrame:
     """
     南华期货-南华指数单品种-收益率-所有历史数据
+    http://www.nanhua.net/ianalysis/varietyindex/index/NHCI.json?t=1574932290494
     :param symbol: 通过 ak.futures_index_symbol_table_nh() 获取
     :type symbol: str
     :return: 南华指数单品种-收益率-所有历史数据
