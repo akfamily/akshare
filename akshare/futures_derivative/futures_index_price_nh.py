@@ -38,7 +38,8 @@ def futures_price_index_nh(symbol: str = "A") -> pd.DataFrame:
     :rtype: pandas.Series
     """
     symbol_df = futures_index_symbol_table_nh()
-    if symbol in symbol_df["code"].tolist():
+    symbol_list = symbol_df["code"].tolist()
+    if symbol in symbol_list:
         t = time.time()
         url = f"http://www.nanhua.net/ianalysis/varietyindex/price/{symbol}.json?t={int(round(t * 1000))}"
         r = requests.get(url)
@@ -53,5 +54,5 @@ if __name__ == "__main__":
     futures_index_symbol_table_nh_df = futures_index_symbol_table_nh()
     print(futures_index_symbol_table_nh_df)
 
-    futures_price_index_nh_df = futures_price_index_nh(symbol="NHAI")
+    futures_price_index_nh_df = futures_price_index_nh(symbol="A")
     print(futures_price_index_nh_df)
