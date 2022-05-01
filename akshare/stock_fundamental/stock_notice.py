@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/1/12 19:45
+Date: 2022/5/1 19:25
 Desc: 东方财富网-数据中心-公告大全-沪深 A 股公告
 http://data.eastmoney.com/notices/hsa/5.html
 """
@@ -60,7 +60,8 @@ def stock_notice_report(
         del temp_df["codes"]
         del temp_df["columns"]
         temp_df = pd.concat([temp_df, temp_columns_df, temp_codes_df], axis=1)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.rename(
         columns={
             "art_code": "_",

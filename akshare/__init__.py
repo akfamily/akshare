@@ -1275,8 +1275,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.49: add: add stock_yjbb_em interface
 0.8.50: fix: fix stock_zh_index_spot interface
 0.8.51: fix: fix stock_zh_a_spot interface
-0.8.52: add: add stock_em_zcfz, stock_em_lrb, stock_em_xjll interface
-0.8.53: fix: fix stock_em_zcfz interface
+0.8.52: add: add stock_zcfz_em, stock_lrb_em, stock_xjll_em interface
+0.8.53: fix: fix stock_zcfz_em interface
 0.8.54: fix: fix stock_register_kcb interface
 0.8.55: add: add stock_ipo_declare interface
 0.8.56: fix: fix index_bloomberg_billionaires interface
@@ -1314,7 +1314,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.8.88: add: add stock_fund_flow_industry interface
 0.8.89: add: add stock_fund_flow_individual interface
 0.8.90: add: add stock_fund_flow_big_deal interface
-0.8.91: add: add stock_em_ggcg interface
+0.8.91: add: add stock_ggcg_em interface
 0.8.92: fix: fix stock_zh_a_daily interface
 0.8.93: fix: fix bond_spot_deal interface
 0.8.94: fix: fix stock_us_daily interface
@@ -1370,7 +1370,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.9.45: fix: fix stock_zt_pool_em interface
 0.9.46: fix: fix spot_goods interface
 0.9.47: fix: fix futures_comex_inventory interface
-0.9.48: fix: fix stock_em_zcfz interface
+0.9.48: fix: fix stock_zcfz_em interface
 0.9.49: fix: fix stock_hk_daily interface
 0.9.50: fix: fix futures_spot_stock interface
 0.9.51: fix: fix stock_hk_daily interface
@@ -1971,9 +1971,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.49 add: add stock_inner_trade_xq interface
 1.5.50 fix: fix covid_19_baidu interface
 1.5.51 fix: fix stock_zh_a_tick_163 interface
+1.5.52 fix: fix stock_ggcg_em interface
 """
 
-__version__ = "1.5.51"
+__version__ = "1.5.52"
 __author__ = "AKFamily"
 
 import sys
@@ -2604,7 +2605,7 @@ from akshare.fund.fund_init_em import fund_new_found_em
 """
 高管持股
 """
-from akshare.stock_feature.stock_em_gdzjc import stock_em_ggcg
+from akshare.stock_feature.stock_gdzjc_em import stock_ggcg_em
 
 """
 同花顺-数据中心-资金流向-概念资金流
@@ -2643,10 +2644,10 @@ from akshare.stock_fundamental.stock_ipo_declare import stock_ipo_declare
 """
 三大报表
 """
-from akshare.stock_feature.stock_em_report import (
-    stock_em_zcfz,
-    stock_em_lrb,
-    stock_em_xjll,
+from akshare.stock_feature.stock_report_em import (
+    stock_zcfz_em,
+    stock_lrb_em,
+    stock_xjll_em,
 )
 
 """
