@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/6 15:15
+Date: 2022/5/1 19:15
 Desc: 港股-基本面数据
-新浪财经-财务分析-财务指标
-http://stock.finance.sina.com.cn/hkstock/finance/00700.html#a1
+https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
 """
 import pandas as pd
 import requests
@@ -41,7 +40,7 @@ def stock_financial_hk_report_em(
     temp_df = pd.DataFrame(eval(r.text)["data"])
     temp_df.columns = temp_df.loc[0]
     temp_df = temp_df.drop(0, axis=0)
-    temp_df['截止日期'] = pd.to_datetime(temp_df["截止日期"], format="%y-%m-%d").dt.date
+    temp_df["截止日期"] = pd.to_datetime(temp_df["截止日期"], format="%y-%m-%d").dt.date
     temp_df.reset_index(drop=True, inplace=True)
     temp_df.columns.name = None
     return temp_df
@@ -110,7 +109,7 @@ def stock_financial_hk_analysis_indicator_em(
     ]
     temp_df.reset_index(drop=True, inplace=True)
     temp_df.columns.name = None
-    temp_df['周期'] = pd.to_datetime(temp_df['周期']).dt.date
+    temp_df["周期"] = pd.to_datetime(temp_df["周期"]).dt.date
     return temp_df
 
 

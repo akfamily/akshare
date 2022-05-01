@@ -685,9 +685,9 @@
  # 业绩报告
  "stock_yjbb_em"  # 业绩报告
  # 三大表报
- "stock_em_zcfz"  # 三大表报-资产负债表
- "stock_em_lrb"  # 三大表报-利润表
- "stock_em_xjll"  # 三大表报-现金流量表
+ "stock_zcfz_em"  # 三大表报-资产负债表
+ "stock_lrb_em"  # 三大表报-利润表
+ "stock_xjll_em"  # 三大表报-现金流量表
  # 首发企业申报
  "stock_ipo_declare"  # 首发企业申报
  # 行业板块
@@ -705,7 +705,7 @@
  "stock_fund_flow_concept"  # 同花顺-数据中心-资金流向-概念资金流
  "stock_fund_flow_big_deal"  # 同花顺-数据中心-资金流向-大单追踪
  # 高管持股
- "stock_em_ggcg"  # 高管持股
+ "stock_ggcg_em"  # 高管持股
  # 新发基金
  "fund_new_found_em"  # 新发基金
  # 柯桥指数
