@@ -4,6 +4,9 @@
 
 | AKShare 版本 | 旧接口名称                             | 新接口名称                             | 修改日期     |
 |------------|-----------------------------------|-----------------------------------|----------|
+| 1.5.53     | stock_em_xjll                     | stock_xjll_em                     | 20220501 |
+| 1.5.53     | stock_em_lrb                      | stock_lrb_em                      | 20220501 |
+| 1.5.53     | stock_em_zcfz                     | stock_zcfz_em                     | 20220501 |
 | 1.5.52     | stock_em_ggcg                     | stock_ggcg_em                     | 20220501 |
 | 1.5.48     | futures_nh_price_index            | futures_price_index_nh            | 20220428 |
 | 1.5.48     | futures_nh_index_symbol_table     | futures_index_symbol_table_nh     | 20220428 |
@@ -23,6 +26,12 @@
 | 1.4.86     | fund_em_aum                       | fund_aum_em                       | 20220322 |
 
 ## 更新说明
+
+1.5.53 fix: fix stock_zcfz_em interface
+
+    1. 修复 stock_zcfz_em 接口，重命名该接口并规范数据输出格式
+    2. 修复 stock_lrb_em 接口，重命名该接口并规范数据输出格式
+    3. 修复 stock_xjll_em 接口，重命名该接口并规范数据输出格式
 
 1.5.52 fix: fix stock_ggcg_em interface
 
@@ -479,6 +488,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.53 fix: fix stock_zcfz_em interface
 
 1.5.52 fix: fix stock_ggcg_em interface
 
