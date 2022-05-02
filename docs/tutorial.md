@@ -1070,6 +1070,15 @@
  "stock_hot_tgb"  # 淘股吧-热门股票
  # 内部交易
  "stock_inner_trade_xq"  # 内部交易
+ # 三大报表
+ "stock_balance_sheet_by_report_em"  # 东方财富-股票-财务分析-资产负债表-按报告期
+ "stock_balance_sheet_by_yearly_em"  # 东方财富-股票-财务分析-资产负债表-按年度
+ "stock_profit_sheet_by_report_em"  # 东方财富-股票-财务分析-利润表-报告期
+ "stock_profit_sheet_by_yearly_em"  # 东方财富-股票-财务分析-利润表-按年度
+ "stock_profit_sheet_by_quarterly_em"  # 东方财富-股票-财务分析-利润表-按单季度
+ "stock_cash_flow_sheet_by_report_em"  # 东方财富-股票-财务分析-现金流量表-按报告期
+ "stock_cash_flow_sheet_by_yearly_em"  # 东方财富-股票-财务分析-现金流量表-按年度
+ "stock_cash_flow_sheet_by_quarterly_em"  # 东方财富-股票-财务分析-现金流量表-按单季度
 ```
 
 ## 案例演示
