@@ -323,7 +323,7 @@ def stock_cash_flow_sheet_by_quarterly_em(symbol: str = "SH600519") -> pd.DataFr
 
 if __name__ == "__main__":
     stock_balance_sheet_by_report_em_df = stock_balance_sheet_by_report_em(
-        symbol="SH600519"
+        symbol="SH603808"
     )
     print(stock_balance_sheet_by_report_em_df)
 
@@ -345,7 +345,7 @@ if __name__ == "__main__":
     stock_profit_sheet_by_quarterly_em_df = stock_profit_sheet_by_quarterly_em(
         symbol="SH600519"
     )
-    print(stock_profit_sheet_by_yearly_em_df)
+    print(stock_profit_sheet_by_quarterly_em_df)
 
     stock_cash_flow_sheet_by_report_em_df = stock_cash_flow_sheet_by_report_em(
         symbol="SH600519"

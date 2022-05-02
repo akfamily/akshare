@@ -8109,6 +8109,418 @@ print(stock_financial_hk_report_em_df)
 2018-12-31	--	1607.32亿	...	
 ```
 
+#### 财务报表-东财
+
+##### 资产负债表-按报告期
+
+接口: stock_balance_sheet_by_report_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh600519#lrb-0
+
+描述: 东方财富-股票-财务分析-资产负债表-按报告期
+
+限量: 单次获取指定 symbol 的资产负债表-按报告期数据
+
+输入参数
+
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="SH600519"; 股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述         |
+|-----|-----|------------|
+| -   | -   | 319项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_balance_sheet_by_report_em_df = ak.stock_balance_sheet_by_report_em(stock="SH600519")
+print(stock_balance_sheet_by_report_em_df)
+```
+
+数据示例
+
+```
+    SECUCODE SECURITY_CODE  ... OSOPINION_TYPE LISTING_STATE
+0   600519.SH        600519  ...           None             0
+1   600519.SH        600519  ...           None             0
+2   600519.SH        600519  ...           None             0
+3   600519.SH        600519  ...           None             0
+4   600519.SH        600519  ...           None             0
+..        ...           ...  ...            ...           ...
+67  600519.SH        600519  ...           None             0
+68  600519.SH        600519  ...           None             0
+69  600519.SH        600519  ...           None             0
+70  600519.SH        600519  ...           None             0
+71  600519.SH        600519  ...           None             0
+```
+
+##### 资产负债表-按年度
+
+接口: stock_balance_sheet_by_yearly_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh600519#lrb-0
+
+描述: 东方财富-股票-财务分析-资产负债表-按年度
+
+限量: 单次获取指定 symbol 的资产负债表-按年度数据
+
+输入参数
+
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="SH600519"; 股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述         |
+|-----|-----|------------|
+| -   | -   | 319项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_balance_sheet_by_yearly_em_df = ak.stock_balance_sheet_by_yearly_em(stock="SH600519")
+print(stock_balance_sheet_by_yearly_em_df)
+```
+
+数据示例
+
+```
+    SECUCODE SECURITY_CODE  ... OSOPINION_TYPE LISTING_STATE
+0   600519.SH        600519  ...           None             0
+1   600519.SH        600519  ...           None             0
+2   600519.SH        600519  ...           None             0
+3   600519.SH        600519  ...           None             0
+4   600519.SH        600519  ...           None             0
+5   600519.SH        600519  ...           None             0
+6   600519.SH        600519  ...           None             0
+7   600519.SH        600519  ...           None             0
+8   600519.SH        600519  ...           None             0
+9   600519.SH        600519  ...           None             0
+10  600519.SH        600519  ...           None             0
+11  600519.SH        600519  ...           None             0
+12  600519.SH        600519  ...           None             0
+13  600519.SH        600519  ...           None             0
+14  600519.SH        600519  ...           None             0
+15  600519.SH        600519  ...           None             0
+16  600519.SH        600519  ...           None             0
+17  600519.SH        600519  ...           None             0
+18  600519.SH        600519  ...           None             0
+19  600519.SH        600519  ...           None             0
+```
+
+##### 利润表-报告期
+
+接口: stock_profit_sheet_by_report_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh600519#lrb-0
+
+描述: 东方财富-股票-财务分析-利润表-报告期
+
+限量: 单次获取指定 symbol 的利润表-报告期数据
+
+输入参数
+
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="SH600519"; 股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 203 项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_profit_sheet_by_report_em_df = ak.stock_profit_sheet_by_report_em(stock="SH600519")
+print(stock_profit_sheet_by_report_em_df)
+```
+
+数据示例
+
+```
+     SECUCODE SECURITY_CODE  ... ACF_END_INCOME_YOY OPINION_TYPE
+0   600519.SH        600519  ...               None         None
+1   600519.SH        600519  ...               None      标准无保留意见
+2   600519.SH        600519  ...               None         None
+3   600519.SH        600519  ...               None         None
+4   600519.SH        600519  ...               None         None
+..        ...           ...  ...                ...          ...
+67  600519.SH        600519  ...               None         None
+68  600519.SH        600519  ...               None      标准无保留意见
+69  600519.SH        600519  ...               None      标准无保留意见
+70  600519.SH        600519  ...               None      标准无保留意见
+71  600519.SH        600519  ...               None      标准无保留意见
+```
+
+##### 利润表-按年度
+
+接口: stock_profit_sheet_by_yearly_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh600519#lrb-0
+
+描述: 东方财富-股票-财务分析-利润表-按年度
+
+限量: 单次获取指定 symbol 的利润表-按年度数据
+
+输入参数
+
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="SH600519"; 股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 203 项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_profit_sheet_by_yearly_em_df = ak.stock_profit_sheet_by_yearly_em(stock="SH600519")
+print(stock_profit_sheet_by_yearly_em_df)
+```
+
+数据示例
+
+```
+     SECUCODE SECURITY_CODE  ... ACF_END_INCOME_YOY OPINION_TYPE
+0   600519.SH        600519  ...               None      标准无保留意见
+1   600519.SH        600519  ...               None      标准无保留意见
+2   600519.SH        600519  ...               None      标准无保留意见
+3   600519.SH        600519  ...               None      标准无保留意见
+4   600519.SH        600519  ...               None      标准无保留意见
+5   600519.SH        600519  ...               None      标准无保留意见
+6   600519.SH        600519  ...               None      标准无保留意见
+7   600519.SH        600519  ...               None      标准无保留意见
+8   600519.SH        600519  ...               None      标准无保留意见
+9   600519.SH        600519  ...               None      标准无保留意见
+10  600519.SH        600519  ...               None      标准无保留意见
+11  600519.SH        600519  ...               None      标准无保留意见
+12  600519.SH        600519  ...               None      标准无保留意见
+13  600519.SH        600519  ...               None      标准无保留意见
+14  600519.SH        600519  ...               None      标准无保留意见
+15  600519.SH        600519  ...               None      标准无保留意见
+16  600519.SH        600519  ...               None      标准无保留意见
+17  600519.SH        600519  ...               None      标准无保留意见
+18  600519.SH        600519  ...               None      标准无保留意见
+19  600519.SH        600519  ...               None      标准无保留意见
+```
+
+##### 利润表-按单季度
+
+接口: stock_profit_sheet_by_quarterly_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh600519#lrb-0
+
+描述: 东方财富-股票-财务分析-利润表-按单季度
+
+限量: 单次获取指定 symbol 的利润表-按单季度数据
+
+输入参数
+
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="SH600519"; 股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 204 项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_profit_sheet_by_quarterly_em_df = ak.stock_profit_sheet_by_quarterly_em(stock="SH600519")
+print(stock_profit_sheet_by_quarterly_em_df)
+```
+
+数据示例
+
+```
+    SECUCODE SECURITY_CODE  ... DEDUCT_PARENT_NETPROFIT DEDUCT_PARENT_NETPROFIT_QOQ
+0   600519.SH        600519  ...            1.724306e+10                   13.261847
+1   600519.SH        600519  ...            1.522407e+10                   19.799929
+2   600519.SH        600519  ...            1.270791e+10                   18.991805
+3   600519.SH        600519  ...            1.067965e+10                  -23.550003
+4   600519.SH        600519  ...            1.396946e+10                    6.520684
+..        ...           ...  ...                     ...                         ...
+63  600519.SH        600519  ...                     NaN                         NaN
+64  600519.SH        600519  ...                     NaN                         NaN
+65  600519.SH        600519  ...            7.115463e+07                        None
+66  600519.SH        600519  ...                     NaN                        None
+67  600519.SH        600519  ...                     NaN                        None
+```
+
+##### 现金流量表-按报告期
+
+接口: stock_cash_flow_sheet_by_report_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh600519#lrb-0
+
+描述: 东方财富-股票-财务分析-现金流量表-按报告期
+
+限量: 单次获取指定 symbol 的现金流量表-按报告期数据
+
+输入参数
+
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="SH600519"; 股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 204 项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_cash_flow_sheet_by_report_em_df = ak.stock_cash_flow_sheet_by_report_em(stock="SH600519")
+print(stock_cash_flow_sheet_by_report_em_df)
+```
+
+数据示例
+
+```
+    SECUCODE SECURITY_CODE  ... MINORITY_INTEREST MINORITY_INTEREST_YOY
+0   600519.SH        600519  ...              None                  None
+1   600519.SH        600519  ...              None                  None
+2   600519.SH        600519  ...              None                  None
+3   600519.SH        600519  ...              None                  None
+4   600519.SH        600519  ...              None                  None
+..        ...           ...  ...               ...                   ...
+64  600519.SH        600519  ...               NaN                  None
+65  600519.SH        600519  ...              None                  None
+66  600519.SH        600519  ...              None                  None
+67  600519.SH        600519  ...              None                  None
+68  600519.SH        600519  ...              None                  None
+```
+
+##### 现金流量表-按年度
+
+接口: stock_cash_flow_sheet_by_yearly_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh600519#lrb-0
+
+描述: 东方财富-股票-财务分析-现金流量表-按年度
+
+限量: 单次获取指定 symbol 的现金流量表-按年度数据
+
+输入参数
+
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="SH600519"; 股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 252 项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_cash_flow_sheet_by_yearly_em_df = ak.stock_cash_flow_sheet_by_yearly_em(stock="SH600519")
+print(stock_cash_flow_sheet_by_yearly_em_df)
+```
+
+数据示例
+
+```
+    SECUCODE SECURITY_CODE  ... MINORITY_INTEREST MINORITY_INTEREST_YOY
+0   600519.SH        600519  ...              None                  None
+1   600519.SH        600519  ...              None                  None
+2   600519.SH        600519  ...              None                  None
+3   600519.SH        600519  ...              None                  None
+4   600519.SH        600519  ...              None                  None
+5   600519.SH        600519  ...               NaN                   NaN
+6   600519.SH        600519  ...               NaN                   NaN
+7   600519.SH        600519  ...               NaN                   NaN
+8   600519.SH        600519  ...               NaN                   NaN
+9   600519.SH        600519  ...      487177897.39             68.826452
+10  600519.SH        600519  ...      240442819.27             19.457607
+11  600519.SH        600519  ...       201278784.6             48.851814
+12  600519.SH        600519  ...      135220914.59             88.954245
+13  600519.SH        600519  ...       71562782.14             41.482957
+14  600519.SH        600519  ...       50580496.34             50.455792
+15  600519.SH        600519  ...       22005657.78                  None
+16  600519.SH        600519  ...               NaN                  None
+17  600519.SH        600519  ...               NaN                  None
+18  600519.SH        600519  ...               NaN                  None
+```
+
+##### 现金流量表-按单季度
+
+接口: stock_cash_flow_sheet_by_quarterly_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh600519#lrb-0
+
+描述: 东方财富-股票-财务分析-现金流量表-按单季度
+
+限量: 单次获取指定 symbol 的现金流量表-按单季度数据
+
+输入参数
+
+| 名称     | 类型  | 描述                      |
+|--------|-----|-------------------------|
+| symbol | str | symbol="SH600519"; 股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 253 项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_cash_flow_sheet_by_quarterly_em_df = ak.stock_cash_flow_sheet_by_quarterly_em(stock="SH600519")
+print(stock_cash_flow_sheet_by_quarterly_em_df)
+```
+
+数据示例
+
+```
+    SECUCODE SECURITY_CODE  ... OSOPINION_TYPE LISTING_STATE
+0   600519.SH        600519  ...           None             0
+1   600519.SH        600519  ...           None             0
+2   600519.SH        600519  ...           None             0
+3   600519.SH        600519  ...           None             0
+4   600519.SH        600519  ...           None             0
+..        ...           ...  ...            ...           ...
+60  600519.SH        600519  ...           None             0
+61  600519.SH        600519  ...           None             0
+62  600519.SH        600519  ...           None             0
+63  600519.SH        600519  ...           None             0
+64  600519.SH        600519  ...           None             0
+```
+
 #### 财务摘要
 
 接口: stock_financial_abstract
