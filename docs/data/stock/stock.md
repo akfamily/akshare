@@ -8016,7 +8016,7 @@ print(stock_notice_report_df)
 999  002408  齐翔腾达                齐翔腾达:2021年前三季度业绩预告     业绩预告  2021-10-11
 ```
 
-#### 财务报表
+#### 财务报表-新浪
 
 接口: stock_financial_report_sina
 
@@ -8065,48 +8065,6 @@ print(stock_financial_report_sina_df)
 71  20030331  元           NaN  ...          0          0    115220322.31
 72  20021231  元           NaN  ...          0          0    110751837.42
 73  20020630  元           NaN  ...          0          0               0
-```
-
-#### 港股财务报表
-
-接口: stock_financial_hk_report_em
-
-目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
-
-描述: 东方财富-港股-财务报表-三大报表
-
-限量: 单次获取指定报表的所有年份数据
-
-输入参数
-
-| 名称        | 类型  | 描述                                                  |
-|-----------|-----|-----------------------------------------------------|
-| stock     | str | stock="00700"; 股票代码                                 |
-| symbol    | str | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
-| indicator | str | symbol="年度"; choice of {"年度", "报告期"}                |
-
-输出参数
-
-| 名称   | 类型                | 描述      |
-|------|-------------------|---------|
-| 日期索引 | datetime     报告日期 |
-| 流动资产 | str               | 注意单位: 亿 |
-| ...  | str               | 多项财务指标  |
-
-```python
-import akshare as ak
-
-stock_financial_hk_report_em_df = ak.stock_financial_hk_report_em(stock="00700", symbol="资产负债表", indicator="年度")
-print(stock_financial_hk_report_em_df)
-```
-
-数据示例
-
-```
-	      流动资产|1	现金及现金等价物	...	
-2020-12-31	--	2212.85亿	...	
-2019-12-31	--	1799.02亿	...	
-2018-12-31	--	1607.32亿	...	
 ```
 
 #### 财务报表-东财
@@ -8519,6 +8477,48 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 62  600519.SH        600519  ...           None             0
 63  600519.SH        600519  ...           None             0
 64  600519.SH        600519  ...           None             0
+```
+
+#### 港股财务报表
+
+接口: stock_financial_hk_report_em
+
+目标地址: https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
+
+描述: 东方财富-港股-财务报表-三大报表
+
+限量: 单次获取指定报表的所有年份数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                                  |
+|-----------|-----|-----------------------------------------------------|
+| stock     | str | stock="00700"; 股票代码                                 |
+| symbol    | str | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
+| indicator | str | symbol="年度"; choice of {"年度", "报告期"}                |
+
+输出参数
+
+| 名称   | 类型                | 描述      |
+|------|-------------------|---------|
+| 日期索引 | datetime     报告日期 |
+| 流动资产 | str               | 注意单位: 亿 |
+| ...  | str               | 多项财务指标  |
+
+```python
+import akshare as ak
+
+stock_financial_hk_report_em_df = ak.stock_financial_hk_report_em(stock="00700", symbol="资产负债表", indicator="年度")
+print(stock_financial_hk_report_em_df)
+```
+
+数据示例
+
+```
+	      流动资产|1	现金及现金等价物	...	
+2020-12-31	--	2212.85亿	...	
+2019-12-31	--	1799.02亿	...	
+2018-12-31	--	1607.32亿	...	
 ```
 
 #### 财务摘要
