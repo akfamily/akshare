@@ -1975,9 +1975,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.53 fix: fix stock_zcfz_em interface
 1.5.54 fix: fix stock_lrb_em interface
 1.5.55 add: add stock_balance_sheet_by_report_em interface
+1.5.56 add: add stock_balance_sheet_by_yearly_em interface
 """
 
-__version__ = "1.5.55"
+__version__ = "1.5.56"
 __author__ = "AKFamily"
 
 import sys
@@ -1987,6 +1988,20 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+东方财富-股票-财务分析
+"""
+from akshare.stock_feature.stock_three_report_em import (
+    stock_balance_sheet_by_report_em,
+    stock_balance_sheet_by_yearly_em,
+    stock_profit_sheet_by_report_em,
+    stock_profit_sheet_by_quarterly_em,
+    stock_profit_sheet_by_yearly_em,
+    stock_cash_flow_sheet_by_quarterly_em,
+    stock_cash_flow_sheet_by_report_em,
+    stock_cash_flow_sheet_by_yearly_em,
+)
 
 """
 内部交易
@@ -3549,7 +3564,9 @@ from akshare.futures_derivative.futures_index_price_nh import (
     futures_price_index_nh,
     futures_index_symbol_table_nh,
 )
-from akshare.futures_derivative.futures_index_volatility_nh import futures_nh_volatility_index
+from akshare.futures_derivative.futures_index_volatility_nh import (
+    futures_nh_volatility_index,
+)
 
 """
 空气-河北
