@@ -27,7 +27,7 @@
      - 数据科学家 08 期直播：手把手搭建本地数据科学环境
      - 数据科学家 09 期直播：如何给开源项目贡献代码——以 AKShare 项目为例
    - ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
-   
+
 ## 引用
 
 如果您想在文章或者项目中引用 [AKShare](https://github.com/akfamily/akshare/), 请使用如下 **bibtex** 格式:
