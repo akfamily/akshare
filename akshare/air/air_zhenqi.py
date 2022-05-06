@@ -294,10 +294,10 @@ if __name__ == "__main__":
     print(air_quality_watch_point_df)
 
     air_quality_hist_df = air_quality_hist(
-        city="杭州",
+        city="北京",
         period="day",
-        start_date="20220309",
-        end_date="20220409",
+        start_date="20200320",
+        end_date="20200427",
     )
     print(air_quality_hist_df)
 
