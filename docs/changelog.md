@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.60 fix: fix sw_index_second_spot interface
+
+    1. 修复 sw_index_second_spot 接口，更新接口提交采纳数
+
 1.5.59 add: add stock_profit_sheet_by_yearly_em interface
 
     1. 新增 stock_profit_sheet_by_yearly_em 接口，获取利润表-按年度数据
@@ -512,6 +516,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.60 fix: fix sw_index_second_spot interface
 
 1.5.59 add: add stock_profit_sheet_by_yearly_em interface
 
