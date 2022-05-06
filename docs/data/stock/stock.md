@@ -8096,7 +8096,7 @@ print(stock_financial_report_sina_df)
 ```python
 import akshare as ak
 
-stock_balance_sheet_by_report_em_df = ak.stock_balance_sheet_by_report_em(stock="SH600519")
+stock_balance_sheet_by_report_em_df = ak.stock_balance_sheet_by_report_em(symbol="SH600519")
 print(stock_balance_sheet_by_report_em_df)
 ```
 
@@ -8144,7 +8144,7 @@ print(stock_balance_sheet_by_report_em_df)
 ```python
 import akshare as ak
 
-stock_balance_sheet_by_yearly_em_df = ak.stock_balance_sheet_by_yearly_em(stock="SH600519")
+stock_balance_sheet_by_yearly_em_df = ak.stock_balance_sheet_by_yearly_em(symbol="SH600519")
 print(stock_balance_sheet_by_yearly_em_df)
 ```
 
@@ -8201,7 +8201,7 @@ print(stock_balance_sheet_by_yearly_em_df)
 ```python
 import akshare as ak
 
-stock_profit_sheet_by_report_em_df = ak.stock_profit_sheet_by_report_em(stock="SH600519")
+stock_profit_sheet_by_report_em_df = ak.stock_profit_sheet_by_report_em(symbol="SH600519")
 print(stock_profit_sheet_by_report_em_df)
 ```
 
@@ -8249,7 +8249,7 @@ print(stock_profit_sheet_by_report_em_df)
 ```python
 import akshare as ak
 
-stock_profit_sheet_by_yearly_em_df = ak.stock_profit_sheet_by_yearly_em(stock="SH600519")
+stock_profit_sheet_by_yearly_em_df = ak.stock_profit_sheet_by_yearly_em(symbol="SH600519")
 print(stock_profit_sheet_by_yearly_em_df)
 ```
 
@@ -8306,7 +8306,7 @@ print(stock_profit_sheet_by_yearly_em_df)
 ```python
 import akshare as ak
 
-stock_profit_sheet_by_quarterly_em_df = ak.stock_profit_sheet_by_quarterly_em(stock="SH600519")
+stock_profit_sheet_by_quarterly_em_df = ak.stock_profit_sheet_by_quarterly_em(symbol="SH600519")
 print(stock_profit_sheet_by_quarterly_em_df)
 ```
 
@@ -8354,7 +8354,7 @@ print(stock_profit_sheet_by_quarterly_em_df)
 ```python
 import akshare as ak
 
-stock_cash_flow_sheet_by_report_em_df = ak.stock_cash_flow_sheet_by_report_em(stock="SH600519")
+stock_cash_flow_sheet_by_report_em_df = ak.stock_cash_flow_sheet_by_report_em(symbol="SH600519")
 print(stock_cash_flow_sheet_by_report_em_df)
 ```
 
@@ -8402,7 +8402,7 @@ print(stock_cash_flow_sheet_by_report_em_df)
 ```python
 import akshare as ak
 
-stock_cash_flow_sheet_by_yearly_em_df = ak.stock_cash_flow_sheet_by_yearly_em(stock="SH600519")
+stock_cash_flow_sheet_by_yearly_em_df = ak.stock_cash_flow_sheet_by_yearly_em(symbol="SH600519")
 print(stock_cash_flow_sheet_by_yearly_em_df)
 ```
 
@@ -8458,7 +8458,7 @@ print(stock_cash_flow_sheet_by_yearly_em_df)
 ```python
 import akshare as ak
 
-stock_cash_flow_sheet_by_quarterly_em_df = ak.stock_cash_flow_sheet_by_quarterly_em(stock="SH600519")
+stock_cash_flow_sheet_by_quarterly_em_df = ak.stock_cash_flow_sheet_by_quarterly_em(symbol="SH600519")
 print(stock_cash_flow_sheet_by_quarterly_em_df)
 ```
 
