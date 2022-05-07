@@ -77,7 +77,6 @@ def stock_sse_summary() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    data_json.keys()
     temp_df = pd.DataFrame(data_json['result']).T
     temp_df.reset_index(inplace=True)
     temp_df['index'] = [
