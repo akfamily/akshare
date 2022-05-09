@@ -26,7 +26,7 @@ def test_path_func():
     :rtype: pathlib.Path
     """
     temp_path = get_ths_js("ths.js")
-    assert isinstance(temp_path, pathlib.WindowsPath)
+    assert isinstance(temp_path, pathlib.Path)
 
 
 if __name__ == "__main__":
