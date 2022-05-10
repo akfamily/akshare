@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.64 fix: fix stock_cash_flow_sheet_by_yearly_em interface
+
+    1. 修复 stock_cash_flow_sheet_by_yearly_em 接口，获取现金流量表-按年度接口
+
 1.5.63 fix: fix import path problem
 
     1. 修复 JS 文件及数据文件导入问题，方便在本地调试代码
@@ -528,6 +532,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.64 fix: fix stock_cash_flow_sheet_by_yearly_em interface
 
 1.5.63 fix: fix import path problem
 
