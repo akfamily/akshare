@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/12/2 15:48
+Date: 2022/5/10 17:30
 Desc: 东方财富网-数据中心-股票回购-股票回购数据
 https://data.eastmoney.com/gphg/hglist.html
 """
@@ -31,12 +31,12 @@ def stock_repurchase_em() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(total_page) + 1)):
+    for page in tqdm(range(1, int(total_page) + 1), leave=False):
         params.update({"p": page})
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.rename(
         {
             "dim_scode": "股票代码",
