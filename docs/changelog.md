@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.66 fix: fix crypto_hist interface
+
+    1. 修复 crypto_hist 接口，将部分数据存放到 data 文件夹读取，以提高访问稳定性及速度
+
 1.5.65 fix: fix stock_repurchase_em interface
 
     1. 修复 stock_repurchase_em 接口，获取股票回购-股票回购数据
@@ -536,6 +540,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.66 fix: fix crypto_hist interface
 
 1.5.65 fix: fix stock_repurchase_em interface
 
