@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.70 fix: fix stock_zh_a_spot interface
+
+    1. 修复 stock_zh_a_spot 中 pandas.DataFrame.append 警告
+
 1.5.69 fix: fix setup.py
 
     1. 修复 setup.py 文件
@@ -552,6 +556,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.70 fix: fix stock_zh_a_spot interface
 
 1.5.69 fix: fix setup.py
 
