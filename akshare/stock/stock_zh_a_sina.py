@@ -55,7 +55,8 @@ def stock_zh_a_spot() -> pd.DataFrame:
         zh_sina_stock_payload_copy.update({"page": page})
         r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(r.text)
-        big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
+        big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
+
     big_df = big_df.astype(
         {
             "trade": "float",
@@ -293,11 +294,11 @@ def stock_zh_a_cdr_daily(
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["date"]
     data_df = data_df.astype("float")
-    temp_df = data_df[start_date:end_date]
-    temp_df["open"] = round(temp_df["open"], 2)
-    temp_df["high"] = round(temp_df["high"], 2)
-    temp_df["low"] = round(temp_df["low"], 2)
-    temp_df["close"] = round(temp_df["close"], 2)
+    temp_df = data_df[start_date:end_date].copy()
+    temp_df["open"] = pd.to_numeric(temp_df["open"])
+    temp_df["high"] = pd.to_numeric(temp_df["high"])
+    temp_df["low"] = pd.to_numeric(temp_df["low"])
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
     temp_df.reset_index(inplace=True)
     temp_df['date'] = temp_df['date'].dt.date
     return temp_df
