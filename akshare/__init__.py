@@ -1987,9 +1987,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.65 fix: fix stock_repurchase_em interface
 1.5.66 fix: fix crypto_hist interface
 1.5.67 add: add test function
+1.5.68 fix: fix test function
 """
 
-__version__ = "1.5.67"
+__version__ = "1.5.68"
 __author__ = "AKFamily"
 
 import sys
