@@ -5,7 +5,7 @@ Date: 2022/5/9 18:16
 Desc: To test intention, just write test code here!
 """
 from akshare.cost.cost_living import cost_living
-from akshare.datasets import get_ths_js, get_crypto_info_csv_path
+from akshare.datasets import get_ths_js, get_crypto_info_csv
 import pathlib
 
 
@@ -35,7 +35,7 @@ def test_zipfile_func():
     :return: path of file
     :rtype: pathlib.Path
     """
-    temp_path = get_crypto_info_csv_path("crypto_info.zip")
+    temp_path = get_crypto_info_csv("crypto_info.zip")
     assert isinstance(temp_path, pathlib.Path)
 
 

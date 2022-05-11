@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.68 fix: fix test function
+
+    1. 修复 test_zipfile_func 函数
+
 1.5.67 add: add test function
 
     1. 新增测试函数，用于测试数据文件的路径
@@ -544,6 +548,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.68 fix: fix test function
 
 1.5.67 add: add test function
 
