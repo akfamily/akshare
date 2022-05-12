@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.72 add: add news_economic_baidu interface
+
+    1. 新增 news_economic_baidu 接口，获取全球宏观事件数据
+
 1.5.71 fix: fix import path problem
 
     1. 修复 covid 接口中的路径问题
@@ -560,6 +564,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.72 add: add news_economic_baidu interface
 
 1.5.71 fix: fix import path problem
 
