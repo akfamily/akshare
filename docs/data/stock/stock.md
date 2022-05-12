@@ -16014,7 +16014,7 @@ print(stock_hot_rank_detail_realtime_em_df)
 
 描述: 东方财富-个股人气榜-关键词
 
-限量: 单次返回指定 symbol 的股票近期历史数据
+限量: 单次返回指定 symbol 的最近交易日时点数据
 
 输入参数
 

@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 #!/usr/bin/env python
 """
-Date: 2022/2/11 14:15
+Date: 2022/5/12 15:15
 Desc: 东方财富个股人气榜
 http://guba.eastmoney.com/rank/
 """
@@ -56,8 +56,8 @@ def stock_hot_rank_em() -> pd.DataFrame:
             "涨跌幅",
         ]
     ]
-    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
-    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'], errors="coerce")
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'], errors="coerce")
     return temp_df
 
 
