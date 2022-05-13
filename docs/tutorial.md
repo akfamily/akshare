@@ -1081,6 +1081,8 @@
  "stock_cash_flow_sheet_by_quarterly_em"  # 东方财富-股票-财务分析-现金流量表-按单季度
  # 宏观-全球事件
  "news_economic_baidu"  # 宏观-全球事件
+ # 停复牌
+ "news_trade_notify_suspend_baidu"  # 停复牌
 ```
 
 ## 案例演示

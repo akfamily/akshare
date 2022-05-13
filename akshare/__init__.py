@@ -1993,9 +1993,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.71 fix: fix import path problem
 1.5.72 add: add news_economic_baidu interface
 1.5.73 fix: fix stock_notice_report interface
+1.5.74 add: add news_trade_notify_suspend_baidu interface
 """
 
-__version__ = "1.5.73"
+__version__ = "1.5.74"
 __author__ = "AKFamily"
 
 import sys
@@ -2009,7 +2010,7 @@ del sys
 """
 全球宏观事件
 """
-from akshare.news.news_baidu import news_economic_baidu
+from akshare.news.news_baidu import news_economic_baidu, news_trade_notify_suspend_baidu
 
 """
 东方财富-股票-财务分析
