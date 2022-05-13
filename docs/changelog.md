@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.74 add: add news_trade_notify_suspend_baidu interface
+
+    1. 新增 news_trade_notify_suspend_baidu 接口，获取 A 股及港股停复牌数据
+
 1.5.73 fix: fix stock_notice_report interface
 
     1. 修复 stock_notice_report 接口，添加日期参数
@@ -568,6 +572,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.74 add: add news_trade_notify_suspend_baidu interface
 
 1.5.73 fix: fix stock_notice_report interface
 

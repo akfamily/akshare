@@ -13,7 +13,7 @@ def news_economic_baidu(date: str = "20220502") -> pd.DataFrame:
     """
     百度股市通-经济数据
     https://gushitong.baidu.com/calendar
-    :param date: 开始日期
+    :param date: 查询日期
     :type date: str
     :return: 经济数据
     :rtype: pandas.DataFrame
@@ -71,6 +71,61 @@ def news_economic_baidu(date: str = "20220502") -> pd.DataFrame:
     return big_df
 
 
+def news_trade_notify_suspend_baidu(date: str = "20220513") -> pd.DataFrame:
+    """
+    百度股市通-交易提醒-停复牌
+    https://gushitong.baidu.com/calendar
+    :param date: 查询日期
+    :type date: str
+    :return: 交易提醒-停复牌
+    :rtype: pandas.DataFrame
+    """
+    start_date = "-".join([date[:4], date[4:6], date[6:]])
+    end_date = "-".join([date[:4], date[4:6], date[6:]])
+    url = "https://finance.pae.baidu.com/api/financecalendar"
+    params = {
+        "start_date": start_date,
+        "end_date": end_date,
+        "market": "",
+        "cate": "notify_suspend",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    big_df = pd.DataFrame()
+    for item in data_json["Result"]:
+        if not item["list"] == []:
+            temp_df = pd.DataFrame(item["list"])
+            temp_df.columns = [
+                "股票代码",
+                "-",
+                "交易所",
+                "股票简称",
+                "停牌时间",
+                "复牌时间",
+                "-",
+                "停牌事项说明",
+            ]
+            temp_df = temp_df[
+                [
+                    "股票代码",
+                    "股票简称",
+                    "交易所",
+                    "停牌时间",
+                    "复牌时间",
+                    "停牌事项说明",
+                ]
+            ]
+            temp_df["停牌时间"] = pd.to_datetime(temp_df["停牌时间"]).dt.date
+            temp_df["复牌时间"] = pd.to_datetime(temp_df["复牌时间"]).dt.date
+            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        else:
+            continue
+    return big_df
+
+
 if __name__ == "__main__":
     news_economic_baidu_df = news_economic_baidu(date="20220512")
-    print(news_economic_baidu_df.info())
+    print(news_economic_baidu_df)
+
+    news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(date="20220513")
+    print(news_trade_notify_suspend_baidu_df)
