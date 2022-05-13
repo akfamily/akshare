@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.73 fix: fix stock_notice_report interface
+
+    1. 修复 stock_notice_report 接口，添加日期参数
+
 1.5.72 add: add news_economic_baidu interface
 
     1. 新增 news_economic_baidu 接口，获取全球宏观事件数据
@@ -564,6 +568,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.73 fix: fix stock_notice_report interface
 
 1.5.72 add: add news_economic_baidu interface
 
