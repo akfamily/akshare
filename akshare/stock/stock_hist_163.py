@@ -94,7 +94,7 @@ def stock_zh_a_hist_163(
 
 if __name__ == "__main__":
     stock_zh_a_hist_163_df = stock_zh_a_hist_163(
-        symbol="sh601318", start_date="20210101", end_date="20220101"
+        symbol="sz000651", start_date="20220311", end_date="20220411"
     )
     print(stock_zh_a_hist_163_df)
 

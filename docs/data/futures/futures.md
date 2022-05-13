@@ -6,13 +6,14 @@
 
 #### 期货交易所
 
-| 交易所名称                                 | 交易所代码 | 合约后缀 | 首页地址                     |
-|---------------------------------------|-------|------|--------------------------|
-| [中国金融期货交易所](http://www.cffex.com.cn/) | CFFEX | .CFX | http://www.cffex.com.cn/ |
-| [上海期货交易所](http://www.shfe.com.cn/)    | SHFE  | .SHF | http://www.shfe.com.cn/  |
-| [上海国际能源交易中心](http://www.ine.cn/)      | INE   | .INE | http://www.ine.cn/       |
-| [郑州商品交易所](http://www.czce.com.cn/)    | CZCE  | .ZCE | http://www.czce.com.cn/  |
-| [大连商品交易所](http://www.dce.com.cn/)     | DCE   | .DCE | http://www.dce.com.cn/   |
+| 交易所名称                                 | 交易所代码 | 合约后缀  | 首页地址                     |
+|---------------------------------------|-------|-------|--------------------------|
+| [中国金融期货交易所](http://www.cffex.com.cn/) | CFFEX | .CFX  | http://www.cffex.com.cn/ |
+| [上海期货交易所](http://www.shfe.com.cn/)    | SHFE  | .SHF  | http://www.shfe.com.cn/  |
+| [上海国际能源交易中心](http://www.ine.cn/)      | INE   | .INE  | http://www.ine.cn/       |
+| [郑州商品交易所](http://www.czce.com.cn/)    | CZCE  | .ZCE  | http://www.czce.com.cn/  |
+| [大连商品交易所](http://www.dce.com.cn/)     | DCE   | .DCE  | http://www.dce.com.cn/   |
+| [广州期货交易所](http://www.gfex.com.cn/)    | GFEX  | .GFEX | http://www.gfex.com.cn/  |
 
 #### 期货交易时间
 
@@ -373,7 +374,6 @@
 | 大连商品交易所 | 聚氯乙烯期权  | 聚氯乙烯期权合约不超过20000手     | 聚氯乙烯期权合约不超过20000手     | 聚氯乙烯期权合约不超过20000手     | 聚氯乙烯期权合约不超过20000手     |
 | 大连商品交易所 | 聚乙烯期权   | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 |
 | 大连商品交易所 | 棕榈油期权   | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 | 线型低密度聚乙烯期权合约不超过10000手 |
-
 
 #### 金融期货
 
@@ -1346,27 +1346,28 @@ print(futures_to_spot_dce_df)
 
 目标地址: http://www.czce.com.cn/cn/jysj/qzxtj/H770311index_1.htm
 
-描述: 提供郑州商品交易所-期转现统计数据
+描述: 郑州商品交易所-期转现统计数据
 
 限量: 单次返回指定交易日的期转现统计数据
 
 输入参数
 
-| 名称   | 类型  | 必选  | 描述  |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="20210112"; 交易日 |
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| date | str | date="20210112"; 交易日 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 合约代码      | str   | Y        | -  |
-| 合约数量      | str   | Y        | 注意: 单边计算   |
+| 名称   | 类型     | 描述       |
+|------|--------|----------|
+| 合约代码 | object | -        |
+| 合约数量 | int64  | 注意: 单边计算 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_to_spot_czce_df = ak.futures_to_spot_czce(date="20210112")
 print(futures_to_spot_czce_df)
 ```
@@ -1507,28 +1508,29 @@ print(futures_delivery_dce_df)
 
 目标地址: http://www.czce.com.cn/cn/jysj/ydjgcx/H770316index_1.htm
 
-描述: 提供郑州商品交易所-交割统计
+描述: 郑州商品交易所-交割统计
 
 限量: 单次返回指定交易月份的交割统计数据
 
 输入参数
 
-| 名称   | 类型  | 必选  | 描述  |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="20210112"; 交易日 |
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| date | str | date="20210112"; 交易日 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 品种      | str   | Y        | -  |
-| 交割数量      | str   | Y        | 按单边统计   |
-| 交割额      | str   | Y        | 注意单位: 元; 按单边统计   |
+| 名称   | 类型     | 描述             |
+|------|--------|----------------|
+| 品种   | object | -              |
+| 交割数量 | int64  | 按单边统计          |
+| 交割额  | int64  | 注意单位: 元; 按单边统计 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_delivery_monthly_czce_df = ak.futures_delivery_czce(date="20210112")
 print(futures_delivery_monthly_czce_df)
 ```
@@ -1670,32 +1672,33 @@ print(futures_delivery_match_dce_df)
 
 目标地址: http://www.czce.com.cn/cn/jysj/jgpd/H770308index_1.htm
 
-描述: 提供郑州商品交易所-交割配对
+描述: 郑州商品交易所-交割配对
 
 限量: 单次返回指定品种的的交割配对数据
 
 输入参数
 
-| 名称   | 类型  | 必选  | 描述  |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="20210106"; 交易日 |
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| date | str | date="20210106"; 交易日 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 卖方会员      | str   | Y        | -  |
-| 卖方会员-会员简称      | str   | Y        | -   |
-| 买方会员      | str   | Y        | -   |
-| 买方会员-会员简称      | str   | Y        | -   |
-| 交割量      | str   | Y        | 注意单位: 手(单边计算)   |
-| 配对日期      | str   | Y        | -   |
-| 合约代码      | str   | Y        | -   |
+| 名称        | 类型      | 描述            |
+|-----------|---------|---------------|
+| 卖方会员      | object  | -             |
+| 卖方会员-会员简称 | object  | -             |
+| 买方会员      | object  | -             |
+| 买方会员-会员简称 | object  | -             |
+| 交割量       | float64 | 注意单位: 手(单边计算) |
+| 配对日期      | object  | -             |
+| 合约代码      | object  | -             |
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_delivery_match_czce_df = ak.futures_delivery_match_czce(date="20210106")
 print(futures_delivery_match_czce_df)
 ```
@@ -2527,20 +2530,20 @@ print(futures_global_commodity_hist_df)
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| DATE      | str   |  日期  |
-| COM      | float   | 品种代码   |
-| COM_MM      | float   |  品种到期月份        |
-| COM_YY        | float   | 品种年份    |
-| OPEN         | float |  开盘价         |
-| HIGH      | str |  最高价      |
-| LOW      | str |最低价      |
-| CLOSE      | str |  收盘价      |
-| SETTLE      | str | 结算价      |
-| VOLUME      | str |  交易量      |
-| OINT      | str |  未平仓合约      |
-| SERIES      | str | 合约代码      |
+| 名称     | 类型    | 描述     |
+|--------|-------|--------|
+| DATE   | str   | 日期     |
+| COM    | float | 品种代码   |
+| COM_MM | float | 品种到期月份 |
+| COM_YY | float | 品种年份   |
+| OPEN   | float | 开盘价    |
+| HIGH   | str   | 最高价    |
+| LOW    | str   | 最低价    |
+| CLOSE  | str   | 收盘价    |
+| SETTLE | str   | 结算价    |
+| VOLUME | str   | 交易量    |
+| OINT   | str   | 未平仓合约  |
+| SERIES | str   | 合约代码   |
 
 接口示例
 
@@ -2851,7 +2854,7 @@ print(futures_contract_detail_df)
 
 #### 收益率指数
 
-接口: futures_nh_return_index
+接口: futures_return_index_nh
 
 目标地址: http://www.nanhua.net/nhzc/varietytrend.html
 
@@ -2863,7 +2866,7 @@ print(futures_contract_detail_df)
 
 | 名称     | 类型  | 描述                                                                   |
 |--------|-----|----------------------------------------------------------------------|
-| symbol | str | symbol="Y", 请参考南华指数品种一览表, 可以通过 ak.futures_nh_index_symbol_table() 获取 |
+| symbol | str | symbol="Y", 请参考南华指数品种一览表, 可以通过 ak.futures_index_symbol_table_nh() 获取 |
 
 南华指数品种一览表
 
@@ -2954,8 +2957,8 @@ print(futures_contract_detail_df)
 ```python
 import akshare as ak
 
-futures_nh_return_index_df = ak.futures_nh_return_index()
-print(futures_nh_return_index_df)
+futures_return_index_nh_df = ak.futures_return_index_nh()
+print(futures_return_index_nh_df)
 ```
 
 数据示例
@@ -2977,7 +2980,7 @@ print(futures_nh_return_index_df)
 
 #### 价格指数
 
-接口: futures_nh_price_index
+接口: futures_price_index_nh
 
 目标地址: http://www.nanhua.net/nhzc/varietytrend.html
 
@@ -2989,7 +2992,7 @@ print(futures_nh_return_index_df)
 
 | 名称     | 类型  | 描述                                                                   |
 |--------|-----|----------------------------------------------------------------------|
-| symbol | str | symbol="Y", 请参考南华指数品种一览表, 可以通过 ak.futures_nh_index_symbol_table() 获取 |
+| symbol | str | symbol="Y", 请参考南华指数品种一览表, 可以通过 ak.futures_index_symbol_table_nh() 获取 |
 
 南华指数品种一览表
 
@@ -3073,8 +3076,8 @@ print(futures_nh_return_index_df)
 ```python
 import akshare as ak
 
-futures_nh_price_index_df = ak.futures_nh_price_index(symbol="Y")
-print(futures_nh_price_index_df)
+futures_price_index_nh_df = ak.futures_price_index_nh(symbol="Y")
+print(futures_price_index_nh_df)
 ```
 
 数据示例
@@ -3108,7 +3111,7 @@ print(futures_nh_price_index_df)
 
 | 名称     | 类型  | 描述                                                                                         |
 |--------|-----|--------------------------------------------------------------------------------------------|
-| symbol | str | symbol="Y"; 注意是具体品种(不包含指数); 请参考南华指数品种一览表, 可以通过调用 **ak.futures_nh_index_symbol_table()** 获取 |
+| symbol | str | symbol="Y"; 注意是具体品种(不包含指数); 请参考南华指数品种一览表, 可以通过调用 **ak.futures_index_symbol_table_nh()** 获取 |
 | period | str | period='20'; 波动周期; choice of {'5', '20', '60', '120'}                                      |
 
 南华指数品种一览表
@@ -3219,6 +3222,206 @@ print(futures_nh_volatility_index_df)
 486  2021-12-14  51.510276
 487  2021-12-15  43.027263
 488  2021-12-16  44.866240
+```
+
+#### 市场涨跌
+
+##### 板块指数涨跌
+
+接口: futures_board_index_nh
+
+目标地址: http://www.nanhua.net/nhzc/platechange.html
+
+描述: 南华期货-市场涨跌-板块指数涨跌
+
+限量: 单次返回指定 start_date 和 end_date 的所有历史数据
+
+输入参数
+
+| 名称         | 类型  | 描述                     |
+|------------|-----|------------------------|
+| start_date | str | start_date="20220104"; |
+| end_date   | str | end_date="20220413";   |
+
+输出参数
+
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| name   | object  | -   |
+| return | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_board_index_nh_df = ak.futures_board_index_nh(start_date="20220104", end_date="20220413")
+print(futures_board_index_nh_df)
+```
+
+数据示例
+
+```
+      name    return
+0       股指 -0.148851
+1  南华农产品指数  0.164079
+2   南华商品指数  0.229577
+3   南华能化指数  0.216494
+4  南华工业品指数  0.219966
+5   南华金属指数  0.209031
+6  南华贵金属指数  0.085690
+```
+
+##### 品种指数涨跌
+
+接口: futures_variety_index_nh
+
+目标地址: http://www.nanhua.net/nhzc/varietychange.html
+
+描述: 南华期货-市场涨跌-品种指数涨跌
+
+限量: 单次返回指定 start_date 和 end_date 的所有历史数据
+
+输入参数
+
+| 名称         | 类型  | 描述                     |
+|------------|-----|------------------------|
+| start_date | str | start_date="20220104"; |
+| end_date   | str | end_date="20220413";   |
+
+输出参数
+
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| name   | object  | -   |
+| return | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_variety_index_nh_df = ak.futures_variety_index_nh(start_date="20220104", end_date="20220413")
+print(futures_variety_index_nh_df)
+```
+
+数据示例
+
+```
+    name    return
+0     大豆  0.080284
+1     白银  0.090909
+2      铝  0.052978
+3     苹果  0.288566
+4     黄金  0.081173
+5     豆二  0.249037
+6    胶合板  0.000000
+7     沥青  0.162048
+8     玉米  0.050262
+9     棉花  0.057583
+10    红枣 -0.166274
+11  玉米淀粉  0.046087
+12     铜  0.059249
+13    棉纱  0.010520
+14   苯乙烯  0.136127
+15   乙二醇 -0.051829
+16   早籼稻  0.000000
+17   纤维板  0.000000
+18    玻璃  0.150656
+19    燃油  0.464799
+20  热轧卷板  0.141262
+21   铁矿石  0.307558
+22    股指 -0.148851
+23    焦炭  0.357430
+24    鸡蛋  0.026593
+25    焦煤  0.398210
+26    粳稻  0.000000
+27    塑料  0.010998
+28   晚籼稻  0.000000
+29    豆粕  0.225584
+30    甲醇  0.098740
+31    沪镍  0.481392
+32  20号胶 -0.059427
+33   棕榈油  0.382676
+34     铅 -0.000032
+35   聚丙烯  0.045483
+36   螺纹钢  0.124683
+37   菜籽粕  0.313907
+38   菜籽油  0.091813
+39    粳米 -0.033906
+40   油菜籽  0.000000
+41    橡胶 -0.105220
+42    纯碱  0.311686
+43    原油  0.347550
+44    硅铁  0.258102
+45    锰硅  0.070305
+46    沪锡  0.211844
+47    纸浆  0.139372
+48    白糖  0.024468
+49   不锈钢  0.186213
+50   PTA  0.214814
+51   动力煤  0.119785
+52    尿素  0.121462
+53   PVC  0.062908
+54    线材  0.000000
+55    强麦  0.000000
+56    豆油  0.215441
+57     锌  0.174663
+```
+
+#### 统计监控
+
+##### 相关系数矩阵
+
+接口: futures_correlation_nh
+
+目标地址: http://www.nanhua.net/nhzc/correltable.html
+
+描述: 南华期货-统计监控-相关系数走势
+
+限量: 单次返回指定 date 和 period 的所有历史数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                              |
+|--------|-----|-------------------------------------------------|
+| date   | str | date="20220104";                                |
+| period | str | period="20"; choice of {"5", "20", "60", "120"} |
+
+输出参数
+
+| 名称    | 类型      | 描述  |
+|-------|---------|-----|
+| 品种代码1 | object  | -   |
+| 品种名称1 | object  | -   |
+| 品种代码2 | object  | -   |
+| 品种名称2 | object  | -   |
+| 相关系数  | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_correlation_nh_df = ak.futures_correlation_nh(date="20220104", period="20")
+print(futures_correlation_nh_df)
+```
+
+数据示例
+
+```
+     品种代码1 品种名称1 品种代码2 品种名称2      相关系数
+0       EB   苯乙烯    RB   螺纹钢  0.481466
+1       EB   苯乙烯    RO   菜籽油  0.251779
+2       EB   苯乙烯    RM   菜籽粕  0.012082
+3       EB   苯乙烯    LR   晚籼稻  0.000000
+4       EB   苯乙烯    ZN     锌  0.053302
+    ...   ...   ...   ...       ...
+3901    SA    纯碱    RS   油菜籽  0.000000
+3902    SA    纯碱    CJ    红枣  0.023458
+3903    SA    纯碱    RU    橡胶  0.367631
+3904    SA    纯碱    CF    棉花  0.387144
+3905    SA    纯碱    PB     铅  0.106805
 ```
 
 ### CSCIDX 指数

@@ -116,7 +116,8 @@ def stock_financial_analysis_indicator(symbol: str = "600004") -> pd.DataFrame:
         big_df.columns = big_df.iloc[0, :].tolist()
         big_df = big_df.iloc[1:, :]
         big_df.index = temp_df.columns.tolist()[1:]
-        out_df = out_df.append(big_df)
+        out_df = pd.concat([out_df, big_df], ignore_index=True)
+
     out_df.dropna(inplace=True)
     out_df.reset_index(inplace=True)
     out_df.rename(columns={'index': '日期'}, inplace=True)

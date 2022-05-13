@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/28 16:13
+Date: 2022/4/25 18:13
 Desc: 深圳证券交易所-融资融券数据
 http://www.szse.cn/disclosure/margin/object/index.html
 """
+import warnings
+
 import pandas as pd
 import requests
 from tqdm import tqdm
 
 
-def stock_margin_underlying_info_szse(date: str = "20010106") -> pd.DataFrame:
+def stock_margin_underlying_info_szse(date: str = "20220425") -> pd.DataFrame:
     """
     深圳证券交易所-融资融券数据-标的证券信息
     http://www.szse.cn/disclosure/margin/object/index.html
@@ -40,7 +42,7 @@ def stock_margin_underlying_info_szse(date: str = "20010106") -> pd.DataFrame:
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json[0]["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "证券代码",
         "证券简称",
@@ -55,7 +57,7 @@ def stock_margin_underlying_info_szse(date: str = "20010106") -> pd.DataFrame:
     return big_df
 
 
-def stock_margin_szse(date: str = "20210727") -> pd.DataFrame:
+def stock_margin_szse(date: str = "20220422") -> pd.DataFrame:
     """
     深圳证券交易所-融资融券数据-融资融券汇总
     http://www.szse.cn/disclosure/margin/margin/index.html
@@ -113,22 +115,21 @@ def stock_margin_detail_szse(date: str = "20220118") -> pd.DataFrame:
     """
     url = "http://www.szse.cn/api/report/ShowReport"
     params = {
-        'SHOWTYPE': 'xlsx',
-        'CATALOGID': '1837_xxpl',
-        'txtDate': "-".join([date[:4], date[4:6], date[6:]]),
-        'tab2PAGENO': '1',
-        'random': '0.24279342734085696',
-        'TABKEY': 'tab2',
+        "SHOWTYPE": "xlsx",
+        "CATALOGID": "1837_xxpl",
+        "txtDate": "-".join([date[:4], date[4:6], date[6:]]),
+        "tab2PAGENO": "1",
+        "random": "0.24279342734085696",
+        "TABKEY": "tab2",
     }
     headers = {
         "Referer": "http://www.szse.cn/disclosure/margin/margin/index.html",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
-    import warnings
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        temp_df = pd.read_excel(r.content, engine="openpyxl", dtype={'证券代码': str})
+        temp_df = pd.read_excel(r.content, engine="openpyxl", dtype={"证券代码": str})
     temp_df.columns = [
         "证券代码",
         "证券简称",

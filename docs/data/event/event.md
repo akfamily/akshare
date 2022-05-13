@@ -1031,26 +1031,27 @@ print(covid_19_dxy_df)
 
 输入参数-实时播报
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="实时播报"|
+| 名称        | 类型  | 描述               |
+|-----------|-----|------------------|
+| indicator | str | indicator="实时播报" |
 
 输出参数-实时播报
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| bjh_na      | str   | Y        |-   |
-| eventDescription      | str   | Y        | 新闻描述  |
-| eventTime      | str   | Y        | 新闻时间  |
-| eventUrl      | str   | Y        | 链接  |
-| homepageUrl      | str   | Y        | 链接  |
-| item_avatar      | str   | Y        | -  |
-| siteName      | str   | Y        | 新闻来源  |
+| 名称               | 类型  | 描述   |
+|------------------|-----|------|
+| bjh_na           | str | -    |
+| eventDescription | str | 新闻描述 |
+| eventTime        | str | 新闻时间 |
+| eventUrl         | str | 链接   |
+| homepageUrl      | str | 链接   |
+| item_avatar      | str | -    |
+| siteName         | str | 新闻来源 |
 
 接口示例-实时播报
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="实时播报")
 print(covid_19_baidu_df)
 ```
@@ -1074,20 +1075,21 @@ print(covid_19_baidu_df)
 
 输入参数-中国分省份详情
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="中国分省份详情"|
+| 名称        | 类型  | 描述                  |
+|-----------|-----|---------------------|
+| indicator | str | indicator="中国分省份详情" |
 
 输出参数-中国分省份详情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        |参见 **数据示例-中国分省份详情**   |
+| 名称  | 类型  | 描述                  |
+|-----|-----|---------------------|
+| -   | -   | 参见 **数据示例-中国分省份详情** |
 
 接口示例-中国分省份详情
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="中国分省份详情")
 print(covid_19_baidu_df)
 ```
@@ -1111,20 +1113,21 @@ print(covid_19_baidu_df)
 
 输入参数-中国分城市详情
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="中国分城市详情"|
+| 名称        | 类型  | 描述                  |
+|-----------|-----|---------------------|
+| indicator | str | indicator="中国分城市详情" |
 
 输出参数-中国分城市详情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        |参见 **数据示例-中国分城市详情**   |
+| 名称  | 类型  | 描述                  |
+|-----|-----|---------------------|
+| -   | -   | 参见 **数据示例-中国分城市详情** |
 
 接口示例-中国分城市详情
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="中国分城市详情")
 print(covid_19_baidu_df)
 ```
@@ -1148,20 +1151,21 @@ print(covid_19_baidu_df)
 
 输入参数-国外分国详情
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="国外分国详情"|
+| 名称        | 类型  | 描述                 |
+|-----------|-----|--------------------|
+| indicator | str | indicator="国外分国详情" |
 
 输出参数-国外分国详情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        |参见 **数据示例-国外分国详情**   |
+| 名称  | 类型  | 描述                 |
+|-----|-----|--------------------|
+| -   | -   | 参见 **数据示例-国外分国详情** |
 
 接口示例-国外分国详情
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="国外分国详情")
 print(covid_19_baidu_df)
 ```
@@ -1185,20 +1189,21 @@ print(covid_19_baidu_df)
 
 输入参数-国外分城市详情
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="国外分城市详情"|
+| 名称        | 类型  | 描述                  |
+|-----------|-----|---------------------|
+| indicator | str | indicator="国外分城市详情" |
 
 输出参数-国外分城市详情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        |参见 **数据示例-国外分城市详情**   |
+| 名称  | 类型  | 描述                  |
+|-----|-----|---------------------|
+| -   | -   | 参见 **数据示例-国外分城市详情** |
 
 接口示例-国外分城市详情
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="国外分城市详情")
 print(covid_19_baidu_df)
 ```
@@ -1222,20 +1227,21 @@ print(covid_19_baidu_df)
 
 输入参数-全球分洲详情
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="全球分洲详情"|
+| 名称        | 类型  | 描述                 |
+|-----------|-----|--------------------|
+| indicator | str | indicator="全球分洲详情" |
 
 输出参数-全球分洲详情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        |参见 **数据示例-全球分洲详情**   |
+| 名称  | 类型  | 描述                 |
+|-----|-----|--------------------|
+| -   | -   | 参见 **数据示例-全球分洲详情** |
 
 接口示例-全球分洲详情
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="全球分洲详情")
 print(covid_19_baidu_df)
 ```
@@ -1255,20 +1261,21 @@ print(covid_19_baidu_df)
 
 输入参数-全球分洲国家详情
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| indicator | str | Y | indicator="全球分洲国家详情"|
+| 名称        | 类型  | 描述                   |
+|-----------|-----|----------------------|
+| indicator | str | indicator="全球分洲国家详情" |
 
 输出参数-全球分洲国家详情
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        |参见 **数据示例-全球分洲国家详情**   |
+| 名称  | 类型  | 描述                   |
+|-----|-----|----------------------|
+| -   | -   | 参见 **数据示例-全球分洲国家详情** |
 
 接口示例-全球分洲国家详情
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="全球分洲国家详情")
 print(covid_19_baidu_df)
 ```
@@ -1292,20 +1299,21 @@ print(covid_19_baidu_df)
 
 输入参数-国内新型肺炎最新动态
 
-| 名称   | 类型 |  描述     |
-| -------- | ---- |  --- |
-| indicator | str | indicator="国内新型肺炎最新动态"|
+| 名称        | 类型  | 描述                     |
+|-----------|-----|------------------------|
+| indicator | str | indicator="国内新型肺炎最新动态" |
 
 输出参数-国内新型肺炎最新动态
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| -      | -   | 参见 **数据示例-国内新型肺炎最新动态**   |
+| 名称  | 类型  | 描述                     |
+|-----|-----|------------------------|
+| -   | -   | 参见 **数据示例-国内新型肺炎最新动态** |
 
 接口示例-国内新型肺炎最新动态
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="国内新型肺炎最新动态")
 print(covid_19_baidu_df)
 ```
@@ -1357,20 +1365,21 @@ print(covid_19_baidu_df)
 
 输入参数-国外新型肺炎最新动态
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| indicator | str |  indicator="国外新型肺炎最新动态"|
+| 名称        | 类型  | 描述                     |
+|-----------|-----|------------------------|
+| indicator | str | indicator="国外新型肺炎最新动态" |
 
 输出参数-国外新型肺炎最新动态
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| -      | -   | 参见 **数据示例-国外新型肺炎最新动态**   |
+| 名称  | 类型  | 描述                     |
+|-----|-----|------------------------|
+| -   | -   | 参见 **数据示例-国外新型肺炎最新动态** |
 
 接口示例-国外新型肺炎最新动态
 
 ```python
 import akshare as ak
+
 covid_19_baidu_df = ak.covid_19_baidu(indicator="国外新型肺炎最新动态")
 print(covid_19_baidu_df)
 ```
@@ -1433,24 +1442,25 @@ print(covid_19_baidu_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| area | str | Y | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如: "浙江省", "乌鲁木齐市" |
-| indicator | str | Y | indicator="move_in", 返回迁入地详情, indicator="move_out", 返回迁出地详情 |
-| date | str | Y | date="20200201", 需要滞后一天 |
+| 名称        | 类型  | 描述                                                          |
+|-----------|-----|-------------------------------------------------------------|
+| area      | str | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如: "浙江省", "乌鲁木齐市"     |
+| indicator | str | indicator="move_in", 返回迁入地详情, indicator="move_out", 返回迁出地详情 |
+| date      | str | date="20200201", 需要滞后一天                                     |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| city_name      | 城市名称   | Y        |   |
-| province_name      | 所属省份   | Y        |   |
-| value      | str   | 迁徙规模, 比例        |   |
+| 名称            | 类型   | 描述       |
+|---------------|------|----------|
+| city_name     | 城市名称 |          |
+| province_name | 所属省份 |          |
+| value         | str  | 迁徙规模, 比例 |
 			
 接口示例
 
 ```python
 import akshare as ak
+
 migration_area_baidu_df = ak.migration_area_baidu(area="浙江省", indicator="move_in", date="20200201")
 print(migration_area_baidu_df)
 ```
@@ -1487,24 +1497,25 @@ print(migration_area_baidu_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| area | str | Y | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如: "浙江省", "乌鲁木齐市" |
-| indicator | str | Y | indicator="move_in", 返回迁入地详情, indicator="move_out", 返回迁出地详情 |
-| start_date | str | Y | start_date="20190112", 一般不要变化 |
-| end_date | str | Y | end_date="20200201", 往后查询如 20200202 之后 |
+| 名称         | 类型  | 描述                                                          |
+|------------|-----|-------------------------------------------------------------|
+| area       | str | area="乌鲁木齐市", 输入需要查询的省份或者城市, 都需要用全称, 比如: "浙江省", "乌鲁木齐市"     |
+| indicator  | str | indicator="move_in", 返回迁入地详情, indicator="move_out", 返回迁出地详情 |
+| start_date | str | start_date="20190112", 一般不要变化                               |
+| end_date   | str | end_date="20200201", 往后查询如 20200202 之后                      |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | 索引   | Y        | 去年和今年的日期  |
-| 迁徙规模指数      | str   | Y        |  定义参见百度, 同 covid_19_baidu 定义 |
+| 名称     | 类型  | 描述                          |
+|--------|-----|-----------------------------|
+| 日期     | 索引  | 去年和今年的日期                    |
+| 迁徙规模指数 | str | 定义参见百度, 同 covid_19_baidu 定义 |
 			
 接口示例
 
 ```python
 import akshare as ak
+
 migration_scale_baidu_df = ak.migration_scale_baidu(area="浙江省", indicator="move_out", start_date="20190112", end_date="20200201")
 print(migration_scale_baidu_df)
 ```
@@ -1532,26 +1543,27 @@ print(migration_scale_baidu_df)
 
 目标地址: https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message
 
-描述: 获取新型肺炎确诊患者-相同行程查询工具中所有行程数据
+描述: 新型肺炎确诊患者-相同行程查询工具中所有行程数据
 
 限量: 单次返回新型肺炎确诊患者-相同行程查询工具中所有行程数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        | 字段过多, 不单列  |
+| 名称  | 类型  | 描述        |
+|-----|-----|-----------|
+| -   | -   | 字段过多, 不单列 |
 			
 接口示例
 
 ```python
 import akshare as ak
+
 covid_19_trip_df = ak.covid_19_trip()
 print(covid_19_trip_df)
 ```
@@ -1588,33 +1600,34 @@ print(covid_19_trip_df)
 
 目标地址: https://news.qq.com/hdh5/hebeicomeon.htm#/?ADTAG=yqi
 
-描述: 获取腾讯新闻-疫情-病患轨迹的数据
+描述: 腾讯新闻-疫情-病患轨迹的数据
 
 限量: 单次返回所有省份的数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 地址      | str  | Y        | -  |
-| 城市      | str  | Y        | -  |
-| 区      | str  | Y        | -  |
-| 省份      | str  | Y        | -  |
-| 标题      | str  | Y        | -  |
-| 更新时间      | str  | Y        | -  |
-| 风险等级      | str  | Y        | -  |
-| 统计时间      | str  | Y        | -  |
+| 名称   | 类型  | 描述  |
+|------|-----|-----|
+| 地址   | str | -   |
+| 城市   | str | -   |
+| 区    | str | -   |
+| 省份   | str | -   |
+| 标题   | str | -   |
+| 更新时间 | str | -   |
+| 风险等级 | str | -   |
+| 统计时间 | str | -   |
 
 接口示例
 
 ```python
 import akshare as ak
+
 covid_19_trace_df = ak.covid_19_trace()
 print(covid_19_trace_df)
 ```
@@ -1648,30 +1661,31 @@ print(covid_19_trace_df)
 
 输入参数-covid_19_hist_city
 
-| 名称   | 类型 |  描述      |
-| -------- | ---- |  --- |
+| 名称   | 类型  | 描述         |
+|------|-----|------------|
 | city | str | city="武汉市" |
 
 输出参数-covid_19_hist_city
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| date | str |  时间（天） |
-| country | str |  国家 |
-| countryCode | float | 国家代码 |
-| province | float |  省 |
-| provinceCode | float |  省代码 |
-| city | float |  市 |
-| cityCode | float |  市代码 |
-| confirmed | str |  确诊人数 |
-| suspected | str |  疑似人数 |
-| cured | str | 治愈人数 |
-| dead | str |  死亡人数 |
+| 名称           | 类型    | 描述    |
+|--------------|-------|-------|
+| date         | str   | 时间（天） |
+| country      | str   | 国家    |
+| countryCode  | float | 国家代码  |
+| province     | float | 省     |
+| provinceCode | float | 省代码   |
+| city         | float | 市     |
+| cityCode     | float | 市代码   |
+| confirmed    | str   | 确诊人数  |
+| suspected    | str   | 疑似人数  |
+| cured        | str   | 治愈人数  |
+| dead         | str   | 死亡人数  |
 			
 接口示例-covid_19_hist_city
 
 ```python
 import akshare as ak
+
 covid_19_hist_city_df = ak.covid_19_hist_city(city="武汉市")
 print(covid_19_hist_city_df)
 ```
@@ -1695,30 +1709,31 @@ print(covid_19_hist_city_df)
 
 输入参数-covid_19_hist_province
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| province | str | Y | province="湖北省" |
+| 名称       | 类型  | 描述             |
+|----------|-----|----------------|
+| province | str | province="湖北省" |
 
 输出参数-covid_19_hist_province
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date | str | Y | 时间（天） |
-| country | str | Y | 国家 |
-| countryCode | float | Y | 国家代码 |
-| province | float | Y | 省 |
-| provinceCode | float | Y | 省代码 |
-| city | float | Y | 市 |
-| cityCode | float | Y | 市代码 |
-| confirmed | str | Y | 确诊人数 |
-| suspected | str | Y | 疑似人数 |
-| cured | str | Y | 治愈人数 |
-| dead | str | Y | 死亡人数 |
+| 名称           | 类型    | 描述    |
+|--------------|-------|-------|
+| date         | str   | 时间（天） |
+| country      | str   | 国家    |
+| countryCode  | float | 国家代码  |
+| province     | float | 省     |
+| provinceCode | float | 省代码   |
+| city         | float | 市     |
+| cityCode     | float | 市代码   |
+| confirmed    | str   | 确诊人数  |
+| suspected    | str   | 疑似人数  |
+| cured        | str   | 治愈人数  |
+| dead         | str   | 死亡人数  |
 			
 接口示例-covid_19_hist_province
 
 ```python
 import akshare as ak
+
 covid_19_hist_province_df = ak.covid_19_hist_province(province="湖北省")
 print(covid_19_hist_province_df)
 ```
@@ -1972,24 +1987,24 @@ print(covid_19_csse_us_death_df)
 
 目标地址: https://github.com/CSSEGISandData/COVID-19
 
-描述: 获取全球确诊数据所有历史数据, 如本地无法读取数据，请参考 **[答疑专栏]** 问题 12 修改本地 host 后获取
+描述: 全球确诊数据所有历史数据, 如本地无法读取数据，请参考 **[答疑专栏]** 问题 12 修改本地 host 后获取
 
 限量: 单次返回所有历史数据，每日更新
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
+| 名称  | 类型  | 必选  | 描述  |
+|-----|-----|-----|-----|
+| -   | -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ------- |
-| Province/State | str | Y | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
-| Country/Region | str | Y | country/region name conforming to WHO (will be updated). |
-| Lat and Long | float | Y | a coordinates reference for the user. |
-| Date fields | float | Y |  M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file. |
+| 名称             | 类型    | 默认显示 | 描述                                                                                                                                                                                        |
+|----------------|-------|------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Province/State | str   | Y    | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
+| Country/Region | str   | Y    | country/region name conforming to WHO (will be updated).                                                                                                                                  |
+| Lat and Long   | float | Y    | a coordinates reference for the user.                                                                                                                                                     |
+| Date fields    | float | Y    | M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file.                                                                                                                                    |
 			
 接口示例
 
@@ -2093,6 +2108,7 @@ print(covid_19_csse_global_confirmed_df)
 
 ```python
 import akshare as ak
+
 covid_19_csse_global_death_df = ak.covid_19_csse_global_death()
 print(covid_19_csse_global_death_df)
 ```
@@ -2174,23 +2190,24 @@ print(covid_19_csse_global_death_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| - | - | - | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ------- |
-| Province/State | str | Y | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
-| Country/Region | str | Y | country/region name conforming to WHO (will be updated). |
-| Lat and Long | float | Y | a coordinates reference for the user. |
-| Date fields | float | Y |  M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file. |
+| 名称             | 类型    | 描述                                                                                                                                                                                        |
+|----------------|-------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Province/State | str   | Province/State: China - province name; US/Canada/Australia/ - city name, state/province name; Others - name of the event (e.g., "Diamond Princess" cruise ship); other countries - blank. |
+| Country/Region | str   | country/region name conforming to WHO (will be updated).                                                                                                                                  |
+| Lat and Long   | float | a coordinates reference for the user.                                                                                                                                                     |
+| Date fields    | float | M/DD/YYYY (UTC), the same data as MM-DD-YYYY.csv file.                                                                                                                                    |
 			
 接口示例
 
 ```python
 import akshare as ak
+
 covid_19_csse_global_recovered_df = ak.covid_19_csse_global_recovered()
 print(covid_19_csse_global_recovered_df)
 ```

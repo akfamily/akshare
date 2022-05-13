@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/1/7 16:21
+Date: 2022/4/19 20:21
 Desc: 东方财富网-个股-股票信息
 http://quote.eastmoney.com/concept/sh603777.html?from=classic
 """
@@ -52,6 +52,8 @@ def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:
     }
     temp_df['index'] = temp_df['index'].map(code_name_map)
     temp_df = temp_df[pd.notna(temp_df['index'])]
+    if 'dlmkts' in temp_df.columns:
+        del temp_df['dlmkts']
     temp_df.columns = [
         'item',
         'value',
@@ -61,5 +63,5 @@ def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_individual_info_em_df = stock_individual_info_em(symbol="601816")
+    stock_individual_info_em_df = stock_individual_info_em(symbol="301120")
     print(stock_individual_info_em_df)

@@ -1024,25 +1024,26 @@ print(fund_fh_em_df)
 
 输入参数
 
-| 名称   | 类型 | 描述 |
-| -------- | ---- |  --- |
-| - | -  |   - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 序号      | int64   |  -  |
-| 基金代码      | object   |  -  |
-| 基金简称      | object   |  -  |
-| 拆分折算日      | object   |  -  |
-| 拆分类型      | object   |  -  |
-| 拆分折算      | float64   |  注意单位: 每份  |
+| 名称    | 类型      | 描述       |
+|-------|---------|----------|
+| 序号    | int64   | -        |
+| 基金代码  | object  | -        |
+| 基金简称  | object  | -        |
+| 拆分折算日 | object  | -        |
+| 拆分类型  | object  | -        |
+| 拆分折算  | float64 | 注意单位: 每份 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 fund_cf_em_df = ak.fund_cf_em()
 print(fund_cf_em_df)
 ```
@@ -1121,7 +1122,7 @@ print(fund_fh_rank_em_df)
 
 #### 开放式基金排行
 
-接口: fund_em_open_fund_rank
+接口: fund_open_fund_rank_em
 
 目标地址: http://fund.eastmoney.com/data/fundranking.html
 
@@ -1163,8 +1164,8 @@ print(fund_fh_rank_em_df)
 ```python
 import akshare as ak
 
-fund_em_open_fund_rank_df = ak.fund_em_open_fund_rank(symbol="全部")
-print(fund_em_open_fund_rank_df)
+fund_open_fund_rank_em_df = ak.fund_open_fund_rank_em(symbol="全部")
+print(fund_open_fund_rank_em_df)
 ```
 
 数据示例

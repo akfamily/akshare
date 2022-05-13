@@ -12,40 +12,25 @@ http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
 同花顺-数据中心-资金流向-打单追踪
 http://data.10jqka.com.cn/funds/ddzz/#refCountId=data_55f13c2c_254
 """
-import os
 
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
-from bs4 import BeautifulSoup
+
+from akshare.datasets import get_ths_js
 
 
-def _get_js_path_ths(name: str = None, module_file: str = None) -> str:
-    """
-    获取 JS 文件的路径(从模块所在目录查找)
-    :param name: 文件名
-    :type name: str
-    :param module_file: 模块路径
-    :type module_file: str
-    :return: 路径
-    :rtype: str
-    """
-    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
-    module_json_path = os.path.join(module_folder, "stock_feature", name)
-    return module_json_path
-
-
-def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
+def _get_file_content_ths(file: str = "ths.js") -> str:
     """
     获取 JS 文件的内容
-    :param file_name:  JS 文件名
-    :type file_name: str
+    :param file:  JS 文件名
+    :type file: str
     :return: 文件内容
     :rtype: str
     """
-    setting_file_name = file_name
-    setting_file_path = _get_js_path_ths(setting_file_name, __file__)
+    setting_file_path = get_ths_js(file)
     with open(setting_file_path) as f:
         file_data = f.read()
     return file_data
@@ -93,7 +78,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     else:
         url = "http://data.10jqka.com.cn/funds/ggzjl/field/zdf/order/desc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(page_num)+1)):
+    for page in tqdm(range(1, int(page_num) + 1)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
@@ -170,7 +155,9 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    url = "http://data.10jqka.com.cn/funds/gnzjl/field/tradezdf/order/desc/ajax/1/free/1/"
+    url = (
+        "http://data.10jqka.com.cn/funds/gnzjl/field/tradezdf/order/desc/ajax/1/free/1/"
+    )
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     raw_page = soup.find("span", attrs={"class": "page_info"}).text
@@ -186,7 +173,7 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
     else:
         url = "http://data.10jqka.com.cn/funds/gnzjl/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(page_num)+1)):
+    for page in tqdm(range(1, int(page_num) + 1)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
@@ -225,10 +212,10 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
             "领涨股-涨跌幅",
             "当前价",
         ]
-        big_df['行业-涨跌幅'] = big_df['行业-涨跌幅'].str.strip("%")
-        big_df['领涨股-涨跌幅'] = big_df['领涨股-涨跌幅'].str.strip("%")
-        big_df['行业-涨跌幅'] = pd.to_numeric(big_df['行业-涨跌幅'], errors="coerce")
-        big_df['领涨股-涨跌幅'] = pd.to_numeric(big_df['领涨股-涨跌幅'], errors="coerce")
+        big_df["行业-涨跌幅"] = big_df["行业-涨跌幅"].str.strip("%")
+        big_df["领涨股-涨跌幅"] = big_df["领涨股-涨跌幅"].str.strip("%")
+        big_df["行业-涨跌幅"] = pd.to_numeric(big_df["行业-涨跌幅"], errors="coerce")
+        big_df["领涨股-涨跌幅"] = pd.to_numeric(big_df["领涨股-涨跌幅"], errors="coerce")
     else:
         big_df.columns = [
             "序号",
@@ -269,7 +256,9 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    url = "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/ajax/1/free/1/"
+    url = (
+        "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/ajax/1/free/1/"
+    )
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     raw_page = soup.find("span", attrs={"class": "page_info"}).text
@@ -285,7 +274,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
     else:
         url = "http://data.10jqka.com.cn/funds/hyzjl/field/tradezdf/order/desc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(page_num)+1)):
+    for page in tqdm(range(1, int(page_num) + 1)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
@@ -324,10 +313,10 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
             "领涨股-涨跌幅",
             "当前价",
         ]
-        big_df['行业-涨跌幅'] = big_df['行业-涨跌幅'].str.strip("%")
-        big_df['领涨股-涨跌幅'] = big_df['领涨股-涨跌幅'].str.strip("%")
-        big_df['行业-涨跌幅'] = pd.to_numeric(big_df['行业-涨跌幅'], errors="coerce")
-        big_df['领涨股-涨跌幅'] = pd.to_numeric(big_df['领涨股-涨跌幅'], errors="coerce")
+        big_df["行业-涨跌幅"] = big_df["行业-涨跌幅"].str.strip("%")
+        big_df["领涨股-涨跌幅"] = big_df["领涨股-涨跌幅"].str.strip("%")
+        big_df["行业-涨跌幅"] = pd.to_numeric(big_df["行业-涨跌幅"], errors="coerce")
+        big_df["领涨股-涨跌幅"] = pd.to_numeric(big_df["领涨股-涨跌幅"], errors="coerce")
     else:
         big_df.columns = [
             "序号",
@@ -373,7 +362,7 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
     page_num = raw_page.split("/")[1]
     url = "http://data.10jqka.com.cn/funds/ddzz/order/asc/page/{}/ajax/1/free/1/"
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(page_num)+1)):
+    for page in tqdm(range(1, int(page_num) + 1)):
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)

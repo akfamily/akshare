@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/6/5 19:18
+Date: 2022/4/27 19:18
 Desc: 东方财富网-数据中心-特色数据-一致行动人
 http://data.eastmoney.com/yzxdr/
 """
-from akshare.utils import demjson
 import pandas as pd
 import requests
+from tqdm import tqdm
+
+from akshare.utils import demjson
 
 
-def stock_em_yzxdr(date: str = "20200930") -> pd.DataFrame:
+def stock_yzxdr_em(date: str = "20200930") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-一致行动人
     http://data.eastmoney.com/yzxdr/
@@ -38,7 +40,7 @@ def stock_em_yzxdr(date: str = "20200930") -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -1])
     total_pages = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in range(1, total_pages + 1):
+    for page in tqdm(range(1, total_pages + 1), leave=False):
         params = {
             "type": "RPTA_WEB_YZXDRINDEX",
             "sty": "ALL",
@@ -55,7 +57,8 @@ def stock_em_yzxdr(date: str = "20200930") -> pd.DataFrame:
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.reset_index(inplace=True)
     big_df["index"] = range(1, len(big_df) + 1)
     big_df.columns = [
@@ -97,5 +100,5 @@ def stock_em_yzxdr(date: str = "20200930") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_em_yzxdr_df = stock_em_yzxdr(date="20210331")
-    print(stock_em_yzxdr_df)
+    stock_yzxdr_em_df = stock_yzxdr_em(date="20220331")
+    print(stock_yzxdr_em_df)

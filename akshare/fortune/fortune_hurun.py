@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/4/8 13:04
+Date: 2022/4/19 17:04
 Desc: 胡润排行榜
 https://www.hurun.net/
 """
@@ -10,72 +10,55 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def hurun_rank(indicator: str = "胡润艺术榜", year: str = "2020") -> pd.DataFrame:
+def hurun_rank(indicator: str = "胡润百富榜", year: str = "2021") -> pd.DataFrame:
     """
     胡润排行榜
     http://www.hurun.net/CN/HuList/Index?num=3YwKs889SRIm
-    :param indicator: choice of {"胡润百富榜", "胡润全球富豪榜", "胡润全球独角兽榜", "胡润中国500强民营企业", "胡润世界500强", "胡润艺术榜"}
+    :param indicator: choice of {"胡润百富榜", "胡润全球富豪榜", "胡润印度榜", "胡润全球独角兽榜", "中国瞪羚企业榜", "全球瞪羚企业榜", "胡润Under30s创业领袖榜", "胡润中国500强民营企业", "胡润世界500强", "胡润艺术榜"}
     :type indicator: str
-    :param year: 指定年份; {"胡润百富榜": "2019至今", "胡润全球富豪榜": "2019至今", "胡润全球独角兽榜": "2019至今", "胡润中国500强民营企业": "2019至今", "胡润世界500强": "2020至今", "胡润艺术榜": "2019至今"}
+    :param year: 指定年份; {"胡润百富榜": "2014-至今", "胡润全球富豪榜": "2019-至今", "胡润印度榜": "2018-至今", "胡润全球独角兽榜": "2019-至今", "中国瞪羚企业榜": "2021-至今", "全球瞪羚企业榜": "2021-至今", "胡润Under30s创业领袖榜": "2019-至今", "胡润中国500强民营企业": "2019-至今", "胡润世界500强": "2020-至今", "胡润艺术榜": "2019-至今"}
     :type year: str
     :return: 指定 indicator 和 year 的数据
     :rtype: pandas.DataFrame
     """
-    url = "https://www.hurun.net/zh-CN/Rank/HsRankDetails?num=Q9TGQF1L"
+    url = "https://www.hurun.net/zh-CN/Rank/HsRankDetails?pagetype=rich"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, 'lxml')
-    url_list = ['https://www.hurun.net' + item['href'] for item in soup.find('div', attrs={'aria-labelledby': 'navbarDropdown'}).find_all('a')]
-    name_list = [item.text for item in soup.find('div', attrs={'aria-labelledby': 'navbarDropdown'}).find_all('a')]
+    url_list = []
+    for item in soup.find_all('div', attrs={'aria-labelledby': 'navbarDropdownList'}):
+        for inner_item in item.find_all('a'):
+            url_list.append('https://www.hurun.net' + inner_item['href'])
+    name_list = []
+    for item in soup.find_all('div', attrs={'aria-labelledby': 'navbarDropdownList'}):
+        for inner_item in item.find_all('a'):
+            name_list.append(inner_item.text)
+
     name_url_map = dict(zip(name_list, url_list))
+
     r = requests.get(name_url_map[indicator])
     soup = BeautifulSoup(r.text, 'lxml')
-    code_list = [item['value'].split('=')[1] for item in soup.find(attrs={'id': 'exampleFormControlSelect1'}).find_all('option')]
+    code_list = [item['value'].split('=')[2] for item in soup.find(attrs={'id': 'exampleFormControlSelect1'}).find_all('option')]
     year_list = [item.text.split(' ')[0] for item in soup.find(attrs={'id': 'exampleFormControlSelect1'}).find_all('option')]
     year_code_map = dict(zip(year_list, code_list))
     params = {
         'num': year_code_map[year],
-        'search': ''
+        'search': '',
+        'offset': '0',
+        'limit': '20000',
     }
     url = 'https://www.hurun.net/zh-CN/Rank/HsRankDetailsList'
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json)
+    temp_df = pd.DataFrame(data_json['rows'])
     if indicator == '胡润百富榜':
-        temp_df.columns = [
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '排名',
-            '财富',
-            '姓名',
-            '_',
-            '_',
-            '企业',
-            '_',
-            '_',
-            '_',
-            '行业',
-            '_',
-            '_',
-            '_',
-        ]
+        temp_df.rename(columns={
+            "hs_Rank_Rich_Ranking": "排名",
+            "hs_Rank_Rich_Wealth": "财富",
+            "hs_Rank_Rich_Ranking_Change": "排名变化",
+            "hs_Rank_Rich_ChaName_Cn": "姓名",
+            "hs_Rank_Rich_ComName_Cn": "企业",
+            "hs_Rank_Rich_Industry_Cn": "行业",
+        }, inplace=True)
         temp_df = temp_df[[
             '排名',
             '财富',
@@ -84,42 +67,30 @@ def hurun_rank(indicator: str = "胡润艺术榜", year: str = "2020") -> pd.Dat
             '行业',
         ]]
     elif indicator == '胡润全球富豪榜':
-        temp_df.columns = [
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
+        temp_df.rename(columns={
+            "hs_Rank_Global_Ranking": "排名",
+            "hs_Rank_Global_Wealth": "财富",
+            "hs_Rank_Global_Ranking_Change": "排名变化",
+            "hs_Rank_Global_ChaName_Cn": "姓名",
+            "hs_Rank_Global_ComName_Cn": "企业",
+            "hs_Rank_Global_Industry_Cn": "行业",
+        }, inplace=True)
+        temp_df = temp_df[[
             '排名',
             '财富',
-            '_',
             '姓名',
-            '_',
-            '_',
             '企业',
-            '_',
-            '_',
-            '_',
             '行业',
-            '_',
-            '_',
-            '_',
-        ]
+        ]]
+    elif indicator == '胡润印度榜':
+        temp_df.rename(columns={
+            "hs_Rank_India_Ranking": "排名",
+            "hs_Rank_India_Wealth": "财富",
+            "hs_Rank_India_Ranking_Change": "排名变化",
+            "hs_Rank_India_ChaName_Cn": "姓名",
+            "hs_Rank_India_ComName_Cn": "企业",
+            "hs_Rank_India_Industry_Cn": "行业",
+        }, inplace=True)
         temp_df = temp_df[[
             '排名',
             '财富',
@@ -128,124 +99,106 @@ def hurun_rank(indicator: str = "胡润艺术榜", year: str = "2020") -> pd.Dat
             '行业',
         ]]
     elif indicator == '胡润全球独角兽榜':
-        temp_df.columns = [
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '排名',
-            '财富',
-            '姓名',
-            '_',
-            '_',
-            '企业',
-            '_',
-            '_',
-            '_',
-            '行业',
-            '_',
-            '_',
-        ]
+        temp_df.rename(columns={
+            "hs_Rank_Unicorn_Ranking": "排名",
+            "hs_Rank_Unicorn_Wealth": "财富",
+            "hs_Rank_Unicorn_Ranking_Change": "排名变化",
+            "hs_Rank_Unicorn_ChaName_Cn": "姓名",
+            "hs_Rank_Unicorn_ComName_Cn": "企业",
+            "hs_Rank_Unicorn_Industry_Cn": "行业",
+        }, inplace=True)
         temp_df = temp_df[[
             '排名',
             '财富',
             '姓名',
             '企业',
+            '行业',
+        ]]
+    elif indicator == '中国瞪羚企业榜':
+        temp_df.rename(columns={
+            "hs_Rank_CGazelles_ComHeadquarters_Cn": "企业总部",
+            "hs_Rank_CGazelles_Name_Cn": "掌门人/联合创始人",
+            "hs_Rank_CGazelles_ComName_Cn": "企业信息",
+            "hs_Rank_CGazelles_Industry_Cn": "行业",
+        }, inplace=True)
+        temp_df = temp_df[[
+            '企业信息',
+            '掌门人/联合创始人',
+            '企业总部',
+            '行业',
+        ]]
+    elif indicator == '全球瞪羚企业榜':
+        temp_df.rename(columns={
+            "hs_Rank_GGazelles_ComHeadquarters_Cn": "企业总部",
+            "hs_Rank_GGazelles_Name_Cn": "掌门人/联合创始人",
+            "hs_Rank_GGazelles_ComName_Cn": "企业信息",
+            "hs_Rank_GGazelles_Industry_Cn": "行业",
+        }, inplace=True)
+        temp_df = temp_df[[
+            '企业信息',
+            '掌门人/联合创始人',
+            '企业总部',
+            '行业',
+        ]]
+    elif indicator == '胡润Under30s创业领袖榜':
+        temp_df.rename(columns={
+            "hs_Rank_U30_ComHeadquarters_Cn": "企业总部",
+            "hs_Rank_U30_ChaName_Cn": "姓名",
+            "hs_Rank_U30_ComName_Cn": "企业信息",
+            "hs_Rank_U30_Industry_Cn": "行业",
+        }, inplace=True)
+        temp_df = temp_df[[
+            '姓名',
+            '企业信息',
+            '企业总部',
             '行业',
         ]]
     elif indicator == '胡润中国500强民营企业':
-        temp_df.columns = [
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '排名',
-            '企业估值',
-            '创始人',
-            '_',
-            '_',
-            '企业信息',
-            '_',
-            '_',
-            '_',
-            '行业',
-            '_',
-            '_',
-        ]
+        temp_df.rename(columns={
+            "hs_Rank_CTop500_Ranking": "排名",
+            "hs_Rank_CTop500_Wealth": "企业估值",
+            "hs_Rank_CTop500_Ranking_Change": "排名变化",
+            "hs_Rank_CTop500_ChaName_Cn": "CEO",
+            "hs_Rank_CTop500_ComName_Cn": "企业信息",
+            "hs_Rank_CTop500_Industry_Cn": "行业",
+        }, inplace=True)
         temp_df = temp_df[[
             '排名',
+            '排名变化',
             '企业估值',
             '企业信息',
-            '创始人',
+            'CEO',
             '行业',
         ]]
     elif indicator == '胡润世界500强':
-        temp_df.columns = [
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-            '排名',
-            '企业估值',
-            '创始人',
-            '_',
-            '_',
-            '_',
-            '企业信息',
-            '_',
-            '_',
-            '_',
-            '行业',
-            '_',
-            '_',
-        ]
+        temp_df.rename(columns={
+            "hs_Rank_GTop500_Ranking": "排名",
+            "hs_Rank_GTop500_Wealth": "企业估值",
+            "hs_Rank_GTop500_Ranking_Change": "排名变化",
+            "hs_Rank_GTop500_ChaName_Cn": "CEO",
+            "hs_Rank_GTop500_ComName_Cn": "企业信息",
+            "hs_Rank_GTop500_Industry_Cn": "行业",
+        }, inplace=True)
         temp_df = temp_df[[
             '排名',
+            '排名变化',
             '企业估值',
             '企业信息',
-            '创始人',
+            'CEO',
             '行业',
         ]]
     elif indicator == '胡润艺术榜':
-        temp_df.columns = [
-            '年龄',
-            '_',
-            '_',
-            '_',
-            '_',
-            '排名',
-            '成交额',
-            '姓名',
-            '_',
-            '_',
-            '_',
-            '艺术类别',
-            '_',
-            '_',
-            '_',
-            '_',
-            '_',
-        ]
+        temp_df.rename(columns={
+            "hs_Rank_Art_Ranking": "排名",
+            "hs_Rank_Art_Turnover": "成交额",
+            "hs_Rank_Art_Ranking_Change": "排名变化",
+            "hs_Rank_Art_Name_Cn": "姓名",
+            "hs_Rank_Art_Age": "年龄",
+            "hs_Rank_Art_ArtCategory_Cn": "艺术类别",
+        }, inplace=True)
         temp_df = temp_df[[
             '排名',
+            '排名变化',
             '成交额',
             '姓名',
             '年龄',
@@ -255,20 +208,32 @@ def hurun_rank(indicator: str = "胡润艺术榜", year: str = "2020") -> pd.Dat
 
 
 if __name__ == "__main__":
-    hurun_rank_df = hurun_rank(indicator="胡润百富榜", year="2020")
+    hurun_rank_df = hurun_rank(indicator="胡润百富榜", year="2021")
     print(hurun_rank_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润全球富豪榜", year="2021")
+    hurun_rank_df = hurun_rank(indicator="胡润全球富豪榜", year="2022")
     print(hurun_rank_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润全球独角兽榜", year="2020")
+    hurun_rank_df = hurun_rank(indicator="胡润印度榜", year="2021")
     print(hurun_rank_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润中国500强民营企业", year="2019")
+    hurun_rank_df = hurun_rank(indicator="胡润全球独角兽榜", year="2021")
     print(hurun_rank_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润世界500强", year="2020")
+    hurun_rank_df = hurun_rank(indicator="中国瞪羚企业榜", year="2021")
     print(hurun_rank_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润艺术榜", year="2020")
+    hurun_rank_df = hurun_rank(indicator="全球瞪羚企业榜", year="2021")
+    print(hurun_rank_df)
+
+    hurun_rank_df = hurun_rank(indicator="胡润Under30s创业领袖榜", year="2021")
+    print(hurun_rank_df)
+
+    hurun_rank_df = hurun_rank(indicator="胡润中国500强民营企业", year="2021")
+    print(hurun_rank_df)
+
+    hurun_rank_df = hurun_rank(indicator="胡润世界500强", year="2021")
+    print(hurun_rank_df)
+
+    hurun_rank_df = hurun_rank(indicator="胡润艺术榜", year="2021")
     print(hurun_rank_df)

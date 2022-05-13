@@ -78,7 +78,6 @@ def stock_zh_index_spot() -> pd.DataFrame:
     big_df["open"] = big_df["open"].astype(float)
     big_df["high"] = big_df["high"].astype(float)
     big_df["low"] = big_df["low"].astype(float)
-    big_df["low"] = big_df["low"].astype(float)
     big_df.columns = [
         "代码",
         "名称",
@@ -263,7 +262,7 @@ def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sh000016")
+    stock_zh_index_daily_df = stock_zh_index_daily(symbol="sz399905")
     print(stock_zh_index_daily_df)
 
     stock_zh_index_spot_df = stock_zh_index_spot()

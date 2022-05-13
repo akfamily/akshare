@@ -308,3 +308,4 @@ if __name__ == "__main__":
         start_date="20010101",
         end_date="20010316",
     )
+    print(index_investing_global_df)

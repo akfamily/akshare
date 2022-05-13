@@ -43,7 +43,8 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
                 .str.split("/", expand=True)
             )
             page += 1
-            big_df = big_df.append(temp_df)
+            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
         except:
             break
     if not big_df.empty:
@@ -94,7 +95,7 @@ def stock_zh_a_tick_tx(
 
 
 def stock_zh_a_tick_163(
-    symbol: str = "sz000001", trade_date: str = "20220125"
+    symbol: str = "sz000001", trade_date: str = "20220429"
 ) -> pd.DataFrame:
     """
     成交明细-每个交易日 22:00 提供当日数据; 该接口目前还不支持北交所的股票
@@ -110,7 +111,7 @@ def stock_zh_a_tick_163(
     url = f"http://quotes.money.163.com/cjmx/{trade_date[:4]}/{trade_date}/{name_code_map[symbol[:2]]}{symbol[2:]}.xls"
     r = requests.get(url)
     r.encoding = "utf-8"
-    temp_df = pd.read_excel(BytesIO(r.content))
+    temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
     temp_df.columns = [
         "时间",
         "成交价",
@@ -160,7 +161,8 @@ def stock_zh_a_tick_163_now(symbol: str = "000001") -> pd.DataFrame:
         temp_df.sort_values(
             by="index", ascending=False, ignore_index=True, inplace=True
         )
-        big_df = big_df.append(temp_df)
+        big_df = pd.concat([big_df,temp_df], ignore_index=True)
+
     del big_df["index"]
     big_df.columns = [
         "_",
@@ -186,13 +188,13 @@ def stock_zh_a_tick_163_now(symbol: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zh_a_tick_163_df = stock_zh_a_tick_163(symbol="sz000001", trade_date="20211201")
+    stock_zh_a_tick_163_df = stock_zh_a_tick_163(symbol="sz000001", trade_date="20220427")
     print(stock_zh_a_tick_163_df)
 
     stock_zh_a_tick_tx_js_df = stock_zh_a_tick_tx_js(symbol="sz000001")
     print(stock_zh_a_tick_tx_js_df)
 
-    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(symbol="sh600848", trade_date="20211112")
+    stock_zh_a_tick_tx_df = stock_zh_a_tick_tx(symbol="sh600848", trade_date="20210514")
     print(stock_zh_a_tick_tx_df)
 
     date_list = pd.date_range(start="20210601", end="20210613").tolist()

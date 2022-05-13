@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/11/18 18:18
+Date: 2022/4/20 14:18
 Desc: 天天基金网-基金数据-分红送配
 http://fund.eastmoney.com/data/fundfenhong.html
 """
@@ -31,7 +31,7 @@ def fund_fh_em() -> pd.DataFrame:
     data_text = r.text
     total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
         r = requests.get(url, params=params)
         data_text = r.text
@@ -39,7 +39,7 @@ def fund_fh_em() -> pd.DataFrame:
             data_text[data_text.find("[["): data_text.find(";var jjfh_jjgs")]
         )
         temp_df = pd.DataFrame(temp_list)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     big_df.columns = [
@@ -89,7 +89,8 @@ def fund_cf_em() -> pd.DataFrame:
             data_text[data_text.find("[["): data_text.find(";var jjcf_jjgs")]
         )
         temp_df = pd.DataFrame(temp_list)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     big_df.columns = [
@@ -136,7 +137,8 @@ def fund_fh_rank_em() -> pd.DataFrame:
             data_text[data_text.find("[["): data_text.find(";var fhph_jjgs")]
         )
         temp_df = pd.DataFrame(temp_list)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     big_df.columns = [

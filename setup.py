@@ -56,7 +56,7 @@ setuptools.setup(
         "py_mini_racer>=0.6.0",
         "requests-cache>=0.9.3",
     ],
-    package_data={"": ["*.py", "*.json", "*.pk", "*.js"]},
+    package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[
         "stock",
         "option",
