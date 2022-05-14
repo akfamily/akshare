@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/15 19:50
+Date: 2022/4/13 10:50
 Desc: 债券-集思录-可转债
 集思录：https://app.jisilu.cn/data/cbnew/#cb
 """
@@ -18,7 +18,7 @@ def bond_cov_jsl(cookie: str = None) -> pd.DataFrame:
     :return: 集思录可转债
     :rtype: pandas.DataFrame
     """
-    url = "https://app.jisilu.cn/data/cbnew/cb_list/"
+    url = "https://app.jisilu.cn/data/cbnew/cb_list_new/"
     headers = {
         'accept': 'application/json, text/javascript, */*; q=0.01',
         'accept-encoding': 'gzip, deflate, br',
@@ -64,8 +64,10 @@ def bond_cov_jsl(cookie: str = None) -> pd.DataFrame:
         "rp": "50",
     }
     r = requests.post(url, params=params, json=payload, headers=headers)
+
     data_json = r.json()
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
+
     return temp_df
 
 

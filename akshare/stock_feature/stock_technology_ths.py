@@ -5,7 +5,6 @@ Date: 2021/11/2 21:08
 Desc: 同花顺-数据中心-技术选股
 http://data.10jqka.com.cn/rank/cxg/
 """
-import os
 
 import pandas as pd
 import requests
@@ -13,32 +12,18 @@ from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
 
-
-def _get_js_path_ths(name: str = None, module_file: str = None) -> str:
-    """
-    获取 JS 文件的路径(从模块所在目录查找)
-    :param name: 文件名
-    :type name: str
-    :param module_file: 模块路径
-    :type module_file: str
-    :return: 路径
-    :rtype: str
-    """
-    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
-    module_json_path = os.path.join(module_folder, "stock_feature", name)
-    return module_json_path
+from akshare.datasets import get_ths_js
 
 
-def _get_file_content_ths(file_name: str = "ase.min.js") -> str:
+def _get_file_content_ths(file: str = "ths.js") -> str:
     """
     获取 JS 文件的内容
-    :param file_name:  JS 文件名
-    :type file_name: str
+    :param file:  JS 文件名
+    :type file: str
     :return: 文件内容
     :rtype: str
     """
-    setting_file_name = file_name
-    setting_file_path = _get_js_path_ths(setting_file_name, __file__)
+    setting_file_path = get_ths_js(file)
     with open(setting_file_path) as f:
         file_data = f.read()
     return file_data
@@ -296,18 +281,18 @@ def stock_rank_cxfl_ths() -> pd.DataFrame:
         temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [
-            '序号',
-            '股票代码',
-            '股票简称',
-            '涨跌幅',
-            '最新价',
-            '成交量',
-            '基准日成交量',
-            '放量天数',
-            '阶段涨跌幅',
-            '所属行业',
+        "序号",
+        "股票代码",
+        "股票简称",
+        "涨跌幅",
+        "最新价",
+        "成交量",
+        "基准日成交量",
+        "放量天数",
+        "阶段涨跌幅",
+        "所属行业",
     ]
-    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.strip("%")
     big_df["阶段涨跌幅"] = big_df["阶段涨跌幅"].astype(str).str.strip("%")
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
@@ -351,18 +336,18 @@ def stock_rank_cxsl_ths() -> pd.DataFrame:
         temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [
-            '序号',
-            '股票代码',
-            '股票简称',
-            '涨跌幅',
-            '最新价',
-            '成交量',
-            '基准日成交量',
-            '缩量天数',
-            '阶段涨跌幅',
-            '所属行业',
+        "序号",
+        "股票代码",
+        "股票简称",
+        "涨跌幅",
+        "最新价",
+        "成交量",
+        "基准日成交量",
+        "缩量天数",
+        "阶段涨跌幅",
+        "所属行业",
     ]
-    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.strip("%")
     big_df["阶段涨跌幅"] = big_df["阶段涨跌幅"].astype(str).str.strip("%")
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
@@ -418,16 +403,16 @@ def stock_rank_xstp_ths(symbol: str = "500日均线") -> pd.DataFrame:
         temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [
-        '序号',
-        '股票代码',
-        '股票简称',
-        '最新价',
-        '成交额',
-        '成交量',
-        '涨跌幅',
-        '换手率',
+        "序号",
+        "股票代码",
+        "股票简称",
+        "最新价",
+        "成交额",
+        "成交量",
+        "涨跌幅",
+        "换手率",
     ]
-    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.strip("%")
     big_df["换手率"] = big_df["换手率"].astype(str).str.strip("%")
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
@@ -482,16 +467,16 @@ def stock_rank_xxtp_ths(symbol: str = "500日均线") -> pd.DataFrame:
         temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [
-        '序号',
-        '股票代码',
-        '股票简称',
-        '最新价',
-        '成交额',
-        '成交量',
-        '涨跌幅',
-        '换手率',
+        "序号",
+        "股票代码",
+        "股票简称",
+        "最新价",
+        "成交额",
+        "成交量",
+        "涨跌幅",
+        "换手率",
     ]
-    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.strip("%")
     big_df["换手率"] = big_df["换手率"].astype(str).str.strip("%")
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
@@ -534,19 +519,19 @@ def stock_rank_ljqs_ths() -> pd.DataFrame:
         temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [
-        '序号',
-        '股票代码',
-        '股票简称',
-        '最新价',
-        '量价齐升天数',
-        '阶段涨幅',
-        '累计换手率',
-        '所属行业',
+        "序号",
+        "股票代码",
+        "股票简称",
+        "最新价",
+        "量价齐升天数",
+        "阶段涨幅",
+        "累计换手率",
+        "所属行业",
     ]
-    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["阶段涨幅"] = big_df["阶段涨幅"].astype(str).str.strip("%")
     big_df["累计换手率"] = big_df["累计换手率"].astype(str).str.strip("%")
-    big_df["阶段涨幅"] = pd.to_numeric(big_df["阶段涨幅"], errors='coerce')
+    big_df["阶段涨幅"] = pd.to_numeric(big_df["阶段涨幅"], errors="coerce")
     big_df["累计换手率"] = pd.to_numeric(big_df["累计换手率"])
     big_df["最新价"] = pd.to_numeric(big_df["最新价"])
     big_df["量价齐升天数"] = pd.to_numeric(big_df["量价齐升天数"])
@@ -587,19 +572,19 @@ def stock_rank_ljqd_ths() -> pd.DataFrame:
         temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [
-        '序号',
-        '股票代码',
-        '股票简称',
-        '最新价',
-        '量价齐跌天数',
-        '阶段涨幅',
-        '累计换手率',
-        '所属行业',
+        "序号",
+        "股票代码",
+        "股票简称",
+        "最新价",
+        "量价齐跌天数",
+        "阶段涨幅",
+        "累计换手率",
+        "所属行业",
     ]
-    big_df['股票代码'] = big_df['股票代码'].astype(str).str.zfill(6)
+    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["阶段涨幅"] = big_df["阶段涨幅"].astype(str).str.strip("%")
     big_df["累计换手率"] = big_df["累计换手率"].astype(str).str.strip("%")
-    big_df["阶段涨幅"] = pd.to_numeric(big_df["阶段涨幅"], errors='coerce')
+    big_df["阶段涨幅"] = pd.to_numeric(big_df["阶段涨幅"], errors="coerce")
     big_df["累计换手率"] = pd.to_numeric(big_df["累计换手率"])
     big_df["最新价"] = pd.to_numeric(big_df["最新价"])
     big_df["量价齐跌天数"] = pd.to_numeric(big_df["量价齐跌天数"])
@@ -640,31 +625,31 @@ def stock_rank_xzjp_ths() -> pd.DataFrame:
         temp_df = pd.read_html(r.text, converters={"股票代码": str})[0]
         big_df = big_df.append(temp_df, ignore_index=True)
     big_df.columns = [
-        '序号',
-        '举牌公告日',
-        '股票代码',
-        '股票简称',
-        '现价',
-        '涨跌幅',
-        '举牌方',
-        '增持数量',
-        '交易均价',
-        '增持数量占总股本比例',
-        '变动后持股总数',
-        '变动后持股比例',
-        '历史数据',
-        ]
-    big_df['涨跌幅'] = big_df['涨跌幅'].astype(str).str.zfill(6)
+        "序号",
+        "举牌公告日",
+        "股票代码",
+        "股票简称",
+        "现价",
+        "涨跌幅",
+        "举牌方",
+        "增持数量",
+        "交易均价",
+        "增持数量占总股本比例",
+        "变动后持股总数",
+        "变动后持股比例",
+        "历史数据",
+    ]
+    big_df["涨跌幅"] = big_df["涨跌幅"].astype(str).str.zfill(6)
     big_df["增持数量占总股本比例"] = big_df["增持数量占总股本比例"].astype(str).str.strip("%")
     big_df["变动后持股比例"] = big_df["变动后持股比例"].astype(str).str.strip("%")
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors='coerce')
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
     big_df["增持数量占总股本比例"] = pd.to_numeric(big_df["增持数量占总股本比例"])
     big_df["变动后持股比例"] = pd.to_numeric(big_df["变动后持股比例"])
     big_df["举牌公告日"] = pd.to_datetime(big_df["举牌公告日"]).dt.date
     big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
     big_df["现价"] = pd.to_numeric(big_df["现价"])
     big_df["交易均价"] = pd.to_numeric(big_df["交易均价"])
-    del big_df['历史数据']
+    del big_df["历史数据"]
     return big_df
 
 

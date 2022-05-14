@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 
 
-def stock_staq_net_stop():
+def stock_staq_net_stop() -> pd.DataFrame:
     """
     东方财富网-行情中心-沪深个股-两网及退市
     http://quote.eastmoney.com/center/gridlist.html#staq_net_board
@@ -34,7 +34,7 @@ def stock_staq_net_stop():
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['data']['diff'])
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = range(1, len(temp_df)+1)
+    temp_df['index'] = temp_df.index + 1
     temp_df.columns = ['序号', '代码', '名称']
     return temp_df
 

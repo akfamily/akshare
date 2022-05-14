@@ -337,6 +337,7 @@ def stock_zh_a_hist(
     temp_df.index = pd.to_datetime(temp_df["日期"])
     temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(inplace=True, drop=True)
+
     temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
     temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
     temp_df['最高'] = pd.to_numeric(temp_df['最高'])
@@ -347,6 +348,7 @@ def stock_zh_a_hist(
     temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
     temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
     temp_df['换手率'] = pd.to_numeric(temp_df['换手率'])
+
     return temp_df
 
 
@@ -1090,7 +1092,7 @@ if __name__ == "__main__":
     stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="106.TTE")
     print(stock_us_hist_min_em_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period='5', adjust='hfq', start_date="2022-02-22 09:32:00", end_date="2022-02-24 09:32:00")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period='60', adjust='hfq', start_date="2022-04-15 09:32:00", end_date="2022-04-15 14:40:00")
     print(stock_zh_a_hist_min_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(symbol="833454", period="daily", start_date="20170301", end_date='20211115', adjust="hfq")

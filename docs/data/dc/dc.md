@@ -67,12 +67,12 @@ print(crypto_js_spot_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                                                                      |
-|------------|-----|-------------------------------------------------------------------------|
-| symbol     | str | symbol="bitcoin"; 通过调用 **ak.crypto_name_url_table()** 获取所有可以获取数据的货币对的名称 |
-| period     | str | period="每日"; choice of {"每日", "每周", "每月"}                               |
-| start_date | str | start_date="20191020"                                                   |
-| end_date   | str | end_date="20201020"                                                     |
+| 名称         | 类型  | 描述                                                                            |
+|------------|-----|-------------------------------------------------------------------------------|
+| symbol     | str | symbol="BTC"; 通过调用 **ak.crypto_name_url_table()** 获取所有货币对的名称, 选择其中的 symbol 即可 |
+| period     | str | period="每日"; choice of {"每日", "每周", "每月"}                                     |
+| start_date | str | start_date="20191020"                                                         |
+| end_date   | str | end_date="20201020"                                                           |
 
 输出参数
 
@@ -91,7 +91,7 @@ print(crypto_js_spot_df)
 ```python
 import akshare as ak
 
-crypto_hist_df = ak.crypto_hist(symbol="bitcoin", period="每日", start_date="20151020", end_date="20201023")
+crypto_hist_df = ak.crypto_hist(symbol="BTC", period="每日", start_date="20151020", end_date="20201023")
 print(crypto_hist_df)
 ```
 

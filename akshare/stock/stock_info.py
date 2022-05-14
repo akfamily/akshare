@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/17 15:00
+Date: 2022/4/13 13:00
 Desc: 股票基本信息
 """
 import json
@@ -316,6 +316,8 @@ def stock_info_sh_delist() -> pd.DataFrame:
         '原公司代码',
         '终止上市日期',
         '序号',
+        '-',
+        '-',
         '-',
     ]
     temp_df = temp_df[[

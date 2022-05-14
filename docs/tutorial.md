@@ -134,9 +134,9 @@
  # 南华期货-南华指数-波动率指数
  "futures_nh_volatility_index"  # 波动率指数
  # 南华期货-南华指数-价格指数
- "futures_nh_price_index"  # 价格指数
+ "futures_price_index_nh"  # 价格指数
  # 南华期货-南华指数-收益率指数
- "futures_nh_return_index"  # 收益率指数
+ "futures_return_index_nh"  # 收益率指数
  # 经济政策不确定性(EPU)指数
  "article_epu_index"  # 主要国家和地区的经济政策不确定性(EPU)指数
  # 微博指数
@@ -209,12 +209,12 @@
  "stock_jgdy_tj_em"  # 获取机构调研数据-统计
  "stock_jgdy_detail_em"  # 获取机构调研数据-详细
  # 股权质押数据
- "stock_em_gpzy_profile"  # 获取股权质押市场概况
- "stock_em_gpzy_pledge_ratio"  # 获取上市公司质押比例
- "stock_em_gpzy_pledge_ratio_detail"  # 获取重要股东股权质押明细
+ "stock_gpzy_profile_em"  # 获取股权质押市场概况
+ "stock_gpzy_pledge_ratio_em"  # 获取上市公司质押比例
+ "stock_gpzy_pledge_ratio_detail_em"  # 获取重要股东股权质押明细
  "stock_em_gpzy_distribute_statistics_company"  # 获取质押机构分布统计-证券公司
  "stock_em_gpzy_distribute_statistics_bank"  # 获取质押机构分布统计-银行
- "stock_em_gpzy_industry_data"  # 获取上市公司质押比例-行业数据
+ "stock_gpzy_industry_data_em"  # 获取上市公司质押比例-行业数据
  # 商誉专题数据
  "stock_em_sy_profile"  # 获取A股商誉市场概况
  "stock_em_sy_yq_list"  # 获取商誉减值预期明细
@@ -425,10 +425,16 @@
  "fund_money_fund_info_em",  # 货币型基金-历史数据
  "fund_value_estimation_em",  # 基金估值
  # 分析师指数
- "stock_em_analyst_rank"  # 分析师排名
- "stock_em_analyst_detail"  # 分析师详情
+ "stock_analyst_rank_em"  # 分析师排名
+ "stock_analyst_detail_em"  # 分析师详情
  # 千股千评
- "stock_em_comment"  # 股市关注度
+ "stock_comment_em"  # 股市关注度
+ "stock_comment_detail_zlkp_jgcyd_em"  # 机构参与度
+ "stock_comment_detail_zhpj_lspf_em"  # 综合评价-历史评分
+ "stock_comment_detail_scrd_focus_em"  # 市场热度-用户关注指数
+ "stock_comment_detail_scrd_desire_em"  # 市场热度-市场参与意愿
+ "stock_comment_detail_scrd_desire_daily_em"  # 市场热度-日度市场参与意愿
+ "stock_comment_detail_scrd_cost_em"  # 市场热度-市场成本
  # 沪深港通
  "stock_hk_ggt_components_em"  # 港股通成份股
  "stock_hsgt_north_net_flow_in_em"  # 沪深港通北向-净流入
@@ -510,6 +516,7 @@
  "stock_em_qsjy"  # 券商业绩月报
  # 彭博亿万富豪指数
  "index_bloomberg_billionaires"  # 彭博亿万富豪指数
+ "index_bloomberg_billionaires_hist"  # 彭博亿万富豪历史指数
  # A 股市盈率和市净率
  "stock_a_pb"  # A 股市净率
  "stock_a_pe"  # A 股市盈率
@@ -600,7 +607,7 @@
  "crypto_hist"  # 加密货币历史数据
  "crypto_name_url_table"  # 加密货币货币名称
  # 基金排行
- "fund_em_open_fund_rank"  # 开放式基金排行
+ "fund_open_fund_rank_em"  # 开放式基金排行
  "fund_em_exchange_rank"  # 场内交易基金排行
  "fund_em_money_rank"  # 货币型基金排行
  "fund_em_lcx_rank"  # 理财基金排行
@@ -636,7 +643,7 @@
  "stock_dzjy_hyyybtj"  # 大宗交易-活跃营业部统计
  "stock_dzjy_yybph"  # 大宗交易-营业部排行
  # 一致行动人
- "stock_em_yzxdr"  # 股票数据-一致行动人
+ "stock_yzxdr_em"  # 股票数据-一致行动人
  # 新闻-个股新闻
  "stock_news_em"  # 新闻-个股新闻
  # 债券概览
@@ -678,9 +685,9 @@
  # 业绩报告
  "stock_yjbb_em"  # 业绩报告
  # 三大表报
- "stock_em_zcfz"  # 三大表报-资产负债表
- "stock_em_lrb"  # 三大表报-利润表
- "stock_em_xjll"  # 三大表报-现金流量表
+ "stock_zcfz_em"  # 三大表报-资产负债表
+ "stock_lrb_em"  # 三大表报-利润表
+ "stock_xjll_em"  # 三大表报-现金流量表
  # 首发企业申报
  "stock_ipo_declare"  # 首发企业申报
  # 行业板块
@@ -698,7 +705,7 @@
  "stock_fund_flow_concept"  # 同花顺-数据中心-资金流向-概念资金流
  "stock_fund_flow_big_deal"  # 同花顺-数据中心-资金流向-大单追踪
  # 高管持股
- "stock_em_ggcg"  # 高管持股
+ "stock_ggcg_em"  # 高管持股
  # 新发基金
  "fund_new_found_em"  # 新发基金
  # 柯桥指数
@@ -1033,6 +1040,51 @@
  # 投资组合-重大变动
  "fund_portfolio_change_em"  # 天天基金网-基金档案-投资组合-重大变动
  "fund_portfolio_industry_allocation_em"  # 天天基金网-基金档案-投资组合-行业配置
+ # 中国宏观
+ "macro_china_insurance_income"  # 原保险保费收入
+ "macro_china_mobile_number"  # 手机出货量
+ "macro_china_vegetable_basket"  # 菜篮子产品批发价格指数
+ "macro_china_agricultural_product"  # 农产品批发价格总指数
+ "macro_china_agricultural_index"  # 农副指数
+ "macro_china_energy_index"  # 能源指数
+ "macro_china_commodity_price_index"  # 大宗商品价格
+ "macro_global_sox_index"  # 费城半导体指数
+ "macro_china_yw_electronic_index"  # 义乌小商品指数-电子元器件
+ "macro_china_construction_index"  # 建材指数
+ "macro_china_construction_price_index"  # 建材价格指数
+ "macro_china_lpi_index"  # 物流景气指数
+ "macro_china_bdti_index"  # 原油运输指数
+ "macro_china_bsi_index"  # 超灵便型船运价指数
+ # 可转债溢价率分析和可转债价值分析
+ "bond_zh_cov_value_analysis"  # 可转债溢价率分析
+ "bond_zh_cov_value_analysis"  # 可转债价值分析
+ # 南华期货
+ "futures_correlation_nh"  # 相关系数矩阵
+ "futures_board_index_nh"  # 板块指数涨跌
+ "futures_variety_index_nh"  # 品种指数涨跌
+ # 股票热度-雪球
+ "stock_hot_follow_xq"  # 雪球-沪深股市-热度排行榜-关注排行榜
+ "stock_hot_tweet_xq"  # 雪球-沪深股市-热度排行榜-讨论排行榜
+ "stock_hot_deal_xq"  # 雪球-沪深股市-热度排行榜-分享交易排行榜
+ # 股票热度-淘股吧
+ "stock_hot_tgb"  # 淘股吧-热门股票
+ # 内部交易
+ "stock_inner_trade_xq"  # 内部交易
+ # 股票-三大报表
+ "stock_balance_sheet_by_report_em"  # 东方财富-股票-财务分析-资产负债表-按报告期
+ "stock_balance_sheet_by_yearly_em"  # 东方财富-股票-财务分析-资产负债表-按年度
+ "stock_profit_sheet_by_report_em"  # 东方财富-股票-财务分析-利润表-报告期
+ "stock_profit_sheet_by_yearly_em"  # 东方财富-股票-财务分析-利润表-按年度
+ "stock_profit_sheet_by_quarterly_em"  # 东方财富-股票-财务分析-利润表-按单季度
+ "stock_cash_flow_sheet_by_report_em"  # 东方财富-股票-财务分析-现金流量表-按报告期
+ "stock_cash_flow_sheet_by_yearly_em"  # 东方财富-股票-财务分析-现金流量表-按年度
+ "stock_cash_flow_sheet_by_quarterly_em"  # 东方财富-股票-财务分析-现金流量表-按单季度
+ # 宏观-全球事件
+ "news_economic_baidu"  # 宏观-全球事件
+ # 停复牌
+ "news_trade_notify_suspend_baidu"  # 停复牌
+ # 财报发行
+ "news_report_time_baidu"  # 财报发行
 ```
 
 ## 案例演示

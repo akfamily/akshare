@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/1/12 19:45
+Date: 2022/5/13 19:25
 Desc: 东方财富网-数据中心-公告大全-沪深 A 股公告
 http://data.eastmoney.com/notices/hsa/5.html
 """
@@ -10,16 +10,14 @@ import requests
 from tqdm import tqdm
 
 
-def stock_notice_report(
-    report_type: str = "财务报告", recent_page: str = "10"
-) -> pd.DataFrame:
+def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.DataFrame:
     """
     东方财富网-数据中心-公告大全-沪深京 A 股公告
     http://data.eastmoney.com/notices/hsa/5.html
-    :param report_type: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
-    :type report_type: str
-    :param recent_page: 返回最近的页数
-    :type recent_page: int
+    :param symbol: 报告类型; choice of {"全部", "重大事项", "财务报告", "融资公告", "风险提示", "资产重组", "信息变更", "持股变动"}
+    :type symbol: str
+    :param date: 制定日期
+    :type date: str
     :return: 沪深京 A 股公告
     :rtype: pandas.DataFrame
     """
@@ -34,17 +32,30 @@ def stock_notice_report(
         "资产重组": "6",
         "持股变动": "7",
     }
+    params = {
+        "sr": "-1",
+        "page_size": "100",
+        "page_index": "1",
+        "ann_type": "SHA,CYB,SZA,BJA",
+        "client_source": "web",
+        "f_node": report_map[symbol],
+        "s_node": "0",
+        "begin_time": "-".join([date[:4], date[4:6], date[6:]]),
+        "end_time": "-".join([date[:4], date[4:6], date[6:]]),
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    import math
+
+    total_page = math.ceil(data_json["data"]["total_hits"] / 100)
+
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, int(recent_page) + 1), leave=False):
-        params = {
-            "sr": "-1",
-            "page_size": "100",
-            "page_index": page,
-            "ann_type": "A",
-            "client_source": "web",
-            "f_node": report_map[report_type],
-            "s_node": "0",
-        }
+    for page in tqdm(range(1, int(total_page) + 1), leave=False):
+        params.update(
+            {
+                "page_index": page,
+            }
+        )
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["list"])
@@ -60,7 +71,8 @@ def stock_notice_report(
         del temp_df["codes"]
         del temp_df["columns"]
         temp_df = pd.concat([temp_df, temp_columns_df, temp_codes_df], axis=1)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.rename(
         columns={
             "art_code": "_",
@@ -92,9 +104,10 @@ def stock_notice_report(
 
 
 if __name__ == "__main__":
+    stock_notice_report_df = stock_notice_report(symbol='财务报告', date="20220511")
+    print(stock_notice_report_df)
+
     item_list = ["全部", "财务报告", "融资公告", "风险提示", "信息变更", "重大事项", "资产重组", "持股变动"]
     for temp_item in item_list:
-        stock_notice_report_df = stock_notice_report(
-            report_type=temp_item, recent_page="10"
-        )
+        stock_notice_report_df = stock_notice_report(symbol=temp_item, date="20220511")
         print(stock_notice_report_df)
