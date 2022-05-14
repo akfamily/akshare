@@ -6439,6 +6439,49 @@ print(news_trade_notify_suspend_baidu_df)
 9   01802    文业集团  ...         NaT              已于今天(13/5/2022)上午九时三十分起短暂停止买卖。
 ```
 
+### 财报发行
+
+接口: news_report_time_baidu
+
+目标地址: https://gushitong.baidu.com/calendar
+
+描述: 百度股市通-财报发行
+
+限量: 单次获取指定 date 的财报发行, 提供港股的财报发行数据
+
+输入参数
+
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date="20220514" |
+
+输出参数
+
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 股票代码 | object |     |
+| 交易所  | object |     |
+| 股票简称 | object |     |
+| 财报期  | object |     |
+
+接口示例
+
+```python
+import akshare as ak
+
+news_report_time_baidu_df = ak.news_report_time_baidu(date="20220514")
+print(news_report_time_baidu_df)
+```
+
+数据示例
+
+```
+    股票代码 交易所       股票简称       财报期
+0  08219  HK     恒伟集团控股  2022年一季报
+1  08521  HK     智纺国际控股  2022年一季报
+2  08491  HK  COOL LINK  2022年一季报
+```
+
 ### 新股数据
 
 #### 打新收益率
