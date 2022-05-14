@@ -116,7 +116,7 @@ def stock_financial_analysis_indicator(symbol: str = "600004") -> pd.DataFrame:
         big_df.columns = big_df.iloc[0, :].tolist()
         big_df = big_df.iloc[1:, :]
         big_df.index = temp_df.columns.tolist()[1:]
-        out_df = pd.concat([out_df, big_df], ignore_index=True)
+        out_df = pd.concat([out_df, big_df])
 
     out_df.dropna(inplace=True)
     out_df.reset_index(inplace=True)
@@ -432,7 +432,7 @@ if __name__ == "__main__":
     print(stock_financial_abstract_df)
 
     stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(
-        symbol="002230"
+        symbol="000001"
     )
     print(stock_financial_analysis_indicator_df)
 
