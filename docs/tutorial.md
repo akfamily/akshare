@@ -1083,6 +1083,8 @@
  "news_economic_baidu"  # 宏观-全球事件
  # 停复牌
  "news_trade_notify_suspend_baidu"  # 停复牌
+ # 财报发行
+ "news_report_time_baidu"  # 财报发行
 ```
 
 ## 案例演示
