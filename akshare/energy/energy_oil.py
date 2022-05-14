@@ -41,6 +41,7 @@ def energy_oil_hist() -> pd.DataFrame:
     temp_df['柴油价格'] = pd.to_numeric(temp_df['柴油价格'])
     temp_df['汽油涨幅'] = pd.to_numeric(temp_df['汽油涨幅'])
     temp_df['柴油涨幅'] = pd.to_numeric(temp_df['柴油涨幅'])
+    # small test
 
     return temp_df
 
