@@ -84,5 +84,5 @@ if __name__ == "__main__":
     sunrise_daily_df = sunrise_daily(date="20210112", city="北京")
     print(sunrise_daily_df)
 
-    sunrise_monthly_df = sunrise_monthly(date="20210112", city="北京")
+    sunrise_monthly_df = sunrise_monthly(date="20220112", city="北京")
     print(sunrise_monthly_df)
