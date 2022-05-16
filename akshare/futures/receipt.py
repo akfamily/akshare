@@ -10,7 +10,6 @@ import re
 import warnings
 from typing import List
 
-import numpy as np
 import pandas as pd
 import requests
 from io import BytesIO
@@ -56,7 +55,8 @@ def get_dce_receipt(date: str = None, vars_list: List = cons.contract_symbols):
                 var = x['品种'][:-2]
                 temp_data = {'var': chinese_to_english(var), 'receipt': int(x['今日仓单量']), 'receipt_chg': int(x['增减']),
                              'date': date.strftime('%Y%m%d')}
-                records = records.append(pd.DataFrame(temp_data, index=[0]))
+                records = pd.concat([records, pd.DataFrame(temp_data, index=[0])])
+
     if len(records.index) != 0:
         records.index = records['var']
         vars_in_market = [i for i in vars_list if i in records.index]
@@ -107,7 +107,7 @@ def get_shfe_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
             data_dict['receipt'] = int(data_cut[2].tolist()[-1])
             data_dict['receipt_chg'] = int(data_cut[3].tolist()[-1])
             data_dict['date'] = date
-            records = records.append(pd.DataFrame(data_dict, index=[0]))
+            records = pd.concat([records, pd.DataFrame(data_dict, index=[0])])
     if len(records.index) != 0:
         records.index = records['var']
         vars_in_market = [i for i in vars_list if i in records.index]
@@ -154,7 +154,7 @@ def get_shfe_receipt_2(date: str = None, vars_list: List = cons.contract_symbols
                          'receipt': int(data_cut['WRTWGHTS'].tolist()[-1]),
                          'receipt_chg': int(data_cut['WRTCHANGE'].tolist()[-1]),
                          'date': date}
-        records = records.append(pd.DataFrame(data_dict, index=[0]))
+        records = pd.concat([records, pd.DataFrame(data_dict, index=[0])])
         temp_records = records.groupby('var')[['receipt', 'receipt_chg']].sum().reset_index()
         temp_records['date'] = date
         records = temp_records
@@ -207,7 +207,7 @@ def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
             receipt = data_cut[5].tolist()[-1]
             receipt_chg = data_cut[6].tolist()[-1]
         data_dict = {'var': var, 'receipt': int(receipt), 'receipt_chg': int(receipt_chg), 'date': date}
-        records = records.append(pd.DataFrame(data_dict, index=[0]))
+        records = pd.concat([records, pd.DataFrame(data_dict, index=[0])])
     if len(records.index) != 0:
         records.index = records['var']
         vars_in_market = [i for i in vars_list if i in records.index]
@@ -254,7 +254,7 @@ def get_czce_receipt_2(date: str = None, vars_list: List = cons.contract_symbols
             receipt = data_cut['仓单数量'].tolist()[-1]
             receipt_chg = data_cut['当日增减'].tolist()[-1]
             data_dict = {'var': var, 'receipt': int(receipt), 'receipt_chg': int(receipt_chg), 'date': date}
-            records = records.append(pd.DataFrame(data_dict, index=[0]))
+            records = pd.concat([records, pd.DataFrame(data_dict, index=[0])])
     if len(records.index) != 0:
         records.index = records['var']
         vars_in_market = [i for i in vars_list if i in records.index]
@@ -283,10 +283,10 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     r = requests_link(url, encoding='utf-8')
     temp_df = pd.read_excel(BytesIO(r.content))
-    temp_df = temp_df[[bool(1-item) for item in [item if item is not np.NAN else False for item in temp_df.iloc[:, 0].str.contains("非农产品")]]]
+    temp_df = temp_df[[bool(1-item) for item in [item if item is not pd.NA else False for item in temp_df.iloc[:, 0].str.contains("非农产品")]]]
     temp_df.reset_index(inplace=True, drop=True)
-    range_list_one = list(temp_df[[item if item is not np.NAN else False for item in temp_df.iloc[:, 0].str.contains("品种")]].index)
-    range_list_two = list(temp_df[[item if item is not np.NAN else False for item in temp_df.iloc[:, 0].str.contains("品种")]].index)[1:]
+    range_list_one = list(temp_df[[item if not pd.isnull(item) else False for item in temp_df.iloc[:, 0].str.contains("品种")]].index)
+    range_list_two = list(temp_df[[item if not pd.isnull(item) else False for item in temp_df.iloc[:, 0].str.contains("品种")]].index)[1:]
     range_list_two.append(None)
     symbol_list = []
     receipt_list = []
@@ -386,7 +386,7 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
                 get_vars = [var for var in vars_list if var in market_vars]
                 if market != 'cffex' and get_vars != []:
                     if f is not None:
-                        records = records.append(f(start_day, get_vars))
+                        records = pd.concat([records, f(start_day, get_vars)])
         start_day += datetime.timedelta(days=1)
     records.reset_index(drop=True, inplace=True)
     if records.empty:
@@ -398,5 +398,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20150201', end_day='20150215')
+    get_receipt_df = get_receipt(start_day='20210201', end_day='20210215')
     print(get_receipt_df)

@@ -40,7 +40,6 @@ setuptools.setup(
     install_requires=[
         "beautifulsoup4>=4.9.1",
         "lxml>=4.2.1",
-        "numpy>=1.15.4",
         "pandas>=0.25",
         "requests>=2.22.0",
         "pypinyin>=0.35.0",
