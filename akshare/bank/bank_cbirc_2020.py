@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/7/17 17:06
+Date: 2022/5/16 14:06
 Desc: 中国银行保险监督管理委员会-首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表
 http://www.cbirc.gov.cn/cn/view/pages/ItemList.html?itemPId=923&itemId=4115&itemUrl=ItemListRightList.html&itemName=%E9%93%B6%E4%BF%9D%E7%9B%91%E5%88%86%E5%B1%80%E6%9C%AC%E7%BA%A7&itemsubPId=931&itemsubPName=%E8%A1%8C%E6%94%BF%E5%A4%84%E7%BD%9A#2
 提取 具体页面 html 页面的 json 接口
@@ -9,7 +9,6 @@ http://www.cbirc.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId=881446.j
 2020新接口
 """
 import requests
-import numpy as np
 import pandas as pd
 
 from akshare.bank.cons import cbirc_headers_without_cookie_2020
@@ -78,7 +77,7 @@ def bank_fjcf_page_url(page: int = 5, item: str = "分局本级", begin: int = 1
             "pageIndex": str(i_page),
         }
         res = requests.get(main_url, params=params, headers=cbirc_headers)
-        temp_df = temp_df.append(pd.DataFrame(res.json()["data"]["rows"]))
+        temp_df = pd.concat([temp_df, pd.DataFrame(res.json()["data"]["rows"])])
     return temp_df[["docId", "docSubtitle", "publishDate", "docFileUrl", "docTitle", "generaltype"]]
 
 
@@ -102,17 +101,18 @@ def bank_fjcf_table_detail(page: int = 5, item: str = "分局本级", begin: int
             table_list = table_list.iloc[:, 3:].values.tolist()
             # 部分旧表缺少字段，所以填充
             if len(table_list) == 7:
-                table_list.insert(2, np.nan)
-                table_list.insert(3, np.nan)
-                table_list.insert(4, np.nan)
+                table_list.insert(2, pd.NA)
+                table_list.insert(3, pd.NA)
+                table_list.insert(4, pd.NA)
             elif len(table_list) == 8:
-                table_list.insert(1, np.nan)
-                table_list.insert(2, np.nan)
+                table_list.insert(1, pd.NA)
+                table_list.insert(2, pd.NA)
             elif len(table_list) == 9:
-                table_list.insert(2, np.nan)
+                table_list.insert(2, pd.NA)
             elif len(table_list) == 11:
                 table_list = table_list[2:]
-                table_list.insert(2, np.nan)
+                table_list.insert(2, pd.NA)
+                
             # 部分会变成嵌套列表, 这里还原
             table_list = [item[0] if isinstance(
                 item, list) else item for item in table_list]
@@ -120,7 +120,7 @@ def bank_fjcf_table_detail(page: int = 5, item: str = "分局本级", begin: int
             table_list.append(res.json()["data"]["publishDate"])
             table_df = pd.DataFrame(table_list)
             table_df.columns = ["内容"]
-            big_df = big_df.append(table_df.T, ignore_index=True)
+            big_df = pd.concat([big_df, table_df.T], ignore_index=True)
             # 解决有些页面缺少字段的问题, 都放到 try 里面
         except:
             print(f"{item} is not table, it will be skip")

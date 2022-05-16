@@ -9,7 +9,7 @@ import datetime
 import re
 import warnings
 
-import numpy as np
+import math
 import pandas as pd
 
 from akshare.futures import cons
@@ -65,9 +65,9 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
     if close1 == 0 or close2 == 0:
         return False
     if c > 0:
-        return np.log(close2 / close1) / c * 12, symbol2, symbol1
+        return math.log(close2 / close1) / c * 12, symbol2, symbol1
     else:
-        return np.log(close2 / close1) / c * 12, symbol1, symbol2
+        return math.log(close2 / close1) / c * 12, symbol1, symbol2
 
 
 def get_roll_yield_bar(

@@ -12,7 +12,6 @@ import math
 import time
 from datetime import datetime
 
-import numpy as np
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -1053,10 +1052,9 @@ def macro_china_shibor_all() -> pd.DataFrame:
     # big_df["ON_涨跌幅"] = temp_df["ON"].apply(lambda x: x[1])
     # big_df["2M_定价"] = temp_df["2M"].apply(lambda x: x[0])
     # big_df["2M_涨跌幅"] = temp_df["2M"].apply(lambda x: x[1])
-    big_df = big_df.apply(lambda x: x.replace("-", np.nan))
-    big_df = big_df.apply(lambda x: x.replace([None], np.nan))
+    big_df = big_df.apply(lambda x: x.replace("-", pd.NA))
+    big_df = big_df.apply(lambda x: x.replace([None], pd.NA))
     big_df.sort_index(inplace=True)
-    big_df = big_df.astype("float")
     return big_df
 
 
@@ -1098,8 +1096,8 @@ def macro_china_hk_market_info() -> pd.DataFrame:
     big_df["ON_涨跌幅"] = temp_df["ON"].apply(lambda x: x[1])
     big_df["2M_定价"] = temp_df["2M"].apply(lambda x: x[0])
     big_df["2M_涨跌幅"] = temp_df["2M"].apply(lambda x: x[1])
-    big_df = big_df.apply(lambda x: x.replace("-", np.nan))
-    big_df = big_df.apply(lambda x: x.replace([None], np.nan))
+    big_df = big_df.apply(lambda x: x.replace("-", pd.NA))
+    big_df = big_df.apply(lambda x: x.replace([None], pd.NA))
     big_df.sort_index(inplace=True)
     big_df = big_df.astype("float")
     return big_df
@@ -1219,8 +1217,8 @@ def macro_china_rmb() -> pd.DataFrame:
     big_df["人民币/墨西哥比索_涨跌幅"] = temp_df["人民币/墨西哥比索"].apply(lambda x: x[1])
     big_df["人民币/泰铢_定价"] = temp_df["人民币/泰铢"].apply(lambda x: x[0])
     big_df["人民币/泰铢_涨跌幅"] = temp_df["人民币/泰铢"].apply(lambda x: x[1])
-    big_df = big_df.apply(lambda x: x.replace("-", np.nan))
-    big_df = big_df.apply(lambda x: x.replace([None], np.nan))
+    big_df = big_df.apply(lambda x: x.replace("-", pd.NA))
+    big_df = big_df.apply(lambda x: x.replace([None], pd.NA))
     big_df.sort_index(inplace=True)
     big_df = big_df.astype("float")
     return big_df

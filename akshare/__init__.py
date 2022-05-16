@@ -1996,9 +1996,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.74 add: add news_trade_notify_suspend_baidu interface
 1.5.75 fix: fix stock_financial_analysis_indicator interface
 1.5.76 add: add news_report_time_baidu interface
+1.5.77 fix: fix remove numpy dependency
 """
 
-__version__ = "1.5.76"
+__version__ = "1.5.77"
 __author__ = "AKFamily"
 
 import sys
