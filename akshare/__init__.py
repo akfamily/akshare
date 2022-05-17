@@ -1997,9 +1997,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.75 fix: fix stock_financial_analysis_indicator interface
 1.5.76 add: add news_report_time_baidu interface
 1.5.77 fix: fix remove numpy dependency
+1.5.78 fix: fix stock_szse_summary interface
 """
 
-__version__ = "1.5.77"
+__version__ = "1.5.78"
 __author__ = "AKFamily"
 
 import sys
@@ -2805,7 +2806,7 @@ from akshare.stock_feature.stock_yzxdr_em import stock_yzxdr_em
 """
 大宗交易
 """
-from akshare.stock.stock_dzjy import (
+from akshare.stock.stock_dzjy_em import (
     stock_dzjy_sctj,
     stock_dzjy_mrmx,
     stock_dzjy_mrtj,

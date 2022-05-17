@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.78 fix: fix stock_szse_summary interface
+
+    1. 修复 stock_szse_summary 接口
+
 1.5.77 fix: fix remove numpy dependency
 
     1. 移除 numpy 依赖
@@ -584,6 +588,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.78 fix: fix stock_szse_summary interface
 
 1.5.77 fix: fix remove numpy dependency
 

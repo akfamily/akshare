@@ -324,7 +324,7 @@ def covid_19_dxy(indicator: str = "浙江省") -> pd.DataFrame:
     for i, p in enumerate(jsonpath.jsonpath(data_text_json, "$..provinceName")):
         temp_df = pd.DataFrame(jsonpath.jsonpath(data_text_json, "$..cities")[i])
         temp_df["province"] = p
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     domestic_city_df = big_df
     data_df = pd.DataFrame(data_text_json).iloc[:, :7]
     data_df.columns = ["地区", "地区简称", "现存确诊", "累计确诊", "-", "治愈", "死亡"]
@@ -495,7 +495,7 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
         )
 
         temp_df["province"] = p
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     domestic_city_df = big_df
 
     domestic_province_df = pd.DataFrame(data_json["component"][0]["caseList"]).iloc[
@@ -512,7 +512,8 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
             )[i]
         )
         temp_df["province"] = p
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     outside_city_df = big_df
 
     outside_country_df = pd.DataFrame(
@@ -527,7 +528,8 @@ def covid_19_baidu(indicator: str = "浙江") -> pd.DataFrame:
             jsonpath.jsonpath(data_json["component"][0]["globalList"], "$..subList")[i]
         )
         temp_df["province"] = p
-        big_df = big_df.append(temp_df, ignore_index=True)
+
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     global_country_df = big_df
 
     global_continent_df = pd.DataFrame(data_json["component"][0]["globalList"])[
@@ -809,7 +811,8 @@ def covid_19_trace() -> pd.DataFrame:
         temp_df["risk_level"] = risk_level
         temp_df["count_time"] = count_time
         del temp_df["create_time"]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.columns = [
         "地址",
         "城市",
