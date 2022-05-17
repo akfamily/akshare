@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/5 15:31
+Date: 2022/5/16 15:31
 Desc: 东方财富网-数据中心-大宗交易-市场统计
 http://data.eastmoney.com/dzjy/dzjy_sctj.aspx
 """
 import pandas as pd
 import requests
-
-from akshare.utils import demjson
 
 
 def stock_dzjy_sctj() -> pd.DataFrame:
@@ -38,7 +36,7 @@ def stock_dzjy_sctj() -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['result']["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df['index'] = big_df['index'] + 1
     big_df.columns = [
@@ -297,7 +295,7 @@ def stock_dzjy_hygtj(symbol: str = '近三月') -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['result']["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df['index'] = big_df.index + 1
     big_df.columns = [
@@ -391,7 +389,7 @@ def stock_dzjy_hyyybtj(symbol: str = '近3日') -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['result']["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df['index'] = big_df.index + 1
     big_df.columns = [
@@ -463,7 +461,8 @@ def stock_dzjy_yybph(symbol: str = '近三月') -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['result']["data"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
     big_df.reset_index(inplace=True)
     big_df['index'] = big_df.index + 1
     big_df.columns = [

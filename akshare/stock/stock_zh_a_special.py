@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/9/8 18:36
+Date: 2022/5/16 18:36
 Desc: 新股和风险警示股
 新浪-行情中心-沪深股市-次新股
 http://vip.stock.finance.sina.com.cn/mkt/#new_stock
@@ -317,7 +317,7 @@ def stock_zh_a_new() -> pd.DataFrame:
         r.encoding = "gb2312"
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df[
         [
             "symbol",

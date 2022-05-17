@@ -37,13 +37,10 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
         temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
     temp_df["证券类别"] = temp_df["证券类别"].str.strip()
     temp_df.iloc[:, 2:] = temp_df.iloc[:, 2:].applymap(lambda x: x.replace(",", ""))
-    temp_df.columns = ["证券类别", "数量", "成交金额", "成交量", "总股本", "总市值", "流通股本", "流通市值"]
+    temp_df.columns = ["证券类别", "数量", "成交金额", "总市值", "流通市值"]
     temp_df["数量"] = pd.to_numeric(temp_df["数量"])
     temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["总股本"] = pd.to_numeric(temp_df["总股本"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    temp_df["流通股本"] = pd.to_numeric(temp_df["流通股本"], errors="coerce")
     temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
     return temp_df
 
@@ -330,7 +327,7 @@ def stock_sse_deal_daily(date: str = "20220331") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_szse_summary_df = stock_szse_summary(date="20211202")
+    stock_szse_summary_df = stock_szse_summary(date="20200619")
     print(stock_szse_summary_df)
 
     stock_sse_summary_df = stock_sse_summary()
