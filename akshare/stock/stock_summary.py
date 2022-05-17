@@ -16,11 +16,11 @@ import requests
 
 def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
     """
-    深证证券交易所-总貌
+    深证证券交易所-总貌-证券类别统计
     http://www.szse.cn/market/overview/index.html
     :param date: 最近结束交易日
     :type date: str
-    :return: 深证证券交易所-总貌
+    :return: 证券类别统计
     :rtype: pandas.DataFrame
     """
     url = "http://www.szse.cn/api/report/ShowReport"
@@ -42,6 +42,40 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
     temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"])
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
     temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
+    return temp_df
+
+
+def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
+    """
+    深证证券交易所-总貌-地区交易排序
+    http://www.szse.cn/market/overview/index.html
+    :param date: 最近结束交易日
+    :type date: str
+    :return: 地区交易排序
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.szse.cn/api/report/ShowReport"
+    params = {
+        "SHOWTYPE": "xlsx",
+        "CATALOGID": "1803_sczm",
+        "TABKEY": "tab2",
+        "DATETIME": "-".join([date[:4], date[4:6]]),
+        "random": "0.39339437497296137",
+    }
+    r = requests.get(url, params=params)
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
+    temp_df.columns = ['序号', '地区', '总交易额', '占市场', '股票交易额', '基金交易额', '债券交易额']
+    temp_df["总交易额"] = temp_df["总交易额"].str.replace(",", "")
+    temp_df["总交易额"] = pd.to_numeric(temp_df["总交易额"])
+    temp_df["占市场"] = pd.to_numeric(temp_df["占市场"])
+    temp_df["股票交易额"] = temp_df["股票交易额"].str.replace(",", "")
+    temp_df["股票交易额"] = pd.to_numeric(temp_df["股票交易额"], errors="coerce")
+    temp_df["基金交易额"] = temp_df["基金交易额"].str.replace(",", "")
+    temp_df["基金交易额"] = pd.to_numeric(temp_df["基金交易额"], errors="coerce")
+    temp_df["债券交易额"] = temp_df["债券交易额"].str.replace(",", "")
+    temp_df["债券交易额"] = pd.to_numeric(temp_df["债券交易额"], errors="coerce")
     return temp_df
 
 
@@ -329,6 +363,9 @@ def stock_sse_deal_daily(date: str = "20220331") -> pd.DataFrame:
 if __name__ == "__main__":
     stock_szse_summary_df = stock_szse_summary(date="20200619")
     print(stock_szse_summary_df)
+
+    stock_szse_area_summary_df = stock_szse_area_summary(date="202203")
+    print(stock_szse_area_summary_df)
 
     stock_sse_summary_df = stock_sse_summary()
     print(stock_sse_summary_df)

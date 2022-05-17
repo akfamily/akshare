@@ -507,7 +507,8 @@
  "stock_institute_recommend"  # 机构推荐
  "stock_institute_recommend_detail"  # 股票评级记录
  # 股票市场总貌
- "stock_szse_summary"  # 深圳证券交易所-市场总貌
+ "stock_szse_summary"  # 深圳证券交易所-市场总貌-证券类别统计
+ "stock_szse_area_summary"  # 深圳证券交易所-市场总貌-地区交易排序
  "stock_sse_summary"  # 上海证券交易所-股票数据总貌
  "stock_sse_deal_daily"  # 上海证券交易所-每日股票情况
  # 美股港股目标价
