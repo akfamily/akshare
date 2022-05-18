@@ -2001,9 +2001,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.79 add: add stock_szse_area_summary interface
 1.5.80 add: add stock_szse_sector_summary interface
 1.5.81 fix: fix macro_china_gdp_yearly interface
+1.5.82 add: add option_risk_indicator_sse interface
 """
 
-__version__ = "1.5.81"
+__version__ = "1.5.82"
 __author__ = "AKFamily"
 
 import sys
@@ -2013,6 +2014,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+期权-上海证券交易所-风险指标
+"""
+from akshare.option.option_risk_indicator_sse import option_risk_indicator_sse
 
 """
 全球宏观事件

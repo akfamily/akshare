@@ -1087,6 +1087,8 @@
  "news_trade_notify_suspend_baidu"  # 停复牌
  # 财报发行
  "news_report_time_baidu"  # 财报发行
+ # 金融期权
+ "option_risk_indicator_sse"  # 上海证券交易所-产品-股票期权-期权风险指标
 ```
 
 ## 案例演示
