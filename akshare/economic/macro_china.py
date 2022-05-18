@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/4/12 12:08
-Desc: 金十数据-数据中心-中国-中国宏观
-https://datacenter.jin10.com/economic
-首页-价格指数-中价-价格指数-中国电煤价格指数(CTCI)
-http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
+Date: 2022/5/18 19:40
+Desc: 宏观数据-中国
 """
 import json
 import math
@@ -36,7 +33,7 @@ from akshare.utils import demjson
 # 企业商品价格指数
 def macro_china_qyspjg() -> pd.DataFrame:
     """
-    企业商品价格指数
+    东方财富-经济数据一览-中国-企业商品价格指数
     http://data.eastmoney.com/cjsj/qyspjg.html
     :return: 企业商品价格指数
     :rtype: pandas.DataFrame
@@ -84,13 +81,16 @@ def macro_china_qyspjg() -> pd.DataFrame:
     temp_df["煤油电-指数值"] = pd.to_numeric(temp_df["煤油电-指数值"])
     temp_df["煤油电-同比增长"] = pd.to_numeric(temp_df["煤油电-同比增长"])
     temp_df["煤油电-环比增长"] = pd.to_numeric(temp_df["煤油电-环比增长"])
+    temp_df['月份'] = pd.to_datetime(temp_df['月份']).dt.date
+    temp_df.sort_values(['月份'], inplace=True)
+    temp_df.reset_index(drop=True, inplace=True)
     return temp_df
 
 
 # 外商直接投资数据
 def macro_china_fdi() -> pd.DataFrame:
     """
-    外商直接投资数据
+    东方财富-经济数据一览-中国-外商直接投资数据
     http://data.eastmoney.com/cjsj/fdi.html
     :return: 外商直接投资数据
     :rtype: pandas.DataFrame
@@ -124,13 +124,16 @@ def macro_china_fdi() -> pd.DataFrame:
     temp_df["当月-环比增长"] = pd.to_numeric(temp_df["当月-环比增长"])
     temp_df["累计"] = pd.to_numeric(temp_df["累计"])
     temp_df["累计-同比增长"] = pd.to_numeric(temp_df["累计-同比增长"])
+    temp_df['月份'] = pd.to_datetime(temp_df['月份']).dt.date
+    temp_df.sort_values(['月份'], inplace=True)
+    temp_df.reset_index(drop=True, inplace=True)
     return temp_df
 
 
 # 中国社会融资规模数据
 def macro_china_shrzgm() -> pd.DataFrame:
     """
-    社会融资规模增量统计
+    商务数据中心-国内贸易-社会融资规模增量统计
     http://data.mofcom.gov.cn/gnmy/shrzgm.shtml
     :return: 社会融资规模增量统计
     :rtype: pandas.DataFrame
@@ -143,7 +146,7 @@ def macro_china_shrzgm() -> pd.DataFrame:
         "月份",
         "其中-未贴现银行承兑汇票",
         "其中-委托贷款",
-        "其中-委托贷款外币贷款(折合人民币)",
+        "其中-委托贷款外币贷款",
         "其中-人民币贷款",
         "其中-企业债券",
         "社会融资规模增量",
@@ -155,7 +158,7 @@ def macro_china_shrzgm() -> pd.DataFrame:
             "月份",
             "社会融资规模增量",
             "其中-人民币贷款",
-            "其中-委托贷款外币贷款(折合人民币)",
+            "其中-委托贷款外币贷款",
             "其中-委托贷款",
             "其中-信托贷款",
             "其中-未贴现银行承兑汇票",
@@ -163,15 +166,26 @@ def macro_china_shrzgm() -> pd.DataFrame:
             "其中-非金融企业境内股票融资",
         ]
     ]
+    temp_df['社会融资规模增量'] = pd.to_numeric(temp_df['社会融资规模增量'])
+    temp_df['其中-人民币贷款'] = pd.to_numeric(temp_df['其中-人民币贷款'])
+    temp_df['其中-委托贷款外币贷款'] = pd.to_numeric(temp_df['其中-委托贷款外币贷款'])
+    temp_df['其中-委托贷款'] = pd.to_numeric(temp_df['其中-委托贷款'])
+    temp_df['其中-信托贷款'] = pd.to_numeric(temp_df['其中-信托贷款'])
+    temp_df['其中-未贴现银行承兑汇票'] = pd.to_numeric(temp_df['其中-未贴现银行承兑汇票'])
+    temp_df['其中-企业债券'] = pd.to_numeric(temp_df['其中-企业债券'])
+    temp_df['其中-非金融企业境内股票融资'] = pd.to_numeric(temp_df['其中-非金融企业境内股票融资'])
+    temp_df.sort_values(['月份'], inplace=True)
+    temp_df.reset_index(drop=True, inplace=True)
     return temp_df
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
 def macro_china_gdp_yearly() -> pd.DataFrame:
     """
-    中国年度 GDP 数据, 数据区间从 20110120-至今
+    金十数据中心-中国 GDP 年率报告, 数据区间从 20110120-至今
     https://datacenter.jin10.com/reportType/dc_chinese_gdp_yoy
-    :return: pandas.Series
+    :return: 中国 GDP 年率报告
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     r = requests.get(
@@ -213,22 +227,21 @@ def macro_china_gdp_yearly() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index("index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "gpd"
-    temp_df = temp_df.astype("float")
+    temp_df.columns = ['date', 'value']
+    temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
+    temp_df['value'] = pd.to_numeric(temp_df['value'])
     return temp_df
 
 
 # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
 def macro_china_cpi_yearly() -> pd.DataFrame:
     """
+    # TODO
     中国年度 CPI 数据, 数据区间从 19860201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_cpi_yoy
     :return: pandas.Series

@@ -2000,9 +2000,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.78 fix: fix stock_szse_summary interface
 1.5.79 add: add stock_szse_area_summary interface
 1.5.80 add: add stock_szse_sector_summary interface
+1.5.81 fix: fix macro_china_gdp_yearly interface
 """
 
-__version__ = "1.5.80"
+__version__ = "1.5.81"
 __author__ = "AKFamily"
 
 import sys
