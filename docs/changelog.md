@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.81 fix: fix macro_china_gdp_yearly interface
+
+    1. 修复 macro_china_gdp_yearly 接口，数据输出格式为 pandas.DataFrame
+
 1.5.80 add: add stock_szse_sector_summary interface
 
     1. 新增 stock_szse_sector_summary 接口，获取深证证券交易所-总貌-股票行业成交数据
@@ -596,6 +600,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.81 fix: fix macro_china_gdp_yearly interface
 
 1.5.80 add: add stock_szse_sector_summary interface
 
