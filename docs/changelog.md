@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.82 add: add option_risk_indicator_sse interface
+
+    1. 新增 option_risk_indicator_sse 接口，获取上海证券交易所-产品-股票期权-期权风险指标数据
+
 1.5.81 fix: fix macro_china_gdp_yearly interface
 
     1. 修复 macro_china_gdp_yearly 接口，数据输出格式为 pandas.DataFrame
@@ -600,6 +604,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.82 add: add option_risk_indicator_sse interface
 
 1.5.81 fix: fix macro_china_gdp_yearly interface
 
