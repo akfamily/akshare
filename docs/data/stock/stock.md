@@ -187,6 +187,72 @@ print(stock_szse_area_summary_df)
 33  34    青海  1.783947e+10   0.046  1.518497e+10  1.181823e+08  2.536324e+09
 ```
 
+###### 股票行业成交
+
+接口: stock_szse_sector_summary
+
+目标地址: http://docs.static.szse.cn/www/market/periodical/month/W020220511355248518608.html
+
+描述: 深圳证券交易所-统计资料-股票行业成交
+
+限量: 单次返回指定 date 和 symbol 的统计资料-股票行业成交数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                  |
+|--------|-----|-------------------------------------|
+| symbol | str | symbol="当月"; choice of {"当月", "当年"} |
+| date   | str | date="202203"; 年月                   |
+
+输出参数
+
+| 名称        | 类型      | 描述      |
+|-----------|---------|---------|
+| 项目名称      | object  | -       |
+| 项目名称-英文   | object  | -       |
+| 交易天数      | int64   | -       |
+| 成交金额-人民币元 | int64   |         |
+| 成交金额-占总计  | float64 | 注意单位: % |
+| 成交股数-股数   | int64   | -       |
+| 成交股数-占总计  | float64 | 注意单位: % |
+| 成交笔数-笔    | int64   | -       |
+| 成交笔数-占总计  | float64 | 注意单位: % |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_szse_sector_summary_df = ak.stock_szse_sector_summary(symbol="当年", date="202204")
+print(stock_szse_sector_summary_df)
+```
+
+数据示例
+
+```
+    项目名称                   项目名称-英文  交易天数  ...  成交股数-占总计      成交笔数-笔  成交笔数-占总计
+0     合计                     Total    77  ...    100.00  3816547870    100.00
+1   农林牧渔               Agriculture    77  ...      1.51    60126514      1.58
+2    采矿业                    Mining    77  ...      2.10    72850554      1.91
+3    制造业             Manufacturing    77  ...     55.08  2404587520     63.00
+4   水电煤气                 Utilities    77  ...      2.27    68543100      1.80
+5    建筑业              Construction    77  ...      3.13    87826462      2.30
+6   批发零售        Wholesale & Retail    77  ...      3.29   102688643      2.69
+7   运输仓储            Transportation    77  ...      1.13    46450606      1.22
+8   住宿餐饮         Hotels & Catering    77  ...      0.25     6348476      0.17
+9   信息技术                        IT    77  ...     12.11   429609907     11.26
+10   金融业                   Finance    77  ...      3.36   102223897      2.68
+11   房地产               Real Estate    77  ...      6.47   132471503      3.47
+12  商务服务          Business Support    77  ...      2.72    73174343      1.92
+13  科研服务    Research & Development    77  ...      1.06    58211379      1.53
+14  公共环保  Environmental Protection    77  ...      1.90    59623129      1.56
+15  居民服务         Resident Services    77  ...      0.00      280137      0.01
+16    教育                 Education    77  ...      0.39    11672172      0.31
+17    卫生             Public Health    77  ...      0.55    20643720      0.54
+18  文化传播                     Media    77  ...      2.42    70405699      1.84
+19    综合             Conglomerates    77  ...      0.26     8810109      0.23
+```
+
 ##### 上海证券交易所-每日概况
 
 接口: stock_sse_deal_daily
