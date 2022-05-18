@@ -866,7 +866,7 @@ date
 
 接口: stock_zh_a_hist_163
 
-目标地址: http://quote.eastmoney.com/concept/sh603777.html?from=classic
+目标地址: http://quotes.money.163.com/trade/lsjysj_601318.html?year=2022&season=2
 
 描述: 网易财经-行情首页-沪深 A 股-每日行情; 该接口主要用户获取流通市值、总市值等指标
 
@@ -874,11 +874,11 @@ date
 
 输入参数
 
-| 名称         | 类型  | 描述                                                      |
-|------------|-----|---------------------------------------------------------|
-| symbol     | str | symbol='sh601318'; 股票代码可以在 **ak.stock_zh_a_spot()** 中获取 |
-| start_date | str | start_date='20201103'; 开始查询的日期                          |
-| end_date   | str | end_date='20201116'; 结束查询的日期                            |
+| 名称         | 类型  | 描述                                                                        |
+|------------|-----|---------------------------------------------------------------------------|
+| symbol     | str | symbol='sh601318'; 股票代码可以在 **ak.stock_zh_a_spot()** 中获取; 其中 sh689009 没有数据 |
+| start_date | str | start_date='20201103'; 开始查询的日期                                            |
+| end_date   | str | end_date='20201116'; 结束查询的日期                                              |
 
 输出参数
 

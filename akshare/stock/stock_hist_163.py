@@ -15,7 +15,7 @@ def stock_zh_a_hist_163(
     """
     网易财经-行情首页-沪深 A 股-每日行情
     注意：该接口只返回未复权数据
-    http://quote.eastmoney.com/concept/sh603777.html?from=classic
+    http://quotes.money.163.com/trade/lsjysj_601318.html?year=2022&season=2
     :param symbol: 带市场表示的股票代码
     :type symbol: str
     :param start_date: 开始时间
@@ -94,7 +94,7 @@ def stock_zh_a_hist_163(
 
 if __name__ == "__main__":
     stock_zh_a_hist_163_df = stock_zh_a_hist_163(
-        symbol="sz000651", start_date="20220311", end_date="20220411"
+        symbol="sh689009", start_date="20201029", end_date="20220517"
     )
     print(stock_zh_a_hist_163_df)
 
