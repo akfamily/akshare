@@ -26,8 +26,8 @@ def spot_symbol_table_sge() -> pd.DataFrame:
     symbol_list = [item.text for item in value_item]
     temp_df = pd.DataFrame(symbol_list)
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = temp_df.index + 1
-    temp_df.columns = ['序号', '品种']
+    temp_df["index"] = temp_df.index + 1
+    temp_df.columns = ["序号", "品种"]
     return temp_df
 
 
@@ -53,11 +53,11 @@ def spot_hist_sge(symbol: str = "Au99.99") -> pd.DataFrame:
         "low",
     ]
 
-    temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
-    temp_df['open'] = pd.to_numeric(temp_df['open'])
-    temp_df['close'] = pd.to_numeric(temp_df['close'])
-    temp_df['high'] = pd.to_numeric(temp_df['high'])
-    temp_df['low'] = pd.to_numeric(temp_df['low'])
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"])
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["high"] = pd.to_numeric(temp_df["high"])
+    temp_df["low"] = pd.to_numeric(temp_df["low"])
     return temp_df
 
 
@@ -85,8 +85,8 @@ def spot_golden_benchmark_sge() -> pd.DataFrame:
     ]
     temp_zp_df["交易时间"] = pd.to_datetime(temp_zp_df["交易时间"], unit="ms").dt.date
     temp_df["早盘价"] = temp_zp_df["早盘价"]
-    temp_df['晚盘价'] = pd.to_numeric(temp_df['晚盘价'])
-    temp_df['早盘价'] = pd.to_numeric(temp_df['早盘价'])
+    temp_df["晚盘价"] = pd.to_numeric(temp_df["晚盘价"])
+    temp_df["早盘价"] = pd.to_numeric(temp_df["早盘价"])
     return temp_df
 
 
@@ -114,8 +114,8 @@ def spot_silver_benchmark_sge() -> pd.DataFrame:
     ]
     temp_zp_df["交易时间"] = pd.to_datetime(temp_zp_df["交易时间"], unit="ms").dt.date
     temp_df["早盘价"] = temp_zp_df["早盘价"]
-    temp_df['晚盘价'] = pd.to_numeric(temp_df['晚盘价'])
-    temp_df['早盘价'] = pd.to_numeric(temp_df['早盘价'])
+    temp_df["晚盘价"] = pd.to_numeric(temp_df["晚盘价"])
+    temp_df["早盘价"] = pd.to_numeric(temp_df["早盘价"])
     return temp_df
 
 
@@ -129,6 +129,6 @@ if __name__ == "__main__":
     spot_golden_benchmark_sge_df = spot_golden_benchmark_sge()
     print(spot_golden_benchmark_sge_df)
 
-    for spot in spot_symbol_table_sge_df['品种'].tolist():
+    for spot in spot_symbol_table_sge_df["品种"].tolist():
         spot_hist_sge_df = spot_hist_sge(symbol=spot)
         print(spot_hist_sge_df)

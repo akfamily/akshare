@@ -20,7 +20,6 @@ def get_ths_js(file: str = "ths.js") -> pathlib.Path:
     ----------
     .. [1] E.A.Abbott, ”Flatland”, Seeley & Co., 1884.
     """
-
     with resources.path("akshare.data", file) as f:
         data_file_path = f
         return data_file_path
@@ -61,7 +60,7 @@ def get_covid_js(file: str = "covid.js") -> pathlib.Path:
         return data_file_path
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     get_ths_js_path = get_ths_js(file="ths.js")
     print(get_ths_js_path)
 
