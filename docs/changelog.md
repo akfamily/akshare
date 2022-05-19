@@ -27,6 +27,11 @@
 
 ## 更新说明
 
+1.5.83 fix: fix energy_oil_hist, energy_oil_detail interface
+
+    1. 修复 energy_oil_hist 接口，按时间排序输出且规范数据输出格式
+    2. 修复 energy_oil_detail 接口，规范数据输出格式
+
 1.5.82 add: add option_risk_indicator_sse interface
 
     1. 新增 option_risk_indicator_sse 接口，获取上海证券交易所-产品-股票期权-期权风险指标数据
@@ -364,7 +369,7 @@
     1. 新增 macro_china_agricultural_product 接口，获取农产品批发价格总指数数据
 
 1.4.99 add: add macro_china_vegetable_basket interface
-    
+
     1. 新增 macro_china_vegetable_basket 接口，获取菜篮子产品批发价格指数数据
 
 1.4.98 fix: fix stock_board_industry_hist_em interface
@@ -393,7 +398,7 @@
 
 1.4.92 add: add stock_lhb_hyyyb_em interface
 
-    1. 新增 stock_lhb_hyyyb_em 接口，获取东方财富网-数据中心-龙虎榜单-每日活跃营业部数据 
+    1. 新增 stock_lhb_hyyyb_em 接口，获取东方财富网-数据中心-龙虎榜单-每日活跃营业部数据
 
 1.4.91 fix: fix macro_china_new_financial_credit interface
 
@@ -408,7 +413,7 @@
     1. 修复 stock_us_hist 接口，结果数据根据日期排序
 
 1.4.88 fix: fix fund_new_found_em interface
-    
+
     1. 修复 fund_em_new_found 接口命名为 fund_new_found_em 接口
 
 1.4.87 add: add fund_portfolio_industry_allocation_em interface
@@ -528,7 +533,7 @@
     1. 修复 get_dce_daily 接口的索引问题
 
 1.4.60 fix: fix stock_zh_a_hist_163 interface
-    
+
     1. 修复 stock_zh_a_hist_163 接口的冗余变量问题
 
 1.4.59 add: add stock_zh_a_hist_163 interface
@@ -604,6 +609,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.83 fix: fix energy_oil_hist, energy_oil_detail interface
 
 1.5.82 add: add option_risk_indicator_sse interface
 
