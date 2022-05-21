@@ -27,6 +27,16 @@
 
 ## 更新说明
 
+1.5.84 fix: fix stock_three_report_em interface
+
+    1. 修复 stock_balance_sheet_by_report_em 接口
+    2. 修复 stock_balance_sheet_by_yearly_em 接口
+    3. 修复 stock_profit_sheet_by_report_em 接口
+    4. 修复 stock_profit_sheet_by_yearly_em 接口
+    5. 修复 stock_profit_sheet_by_quarterly_em 接口
+    6. 修复 stock_cash_flow_sheet_by_report_em 接口
+    7. 修复 stock_cash_flow_sheet_by_yearly_em 接口
+
 1.5.83 fix: fix energy_oil_hist, energy_oil_detail interface
 
     1. 修复 energy_oil_hist 接口，按时间排序输出且规范数据输出格式
@@ -609,6 +619,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.84 fix: fix stock_three_report_em interface
 
 1.5.83 fix: fix energy_oil_hist, energy_oil_detail interface
 
