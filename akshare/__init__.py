@@ -2005,9 +2005,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.83 fix: fix energy_oil_hist, energy_oil_detail interface
 1.5.84 fix: fix stock_three_report_em interface
 1.5.85 fix: fix stock_zh_a_hist interface
+1.5.86 fix: fix stock_us_fundamental interface
 """
 
-__version__ = "1.5.85"
+__version__ = "1.5.86"
 __author__ = "AKFamily"
 
 import sys
