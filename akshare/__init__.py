@@ -2004,9 +2004,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.82 add: add option_risk_indicator_sse interface
 1.5.83 fix: fix energy_oil_hist, energy_oil_detail interface
 1.5.84 fix: fix stock_three_report_em interface
+1.5.85 fix: fix stock_zh_a_hist interface
 """
 
-__version__ = "1.5.84"
+__version__ = "1.5.85"
 __author__ = "AKFamily"
 
 import sys

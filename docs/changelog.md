@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.85 fix: fix stock_zh_a_hist interface
+
+    1. 修复 stock_zh_a_hist 接口，直接返回指定时间段之间的数据
+
 1.5.84 fix: fix stock_three_report_em interface
 
     1. 修复 stock_balance_sheet_by_report_em 接口
@@ -619,6 +623,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.85 fix: fix stock_zh_a_hist interface
 
 1.5.84 fix: fix stock_three_report_em interface
 
