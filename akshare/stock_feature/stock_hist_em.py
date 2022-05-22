@@ -284,7 +284,7 @@ def stock_zh_a_hist(
         symbol: str = "000016",
         period: str = "daily",
         start_date: str = "19700101",
-        end_date: str = "22220101",
+        end_date: str = "20500000",
         adjust: str = "",
 ) -> pd.DataFrame:
     """
@@ -314,8 +314,8 @@ def stock_zh_a_hist(
         "klt": period_dict[period],
         "fqt": adjust_dict[adjust],
         "secid": f"{code_id_dict[symbol]}.{symbol}",
-        "beg": "0",
-        "end": "20500000",
+        "beg": start_date,
+        "end": end_date,
         "_": "1623766962675",
     }
     r = requests.get(url, params=params)
@@ -335,7 +335,7 @@ def stock_zh_a_hist(
         "换手率",
     ]
     temp_df.index = pd.to_datetime(temp_df["日期"])
-    temp_df = temp_df[start_date:end_date]
+    # temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(inplace=True, drop=True)
 
     temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
