@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.89 fix: fix stock_info_sh_name_code interface
+
+    1. 修复 stock_info_sh_name_code 接口
+
 1.5.88 fix: fix stock_board_concept_name_ths interface
 
     1. 修复 stock_board_concept_name_ths 接口，补充遗漏的概念板块
@@ -635,6 +639,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.89 fix: fix stock_info_sh_name_code interface
 
 1.5.88 fix: fix stock_board_concept_name_ths interface
 
