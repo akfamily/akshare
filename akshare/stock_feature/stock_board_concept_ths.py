@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/30 17:10
+Date: 2022/5/23 17:10
 Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
-import os
 from datetime import datetime
 
 import pandas as pd
@@ -50,7 +49,9 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     }
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    total_page = soup.find("span", attrs={"class": "page_info"}).text.split(
+        "/"
+    )[1]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
@@ -74,11 +75,40 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
             url_list.append(inner_url)
         temp_df = pd.read_html(r.text)[0]
         temp_df["网址"] = url_list
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df[["日期", "概念名称", "成分股数量", "网址"]]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     big_df["成分股数量"] = pd.to_numeric(big_df["成分股数量"])
     big_df["代码"] = big_df["网址"].str.split("/", expand=True).iloc[:, 6]
+    big_df.drop_duplicates(keep="last", inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+
+    # 处理遗漏的板块
+    url = "http://q.10jqka.com.cn/gn/detail/code/301558/"
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    need_list = [
+        item.find_all("a")
+        for item in soup.find_all(attrs={"class": "cate_group"})
+    ]
+    temp_list = []
+    for item in need_list:
+        temp_list.extend(item)
+    temp_df = pd.DataFrame(
+        [
+            [item.text for item in temp_list],
+            [item["href"] for item in temp_list],
+        ]
+    ).T
+    temp_df.columns = ["概念名称", "网址"]
+    temp_df["日期"] = None
+    temp_df["成分股数量"] = None
+    temp_df["代码"] = (
+        temp_df["网址"].str.split("/", expand=True).iloc[:, 6].tolist()
+    )
+    temp_df = temp_df[["日期", "概念名称", "成分股数量", "网址", "代码"]]
+    big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df.drop_duplicates(subset=["概念名称"], keep="first", inplace=True)
     return big_df
 
 
@@ -92,7 +122,8 @@ def _stock_board_concept_code_ths() -> pd.DataFrame:
     _stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     name_list = _stock_board_concept_name_ths_df["概念名称"].tolist()
     url_list = [
-        item.split("/")[-2] for item in _stock_board_concept_name_ths_df["网址"].tolist()
+        item.split("/")[-2]
+        for item in _stock_board_concept_name_ths_df["网址"].tolist()
     ]
     temp_map = dict(zip(name_list, url_list))
     return temp_map
@@ -125,7 +156,9 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
+        page_num = int(
+            soup.find_all("a", attrs={"class": "changePage"})[-1]["page"]
+        )
     except IndexError as e:
         page_num = 1
     big_df = pd.DataFrame()
@@ -138,7 +171,7 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
         url = f"http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.rename(
         {
             "涨跌幅(%)": "涨跌幅",
@@ -177,11 +210,15 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     soup = BeautifulSoup(r.text, "lxml")
     name_list = [
         item.text
-        for item in soup.find("div", attrs={"class": "board-infos"}).find_all("dt")
+        for item in soup.find("div", attrs={"class": "board-infos"}).find_all(
+            "dt"
+        )
     ]
     value_list = [
         item.text.strip().replace("\n", "/")
-        for item in soup.find("div", attrs={"class": "board-infos"}).find_all("dd")
+        for item in soup.find("div", attrs={"class": "board-infos"}).find_all(
+            "dd"
+        )
     ]
     temp_df = pd.DataFrame([name_list, value_list]).T
     temp_df.columns = ["项目", "值"]
@@ -208,7 +245,9 @@ def stock_board_concept_hist_ths(
     }
     r = requests.get(symbol_url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    symbol_code = soup.find("div", attrs={"class": "board-hq"}).find("span").text
+    symbol_code = (
+        soup.find("div", attrs={"class": "board-hq"}).find("span").text
+    )
     big_df = pd.DataFrame()
     current_year = datetime.now().year
     for year in tqdm(range(int(start_year), current_year + 1), leave=False):
@@ -227,7 +266,7 @@ def stock_board_concept_hist_ths(
         temp_df = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(temp_df["data"].split(";"))
         temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     if big_df.columns.shape[0] == 12:
         big_df.columns = [
             "日期",
@@ -300,7 +339,9 @@ def stock_board_cons_ths(symbol: str = "885611") -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
+        page_num = int(
+            soup.find_all("a", attrs={"class": "changePage"})[-1]["page"]
+        )
     except IndexError as e:
         page_num = 1
     big_df = pd.DataFrame()
@@ -313,7 +354,7 @@ def stock_board_cons_ths(symbol: str = "885611") -> pd.DataFrame:
         url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.rename(
         {
             "涨跌幅(%)": "涨跌幅",
@@ -333,10 +374,14 @@ if __name__ == "__main__":
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
 
-    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="PVDF概念")
+    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(
+        symbol="黄金概念"
+    )
     print(stock_board_concept_cons_ths_df)
 
-    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="PVDF概念")
+    stock_board_concept_info_ths_df = stock_board_concept_info_ths(
+        symbol="PVDF概念"
+    )
     print(stock_board_concept_info_ths_df)
 
     stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(
