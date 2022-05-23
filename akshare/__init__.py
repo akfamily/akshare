@@ -2008,9 +2008,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.86 fix: fix stock_us_fundamental interface
 1.5.87 fix: fix stock_tfp_em interface
 1.5.88 fix: fix stock_board_concept_name_ths interface
+1.5.89 fix: fix stock_info_sh_name_code interface
 """
 
-__version__ = "1.5.88"
+__version__ = "1.5.89"
 __author__ = "AKFamily"
 
 import sys
