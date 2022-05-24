@@ -114,7 +114,7 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
         return temp_df
 
 
-def stock_info_sh_name_code(indicator: str = "科创板") -> pd.DataFrame:
+def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
     """
     上海证券交易所-股票列表
     http://www.sse.com.cn/assortment/stock/list/share/

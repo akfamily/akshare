@@ -2011,9 +2011,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.89 fix: fix stock_info_sh_name_code interface
 1.5.90 fix: fix macro_china_bond_public interface
 1.5.91 add: add bond_cb_index_jsl interface
+1.5.92 fix: fix rate_interbank interface
 """
 
-__version__ = "1.5.91"
+__version__ = "1.5.92"
 __author__ = "AKFamily"
 
 import sys
@@ -3440,11 +3441,6 @@ from akshare.option.option_czce import option_czce_hist
 
 """
 宏观-经济数据-银行间拆借利率
-"""
-from akshare.interest_rate.interbank_rate_em import rate_interbank
-
-"""
-东方财富网-经济数据-银行间拆借利率
 """
 from akshare.interest_rate.interbank_rate_em import rate_interbank
 

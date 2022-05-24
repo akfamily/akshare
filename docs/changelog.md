@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.92 fix: fix rate_interbank interface
+
+    1. 修复 rate_interbank 接口，修改函数签名及输出格式
+
 1.5.91 add: add bond_cb_index_jsl interface
 
     1. 新增 bond_cb_index_jsl 接口，获取集思录可转债等权指数数据
@@ -647,6 +651,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.92 fix: fix rate_interbank interface
 
 1.5.91 add: add bond_cb_index_jsl interface
 
