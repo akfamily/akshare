@@ -1,12 +1,45 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/4/13 10:50
+Date: 2022/5/24 15:05
 Desc: 债券-集思录-可转债
 集思录：https://app.jisilu.cn/data/cbnew/#cb
 """
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
+
+from akshare.utils import demjson
+
+
+def bond_cb_index_jsl() -> pd.DataFrame:
+    """
+    https://www.jisilu.cn/data/cbnew/cb_index/
+    首页-可转债-集思录可转债等权指数
+    :return: 集思录可转债等权指数
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.jisilu.cn/data/cbnew/cb_index/"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    data_text = soup.find_all("script", attrs={"type": "text/javascript"})[
+        -4
+    ].text
+    date_list = eval(
+        data_text[data_text.find("__date") : data_text.find("__data")]
+        .strip("__date = ")
+        .strip(";\n\nvar")
+    )
+    data_dict = demjson.decode(
+        data_text[data_text.find("__data") : data_text.find("for(var")]
+        .strip("__data = ")
+        .strip(";\n\n")
+    )
+    temp_df = pd.DataFrame([date_list, data_dict["price"]]).T
+    temp_df.columns = ["date", "price"]
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["price"] = pd.to_numeric(temp_df["price"])
+    return temp_df
 
 
 def bond_cov_jsl(cookie: str = None) -> pd.DataFrame:
@@ -20,23 +53,23 @@ def bond_cov_jsl(cookie: str = None) -> pd.DataFrame:
     """
     url = "https://app.jisilu.cn/data/cbnew/cb_list_new/"
     headers = {
-        'accept': 'application/json, text/javascript, */*; q=0.01',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'cache-control': 'no-cache',
-        'content-length': '220',
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'cookie': cookie,
-        'origin': 'https://app.jisilu.cn',
-        'pragma': 'no-cache',
-        'referer': 'https://app.jisilu.cn/data/cbnew/',
-        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest'
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "content-length": "220",
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "cookie": cookie,
+        "origin": "https://app.jisilu.cn",
+        "pragma": "no-cache",
+        "referer": "https://app.jisilu.cn/data/cbnew/",
+        "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36",
+        "x-requested-with": "XMLHttpRequest",
     }
     params = {
         "___jsl": "LST___t=1627021692978",
@@ -52,13 +85,13 @@ def bond_cov_jsl(cookie: str = None) -> pd.DataFrame:
         "market": "",
         "rating_cd": "",
         "is_search": "N",
-        'market_cd[]': 'shmb',
-        'market_cd[]': 'shkc',
-        'market_cd[]': 'szmb',
-        'market_cd[]': 'szcy',
+        "market_cd[]": "shmb",
+        "market_cd[]": "shkc",
+        "market_cd[]": "szmb",
+        "market_cd[]": "szcy",
         "btype": "",
         "listed": "Y",
-        'qflag': 'N',
+        "qflag": "N",
         "sw_cd": "",
         "bond_ids": "",
         "rp": "50",
@@ -83,23 +116,26 @@ def bond_conv_adj_logs_jsl(symbol: str = "128013") -> pd.DataFrame:
     url = f"https://www.jisilu.cn/data/cbnew/adj_logs/?bond_id={symbol}"
     r = requests.get(url)
     data_text = r.text
-    if '</table>' not in data_text:
+    if "</table>" not in data_text:
         # 1. 该可转债没有转股价调整记录，服务端返回文本 '暂无数据'
         # 2. 无效可转债代码，服务端返回 {"timestamp":1639565628,"isError":1,"msg":"无效代码格式"}
         # 以上两种情况，返回空的 DataFrame
         return
     else:
         temp_df = pd.read_html(data_text, parse_dates=True)[0]
-        temp_df['股东大会日'] = pd.to_datetime(temp_df['股东大会日']).dt.date
-        temp_df['下修前转股价'] = pd.to_numeric(temp_df['下修前转股价'])
-        temp_df['下修后转股价'] = pd.to_numeric(temp_df['下修后转股价'])
-        temp_df['新转股价生效日期'] = pd.to_datetime(temp_df['新转股价生效日期']).dt.date
-        temp_df['下修底价'] = pd.to_numeric(temp_df['下修底价'])
+        temp_df["股东大会日"] = pd.to_datetime(temp_df["股东大会日"]).dt.date
+        temp_df["下修前转股价"] = pd.to_numeric(temp_df["下修前转股价"])
+        temp_df["下修后转股价"] = pd.to_numeric(temp_df["下修后转股价"])
+        temp_df["新转股价生效日期"] = pd.to_datetime(temp_df["新转股价生效日期"]).dt.date
+        temp_df["下修底价"] = pd.to_numeric(temp_df["下修底价"])
         return temp_df
 
 
-if __name__ == '__main__':
-    bond_convert_jsl_df = bond_cov_jsl(cookie='')
+if __name__ == "__main__":
+    bond_cb_index_jsl_df = bond_cb_index_jsl()
+    print(bond_cb_index_jsl_df)
+
+    bond_convert_jsl_df = bond_cov_jsl(cookie="")
     print(bond_convert_jsl_df)
 
     bond_conv_adj_logs_jsl_df = bond_conv_adj_logs_jsl(symbol="128013")
