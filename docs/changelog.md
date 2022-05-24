@@ -27,6 +27,10 @@
 
 ## 更新说明
 
+1.5.93 fix: fix stock_zh_a_hist interface
+
+    1. 修复 stock_zh_a_hist 接口，对非交易日及停牌日期返回 pandas.DataFrame
+
 1.5.92 fix: fix rate_interbank interface
 
     1. 修复 rate_interbank 接口，修改函数签名及输出格式
@@ -651,6 +655,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.93 fix: fix stock_zh_a_hist interface
 
 1.5.92 fix: fix rate_interbank interface
 

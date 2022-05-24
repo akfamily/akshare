@@ -281,10 +281,10 @@ def code_id_map_em() -> dict:
 
 
 def stock_zh_a_hist(
-    symbol: str = "000016",
+    symbol: str = "000001",
     period: str = "daily",
     start_date: str = "19700101",
-    end_date: str = "20500000",
+    end_date: str = "20500101",
     adjust: str = "",
 ) -> pd.DataFrame:
     """
@@ -320,6 +320,8 @@ def stock_zh_a_hist(
     }
     r = requests.get(url, params=params)
     data_json = r.json()
+    if not data_json["data"]["klines"]:
+        return pd.DataFrame()
     temp_df = pd.DataFrame(
         [item.split(",") for item in data_json["data"]["klines"]]
     )
@@ -1114,10 +1116,10 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="000016",
+        symbol="000042",
         period="daily",
-        start_date="20101010",
-        end_date="20221124",
+        start_date="20220401",
+        end_date="20220502",
         adjust="hfq",
     )
     print(stock_zh_a_hist_df)

@@ -2012,9 +2012,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.90 fix: fix macro_china_bond_public interface
 1.5.91 add: add bond_cb_index_jsl interface
 1.5.92 fix: fix rate_interbank interface
+1.5.93 fix: fix stock_zh_a_hist interface
 """
 
-__version__ = "1.5.92"
+__version__ = "1.5.93"
 __author__ = "AKFamily"
 
 import sys
