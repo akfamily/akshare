@@ -629,8 +629,9 @@ print(macro_bank_brazil_interest_rate_df)
 
 目标地址: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
 
-描述: 指定市场指定品种指定指标的拆借利率数据, 可以通过 **need_page** 参数控制更新数据数量, 此函数全量更新
-容易封 IP, 建议增量更新, 或者使用手机热点使用, 如果被封 IP, 请在约 15 分钟后再次尝试, 增量更新方法请参考本章节中 **增量更新示例**
+描述: 东方财富-拆借利率一览-具体市场的具体品种的具体指标的拆借利率数据
+
+限量: 返回所有历史数据
 
 输入参数
 
@@ -639,7 +640,6 @@ print(macro_bank_brazil_interest_rate_df)
 | market    | str | market="上海银行同业拆借市场"; 参见 **市场-品种-指标一览表**                                                                                            |
 | symbol    | str | symbol="Shibor人民币"; 参见 **市场-品种-指标一览表**                                                                                             |
 | indicator | str | indicator="隔夜"; 参见 **市场-品种-指标一览表**                                                                                                 |
-| need_page | str | need_page="5"; 默认 need_page="", 为全量更新; 设置 need_page="5" 则返回前 need_page 页的数据; e.g., need_page="5", 则只返回前5页的数据, 此参数可以用于增量更新, 以免被封 IP |
 
 市场-品种-指标一览表
 
@@ -767,42 +767,25 @@ print(macro_bank_brazil_interest_rate_df)
 ```python
 import akshare as ak
 
-rate_interbank_df = ak.rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="22")
+rate_interbank_df = ak.rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月")
 print(rate_interbank_df)
 ```
 
 数据示例
 
 ```
-         日期     利率   涨跌
-0    2021-12-17  2.492  0.1
-1    2021-12-16  2.491 -0.2
-2    2021-12-15  2.493  0.0
-3    2021-12-14  2.493  0.0
-4    2021-12-13  2.493  0.1
-..          ...    ...  ...
-435  2020-03-24  2.056 -1.6
-436  2020-03-23  2.072 -1.5
-437  2020-03-20  2.087 -1.7
-438  2020-03-19  2.104 -1.6
-439  2020-03-18  2.120 -2.5
-```
-
-增量更新示例
-
-```python
-import akshare as ak
-
-# 这里 hist_df 可以替换为你本地报错的利用 ak.rate_interbank 获取的历史数据
-hist_df = ak.rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月")
-# 这里 latest_df 为需要更新前两页的数据
-latest_df = ak.rate_interbank(market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="2")
-# 合并历史数据和需要更新的数据
-hist_df = hist_df.append(latest_df)
-# 为防止有重复, 这里去除重复值
-hist_df.drop_duplicates(inplace=True)
-# 按日期先后排列
-hist_df.sort_values(by="日期", inplace=True)
+         报告日      利率    涨跌
+0     2006-10-08  2.6110  0.00
+1     2006-10-09  2.6248  1.38
+2     2006-10-10  2.6325  0.77
+3     2006-10-11  2.6338  0.13
+4     2006-10-12  2.6380  0.42
+...          ...     ...   ...
+3900  2022-05-18  2.0780 -3.10
+3901  2022-05-19  2.0670 -1.10
+3902  2022-05-20  2.0500 -1.70
+3903  2022-05-23  2.0210 -2.90
+3904  2022-05-24  2.0130 -0.80
 ```
 
 ### 回购定盘利率

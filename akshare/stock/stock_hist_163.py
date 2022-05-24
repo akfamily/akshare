@@ -10,7 +10,9 @@ import requests
 
 
 def stock_zh_a_hist_163(
-    symbol: str = "sh601318", start_date: str = "10700101", end_date: str = "20500101"
+    symbol: str = "sh601318",
+    start_date: str = "10700101",
+    end_date: str = "20500101",
 ) -> pd.DataFrame:
     """
     网易财经-行情首页-沪深 A 股-每日行情
@@ -50,7 +52,9 @@ def stock_zh_a_hist_163(
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.text
-    temp_df = pd.DataFrame([item.split(",") for item in data_text.split("\r\n")[1:]])
+    temp_df = pd.DataFrame(
+        [item.split(",") for item in data_text.split("\r\n")[1:]]
+    )
     temp_df.columns = [
         "日期",
         "股票代码",
@@ -94,7 +98,7 @@ def stock_zh_a_hist_163(
 
 if __name__ == "__main__":
     stock_zh_a_hist_163_df = stock_zh_a_hist_163(
-        symbol="sh689009", start_date="20201029", end_date="20220517"
+        symbol="sh000001", start_date="20201029", end_date="20220517"
     )
     print(stock_zh_a_hist_163_df)
 
