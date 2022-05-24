@@ -2010,9 +2010,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.88 fix: fix stock_board_concept_name_ths interface
 1.5.89 fix: fix stock_info_sh_name_code interface
 1.5.90 fix: fix macro_china_bond_public interface
+1.5.91 add: add bond_cb_index_jsl interface
 """
 
-__version__ = "1.5.90"
+__version__ = "1.5.91"
 __author__ = "AKFamily"
 
 import sys
@@ -3355,7 +3356,11 @@ from akshare.bond.bond_zh_cov_sina import (
     bond_zh_hs_cov_min,
     bond_zh_cov_value_analysis,
 )
-from akshare.bond.bond_convert import bond_cov_jsl, bond_conv_adj_logs_jsl
+from akshare.bond.bond_convert import (
+    bond_cov_jsl,
+    bond_conv_adj_logs_jsl,
+    bond_cb_index_jsl,
+)
 
 """
 for pro api
