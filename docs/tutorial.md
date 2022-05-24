@@ -377,9 +377,10 @@
  "bond_zh_hs_cov_spot"  # 债券-沪深可转债-实时行情数据
  "bond_zh_cov"  # 债券-可转债数据一览表
  "bond_cov_comparison"  # 债券-可转债数据比价
- "bond_cov_jsl"  # 可转债实时数据-集思录
- "bond_conv_adj_logs_jsl"  # 可转债转股价变动-集思录
+ "bond_cb_jsl"  # 可转债实时数据-集思录
+ "bond_cb_adj_logs_jsl"  # 可转债转股价变动-集思录
  "bond_cb_index_jsl"  # 可转债-集思录可转债等权指数
+ "bond_cb_redeem_jsl"  # 可转债-集思录可转债-强赎
  # 金融期权-新浪
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情

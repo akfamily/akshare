@@ -1020,7 +1020,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.91: fix: fix covid for python3.8
 0.5.92: fix: fix futures_daily_bar interface
 0.5.93: add: add macro_china_fx_gold interface
-0.5.94: add: add stock_zh_index_daily_em, bond_cov_jsl interface
+0.5.94: add: add stock_zh_index_daily_em, bond_cb_jsl interface
 0.5.95: fix: fix get_dce_option_daily interface
 0.5.96: add: add stock_hsgt_hist_em interface
 0.5.97: fix: fix remove mplfinance package in requirements.txt
@@ -1132,7 +1132,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.7.5: add: add currency_pair_map interface
 0.7.6: fix: fix stock_jgdy_detail_em interface
 0.7.7: fix: fix stock_info interface
-0.7.8: fix: fix bond_cov_jsl interface
+0.7.8: fix: fix bond_cb_jsl interface
 0.7.9: fix: fix stock_jgdy_detail_em interface
 0.7.10: fix: fix match_main_contract interface
 0.7.11: fix: fix stock_analyst_rank_em and stock_analyst_detail_em interface
@@ -1456,7 +1456,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.32: fix: fix covid_19_baidu interface
 1.0.33: fix: fix bond_china_close_return interface
 1.0.34: fix: fix bond_china_close_return interface
-1.0.35: fix: fix bond_cov_jsl interface
+1.0.35: fix: fix bond_cb_jsl interface
 1.0.36: fix: fix stock_hsgt_north_net_flow_in_em interface
 1.0.37: add: add macro_swiss interface
 1.0.38: add: add macro_japan interface
@@ -1699,7 +1699,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.2.74 fix: fix macro_australia and macro_canada interface
 1.2.75 fix: fix docs interface
 1.2.76 fix: fix amac_person_fund_org_list interface
-1.2.77 add: add bond_conv_adj_logs_jsl interface
+1.2.77 add: add bond_cb_adj_logs_jsl interface
 1.2.78 fix: fix amac_person_fund_org_list interface
 1.2.79 fix: fix amac_person_fund_org_list interface
 1.2.80 fix: fix sw_index_daily interface
@@ -1934,7 +1934,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.12 fix: fix stock_gpzy_pledge_ratio_detail_em interface
 1.5.13 add: add macro_china_lpi_index interface
 1.5.14 add: add macro_china_bdti_index interface
-1.5.15 fix: fix bond_cov_jsl interface
+1.5.15 fix: fix bond_cb_jsl interface
 1.5.16 fix: fix stock_info_sh_delist interface
 1.5.17 add: add macro_china_bsi_index interface
 1.5.18 fix: fix fund_open_fund_rank_em interface
@@ -2013,9 +2013,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.91 add: add bond_cb_index_jsl interface
 1.5.92 fix: fix rate_interbank interface
 1.5.93 fix: fix stock_zh_a_hist interface
+1.5.94 add: add bond_cb_redeem_jsl interface
 """
 
-__version__ = "1.5.93"
+__version__ = "1.5.94"
 __author__ = "AKFamily"
 
 import sys
@@ -3359,9 +3360,10 @@ from akshare.bond.bond_zh_cov_sina import (
     bond_zh_cov_value_analysis,
 )
 from akshare.bond.bond_convert import (
-    bond_cov_jsl,
-    bond_conv_adj_logs_jsl,
+    bond_cb_jsl,
+    bond_cb_adj_logs_jsl,
     bond_cb_index_jsl,
+    bond_cb_redeem_jsl,
 )
 
 """
