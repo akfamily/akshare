@@ -4,6 +4,8 @@
 
 | AKShare 版本 | 旧接口名称                             | 新接口名称                             | 修改日期     |
 |------------|-----------------------------------|-----------------------------------|----------|
+| 1.5.94     | bond_conv_adj_logs_jsl            | bond_cb_adj_logs_jsl              | 20220524 |
+| 1.5.94     | bond_cov_jsl                      | bond_cb_jsl                       | 20220524 |
 | 1.5.53     | stock_em_xjll                     | stock_xjll_em                     | 20220501 |
 | 1.5.53     | stock_em_lrb                      | stock_lrb_em                      | 20220501 |
 | 1.5.53     | stock_em_zcfz                     | stock_zcfz_em                     | 20220501 |
@@ -26,6 +28,10 @@
 | 1.4.86     | fund_em_aum                       | fund_aum_em                       | 20220322 |
 
 ## 更新说明
+
+1.5.94 add: add bond_cb_redeem_jsl interface
+
+    1. 新增 bond_cb_redeem_jsl 接口，获取可转债强赎数据
 
 1.5.93 fix: fix stock_zh_a_hist interface
 
@@ -353,9 +359,9 @@
 
     1. 修复 stock_info_sh_delist 接口
 
-1.5.15 fix: fix bond_cov_jsl interface
+1.5.15 fix: fix bond_cb_jsl interface
 
-    1. 修复 bond_cov_jsl 接口
+    1. 修复 bond_cb_jsl 接口
 
 1.5.14 add: add macro_china_bdti_index interface
 
@@ -656,6 +662,8 @@
 
 ## 版本更新说明
 
+1.5.94 add: add bond_cb_redeem_jsl interface
+
 1.5.93 fix: fix stock_zh_a_hist interface
 
 1.5.92 fix: fix rate_interbank interface
@@ -812,7 +820,7 @@
 
 1.5.16 fix: fix stock_info_sh_delist interface
 
-1.5.15 fix: fix bond_cov_jsl interface
+1.5.15 fix: fix bond_cb_jsl interface
 
 1.5.14 add: add macro_china_bdti_index interface
 
