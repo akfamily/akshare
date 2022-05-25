@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/17 18:21
+Date: 2022/5/25 21:11
 Desc: 金十数据中心-经济指标-央行利率-主要央行利率
 https://datacenter.jin10.com/economic
 输出数据格式为 float64
@@ -63,7 +63,7 @@ def macro_bank_usa_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -95,6 +95,8 @@ def macro_bank_usa_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -137,7 +139,7 @@ def macro_bank_euro_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -169,6 +171,8 @@ def macro_bank_euro_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -211,7 +215,7 @@ def macro_bank_newzealand_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -243,6 +247,8 @@ def macro_bank_newzealand_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -285,7 +291,7 @@ def macro_bank_china_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -317,6 +323,8 @@ def macro_bank_china_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -359,7 +367,7 @@ def macro_bank_switzerland_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -391,6 +399,8 @@ def macro_bank_switzerland_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -433,7 +443,7 @@ def macro_bank_english_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -465,6 +475,8 @@ def macro_bank_english_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -507,7 +519,7 @@ def macro_bank_australia_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -539,6 +551,8 @@ def macro_bank_australia_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -581,7 +595,7 @@ def macro_bank_japan_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -613,6 +627,8 @@ def macro_bank_japan_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -655,7 +671,7 @@ def macro_bank_russia_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -687,6 +703,8 @@ def macro_bank_russia_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -729,7 +747,7 @@ def macro_bank_india_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -761,6 +779,8 @@ def macro_bank_india_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -803,7 +823,7 @@ def macro_bank_brazil_interest_rate() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -835,6 +855,8 @@ def macro_bank_brazil_interest_rate() -> pd.DataFrame:
     big_df["今值"] = pd.to_numeric(big_df["今值"])
     big_df["预测值"] = pd.to_numeric(big_df["预测值"])
     big_df["前值"] = pd.to_numeric(big_df["前值"])
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
@@ -848,7 +870,9 @@ if __name__ == "__main__":
     print(macro_bank_euro_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-新西兰联储决议报告
-    macro_bank_newzealand_interest_rate_df = macro_bank_newzealand_interest_rate()
+    macro_bank_newzealand_interest_rate_df = (
+        macro_bank_newzealand_interest_rate()
+    )
     print(macro_bank_newzealand_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-中国央行决议报告
@@ -856,7 +880,9 @@ if __name__ == "__main__":
     print(macro_bank_china_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-瑞士央行决议报告
-    macro_bank_switzerland_interest_rate_df = macro_bank_switzerland_interest_rate()
+    macro_bank_switzerland_interest_rate_df = (
+        macro_bank_switzerland_interest_rate()
+    )
     print(macro_bank_switzerland_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-英国央行决议报告
@@ -864,7 +890,9 @@ if __name__ == "__main__":
     print(macro_bank_english_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-澳洲联储决议报告
-    macro_bank_australia_interest_rate_df = macro_bank_australia_interest_rate()
+    macro_bank_australia_interest_rate_df = (
+        macro_bank_australia_interest_rate()
+    )
     print(macro_bank_australia_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-日本央行决议报告
