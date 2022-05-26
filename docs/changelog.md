@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.5.98 fix: fix news_cctv interface
+
+    1. 修复 news_cctv 接口，适配 20220523 之后的新页面
+
 1.5.97 fix: fix stock_zh_a_hist interface
 
     1. 修复 stock_zh_a_hist 接口，除以日期设置的边界问题
@@ -673,6 +677,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.98 fix: fix news_cctv interface
 
 1.5.97 fix: fix stock_zh_a_hist interface
 
