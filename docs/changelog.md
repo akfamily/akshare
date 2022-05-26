@@ -4,6 +4,8 @@
 
 | AKShare 版本 | 旧接口名称                             | 新接口名称                             | 修改日期     |
 |------------|-----------------------------------|-----------------------------------|----------|
+| 1.5.94     | bond_conv_adj_logs_jsl            | bond_cb_adj_logs_jsl              | 20220524 |
+| 1.5.94     | bond_cov_jsl                      | bond_cb_jsl                       | 20220524 |
 | 1.5.53     | stock_em_xjll                     | stock_xjll_em                     | 20220501 |
 | 1.5.53     | stock_em_lrb                      | stock_lrb_em                      | 20220501 |
 | 1.5.53     | stock_em_zcfz                     | stock_zcfz_em                     | 20220501 |
@@ -26,6 +28,93 @@
 | 1.4.86     | fund_em_aum                       | fund_aum_em                       | 20220322 |
 
 ## 更新说明
+
+1.5.96 fix: fix macro_bank_usa_interest_rate interface
+
+    1. 修复 macro_bank_usa_interest_rate 接口，规范输出数据格式且按时间排序
+
+1.5.95 fix: fix stock_zh_a_hist_163 interface
+
+    1. 修复 stock_zh_a_hist_163 接口，增加编码支持
+
+1.5.94 add: add bond_cb_redeem_jsl interface
+
+    1. 新增 bond_cb_redeem_jsl 接口，获取可转债强赎数据
+
+1.5.93 fix: fix stock_zh_a_hist interface
+
+    1. 修复 stock_zh_a_hist 接口，对非交易日及停牌日期返回 pandas.DataFrame
+
+1.5.92 fix: fix rate_interbank interface
+
+    1. 修复 rate_interbank 接口，修改函数签名及输出格式
+
+1.5.91 add: add bond_cb_index_jsl interface
+
+    1. 新增 bond_cb_index_jsl 接口，获取集思录可转债等权指数数据
+
+1.5.90 fix: fix macro_china_bond_public interface
+
+    1. 修复 macro_china_bond_public 接口
+
+1.5.89 fix: fix stock_info_sh_name_code interface
+
+    1. 修复 stock_info_sh_name_code 接口
+
+1.5.88 fix: fix stock_board_concept_name_ths interface
+
+    1. 修复 stock_board_concept_name_ths 接口，补充遗漏的概念板块
+
+1.5.87 fix: fix stock_tfp_em interface
+
+    1. 修复 stock_tfp_em 接口
+
+1.5.86 fix: fix stock_us_fundamental interface
+
+    1. 修复 stock_us_fundamental 接口的说明
+
+1.5.85 fix: fix stock_zh_a_hist interface
+
+    1. 修复 stock_zh_a_hist 接口，直接返回指定时间段之间的数据
+
+1.5.84 fix: fix stock_three_report_em interface
+
+    1. 修复 stock_balance_sheet_by_report_em 接口
+    2. 修复 stock_balance_sheet_by_yearly_em 接口
+    3. 修复 stock_profit_sheet_by_report_em 接口
+    4. 修复 stock_profit_sheet_by_yearly_em 接口
+    5. 修复 stock_profit_sheet_by_quarterly_em 接口
+    6. 修复 stock_cash_flow_sheet_by_report_em 接口
+    7. 修复 stock_cash_flow_sheet_by_yearly_em 接口
+
+1.5.83 fix: fix energy_oil_hist, energy_oil_detail interface
+
+    1. 修复 energy_oil_hist 接口，按时间排序输出且规范数据输出格式
+    2. 修复 energy_oil_detail 接口，规范数据输出格式
+
+1.5.82 add: add option_risk_indicator_sse interface
+
+    1. 新增 option_risk_indicator_sse 接口，获取上海证券交易所-产品-股票期权-期权风险指标数据
+
+1.5.81 fix: fix macro_china_gdp_yearly interface
+
+    1. 修复 macro_china_gdp_yearly 接口，数据输出格式为 pandas.DataFrame
+
+1.5.80 add: add stock_szse_sector_summary interface
+
+    1. 新增 stock_szse_sector_summary 接口，获取深证证券交易所-总貌-股票行业成交数据
+
+1.5.79 add: add stock_szse_area_summary interface
+
+    1. 新增 stock_szse_area_summary 接口，获取深证证券交易所-总貌-地区交易排序数据
+
+1.5.78 fix: fix stock_szse_summary interface
+
+    1. 修复 stock_szse_summary 接口
+
+1.5.77 fix: fix remove numpy dependency
+
+    1. 移除 numpy 依赖
 
 1.5.76 add: add news_report_time_baidu interface
 
@@ -278,9 +367,9 @@
 
     1. 修复 stock_info_sh_delist 接口
 
-1.5.15 fix: fix bond_cov_jsl interface
+1.5.15 fix: fix bond_cb_jsl interface
 
-    1. 修复 bond_cov_jsl 接口
+    1. 修复 bond_cb_jsl 接口
 
 1.5.14 add: add macro_china_bdti_index interface
 
@@ -340,7 +429,7 @@
     1. 新增 macro_china_agricultural_product 接口，获取农产品批发价格总指数数据
 
 1.4.99 add: add macro_china_vegetable_basket interface
-    
+
     1. 新增 macro_china_vegetable_basket 接口，获取菜篮子产品批发价格指数数据
 
 1.4.98 fix: fix stock_board_industry_hist_em interface
@@ -369,7 +458,7 @@
 
 1.4.92 add: add stock_lhb_hyyyb_em interface
 
-    1. 新增 stock_lhb_hyyyb_em 接口，获取东方财富网-数据中心-龙虎榜单-每日活跃营业部数据 
+    1. 新增 stock_lhb_hyyyb_em 接口，获取东方财富网-数据中心-龙虎榜单-每日活跃营业部数据
 
 1.4.91 fix: fix macro_china_new_financial_credit interface
 
@@ -384,7 +473,7 @@
     1. 修复 stock_us_hist 接口，结果数据根据日期排序
 
 1.4.88 fix: fix fund_new_found_em interface
-    
+
     1. 修复 fund_em_new_found 接口命名为 fund_new_found_em 接口
 
 1.4.87 add: add fund_portfolio_industry_allocation_em interface
@@ -504,7 +593,7 @@
     1. 修复 get_dce_daily 接口的索引问题
 
 1.4.60 fix: fix stock_zh_a_hist_163 interface
-    
+
     1. 修复 stock_zh_a_hist_163 接口的冗余变量问题
 
 1.4.59 add: add stock_zh_a_hist_163 interface
@@ -580,6 +669,46 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.96 fix: fix macro_bank_usa_interest_rate interface
+
+1.5.95 fix: fix stock_zh_a_hist_163 interface
+
+1.5.94 add: add bond_cb_redeem_jsl interface
+
+1.5.93 fix: fix stock_zh_a_hist interface
+
+1.5.92 fix: fix rate_interbank interface
+
+1.5.91 add: add bond_cb_index_jsl interface
+
+1.5.90 fix: fix macro_china_bond_public interface
+
+1.5.89 fix: fix stock_info_sh_name_code interface
+
+1.5.88 fix: fix stock_board_concept_name_ths interface
+
+1.5.87 fix: fix stock_tfp_em interface
+
+1.5.86 fix: fix stock_us_fundamental interface
+
+1.5.85 fix: fix stock_zh_a_hist interface
+
+1.5.84 fix: fix stock_three_report_em interface
+
+1.5.83 fix: fix energy_oil_hist, energy_oil_detail interface
+
+1.5.82 add: add option_risk_indicator_sse interface
+
+1.5.81 fix: fix macro_china_gdp_yearly interface
+
+1.5.80 add: add stock_szse_sector_summary interface
+
+1.5.79 add: add stock_szse_area_summary interface
+
+1.5.78 fix: fix stock_szse_summary interface
+
+1.5.77 fix: fix remove numpy dependency
 
 1.5.76 add: add news_report_time_baidu interface
 
@@ -703,7 +832,7 @@
 
 1.5.16 fix: fix stock_info_sh_delist interface
 
-1.5.15 fix: fix bond_cov_jsl interface
+1.5.15 fix: fix bond_cb_jsl interface
 
 1.5.14 add: add macro_china_bdti_index interface
 

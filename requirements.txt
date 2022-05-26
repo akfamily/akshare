@@ -1,6 +1,5 @@
 beautifulsoup4>=4.9.1
 lxml>=4.2.1
-numpy>=1.17.2
 pandas>=0.25
 requests>=2.22.0
 urllib3>=1.25.8

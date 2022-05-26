@@ -5,7 +5,6 @@ Date: 2022/1/12 22:07
 Desc: 九期网-期货手续费
 http://www.9qihuo.com/qihuoshouxufei
 """
-import numpy as np
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -52,7 +51,7 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
             / 10000
         )
     except IndexError as e:
-        temp_df_ratio = np.nan
+        temp_df_ratio = pd.NA
     temp_df_yuan = common_temp_df["手续费标准-开仓"][
         common_temp_df["手续费标准-开仓"].str.contains("元")
     ]
@@ -68,7 +67,7 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
             / 10000
         )
     except IndexError as e:
-        temp_df_ratio = np.nan
+        temp_df_ratio = pd.NA
     temp_df_yuan = common_temp_df["手续费标准-平昨"][
         common_temp_df["手续费标准-平昨"].str.contains("元")
     ]
@@ -84,7 +83,7 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
             / 10000
         )
     except IndexError as e:
-        temp_df_ratio = np.nan
+        temp_df_ratio = pd.NA
     temp_df_yuan = common_temp_df["手续费标准-平今"][
         common_temp_df["手续费标准-平今"].str.contains("元")
     ]

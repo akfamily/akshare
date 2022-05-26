@@ -971,7 +971,7 @@ if __name__ == "__main__":
     print(stock_gdfx_holding_change_em_df)
 
     stock_gdfx_free_top_10_em_df = stock_gdfx_free_top_10_em(
-        symbol="sh688686", date="20210630"
+        symbol="sz000420", date="20220331"
     )
     print(stock_gdfx_free_top_10_em_df)
 

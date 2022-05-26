@@ -307,7 +307,7 @@ if __name__ == "__main__":
     currency_pair_map_df = currency_pair_map(symbol="人民币")
     print(currency_pair_map_df)
 
-    currency_name_code_df = currency_name_code(symbol="usd/jpy")
+    currency_name_code_df = currency_name_code(symbol="cny/dkk")
     print(currency_name_code_df)
 
     currency_hist_df = currency_hist(

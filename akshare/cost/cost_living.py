@@ -1,24 +1,24 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/12/18 12:32
-Desc: 获取世界各大城市生活成本数据
+Date: 2022/5/25 20:32
+Desc: 世界各大城市生活成本数据
 https://expatistan.com/cost-of-living/index
 """
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-from akshare.cost.cons import url, name_url_map
 
-
-def _get_region():
+def _get_region() -> dict:
     """
     获取主要板块, 一般不调用
-    :return: dict
+    :return: 主要板块
+    :rtype: dict
     """
-    res = requests.get(url)
-    soup = BeautifulSoup(res.text, "lxml")
+    url = "https://www.expatistan.com/cost-of-living/index"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
     half_url_list = [
         item["href"]
         for item in soup.find("ul", attrs={"class": "regions"}).find_all("a")
@@ -36,12 +36,24 @@ def cost_living(region: str = "world") -> pd.DataFrame:
     """
     国家或地区生活成本数据
     https://expatistan.com/cost-of-living/index
-    :param region: str ["europe", "north-america", "latin-america", "asia", "middle-east", "africa", "oceania", "world"]
-    :return: pandas.DataFrame
+    :param region: choice of {"europe", "north-america", "latin-america", "asia", "middle-east", "africa", "oceania", "world"}
+    :type region: str
+    :return: 国家或地区生活成本数据
+    :rtype: pandas.DataFrame
     """
-    object_url = f"https://www.expatistan.com{name_url_map[region]}"
-    res = requests.get(object_url)
-    temp_df = pd.read_html(res.text)[0]
+    name_url_map = {
+        "europe": "/cost-of-living/index/europe",
+        "north-america": "/cost-of-living/index/north-america",
+        "latin-america": "/cost-of-living/index/latin-america",
+        "asia": "/cost-of-living/index/asia",
+        "middle-east": "/cost-of-living/index/middle-east",
+        "africa": "/cost-of-living/index/africa",
+        "oceania": "/cost-of-living/index/oceania",
+        "world": "/cost-of-living/index",
+    }
+    url = f"https://www.expatistan.com{name_url_map[region]}"
+    r = requests.get(url)
+    temp_df = pd.read_html(r.text)[0]
     temp_df.columns = ["rank", "city", "index"]
     return temp_df
 

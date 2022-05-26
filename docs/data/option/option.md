@@ -2,6 +2,8 @@
 
 ### 金融期权-三大交易所
 
+#### 行情数据
+
 接口: option_finance_board
 
 目标地址: http://www.sse.com.cn/assortment/options/price/, http://www.szse.cn/market/derivative/derivative_list/index.html, http://www.cffex.com.cn/hs300gzqq/
@@ -305,6 +307,63 @@ print(option_finance_board_df)
 123  IO2103-P-6000       143      59  ...        1    -1.0        0
 124  IO2103-P-6100        35      25  ...        1  1127.8        1
 125  IO2103-P-6200        72      68  ...        1  1215.0        1
+```
+
+#### 风险指标-上海证券交易所
+
+接口: option_risk_indicator_sse
+
+目标地址: http://www.sse.com.cn/assortment/options/risk/
+
+描述: 上海证券交易所-产品-股票期权-期权风险指标数据
+
+限量: 单次返回指定 date 的数据
+
+输入参数
+
+| 名称   | 类型  | 描述                                  |
+|------|-----|-------------------------------------|
+| date | str | date="20220516"; 交易日; 从 20150209 开始 |
+
+输出参数
+
+| 名称              | 类型      | 描述  |
+|-----------------|---------|-----|
+| TRADE_DATE      | object  | -   |
+| SECURITY_ID     | object  | -   |
+| CONTRACT_ID     | object  | -   |
+| CONTRACT_SYMBOL | object  | -   |
+| DELTA_VALUE     | float64 | -   |
+| THETA_VALUE     | float64 | -   |
+| GAMMA_VALUE     | float64 | -   |
+| VEGA_VALUE      | float64 | -   |
+| RHO_VALUE       | float64 | -   |
+| IMPLC_VOLATLTY  | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+option_risk_indicator_sse_df = ak.option_risk_indicator_sse(date="20220516")
+print(option_risk_indicator_sse_df)
+```
+
+数据示例
+
+```
+     TRADE_DATE SECURITY_ID  ... RHO_VALUE IMPLC_VOLATLTY
+0    2022-05-16    10004211  ...     0.059          0.327
+1    2022-05-16    10004212  ...     0.061          0.196
+2    2022-05-16    10004213  ...     0.057          0.269
+3    2022-05-16    10004205  ...     0.053          0.263
+4    2022-05-16    10004201  ...     0.045          0.250
+..          ...         ...  ...       ...            ...
+285  2022-05-16    10004269  ...    -1.289          0.263
+286  2022-05-16    10004270  ...    -1.439          0.266
+287  2022-05-16    10004271  ...    -1.587          0.269
+288  2022-05-16    10004272  ...    -1.730          0.273
+289  2022-05-16    10004278  ...    -1.868          0.278
 ```
 
 ### 金融期权-新浪

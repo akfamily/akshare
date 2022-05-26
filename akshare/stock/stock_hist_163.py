@@ -10,12 +10,14 @@ import requests
 
 
 def stock_zh_a_hist_163(
-    symbol: str = "sh601318", start_date: str = "10700101", end_date: str = "20500101"
+    symbol: str = "sh601318",
+    start_date: str = "10700101",
+    end_date: str = "20500101",
 ) -> pd.DataFrame:
     """
     网易财经-行情首页-沪深 A 股-每日行情
     注意：该接口只返回未复权数据
-    http://quote.eastmoney.com/concept/sh603777.html?from=classic
+    http://quotes.money.163.com/trade/lsjysj_601318.html?year=2022&season=2
     :param symbol: 带市场表示的股票代码
     :type symbol: str
     :param start_date: 开始时间
@@ -49,8 +51,11 @@ def stock_zh_a_hist_163(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
+    r.encoding = "gb2312"
     data_text = r.text
-    temp_df = pd.DataFrame([item.split(",") for item in data_text.split("\r\n")[1:]])
+    temp_df = pd.DataFrame(
+        [item.split(",") for item in data_text.split("\r\n")[1:]]
+    )
     temp_df.columns = [
         "日期",
         "股票代码",
@@ -94,7 +99,7 @@ def stock_zh_a_hist_163(
 
 if __name__ == "__main__":
     stock_zh_a_hist_163_df = stock_zh_a_hist_163(
-        symbol="sz000651", start_date="20220311", end_date="20220411"
+        symbol="sh000001", start_date="20201029", end_date="20220517"
     )
     print(stock_zh_a_hist_163_df)
 

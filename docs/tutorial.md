@@ -377,8 +377,10 @@
  "bond_zh_hs_cov_spot"  # 债券-沪深可转债-实时行情数据
  "bond_zh_cov"  # 债券-可转债数据一览表
  "bond_cov_comparison"  # 债券-可转债数据比价
- "bond_cov_jsl"  # 可转债实时数据-集思录
- "bond_conv_adj_logs_jsl"  # 可转债转股价变动-集思录
+ "bond_cb_jsl"  # 可转债实时数据-集思录
+ "bond_cb_adj_logs_jsl"  # 可转债转股价变动-集思录
+ "bond_cb_index_jsl"  # 可转债-集思录可转债等权指数
+ "bond_cb_redeem_jsl"  # 可转债-集思录可转债-强赎
  # 金融期权-新浪
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
@@ -507,7 +509,9 @@
  "stock_institute_recommend"  # 机构推荐
  "stock_institute_recommend_detail"  # 股票评级记录
  # 股票市场总貌
- "stock_szse_summary"  # 深圳证券交易所-市场总貌
+ "stock_szse_summary"  # 深圳证券交易所-市场总貌-证券类别统计
+ "stock_szse_area_summary"  # 深圳证券交易所-市场总貌-地区交易排序
+  "stock_szse_sector_summary"  # 深圳证券交易所-统计资料-股票行业成交
  "stock_sse_summary"  # 上海证券交易所-股票数据总貌
  "stock_sse_deal_daily"  # 上海证券交易所-每日股票情况
  # 美股港股目标价
@@ -1085,6 +1089,8 @@
  "news_trade_notify_suspend_baidu"  # 停复牌
  # 财报发行
  "news_report_time_baidu"  # 财报发行
+ # 金融期权
+ "option_risk_indicator_sse"  # 上海证券交易所-产品-股票期权-期权风险指标
 ```
 
 ## 案例演示

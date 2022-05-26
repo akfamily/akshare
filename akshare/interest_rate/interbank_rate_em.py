@@ -1,120 +1,134 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/17 20:13
+Date: 2022/5/24 20:13
 Desc: 东方财富网-经济数据-银行间拆借利率
-http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
-Attention: 大量获取容易封 IP, 建议 20 分钟后再尝试或者切换 WIFI 为手机热点, 也可以修改本函数只更新增量
 """
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 from tqdm import tqdm
-
-from akshare.interest_rate.cons import market_symbol_indicator_dict, headers
-
-
-class IPError(Exception):
-    """
-    Define IPError
-    """
-    pass
-
-
-def _get_page_num(
-    market: str = "上海银行同业拆借市场", symbol: str = "Shibor人民币", indicator: str = "隔夜"
-) -> int:
-    """
-    具体市场具体品种具体指标的页面数量
-    http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
-    :param market: ["上海银行同业拆借市场", "中国银行同业拆借市场", "伦敦银行同业拆借市场", "欧洲银行同业拆借市场", "香港银行同业拆借市场", "新加坡银行同业拆借市场"]
-    :type market: str
-    :param symbol: ["Shibor人民币", ***]
-    :type symbol: str
-    :param indicator: str
-    :type indicator: ["隔夜", "1周", "2周", ***]
-    :return: 具体市场具体品种具体指标的页面数量
-    :rtype: int
-    """
-    need_url = market_symbol_indicator_dict[market][symbol][indicator] + "&p=1"
-    res = requests.get(need_url, headers=headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    try:
-        page_num = (
-            soup.find("div", attrs={"class": "Page"})
-            .find_all("a", attrs={"target": "_self"})[-1]["href"]
-            .split("=")[-1]
-        )
-    except AttributeError as e:
-        raise IPError("IP 被封了, 建议 20 分钟后再尝试或者切换 WIFI 为手机热点")
-    return int(page_num)
 
 
 def rate_interbank(
     market: str = "上海银行同业拆借市场",
     symbol: str = "Shibor人民币",
     indicator: str = "隔夜",
-    need_page="",
-) -> pd.DataFrame:
+):
     """
-    具体市场具体品种具体指标的拆借利率数据
+    东方财富-拆借利率一览-具体市场的具体品种的具体指标的拆借利率数据
     具体 market 和 symbol 参见: http://data.eastmoney.com/shibor/shibor.aspx?m=sg&t=88&d=99333&cu=sgd&type=009065&p=79
     :param market: choice of {"上海银行同业拆借市场", "中国银行同业拆借市场", "伦敦银行同业拆借市场", "欧洲银行同业拆借市场", "香港银行同业拆借市场", "新加坡银行同业拆借市场"}
     :type market: str
-    :param symbol: choice of {"Shibor人民币", ***}
+    :param symbol: choice of {"Shibor人民币", "Chibor人民币", "Libor英镑", "***", "Sibor美元"}
     :type symbol: str
-    :param indicator: str
-    :type indicator: choice of {"隔夜", "1周", "2周", ***}
-    :param need_page: 返回前 need_page 页的数据; e.g., need_page="5", 则只返回前5页的数据, 此参数可以用于增量更新, 以免被封 IP
-    :type need_page: str
-    :return: 具体市场具体品种具体指标的拆借利率数据
+    :param indicator: choice of {"隔夜", "1周", "2周", "***", "1年"}
+    :type indicator: str
+    :return: 具体市场的具体品种的具体指标的拆借利率数据
     :rtype: pandas.DataFrame
     """
-    page_num = _get_page_num(market=market, symbol=symbol, indicator=indicator)
-    temp_df = pd.DataFrame()
-    if need_page == "":
-        for page in tqdm(range(1, page_num + 1), leave=False):
-            need_url = (
-                market_symbol_indicator_dict[market][symbol][indicator] + f"&p={page}"
-            )
-            res = requests.get(need_url, headers=headers)
-            table = pd.read_html(res.text)[0]
-            temp_df = temp_df.append(table, ignore_index=True)
-        temp_df.columns = [
-            "日期",
+    market_map = {
+        "上海银行同业拆借市场": "001",
+        "中国银行同业拆借市场": "002",
+        "伦敦银行同业拆借市场": "003",
+        "欧洲银行同业拆借市场": "004",
+        "香港银行同业拆借市场": "005",
+        "新加坡银行同业拆借市场": "006",
+    }
+    symbol_map = {
+        "Shibor人民币": "CNY",
+        "Chibor人民币": "CNY",
+        "Libor英镑": "GBP",
+        "Libor欧元": "EUR",
+        "Libor美元": "USD",
+        "Libor日元": "JPY",
+        "Euribor欧元": "EUR",
+        "Hibor美元": "USD",
+        "Hibor人民币": "CNH",
+        "Hibor港币": "HKD",
+        "Sibor星元": "SGD",
+        "Sibor美元": "USD",
+    }
+    indicator_map = {
+        "隔夜": "001",
+        "1周": "101",
+        "2周": "102",
+        "3周": "103",
+        "1月": "201",
+        "2月": "202",
+        "3月": "203",
+        "4月": "204",
+        "5月": "205",
+        "6月": "206",
+        "7月": "207",
+        "8月": "208",
+        "9月": "209",
+        "10月": "210",
+        "11月": "211",
+        "1年": "301",
+    }
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "reportName": "RPT_IMP_INTRESTRATEN",
+        "columns": "REPORT_DATE,REPORT_PERIOD,IR_RATE,CHANGE_RATE,INDICATOR_ID,LATEST_RECORD,MARKET,MARKET_CODE,CURRENCY,CURRENCY_CODE",
+        "quoteColumns": "",
+        "filter": f"""(MARKET_CODE="{market_map[market]}")(CURRENCY_CODE="{symbol_map[symbol]}")(INDICATOR_ID="{indicator_map[indicator]}")""",
+        "pageNumber": "1",
+        "pageSize": "500",
+        "sortTypes": "-1",
+        "sortColumns": "REPORT_DATE",
+        "source": "WEB",
+        "client": "WEB",
+        "p": "1",
+        "pageNo": "1",
+        "pageNum": "1",
+        "_": "1653376974939",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update(
+            {
+                "pageNumber": page,
+                "p": page,
+                "pageNo": page,
+                "pageNum": page,
+            }
+        )
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df.columns = [
+        "报告日",
+        "-",
+        "利率",
+        "涨跌",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+    ]
+    big_df = big_df[
+        [
+            "报告日",
             "利率",
             "涨跌",
         ]
-        temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-        temp_df['利率'] = pd.to_numeric(temp_df['利率'])
-        temp_df['涨跌'] = pd.to_numeric(temp_df['涨跌'])
-        return temp_df
-    else:
-        for page in tqdm(range(1, int(need_page) + 1)):
-            need_url = (
-                market_symbol_indicator_dict[market][symbol][indicator] + f"&p={page}"
-            )
-            res = requests.get(need_url, headers=headers)
-            table = pd.read_html(res.text)[0]
-            temp_df = temp_df.append(table, ignore_index=True)
-        temp_df.columns = [
-            "日期",
-            "利率",
-            "涨跌",
-        ]
-        temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-        temp_df['利率'] = pd.to_numeric(temp_df['利率'])
-        temp_df['涨跌'] = pd.to_numeric(temp_df['涨跌'])
-        return temp_df
+    ]
+    big_df["报告日"] = pd.to_datetime(big_df["报告日"]).dt.date
+    big_df["利率"] = pd.to_numeric(big_df["利率"])
+    big_df["涨跌"] = pd.to_numeric(big_df["涨跌"])
+    big_df.sort_values(["报告日"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
 
 
 if __name__ == "__main__":
     rate_interbank_shanghai_df = rate_interbank(
-        market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月", need_page="22"
+        market="上海银行同业拆借市场", symbol="Shibor人民币", indicator="3月"
     )
     print(rate_interbank_shanghai_df)
-
-    rate_interbank_df = rate_interbank(
-        market="新加坡银行同业拆借市场", symbol="Sibor星元", indicator="1月", need_page="2"
-    )
-    print(rate_interbank_df)

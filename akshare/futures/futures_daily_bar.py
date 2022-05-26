@@ -10,7 +10,6 @@ import re
 import zipfile
 from io import BytesIO, StringIO
 
-import numpy as np
 import pandas as pd
 import requests
 
@@ -512,7 +511,6 @@ def get_futures_daily(
     start_date: str = "20220208",
     end_date: str = "20220208",
     market: str = "INE",
-    index_bar: bool = False,
 ) -> pd.DataFrame:
     """
     交易所日交易数据
@@ -522,8 +520,6 @@ def get_futures_daily(
     :type end_date: str
     :param market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
     :type market: str
-    :param index_bar: 是否合成指数K线, 默认为 False 否则影响 roll_yield 的计算
-    :type index_bar: bool
     :return: 交易所日交易数据
     :rtype: pandas.DataFrame
     """
@@ -557,8 +553,6 @@ def get_futures_daily(
         df = f(date=str(start_date).replace("-", ""))
         if df is not None:
             df_list.append(df)
-            if index_bar:
-                df_list.append(get_futures_index(df))
         start_date += datetime.timedelta(days=1)
 
     if len(df_list) > 0:
@@ -567,47 +561,8 @@ def get_futures_daily(
         return temp_df
 
 
-def get_futures_index(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    指数日交易数据, 指数合成
-    :param df: 爬到的原始合约日线行情
-    :type df: pandas.DataFrame
-    :return: 持仓量加权指数日线行情
-    :rtype: pandas.DataFrame
-    """
-    index_dfs = []
-    for var in set(df["variety"]):
-        df_cut = df[df["variety"] == var]
-        df_cut = df_cut[df_cut["open_interest"] != 0]
-        df_cut = df_cut[df_cut["close"] != np.nan]
-        df_cut = df_cut[df_cut["volume"] != int(0)]
-        if len(df_cut.index) > 0:
-            index_df = pd.Series(index=df_cut.columns, dtype="object")
-            index_df[["volume", "open_interest", "turnover"]] = df_cut[
-                ["volume", "open_interest", "turnover"]
-            ].sum()
-            if "efp" in df_cut.iloc[-1, 0]:
-                df_cut = df_cut.iloc[:-1, :]
-            df_cut.replace("", 0, inplace=True)  # 20201026 部分数据开盘价空缺
-            index_df[["open", "high", "low", "close", "settle", "pre_settle"]] = (
-                np.dot(
-                    np.array(
-                        df_cut[["open", "high", "low", "close", "settle", "pre_settle"]]
-                    ).T,
-                    np.array((df_cut["open_interest"].astype(float))),
-                )
-                / np.sum(df_cut["open_interest"].astype(float))
-            )
-            index_df[["date", "variety"]] = df_cut[["date", "variety"]].iloc[0, :]
-            index_df["symbol"] = index_df["variety"] + "99"
-            index_dfs.append(index_df)
-    return pd.concat(index_dfs, axis=1).T
-
-
 if __name__ == "__main__":
-    get_futures_daily_df = get_futures_daily(
-        start_date="20220308", end_date="20220308", market="DCE", index_bar=False
-    )
+    get_futures_daily_df = get_futures_daily(start_date="20220308", end_date="20220308", market="DCE")
     print(get_futures_daily_df)
 
     get_dce_daily_df = get_dce_daily(date="20220308")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/5/21 20:14
+Date: 2022/5/22 22:14
 Desc: 新浪财经-美股实时行情数据和历史行情数据
 http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
@@ -36,9 +36,12 @@ def get_us_page_count() -> int:
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
     us_sina_stock_dict_payload.update({"page": "{}".format(page)})
     res = requests.get(
-        us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
+        us_sina_stock_list_url.format(dict_list),
+        params=us_sina_stock_dict_payload,
     )
-    data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
+    data_json = json.loads(
+        res.text[res.text.find("({") + 1 : res.text.rfind(");")]
+    )
     if not isinstance(int(data_json["count"]) / 20, int):
         page_count = int(int(data_json["count"]) / 20) + 1
     else:
@@ -66,10 +69,15 @@ def get_us_stock_name() -> pd.DataFrame:
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
         res = requests.get(
-            us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
+            us_sina_stock_list_url.format(dict_list),
+            params=us_sina_stock_dict_payload,
         )
-        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
-        big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+        data_json = json.loads(
+            res.text[res.text.find("({") + 1 : res.text.rfind(");")]
+        )
+        big_df = pd.concat(
+            [big_df, pd.DataFrame(data_json["data"])], ignore_index=True
+        )
     return big_df[["name", "cname", "symbol"]]
 
 
@@ -92,10 +100,15 @@ def stock_us_spot() -> pd.DataFrame:
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
         res = requests.get(
-            us_sina_stock_list_url.format(dict_list), params=us_sina_stock_dict_payload
+            us_sina_stock_list_url.format(dict_list),
+            params=us_sina_stock_dict_payload,
         )
-        data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
-        big_df = big_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+        data_json = json.loads(
+            res.text[res.text.find("({") + 1 : res.text.rfind(");")]
+        )
+        big_df = pd.concat(
+            [big_df, pd.DataFrame(data_json["data"])], ignore_index=True
+        )
     return big_df
 
 
@@ -121,20 +134,31 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     data_df = pd.DataFrame(dict_list)
-    data_df['date'] = pd.to_datetime(data_df["date"]).dt.date
+    data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
     data_df.index = pd.to_datetime(data_df["date"])
     del data_df["amount"]
     del data_df["date"]
     data_df = data_df.astype("float")
     url = us_sina_stock_hist_qfq_url.format(symbol)
     res = requests.get(url)
-    qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])["data"])
-    qfq_factor_df.rename(columns={"c": "adjust", "d": "date", "f": "qfq_factor", }, inplace=True)
+    qfq_factor_df = pd.DataFrame(
+        eval(res.text.split("=")[1].split("\n")[0])["data"]
+    )
+    qfq_factor_df.rename(
+        columns={
+            "c": "adjust",
+            "d": "date",
+            "f": "qfq_factor",
+        },
+        inplace=True,
+    )
     qfq_factor_df.index = pd.to_datetime(qfq_factor_df["date"])
     del qfq_factor_df["date"]
 
     # 处理复权因子
-    temp_date_range = pd.date_range("1900-01-01", qfq_factor_df.index[0].isoformat())
+    temp_date_range = pd.date_range(
+        "1900-01-01", qfq_factor_df.index[0].isoformat()
+    )
     temp_df = pd.DataFrame(range(len(temp_date_range)), temp_date_range)
     new_range = pd.merge(
         temp_df, qfq_factor_df, left_index=True, right_index=True, how="left"
@@ -144,17 +168,27 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
 
     if adjust == "qfq":
         if len(new_range) == 1:
-            new_range.index.values[0] = pd.to_datetime(str(data_df.index.date[0]))
+            new_range.index.values[0] = pd.to_datetime(
+                str(data_df.index.date[0])
+            )
         temp_df = pd.merge(
             data_df, new_range, left_index=True, right_index=True, how="left"
         )
         temp_df.fillna(method="ffill", inplace=True)
         temp_df.fillna(method="bfill", inplace=True)
         temp_df = temp_df.astype(float)
-        temp_df["open"] = temp_df["open"] * temp_df["qfq_factor"] + temp_df["adjust"]
-        temp_df["high"] = temp_df["high"] * temp_df["qfq_factor"] + temp_df["adjust"]
-        temp_df["close"] = temp_df["close"] * temp_df["qfq_factor"] + temp_df["adjust"]
-        temp_df["low"] = temp_df["low"] * temp_df["qfq_factor"] + temp_df["adjust"]
+        temp_df["open"] = (
+            temp_df["open"] * temp_df["qfq_factor"] + temp_df["adjust"]
+        )
+        temp_df["high"] = (
+            temp_df["high"] * temp_df["qfq_factor"] + temp_df["adjust"]
+        )
+        temp_df["close"] = (
+            temp_df["close"] * temp_df["qfq_factor"] + temp_df["adjust"]
+        )
+        temp_df["low"] = (
+            temp_df["low"] * temp_df["qfq_factor"] + temp_df["adjust"]
+        )
         temp_df = temp_df.apply(lambda x: round(x, 4))
         temp_df = temp_df.astype("float")
         # 处理复权因子错误的情况-开始
@@ -172,16 +206,24 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         return data_df
 
 
-def stock_us_fundamental(stock: str = "GOOGL", symbol: str = "info") -> pd.DataFrame:
+def stock_us_fundamental(
+    stock: str = "GOOGL", symbol: str = "info"
+) -> pd.DataFrame:
     """
     美股财务指标
     https://www.macrotrends.net/stocks/stock-screener
+    :param stock: 美股 ticker, 可以通过调用 **ak.stock_us_fundamental(symbol="info")** 获取所有 ticker
+    :type stock: str
+    :param symbol: info: 返回所有美股列表, PE: 返回 PE 数据, PB: 返回 PB 数据
+    :type symbol: str
     :return: 指定股票的财务数据
     :rtype: pandas.DataFrame
     """
     url = "https://www.macrotrends.net/stocks/stock-screener"
     r = requests.get(url)
-    temp_text = r.text[r.text.find("originalData")+15:r.text.find("filterArray")-8]
+    temp_text = r.text[
+        r.text.find("originalData") + 15 : r.text.find("filterArray") - 8
+    ]
     data_json = json.loads(temp_text)
     temp_df = pd.DataFrame(data_json)
     if symbol == "info":
@@ -194,12 +236,22 @@ def stock_us_fundamental(stock: str = "GOOGL", symbol: str = "info") -> pd.DataF
         if symbol == "PE":
             url = base_url.rsplit("/", maxsplit=1)[0] + "/pe-ratio"
             temp_df = pd.read_html(url)[0]
-            temp_df.columns = ["date", "stock_price", "ttm_net_eps", "pe_ratio"]
+            temp_df.columns = [
+                "date",
+                "stock_price",
+                "ttm_net_eps",
+                "pe_ratio",
+            ]
             return temp_df
         elif symbol == "PB":
             url = base_url.rsplit("/", maxsplit=1)[0] + "/price-book"
             temp_df = pd.read_html(url)[0]
-            temp_df.columns = ["date", "stock_price", "book_value_per_share", "price_to_book_ratio"]
+            temp_df.columns = [
+                "date",
+                "stock_price",
+                "book_value_per_share",
+                "price_to_book_ratio",
+            ]
             return temp_df
 
 
@@ -216,7 +268,9 @@ if __name__ == "__main__":
     stock_us_daily_qfq_df = stock_us_daily(symbol="AAPL", adjust="qfq")
     print(stock_us_daily_qfq_df)
 
-    stock_us_daily_qfq_factor_df = stock_us_daily(symbol="AAPL", adjust="qfq-factor")
+    stock_us_daily_qfq_factor_df = stock_us_daily(
+        symbol="AAPL", adjust="qfq-factor"
+    )
     print(stock_us_daily_qfq_factor_df)
 
     stock_us_fundamental_df = stock_us_fundamental(symbol="info")

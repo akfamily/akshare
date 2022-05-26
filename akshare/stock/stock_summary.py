@@ -12,15 +12,16 @@ from io import BytesIO
 
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 
 
 def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
     """
-    深证证券交易所-总貌
+    深证证券交易所-总貌-证券类别统计
     http://www.szse.cn/market/overview/index.html
     :param date: 最近结束交易日
     :type date: str
-    :return: 深证证券交易所-总貌
+    :return: 证券类别统计
     :rtype: pandas.DataFrame
     """
     url = "http://www.szse.cn/api/report/ShowReport"
@@ -37,14 +38,106 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
         temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
     temp_df["证券类别"] = temp_df["证券类别"].str.strip()
     temp_df.iloc[:, 2:] = temp_df.iloc[:, 2:].applymap(lambda x: x.replace(",", ""))
-    temp_df.columns = ["证券类别", "数量", "成交金额", "成交量", "总股本", "总市值", "流通股本", "流通市值"]
+    temp_df.columns = ["证券类别", "数量", "成交金额", "总市值", "流通市值"]
     temp_df["数量"] = pd.to_numeric(temp_df["数量"])
     temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["总股本"] = pd.to_numeric(temp_df["总股本"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    temp_df["流通股本"] = pd.to_numeric(temp_df["流通股本"], errors="coerce")
     temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
+    return temp_df
+
+
+def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
+    """
+    深证证券交易所-总貌-地区交易排序
+    http://www.szse.cn/market/overview/index.html
+    :param date: 最近结束交易日
+    :type date: str
+    :return: 地区交易排序
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.szse.cn/api/report/ShowReport"
+    params = {
+        "SHOWTYPE": "xlsx",
+        "CATALOGID": "1803_sczm",
+        "TABKEY": "tab2",
+        "DATETIME": "-".join([date[:4], date[4:6]]),
+        "random": "0.39339437497296137",
+    }
+    r = requests.get(url, params=params)
+    with warnings.catch_warnings(record=True):
+        warnings.simplefilter("always")
+        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
+    temp_df.columns = ['序号', '地区', '总交易额', '占市场', '股票交易额', '基金交易额', '债券交易额']
+    temp_df["总交易额"] = temp_df["总交易额"].str.replace(",", "")
+    temp_df["总交易额"] = pd.to_numeric(temp_df["总交易额"])
+    temp_df["占市场"] = pd.to_numeric(temp_df["占市场"])
+    temp_df["股票交易额"] = temp_df["股票交易额"].str.replace(",", "")
+    temp_df["股票交易额"] = pd.to_numeric(temp_df["股票交易额"], errors="coerce")
+    temp_df["基金交易额"] = temp_df["基金交易额"].str.replace(",", "")
+    temp_df["基金交易额"] = pd.to_numeric(temp_df["基金交易额"], errors="coerce")
+    temp_df["债券交易额"] = temp_df["债券交易额"].str.replace(",", "")
+    temp_df["债券交易额"] = pd.to_numeric(temp_df["债券交易额"], errors="coerce")
+    return temp_df
+
+
+def stock_szse_sector_summary(symbol: str = "当月", date: str = "202203") -> pd.DataFrame:
+    """
+    深圳证券交易所-统计资料-股票行业成交
+    http://docs.static.szse.cn/www/market/periodical/month/W020220511355248518608.html
+    :param symbol: choice of {"当月", "当年"}
+    :type symbol: str
+    :param date: 交易年月
+    :type date: str
+    :return: 股票行业成交
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.szse.cn/market/periodical/month/index.html"
+    r = requests.get(url)
+    r.encoding = "utf8"
+    soup = BeautifulSoup(r.text, "lxml")
+    tags_list = soup.find_all("div", attrs={"class": "g-container"})[4].find_all("script")
+    tags_dict = [eval(item.string[item.string.find("{"): item.string.find("}")+1].replace("\n", "").replace(" ", "").replace("value", "'value'").replace("text", "'text'")) for item in tags_list]
+    date_url_dict = dict(zip([item['text'] for item in tags_dict], [item['value'][2:] for item in tags_dict]))
+    date_format = '-'.join([date[:4], date[4:]])
+    url = f"http://www.szse.cn/market/periodical/month/{date_url_dict[date_format]}"
+    r = requests.get(url)
+    r.encoding = "utf8"
+    soup = BeautifulSoup(r.text, "lxml")
+    url = soup.find("a", text="股票行业成交数据")['href']
+    if symbol == "当月":
+        temp_df = pd.read_html(url, encoding="gbk")[0]
+        temp_df.columns = [
+            "项目名称",
+            "项目名称-英文",
+            "交易天数",
+            "成交金额-人民币元",
+            "成交金额-占总计",
+            "成交股数-股数",
+            "成交股数-占总计",
+            "成交笔数-笔",
+            "成交笔数-占总计",
+        ]
+    else:
+        temp_df = pd.read_html(url, encoding="gbk")[1]
+        temp_df.columns = [
+            "项目名称",
+            "项目名称-英文",
+            "交易天数",
+            "成交金额-人民币元",
+            "成交金额-占总计",
+            "成交股数-股数",
+            "成交股数-占总计",
+            "成交笔数-笔",
+            "成交笔数-占总计",
+        ]
+
+    temp_df['交易天数'] = pd.to_numeric(temp_df['交易天数'])
+    temp_df['成交金额-人民币元'] = pd.to_numeric(temp_df['成交金额-人民币元'])
+    temp_df['成交金额-占总计'] = pd.to_numeric(temp_df['成交金额-占总计'])
+    temp_df['成交股数-股数'] = pd.to_numeric(temp_df['成交股数-股数'])
+    temp_df['成交股数-占总计'] = pd.to_numeric(temp_df['成交股数-占总计'])
+    temp_df['成交笔数-笔'] = pd.to_numeric(temp_df['成交笔数-笔'])
+    temp_df['成交笔数-占总计'] = pd.to_numeric(temp_df['成交笔数-占总计'])
     return temp_df
 
 
@@ -330,8 +423,14 @@ def stock_sse_deal_daily(date: str = "20220331") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_szse_summary_df = stock_szse_summary(date="20211202")
+    stock_szse_summary_df = stock_szse_summary(date="20200619")
     print(stock_szse_summary_df)
+
+    stock_szse_area_summary_df = stock_szse_area_summary(date="202203")
+    print(stock_szse_area_summary_df)
+
+    stock_szse_sector_summary_df = stock_szse_sector_summary(symbol="当年", date="202204")
+    print(stock_szse_sector_summary_df)
 
     stock_sse_summary_df = stock_sse_summary()
     print(stock_sse_summary_df)
