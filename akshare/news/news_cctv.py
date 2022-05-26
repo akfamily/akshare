@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/20 21:44
+Date: 2022/5/26 15:42
 Desc: 新闻联播文字稿
 https://tv.cctv.com/lm/xwlb/?spm=C52056131267.P4y8I53JvSWE.0.0
 """
@@ -146,8 +146,16 @@ def news_cctv(date: str = "20130308") -> pd.DataFrame:
                 r = requests.get(page, headers=headers)
                 r.encoding = "utf-8"
                 soup = BeautifulSoup(r.text, "lxml")
-                title = soup.find("h3").text
-                content = soup.find("div", attrs={"class": "cnt_bd"}).text
+                if soup.find("h3"):
+                    title = soup.find("h3").text
+                else:
+                    title = soup.find("div", attrs={"class": "tit"}).text
+                if soup.find("div", attrs={"class": "cnt_bd"}):
+                    content = soup.find("div", attrs={"class": "cnt_bd"}).text
+                else:
+                    content = soup.find(
+                        "div", attrs={"class": "content_area"}
+                    ).text
                 title_list.append(
                     title.strip("[视频]").strip().replace("\n", " ")
                 )
@@ -169,5 +177,5 @@ def news_cctv(date: str = "20130308") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_cctv_df = news_cctv(date="20220518")
+    news_cctv_df = news_cctv(date="20220525")
     print(news_cctv_df)
