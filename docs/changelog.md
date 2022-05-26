@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.5.97 fix: fix stock_zh_a_hist interface
+
+    1. 修复 stock_zh_a_hist 接口，除以日期设置的边界问题
+
 1.5.96 fix: fix macro_bank_usa_interest_rate interface
 
     1. 修复 macro_bank_usa_interest_rate 接口，规范输出数据格式且按时间排序
@@ -669,6 +673,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.5.97 fix: fix stock_zh_a_hist interface
 
 1.5.96 fix: fix macro_bank_usa_interest_rate interface
 
