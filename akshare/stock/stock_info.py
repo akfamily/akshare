@@ -151,24 +151,25 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df.columns = [
-        "代码",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "证券简称",
+        "扩位证券简称",
         "-",
         "上市日期",
         "-",
+        "证券代码",
         "-",
-        "公司代码",
-        "-",
-        "-",
-        "-",
-        "简称",
-        "公司简称",
     ]
     temp_df = temp_df[
         [
-            "公司代码",
-            "公司简称",
-            "代码",
-            "简称",
+            "证券代码",
+            "证券简称",
+            "扩位证券简称",
             "上市日期",
         ]
     ]
