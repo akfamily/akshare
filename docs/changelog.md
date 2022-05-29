@@ -29,6 +29,11 @@
 
 ## 更新说明
 
+1.6.3 fix: fix stock_info_a_code_name and stock_info_sh_delist interface
+
+    1. 修复 stock_info_a_code_name 接口，调整字段
+    2. 修复 stock_info_sh_delist 接口，调整字段
+
 1.6.2 fix: fix macro_china_cpi interface
 
     1. 修复 macro_china_cpi 接口，输出按日期排序
@@ -689,6 +694,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.3 fix: fix stock_info_a_code_name and stock_info_sh_delist interface
 
 1.6.2 fix: fix macro_china_cpi interface
 
