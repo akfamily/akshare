@@ -10622,10 +10622,10 @@ print(stock_sector_detail_df)
 
 输出参数
 
-| 名称    | 类型  | 描述  |
-|-------|-----|-----|
-| item  | str | -   |
-| value | str | -   |
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| code | object | -   |
+| name | object | -   |
 
 接口示例
 
