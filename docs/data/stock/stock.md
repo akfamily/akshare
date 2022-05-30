@@ -15064,15 +15064,15 @@ print(stock_board_concept_cons_ths_df)
 40  41  688088   虹软科技   51.58  ...   0.96亿   2.64亿   136.19亿   80.110000
 ```
 
-#### 同花顺-成份股-概念代码
+#### 同花顺-成份股-行业板块和概念板块
 
 接口: stock_board_cons_ths
 
-目标地址: http://q.10jqka.com.cn/thshy/detail/code/885611/
+目标地址: http://q.10jqka.com.cn/gn/
 
-描述: 同花顺-板块-概念板块-成份股数据
+描述: 同花顺-板块-行业板块和概念板块-成份股数据
 
-限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths()** 返回该板块信息
+限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths() 或者 ak.stock_board_industry_info_ths** 返回板块信息
 
 输入参数
 
