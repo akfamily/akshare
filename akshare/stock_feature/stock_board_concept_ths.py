@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/23 17:10
+Date: 2022/5/30 19:10
 Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
 from datetime import datetime
+from functools import lru_cache
 
 import pandas as pd
 import requests
@@ -31,6 +32,7 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
     return file_data
 
 
+@lru_cache()
 def stock_board_concept_name_ths() -> pd.DataFrame:
     """
     同花顺-板块-概念板块-概念
@@ -317,9 +319,9 @@ def stock_board_concept_hist_ths(
     return big_df
 
 
-def stock_board_cons_ths(symbol: str = "885611") -> pd.DataFrame:
+def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
     """
-    行业板块或者概念板块的成份股
+    通过输入行业板块或者概念板块的代码获取成份股
     http://q.10jqka.com.cn/thshy/detail/code/881121/
     http://q.10jqka.com.cn/gn/detail/code/301558/
     :param symbol: 行业板块或者概念板块的代码
@@ -338,6 +340,12 @@ def stock_board_cons_ths(symbol: str = "885611") -> pd.DataFrame:
     url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
+    url_flag = "thshy"
+    if soup.find("td", attrs={"colspan": "14"}):
+        url = f"http://q.10jqka.com.cn/gn/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
+        r = requests.get(url, headers=headers)
+        soup = BeautifulSoup(r.text, "lxml")
+        url_flag = "gn"
     try:
         page_num = int(
             soup.find_all("a", attrs={"class": "changePage"})[-1]["page"]
@@ -351,7 +359,7 @@ def stock_board_cons_ths(symbol: str = "885611") -> pd.DataFrame:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
-        url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
+        url = f"http://q.10jqka.com.cn/{url_flag}/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -389,5 +397,5 @@ if __name__ == "__main__":
     )
     print(stock_board_concept_hist_ths_df)
 
-    stock_board_cons_ths_df = stock_board_cons_ths(symbol="885611")
+    stock_board_cons_ths_df = stock_board_cons_ths(symbol="301558")
     print(stock_board_cons_ths_df)
