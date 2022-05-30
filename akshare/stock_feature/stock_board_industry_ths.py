@@ -6,6 +6,7 @@ Desc: 同花顺-板块-行业板块
 http://q.10jqka.com.cn/thshy/
 """
 from datetime import datetime
+from functools import lru_cache
 
 import pandas as pd
 import requests

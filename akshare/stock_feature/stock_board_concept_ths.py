@@ -6,6 +6,7 @@ Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
 from datetime import datetime
+from functools import lru_cache
 
 import pandas as pd
 import requests
@@ -15,8 +16,6 @@ from tqdm import tqdm
 
 from akshare.utils import demjson
 from akshare.datasets import get_ths_js
-
-from functools import lru_cache
 
 
 def _get_file_content_ths(file: str = "ths.js") -> str:
@@ -33,7 +32,7 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
     return file_data
 
 
-@lru_cache
+@lru_cache()
 def stock_board_concept_name_ths() -> pd.DataFrame:
     """
     同花顺-板块-概念板块-概念
