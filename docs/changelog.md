@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.6 fix: fix fund_etf_hist_sina interface
+
+    1. 修复 fund_etf_hist_sina 接口，规范输出数据类型
+
 1.6.5 fix: fix stock_board_cons_ths interface
 
     1. 修复 stock_board_cons_ths 接口，修复获取链接的逻辑
@@ -703,6 +707,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.6 fix: fix fund_etf_hist_sina interface
 
 1.6.5 fix: fix stock_board_cons_ths interface
 

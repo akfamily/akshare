@@ -2024,9 +2024,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.3 fix: fix stock_info_a_code_name and stock_info_sh_delist interface
 1.6.4 fix: fix stock_info_a_code_name interface
 1.6.5 fix: fix stock_board_cons_ths interface
+1.6.6 fix: fix fund_etf_hist_sina interface
 """
 
-__version__ = "1.6.5"
+__version__ = "1.6.6"
 __author__ = "AKFamily"
 
 import sys
