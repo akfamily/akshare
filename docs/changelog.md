@@ -29,6 +29,12 @@
 
 ## 更新说明
 
+1.6.7 add: add futures_zh_realtime interface
+
+    1. 新增 futures_zh_realtime 接口，获取期货的实时行情数据
+    2. 新增 futures_symbol_mark 接口，获取新浪期货的所有品种标识
+    3. 移除警告 futures_zh_spot 接口，目前已经不能正常使用，已增加移除警告，后期移除该函数
+
 1.6.6 fix: fix fund_etf_hist_sina interface
 
     1. 修复 fund_etf_hist_sina 接口，规范输出数据类型
@@ -707,6 +713,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.7 add: add futures_zh_realtime interface
 
 1.6.6 fix: fix fund_etf_hist_sina interface
 
