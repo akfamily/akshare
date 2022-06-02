@@ -7,14 +7,10 @@
 同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
 
 1. 本文档更新时间：**2022-06-02**；
-2. 如有 [AKShare](https://github.com/akfamily/akshare)
-   库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提 Issues；
-3. 欢迎关注 **数据科学实战**
-   微信公众号：<div><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>；
+2. 如有 [AKShare](https://github.com/akfamily/akshare) 库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提 Issues；
+3. 欢迎关注 **数据科学实战** 微信公众号：<div><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>；
 4. **知识星球【数据科学家】** 已上线，想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学家】** 高质量社区，里面有丰富的视频、问答、文章、书籍及代码等内容：
-    -
-    加入【知识星球-数据科学家】可以观看 **[《AKShare-源码解析》](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492193&idx=2&sn=a02b305b57a4b0756d5842494de96011&chksm=eb221a0fdc5593196168927217fc8b5486ab43e479f13cc643096069bb829e4a50067534a0b2&mpshare=1&scene=23&srcid=0316bvNDuCQ9P2E08BgK1Bnt&sharer_sharetime=1647406328931&sharer_shareid=2a5935b93d26c84266d2170040c3643c#rd)**
-    课程，快速掌握关于财经数据的网络数据采集技能，同时还能认识更多志同道合的小伙伴；
+    - 加入【知识星球-数据科学家】可以观看 **[《AKShare-源码解析》](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492193&idx=2&sn=a02b305b57a4b0756d5842494de96011&chksm=eb221a0fdc5593196168927217fc8b5486ab43e479f13cc643096069bb829e4a50067534a0b2&mpshare=1&scene=23&srcid=0316bvNDuCQ9P2E08BgK1Bnt&sharer_sharetime=1647406328931&sharer_shareid=2a5935b93d26c84266d2170040c3643c#rd)** 课程，快速掌握关于财经数据的网络数据采集技能，同时还能认识更多志同道合的小伙伴；
     - 不定时分享国内外优质资源（金融量化、Python、数据科学、人工智能等领域的内容）及相关解读；
     - 优先阅读星球内发布的高质量财经相关文章和代码，并解答相关问题；
     - 提供 VIP 提问通道，向优质嘉宾提问，指点迷津；
@@ -22,17 +18,17 @@
     - 数据科学家特邀 AKShare 的作者交流和解答 AKShare 数据接口的相关问题，分享更多高质量数据；
     - 微信社群以视频直播的形式开展相关的课程：目前拟定开展财经数据、金融量化、Python 等相关的直播课程；
     - 星球会员直播视频清单（可以观看往期视频）更新中：
-        - 数据科学家 01 期直播：AKShare’s Milestone
-        - 数据科学家 02 期直播：AKShare 使用详情及注意事项
-        - 数据科学家 03 期直播：Backtrader-环境配置
-        - 数据科学家 04 期直播：网络数据采集—以财经数据采集为例
-        - 数据科学家 05 期直播：Backtrader—策略初识
-        - 数据科学家 06 期直播：利用 AKTools 搭建 AKShare 的 HTTP API 接口
-        - 数据科学家 07 期直播：利用 Python 进行中文文本分析的相关库介绍
-        - 数据科学家 08 期直播：手把手搭建本地数据科学环境
-        - 数据科学家 09 期直播：如何给开源项目贡献代码——以 AKShare 项目为例（上）
-        - 数据科学家 10 期直播：如何给开源项目贡献代码——以 AKShare 项目为例（下）
-        - 数据科学家 11 期直播：利用 PyScript 在游览器运行 AKShare 实现数据展示及下载功能
+        - 数据科学家 01 期直播：AKShare’s Milestone；
+        - 数据科学家 02 期直播：AKShare 使用详情及注意事项；
+        - 数据科学家 03 期直播：Backtrader-环境配置；
+        - 数据科学家 04 期直播：网络数据采集—以财经数据采集为例；
+        - 数据科学家 05 期直播：Backtrader—策略初识；
+        - 数据科学家 06 期直播：利用 AKTools 搭建 AKShare 的 HTTP API 接口；
+        - 数据科学家 07 期直播：利用 Python 进行中文文本分析的相关库介绍；
+        - 数据科学家 08 期直播：手把手搭建本地数据科学环境；
+        - 数据科学家 09 期直播：如何给开源项目贡献代码——以 AKShare 项目为例（上）；
+        - 数据科学家 10 期直播：如何给开源项目贡献代码——以 AKShare 项目为例（下）；
+        - 数据科学家 11 期直播：利用 PyScript 在游览器运行 AKShare 实现数据展示及下载功能。
     - ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
 
 ## 引用
@@ -52,13 +48,11 @@
 
 ## [AKShare](https://github.com/akfamily/akshare) 的介绍
 
-首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare), [TuShare](https://github.com/waditu/tushare)
-在代码和项目开发上对本项目提供的借鉴和学习的机会!
+首先要特别感谢 [FuShare](https://github.com/jindaxiang/fushare) 和 [TuShare](https://github.com/waditu/tushare) 在代码和项目开发上对本项目提供的借鉴和学习的机会!
 
-[AKShare](https://github.com/akfamily/akshare) 是基于 Python 的财经数据接口库,
-目的是实现对股票、期货、期权、基金、外汇、债券、指数、加密货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清洗到数据落地的一套工具, 主要用于学术研究目的.
+[AKShare](https://github.com/akfamily/akshare) 是基于 Python 的财经数据接口库，目的是实现对股票、期货、期权、基金、外汇、债券、指数、加密货币等金融产品的基本面数据、实时和历史行情数据、衍生数据从数据采集、数据清洗到数据落地的一套工具，主要用于学术研究目的。
 
-[AKShare](https://github.com/akfamily/akshare) 的特点是获取的是相对权威的财经数据网站公布的原始数据, 通过利用原始数据进行各数据源之间的交叉验证, 进而再加工, 从而得出科学的结论.
+[AKShare](https://github.com/akfamily/akshare) 的特点是获取的是相对权威的财经数据网站公布的原始数据，通过利用原始数据进行各数据源之间的交叉验证，进而再加工，从而得出科学的结论。
 
 **[AKShare](https://github.com/akfamily/akshare) 后续会基于学术论文和研究报告来添加更多数据接口和衍生指标，并提供相应的计算代码，敬请关注。**
 
