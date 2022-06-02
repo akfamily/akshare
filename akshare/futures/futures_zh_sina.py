@@ -207,13 +207,6 @@ def futures_zh_spot(
     :return: 期货的实时行情数据
     :rtype: pandas.DataFrame
     """
-    warn(
-        "This function is deprecated. Please use ak.futures_zh_realtime().",
-        DeprecationWarning,
-        stacklevel=2,
-    )
-    return
-
     subscribe_list = ",".join(
         ["nf_" + item.strip() for item in symbol.split(",")]
     )
@@ -408,36 +401,84 @@ def futures_zh_spot(
             return data_df
     else:
         if market == "CF":
-            data_df.columns = [
-                "symbol",
-                "time",
-                "open",
-                "high",
-                "low",
-                "last_close",
-                "bid_price",
-                "ask_price",
-                "current_price",
-                "avg_price",
-                "last_settle_price",
-                "buy_vol",
-                "sell_vol",
-                "hold",
-                "volume",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-                "_",
-            ]
+            try:
+                data_df.columns = [
+                    "symbol",
+                    "time",
+                    "open",
+                    "high",
+                    "low",
+                    "last_close",
+                    "bid_price",
+                    "ask_price",
+                    "current_price",
+                    "avg_price",
+                    "last_settle_price",
+                    "buy_vol",
+                    "sell_vol",
+                    "hold",
+                    "volume",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                ]
+            except:
+                data_df.columns = [
+                    "symbol",
+                    "time",
+                    "open",
+                    "high",
+                    "low",
+                    "last_close",
+                    "bid_price",
+                    "ask_price",
+                    "current_price",
+                    "avg_price",
+                    "last_settle_price",
+                    "buy_vol",
+                    "sell_vol",
+                    "hold",
+                    "volume",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                    "_",
+                ]
             data_df = data_df[
                 [
                     "symbol",
@@ -630,6 +671,16 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    futures_zh_spot_df = futures_zh_spot(
+        symbol="V2205, P2205, B2201, M2205", market="CF", adjust="0"
+    )
+    print(futures_zh_spot_df)
+
+    futures_zh_spot_df = futures_zh_spot(
+        symbol="TA2209", market="CF", adjust="0"
+    )
+    print(futures_zh_spot_df)
+
     futures_symbol_mark_df = futures_symbol_mark()
     print(futures_symbol_mark_df)
 
