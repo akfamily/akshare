@@ -401,6 +401,7 @@ def futures_zh_spot(
             return data_df
     else:
         if market == "CF":
+            # 此处由于 20220601 接口变动，增加了字段，此处增加异常判断，except 后为新代码
             try:
                 data_df.columns = [
                     "symbol",
