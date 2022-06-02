@@ -2025,9 +2025,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.4 fix: fix stock_info_a_code_name interface
 1.6.5 fix: fix stock_board_cons_ths interface
 1.6.6 fix: fix fund_etf_hist_sina interface
+1.6.7 add: add futures_zh_realtime interface
 """
 
-__version__ = "1.6.6"
+__version__ = "1.6.7"
 __author__ = "AKFamily"
 
 import sys
@@ -3036,6 +3037,10 @@ from akshare.stock.stock_fund_hold import (
 from akshare.futures.futures_zh_sina import (
     futures_zh_minute_sina,
     futures_zh_daily_sina,
+    futures_zh_realtime,
+    futures_symbol_mark,
+    match_main_contract,
+    futures_zh_spot,
 )
 
 """
@@ -3795,14 +3800,6 @@ from akshare.stock.stock_us_sina import (
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)
 """
 from akshare.stock.stock_hk_sina import stock_hk_daily, stock_hk_spot
-
-"""
-新浪-期货实时数据
-"""
-from akshare.futures.futures_zh_sina import (
-    futures_zh_spot,
-    match_main_contract,
-)
 
 """
 生意社-商品与期货-现期图数据
