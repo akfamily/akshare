@@ -34,14 +34,18 @@ def _get_global_index_country_name_url() -> dict:
     soup = BeautifulSoup(data_text, "lxml")
     name_url_option_list = soup.find_all("option")[1:]
     url_list = [
-        item["value"] for item in name_url_option_list if "c_id" in item["value"]
+        item["value"]
+        for item in name_url_option_list
+        if "c_id" in item["value"]
     ]
     url_list_code = [
         item["value"].split("?")[1].split("=")[1]
         for item in name_url_option_list
         if "c_id" in item["value"]
     ]
-    name_list = [item.get_text() for item in name_url_option_list][: len(url_list)]
+    name_list = [item.get_text() for item in name_url_option_list][
+        : len(url_list)
+    ]
     _temp_df = pd.DataFrame([name_list, url_list_code]).T
     name_code_list = dict(zip(_temp_df.iloc[:, 0], _temp_df.iloc[:, 1]))
     return name_code_list
@@ -57,9 +61,9 @@ def _get_global_country_name_url() -> dict:
     url = "https://cn.investing.com/indices/"
     res = session.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
-    name_url_option_list = soup.find("select", attrs={"name": "country"}).find_all(
-        "option"
-    )[
+    name_url_option_list = soup.find(
+        "select", attrs={"name": "country"}
+    ).find_all("option")[
         1:
     ]  # 去掉-所有国家及地区
     url_list = [item["value"] for item in name_url_option_list]
@@ -83,7 +87,8 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
     res = session.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
     url_list = [
-        item.find("a")["href"] for item in soup.find_all(attrs={"class": "plusIconTd"})
+        item.find("a")["href"]
+        for item in soup.find_all(attrs={"class": "plusIconTd"})
     ]
     name_list = [
         item.find("a").get_text()
@@ -143,7 +148,9 @@ def index_investing_global(
     title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
     res = session.post(temp_url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
-    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
+    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[
+        0
+    ].strip()
     para_data = re.findall(r"\d+", data)
     payload = {
         "curr_id": para_data[0],
@@ -231,7 +238,9 @@ def index_investing_global_from_url(
     title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
     res = session.post(temp_url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
-    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
+    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[
+        0
+    ].strip()
     para_data = re.findall(r"\d+", data)
     payload = {
         "curr_id": para_data[0],
@@ -302,10 +311,10 @@ if __name__ == "__main__":
     )
 
     index_investing_global_df = index_investing_global(
-        country="香港",
-        index_name="恒生指数",
+        country="中国",
+        index_name="富时中国A50指数",
         period="每日",
         start_date="20010101",
-        end_date="20010316",
+        end_date="20110316",
     )
     print(index_investing_global_df)

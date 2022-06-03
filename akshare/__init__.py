@@ -2027,9 +2027,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.6 fix: fix fund_etf_hist_sina interface
 1.6.7 add: add futures_zh_realtime interface
 1.6.8 fix: fix futures_zh_spot interface
+1.6.9 fix: fix stock_zh_a_spot_em interface
 """
 
-__version__ = "1.6.8"
+__version__ = "1.6.9"
 __author__ = "AKFamily"
 
 import sys
@@ -2590,6 +2591,11 @@ A 股东方财富
 """
 from akshare.stock_feature.stock_hist_em import (
     stock_zh_a_spot_em,
+    stock_bj_a_spot_em,
+    stock_new_a_spot_em,
+    stock_sh_a_spot_em,
+    stock_sz_a_spot_em,
+    stock_zh_b_spot_em,
     stock_zh_a_hist,
     stock_hk_spot_em,
     stock_hk_hist,
@@ -2599,7 +2605,6 @@ from akshare.stock_feature.stock_hist_em import (
     stock_zh_a_hist_pre_min_em,
     stock_hk_hist_min_em,
     stock_us_hist_min_em,
-    stock_zh_b_spot_em,
 )
 
 """
