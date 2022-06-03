@@ -103,7 +103,13 @@
  "stock_zh_ah_daily"  # 获取 A+H 股历史行情数据(日频)
  "stock_zh_ah_name"  # 获取 A+H 股所有股票代码
  # A股实时行情数据和历史行情数据
- "stock_zh_a_spot"  # 获取 A 股实时行情数据
+ "stock_zh_a_spot"  # 新浪 A 股实时行情数据
+ "stock_zh_a_spot_em"  # 东财 A 股实时行情数据
+ "stock_sh_a_spot_em"  # 东财沪 A 股实时行情数据
+ "stock_sz_a_spot_em"  # 东财深 A 股实时行情数据
+ "stock_bj_a_spot_em"  # 东财京 A 股实时行情数据
+ "stock_new_a_spot_em"  # 东财新股实时行情数据
+ "stock_zh_b_spot_em"  # 东财 B 股实时行情数据
  "stock_zh_a_daily"  # 获取 A 股历史行情数据(日频)
  "stock_zh_a_minute"  # 获取 A 股分时历史行情数据(分钟)
  "stock_zh_a_cdr_daily"  # 获取 A 股 CDR 历史行情数据(日频)
