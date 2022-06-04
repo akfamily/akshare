@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.10 add: add stock_sh_a_spot_em interface
+
+    1. 新增 stock_sh_a_spot_em 接口，获取上证 A 股行情数据
+
 1.6.9 fix: fix stock_zh_a_spot_em interface
 
     1. 修复 stock_zh_a_spot_em 接口，新增多个字段
@@ -720,6 +724,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.10 add: add stock_sh_a_spot_em interface
 
 1.6.9 fix: fix stock_zh_a_spot_em interface
 
