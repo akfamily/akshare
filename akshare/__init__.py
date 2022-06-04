@@ -2028,9 +2028,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.7 add: add futures_zh_realtime interface
 1.6.8 fix: fix futures_zh_spot interface
 1.6.9 fix: fix stock_zh_a_spot_em interface
+1.6.10 add: add stock_sh_a_spot_em interface
 """
 
-__version__ = "1.6.9"
+__version__ = "1.6.10"
 __author__ = "AKFamily"
 
 import sys
