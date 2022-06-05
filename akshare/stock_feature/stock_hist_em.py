@@ -1620,8 +1620,8 @@ if __name__ == "__main__":
         symbol="000001",
         period="60",
         adjust="hfq",
-        start_date="2022-04-15 09:32:00",
-        end_date="2022-04-15 14:40:00",
+        start_date="2022-06-02 09:32:00",
+        end_date="2022-06-02 14:40:00",
     )
     print(stock_zh_a_hist_min_em_df)
 
