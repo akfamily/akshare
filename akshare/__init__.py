@@ -2031,9 +2031,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.10 add: add stock_sh_a_spot_em interface
 1.6.11 add: add stock_sz_a_spot_em interface
 1.6.12 add: add stock_bj_a_spot_em interface
+1.6.13 add: add stock_new_a_spot_em interface
 """
 
-__version__ = "1.6.12"
+__version__ = "1.6.13"
 __author__ = "AKFamily"
 
 import sys
