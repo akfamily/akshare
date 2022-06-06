@@ -67,12 +67,5 @@ if __name__ == "__main__":
     option_risk_indicator_sse_df = option_risk_indicator_sse(date="20220516")
     print(option_risk_indicator_sse_df)
 
-    date_list = pd.date_range("2015-02-01", "2022-05-18", freq="D")
-
-    for item in date_list:
-        try:
-            print(str(item.date()))
-            option_risk_indicator_sse_df = option_risk_indicator_sse(date=str(item.date()).replace("-", ""))
-            print(option_risk_indicator_sse_df)
-        except:
-            continue
+    option_risk_indicator_sse_df = option_risk_indicator_sse(date="20220516")
+    print(option_risk_indicator_sse_df)

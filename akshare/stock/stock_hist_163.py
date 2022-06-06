@@ -51,7 +51,7 @@ def stock_zh_a_hist_163(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
-    r.encoding = "gb2312"
+    r.encoding = "gbk"
     data_text = r.text
     temp_df = pd.DataFrame(
         [item.split(",") for item in data_text.split("\r\n")[1:]]

@@ -2016,9 +2016,25 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.5.94 add: add bond_cb_redeem_jsl interface
 1.5.95 fix: fix stock_zh_a_hist_163 interface
 1.5.96 fix: fix macro_bank_usa_interest_rate interface
+1.5.97 fix: fix stock_zh_a_hist interface
+1.5.98 fix: fix news_cctv interface
+1.5.99 fix: fix stock_zh_a_hist_163 interface
+1.6.1 fix: fix stock_info_sh_name_code interface
+1.6.2 fix: fix macro_china_cpi interface
+1.6.3 fix: fix stock_info_a_code_name and stock_info_sh_delist interface
+1.6.4 fix: fix stock_info_a_code_name interface
+1.6.5 fix: fix stock_board_cons_ths interface
+1.6.6 fix: fix fund_etf_hist_sina interface
+1.6.7 add: add futures_zh_realtime interface
+1.6.8 fix: fix futures_zh_spot interface
+1.6.9 fix: fix stock_zh_a_spot_em interface
+1.6.10 add: add stock_sh_a_spot_em interface
+1.6.11 add: add stock_sz_a_spot_em interface
+1.6.12 add: add stock_bj_a_spot_em interface
+1.6.13 add: add stock_new_a_spot_em interface
 """
 
-__version__ = "1.5.96"
+__version__ = "1.6.13"
 __author__ = "AKFamily"
 
 import sys
@@ -2579,6 +2595,11 @@ A 股东方财富
 """
 from akshare.stock_feature.stock_hist_em import (
     stock_zh_a_spot_em,
+    stock_bj_a_spot_em,
+    stock_new_a_spot_em,
+    stock_sh_a_spot_em,
+    stock_sz_a_spot_em,
+    stock_zh_b_spot_em,
     stock_zh_a_hist,
     stock_hk_spot_em,
     stock_hk_hist,
@@ -2588,7 +2609,6 @@ from akshare.stock_feature.stock_hist_em import (
     stock_zh_a_hist_pre_min_em,
     stock_hk_hist_min_em,
     stock_us_hist_min_em,
-    stock_zh_b_spot_em,
 )
 
 """
@@ -3027,6 +3047,10 @@ from akshare.stock.stock_fund_hold import (
 from akshare.futures.futures_zh_sina import (
     futures_zh_minute_sina,
     futures_zh_daily_sina,
+    futures_zh_realtime,
+    futures_symbol_mark,
+    match_main_contract,
+    futures_zh_spot,
 )
 
 """
@@ -3786,14 +3810,6 @@ from akshare.stock.stock_us_sina import (
 新浪-港股实时行情数据和历史数据(前复权和后复权因子)
 """
 from akshare.stock.stock_hk_sina import stock_hk_daily, stock_hk_spot
-
-"""
-新浪-期货实时数据
-"""
-from akshare.futures.futures_zh_sina import (
-    futures_zh_spot,
-    match_main_contract,
-)
 
 """
 生意社-商品与期货-现期图数据

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/14 18:19
+Date: 2022/5/25 18:19
 Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深 300 指数
@@ -22,8 +22,8 @@ import pandas as pd
 # 期权-中金所-沪深300指数
 def option_cffex_hs300_list_sina() -> Dict[str, List[str]]:
     """
-    新浪财经-中金所-沪深300指数-所有合约, 返回的第一个合约为主力合约
-    目前新浪财经-中金所只有 沪深300指数 一个品种的数据
+    新浪财经-中金所-沪深 300 指数-所有合约, 返回的第一个合约为主力合约
+    目前新浪财经-中金所只有 沪深 300 指数 一个品种的数据
     :return: 中金所-沪深300指数-所有合约
     :rtype: dict
     """
@@ -54,7 +54,9 @@ def option_cffex_hs300_spot_sina(symbol: str = "io2104") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("{") : data_text.rfind("}") + 1])
+    data_json = json.loads(
+        data_text[data_text.find("{") : data_text.rfind("}") + 1]
+    )
     option_call_df = pd.DataFrame(
         data_json["result"]["data"]["up"],
         columns=[
@@ -83,21 +85,21 @@ def option_cffex_hs300_spot_sina(symbol: str = "io2104") -> pd.DataFrame:
         ],
     )
     data_df = pd.concat([option_call_df, option_put_df], axis=1)
-    data_df['看涨合约-买量'] = pd.to_numeric(data_df['看涨合约-买量'])
-    data_df['看涨合约-买价'] = pd.to_numeric(data_df['看涨合约-买价'])
-    data_df['看涨合约-最新价'] = pd.to_numeric(data_df['看涨合约-最新价'])
-    data_df['看涨合约-卖价'] = pd.to_numeric(data_df['看涨合约-卖价'])
-    data_df['看涨合约-卖量'] = pd.to_numeric(data_df['看涨合约-卖量'])
-    data_df['看涨合约-持仓量'] = pd.to_numeric(data_df['看涨合约-持仓量'])
-    data_df['看涨合约-涨跌'] = pd.to_numeric(data_df['看涨合约-涨跌'])
-    data_df['行权价'] = pd.to_numeric(data_df['行权价'])
-    data_df['看跌合约-买量'] = pd.to_numeric(data_df['看跌合约-买量'])
-    data_df['看跌合约-买价'] = pd.to_numeric(data_df['看跌合约-买价'])
-    data_df['看跌合约-最新价'] = pd.to_numeric(data_df['看跌合约-最新价'])
-    data_df['看跌合约-卖价'] = pd.to_numeric(data_df['看跌合约-卖价'])
-    data_df['看跌合约-卖量'] = pd.to_numeric(data_df['看跌合约-卖量'])
-    data_df['看跌合约-持仓量'] = pd.to_numeric(data_df['看跌合约-持仓量'])
-    data_df['看跌合约-涨跌'] = pd.to_numeric(data_df['看跌合约-涨跌'])
+    data_df["看涨合约-买量"] = pd.to_numeric(data_df["看涨合约-买量"])
+    data_df["看涨合约-买价"] = pd.to_numeric(data_df["看涨合约-买价"])
+    data_df["看涨合约-最新价"] = pd.to_numeric(data_df["看涨合约-最新价"])
+    data_df["看涨合约-卖价"] = pd.to_numeric(data_df["看涨合约-卖价"])
+    data_df["看涨合约-卖量"] = pd.to_numeric(data_df["看涨合约-卖量"])
+    data_df["看涨合约-持仓量"] = pd.to_numeric(data_df["看涨合约-持仓量"])
+    data_df["看涨合约-涨跌"] = pd.to_numeric(data_df["看涨合约-涨跌"])
+    data_df["行权价"] = pd.to_numeric(data_df["行权价"])
+    data_df["看跌合约-买量"] = pd.to_numeric(data_df["看跌合约-买量"])
+    data_df["看跌合约-买价"] = pd.to_numeric(data_df["看跌合约-买价"])
+    data_df["看跌合约-最新价"] = pd.to_numeric(data_df["看跌合约-最新价"])
+    data_df["看跌合约-卖价"] = pd.to_numeric(data_df["看跌合约-卖价"])
+    data_df["看跌合约-卖量"] = pd.to_numeric(data_df["看跌合约-卖量"])
+    data_df["看跌合约-持仓量"] = pd.to_numeric(data_df["看跌合约-持仓量"])
+    data_df["看跌合约-涨跌"] = pd.to_numeric(data_df["看跌合约-涨跌"])
     return data_df
 
 
@@ -120,25 +122,29 @@ def option_cffex_hs300_daily_sina(symbol: str = "io2202P4350") -> pd.DataFrame:
         eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
     )
     data_df.columns = ["open", "high", "low", "close", "volume", "date"]
-    data_df = data_df[[
-        "date",
-        "open",
-        "high",
-        "low",
-        "close",
-        "volume",
-    ]]
-    data_df['date'] = pd.to_datetime(data_df['date']).dt.date
-    data_df['open'] = pd.to_numeric(data_df['open'])
-    data_df['high'] = pd.to_numeric(data_df['high'])
-    data_df['low'] = pd.to_numeric(data_df['low'])
-    data_df['close'] = pd.to_numeric(data_df['close'])
-    data_df['volume'] = pd.to_numeric(data_df['volume'])
+    data_df = data_df[
+        [
+            "date",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+        ]
+    ]
+    data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
+    data_df["open"] = pd.to_numeric(data_df["open"])
+    data_df["high"] = pd.to_numeric(data_df["high"])
+    data_df["low"] = pd.to_numeric(data_df["low"])
+    data_df["close"] = pd.to_numeric(data_df["close"])
+    data_df["volume"] = pd.to_numeric(data_df["volume"])
     return data_df
 
 
 # 期权-上交所-50ETF
-def option_sse_list_sina(symbol: str = "50ETF", exchange: str = "null") -> List[str]:
+def option_sse_list_sina(
+    symbol: str = "50ETF", exchange: str = "null"
+) -> List[str]:
     """
     新浪财经-期权-上交所-50ETF-合约到期月份列表
     https://stock.finance.sina.com.cn/option/quotes.html
@@ -193,7 +199,11 @@ def option_sse_expire_day_sina(
     return data["expireDay"], int(data["remainderDays"])
 
 
-def option_sse_codes_sina(symbol: str = "看涨期权", trade_date: str = "202202", underlying: str = "510050") -> pd.DataFrame:
+def option_sse_codes_sina(
+    symbol: str = "看涨期权",
+    trade_date: str = "202202",
+    underlying: str = "510050",
+) -> pd.DataFrame:
     """
     上海证券交易所-所有看涨和看跌合约的代码
     :param symbol: choice of {"看涨期权", "看跌期权"}
@@ -207,28 +217,36 @@ def option_sse_codes_sina(symbol: str = "看涨期权", trade_date: str = "20220
     """
     if symbol == "看涨期权":
         url = "".join(
-            ["http://hq.sinajs.cn/list=OP_UP_", underlying, str(trade_date)[-4:]]
+            [
+                "http://hq.sinajs.cn/list=OP_UP_",
+                underlying,
+                str(trade_date)[-4:],
+            ]
         )
     else:
         url = "".join(
-            ["http://hq.sinajs.cn/list=OP_DOWN_", underlying, str(trade_date)[-4:]]
+            [
+                "http://hq.sinajs.cn/list=OP_DOWN_",
+                underlying,
+                str(trade_date)[-4:],
+            ]
         )
     headers = {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-        'Host': 'hq.sinajs.cn',
-        'Pragma': 'no-cache',
-        'Referer': 'https://stock.finance.sina.com.cn/',
-        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'Sec-Fetch-Dest': 'script',
-        'Sec-Fetch-Mode': 'no-cors',
-        'Sec-Fetch-Site': 'cross-site',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "hq.sinajs.cn",
+        "Pragma": "no-cache",
+        "Referer": "https://stock.finance.sina.com.cn/",
+        "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "Sec-Fetch-Dest": "script",
+        "Sec-Fetch-Mode": "no-cors",
+        "Sec-Fetch-Site": "cross-site",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     data_text = r.text
@@ -236,10 +254,10 @@ def option_sse_codes_sina(symbol: str = "看涨期权", trade_date: str = "20220
     temp_list = [i[7:] for i in data_temp if i.startswith("CON_OP_")]
     temp_df = pd.DataFrame(temp_list)
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = temp_df.index + 1
+    temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
-        '序号',
-        '期权代码',
+        "序号",
+        "期权代码",
     ]
     return temp_df
 
@@ -254,25 +272,27 @@ def option_sse_spot_price_sina(symbol: str = "10003720") -> pd.DataFrame:
     """
     url = f"http://hq.sinajs.cn/list=CON_OP_{symbol}"
     headers = {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-        'Host': 'hq.sinajs.cn',
-        'Pragma': 'no-cache',
-        'Referer': 'https://stock.finance.sina.com.cn/',
-        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'Sec-Fetch-Dest': 'script',
-        'Sec-Fetch-Mode': 'no-cors',
-        'Sec-Fetch-Site': 'cross-site',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "hq.sinajs.cn",
+        "Pragma": "no-cache",
+        "Referer": "https://stock.finance.sina.com.cn/",
+        "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "Sec-Fetch-Dest": "script",
+        "Sec-Fetch-Mode": "no-cors",
+        "Sec-Fetch-Site": "cross-site",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     data_text = r.text
-    data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
+    data_list = data_text[
+        data_text.find('"') + 1 : data_text.rfind('"')
+    ].split(",")
     field_list = [
         "买量",
         "买价",
@@ -318,11 +338,15 @@ def option_sse_spot_price_sina(symbol: str = "10003720") -> pd.DataFrame:
         "成交量",
         "成交额",
     ]
-    data_df = pd.DataFrame(list(zip(field_list, data_list)), columns=["字段", "值"])
+    data_df = pd.DataFrame(
+        list(zip(field_list, data_list)), columns=["字段", "值"]
+    )
     return data_df
 
 
-def option_sse_underlying_spot_price_sina(symbol: str = "sh510300") -> pd.DataFrame:
+def option_sse_underlying_spot_price_sina(
+    symbol: str = "sh510300",
+) -> pd.DataFrame:
     """
     期权标的物的实时数据
     :param symbol: sh510050 or sh510300
@@ -332,19 +356,21 @@ def option_sse_underlying_spot_price_sina(symbol: str = "sh510300") -> pd.DataFr
     """
     url = f"http://hq.sinajs.cn/list={symbol}"
     headers = {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'Cache-Control': 'no-cache',
-        'Host': 'hq.sinajs.cn',
-        'Pragma': 'no-cache',
-        'Proxy-Connection': 'keep-alive',
-        'Referer': 'http://vip.stock.finance.sina.com.cn/',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Host": "hq.sinajs.cn",
+        "Pragma": "no-cache",
+        "Proxy-Connection": "keep-alive",
+        "Referer": "http://vip.stock.finance.sina.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     data_text = r.text
-    data_list = data_text[data_text.find('"') + 1 : data_text.rfind('"')].split(",")
+    data_list = data_text[
+        data_text.find('"') + 1 : data_text.rfind('"')
+    ].split(",")
     field_list = [
         "证券简称",
         "今日开盘价",
@@ -380,7 +406,9 @@ def option_sse_underlying_spot_price_sina(symbol: str = "sh510300") -> pd.DataFr
         "行情时间",
         "停牌状态",
     ]
-    data_df = pd.DataFrame(list(zip(field_list, data_list)), columns=["字段", "值"])
+    data_df = pd.DataFrame(
+        list(zip(field_list, data_list)), columns=["字段", "值"]
+    )
     return data_df
 
 
@@ -394,19 +422,21 @@ def option_sse_greeks_sina(symbol: str = "10003045") -> pd.DataFrame:
     """
     url = f"http://hq.sinajs.cn/list=CON_SO_{symbol}"
     headers = {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'Cache-Control': 'no-cache',
-        'Host': 'hq.sinajs.cn',
-        'Pragma': 'no-cache',
-        'Proxy-Connection': 'keep-alive',
-        'Referer': 'http://vip.stock.finance.sina.com.cn/',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Host": "hq.sinajs.cn",
+        "Pragma": "no-cache",
+        "Proxy-Connection": "keep-alive",
+        "Referer": "http://vip.stock.finance.sina.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     data_text = r.text
-    data_list = data_text[data_text.find('"') + 1: data_text.rfind('"')].split(",")
+    data_list = data_text[
+        data_text.find('"') + 1 : data_text.rfind('"')
+    ].split(",")
     field_list = [
         "期权合约简称",
         "成交量",
@@ -423,7 +453,8 @@ def option_sse_greeks_sina(symbol: str = "10003045") -> pd.DataFrame:
         "理论价值",
     ]
     data_df = pd.DataFrame(
-        list(zip(field_list, [data_list[0]] + data_list[4:])), columns=["字段", "值"]
+        list(zip(field_list, [data_list[0]] + data_list[4:])),
+        columns=["字段", "值"],
     )
     return data_df
 
@@ -440,39 +471,32 @@ def option_sse_minute_sina(symbol: str = "10003720") -> pd.DataFrame:
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/StockOptionDaylineService.getOptionMinline"
     params = {"symbol": f"CON_OP_{symbol}"}
     headers = {
-        'accept': '*/*',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'cache-control': 'no-cache',
-        'pragma': 'no-cache',
-        'referer': 'https://stock.finance.sina.com.cn/option/quotes.html',
-        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'script',
-        'sec-fetch-mode': 'no-cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "pragma": "no-cache",
+        "referer": "https://stock.finance.sina.com.cn/option/quotes.html",
+        "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "sec-fetch-dest": "script",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-origin",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = data_json["result"]["data"]
     data_df = pd.DataFrame(temp_df)
     data_df.columns = ["时间", "价格", "成交", "持仓", "均价", "日期"]
-    data_df = data_df[[
-        "日期",
-        "时间",
-        "价格",
-        "成交",
-        "持仓",
-        "均价"
-    ]]
-    data_df['日期'] = pd.to_datetime(data_df['日期']).dt.date
-    data_df['日期'].ffill(inplace=True)
-    data_df['价格'] = pd.to_numeric(data_df['价格'])
-    data_df['成交'] = pd.to_numeric(data_df['成交'])
-    data_df['持仓'] = pd.to_numeric(data_df['持仓'])
-    data_df['均价'] = pd.to_numeric(data_df['均价'])
+    data_df = data_df[["日期", "时间", "价格", "成交", "持仓", "均价"]]
+    data_df["日期"] = pd.to_datetime(data_df["日期"]).dt.date
+    data_df["日期"].ffill(inplace=True)
+    data_df["价格"] = pd.to_numeric(data_df["价格"])
+    data_df["成交"] = pd.to_numeric(data_df["成交"])
+    data_df["持仓"] = pd.to_numeric(data_df["持仓"])
+    data_df["均价"] = pd.to_numeric(data_df["均价"])
     return data_df
 
 
@@ -487,31 +511,33 @@ def option_sse_daily_sina(symbol: str = "10003889") -> pd.DataFrame:
     url = "http://stock.finance.sina.com.cn/futures/api/jsonp_v2.php//StockOptionDaylineService.getSymbolInfo"
     params = {"symbol": f"CON_OP_{symbol}"}
     headers = {
-        'accept': '*/*',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'cache-control': 'no-cache',
-        'pragma': 'no-cache',
-        'referer': 'https://stock.finance.sina.com.cn/option/quotes.html',
-        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'script',
-        'sec-fetch-mode': 'no-cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "pragma": "no-cache",
+        "referer": "https://stock.finance.sina.com.cn/option/quotes.html",
+        "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "sec-fetch-dest": "script",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-origin",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = json.loads(data_text[data_text.find("(") + 1 : data_text.rfind(")")])
+    data_json = json.loads(
+        data_text[data_text.find("(") + 1 : data_text.rfind(")")]
+    )
     temp_df = pd.DataFrame(data_json)
     temp_df.columns = ["日期", "开盘", "最高", "最低", "收盘", "成交量"]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-    temp_df['开盘'] = pd.to_numeric(temp_df['开盘'])
-    temp_df['最高'] = pd.to_numeric(temp_df['最高'])
-    temp_df['最低'] = pd.to_numeric(temp_df['最低'])
-    temp_df['收盘'] = pd.to_numeric(temp_df['收盘'])
-    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
     return temp_df
 
 
@@ -529,19 +555,19 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
         "symbol": f"CON_OP_{symbol}",
     }
     headers = {
-        'accept': '*/*',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'cache-control': 'no-cache',
-        'pragma': 'no-cache',
-        'referer': 'https://stock.finance.sina.com.cn/option/quotes.html',
-        'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'script',
-        'sec-fetch-mode': 'no-cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
+        "accept": "*/*",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "cache-control": "no-cache",
+        "pragma": "no-cache",
+        "referer": "https://stock.finance.sina.com.cn/option/quotes.html",
+        "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="97", "Chromium";v="97"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "sec-fetch-dest": "script",
+        "sec-fetch-mode": "no-cors",
+        "sec-fetch-site": "same-origin",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.json()
@@ -551,9 +577,9 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
     temp_df.fillna(method="ffill", inplace=True)
     temp_df.columns = ["time", "price", "volume", "_", "average_price", "date"]
     temp_df = temp_df[["date", "time", "price", "average_price", "volume"]]
-    temp_df['price'] = pd.to_numeric(temp_df['price'])
-    temp_df['average_price'] = pd.to_numeric(temp_df['average_price'])
-    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df["price"] = pd.to_numeric(temp_df["price"])
+    temp_df["average_price"] = pd.to_numeric(temp_df["average_price"])
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
     return temp_df
 
 
@@ -562,7 +588,9 @@ if __name__ == "__main__":
     option_cffex_hs300_list_sina_df = option_cffex_hs300_list_sina()
     print(option_cffex_hs300_list_sina_df)
 
-    option_cffex_hs300_spot_sina_df = option_cffex_hs300_spot_sina(symbol="io2202")
+    option_cffex_hs300_spot_sina_df = option_cffex_hs300_spot_sina(
+        symbol="io2202"
+    )
     print(option_cffex_hs300_spot_sina_df)
 
     option_cffex_hs300_daily_sina_df = option_cffex_hs300_daily_sina(
@@ -571,7 +599,9 @@ if __name__ == "__main__":
     print(option_cffex_hs300_daily_sina_df)
 
     # 期权-上交所-50ETF
-    option_sse_list_sina_df = option_sse_list_sina(symbol="50ETF", exchange="null")
+    option_sse_list_sina_df = option_sse_list_sina(
+        symbol="50ETF", exchange="null"
+    )
     print(option_sse_list_sina_df)
 
     option_sse_expire_day_sina_df = option_sse_expire_day_sina(
@@ -579,14 +609,18 @@ if __name__ == "__main__":
     )
     print(option_sse_expire_day_sina_df)
 
-    option_sse_codes_sina_df = option_sse_codes_sina(symbol="看涨期权", trade_date="202206", underlying="510050")
+    option_sse_codes_sina_df = option_sse_codes_sina(
+        symbol="看跌期权", trade_date="202206", underlying="510050"
+    )
     print(option_sse_codes_sina_df)
 
-    option_sse_spot_price_sina_df = option_sse_spot_price_sina(symbol="10004023")
+    option_sse_spot_price_sina_df = option_sse_spot_price_sina(
+        symbol="10003686"
+    )
     print(option_sse_spot_price_sina_df)
 
-    option_sse_underlying_spot_price_sina_df = option_sse_underlying_spot_price_sina(
-        symbol="sh510300"
+    option_sse_underlying_spot_price_sina_df = (
+        option_sse_underlying_spot_price_sina(symbol="sh510300")
     )
     print(option_sse_underlying_spot_price_sina_df)
 
@@ -599,5 +633,7 @@ if __name__ == "__main__":
     option_sse_daily_sina_df = option_sse_daily_sina(symbol="10004023")
     print(option_sse_daily_sina_df)
 
-    option_finance_minute_sina_df = option_finance_minute_sina(symbol="10004023")
+    option_finance_minute_sina_df = option_finance_minute_sina(
+        symbol="10004023"
+    )
     print(option_finance_minute_sina_df)

@@ -38,72 +38,74 @@ def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("([")+1:-2])
+    data_json = demjson.decode(data_text[data_text.find("([") + 1 : -2])
     temp_df = pd.DataFrame(data_json)
     if symbol == "封闭式基金":
         temp_df.columns = [
-            '代码',
-            '名称',
-            '最新价',
-            '涨跌额',
-            '涨跌幅',
-            '买入',
-            '卖出',
-            '昨收',
-            '今开',
-            '最高',
-            '最低',
-            '成交量',
-            '成交额',
-            '_',
-            '_',
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "买入",
+            "卖出",
+            "昨收",
+            "今开",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+            "_",
+            "_",
         ]
     else:
         temp_df.columns = [
-            '代码',
-            '名称',
-            '最新价',
-            '涨跌额',
-            '涨跌幅',
-            '买入',
-            '卖出',
-            '昨收',
-            '今开',
-            '最高',
-            '最低',
-            '成交量',
-            '成交额',
-            '_',
-            '_',
-            '_',
-            '_',
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "买入",
+            "卖出",
+            "昨收",
+            "今开",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+            "_",
+            "_",
+            "_",
+            "_",
         ]
-    temp_df = temp_df[[
-        '代码',
-        '名称',
-        '最新价',
-        '涨跌额',
-        '涨跌幅',
-        '买入',
-        '卖出',
-        '昨收',
-        '今开',
-        '最高',
-        '最低',
-        '成交量',
-        '成交额',
-    ]]
-    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
-    temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'])
-    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
-    temp_df['买入'] = pd.to_numeric(temp_df['买入'])
-    temp_df['卖出'] = pd.to_numeric(temp_df['卖出'])
-    temp_df['昨收'] = pd.to_numeric(temp_df['昨收'])
-    temp_df['今开'] = pd.to_numeric(temp_df['今开'])
-    temp_df['最高'] = pd.to_numeric(temp_df['最高'])
-    temp_df['最低'] = pd.to_numeric(temp_df['最低'])
-    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'])
-    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'])
+    temp_df = temp_df[
+        [
+            "代码",
+            "名称",
+            "最新价",
+            "涨跌额",
+            "涨跌幅",
+            "买入",
+            "卖出",
+            "昨收",
+            "今开",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+        ]
+    ]
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
+    temp_df["买入"] = pd.to_numeric(temp_df["买入"])
+    temp_df["卖出"] = pd.to_numeric(temp_df["卖出"])
+    temp_df["昨收"] = pd.to_numeric(temp_df["昨收"])
+    temp_df["今开"] = pd.to_numeric(temp_df["今开"])
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
     return temp_df
 
 
@@ -120,15 +122,22 @@ def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
     r = requests.get(url)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
-    dict_list = js_code.call('d', r.text.split("=")[1].split(";")[0].replace('"', ""))  # 执行js解密代码
+    dict_list = js_code.call(
+        "d", r.text.split("=")[1].split(";")[0].replace('"', "")
+    )  # 执行js解密代码
     temp_df = pd.DataFrame(dict_list)
     if temp_df.empty:  # 处理获取数据为空的问题
         return pd.DataFrame()
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"])
+    temp_df["high"] = pd.to_numeric(temp_df["high"])
+    temp_df["low"] = pd.to_numeric(temp_df["low"])
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     fund_etf_category_sina_df = fund_etf_category_sina(symbol="封闭式基金")
     print(fund_etf_category_sina_df)
 

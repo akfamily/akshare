@@ -2669,6 +2669,8 @@ def macro_china_cpi() -> pd.DataFrame:
     temp_df["农村-同比增长"] = pd.to_numeric(temp_df["农村-同比增长"])
     temp_df["农村-环比增长"] = pd.to_numeric(temp_df["农村-环比增长"])
     temp_df["农村-累计"] = pd.to_numeric(temp_df["农村-累计"])
+    temp_df.sort_values(["月份"], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 

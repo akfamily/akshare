@@ -29,6 +29,73 @@
 
 ## 更新说明
 
+1.6.13 add: add stock_new_a_spot_em interface
+
+    1. 新增 stock_new_a_spot_em 接口，获取新股行情数据
+
+1.6.12 add: add stock_bj_a_spot_em interface
+
+    1. 新增 stock_bj_a_spot_em 接口，获取北交所 A 股行情数据
+
+1.6.11 add: add stock_sz_a_spot_em interface
+
+    1. 新增 stock_sz_a_spot_em 接口，获取深证 A 股行情数据
+
+1.6.10 add: add stock_sh_a_spot_em interface
+
+    1. 新增 stock_sh_a_spot_em 接口，获取上证 A 股行情数据
+
+1.6.9 fix: fix stock_zh_a_spot_em interface
+
+    1. 修复 stock_zh_a_spot_em 接口，新增多个字段
+
+1.6.8 fix: fix futures_zh_spot interface
+
+    1. 修复 futures_zh_spot 接口
+
+1.6.7 add: add futures_zh_realtime interface
+
+    1. 新增 futures_zh_realtime 接口，获取期货的实时行情数据
+    2. 新增 futures_symbol_mark 接口，获取新浪期货的所有品种标识
+
+1.6.6 fix: fix fund_etf_hist_sina interface
+
+    1. 修复 fund_etf_hist_sina 接口，规范输出数据类型
+
+1.6.5 fix: fix stock_board_cons_ths interface
+
+    1. 修复 stock_board_cons_ths 接口，修复获取链接的逻辑
+    2. 给接口 stock_board_concept_name_ths 增加缓存功能
+
+1.6.4 fix: fix stock_info_a_code_name interface
+
+    1. 修复 stock_info_a_code_name 接口，调整文档输出
+
+1.6.3 fix: fix stock_info_a_code_name and stock_info_sh_delist interface
+
+    1. 修复 stock_info_a_code_name 接口，调整字段
+    2. 修复 stock_info_sh_delist 接口，调整字段
+
+1.6.2 fix: fix macro_china_cpi interface
+
+    1. 修复 macro_china_cpi 接口，输出按日期排序
+
+1.6.1 fix: fix stock_info_sh_name_code interface
+
+    1. 修复 stock_info_sh_name_code 接口，字段对齐
+
+1.5.99 fix: fix stock_zh_a_hist_163 interface
+
+    1. 修复 stock_zh_a_hist_163 接口，修改编码格式为 GBK 编码
+
+1.5.98 fix: fix news_cctv interface
+
+    1. 修复 news_cctv 接口，适配 20220523 之后的新页面
+
+1.5.97 fix: fix stock_zh_a_hist interface
+
+    1. 修复 stock_zh_a_hist 接口，除以日期设置的边界问题
+
 1.5.96 fix: fix macro_bank_usa_interest_rate interface
 
     1. 修复 macro_bank_usa_interest_rate 接口，规范输出数据格式且按时间排序
@@ -669,6 +736,38 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.13 add: add stock_new_a_spot_em interface
+
+1.6.12 add: add stock_bj_a_spot_em interface
+
+1.6.11 add: add stock_sz_a_spot_em interface
+
+1.6.10 add: add stock_sh_a_spot_em interface
+
+1.6.9 fix: fix stock_zh_a_spot_em interface
+
+1.6.8 fix: fix futures_zh_spot interface
+
+1.6.7 add: add futures_zh_realtime interface
+
+1.6.6 fix: fix fund_etf_hist_sina interface
+
+1.6.5 fix: fix stock_board_cons_ths interface
+
+1.6.4 fix: fix stock_info_a_code_name interface
+
+1.6.3 fix: fix stock_info_a_code_name and stock_info_sh_delist interface
+
+1.6.2 fix: fix macro_china_cpi interface
+
+1.6.1 fix: fix stock_info_sh_name_code interface
+
+1.5.99 fix: fix stock_zh_a_hist_163 interface
+
+1.5.98 fix: fix news_cctv interface
+
+1.5.97 fix: fix stock_zh_a_hist interface
 
 1.5.96 fix: fix macro_bank_usa_interest_rate interface
 

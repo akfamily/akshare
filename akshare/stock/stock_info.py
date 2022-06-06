@@ -151,24 +151,25 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df.columns = [
-        "代码",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "证券简称",
+        "扩位证券简称",
         "-",
         "上市日期",
         "-",
+        "证券代码",
         "-",
-        "公司代码",
-        "-",
-        "-",
-        "-",
-        "简称",
-        "公司简称",
     ]
     temp_df = temp_df[
         [
-            "公司代码",
-            "公司简称",
-            "代码",
-            "简称",
+            "证券代码",
+            "证券简称",
+            "扩位证券简称",
             "上市日期",
         ]
     ]
@@ -313,27 +314,28 @@ def stock_info_sh_delist() -> pd.DataFrame:
     temp_df.columns = [
         "-",
         "-",
+        "公司简称",
+        "-",
+        "暂停上市日期",
+        "-",
+        "-",
+        "-",
+        "-",
         "上市日期",
         "-",
-        "原公司简称",
-        "原公司代码",
-        "终止上市日期",
-        "序号",
-        "-",
-        "-",
+        "公司代码",
         "-",
     ]
     temp_df = temp_df[
         [
-            "序号",
-            "原公司代码",
-            "原公司简称",
+            "公司代码",
+            "公司简称",
             "上市日期",
-            "终止上市日期",
+            "暂停上市日期",
         ]
     ]
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"]).dt.date
-    temp_df["终止上市日期"] = pd.to_datetime(temp_df["终止上市日期"]).dt.date
+    temp_df["暂停上市日期"] = pd.to_datetime(temp_df["暂停上市日期"]).dt.date
     return temp_df
 
 
@@ -423,19 +425,19 @@ def stock_info_a_code_name() -> pd.DataFrame:
     """
     big_df = pd.DataFrame()
     stock_sh = stock_info_sh_name_code(indicator="主板A股")
-    stock_sh = stock_sh[["公司代码", "公司简称"]]
+    stock_sh = stock_sh[["证券代码", "证券简称"]]
 
     stock_sz = stock_info_sz_name_code(indicator="A股列表")
     stock_sz["A股代码"] = stock_sz["A股代码"].astype(str).str.zfill(6)
     big_df = pd.concat([big_df, stock_sz[["A股代码", "A股简称"]]], ignore_index=True)
-    big_df.columns = ["公司代码", "公司简称"]
+    big_df.columns = ["证券代码", "证券简称"]
 
     stock_kcb = stock_info_sh_name_code(indicator="科创板")
-    stock_kcb = stock_kcb[["公司代码", "公司简称"]]
+    stock_kcb = stock_kcb[["证券代码", "证券简称"]]
 
     stock_bse = stock_info_bj_name_code()
     stock_bse = stock_bse[["证券代码", "证券简称"]]
-    stock_bse.columns = ["公司代码", "公司简称"]
+    stock_bse.columns = ["证券代码", "证券简称"]
 
     big_df = pd.concat([big_df, stock_sh], ignore_index=True)
     big_df = pd.concat([big_df, stock_kcb], ignore_index=True)
