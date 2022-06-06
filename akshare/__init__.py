@@ -3923,6 +3923,7 @@ from akshare.economic.macro_china import (
     macro_china_daily_energy,
     macro_china_non_man_pmi,
     macro_china_rmb,
+    macro_china_gdp_em,
     macro_china_gdp_yearly,
     macro_china_shrzgm,
     macro_china_ppi_yearly,

@@ -179,6 +179,49 @@ def macro_china_shrzgm() -> pd.DataFrame:
     return temp_df
 
 
+# 东方财富-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
+def macro_china_gdp_em() -> pd.DataFrame:
+    """
+    东方财富-中国 国内生产总值(GDP)
+
+    https://data.eastmoney.com/cjsj/gdp.html
+    :return: 中国 GDP
+    :rtype: pandas.DataFrame
+    """
+    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    params = {
+        "type": "GJZB",
+        "sty": "ZGZB",
+        "js": "({data:[(x)],pages:(pc)})",
+        "p": "1",
+        "ps": "2000",
+        "mkt": "20",
+        "stat": "4",
+        "pageNo": "1",
+        "pageNum": "1",
+        "_": "1625474966006",
+    }
+
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = demjson.decode(data_text[1:-1])
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
+    temp_df.columns = [
+        "日期",
+        "国内生产总值-绝对值(亿元)",
+        "国内生产总值-同比增长(%)",
+        "第一产业-绝对值(亿元)",
+        "第一产业-同比增长(%)",
+        "第二产业-绝对值(亿元)",
+        "第二产业-同比增长(%)",
+        "第三产业-绝对值(亿元)",
+        "第三产业-同比增长(%)",
+    ]
+    # temp_df.iloc[:, 1:] = pd.to_numeric(temp_df.iloc[:, 1:])
+    temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
+    return temp_df
+
+
 # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
 def macro_china_gdp_yearly() -> pd.DataFrame:
     """
