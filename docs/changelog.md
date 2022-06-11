@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.15 fix: fix bond_zh_cov_info interface
+
+    1. 修复 bond_zh_cov_info 接口，修改接口参数及返回数据
+
 1.6.14 fix: fix stock_hsgt_board_rank_em interface
 
     1. 修复 stock_hsgt_board_rank_em 接口，字段调整
@@ -740,6 +744,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.15 fix: fix bond_zh_cov_info interface
 
 1.6.14 fix: fix stock_hsgt_board_rank_em interface
 
