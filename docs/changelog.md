@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.17 fix: fix stock_new_a_spot_em interface
+
+    1. 修复 stock_new_a_spot_em 接口上市日期字段
+
 1.6.16 fix: fix baidu_search_index interface
 
     1. 修复 baidu_search_index 接口，对该接口增加 text 字段
@@ -748,6 +752,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.17 fix: fix stock_new_a_spot_em interface
 
 1.6.16 fix: fix baidu_search_index interface
 
