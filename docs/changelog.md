@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.16 fix: fix baidu_search_index interface
+
+    1. 修复 baidu_search_index 接口，对该接口增加 text 字段
+
 1.6.15 fix: fix bond_zh_cov_info interface
 
     1. 修复 bond_zh_cov_info 接口，修改接口参数及返回数据
@@ -744,6 +748,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.16 fix: fix baidu_search_index interface
 
 1.6.15 fix: fix bond_zh_cov_info interface
 
