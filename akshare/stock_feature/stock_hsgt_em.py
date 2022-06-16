@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/3/18 14:32
+Date: 2022/6/10 22:32
 Desc: 东方财富网-数据中心-沪深港通持股
 http://data.eastmoney.com/hsgtcg/
 沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -439,7 +439,9 @@ def stock_hsgt_hold_stock_em(
     if indicator == "年排行":
         indicator_type = "Y"
     if market == "北向":
-        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")"""
+        filter_str = (
+            f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")"""
+        )
     elif market == "沪股通":
         filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")(MUTUAL_TYPE="001")"""
     elif market == "深股通":
@@ -559,7 +561,9 @@ def stock_hsgt_hold_stock_em(
 
 
 def stock_hsgt_stock_statistics_em(
-    symbol: str = "北向持股", start_date: str = "20211027", end_date: str = "20211027"
+    symbol: str = "北向持股",
+    start_date: str = "20211027",
+    end_date: str = "20211027",
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
@@ -592,7 +596,9 @@ def stock_hsgt_stock_statistics_em(
         }
         if start_date == end_date:
             params.update(
-                {"filter": f"""(INTERVAL_TYPE="1")(RN=1)(TRADE_DATE='{start_date}')"""}
+                {
+                    "filter": f"""(INTERVAL_TYPE="1")(RN=1)(TRADE_DATE='{start_date}')"""
+                }
             )
         url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
         r = requests.get(url, params=params)
@@ -958,7 +964,9 @@ def stock_hsgt_stock_statistics_em(
 
 
 def stock_hsgt_institution_statistics_em(
-    market: str = "北向持股", start_date: str = "20211216", end_date: str = "20220123"
+    market: str = "北向持股",
+    start_date: str = "20220601",
+    end_date: str = "20220609",
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日机构统计
@@ -1004,6 +1012,13 @@ def stock_hsgt_institution_statistics_em(
             "持股市值变化-10日",
             "_",
             "机构名称",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
             "_",
         ]
         temp_df = temp_df[
@@ -1063,6 +1078,13 @@ def stock_hsgt_institution_statistics_em(
             "_",
             "机构名称",
             "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
         ]
         big_df = big_df[
             [
@@ -1120,6 +1142,13 @@ def stock_hsgt_institution_statistics_em(
             "_",
             "机构名称",
             "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
         ]
         big_df = big_df[
             [
@@ -1176,6 +1205,13 @@ def stock_hsgt_institution_statistics_em(
             "持股市值变化-10日",
             "_",
             "机构名称",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
             "_",
         ]
         big_df = big_df[
@@ -1302,7 +1338,9 @@ def stock_hsgt_board_rank_em(
     url = "https://data.eastmoney.com/hsgtcg/hy.html"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    current_date = soup.find(attrs={"id": "bkph_date"}).text.strip("（").strip("）")
+    current_date = (
+        soup.find(attrs={"id": "bkph_date"}).text.strip("（").strip("）")
+    )
     symbol_map = {
         "北向资金增持行业板块排行": "5",
         "北向资金增持概念板块排行": "4",
@@ -1365,6 +1403,9 @@ def stock_hsgt_board_rank_em(
         "_",
         "_",
         "今日减持最大股-占总市值比",
+        "_",
+        "_",
+        "_",
         "_",
         "_",
         "_",
@@ -1477,7 +1518,9 @@ def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
 
 
 def stock_hsgt_individual_detail_em(
-    symbol: str = "002008", start_date: str = "20220130", end_date: str = "20220330"
+    symbol: str = "002008",
+    start_date: str = "20220130",
+    end_date: str = "20220330",
 ) -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票详情
@@ -1575,28 +1618,40 @@ if __name__ == "__main__":
     stock_hk_ggt_components_em_df = stock_hk_ggt_components_em()
     print(stock_hk_ggt_components_em_df)
 
-    stock_hsgt_north_net_flow_in_em_df = stock_hsgt_north_net_flow_in_em(symbol="沪股通")
+    stock_hsgt_north_net_flow_in_em_df = stock_hsgt_north_net_flow_in_em(
+        symbol="沪股通"
+    )
     print(stock_hsgt_north_net_flow_in_em_df)
 
-    stock_hsgt_north_net_flow_in_em_df = stock_hsgt_north_net_flow_in_em(symbol="深股通")
+    stock_hsgt_north_net_flow_in_em_df = stock_hsgt_north_net_flow_in_em(
+        symbol="深股通"
+    )
     print(stock_hsgt_north_net_flow_in_em_df)
 
-    stock_hsgt_north_net_flow_in_em_df = stock_hsgt_north_net_flow_in_em(symbol="北上")
+    stock_hsgt_north_net_flow_in_em_df = stock_hsgt_north_net_flow_in_em(
+        symbol="北上"
+    )
     print(stock_hsgt_north_net_flow_in_em_df)
 
     stock_hsgt_north_cash_em_df = stock_hsgt_north_cash_em(symbol="沪股通")
     print(stock_hsgt_north_cash_em_df)
 
-    stock_hsgt_north_acc_flow_in_em_df = stock_hsgt_north_acc_flow_in_em(symbol="北上")
+    stock_hsgt_north_acc_flow_in_em_df = stock_hsgt_north_acc_flow_in_em(
+        symbol="北上"
+    )
     print(stock_hsgt_north_acc_flow_in_em_df)
 
-    stock_hsgt_south_net_flow_in_em_df = stock_hsgt_south_net_flow_in_em(symbol="沪股通")
+    stock_hsgt_south_net_flow_in_em_df = stock_hsgt_south_net_flow_in_em(
+        symbol="沪股通"
+    )
     print(stock_hsgt_south_net_flow_in_em_df)
 
     stock_hsgt_south_cash_em_df = stock_hsgt_south_cash_em(symbol="沪股通")
     print(stock_hsgt_south_cash_em_df)
 
-    stock_hsgt_south_acc_flow_in_em_df = stock_hsgt_south_acc_flow_in_em(symbol="沪股通")
+    stock_hsgt_south_acc_flow_in_em_df = stock_hsgt_south_acc_flow_in_em(
+        symbol="沪股通"
+    )
     print(stock_hsgt_south_acc_flow_in_em_df)
 
     stock_hsgt_hold_stock_em_df = stock_hsgt_hold_stock_em(
@@ -1615,42 +1670,50 @@ if __name__ == "__main__":
     print(stock_hsgt_hold_stock_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="北向持股", start_date="20220101", end_date="20220123"
+        symbol="北向持股", start_date="20220601", end_date="20220609"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="南向持股", start_date="20220101", end_date="20220123"
+        symbol="南向持股", start_date="20220601", end_date="20220609"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="沪股通持股", start_date="20220101", end_date="20220123"
+        symbol="沪股通持股", start_date="20220601", end_date="20220609"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="深股通持股", start_date="20220101", end_date="20220123"
+        symbol="深股通持股", start_date="20220601", end_date="20220609"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
-    stock_hsgt_institution_statistics_em_df = stock_hsgt_institution_statistics_em(
-        market="北向持股", start_date="20220101", end_date="20220123"
+    stock_hsgt_institution_statistics_em_df = (
+        stock_hsgt_institution_statistics_em(
+            market="北向持股", start_date="20220601", end_date="20220609"
+        )
     )
     print(stock_hsgt_institution_statistics_em_df)
 
-    stock_hsgt_institution_statistics_em_df = stock_hsgt_institution_statistics_em(
-        market="南向持股", start_date="20220101", end_date="20220123"
+    stock_hsgt_institution_statistics_em_df = (
+        stock_hsgt_institution_statistics_em(
+            market="南向持股", start_date="20220601", end_date="20220609"
+        )
     )
     print(stock_hsgt_institution_statistics_em_df)
 
-    stock_hsgt_institution_statistics_em_df = stock_hsgt_institution_statistics_em(
-        market="沪股通持股", start_date="20220101", end_date="20220123"
+    stock_hsgt_institution_statistics_em_df = (
+        stock_hsgt_institution_statistics_em(
+            market="沪股通持股", start_date="20220601", end_date="20220609"
+        )
     )
     print(stock_hsgt_institution_statistics_em_df)
 
-    stock_hsgt_institution_statistics_em_df = stock_hsgt_institution_statistics_em(
-        market="深股通持股", start_date="20220101", end_date="20220123"
+    stock_hsgt_institution_statistics_em_df = (
+        stock_hsgt_institution_statistics_em(
+            market="深股通持股", start_date="20220601", end_date="20220609"
+        )
     )
     print(stock_hsgt_institution_statistics_em_df)
 
@@ -1658,7 +1721,7 @@ if __name__ == "__main__":
     print(stock_hsgt_hist_em_df)
 
     stock_hsgt_board_rank_em_df = stock_hsgt_board_rank_em(
-        symbol="北向资金增持行业板块排行", indicator="1年"
+        symbol="北向资金增持行业板块排行", indicator="今日"
     )
     print(stock_hsgt_board_rank_em_df)
 
@@ -1666,6 +1729,6 @@ if __name__ == "__main__":
     print(stock_hsgt_individual_em_df)
 
     stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(
-        symbol="002008", start_date="20220130", end_date="20220226"
+        symbol="002008", start_date="20220601", end_date="20220609"
     )
     print(stock_hsgt_individual_detail_em_df)

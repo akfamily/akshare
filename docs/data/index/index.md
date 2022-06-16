@@ -1287,7 +1287,7 @@ print(stock_index_hist_df)
 | stock_code | object | 股票代码 |
 | in_date    | object | 进入时间 |
 | out_date   | object | 退出时间 |
-		
+
 数据示例
 
 ```
@@ -1726,7 +1726,7 @@ print(weibo_index_df)
 
 ```
              期货
-index          
+index
 20190901  13334
 20190902  46214
 20190903  49017
@@ -1750,30 +1750,37 @@ index
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| word | str  | Y    |   word="股票"|
-| start_date | str  | Y    | start_date="2010-12-27" |
-| end_date | str  | Y    |  end_date="2019-12-01" |
-| cookie | str  | Y    |  cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示 |
+| 名称         | 类型  | 描述                                         |
+|------------|-----|--------------------------------------------|
+| word       | str | word="股票"                                  |
+| start_date | str | start_date="2010-12-27"                    |
+| end_date   | str | end_date="2019-12-01"                      |
+| cookie     | str | cookie="您在网页端登录百度指数后的 Cookie 数据"; 如下图所示    |
+| text       | str | text="您在网页端登录百度指数后的 Cipher-Text 数据"; 如下图所示 |
 
-如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可
+如下图中游览器请求头中的蓝色选中部分内容到 cookie 参数 即可
 
 ![cookies](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png)
 
+如下图中游览器请求头中的蓝色选中部分内容到 text 参数即可
+
+![text](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/text.png)
+
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date      | datetime   | Y        | 日期-索引  |
-| index      | float   | Y        | 指数   |
+| 名称    | 类型       | 描述    |
+|-------|----------|-------|
+| date  | datetime | 日期-索引 |
+| index | float64  | 指数    |
 
 接口示例
 
 ```python
 import akshare as ak
-cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
-baidu_search_index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
+
+cookie = '此处输入您在网页端登录百度指数后的 Cookie 数据'  # 此处请用单引号
+text = '此处输入您在网页端登录百度指数后的 Cipher-Text 数据'
+baidu_search_index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie ,text=text)
 print(baidu_search_index_df)
 ```
 
@@ -1781,7 +1788,7 @@ print(baidu_search_index_df)
 
 ```
            index
-date            
+date
 2010-12-27   294
 2011-01-03   494
 2011-01-10   527
@@ -1805,30 +1812,37 @@ date
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| word | str  | Y    |   word="股票"|
-| start_date | datetime.datetime  | Y    | start_date="2017-07-03" |
-| end_date | datetime.datetime  | Y    |  end_date="2019-12-01" |
-| cookie | str  | Y    |  cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示 |
+| 名称         | 类型  | 描述                                                              |
+|------------|-----|-----------------------------------------------------------------|
+| word       | str | word="股票"                                                       |
+| start_date | str | start_date="2017-07-03"                                         |
+| end_date   | str | end_date="2019-12-01"                                           |
+| cookie     | str | cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示                         |
+| text       | str | text="您在网页端登录百度指数后的 Cipher-Text 数据"; 注意是 getFeedIndex 请求的 如下图所示 |
 
 如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可
 
 ![cookies](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png)
 
+如下图中游览器请求头中的蓝色选中部分内容到 text 参数即可
+
+![text](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/text.png)
+
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date      | datetime   | Y        | 日期-索引  |
-| index      | float   | Y        | 指数   |
+| 名称    | 类型       | 描述    |
+|-------|----------|-------|
+| date  | datetime | 日期-索引 |
+| index | float64  | 指数    |
 
 接口示例
 
 ```python
 import akshare as ak
+
 cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
-baidu_info_index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01', cookie=cookie)
+text = '此处输入您在网页端登录百度指数后的 Cipher-Text 数据'
+baidu_info_index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01', cookie=cookie, text=text)
 print(baidu_info_index_df)
 ```
 
@@ -1836,7 +1850,7 @@ print(baidu_info_index_df)
 
 ```
             index
-date             
+date
 2017-07-03  12727
 2017-07-10  12670
 2017-07-17   8722
@@ -1860,30 +1874,37 @@ date
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| word | str  | Y    |   word="股票"|
-| start_date | datetime.datetime  | Y    | start_date="2010-12-27" |
-| end_date | datetime.datetime  | Y    |  end_date="2019-12-01" |
-| cookie | str  | Y    |  cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示 |
+| 名称         | 类型  |  描述                                      |
+|------------|-----|-----|-----------------------------------------|
+| word       | str |  word="股票"                               |
+| start_date | str |  start_date="2010-12-27"                 |
+| end_date   | str |  end_date="2019-12-01"                   |
+| cookie     | str |  cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示 |
+| text       | str | text="您在网页端登录百度指数后的 Cipher-Text 数据"; 如下图所示 |
 
 如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可
 
 ![cookies](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/cookies.png)
 
+如下图中游览器请求头中的蓝色选中部分内容到 text 参数即可
+
+![text](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/index_baidu/text.png)
+
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date      | datetime   | Y        | 日期-索引  |
-| index      | float   | Y        | 指数   |
+| 名称    | 类型       | 描述    |
+|-------|----------|-------|
+| date  | datetime | 日期-索引 |
+| index | float64  | 指数    |
 
 接口示例
 
 ```python
 import akshare as ak
+
 cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
-baidu_media_index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie)
+text = '此处输入您在网页端登录百度指数后的 Cipher-Text 数据'
+baidu_media_index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie, text=text)
 print(baidu_media_index_df)
 ```
 
@@ -1891,7 +1912,7 @@ print(baidu_media_index_df)
 
 ```
            index
-date            
+date
 2010-12-27     0
 2011-01-03    13
 2011-01-10    30
@@ -2514,11 +2535,11 @@ print(sw_index_daily_indicator_df)
 
 现货指数一览表
 
-| 名称         | 时间段       | 
+| 名称         | 时间段       |
 |------------|-----------|
 | 进口大豆价格指数   | 2000-2016 |
 | 波罗的海干散货指数  | 2007-至今   |
-| 钢坯价格指数     | 2005-至今   | 
+| 钢坯价格指数     | 2005-至今   |
 | 普氏62%铁矿石指数 | 2011-至今   |
 
 输出参数

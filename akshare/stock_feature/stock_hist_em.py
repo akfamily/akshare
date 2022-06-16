@@ -569,7 +569,7 @@ def stock_new_a_spot_em() -> pd.DataFrame:
     temp_df["60日涨跌幅"] = pd.to_numeric(temp_df["60日涨跌幅"], errors="coerce")
     temp_df["年初至今涨跌幅"] = pd.to_numeric(temp_df["年初至今涨跌幅"], errors="coerce")
 
-    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"]).dt.date
+    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], format="%Y%m%d").dt.date
     return temp_df
 
 
