@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/2 23:26
+Date: 2022/6/16 15:00
 Desc: 东方财富网-行情首页-沪深京 A 股
 """
 import requests
@@ -148,7 +148,9 @@ def index_zh_a_hist(
 
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df = pd.DataFrame(
+        [item.split(",") for item in data_json["data"]["klines"]]
+    )
     temp_df.columns = [
         "日期",
         "开盘",
@@ -346,9 +348,9 @@ if __name__ == "__main__":
     print(index_zh_a_hist_df)
 
     index_zh_a_hist_min_em_df = index_zh_a_hist_min_em(
-        symbol="399006",
+        symbol="000300",
         period="1",
-        start_date="1979-09-01 09:32:00",
-        end_date="2222-01-01 09:32:00",
+        start_date="1977-05-08 09:30:00",
+        end_date="2022-08-08 15:00:00",
     )
     print(index_zh_a_hist_min_em_df)

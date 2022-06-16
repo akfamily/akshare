@@ -2037,9 +2037,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.16 fix: fix baidu_search_index interface
 1.6.17 fix: fix stock_new_a_spot_em interface
 1.6.18 fix: fix stock_zh_a_spot_em interface
+1.6.19 fix: fix stock_comment_detail_zlkp_jgcyd_em interface
 """
 
-__version__ = "1.6.18"
+__version__ = "1.6.19"
 __author__ = "AKFamily"
 
 import sys
