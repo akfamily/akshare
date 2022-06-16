@@ -3,7 +3,7 @@
 """
 Date: 2022/6/14 17:21
 Desc: 百度指数
-感谢 https://cloudcrawler.club/categories/2019%E5%B9%B4%E6%9C%AB%E9%80%86%E5%90%91%E5%A4%8D%E4%B9%A0/
+https://index.baidu.com/v2/main/index.html#/trend/python?words=python
 """
 import pandas as pd
 import requests
