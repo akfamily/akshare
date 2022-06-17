@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/26 11:47
+Date: 2022/6/17 14:47
 Desc: 东方财富-沪深板块-行业板块
 http://quote.eastmoney.com/center/boardlist.html#industry_board
 """
@@ -98,7 +98,7 @@ def stock_board_industry_name_em() -> pd.DataFrame:
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"])
+    temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
     temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
     temp_df["上涨家数"] = pd.to_numeric(temp_df["上涨家数"])
     temp_df["下跌家数"] = pd.to_numeric(temp_df["下跌家数"])
@@ -147,7 +147,9 @@ def stock_board_industry_hist_em(
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df = pd.DataFrame(
+        [item.split(",") for item in data_json["data"]["klines"]]
+    )
     temp_df.columns = [
         "日期",
         "开盘",
@@ -222,7 +224,9 @@ def stock_board_industry_hist_min_em(
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df = pd.DataFrame(
+        [item.split(",") for item in data_json["data"]["klines"]]
+    )
     temp_df.columns = [
         "日期时间",
         "开盘",
@@ -381,5 +385,7 @@ if __name__ == "__main__":
     )
     print(stock_board_industry_hist_min_em_df)
 
-    stock_board_industry_cons_em_df = stock_board_industry_cons_em(symbol="小金属")
+    stock_board_industry_cons_em_df = stock_board_industry_cons_em(
+        symbol="小金属"
+    )
     print(stock_board_industry_cons_em_df)
