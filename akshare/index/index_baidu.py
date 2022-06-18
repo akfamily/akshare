@@ -34,10 +34,10 @@ def get_ptbk(uniqid: str, cookie: str) -> str:
         "Cache-Control": "no-cache",
         "Cookie": cookie,
         "DNT": "1",
-        "Host": "zhishu.baidu.com",
+        "Host": "index.baidu.com",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "zhishu.baidu.com",
+        "Referer": "https://index.baidu.com/v2/main/index.html",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
@@ -127,10 +127,10 @@ def baidu_info_index(
         "Cipher-Text": text,
         "Cookie": cookie,
         "DNT": "1",
-        "Host": "zhishu.baidu.com",
+        "Host": "index.baidu.com",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "zhishu.baidu.com",
+        "Referer": "https://index.baidu.com/v2/main/index.html",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
@@ -193,10 +193,10 @@ def baidu_media_index(
         "Cipher-Text": text,
         "Cookie": cookie,
         "DNT": "1",
-        "Host": "zhishu.baidu.com",
+        "Host": "index.baidu.com",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "zhishu.baidu.com",
+        "Referer": "https://index.baidu.com/v2/main/index.html",
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.90 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
@@ -258,18 +258,18 @@ if __name__ == "__main__":
     print(baidu_search_index_df)
 
     baidu_info_index_df = baidu_info_index(
-        word="口罩",
-        start_date="2019-07-03",
-        end_date="2022-09-21",
+        word="python",
+        start_date="2022-03-03",
+        end_date="2022-06-17",
         cookie=cookie,
         text=text,
     )
     print(baidu_info_index_df)
 
     baidu_media_index_df = baidu_media_index(
-        word="金融科技",
-        start_date="2020-01-01",
-        end_date="2022-09-20",
+        word="python",
+        start_date="2022-01-01",
+        end_date="2022-05-20",
         cookie=cookie,
         text=text,
     )
