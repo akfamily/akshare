@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/6/14 17:21
+Date: 2022/6/18 17:21
 Desc: 百度指数
 https://index.baidu.com/v2/main/index.html#/trend/python?words=python
 """
@@ -12,12 +12,12 @@ import requests
 def decrypt(t: str, e: str) -> str:
     """
     解密函数
-    :param t:
-    :type t:
-    :param e:
-    :type e:
-    :return:
-    :rtype:
+    :param t: 加密字符
+    :type t: str
+    :param e: 加密字符
+    :type e: str
+    :return: 解密后字符
+    :rtype: str
     """
     n, i, a, result = list(t), list(e), {}, []
     ln = int(len(n) / 2)
@@ -27,6 +27,15 @@ def decrypt(t: str, e: str) -> str:
 
 
 def get_ptbk(uniqid: str, cookie: str) -> str:
+    """
+    获取编码
+    :param uniqid: 传入 uniqid
+    :type uniqid: str
+    :param cookie: 传入 cookie
+    :type cookie: str
+    :return: 编码
+    :rtype: str
+    """
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
@@ -57,6 +66,22 @@ def baidu_search_index(
     cookie: str = None,
     text: str = None,
 ) -> str:
+    """
+    百度-搜索指数
+    http://index.baidu.com/v2/index.html
+    :param word: 需要搜索的词语
+    :type word: str
+    :param start_date: 开始时间；注意开始时间和结束时间不要超过一年
+    :type start_date: str
+    :param end_date: 结束时间；注意开始时间和结束时间不要超过一年
+    :type end_date: str
+    :param cookie: 输入 cookie
+    :type cookie: str
+    :param text: 输入 text
+    :type text: str
+    :return: 搜索指数
+    :rtype: pandas.Series
+    """
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate, br",
@@ -117,8 +142,28 @@ def baidu_search_index(
 
 
 def baidu_info_index(
-    word: str, start_date: str, end_date: str, cookie: str, text: str
+    word: str = "python",
+    start_date: str = "2020-01-01",
+    end_date: str = "2020-06-01",
+    cookie: str = None,
+    text: str = None,
 ) -> str:
+    """
+    百度-资讯指数
+    http://index.baidu.com/v2/index.html
+    :param word: 需要搜索的词语
+    :type word: str
+    :param start_date: 开始时间；注意开始时间和结束时间不要超过一年
+    :type start_date: str
+    :param end_date: 结束时间；注意开始时间和结束时间不要超过一年
+    :type end_date: str
+    :param cookie: 输入 cookie
+    :type cookie: str
+    :param text: 输入 text
+    :type text: str
+    :return: 资讯指数
+    :rtype: pandas.Series
+    """
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
@@ -179,12 +224,28 @@ def baidu_info_index(
 
 
 def baidu_media_index(
-    word: str = "口罩",
-    start_date: str = "2018-01-01",
+    word: str = "python",
+    start_date: str = "2020-01-01",
     end_date: str = "2020-04-20",
     cookie: str = None,
     text: str = None,
 ) -> str:
+    """
+    百度-媒体指数
+    http://index.baidu.com/v2/index.html
+    :param word: 需要搜索的词语
+    :type word: str
+    :param start_date: 开始时间；注意开始时间和结束时间不要超过一年
+    :type start_date: str
+    :param end_date: 结束时间；注意开始时间和结束时间不要超过一年
+    :type end_date: str
+    :param cookie: 输入 cookie
+    :type cookie: str
+    :param text: 输入 text
+    :type text: str
+    :return: 媒体指数
+    :rtype: pandas.Series
+    """
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
