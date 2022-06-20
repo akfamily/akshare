@@ -5,6 +5,8 @@ Date: 2022/6/20 17:05
 Desc: 债券-集思录-可转债
 集思录：https://app.jisilu.cn/data/cbnew/#cb
 """
+import ast
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -28,7 +30,7 @@ def bond_cb_index_jsl() -> pd.DataFrame:
     inner_data_text = data_text[
         data_text.find("__date") : data_text.find("__data")
     ].strip("__date = ")
-    date_list = eval(inner_data_text[: inner_data_text.rfind(";")])
+    date_list = ast.literal_eval(inner_data_text[: inner_data_text.rfind(";")])
     inner_data_text = data_text[
         data_text.find("__data") : data_text.find("for(var")
     ].strip("__data = ")
