@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.25 fix: fix bond_cb_index_jsl interface
+
+    1. 修复 bond_cb_index_jsl 接口，去除 lxml 解析器
+
 1.6.24 fix: fix bond_cb_index_jsl interface
 
     1. 修复 bond_cb_index_jsl 接口，使用 ast.eval 替换
@@ -783,6 +787,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.25 fix: fix bond_cb_index_jsl interface
 
 1.6.24 fix: fix bond_cb_index_jsl interface
 
