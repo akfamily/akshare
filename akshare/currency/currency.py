@@ -21,9 +21,9 @@ def currency_latest(base: str = "USD", api_key: str = "") -> pd.DataFrame:
     :return: Latest data of base currency
     :rtype: pandas.DataFrame
     """
-    payload = {"base": base, "api_key": api_key}
+    params = {"base": base, "api_key": api_key}
     url = "https://api.currencyscoop.com/v1/latest"
-    r = requests.get(url, params=payload)
+    r = requests.get(url, params=params)
     temp_df = pd.DataFrame.from_dict(r.json()["response"])
     temp_df["date"] = pd.to_datetime(temp_df["date"])
     return temp_df
@@ -86,7 +86,9 @@ def currency_time_series(
     return temp_df
 
 
-def currency_currencies(c_type: str = "fiat", api_key: str = "") -> pd.DataFrame:
+def currency_currencies(
+    c_type: str = "fiat", api_key: str = ""
+) -> pd.DataFrame:
     """
     currencies data from currencyscoop.com
     https://currencyscoop.com/api-documentation
@@ -105,7 +107,10 @@ def currency_currencies(c_type: str = "fiat", api_key: str = "") -> pd.DataFrame
 
 
 def currency_convert(
-    base: str = "USD", to: str = "CNY", amount: str = "10000", api_key: str = ""
+    base: str = "USD",
+    to: str = "CNY",
+    amount: str = "10000",
+    api_key: str = "",
 ) -> pd.Series:
     """
     currencies data from currencyscoop.com
@@ -131,14 +136,14 @@ def currency_convert(
     r = requests.get(url, params=payload)
     temp_se = pd.Series(r.json()["response"])
     temp_se["timestamp"] = pd.to_datetime(temp_se["timestamp"], unit="s")
+
     return temp_se
 
 
 if __name__ == "__main__":
-    currency_latest_df = currency_latest(
-        base="USD", api_key=""
-    )
+    currency_latest_df = currency_latest(base="USD", api_key="")
     print(currency_latest_df)
+
     currency_history_df = currency_history(
         base="USD", date="2020-02-03", api_key=""
     )
@@ -150,9 +155,7 @@ if __name__ == "__main__":
     #     api_key="",
     # )
     # print(currency_time_series_df)
-    currency_currencies_df = currency_currencies(
-        c_type="fiat", api_key=""
-    )
+    currency_currencies_df = currency_currencies(c_type="fiat", api_key="")
     print(currency_currencies_df)
     currency_convert_se = currency_convert(
         base="USD", to="CNY", amount="10000", api_key=""
