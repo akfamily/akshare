@@ -310,9 +310,9 @@ if __name__ == "__main__":
     text = ""
 
     baidu_search_index_df = baidu_search_index(
-        word="疫苗",
-        start_date="2021-01-01",
-        end_date="2022-01-01",
+        word="python",
+        start_date="2022-01-01",
+        end_date="2022-06-01",
         cookie=cookie,
         text=text,
     )
