@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.28 add: add currency_boc_safe interface
+
+    1. 新增 currency_boc_safe 接口，获取人民币汇率中间价数据
+
 1.6.27 fix: fix currency_boc_sina interface
 
     1. 修复 currency_boc_sina 接口，输出结果按时间排序
@@ -795,6 +799,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.28 add: add currency_boc_safe interface
 
 1.6.27 fix: fix currency_boc_sina interface
 
