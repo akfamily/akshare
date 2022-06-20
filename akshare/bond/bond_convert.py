@@ -23,10 +23,10 @@ def bond_cb_index_jsl() -> pd.DataFrame:
     """
     url = "https://www.jisilu.cn/data/cbnew/cb_index/"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text)
+    soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find_all("script", attrs={"type": "text/javascript"})[
         -4
-    ].text
+    ].string
     inner_data_text = data_text[
         data_text.find("__date") : data_text.find("__data")
     ].strip("__date = ")
