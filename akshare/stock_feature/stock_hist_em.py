@@ -829,7 +829,7 @@ def code_id_map_em() -> dict:
     code_id_dict = dict(zip(temp_df["sh_code"], temp_df["sh_id"]))
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -849,7 +849,7 @@ def code_id_map_em() -> dict:
     code_id_dict.update(dict(zip(temp_df_sz["f12"], temp_df_sz["sz_id"])))
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
