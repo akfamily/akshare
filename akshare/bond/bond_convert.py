@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/24 15:05
+Date: 2022/6/20 17:05
 Desc: 债券-集思录-可转债
 集思录：https://app.jisilu.cn/data/cbnew/#cb
 """
@@ -25,16 +25,14 @@ def bond_cb_index_jsl() -> pd.DataFrame:
     data_text = soup.find_all("script", attrs={"type": "text/javascript"})[
         -4
     ].text
-    date_list = eval(
-        data_text[data_text.find("__date") : data_text.find("__data")]
-        .strip("__date = ")
-        .strip(";\n\nvar")
-    )
-    data_dict = demjson.decode(
-        data_text[data_text.find("__data") : data_text.find("for(var")]
-        .strip("__data = ")
-        .strip(";\n\n")
-    )
+    inner_data_text = data_text[
+        data_text.find("__date") : data_text.find("__data")
+    ].strip("__date = ")
+    date_list = eval(inner_data_text[: inner_data_text.rfind(";")])
+    inner_data_text = data_text[
+        data_text.find("__data") : data_text.find("for(var")
+    ].strip("__data = ")
+    data_dict = demjson.decode(inner_data_text[: inner_data_text.rfind(";")])
     temp_df = pd.DataFrame([date_list, data_dict["price"]]).T
     temp_df.columns = ["date", "price"]
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
