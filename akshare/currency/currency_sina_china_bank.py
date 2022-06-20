@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/6/14 12:49
+Date: 2022/6/20 20:49
 Desc: 新浪财经-中行人民币牌价历史数据查询
 http://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
 """
@@ -33,18 +33,24 @@ def _currency_boc_sina_map(date: str = "20210614") -> dict:
         zip(
             [
                 item.text
-                for item in soup.find(attrs={"id": "money_code"}).find_all("option")
+                for item in soup.find(attrs={"id": "money_code"}).find_all(
+                    "option"
+                )
             ],
             [
                 item["value"]
-                for item in soup.find(attrs={"id": "money_code"}).find_all("option")
+                for item in soup.find(attrs={"id": "money_code"}).find_all(
+                    "option"
+                )
             ],
         )
     )
     return data_dict
 
 
-def currency_boc_sina(symbol: str = "美元", date: str = "20210614") -> pd.DataFrame:
+def currency_boc_sina(
+    symbol: str = "美元", date: str = "20210614"
+) -> pd.DataFrame:
     """
     新浪财经-中行人民币牌价历史数据查询
     http://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
@@ -70,11 +76,11 @@ def currency_boc_sina(symbol: str = "美元", date: str = "20210614") -> pd.Data
     soup.find(attrs={"id": "money_code"})
     page_num = int(soup.find_all("a", attrs={"class": "page"})[-2].text)
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1)):
+    for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"page": page})
         r = requests.get(url, params=params)
         temp_df = pd.read_html(r.text, header=0)[0]
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "日期",
         "中行汇买价",
@@ -82,9 +88,17 @@ def currency_boc_sina(symbol: str = "美元", date: str = "20210614") -> pd.Data
         "中行钞卖价/汇卖价",
         "央行中间价",
     ]
+    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df["中行汇买价"] = pd.to_numeric(big_df["中行汇买价"])
+    big_df["中行钞买价"] = pd.to_numeric(big_df["中行钞买价"])
+    big_df["中行钞卖价/汇卖价"] = pd.to_numeric(big_df["中行钞卖价/汇卖价"])
+    big_df["央行中间价"] = pd.to_numeric(big_df["央行中间价"])
+
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
 if __name__ == "__main__":
-    currency_boc_sina_df = currency_boc_sina(symbol="美元", date="20210614")
+    currency_boc_sina_df = currency_boc_sina(symbol="美元", date="20220620")
     print(currency_boc_sina_df)

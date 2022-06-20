@@ -6,24 +6,24 @@
 
 目标地址: https://currencyscoop.com/
 
-描述: 获取货币报价最新数据
+描述: 货币报价最新数据
 
 限量: 单次返回指定货币的最新报价数据-免费账号每月限量访问 5000 次
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| base | str | Y | base="USD" |
-| api_key | str | Y | api_key="Please put your api key here"; you can register [currencyscoop](https://currencyscoop.com/), [Gmail](http://mail.google.com/) well be better |
+| 名称      | 类型  | 必选  | 描述                                                                                                                                                    |
+|---------|-----|-----|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| base    | str | Y   | base="USD"                                                                                                                                            |
+| api_key | str | Y   | api_key="Please put your api key here"; you can register [currencyscoop](https://currencyscoop.com/), [Gmail](http://mail.google.com/) well be better |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date      | str   | Y        | 日期时间-注意时区  |
-| base      | float   | Y        | 货币   |
-| rates      | str   | Y        | 比率  |
+| 名称    | 类型    | 默认显示 | 描述        |
+|-------|-------|------|-----------|
+| date  | str   | Y    | 日期时间-注意时区 |
+| base  | float | Y    | 货币        |
+| rates | str   | Y    | 比率        |
 
 接口示例
 
@@ -62,24 +62,25 @@ ZWD 2020-03-07 13:45:25+00:00  USD  361.899994
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| base | str | Y | base="USD" |
-| date | str | Y | date="2020-02-03" |
-| api_key | str | Y | api_key="Please put your api key here"; you can register [currencyscoop](https://currencyscoop.com/), [Gmail](http://mail.google.com/) well be better |
+| 名称      | 类型  | 必选  | 描述                                                                                                                                                    |
+|---------|-----|-----|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| base    | str | Y   | base="USD"                                                                                                                                            |
+| date    | str | Y   | date="2020-02-03"                                                                                                                                     |
+| api_key | str | Y   | api_key="Please put your api key here"; you can register [currencyscoop](https://currencyscoop.com/), [Gmail](http://mail.google.com/) well be better |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date      | str   | Y        | 日期时间-注意时区  |
-| base      | float   | Y        | 货币   |
-| rates      | str   | Y        | 比率  |
+| 名称    | 类型    | 默认显示 | 描述        |
+|-------|-------|------|-----------|
+| date  | str   | Y    | 日期时间-注意时区 |
+| base  | float | Y    | 货币        |
+| rates | str   | Y    | 比率        |
 
 接口示例
 
 ```python
 import akshare as ak
+
 currency_history_df = ak.currency_history(base="USD", date="2020-02-03", api_key="Please put your api key here")
 print(currency_history_df)
 ```
