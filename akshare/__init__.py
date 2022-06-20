@@ -2046,9 +2046,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.25 fix: fix bond_cb_index_jsl interface
 1.6.26 fix: fix bond_cb_index_jsl interface
 1.6.27 fix: fix currency_boc_sina interface
+1.6.28 add: add currency_boc_safe interface
 """
 
-__version__ = "1.6.27"
+__version__ = "1.6.28"
 __author__ = "AKFamily"
 
 import sys
@@ -2058,6 +2059,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+人民币汇率中间价
+"""
+from akshare.currency.currency_safe import currency_boc_safe
 
 """
 期权-上海证券交易所-风险指标
@@ -2629,7 +2635,7 @@ from akshare.stock_feature.stock_hist_em import (
 """
 中行人民币牌价历史数据查询
 """
-from akshare.currency.currency_sina_china_bank import currency_boc_sina
+from akshare.currency.currency_china_bank_sina import currency_boc_sina
 
 """
 期货持仓
