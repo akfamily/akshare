@@ -141,9 +141,7 @@ def currency_convert(
 
 
 if __name__ == "__main__":
-    currency_latest_df = currency_latest(
-        base="USD", api_key="e2cd623e630613c89ba9cee546ae5108"
-    )
+    currency_latest_df = currency_latest(base="USD", api_key="")
     print(currency_latest_df)
 
     currency_history_df = currency_history(
