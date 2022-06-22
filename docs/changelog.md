@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.29 fix: fix stock_board_industry_name_em interface
+
+    1. 修复 stock_board_industry_name_em 接口，输出字段容错处理
+
 1.6.28 add: add currency_boc_safe interface
 
     1. 新增 currency_boc_safe 接口，获取人民币汇率中间价数据
@@ -799,6 +803,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.29 fix: fix stock_board_industry_name_em interface
 
 1.6.28 add: add currency_boc_safe interface
 
