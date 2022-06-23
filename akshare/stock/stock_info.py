@@ -7,6 +7,7 @@ Desc: 股票基本信息
 import json
 import warnings
 from io import BytesIO
+from functools import lru_cache
 
 import pandas as pd
 import requests
@@ -417,6 +418,7 @@ def stock_info_change_name(symbol: str = "000503") -> pd.DataFrame:
         return pd.DataFrame()
 
 
+@lru_cache()
 def stock_info_a_code_name() -> pd.DataFrame:
     """
     沪深京 A 股列表

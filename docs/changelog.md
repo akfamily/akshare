@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.30 fix: fix stock_info_a_code_name interface
+
+    1. 修复 stock_info_a_code_name 接口，增加缓存
+
 1.6.29 fix: fix stock_board_industry_name_em interface
 
     1. 修复 stock_board_industry_name_em 接口，输出字段容错处理
@@ -803,6 +807,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.30 fix: fix stock_info_a_code_name interface
 
 1.6.29 fix: fix stock_board_industry_name_em interface
 
