@@ -5446,7 +5446,7 @@ print(stock_analyst_rank_em_df)
 
 接口: stock_analyst_detail_em
 
-目标地址: http://data.eastmoney.com/invest/invest/list.html
+目标地址: https://data.eastmoney.com/invest/invest/11000257131.html
 
 描述: 东方财富网-数据中心-研究报告-东方财富分析师指数-分析师详情
 
