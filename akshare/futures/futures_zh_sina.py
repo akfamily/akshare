@@ -698,3 +698,6 @@ if __name__ == "__main__":
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="V2205")
     print(futures_zh_daily_sina_df)
+
+    futures_zh_spot_df = futures_zh_spot()
+    print(futures_zh_spot_df)
