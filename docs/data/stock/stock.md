@@ -13155,33 +13155,34 @@ print(stock_report_fund_hold_df)
 
 目标地址: http://data.eastmoney.com/zlsj/ccjj/2020-12-31-008286.html
 
-描述: 获取东方财富网-数据中心-主力数据-基金持仓-基金持仓明细表
+描述: 东方财富网-数据中心-主力数据-基金持仓-基金持仓明细表
 
 限量: 单次返回指定 symbol 和 date 的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y    | symbol="005827"; 基金代码|
-| date | str | Y    | date="20200630"; 财报发布日期, xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31|
+| 名称     | 类型  | 描述                                                                      |
+|--------|-----|-------------------------------------------------------------------------|
+| symbol | str | symbol="005827"; 基金代码                                                   |
+| date   | str | date="20200630"; 财报发布日期, xxxx-03-31, xxxx-06-30, xxxx-09-30, xxxx-12-31 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | datetime   | Y        |  -    |
-| 股票代码          | float   | Y        |  -    |
-| 股票简称          | float   | Y        |  -    |
-| 持股数          | float   | Y        |  注意单位: 股    |
-| 持股市值          | float   | Y        |  注意单位: 元    |
-| 占总股本比例          | float   | Y     |  注意单位: %    |
-| 占流通股本比例          | float   | Y     |  注意单位: %    |
+| 名称      | 类型      | 描述      |
+|---------|---------|---------|
+| 序号      | int64   | -       |
+| 股票代码    | object  | -       |
+| 股票简称    | object  | -       |
+| 持股数     | int64   | 注意单位: 股 |
+| 持股市值    | float64 | 注意单位: 元 |
+| 占总股本比例  | float64 | 注意单位: % |
+| 占流通股本比例 | float64 | 注意单位: % |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_report_fund_hold_detail_df = ak.stock_report_fund_hold_detail(symbol="005827", date="20201231")
 print(stock_report_fund_hold_detail_df)
 ```
