@@ -10,7 +10,9 @@ import requests
 
 
 def stock_zh_index_hist_csindex(
-    symbol: str = "H30374", start_date: str = "20160101", end_date: str = "20211015"
+    symbol: str = "H30374",
+    start_date: str = "20160101",
+    end_date: str = "20211015",
 ) -> pd.DataFrame:
     """
     中证指数-具体指数-历史行情数据
@@ -34,6 +36,7 @@ def stock_zh_index_hist_csindex(
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
+    del temp_df["peg"]
     temp_df.columns = [
         "日期",
         "指数代码",
@@ -179,7 +182,10 @@ def index_value_hist_funddb(
     }
     index_value_name_funddb_df = index_value_name_funddb()
     name_code_map = dict(
-        zip(index_value_name_funddb_df["指数名称"], index_value_name_funddb_df["指数代码"])
+        zip(
+            index_value_name_funddb_df["指数名称"],
+            index_value_name_funddb_df["指数代码"],
+        )
     )
     url = "https://api.jiucaishuo.com/v2/guzhi/newtubiaolinedata"
     payload = {
@@ -196,7 +202,8 @@ def index_value_hist_funddb(
     data_json = r.json()
     big_df = pd.DataFrame()
     temp_df = pd.DataFrame(
-        data_json["data"]["tubiao"]["series"][0]["data"], columns=["timestamp", "value"]
+        data_json["data"]["tubiao"]["series"][0]["data"],
+        columns=["timestamp", "value"],
     )
     big_df["日期"] = (
         pd.to_datetime(temp_df["timestamp"], unit="ms", utc=True)
@@ -228,8 +235,12 @@ if __name__ == "__main__":
     )
     print(stock_zh_index_hist_csindex_df)
 
-    stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(symbol="H30374")
+    stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(
+        symbol="H30374"
+    )
     print(stock_zh_index_value_csindex_df)
 
-    index_value_hist_funddb_df = index_value_hist_funddb(symbol="中证能源", indicator="股息率")
+    index_value_hist_funddb_df = index_value_hist_funddb(
+        symbol="大盘成长", indicator="市盈率"
+    )
     print(index_value_hist_funddb_df)

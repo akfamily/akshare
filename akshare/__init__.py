@@ -2053,9 +2053,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.32 fix: fix get_czce_daily interface
 1.6.33 fix: fix stock_report_fund_hold_detail interface
 1.6.34 fix: fix fx_spot_quote interface
+1.6.35 fix: fix stock_zh_index_hist_csindex interface
 """
 
-__version__ = "1.6.34"
+__version__ = "1.6.35"
 __author__ = "AKFamily"
 
 import sys
