@@ -381,7 +381,7 @@ if __name__ == "__main__":
     print(stock_board_industry_hist_em_df)
 
     stock_board_industry_hist_min_em_df = stock_board_industry_hist_min_em(
-        symbol="小金属", period="5"
+        symbol="小金属", period="60"
     )
     print(stock_board_industry_hist_min_em_df)
 

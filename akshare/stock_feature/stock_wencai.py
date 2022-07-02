@@ -59,9 +59,9 @@ def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
     r = requests.post(url, data=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(
-        data_json["data"]["answer"][0]["txt"][0]["content"]["components"][0]["data"][
-            "datas"
-        ]
+        data_json["data"]["answer"][0]["txt"][0]["content"]["components"][0][
+            "data"
+        ]["datas"]
     )
     temp_df.reset_index(inplace=True)
     temp_df["index"] = range(1, len(temp_df) + 1)
@@ -103,5 +103,5 @@ def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20220214")
+    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20220701")
     print(stock_hot_rank_wc_df)

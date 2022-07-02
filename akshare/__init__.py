@@ -2055,9 +2055,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.34 fix: fix fx_spot_quote interface
 1.6.35 fix: fix stock_zh_index_hist_csindex interface
 1.6.36 fix: fix option_finance_board interface
+1.6.37 fix: remove futures_inventory_99 interface
 """
 
-__version__ = "1.6.36"
+__version__ = "1.6.37"
 __author__ = "AKFamily"
 
 import sys
@@ -4056,11 +4057,6 @@ from akshare.index.index_investing import (
     index_investing_global_country_name_url,
     index_investing_global_from_url,
 )
-
-"""
-99期货-期货库存数据
-"""
-from akshare.futures.futures_inventory import futures_inventory_99
 
 """
 东方财富-期货库存数据
