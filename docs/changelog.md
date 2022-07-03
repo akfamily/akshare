@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.38 add: add stock_zygc_ym interface
+
+    1. 新增 stock_zygc_ym 接口，获取股票的主营构成数据
+
 1.6.37 fix: remove futures_inventory_99 interface
 
     1. 移除 futures_inventory_99 接口
@@ -837,6 +841,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.38 add: add stock_zygc_ym interface
 
 1.6.37 fix: remove futures_inventory_99 interface
 

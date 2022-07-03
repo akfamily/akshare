@@ -1100,6 +1100,8 @@
  "option_risk_indicator_sse"  # 上海证券交易所-产品-股票期权-期权风险指标
  # 人民币汇率中间价
  "currency_boc_safe"  # 人民币汇率中间价
+ # 主营构成
+ "stock_zygc_ym"  # 主营构成
 ```
 
 ## 案例演示
