@@ -980,20 +980,21 @@ print(futures_dce_detail_dict)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| trade_date | str | Y | trade_date="20200702"; 交易日 |
+| 名称         | 类型  | 描述                         |
+|------------|-----|----------------------------|
+| trade_date | str | trade_date="20200702"; 交易日 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 键值对字典      | dict   | Y        | 键值对, 键为品种代码, 值为 pandas.DataFrame 格式的数据  |
+| 名称    | 类型   | 描述                                     |
+|-------|------|----------------------------------------|
+| 键值对字典 | dict | 键值对, 键为品种代码, 值为 pandas.DataFrame 格式的数据 |
 
 接口示例
 
 ```python
 import akshare as ak
+
 czce_warehouse_receipt_df = ak.futures_czce_warehouse_receipt(trade_date="20200702")
 print(czce_warehouse_receipt_df)
 ```
