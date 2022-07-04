@@ -873,8 +873,9 @@ def code_id_map_em() -> dict:
 def stock_zh_a_hist(
     symbol: str = "000001",
     period: str = "daily",
-    start_date: str = "19700101",
-    end_date: str = "20500101",
+    start_date: str = None,
+    end_date: str = None,
+    lmt: int = None,
     adjust: str = "",
 ) -> pd.DataFrame:
     """
@@ -888,11 +889,16 @@ def stock_zh_a_hist(
     :type start_date: str
     :param end_date: 结束日期
     :type end_date: str
+    :param lmt: 需要获取的K线的数量。传入参数的时候，start_date、end_date、lmt需要且必须传入两个。
+    :type lmt: int
     :param adjust: choice of {"qfq": "前复权", "hfq": "后复权", "": "不复权"}
     :type adjust: str
     :return: 每日行情
     :rtype: pandas.DataFrame
     """
+    start_date = start_date if start_date else None
+    end_date = end_date if end_date else 20500101
+    lmt = lmt if lmt else None
     code_id_dict = code_id_map_em()
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     period_dict = {"daily": "101", "weekly": "102", "monthly": "103"}
@@ -906,6 +912,7 @@ def stock_zh_a_hist(
         "secid": f"{code_id_dict[symbol]}.{symbol}",
         "beg": start_date,
         "end": end_date,
+        "lmt": lmt,
         "_": "1623766962675",
     }
     r = requests.get(url, params=params)
@@ -928,8 +935,6 @@ def stock_zh_a_hist(
         "涨跌额",
         "换手率",
     ]
-    temp_df.index = pd.to_datetime(temp_df["日期"])
-    temp_df.reset_index(inplace=True, drop=True)
 
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
@@ -947,8 +952,9 @@ def stock_zh_a_hist(
 
 def stock_zh_a_hist_min_em(
     symbol: str = "000001",
-    start_date: str = "1979-09-01 09:32:00",
-    end_date: str = "2222-01-01 09:32:00",
+    start_date: str = None,
+    end_date: str = None,
+    lmt: int = None,
     period: str = "5",
     adjust: str = "",
 ) -> pd.DataFrame:
@@ -957,10 +963,12 @@ def stock_zh_a_hist_min_em(
     http://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
-    :param start_date: 开始日期
+    :param start_date: 开始日期。格式是YYYYMMDD的日期。即便加上时间，时间设置也无效。
     :type start_date: str
-    :param end_date: 结束日期
+    :param end_date: 结束日期。格式是YYYYMMDD的日期。即便加上时间，时间设置也无效。
     :type end_date: str
+    :param lmt: 需要获取的K线的数量。传入参数的时候，start_date、end_date、lmt（应该）需要且必须传入两个。
+    :type lmt: int
     :param period: choice of {'1', '5', '15', '30', '60'}
     :type period: str
     :param adjust: choice of {'', 'qfq', 'hfq'}
@@ -1021,8 +1029,9 @@ def stock_zh_a_hist_min_em(
             "klt": period,
             "fqt": adjust_map[adjust],
             "secid": f"{code_id_dict[symbol]}.{symbol}",
-            "beg": "0",
-            "end": "20500000",
+            "beg": start_date,
+            "end": end_date,
+            "lmt": lmt,
             "_": "1630930917857",
         }
         r = requests.get(url, params=params)
@@ -1043,9 +1052,7 @@ def stock_zh_a_hist_min_em(
             "涨跌额",
             "换手率",
         ]
-        temp_df.index = pd.to_datetime(temp_df["时间"])
-        temp_df = temp_df[start_date:end_date]
-        temp_df.reset_index(drop=True, inplace=True)
+
         temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
         temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
         temp_df["最高"] = pd.to_numeric(temp_df["最高"])
