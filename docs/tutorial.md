@@ -1102,6 +1102,8 @@
  "currency_boc_safe"  # 人民币汇率中间价
  # 主营构成
  "stock_zygc_ym"  # 主营构成
+ # 管理层讨论与分析
+ "stock_mda_ym"  # 管理层讨论与分析
 ```
 
 ## 案例演示

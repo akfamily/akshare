@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.40 add: add stock_mda_ym interface
+
+    1. 新增 stock_mda_ym 接口，获取管理层讨论与分析数据
+
 1.6.39 fix: fix futures_symbol_mark interface
 
     1. 修复 futures_symbol_mark 接口编码问题
@@ -845,6 +849,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.40 add: add stock_mda_ym interface
 
 1.6.39 fix: fix futures_symbol_mark interface
 
