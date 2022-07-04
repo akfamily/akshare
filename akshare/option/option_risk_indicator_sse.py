@@ -67,5 +67,5 @@ if __name__ == "__main__":
     option_risk_indicator_sse_df = option_risk_indicator_sse(date="20220516")
     print(option_risk_indicator_sse_df)
 
-    option_risk_indicator_sse_df = option_risk_indicator_sse(date="20220516")
+    option_risk_indicator_sse_df = option_risk_indicator_sse(date="20220623")
     print(option_risk_indicator_sse_df)

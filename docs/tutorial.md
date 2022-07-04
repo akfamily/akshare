@@ -109,6 +109,7 @@
  "stock_sz_a_spot_em"  # 东财深 A 股实时行情数据
  "stock_bj_a_spot_em"  # 东财京 A 股实时行情数据
  "stock_new_a_spot_em"  # 东财新股实时行情数据
+ "stock_kc_a_spot_em"  # 东财科创板实时行情数据
  "stock_zh_b_spot_em"  # 东财 B 股实时行情数据
  "stock_zh_a_daily"  # 获取 A 股历史行情数据(日频)
  "stock_zh_a_minute"  # 获取 A 股分时历史行情数据(分钟)
@@ -478,7 +479,6 @@
  "hf_sp_500"  # 获取标普500指数的分钟数据
  # 商品期货库存数据
  "futures_inventory_em"  # 库存数据-东方财富
- "futures_inventory_99"  # 库存数据-99期货
  # 个股资金流
  "stock_individual_fund_flow"  # 个股资金流
  "stock_individual_fund_flow_rank"  # 个股资金流排名
@@ -1098,6 +1098,10 @@
  "news_report_time_baidu"  # 财报发行
  # 金融期权
  "option_risk_indicator_sse"  # 上海证券交易所-产品-股票期权-期权风险指标
+ # 人民币汇率中间价
+ "currency_boc_safe"  # 人民币汇率中间价
+ # 主营构成
+ "stock_zygc_ym"  # 主营构成
 ```
 
 ## 案例演示

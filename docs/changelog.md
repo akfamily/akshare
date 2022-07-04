@@ -29,6 +29,95 @@
 
 ## 更新说明
 
+1.6.38 add: add stock_zygc_ym interface
+
+    1. 新增 stock_zygc_ym 接口，获取股票的主营构成数据
+
+1.6.37 fix: remove futures_inventory_99 interface
+
+    1. 移除 futures_inventory_99 接口
+
+1.6.36 fix: fix option_finance_board interface
+
+    1. 修复 option_finance_board 接口
+
+1.6.35 fix: fix stock_zh_index_hist_csindex interface
+
+    1. 修复 stock_zh_index_hist_csindex 接口
+
+1.6.34 fix: fix fx_spot_quote interface
+
+    1. 修复 fx_spot_quote 接口，输出字段
+    2. 修复 fx_swap_quote 接口，输出字段
+    3. 修复 fx_pair_quote 接口，输出字段
+
+1.6.33 fix: fix stock_report_fund_hold_detail interface
+
+    1. 修复 stock_report_fund_hold_detail 接口
+
+1.6.32 fix: fix get_czce_daily interface
+
+    1. 修复 get_czce_daily 接口，获取 2010 年数据
+
+1.6.31 fix: fix stock_gdfx_free_holding_detail_em interface
+
+    1. 修复 stock_gdfx_free_holding_detail_em 接口，规范输出字段
+
+1.6.30 fix: fix stock_info_a_code_name interface
+
+    1. 修复 stock_info_a_code_name 接口，增加缓存
+
+1.6.29 fix: fix stock_board_industry_name_em interface
+
+    1. 修复 stock_board_industry_name_em 接口，输出字段容错处理
+
+1.6.28 add: add currency_boc_safe interface
+
+    1. 新增 currency_boc_safe 接口，获取人民币汇率中间价数据
+
+1.6.27 fix: fix currency_boc_sina interface
+
+    1. 修复 currency_boc_sina 接口，输出结果按时间排序
+
+1.6.26 fix: fix bond_cb_index_jsl interface
+
+    1. 修复 bond_cb_index_jsl 接口，对于 script 使用 string 适配 Linux 及 MacOS
+
+1.6.25 fix: fix bond_cb_index_jsl interface
+
+    1. 修复 bond_cb_index_jsl 接口，去除 lxml 解析器
+
+1.6.24 fix: fix bond_cb_index_jsl interface
+
+    1. 修复 bond_cb_index_jsl 接口，使用 ast.eval 替换
+
+1.6.23 fix: fix bond_cb_index_jsl interface
+
+    1. 修复 bond_cb_index_jsl 接口，适配 Linux 及 MacOS
+
+1.6.22 add: add stock_kc_a_spot_em interface
+
+    1. 新增 stock_kc_a_spot_em 接口，获取科创板行情
+
+1.6.21 fix: fix baidu_search_index interface
+
+    1. 修复 baidu_search_index 接口
+    2. 修复 baidu_info_index 接口
+    3. 修复 baidu_media_index 接口
+
+1.6.20 fix: fix stock_board_industry_name_em and code_id_map_em interface
+
+    1. 修复 stock_board_industry_name_em 接口，字段容错处理
+    2. 修复 code_id_map_em 接口，股票超过 5000 只处理
+
+1.6.19 fix: fix stock_comment_detail_zlkp_jgcyd_em interface
+
+    1. 修复 stock_comment_detail_zlkp_jgcyd_em 接口
+
+1.6.18 fix: fix stock_zh_a_spot_em interface
+
+    1. 修复 stock_zh_a_spot_em 接口，增加股票获取的数量，目前已经超过 5000 只
+
 1.6.17 fix: fix stock_new_a_spot_em interface
 
     1. 修复 stock_new_a_spot_em 接口上市日期字段
@@ -752,6 +841,48 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.38 add: add stock_zygc_ym interface
+
+1.6.37 fix: remove futures_inventory_99 interface
+
+1.6.36 fix: fix option_finance_board interface
+
+1.6.35 fix: fix stock_zh_index_hist_csindex interface
+
+1.6.34 fix: fix fx_spot_quote interface
+
+1.6.33 fix: fix stock_report_fund_hold_detail interface
+
+1.6.32 fix: fix get_czce_daily interface
+
+1.6.31 fix: fix stock_gdfx_free_holding_detail_em interface
+
+1.6.30 fix: fix stock_info_a_code_name interface
+
+1.6.29 fix: fix stock_board_industry_name_em interface
+
+1.6.28 add: add currency_boc_safe interface
+
+1.6.27 fix: fix currency_boc_sina interface
+
+1.6.26 fix: fix bond_cb_index_jsl interface
+
+1.6.25 fix: fix bond_cb_index_jsl interface
+
+1.6.24 fix: fix bond_cb_index_jsl interface
+
+1.6.23 fix: fix bond_cb_index_jsl interface
+
+1.6.22 add: add stock_kc_a_spot_em interface
+
+1.6.21 fix: fix baidu_search_index interface
+
+1.6.20 fix: fix stock_board_industry_name_em and code_id_map_em interface
+
+1.6.19 fix: fix stock_comment_detail_zlkp_jgcyd_em interface
+
+1.6.18 fix: fix stock_zh_a_spot_em interface
 
 1.6.17 fix: fix stock_new_a_spot_em interface
 

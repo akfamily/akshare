@@ -2036,9 +2036,30 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.15 fix: fix bond_zh_cov_info interface
 1.6.16 fix: fix baidu_search_index interface
 1.6.17 fix: fix stock_new_a_spot_em interface
+1.6.18 fix: fix stock_zh_a_spot_em interface
+1.6.19 fix: fix stock_comment_detail_zlkp_jgcyd_em interface
+1.6.20 fix: fix stock_board_industry_name_em and code_id_map_em interface
+1.6.21 fix: fix baidu_search_index interface
+1.6.22 add: add stock_kc_a_spot_em interface
+1.6.23 fix: fix bond_cb_index_jsl interface
+1.6.24 fix: fix bond_cb_index_jsl interface
+1.6.25 fix: fix bond_cb_index_jsl interface
+1.6.26 fix: fix bond_cb_index_jsl interface
+1.6.27 fix: fix currency_boc_sina interface
+1.6.28 add: add currency_boc_safe interface
+1.6.29 fix: fix stock_board_industry_name_em interface
+1.6.30 fix: fix stock_info_a_code_name interface
+1.6.31 fix: fix stock_gdfx_free_holding_detail_em interface
+1.6.32 fix: fix get_czce_daily interface
+1.6.33 fix: fix stock_report_fund_hold_detail interface
+1.6.34 fix: fix fx_spot_quote interface
+1.6.35 fix: fix stock_zh_index_hist_csindex interface
+1.6.36 fix: fix option_finance_board interface
+1.6.37 fix: remove futures_inventory_99 interface
+1.6.38 add: add stock_zygc_ym interface
 """
 
-__version__ = "1.6.17"
+__version__ = "1.6.38"
 __author__ = "AKFamily"
 
 import sys
@@ -2048,6 +2069,21 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+管理层讨论与分析
+"""
+from akshare.stock_fundamental.stock_gov_talk_ym import stock_gov_talk_ym
+
+"""
+主营构成
+"""
+from akshare.stock_fundamental.stock_zygc_ym import stock_zygc_ym
+
+"""
+人民币汇率中间价
+"""
+from akshare.currency.currency_safe import currency_boc_safe
 
 """
 期权-上海证券交易所-风险指标
@@ -2601,6 +2637,7 @@ from akshare.stock_feature.stock_hist_em import (
     stock_zh_a_spot_em,
     stock_bj_a_spot_em,
     stock_new_a_spot_em,
+    stock_kc_a_spot_em,
     stock_sh_a_spot_em,
     stock_sz_a_spot_em,
     stock_zh_b_spot_em,
@@ -2618,7 +2655,7 @@ from akshare.stock_feature.stock_hist_em import (
 """
 中行人民币牌价历史数据查询
 """
-from akshare.currency.currency_sina_china_bank import currency_boc_sina
+from akshare.currency.currency_china_bank_sina import currency_boc_sina
 
 """
 期货持仓
@@ -4032,11 +4069,6 @@ from akshare.index.index_investing import (
     index_investing_global_country_name_url,
     index_investing_global_from_url,
 )
-
-"""
-99期货-期货库存数据
-"""
-from akshare.futures.futures_inventory import futures_inventory_99
 
 """
 东方财富-期货库存数据

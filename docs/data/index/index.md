@@ -320,8 +320,8 @@ print(index_zh_a_hist_df)
 ```python
 import akshare as ak
 
-index_zh_a_hist_df = ak.index_zh_a_hist(symbol="000016", period="1", start_date="1979-09-01 09:32:00", end_date="2222-01-01 09:32:00")
-print(index_zh_a_hist_df)
+index_zh_a_hist_min_em_df = ak.index_zh_a_hist_min_em(symbol="000016", period="1", start_date="1979-09-01 09:32:00", end_date="2222-01-01 09:32:00")
+print(index_zh_a_hist_min_em_df)
 ```
 
 数据示例
@@ -4237,7 +4237,7 @@ print(stock_zh_index_value_csindex_df)
 | 名称        | 类型  | 描述                                                         |
 |-----------|-----|------------------------------------------------------------|
 | symbol    | str | symbol="大盘成长"; 指数名称, 通过调用 ak.index_value_name_funddb() 来获取 |
-| indicator | str | indicator="股息率"; choice of {'市盈率', '市净率', '股息率'}           |
+| indicator | str | indicator="市盈率"; choice of {'市盈率', '市净率', '股息率'}           |
 
 输出参数
 
@@ -4256,23 +4256,23 @@ print(stock_zh_index_value_csindex_df)
 ```python
 import akshare as ak
 
-index_value_hist_funddb_df = ak.index_value_hist_funddb(symbol="中证能源", indicator="股息率")
+index_value_hist_funddb_df = ak.index_value_hist_funddb(symbol="大盘成长", indicator="市盈率")
 print(index_value_hist_funddb_df)
 ```
 
 数据示例
 
 ```
-      日期   平均值   股息率  最低30  最低10  最高30  最高10
-0     2011-07-06  3.34  2.50  2.50   NaN   NaN   NaN
-1     2011-07-07  3.34  2.54  2.54   NaN   NaN   NaN
-2     2011-07-08  3.34  2.54  2.54   NaN   NaN   NaN
-3     2011-07-11  3.34  2.54  2.54   NaN   NaN   NaN
-4     2011-07-12  3.34  2.60  2.60   NaN   NaN   NaN
-          ...   ...   ...   ...   ...   ...   ...
-2497  2021-10-15  3.34  4.75   NaN   NaN  4.75  4.75
-2498  2021-10-18  3.34  4.59   NaN   NaN  4.59  4.59
-2499  2021-10-19  3.34  4.61   NaN   NaN  4.61  4.61
-2500  2021-10-20  3.34  4.79   NaN   NaN  4.79  4.79
-2501  2021-10-21  3.34  4.68   NaN   NaN  4.68  4.68
+      日期    平均值    市盈率  最低30  最低10   最高30  最高10
+0     2011-01-21  18.18  16.42   NaN   NaN    NaN   NaN
+1     2011-01-24  18.18  16.22   NaN   NaN    NaN   NaN
+2     2011-01-25  18.18  16.13   NaN   NaN    NaN   NaN
+3     2011-01-26  18.18  16.38   NaN   NaN    NaN   NaN
+4     2011-01-27  18.18  16.67   NaN   NaN    NaN   NaN
+          ...    ...    ...   ...   ...    ...   ...
+2766  2022-06-24  18.18  23.83   NaN   NaN  23.83   NaN
+2767  2022-06-27  18.18  24.20   NaN   NaN  24.20   NaN
+2768  2022-06-28  18.18  24.45   NaN   NaN  24.45   NaN
+2769  2022-06-29  18.18  23.87   NaN   NaN  23.87   NaN
+2770  2022-06-30  18.18  24.42   NaN   NaN  24.42   NaN
 ```
