@@ -33,10 +33,10 @@ def futures_symbol_mark() -> pd.DataFrame:
     """
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
     r = requests.get(url)
+    r.encoding = "gb2312"
     data_text = r.text
     raw_json = data_text[data_text.find("{") : data_text.find("}") + 1]
     data_json = demjson.decode(raw_json)
-
     czce_mark_list = [item[1] for item in data_json["czce"][1:]]
     dce_mark_list = [item[1] for item in data_json["dce"][1:]]
     shfe_mark_list = [item[1] for item in data_json["shfe"][1:]]
