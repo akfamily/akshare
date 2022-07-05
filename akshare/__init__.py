@@ -2059,9 +2059,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.38 add: add stock_zygc_ym interface
 1.6.39 fix: fix futures_symbol_mark interface
 1.6.40 add: add stock_mda_ym interface
+1.6.41 add: add futures_inventory_99 interface
 """
 
-__version__ = "1.6.40"
+__version__ = "1.6.41"
 __author__ = "AKFamily"
 
 import sys
