@@ -2057,9 +2057,13 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.36 fix: fix option_finance_board interface
 1.6.37 fix: remove futures_inventory_99 interface
 1.6.38 add: add stock_zygc_ym interface
+1.6.39 fix: fix futures_symbol_mark interface
+1.6.40 add: add stock_mda_ym interface
+1.6.41 add: add futures_inventory_99 interface
+1.6.42 fix: fix stock_balance_sheet_by_yearly_em interface
 """
 
-__version__ = "1.6.38"
+__version__ = "1.6.42"
 __author__ = "AKFamily"
 
 import sys
@@ -2073,7 +2077,7 @@ del sys
 """
 管理层讨论与分析
 """
-from akshare.stock_fundamental.stock_gov_talk_ym import stock_gov_talk_ym
+from akshare.stock_fundamental.stock_mda_ym import stock_mda_ym
 
 """
 主营构成

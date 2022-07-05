@@ -29,6 +29,29 @@
 
 ## 更新说明
 
+1.6.42 fix: fix stock_balance_sheet_by_yearly_em interface
+
+    1. 修复 stock_balance_sheet_by_report_em 接口
+    2. 修复 stock_balance_sheet_by_yearly_em 接口
+    3. 修复 stock_profit_sheet_by_report_em 接口
+    4. 修复 stock_profit_sheet_by_yearly_em 接口
+    5. 修复 stock_profit_sheet_by_quarterly_em 接口
+    6. 修复 stock_cash_flow_sheet_by_report_em 接口
+    7. 修复 stock_cash_flow_sheet_by_yearly_em 接口
+    8. 修复 stock_cash_flow_sheet_by_quarterly_em 接口
+
+1.6.41 add: add futures_inventory_99 interface
+
+    1. 新增 futures_inventory_99 接口，获取大宗商品库存数据
+
+1.6.40 add: add stock_mda_ym interface
+
+    1. 新增 stock_mda_ym 接口，获取管理层讨论与分析数据
+
+1.6.39 fix: fix futures_symbol_mark interface
+
+    1. 修复 futures_symbol_mark 接口编码问题
+
 1.6.38 add: add stock_zygc_ym interface
 
     1. 新增 stock_zygc_ym 接口，获取股票的主营构成数据
@@ -841,6 +864,14 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.42 fix: fix stock_balance_sheet_by_yearly_em interface
+
+1.6.41 add: add futures_inventory_99 interface
+
+1.6.40 add: add stock_mda_ym interface
+
+1.6.39 fix: fix futures_symbol_mark interface
 
 1.6.38 add: add stock_zygc_ym interface
 

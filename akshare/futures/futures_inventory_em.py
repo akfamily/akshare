@@ -11,7 +11,9 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def futures_inventory_em(exchange: str = "上海期货交易所", symbol: str = "沪铝") -> pd.DataFrame:
+def futures_inventory_em(
+    exchange: str = "上海期货交易所", symbol: str = "沪铝"
+) -> pd.DataFrame:
     """
     东方财富网-数据中心-期货库存数据
     http://data.eastmoney.com/ifdata/kcsj.html
@@ -29,17 +31,17 @@ def futures_inventory_em(exchange: str = "上海期货交易所", symbol: str = 
     temp_key = [item.text for item in temp_soup]
     temp_value = [item.get("value") for item in temp_soup]
     exchange_dict = dict(zip(temp_key, temp_value))
-    url = 'http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx'
+    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
     params = {
-        'type': 'QHKC',
-        'sty': 'QHKCSX',
-        '_': '1618311930407',
+        "type": "QHKC",
+        "sty": "QHKCSX",
+        "_": "1618311930407",
     }
     r = requests.get(url, params=params)
     data_text = r.text
     data_json = demjson.decode(data_text[1:-1])
     temp_df = pd.DataFrame(data_json)
-    temp_df = temp_df.iloc[:, 0].str.split(',', expand=True)
+    temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
     symbol_dict = dict(zip(temp_df.iloc[:, 3], temp_df.iloc[:, 2]))
     url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
     params = {
@@ -59,5 +61,7 @@ def futures_inventory_em(exchange: str = "上海期货交易所", symbol: str = 
 
 
 if __name__ == "__main__":
-    futures_inventory_em_df = futures_inventory_em(exchange="大连商品交易所", symbol="豆粕")
+    futures_inventory_em_df = futures_inventory_em(
+        exchange="大连商品交易所", symbol="豆一"
+    )
     print(futures_inventory_em_df)

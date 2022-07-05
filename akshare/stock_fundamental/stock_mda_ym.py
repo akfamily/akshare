@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/7/3 20:30
+Date: 2022/7/4 20:30
 Desc: 益盟-F10-管理层讨论与分析
 http://f10.emoney.cn/f10/zbyz/1000001
 """
-import requests
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 
-def stock_gov_talk_ym(symbol: str = "000001") -> pd.DataFrame:
+def stock_mda_ym(symbol: str = "000001") -> pd.DataFrame:
     """
     益盟-F10-管理层讨论与分析
     http://f10.emoney.cn/f10/zbyz/1000001
@@ -31,9 +31,10 @@ def stock_gov_talk_ym(symbol: str = "000001") -> pd.DataFrame:
         for item in soup.find_all(attrs={"class": "cnt"})
     ]
     big_df = pd.DataFrame([year_list, talk_list]).T
+    big_df.columns = ["报告期", "内容"]
     return big_df
 
 
 if __name__ == "__main__":
-    stock_gov_talk_ym_df = stock_gov_talk_ym(symbol="000001")
-    print(stock_gov_talk_ym_df)
+    stock_mda_ym_df = stock_mda_ym(symbol="000001")
+    print(stock_mda_ym_df)
