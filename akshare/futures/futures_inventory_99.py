@@ -290,6 +290,6 @@ def futures_inventory_99(
 
 if __name__ == "__main__":
     futures_inventory_99_df = futures_inventory_99(
-        exchange="大连商品交易所", symbol="豆一"
+        exchange="大连商品交易所", symbol="聚丙烯"
     )
     print(futures_inventory_99_df)
