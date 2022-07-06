@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/9/17 13:58
+Date: 2022/7/6 18:58
 Desc: 东方财富网-数据中心-期货库存数据
 http://data.eastmoney.com/ifdata/kcsj.html
 """
@@ -57,6 +57,11 @@ def futures_inventory_em(
     data_json = demjson.decode(data_text[1:-1])
     temp_df = pd.DataFrame(data_json).iloc[:, 0].str.split(",", expand=True)
     temp_df.columns = ["日期", "库存", "增减"]
+    temp_df.sort_values(["日期"], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df["库存"] = pd.to_numeric(temp_df["库存"])
+    temp_df["增减"] = pd.to_numeric(temp_df["增减"])
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
     return temp_df
 
 
