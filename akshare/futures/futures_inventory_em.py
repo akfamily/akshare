@@ -5,10 +5,11 @@ Date: 2022/7/6 18:58
 Desc: 东方财富网-数据中心-期货库存数据
 http://data.eastmoney.com/ifdata/kcsj.html
 """
-from akshare.utils import demjson
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+
+from akshare.utils import demjson
 
 
 def futures_inventory_em(
