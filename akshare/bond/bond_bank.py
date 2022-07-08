@@ -12,10 +12,7 @@ import requests
 from akshare.futures.cons import BOND_BANK_URL, bond_bank_headers
 
 
-# pd.set_option("display.max_columns", None)
-
-
-def get_bond_bank(page_num=1):
+def get_bond_bank(page_num: int = 1):
     """
     获取中国银行间市场交易商协会(http://www.nafmii.org.cn/)中孔雀开屏(http://zhuce.nafmii.org.cn/fans/publicQuery/manager)
     的债券基本信息数据
