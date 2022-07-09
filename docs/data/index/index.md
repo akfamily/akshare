@@ -3346,7 +3346,7 @@ print(index_vix_df)
 
 描述: 中证指数日频率的数据
 
-限量: 该接口返回指定 symbol 的 start_date 和 end_date 的指数日频率数据
+限量: 该接口返回指定 symbol 的 start_date 和 end_date 的指数日频率数据, 该接口只能返回最近 60 个交易日的数据
 
 输入参数
 
