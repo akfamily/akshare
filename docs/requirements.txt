@@ -1,0 +1,5 @@
+sphinx
+sphinx-hoverxref
+sphinx-notfound-page
+sphinx_rtd_theme
+sphinx-markdown-tables
