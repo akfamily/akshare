@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/15 17:18
+Date: 2022/7/11 20:18
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
@@ -28,19 +28,19 @@ def fund_purchase_em() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
     }
     params = {
-        't': '8',
-        'page': '1,50000',
-        'js': 'reData',
-        'sort': 'fcode,asc',
+        "t": "8",
+        "page": "1,50000",
+        "js": "reData",
+        "sort": "fcode,asc",
         # 'callback': '?',
-        '_': '1641528557742',
+        "_": "1641528557742",
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.text
     data_json = demjson.decode(data_text.strip("var reData="))
-    temp_df = pd.DataFrame(data_json['datas'])
+    temp_df = pd.DataFrame(data_json["datas"])
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = temp_df.index + 1
+    temp_df["index"] = temp_df.index + 1
     temp_df.columns = [
         "序号",
         "基金代码",
@@ -57,26 +57,28 @@ def fund_purchase_em() -> pd.DataFrame:
         "-",
         "手续费",
     ]
-    temp_df = temp_df[[
-        "序号",
-        "基金代码",
-        "基金简称",
-        "基金类型",
-        "最新净值/万份收益",
-        "最新净值/万份收益-报告时间",
-        "申购状态",
-        "赎回状态",
-        "下一开放日",
-        "购买起点",
-        "日累计限定金额",
-        "手续费",
-    ]]
-    temp_df['下一开放日'] = pd.to_datetime(temp_df['下一开放日']).dt.date
-    temp_df['最新净值/万份收益'] = pd.to_numeric(temp_df['最新净值/万份收益'])
-    temp_df['购买起点'] = pd.to_numeric(temp_df['购买起点'])
-    temp_df['日累计限定金额'] = pd.to_numeric(temp_df['日累计限定金额'])
-    temp_df['手续费'] = temp_df['手续费'].str.strip("%")
-    temp_df['手续费'] = pd.to_numeric(temp_df['手续费'])
+    temp_df = temp_df[
+        [
+            "序号",
+            "基金代码",
+            "基金简称",
+            "基金类型",
+            "最新净值/万份收益",
+            "最新净值/万份收益-报告时间",
+            "申购状态",
+            "赎回状态",
+            "下一开放日",
+            "购买起点",
+            "日累计限定金额",
+            "手续费",
+        ]
+    ]
+    temp_df["下一开放日"] = pd.to_datetime(temp_df["下一开放日"]).dt.date
+    temp_df["最新净值/万份收益"] = pd.to_numeric(temp_df["最新净值/万份收益"])
+    temp_df["购买起点"] = pd.to_numeric(temp_df["购买起点"])
+    temp_df["日累计限定金额"] = pd.to_numeric(temp_df["日累计限定金额"])
+    temp_df["手续费"] = temp_df["手续费"].str.strip("%")
+    temp_df["手续费"] = pd.to_numeric(temp_df["手续费"])
     return temp_df
 
 
@@ -202,9 +204,9 @@ def fund_open_fund_info_em(
         except:
             return pd.DataFrame()
         temp_df = pd.DataFrame(data_json)
-        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
-            "Asia/Shanghai"
-        )
+        temp_df["x"] = pd.to_datetime(
+            temp_df["x"], unit="ms", utc=True
+        ).dt.tz_convert("Asia/Shanghai")
         temp_df["x"] = temp_df["x"].dt.date
         temp_df.columns = [
             "净值日期",
@@ -219,9 +221,9 @@ def fund_open_fund_info_em(
                 "日增长率",
             ]
         ]
-        temp_df['净值日期'] = pd.to_datetime(temp_df['净值日期']).dt.date
-        temp_df['单位净值'] = pd.to_numeric(temp_df['单位净值'])
-        temp_df['日增长率'] = pd.to_numeric(temp_df['日增长率'])
+        temp_df["净值日期"] = pd.to_datetime(temp_df["净值日期"]).dt.date
+        temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"])
+        temp_df["日增长率"] = pd.to_numeric(temp_df["日增长率"])
         return temp_df
 
     # 累计净值走势
@@ -229,16 +231,20 @@ def fund_open_fund_info_em(
         try:
             data_json = demjson.decode(
                 data_text[
-                    data_text.find("Data_ACWorthTrend") + 20 : data_text.find("Data_grandTotal") - 16
+                    data_text.find("Data_ACWorthTrend")
+                    + 20 : data_text.find("Data_grandTotal")
+                    - 16
                 ]
             )
         except:
             return pd.DataFrame()
         temp_df = pd.DataFrame(data_json)
+        if temp_df.empty:
+            return pd.DataFrame()
         temp_df.columns = ["x", "y"]
-        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
-            "Asia/Shanghai"
-        )
+        temp_df["x"] = pd.to_datetime(
+            temp_df["x"], unit="ms", utc=True
+        ).dt.tz_convert("Asia/Shanghai")
         temp_df["x"] = temp_df["x"].dt.date
         temp_df.columns = [
             "净值日期",
@@ -250,8 +256,8 @@ def fund_open_fund_info_em(
                 "累计净值",
             ]
         ]
-        temp_df['净值日期'] = pd.to_datetime(temp_df['净值日期']).dt.date
-        temp_df['累计净值'] = pd.to_numeric(temp_df['累计净值'])
+        temp_df["净值日期"] = pd.to_datetime(temp_df["净值日期"]).dt.date
+        temp_df["累计净值"] = pd.to_numeric(temp_df["累计净值"])
         return temp_df
 
     # 累计收益率走势
@@ -281,8 +287,8 @@ def fund_open_fund_info_em(
                 "累计收益率",
             ]
         ]
-        temp_df_main['净值日期'] = pd.to_datetime(temp_df_main['净值日期']).dt.date
-        temp_df_main['累计收益率'] = pd.to_numeric(temp_df_main['累计收益率'])
+        temp_df_main["净值日期"] = pd.to_datetime(temp_df_main["净值日期"]).dt.date
+        temp_df_main["累计收益率"] = pd.to_numeric(temp_df_main["累计收益率"])
         return temp_df_main
 
     # 同类排名走势
@@ -295,9 +301,9 @@ def fund_open_fund_info_em(
             ]
         )
         temp_df = pd.DataFrame(data_json)
-        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
-            "Asia/Shanghai"
-        )
+        temp_df["x"] = pd.to_datetime(
+            temp_df["x"], unit="ms", utc=True
+        ).dt.tz_convert("Asia/Shanghai")
         temp_df["x"] = temp_df["x"].dt.date
         temp_df.columns = [
             "报告日期",
@@ -311,9 +317,9 @@ def fund_open_fund_info_em(
                 "总排名-每日近三月排名",
             ]
         ]
-        temp_df['报告日期'] = pd.to_datetime(temp_df['报告日期']).dt.date
-        temp_df['同类型排名-每日近三月排名'] = pd.to_numeric(temp_df['同类型排名-每日近三月排名'])
-        temp_df['总排名-每日近三月排名'] = pd.to_numeric(temp_df['总排名-每日近三月排名'])
+        temp_df["报告日期"] = pd.to_datetime(temp_df["报告日期"]).dt.date
+        temp_df["同类型排名-每日近三月排名"] = pd.to_numeric(temp_df["同类型排名-每日近三月排名"])
+        temp_df["总排名-每日近三月排名"] = pd.to_numeric(temp_df["总排名-每日近三月排名"])
         return temp_df
 
     # 同类排名百分比
@@ -327,9 +333,9 @@ def fund_open_fund_info_em(
         )
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["x", "y"]
-        temp_df["x"] = pd.to_datetime(temp_df["x"], unit="ms", utc=True).dt.tz_convert(
-            "Asia/Shanghai"
-        )
+        temp_df["x"] = pd.to_datetime(
+            temp_df["x"], unit="ms", utc=True
+        ).dt.tz_convert("Asia/Shanghai")
         temp_df["x"] = temp_df["x"].dt.date
         temp_df.columns = [
             "报告日期",
@@ -341,8 +347,10 @@ def fund_open_fund_info_em(
                 "同类型排名-每日近3月收益排名百分比",
             ]
         ]
-        temp_df['报告日期'] = pd.to_datetime(temp_df['报告日期']).dt.date
-        temp_df['同类型排名-每日近3月收益排名百分比'] = pd.to_numeric(temp_df['同类型排名-每日近3月收益排名百分比'])
+        temp_df["报告日期"] = pd.to_datetime(temp_df["报告日期"]).dt.date
+        temp_df["同类型排名-每日近3月收益排名百分比"] = pd.to_numeric(
+            temp_df["同类型排名-每日近3月收益排名百分比"]
+        )
         return temp_df
 
     # 分红送配详情
@@ -350,7 +358,7 @@ def fund_open_fund_info_em(
         url = f"http://fundf10.eastmoney.com/fhsp_{fund}.html"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[1]
-        if temp_df.iloc[0, 1] == '暂无分红信息!':
+        if temp_df.iloc[0, 1] == "暂无分红信息!":
             return None
         else:
             return temp_df
@@ -360,7 +368,7 @@ def fund_open_fund_info_em(
         url = f"http://fundf10.eastmoney.com/fhsp_{fund}.html"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[2]
-        if temp_df.iloc[0, 1] == '暂无拆分信息!':
+        if temp_df.iloc[0, 1] == "暂无拆分信息!":
             return None
         else:
             return temp_df
@@ -719,7 +727,9 @@ def fund_etf_fund_daily_em() -> pd.DataFrame:
 
 
 def fund_etf_fund_info_em(
-    fund: str = "511280", start_date: str = "20000101", end_date: str = "20500101"
+    fund: str = "511280",
+    start_date: str = "20000101",
+    end_date: str = "20500101",
 ) -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-场内交易基金-历史净值明细
@@ -743,7 +753,9 @@ def fund_etf_fund_info_em(
         "fundCode": fund,
         "pageIndex": "1",
         "pageSize": "10000",
-        "startDate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
+        "startDate": "-".join(
+            [start_date[:4], start_date[4:6], start_date[6:]]
+        ),
         "endDate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "_": round(time.time() * 1000),
     }
@@ -976,7 +988,9 @@ if __name__ == "__main__":
     print(fund_open_fund_info_em_df)
     time.sleep(3)
 
-    fund_open_fund_info_em_df = fund_open_fund_info_em(fund="000212", indicator="累计净值走势")
+    fund_open_fund_info_em_df = fund_open_fund_info_em(
+        fund="000212", indicator="累计净值走势"
+    )
     print(fund_open_fund_info_em_df)
     time.sleep(3)
 
@@ -986,7 +1000,9 @@ if __name__ == "__main__":
     print(fund_open_fund_info_em_df)
     time.sleep(3)
 
-    fund_open_fund_info_em_df = fund_open_fund_info_em(fund="710001", indicator="同类排名走势")
+    fund_open_fund_info_em_df = fund_open_fund_info_em(
+        fund="710001", indicator="同类排名走势"
+    )
     print(fund_open_fund_info_em_df)
     time.sleep(3)
 
@@ -996,11 +1012,15 @@ if __name__ == "__main__":
     print(fund_open_fund_info_em_df)
     time.sleep(3)
 
-    fund_open_fund_info_em_df = fund_open_fund_info_em(fund="161606", indicator="分红送配详情")
+    fund_open_fund_info_em_df = fund_open_fund_info_em(
+        fund="161606", indicator="分红送配详情"
+    )
     print(fund_open_fund_info_em_df)
     time.sleep(3)
 
-    fund_open_fund_info_em_df = fund_open_fund_info_em(fund="161725", indicator="拆分详情")
+    fund_open_fund_info_em_df = fund_open_fund_info_em(
+        fund="161725", indicator="拆分详情"
+    )
     print(fund_open_fund_info_em_df)
 
     fund_money_fund_daily_em_df = fund_money_fund_daily_em()
@@ -1032,8 +1052,12 @@ if __name__ == "__main__":
     fund_value_estimation_em_df = fund_value_estimation_em(symbol="混合型")
     print(fund_value_estimation_em_df)
 
-    fund_hk_fund_hist_em_df = fund_hk_fund_hist_em(code="1002200683", symbol="历史净值明细")
+    fund_hk_fund_hist_em_df = fund_hk_fund_hist_em(
+        code="1002200683", symbol="历史净值明细"
+    )
     print(fund_hk_fund_hist_em_df)
 
-    fund_hk_fund_hist_em_df = fund_hk_fund_hist_em(code="1002200683", symbol="分红送配详情")
+    fund_hk_fund_hist_em_df = fund_hk_fund_hist_em(
+        code="1002200683", symbol="分红送配详情"
+    )
     print(fund_hk_fund_hist_em_df)
