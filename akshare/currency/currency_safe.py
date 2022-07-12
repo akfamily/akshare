@@ -29,14 +29,12 @@ def currency_boc_safe() -> pd.DataFrame:
     temp_df = pd.read_excel(url)
     temp_df.sort_values(["日期"], inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
-
     start_date = (
         (pd.Timestamp(temp_df["日期"].tolist()[-1]) + pd.Timedelta(days=1))
         .isoformat()
         .split("T")[0]
     )
     end_date = datetime.now().isoformat().split("T")[0]
-
     url = "http://www.safe.gov.cn/AppStructured/hlw/RMBQuery.do"
     payload = {
         "startDate": start_date,
@@ -47,12 +45,10 @@ def currency_boc_safe() -> pd.DataFrame:
     current_temp_df = pd.read_html(r.text)[-1]
     current_temp_df.sort_values(["日期"], inplace=True)
     current_temp_df.reset_index(inplace=True, drop=True)
-
     big_df = pd.concat([temp_df, current_temp_df], ignore_index=True)
     column_name_list = big_df.columns[1:]
     for item in column_name_list:
         big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
-
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
     return big_df
 

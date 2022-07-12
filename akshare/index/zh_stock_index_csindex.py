@@ -231,7 +231,7 @@ def index_value_hist_funddb(
 
 if __name__ == "__main__":
     stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(
-        symbol="000859", start_date="20100101", end_date="20220317"
+        symbol="000859", start_date="20220410", end_date="20220709"
     )
     print(stock_zh_index_hist_csindex_df)
 
