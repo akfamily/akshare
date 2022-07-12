@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/1/20 11:34
+Date: 2022/7/12 19:34
 Desc: 巨潮资讯-首页-数据-预约披露
 http://www.cninfo.com.cn/new/commonUrl?url=data/yypl
 """
@@ -10,12 +10,12 @@ import requests
 
 
 def stock_report_disclosure(
-    market: str = "科创板", period: str = "2019年报"
+    market: str = "沪深京", period: str = "2021年报"
 ) -> pd.DataFrame:
     """
     巨潮资讯-首页-数据-预约披露
     http://www.cninfo.com.cn/new/commonUrl?url=data/yypl
-    :param market: choice of {"沪深": "szsh", "深市": "sz", "深主板": "szmb", "中小板": "szsme", "创业板": "szcn", "沪市": "sh", "沪主板": "shmb", "科创板": "shkcp"}
+    :param market: choice of {"沪深京": "szsh", "深市": "sz", "深主板": "szmb", "中小板": "szsme", "创业板": "szcn", "沪市": "sh", "沪主板": "shmb", "科创板": "shkcp"}
     :type market: str
     :param period: 最近四期的财报
     :type period: str
@@ -23,14 +23,14 @@ def stock_report_disclosure(
     :rtype: pandas.DataFrame
     """
     market_map = {
-        "沪深": "szsh",
+        "沪深京": "szsh",
         "深市": "sz",
         "深主板": "szmb",
-        "中小板": "szsme",
         "创业板": "szcn",
         "沪市": "sh",
         "沪主板": "shmb",
         "科创板": "shkcp",
+        "北交所": "bj",
     }
     year = period[:4]
     period_map = {
@@ -63,6 +63,7 @@ def stock_report_disclosure(
         "二次变更",
         "三次变更",
         "报告期",
+        "-",
         "组织码",
     ]
     temp_df = temp_df[
@@ -76,9 +77,16 @@ def stock_report_disclosure(
             "实际披露",
         ]
     ]
+    temp_df["首次预约"] = pd.to_datetime(temp_df["首次预约"]).dt.date
+    temp_df["初次变更"] = pd.to_datetime(temp_df["初次变更"]).dt.date
+    temp_df["二次变更"] = pd.to_datetime(temp_df["二次变更"]).dt.date
+    temp_df["三次变更"] = pd.to_datetime(temp_df["三次变更"]).dt.date
+    temp_df["实际披露"] = pd.to_datetime(temp_df["实际披露"]).dt.date
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_report_disclosure_df = stock_report_disclosure(market="沪深", period="2020年报")
+    stock_report_disclosure_df = stock_report_disclosure(
+        market="北交所", period="2021年报"
+    )
     print(stock_report_disclosure_df)
