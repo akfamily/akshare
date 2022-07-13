@@ -17,7 +17,12 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.cls.cn/api/sw"
-    params = {"app": "CailianpressWeb", "os": "web", "sv": "7.5.5"}
+    params = {
+        "app": "CailianpressWeb",
+        "os": "web",
+        "sv": "7.7.5",
+        "sign": "bf0f367462d8cd70917ba5eab3853bce",
+    }
     headers = {
         "Host": "www.cls.cn",
         "Connection": "keep-alive",
@@ -33,13 +38,13 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
         "Accept-Language": "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
     }
     payload = {
-        "type": "telegram",
+        "app": "CailianpressWeb",
         "keyword": "快讯",
+        "os": "web",
         "page": 0,
         "rn": 10000,
-        "os": "web",
-        "sv": "7.2.2",
-        "app": "CailianpressWeb",
+        "sv": "7.7.5",
+        "type": "telegram",
     }
     r = requests.post(url, headers=headers, params=params, json=payload)
     data_json = r.json()
@@ -50,6 +55,8 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
     temp_df["time"] = pd.to_datetime(temp_df["time"], unit="s").dt.date
     temp_df.columns = ["快讯信息", "时间"]
     temp_df = temp_df[["时间", "快讯信息"]]
+    temp_df.sort_values(["时间"], inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
