@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/8/13 16:16
+Date: 2022/7/13 16:16
 Desc: 新浪财经-股票-行业分类
 http://vip.stock.finance.sina.com.cn/mkt/
 """
@@ -30,7 +30,9 @@ def stock_classify_board() -> dict:
         for item in data_json[1][0][1]
     ]  # 沪深股市
     for num, class_name in enumerate(class_name_list):
-        temp_df = pd.DataFrame([item for item in data_json[1][0][1][num][1:][0]])
+        temp_df = pd.DataFrame(
+            [item for item in data_json[1][0][1][num][1:][0]]
+        )
         if temp_df.shape[1] == 5:
             temp_df.columns = ["name", "_", "code", "_", "_"]
             temp_df = temp_df[["name", "code"]]
@@ -44,7 +46,7 @@ def stock_classify_board() -> dict:
     return big_dict
 
 
-def stock_classify_result(symbol: str = "热门概念"):
+def stock_classify_sina(symbol: str = "热门概念") -> pd.DataFrame:
     """
     按 symbol 分类后的股票
     http://vip.stock.finance.sina.com.cn/mkt/
@@ -75,12 +77,12 @@ def stock_classify_result(symbol: str = "热门概念"):
             r = requests.get(url, params=params)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json)
-            big_df = big_df.append(temp_df, ignore_index=True)
+            big_df = pd.concat([big_df, temp_df], ignore_index=True)
             big_df["class"] = stock_classify_board_dict[symbol]["name"][num]
-        data_df = data_df.append(big_df, ignore_index=True)
+        data_df = pd.concat([data_df, big_df], ignore_index=True)
     return data_df
 
 
 if __name__ == "__main__":
-    stock_classify_result_df = stock_classify_result(symbol="申万行业")
-    print(stock_classify_result_df)
+    stock_classify_sina_df = stock_classify_sina(symbol="申万二级")
+    print(stock_classify_sina_df)

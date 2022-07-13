@@ -1104,6 +1104,12 @@
  "stock_zygc_ym"  # 主营构成
  # 管理层讨论与分析
  "stock_mda_ym"  # 管理层讨论与分析
+ # 行业分类数据
+ "stock_industry_category_cninfo"  # 巨潮资讯-行业分类数据
+ # 上市公司行业归属的变动情况
+ "stock_industry_change_cninfo"  # 巨潮资讯-上市公司行业归属的变动情况
+ # 公司股本变动
+ "stock_share_change_cninfo"  # 巨潮资讯-公司股本变动
 ```
 
 ## 案例演示
