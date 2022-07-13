@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.52 fix: fix index_zh_a_hist interface
+
+    1. 修复 index_zh_a_hist 接口，增加更多指数支持
+
 1.6.51 fix: fix stock_analyst_detail_em interface
 
     1. 修复 stock_analyst_detail_em 接口，处理空数据情况
@@ -903,6 +907,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.52 fix: fix index_zh_a_hist interface
 
 1.6.51 fix: fix stock_analyst_detail_em interface
 

@@ -145,7 +145,20 @@ def index_zh_a_hist(
                 "end": "20500000",
                 "_": "1623766962675",
             }
-
+            r = requests.get(url, params=params)
+            data_json = r.json()
+            if data_json["data"] is None:
+                params = {
+                    "secid": f"2.{symbol}",
+                    "ut": "7eea3edcaed734bea9cbfc24409ed989",
+                    "fields1": "f1,f2,f3,f4,f5,f6",
+                    "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+                    "klt": period_dict[period],
+                    "fqt": "0",
+                    "beg": "0",
+                    "end": "20500000",
+                    "_": "1623766962675",
+                }
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(
@@ -340,7 +353,7 @@ def index_zh_a_hist_min_em(
 
 if __name__ == "__main__":
     index_zh_a_hist_df = index_zh_a_hist(
-        symbol="000003",
+        symbol="990001",
         period="daily",
         start_date="19700101",
         end_date="22220101",
