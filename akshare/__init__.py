@@ -2067,9 +2067,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.46 fix: fix fund_open_fund_info_em interface
 1.6.47 fix: fix stock_zh_a_minute interface
 1.6.48 fix: fix stock_report_disclosure interface
+1.6.49 fix: fix stock_zh_a_alerts_cls interface
 """
 
-__version__ = "1.6.48"
+__version__ = "1.6.49"
 __author__ = "AKFamily"
 
 import sys
@@ -2453,6 +2454,19 @@ from akshare.stock.stock_new_cninfo import (
 个股分红
 """
 from akshare.stock.stock_dividents_cninfo import stock_dividents_cninfo
+
+"""
+公司股本变动
+"""
+from akshare.stock.stock_share_changes_cninfo import stock_share_changes_cninfo
+
+"""
+行业分类数据
+"""
+from akshare.stock.stock_industry_cninfo import (
+    stock_industry_category_cninfo,
+    stock_industry_cninfo,
+)
 
 """
 行业市盈率
