@@ -2456,6 +2456,19 @@ from akshare.stock.stock_new_cninfo import (
 from akshare.stock.stock_dividents_cninfo import stock_dividents_cninfo
 
 """
+公司股本变动
+"""
+from akshare.stock.stock_share_changes_cninfo import stock_share_changes_cninfo
+
+"""
+行业分类数据
+"""
+from akshare.stock.stock_industry_cninfo import (
+    stock_industry_category_cninfo,
+    stock_industry_cninfo,
+)
+
+"""
 行业市盈率
 """
 from akshare.stock.stock_industry_pe_cninfo import (
