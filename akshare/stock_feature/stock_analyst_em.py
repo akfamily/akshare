@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 
 
-def stock_analyst_rank_em(year: str = '2022') -> pd.DataFrame:
+def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数
     http://data.eastmoney.com/invest/invest/list.html
@@ -36,42 +36,44 @@ def stock_analyst_rank_em(year: str = '2022') -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    data_df = pd.DataFrame(data_json['data'])
-    del data_df['_id']
+    data_df = pd.DataFrame(data_json["data"])
+    del data_df["_id"]
     data_df.reset_index(inplace=True)
-    data_df['index'] = list(range(1, len(data_df)+1))
+    data_df["index"] = list(range(1, len(data_df) + 1))
     data_df.columns = [
-            "序号",
-            "_",
-            f"{year}年收益率",
-            "_",
-            "分析师名称",
-            "分析师单位",
-            "年度指数",
-            "3个月收益率",
-            "6个月收益率",
-            "12个月收益率",
-            f"{year}最新个股评级",
-            "_",
-            "_",
-            "分析师ID",
-            "_",
-            "成分股个数",
-            "_",
-        ]
-    data_df = data_df[[
         "序号",
+        "_",
+        f"{year}年收益率",
+        "_",
         "分析师名称",
         "分析师单位",
         "年度指数",
-        f"{year}年收益率",
         "3个月收益率",
         "6个月收益率",
         "12个月收益率",
-        "成分股个数",
         f"{year}最新个股评级",
-        '分析师ID',
-    ]]
+        "_",
+        "_",
+        "分析师ID",
+        "_",
+        "成分股个数",
+        "_",
+    ]
+    data_df = data_df[
+        [
+            "序号",
+            "分析师名称",
+            "分析师单位",
+            "年度指数",
+            f"{year}年收益率",
+            "3个月收益率",
+            "6个月收益率",
+            "12个月收益率",
+            "成分股个数",
+            f"{year}最新个股评级",
+            "分析师ID",
+        ]
+    ]
     return data_df
 
 
@@ -94,82 +96,88 @@ def stock_analyst_detail_em(
     url = "http://data.eastmoney.com/dataapi/invest/other"
     if indicator == "最新跟踪成分股":
         params = {
-            'href': '/api/Zgfxzs/json/AnalysisIndexNew.aspx',
-            'paramsstr': f'index=1&size=100&code={analyst_id}',
+            "href": "/api/Zgfxzs/json/AnalysisIndexNew.aspx",
+            "paramsstr": f"index=1&size=100&code={analyst_id}",
         }
         r = requests.get(url, params=params, headers=headers)
         json_data = r.json()
-        temp_df = pd.DataFrame(json_data['re'])
+        if len(json_data) == 0:
+            return pd.DataFrame()
+        temp_df = pd.DataFrame(json_data["re"])
         temp_df.reset_index(inplace=True)
-        temp_df['index'] = list(range(1, len(temp_df)+1))
+        temp_df["index"] = list(range(1, len(temp_df) + 1))
         temp_df.columns = [
-            '序号',
-            '股票代码',
-            '股票名称',
-            '调入日期',
-            '当前评级名称',
-            '成交价格(前复权)',
-            '最新价格',
-            '最新评级日期',
+            "序号",
+            "股票代码",
+            "股票名称",
+            "调入日期",
+            "当前评级名称",
+            "成交价格(前复权)",
+            "最新价格",
+            "最新评级日期",
             "_",
-            '阶段涨跌幅',
+            "阶段涨跌幅",
         ]
-        temp_df = temp_df[[
-            '序号',
-            '股票代码',
-            '股票名称',
-            '调入日期',
-            '最新评级日期',
-            '当前评级名称',
-            '成交价格(前复权)',
-            '最新价格',
-            '阶段涨跌幅',
-        ]]
-        temp_df['调入日期'] = pd.to_datetime(temp_df['调入日期']).dt.date
-        temp_df['最新评级日期'] = pd.to_datetime(temp_df['最新评级日期']).dt.date
-        temp_df['成交价格(前复权)'] = pd.to_numeric(temp_df['成交价格(前复权)'])
-        temp_df['最新价格'] = pd.to_numeric(temp_df['最新价格'])
-        temp_df['阶段涨跌幅'] = pd.to_numeric(temp_df['阶段涨跌幅'])
+        temp_df = temp_df[
+            [
+                "序号",
+                "股票代码",
+                "股票名称",
+                "调入日期",
+                "最新评级日期",
+                "当前评级名称",
+                "成交价格(前复权)",
+                "最新价格",
+                "阶段涨跌幅",
+            ]
+        ]
+        temp_df["调入日期"] = pd.to_datetime(temp_df["调入日期"]).dt.date
+        temp_df["最新评级日期"] = pd.to_datetime(temp_df["最新评级日期"]).dt.date
+        temp_df["成交价格(前复权)"] = pd.to_numeric(temp_df["成交价格(前复权)"])
+        temp_df["最新价格"] = pd.to_numeric(temp_df["最新价格"])
+        temp_df["阶段涨跌幅"] = pd.to_numeric(temp_df["阶段涨跌幅"])
         return temp_df
     elif indicator == "历史跟踪成分股":
         params = {
-            'href': '/api/Zgfxzs/json/AnalysisIndexls.aspx',
-            'paramsstr': f'index=1&size=100&code={analyst_id}',
+            "href": "/api/Zgfxzs/json/AnalysisIndexls.aspx",
+            "paramsstr": f"index=1&size=100&code={analyst_id}",
         }
         r = requests.get(url, params=params, headers=headers)
         json_data = r.json()
-        temp_df = pd.DataFrame(json_data['re'])
+        temp_df = pd.DataFrame(json_data["re"])
         temp_df.reset_index(inplace=True)
-        temp_df['index'] = list(range(1, len(temp_df) + 1))
+        temp_df["index"] = list(range(1, len(temp_df) + 1))
         temp_df.columns = [
-            '序号',
-            '股票代码',
-            '股票名称',
-            '调入日期',
-            '调出日期',
-            '调入时评级名称',
-            '调出原因',
-            '_',
-            '累计涨跌幅',
+            "序号",
+            "股票代码",
+            "股票名称",
+            "调入日期",
+            "调出日期",
+            "调入时评级名称",
+            "调出原因",
+            "_",
+            "累计涨跌幅",
         ]
-        temp_df = temp_df[[
-            '序号',
-            '股票代码',
-            '股票名称',
-            '调入日期',
-            '调出日期',
-            '调入时评级名称',
-            '调出原因',
-            '累计涨跌幅',
-        ]]
-        temp_df['调入日期'] = pd.to_datetime(temp_df['调入日期']).dt.date
-        temp_df['调出日期'] = pd.to_datetime(temp_df['调出日期']).dt.date
-        temp_df['累计涨跌幅'] = pd.to_numeric(temp_df['累计涨跌幅'])
+        temp_df = temp_df[
+            [
+                "序号",
+                "股票代码",
+                "股票名称",
+                "调入日期",
+                "调出日期",
+                "调入时评级名称",
+                "调出原因",
+                "累计涨跌幅",
+            ]
+        ]
+        temp_df["调入日期"] = pd.to_datetime(temp_df["调入日期"]).dt.date
+        temp_df["调出日期"] = pd.to_datetime(temp_df["调出日期"]).dt.date
+        temp_df["累计涨跌幅"] = pd.to_numeric(temp_df["累计涨跌幅"])
         return temp_df
     elif indicator == "历史指数":
         params = {
-            'href': '/DataCenter_V3/chart/AnalystsIndex.ashx',
-            'paramsstr': f'code={analyst_id}&d=&isxml=True',
+            "href": "/DataCenter_V3/chart/AnalystsIndex.ashx",
+            "paramsstr": f"code={analyst_id}&d=&isxml=True",
         }
         r = requests.get(url, params=params, headers=headers)
         json_data = r.json()
@@ -177,13 +185,13 @@ def stock_analyst_detail_em(
             [json_data["X"].split(","), json_data["Y"][0].split(",")],
             index=["date", "value"],
         ).T
-        temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
-        temp_df['value'] = pd.to_numeric(temp_df['value'])
+        temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+        temp_df["value"] = pd.to_numeric(temp_df["value"])
         return temp_df
 
 
 if __name__ == "__main__":
-    stock_analyst_rank_em_df = stock_analyst_rank_em(year='2021')
+    stock_analyst_rank_em_df = stock_analyst_rank_em(year="2021")
     print(stock_analyst_rank_em_df)
 
     stock_analyst_detail_em_df = stock_analyst_detail_em(
