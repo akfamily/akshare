@@ -39,8 +39,8 @@ def fx_spot_quote() -> pd.DataFrame:
         "-",
     ]
     temp_df = temp_df[["货币对", "买报价", "卖报价"]]
-    temp_df["买报价"] = pd.to_numeric(temp_df["买报价"])
-    temp_df["卖报价"] = pd.to_numeric(temp_df["卖报价"])
+    temp_df["买报价"] = pd.to_numeric(temp_df["买报价"], errors="coerce")
+    temp_df["卖报价"] = pd.to_numeric(temp_df["卖报价"], errors="coerce")
     return temp_df
 
 
@@ -96,8 +96,8 @@ def fx_pair_quote() -> pd.DataFrame:
         "-",
     ]
     temp_df = temp_df[["货币对", "买报价", "卖报价"]]
-    temp_df["买报价"] = pd.to_numeric(temp_df["买报价"])
-    temp_df["卖报价"] = pd.to_numeric(temp_df["卖报价"])
+    temp_df["买报价"] = pd.to_numeric(temp_df["买报价"], errors="coerce")
+    temp_df["卖报价"] = pd.to_numeric(temp_df["卖报价"], errors="coerce")
     return temp_df
 
 
