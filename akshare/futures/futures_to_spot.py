@@ -61,9 +61,21 @@ def futures_delivery_dce(date: str = "202101") -> pd.DataFrame:
         "deliveryQuotes.begin_month": date,
         "deliveryQuotes.end_month": str(int(date) + 1),
     }
-    r = requests.post(url, params=params)
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Pragma": "no-cache",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
+    }
+    r = requests.post(url, params=params, headers=headers)
     temp_df = pd.read_html(r.text)[0]
-    temp_df["交割日期"] = temp_df["交割日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
+    temp_df["交割日期"] = (
+        temp_df["交割日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
+    )
     return temp_df
 
 
@@ -86,7 +98,9 @@ def futures_to_spot_dce(date: str = "202102") -> pd.DataFrame:
     }
     r = requests.post(url, params=params)
     temp_df = pd.read_html(r.text)[0]
-    temp_df["期转现发生日期"] = temp_df["期转现发生日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
+    temp_df["期转现发生日期"] = (
+        temp_df["期转现发生日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
+    )
     return temp_df
 
 
@@ -107,7 +121,9 @@ def futures_delivery_match_dce(symbol: str = "a") -> pd.DataFrame:
     }
     r = requests.post(url, params=params)
     temp_df = pd.read_html(r.text)[0]
-    temp_df["配对日期"] = temp_df["配对日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
+    temp_df["配对日期"] = (
+        temp_df["配对日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
+    )
     return temp_df
 
 
@@ -122,16 +138,16 @@ def futures_to_spot_czce(date: str = "20210112") -> pd.DataFrame:
     """
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataTrdtrades.xls"
     headers = {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-        'Host': 'www.czce.com.cn',
-        'Pragma': 'no-cache',
-        'Referer': 'http://www.czce.com.cn/',
-        'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Host": "www.czce.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "http://www.czce.com.cn/",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     r.encoding = "utf-8"
@@ -147,8 +163,8 @@ def futures_to_spot_czce(date: str = "20210112") -> pd.DataFrame:
             "合约数量",
         ]
     ]
-    temp_df['合约数量'] = temp_df['合约数量'].str.replace(",", "")
-    temp_df['合约数量'] = pd.to_numeric(temp_df['合约数量'])
+    temp_df["合约数量"] = temp_df["合约数量"].str.replace(",", "")
+    temp_df["合约数量"] = pd.to_numeric(temp_df["合约数量"])
     return temp_df
 
 
@@ -169,14 +185,16 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
     big_df = pd.DataFrame()
     for i, item in enumerate(index_flag):
         try:
-            temp_inner_df = temp_df[index_flag[i] + 1: index_flag[i + 1]]
+            temp_inner_df = temp_df[index_flag[i] + 1 : index_flag[i + 1]]
         except:
-            temp_inner_df = temp_df[index_flag[i] + 1:]
+            temp_inner_df = temp_df[index_flag[i] + 1 :]
         temp_inner_df.columns = temp_inner_df.iloc[0, :]
         temp_inner_df = temp_inner_df.iloc[1:-1, :]
         temp_inner_df.reset_index(drop=True, inplace=True)
         date_contract_str = (
-            temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].iloc[:, 0].values[i]
+            temp_df[temp_df.iloc[:, 0].str.contains("配对日期")]
+            .iloc[:, 0]
+            .values[i]
         )
         inner_date = date_contract_str.split("：")[1].split(" ")[0]
         symbol = date_contract_str.split("：")[-1]
@@ -193,8 +211,8 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
         "配对日期",
         "合约代码",
     ]
-    big_df['交割量'] = big_df['交割量'].str.replace(',', "")
-    big_df['交割量'] = pd.to_numeric(big_df['交割量'])
+    big_df["交割量"] = big_df["交割量"].str.replace(",", "")
+    big_df["交割量"] = pd.to_numeric(big_df["交割量"])
     return big_df
 
 
@@ -216,11 +234,11 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
         "交割数量",
         "交割额",
     ]
-    temp_df['交割数量'] = temp_df['交割数量'].str.replace(',', '')
-    temp_df['交割额'] = temp_df['交割额'].str.replace(',', '')
+    temp_df["交割数量"] = temp_df["交割数量"].str.replace(",", "")
+    temp_df["交割额"] = temp_df["交割额"].str.replace(",", "")
 
-    temp_df['交割数量'] = pd.to_numeric(temp_df['交割数量'])
-    temp_df['交割额'] = pd.to_numeric(temp_df['交割额'])
+    temp_df["交割数量"] = pd.to_numeric(temp_df["交割数量"])
+    temp_df["交割额"] = pd.to_numeric(temp_df["交割额"])
     return temp_df
 
 
@@ -248,13 +266,15 @@ def futures_delivery_shfe(date: str = "202003") -> pd.DataFrame:
         "交割量-本年累计",
         "交割量-累计同比",
     ]
-    temp_df = temp_df[[
-        "品种",
-        "交割量-本月",
-        "交割量-比重",
-        "交割量-本年累计",
-        "交割量-累计同比",
-    ]]
+    temp_df = temp_df[
+        [
+            "品种",
+            "交割量-本月",
+            "交割量-比重",
+            "交割量-本年累计",
+            "交割量-累计同比",
+        ]
+    ]
     return temp_df
 
 
@@ -280,5 +300,7 @@ if __name__ == "__main__":
     futures_delivery_match_dce_df = futures_delivery_match_dce(symbol="y")
     print(futures_delivery_match_dce_df)
 
-    futures_delivery_match_czce_df = futures_delivery_match_czce(date="20210106")
+    futures_delivery_match_czce_df = futures_delivery_match_czce(
+        date="20210106"
+    )
     print(futures_delivery_match_czce_df)
