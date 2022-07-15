@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/2/17 16:55
+Date: 2022/7/15 22:00
 Desc: 东方财富网-数据中心-股东分析
 https://data.eastmoney.com/gdfx/
 """
@@ -741,6 +741,7 @@ def stock_gdfx_free_holding_analyse_em(date: str = "20210930") -> pd.DataFrame:
         "-",
         "-",
         "期末持股-数量变化",
+        "-",
         "公告日后涨跌幅-10个交易日",
         "公告日后涨跌幅-30个交易日",
         "公告日后涨跌幅-60个交易日",
@@ -1031,7 +1032,7 @@ if __name__ == "__main__":
     print(stock_gdfx_holding_detail_em_df)
 
     stock_gdfx_free_holding_analyse_em_df = stock_gdfx_free_holding_analyse_em(
-        date="20210930"
+        date="20220330"
     )
     print(stock_gdfx_free_holding_analyse_em_df)
 
