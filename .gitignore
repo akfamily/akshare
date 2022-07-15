@@ -16,6 +16,7 @@
 
 # Temp
 build/
+docs/build/
 docs/_build/
 dist/
 *.egg-info/
