@@ -12,5 +12,6 @@ exclude = '''
   | __pycache__
   | build
   | dist
+  | conf.py
 )/
 '''
