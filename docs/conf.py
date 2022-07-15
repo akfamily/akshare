@@ -10,13 +10,11 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-# sys.path.insert(0, os.path.abspath('.'))
-import recommonmark
-from datetime import datetime
-from recommonmark.transform import AutoStructify
-import sphinx_rtd_theme
 import ast
 import re
+from datetime import datetime
+
+from recommonmark.transform import AutoStructify
 
 
 def get_version_string():
