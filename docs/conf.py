@@ -13,6 +13,7 @@
 import ast
 import re
 from datetime import datetime
+import sphinx_markdown_tables
 
 from recommonmark.transform import AutoStructify
 
