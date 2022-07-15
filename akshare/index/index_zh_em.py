@@ -85,7 +85,7 @@ def index_code_id_map_em() -> dict:
 
 
 def index_zh_a_hist(
-    symbol: str = "399282",
+    symbol: str = "000859",
     period: str = "daily",
     start_date: str = "19700101",
     end_date: str = "22220101",
@@ -161,9 +161,28 @@ def index_zh_a_hist(
                 }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(
-        [item.split(",") for item in data_json["data"]["klines"]]
-    )
+    try:
+        temp_df = pd.DataFrame(
+            [item.split(",") for item in data_json["data"]["klines"]]
+        )
+    except:
+        # 兼容 000859(中证国企一路一带) 和 000861(中证央企创新)
+        params = {
+            "secid": f"2.{symbol}",
+            "ut": "7eea3edcaed734bea9cbfc24409ed989",
+            "fields1": "f1,f2,f3,f4,f5,f6",
+            "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+            "klt": period_dict[period],
+            "fqt": "0",
+            "beg": "0",
+            "end": "20500000",
+            "_": "1623766962675",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(
+            [item.split(",") for item in data_json["data"]["klines"]]
+        )
     temp_df.columns = [
         "日期",
         "开盘",
@@ -353,7 +372,7 @@ def index_zh_a_hist_min_em(
 
 if __name__ == "__main__":
     index_zh_a_hist_df = index_zh_a_hist(
-        symbol="990001",
+        symbol="000859",
         period="daily",
         start_date="19700101",
         end_date="22220101",
