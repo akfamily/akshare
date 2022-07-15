@@ -6,6 +6,6 @@ sphinx:
 python:
   # For available versions, see:
   # https://docs.readthedocs.io/en/stable/config-file/v2.html#build-image
-  version: "3.7"
+  version: "3.8"
   install:
     - requirements: docs/requirements.txt
