@@ -402,7 +402,7 @@ def stock_hsgt_south_acc_flow_in_em(symbol: str = "沪股通") -> pd.DataFrame:
 
 
 def stock_hsgt_hold_stock_em(
-    market: str = "北向", indicator: str = "5日排行"
+    market: str = "沪股通", indicator: str = "5日排行"
 ) -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通持股-个股排行
@@ -445,7 +445,7 @@ def stock_hsgt_hold_stock_em(
     elif market == "沪股通":
         filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")(MUTUAL_TYPE="001")"""
     elif market == "深股通":
-        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")(MUTUAL_TYPE="001")"""
+        filter_str = f"""(TRADE_DATE='{date}')(INTERVAL_TYPE="{indicator_type}")(MUTUAL_TYPE="003")"""
     params = {
         "sortColumns": "ADD_MARKET_CAP",
         "sortTypes": "-1",
@@ -1661,6 +1661,11 @@ if __name__ == "__main__":
 
     stock_hsgt_hold_stock_em_df = stock_hsgt_hold_stock_em(
         market="沪股通", indicator="5日排行"
+    )
+    print(stock_hsgt_hold_stock_em_df)
+
+    stock_hsgt_hold_stock_em_df = stock_hsgt_hold_stock_em(
+        market="深股通", indicator="5日排行"
     )
     print(stock_hsgt_hold_stock_em_df)
 

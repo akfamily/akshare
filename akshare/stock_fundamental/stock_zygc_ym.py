@@ -5,8 +5,8 @@ Date: 2022/7/3 20:30
 Desc: 益盟-F10-主营构成
 http://f10.emoney.cn/f10/zbyz/1000001
 """
-import requests
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 
