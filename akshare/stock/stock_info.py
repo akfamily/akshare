@@ -138,7 +138,7 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
         "CSRC_CODE": "",
         "STOCK_CODE": "",
         "sqlId": "COMMON_SSE_CP_GPJCTPZ_GPLB_GP_L",
-        "COMPANY_STATUS": "2, 4, 5, 7, 8",
+        "COMPANY_STATUS": "2,4,5,7,8",
         "type": "inParams",
         "isPagination": "true",
         "pageHelp.cacheSize": "1",
