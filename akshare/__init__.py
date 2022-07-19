@@ -2076,9 +2076,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.55 fix: fix stock_gdfx_free_holding_analyse_em interface
 1.6.56 fix: fix index_zh_a_hist interface
 1.6.57 fix: fix stock_info_sh_name_code interface
+1.6.58 fix: fix stock_gdfx_holding_analyse_em interface
 """
 
-__version__ = "1.6.57"
+__version__ = "1.6.58"
 __author__ = "AKFamily"
 
 import sys
