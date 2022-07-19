@@ -489,12 +489,12 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_df)
 
     stock_zh_a_minute_df = stock_zh_a_minute(
-        symbol="sh600751", period="5", adjust=""
+        symbol="sh000001", period="1", adjust=""
     )
     print(stock_zh_a_minute_df)
 
     stock_zh_a_minute_df = stock_zh_a_minute(
-        symbol="sh600751", period="1", adjust=""
+        symbol="sh600519", period="1", adjust="qfq"
     )
     print(stock_zh_a_minute_df)
 
