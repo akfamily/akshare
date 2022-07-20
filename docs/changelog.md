@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.60 add: add stock_telegraph_cls interface
+
+    1. 新增 stock_telegraph_cls 接口
+
 1.6.59 add: add stock_industry_change_cninfo interface
 
     1. 新增 stock_industry_change_cninfo 接口
@@ -935,6 +939,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.60 add: add stock_telegraph_cls interface
 
 1.6.59 add: add stock_industry_change_cninfo interface
 

@@ -57,7 +57,9 @@ def stock_classify_sina(symbol: str = "热门概念") -> pd.DataFrame:
     """
     stock_classify_board_dict = stock_classify_board()
     data_df = pd.DataFrame()
-    for num in tqdm(range(len(stock_classify_board_dict[symbol]["code"]))):
+    for num in tqdm(
+        range(len(stock_classify_board_dict[symbol]["code"])), leave=False
+    ):
         url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount"
         params = {"node": stock_classify_board_dict[symbol]["code"][num]}
         r = requests.get(url, params=params)
@@ -84,5 +86,5 @@ def stock_classify_sina(symbol: str = "热门概念") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_classify_sina_df = stock_classify_sina(symbol="申万二级")
+    stock_classify_sina_df = stock_classify_sina(symbol="热门概念")
     print(stock_classify_sina_df)

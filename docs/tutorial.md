@@ -1110,6 +1110,9 @@
  "stock_industry_change_cninfo"  # 巨潮资讯-上市公司行业归属的变动情况
  # 公司股本变动
  "stock_share_change_cninfo"  # 巨潮资讯-公司股本变动
+ # 咨询-财联社
+ "stock_zh_a_alerts_cls"  # 咨询-财联社-今日快讯
+ "stock_telegraph_cls"  # 咨询-财联社-电报
 ```
 
 ## 案例演示
