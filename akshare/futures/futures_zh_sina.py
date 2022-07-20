@@ -9,7 +9,7 @@ P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
 import json
 import time
 from functools import lru_cache
-from warnings import warn
+from py_mini_racer import py_mini_racer
 
 import pandas as pd
 import requests
@@ -207,10 +207,13 @@ def futures_zh_spot(
     :return: 期货的实时行情数据
     :rtype: pandas.DataFrame
     """
+    file_data = "Math.round(Math.random() * 2147483648).toString(16)"
+    ctx = py_mini_racer.MiniRacer()
+    rn_code = ctx.eval(file_data)
     subscribe_list = ",".join(
         ["nf_" + item.strip() for item in symbol.split(",")]
     )
-    url = f"https://hq.sinajs.cn/rn={round(time.time() * 1000)}&list={subscribe_list}"
+    url = f"https://hq.sinajs.cn/rn={rn_code}&list={subscribe_list}"
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate",
@@ -673,7 +676,7 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
 
 if __name__ == "__main__":
     futures_zh_spot_df = futures_zh_spot(
-        symbol="V2205, P2205, B2201, M2205", market="CF", adjust="0"
+        symbol="TA2209, P2209, B2209, M2209", market="CF", adjust="0"
     )
     print(futures_zh_spot_df)
 
