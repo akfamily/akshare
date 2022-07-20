@@ -2078,9 +2078,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.57 fix: fix stock_info_sh_name_code interface
 1.6.58 fix: fix stock_gdfx_holding_analyse_em interface
 1.6.59 add: add stock_industry_change_cninfo interface
+1.6.60 add: add stock_telegraph_cls interface
+1.6.61 fix: fix futures_shfe_warehouse_receipt interface
 """
 
-__version__ = "1.6.59"
+__version__ = "1.6.61"
 __author__ = "AKFamily"
 
 import sys
@@ -2717,7 +2719,11 @@ from akshare.stock.stock_stop import stock_staq_net_stop
 """
 每日快讯数据
 """
-from akshare.stock_feature.stock_cls_alerts import stock_zh_a_alerts_cls
+
+from akshare.stock_feature.stock_cls_alerts import (
+    stock_zh_a_alerts_cls,
+    stock_telegraph_cls,
+)
 
 """
 涨停板行情

@@ -161,3 +161,8 @@ if __name__ == "__main__":
         trade_date="20200702"
     )
     print(futures_shfe_warehouse_receipt_df)
+
+    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(
+        trade_date="20140516"
+    )
+    print(futures_shfe_warehouse_receipt_df)
