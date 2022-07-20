@@ -2079,9 +2079,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.58 fix: fix stock_gdfx_holding_analyse_em interface
 1.6.59 add: add stock_industry_change_cninfo interface
 1.6.60 add: add stock_telegraph_cls interface
+1.6.61 fix: fix futures_shfe_warehouse_receipt interface
 """
 
-__version__ = "1.6.60"
+__version__ = "1.6.61"
 __author__ = "AKFamily"
 
 import sys
