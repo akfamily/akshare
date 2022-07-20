@@ -99,25 +99,50 @@ def futures_shfe_warehouse_receipt(trade_date: str = "20200702") -> dict:
     :return: 指定日期的仓单日报数据
     :rtype: dict
     """
-    url = f"http://www.shfe.com.cn/data/dailydata/{trade_date}dailystock.dat"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["o_cursor"])
-    temp_df["VARNAME"] = (
-        temp_df["VARNAME"].str.split(r"$", expand=True).iloc[:, 0]
-    )
-    temp_df["REGNAME"] = (
-        temp_df["REGNAME"].str.split(r"$", expand=True).iloc[:, 0]
-    )
-    temp_df["WHABBRNAME"] = (
-        temp_df["WHABBRNAME"].str.split(r"$", expand=True).iloc[:, 0]
-    )
-    big_dict = {}
-    for item in set(temp_df["VARNAME"]):
-        big_dict[item] = temp_df[temp_df["VARNAME"] == item]
+    url = f"http://www.shfe.com.cn/data/dailydata/{trade_date}dailystock.dat"
+    if trade_date >= "20140519":
+        r = requests.get(url, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["o_cursor"])
+        temp_df["VARNAME"] = (
+            temp_df["VARNAME"].str.split(r"$", expand=True).iloc[:, 0]
+        )
+        temp_df["REGNAME"] = (
+            temp_df["REGNAME"].str.split(r"$", expand=True).iloc[:, 0]
+        )
+        temp_df["WHABBRNAME"] = (
+            temp_df["WHABBRNAME"].str.split(r"$", expand=True).iloc[:, 0]
+        )
+        big_dict = {}
+        for item in set(temp_df["VARNAME"]):
+            big_dict[item] = temp_df[temp_df["VARNAME"] == item]
+    else:
+        url = f"http://www.shfe.com.cn/data/dailydata/{trade_date}dailystock.html"
+        r = requests.get(url, headers=headers)
+        temp_df = pd.read_html(r.text)[0]
+        index_list = temp_df[
+            temp_df.iloc[:, 3].str.contains("单位：") == 1
+        ].index.to_list()
+        big_dict = {}
+        for inner_index in range(len(index_list)):
+            temp_index_start = index_list[inner_index]
+            if (inner_index + 1) >= len(index_list):
+                if temp_df.iloc[-1, 0].startswith("注："):
+                    temp_index_end = len(temp_df) - 1
+                else:
+                    temp_index_end = len(temp_df)
+            else:
+                temp_index_end = index_list[inner_index + 1]
+            inner_df = temp_df[temp_index_start:temp_index_end]
+            inner_df.reset_index(inplace=True, drop=True)
+            inner_key = inner_df.iloc[0, 0]
+            inner_df.columns = inner_df.iloc[1].to_list()
+            inner_df = inner_df[2:]
+            inner_df.reset_index(inplace=True, drop=True)
+            big_dict[inner_key] = inner_df
     return big_dict
 
 
