@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.63 fix: fix fund_portfolio_em and futures_roll_yield interface
+
+    1. 修复 fund_portfolio_em 和 futures_roll_yield 文件中的 pandas.DataFrame.append 问题
+
 1.6.62 fix: fix futures_zh_spot interface
 
     1. 修复 futures_zh_spot 接口
@@ -947,6 +951,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.63 fix: fix fund_portfolio_em and futures_roll_yield interface
 
 1.6.62 fix: fix futures_zh_spot interface
 
