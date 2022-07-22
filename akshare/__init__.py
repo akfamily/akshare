@@ -2082,9 +2082,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.61 fix: fix futures_shfe_warehouse_receipt interface
 1.6.62 fix: fix futures_zh_spot interface
 1.6.63 fix: fix fund_portfolio_em and futures_roll_yield interface
+1.6.64 fix: fix index_investing_global interface
 """
 
-__version__ = "1.6.63"
+__version__ = "1.6.64"
 __author__ = "AKFamily"
 
 import sys

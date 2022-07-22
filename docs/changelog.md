@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.64 fix: fix index_investing_global interface
+
+    1. 修复 index_investing_global 接口的参数及文档说明
+
 1.6.63 fix: fix fund_portfolio_em and futures_roll_yield interface
 
     1. 修复 fund_portfolio_em 和 futures_roll_yield 文件中的 pandas.DataFrame.append 问题
@@ -951,6 +955,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.64 fix: fix index_investing_global interface
 
 1.6.63 fix: fix fund_portfolio_em and futures_roll_yield interface
 
