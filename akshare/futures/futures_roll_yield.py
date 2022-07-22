@@ -31,7 +31,9 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
     df: DataFrame或None 从dailyBar得到合约价格，如果为空就在函数内部抓dailyBar，直接喂给数据可以让计算加快
     """
     # date = "20100104"
-    date = cons.convert_date(date) if date is not None else datetime.date.today()
+    date = (
+        cons.convert_date(date) if date is not None else datetime.date.today()
+    )
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return None
@@ -44,7 +46,9 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
         df = df[
             ~df["symbol"].str.contains("efp")
         ]  # 20200304 由于交易所获取的数据中会有比如 "CUefp"，所以在这里过滤
-        df = df[df["variety"] == var].sort_values("open_interest", ascending=False)
+        df = df[df["variety"] == var].sort_values(
+            "open_interest", ascending=False
+        )
         # df["close"] = df["close"].astype("float")
         df["close"] = pd.to_numeric(df["close"])
         if len(df["close"]) < 2:
@@ -89,14 +93,20 @@ def get_roll_yield_bar(
     ry      展期收益率
     index   日期或品种
     """
-    date = cons.convert_date(date) if date is not None else datetime.date.today()
+    date = (
+        cons.convert_date(date) if date is not None else datetime.date.today()
+    )
     start_day = (
-        cons.convert_date(start_day) if start_day is not None else datetime.date.today()
+        cons.convert_date(start_day)
+        if start_day is not None
+        else datetime.date.today()
     )
     end_day = (
         cons.convert_date(end_day)
         if end_day is not None
-        else cons.convert_date(cons.get_latest_data_date(datetime.datetime.now()))
+        else cons.convert_date(
+            cons.get_latest_data_date(datetime.datetime.now())
+        )
     )
 
     if type_method == "symbol":
@@ -109,8 +119,13 @@ def get_roll_yield_bar(
     if type_method == "var":
         df = pd.DataFrame()
         for market in ["dce", "cffex", "shfe", "czce"]:
-            df = df.append(
-                get_futures_daily(start_date=date, end_date=date, market=market)
+            df = pd.concat(
+                [
+                    df,
+                    get_futures_daily(
+                        start_date=date, end_date=date, market=market
+                    ),
+                ]
             )
         var_list = list(set(df["variety"]))
         if "IO" in var_list:
@@ -119,10 +134,15 @@ def get_roll_yield_bar(
         for var in var_list:
             ry = get_roll_yield(date, var, df=df)
             if ry:
-                df_l = df_l.append(
-                    pd.DataFrame(
-                        [ry], index=[var], columns=["roll_yield", "near_by", "deferred"]
-                    )
+                df_l = pd.concat(
+                    [
+                        df_l,
+                        pd.DataFrame(
+                            [ry],
+                            index=[var],
+                            columns=["roll_yield", "near_by", "deferred"],
+                        ),
+                    ]
                 )
         df_l["date"] = date
         df_l = df_l.sort_values("roll_yield")
@@ -134,12 +154,15 @@ def get_roll_yield_bar(
             try:
                 ry = get_roll_yield(start_day, var)
                 if ry:
-                    df_l = df_l.append(
-                        pd.DataFrame(
-                            [ry],
-                            index=[start_day],
-                            columns=["roll_yield", "near_by", "deferred"],
-                        )
+                    df_l = pd.concat(
+                        [
+                            df_l,
+                            pd.DataFrame(
+                                [ry],
+                                index=[start_day],
+                                columns=["roll_yield", "near_by", "deferred"],
+                            ),
+                        ]
                     )
             except:
                 pass
@@ -162,5 +185,7 @@ if __name__ == "__main__":
     )
     print(get_roll_yield_bar_range_df)
 
-    get_roll_yield_bar_symbol = get_roll_yield_bar(type_method="var", date="20210201")
+    get_roll_yield_bar_symbol = get_roll_yield_bar(
+        type_method="var", date="20210201"
+    )
     print(get_roll_yield_bar_symbol)
