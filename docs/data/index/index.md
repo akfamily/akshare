@@ -1578,22 +1578,22 @@ print(index_detail_hist_adjust_cni_df)
 
 目标地址: https://cn.investing.com/indices/
 
-描述: 世界主要国家的各种指数, 该接口需要通过代理访问; 由于涉及国家和指数(**1000** + 个指数)具体参见[国家-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
+描述: 世界主要国家和地区的各种指数, 该接口需要通过代理访问; 由于涉及国家地区和指数(**1000** + 个指数)具体参见[国家和地区-指数目录](https://cn.investing.com/indices/world-indices?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on)
 具体的调用方式可以参照:
 
-1. 先查询指数所在的国家名称;
-2. 复制网页上国家名称(推荐复制), 如 **美国**;
-3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**; 也可以调用 **ak.index_investing_global_country_name_url("美国")** 获取需要国家的具体指数名称
+1. 先查询指数所在的国家或地区名称;
+2. 复制网页上国家或地区名称(推荐复制), 如 **美国**;
+3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**; 也可以调用 **ak.index_investing_global_country_name_url("美国")** 获取需要国家或地区的具体指数名称
 4. 在安装 [AKShare](https://github.com/akfamily/akshare) 后输入, 如 **ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")**;
 5. 稍后就可以获得所需数据.
 
-限量: 单次返回某一个国家的具体某一个指数, 每次最大返回 5000 条, 想获取较长时间的历史数据请分时间段获取, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
+限量: 单次返回某一个国家或地区的具体某一个指数, 每次最大返回 5000 条, 想获取较长时间的历史数据请分时间段获取, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
 
 输入参数
 
 | 名称         | 类型  | 描述                                                                          |
 |------------|-----|-----------------------------------------------------------------------------|
-| country    | str | country="美国"                                                                |
+| symbol     | str | symbol="美国"                                                                 |
 | index_name | str | index_name="美元指数"; 可以通过 ak.index_investing_global_country_name_url("美国") 获取 |
 | period     | str | period="每月"; choice of {"每日", "每周", "每月"}                                   |
 | start_date | str | start_date='20000101'                                                       |
@@ -1615,7 +1615,8 @@ print(index_detail_hist_adjust_cni_df)
 ```python
 import akshare as ak
 
-index_investing_global_df = ak.index_investing_global(country="中国", index_name="富时中国A50指数", period="每日", start_date="20000101", end_date="20210909")
+index_investing_global_df = ak.index_investing_global(symbol="中国", index_name="富时中国A50指数", period="每日",
+                                                      start_date="20000101", end_date="20210909")
 print(index_investing_global_df)
 ```
 
