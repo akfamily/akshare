@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.66 fix: fix stock_balance_sheet_by_report_em interface
+
+    1. 修复 stock_balance_sheet_by_report_em 接口，新增公司类型判断
+
 1.6.65 fix: fix bond_cb_redeem_jsl interface
 
     1. 修复 bond_cb_redeem_jsl 接口，新增字段
@@ -959,6 +963,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.66 fix: fix stock_balance_sheet_by_report_em interface
 
 1.6.65 fix: fix bond_cb_redeem_jsl interface
 

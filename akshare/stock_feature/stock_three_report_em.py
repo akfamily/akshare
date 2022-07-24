@@ -1,12 +1,30 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/5/2 15:58
+Date: 2022/7/25 22:58
 Desc: 东方财富-股票-财务分析
 """
 import pandas as pd
 import requests
 from tqdm import tqdm
+from bs4 import BeautifulSoup
+
+
+def _stock_balance_sheet_by_report_ctype_em(symbol: str = "SH600519") -> str:
+    """
+    东方财富-股票-财务分析-资产负债表-按报告期-公司类型判断
+    https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index?type=web&code=sh601878#zcfzb-0
+    :param symbol: 股票代码; 带市场标识
+    :type symbol: str
+    :return: 东方财富-股票-财务分析-资产负债表-按报告期-公司类型判断
+    :rtype: str
+    """
+    url = f"https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/Index"
+    params = {"type": "web", "code": symbol.lower()}
+    r = requests.get(url, params=params)
+    soup = BeautifulSoup(r.text, "lxml")
+    company_type = soup.find(attrs={"id": "hidctype"})["value"]
+    return company_type
 
 
 def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
@@ -18,7 +36,7 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
     :return: 资产负债表-按报告期
     :rtype: pandas.DataFrame
     """
-    company_type = 3 if symbol[:2] == "SZ" else 4
+    company_type = _stock_balance_sheet_by_report_ctype_em(symbol=symbol)
     url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/zcfzbDateAjaxNew"
     params = {
         "companyType": company_type,
