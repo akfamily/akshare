@@ -2084,9 +2084,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.63 fix: fix fund_portfolio_em and futures_roll_yield interface
 1.6.64 fix: fix index_investing_global interface
 1.6.65 fix: fix bond_cb_redeem_jsl interface
+1.6.66 fix: fix stock_balance_sheet_by_report_em interface
 """
 
-__version__ = "1.6.65"
+__version__ = "1.6.66"
 __author__ = "AKFamily"
 
 import sys
