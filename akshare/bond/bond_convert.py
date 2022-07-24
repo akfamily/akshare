@@ -272,9 +272,9 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
         "-",
         "强赎条款",
         "正股价",
+        "强赎状态",
+        "-",
         "强赎天计数",
-        "-",
-        "-",
         "-",
         "强赎触发价",
     ]
@@ -295,6 +295,7 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
             "强赎价",
             "强赎天计数",
             "强赎条款",
+            '强赎状态'
         ]
     ]
     temp_df["现价"] = pd.to_numeric(temp_df["现价"])
@@ -306,6 +307,8 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
     temp_df["强赎触发价"] = pd.to_numeric(temp_df["强赎触发价"])
     temp_df["正股价"] = pd.to_numeric(temp_df["正股价"])
     temp_df["强赎价"] = pd.to_numeric(temp_df["强赎价"], errors="coerce")
+    temp_df["强赎天计数"] = temp_df["强赎天计数"].replace(r'^.*?(\d{1,2}\/\d{1,2} \| \d{1,2}).*?$',r'\1', regex=True)
+    temp_df["强赎状态"] = temp_df["强赎状态"].map({'R':'已公告强赎','O':'公告要强赎','G':'公告不强赎','B':'已满足强赎条件','':''})
     return temp_df
 
 
