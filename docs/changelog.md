@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.65 fix: fix bond_cb_redeem_jsl interface
+
+    1. 修复 bond_cb_redeem_jsl 接口，新增字段
+
 1.6.64 fix: fix index_investing_global interface
 
     1. 修复 index_investing_global 接口的参数及文档说明
@@ -955,6 +959,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.65 fix: fix bond_cb_redeem_jsl interface
 
 1.6.64 fix: fix index_investing_global interface
 
