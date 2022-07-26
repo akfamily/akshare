@@ -11,6 +11,7 @@ import pandas as pd
 import requests
 import time
 import hashlib
+import warnings
 
 
 def __encrypts_cls(text: str) -> str:
@@ -35,6 +36,9 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
     :return: 财联社-今日快讯
     :rtype: pandas.DataFrame
     """
+    warnings.warn(
+        "该接口将被移除，请使用 ak.stock_telegraph_cls() 接口替代", DeprecationWarning
+    )
     url = "https://www.cls.cn/api/sw"
     params = {
         "app": "CailianpressWeb",

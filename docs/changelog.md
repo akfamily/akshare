@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.67 fix: fix stock_zh_a_alerts_cls interface
+
+    1. 修复 stock_zh_a_alerts_cls 接口，增加移除警告信息
+
 1.6.66 fix: fix stock_balance_sheet_by_report_em interface
 
     1. 修复 stock_balance_sheet_by_report_em 接口，新增公司类型判断
@@ -963,6 +967,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.67 fix: fix stock_zh_a_alerts_cls interface
 
 1.6.66 fix: fix stock_balance_sheet_by_report_em interface
 
