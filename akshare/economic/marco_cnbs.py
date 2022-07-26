@@ -32,7 +32,6 @@ def macro_cnbs() -> pd.DataFrame:
         "金融部门资产方",
         "金融部门负债方",
     ]
-
     temp_df["居民部门"] = pd.to_numeric(temp_df["居民部门"])
     temp_df["非金融企业部门"] = pd.to_numeric(temp_df["非金融企业部门"])
     temp_df["政府部门"] = pd.to_numeric(temp_df["政府部门"])
@@ -41,7 +40,6 @@ def macro_cnbs() -> pd.DataFrame:
     temp_df["实体经济部门"] = pd.to_numeric(temp_df["实体经济部门"])
     temp_df["金融部门资产方"] = pd.to_numeric(temp_df["金融部门资产方"])
     temp_df["金融部门负债方"] = pd.to_numeric(temp_df["金融部门负债方"])
-
     return temp_df
 
 
