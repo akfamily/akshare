@@ -2089,9 +2089,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.68 fix: fix stock_zh_a_minute interface
 1.6.69 add: add fund_info_index_em interface
 1.6.70 add: add bond_zh_hs_cov_pre_min interface
+1.6.71 fix: fix bond_zh_hs_cov_pre_min interface
 """
 
-__version__ = "1.6.70"
+__version__ = "1.6.71"
 __author__ = "AKFamily"
 
 import sys
@@ -3478,6 +3479,7 @@ from akshare.bond.bond_zh_cov_sina import (
     bond_zh_cov,
     bond_zh_cov_info,
     bond_zh_hs_cov_min,
+    bond_zh_hs_cov_pre_min,
     bond_zh_cov_value_analysis,
 )
 from akshare.bond.bond_convert import (

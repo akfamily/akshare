@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.71 fix: fix bond_zh_hs_cov_pre_min interface
+
+    1. 修复 bond_zh_hs_cov_pre_min 接口
+
 1.6.70 add: add bond_zh_hs_cov_pre_min interface
 
     1. 新增 bond_zh_hs_cov_pre_min 接口，获取可转债的盘前分时数据
@@ -979,6 +983,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.71 fix: fix bond_zh_hs_cov_pre_min interface
 
 1.6.70 add: add bond_zh_hs_cov_pre_min interface
 
