@@ -10,6 +10,7 @@ http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;
 用户ID:269993
 """
 import time
+import json
 
 from akshare.utils import demjson
 import pandas as pd
@@ -32,7 +33,6 @@ def fund_purchase_em() -> pd.DataFrame:
         "page": "1,50000",
         "js": "reData",
         "sort": "fcode,asc",
-        # 'callback': '?',
         "_": "1641528557742",
     }
     r = requests.get(url, params=params, headers=headers)
@@ -98,6 +98,160 @@ def fund_name_em() -> pd.DataFrame:
     data_json = demjson.decode(text_data.strip("var r = ")[:-1])
     temp_df = pd.DataFrame(data_json)
     temp_df.columns = ["基金代码", "拼音缩写", "基金简称", "基金类型", "拼音全称"]
+    return temp_df
+
+
+def fund_info_index_em(
+    symbol: str = "沪深指数", indicator: str = "被动指数型"
+) -> pd.DataFrame:
+    """
+    东方财富网站-天天基金网-基金数据-基金信息-指数型
+    http://fund.eastmoney.com/trade/zs.html
+    :param symbol: choice of {"全部", "沪深指数", "行业主题", "大盘指数", "中盘指数", "小盘指数", "股票指数", "债券指数"}
+    :type symbol: str
+    :param indicator: choice of {"全部", "被动指数型", "增强指数型"}
+    :type indicator: str
+    :return: pandas.DataFrame
+    :rtype: 基金信息-指数型
+    """
+    symbol_map = {
+        "全部": "",
+        "沪深指数": "053",
+        "行业主题": "054",
+        "大盘指数": "01",
+        "中盘指数": "02",
+        "小盘指数": "03",
+        "股票指数": "050|001",
+        "债券指数": "050|003",
+    }
+    indicator_map = {
+        "全部": "",
+        "被动指数型": "051",
+        "增强指数型": "052",
+    }
+    url = "http://api.fund.eastmoney.com/FundTradeRank/GetRankList"
+    if symbol in {"股票指数", "股票指数"}:
+        params = {
+            "ft": "zs",
+            "sc": "1n",
+            "st": "desc",
+            "pi": "1",
+            "pn": "10000",
+            "cp": "",
+            "ct": "",
+            "cd": "",
+            "ms": "",
+            "fr": symbol_map[symbol].split("|")[0],
+            "plevel": "",
+            "fst": "",
+            "ftype": symbol_map[symbol].split("|")[1],
+            "fr1": indicator_map[indicator],
+            "fl": "0",
+            "isab": "1",
+            "_": "1658888335885",
+        }
+    else:
+        params = {
+            "ft": "zs",
+            "sc": "1n",
+            "st": "desc",
+            "pi": "1",
+            "pn": "10000",
+            "cp": "",
+            "ct": "",
+            "cd": "",
+            "ms": "",
+            "fr": symbol_map[symbol].split("|")[0],
+            "plevel": "",
+            "fst": "",
+            "ftype": "",
+            "fr1": indicator_map[indicator],
+            "fl": "0",
+            "isab": "1",
+            "_": "1658888335885",
+        }
+    headers = {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Host": "api.fund.eastmoney.com",
+        "Pragma": "no-cache",
+        "Proxy-Connection": "keep-alive",
+        "Referer": "http://fund.eastmoney.com/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    data_json = json.loads(data_json["Data"])
+    temp_df = pd.DataFrame([item.split("|") for item in data_json["datas"]])
+    temp_df.columns = [
+        "基金代码",
+        "基金名称",
+        "-",
+        "日期",
+        "单位净值",
+        "日增长率",
+        "近1周",
+        "近1月",
+        "近3月",
+        "近6月",
+        "近1年",
+        "近2年",
+        "近3年",
+        "今年来",
+        "成立来",
+        "-",
+        "-",
+        "-",
+        "手续费",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "起购金额",
+        "-",
+        "-",
+        "-",
+        "-",
+    ]
+    temp_df = temp_df[
+        [
+            "基金代码",
+            "基金名称",
+            "单位净值",
+            "日期",
+            "日增长率",
+            "近1周",
+            "近1月",
+            "近3月",
+            "近6月",
+            "近1年",
+            "近2年",
+            "近3年",
+            "今年来",
+            "成立来",
+            "手续费",
+            "起购金额",
+        ]
+    ]
+    temp_df["跟踪标的"] = symbol
+    temp_df["跟踪方式"] = indicator
+
+    temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"])
+    temp_df["日增长率"] = pd.to_numeric(temp_df["日增长率"])
+    temp_df["近1周"] = pd.to_numeric(temp_df["近1周"])
+    temp_df["近1月"] = pd.to_numeric(temp_df["近1月"])
+    temp_df["近3月"] = pd.to_numeric(temp_df["近3月"])
+    temp_df["近6月"] = pd.to_numeric(temp_df["近6月"])
+    temp_df["近1年"] = pd.to_numeric(temp_df["近1年"])
+    temp_df["近2年"] = pd.to_numeric(temp_df["近2年"])
+    temp_df["近3年"] = pd.to_numeric(temp_df["近3年"])
+    temp_df["今年来"] = pd.to_numeric(temp_df["今年来"])
+    temp_df["成立来"] = pd.to_numeric(temp_df["成立来"])
+    temp_df["手续费"] = pd.to_numeric(temp_df["手续费"])
+
     return temp_df
 
 
@@ -977,6 +1131,11 @@ if __name__ == "__main__":
 
     fund_name_em_df = fund_name_em()
     print(fund_name_em_df)
+
+    fund_info_index_em_df = fund_info_index_em(
+        symbol="沪深指数", indicator="增强指数型"
+    )
+    print(fund_info_index_em_df)
 
     fund_open_fund_daily_em_df = fund_open_fund_daily_em()
     print(fund_open_fund_daily_em_df)

@@ -2087,9 +2087,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.66 fix: fix stock_balance_sheet_by_report_em interface
 1.6.67 fix: fix stock_zh_a_alerts_cls interface
 1.6.68 fix: fix stock_zh_a_minute interface
+1.6.69 fix: fix fund_info_index_em interface
 """
 
-__version__ = "1.6.68"
+__version__ = "1.6.69"
 __author__ = "AKFamily"
 
 import sys
@@ -3519,6 +3520,7 @@ from akshare.fund.fund_em import (
     fund_financial_fund_daily_em,
     fund_financial_fund_info_em,
     fund_name_em,
+    fund_info_index_em,
     fund_graded_fund_daily_em,
     fund_graded_fund_info_em,
     fund_money_fund_daily_em,

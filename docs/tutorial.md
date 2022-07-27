@@ -422,6 +422,7 @@
  "currency_name_code"  # 当前所有可兑换货币对
  # 公募基金
  "fund_name_em",  # 基金基本信息
+ "fund_info_index_em",  # 指数型基金-基本信息
  "fund_purchase_em",  # 基金申购状态
  "fund_open_fund_daily_em",  # 开放式基金-实时数据
  "fund_open_fund_info_em",  # 开放式基金-历史数据

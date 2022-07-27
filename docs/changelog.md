@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.69 fix: fix fund_info_index_em interface
+
+    1. 新增 fund_info_index_em 接口，获取指数型基金的基本信息
+
 1.6.68 fix: fix stock_zh_a_minute interface
 
     1. 修复 stock_zh_a_minute 接口
@@ -971,6 +975,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.69 fix: fix fund_info_index_em interface
 
 1.6.68 fix: fix stock_zh_a_minute interface
 
