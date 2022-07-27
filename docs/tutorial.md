@@ -952,6 +952,7 @@
  "stock_rank_xzjp_ths"  # 险资举牌
  # 可转债分时数据
  "bond_zh_hs_cov_min"  # 可转债分时数据
+ "bond_zh_hs_cov_pre_min"  # 可转债分时数据-分时行情-盘前
  # 艺人
  "business_value_artist"  # 艺人商业价值
  "online_value_artist"  # 艺人流量价值

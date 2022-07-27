@@ -266,6 +266,55 @@ def bond_zh_hs_cov_min(
         return temp_df
 
 
+def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
+    """
+    东方财富网-可转债-分时行情-盘前
+    https://quote.eastmoney.com/concept/sz128039.html
+    :param symbol: 转债代码
+    :type symbol: str
+    :return: 分时行情-盘前
+    :rtype: pandas.DataFrame
+    """
+    market_type = {"sh": "1", "sz": "0"}
+    url = "https://push2.eastmoney.com/api/qt/stock/trends2/get"
+    params = {
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
+        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+        "ndays": "1",
+        "iscr": "1",
+        "iscca": "0",
+        "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
+        "_": "1623766962675",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(
+        [item.split(",") for item in data_json["data"]["trends"]]
+    )
+    temp_df.columns = [
+        "时间",
+        "开盘",
+        "收盘",
+        "最高",
+        "最低",
+        "成交量",
+        "成交额",
+        "最新价",
+    ]
+    temp_df.index = pd.to_datetime(temp_df["时间"])
+    temp_df.reset_index(drop=True, inplace=True)
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+    temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)  # 带日期时间
+    return temp_df
+
+
 def bond_zh_cov() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-可转债数据
@@ -638,6 +687,9 @@ if __name__ == "__main__":
         end_date="2222-01-01 09:32:00",
     )
     print(bond_zh_hs_cov_min_df)
+
+    bond_zh_hs_cov_pre_min_df = bond_zh_hs_cov_pre_min(symbol="sh113570")
+    print(bond_zh_hs_cov_pre_min_df)
 
     bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sz123124")
     print(bond_zh_hs_cov_daily_df)
