@@ -29,7 +29,11 @@
 
 ## 更新说明
 
-1.6.69 fix: fix fund_info_index_em interface
+1.6.70 add: add bond_zh_hs_cov_pre_min interface
+
+    1. 新增 bond_zh_hs_cov_pre_min 接口，获取可转债的盘前分时数据
+
+1.6.69 add: add fund_info_index_em interface
 
     1. 新增 fund_info_index_em 接口，获取指数型基金的基本信息
 
@@ -976,7 +980,9 @@
 
 ## 版本更新说明
 
-1.6.69 fix: fix fund_info_index_em interface
+1.6.70 add: add bond_zh_hs_cov_pre_min interface
+
+1.6.69 add: add fund_info_index_em interface
 
 1.6.68 fix: fix stock_zh_a_minute interface
 

@@ -2087,10 +2087,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.66 fix: fix stock_balance_sheet_by_report_em interface
 1.6.67 fix: fix stock_zh_a_alerts_cls interface
 1.6.68 fix: fix stock_zh_a_minute interface
-1.6.69 fix: fix fund_info_index_em interface
+1.6.69 add: add fund_info_index_em interface
+1.6.70 add: add bond_zh_hs_cov_pre_min interface
 """
 
-__version__ = "1.6.69"
+__version__ = "1.6.70"
 __author__ = "AKFamily"
 
 import sys
