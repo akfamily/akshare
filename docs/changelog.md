@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.72 add: add futures_news_shmet interface
+
+    1. 新增 futures_news_shmet 接口，获取期货资讯数据
+
 1.6.71 fix: fix bond_zh_hs_cov_pre_min interface
 
     1. 修复 bond_zh_hs_cov_pre_min 接口
@@ -983,6 +987,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.72 add: add futures_news_shmet interface
 
 1.6.71 fix: fix bond_zh_hs_cov_pre_min interface
 
