@@ -1115,6 +1115,8 @@
  # 咨询-财联社
  "stock_zh_a_alerts_cls"  # 咨询-财联社-今日快讯
  "stock_telegraph_cls"  # 咨询-财联社-电报
+ # 上海金属网
+ "futures_news_shmet"  # 上海金属网-快讯
 ```
 
 ## 案例演示
