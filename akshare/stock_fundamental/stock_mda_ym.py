@@ -36,5 +36,5 @@ def stock_mda_ym(symbol: str = "000001") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_mda_ym_df = stock_mda_ym(symbol="000001")
+    stock_mda_ym_df = stock_mda_ym(symbol="000002")
     print(stock_mda_ym_df)
