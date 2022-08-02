@@ -1191,7 +1191,8 @@ def macro_china_rmb() -> pd.DataFrame:
     """
     中国人民币汇率中间价报告, 数据区间从 20170103-至今
     https://datacenter.jin10.com/reportType/dc_rmb_data
-    :return: pandas.DataFrame
+    :return: 中国人民币汇率中间价报告
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     params = {"_": t}

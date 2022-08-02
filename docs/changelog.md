@@ -29,6 +29,12 @@
 
 ## 更新说明
 
+1.6.74 add: add option_cffex_zz1000_list_sina interface
+
+    1. 新增 option_cffex_zz1000_list_sina 接口
+    2. 新增 option_cffex_zz1000_spot_sina 接口
+    3. 新增 option_cffex_zz1000_daily_sina 接口
+
 1.6.73 fix: fix macro_china_rmb interface
 
     1. 修复 macro_china_rmb 接口，规范输出的格式
@@ -991,6 +997,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.74 add: add option_cffex_zz1000_list_sina interface
 
 1.6.73 fix: fix macro_china_rmb interface
 

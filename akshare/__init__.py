@@ -2092,9 +2092,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.71 fix: fix bond_zh_hs_cov_pre_min interface
 1.6.72 add: add futures_news_shmet interface
 1.6.73 fix: fix macro_china_rmb interface
+1.6.74 add: add option_cffex_zz1000_list_sina interface
 """
 
-__version__ = "1.6.73"
+__version__ = "1.6.74"
 __author__ = "AKFamily"
 
 import sys
@@ -3459,6 +3460,9 @@ from akshare.option.option_finance_sina import (
     option_cffex_hs300_list_sina,
     option_cffex_hs300_spot_sina,
     option_cffex_hs300_daily_sina,
+    option_cffex_zz1000_list_sina,
+    option_cffex_zz1000_spot_sina,
+    option_cffex_zz1000_daily_sina,
     option_sse_list_sina,
     option_sse_expire_day_sina,
     option_sse_codes_sina,

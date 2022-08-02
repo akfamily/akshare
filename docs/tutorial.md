@@ -393,6 +393,9 @@
  "option_cffex_hs300_list_sina"  # 沪深300期权列表
  "option_cffex_hs300_spot_sina"  # 沪深300期权实时行情
  "option_cffex_hs300_daily_sina"  # 沪深300期权历史行情-日频
+ "option_cffex_zz1000_list_sina"  # 中证1000期权列表
+ "option_cffex_zz1000_spot_sina"  # 中证1000期权实时行情
+ "option_cffex_zz1000_daily_sina"  # 中证1000期权历史行情-日频
  "option_sse_list_sina"  # 上交所期权列表
  "option_sse_expire_day_sina"  # 上交所期权剩余到期日
  "option_sse_codes_sina"  # 上交所期权代码
