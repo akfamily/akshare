@@ -1266,6 +1266,7 @@ def macro_china_rmb() -> pd.DataFrame:
     big_df = big_df.apply(lambda x: x.replace("-", pd.NA))
     big_df = big_df.apply(lambda x: x.replace([None], pd.NA))
     big_df.sort_index(inplace=True)
+    big_df.fillna(0, inplace=True)
     big_df = big_df.astype("float")
     return big_df
 
