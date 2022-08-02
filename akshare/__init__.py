@@ -2091,9 +2091,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.70 add: add bond_zh_hs_cov_pre_min interface
 1.6.71 fix: fix bond_zh_hs_cov_pre_min interface
 1.6.72 add: add futures_news_shmet interface
+1.6.73 fix: fix macro_china_rmb interface
 """
 
-__version__ = "1.6.72"
+__version__ = "1.6.73"
 __author__ = "AKFamily"
 
 import sys
