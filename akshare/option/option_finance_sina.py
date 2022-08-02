@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-# -*- coding:utf-8 -*-
 """
-Date: 2022/5/25 18:19
+Date: 2022/8/2 14:50
 Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深 300 指数
@@ -23,22 +22,38 @@ import pandas as pd
 def option_cffex_hs300_list_sina() -> Dict[str, List[str]]:
     """
     新浪财经-中金所-沪深 300 指数-所有合约, 返回的第一个合约为主力合约
-    目前新浪财经-中金所只有 沪深 300 指数 一个品种的数据
+    目前新浪财经-中金所有沪深 300 指数和中证 1000 指数
     :return: 中金所-沪深300指数-所有合约
     :rtype: dict
     """
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    symbol = soup.find(attrs={"id": "option_symbol"}).find("li").text
+    symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[0].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
     contract = [item.text for item in temp_attr]
     return {symbol: contract}
 
 
-def option_cffex_hs300_spot_sina(symbol: str = "io2104") -> pd.DataFrame:
+def option_cffex_zz1000_list_sina() -> Dict[str, List[str]]:
     """
-    中金所-沪深300指数-指定合约-实时行情
+    新浪财经-中金所-中证 1000 指数-所有合约, 返回的第一个合约为主力合约
+    目前新浪财经-中金所有沪深 300 指数和中证 1000 指数
+    :return: 中金所-中证 1000 指数-所有合约
+    :rtype: dict
+    """
+    url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/mo/cffex"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[1].text
+    temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
+    contract = [item.text for item in temp_attr]
+    return {symbol: contract}
+
+
+def option_cffex_hs300_spot_sina(symbol: str = "io2204") -> pd.DataFrame:
+    """
+    中金所-沪深 300 指数-指定合约-实时行情
     https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
     :param symbol: 合约代码; 用 option_cffex_hs300_list_sina 函数查看
     :type symbol: str
@@ -103,10 +118,117 @@ def option_cffex_hs300_spot_sina(symbol: str = "io2104") -> pd.DataFrame:
     return data_df
 
 
+def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
+    """
+    中金所-中证 1000 指数-指定合约-实时行情
+    https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
+    :param symbol: 合约代码; 用 option_cffex_zz1000_list_sina 函数查看
+    :type symbol: str
+    :return: 中金所-中证 1000 指数-指定合约-看涨看跌实时行情
+    :rtype: pd.DataFrame
+    """
+    url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/OptionService.getOptionData"
+    params = {
+        "type": "futures",
+        "product": "mo",
+        "exchange": "cffex",
+        "pinzhong": symbol,
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = json.loads(
+        data_text[data_text.find("{") : data_text.rfind("}") + 1]
+    )
+    option_call_df = pd.DataFrame(
+        data_json["result"]["data"]["up"],
+        columns=[
+            "看涨合约-买量",
+            "看涨合约-买价",
+            "看涨合约-最新价",
+            "看涨合约-卖价",
+            "看涨合约-卖量",
+            "看涨合约-持仓量",
+            "看涨合约-涨跌",
+            "行权价",
+            "看涨合约-标识",
+        ],
+    )
+    option_put_df = pd.DataFrame(
+        data_json["result"]["data"]["down"],
+        columns=[
+            "看跌合约-买量",
+            "看跌合约-买价",
+            "看跌合约-最新价",
+            "看跌合约-卖价",
+            "看跌合约-卖量",
+            "看跌合约-持仓量",
+            "看跌合约-涨跌",
+            "看跌合约-标识",
+        ],
+    )
+    data_df = pd.concat([option_call_df, option_put_df], axis=1)
+    data_df["看涨合约-买量"] = pd.to_numeric(data_df["看涨合约-买量"])
+    data_df["看涨合约-买价"] = pd.to_numeric(data_df["看涨合约-买价"])
+    data_df["看涨合约-最新价"] = pd.to_numeric(data_df["看涨合约-最新价"])
+    data_df["看涨合约-卖价"] = pd.to_numeric(data_df["看涨合约-卖价"])
+    data_df["看涨合约-卖量"] = pd.to_numeric(data_df["看涨合约-卖量"])
+    data_df["看涨合约-持仓量"] = pd.to_numeric(data_df["看涨合约-持仓量"])
+    data_df["看涨合约-涨跌"] = pd.to_numeric(data_df["看涨合约-涨跌"])
+    data_df["行权价"] = pd.to_numeric(data_df["行权价"])
+    data_df["看跌合约-买量"] = pd.to_numeric(data_df["看跌合约-买量"])
+    data_df["看跌合约-买价"] = pd.to_numeric(data_df["看跌合约-买价"])
+    data_df["看跌合约-最新价"] = pd.to_numeric(data_df["看跌合约-最新价"])
+    data_df["看跌合约-卖价"] = pd.to_numeric(data_df["看跌合约-卖价"])
+    data_df["看跌合约-卖量"] = pd.to_numeric(data_df["看跌合约-卖量"])
+    data_df["看跌合约-持仓量"] = pd.to_numeric(data_df["看跌合约-持仓量"])
+    data_df["看跌合约-涨跌"] = pd.to_numeric(data_df["看跌合约-涨跌"])
+    return data_df
+
+
 def option_cffex_hs300_daily_sina(symbol: str = "io2202P4350") -> pd.DataFrame:
     """
     新浪财经-中金所-沪深300指数-指定合约-日频行情
     :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_hs300_spot_sina 中的 call-标识 获取
+    :type symbol: str
+    :return: 日频率数据
+    :rtype: pd.DataFrame
+    """
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    day = datetime.datetime.now().day
+    url = f"https://stock.finance.sina.com.cn/futures/api/jsonp.php/var%20_{symbol}{year}_{month}_{day}=/FutureOptionAllService.getOptionDayline"
+    params = {"symbol": symbol}
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_df = pd.DataFrame(
+        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+    )
+    data_df.columns = ["open", "high", "low", "close", "volume", "date"]
+    data_df = data_df[
+        [
+            "date",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+        ]
+    ]
+    data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
+    data_df["open"] = pd.to_numeric(data_df["open"])
+    data_df["high"] = pd.to_numeric(data_df["high"])
+    data_df["low"] = pd.to_numeric(data_df["low"])
+    data_df["close"] = pd.to_numeric(data_df["close"])
+    data_df["volume"] = pd.to_numeric(data_df["volume"])
+    return data_df
+
+
+def option_cffex_zz1000_daily_sina(
+    symbol: str = "mo2208P6200",
+) -> pd.DataFrame:
+    """
+    新浪财经-中金所-中证 1000 指数-指定合约-日频行情
+    :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_zz1000_spot_sina 中的 call-标识 获取
     :type symbol: str
     :return: 日频率数据
     :rtype: pd.DataFrame
@@ -588,15 +710,28 @@ if __name__ == "__main__":
     option_cffex_hs300_list_sina_df = option_cffex_hs300_list_sina()
     print(option_cffex_hs300_list_sina_df)
 
+    option_cffex_zz1000_list_sina_df = option_cffex_zz1000_list_sina()
+    print(option_cffex_zz1000_list_sina_df)
+
     option_cffex_hs300_spot_sina_df = option_cffex_hs300_spot_sina(
         symbol="io2202"
     )
     print(option_cffex_hs300_spot_sina_df)
 
+    option_cffex_zz1000_spot_sina_df = option_cffex_zz1000_spot_sina(
+        symbol="mo2208"
+    )
+    print(option_cffex_zz1000_spot_sina_df)
+
     option_cffex_hs300_daily_sina_df = option_cffex_hs300_daily_sina(
         symbol="io2202P4350"
     )
     print(option_cffex_hs300_daily_sina_df)
+
+    option_cffex_zz1000_daily_sina_df = option_cffex_zz1000_daily_sina(
+        symbol="mo2208P6200"
+    )
+    print(option_cffex_zz1000_daily_sina_df)
 
     # 期权-上交所-50ETF
     option_sse_list_sina_df = option_sse_list_sina(
