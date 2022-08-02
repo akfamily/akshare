@@ -1189,21 +1189,9 @@ def macro_china_daily_energy() -> pd.DataFrame:
 # 金十数据中心-经济指标-中国-其他-中国人民币汇率中间价报告
 def macro_china_rmb() -> pd.DataFrame:
     """
-    中国人民币汇率中间价报告, 数据区间从20170103-至今
+    中国人民币汇率中间价报告, 数据区间从 20170103-至今
     https://datacenter.jin10.com/reportType/dc_rmb_data
-    :return: pandas.Series
-                美元/人民币_中间价  美元/人民币_涨跌幅  ...  人民币/泰铢_定价  人民币/泰铢_涨跌幅
-    2018-02-06      6.3072         NaN  ...     5.0191         NaN
-    2018-02-07      6.2882      -190.0  ...     5.0178       -13.0
-    2018-02-08      6.2822       -60.0  ...     5.0429       251.0
-    2018-02-09      6.3194       372.0  ...     5.0406       -23.0
-    2018-02-12      6.3001      -193.0  ...     5.0310       -96.0
-                    ...         ...  ...        ...         ...
-    2020-04-16      7.0714       312.0  ...     4.6260      -156.0
-    2020-04-17      7.0718         4.0  ...     4.6083      -177.0
-    2020-04-20      7.0657       -61.0  ...     4.5977      -106.0
-    2020-04-21      7.0752        95.0  ...     4.5929       -48.0
-    2020-04-22      7.0903       151.0  ...     4.5843       -86.0
+    :return: pandas.DataFrame
     """
     t = time.time()
     params = {"_": t}
@@ -1268,6 +1256,8 @@ def macro_china_rmb() -> pd.DataFrame:
     big_df.sort_index(inplace=True)
     big_df.fillna(0, inplace=True)
     big_df = big_df.astype("float")
+    big_df.reset_index(inplace=True)
+    big_df.rename(columns={"index": "日期"}, inplace=True)
     return big_df
 
 

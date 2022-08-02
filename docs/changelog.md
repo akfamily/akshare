@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.73 fix: fix macro_china_rmb interface
+
+    1. 修复 macro_china_rmb 接口，规范输出的格式
+
 1.6.72 add: add futures_news_shmet interface
 
     1. 新增 futures_news_shmet 接口，获取期货资讯数据
@@ -987,6 +991,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.73 fix: fix macro_china_rmb interface
 
 1.6.72 add: add futures_news_shmet interface
 
