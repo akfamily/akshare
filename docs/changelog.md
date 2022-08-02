@@ -29,6 +29,11 @@
 
 ## 更新说明
 
+1.6.75 add: add option_cffex_zz1000_spot_sina interface
+
+    1. 新增 option_cffex_zz1000_spot_sina 接口
+    2. 将 stock_technology_ths.py 中所有接口 append 方法移除
+
 1.6.74 add: add option_cffex_zz1000_list_sina interface
 
     1. 新增 option_cffex_zz1000_list_sina 接口
@@ -997,6 +1002,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.75 add: add option_cffex_zz1000_spot_sina interface
 
 1.6.74 add: add option_cffex_zz1000_list_sina interface
 
