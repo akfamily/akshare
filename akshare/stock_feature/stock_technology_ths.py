@@ -5,7 +5,6 @@ Date: 2021/11/2 21:08
 Desc: 同花顺-数据中心-技术选股
 http://data.10jqka.com.cn/rank/cxg/
 """
-
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
