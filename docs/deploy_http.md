@@ -21,4 +21,4 @@ python -m aktools
 
 ### 使用文档
 
-[参见项目 AKTools 项目文档](https://aktools.readthedocs.io/)
+[参见 AKTools 项目文档](https://aktools.readthedocs.io/)

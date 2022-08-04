@@ -54,6 +54,7 @@ setuptools.setup(
         "decorator>=4.4.2",
         "py_mini_racer>=0.6.0",
         "requests-cache>=0.9.3",
+        "pycryptodomex>=3.15.0",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[
