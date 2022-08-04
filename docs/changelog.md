@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.77 fix: fix stock_telegraph_cls interface
+
+    1. 修复 stock_telegraph_cls 接口
+
 1.6.76 add: add pycryptodomex library
 
     1. 新增 pycryptodomex 依赖库支持
@@ -1006,6 +1010,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.77 fix: fix stock_telegraph_cls interface
 
 1.6.76 add: add pycryptodomex library
 
