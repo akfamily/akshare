@@ -115,65 +115,44 @@ def stock_telegraph_cls() -> pd.DataFrame:
     :return: 财联社-电报
     :rtype: pandas.DataFrame
     """
-    t = time.time()
-    current_time = int(t)
-    current_time = 1659576941
-    url = "https://www.cls.cn/nodeapi/telegraphList"
+    session = requests.session()
+    url = "https://m.cls.cn/telegraph"
+    session.get(url)  # 获取 cookies
     params = {
-        "app": "CailianpressWeb",
-        "category": "",
-        "lastTime": current_time,
-        "last_time": current_time,
-        "os": "web",
         "refresh_type": "1",
-        "rn": "20",
-        "sv": "7.7.5",
+        "rn": "10",
+        "last_time": "",
+        "app": "CailianpressWap",
+        "sv": "1",
     }
-    r = requests.get(url, params=params)
-    code = __encrypts_cls(r.url.split("?")[1])
-    params = {
-        "app": "CailianpressWeb",
-        "category": "",
-        "lastTime": current_time,
-        "last_time": current_time,
-        "os": "web",
-        "refresh_type": "1",
-        "rn": "20",
-        "sv": "7.7.5",
-        "sign": code,
-    }
-    headers = {
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "en,zh;q=0.9",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Content-Type": "application/json;charset=utf-8",
-        "Host": "www.cls.cn",
-        "Pragma": "no-cache",
-        "Referer": "https://www.cls.cn/telegraph",
-        "sec-ch-ua": '".Not/A)Brand";v="99", "Google Chrome";v="103", "Chromium";v="103"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-    }
-    r = requests.get(url, headers=headers, params=params)
-    r.text
+    ts = pd.Timestamp(pd.Timestamp.now())
+    current_time = int(ts.timestamp())
+    params.update({"last_time": current_time})
+    url = "https://m.cls.cn/nodeapi/telegraphs"
+    r = session.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["roll_data"])
-    temp_df = temp_df[["title", "content", "ctime"]]
-    temp_df["ctime"] = pd.to_datetime(
-        temp_df["ctime"], unit="s", utc=True
+    next_time = temp_df["modified_time"].values[-1]
+    n = 1
+    big_df = temp_df.copy()
+    while n < 15:
+        params.update({"last_time": next_time})
+        r = session.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["data"]["roll_data"])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        next_time = temp_df["modified_time"].values[-1]
+        n += 1
+    big_df = big_df[["title", "content", "ctime"]]
+    big_df["ctime"] = pd.to_datetime(
+        big_df["ctime"], unit="s", utc=True
     ).dt.tz_convert("Asia/Shanghai")
-    temp_df.columns = ["标题", "内容", "发布时间"]
-    temp_df.sort_values(["发布时间"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
-    temp_df["发布日期"] = temp_df["发布时间"].dt.date
-    temp_df["发布时间"] = temp_df["发布时间"].dt.time
-    return temp_df
+    big_df.columns = ["标题", "内容", "发布时间"]
+    big_df.sort_values(["发布时间"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+    big_df["发布日期"] = big_df["发布时间"].dt.date
+    big_df["发布时间"] = big_df["发布时间"].dt.time
+    return big_df
 
 
 if __name__ == "__main__":
