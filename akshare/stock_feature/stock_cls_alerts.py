@@ -12,6 +12,8 @@ import requests
 import time
 import hashlib
 import warnings
+from Cryptodome.Cipher import AES
+import base64
 
 
 def __encrypts_cls(text: str) -> str:
@@ -27,6 +29,20 @@ def __encrypts_cls(text: str) -> str:
     sha1 = hashlib.sha1(text).hexdigest()
     md5 = hashlib.md5(sha1.encode()).hexdigest()
     return md5
+
+
+def encrypt(self, key, iv, text):
+    text = self.pkcs7_padding(text.encode('utf-8'))
+    cipher = AES.new(key.encode('utf-8'), AES.MODE_CBC, iv.encode('utf-8'))
+    return base64.b64encode(cipher.encrypt(text)).decode()
+
+
+def pkcs7_padding(data):
+    if not isinstance(data, bytes):
+        data = data.encode()
+    pad_len = 8 - (len(data) % 8)
+    data += bytes([pad_len] * pad_len)
+    return data
 
 
 def stock_zh_a_alerts_cls() -> pd.DataFrame:
@@ -93,6 +109,7 @@ def stock_telegraph_cls() -> pd.DataFrame:
     """
     t = time.time()
     current_time = int(t)
+    current_time = 1659576941
     url = "https://www.cls.cn/nodeapi/telegraphList"
     params = {
         "app": "CailianpressWeb",
@@ -101,7 +118,7 @@ def stock_telegraph_cls() -> pd.DataFrame:
         "last_time": current_time,
         "os": "web",
         "refresh_type": "1",
-        "rn": "2000",
+        "rn": "20",
         "sv": "7.7.5",
     }
     r = requests.get(url, params=params)
@@ -113,14 +130,14 @@ def stock_telegraph_cls() -> pd.DataFrame:
         "last_time": current_time,
         "os": "web",
         "refresh_type": "1",
-        "rn": "2000",
+        "rn": "20",
         "sv": "7.7.5",
         "sign": code,
     }
     headers = {
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Accept-Language": "en,zh;q=0.9",
         "Cache-Control": "no-cache",
         "Connection": "keep-alive",
         "Content-Type": "application/json;charset=utf-8",
@@ -136,6 +153,7 @@ def stock_telegraph_cls() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
     }
     r = requests.get(url, headers=headers, params=params)
+    r.text
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["roll_data"])
     temp_df = temp_df[["title", "content", "ctime"]]
