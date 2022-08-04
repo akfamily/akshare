@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/7/20 20:20
+Date: 2022/8/4 14:20
 Desc: 财联社-今日快讯
 https://www.cls.cn/searchPage?keyword=%E5%BF%AB%E8%AE%AF&type=all
 财联社-电报
 https://www.cls.cn/telegraph
 """
+import base64
+import hashlib
+import time
+import warnings
+
 import pandas as pd
 import requests
-import time
-import hashlib
-import warnings
 from Cryptodome.Cipher import AES
-import base64
 
 
 def __encrypts_cls(text: str) -> str:
@@ -31,18 +32,25 @@ def __encrypts_cls(text: str) -> str:
     return md5
 
 
-def encrypt(self, key, iv, text):
-    text = self.pkcs7_padding(text.encode('utf-8'))
-    cipher = AES.new(key.encode('utf-8'), AES.MODE_CBC, iv.encode('utf-8'))
-    return base64.b64encode(cipher.encrypt(text)).decode()
+def pkcs7_padding(data: bytes) -> bytes:
+    """
 
-
-def pkcs7_padding(data):
+    :param data:
+    :type data:
+    :return:
+    :rtype:
+    """
     if not isinstance(data, bytes):
         data = data.encode()
     pad_len = 8 - (len(data) % 8)
     data += bytes([pad_len] * pad_len)
     return data
+
+
+def encrypt(key, iv, text):
+    text = pkcs7_padding(text.encode("utf-8"))
+    cipher = AES.new(key.encode("utf-8"), AES.MODE_CBC, iv.encode("utf-8"))
+    return base64.b64encode(cipher.encrypt(text)).decode()
 
 
 def stock_zh_a_alerts_cls() -> pd.DataFrame:

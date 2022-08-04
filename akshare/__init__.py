@@ -2094,9 +2094,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.73 fix: fix macro_china_rmb interface
 1.6.74 add: add option_cffex_zz1000_list_sina interface
 1.6.75 add: add option_cffex_zz1000_spot_sina interface
+1.6.76 add: add pycryptodomex library
 """
 
-__version__ = "1.6.75"
+__version__ = "1.6.76"
 __author__ = "AKFamily"
 
 import sys

@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.76 add: add pycryptodomex library
+
+    1. 新增 pycryptodomex 依赖库支持
+
 1.6.75 add: add option_cffex_zz1000_spot_sina interface
 
     1. 新增 option_cffex_zz1000_spot_sina 接口
@@ -1002,6 +1006,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.76 add: add pycryptodomex library
 
 1.6.75 add: add option_cffex_zz1000_spot_sina interface
 
