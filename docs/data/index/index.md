@@ -1615,8 +1615,7 @@ print(index_detail_hist_adjust_cni_df)
 ```python
 import akshare as ak
 
-index_investing_global_df = ak.index_investing_global(symbol="中国", index_name="富时中国A50指数", period="每日",
-                                                      start_date="20000101", end_date="20210909")
+index_investing_global_df = ak.index_investing_global(symbol="中国", index_name="富时中国A50指数", period="每日", start_date="20000101", end_date="20210909")
 print(index_investing_global_df)
 ```
 
