@@ -1,56 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/8/4 14:20
+Date: 2022/8/5 11:20
 Desc: 财联社-今日快讯
 https://www.cls.cn/searchPage?keyword=%E5%BF%AB%E8%AE%AF&type=all
 财联社-电报
 https://www.cls.cn/telegraph
 """
-import base64
-import hashlib
-import time
 import warnings
 
 import pandas as pd
 import requests
-from Cryptodome.Cipher import AES
-
-
-def __encrypts_cls(text: str) -> str:
-    """
-    财联社参数加密函数
-    :param text: 文本
-    :type text: str
-    :return: 加密后的 sign 参数
-    :rtype: str
-    """
-    if not isinstance(text, bytes):
-        text = bytes(text, "utf-8")
-    sha1 = hashlib.sha1(text).hexdigest()
-    md5 = hashlib.md5(sha1.encode()).hexdigest()
-    return md5
-
-
-def pkcs7_padding(data: bytes) -> bytes:
-    """
-
-    :param data:
-    :type data:
-    :return:
-    :rtype:
-    """
-    if not isinstance(data, bytes):
-        data = data.encode()
-    pad_len = 8 - (len(data) % 8)
-    data += bytes([pad_len] * pad_len)
-    return data
-
-
-def encrypt(key, iv, text):
-    text = pkcs7_padding(text.encode("utf-8"))
-    cipher = AES.new(key.encode("utf-8"), AES.MODE_CBC, iv.encode("utf-8"))
-    return base64.b64encode(cipher.encrypt(text)).decode()
 
 
 def stock_zh_a_alerts_cls() -> pd.DataFrame:
@@ -70,7 +30,6 @@ def stock_zh_a_alerts_cls() -> pd.DataFrame:
         "sv": "7.7.5",
     }
     r = requests.get(url, params=params)
-    code = __encrypts_cls(r.url.split("?")[1])
     headers = {
         "Host": "www.cls.cn",
         "Connection": "keep-alive",
