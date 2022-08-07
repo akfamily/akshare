@@ -9,6 +9,7 @@ import re
 
 import pandas as pd
 from bs4 import BeautifulSoup
+import requests
 
 from akshare.index.cons import short_headers, long_headers
 from akshare.utils.ak_session import session
@@ -84,18 +85,19 @@ def index_investing_global_country_name_url(country: str = "中国") -> dict:
     name_url_dict = _get_global_country_name_url()
     name_code_dict = _get_global_index_country_name_url()
     url = f"https://cn.investing.com{name_url_dict[country]}?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on"
-    res = session.post(url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    url_list = [
-        item.find("a")["href"]
-        for item in soup.find_all(attrs={"class": "plusIconTd"})
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    soup.find_all("script")
+    code_list = [
+        item["pair"]
+        for item in soup.find_all("span", attrs={"class": "data-name"})
     ]
     name_list = [
         item.find("a").get_text()
         for item in soup.find_all(attrs={"class": "plusIconTd"})
     ]
     name_code_map_dict = {}
-    name_code_map_dict.update(zip(name_list, url_list))
+    name_code_map_dict.update(zip(name_list, code_list))
 
     url = "https://cn.investing.com/indices/global-indices"
     params = {
@@ -146,7 +148,7 @@ def index_investing_global(
     temp_url = f"https://cn.investing.com/{name_code_dict[index_name]}-historical-data"
     res = session.post(temp_url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
-    title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
+    title = soup.find("title").get_text().split("：")[0].strip("历史数据")
     res = session.post(temp_url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
     data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[
@@ -299,13 +301,13 @@ def index_investing_global_from_url(
 
 
 if __name__ == "__main__":
-    index_investing_global_from_url_df = index_investing_global_from_url(
-        url="https://www.investing.com/indices/ftse-epra-nareit-hong-kong",
-        period="每日",
-        start_date="19900101",
-        end_date="20210909",
-    )
-    print(index_investing_global_from_url_df)
+    # index_investing_global_from_url_df = index_investing_global_from_url(
+    #     url="https://www.investing.com/indices/ftse-epra-nareit-hong-kong",
+    #     period="每日",
+    #     start_date="19900101",
+    #     end_date="20210909",
+    # )
+    # print(index_investing_global_from_url_df)
 
     index_investing_global_country_name_url_dict = (
         index_investing_global_country_name_url("美国")
