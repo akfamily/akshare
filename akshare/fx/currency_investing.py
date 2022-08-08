@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/26 20:23
+Date: 2022/8/8 20:33
 Desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
 """
-import re
+import cfscrape
+import json
 
 import pandas as pd
 import requests
@@ -29,19 +30,49 @@ def _currency_name_url() -> dict:
     name_code_dict = dict(
         zip(
             data_table["中文名称"].tolist(),
-            [item.lower().replace("/", "-") for item in data_table["英文名称"].tolist()],
+            [
+                item.lower().replace("/", "-")
+                for item in data_table["英文名称"].tolist()
+            ],
         )
     )
     return name_code_dict
 
 
+def currency_hist_area_index_name_code(symbol: str = "usd-jpy") -> dict:
+    """
+    指定 symbol 的所有指数和代码
+    https://cn.investing.com/indices/
+    :param symbol: 指定的国家或地区；ak._get_global_country_name_url() 函数返回的国家或地区的名称
+    :type symbol: str
+    :return: 指定 area 的所有指数和代码
+    :rtype: dict
+    """
+    scraper = cfscrape.create_scraper(delay=10)
+    pd.set_option("mode.chained_assignment", None)
+    url = f"https://cn.investing.com/currencies/{symbol}-historical-data"
+    r = scraper.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    data_text = soup.find("script", attrs={"id": "__NEXT_DATA__"}).text
+    data_json = json.loads(data_text)
+    code = json.loads(data_json["props"]["pageProps"]["state"])["dataStore"][
+        "pageInfoStore"
+    ]["identifiers"]["instrument_id"]
+    return code
+
+
 def currency_hist(
-        symbol: str = "usd-jpy", start_date: str = "20030101", end_date: str = "20200717"
+    symbol: str = "usd-jpy",
+    period: str = "每日",
+    start_date: str = "20030101",
+    end_date: str = "20220808",
 ) -> pd.DataFrame:
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
     :param symbol: 货币对
     :type symbol: str
+    :param period: choice of {"每日", "每周", "每月"}
+    :type period: str
     :param start_date: 日期
     :type start_date: str
     :param end_date: 日期
@@ -49,89 +80,52 @@ def currency_hist(
     :return: 货币对历史数据
     :rtype: pandas.DataFrame
     """
-    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
-    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
-    temp_url = f"https://cn.investing.com/currencies/{symbol.lower().replace('/', '-')}-historical-data"
-    res = requests.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
-    res = requests.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
-    para_data = re.findall(r"\d+", data)
-    payload = {
-        "curr_id": para_data[0],
-        "smlID": para_data[1],
-        "header": title,
-        "st_date": start_date,
-        "end_date": end_date,
-        "interval_sec": "Daily",
-        "sort_col": "date",
-        "sort_ord": "DESC",
-        "action": "historical_data",
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
+    code = currency_hist_area_index_name_code(symbol)
+    url = f"https://api.investing.com/api/financialdata/historical/{code}"
+    period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
+    params = {
+        "start-date": start_date,
+        "end-date": end_date,
+        "time-frame": period_map[period],
+        "add-missing-rows": "false",
     }
-    url = "https://cn.investing.com/instruments/HistoricalDataAjax"
-    res = requests.post(url, data=payload, headers=long_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    # vest_list = [item.get_text().strip() for item in soup.find_all("tr")]
-    vest_list = [
-        item.get_text().strip().replace(" ", "\n").split("\n")
-        for item in soup.find_all("tr")
+    headers = {
+        "domain-id": "cn",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    df_data = pd.DataFrame(data_json["data"])
+    df_data.columns = [
+        "-",
+        "-",
+        "-",
+        "日期",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "交易量",
+        "-",
+        "收盘",
+        "开盘",
+        "高",
+        "低",
+        "涨跌幅",
     ]
-    # vest_list = [item.get_text().strip().split("\n") for item in soup.find_all("tr")]
-    raw_df = pd.DataFrame(vest_list)
-    df_data = pd.DataFrame(vest_list, columns=raw_df.iloc[0, :].tolist()).iloc[1:-1, :]
-    df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
-
-    df_data["涨跌幅"] = pd.DataFrame(
-        round(
-            df_data["涨跌幅"].str.replace(",", "").str.replace("%", "").astype(float)
-            / 100,
-            6,
-            )
-    )
-
-    if "交易量" in df_data.columns:
-        if any(df_data["交易量"].astype(str).str.contains("-")):
-            df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
-                df_data["交易量"].str.contains("-")
-            ].replace("-", 0)
-
-        if any(df_data["交易量"].astype(str).str.contains("B")):
-            df_data["交易量"] = (
-                    df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
-                    .str.replace("B", "")
-                    .str.replace(",", "")
-                    .astype(float)
-                    * 1000000000
-            )
-        if any(df_data["交易量"].astype(str).str.contains("M")):
-            df_data["交易量"] = (
-                    df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
-                    .str.replace("M", "")
-                    .str.replace(",", "")
-                    .astype(float)
-                    * 1000000
-            )
-        if any(df_data["交易量"].astype(str).str.contains("K")):
-            df_data["交易量"] = (
-                    df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
-                    .str.replace("K", "")
-                    .str.replace(",", "")
-                    .astype(float)
-                    * 1000
-            )
-        # df_data["交易量"] = df_data["交易量"].astype(float)
-
-    del df_data["日期"]
-    try:
-        df_data.iloc[:, :-1] = df_data.iloc[:, :-1].applymap(
-            lambda x: x.replace(",", "")
-        )
-    except:
-        pass
-    df_data = df_data.astype(float)
-    df_data.dropna(how="all", axis=1, inplace=True)
+    df_data = df_data[["日期", "收盘", "开盘", "高", "低", "交易量", "涨跌幅"]]
+    df_data["日期"] = pd.to_datetime(df_data["日期"]).dt.date
+    df_data["收盘"] = pd.to_numeric(df_data["收盘"])
+    df_data["开盘"] = pd.to_numeric(df_data["开盘"])
+    df_data["高"] = pd.to_numeric(df_data["高"])
+    df_data["低"] = pd.to_numeric(df_data["低"])
+    df_data["交易量"] = pd.to_numeric(df_data["交易量"])
+    df_data["涨跌幅"] = pd.to_numeric(df_data["涨跌幅"])
+    df_data.sort_values("日期", inplace=True)
+    df_data.reset_index(inplace=True, drop=True)
     return df_data
 
 
@@ -182,9 +176,9 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     url = "https://cn.investing.com/currencies/Service/ChangeCurrency"
     params = {
         "session_uniq_id": "53bee677662a2336ec07b40738753fc1",
-        "currencies": currency_df[currency_df["short_name"] == symbol.split("/")[0]][
-            "code"
-        ].values[0],
+        "currencies": currency_df[
+            currency_df["short_name"] == symbol.split("/")[0]
+        ]["code"].values[0],
     }
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
@@ -206,14 +200,17 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     name_code_dict_one = dict(
         zip(
             temp_df["名称"].tolist(),
-            [item.lower().replace("/", "-") for item in temp_df["简称"].tolist()],
+            [
+                item.lower().replace("/", "-")
+                for item in temp_df["简称"].tolist()
+            ],
         )
     )
     params = {
         "session_uniq_id": "53bee677662a2336ec07b40738753fc1",
-        "currencies": currency_df[currency_df["short_name"] == symbol.split("/")[1]][
-            "code"
-        ].values[0],
+        "currencies": currency_df[
+            currency_df["short_name"] == symbol.split("/")[1]
+        ]["code"].values[0],
     }
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
@@ -236,11 +233,16 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
     name_code_dict_two = dict(
         zip(
             temp_df["名称"].tolist(),
-            [item.lower().replace("/", "-") for item in temp_df["简称"].tolist()],
+            [
+                item.lower().replace("/", "-")
+                for item in temp_df["简称"].tolist()
+            ],
         )
     )
     name_code_dict_one.update(name_code_dict_two)
-    temp_df = pd.DataFrame.from_dict(name_code_dict_one, orient="index").reset_index()
+    temp_df = pd.DataFrame.from_dict(
+        name_code_dict_one, orient="index"
+    ).reset_index()
     temp_df.columns = ["name", "code"]
     return temp_df
 
@@ -286,7 +288,10 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
             ]
         )
         region_name.extend(
-            [item.find("i").text for item in soup.find_all(has_data_sml_id_but_no_id)]
+            [
+                item.find("i").text
+                for item in soup.find_all(has_data_sml_id_but_no_id)
+            ]
         )
 
     name_id_map = dict(zip(region_name, region_code))
@@ -297,8 +302,13 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    temp_code = [item["href"].split("/")[-1] for item in soup.find_all("a")]  # need
-    temp_name = [item["title"].replace(" ", "-") for item in soup.find_all("a")]
+
+    temp_code = [
+        item["href"].split("/")[-1] for item in soup.find_all("a")
+    ]  # need
+    temp_name = [
+        item["title"].replace(" ", "-") for item in soup.find_all("a")
+    ]
     temp_df = pd.DataFrame([temp_name, temp_code], index=["name", "code"]).T
     return temp_df
 
@@ -311,18 +321,9 @@ if __name__ == "__main__":
     print(currency_name_code_df)
 
     currency_hist_df = currency_hist(
-        symbol="us-dollar-index", start_date="20050907", end_date="20201125"
+        symbol="usd-jpy",
+        period="每日",
+        start_date="20050907",
+        end_date="20220808",
     )
     print(currency_hist_df)
-
-    currency_hist_df = currency_hist(
-        symbol="usd-jpy", start_date="20050907", end_date="20201125"
-    )
-    print(currency_hist_df)
-
-    for i_item in currency_pair_map_df["code"].to_list():
-        print(i_item)
-        currency_hist_df = currency_hist(
-            symbol=i_item, start_date="20000101", end_date="20201109"
-        )
-        print(currency_hist_df)
