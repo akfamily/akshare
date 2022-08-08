@@ -35,24 +35,24 @@
 
     ```
       ##### 分时数据
-      
+
       接口: stock_zh_a_minute
-      
+
       目标地址: http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
-      
+
       描述: 新浪财经获取分时数据，目前可以获取 1, 5, 15, 30, 60 分钟的数据频率
-      
+
       限量: 单次返回指定公司的指定频率的所有历史分时行情数据
-      
+
       输入参数
-      
+
       | 名称   | 类型 |  描述|
       | -------- | ---- |  --- |
       | symbol | str  | symbol='sh000300'; 同日频率数据接口|
       | period | str  | period='1'; 获取 1, 5, 15, 30, 60 分钟的数据频率|
-      
+
       输出参数
-      
+
       | 名称           | 类型        |  描述   |
       | ------------  | ------      |  -------- |
       | day           | object   |  -     |
@@ -67,18 +67,18 @@
       | ma_volume10   | float64      |  -     |
       | ma_price30    | float64      |  -     |
       | ma_volume30   | float64      |  -     |
-      
+
       接口示例
-      
+
       \```python
       import akshare as ak
 
       stock_zh_a_minute_df = ak.stock_zh_a_minute(symbol='sz000876', period='1', adjust="qfq")
       print(stock_zh_a_minute_df)
       \```
-      
+
       数据示例
-      
+
       \```
                               day        open        high         low       close  volume
         0     2020-08-10 13:48:00  635.979995  636.343932  635.979995  636.161964   27500
@@ -99,4 +99,4 @@
 
 1. 所提交的代码如不符合上述规范，则可能会被拒绝合并；
 2. 由于某些原因，您所提交的代码、数据接口和文档会被修改、删除或被第三方使用；
-3. **输出参数**里面的字段类型必须在 int64 float64 object 三种类型之一，整数为 int64，浮点数为 float64，日期及字符串为 object
+3. **输出参数**里面的字段类型必须为 pandas.DataFrame 的 int64，float64，object 三种类型之一，整数为 int64 类型，浮点数为 float64 类型，日期及字符串为 object 类型
