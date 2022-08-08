@@ -1,21 +1,22 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/3/18 17:03
+Date: 2022/8/8 19:53
 Desc: 英为财情-股票指数-全球股指与期货指数数据接口
 https://cn.investing.com/indices/volatility-s-p-500-historical-data
 """
-import re
+import json
 
+import cfscrape
 import pandas as pd
-from bs4 import BeautifulSoup
 import requests
+from bs4 import BeautifulSoup
 
-from akshare.index.cons import short_headers, long_headers
+from akshare.index.cons import short_headers
 from akshare.utils.ak_session import session
 
 
-def _get_global_index_country_name_url() -> dict:
+def _get_global_index_area_name_code() -> dict:
     """
     全球指数-各国的全球指数数据
     https://cn.investing.com/indices/global-indices?majorIndices=on&primarySectors=on&bonds=on&additionalIndices=on&otherIndices=on&c_id=37
@@ -55,10 +56,10 @@ def _get_global_index_country_name_url() -> dict:
 def _get_global_country_name_url() -> dict:
     """
     可获得指数数据国家对应的 URL
-    :return: URL
+    https://cn.investing.com/indices/
+    :return: 国家和 URL
     :rtype: dict
     """
-
     url = "https://cn.investing.com/indices/"
     res = session.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
@@ -74,139 +75,133 @@ def _get_global_country_name_url() -> dict:
     return name_code_map_dict
 
 
-def index_investing_global_country_name_url(country: str = "中国") -> dict:
+def index_investing_global_area_index_name_code(area: str = "中国") -> dict:
     """
-    参考网页: https://cn.investing.com/indices/
-    获取选择国家对应的: 主要指数, 主要行业, 附加指数, 其他指数
-    :param country: str 中文国家名称, 对应 get_global_country_name_url 函数返回的国家名称
-    :return: dict
+    指定 area 的所有指数和代码
+    https://cn.investing.com/indices/
+    :param area: 指定的国家或地区；ak._get_global_country_name_url() 函数返回的国家或地区的名称
+    :type area: str
+    :return: 指定 area 的所有指数和代码
+    :rtype: dict
     """
+    scraper = cfscrape.create_scraper(delay=10)
     pd.set_option("mode.chained_assignment", None)
     name_url_dict = _get_global_country_name_url()
-    name_code_dict = _get_global_index_country_name_url()
-    url = f"https://cn.investing.com{name_url_dict[country]}?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on"
-    r = requests.get(url)
+    url = f"https://cn.investing.com{name_url_dict[area]}?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on"
+    r = scraper.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    soup.find_all("script")
     code_list = [
-        item["pair"]
-        for item in soup.find_all("span", attrs={"class": "data-name"})
+        item["data-id"]
+        for item in soup.find_all("table")[1].find_all(
+            "span", attrs={"class": "alertBellGrayPlus"}
+        )
     ]
     name_list = [
-        item.find("a").get_text()
-        for item in soup.find_all(attrs={"class": "plusIconTd"})
+        item.find("a").text
+        for item in soup.find_all("td", attrs={"class": "plusIconTd"})
     ]
     name_code_map_dict = {}
     name_code_map_dict.update(zip(name_list, code_list))
+    return name_code_map_dict
 
-    url = "https://cn.investing.com/indices/global-indices"
-    params = {
-        "majorIndices": "on",
-        "primarySectors": "on",
-        "bonds": "on",
-        "additionalIndices": "on",
-        "otherIndices": "on",
-        "c_id": name_code_dict[country],
-    }
-    r = session.get(url, params=params, headers=short_headers)
-    data_text = r.text
-    soup = BeautifulSoup(data_text, "lxml")
-    soup_list = soup.find("table", attrs={"id": "cr_12"}).find_all("a")
-    global_index_url = [item["href"] for item in soup_list]
-    global_index_name = [item["title"] for item in soup_list]
-    name_code_map_dict.update(zip(global_index_name, global_index_url))
+
+def index_investing_global_area_index_name_url(area: str = "中国") -> dict:
+    """
+    指定 area 的所有指数和 URL 地址
+    https://cn.investing.com/indices/
+    :param area: 指定的国家或地区；ak._get_global_country_name_url() 函数返回的国家或地区的名称
+    :type area: str
+    :return: 指定 area 的所有指数和 URL 地址
+    :rtype: dict
+    """
+    scraper = cfscrape.create_scraper(delay=10)
+    pd.set_option("mode.chained_assignment", None)
+    name_url_dict = _get_global_country_name_url()
+    url = f"https://cn.investing.com{name_url_dict[area]}?&majorIndices=on&primarySectors=on&additionalIndices=on&otherIndices=on"
+    r = scraper.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    code_list = [
+        item.find("a")["href"]
+        for item in soup.find_all("td", attrs={"class": "plusIconTd"})
+    ]
+    name_list = [
+        item.find("a").text
+        for item in soup.find_all("td", attrs={"class": "plusIconTd"})
+    ]
+    name_code_map_dict = {}
+    name_code_map_dict.update(zip(name_list, code_list))
     return name_code_map_dict
 
 
 def index_investing_global(
-    symbol: str = "美国",
-    index_name: str = "纳斯达克100",
+    area: str = "中国",
+    symbol: str = "上证指数",
     period: str = "每日",
     start_date: str = "20100101",
     end_date: str = "20211031",
 ) -> pd.DataFrame:
     """
-    具体国家的具体指数的从 start_date 到 end_date 期间的数据
-
-    :param symbol: 对应函数中的国家名称
+    具体国家或地区的从 start_date 到 end_date 期间的数据
+    https://cn.investing.com/indices/ftse-epra-nareit-hong-kong-historical-data
+    :param area: 对应函数中的国家或地区名称
+    :type area: str
+    :param symbol: 对应函数中的指数名称
     :type symbol: str
-    :param index_name: 对应函数中的指数名称
-    :type index_name: str
     :param period: choice of {"每日", "每周", "每月"}
     :type period: str
-    :param start_date: '2000-01-01', 注意格式
+    :param start_date: '20000101', 注意格式
     :type start_date: str
-    :param end_date: '2019-10-17', 注意格式
+    :param end_date: '20191017', 注意格式
     :type end_date: str
     :return: 指定参数的数据
     :rtype: pandas.DataFrame
     """
-    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
-    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
-    name_code_dict = index_investing_global_country_name_url(symbol)
-    temp_url = f"https://cn.investing.com/{name_code_dict[index_name]}-historical-data"
-    res = session.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    title = soup.find("title").get_text().split("：")[0].strip("历史数据")
-    res = session.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[
-        0
-    ].strip()
-    para_data = re.findall(r"\d+", data)
-    payload = {
-        "curr_id": para_data[0],
-        "smlID": para_data[1],
-        "header": title,
-        "st_date": start_date,
-        "end_date": end_date,
-        "interval_sec": period_map[period],
-        "sort_col": "date",
-        "sort_ord": "DESC",
-        "action": "historical_data",
+    name_code_dict = index_investing_global_area_index_name_code(area)
+    url = f"https://api.investing.com/api/financialdata/historical/{name_code_dict[symbol]}"
+    params = {
+        "start-date": start_date,
+        "end-date": end_date,
+        "time-frame": period_map[period],
+        "add-missing-rows": "false",
     }
-    url = "https://cn.investing.com/instruments/HistoricalDataAjax"
-    res = session.post(url, data=payload, headers=long_headers)
-    df_data = pd.read_html(res.text)[0]
-    if period == "每月":
-        df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月")
-    else:
-        df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
-    if any(df_data["交易量"].astype(str).str.contains("-")):
-        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
-            df_data["交易量"].str.contains("-")
-        ].replace("-", 0)
-    if any(df_data["交易量"].astype(str).str.contains("B")):
-        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
-            .str.replace("B", "")
-            .str.replace(",", "")
-            .astype(float)
-            * 1000000000
-        )
-    if any(df_data["交易量"].astype(str).str.contains("M")):
-        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
-            .str.replace("M", "")
-            .str.replace(",", "")
-            .astype(float)
-            * 1000000
-        )
-    if any(df_data["交易量"].astype(str).str.contains("K")):
-        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
-            .str.replace("K", "")
-            .str.replace(",", "")
-            .astype(float)
-            * 1000
-        )
-    df_data["交易量"] = df_data["交易量"].astype(float)
-    df_data = df_data[["收盘", "开盘", "高", "低", "交易量"]]
-    df_data = df_data.astype(float)
-    df_data.sort_index(inplace=True)
-    df_data.reset_index(inplace=True)
+    headers = {
+        "domain-id": "cn",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    df_data = pd.DataFrame(data_json["data"])
+    df_data.columns = [
+        "-",
+        "-",
+        "-",
+        "日期",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "交易量",
+        "-",
+        "收盘",
+        "开盘",
+        "高",
+        "低",
+        "涨跌幅",
+    ]
+    df_data = df_data[["日期", "收盘", "开盘", "高", "低", "交易量", "涨跌幅"]]
     df_data["日期"] = pd.to_datetime(df_data["日期"]).dt.date
+    df_data["收盘"] = pd.to_numeric(df_data["收盘"])
+    df_data["开盘"] = pd.to_numeric(df_data["开盘"])
+    df_data["高"] = pd.to_numeric(df_data["高"])
+    df_data["低"] = pd.to_numeric(df_data["低"])
+    df_data["交易量"] = pd.to_numeric(df_data["交易量"])
+    df_data["涨跌幅"] = pd.to_numeric(df_data["涨跌幅"])
+    df_data.sort_values("日期", inplace=True)
+    df_data.reset_index(inplace=True, drop=True)
     return df_data
 
 
@@ -214,7 +209,7 @@ def index_investing_global_from_url(
     url: str = "https://www.investing.com/indices/ftse-epra-nareit-eurozone",
     period: str = "每日",
     start_date: str = "20000101",
-    end_date: str = "20210909",
+    end_date: str = "20220808",
 ) -> pd.DataFrame:
     """
     获得具体指数的从 start_date 到 end_date 期间的数据
@@ -223,101 +218,89 @@ def index_investing_global_from_url(
     :type url: str
     :param period: choice of {"每日", "每周", "每月"}
     :type period: str
-    :param start_date: '2000-01-01', 注意格式
+    :param start_date: '20000101', 注意格式
     :type start_date: str
-    :param end_date: '2019-10-17', 注意格式
+    :param end_date: '20191017', 注意格式
     :type end_date: str
     :return: 指定参数的数据
     :rtype: pandas.DataFrame
     """
-
-    start_date = "/".join([start_date[:4], start_date[4:6], start_date[6:]])
-    end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
+    url = url.replace("www", "cn")
+    scraper = cfscrape.create_scraper(delay=10)
+    r = scraper.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    data_text = soup.find("script", attrs={"id": "__NEXT_DATA__"}).text
+    data_json = json.loads(data_text)
+    code = json.loads(data_json["props"]["pageProps"]["state"])["dataStore"][
+        "pageInfoStore"
+    ]["identifiers"]["instrument_id"]
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
-    url_name = url.split("/")[-1]
-    temp_url = f"https://cn.investing.com/indices/{url_name}-historical-data"
-    res = session.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
-    res = session.post(temp_url, headers=short_headers)
-    soup = BeautifulSoup(res.text, "lxml")
-    data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[
-        0
-    ].strip()
-    para_data = re.findall(r"\d+", data)
-    payload = {
-        "curr_id": para_data[0],
-        "smlID": para_data[1],
-        "header": title,
-        "st_date": start_date,
-        "end_date": end_date,
-        "interval_sec": period_map[period],
-        "sort_col": "date",
-        "sort_ord": "DESC",
-        "action": "historical_data",
+    url = f"https://api.investing.com/api/financialdata/historical/{code}"
+    params = {
+        "start-date": start_date,
+        "end-date": end_date,
+        "time-frame": period_map[period],
+        "add-missing-rows": "false",
     }
-    url = "https://cn.investing.com/instruments/HistoricalDataAjax"
-    res = session.post(url, data=payload, headers=long_headers)
-    df_data = pd.read_html(res.text)[0]
-    if period == "每月":
-        df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月")
-    else:
-        df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月%d日")
-    if any(df_data["交易量"].astype(str).str.contains("-")):
-        df_data["交易量"][df_data["交易量"].str.contains("-")] = df_data["交易量"][
-            df_data["交易量"].str.contains("-")
-        ].replace("-", 0)
-    if any(df_data["交易量"].astype(str).str.contains("B")):
-        df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("B").fillna(False)]
-            .str.replace("B", "")
-            .str.replace(",", "")
-            .astype(float)
-            * 1000000000
-        )
-    if any(df_data["交易量"].astype(str).str.contains("M")):
-        df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("M").fillna(False)]
-            .str.replace("M", "")
-            .str.replace(",", "")
-            .astype(float)
-            * 1000000
-        )
-    if any(df_data["交易量"].astype(str).str.contains("K")):
-        df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)] = (
-            df_data["交易量"][df_data["交易量"].str.contains("K").fillna(False)]
-            .str.replace("K", "")
-            .str.replace(",", "")
-            .astype(float)
-            * 1000
-        )
-    df_data["交易量"] = df_data["交易量"].astype(float)
-    df_data = df_data[["收盘", "开盘", "高", "低", "交易量"]]
-    df_data = df_data.astype(float)
-    df_data.sort_index(inplace=True)
-    df_data.reset_index(inplace=True)
+    headers = {
+        "domain-id": "cn",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+    }
+
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    df_data = pd.DataFrame(data_json["data"])
+    df_data.columns = [
+        "-",
+        "-",
+        "-",
+        "日期",
+        "-",
+        "-",
+        "-",
+        "-",
+        "-",
+        "交易量",
+        "-",
+        "收盘",
+        "开盘",
+        "高",
+        "低",
+        "涨跌幅",
+    ]
+    df_data = df_data[["日期", "收盘", "开盘", "高", "低", "交易量", "涨跌幅"]]
     df_data["日期"] = pd.to_datetime(df_data["日期"]).dt.date
+    df_data["收盘"] = pd.to_numeric(df_data["收盘"])
+    df_data["开盘"] = pd.to_numeric(df_data["开盘"])
+    df_data["高"] = pd.to_numeric(df_data["高"])
+    df_data["低"] = pd.to_numeric(df_data["低"])
+    df_data["交易量"] = pd.to_numeric(df_data["交易量"])
+    df_data["涨跌幅"] = pd.to_numeric(df_data["涨跌幅"])
+    df_data.sort_values("日期", inplace=True)
+    df_data.reset_index(inplace=True, drop=True)
     return df_data
 
 
 if __name__ == "__main__":
-    # index_investing_global_from_url_df = index_investing_global_from_url(
-    #     url="https://www.investing.com/indices/ftse-epra-nareit-hong-kong",
-    #     period="每日",
-    #     start_date="19900101",
-    #     end_date="20210909",
-    # )
-    # print(index_investing_global_from_url_df)
-
-    index_investing_global_country_name_url_dict = (
-        index_investing_global_country_name_url("美国")
+    index_investing_global_from_url_df = index_investing_global_from_url(
+        url="https://www.investing.com/indices/ftse-epra-nareit-hong-kong",
+        period="每日",
+        start_date="19900101",
+        end_date="20220808",
     )
+    print(index_investing_global_from_url_df)
+
+    print(index_investing_global_area_index_name_url("香港"))
+
+    print(index_investing_global_area_index_name_code("香港"))
 
     index_investing_global_df = index_investing_global(
-        symbol="中国",
-        index_name="富时中国A50指数",
+        area="中国",
+        symbol="富时中国A50指数",
         period="每日",
-        start_date="20010101",
-        end_date="20110316",
+        start_date="20100101",
+        end_date="20220808",
     )
     print(index_investing_global_df)
