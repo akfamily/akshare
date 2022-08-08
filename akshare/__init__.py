@@ -2097,9 +2097,13 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.76 add: add pycryptodomex library
 1.6.77 fix: fix stock_telegraph_cls interface
 1.6.78 fix: fix stock_telegraph_cls interface
+1.6.79 fix: fix fund_rating_all interface
+1.6.80 fix: fix index_investing_global interface
+1.6.81 fix: fix currency_hist interface
+1.6.82 fix: fix option_cffex_hs300_spot_sina interface
 """
 
-__version__ = "1.6.78"
+__version__ = "1.6.82"
 __author__ = "AKFamily"
 
 import sys
@@ -4132,7 +4136,7 @@ from akshare.bond.bond_investing import (
 """
 from akshare.index.index_investing import (
     index_investing_global,
-    index_investing_global_country_name_url,
+    index_investing_global_area_index_name_code,
     index_investing_global_from_url,
 )
 

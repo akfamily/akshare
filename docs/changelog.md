@@ -29,8 +29,24 @@
 
 ## 更新说明
 
+1.6.82 fix: fix option_cffex_hs300_spot_sina interface
+
+    1. 修复 option_cffex_hs300_spot_sina 接口，对字段做异常处理
+
+1.6.81 fix: fix currency_hist interface
+
+    1. 修复 currency_hist 接口，同时修改该函数的参数及输出字段
+
+1.6.80 fix: fix index_investing_global interface
+
+    1. 修复 index_investing_global 接口，同时修改该函数的参数及输出字段
+
+1.6.79 fix: fix fund_rating_all interface
+
+    1. 修复 fund_rating_all 接口，字段与目标网站对齐
+
 1.6.78 fix: fix stock_telegraph_cls interface
-    
+
     1. 移除 pycryptodomex 依赖
     2. 移除冗余代码
 
@@ -1015,6 +1031,14 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.82 fix: fix option_cffex_hs300_spot_sina interface
+
+1.6.81 fix: fix currency_hist interface
+
+1.6.80 fix: fix index_investing_global interface
+
+1.6.79 fix: fix fund_rating_all interface
 
 1.6.78 fix: fix stock_telegraph_cls interface
 

@@ -35,24 +35,24 @@
 
     ```
       ##### 分时数据
-      
+
       接口: stock_zh_a_minute
-      
+
       目标地址: http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
-      
+
       描述: 新浪财经获取分时数据，目前可以获取 1, 5, 15, 30, 60 分钟的数据频率
-      
+
       限量: 单次返回指定公司的指定频率的所有历史分时行情数据
-      
+
       输入参数
-      
+
       | 名称   | 类型 |  描述|
       | -------- | ---- |  --- |
       | symbol | str  | symbol='sh000300'; 同日频率数据接口|
       | period | str  | period='1'; 获取 1, 5, 15, 30, 60 分钟的数据频率|
-      
+
       输出参数
-      
+
       | 名称           | 类型        |  描述   |
       | ------------  | ------      |  -------- |
       | day           | object   |  -     |
@@ -67,18 +67,18 @@
       | ma_volume10   | float64      |  -     |
       | ma_price30    | float64      |  -     |
       | ma_volume30   | float64      |  -     |
-      
+
       接口示例
-      
+
       \```python
       import akshare as ak
 
       stock_zh_a_minute_df = ak.stock_zh_a_minute(symbol='sz000876', period='1', adjust="qfq")
       print(stock_zh_a_minute_df)
       \```
-      
+
       数据示例
-      
+
       \```
                               day        open        high         low       close  volume
         0     2020-08-10 13:48:00  635.979995  636.343932  635.979995  636.161964   27500
