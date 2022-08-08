@@ -32,8 +32,8 @@ def futures_sgx_daily(
     """
     big_df = pd.DataFrame()
     index_df = index_investing_global(
-        symbol="新加坡",
-        index_name="FTSE Singapore",
+        area="新加坡",
+        symbol="FTSE Singapore",
         start_date="20200101",
         end_date=trade_date,
     )
@@ -56,7 +56,7 @@ def futures_sgx_daily(
                     data_df = pd.read_table(StringIO(data))
                 else:
                     data_df = pd.read_csv(StringIO(data))
-        big_df = big_df.append(data_df)
+        big_df = pd.concat([big_df, data_df], ignore_index=True)
     return big_df
 
 
