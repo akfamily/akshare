@@ -45,9 +45,7 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
                 "_s_r_a": "init",
             }
             r = requests.get(url, params=params)
-            temp_df = temp_df.append(
-                pd.DataFrame(demjson.decode(r.text)), ignore_index=True
-            )
+            temp_df = pd.concat([temp_df, pd.DataFrame(demjson.decode(r.text))], ignore_index=True)
         return temp_df
 
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
@@ -106,7 +104,7 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
         url = f"http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page={page}&indexid={symbol}"
         r = requests.get(url)
         r.encoding = "gb2312"
-        temp_df = temp_df.append(pd.read_html(r.text, header=1)[3], ignore_index=True)
+        temp_df = pd.concat([temp_df, pd.read_html(r.text, header=1)[3]], ignore_index=True)
     temp_df = temp_df.iloc[:, :3]
     temp_df["品种代码"] = temp_df["品种代码"].astype(str).str.zfill(6)
     return temp_df
@@ -197,7 +195,7 @@ def index_stock_hist(symbol: str = "sh000300") -> pd.DataFrame:
         r = requests.get(url)
         r.encoding = "gb2312"
         inner_temp_df = pd.read_html(r.text)[-1]
-        temp_df = temp_df.append(inner_temp_df)
+        temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
     temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
     del temp_df["股票名称"]
     temp_df.columns = ["stock_code", "in_date", "out_date"]

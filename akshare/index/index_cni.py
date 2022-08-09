@@ -251,13 +251,13 @@ if __name__ == "__main__":
     index_all_cni_df = index_all_cni()
     print(index_all_cni_df)
 
-    index_hist_cni_df = index_hist_cni(symbol="399005")
+    index_hist_cni_df = index_hist_cni(symbol="399303")
     print(index_hist_cni_df)
 
-    index_detail_cni_df = index_detail_cni(symbol='399005', date='2020-11')
+    index_detail_cni_df = index_detail_cni(symbol='399303', date='202011')
     print(index_detail_cni_df)
 
-    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399005', date='202201')
+    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399303', date='202201')
     print(index_detail_hist_cni_df)
 
     index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol='399005')
