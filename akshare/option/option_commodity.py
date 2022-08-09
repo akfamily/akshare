@@ -36,7 +36,7 @@ def option_dce_daily(symbol: str = "聚乙烯期权", trade_date: str = "2021072
     大连商品交易所-期权-日频行情数据
     :param trade_date: 交易日
     :type trade_date: str
-    :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权", "聚丙烯期权", "棕榈油期权"}
+    :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权", "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
@@ -65,21 +65,60 @@ def option_dce_daily(symbol: str = "聚乙烯期权", trade_date: str = "2021072
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
     if symbol == "豆粕期权":
-        return table_df[table_df["商品名称"] == "豆粕"], another_df[another_df.iloc[:, 0].str.contains("m")]
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "豆粕"], another_df[another_df.iloc[:, 0].str.contains("m")]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
     elif symbol == "玉米期权":
-        return table_df[table_df["商品名称"] == "玉米"], another_df[another_df.iloc[:, 0].str.contains("c")]
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "玉米"], another_df[another_df.iloc[:, 0].str.contains("c")]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
     elif symbol == "铁矿石期权":
-        return table_df[table_df["商品名称"] == "铁矿石"], another_df[another_df.iloc[:, 0].str.contains("i")]
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "铁矿石"], another_df[another_df.iloc[:, 0].str.contains("i")]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
     elif symbol == "液化石油气期权":
-        return table_df[table_df["商品名称"] == "液化石油气"], another_df[another_df.iloc[:, 0].str.contains("pg")]
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "液化石油气"], another_df[another_df.iloc[:, 0].str.contains("pg")]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
     elif symbol == "聚乙烯期权":
-        return table_df[table_df["商品名称"] == "聚乙烯"], another_df[another_df.iloc[:, 0].str.contains("l")]
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "聚乙烯"], another_df[another_df.iloc[:, 0].str.contains("l")]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
     elif symbol == "聚氯乙烯期权":
-        return table_df[table_df["商品名称"] == "聚氯乙烯"], another_df[another_df.iloc[:, 0].str.contains("v")]
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "聚氯乙烯"], another_df[another_df.iloc[:, 0].str.contains("v")]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
     elif symbol == "聚丙烯期权":
-        return table_df[table_df["商品名称"] == "聚丙烯"], another_df[another_df.iloc[:, 0].str.contains("pp")]
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "聚丙烯"], another_df[another_df.iloc[:, 0].str.contains("pp")]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
     elif symbol == "棕榈油期权":
-        return table_df[table_df["商品名称"] == "棕榈油"], another_df[another_df.iloc[:, 0].str.contains(r'^p\d')]
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "棕榈油"], another_df[another_df.iloc[:, 0].str.contains(r'^p\d')]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
+    elif symbol == "黄大豆1号期权":
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "黄大豆1号"], another_df[another_df.iloc[:, 0].str.contains('a')]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
+    elif symbol == "黄大豆2号期权":
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "黄大豆2号"], another_df[another_df.iloc[:, 0].str.contains('b')]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
+    elif symbol == "豆油期权":
+        result_one_df, result_two_df = table_df[table_df["商品名称"] == "豆油"], another_df[another_df.iloc[:, 0].str.contains('y')]
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
 
 
 def option_czce_daily(symbol: str = "白糖期权", trade_date: str = "20191017") -> pd.DataFrame:
@@ -238,10 +277,10 @@ def option_shfe_daily(symbol: str = "铝期权", trade_date: str = "20200827") -
 
 
 if __name__ == "__main__":
-    option_czce_daily_df = option_czce_daily(symbol="动力煤期权", trade_date="20200817")
+    option_czce_daily_df = option_czce_daily(symbol="动力煤期权", trade_date="20220808")
     print(option_czce_daily_df)
 
-    option_dce_daily_one, option_dce_daily_two = option_dce_daily(symbol="聚乙烯期权", trade_date="20210113")
+    option_dce_daily_one, option_dce_daily_two = option_dce_daily(symbol="玉米期权", trade_date="20220808")
     print(option_dce_daily_one)
     print(option_dce_daily_two)
 

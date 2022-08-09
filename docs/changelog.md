@@ -29,6 +29,10 @@
 
 ## 更新说明
 
+1.6.83 fix: fix option_dce_daily interface
+
+    1. 修复 option_dce_daily 接口，新增黄大豆1号，黄大豆2号，豆油等期权等支持
+
 1.6.82 fix: fix option_cffex_hs300_spot_sina interface
 
     1. 修复 option_cffex_hs300_spot_sina 接口，对字段做异常处理
@@ -1031,6 +1035,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.83 fix: fix option_dce_daily interface
 
 1.6.82 fix: fix option_cffex_hs300_spot_sina interface
 
