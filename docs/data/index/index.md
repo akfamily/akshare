@@ -1584,7 +1584,7 @@ print(index_detail_hist_adjust_cni_df)
 1. 先查询指数所在的国家或地区名称;
 2. 复制网页上国家或地区名称(推荐复制), 如 **美国**;
 3. 复制所显示的具体指数名称(推荐复制, 如果英文中间有空格, 也需要保留空格), 如 **美元指数**; 也可以调用 **ak.index_investing_global_area_index_name_code("美国")** 获取需要国家或地区的具体指数名称
-4. 在安装 [AKShare](https://github.com/akfamily/akshare) 后输入, 如 **ak.index_investing_global(country="美国", index_name="VIX恐慌指数", period="每月", start_date="2005-01-01", end_date="2020-06-05")**;
+4. 在安装 [AKShare](https://github.com/akfamily/akshare) 后输入, 如 **ak.index_investing_global(area="美国", symbol="VIX恐慌指数", period="每月", start_date="20050101", end_date="20200605")**;
 5. 稍后就可以获得所需数据.
 
 限量: 单次返回某一个国家或地区的具体某一个指数, 每次最大返回 5000 条, 想获取较长时间的历史数据请分时间段获取, 建议用 for 循环获取多个国家的多个指数, 注意不要大量获取, 以免给对方服务器造成压力!
@@ -1616,8 +1616,7 @@ print(index_detail_hist_adjust_cni_df)
 ```python
 import akshare as ak
 
-index_investing_global_df = ak.index_investing_global(area="中国", symbol="富时中国A50指数", period="每日",
-                                                      start_date="20100101", end_date="20220808")
+index_investing_global_df = ak.index_investing_global(area="中国", symbol="富时中国A50指数", period="每日", start_date="20100101", end_date="20220808")
 print(index_investing_global_df)
 ```
 
