@@ -241,6 +241,15 @@ def fund_portfolio_change_em(
         for item in soup.find_all("h4", attrs={"class": "t"})
     ]
     big_df = pd.DataFrame()
+    ind_col = "本期%s金额" % indicator
+    cols = [
+        "序号",
+        "股票代码",
+        "股票名称",
+        ind_col,
+        "占期初基金资产净值比例",
+        "季度",
+    ]
     for item in range(len(item_label)):
         temp_df = pd.read_html(data_json["content"], converters={"股票代码": str})[
             item
@@ -250,31 +259,15 @@ def fund_portfolio_change_em(
             temp_df["占期初基金资产净值比例（%）"].str.split("%", expand=True).iloc[:, 0]
         )
         temp_df["季度"] = item_label[item]
-        temp_df.columns = [
-            "序号",
-            "股票代码",
-            "股票名称",
-            "本期累计买入金额",
-            "占期初基金资产净值比例",
-            "季度",
-        ]
-        temp_df = temp_df[
-            [
-                "序号",
-                "股票代码",
-                "股票名称",
-                "本期累计买入金额",
-                "占期初基金资产净值比例",
-                "季度",
-            ]
-        ]
+        temp_df.columns = cols
+        temp_df = temp_df[cols]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     del big_df["序号"]
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     big_df.rename(columns={"index": "序号"}, inplace=True)
 
-    big_df["本期累计买入金额"] = pd.to_numeric(big_df["本期累计买入金额"], errors="coerce")
+    big_df[ind_col] = pd.to_numeric(big_df[ind_col], errors="coerce")
     big_df["占期初基金资产净值比例"] = pd.to_numeric(
         big_df["占期初基金资产净值比例"], errors="coerce"
     )
