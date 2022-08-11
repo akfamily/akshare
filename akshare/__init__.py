@@ -1037,7 +1037,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.6.9: fix: fix stock_gpzy_pledge_ratio_em interface
 0.6.10: add: add macro_china_hb, macro_china_gksccz, macro_china_bond_public interface
 0.6.11: fix: fix python version should be 3.7 later
-0.6.12: fix: fix stock_em_gpzy_distribute_statistics_company interface
+0.6.12: fix: fix stock_gpzy_distribute_statistics_company_em interface
 0.6.13: add: add stock_us_fundamental interface
 0.6.14: fix: fix stock_us_fundamental interface
 0.6.15: fix: fix macro_china_market_margin_sh interface
@@ -2104,9 +2104,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.83 fix: fix option_dce_daily interface
 1.6.84 fix: fix stock_zt_pool_em interface
 1.6.85 fix: fix option_finance_board interface
+1.6.86 fix: fix stock_gpzy_distribute_statistics_bank_em interface
 """
 
-__version__ = "1.6.85"
+__version__ = "1.6.86"
 __author__ = "AKFamily"
 
 import sys
@@ -3678,8 +3679,8 @@ from akshare.stock_feature.stock_em_sy import (
 from akshare.stock_feature.stock_gpzy_em import (
     stock_gpzy_pledge_ratio_em,
     stock_gpzy_profile_em,
-    stock_em_gpzy_distribute_statistics_bank,
-    stock_em_gpzy_distribute_statistics_company,
+    stock_gpzy_distribute_statistics_bank_em,
+    stock_gpzy_distribute_statistics_company_em,
     stock_gpzy_industry_data_em,
     stock_gpzy_pledge_ratio_detail_em,
 )

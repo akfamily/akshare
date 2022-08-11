@@ -2,32 +2,39 @@
 
 ## 接口更名一览表
 
-| AKShare 版本 | 旧接口名称                             | 新接口名称                             | 修改日期     |
-|------------|-----------------------------------|-----------------------------------|----------|
-| 1.5.94     | bond_conv_adj_logs_jsl            | bond_cb_adj_logs_jsl              | 20220524 |
-| 1.5.94     | bond_cov_jsl                      | bond_cb_jsl                       | 20220524 |
-| 1.5.53     | stock_em_xjll                     | stock_xjll_em                     | 20220501 |
-| 1.5.53     | stock_em_lrb                      | stock_lrb_em                      | 20220501 |
-| 1.5.53     | stock_em_zcfz                     | stock_zcfz_em                     | 20220501 |
-| 1.5.52     | stock_em_ggcg                     | stock_ggcg_em                     | 20220501 |
-| 1.5.48     | futures_nh_price_index            | futures_price_index_nh            | 20220428 |
-| 1.5.48     | futures_nh_index_symbol_table     | futures_index_symbol_table_nh     | 20220428 |
-| 1.5.48     | futures_nh_return_index           | futures_return_index_nh           | 20220428 |
-| 1.5.46     | stock_em_yzxdr                    | stock_yzxdr_em                    | 20220427 |
-| 1.5.34     | stock_em_gpzy_industry_data       | stock_gpzy_industry_data_em       | 20220420 |
-| 1.5.26     | stock_em_comment                  | stock_comment_em                  | 20220415 |
-| 1.5.25     | stock_em_analyst_detail           | stock_analyst_detail_em           | 20220415 |
-| 1.5.25     | stock_em_analyst_rank             | stock_analyst_rank_em             | 20220415 |
-| 1.5.18     | fund_em_open_fund_rank            | fund_open_fund_rank_em            | 20220414 |
-| 1.5.12     | stock_em_gpzy_pledge_ratio_detail | stock_gpzy_pledge_ratio_detail_em | 20220410 |
-| 1.5.10     | stock_em_gpzy_pledge_ratio        | stock_gpzy_pledge_ratio_em        | 20220410 |
-| 1.5.10     | stock_em_gpzy_profile             | stock_gpzy_profile_em             | 20220410 |
-| 1.4.88     | fund_em_new_found                 | fund_new_found_em                 | 20220323 |
-| 1.4.86     | fund_em_aum_hist                  | fund_aum_hist_em                  | 20220322 |
-| 1.4.86     | fund_em_aum_trend                 | fund_aum_trend_em                 | 20220322 |
-| 1.4.86     | fund_em_aum                       | fund_aum_em                       | 20220322 |
+| AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
+|------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.6.86     | stock_em_gpzy_distribute_statistics_company | stock_gpzy_distribute_statistics_company_em | 20220811 |
+| 1.6.86     | stock_em_gpzy_distribute_statistics_bank    | stock_gpzy_distribute_statistics_bank_em    | 20220811 |
+| 1.5.94     | bond_conv_adj_logs_jsl                      | bond_cb_adj_logs_jsl                        | 20220524 |
+| 1.5.94     | bond_cov_jsl                                | bond_cb_jsl                                 | 20220524 |
+| 1.5.53     | stock_em_xjll                               | stock_xjll_em                               | 20220501 |
+| 1.5.53     | stock_em_lrb                                | stock_lrb_em                                | 20220501 |
+| 1.5.53     | stock_em_zcfz                               | stock_zcfz_em                               | 20220501 |
+| 1.5.52     | stock_em_ggcg                               | stock_ggcg_em                               | 20220501 |
+| 1.5.48     | futures_nh_price_index                      | futures_price_index_nh                      | 20220428 |
+| 1.5.48     | futures_nh_index_symbol_table               | futures_index_symbol_table_nh               | 20220428 |
+| 1.5.48     | futures_nh_return_index                     | futures_return_index_nh                     | 20220428 |
+| 1.5.46     | stock_em_yzxdr                              | stock_yzxdr_em                              | 20220427 |
+| 1.5.34     | stock_em_gpzy_industry_data                 | stock_gpzy_industry_data_em                 | 20220420 |
+| 1.5.26     | stock_em_comment                            | stock_comment_em                            | 20220415 |
+| 1.5.25     | stock_em_analyst_detail                     | stock_analyst_detail_em                     | 20220415 |
+| 1.5.25     | stock_em_analyst_rank                       | stock_analyst_rank_em                       | 20220415 |
+| 1.5.18     | fund_em_open_fund_rank                      | fund_open_fund_rank_em                      | 20220414 |
+| 1.5.12     | stock_em_gpzy_pledge_ratio_detail           | stock_gpzy_pledge_ratio_detail_em           | 20220410 |
+| 1.5.10     | stock_em_gpzy_pledge_ratio                  | stock_gpzy_pledge_ratio_em                  | 20220410 |
+| 1.5.10     | stock_em_gpzy_profile                       | stock_gpzy_profile_em                       | 20220410 |
+| 1.4.88     | fund_em_new_found                           | fund_new_found_em                           | 20220323 |
+| 1.4.86     | fund_em_aum_hist                            | fund_aum_hist_em                            | 20220322 |
+| 1.4.86     | fund_em_aum_trend                           | fund_aum_trend_em                           | 20220322 |
+| 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.6.86 fix: fix stock_gpzy_distribute_statistics_bank_em interface
+
+    1. 修复 stock_gpzy_distribute_statistics_bank_em 接口，更新接口及文档
+    2. 修复 stock_gpzy_distribute_statistics_company_em 接口，更新接口及文档
 
 1.6.85 fix: fix option_finance_board interface
 
@@ -1043,6 +1050,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.86 fix: fix stock_gpzy_distribute_statistics_bank_em interface
 
 1.6.85 fix: fix option_finance_board interface
 
