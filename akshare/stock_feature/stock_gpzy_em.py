@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/4/10 17:42
+Date: 2022/8/11 14:42
 Desc: 东方财富网-数据中心-特色数据-股权质押
 东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: http://data.eastmoney.com/gpzy/marketProfile.aspx
 东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: http://data.eastmoney.com/gpzy/pledgeRatio.aspx
@@ -278,188 +278,134 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
     big_df["最新价"] = pd.to_numeric(big_df["最新价"])
     big_df["质押日收盘价"] = pd.to_numeric(big_df["质押日收盘价"])
     big_df["预估平仓线"] = pd.to_numeric(big_df["预估平仓线"])
-
     big_df["公告日期"] = pd.to_datetime(big_df["公告日期"]).dt.date
     big_df["质押开始日期"] = pd.to_datetime(big_df["质押开始日期"]).dt.date
     return big_df
 
 
-def _get_page_num_gpzy_distribute_statistics_company() -> int:
+def stock_gpzy_distribute_statistics_company_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司
     http://data.eastmoney.com/gpzy/distributeStatistics.aspx
-    :return: int 获取 质押机构分布统计-证券公司 的总页数
+    :return: 质押机构分布统计-证券公司
+    :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GDZY_ZYJG_SUM",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "scode_count",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var bLnpEFtJ={pages:(tp),data:(x),font:(font)}",
-        "filter": "(hy_name='券商信托')",
-        "rt": "52584592",
+        "sortColumns": "ORG_NUM",
+        "sortTypes": "-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_GDZY_ZYJG_SUM",
+        "columns": "ALL",
+        "quoteColumns":"",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": '(PFORG_TYPE="证券")',
     }
-    res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
-    return data_json["pages"]
-
-
-def stock_em_gpzy_distribute_statistics_company() -> pd.DataFrame:
-    """
-    东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司
-    http://data.eastmoney.com/gpzy/distributeStatistics.aspx
-    :return: pandas.DataFrame
-    """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    page_num = _get_page_num_gpzy_distribute_statistics_company()
-    temp_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1), leave=True):
-        params = {
-            "type": "GDZY_ZYJG_SUM",
-            "token": "70f12f2f4f091e459a279469fe49eca5",
-            "cmd": "",
-            "st": "scode_count",
-            "sr": "-1",
-            "p": str(page),
-            "ps": "5000",
-            "js": "var bLnpEFtJ={pages:(tp),data:(x),font:(font)}",
-            "filter": "(hy_name='券商信托')",
-            "rt": "52584592",
-        }
-        res = requests.get(url, params=params)
-        data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        map_dict = dict(
-            zip(
-                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
-            )
-        )
-        for key, value in map_dict.items():
-            data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']['data'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = temp_df.index + 1
     temp_df.columns = [
-        "质押公司股票代码",
+        "序号",
         "_",
-        "jg_yjx_type_1",
-        "jg_yjx_type_2",
+        "_",
+        "_",
+        "_",
         "质押机构",
-        "行业名称",
+        "_",
         "质押公司数量",
         "质押笔数",
-        "质押数量(股)",
-        "未达预警线比例(%)",
-        "达到预警线未达平仓线比例(%)",
-        "达到平仓线比例(%)",
+        "质押数量",
+        "未达预警线比例",
+        "达到预警线未达平仓线比例",
+        "达到平仓线比例",
+        "_",
+        "_",
     ]
     temp_df = temp_df[
         [
-            "质押公司股票代码",
+            "序号",
             "质押机构",
-            "行业名称",
             "质押公司数量",
             "质押笔数",
-            "质押数量(股)",
-            "未达预警线比例(%)",
-            "达到预警线未达平仓线比例(%)",
-            "达到平仓线比例(%)",
+            "质押数量",
+            "未达预警线比例",
+            "达到预警线未达平仓线比例",
+            "达到平仓线比例",
         ]
     ]
+    temp_df['质押公司数量'] = pd.to_numeric(temp_df['质押公司数量'])
+    temp_df['质押笔数'] = pd.to_numeric(temp_df['质押笔数'])
+    temp_df['质押数量'] = pd.to_numeric(temp_df['质押数量'])
+    temp_df['未达预警线比例'] = pd.to_numeric(temp_df['未达预警线比例'])
+    temp_df['达到预警线未达平仓线比例'] = pd.to_numeric(temp_df['达到预警线未达平仓线比例'])
+    temp_df['达到平仓线比例'] = pd.to_numeric(temp_df['达到平仓线比例'])
     return temp_df
 
 
-def _get_page_num_gpzy_distribute_statistics_bank() -> int:
+def stock_gpzy_distribute_statistics_bank_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行
     http://data.eastmoney.com/gpzy/distributeStatistics.aspx
-    :return: int 获取 质押机构分布统计-银行 的总页数
+    :return: 质押机构分布统计-银行
+    :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GDZY_ZYJG_SUM",
-        "token": "70f12f2f4f091e459a279469fe49eca5",
-        "cmd": "",
-        "st": "scode_count",
-        "sr": "-1",
-        "p": "1",
-        "ps": "5000",
-        "js": "var AQxIdDuK={pages:(tp),data:(x),font:(font)}",
-        "filter": "(hy_name='银行')",
-        "rt": "52584617",
+        "sortColumns": "ORG_NUM",
+        "sortTypes": "-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_GDZY_ZYJG_SUM",
+        "columns": "ALL",
+        "quoteColumns":"",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": '(PFORG_TYPE="银行")',
     }
-    res = requests.get(url, params=params)
-    data_json = demjson.decode(res.text[res.text.find("={") + 1 :])
-    return data_json["pages"]
-
-
-def stock_em_gpzy_distribute_statistics_bank() -> pd.DataFrame:
-    """
-    东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行
-    http://data.eastmoney.com/gpzy/distributeStatistics.aspx
-    :return: pandas.DataFrame
-    """
-    url = "http://dcfm.eastmoney.com/EM_MutiSvcExpandInterface/api/js/get"
-    page_num = _get_page_num_gpzy_distribute_statistics_company()
-    temp_df = pd.DataFrame()
-    for page in range(1, page_num + 1):
-        print(f"一共{page_num}页, 正在下载第{page}页")
-        params = {
-            "type": "GDZY_ZYJG_SUM",
-            "token": "70f12f2f4f091e459a279469fe49eca5",
-            "cmd": "",
-            "st": "scode_count",
-            "sr": "-1",
-            "p": str(page),
-            "ps": "5000",
-            "js": "var AQxIdDuK={pages:(tp),data:(x),font:(font)}",
-            "filter": "(hy_name='银行')",
-            "rt": "52584617",
-        }
-        res = requests.get(url, params=params)
-        data_text = res.text
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        map_dict = dict(
-            zip(
-                pd.DataFrame(data_json["font"]["FontMapping"])["code"],
-                pd.DataFrame(data_json["font"]["FontMapping"])["value"],
-            )
-        )
-        for key, value in map_dict.items():
-            data_text = data_text.replace(key, str(value))
-        data_json = demjson.decode(data_text[data_text.find("={") + 1 :])
-        temp_df = temp_df.append(pd.DataFrame(data_json["data"]), ignore_index=True)
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']['data'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = temp_df.index + 1
     temp_df.columns = [
-        "质押公司股票代码",
+        "序号",
         "_",
-        "jg_yjx_type_1",
-        "jg_yjx_type_2",
+        "_",
+        "_",
+        "_",
         "质押机构",
-        "行业名称",
+        "_",
         "质押公司数量",
         "质押笔数",
-        "质押数量(股)",
-        "未达预警线比例(%)",
-        "达到预警线未达平仓线比例(%)",
-        "达到平仓线比例(%)",
+        "质押数量",
+        "未达预警线比例",
+        "达到预警线未达平仓线比例",
+        "达到平仓线比例",
+        "_",
+        "_",
     ]
     temp_df = temp_df[
         [
-            "质押公司股票代码",
+            "序号",
             "质押机构",
-            "行业名称",
             "质押公司数量",
             "质押笔数",
-            "质押数量(股)",
-            "未达预警线比例(%)",
-            "达到预警线未达平仓线比例(%)",
-            "达到平仓线比例(%)",
+            "质押数量",
+            "未达预警线比例",
+            "达到预警线未达平仓线比例",
+            "达到平仓线比例",
         ]
     ]
+    temp_df['质押公司数量'] = pd.to_numeric(temp_df['质押公司数量'])
+    temp_df['质押笔数'] = pd.to_numeric(temp_df['质押笔数'])
+    temp_df['质押数量'] = pd.to_numeric(temp_df['质押数量'])
+    temp_df['未达预警线比例'] = pd.to_numeric(temp_df['未达预警线比例'])
+    temp_df['达到预警线未达平仓线比例'] = pd.to_numeric(temp_df['达到预警线未达平仓线比例'])
+    temp_df['达到平仓线比例'] = pd.to_numeric(temp_df['达到平仓线比例'])
     return temp_df
 
 
@@ -519,14 +465,10 @@ if __name__ == "__main__":
     stock_gpzy_pledge_ratio_detail_em_df = stock_gpzy_pledge_ratio_detail_em()
     print(stock_gpzy_pledge_ratio_detail_em_df)
 
-    stock_em_gpzy_distribute_statistics_company_df = (
-        stock_em_gpzy_distribute_statistics_company()
-    )
+    stock_em_gpzy_distribute_statistics_company_df = stock_gpzy_distribute_statistics_company_em()
     print(stock_em_gpzy_distribute_statistics_company_df)
 
-    stock_em_gpzy_distribute_statistics_bank_df = (
-        stock_em_gpzy_distribute_statistics_bank()
-    )
+    stock_em_gpzy_distribute_statistics_bank_df = stock_gpzy_distribute_statistics_bank_em()
     print(stock_em_gpzy_distribute_statistics_bank_df)
 
     stock_gpzy_industry_data_em_df = stock_gpzy_industry_data_em()

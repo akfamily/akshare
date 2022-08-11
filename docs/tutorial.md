@@ -220,8 +220,8 @@
  "stock_gpzy_profile_em"  # 获取股权质押市场概况
  "stock_gpzy_pledge_ratio_em"  # 获取上市公司质押比例
  "stock_gpzy_pledge_ratio_detail_em"  # 获取重要股东股权质押明细
- "stock_em_gpzy_distribute_statistics_company"  # 获取质押机构分布统计-证券公司
- "stock_em_gpzy_distribute_statistics_bank"  # 获取质押机构分布统计-银行
+ "stock_gpzy_distribute_statistics_company_em"  # 获取质押机构分布统计-证券公司
+ "stock_gpzy_distribute_statistics_bank_em"  # 获取质押机构分布统计-银行
  "stock_gpzy_industry_data_em"  # 获取上市公司质押比例-行业数据
  # 商誉专题数据
  "stock_em_sy_profile"  # 获取A股商誉市场概况
