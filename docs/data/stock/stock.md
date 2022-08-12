@@ -8062,9 +8062,9 @@ print(stock_xjll_em_df)
 
 输入参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称     | 类型  | 描述                                            |
+|--------|-----|-----------------------------------------------|
+| symbol | str | symbol="全部"; choice of {"全部", "股东增持", "股东减持"} |
 
 输出参数
 
@@ -8092,7 +8092,7 @@ print(stock_xjll_em_df)
 ```python
 import akshare as ak
 
-stock_ggcg_em_df = ak.stock_ggcg_em()
+stock_ggcg_em_df = ak.stock_ggcg_em(symbol="全部")
 print(stock_ggcg_em_df)
 ```
 

@@ -681,7 +681,7 @@ if __name__ == "__main__":
     print(futures_zh_spot_df)
 
     futures_zh_spot_df = futures_zh_spot(
-        symbol="TA2209", market="CF", adjust="0"
+        symbol="M2301", market="CF", adjust="0"
     )
     print(futures_zh_spot_df)
 
