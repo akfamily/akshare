@@ -167,21 +167,21 @@ def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
         ],
     )
     data_df = pd.concat([option_call_df, option_put_df], axis=1)
-    data_df["看涨合约-买量"] = pd.to_numeric(data_df["看涨合约-买量"])
-    data_df["看涨合约-买价"] = pd.to_numeric(data_df["看涨合约-买价"])
-    data_df["看涨合约-最新价"] = pd.to_numeric(data_df["看涨合约-最新价"])
-    data_df["看涨合约-卖价"] = pd.to_numeric(data_df["看涨合约-卖价"])
-    data_df["看涨合约-卖量"] = pd.to_numeric(data_df["看涨合约-卖量"])
-    data_df["看涨合约-持仓量"] = pd.to_numeric(data_df["看涨合约-持仓量"])
-    data_df["看涨合约-涨跌"] = pd.to_numeric(data_df["看涨合约-涨跌"])
-    data_df["行权价"] = pd.to_numeric(data_df["行权价"])
-    data_df["看跌合约-买量"] = pd.to_numeric(data_df["看跌合约-买量"])
-    data_df["看跌合约-买价"] = pd.to_numeric(data_df["看跌合约-买价"])
-    data_df["看跌合约-最新价"] = pd.to_numeric(data_df["看跌合约-最新价"])
-    data_df["看跌合约-卖价"] = pd.to_numeric(data_df["看跌合约-卖价"])
-    data_df["看跌合约-卖量"] = pd.to_numeric(data_df["看跌合约-卖量"])
-    data_df["看跌合约-持仓量"] = pd.to_numeric(data_df["看跌合约-持仓量"])
-    data_df["看跌合约-涨跌"] = pd.to_numeric(data_df["看跌合约-涨跌"])
+    data_df["看涨合约-买量"] = pd.to_numeric(data_df["看涨合约-买量"], errors="coerce")
+    data_df["看涨合约-买价"] = pd.to_numeric(data_df["看涨合约-买价"], errors="coerce")
+    data_df["看涨合约-最新价"] = pd.to_numeric(data_df["看涨合约-最新价"], errors="coerce")
+    data_df["看涨合约-卖价"] = pd.to_numeric(data_df["看涨合约-卖价"], errors="coerce")
+    data_df["看涨合约-卖量"] = pd.to_numeric(data_df["看涨合约-卖量"], errors="coerce")
+    data_df["看涨合约-持仓量"] = pd.to_numeric(data_df["看涨合约-持仓量"], errors="coerce")
+    data_df["看涨合约-涨跌"] = pd.to_numeric(data_df["看涨合约-涨跌"], errors="coerce")
+    data_df["行权价"] = pd.to_numeric(data_df["行权价"], errors="coerce")
+    data_df["看跌合约-买量"] = pd.to_numeric(data_df["看跌合约-买量"], errors="coerce")
+    data_df["看跌合约-买价"] = pd.to_numeric(data_df["看跌合约-买价"], errors="coerce")
+    data_df["看跌合约-最新价"] = pd.to_numeric(data_df["看跌合约-最新价"], errors="coerce")
+    data_df["看跌合约-卖价"] = pd.to_numeric(data_df["看跌合约-卖价"], errors="coerce")
+    data_df["看跌合约-卖量"] = pd.to_numeric(data_df["看跌合约-卖量"], errors="coerce")
+    data_df["看跌合约-持仓量"] = pd.to_numeric(data_df["看跌合约-持仓量"], errors="coerce")
+    data_df["看跌合约-涨跌"] = pd.to_numeric(data_df["看跌合约-涨跌"], errors="coerce")
     return data_df
 
 
@@ -719,7 +719,7 @@ if __name__ == "__main__":
     print(option_cffex_hs300_spot_sina_df)
 
     option_cffex_zz1000_spot_sina_df = option_cffex_zz1000_spot_sina(
-        symbol="mo2208"
+        symbol="mo2209"
     )
     print(option_cffex_zz1000_spot_sina_df)
 
@@ -740,12 +740,12 @@ if __name__ == "__main__":
     print(option_sse_list_sina_df)
 
     option_sse_expire_day_sina_df = option_sse_expire_day_sina(
-        trade_date="202206", symbol="50ETF", exchange="null"
+        trade_date="202210", symbol="50ETF", exchange="null"
     )
     print(option_sse_expire_day_sina_df)
 
     option_sse_codes_sina_df = option_sse_codes_sina(
-        symbol="看跌期权", trade_date="202206", underlying="510050"
+        symbol="看跌期权", trade_date="202210", underlying="510050"
     )
     print(option_sse_codes_sina_df)
 
