@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.6.88 fix: fix option_cffex_zz1000_spot_sina interface
+
+    1. 修复 option_cffex_zz1000_spot_sina 接口，规范输出数据格式
+
 1.6.87 fix: fix stock_ggcg_em interface
 
     1. 修复 stock_ggcg_em 接口，增加 symbol 字段
@@ -1054,6 +1058,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.88 fix: fix option_cffex_zz1000_spot_sina interface
 
 1.6.87 fix: fix stock_ggcg_em interface
 
