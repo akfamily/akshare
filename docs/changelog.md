@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.6.94 fix: fix macro_china_hk_market_info interface
+
+    1. 修复 macro_china_hk_market_info 接口，规范数据输出格式
+
 1.6.93 fix: fix index_vix interface
 
     1. 修复 index_vix 接口
@@ -1081,6 +1085,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.94 fix: fix macro_china_hk_market_info interface
 
 1.6.93 fix: fix index_vix interface
 
