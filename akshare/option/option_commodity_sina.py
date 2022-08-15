@@ -21,7 +21,9 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
     :return: e.g., {'黄金期权': ['au2012', 'au2008', 'au2010', 'au2104', 'au2102', 'au2106', 'au2108']}
     :rtype: dict
     """
-    url = "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
+    url = (
+        "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
+    )
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     url_list = [
@@ -34,15 +36,20 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
         for item in soup.find_all("li", attrs={"class": "active"})
         if item.find("a") is not None
     ]
-    comm_list_dict = {key: value for key, value in zip(commodity_list, url_list)}
+    comm_list_dict = {
+        key: value for key, value in zip(commodity_list, url_list)
+    }
     url = "https://stock.finance.sina.com.cn" + comm_list_dict[symbol]
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     symbol = (
-        soup.find(attrs={"id": "option_symbol"}).find(attrs={"class": "selected"}).text
+        soup.find(attrs={"id": "option_symbol"})
+        .find(attrs={"class": "selected"})
+        .text
     )
     contract = [
-        item.text for item in soup.find(attrs={"id": "option_suffix"}).find_all("li")
+        item.text
+        for item in soup.find(attrs={"id": "option_suffix"}).find_all("li")
     ]
     temp_df = pd.DataFrame({symbol: contract})
     temp_df.reset_index(inplace=True)
@@ -64,7 +71,9 @@ def option_commodity_contract_table_sina(
     :return: 合约实时行情
     :rtype: pandas.DataFrame
     """
-    url = "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
+    url = (
+        "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
+    )
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     url_list = [
@@ -77,7 +86,9 @@ def option_commodity_contract_table_sina(
         for item in soup.find_all("li", attrs={"class": "active"})
         if item.find("a") is not None
     ]
-    comm_list_dict = {key: value for key, value in zip(commodity_list, url_list)}
+    comm_list_dict = {
+        key: value for key, value in zip(commodity_list, url_list)
+    }
     url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/OptionService.getOptionData"
     params = {
         "type": "futures",
@@ -109,21 +120,21 @@ def option_commodity_contract_table_sina(
         "看跌合约-涨跌",
         "看跌合约-看跌期权合约",
     ]
-    temp_df['看涨合约-买量'] = pd.to_numeric(temp_df['看涨合约-买量'])
-    temp_df['看涨合约-买价'] = pd.to_numeric(temp_df['看涨合约-买价'])
-    temp_df['看涨合约-最新价'] = pd.to_numeric(temp_df['看涨合约-最新价'])
-    temp_df['看涨合约-卖价'] = pd.to_numeric(temp_df['看涨合约-卖价'])
-    temp_df['看涨合约-卖量'] = pd.to_numeric(temp_df['看涨合约-卖量'])
-    temp_df['看涨合约-持仓量'] = pd.to_numeric(temp_df['看涨合约-持仓量'])
-    temp_df['看涨合约-涨跌'] = pd.to_numeric(temp_df['看涨合约-涨跌'])
-    temp_df['行权价'] = pd.to_numeric(temp_df['行权价'])
-    temp_df['看跌合约-买量'] = pd.to_numeric(temp_df['看跌合约-买量'])
-    temp_df['看跌合约-买价'] = pd.to_numeric(temp_df['看跌合约-买价'])
-    temp_df['看跌合约-最新价'] = pd.to_numeric(temp_df['看跌合约-最新价'])
-    temp_df['看跌合约-卖价'] = pd.to_numeric(temp_df['看跌合约-卖价'])
-    temp_df['看跌合约-卖量'] = pd.to_numeric(temp_df['看跌合约-卖量'])
-    temp_df['看跌合约-持仓量'] = pd.to_numeric(temp_df['看跌合约-持仓量'])
-    temp_df['看跌合约-涨跌'] = pd.to_numeric(temp_df['看跌合约-涨跌'])
+    temp_df["看涨合约-买量"] = pd.to_numeric(temp_df["看涨合约-买量"], errors="coerce")
+    temp_df["看涨合约-买价"] = pd.to_numeric(temp_df["看涨合约-买价"], errors="coerce")
+    temp_df["看涨合约-最新价"] = pd.to_numeric(temp_df["看涨合约-最新价"], errors="coerce")
+    temp_df["看涨合约-卖价"] = pd.to_numeric(temp_df["看涨合约-卖价"], errors="coerce")
+    temp_df["看涨合约-卖量"] = pd.to_numeric(temp_df["看涨合约-卖量"], errors="coerce")
+    temp_df["看涨合约-持仓量"] = pd.to_numeric(temp_df["看涨合约-持仓量"], errors="coerce")
+    temp_df["看涨合约-涨跌"] = pd.to_numeric(temp_df["看涨合约-涨跌"], errors="coerce")
+    temp_df["行权价"] = pd.to_numeric(temp_df["行权价"], errors="coerce")
+    temp_df["看跌合约-买量"] = pd.to_numeric(temp_df["看跌合约-买量"], errors="coerce")
+    temp_df["看跌合约-买价"] = pd.to_numeric(temp_df["看跌合约-买价"], errors="coerce")
+    temp_df["看跌合约-最新价"] = pd.to_numeric(temp_df["看跌合约-最新价"], errors="coerce")
+    temp_df["看跌合约-卖价"] = pd.to_numeric(temp_df["看跌合约-卖价"], errors="coerce")
+    temp_df["看跌合约-卖量"] = pd.to_numeric(temp_df["看跌合约-卖量"], errors="coerce")
+    temp_df["看跌合约-持仓量"] = pd.to_numeric(temp_df["看跌合约-持仓量"], errors="coerce")
+    temp_df["看跌合约-涨跌"] = pd.to_numeric(temp_df["看跌合约-涨跌"], errors="coerce")
     return temp_df
 
 
@@ -144,23 +155,27 @@ def option_commodity_hist_sina(symbol: str = "au2012C392") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json)
     temp_df.columns = ["open", "high", "low", "close", "volume", "date"]
     temp_df = temp_df[["date", "open", "high", "low", "close", "volume"]]
-    temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
-    temp_df['open'] = pd.to_numeric(temp_df['open'])
-    temp_df['high'] = pd.to_numeric(temp_df['high'])
-    temp_df['low'] = pd.to_numeric(temp_df['low'])
-    temp_df['close'] = pd.to_numeric(temp_df['close'])
-    temp_df['volume'] = pd.to_numeric(temp_df['volume'])
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"])
+    temp_df["high"] = pd.to_numeric(temp_df["high"])
+    temp_df["low"] = pd.to_numeric(temp_df["low"])
+    temp_df["close"] = pd.to_numeric(temp_df["close"])
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
     return temp_df
 
 
 if __name__ == "__main__":
-    option_commodity_contract_sina_df = option_commodity_contract_sina(symbol="黄金期权")
+    option_commodity_contract_sina_df = option_commodity_contract_sina(
+        symbol="黄金期权"
+    )
     print(option_commodity_contract_sina_df)
 
-    option_commodity_contract_table_sina_df = option_commodity_contract_table_sina(
-        symbol="动力煤期权", contract="zc2103"
+    option_commodity_contract_table_sina_df = (
+        option_commodity_contract_table_sina(symbol="动力煤期权", contract="zc2103")
     )
     print(option_commodity_contract_table_sina_df)
 
-    option_commodity_hist_sina_df = option_commodity_hist_sina(symbol="zc2103C560")
+    option_commodity_hist_sina_df = option_commodity_hist_sina(
+        symbol="zc2103C560"
+    )
     print(option_commodity_hist_sina_df)

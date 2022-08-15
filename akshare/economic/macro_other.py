@@ -21,37 +21,35 @@ def crypto_js_spot() -> pd.DataFrame:
     """
     bit_payload = bitcoin_payload.copy()
     bit_payload.update({"_": int(time.time() * 1000)})
-    bit_payload.update(
-        {
-            "_": int(time.time() * 1000)
-        }
-    )
+    bit_payload.update({"_": int(time.time() * 1000)})
     r = requests.get(bitcoin_url, params=bit_payload, headers=bitcoin_headers)
     data_json = r.json()
     data_df = pd.DataFrame(data_json["data"])
-    data_df['reported_at'] = pd.to_datetime(data_df['reported_at'])
+    data_df["reported_at"] = pd.to_datetime(data_df["reported_at"])
     data_df.columns = [
-        '市场',
-        '交易品种',
-        '最近报价',
-        '涨跌额',
-        '涨跌幅',
-        '24小时最高',
-        '24小时最低',
-        '24小时成交量',
-        '更新时间',
+        "市场",
+        "交易品种",
+        "最近报价",
+        "涨跌额",
+        "涨跌幅",
+        "24小时最高",
+        "24小时最低",
+        "24小时成交量",
+        "更新时间",
     ]
-    data_df['最近报价'] = pd.to_numeric(data_df['最近报价'])
-    data_df['涨跌额'] = pd.to_numeric(data_df['涨跌额'])
-    data_df['涨跌幅'] = pd.to_numeric(data_df['涨跌幅'])
-    data_df['24小时最高'] = pd.to_numeric(data_df['24小时最高'])
-    data_df['24小时最低'] = pd.to_numeric(data_df['24小时最低'])
-    data_df['24小时成交量'] = pd.to_numeric(data_df['24小时成交量'])
-    data_df['更新时间'] = data_df['更新时间'].astype(str)
+    data_df["最近报价"] = pd.to_numeric(data_df["最近报价"])
+    data_df["涨跌额"] = pd.to_numeric(data_df["涨跌额"])
+    data_df["涨跌幅"] = pd.to_numeric(data_df["涨跌幅"])
+    data_df["24小时最高"] = pd.to_numeric(data_df["24小时最高"])
+    data_df["24小时最低"] = pd.to_numeric(data_df["24小时最低"])
+    data_df["24小时成交量"] = pd.to_numeric(data_df["24小时成交量"])
+    data_df["更新时间"] = data_df["更新时间"].astype(str)
     return data_df
 
 
-def macro_fx_sentiment(start_date: str = "20200422", end_date: str = "20200422") -> pd.DataFrame:
+def macro_fx_sentiment(
+    start_date: str = "20200422", end_date: str = "20200422"
+) -> pd.DataFrame:
     """
     金十数据-外汇-投机情绪报告
     外汇投机情绪报告显示当前市场多空仓位比例，数据由8家交易平台提供，涵盖11个主要货币对和1个黄金品种。
@@ -67,8 +65,8 @@ def macro_fx_sentiment(start_date: str = "20200422", end_date: str = "20200422")
     :return: 投机情绪报告
     :rtype: pandas.DataFrame
     """
-    start_date = '-'.join([start_date[:4], start_date[4:6], start_date[6:]])
-    end_date = '-'.join([end_date[:4], end_date[4:6], end_date[6:]])
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "https://datacenter-api.jin10.com/sentiment/datas"
     params = {
         "start_date": start_date,
@@ -95,7 +93,9 @@ def macro_fx_sentiment(start_date: str = "20200422", end_date: str = "20200422")
     return pd.DataFrame(res.json()["data"]["values"]).T
 
 
-def index_vix(start_date: str = "20210401", end_date: str = "20210402") -> pd.DataFrame:
+def index_vix(
+    start_date: str = "20210401", end_date: str = "20210402"
+) -> pd.DataFrame:
     """
     金十数据-市场异动-恐慌指数; 只能获取当前交易日近一个月内的数据
     https://datacenter.jin10.com/market
@@ -106,9 +106,13 @@ def index_vix(start_date: str = "20210401", end_date: str = "20210402") -> pd.Da
     :return: 恐慌指数
     :rtype: pandas.DataFrame
     """
+    import warnings
+
+    warnings.warn("由于目标网站未更新数据，该接口即将移除", DeprecationWarning)
+    return
     url = "https://datacenter-api.jin10.com/vix/datas"
-    start_date = '-'.join([start_date[:4], start_date[4:6], start_date[6:]])
-    end_date = '-'.join([end_date[:4], end_date[4:6], end_date[6:]])
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     params = {
         "start_date": start_date,
         "end_date": end_date,
@@ -130,7 +134,9 @@ def index_vix(start_date: str = "20210401", end_date: str = "20210402") -> pd.Da
         "x-version": "1.0.0",
     }
     res = requests.get(url, params=params, headers=headers)
-    temp_df = pd.DataFrame(res.json()["data"]["values"], index=["开盘价", "当前价", "涨跌", "涨跌幅"]).T
+    temp_df = pd.DataFrame(
+        res.json()["data"]["values"], index=["开盘价", "当前价", "涨跌", "涨跌幅"]
+    ).T
     temp_df = temp_df.astype(float)
     return temp_df
 
@@ -141,8 +147,10 @@ if __name__ == "__main__":
 
     test_date = datetime.now().date().isoformat().replace("-", "")
 
-    macro_fx_sentiment_df = macro_fx_sentiment(start_date=test_date, end_date=test_date)
+    macro_fx_sentiment_df = macro_fx_sentiment(
+        start_date=test_date, end_date=test_date
+    )
     print(macro_fx_sentiment_df)
 
-    index_vix_df = index_vix(start_date='20220501', end_date='20220517')
+    index_vix_df = index_vix(start_date="20220501", end_date="20220517")
     print(index_vix_df)
