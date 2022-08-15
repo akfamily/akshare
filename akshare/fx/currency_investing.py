@@ -321,7 +321,7 @@ if __name__ == "__main__":
     print(currency_name_code_df)
 
     currency_hist_df = currency_hist(
-        symbol="usd-jpy",
+        symbol="usd-cny",
         period="每日",
         start_date="20050907",
         end_date="20220808",
