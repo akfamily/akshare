@@ -31,6 +31,13 @@
 
 ## 更新说明
 
+1.6.92 fix: fix hurun_rank interface
+
+    1. 修复 hurun_rank 接口
+    2. 修复 death_company 接口
+    3. 修复 nicorn_company 接口
+    4. 修复 maxima_company 接口
+
 1.6.91 fix: fix forbes_rank interface
 
     1. 修复 forbes_rank 接口，取消证书验证
@@ -1070,6 +1077,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.92 fix: fix hurun_rank interface
 
 1.6.91 fix: fix forbes_rank interface
 

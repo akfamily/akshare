@@ -2508,9 +2508,9 @@ print(cost_living_df)
 
 目标地址: https://www.itjuzi.com/deathCompany
 
-描述: 新经济死亡公司数据库
+描述: 新经济死亡公司数据库, 该数据未更新
 
-限量: 返回所有历史数据
+限量: 返回所有历史数据, 该数据未更新
 
 输入参数
 
