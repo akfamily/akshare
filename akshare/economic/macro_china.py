@@ -3175,7 +3175,7 @@ def macro_china_bond_public() -> pd.DataFrame:
             "债券评级",
         ]
     ]
-    temp_df["价格"] = pd.to_numeric(temp_df["价格"])
+    temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
     temp_df["计划发行量"] = pd.to_numeric(temp_df["计划发行量"], errors="coerce")
     return temp_df
 
