@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.6.95 fix: fix energy_oil_detail interface
+
+    1. 修复 energy_oil_detail 接口
+
 1.6.94 fix: fix macro_china_hk_market_info interface
 
     1. 修复 macro_china_hk_market_info 接口，规范数据输出格式
@@ -1085,6 +1089,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.95 fix: fix energy_oil_detail interface
 
 1.6.94 fix: fix macro_china_hk_market_info interface
 
