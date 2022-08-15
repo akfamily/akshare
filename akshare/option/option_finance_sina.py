@@ -328,6 +328,7 @@ def option_sse_codes_sina(
 ) -> pd.DataFrame:
     """
     上海证券交易所-所有看涨和看跌合约的代码
+
     :param symbol: choice of {"看涨期权", "看跌期权"}
     :type symbol: str
     :param trade_date: 期权到期月份
@@ -745,7 +746,7 @@ if __name__ == "__main__":
     print(option_sse_expire_day_sina_df)
 
     option_sse_codes_sina_df = option_sse_codes_sina(
-        symbol="看跌期权", trade_date="202210", underlying="510050"
+        symbol="看跌期权", trade_date="202209", underlying="510050"
     )
     print(option_sse_codes_sina_df)
 
