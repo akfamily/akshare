@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/19 19:24
+Date: 2022/8/15 17:18
 Desc: 东方财富-数据中心-中国油价
 http://data.eastmoney.com/cjsj/oil_default.html
 """
@@ -73,11 +73,11 @@ def energy_oil_detail(date: str = "20220517") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["result"]["data"]).iloc[:, 1:]
     temp_df.columns = [
         "日期",
+        "地区",
         "V_0",
         "V_92",
         "V_95",
         "V_89",
-        "地区",
         "ZDE_0",
         "ZDE_92",
         "ZDE_95",
@@ -86,7 +86,9 @@ def energy_oil_detail(date: str = "20220517") -> pd.DataFrame:
         "QE_92",
         "QE_95",
         "QE_89",
+        "首字母",
     ]
+    del temp_df["首字母"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
     temp_df["V_0"] = pd.to_numeric(temp_df["V_0"])
     temp_df["V_92"] = pd.to_numeric(temp_df["V_92"])
