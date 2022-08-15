@@ -1101,7 +1101,7 @@ def macro_china_shibor_all() -> pd.DataFrame:
 # 金十数据中心-经济指标-中国-金融指标-人民币香港银行同业拆息
 def macro_china_hk_market_info() -> pd.DataFrame:
     """
-    香港同业拆借报告, 数据区间从20170320-至今
+    香港同业拆借报告, 数据区间从 20170320-至今
     https://datacenter.jin10.com/reportType/dc_hk_market_info
     https://cdn.jin10.com/dc/reports/dc_hk_market_info_all.js?v=1578755471
     :return: 香港同业拆借报告-今值(%)
@@ -1139,7 +1139,44 @@ def macro_china_hk_market_info() -> pd.DataFrame:
     big_df = big_df.apply(lambda x: x.replace("-", pd.NA))
     big_df = big_df.apply(lambda x: x.replace([None], pd.NA))
     big_df.sort_index(inplace=True)
-    big_df = big_df.astype("float")
+    big_df.reset_index(inplace=True)
+    big_df.columns = [
+        "日期",
+        "1W_定价",
+        "1W_涨跌幅",
+        "2W_定价",
+        "2W_涨跌幅",
+        "1M_定价",
+        "1M_涨跌幅",
+        "3M_定价",
+        "3M_涨跌幅",
+        "6M_定价",
+        "6M_涨跌幅",
+        "1Y_定价",
+        "1Y_涨跌幅",
+        "ON_定价",
+        "ON_涨跌幅",
+        "2M_定价",
+        "2M_涨跌幅",
+    ]
+
+    big_df["1W_定价"] = pd.to_numeric(big_df["1W_定价"])
+    big_df["1W_涨跌幅"] = pd.to_numeric(big_df["1W_涨跌幅"])
+    big_df["2W_定价"] = pd.to_numeric(big_df["2W_定价"])
+    big_df["2W_涨跌幅"] = pd.to_numeric(big_df["2W_涨跌幅"])
+    big_df["1M_定价"] = pd.to_numeric(big_df["1M_定价"])
+    big_df["1M_涨跌幅"] = pd.to_numeric(big_df["1M_涨跌幅"])
+    big_df["3M_定价"] = pd.to_numeric(big_df["3M_定价"])
+    big_df["3M_涨跌幅"] = pd.to_numeric(big_df["3M_涨跌幅"])
+    big_df["6M_定价"] = pd.to_numeric(big_df["6M_定价"])
+    big_df["6M_涨跌幅"] = pd.to_numeric(big_df["6M_涨跌幅"])
+    big_df["1Y_定价"] = pd.to_numeric(big_df["1Y_定价"])
+    big_df["1Y_涨跌幅"] = pd.to_numeric(big_df["1Y_涨跌幅"])
+    big_df["ON_定价"] = pd.to_numeric(big_df["ON_定价"])
+    big_df["ON_涨跌幅"] = pd.to_numeric(big_df["ON_涨跌幅"])
+    big_df["2M_定价"] = pd.to_numeric(big_df["2M_定价"])
+    big_df["2M_涨跌幅"] = pd.to_numeric(big_df["2M_涨跌幅"])
+
     return big_df
 
 
