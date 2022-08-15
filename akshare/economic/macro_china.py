@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/18 19:40
+Date: 2022/8/15 15:40
 Desc: 宏观数据-中国
 """
 import json
@@ -241,10 +241,10 @@ def macro_china_gdp_yearly() -> pd.DataFrame:
 # 金十数据中心-经济指标-中国-国民经济运行状况-物价水平-中国CPI年率报告
 def macro_china_cpi_yearly() -> pd.DataFrame:
     """
-    # TODO
     中国年度 CPI 数据, 数据区间从 19860201-至今
     https://datacenter.jin10.com/reportType/dc_chinese_cpi_yoy
-    :return: pandas.Series
+    :return: 中国年度 CPI 数据
+    :rtype: pandas.DataFrame
     """
     t = time.time()
     res = requests.get(
@@ -259,8 +259,9 @@ def macro_china_cpi_yearly() -> pd.DataFrame:
     value_list = [item["datas"]["中国CPI年率报告"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
+    value_df["date"] = pd.to_datetime(date_list)
+    temp_df = value_df[["date", "今值(%)"]]
+    temp_df.columns = ["date", "value"]
     url = "https://datacenter-api.jin10.com/reports/list_v2"
     params = {
         "max_date": "",
@@ -286,18 +287,14 @@ def macro_china_cpi_yearly() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
-    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
-    temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_se.columns = ["date", "value"]
+    temp_df = pd.concat([temp_df, temp_se], ignore_index=True)
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     temp_df.dropna(inplace=True)
-    temp_df.sort_index(inplace=True)
-    temp_df = temp_df.reset_index()
-    temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index("index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "cpi"
-    temp_df = temp_df.astype("float")
+    temp_df.sort_values(["date"], inplace=True)
+    temp_df.drop_duplicates(subset="date", inplace=True)
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
     return temp_df
 
 
