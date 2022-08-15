@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.6.91 fix: fix forbes_rank interface
+
+    1. 修复 forbes_rank 接口，取消证书验证
+
 1.6.90 fix: fix macro_china_cpi_yearly interface
 
     1. 修复 macro_china_cpi_yearly 接口，规范输出格式
@@ -1066,6 +1070,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.6.91 fix: fix forbes_rank interface
 
 1.6.90 fix: fix macro_china_cpi_yearly interface
 
