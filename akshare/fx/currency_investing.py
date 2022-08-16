@@ -314,6 +314,11 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    currency_hist_area_index_name_code_df = currency_hist_area_index_name_code(
+        symbol="usd-jpy"
+    )
+    print(currency_hist_area_index_name_code_df)
+
     currency_pair_map_df = currency_pair_map(symbol="人民币")
     print(currency_pair_map_df)
 

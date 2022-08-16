@@ -28,7 +28,9 @@ def _get_js_path(name: str = None, module_file: str = None) -> str:
     :return: 路径
     :rtype: str
     """
-    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
+    module_folder = os.path.abspath(
+        os.path.dirname(os.path.dirname(module_file))
+    )
     module_json_path = os.path.join(module_folder, "air", name)
     return module_json_path
 
@@ -77,16 +79,16 @@ def air_city_table() -> pd.DataFrame:
         }
         r = requests.get(url, params=params)
         temp_df = pd.read_html(r.text)[1].iloc[1:, :]
-        del temp_df['降序']
+        del temp_df["降序"]
         temp_df.reset_index(inplace=True)
-        temp_df['index'] = temp_df.index + 1
-        temp_df.columns = ['序号', '省份', '城市', 'AQI', '空气质量', 'PM2.5浓度', '首要污染物']
-        temp_df['AQI'] = pd.to_numeric(temp_df['AQI'])
+        temp_df["index"] = temp_df.index + 1
+        temp_df.columns = ["序号", "省份", "城市", "AQI", "空气质量", "PM2.5浓度", "首要污染物"]
+        temp_df["AQI"] = pd.to_numeric(temp_df["AQI"])
     return temp_df
 
 
 def air_quality_watch_point(
-        city: str = "杭州", start_date: str = "20220408", end_date: str = "20220409"
+    city: str = "杭州", start_date: str = "20220408", end_date: str = "20220409"
 ) -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
@@ -119,7 +121,9 @@ def air_quality_watch_point(
         "city": city_param,
         "startTime": ctx.call("encode_param", start_date),
         "endTime": ctx.call("encode_param", end_date),
-        "secret": ctx.call("encode_secret", method, city_param, start_date, end_date),
+        "secret": ctx.call(
+            "encode_secret", method, city_param, start_date, end_date
+        ),
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.122 Safari/537.36"
@@ -132,10 +136,10 @@ def air_quality_watch_point(
 
 
 def air_quality_hist(
-        city: str = "杭州",
-        period: str = "day",
-        start_date: str = "20190327",
-        end_date: str = "20200427",
+    city: str = "杭州",
+    period: str = "day",
+    start_date: str = "20190327",
+    end_date: str = "20200427",
 ) -> pd.DataFrame:
     """
     真气网-空气历史数据
@@ -170,7 +174,9 @@ def air_quality_hist(
         ensure_ascii=False,
         indent=None,
     ).replace(' "', '"')
-    secret = ctx.call("hex_md5", appId + method + str(timestamp) + "WEB" + p_text)
+    secret = ctx.call(
+        "hex_md5", appId + method + str(timestamp) + "WEB" + p_text
+    )
     payload = {
         "appId": "4f0e3a273d547ce6b7147bfa7ceb4b6e",
         "method": "CETCITYPERIOD",
@@ -186,10 +192,10 @@ def air_quality_hist(
     }
     need = (
         json.dumps(payload, ensure_ascii=False, indent=None, sort_keys=False)
-            .replace(' "', '"')
-            .replace("\\", "")
-            .replace('p": ', 'p":')
-            .replace('t": ', 't":')
+        .replace(' "', '"')
+        .replace("\\", "")
+        .replace('p": ', 'p":')
+        .replace('t": ', 't":')
     )
 
     headers = {
@@ -211,8 +217,8 @@ def air_quality_hist(
         # 'Sec-Fetch-Dest': 'empty',
         # 'Sec-Fetch-Mode': 'cors',
         # 'Sec-Fetch-Site': 'same-origin',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
-        'X-Requested-With': 'XMLHttpRequest',
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
     }
     params = {"param": ctx.call("AES.encrypt", need)}
     params = {"param": ctx.call("encode_param", need)}
@@ -240,8 +246,8 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
         date = date
     elif len(date) == 6:
         date = "-".join([date[:4], date[4:6]])
-    elif date == '':
-        date = '实时'
+    elif date == "":
+        date = "实时"
     else:
         date = "-".join([date[:4], date[4:6], date[6:]])
 
@@ -296,8 +302,8 @@ if __name__ == "__main__":
     air_quality_hist_df = air_quality_hist(
         city="北京",
         period="day",
-        start_date="20200320",
-        end_date="20200427",
+        start_date="20220801",
+        end_date="20220816",
     )
     print(air_quality_hist_df)
 
