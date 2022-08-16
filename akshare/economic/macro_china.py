@@ -3402,13 +3402,13 @@ def macro_china_society_traffic_volume() -> pd.DataFrame:
     data_json = demjson.decode(data_text[data_text.find("{") : -3])
     page_num = math.ceil(int(data_json["count"]) / 31)
     big_df = pd.DataFrame(data_json["data"]["非累计"])
-    for i in tqdm(range(1, page_num)):
+    for i in tqdm(range(1, page_num), leave=False):
         params.update({"from": i * 31})
         r = requests.get(url, params=params)
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"]["非累计"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
     return big_df
 
@@ -3440,7 +3440,7 @@ def macro_china_postal_telecommunicational() -> pd.DataFrame:
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{") : -3])
         temp_df = pd.DataFrame(data_json["data"]["非累计"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
     for item in big_df.columns[1:]:
         big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
@@ -3845,28 +3845,32 @@ def macro_china_real_estate() -> pd.DataFrame:
     :return: 国房景气指数
     :rtype: pandas.DataFrame
     """
-    url = "http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     }
     params = {
-        "callback": "jQuery1123007722026081503319_1603084293192",
-        "st": "DATADATE",
-        "sr": "-1",
-        "ps": "1000",
-        "p": "1",
-        "type": "HYZS_All",
-        "js": '({data:dataDistinc((x),"DATADATE"),pages:(tp)})',
-        "filter": "(ID='EMM00121987')",
-        "token": "894050c76af8597a853f5b408b759f5d",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "pageSize": "1000",
+        "pageNumber": "1",
+        "reportName": "RPT_INDUSTRY_INDEX",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "filter": '(INDICATOR_ID="EMM00121987")',
+        "source": "WEB",
+        "client": "WEB"
     }
     r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = json.loads(
-        data_text[data_text.find("[") : data_text.rfind("]") + 1]
-    )
-    temp_df = pd.DataFrame([item for item in data_json])
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = data_json['result']['pages']
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page+1), leave=False):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']['data'])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df.columns = [
         "日期",
         "最新值",
         "涨跌幅",
@@ -3875,30 +3879,18 @@ def macro_china_real_estate() -> pd.DataFrame:
         "近1年涨跌幅",
         "近2年涨跌幅",
         "近3年涨跌幅",
-        "_",
-        "_",
-        "_",
-        "_",
-        "地区",
-        "_",
-        "_",
-        "_",
     ]
-    temp_df = temp_df[
-        [
-            "日期",
-            "最新值",
-            "涨跌幅",
-            "近3月涨跌幅",
-            "近6月涨跌幅",
-            "近1年涨跌幅",
-            "近2年涨跌幅",
-            "近3年涨跌幅",
-            "地区",
-        ]
-    ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"])
-    return temp_df
+    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df['最新值'] = pd.to_numeric(big_df['最新值'])
+    big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'])
+    big_df['近3月涨跌幅'] = pd.to_numeric(big_df['近3月涨跌幅'])
+    big_df['近6月涨跌幅'] = pd.to_numeric(big_df['近6月涨跌幅'])
+    big_df['近1年涨跌幅'] = pd.to_numeric(big_df['近1年涨跌幅'])
+    big_df['近2年涨跌幅'] = pd.to_numeric(big_df['近2年涨跌幅'])
+    big_df['近3年涨跌幅'] = pd.to_numeric(big_df['近3年涨跌幅'])
+    big_df.sort_values(['日期'], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
 
 
 if __name__ == "__main__":
