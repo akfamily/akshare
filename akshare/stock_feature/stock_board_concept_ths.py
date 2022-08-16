@@ -393,7 +393,7 @@ if __name__ == "__main__":
     print(stock_board_concept_info_ths_df)
 
     stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(
-        start_year="2021", symbol="一带一路"
+        start_year="2022", symbol="阿里巴巴概念"
     )
     print(stock_board_concept_hist_ths_df)
 
