@@ -3889,6 +3889,7 @@ def macro_china_real_estate() -> pd.DataFrame:
     big_df['近2年涨跌幅'] = pd.to_numeric(big_df['近2年涨跌幅'])
     big_df['近3年涨跌幅'] = pd.to_numeric(big_df['近3年涨跌幅'])
     big_df.sort_values(['日期'], inplace=True)
+    big_df.drop_duplicates(inplace=True)
     big_df.reset_index(inplace=True, drop=True)
     return big_df
 
