@@ -383,7 +383,7 @@ if __name__ == "__main__":
     print(stock_board_concept_name_ths_df)
 
     stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(
-        symbol="WiFi 6"
+        symbol="苹果概念"
     )
     print(stock_board_concept_cons_ths_df)
 
