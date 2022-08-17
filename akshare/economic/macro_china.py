@@ -2514,41 +2514,55 @@ def macro_china_fx_gold() -> pd.DataFrame:
     :return: 外汇和黄金储备
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     }
     params = {
-        "cb": "datatable3314825",
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "js": "({data:[(x)],pages:(pc)})",
+        "columns": "REPORT_DATE,TIME,GOLD_RESERVES,GOLD_RESERVES_SAME,GOLD_RESERVES_SEQUENTIAL,FOREX,FOREX_SAME,FOREX_SEQUENTIAL",
+        "pageNumber": "1",
+        "pageSize": "1000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_ECONOMY_GOLD_CURRENCY",
         "p": "1",
-        "ps": "2000",
-        "mkt": "16",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1603023435552",
+        "_": "1660718498421",
     }
     r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
+        "-",
         "月份",
-        "国家外汇储备-数值",
-        "国家外汇储备-同比",
-        "国家外汇储备-环比",
         "黄金储备-数值",
         "黄金储备-同比",
         "黄金储备-环比",
+        "国家外汇储备-数值",
+        "国家外汇储备-同比",
+        "国家外汇储备-环比",
     ]
-    temp_df['国家外汇储备-数值'] = pd.to_numeric(temp_df['国家外汇储备-数值'])
-    temp_df['国家外汇储备-同比'] = pd.to_numeric(temp_df['国家外汇储备-同比'])
-    temp_df['国家外汇储备-环比'] = pd.to_numeric(temp_df['国家外汇储备-环比'])
-    temp_df['黄金储备-数值'] = pd.to_numeric(temp_df['黄金储备-数值'])
-    temp_df['黄金储备-同比'] = pd.to_numeric(temp_df['黄金储备-同比'])
-    temp_df['黄金储备-环比'] = pd.to_numeric(temp_df['黄金储备-环比'])
+    temp_df = temp_df[
+        [
+            "月份",
+            "黄金储备-数值",
+            "黄金储备-同比",
+            "黄金储备-环比",
+            "国家外汇储备-数值",
+            "国家外汇储备-同比",
+            "国家外汇储备-环比",
+        ]
+    ]
+    temp_df["国家外汇储备-数值"] = pd.to_numeric(temp_df["国家外汇储备-数值"])
+    temp_df["国家外汇储备-同比"] = pd.to_numeric(temp_df["国家外汇储备-同比"])
+    temp_df["国家外汇储备-环比"] = pd.to_numeric(temp_df["国家外汇储备-环比"])
+    temp_df["黄金储备-数值"] = pd.to_numeric(temp_df["黄金储备-数值"])
+    temp_df["黄金储备-同比"] = pd.to_numeric(temp_df["黄金储备-同比"])
+    temp_df["黄金储备-环比"] = pd.to_numeric(temp_df["黄金储备-环比"])
+    temp_df.sort_values(["月份"], inplace=True, ignore_index=True)
     return temp_df
 
 
@@ -3864,17 +3878,17 @@ def macro_china_real_estate() -> pd.DataFrame:
         "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMM00121987")',
         "source": "WEB",
-        "client": "WEB"
+        "client": "WEB",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    total_page = data_json['result']['pages']
+    total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page+1), leave=False):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json['result']['data'])
+        temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "日期",
@@ -3887,14 +3901,14 @@ def macro_china_real_estate() -> pd.DataFrame:
         "近3年涨跌幅",
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df['最新值'] = pd.to_numeric(big_df['最新值'])
-    big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'])
-    big_df['近3月涨跌幅'] = pd.to_numeric(big_df['近3月涨跌幅'])
-    big_df['近6月涨跌幅'] = pd.to_numeric(big_df['近6月涨跌幅'])
-    big_df['近1年涨跌幅'] = pd.to_numeric(big_df['近1年涨跌幅'])
-    big_df['近2年涨跌幅'] = pd.to_numeric(big_df['近2年涨跌幅'])
-    big_df['近3年涨跌幅'] = pd.to_numeric(big_df['近3年涨跌幅'])
-    big_df.sort_values(['日期'], inplace=True)
+    big_df["最新值"] = pd.to_numeric(big_df["最新值"])
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
+    big_df["近3月涨跌幅"] = pd.to_numeric(big_df["近3月涨跌幅"])
+    big_df["近6月涨跌幅"] = pd.to_numeric(big_df["近6月涨跌幅"])
+    big_df["近1年涨跌幅"] = pd.to_numeric(big_df["近1年涨跌幅"])
+    big_df["近2年涨跌幅"] = pd.to_numeric(big_df["近2年涨跌幅"])
+    big_df["近3年涨跌幅"] = pd.to_numeric(big_df["近3年涨跌幅"])
+    big_df.sort_values(["日期"], inplace=True)
     big_df.drop_duplicates(inplace=True)
     big_df.reset_index(inplace=True, drop=True)
     return big_df
