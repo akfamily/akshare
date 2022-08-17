@@ -675,6 +675,9 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    match_main_contract_df = match_main_contract(symbol="dce")
+    print(match_main_contract_df)
+
     futures_zh_spot_df = futures_zh_spot(
         symbol="TA2209, P2209, B2209, M2209", market="CF", adjust="0"
     )
