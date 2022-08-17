@@ -2116,9 +2116,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.95 fix: fix energy_oil_detail interface
 1.6.96 fix: fix macro_china_bond_public interface
 1.6.97 fix: fix macro_china_real_estate interface
+1.6.98 fix: fix macro_china_real_estate interface
 """
 
-__version__ = "1.6.97"
+__version__ = "1.6.98"
 __author__ = "AKFamily"
 
 import sys
