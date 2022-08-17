@@ -2543,6 +2543,12 @@ def macro_china_fx_gold() -> pd.DataFrame:
         "黄金储备-同比",
         "黄金储备-环比",
     ]
+    temp_df['国家外汇储备-数值'] = pd.to_numeric(temp_df['国家外汇储备-数值'])
+    temp_df['国家外汇储备-同比'] = pd.to_numeric(temp_df['国家外汇储备-同比'])
+    temp_df['国家外汇储备-环比'] = pd.to_numeric(temp_df['国家外汇储备-环比'])
+    temp_df['黄金储备-数值'] = pd.to_numeric(temp_df['黄金储备-数值'])
+    temp_df['黄金储备-同比'] = pd.to_numeric(temp_df['黄金储备-同比'])
+    temp_df['黄金储备-环比'] = pd.to_numeric(temp_df['黄金储备-环比'])
     return temp_df
 
 
