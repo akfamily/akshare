@@ -691,7 +691,7 @@ if __name__ == "__main__":
     bond_zh_hs_cov_pre_min_df = bond_zh_hs_cov_pre_min(symbol="sh113570")
     print(bond_zh_hs_cov_pre_min_df)
 
-    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sz123124")
+    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sh113542")
     print(bond_zh_hs_cov_daily_df)
 
     bond_zh_hs_cov_spot_df = bond_zh_hs_cov_spot()
