@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/7/11 20:18
+Date: 2022/8/18 20:18
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
@@ -903,7 +903,6 @@ def fund_etf_fund_info_em(
         "Referer": f"http://fundf10.eastmoney.com/jjjz_{fund}.html",
     }
     params = {
-        "callback": "jQuery183023608994033331676_1588250653363",
         "fundCode": fund,
         "pageIndex": "1",
         "pageSize": "10000",
@@ -914,8 +913,7 @@ def fund_etf_fund_info_em(
         "_": round(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -1])
+    data_json = r.json()
     temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
     temp_df.columns = [
         "净值日期",
@@ -937,6 +935,7 @@ def fund_etf_fund_info_em(
     temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"])
     temp_df["累计净值"] = pd.to_numeric(temp_df["累计净值"])
     temp_df["日增长率"] = pd.to_numeric(temp_df["日增长率"])
+    temp_df.sort_values(['净值日期'], inplace=True, ignore_index=True)
     return temp_df
 
 

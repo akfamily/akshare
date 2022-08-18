@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.7.1 fix: fix fund_etf_fund_info_em interface
+
+    1. 修复 fund_etf_fund_info_em 接口，提高访问速度并规范输出格式
+
 1.6.99 fix: fix macro_china_fx_gold interface
 
     1. 修复 macro_china_fx_gold 接口
@@ -1105,6 +1109,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.1 fix: fix fund_etf_fund_info_em interface
 
 1.6.99 fix: fix macro_china_fx_gold interface
 
