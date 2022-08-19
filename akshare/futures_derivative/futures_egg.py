@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/8/20 14:41
+Date: 2022/8/19 14:41
 Desc: 鸡蛋价格
 https://www.jidan7.com/trend/
 """
@@ -22,7 +22,7 @@ def futures_egg_price_yearly() -> pd.DataFrame:
     url = "https://www.jidan7.com/trend/"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    js_text = soup.find_all("script")[7].string
+    js_text = soup.find_all("script")[8].string
     js_text_processed = js_text.replace("\r\n", "")
     js_text_processed = re.findall(r"(\[.*?])", js_text_processed)
     year_list = eval(js_text_processed[1])
@@ -34,6 +34,7 @@ def futures_egg_price_yearly() -> pd.DataFrame:
     value_2019_list = eval(js_text_processed[12])
     value_2020_list = eval(js_text_processed[14])
     value_2021_list = eval(js_text_processed[16])
+    value_2022_list = eval(js_text_processed[18])
     temp_df = pd.DataFrame(
         [
             date_list,
@@ -44,6 +45,7 @@ def futures_egg_price_yearly() -> pd.DataFrame:
             value_2019_list,
             value_2020_list,
             value_2021_list,
+            value_2022_list,
         ]
     ).T
     temp_df.columns = ["日期"] + year_list
@@ -55,6 +57,7 @@ def futures_egg_price_yearly() -> pd.DataFrame:
     temp_df['2019年'] = pd.to_numeric(temp_df['2019年'])
     temp_df['2020年'] = pd.to_numeric(temp_df['2020年'])
     temp_df['2021年'] = pd.to_numeric(temp_df['2021年'])
+    temp_df['2022年'] = pd.to_numeric(temp_df['2022年'])
     return temp_df
 
 
@@ -68,7 +71,7 @@ def futures_egg_price() -> pd.DataFrame:
     url = "https://www.jidan7.com/trend/"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    js_text = soup.find_all("script")[8].string
+    js_text = soup.find_all("script")[9].string
     js_text_processed = js_text.replace("\r\n", "")
     re.findall(r"data: (.*)", js_text_processed)
     js_text_processed = re.findall(r"(\[.*?])", js_text_processed)
@@ -99,7 +102,7 @@ def futures_egg_price_area() -> pd.DataFrame:
     url = "https://www.jidan7.com/trend/"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    js_text = soup.find_all("script")[9].string
+    js_text = soup.find_all("script")[10].string
     js_text_processed = js_text.replace("\r\n", "")
     js_text_processed = re.findall(r"data: (\[.*?])", js_text_processed)
     area_list = eval(js_text_processed[0])

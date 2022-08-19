@@ -2362,28 +2362,28 @@ print(futures_hq_subscribe_exchange_symbol_df)
 
 输入参数
 
-| 名称   | 类型 |  描述     |
-| -------- | ---- | --- |
-| subscribe_list | list | 需要订阅的合约代码; 调用 **ak.futures_hq_subscribe_exchange_symbol()** 获取字段及代码对应表  |
+| 名称             | 类型   | 描述                                                                     |
+|----------------|------|------------------------------------------------------------------------|
+| subscribe_list | list | 需要订阅的合约代码; 调用 **ak.futures_hq_subscribe_exchange_symbol()** 获取字段及代码对应表 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ------- |  ---------------- |
-| 名称      | object   |  -  |
-| 最新价      | float64   | -  |
-| 人民币报价      | float64   |  -   |
-| 涨跌额      | float64   |  -        |
-| 涨跌幅        | float64 |  -    |
-| 开盘价         | float64 | -         |
-| 最高价      | float64 |  -      |
-| 最低价      | float64 |  -      |
-| 昨日结算价      | float64 |  -      |
-| 持仓量      | float64   |  -        |
-| 买价        | float64   | -    |
-| 卖价      | float64 |  -      |
-| 行情时间      | object |  -      |
-| 日期      | object |  -      |
+| 名称    | 类型      | 描述  |
+|-------|---------|-----|
+| 名称    | object  | -   |
+| 最新价   | float64 | -   |
+| 人民币报价 | float64 | -   |
+| 涨跌额   | float64 | -   |
+| 涨跌幅   | float64 | -   |
+| 开盘价   | float64 | -   |
+| 最高价   | float64 | -   |
+| 最低价   | float64 | -   |
+| 昨日结算价 | float64 | -   |
+| 持仓量   | float64 | -   |
+| 买价    | float64 | -   |
+| 卖价    | float64 | -   |
+| 行情时间  | object  | -   |
+| 日期    | object  | -   |
 
 接口示例
 

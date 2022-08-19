@@ -2119,9 +2119,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.6.98 fix: fix macro_china_real_estate interface
 1.6.99 fix: fix macro_china_fx_gold interface
 1.7.1 fix: fix fund_etf_fund_info_em interface
+1.7.2 fix: fix futures_egg_price_yearly interface
 """
 
-__version__ = "1.7.1"
+__version__ = "1.7.2"
 __author__ = "AKFamily"
 
 import sys
