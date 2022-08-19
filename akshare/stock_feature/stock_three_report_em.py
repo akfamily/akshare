@@ -387,6 +387,11 @@ if __name__ == "__main__":
     )
     print(stock_profit_sheet_by_report_em_df)
 
+    stock_profit_sheet_by_report_em_df = stock_profit_sheet_by_report_em(
+        symbol="SZ000001"
+    )
+    print(stock_profit_sheet_by_report_em_df)
+
     stock_profit_sheet_by_yearly_em_df = stock_profit_sheet_by_yearly_em(
         symbol="SH600519"
     )
