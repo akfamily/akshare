@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/4/15 19:39
+Date: 2022/8/22 18:39
 Desc: 东方财富网-数据中心-研究报告-东方财富分析师指数
 http://data.eastmoney.com/invest/invest/list.html
 """
 import pandas as pd
 import requests
+from tqdm import tqdm
 
 
 def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
@@ -18,48 +19,57 @@ def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
     :return: 东方财富分析师指数
     :rtype: pandas.DataFrame
     """
+    url = "https://data.eastmoney.com/dataapi/invest/list"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
     }
-    url = "http://data.eastmoney.com/dataapi/invest/data"
     params = {
-        "st": "0" if year == "2022" else year,
-        "sr": "1",
-        "p": "1",
-        "ps": "5000",
-        "name": "",
-        "type": "list",
-        "industrycode": "all",
-        "pageNo": "1",
-        "pageNum": "1",
+        "sortColumns": "YEAR_YIELD",
+        "sortTypes": "-1",
+        "pageSize": "50",
         "pageNumber": "1",
+        "reportName": "RPT_ANALYST_INDEX_RANK",
+        "columns": "ALL",
+        "source": "WEB",
+        "client": "WEB",
+        "filter": f'(YEAR="{year}")',
+        "limit": "top100",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    data_df = pd.DataFrame(data_json["data"])
-    del data_df["_id"]
-    data_df.reset_index(inplace=True)
-    data_df["index"] = list(range(1, len(data_df) + 1))
-    data_df.columns = [
+    total_page = data_json["result"]["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1)):
+        params.update({"pageNumber": page})
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        data_df = pd.DataFrame(data_json["result"]["data"])
+        big_df = pd.concat([big_df, data_df], ignore_index=True)
+
+    big_df.reset_index(inplace=True)
+    big_df["index"] = list(range(1, len(big_df) + 1))
+    big_df.columns = [
         "序号",
-        "_",
-        f"{year}年收益率",
-        "_",
+        "分析师ID",
         "分析师名称",
+        "更新日期",
+        "年度",
         "分析师单位",
+        "_",
         "年度指数",
+        f"{year}年收益率",
         "3个月收益率",
         "6个月收益率",
         "12个月收益率",
-        f"{year}最新个股评级",
-        "_",
-        "_",
-        "分析师ID",
-        "_",
         "成分股个数",
+        f"{year}最新个股评级-股票名称",
         "_",
+        f"{year}最新个股评级-股票代码",
+        "_",
+        "行业代码",
+        "行业",
     ]
-    data_df = data_df[
+    big_df = big_df[
         [
             "序号",
             "分析师名称",
@@ -70,11 +80,23 @@ def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
             "6个月收益率",
             "12个月收益率",
             "成分股个数",
-            f"{year}最新个股评级",
+            f"{year}最新个股评级-股票名称",
+            f"{year}最新个股评级-股票代码",
             "分析师ID",
+            "行业代码",
+            "行业",
+            "更新日期",
+            "年度",
         ]
     ]
-    return data_df
+    big_df["更新日期"] = pd.to_datetime(big_df["更新日期"]).dt.date
+    big_df["年度指数"] = pd.to_numeric(big_df["年度指数"])
+    big_df[f"{year}年收益率"] = pd.to_numeric(big_df[f"{year}年收益率"])
+    big_df["3个月收益率"] = pd.to_numeric(big_df["3个月收益率"])
+    big_df["6个月收益率"] = pd.to_numeric(big_df["6个月收益率"])
+    big_df["12个月收益率"] = pd.to_numeric(big_df["12个月收益率"])
+    big_df["成分股个数"] = pd.to_numeric(big_df["成分股个数"])
+    return big_df
 
 
 def stock_analyst_detail_em(
@@ -83,7 +105,7 @@ def stock_analyst_detail_em(
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数2020最新排行-分析师详情
     http://data.eastmoney.com/invest/invest/11000200926.html
-    :param analyst_id: 分析师ID, 从 stock_analyst_rank_em 获取
+    :param analyst_id: 分析师 ID, 从 ak.stock_analyst_rank_em() 获取
     :type analyst_id: str
     :param indicator: ["最新跟踪成分股", "历史跟踪成分股", "历史指数"]
     :type indicator: str
