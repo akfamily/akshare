@@ -24,7 +24,7 @@ Indicator Info
 |entity| str |	实体名|
 |desc  |	str |	实体简介|
 |tag   | list |	实体标签|
-|avp   |pandas.DataFrame |	实体属性值，第一列为实体的属性，第二列为实体属性所对应的值|
+|avg   |pandas.DataFrame |	实体属性值，第一列为实体的属性，第二列为实体属性所对应的值|
 
 输出参数-entity
 
