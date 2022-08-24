@@ -2122,9 +2122,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.2 fix: fix futures_egg_price_yearly interface
 1.7.3 fix: fix stock_profit_sheet_by_report_em interface
 1.7.4 fix: fix stock_analyst_rank_em interface
+1.7.5 fix: fix fund_fh_em interface
 """
 
-__version__ = "1.7.4"
+__version__ = "1.7.5"
 __author__ = "AKFamily"
 
 import sys
