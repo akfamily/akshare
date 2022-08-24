@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.7.6 fix: fix covid_19_risk_area interface
+
+    1. 修复 covid_19_risk_area 接口
+
 1.7.5 fix: fix fund_fh_em interface
 
     1. 修复 fund_fh_em 接口
@@ -1127,6 +1131,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.6 fix: fix covid_19_risk_area interface
 
 1.7.5 fix: fix fund_fh_em interface
 
