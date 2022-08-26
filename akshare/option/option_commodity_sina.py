@@ -16,7 +16,7 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
     """
     当前可以查询的期权品种的合约日期
     https://stock.finance.sina.com.cn/futures/view/optionsDP.php
-    :param symbol: choice of {"豆粕期权", "玉米期权", "铁矿石期权", "棉花期权", "白糖期权", "PTA期权", "甲醇期权", "橡胶期权", "沪铜期权", "黄金期权", "菜籽粕期权", "液化石油气期权", "动力煤期权"}
+    :param symbol: choice of {"豆粕期权", "玉米期权", "铁矿石期权", "棉花期权", "白糖期权", "PTA期权", "甲醇期权", "橡胶期权", "沪铜期权", "黄金期权", "菜籽粕期权", "液化石油气期权", "动力煤期权", "菜籽油期权", "花生期权"}
     :type symbol: str
     :return: e.g., {'黄金期权': ['au2012', 'au2008', 'au2010', 'au2104', 'au2102', 'au2106', 'au2108']}
     :rtype: dict
@@ -64,7 +64,7 @@ def option_commodity_contract_table_sina(
     """
     当前所有期权合约, 包括看涨期权合约和看跌期权合约
     https://stock.finance.sina.com.cn/futures/view/optionsDP.php
-    :param symbol: choice of {"豆粕期权", "玉米期权", "铁矿石期权", "棉花期权", "白糖期权", "PTA期权", "甲醇期权", "橡胶期权", "沪铜期权", "黄金期权", "菜籽粕期权", "液化石油气期权"}
+    :param symbol: choice of {"豆粕期权", "玉米期权", "铁矿石期权", "棉花期权", "白糖期权", "PTA期权", "甲醇期权", "橡胶期权", "沪铜期权", "黄金期权", "菜籽粕期权", "液化石油气期权", "动力煤期权", "菜籽油期权", "花生期权"}
     :type symbol: str
     :param contract: e.g., 'au2012'
     :type contract: str
@@ -166,16 +166,16 @@ def option_commodity_hist_sina(symbol: str = "au2012C392") -> pd.DataFrame:
 
 if __name__ == "__main__":
     option_commodity_contract_sina_df = option_commodity_contract_sina(
-        symbol="黄金期权"
+        symbol="棉花期权"
     )
     print(option_commodity_contract_sina_df)
 
     option_commodity_contract_table_sina_df = (
-        option_commodity_contract_table_sina(symbol="动力煤期权", contract="zc2103")
+        option_commodity_contract_table_sina(symbol="棉花期权", contract="cf2301")
     )
     print(option_commodity_contract_table_sina_df)
 
     option_commodity_hist_sina_df = option_commodity_hist_sina(
-        symbol="zc2103C560"
+        symbol="cf2301P21600"
     )
     print(option_commodity_hist_sina_df)

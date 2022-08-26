@@ -31,6 +31,30 @@
 
 ## 更新说明
 
+1.7.10 fix: fix option_czce_daily interface
+
+    1. 修复 option_czce_daily 接口，增加花生期权和菜籽油期权的支持
+
+1.7.9 add: add index_market_representation_hist_sw interface
+
+    1. 新增 index_market_representation_hist_sw 接口
+
+1.7.8 add: add index_style_index_hist_sw interface
+
+    1. 新增 index_style_index_hist_sw 接口
+
+1.7.7 add: add index_level_one_hist_sw interface
+
+    1. 新增 index_level_one_hist_sw 接口
+
+1.7.6 fix: fix covid_19_risk_area interface
+
+    1. 修复 covid_19_risk_area 接口
+
+1.7.5 fix: fix fund_fh_em interface
+
+    1. 修复 fund_fh_em 接口
+
 1.7.4 fix: fix stock_analyst_rank_em interface
 
     1. 修复 stock_analyst_rank_em 接口，规范输出格式
@@ -1123,6 +1147,18 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.10 fix: fix option_czce_daily interface
+
+1.7.9 add: add index_market_representation_hist_sw interface
+
+1.7.8 add: add index_style_index_hist_sw interface
+
+1.7.7 add: add index_level_one_hist_sw interface
+
+1.7.6 fix: fix covid_19_risk_area interface
+
+1.7.5 fix: fix fund_fh_em interface
 
 1.7.4 fix: fix stock_analyst_rank_em interface
 

@@ -46,7 +46,7 @@ def covid_19_risk_area(symbol: str = "高风险等级地区") -> pd.DataFrame:
     ctx.eval(file_data)
     decode_ajax_dict = ctx.call("generateAjaxParmas", "xxx")
     decode_header_dict = ctx.call("generateHeaderParmas", "xxx")
-    url = "http://103.66.32.242:8005/zwfwMovePortal/interface/interfaceJson"
+    url = "http://bmfw.www.gov.cn/bjww/interface/interfaceJson"
     payload = {
         "appId": "NcApplication",
         "key": "3C502C97ABDA40D0A60FBEE50FAAD1DA",
@@ -62,7 +62,7 @@ def covid_19_risk_area(symbol: str = "高风险等级地区") -> pd.DataFrame:
         "Cache-Control": "no-cache",
         "Content-Length": "235",
         "Content-Type": "application/json; charset=UTF-8",
-        "Host": "103.66.32.242:8005",
+        "Host": "bmfw.www.gov.cn",
         "Origin": "http://bmfw.www.gov.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",

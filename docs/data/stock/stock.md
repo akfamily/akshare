@@ -5494,7 +5494,7 @@ print(stock_account_statistics_em_df)
 
 ### 分析师指数
 
-#### 分析师指数最新排行
+#### 分析师指数排行
 
 接口: stock_analyst_rank_em
 
