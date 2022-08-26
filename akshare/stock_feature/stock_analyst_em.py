@@ -213,7 +213,7 @@ def stock_analyst_detail_em(
 
 
 if __name__ == "__main__":
-    stock_analyst_rank_em_df = stock_analyst_rank_em(year="2021")
+    stock_analyst_rank_em_df = stock_analyst_rank_em(year="2022")
     print(stock_analyst_rank_em_df)
 
     stock_analyst_detail_em_df = stock_analyst_detail_em(
