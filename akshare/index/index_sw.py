@@ -187,9 +187,9 @@ def sw_index_cons(symbol: str = "801011") -> pd.DataFrame:
 
 
 def sw_index_daily(
-        symbol: str = "801011",
-        start_date: str = "20191201",
-        end_date: str = "20201207",
+    symbol: str = "801011",
+    start_date: str = "20191201",
+    end_date: str = "20201207",
 ) -> pd.DataFrame:
     """
     申万指数一级和二级日频率行情数据
@@ -255,10 +255,10 @@ def sw_index_daily(
 
 
 def sw_index_daily_indicator(
-        symbol: str = "801011",
-        start_date: str = "20191201",
-        end_date: str = "20210907",
-        data_type: str = "Day",
+    symbol: str = "801011",
+    start_date: str = "20191201",
+    end_date: str = "20210907",
+    data_type: str = "Day",
 ) -> pd.DataFrame:
     """
     申万一级和二级行业历史行情指标
@@ -491,15 +491,137 @@ def index_level_one_hist_sw(symbol: str = "801010") -> pd.DataFrame:
         "平均流通市值",
         "股息率",
     ]
-    temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
-    temp_df.sort_values(['发布日期'], inplace=True, ignore_index=True)
-    temp_df['指数代码'] = temp_df['指数代码'].astype(str)
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
+    temp_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
+    temp_df["指数代码"] = temp_df["指数代码"].astype(str)
+    return temp_df
+
+
+def index_market_representation_hist_sw(
+    symbol: str = "801001",
+) -> pd.DataFrame:
+    """
+    申万指数-指数发布-指数体系-市场表征
+    http://www.swsindex.com/idx0110.aspx
+    :param symbol: 市场表征代码
+    :type symbol: str
+    :return: 市场表征
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.swsindex.com/downloadfiles.aspx"
+    params = {
+        "swindexcode": symbol,
+        "type": "510",
+        "columnid": "8890",
+    }
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en,zh;q=0.9",
+        "Cache-Control": "no-cache",
+        "Host": "www.swsindex.com",
+        "Pragma": "no-cache",
+        "Proxy-Connection": "keep-alive",
+        "Referer": "http://www.swsindex.com/idx0110.aspx",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    r.encoding = "utf-8"
+    temp_df = pd.read_html(r.text)[0]
+    temp_df.columns = [
+        "指数代码",
+        "指数名称",
+        "发布日期",
+        "开盘指数",
+        "最高指数",
+        "最低指数",
+        "收盘指数",
+        "成交量",
+        "成交额",
+        "涨跌幅",
+        "换手率",
+        "市盈率",
+        "市净率",
+        "均价",
+        "成交额占比",
+        "流通市值",
+        "平均流通市值",
+        "股息率",
+    ]
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
+    temp_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
+    temp_df["指数代码"] = temp_df["指数代码"].astype(str)
+    return temp_df
+
+
+def index_style_index_hist_sw(symbol: str = "801811") -> pd.DataFrame:
+    """
+    申万指数-指数发布-指数体系-风格指数
+    http://www.swsindex.com/idx0110.aspx
+    :param symbol: 风格指数代码
+    :type symbol: str
+    :return: 风格指数
+    :rtype: pandas.DataFrame
+    """
+    url = "http://www.swsindex.com/downloadfiles.aspx"
+    params = {
+        "swindexcode": symbol,
+        "type": "510",
+        "columnid": "8890",
+    }
+    headers = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "en,zh;q=0.9",
+        "Cache-Control": "no-cache",
+        "Host": "www.swsindex.com",
+        "Pragma": "no-cache",
+        "Proxy-Connection": "keep-alive",
+        "Referer": "http://www.swsindex.com/idx0110.aspx",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
+    }
+    r = requests.get(url, params=params, headers=headers)
+    r.encoding = "utf-8"
+    temp_df = pd.read_html(r.text)[0]
+    temp_df.columns = [
+        "指数代码",
+        "指数名称",
+        "发布日期",
+        "开盘指数",
+        "最高指数",
+        "最低指数",
+        "收盘指数",
+        "成交量",
+        "成交额",
+        "涨跌幅",
+        "换手率",
+        "市盈率",
+        "市净率",
+        "均价",
+        "成交额占比",
+        "流通市值",
+        "平均流通市值",
+        "股息率",
+    ]
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
+    temp_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
+    temp_df["指数代码"] = temp_df["指数代码"].astype(str)
     return temp_df
 
 
 if __name__ == "__main__":
     index_level_one_hist_sw_df = index_level_one_hist_sw(symbol="801010")
     print(index_level_one_hist_sw_df)
+
+    index_market_representation_hist_sw_df = (
+        index_market_representation_hist_sw(symbol="801001")
+    )
+    print(index_market_representation_hist_sw_df)
+
+    index_style_index_hist_sw_df = index_style_index_hist_sw(symbol="801811")
+    print(index_style_index_hist_sw_df)
 
     sw_index_representation_spot_df = sw_index_representation_spot()
     print(sw_index_representation_spot_df)
