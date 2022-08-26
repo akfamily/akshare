@@ -31,7 +31,9 @@ from akshare.option.cons import (
 )
 
 
-def option_dce_daily(symbol: str = "聚乙烯期权", trade_date: str = "20210728") -> Tuple[Any, Any]:
+def option_dce_daily(
+    symbol: str = "聚乙烯期权", trade_date: str = "20210728"
+) -> Tuple[Any, Any]:
     """
     大连商品交易所-期权-日频行情数据
     :param trade_date: 交易日
@@ -42,7 +44,11 @@ def option_dce_daily(symbol: str = "聚乙烯期权", trade_date: str = "2021072
     :rtype: pandas.DataFrame
     """
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = (
+        convert_date(trade_date)
+        if trade_date is not None
+        else datetime.date.today()
+    )
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return
@@ -58,86 +64,128 @@ def option_dce_daily(symbol: str = "聚乙烯期权", trade_date: str = "2021072
     res = requests.post(url, data=payload)
     table_df = pd.read_excel(BytesIO(res.content), header=0)
     another_df = table_df.iloc[
-        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:, [0, 1]
+        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name :,
+        [0, 1],
     ]
     another_df.reset_index(inplace=True, drop=True)
     another_df.iloc[0] = another_df.iat[0, 0].split("\t")
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
     if symbol == "豆粕期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "豆粕"], another_df[another_df.iloc[:, 0].str.contains("m")]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "豆粕"],
+            another_df[another_df.iloc[:, 0].str.contains("m")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "玉米期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "玉米"], another_df[another_df.iloc[:, 0].str.contains("c")]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "玉米"],
+            another_df[another_df.iloc[:, 0].str.contains("c")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "铁矿石期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "铁矿石"], another_df[another_df.iloc[:, 0].str.contains("i")]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "铁矿石"],
+            another_df[another_df.iloc[:, 0].str.contains("i")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "液化石油气期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "液化石油气"], another_df[another_df.iloc[:, 0].str.contains("pg")]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "液化石油气"],
+            another_df[another_df.iloc[:, 0].str.contains("pg")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "聚乙烯期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "聚乙烯"], another_df[another_df.iloc[:, 0].str.contains("l")]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "聚乙烯"],
+            another_df[another_df.iloc[:, 0].str.contains("l")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "聚氯乙烯期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "聚氯乙烯"], another_df[another_df.iloc[:, 0].str.contains("v")]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "聚氯乙烯"],
+            another_df[another_df.iloc[:, 0].str.contains("v")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "聚丙烯期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "聚丙烯"], another_df[another_df.iloc[:, 0].str.contains("pp")]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "聚丙烯"],
+            another_df[another_df.iloc[:, 0].str.contains("pp")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "棕榈油期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "棕榈油"], another_df[another_df.iloc[:, 0].str.contains(r'^p\d')]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "棕榈油"],
+            another_df[another_df.iloc[:, 0].str.contains(r"^p\d")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "黄大豆1号期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "黄大豆1号"], another_df[another_df.iloc[:, 0].str.contains('a')]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "黄大豆1号"],
+            another_df[another_df.iloc[:, 0].str.contains("a")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "黄大豆2号期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "黄大豆2号"], another_df[another_df.iloc[:, 0].str.contains('b')]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "黄大豆2号"],
+            another_df[another_df.iloc[:, 0].str.contains("b")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
     elif symbol == "豆油期权":
-        result_one_df, result_two_df = table_df[table_df["商品名称"] == "豆油"], another_df[another_df.iloc[:, 0].str.contains('y')]
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "豆油"],
+            another_df[another_df.iloc[:, 0].str.contains("y")],
+        )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
         return result_one_df, result_two_df
 
 
-def option_czce_daily(symbol: str = "白糖期权", trade_date: str = "20191017") -> pd.DataFrame:
+def option_czce_daily(
+    symbol: str = "白糖期权", trade_date: str = "20191017"
+) -> pd.DataFrame:
     """
     郑州商品交易所-期权-日频行情数据
     :param trade_date: 交易日
     :type trade_date: str
-    :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权", "菜籽粕期权", "动力煤期权"}
+    :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权", "菜籽粕期权", "动力煤期权", "菜籽油期权", "花生期权"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
     """
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = (
+        convert_date(trade_date)
+        if trade_date is not None
+        else datetime.date.today()
+    )
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("{}非交易日".format(day.strftime("%Y%m%d")))
         return
     if day > datetime.date(2010, 8, 24):
-        url = CZCE_DAILY_OPTION_URL_3.format(day.strftime("%Y"), day.strftime("%Y%m%d"))
+        url = CZCE_DAILY_OPTION_URL_3.format(
+            day.strftime("%Y"), day.strftime("%Y%m%d")
+        )
         try:
             r = requests.get(url)
             f = StringIO(r.text)
@@ -162,6 +210,14 @@ def option_czce_daily(symbol: str = "白糖期权", trade_date: str = "20191017"
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("ZC")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
+            elif symbol == "菜籽油期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("OI")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "花生期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("PK")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
             else:
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("CF")]
                 temp_df.reset_index(inplace=True, drop=True)
@@ -170,7 +226,9 @@ def option_czce_daily(symbol: str = "白糖期权", trade_date: str = "20191017"
             return
 
 
-def option_shfe_daily(symbol: str = "铝期权", trade_date: str = "20200827") -> pd.DataFrame:
+def option_shfe_daily(
+    symbol: str = "铝期权", trade_date: str = "20200827"
+) -> pd.DataFrame:
     """
     上海期货交易所-期权-日频行情数据
     :param trade_date: 交易日
@@ -181,7 +239,11 @@ def option_shfe_daily(symbol: str = "铝期权", trade_date: str = "20200827") -
     :rtype: pandas.DataFrame
     """
     calendar = get_calendar()
-    day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
+    day = (
+        convert_date(trade_date)
+        if trade_date is not None
+        else datetime.date.today()
+    )
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return
@@ -198,9 +260,13 @@ def option_shfe_daily(symbol: str = "铝期权", trade_date: str = "20200827") -
                     and row["INSTRUMENTID"] != ""
                 ]
             )
-            contract_df = table_df[table_df["PRODUCTNAME"].str.strip() == symbol]
+            contract_df = table_df[
+                table_df["PRODUCTNAME"].str.strip() == symbol
+            ]
             product_df = pd.DataFrame(json_data["o_curproduct"])
-            product_df = product_df[product_df["PRODUCTNAME"].str.strip() == symbol]
+            product_df = product_df[
+                product_df["PRODUCTNAME"].str.strip() == symbol
+            ]
             volatility_df = pd.DataFrame(json_data["o_cursigma"])
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
@@ -230,23 +296,25 @@ def option_shfe_daily(symbol: str = "铝期权", trade_date: str = "20200827") -
                 "_",
                 "_",
             ]
-            contract_df = contract_df[[
-                "合约代码",
-                "开盘价",
-                "最高价",
-                "最低价",
-                "收盘价",
-                "前结算价",
-                "结算价",
-                "涨跌1",
-                "涨跌2",
-                "成交量",
-                "持仓量",
-                "持仓量变化",
-                "成交额",
-                "德尔塔",
-                "行权量",
-            ]]
+            contract_df = contract_df[
+                [
+                    "合约代码",
+                    "开盘价",
+                    "最高价",
+                    "最低价",
+                    "收盘价",
+                    "前结算价",
+                    "结算价",
+                    "涨跌1",
+                    "涨跌2",
+                    "成交量",
+                    "持仓量",
+                    "持仓量变化",
+                    "成交额",
+                    "德尔塔",
+                    "行权量",
+                ]
+            ]
 
             volatility_df.columns = [
                 "_",
@@ -262,28 +330,36 @@ def option_shfe_daily(symbol: str = "铝期权", trade_date: str = "20200827") -
                 "_",
             ]
 
-            volatility_df = volatility_df[[
-                "合约系列",
-                "成交量",
-                "持仓量",
-                "持仓量变化",
-                "成交额",
-                "行权量",
-                "隐含波动率",
-            ]]
+            volatility_df = volatility_df[
+                [
+                    "合约系列",
+                    "成交量",
+                    "持仓量",
+                    "持仓量变化",
+                    "成交额",
+                    "行权量",
+                    "隐含波动率",
+                ]
+            ]
             return contract_df, volatility_df
         except:
             return
 
 
 if __name__ == "__main__":
-    option_czce_daily_df = option_czce_daily(symbol="动力煤期权", trade_date="20220808")
+    option_czce_daily_df = option_czce_daily(
+        symbol="动力煤期权", trade_date="20220808"
+    )
     print(option_czce_daily_df)
 
-    option_dce_daily_one, option_dce_daily_two = option_dce_daily(symbol="玉米期权", trade_date="20220808")
+    option_dce_daily_one, option_dce_daily_two = option_dce_daily(
+        symbol="玉米期权", trade_date="20220808"
+    )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
 
-    option_shfe_daily_one, option_shfe_daily_two = option_shfe_daily(symbol="天胶期权", trade_date="20210312")
+    option_shfe_daily_one, option_shfe_daily_two = option_shfe_daily(
+        symbol="天胶期权", trade_date="20210312"
+    )
     print(option_shfe_daily_one)
     print(option_shfe_daily_two)
