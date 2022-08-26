@@ -2125,9 +2125,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.5 fix: fix fund_fh_em interface
 1.7.6 fix: fix covid_19_risk_area interface
 1.7.7 add: add index_level_one_hist_sw interface
+1.7.8 add: add index_style_index_hist_sw interface
 """
 
-__version__ = "1.7.7"
+__version__ = "1.7.8"
 __author__ = "AKFamily"
 
 import sys
@@ -3795,6 +3796,8 @@ from akshare.index.index_sw import (
     sw_index_third_cons,
     sw_index_third_info,
     index_level_one_hist_sw,
+    index_style_index_hist_sw,
+    index_market_representation_hist_sw,
 )
 
 """
