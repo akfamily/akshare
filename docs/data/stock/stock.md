@@ -13257,7 +13257,7 @@ print(stock_a_pe_and_pb_df)
 
 描述: 亿牛网-港股个股指标: 市盈率, 市净率, 股息率, ROE, 市值
 
-限量: 单次获取指定 symbol 和 indicator 的所有历史数据
+限量: 单次获取指定 symbol 和 indicator 的所有历史数据; 该数据源暂未更新数据
 
 输入参数
 
