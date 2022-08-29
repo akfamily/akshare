@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.7.11 fix: fix bond_cash_summary_sse interface
+
+    1. 修复 bond_cash_summary_sse 接口
+
 1.7.10 fix: fix option_czce_daily interface
 
     1. 修复 option_czce_daily 接口，增加花生期权和菜籽油期权的支持
@@ -1147,6 +1151,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.11 fix: fix bond_cash_summary_sse interface
 
 1.7.10 fix: fix option_czce_daily interface
 
