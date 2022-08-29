@@ -31,7 +31,7 @@ def bond_cash_summary_sse(date: str = '20210111') -> pd.DataFrame:
         'TRADE_DATE': f'{date[:4]}-{date[4:6]}-{date[6:]}',
     }
     r = requests.get(url, params=params, headers=headers)
-    temp_df = pd.read_excel(BytesIO(r.content))
+    temp_df = pd.read_excel(BytesIO(r.content), engine="xlrd")
     temp_df.columns = [
         '债券现货',
         '托管只数',
