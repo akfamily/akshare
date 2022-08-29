@@ -2129,9 +2129,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.9 add: add index_market_representation_hist_sw interface
 1.7.10 fix: fix option_czce_daily interface
 1.7.11 fix: fix bond_cash_summary_sse interface
+1.7.12 fix: fix stock_repurchase_em interface
 """
 
-__version__ = "1.7.11"
+__version__ = "1.7.12"
 __author__ = "AKFamily"
 
 import sys
