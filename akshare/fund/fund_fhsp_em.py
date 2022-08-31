@@ -21,8 +21,8 @@ def fund_fh_em() -> pd.DataFrame:
     params = {
         "dt": "8",
         "page": "1",
-        "rank": "DJR",
-        "sort": "desc",
+        "rank": "BZDM",
+        "sort": "asc",
         "gs": "",
         "ftype": "",
         "year": "",

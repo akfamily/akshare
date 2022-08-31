@@ -164,6 +164,9 @@
  "sw_index_daily_indicator"  # 申万一级、二级历史行情指标
  "sw_index_third_info"  # 申万三级信息
  "sw_index_third_cons"  # 申万三级信息成份
+ "index_level_one_hist_sw"  # 申万指数-指数发布-指数体系-一级行业
+ "index_market_representation_hist_sw"  # 申万指数-指数发布-指数体系-市场表征
+ "index_style_index_hist_sw"  # 申万指数-指数发布-指数体系-风格指数
  # 空气质量
  "air_quality_hist"  # 空气质量历史数据
  "air_quality_rank"  # 空气质量排行
