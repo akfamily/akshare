@@ -83,11 +83,19 @@ def covid_19_risk_area(symbol: str = "高风险等级地区") -> pd.DataFrame:
         temp_df["report_date"] = data_json["data"]["end_update_time"]
         temp_df["number"] = data_json["data"]["hcount"]
         return temp_df
+    elif symbol == "低风险等级地区":
+        temp_df = pd.DataFrame(data_json["data"]["lowlist"])
+        temp_df = temp_df.explode(["communitys"])
+        del temp_df["type"]
+        temp_df["grade"] = "高风险"
+        temp_df["report_date"] = data_json["data"]["end_update_time"]
+        temp_df["number"] = data_json["data"]["lcount"]
+        return temp_df
     else:
         temp_df = pd.DataFrame(data_json["data"]["middlelist"])
         temp_df = temp_df.explode(["communitys"])
         del temp_df["type"]
-        temp_df["grade"] = "高风险"
+        temp_df["grade"] = "中风险"
         temp_df["report_date"] = data_json["data"]["end_update_time"]
         temp_df["number"] = data_json["data"]["mcount"]
         return temp_df
