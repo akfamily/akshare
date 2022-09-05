@@ -26,6 +26,8 @@ def news_economic_baidu(date: str = "20220502") -> pd.DataFrame:
         "end_date": end_date,
         "market": "",
         "cate": "economic_data",
+        'rn': '500',
+        'pn': '0',
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -172,7 +174,7 @@ def news_report_time_baidu(date: str = "20220514") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_economic_baidu_df = news_economic_baidu(date="20220512")
+    news_economic_baidu_df = news_economic_baidu(date="20220905")
     print(news_economic_baidu_df)
 
     news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(date="20220513")
