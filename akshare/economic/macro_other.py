@@ -76,7 +76,7 @@ def macro_fx_sentiment(
     }
     headers = {
         "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
+        "accept-encoding": "",
         "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
         "cache-control": "no-cache",
         "origin": "https://datacenter.jin10.com",
@@ -109,7 +109,6 @@ def index_vix(
     import warnings
 
     warnings.warn("由于目标网站未更新数据，该接口即将移除", DeprecationWarning)
-    return
     url = "https://datacenter-api.jin10.com/vix/datas"
     start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
