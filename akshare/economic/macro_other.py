@@ -120,7 +120,7 @@ def index_vix(
     }
     headers = {
         "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
+        "accept-encoding": "",
         "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
         "cache-control": "no-cache",
         "origin": "https://datacenter.jin10.com",
