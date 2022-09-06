@@ -2134,9 +2134,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.14 fix: fix covid_19_risk_area interface
 1.7.15 fix: fix news_economic_baidu interface
 1.7.16 fix: fix crypto_js_spot interface
+1.7.17 fix: fix bond_cb_jsl interface
 """
 
-__version__ = "1.7.16"
+__version__ = "1.7.17"
 __author__ = "AKFamily"
 
 import sys

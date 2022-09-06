@@ -124,7 +124,6 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
         "-",
         "-",
         "-",
-        "-",
         "评级",
         "-",
         "回售触发价",
