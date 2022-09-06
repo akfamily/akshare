@@ -2823,6 +2823,7 @@ print(stock_zh_ah_spot_df)
 
 ```python
 import akshare as ak
+
 stock_zh_ah_daily_df = ak.stock_zh_ah_daily(symbol="02318", start_year="2000", end_year="2019", adjust="")
 print(stock_zh_ah_daily_df)
 ```
