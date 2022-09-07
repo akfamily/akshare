@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.7.18 fix: fix stock_lhb_jgmmtj_em interface
+
+    1. 修复 stock_lhb_jgmmtj_em 接口
+
 1.7.17 fix: fix bond_cb_jsl interface
 
     1. 修复 bond_cb_jsl 接口
@@ -1175,6 +1179,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.18 fix: fix stock_lhb_jgmmtj_em interface
 
 1.7.17 fix: fix bond_cb_jsl interface
 
