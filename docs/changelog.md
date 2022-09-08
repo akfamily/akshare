@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.7.19 fix: fix index_value_name_funddb interface
+
+    1. 修复 index_value_name_funddb 接口，新增字段及文档说明
+
 1.7.18 fix: fix stock_lhb_jgmmtj_em interface
 
     1. 修复 stock_lhb_jgmmtj_em 接口
@@ -1179,6 +1183,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.19 fix: fix index_value_name_funddb interface
 
 1.7.18 fix: fix stock_lhb_jgmmtj_em interface
 
