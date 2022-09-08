@@ -2241,7 +2241,6 @@ print(futures_zh_daily_sina_df)
 | start_date | str | start_date="20200701"                                           |
 | end_date   | str | end_date="20200716"                                             |
 | market     | str | market="DCE"; choice of {"CFFEX", "INE", "CZCE", "DCE", "SHFE"} |
-| index_bar  | str | index_bar=False; 是否合成指数                                         |
 
 输出参数
 
