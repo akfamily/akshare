@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.7.22 add: add index_investing_global_area_index_name_url interface
+
+    1. 新增 index_investing_global_area_index_name_url 接口
+
 1.7.21 fix: fix futures_pig_info interface
 
     1. 修复 futures_pig_info 接口，同意目标网站地址
@@ -1191,6 +1195,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.22 add: add index_investing_global_area_index_name_url interface
 
 1.7.21 fix: fix futures_pig_info interface
 

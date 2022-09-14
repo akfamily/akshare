@@ -2139,9 +2139,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.19 fix: fix index_value_name_funddb interface
 1.7.20 fix: fix crypto_js_spot interface
 1.7.21 fix: fix futures_pig_info interface
+1.7.22 add: add index_investing_global_area_index_name_url interface
 """
 
-__version__ = "1.7.21"
+__version__ = "1.7.22"
 __author__ = "AKFamily"
 
 import sys
@@ -4178,6 +4179,7 @@ from akshare.bond.bond_investing import (
 from akshare.index.index_investing import (
     index_investing_global,
     index_investing_global_area_index_name_code,
+    index_investing_global_area_index_name_url,
     index_investing_global_from_url,
 )
 
