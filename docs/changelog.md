@@ -31,6 +31,10 @@
 
 ## 更新说明
 
+1.7.21 fix: fix futures_pig_info interface
+
+    1. 修复 futures_pig_info 接口，同意目标网站地址
+
 1.7.20 fix: fix crypto_js_spot interface
 
     1. 修复 crypto_js_spot 接口
@@ -1187,6 +1191,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.21 fix: fix futures_pig_info interface
 
 1.7.20 fix: fix crypto_js_spot interface
 
