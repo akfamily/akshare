@@ -3669,9 +3669,9 @@ print(futures_comex_inventory_df)
 
 ### 生猪信息
 
-接口: futures_pig_info
+接口: futures_hog_info
 
-目标地址: https://zhujia.zhuwang.cc/
+目标地址: https://zhujia.zhuwang.com.cn
 
 描述: 养猪数据中心-猪肉价格信息数据
 
@@ -3695,8 +3695,8 @@ print(futures_comex_inventory_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="猪肉批发价")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="猪肉批发价")
+print(futures_hog_info_df)
 ```
 
 数据示例-猪肉批发价
@@ -3728,8 +3728,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="仔猪价格")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="仔猪价格")
+print(futures_hog_info_df)
 ```
 
 数据示例-仔猪价格
@@ -3773,8 +3773,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="生猪期货指数")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="生猪期货指数")
+print(futures_hog_info_df)
 ```
 
 数据示例-生猪期货指数
@@ -3806,8 +3806,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="二元母猪价格")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="二元母猪价格")
+print(futures_hog_info_df)
 ```
 
 数据示例-二元母猪价格
@@ -3842,8 +3842,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="生猪产能数据")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="生猪产能数据")
+print(futures_hog_info_df)
 ```
 
 数据示例-生猪产能数据
@@ -3881,8 +3881,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="饲料原料数据")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="饲料原料数据")
+print(futures_hog_info_df)
 ```
 
 数据示例-饲料原料数据
@@ -3910,8 +3910,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="中央储备冻猪肉")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="中央储备冻猪肉")
+print(futures_hog_info_df)
 ```
 
 数据示例-中央储备冻猪肉
@@ -3957,8 +3957,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="白条肉")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="白条肉")
+print(futures_hog_info_df)
 ```
 
 数据示例-白条肉
@@ -3993,8 +3993,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="育肥猪配合饲料")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="育肥猪配合饲料")
+print(futures_hog_info_df)
 ```
 
 数据示例-白条肉
@@ -4026,8 +4026,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="肉类价格指数")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="肉类价格指数")
+print(futures_hog_info_df)
 ```
 
 数据示例-肉类价格指数
@@ -4071,8 +4071,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="猪粮比价")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="猪粮比价")
+print(futures_hog_info_df)
 ```
 
 数据示例-猪粮比价
@@ -4107,8 +4107,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="猪企销售简报-销售量")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="猪企销售简报-销售量")
+print(futures_hog_info_df)
 ```
 
 数据示例-猪企销售简报-销售量
@@ -4138,8 +4138,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="猪企销售简报-销售额")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="猪企销售简报-销售额")
+print(futures_hog_info_df)
 ```
 
 数据示例-猪企销售简报-销售额
@@ -4169,8 +4169,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_info_df = ak.futures_pig_info(symbol="猪企销售简报-销售均价")
-print(futures_pig_info_df)
+futures_hog_info_df = ak.futures_hog_info(symbol="猪企销售简报-销售均价")
+print(futures_hog_info_df)
 ```
 
 数据示例-猪企销售简报-销售均价
@@ -4187,7 +4187,7 @@ print(futures_pig_info_df)
 
 ### 生猪价格排行
 
-接口: futures_pig_rank
+接口: futures_hog_rank
 
 目标地址: https://zhujia.zhuwang.cc/lists.shtml
 
@@ -4216,8 +4216,8 @@ print(futures_pig_info_df)
 ```python
 import akshare as ak
 
-futures_pig_rank_df = ak.futures_pig_rank(symbol="外三元")
-print(futures_pig_rank_df)
+futures_hog_rank_df = ak.futures_hog_rank(symbol="外三元")
+print(futures_hog_rank_df)
 ```
 
 数据示例-外三元
@@ -4272,8 +4272,8 @@ print(futures_pig_rank_df)
 ```python
 import akshare as ak
 
-futures_pig_rank_df = ak.futures_pig_rank(symbol="内三元")
-print(futures_pig_rank_df)
+futures_hog_rank_df = ak.futures_hog_rank(symbol="内三元")
+print(futures_hog_rank_df)
 ```
 
 数据示例-内三元
@@ -4328,8 +4328,8 @@ print(futures_pig_rank_df)
 ```python
 import akshare as ak
 
-futures_pig_rank_df = ak.futures_pig_rank(symbol="土杂猪")
-print(futures_pig_rank_df)
+futures_hog_rank_df = ak.futures_hog_rank(symbol="土杂猪")
+print(futures_hog_rank_df)
 ```
 
 数据示例-土杂猪
@@ -4384,8 +4384,8 @@ print(futures_pig_rank_df)
 ```python
 import akshare as ak
 
-futures_pig_rank_df = ak.futures_pig_rank(symbol="玉米")
-print(futures_pig_rank_df)
+futures_hog_rank_df = ak.futures_hog_rank(symbol="玉米")
+print(futures_hog_rank_df)
 ```
 
 数据示例-玉米
@@ -4440,8 +4440,8 @@ print(futures_pig_rank_df)
 ```python
 import akshare as ak
 
-futures_pig_rank_df = ak.futures_pig_rank(symbol="豆粕")
-print(futures_pig_rank_df)
+futures_hog_rank_df = ak.futures_hog_rank(symbol="豆粕")
+print(futures_hog_rank_df)
 ```
 
 数据示例-豆粕

@@ -4,6 +4,8 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.7.23     | futures_pig_info                            | futures_hog_info                            | 20220916 |
+| 1.7.23     | futures_pig_rank                            | futures_hog_rank                            | 20220916 |
 | 1.6.86     | stock_em_gpzy_distribute_statistics_company | stock_gpzy_distribute_statistics_company_em | 20220811 |
 | 1.6.86     | stock_em_gpzy_distribute_statistics_bank    | stock_gpzy_distribute_statistics_bank_em    | 20220811 |
 | 1.5.94     | bond_conv_adj_logs_jsl                      | bond_cb_adj_logs_jsl                        | 20220524 |
@@ -31,13 +33,18 @@
 
 ## 更新说明
 
+1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
+
+    1. 修复 futures_pig_info 重命名为 futures_hog_info
+    2. 修复 futures_pig_rank 重命名为 futures_hog_info
+
 1.7.22 add: add index_investing_global_area_index_name_url interface
 
     1. 新增 index_investing_global_area_index_name_url 接口
 
-1.7.21 fix: fix futures_pig_info interface
+1.7.21 fix: fix futures_hog_info interface
 
-    1. 修复 futures_pig_info 接口，同意目标网站地址
+    1. 修复 futures_hog_info 接口，同意目标网站地址
 
 1.7.20 fix: fix crypto_js_spot interface
 
@@ -1196,9 +1203,11 @@
 
 ## 版本更新说明
 
+1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
+
 1.7.22 add: add index_investing_global_area_index_name_url interface
 
-1.7.21 fix: fix futures_pig_info interface
+1.7.21 fix: fix futures_hog_info interface
 
 1.7.20 fix: fix crypto_js_spot interface
 

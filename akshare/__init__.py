@@ -1467,8 +1467,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.43: fix: fix stock_margin_detail_szse interface
 1.0.44: fix: fix stock_margin_detail_szse interface
 1.0.45: fix: fix option_dce_daily interface and rename interface in option_commodity
-1.0.46: add: add futures_pig_info interface
-1.0.47: fix: fix futures_pig_info interface
+1.0.46: add: add futures_hog_info interface
+1.0.47: fix: fix futures_hog_info interface
 1.0.48: add: add macro_canada interface
 1.0.49: fix: fix stock_individual_fund_flow interface
 1.0.50: fix: fix stock_jgdy_tj_em interface
@@ -1479,7 +1479,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.55: fix: fix macro_china_freight_index interface
 1.0.56: add: add stock_a_ttm_lyr interface
 1.0.57: add: add stock_a_all_pb interface
-1.0.58: add: add futures_pig_rank interface
+1.0.58: add: add futures_hog_rank interface
 1.0.59: fix: fix futures_zh_daily_sina interface
 1.0.60: fix: fix futures_main_sina interface
 1.0.61: fix: fix stock_a_all_pb interface
@@ -2138,11 +2138,12 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.18 fix: fix stock_lhb_jgmmtj_em interface
 1.7.19 fix: fix index_value_name_funddb interface
 1.7.20 fix: fix crypto_js_spot interface
-1.7.21 fix: fix futures_pig_info interface
+1.7.21 fix: fix futures_hog_info interface
 1.7.22 add: add index_investing_global_area_index_name_url interface
+1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
 """
 
-__version__ = "1.7.22"
+__version__ = "1.7.23"
 __author__ = "AKFamily"
 
 import sys
@@ -2613,8 +2614,8 @@ from akshare.economic.macro_canada import (
 猪肉价格信息
 """
 from akshare.futures_derivative.futures_pig import (
-    futures_pig_info,
-    futures_pig_rank,
+    futures_hog_info,
+    futures_hog_rank,
 )
 
 """
