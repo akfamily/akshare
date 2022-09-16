@@ -2141,9 +2141,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.21 fix: fix futures_hog_info interface
 1.7.22 add: add index_investing_global_area_index_name_url interface
 1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
+1.7.24 fix: fix amac_manager_classify_info interface
 """
 
-__version__ = "1.7.23"
+__version__ = "1.7.24"
 __author__ = "AKFamily"
 
 import sys

@@ -67,7 +67,8 @@ def stock_zh_index_spot() -> pd.DataFrame:
         zh_sina_stock_payload_copy.update({"page": page})
         res = requests.get(zh_sina_index_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(res.text)
-        big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
+        big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
+
     big_df = big_df.applymap(_replace_comma)
     big_df["trade"] = big_df["trade"].astype(float)
     big_df["pricechange"] = big_df["pricechange"].astype(float)
@@ -206,7 +207,7 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
             inner_temp_df = pd.DataFrame(
                 demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
             )
-        temp_df = temp_df.append(inner_temp_df, ignore_index=True)
+        temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
     if temp_df.shape[1] == 6:
         temp_df.columns = ["date", "open", "close", "high", "low", "amount"]
     else:

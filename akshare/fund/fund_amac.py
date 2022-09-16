@@ -268,15 +268,20 @@ def amac_manager_classify_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     keys_list = [
         "managerName",
         "artificialPersonName",
         "primaryInvestType",
-        "registerProvince",
         "registerNo",
+        "registerProvince",
+        "officeAdrAgg",
         "establishDate",
         "registerDate",
+        "fundCount",
+        "memberType",
+        "hasSpecialTips",
+        "hasCreditTips",
     ]  # 定义要取的 value 的 keys
     manager_data_out = pd.DataFrame(big_df)
     manager_data_out = manager_data_out[keys_list]
@@ -284,10 +289,15 @@ def amac_manager_classify_info() -> pd.DataFrame:
         "私募基金管理人名称",
         "法定代表人/执行事务合伙人(委派代表)姓名",
         "机构类型",
-        "注册地",
         "登记编号",
+        "注册地",
+        "办公地",
         "成立时间",
         "登记时间",
+        "在管基金数量",
+        "会员类型",
+        "是否有提示信息",
+        "是否有诚信信息",
     ]
     manager_data_out["成立时间"] = pd.to_datetime(
         manager_data_out["成立时间"], unit="ms"
@@ -295,6 +305,9 @@ def amac_manager_classify_info() -> pd.DataFrame:
     manager_data_out["登记时间"] = pd.to_datetime(
         manager_data_out["登记时间"], unit="ms"
     ).dt.date
+    manager_data_out["在管基金数量"] = pd.to_numeric(manager_data_out["在管基金数量"])
+    manager_data_out["是否有提示信息"] = manager_data_out["是否有提示信息"].map({True: "是", False: "否"})
+    manager_data_out["是否有诚信信息"] = manager_data_out["是否有诚信信息"].map({True: "是", False: "否"})
     return manager_data_out
 
 
