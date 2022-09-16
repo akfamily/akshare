@@ -33,6 +33,10 @@
 
 ## 更新说明
 
+1.7.24 fix: fix amac_manager_classify_info interface
+
+    1. 修复 amac_manager_classify_info 接口，增加输出字段及规范输出字段格式
+
 1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
 
     1. 修复 futures_pig_info 重命名为 futures_hog_info
@@ -1202,6 +1206,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.24 fix: fix amac_manager_classify_info interface
 
 1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
 
