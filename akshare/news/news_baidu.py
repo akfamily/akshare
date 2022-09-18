@@ -125,6 +125,63 @@ def news_trade_notify_suspend_baidu(date: str = "20220513") -> pd.DataFrame:
     return big_df
 
 
+def news_trade_notify_dividend_baidu(date: str = "20220916") -> pd.DataFrame:
+    """
+    百度股市通-交易提醒-分红派息
+    https://gushitong.baidu.com/calendar
+    :param date: 查询日期
+    :type date: str
+    :return: 交易提醒-停复牌
+    :rtype: pandas.DataFrame
+    """
+    start_date = "-".join([date[:4], date[4:6], date[6:]])
+    end_date = "-".join([date[:4], date[4:6], date[6:]])
+    url = "https://finance.pae.baidu.com/api/financecalendar"
+    params = {
+        "start_date": start_date,
+        "end_date": end_date,
+        "market": "",
+        "cate": "notify_divide",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    big_df = pd.DataFrame()
+    for item in data_json["Result"]:
+        if not item["list"] == []:
+            temp_df = pd.DataFrame(item["list"])
+            temp_df.columns = [
+                "股票代码",
+                "-",
+                "交易所",
+                "股票简称",
+                "除权日",
+                "报告期",
+                "分红",
+                "送股",
+                "转增",
+                "实物",
+            ]
+            temp_df = temp_df[
+                [
+                    "股票代码",
+                    "除权日",
+                    "分红",
+                    "送股",
+                    "转增",
+                    "实物",
+                    "交易所",
+                    "股票简称",
+                    "报告期",
+                ]
+            ]
+            temp_df["除权日"] = pd.to_datetime(temp_df["除权日"]).dt.date
+            temp_df["报告期"] = pd.to_datetime(temp_df["报告期"]).dt.date
+            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        else:
+            continue
+    return big_df
+
+
 def news_report_time_baidu(date: str = "20220514") -> pd.DataFrame:
     """
     百度股市通-财报发行
@@ -174,11 +231,14 @@ def news_report_time_baidu(date: str = "20220514") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_economic_baidu_df = news_economic_baidu(date="20220905")
+    news_economic_baidu_df = news_economic_baidu(date="20220917")
     print(news_economic_baidu_df)
 
-    news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(date="20220513")
+    news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(date="20220916")
     print(news_trade_notify_suspend_baidu_df)
+
+    news_trade_notify_dividend_baidu_df = news_trade_notify_dividend_baidu(date="20220916")
+    print(news_trade_notify_dividend_baidu_df)
 
     news_report_time_baidu_df = news_report_time_baidu(date="20220514")
     print(news_report_time_baidu_df)

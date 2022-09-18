@@ -7112,6 +7112,60 @@ print(news_trade_notify_suspend_baidu_df)
 9   01802    文业集团  ...         NaT              已于今天(13/5/2022)上午九时三十分起短暂停止买卖。
 ```
 
+### 分红派息
+
+接口: news_trade_notify_dividend_baidu
+
+目标地址: https://gushitong.baidu.com/calendar
+
+描述: 百度股市通-交易提醒-分红派息
+
+限量: 单次获取指定 date 的分红派息数据, 提供港股的分红派息数据
+
+输入参数
+
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date="20220513" |
+
+输出参数
+
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 股票代码 | object |     |
+| 除权日  | object |     |
+| 分红   | object |     |
+| 送股   | object |     |
+| 转增   | object |     |
+| 实物   | object |     |
+| 交易所  | object |     |
+| 股票简称 | object |     |
+| 报告期  | object |     |
+
+接口示例
+
+```python
+import akshare as ak
+
+news_trade_notify_dividend_baidu_df = ak.news_trade_notify_dividend_baidu(date="20220916")
+print(news_trade_notify_dividend_baidu_df)
+```
+
+数据示例
+
+```
+     股票代码   除权日      分红 送股 转增   实物 交易所         股票简称       报告期
+0  833533  2022-09-16   2.00元        NaN  BJ             骏创科技  2022-09-16
+1  603017  2022-09-16   2.50元        NaN  SH             中衡设计  2022-09-16
+2   00688  2022-09-16  0.40港元             HK           中国海外发展  2022-09-16
+3   00320  2022-09-16  0.05港元             HK              金宝通  2022-09-16
+4   00165  2022-09-16  0.15港元             HK           中国光大控股  2022-09-16
+5   00732  2022-09-16  0.05港元             HK             信利国际  2022-09-16
+6   00662  2022-09-16  0.02港元             HK             亚洲金融  2022-09-16
+7   02005  2022-09-16  0.06港元             HK            石四药集团  2022-09-16
+8   01547  2022-09-16  0.01港元             HK  IBI GROUP HLDGS  2022-09-16
+```
+
 ### 财报发行
 
 接口: news_report_time_baidu

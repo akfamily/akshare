@@ -1123,6 +1123,8 @@
  "stock_telegraph_cls"  # 咨询-财联社-电报
  # 上海金属网
  "futures_news_shmet"  # 上海金属网-快讯
+ # 分红配股
+ "news_trade_notify_dividend_baidu"  # 分红配股
 ```
 
 ## 案例演示
