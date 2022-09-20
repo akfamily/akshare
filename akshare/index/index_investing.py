@@ -189,9 +189,6 @@ def index_investing_global(
     r = scraper.get(url, params=params, headers=headers)
     r.encoding = "utf-8"
     r = requests.get(url, params=params, headers=headers)
-
-    r.text
-    r.request.url
     data_json = r.json()
     df_data = pd.DataFrame(data_json["data"])
     df_data.columns = [
