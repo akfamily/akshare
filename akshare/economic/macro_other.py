@@ -10,8 +10,6 @@ from datetime import datetime
 import pandas as pd
 import requests
 
-from akshare.economic.cons import bitcoin_url, bitcoin_payload, bitcoin_headers
-
 
 def crypto_js_spot() -> pd.DataFrame:
     """
@@ -19,10 +17,28 @@ def crypto_js_spot() -> pd.DataFrame:
     https://datacenter.jin10.com/reportType/dc_bitcoin_current
     :return: pandas.DataFrame
     """
-    bit_payload = bitcoin_payload.copy()
-    bit_payload.update({"_": int(time.time() * 1000)})
-    bit_payload.update({"_": int(time.time() * 1000)})
-    r = requests.get(bitcoin_url, params=bit_payload, headers=bitcoin_headers)
+    url = "https://datacenter-api.jin10.com/crypto_currency/list"
+    params = {
+        "_": int(time.time() * 1000),
+    }
+    headers = {
+        "accept": "application/json, text/javascript, */*; q=0.01",
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
+        'origin': 'https://datacenter.jin10.com',
+        'referer': 'https://datacenter.jin10.com/',
+        'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"macOS"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-site',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
+        'x-app-id': 'rU6QIu7JHe2gOUeR',
+        'x-version': '1.0.0'
+    }
+    r = requests.get(url, params=params, headers=headers)
+    r.encoding = 'utf-8'
     data_json = r.json()
     data_df = pd.DataFrame(data_json["data"])
     data_df["reported_at"] = pd.to_datetime(data_df["reported_at"])
@@ -76,7 +92,7 @@ def macro_fx_sentiment(
     }
     headers = {
         "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
+        "accept-encoding": "",
         "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
         "cache-control": "no-cache",
         "origin": "https://datacenter.jin10.com",
@@ -109,7 +125,6 @@ def index_vix(
     import warnings
 
     warnings.warn("由于目标网站未更新数据，该接口即将移除", DeprecationWarning)
-    return
     url = "https://datacenter-api.jin10.com/vix/datas"
     start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
     end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
@@ -120,7 +135,7 @@ def index_vix(
     }
     headers = {
         "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
+        "accept-encoding": "",
         "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
         "cache-control": "no-cache",
         "origin": "https://datacenter.jin10.com",

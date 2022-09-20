@@ -122,16 +122,16 @@ def index_value_name_funddb() -> pd.DataFrame:
         "-",
         "指数名称",
         "指数代码",
+        "最新PE",
+        "最新PB",
+        "PE分位",
+        "PB分位",
+        "股息率",
         "-",
         "-",
         "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
+        "更新时间",
+        "股息率分位",
         "-",
         "-",
         "-",
@@ -154,11 +154,24 @@ def index_value_name_funddb() -> pd.DataFrame:
     temp_df = temp_df[
         [
             "指数名称",
+            "最新PE",
+            "PE分位",
+            "最新PB",
+            "PB分位",
+            "股息率",
+            "股息率分位",
             "指数代码",
             "指数开始时间",
+            "更新时间",
         ]
     ]
     temp_df["指数开始时间"] = pd.to_datetime(temp_df["指数开始时间"]).dt.date
+    temp_df['最新PE'] = pd.to_numeric(temp_df['最新PE'])
+    temp_df['PE分位'] = pd.to_numeric(temp_df['PE分位'])
+    temp_df['最新PB'] = pd.to_numeric(temp_df['最新PB'])
+    temp_df['PB分位'] = pd.to_numeric(temp_df['PB分位'])
+    temp_df['股息率'] = pd.to_numeric(temp_df['股息率'])
+    temp_df['股息率分位'] = pd.to_numeric(temp_df['股息率分位'])
     return temp_df
 
 
@@ -244,3 +257,6 @@ if __name__ == "__main__":
         symbol="大盘成长", indicator="市盈率"
     )
     print(index_value_hist_funddb_df)
+
+    index_value_name_funddb_df = index_value_name_funddb()
+    print(index_value_name_funddb_df)

@@ -1467,8 +1467,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.43: fix: fix stock_margin_detail_szse interface
 1.0.44: fix: fix stock_margin_detail_szse interface
 1.0.45: fix: fix option_dce_daily interface and rename interface in option_commodity
-1.0.46: add: add futures_pig_info interface
-1.0.47: fix: fix futures_pig_info interface
+1.0.46: add: add futures_hog_info interface
+1.0.47: fix: fix futures_hog_info interface
 1.0.48: add: add macro_canada interface
 1.0.49: fix: fix stock_individual_fund_flow interface
 1.0.50: fix: fix stock_jgdy_tj_em interface
@@ -1479,7 +1479,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.0.55: fix: fix macro_china_freight_index interface
 1.0.56: add: add stock_a_ttm_lyr interface
 1.0.57: add: add stock_a_all_pb interface
-1.0.58: add: add futures_pig_rank interface
+1.0.58: add: add futures_hog_rank interface
 1.0.59: fix: fix futures_zh_daily_sina interface
 1.0.60: fix: fix futures_main_sina interface
 1.0.61: fix: fix stock_a_all_pb interface
@@ -2132,9 +2132,21 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.12 fix: fix stock_repurchase_em interface
 1.7.13 fix: fix stock_balance_sheet_by_yearly_em interface
 1.7.14 fix: fix covid_19_risk_area interface
+1.7.15 fix: fix news_economic_baidu interface
+1.7.16 fix: fix crypto_js_spot interface
+1.7.17 fix: fix bond_cb_jsl interface
+1.7.18 fix: fix stock_lhb_jgmmtj_em interface
+1.7.19 fix: fix index_value_name_funddb interface
+1.7.20 fix: fix crypto_js_spot interface
+1.7.21 fix: fix futures_hog_info interface
+1.7.22 add: add index_investing_global_area_index_name_url interface
+1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
+1.7.24 fix: fix amac_manager_classify_info interface
+1.7.25 add: add news_trade_notify_dividend_baidu interface
+1.7.26 add: add bond_new_composite_index_cbond interface
 """
 
-__version__ = "1.7.14"
+__version__ = "1.7.26"
 __author__ = "AKFamily"
 
 import sys
@@ -2144,6 +2156,14 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
+"""
+from akshare.bond.bond_cbond import (
+    bond_composite_index_cbond,
+    bond_new_composite_index_cbond,
+)
 
 """
 行业板块
@@ -2177,6 +2197,7 @@ from akshare.news.news_baidu import (
     news_economic_baidu,
     news_trade_notify_suspend_baidu,
     news_report_time_baidu,
+    news_trade_notify_dividend_baidu,
 )
 
 """
@@ -2605,8 +2626,8 @@ from akshare.economic.macro_canada import (
 猪肉价格信息
 """
 from akshare.futures_derivative.futures_pig import (
-    futures_pig_info,
-    futures_pig_rank,
+    futures_hog_info,
+    futures_hog_rank,
 )
 
 """
@@ -4171,6 +4192,7 @@ from akshare.bond.bond_investing import (
 from akshare.index.index_investing import (
     index_investing_global,
     index_investing_global_area_index_name_code,
+    index_investing_global_area_index_name_url,
     index_investing_global_from_url,
 )
 

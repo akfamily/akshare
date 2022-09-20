@@ -12,27 +12,28 @@ index_info
 
 ### 请求参数
 
-|参数名|说明|举例|
-|:-----  |:-----|-----                           |
-|index_id |指数id   |index0070c0eb-93ba-2da9-6633-fa70cb90e959|
+| 参数名      | 说明   | 举例                                        |
+|:---------|:-----|-------------------------------------------|
+| index_id | 指数id | index0070c0eb-93ba-2da9-6633-fa70cb90e959 |
 
 ### 返回参数
 
-|参数名|类型|说明|
-|:-----  |:-----|-----                           |
-|name |string   |指数名称  |
-|all_brokers |int   |是否包含所有席位，0:否，1:是  |
-|created_time |datetime   |创建时间  |
-|all_varieties |int   |是否包含所有品种，0:否，1:所有商品，2:所有股指，3:所有商品和股指  |
-|status |int   |是否开放，0:不开放，1:开放  |
-|nickname |string   |创建人昵称  |
-|varieties |array   |包含品种的编码， all_varieties为0时返回 |
-|brokers |array   |包含席位， all_brokers为0时返回 |
+| 参数名           | 类型       | 说明                                   |
+|:--------------|:---------|--------------------------------------|
+| name          | string   | 指数名称                                 |
+| all_brokers   | int      | 是否包含所有席位，0:否，1:是                     |
+| created_time  | datetime | 创建时间                                 |
+| all_varieties | int      | 是否包含所有品种，0:否，1:所有商品，2:所有股指，3:所有商品和股指 |
+| status        | int      | 是否开放，0:不开放，1:开放                      |
+| nickname      | string   | 创建人昵称                                |
+| varieties     | array    | 包含品种的编码， all_varieties为0时返回          |
+| brokers       | array    | 包含席位， all_brokers为0时返回               |
 
 ### 示例代码
 
 ```python
 from akshare import pro_api
+
 pro = pro_api(token="在此处输入您的 token, 可以联系奇货可查网站管理员获取")
 index_info_df = pro.index_info(index_id="index0070c0eb-93ba-2da9-6633-fa70cb90e959")
 print(index_info_df)

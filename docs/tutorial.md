@@ -847,8 +847,8 @@
  "macro_australia_ppi_quarterly"  # 生产者物价指数季率
  "macro_australia_retail_rate_monthly"  # 零售销售月率
  # 养猪数据中心
- "futures_pig_info"  # 生猪信息
- "futures_pig_rank"  # 生猪价格排行
+ "futures_hog_info"  # 生猪信息
+ "futures_hog_rank"  # 生猪价格排行
  # 宏观-加拿大
  "macro_canada_new_house_rate"  # 新屋开工
  "macro_canada_unemployment_rate"  # 失业率
@@ -1123,6 +1123,11 @@
  "stock_telegraph_cls"  # 咨询-财联社-电报
  # 上海金属网
  "futures_news_shmet"  # 上海金属网-快讯
+ # 分红配股
+ "news_trade_notify_dividend_baidu"  # 分红配股
+ # 中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
+ "bond_new_composite_index_cbond"  # 中债-新综合指数
+ "bond_composite_index_cbond"  # 中债-综合指数
 ```
 
 ## 案例演示

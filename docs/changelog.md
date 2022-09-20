@@ -4,6 +4,8 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.7.23     | futures_pig_info                            | futures_hog_info                            | 20220916 |
+| 1.7.23     | futures_pig_rank                            | futures_hog_rank                            | 20220916 |
 | 1.6.86     | stock_em_gpzy_distribute_statistics_company | stock_gpzy_distribute_statistics_company_em | 20220811 |
 | 1.6.86     | stock_em_gpzy_distribute_statistics_bank    | stock_gpzy_distribute_statistics_bank_em    | 20220811 |
 | 1.5.94     | bond_conv_adj_logs_jsl                      | bond_cb_adj_logs_jsl                        | 20220524 |
@@ -30,6 +32,55 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.7.26 add: add bond_new_composite_index_cbond interface
+
+    1. 新增 bond_new_composite_index_cbond 接口
+
+1.7.25 add: add news_trade_notify_dividend_baidu interface
+
+    1. 新增 news_trade_notify_dividend_baidu 接口
+
+1.7.24 fix: fix amac_manager_classify_info interface
+
+    1. 修复 amac_manager_classify_info 接口，增加输出字段及规范输出字段格式
+
+1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
+
+    1. 修复 futures_pig_info 重命名为 futures_hog_info
+    2. 修复 futures_pig_rank 重命名为 futures_hog_info
+
+1.7.22 add: add index_investing_global_area_index_name_url interface
+
+    1. 新增 index_investing_global_area_index_name_url 接口
+
+1.7.21 fix: fix futures_hog_info interface
+
+    1. 修复 futures_hog_info 接口，同意目标网站地址
+
+1.7.20 fix: fix crypto_js_spot interface
+
+    1. 修复 crypto_js_spot 接口
+
+1.7.19 fix: fix index_value_name_funddb interface
+
+    1. 修复 index_value_name_funddb 接口，新增字段及文档说明
+
+1.7.18 fix: fix stock_lhb_jgmmtj_em interface
+
+    1. 修复 stock_lhb_jgmmtj_em 接口
+
+1.7.17 fix: fix bond_cb_jsl interface
+
+    1. 修复 bond_cb_jsl 接口
+
+1.7.16 fix: fix crypto_js_spot interface
+
+    1. 修复 crypto_js_spot 接口
+
+1.7.15 fix: fix news_economic_baidu interface
+
+    1. 修复 news_economic_baidu 接口
 
 1.7.14 fix: fix covid_19_risk_area interface
 
@@ -1163,6 +1214,30 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.26 add: add bond_new_composite_index_cbond interface
+
+1.7.25 add: add news_trade_notify_dividend_baidu interface
+
+1.7.24 fix: fix amac_manager_classify_info interface
+
+1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
+
+1.7.22 add: add index_investing_global_area_index_name_url interface
+
+1.7.21 fix: fix futures_hog_info interface
+
+1.7.20 fix: fix crypto_js_spot interface
+
+1.7.19 fix: fix index_value_name_funddb interface
+
+1.7.18 fix: fix stock_lhb_jgmmtj_em interface
+
+1.7.17 fix: fix bond_cb_jsl interface
+
+1.7.16 fix: fix crypto_js_spot interface
+
+1.7.15 fix: fix news_economic_baidu interface
 
 1.7.14 fix: fix covid_19_risk_area interface
 
