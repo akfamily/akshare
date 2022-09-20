@@ -1125,6 +1125,9 @@
  "futures_news_shmet"  # 上海金属网-快讯
  # 分红配股
  "news_trade_notify_dividend_baidu"  # 分红配股
+ # 中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
+ "bond_new_composite_index_cbond"  # 中债-新综合指数
+ "bond_composite_index_cbond"  # 中债-综合指数
 ```
 
 ## 案例演示

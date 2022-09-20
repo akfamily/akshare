@@ -2143,9 +2143,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.23 fix: fix rename futures_pig_info and futures_pig_rank interface
 1.7.24 fix: fix amac_manager_classify_info interface
 1.7.25 add: add news_trade_notify_dividend_baidu interface
+1.7.26 add: add bond_new_composite_index_cbond interface
 """
 
-__version__ = "1.7.25"
+__version__ = "1.7.26"
 __author__ = "AKFamily"
 
 import sys
@@ -2155,6 +2156,14 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
+"""
+from akshare.bond.bond_cbond import (
+    bond_composite_index_cbond,
+    bond_new_composite_index_cbond,
+)
 
 """
 行业板块
