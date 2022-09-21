@@ -4,6 +4,7 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.7.27     | stock_em_qsjy                               | stock_qsjy_em                               | 20220921 |
 | 1.7.23     | futures_pig_info                            | futures_hog_info                            | 20220916 |
 | 1.7.23     | futures_pig_rank                            | futures_hog_rank                            | 20220916 |
 | 1.6.86     | stock_em_gpzy_distribute_statistics_company | stock_gpzy_distribute_statistics_company_em | 20220811 |
@@ -32,6 +33,10 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.7.27 fix: fix stock_qsjy_em interface
+
+    1. 修复 stock_qsjy_em 接口
 
 1.7.26 add: add bond_new_composite_index_cbond interface
 
@@ -1214,6 +1219,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.27 fix: fix stock_qsjy_em interface
 
 1.7.26 add: add bond_new_composite_index_cbond interface
 
