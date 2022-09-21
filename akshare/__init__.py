@@ -984,7 +984,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.5.55: add: add futures_czce_warehouse_receipt interface
 0.5.56: add: add futures_dce_warehouse_receipt, futures_shfe_warehouse_receipt interface
 0.5.57: fix: fix macro data interface
-0.5.58: add: add stock_em_qsjy interface
+0.5.58: add: add stock_qsjy_em interface
 0.5.59: fix: fix fund interface
 0.5.60: fix: add index_bloomberg_billionaires interface
 0.5.61: fix: fix futures_rule interface
@@ -2144,9 +2144,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.24 fix: fix amac_manager_classify_info interface
 1.7.25 add: add news_trade_notify_dividend_baidu interface
 1.7.26 add: add bond_new_composite_index_cbond interface
+1.7.27 fix: fix stock_qsjy_em interface
 """
 
-__version__ = "1.7.26"
+__version__ = "1.7.27"
 __author__ = "AKFamily"
 
 import sys
@@ -2161,8 +2162,8 @@ del sys
 中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
 """
 from akshare.bond.bond_cbond import (
-    bond_composite_index_cbond,
     bond_new_composite_index_cbond,
+    bond_composite_index_cbond,
 )
 
 """
@@ -3265,7 +3266,7 @@ from akshare.fortune.fortune_bloomberg import (
 """
 stock-券商业绩月报
 """
-from akshare.stock_feature.stock_em_qsjy import stock_em_qsjy
+from akshare.stock_feature.stock_em_qsjy import stock_qsjy_em
 
 """
 futures-warehouse-receipt
