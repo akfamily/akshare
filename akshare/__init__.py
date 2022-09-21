@@ -2161,8 +2161,8 @@ del sys
 中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
 """
 from akshare.bond.bond_cbond import (
-    bond_composite_index_cbond,
     bond_new_composite_index_cbond,
+    bond_composite_index_cbond,
 )
 
 """
