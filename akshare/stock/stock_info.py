@@ -151,7 +151,7 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.columns = [
+    columns = [
         "-",
         "-",
         "-",
@@ -163,9 +163,18 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
         "-",
         "上市日期",
         "-",
-        "证券代码",
+        "-",
         "-",
     ]
+
+    # column index 3=A_STOCK_CODE, 8=B_STOCK_CODE, 11=COMPANY_CODE
+    if indicator == "主板B股":
+        columns[8] = "证券代码"
+    else:
+        columns[3] = "证券代码"
+
+    temp_df.columns = columns
+
     temp_df = temp_df[
         [
             "证券代码",
