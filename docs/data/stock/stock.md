@@ -3219,31 +3219,31 @@ print(stock_us_hist_min_em_df)
 
 输入参数
 
-| 名称     | 类型  | 描述                                                                |
-|--------|-----|-------------------------------------------------------------------|
-| symbol | str | 美股代码, 可以通过 **ak.get_us_stock_name** 函数返回所有美股代码, 由于美股数据量大, 建议按需要获取 |
-| adjust | str | adjust="qfq" 则返回前复权后的数据，默认 adjust="", 则返回未复权的数据                   |
+| 名称     | 类型  | 描述                                                                  |
+|--------|-----|---------------------------------------------------------------------|
+| symbol | str | 美股代码, 可以通过 **ak.get_us_stock_name()** 函数返回所有美股代码, 由于美股数据量大, 建议按需要获取 |
+| adjust | str | adjust="qfq" 则返回前复权后的数据，默认 adjust="", 则返回未复权的数据                     |
 
-**ak.get_us_stock_name**: will return a pandas.DataFrame, which contains name, cname and symbol, you should use symbol!
+**ak.get_us_stock_name()**: will return a pandas.DataFrame, which contains name, cname and symbol, you should use symbol!
 
 输出参数-历史数据
 
-| 名称     | 类型       | 描述   |
-|--------|----------|------|
-| date   | datetime | 日期索引 |
-| open   | float64  | 开盘价  |
-| high   | float64  | 最高价  |
-| low    | float64  | 最低价  |
-| close  | float64  | 收盘价  |
-| volume | float64  | 成交量  |
+| 名称     | 类型         | 描述  |
+|--------|------------|-----|
+| date   | datetime64 | -   |
+| open   | float64    | 开盘价 |
+| high   | float64    | 最高价 |
+| low    | float64    | 最低价 |
+| close  | float64    | 收盘价 |
+| volume | float64    | 成交量 |
 
 输出参数-前复权因子
 
-| 名称         | 类型       | 描述                  |
-|------------|----------|---------------------|
-| date       | datetime | 日期                  |
-| qfq_factor | float    | 前复权因子               |
-| adjust     | float    | 由于前复权会出现负值, 该值为调整因子 |
+| 名称         | 类型         | 描述                  |
+|------------|------------|---------------------|
+| date       | datetime64 | 日期                  |
+| qfq_factor | float      | 前复权因子               |
+| adjust     | float      | 由于前复权会出现负值, 该值为调整因子 |
 
 P.S. 复权计算公式: 未复权数据 * qfq_factor + adjust
 
@@ -3261,8 +3261,7 @@ print(stock_us_daily_df)
 数据示例-未复权数据
 
 ```
-               open      high      low    close       volume
-date
+ date         open      high      low    close       volume
 1980-12-12   28.735   28.8750   28.735   28.735    2093900.0
 1980-12-15   27.265   27.3700   27.265   27.265     785200.0
 1980-12-16   25.235   25.3750   25.235   25.235     472000.0
@@ -3288,8 +3287,7 @@ print(stock_us_daily_df)
 数据示例-前复权调整后的数据
 
 ```
-                open      high       low     close       volume
-date
+ date          open      high       low     close       volume
 1980-12-12   -4.8164   -4.8158   -4.8164   -4.8164    2093900.0
 1980-12-15   -4.8230   -4.8225   -4.8230   -4.8230     785200.0
 1980-12-16   -4.8321   -4.8314   -4.8321   -4.8321     472000.0
@@ -3307,6 +3305,7 @@ date
 
 ```python
 import akshare as ak
+
 qfq_df = ak.stock_us_daily(symbol="AAPL", adjust="qfq-factor")
 print(qfq_df)
 ```
@@ -3314,8 +3313,7 @@ print(qfq_df)
 数据示例-前复权因子
 
 ```
-                   qfq_factor            adjust
-date
+ date               qfq_factor            adjust
 2020-08-07                  1                 0
 2020-05-08                  1      -0.819999993
 2020-02-07                  1      -1.639999986
