@@ -2145,9 +2145,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.25 add: add news_trade_notify_dividend_baidu interface
 1.7.26 add: add bond_new_composite_index_cbond interface
 1.7.27 fix: fix stock_qsjy_em interface
+1.7.28 fix: fix stock_info_sh_name_code interface
 """
 
-__version__ = "1.7.27"
+__version__ = "1.7.28"
 __author__ = "AKFamily"
 
 import sys

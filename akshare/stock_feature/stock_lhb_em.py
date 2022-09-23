@@ -257,17 +257,19 @@ def stock_lhb_jgmmtj_em(
         ]
     ]
     temp_df["上榜日期"] = pd.to_datetime(temp_df["上榜日期"]).dt.date
-    temp_df['收盘价'] = pd.to_numeric(temp_df['收盘价'], errors="coerce")
-    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'], errors="coerce")
-    temp_df['买方机构数'] = pd.to_numeric(temp_df['买方机构数'], errors="coerce")
-    temp_df['卖方机构数'] = pd.to_numeric(temp_df['卖方机构数'], errors="coerce")
-    temp_df['机构买入总额'] = pd.to_numeric(temp_df['机构买入总额'], errors="coerce")
-    temp_df['机构卖出总额'] = pd.to_numeric(temp_df['机构卖出总额'], errors="coerce")
-    temp_df['机构买入净额'] = pd.to_numeric(temp_df['机构买入净额'], errors="coerce")
-    temp_df['市场总成交额'] = pd.to_numeric(temp_df['市场总成交额'], errors="coerce")
-    temp_df['机构净买额占总成交额比'] = pd.to_numeric(temp_df['机构净买额占总成交额比'], errors="coerce")
-    temp_df['换手率'] = pd.to_numeric(temp_df['换手率'], errors="coerce")
-    temp_df['流通市值'] = pd.to_numeric(temp_df['流通市值'], errors="coerce")
+    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["买方机构数"] = pd.to_numeric(temp_df["买方机构数"], errors="coerce")
+    temp_df["卖方机构数"] = pd.to_numeric(temp_df["卖方机构数"], errors="coerce")
+    temp_df["机构买入总额"] = pd.to_numeric(temp_df["机构买入总额"], errors="coerce")
+    temp_df["机构卖出总额"] = pd.to_numeric(temp_df["机构卖出总额"], errors="coerce")
+    temp_df["机构买入净额"] = pd.to_numeric(temp_df["机构买入净额"], errors="coerce")
+    temp_df["市场总成交额"] = pd.to_numeric(temp_df["市场总成交额"], errors="coerce")
+    temp_df["机构净买额占总成交额比"] = pd.to_numeric(
+        temp_df["机构净买额占总成交额比"], errors="coerce"
+    )
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+    temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
 
     return temp_df
 
@@ -347,7 +349,6 @@ def stock_lhb_hyyyb_em(
     big_df["买入总金额"] = pd.to_numeric(big_df["买入总金额"])
     big_df["卖出总金额"] = pd.to_numeric(big_df["卖出总金额"])
     big_df["总买卖净额"] = pd.to_numeric(big_df["总买卖净额"])
-
     return big_df
 
 
@@ -531,16 +532,24 @@ if __name__ == "__main__":
     )
     print(stock_lhb_detail_em_df)
 
-    stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(symbol="近一月")
+    stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(
+        symbol="近一月"
+    )
     print(stock_lhb_stock_statistic_em_df)
 
-    stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(symbol="近三月")
+    stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(
+        symbol="近三月"
+    )
     print(stock_lhb_stock_statistic_em_df)
 
-    stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(symbol="近六月")
+    stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(
+        symbol="近六月"
+    )
     print(stock_lhb_stock_statistic_em_df)
 
-    stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(symbol="近一年")
+    stock_lhb_stock_statistic_em_df = stock_lhb_stock_statistic_em(
+        symbol="近一年"
+    )
     print(stock_lhb_stock_statistic_em_df)
 
     stock_lhb_jgmmtj_em_df = stock_lhb_jgmmtj_em(
@@ -553,7 +562,9 @@ if __name__ == "__main__":
     )
     print(stock_lhb_hyyyb_em_df)
 
-    stock_lhb_stock_detail_date_em_df = stock_lhb_stock_detail_date_em(symbol="600077")
+    stock_lhb_stock_detail_date_em_df = stock_lhb_stock_detail_date_em(
+        symbol="600077"
+    )
     print(stock_lhb_stock_detail_date_em_df)
 
     stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(
