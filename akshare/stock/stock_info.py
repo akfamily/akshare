@@ -208,7 +208,7 @@ def stock_info_bj_name_code() -> pd.DataFrame:
     data_json = json.loads(data_text[data_text.find("[") : -1])
     total_page = data_json[0]["totalPages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(total_page)):
+    for page in tqdm(range(total_page), leave=False):
         payload.update({"page": page})
         r = requests.post(url, data=payload)
         data_text = r.text
@@ -459,6 +459,9 @@ def stock_info_a_code_name() -> pd.DataFrame:
 
 if __name__ == "__main__":
     stock_info_sh_name_code_df = stock_info_sh_name_code(indicator="主板A股")
+    print(stock_info_sh_name_code_df)
+
+    stock_info_sh_name_code_df = stock_info_sh_name_code(indicator="主板B股")
     print(stock_info_sh_name_code_df)
 
     stock_info_sz_name_code_df = stock_info_sz_name_code(indicator="A股列表")
