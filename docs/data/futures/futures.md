@@ -1278,16 +1278,16 @@ print(futures_shfe_warehouse_receipt_df)
 
 #### 日线行情K线
 
-通过采集交易所官网信息, 可以获得各合约日线行情, 以及根据持仓量加权的指数行情, 用法如下:
+通过采集交易所官网信息, 可以获得各合约日线行情, 用法如下:
 
 ```python
 import akshare as ak
-get_futures_daily_df = ak.get_futures_daily(start_date="20190107", end_date="20190108", market="SHFE", index_bar=True)
+
+get_futures_daily_df = ak.get_futures_daily(start_date="20190107", end_date="20190108", market="SHFE")
 print(get_futures_daily_df)
 ```
 
 market 可以添为四个交易所的简称, 即 "DCE" 代表大商所; "INE" 代表能源所; "SHFE" 代表上期所; "CZCE" 代表郑商所, 时间需要大于20100824; "CFFEX" 代表中金所.
-index_bar 为 True 时, 在生成的 pandas.DataFrame 中通过持仓量加权合成指数合约, 如 RB99.
 
 #### 期转现-大商所
 
