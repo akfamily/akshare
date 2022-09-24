@@ -9,36 +9,21 @@ import ast
 
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 from akshare.utils import demjson
 
 
 def bond_cb_index_jsl() -> pd.DataFrame:
     """
-    https://www.jisilu.cn/data/cbnew/cb_index/
+    https://www.jisilu.cn/web/data/cb/index
     首页-可转债-集思录可转债等权指数
     :return: 集思录可转债等权指数
     :rtype: pandas.DataFrame
     """
-    url = "https://www.jisilu.cn/data/cbnew/cb_index/"
+    url = "https://www.jisilu.cn/webapi/cb/index_history/"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, "lxml")
-    data_text = soup.find_all("script", attrs={"type": "text/javascript"})[
-        -4
-    ].string
-    inner_data_text = data_text[
-        data_text.find("__date") : data_text.find("__data")
-    ].strip("__date = ")
-    date_list = ast.literal_eval(inner_data_text[: inner_data_text.rfind(";")])
-    inner_data_text = data_text[
-        data_text.find("__data") : data_text.find("for(var")
-    ].strip("__data = ")
-    data_dict = demjson.decode(inner_data_text[: inner_data_text.rfind(";")])
-    temp_df = pd.DataFrame([date_list, data_dict["price"]]).T
-    temp_df.columns = ["date", "price"]
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
-    temp_df["price"] = pd.to_numeric(temp_df["price"])
+    data_dict = demjson.decode(r.text)['data']
+    temp_df = pd.DataFrame(data_dict)
     return temp_df
 
 
