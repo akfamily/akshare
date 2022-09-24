@@ -1,12 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/6/20 17:05
+Date: 2022/9/24 15:05
 Desc: 债券-集思录-可转债
 集思录：https://app.jisilu.cn/data/cbnew/#cb
 """
-import ast
-
 import pandas as pd
 import requests
 
@@ -22,7 +20,7 @@ def bond_cb_index_jsl() -> pd.DataFrame:
     """
     url = "https://www.jisilu.cn/webapi/cb/index_history/"
     r = requests.get(url)
-    data_dict = demjson.decode(r.text)['data']
+    data_dict = demjson.decode(r.text)["data"]
     temp_df = pd.DataFrame(data_dict)
     return temp_df
 
@@ -279,7 +277,7 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
             "强赎价",
             "强赎天计数",
             "强赎条款",
-            '强赎状态'
+            "强赎状态",
         ]
     ]
     temp_df["现价"] = pd.to_numeric(temp_df["现价"])
@@ -291,8 +289,12 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
     temp_df["强赎触发价"] = pd.to_numeric(temp_df["强赎触发价"])
     temp_df["正股价"] = pd.to_numeric(temp_df["正股价"])
     temp_df["强赎价"] = pd.to_numeric(temp_df["强赎价"], errors="coerce")
-    temp_df["强赎天计数"] = temp_df["强赎天计数"].replace(r'^.*?(\d{1,2}\/\d{1,2} \| \d{1,2}).*?$',r'\1', regex=True)
-    temp_df["强赎状态"] = temp_df["强赎状态"].map({'R':'已公告强赎','O':'公告要强赎','G':'公告不强赎','B':'已满足强赎条件','':''})
+    temp_df["强赎天计数"] = temp_df["强赎天计数"].replace(
+        r"^.*?(\d{1,2}\/\d{1,2} \| \d{1,2}).*?$", r"\1", regex=True
+    )
+    temp_df["强赎状态"] = temp_df["强赎状态"].map(
+        {"R": "已公告强赎", "O": "公告要强赎", "G": "公告不强赎", "B": "已满足强赎条件", "": ""}
+    )
     return temp_df
 
 
