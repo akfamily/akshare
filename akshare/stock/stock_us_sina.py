@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/22 22:14
+Date: 2022/9/23 15:14
 Desc: 新浪财经-美股实时行情数据和历史行情数据
 http://finance.sina.com.cn/stock/usstock/sector.shtml
 """
@@ -195,14 +195,19 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         check_df = temp_df[["open", "high", "low", "close"]]
         check_df.dropna(inplace=True)
         if check_df.empty:
+            data_df.reset_index(inplace=True)
             return data_df
         # 处理复权因子错误的情况-结束
-        return temp_df.iloc[:, :-2]
+        result_data = temp_df.iloc[:, :-2]
+        result_data.reset_index(inplace=True)
+        return result_data
 
     if adjust == "qfq-factor":
+        qfq_factor_df.reset_index(inplace=True)
         return qfq_factor_df
 
     if adjust == "":
+        data_df.reset_index(inplace=True)
         return data_df
 
 

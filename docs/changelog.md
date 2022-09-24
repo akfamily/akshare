@@ -34,6 +34,14 @@
 
 ## 更新说明
 
+1.7.30 fix: fix bond_cb_index_jsl interface
+
+    1. 修复 bond_cb_index_jsl 接口
+
+1.7.29 fix: fix stock_us_daily interface
+
+    1. 修复 stock_us_daily 接口，去除索引
+
 1.7.28 fix: fix stock_info_sh_name_code interface
 
     1. 修复 stock_info_sh_name_code 接口
@@ -1223,6 +1231,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.30 fix: fix bond_cb_index_jsl interface
+
+1.7.29 fix: fix stock_us_daily interface
 
 1.7.28 fix: fix stock_info_sh_name_code interface
 
