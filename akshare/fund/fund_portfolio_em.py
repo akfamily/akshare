@@ -283,7 +283,7 @@ def fund_portfolio_change_em(
 
 if __name__ == "__main__":
     fund_portfolio_hold_em_df = fund_portfolio_hold_em(
-        symbol="162411", date="2020"
+        symbol="000001", date="2021"
     )
     print(fund_portfolio_hold_em_df)
 

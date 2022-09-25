@@ -11013,21 +11013,22 @@ print(stock_dividents_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| stock | str | Y    | stock="600004"; 股票代码|
+| 名称    | 类型  | 描述                   |
+|-------|-----|----------------------|
+| stock | str | stock="600004"; 股票代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| item          | str   | Y        |   所列项目   |
-| value          | str   | Y        |   项目值   |
+| 名称    | 类型     | 描述   |
+|-------|--------|------|
+| item  | object | 所列项目 |
+| value | object | 项目值  |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_ipo_info_df = ak.stock_ipo_info(stock="600004")
 print(stock_ipo_info_df)
 ```
@@ -12341,32 +12342,33 @@ print(stock_new_gh_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| - | - |  -|
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 证劵代码          | object   |   -    |
-| 证券简称          | object   |   -    |
-| 上市日期          | object   |  -    |
-| 申购日期          | object   |   -    |
-| 发行价          | float64   |   注意单位: 元    |
-| 总发行数量          | float64   |   注意单位: 万股    |
-| 发行市盈率          | float64   |   -    |
-| 上网发行中签率          | float64   |   注意单位: %    |
-| 摇号结果公告日          | object   |   -    |
-| 中签公告日          | object   |   -    |
-| 中签缴款日          | object   |   -    |
-| 网上申购上限          | float64   |   -    |
-| 上网发行数量          | float64   |   -    |
+| 名称      | 类型      | 描述       |
+|---------|---------|----------|
+| 证劵代码    | object  | -        |
+| 证券简称    | object  | -        |
+| 上市日期    | object  | -        |
+| 申购日期    | object  | -        |
+| 发行价     | float64 | 注意单位: 元  |
+| 总发行数量   | float64 | 注意单位: 万股 |
+| 发行市盈率   | float64 | -        |
+| 上网发行中签率 | float64 | 注意单位: %  |
+| 摇号结果公告日 | object  | -        |
+| 中签公告日   | object  | -        |
+| 中签缴款日   | object  | -        |
+| 网上申购上限  | float64 | -        |
+| 上网发行数量  | float64 | -        |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_new_ipo_cninfo_df = ak.stock_new_ipo_cninfo()
 print(stock_new_ipo_cninfo_df)
 ```
@@ -12400,28 +12402,29 @@ print(stock_new_ipo_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date="20210630"; choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}; 从 20170331 开始 |
+| 名称   | 类型  | 描述                                                                                         |
+|------|-----|--------------------------------------------------------------------------------------------|
+| date | str | date="20210630"; choice of {"XXXX0331", "XXXX0630", "XXXX0930", "XXXX1231"}; 从 20170331 开始 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 证劵代码          | object   |   -    |
-| 证券简称          | object   |   -    |
-| 变动日期          | object   |  -    |
-| 本期股东人数          | int64   |  -    |
-| 上期股东人数          | float64   |  -    |
-| 股东人数增幅          | float64   |  注意单位: %    |
-| 本期人均持股数量          | int64   |  注意单位: 万股    |
-| 上期人均持股数量          | float64   |  注意单位: %    |
-| 人均持股数量增幅          | float64   |  注意单位: %    |
+| 名称       | 类型      | 描述       |
+|----------|---------|----------|
+| 证劵代码     | object  | -        |
+| 证券简称     | object  | -        |
+| 变动日期     | object  | -        |
+| 本期股东人数   | int64   | -        |
+| 上期股东人数   | float64 | -        |
+| 股东人数增幅   | float64 | 注意单位: %  |
+| 本期人均持股数量 | int64   | 注意单位: 万股 |
+| 上期人均持股数量 | float64 | 注意单位: %  |
+| 人均持股数量增幅 | float64 | 注意单位: %  |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_hold_num_cninfo_df = ak.stock_hold_num_cninfo(date="20210630")
 print(stock_hold_num_cninfo_df)
 ```
@@ -12455,27 +12458,28 @@ print(stock_hold_num_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="全部"; choice of {"单独控制", "实际控制人", "一致行动人", "家族控制", "全部"}; 从 2010 开始 |
+| 名称     | 类型  | 描述                                                                         |
+|--------|-----|----------------------------------------------------------------------------|
+| symbol | str | symbol="全部"; choice of {"单独控制", "实际控制人", "一致行动人", "家族控制", "全部"}; 从 2010 开始 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 证劵代码          | object   |   -    |
-| 证券简称          | object   |   -    |
-| 变动日期          | object   |  -    |
-| 实际控制人名称          | object   |  -    |
-| 控股数量          | float64   |  注意单位: 万股    |
-| 控股比例          | float64   |  注意单位: %    |
-| 直接控制人名称          | object   |  -    |
-| 控制类型          | object   |  -    |
+| 名称      | 类型      | 描述       |
+|---------|---------|----------|
+| 证劵代码    | object  | -        |
+| 证券简称    | object  | -        |
+| 变动日期    | object  | -        |
+| 实际控制人名称 | object  | -        |
+| 控股数量    | float64 | 注意单位: 万股 |
+| 控股比例    | float64 | 注意单位: %  |
+| 直接控制人名称 | object  | -        |
+| 控制类型    | object  | -        |
 
 接口示例
 
 ```python
 import akshare as ak
+
 stock_hold_control_cninfo_df = ak.stock_hold_control_cninfo(symbol="全部")
 print(stock_hold_control_cninfo_df)
 ```
