@@ -244,6 +244,6 @@ if __name__ == "__main__":
     print(crypto_name_url_table_df)
 
     crypto_hist_df = crypto_hist(
-        symbol="BTC", period="每日", start_date="20151020", end_date="20220511"
+        symbol="BTC", period="每日", start_date="20201020", end_date="20220511"
     )
     print(crypto_hist_df)
