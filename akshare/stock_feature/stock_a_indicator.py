@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/19 13:15
+Date: 2022/9/27 16:05
 Desc: 市盈率, 市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
@@ -29,7 +29,9 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         title_list = [item.find("a")["title"] for item in node_list]
         temp_df = pd.DataFrame([title_list, href_list]).T
         temp_df.columns = ["stock_name", "short_url"]
-        temp_df["code"] = temp_df["short_url"].str.split("/", expand=True).iloc[:, -1]
+        temp_df["code"] = (
+            temp_df["short_url"].str.split("/", expand=True).iloc[:, -1]
+        )
         del temp_df["short_url"]
         temp_df = temp_df[["code", "stock_name"]]
         return temp_df
@@ -37,13 +39,18 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         url = f"https://www.legulegu.com/s/base-info/{symbol}"
         r = requests.get(url)
         temp_json = r.json()
-        temp_df = pd.DataFrame(temp_json["data"]["items"], columns=temp_json["data"]["fields"])
+        temp_df = pd.DataFrame(
+            temp_json["data"]["items"], columns=temp_json["data"]["fields"]
+        )
         temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
         temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
+        temp_df.sort_values(["trade_date"], inplace=True, ignore_index=True)
         return temp_df
 
 
-def stock_hk_eniu_indicator(symbol: str = "hk01093", indicator: str = "市盈率") -> pd.DataFrame:
+def stock_hk_eniu_indicator(
+    symbol: str = "hk01093", indicator: str = "市盈率"
+) -> pd.DataFrame:
     """
     亿牛网-港股指标
     https://eniu.com/gu/hk01093/roe
@@ -76,12 +83,14 @@ def stock_hk_eniu_indicator(symbol: str = "hk01093", indicator: str = "市盈率
     return temp_df
 
 
-if __name__ == '__main__':
-    stock_a_lg_indicator_all_df = stock_a_lg_indicator(symbol="000001")
+if __name__ == "__main__":
+    stock_a_lg_indicator_all_df = stock_a_lg_indicator(symbol="all")
     print(stock_a_lg_indicator_all_df)
 
     stock_a_lg_indicator_df = stock_a_lg_indicator(symbol="000001")
     print(stock_a_lg_indicator_df)
 
-    stock_hk_eniu_indicator_df = stock_hk_eniu_indicator(symbol="hk01093", indicator="市净率")
+    stock_hk_eniu_indicator_df = stock_hk_eniu_indicator(
+        symbol="hk01093", indicator="市净率"
+    )
     print(stock_hk_eniu_indicator_df)
