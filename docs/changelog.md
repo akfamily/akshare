@@ -34,6 +34,10 @@
 
 ## 更新说明
 
+1.7.32 fix: fix stock_a_ttm_lyr interface
+
+    1. 修复 stock_a_ttm_lyr 接口
+
 1.7.31 fix: fix stock_a_lg_indicator interface
 
     1. 修复 stock_a_lg_indicator 接口，调整输出的格式
@@ -1235,6 +1239,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.32 fix: fix stock_a_ttm_lyr interface
 
 1.7.31 fix: fix stock_a_lg_indicator interface
 
