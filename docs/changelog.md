@@ -34,6 +34,10 @@
 
 ## 更新说明
 
+1.7.36 fix: fix rename branch master to main
+
+    1. 将项目的 master 分支重命名为 main
+
 1.7.35 fix: fix stock_market_fund_flow interface
 
     1. 修复 stock_market_fund_flow 接口，规范数据输出格式
@@ -1251,6 +1255,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.36 fix: fix rename branch master to main
 
 1.7.35 fix: fix stock_market_fund_flow interface
 
