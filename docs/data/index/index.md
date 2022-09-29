@@ -2190,7 +2190,7 @@ print(sw_index_second_spot_df)
 
 ### 申万一级行业信息
 
-接口: sw_index_third_info
+接口: sw_index_first_info
 
 目标地址: https://legulegu.com/stockdata/sw-industry-overview#level1
 
@@ -2262,7 +2262,7 @@ print(sw_index_first_info_df)
 
 ### 申万二级行业信息
 
-接口: sw_index_third_info
+接口: sw_index_second_info
 
 目标地址: https://legulegu.com/stockdata/sw-industry-overview#level1
 
