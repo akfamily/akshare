@@ -34,10 +34,13 @@
 
 ## 更新说明
 
+1.7.38 add: add sw_index_second_info interface
+
+    1. 新增 sw_index_second_info 接口
+
 1.7.37 add: add sw_index_first_info interface
 
     1. 新增 sw_index_first_info 接口
-    2. 新增 sw_index_second_info 接口
 
 1.7.36 fix: fix rename branch master to main
 
@@ -1260,6 +1263,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.38 add: add sw_index_second_info interface
 
 1.7.37 add: add sw_index_first_info interface
 
