@@ -30,3 +30,4 @@ colors
 .ipynb_checkpoints
 #docs/source/_static/
 #docs/source/_templates/
+.DS_Store

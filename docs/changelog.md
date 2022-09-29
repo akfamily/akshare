@@ -34,6 +34,22 @@
 
 ## 更新说明
 
+1.7.36 fix: fix rename branch master to main
+
+    1. 将项目的 master 分支重命名为 main
+
+1.7.35 fix: fix stock_market_fund_flow interface
+
+    1. 修复 stock_market_fund_flow 接口，规范数据输出格式
+
+1.7.34 fix: fix bond_cb_jsl interface
+
+    1. 修复 bond_cb_jsl 接口，统一字段
+
+1.7.33 fix: fix stock_zh_ah_daily interface
+
+    1. 修复 stock_zh_ah_daily 接口，调整输出的格式
+
 1.7.32 fix: fix stock_a_ttm_lyr interface
 
     1. 修复 stock_a_ttm_lyr 接口
@@ -1239,6 +1255,14 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.36 fix: fix rename branch master to main
+
+1.7.35 fix: fix stock_market_fund_flow interface
+
+1.7.34 fix: fix bond_cb_jsl interface
+
+1.7.33 fix: fix stock_zh_ah_daily interface
 
 1.7.32 fix: fix stock_a_ttm_lyr interface
 
