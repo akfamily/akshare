@@ -348,6 +348,118 @@ def sw_index_daily_indicator(
     return temp_df
 
 
+def sw_index_first_info() -> pd.DataFrame:
+    """
+    乐咕乐股-申万一级-分类
+    https://legulegu.com/stockdata/sw-industry-overview#level1
+    :return: 分类
+    :rtype: pandas.DataFrame
+    """
+    url = "https://legulegu.com/stockdata/sw-industry-overview"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    code_raw = soup.find("div", attrs={"id": "level1Items"}).find_all(
+        "div", attrs={"class": "lg-industries-item-chinese-title"}
+    )
+    name_raw = soup.find("div", attrs={"id": "level1Items"}).find_all(
+        "div", attrs={"class": "lg-industries-item-number"}
+    )
+    value_raw = soup.find("div", attrs={"id": "level1Items"}).find_all(
+        "div", attrs={"class": "lg-sw-industries-item-value"}
+    )
+    code = [item.get_text() for item in code_raw]
+    name = [item.get_text().split("(")[0] for item in name_raw]
+    num = [item.get_text().split("(")[1].split(")")[0] for item in name_raw]
+    num_1 = [
+        item.find_all("span", attrs={"class": "value"})[0].get_text().strip()
+        for item in value_raw
+    ]
+    num_2 = [
+        item.find_all("span", attrs={"class": "value"})[1].get_text().strip()
+        for item in value_raw
+    ]
+    num_3 = [
+        item.find_all("span", attrs={"class": "value"})[2].get_text().strip()
+        for item in value_raw
+    ]
+    num_4 = [
+        item.find_all("span", attrs={"class": "value"})[3].get_text().strip()
+        for item in value_raw
+    ]
+    temp_df = pd.DataFrame([code, name, num, num_1, num_2, num_3, num_4]).T
+    temp_df.columns = [
+        "行业代码",
+        "行业名称",
+        "成份个数",
+        "静态市盈率",
+        "TTM(滚动)市盈率",
+        "市净率",
+        "静态股息率",
+    ]
+    temp_df["成份个数"] = pd.to_numeric(temp_df["成份个数"])
+    temp_df["静态市盈率"] = pd.to_numeric(temp_df["静态市盈率"])
+    temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"])
+    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"])
+    temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"])
+    return temp_df
+
+
+def sw_index_second_info() -> pd.DataFrame:
+    """
+    乐咕乐股-申万二级-分类
+    https://legulegu.com/stockdata/sw-industry-overview#level1
+    :return: 分类
+    :rtype: pandas.DataFrame
+    """
+    url = "https://legulegu.com/stockdata/sw-industry-overview"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    code_raw = soup.find("div", attrs={"id": "level2Items"}).find_all(
+        "div", attrs={"class": "lg-industries-item-chinese-title"}
+    )
+    name_raw = soup.find("div", attrs={"id": "level2Items"}).find_all(
+        "div", attrs={"class": "lg-industries-item-number"}
+    )
+    value_raw = soup.find("div", attrs={"id": "level2Items"}).find_all(
+        "div", attrs={"class": "lg-sw-industries-item-value"}
+    )
+    code = [item.get_text() for item in code_raw]
+    name = [item.get_text().split("(")[0] for item in name_raw]
+    num = [item.get_text().split("(")[1].split(")")[0] for item in name_raw]
+    num_1 = [
+        item.find_all("span", attrs={"class": "value"})[0].get_text().strip()
+        for item in value_raw
+    ]
+    num_2 = [
+        item.find_all("span", attrs={"class": "value"})[1].get_text().strip()
+        for item in value_raw
+    ]
+    num_3 = [
+        item.find_all("span", attrs={"class": "value"})[2].get_text().strip()
+        for item in value_raw
+    ]
+    num_4 = [
+        item.find_all("span", attrs={"class": "value"})[3].get_text().strip()
+        for item in value_raw
+    ]
+    temp_df = pd.DataFrame([code, name, num, num_1, num_2, num_3, num_4]).T
+    temp_df.columns = [
+        "行业代码",
+        "行业名称",
+        "成份个数",
+        "静态市盈率",
+        "TTM(滚动)市盈率",
+        "市净率",
+        "静态股息率",
+    ]
+    temp_df["成份个数"] = pd.to_numeric(temp_df["成份个数"])
+    temp_df["静态市盈率"] = pd.to_numeric(temp_df["静态市盈率"])
+    temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"])
+    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"])
+    temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"])
+    return temp_df
+
+
 def sw_index_third_info() -> pd.DataFrame:
     """
     乐咕乐股-申万三级-分类
@@ -647,6 +759,12 @@ if __name__ == "__main__":
         data_type="Week",
     )
     print(sw_index_daily_indicator_df)
+
+    sw_index_first_info_df = sw_index_first_info()
+    print(sw_index_first_info_df)
+
+    sw_index_second_info_df = sw_index_second_info()
+    print(sw_index_second_info_df)
 
     sw_index_third_info_df = sw_index_third_info()
     print(sw_index_third_info_df)
