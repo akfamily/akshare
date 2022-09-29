@@ -2155,9 +2155,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.35 fix: fix stock_market_fund_flow interface
 1.7.36 fix: fix rename branch master to main
 1.7.37 add: add sw_index_first_info interface
+1.7.38 add: add sw_index_second_info interface
 """
 
-__version__ = "1.7.37"
+__version__ = "1.7.38"
 __author__ = "AKFamily"
 
 import sys
