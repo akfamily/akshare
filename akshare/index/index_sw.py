@@ -457,6 +457,7 @@ def sw_index_second_info() -> pd.DataFrame:
     temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"])
     temp_df["市净率"] = pd.to_numeric(temp_df["市净率"])
     temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"])
+
     return temp_df
 
 
