@@ -6102,6 +6102,210 @@ print(stock_comment_detail_scrd_cost_em_df)
 
 ### 沪深港通持股
 
+#### 结算汇率-深港通
+
+接口: stock_sgt_settlement_exchange_rate_szse
+
+目标地址: https://www.szse.cn/szhk/hkbussiness/exchangerate/index.html
+
+描述: 深港通-港股通业务信息-结算汇率
+
+限量: 单次获取所有深港通结算汇率数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称       | 类型      | 描述  |
+|----------|---------|-----|
+| 适用日期     | object  | -   |
+| 买入结算汇兑比率 | float64 | -   |
+| 卖出结算汇兑比率 | float64 | -   |
+| 货币种类     | object  | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_sgt_settlement_exchange_rate_szse_df = ak.stock_sgt_settlement_exchange_rate_szse()
+print(stock_sgt_settlement_exchange_rate_szse_df)
+```
+
+数据示例
+
+```
+     适用日期  买入结算汇兑比率  卖出结算汇兑比率 货币种类
+0     2016-12-05   0.88621   0.88679  HKD
+1     2016-12-06   0.88698   0.88682  HKD
+2     2016-12-07   0.88525   0.88935  HKD
+3     2016-12-08   0.89041   0.88899  HKD
+4     2016-12-09   0.88567   0.89133  HKD
+          ...       ...       ...  ...
+1371  2022-09-23   0.90209   0.90311  HKD
+1372  2022-09-26   0.90826   0.90814  HKD
+1373  2022-09-27   0.91179   0.91181  HKD
+1374  2022-09-28   0.91024   0.91636  HKD
+1375  2022-09-29   0.93270   0.91810  HKD
+```
+
+#### 结算汇率-沪港通
+
+接口: stock_sgt_settlement_exchange_rate_sse
+
+目标地址: http://www.sse.com.cn/services/hkexsc/disclo/ratios
+
+描述: 沪港通-港股通信息披露-结算汇兑
+
+限量: 单次获取所有沪港通结算汇率数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称       | 类型      | 描述  |
+|----------|---------|-----|
+| 适用日期     | object  | -   |
+| 买入结算汇兑比率 | float64 | -   |
+| 卖出结算汇兑比率 | float64 | -   |
+| 货币种类     | object  | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_sgt_settlement_exchange_rate_sse_df = ak.stock_sgt_settlement_exchange_rate_sse()
+print(stock_sgt_settlement_exchange_rate_sse_df)
+```
+
+数据示例
+
+```
+      适用日期  买入结算汇兑比率  卖出结算汇兑比率 货币种类
+0     2014-11-17   0.79143   0.79017  HKD
+1     2014-11-18   0.79068   0.78932  HKD
+2     2014-11-19   0.78873   0.78927  HKD
+3     2014-11-20   0.78980   0.78980  HKD
+4     2014-11-21   0.79021   0.78999  HKD
+          ...       ...       ...  ...
+1860  2022-09-23   0.90170   0.90350  HKD
+1861  2022-09-26   0.90812   0.90828  HKD
+1862  2022-09-27   0.91177   0.91183  HKD
+1863  2022-09-28   0.91038   0.91622  HKD
+1864  2022-09-29   0.93260   0.91820  HKD
+```
+
+#### 参考汇率-深港通
+
+接口: stock_sgt_reference_exchange_rate_szse
+
+目标地址: https://www.szse.cn/szhk/hkbussiness/exchangerate/index.html
+
+描述: 深港通-港股通业务信息-参考汇率
+
+限量: 单次获取所有深港通参考汇率数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称      | 类型      | 描述  |
+|---------|---------|-----|
+| 适用日期    | object  | -   |
+| 参考汇率买入价 | float64 | -   |
+| 参考汇率卖出价 | float64 | -   |
+| 货币种类    | object  | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_sgt_reference_exchange_rate_szse_df = ak.stock_sgt_reference_exchange_rate_szse()
+print(stock_sgt_reference_exchange_rate_szse_df)
+```
+
+数据示例
+
+```
+     适用日期  参考汇率买入价  参考汇率卖出价 货币种类
+0     2016-12-05   0.8599   0.9131  HKD
+1     2016-12-06   0.8603   0.9135  HKD
+2     2016-12-07   0.8607   0.9139  HKD
+3     2016-12-08   0.8630   0.9164  HKD
+4     2016-12-09   0.8618   0.9152  HKD
+          ...      ...      ...  ...
+1375  2022-09-26   0.8810   0.9354  HKD
+1376  2022-09-27   0.8844   0.9392  HKD
+1377  2022-09-28   0.8859   0.9407  HKD
+1378  2022-09-29   0.8976   0.9532  HKD
+1379  2022-09-30   0.8875   0.9423  HKD
+```
+
+#### 参考汇率-沪港通
+
+接口: stock_sgt_reference_exchange_rate_sse
+
+目标地址: http://www.sse.com.cn/services/hkexsc/disclo/ratios/
+
+描述: 沪港通-港股通信息披露-参考汇率
+
+限量: 单次获取所有沪港通参考汇率数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称      | 类型      | 描述  |
+|---------|---------|-----|
+| 适用日期    | object  | -   |
+| 参考汇率买入价 | float64 | -   |
+| 参考汇率卖出价 | float64 | -   |
+| 货币种类    | object  | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_sgt_reference_exchange_rate_sse_df = ak.stock_sgt_reference_exchange_rate_sse()
+print(stock_sgt_reference_exchange_rate_sse_df)
+```
+
+数据示例
+
+```
+      适用日期  参考汇率买入价  参考汇率卖出价 货币种类
+0     2014-11-17   0.7671   0.8145  HKD
+1     2014-11-18   0.7663   0.8137  HKD
+2     2014-11-19   0.7653   0.8127  HKD
+3     2014-11-20   0.7661   0.8135  HKD
+4     2014-11-21   0.7664   0.8138  HKD
+          ...      ...      ...  ...
+1915  2022-09-26   0.8810   0.9354  HKD
+1916  2022-09-27   0.8844   0.9392  HKD
+1917  2022-09-28   0.8859   0.9407  HKD
+1918  2022-09-29   0.8976   0.9532  HKD
+1919  2022-09-30   0.8875   0.9423  HKD
+```
+
 #### 港股通成份股
 
 接口: stock_hk_ggt_components_em

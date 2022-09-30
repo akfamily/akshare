@@ -1128,6 +1128,11 @@
  # 中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
  "bond_new_composite_index_cbond"  # 中债-新综合指数
  "bond_composite_index_cbond"  # 中债-综合指数
+ # 沪深港股通-参考汇率和结算汇率
+ "stock_sgt_settlement_exchange_rate_szse"  # 深港通-港股通业务信息-结算汇率
+ "stock_sgt_reference_exchange_rate_szse"  # 深港通-港股通业务信息-参考汇率
+ "stock_sgt_reference_exchange_rate_sse"  # 沪港通-港股通信息披露-参考汇率
+ "stock_sgt_settlement_exchange_rate_sse"  # 沪港通-港股通信息披露-结算汇兑
 ```
 
 ## 案例演示
