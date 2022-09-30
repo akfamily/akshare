@@ -2156,9 +2156,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.36 fix: fix rename branch master to main
 1.7.37 add: add sw_index_first_info interface
 1.7.38 add: add sw_index_second_info interface
+1.7.39 add: add stock_sgt_settlement_exchange_rate_szse interface
 """
 
-__version__ = "1.7.38"
+__version__ = "1.7.39"
 __author__ = "AKFamily"
 
 import sys
@@ -2168,6 +2169,16 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+沪深港股通-参考汇率和结算汇率
+"""
+from akshare.stock_feature.stock_hsgt_exchange_rate import (
+    stock_sgt_reference_exchange_rate_sse,
+    stock_sgt_settlement_exchange_rate_sse,
+    stock_sgt_reference_exchange_rate_szse,
+    stock_sgt_settlement_exchange_rate_szse
+)
 
 """
 中国债券信息网-中债指数-中债指数族系-总指数-综合类指数
