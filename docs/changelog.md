@@ -34,6 +34,10 @@
 
 ## 更新说明
 
+1.7.39 add: add stock_sgt_settlement_exchange_rate_szse interface
+
+    1. 新增 stock_sgt_settlement_exchange_rate_szse 接口
+
 1.7.38 add: add sw_index_second_info interface
 
     1. 新增 sw_index_second_info 接口
@@ -1263,6 +1267,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.39 add: add stock_sgt_settlement_exchange_rate_szse interface
 
 1.7.38 add: add sw_index_second_info interface
 
