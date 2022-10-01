@@ -2157,9 +2157,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.37 add: add sw_index_first_info interface
 1.7.38 add: add sw_index_second_info interface
 1.7.39 add: add stock_sgt_settlement_exchange_rate_szse interface
+1.7.40 add: add stock_sgt_settlement_exchange_rate_sse interface
 """
 
-__version__ = "1.7.39"
+__version__ = "1.7.40"
 __author__ = "AKFamily"
 
 import sys
