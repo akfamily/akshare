@@ -17,3 +17,7 @@ requests-cache>=0.9.3
 cfscrape>=2.1.1
 commitizen
 pre-commit
+sphinx
+recommonmark
+sphinx_markdown_tables
+sphinx_rtd_theme
