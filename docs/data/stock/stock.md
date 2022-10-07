@@ -12842,31 +12842,30 @@ print(stock_hold_management_detail_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="全部"; choice of {"全部", "深市主板", "沪市", "创业板", "科创板"} |
-| start_date | str |  start_date="20180630" |
-| end_date | str |  end_date="20210927" |
+| 名称         | 类型  | 描述                                                        |
+|------------|-----|-----------------------------------------------------------|
+| symbol     | str | symbol="全部"; choice of {"全部", "深市主板", "沪市", "创业板", "科创板"} |
+| start_date | str | start_date="20180630"                                     |
+| end_date   | str | end_date="20210927"                                       |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 证劵代码          | object   |   -    |
-| 证券简称          | object   |   -    |
-| 公告统计区间          | object   |  -    |
-| 担保笔数          | int64   |  -    |
-| 担保金额          | float64   |  注意单位: 万元    |
-| 归属于母公司所有者权益          | float64   |  注意单位: 万元    |
-| 担保金融占净资产比例          | float64   |  注意单位: %    |
+| 名称          | 类型      | 描述       |
+|-------------|---------|----------|
+| 证劵代码        | object  | -        |
+| 证券简称        | object  | -        |
+| 公告统计区间      | object  | -        |
+| 担保笔数        | int64   | -        |
+| 担保金额        | float64 | 注意单位: 万元 |
+| 归属于母公司所有者权益 | float64 | 注意单位: 万元 |
+| 担保金融占净资产比例  | float64 | 注意单位: %  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_corporate_governance_guarantee_df = ak.stock_cg_guarantee_cninfo(symbol="全部", start_date="20180630",
-                                                                       end_date="20210927")
+stock_corporate_governance_guarantee_df = ak.stock_cg_guarantee_cninfo(symbol="全部", start_date="20180630", end_date="20210927")
 print(stock_corporate_governance_guarantee_df)
 ```
 
@@ -12899,21 +12898,21 @@ print(stock_corporate_governance_guarantee_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="全部"; choice of {"全部", "深市主板", "沪市", "创业板", "科创板"} |
-| start_date | str |  start_date="20180630" |
-| end_date | str |  end_date="20210927" |
+| 名称         | 类型  | 描述                                                        |
+|------------|-----|-----------------------------------------------------------|
+| symbol     | str | symbol="全部"; choice of {"全部", "深市主板", "沪市", "创业板", "科创板"} |
+| start_date | str | start_date="20180630"                                     |
+| end_date   | str | end_date="20210927"                                       |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 证劵代码          | object   |   -    |
-| 证券简称          | object   |   -    |
-| 公告统计区间          | object   |  -    |
-| 诉讼次数          | int64   |  -    |
-| 诉讼金额          | float64   |  注意单位: 万元    |
+| 名称     | 类型      | 描述       |
+|--------|---------|----------|
+| 证劵代码   | object  | -        |
+| 证券简称   | object  | -        |
+| 公告统计区间 | object  | -        |
+| 诉讼次数   | int64   | -        |
+| 诉讼金额   | float64 | 注意单位: 万元 |
 
 接口示例
 
@@ -12953,24 +12952,24 @@ print(stock_cg_lawsuit_cninfo_df)
 
 输入参数
 
-| 名称   | 类型 |  描述   |
-| -------- | ---- |  --- |
-| date | str |  date="20210930" |
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date="20210930" |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| ------------ | ----- |  ---------------- |
-| 股票代码          | object   |   -    |
-| 股票简称          | object   |   -    |
-| 公告日期          | object   |  -    |
-| 出质人          | object   |  -    |
-| 质权人          | object   |  -    |
-| 质押数量          | float64   |  注意单位: 万股    |
-| 占总股本比例          | float64   |  注意单位: %    |
-| 质押解除数量          | float64   |  注意单位: 万股    |
-| 质押事项          | object   |  注意单位: 万元    |
-| 累计质押占总股本比例          | float64   |  注意单位: %    |
+| 名称         | 类型      | 描述       |
+|------------|---------|----------|
+| 股票代码       | object  | -        |
+| 股票简称       | object  | -        |
+| 公告日期       | object  | -        |
+| 出质人        | object  | -        |
+| 质权人        | object  | -        |
+| 质押数量       | float64 | 注意单位: 万股 |
+| 占总股本比例     | float64 | 注意单位: %  |
+| 质押解除数量     | float64 | 注意单位: 万股 |
+| 质押事项       | object  | 注意单位: 万元 |
+| 累计质押占总股本比例 | float64 | 注意单位: %  |
 
 接口示例
 
@@ -14835,25 +14834,25 @@ print(stock_register_kcb_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| - | - | -    | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 序号          | int32   | Y        |  -    |
-| 发行人全称          | object   | Y        |  -    |
-| 审核状态          | object   | Y        |  -    |
-| 注册地          | object   | Y        |  -    |
-| 证监会行业          | object   | Y        |  -    |
-| 保荐机构          | object   | Y        |  -    |
-| 律师事务所          | object   | Y     |  -    |
-| 会计师事务所          | object   | Y     |  -    |
-| 更新日期          | object   | Y     |  -    |
-| 受理日期          | object   | Y     |  -    |
-| 拟上市地点          | object   | Y     |  -    |
+| 名称     | 类型     | 描述  |
+|--------|--------|-----|
+| 序号     | int32  | -   |
+| 发行人全称  | object | -   |
+| 审核状态   | object | -   |
+| 注册地    | object | -   |
+| 证监会行业  | object | -   |
+| 保荐机构   | object | -   |
+| 律师事务所  | object | -   |
+| 会计师事务所 | object | -   |
+| 更新日期   | object | -   |
+| 受理日期   | object | -   |
+| 拟上市地点  | object | -   |
 
 接口示例
 
