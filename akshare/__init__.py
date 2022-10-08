@@ -2162,9 +2162,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.42 add: add stock_sgt_reference_exchange_rate_szse interface
 1.7.43 fix: fix stock_a_all_pb interface
 1.7.44 add: add stock_allotment_cninfo interface
+1.7.45 add: add stock_hk_valuation_baidu interface
 """
 
-__version__ = "1.7.44"
+__version__ = "1.7.45"
 __author__ = "AKFamily"
 
 import sys
@@ -2174,6 +2175,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+百度股市通-港股-财务报表-估值数据
+"""
+from akshare.stock_feature.stock_hk_valuation_baidu import stock_hk_valuation_baidu
 
 """
 巨潮资讯-个股-公司概况
