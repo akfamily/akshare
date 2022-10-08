@@ -13781,6 +13781,55 @@ print(stock_hk_eniu_indicator_df)
 5045  2020-08-13  7.18  15.46
 ```
 
+#### 港股估值指标
+
+接口: stock_hk_valuation_baidu
+
+目标地址: https://gushitong.baidu.com/stock/hk-06969
+
+描述: 百度股市通-港股-财务报表-估值数据
+
+限量: 单次获取指定 symbol 和 indicator 的所有历史数据; 该数据源暂未更新数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                                                     |
+|-----------|-----|------------------------------------------------------------------------|
+| indicator | str | indicator="总市值"; choice of {"总市值", "市盈率(TTM)", "市盈率(静)", "市净率", "市现率"} |
+
+输出参数
+
+| 名称    | 类型      | 描述  |
+|-------|---------|-----|
+| date  | object  | -   |
+| value | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_valuation_baidu_df = ak.stock_hk_valuation_baidu(indicator="总市值")
+print(stock_hk_valuation_baidu_df)
+```
+
+数据示例
+
+```
+            date  value
+0     2005-12-20   3.16
+1     2005-12-21   3.16
+2     2005-12-22   3.28
+3     2005-12-23   3.24
+4     2005-12-28   3.20
+          ...    ...
+4130  2022-09-22   4.38
+4131  2022-09-23   4.38
+4132  2022-09-26   4.38
+4133  2022-09-27   4.27
+4134  2022-10-07   5.42
+```
+
 #### 创新高和新低的股票数量
 
 接口: stock_a_high_low_statistics

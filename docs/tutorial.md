@@ -1137,6 +1137,8 @@
  "stock_allotment_cninfo"  # 配股实施方案-巨潮资讯
  # 巨潮资讯-个股-公司概况
  "stock_profile_cninfo"  # 巨潮资讯-个股-公司概况
+ # 百度股市通-港股-财务报表-估值数据
+ "stock_hk_valuation_baidu"  # 百度股市通-港股-财务报表-估值数据
 ```
 
 ## 案例演示
