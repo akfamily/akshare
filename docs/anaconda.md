@@ -89,7 +89,7 @@ python
 ```python
 import akshare as ak
 
-ak.__doc__
+print(ak.__doc__)
 ```
 
 显示出如下图则虚拟环境和 [AKShare](https://github.com/akfamily/akshare) 安装成功:
@@ -101,5 +101,5 @@ ak.__doc__
 ```python
 import akshare as ak
 
-ak.__version__
+print(ak.__version__)
 ```

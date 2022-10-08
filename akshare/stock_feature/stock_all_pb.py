@@ -336,7 +336,6 @@ def stock_a_all_pb() -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["data"])
     temp_df['date'] = pd.to_datetime(
         temp_df["date"], unit="ms", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
-    del temp_df['marketId']
     del temp_df['weightingAveragePB']
     return temp_df
 
