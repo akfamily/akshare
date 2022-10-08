@@ -9,10 +9,12 @@ import requests
 import pandas as pd
 
 
-def stock_hk_valuation_baidu(indicator: str = "总市值") -> pd.DataFrame:
+def stock_hk_valuation_baidu(symbol: str = "02358", indicator: str = "总市值") -> pd.DataFrame:
     """
     百度股市通-港股-财务报表-估值数据
     https://gushitong.baidu.com/stock/hk-06969
+    :param symbol: 股票代码
+    :type symbol: str
     :param indicator: choice of {"总市值", "市盈率(TTM)", "市盈率(静)", "市净率", "市现率"}
     :type indicator: str
     :return: 估值数据
@@ -21,7 +23,7 @@ def stock_hk_valuation_baidu(indicator: str = "总市值") -> pd.DataFrame:
     url = "https://finance.pae.baidu.com/selfselect/openapi"
     params = {
         "srcid": "51171",
-        "code": "02358",
+        "code": symbol,
         "market": "hk",
         "tag": f"{indicator}",
         "chart_select": "全部",
@@ -38,5 +40,5 @@ def stock_hk_valuation_baidu(indicator: str = "总市值") -> pd.DataFrame:
 
 
 if __name__ == '__main__':
-    stock_hk_valuation_baidu_df = stock_hk_valuation_baidu(indicator="总市值")
+    stock_hk_valuation_baidu_df = stock_hk_valuation_baidu(symbol="02358", indicator="总市值")
     print(stock_hk_valuation_baidu_df)

@@ -13795,6 +13795,7 @@ print(stock_hk_eniu_indicator_df)
 
 | 名称        | 类型  | 描述                                                                     |
 |-----------|-----|------------------------------------------------------------------------|
+| symbol    | str | symbol="02358"; 港股代码                                                   |
 | indicator | str | indicator="总市值"; choice of {"总市值", "市盈率(TTM)", "市盈率(静)", "市净率", "市现率"} |
 
 输出参数
@@ -13809,7 +13810,7 @@ print(stock_hk_eniu_indicator_df)
 ```python
 import akshare as ak
 
-stock_hk_valuation_baidu_df = ak.stock_hk_valuation_baidu(indicator="总市值")
+stock_hk_valuation_baidu_df = ak.stock_hk_valuation_baidu(symbol="02358", indicator="总市值")
 print(stock_hk_valuation_baidu_df)
 ```
 
