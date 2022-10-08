@@ -104,8 +104,8 @@ def stock_profile_cninfo(symbol: str = "600030") -> pd.DataFrame:
         "经营范围",
         "机构简介",
     ]
-
-    if (count := data_json["count"]) == 1:
+    count = data_json["count"]
+    if count == 1:
         # 有公司概况的
         redundant_json = data_json["records"][0]
         records_json = {}
