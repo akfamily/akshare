@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/10/06 18:20
+Date: 2022/10/08 19:20
 Desc: 巨潮资讯-个股-公司概况
 http://webapi.cninfo.com.cn/#/company
 """
-import requests
 import time
-import pandas as pd
-from py_mini_racer import py_mini_racer
 
+import pandas as pd
+import requests
+from py_mini_racer import py_mini_racer
 
 js_str = """
     function mcode(input) {  
@@ -42,7 +42,7 @@ js_str = """
 """
 
 
-def stock_profile(symbol: str) -> pd.DataFrame:
+def stock_profile_cninfo(symbol: str = "600030") -> pd.DataFrame:
     """
     巨潮资讯-个股-公司概况
     http://webapi.cninfo.com.cn/#/company
@@ -53,7 +53,9 @@ def stock_profile(symbol: str) -> pd.DataFrame:
     :raise: Exception，如果服务器返回的数据无法被解析
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1133"
-    params = {'scode': symbol, }
+    params = {
+        "scode": symbol,
+    }
     random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(js_str)
@@ -74,37 +76,38 @@ def stock_profile(symbol: str) -> pd.DataFrame:
     }
     r = requests.post(url, params=params, headers=headers)
     data_json = r.json()
-    columns = ['公司名称',
-               '英文名称',
-               '曾用简称',
-               'A股代码',
-               'A股简称',
-               'B股代码',
-               'B股简称',
-               'H股代码',
-               'H股简称',
-               '入选指数',
-               '所属市场',
-               '所属行业',
-               '法人代表',
-               '注册资金',
-               '成立日期',
-               '上市日期',
-               '官方网站',
-               '电子邮箱',
-               '联系电话',
-               '传真',
-               '注册地址',
-               '办公地址',
-               '邮政编码',
-               '主营业务',
-               '经营范围',
-               '机构简介',
-               ]
-
-    if (count := data_json['count']) == 1:
+    columns = [
+        "公司名称",
+        "英文名称",
+        "曾用简称",
+        "A股代码",
+        "A股简称",
+        "B股代码",
+        "B股简称",
+        "H股代码",
+        "H股简称",
+        "入选指数",
+        "所属市场",
+        "所属行业",
+        "法人代表",
+        "注册资金",
+        "成立日期",
+        "上市日期",
+        "官方网站",
+        "电子邮箱",
+        "联系电话",
+        "传真",
+        "注册地址",
+        "办公地址",
+        "邮政编码",
+        "主营业务",
+        "经营范围",
+        "机构简介",
+    ]
+    count = data_json["count"]
+    if count == 1:
         # 有公司概况的
-        redundant_json = data_json['records'][0]
+        redundant_json = data_json["records"][0]
         records_json = {}
         i = 0
         for k, v in redundant_json.items():
@@ -119,10 +122,10 @@ def stock_profile(symbol: str) -> pd.DataFrame:
         # 没公司概况的
         temp_df = pd.DataFrame(columns=columns)
     else:
-        raise Exception('数据错误！')
+        raise Exception("数据错误！")
     return temp_df
 
 
 if __name__ == "__main__":
-    profile = stock_profile(symbol="600030")
-    print(profile)
+    stock_profile_cninfo_df = stock_profile_cninfo(symbol="600030")
+    print(stock_profile_cninfo_df)

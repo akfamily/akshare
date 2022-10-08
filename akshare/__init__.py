@@ -2161,9 +2161,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.41 add: add stock_sgt_reference_exchange_rate_sse interface
 1.7.42 add: add stock_sgt_reference_exchange_rate_szse interface
 1.7.43 fix: fix stock_a_all_pb interface
+1.7.44 add: add stock_allotment_cninfo interface
 """
 
-__version__ = "1.7.43"
+__version__ = "1.7.44"
 __author__ = "AKFamily"
 
 import sys
@@ -2173,6 +2174,16 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+巨潮资讯-个股-公司概况
+"""
+from akshare.stock.stock_profile_cninfo import stock_profile_cninfo
+
+"""
+巨潮资讯-数据浏览器-筹资指标-公司配股实施方案
+"""
+from akshare.stock.stock_allotment_cninfo import stock_allotment_cninfo
 
 """
 沪深港股通-参考汇率和结算汇率
