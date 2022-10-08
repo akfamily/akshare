@@ -1133,6 +1133,10 @@
  "stock_sgt_reference_exchange_rate_szse"  # 深港通-港股通业务信息-参考汇率
  "stock_sgt_reference_exchange_rate_sse"  # 沪港通-港股通信息披露-参考汇率
  "stock_sgt_settlement_exchange_rate_sse"  # 沪港通-港股通信息披露-结算汇兑
+ # 配股实施方案-巨潮资讯
+ "stock_allotment_cninfo"  # 配股实施方案-巨潮资讯
+ # 巨潮资讯-个股-公司概况
+ "stock_profile_cninfo"  # 巨潮资讯-个股-公司概况
 ```
 
 ## 案例演示

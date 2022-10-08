@@ -8035,8 +8035,7 @@ print(stock_industry_category_cninfo_df)
 ```python
 import akshare as ak
 
-stock_industry_change_cninfo_df = ak.stock_industry_change_cninfo(symbol="002594", start_date="20091227",
-                                                                  end_date="20220708")
+stock_industry_change_cninfo_df = ak.stock_industry_change_cninfo(symbol="002594", start_date="20091227", end_date="20220708")
 print(stock_industry_change_cninfo_df)
 ```
 
@@ -8171,6 +8170,165 @@ print(stock_share_change_cninfo_df)
 31  比亚迪  比亚迪股份有限公司     NaN  ...   65808.4620   65808.4620         015004
 32  比亚迪  比亚迪股份有限公司     NaN  ...   65808.4620   65808.4620         015019
 33  比亚迪  比亚迪股份有限公司     NaN  ...   64837.8251   64837.8251         015999
+```
+
+#### 配股实施方案-巨潮资讯
+
+接口: stock_allotment_cninfo
+
+目标地址: http://webapi.cninfo.com.cn/#/dataBrowse
+
+描述: 巨潮资讯-个股-配股实施方案
+
+限量: 单次获取指定 symbol 在 start_date 和 end_date 之间的公司股本变动数据
+
+输入参数
+
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="600030"       |
+| start_date | str | start_date="19700101" |
+| end_date   | str | end_date="22220222"   |
+
+输出参数
+
+| 名称           | 类型         | 描述  |
+|--------------|------------|-----|
+| 记录标识         | int64      | -   |
+| 证券简称         | object     | -   |
+| 停牌起始日        | object     | -   |
+| 上市公告日期       | object     | -   |
+| 配股缴款起始日      | object     | -   |
+| 可转配股数量       | float64    | -   |
+| 停牌截止日        | object     | -   |
+| 实际配股数量       | float64    | -   |
+| 配股价格         | float64    | -   |
+| 配股比例         | float64    | -   |
+| 配股前总股本       | float64    | -   |
+| 每股配权转让费(元)   | float64    | -   |
+| 法人股实配数量      | float64    | -   |
+| 实际募资净额       | float64    | -   |
+| 大股东认购方式      | object     | -   |
+| 其他配售简称       | object     | -   |
+| 发行方式         | object     | -   |
+| 配股失败，退还申购款日期 | object     | -   |
+| 除权基准日        | object     | -   |
+| 预计发行费用       | float64    | -   |
+| 配股发行结果公告日    | object     | -   |
+| 证券代码         | object     | -   |
+| 配股权证交易截止日    | datetime64 | -   |
+| 其他股份实配数量     | float64    | -   |
+| 国家股实配数量      | float64    | -   |
+| 委托单位         | object     | -   |
+| 公众获转配数量      | float64    | -   |
+| 其他配售代码       | object     | -   |
+| 配售对象         | object     | -   |
+| 配股权证交易起始日    | datetime64 | -   |
+| 资金到账日        | datetime64 | -   |
+| 机构名称         | object     | -   |
+| 股权登记日        | object     | -   |
+| 实际募资总额       | float64    | -   |
+| 预计募集资金       | float64    | -   |
+| 大股东认购数量      | float64    | -   |
+| 公众股实配数量      | float64    | -   |
+| 转配股实配数量      | float64    | -   |
+| 承销费用         | float64    | -   |
+| 法人获转配数量      | float64    | -   |
+| 配股后流通股本      | float64    | -   |
+| 股票类别         | object     | -   |
+| 公众配售简称       | object     | -   |
+| 发行方式编码       | object     | -   |
+| 承销方式         | object     | -   |
+| 公告日期         | object     | -   |
+| 配股上市日        | object     | -   |
+| 配股缴款截止日      | object     | -   |
+| 承销余额(股)      | float64    | -   |
+| 预计配股数量       | float64    | -   |
+| 配股后总股本       | float64    | -   |
+| 职工股实配数量      | float64    | -   |
+| 承销方式编码       | object     | -   |
+| 发行费用总额       | float64    | -   |
+| 配股前流通股本      | float64    | -   |
+| 股票类别编码       | object     | -   |
+| 公众配售代码       | object     | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_allotment_cninfo_df = ak.stock_allotment_cninfo(symbol="600030", start_date="19900101", end_date="20221008")
+print(stock_allotment_cninfo_df)
+```
+
+数据示例
+
+```
+    记录标识  证券简称       停牌起始日  ...     配股前流通股本  股票类别编码  公众配售代码
+0  4475575959  中信证券  2022-01-19  ...  1209298.94  001001  700030
+```
+
+#### 公司概况-巨潮资讯
+
+接口: stock_profile_cninfo
+
+目标地址: http://webapi.cninfo.com.cn/#/company
+
+描述: 巨潮资讯-个股-公司概况
+
+限量: 单次获取指定 symbol 在 start_date 和 end_date 之间的公司股本变动数据
+
+输入参数
+
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="600030"       |
+
+输出参数
+
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 公司名称 | object | -   |
+| 英文名称 | object | -   |
+| 曾用简称 | object | -   |
+| A股代码 | object | -   |
+| A股简称 | object | -   |
+| B股代码 | object | -   |
+| B股简称 | object | -   |
+| H股代码 | object | -   |
+| H股简称 | object | -   |
+| 入选指数 | object | -   |
+| 所属市场 | object | -   |
+| 所属行业 | object | -   |
+| 法人代表 | object | -   |
+| 注册资金 | object | -   |
+| 成立日期 | object | -   |
+| 上市日期 | object | -   |
+| 官方网站 | object | -   |
+| 电子邮箱 | object | -   |
+| 联系电话 | object | -   |
+| 传真   | object | -   |
+| 注册地址 | object | -   |
+| 办公地址 | object | -   |
+| 邮政编码 | object | -   |
+| 主营业务 | object | -   |
+| 经营范围 | object | -   |
+| 机构简介 | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_profile_cninfo_df = ak.stock_profile_cninfo(symbol="600030")
+print(stock_profile_cninfo_df)
+```
+
+数据示例
+
+```
+         公司名称  ...                                               机构简介
+0  中信证券股份有限公司  ...  公司的前身中信证券有限责任公司是经中国人民银行银复[1995]313号文批准，由中信公司，中...
 ```
 
 #### 资产负债表
