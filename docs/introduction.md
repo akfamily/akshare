@@ -30,7 +30,8 @@
         - 数据科学家 09 期直播：如何给开源项目贡献代码——以 AKShare 项目为例（上）；
         - 数据科学家 10 期直播：如何给开源项目贡献代码——以 AKShare 项目为例（下）；
         - 数据科学家 11 期直播：利用 PyScript 在游览器运行 AKShare 实现数据展示及下载功能；
-        - 数据科学家 12 期直播：R 语言数据科学系列之 R 语言基础。
+        - 数据科学家 12 期直播：R 语言数据科学系列之 R 语言基础；
+        - 数据科学家 13 期直播：利用 FastAPI 构建 API 接口。
     - ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
 
 ## 引用
