@@ -13732,6 +13732,56 @@ print(stock_a_pe_and_pb_df)
 4060  2021-12-17     12.73           25.67  ...       5.23             3.16  4954.76
 ```
 
+#### A 股估值指标
+
+接口: stock_zh_valuation_baidu
+
+目标地址: https://gushitong.baidu.com/stock/ab-002044
+
+描述: 百度股市通- A 股-财务报表-估值数据
+
+限量: 单次获取指定 indicator 的所有历史数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                                                     |
+|-----------|-----|------------------------------------------------------------------------|
+| symbol    | str | symbol="002044"; A 股代码                                                 |
+| indicator | str | indicator="总市值"; choice of {"总市值", "市盈率(TTM)", "市盈率(静)", "市净率", "市现率"} |
+
+输出参数
+
+| 名称    | 类型      | 描述  |
+|-------|---------|-----|
+| date  | object  | -   |
+| value | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_valuation_baidu_df = ak.stock_zh_valuation_baidu(symbol="002044", indicator="总市值")
+print(stock_zh_valuation_baidu_df)
+```
+
+数据示例
+
+```
+            date   value
+0     2005-05-19    6.59
+1     2005-05-20    6.36
+2     2005-05-23    5.73
+3     2005-05-24    5.54
+4     2005-05-25    5.48
+          ...     ...
+4218  2022-09-16  173.40
+4219  2022-09-19  169.88
+4220  2022-09-20  171.05
+4221  2022-09-21  171.05
+4222  2022-09-30  167.14
+```
+
 #### 港股个股指标
 
 接口: stock_hk_eniu_indicator
