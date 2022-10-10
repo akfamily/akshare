@@ -13740,7 +13740,7 @@ print(stock_a_pe_and_pb_df)
 
 描述: 百度股市通- A 股-财务报表-估值数据
 
-限量: 单次获取指定 indicator 的所有历史数据
+限量: 单次获取指定 symbol 和 indicator 的所有历史数据
 
 输入参数
 
@@ -13780,6 +13780,52 @@ print(stock_zh_valuation_baidu_df)
 4220  2022-09-20  171.05
 4221  2022-09-21  171.05
 4222  2022-09-30  167.14
+```
+
+#### 涨跌投票
+
+接口: stock_zh_vote_baidu
+
+目标地址: https://gushitong.baidu.com/index/ab-000001
+
+描述: 百度股市通- A 股或指数-股评-投票
+
+限量: 单次获取指定 symbol 和 indicator 的所有数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                     |
+|-----------|-----|----------------------------------------|
+| symbol    | str | symbol="000001"; A 股股票或指数代码            |
+| indicator | str | indicator="指数"; choice of {"指数", "股票"} |
+
+输出参数
+
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 周期   | object | -   |
+| 看涨   | object | -   |
+| 看跌   | object | -   |
+| 看涨比例 | object | -   |
+| 看跌比例 | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zh_vote_baidu_df = ak.stock_zh_vote_baidu(symbol="000001", indicator="指数")
+print(stock_zh_vote_baidu_df)
+```
+
+数据示例
+
+```
+   周期    看涨      看跌 看涨比例 看跌比例
+0  今日    1531    4765  24%  76%
+1  本周    1531    4765  24%  76%
+2  本月    2442    7109  26%  74%
+3  今年  15.04万  36.01万  29%  71%
 ```
 
 #### 港股个股指标
