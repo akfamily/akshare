@@ -2165,9 +2165,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.45 add: add stock_hk_valuation_baidu interface
 1.7.46 fix: fix stock_hk_valuation_baidu interface
 1.7.47 add: add stock_zh_valuation_baidu interface
+1.7.48 add: add stock_zh_vote_baidu interface
 """
 
-__version__ = "1.7.47"
+__version__ = "1.7.48"
 __author__ = "AKFamily"
 
 import sys
@@ -2177,6 +2178,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+百度股市通- A 股或指数-股评-投票
+"""
+from akshare.stock_feature.stock_zh_vote_baidu import stock_zh_vote_baidu
 
 """
 百度股市通-A 股-财务报表-估值数据
