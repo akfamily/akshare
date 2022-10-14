@@ -563,12 +563,12 @@ if __name__ == "__main__":
     print(stock_lhb_hyyyb_em_df)
 
     stock_lhb_stock_detail_date_em_df = stock_lhb_stock_detail_date_em(
-        symbol="600077"
+        symbol="002901"
     )
     print(stock_lhb_stock_detail_date_em_df)
 
     stock_lhb_stock_detail_em_df = stock_lhb_stock_detail_em(
-        symbol="000788", date="20220315", flag="买入"
+        symbol="002901", date="20221012", flag="买入"
     )
     print(stock_lhb_stock_detail_em_df)
 

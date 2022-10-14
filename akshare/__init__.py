@@ -2166,9 +2166,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.46 fix: fix stock_hk_valuation_baidu interface
 1.7.47 add: add stock_zh_valuation_baidu interface
 1.7.48 add: add stock_zh_vote_baidu interface
+1.7.49 add: add futures_news_baidu interface
 """
 
-__version__ = "1.7.48"
+__version__ = "1.7.49"
 __author__ = "AKFamily"
 
 import sys
@@ -2178,6 +2179,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+百度股市通-期货-新闻
+"""
+from akshare.futures.futures_news_baidu import futures_news_baidu
 
 """
 百度股市通- A 股或指数-股评-投票
@@ -3477,7 +3483,7 @@ from akshare.futures.futures_cscidx import futures_index_cscidx
 """
 futures_em_spot_stock
 """
-from akshare.futures.futures_em_spot_stock import futures_spot_stock
+from akshare.futures.futures_spot_stock_em import futures_spot_stock
 
 """
 energy_oil
