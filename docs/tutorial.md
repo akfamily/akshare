@@ -1145,6 +1145,8 @@
  "stock_zh_vote_baidu"  # 百度股市通- A 股或指数-股评-投票
  # 百度股市通-期货-新闻
  "futures_news_baidu"  # 百度股市通-期货-新闻
+ # 百度股市通-热搜股票
+ "stock_hot_search_baidu"  # 百度股市通-热搜股票
 ```
 
 ## 案例演示

@@ -34,6 +34,10 @@
 
 ## 更新说明
 
+1.7.50 add: add stock_hot_search_baidu interface
+
+    1. 新增 stock_hot_search_baidu 接口，获取百度热搜股票的数据
+
 1.7.49 add: add futures_news_baidu interface
 
     1. 新增 futures_news_baidu 接口，获取百度股市通中期货相关新闻数据
@@ -1307,6 +1311,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.50 add: add stock_hot_search_baidu interface
 
 1.7.49 add: add futures_news_baidu interface
 
