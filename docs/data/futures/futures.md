@@ -4689,3 +4689,53 @@ print(futures_news_shmet_df)
 998 2022-07-29 11:51:28+08:00  【SHMET铜现货报价】上海金属网讯：截止11:30分，上海金属网1#电解铜报价60180-...
 999 2022-07-29 11:56:38+08:00  【期铜偏强 现货市场成交一般】今日上海金属网1#电解铜报价60180-60450元/吨，均价...
 ```
+
+### 期货新闻
+
+接口: futures_news_baidu
+
+目标地址: https://gushitong.baidu.com/futures/ab-CJ888
+
+描述: 百度股市通-期货-新闻
+
+限量: 指定 symbol 的近期新闻数据
+
+输入参数
+
+| 名称     | 类型  | 描述                  |
+|--------|-----|---------------------|
+| symbol | str | symbol="AL"; 期货品种代码 |
+
+输出参数
+
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 标题   | object | -   |
+| 发布时间 | object | -   |
+| 新闻链接 | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+futures_news_baidu_df = ak.futures_news_baidu(symbol="AL")
+print(futures_news_baidu_df)
+```
+
+数据示例
+
+```
+                                              标题  ...                                               新闻链接
+0                       伦敦金属交易所(LME)：铝库存增加15300吨  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+1                   商品期货收盘普遍上涨，不锈钢涨4％，沪铝、沪铜等涨超2%  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+2                 【仓单】10月14日上期所沪铝期货仓单较上一日增加1377吨  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+3             【收评】沪铝日内上涨2.37% 机构称关注俄铝相关动态 铝价偏强震荡  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+4       安信证券：LME发布俄罗斯金属禁令征求意见稿 具备低成本的一体化电解铝标的或受益  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+..                                           ...  ...                                                ...
+409                         【持仓分析】沪铝前20期商净空头持仓上升  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+410  【SMM金属早参】原油续跌 伦镍跌超9% 内盘沪铝涨超1%\| 产业链供应情况调研一览  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+411                 【调研报告――铝】广东铝下游调研―消费乏力，旺季有待检验  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+412                       【调研报告】铝：铝价年内将以震荡偏弱走势为主  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+413                  刷新认知！上市公司董事长带队炒期货  4个月暴赚近7亿  ...  https://fupage.10jqka.com.cn/activity-v2/pc-ne...
+```

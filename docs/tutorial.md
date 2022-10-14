@@ -1143,6 +1143,8 @@
  "stock_zh_valuation_baidu"  # 百度股市通-A 股-财务报表-估值数据
  # 百度股市通- A 股或指数-股评-投票
  "stock_zh_vote_baidu"  # 百度股市通- A 股或指数-股评-投票
+ # 百度股市通-期货-新闻
+ "futures_news_baidu"  # 百度股市通-期货-新闻
 ```
 
 ## 案例演示
