@@ -179,8 +179,8 @@ def stock_sse_summary() -> pd.DataFrame:
     temp_df.columns = [
         "项目",
         "股票",
-        "科创板",
         "主板",
+        "科创板",
     ]
     return temp_df
 
