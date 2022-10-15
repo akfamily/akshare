@@ -2168,9 +2168,12 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.48 add: add stock_zh_vote_baidu interface
 1.7.49 add: add futures_news_baidu interface
 1.7.50 add: add stock_hot_search_baidu interface
+1.7.51 fix: fix stock_a_lg_indicator interface
+1.7.52 fix: fix stock_sse_summary interface
+1.7.53 add: add stock_buffett_index_lg interface
 """
 
-__version__ = "1.7.50"
+__version__ = "1.7.53"
 __author__ = "AKFamily"
 
 import sys
@@ -2180,6 +2183,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+乐估乐股-底部研究-巴菲特指标
+"""
+from akshare.stock_feature.stock_buffett_index_lg import stock_buffett_index_lg
 
 """
 百度股市通-热搜股票

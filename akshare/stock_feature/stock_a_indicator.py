@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/9/27 16:05
+Date: 2022/10/15 16:05
 Desc: 市盈率, 市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
@@ -36,8 +36,9 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         temp_df = temp_df[["code", "stock_name"]]
         return temp_df
     else:
-        url = f"https://www.legulegu.com/s/base-info/{symbol}"
-        r = requests.get(url)
+        url = f"https://www.legulegu.com/api/s/base-info/{symbol}"
+        params = {"token": "a44658d8b4705f9370174ddea8d5ce50"}
+        r = requests.get(url, params=params)
         temp_json = r.json()
         temp_df = pd.DataFrame(
             temp_json["data"]["items"], columns=temp_json["data"]["fields"]
