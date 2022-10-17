@@ -64,7 +64,7 @@ def crypto_js_spot() -> pd.DataFrame:
 
 
 def macro_fx_sentiment(
-    start_date: str = "20200422", end_date: str = "20200422"
+    start_date: str = "20221011", end_date: str = "20221017"
 ) -> pd.DataFrame:
     """
     金十数据-外汇-投机情绪报告
@@ -105,8 +105,14 @@ def macro_fx_sentiment(
         "x-csrf-token": "",
         "x-version": "1.0.0",
     }
-    res = requests.get(url, params=params, headers=headers)
-    return pd.DataFrame(res.json()["data"]["values"]).T
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]["values"]).T
+    temp_df.reset_index(inplace=True)
+    temp_df.rename(columns={"index": "date"}, inplace=True)
+    for col in temp_df.columns[1:]:
+        temp_df[col] = pd.to_numeric(temp_df[col], errors="coerce")
+    return temp_df
 
 
 def index_vix(

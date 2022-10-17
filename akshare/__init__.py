@@ -2172,9 +2172,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.52 fix: fix stock_sse_summary interface
 1.7.53 add: add stock_buffett_index_lg interface
 1.7.54 fix: fix stock_a_lg_indicator interface
+1.7.55 add: add fx_quote_baidu interface
 """
 
-__version__ = "1.7.54"
+__version__ = "1.7.55"
 __author__ = "AKFamily"
 
 import sys
@@ -2184,6 +2185,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+百度股市通-外汇-行情榜单
+"""
+from akshare.fx.fx_quote_baidu import fx_quote_baidu
 
 """
 乐估乐股-底部研究-巴菲特指标
