@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/9/27 16:05
+Date: 2022/10/15 16:05
 Desc: 市盈率, 市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
@@ -9,6 +9,22 @@ https://www.legulegu.com/s/000001
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from hashlib import md5
+from datetime import datetime
+
+
+def get_token_lg() -> str:
+    """
+    生成乐咕的 token
+    https://legulegu.com/s/002488
+    :return: token
+    :rtype: str
+    """
+    current_date_str = datetime.now().date().isoformat()
+    obj = md5()
+    obj.update(current_date_str.encode("utf-8"))
+    token = obj.hexdigest()
+    return token
 
 
 def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
@@ -36,14 +52,17 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         temp_df = temp_df[["code", "stock_name"]]
         return temp_df
     else:
-        url = f"https://www.legulegu.com/s/base-info/{symbol}"
-        r = requests.get(url)
+        url = f"https://www.legulegu.com/api/s/base-info/{symbol}"
+        token = get_token_lg()
+        params = {"token": token}
+        r = requests.get(url, params=params)
         temp_json = r.json()
         temp_df = pd.DataFrame(
             temp_json["data"]["items"], columns=temp_json["data"]["fields"]
         )
         temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
-        temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
+        # temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
+        temp_df[temp_df.columns[1:]] = temp_df[temp_df.columns[1:]].astype(float)
         temp_df.sort_values(["trade_date"], inplace=True, ignore_index=True)
         return temp_df
 
