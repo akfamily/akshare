@@ -1149,6 +1149,8 @@
  "stock_hot_search_baidu"  # 百度股市通-热搜股票
  # 乐估乐股-底部研究-巴菲特指标
  "stock_buffett_index_lg"  # 乐估乐股-底部研究-巴菲特指标
+ # 百度股市通-外汇-行情榜单
+ "fx_quote_baidu"  # 百度股市通-外汇-行情榜单
 ```
 
 ## 案例演示
