@@ -680,9 +680,9 @@ def bond_zh_cov_value_analysis(symbol: str = "123138") -> pd.DataFrame:
 
 if __name__ == "__main__":
     bond_zh_hs_cov_min_df = bond_zh_hs_cov_min(
-        symbol="sz123124",
-        period="1",
-        adjust="",
+        symbol="sz127004",
+        period="5",
+        adjust="hfq",
         start_date="1979-09-01 09:32:00",
         end_date="2222-01-01 09:32:00",
     )
