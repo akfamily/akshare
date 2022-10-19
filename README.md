@@ -125,13 +125,13 @@ Output
 Pay attention to **数据科学家** Official Accounts to get more information about Quant, ML, DS and so on, please visit [数据科学家](https://www.akshare.xyz/introduction.html) for more information:
 
 <div>
-    <img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png">
+    <img alt="data science" src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png">
 </div>
 
 Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/akfamily/akshare) updated info:
 
 <div>
-    <img src="https://github.com/akfamily/akshare/blob/master/example/images/ds.png">
+    <img alt="ds" src="https://github.com/akfamily/akshare/blob/master/example/images/ds.png">
 </div>
 
 Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 1254836886
@@ -313,5 +313,5 @@ Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://
 ## Backer and Sponsor
 
 <a href="https://www.jetbrains.com/?from=jindaxiang/akshare" target="_blank">
-<img src="https://github.com/akfamily/akshare/blob/master/example/images/jetbrains.svg" width="100px" height="100px">
+<img alt="jetbrains" src="https://github.com/akfamily/akshare/blob/master/example/images/jetbrains.svg" width="100px" height="100px">
 </a>
