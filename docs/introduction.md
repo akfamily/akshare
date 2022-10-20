@@ -9,7 +9,7 @@
 1. 本文档更新时间：**2022-10-20**；
 2. 如有 [AKShare](https://github.com/akfamily/akshare) 库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提 Issues；
 3. 欢迎关注 **数据科学实战** 微信公众号：<div><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>；
-4. 如果您的问题未能在文档中找到答案，您也可以加入 **AKShare-VIP QQ 群**: 为了提高问答质量，此群为收费群(一杯咖啡钱即可入群，赠送《AKShare-初阶使用教学》视频课)，可以添加 **AKShare-小助手** QQ：1254836886，由小助手邀请入群! ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
+4. 如果您的问题未能在文档中找到答案，您也可以加入 **AKShare-VIP QQ 群**: 为了提高问答质量，此群为收费群(一杯咖啡钱即可入群，赠送《AKShare-初阶-使用教学》视频课)，可以添加 **AKShare-小助手** QQ：1254836886，由小助手邀请入群! ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
 5. **知识星球【数据科学家】** 已上线，想了解更多金融量化、数据科学相关的内容，欢迎加入 **知识星球【数据科学家】** 高质量社区，里面有丰富的视频、问答、文章、书籍及代码等内容：
     - 加入【知识星球-数据科学家】可以观看 **[《AKShare-源码解析》](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492193&idx=2&sn=a02b305b57a4b0756d5842494de96011&chksm=eb221a0fdc5593196168927217fc8b5486ab43e479f13cc643096069bb829e4a50067534a0b2&mpshare=1&scene=23&srcid=0316bvNDuCQ9P2E08BgK1Bnt&sharer_sharetime=1647406328931&sharer_shareid=2a5935b93d26c84266d2170040c3643c#rd)** 课程，快速掌握关于财经数据的网络数据采集技能，同时还能认识更多志同道合的小伙伴；
     - 不定时分享国内外优质资源（金融量化、Python、数据科学、人工智能等领域的内容）及相关解读；
