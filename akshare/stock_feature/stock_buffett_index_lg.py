@@ -8,6 +8,8 @@ https://legulegu.com/stockdata/marketcap-gdp
 import pandas as pd
 import requests
 
+from akshare.stock_feature.stock_a_indicator import get_token_lg
+
 
 def stock_buffett_index_lg() -> pd.DataFrame:
     """
@@ -16,8 +18,9 @@ def stock_buffett_index_lg() -> pd.DataFrame:
     :return: 巴菲特指标
     :rtype: pandas.DataFrame
     """
+    token = get_token_lg()
     url = "https://legulegu.com/api/stockdata/marketcap-gdp/get-marketcap-gdp"
-    params = {"token": "a44658d8b4705f9370174ddea8d5ce50"}
+    params = {"token": token}
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
