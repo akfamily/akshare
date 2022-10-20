@@ -1,4 +1,4 @@
-**《AKShare-初阶使用教学》视频课程已经上线，本课程手把手讲解 AKShare 和 AKTools 的环境配置和安装使用，还包含了众多衍生知识，[详情点击链接](https://zmj.xet.tech/s/wck86)! Tips：加入 AKShare VIP 答疑群可以免费获取该视频课程。**
+**《AKShare-初阶-使用教学》视频课程已经上线，本课程手把手讲解 AKShare 和 AKTools 的环境配置和安装使用，还包含了众多衍生知识，[详情点击链接](https://zmj.xet.tech/s/wck86)! Tips：加入 AKShare VIP 答疑群可以免费获取该视频课程。**
 
 **《AKShare-源码解析》课程即将上线，本课程会系统的给大家手把手讲解 AKShare 数据接口的源码及财经数据的网络数据采集知识！[点击链接](https://mp.weixin.qq.com/s?__biz=MzI3MzYwODk2MQ==&mid=2247492193&idx=2&sn=a02b305b57a4b0756d5842494de96011&chksm=eb221a0fdc5593196168927217fc8b5486ab43e479f13cc643096069bb829e4a50067534a0b2&mpshare=1&scene=23&srcid=0316bvNDuCQ9P2E08BgK1Bnt&sharer_sharetime=1647406328931&sharer_shareid=2a5935b93d26c84266d2170040c3643c#rd) 查看课程信息。**
 
