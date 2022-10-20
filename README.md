@@ -27,7 +27,7 @@
 
 - Documentation: [中文文档](https://www.akshare.xyz/)
 
-# ![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare.svg)
+![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare.svg)
 
 ## Installation
 
