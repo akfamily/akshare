@@ -34,6 +34,10 @@
 
 ## 更新说明
 
+1.7.56 fix: fix stock_buffett_index_lg interface
+
+    1. 修复 stock_buffett_index_lg 接口
+
 1.7.55 add: add fx_quote_baidu interface
 
     1. 新增 fx_quote_baidu 接口
@@ -1331,6 +1335,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.56 fix: fix stock_buffett_index_lg interface
 
 1.7.55 add: add fx_quote_baidu interface
 
