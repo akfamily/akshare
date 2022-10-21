@@ -220,6 +220,7 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
         "-",
         "-",
         "-",
+        "-",
         "强赎条款",
         "正股价",
         "强赎状态",
