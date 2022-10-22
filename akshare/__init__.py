@@ -2176,9 +2176,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.56 fix: fix stock_buffett_index_lg interface
 1.7.57 fix: fix stock_a_high_low_statistics interface
 1.7.58 fix: fix bond_cb_redeem_jsl interface
+1.7.59 fix: fix stock_a_high_low_statistics interface
 """
 
-__version__ = "1.7.58"
+__version__ = "1.7.59"
 __author__ = "AKFamily"
 
 import sys
