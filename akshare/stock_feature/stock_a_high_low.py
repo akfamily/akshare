@@ -31,6 +31,7 @@ def stock_a_high_low_statistics(symbol: str = "all") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json)
     temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
     del temp_df["indexCode"]
+    temp_df.sort_values(['date'], inplace=True, ignore_index=True)
     return temp_df
 
 
