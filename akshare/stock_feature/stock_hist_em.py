@@ -130,7 +130,7 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
     url = "http://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -242,7 +242,7 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
     url = "http://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -354,7 +354,7 @@ def stock_bj_a_spot_em() -> pd.DataFrame:
     url = "http://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -466,7 +466,7 @@ def stock_new_a_spot_em() -> pd.DataFrame:
     url = "http://82.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -583,7 +583,7 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
     url = "http://7.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -696,7 +696,7 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
     url = "http://28.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -1146,7 +1146,7 @@ def stock_hk_spot_em() -> pd.DataFrame:
     url = "http://72.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "5000",
+        "pz": "50000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
