@@ -17930,7 +17930,7 @@ print(stock_hot_rank_latest_em_df)
 import akshare as ak
 
 stock_hot_search_baidu_df = ak.stock_hot_search_baidu(symbol="A股", date="20221014", time="18")
-print(stock_hot_search_baidu_df.columns)
+print(stock_hot_search_baidu_df)
 ```
 
 数据示例
