@@ -54,6 +54,6 @@ def stock_hot_search_baidu(symbol: str = "A股", date: str = "20221014", time: s
 
 if __name__ == "__main__":
     stock_hot_search_baidu_df = stock_hot_search_baidu(
-        symbol="全部", date="20221017", time="19"
+        symbol="A股", date="20221025", time="19"
     )
     print(stock_hot_search_baidu_df)

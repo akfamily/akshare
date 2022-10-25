@@ -1151,6 +1151,8 @@
  "stock_buffett_index_lg"  # 乐估乐股-底部研究-巴菲特指标
  # 百度股市通-外汇-行情榜单
  "fx_quote_baidu"  # 百度股市通-外汇-行情榜单
+ # 50ETF 期权波动率指数
+ "option_50etf_qvix"  # 50ETF 期权波动率指数
 ```
 
 ## 案例演示
