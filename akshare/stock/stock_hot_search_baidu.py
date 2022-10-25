@@ -46,12 +46,14 @@ def stock_hot_search_baidu(symbol: str = "A股", date: str = "20221014", time: s
     temp_df = pd.DataFrame(
         data_json["Result"]["body"], columns=data_json["Result"]["header"]
     )
-    temp_df['综合热度'] = pd.to_numeric(temp_df['综合热度'])
-    temp_df['排名变化'] = pd.to_numeric(temp_df['排名变化'])
-    temp_df['是否连续上榜'] = pd.to_numeric(temp_df['是否连续上榜'])
+    temp_df["综合热度"] = pd.to_numeric(temp_df["综合热度"])
+    temp_df["排名变化"] = pd.to_numeric(temp_df["排名变化"])
+    temp_df["是否连续上榜"] = pd.to_numeric(temp_df["是否连续上榜"])
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_hot_search_baidu_df = stock_hot_search_baidu(symbol="全部", date="20221017", time="19")
+    stock_hot_search_baidu_df = stock_hot_search_baidu(
+        symbol="全部", date="20221017", time="19"
+    )
     print(stock_hot_search_baidu_df)
