@@ -1153,6 +1153,8 @@
  "fx_quote_baidu"  # 百度股市通-外汇-行情榜单
  # 50ETF 期权波动率指数
  "option_50etf_qvix"  # 50ETF 期权波动率指数
+ # 300 ETF 期权波动率指数
+ # option_300etf_qvix  # 300 ETF 期权波动率指数
 ```
 
 ## 案例演示
