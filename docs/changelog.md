@@ -34,6 +34,10 @@
 
 ## 更新说明
 
+1.7.63 add: add option_300etf_min_qvix interface
+
+    1. 新增 option_300etf_min_qvix 接口
+
 1.7.62 add: add option_300etf_qvix interface
     
     1. 新增 option_300etf_qvix 接口
@@ -1359,6 +1363,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.63 add: add option_300etf_min_qvix interface
 
 1.7.62 add: add option_300etf_qvix interface
 

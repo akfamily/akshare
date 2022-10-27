@@ -2180,9 +2180,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.60 fix: fix stock_zh_a_spot_em interface
 1.7.61 add: add option_50etf_qvix interface
 1.7.62 add: add option_300etf_qvix interface
+1.7.63 add: add option_300etf_min_qvix interface
 """
 
-__version__ = "1.7.62"
+__version__ = "1.7.63"
 __author__ = "AKFamily"
 
 import sys
@@ -2196,7 +2197,12 @@ del sys
 """
 50ETF 期权波动率指数
 """
-from akshare.option.option_qvix import option_50etf_qvix, option_300etf_min_qvix, option_300etf_qvix, option_50etf_min_qvix
+from akshare.option.option_qvix import (
+    option_50etf_qvix,
+    option_300etf_min_qvix,
+    option_300etf_qvix,
+    option_50etf_min_qvix
+)
 
 """
 百度股市通-外汇-行情榜单
