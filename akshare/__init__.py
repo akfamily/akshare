@@ -2201,7 +2201,7 @@ from akshare.option.option_qvix import (
     option_50etf_qvix,
     option_300etf_min_qvix,
     option_300etf_qvix,
-    option_50etf_min_qvix
+    option_50etf_min_qvix,
 )
 
 """
@@ -2256,7 +2256,7 @@ from akshare.stock_feature.stock_hsgt_exchange_rate import (
     stock_sgt_reference_exchange_rate_sse,
     stock_sgt_settlement_exchange_rate_sse,
     stock_sgt_reference_exchange_rate_szse,
-    stock_sgt_settlement_exchange_rate_szse
+    stock_sgt_settlement_exchange_rate_szse,
 )
 
 """
