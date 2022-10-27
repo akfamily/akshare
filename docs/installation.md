@@ -173,8 +173,7 @@ pe =
       ProcessName: "MATLAB"
 ```
 
-则表示可以正常使用 ```C:\Anaconda3\envs\ak_test\python.exe``` 环境的 Python，同时确保在该
-环境中已经安装最新版的 AKShare。
+则表示可以正常使用 ```C:\Anaconda3\envs\ak_test\python.exe``` 环境的 Python，同时确保在该环境中已经安装最新版的 AKShare。
 
 #### 测试调用 AKShare 接口
 
