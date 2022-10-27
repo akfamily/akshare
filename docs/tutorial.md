@@ -1154,7 +1154,9 @@
  # 50ETF 期权波动率指数
  "option_50etf_qvix"  # 50ETF 期权波动率指数
  # 300 ETF 期权波动率指数
- # option_300etf_qvix  # 300 ETF 期权波动率指数
+ "option_300etf_qvix"  # 300 ETF 期权波动率指数
+ # 300 ETF 期权波动率指数 QVIX-分时
+ "option_300etf_min_qvix"  # 300 ETF 期权波动率指数 QVIX-分时
 ```
 
 ## 案例演示
