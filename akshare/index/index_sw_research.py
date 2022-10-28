@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+"""
+Date: 2022/1/26 13:10
+Desc: 申万指数-申万一级、二级和三级
+http://www.swsindex.com/IdxMain.aspx
+https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
+"""
 import pandas as pd
 import requests
 import math
@@ -5,6 +13,12 @@ from tqdm import tqdm
 
 
 def index_realtime_sw(symbol: str = "二级行业"):
+    """
+    申万-市场表征实时行情数据
+    http://www.swsindex.com/idx0120.aspx?columnid=8831
+    :return: 市场表征实时行情数据
+    :rtype: pandas.DataFrame
+    """
     url = "https://www.swhyresearch.com/institute-sw/api/index_publish/current/"
     params = {
         'page': '1',
@@ -24,7 +38,6 @@ def index_realtime_sw(symbol: str = "二级行业"):
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['data']['results'])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-
     return big_df
 
 
