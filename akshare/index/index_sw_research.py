@@ -6,9 +6,10 @@ Desc: 申万指数-申万一级、二级和三级
 http://www.swsindex.com/IdxMain.aspx
 https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
 """
+import math
+
 import pandas as pd
 import requests
-import math
 from tqdm import tqdm
 
 
