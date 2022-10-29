@@ -2199,9 +2199,8 @@ del sys
 
 
 """
-
+申万宏源研究-指数系列
 """
-
 from akshare.index.index_sw_research import index_realtime_sw
 
 """
