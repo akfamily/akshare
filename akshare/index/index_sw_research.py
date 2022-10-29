@@ -21,9 +21,7 @@ def index_realtime_sw(symbol: str = "二级行业"):
     :return: 指数系列实时行情数据
     :rtype: pandas.DataFrame
     """
-    url = (
-        "https://www.swhyresearch.com/institute-sw/api/index_publish/current/"
-    )
+    url = "https://www.swhyresearch.com/institute-sw/api/index_publish/current/"
     params = {"page": "1", "page_size": "50", "indextype": symbol}
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -36,9 +34,40 @@ def index_realtime_sw(symbol: str = "二级行业"):
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df.columns = [
+        "指数代码",
+        "指数名称",
+        "昨收盘",
+        "今开盘",
+        "成交额",
+        "最高价",
+        "最低价",
+        "最新价",
+        "成交量",
+    ]
+    big_df = big_df[
+        [
+            "指数代码",
+            "指数名称",
+            "昨收盘",
+            "今开盘",
+            "最新价",
+            "成交额",
+            "成交量",
+            "最高价",
+            "最低价",
+        ]
+    ]
+    big_df["昨收盘"] = pd.to_numeric(big_df["昨收盘"])
+    big_df["今开盘"] = pd.to_numeric(big_df["今开盘"])
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"])
+    big_df["成交额"] = pd.to_numeric(big_df["成交额"])
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
+    big_df["最高价"] = pd.to_numeric(big_df["最高价"])
+    big_df["最低价"] = pd.to_numeric(big_df["最低价"])
     return big_df
 
 
 if __name__ == "__main__":
-    index_realtime_sw_df = index_realtime_sw(symbol="风格指数")
+    index_realtime_sw_df = index_realtime_sw(symbol="市场表征")
     print(index_realtime_sw_df)

@@ -2183,7 +2183,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.63 add: add option_300etf_min_qvix interface
 1.7.64 add: add option_50etf_min_qvix interface
 1.7.65 fix: fix futures_rule interface
-1.7.66 add: add futures_rule interface
+1.7.66 add: add index_realtime_sw interface
 """
 
 __version__ = "1.7.66"
