@@ -1775,8 +1775,8 @@ if __name__ == "__main__":
         symbol="01611",
         period="1",
         adjust="",
-        start_date="2022-06-02 09:30:00",
-        end_date="2022-06-02 18:32:00",
+        start_date="2022-10-02 09:30:00",
+        end_date="2022-10-29 18:32:00",
     )
     print(stock_hk_hist_min_em_df)
 
