@@ -12,7 +12,62 @@ import requests
 from tqdm import tqdm
 
 
-def index_realtime_sw(symbol: str = "二级行业"):
+def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
+    """
+    申万宏源研究-指数发布-指数详情-指数历史数据
+    https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=%E7%94%B3%E4%B8%8750
+    :param symbol: 指数代码
+    :type symbol: str
+    :param period: choice of {"day", "week", "month"}
+    :type period: str
+    :return: 指数历史数据
+    :rtype: pandas.DataFrame
+    """
+    period_map = {
+        "day": "DAY",
+        "week": "WEEK",
+        "month": "MONTH",
+    }
+    url = "https://www.swhyresearch.com/institute-sw/api/index_publish/trend/"
+    params = {
+        "swindexcode": symbol,
+        "period": period_map[period],
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.rename(
+        columns={
+            "swindexcode": "代码",
+            "bargaindate": "日期",
+            "openindex": "开盘",
+            "maxindex": "最高",
+            "minindex": "最低",
+            "closeindex": "收盘",
+            "hike": "",
+            "markup": "",
+            "bargainamount": "成交量",
+            "bargainsum": "成交额",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "代码",
+            "日期",
+            "收盘",
+            "开盘",
+            "最高",
+            "最低",
+            "成交量",
+            "成交额",
+        ]
+    ]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    return temp_df
+
+
+def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
     """
     申万宏源研究-指数系列
     https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex
@@ -69,5 +124,8 @@ def index_realtime_sw(symbol: str = "二级行业"):
 
 
 if __name__ == "__main__":
+    index_hist_sw_df = index_hist_sw(symbol="801030", period="week")
+    print(index_hist_sw_df)
+
     index_realtime_sw_df = index_realtime_sw(symbol="市场表征")
     print(index_realtime_sw_df)
