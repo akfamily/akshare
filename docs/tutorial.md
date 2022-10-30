@@ -1159,6 +1159,8 @@
  "option_300etf_min_qvix"  # 300 ETF 期权波动率指数 QVIX-分时
  # 申万指数实时行情
  "index_realtime_sw"  # 申万指数实时行情
+ # 申万指数历史行情
+ "index_hist_sw"  # 申万指数历史行情
 ```
 
 ## 案例演示
