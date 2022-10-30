@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/11/7 12:12
+Date: 2022/10/30 21:12
 Desc: 新财富 500 人富豪榜
 http://www.xcf.cn/zhuanti/ztzz/hdzt1/500frb/index.html
 """
@@ -11,7 +11,7 @@ import pandas as pd
 import requests
 
 
-def xincaifu_rank(year: str = "2020") -> pd.DataFrame:
+def xincaifu_rank(year: str = "2022") -> pd.DataFrame:
     """
     新财富 500 人富豪榜
     http://www.xcf.cn/zhuanti/ztzz/hdzt1/500frb/index.html
@@ -38,19 +38,20 @@ def xincaifu_rank(year: str = "2020") -> pd.DataFrame:
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame(data_json["data"]["rows"])
-    temp_df.columns = [
-        "_",
-        "财富",
-        "性别",
-        "排名",
-        "年龄",
-        "主要公司",
-        "姓名",
-        "公司总部",
-        "年份",
-        "_",
-        "相关行业",
-    ]
+    temp_df.columns
+    temp_df.rename(columns={
+        'assets': "财富",
+        'year': "年份",
+        'sex': "性别",
+        'name': "姓名",
+        'rank': "排名",
+        'company': "主要公司",
+        'industry': "相关行业",
+        'id': "-",
+        'addr': "公司总部",
+        'rankLst': "-",
+        'age': "年龄",
+    }, inplace=True)
     temp_df = temp_df[
         [
             "排名",
@@ -68,5 +69,5 @@ def xincaifu_rank(year: str = "2020") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    xincaifu_rank_df = xincaifu_rank(year="2020")
+    xincaifu_rank_df = xincaifu_rank(year="2022")
     print(xincaifu_rank_df)
