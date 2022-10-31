@@ -45,6 +45,7 @@ def futures_news_baidu(symbol: str = "AL") -> pd.DataFrame:
         ]
     ]
     temp_df["发布时间"] = pd.to_datetime(temp_df["发布时间"], unit="s").dt.date
+    temp_df.sort_values(["发布时间"], inplace=True, ignore_index=True)
     return temp_df
 
 
