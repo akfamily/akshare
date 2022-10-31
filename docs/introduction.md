@@ -1,4 +1,4 @@
-# [AKShare](https://github.com/akfamily/akshare) 概览
+# [AKShare](https://github.com/akfamily/akshare) 项目概览
 
 **本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！
 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。**
