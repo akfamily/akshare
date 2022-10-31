@@ -2188,9 +2188,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.68 fix: fix hurun_rank interface
 1.7.69 add: add index_hist_sw interface
 1.7.70 fix: fix index_hist_sw interface
+1.7.71 add: add support for Python 3.11
 """
 
-__version__ = "1.7.70"
+__version__ = "1.7.71"
 __author__ = "AKFamily"
 
 import sys
