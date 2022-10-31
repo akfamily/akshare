@@ -67,6 +67,90 @@ def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
     return temp_df
 
 
+def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
+    """
+    申万宏源研究-指数发布-指数详情-指数分时数据
+    https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=%E7%94%B3%E4%B8%8750
+    :param symbol: 指数代码
+    :type symbol: str
+    :return: 指数分时数据
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.swhyresearch.com/institute-sw/api/index_publish/details/timelines/"
+    params = {
+        "swindexcode": symbol,
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.rename(
+        columns={
+            "l1": "代码",
+            "l2": "名称",
+            "l8": "价格",
+            "trading_date": "日期",
+            "trading_time": "时间",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "代码",
+            "名称",
+            "价格",
+            "日期",
+            "时间",
+        ]
+    ]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df['价格'] = pd.to_numeric(temp_df['价格'])
+    return temp_df
+
+
+def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
+    """
+    申万宏源研究-指数发布-指数详情-成分股
+    https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex/releasedetail?code=801001&name=%E7%94%B3%E4%B8%8750
+    :param symbol: 指数代码
+    :type symbol: str
+    :return: 成分股
+    :rtype: pandas.DataFrame
+    """
+    url = "https://www.swhyresearch.com/institute-sw/api/index_publish/details/component_stocks/"
+    params = {
+        "swindexcode": symbol,
+        'page': '1',
+        'page_size': '10000'
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]['results'])
+    temp_df.reset_index(inplace=True)
+    temp_df['index'] = temp_df['index'] + 1
+    temp_df.rename(
+        columns={
+            "index": "序号",
+            "stockcode": "证券代码",
+            "stockname": "证券名称",
+            "newweight": "最新权重",
+            "beginningdate": "计入日期",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "序号",
+            "证券代码",
+            "证券名称",
+            "最新权重",
+            "计入日期",
+        ]
+    ]
+    temp_df['计入日期'] = pd.to_datetime(temp_df['计入日期']).dt.date
+    temp_df['最新权重'] = pd.to_numeric(temp_df['最新权重'])
+    return temp_df
+
+
 def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
     """
     申万宏源研究-指数系列
@@ -124,8 +208,14 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_hist_sw_df = index_hist_sw(symbol="801030", period="week")
+    index_hist_sw_df = index_hist_sw(symbol="801030", period="day")
     print(index_hist_sw_df)
+
+    index_min_sw_df = index_min_sw(symbol="801001")
+    print(index_min_sw_df)
+
+    index_component_sw_df = index_component_sw(symbol="801001")
+    print(index_component_sw_df)
 
     index_realtime_sw_df = index_realtime_sw(symbol="市场表征")
     print(index_realtime_sw_df)

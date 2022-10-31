@@ -1161,6 +1161,10 @@
  "index_realtime_sw"  # 申万指数实时行情
  # 申万指数历史行情
  "index_hist_sw"  # 申万指数历史行情
+ # 申万指数分时行情
+ "index_min_sw"  # 申万指数分时行情
+ # 申万指数成分股
+ "index_component_sw"  # 申万指数成分股
 ```
 
 ## 案例演示
