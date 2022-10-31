@@ -183,7 +183,7 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     http://gu.qq.com/sh000919/zs
     :param symbol: 带市场标识的股票或者指数代码
     :type symbol: str
-    :return: 后复权的股票和指数数据
+    :return: 前复权的股票和指数数据
     :rtype: pandas.DataFrame
     """
     start_date = _get_tx_start_year(symbol=symbol)

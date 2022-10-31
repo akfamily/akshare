@@ -208,7 +208,7 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    index_hist_sw_df = index_hist_sw(symbol="801030", period="day")
+    index_hist_sw_df = index_hist_sw(symbol="801193", period="day")
     print(index_hist_sw_df)
 
     index_min_sw_df = index_min_sw(symbol="801001")
