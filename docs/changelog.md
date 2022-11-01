@@ -34,6 +34,10 @@
 
 ## 更新说明
 
+1.7.75 add: add index_component_sw interface
+
+    1. 新增 index_component_sw 接口
+
 1.7.74 fix: fix futures_news_baidu interface
 
     1. 修复 futures_news_baidu 接口
@@ -1407,6 +1411,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.75 add: add index_component_sw interface
 
 1.7.74 fix: fix futures_news_baidu interface
 
