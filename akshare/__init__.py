@@ -2192,9 +2192,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.72 add: add index_min_sw interface
 1.7.73 fix: fix stock_zh_index_daily_tx interface
 1.7.74 fix: fix futures_news_baidu interface
+1.7.75 add: add index_component_sw interface
 """
 
-__version__ = "1.7.74"
+__version__ = "1.7.75"
 __author__ = "AKFamily"
 
 import sys
