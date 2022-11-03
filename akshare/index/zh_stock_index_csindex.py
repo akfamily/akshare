@@ -114,7 +114,8 @@ def index_value_name_funddb() -> pd.DataFrame:
         "type": "pc",
         "version": "1.7.7",
     }
-    r = requests.post(url, json=payload)
+    # r = requests.post(url, json=payload)
+    r = requests.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["right_list"])
     temp_df.columns = [
@@ -211,7 +212,8 @@ def index_value_hist_funddb(
         "version": "1.7.7",
         "year": -1,
     }
-    r = requests.post(url, json=payload)
+    # r = requests.post(url, json=payload)
+    r = requests.get(url)
     data_json = r.json()
     big_df = pd.DataFrame()
     temp_df = pd.DataFrame(
@@ -243,6 +245,7 @@ def index_value_hist_funddb(
 
 
 if __name__ == "__main__":
+    '''
     stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(
         symbol="000859", start_date="20220410", end_date="20220709"
     )
@@ -252,6 +255,7 @@ if __name__ == "__main__":
         symbol="H30374"
     )
     print(stock_zh_index_value_csindex_df)
+    '''
 
     index_value_hist_funddb_df = index_value_hist_funddb(
         symbol="大盘成长", indicator="市盈率"
