@@ -63,7 +63,7 @@ def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
             "成交额",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
     return temp_df
 
 
@@ -76,7 +76,9 @@ def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
     :return: 指数分时数据
     :rtype: pandas.DataFrame
     """
-    url = "https://www.swhyresearch.com/institute-sw/api/index_publish/details/timelines/"
+    url = (
+        "https://www.swhyresearch.com/institute-sw/api/index_publish/details/timelines/"
+    )
     params = {
         "swindexcode": symbol,
     }
@@ -102,8 +104,8 @@ def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
             "时间",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-    temp_df['价格'] = pd.to_numeric(temp_df['价格'])
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["价格"] = pd.to_numeric(temp_df["价格"])
     return temp_df
 
 
@@ -117,16 +119,12 @@ def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.swhyresearch.com/institute-sw/api/index_publish/details/component_stocks/"
-    params = {
-        "swindexcode": symbol,
-        'page': '1',
-        'page_size': '10000'
-    }
+    params = {"swindexcode": symbol, "page": "1", "page_size": "10000"}
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]['results'])
+    temp_df = pd.DataFrame(data_json["data"]["results"])
     temp_df.reset_index(inplace=True)
-    temp_df['index'] = temp_df['index'] + 1
+    temp_df["index"] = temp_df["index"] + 1
     temp_df.rename(
         columns={
             "index": "序号",
@@ -146,8 +144,8 @@ def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
             "计入日期",
         ]
     ]
-    temp_df['计入日期'] = pd.to_datetime(temp_df['计入日期']).dt.date
-    temp_df['最新权重'] = pd.to_numeric(temp_df['最新权重'])
+    temp_df["计入日期"] = pd.to_datetime(temp_df["计入日期"]).dt.date
+    temp_df["最新权重"] = pd.to_numeric(temp_df["最新权重"])
     return temp_df
 
 
