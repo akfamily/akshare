@@ -106,15 +106,7 @@ def index_value_name_funddb() -> pd.DataFrame:
     :rtype: 指数代码
     """
     url = "https://api.jiucaishuo.com/v2/guzhi/showcategory"
-    payload = {
-        "act_time": 1634821370997,
-        "authtoken": "",
-        "category_id": "",
-        "data_source": "xichou",
-        "type": "pc",
-        "version": "1.7.7",
-    }
-    r = requests.post(url, json=payload)
+    r = requests.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["right_list"])
     temp_df.columns = [
@@ -202,14 +194,8 @@ def index_value_hist_funddb(
     )
     url = "https://api.jiucaishuo.com/v2/guzhi/newtubiaolinedata"
     payload = {
-        "act_time": 1634821370997,
-        "authtoken": "",
-        "data_source": "xichou",
         "gu_code": name_code_map[symbol],
         "pe_category": indicator_map[indicator],
-        "type": "pc",
-        "version": "1.7.7",
-        "year": -1,
     }
     r = requests.post(url, json=payload)
     data_json = r.json()

@@ -2194,9 +2194,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.74 fix: fix futures_news_baidu interface
 1.7.75 add: add index_component_sw interface
 1.7.76 fix: fix macro_euro_gdp_yoy interface
+1.7.77 fix: fix index_value_hist_funddb interface
 """
 
-__version__ = "1.7.76"
+__version__ = "1.7.77"
 __author__ = "AKFamily"
 
 import sys
@@ -2580,7 +2581,7 @@ from akshare.stock_feature.stock_hsgt_em import (
 """
 指数估值
 """
-from akshare.index.zh_stock_index_csindex import (
+from akshare.index.stock_zh_index_csindex import (
     index_value_hist_funddb,
     index_value_name_funddb,
 )
@@ -3313,7 +3314,7 @@ from akshare.stock_feature.stock_sina_lhb import (
 """
 中证指数
 """
-from akshare.index.zh_stock_index_csindex import (
+from akshare.index.stock_zh_index_csindex import (
     stock_zh_index_hist_csindex,
     stock_zh_index_value_csindex,
 )
