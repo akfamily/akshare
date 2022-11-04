@@ -1165,6 +1165,8 @@
  "index_min_sw"  # 申万指数分时行情
  # 申万指数成分股
  "index_component_sw"  # 申万指数成分股
+ # 申万宏源研究-指数分析
+ "index_analysis_sw"  # 申万宏源研究-指数分析
 ```
 
 ## 案例演示
