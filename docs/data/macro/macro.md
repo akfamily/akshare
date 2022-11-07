@@ -2692,6 +2692,8 @@ print(macro_china_wbck_df)
 
 ##### 货币净投放与净回笼
 
+提示: 该接口暂停更新
+
 接口: macro_china_hb
 
 目标地址: http://www.chinamoney.com.cn/chinese/hb/
@@ -2779,6 +2781,8 @@ print(macro_china_hb_df)
 ```
 
 ##### 央行公开市场操作
+
+提示: 该接口暂停更新
 
 接口: macro_china_gksccz
 

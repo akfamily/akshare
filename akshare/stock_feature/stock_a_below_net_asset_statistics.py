@@ -31,7 +31,6 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
-    del temp_df["id"]
     del temp_df["marketId"]
     temp_df = temp_df.iloc[:, :3]
     temp_df.columns = ["below_net_asset", "total_company", "date"]
