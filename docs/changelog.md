@@ -4,6 +4,7 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.7.82     | index_analysis_sw                           | index_analysis_daily_sw                     | 20220921 |
 | 1.7.27     | stock_em_qsjy                               | stock_qsjy_em                               | 20220921 |
 | 1.7.23     | futures_pig_info                            | futures_hog_info                            | 20220916 |
 | 1.7.23     | futures_pig_rank                            | futures_hog_rank                            | 20220916 |
@@ -33,6 +34,13 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.7.82 fix: fix index_analysis_daily_sw interface
+
+    1. 重命名 index_analysis_sw 为 index_analysis_daily_sw 接口
+    2. 新增 index_analysis_weekly_sw 接口
+    3. 新增 index_analysis_monthly_sw 接口
+    4. 新增 index_analysis_week_month_sw 接口
 
 1.7.81 fix: fix macro_swiss_svme interface
 
@@ -1435,6 +1443,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.82 fix: fix index_analysis_daily_sw interface
 
 1.7.81 fix: fix macro_swiss_svme interface
 
