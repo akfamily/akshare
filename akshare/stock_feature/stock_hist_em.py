@@ -871,11 +871,12 @@ def code_id_map_em() -> dict:
 
 
 def stock_zh_a_hist(
-    symbol: str = "000001",
-    period: str = "daily",
-    start_date: str = "19700101",
-    end_date: str = "20500101",
-    adjust: str = "",
+        symbol: str = "000001",
+        period: str = "daily",
+        start_date: str = "19700101",
+        end_date: str = "20500101",
+        adjust: str = "",
+        type: str = "sz"
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日行情
@@ -890,6 +891,8 @@ def stock_zh_a_hist(
     :type end_date: str
     :param adjust: choice of {"qfq": "前复权", "hfq": "后复权", "": "不复权"}
     :type adjust: str
+    :param type: choice of {"sz": "深证A股", "sh": "上证A股", "bj": "北证A股", "zs": "指数"}
+    :type adjust: str
     :return: 每日行情
     :rtype: pandas.DataFrame
     """
@@ -897,18 +900,24 @@ def stock_zh_a_hist(
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     period_dict = {"daily": "101", "weekly": "102", "monthly": "103"}
     url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
+    id = {
+        "sz": 0,
+        "sh": 1,
+        "bj": 0,
+        "zs": 1,
+    }[type]
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f116",
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "klt": period_dict[period],
         "fqt": adjust_dict[adjust],
-        "secid": f"{code_id_dict[symbol]}.{symbol}",
+        "secid": f"{id}.{symbol}",
         "beg": start_date,
         "end": end_date,
         "_": "1623766962675",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, proxies={'http': 'http://127.0.0.1:8080'}, verify=False)
     data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
