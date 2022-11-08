@@ -2198,9 +2198,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.78 add: add index_analysis_sw interface
 1.7.79 fix: fix macro_germany interface
 1.7.80 fix: fix stock_a_below_net_asset_statistics interface
+1.7.81 fix: fix macro_swiss_svme interface
 """
 
-__version__ = "1.7.80"
+__version__ = "1.7.81"
 __author__ = "AKFamily"
 
 import sys

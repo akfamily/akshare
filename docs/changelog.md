@@ -34,6 +34,10 @@
 
 ## 更新说明
 
+1.7.81 fix: fix macro_swiss_svme interface
+
+    1. 修复 macro_swiss_svme 接口
+
 1.7.80 fix: fix stock_a_below_net_asset_statistics interface
 
     1. 修复 stock_a_below_net_asset_statistics 接口
@@ -1431,6 +1435,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.81 fix: fix macro_swiss_svme interface
 
 1.7.80 fix: fix stock_a_below_net_asset_statistics interface
 
