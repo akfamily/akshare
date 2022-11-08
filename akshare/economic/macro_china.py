@@ -7,7 +7,6 @@ Desc: 宏观数据-中国
 import json
 import math
 import time
-from datetime import datetime
 
 import pandas as pd
 import requests
@@ -3040,58 +3039,62 @@ def macro_china_hb(symbol: str = "weekly") -> pd.DataFrame:
     :return: 货币净投放与净回笼
     :rtype: pandas.DataFrame
     """
-    if symbol == "weekly":
-        current_year = datetime.today().year
-        url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketPutAndBackStatByWeek"
-        params = {
-            "t": "1597986289666",
-            "t": "1597986289666",
-        }
-        big_df = pd.DataFrame()
-        for year in tqdm(range(1997, current_year + 1)):
-            payload = {
-                "startWeek": f"{year}-01",
-                "endWeek": f"{year}-52",
-                "pageSize": "5000",
-                "pageNo": "1",
-            }
-            r = requests.post(url, params=params, data=payload)
-            temp_df = pd.DataFrame(r.json()["data"]["resultList"])
-            big_df = big_df.append(temp_df, ignore_index=True)
-        big_df = big_df.sort_values(by=["startDate"])
-        big_df.reset_index(inplace=True, drop=True)
-        big_df.columns = ["日期", "投放量", "回笼量", "净投放", "开始日期", "结束日期"]
-        big_df = big_df[["日期", "开始日期", "结束日期", "投放量", "回笼量", "净投放"]]
-        big_df["开始日期"] = pd.to_datetime(big_df["开始日期"]).dt.date
-        big_df["结束日期"] = pd.to_datetime(big_df["结束日期"]).dt.date
-        big_df["投放量"] = pd.to_numeric(big_df["投放量"])
-        big_df["回笼量"] = pd.to_numeric(big_df["回笼量"])
-        big_df["净投放"] = pd.to_numeric(big_df["净投放"])
-        return big_df
-    else:
-        current_year = datetime.today().year
-        url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketPutAndBackStatByMonth"
-        params = {
-            "t": "1597986289666",
-            "t": "1597986289666",
-        }
-        big_df = pd.DataFrame()
-        for year in tqdm(range(1997, current_year + 1)):
-            payload = {
-                "startMonth": f"{year}-01",
-                "endMonth": f"{year}-12",
-                "pageSize": "5000",
-                "pageNo": "1",
-            }
-            r = requests.post(url, params=params, data=payload)
-            temp_df = pd.DataFrame(r.json()["data"]["resultList"])
-            big_df = big_df.append(temp_df, ignore_index=True)
-        big_df.columns = ["日期", "投放量", "回笼量", "净投放", "-", "-"]
-        big_df = big_df[["日期", "投放量", "回笼量", "净投放"]]
-        big_df["投放量"] = pd.to_numeric(big_df["投放量"])
-        big_df["回笼量"] = pd.to_numeric(big_df["回笼量"])
-        big_df["净投放"] = pd.to_numeric(big_df["净投放"])
-        return big_df
+    import warnings
+
+    warnings.warn("由于目标网站未更新数据，该接口即将移除", DeprecationWarning)
+
+    # if symbol == "weekly":
+    #     current_year = datetime.today().year
+    #     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketPutAndBackStatByWeek"
+    #     params = {
+    #         "t": "1597986289666",
+    #         "t": "1597986289666",
+    #     }
+    #     big_df = pd.DataFrame()
+    #     for year in tqdm(range(1997, current_year + 1)):
+    #         payload = {
+    #             "startWeek": f"{year}-01",
+    #             "endWeek": f"{year}-52",
+    #             "pageSize": "5000",
+    #             "pageNo": "1",
+    #         }
+    #         r = requests.post(url, params=params, data=payload)
+    #         temp_df = pd.DataFrame(r.json()["data"]["resultList"])
+    #         big_df = big_df.append(temp_df, ignore_index=True)
+    #     big_df = big_df.sort_values(by=["startDate"])
+    #     big_df.reset_index(inplace=True, drop=True)
+    #     big_df.columns = ["日期", "投放量", "回笼量", "净投放", "开始日期", "结束日期"]
+    #     big_df = big_df[["日期", "开始日期", "结束日期", "投放量", "回笼量", "净投放"]]
+    #     big_df["开始日期"] = pd.to_datetime(big_df["开始日期"]).dt.date
+    #     big_df["结束日期"] = pd.to_datetime(big_df["结束日期"]).dt.date
+    #     big_df["投放量"] = pd.to_numeric(big_df["投放量"])
+    #     big_df["回笼量"] = pd.to_numeric(big_df["回笼量"])
+    #     big_df["净投放"] = pd.to_numeric(big_df["净投放"])
+    #     return big_df
+    # else:
+    #     current_year = datetime.today().year
+    #     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketPutAndBackStatByMonth"
+    #     params = {
+    #         "t": "1597986289666",
+    #         "t": "1597986289666",
+    #     }
+    #     big_df = pd.DataFrame()
+    #     for year in tqdm(range(1997, current_year + 1)):
+    #         payload = {
+    #             "startMonth": f"{year}-01",
+    #             "endMonth": f"{year}-12",
+    #             "pageSize": "5000",
+    #             "pageNo": "1",
+    #         }
+    #         r = requests.post(url, params=params, data=payload)
+    #         temp_df = pd.DataFrame(r.json()["data"]["resultList"])
+    #         big_df = big_df.append(temp_df, ignore_index=True)
+    #     big_df.columns = ["日期", "投放量", "回笼量", "净投放", "-", "-"]
+    #     big_df = big_df[["日期", "投放量", "回笼量", "净投放"]]
+    #     big_df["投放量"] = pd.to_numeric(big_df["投放量"])
+    #     big_df["回笼量"] = pd.to_numeric(big_df["回笼量"])
+    #     big_df["净投放"] = pd.to_numeric(big_df["净投放"])
+    #     return big_df
 
 
 def macro_china_gksccz() -> pd.DataFrame:
@@ -3101,51 +3104,54 @@ def macro_china_gksccz() -> pd.DataFrame:
     :return: 央行公开市场操作
     :rtype: pandas.DataFrame
     """
-    url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketHandle"
-    params = {
-        "t": "1597986289666",
-        "t": "1597986289666",
-    }
-    payload = {
-        "pageSize": "15",
-        "pageNo": "1",
-    }
-    headers = {
-        "Accept": "application/json, text/javascript, */*; q=0.01",
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "Referer": "https://www.chinamoney.com.cn/chinese/yhgkscczh/",
-        "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest",
-    }
-    r = requests.post(url, params=params, data=payload, headers=headers)
-    data_json = r.json()
-    total_page = data_json["data"]["pageTotal"]
-    big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
-        payload.update(
-            {
-                "pageNo": page,
-            }
-        )
-        r = requests.post(url, params=params, data=payload)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["resultList"])
-        big_df = big_df.append(temp_df, ignore_index=True)
-    big_df.columns = [
-        "操作日期",
-        "期限",
-        "交易量",
-        "中标利率",
-        "正/逆回购",
-    ]
-    big_df["操作日期"] = pd.to_datetime(big_df["操作日期"]).dt.date
-    big_df["期限"] = pd.to_numeric(big_df["期限"])
-    big_df["交易量"] = pd.to_numeric(big_df["交易量"])
-    big_df["中标利率"] = pd.to_numeric(big_df["中标利率"])
-    return big_df
+    import warnings
+
+    warnings.warn("由于目标网站未更新数据，该接口即将移除", DeprecationWarning)
+    # url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-publish/TicketHandle"
+    # params = {
+    #     "t": "1597986289666",
+    #     "t": "1597986289666",
+    # }
+    # payload = {
+    #     "pageSize": "15",
+    #     "pageNo": "1",
+    # }
+    # headers = {
+    #     "Accept": "application/json, text/javascript, */*; q=0.01",
+    #     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+    #     "Referer": "https://www.chinamoney.com.cn/chinese/yhgkscczh/",
+    #     "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"',
+    #     "sec-ch-ua-mobile": "?0",
+    #     "sec-ch-ua-platform": '"Windows"',
+    #     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36",
+    #     "X-Requested-With": "XMLHttpRequest",
+    # }
+    # r = requests.post(url, params=params, data=payload, headers=headers)
+    # data_json = r.json()
+    # total_page = data_json["data"]["pageTotal"]
+    # big_df = pd.DataFrame()
+    # for page in tqdm(range(1, total_page + 1)):
+    #     payload.update(
+    #         {
+    #             "pageNo": page,
+    #         }
+    #     )
+    #     r = requests.post(url, params=params, data=payload)
+    #     data_json = r.json()
+    #     temp_df = pd.DataFrame(data_json["data"]["resultList"])
+    #     big_df = big_df.append(temp_df, ignore_index=True)
+    # big_df.columns = [
+    #     "操作日期",
+    #     "期限",
+    #     "交易量",
+    #     "中标利率",
+    #     "正/逆回购",
+    # ]
+    # big_df["操作日期"] = pd.to_datetime(big_df["操作日期"]).dt.date
+    # big_df["期限"] = pd.to_numeric(big_df["期限"])
+    # big_df["交易量"] = pd.to_numeric(big_df["交易量"])
+    # big_df["中标利率"] = pd.to_numeric(big_df["中标利率"])
+    # return big_df
 
 
 def macro_china_bond_public() -> pd.DataFrame:

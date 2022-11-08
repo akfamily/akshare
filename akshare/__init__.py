@@ -2197,9 +2197,12 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.77 fix: fix index_value_hist_funddb interface
 1.7.78 add: add index_analysis_sw interface
 1.7.79 fix: fix macro_germany interface
+1.7.80 fix: fix stock_a_below_net_asset_statistics interface
+1.7.81 fix: fix macro_swiss_svme interface
+1.7.82 fix: fix index_analysis_daily_sw interface
 """
 
-__version__ = "1.7.79"
+__version__ = "1.7.82"
 __author__ = "AKFamily"
 
 import sys
@@ -2219,7 +2222,10 @@ from akshare.index.index_sw_research import (
     index_hist_sw,
     index_component_sw,
     index_min_sw,
-    index_analysis_sw,
+    index_analysis_daily_sw,
+    index_analysis_weekly_sw,
+    index_analysis_monthly_sw,
+    index_analysis_week_month_sw,
 )
 
 """
