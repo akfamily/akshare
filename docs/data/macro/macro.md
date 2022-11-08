@@ -8731,7 +8731,7 @@ print(macro_germany_cpi_yearly_df)
 176  2022年09月  8.8  10.9  2022-10-19
 ```
 
-#### 贸易帐(季调后)
+#### 贸易帐-季调后
 
 接口: macro_germany_trade_adjusted
 
