@@ -1,196 +1,132 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/26 20:14
+Date: 2022/11/9 15:14
 Desc: 东方财富-经济数据-日本
-http://data.eastmoney.com/cjsj/foreign_3_0.html
+https://data.eastmoney.com/cjsj/foreign_3_0.html
 """
 import pandas as pd
 import requests
-from akshare.utils import demjson
 
 
-# 央行公布利率决议
-def macro_japan_bank_rate():
+def macro_japan_core(symbol: str = "EMG00341602") -> pd.DataFrame:
     """
-    东方财富-经济数据-日本-央行公布利率决议
-    http://data.eastmoney.com/cjsj/foreign_3_0.html
-    :return: 央行公布利率决议
+    东方财富-数据中心-经济数据一览-宏观经济-日本-核心代码
+    https://data.eastmoney.com/cjsj/foreign_1_0.html
+    :param symbol: 代码
+    :type symbol: str
+    :return: 指定 symbol 的数据
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
+        "reportName": "RPT_ECONOMICVALUE_JPAN",
+        "columns": "ALL",
+        "filter": f'(INDICATOR_ID="{symbol}")',
+        "pageNumber": "1",
+        "pageSize": "5000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
         "p": "1",
-        "ps": "2000",
-        "mkt": "3",
-        "stat": "0",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1625474966006",
+        "_": "1667639896816",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.rename(
+        columns={
+            "COUNTRY": "-",
+            "INDICATOR_ID": "-",
+            "INDICATOR_NAME": "-",
+            "REPORT_DATE_CH": "时间",
+            "REPORT_DATE": "-",
+            "PUBLISH_DATE": "发布日期",
+            "VALUE": "现值",
+            "PRE_VALUE": "前值",
+            "INDICATOR_IDOLD": "-",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "时间",
+            "前值",
+            "现值",
+            "发布日期",
+        ]
     ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"])
     temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
+    temp_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
+    return temp_df
+
+
+# 央行公布利率决议
+def macro_japan_bank_rate() -> pd.DataFrame:
+    """
+    东方财富-经济数据-日本-央行公布利率决议
+    https://data.eastmoney.com/cjsj/foreign_3_0.html
+    :return: 央行公布利率决议
+    :rtype: pandas.DataFrame
+    """
+    temp_df = macro_japan_core(symbol="EMG00342252")
     return temp_df
 
 
 # 全国消费者物价指数年率
-def macro_japan_cpi_yearly():
+def macro_japan_cpi_yearly() -> pd.DataFrame:
     """
     东方财富-经济数据-日本-全国消费者物价指数年率
-    http://data.eastmoney.com/cjsj/foreign_3_1.html
+    https://data.eastmoney.com/cjsj/foreign_3_1.html
     :return: 全国消费者物价指数年率
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "3",
-        "stat": "1",
-        "pageNo": "1",
-        "pageNum": "1",
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_japan_core(symbol="EMG00005004")
     return temp_df
 
 
 # 全国核心消费者物价指数年率
-def macro_japan_core_cpi_yearly():
+def macro_japan_core_cpi_yearly() -> pd.DataFrame:
     """
     东方财富-经济数据-日本-全国核心消费者物价指数年率
-    http://data.eastmoney.com/cjsj/foreign_2_2.html
+    https://data.eastmoney.com/cjsj/foreign_2_2.html
     :return: 全国核心消费者物价指数年率
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "3",
-        "stat": "2",
-        'pageNo': '1',
-        'pageNum': '1',
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_japan_core(symbol="EMG00158099")
     return temp_df
 
 
 # 失业率
-def macro_japan_unemployment_rate():
+def macro_japan_unemployment_rate() -> pd.DataFrame:
     """
     东方财富-经济数据-日本-失业率
-    http://data.eastmoney.com/cjsj/foreign_2_3.html
+    https://data.eastmoney.com/cjsj/foreign_2_3.html
     :return: 失业率
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "3",
-        "stat": "3",
-        'pageNo': '1',
-        'pageNum': '1',
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_japan_core(symbol="EMG00005047")
     return temp_df
 
 
 # 领先指标终值
-def macro_japan_head_indicator():
+def macro_japan_head_indicator() -> pd.DataFrame:
     """
     东方财富-经济数据-日本-领先指标终值
-    http://data.eastmoney.com/cjsj/foreign_3_4.html
+    https://data.eastmoney.com/cjsj/foreign_3_4.html
     :return: 领先指标终值
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    params = {
-        "type": "GJZB",
-        "sty": "HKZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "3",
-        "stat": "4",
-        'pageNo': '1',
-        'pageNum': '1',
-        "_": "1625474966006",
-    }
-    r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "时间",
-        "前值",
-        "现值",
-        "发布日期",
-    ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
+    temp_df = macro_japan_core(symbol="EMG00005117")
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     macro_japan_bank_rate_df = macro_japan_bank_rate()
     print(macro_japan_bank_rate_df)
 
