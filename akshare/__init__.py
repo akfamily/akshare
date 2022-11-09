@@ -2201,9 +2201,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.81 fix: fix macro_swiss_svme interface
 1.7.82 fix: fix index_analysis_daily_sw interface
 1.7.83 fix: fix macro_japan interface
+1.7.84 add: add bond_info_cm interface
 """
 
-__version__ = "1.7.83"
+__version__ = "1.7.84"
 __author__ = "AKFamily"
 
 import sys
@@ -2214,6 +2215,10 @@ if sys.version_info < (3, 7):
 
 del sys
 
+"""
+债券信息查询
+"""
+from akshare.bond.bond_info_cm import bond_info_detail_cm, bond_info_cm, bond_info_cm_query
 
 """
 申万宏源研究-指数系列
