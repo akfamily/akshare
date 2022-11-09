@@ -35,6 +35,10 @@
 
 ## 更新说明
 
+1.7.83 fix: fix macro_japan interface
+
+    1. 修复 macro_japan 相关接口
+
 1.7.82 fix: fix index_analysis_daily_sw interface
 
     1. 重命名 index_analysis_sw 为 index_analysis_daily_sw 接口
@@ -1443,6 +1447,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.83 fix: fix macro_japan interface
 
 1.7.82 fix: fix index_analysis_daily_sw interface
 
