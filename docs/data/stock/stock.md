@@ -17211,6 +17211,7 @@ print(stock_board_industry_cons_em_df)
 | symbol     | str | symbol="小金属"; 可以通过调用 **ak.stock_board_industry_name_em()** 查看东方财富-行业板块的所有行业代码 |
 | start_date | str | start_date="20211201";                                                        |
 | end_date   | str | end_date="20220401";                                                          |
+| period     | str | period="日k"; 周期; choice of {"日k", "周k", "月k"}                                 |
 | adjust     | str | adjust=""; choice of {'': 不复权, 默认; "qfq": 前复权, "hfq": 后复权}                    |
 
 输出参数
@@ -17234,8 +17235,7 @@ print(stock_board_industry_cons_em_df)
 ```python
 import akshare as ak
 
-stock_board_industry_hist_em_df = ak.stock_board_industry_hist_em(symbol="小金属", start_date="20211201",
-                                                                  end_date="20220401", adjust="")
+stock_board_industry_hist_em_df = ak.stock_board_industry_hist_em(symbol="小金属", start_date="20211201", end_date="20220401", period="日k", adjust="")
 print(stock_board_industry_hist_em_df)
 ```
 
