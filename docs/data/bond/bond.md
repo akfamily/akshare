@@ -17,16 +17,16 @@
 
 输入参数
 
-| 名称          | 类型  | 描述                   |
-|-------------|-----|----------------------|
-| bond_name   | str | bond_name=""; 默认为空   |
-| bond_code   | str | bond_code=""; 默认为空   |
-| bond_issue  | str | bond_issue=""; 默认为空  |
-| bond_type   | str | bond_type=""; 默认为空   |
-| coupon_type | str | coupon_type=""; 默认为空 |
-| issue_year  | str | issue_year=""; 默认为空  |
-| underwriter | str | underwriter=""; 默认为空 |
-| grade       | str | grade=""; 默认为空       |
+| 名称          | 类型  | 描述                                                      |
+|-------------|-----|---------------------------------------------------------|
+| bond_name   | str | bond_name=""; 默认为空                                      |
+| bond_code   | str | bond_code=""; 默认为空                                      |
+| bond_issue  | str | bond_issue=""; 默认为空, 通过 ak.bond_info_cm_query() 查询相关参数  |
+| bond_type   | str | bond_type=""; 默认为空, 通过 ak.bond_info_cm_query() 查询相关参数   |
+| coupon_type | str | coupon_type=""; 默认为空, 通过 ak.bond_info_cm_query() 查询相关参数 |
+| issue_year  | str | issue_year=""; 默认为空                                     |
+| underwriter | str | underwriter=""; 默认为空, 通过 ak.bond_info_cm_query() 查询相关参数 |
+| grade       | str | grade=""; 默认为空                                          |
 
 输出参数
 
