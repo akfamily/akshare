@@ -35,6 +35,10 @@
 
 ## 更新说明
 
+1.7.87 fix: fix macro_uk interface
+
+    1. 修复 macro_uk 所有接口
+
 1.7.86 fix: fix bond_info_cm interface
 
     1. 修复 bond_info_cm 接口
@@ -1460,6 +1464,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.87 fix: fix macro_uk interface
 
 1.7.86 fix: fix bond_info_cm interface
 
