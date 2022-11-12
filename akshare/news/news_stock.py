@@ -1,78 +1,87 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/1/15 16:59
+Date: 2022/11/12 20:59
 Desc: 个股新闻数据
-http://so.eastmoney.com/news/s?keyword=%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%AF%BF&pageindex=1&searchrange=8192&sortfiled=4
+https://so.eastmoney.com/news/s?keyword=%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%AF%BF&pageindex=1&searchrange=8192&sortfiled=4
 """
+import json
+
 import pandas as pd
 import requests
 
 
-def stock_news_em(stock: str = "601628") -> pd.DataFrame:
+def stock_news_em(symbol: str = "601628") -> pd.DataFrame:
     """
-    东方财富-个股新闻-最近 20 条新闻
-    http://so.eastmoney.com/news/s?keyword=%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%AF%BF&pageindex=1&searchrange=8192&sortfiled=4
-    :param stock: 股票代码
-    :type stock: str
+    东方财富-个股新闻-最近 100 条新闻
+    https://so.eastmoney.com/news/s?keyword=%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%AF%BF&pageindex=1&searchrange=8192&sortfiled=4
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 个股新闻
     :rtype: pandas.DataFrame
     """
-    url = "http://searchapi.eastmoney.com//bussiness/Web/GetCMSSearchList"
+    url = "https://search-api-web.eastmoney.com/search/jsonp"
     params = {
-        "type": "8196",
-        "pageindex": "1",
-        "pagesize": "20",
-        "keyword": f"({stock})()",
-        "name": "zixun",
-        "_": "1608800267874",
+        "cb": "jQuery3510875346244069884_1668256937995",
+        "param": '{"uid":"",'
+        + f'"keyword":"{symbol}"'
+        + ',"type":["cmsArticleWebOld"],"client":"web","clientType":"web","clientVersion":"curr","param":{"cmsArticleWebOld":{"searchScope":"default","sort":"default","pageIndex":1,"pageSize":100,"preTag":"<em>","postTag":"</em>"}}}',
+        "_": "1668256937996",
     }
-    headers = {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Host": "searchapi.eastmoney.com",
-        "Pragma": "no-cache",
-        "Referer": "http://so.eastmoney.com/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
-    }
-
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["Data"])
-    temp_df.columns = [
-        "url",
-        "title",
-        "_",
-        "public_time",
-        "content",
-    ]
-    temp_df['code'] = stock
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = json.loads(
+        data_text.strip("jQuery3510875346244069884_1668256937995(")[:-1]
+    )
+    temp_df = pd.DataFrame(data_json["result"]["cmsArticleWebOld"])
+    temp_df.rename(
+        columns={
+            "date": "发布时间",
+            "mediaName": "文章来源",
+            "code": "-",
+            "title": "新闻标题",
+            "content": "新闻内容",
+            "url": "新闻链接",
+            "image": "-",
+        },
+        inplace=True,
+    )
+    temp_df["关键词"] = symbol
     temp_df = temp_df[
         [
-            "code",
-            "title",
-            "content",
-            "public_time",
-            "url",
+            "关键词",
+            "新闻标题",
+            "新闻内容",
+            "发布时间",
+            "文章来源",
+            "新闻链接",
         ]
     ]
-    temp_df["title"] = (
-        temp_df["title"].str.replace(r"\(<em>", "", regex=True).str.replace(r"</em>\)", "", regex=True)
+    temp_df["新闻标题"] = (
+        temp_df["新闻标题"]
+        .str.replace(r"\(<em>", "", regex=True)
+        .str.replace(r"</em>\)", "", regex=True)
     )
-    temp_df["content"] = (
-        temp_df["content"].str.replace(r"\(<em>", "", regex=True).str.replace(r"</em>\)", "", regex=True)
+    temp_df["新闻标题"] = (
+        temp_df["新闻标题"]
+        .str.replace(r"<em>", "", regex=True)
+        .str.replace(r"</em>", "", regex=True)
     )
-    temp_df["content"] = (
-        temp_df["content"].str.replace(r"<em>", "", regex=True).str.replace(r"</em>", "", regex=True)
+    temp_df["新闻内容"] = (
+        temp_df["新闻内容"]
+        .str.replace(r"\(<em>", "", regex=True)
+        .str.replace(r"</em>\)", "", regex=True)
     )
-    temp_df["content"] = temp_df["content"].str.replace(r"\u3000", "", regex=True)
-    temp_df["content"] = temp_df["content"].str.replace(r"\r\n", " ", regex=True)
+    temp_df["新闻内容"] = (
+        temp_df["新闻内容"]
+        .str.replace(r"<em>", "", regex=True)
+        .str.replace(r"</em>", "", regex=True)
+    )
+    temp_df["新闻内容"] = temp_df["新闻内容"].str.replace(r"\u3000", "", regex=True)
+    temp_df["新闻内容"] = temp_df["新闻内容"].str.replace(r"\r\n", " ", regex=True)
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_news_em_df = stock_news_em(stock="601318")
+    stock_news_em_df = stock_news_em(symbol="300059")
     print(stock_news_em_df)
