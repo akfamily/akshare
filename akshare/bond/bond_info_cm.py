@@ -8,8 +8,10 @@ https://www.chinamoney.com.cn/chinese/scsjzqxx/
 import pandas as pd
 import requests
 from tqdm import tqdm
+import functools
 
 
+@functools.lru_cache()
 def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
     """
     中国外汇交易中心暨全国银行间同业拆借中心-查询相关指标的参数
@@ -45,7 +47,7 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
         temp_df = temp_df[["name", "code"]]
         return temp_df
 
-
+@functools.lru_cache()
 def bond_info_cm(
     bond_name: str = "",
     bond_code: str = "",
@@ -147,6 +149,7 @@ def bond_info_cm(
     return big_df
 
 
+@functools.lru_cache()
 def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.DataFrame:
     """
     中国外汇交易中心暨全国银行间同业拆借中心-数据-债券信息-信息查询-债券详情

@@ -2203,9 +2203,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.83 fix: fix macro_japan interface
 1.7.84 add: add bond_info_cm interface
 1.7.85 fix: fix stock_board_industry_hist_em interface
+1.7.86 fix: fix bond_info_cm interface
+1.7.87 fix: fix macro_uk interface
 """
 
-__version__ = "1.7.85"
+__version__ = "1.7.87"
 __author__ = "AKFamily"
 
 import sys
