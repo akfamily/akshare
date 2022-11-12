@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/31 14:28
-Desc: 新浪财经-所有指数-实时行情数据和历史行情数据
+Date: 2022/11/12 21:28
+Desc: 股票指数数据-新浪-东财-腾讯
+所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 """
 import datetime
@@ -219,14 +220,14 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     temp_df["high"] = pd.to_numeric(temp_df["high"])
     temp_df["low"] = pd.to_numeric(temp_df["low"])
     temp_df["amount"] = pd.to_numeric(temp_df["amount"])
-    temp_df.drop_duplicates(inplace=True)
+    temp_df.drop_duplicates(inplace=True, ignore_index=True)
     return temp_df
 
 
 def stock_zh_index_daily_em(symbol: str = "sh000913") -> pd.DataFrame:
     """
     东方财富网-股票指数数据
-    http://quote.eastmoney.com/center/hszs.html
+    https://quote.eastmoney.com/center/hszs.html
     :param symbol: 带市场标识的指数代码
     :type symbol: str
     :return: 指数数据
