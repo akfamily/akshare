@@ -4,7 +4,7 @@
 Date: 2022/2/20 15:27
 Desc: 东方财富-数据中心-年报季报
 东方财富-数据中心-年报季报-业绩快报-业绩报表
-http://data.eastmoney.com/bbsj/202003/yjbb.html
+https://data.eastmoney.com/bbsj/202003/yjbb.html
 """
 import pandas as pd
 import requests
@@ -14,7 +14,7 @@ from tqdm import tqdm
 def stock_yjbb_em(date: str = "20200331") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩快报-业绩报表
-    http://data.eastmoney.com/bbsj/202003/yjbb.html
+    https://data.eastmoney.com/bbsj/202003/yjbb.html
     :param date: "20200331", "20200630", "20200930", "20201231"; 从 20100331 开始
     :type date: str
     :return: 业绩报表
