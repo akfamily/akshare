@@ -2205,9 +2205,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.85 fix: fix stock_board_industry_hist_em interface
 1.7.86 fix: fix bond_info_cm interface
 1.7.87 fix: fix macro_uk interface
+1.7.88 fix: fix stock_news_em interface
+1.7.89 fix: fix stock_zh_index_daily_tx interface
 """
 
-__version__ = "1.7.87"
+__version__ = "1.7.89"
 __author__ = "AKFamily"
 
 import sys
@@ -4039,7 +4041,7 @@ from akshare.stock.stock_zh_a_tick_tx_163 import (
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.index.stock_zh_index_sina import (
+from akshare.index.index_stock_zh import (
     stock_zh_index_daily,
     stock_zh_index_spot,
     stock_zh_index_daily_tx,
