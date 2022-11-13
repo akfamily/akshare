@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/4/28 16:25
+Date: 2022/11/13 14:25
 Desc: 南华期货-商品指数历史走势-价格指数-数值
-http://www.nanhua.net/nhzc/varietytrend.html
+https://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
-http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
+https://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
 """
 import time
 
@@ -31,7 +31,7 @@ def futures_index_symbol_table_nh() -> pd.DataFrame:
 def futures_price_index_nh(symbol: str = "A") -> pd.DataFrame:
     """
     南华期货-南华指数单品种-价格-所有历史数据
-    http://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
+    https://www.nanhua.net/ianalysis/varietyindex/price/A.json?t=1574932974280
     :param symbol: 通过 ak.futures_index_symbol_table_nh() 获取
     :type symbol: str
     :return: 南华期货-南华指数单品种-价格-所有历史数据
@@ -46,7 +46,7 @@ def futures_price_index_nh(symbol: str = "A") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["date", "value"]
-        temp_df['date'] = pd.to_datetime(temp_df["date"], unit='ms').dt.date
+        temp_df['date'] = (pd.to_datetime(temp_df["date"], unit='ms') - pd.Timedelta(hours=-8)).dt.date
         return temp_df
 
 
@@ -54,5 +54,5 @@ if __name__ == "__main__":
     futures_index_symbol_table_nh_df = futures_index_symbol_table_nh()
     print(futures_index_symbol_table_nh_df)
 
-    futures_price_index_nh_df = futures_price_index_nh(symbol="A")
+    futures_price_index_nh_df = futures_price_index_nh(symbol="Y")
     print(futures_price_index_nh_df)
