@@ -55,7 +55,13 @@ def fund_portfolio_hold_em(
             columns={"持股数（万股）": "持股数", "持仓市值（万元）": "持仓市值"}, inplace=True
         )
         temp_df.rename(
+            columns={"持股数 （万股）": "持股数", "持仓市值 （万元）": "持仓市值"}, inplace=True
+        )
+        temp_df.rename(
             columns={"持股数（万股）": "持股数", "持仓市值（万元人民币）": "持仓市值"}, inplace=True
+        )
+        temp_df.rename(
+            columns={"持股数 （万股）": "持股数", "持仓市值 （万元人民币）": "持仓市值"}, inplace=True
         )
         temp_df["季度"] = item_label[item]
         temp_df = temp_df[
