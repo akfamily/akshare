@@ -3,7 +3,7 @@
 """
 Date: 2022/3/21 17:40
 Desc: 天天基金网-基金档案-投资组合
-http://fundf10.eastmoney.com/ccmx_000001.html
+https://fundf10.eastmoney.com/ccmx_000001.html
 """
 import pandas as pd
 import requests
@@ -17,7 +17,7 @@ def fund_portfolio_hold_em(
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-基金持仓
-    http://fundf10.eastmoney.com/ccmx_000001.html
+    https://fundf10.eastmoney.com/ccmx_000001.html
     :param symbol: 基金代码
     :type symbol: str
     :param date: 查询年份
@@ -55,7 +55,13 @@ def fund_portfolio_hold_em(
             columns={"持股数（万股）": "持股数", "持仓市值（万元）": "持仓市值"}, inplace=True
         )
         temp_df.rename(
+            columns={"持股数 （万股）": "持股数", "持仓市值 （万元）": "持仓市值"}, inplace=True
+        )
+        temp_df.rename(
             columns={"持股数（万股）": "持股数", "持仓市值（万元人民币）": "持仓市值"}, inplace=True
+        )
+        temp_df.rename(
+            columns={"持股数 （万股）": "持股数", "持仓市值 （万元人民币）": "持仓市值"}, inplace=True
         )
         temp_df["季度"] = item_label[item]
         temp_df = temp_df[
@@ -283,7 +289,7 @@ def fund_portfolio_change_em(
 
 if __name__ == "__main__":
     fund_portfolio_hold_em_df = fund_portfolio_hold_em(
-        symbol="000001", date="2021"
+        symbol="513100", date="2022"
     )
     print(fund_portfolio_hold_em_df)
 
