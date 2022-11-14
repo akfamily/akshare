@@ -35,6 +35,10 @@
 
 ## 更新说明
 
+1.7.92 fix: fix fund_portfolio_hold_em interface
+
+    1. 修复 fund_portfolio_hold_em 接口
+
 1.7.91 fix: fix futures_price_index_nh interface
 
     1. 修复 futures_price_index_nh 接口时区对齐问题
@@ -1480,6 +1484,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.92 fix: fix fund_portfolio_hold_em interface
 
 1.7.91 fix: fix futures_price_index_nh interface
 
