@@ -337,13 +337,14 @@ def fund_open_fund_info_em(
     :return: 指定基金指定指标的数据
     :rtype: pandas.DataFrame
     """
-    # url = f"http://fundgz.1234567.com.cn/js/{fund}.js"  # 描述信息
-    url = f"http://fund.eastmoney.com/pingzhongdata/{fund}.js"  # 各类数据都在里面
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
-    data_text = r.text
+    if indicator not in ["分红送配详情", "拆分详情"]:
+        # url = f"http://fundgz.1234567.com.cn/js/{fund}.js"  # 描述信息
+        url = f"http://fund.eastmoney.com/pingzhongdata/{fund}.js"  # 各类数据都在里面
+        r = requests.get(url, headers=headers)
+        data_text = r.text
 
     # 单位净值走势
     if indicator == "单位净值走势":
