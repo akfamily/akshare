@@ -118,5 +118,5 @@ def stock_yjbb_em(date: str = "20200331") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_yjbb_em_df = stock_yjbb_em(date="20200331")
+    stock_yjbb_em_df = stock_yjbb_em(date="20220331")
     print(stock_yjbb_em_df)
