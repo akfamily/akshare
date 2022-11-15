@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/8/18 20:18
+Date: 2022/11/14 19:50
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
-http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
+https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
 2.基金经理任职数据:可调取全部或特定经理,管理的基金数据,建议包含:基金经理代码,基金经理姓名,基金代码,基金简称,经理位次(在当前基金的经理中排第几位),起始任职时间,截止任职时间,任职回报.在特定基金的经理信息中可以获取如:http://fundf10.eastmoney.com/jjjl_001810.html
 3.在接口：fund_basic"公募基金列表"增加数据"基金经理代码"(或第一基金经理代码),"基金经理姓名"(或第一基金经理姓名),"当前基金经理人数","当前经理任职起始时间".
@@ -20,7 +20,7 @@ import requests
 def fund_purchase_em() -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-基金申购状态
-    http://fund.eastmoney.com/Fund_sgzt_bzdm.html#fcode,asc_1
+    https://fund.eastmoney.com/Fund_sgzt_bzdm.html#fcode,asc_1
     :return: 基金申购状态
     :rtype: pandas.DataFrame
     """
@@ -85,7 +85,7 @@ def fund_purchase_em() -> pd.DataFrame:
 def fund_name_em() -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-所有基金的名称和类型
-    http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
+    https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
     :return: 所有基金的名称和类型
     :rtype: pandas.DataFrame
     """
@@ -106,7 +106,7 @@ def fund_info_index_em(
 ) -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-基金信息-指数型
-    http://fund.eastmoney.com/trade/zs.html
+    https://fund.eastmoney.com/trade/zs.html
     :param symbol: choice of {"全部", "沪深指数", "行业主题", "大盘指数", "中盘指数", "小盘指数", "股票指数", "债券指数"}
     :type symbol: str
     :param indicator: choice of {"全部", "被动指数型", "增强指数型"}
@@ -258,7 +258,7 @@ def fund_info_index_em(
 def fund_open_fund_daily_em() -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-开放式基金净值
-    http://fund.eastmoney.com/fund.html#os_0;isall_0;ft_;pt_1
+    https://fund.eastmoney.com/fund.html#os_0;isall_0;ft_;pt_1
     :return: 当前交易日的所有开放式基金净值数据
     :rtype: pandas.DataFrame
     """
@@ -329,7 +329,7 @@ def fund_open_fund_info_em(
 ) -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-开放式基金净值
-    http://fund.eastmoney.com/fund.html#os_0;isall_0;ft_;pt_1
+    https://fund.eastmoney.com/fund.html#os_0;isall_0;ft_;pt_1
     :param fund: 基金代码; 可以通过调用 fund_open_fund_daily_em 获取所有开放式基金代码
     :type fund: str
     :param indicator: 需要获取的指标

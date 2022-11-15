@@ -517,10 +517,10 @@ def sw_index_third_info() -> pd.DataFrame:
     return temp_df
 
 
-def sw_index_third_cons(symbol: str = "851921.SI") -> pd.DataFrame:
+def sw_index_third_cons(symbol: str = "801120.SI") -> pd.DataFrame:
     """
     乐咕乐股-申万三级-行业成份
-    https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
+    https://legulegu.com/stockdata/index-composition?industryCode=801120.SI
     :param symbol: 三级行业的行业代码
     :type symbol: str
     :return: 行业成份
@@ -542,6 +542,10 @@ def sw_index_third_cons(symbol: str = "851921.SI") -> pd.DataFrame:
         "市净率",
         "股息率",
         "市值",
+        "归母净利润同比增长(09-30)",
+        "归母净利润同比增长(06-30)",
+        "营业收入同比增长(09-30)",
+        "营业收入同比增长(06-30)",
     ]
     temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
     temp_df["市盈率"] = pd.to_numeric(temp_df["市盈率"], errors="coerce")
@@ -551,6 +555,16 @@ def sw_index_third_cons(symbol: str = "851921.SI") -> pd.DataFrame:
         temp_df["股息率"].str.strip("%"), errors="coerce"
     )
     temp_df["市值"] = pd.to_numeric(temp_df["市值"], errors="coerce")
+
+    temp_df["归母净利润同比增长(09-30)"] = temp_df["归母净利润同比增长(09-30)"].str.strip("%")
+    temp_df["归母净利润同比增长(06-30)"] = temp_df["归母净利润同比增长(06-30)"].str.strip("%")
+    temp_df["营业收入同比增长(09-30)"] = temp_df["营业收入同比增长(09-30)"].str.strip("%")
+    temp_df["营业收入同比增长(06-30)"] = temp_df["营业收入同比增长(06-30)"].str.strip("%")
+
+    temp_df["归母净利润同比增长(09-30)"] = pd.to_numeric(temp_df["归母净利润同比增长(09-30)"], errors="coerce")
+    temp_df["归母净利润同比增长(06-30)"] = pd.to_numeric(temp_df["归母净利润同比增长(06-30)"], errors="coerce")
+    temp_df["营业收入同比增长(09-30)"] = pd.to_numeric(temp_df["营业收入同比增长(09-30)"], errors="coerce")
+    temp_df["营业收入同比增长(06-30)"] = pd.to_numeric(temp_df["营业收入同比增长(06-30)"], errors="coerce")
     return temp_df
 
 
@@ -770,5 +784,5 @@ if __name__ == "__main__":
     sw_index_third_info_df = sw_index_third_info()
     print(sw_index_third_info_df)
 
-    sw_index_third_cons_df = sw_index_third_cons(symbol="851921.SI")
+    sw_index_third_cons_df = sw_index_third_cons(symbol="850111.SI")
     print(sw_index_third_cons_df)
