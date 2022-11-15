@@ -188,7 +188,7 @@ def stock_sse_summary() -> pd.DataFrame:
 def stock_sse_deal_daily(date: str = "20220331") -> pd.DataFrame:
     """
     上海证券交易所-数据-股票数据-成交概况-股票成交概况-每日股票情况
-    http://www.sse.com.cn/market/stockdata/overview/day/
+    https://www.sse.com.cn/market/stockdata/overview/day/
     :return: 每日股票情况
     :rtype: pandas.DataFrame
     """
@@ -441,5 +441,5 @@ if __name__ == "__main__":
     stock_sse_deal_daily_df = stock_sse_deal_daily(date="20211227")
     print(stock_sse_deal_daily_df)
 
-    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20220225")
+    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20221114")
     print(stock_sse_deal_daily_df)
