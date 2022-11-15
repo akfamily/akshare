@@ -39,15 +39,15 @@ P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://gith
 pip install akshare --upgrade -i https://pypi.org/simple
 ```
 
-## 苹果 M1 处理器支持
+## 苹果处理器支持
 
 ### 缘起
 
 AKShare 由于使用 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-into-python/) 项目来支持在 Python 中运行 JavaScript
 代码，所以要完整的使用 AKShare 的全部功能需要安装该库。
 
-但是由于苹果的 M1 芯片采用 ARM 架构，而 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-into-python/) 并没有编译相对应的
-版本，所以造成在 M1 芯片的计算机上使用 AKShare 会出问题。
+但是由于苹果的 M 系列芯片采用 ARM 架构，而 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-into-python/) 并没有编译相对应的
+版本，所以造成在 M 系列芯片的计算机上使用 AKShare 会出问题。
 
 ### 解决方案
 
@@ -56,7 +56,8 @@ AKShare 由于使用 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-
 
 ### 扩展阅读
 
-如果需要编译，请参考该文章：[Building V8 on an M1 MacBook](https://joyeecheung.github.io/blog/2021/08/27/binding-v8-on-an-m1-macbook/)
+1. 如果上述文档未能解决您的问题；可以观看《AKShare-初阶-使用教学》课程，里面手把手带您进行环境配置
+2. 如果需要编译，请参考该文章：[Building V8 on an M1 MacBook](https://joyeecheung.github.io/blog/2021/08/27/binding-v8-on-an-m1-macbook/)
 
 ## R 语言调用支持
 
