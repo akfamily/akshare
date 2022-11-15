@@ -154,7 +154,7 @@ ufo = pd.read_csv('data/ufo.csv', parse_dates=['Time'])
 
 ![](https://upload-images.jianshu.io/upload_images/3240514-f850c7b9d526addd.png)
 
-选择所有**数值型**的列，用 `selec_dtypes()` 方法。
+选择所有**数值型**的列，用 `select_dtypes()` 方法。
 
 ![](https://upload-images.jianshu.io/upload_images/3240514-4b04fa02df0b3708.png)
 
