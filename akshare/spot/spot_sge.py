@@ -19,9 +19,13 @@ def spot_symbol_table_sge() -> pd.DataFrame:
     :return: 品种表
     :rtype: pandas.DataFrame
     """
-    url = "https://www.sge.com.cn/sjzx/mrhq"
-    r = requests.get(url)
+    url = "https://www.sge.com.cn/sjzx/mrhq_data"
+    payload = {
+        'date': '2022-11-16'
+    }
+    r = requests.post(url, data=payload)
     soup = BeautifulSoup(r.text, "lxml")
+
     value_item = soup.find(attrs={"id": "instidsle"}).find_all("option")
     symbol_list = [item.text for item in value_item]
     temp_df = pd.DataFrame(symbol_list)
