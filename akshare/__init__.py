@@ -2214,9 +2214,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.94 fix: fix fund_portfolio_hold_em interface
 1.7.95 fix: fix spot_golden_benchmark_sge interface
 1.7.96 fix: fix futures_hog_info interface
+1.7.97 add: add index_hog_spot_price interface
 """
 
-__version__ = "1.7.96"
+__version__ = "1.7.97"
 __author__ = "AKFamily"
 
 import sys
@@ -2226,6 +2227,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+生猪市场价格指数
+"""
+from akshare.index.index_hog import index_hog_spot_price
 
 """
 债券信息查询
@@ -2783,7 +2789,7 @@ from akshare.economic.macro_canada import (
 """
 猪肉价格信息
 """
-from akshare.futures_derivative.futures_pig import (
+from akshare.futures_derivative.futures_hog import (
     futures_hog_info,
     futures_hog_rank,
 )
