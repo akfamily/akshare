@@ -35,6 +35,10 @@
 
 ## 更新说明
 
+1.7.96 fix: fix futures_hog_info interface
+
+    1. 修复 futures_hog_info 接口
+
 1.7.95 fix: fix spot_golden_benchmark_sge interface
 
     1. 修复 spot_golden_benchmark_sge 接口
@@ -1496,6 +1500,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.96 fix: fix futures_hog_info interface
 
 1.7.95 fix: fix spot_golden_benchmark_sge interface
 
