@@ -2212,9 +2212,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.92 fix: fix fund_portfolio_hold_em interface
 1.7.93 fix: fix sw_index_third_cons interface
 1.7.94 fix: fix fund_portfolio_hold_em interface
+1.7.95 fix: fix spot_golden_benchmark_sge interface
 """
 
-__version__ = "1.7.94"
+__version__ = "1.7.95"
 __author__ = "AKFamily"
 
 import sys

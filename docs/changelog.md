@@ -35,6 +35,10 @@
 
 ## 更新说明
 
+1.7.95 fix: fix spot_golden_benchmark_sge interface
+
+    1. 修复 spot_golden_benchmark_sge 接口
+
 1.7.94 fix: fix fund_portfolio_hold_em interface
 
     1. 修复 fund_portfolio_hold_em 接口
@@ -1492,6 +1496,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.7.95 fix: fix spot_golden_benchmark_sge interface
 
 1.7.94 fix: fix fund_portfolio_hold_em interface
 
