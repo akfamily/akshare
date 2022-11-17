@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
-#!/usr/bin/env python
+# !/usr/bin/env python
 """
-Date: 2021/12/7 17:00
+Date: 2022/11/17 22:00
 Desc: 上海黄金交易所-数据资讯-行情走势
 https://www.sge.com.cn/sjzx/mrhq
 上海黄金交易所-数据资讯-上海金基准价-历史数据
@@ -9,7 +9,6 @@ https://www.sge.com.cn/sjzx/mrhq
 """
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 
 def spot_symbol_table_sge() -> pd.DataFrame:
@@ -19,15 +18,37 @@ def spot_symbol_table_sge() -> pd.DataFrame:
     :return: 品种表
     :rtype: pandas.DataFrame
     """
-    url = "https://www.sge.com.cn/sjzx/mrhq"
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text, "lxml")
-    value_item = soup.find(attrs={"id": "instidsle"}).find_all("option")
-    symbol_list = [item.text for item in value_item]
-    temp_df = pd.DataFrame(symbol_list)
+    url = "https://www.sge.com.cn/sjzx/mrhq_data"
+    payload = {"date": "2022-11-17"}
+    headers = {
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Content-Length": "15",
+        "Content-Type": "multipart/form-data; boundary=---011000010111000001101001",
+        "Host": "www.sge.com.cn",
+        "Origin": "https://www.sge.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "https://www.sge.com.cn/sjzx/mrhq",
+        "sec-ch-ua": '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    r = requests.post(url, data=payload, headers=headers)
+    data_text = r.text
+    re_html = "<" + data_text.strip().strip("<!--").strip("-->") + ">"
+    temp_df = pd.read_html(re_html)[0]
     temp_df.reset_index(inplace=True)
-    temp_df["index"] = temp_df.index + 1
+    temp_df = temp_df.iloc[:, :2]
     temp_df.columns = ["序号", "品种"]
+    temp_df['序号'] = temp_df['序号'] + 1
     return temp_df
 
 
@@ -42,7 +63,28 @@ def spot_hist_sge(symbol: str = "Au99.99") -> pd.DataFrame:
     """
     url = "https://www.sge.com.cn/graph/Dailyhq"
     payload = {"instid": symbol}
-    r = requests.post(url, data=payload)
+    headers = {
+        "Accept": "text/html, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Content-Length": "15",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Host": "www.sge.com.cn",
+        "Origin": "https://www.sge.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "https://www.sge.com.cn/sjzx/mrhq",
+        "sec-ch-ua": '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+    }
+    r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["time"])
     temp_df.columns = [
@@ -70,7 +112,10 @@ def spot_golden_benchmark_sge() -> pd.DataFrame:
     """
     url = "https://www.sge.com.cn/graph/DayilyJzj"
     payload = {}
-    r = requests.post(url, data=payload)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+    }
+    r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["wp"])
     temp_df.columns = [
@@ -99,7 +144,10 @@ def spot_silver_benchmark_sge() -> pd.DataFrame:
     """
     url = "https://www.sge.com.cn/graph/DayilyShsilverJzj"
     payload = {}
-    r = requests.post(url, data=payload)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+    }
+    r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["wp"])
     temp_df.columns = [
