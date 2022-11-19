@@ -14783,7 +14783,7 @@ print(stock_lh_yyb_control_df)
 
 ##### 龙虎榜-每日详情
 
-接口: stock_sina_lhb_detail_daily
+接口: stock_lhb_detail_daily_sina
 
 目标地址: http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lhb/index.phtml
 
@@ -14800,26 +14800,26 @@ print(stock_lh_yyb_control_df)
 
 输出参数
 
-| 名称   | 类型  | 描述       |
-|------|-----|----------|
-| 序号   | str | 股票代码     |
-| 股票代码 | str | 股票简称     |
-| 股票名称 | str | 发布时间     |
-| 收盘价  | str | 注意单位: 元  |
-| 对应值  | str | 注意单位: %  |
-| 成交量  | str | 注意单位: 万股 |
-| 成交额  | str | 注意单位: 万元 |
+| 名称   | 类型      | 描述       |
+|------|---------|----------|
+| 序号   | int64   | 股票代码     |
+| 股票代码 | object  | 股票简称     |
+| 股票名称 | object  | 发布时间     |
+| 收盘价  | float64 | 注意单位: 元  |
+| 对应值  | float64 | 注意单位: %  |
+| 成交量  | float64 | 注意单位: 万股 |
+| 成交额  | float64 | 注意单位: 万元 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-indicator_name_list = ak.stock_sina_lhb_detail_daily(trade_date="20200730", symbol="返回当前交易日所有可查询的指标")
+indicator_name_list = ak.stock_lhb_detail_daily_sina(trade_date="20200730", symbol="返回当前交易日所有可查询的指标")
 print(indicator_name_list)  # 输出当前交易日可以查询的指标
 
-stock_sina_lhb_detail_daily_df = ak.stock_sina_lhb_detail_daily(trade_date="20200730", symbol="涨幅偏离值达7%的证券")
-print(stock_sina_lhb_detail_daily_df)
+stock_lhb_detail_daily_sina_df = ak.stock_lhb_detail_daily_sina(trade_date="20200730", symbol="涨幅偏离值达7%的证券")
+print(stock_lhb_detail_daily_sina_df)
 ```
 
 数据示例
@@ -14849,7 +14849,7 @@ print(stock_sina_lhb_detail_daily_df)
 
 ##### 龙虎榜-个股上榜统计
 
-接口: stock_sina_lhb_ggtj
+接口: stock_lhb_ggtj_sina
 
 目标地址: http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/ggtj/index.phtml
 
@@ -14859,30 +14859,30 @@ print(stock_sina_lhb_detail_daily_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| recent_day | str | Y    | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;}  |
+| 名称         | 类型  | 描述                                                                                    |
+|------------|-----|---------------------------------------------------------------------------------------|
+| recent_day | str | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 股票代码          | str   | Y        |  -    |
-| 股票名称          | str   | Y        |  -    |
-| 上榜次数          | str   | Y        |  -    |
-| 累积购买额          | str   | Y        |  注意单位: 万    |
-| 累积卖出额          | str   | Y        |  注意单位: 万    |
-| 净额          | str   | Y     |  注意单位: 万    |
-| 买入席位数          | str   | Y     |  -    |
-| 卖出席位数          | str   | Y     |  -    |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 股票代码  | object  | -       |
+| 股票名称  | object  | -       |
+| 上榜次数  | int64   | -       |
+| 累积购买额 | float64 | 注意单位: 万 |
+| 累积卖出额 | float64 | 注意单位: 万 |
+| 净额    | float64 | 注意单位: 万 |
+| 买入席位数 | int64   | -       |
+| 卖出席位数 | int64   | -       |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_sina_lhb_ggtj_df = ak.stock_sina_lhb_ggtj(recent_day="5")
-print(stock_sina_lhb_ggtj_df)
+stock_lhb_ggtj_sina_df = ak.stock_lhb_ggtj_sina(recent_day="5")
+print(stock_lhb_ggtj_sina_df)
 ```
 
 数据示例
@@ -14904,7 +14904,7 @@ print(stock_sina_lhb_ggtj_df)
 
 ##### 龙虎榜-营业上榜统计
 
-接口: stock_sina_lhb_yytj
+接口: stock_lhb_yytj_sina
 
 目标地址: http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/yytj/index.phtml
 
@@ -14914,29 +14914,29 @@ print(stock_sina_lhb_ggtj_df)
 
 输入参数
 
-| 名称         | 类型  | 必选  | 描述                                                                                    |
-|------------|-----|-----|---------------------------------------------------------------------------------------|
-| recent_day | str | Y   | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
+| 名称         | 类型  | 描述                                                                                    |
+|------------|-----|---------------------------------------------------------------------------------------|
+| recent_day | str | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
 
 输出参数
 
-| 名称     | 类型  | 默认显示 | 描述      |
-|--------|-----|------|---------|
-| 营业部名称  | str | Y    | -       |
-| 上榜次数   | str | Y    | -       |
-| 累积购买额  | str | Y    | 注意单位: 万 |
-| 买入席位数  | str | Y    | -       |
-| 累积卖出额  | str | Y    | 注意单位: 万 |
-| 卖出席位数  | str | Y    | -       |
-| 买入前三股票 | str | Y    | -       |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 营业部名称  | object  | -       |
+| 上榜次数   | int64   | -       |
+| 累积购买额  | float64 | 注意单位: 万 |
+| 买入席位数  | int64   | -       |
+| 累积卖出额  | float64 | 注意单位: 万 |
+| 卖出席位数  | int64   | -       |
+| 买入前三股票 | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_sina_lhb_yytj_df = ak.stock_sina_lhb_yytj(recent_day="5")
-print(stock_sina_lhb_yytj_df)
+stock_lhb_yytj_sina_df = ak.stock_lhb_yytj_sina(recent_day="5")
+print(stock_lhb_yytj_sina_df)
 ```
 
 数据示例
@@ -14958,39 +14958,39 @@ print(stock_sina_lhb_yytj_df)
 
 ##### 龙虎榜-机构席位追踪
 
-接口: stock_sina_lhb_jgzz
+接口: stock_lhb_jgzz_sina
 
 目标地址: http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/jgzz/index.phtml
 
-描述: 获取新浪财经-龙虎榜-机构席位追踪
+描述: 新浪财经-龙虎榜-机构席位追踪
 
 限量: 单次返回指定 recent_day 的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| recent_day | str | Y    | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
+| 名称         | 类型  | 描述                                                                                    |
+|------------|-----|---------------------------------------------------------------------------------------|
+| recent_day | str | recent_day="5"; choice of {"5": 最近 5 天; "10": 最近 10 天; "30": 最近 30 天; "60": 最近 60 天;} |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 股票代码          | str   | Y        |  -    |
-| 股票名称          | str   | Y        |  -    |
-| 累积买入额          | str   | Y        |  注意单位: 万    |
-| 买入次数          | str   | Y        |  -    |
-| 累积卖出额          | str   | Y        |  注意单位: 万    |
-| 卖出次数          | str   | Y     |  -    |
-| 净额          | str   | Y     |  注意单位: 万    |
+| 名称    | 类型      | 描述      |
+|-------|---------|---------|
+| 股票代码  | object  | -       |
+| 股票名称  | object  | -       |
+| 累积买入额 | float64 | 注意单位: 万 |
+| 买入次数  | float64 | -       |
+| 累积卖出额 | float64 | 注意单位: 万 |
+| 卖出次数  | float64 | -       |
+| 净额    | float64 | 注意单位: 万 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_sina_lhb_jgzz_df = ak.stock_sina_lhb_jgzz(recent_day="5")
-print(stock_sina_lhb_jgzz_df)
+stock_lhb_jgzz_sina_df = ak.stock_lhb_jgzz_sina(recent_day="5")
+print(stock_lhb_jgzz_sina_df)
 ```
 
 数据示例
@@ -15012,7 +15012,7 @@ print(stock_sina_lhb_jgzz_df)
 
 ##### 龙虎榜-机构席位成交明细
 
-接口: stock_sina_lhb_jgmx
+接口: stock_lhb_jgmx_sina
 
 目标地址: http://vip.stock.finance.sina.com.cn/q/go.php/vLHBData/kind/jgzz/index.phtml
 
@@ -15022,28 +15022,28 @@ print(stock_sina_lhb_jgzz_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| - | - | -    | - |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称      | 类型  | 默认显示 | 描述      |
-|---------|-----|------|---------|
-| 股票代码    | str | Y    | -       |
-| 股票名称    | str | Y    | -       |
-| 交易日期    | str | Y    | -       |
-| 机构席位买入额 | str | Y    | 注意单位: 万 |
-| 机构席位卖出额 | str | Y    | 注意单位: 万 |
-| 类型      | str | Y    | -       |
+| 名称      | 类型      | 描述      |
+|---------|---------|---------|
+| 股票代码    | object  | -       |
+| 股票名称    | object  | -       |
+| 交易日期    | object  | -       |
+| 机构席位买入额 | float64 | 注意单位: 万 |
+| 机构席位卖出额 | float64 | 注意单位: 万 |
+| 类型      | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_sina_lhb_jgmx_df = ak.stock_sina_lhb_jgmx()
-print(stock_sina_lhb_jgmx_df)
+stock_lhb_jgmx_sina_df = ak.stock_lhb_jgmx_sina()
+print(stock_lhb_jgmx_sina_df)
 ```
 
 数据示例

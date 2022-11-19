@@ -2215,10 +2215,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.95 fix: fix spot_golden_benchmark_sge interface
 1.7.96 fix: fix futures_hog_info interface
 1.7.97 add: add index_hog_spot_price interface
-1.7.98 add: add stock_zh_a_gdhs interface
+1.7.98 fix: fix stock_zh_a_gdhs interface
+1.7.99 fix: fix stock_lhb_detail_daily_sina interface
 """
 
-__version__ = "1.7.98"
+__version__ = "1.7.99"
 __author__ = "AKFamily"
 
 import sys
@@ -3341,12 +3342,12 @@ from akshare.stock_fundamental.stock_register import (
 """
 新浪财经-龙虎榜
 """
-from akshare.stock_feature.stock_sina_lhb import (
-    stock_sina_lhb_detail_daily,
-    stock_sina_lhb_ggtj,
-    stock_sina_lhb_jgmx,
-    stock_sina_lhb_jgzz,
-    stock_sina_lhb_yytj,
+from akshare.stock_feature.stock_lhb_sina import (
+    stock_lhb_detail_daily_sina,
+    stock_lhb_ggtj_sina,
+    stock_lhb_jgmx_sina,
+    stock_lhb_jgzz_sina,
+    stock_lhb_yytj_sina,
 )
 
 """
