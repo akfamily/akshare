@@ -4481,13 +4481,13 @@ print(futures_hog_rank_df)
 30  31  豆粕    西藏   2642  1.32
 ```
 
-### 生猪价格指数
+### 生猪市场价格指数
 
 接口: index_hog_spot_price
 
 目标地址: http://hqb.nxin.com/pigindex/index.shtml
 
-描述: 生猪市场价格指数
+描述: 行情宝-生猪市场价格指数
 
 限量: 单次返回所有数据
 
@@ -4519,7 +4519,7 @@ index_hog_spot_price_df = ak.index_hog_spot_price()
 print(index_hog_spot_price_df)
 ```
 
-数据示例-外三元
+数据示例
 
 ```
      日期          指数   4个月均线   6个月均线  12个月均线  预售均价   成交均价  成交均重

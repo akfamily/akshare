@@ -4,7 +4,7 @@ import pandas as pd
 
 def index_hog_spot_price() -> pd.DataFrame:
     """
-    生猪市场价格指数
+    行情宝-生猪市场价格指数
     http://hqb.nxin.com/pigindex/index.shtml
     :return: 生猪市场价格指数
     :rtype: pandas.DataFrame
