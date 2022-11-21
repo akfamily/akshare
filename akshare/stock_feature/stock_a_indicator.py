@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/10/15 16:05
+Date: 2022/11/21 23:45
 Desc: 市盈率, 市净率和股息率查询
-https://www.legulegu.com/stocklist
-https://www.legulegu.com/s/000001
+https://legulegu.com/stocklist
+https://legulegu.com/s/000001
 """
 import pandas as pd
 import requests
@@ -30,14 +30,14 @@ def get_token_lg() -> str:
 def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
     """
     市盈率, 市净率, 股息率数据接口
-    https://www.legulegu.com/stocklist
+    https://legulegu.com/stocklist
     :param symbol: 通过 ak.stock_a_lg_indicator(stock="all") 来获取所有股票的代码
     :type symbol: str
     :return: 市盈率, 市净率, 股息率查询
     :rtype: pandas.DataFrame
     """
     if symbol == "all":
-        url = "https://www.legulegu.com/stocklist"
+        url = "https://legulegu.com/stocklist"
         r = requests.get(url)
         soup = BeautifulSoup(r.text, "lxml")
         node_list = soup.find_all(attrs={"class": "col-xs-6"})
@@ -52,9 +52,9 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         temp_df = temp_df[["code", "stock_name"]]
         return temp_df
     else:
-        url = f"https://www.legulegu.com/api/s/base-info/{symbol}"
+        url = "https://legulegu.com/api/s/base-info/"
         token = get_token_lg()
-        params = {"token": token}
+        params = {"id": symbol, "token": token}
         r = requests.get(url, params=params)
         temp_json = r.json()
         temp_df = pd.DataFrame(
