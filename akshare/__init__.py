@@ -2219,9 +2219,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.7.99 fix: fix stock_lhb_detail_daily_sina interface
 1.8.1 fix: fix stock_dxsyl_em interface
 1.8.2 fix: fix fund_portfolio_hold_em interface
+1.8.3 fix: fix stock_pg_em interface
 """
 
-__version__ = "1.8.1"
+__version__ = "1.8.3"
 __author__ = "AKFamily"
 
 import sys
@@ -2996,7 +2997,7 @@ from akshare.economic.macro_china_hk import (
 """
 增发和配股
 """
-from akshare.stock_feature.stock_zf_pg import stock_em_qbzf, stock_em_pg
+from akshare.stock_feature.stock_zf_pg import stock_qbzf_em, stock_pg_em
 
 """
 平均持仓

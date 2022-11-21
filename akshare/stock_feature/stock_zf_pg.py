@@ -10,52 +10,56 @@ http://data.eastmoney.com/xg/pg/
 """
 import pandas as pd
 import requests
+from tqdm import tqdm
 
-from akshare.utils import demjson
 
-
-def stock_em_qbzf() -> pd.DataFrame:
+def stock_qbzf_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-增发-全部增发
-    http://data.eastmoney.com/other/gkzf.html
+    https://data.eastmoney.com/other/gkzf.html
     :return: 全部增发
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "st": "5",
-        "sr": "-1",
-        "ps": "5000",
-        "p": "1",
-        "type": "SR",
-        "sty": "ZF",
-        "js": '({"pages":(pc),"data":[(x)]})',
-        "stat": "0",
+        "sortColumns": "ISSUE_DATE",
+        "sortTypes": "-1",
+        "pageSize": "500",
+        "pageNumber": "1",
+        "reportName": "RPT_SEO_DETAIL",
+        "columns": "ALL",
+        "quoteColumns": "f2~01~SECURITY_CODE~NEW_PRICE",
+        "quoteType": "0",
+        "source": "WEB",
+        "client": "WEB",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
-        "股票代码",
-        "股票简称",
-        "发行方式",
-        "发行总数",
-        "发行价格",
-        "最新价",
-        "发行日期",
-        "增发上市日期",
-        "_",
-        "增发代码",
-        "网上发行",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
-    temp_df = temp_df[
+    data_json = r.json()
+    total_page = data_json['result']["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({
+            "pageNumber": page,
+        })
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
+    big_df.rename(columns={
+        "SECURITY_NAME_ABBR": "股票简称",
+        "SECURITY_CODE": "股票代码",
+        "CORRECODE": "增发代码",
+        "SEO_TYPE": "发行方式",
+        "ISSUE_NUM": "发行总数",
+        "ONLINE_ISSUE_NUM": "网上发行",
+        "ISSUE_PRICE": "发行价格",
+        "NEW_PRICE": "最新价",
+        "ISSUE_DATE": "发行日期",
+        "ISSUE_LISTING_DATE": "增发上市日期",
+        "LOCKIN_PERIOD": "锁定期",
+    }, inplace=True)
+    big_df = big_df[
         [
             "股票代码",
             "股票简称",
@@ -67,42 +71,55 @@ def stock_em_qbzf() -> pd.DataFrame:
             "最新价",
             "发行日期",
             "增发上市日期",
+            "锁定期",
         ]
     ]
-    temp_df["锁定期"] = "1-3年"
-    temp_df['发行总数'] = pd.to_numeric(temp_df['发行总数'])
-    temp_df['发行价格'] = pd.to_numeric(temp_df['发行价格'])
-    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'])
-    temp_df['发行日期'] = pd.to_datetime(temp_df['发行日期']).dt.date
-    temp_df['增发上市日期'] = pd.to_datetime(temp_df['增发上市日期']).dt.date
-    return temp_df
+    big_df["发行总数"] = pd.to_numeric(big_df["发行总数"], errors="coerce")
+    big_df["发行价格"] = pd.to_numeric(big_df["发行价格"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    big_df['发行方式'] = big_df['发行方式'].map({'2': "公开增发", "1": "定向增发"})
+    big_df["发行日期"] = pd.to_datetime(big_df["发行日期"]).dt.date
+    big_df["增发上市日期"] = pd.to_datetime(big_df["增发上市日期"]).dt.date
+    return big_df
 
 
-def stock_em_pg() -> pd.DataFrame:
+def stock_pg_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-配股
-    http://data.eastmoney.com/xg/pg/
+    https://data.eastmoney.com/xg/pg/
     :return: 配股
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "st": "6",
-        "sr": "-1",
-        "ps": "5000",
-        "p": "1",
-        "type": "NS",
-        "sty": "NSA",
-        "js": "({data:[(x)],pages:(pc)})",
+        "sortColumns": "EQUITY_RECORD_DATE",
+        "sortTypes": "-1",
+        "pageSize": "50000",
+        "pageNumber": "1",
+        "reportName": "RPT_IPO_ALLOTMENT",
+        "columns": "ALL",
+        "quoteColumns": "f2~01~SECURITY_CODE~NEW_PRICE",
+        "quoteType": "0",
+        "source": "WEB",
+        "client": "WEB",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
+    data_json = r.json()
+    total_page = data_json['result']["pages"]
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, total_page+1), leave=False):
+        params.update({
+            "pageNumber": page,
+        })
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json['result']["data"])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df.columns = [
         "_",
         "_",
         "股票代码",
+        "-",
         "股票简称",
         "配售代码",
         "_",
@@ -120,10 +137,10 @@ def stock_em_pg() -> pd.DataFrame:
         "_",
         "_",
         "_",
-        "最新价",
         "_",
+        "最新价",
     ]
-    temp_df = temp_df[
+    big_df = big_df[
         [
             "股票代码",
             "股票简称",
@@ -140,22 +157,22 @@ def stock_em_pg() -> pd.DataFrame:
             "上市日",
         ]
     ]
-    temp_df["配股比例"] = "10配" + temp_df["配股比例"]
-    temp_df["配股数量"] = pd.to_numeric(temp_df["配股数量"])
-    temp_df["配股价"] = pd.to_numeric(temp_df["配股价"])
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
-    temp_df["配股前总股本"] = pd.to_numeric(temp_df["配股前总股本"])
-    temp_df["配股后总股本"] = pd.to_numeric(temp_df["配股后总股本"])
-    temp_df["股权登记日"] = pd.to_datetime(temp_df["股权登记日"]).dt.date
-    temp_df["缴款起始日期"] = pd.to_datetime(temp_df["缴款起始日期"]).dt.date
-    temp_df["缴款截止日期"] = pd.to_datetime(temp_df["缴款截止日期"]).dt.date
-    temp_df["上市日"] = pd.to_datetime(temp_df["上市日"]).dt.date
-    return temp_df
+    big_df["配股比例"] = "10配" + big_df["配股比例"].astype(str)
+    big_df["配股数量"] = pd.to_numeric(big_df["配股数量"], errors="coerce")
+    big_df["配股价"] = pd.to_numeric(big_df["配股价"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    big_df["配股前总股本"] = pd.to_numeric(big_df["配股前总股本"], errors="coerce")
+    big_df["配股后总股本"] = pd.to_numeric(big_df["配股后总股本"], errors="coerce")
+    big_df["股权登记日"] = pd.to_datetime(big_df["股权登记日"]).dt.date
+    big_df["缴款起始日期"] = pd.to_datetime(big_df["缴款起始日期"]).dt.date
+    big_df["缴款截止日期"] = pd.to_datetime(big_df["缴款截止日期"]).dt.date
+    big_df["上市日"] = pd.to_datetime(big_df["上市日"]).dt.date
+    return big_df
 
 
 if __name__ == "__main__":
-    stock_em_qbzf_df = stock_em_qbzf()
-    print(stock_em_qbzf_df)
+    stock_qbzf_em_df = stock_qbzf_em()
+    print(stock_qbzf_em_df.info())
 
-    stock_em_pg_df = stock_em_pg()
-    print(stock_em_pg_df)
+    stock_pg_em_df = stock_pg_em()
+    print(stock_pg_em_df)
