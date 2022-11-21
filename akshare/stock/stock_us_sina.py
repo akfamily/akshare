@@ -280,3 +280,6 @@ if __name__ == "__main__":
 
     stock_us_fundamental_df = stock_us_fundamental(symbol="info")
     print(stock_us_fundamental_df)
+
+    stock_us_fundamental_df = stock_us_fundamental(stock="GOOGL", symbol="PB")
+    print(stock_us_fundamental_df)

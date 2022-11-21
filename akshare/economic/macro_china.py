@@ -2852,27 +2852,43 @@ def macro_china_gdzctz() -> pd.DataFrame:
 def macro_china_hgjck() -> pd.DataFrame:
     """
     东方财富-海关进出口增减情况一览表
-    http://data.eastmoney.com/cjsj/hgjck.html
+    https://data.eastmoney.com/cjsj/hgjck.html
     :return: 东方财富-海关进出口增减情况一览表
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "js": "({data:[(x)],pages:(pc)})",
+        "columns": "REPORT_DATE,TIME,EXIT_BASE,IMPORT_BASE,EXIT_BASE_SAME,IMPORT_BASE_SAME,EXIT_BASE_SEQUENTIAL,IMPORT_BASE_SEQUENTIAL,EXIT_ACCUMULATE,IMPORT_ACCUMULATE,EXIT_ACCUMULATE_SAME,IMPORT_ACCUMULATE_SAME",
+        "pageNumber": "1",
+        "pageSize": "2000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_ECONOMY_CUSTOMS",
         "p": "1",
-        "ps": "2000",
-        "mkt": "1",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1603023435552",
+        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = [
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.rename(columns={
+        'REPORT_DATE': "-",
+        'TIME': "月份",
+        'EXIT_BASE': "当月出口额-金额",
+        'IMPORT_BASE': "当月进口额-金额",
+        'EXIT_BASE_SAME': "当月出口额-同比增长",
+        'IMPORT_BASE_SAME': "当月进口额-同比增长",
+        'EXIT_BASE_SEQUENTIAL': "当月出口额-环比增长",
+        'IMPORT_BASE_SEQUENTIAL': "当月进口额-环比增长",
+        'EXIT_ACCUMULATE': "累计出口额-金额",
+        'IMPORT_ACCUMULATE': "累计进口额-金额",
+        'EXIT_ACCUMULATE_SAME': "累计出口额-同比增长",
+        'IMPORT_ACCUMULATE_SAME': "累计进口额-同比增长",
+    }, inplace=True)
+    temp_df = temp_df[[
         "月份",
         "当月出口额-金额",
         "当月出口额-同比增长",
@@ -2884,17 +2900,17 @@ def macro_china_hgjck() -> pd.DataFrame:
         "累计出口额-同比增长",
         "累计进口额-金额",
         "累计进口额-同比增长",
-    ]
-    temp_df["当月出口额-金额"] = pd.to_numeric(temp_df["当月出口额-金额"])
-    temp_df["当月出口额-同比增长"] = pd.to_numeric(temp_df["当月出口额-同比增长"])
-    temp_df["当月出口额-环比增长"] = pd.to_numeric(temp_df["当月出口额-环比增长"])
-    temp_df["当月进口额-金额"] = pd.to_numeric(temp_df["当月进口额-金额"])
-    temp_df["当月进口额-同比增长"] = pd.to_numeric(temp_df["当月进口额-同比增长"])
-    temp_df["当月进口额-环比增长"] = pd.to_numeric(temp_df["当月进口额-环比增长"])
-    temp_df["累计出口额-金额"] = pd.to_numeric(temp_df["累计出口额-金额"])
-    temp_df["累计出口额-同比增长"] = pd.to_numeric(temp_df["累计出口额-同比增长"])
-    temp_df["累计进口额-金额"] = pd.to_numeric(temp_df["累计进口额-金额"])
-    temp_df["累计进口额-同比增长"] = pd.to_numeric(temp_df["累计进口额-同比增长"])
+    ]]
+    temp_df["当月出口额-金额"] = pd.to_numeric(temp_df["当月出口额-金额"], errors="coerce")
+    temp_df["当月出口额-同比增长"] = pd.to_numeric(temp_df["当月出口额-同比增长"], errors="coerce")
+    temp_df["当月出口额-环比增长"] = pd.to_numeric(temp_df["当月出口额-环比增长"], errors="coerce")
+    temp_df["当月进口额-金额"] = pd.to_numeric(temp_df["当月进口额-金额"], errors="coerce")
+    temp_df["当月进口额-同比增长"] = pd.to_numeric(temp_df["当月进口额-同比增长"], errors="coerce")
+    temp_df["当月进口额-环比增长"] = pd.to_numeric(temp_df["当月进口额-环比增长"], errors="coerce")
+    temp_df["累计出口额-金额"] = pd.to_numeric(temp_df["累计出口额-金额"], errors="coerce")
+    temp_df["累计出口额-同比增长"] = pd.to_numeric(temp_df["累计出口额-同比增长"], errors="coerce")
+    temp_df["累计进口额-金额"] = pd.to_numeric(temp_df["累计进口额-金额"], errors="coerce")
+    temp_df["累计进口额-同比增长"] = pd.to_numeric(temp_df["累计进口额-同比增长"], errors="coerce")
     return temp_df
 
 
