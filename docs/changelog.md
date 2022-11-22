@@ -42,6 +42,10 @@
 
 ## 更新说明
 
+1.8.8 fix: fix macro_china_gdp interface
+
+    1. 修复 macro_china_gdp 接口
+
 1.8.7 fix: fix stock_a_below_net_asset_statistics interface
 
     1. 修复 stock_a_below_net_asset_statistics 接口
@@ -1553,6 +1557,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.8 fix: fix macro_china_gdp interface
 
 1.8.7 fix: fix stock_a_below_net_asset_statistics interface
 
