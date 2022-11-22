@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/11 22:25
+Date: 2022/11/22 11:25
 Desc: 乐咕乐股网-赚钱效应分析
 https://www.legulegu.com/stockdata/market-activity
 """
@@ -17,7 +17,7 @@ def stock_market_activity_legu() -> pd.DataFrame:
     :return: 乐咕乐股网-赚钱效应分析
     :rtype: pandas.DataFrame
     """
-    url = "https://www.legulegu.com/stockdata/market-activity"
+    url = "https://legulegu.com/stockdata/market-activity"
     r = requests.get(url)
     temp_df = pd.read_html(r.text)[0]
     temp_df_one = temp_df.iloc[:, :2]
@@ -32,11 +32,11 @@ def stock_market_activity_legu() -> pd.DataFrame:
     item_str = soup.find("div", attrs={"class": "current-index"}).text
     inner_temp_df = pd.DataFrame(item_str.split("：")).T
     inner_temp_df.columns = ["item", "value"]
-    temp_df = temp_df.append(inner_temp_df)
+    temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
     item_str = soup.find("div", attrs={"class": "current-data"}).text.strip()
     inner_temp_df = pd.DataFrame(["统计日期", item_str]).T
     inner_temp_df.columns = ["item", "value"]
-    temp_df = temp_df.append(inner_temp_df)
+    temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
