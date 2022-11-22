@@ -326,7 +326,7 @@ def stock_a_ttm_lyr() -> pd.DataFrame:
     :return: 全部A股-等权重市盈率、中位数市盈率
     :rtype: pandas.DataFrame
     """
-    url = "https://www.legulegu.com/api/stock-data/market-ttm-lyr"
+    url = "https://legulegu.com/api/stock-data/market-ttm-lyr"
     params = {
         "marketId": "5",
         "token": token,
