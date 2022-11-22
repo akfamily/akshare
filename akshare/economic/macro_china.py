@@ -2647,27 +2647,45 @@ def macro_china_money_supply() -> pd.DataFrame:
 def macro_china_cpi() -> pd.DataFrame:
     """
     东方财富-中国居民消费价格指数
-    http://data.eastmoney.com/cjsj/cpi.html
+    https://data.eastmoney.com/cjsj/cpi.html
     :return: 东方财富-中国居民消费价格指数
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "js": "({data:[(x)],pages:(pc)})",
+        "columns": "REPORT_DATE,TIME,NATIONAL_SAME,NATIONAL_BASE,NATIONAL_SEQUENTIAL,NATIONAL_ACCUMULATE,CITY_SAME,CITY_BASE,CITY_SEQUENTIAL,CITY_ACCUMULATE,RURAL_SAME,RURAL_BASE,RURAL_SEQUENTIAL,RURAL_ACCUMULATE",
+        "pageNumber": "1",
+        "pageSize": "2000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_ECONOMY_CPI",
         "p": "1",
-        "ps": "2000",
-        "mkt": "19",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1603023435552",
+        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
+        "-",
+        "月份",
+        "全国-同比增长",
+        "全国-当月",
+        "全国-环比增长",
+        "全国-累计",
+        "城市-同比增长",
+        "城市-当月",
+        "城市-环比增长",
+        "城市-累计",
+        "农村-同比增长",
+        "农村-当月",
+        "农村-环比增长",
+        "农村-累计",
+    ]
+    temp_df = temp_df[[
         "月份",
         "全国-当月",
         "全国-同比增长",
@@ -2681,21 +2699,20 @@ def macro_china_cpi() -> pd.DataFrame:
         "农村-同比增长",
         "农村-环比增长",
         "农村-累计",
-    ]
-    temp_df["全国-当月"] = pd.to_numeric(temp_df["全国-当月"])
-    temp_df["全国-同比增长"] = pd.to_numeric(temp_df["全国-同比增长"])
-    temp_df["全国-环比增长"] = pd.to_numeric(temp_df["全国-环比增长"])
-    temp_df["全国-累计"] = pd.to_numeric(temp_df["全国-累计"])
-    temp_df["城市-当月"] = pd.to_numeric(temp_df["城市-当月"])
-    temp_df["城市-同比增长"] = pd.to_numeric(temp_df["城市-同比增长"])
-    temp_df["城市-环比增长"] = pd.to_numeric(temp_df["城市-环比增长"])
-    temp_df["城市-累计"] = pd.to_numeric(temp_df["城市-累计"])
-    temp_df["农村-当月"] = pd.to_numeric(temp_df["农村-当月"])
-    temp_df["农村-同比增长"] = pd.to_numeric(temp_df["农村-同比增长"])
-    temp_df["农村-环比增长"] = pd.to_numeric(temp_df["农村-环比增长"])
-    temp_df["农村-累计"] = pd.to_numeric(temp_df["农村-累计"])
-    temp_df.sort_values(["月份"], inplace=True)
-    temp_df.reset_index(inplace=True, drop=True)
+    ]]
+    temp_df["全国-当月"] = pd.to_numeric(temp_df["全国-当月"], errors="coerce")
+    temp_df["全国-同比增长"] = pd.to_numeric(temp_df["全国-同比增长"], errors="coerce")
+    temp_df["全国-环比增长"] = pd.to_numeric(temp_df["全国-环比增长"], errors="coerce")
+    temp_df["全国-累计"] = pd.to_numeric(temp_df["全国-累计"], errors="coerce")
+    temp_df["城市-当月"] = pd.to_numeric(temp_df["城市-当月"], errors="coerce")
+    temp_df["城市-同比增长"] = pd.to_numeric(temp_df["城市-同比增长"], errors="coerce")
+    temp_df["城市-环比增长"] = pd.to_numeric(temp_df["城市-环比增长"], errors="coerce")
+    temp_df["城市-累计"] = pd.to_numeric(temp_df["城市-累计"], errors="coerce")
+    temp_df["农村-当月"] = pd.to_numeric(temp_df["农村-当月"], errors="coerce")
+    temp_df["农村-同比增长"] = pd.to_numeric(temp_df["农村-同比增长"], errors="coerce")
+    temp_df["农村-环比增长"] = pd.to_numeric(temp_df["农村-环比增长"], errors="coerce")
+    temp_df["农村-累计"] = pd.to_numeric(temp_df["农村-累计"], errors="coerce")
+
     return temp_df
 
 

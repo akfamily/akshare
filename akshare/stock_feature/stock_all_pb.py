@@ -322,11 +322,11 @@ token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 def stock_a_all_pb() -> pd.DataFrame:
     """
     全部A股-等权重市净率、中位数市净率
-    https://www.legulegu.com/stockdata/all-pb
+    https://legulegu.com/stockdata/all-pb
     :return: 全部A股-等权重市盈率、中位数市盈率
     :rtype: pandas.DataFrame
     """
-    url = "https://www.legulegu.com/api/stock-data/market-index-pb"
+    url = "https://legulegu.com/api/stock-data/market-index-pb"
     params = {
         'marketId': 'ALL',
         "token": token,
