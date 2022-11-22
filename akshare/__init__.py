@@ -2222,9 +2222,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.3 fix: fix stock_pg_em interface
 1.8.4 fix: fix macro_china_hgjck interface
 1.8.5 fix: fix stock_a_lg_indicator interface
+1.8.6 fix: fix stock_market_activity_legu interface
 """
 
-__version__ = "1.8.5"
+__version__ = "1.8.6"
 __author__ = "AKFamily"
 
 import sys
@@ -3021,7 +3022,7 @@ from akshare.index.index_cflp import index_cflp_price, index_cflp_volume
 """
 赚钱效应分析
 """
-from akshare.stock_feature.stock_legu_market import stock_market_activity_legu
+from akshare.stock_feature.stock_market_legu import stock_market_activity_legu
 
 """
 浙江省排污权交易指数
