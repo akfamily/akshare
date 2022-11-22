@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/2 15:32
+Date: 2022/11/22 11:32
 Desc: 破净股统计历史走势
 https://www.legulegu.com/stockdata/below-net-asset-statistics
 """
