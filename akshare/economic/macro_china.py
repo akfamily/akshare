@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/8/15 15:40
+Date: 2022/11/22 12:20
 Desc: 宏观数据-中国
 """
 import json
@@ -2702,27 +2702,41 @@ def macro_china_cpi() -> pd.DataFrame:
 def macro_china_gdp() -> pd.DataFrame:
     """
     东方财富-中国国内生产总值
-    http://data.eastmoney.com/cjsj/gdp.html
+    https://data.eastmoney.com/cjsj/gdp.html
     :return: 东方财富中国国内生产总值
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "js": "({data:[(x)],pages:(pc)})",
+        "columns": "REPORT_DATE,TIME,DOMESTICL_PRODUCT_BASE,FIRST_PRODUCT_BASE,SECOND_PRODUCT_BASE,THIRD_PRODUCT_BASE,SUM_SAME,FIRST_SAME,SECOND_SAME,THIRD_SAME",
+        "pageNumber": "1",
+        "pageSize": "2000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_ECONOMY_GDP",
         "p": "1",
-        "ps": "2000",
-        "mkt": "20",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1603023435552",
+        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
+        "-",
+        "季度",
+        "国内生产总值-绝对值",
+        "第一产业-绝对值",
+        "第二产业-绝对值",
+        "第三产业-绝对值",
+        "国内生产总值-同比增长",
+        "第一产业-同比增长",
+        "第二产业-同比增长",
+        "第三产业-同比增长",
+    ]
+    temp_df = temp_df[[
         "季度",
         "国内生产总值-绝对值",
         "国内生产总值-同比增长",
@@ -2732,15 +2746,15 @@ def macro_china_gdp() -> pd.DataFrame:
         "第二产业-同比增长",
         "第三产业-绝对值",
         "第三产业-同比增长",
-    ]
-    temp_df["国内生产总值-绝对值"] = pd.to_numeric(temp_df["国内生产总值-绝对值"])
-    temp_df["国内生产总值-同比增长"] = pd.to_numeric(temp_df["国内生产总值-同比增长"])
-    temp_df["第一产业-绝对值"] = pd.to_numeric(temp_df["第一产业-绝对值"])
-    temp_df["第一产业-同比增长"] = pd.to_numeric(temp_df["第一产业-同比增长"])
-    temp_df["第二产业-绝对值"] = pd.to_numeric(temp_df["第二产业-绝对值"])
-    temp_df["第二产业-同比增长"] = pd.to_numeric(temp_df["第二产业-同比增长"])
-    temp_df["第三产业-绝对值"] = pd.to_numeric(temp_df["第三产业-绝对值"])
-    temp_df["第三产业-同比增长"] = pd.to_numeric(temp_df["第三产业-同比增长"])
+    ]]
+    temp_df["国内生产总值-绝对值"] = pd.to_numeric(temp_df["国内生产总值-绝对值"], errors="coerce")
+    temp_df["国内生产总值-同比增长"] = pd.to_numeric(temp_df["国内生产总值-同比增长"], errors="coerce")
+    temp_df["第一产业-绝对值"] = pd.to_numeric(temp_df["第一产业-绝对值"], errors="coerce")
+    temp_df["第一产业-同比增长"] = pd.to_numeric(temp_df["第一产业-同比增长"], errors="coerce")
+    temp_df["第二产业-绝对值"] = pd.to_numeric(temp_df["第二产业-绝对值"], errors="coerce")
+    temp_df["第二产业-同比增长"] = pd.to_numeric(temp_df["第二产业-同比增长"], errors="coerce")
+    temp_df["第三产业-绝对值"] = pd.to_numeric(temp_df["第三产业-绝对值"], errors="coerce")
+    temp_df["第三产业-同比增长"] = pd.to_numeric(temp_df["第三产业-同比增长"], errors="coerce")
     return temp_df
 
 
