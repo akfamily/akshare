@@ -2778,75 +2778,98 @@ def macro_china_gdp() -> pd.DataFrame:
 def macro_china_ppi() -> pd.DataFrame:
     """
     东方财富-中国工业品出厂价格指数
-    http://data.eastmoney.com/cjsj/ppi.html
+    https://data.eastmoney.com/cjsj/ppi.html
     :return: 东方财富中国工业品出厂价格指数
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "cb": "datatable6912149",
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "js": "({data:[(x)],pages:(pc)})",
+        "columns": "REPORT_DATE,TIME,BASE,BASE_SAME,BASE_ACCUMULATE",
+        "pageNumber": "1",
+        "pageSize": "2000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_ECONOMY_PPI",
         "p": "1",
-        "ps": "2000",
-        "mkt": "22",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1603023435552",
+        "_": "1669047266881",
     }
-    r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = ["月份", "当月", "当月同比增长", "累计"]
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.columns = [
+        "-",
+        "月份",
+        "当月",
+        "当月同比增长",
+        "累计",
+    ]
+    temp_df = temp_df[[
+        "月份",
+        "当月",
+        "当月同比增长",
+        "累计",
+    ]]
+    temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
+    temp_df["当月同比增长"] = pd.to_numeric(temp_df["当月同比增长"], errors="coerce")
+    temp_df["累计"] = pd.to_numeric(temp_df["累计"], errors="coerce")
     return temp_df
 
 
 def macro_china_pmi() -> pd.DataFrame:
     """
     东方财富-中国采购经理人指数
-    http://data.eastmoney.com/cjsj/pmi.html
+    https://data.eastmoney.com/cjsj/pmi.html
     :return: 东方财富中国采购经理人指数
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "js": "({data:[(x)],pages:(pc)})",
+        "columns": "REPORT_DATE,TIME,MAKE_INDEX,MAKE_SAME,NMAKE_INDEX,NMAKE_SAME",
+        "pageNumber": "1",
+        "pageSize": "2000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_ECONOMY_PMI",
         "p": "1",
-        "ps": "2000",
-        "mkt": "21",
         "pageNo": "1",
         "pageNum": "1",
-        "_": "1603023435552",
+        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
+        "-",
         "月份",
         "制造业-指数",
         "制造业-同比增长",
         "非制造业-指数",
         "非制造业-同比增长",
     ]
-    temp_df["制造业-指数"] = pd.to_numeric(temp_df["制造业-指数"])
-    temp_df["制造业-同比增长"] = pd.to_numeric(temp_df["制造业-同比增长"])
-    temp_df["非制造业-指数"] = pd.to_numeric(temp_df["非制造业-指数"])
-    temp_df["非制造业-同比增长"] = pd.to_numeric(temp_df["非制造业-同比增长"])
+    temp_df = temp_df[[
+        "月份",
+        "制造业-指数",
+        "制造业-同比增长",
+        "非制造业-指数",
+        "非制造业-同比增长",
+    ]]
+    temp_df["制造业-指数"] = pd.to_numeric(temp_df["制造业-指数"], errors="coerce")
+    temp_df["制造业-同比增长"] = pd.to_numeric(temp_df["制造业-同比增长"], errors="coerce")
+    temp_df["非制造业-指数"] = pd.to_numeric(temp_df["非制造业-指数"], errors="coerce")
+    temp_df["非制造业-同比增长"] = pd.to_numeric(temp_df["非制造业-同比增长"], errors="coerce")
     return temp_df
 
 
 def macro_china_gdzctz() -> pd.DataFrame:
     """
     东方财富-中国城镇固定资产投资
-    http://data.eastmoney.com/cjsj/gdzctz.html
+    https://data.eastmoney.com/cjsj/gdzctz.html
     :return: 东方财富中国城镇固定资产投资
     :rtype: pandas.DataFrame
     """

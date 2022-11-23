@@ -2227,9 +2227,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.8 fix: fix macro_china_gdp interface
 1.8.9 fix: fix stock_a_ttm_lyr interface
 1.8.10 fix: fix stock_a_all_pb interface
+1.8.11 fix: fix macro_china_ppi interface
 """
 
-__version__ = "1.8.10"
+__version__ = "1.8.11"
 __author__ = "AKFamily"
 
 import sys
