@@ -2066,7 +2066,7 @@ print(sw_index_representation_spot_df)
 
 目标地址: http://www.swsindex.com/idx0120.aspx?columnid=8832
 
-描述: 申万一级行业实时行情数据
+描述: 申万一级行业实时行情数据；该接口暂时不能使用
 
 输入参数
 
