@@ -42,6 +42,10 @@
 
 ## 更新说明
 
+1.8.14 add: add stock_board_industry_summary_ths interface
+
+    1. 新增 stock_board_industry_summary_ths 接口
+
 1.8.13 fix: fix macro_china_new_house_price interface
 
     1. 修复 macro_china_new_house_price 接口
@@ -1581,6 +1585,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.14 add: add stock_board_industry_summary_ths interface
 
 1.8.13 fix: fix macro_china_new_house_price interface
 
