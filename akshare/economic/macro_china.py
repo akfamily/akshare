@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/22 12:20
+Date: 2022/11/25 12:20
 Desc: 宏观数据-中国
 """
 import json
@@ -1555,78 +1555,104 @@ def macro_china_lpr() -> pd.DataFrame:
 
 
 # 中国-新房价指数
-def macro_china_new_house_price() -> pd.DataFrame:
+def macro_china_new_house_price(city_first: str = "北京", city_second: str = "上海") -> pd.DataFrame:
     """
     中国-新房价指数
-    http://data.eastmoney.com/cjsj/newhouse.html
+    https://data.eastmoney.com/cjsj/newhouse.html
+    :param city_first: 城市; 城市列表见目标网站
+    :type city_first: str
+    :param city_second: 城市; 城市列表见目标网站
+    :type city_second: str
     :return: 新房价指数
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "cb": "datatable6451982",
-        "type": "GJZB",
-        "sty": "XFJLB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "19",
-        "pageNo": "1",
-        "pageNum": "1",
-        "_": "1603023435552",
+        "reportName": "RPT_ECONOMY_HOUSE_PRICE",
+        "columns": "REPORT_DATE,CITY,FIRST_COMHOUSE_SAME,FIRST_COMHOUSE_SEQUENTIAL,FIRST_COMHOUSE_BASE,SECOND_HOUSE_SAME,SECOND_HOUSE_SEQUENTIAL,SECOND_HOUSE_BASE,REPORT_DAY",
+        "filter": f'(CITY in ("{city_first}","{city_second}"))',
+        "pageNumber": "1",
+        "pageSize": "500",
+        "sortColumns": "REPORT_DATE,CITY",
+        "sortTypes": "-1,-1",
+        "source": "WEB",
+        "client": "WEB",
+        'p': '1',
+        'pageNo': '1',
+        'pageNum': '1',
+        '_': '1669352163467',
     }
-    r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
         "日期",
         "城市",
-        "新建住宅价格指数-环比",
-        "新建住宅价格指数-同比",
-        "新建住宅价格指数-定基",
-        "新建商品住宅价格指数-环比",
         "新建商品住宅价格指数-同比",
+        "新建商品住宅价格指数-环比",
         "新建商品住宅价格指数-定基",
         "二手住宅价格指数-环比",
         "二手住宅价格指数-同比",
         "二手住宅价格指数-定基",
+        "-",
     ]
+    temp_df = temp_df[[
+        "日期",
+        "城市",
+        "新建商品住宅价格指数-同比",
+        "新建商品住宅价格指数-环比",
+        "新建商品住宅价格指数-定基",
+        "二手住宅价格指数-环比",
+        "二手住宅价格指数-同比",
+        "二手住宅价格指数-定基",
+    ]]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df['新建商品住宅价格指数-同比'] = pd.to_numeric(temp_df['新建商品住宅价格指数-同比'], errors="coerce")
+    temp_df['新建商品住宅价格指数-环比'] = pd.to_numeric(temp_df['新建商品住宅价格指数-环比'], errors="coerce")
+    temp_df['新建商品住宅价格指数-定基'] = pd.to_numeric(temp_df['新建商品住宅价格指数-定基'], errors="coerce")
+    temp_df['二手住宅价格指数-环比'] = pd.to_numeric(temp_df['二手住宅价格指数-环比'], errors="coerce")
+    temp_df['二手住宅价格指数-同比'] = pd.to_numeric(temp_df['二手住宅价格指数-同比'], errors="coerce")
+    temp_df['二手住宅价格指数-定基'] = pd.to_numeric(temp_df['二手住宅价格指数-定基'], errors="coerce")
     return temp_df
 
 
 # 中国-企业景气及企业家信心指数
 def macro_china_enterprise_boom_index() -> pd.DataFrame:
     """
-    http://data.eastmoney.com/cjsj/qyjqzs.html
+    https://data.eastmoney.com/cjsj/qyjqzs.html
     中国-企业景气及企业家信心指数
     :return: 企业景气及企业家信心指数
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "cb": "datatable6607710",
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "8",
-        "pageNo": "1",
-        "pageNum": "1",
-        "_": "1603023435552",
+        "columns": "REPORT_DATE,TIME,BOOM_INDEX,FAITH_INDEX,BOOM_INDEX_SAME,BOOM_INDEX_SEQUENTIAL,FAITH_INDEX_SAME,FAITH_INDEX_SEQUENTIAL",
+        "pageNumber": "1",
+        "pageSize": "500",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_ECONOMY_BOOM_INDEX",
+        'p': '1',
+        'pageNo': '1',
+        'pageNum': '1',
+        '_': '1669352163467',
     }
-    r = requests.get(url, params=params, headers=headers)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
+        "-",
+        "季度",
+        "企业景气指数-指数",
+        "企业家信心指数-指数",
+        "企业景气指数-同比",
+        "企业景气指数-环比",
+        "企业家信心指数-同比",
+        "企业家信心指数-环比",
+    ]
+    temp_df = temp_df[[
         "季度",
         "企业景气指数-指数",
         "企业景气指数-同比",
@@ -1634,7 +1660,13 @@ def macro_china_enterprise_boom_index() -> pd.DataFrame:
         "企业家信心指数-指数",
         "企业家信心指数-同比",
         "企业家信心指数-环比",
-    ]
+    ]]
+    temp_df['企业景气指数-指数'] = pd.to_numeric(temp_df['企业景气指数-指数'], errors="coerce")
+    temp_df['企业家信心指数-指数'] = pd.to_numeric(temp_df['企业家信心指数-指数'], errors="coerce")
+    temp_df['企业景气指数-同比'] = pd.to_numeric(temp_df['企业景气指数-同比'], errors="coerce")
+    temp_df['企业景气指数-环比'] = pd.to_numeric(temp_df['企业景气指数-环比'], errors="coerce")
+    temp_df['企业家信心指数-同比'] = pd.to_numeric(temp_df['企业家信心指数-同比'], errors="coerce")
+    temp_df['企业家信心指数-环比'] = pd.to_numeric(temp_df['企业家信心指数-环比'], errors="coerce")
     return temp_df
 
 
@@ -1642,30 +1674,37 @@ def macro_china_enterprise_boom_index() -> pd.DataFrame:
 def macro_china_national_tax_receipts() -> pd.DataFrame:
     """
     中国-全国税收收入
-    http://data.eastmoney.com/cjsj/qgsssr.html
+    https://data.eastmoney.com/cjsj/qgsssr.html
     :return: 全国税收收入
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "type": "GJZB",
-        "sty": "ZGZB",
-        "js": "({data:[(x)],pages:(pc)})",
-        "p": "1",
-        "ps": "2000",
-        "mkt": "3",
-        "pageNo": "1",
-        "pageNum": "1",
-        "_": "1603023435552",
+        "columns": "REPORT_DATE,TIME,TAX_INCOME,TAX_INCOME_SAME,TAX_INCOME_SEQUENTIAL",
+        "pageNumber": "1",
+        "pageSize": "500",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "reportName": "RPT_ECONOMY_TAX",
+        'p': '1',
+        'pageNo': '1',
+        'pageNum': '1',
+        '_': '1669352163467',
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]])
-    temp_df.columns = ["季度", "税收收入合计", "较上年同期", "季度环比"]
-    temp_df["税收收入合计"] = pd.to_numeric(temp_df["税收收入合计"])
-    temp_df["较上年同期"] = pd.to_numeric(temp_df["较上年同期"])
-    temp_df["季度环比"] = pd.to_numeric(temp_df["季度环比"])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+
+    temp_df.columns = ["-", "季度", "税收收入合计", "较上年同期", "季度环比"]
+    temp_df = temp_df[[
+        "季度", "税收收入合计", "较上年同期", "季度环比"
+    ]]
+
+    temp_df["税收收入合计"] = pd.to_numeric(temp_df["税收收入合计"], errors="coerce")
+    temp_df["较上年同期"] = pd.to_numeric(temp_df["较上年同期"], errors="coerce")
+    temp_df["季度环比"] = pd.to_numeric(temp_df["季度环比"], errors="coerce")
     return temp_df
 
 
