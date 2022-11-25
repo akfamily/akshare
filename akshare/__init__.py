@@ -2230,9 +2230,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.11 fix: fix macro_china_ppi interface
 1.8.12 fix: fix stock_yjyg_em interface
 1.8.13 fix: fix macro_china_new_house_price interface
+1.8.14 add: add stock_board_industry_summary_ths interface
 """
 
-__version__ = "1.8.13"
+__version__ = "1.8.14"
 __author__ = "AKFamily"
 
 import sys
@@ -2242,6 +2243,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+
+"""
+from akshare.stock_feature.stock_board_industry_ths import stock_board_industry_summary_ths
 
 """
 生猪市场价格指数
