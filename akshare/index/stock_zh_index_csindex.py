@@ -240,7 +240,7 @@ if __name__ == "__main__":
     print(stock_zh_index_value_csindex_df)
 
     index_value_hist_funddb_df = index_value_hist_funddb(
-        symbol="大盘成长", indicator="市盈率"
+        symbol="大盘成长", indicator="市净率"
     )
     print(index_value_hist_funddb_df)
 
