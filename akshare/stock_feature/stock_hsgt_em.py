@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/6/10 22:32
+Date: 2022/11/27 20:32
 Desc: 东方财富网-数据中心-沪深港通持股
-http://data.eastmoney.com/hsgtcg/
-沪深港通详情: http://finance.eastmoney.com/news/1622,20161118685370149.html
+https://data.eastmoney.com/hsgtcg/
+沪深港通详情: https://finance.eastmoney.com/news/1622,20161118685370149.html
 """
 import json
 
@@ -12,6 +12,80 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+
+
+def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
+    """
+    东方财富网-数据中心-资金流向-沪深港通资金流向
+    https://data.eastmoney.com/hsgt/index.html#lssj
+    :return: 沪深港通资金流向
+    :rtype: pandas.DataFrame
+    """
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    params = {
+        "reportName": "RPT_MUTUAL_QUOTA",
+        "columns": "TRADE_DATE,MUTUAL_TYPE,BOARD_TYPE,MUTUAL_TYPE_NAME,FUNDS_DIRECTION,INDEX_CODE,INDEX_NAME,BOARD_CODE",
+        "quoteColumns": "status~07~BOARD_CODE,dayNetAmtIn~07~BOARD_CODE,dayAmtRemain~07~BOARD_CODE,dayAmtThreshold~07~BOARD_CODE,f104~07~BOARD_CODE,f105~07~BOARD_CODE,f106~07~BOARD_CODE,f3~03~INDEX_CODE~INDEX_f3,netBuyAmt~07~BOARD_CODE",
+        'quoteType': '0',
+        "pageNumber": "1",
+        "pageSize": "2000",
+        "sortTypes": "1",
+        "sortColumns": "MUTUAL_TYPE",
+        "source": "WEB",
+        "client": "WEB",
+        "_": "1669047266881",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
+    temp_df.columns = [
+        "交易日",
+        "-",
+        "类型",
+        "板块",
+        "资金方向",
+        "-",
+        "相关指数",
+        "-",
+        "交易状态",
+        "资金净流入",
+        "当日资金余额",
+        "-",
+        "上涨数",
+        "下跌数",
+        "持平数",
+        "指数涨跌幅",
+        "成交净买额",
+    ]
+    temp_df = temp_df[[
+        "交易日",
+        "类型",
+        "板块",
+        "资金方向",
+        "交易状态",
+        "成交净买额",
+        "资金净流入",
+        "当日资金余额",
+        "上涨数",
+        "持平数",
+        "下跌数",
+        "相关指数",
+        "指数涨跌幅",
+    ]]
+    temp_df['交易日'] = pd.to_datetime(temp_df['交易日']).dt.date
+    temp_df['成交净买额'] = pd.to_numeric(temp_df['成交净买额'], errors="coerce")
+    temp_df['资金净流入'] = pd.to_numeric(temp_df['资金净流入'], errors="coerce")
+    temp_df['当日资金余额'] = pd.to_numeric(temp_df['当日资金余额'], errors="coerce")
+    temp_df['上涨数'] = pd.to_numeric(temp_df['上涨数'], errors="coerce")
+    temp_df['持平数'] = pd.to_numeric(temp_df['持平数'], errors="coerce")
+    temp_df['下跌数'] = pd.to_numeric(temp_df['下跌数'], errors="coerce")
+    temp_df['指数涨跌幅'] = pd.to_numeric(temp_df['指数涨跌幅'], errors="coerce")
+
+    temp_df['成交净买额'] = temp_df['成交净买额'] / 10000
+    temp_df['资金净流入'] = temp_df['资金净流入'] / 10000
+    temp_df['当日资金余额'] = temp_df['当日资金余额'] / 10000
+
+    return temp_df
 
 
 def stock_hk_ggt_components_em() -> pd.DataFrame:
@@ -1615,6 +1689,9 @@ def stock_hsgt_individual_detail_em(
 
 
 if __name__ == "__main__":
+    stock_hsgt_fund_flow_summary_em_df = stock_hsgt_fund_flow_summary_em()
+    print(stock_hsgt_fund_flow_summary_em_df)
+
     stock_hk_ggt_components_em_df = stock_hk_ggt_components_em()
     print(stock_hk_ggt_components_em_df)
 
