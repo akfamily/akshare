@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/24 12:08
+Date: 2022/11/27 19:08
 Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
@@ -29,36 +29,47 @@ from akshare.economic.cons import (
 def macro_usa_phs() -> pd.DataFrame:
     """
     东方财富-经济数据一览-美国-未决房屋销售月率
-    http://data.eastmoney.com/cjsj/foreign_0_5.html
+    https://data.eastmoney.com/cjsj/foreign_0_5.html
     :return: 未决房屋销售月率
     :rtype: pandas.DataFrame
     """
-    url = "http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        'type': 'GJZB',
-        'sty': 'HKZB',
-        'js': '({data:[(x)],pages:(pc)})',
-        'p': '1',
-        'ps': '2000',
-        'mkt': '0',
-        'stat': '5',
-        'pageNo': '1',
-        'pageNum': '1',
-        '_': '1625474966006'
+        "reportName": "RPT_ECONOMICVALUE_USA",
+        "columns": "ALL",
+        "filter": '(INDICATOR_ID="EMG00342249")',
+        "pageNumber": "1",
+        "pageSize": "2000",
+        "sortColumns": "REPORT_DATE",
+        "sortTypes": "-1",
+        "source": "WEB",
+        "client": "WEB",
+        "p": "1",
+        "pageNo": "1",
+        "pageNum": "1",
+        "_": "1669047266881",
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = demjson.decode(data_text[1:-1])
-    temp_df = pd.DataFrame([item.split(',') for item in data_json['data']])
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
+        '-',
+        '-',
+        '-',
+        '时间',
+        '-',
+        '发布日期',
+        '现值',
+        '前值',
+    ]
+    temp_df = temp_df[[
         '时间',
         '前值',
         '现值',
         '发布日期',
-    ]
-    temp_df['时间'] = pd.to_datetime(temp_df['时间']).dt.date
-    temp_df['前值'] = pd.to_numeric(temp_df['前值'])
-    temp_df['现值'] = pd.to_numeric(temp_df['现值'])
+    ]]
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'], errors="coerce")
+    temp_df['现值'] = pd.to_numeric(temp_df['现值'], errors="coerce")
     temp_df['发布日期'] = pd.to_datetime(temp_df['发布日期']).dt.date
     return temp_df
 
