@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/12 15:47
+Date: 2022/11/28 15:13
 Desc: 东方财富-沪深板块-概念板块
-http://quote.eastmoney.com/center/boardlist.html#concept_board
+https://quote.eastmoney.com/center/boardlist.html#concept_board
 """
 import requests
 import pandas as pd
@@ -12,7 +12,7 @@ import pandas as pd
 def stock_board_concept_name_em() -> pd.DataFrame:
     """
     东方财富网-沪深板块-概念板块-名称
-    http://quote.eastmoney.com/center/boardlist.html#concept_board
+    https://quote.eastmoney.com/center/boardlist.html#concept_board
     :return: 概念板块-名称
     :rtype: pandas.DataFrame
     """
@@ -91,12 +91,16 @@ def stock_board_concept_name_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_board_concept_hist_em(symbol: str = "数字货币", adjust: str = "") -> pd.DataFrame:
+def stock_board_concept_hist_em(symbol: str = "数字货币", start_date: str = "20220101", end_date: str = "20221128", adjust: str = "") -> pd.DataFrame:
     """
     东方财富网-沪深板块-概念板块-历史行情
-    http://quote.eastmoney.com/bk/90.BK0715.html
+    https://quote.eastmoney.com/bk/90.BK0715.html
     :param symbol: 板块名称
     :type symbol: str
+    :param start_date: 开始时间
+    :type start_date: str
+    :param end_date: 结束时间
+    :type end_date: str
     :param adjust: choice of {'': 不复权, "qfq": 前复权, "hfq": 后复权}
     :type adjust: str
     :return: 历史行情
@@ -115,8 +119,8 @@ def stock_board_concept_hist_em(symbol: str = "数字货币", adjust: str = "") 
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
         "klt": "101",
         "fqt": adjust_map[adjust],
-        "beg": "0",
-        "end": "20500101",
+        "beg": start_date,
+        "end": end_date,
         "smplmt": "10000",
         "lmt": "1000000",
         "_": "1626079488673",
@@ -152,23 +156,23 @@ def stock_board_concept_hist_em(symbol: str = "数字货币", adjust: str = "") 
             "换手率",
         ]
     ]
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
     return temp_df
 
 
 def stock_board_concept_hist_min_em(symbol: str = "长寿药", period: str = "5") -> pd.DataFrame:
     """
     东方财富网-沪深板块-概念板块-分时历史行情
-    http://quote.eastmoney.com/bk/90.BK0715.html
+    https://quote.eastmoney.com/bk/90.BK0715.html
     :param symbol: 板块名称
     :type symbol: str
     :param period: choice of {"1", "5", "15", "30", "60"}
@@ -223,23 +227,23 @@ def stock_board_concept_hist_min_em(symbol: str = "长寿药", period: str = "5"
             "换手率",
         ]
     ]
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
     return temp_df
 
 
 def stock_board_concept_cons_em(symbol: str = "车联网") -> pd.DataFrame:
     """
     东方财富-沪深板块-概念板块-板块成份
-    http://quote.eastmoney.com/center/boardlist.html#boards-BK06551
+    https://quote.eastmoney.com/center/boardlist.html#boards-BK06551
     :param symbol: 板块名称
     :type symbol: str
     :return: 板块成份
@@ -345,7 +349,7 @@ if __name__ == "__main__":
     print(stock_board_concept_em_df)
 
     stock_board_concept_hist_em_df = stock_board_concept_hist_em(
-        symbol="车联网", adjust=""
+        symbol="车联网", start_date="20220101", end_date="20221128", adjust=""
     )
     print(stock_board_concept_hist_em_df)
 
