@@ -9,7 +9,10 @@ import requests
 from tqdm import tqdm
 from bs4 import BeautifulSoup
 
+from functools import lru_cache
 
+
+@lru_cache()
 def _stock_balance_sheet_by_report_ctype_em(symbol: str = "SH600519") -> str:
     """
     东方财富-股票-财务分析-资产负债表-按报告期-公司类型判断
@@ -79,7 +82,7 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/zcfzbDateAjaxNew"
-    company_type = 4
+    company_type = _stock_balance_sheet_by_report_ctype_em(symbol)
     params = {
         "companyType": company_type,
         "reportDateType": "1",
@@ -385,7 +388,7 @@ if __name__ == "__main__":
     print(stock_balance_sheet_by_report_em_df)
 
     stock_balance_sheet_by_yearly_em_df = stock_balance_sheet_by_yearly_em(
-        symbol="SH600036"
+        symbol="SH601318"
     )
     print(stock_balance_sheet_by_yearly_em_df)
 
