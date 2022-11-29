@@ -2237,9 +2237,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.18 add: add stock_hsgt_fund_flow_summary_em interface
 1.8.19 fix: fix stock_balance_sheet_by_yearly_em interface
 1.8.20 fix: fix stock_board_concept_hist_em interface
+1.8.21 fix: fix stock_board_concept_hist_em interface
 """
 
-__version__ = "1.8.20"
+__version__ = "1.8.21"
 __author__ = "AKFamily"
 
 import sys

@@ -91,12 +91,20 @@ def stock_board_concept_name_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_board_concept_hist_em(symbol: str = "数字货币", start_date: str = "20220101", end_date: str = "20221128", adjust: str = "") -> pd.DataFrame:
+def stock_board_concept_hist_em(
+    symbol: str = "数字货币",
+    period: str = "daily",
+    start_date: str = "20220101",
+    end_date: str = "20221128",
+    adjust: str = "",
+) -> pd.DataFrame:
     """
     东方财富网-沪深板块-概念板块-历史行情
     https://quote.eastmoney.com/bk/90.BK0715.html
     :param symbol: 板块名称
     :type symbol: str
+    :type period: 周期; choice of {"daily", "weekly", "monthly"}
+    :param period: 板块名称
     :param start_date: 开始时间
     :type start_date: str
     :param end_date: 结束时间
@@ -106,6 +114,11 @@ def stock_board_concept_hist_em(symbol: str = "数字货币", start_date: str = 
     :return: 历史行情
     :rtype: pandas.DataFrame
     """
+    period_map = {
+        "daily": "101",
+        "weekly": "102",
+        "monthly": "103",
+    }
     stock_board_concept_em_map = stock_board_concept_name_em()
     stock_board_code = stock_board_concept_em_map[
         stock_board_concept_em_map["板块名称"] == symbol
@@ -117,7 +130,7 @@ def stock_board_concept_hist_em(symbol: str = "数字货币", start_date: str = 
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
         "fields1": "f1,f2,f3,f4,f5,f6",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
-        "klt": "101",
+        "klt": period_map[period],
         "fqt": adjust_map[adjust],
         "beg": start_date,
         "end": end_date,
@@ -169,7 +182,9 @@ def stock_board_concept_hist_em(symbol: str = "数字货币", start_date: str = 
     return temp_df
 
 
-def stock_board_concept_hist_min_em(symbol: str = "长寿药", period: str = "5") -> pd.DataFrame:
+def stock_board_concept_hist_min_em(
+    symbol: str = "长寿药", period: str = "5"
+) -> pd.DataFrame:
     """
     东方财富网-沪深板块-概念板块-分时历史行情
     https://quote.eastmoney.com/bk/90.BK0715.html
@@ -188,13 +203,13 @@ def stock_board_concept_hist_min_em(symbol: str = "长寿药", period: str = "5"
     params = {
         "secid": f"90.{stock_board_code}",
         "ut": "fa5fd1943c7b386f172d6893dbfba10b",
-        'fields1': 'f1,f2,f3,f4,f5,f6',
-        'fields2': 'f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',
-        'klt': period,
-        'fqt': '1',
-        'end': '20500101',
-        'lmt': '1000000',
-        '_': '1647760607065',
+        "fields1": "f1,f2,f3,f4,f5,f6",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+        "klt": period,
+        "fqt": "1",
+        "end": "20500101",
+        "lmt": "1000000",
+        "_": "1647760607065",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -349,11 +364,13 @@ if __name__ == "__main__":
     print(stock_board_concept_em_df)
 
     stock_board_concept_hist_em_df = stock_board_concept_hist_em(
-        symbol="车联网", start_date="20220101", end_date="20221128", adjust=""
+        symbol="车联网", period="weekly", start_date="20220101", end_date="20221128", adjust=""
     )
     print(stock_board_concept_hist_em_df)
 
-    stock_board_concept_hist_min_em_df = stock_board_concept_hist_min_em(symbol="长寿药", period="5")
+    stock_board_concept_hist_min_em_df = stock_board_concept_hist_min_em(
+        symbol="长寿药", period="5"
+    )
     print(stock_board_concept_hist_min_em_df)
 
     stock_board_concept_cons_em_df = stock_board_concept_cons_em(symbol="网络安全")
