@@ -16811,6 +16811,7 @@ print(stock_board_concept_cons_em_df)
 | 名称         | 类型  | 描述                                                                            |
 |------------|-----|-------------------------------------------------------------------------------|
 | symbol     | str | symbol="网络安全"; 可以通过调用 **ak.stock_board_concept_name_em()** 查看东方财富-概念板块的所有概念代码 |
+| period     | str | period="daily"; choice of {"daily", "weekly", "monthly"}                      |
 | start_date | str | start_date="20220101"                                                         |
 | end_date   | str | end_date="20221128"                                                           |
 | adjust     | str | adjust=""; choice of {'': 不复权, 默认; "qfq": 前复权, "hfq": 后复权}                    |
@@ -16836,7 +16837,7 @@ print(stock_board_concept_cons_em_df)
 ```python
 import akshare as ak
 
-stock_board_concept_hist_em_df = ak.stock_board_concept_hist_em(symbol="车联网", start_date="20220101", end_date="20221128", adjust="")
+stock_board_concept_hist_em_df = ak.stock_board_concept_hist_em(symbol="车联网", period="daily", start_date="20220101", end_date="20221128", adjust="")
 print(stock_board_concept_hist_em_df)
 ```
 
