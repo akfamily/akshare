@@ -2239,9 +2239,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.20 fix: fix stock_board_concept_hist_em interface
 1.8.21 fix: fix stock_board_concept_hist_em interface
 1.8.22 fix: fix stock_margin_detail_szse interface
+1.8.23 add: add stock_restricted_release_summary_em interface
 """
 
-__version__ = "1.8.22"
+__version__ = "1.8.23"
 __author__ = "AKFamily"
 
 import sys
@@ -2253,9 +2254,21 @@ if sys.version_info < (3, 7):
 del sys
 
 """
+东方财富-限售解禁股
+"""
+from akshare.stock_fundamental.stock_restricted_em import (
+    stock_restricted_release_stockholder_em,
+    stock_restricted_release_summary_em,
+    stock_restricted_release_detail_em,
+    stock_restricted_release_queue_em,
+)
 
 """
-from akshare.stock_feature.stock_board_industry_ths import stock_board_industry_summary_ths
+同花顺行业一览表
+"""
+from akshare.stock_feature.stock_board_industry_ths import (
+    stock_board_industry_summary_ths,
+)
 
 """
 生猪市场价格指数
@@ -3533,7 +3546,7 @@ from akshare.stock_fundamental.stock_finance import (
     stock_history_dividend_detail,
     stock_history_dividend,
     stock_circulate_stock_holder,
-    stock_restricted_shares,
+    stock_restricted_release_queue_sina,
     stock_fund_stock_holder,
     stock_main_stock_holder,
 )
