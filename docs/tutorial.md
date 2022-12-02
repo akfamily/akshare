@@ -501,7 +501,11 @@
  "stock_history_dividend_detail"  # 分红配股
  "stock_history_dividend"  # 历史分红
  "stock_dividents_cninfo"  # 个股历史分红
- "stock_restricted_shares"  # 限售解禁
+ "stock_restricted_release_queue_sina"  # 限售解禁-新浪
+ "stock_restricted_release_summary_em"  # 东方财富网-数据中心-特色数据-限售股解禁
+ "stock_restricted_release_detail_em"  # 东方财富网-数据中心-限售股解禁-解禁详情一览
+ "stock_restricted_release_queue_em"  # 东方财富网-数据中心-个股限售解禁-解禁批次
+ "stock_restricted_release_stockholder_em"  # 东方财富网-数据中心-个股限售解禁-解禁股东
  "stock_circulate_stock_holder"  # 流动股东
  "stock_fund_stock_holder"  # 基金持股
  "stock_main_stock_holder"  # 主要股东
