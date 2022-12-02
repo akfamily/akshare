@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/25 13:48
+Date: 2022/12/2 22:48
 Desc: 同花顺-板块-行业板块
-http://q.10jqka.com.cn/thshy/
+https://q.10jqka.com.cn/thshy/
 """
 from datetime import datetime
 
@@ -361,7 +361,7 @@ def stock_board_industry_name_ths() -> pd.DataFrame:
 def stock_board_industry_cons_ths(symbol: str = "半导体及元件") -> pd.DataFrame:
     """
     同花顺-板块-行业板块-成份股
-    http://q.10jqka.com.cn/thshy/detail/code/881121/
+    https://q.10jqka.com.cn/thshy/detail/code/881121/
     :param symbol: 板块名称
     :type symbol: str
     :return: 成份股
@@ -547,7 +547,7 @@ def stock_board_industry_index_ths(
 def stock_ipo_benefit_ths() -> pd.DataFrame:
     """
     同花顺-数据中心-新股数据-IPO受益股
-    http://data.10jqka.com.cn/ipo/syg/
+    https://data.10jqka.com.cn/ipo/syg/
     :return: IPO受益股
     :rtype: pandas.DataFrame
     """
@@ -558,8 +558,9 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
+        "hexin-v": v_code
     }
-    url = f"http://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/2/ajax/1/free/1/"
+    url = f"http://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/1/ajax/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     page_num = soup.find("span", attrs={"class": "page_info"}).text.split("/")[
@@ -568,6 +569,12 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
         url = f"http://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/{page}/ajax/1/free/1/"
+        v_code = js_code.call("v")
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+            "Cookie": f"v={v_code}",
+            "hexin-v": v_code
+        }
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -596,7 +603,7 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
 def stock_board_industry_summary_ths() -> pd.DataFrame:
     """
     同花顺-数据中心-行业板块-同花顺行业一览表
-    http://q.10jqka.com.cn/thshy/
+    https://q.10jqka.com.cn/thshy/
     :return: 同花顺行业一览表
     :rtype: pandas.DataFrame
     """

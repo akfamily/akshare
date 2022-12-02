@@ -2240,9 +2240,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.21 fix: fix stock_board_concept_hist_em interface
 1.8.22 fix: fix stock_margin_detail_szse interface
 1.8.23 add: add stock_restricted_release_summary_em interface
+1.8.24 fix: fix stock_ipo_benefit_ths interface
 """
 
-__version__ = "1.8.23"
+__version__ = "1.8.24"
 __author__ = "AKFamily"
 
 import sys
