@@ -4,6 +4,7 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.8.23     | stock_restricted_shares                     | stock_restricted_release_queue_sina         | 20221122 |
 | 1.8.3      | stock_em_qbzf                               | stock_qbzf_em                               | 20221122 |
 | 1.8.3      | stock_em_pg                                 | stock_pg_em                                 | 20221122 |
 | 1.7.99     | stock_sina_lhb_jgmx                         | stock_lhb_jgmx_sina                         | 20221119 |
@@ -41,6 +42,14 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.8.23 add: add stock_restricted_release_summary_em interface
+
+    1. 新增 stock_restricted_release_summary_em 接口
+    2. 新增 stock_restricted_release_detail_em 接口
+    3. 新增 stock_restricted_release_queue_em 接口
+    4. 新增 stock_restricted_release_stockholder_em 接口
+    5. 修复 stock_restricted_release_queue_sina 接口
 
 1.8.22 fix: fix stock_margin_detail_szse interface
 
@@ -1617,6 +1626,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.23 add: add stock_restricted_release_summary_em interface
 
 1.8.22 fix: fix stock_margin_detail_szse interface
 

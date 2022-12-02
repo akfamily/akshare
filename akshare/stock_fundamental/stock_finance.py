@@ -286,18 +286,25 @@ def stock_add_stock(stock: str = "688166") -> pd.DataFrame:
     return big_df
 
 
-def stock_restricted_shares(stock: str = "600000") -> pd.DataFrame:
+def stock_restricted_release_queue_sina(symbol: str = "600000") -> pd.DataFrame:
     """
     新浪财经-发行分配-限售解禁
     https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol=sh600000
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 返回限售解禁数据
     :rtype: pandas.DataFrame
     """
-    url = f"https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol={stock}"
+    url = f"https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol={symbol}"
     r = requests.get(url)
     temp_df = pd.read_html(r.text)[0]
+    temp_df.columns = ['代码', '名称', '解禁日期', '解禁数量', '解禁股流通市值', '上市批次', '公告日期']
+    temp_df['解禁日期'] = pd.to_datetime(temp_df['解禁日期']).dt.date
+    temp_df['公告日期'] = pd.to_datetime(temp_df['公告日期']).dt.date
+    temp_df['解禁数量'] = pd.to_numeric(temp_df['解禁数量'], errors="coerce")
+    temp_df['解禁股流通市值'] = pd.to_numeric(temp_df['解禁股流通市值'], errors="coerce")
+    temp_df['上市批次'] = pd.to_numeric(temp_df['上市批次'], errors="coerce")
+    temp_df['上市批次'] = pd.to_numeric(temp_df['上市批次'], errors="coerce")
     return temp_df
 
 
@@ -465,8 +472,8 @@ if __name__ == "__main__":
     stock_add_stock_df = stock_add_stock(stock="600004")
     print(stock_add_stock_df)
 
-    stock_restricted_shares_df = stock_restricted_shares(stock="600000")
-    print(stock_restricted_shares_df)
+    stock_restricted_release_queue_sina_df = stock_restricted_release_queue_sina(symbol="600000")
+    print(stock_restricted_release_queue_sina_df)
 
     stock_circulate_stock_holder_df = stock_circulate_stock_holder(stock="600000")
     print(stock_circulate_stock_holder_df)
