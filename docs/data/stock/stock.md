@@ -881,7 +881,7 @@ print(stock_zh_a_spot_df)
 
 接口: stock_zh_a_hist
 
-目标地址: http://quote.eastmoney.com/concept/sh603777.html?from=classic(示例)
+目标地址: https://quote.eastmoney.com/concept/sh603777.html?from=classic(示例)
 
 描述: 东方财富-沪深京 A 股日频率数据; 历史数据按日频率更新, 当日收盘价请在收盘后获取
 
@@ -939,8 +939,7 @@ print(stock_zh_a_spot_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907',
-                                        adjust="")
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="")
 print(stock_zh_a_hist_df)
 ```
 
@@ -966,8 +965,7 @@ print(stock_zh_a_hist_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907',
-                                        adjust="qfq")
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="qfq")
 print(stock_zh_a_hist_df)
 ```
 
@@ -993,8 +991,7 @@ print(stock_zh_a_hist_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907',
-                                        adjust="hfq")
+stock_zh_a_hist_df = ak.stock_zh_a_hist(symbol="000001", period="daily", start_date="20170301", end_date='20210907', adjust="hfq")
 print(stock_zh_a_hist_df)
 ```
 
@@ -1076,8 +1073,7 @@ P.S. 建议切换为 stock_zh_a_hist 接口使用(该接口数据质量高, 访�
 ```python
 import akshare as ak
 
-stock_zh_a_daily_qfq_df = ak.stock_zh_a_daily(symbol="sz000002", start_date="20101103", end_date="20201116",
-                                              adjust="qfq")
+stock_zh_a_daily_qfq_df = ak.stock_zh_a_daily(symbol="sz000002", start_date="20101103", end_date="20201116", adjust="qfq")
 print(stock_zh_a_daily_qfq_df)
 ```
 
@@ -1104,8 +1100,7 @@ date                             ...
 ```python
 import akshare as ak
 
-stock_zh_a_daily_hfq_df = ak.stock_zh_a_daily(symbol="sz000002", start_date='20201103', end_date='20201116',
-                                              adjust="hfq")
+stock_zh_a_daily_hfq_df = ak.stock_zh_a_daily(symbol="sz000002", start_date='20201103', end_date='20201116', adjust="hfq")
 print(stock_zh_a_daily_hfq_df)
 ```
 
@@ -11863,50 +11858,50 @@ print(stock_restricted_release_stockholder_em_df)
 
 描述: 新浪财经-股东股本-流通股东
 
-限量: 单次获取流通股东数据
+限量: 单次获取指定 symbol 的流通股东数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| stock | str | Y    | stock="600000"; 股票代码|
+| 名称     | 类型  | 描述                    |
+|--------|-----|-----------------------|
+| symbol | str | symbol="600000"; 股票代码 |
 
 输出参数
 
-| 名称        | 类型    | 默认显示 | 描述  |
-|-----------|-------|------|-----|
-| 截止日期      | str   | Y    | -   |
-| 公告日期      | str   | Y    | -   |
-| 编号        | str   | Y    | -   |
-| 股东名称      | str   | Y    | -   |
-| 持股数量(股)   | float | Y    | -   |
-| 占流通股比例(%) | float | Y    | -   |
-| 股本性质      | str   | Y    | -   |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 截止日期   | object  | -       |
+| 公告日期   | object  | -       |
+| 编号     | int64   | -       |
+| 股东名称   | object  | -       |
+| 持股数量   | int64   | 注意单位: 股 |
+| 占流通股比例 | float64 | 注意单位: % |
+| 股本性质   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_circulate_stock_holder_df = ak.stock_circulate_stock_holder(stock="600000")
+stock_circulate_stock_holder_df = ak.stock_circulate_stock_holder(symbol="600000")
 print(stock_circulate_stock_holder_df)
 ```
 
 数据示例
 
 ```
-0          截止日期        公告日期  编号  ...     持股数量(股) 占流通股比例(%)   股本性质
-0    2020-03-31  2020-04-25   1  ...  5489319304    19.532    国有股
-1    2020-03-31  2020-04-25   2  ...  5334892824    18.983    国有股
-2    2020-03-31  2020-04-25   3  ...  2779437274     9.890  境内法人股
-3    2020-03-31  2020-04-25   4  ...  1763232325     6.274  境内法人股
-4    2020-03-31  2020-04-25   5  ...  1395571025     4.966    国有股
-..          ...         ...  ..  ...         ...       ...    ...
-645  2003-12-31         NaN   6  ...     6882195     0.765    国有股
-646  2003-12-31         NaN   7  ...     5921727     0.658  境内法人股
-647  2003-12-31         NaN   8  ...     4534267     0.504  境内法人股
-648  2003-12-31         NaN   9  ...     4197332     0.466  境内法人股
-649  2003-12-31         NaN  10  ...     3880427     0.431  境内法人股
+      截止日期        公告日期  编号                股东名称        持股数量  占流通股比例   股本性质
+0    2022-09-30  2022-10-29   1          上海国际集团有限公司  6331322671  21.570    国有股
+1    2022-09-30  2022-10-29   2      中国移动通信集团广东有限公司  5334892824  18.175    国有股
+2    2022-09-30  2022-10-29   3   富德生命人寿保险股份有限公司-传统  2779437274   9.469  境内法人股
+3    2022-09-30  2022-10-29   4  富德生命人寿保险股份有限公司-资本金  1763232325   6.007  境内法人股
+4    2022-09-30  2022-10-29   5       上海上国投资产管理有限公司  1395571025   4.755    国有股
+..          ...         ...  ..                 ...         ...     ...    ...
+745  2003-12-31         NaN   6          世纪证券有限责任公司     6882195   0.765    国有股
+746  2003-12-31         NaN   7            汉兴证券投资基金     5921727   0.658  境内法人股
+747  2003-12-31         NaN   8            泰和证券投资基金     4534267   0.504  境内法人股
+748  2003-12-31         NaN   9          博时裕富证券投资基金     4197332   0.466  境内法人股
+749  2003-12-31         NaN  10            同智证券投资基金     3880427   0.431  境内法人股
 ```
 
 #### 板块行情
