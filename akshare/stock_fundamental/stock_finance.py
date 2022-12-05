@@ -308,17 +308,17 @@ def stock_restricted_release_queue_sina(symbol: str = "600000") -> pd.DataFrame:
     return temp_df
 
 
-def stock_circulate_stock_holder(stock: str = "600000") -> pd.DataFrame:
+def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
     """
     新浪财经-股东股本-流通股东
     P.S. 特定股票特定时间只有前 5 个; e.g., 000002
     https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/600000.phtml
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 新浪财经-股东股本-流通股东
     :rtype: pandas.DataFrame
     """
-    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/{stock}.phtml"
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/{symbol}.phtml"
     r = requests.get(url)
     temp_df = pd.read_html(r.text)[13].iloc[:, :5]
     temp_df.columns = [*range(5)]
@@ -326,7 +326,7 @@ def stock_circulate_stock_holder(stock: str = "600000") -> pd.DataFrame:
     need_range = temp_df[temp_df.iloc[:, 0].str.find("截止日期") == 0].index.tolist() + [
         len(temp_df)
     ]
-    for i in range(len(need_range) - 1):
+    for i in tqdm(range(len(need_range) - 1), leave=False):
         truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[2:, :]
@@ -339,7 +339,15 @@ def stock_circulate_stock_holder(stock: str = "600000") -> pd.DataFrame:
         concat_df["截止日期"] = concat_df["截止日期"].fillna(method="ffill")
         concat_df["公告日期"] = concat_df["公告日期"].fillna(method="ffill")
         big_df = pd.concat([big_df, concat_df], axis=0, ignore_index=True)
+
     big_df = big_df[["截止日期", "公告日期", "编号", "股东名称", "持股数量(股)", "占流通股比例(%)", "股本性质"]]
+    big_df.columns = ["截止日期", "公告日期", "编号", "股东名称", "持股数量", "占流通股比例", "股本性质"]
+
+    big_df['截止日期'] = pd.to_datetime(big_df['截止日期']).dt.date
+    big_df['公告日期'] = pd.to_datetime(big_df['公告日期']).dt.date
+    big_df['编号'] = pd.to_numeric(big_df['编号'], errors="coerce")
+    big_df['持股数量'] = pd.to_numeric(big_df['持股数量'], errors="coerce")
+    big_df['占流通股比例'] = pd.to_numeric(big_df['占流通股比例'], errors="coerce")
     big_df.reset_index(inplace=True, drop=True)
     return big_df
 
@@ -475,7 +483,7 @@ if __name__ == "__main__":
     stock_restricted_release_queue_sina_df = stock_restricted_release_queue_sina(symbol="600000")
     print(stock_restricted_release_queue_sina_df)
 
-    stock_circulate_stock_holder_df = stock_circulate_stock_holder(stock="600000")
+    stock_circulate_stock_holder_df = stock_circulate_stock_holder(symbol="600000")
     print(stock_circulate_stock_holder_df)
 
     stock_fund_stock_holder_df = stock_fund_stock_holder(stock="601318")
