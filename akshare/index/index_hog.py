@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
+"""
+Date: 2022/12/9 11:16
+Desc: 行情宝
+http://hqb.nxin.com/pigindex/index.shtml
+"""
 import requests
 import pandas as pd
 
