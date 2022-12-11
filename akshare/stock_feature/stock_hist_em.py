@@ -11,7 +11,7 @@ import pandas as pd
 def stock_zh_a_spot_em() -> pd.DataFrame:
     """
     东方财富网-沪深京 A 股-实时行情
-    http://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
