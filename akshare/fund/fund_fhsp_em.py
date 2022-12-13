@@ -13,7 +13,7 @@ from tqdm import tqdm
 def fund_fh_em() -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金分红
-    http://fund.eastmoney.com/data/fundfenhong.html#DJR,desc,1,,,
+    https://fund.eastmoney.com/data/fundfenhong.html#DJR,desc,1,,,
     :return: 基金分红
     :rtype: pandas.DataFrame
     """
@@ -63,7 +63,7 @@ def fund_fh_em() -> pd.DataFrame:
 def fund_cf_em() -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金拆分
-    http://fund.eastmoney.com/data/fundchaifen.html#FSRQ,desc,1,,,
+    https://fund.eastmoney.com/data/fundchaifen.html#FSRQ,desc,1,,,
     :return: 基金拆分
     :rtype: pandas.DataFrame
     """
@@ -85,17 +85,14 @@ def fund_cf_em() -> pd.DataFrame:
         params.update({"page": page})
         r = requests.get(url, params=params)
         data_text = r.text
-        try:
-            temp_list = eval(
-                data_text[data_text.find("[["): data_text.find(";var jjcf_jjgs")]
-            )
-        except:
-            break
-        temp_df = pd.DataFrame(temp_list)
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        temp_str = data_text[data_text.find("[["): data_text.find(";var jjcf_jjgs")]
+        if temp_str:
+            temp_list = eval(temp_str)
+            temp_df = pd.DataFrame(temp_list)
+            big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
-    big_df["index"] = big_df.index + 1
+    big_df.loc[:, 'index'] = big_df['index'] + 1
     big_df.columns = [
         "序号",
         "基金代码",
@@ -114,7 +111,7 @@ def fund_cf_em() -> pd.DataFrame:
 def fund_fh_rank_em() -> pd.DataFrame:
     """
     天天基金网-基金数据-分红送配-基金分红排行
-    http://fund.eastmoney.com/data/fundleijifenhong.html
+    https://fund.eastmoney.com/data/fundleijifenhong.html
     :return: 基金分红排行
     :rtype: pandas.DataFrame
     """
@@ -132,7 +129,7 @@ def fund_fh_rank_em() -> pd.DataFrame:
     data_text = r.text
     total_page = eval(data_text[data_text.find("=") + 1: data_text.find(";")])[0]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
         r = requests.get(url, params=params)
         data_text = r.text
@@ -143,7 +140,7 @@ def fund_fh_rank_em() -> pd.DataFrame:
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
-    big_df["index"] = big_df.index + 1
+    big_df.loc[:, "index"] = big_df.index + 1
     big_df.columns = [
         "序号",
         "基金代码",
