@@ -507,7 +507,7 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     return df[cons.OUTPUT_COLUMNS]
 
 
-def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
+def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
     """
     大连商品交易所日交易数据
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rxq/index.html
@@ -553,11 +553,9 @@ def get_dce_daily(date: str = "20030115") -> pd.DataFrame:
     data_df = data_df[~data_df["商品名称"].str.contains("小计")]
     data_df = data_df[~data_df["商品名称"].str.contains("总计")]
     data_df["variety"] = data_df["商品名称"].map(lambda x: cons.DCE_MAP[x])
-    data_df["symbol"] = data_df["variety"] + data_df["交割月份"].astype(
-        int
-    ).astype(str)
+    data_df["symbol"] = data_df["合约名称"]
     del data_df["商品名称"]
-    del data_df["交割月份"]
+    del data_df["合约名称"]
     data_df.columns = [
         "open",
         "high",
