@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/10/21 19:00
+Date: 2022/12/16 17:00
 Desc: 中证指数-所有指数-历史行情数据
 https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/list?index_series=1
 """
+from functools import lru_cache
+
 import pandas as pd
 import requests
 
@@ -98,6 +100,7 @@ def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
     return temp_df
 
 
+@lru_cache()
 def index_value_name_funddb() -> pd.DataFrame:
     """
     funddb-指数估值-指数代码
@@ -140,8 +143,6 @@ def index_value_name_funddb() -> pd.DataFrame:
         "-",
         "-",
         "-",
-        "-",
-        "-",
     ]
     temp_df = temp_df[
         [
@@ -158,12 +159,12 @@ def index_value_name_funddb() -> pd.DataFrame:
         ]
     ]
     temp_df["指数开始时间"] = pd.to_datetime(temp_df["指数开始时间"]).dt.date
-    temp_df['最新PE'] = pd.to_numeric(temp_df['最新PE'])
-    temp_df['PE分位'] = pd.to_numeric(temp_df['PE分位'])
-    temp_df['最新PB'] = pd.to_numeric(temp_df['最新PB'])
-    temp_df['PB分位'] = pd.to_numeric(temp_df['PB分位'])
-    temp_df['股息率'] = pd.to_numeric(temp_df['股息率'])
-    temp_df['股息率分位'] = pd.to_numeric(temp_df['股息率分位'])
+    temp_df["最新PE"] = pd.to_numeric(temp_df["最新PE"])
+    temp_df["PE分位"] = pd.to_numeric(temp_df["PE分位"])
+    temp_df["最新PB"] = pd.to_numeric(temp_df["最新PB"])
+    temp_df["PB分位"] = pd.to_numeric(temp_df["PB分位"])
+    temp_df["股息率"] = pd.to_numeric(temp_df["股息率"])
+    temp_df["股息率分位"] = pd.to_numeric(temp_df["股息率分位"])
     return temp_df
 
 
@@ -234,14 +235,10 @@ if __name__ == "__main__":
     )
     print(stock_zh_index_hist_csindex_df)
 
-    stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(
-        symbol="H30374"
-    )
+    stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(symbol="H30374")
     print(stock_zh_index_value_csindex_df)
 
-    index_value_hist_funddb_df = index_value_hist_funddb(
-        symbol="大盘成长", indicator="市净率"
-    )
+    index_value_hist_funddb_df = index_value_hist_funddb(symbol="大盘成长", indicator="市净率")
     print(index_value_hist_funddb_df)
 
     index_value_name_funddb_df = index_value_name_funddb()
