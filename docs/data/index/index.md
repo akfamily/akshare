@@ -1752,13 +1752,15 @@ index
 
 输入参数
 
-| 名称         | 类型  | 描述                                         |
-|------------|-----|--------------------------------------------|
-| word       | str | word="股票"                                  |
-| start_date | str | start_date="2010-12-27"                    |
-| end_date   | str | end_date="2019-12-01"                      |
-| cookie     | str | cookie="您在网页端登录百度指数后的 Cookie 数据"; 如下图所示    |
-| text       | str | text="您在网页端登录百度指数后的 Cipher-Text 数据"; 如下图所示 |
+| 名称         | 类型  | 描述                                                     |
+|------------|-----|--------------------------------------------------------|
+| word       | str | word="股票"                                              |
+| start_date | str | start_date="2010-12-27"                                |
+| end_date   | str | end_date="2019-12-01"                                  |
+| province   | str | province="全国"; 省份, 默认为 `全国`; 请按照百度指数提供的名称进行输入, 比如：`四川` |
+| city       | str | city="全国"; 城市, 默认为 `全国`; 请按照百度指数提供的名称进行输入, 比如：`成都`     |
+| cookie     | str | cookie="您在网页端登录百度指数后的 Cookie 数据"; 如下图所示                |
+| text       | str | text="您在网页端登录百度指数后的 Cipher-Text 数据"; 如下图所示             |
 
 如下图中游览器请求头中的蓝色选中部分内容到 cookie 参数 即可
 
@@ -1782,7 +1784,7 @@ import akshare as ak
 
 cookie = '此处输入您在网页端登录百度指数后的 Cookie 数据'  # 此处请用单引号
 text = '此处输入您在网页端登录百度指数后的 Cipher-Text 数据'
-baidu_search_index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie ,text=text)
+baidu_search_index_df = ak.baidu_search_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', province="全国", city="全国", cookie=cookie ,text=text)
 print(baidu_search_index_df)
 ```
 
@@ -1819,6 +1821,8 @@ date
 | word       | str | word="股票"                                                       |
 | start_date | str | start_date="2017-07-03"                                         |
 | end_date   | str | end_date="2019-12-01"                                           |
+| province   | str | province="全国"; 省份, 默认为 `全国`; 请按照百度指数提供的名称进行输入, 比如：`四川`          |
+| city       | str | city="全国"; 城市, 默认为 `全国`; 请按照百度指数提供的名称进行输入, 比如：`成都`              |
 | cookie     | str | cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示                         |
 | text       | str | text="您在网页端登录百度指数后的 Cipher-Text 数据"; 注意是 getFeedIndex 请求的 如下图所示 |
 
@@ -1844,7 +1848,7 @@ import akshare as ak
 
 cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
 text = '此处输入您在网页端登录百度指数后的 Cipher-Text 数据'
-baidu_info_index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01', cookie=cookie, text=text)
+baidu_info_index_df = ak.baidu_info_index(word="螺纹钢", start_date='2017-07-03', end_date='2019-12-01', province="全国", city="全国", cookie=cookie, text=text)
 print(baidu_info_index_df)
 ```
 
@@ -1876,13 +1880,15 @@ date
 
 输入参数
 
-| 名称         | 类型  |  描述                                      |
-|------------|-----|-----|-----------------------------------------|
-| word       | str |  word="股票"                               |
-| start_date | str |  start_date="2010-12-27"                 |
-| end_date   | str |  end_date="2019-12-01"                   |
-| cookie     | str |  cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示 |
-| text       | str | text="您在网页端登录百度指数后的 Cipher-Text 数据"; 如下图所示 |
+| 名称         | 类型  | 描述                                                     |
+|------------|-----|--------------------------------------------------------|
+| word       | str | word="股票"                                              |
+| start_date | str | start_date="2010-12-27"                                |
+| end_date   | str | end_date="2019-12-01"                                  |
+| province   | str | province="全国"; 省份, 默认为 `全国`; 请按照百度指数提供的名称进行输入, 比如：`四川` |
+| city       | str | city="全国"; 城市, 默认为 `全国`; 请按照百度指数提供的名称进行输入, 比如：`成都`     |
+| cookie     | str | cookie="您在网页端登录百度指数后的 cookie 数据"; 如下图所示                |
+| text       | str | text="您在网页端登录百度指数后的 Cipher-Text 数据"; 如下图所示             |
 
 如下图中游览器请求头中的蓝色选中部分内容到 cookie 即可
 
@@ -1906,7 +1912,7 @@ import akshare as ak
 
 cookie = '此处输入您在网页端登录百度指数后的 cookie 数据'  # 此处请用单引号
 text = '此处输入您在网页端登录百度指数后的 Cipher-Text 数据'
-baidu_media_index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', cookie=cookie, text=text)
+baidu_media_index_df = ak.baidu_media_index(word="螺纹钢", start_date='2010-12-27', end_date='2019-12-01', province="全国", city="全国", cookie=cookie, text=text)
 print(baidu_media_index_df)
 ```
 
