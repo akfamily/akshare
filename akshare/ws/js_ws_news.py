@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 
 
-def js_news(timestamp: str = "2022-11-13 14:50:18") -> pd.DataFrame:
+def js_news(timestamp: str = "2022-12-17 17:52:58") -> pd.DataFrame:
     """
     金十数据-市场快讯
     https://www.jin10.com/
@@ -22,20 +22,21 @@ def js_news(timestamp: str = "2022-11-13 14:50:18") -> pd.DataFrame:
     params = {
         "channel": "-8200",
         "vip": "1",
-        "t": "1668329215869",
         "max_time": timestamp,
+        "t": "1671282353147",
+
     }
     headers = {
         "accept": "application/json, text/plain, */*",
         "accept-encoding": "gzip, deflate, br",
         "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
         "cache-control": "no-cache",
+        'handleerror': 'true',
         "origin": "https://www.jin10.com",
         "pragma": "no-cache",
         "referer": "https://www.jin10.com/",
         "sec-ch-ua": '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
         "sec-ch-ua-mobile": "?0",
-        'handleerror': 'true',
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
@@ -62,5 +63,5 @@ def js_news(timestamp: str = "2022-11-13 14:50:18") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    js_news_df = js_news(timestamp="2022-11-13 12:40:25")
+    js_news_df = js_news(timestamp="2022-12-17 20:52:58")
     print(js_news_df)
