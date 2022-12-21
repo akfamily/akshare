@@ -3,7 +3,7 @@
 """
 Date: 2022/5/12 15:15
 Desc: 东方财富个股人气榜
-http://guba.eastmoney.com/rank/
+https://guba.eastmoney.com/rank/
 """
 import requests
 import pandas as pd
@@ -12,7 +12,7 @@ import pandas as pd
 def stock_hot_rank_em() -> pd.DataFrame:
     """
     东方财富-个股人气榜-人气榜
-    http://guba.eastmoney.com/rank/
+    https://guba.eastmoney.com/rank/
     :return: 人气榜
     :rtype: pandas.DataFrame
     """
@@ -64,7 +64,7 @@ def stock_hot_rank_em() -> pd.DataFrame:
 def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-历史趋势及粉丝特征
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 个股的历史趋势及粉丝特征
@@ -99,7 +99,7 @@ def stock_hot_rank_detail_em(symbol: str = "SZ000665") -> pd.DataFrame:
 def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-实时变动
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 实时变动
@@ -122,7 +122,7 @@ def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
 def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-关键词
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 关键词
@@ -145,7 +145,7 @@ def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
 def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-最新排名
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 最新排名
@@ -169,7 +169,7 @@ def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
 def stock_hot_rank_relate_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
     东方财富-个股人气榜-相关股票
-    http://guba.eastmoney.com/rank/stock?code=000665
+    https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
     :return: 相关股票
