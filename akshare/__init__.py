@@ -2251,9 +2251,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.32 fix: fix js_news interface
 1.8.33 fix: fix stock_hot_rank_em interface
 1.8.34 add: add stock_a_gxl_lg interface
+1.8.35 add: add stock_hk_gxl_lg interface
 """
 
-__version__ = "1.8.34"
+__version__ = "1.8.35"
 __author__ = "AKFamily"
 
 import sys
@@ -2267,7 +2268,7 @@ del sys
 """
 乐咕乐股-股息率-A 股股息率
 """
-from akshare.stock_feature.stock_gxl_lg import stock_a_gxl_lg
+from akshare.stock_feature.stock_gxl_lg import stock_a_gxl_lg, stock_hk_gxl_lg
 
 """
 东方财富-限售解禁股

@@ -43,6 +43,10 @@
 
 ## 更新说明
 
+1.8.35 add: add stock_hk_gxl_lg interface
+
+    1. 新增 stock_hk_gxl_lg 接口
+
 1.8.34 add: add stock_a_gxl_lg interface
 
     1. 新增 stock_a_gxl_lg 接口
@@ -1672,6 +1676,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.35 add: add stock_hk_gxl_lg interface
 
 1.8.34 add: add stock_a_gxl_lg interface
 
