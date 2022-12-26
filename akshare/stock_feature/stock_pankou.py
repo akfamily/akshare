@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/20 21:39
+Date: 2022/12/25 22:39
 Desc: 东方财富-行情中心-盘口异动
-http://quote.eastmoney.com/changes/
+https://quote.eastmoney.com/changes/
 """
 import pandas as pd
 import requests
@@ -12,7 +12,7 @@ import requests
 def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
     """
     东方财富-行情中心-盘口异动
-    http://quote.eastmoney.com/changes/
+    https://quote.eastmoney.com/changes/
     :param symbol: choice of {'火箭发射', '快速反弹', '大笔买入', '封涨停板', '打开跌停板', '有大买盘', '竞价上涨', '高开5日线', '向上缺口', '60日新高', '60日大幅上涨', '加速下跌', '高台跳水', '大笔卖出', '封跌停板', '打开涨停板', '有大卖盘', '竞价下跌', '低开5日线', '向下缺口', '60日新低', '60日大幅下跌'}
     :type symbol: str
     :return: 盘口异动
@@ -76,6 +76,39 @@ def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
     temp_df["板块"] = temp_df["板块"].astype(str)
     temp_df["板块"] = temp_df["板块"].map(reversed_symbol_map)
     return temp_df
+
+
+def stock_board_change_em() -> pd.DataFrame:
+    url = "http://push2ex.eastmoney.com/getAllBKChanges"
+    params = {
+        'ut': '7eea3edcaed734bea9cbfc24409ed989',
+        'dpt': 'wzchanges',
+        'pageindex': '0',
+        'pagesize': '5000',
+        '_': '1671978840598',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    data_df = pd.DataFrame(data_json['data']['allbk'])
+    data_df.columns = [
+        '-',
+        '-',
+        '板块名称',
+        '涨跌幅',
+        '主力净流入',
+        '板块异动总次数',
+        "ms",
+        "ydl",
+    ]
+    data_df['板块异动最频繁个股及所属类型-买卖方向'] = [item['m'] for item in data_df['ms']]
+    data_df['板块异动最频繁个股及所属类型-股票代码'] = [item['c'] for item in data_df['ms']]
+    data_df['板块异动最频繁个股及所属类型-股票名称'] = [item['n'] for item in data_df['ms']]
+    data_df['板块异动最频繁个股及所属类型-买卖方向'] = data_df['板块异动最频繁个股及所属类型-买卖方向'].map({0: "大笔买入", 1: "大笔卖出"})
+
+    data_df['板块异动最频繁个股及所属类型-买卖方向'] = [item['m'] for item in data_df['ydl']]
+    data_df['板块异动最频繁个股及所属类型-股票代码'] = [item['c'] for item in data_df['ms']]
+    data_df['板块异动最频繁个股及所属类型-股票名称'] = [item['n'] for item in data_df['ms']]
+    data_df['板块异动最频繁个股及所属类型-买卖方向'] = data_df['板块异动最频繁个股及所属类型-买卖方向'].map({0: "大笔买入", 1: "大笔卖出"})
 
 
 if __name__ == "__main__":
