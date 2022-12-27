@@ -11647,24 +11647,24 @@ print(macro_canada_gdp_monthly_df)
 
 接口: macro_cons_gold_volume
 
-目标地址: https://datacenter.jin10.com/reportType/dc_eurozone_sentix_investor_confidence
+目标地址: https://datacenter.jin10.com/reportType/dc_etf_gold
 
-描述: 获取全球最大黄金ETF—SPDR Gold Trust持仓报告-总库存(吨), 数据区间从20041118-至今
+描述: 全球最大黄金 ETF—SPDR Gold Trust 持仓报告-总库存(吨), 数据区间从 20041118-至今
 
 限量: 单次返回所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | 总库存(吨)   |
+| 名称  | 类型    | 描述     |
+|-----|-------|--------|
+| 日期  | str   | 日期-索引  |
+| 值   | float | 总库存(吨) |
 
 接口示例
 
