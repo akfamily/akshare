@@ -4,6 +4,12 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.8.38     | macro_cons_silver_amount                    | macro_cons_silver                           | 20221227 |
+| 1.8.38     | macro_cons_silver_change                    | macro_cons_silver                           | 20221227 |
+| 1.8.38     | macro_cons_silver_volume                    | macro_cons_silver                           | 20221227 |
+| 1.8.38     | macro_cons_gold_amount                      | macro_cons_gold                             | 20221227 |
+| 1.8.38     | macro_cons_gold_change                      | macro_cons_gold                             | 20221227 |
+| 1.8.38     | macro_cons_gold_volume                      | macro_cons_gold                             | 20221227 |
 | 1.8.23     | stock_restricted_shares                     | stock_restricted_release_queue_sina         | 20221122 |
 | 1.8.3      | stock_em_qbzf                               | stock_qbzf_em                               | 20221122 |
 | 1.8.3      | stock_em_pg                                 | stock_pg_em                                 | 20221122 |
@@ -42,6 +48,10 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.8.38 fix: fix macro_cons_gold interface
+
+    1. 修复 macro_cons_gold 接口
 
 1.8.37 add: add fund_stock_position_lg interface
 
@@ -1684,6 +1694,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.38 fix: fix macro_cons_gold interface
 
 1.8.37 add: add fund_stock_position_lg interface
 
