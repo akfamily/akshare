@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/12/25 22:39
+Date: 2022/12/27 21:11
 Desc: 东方财富-行情中心-盘口异动
 https://quote.eastmoney.com/changes/
 """
@@ -79,6 +79,12 @@ def stock_changes_em(symbol: str = "大笔买入") -> pd.DataFrame:
 
 
 def stock_board_change_em() -> pd.DataFrame:
+    """
+    东方财富-行情中心-当日板块异动详情
+    https://quote.eastmoney.com/changes/
+    :return: 当日板块异动详情页
+    :rtype: pandas.DataFrame
+    """
     url = "http://push2ex.eastmoney.com/getAllBKChanges"
     params = {
         'ut': '7eea3edcaed734bea9cbfc24409ed989',
@@ -98,22 +104,34 @@ def stock_board_change_em() -> pd.DataFrame:
         '主力净流入',
         '板块异动总次数',
         "ms",
-        "ydl",
+        "板块具体异动类型列表及出现次数",
     ]
     data_df['板块异动最频繁个股及所属类型-买卖方向'] = [item['m'] for item in data_df['ms']]
     data_df['板块异动最频繁个股及所属类型-股票代码'] = [item['c'] for item in data_df['ms']]
     data_df['板块异动最频繁个股及所属类型-股票名称'] = [item['n'] for item in data_df['ms']]
     data_df['板块异动最频繁个股及所属类型-买卖方向'] = data_df['板块异动最频繁个股及所属类型-买卖方向'].map({0: "大笔买入", 1: "大笔卖出"})
-
-    data_df['板块异动最频繁个股及所属类型-买卖方向'] = [item['m'] for item in data_df['ydl']]
-    data_df['板块异动最频繁个股及所属类型-股票代码'] = [item['c'] for item in data_df['ms']]
-    data_df['板块异动最频繁个股及所属类型-股票名称'] = [item['n'] for item in data_df['ms']]
-    data_df['板块异动最频繁个股及所属类型-买卖方向'] = data_df['板块异动最频繁个股及所属类型-买卖方向'].map({0: "大笔买入", 1: "大笔卖出"})
+    data_df = data_df[[
+        '板块名称',
+        '涨跌幅',
+        '主力净流入',
+        '板块异动总次数',
+        '板块异动最频繁个股及所属类型-股票代码',
+        '板块异动最频繁个股及所属类型-股票名称',
+        '板块异动最频繁个股及所属类型-买卖方向',
+        "板块具体异动类型列表及出现次数",
+    ]]
+    data_df['涨跌幅'] = pd.to_numeric(data_df['涨跌幅'], errors="coerce")
+    data_df['主力净流入'] = pd.to_numeric(data_df['主力净流入'], errors="coerce")
+    data_df['板块异动总次数'] = pd.to_numeric(data_df['板块异动总次数'], errors="coerce")
+    return data_df
 
 
 if __name__ == "__main__":
     stock_changes_em_df = stock_changes_em(symbol='火箭发射')
     print(stock_changes_em_df)
+
+    stock_board_change_em_df = stock_board_change_em()
+    print(stock_board_change_em_df)
 
     for item in {'火箭发射', '快速反弹', '大笔买入', '封涨停板', '打开跌停板', '有大买盘', '竞价上涨', '高开5日线', '向上缺口', '60日新高', '60日大幅上涨', '加速下跌', '高台跳水', '大笔卖出', '封跌停板', '打开涨停板', '有大卖盘', '竞价下跌', '低开5日线', '向下缺口', '60日新低', '60日大幅下跌'}:
         stock_changes_em_df = stock_changes_em(symbol=item)
