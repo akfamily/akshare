@@ -2253,9 +2253,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.34 add: add stock_a_gxl_lg interface
 1.8.35 add: add stock_hk_gxl_lg interface
 1.8.36 add: add stock_a_congestion_lg interface
+1.8.37 add: add fund_stock_position_lg interface
 """
 
-__version__ = "1.8.36"
+__version__ = "1.8.37"
 __author__ = "AKFamily"
 
 import sys
@@ -2265,6 +2266,11 @@ if sys.version_info < (3, 7):
     sys.exit(1)
 
 del sys
+
+"""
+乐咕乐股-基金仓位
+"""
+from akshare.fund.fund_position_lg import fund_stock_position_lg
 
 """
 乐咕乐股-大盘拥挤度
@@ -3063,7 +3069,7 @@ from akshare.stock_feature.stock_zf_pg import stock_qbzf_em, stock_pg_em
 """
 平均持仓
 """
-from akshare.stock_feature.stock_legu_average_position import (
+from akshare.stock_feature.stock_average_position_lg import (
     stock_average_position_legu,
 )
 
@@ -3495,7 +3501,7 @@ from akshare.fortune.fortune_bloomberg import (
 """
 stock-券商业绩月报
 """
-from akshare.stock_feature.stock_em_qsjy import stock_qsjy_em
+from akshare.stock_feature.stock_qsjy_em import stock_qsjy_em
 
 """
 futures-warehouse-receipt
@@ -3673,7 +3679,7 @@ from akshare.futures.futures_foreign import (
 """
 stock-em-tfp
 """
-from akshare.stock_feature.stock_em_tfp import stock_tfp_em
+from akshare.stock_feature.stock_tfp_em import stock_tfp_em
 
 """
 stock-em-hsgt
@@ -3943,7 +3949,7 @@ from akshare.futures.futures_rule import futures_rule
 """
 东方财富-商誉专题
 """
-from akshare.stock_feature.stock_em_sy import (
+from akshare.stock_feature.stock_sy_em import (
     stock_em_sy_profile,
     stock_em_sy_yq_list,
     stock_em_sy_jz_list,
@@ -3966,7 +3972,7 @@ from akshare.stock_feature.stock_gpzy_em import (
 """
 东方财富-机构调研
 """
-from akshare.stock_feature.stock_em_jgdy import (
+from akshare.stock_feature.stock_jgdy_em import (
     stock_jgdy_tj_em,
     stock_jgdy_detail_em,
 )

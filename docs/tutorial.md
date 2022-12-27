@@ -1185,6 +1185,8 @@
  "stock_hk_gxl_lg"  # 乐咕乐股-股息率-恒生指数股息率
  # 乐咕乐股-大盘拥挤度
  "stock_a_congestion_lg"  # 乐咕乐股-大盘拥挤度
+ # 乐咕乐股-基金仓位
+ "fund_stock_position_lg"  # 乐咕乐股-基金仓位-股票型基金仓位
 ```
 
 ## 案例演示
