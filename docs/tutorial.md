@@ -777,6 +777,7 @@
  "stock_zh_a_hist"  # A 股日频率数据-东方财富
  # 盘口异动
  "stock_changes_em"  # 盘口异动
+ "stock_board_change_em"  # 板块异动
  # CME 比特币成交量
  "crypto_bitcoin_cme"  # CME 比特币成交量
  # 加密货币全球市场指数
