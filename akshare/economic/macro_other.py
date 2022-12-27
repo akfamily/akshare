@@ -19,26 +19,15 @@ def crypto_js_spot() -> pd.DataFrame:
     """
     url = "https://datacenter-api.jin10.com/crypto_currency/list"
     params = {
-        "_": int(time.time() * 1000),
+        "_": '1672141224307',
     }
     headers = {
-        "accept": "application/json, text/javascript, */*; q=0.01",
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
-        'origin': 'https://datacenter.jin10.com',
-        'referer': 'https://datacenter.jin10.com/',
-        'sec-ch-ua': '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"macOS"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-site',
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36',
-        'x-app-id': 'rU6QIu7JHe2gOUeR',
-        'x-version': '1.0.0'
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "x-csrf-token",
+        "x-version": "1.0.0",
     }
     r = requests.get(url, params=params, headers=headers)
-    r.encoding = 'utf-8'
     data_json = r.json()
     data_df = pd.DataFrame(data_json["data"])
     data_df["reported_at"] = pd.to_datetime(data_df["reported_at"])
