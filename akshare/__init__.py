@@ -2254,9 +2254,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.35 add: add stock_hk_gxl_lg interface
 1.8.36 add: add stock_a_congestion_lg interface
 1.8.37 add: add fund_stock_position_lg interface
+1.8.38 fix: fix macro_cons_gold interface
 """
 
-__version__ = "1.8.37"
+__version__ = "1.8.38"
 __author__ = "AKFamily"
 
 import sys
@@ -4238,13 +4239,9 @@ from akshare.stock.stock_zh_zrbg_hx import stock_zh_a_scr_report
 全球宏观-机构宏观
 """
 from akshare.economic.macro_constitute import (
-    macro_cons_gold_amount,
-    macro_cons_gold_change,
-    macro_cons_gold_volume,
+    macro_cons_gold,
+    macro_cons_silver,
     macro_cons_opec_month,
-    macro_cons_silver_amount,
-    macro_cons_silver_change,
-    macro_cons_silver_volume,
 )
 
 """
