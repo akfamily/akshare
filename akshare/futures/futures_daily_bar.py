@@ -196,6 +196,72 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
     return data_df
 
 
+def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
+    """
+    广州期货交易所-日频率-量价数据
+    广州期货交易所: 工业硅(上市时间: 20221222)
+    http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
+    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象，默认为当前交易日
+    :type date: str or datetime.date
+    :return: 广州期货交易所-日频率-量价数据
+    :rtype: pandas.DataFrame
+    """
+    day = (
+        cons.convert_date(date) if date is not None else datetime.date.today()
+    )
+    if day.strftime("%Y%m%d") not in calendar:
+        # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
+        return
+    url = f"http://www.gfex.com.cn/u/interfacesWebTiDayQuotes/loadList"
+    payload = {
+        'trade_date': date,
+        'trade_type': '0'
+    }
+    headers = {
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+        "Cache-Control": "no-cache",
+        "Content-Length": "32",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Host": "www.gfex.com.cn",
+        "Origin": "http://www.gfex.com.cn",
+        "Pragma": "no-cache",
+        "Proxy-Connection": "keep-alive",
+        "Referer": "http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest",
+        "content-type": "application/x-www-form-urlencoded"
+    }
+    r = requests.post(url, data=payload, headers=headers)
+    try:
+        data_json = r.json()
+    except:
+        return
+    result_df = pd.DataFrame(data_json['data'])
+    result_df = result_df[~result_df['variety'].str.contains("小计")]
+    result_df = result_df[~result_df['variety'].str.contains("总计")]
+    result_df.columns
+    result_df['symbol'] = result_df['varietyOrder'].str.upper() + result_df['delivMonth']
+    result_df['date'] = date
+    result_df['open'] = pd.to_numeric(result_df['open'], errors="coerce")
+    result_df['high'] = pd.to_numeric(result_df['high'], errors="coerce")
+    result_df['low'] = pd.to_numeric(result_df['low'], errors="coerce")
+    result_df['close'] = pd.to_numeric(result_df['close'], errors="coerce")
+    result_df['volume'] = pd.to_numeric(result_df['volumn'], errors="coerce")
+    result_df['open_interest'] = pd.to_numeric(result_df['openInterest'], errors="coerce")
+    result_df['turnover'] = pd.to_numeric(result_df['turnover'], errors="coerce")
+    result_df['settle'] = pd.to_numeric(result_df['clearPrice'], errors="coerce")
+    result_df['pre_settle'] = pd.to_numeric(result_df['lastClear'], errors="coerce")
+    result_df['variety'] = result_df['varietyOrder'].str.upper()
+    result_df = result_df[
+        ['symbol', 'date', 'open', 'high', 'low', 'close', 'volume',
+         'open_interest', 'turnover', 'settle', 'pre_settle', 'variety']
+    ]
+
+    return result_df
+
+
 def get_ine_daily(date: str = "20220208") -> pd.DataFrame:
     """
     上海国际能源交易中心-日频率-量价数据
@@ -633,6 +699,8 @@ def get_futures_daily(
         f = get_dce_daily
     elif market.upper() == "INE":
         f = get_ine_daily
+    elif market.upper() == "GFEX":
+        f = get_gfex_daily
     else:
         print("Invalid Market Symbol")
         return
@@ -683,3 +751,6 @@ if __name__ == "__main__":
 
     get_shfe_daily_df = get_shfe_daily(date="20160104")
     print(get_shfe_daily_df)
+
+    get_gfex_daily_df = get_gfex_daily(date="20221228")
+    print(get_gfex_daily_df)

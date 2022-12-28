@@ -2258,9 +2258,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.39 add: add stock_board_change_em interface
 1.8.40 add: add fund_balance_position_lg interface
 1.8.41 add: add futures_index_ccidx interface
+1.8.42 add: add get_gfex_daily interface
 """
 
-__version__ = "1.8.41"
+__version__ = "1.8.42"
 __author__ = "AKFamily"
 
 import sys
@@ -4519,4 +4520,5 @@ from akshare.futures.futures_daily_bar import (
     get_dce_daily,
     get_futures_daily,
     get_ine_daily,
+    get_gfex_daily,
 )

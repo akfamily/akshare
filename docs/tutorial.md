@@ -13,6 +13,7 @@
  "get_czce_daily",  # 郑州商品交易所每日交易数据
  "get_czce_rank_table",  # 获取郑州商品交易所前20会员持仓数据明细
  "get_dce_daily",  # 获取大连商品交易所每日交易数据
+ "get_gfex_daily",  # 获取广州期货交易所每日交易数据
  "get_ine_daily",  # 获取上海国际能源交易中心每日交易数据
  "futures_sgx_daily",  # 获取新加坡交易所每日交易数据
  "get_dce_rank_table",  #获取大连商品交易所前20会员持仓数据明细

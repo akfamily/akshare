@@ -17,7 +17,7 @@
 
 #### 期货交易时间
 
-**本表格更新于 20210621**
+**本表格更新于 20221228**
 
 | 交易所        | 品种        | 合约代码    | 夜盘交易时间        | 日盘交易时间                                       |
 |------------|-----------|---------|---------------|----------------------------------------------|
@@ -112,10 +112,11 @@
 | 上海国际能源交易中心 | 20号胶      | NR      | 21:00\-23:00  | 上午：09:00\-10:15 10:30\-11:30 下午：13:30\-15:00 |
 | 上海国际能源交易中心 | 低硫燃料油     | LU      | 21:00\-23:00  | 上午：09:00\-10:15 10:30\-11:30 下午：13:30\-15:00 |
 | 上海国际能源交易中心 | 阴极铜       | BC      | 21:00\-次日1:00 | 上午：09:00\-10:15 10:30\-11:30 下午：13:30\-15:00 |
+| 广州期货交易所    | 工业硅       | SI      | 无             | 上午：09:00\-11:30 下午：13:30\-15:00              |
 
 #### 期货交易手续费
 
-**本表格更新于 20210727**
+**本表格更新于 20221228**
 
 | 代码         | 交易所手续费                      | 公司默认手续费                    |
 |------------|-----------------------------|----------------------------|
@@ -211,10 +212,12 @@
 | LU         | 2元/手                        | 4元/手                       |
 | BC         | 0\.1%%\(平今免收\)              | 0\.2%%\(平今免收\)             |
 | 原油期权       | 10元每手(平今免收)                 | 20元每手(平今免收)                |
+| 广州期货交易所    | 广州期货交易所                     | 广州期货交易所                    |
+| SI         | 5元/吨                        | 5元/吨                       |
 
 #### 期货交易保证金
 
-**本表格更新于 20210903**
+**本表格更新于 20221228**
 
 | 交易所        | 名称        | 代码      | 合约单位     | 最小跳动      | 涨跌幅        | 交易所保证金    | 公司保证金     |
 |------------|-----------|---------|----------|-----------|------------|-----------|-----------|
@@ -309,6 +312,7 @@
 | 上海国际能源交易中心 | 低硫燃料油     | LU      | 10吨/手    | 1元/吨      | 8%         | 10%       | 17%       |
 | 上海国际能源交易中心 | 国际铜       | BC      | 5吨/手     | 10元/吨     | 8 %        | 10 %      | 17%       |
 | 上海国际能源交易中心 | 原油期权      | SC\-C/P | 1000 桶/手 | 0.05 元/桶  | 同原油期货      | 同原油期货     | 同原油期货     |
+| 广州期货交易所    | 工业硅       | SI      | -        | -         | -          | -         | -         |
 
 #### 期货限仓一览表
 
@@ -858,6 +862,7 @@ print(futures_spot_price_df)
 
 ```python
 import akshare as ak
+
 futures_spot_price_previous_df = ak.futures_spot_price_previous('20110110')
 print(futures_spot_price_previous_df)
 ```
@@ -935,6 +940,7 @@ ak.get_shfe_rank_table()
 
 ```python
 import akshare as ak
+
 get_dce_rank_table_df = ak.get_czce_rank_table(date='20200213')
 print(get_dce_rank_table_df)
 ```
@@ -959,9 +965,9 @@ print(get_dce_rank_table_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="20200511"; 指定交易日, 该数据接口可以获取从 2000 年开始的数据, 20160104 由于交易所数据问题，返回为空可以调用 **futures_dce_position_rank_other** 来返回数据 |
+| 名称   | 类型  | 必选  | 描述                                                                                                                    |
+|------|-----|-----|-----------------------------------------------------------------------------------------------------------------------|
+| date | str | Y   | date="20200511"; 指定交易日, 该数据接口可以获取从 2000 年开始的数据, 20160104 由于交易所数据问题，返回为空可以调用 **futures_dce_position_rank_other** 来返回数据 |
 
 P.S. **futures_dce_position_rank_other** 函数只返回页面显示的活跃合约，返回格式同 **futures_dce_position_rank**
 
@@ -969,25 +975,26 @@ P.S. **futures_dce_position_rank_other** 函数只返回页面显示的活跃合
 
 P.S. 这里仅列出值(pandas.DataFrame)的字段信息
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| long_open_interest      | str   | Y        | 持买单量  |
-| long_open_interest_chg      | float   | Y        |  持买单量-增减 |
-| long_party_name      | float   | Y        |  会员简称 |
-| rank      | float   | Y        |  名次 |
-| short_open_interest      | str   | Y        |  持卖单量 |
-| short_open_interest_chg      | str   | Y        |  持买单量-增减 |
-| short_party_name      | str   | Y        |  会员简称 |
-| vol      | str   | Y        |  成交量 |
-| vol_chg      | str   | Y        |  成交量-增减 |
-| vol_party_name      | str   | Y        |  会员简称 |
-| symbol      | str   | Y        |  具体合约 |
-| variety      | str   | Y        |  品种 |
+| 名称                      | 类型    | 默认显示 | 描述      |
+|-------------------------|-------|------|---------|
+| long_open_interest      | str   | Y    | 持买单量    |
+| long_open_interest_chg  | float | Y    | 持买单量-增减 |
+| long_party_name         | float | Y    | 会员简称    |
+| rank                    | float | Y    | 名次      |
+| short_open_interest     | str   | Y    | 持卖单量    |
+| short_open_interest_chg | str   | Y    | 持买单量-增减 |
+| short_party_name        | str   | Y    | 会员简称    |
+| vol                     | str   | Y    | 成交量     |
+| vol_chg                 | str   | Y    | 成交量-增减  |
+| vol_party_name          | str   | Y    | 会员简称    |
+| symbol                  | str   | Y    | 具体合约    |
+| variety                 | str   | Y    | 品种      |
 
 接口示例
 
 ```python
 import akshare as ak
+
 futures_dce_detail_dict = ak.futures_dce_position_rank(date="20200513")
 print(futures_dce_detail_dict)
 ```
@@ -2226,11 +2233,11 @@ print(futures_zh_daily_sina_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                                                              |
-|------------|-----|-----------------------------------------------------------------|
-| start_date | str | start_date="20200701"                                           |
-| end_date   | str | end_date="20200716"                                             |
-| market     | str | market="DCE"; choice of {"CFFEX", "INE", "CZCE", "DCE", "SHFE"} |
+| 名称         | 类型  | 描述                                                                      |
+|------------|-----|-------------------------------------------------------------------------|
+| start_date | str | start_date="20200701"                                                   |
+| end_date   | str | end_date="20200716"                                                     |
+| market     | str | market="DCE"; choice of {"CFFEX", "INE", "CZCE", "DCE", "SHFE", "GFEX"} |
 
 输出参数
 
@@ -2431,20 +2438,20 @@ while True:
 
 输入参数
 
-| 名称   | 类型 | 描述     |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="ZSD"; 外盘期货的 **symbol** 可以通过 **hf_subscribe_exchange_symbol** 获取 |
+| 名称     | 类型  | 描述                                                                      |
+|--------|-----|-------------------------------------------------------------------------|
+| symbol | str | symbol="ZSD"; 外盘期货的 **symbol** 可以通过 **hf_subscribe_exchange_symbol** 获取 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| date      | object   |  交易日  |
-| open      | float64   |  开盘价   |
-| high      | float64   | 最高价        |
-| low        | float64   | 最低价    |
-| close         | float64 |  收盘价         |
-| volume         | int64 |  成交量         |
+| 名称     | 类型      | 描述  |
+|--------|---------|-----|
+| date   | object  | 交易日 |
+| open   | float64 | 开盘价 |
+| high   | float64 | 最高价 |
+| low    | float64 | 最低价 |
+| close  | float64 | 收盘价 |
+| volume | int64   | 成交量 |
 
 接口示例
 
@@ -2483,26 +2490,26 @@ print(futures_foreign_hist_df)
 
 输入参数
 
-| 名称   | 类型 |  描述       |
-| -------- | ---- |  --- |
-| symbol | str |  symbol="ZSD"; 外盘期货的 **symbol** 可以通过 **hf_subscribe_exchange_symbol** 获取 |
+| 名称     | 类型  | 描述                                                                      |
+|--------|-----|-------------------------------------------------------------------------|
+| symbol | str | symbol="ZSD"; 外盘期货的 **symbol** 可以通过 **hf_subscribe_exchange_symbol** 获取 |
 
 输出参数
 
-| 名称          | 类型 |  描述           |
-| --------------- | ----- |  ---------------- |
-| 交易品种      | str   |  -  |
-| 最小变动价位	      | str   |  -  |
-| 交易时间	      | str   |  -  |
-| 交易代码	      | str   |  -  |
-| 交易单位	      | str   |  -  |
-| 涨跌停板幅度	      | str   |  -  |
-| 交割品级		      | str   |  -  |
-| 上市交易所		      | str   |  -  |
-| 报价单位		      | str   |  -  |
-| 合约交割月份  | str   |  -  |
-| 交割地点  | str   |  -  |
-| 附加信息  | str   |  -  |
+| 名称      | 类型  | 描述  |
+|---------|-----|-----|
+| 交易品种    | str | -   |
+| 最小变动价位	 | str | -   |
+| 交易时间	   | str | -   |
+| 交易代码	   | str | -   |
+| 交易单位	   | str | -   |
+| 涨跌停板幅度	 | str | -   |
+| 交割品级		  | str | -   |
+| 上市交易所		 | str | -   |
+| 报价单位		  | str | -   |
+| 合约交割月份  | str | -   |
+| 交割地点    | str | -   |
+| 附加信息    | str | -   |
 
 接口示例
 
