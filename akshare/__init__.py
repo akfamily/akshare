@@ -2256,9 +2256,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.37 add: add fund_stock_position_lg interface
 1.8.38 fix: fix macro_cons_gold interface
 1.8.39 add: add stock_board_change_em interface
+1.8.40 add: add fund_balance_position_lg interface
 """
 
-__version__ = "1.8.39"
+__version__ = "1.8.40"
 __author__ = "AKFamily"
 
 import sys
@@ -2272,7 +2273,7 @@ del sys
 """
 乐咕乐股-基金仓位
 """
-from akshare.fund.fund_position_lg import fund_stock_position_lg
+from akshare.fund.fund_position_lg import fund_stock_position_lg, fund_balance_position_lg, fund_linghuo_position_lg
 
 """
 乐咕乐股-大盘拥挤度
