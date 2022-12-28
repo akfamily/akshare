@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.40 add: add fund_balance_position_lg interface
+
+    1. 新增 fund_balance_position_lg 接口
+
 1.8.39 add: add stock_board_change_em interface
 
     1. 新增 stock_board_change_em 接口
@@ -1698,6 +1702,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.40 add: add fund_balance_position_lg interface
 
 1.8.39 add: add stock_board_change_em interface
 
