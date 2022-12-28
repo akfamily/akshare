@@ -2257,9 +2257,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.38 fix: fix macro_cons_gold interface
 1.8.39 add: add stock_board_change_em interface
 1.8.40 add: add fund_balance_position_lg interface
+1.8.41 add: add futures_index_ccidx interface
 """
 
-__version__ = "1.8.40"
+__version__ = "1.8.41"
 __author__ = "AKFamily"
 
 import sys
@@ -3652,9 +3653,9 @@ from akshare.event.covid import (
 )
 
 """
-futures_cscidx
+中证商品指数
 """
-from akshare.futures.futures_cscidx import futures_index_cscidx
+from akshare.futures.futures_index_ccidx import futures_index_min_ccidx, futures_index_ccidx
 
 """
 futures_em_spot_stock
