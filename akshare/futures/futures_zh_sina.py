@@ -679,7 +679,7 @@ if __name__ == "__main__":
     print(match_main_contract_df)
 
     futures_zh_spot_df = futures_zh_spot(
-        symbol="TA2209, P2209, B2209, M2209", market="CF", adjust="0"
+        symbol="TA2209,P2209,B2209,M2209", market="CF", adjust="0"
     )
     print(futures_zh_spot_df)
 
