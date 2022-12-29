@@ -8,7 +8,7 @@ https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600
 新浪财经-财务分析-财务指标
 https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600004/displaytype/4.phtml
 新浪财经-发行与分配
-http://money.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/600004.phtml
+https://money.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/600004.phtml
 """
 import pandas as pd
 import requests
