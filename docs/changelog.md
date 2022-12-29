@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.43 add: add stock_ebs_lg interface
+
+    1. 新增 stock_ebs_lg 接口
+
 1.8.42 add: add get_gfex_daily interface
 
     1. 新增 get_gfex_daily 接口, 获取广期所的量价数据
@@ -1710,6 +1714,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.43 add: add stock_ebs_lg interface
 
 1.8.42 add: add get_gfex_daily interface
 

@@ -2259,9 +2259,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.40 add: add fund_balance_position_lg interface
 1.8.41 add: add futures_index_ccidx interface
 1.8.42 add: add get_gfex_daily interface
+1.8.43 add: add stock_ebs_lg interface
 """
 
-__version__ = "1.8.42"
+__version__ = "1.8.43"
 __author__ = "AKFamily"
 
 import sys
@@ -2273,9 +2274,18 @@ if sys.version_info < (3, 7):
 del sys
 
 """
+乐咕乐股-股债利差
+"""
+from akshare.stock_feature.stock_ebs_lg import stock_ebs_lg
+
+"""
 乐咕乐股-基金仓位
 """
-from akshare.fund.fund_position_lg import fund_stock_position_lg, fund_balance_position_lg, fund_linghuo_position_lg
+from akshare.fund.fund_position_lg import (
+    fund_stock_position_lg,
+    fund_balance_position_lg,
+    fund_linghuo_position_lg,
+)
 
 """
 乐咕乐股-大盘拥挤度
@@ -2983,7 +2993,10 @@ from akshare.crypto.crypto_bitcoin_cme import crypto_bitcoin_cme
 """
 盘口异动
 """
-from akshare.stock_feature.stock_pankou_em import stock_changes_em, stock_board_change_em
+from akshare.stock_feature.stock_pankou_em import (
+    stock_changes_em,
+    stock_board_change_em,
+)
 
 """
 A 股东方财富
@@ -3656,7 +3669,10 @@ from akshare.event.covid import (
 """
 中证商品指数
 """
-from akshare.futures.futures_index_ccidx import futures_index_min_ccidx, futures_index_ccidx
+from akshare.futures.futures_index_ccidx import (
+    futures_index_min_ccidx,
+    futures_index_ccidx,
+)
 
 """
 futures_em_spot_stock
