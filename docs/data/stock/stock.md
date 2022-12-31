@@ -12230,7 +12230,7 @@ print(stock_info_sz_name_code_df)
 
 接口: stock_info_bj_name_code
 
-目标地址: http://www.bse.cn/nq/listedcompany.html
+目标地址: https://www.bse.cn/nq/listedcompany.html
 
 描述: 北京证券交易所股票代码和简称数据
 

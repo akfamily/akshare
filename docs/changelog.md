@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.44 fix: fix stock_info_bj_name_code interface
+
+    1. 修复 stock_info_bj_name_code 接口
+
 1.8.43 add: add stock_ebs_lg interface
 
     1. 新增 stock_ebs_lg 接口
@@ -1714,6 +1718,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.44 fix: fix stock_info_bj_name_code interface
 
 1.8.43 add: add stock_ebs_lg interface
 
