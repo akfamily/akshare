@@ -190,11 +190,11 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
 def stock_info_bj_name_code() -> pd.DataFrame:
     """
     北京证券交易所-股票列表
-    http://www.bse.cn/nq/listedcompany.html
+    https://www.bse.cn/nq/listedcompany.html
     :return: 股票列表
     :rtype: pandas.DataFrame
     """
-    url = "http://www.bse.cn/nqxxController/nqxxCnzq.do"
+    url = "https://www.bse.cn/nqxxController/nqxxCnzq.do"
     payload = {
         "page": "0",
         "typejb": "T",
