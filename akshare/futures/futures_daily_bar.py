@@ -241,7 +241,6 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
     result_df = pd.DataFrame(data_json['data'])
     result_df = result_df[~result_df['variety'].str.contains("小计")]
     result_df = result_df[~result_df['variety'].str.contains("总计")]
-    result_df.columns
     result_df['symbol'] = result_df['varietyOrder'].str.upper() + result_df['delivMonth']
     result_df['date'] = date
     result_df['open'] = pd.to_numeric(result_df['open'], errors="coerce")
@@ -258,7 +257,6 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
         ['symbol', 'date', 'open', 'high', 'low', 'close', 'volume',
          'open_interest', 'turnover', 'settle', 'pre_settle', 'variety']
     ]
-
     return result_df
 
 
