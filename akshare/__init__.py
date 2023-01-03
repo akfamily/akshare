@@ -2261,9 +2261,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.42 add: add get_gfex_daily interface
 1.8.43 add: add stock_ebs_lg interface
 1.8.44 fix: fix stock_info_bj_name_code interface
+1.8.45 fix: fix calendar.json
 """
 
-__version__ = "1.8.44"
+__version__ = "1.8.45"
 __author__ = "AKFamily"
 
 import sys
