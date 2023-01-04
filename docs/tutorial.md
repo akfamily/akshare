@@ -550,8 +550,11 @@
  # 交易日历
  "tool_trade_date_hist"  # 新浪财经-交易日历
  # 基金行情
- "fund_etf_category_sina"  # 基金列表
- "fund_etf_hist_sina"  # 基金行情
+ "fund_etf_category_sina"  # 基金实时行情-新浪
+ "fund_etf_hist_sina"  # 基金行情-新浪
+ "fund_etf_hist_em"  # 基金历史行情-东财
+ "fund_etf_hist_min_em"  # 基金分时行情-东财
+ "fund_etf_spot_em"  # 基金实时行情-东财
  # 股票财务报告-预约披露
  "stock_report_disclosure"  # 股票财务报告-预约披露时间
  # 基金持股

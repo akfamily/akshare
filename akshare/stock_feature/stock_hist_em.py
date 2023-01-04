@@ -7,6 +7,8 @@ Desc: 东方财富网-行情首页-沪深京 A 股
 import requests
 import pandas as pd
 
+from functools import lru_cache
+
 
 def stock_zh_a_spot_em() -> pd.DataFrame:
     """
@@ -798,6 +800,7 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
     return temp_df
 
 
+@lru_cache()
 def code_id_map_em() -> dict:
     """
     东方财富-股票和市场代码

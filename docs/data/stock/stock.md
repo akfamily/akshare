@@ -1378,8 +1378,7 @@ print(stock_zh_a_minute_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", start_date="2021-09-01 09:32:00",
-                                                      end_date="2021-09-06 09:32:00", period='1', adjust='')
+stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00", period='1', adjust='')
 print(stock_zh_a_hist_min_em_df)
 ```
 
@@ -1421,8 +1420,7 @@ print(stock_zh_a_hist_min_em_df)
 ```python
 import akshare as ak
 
-stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", start_date="2021-09-01 09:32:00",
-                                                      end_date="2021-09-06 09:32:00", period='5', adjust='hfq')
+stock_zh_a_hist_min_em_df = ak.stock_zh_a_hist_min_em(symbol="000001", start_date="2021-09-01 09:32:00", end_date="2021-09-06 09:32:00", period='5', adjust='hfq')
 print(stock_zh_a_hist_min_em_df)
 ```
 
