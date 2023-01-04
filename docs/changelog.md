@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.46 fix: fix get_roll_yield_bar interface
+
+    1. 修复 get_roll_yield_bar 接口
+
 1.8.45 fix: fix calendar.json
 
     1. 新增 calendar.json 2023 日历数据
@@ -1722,6 +1726,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.46 fix: fix get_roll_yield_bar interface
 
 1.8.45 fix: fix calendar.json
 
