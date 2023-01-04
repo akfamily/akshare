@@ -1574,6 +1574,8 @@ print(index_detail_hist_adjust_cni_df)
 
 ### 全球指数数据
 
+> 该接口暂时不能使用
+
 接口: index_investing_global
 
 目标地址: https://cn.investing.com/indices/
