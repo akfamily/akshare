@@ -16,7 +16,7 @@ from akshare.utils import demjson
 def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
     """
     新浪财经-基金列表
-    http://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
+    https://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
     :param symbol: choice of {"封闭式基金", "ETF基金", "LOF基金"}
     :type symbol: str
     :return: 指定 symbol 的基金列表
@@ -112,7 +112,7 @@ def fund_etf_category_sina(symbol: str = "LOF基金") -> pd.DataFrame:
 def fund_etf_hist_sina(symbol: str = "sz159996") -> pd.DataFrame:
     """
     新浪财经-基金-ETF 基金-日行情数据
-    http://finance.sina.com.cn/fund/quotes/159996/bc.shtml
+    https://finance.sina.com.cn/fund/quotes/159996/bc.shtml
     :param symbol: 基金名称, 可以通过 ak.fund_etf_category_sina() 函数获取
     :type symbol: str
     :return: 日行情数据
