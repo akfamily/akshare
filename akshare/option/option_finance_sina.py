@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 """
-Date: 2022/8/2 14:50
+Date: 2023/1/4 10:50
 Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深 300 指数
 https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php
 期权-上交所-50ETF
 期权-上交所-300ETF
+期权-上交所-500ETF
 https://stock.finance.sina.com.cn/option/quotes.html
 """
 import json
@@ -16,6 +17,23 @@ from typing import Dict, List, Tuple
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
+
+
+# 期权-中金所-上证50指数
+def option_cffex_sz50_list_sina() -> Dict[str, List[str]]:
+    """
+    新浪财经-中金所-上证 50 指数-所有合约, 返回的第一个合约为主力合约
+    目前新浪财经-中金所有上证 50 指数，沪深 300 指数和中证 1000 指数
+    :return: 中金所-上证 50 指数-所有合约
+    :rtype: dict
+    """
+    url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/ho/cffex"
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[0].text
+    temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
+    contract = [item.text for item in temp_attr]
+    return {symbol: contract}
 
 
 # 期权-中金所-沪深300指数
@@ -29,7 +47,7 @@ def option_cffex_hs300_list_sina() -> Dict[str, List[str]]:
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[0].text
+    symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[1].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
     contract = [item.text for item in temp_attr]
     return {symbol: contract}
@@ -45,10 +63,77 @@ def option_cffex_zz1000_list_sina() -> Dict[str, List[str]]:
     url = "https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/mo/cffex"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[1].text
+    symbol = soup.find(attrs={"id": "option_symbol"}).find_all("li")[2].text
     temp_attr = soup.find(attrs={"id": "option_suffix"}).find_all("li")
     contract = [item.text for item in temp_attr]
     return {symbol: contract}
+
+
+def option_cffex_sz50_spot_sina(symbol: str = "ho2303") -> pd.DataFrame:
+    """
+    中金所-上证 50 指数-指定合约-实时行情
+    https://stock.finance.sina.com.cn/futures/view/optionsCffexDP.php/ho/cffex
+    :param symbol: 合约代码; 用 ak.option_cffex_sz300_list_sina() 函数查看
+    :type symbol: str
+    :return: 中金所-上证 50 指数-指定合约-看涨看跌实时行情
+    :rtype: pd.DataFrame
+    """
+    url = "https://stock.finance.sina.com.cn/futures/api/openapi.php/OptionService.getOptionData"
+    params = {
+        "type": "futures",
+        "product": "ho",
+        "exchange": "cffex",
+        "pinzhong": symbol,
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = json.loads(
+        data_text[data_text.find("{") : data_text.rfind("}") + 1]
+    )
+    option_call_df = pd.DataFrame(
+        data_json["result"]["data"]["up"],
+        columns=[
+            "看涨合约-买量",
+            "看涨合约-买价",
+            "看涨合约-最新价",
+            "看涨合约-卖价",
+            "看涨合约-卖量",
+            "看涨合约-持仓量",
+            "看涨合约-涨跌",
+            "行权价",
+            "看涨合约-标识",
+        ],
+    )
+    option_put_df = pd.DataFrame(
+        data_json["result"]["data"]["down"],
+        columns=[
+            "看跌合约-买量",
+            "看跌合约-买价",
+            "看跌合约-最新价",
+            "看跌合约-卖价",
+            "看跌合约-卖量",
+            "看跌合约-持仓量",
+            "看跌合约-涨跌",
+            "看跌合约-标识",
+        ],
+    )
+    data_df = pd.concat([option_call_df, option_put_df], axis=1)
+    data_df["看涨合约-买量"] = pd.to_numeric(data_df["看涨合约-买量"], errors="coerce")
+    data_df["看涨合约-买价"] = pd.to_numeric(data_df["看涨合约-买价"], errors="coerce")
+    data_df["看涨合约-最新价"] = pd.to_numeric(data_df["看涨合约-最新价"], errors="coerce")
+    data_df["看涨合约-卖价"] = pd.to_numeric(data_df["看涨合约-卖价"], errors="coerce")
+    data_df["看涨合约-卖量"] = pd.to_numeric(data_df["看涨合约-卖量"], errors="coerce")
+    data_df["看涨合约-持仓量"] = pd.to_numeric(data_df["看涨合约-持仓量"], errors="coerce")
+    data_df["看涨合约-涨跌"] = pd.to_numeric(data_df["看涨合约-涨跌"], errors="coerce")
+    data_df["行权价"] = pd.to_numeric(data_df["行权价"], errors="coerce")
+    data_df["看跌合约-买量"] = pd.to_numeric(data_df["看跌合约-买量"], errors="coerce")
+    data_df["看跌合约-买价"] = pd.to_numeric(data_df["看跌合约-买价"], errors="coerce")
+    data_df["看跌合约-最新价"] = pd.to_numeric(data_df["看跌合约-最新价"], errors="coerce")
+    data_df["看跌合约-卖价"] = pd.to_numeric(data_df["看跌合约-卖价"], errors="coerce")
+    data_df["看跌合约-卖量"] = pd.to_numeric(data_df["看跌合约-卖量"], errors="coerce")
+    data_df["看跌合约-持仓量"] = pd.to_numeric(data_df["看跌合约-持仓量"], errors="coerce")
+    data_df["看跌合约-涨跌"] = pd.to_numeric(data_df["看跌合约-涨跌"], errors="coerce")
+    return data_df
 
 
 def option_cffex_hs300_spot_sina(symbol: str = "io2204") -> pd.DataFrame:
@@ -182,6 +267,44 @@ def option_cffex_zz1000_spot_sina(symbol: str = "mo2208") -> pd.DataFrame:
     data_df["看跌合约-卖量"] = pd.to_numeric(data_df["看跌合约-卖量"], errors="coerce")
     data_df["看跌合约-持仓量"] = pd.to_numeric(data_df["看跌合约-持仓量"], errors="coerce")
     data_df["看跌合约-涨跌"] = pd.to_numeric(data_df["看跌合约-涨跌"], errors="coerce")
+    return data_df
+
+
+def option_cffex_sz50_daily_sina(symbol: str = "ho2303P2350") -> pd.DataFrame:
+    """
+    新浪财经-中金所-上证 50 指数-指定合约-日频行情
+    :param symbol: 具体合约代码(包括看涨和看跌标识), 可以通过 ak.option_cffex_sz50_spot_sina 中的 call-标识 获取
+    :type symbol: str
+    :return: 日频率数据
+    :rtype: pd.DataFrame
+    """
+    year = datetime.datetime.now().year
+    month = datetime.datetime.now().month
+    day = datetime.datetime.now().day
+    url = f"https://stock.finance.sina.com.cn/futures/api/jsonp.php/var%20_{symbol}{year}_{month}_{day}=/FutureOptionAllService.getOptionDayline"
+    params = {"symbol": symbol}
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_df = pd.DataFrame(
+        eval(data_text[data_text.find("[") : data_text.rfind("]") + 1])
+    )
+    data_df.columns = ["open", "high", "low", "close", "volume", "date"]
+    data_df = data_df[
+        [
+            "date",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+        ]
+    ]
+    data_df["date"] = pd.to_datetime(data_df["date"]).dt.date
+    data_df["open"] = pd.to_numeric(data_df["open"])
+    data_df["high"] = pd.to_numeric(data_df["high"])
+    data_df["low"] = pd.to_numeric(data_df["low"])
+    data_df["close"] = pd.to_numeric(data_df["close"])
+    data_df["volume"] = pd.to_numeric(data_df["volume"])
     return data_df
 
 
@@ -707,12 +830,20 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    option_cffex_sz50_list_sina_df = option_cffex_sz50_list_sina()
+    print(option_cffex_sz50_list_sina_df)
+
     # 期权-中金所-沪深300指数
     option_cffex_hs300_list_sina_df = option_cffex_hs300_list_sina()
     print(option_cffex_hs300_list_sina_df)
 
     option_cffex_zz1000_list_sina_df = option_cffex_zz1000_list_sina()
     print(option_cffex_zz1000_list_sina_df)
+
+    option_cffex_sz50_spot_sina_df = option_cffex_sz50_spot_sina(
+        symbol="ho2303"
+    )
+    print(option_cffex_sz50_spot_sina_df)
 
     option_cffex_hs300_spot_sina_df = option_cffex_hs300_spot_sina(
         symbol="io2209"
@@ -723,6 +854,11 @@ if __name__ == "__main__":
         symbol="mo2209"
     )
     print(option_cffex_zz1000_spot_sina_df)
+
+    option_cffex_sz50_daily_sina_df = option_cffex_sz50_daily_sina(
+        symbol="ho2303P2350"
+    )
+    print(option_cffex_sz50_daily_sina_df)
 
     option_cffex_hs300_daily_sina_df = option_cffex_hs300_daily_sina(
         symbol="io2202P4350"

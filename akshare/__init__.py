@@ -2263,9 +2263,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.44 fix: fix stock_info_bj_name_code interface
 1.8.45 fix: fix calendar.json
 1.8.46 fix: fix get_roll_yield_bar interface
+1.8.47 add: add option_cffex_sz50_list_sina interface
 """
 
-__version__ = "1.8.46"
+__version__ = "1.8.47"
 __author__ = "AKFamily"
 
 import sys
@@ -3777,6 +3778,9 @@ from akshare.stock.stock_weibo_nlp import (
 金融期权-新浪
 """
 from akshare.option.option_finance_sina import (
+    option_cffex_sz50_list_sina,
+    option_cffex_sz50_spot_sina,
+    option_cffex_sz50_daily_sina,
     option_cffex_hs300_list_sina,
     option_cffex_hs300_spot_sina,
     option_cffex_hs300_daily_sina,
