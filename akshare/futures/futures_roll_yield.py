@@ -56,8 +56,8 @@ def get_roll_yield(date=None, var="BB", symbol1=None, symbol2=None, df=None):
         symbol1 = df["symbol"].tolist()[0]
         symbol2 = df["symbol"].tolist()[1]
 
-    close1 = df["close"][df["symbol"] == symbol1.upper()].tolist()[0]
-    close2 = df["close"][df["symbol"] == symbol2.upper()].tolist()[0]
+    close1 = df["close"][df["symbol"] == symbol1].tolist()[0]
+    close2 = df["close"][df["symbol"] == symbol2].tolist()[0]
 
     a = re.sub(r"\D", "", symbol1)
     a_1 = int(a[:-2])
@@ -174,8 +174,8 @@ if __name__ == "__main__":
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="date",
         var="CF",
-        start_day="20201212",
-        end_day="20210104",
+        start_day="20230101",
+        end_day="20230104",
     )
     print(get_roll_yield_bar_range_df)
 
