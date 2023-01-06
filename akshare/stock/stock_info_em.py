@@ -3,7 +3,7 @@
 """
 Date: 2022/4/19 20:21
 Desc: 东方财富网-个股-股票信息
-http://quote.eastmoney.com/concept/sh603777.html?from=classic
+https://quote.eastmoney.com/concept/sh603777.html?from=classic
 """
 import pandas as pd
 import requests
@@ -14,7 +14,7 @@ from akshare.stock_feature.stock_hist_em import code_id_map_em
 def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:
     """
     东方财富-个股-股票信息
-    http://quote.eastmoney.com/concept/sh603777.html?from=classic
+    https://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
     :return: 股票信息
