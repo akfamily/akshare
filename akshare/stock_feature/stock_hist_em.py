@@ -1700,7 +1700,7 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_hist_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454", period="1")
     print(stock_zh_a_hist_min_em_df)
 
     stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="833454")
@@ -1757,11 +1757,7 @@ if __name__ == "__main__":
     print(stock_us_hist_min_em_df)
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(
-        symbol="000001",
-        period="60",
-        adjust="hfq",
-        start_date="2022-07-01 09:32:00",
-        end_date="2022-07-01 14:40:00",
+        symbol="000001", period='1'
     )
     print(stock_zh_a_hist_min_em_df)
 
