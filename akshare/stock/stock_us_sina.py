@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/9/23 15:14
+Date: 2023/1/7 15:00
 Desc: 新浪财经-美股实时行情数据和历史行情数据
-http://finance.sina.com.cn/stock/usstock/sector.shtml
+https://finance.sina.com.cn/stock/usstock/sector.shtml
 """
 import json
 
@@ -25,7 +25,7 @@ from akshare.stock.cons import (
 def get_us_page_count() -> int:
     """
     新浪财经-美股-总页数
-    http://finance.sina.com.cn/stock/usstock/sector.shtml
+    https://finance.sina.com.cn/stock/usstock/sector.shtml
     :return: 美股总页数
     :rtype: int
     """
@@ -53,7 +53,7 @@ def get_us_stock_name() -> pd.DataFrame:
     """
     u.s. stock's english name, chinese name and symbol
     you should use symbol to get apply into the next function
-    http://finance.sina.com.cn/stock/usstock/sector.shtml
+    https://finance.sina.com.cn/stock/usstock/sector.shtml
     :return: stock's english name, chinese name and symbol
     :rtype: pandas.DataFrame
     """
@@ -84,7 +84,7 @@ def get_us_stock_name() -> pd.DataFrame:
 def stock_us_spot() -> pd.DataFrame:
     """
     新浪财经-所有美股的数据, 注意延迟 15 分钟
-    http://finance.sina.com.cn/stock/usstock/sector.shtml
+    https://finance.sina.com.cn/stock/usstock/sector.shtml
     :return: 美股所有股票实时行情
     :rtype: pandas.DataFrame
     """
@@ -115,7 +115,7 @@ def stock_us_spot() -> pd.DataFrame:
 def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     """
     新浪财经-美股
-    http://finance.sina.com.cn/stock/usstock/sector.shtml
+    https://finance.sina.com.cn/stock/usstock/sector.shtml
     备注：
     1. CIEN 新浪复权因子错误
     2. AI 新浪复权因子错误, 该股票刚上市未发生复权, 但是返回复权因子
@@ -192,7 +192,7 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
         temp_df = temp_df.apply(lambda x: round(x, 4))
         temp_df = temp_df.astype("float")
         # 处理复权因子错误的情况-开始
-        check_df = temp_df[["open", "high", "low", "close"]]
+        check_df = temp_df[["open", "high", "low", "close"]].copy()
         check_df.dropna(inplace=True)
         if check_df.empty:
             data_df.reset_index(inplace=True)
