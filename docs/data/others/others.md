@@ -1088,48 +1088,46 @@ print(air_quality_watch_point_df)
 
 目标地址: http://www.fortunechina.com/fortune500/node_65.htm
 
-描述: 获取指定年份财富世界 500 强公司排行榜
+描述: 指定年份财富世界 500 强公司排行榜
 
 限量: 单次返回某一个年份的所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述 |
-| -------- | ---- | ---- | --- |
-| year | int  | Y    |   year="2019"|
+| 名称   | 类型  | 描述          |
+|------|-----|-------------|
+| year | str | year="2022" |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 公司名称      | str   | Y        | -  |
-| 营业收入      | float   | Y        | 注意单位   |
-| 利润      | float   | Y        | 注意单位   |
-| 国家      | float   | Y        | -   |
+| 名称  | 类型  | 描述                |
+|-----|-----|-------------------|
+| -   | -   | 以当年的数据为准, 输出的字段不一 |
 
 接口示例
 
 ```python
 import akshare as ak
-fortune_df = ak.fortune_rank(year="2019")
-print(fortune_df)
+
+fortune_rank_df = ak.fortune_rank(year="2022")
+print(fortune_rank_df)
 ```
 
 数据示例
 
 ```
-公司名称(中英文)  营业收入(百万美元)  利润(百万美元)   国家
-0                             沃尔玛（WALMART)    514405.0    6670.0   美国
-1                中国石油化工集团公司（SINOPEC GROUP)    414649.9    5845.0   中国
-2            荷兰皇家壳牌石油公司（ROYAL DUTCH SHELL)    396556.0   23352.0   荷兰
-3    中国石油天然气集团公司（CHINA NATIONAL PETROLEUM)    392976.6    2270.5   中国
-4                       国家电网公司（STATE GRID)    387056.0    8174.8   中国
-..                                     ...         ...       ...  ...
-495                              纽柯（NUCOR)     25067.3    2360.8   美国
-496               蒙特利尔银行（BANK OF MONTREAL)     25002.7    4235.1  加拿大
-497        泰康保险集团（TAIKANG INSURANCE GROUP)     24931.7    1794.6   中国
-498        Ultrapar控股公司（ULTRAPAR HOLDINGS)     24816.0     314.8   巴西
-499                  法国液化空气集团（AIR LIQUIDE)     24796.6    2494.2   法国
+      排名                                 公司名称(中文)  ...   国家  关键数据
+0      1                             沃尔玛（WALMART)  ...   美国     +
+1      2                          亚马逊（AMAZON.COM)  ...   美国     +
+2      3                     国家电网有限公司（STATE GRID)  ...   中国     +
+3      4  中国石油天然气集团有限公司（CHINA NATIONAL PETROLEUM)  ...   中国     +
+4      5              中国石油化工集团有限公司（SINOPEC GROUP)  ...   中国     +
+..   ...                                      ...  ...  ...   ...
+495  496                               DSV公司（DSV)  ...   丹麦     +
+496  497                             瑞士ABB集团（ABB)  ...   瑞士     +
+497  498             亿滋国际（MONDELEZ INTERNATIONAL)  ...   美国     +
+498  499                               达能（DANONE)  ...   法国     +
+499  500                           优美科公司（UMICORE)  ...  比利时     +
 ```
 
 ### 财富排行榜-英文
@@ -1138,46 +1136,46 @@ print(fortune_df)
 
 目标地址: https://fortune.com/global500/
 
-描述: 获取指定年份财富世界 500 强公司排行榜-英文版本, 从 1995 年开始, 数据和格式较中文版本完整
+描述: 指定年份财富世界 500 强公司排行榜-英文版本, 从 1995 年开始, 数据和格式较中文版本完整
 
 限量: 单次返回某一个年份的所有历史数据, 早期数据可能不足 500 家公司
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述 |
-| -------- | ---- | ---- | --- |
-| year | str  | Y    |   year="2019"; 指定年份|
+| 名称   | 类型  | 描述                |
+|------|-----|-------------------|
+| year | str | year="2022"; 指定年份 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| rank      | str   | Y        | 排名  |
-| -      | float   | Y        | 以当年的数据为准, 输出的字段不一   |
+| 名称  | 类型  | 描述                |
+|-----|-----|-------------------|
+| -   | -   | 以当年的数据为准, 输出的字段不一 |
 
 接口示例
 
 ```python
 import akshare as ak
-fortune_rank_eng_df = ak.fortune_rank_eng(year="2015")
+
+fortune_rank_eng_df = ak.fortune_rank_eng(year="2022")
 print(fortune_rank_eng_df)
 ```
 
 数据示例
 
 ```
-     rank   revenues  ... hqCountry                       title
-476     1  175835.60  ...     Japan      Mitsubishi Corporation
-477     2  171490.50  ...     Japan      Mitsui &amp; Co., Ltd.
-478     3  167824.70  ...     Japan          Itochu Corporation
-479     4  162475.90  ...     Japan        Sumitomo Corporation
-480     5  154951.20  ...      U.S.  General Motors Corporation
-..    ...        ...  ...       ...                         ...
-194   496    7919.20  ...   Germany                Quelle Group
-195   497    7868.70  ...   Germany             SPAR Handels AG
-196   498    7857.10  ...      U.S.        Banc One Corporation
-197   499    7849.50  ...     Japan     New Oji Paper Co., Ltd.
-198   500    7843.80  ...     Japan    Toyo Seikan Kaisha, Ltd.
+     rank fg500_revenues  ... non-us-cos-y-n                     title
+0       1         572754  ...             no                   Walmart
+1       2         469822  ...             no                    Amazon
+2       3       460616.9  ...            yes                State Grid
+3       4       411692.9  ...            yes  China National Petroleum
+4       5       401313.5  ...            yes             Sinopec Group
+..    ...            ...  ...            ...                       ...
+495   496        28987.6  ...            yes                       DSV
+496   497          28945  ...            yes                       ABB
+497   498          28720  ...             no    Mondelez International
+498   499        28708.2  ...            yes                    Danone
+499   500        28649.5  ...            yes                   Umicore
 ```
 
 ### 福布斯中国榜单
