@@ -4597,14 +4597,14 @@ print(index_value_name_funddb_df)
 
 描述: funddb-指数估值-估值信息
 
-限量: 该接口返回指定指数和指定指标的估值数据
+限量: 该接口返回指定指数和指标的估值数据
 
 输入参数
 
 | 名称        | 类型  | 描述                                                         |
 |-----------|-----|------------------------------------------------------------|
 | symbol    | str | symbol="大盘成长"; 指数名称, 通过调用 ak.index_value_name_funddb() 来获取 |
-| indicator | str | indicator="市盈率"; choice of {'市盈率', '市净率', '股息率'}           |
+| indicator | str | indicator="市盈率"; choice of {'市盈率', '市净率', '股息率', '风险溢价'}   |
 
 输出参数
 

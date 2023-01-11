@@ -185,6 +185,7 @@ def index_value_hist_funddb(
         "市盈率": "pe",
         "市净率": "pb",
         "股息率": "xilv",
+        "风险溢价": "fed",
     }
     index_value_name_funddb_df = index_value_name_funddb()
     name_code_map = dict(
@@ -238,7 +239,7 @@ if __name__ == "__main__":
     stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(symbol="H30374")
     print(stock_zh_index_value_csindex_df)
 
-    index_value_hist_funddb_df = index_value_hist_funddb(symbol="大盘成长", indicator="市盈率")
+    index_value_hist_funddb_df = index_value_hist_funddb(symbol="大盘成长", indicator="风险溢价")
     print(index_value_hist_funddb_df)
 
     index_value_name_funddb_df = index_value_name_funddb()
