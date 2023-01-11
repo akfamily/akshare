@@ -2269,9 +2269,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.50 fix: fix stock_us_daily interface
 1.8.51 fix: fix fortune_rank interface
 1.8.52 fix: fix index_value_hist_funddb interface
+1.8.53 fix: fix stock_hot_rank_wc interface
 """
 
-__version__ = "1.8.52"
+__version__ = "1.8.53"
 __author__ = "AKFamily"
 
 import sys

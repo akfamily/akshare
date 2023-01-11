@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/12 16:11
+Date: 2023/1/11 16:11
 Desc: 问财-热门股票排名
-http://www.iwencai.com/unifiedwap/home/index
+https://www.iwencai.com/unifiedwap/home/index
 """
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
+from tqdm import tqdm
 
 from akshare.datasets import get_ths_js
 
@@ -29,7 +30,7 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
 def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
     """
     问财-热门股票排名
-    http://www.iwencai.com/unifiedwap/result?w=%E7%83%AD%E9%97%A85000%E8%82%A1%E7%A5%A8&querytype=stock&issugs&sign=1620126514335
+    https://www.iwencai.com/unifiedwap/result?w=%E7%83%AD%E9%97%A85000%E8%82%A1%E7%A5%A8&querytype=stock&issugs&sign=1620126514335
     :param date: 查询日期
     :type date: str
     :return: 热门股票排名
@@ -56,23 +57,30 @@ def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
         "block_list": "",
         "add_info": '{"urp":{"scene":1,"company":1,"business":1},"contentType":"json"}',
     }
-    r = requests.post(url, data=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(
-        data_json["data"]["answer"][0]["txt"][0]["content"]["components"][0][
-            "data"
-        ]["datas"]
-    )
-    temp_df.reset_index(inplace=True)
-    temp_df["index"] = range(1, len(temp_df) + 1)
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, 11), leave=False):
+        params.update({
+            "page": page,
+        })
+        r = requests.post(url, data=params, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(
+            data_json["data"]["answer"][0]["txt"][0]["content"]["components"][0][
+                "data"
+            ]["datas"]
+        )
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+
+    big_df.reset_index(inplace=True)
+    big_df["index"] = range(1, len(big_df) + 1)
     try:
-        rank_date_str = temp_df.columns[1].split("[")[1].strip("]")
+        rank_date_str = big_df.columns[1].split("[")[1].strip("]")
     except:
         try:
-            rank_date_str = temp_df.columns[2].split("[")[1].strip("]")
+            rank_date_str = big_df.columns[2].split("[")[1].strip("]")
         except:
             rank_date_str = date
-    temp_df.rename(
+    big_df.rename(
         columns={
             "index": "序号",
             f"个股热度排名[{rank_date_str}]": "个股热度排名",
@@ -85,7 +93,7 @@ def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
         },
         inplace=True,
     )
-    temp_df = temp_df[
+    big_df = big_df[
         [
             "序号",
             "股票代码",
@@ -96,12 +104,12 @@ def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
             "个股热度排名",
         ]
     ]
-    temp_df["涨跌幅"] = round(temp_df["涨跌幅"].astype(float), 2)
-    temp_df["排名日期"] = rank_date_str
-    temp_df["现价"] = pd.to_numeric(temp_df["现价"])
-    return temp_df
+    big_df["涨跌幅"] = big_df["涨跌幅"].astype(float).round(2)
+    big_df["排名日期"] = rank_date_str
+    big_df["现价"] = pd.to_numeric(big_df["现价"], errors="coerce")
+    return big_df
 
 
 if __name__ == "__main__":
-    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20210928")
+    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20230110")
     print(stock_hot_rank_wc_df)
