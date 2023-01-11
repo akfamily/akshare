@@ -1,6 +1,4 @@
-**[《AKShare-初阶-使用教学》](https://zmj.xet.tech/s/wck86)视频课程已经上线，本课程手把手讲解 AKShare 和 AKTools 的环境配置、安装、部署和使用，还包含了众多衍生知识，[详情点击链接](https://zmj.xet.tech/s/wck86)! Tips：加入 AKShare VIP 答疑群可以免费获取该视频课程，[详情点击链接](https://zmj.xet.tech/s/4zjpn7)!**
-
-**《AKShare-源码解析》课程即将上线，本课程会系统的给大家手把手讲解 AKShare 数据接口的源码及财经数据的网络数据采集知识！[点击链接](https://zmj.xet.tech/s/22XNAV) 查看课程信息。**
+**相关视频教程已经发布：《AKShare-初阶-使用教学》、《AKShare-初阶-实战应用》、《AKShare-源码解析》、《开源项目巡礼》**，详情请访问[课程](https://app3rqjh1z21630.h5.xiaoeknow.com)查看更多课程信息！
 
 **本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源。**
 
