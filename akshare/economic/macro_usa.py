@@ -1251,7 +1251,7 @@ def macro_usa_api_crude_stock() -> pd.DataFrame:
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国Markit制造业PMI初值报告
-def macro_usa_pmi() -> pd.DataFrame:
+def macro_usa_pmi() -> pd.Series:
     """
     美国Markit制造业PMI初值报告, 数据区间从20120601-至今
     https://datacenter.jin10.com/reportType/dc_usa_pmi
