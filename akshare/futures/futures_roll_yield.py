@@ -118,7 +118,7 @@ def get_roll_yield_bar(
 
     if type_method == "var":
         df = pd.DataFrame()
-        for market in ["dce", "cffex", "shfe", "czce"]:
+        for market in ["dce", "cffex", "shfe", "czce", "gfex"]:
             df = pd.concat(
                 [
                     df,
@@ -173,9 +173,9 @@ def get_roll_yield_bar(
 if __name__ == "__main__":
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="date",
-        var="CF",
+        var="IM",
         start_day="20230101",
-        end_day="20230104",
+        end_day="20230112",
     )
     print(get_roll_yield_bar_range_df)
 

@@ -674,7 +674,7 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
 def get_futures_daily(
     start_date: str = "20220208",
     end_date: str = "20220208",
-    market: str = "INE",
+    market: str = "CFFEX",
 ) -> pd.DataFrame:
     """
     交易所日交易数据
@@ -682,7 +682,7 @@ def get_futures_daily(
     :type start_date: str
     :param end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :type end_date: str
-    :param market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心。默认为中金所
+    :param market: 'CFFEX' 中金所, 'CZCE' 郑商所,  'SHFE' 上期所, 'DCE' 大商所 之一, 'INE' 上海国际能源交易中心, "GFEX" 广州期货交易所。默认为中金所
     :type market: str
     :return: 交易所日交易数据
     :rtype: pandas.DataFrame
