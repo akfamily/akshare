@@ -105,7 +105,7 @@ BOND_BANK_URL = (
 
 # 键值对: 键为交易所代码, 值为具体合约代码
 market_exchange_symbols = {
-    "cffex": ["IF", "IC", "IH", "T", "TF", "TS"],
+    "cffex": ["IF", "IC", "IM", "IH", "T", "TF", "TS"],
     "dce": [
         "C",
         "CS",
@@ -184,6 +184,7 @@ market_exchange_symbols = {
         "SS",
         "LU",
     ],
+    "gfex": ["SI"],
 }
 
 contract_symbols = []
