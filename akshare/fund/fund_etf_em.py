@@ -127,7 +127,7 @@ def fund_etf_hist_em(
 ) -> pd.DataFrame:
     """
     东方财富-ETF 行情
-    http://quote.eastmoney.com/sz159707.html
+    https://quote.eastmoney.com/sz159707.html
     :param symbol: ETF 代码
     :type symbol: str
     :param period: choice of {'daily', 'weekly', 'monthly'}

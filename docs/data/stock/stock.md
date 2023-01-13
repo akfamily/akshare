@@ -1222,6 +1222,8 @@ date
 
 ##### 历史行情数据-网易
 
+P.S. 该接口即将移除
+
 接口: stock_zh_a_hist_163
 
 目标地址: http://quotes.money.163.com/trade/lsjysj_601318.html?year=2022&season=2
@@ -14427,6 +14429,7 @@ print(stock_hk_eniu_indicator_df)
 |-----------|-----|------------------------------------------------------------------------|
 | symbol    | str | symbol="02358"; 港股代码                                                   |
 | indicator | str | indicator="总市值"; choice of {"总市值", "市盈率(TTM)", "市盈率(静)", "市净率", "市现率"} |
+| period    | str | period="近一年"; choice of {"近一年", "近三年", "近五年", "近十年", "全部"}             |
 
 输出参数
 
@@ -14440,25 +14443,25 @@ print(stock_hk_eniu_indicator_df)
 ```python
 import akshare as ak
 
-stock_hk_valuation_baidu_df = ak.stock_hk_valuation_baidu(symbol="02358", indicator="总市值")
+stock_hk_valuation_baidu_df = ak.stock_hk_valuation_baidu(symbol="02358", indicator="总市值", period="近一年")
 print(stock_hk_valuation_baidu_df)
 ```
 
 数据示例
 
 ```
-            date  value
-0     2005-12-20   3.16
-1     2005-12-21   3.16
-2     2005-12-22   3.28
-3     2005-12-23   3.24
-4     2005-12-28   3.20
-          ...    ...
-4130  2022-09-22   4.38
-4131  2022-09-23   4.38
-4132  2022-09-26   4.38
-4133  2022-09-27   4.27
-4134  2022-10-07   5.42
+           date     value
+0    2022-01-13  45661.68
+1    2022-01-14  45488.72
+2    2022-01-17  44739.66
+3    2022-01-18  43509.82
+4    2022-01-19  43798.16
+..          ...       ...
+242  2023-01-09  34623.04
+243  2023-01-10  34661.30
+244  2023-01-11  35751.63
+245  2023-01-12  34827.16
+246  2023-01-13  35535.28
 ```
 
 #### 创新高和新低的股票数量
