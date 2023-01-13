@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/3/6 19:42
+Date: 2023/1/13 21:12
 Desc: 网易财经-行情首页-沪深 A 股-每日行情
-http://quotes.money.163.com/old/#query=EQA&DataType=HS_RANK&sort=PERCENT&order=desc&count=24&page=0
+https://quotes.money.163.com/old/#query=EQA&DataType=HS_RANK&sort=PERCENT&order=desc&count=24&page=0
 """
 import pandas as pd
 import requests
@@ -17,7 +17,7 @@ def stock_zh_a_hist_163(
     """
     网易财经-行情首页-沪深 A 股-每日行情
     注意：该接口只返回未复权数据
-    http://quotes.money.163.com/trade/lsjysj_601318.html?year=2022&season=2
+    https://quotes.money.163.com/trade/lsjysj_601318.html?year=2022&season=2
     :param symbol: 带市场表示的股票代码
     :type symbol: str
     :param start_date: 开始时间
@@ -76,7 +76,6 @@ def stock_zh_a_hist_163(
     temp_df["股票代码"] = temp_df["股票代码"].str.strip("'").str.strip()
     temp_df["名称"] = temp_df["名称"].str.strip()
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
-
     temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
     temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
     temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
@@ -89,11 +88,9 @@ def stock_zh_a_hist_163(
     temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
     temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
-
     temp_df.dropna(subset=["日期"], inplace=True)
     temp_df.sort_values("日期", inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
-
     return temp_df
 
 
