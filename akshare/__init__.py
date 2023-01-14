@@ -2274,9 +2274,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.55 fix: fix macro_usa_pmi interface
 1.8.56 fix: fix stock_hk_valuation_baidu interface
 1.8.57 fix: fix stock_szse_summary interface
+1.8.58 fix: fix get_calendar interface
 """
 
-__version__ = "1.8.57"
+__version__ = "1.8.58"
 __author__ = "AKFamily"
 
 import sys
