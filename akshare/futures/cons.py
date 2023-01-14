@@ -496,7 +496,8 @@ def get_calendar():
     """
     setting_file_name = "calendar.json"
     setting_file_path = get_json_path(setting_file_name, __file__)
-    data_json = json.load(open(setting_file_path, "r"))
+    with open(setting_file_path, "r") as f:
+        data_json = json.load(f)
     return data_json
 
 
