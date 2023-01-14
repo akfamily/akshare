@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/10 17:00
+Date: 2023/1/14 17:00
 Desc: 股票数据-总貌-市场总貌
 股票数据-总貌-成交概括
-http://www.szse.cn/market/overview/index.html
-http://www.sse.com.cn/market/stockdata/statistic/
+https://www.szse.cn/market/overview/index.html
+https://www.sse.com.cn/market/stockdata/statistic/
 """
 import warnings
 from io import BytesIO
@@ -18,7 +18,7 @@ from bs4 import BeautifulSoup
 def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
     """
     深证证券交易所-总貌-证券类别统计
-    http://www.szse.cn/market/overview/index.html
+    https://www.szse.cn/market/overview/index.html
     :param date: 最近结束交易日
     :type date: str
     :return: 证券类别统计
@@ -49,7 +49,7 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
 def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
     """
     深证证券交易所-总貌-地区交易排序
-    http://www.szse.cn/market/overview/index.html
+    https://www.szse.cn/market/overview/index.html
     :param date: 最近结束交易日
     :type date: str
     :return: 地区交易排序
@@ -83,7 +83,7 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
 def stock_szse_sector_summary(symbol: str = "当月", date: str = "202203") -> pd.DataFrame:
     """
     深圳证券交易所-统计资料-股票行业成交
-    http://docs.static.szse.cn/www/market/periodical/month/W020220511355248518608.html
+    https://docs.static.szse.cn/www/market/periodical/month/W020220511355248518608.html
     :param symbol: choice of {"当月", "当年"}
     :type symbol: str
     :param date: 交易年月
@@ -160,7 +160,7 @@ def stock_szse_sector_summary(symbol: str = "当月", date: str = "202203") -> p
 def stock_sse_summary() -> pd.DataFrame:
     """
     上海证券交易所-总貌
-    http://www.sse.com.cn/market/stockdata/statistic/
+    https://www.sse.com.cn/market/stockdata/statistic/
     :return: 上海证券交易所-总貌
     :rtype: pandas.DataFrame
     """
@@ -439,7 +439,7 @@ def stock_sse_deal_daily(date: str = "20220331") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_szse_summary_df = stock_szse_summary(date="20200619")
+    stock_szse_summary_df = stock_szse_summary(date="20230113")
     print(stock_szse_summary_df)
 
     stock_szse_area_summary_df = stock_szse_area_summary(date="202203")
