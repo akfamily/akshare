@@ -9,7 +9,9 @@ import requests
 import pandas as pd
 
 
-def stock_hk_valuation_baidu(symbol: str = "02358", indicator: str = "总市值", period: str = "近一年") -> pd.DataFrame:
+def stock_hk_valuation_baidu(
+    symbol: str = "02358", indicator: str = "总市值", period: str = "近一年"
+) -> pd.DataFrame:
     """
     百度股市通-港股-财务报表-估值数据
     https://gushitong.baidu.com/stock/hk-06969
@@ -34,13 +36,15 @@ def stock_hk_valuation_baidu(symbol: str = "02358", indicator: str = "总市值"
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['Result']['chartInfo'][0]['body'])
-    temp_df.columns = ['date', 'value']
-    temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
-    temp_df['value'] = pd.to_numeric(temp_df['value'])
+    temp_df = pd.DataFrame(data_json["Result"]["chartInfo"][0]["body"])
+    temp_df.columns = ["date", "value"]
+    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["value"] = pd.to_numeric(temp_df["value"])
     return temp_df
 
 
-if __name__ == '__main__':
-    stock_hk_valuation_baidu_df = stock_hk_valuation_baidu(symbol="00700", indicator="总市值", period="近一年")
+if __name__ == "__main__":
+    stock_hk_valuation_baidu_df = stock_hk_valuation_baidu(
+        symbol="00700", indicator="总市值", period="近一年"
+    )
     print(stock_hk_valuation_baidu_df)
