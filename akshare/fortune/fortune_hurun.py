@@ -14,7 +14,7 @@ import warnings
 def hurun_rank(indicator: str = "胡润百富榜", year: str = "2018") -> pd.DataFrame:
     """
     胡润排行榜
-    http://www.hurun.net/CN/HuList/Index?num=3YwKs889SRIm
+    https://www.hurun.net/CN/HuList/Index?num=3YwKs889SRIm
     :param indicator: choice of {"胡润百富榜", "胡润全球富豪榜", "胡润印度榜", "胡润全球独角兽榜", "中国瞪羚企业榜", "全球瞪羚企业榜", "胡润Under30s创业领袖榜", "胡润中国500强民营企业", "胡润世界500强", "胡润艺术榜"}
     :type indicator: str
     :param year: 指定年份; {"胡润百富榜": "2014-至今", "胡润全球富豪榜": "2019-至今", "胡润印度榜": "2018-至今", "胡润全球独角兽榜": "2019-至今", "中国瞪羚企业榜": "2021-至今", "全球瞪羚企业榜": "2021-至今", "胡润Under30s创业领袖榜": "2019-至今", "胡润中国500强民营企业": "2019-至今", "胡润世界500强": "2020-至今", "胡润艺术榜": "2019-至今"}
@@ -311,7 +311,7 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2018") -> pd.Dat
 
 
 if __name__ == "__main__":
-    hurun_rank_df = hurun_rank(indicator="胡润百富榜", year="2018")
+    hurun_rank_df = hurun_rank(indicator="胡润百富榜", year="2022")
     print(hurun_rank_df)
 
     hurun_rank_df = hurun_rank(indicator="胡润全球富豪榜", year="2022")
