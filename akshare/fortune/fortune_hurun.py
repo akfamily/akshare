@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/10/30 21:30
+Date: 2023/1/16 20:00
 Desc: 胡润排行榜
 https://www.hurun.net/
 """
@@ -26,11 +26,11 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2018") -> pd.Dat
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     url_list = []
-    for item in soup.find_all("div", attrs={"aria-labelledby": "dropdownMenuLink"}):
+    for item in soup.find_all("div", attrs={"aria-labelledby": "dropdownMenuLink1"}):
         for inner_item in item.find_all("a"):
             url_list.append("https://www.hurun.net" + inner_item["href"])
     name_list = []
-    for item in soup.find_all("div", attrs={"aria-labelledby": "dropdownMenuLink"}):
+    for item in soup.find_all("div", attrs={"aria-labelledby": "dropdownMenuLink1"}):
         for inner_item in item.find_all("a"):
             name_list.append(inner_item.text)
 
