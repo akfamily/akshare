@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/1/5 11:07
+Date: 2023/1/17 16:07
 Desc: 九期网-期货手续费
 https://www.9qihuo.com/qihuoshouxufei
 """
@@ -151,7 +151,7 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
     """
     九期网-期货手续费
     https://www.9qihuo.com/qihuoshouxufei
-    :param symbol: choice of {"所有", "上海期货交易所", "大连商品交易所", "郑州商品交易所", "上海国际能源交易中心", "中国金融期货交易所"}
+    :param symbol: choice of {"所有", "上海期货交易所", "大连商品交易所", "郑州商品交易所", "上海国际能源交易中心", "中国金融期货交易所", "广州期货交易所"}
     :type symbol: str
     :return: 期货手续费
     :rtype: pandas.DataFrame
