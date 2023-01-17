@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.61 fix: fix futures_comm_info interface
+
+    1. 修复 futures_comm_info 接口
+
 1.8.60 fix: fix hurun_rank interface
 
     1. 修复 hurun_rank 接口
@@ -1786,6 +1790,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.61 fix: fix futures_comm_info interface
 
 1.8.60 fix: fix hurun_rank interface
 
