@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/28 15:13
+Date: 2023/1/19 11:13
 Desc: 东方财富-沪深板块-概念板块
 https://quote.eastmoney.com/center/boardlist.html#concept_board
 """
@@ -11,7 +11,7 @@ import pandas as pd
 
 def stock_board_concept_name_em() -> pd.DataFrame:
     """
-    东方财富网-沪深板块-概念板块-名称
+    东方财富网-行情中心-沪深京板块-概念板块-名称
     https://quote.eastmoney.com/center/boardlist.html#concept_board
     :return: 概念板块-名称
     :rtype: pandas.DataFrame
