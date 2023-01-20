@@ -17230,7 +17230,7 @@ print(stock_board_concept_cons_em_df)
 95  96  603023   威帝股份    4.13  -3.28  ...    4.30    4.27   0.94  930.36  3.07
 ```
 
-#### 东方财富-指数-日频
+#### 东方财富-指数
 
 接口: stock_board_concept_hist_em
 
