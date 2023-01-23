@@ -17569,8 +17569,7 @@ print(stock_board_cons_ths_df)
 ```python
 import akshare as ak
 
-stock_board_industry_index_ths_df = ak.stock_board_industry_index_ths(symbol="半导体及元件", start_date="20200101",
-                                                                      end_date="20211027")
+stock_board_industry_index_ths_df = ak.stock_board_industry_index_ths(symbol="半导体及元件", start_date="20200101", end_date="20211027")
 print(stock_board_industry_index_ths_df)
 ```
 
