@@ -532,8 +532,8 @@ def stock_board_industry_index_ths(
         ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    condition_one = pd.to_datetime(start_date) < big_df["日期"]
-    condition_two = pd.to_datetime(end_date) > big_df["日期"]
+    condition_one = pd.Timestamp(start_date) < big_df["日期"]
+    condition_two = pd.Timestamp(end_date) > big_df["日期"]
     big_df = big_df[condition_one & condition_two]
     big_df["开盘价"] = pd.to_numeric(big_df["开盘价"])
     big_df["最高价"] = pd.to_numeric(big_df["最高价"])
