@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/8/12 17:03
+Date: 2023/1/28 11:03
 Desc: 东方财富网-数据中心-特色数据-高管持股
-http://data.eastmoney.com/executive/gdzjc.html
+https://data.eastmoney.com/executive/gdzjc.html
 """
 from tqdm import tqdm
 
@@ -14,7 +14,7 @@ import requests
 def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-高管持股
-    http://data.eastmoney.com/executive/gdzjc.html
+    https://data.eastmoney.com/executive/gdzjc.html
     :param symbol: choice of {"全部", "股东增持", "股东减持"}
     :type symbol: str
     :return: 高管持股
@@ -81,7 +81,6 @@ def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
         "涨跌幅",
         "_",
     ]
-
     big_df = big_df[
         [
             "代码",
@@ -115,7 +114,6 @@ def stock_ggcg_em(symbol: str = "全部") -> pd.DataFrame:
     big_df["变动开始日"] = pd.to_datetime(big_df["变动开始日"]).dt.date
     big_df["变动截止日"] = pd.to_datetime(big_df["变动截止日"]).dt.date
     big_df["公告日"] = pd.to_datetime(big_df["公告日"]).dt.date
-
     return big_df
 
 
