@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/8/30 16:20
+Date: 2023/1/28 10:20
 Desc: 东方财富-股票-财务分析
 """
 import pandas as pd
@@ -130,7 +130,7 @@ def stock_profit_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
     :return: 利润表-报告期
     :rtype: pandas.DataFrame
     """
-    company_type = 4
+    company_type = _stock_balance_sheet_by_report_ctype_em(symbol=symbol)
     url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/lrbDateAjaxNew"
     params = {
         "companyType": company_type,
@@ -172,7 +172,7 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
     :return: 利润表-按年度
     :rtype: pandas.DataFrame
     """
-    company_type = 4
+    company_type = _stock_balance_sheet_by_report_ctype_em(symbol=symbol)
     url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/lrbDateAjaxNew"
     params = {
         "companyType": company_type,
@@ -216,7 +216,7 @@ def stock_profit_sheet_by_quarterly_em(
     :return: 利润表-按单季度
     :rtype: pandas.DataFrame
     """
-    company_type = 4
+    company_type = _stock_balance_sheet_by_report_ctype_em(symbol=symbol)
     url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/lrbDateAjaxNew"
     params = {
         "companyType": company_type,
@@ -260,7 +260,7 @@ def stock_cash_flow_sheet_by_report_em(
     :return: 现金流量表-按报告期
     :rtype: pandas.DataFrame
     """
-    company_type = 4
+    company_type = _stock_balance_sheet_by_report_ctype_em(symbol=symbol)
     url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/xjllbDateAjaxNew"
     params = {
         "companyType": company_type,
@@ -304,7 +304,7 @@ def stock_cash_flow_sheet_by_yearly_em(
     :return: 现金流量表-按年度
     :rtype: pandas.DataFrame
     """
-    company_type = 4
+    company_type = _stock_balance_sheet_by_report_ctype_em(symbol=symbol)
     url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/xjllbDateAjaxNew"
     params = {
         "companyType": company_type,
@@ -348,7 +348,7 @@ def stock_cash_flow_sheet_by_quarterly_em(
     :return: 现金流量表-按单季度
     :rtype: pandas.DataFrame
     """
-    company_type = 4
+    company_type = _stock_balance_sheet_by_report_ctype_em(symbol=symbol)
     url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/xjllbDateAjaxNew"
     params = {
         "companyType": company_type,
@@ -413,16 +413,16 @@ if __name__ == "__main__":
     print(stock_profit_sheet_by_quarterly_em_df)
 
     stock_cash_flow_sheet_by_report_em_df = stock_cash_flow_sheet_by_report_em(
-        symbol="SH600519"
+        symbol="SH601398"
     )
     print(stock_cash_flow_sheet_by_report_em_df)
 
     stock_cash_flow_sheet_by_yearly_em_df = stock_cash_flow_sheet_by_yearly_em(
-        symbol="SH600519"
+        symbol="SH601398"
     )
     print(stock_cash_flow_sheet_by_yearly_em_df)
 
     stock_cash_flow_sheet_by_quarterly_em_df = (
-        stock_cash_flow_sheet_by_quarterly_em(symbol="SH600519")
+        stock_cash_flow_sheet_by_quarterly_em(symbol="SH601398")
     )
     print(stock_cash_flow_sheet_by_quarterly_em_df)
