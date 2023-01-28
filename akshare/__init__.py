@@ -2280,9 +2280,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.61 fix: fix futures_comm_info interface
 1.8.62 fix: fix stock_board_industry_index_ths interface
 1.8.63 fix: fix stock_cash_flow_sheet_by_report_em interface
+1.8.64 fix: fix stock_ggcg_em interface
 """
 
-__version__ = "1.8.63"
+__version__ = "1.8.64"
 __author__ = "AKFamily"
 
 import sys
