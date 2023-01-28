@@ -128,8 +128,9 @@ def get_roll_yield_bar(
                 ]
             )
         var_list = list(set(df["variety"]))
-        if "IO" in var_list:
-            var_list.remove("IO")  # IO 为期权
+        for i_remove in ['IO', 'MO', 'HO']:
+            if i_remove in var_list:
+                var_list.remove(i_remove)
         df_l = pd.DataFrame()
         for var in var_list:
             ry = get_roll_yield(date, var, df=df)
