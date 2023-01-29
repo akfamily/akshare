@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/31 16:26
+Date: 2023/1/29 17:00
 Desc: 东方财富网-数据中心-资金流向
-http://data.eastmoney.com/zjlx/detail.html
+https://data.eastmoney.com/zjlx/detail.html
 """
 import json
 import time
@@ -17,15 +17,15 @@ def stock_individual_fund_flow(
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-个股
-    http://data.eastmoney.com/zjlx/detail.html
+    https://data.eastmoney.com/zjlx/detail.html
     :param stock: 股票代码
     :type stock: str
-    :param market: 股票市场; 上海证券交易所: sh, 深证证券交易所: sz
+    :param market: 股票市场; 上海证券交易所: sh, 深证证券交易所: sz, 北京证券交易所: bj;
     :type market: str
     :return: 近期个股的资金流数据
     :rtype: pandas.DataFrame
     """
-    market_map = {"sh": 1, "sz": 0}
+    market_map = {"sh": 1, "sz": 0, "bj": 0}
     url = "http://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
@@ -37,12 +37,11 @@ def stock_individual_fund_flow(
         "fields1": "f1,f2,f3,f7",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65",
         "ut": "b2884a393a59ad64002292a3e90d46a5",
-        "cb": "jQuery183003743205523325188_1589197499471",
+        # "cb": "jQuery183003743205523325188_1589197499471",
         "_": int(time.time() * 1000),
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
+    json_data = r.json()
     content_list = json_data["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
@@ -97,7 +96,7 @@ def stock_individual_fund_flow(
 def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-排名
-    http://data.eastmoney.com/zjlx/detail.html
+    https://data.eastmoney.com/zjlx/detail.html
     :param indicator: choice of {"今日", "3日", "5日", "10日"}
     :type indicator: str
     :return: 指定 indicator 资金流向排行
@@ -309,7 +308,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
 def stock_market_fund_flow() -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-大盘
-    http://data.eastmoney.com/zjlx/dpzjlx.html
+    https://data.eastmoney.com/zjlx/dpzjlx.html
     :return: 近期大盘的资金流数据
     :rtype: pandas.DataFrame
     """
@@ -394,7 +393,7 @@ def stock_sector_fund_flow_rank(
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-板块资金流-排名
-    http://data.eastmoney.com/bkzj/hy.html
+    https://data.eastmoney.com/bkzj/hy.html
     :param indicator: choice of {"今日", "5日", "10日"}
     :type indicator: str
     :param sector_type: choice of {"行业资金流", "概念资金流", "地域资金流"}
