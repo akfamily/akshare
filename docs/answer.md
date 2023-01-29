@@ -17,7 +17,7 @@
 
 2. 运行任意接口发现报错，错误类似：`AttributeError: module 'akshare' has no attribute 'xxx'`
 
-    1. 检查 Python 的版本需要在 Python 3.7 以上，推荐使用 Python 3.8.5 及以上版本
+    1. 检查 Python 的版本需要在 Python 3.8 以上，推荐使用 Python 3.10.x 及以上版本
     2. 检查是否安装了最新版本的 AKShare，如果不是最新版本，请先升级至最新版
     3. 检查在文档中是否具有该 `xxx` 接口，特定情况下有可能会改变接口的命名或者移除某些接口
     4. 检查所运行的 Python 文件名命名问题，不能用如下命名：`akshare.py` 与本地安装包冲突
