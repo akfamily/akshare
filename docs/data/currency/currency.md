@@ -62,19 +62,19 @@ ZWD 2020-03-07 13:45:25+00:00  USD  361.899994
 
 输入参数
 
-| 名称      | 类型  | 必选  | 描述                                                                                                                                                    |
-|---------|-----|-----|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| base    | str | Y   | base="USD"                                                                                                                                            |
-| date    | str | Y   | date="2020-02-03"                                                                                                                                     |
-| api_key | str | Y   | api_key="Please put your api key here"; you can register [currencyscoop](https://currencyscoop.com/), [Gmail](http://mail.google.com/) well be better |
+| 名称      | 类型  | 描述                                                                                                                                                    |
+|---------|-----|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| base    | str | base="USD"                                                                                                                                            |
+| date    | str | date="2020-02-03"                                                                                                                                     |
+| api_key | str | api_key="Please put your api key here"; you can register [currencyscoop](https://currencyscoop.com/), [Gmail](http://mail.google.com/) well be better |
 
 输出参数
 
-| 名称    | 类型    | 默认显示 | 描述        |
-|-------|-------|------|-----------|
-| date  | str   | Y    | 日期时间-注意时区 |
-| base  | float | Y    | 货币        |
-| rates | str   | Y    | 比率        |
+| 名称    | 类型      | 描述        |
+|-------|---------|-----------|
+| date  | object  | 日期时间-注意时区 |
+| base  | float64 | 货币        |
+| rates | object  | 比率        |
 
 接口示例
 

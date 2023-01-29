@@ -69,6 +69,7 @@ def currency_hist(
 ) -> pd.DataFrame:
     """
     外汇历史数据, 注意获取数据区间的长短, 输入任意货币对, 具体能否获取, 通过 currency_name_code_dict 查询
+    https://www.investing.com/
     :param symbol: 货币对
     :type symbol: str
     :param period: choice of {"每日", "每周", "每月"}

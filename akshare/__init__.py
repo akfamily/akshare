@@ -2282,16 +2282,18 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.63 fix: fix stock_cash_flow_sheet_by_report_em interface
 1.8.64 fix: fix stock_ggcg_em interface
 1.8.65 fix: fix get_roll_yield_bar interface
+1.8.66 fix: fix python 3.7.x support
 """
 
-__version__ = "1.8.65"
+__version__ = "1.8.66"
 __author__ = "AKFamily"
 
 import sys
+import warnings
 
-if sys.version_info < (3, 7):
-    print(f"AKShare {__version__} requires Python 3.7+ and 64 bit OS")
-    sys.exit(1)
+if sys.version_info < (3, 8):
+    warnings.warn("AKShare 不再支持 Python 3.7.x 版本，请升级 Python 到 3.8 以上版本")
+    # sys.exit(1)
 
 del sys
 

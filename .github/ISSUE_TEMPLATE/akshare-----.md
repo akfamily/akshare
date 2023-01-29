@@ -9,7 +9,7 @@ assignees: ''
 
 **遇到任何问题，请先确认您的 AKShare 版本是最新的**
 ```
-pip install akshare --upgrade  # Python 版本需要大于 3.7
+pip install akshare --upgrade  # Python 版本需要大于等于 3.8
 ```
 
 **描述遇到的问题**

@@ -3,7 +3,7 @@
 ## 重要提示
 
 1. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 64 位版本的操作系统安装和使用;
-2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.7(64 位) 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.8.13(64 位) 版本;
+2. 目前 [AKShare](https://github.com/akfamily/akshare) 仅支持 [Python](https://www.python.org/) 3.8(64 位) 及以上版本, 这里推荐 [Python](https://www.python.org/) 3.10.x(64 位) 版本;
 3. [AKShare](https://github.com/akfamily/akshare) 推荐安装最新版本的 [Anaconda (64 位)](https://www.anaconda.com/), 可以解决大部分环境配置问题;
 4. 对于熟悉容器技术的小伙伴, 可以安装 Docker 使用, 指导教程如下: [AKShare Docker 部署](https://www.akshare.xyz/zh_CN/latest/akdocker/akdocker.html).
 
@@ -422,5 +422,5 @@ pip install akshare --user
 
 ### 4. 提示其他的错误
 
-- 方法一: 确认并升级您已安装 64 位的 **Python3.7** 及以上版本
+- 方法一: 确认并升级您已安装 64 位的 **Python 3.8** 及以上版本
 - 方法二: 使用 conda 的虚拟环境来安装, 详见 **[AKShare](https://github.com/akfamily/akshare) 环境配置** 板块的内容
