@@ -59,9 +59,11 @@ def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     for page in tqdm(range(1, 11), leave=False):
-        params.update({
-            "page": page,
-        })
+        params.update(
+            {
+                "page": page,
+            }
+        )
         r = requests.post(url, data=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(
@@ -111,5 +113,5 @@ def stock_hot_rank_wc(date: str = "20210430") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20230110")
+    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20230129")
     print(stock_hot_rank_wc_df)
