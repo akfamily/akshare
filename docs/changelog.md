@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.67 fix: fix python warning 3.7.x support
+
+    1. 修复 python warning 3.7.x support
+
 1.8.66 fix: fix python 3.7.x support
 
     1. 修复 python 3.7.x support
@@ -1810,6 +1814,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.67 fix: fix python warning 3.7.x support
 
 1.8.66 fix: fix python 3.7.x support
 
