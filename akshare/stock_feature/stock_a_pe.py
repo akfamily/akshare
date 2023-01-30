@@ -445,5 +445,5 @@ if __name__ == "__main__":
     stock_a_pe_df = stock_a_pe(symbol="sh")
     print(stock_a_pe_df)
 
-    stock_a_pe_df = stock_a_pe(symbol="000016.XSHG")
+    stock_a_pe_df = stock_a_pe(symbol="000300.XSHG")
     print(stock_a_pe_df)
