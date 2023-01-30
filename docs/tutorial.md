@@ -542,7 +542,10 @@
  # A 股市盈率和市净率
  "stock_a_pb"  # A 股市净率
  "stock_a_pe"  # A 股市盈率
- "stock_a_pe_and_pb"  # A 股市盈率和市净率
+ "stock_market_pe_lg"  # 乐咕乐股-主板市盈率
+ "stock_index_pe_lg"  # 乐咕乐股-指数市盈率
+ "stock_market_pb_lg"  # 乐咕乐股-主板市净率
+ "stock_index_pb_lg"  # 乐咕乐股-指数市净率
  "stock_a_lg_indicator"  # A 股个股市盈率、市净率和股息率指标
  "stock_hk_eniu_indicator"  # 港股股个股市盈率、市净率和股息率指标
  "stock_a_high_low_statistics"  # 创新高和新低的股票数量

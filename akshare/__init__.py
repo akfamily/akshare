@@ -2286,9 +2286,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.67 fix: fix python warning 3.7.x support
 1.8.68 fix: fix stock_individual_fund_flow interface
 1.8.69 fix: fix stock_individual_fund_flow_rank interface
+1.8.70 add: add stock_market_pe_lg interface
 """
 
-__version__ = "1.8.69"
+__version__ = "1.8.70"
 __author__ = "AKFamily"
 
 import sys
@@ -2303,7 +2304,11 @@ del sys
 """
 东方财富-ETF 行情
 """
-from akshare.fund.fund_etf_em import fund_etf_hist_em, fund_etf_hist_min_em, fund_etf_spot_em
+from akshare.fund.fund_etf_em import (
+    fund_etf_hist_em,
+    fund_etf_hist_min_em,
+    fund_etf_spot_em,
+)
 
 """
 乐咕乐股-股债利差
@@ -3530,7 +3535,12 @@ A 股PE和PB
 """
 from akshare.stock_feature.stock_a_pb import stock_a_pb
 from akshare.stock_feature.stock_a_pe import stock_a_pe
-from akshare.stock_feature.stock_a_pe_and_pb import stock_a_pe_and_pb
+from akshare.stock_feature.stock_a_pe_and_pb import (
+    stock_market_pb_lg,
+    stock_index_pb_lg,
+    stock_market_pe_lg,
+    stock_index_pe_lg,
+)
 from akshare.stock_feature.stock_a_indicator import (
     stock_a_lg_indicator,
     stock_hk_eniu_indicator,
