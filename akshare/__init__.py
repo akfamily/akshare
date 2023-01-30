@@ -2285,9 +2285,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.66 fix: fix python 3.7.x support
 1.8.67 fix: fix python warning 3.7.x support
 1.8.68 fix: fix stock_individual_fund_flow interface
+1.8.69 fix: fix stock_individual_fund_flow_rank interface
 """
 
-__version__ = "1.8.68"
+__version__ = "1.8.69"
 __author__ = "AKFamily"
 
 import sys
