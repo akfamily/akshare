@@ -2287,9 +2287,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.68 fix: fix stock_individual_fund_flow interface
 1.8.69 fix: fix stock_individual_fund_flow_rank interface
 1.8.70 add: add stock_market_pe_lg interface
+1.8.71 add: add stock_zygc_em interface
 """
 
-__version__ = "1.8.70"
+__version__ = "1.8.71"
 __author__ = "AKFamily"
 
 import sys
@@ -2465,7 +2466,7 @@ from akshare.stock_fundamental.stock_mda_ym import stock_mda_ym
 """
 主营构成
 """
-from akshare.stock_fundamental.stock_zygc_ym import stock_zygc_ym
+from akshare.stock_fundamental.stock_zygc import stock_zygc_ym, stock_zygc_em
 
 """
 人民币汇率中间价
