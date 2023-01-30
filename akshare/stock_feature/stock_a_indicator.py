@@ -31,7 +31,7 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
     """
     市盈率, 市净率, 股息率数据接口
     https://legulegu.com/stocklist
-    :param symbol: 通过 ak.stock_a_lg_indicator(stock="all") 来获取所有股票的代码
+    :param symbol: 通过 ak.stock_a_lg_indicator(symbol="all") 来获取所有股票的代码
     :type symbol: str
     :return: 市盈率, 市净率, 股息率查询
     :rtype: pandas.DataFrame
