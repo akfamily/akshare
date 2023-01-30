@@ -49,6 +49,13 @@
 
 ## 更新说明
 
+1.8.70 add: add stock_market_pe_lg interface
+
+    1. 新增 stock_market_pe_lg 接口
+    2. 新增 stock_index_pe_lg 接口
+    3. 新增 stock_market_pb_lg 接口
+    4. 新增 stock_index_pb_lg 接口
+
 1.8.69 fix: fix stock_individual_fund_flow_rank interface
 
     1. 修复 stock_individual_fund_flow_rank 接口
@@ -1822,6 +1829,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.70 add: add stock_market_pe_lg interface
 
 1.8.69 fix: fix stock_individual_fund_flow_rank interface
 
