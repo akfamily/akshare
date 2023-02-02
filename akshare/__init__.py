@@ -2289,9 +2289,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.70 add: add stock_market_pe_lg interface
 1.8.71 add: add stock_zygc_em interface
 1.8.72 fix: fix drewry_wci_index interface
+1.8.73 add: add stock_zyjs_ths interface
 """
 
-__version__ = "1.8.72"
+__version__ = "1.8.73"
 __author__ = "AKFamily"
 
 import sys
@@ -2302,6 +2303,11 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+主营介绍
+"""
+from akshare.stock_fundamental.stock_zyjs_ths import stock_zyjs_ths
 
 """
 东方财富-ETF 行情

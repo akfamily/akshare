@@ -4357,6 +4357,48 @@ print(stock_jgdy_detail_em_df)
 623  624  300718  长盛轴承  ...                  浙江长盛滑动轴承股份有限公司  2021-09-16  2021-09-16
 ```
 
+### 主营介绍-同花顺
+
+接口: stock_zyjs_ths
+
+目标地址: http://basic.10jqka.com.cn/new/000066/operate.html
+
+描述: 同花顺-主营介绍
+
+限量: 单次返回所有数据
+
+输入参数
+
+| 名称     | 类型  | 描述              |
+|--------|-----|-----------------|
+| symbol | str | symbol="000066" |
+
+输出参数
+
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 股票代码 | object  | -       |
+| 主营业务 | object  | -       |
+| 产品类型 | object  | -       |
+| 产品名称 | object  | -       |
+| 经营范围 | object  | -       |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_zyjs_ths_df = ak.stock_zyjs_ths(symbol="000066")
+print(stock_zyjs_ths_df)
+```
+
+数据示例
+
+```
+     股票代码  ...                                               经营范围
+0  000066  ...  计算机软件、硬件、终端及其外部设备、网络系统及系统集成、电子产品及零部件、金融机具、税控机具...
+```
+
 ### 主营构成-东财
 
 接口: stock_zygc_em
@@ -18452,7 +18494,7 @@ print(stock_hot_tgb_df)
 
 目标地址: http://guba.eastmoney.com/rank/stock?code=000665
 
-描述: 东方财富网站-股票热度-历史趋势及粉丝特征
+描述: 东方财富网-股票热度-历史趋势及粉丝特征
 
 限量: 单次返回指定 symbol 的股票近期历史数据
 
@@ -18504,7 +18546,7 @@ print(stock_hot_rank_detail_em_df)
 
 目标地址: http://guba.eastmoney.com/rank/stock?code=000665
 
-描述: 东方财富个股人气榜-实时变动
+描述: 东方财富网-个股人气榜-实时变动
 
 限量: 单次返回指定 symbol 的股票近期历史数据
 
