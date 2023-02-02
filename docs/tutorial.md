@@ -1196,6 +1196,7 @@
  "fund_stock_position_lg"  # 乐咕乐股-基金仓位-股票型基金仓位
  "fund_balance_position_lg"  # 乐咕乐股-基金仓位-平衡混合型基金仓位
  "fund_linghuo_position_lg"  # 乐咕乐股-基金仓位-灵活配置型基金仓位
+ "stock_zyjs_ths"  # 主营介绍
 ```
 
 ## 案例演示
