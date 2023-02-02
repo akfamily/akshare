@@ -18452,7 +18452,7 @@ print(stock_hot_tgb_df)
 
 目标地址: http://guba.eastmoney.com/rank/stock?code=000665
 
-描述: 东方财富网站-股票热度-历史趋势及粉丝特征
+描述: 东方财富网-股票热度-历史趋势及粉丝特征
 
 限量: 单次返回指定 symbol 的股票近期历史数据
 
@@ -18504,7 +18504,7 @@ print(stock_hot_rank_detail_em_df)
 
 目标地址: http://guba.eastmoney.com/rank/stock?code=000665
 
-描述: 东方财富个股人气榜-实时变动
+描述: 东方财富网-个股人气榜-实时变动
 
 限量: 单次返回指定 symbol 的股票近期历史数据
 
