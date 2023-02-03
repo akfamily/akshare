@@ -121,11 +121,11 @@ def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
 
 def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
     """
-    东方财富-个股人气榜-关键词
+    东方财富-个股人气榜-热门关键词
     https://guba.eastmoney.com/rank/stock?code=000665
     :param symbol: 带市场表示的证券代码
     :type symbol: str
-    :return: 关键词
+    :return: 热门关键词
     :rtype: pandas.DataFrame
     """
     url = "https://emappdata.eastmoney.com/stockrank/getHotStockRankList"
