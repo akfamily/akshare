@@ -2291,9 +2291,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.72 fix: fix drewry_wci_index interface
 1.8.73 add: add stock_zyjs_ths interface
 1.8.74 fix: fix drewry_wci_index interface
+1.8.75 add: add stock_cy_a_spot_em interface
 """
 
-__version__ = "1.8.74"
+__version__ = "1.8.75"
 __author__ = "AKFamily"
 
 import sys
@@ -3052,6 +3053,7 @@ from akshare.stock_feature.stock_hist_em import (
     stock_bj_a_spot_em,
     stock_new_a_spot_em,
     stock_kc_a_spot_em,
+    stock_cy_a_spot_em,
     stock_sh_a_spot_em,
     stock_sz_a_spot_em,
     stock_zh_b_spot_em,

@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.75 add: add stock_cy_a_spot_em interface
+
+    1. 新增 stock_cy_a_spot_em 接口
+
 1.8.74 fix: fix drewry_wci_index interface
 
     1. 修复 drewry_wci_index 接口
@@ -1845,6 +1849,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.75 add: add stock_cy_a_spot_em interface
 
 1.8.74 fix: fix drewry_wci_index interface
 
