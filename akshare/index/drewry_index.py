@@ -46,6 +46,7 @@ def drewry_wci_index(symbol: str = "composite") -> pd.DataFrame:
     temp_df["date"] = day + "-" + month + "-" + year
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     temp_df["wci"] = pd.to_numeric(temp_df["wci"], errors="coerce")
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 

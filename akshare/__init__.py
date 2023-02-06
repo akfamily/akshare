@@ -2290,9 +2290,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.71 add: add stock_zygc_em interface
 1.8.72 fix: fix drewry_wci_index interface
 1.8.73 add: add stock_zyjs_ths interface
+1.8.74 fix: fix drewry_wci_index interface
 """
 
-__version__ = "1.8.73"
+__version__ = "1.8.74"
 __author__ = "AKFamily"
 
 import sys
