@@ -3052,6 +3052,7 @@ from akshare.stock_feature.stock_hist_em import (
     stock_bj_a_spot_em,
     stock_new_a_spot_em,
     stock_kc_a_spot_em,
+    stock_cy_a_spot_em,
     stock_sh_a_spot_em,
     stock_sz_a_spot_em,
     stock_zh_b_spot_em,
