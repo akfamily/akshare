@@ -18595,7 +18595,7 @@ print(stock_hot_rank_detail_realtime_em_df)
 
 目标地址: http://guba.eastmoney.com/rank/stock?code=000665
 
-描述: 东方财富-个股人气榜-关键词
+描述: 东方财富-个股人气榜-热门关键词
 
 限量: 单次返回指定 symbol 的最近交易日时点数据
 
