@@ -2292,9 +2292,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.73 add: add stock_zyjs_ths interface
 1.8.74 fix: fix drewry_wci_index interface
 1.8.75 add: add stock_cy_a_spot_em interface
+1.8.76 remove: remove js_news and ws interface
 """
 
-__version__ = "1.8.75"
+__version__ = "1.8.76"
 __author__ = "AKFamily"
 
 import sys
@@ -3359,11 +3360,6 @@ from akshare.index.index_cni import (
     index_detail_hist_cni,
     index_detail_hist_adjust_cni,
 )
-
-"""
-金十数据-新闻资讯
-"""
-from akshare.ws.js_ws_news import js_news
 
 """
 东方财富-期权
