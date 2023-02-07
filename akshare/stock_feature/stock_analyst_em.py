@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/8/22 18:39
+Date: 2023/2/7 12:25
 Desc: 东方财富网-数据中心-研究报告-东方财富分析师指数
-http://data.eastmoney.com/invest/invest/list.html
+https://data.eastmoney.com/invest/invest/list.html
 """
 import pandas as pd
 import requests
@@ -13,7 +13,7 @@ from tqdm import tqdm
 def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数
-    http://data.eastmoney.com/invest/invest/list.html
+    https://data.eastmoney.com/invest/invest/list.html
     :param year: 从 2015 年至今
     :type year: str
     :return: 东方财富分析师指数
@@ -33,13 +33,14 @@ def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
         "filter": f'(YEAR="{year}")',
+        "distinct": "ANALYST_CODE",
         "limit": "top100",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page + 1)):
+    for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
@@ -104,7 +105,7 @@ def stock_analyst_detail_em(
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数2020最新排行-分析师详情
-    http://data.eastmoney.com/invest/invest/11000200926.html
+    https://data.eastmoney.com/invest/invest/11000257131.html
     :param analyst_id: 分析师 ID, 从 ak.stock_analyst_rank_em() 获取
     :type analyst_id: str
     :param indicator: ["最新跟踪成分股", "历史跟踪成分股", "历史指数"]
@@ -112,32 +113,42 @@ def stock_analyst_detail_em(
     :return: 具体指标的数据
     :rtype: pandas.DataFrame
     """
+    url = "https://datacenter.eastmoney.com/special/api/data/v1/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
     }
-    url = "http://data.eastmoney.com/dataapi/invest/other"
     if indicator == "最新跟踪成分股":
         params = {
-            "href": "/api/Zgfxzs/json/AnalysisIndexNew.aspx",
-            "paramsstr": f"index=1&size=100&code={analyst_id}",
+            "reportName": "RPT_RESEARCHER_NTCSTOCK",
+            "columns": "ALL",
+            "source": "WEB",
+            "client": "WEB",
+            "sortColumns": "CHANGE_DATE",
+            "sortTypes": "-1",
+            "pageNumber": "1",
+            "pageSize": "1000",
+            "filter": f'(ANALYST_CODE="{analyst_id}")',
+            "_": "1675744438197",
         }
         r = requests.get(url, params=params, headers=headers)
-        json_data = r.json()
-        if len(json_data) == 0:
-            return pd.DataFrame()
-        temp_df = pd.DataFrame(json_data["re"])
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]['data'])
         temp_df.reset_index(inplace=True)
         temp_df["index"] = list(range(1, len(temp_df) + 1))
         temp_df.columns = [
             "序号",
+            "最新评级日期",
+            "-",
+            "-",
+            "-",
+            "-",
             "股票代码",
+            "-",
             "股票名称",
             "调入日期",
             "当前评级名称",
             "成交价格(前复权)",
             "最新价格",
-            "最新评级日期",
-            "_",
             "阶段涨跌幅",
         ]
         temp_df = temp_df[
@@ -161,23 +172,34 @@ def stock_analyst_detail_em(
         return temp_df
     elif indicator == "历史跟踪成分股":
         params = {
-            "href": "/api/Zgfxzs/json/AnalysisIndexls.aspx",
-            "paramsstr": f"index=1&size=100&code={analyst_id}",
+            "reportName": "RPT_RESEARCHER_HISTORYSTOCK",
+            "columns": "ALL",
+            "source": "WEB",
+            "client": "WEB",
+            "sortColumns": "CHANGE_DATE",
+            "sortTypes": "-1",
+            "pageNumber": "1",
+            "pageSize": "1000",
+            "filter": f'(ANALYST_CODE="{analyst_id}")',
+            "_": "1675744438197",
         }
         r = requests.get(url, params=params, headers=headers)
-        json_data = r.json()
-        temp_df = pd.DataFrame(json_data["re"])
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]['data'])
         temp_df.reset_index(inplace=True)
         temp_df["index"] = list(range(1, len(temp_df) + 1))
         temp_df.columns = [
             "序号",
+            "-",
+            "-",
+            "-",
             "股票代码",
+            "-",
             "股票名称",
             "调入日期",
             "调出日期",
             "调入时评级名称",
             "调出原因",
-            "_",
             "累计涨跌幅",
         ]
         temp_df = temp_df[
@@ -198,17 +220,28 @@ def stock_analyst_detail_em(
         return temp_df
     elif indicator == "历史指数":
         params = {
-            "href": "/DataCenter_V3/chart/AnalystsIndex.ashx",
-            "paramsstr": f"code={analyst_id}&d=&isxml=True",
+            "reportName": "RPT_RESEARCHER_DETAILS",
+            "columns": "ALL",
+            "sortColumns": "TRADE_DATE",
+            "sortTypes": "-1",
+            "filter": f'(ANALYST_CODE="{analyst_id}")',
+            "source": "WEB",
+            "client": "WEB",
+            "_": "1675744438200",
         }
         r = requests.get(url, params=params, headers=headers)
-        json_data = r.json()
+        data_json = r.json()
         temp_df = pd.DataFrame(
-            [json_data["X"].split(","), json_data["Y"][0].split(",")],
-            index=["date", "value"],
-        ).T
+           data_json['result']['data']
+        )
+        temp_df = temp_df[[
+            "TRADE_DATE",
+            "INDEX_HVALUE",
+        ]]
+        temp_df.columns = ['date', 'value']
         temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"])
+        temp_df.sort_values(['date'], inplace=True, ignore_index=True)
         return temp_df
 
 
