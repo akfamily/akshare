@@ -7670,6 +7670,59 @@ print(news_trade_notify_dividend_baidu_df)
 8   01547  2022-09-16  0.01港元             HK  IBI GROUP HLDGS  2022-09-16
 ```
 
+### 个股新闻
+
+接口: stock_news_em
+
+目标地址: http://so.eastmoney.com/news/s
+
+描述: 东方财富指定个股的新闻资讯数据
+
+限量: 当日最近 100 条新闻资讯数据
+
+输入参数
+
+| 名称     | 类型  | 描述                          |
+|--------|-----|-----------------------------|
+| symbol | str | symbol="300059"; 股票代码或其他关键词 |
+
+输出参数
+
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 关键词  | object | -   |  
+| 新闻标题 | object | -   |  
+| 新闻内容 | object | -   |  
+| 发布时间 | object | -   |  
+| 文章来源 | object | -   |  
+| 新闻链接 | object | -   |  
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_news_em_df = ak.stock_news_em(symbol="300059")
+print(stock_news_em_df)
+```
+
+数据示例
+
+```
+       关键词  ...                                               新闻链接
+0   300059  ...  http://finance.eastmoney.com/a/202211102556856...
+1   300059  ...  http://finance.eastmoney.com/a/202211032549079...
+2   300059  ...  http://finance.eastmoney.com/a/202211012547394...
+3   300059  ...  http://finance.eastmoney.com/a/202210312546159...
+4   300059  ...  http://finance.eastmoney.com/a/202210312546176...
+..     ...  ...                                                ...
+95  300059  ...  http://finance.eastmoney.com/a/202206172416954...
+96  300059  ...  http://finance.eastmoney.com/a/202202142275549...
+97  300059  ...  http://finance.eastmoney.com/a/202206292429344...
+98  300059  ...  http://finance.eastmoney.com/a/202207192454107...
+99  300059  ...  http://finance.eastmoney.com/a/202206212419852...
+```
+
 ### 财报发行
 
 接口: news_report_time_baidu
