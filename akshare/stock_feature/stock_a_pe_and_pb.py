@@ -3,6 +3,7 @@
 """
 Date: 2023/1/30 9:24
 Desc: 乐咕乐股-A 股市盈率和市净率
+https://legulegu.com/stockdata/shanghaiPE
 """
 from datetime import datetime
 
