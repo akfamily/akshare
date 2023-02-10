@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/10/8 19:26
+Date: 2023/2/10 16:26
 Desc: 百度股市通-港股-财务报表-估值数据
 https://gushitong.baidu.com/stock/hk-06969
 """
@@ -10,7 +10,7 @@ import pandas as pd
 
 
 def stock_hk_valuation_baidu(
-    symbol: str = "02358", indicator: str = "总市值", period: str = "近一年"
+    symbol: str = "06969", indicator: str = "总市值", period: str = "近一年"
 ) -> pd.DataFrame:
     """
     百度股市通-港股-财务报表-估值数据
@@ -25,16 +25,19 @@ def stock_hk_valuation_baidu(
     :rtype: pandas.DataFrame
     """
     url = "https://finance.pae.baidu.com/selfselect/openapi"
+    headers = {
+        "Accept": "*/*",
+    }
     params = {
         "srcid": "51171",
         "code": symbol,
         "market": "hk",
-        "tag": f"{indicator}",
+        "tag": indicator,
         "chart_select": period,
         "skip_industry": "0",
         "finClientType": "pc",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["Result"]["chartInfo"][0]["body"])
     temp_df.columns = ["date", "value"]
@@ -45,6 +48,6 @@ def stock_hk_valuation_baidu(
 
 if __name__ == "__main__":
     stock_hk_valuation_baidu_df = stock_hk_valuation_baidu(
-        symbol="00700", indicator="总市值", period="近一年"
+        symbol="00700", indicator="总市值", period="近五年"
     )
     print(stock_hk_valuation_baidu_df)

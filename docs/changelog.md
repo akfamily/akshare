@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.79 fix: fix stock_hk_valuation_baidu interface
+
+    1. 修复 stock_hk_valuation_baidu 接口
+
 1.8.78 fix: fix stock_profit_forecast interface
 
     1. 修复 stock_profit_forecast 接口
@@ -1861,6 +1865,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.79 fix: fix stock_hk_valuation_baidu interface
 
 1.8.78 fix: fix stock_profit_forecast interface
 

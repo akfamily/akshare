@@ -3,7 +3,7 @@
 """
 Date: 2023/2/2 11:30
 Desc: 同花顺-主营介绍
-http://basic.10jqka.com.cn/new/000066/operate.html
+https://basic.10jqka.com.cn/new/000066/operate.html
 """
 import pandas as pd
 import requests
@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 def stock_zyjs_ths(symbol: str = "000066") -> pd.DataFrame:
     """
     同花顺-主营介绍
-    http://basic.10jqka.com.cn/new/000066/operate.html
+    https://basic.10jqka.com.cn/new/000066/operate.html
     :param symbol: 股票代码
     :type symbol: str
     :return: 主营构成
