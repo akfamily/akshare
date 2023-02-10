@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/2/9 17:50
+Date: 2023/2/10 17:44
 Desc: 东方财富网-数据中心-研究报告-盈利预测
 https://data.eastmoney.com/report/profitforecast.jshtml
 """
@@ -10,10 +10,12 @@ import requests
 from tqdm import tqdm
 
 
-def stock_profit_forecast():
+def stock_profit_forecast(symbol: str = ""):
     """
     东方财富网-数据中心-研究报告-盈利预测
     https://data.eastmoney.com/report/profitforecast.jshtml
+    :param symbol: "", 默认为获取全部数据; symbol="船舶制造", 则获取具体行业板块的数据; 行业板块可以通过 ak.stock_board_industry_name_em() 接口获取
+    :type symbol: str
     :return: 盈利预测
     :rtype: pandas.DataFrame
     """
@@ -23,14 +25,14 @@ def stock_profit_forecast():
         'columns': 'WEB_RESPREDICT',
         'pageNumber': '1',
         'pageSize': '500',
-        'sortTypes': '-1',
-        'sortColumns': 'RATING_ORG_NUM',
         'p': '1',
         'pageNo': '1',
         'pageNum': '1',
         'filter': '',
-        '_': '1640241417037',
     }
+    if symbol:
+        params.update({'filter': f'(INDUSTRY_BOARD="{symbol}")'})
+
     r = requests.get(url, params=params)
     data_json = r.json()
     page_num = int(data_json['result']['pages'])
@@ -121,9 +123,11 @@ def stock_profit_forecast():
     big_df[f"{year2}预测每股收益"] = pd.to_numeric(big_df[f"{year2}预测每股收益"], errors="coerce")
     big_df[f"{year3}预测每股收益"] = pd.to_numeric(big_df[f"{year3}预测每股收益"], errors="coerce")
     big_df[f"{year4}预测每股收益"] = pd.to_numeric(big_df[f"{year4}预测每股收益"], errors="coerce")
+    big_df.sort_values(['研报数'], ascending=False, inplace=True, ignore_index=True)
+    big_df['序号'] = range(1, len(big_df)+1)
     return big_df
 
 
 if __name__ == "__main__":
-    stock_profit_forecast_df = stock_profit_forecast()
+    stock_profit_forecast_df = stock_profit_forecast(symbol="")
     print(stock_profit_forecast_df)
