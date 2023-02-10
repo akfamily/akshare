@@ -2295,9 +2295,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.76 remove: remove js_news and ws interface
 1.8.77 fix: fix stock_analyst_rank_em interface
 1.8.78 fix: fix stock_profit_forecast interface
+1.8.79 fix: fix stock_hk_valuation_baidu interface
 """
 
-__version__ = "1.8.78"
+__version__ = "1.8.79"
 __author__ = "AKFamily"
 
 import sys

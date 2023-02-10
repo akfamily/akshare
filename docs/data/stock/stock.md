@@ -14883,7 +14883,7 @@ print(stock_hk_eniu_indicator_df)
 
 描述: 百度股市通-港股-财务报表-估值数据
 
-限量: 单次获取指定 indicator 的所有历史数据
+限量: 单次获取指定 symbol 的指定 indicator 的特定 period 的历史数据
 
 输入参数
 
