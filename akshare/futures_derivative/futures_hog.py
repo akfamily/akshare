@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/18 22:03
+Date: 2023/2/13 22:03
 Desc: 养猪数据中心
 https://zhujia.zhuwang.cc
 """
@@ -126,7 +126,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["value"] = pd.to_numeric(temp_df["value"])
         return temp_df
     elif symbol == "猪粮比价":
-        url = "https://zhujia.zhuwang.cc/new_map/zhuliangbi/chart2.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/zhuliangbi/chart2.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
