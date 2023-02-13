@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.81 fix: fix futures_hog_info interface
+
+    1. 修复 futures_hog_info 接口
+
 1.8.80 fix: fix stock_profit_forecast interface
 
     1. 修复 stock_profit_forecast 接口
@@ -1869,6 +1873,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.81 fix: fix futures_hog_info interface
 
 1.8.80 fix: fix stock_profit_forecast interface
 
