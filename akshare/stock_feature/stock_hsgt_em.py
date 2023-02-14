@@ -636,12 +636,12 @@ def stock_hsgt_hold_stock_em(
 
 def stock_hsgt_stock_statistics_em(
     symbol: str = "北向持股",
-    start_date: str = "20211027",
-    end_date: str = "20211027",
+    start_date: str = "20230113",
+    end_date: str = "20230113",
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
-    http://data.eastmoney.com/hsgtcg/StockStatistics.aspx
+    https://data.eastmoney.com/hsgtcg/StockStatistics.aspx
     market=001, 沪股通持股
     market=003, 深股通持股
     :param symbol: choice of {"北向持股", "南向持股"}
@@ -1752,7 +1752,7 @@ if __name__ == "__main__":
     print(stock_hsgt_hold_stock_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="北向持股", start_date="20220601", end_date="20220615"
+        symbol="北向持股", start_date="20230213", end_date="20230213"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
