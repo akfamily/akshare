@@ -7142,8 +7142,8 @@ print(stock_em_hsgt_hold_stock_df)
 | 股票简称        | object  | -                    |
 | 当日收盘价       | float64 | 注意单位: 元; 南向持股单位为: 港元 |
 | 当日涨跌幅       | float64 | 注意单位: %              |
-| 持股数量        | float64 | 注意单位: 股              |
-| 持股市值        | float64 | 注意单位: 元              |
+| 持股数量        | float64 | 注意单位: 万股             |
+| 持股市值        | float64 | 注意单位: 万元             |
 | 持股数量占发行股百分比 | float64 | 注意单位: %              |
 | 持股市值变化-1日   | float64 | 注意单位: 元              |
 | 持股市值变化-5日   | float64 | 注意单位: 元              |
@@ -7154,8 +7154,7 @@ print(stock_em_hsgt_hold_stock_df)
 ```python
 import akshare as ak
 
-stock_hsgt_stock_statistics_em_df = ak.stock_hsgt_stock_statistics_em(symbol="北向持股", start_date="20211027",
-                                                                      end_date="20211027")
+stock_hsgt_stock_statistics_em_df = ak.stock_hsgt_stock_statistics_em(symbol="北向持股", start_date="20211027", end_date="20211027")
 print(stock_hsgt_stock_statistics_em_df)
 ```
 
@@ -7211,9 +7210,7 @@ print(stock_hsgt_stock_statistics_em_df)
 ```python
 import akshare as ak
 
-stock_hsgt_institution_statistics_em_df = ak.stock_hsgt_institution_statistics_em(market="北向持股",
-                                                                                  start_date="20201218",
-                                                                                  end_date="20201218")
+stock_hsgt_institution_statistics_em_df = ak.stock_hsgt_institution_statistics_em(market="北向持股", start_date="20201218", end_date="20201218")
 print(stock_hsgt_institution_statistics_em_df)
 ```
 
