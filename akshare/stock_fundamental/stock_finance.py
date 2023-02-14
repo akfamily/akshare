@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/6 15:35
+Date: 2023/2/14 22:25
 Desc: 股票基本面数据
 新浪财经-财务报表-财务摘要
 https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600004.phtml
@@ -10,12 +10,12 @@ https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600
 新浪财经-发行与分配
 https://money.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/600004.phtml
 """
+from io import BytesIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
-
-from io import BytesIO
 
 
 def stock_financial_report_sina(
@@ -120,7 +120,7 @@ def stock_financial_analysis_indicator(symbol: str = "600004") -> pd.DataFrame:
 
     out_df.dropna(inplace=True)
     out_df.reset_index(inplace=True)
-    out_df.rename(columns={'index': '日期'}, inplace=True)
+    out_df.rename(columns={"index": "日期"}, inplace=True)
     return out_df
 
 
@@ -179,7 +179,7 @@ def stock_history_dividend_detail(
             "查看详细",
         ]
         del temp_df["查看详细"]
-        if temp_df.iloc[0, 0] == '暂时没有数据！':
+        if temp_df.iloc[0, 0] == "暂时没有数据！":
             return pd.DataFrame()
         temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
         temp_df["送股"] = pd.to_numeric(temp_df["送股"])
@@ -220,7 +220,7 @@ def stock_history_dividend_detail(
             "查看详细",
         ]
         del temp_df["查看详细"]
-        if temp_df.iloc[0, 0] == '暂时没有数据！':
+        if temp_df.iloc[0, 0] == "暂时没有数据！":
             return pd.DataFrame()
         temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
         temp_df["配股方案"] = pd.to_numeric(temp_df["配股方案"])
@@ -298,13 +298,13 @@ def stock_restricted_release_queue_sina(symbol: str = "600000") -> pd.DataFrame:
     url = f"https://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/xsjj/index.phtml?symbol={symbol}"
     r = requests.get(url)
     temp_df = pd.read_html(r.text)[0]
-    temp_df.columns = ['代码', '名称', '解禁日期', '解禁数量', '解禁股流通市值', '上市批次', '公告日期']
-    temp_df['解禁日期'] = pd.to_datetime(temp_df['解禁日期']).dt.date
-    temp_df['公告日期'] = pd.to_datetime(temp_df['公告日期']).dt.date
-    temp_df['解禁数量'] = pd.to_numeric(temp_df['解禁数量'], errors="coerce")
-    temp_df['解禁股流通市值'] = pd.to_numeric(temp_df['解禁股流通市值'], errors="coerce")
-    temp_df['上市批次'] = pd.to_numeric(temp_df['上市批次'], errors="coerce")
-    temp_df['上市批次'] = pd.to_numeric(temp_df['上市批次'], errors="coerce")
+    temp_df.columns = ["代码", "名称", "解禁日期", "解禁数量", "解禁股流通市值", "上市批次", "公告日期"]
+    temp_df["解禁日期"] = pd.to_datetime(temp_df["解禁日期"]).dt.date
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
+    temp_df["解禁数量"] = pd.to_numeric(temp_df["解禁数量"], errors="coerce")
+    temp_df["解禁股流通市值"] = pd.to_numeric(temp_df["解禁股流通市值"], errors="coerce")
+    temp_df["上市批次"] = pd.to_numeric(temp_df["上市批次"], errors="coerce")
+    temp_df["上市批次"] = pd.to_numeric(temp_df["上市批次"], errors="coerce")
     return temp_df
 
 
@@ -343,33 +343,34 @@ def stock_circulate_stock_holder(symbol: str = "600000") -> pd.DataFrame:
     big_df = big_df[["截止日期", "公告日期", "编号", "股东名称", "持股数量(股)", "占流通股比例(%)", "股本性质"]]
     big_df.columns = ["截止日期", "公告日期", "编号", "股东名称", "持股数量", "占流通股比例", "股本性质"]
 
-    big_df['截止日期'] = pd.to_datetime(big_df['截止日期']).dt.date
-    big_df['公告日期'] = pd.to_datetime(big_df['公告日期']).dt.date
-    big_df['编号'] = pd.to_numeric(big_df['编号'], errors="coerce")
-    big_df['持股数量'] = pd.to_numeric(big_df['持股数量'], errors="coerce")
-    big_df['占流通股比例'] = pd.to_numeric(big_df['占流通股比例'], errors="coerce")
+    big_df["截止日期"] = pd.to_datetime(big_df["截止日期"]).dt.date
+    big_df["公告日期"] = pd.to_datetime(big_df["公告日期"]).dt.date
+    big_df["编号"] = pd.to_numeric(big_df["编号"], errors="coerce")
+    big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
+    big_df["占流通股比例"] = pd.to_numeric(big_df["占流通股比例"], errors="coerce")
     big_df.reset_index(inplace=True, drop=True)
     return big_df
 
 
-def stock_fund_stock_holder(stock: str = "600004") -> pd.DataFrame:
+def stock_fund_stock_holder(symbol: str = "600004") -> pd.DataFrame:
     """
     新浪财经-股本股东-基金持股
     https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundStockHolder/stockid/600004.phtml
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 新浪财经-股本股东-基金持股
     :rtype: pandas.DataFrame
     """
-    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundStockHolder/stockid/{stock}.phtml"
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundStockHolder/stockid/{symbol}.phtml"
     r = requests.get(url)
-    temp_df = pd.read_html(r.text)[13].iloc[:, :5]
-    temp_df.columns = [*range(5)]
+    temp_df = pd.read_html(r.text)[13].iloc[:, :6]
+    temp_df.columns = [*range(6)]
     big_df = pd.DataFrame()
     need_range = temp_df[temp_df.iloc[:, 0].str.find("截止日期") == 0].index.tolist() + [
         len(temp_df)
     ]
-    for i in range(len(need_range) - 1):
+    for i in tqdm(range(len(need_range) - 1), leave=False):
+        # pass
         truncated_df = temp_df.iloc[need_range[i] : need_range[i + 1], :]
         truncated_df = truncated_df.dropna(how="all")
         temp_truncated = truncated_df.iloc[2:, :]
@@ -381,6 +382,12 @@ def stock_fund_stock_holder(stock: str = "600004") -> pd.DataFrame:
         big_df = pd.concat([big_df, concat_df], axis=0, ignore_index=True)
     big_df.dropna(inplace=True)
     big_df.reset_index(inplace=True, drop=True)
+    big_df.columns = ["基金名称", "基金代码", "持仓数量", "占流通股比例", "持股市值", "占净值比例", "截止日期"]
+    big_df["持仓数量"] = pd.to_numeric(big_df["持仓数量"], errors="coerce")
+    big_df["占流通股比例"] = pd.to_numeric(big_df["占流通股比例"], errors="coerce")
+    big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+    big_df["占净值比例"] = pd.to_numeric(big_df["占净值比例"], errors="coerce")
+    big_df["截止日期"] = pd.to_datetime(big_df["截止日期"]).dt.date
     return big_df
 
 
@@ -480,13 +487,15 @@ if __name__ == "__main__":
     stock_add_stock_df = stock_add_stock(stock="600004")
     print(stock_add_stock_df)
 
-    stock_restricted_release_queue_sina_df = stock_restricted_release_queue_sina(symbol="600000")
+    stock_restricted_release_queue_sina_df = stock_restricted_release_queue_sina(
+        symbol="600000"
+    )
     print(stock_restricted_release_queue_sina_df)
 
     stock_circulate_stock_holder_df = stock_circulate_stock_holder(symbol="600000")
     print(stock_circulate_stock_holder_df)
 
-    stock_fund_stock_holder_df = stock_fund_stock_holder(stock="601318")
+    stock_fund_stock_holder_df = stock_fund_stock_holder(symbol="601318")
     print(stock_fund_stock_holder_df)
 
     stock_main_stock_holder_df = stock_main_stock_holder(stock="600000")

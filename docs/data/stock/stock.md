@@ -7142,8 +7142,8 @@ print(stock_em_hsgt_hold_stock_df)
 | 股票简称        | object  | -                    |
 | 当日收盘价       | float64 | 注意单位: 元; 南向持股单位为: 港元 |
 | 当日涨跌幅       | float64 | 注意单位: %              |
-| 持股数量        | float64 | 注意单位: 股              |
-| 持股市值        | float64 | 注意单位: 元              |
+| 持股数量        | float64 | 注意单位: 万股             |
+| 持股市值        | float64 | 注意单位: 万元             |
 | 持股数量占发行股百分比 | float64 | 注意单位: %              |
 | 持股市值变化-1日   | float64 | 注意单位: 元              |
 | 持股市值变化-5日   | float64 | 注意单位: 元              |
@@ -7154,8 +7154,7 @@ print(stock_em_hsgt_hold_stock_df)
 ```python
 import akshare as ak
 
-stock_hsgt_stock_statistics_em_df = ak.stock_hsgt_stock_statistics_em(symbol="北向持股", start_date="20211027",
-                                                                      end_date="20211027")
+stock_hsgt_stock_statistics_em_df = ak.stock_hsgt_stock_statistics_em(symbol="北向持股", start_date="20211027", end_date="20211027")
 print(stock_hsgt_stock_statistics_em_df)
 ```
 
@@ -7211,9 +7210,7 @@ print(stock_hsgt_stock_statistics_em_df)
 ```python
 import akshare as ak
 
-stock_hsgt_institution_statistics_em_df = ak.stock_hsgt_institution_statistics_em(market="北向持股",
-                                                                                  start_date="20201218",
-                                                                                  end_date="20201218")
+stock_hsgt_institution_statistics_em_df = ak.stock_hsgt_institution_statistics_em(market="北向持股", start_date="20201218", end_date="20201218")
 print(stock_hsgt_institution_statistics_em_df)
 ```
 
@@ -12831,51 +12828,52 @@ print(stock_info_sz_change_name_df)
 
 目标地址: https://vip.stock.finance.sina.com.cn/corp/go.php/vCI_FundStockHolder/stockid/600004.phtml
 
-描述: 获取新浪财经-股本股东-基金持股
+描述: 新浪财经-股本股东-基金持股
 
-限量: 单次获取新浪财经-股本股东-基金持股所有历史数据
+限量: 获取新浪财经-股本股东-基金持股所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述   |
-| -------- | ---- | ---- | --- |
-| stock | str | Y    | stock="600004"; 股票代码|
+| 名称     | 类型  | 描述                    |
+|--------|-----|-----------------------|
+| symbol | str | symbol="600004"; 股票代码 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| ------------ | ----- | -------- | ---------------- |
-| 基金名称          | str   | Y        |  -    |
-| 基金代码          | str   | Y        |  -    |
-| 持仓数量(股)          | str   | Y        |  -    |
-| 占流通股比例(%)          | str   | Y        |  -    |
-| 持股市值（元）          | str   | Y        |  -    |
-| 截止日期          | str   | Y        |  -    |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| 基金名称   | object  | -       |
+| 基金代码   | object  | -       |
+| 持仓数量   | int64   | 注意单位: 股 |
+| 占流通股比例 | float64 | 注意单位: % |
+| 持股市值   | int64   | 注意单位: 元 |
+| 占净值比例  | float64 | 注意单位: % |
+| 截止日期   | object  | -       |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_fund_stock_holder_df = ak.stock_fund_stock_holder(stock="300270")
+stock_fund_stock_holder_df = ak.stock_fund_stock_holder(symbol="601318")
 print(stock_fund_stock_holder_df)
 ```
 
 数据示例
 
 ```
-                     基金名称    基金代码 持仓数量(股) 占流通股比例(%)   持股市值（元）        截止日期
-0    大成中证360互联网+大数据100指数C  003359  100100    0.0331    822822  2019-12-31
-1    大成中证360互联网+大数据100指数A  002236  100100    0.0331    822822  2019-12-31
-2             大成智惠量化多策略混合  004209   31200    0.0103    256464  2019-12-31
-3               国金量化多策略混合  005443  210518    0.0695   1597830  2019-06-30
-4           广发中证全指信息技术ETF  159939   61501    0.0203    466793  2019-06-30
-..                    ...     ...     ...       ...       ...         ...
-196              长盛积极配置债券  080003  500000         0  17500000  2011-09-30
-197             农银恒久增利债券C  660102   48445         0   1517780  2011-09-30
-198             农银增强收益债券C  660109     500         0     17500  2011-09-30
-199             农银增强收益债券A  660009     500         0     17500  2011-09-30
-200             海富通稳固收益债券  519030     500         0     17500  2011-09-30
+    基金名称    基金代码      持仓数量  占流通股比例        持股市值  占净值比例        截止日期
+0      银华沪深300价值ETF  562320    265300  0.0015    12981100   3.85  2023-01-05
+1    华安沪深300增强策略ETF  561000     91200  0.0005     4425940   0.53  2023-01-04
+2         华夏上证50ETF  510050  92794672  0.5076  4361350000   7.48  2022-12-31
+3      华泰柏瑞沪深300ETF  510300  44522018  0.2436  2092530000   2.70  2022-12-31
+4     易方达沪深300非银ETF  512070  34406219  0.1882  1617090000  29.08  2022-12-31
+..              ...     ...       ...     ...         ...    ...         ...
+995       安信民稳增长混合A  008809   1125037  0.0062    46779000   2.68  2022-09-30
+996       建信上证50ETF  510800   1084221  0.0059    45081900   6.86  2022-09-30
+997   国寿安保沪港深300ETF  517300   1016300  0.0056    42257800   2.09  2022-09-30
+998      泰达宏利市值优选混合  162209   1013832  0.0055    42155100   6.45  2022-09-30
+999      南方沪深300ETF  159925    961652  0.0053    39985500   2.52  2022-09-30
 ```
 
 #### 主要股东
