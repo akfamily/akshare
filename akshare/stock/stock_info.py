@@ -159,6 +159,7 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
         "-",
         "-",
         "证券简称",
+        "-",
         "扩位证券简称",
         "-",
         "上市日期",
