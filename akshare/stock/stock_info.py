@@ -115,12 +115,12 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
         return temp_df
 
 
-def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
+def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
     """
     上海证券交易所-股票列表
     http://www.sse.com.cn/assortment/stock/list/share/
-    :param indicator: choice of {"主板A股": "1", "主板B股": "2", "科创板": "8"}
-    :type indicator: str
+    :param symbol: choice of {"主板A股": "1", "主板B股": "2", "科创板": "8"}
+    :type symbol: str
     :return: 指定 indicator 的数据
     :rtype: pandas.DataFrame
     """
@@ -133,7 +133,7 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     }
     params = {
-        "STOCK_TYPE": indicator_map[indicator],
+        "STOCK_TYPE": indicator_map[symbol],
         "REG_PROVINCE": "",
         "CSRC_CODE": "",
         "STOCK_CODE": "",
@@ -151,38 +151,18 @@ def stock_info_sh_name_code(indicator: str = "主板A股") -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    columns = [
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "证券简称",
-        "扩位证券简称",
-        "-",
+    temp_df.rename(columns={
+        "A_STOCK_CODE": "公司代码",
+        "COMPANY_ABBR": "公司简称",
+        "FULL_NAME": "公司全称",
+        "LIST_DATE": "上市日期",
+    }, inplace=True)
+    temp_df = temp_df[[
+        "公司代码",
+        "公司简称",
+        "公司全称",
         "上市日期",
-        "-",
-        "-",
-        "-",
-    ]
-
-    # column index 3=A_STOCK_CODE, 8=B_STOCK_CODE, 11=COMPANY_CODE
-    if indicator == "主板B股":
-        columns[8] = "证券代码"
-    else:
-        columns[3] = "证券代码"
-
-    temp_df.columns = columns
-
-    temp_df = temp_df[
-        [
-            "证券代码",
-            "证券简称",
-            "扩位证券简称",
-            "上市日期",
-        ]
-    ]
+    ]]
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"]).dt.date
     return temp_df
 
@@ -435,7 +415,7 @@ def stock_info_a_code_name() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    stock_sh = stock_info_sh_name_code(indicator="主板A股")
+    stock_sh = stock_info_sh_name_code(symbol="主板A股")
     stock_sh = stock_sh[["证券代码", "证券简称"]]
 
     stock_sz = stock_info_sz_name_code(indicator="A股列表")
@@ -443,7 +423,7 @@ def stock_info_a_code_name() -> pd.DataFrame:
     big_df = pd.concat([big_df, stock_sz[["A股代码", "A股简称"]]], ignore_index=True)
     big_df.columns = ["证券代码", "证券简称"]
 
-    stock_kcb = stock_info_sh_name_code(indicator="科创板")
+    stock_kcb = stock_info_sh_name_code(symbol="科创板")
     stock_kcb = stock_kcb[["证券代码", "证券简称"]]
 
     stock_bse = stock_info_bj_name_code()
@@ -458,10 +438,10 @@ def stock_info_a_code_name() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_info_sh_name_code_df = stock_info_sh_name_code(indicator="主板A股")
+    stock_info_sh_name_code_df = stock_info_sh_name_code(symbol="主板A股")
     print(stock_info_sh_name_code_df)
 
-    stock_info_sh_name_code_df = stock_info_sh_name_code(indicator="主板B股")
+    stock_info_sh_name_code_df = stock_info_sh_name_code(symbol="主板B股")
     print(stock_info_sh_name_code_df)
 
     stock_info_sz_name_code_df = stock_info_sz_name_code(indicator="A股列表")
