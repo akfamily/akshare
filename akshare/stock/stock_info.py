@@ -152,14 +152,14 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     temp_df.rename(columns={
-        "A_STOCK_CODE": "公司代码",
-        "COMPANY_ABBR": "公司简称",
+        "A_STOCK_CODE": "证券代码",
+        "COMPANY_ABBR": "证券简称",
         "FULL_NAME": "公司全称",
         "LIST_DATE": "上市日期",
     }, inplace=True)
     temp_df = temp_df[[
-        "公司代码",
-        "公司简称",
+        "证券代码",
+        "证券简称",
         "公司全称",
         "上市日期",
     ]]
