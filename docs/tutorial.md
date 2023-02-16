@@ -81,8 +81,6 @@
  "get_finance_option"  # 提供上海证券交易所期权数据
  # 加密货币行情
  "crypto_js_spot"  # 提供主流加密货币行情数据接口
- # 股票-企业社会责任
- "stock_zh_a_scr_report"  # 企业社会责任数据
  # 美股-中国概念股行情和历史数据
  "stock_us_zh_spot"  # 中国概念股行情
  "stock_us_zh_daily"  # 中国概念股历史数据
