@@ -8557,7 +8557,7 @@ print(stock_allotment_cninfo_df)
 
 描述: 巨潮资讯-个股-公司概况
 
-限量: 单次获取指定 symbol 在 start_date 和 end_date 之间的公司股本变动数据
+限量: 单次获取指定 symbol 的公司概况
 
 输入参数
 
