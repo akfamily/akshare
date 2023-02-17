@@ -8555,9 +8555,7 @@ print(stock_allotment_cninfo_df)
 
 目标地址: http://webapi.cninfo.com.cn/#/company
 
-描述: 巨潮资讯-个股-公司概况
-
-限量: 单次获取指定 symbol 在 start_date 和 end_date 之间的公司股本变动数据
+描述: 巨潮资讯-个股-公司概况，获取上市公司的基本信息。
 
 输入参数
 
