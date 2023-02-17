@@ -2302,9 +2302,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.83 fix: fix stock_info_sh_name_code interface
 1.8.84 remove: remove stock_zh_a_scr_report interface
 1.8.85 fix: fix stock_info_sh_name_code interface
+1.8.86 fix: fix stock_info_sh_delist interface
 """
 
-__version__ = "1.8.85"
+__version__ = "1.8.86"
 __author__ = "AKFamily"
 
 import sys
