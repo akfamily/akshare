@@ -12711,11 +12711,11 @@ print(stock_info_change_name_list)
 6      7  国新健康
 ```
 
-#### 股票更名-深证
+#### 名称变更-深证
 
 接口: stock_info_sz_change_name
 
-目标地址: http://www.szse.cn/market/companys/changename/index.html
+目标地址: http://www.szse.cn/www/market/stock/changename/index.html
 
 描述: 深证证券交易所-市场数据-股票数据-名称变更
 
