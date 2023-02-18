@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/2/17 10:00
+Date: 2023/2/18 14:00
 Desc: 股票基本信息
 """
 import json
@@ -345,13 +345,13 @@ def stock_info_sz_delist(indicator: str = "暂停上市公司") -> pd.DataFrame:
         return temp_df
 
 
-def stock_info_sz_change_name(indicator: str = "全称变更") -> pd.DataFrame:
+def stock_info_sz_change_name(symbol: str = "全称变更") -> pd.DataFrame:
     """
-    深证证券交易所-更名公司
-    http://www.szse.cn/market/companys/changename/index.html
-    :param indicator: choice of {"全称变更": "tab1", "简称变更": "tab2"}
-    :type indicator: str
-    :return: 全称变更 or 简称变更 的数据
+    深证证券交易所-市场数据-股票数据-名称变更
+    http://www.szse.cn/www/market/stock/changename/index.html
+    :param symbol: choice of {"全称变更": "tab1", "简称变更": "tab2"}
+    :type symbol: str
+    :return: 名称变更数据
     :rtype: pandas.DataFrame
     """
     indicator_map = {"全称变更": "tab1", "简称变更": "tab2"}
@@ -359,7 +359,7 @@ def stock_info_sz_change_name(indicator: str = "全称变更") -> pd.DataFrame:
     params = {
         "SHOWTYPE": "xlsx",
         "CATALOGID": "SSGSGMXX",
-        "TABKEY": indicator_map[indicator],
+        "TABKEY": indicator_map[symbol],
         "random": "0.6935816432433362",
     }
     r = requests.get(url, params=params)
@@ -367,6 +367,8 @@ def stock_info_sz_change_name(indicator: str = "全称变更") -> pd.DataFrame:
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
         temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
+        temp_df['变更日期'] = pd.to_datetime(temp_df['变更日期']).dt.date
+        temp_df.sort_values(['变更日期'], inplace=True, ignore_index=True)
         return temp_df
 
 
@@ -450,7 +452,7 @@ if __name__ == "__main__":
     stock_info_sh_delist_df = stock_info_sh_delist()
     print(stock_info_sh_delist_df)
 
-    stock_info_sz_change_name_df = stock_info_sz_change_name(indicator="全称变更")
+    stock_info_sz_change_name_df = stock_info_sz_change_name(symbol="全称变更")
     print(stock_info_sz_change_name_df)
 
     stock_info_change_name_df = stock_info_change_name(symbol="000503")
