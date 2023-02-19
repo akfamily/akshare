@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/2/18 14:00
+Date: 2023/2/19 19:00
 Desc: 股票基本信息
 """
 import json
@@ -320,12 +320,12 @@ def stock_info_sh_delist() -> pd.DataFrame:
     return temp_df
 
 
-def stock_info_sz_delist(indicator: str = "暂停上市公司") -> pd.DataFrame:
+def stock_info_sz_delist(symbol: str = "暂停上市公司") -> pd.DataFrame:
     """
     深证证券交易所-暂停上市公司-终止上市公司
     http://www.szse.cn/market/stock/suspend/index.html
-    :param indicator: choice of {"暂停上市公司", "终止上市公司"}
-    :type indicator: str
+    :param symbol: choice of {"暂停上市公司", "终止上市公司"}
+    :type symbol: str
     :return: 暂停上市公司 or 终止上市公司 的数据
     :rtype: pandas.DataFrame
     """
@@ -334,7 +334,7 @@ def stock_info_sz_delist(indicator: str = "暂停上市公司") -> pd.DataFrame:
     params = {
         "SHOWTYPE": "xlsx",
         "CATALOGID": "1793_ssgs",
-        "TABKEY": indicator_map[indicator],
+        "TABKEY": indicator_map[symbol],
         "random": "0.6935816432433362",
     }
     r = requests.get(url, params=params)
@@ -342,6 +342,8 @@ def stock_info_sz_delist(indicator: str = "暂停上市公司") -> pd.DataFrame:
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
         temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
+        temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期']).dt.date
+        temp_df['终止上市日期'] = pd.to_datetime(temp_df['终止上市日期']).dt.date
         return temp_df
 
 
@@ -463,3 +465,6 @@ if __name__ == "__main__":
 
     stock_info_bj_name_code_df = stock_info_bj_name_code()
     print(stock_info_bj_name_code_df)
+
+    stock_info_sz_delist_df = stock_info_sz_delist(symbol="终止上市公司")
+    print(stock_info_sz_delist_df)
