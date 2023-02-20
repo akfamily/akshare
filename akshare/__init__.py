@@ -2305,9 +2305,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.86 fix: fix stock_info_sh_delist interface
 1.8.87 fix: fix stock_info_sz_change_name interface
 1.8.88 fix: fix stock_info_sz_delist interface
+1.8.89 fix: fix sunrise_city_list interface
 """
 
-__version__ = "1.8.88"
+__version__ = "1.8.89"
 __author__ = "AKFamily"
 
 import sys
@@ -4196,7 +4197,7 @@ from akshare.air.air_hebei import air_quality_hebei
 """
 timeanddate-日出和日落
 """
-from akshare.air.time_and_date import sunrise_daily, sunrise_monthly
+from akshare.air.sunrise_tad import sunrise_daily, sunrise_monthly
 
 """
 新浪-指数实时行情和历史行情
