@@ -5,10 +5,11 @@ Date: 2022/11/9 18:08
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心
 https://www.chinamoney.com.cn/chinese/scsjzqxx/
 """
+import functools
+
 import pandas as pd
 import requests
 from tqdm import tqdm
-import functools
 
 
 @functools.lru_cache()
@@ -23,7 +24,10 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
     """
     if symbol == "主承销商":
         url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/EntyFullNameSearchCondition"
-        r = requests.post(url)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        }
+        r = requests.post(url, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["enty"])
         temp_df.columns = ["code", "name"]
@@ -37,7 +41,10 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
             "评级等级": "bondRtngShrt",
         }
         url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-md/BondBaseInfoSearchCondition"
-        r = requests.post(url)
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        }
+        r = requests.post(url, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"][f"{symbol_map[symbol]}"])
         if temp_df.shape[1] == 1:
@@ -46,6 +53,7 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
         temp_df.columns = ["code", "name"]
         temp_df = temp_df[["name", "code"]]
         return temp_df
+
 
 @functools.lru_cache()
 def bond_info_cm(
@@ -118,13 +126,16 @@ def bond_info_cm(
         "entyDefinedCode": underwriter_value if underwriter_value else "",
         "rtngShrt": grade,
     }
-    r = requests.post(url, data=payload)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+    }
+    r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
     total_page = data_json["data"]["pageTotal"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         payload.update({"pageNo": page})
-        r = requests.post(url, data=payload)
+        r = requests.post(url, data=payload, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["resultList"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -163,7 +174,10 @@ def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.Dat
     inner_bond_info_cm_df = bond_info_cm(bond_name=symbol)
     bond_code = inner_bond_info_cm_df["查询代码"].values[0]
     payload = {"bondDefinedCode": bond_code}
-    r = requests.post(url, data=payload)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+    }
+    r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
     data_dict = data_json["data"]["bondBaseInfo"]
     if data_dict["creditRateEntyList"]:
