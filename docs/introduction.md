@@ -6,7 +6,7 @@
 **风险提示：[AKShare](https://github.com/akfamily/akshare) 开源财经数据接口库所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
 同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
 
-1. 本文档更新时间：**2023-02-20**；
+1. 本文档更新时间：**2023-02-21**；
 2. 如有 [AKShare](https://github.com/akfamily/akshare) 库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提 Issues；
 3. 欢迎关注 **数据科学实战** 微信公众号：<div><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>；
 4. 如果您的问题未能在文档中找到答案，您也可以加入 **AKShare-VIP QQ 群**: 为了提高问答质量，此群为收费群(一杯咖啡钱即可入群，赠送[《AKShare-初阶-使用教学》](https://zmj.xet.tech/s/wck86)视频课)，可以添加 **AKShare-小助手** QQ：1254836886，由小助手邀请入群! ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
@@ -16,7 +16,7 @@
    - 视频教学：每年度会以【直播+录播】的形式开展不少于 10 次星球专属干货知识分享并支持回放
    - 专属课程答疑：解答【数据科学实战】知识店铺所售课程的相关问题（此渠道为目前唯一课程答疑渠道）。相关课程参见：https://app3rqjh1z21630.h5.xiaoeknow.com
    - 所有课程课件：我们会在星球中分享所有视频课程的课件及源码
-   - 专属课程优惠券：【数据科学实战】星球球友可获得10张【数据科学实战】知识店铺 8.8 折优惠券，所有在售课程均可使用
+   - 专属课程优惠券：【数据科学实战】星球球友可获得 10 张【数据科学实战】知识店铺 8.8 折优惠券，所有在售课程均可使用
    - 交个朋友：星球内有众多业内大咖，可以让大家学习交流！
    - 惊喜福利：邀请 AKShare 的开发者分享和解答 AKShare 及其衍生工具中使用的问题
    - ![星球加入二维码](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)

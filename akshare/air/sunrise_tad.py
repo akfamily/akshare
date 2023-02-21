@@ -53,8 +53,11 @@ def sunrise_daily(date: str = "20200428", city: str = "北京") -> pd.DataFrame:
         res = requests.get(url)
         table = pd.read_html(res.text, header=2)[1]
         month_df = table.iloc[:-1, ]
-        day_df = month_df[month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]]
+        day_df = month_df[month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]].copy()
         day_df.index = pd.to_datetime([date] * len(day_df), format="%Y%m%d")
+        day_df.reset_index(inplace=True)
+        day_df.rename(columns={"index": "date"}, inplace=True)
+        day_df['date'] = pd.to_datetime(day_df['date']).dt.date
         return day_df
     else:
         return "请输入正确的城市名称"
@@ -77,8 +80,10 @@ def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFram
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
         res = requests.get(url)
         table = pd.read_html(res.text, header=2)[1]
-        month_df = table.iloc[:-1, ]
+        month_df = table.iloc[:-1, ].copy()
         month_df.index = [date[:-2]] * len(month_df)
+        month_df.reset_index(inplace=True)
+        month_df.rename(columns={"index": "date", }, inplace=True)
         return month_df
     else:
         return "请输入正确的城市名称"

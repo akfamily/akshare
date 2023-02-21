@@ -426,7 +426,7 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
             axis=1,
         )
         concat_df.columns = concat_df.iloc[0, :]
-        concat_df = concat_df.iloc[1:, :]
+        concat_df = concat_df.iloc[1:, :].copy()
         concat_df["截至日期"] = concat_df["截至日期"].fillna(method="ffill")
         concat_df["公告日期"] = concat_df["公告日期"].fillna(method="ffill")
         concat_df["股东总数"] = concat_df["股东总数"].fillna(method="ffill")
@@ -436,6 +436,16 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
         big_df = pd.concat([big_df, concat_df], axis=0, ignore_index=True)
     big_df.dropna(inplace=True, how="all")
     big_df.reset_index(inplace=True, drop=True)
+    big_df.rename(columns={"持股数量(股)": "持股数量", "持股比例(%)": "持股比例"}, inplace=True)
+    big_df.columns.name = None
+    big_df.columns
+    big_df['持股数量'] = pd.to_numeric(big_df['持股数量'], errors="coerce")
+    big_df['持股比例'] = big_df['持股比例'].str.strip("↓")
+    big_df['持股比例'] = pd.to_numeric(big_df['持股比例'], errors="coerce")
+    big_df['截至日期'] = pd.to_datetime(big_df['截至日期']).dt.date
+    big_df['公告日期'] = pd.to_datetime(big_df['公告日期']).dt.date
+    big_df['股东总数'] = pd.to_numeric(big_df['股东总数'], errors="coerce")
+    big_df['平均持股数'] = pd.to_numeric(big_df['平均持股数'], errors="coerce")
     return big_df
 
 

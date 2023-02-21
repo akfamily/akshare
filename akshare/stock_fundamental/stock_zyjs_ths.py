@@ -16,7 +16,7 @@ def stock_zyjs_ths(symbol: str = "000066") -> pd.DataFrame:
     https://basic.10jqka.com.cn/new/000066/operate.html
     :param symbol: 股票代码
     :type symbol: str
-    :return: 主营构成
+    :return: 主营介绍
     :rtype: pandas.DataFrame
     """
     url = f"http://basic.10jqka.com.cn/new/{symbol}/operate.html"
