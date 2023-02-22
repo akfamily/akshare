@@ -1,18 +1,16 @@
-# https://hub.docker.com/layers/python/library/python/3.10.1-buster/images/sha256-d59f2d9d7f17d34ad8e0c4aff37e61b181018413078ab8f0a688319ebee65d30?context=explore
-FROM python:3.11.0-buster
+# 使用精简镜像，镜像体积从 1.2G 下降为约 400M，提高启动效率，同时升级到 Python 3.11.x 提高 20% 以上性能
+FROM python:3.11-slim-bullseye
 
-MAINTAINER AKFamily <akfamily.aktools@gmail.com>
+# 升级 pip 到最新版
+RUN pip install --upgrade pip
 
-# time-zone
-RUN set -x \
-    && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get update \
-    && apt-get install -y tzdata \
-    && ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime \
-    && echo "Asia/Shanghai" > /etc/timezone \
-    && rm -rf /var/lib/apt/lists/*
+# 新增 gunicorn 安装，提升并发和并行能力
+RUN pip install --no-cache-dir akshare fastapi uvicorn gunicorn -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
+RUN pip install --no-cache-dir aktools -i https://pypi.org/simple --upgrade
 
-RUN pip install --no-cache-dir fastapi
-RUN pip install --no-cache-dir uvicorn
-RUN pip install --no-cache-dir aktools
-RUN pip install --no-cache-dir akshare --upgrade
+# 设置工作目录方便启动
+ENV APP_HOME=/usr/local/lib/python3.11/site-packages/aktools
+WORKDIR $APP_HOME
+
+# 默认启动 gunicorn 服务
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "main:app", "-k", "uvicorn.workers.UvicornWorker"]
