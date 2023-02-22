@@ -83,33 +83,15 @@ def stock_gdfx_free_holding_statistics_em(
         ]
     ]
     big_df["统计次数"] = pd.to_numeric(big_df["统计次数"])
-    big_df["公告日后涨幅统计-10个交易日-平均涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-10个交易日-平均涨幅"]
-    )
-    big_df["公告日后涨幅统计-10个交易日-最大涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-10个交易日-最大涨幅"]
-    )
-    big_df["公告日后涨幅统计-10个交易日-最小涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-10个交易日-最小涨幅"]
-    )
-    big_df["公告日后涨幅统计-30个交易日-平均涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-30个交易日-平均涨幅"]
-    )
-    big_df["公告日后涨幅统计-30个交易日-最大涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-30个交易日-最大涨幅"]
-    )
-    big_df["公告日后涨幅统计-30个交易日-最小涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-30个交易日-最小涨幅"]
-    )
-    big_df["公告日后涨幅统计-60个交易日-平均涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-60个交易日-平均涨幅"]
-    )
-    big_df["公告日后涨幅统计-60个交易日-最大涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-60个交易日-最大涨幅"]
-    )
-    big_df["公告日后涨幅统计-60个交易日-最小涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-60个交易日-最小涨幅"]
-    )
+    big_df["公告日后涨幅统计-10个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-10个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-10个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-最小涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-最小涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-最小涨幅"])
     return big_df
 
 
@@ -185,33 +167,15 @@ def stock_gdfx_holding_statistics_em(date: str = "20210930") -> pd.DataFrame:
         ]
     ]
     big_df["统计次数"] = pd.to_numeric(big_df["统计次数"])
-    big_df["公告日后涨幅统计-10个交易日-平均涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-10个交易日-平均涨幅"]
-    )
-    big_df["公告日后涨幅统计-10个交易日-最大涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-10个交易日-最大涨幅"]
-    )
-    big_df["公告日后涨幅统计-10个交易日-最小涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-10个交易日-最小涨幅"]
-    )
-    big_df["公告日后涨幅统计-30个交易日-平均涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-30个交易日-平均涨幅"]
-    )
-    big_df["公告日后涨幅统计-30个交易日-最大涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-30个交易日-最大涨幅"]
-    )
-    big_df["公告日后涨幅统计-30个交易日-最小涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-30个交易日-最小涨幅"]
-    )
-    big_df["公告日后涨幅统计-60个交易日-平均涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-60个交易日-平均涨幅"]
-    )
-    big_df["公告日后涨幅统计-60个交易日-最大涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-60个交易日-最大涨幅"]
-    )
-    big_df["公告日后涨幅统计-60个交易日-最小涨幅"] = pd.to_numeric(
-        big_df["公告日后涨幅统计-60个交易日-最小涨幅"]
-    )
+    big_df["公告日后涨幅统计-10个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-10个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-10个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-10个交易日-最小涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-30个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-30个交易日-最小涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-平均涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-平均涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-最大涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-最大涨幅"])
+    big_df["公告日后涨幅统计-60个交易日-最小涨幅"] = pd.to_numeric(big_df["公告日后涨幅统计-60个交易日-最小涨幅"])
     return big_df
 
 
@@ -382,7 +346,9 @@ def stock_gdfx_free_top_10_em(
     :return: 十大股东
     :rtype: pandas.DataFrame
     """
-    url = "https://emweb.securities.eastmoney.com/PC_HSF10/ShareholderResearch/PageSDLTGD"
+    url = (
+        "https://emweb.securities.eastmoney.com/PC_HSF10/ShareholderResearch/PageSDLTGD"
+    )
     params = {
         "code": f"{symbol.upper()}",
         "date": f"{'-'.join([date[:4], date[4:6], date[6:]])}",
@@ -641,6 +607,8 @@ def stock_gdfx_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
         "股东类型",
         "-",
         "-",
+        "-",
+        "-",
     ]
     big_df = big_df[
         [
@@ -662,11 +630,11 @@ def stock_gdfx_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
     ]
     big_df["报告期"] = pd.to_datetime(big_df["报告期"]).dt.date
     big_df["公告日"] = pd.to_datetime(big_df["公告日"]).dt.date
-    big_df["期末持股-数量"] = pd.to_numeric(big_df["期末持股-数量"])
-    big_df["期末持股-持股占流通股比"] = pd.to_numeric(big_df["期末持股-持股占流通股比"])
-    big_df["期末持股-数量变化"] = pd.to_numeric(big_df["期末持股-数量变化"])
-    big_df["期末持股-数量变化比例"] = pd.to_numeric(big_df["期末持股-数量变化比例"])
-    big_df["期末持股-流通市值"] = pd.to_numeric(big_df["期末持股-流通市值"])
+    big_df["期末持股-数量"] = pd.to_numeric(big_df["期末持股-数量"], errors="coerce")
+    big_df["期末持股-持股占流通股比"] = pd.to_numeric(big_df["期末持股-持股占流通股比"], errors="coerce")
+    big_df["期末持股-数量变化"] = pd.to_numeric(big_df["期末持股-数量变化"], errors="coerce")
+    big_df["期末持股-数量变化比例"] = pd.to_numeric(big_df["期末持股-数量变化比例"], errors="coerce")
+    big_df["期末持股-流通市值"] = pd.to_numeric(big_df["期末持股-流通市值"], errors="coerce")
     return big_df
 
 
@@ -992,8 +960,8 @@ def stock_gdfx_holding_teamwork_em() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_gdfx_free_holding_statistics_em_df = (
-        stock_gdfx_free_holding_statistics_em(date="20210930")
+    stock_gdfx_free_holding_statistics_em_df = stock_gdfx_free_holding_statistics_em(
+        date="20210930"
     )
     print(stock_gdfx_free_holding_statistics_em_df)
 
@@ -1007,9 +975,7 @@ if __name__ == "__main__":
     )
     print(stock_gdfx_free_holding_change_em_df)
 
-    stock_gdfx_holding_change_em_df = stock_gdfx_holding_change_em(
-        date="20210930"
-    )
+    stock_gdfx_holding_change_em_df = stock_gdfx_holding_change_em(date="20210930")
     print(stock_gdfx_holding_change_em_df)
 
     stock_gdfx_free_top_10_em_df = stock_gdfx_free_top_10_em(
@@ -1017,9 +983,7 @@ if __name__ == "__main__":
     )
     print(stock_gdfx_free_top_10_em_df)
 
-    stock_gdfx_top_10_em_df = stock_gdfx_top_10_em(
-        symbol="sh688686", date="20210630"
-    )
+    stock_gdfx_top_10_em_df = stock_gdfx_top_10_em(symbol="sh688686", date="20210630")
     print(stock_gdfx_top_10_em_df)
 
     stock_gdfx_free_holding_detail_em_df = stock_gdfx_free_holding_detail_em(
@@ -1027,9 +991,7 @@ if __name__ == "__main__":
     )
     print(stock_gdfx_free_holding_detail_em_df)
 
-    stock_gdfx_holding_detail_em_df = stock_gdfx_holding_detail_em(
-        date="20210930"
-    )
+    stock_gdfx_holding_detail_em_df = stock_gdfx_holding_detail_em(date="20210930")
     print(stock_gdfx_holding_detail_em_df)
 
     stock_gdfx_free_holding_analyse_em_df = stock_gdfx_free_holding_analyse_em(
@@ -1037,14 +999,10 @@ if __name__ == "__main__":
     )
     print(stock_gdfx_free_holding_analyse_em_df)
 
-    stock_gdfx_holding_analyse_em_df = stock_gdfx_holding_analyse_em(
-        date="20220331"
-    )
+    stock_gdfx_holding_analyse_em_df = stock_gdfx_holding_analyse_em(date="20220331")
     print(stock_gdfx_holding_analyse_em_df)
 
-    stock_gdfx_free_holding_teamwork_em_df = (
-        stock_gdfx_free_holding_teamwork_em()
-    )
+    stock_gdfx_free_holding_teamwork_em_df = stock_gdfx_free_holding_teamwork_em()
     print(stock_gdfx_free_holding_teamwork_em_df)
 
     stock_gdfx_holding_teamwork_em_df = stock_gdfx_holding_teamwork_em()
