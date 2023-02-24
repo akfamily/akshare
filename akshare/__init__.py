@@ -2312,9 +2312,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.93 fix: fix stock_gdfx_holding_detail_em interface
 1.8.94 fix: fix Dockerfile
 1.8.95 fix: fix index_zh_a_hist interface
+1.8.96 fix: fix option_finance_board interface
 """
 
-__version__ = "1.8.95"
+__version__ = "1.8.96"
 __author__ = "AKFamily"
 
 import sys
