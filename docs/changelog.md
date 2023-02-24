@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.96 fix: fix option_finance_board interface
+
+    1. 修复 option_finance_board 接口
+
 1.8.95 fix: fix index_zh_a_hist interface
 
     1. 修复 index_zh_a_hist 接口
@@ -1929,6 +1933,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.96 fix: fix option_finance_board interface
 
 1.8.95 fix: fix index_zh_a_hist interface
 
