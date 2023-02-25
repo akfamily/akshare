@@ -29,35 +29,17 @@ def futures_egg_price_yearly() -> pd.DataFrame:
     date_list = eval(js_text_processed[2])
     value_2015_list = eval(js_text_processed[4])
     value_2016_list = eval(js_text_processed[6])
-    value_2017_list = eval(js_text_processed[8])
-    value_2018_list = eval(js_text_processed[10])
-    value_2019_list = eval(js_text_processed[12])
-    value_2020_list = eval(js_text_processed[14])
-    value_2021_list = eval(js_text_processed[16])
-    value_2022_list = eval(js_text_processed[18])
     temp_df = pd.DataFrame(
         [
             date_list,
             value_2015_list,
             value_2016_list,
-            value_2017_list,
-            value_2018_list,
-            value_2019_list,
-            value_2020_list,
-            value_2021_list,
-            value_2022_list,
         ]
     ).T
     temp_df.columns = ["日期"] + year_list
     temp_df = temp_df[:-1]
-    temp_df['2015年'] = pd.to_numeric(temp_df['2015年'])
-    temp_df['2016年'] = pd.to_numeric(temp_df['2016年'])
-    temp_df['2017年'] = pd.to_numeric(temp_df['2017年'])
-    temp_df['2018年'] = pd.to_numeric(temp_df['2018年'])
-    temp_df['2019年'] = pd.to_numeric(temp_df['2019年'])
-    temp_df['2020年'] = pd.to_numeric(temp_df['2020年'])
-    temp_df['2021年'] = pd.to_numeric(temp_df['2021年'])
     temp_df['2022年'] = pd.to_numeric(temp_df['2022年'])
+    temp_df['2023年'] = pd.to_numeric(temp_df['2023年'])
     return temp_df
 
 
