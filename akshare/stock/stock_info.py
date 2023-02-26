@@ -341,6 +341,8 @@ def stock_info_sz_delist(symbol: str = "暂停上市公司") -> pd.DataFrame:
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
+        if temp_df.empty:
+            return pd.DataFrame()
         temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
         temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期']).dt.date
         temp_df['终止上市日期'] = pd.to_datetime(temp_df['终止上市日期']).dt.date
@@ -467,4 +469,7 @@ if __name__ == "__main__":
     print(stock_info_bj_name_code_df)
 
     stock_info_sz_delist_df = stock_info_sz_delist(symbol="终止上市公司")
+    print(stock_info_sz_delist_df)
+
+    stock_info_sz_delist_df = stock_info_sz_delist(symbol="暂停上市公司")
     print(stock_info_sz_delist_df)

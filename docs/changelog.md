@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.8.98 fix: fix stock_info_sz_delist interface
+
+    1. 修复 stock_info_sz_delist 接口
+
 1.8.97 fix: fix futures_egg_price_yearly interface
 
     1. 修复 futures_egg_price_yearly 接口
@@ -1939,6 +1943,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.8.98 fix: fix stock_info_sz_delist interface
 
 1.8.97 fix: fix futures_egg_price_yearly interface
 
