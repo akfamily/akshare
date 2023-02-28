@@ -2331,6 +2331,7 @@ if sys.version_info < (3, 8):
 del sys
 
 """
+期货资讯
 """
 from akshare.futures.futures_news_shmet import futures_news_shmet
 
