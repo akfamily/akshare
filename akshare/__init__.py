@@ -2315,9 +2315,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.8.96 fix: fix option_finance_board interface
 1.8.97 fix: fix futures_egg_price_yearly interface
 1.8.98 fix: fix stock_info_sz_delist interface
+1.8.99 add: add futures_news_shmet interface
 """
 
-__version__ = "1.8.98"
+__version__ = "1.8.99"
 __author__ = "AKFamily"
 
 import sys
@@ -2328,6 +2329,10 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+"""
+from akshare.futures.futures_news_shmet import futures_news_shmet
 
 """
 主营介绍
