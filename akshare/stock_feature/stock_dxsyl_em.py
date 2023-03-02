@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/21 23:40
+Date: 2023/3/2 14:40
 Desc: 东方财富网-数据中心-新股数据-打新收益率
 东方财富网-数据中心-新股申购-打新收益率
 https://data.eastmoney.com/xg/xg/dxsyl.html
 东方财富网-数据中心-新股数据-新股申购与中签查询
-http://data.eastmoney.com/xg/xg/default_2.html
+https://data.eastmoney.com/xg/xg/default_2.html
 """
 import pandas as pd
 import requests
@@ -109,7 +109,7 @@ def stock_dxsyl_em() -> pd.DataFrame:
 def stock_xgsglb_em(symbol: str = "京市A股") -> pd.DataFrame:
     """
     新股申购与中签查询
-    http://data.eastmoney.com/xg/xg/default_2.html
+    https://data.eastmoney.com/xg/xg/default_2.html
     :param symbol: choice of {"全部股票", "沪市A股", "科创板", "深市A股", "创业板", "京市A股"}
     :type symbol: str
     :return: 新股申购与中签数据
