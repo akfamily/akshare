@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/21 16:03
+Date: 2023/3/3 20:03
 Desc: 同花顺-数据中心-资金流向
 同花顺-数据中心-资金流向-个股资金流
-http://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
+https://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
 同花顺-数据中心-资金流向-概念资金流
-http://data.10jqka.com.cn/funds/gnzjl/#refCountId=data_55f13c2c_254
+https://data.10jqka.com.cn/funds/gnzjl/#refCountId=data_55f13c2c_254
 同花顺-数据中心-资金流向-行业资金流
-http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
+https://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
 同花顺-数据中心-资金流向-打单追踪
-http://data.10jqka.com.cn/funds/ddzz/#refCountId=data_55f13c2c_254
+https://data.10jqka.com.cn/funds/ddzz/#refCountId=data_55f13c2c_254
 """
 
 import pandas as pd
@@ -39,7 +39,7 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
 def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
     """
     同花顺-数据中心-资金流向-个股资金流
-    http://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
+    https://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
     :param symbol: choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"}
     :type symbol: str
     :return: 个股资金流
@@ -132,7 +132,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
 def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
     """
     同花顺-数据中心-资金流向-概念资金流
-    http://data.10jqka.com.cn/funds/gnzjl/#refCountId=data_55f13c2c_254
+    https://data.10jqka.com.cn/funds/gnzjl/#refCountId=data_55f13c2c_254
     :param symbol: choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"}
     :type symbol: str
     :return: 概念资金流
@@ -233,7 +233,7 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
 def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
     """
     同花顺-数据中心-资金流向-行业资金流
-    http://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
+    https://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
     :param symbol: choice of {“即时”, "3日排行", "5日排行", "10日排行", "20日排行"}
     :type symbol: str
     :return: 行业资金流
@@ -334,7 +334,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
 def stock_fund_flow_big_deal() -> pd.DataFrame:
     """
     同花顺-数据中心-资金流向-大单追踪
-    http://data.10jqka.com.cn/funds/ddzz/###
+    https://data.10jqka.com.cn/funds/ddzz
     :return: 大单追踪
     :rtype: pandas.DataFrame
     """
