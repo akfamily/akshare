@@ -151,9 +151,7 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-
     col_stock_code = "B_STOCK_CODE" if symbol == "主板B股" else "A_STOCK_CODE"
-
     temp_df.rename(columns={
         col_stock_code: "证券代码",
         "COMPANY_ABBR": "证券简称",
