@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/2 14:40
+Date: 2023/3/3 16:30
 Desc: 东方财富网-数据中心-新股数据-打新收益率
 东方财富网-数据中心-新股申购-打新收益率
 https://data.eastmoney.com/xg/xg/dxsyl.html
@@ -106,7 +106,7 @@ def stock_dxsyl_em() -> pd.DataFrame:
     return big_df
 
 
-def stock_xgsglb_em(symbol: str = "京市A股") -> pd.DataFrame:
+def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
     """
     新股申购与中签查询
     https://data.eastmoney.com/xg/xg/default_2.html
@@ -243,55 +243,60 @@ def stock_xgsglb_em(symbol: str = "京市A股") -> pd.DataFrame:
             data_json = r.json()
             temp_df = pd.DataFrame(data_json["result"]["data"])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        big_df.columns = [
-            "股票代码",
-            "股票简称",
-            "_",
-            "申购代码",
-            "_",
-            "_",
-            "_",
-            "发行总数",
-            "网上发行",
-            "_",
-            "顶格申购需配市值",
-            "_",
-            "申购上限",
-            "_",
-            "发行价格",
-            "最新价",
-            "首日收盘价",
-            "申购日期",
-            "中签号公布日",
-            "中签缴款日期",
-            "上市日期",
-            "发行市盈率",
-            "中签率",
-            "询价累计报价倍数",
-            "_",
-            "配售对象报价家数",
-            "连续一字板数量",
-            "涨幅",
-            "每中一签获利",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "行业市盈率",
-            "_",
-            "_",
-            "_",
-        ]
+        big_df.rename(
+            columns={
+                "SECURITY_CODE": "股票代码",
+                "SECURITY_NAME": "股票简称",
+                "TRADE_MARKET_CODE": "-",
+                "APPLY_CODE": "申购代码",
+                "TRADE_MARKET": "-",
+                "MARKET_TYPE": "-",
+                "ORG_TYPE": "-",
+                "ISSUE_NUM": "发行总数",
+                "ONLINE_ISSUE_NUM": "网上发行",
+                "OFFLINE_PLACING_NUM": "_",
+                "TOP_APPLY_MARKETCAP": "顶格申购需配市值",
+                "PREDICT_ONFUND_UPPER": "_",
+                "ONLINE_APPLY_UPPER": "申购上限",
+                "PREDICT_ONAPPLY_UPPER": "_",
+                "ISSUE_PRICE": "发行价格",
+                "LATELY_PRICE": "最新价",
+                "CLOSE_PRICE": "首日收盘价",
+                "APPLY_DATE": "申购日期",
+                "BALLOT_NUM_DATE": "中签号公布日",
+                "BALLOT_PAY_DATE": "中签缴款日期",
+                "LISTING_DATE": "上市日期",
+                "AFTER_ISSUE_PE": "发行市盈率",
+                "ONLINE_ISSUE_LWR": "中签率",
+                "INITIAL_MULTIPLE": "询价累计报价倍数",
+                "INDUSTRY_PE_NEW": "行业市盈率",
+                "OFFLINE_EP_OBJECT": "配售对象报价家数",
+                "CONTINUOUS_1WORD_NUM": "连续一字板数量",
+                "TOTAL_CHANGE": "涨幅",
+                "PROFIT": "每中一签获利",
+                "LIMIT_UP_PRICE": "_",
+                "INFO_CODE": "_",
+                "OPEN_PRICE": "_",
+                "LD_OPEN_PREMIUM": "_",
+                "LD_CLOSE_CHANGE": "_",
+                "TURNOVERRATE": "_",
+                "LD_HIGH_CHANG": "_",
+                "LD_AVERAGE_PRICE": "_",
+                "OPEN_DATE": "_",
+                "OPEN_AVERAGE_PRICE": "_",
+                "PREDICT_PE": "_",
+                "PREDICT_ISSUE_PRICE2": "_",
+                "PREDICT_ISSUE_PRICE": "_",
+                "PREDICT_ISSUE_PRICE1": "_",
+                "PREDICT_ISSUE_PE": "_",
+                "PREDICT_PE_THREE": "_",
+                "ONLINE_APPLY_PRICE": "_",
+                "MAIN_BUSINESS": "_",
+                "IS_REGISTRATION": "_",
+            },
+            inplace=True,
+        )
+
         big_df = big_df[
             [
                 "股票代码",
@@ -321,20 +326,20 @@ def stock_xgsglb_em(symbol: str = "京市A股") -> pd.DataFrame:
         big_df["申购日期"] = pd.to_datetime(big_df["申购日期"]).dt.date
         big_df["中签号公布日"] = pd.to_datetime(big_df["中签号公布日"]).dt.date
         big_df["中签缴款日期"] = pd.to_datetime(big_df["中签缴款日期"]).dt.date
-        big_df["发行总数"] = pd.to_numeric(big_df["发行总数"])
-        big_df["网上发行"] = pd.to_numeric(big_df["网上发行"])
-        big_df["顶格申购需配市值"] = pd.to_numeric(big_df["顶格申购需配市值"])
-        big_df["申购上限"] = pd.to_numeric(big_df["申购上限"])
-        big_df["发行价格"] = pd.to_numeric(big_df["发行价格"])
-        big_df["最新价"] = pd.to_numeric(big_df["最新价"])
-        big_df["首日收盘价"] = pd.to_numeric(big_df["首日收盘价"])
-        big_df["发行市盈率"] = pd.to_numeric(big_df["发行市盈率"])
-        big_df["行业市盈率"] = pd.to_numeric(big_df["行业市盈率"])
-        big_df["中签率"] = pd.to_numeric(big_df["中签率"])
-        big_df["询价累计报价倍数"] = pd.to_numeric(big_df["询价累计报价倍数"])
-        big_df["配售对象报价家数"] = pd.to_numeric(big_df["配售对象报价家数"])
-        big_df["涨幅"] = pd.to_numeric(big_df["涨幅"])
-        big_df["每中一签获利"] = pd.to_numeric(big_df["每中一签获利"])
+        big_df["发行总数"] = pd.to_numeric(big_df["发行总数"], errors="coerce")
+        big_df["网上发行"] = pd.to_numeric(big_df["网上发行"], errors="coerce")
+        big_df["顶格申购需配市值"] = pd.to_numeric(big_df["顶格申购需配市值"], errors="coerce")
+        big_df["申购上限"] = pd.to_numeric(big_df["申购上限"], errors="coerce")
+        big_df["发行价格"] = pd.to_numeric(big_df["发行价格"], errors="coerce")
+        big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+        big_df["首日收盘价"] = pd.to_numeric(big_df["首日收盘价"], errors="coerce")
+        big_df["发行市盈率"] = pd.to_numeric(big_df["发行市盈率"], errors="coerce")
+        big_df["行业市盈率"] = pd.to_numeric(big_df["行业市盈率"], errors="coerce")
+        big_df["中签率"] = pd.to_numeric(big_df["中签率"], errors="coerce")
+        big_df["询价累计报价倍数"] = pd.to_numeric(big_df["询价累计报价倍数"], errors="coerce")
+        big_df["配售对象报价家数"] = pd.to_numeric(big_df["配售对象报价家数"], errors="coerce")
+        big_df["涨幅"] = pd.to_numeric(big_df["涨幅"], errors="coerce")
+        big_df["每中一签获利"] = pd.to_numeric(big_df["每中一签获利"], errors="coerce")
     return big_df
 
 
