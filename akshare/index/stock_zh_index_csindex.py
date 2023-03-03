@@ -159,12 +159,12 @@ def index_value_name_funddb() -> pd.DataFrame:
         ]
     ]
     temp_df["指数开始时间"] = pd.to_datetime(temp_df["指数开始时间"]).dt.date
-    temp_df["最新PE"] = pd.to_numeric(temp_df["最新PE"])
-    temp_df["PE分位"] = pd.to_numeric(temp_df["PE分位"])
-    temp_df["最新PB"] = pd.to_numeric(temp_df["最新PB"])
-    temp_df["PB分位"] = pd.to_numeric(temp_df["PB分位"])
-    temp_df["股息率"] = pd.to_numeric(temp_df["股息率"])
-    temp_df["股息率分位"] = pd.to_numeric(temp_df["股息率分位"])
+    temp_df["最新PE"] = pd.to_numeric(temp_df["最新PE"], errors="coerce")
+    temp_df["PE分位"] = pd.to_numeric(temp_df["PE分位"], errors="coerce")
+    temp_df["最新PB"] = pd.to_numeric(temp_df["最新PB"], errors="coerce")
+    temp_df["PB分位"] = pd.to_numeric(temp_df["PB分位"], errors="coerce")
+    temp_df["股息率"] = pd.to_numeric(temp_df["股息率"], errors="coerce")
+    temp_df["股息率分位"] = pd.to_numeric(temp_df["股息率分位"], errors="coerce")
     return temp_df
 
 
