@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/23 15:38
+Date: 2023/3/6 10:38
 Desc: Drewry 集装箱指数
 https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry
 https://infogram.com/world-container-index-1h17493095xl4zj
@@ -40,6 +40,8 @@ def drewry_wci_index(symbol: str = "composite") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["elements"][2]["data"][symbol_map[symbol]])
     temp_df = temp_df.iloc[1:, :]
     temp_df.columns = ["date", "wci"]
+    temp_df['date'] = [item['value'] for item in temp_df['date']]
+    temp_df['wci'] = [item['value'] for item in temp_df['wci']]
     day = temp_df["date"].str.split("-", expand=True).iloc[:, 0].str.strip()
     month = temp_df["date"].str.split("-", expand=True).iloc[:, 1].str.strip()
     year = temp_df["date"].str.split("-", expand=True).iloc[:, 2].str.strip()

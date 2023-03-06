@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.9.4 fix: fix drewry_wci_index interface
+
+    1. 修复 drewry_wci_index 接口
+
 1.9.3 fix: fix fx_quote_baidu interface
 
     1. 修复 fx_quote_baidu 接口
@@ -1959,6 +1963,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.4 fix: fix drewry_wci_index interface
 
 1.9.3 fix: fix fx_quote_baidu interface
 
