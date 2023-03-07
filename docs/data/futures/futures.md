@@ -3730,7 +3730,7 @@ print(futures_comex_inventory_df)
 
 接口: futures_hog_info
 
-目标地址:  https://zhujia.zhuwang.cc/
+目标地址: https://zhujia.zhuwang.com.cn
 
 描述: 养猪数据中心-猪肉价格信息数据
 
@@ -4248,7 +4248,7 @@ print(futures_hog_info_df)
 
 接口: futures_hog_rank
 
-目标地址:  https://zhujia.zhuwang.cc/
+目标地址: https://zhujia.zhuwang.com.cn
 
 描述: 养猪数据中心-生猪价格排行
 

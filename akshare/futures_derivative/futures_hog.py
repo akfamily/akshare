@@ -3,7 +3,7 @@
 """
 Date: 2023/2/13 22:03
 Desc: 养猪数据中心
-https://zhujia.zhuwang.cc
+https://zhujia.zhuwang.com.cn
 """
 import requests
 import pandas as pd
@@ -12,14 +12,14 @@ import pandas as pd
 def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
     """
     养猪数据中心
-    https://zhujia.zhuwang.cc/
+    https://zhujia.zhuwang.com.cn/
     :param symbol: choice of {"猪肉批发价", "仔猪价格", "生猪期货指数", "二元母猪价格", "生猪产能数据", "饲料原料数据", "中央储备冻猪肉", "白条肉", "育肥猪配合饲料", "肉类价格指数", "猪粮比价", "猪企销售简报-销售量", "猪企销售简报-销售额", "猪企销售简报-销售均价"}
     :type symbol: str
     :return: 猪肉信息
     :rtype: pandas.DataFrame
     """
     if symbol == "猪肉批发价":
-        url = "https://zhujia.zhuwang.cc/new_map/zhujiapork/chart1.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/zhujiapork/chart1.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -28,7 +28,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         del temp_df["item"]
         return temp_df
     elif symbol == "仔猪价格":
-        url = "https://zhujia.zhuwang.cc/new_map/zhizhu/chart2.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/zhizhu/chart2.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -38,7 +38,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["value"] = pd.to_numeric(temp_df["value"])
         return temp_df
     elif symbol == "生猪期货指数":
-        url = "https://zhujia.zhuwang.cc/new_map/shengzhuqihuo/chart1.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/shengzhuqihuo/chart1.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -49,7 +49,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df.columns = ["日期"] + need_list
         return temp_df
     elif symbol == "二元母猪价格":
-        url = "https://zhujia.zhuwang.cc/new_map/eryuanpig/chart2.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/eryuanpig/chart2.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -59,7 +59,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["value"] = pd.to_numeric(temp_df["value"])
         return temp_df
     elif symbol == "生猪产能数据":
-        url = "https://zhujia.zhuwang.cc/new_map/shengzhuchanneng/chart1.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/shengzhuchanneng/chart1.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -71,7 +71,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["生猪出栏"] = pd.to_numeric(temp_df["生猪出栏"], errors="coerce")
         return temp_df
     elif symbol == "饲料原料数据":
-        url = "https://zhujia.zhuwang.cc/new_map/pigfeed/chart1.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/pigfeed/chart1.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -84,7 +84,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["玉米播种面积"] = pd.to_numeric(temp_df["玉米播种面积"], errors="coerce")
         return temp_df
     elif symbol == "中央储备冻猪肉":
-        url = "https://zhujia.zhuwang.cc/new_map/chubeidongzhurou/chart2.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/chubeidongzhurou/chart2.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -94,7 +94,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["value"] = pd.to_numeric(temp_df["value"])
         return temp_df
     elif symbol == "白条肉":
-        url = "https://zhujia.zhuwang.cc/new_map/baitiaozhurou/chart1.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/baitiaozhurou/chart1.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -105,7 +105,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["同比"] = pd.to_numeric(temp_df["同比"])
         return temp_df
     elif symbol == "育肥猪配合饲料":
-        url = "https://zhujia.zhuwang.cc/new_map/yufeipig/chart1.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/yufeipig/chart1.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -116,7 +116,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["上一周"] = pd.to_numeric(temp_df["上一周"])
         return temp_df
     elif symbol == "肉类价格指数":
-        url = "https://zhujia.zhuwang.cc/new_map/meatindex/chart1.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/meatindex/chart1.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -136,7 +136,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["value"] = pd.to_numeric(temp_df["value"])
         return temp_df
     elif symbol == "猪企销售简报-销售量":
-        url = "https://zhujia.zhuwang.cc/new_map/zhuqixiaoshoujianbao/xiaoliang.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/zhuqixiaoshoujianbao/xiaoliang.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -148,7 +148,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["牧原"] = pd.to_numeric(temp_df["牧原"])
         return temp_df
     elif symbol == "猪企销售简报-销售额":
-        url = "https://zhujia.zhuwang.cc/new_map/zhuqixiaoshoujianbao/xiaoshoue.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/zhuqixiaoshoujianbao/xiaoshoue.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -160,7 +160,7 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
         temp_df["牧原"] = pd.to_numeric(temp_df["牧原"])
         return temp_df
     elif symbol == "猪企销售简报-销售均价":
-        url = "https://zhujia.zhuwang.cc/new_map/zhuqixiaoshoujianbao/junjia.json"
+        url = "https://zhujia.zhuwang.com.cn/new_map/zhuqixiaoshoujianbao/junjia.json"
         params = {"timestamp": "1627567846422"}
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -176,14 +176,14 @@ def futures_hog_info(symbol: str = "猪肉批发价") -> pd.DataFrame:
 def futures_hog_rank(symbol: str = "外三元") -> pd.DataFrame:
     """
     价格排行榜
-    https://zhujia.zhuwang.cc/lists.shtml
+    https://zhujia.zhuwang.com.cn/lists.shtml
     :param symbol: choice of {"外三元", "内三元", "土杂猪", "玉米", "豆粕"}
     :type symbol: str
     :return: 价格排行榜
     :rtype: pandas.DataFrame
     """
     if symbol == "外三元":
-        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists.shtml")[0]
+        temp_df = pd.read_html("https://zhujia.zhuwang.com.cn/lists.shtml")[0]
         temp_df.columns = [
             '排名',
             '品种',
@@ -197,7 +197,7 @@ def futures_hog_rank(symbol: str = "外三元") -> pd.DataFrame:
         temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
         return temp_df
     elif symbol == "内三元":
-        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists-1.shtml")[0]
+        temp_df = pd.read_html("https://zhujia.zhuwang.com.cn/lists-1.shtml")[0]
         temp_df.columns = [
             '排名',
             '品种',
@@ -211,7 +211,7 @@ def futures_hog_rank(symbol: str = "外三元") -> pd.DataFrame:
         temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
         return temp_df
     elif symbol == "土杂猪":
-        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists-2.shtml")[0]
+        temp_df = pd.read_html("https://zhujia.zhuwang.com.cn/lists-2.shtml")[0]
         temp_df.columns = [
             '排名',
             '品种',
@@ -225,7 +225,7 @@ def futures_hog_rank(symbol: str = "外三元") -> pd.DataFrame:
         temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
         return temp_df
     elif symbol == "玉米":
-        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists-3.shtml")[0]
+        temp_df = pd.read_html("https://zhujia.zhuwang.com.cn/lists-3.shtml")[0]
         temp_df.columns = [
             '排名',
             '品种',
@@ -239,7 +239,7 @@ def futures_hog_rank(symbol: str = "外三元") -> pd.DataFrame:
         temp_df['价格-斤'] = pd.to_numeric(temp_df['价格-斤'])
         return temp_df
     elif symbol == "豆粕":
-        temp_df = pd.read_html("https://zhujia.zhuwang.cc/lists-4.shtml")[0]
+        temp_df = pd.read_html("https://zhujia.zhuwang.com.cn/lists-4.shtml")[0]
         temp_df.columns = [
             '排名',
             '品种',
