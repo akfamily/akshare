@@ -12,6 +12,7 @@ from functools import lru_cache
 import pandas as pd
 import requests
 from tqdm import tqdm
+from akshare.index.cons import short_headers
 
 
 def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
@@ -184,14 +185,14 @@ def stock_info_bj_name_code() -> pd.DataFrame:
         "sortfield": "xxzqdm",
         "sorttype": "asc",
     }
-    r = requests.post(url, data=payload)
+    r = requests.post(url, data=payload,headers=short_headers)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("[") : -1])
     total_page = data_json[0]["totalPages"]
     big_df = pd.DataFrame()
     for page in tqdm(range(total_page), leave=False):
         payload.update({"page": page})
-        r = requests.post(url, data=payload)
+        r = requests.post(url, data=payload,headers=short_headers)
         data_text = r.text
         data_json = json.loads(data_text[data_text.find("[") : -1])
         temp_df = data_json[0]["content"]
