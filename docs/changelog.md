@@ -49,6 +49,10 @@
 
 ## 更新说明
 
+1.9.6 fix: fix futures_hog_info interface
+
+    1. 修复 futures_hog_info 接口
+
 1.9.5 fix: fix stock_info_a_code_name interface
 
     1. 修复 stock_info_a_code_name 接口
@@ -1967,6 +1971,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.6 fix: fix futures_hog_info interface
 
 1.9.5 fix: fix stock_info_a_code_name interface
 
