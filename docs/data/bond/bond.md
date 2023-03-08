@@ -1474,6 +1474,8 @@ print(bond_convert_adj_logs_jsl_df)
 
 ### 全球债券行情数据
 
+P.S. 该接口暂时不能获取数据
+
 接口: bond_investing_global
 
 目标地址: https://cn.investing.com/rates-bonds
