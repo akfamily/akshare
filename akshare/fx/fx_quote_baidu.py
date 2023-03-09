@@ -7,6 +7,7 @@ https://gushitong.baidu.com/top/foreign-common-%E5%B8%B8%E7%94%A8
 """
 import http.client
 import json
+import urllib
 
 import pandas as pd
 
@@ -29,9 +30,13 @@ def fx_quote_baidu(symbol: str = "人民币") -> pd.DataFrame:
     while True:
         try:
             conn = http.client.HTTPSConnection("finance.pae.baidu.com")
-            conn.request(
-                "GET", f"/api/getforeignrank?pn={num}&rn=20&type={symbol_map[symbol]}&finClientType=pc"
-            )
+            params = {
+                "pn": num,
+                "rn": "20",
+                "type": symbol_map[symbol],
+                "finClientType": "pc",
+            }
+            conn.request("GET", f"/api/getforeignrank?{urllib.parse.urlencode(params)}")
             res = conn.getresponse()
             data = res.read()
             data_json = json.loads(data.decode("utf-8"))

@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/2/10 16:26
+Date: 2023/3/9 20:26
 Desc: 百度股市通-港股-财务报表-估值数据
 https://gushitong.baidu.com/stock/hk-06969
 """
-import requests
+import http.client
+import json
+import urllib
+
 import pandas as pd
 
 
@@ -24,10 +27,6 @@ def stock_hk_valuation_baidu(
     :return: 估值数据
     :rtype: pandas.DataFrame
     """
-    url = "https://finance.pae.baidu.com/selfselect/openapi"
-    headers = {
-        "Accept": "*/*",
-    }
     params = {
         "srcid": "51171",
         "code": symbol,
@@ -37,8 +36,10 @@ def stock_hk_valuation_baidu(
         "skip_industry": "0",
         "finClientType": "pc",
     }
-    r = requests.get(url, params=params, headers=headers)
-    data_json = r.json()
+    conn = http.client.HTTPSConnection("finance.pae.baidu.com")
+    conn.request("GET", f"/selfselect/openapi?{urllib.parse.urlencode(params)}")
+    r = conn.getresponse()
+    data_json = json.loads(r.read())
     temp_df = pd.DataFrame(data_json["Result"]["chartInfo"][0]["body"])
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
