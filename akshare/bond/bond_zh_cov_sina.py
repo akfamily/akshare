@@ -3,7 +3,7 @@
 """
 Date: 2022/6/11 21:23
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
-http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
+https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
 import datetime
 import re
@@ -318,7 +318,7 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
 def bond_zh_cov() -> pd.DataFrame:
     """
     东方财富网-数据中心-新股数据-可转债数据
-    http://data.eastmoney.com/kzz/default.html
+    https://data.eastmoney.com/kzz/default.html
     :return: 可转债数据
     :rtype: pandas.DataFrame
     """

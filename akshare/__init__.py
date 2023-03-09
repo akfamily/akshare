@@ -2322,9 +2322,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.4 fix: fix drewry_wci_index interface
 1.9.5 fix: fix stock_info_a_code_name interface
 1.9.6 fix: fix futures_hog_info interface
+1.9.7 add: add stock_profit_forecast_ths interface
 """
 
-__version__ = "1.9.6"
+__version__ = "1.9.7"
 __author__ = "AKFamily"
 
 import sys
@@ -2335,6 +2336,11 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+同花顺-盈利预测
+"""
+from akshare.stock_fundamental.stock_profit_forecast_ths import stock_profit_forecast_ths
 
 """
 期货资讯
@@ -3303,8 +3309,8 @@ from akshare.bond.bond_em import bond_zh_us_rate
 """
 盈利预测
 """
-from akshare.stock_fundamental.stock_profit_forecast import (
-    stock_profit_forecast,
+from akshare.stock_fundamental.stock_profit_forecast_em import (
+    stock_profit_forecast_em,
 )
 
 """

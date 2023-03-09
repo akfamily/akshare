@@ -10,7 +10,7 @@ import requests
 from tqdm import tqdm
 
 
-def stock_profit_forecast(symbol: str = ""):
+def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-盈利预测
     https://data.eastmoney.com/report/profitforecast.jshtml
@@ -129,5 +129,5 @@ def stock_profit_forecast(symbol: str = ""):
 
 
 if __name__ == "__main__":
-    stock_profit_forecast_df = stock_profit_forecast(symbol="")
-    print(stock_profit_forecast_df)
+    stock_profit_forecast_em_df = stock_profit_forecast_em(symbol="")
+    print(stock_profit_forecast_em_df)

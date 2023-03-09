@@ -4,6 +4,7 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.9.7      | stock_profit_forecast                       | stock_profit_forecast_em                    | 20230309 |
 | 1.8.38     | macro_cons_silver_amount                    | macro_cons_silver                           | 20221227 |
 | 1.8.38     | macro_cons_silver_change                    | macro_cons_silver                           | 20221227 |
 | 1.8.38     | macro_cons_silver_volume                    | macro_cons_silver                           | 20221227 |
@@ -48,6 +49,11 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.9.7 add: add stock_profit_forecast_ths interface
+
+    1. 新增 stock_profit_forecast_ths 接口
+    2. 重命名 stock_profit_forecast 为 stock_profit_forecast_em
 
 1.9.6 fix: fix futures_hog_info interface
 
@@ -1971,6 +1977,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.7 add: add stock_profit_forecast_ths interface
 
 1.9.6 fix: fix futures_hog_info interface
 
