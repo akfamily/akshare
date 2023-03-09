@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/27 12:20
+Date: 2023/3/9 22:20
 Desc: 宏观数据-中国
 """
 import json
@@ -2490,7 +2490,7 @@ def macro_china_bsi_index() -> pd.DataFrame:
     return big_df
 
 
-def em_macro_1(em_id) -> pd.DataFrame:
+def _em_macro_1(em_id) -> pd.DataFrame:
     """
     获取东财宏观数据的一种通用函数1
     """
@@ -2541,47 +2541,47 @@ def em_macro_1(em_id) -> pd.DataFrame:
     return big_df
 
 
-def macro_shipping_bci():
+def macro_shipping_bci() -> pd.DataFrame:
     """
     海岬型运费指数（BCI）
     https://data.eastmoney.com/cjsj/hyzs_list_EMI00107666.html
     :return: 海岬型运费指数
     :rtype: pandas.DataFrame
     """
-    ts = em_macro_1("EMI00107666")
+    ts = _em_macro_1("EMI00107666")
     return ts
 
 
-def macro_shipping_bdi():
+def macro_shipping_bdi() -> pd.DataFrame:
     """
     波罗的海干散货指数(BDI)
     https://data.eastmoney.com/cjsj/hyzs_list_EMI00107664.html
     :return: 波罗的海干散货指数
     :rtype: pandas.DataFrame
     """
-    ts = em_macro_1("EMI00107664")
+    ts = _em_macro_1("EMI00107664")
     return ts
 
 
-def macro_shipping_bpi():
+def macro_shipping_bpi() -> pd.DataFrame:
     """
     巴拿马型运费指数(BPI)
     https://data.eastmoney.com/cjsj/hyzs_list_EMI00107665.html
     :return: 巴拿马型运费指数
     :rtype: pandas.DataFrame
     """
-    ts = em_macro_1("EMI00107665")
+    ts = _em_macro_1("EMI00107665")
     return ts
 
 
-def macro_shipping_bcti():
+def macro_shipping_bcti() -> pd.DataFrame:
     """
     成品油运输指数（BCTI）
     https://data.eastmoney.com/cjsj/hyzs_list_EMI00107669.html
     :return: 成品油运输指数
     :rtype: pandas.DataFrame
     """
-    ts = em_macro_1("EMI00107669")
+    ts = _em_macro_1("EMI00107669")
     return ts
 
 
