@@ -2492,7 +2492,7 @@ def macro_china_bsi_index() -> pd.DataFrame:
 
 def _em_macro_1(em_id) -> pd.DataFrame:
     """
-    获取东财宏观数据的一种通用函数1
+    东财宏观数据的一种通用函数
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     ind_id = '"' + em_id + '"'
@@ -2543,7 +2543,7 @@ def _em_macro_1(em_id) -> pd.DataFrame:
 
 def macro_shipping_bci() -> pd.DataFrame:
     """
-    海岬型运费指数（BCI）
+    海岬型运费指数(BCI)
     https://data.eastmoney.com/cjsj/hyzs_list_EMI00107666.html
     :return: 海岬型运费指数
     :rtype: pandas.DataFrame
