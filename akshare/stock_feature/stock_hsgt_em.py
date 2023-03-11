@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/11/27 20:32
+Date: 2023/3/10 16:32
 Desc: 东方财富网-数据中心-沪深港通持股
 https://data.eastmoney.com/hsgtcg/
 沪深港通详情: https://finance.eastmoney.com/news/1622,20161118685370149.html
@@ -1401,7 +1401,7 @@ def stock_hsgt_board_rank_em(
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-沪深港通持股-行业板块排行-北向资金增持行业板块排行
-    http://data.eastmoney.com/hsgtcg/hy.html
+    https://data.eastmoney.com/hsgtcg/hy.html
     :param symbol: choice of {"北向资金增持行业板块排行", "北向资金增持概念板块排行", "北向资金增持地域板块排行"}
     :type symbol: str
     :param indicator: choice of {"今日", "3日", "5日", "10日", "1月", "1季", "1年"}
@@ -1523,7 +1523,7 @@ def stock_hsgt_board_rank_em(
 def stock_hsgt_individual_em(stock: str = "002008") -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票
-    http://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
+    https://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
     :param stock: 股票代码
     :type stock: str
     :return: 具体股票-沪深港通持股
@@ -1598,7 +1598,7 @@ def stock_hsgt_individual_detail_em(
 ) -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通-沪深港通持股-具体股票详情
-    http://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
+    https://data.eastmoney.com/hsgtcg/StockHdStatistics/002008.html
     :param symbol: 股票代码
     :type symbol: str
     :param start_date: 开始时间
