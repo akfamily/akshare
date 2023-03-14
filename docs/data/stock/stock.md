@@ -819,7 +819,7 @@ print(stock_cy_a_spot_em_df)
 
 接口: stock_kc_a_spot_em
 
-目标地址: http://quote.eastmoney.com/center/gridlist.html#hs_a_board
+目标地址: http://quote.eastmoney.com/center/gridlist.html#kcb_board
 
 描述: 东方财富网-科创板-实时行情
 
