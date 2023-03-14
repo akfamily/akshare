@@ -2531,6 +2531,8 @@ print(futures_foreign_detail_df)
 
 #### 全球商品期货
 
+P.S. 该接口暂时不能获取数据
+
 接口: futures_global_commodity_hist
 
 目标地址: https://cn.investing.com/commodities
@@ -2541,28 +2543,29 @@ print(futures_foreign_detail_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| sector | str  | Y    |  能源、农业、金属、商品指数之一|
-| symbol | str  | Y    |  对应板块中的产品名称, 可以通过查询网页获取或者调用 **futures_global_commodity_name_url_map** 获取|
-| start_date | str  | Y    |  需要获取数据的开始时间; e.g., start_date='2005/01/01'|
-| end_date | str  | Y    |  需要获取数据的开始时间; e.g., end_date='2015/01/01' |
+| 名称         | 类型  | 描述                                                                      |
+|------------|-----|-------------------------------------------------------------------------|
+| sector     | str | 能源、农业、金属、商品指数之一                                                         |
+| symbol     | str | 对应板块中的产品名称, 可以通过查询网页获取或者调用 **futures_global_commodity_name_url_map** 获取 |
+| start_date | str | 需要获取数据的开始时间; e.g., start_date='2005/01/01'                              |
+| end_date   | str | 需要获取数据的开始时间; e.g., end_date='2015/01/01'                                |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | datetime64   | Y        | 日期  |
-| 收盘      | float64   | Y        | 收盘   |
-| 开盘      | float64   | Y        | 开盘        |
-| 高        | float64   | Y        |高    |
-| 低         | float64 | Y        | 低         |
-| 涨跌幅      | float64 | Y        | 涨跌幅      |
+| 名称  | 类型         | 描述  |
+|-----|------------|-----|
+| 日期  | datetime64 | 日期  |
+| 收盘  | float64    | 收盘  |
+| 开盘  | float64    | 开盘  |
+| 高   | float64    | 高   |
+| 低   | float64    | 低   |
+| 涨跌幅 | float64    | 涨跌幅 |
 
 接口示例--futures_global_commodity_name_url_map
 
 ```python
 import akshare as ak
+
 futures_global_commodity_name_url_map_dict = ak.futures_global_commodity_name_url_map(sector="能源")
 print(futures_global_commodity_name_url_map_dict)
 ```
@@ -2577,6 +2580,7 @@ print(futures_global_commodity_name_url_map_dict)
 
 ```python
 import akshare as ak
+
 futures_global_commodity_hist_df = ak.futures_global_commodity_hist(sector="能源", symbol="伦敦布伦特原油", start_date='20050101', end_date='20191017')
 print(futures_global_commodity_hist_df)
 ```
