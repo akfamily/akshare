@@ -50,6 +50,11 @@
 
 ## 更新说明
 
+1.9.11 add: add stock_sector_fund_flow_hist interface
+
+    1. 新增 stock_sector_fund_flow_hist 接口
+    2. 新增 stock_sector_fund_flow_summary 接口
+
 1.9.10 add: add macro_shipping_bcti interface
 
     1. 新增 macro_shipping_bcti 接口
@@ -1992,6 +1997,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.11 add: add stock_sector_fund_flow_hist interface
 
 1.9.10 add: add macro_shipping_bcti interface
 
