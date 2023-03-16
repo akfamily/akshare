@@ -2326,9 +2326,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.8 fix: fix stock_hk_valuation_baidu interface
 1.9.9 add: add macro_shipping_bci interface
 1.9.10 add: add macro_shipping_bcti interface
+1.9.11 add: add stock_sector_fund_flow_hist interface
 """
 
-__version__ = "1.9.10"
+__version__ = "1.9.11"
 __author__ = "AKFamily"
 
 import sys
@@ -3706,6 +3707,8 @@ from akshare.stock.stock_fund import (
     stock_market_fund_flow,
     stock_sector_fund_flow_rank,
     stock_individual_fund_flow_rank,
+    stock_sector_fund_flow_summary,
+    stock_sector_fund_flow_hist,
 )
 
 """
