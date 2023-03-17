@@ -231,7 +231,7 @@ def news_report_time_baidu(date: str = "20220514") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_economic_baidu_df = news_economic_baidu(date="20220917")
+    news_economic_baidu_df = news_economic_baidu(date="20230317")
     print(news_economic_baidu_df)
 
     news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(date="20220916")
