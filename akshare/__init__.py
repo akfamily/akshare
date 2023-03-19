@@ -2328,9 +2328,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.10 add: add macro_shipping_bcti interface
 1.9.11 add: add stock_sector_fund_flow_hist interface
 1.9.12 fix: fix stock_hot_rank_wc interface
+1.9.13 fix: fix stock_zh_valuation_baidu interface
 """
 
-__version__ = "1.9.12"
+__version__ = "1.9.13"
 __author__ = "AKFamily"
 
 import sys
