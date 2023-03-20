@@ -44,7 +44,6 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
             )
             page += 1
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
-
         except:
             break
     if not big_df.empty:
