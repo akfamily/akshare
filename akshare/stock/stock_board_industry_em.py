@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/6/22 17:27
+Date: 2023/3/21 22:27
 Desc: 东方财富-沪深板块-行业板块
-http://quote.eastmoney.com/center/boardlist.html#industry_board
+https://quote.eastmoney.com/center/boardlist.html#industry_board
 """
+import re
 import requests
 import pandas as pd
 
@@ -12,7 +13,7 @@ import pandas as pd
 def stock_board_industry_name_em() -> pd.DataFrame:
     """
     东方财富网-沪深板块-行业板块-名称
-    http://quote.eastmoney.com/center/boardlist.html#industry_board
+    https://quote.eastmoney.com/center/boardlist.html#industry_board
     :return: 行业板块-名称
     :rtype: pandas.DataFrame
     """
@@ -104,6 +105,58 @@ def stock_board_industry_name_em() -> pd.DataFrame:
     temp_df["下跌家数"] = pd.to_numeric(temp_df["下跌家数"], errors="coerce")
     temp_df["领涨股票-涨跌幅"] = pd.to_numeric(temp_df["领涨股票-涨跌幅"], errors="coerce")
     return temp_df
+
+
+def stock_board_industry_spot_em(symbol: str = "小金属") -> pd.DataFrame:
+    """
+    东方财富网-沪深板块-行业板块-实时行情
+    https://quote.eastmoney.com/bk/90.BK1027.html
+    :param symbol: 板块名称 or 东财板块代码
+    :type symbol: str
+    :return: 实时行情
+    :rtype: pandas.DataFrame
+    """
+    url = "http://91.push2.eastmoney.com/api/qt/stock/get"
+    field_map = {
+        "f43": "最新",
+        "f44": "最高",
+        "f45": "最低",
+        "f46": "开盘",
+        "f47": "成交量",
+        "f48": "成交额",
+        "f170": "涨跌幅",
+        "f171": "振幅",
+        "f168": "换手率",
+        "f169": "涨跌额",
+    }
+
+    if re.match(r'^BK\d+', symbol):
+        em_code = symbol
+    else:
+        industry_listing = stock_board_industry_name_em()
+        em_code = industry_listing.query('板块名称 == @symbol')["板块代码"].values[0]
+
+    params = dict(
+        fields=','.join(field_map.keys()),
+        mpi="1000",
+        invt="2",
+        fltt="1",
+        secid=f"90.{em_code}",
+        ut="fa5fd1943c7b386f172d6893dbfba10b",
+    )
+    r = requests.get(url, params=params)
+    data_dict = r.json()
+    result = pd.DataFrame.from_dict(data_dict["data"], orient="index")
+    result.rename(field_map, inplace=True)
+    result.reset_index(inplace=True)
+    result.columns = ['item', "value"]
+    result['value'] = pd.to_numeric(result['value'], errors="coerce")
+
+    # 各项转换成正常单位. 除了成交量与成交额, 原始数据中已是正常单位(元)
+    result['value'] = result['value'] * 1e-2
+    result.iloc[4, 1] = result.iloc[4, 1] * 1e2
+    result.iloc[5, 1] = result.iloc[5, 1] * 1e2
+    return result
 
 
 def stock_board_industry_hist_em(
@@ -204,7 +257,7 @@ def stock_board_industry_hist_min_em(
 ) -> pd.DataFrame:
     """
     东方财富网-沪深板块-行业板块-分时历史行情
-    http://quote.eastmoney.com/bk/90.BK1027.html
+    https://quote.eastmoney.com/bk/90.BK1027.html
     :param symbol: 板块名称
     :type symbol: str
     :param period: choice of {"1", "5", "15", "30", "60"}
@@ -382,6 +435,9 @@ def stock_board_industry_cons_em(symbol: str = "小金属") -> pd.DataFrame:
 if __name__ == "__main__":
     stock_board_industry_name_em_df = stock_board_industry_name_em()
     print(stock_board_industry_name_em_df)
+
+    stock_board_industry_spot_em_df = stock_board_industry_spot_em(symbol="小金属")
+    print(stock_board_industry_spot_em_df)
 
     stock_board_industry_hist_em_df = stock_board_industry_hist_em(
         symbol="小金属", start_date="20211201", end_date="20221110", period="月k", adjust=""
