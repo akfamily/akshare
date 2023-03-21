@@ -20,7 +20,7 @@ def macro_cnbs() -> pd.DataFrame:
         url, sheet_name="Data", header=0, skiprows=1, engine="openpyxl"
     )
     temp_df["Period"] = pd.to_datetime(temp_df["Period"]).dt.strftime("%Y-%m")
-    temp_df.dropna(axis=1, inplace=True)
+    temp_df = temp_df[temp_df['Period'].notnull()].dropna(axis=1)
     temp_df.columns = [
         "年份",
         "居民部门",
