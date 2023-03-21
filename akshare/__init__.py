@@ -2740,6 +2740,7 @@ from akshare.stock.stock_board_industry_em import (
     stock_board_industry_hist_em,
     stock_board_industry_hist_min_em,
     stock_board_industry_name_em,
+    stock_board_industry_current_em,
 )
 
 """
