@@ -49,27 +49,76 @@ def stock_financial_report_sina(
     return temp_df
 
 
-def stock_financial_abstract(stock: str = "600004") -> pd.DataFrame:
+def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
     """
-    新浪财经-财务报表-财务摘要
+    新浪财经-财务报表-关键指标
     https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600004.phtml
-    :param stock: 股票代码
-    :type stock: str
-    :return: 新浪财经-财务报表-财务摘要
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 新浪财经-财务报表-关键指标
     :rtype: pandas.DataFrame
     """
-    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/{stock}.phtml"
-    r = requests.get(url)
-    temp_df = pd.read_html(r.text)[13].iloc[:, :2]
-    big_df = pd.DataFrame()
-    for i in range(0, len(temp_df), 12):
-        truncated_df = temp_df.iloc[i : i + 11, 1]
-        big_df = pd.concat(
-            [big_df, truncated_df.reset_index(drop=True)], axis=1, ignore_index=True
-        )
-    data_df = big_df.T
-    data_df.columns = temp_df.iloc[:11, 0].tolist()
-    return data_df
+    url = "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022"
+    params = {
+        "paperCode": f"sh{symbol}",
+        "source": "gjzb",
+        "type": "0",
+        "page": "1",
+        "num": "100",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    key_list = list(data_json['result']['data']['report_list'].keys())
+    temp_df = pd.DataFrame(data_json['result']['data']['report_list'][key_list[0]]['data'])
+    big_df = temp_df['item_title']
+    for item in key_list:
+        temp_df = pd.DataFrame(data_json['result']['data']['report_list'][item]['data'])
+        big_df = pd.concat([big_df, temp_df['item_value']], axis=1, ignore_index=True)
+    big_df.index = big_df.iloc[:, 0]
+    big_df = big_df.iloc[:, 1:]
+
+    big_one_df = big_df.loc["常用指标": "每股指标"]
+    big_one_df = big_one_df.iloc[1:-1, :]
+    big_one_df.reset_index(inplace=True)
+    big_one_df.insert(0, "选项", "常用指标")
+
+    big_two_df = big_df.loc["每股指标": "盈利能力"]
+    big_two_df = big_two_df.iloc[1:-1, :]
+    big_two_df.reset_index(inplace=True)
+    big_two_df.insert(0, "选项", "每股指标")
+
+    big_three_df = big_df.loc["盈利能力": "成长能力"]
+    big_three_df = big_three_df.iloc[1:-1, :]
+    big_three_df.reset_index(inplace=True)
+    big_three_df.insert(0, "选项", "盈利能力")
+
+    big_four_df = big_df.loc["成长能力": "收益质量"]
+    big_four_df = big_four_df.iloc[1:-1, :]
+    big_four_df.reset_index(inplace=True)
+    big_four_df.insert(0, "选项", "成长能力")
+
+    big_five_df = big_df.loc["收益质量": "财务风险"]
+    big_five_df = big_five_df.iloc[1:-1, :]
+    big_five_df.reset_index(inplace=True)
+    big_five_df.insert(0, "选项", "收益质量")
+
+    big_six_df = big_df.loc["财务风险": "营运能力"]
+    big_six_df = big_six_df.iloc[1:-1, :]
+    big_six_df.reset_index(inplace=True)
+    big_six_df.insert(0, "选项", "财务风险")
+
+    big_seven_df = big_df.loc["营运能力": ]
+    big_seven_df = big_seven_df.iloc[1:-1, :]
+    big_seven_df.reset_index(inplace=True)
+    big_seven_df.insert(0, "选项", "营运能力")
+
+    big_df = pd.concat([big_one_df, big_two_df, big_three_df, big_four_df, big_five_df, big_six_df, big_seven_df], ignore_index=True)
+    key_list.insert(0, "选项")
+    key_list.insert(1, "指标")
+    big_df.columns = key_list
+    for item in big_df.columns[2:]:
+        big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
+    return big_df
 
 
 def stock_financial_analysis_indicator(symbol: str = "600004") -> pd.DataFrame:
@@ -438,14 +487,13 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
     big_df.reset_index(inplace=True, drop=True)
     big_df.rename(columns={"持股数量(股)": "持股数量", "持股比例(%)": "持股比例"}, inplace=True)
     big_df.columns.name = None
-    big_df.columns
-    big_df['持股数量'] = pd.to_numeric(big_df['持股数量'], errors="coerce")
-    big_df['持股比例'] = big_df['持股比例'].str.strip("↓")
-    big_df['持股比例'] = pd.to_numeric(big_df['持股比例'], errors="coerce")
-    big_df['截至日期'] = pd.to_datetime(big_df['截至日期']).dt.date
-    big_df['公告日期'] = pd.to_datetime(big_df['公告日期']).dt.date
-    big_df['股东总数'] = pd.to_numeric(big_df['股东总数'], errors="coerce")
-    big_df['平均持股数'] = pd.to_numeric(big_df['平均持股数'], errors="coerce")
+    big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
+    big_df["持股比例"] = big_df["持股比例"].str.strip("↓")
+    big_df["持股比例"] = pd.to_numeric(big_df["持股比例"], errors="coerce")
+    big_df["截至日期"] = pd.to_datetime(big_df["截至日期"]).dt.date
+    big_df["公告日期"] = pd.to_datetime(big_df["公告日期"]).dt.date
+    big_df["股东总数"] = pd.to_numeric(big_df["股东总数"], errors="coerce")
+    big_df["平均持股数"] = pd.to_numeric(big_df["平均持股数"], errors="coerce")
     return big_df
 
 
@@ -460,7 +508,7 @@ if __name__ == "__main__":
     )
     print(stock_financial_report_sina_df)
 
-    stock_financial_abstract_df = stock_financial_abstract(stock="000958")
+    stock_financial_abstract_df = stock_financial_abstract(symbol="600004")
     print(stock_financial_abstract_df)
 
     stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(
