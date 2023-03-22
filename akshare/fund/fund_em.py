@@ -684,23 +684,23 @@ def fund_financial_fund_daily_em() -> pd.DataFrame:
     return data_df
 
 
-def fund_financial_fund_info_em(fund: str = "000134") -> pd.DataFrame:
+def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值数据
-    http://fundf10.eastmoney.com/jjjz_000791.html
-    :param fund: 理财型基金代码, 可以通过 fund_financial_fund_daily_em 来获取
-    :type fund: str
+    https://fundf10.eastmoney.com/jjjz_000791.html
+    :param symbol: 理财型基金代码, 可以通过 fund_financial_fund_daily_em 来获取
+    :type symbol: str
     :return: 东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值数据
     :rtype: pandas.DataFrame
     """
     url = "http://api.fund.eastmoney.com/f10/lsjz"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "Referer": f"http://fundf10.eastmoney.com/jjjz_{fund}.html",
+        "Referer": f"http://fundf10.eastmoney.com/jjjz_{symbol}.html",
     }
     params = {
         "callback": "jQuery18307915911837995662_1588249228826",
-        "fundCode": fund,
+        "fundCode": symbol,
         "pageIndex": "1",
         "pageSize": "10000",
         "startDate": "",
@@ -727,6 +727,10 @@ def fund_financial_fund_info_em(fund: str = "000134") -> pd.DataFrame:
         "_",
     ]
     temp_df = temp_df[["净值日期", "每万份收益", "7日年化收益率", "申购状态", "赎回状态"]]
+    temp_df.sort_values(['净值日期'], inplace=True, ignore_index=True)
+    temp_df['净值日期'] = pd.to_datetime(temp_df['净值日期']).dt.date
+    temp_df['每万份收益'] = pd.to_numeric(temp_df['每万份收益'], errors="coerce")
+    temp_df['7日年化收益率'] = pd.to_numeric(temp_df['7日年化收益率'], errors="coerce")
     return temp_df
 
 
@@ -1190,7 +1194,7 @@ if __name__ == "__main__":
     fund_financial_fund_daily_em_df = fund_financial_fund_daily_em()
     print(fund_financial_fund_daily_em_df)
 
-    fund_financial_fund_info_em_df = fund_financial_fund_info_em(fund="000134")
+    fund_financial_fund_info_em_df = fund_financial_fund_info_em(symbol="000134")
     print(fund_financial_fund_info_em_df)
 
     fund_graded_fund_daily_em_df = fund_graded_fund_daily_em()
