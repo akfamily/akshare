@@ -2334,9 +2334,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.16 fix: fix stock_financial_abstract interface
 1.9.17 add: add stock_board_industry_spot_em interface
 1.9.18 fix: fix macro_china_market_margin_sh interface
+1.9.19 fix: fix macro_cnbs interface
 """
 
-__version__ = "1.9.18"
+__version__ = "1.9.19"
 __author__ = "AKFamily"
 
 import sys
