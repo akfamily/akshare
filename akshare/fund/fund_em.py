@@ -686,11 +686,11 @@ def fund_financial_fund_daily_em() -> pd.DataFrame:
 
 def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     """
-    东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值数据
+    东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细
     https://fundf10.eastmoney.com/jjjz_000791.html
-    :param symbol: 理财型基金代码, 可以通过 fund_financial_fund_daily_em 来获取
+    :param symbol: 理财型基金代码, 可以通过 ak.fund_financial_fund_daily_em() 来获取
     :type symbol: str
-    :return: 东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值数据
+    :return: 东方财富网站-天天基金网-基金数据-理财型基金收益-历史净值明细
     :rtype: pandas.DataFrame
     """
     url = "http://api.fund.eastmoney.com/f10/lsjz"
@@ -713,24 +713,25 @@ def fund_financial_fund_info_em(symbol: str = "000134") -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
     temp_df.columns = [
         "净值日期",
-        "每万份收益",
-        "7日年化收益率",
+        "单位净值",
+        "累计净值",
         "_",
         "_",
         "_",
-        "_",
+        "日增长率",
         "申购状态",
         "赎回状态",
         "_",
         "_",
         "_",
-        "_",
+        "分红送配",
     ]
-    temp_df = temp_df[["净值日期", "每万份收益", "7日年化收益率", "申购状态", "赎回状态"]]
+    temp_df = temp_df[["净值日期", "单位净值", "累计净值", "日增长率", "申购状态", "赎回状态", "分红送配"]]
     temp_df.sort_values(['净值日期'], inplace=True, ignore_index=True)
     temp_df['净值日期'] = pd.to_datetime(temp_df['净值日期']).dt.date
-    temp_df['每万份收益'] = pd.to_numeric(temp_df['每万份收益'], errors="coerce")
-    temp_df['7日年化收益率'] = pd.to_numeric(temp_df['7日年化收益率'], errors="coerce")
+    temp_df['单位净值'] = pd.to_numeric(temp_df['单位净值'], errors="coerce")
+    temp_df['累计净值'] = pd.to_numeric(temp_df['累计净值'], errors="coerce")
+    temp_df['日增长率'] = pd.to_numeric(temp_df['日增长率'], errors="coerce")
     return temp_df
 
 
