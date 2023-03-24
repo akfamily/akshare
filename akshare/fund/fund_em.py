@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/14 19:50
+Date: 2023/3/24 14:20
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
@@ -9,12 +9,13 @@ https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1
 3.在接口：fund_basic"公募基金列表"增加数据"基金经理代码"(或第一基金经理代码),"基金经理姓名"(或第一基金经理姓名),"当前基金经理人数","当前经理任职起始时间".
 用户ID:269993
 """
-import time
 import json
+import time
 
-from akshare.utils import demjson
 import pandas as pd
 import requests
+
+from akshare.utils import demjson
 
 
 def fund_purchase_em() -> pd.DataFrame:
@@ -130,7 +131,7 @@ def fund_info_index_em(
         "增强指数型": "052",
     }
     url = "http://api.fund.eastmoney.com/FundTradeRank/GetRankList"
-    if symbol in {"股票指数", "股票指数"}:
+    if symbol in {"股票指数", "债券指数"}:
         params = {
             "ft": "zs",
             "sc": "1n",
@@ -1038,8 +1039,8 @@ def fund_hk_fund_hist_em(
 ) -> pd.DataFrame:
     """
     东方财富网-天天基金网-基金数据-香港基金-历史净值明细(分红送配详情)
-    http://overseas.1234567.com.cn/f10/FundJz/968092#FHPS
-    :param code: 通过 fund_em_hk_rank 获取
+    https://overseas.1234567.com.cn/f10/FundJz/968092#FHPS
+    :param code: 通过 ak.fund_em_hk_rank() 获取
     :type code: str
     :param symbol: choice of {"历史净值明细", "分红送配详情"}
     :type symbol: str
@@ -1076,6 +1077,7 @@ def fund_hk_fund_hist_em(
             "日增长率",
             "_",
             "单位",
+            "_",
         ]
         temp_one_df = temp_one_df[
             [
@@ -1115,6 +1117,7 @@ def fund_hk_fund_hist_em(
             "_",
             "单位",
             "_",
+            "_",
         ]
         temp_one_df = temp_one_df[
             [
@@ -1137,7 +1140,7 @@ if __name__ == "__main__":
     print(fund_name_em_df)
 
     fund_info_index_em_df = fund_info_index_em(
-        symbol="沪深指数", indicator="增强指数型"
+        symbol="债券指数", indicator="全部"
     )
     print(fund_info_index_em_df)
 

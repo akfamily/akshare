@@ -502,7 +502,7 @@ if __name__ == "__main__":
     print(stock_zh_a_spot_df)
 
     stock_zh_a_minute_df = stock_zh_a_minute(
-        symbol="sz000001", period="1", adjust=""
+        symbol="sh600751", period="1", adjust="qfq"
     )
     print(stock_zh_a_minute_df)
 
