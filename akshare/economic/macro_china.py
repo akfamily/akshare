@@ -1454,10 +1454,29 @@ def macro_china_au_report() -> pd.DataFrame:
             "交收量",
             "日期",
         ]
-        big_df = big_df.append(temp_df, ignore_index=True)
-    big_df.index = pd.to_datetime(big_df["日期"])
-    del big_df["日期"]
-    big_df.sort_index(inplace=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df = big_df[
+        [
+            "日期",
+            "商品",
+            "开盘价",
+            "最高价",
+            "最低价",
+            "收盘价",
+            "涨跌",
+            "涨跌幅",
+            "加权平均价",
+            "成交量",
+            "成交金额",
+            "持仓量",
+            "交收方向",
+            "交收量",
+        ]
+    ]
+    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    big_df["持仓量"] = pd.to_numeric(big_df["持仓量"], errors="coerce")
+    big_df["交收量"] = pd.to_numeric(big_df["交收量"], errors="coerce")
     return big_df
 
 
