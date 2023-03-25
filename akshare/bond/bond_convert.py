@@ -198,37 +198,42 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
     r = requests.post(url, params=params, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
-    temp_df.columns = [
-        "代码",
-        "名称",
-        "现价",
-        "正股代码",
-        "正股名称",
-        "-",
-        "-",
-        "规模",
-        "剩余规模",
-        "转股起始日",
-        "转股价",
-        "-",
-        "-",
-        "-",
-        "-",
-        "-",
-        "强赎触发比",
-        "强赎价",
-        "-",
-        "-",
-        "-",
-        "-",
-        "强赎条款",
-        "正股价",
-        "强赎状态",
-        "-",
-        "强赎天计数",
-        "-",
-        "强赎触发价",
-    ]
+    temp_df.rename(columns={
+        "bond_id": "代码",
+        "bond_nm": "名称",
+        "price": "现价",
+        "stock_id": "正股代码",
+        "stock_nm": "正股名称",
+        "margin_flg": "-",
+        "btype": "-",
+        "orig_iss_amt": "规模",
+        "curr_iss_amt": "剩余规模",
+        "convert_dt": "转股起始日",
+        "convert_price": "转股价",
+        "next_put_dt": "-",
+        "redeem_dt": "-",
+        "force_redeem": "-",
+        "redeem_flag": "-",
+        "redeem_price": "-",
+        "redeem_price_ratio": "强赎触发比",
+        "real_force_redeem_price": "强赎价",
+        "redeem_remain_days": "-",
+        "redeem_real_days": "-",
+        "redeem_total_days": "-",
+        "recount_dt": "-",
+        "redeem_count_days": "-",
+        "redeem_tc": "强赎条款",
+        "sprice": "正股价",
+        "delist_dt": "-",
+        "maturity_dt": "-",
+        "redeem_icon": "强赎状态",
+        "redeem_orders": "-",
+        "at_maturity": "-",
+        "redeem_count": "强赎天计数",
+        "after_next_put_dt": "-",
+        "force_redeem_price": "强赎触发价",
+    }, inplace=True)
+
     temp_df = temp_df[
         [
             "代码",
@@ -249,14 +254,14 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
             "强赎状态",
         ]
     ]
-    temp_df["现价"] = pd.to_numeric(temp_df["现价"])
-    temp_df["规模"] = pd.to_numeric(temp_df["规模"])
-    temp_df["剩余规模"] = pd.to_numeric(temp_df["剩余规模"])
+    temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
+    temp_df["规模"] = pd.to_numeric(temp_df["规模"], errors="coerce")
+    temp_df["剩余规模"] = pd.to_numeric(temp_df["剩余规模"], errors="coerce")
     temp_df["转股起始日"] = pd.to_datetime(temp_df["转股起始日"]).dt.date
-    temp_df["转股价"] = pd.to_numeric(temp_df["转股价"])
-    temp_df["强赎触发比"] = pd.to_numeric(temp_df["强赎触发比"].str.strip("%"))
-    temp_df["强赎触发价"] = pd.to_numeric(temp_df["强赎触发价"])
-    temp_df["正股价"] = pd.to_numeric(temp_df["正股价"])
+    temp_df["转股价"] = pd.to_numeric(temp_df["转股价"], errors="coerce")
+    temp_df["强赎触发比"] = pd.to_numeric(temp_df["强赎触发比"].str.strip("%"), errors="coerce")
+    temp_df["强赎触发价"] = pd.to_numeric(temp_df["强赎触发价"], errors="coerce")
+    temp_df["正股价"] = pd.to_numeric(temp_df["正股价"], errors="coerce")
     temp_df["强赎价"] = pd.to_numeric(temp_df["强赎价"], errors="coerce")
     temp_df["强赎天计数"] = temp_df["强赎天计数"].replace(
         r"^.*?(\d{1,2}\/\d{1,2} \| \d{1,2}).*?$", r"\1", regex=True
