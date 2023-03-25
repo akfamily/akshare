@@ -1,12 +1,12 @@
-# -*- coding:utf-8 -*-
 #!/usr/bin/env python
+# -*- coding:utf-8 -*-
 """
-Date: 2022/5/12 15:15
+Date: 2023/3/25 15:15
 Desc: 东方财富个股人气榜
 https://guba.eastmoney.com/rank/
 """
-import requests
 import pandas as pd
+import requests
 
 
 def stock_hot_rank_em() -> pd.DataFrame:
@@ -56,8 +56,8 @@ def stock_hot_rank_em() -> pd.DataFrame:
             "涨跌幅",
         ]
     ]
-    temp_df['最新价'] = pd.to_numeric(temp_df['最新价'], errors="coerce")
-    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'], errors="coerce")
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     return temp_df
 
 
@@ -114,8 +114,8 @@ def stock_hot_rank_detail_realtime_em(symbol: str = "SZ000665") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data'])
-    temp_df.columns = ['时间', '排名']
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df.columns = ["时间", "排名"]
     return temp_df
 
 
@@ -136,9 +136,9 @@ def stock_hot_keyword_em(symbol: str = "SZ000665") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data'])
-    del temp_df['flag']
-    temp_df.columns = ['时间', '股票代码', '概念名称', '概念代码', '热度']
+    temp_df = pd.DataFrame(data_json["data"])
+    del temp_df["flag"]
+    temp_df.columns = ["时间", "股票代码", "概念名称", "概念代码", "热度"]
     return temp_df
 
 
@@ -155,14 +155,14 @@ def stock_hot_rank_latest_em(symbol: str = "SZ000665") -> pd.DataFrame:
     payload = {
         "appId": "appId01",
         "globalId": "786e4c21-70dc-435a-93bb-38",
-        'marketType': "",
+        "marketType": "",
         "srcSecurityCode": symbol,
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame.from_dict(data_json['data'], orient="index")
+    temp_df = pd.DataFrame.from_dict(data_json["data"], orient="index")
     temp_df.reset_index(inplace=True)
-    temp_df.columns = ['item', 'value']
+    temp_df.columns = ["item", "value"]
     return temp_df
 
 
@@ -183,11 +183,11 @@ def stock_hot_rank_relate_em(symbol: str = "SZ000665") -> pd.DataFrame:
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
-    temp_df = pd.DataFrame.from_dict(data_json['data'])
-    temp_df.columns = ['时间', '-', '股票代码', '-', '相关股票代码', '涨跌幅', '-']
-    temp_df = temp_df[['时间', '股票代码', '相关股票代码', '涨跌幅']]
-    temp_df['涨跌幅'] = temp_df['涨跌幅'].str.strip('%')
-    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'])
+    temp_df = pd.DataFrame.from_dict(data_json["data"])
+    temp_df.columns = ["时间", "-", "股票代码", "-", "相关股票代码", "涨跌幅", "-"]
+    temp_df = temp_df[["时间", "股票代码", "相关股票代码", "涨跌幅"]]
+    temp_df["涨跌幅"] = temp_df["涨跌幅"].str.strip("%")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
     return temp_df
 
 
@@ -198,7 +198,9 @@ if __name__ == "__main__":
     stock_hot_rank_detail_em_df = stock_hot_rank_detail_em(symbol="SZ000665")
     print(stock_hot_rank_detail_em_df)
 
-    stock_hot_rank_detail_realtime_em_df = stock_hot_rank_detail_realtime_em(symbol="SZ000665")
+    stock_hot_rank_detail_realtime_em_df = stock_hot_rank_detail_realtime_em(
+        symbol="SZ000665"
+    )
     print(stock_hot_rank_detail_realtime_em_df)
 
     stock_hot_keyword_em_df = stock_hot_keyword_em(symbol="SZ000665")

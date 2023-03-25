@@ -5521,9 +5521,9 @@ print(stock_em_sy_list_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| trade_date | str  | Y    |   trade_date="2019-12-31"; 参见网页的选项 |
+| 名称         | 类型  | 必选  | 描述                               |
+|------------|-----|-----|----------------------------------|
+| trade_date | str | Y   | trade_date="2019-12-31"; 参见网页的选项 |
 
 输出参数
 
@@ -18755,6 +18755,8 @@ print(stock_hot_rank_wc_df)
 
 #### 股票热度-东财
 
+##### A股
+
 接口: stock_hot_rank_em
 
 目标地址: http://guba.eastmoney.com/rank/
@@ -18803,6 +18805,58 @@ print(stock_hot_rank_em_df)
 97    98  SZ002155  湖南黄金  11.56   3.21
 98    99  SH601899  紫金矿业  10.90  -1.45
 99   100  SZ002232  启明信息  17.36  -3.50
+```
+
+##### 港股
+
+接口: stock_hk_hot_rank_em
+
+目标地址: https://guba.eastmoney.com/rank/
+
+描述: 东方财富-个股人气榜-人气榜-港股市场
+
+限量: 单次返回当前交易日前 100 个股票的人气排名数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称   | 类型      | 描述      |
+|------|---------|---------|
+| 当前排名 | int64   | -       |
+| 代码   | object  | -       |
+| 股票名称 | object  | -       |
+| 最新价  | float64 | -       |
+| 涨跌幅  | float64 | 注意单位: % |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_hot_rank_em_df = ak.stock_hk_hot_rank_em()
+print(stock_hk_hot_rank_em_df)
+```
+
+数据示例
+
+```
+    当前排名     代码    股票名称      最新价   涨跌幅
+0      1  00700    腾讯控股  376.800  0.32
+1      2  01810  小米集团-W   12.440  1.80
+2      3  02158    医渡科技    8.350  3.73
+3      4  03690    美团-W  140.200 -0.64
+4      5  09955    智云健康    7.880  4.51
+..   ...    ...     ...      ...   ...
+95    96  01951    锦欣生殖    5.380 -1.28
+96    97  01898    中煤能源    5.910 -8.51
+97    98  02768  佳源国际控股    0.179 -2.19
+98    99  00388   香港交易所  342.000  0.00
+99   100  01816   中广核电力    1.900 -1.55
 ```
 
 #### 股票热度-淘股吧
@@ -18865,6 +18919,8 @@ print(stock_hot_tgb_df)
 
 #### 历史趋势及粉丝特征
 
+##### A股
+
 接口: stock_hot_rank_detail_em
 
 目标地址: http://guba.eastmoney.com/rank/stock?code=000665
@@ -18915,7 +18971,61 @@ print(stock_hot_rank_detail_em_df)
 119  2022-02-15    35  SZ000665  0.1977  0.8023
 ```
 
+##### 港股
+
+接口: stock_hk_hot_rank_detail_em
+
+目标地址: https://guba.eastmoney.com/rank/stock?code=HK_00700
+
+描述: 东方财富网-股票热度-历史趋势
+
+限量: 单次返回指定 symbol 的股票近期历史数据
+
+输入参数
+
+| 名称     | 类型  | 描述             |
+|--------|-----|----------------|
+| symbol | str | symbol="00700" |
+
+输出参数
+
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| 时间   | object  | -   |
+| 排名   | int64   | -   |
+| 证券代码 | object  | -   |
+| 新晋粉丝 | float64 | -   |
+| 铁杆粉丝 | float64 | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_hot_rank_detail_em_df = ak.stock_hk_hot_rank_detail_em(symbol="00700")
+print(stock_hk_hot_rank_detail_em_df)
+```
+
+数据示例
+
+```
+      时间    排名   证券代码
+0    2022-11-26   1  00700
+1    2022-11-27   2  00700
+2    2022-11-28   1  00700
+3    2022-11-29   1  00700
+4    2022-11-30   1  00700
+..          ...  ..    ...
+115  2023-03-21   1  00700
+116  2023-03-22   1  00700
+117  2023-03-23   1  00700
+118  2023-03-24   1  00700
+119  2023-03-25   1  00700
+```
+
 #### 个股人气榜-实时变动
+
+##### A股
 
 接口: stock_hot_rank_detail_realtime_em
 
@@ -18962,6 +19072,55 @@ print(stock_hot_rank_detail_realtime_em_df)
 96  2022-02-26 16:00:00  222
 97  2022-02-26 16:10:00  215
 98  2022-02-26 16:20:00  211
+```
+
+##### 港股
+
+接口: stock_hk_hot_rank_detail_realtime_em
+
+目标地址: https://guba.eastmoney.com/rank/stock?code=HK_00700
+
+描述: 东方财富网-个股人气榜-实时变动
+
+限量: 单次返回指定 symbol 的股票近期历史数据
+
+输入参数
+
+| 名称     | 类型  | 描述                |
+|--------|-----|-------------------|
+| symbol | str | symbol="00700" |
+
+输出参数
+
+| 名称   | 类型      | 描述  |
+|------|---------|-----|
+| 时间   | object  | -   |
+| 排名   | int64   | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_hot_rank_detail_realtime_em_df = ak.stock_hk_hot_rank_detail_realtime_em(symbol="00700")
+print(stock_hk_hot_rank_detail_realtime_em_df)
+```
+
+数据示例
+
+```
+                      时间  排名
+0    2023-03-25 00:00:00   1
+1    2023-03-25 00:10:00   1
+2    2023-03-25 00:20:00   1
+3    2023-03-25 00:30:00   1
+4    2023-03-25 00:40:00   1
+..                   ...  ..
+137  2023-03-25 22:50:00   1
+138  2023-03-25 23:00:00   1
+139  2023-03-25 23:10:00   1
+140  2023-03-25 23:20:00   1
+141  2023-03-25 23:30:00   1
 ```
 
 #### 热门关键词
@@ -19073,6 +19232,8 @@ print(stock_inner_trade_xq_df)
 
 #### 个股人气榜-最新排名
 
+##### A股
+
 接口: stock_hot_rank_latest_em
 
 目标地址: http://guba.eastmoney.com/rank/stock?code=000665
@@ -19116,6 +19277,54 @@ print(stock_hot_rank_latest_em_df)
 6          rankChange                   -2
 7       hisRankChange                  141
 8  hisRankChange_rank                 1654
+9                flag                    0
+```
+
+##### 港股
+
+接口: stock_hk_hot_rank_latest_em
+
+目标地址: https://guba.eastmoney.com/rank/stock?code=HK_00700
+
+描述: 东方财富-个股人气榜-最新排名
+
+限量: 单次返回指定 symbol 的股票近期历史数据
+
+输入参数
+
+| 名称     | 类型  | 描述             |
+|--------|-----|----------------|
+| symbol | str | symbol="00700" |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_hot_rank_latest_em_df = ak.stock_hk_hot_rank_latest_em(symbol="00700")
+print(stock_hk_hot_rank_latest_em_df)
+```
+
+数据示例
+
+```
+                 item                value
+0          marketType               000003
+1      marketAllCount                 2613
+2            calcTime  2023-03-25 23:30:00
+3           innerCode              00700_2
+4     srcSecurityCode             HK|00700
+5                rank                    1
+6          rankChange                    0
+7       hisRankChange                    0
+8  hisRankChange_rank                 1253
 9                flag                    0
 ```
 

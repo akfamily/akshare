@@ -1048,13 +1048,18 @@
  "index_zh_a_hist"  # 中国股票指数历史数据
  # 指数分时数据
  "index_zh_a_hist_min_em"  # 中国股票指数-指数分时数据
- # 东方财富-个股人气榜
+ # 东方财富-个股人气榜-A股
  "stock_hot_rank_em"  # 东方财富-个股人气榜-人气榜
  "stock_hot_rank_detail_em"  # 东方财富-个股人气榜-历史趋势及粉丝特征
  "stock_hot_rank_detail_realtime_em"  # 东方财富-个股人气榜-实时变动
  "stock_hot_keyword_em"  # 东方财富-个股人气榜-关键词
  "stock_hot_rank_latest_em"  # 东方财富-个股人气榜-最新排名
  "stock_hot_rank_relate_em"  # 东方财富-个股人气榜-相关股票
+ # 东方财富-个股人气榜-港股
+ "stock_hk_hot_rank_em"  # 东方财富-个股人气榜-人气榜-港股
+ "stock_hk_hot_rank_detail_em"  # 东方财富-个股人气榜-历史趋势-港股
+ "stock_hk_hot_rank_detail_realtime_em"  # 东方财富-个股人气榜-实时变动-港股
+ "stock_hk_hot_rank_latest_em"  # 东方财富-个股人气榜-最新排名-港股
  # 网易财经-行情首页-沪深 A 股-每日行情
  "stock_zh_a_hist_163"  # 网易财经-行情首页-沪深 A 股-每日行情
  # 东方财富-股票数据-龙虎榜
