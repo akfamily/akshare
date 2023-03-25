@@ -291,11 +291,12 @@ def bond_cb_adj_logs_jsl(symbol: str = "128013") -> pd.DataFrame:
         return
     else:
         temp_df = pd.read_html(data_text, parse_dates=True)[0]
+        temp_df.columns = [item.replace(" ", "") for item in temp_df.columns]
+        temp_df["下修前转股价"] = pd.to_numeric(temp_df["下修前转股价"], errors="coerce")
+        temp_df["下修后转股价"] = pd.to_numeric(temp_df["下修后转股价"], errors="coerce")
+        temp_df["下修底价"] = pd.to_numeric(temp_df["下修底价"], errors="coerce")
         temp_df["股东大会日"] = pd.to_datetime(temp_df["股东大会日"]).dt.date
-        temp_df["下修前转股价"] = pd.to_numeric(temp_df["下修前转股价"])
-        temp_df["下修后转股价"] = pd.to_numeric(temp_df["下修后转股价"])
         temp_df["新转股价生效日期"] = pd.to_datetime(temp_df["新转股价生效日期"]).dt.date
-        temp_df["下修底价"] = pd.to_numeric(temp_df["下修底价"])
         return temp_df
 
 
