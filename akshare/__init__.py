@@ -2340,9 +2340,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.22 fix: fix fund_hk_fund_hist_em interface
 1.9.23 fix: fix bond_cb_redeem_jsl interface
 1.9.24 fix: fix bond_cb_adj_logs_jsl interface
+1.9.25 add: add stock_hk_hot_rank_em interface
 """
 
-__version__ = "1.9.24"
+__version__ = "1.9.25"
 __author__ = "AKFamily"
 
 import sys
@@ -2626,7 +2627,7 @@ from akshare.index.index_zh_em import (
 )
 
 """
-东方财富个股人气榜
+东方财富个股人气榜-A股
 """
 from akshare.stock.stock_hot_rank_em import (
     stock_hot_rank_detail_em,
@@ -2635,6 +2636,16 @@ from akshare.stock.stock_hot_rank_em import (
     stock_hot_rank_relate_em,
     stock_hot_keyword_em,
     stock_hot_rank_latest_em,
+)
+
+"""
+东方财富个股人气榜-港股
+"""
+from akshare.stock.stock_hk_hot_rank_em import (
+    stock_hk_hot_rank_detail_em,
+    stock_hk_hot_rank_latest_em,
+    stock_hk_hot_rank_detail_realtime_em,
+    stock_hk_hot_rank_em,
 )
 
 """
