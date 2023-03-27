@@ -18994,8 +18994,6 @@ print(stock_hot_rank_detail_em_df)
 | 时间   | object  | -   |
 | 排名   | int64   | -   |
 | 证券代码 | object  | -   |
-| 新晋粉丝 | float64 | -   |
-| 铁杆粉丝 | float64 | -   |
 
 接口示例
 
