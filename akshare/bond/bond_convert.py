@@ -97,12 +97,11 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
             "convert_value": "转股价值",
             "premium_rt": "转股溢价率",
             "dblow": "双低",
-            "sw_cd": "下修条件",
-            "rating_cd": "评级",
+            "rating_cd": "债券评级",
             "put_convert_price": "回售触发价",
             "force_redeem_price": "强赎触发价",
-            "convert_amt_ratio": "转债流通市值占比",
-            "short_maturity_dt": "到期时间",
+            "convert_amt_ratio": "转债占比",
+            "maturity_dt": "到期时间",
             "year_left": "剩余年限",
             "curr_iss_amt": "剩余规模",
             "volume": "成交额",
@@ -126,37 +125,36 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
             "转股价",
             "转股价值",
             "转股溢价率",
-            "双低",
-            "下修条件",
-            "评级",
+            "债券评级",
             "回售触发价",
             "强赎触发价",
-            "转债流通市值占比",
+            "转债占比",
             "到期时间",
             "剩余年限",
             "剩余规模",
             "成交额",
             "换手率",
             "到期税前收益",
+            "双低",
         ]
     ]
-    temp_df["现价"] = pd.to_numeric(temp_df["现价"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["正股价"] = pd.to_numeric(temp_df["正股价"])
-    temp_df["正股涨跌"] = pd.to_numeric(temp_df["正股涨跌"])
-    temp_df["正股PB"] = pd.to_numeric(temp_df["正股PB"])
-    temp_df["转股价"] = pd.to_numeric(temp_df["转股价"])
-    temp_df["转股价值"] = pd.to_numeric(temp_df["转股价值"])
-    temp_df["转股溢价率"] = pd.to_numeric(temp_df["转股溢价率"])
-    temp_df["双低"] = pd.to_numeric(temp_df["双低"])
-    temp_df["回售触发价"] = pd.to_numeric(temp_df["回售触发价"])
-    temp_df["强赎触发价"] = pd.to_numeric(temp_df["强赎触发价"])
-    temp_df["转债流通市值占比"] = pd.to_numeric(temp_df["转债流通市值占比"])
-    temp_df["剩余年限"] = pd.to_numeric(temp_df["剩余年限"])
-    temp_df["剩余规模"] = pd.to_numeric(temp_df["剩余规模"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
-    temp_df["到期税前收益"] = pd.to_numeric(temp_df["到期税前收益"])
+    temp_df['到期时间'] = pd.to_datetime(temp_df['到期时间']).dt.date
+    temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["正股价"] = pd.to_numeric(temp_df["正股价"], errors="coerce")
+    temp_df["正股涨跌"] = pd.to_numeric(temp_df["正股涨跌"], errors="coerce")
+    temp_df["正股PB"] = pd.to_numeric(temp_df["正股PB"], errors="coerce")
+    temp_df["转股价"] = pd.to_numeric(temp_df["转股价"], errors="coerce")
+    temp_df["转股价值"] = pd.to_numeric(temp_df["转股价值"], errors="coerce")
+    temp_df["转股溢价率"] = pd.to_numeric(temp_df["转股溢价率"], errors="coerce")
+    temp_df["回售触发价"] = pd.to_numeric(temp_df["回售触发价"], errors="coerce")
+    temp_df["强赎触发价"] = pd.to_numeric(temp_df["强赎触发价"], errors="coerce")
+    temp_df["转债占比"] = pd.to_numeric(temp_df["转债占比"], errors="coerce")
+    temp_df["剩余年限"] = pd.to_numeric(temp_df["剩余年限"], errors="coerce")
+    temp_df["剩余规模"] = pd.to_numeric(temp_df["剩余规模"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+    temp_df["到期税前收益"] = pd.to_numeric(temp_df["到期税前收益"], errors="coerce")
     return temp_df
 
 
