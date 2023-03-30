@@ -883,7 +883,6 @@
  "futures_egg_price"  # 2015-2021年鸡蛋价格走势图
  "futures_egg_price_area"  # 各主产区鸡蛋均价
  # REITs
- "reits_info_jsl"  #  REITs-信息
  "reits_realtime_em"  #  REITs-行情
  # A 股分时数据
  "stock_zh_a_hist_min_em"  # 东财-股票分时

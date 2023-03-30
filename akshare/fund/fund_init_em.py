@@ -3,7 +3,7 @@
 """
 Date: 2022/3/22 14:30
 Desc: 基金数据-新发基金-新成立基金
-http://fund.eastmoney.com/data/xinfound.html
+https://fund.eastmoney.com/data/xinfound.html
 """
 import pandas as pd
 import requests

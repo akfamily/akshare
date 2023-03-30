@@ -4,7 +4,11 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
-| 1.9.7      | stock_profit_forecast                       | stock_profit_forecast_em                    | 20230309 |
+| 1.9.27     | fund_em_hk_rank                             | fund_hk_rank_em                             | 20230330 |
+| 1.9.27     | fund_em_lcx_rank                            | fund_lcx_rank_em                            | 20230330 |
+| 1.9.27     | fund_em_money_rank                          | fund_money_rank_em                          | 20230330 |
+| 1.9.27     | fund_em_exchange_rank                       | fund_exchange_rank_em                       | 20230330 |
+| 1.9.7      | stock_profit_forecast                       | stock_profit_forecast_em                    | 20230330 |
 | 1.8.38     | macro_cons_silver_amount                    | macro_cons_silver                           | 20221227 |
 | 1.8.38     | macro_cons_silver_change                    | macro_cons_silver                           | 20221227 |
 | 1.8.38     | macro_cons_silver_volume                    | macro_cons_silver                           | 20221227 |
@@ -49,6 +53,13 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.9.27 fix: fix fund_exchange_rank_em interface
+
+    1. 修复 fund_exchange_rank_em 接口
+    2. 修复 fund_money_rank_em 接口
+    3. 修复 fund_hk_rank_em 接口
+    4. 修复 fund_lcx_rank_em 接口
 
 1.9.26 fix: fix bond_cb_jsl interface
 
@@ -2060,6 +2071,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.27 fix: fix fund_exchange_rank_em interface
 
 1.9.26 fix: fix bond_cb_jsl interface
 

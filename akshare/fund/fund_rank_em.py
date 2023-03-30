@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/4/14 17:04
+Date: 2023/3/30 15:04
 Desc: 东方财富网-数据中心-开放基金排行
-http://fund.eastmoney.com/data/fundranking.html
+https://fund.eastmoney.com/data/fundranking.html
 名词解释
-http://help.1234567.com.cn/list_236.html
+https://help.1234567.com.cn/list_236.html
 """
 import datetime
 
@@ -18,7 +18,7 @@ from akshare.utils import demjson
 def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
     """
     东方财富网-数据中心-开放基金排行
-    http://fund.eastmoney.com/data/fundranking.html
+    https://fund.eastmoney.com/data/fundranking.html
     :param symbol: choice of {"全部", "股票型", "混合型", "债券型", "指数型", "QDII", "LOF", "FOF"}
     :type symbol: str
     :return: 开放基金排行
@@ -118,10 +118,10 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
     return temp_df
 
 
-def fund_em_exchange_rank() -> pd.DataFrame:
+def fund_exchange_rank_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-场内交易基金排行
-    http://fund.eastmoney.com/data/fbsfundranking.html
+    https://fund.eastmoney.com/data/fbsfundranking.html
     :return: 场内交易基金数据
     :rtype: pandas.DataFrame
     """
@@ -132,7 +132,7 @@ def fund_em_exchange_rank() -> pd.DataFrame:
         "ft": "ct",
         "rs": "",
         "gs": "0",
-        "sc": "zzf",
+        "sc": "1nzf",
         "st": "desc",
         "pi": "1",
         "pn": "10000",
@@ -166,13 +166,13 @@ def fund_em_exchange_rank() -> pd.DataFrame:
         "近3年",
         "今年来",
         "成立来",
+        "成立日期",
         "_",
         "_",
         "_",
         "_",
         "_",
-        "_",
-        "_",
+        "类型",
         "_",
     ]
     temp_df = temp_df[
@@ -180,6 +180,7 @@ def fund_em_exchange_rank() -> pd.DataFrame:
             "序号",
             "基金代码",
             "基金简称",
+            "类型",
             "日期",
             "单位净值",
             "累计净值",
@@ -192,15 +193,29 @@ def fund_em_exchange_rank() -> pd.DataFrame:
             "近3年",
             "今年来",
             "成立来",
+            "成立日期",
         ]
     ]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df['成立日期'] = pd.to_datetime(temp_df['成立日期']).dt.date
+    temp_df['单位净值'] = pd.to_numeric(temp_df['单位净值'], errors="coerce")
+    temp_df['累计净值'] = pd.to_numeric(temp_df['累计净值'], errors="coerce")
+    temp_df['近1周'] = pd.to_numeric(temp_df['近1周'], errors="coerce")
+    temp_df['近1月'] = pd.to_numeric(temp_df['近1月'], errors="coerce")
+    temp_df['近3月'] = pd.to_numeric(temp_df['近3月'], errors="coerce")
+    temp_df['近6月'] = pd.to_numeric(temp_df['近6月'], errors="coerce")
+    temp_df['近1年'] = pd.to_numeric(temp_df['近1年'], errors="coerce")
+    temp_df['近2年'] = pd.to_numeric(temp_df['近2年'], errors="coerce")
+    temp_df['近3年'] = pd.to_numeric(temp_df['近3年'], errors="coerce")
+    temp_df['今年来'] = pd.to_numeric(temp_df['今年来'], errors="coerce")
+    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
     return temp_df
 
 
-def fund_em_money_rank() -> pd.DataFrame:
+def fund_money_rank_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-货币型基金排行
-    http://fund.eastmoney.com/data/hbxfundranking.html
+    https://fund.eastmoney.com/data/hbxfundranking.html
     :return: 货币型基金排行
     :rtype: pandas.DataFrame
     """
@@ -209,11 +224,10 @@ def fund_em_money_rank() -> pd.DataFrame:
         "intCompany": "0",
         "MinsgType": "",
         "IsSale": "1",
-        "strSortCol": "SYL_Y",
+        "strSortCol": "SYL_1N",
         "orderType": "desc",
         "pageIndex": "1",
         "pageSize": "10000",
-        "callback": "jQuery18303264654966943197_1603867158043",
         "_": "1603867224251",
     }
     headers = {
@@ -221,8 +235,7 @@ def fund_em_money_rank() -> pd.DataFrame:
         "Referer": "http://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -1])
+    json_data = r.json()
     temp_df = pd.DataFrame(json_data["Data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = list(range(1, len(temp_df) + 1))
@@ -276,14 +289,28 @@ def fund_em_money_rank() -> pd.DataFrame:
             "手续费",
         ]
     ]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df['万份收益'] = pd.to_numeric(temp_df['万份收益'], errors="coerce")
+    temp_df['年化收益率7日'] = pd.to_numeric(temp_df['年化收益率7日'], errors="coerce")
+    temp_df['年化收益率14日'] = pd.to_numeric(temp_df['年化收益率14日'], errors="coerce")
+    temp_df['年化收益率28日'] = pd.to_numeric(temp_df['年化收益率28日'], errors="coerce")
+    temp_df['近1月'] = pd.to_numeric(temp_df['近1月'], errors="coerce")
+    temp_df['近3月'] = pd.to_numeric(temp_df['近3月'], errors="coerce")
+    temp_df['近6月'] = pd.to_numeric(temp_df['近6月'], errors="coerce")
+    temp_df['近1年'] = pd.to_numeric(temp_df['近1年'], errors="coerce")
+    temp_df['近2年'] = pd.to_numeric(temp_df['近2年'], errors="coerce")
+    temp_df['近3年'] = pd.to_numeric(temp_df['近3年'], errors="coerce")
+    temp_df['近5年'] = pd.to_numeric(temp_df['近5年'], errors="coerce")
+    temp_df['今年来'] = pd.to_numeric(temp_df['今年来'], errors="coerce")
+    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
     return temp_df
 
 
-def fund_em_lcx_rank() -> pd.DataFrame:
+def fund_lcx_rank_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-理财基金排行
     # 该接口暂时没有数据
-    http://fund.eastmoney.com/data/lcxfundranking.html#t;c0;r;sSYL_Z;ddesc;pn50;f;os1;
+    https://fund.eastmoney.com/data/lcxfundranking.html#t;c0;r;sSYL_Z;ddesc;pn50;f;os1;
     :return: 理财基金排行
     :rtype: pandas.DataFrame
     """
@@ -360,15 +387,15 @@ def fund_em_lcx_rank() -> pd.DataFrame:
     return temp_df
 
 
-def fund_em_hk_rank() -> pd.DataFrame:
+def fund_hk_rank_em() -> pd.DataFrame:
     """
     东方财富网-数据中心-香港基金排行
-    http://overseas.1234567.com.cn/FundList
+    https://overseas.1234567.com.cn/FundList
     :return: 香港基金排行
     :rtype: pandas.DataFrame
     """
     format_date = datetime.datetime.now().date().isoformat()
-    url = "http://overseas.1234567.com.cn/overseasapi/OpenApiHander.ashx"
+    url = "https://overseas.1234567.com.cn/overseasapi/OpenApiHander.ashx"
     params = {
         'api': 'HKFDApi',
         'm': 'MethodFundList',
@@ -378,7 +405,7 @@ def fund_em_hk_rank() -> pd.DataFrame:
         'dy': '1',
         'date1': format_date,
         'date2': format_date,
-        'sortfield': 'W',
+        'sortfield': 'Y',
         'sorttype': '-1',
         'isbuy': '0',
         '_': '1610790553848',
@@ -437,6 +464,20 @@ def fund_em_hk_rank() -> pd.DataFrame:
             "香港基金代码",
         ]
     ]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df['单位净值'] = pd.to_numeric(temp_df['单位净值'], errors="coerce")
+    temp_df['日增长率'] = pd.to_numeric(temp_df['日增长率'], errors="coerce")
+    temp_df['近1周'] = pd.to_numeric(temp_df['近1周'], errors="coerce")
+    temp_df['近1月'] = pd.to_numeric(temp_df['近1月'], errors="coerce")
+    temp_df['近3月'] = pd.to_numeric(temp_df['近3月'], errors="coerce")
+    temp_df['近6月'] = pd.to_numeric(temp_df['近6月'], errors="coerce")
+    temp_df['近1年'] = pd.to_numeric(temp_df['近1年'], errors="coerce")
+    temp_df['近2年'] = pd.to_numeric(temp_df['近2年'], errors="coerce")
+    temp_df['近3年'] = pd.to_numeric(temp_df['近3年'], errors="coerce")
+    temp_df['今年来'] = pd.to_numeric(temp_df['今年来'], errors="coerce")
+    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
+    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
+    temp_df['可购买'] = temp_df['可购买'].map(lambda x: "可购买" if x == "1" else "不可购买")
     return temp_df
 
 
@@ -448,14 +489,14 @@ if __name__ == "__main__":
     fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="全部")
     print(fund_open_fund_rank_em_df)
 
-    fund_em_exchange_rank_df = fund_em_exchange_rank()
-    print(fund_em_exchange_rank_df)
+    fund_exchange_rank_em_df = fund_exchange_rank_em()
+    print(fund_exchange_rank_em_df)
 
-    fund_em_money_rank_df = fund_em_money_rank()
-    print(fund_em_money_rank_df)
+    fund_money_rank_em_df = fund_money_rank_em()
+    print(fund_money_rank_em_df)
 
-    fund_em_lcx_rank_df = fund_em_lcx_rank()
-    print(fund_em_lcx_rank_df)
+    fund_lcx_rank_em_df = fund_lcx_rank_em()
+    print(fund_lcx_rank_em_df)
 
-    fund_em_hk_rank_df = fund_em_hk_rank()
-    print(fund_em_hk_rank_df)
+    fund_hk_rank_em_df = fund_hk_rank_em()
+    print(fund_hk_rank_em_df)
