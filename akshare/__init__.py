@@ -2342,9 +2342,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.24 fix: fix bond_cb_adj_logs_jsl interface
 1.9.25 add: add stock_hk_hot_rank_em interface
 1.9.26 fix: fix bond_cb_jsl interface
+1.9.27 fix: fix fund_exchange_rank_em interface
 """
 
-__version__ = "1.9.26"
+__version__ = "1.9.27"
 __author__ = "AKFamily"
 
 import sys
@@ -2952,7 +2953,7 @@ from akshare.stock.stock_us_pink import stock_us_pink_spot_em
 """
 REITs
 """
-from akshare.reits.reits_basic import reits_info_jsl, reits_realtime_em
+from akshare.reits.reits_basic import reits_realtime_em
 
 """
 鸡蛋价格数据
@@ -3470,11 +3471,11 @@ from akshare.rate.repo_rate import repo_rate_hist
 公募基金排行
 """
 from akshare.fund.fund_rank_em import (
-    fund_em_exchange_rank,
-    fund_em_money_rank,
+    fund_exchange_rank_em,
+    fund_money_rank_em,
     fund_open_fund_rank_em,
-    fund_em_hk_rank,
-    fund_em_lcx_rank,
+    fund_hk_rank_em,
+    fund_lcx_rank_em,
 )
 
 """
