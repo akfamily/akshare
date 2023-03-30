@@ -1192,7 +1192,7 @@ if __name__ == "__main__":
     fund_money_fund_daily_em_df = fund_money_fund_daily_em()
     print(fund_money_fund_daily_em_df)
 
-    fund_money_fund_info_em_df = fund_money_fund_info_em(fund="000009")
+    fund_money_fund_info_em_df = fund_money_fund_info_em(fund="162411")
     print(fund_money_fund_info_em_df)
 
     fund_financial_fund_daily_em_df = fund_financial_fund_daily_em()
