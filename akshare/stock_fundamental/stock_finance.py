@@ -11,6 +11,7 @@ https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600
 https://money.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/600004.phtml
 """
 from io import BytesIO
+from datetime import datetime
 
 import pandas as pd
 import requests
@@ -19,34 +20,73 @@ from tqdm import tqdm
 
 
 def stock_financial_report_sina(
-    stock: str = "600004", symbol: str = "现金流量表"
+    stock: str = "sh600600", symbol: str = "资产负债表"
 ) -> pd.DataFrame:
     """
     新浪财经-财务报表-三大报表
-    https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_BalanceSheet/stockid/600004/ctrl/part/displaytype/4.phtml
+    https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600600/displaytype/4.phtml?source=fzb&qq-pf-to=pcqq.group
     :param stock: 股票代码
     :type stock: str
     :param symbol: choice of {"资产负债表", "利润表", "现金流量表"}
-    :type symbol:
+    :type symbol: str
     :return: 新浪财经-财务报表-三大报表
     :rtype: pandas.DataFrame
     """
-    if symbol == "资产负债表":
-        url = f"http://money.finance.sina.com.cn/corp/go.php/vDOWN_BalanceSheet/displaytype/4/stockid/{stock}/ctrl/all.phtml"  # 资产负债表
-    elif symbol == "利润表":
-        url = f"http://money.finance.sina.com.cn/corp/go.php/vDOWN_ProfitStatement/displaytype/4/stockid/{stock}/ctrl/all.phtml"  # 利润表
-    elif symbol == "现金流量表":
-        url = f"http://money.finance.sina.com.cn/corp/go.php/vDOWN_CashFlow/displaytype/4/stockid/{stock}/ctrl/all.phtml"  # 现金流量表
-    r = requests.get(url)
-    temp_df = pd.read_table(BytesIO(r.content), encoding="gb2312", header=None).iloc[
-        :, :-2
-    ]
-    temp_df = temp_df.T
-    temp_df.columns = temp_df.iloc[0, :]
-    temp_df = temp_df.iloc[1:, :]
-    temp_df.index.name = None
-    temp_df.columns.name = None
-    return temp_df
+    symbol_map = {
+        "资产负债表": "fzb",
+        "利润表": "lrb",
+        "现金流量表": "llb"
+    }
+    url = "https://quotes.sina.cn/cn/api/openapi.php/CompanyFinanceService.getFinanceReport2022"
+    params = {
+        "paperCode": f"{stock}",
+        "source": symbol_map[symbol],
+        "type": "0",
+        "page": "1",
+        "num": "100",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    df_columns = [item['date_value'] for item in data_json["result"]["data"]["report_date"]]
+    big_df = pd.DataFrame()
+    for date_str in df_columns:
+        temp_df = pd.DataFrame(
+            data_json["result"]["data"]["report_list"][date_str]["data"]
+        )
+        temp_df = temp_df[["item_title", "item_value"]]
+        temp_df['item_value'] = pd.to_numeric(temp_df['item_value'], errors="coerce")
+        temp_tail_df = pd.DataFrame.from_dict(
+            {
+                "数据源": data_json["result"]["data"]["report_list"][date_str][
+                    "data_source"
+                ],
+                "是否审计": data_json["result"]["data"]["report_list"][date_str][
+                    "is_audit"
+                ],
+                "公告日期": data_json["result"]["data"]["report_list"][date_str][
+                    "publish_date"
+                ],
+                "币种": data_json["result"]["data"]["report_list"][date_str][
+                    "rCurrency"
+                ],
+                "类型": data_json["result"]["data"]["report_list"][date_str]["rType"],
+                "更新日期": datetime.fromtimestamp(
+                    data_json["result"]["data"]["report_list"][date_str][
+                        "update_time"
+                    ]
+                ).isoformat(),
+            }, orient="index"
+        )
+        temp_tail_df.reset_index(inplace=True)
+        temp_tail_df.columns = ["item_title", "item_value"]
+        temp_df = pd.concat([temp_df, temp_tail_df], ignore_index=True)
+        temp_df.columns = ["项目", date_str]
+        big_df = pd.concat([big_df, temp_df[date_str]], axis=1, ignore_index=True)
+
+    big_df = big_df.T
+    big_df.columns = temp_df["项目"]
+    big_df = pd.concat([pd.DataFrame({"报告日": df_columns}), big_df], axis=1)
+    return big_df
 
 
 def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
@@ -68,51 +108,64 @@ def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    key_list = list(data_json['result']['data']['report_list'].keys())
-    temp_df = pd.DataFrame(data_json['result']['data']['report_list'][key_list[0]]['data'])
-    big_df = temp_df['item_title']
+    key_list = list(data_json["result"]["data"]["report_list"].keys())
+    temp_df = pd.DataFrame(
+        data_json["result"]["data"]["report_list"][key_list[0]]["data"]
+    )
+    big_df = temp_df["item_title"]
     for item in key_list:
-        temp_df = pd.DataFrame(data_json['result']['data']['report_list'][item]['data'])
-        big_df = pd.concat([big_df, temp_df['item_value']], axis=1, ignore_index=True)
+        temp_df = pd.DataFrame(data_json["result"]["data"]["report_list"][item]["data"])
+        big_df = pd.concat([big_df, temp_df["item_value"]], axis=1, ignore_index=True)
     big_df.index = big_df.iloc[:, 0]
     big_df = big_df.iloc[:, 1:]
 
-    big_one_df = big_df.loc["常用指标": "每股指标"]
+    big_one_df = big_df.loc["常用指标":"每股指标"]
     big_one_df = big_one_df.iloc[1:-1, :]
     big_one_df.reset_index(inplace=True)
     big_one_df.insert(0, "选项", "常用指标")
 
-    big_two_df = big_df.loc["每股指标": "盈利能力"]
+    big_two_df = big_df.loc["每股指标":"盈利能力"]
     big_two_df = big_two_df.iloc[1:-1, :]
     big_two_df.reset_index(inplace=True)
     big_two_df.insert(0, "选项", "每股指标")
 
-    big_three_df = big_df.loc["盈利能力": "成长能力"]
+    big_three_df = big_df.loc["盈利能力":"成长能力"]
     big_three_df = big_three_df.iloc[1:-1, :]
     big_three_df.reset_index(inplace=True)
     big_three_df.insert(0, "选项", "盈利能力")
 
-    big_four_df = big_df.loc["成长能力": "收益质量"]
+    big_four_df = big_df.loc["成长能力":"收益质量"]
     big_four_df = big_four_df.iloc[1:-1, :]
     big_four_df.reset_index(inplace=True)
     big_four_df.insert(0, "选项", "成长能力")
 
-    big_five_df = big_df.loc["收益质量": "财务风险"]
+    big_five_df = big_df.loc["收益质量":"财务风险"]
     big_five_df = big_five_df.iloc[1:-1, :]
     big_five_df.reset_index(inplace=True)
     big_five_df.insert(0, "选项", "收益质量")
 
-    big_six_df = big_df.loc["财务风险": "营运能力"]
+    big_six_df = big_df.loc["财务风险":"营运能力"]
     big_six_df = big_six_df.iloc[1:-1, :]
     big_six_df.reset_index(inplace=True)
     big_six_df.insert(0, "选项", "财务风险")
 
-    big_seven_df = big_df.loc["营运能力": ]
+    big_seven_df = big_df.loc["营运能力":]
     big_seven_df = big_seven_df.iloc[1:-1, :]
     big_seven_df.reset_index(inplace=True)
     big_seven_df.insert(0, "选项", "营运能力")
 
-    big_df = pd.concat([big_one_df, big_two_df, big_three_df, big_four_df, big_five_df, big_six_df, big_seven_df], ignore_index=True)
+    big_df = pd.concat(
+        [
+            big_one_df,
+            big_two_df,
+            big_three_df,
+            big_four_df,
+            big_five_df,
+            big_six_df,
+            big_seven_df,
+        ],
+        ignore_index=True,
+    )
     key_list.insert(0, "选项")
     key_list.insert(1, "指标")
     big_df.columns = key_list
@@ -499,12 +552,17 @@ def stock_main_stock_holder(stock: str = "600004") -> pd.DataFrame:
 
 if __name__ == "__main__":
     stock_financial_report_sina_df = stock_financial_report_sina(
-        stock="600009", symbol="现金流量表"
+        stock="sh600600", symbol="现金流量表"
     )
     print(stock_financial_report_sina_df)
 
     stock_financial_report_sina_df = stock_financial_report_sina(
-        stock="600004", symbol="资产负债表"
+        stock="sh600600", symbol="资产负债表"
+    )
+    print(stock_financial_report_sina_df)
+
+    stock_financial_report_sina_df = stock_financial_report_sina(
+        stock="sh600600", symbol="利润表"
     )
     print(stock_financial_report_sina_df)
 
