@@ -9903,51 +9903,53 @@ print(stock_notice_report_df)
 
 接口: stock_financial_report_sina
 
-目标地址: https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_BalanceSheet/stockid/600004/ctrl/part/displaytype/4.phtml
+目标地址: https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600600/displaytype/4.phtml?source=fzb&qq-pf-to=pcqq.group
 
 描述: 新浪财经-财务报表-三大报表
 
-限量: 单次获取指定报表的所有年份数据
+限量: 单次获取指定报表的所有年份数据的历史数据
 
 输入参数
 
 | 名称     | 类型  | 描述                                                  |
 |--------|-----|-----------------------------------------------------|
-| stock  | str | stock="600004"; 股票代码                                |
+| stock  | str | stock="sh600600"; 带市场标识的股票代码                        |
 | symbol | str | symbol="现金流量表"; choice of {"资产负债表", "利润表", "现金流量表"} |
 
 输出参数
 
-| 名称   | 类型  | 描述        |
-|------|-----|-----------|
-| 报表日期 | str | 报告日期      |
-| 单位   | str | 注意单位: 元   |
-| ...  | str | 70 多项财务指标 |
+| 名称   | 类型     | 描述   |
+|------|--------|------|
+| 报告日  | object | 报告日期 |
+| 流动资产 | object | -    |
+| ...  | object | -    |
+| 类型   | object | -    |
+| 更新日期 | object | -    |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_financial_report_sina_df = ak.stock_financial_report_sina(stock="600004", symbol="现金流量表")
+stock_financial_report_sina_df = ak.stock_financial_report_sina(stock="sh600600", symbol="资产负债表")
 print(stock_financial_report_sina_df)
 ```
 
 数据示例
 
 ```
-        报表日期 单位 一、经营活动产生的现金流量  ... 现金等价物的期末余额 现金等价物的期初余额   现金及现金等价物的净增加额
-1   20200930  元           NaN  ...          0          0               0
-2   20200630  元           NaN  ...          0          0     11724335.23
-3   20200331  元           NaN  ...          0          0               0
-4   20191231  元           NaN  ...          0          0  -1044254625.00
-5   20190930  元           NaN  ...          0          0               0
-..       ... ..           ...  ...        ...        ...             ...
-69  20030930  元           NaN  ...          0          0    -83266325.50
-70  20030630  元           NaN  ...          0          0   -143509055.17
-71  20030331  元           NaN  ...          0          0    115220322.31
-72  20021231  元           NaN  ...          0          0    110751837.42
-73  20020630  元           NaN  ...          0          0               0
+         报告日 流动资产           货币资金  ...   币种    类型                 更新日期
+0   20221231  NaN  17854931855.0  ...  CNY  合并期末  2023-03-22T20:50:09
+1   20220930  NaN  17045567340.0  ...  CNY  合并期末  2022-10-26T17:20:07
+2   20220630  NaN  17587197778.0  ...  CNY  合并期末  2022-08-25T21:25:04
+3   20220331  NaN  12818371932.0  ...  CNY  合并期末  2022-04-28T16:20:04
+4   20211231  NaN  14597590313.0  ...  CNY  合并期末  2022-03-29T01:05:06
+..       ...  ...            ...  ...  ...   ...                  ...
+95  19960630  NaN            NaN  ...  CNY  合并期末  2020-03-13T15:29:48
+96  19951231  NaN    741738874.0  ...  CNY  合并期末  2020-03-13T15:29:48
+97  19950630  NaN            NaN  ...  CNY  合并期末  2020-03-13T15:29:48
+98  19941231  NaN    712428000.0  ...  CNY  合并期末  2020-03-13T15:29:48
+99  19940630  NaN            NaN  ...  CNY  合并期末  2020-03-13T15:29:48
 ```
 
 #### 财务报表-东财
