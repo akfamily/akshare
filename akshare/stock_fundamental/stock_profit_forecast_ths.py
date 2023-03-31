@@ -61,6 +61,4 @@ def stock_profit_forecast_ths(
 if __name__ == "__main__":
     for item in ["预测年报每股收益", "预测年报净利润", "业绩预测详表-机构", "业绩预测详表-详细指标预测"]:
         stock_profit_forecast_ths_df = stock_profit_forecast_ths(symbol="600519", indicator=item)
-        print(item)
         print(stock_profit_forecast_ths_df)
-        print(stock_profit_forecast_ths_df.dtypes)
