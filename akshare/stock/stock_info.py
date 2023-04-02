@@ -445,6 +445,9 @@ if __name__ == "__main__":
     stock_info_sh_name_code_df = stock_info_sh_name_code(symbol="主板B股")
     print(stock_info_sh_name_code_df)
 
+    stock_info_sh_name_code_df = stock_info_sh_name_code(symbol="科创板")
+    print(stock_info_sh_name_code_df)
+
     stock_info_sz_name_code_df = stock_info_sz_name_code(indicator="A股列表")
     print(stock_info_sz_name_code_df)
 
