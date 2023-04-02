@@ -56,10 +56,9 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         r = requests.get(url, params=params)
         temp_json = r.json()
         temp_df = pd.DataFrame(
-            temp_json["data"]["items"], columns=temp_json["data"]["fields"]
+            temp_json['tuShareHttpContent']["data"]["items"], columns=temp_json['tuShareHttpContent']["data"]["fields"]
         )
         temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
-        # temp_df.iloc[:, 1:] = temp_df.iloc[:, 1:].astype(float)
         temp_df[temp_df.columns[1:]] = temp_df[temp_df.columns[1:]].astype(float)
         temp_df.sort_values(["trade_date"], inplace=True, ignore_index=True)
         return temp_df
