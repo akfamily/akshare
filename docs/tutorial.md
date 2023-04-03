@@ -87,6 +87,9 @@
  # 新浪财经-港股
  "stock_hk_spot"  # 获取港股的历史行情数据(包括前后复权因子)
  "stock_hk_daily"  # 获取港股的实时行情数据(也可以用于获得所有港股代码)
+ # 东方财富
+ "stock_hk_spot_em"  # 港股实时行情
+ "stock_hk_main_board_spot_em"  # 港股主板实时行情
  # 新浪财经-美股
  "get_us_stock_name"  # 获得美股的所有股票代码
  "stock_us_spot"  # 获取美股行情报价
