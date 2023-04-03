@@ -129,7 +129,6 @@
  # 股票分笔数据
  "stock_zh_a_tick_tx"  # A 股票分笔行情数据(近2年)-腾讯
  "stock_zh_a_tick_tx_js"  # A 股票分笔行情数据(近2年)-腾讯-当日数据
- "stock_zh_a_tick_163"  # A 股票分笔行情数据(近5个交易日)-163
  # 世界各地区日出和日落数据-日
  "weather_daily"  # 每日日出和日落数据
  # 世界各地区日出和日落数据-月
@@ -1062,8 +1061,6 @@
  "stock_hk_hot_rank_detail_em"  # 东方财富-个股人气榜-历史趋势-港股
  "stock_hk_hot_rank_detail_realtime_em"  # 东方财富-个股人气榜-实时变动-港股
  "stock_hk_hot_rank_latest_em"  # 东方财富-个股人气榜-最新排名-港股
- # 网易财经-行情首页-沪深 A 股-每日行情
- "stock_zh_a_hist_163"  # 网易财经-行情首页-沪深 A 股-每日行情
  # 东方财富-股票数据-龙虎榜
  "stock_lhb_detail_em"  # 东方财富网-数据中心-龙虎榜单-龙虎榜详情
  "stock_lhb_stock_statistic_em"  # 东方财富网-数据中心-龙虎榜单-个股上榜统计
