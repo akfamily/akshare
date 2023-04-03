@@ -8,6 +8,7 @@ https://www.legulegu.com/s/000001
 """
 import pandas as pd
 import requests
+from typing import Dict
 from bs4 import BeautifulSoup
 from hashlib import md5
 from datetime import datetime
@@ -25,6 +26,18 @@ def get_token_lg() -> str:
     obj.update(current_date_str.encode("utf-8"))
     token = obj.hexdigest()
     return token
+
+
+def get_auth_headers_lg() -> Dict[str, str]:
+    res = requests.get("https://legulegu.com/")
+    soup = BeautifulSoup(res.text, "lxml")
+    csrf_tag = soup.find("meta", attrs={"name": "_csrf"})
+    csrf_token = csrf_tag.attrs["content"]
+    session_id = res.cookies["JSESSIONID"]
+    return {
+        "Cookie": f"JSESSIONID={session_id}",
+        "X-CSRF-Token": csrf_token
+    }
 
 
 def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
@@ -53,7 +66,7 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         url = "https://legulegu.com/api/s/base-info/"
         token = get_token_lg()
         params = {"token": token, "id": symbol}
-        r = requests.get(url, params=params)
+        r = requests.post(url, params=params, headers=get_auth_headers_lg())
         temp_json = r.json()
         temp_df = pd.DataFrame(
             temp_json['tuShareHttpContent']["data"]["items"], columns=temp_json['tuShareHttpContent']["data"]["fields"]
