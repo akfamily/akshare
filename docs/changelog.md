@@ -54,6 +54,10 @@
 
 ## 更新说明
 
+1.9.32 fix: fix bank_fjcf_table_detail interface
+
+    1. 修复 bank_fjcf_table_detail 接口
+
 1.9.31 fix: fix amac_fund_info interface
 
     1. 修复 amac_fund_info 接口
@@ -2087,6 +2091,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.32 fix: fix bank_fjcf_table_detail interface
 
 1.9.31 fix: fix amac_fund_info interface
 
