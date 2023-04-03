@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/22 1:05
+Date: 2023/4/3 20:50
 Desc: 市盈率, 市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
 """
+from datetime import datetime
+from hashlib import md5
+from typing import Dict
+
 import pandas as pd
 import requests
-from typing import Dict
 from bs4 import BeautifulSoup
-from hashlib import md5
-from datetime import datetime
 
 
 def get_token_lg() -> str:
@@ -29,15 +30,18 @@ def get_token_lg() -> str:
 
 
 def get_auth_headers_lg() -> Dict[str, str]:
-    res = requests.get("https://legulegu.com/")
-    soup = BeautifulSoup(res.text, "lxml")
+    """
+    生成乐咕的必要请求头
+    https://legulegu.com/s/002488
+    :return: 生成乐咕的必要请求头
+    :rtype: dict
+    """
+    r = requests.get("https://legulegu.com/")
+    soup = BeautifulSoup(r.text, "lxml")
     csrf_tag = soup.find("meta", attrs={"name": "_csrf"})
     csrf_token = csrf_tag.attrs["content"]
-    session_id = res.cookies["JSESSIONID"]
-    return {
-        "Cookie": f"JSESSIONID={session_id}",
-        "X-CSRF-Token": csrf_token
-    }
+    session_id = r.cookies["JSESSIONID"]
+    return {"Cookie": f"JSESSIONID={session_id}", "X-CSRF-Token": csrf_token}
 
 
 def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
@@ -69,7 +73,8 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         r = requests.post(url, params=params, headers=get_auth_headers_lg())
         temp_json = r.json()
         temp_df = pd.DataFrame(
-            temp_json['tuShareHttpContent']["data"]["items"], columns=temp_json['tuShareHttpContent']["data"]["fields"]
+            temp_json["tuShareHttpContent"]["data"]["items"],
+            columns=temp_json["tuShareHttpContent"]["data"]["fields"],
         )
         temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
         temp_df[temp_df.columns[1:]] = temp_df[temp_df.columns[1:]].astype(float)
