@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/10/7 13:32
+Date: 2023/4/3 20:32
 Desc: 东方财富-基金
 """
 import pandas as pd
@@ -11,7 +11,7 @@ import requests
 def fund_aum_em() -> pd.DataFrame:
     """
     东方财富-基金-基金公司排名列表
-    http://fund.eastmoney.com/Company/lsgm.html
+    https://fund.eastmoney.com/Company/lsgm.html
     :return: 基金公司排名列表
     :rtype: pandas.DataFrame
     """
@@ -36,7 +36,7 @@ def fund_aum_em() -> pd.DataFrame:
 def fund_aum_trend_em() -> pd.DataFrame:
     """
     东方财富-基金-基金市场管理规模走势图
-    http://fund.eastmoney.com/Company/default.html
+    https://fund.eastmoney.com/Company/default.html
     :return: 基金市场管理规模走势图
     :rtype: pandas.DataFrame
     """
@@ -55,7 +55,7 @@ def fund_aum_trend_em() -> pd.DataFrame:
 def fund_aum_hist_em(year: str = "2019") -> pd.DataFrame:
     """
     东方财富-基金-基金公司历年管理规模排行列表
-    http://fund.eastmoney.com/Company/lsgm.html
+    https://fund.eastmoney.com/Company/lsgm.html
     :return: 基金公司历年管理规模排行列表
     :rtype: pandas.DataFrame
     """
