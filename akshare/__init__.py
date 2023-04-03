@@ -2349,9 +2349,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.31 fix: fix amac_fund_info interface
 1.9.32 fix: fix bank_fjcf_table_detail interface
 1.9.33 add: add stock_hk_main_board_spot_em interface
+1.9.34 fix: fix stock_zh_a_tick_tx_js interface
 """
 
-__version__ = "1.9.33"
+__version__ = "1.9.34"
 __author__ = "AKFamily"
 
 import sys
@@ -2619,11 +2620,6 @@ from akshare.stock_feature.stock_lhb_em import (
     stock_lhb_stock_statistic_em,
     stock_lhb_stock_detail_date_em,
 )
-
-"""
-网易财经-行情首页-沪深 A 股-每日行情
-"""
-from akshare.stock.stock_hist_163 import stock_zh_a_hist_163
 
 """
 指数行情数据
@@ -4269,11 +4265,9 @@ from akshare.air.sunrise_tad import sunrise_daily, sunrise_monthly
 """
 新浪-指数实时行情和历史行情
 """
-from akshare.stock.stock_zh_a_tick_tx_163 import (
+from akshare.stock.stock_zh_a_tick_tx import (
     stock_zh_a_tick_tx,
     stock_zh_a_tick_tx_js,
-    stock_zh_a_tick_163,
-    stock_zh_a_tick_163_now,
 )
 
 """
