@@ -2351,9 +2351,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.33 add: add stock_hk_main_board_spot_em interface
 1.9.34 fix: fix stock_zh_a_tick_tx_js interface
 1.9.35 fix: fix stock_a_lg_indicator interface
+1.9.36 fix: fix stock_market_pe_lg interface
 """
 
-__version__ = "1.9.35"
+__version__ = "1.9.36"
 __author__ = "AKFamily"
 
 import sys
@@ -3615,8 +3616,6 @@ from akshare.option.option_commodity_sina import (
 """
 A 股PE和PB
 """
-from akshare.stock_feature.stock_a_pb import stock_a_pb
-from akshare.stock_feature.stock_a_pe import stock_a_pe
 from akshare.stock_feature.stock_a_pe_and_pb import (
     stock_market_pb_lg,
     stock_index_pb_lg,
