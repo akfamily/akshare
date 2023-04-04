@@ -15,6 +15,25 @@ import requests
 from bs4 import BeautifulSoup
 
 
+def get_cookie_csrf(url: str = "") -> dict:
+    """
+    乐咕乐股-主板市盈率
+    https://legulegu.com/stockdata/shanghaiPE
+    :return: 指定市场的市盈率数据
+    :rtype: pandas.DataFrame
+    """
+    r = requests.get(url)
+    cookies_dict = r.cookies.get_dict()
+    headers = {
+        "Cookie": f"JSESSIONID={cookies_dict['JSESSIONID']}; rdtkolg={cookies_dict['rdtkolg']};"
+    }
+    soup = BeautifulSoup(r.text, "lxml")
+    csrf_tag = soup.find("meta", attrs={"name": "_csrf"})
+    csrf_token = csrf_tag.attrs["content"]
+    headers.update({"X-CSRF-Token": csrf_token})
+    return headers
+
+
 def get_token_lg() -> str:
     """
     生成乐咕的 token
@@ -52,40 +71,10 @@ def stock_a_lg_indicator(symbol: str = "002174") -> pd.DataFrame:
         temp_df = temp_df[["code", "stock_name"]]
         return temp_df
     else:
-        from requests import Session
-        session = Session()
-        r = session.get(f"https://legulegu.com/s/{symbol}")
-        soup = BeautifulSoup(r.text, "lxml")
-        csrf_tag = soup.find("meta", attrs={"name": "_csrf"})
-        csrf_token = csrf_tag.attrs["content"]
-        session_id = r.cookies["JSESSIONID"]
-        rdtkolg = r.cookies["rdtkolg"]
-        headers = {
-            "Accept": "application/json",
-            "Accept-Encoding": "gzip, deflate, br",
-            "Accept-Language": "zh-CN,zh;q=0.9",
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-            "Content-Length": "0",
-            "Content-Type": "application/json",
-            "Host": "legulegu.com",
-            "Origin": "https://legulegu.com",
-            "Pragma": "no-cache",
-            "Referer": "https://legulegu.com/s/002174",
-            "sec-ch-ua": '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
-            "sec-ch-ua-mobile": "?0",
-            "sec-ch-ua-platform": '"Windows"',
-            "Sec-Fetch-Dest": "empty",
-            "Sec-Fetch-Mode": "cors",
-            "Sec-Fetch-Site": "same-origin",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
-            "X-Requested-With": "XMLHttpRequest",
-        }
-        headers.update({"Cookie": f"JSESSIONID={session_id}; rdtkolg={rdtkolg}", "X-CSRF-Token": csrf_token})
         url = "https://legulegu.com/api/s/base-info/"
         token = get_token_lg()
         params = {"token": token, "id": symbol}
-        r = session.post(url, params=params, headers=headers)
+        r = requests.post(url, params=params, headers=get_cookie_csrf(url=f"https://legulegu.com/s/{symbol}"))
         temp_json = r.json()
         temp_df = pd.DataFrame(
             temp_json["data"]["items"],
@@ -97,7 +86,7 @@ def stock_a_lg_indicator(symbol: str = "002174") -> pd.DataFrame:
         return temp_df
 
 
-def stock_hk_eniu_indicator(
+def stock_hk_indicator_eniu(
     symbol: str = "hk01093", indicator: str = "市盈率"
 ) -> pd.DataFrame:
     """
@@ -139,7 +128,7 @@ if __name__ == "__main__":
     stock_a_lg_indicator_df = stock_a_lg_indicator(symbol="600030")
     print(stock_a_lg_indicator_df)
 
-    stock_hk_eniu_indicator_df = stock_hk_eniu_indicator(
+    stock_hk_indicator_eniu_df = stock_hk_indicator_eniu(
         symbol="hk01093", indicator="市净率"
     )
-    print(stock_hk_eniu_indicator_df)
+    print(stock_hk_indicator_eniu_df)

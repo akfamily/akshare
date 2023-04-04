@@ -4,6 +4,7 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.9.37     | stock_hk_eniu_indicator                     | stock_hk_indicator_eniu                     | 20230404 |
 | 1.9.27     | fund_em_hk_rank                             | fund_hk_rank_em                             | 20230330 |
 | 1.9.27     | fund_em_lcx_rank                            | fund_lcx_rank_em                            | 20230330 |
 | 1.9.27     | fund_em_money_rank                          | fund_money_rank_em                          | 20230330 |
@@ -53,6 +54,10 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明
+
+1.9.37 fix: fix stock_hk_indicator_eniu interface
+
+    1. 修复 stock_hk_indicator_eniu 接口
 
 1.9.36 fix: fix stock_market_pe_lg interface
 
@@ -2110,6 +2115,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.37 fix: fix stock_hk_indicator_eniu interface
 
 1.9.36 fix: fix stock_market_pe_lg interface
 
