@@ -542,8 +542,6 @@
  "index_bloomberg_billionaires"  # 彭博亿万富豪指数
  "index_bloomberg_billionaires_hist"  # 彭博亿万富豪历史指数
  # A 股市盈率和市净率
- "stock_a_pb"  # A 股市净率
- "stock_a_pe"  # A 股市盈率
  "stock_market_pe_lg"  # 乐咕乐股-主板市盈率
  "stock_index_pe_lg"  # 乐咕乐股-指数市盈率
  "stock_market_pb_lg"  # 乐咕乐股-主板市净率
