@@ -2350,9 +2350,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.32 fix: fix bank_fjcf_table_detail interface
 1.9.33 add: add stock_hk_main_board_spot_em interface
 1.9.34 fix: fix stock_zh_a_tick_tx_js interface
+1.9.35 fix: fix stock_a_lg_indicator interface
 """
 
-__version__ = "1.9.34"
+__version__ = "1.9.35"
 __author__ = "AKFamily"
 
 import sys
