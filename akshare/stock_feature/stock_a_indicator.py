@@ -29,22 +29,7 @@ def get_token_lg() -> str:
     return token
 
 
-def get_auth_headers_lg() -> Dict[str, str]:
-    """
-    生成乐咕的必要请求头
-    https://legulegu.com/s/002488
-    :return: 生成乐咕的必要请求头
-    :rtype: dict
-    """
-    r = requests.get("https://legulegu.com/")
-    soup = BeautifulSoup(r.text, "lxml")
-    csrf_tag = soup.find("meta", attrs={"name": "_csrf"})
-    csrf_token = csrf_tag.attrs["content"]
-    session_id = r.cookies["JSESSIONID"]
-    return {"Cookie": f"JSESSIONID={session_id}", "X-CSRF-Token": csrf_token}
-
-
-def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
+def stock_a_lg_indicator(symbol: str = "002174") -> pd.DataFrame:
     """
     市盈率, 市净率, 股息率数据接口
     https://legulegu.com/stocklist
@@ -67,14 +52,44 @@ def stock_a_lg_indicator(symbol: str = "000001") -> pd.DataFrame:
         temp_df = temp_df[["code", "stock_name"]]
         return temp_df
     else:
+        from requests import Session
+        session = Session()
+        r = session.get(f"https://legulegu.com/s/{symbol}")
+        soup = BeautifulSoup(r.text, "lxml")
+        csrf_tag = soup.find("meta", attrs={"name": "_csrf"})
+        csrf_token = csrf_tag.attrs["content"]
+        session_id = r.cookies["JSESSIONID"]
+        rdtkolg = r.cookies["rdtkolg"]
+        headers = {
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "zh-CN,zh;q=0.9",
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "Content-Length": "0",
+            "Content-Type": "application/json",
+            "Host": "legulegu.com",
+            "Origin": "https://legulegu.com",
+            "Pragma": "no-cache",
+            "Referer": "https://legulegu.com/s/002174",
+            "sec-ch-ua": '"Google Chrome";v="111", "Not(A:Brand";v="8", "Chromium";v="111"',
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": '"Windows"',
+            "Sec-Fetch-Dest": "empty",
+            "Sec-Fetch-Mode": "cors",
+            "Sec-Fetch-Site": "same-origin",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
+            "X-Requested-With": "XMLHttpRequest",
+        }
+        headers.update({"Cookie": f"JSESSIONID={session_id}; rdtkolg={rdtkolg}", "X-CSRF-Token": csrf_token})
         url = "https://legulegu.com/api/s/base-info/"
         token = get_token_lg()
         params = {"token": token, "id": symbol}
-        r = requests.post(url, params=params, headers=get_auth_headers_lg())
+        r = session.post(url, params=params, headers=headers)
         temp_json = r.json()
         temp_df = pd.DataFrame(
-            temp_json["tuShareHttpContent"]["data"]["items"],
-            columns=temp_json["tuShareHttpContent"]["data"]["fields"],
+            temp_json["data"]["items"],
+            columns=temp_json["data"]["fields"],
         )
         temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
         temp_df[temp_df.columns[1:]] = temp_df[temp_df.columns[1:]].astype(float)
