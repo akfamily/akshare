@@ -23,15 +23,11 @@ def get_cookie_csrf(url: str = "") -> dict:
     :rtype: pandas.DataFrame
     """
     r = requests.get(url)
-    cookies_dict = r.cookies.get_dict()
-    headers = {
-        "Cookie": f"JSESSIONID={cookies_dict['JSESSIONID']}; rdtkolg={cookies_dict['rdtkolg']};"
-    }
     soup = BeautifulSoup(r.text, "lxml")
     csrf_tag = soup.find("meta", attrs={"name": "_csrf"})
     csrf_token = csrf_tag.attrs["content"]
-    headers.update({"X-CSRF-Token": csrf_token})
-    return headers
+    headers = { "X-CSRF-Token": csrf_token }
+    return { "cookies": r.cookies, "headers": headers }
 
 
 def get_token_lg() -> str:
@@ -74,7 +70,7 @@ def stock_a_lg_indicator(symbol: str = "002174") -> pd.DataFrame:
         url = "https://legulegu.com/api/s/base-info/"
         token = get_token_lg()
         params = {"token": token, "id": symbol}
-        r = requests.post(url, params=params, headers=get_cookie_csrf(url=f"https://legulegu.com/s/{symbol}"))
+        r = requests.post(url, params=params, **get_cookie_csrf(url=f"https://legulegu.com/s/{symbol}"))
         temp_json = r.json()
         temp_df = pd.DataFrame(
             temp_json["data"]["items"],
