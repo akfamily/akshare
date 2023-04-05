@@ -14691,7 +14691,7 @@ print(stock_zh_vote_baidu_df)
 
 #### 港股个股指标
 
-接口: stock_hk_eniu_indicator
+接口: stock_hk_indicator_eniu
 
 目标地址: https://eniu.com/gu/hk01093/roe
 
@@ -14703,7 +14703,7 @@ print(stock_zh_vote_baidu_df)
 
 | 名称        | 类型  | 描述                                                                                              |
 |-----------|-----|-------------------------------------------------------------------------------------------------|
-| symbol    | str | symbol="hk01093"; 可通过调用 **ak.stock_hk_eniu_indicator(symbol="hk01093", indicator="港股")** 获取股票代码 |
+| symbol    | str | symbol="hk01093"; 可通过调用 **ak.stock_hk_indicator_eniu(symbol="hk01093", indicator="港股")** 获取股票代码 |
 | indicator | str | indicator="港股"; choice of {"港股", "市盈率", "市净率", "股息率", "ROE", "市值"}                              |
 
 输出参数
@@ -14717,8 +14717,8 @@ print(stock_zh_vote_baidu_df)
 ```python
 import akshare as ak
 
-stock_hk_eniu_indicator_df = ak.stock_hk_eniu_indicator(symbol="hk01093", indicator="市净率")
-print(stock_hk_eniu_indicator_df)
+stock_hk_indicator_eniu_df = ak.stock_hk_indicator_eniu(symbol="hk01093", indicator="市净率")
+print(stock_hk_indicator_eniu_df)
 ```
 
 数据示例-ROE
