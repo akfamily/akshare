@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/9/28 16:10
+Date: 2023/4/5 22:10
 Desc: 腾讯财经-A+H股数据, 实时行情数据和历史行情数据(后复权)
 https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH&sort=3&page=3&max=20
 """
@@ -30,9 +30,9 @@ def _get_zh_stock_ah_page_count() -> int:
     """
     hk_payload_copy = hk_payload.copy()
     hk_payload_copy.update({"reqPage": 1})
-    res = requests.get(hk_url, params=hk_payload_copy, headers=hk_headers)
+    r = requests.get(hk_url, params=hk_payload_copy, headers=hk_headers)
     data_json = demjson.decode(
-        res.text[res.text.find("{") : res.text.rfind("}") + 1]
+        r.text[r.text.find("{"): r.text.rfind("}") + 1]
     )
     page_count = data_json["data"]["page_count"]
     return page_count
@@ -49,9 +49,9 @@ def stock_zh_ah_spot() -> pd.DataFrame:
     page_count = _get_zh_stock_ah_page_count() + 1
     for i in tqdm(range(1, page_count), leave=False):
         hk_payload.update({"reqPage": i})
-        res = requests.get(hk_url, params=hk_payload, headers=hk_headers)
+        r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
         data_json = demjson.decode(
-            res.text[res.text.find("{") : res.text.rfind("}") + 1]
+            r.text[r.text.find("{") : r.text.rfind("}") + 1]
         )
         big_df = pd.concat(
             [
@@ -119,9 +119,9 @@ def stock_zh_ah_name() -> dict:
     page_count = _get_zh_stock_ah_page_count() + 1
     for i in tqdm(range(1, page_count), leave=False):
         hk_payload.update({"reqPage": i})
-        res = requests.get(hk_url, params=hk_payload, headers=hk_headers)
+        r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
         data_json = demjson.decode(
-            res.text[res.text.find("{") : res.text.rfind("}") + 1]
+            r.text[r.text.find("{") : r.text.rfind("}") + 1]
         )
         big_df = pd.concat(
             [
@@ -164,7 +164,7 @@ def stock_zh_ah_daily(
 ) -> pd.DataFrame:
     """
     腾讯财经-港股-AH-股票历史行情
-    http://gu.qq.com/hk01033/gp
+    https://gu.qq.com/hk01033/gp
     :param symbol: 股票代码
     :type symbol: str
     :param start_year: 开始年份; e.g., “2000”
@@ -206,19 +206,19 @@ def stock_zh_ah_daily(
                 "Referer": "http://gu.qq.com/hk01033/gp",
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
             }
-            res = requests.get(
+            r = requests.get(
                 "http://web.ifzq.gtimg.cn/appstock/app/kline/kline",
                 params=hk_stock_payload_copy,
                 headers=headers,
             )
         else:
-            res = requests.get(
-                "http://web.ifzq.gtimg.cn/appstock/app/hkfqkline/get",
+            r = requests.get(
+                "https://web.ifzq.gtimg.cn/appstock/app/hkfqkline/get",
                 params=hk_stock_payload_copy,
                 headers=hk_stock_headers,
             )
         data_json = demjson.decode(
-            res.text[res.text.find("{") : res.text.rfind("}") + 1]
+            r.text[r.text.find("{") : r.text.rfind("}") + 1]
         )
         try:
             if adjust == "":
@@ -266,6 +266,6 @@ if __name__ == "__main__":
     print(stock_zh_ah_name_df)
 
     stock_zh_ah_daily_df = stock_zh_ah_daily(
-        symbol="02318", start_year="2000", end_year="2022", adjust=""
+        symbol="00241", start_year="2000", end_year="2022", adjust="qfq"
     )
     print(stock_zh_ah_daily_df)
