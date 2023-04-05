@@ -25,7 +25,7 @@
 
 **Write less, get more!**
 
-- Documentation: [中文文档](https://www.akshare.xyz/)
+- Documentation: [中文文档](https://akshare.akfamily.xyz/)
 
 ![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare.svg)
 
@@ -45,23 +45,23 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 
 ### PR
 
-Please check out [documentation](https://www.akshare.xyz/zh_CN/latest/contributor.html) if you want to contribute to AKShare
+Please check out [documentation](https://akshare.akfamily.xyz/contributor.html) if you want to contribute to AKShare
 
 ### Docker
 
 #### Pull images
 
 ```shell
-docker pull registry.cn-hangzhou.aliyuncs.com/akshare/akdocker
+docker pull registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter
 ```
 
-#### Run AKDocker
+#### Run Container
 
 ```shell
-docker run -it registry.cn-hangzhou.aliyuncs.com/akshare/akdocker python
+docker run -it registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter python
 ```
 
-#### Test AKDocker
+#### Test
 
 ```python
 import akshare as ak
@@ -145,11 +145,11 @@ Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://git
 
 ## Tutorials
 
-1. [Overview](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-introduction.html)
-2. [Installation](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-installation.html)
-3. [Tutorial](https://akshare.readthedocs.io/zh_CN/latest/akshare/ak-tutorial.html)
-4. [Data Dict](https://akshare.readthedocs.io/zh_CN/latest/README.html)
-5. [Subjects](https://akshare.readthedocs.io/zh_CN/latest/subjects/index.html)
+1. [Overview](https://akshare.akfamily.xyz/introduction.html)
+2. [Installation](https://akshare.akfamily.xyz/installation.html)
+3. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
+4. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
+5. [Subjects](https://akshare.akfamily.xyz/topic/index.html)
 
 ## Contribution
 
