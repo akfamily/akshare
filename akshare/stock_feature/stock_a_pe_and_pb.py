@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/1/30 9:24
+Date: 2023/4/6 16:24
 Desc: 乐咕乐股-A 股市盈率和市净率
 https://legulegu.com/stockdata/shanghaiPE
 """
@@ -10,6 +10,8 @@ from datetime import datetime
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
+
+from akshare.stock_feature.stock_a_indicator import get_cookie_csrf
 
 hash_code = """
 function e(n) {
@@ -319,21 +321,6 @@ js_functions.eval(hash_code)
 token = js_functions.call("hex", datetime.now().date().isoformat()).lower()
 
 
-def get_cookie(url: str = "https://legulegu.com/stockdata/shanghaiPB") -> dict:
-    """
-    乐咕乐股-主板市盈率
-    https://legulegu.com/stockdata/shanghaiPE
-    :return: 指定市场的市盈率数据
-    :rtype: pandas.DataFrame
-    """
-    r = requests.get(url)
-    cookies_dict = r.cookies.get_dict()
-    headers = {
-        "Cookie": f"JSESSIONID={cookies_dict['JSESSIONID']}; rdtkolg={cookies_dict['rdtkolg']};"
-    }
-    return headers
-
-
 def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
     """
     乐咕乐股-主板市盈率
@@ -356,7 +343,7 @@ def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
             "创业板": "https://legulegu.com/stockdata/cybPE",
         }
         params = {"token": token, "marketId": symbol_map[symbol]}
-        r = requests.get(url, params=params, headers=get_cookie(url=url_map[symbol]))
+        r = requests.get(url, params=params, **get_cookie_csrf(url=url_map[symbol]))
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df["date"] = (
@@ -380,7 +367,7 @@ def stock_market_pe_lg(symbol: str = "深证") -> pd.DataFrame:
     else:
         url = "https://legulegu.com/api/stockdata/get-ke-chuang-ban-pe"
         params = {"token": token}
-        r = requests.get(url, params=params, headers=get_cookie(url="https://legulegu.com/stockdata/ke-chuang-ban-pe"))
+        r = requests.get(url, params=params, **get_cookie_csrf(url="https://legulegu.com/stockdata/ke-chuang-ban-pe"))
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df["date"] = (
@@ -428,7 +415,7 @@ def stock_index_pe_lg(symbol: str = "沪深300") -> pd.DataFrame:
     }
     url = "https://legulegu.com/api/stockdata/index-basic-pe"
     params = {"token": token, "indexCode": symbol_map[symbol]}
-    r = requests.get(url, params=params, headers=get_cookie(url="https://legulegu.com/stockdata/sz50-ttm-lyr"))
+    r = requests.get(url, params=params, **get_cookie_csrf(url="https://legulegu.com/stockdata/sz50-ttm-lyr"))
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
@@ -479,7 +466,7 @@ def stock_market_pb_lg(symbol: str = "上证") -> pd.DataFrame:
         "科创版": "https://legulegu.com/stockdata/ke-chuang-ban-pb",
     }
     params = {"token": token, "indexCode": symbol_map[symbol]}
-    r = requests.get(url, params=params, headers=get_cookie(url=url_map[symbol]))
+    r = requests.get(url, params=params, **get_cookie_csrf(url=url_map[symbol]))
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
@@ -531,7 +518,7 @@ def stock_index_pb_lg(symbol: str = "上证50") -> pd.DataFrame:
     }
     url = "https://legulegu.com/api/stockdata/index-basic-pb"
     params = {"token": token, "indexCode": symbol_map[symbol]}
-    r = requests.get(url, params=params, headers=get_cookie(url="https://legulegu.com/stockdata/zz500-ttm-lyr"))
+    r = requests.get(url, params=params, **get_cookie_csrf(url="https://legulegu.com/stockdata/zz500-ttm-lyr"))
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df["date"] = (
