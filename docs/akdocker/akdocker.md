@@ -7,7 +7,7 @@
 
 ### 官方安装指导
 
-1. Windows 10: [安装教程](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+1. Windows 11: [安装教程](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 2. Mac: [安装教程](https://docs.docker.com/docker-for-mac/install)
 3. Ubuntu: [安装教程](https://docs.docker.com/engine/install/ubuntu)
 4. CentOS: [安装教程](https://docs.docker.com/engine/install/centos)

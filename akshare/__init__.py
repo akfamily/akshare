@@ -2357,9 +2357,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.39 fix: fix fund_stock_position_lg interface
 1.9.40 fix: fix stock_profit_forecast_em interface
 1.9.41 fix: fix stock_a_indicator_lg interface
+1.9.42 add: add stock_bid_ask_em interface
 """
 
-__version__ = "1.9.41"
+__version__ = "1.9.42"
 __author__ = "AKFamily"
 
 import sys
@@ -2370,6 +2371,11 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+东方财富-行情报价
+"""
+from akshare.stock.stock_ask_bid_em import stock_bid_ask_em
 
 """
 同花顺-盈利预测
