@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/10/08 18:11
+Date: 2022/10/8 18:11
 Desc: 巨潮资讯-数据浏览器-筹资指标-公司配股实施方案
 http://webapi.cninfo.com.cn/#/dataBrowse
 """
