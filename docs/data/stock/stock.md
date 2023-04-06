@@ -17148,7 +17148,7 @@ print(stock_margin_underlying_info_szse_df)
 ```python
 import akshare as ak
 
-stock_profit_forecast_em_df = ak.stock_profit_forecast_em(symbol="")
+stock_profit_forecast_em_df = ak.stock_profit_forecast_em()
 print(stock_profit_forecast_em_df)
 ```
 
