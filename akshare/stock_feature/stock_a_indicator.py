@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/3 20:50
+Date: 2023/4/6 20:20
 Desc: 市盈率, 市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
@@ -43,11 +43,11 @@ def get_token_lg() -> str:
     return token
 
 
-def stock_a_lg_indicator(symbol: str = "002174") -> pd.DataFrame:
+def stock_a_indicator_lg(symbol: str = "002174") -> pd.DataFrame:
     """
     市盈率, 市净率, 股息率数据接口
     https://legulegu.com/stocklist
-    :param symbol: 通过 ak.stock_a_lg_indicator(symbol="all") 来获取所有股票的代码
+    :param symbol: 通过 ak.stock_a_indicator_lg(symbol="all") 来获取所有股票的代码
     :type symbol: str
     :return: 市盈率, 市净率, 股息率查询
     :rtype: pandas.DataFrame
@@ -121,11 +121,11 @@ def stock_hk_indicator_eniu(
 
 
 if __name__ == "__main__":
-    stock_a_lg_indicator_all_df = stock_a_lg_indicator(symbol="all")
-    print(stock_a_lg_indicator_all_df)
+    stock_a_indicator_lg_all_df = stock_a_indicator_lg(symbol="all")
+    print(stock_a_indicator_lg_all_df)
 
-    stock_a_lg_indicator_df = stock_a_lg_indicator(symbol="600030")
-    print(stock_a_lg_indicator_df)
+    stock_a_indicator_lg_df = stock_a_indicator_lg(symbol="000001")
+    print(stock_a_indicator_lg_df)
 
     stock_hk_indicator_eniu_df = stock_hk_indicator_eniu(
         symbol="hk01093", indicator="市净率"
