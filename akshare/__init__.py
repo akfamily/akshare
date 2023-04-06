@@ -2356,9 +2356,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.38 fix: fix stock_a_lg_indicator interface
 1.9.39 fix: fix fund_stock_position_lg interface
 1.9.40 fix: fix stock_profit_forecast_em interface
+1.9.41 fix: fix stock_a_indicator_lg interface
 """
 
-__version__ = "1.9.40"
+__version__ = "1.9.41"
 __author__ = "AKFamily"
 
 import sys
@@ -3627,7 +3628,7 @@ from akshare.stock_feature.stock_a_pe_and_pb import (
     stock_index_pe_lg,
 )
 from akshare.stock_feature.stock_a_indicator import (
-    stock_a_lg_indicator,
+    stock_a_indicator_lg,
     stock_hk_indicator_eniu,
 )
 from akshare.stock_feature.stock_a_high_low import stock_a_high_low_statistics
