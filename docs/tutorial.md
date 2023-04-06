@@ -1198,6 +1198,8 @@
  "fund_balance_position_lg"  # 乐咕乐股-基金仓位-平衡混合型基金仓位
  "fund_linghuo_position_lg"  # 乐咕乐股-基金仓位-灵活配置型基金仓位
  "stock_zyjs_ths"  # 主营介绍
+ # 东方财富-行情报价
+ "stock_bid_ask_em"  # 东方财富-行情报价
 ```
 
 ## 案例演示

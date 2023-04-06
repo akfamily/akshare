@@ -390,6 +390,64 @@ print(stock_individual_info_em_df)
 7   流通股        19405754475.0
 ```
 
+#### 行情报价
+
+接口: stock_bid_ask_em
+
+目标地址: https://quote.eastmoney.com/sz000001.html
+
+描述: 东方财富-行情报价
+
+限量: 单次返回指定股票的行情报价数据
+
+输入参数
+
+| 名称     | 类型  | 描述              |
+|--------|-----|-----------------|
+| symbol | str | symbol="000001" |
+
+输出参数
+
+| 名称    | 类型      | 描述 |
+|-------|---------|----|
+| item  | object  | -  |
+| value | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_bid_ask_em_df = ak.stock_bid_ask_em(symbol="000001")
+print(stock_bid_ask_em_df)
+```
+
+数据示例
+
+```
+          item      value
+0       sell_5      12.62
+1   sell_5_vol  132800.00
+2       sell_4      12.61
+3   sell_4_vol  222100.00
+4       sell_3      12.60
+5   sell_3_vol  584800.00
+6       sell_2      12.59
+7   sell_2_vol  562300.00
+8       sell_1      12.58
+9   sell_1_vol  349700.00
+10       buy_1      12.57
+11   buy_1_vol  192100.00
+12       buy_2      12.56
+13   buy_2_vol  232000.00
+14       buy_3      12.55
+15   buy_3_vol  110400.00
+16       buy_4      12.54
+17   buy_4_vol  112100.00
+18       buy_5      12.53
+19   buy_5_vol  279300.00
+```
+
 #### 实时行情数据
 
 ##### 实时行情数据-东财
