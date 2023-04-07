@@ -17530,14 +17530,13 @@ print(stock_board_concept_cons_ths_df)
 
 描述: 同花顺-板块-行业板块和概念板块-成份股数据
 
-限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths() 或者 ak.stock_board_industry_info_ths**
-返回板块信息
+限量: 单次返回当前时刻所有成份股, 调用 **ak.stock_board_concept_info_ths() 或者 ak.stock_board_industry_info_ths()** 返回板块信息
 
 输入参数
 
-| 名称     | 类型  | 描述                      |
-|--------|-----|-------------------------|
-| symbol | str | symbol="885611"; 输入概念代码 |
+| 名称     | 类型  | 描述                         |
+|--------|-----|----------------------------|
+| symbol | str | symbol="885611"; 输入概念或板块代码 |
 
 输出参数
 
