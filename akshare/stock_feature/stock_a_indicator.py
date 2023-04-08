@@ -103,7 +103,9 @@ def stock_hk_indicator_eniu(
         r = requests.get(url)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
-        return temp_df[temp_df["stock_id"].str.contains("hk")]
+        temp_df = temp_df[temp_df["stock_id"].str.contains("hk")]
+        temp_df.reset_index(inplace=True, drop=True)
+        return temp_df
     if indicator == "市盈率":
         url = f"https://eniu.com/chart/peh/{symbol}"
     elif indicator == "市净率":
@@ -128,6 +130,6 @@ if __name__ == "__main__":
     print(stock_a_indicator_lg_df)
 
     stock_hk_indicator_eniu_df = stock_hk_indicator_eniu(
-        symbol="hk01093", indicator="市净率"
+        symbol="hk01093", indicator="市盈率"
     )
     print(stock_hk_indicator_eniu_df)
