@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/9 21:44
+Date: 2023/4/9 21:44
 Desc: 同花顺-盈利预测
-http://basic.10jqka.com.cn/new/600519/worth.html
+https://basic.10jqka.com.cn/new/600519/worth.html
 """
 import pandas as pd
 import requests
@@ -14,7 +14,7 @@ def stock_profit_forecast_ths(
 ) -> pd.DataFrame:
     """
     同花顺-盈利预测
-    http://basic.10jqka.com.cn/new/600519/worth.html
+    https://basic.10jqka.com.cn/new/600519/worth.html
     :param symbol: 股票代码
     :type symbol: str
     :param indicator: choice of {"预测年报每股收益", "预测年报净利润", "业绩预测详表-机构", "业绩预测详表-详细指标预测"}
@@ -22,7 +22,7 @@ def stock_profit_forecast_ths(
     :return: 盈利预测
     :rtype: pandas.DataFrame
     """
-    url = f"http://basic.10jqka.com.cn/new/{symbol}/worth.html"
+    url = f"https://basic.10jqka.com.cn/new/{symbol}/worth.html"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
     }

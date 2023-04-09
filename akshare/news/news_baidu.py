@@ -131,7 +131,7 @@ def news_trade_notify_dividend_baidu(date: str = "20220916") -> pd.DataFrame:
     https://gushitong.baidu.com/calendar
     :param date: 查询日期
     :type date: str
-    :return: 交易提醒-停复牌
+    :return: 交易提醒-分红派息
     :rtype: pandas.DataFrame
     """
     start_date = "-".join([date[:4], date[4:6], date[6:]])
