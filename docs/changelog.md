@@ -56,6 +56,10 @@
 
 ## 更新说明
 
+1.9.45 add: add stock_fhps_detail_ths interface
+
+    1. 新增 stock_fhps_detail_ths 接口
+
 1.9.44 fix: fix stock_a_high_low_statistics interface
 
     1. 修复 stock_a_high_low_statistics 接口
@@ -2150,6 +2154,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.45 add: add stock_fhps_detail_ths interface
 
 1.9.44 fix: fix stock_a_high_low_statistics interface
 

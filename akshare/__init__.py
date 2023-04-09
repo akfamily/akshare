@@ -2360,9 +2360,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.42 add: add stock_bid_ask_em interface
 1.9.43 fix: fix stock_a_congestion_lg interface
 1.9.44 fix: fix stock_a_high_low_statistics interface
+1.9.45 add: add stock_fhps_detail_ths interface
 """
 
-__version__ = "1.9.44"
+__version__ = "1.9.45"
 __author__ = "AKFamily"
 
 import sys
@@ -2373,6 +2374,11 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+同花顺-分红融资
+"""
+from akshare.stock_feature.stock_fhps_ths import stock_fhps_detail_ths
 
 """
 东方财富-行情报价
@@ -3348,7 +3354,7 @@ from akshare.stock_feature.stock_board_concept_ths import (
 """
 分红配送
 """
-from akshare.stock_feature.stock_fhps_em import stock_fhps_em
+from akshare.stock_feature.stock_fhps_em import stock_fhps_em, stock_fhps_detail_em
 
 """
 中美国债收益率
