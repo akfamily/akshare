@@ -36,6 +36,7 @@ def option_dce_daily(
 ) -> Tuple[Any, Any]:
     """
     大连商品交易所-期权-日频行情数据
+    http://www.dce.com.cn/
     :param trade_date: 交易日
     :type trade_date: str
     :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权", "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权"}
@@ -137,7 +138,7 @@ def option_dce_daily(
         return result_one_df, result_two_df
     elif symbol == "黄大豆1号期权":
         result_one_df, result_two_df = (
-            table_df[table_df["商品名称"] == "黄大豆1号"],
+            table_df[table_df["商品名称"] == "豆一"],
             another_df[another_df.iloc[:, 0].str.contains("a")],
         )
         result_one_df.reset_index(inplace=True, drop=True)
@@ -145,7 +146,7 @@ def option_dce_daily(
         return result_one_df, result_two_df
     elif symbol == "黄大豆2号期权":
         result_one_df, result_two_df = (
-            table_df[table_df["商品名称"] == "黄大豆2号"],
+            table_df[table_df["商品名称"] == "豆二"],
             another_df[another_df.iloc[:, 0].str.contains("b")],
         )
         result_one_df.reset_index(inplace=True, drop=True)
@@ -264,9 +265,6 @@ def option_shfe_daily(
                 table_df["PRODUCTNAME"].str.strip() == symbol
             ]
             product_df = pd.DataFrame(json_data["o_curproduct"])
-            product_df = product_df[
-                product_df["PRODUCTNAME"].str.strip() == symbol
-            ]
             volatility_df = pd.DataFrame(json_data["o_cursigma"])
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
@@ -353,7 +351,7 @@ if __name__ == "__main__":
     print(option_czce_daily_df)
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
-        symbol="玉米期权", trade_date="20220808"
+        symbol="黄大豆2号期权", trade_date="20220808"
     )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
