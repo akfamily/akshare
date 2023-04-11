@@ -2365,9 +2365,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.47 fix: fix option_dce_daily interface
 1.9.48 fix: fix index_stock_cons interface
 1.9.49 add: add stock_lhb_yybph_em interface
+1.9.50 fix: fix stock_a_all_pb interface
 """
 
-__version__ = "1.9.49"
+__version__ = "1.9.50"
 __author__ = "AKFamily"
 
 import sys
