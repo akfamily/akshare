@@ -20,7 +20,9 @@ def stock_fhps_detail_ths(symbol: str = "603444") -> pd.DataFrame:
     """
     url = f"https://basic.10jqka.com.cn/new/{symbol}/bonus.html"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     r.encoding = "gbk"
