@@ -1065,6 +1065,9 @@
  "stock_lhb_stock_detail_em"  # 东方财富网-数据中心-龙虎榜单-个股龙虎榜详情
  "stock_lhb_jgmmtj_em"  # 东方财富网-数据中心-龙虎榜单-机构买卖每日统计
  "stock_lhb_hyyyb_em"  # 东方财富网-数据中心-龙虎榜单-每日活跃营业部
+ "stock_lhb_yybph_em"  # 东方财富网-数据中心-龙虎榜单-营业部排行
+ "stock_lhb_jgstatistic_em"  # 东方财富网-数据中心-龙虎榜单-机构席位追踪
+ "stock_lhb_traderstatistic_em"  # 东方财富网-数据中心-龙虎榜单-营业部统计
  # 投资组合-基金持仓
  "fund_portfolio_hold_em"  # 天天基金网-基金档案-投资组合-基金持仓
  "fund_portfolio_bond_hold_em"  # 天天基金网-基金档案-投资组合-债券持仓
