@@ -314,7 +314,7 @@ def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
     url = cons.SHFE_VOL_RANK_URL % (date.strftime("%Y%m%d"))
-    r = requests_link(url, "utf-8")
+    r = requests_link(url, "utf-8", headers=cons.shfe_headers)
     try:
         context = json.loads(r.text)
     except:
