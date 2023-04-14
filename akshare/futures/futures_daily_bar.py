@@ -278,7 +278,7 @@ def get_ine_daily(date: str = "20220208") -> pd.DataFrame:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return
     url = f"http://www.ine.cn/data/dailydata/kx/kx{day.strftime('%Y%m%d')}.dat"
-    r = requests.get(url)
+    r = requests.get(url, headers=cons.shfe_headers)
     result_df = pd.DataFrame()
     try:
         data_json = r.json()

@@ -2368,9 +2368,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.50 fix: fix stock_a_all_pb interface
 1.9.51 fix: fix get_shfe_daily interface
 1.9.52 fix: fix get_shfe_rank_table interface
+1.9.53 fix: fix get_ine_daily interface
 """
 
-__version__ = "1.9.52"
+__version__ = "1.9.53"
 __author__ = "AKFamily"
 
 import sys
