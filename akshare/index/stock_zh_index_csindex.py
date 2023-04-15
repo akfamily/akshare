@@ -198,6 +198,7 @@ def index_value_hist_funddb(
     payload = {
         "gu_code": name_code_map[symbol],
         "pe_category": indicator_map[indicator],
+        "year": -1,
     }
     r = requests.post(url, json=payload)
     data_json = r.json()
