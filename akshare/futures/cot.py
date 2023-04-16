@@ -102,7 +102,7 @@ def get_rank_sum_daily(
                     f"{start_day.strftime('%Y-%m-%d')}日交易所数据连接失败，已超过20次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                 )
                 return records.reset_index(drop=True)
-            records = records.append(data)
+            records = pd.concat([records, data], ignore_index=True)
         else:
             warnings.warn(f"{start_day.strftime('%Y%m%d')}非交易日")
         start_day += datetime.timedelta(days=1)
@@ -262,7 +262,7 @@ def get_rank_sum(
                     ].sum(),
                     "date": date.strftime("%Y%m%d"),
                 }
-                records = records.append(pd.DataFrame(big_dict, index=[0]))
+                records = pd.concat([records, pd.DataFrame(big_dict, index=[0])], ignore_index=True)
 
     if len(big_dict.items()) > 0:
         add_vars = [
@@ -277,7 +277,7 @@ def get_rank_sum(
             var_record = pd.DataFrame(records_cut.sum()).T
             var_record["date"] = date.strftime("%Y%m%d")
             var_record.loc[:, ["variety", "symbol"]] = var
-            records = records.append(var_record)
+            records = pd.concat([records, var_record], ignore_index=True)
 
     return records.reset_index(drop=True)
 
@@ -494,8 +494,8 @@ def get_czce_rank_table(
         big_dict[symbol_list[-1]] = inner_temp_df
     new_big_dict = {}
     for key, value in big_dict.items():
-        value["symbol"] = key
-        value["variety"] = re.compile(r"[a-zA-Z_]+").findall(key)[0]
+        value.assign(symbol=key)
+        value.assign(variety=re.compile(r"[a-zA-Z_]+").findall(key)[0])
         new_big_dict[key] = value
 
     return new_big_dict
@@ -791,7 +791,7 @@ def _table_cut_cal(table_cut, symbol):
     table_cut_sum["rank"] = 999
     for col in ["vol_party_name", "long_party_name", "short_party_name"]:
         table_cut_sum[col] = None
-    table_cut = table_cut.append(pd.DataFrame(table_cut_sum).T, sort=True)
+    table_cut = pd.concat([table_cut, pd.DataFrame(table_cut_sum).T], sort=True)
     table_cut["symbol"] = symbol
     table_cut["variety"] = var
     table_cut[intColumns + ["rank"]] = table_cut[intColumns + ["rank"]].astype(
