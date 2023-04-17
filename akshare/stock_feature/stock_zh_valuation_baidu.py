@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/19 20:26
+Date: 2023/4/17 14:26
 Desc: 百度股市通- A 股-财务报表-估值数据
 https://gushitong.baidu.com/stock/ab-002044
 """
-import http.client
-import json
-import urllib
-
 import pandas as pd
+import requests
 
 
 def stock_zh_valuation_baidu(
@@ -27,20 +24,30 @@ def stock_zh_valuation_baidu(
     :return: 估值数据
     :rtype: pandas.DataFrame
     """
+    url = "https://gushitong.baidu.com/opendata"
     params = {
-        "srcid": "51171",
+        "openapi": "1",
+        "dspName": "iphone",
+        "tn": "tangram",
+        "client": "app",
+        "query": indicator,
         "code": symbol,
+        "word": "",
+        "resource_id": "51171",
         "market": "ab",
-        "tag": f"{indicator}",
+        "tag": indicator,
         "chart_select": period,
-        "skip_industry": "0",
+        "industry_select": "",
+        "skip_industry": "1",
         "finClientType": "pc",
     }
-    conn = http.client.HTTPSConnection("finance.pae.baidu.com")
-    conn.request("GET", f"/selfselect/openapi?{urllib.parse.urlencode(params)}")
-    r = conn.getresponse()
-    data_json = json.loads(r.read())
-    temp_df = pd.DataFrame(data_json["Result"]["chartInfo"][0]["body"])
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(
+        data_json["Result"][0]["DisplayData"]["resultData"]["tplData"]["result"][
+            "chartInfo"
+        ][0]["body"]
+    )
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
     temp_df["value"] = pd.to_numeric(temp_df["value"])
