@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/9 18:18
+Date: 2023/4/18 16:00
 Desc: 每日注册仓单数据
 大连商品交易所, 上海期货交易所, 郑州商品交易所
 """
@@ -133,7 +133,7 @@ def get_shfe_receipt_2(date: str = None, vars_list: List = cons.contract_symbols
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
         return None
     url = cons.SHFE_RECEIPT_URL_2 % date
-    r = requests_link(url, encoding='utf-8')
+    r = requests_link(url, encoding='utf-8', headers=cons.shfe_headers)
     try:
         context = r.json()
     except:
@@ -183,7 +183,7 @@ def get_czce_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     if date == '20090820':
         return pd.DataFrame()
     url = cons.CZCE_RECEIPT_URL_1 % date
-    r = requests_link(url, encoding='utf-8')
+    r = requests_link(url, encoding='utf-8', headers=cons.shfe_headers)
     context = r.text
     data = pd.read_html(context)[1]
     records = pd.DataFrame()
@@ -281,7 +281,7 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
         warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
         return None
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
-    r = requests_link(url, encoding='utf-8')
+    r = requests_link(url, encoding='utf-8', headers=cons.shfe_headers)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df = temp_df[[bool(1-item) for item in [item if item is not pd.NA else False for item in temp_df.iloc[:, 0].str.contains("非农产品")]]]
     temp_df.reset_index(inplace=True, drop=True)
@@ -398,5 +398,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20210201', end_day='20210215')
+    get_receipt_df = get_receipt(start_day='20230411', end_day='20230412')
     print(get_receipt_df)
