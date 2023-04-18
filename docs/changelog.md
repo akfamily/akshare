@@ -56,6 +56,10 @@
 
 ## 更新说明
 
+1.9.56 fix: fix get_receipt interface
+
+    1. 修复 get_receipt 接口
+
 1.9.55 fix: fix stock_zh_valuation_baidu interface
 
     1. 修复 stock_zh_valuation_baidu 接口
@@ -2197,6 +2201,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.56 fix: fix get_receipt interface
 
 1.9.55 fix: fix stock_zh_valuation_baidu interface
 
