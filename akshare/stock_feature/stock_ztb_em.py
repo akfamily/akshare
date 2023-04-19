@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/4/26 15:30
+Date: 2023/4/19 17:20
 Desc: 首页-行情中心-涨停板行情-涨停股池
-http://quote.eastmoney.com/ztb/detail#type=ztgc
+https://quote.eastmoney.com/ztb/detail#type=ztgc
 
 涨停板行情专题为您展示了6个股票池，分别为
 涨停股池：包含当日当前涨停的所有A股股票(不含未中断连续一字涨停板的新股)；
@@ -21,7 +21,7 @@ import requests
 def stock_zt_pool_em(date: str = "20220426") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-涨停股池
-    http://quote.eastmoney.com/ztb/detail#type=ztgc
+    https://quote.eastmoney.com/ztb/detail#type=ztgc
     :return: 涨停股池
     :rtype: pandas.DataFrame
     """
@@ -105,7 +105,7 @@ def stock_zt_pool_em(date: str = "20220426") -> pd.DataFrame:
 def stock_zt_pool_previous_em(date: str = "20210521") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-昨日涨停股池
-    http://quote.eastmoney.com/ztb/detail#type=zrzt
+    https://quote.eastmoney.com/ztb/detail#type=zrzt
     :return: 昨日涨停股池
     :rtype: pandas.DataFrame
     """
@@ -179,7 +179,7 @@ def stock_zt_pool_previous_em(date: str = "20210521") -> pd.DataFrame:
 def stock_zt_pool_strong_em(date: str = "20210521") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-强势股池
-    http://quote.eastmoney.com/ztb/detail#type=qsgc
+    https://quote.eastmoney.com/ztb/detail#type=qsgc
     :return: 强势股池
     :rtype: pandas.DataFrame
     """
@@ -253,7 +253,7 @@ def stock_zt_pool_strong_em(date: str = "20210521") -> pd.DataFrame:
 def stock_zt_pool_sub_new_em(date: str = "20210525") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-次新股池
-    http://quote.eastmoney.com/ztb/detail#type=cxgc
+    https://quote.eastmoney.com/ztb/detail#type=cxgc
     :return: 次新股池
     :rtype: pandas.DataFrame
     """
@@ -330,7 +330,7 @@ def stock_zt_pool_sub_new_em(date: str = "20210525") -> pd.DataFrame:
 def stock_zt_pool_zbgc_em(date: str = "20210525") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-炸板股池
-    http://quote.eastmoney.com/ztb/detail#type=zbgc
+    https://quote.eastmoney.com/ztb/detail#type=zbgc
     :return: 炸板股池
     :rtype: pandas.DataFrame
     """
@@ -404,7 +404,7 @@ def stock_zt_pool_zbgc_em(date: str = "20210525") -> pd.DataFrame:
 def stock_zt_pool_dtgc_em(date: str = "20220425") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-跌停股池
-    http://quote.eastmoney.com/ztb/detail#type=dtgc
+    https://quote.eastmoney.com/ztb/detail#type=dtgc
     :param date: 交易日
     :type date: str
     :return: 跌停股池
@@ -501,5 +501,5 @@ if __name__ == "__main__":
     stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20211224")
     print(stock_zt_pool_zbgc_em_df)
 
-    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20220426")
+    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20230419")
     print(stock_zt_pool_dtgc_em_df)
