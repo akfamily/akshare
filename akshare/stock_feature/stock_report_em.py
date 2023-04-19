@@ -147,10 +147,10 @@ def stock_zcfz_em(date: str = "20220331") -> pd.DataFrame:
     return big_df
 
 
-def stock_lrb_em(date: str = "20220331") -> pd.DataFrame:
+def stock_lrb_em(date: str = "20081231") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩快报-利润表
-    http://data.eastmoney.com/bbsj/202003/lrb.html
+    https://data.eastmoney.com/bbsj/202003/lrb.html
     :param date: choice of {"20200331", "20200630", "20200930", "20201231", "..."}; 从 20100331 开始
     :type date: str
     :return: 利润表
