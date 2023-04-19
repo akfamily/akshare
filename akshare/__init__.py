@@ -2373,9 +2373,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.55 fix: fix stock_zh_valuation_baidu interface
 1.9.56 fix: fix get_receipt interface
 1.9.57 fix: fix stock_lhb_detail_em interface
+1.9.58 add: add option_gfex_daily interface
 """
 
-__version__ = "1.9.57"
+__version__ = "1.9.58"
 __author__ = "AKFamily"
 
 import sys
@@ -4590,6 +4591,8 @@ from akshare.option.option_commodity import (
     option_dce_daily,
     option_czce_daily,
     option_shfe_daily,
+    option_gfex_vol_daily,
+    option_gfex_daily,
 )
 
 """

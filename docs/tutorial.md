@@ -53,6 +53,8 @@
  "option_dce_daily"  # 提供大连商品交易所商品期权数据
  "option_czce_daily"  # 提供郑州商品交易所商品期权数据
  "option_shfe_daily"  # 提供上海期货交易所商品期权数据
+ "option_gfex_daily"  # 提供广州期货交易所商品期权数据
+ "option_gfex_vol_daily"  # 提供广州期货交易所-合约隐含波动率数据
  # 中国银行间市场债券行情数据
  "get_bond_market_quote"  # 债券市场行情-现券市场成交行情数据
  "get_bond_market_trade"  # 债券市场行情-现券市场做市报价数据
