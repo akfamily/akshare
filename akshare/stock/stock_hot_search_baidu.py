@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/10/14 18:19
+Date: 2023/4/21 14:19
 Desc: 百度股市通-热搜股票
 https://gushitong.baidu.com/expressnews
 """
@@ -9,7 +9,7 @@ import pandas as pd
 import requests
 
 
-def stock_hot_search_baidu(symbol: str = "A股", date: str = "20221014", time: str = "0"):
+def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230421", time: str = "0"):
     """
     百度股市通-热搜股票
     https://gushitong.baidu.com/expressnews
@@ -46,14 +46,13 @@ def stock_hot_search_baidu(symbol: str = "A股", date: str = "20221014", time: s
     temp_df = pd.DataFrame(
         data_json["Result"]["body"], columns=data_json["Result"]["header"]
     )
-    temp_df["综合热度"] = pd.to_numeric(temp_df["综合热度"])
-    temp_df["排名变化"] = pd.to_numeric(temp_df["排名变化"])
-    temp_df["是否连续上榜"] = pd.to_numeric(temp_df["是否连续上榜"])
+    temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
+    temp_df["排名变化"] = pd.to_numeric(temp_df["排名变化"], errors="coerce")
     return temp_df
 
 
 if __name__ == "__main__":
     stock_hot_search_baidu_df = stock_hot_search_baidu(
-        symbol="A股", date="20221025", time="19"
+        symbol="A股", date="20230421", time="16"
     )
     print(stock_hot_search_baidu_df)
