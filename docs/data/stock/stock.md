@@ -3888,8 +3888,7 @@ print(stock_hk_hist_min_em_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101",
-                                    adjust="")
+stock_hk_hist_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="")
 print(stock_hk_hist_df)
 ```
 
@@ -3931,8 +3930,7 @@ print(stock_hk_hist_df)
 ```python
 import akshare as ak
 
-stock_hk_hist_qfq_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101",
-                                        adjust="qfq")
+stock_hk_hist_qfq_df = ak.stock_hk_hist(symbol="00593", period="daily", start_date="19700101", end_date="22220101", adjust="qfq")
 print(stock_hk_hist_qfq_df)
 ```
 
@@ -9043,6 +9041,62 @@ print(stock_fhps_detail_ths_df)
 11   2017年报  2018-04-03  2018-04-25  2018-05-07  ...   1.87亿   实施方案  30.48%  1.66%
 12   2017中报  2017-08-15          --          --  ...      --  董事会预案      --     --
 13   2016年报  2017-03-28  2017-04-18  2017-04-28  ...   2.94亿   实施方案  37.37%  1.52%
+```
+
+#### 分红配送详情-港股-同花顺
+
+接口: stock_hk_fhpx_detail_ths
+
+目标地址: http://stockpage.10jqka.com.cn/HK0700/bonus/
+
+描述: 同花顺-港股-分红派息
+
+限量: 单次获取指定股票的分红派息数据
+
+输入参数
+
+| 名称     | 类型  | 描述                  |
+|--------|-----|---------------------|
+| symbol | str | symbol="0700"; 港股代码 |
+
+输出参数
+
+| 名称         | 类型     | 描述 |
+|------------|--------|----|
+| 公告日期       | object | -  |
+| 方案         | object | -  |
+| 除净日        | object | -  |
+| 派息日        | object | -  |
+| 过户日期起止日-起始 | object | -  |
+| 过户日期起止日-截止 | object | -  |
+| 类型         | object | -  |
+| 进度         | object | -  |
+| 以股代息       | object | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_fhpx_detail_ths_df = ak.stock_hk_fhpx_detail_ths(symbol="0700")
+print(stock_hk_fhpx_detail_ths_df)
+```
+
+数据示例
+
+```
+     公告日期                 方案         除净日  ...   类型    进度 以股代息
+0   2023-03-22            每股2.4港元  2023-05-19  ...   年报    预案    否
+1   2022-11-16                不分红         NaT  ...  三季报    预案    否
+2   2022-11-16  每10股股份获发1股美团B类普通股  2023-01-05  ...   其他  实施完成    否
+3   2022-08-17                不分红         NaT  ...   中报    预案    否
+4   2022-05-18                不分红         NaT  ...  一季报    预案    否
+..         ...                ...         ...  ...  ...   ...  ...
+75  2005-08-24                不分红         NaT  ...   中报    预案    否
+76  2005-05-18                不分红         NaT  ...  一季报    预案    否
+77  2005-03-17           每股0.07港元  2005-04-19  ...   年报  实施完成    否
+78  2004-11-18                不分红         NaT  ...  三季报    预案    否
+79  2004-08-19                不分红         NaT  ...   中报    预案    否
 ```
 
 ### 资金流向

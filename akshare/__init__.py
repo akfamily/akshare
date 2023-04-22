@@ -2375,9 +2375,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.57 fix: fix stock_lhb_detail_em interface
 1.9.58 add: add option_gfex_daily interface
 1.9.59 fix: fix stock_hot_search_baidu interface
+1.9.60 add: add stock_hk_fhpx_detail_ths interface
 """
 
-__version__ = "1.9.59"
+__version__ = "1.9.60"
 __author__ = "AKFamily"
 
 import sys
@@ -2388,6 +2389,11 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+同花顺-港股-分红派息
+"""
+from akshare.stock.stock_hk_fhpx_ths import stock_hk_fhpx_detail_ths
 
 """
 同花顺-分红融资
