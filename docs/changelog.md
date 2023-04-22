@@ -56,6 +56,10 @@
 
 ## 更新说明
 
+1.9.60 add: add stock_hk_fhpx_detail_ths interface
+
+    1. 新增 stock_hk_fhpx_detail_ths 接口
+
 1.9.59 fix: fix stock_hot_search_baidu interface
 
     1. 修复 stock_hot_search_baidu 接口
@@ -2214,6 +2218,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.60 add: add stock_hk_fhpx_detail_ths interface
 
 1.9.59 fix: fix stock_hot_search_baidu interface
 
