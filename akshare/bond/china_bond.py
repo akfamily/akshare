@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/4/1 17:24
+Date: 2023/4/23 17:24
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
@@ -158,16 +158,15 @@ def bond_china_yield(
     res = requests.get(url, params=params, headers=headers)
     data_text = res.text.replace("&nbsp", "")
     data_df = pd.read_html(data_text, header=0)[1]
-
     data_df['日期'] = pd.to_datetime(data_df['日期']).dt.date
-    data_df['3月'] = pd.to_numeric(data_df['3月'])
-    data_df['6月'] = pd.to_numeric(data_df['6月'])
-    data_df['1年'] = pd.to_numeric(data_df['1年'])
-    data_df['3年'] = pd.to_numeric(data_df['3年'])
-    data_df['5年'] = pd.to_numeric(data_df['5年'])
-    data_df['7年'] = pd.to_numeric(data_df['7年'])
-    data_df['10年'] = pd.to_numeric(data_df['10年'])
-    data_df['30年'] = pd.to_numeric(data_df['30年'])
+    data_df['3月'] = pd.to_numeric(data_df['3月'], errors="coerce")
+    data_df['6月'] = pd.to_numeric(data_df['6月'], errors="coerce")
+    data_df['1年'] = pd.to_numeric(data_df['1年'], errors="coerce")
+    data_df['3年'] = pd.to_numeric(data_df['3年'], errors="coerce")
+    data_df['5年'] = pd.to_numeric(data_df['5年'], errors="coerce")
+    data_df['7年'] = pd.to_numeric(data_df['7年'], errors="coerce")
+    data_df['10年'] = pd.to_numeric(data_df['10年'], errors="coerce")
+    data_df['30年'] = pd.to_numeric(data_df['30年'], errors="coerce")
     data_df.sort_values('日期', inplace=True)
     data_df.reset_index(inplace=True, drop=True)
     return data_df
