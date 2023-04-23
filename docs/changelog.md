@@ -56,6 +56,10 @@
 
 ## 更新说明
 
+1.9.61 fix: fix stock_lhb_detail_daily_sina interface
+
+    1. 修复 stock_lhb_detail_daily_sina 接口
+
 1.9.60 add: add stock_hk_fhpx_detail_ths interface
 
     1. 新增 stock_hk_fhpx_detail_ths 接口
@@ -2218,6 +2222,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.61 fix: fix stock_lhb_detail_daily_sina interface
 
 1.9.60 add: add stock_hk_fhpx_detail_ths interface
 

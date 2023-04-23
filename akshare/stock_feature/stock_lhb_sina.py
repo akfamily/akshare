@@ -11,46 +11,37 @@ from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 
-def stock_lhb_detail_daily_sina(
-    trade_date: str = "20200730", symbol: str = "当日无价格涨跌幅限制的A股，出现异常波动停牌的股票"
-) -> pd.DataFrame:
+def stock_lhb_detail_daily_sina(date: str = "20230420") -> pd.DataFrame:
     """
     龙虎榜-每日详情
     http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lhb/index.phtml
-    :param trade_date: 交易日, e.g., trade_date="20200729"
-    :type trade_date: str
-    :param symbol: 指定标题
-    :type symbol: str
+    :param date: 交易日
+    :type date: str
     :return: 龙虎榜-每日详情
     :rtype: pandas.DataFrame
     """
-    trade_date = "-".join([trade_date[:4], trade_date[4:6], trade_date[6:]])
+    date = "-".join([date[:4], date[4:6], date[6:]])
     url = "http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lhb/index.phtml"
-    params = {"tradedate": trade_date}
+    params = {"tradedate": date}
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
-    table_name_list = [
-        item.get_text().strip()
-        for item in soup.find_all(
-            "span", attrs={"style": "font-weight:bold;font-size:14px;"}
-        )
-        if item.get_text().strip() != ""
-    ]
-    if symbol == "返回当前交易日所有可查询的指标":
-        return table_name_list
-    else:
-        position_num = table_name_list.index(symbol)
-        if len(table_name_list) == position_num + 1:
-            temp_df_1 = pd.read_html(r.text, flavor='bs4', header=1)[position_num].iloc[0:, :]
-            temp_df_2 = pd.read_html(r.text, flavor='bs4', header=1)[position_num + 1].iloc[0:, :]
-            temp_df_3 = pd.read_html(r.text, flavor='bs4', header=1)[position_num + 2].iloc[0:, :]
-            temp_df = pd.concat([temp_df_1, temp_df_2, temp_df_3], ignore_index=True)
-        else:
-            temp_df = pd.read_html(r.text, flavor='bs4', header=1)[position_num].iloc[0:, :]
-    temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
-    del temp_df["查看详情"]
-    temp_df.columns = ["序号", "股票代码", "股票名称", "收盘价", "对应值", "成交量", "成交额"]
-    return temp_df
+    selected_html = soup.find("div", attrs={"class": "list"}).find_all(
+        "table", attrs={"class": "list_table"}
+    )
+    big_df = pd.DataFrame()
+    for table in selected_html:
+        temp_df = pd.read_html(table.prettify(), header=0, skiprows=1)[0]
+        temp_symbol = pd.read_html(table.prettify())[0].iat[0, 0]
+        temp_df["指标"] = temp_symbol
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df["股票代码"] = big_df["股票代码"].astype(str).str.zfill(6)
+    del big_df["查看详情"]
+    big_df.columns = ["序号", "股票代码", "股票名称", "收盘价", "对应值", "成交量", "成交额", "指标"]
+    big_df['收盘价'] = pd.to_numeric(big_df['收盘价'], errors="coerce")
+    big_df['对应值'] = pd.to_numeric(big_df['对应值'], errors="coerce")
+    big_df['成交量'] = pd.to_numeric(big_df['成交量'], errors="coerce")
+    big_df['成交额'] = pd.to_numeric(big_df['成交额'], errors="coerce")
+    return big_df
 
 
 def _find_last_page(url: str = None, recent_day: str = "60"):
@@ -128,9 +119,9 @@ def stock_lhb_yytj_sina(recent_day: str = "5") -> pd.DataFrame:
         temp_df = pd.read_html(r.text)[0].iloc[0:, :]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = ["营业部名称", "上榜次数", "累积购买额", "买入席位数", "累积卖出额", "卖出席位数", "买入前三股票"]
-    big_df['上榜次数'] = pd.to_numeric(big_df['上榜次数'], errors="coerce")
-    big_df['买入席位数'] = pd.to_numeric(big_df['买入席位数'], errors="coerce")
-    big_df['卖出席位数'] = pd.to_numeric(big_df['卖出席位数'], errors="coerce")
+    big_df["上榜次数"] = pd.to_numeric(big_df["上榜次数"], errors="coerce")
+    big_df["买入席位数"] = pd.to_numeric(big_df["买入席位数"], errors="coerce")
+    big_df["卖出席位数"] = pd.to_numeric(big_df["卖出席位数"], errors="coerce")
     return big_df
 
 
@@ -158,8 +149,8 @@ def stock_lhb_jgzz_sina(recent_day: str = "5") -> pd.DataFrame:
     del big_df["当前价"]
     del big_df["涨跌幅"]
     big_df.columns = ["股票代码", "股票名称", "累积买入额", "买入次数", "累积卖出额", "卖出次数", "净额"]
-    big_df['买入次数'] = pd.to_numeric(big_df['买入次数'], errors="coerce")
-    big_df['卖出次数'] = pd.to_numeric(big_df['卖出次数'], errors="coerce")
+    big_df["买入次数"] = pd.to_numeric(big_df["买入次数"], errors="coerce")
+    big_df["卖出次数"] = pd.to_numeric(big_df["卖出次数"], errors="coerce")
     return big_df
 
 
@@ -193,13 +184,8 @@ def stock_lhb_jgmx_sina() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    indicator_name_list = stock_lhb_detail_daily_sina(
-        trade_date="20221118", symbol="返回当前交易日所有可查询的指标"
-    )
-    print(indicator_name_list)
-
     stock_lhb_detail_daily_sina_df = stock_lhb_detail_daily_sina(
-        trade_date="20221118", symbol="换手率达20%的证券"
+        date="20230420"
     )
     print(stock_lhb_detail_daily_sina_df)
 
