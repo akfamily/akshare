@@ -494,8 +494,8 @@ def get_czce_rank_table(
         big_dict[symbol_list[-1]] = inner_temp_df
     new_big_dict = {}
     for key, value in big_dict.items():
-        value.assign(symbol=key)
-        value.assign(variety=re.compile(r"[a-zA-Z_]+").findall(key)[0])
+        value = value.assign(symbol=key)
+        value = value.assign(variety=re.compile(r"[a-zA-Z_]+").findall(key)[0])
         new_big_dict[key] = value
 
     return new_big_dict
@@ -1120,39 +1120,39 @@ def futures_dce_position_rank_other(date: str = "20160104"):
 
 
 if __name__ == "__main__":
-    # 郑州商品交易所
-    get_czce_rank_table_first_df = get_czce_rank_table(date="20210525")
-    print(get_czce_rank_table_first_df)
-
-    get_czce_rank_table_first_df = get_czce_rank_table(date="20201026")
-    print(get_czce_rank_table_first_df)
-
-    # 中国金融期货交易所
-    get_cffex_rank_table_df = get_cffex_rank_table(date="20200325")
-    print(get_cffex_rank_table_df)
-
-    # 上海期货交易所
-    get_shfe_rank_table_df = get_shfe_rank_table(date="20190711")
-    print(get_shfe_rank_table_df)
-
-    # 大连商品交易所
-    get_dce_rank_table_first_df = get_dce_rank_table(date="20131227")
-    print(get_dce_rank_table_first_df)
-
-    get_dce_rank_table_second_df = get_dce_rank_table(date="20171227")
-    print(get_dce_rank_table_second_df)
-    get_dce_rank_table_third_df = get_dce_rank_table(date="20200929")
-    print(get_dce_rank_table_third_df)
-    get_dce_rank_table_third_df = get_dce_rank_table(date="20210517")
-    print(get_dce_rank_table_third_df)
-    get_dce_rank_table_fourth_df = get_dce_rank_table(
-        date="20210517", vars_list=["V"]
-    )
-    print(get_dce_rank_table_fourth_df)
+    # # 郑州商品交易所
+    # get_czce_rank_table_first_df = get_czce_rank_table(date="20210525")
+    # print(get_czce_rank_table_first_df)
+    #
+    # get_czce_rank_table_first_df = get_czce_rank_table(date="20201026")
+    # print(get_czce_rank_table_first_df)
+    #
+    # # 中国金融期货交易所
+    # get_cffex_rank_table_df = get_cffex_rank_table(date="20200325")
+    # print(get_cffex_rank_table_df)
+    #
+    # # 上海期货交易所
+    # get_shfe_rank_table_df = get_shfe_rank_table(date="20190711")
+    # print(get_shfe_rank_table_df)
+    #
+    # # 大连商品交易所
+    # get_dce_rank_table_first_df = get_dce_rank_table(date="20131227")
+    # print(get_dce_rank_table_first_df)
+    #
+    # get_dce_rank_table_second_df = get_dce_rank_table(date="20171227")
+    # print(get_dce_rank_table_second_df)
+    # get_dce_rank_table_third_df = get_dce_rank_table(date="20200929")
+    # print(get_dce_rank_table_third_df)
+    # get_dce_rank_table_third_df = get_dce_rank_table(date="20210517")
+    # print(get_dce_rank_table_third_df)
+    # get_dce_rank_table_fourth_df = get_dce_rank_table(
+    #     date="20210517", vars_list=["V"]
+    # )
+    # print(get_dce_rank_table_fourth_df)
 
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(
-        start_day="20210515", end_day="20210518", vars_list=["PF"]
+        start_day="20210515", end_day="20210518", vars_list=["MA"]
     )
     print(get_rank_sum_daily_df)
 
