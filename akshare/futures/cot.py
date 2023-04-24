@@ -494,8 +494,8 @@ def get_czce_rank_table(
         big_dict[symbol_list[-1]] = inner_temp_df
     new_big_dict = {}
     for key, value in big_dict.items():
-        value.assign(symbol=key)
-        value.assign(variety=re.compile(r"[a-zA-Z_]+").findall(key)[0])
+        value = value.assign(symbol=key)
+        value = value.assign(variety=re.compile(r"[a-zA-Z_]+").findall(key)[0])
         new_big_dict[key] = value
 
     return new_big_dict
@@ -1152,7 +1152,7 @@ if __name__ == "__main__":
 
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(
-        start_day="20210515", end_day="20210518", vars_list=["PF"]
+        start_day="20210515", end_day="20210518", vars_list=["MA"]
     )
     print(get_rank_sum_daily_df)
 
