@@ -72,7 +72,7 @@ def stock_a_indicator_lg(symbol: str = "002174") -> pd.DataFrame:
         r = requests.post(
             url,
             params=params,
-            **get_cookie_csrf(url=f"https://legulegu.com/s/{symbol}"),
+            **get_cookie_csrf(url="https://legulegu.com/"),
         )
         temp_json = r.json()
         temp_df = pd.DataFrame(
