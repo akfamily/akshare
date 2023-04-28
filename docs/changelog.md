@@ -56,6 +56,10 @@
 
 ## 更新说明
 
+1.9.65 fix: fix stock_hot_search_baidu interface
+
+    1. 修复 stock_hot_search_baidu 接口
+
 1.9.64 fix: fix stock_a_indicator_lg interface
 
     1. 修复 stock_a_indicator_lg 接口
@@ -2234,6 +2238,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.65 fix: fix stock_hot_search_baidu interface
 
 1.9.64 fix: fix stock_a_indicator_lg interface
 

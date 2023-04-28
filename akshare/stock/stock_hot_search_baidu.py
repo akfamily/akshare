@@ -7,9 +7,10 @@ https://gushitong.baidu.com/expressnews
 """
 import pandas as pd
 import requests
+from datetime import datetime
 
 
-def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230421", time: str = "0"):
+def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230428", time: str = "今日"):
     """
     百度股市通-热搜股票
     https://gushitong.baidu.com/expressnews
@@ -17,11 +18,12 @@ def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230421", time: s
     :type symbol: str
     :param date: 日期
     :type date: str
-    :param time: 默认 time=0，则为当天的排行；如 time="16"，则为 date 的 16 点的热门股票排行
+    :param time: time="今日"；choice of {"今日", "1小时"}
     :type time: str
     :return: 股东人数及持股集中度
     :rtype: pandas.DataFrame
     """
+    hour_str = datetime.now().hour
     symbol_map = {
         "全部": "all",
         "A股": "ab",
@@ -34,11 +36,11 @@ def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230421", time: s
         "dsp": "iphone",
         "product": "stock",
         "day": date,
-        "hour": time,
+        "hour": hour_str,
         "pn": "0",
         "rn": "1000",
         "market": symbol_map[symbol],
-        "type": "day" if time == 0 else "hour",
+        "type": "day" if time == "今日" else "hour",
         "finClientType": "pc",
     }
     r = requests.get(url, params=params)
@@ -53,6 +55,6 @@ def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230421", time: s
 
 if __name__ == "__main__":
     stock_hot_search_baidu_df = stock_hot_search_baidu(
-        symbol="A股", date="20230421", time="16"
+        symbol="A股", date="20230428", time="今日"
     )
     print(stock_hot_search_baidu_df)
