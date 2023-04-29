@@ -41,30 +41,35 @@ def futures_symbol_mark() -> pd.DataFrame:
     dce_mark_list = [item[1] for item in data_json["dce"][1:]]
     shfe_mark_list = [item[1] for item in data_json["shfe"][1:]]
     cffex_mark_list = [item[1] for item in data_json["cffex"][1:]]
+    gfex_mark_list = [item[1] for item in data_json["gfex"][1:]]
     all_mark_list = (
-        czce_mark_list + dce_mark_list + shfe_mark_list + cffex_mark_list
+        czce_mark_list + dce_mark_list + shfe_mark_list + cffex_mark_list + gfex_mark_list
     )
 
     czce_market_name_list = [data_json["czce"][0]] * len(czce_mark_list)
     dce_market_name_list = [data_json["dce"][0]] * len(dce_mark_list)
     shfe_market_name_list = [data_json["shfe"][0]] * len(shfe_mark_list)
     cffex_market_name_list = [data_json["cffex"][0]] * len(cffex_mark_list)
+    gfex_market_name_list = [data_json["gfex"][0]] * len(gfex_mark_list)
     all_market_name_list = (
         czce_market_name_list
         + dce_market_name_list
         + shfe_market_name_list
         + cffex_market_name_list
+        + gfex_market_name_list
     )
 
     czce_symbol_list = [item[0] for item in data_json["czce"][1:]]
     dce_symbol_list = [item[0] for item in data_json["dce"][1:]]
     shfe_symbol_list = [item[0] for item in data_json["shfe"][1:]]
     cffex_symbol_list = [item[0] for item in data_json["cffex"][1:]]
+    gfex_symbol_list = [item[0] for item in data_json["gfex"][1:]]
     all_symbol_list = (
         czce_symbol_list
         + dce_symbol_list
         + shfe_symbol_list
         + cffex_symbol_list
+        + gfex_symbol_list
     )
 
     temp_df = pd.DataFrame(
@@ -129,7 +134,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> dict:
     """
     交易所具体的可交易品种
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
-    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex'}
+    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex', 'gfex'}
     :type symbol: str
     :return: 交易所具体的可交易品种
     :rtype: dict
@@ -152,13 +157,16 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> dict:
     if symbol == "cffex":
         data_json["cffex"].remove("中国金融期货交易所")
         return pd.DataFrame(data_json["cffex"])
+    if symbol == "gfex":
+        data_json["gfex"].remove("广期所")
+        return pd.DataFrame(data_json["gfex"])
 
 
 def match_main_contract(symbol: str = "cffex") -> str:
     """
     新浪财经-期货-主力合约
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
-    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex'}
+    :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex', 'gfex'}
     :type symbol: str
     :return: 主力合约的字符串
     :rtype: str
@@ -191,7 +199,7 @@ def match_main_contract(symbol: str = "cffex") -> str:
 
 
 def futures_zh_spot(
-    symbol: str = "V2209",
+    symbol: str = "V2309",
     market: str = "CF",
     adjust: str = "0",
 ) -> pd.DataFrame:
@@ -675,31 +683,31 @@ def futures_zh_daily_sina(symbol: str = "V2105") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    match_main_contract_df = match_main_contract(symbol="dce")
+    match_main_contract_df = match_main_contract(symbol="gfex")
     print(match_main_contract_df)
 
     futures_zh_spot_df = futures_zh_spot(
-        symbol="TA2209,P2209,B2209,M2209", market="CF", adjust="0"
+        symbol="TA2309,P2309,B2309,M2309", market="CF", adjust="0"
     )
     print(futures_zh_spot_df)
 
     futures_zh_spot_df = futures_zh_spot(
-        symbol="M2301", market="CF", adjust="0"
+        symbol="M2309", market="CF", adjust="0"
     )
     print(futures_zh_spot_df)
 
     futures_symbol_mark_df = futures_symbol_mark()
     print(futures_symbol_mark_df)
 
-    futures_zh_realtime_df = futures_zh_realtime(symbol="白糖")
+    futures_zh_realtime_df = futures_zh_realtime(symbol="工业硅")
     print(futures_zh_realtime_df)
 
     futures_zh_minute_sina_df = futures_zh_minute_sina(
-        symbol="M2301", period="1"
+        symbol="SI2311", period="1"
     )
     print(futures_zh_minute_sina_df)
 
-    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="IC2206")
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="SI2311")
     print(futures_zh_daily_sina_df)
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="V2205")
@@ -707,3 +715,16 @@ if __name__ == "__main__":
 
     futures_zh_spot_df = futures_zh_spot()
     print(futures_zh_spot_df)
+
+    dce_text = match_main_contract(symbol="dce")
+    czce_text = match_main_contract(symbol="czce")
+    shfe_text = match_main_contract(symbol="shfe")
+    gfex_text = match_main_contract(symbol="gfex")
+
+    while True:
+        time.sleep(3)
+        futures_zh_spot_df = futures_zh_spot(
+            symbol=",".join([dce_text, czce_text, shfe_text, gfex_text]),
+            market="CF",
+            adjust='0')
+        print(futures_zh_spot_df)
