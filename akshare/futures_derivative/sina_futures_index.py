@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/22 15:41
+Date: 2023/4/30 20:41
 Desc: 新浪财经-期货的主力合约数据
 https://finance.sina.com.cn/futuremarket/index.shtml
 """
@@ -20,7 +20,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> pd.DataFrame:
     """
     订阅指定交易所品种的代码
     https://finance.sina.com.cn/futuremarket/index.shtml
-    :param symbol: choice of {"dce", "czce", "shfe", "cffex"}
+    :param symbol: choice of {"dce", "czce", "shfe", "cffex", "gfex"}
     :type symbol: str
     :return: 订阅指定交易所品种的代码
     :rtype: pandas.DataFrame
@@ -42,13 +42,16 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> pd.DataFrame:
     if symbol == "cffex":
         data_json["cffex"].remove("中国金融期货交易所")
         return pd.DataFrame(data_json["cffex"])
+    if symbol == "gfex":
+        data_json["gfex"].remove("广期所")
+        return pd.DataFrame(data_json["gfex"])
 
 
 def match_main_contract(symbol: str = "shfe") -> pd.DataFrame:
     """
     指定交易所的所有可以提供数据的合约
     https://finance.sina.com.cn/futuremarket/index.shtml
-    :param symbol: choice of {"dce", "czce", "shfe", "cffex"}
+    :param symbol: choice of {"dce", "czce", "shfe", "cffex", "gfex"}
     :type symbol: str
     :return: 指定交易所的所有可以提供数据的合约
     :rtype: pandas.DataFrame
@@ -89,7 +92,7 @@ def futures_display_main_sina() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     temp_df = pd.DataFrame()
-    for item in ["dce", "czce", "shfe", "cffex"]:
+    for item in ["dce", "czce", "shfe", "cffex", "gfex"]:
         temp_df = pd.concat([temp_df, match_main_contract(symbol=item)])
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df

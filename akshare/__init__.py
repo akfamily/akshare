@@ -2382,9 +2382,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.64 fix: fix stock_a_indicator_lg interface
 1.9.65 fix: fix stock_hot_search_baidu interface
 1.9.66 fix: fix match_main_contract interface
+1.9.67 fix: fix futures_zh_daily_sina interface
 """
 
-__version__ = "1.9.66"
+__version__ = "1.9.67"
 __author__ = "AKFamily"
 
 import sys

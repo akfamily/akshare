@@ -56,6 +56,10 @@
 
 ## 更新说明
 
+1.9.67 fix: fix futures_zh_daily_sina interface
+
+    1. 修复 futures_zh_daily_sina 接口
+
 1.9.66 fix: fix match_main_contract interface
 
     1. 修复 match_main_contract 接口
@@ -2242,6 +2246,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.67 fix: fix futures_zh_daily_sina interface
 
 1.9.66 fix: fix match_main_contract interface
 
