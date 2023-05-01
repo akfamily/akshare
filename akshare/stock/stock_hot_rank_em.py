@@ -195,7 +195,7 @@ if __name__ == "__main__":
     stock_hot_rank_em_df = stock_hot_rank_em()
     print(stock_hot_rank_em_df)
 
-    stock_hot_rank_detail_em_df = stock_hot_rank_detail_em(symbol="SZ000665")
+    stock_hot_rank_detail_em_df = stock_hot_rank_detail_em(symbol="SZ871245")
     print(stock_hot_rank_detail_em_df)
 
     stock_hot_rank_detail_realtime_em_df = stock_hot_rank_detail_realtime_em(
