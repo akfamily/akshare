@@ -8,6 +8,7 @@ http://data.10jqka.com.cn/market/longhu/
 import requests
 import pandas as pd
 from tqdm import tqdm
+from bs4 import BeautifulSoup
 
 
 def stock_lh_yyb_most() -> pd.DataFrame:
@@ -20,9 +21,9 @@ def stock_lh_yyb_most() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in tqdm(range(1, 11)):
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
         }
-        url = f'http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/sbcs/field/sbcs/sort/desc/page/{page}/'
+        url = f"http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/sbcs/field/sbcs/sort/desc/page/{page}/"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -37,12 +38,17 @@ def stock_lh_yyb_capital() -> pd.DataFrame:
     :return: 资金实力最强
     :rtype: pandas.DataFrame
     """
+    url = "http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/zjsl/field/zgczje/sort/desc/page/1/"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
+    }
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "lxml")
+    page_str = soup.find("span", attrs={"class": "page_info"}).text
+    total_page = int(page_str.split("/")[1]) + 1
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 11)):
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
-        }
-        url = f'http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/zjsl/field/zgczje/sort/desc/page/{page}/'
+    for page in tqdm(range(1, total_page)):
+        url = f"http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/zjsl/field/zgczje/sort/desc/page/{page}/"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -60,9 +66,9 @@ def stock_lh_yyb_control() -> pd.DataFrame:
     big_df = pd.DataFrame()
     for page in tqdm(range(1, 16)):
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36"
         }
-        url = f'http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/btcz/field/xsjs/sort/desc/page/{page}/'
+        url = f"http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/btcz/field/xsjs/sort/desc/page/{page}/"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -70,7 +76,7 @@ def stock_lh_yyb_control() -> pd.DataFrame:
     return big_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_lh_yyb_most_df = stock_lh_yyb_most()
     print(stock_lh_yyb_most_df)
 
