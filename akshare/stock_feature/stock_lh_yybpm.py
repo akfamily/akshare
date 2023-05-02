@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/4/19 16:56
+Date: 2023/5/2 20:30
 Desc: 同花顺-数据中心-营业部排名
 http://data.10jqka.com.cn/market/longhu/
 """
@@ -25,7 +25,7 @@ def stock_lh_yyb_most() -> pd.DataFrame:
         url = f'http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/sbcs/field/sbcs/sort/desc/page/{page}/'
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True, drop=True)
     return big_df
 
@@ -45,7 +45,7 @@ def stock_lh_yyb_capital() -> pd.DataFrame:
         url = f'http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/zjsl/field/zgczje/sort/desc/page/{page}/'
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True, drop=True)
     return big_df
 
@@ -58,14 +58,14 @@ def stock_lh_yyb_control() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 11)):
+    for page in tqdm(range(1, 16)):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36'
         }
         url = f'http://data.10jqka.com.cn/ifmarket/lhbyyb/type/1/tab/btcz/field/xsjs/sort/desc/page/{page}/'
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(r.text)[0]
-        big_df = big_df.append(temp_df)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True, drop=True)
     return big_df
 
