@@ -80,22 +80,22 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
     return temp_df
 
 
-def stock_szse_sector_summary(symbol: str = "当月", date: str = "202203") -> pd.DataFrame:
+def stock_szse_sector_summary(symbol: str = "当月", date: str = "202303") -> pd.DataFrame:
     """
-    深圳证券交易所-统计资料-股票行业成交
+    深圳证券交易所-统计资料-股票行业成交数据
     https://docs.static.szse.cn/www/market/periodical/month/W020220511355248518608.html
     :param symbol: choice of {"当月", "当年"}
     :type symbol: str
     :param date: 交易年月
     :type date: str
-    :return: 股票行业成交
+    :return: 股票行业成交数据
     :rtype: pandas.DataFrame
     """
     url = "https://www.szse.cn/market/periodical/month/index.html"
     r = requests.get(url)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, "lxml")
-    tags_list = soup.find_all("div", attrs={"class": "g-container"})[4].find_all(
+    tags_list = soup.find_all("div", attrs={"class": "g-container"})[1].find_all(
         "script"
     )
     tags_dict = [
@@ -119,7 +119,8 @@ def stock_szse_sector_summary(symbol: str = "当月", date: str = "202203") -> p
     r = requests.get(url)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, "lxml")
-    url = soup.find("a", text="股票行业成交数据")["href"]
+    url = [item for item in soup.find_all("a") if item.get_text() == "股票行业成交数据"][0]["href"]
+
     if symbol == "当月":
         temp_df = pd.read_html(url, encoding="gbk")[0]
         temp_df.columns = [
@@ -147,13 +148,13 @@ def stock_szse_sector_summary(symbol: str = "当月", date: str = "202203") -> p
             "成交笔数-占总计",
         ]
 
-    temp_df["交易天数"] = pd.to_numeric(temp_df["交易天数"])
-    temp_df["成交金额-人民币元"] = pd.to_numeric(temp_df["成交金额-人民币元"])
-    temp_df["成交金额-占总计"] = pd.to_numeric(temp_df["成交金额-占总计"])
-    temp_df["成交股数-股数"] = pd.to_numeric(temp_df["成交股数-股数"])
-    temp_df["成交股数-占总计"] = pd.to_numeric(temp_df["成交股数-占总计"])
-    temp_df["成交笔数-笔"] = pd.to_numeric(temp_df["成交笔数-笔"])
-    temp_df["成交笔数-占总计"] = pd.to_numeric(temp_df["成交笔数-占总计"])
+    temp_df["交易天数"] = pd.to_numeric(temp_df["交易天数"], errors="coerce")
+    temp_df["成交金额-人民币元"] = pd.to_numeric(temp_df["成交金额-人民币元"], errors="coerce")
+    temp_df["成交金额-占总计"] = pd.to_numeric(temp_df["成交金额-占总计"], errors="coerce")
+    temp_df["成交股数-股数"] = pd.to_numeric(temp_df["成交股数-股数"], errors="coerce")
+    temp_df["成交股数-占总计"] = pd.to_numeric(temp_df["成交股数-占总计"], errors="coerce")
+    temp_df["成交笔数-笔"] = pd.to_numeric(temp_df["成交笔数-笔"], errors="coerce")
+    temp_df["成交笔数-占总计"] = pd.to_numeric(temp_df["成交笔数-占总计"], errors="coerce")
     return temp_df
 
 
@@ -445,7 +446,7 @@ if __name__ == "__main__":
     stock_szse_area_summary_df = stock_szse_area_summary(date="202203")
     print(stock_szse_area_summary_df)
 
-    stock_szse_sector_summary_df = stock_szse_sector_summary(symbol="当年", date="202210")
+    stock_szse_sector_summary_df = stock_szse_sector_summary(symbol="当月", date="202303")
     print(stock_szse_sector_summary_df)
 
     stock_sse_summary_df = stock_sse_summary()

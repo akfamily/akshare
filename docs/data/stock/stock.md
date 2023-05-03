@@ -193,9 +193,9 @@ print(stock_szse_area_summary_df)
 
 目标地址: http://docs.static.szse.cn/www/market/periodical/month/W020220511355248518608.html
 
-描述: 深圳证券交易所-统计资料-股票行业成交
+描述: 深圳证券交易所-统计资料-股票行业成交数据
 
-限量: 单次返回指定 date 和 symbol 的统计资料-股票行业成交数据
+限量: 单次返回指定 symbol 和 date 的统计资料-股票行业成交数据
 
 输入参数
 
