@@ -54,7 +54,6 @@ setuptools.setup(
         "decorator>=4.4.2",
         "py_mini_racer>=0.6.0",
         "requests-cache>=0.9.3",
-        "cfscrape>=2.1.1",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[
