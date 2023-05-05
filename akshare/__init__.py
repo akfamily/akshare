@@ -2388,9 +2388,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.70 fix: fix stock_szse_sector_summary interface
 1.9.71 fix: fix stock_lh_yyb_most interface
 1.9.72 fix: fix fund_manager interface
+1.9.73 add: add bond_zh_cov_info_ths interface
 """
 
-__version__ = "1.9.72"
+__version__ = "1.9.73"
 __author__ = "AKFamily"
 
 import sys
@@ -2401,6 +2402,11 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+同花顺-数据中心-可转债
+"""
+from akshare.bond.bond_cb_ths import bond_zh_cov_info_ths
 
 """
 同花顺-港股-分红派息

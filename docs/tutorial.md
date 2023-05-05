@@ -1205,6 +1205,8 @@
  "stock_zyjs_ths"  # 主营介绍
  # 东方财富-行情报价
  "stock_bid_ask_em"  # 东方财富-行情报价
+ # 可转债
+ "bond_zh_cov_info_ths"  # 同花顺-数据中心-可转债
 ```
 
 ## 案例演示

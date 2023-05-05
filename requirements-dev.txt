@@ -14,7 +14,6 @@ tabulate>=0.8.6
 decorator>=4.4.2
 py_mini_racer>=0.6.0
 requests-cache>=0.9.3
-cfscrape>=2.1.1
 commitizen>=2.35.0
 pre-commit>=2.20.0
 sphinx>=5.2.3

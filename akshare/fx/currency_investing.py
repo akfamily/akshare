@@ -6,7 +6,6 @@ Desc: 英为财情-外汇-货币对历史数据
 https://cn.investing.com/currencies/
 https://cn.investing.com/currencies/eur-usd-historical-data
 """
-import cfscrape
 import json
 
 import pandas as pd
@@ -48,10 +47,9 @@ def currency_hist_area_index_name_code(symbol: str = "usd-jpy") -> dict:
     :return: 指定 area 的所有指数和代码
     :rtype: dict
     """
-    scraper = cfscrape.create_scraper(delay=10)
     pd.set_option("mode.chained_assignment", None)
     url = f"https://cn.investing.com/currencies/{symbol}-historical-data"
-    r = scraper.get(url)
+    r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("script", attrs={"id": "__NEXT_DATA__"}).text
     data_json = json.loads(data_text)
