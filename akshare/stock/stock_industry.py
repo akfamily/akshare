@@ -111,7 +111,7 @@ def stock_sector_detail(sector: str = "gn_gfgn") -> pd.DataFrame:
         data_text = r.text
         data_json = demjson.decode(data_text)
         temp_df = pd.DataFrame(data_json)
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = big_df._append(temp_df, ignore_index=True)
     big_df['trade'] = pd.to_numeric(big_df['trade'])
     big_df['pricechange'] = pd.to_numeric(big_df['pricechange'])
     big_df['changepercent'] = pd.to_numeric(big_df['changepercent'])
