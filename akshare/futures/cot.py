@@ -285,6 +285,7 @@ def get_rank_sum(
 def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
     """
     上海期货交易所前 20 会员持仓排名数据明细
+    https://www.shfe.com.cn/
     注：该交易所只公布每个品种内部的标的排名，没有公布品种的总排名
     数据从20020107开始，每交易日16:30左右更新数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
@@ -1132,7 +1133,7 @@ if __name__ == "__main__":
     print(get_cffex_rank_table_df)
 
     # 上海期货交易所
-    get_shfe_rank_table_df = get_shfe_rank_table(date="20190711")
+    get_shfe_rank_table_df = get_shfe_rank_table(date="20230103")
     print(get_shfe_rank_table_df)
 
     # 大连商品交易所
