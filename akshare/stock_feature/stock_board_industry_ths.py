@@ -532,15 +532,15 @@ def stock_board_industry_index_ths(
         ]
     ]
     big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    condition_one = pd.Timestamp(start_date) < big_df["日期"]
-    condition_two = pd.Timestamp(end_date) > big_df["日期"]
-    big_df = big_df[condition_one & condition_two]
-    big_df["开盘价"] = pd.to_numeric(big_df["开盘价"])
-    big_df["最高价"] = pd.to_numeric(big_df["最高价"])
-    big_df["最低价"] = pd.to_numeric(big_df["最低价"])
-    big_df["收盘价"] = pd.to_numeric(big_df["收盘价"])
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
-    big_df["成交额"] = pd.to_numeric(big_df["成交额"])
+    big_df.index = pd.to_datetime(big_df["日期"])
+    big_df = big_df[start_date:end_date]
+    big_df.reset_index(drop=True, inplace=True)
+    big_df["开盘价"] = pd.to_numeric(big_df["开盘价"], errors="coerce")
+    big_df["最高价"] = pd.to_numeric(big_df["最高价"], errors="coerce")
+    big_df["最低价"] = pd.to_numeric(big_df["最低价"], errors="coerce")
+    big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
+    big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
     return big_df
 
 
