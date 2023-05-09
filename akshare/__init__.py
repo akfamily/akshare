@@ -2389,9 +2389,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.71 fix: fix stock_lh_yyb_most interface
 1.9.72 fix: fix fund_manager interface
 1.9.73 add: add bond_zh_cov_info_ths interface
+1.9.74 fix: fix get_shfe_rank_table interface
 """
 
-__version__ = "1.9.73"
+__version__ = "1.9.74"
 __author__ = "AKFamily"
 
 import sys
