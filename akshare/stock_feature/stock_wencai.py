@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/17 21:11
+Date: 2023/5/10 16:11
 Desc: 问财-热门股票排名
 https://www.iwencai.com/unifiedwap/home/index
 """
@@ -22,10 +22,10 @@ def stock_hot_rank_wc(date: str = "20230316") -> pd.DataFrame:
     url = "https://www.iwencai.com/gateway/urp/v7/landing/getDataList"
     params = {
         "query": f"{date}热门5000股票",
-        "perpage": "100",
         "page": "1",
-        "comp_id": "6651918",
-        "uuid": "18369",
+        "perpage": "100",
+        "comp_id": "6734520",
+        "uuid": "24087",
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36"
@@ -82,5 +82,5 @@ def stock_hot_rank_wc(date: str = "20230316") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20230317")
+    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20230510")
     print(stock_hot_rank_wc_df)
