@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/27 19:08
+Date: 2023/5/10 17:00
 Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
@@ -83,18 +83,18 @@ def macro_usa_gdp_monthly() -> pd.DataFrame:
     :return: pandas.Series
     """
     t = time.time()
-    res = requests.get(
+    r = requests.get(
         JS_USA_GDP_MONTHLY_URL.format(
             str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
         )
     )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
+    json_data = json.loads(r.text[r.text.find("{") : r.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
     value_list = [item["datas"]["美国国内生产总值(GDP)"] for item in json_data["list"]]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
+
     url = "https://datacenter-api.jin10.com/reports/list_v2"
     params = {
         "max_date": "",
@@ -119,19 +119,21 @@ def macro_usa_gdp_monthly() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
     r = requests.get(url, params=params, headers=headers)
-    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
-    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
-    temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
-    temp_df.dropna(inplace=True)
+    temp_df = pd.DataFrame(r.json()["data"]["values"])
+    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
+    temp_df.columns = ['date'] + json_data["kinds"]
+    del temp_df['date']
+    temp_df = pd.concat([value_df, temp_df])
+
+    temp_df.dropna(subset=["预测值(%)"], inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index("index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "gdp"
-    temp_df = temp_df.astype("float")
+    temp_df.columns = ['日期', '今值', '预测值', '前值']
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    temp_df['今值'] = pd.to_numeric(temp_df['今值'], errors="coerce")
+    temp_df['预测值'] = pd.to_numeric(temp_df['预测值'], errors="coerce")
+    temp_df['前值'] = pd.to_numeric(temp_df['前值'], errors="coerce")
     return temp_df
 
 
