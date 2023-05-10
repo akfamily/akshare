@@ -226,70 +226,144 @@ def stock_sse_deal_daily(date: str = "20220331") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"])
         temp_df = temp_df.T
         temp_df.reset_index(inplace=True)
-        temp_df.columns = [
-            "单日情况",
-            "主板A",
-            "股票",
-            "主板B",
-            "_",
-            "股票回购",
-            "科创板",
-        ]
-        temp_df = temp_df[
-            [
+        if len(temp_df.columns) == 6:
+            temp_df.columns = [
                 "单日情况",
+                "-",
                 "股票",
-                "主板A",
                 "主板B",
-                "科创板",
+                "主板A",
                 "股票回购",
             ]
-        ]
-        temp_df["单日情况"] = [
-            "流通市值",
-            "流通换手率",
-            "平均市盈率",
-            "_",
-            "市价总值",
-            "_",
-            "换手率",
-            "_",
-            "挂牌数",
-            "_",
-            "_",
-            "_",
-            "_",
-            "_",
-            "成交笔数",
-            "成交金额",
-            "成交量",
-            "次新股换手率",
-            "_",
-            "_",
-        ]
-        temp_df = temp_df[temp_df["单日情况"] != "_"]
-        temp_df["单日情况"] = temp_df["单日情况"].astype("category")
-        list_custom_new = [
-            "挂牌数",
-            "市价总值",
-            "流通市值",
-            "成交金额",
-            "成交量",
-            "成交笔数",
-            "平均市盈率",
-            "换手率",
-            "次新股换手率",
-            "流通换手率",
-        ]
-        temp_df["单日情况"].cat.set_categories(list_custom_new)
-        temp_df.sort_values("单日情况", ascending=True, inplace=True)
-        temp_df.reset_index(drop=True, inplace=True)
-        temp_df["股票"] = pd.to_numeric(temp_df["股票"], errors="coerce")
-        temp_df["主板A"] = pd.to_numeric(temp_df["主板A"], errors="coerce")
-        temp_df["主板B"] = pd.to_numeric(temp_df["主板B"], errors="coerce")
-        temp_df["科创板"] = pd.to_numeric(temp_df["科创板"], errors="coerce")
-        temp_df["股票回购"] = pd.to_numeric(temp_df["股票回购"], errors="coerce")
-        return temp_df
+            temp_df = temp_df[
+                [
+                    "单日情况",
+                    "股票",
+                    "主板A",
+                    "主板B",
+                    "股票回购",
+                ]
+            ]
+            temp_df["单日情况"] = [
+                "流通市值",
+                "流通换手率",
+                "平均市盈率",
+                "_",
+                "市价总值",
+                "_",
+                "换手率",
+                "_",
+                "挂牌数",
+                "_",
+                "_",
+                "_",
+                "_",
+                "_",
+                "成交笔数",
+                "成交金额",
+                "成交量",
+                "次新股换手率",
+                "_",
+                "_",
+            ]
+            temp_df = temp_df[temp_df["单日情况"] != "_"]
+            temp_df["单日情况"] = temp_df["单日情况"].astype("category")
+            list_custom_new = [
+                "挂牌数",
+                "市价总值",
+                "流通市值",
+                "成交金额",
+                "成交量",
+                "成交笔数",
+                "平均市盈率",
+                "换手率",
+                "次新股换手率",
+                "流通换手率",
+            ]
+            temp_df["单日情况"].cat.set_categories(list_custom_new)
+            temp_df.sort_values("单日情况", ascending=True, inplace=True)
+            temp_df.reset_index(drop=True, inplace=True)
+            temp_df["股票"] = pd.to_numeric(temp_df["股票"], errors="coerce")
+            temp_df["主板A"] = pd.to_numeric(temp_df["主板A"], errors="coerce")
+            temp_df["主板B"] = pd.to_numeric(temp_df["主板B"], errors="coerce")
+            temp_df["科创板"] = pd.to_numeric("-", errors="coerce")  # 默认位空
+            temp_df["股票回购"] = pd.to_numeric(temp_df["股票回购"], errors="coerce")
+            temp_df = temp_df[
+                [
+                    "单日情况",
+                    "股票",
+                    "主板A",
+                    "主板B",
+                    "科创板",
+                    "股票回购",
+                ]
+            ]
+            return temp_df
+        else:
+            temp_df.columns = [
+                "单日情况",
+                "主板A",
+                "股票",
+                "主板B",
+                "_",
+                "股票回购",
+                "科创板",
+            ]
+            temp_df = temp_df[
+                [
+                    "单日情况",
+                    "股票",
+                    "主板A",
+                    "主板B",
+                    "科创板",
+                    "股票回购",
+                ]
+            ]
+            temp_df["单日情况"] = [
+                "流通市值",
+                "流通换手率",
+                "平均市盈率",
+                "_",
+                "市价总值",
+                "_",
+                "换手率",
+                "_",
+                "挂牌数",
+                "_",
+                "_",
+                "_",
+                "_",
+                "_",
+                "成交笔数",
+                "成交金额",
+                "成交量",
+                "次新股换手率",
+                "_",
+                "_",
+            ]
+            temp_df = temp_df[temp_df["单日情况"] != "_"]
+            temp_df["单日情况"] = temp_df["单日情况"].astype("category")
+            list_custom_new = [
+                "挂牌数",
+                "市价总值",
+                "流通市值",
+                "成交金额",
+                "成交量",
+                "成交笔数",
+                "平均市盈率",
+                "换手率",
+                "次新股换手率",
+                "流通换手率",
+            ]
+            temp_df["单日情况"].cat.set_categories(list_custom_new)
+            temp_df.sort_values("单日情况", ascending=True, inplace=True)
+            temp_df.reset_index(drop=True, inplace=True)
+            temp_df["股票"] = pd.to_numeric(temp_df["股票"], errors="coerce")
+            temp_df["主板A"] = pd.to_numeric(temp_df["主板A"], errors="coerce")
+            temp_df["主板B"] = pd.to_numeric(temp_df["主板B"], errors="coerce")
+            temp_df["科创板"] = pd.to_numeric(temp_df["科创板"], errors="coerce")
+            temp_df["股票回购"] = pd.to_numeric(temp_df["股票回购"], errors="coerce")
+            return temp_df
     elif int(date) <= 20220224:
         url = "http://query.sse.com.cn/commonQuery.do"
         params = {
@@ -440,7 +514,7 @@ def stock_sse_deal_daily(date: str = "20220331") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_szse_summary_df = stock_szse_summary(date="20230113")
+    stock_szse_summary_df = stock_szse_summary(date="20070511")
     print(stock_szse_summary_df)
 
     stock_szse_area_summary_df = stock_szse_area_summary(date="202203")
@@ -458,5 +532,5 @@ if __name__ == "__main__":
     stock_sse_deal_daily_df = stock_sse_deal_daily(date="20211227")
     print(stock_sse_deal_daily_df)
 
-    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20221114")
+    stock_sse_deal_daily_df = stock_sse_deal_daily(date="20190613")
     print(stock_sse_deal_daily_df)
