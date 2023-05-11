@@ -2396,9 +2396,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.78 fix: fix macro_usa_gdp_monthly interface
 1.9.79 fix: fix stock_sse_deal_daily interface
 1.9.80 fix: fix futures_spot_price interface
+1.9.81 add: add stock_hk_index_spot_sina interface
 """
 
-__version__ = "1.9.80"
+__version__ = "1.9.81"
 __author__ = "AKFamily"
 
 import sys
@@ -2409,6 +2410,16 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+港股股票指数数据-新浪-东财
+"""
+from akshare.index.index_stock_hk import (
+    stock_hk_index_spot_sina,
+    stock_hk_index_daily_em,
+    stock_hk_index_spot_em,
+    stock_hk_index_daily_sina,
+)
 
 """
 同花顺-数据中心-可转债
@@ -2433,7 +2444,9 @@ from akshare.stock.stock_ask_bid_em import stock_bid_ask_em
 """
 同花顺-盈利预测
 """
-from akshare.stock_fundamental.stock_profit_forecast_ths import stock_profit_forecast_ths
+from akshare.stock_fundamental.stock_profit_forecast_ths import (
+    stock_profit_forecast_ths,
+)
 
 """
 期货资讯

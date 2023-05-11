@@ -56,6 +56,13 @@
 
 ## 更新说明
 
+1.9.81 add: add stock_hk_index_spot_sina interface
+
+    1. 新增 stock_hk_index_spot_sina 接口
+    2. 新增 stock_hk_index_daily_em 接口
+    3. 新增 stock_hk_index_spot_em 接口
+    4. 新增 stock_hk_index_daily_sina 接口
+
 1.9.80 fix: fix futures_spot_price interface
 
     1. 修复 futures_spot_price 接口
@@ -2298,6 +2305,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.81 add: add stock_hk_index_spot_sina interface
 
 1.9.80 fix: fix futures_spot_price interface
 
