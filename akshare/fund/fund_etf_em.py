@@ -355,7 +355,7 @@ if __name__ == "__main__":
         symbol="513500",
         period="5",
         adjust="hfq",
-        start_date="2023-01-01 09:32:00",
-        end_date="2023-01-04 14:40:00",
+        start_date="2023-05-01 09:32:00",
+        end_date="2023-05-04 14:40:00",
     )
     print(fund_etf_hist_min_em_df)
