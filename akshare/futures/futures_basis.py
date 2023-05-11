@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/11/9 22:30
+Date: 2023/5/11 17:30
 Desc: 生意社网站采集大宗商品现货价格及相应基差数据, 数据时间段从 20110104-至今
 备注：现期差 = 现货价格 - 期货价格(这里的期货价格为结算价)
 黄金为 元/克, 白银为 元/千克, 玻璃现货为 元/平方米, 鸡蛋现货为 元/公斤, 鸡蛋期货为 元/500千克, 其余为 元/吨.
 焦炭现货规格是: 一级冶金焦; 焦炭期货规格: 介于一级和二级之间, 焦炭现期差仅供参考.
 铁矿石现货价格是: 湿吨, 铁矿石期货价格是: 干吨
-网页地址: http://www.100ppi.com/sf/
-历史数据可以通过修改 url 地址来获取, 比如: http://www.100ppi.com/sf/day-2017-09-12.html
+网页地址: https://www.100ppi.com/sf/
+历史数据可以通过修改 url 地址来获取, 比如: https://www.100ppi.com/sf/day-2017-09-12.html
 发现生意社的 bugs:
-1. 2018-09-12 周三 数据缺失是因为生意社源数据在该交易日缺失: http://www.100ppi.com/sf/day-2018-09-12.html
+1. 2018-09-12 周三 数据缺失是因为生意社源数据在该交易日缺失: https://www.100ppi.com/sf/day-2018-09-12.html
 """
 import datetime
 import re
@@ -34,7 +34,7 @@ def futures_spot_price_daily(
 ):
     """
     指定时间段内大宗商品现货价格及相应基差
-    http://www.100ppi.com/sf/
+    https://www.100ppi.com/sf/
     :param start_day: str 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param end_day: str 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象; 默认为当天
     :param vars_list: list 合约品种如 [RB, AL]; 默认参数为所有商品
@@ -74,10 +74,10 @@ def futures_spot_price_daily(
         return temp_df
 
 
-def futures_spot_price(date: str = "20210201", vars_list: list = cons.contract_symbols) -> pd.DataFrame:
+def futures_spot_price(date: str = "20230509", vars_list: list = cons.contract_symbols) -> pd.DataFrame:
     """
     指定交易日大宗商品现货价格及相应基差
-    http://www.100ppi.com/sf/day-2017-09-12.html
+    https://www.100ppi.com/sf/day-2017-09-12.html
     :param date: 开始日期 format: YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象; 为空时为当天
     :param vars_list: 合约品种如 RB、AL 等列表 为空时为所有商品
     :return: pandas.DataFrame
@@ -100,8 +100,8 @@ def futures_spot_price(date: str = "20210201", vars_list: list = cons.contract_s
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
         return
-    u1 = cons.SYS_SPOT_PRICE_LATEST_URL
-    u2 = cons.SYS_SPOT_PRICE_URL.format(date.strftime("%Y-%m-%d"))
+    u1 = "http://www.100ppi.com/sf/"
+    u2 = f'http://www.100ppi.com/sf/day-{date.strftime("%Y-%m-%d")}.html'
     i = 1
     while True:
         for url in [u2, u1]:
@@ -164,7 +164,7 @@ def _check_information(df_data, date):
             news = "PTA"
         else:
             news = "".join(re.findall(r"[\u4e00-\u9fa5]", string))
-        if news != "" and news not in ["商品", "价格", "上海期货交易所", "郑州商品交易所", "大连商品交易所"]:
+        if news != "" and news not in ["商品", "价格", "上海期货交易所", "郑州商品交易所", "大连商品交易所", "广州期货交易所"]:
             symbol = chinese_to_english(news)
             record = pd.DataFrame(df_data[df_data["symbol"] == string])
             record.loc[:, "symbol"] = symbol
@@ -172,12 +172,12 @@ def _check_information(df_data, date):
             if (
                 symbol == "JD"
             ):  # 鸡蛋现货为元/公斤, 鸡蛋期货为元/500千克, 其余元/吨(http://www.100ppi.com/sf/)
-                record.loc[:, "spot_price"] = float(record["spot_price"]) * 500
+                record.loc[:, "spot_price"] = float(record["spot_price"].iloc[0]) * 500
             elif (
                 symbol == "FG"
             ):  # 上表中现货单位为元/平方米, 期货单位为元/吨. 换算公式：元/平方米*80=元/吨(http://www.100ppi.com/sf/959.html)
-                record.loc[:, "spot_price"] = float(record["spot_price"]) * 80
-            records = records.append(record)
+                record.loc[:, "spot_price"] = float(record["spot_price"].iloc[0]) * 80
+            records = pd.concat([records, record])
 
     records.loc[
         :, ["near_contract_price", "dominant_contract_price", "spot_price"]
@@ -297,7 +297,7 @@ if __name__ == "__main__":
     )
     print(futures_spot_price_daily_df)
 
-    futures_spot_price_df = futures_spot_price("20211109")
+    futures_spot_price_df = futures_spot_price("20200510")
     print(futures_spot_price_df)
 
     futures_spot_price_previous_df = futures_spot_price_previous('20220209')
