@@ -784,6 +784,7 @@ ak.get_roll_yield(date="20180718", var="IF", symbol1="IF1812", symbol2="IF1811")
 
 ```python
 import akshare as ak
+
 ak.get_receipt(start_day="20180712", end_day="20180719", vars_list=["CU", "NI"])
 ```
 
