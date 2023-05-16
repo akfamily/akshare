@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/16 15:45
+Date: 2023/5/16 15:30
 Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
@@ -574,7 +574,13 @@ def stock_sector_fund_flow_rank(
 
 
 @lru_cache()
-def _get_stock_sector_fund_flow_summary_code():
+def _get_stock_sector_fund_flow_summary_code() -> dict:
+    """
+    东方财富网-数据中心-资金流向-行业板块
+    https://data.eastmoney.com/bkzj/gn.html
+    :return: 行业板块与代码字典
+    :rtype: dict
+    """
     url = "http://push2.eastmoney.com/api/qt/clist/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
@@ -909,6 +915,104 @@ def stock_sector_fund_flow_hist(symbol: str = "电源设备") -> pd.DataFrame:
     return temp_df
 
 
+@lru_cache()
+def _get_stock_concept_fund_flow_summary_code() -> dict:
+    """
+    东方财富网-数据中心-资金流向-概念资金流
+    https://data.eastmoney.com/bkzj/gn.html
+    :return: 概念与代码字典
+    :rtype: dict
+    """
+    url = "https://push2.eastmoney.com/api/qt/clist/get"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
+    params = {
+        "pn": "1",
+        "pz": "5000",
+        "po": "1",
+        "np": "1",
+        "fields": "f12,f13,f14,f62",
+        "fid": "f62",
+        "fs": "m:90+t:3",
+        "ut": "b2884a393a59ad64002292a3e90d46a5",
+        "_": int(time.time() * 1000),
+    }
+    r = requests.get(url, params=params, headers=headers)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    name_code_map = dict(zip(temp_df["f14"], temp_df["f12"]))
+    return name_code_map
+
+
+def stock_concept_fund_flow_hist(symbol: str = "锂电池") -> pd.DataFrame:
+    """
+    东方财富网-数据中心-资金流向-概念资金流-概念历史资金流
+    https://data.eastmoney.com/bkzj/BK0574.html
+    :param symbol: 概念名称
+    :type symbol: str
+    :return: 概念历史资金流
+    :rtype: pandas.DataFrame
+    """
+    code_name_map = _get_stock_concept_fund_flow_summary_code()
+    url = "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get"
+    params = {
+        "lmt": "0",
+        "klt": "101",
+        "fields1": "f1,f2,f3,f7",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f62,f63,f64,f65",
+        "secid": f"90.{code_name_map[symbol]}",
+        "_": "1678954135116",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df.columns = [
+        "日期",
+        "主力净流入-净额",
+        "小单净流入-净额",
+        "中单净流入-净额",
+        "大单净流入-净额",
+        "超大单净流入-净额",
+        "主力净流入-净占比",
+        "小单净流入-净占比",
+        "中单净流入-净占比",
+        "大单净流入-净占比",
+        "超大单净流入-净占比",
+        "-",
+        "-",
+        "-",
+        "-",
+    ]
+    temp_df = temp_df[
+        [
+            "日期",
+            "主力净流入-净额",
+            "主力净流入-净占比",
+            "超大单净流入-净额",
+            "超大单净流入-净占比",
+            "大单净流入-净额",
+            "大单净流入-净占比",
+            "中单净流入-净额",
+            "中单净流入-净占比",
+            "小单净流入-净额",
+            "小单净流入-净占比",
+        ]
+    ]
+    temp_df["主力净流入-净额"] = pd.to_numeric(temp_df["主力净流入-净额"], errors="coerce")
+    temp_df["主力净流入-净占比"] = pd.to_numeric(temp_df["主力净流入-净占比"], errors="coerce")
+    temp_df["超大单净流入-净额"] = pd.to_numeric(temp_df["超大单净流入-净额"], errors="coerce")
+    temp_df["超大单净流入-净占比"] = pd.to_numeric(temp_df["超大单净流入-净占比"], errors="coerce")
+    temp_df["大单净流入-净额"] = pd.to_numeric(temp_df["大单净流入-净额"], errors="coerce")
+    temp_df["大单净流入-净占比"] = pd.to_numeric(temp_df["大单净流入-净占比"], errors="coerce")
+    temp_df["中单净流入-净额"] = pd.to_numeric(temp_df["中单净流入-净额"], errors="coerce")
+    temp_df["中单净流入-净占比"] = pd.to_numeric(temp_df["中单净流入-净占比"], errors="coerce")
+    temp_df["小单净流入-净额"] = pd.to_numeric(temp_df["小单净流入-净额"], errors="coerce")
+    temp_df["小单净流入-净占比"] = pd.to_numeric(temp_df["小单净流入-净占比"], errors="coerce")
+    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
+    return temp_df
+
+
 if __name__ == "__main__":
     stock_individual_fund_flow_df = stock_individual_fund_flow(
         stock="600094", market="sh"
@@ -947,3 +1051,6 @@ if __name__ == "__main__":
 
     stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="电源设备")
     print(stock_sector_fund_flow_hist_df)
+
+    stock_concept_fund_flow_hist_df = stock_concept_fund_flow_hist(symbol="锂电池")
+    print(stock_concept_fund_flow_hist_df)

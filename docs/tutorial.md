@@ -495,6 +495,7 @@
  "stock_sector_fund_flow_rank"  # 板块资金流排名
  "stock_sector_fund_flow_summary"  # xx行业个股资金流
  "stock_sector_fund_flow_hist"  # 行业历史资金流
+ "stock_concept_fund_flow_hist"  # 概念历史资金流
  # 股票基本面数据
  "stock_financial_abstract"  # 财务摘要
  "stock_financial_report_sina"  # 三大财务报表
