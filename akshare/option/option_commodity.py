@@ -39,7 +39,7 @@ def option_dce_daily(
     http://www.dce.com.cn/
     :param trade_date: 交易日
     :type trade_date: str
-    :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权", "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权"}
+    :param symbol: choice of {"玉米期权", "豆粕期权", "铁矿石期权", "液化石油气期权", "聚乙烯期权", "聚氯乙烯期权", "聚丙烯期权", "棕榈油期权", "黄大豆1号期权", "黄大豆2号期权", "豆油期权", "乙二醇期权", "苯乙烯期权"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
@@ -152,6 +152,22 @@ def option_dce_daily(
         result_one_df, result_two_df = (
             table_df[table_df["商品名称"] == "豆油"],
             another_df[another_df.iloc[:, 0].str.contains("y")],
+        )
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
+    elif symbol == "乙二醇期权":
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "乙二醇"],
+            another_df[another_df.iloc[:, 0].str.contains("eg")],
+        )
+        result_one_df.reset_index(inplace=True, drop=True)
+        result_two_df.reset_index(inplace=True, drop=True)
+        return result_one_df, result_two_df
+    elif symbol == "苯乙烯期权":
+        result_one_df, result_two_df = (
+            table_df[table_df["商品名称"] == "苯乙烯"],
+            another_df[another_df.iloc[:, 0].str.contains("eb")],
         )
         result_one_df.reset_index(inplace=True, drop=True)
         result_two_df.reset_index(inplace=True, drop=True)
@@ -477,6 +493,18 @@ if __name__ == "__main__":
 
     option_dce_daily_one, option_dce_daily_two = option_dce_daily(
         symbol="黄大豆2号期权", trade_date="20220808"
+    )
+    print(option_dce_daily_one)
+    print(option_dce_daily_two)
+
+    option_dce_daily_one, option_dce_daily_two = option_dce_daily(
+        symbol="苯乙烯期权", trade_date="20230516"
+    )
+    print(option_dce_daily_one)
+    print(option_dce_daily_two)
+
+    option_dce_daily_one, option_dce_daily_two = option_dce_daily(
+        symbol="乙二醇期权", trade_date="20230516"
     )
     print(option_dce_daily_one)
     print(option_dce_daily_two)
