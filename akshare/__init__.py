@@ -2398,9 +2398,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.80 fix: fix futures_spot_price interface
 1.9.81 add: add stock_hk_index_spot_sina interface
 1.9.82 fix: fix currency_boc_safe interface
+1.9.83 add: add stock_concept_fund_flow_hist interface
 """
 
-__version__ = "1.9.82"
+__version__ = "1.9.83"
 __author__ = "AKFamily"
 
 import sys
@@ -3813,13 +3814,14 @@ from akshare.stock_fundamental.stock_finance_hk import (
 """
 stock_fund
 """
-from akshare.stock.stock_fund import (
+from akshare.stock.stock_fund_em import (
     stock_individual_fund_flow,
     stock_market_fund_flow,
     stock_sector_fund_flow_rank,
     stock_individual_fund_flow_rank,
     stock_sector_fund_flow_summary,
     stock_sector_fund_flow_hist,
+    stock_concept_fund_flow_hist,
 )
 
 """
