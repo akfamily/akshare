@@ -2397,9 +2397,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.79 fix: fix stock_sse_deal_daily interface
 1.9.80 fix: fix futures_spot_price interface
 1.9.81 add: add stock_hk_index_spot_sina interface
+1.9.82 fix: fix currency_boc_safe interface
 """
 
-__version__ = "1.9.81"
+__version__ = "1.9.82"
 __author__ = "AKFamily"
 
 import sys
