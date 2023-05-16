@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/22 20:00
+Date: 2023/5/16 18:20
 Desc: 同花顺-港股-分红派息
 http://stockpage.10jqka.com.cn/HK0700/bonus/
 """
@@ -38,6 +38,8 @@ def stock_hk_fhpx_detail_ths(symbol: str = "0700") -> pd.DataFrame:
         "进度",
         "以股代息",
     ]
+    # 剔除异常格式，由以股代息产生的异常
+    temp_df.dropna(subset=["派息日", "除净日"], inplace=True, ignore_index=True)
     temp_df["公告日期"] = pd.to_datetime(
         temp_df["公告日期"], format="%Y-%m-%d", errors="coerce"
     ).dt.date
@@ -57,5 +59,5 @@ def stock_hk_fhpx_detail_ths(symbol: str = "0700") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hk_fhpx_detail_ths_df = stock_hk_fhpx_detail_ths(symbol="0700")
+    stock_hk_fhpx_detail_ths_df = stock_hk_fhpx_detail_ths(symbol="0968")
     print(stock_hk_fhpx_detail_ths_df)
