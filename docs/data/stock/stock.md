@@ -10018,7 +10018,7 @@ print(stock_sector_fund_flow_hist_df)
 101  2023-03-16 -457664528.0      -8.96  ...      -0.05  460108624.0       9.00
 ```
 
-##### 行业历史资金流
+##### 概念历史资金流
 
 接口: stock_concept_fund_flow_hist
 
