@@ -12,7 +12,6 @@ import requests
 from bs4 import BeautifulSoup
 
 from akshare.index.cons import short_headers
-from akshare.utils.ak_session import session
 
 
 def _get_global_index_area_name_code() -> dict:
@@ -30,7 +29,7 @@ def _get_global_index_area_name_code() -> dict:
         "additionalIndices": "on",
         "otherIndices": "on",
     }
-    r = session.get(url, params=params, headers=short_headers)
+    r = requests.get(url, params=params, headers=short_headers)
     data_text = r.text
     soup = BeautifulSoup(data_text, "lxml")
     name_url_option_list = soup.find_all("option")[1:]
@@ -60,7 +59,7 @@ def _get_global_country_name_url() -> dict:
     :rtype: dict
     """
     url = "https://cn.investing.com/indices/"
-    res = session.post(url, headers=short_headers)
+    res = requests.post(url, headers=short_headers)
     soup = BeautifulSoup(res.text, "lxml")
     name_url_option_list = soup.find(
         "select", attrs={"name": "country"}

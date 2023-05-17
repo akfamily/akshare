@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/5 20:23
+Date: 2023/5/17 15:10
 Desc: 中国柯桥纺织指数
 http://www.kqindex.cn/flzs/jiage
 """
 import pandas as pd
+import requests
 from tqdm import tqdm
-
-from akshare.utils.ak_session import session
 
 
 def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
@@ -34,7 +33,7 @@ def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
         "pageindex": "1",
         "_": "1619871781413",
     }
-    r = session.get(url, params=params)
+    r = requests.get(url, params=params)
     data_json = r.json()
     page_num = data_json["page"]
     big_df = pd.DataFrame()
@@ -47,10 +46,10 @@ def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
             "pageindex": page,
             "_": "1619871781413",
         }
-        r = session.get(url, params=params)
+        r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     if symbol == "价格指数":
         big_df.columns = [
             "期次",

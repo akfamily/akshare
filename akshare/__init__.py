@@ -2401,9 +2401,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.83 add: add stock_concept_fund_flow_hist interface
 1.9.84 fix: fix stock_hk_fhpx_detail_ths interface
 1.9.85 fix: fix option_dce_daily interface
+1.9.86 fix: fix index_kq_fz interface
 """
 
-__version__ = "1.9.85"
+__version__ = "1.9.86"
 __author__ = "AKFamily"
 
 import sys

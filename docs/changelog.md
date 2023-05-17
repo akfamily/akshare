@@ -56,6 +56,10 @@
 
 ## 更新说明
 
+1.9.86 fix: fix index_kq_fz interface
+
+    1. 修复 index_kq_fz 接口
+
 1.9.85 fix: fix option_dce_daily interface
 
     1. 修复 option_dce_daily 接口
@@ -2321,6 +2325,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.86 fix: fix index_kq_fz interface
 
 1.9.85 fix: fix option_dce_daily interface
 
