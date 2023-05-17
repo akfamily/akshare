@@ -8,11 +8,10 @@ https://cn.investing.com/rates-bonds/
 import re
 
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
 
 from akshare.index.cons import short_headers, long_headers
-
-from akshare.utils.ak_session import session
 
 
 def _get_global_country_name_url() -> dict:
@@ -23,9 +22,11 @@ def _get_global_country_name_url() -> dict:
     :rtype: dict
     """
     url = "https://cn.investing.com/rates-bonds/"
-    res = session.get(url, headers=short_headers, timeout=30)
+    res = requests.get(url, headers=short_headers, timeout=30)
     soup = BeautifulSoup(res.text, "lxml")
-    name_url_option_list = soup.find("select", attrs={"name": "country"}).find_all("option")[1:]
+    name_url_option_list = soup.find("select", attrs={"name": "country"}).find_all(
+        "option"
+    )[1:]
     url_list = [item["value"] for item in name_url_option_list]
     name_list = [item.get_text() for item in name_url_option_list]
     name_code_map_dict = {}
@@ -42,7 +43,7 @@ def bond_investing_global_country_name_url(country: str = "中国") -> dict:
     """
     name_url_dict = _get_global_country_name_url()
     url = f"https://cn.investing.com{name_url_dict[country]}"
-    res = session.get(url, headers=short_headers, timeout=30)
+    res = requests.get(url, headers=short_headers, timeout=30)
     soup = BeautifulSoup(res.text, "lxml")
     url_list = [
         item.find("a")["href"] for item in soup.find_all(attrs={"class": "plusIconTd"})
@@ -84,7 +85,7 @@ def bond_investing_global(
     period_map = {"每日": "Daily", "每周": "Weekly", "每月": "Monthly"}
     name_code_dict = bond_investing_global_country_name_url(country)
     temp_url = f"https://cn.investing.com/{name_code_dict[index_name]}-historical-data"
-    res = session.get(temp_url, headers=short_headers, timeout=30)
+    res = requests.get(temp_url, headers=short_headers, timeout=30)
     soup = BeautifulSoup(res.text, "lxml")
     title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
     data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
@@ -101,15 +102,15 @@ def bond_investing_global(
         "action": "historical_data",
     }
     url = "https://cn.investing.com/instruments/HistoricalDataAjax"
-    res = session.post(url, data=payload, headers=long_headers, timeout=60)
+    res = requests.post(url, data=payload, headers=long_headers, timeout=60)
     df_data = pd.read_html(res.text)[0]
     df_data.columns = [
-        '日期',
-        '收盘',
-        '开盘',
-        '高',
-        '低',
-        '涨跌幅',
+        "日期",
+        "收盘",
+        "开盘",
+        "高",
+        "低",
+        "涨跌幅",
     ]
     if period == "每月":
         df_data.index = pd.to_datetime(df_data["日期"], format="%Y年%m月")
@@ -123,7 +124,9 @@ def bond_investing_global(
 
 
 if __name__ == "__main__":
-    bond_investing_global_country_name_url_df = bond_investing_global_country_name_url("中国")
+    bond_investing_global_country_name_url_df = bond_investing_global_country_name_url(
+        "中国"
+    )
     print(bond_investing_global_country_name_url_df)
 
     bond_investing_global_df = bond_investing_global(
