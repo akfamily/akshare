@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/29 10:54
+Date: 2023/5/18 15:30
 Desc: 东方财富网-行情中心-期权市场
-http://quote.eastmoney.com/center
+https://quote.eastmoney.com/center/qqsc.html
 """
-import json
 
 import pandas as pd
 import requests
@@ -14,13 +13,12 @@ import requests
 def option_current_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-期权市场
-    http://quote.eastmoney.com/center
+    https://quote.eastmoney.com/center/qqsc.html
     :return: 期权价格
     :rtype: pandas.DataFrame
     """
     url = 'http://23.push2.eastmoney.com/api/qt/clist/get'
     params = {
-        'cb': 'jQuery112409395946290628259_1606225274048',
         'pn': '1',
         'pz': '200000',
         'po': '1',
@@ -34,8 +32,7 @@ def option_current_em() -> pd.DataFrame:
         '_': '1606225274063',
     }
     r = requests.get(url, params=params)
-    data_text = r.text
-    data_json = json.loads(data_text[data_text.find('{'):-2])
+    data_json = r.json()
     temp_df = pd.DataFrame(data_json['data']['diff'])
     temp_df.columns = [
         '_',
@@ -50,7 +47,7 @@ def option_current_em() -> pd.DataFrame:
         '_',
         '_',
         '代码',
-        '_',
+        '市场标识',
         '名称',
         '_',
         '_',
@@ -89,7 +86,8 @@ def option_current_em() -> pd.DataFrame:
         '剩余日',
         '日增',
         '昨结',
-        '今开'
+        '今开',
+        '市场标识',
     ]]
     temp_df['最新价'] = pd.to_numeric(temp_df['最新价'], errors='coerce')
     temp_df['涨跌额'] = pd.to_numeric(temp_df['涨跌额'], errors='coerce')

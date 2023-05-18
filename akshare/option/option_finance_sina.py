@@ -18,6 +18,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
+from akshare.option.option_em import option_current_em
+
 
 # 期权-中金所-上证50指数
 def option_cffex_sz50_list_sina() -> Dict[str, List[str]]:
@@ -829,6 +831,43 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
     return temp_df
 
 
+def option_minute_em(symbol: str = "10005265") -> pd.DataFrame:
+    """
+    东方财富网-行情中心-期权市场-分时行情
+    https://stock.finance.sina.com.cn/option/quotes.html
+    :param symbol: 期权代码; 通过调用 ak.option_current_em() 获取
+    :type symbol: str
+    :return: 指定期权的分钟频率数据
+    :rtype: pandas.DataFrame
+    """
+    option_current_em_df = option_current_em()
+    option_current_em_df['标识'] = option_current_em_df['市场标识'].astype(str) + '.' + option_current_em_df['代码']
+    id_ = option_current_em_df[option_current_em_df['代码'] == symbol]['标识'].values[0]
+    url = "https://push2.eastmoney.com/api/qt/stock/trends2/get"
+    params = {
+        "secid": id_,
+        "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f17",
+        "fields2": "f51,f53,f54,f55,f56,f57,f58",
+        "iscr": "0",
+        "iscca": "0",
+        "ut": "f057cbcbce2a86e2866ab8877db1d059",
+        "ndays": "1",
+        "cb": "quotepushdata1",
+    }
+    r = requests.get(url, params=params)
+    data_text = r.text
+    data_json = json.loads(data_text[data_text.find("(") + 1 : data_text.rfind(")")])
+    temp_df = pd.DataFrame([item.split(",") for item in data_json['data']['trends']])
+    temp_df.columns = ["time", "close", "high", "low", "volume", "amount", "-"]
+    temp_df = temp_df[["time", "close", "high", "low", "volume", "amount"]]
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce")
+    temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce")
+    return temp_df
+
+
 if __name__ == "__main__":
     option_cffex_sz50_list_sina_df = option_cffex_sz50_list_sina()
     print(option_cffex_sz50_list_sina_df)
@@ -909,3 +948,9 @@ if __name__ == "__main__":
         symbol="10004023"
     )
     print(option_finance_minute_sina_df)
+
+    option_current_em_df = option_current_em()
+    print(option_current_em_df)
+
+    option_minute_em_df = option_minute_em(symbol="10005265")
+    print(option_minute_em_df)
