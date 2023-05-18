@@ -43,7 +43,6 @@ setuptools.setup(
         "pandas>=0.25",
         "requests>=2.22.0",
         "pypinyin>=0.35.0",
-        "websocket-client>=0.56.0",
         "html5lib>=1.0.1",
         "xlrd>=1.2.0",
         "urllib3>=1.25.8",
@@ -53,7 +52,6 @@ setuptools.setup(
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
         "py_mini_racer>=0.6.0",
-        "requests-cache>=0.9.3",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[
