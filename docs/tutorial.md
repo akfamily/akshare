@@ -407,7 +407,8 @@
  "option_sse_greeks_sina"  # 上交所期权希腊字母
  "option_sse_minute_sina"  # 上交所期权分钟数据
  "option_sse_daily_sina"  # 上交所期权日频数据
- "option_finance_minute_sina"  # 股票期权分时数据
+ "option_finance_minute_sina"  # 金融股票期权分时数据
+ "option_minute_em"  # 股票期权分时数据
  # 商品期权-新浪
  "option_sina_option_commodity_dict"  # 商品期权合约字典查询
  "option_sina_option_commodity_contract_list"  # 商品期权合约查询
