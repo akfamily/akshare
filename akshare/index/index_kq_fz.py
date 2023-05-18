@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/17 15:10
+Date: 2023/5/18 17:10
 Desc: 中国柯桥纺织指数
 http://www.kqindex.cn/flzs/jiage
 """
@@ -56,6 +56,9 @@ def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
             "指数",
             "涨跌幅",
         ]
+        big_df['期次'] = pd.to_datetime(big_df['期次'])
+        big_df['指数'] = pd.to_numeric(big_df['指数'], errors='coerce')
+        big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'], errors='coerce')
     elif symbol == "景气指数":
         big_df.columns = [
             "期次",
@@ -64,23 +67,31 @@ def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
             "流通景气指数",
             "生产景气指数",
         ]
+        big_df['总景气指数'] = pd.to_numeric(big_df['总景气指数'], errors='coerce')
+        big_df['涨跌幅'] = pd.to_numeric(big_df['涨跌幅'], errors='coerce')
+        big_df['流通景气指数'] = pd.to_numeric(big_df['流通景气指数'], errors='coerce')
+        big_df['生产景气指数'] = pd.to_numeric(big_df['生产景气指数'], errors='coerce')
     elif symbol == "外贸指数":
         big_df.columns = [
             "期次",
             "价格指数",
-            "涨跌幅",
+            "价格指数-涨跌幅",
             "景气指数",
-            "涨跌幅",
+            "景气指数-涨跌幅",
         ]
+        big_df['价格指数'] = pd.to_numeric(big_df['价格指数'], errors='coerce')
+        big_df['价格指数-涨跌幅'] = pd.to_numeric(big_df['价格指数-涨跌幅'], errors='coerce')
+        big_df['景气指数'] = pd.to_numeric(big_df['景气指数'], errors='coerce')
+        big_df['景气指数-涨跌幅'] = pd.to_numeric(big_df['景气指数-涨跌幅'], errors='coerce')
     return big_df
 
 
 if __name__ == "__main__":
-    index_kq_df = index_kq_fz(symbol="价格指数")
-    print(index_kq_df)
+    index_kq_fz_df = index_kq_fz(symbol="价格指数")
+    print(index_kq_fz_df)
 
-    index_kq_df = index_kq_fz(symbol="景气指数")
-    print(index_kq_df)
+    index_kq_fz_df = index_kq_fz(symbol="景气指数")
+    print(index_kq_fz_df)
 
-    index_kq_df = index_kq_fz(symbol="外贸指数")
-    print(index_kq_df)
+    index_kq_fz_df = index_kq_fz(symbol="外贸指数")
+    print(index_kq_fz_df)
