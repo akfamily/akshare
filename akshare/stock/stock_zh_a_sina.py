@@ -467,7 +467,7 @@ if __name__ == "__main__":
     print(stock_zh_a_daily_hfq_df_one)
 
     stock_zh_a_daily_hfq_df_three = stock_zh_a_daily(
-        symbol="sz000001",
+        symbol="sz002008",
         start_date="19900103",
         end_date="20210118",
         adjust="qfq",
