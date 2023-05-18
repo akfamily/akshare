@@ -56,6 +56,10 @@
 
 ## 更新说明
 
+1.9.88 fix: fix setup.py
+    
+    1. 移除 setup.py 中的相关依赖
+
 1.9.87 add: add option_minute_em interface
 
     1. 新增 option_minute_em 接口
@@ -2329,6 +2333,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.9.88 fix: fix setup.py
 
 1.9.87 add: add option_minute_em interface
 
