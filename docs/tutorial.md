@@ -1214,6 +1214,8 @@
  "stock_hk_index_daily_sina"  # 新浪财经-港股指数-历史行情数据
  "stock_hk_index_spot_em"  # 东方财富网-行情中心-港股-指数实时行情
  "stock_hk_index_daily_em"  # 东方财富网-港股-股票指数数据
+ # 同花顺-财务指标-主要指标
+ "stock_financial_abstract_ths"  # 同花顺-财务指标-主要指标
 ```
 
 ## 案例演示
