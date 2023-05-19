@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2019/11/14 20:31
+Date: 2023/5/19 20:31
 Desc: FF-data-library
 http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 """
@@ -14,6 +14,7 @@ from akshare.article.cons import ff_home_url
 def article_ff_crr() -> pd.DataFrame:
     """
     FF多因子模型
+    http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
     :return: FF多因子模型单一表格
     :rtype: pandas.DataFrame
     """
@@ -138,10 +139,12 @@ def article_ff_crr() -> pd.DataFrame:
     temp_df = temp_df.iloc[:, 1:]
     # concat
     all_df = pd.DataFrame()
-    all_df = all_df.append(table_one)
-    all_df = all_df.append(table_two)
+    all_df = pd.concat([all_df, table_one])
+    all_df = pd.concat([all_df, table_two])
     temp_df.columns = table_two.columns
-    all_df = all_df.append(temp_df)
+    all_df = pd.concat([all_df, temp_df])
+    all_df.reset_index(inplace=True)
+    all_df.rename(columns={"index": "item"}, inplace=True)
     return all_df
 
 
