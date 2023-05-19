@@ -168,103 +168,72 @@ print(article_rlab_rv_df)
 
 目标地址: http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 
-描述: 获取 Current Research Returns 多因子数据
+描述: 获取 Current Research Returns 多因子数据; 更多信息请访问目标地址
 
 限量: 单次返回所有历史数据
 
 输入参数
 
-| 名称  | 类型  | 必选  | 描述  |
-|-----|-----|-----|-----|
-| -   | -   | -   | -   |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
 
 输出参数
 
 FF-Current Research Returns
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| September 2019      | float   | Y        | -  |  
-| Last 3 Months      | float   | Y        | -  |  
-| Last 12 Months      | float   | Y        | -  |  
+| 名称             | 类型     | 描述   |
+|----------------|--------|------|
+| item           | object | -    |  
+| September 2019 | object | 动态日期 |  
+| Last 3 Months  | object | 动态日期 |  
+| Last 12 Months | object | 动态日期 |  
 
 接口示例
 
 ```python
 import akshare as ak
-df = ak.article_ff_crr()
-print(df)
+
+article_ff_crr_df = ak.article_ff_crr()
+print(article_ff_crr_df)
 ```
 
 数据示例
 
 ```
-                                            September  2019 Last 3  Months  \
-Fama/French 3 Research Factors                            -              -   
-Rm-Rf                                                  1.44           0.00   
-SMB                                                   -0.89          -5.36   
-HML                                                    6.73           1.39   
-Fama/French 5 Research Factors (2x3)                      -              -   
-Rm-Rf                                                  1.44           0.00   
-SMB                                                    0.33          -4.94   
-HML                                                    6.73           1.39   
-RMW                                                    1.98           2.16   
-CMA                                                    3.58           2.82   
-Fama/French Research Portfolios                           -              -   
-Size and Book-to-Market Portfolios                        -              -   
-Small Value                                            5.77          -4.01   
-Small Neutral                                          3.84          -1.84   
-Big Neutral                                           -2.46          -7.08   
-Small Growth                                           5.54           0.74   
-Big Value                                              3.97           1.38   
-Big Growth                                             0.30           1.04   
-Size and Operating Profitability Portfolios               -              -   
-Small Robust                                           3.73          -6.10   
-Small Neutral                                          4.50          -1.20   
-Small Weak                                            -0.22          -6.10   
-Big Robust                                             1.12           2.24   
-Big Neutral                                            2.60           0.67   
-Big Weak                                               1.11          -2.08   
-Size and Investment Portfolios                            -              -   
-Small Conservative                                     3.57          -3.90   
-Small Neutral                                          3.57          -1.41   
-Small Aggressive                                       0.15          -6.10   
-Big Conservative                                       3.08           2.35   
-Big Neutral                                            2.42           1.45   
-Big Aggressive                                        -0.66          -1.09   
-                                            Last 12  Months  
-Fama/French 3 Research Factors                            -  
-Rm-Rf                                                 -0.45  
-SMB                                                  -14.60  
-HML                                                   -4.92  
-Fama/French 5 Research Factors (2x3)                      -  
-Rm-Rf                                                 -0.45  
-SMB                                                  -14.74  
-HML                                                   -4.92  
-RMW                                                    4.97  
-CMA                                                    2.98  
-Fama/French Research Portfolios                           -  
-Size and Book-to-Market Portfolios                        -  
-Small Value                                          -16.59  
-Small Neutral                                         -9.19  
-Big Neutral                                          -12.36  
-Small Growth                                          -1.87  
-Big Value                                              3.79  
-Big Growth                                             3.73  
-Size and Operating Profitability Portfolios               -  
-Small Robust                                         -15.42  
-Small Neutral                                         -7.23  
-Small Weak                                           -15.73  
-Big Robust                                             4.76  
-Big Neutral                                            3.40  
-Big Weak                                              -4.88  
-Size and Investment Portfolios                            -  
-Small Conservative                                   -14.66  
-Small Neutral                                         -8.16  
-Small Aggressive                                     -15.00  
-Big Conservative                                       5.23  
-Big Neutral                                            4.49  
-Big Aggressive                                        -0.38
+                                           item  ... Last 12  Months
+0                Fama/French 3 Research Factors  ...               -
+1                                         Rm-Rf  ...          -11.50
+2                                           SMB  ...           -1.53
+3                                           HML  ...            1.52
+4          Fama/French 5 Research Factors (2x3)  ...               -
+5                                         Rm-Rf  ...          -11.50
+6                                           SMB  ...           -0.26
+7                                           HML  ...            1.52
+8                                           RMW  ...            9.61
+9                                           CMA  ...            4.53
+10              Fama/French Research Portfolios  ...               -
+11           Size and Book-to-Market Portfolios  ...               -
+12                                  Small Value  ...          -10.89
+13                                Small Neutral  ...           -5.21
+14                                  Big Neutral  ...          -11.90
+15                                 Small Growth  ...           -7.23
+16                                    Big Value  ...           -6.92
+17                                   Big Growth  ...           -9.27
+18  Size and Operating Profitability Portfolios  ...               -
+19                                 Small Robust  ...           -5.23
+20                                Small Neutral  ...           -4.06
+21                                   Small Weak  ...          -16.12
+22                                   Big Robust  ...           -3.68
+23                                  Big Neutral  ...          -14.64
+24                                     Big Weak  ...          -12.01
+25               Size and Investment Portfolios  ...               -
+26                           Small Conservative  ...           -9.80
+27                                Small Neutral  ...           -5.30
+28                             Small Aggressive  ...          -11.87
+29                             Big Conservative  ...           -6.99
+30                                  Big Neutral  ...           -3.36
+31                               Big Aggressive  ...          -13.98
 ```
 
 ## [AKShare](https://github.com/akfamily/akshare) 政策不确定性数据
