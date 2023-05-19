@@ -2405,9 +2405,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.87 add: add option_minute_em interface
 1.9.88 fix: fix setup.py
 1.9.89 fix: fix index_kq_fz interface
+1.9.90 fix: fix stock_sse_deal_daily interface
 """
 
-__version__ = "1.9.89"
+__version__ = "1.9.90"
 __author__ = "AKFamily"
 
 import sys
