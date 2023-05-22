@@ -8,6 +8,8 @@ https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
 """
 import time
 import json
+import io
+import warnings
 
 import pandas as pd
 from akshare.utils import demjson
@@ -577,27 +579,13 @@ def index_level_one_hist_sw(symbol: str = "801010") -> pd.DataFrame:
     :return: 一级行业
     :rtype: pandas.DataFrame
     """
-    url = "http://www.swsindex.com/downloadfiles.aspx"
-    params = {
-        "swindexcode": symbol,
-        "type": "510",
-        "columnid": "8890",
-    }
-    headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-        "Accept-Encoding": "gzip, deflate",
-        "Accept-Language": "en,zh;q=0.9",
-        "Cache-Control": "no-cache",
-        "Host": "www.swsindex.com",
-        "Pragma": "no-cache",
-        "Proxy-Connection": "keep-alive",
-        "Referer": "http://www.swsindex.com/idx0110.aspx",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
-    }
-    r = requests.get(url, params=params, headers=headers)
-    r.encoding = "utf-8"
-    temp_df = pd.read_html(r.text)[0]
+    url = "https://www.swsresearch.com/insWechatSw/swIndex/quotationexportExc"
+    payload = {"indexCode": "801010"}
+    r = requests.post(url, json=payload)
+
+    warnings.filterwarnings('ignore')
+    temp_df = pd.read_excel(io.BytesIO(r.content), engine="openpyxl")
+
     temp_df.columns = [
         "指数代码",
         "指数名称",
