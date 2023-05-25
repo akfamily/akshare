@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/12/16 17:00
+Date: 2023/05/25 14:05
 Desc: 中证指数-所有指数-历史行情数据
 https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/list?index_series=1
 """
@@ -231,6 +231,95 @@ def index_value_hist_funddb(
     return big_df
 
 
+def get_csindex_pettm(symbol="000928", startDate="20041231", endDate="2100") -> pd.DataFrame:
+    """
+    中证指数 - 滚动市盈率
+    https://www.csindex.com.cn/
+    :param symbol: 指数名称;
+    :type symbol: str
+    :param startDate: 开始日期;
+    :type startDate: str
+    :param endDate: 结束日期;
+    :type endDate: str
+    :return: 滚动市盈率
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "indexCode":symbol,
+        "startDate":startDate,
+        "endDate":endDate
+    }
+    url = "https://www.csindex.com.cn/csindex-home/perf/indexCsiDsPe"
+    rs = requests.get(url=url, params=params)
+    if rs.status_code == 200:
+        rs =  pd.DataFrame(rs.json()["data"])
+        rs.rename(columns={
+            "tradeDate":"交易日",
+            "indexName":"指数中文简称",
+            "indexNameEn":"指数英文简称",
+            "peg":"滚动市盈率",
+        },
+        inplace=True)
+        rs["交易日"] = pd.to_datetime(rs["交易日"]).dt.date
+        rs["滚动市盈率"] = pd.to_numeric(rs["滚动市盈率"])
+        return rs
+    return pd.DataFrame()
+
+def get_csindex(symbol:str ="000928", startDate:str ="20041231", endDate:str ="2100") -> pd.DataFrame:
+    """
+    中证指数 - 指数历史行情和估值
+    https://www.csindex.com.cn/
+    :param symbol: 指数名称;
+    :type symbol: str
+    :param startDate: 开始日期;
+    :type startDate: str
+    :param endDate: 结束日期;
+    :type endDate: str
+    :return: 滚动市盈率
+    :rtype: pandas.DataFrame
+    """
+    params = {
+        "indexCode":symbol,
+        "startDate":startDate,
+        "endDate":endDate
+    }
+    url = "https://www.csindex.com.cn/csindex-home/perf/index-perf"
+    rs = requests.get(url=url, params=params)
+    if rs.status_code == 200:
+        rs = pd.DataFrame(rs.json()["data"])
+        rs.rename(columns={
+            "tradeDate":"交易日",
+            "indexCode":"指数代码",
+            "indexNameCnAll":"指数中文名称",
+            "indexNameCn":"指数中文简称",
+            "indexNameEnAll":"指数英文名称",
+            "indexNameEn":"指数英文简称",
+            "open":"开盘价",
+            "high":"最高价",
+            "low":"最低价",
+            "close":"收盘价",
+            "change":"涨跌",
+            "changePct":"涨跌幅",
+            "tradingValue":"交易量(万手)",
+            "consNumber":"交易额(亿元)",
+            "peg":"滚动市盈率",
+        },
+        inplace=True)
+        rs["交易日"] = pd.to_datetime(rs["交易日"]).dt.date
+        rs["开盘价"] = pd.to_numeric(rs["开盘价"])
+        rs["最高价"] = pd.to_numeric(rs["最高价"])
+        rs["最低价"] = pd.to_numeric(rs["最低价"])
+        rs["收盘价"] = pd.to_numeric(rs["收盘价"])
+        rs["涨跌"] = pd.to_numeric(rs["涨跌"])
+        rs["涨跌"] = pd.to_numeric(rs["涨跌"])
+        rs["涨跌"] = pd.to_numeric(rs["涨跌"])
+        rs["涨跌幅"] = pd.to_numeric(rs["涨跌幅"])
+        rs["交易量(万手)"] = pd.to_numeric(rs["交易量(万手)"])
+        rs["交易额(亿元)"] = pd.to_numeric(rs["交易额(亿元)"])
+        rs["滚动市盈率"] = pd.to_numeric(rs["滚动市盈率"])
+        return rs
+    return pd.DataFrame()
+
 if __name__ == "__main__":
     stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(
         symbol="000832", start_date="20221122", end_date="20221123"
@@ -245,3 +334,8 @@ if __name__ == "__main__":
 
     index_value_name_funddb_df = index_value_name_funddb()
     print(index_value_name_funddb_df)
+
+    pettm = get_csindex_pettm()
+    print(pettm)
+    csindex = get_csindex()
+    print(csindex)
