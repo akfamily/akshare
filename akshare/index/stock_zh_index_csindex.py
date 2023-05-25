@@ -300,8 +300,9 @@ def get_csindex(symbol:str ="000928", startDate:str ="20041231", endDate:str ="2
             "close":"收盘价",
             "change":"涨跌",
             "changePct":"涨跌幅",
-            "tradingValue":"交易量(万手)",
-            "consNumber":"交易额(亿元)",
+            "tradingVol":"交易量(万手)",
+            "tradingValue":"交易额(亿元)",
+            "consNumber":"样本数量",
             "peg":"滚动市盈率",
         },
         inplace=True)
@@ -316,6 +317,7 @@ def get_csindex(symbol:str ="000928", startDate:str ="20041231", endDate:str ="2
         rs["涨跌幅"] = pd.to_numeric(rs["涨跌幅"])
         rs["交易量(万手)"] = pd.to_numeric(rs["交易量(万手)"])
         rs["交易额(亿元)"] = pd.to_numeric(rs["交易额(亿元)"])
+        rs["样本数量"] = pd.to_numeric(rs["样本数量"])
         rs["滚动市盈率"] = pd.to_numeric(rs["滚动市盈率"])
         return rs
     return pd.DataFrame()
