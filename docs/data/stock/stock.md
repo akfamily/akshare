@@ -8546,7 +8546,7 @@ print(stock_allotment_cninfo_df)
 
 目标地址: http://webapi.cninfo.com.cn/#/company
 
-描述: 巨潮资讯-个股-公司概况
+描述: 巨潮资讯-个股-公司概况; 该接口暂时无法获取数据
 
 限量: 单次获取指定 symbol 的公司概况
 

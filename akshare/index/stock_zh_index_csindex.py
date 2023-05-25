@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/12/16 17:00
+Date: 2023/5/25 22:00
 Desc: 中证指数-所有指数-历史行情数据
 https://www.csindex.com.cn/zh-CN/indices/index-detail/H30374#/indices/family/list?index_series=1
 """
@@ -12,9 +12,9 @@ import requests
 
 
 def stock_zh_index_hist_csindex(
-    symbol: str = "H30374",
-    start_date: str = "20160101",
-    end_date: str = "20211015",
+    symbol: str = "000928",
+    start_date: str = "20180526",
+    end_date: str = "20230525",
 ) -> pd.DataFrame:
     """
     中证指数-具体指数-历史行情数据
@@ -38,7 +38,6 @@ def stock_zh_index_hist_csindex(
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
-    del temp_df["peg"]
     temp_df.columns = [
         "日期",
         "指数代码",
@@ -55,17 +54,19 @@ def stock_zh_index_hist_csindex(
         "成交量",
         "成交金额",
         "样本数量",
+        "滚动市盈率",
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-    temp_df["涨跌"] = pd.to_numeric(temp_df["涨跌"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"])
-    temp_df["样本数量"] = pd.to_numeric(temp_df["样本数量"])
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["涨跌"] = pd.to_numeric(temp_df["涨跌"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交金额"] = pd.to_numeric(temp_df["成交金额"], errors="coerce")
+    temp_df["样本数量"] = pd.to_numeric(temp_df["样本数量"], errors="coerce")
+    temp_df["滚动市盈率"] = pd.to_numeric(temp_df["滚动市盈率"], errors="coerce")
     return temp_df
 
 
@@ -232,9 +233,7 @@ def index_value_hist_funddb(
 
 
 if __name__ == "__main__":
-    stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(
-        symbol="000832", start_date="20221122", end_date="20221123"
-    )
+    stock_zh_index_hist_csindex_df = stock_zh_index_hist_csindex(symbol="H30374", start_date="20100101", end_date="20230525")
     print(stock_zh_index_hist_csindex_df)
 
     stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(symbol="H30374")
