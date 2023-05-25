@@ -3661,6 +3661,8 @@ from akshare.stock_feature.stock_lhb_sina import (
 from akshare.index.stock_zh_index_csindex import (
     stock_zh_index_hist_csindex,
     stock_zh_index_value_csindex,
+    get_csindex_pettm,
+    get_csindex
 )
 
 """
