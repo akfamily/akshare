@@ -82,6 +82,8 @@ def stock_a_indicator_lg(symbol: str = "002174") -> pd.DataFrame:
         temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
         temp_df[temp_df.columns[1:]] = temp_df[temp_df.columns[1:]].astype(float)
         temp_df.sort_values(["trade_date"], inplace=True, ignore_index=True)
+        if len(set(temp_df['trade_date'])) < 10:
+            raise ValueError("数据获取失败, 请检查是否输入正确的股票代码")
         return temp_df
 
 
@@ -126,7 +128,7 @@ if __name__ == "__main__":
     stock_a_indicator_lg_all_df = stock_a_indicator_lg(symbol="all")
     print(stock_a_indicator_lg_all_df)
 
-    stock_a_indicator_lg_df = stock_a_indicator_lg(symbol="000001")
+    stock_a_indicator_lg_df = stock_a_indicator_lg(symbol="501050")
     print(stock_a_indicator_lg_df)
 
     stock_hk_indicator_eniu_df = stock_hk_indicator_eniu(
