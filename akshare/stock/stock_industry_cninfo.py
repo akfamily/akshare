@@ -65,7 +65,7 @@ def stock_industry_category_cninfo(symbol: str = "巨潮行业分类标准") -> 
         "全球行业分类标准": "008008",
     }
     url = "http://webapi.cninfo.com.cn/api/stock/p_public0002"
-    params = {"indcode": "", "indtype": symbol_map[symbol]}
+    params = {"indcode": "", "indtype": symbol_map[symbol], "format": "json"}
     random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(js_str)
@@ -85,7 +85,7 @@ def stock_industry_category_cninfo(symbol: str = "巨潮行业分类标准") -> 
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, params=params, headers=headers)
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     cols_map = {
