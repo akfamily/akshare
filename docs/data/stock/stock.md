@@ -8219,7 +8219,7 @@ print(stock_report_disclosure_df)
 
 目标地址: http://webapi.cninfo.com.cn/#/apiDoc
 
-描述: 巨潮资讯-数据-行业分类数据; 该接口暂不能获取数据
+描述: 巨潮资讯-数据-行业分类数据
 
 限量: 单次获取指定 symbol 的行业分类数据
 
@@ -8274,7 +8274,7 @@ print(stock_industry_category_cninfo_df)
 
 目标地址: http://webapi.cninfo.com.cn/#/apiDoc
 
-描述: 巨潮资讯-数据-上市公司行业归属的变动情况; 该接口暂不能获取数据
+描述: 巨潮资讯-数据-上市公司行业归属的变动情况
 
 限量: 单次获取指定 symbol 在 start_date 和 end_date 之间的上市公司行业归属的变动情况数据
 
