@@ -2411,9 +2411,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.9.93 fix: fix index_level_one_hist_sw interface
 1.9.94 fix: fix stock_a_indicator_lg interface
 1.9.95 fix: fix stock_zh_index_hist_csindex interface
+1.9.96 fix: fix stock_hold_control_cninfo interface
 """
 
-__version__ = "1.9.95"
+__version__ = "1.9.96"
 __author__ = "AKFamily"
 
 import sys
