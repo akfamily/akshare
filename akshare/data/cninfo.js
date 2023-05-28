@@ -5974,19 +5974,6 @@ localStorage = null;
 
 }));
 
-
-function getResCode() {
-    var timestamp = Math.floor(new Date().getTime() / 1000);
-    var storedData = "654321";
-    var encryptedData = CryptoJS.AES.encrypt(timestamp.toString(), CryptoJS.enc.Utf8.parse(storedData), {
-        iv: CryptoJS.enc.Utf8.parse("42XlTfGL"),
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7
-    });
-
-    return CryptoJS.enc.Base64.stringify(encryptedData.ciphertext);
-}
-
 function getResCode1() {
     var encrypted = CryptoJS.AES.encrypt(
         CryptoJS.enc.Utf8.parse(Math.floor(new Date().getTime() / 1000).toString()),
