@@ -52,7 +52,8 @@ AKShare 由于使用 [PyMiniRacer](https://blog.sqreen.com/embedding-javascript-
 ### 解决方案
 
 本次的解决方案是提供编译好的文件供大家下载使用：[libmini_racer.dylib](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/software/pyminiracer/libmini_racer.dylib) ，
-只需要把该文件下载到本地，然后存放在报错提示的路径即可，如果你使用的是 macos 系统自带的 python，这个路径一般是 `/Users/<username>/Library/Python/<python_version>/lib/python/site-packages/py_mini_racer` ，具体可以找到自己机器 python 第三方包的下载路径。
+只需要把该文件下载到本地，然后存放在报错提示的路径即可，如果你使用的是 macOS 系统自带的 Python，则这个路径一般是 `/Users/<username>/Library/Python/<python_version>/lib/python/site-packages/py_mini_racer`，
+具体可以找到自己机器 Python 第三方包的下载路径。
 
 ### 扩展阅读
 
