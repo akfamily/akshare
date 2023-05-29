@@ -1,45 +1,29 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/21 16:19
+Date: 2023/5/30 00:19
 Desc: 巨潮资讯-数据中心-专题统计-股东股本-股东人数及持股集中度
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
-import time
-
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
-js_str = """
-    function mcode(input) {  
-                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";  
-                var output = "";  
-                var chr1, chr2, chr3 = "";  
-                var enc1, enc2, enc3, enc4 = "";  
-                var i = 0;  
-                do {  
-                    chr1 = input.charCodeAt(i++);  
-                    chr2 = input.charCodeAt(i++);  
-                    chr3 = input.charCodeAt(i++);  
-                    enc1 = chr1 >> 2;  
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
-                    enc4 = chr3 & 63;  
-                    if (isNaN(chr2)) {  
-                        enc3 = enc4 = 64;  
-                    } else if (isNaN(chr3)) {  
-                        enc4 = 64;  
-                    }  
-                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)  
-                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);  
-                    chr1 = chr2 = chr3 = "";  
-                    enc1 = enc2 = enc3 = enc4 = "";  
-                } while (i < input.length);  
-          
-                return output;  
-            }  
-"""
+from akshare.datasets import get_ths_js
+
+
+def _get_file_content_ths(file: str = "cninfo.js") -> str:
+    """
+    获取 JS 文件的内容
+    :param file:  JS 文件名
+    :type file: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_path = get_ths_js(file)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
 
 
 def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
@@ -52,18 +36,18 @@ def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1034"
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_ths("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -102,15 +86,17 @@ def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
         ]
     ]
     temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"]).dt.date
-    temp_df["本期人均持股数量"] = pd.to_numeric(temp_df["本期人均持股数量"])
-    temp_df["股东人数增幅"] = pd.to_numeric(temp_df["股东人数增幅"])
-    temp_df["上期股东人数"] = pd.to_numeric(temp_df["上期股东人数"])
-    temp_df["本期股东人数"] = pd.to_numeric(temp_df["本期股东人数"])
-    temp_df["人均持股数量增幅"] = pd.to_numeric(temp_df["人均持股数量增幅"])
-    temp_df["上期人均持股数量"] = pd.to_numeric(temp_df["上期人均持股数量"])
+    temp_df["本期人均持股数量"] = pd.to_numeric(
+        temp_df["本期人均持股数量"], errors="coerce"
+    )
+    temp_df["股东人数增幅"] = pd.to_numeric(temp_df["股东人数增幅"], errors="coerce")
+    temp_df["上期股东人数"] = pd.to_numeric(temp_df["上期股东人数"], errors="coerce")
+    temp_df["本期股东人数"] = pd.to_numeric(temp_df["本期股东人数"], errors="coerce")
+    temp_df["人均持股数量增幅"] = pd.to_numeric(temp_df["人均持股数量增幅"], errors="coerce")
+    temp_df["上期人均持股数量"] = pd.to_numeric(temp_df["上期人均持股数量"], errors="coerce")
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_hold_num_cninfo_df = stock_hold_num_cninfo(date="20211130")
+    stock_hold_num_cninfo_df = stock_hold_num_cninfo(date="20210630")
     print(stock_hold_num_cninfo_df)
