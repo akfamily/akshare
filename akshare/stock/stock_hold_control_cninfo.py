@@ -17,7 +17,7 @@ from py_mini_racer import py_mini_racer
 from akshare.datasets import get_ths_js
 
 
-def _get_file_content_ths(file: str = "cninfo.js") -> str:
+def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
     """
     获取 JS 文件的内容
     :param file:  JS 文件名
@@ -49,7 +49,7 @@ def stock_hold_control_cninfo(symbol: str = "全部") -> pd.DataFrame:
     }
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1033"
     js_code = py_mini_racer.MiniRacer()
-    js_content = _get_file_content_ths("cninfo.js")
+    js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
     mcode = js_code.call("getResCode1")
     headers = {
@@ -117,7 +117,7 @@ def stock_hold_management_detail_cninfo(symbol: str = "增持") -> pd.DataFrame:
     current_date = datetime.datetime.now().date().isoformat()
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1030"
     js_code = py_mini_racer.MiniRacer()
-    js_content = _get_file_content_ths("cninfo.js")
+    js_content = _get_file_content_cninfo("cninfo.js")
     js_code.eval(js_content)
     mcode = js_code.call("getResCode1")
     headers = {
