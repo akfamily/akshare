@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/7/15 22:00
+Date: 2023/5/30 19:00
 Desc: 东方财富网-数据中心-股东分析
 https://data.eastmoney.com/gdfx/
 """
@@ -781,14 +781,15 @@ def stock_gdfx_holding_analyse_em(date: str = "20230331") -> pd.DataFrame:
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
+    big_df['index'] = big_df['index'] + 1
     big_df.rename(
         columns={
+            "index": "序号",
             "SECUCODE": "-",
             "SECURITY_CODE": "股票代码",
             "ORG_CODE": "-",
             "SECURITY_TYPE_CODE": "-",
             "END_DATE": "报告期",
-            "RANK": "序号",
             "HOLDER_CODE": "-",
             "HOLDER_NAME": "股东名称",
             "HOLD_NUM": "期末持股-数量",
