@@ -56,10 +56,14 @@
 
 ## 更新说明详情
 
+1.10.3 fix: fix stock_gdfx_holding_analyse_em interface
+
+    1. 修复 stock_gdfx_holding_analyse_em 接口
+
 1.10.2 fix: fix stock_gdfx_holding_detail_em interface
 
     1. 修复 stock_gdfx_holding_detail_em 接口
-    2. 修复 stock_gdfx_holding_detail_em 接口
+    2. 修复 stock_gdfx_holding_analyse_em 接口
 
 1.10.1 fix: fix stock_hold_control_cninfo interface
 
@@ -2386,6 +2390,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新
+
+1.10.3 fix: fix stock_gdfx_holding_analyse_em interface
+
+1.10.2 fix: fix stock_gdfx_holding_detail_em interface
 
 1.10.1 fix: fix stock_hold_control_cninfo interface
 
