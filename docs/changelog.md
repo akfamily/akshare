@@ -54,7 +54,7 @@
 | 1.4.86     | fund_em_aum_trend                           | fund_aum_trend_em                           | 20220322 |
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
-## 更新说明
+## 更新说明详情
 
 1.10.1 fix: fix stock_hold_control_cninfo interface
 
@@ -2380,7 +2380,7 @@
     2. 修改 air_quality_watch_point 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
-## 版本更新说明
+## 版本更新
 
 1.10.1 fix: fix stock_hold_control_cninfo interface
 
