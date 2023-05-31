@@ -2299,6 +2299,7 @@ print(google_index_df)
 
 ```python
 import akshare as ak
+
 sw_index_representation_spot_df = ak.sw_index_representation_spot()
 print(sw_index_representation_spot_df)
 ```
