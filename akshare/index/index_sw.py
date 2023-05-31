@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/26 13:10
-Desc: 申万指数-申万一级、二级和三级
-http://www.swsindex.com/IdxMain.aspx
+Date: 2023/5/31 16:20
+Desc: 申万宏源研究-申万指数-指数发布
+
+数据源
+1. 申万宏源研究
+https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
+2. 乐咕乐股网
 https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
 """
 import time
