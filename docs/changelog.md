@@ -56,6 +56,11 @@
 
 ## 更新说明详情
 
+1.10.4 fix: fix futures_return_index_nh interface
+
+    1. 修复 futures_return_index_nh 接口
+    2. 修复 futures_price_index_nh 接口
+
 1.10.3 fix: fix stock_gdfx_holding_analyse_em interface
 
     1. 修复 stock_gdfx_holding_analyse_em 接口
@@ -2389,7 +2394,9 @@
     2. 修改 air_quality_watch_point 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
-## 版本更新
+## 版本更新说明
+
+1.10.4 fix: fix futures_return_index_nh interface
 
 1.10.3 fix: fix stock_gdfx_holding_analyse_em interface
 
