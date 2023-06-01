@@ -3,7 +3,6 @@
 """
 Date: 2023/5/31 16:20
 Desc: 申万宏源研究-申万指数-指数发布
-
 数据源
 1. 申万宏源研究
 https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
@@ -584,10 +583,10 @@ def index_level_one_hist_sw(symbol: str = "801010") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.swsresearch.com/insWechatSw/swIndex/quotationexportExc"
-    payload = {"indexCode": "801010"}
+    payload = {"indexCode": symbol}
     r = requests.post(url, json=payload)
 
-    warnings.filterwarnings('ignore')
+    warnings.filterwarnings('ignore')  # 隐藏 pd.read_excel 提示
     temp_df = pd.read_excel(io.BytesIO(r.content), engine="openpyxl")
 
     temp_df.columns = [
