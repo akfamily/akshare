@@ -30,7 +30,7 @@ setuptools.setup(
     name="akshare",
     version=get_version_string(),
     author="AKFamily",
-    author_email="akfamily.akshare@gmail.com",
+    author_email="albertandking@gmail.com",
     license="MIT",
     description="AKShare is an elegant and simple financial data interface library for Python, built for human beings!",
     long_description=long_description,
