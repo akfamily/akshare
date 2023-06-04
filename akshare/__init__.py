@@ -2420,16 +2420,17 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.3 fix: fix stock_gdfx_holding_analyse_em interface
 1.10.4 fix: fix futures_return_index_nh interface
 1.10.5 fix: fix index_level_one_hist_sw interface
+1.10.6 fix: fix futures_nh_volatility_index interface
 """
 
-__version__ = "1.10.5"
+__version__ = "1.10.6"
 __author__ = "AKFamily"
 
 import sys
 import warnings
 
 if sys.version_info < (3, 8):
-    warnings.warn("为了支持更多 AKShare 特性，请尽快升级 Python 到 3.8 以上版本")
+    warnings.warn("为了支持更多特性，AKShare 将于 2023-07-01 停止对 Python 3.7 及以下版本的支持，请尽快升级 Python 版本")
     # sys.exit(1)
 
 del sys
