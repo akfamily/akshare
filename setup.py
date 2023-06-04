@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/12/8 17:09
+Date: 2023/6/4 22:09
 Desc: AKShare's PYPI info file
 """
 import re
