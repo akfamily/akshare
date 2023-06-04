@@ -1,13 +1,13 @@
-name: Master and Develop Check
+name: Master and Dev Check
 
 on:
   push:
     branches:
-      - develop
+      - dev
   pull_request:
     branches:
       - master
-      - develop
+      - dev
 
 jobs:
   build:

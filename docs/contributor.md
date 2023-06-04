@@ -4,8 +4,8 @@
 
 ### 克隆及提交代码
 
-1. 请从 [akshare-develop 分支](https://github.com/akfamily/akshare/tree/develop) 克隆，develop 分支中包含 AKShare 最新的开发代码
-2. 请提交修改后的代码到 [akshare-develop 分支](https://github.com/akfamily/akshare/tree/develop)
+1. 请从 [akshare-dev 分支](https://github.com/akfamily/akshare/tree/dev) 克隆，dev 分支中包含 AKShare 最新的开发代码
+2. 请提交修改后的代码到 [akshare-dev 分支](https://github.com/akfamily/akshare/tree/dev)
 
 ### 代码及接口设计规范
 
