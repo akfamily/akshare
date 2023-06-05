@@ -1,89 +1,85 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/8/10 11:58
+Date: 2023/6/5 19:18
 Desc: 金融期权数据
 http://www.sse.com.cn/assortment/options/price/
+http://www.szse.cn/market/product/option/index.html
+http://www.cffex.com.cn/hs300gzqq/
+http://www.cffex.com.cn/zz1000gzqq/
 """
 import pandas as pd
 import requests
 
 from akshare.option.cons import (
-    SH_OPTION_URL_50,
     SH_OPTION_PAYLOAD,
     SH_OPTION_PAYLOAD_OTHER,
+    SH_OPTION_URL_50,
     SH_OPTION_URL_KING_50,
     SH_OPTION_URL_300,
     SH_OPTION_URL_KING_300,
+    SH_OPTION_URL_500,
+    SH_OPTION_URL_KING_500,
+    SH_OPTION_URL_KC_50,
+    SH_OPTION_URL_KC_KING_50,
+    SH_OPTION_URL_KC_50_YFD,
+    SH_OPTION_URL_KING_50_YFD,
     CFFEX_OPTION_URL_300,
 )
 
 
-def option_finance_underlying(symbol: str = "50ETF") -> pd.DataFrame:
+def option_finance_sse_underlying(symbol: str = "华夏科创50ETF期权") -> pd.DataFrame:
     """
-    期权标的当日行情, 目前只有 华夏上证 50 ETF, 华泰柏瑞沪深 300 ETF 两个产品
+    期权标的当日行情
     http://www.sse.com.cn/assortment/options/price/
-    :param symbol: 50ETF 或 300ETF
+    :param symbol: choice of {"华夏上证50ETF期权", "华泰柏瑞沪深300ETF期权", "南方中证500ETF期权", "华夏科创50ETF期权", "易方达科创50ETF期权"}
     :type symbol: str
     :return: 期权标的当日行情
     :rtype: pandas.DataFrame
     """
-    if symbol == "50ETF":
-        res = requests.get(SH_OPTION_URL_50, params=SH_OPTION_PAYLOAD)
-        data_json = res.json()
-        raw_data = pd.DataFrame(data_json["list"])
-        raw_data.at[0, 0] = "510050"
-        raw_data.at[0, 8] = pd.to_datetime(
-            str(data_json["date"]) + str(data_json["time"]),
-            format="%Y%m%d%H%M%S",
-        )
-        raw_data.columns = [
-            "代码",
-            "名称",
-            "当前价",
-            "涨跌",
-            "涨跌幅",
-            "振幅",
-            "成交量(手)",
-            "成交额(万元)",
-            "更新日期",
-        ]
-        return raw_data
-    else:
-        res = requests.get(SH_OPTION_URL_300, params=SH_OPTION_PAYLOAD)
-        data_json = res.json()
-        raw_data = pd.DataFrame(data_json["list"])
-        raw_data.at[0, 0] = "510300"
-        raw_data.at[0, 8] = pd.to_datetime(
-            str(data_json["date"]) + str(data_json["time"]),
-            format="%Y%m%d%H%M%S",
-        )
-        raw_data.columns = [
-            "代码",
-            "名称",
-            "当前价",
-            "涨跌",
-            "涨跌幅",
-            "振幅",
-            "成交量(手)",
-            "成交额(万元)",
-            "更新日期",
-        ]
-        return raw_data
+    symbol_map = {
+        "华夏上证50ETF期权": SH_OPTION_URL_50,
+        "华泰柏瑞沪深300ETF期权": SH_OPTION_URL_300,
+        "南方中证500ETF期权": SH_OPTION_URL_500,
+        "华夏科创50ETF期权": SH_OPTION_URL_KC_50,
+        "易方达科创50ETF期权": SH_OPTION_URL_KC_50_YFD,
+    }
+    r = requests.get(symbol_map[symbol], params=SH_OPTION_PAYLOAD)
+    data_json = r.json()
+    raw_data = pd.DataFrame(data_json["list"])
+    raw_data.at[0, 0] = "510300"
+    raw_data.at[0, 8] = pd.to_datetime(
+        str(data_json["date"]) + str(data_json["time"]),
+        format="%Y%m%d%H%M%S",
+    )
+    raw_data.columns = [
+        "代码",
+        "名称",
+        "当前价",
+        "涨跌",
+        "涨跌幅",
+        "振幅",
+        "成交量(手)",
+        "成交额(万元)",
+        "更新日期",
+    ]
+    return raw_data
 
 
 def option_finance_board(
-    symbol: str = "嘉实沪深300ETF期权", end_month: str = "2212"
+    symbol: str = "嘉实沪深300ETF期权", end_month: str = "2306"
 ) -> pd.DataFrame:
     """
-    期权的当日具体的行情数据, 主要为三个: 华夏上证50ETF期权, 华泰柏瑞沪深300ETF期权, 嘉实沪深300ETF期权, 沪深300股指期权, 中证1000股指期权, 上证50股指期权
+    期权当前交易日的行情数据
+    主要为三个: 华夏上证50ETF期权, 华泰柏瑞沪深300ETF期权, 嘉实沪深300ETF期权,
+    沪深300股指期权, 中证1000股指期权, 上证50股指期权, 华夏科创50ETF期权, 易方达科创50ETF期权
     http://www.sse.com.cn/assortment/options/price/
     http://www.szse.cn/market/product/option/index.html
     http://www.cffex.com.cn/hs300gzqq/
     http://www.cffex.com.cn/zz1000gzqq/
-    :param symbol: choice of {"华夏上证50ETF期权", "华泰柏瑞沪深300ETF期权", "嘉实沪深300ETF期权", "沪深300股指期权", "中证1000股指期权", "上证50股指期权"}
+    :param symbol: choice of {"华夏上证50ETF期权", "华泰柏瑞沪深300ETF期权", "南方中证500ETF期权", "华夏科创50ETF期权", "易方达科创50ETF期权", "嘉实沪深300ETF期权", "沪深300股指期权", "中证1000股指期权", "上证50股指期权"}
     :type symbol: str
-    :param end_month: 2003; 2020年3月到期的期权
+    :param end_month: 2003; 2020 年 3 月到期的期权
     :type end_month: str
     :return: 当日行情
     :rtype: pandas.DataFrame
@@ -96,9 +92,9 @@ def option_finance_board(
         )
         data_json = r.json()
         raw_data = pd.DataFrame(data_json["list"])
-        raw_data.index = [
-            str(data_json["date"]) + str(data_json["time"])
-        ] * data_json["total"]
+        raw_data.index = [str(data_json["date"]) + str(data_json["time"])] * data_json[
+            "total"
+        ]
         raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
         raw_data["数量"] = [data_json["total"]] * data_json["total"]
         raw_data.reset_index(inplace=True)
@@ -111,9 +107,54 @@ def option_finance_board(
         )
         data_json = r.json()
         raw_data = pd.DataFrame(data_json["list"])
-        raw_data.index = [
-            str(data_json["date"]) + str(data_json["time"])
-        ] * data_json["total"]
+        raw_data.index = [str(data_json["date"]) + str(data_json["time"])] * data_json[
+            "total"
+        ]
+        raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
+        raw_data["数量"] = [data_json["total"]] * data_json["total"]
+        raw_data.reset_index(inplace=True)
+        raw_data.columns = ["日期", "合约交易代码", "当前价", "涨跌幅", "前结价", "行权价", "数量"]
+        return raw_data
+    elif symbol == "南方中证500ETF期权":
+        r = requests.get(
+            SH_OPTION_URL_KING_500.format(end_month),
+            params=SH_OPTION_PAYLOAD_OTHER,
+        )
+        data_json = r.json()
+        raw_data = pd.DataFrame(data_json["list"])
+        raw_data.index = [str(data_json["date"]) + str(data_json["time"])] * data_json[
+            "total"
+        ]
+        raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
+        raw_data["数量"] = [data_json["total"]] * data_json["total"]
+        raw_data.reset_index(inplace=True)
+        raw_data.columns = ["日期", "合约交易代码", "当前价", "涨跌幅", "前结价", "行权价", "数量"]
+        return raw_data
+    elif symbol == "华夏科创50ETF期权":
+        r = requests.get(
+            SH_OPTION_URL_KC_KING_50.format(end_month),
+            params=SH_OPTION_PAYLOAD_OTHER,
+        )
+        data_json = r.json()
+        raw_data = pd.DataFrame(data_json["list"])
+        raw_data.index = [str(data_json["date"]) + str(data_json["time"])] * data_json[
+            "total"
+        ]
+        raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
+        raw_data["数量"] = [data_json["total"]] * data_json["total"]
+        raw_data.reset_index(inplace=True)
+        raw_data.columns = ["日期", "合约交易代码", "当前价", "涨跌幅", "前结价", "行权价", "数量"]
+        return raw_data
+    elif symbol == "易方达科创50ETF期权":
+        r = requests.get(
+            SH_OPTION_URL_KING_50_YFD.format(end_month),
+            params=SH_OPTION_PAYLOAD_OTHER,
+        )
+        data_json = r.json()
+        raw_data = pd.DataFrame(data_json["list"])
+        raw_data.index = [str(data_json["date"]) + str(data_json["time"])] * data_json[
+            "total"
+        ]
         raw_data.columns = ["合约交易代码", "当前价", "涨跌幅", "前结价", "行权价"]
         raw_data["数量"] = [data_json["total"]] * data_json["total"]
         raw_data.reset_index(inplace=True)
@@ -207,37 +248,49 @@ def option_finance_board(
         return raw_df
 
 
-
 if __name__ == "__main__":
-    option_finance_underlying_df = option_finance_underlying(symbol="300ETF")
-    print(option_finance_underlying_df)
+    option_finance_sse_underlying_df = option_finance_sse_underlying(
+        symbol="华夏科创50ETF期权"
+    )
+    print(option_finance_sse_underlying_df)
 
     option_finance_board_df = option_finance_board(
-        symbol="华夏上证50ETF期权", end_month="2303"
+        symbol="华夏上证50ETF期权", end_month="2306"
     )
     print(option_finance_board_df)
 
     option_finance_board_df = option_finance_board(
-        symbol="嘉实沪深300ETF期权", end_month="2303"
+        symbol="华泰柏瑞沪深300ETF期权", end_month="2306"
     )
     print(option_finance_board_df)
 
     option_finance_board_df = option_finance_board(
-        symbol="华泰柏瑞沪深300ETF期权", end_month="2303"
+        symbol="南方中证500ETF期权", end_month="2306"
     )
     print(option_finance_board_df)
 
     option_finance_board_df = option_finance_board(
-        symbol="沪深300股指期权", end_month="2303"
+        symbol="华夏科创50ETF期权", end_month="2306"
     )
     print(option_finance_board_df)
 
     option_finance_board_df = option_finance_board(
-        symbol="中证1000股指期权", end_month="2303"
+        symbol="易方达科创50ETF期权", end_month="2306"
     )
     print(option_finance_board_df)
 
     option_finance_board_df = option_finance_board(
-        symbol="上证50股指期权", end_month="2303"
+        symbol="嘉实沪深300ETF期权", end_month="2306"
     )
+    print(option_finance_board_df)
+
+    option_finance_board_df = option_finance_board(symbol="沪深300股指期权", end_month="2306")
+    print(option_finance_board_df)
+
+    option_finance_board_df = option_finance_board(
+        symbol="中证1000股指期权", end_month="2306"
+    )
+    print(option_finance_board_df)
+
+    option_finance_board_df = option_finance_board(symbol="上证50股指期权", end_month="2306")
     print(option_finance_board_df)
