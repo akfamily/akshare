@@ -2421,9 +2421,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.4 fix: fix futures_return_index_nh interface
 1.10.5 fix: fix index_level_one_hist_sw interface
 1.10.6 fix: fix futures_nh_volatility_index interface
+1.10.7 fix: fix option_finance_board interface
 """
 
-__version__ = "1.10.6"
+__version__ = "1.10.7"
 __author__ = "AKFamily"
 
 import sys
@@ -4456,7 +4457,7 @@ from akshare.economic.macro_other import crypto_js_spot
 """
 from akshare.option.option_finance import (
     option_finance_board,
-    option_finance_underlying,
+    option_finance_sse_underlying,
 )
 
 """
