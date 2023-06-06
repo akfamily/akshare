@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/6/11 21:23
+Date: 2023/6/6 19:23
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
@@ -53,13 +53,9 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_cov_payload.copy()
     for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
-        res = requests.get(
-            zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy
-        )
+        res = requests.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(res.text)
-        big_df = pd.concat(
-            [big_df, pd.DataFrame(data_json)], ignore_index=True
-        )
+        big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
     return big_df
 
 
@@ -136,7 +132,7 @@ def _code_id_map() -> dict:
 
 
 def bond_zh_hs_cov_min(
-    symbol: str = "sh113570",
+    symbol: str = "sz128039",
     period: str = "15",
     adjust: str = "",
     start_date: str = "1979-09-01 09:32:00",
@@ -162,14 +158,13 @@ def bond_zh_hs_cov_min(
     if period == "1":
         url = "https://push2.eastmoney.com/api/qt/stock/trends2/get"
         params = {
+            "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
             "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
             "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
-            "ut": "fa5fd1943c7b386f172d6893dbfba10b",
-            "ndays": "5",
             "iscr": "0",
             "iscca": "0",
-            "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
-            "_": "1623766962675",
+            "ut": "f057cbcbce2a86e2866ab8877db1d059",
+            "ndays": "1",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -189,14 +184,14 @@ def bond_zh_hs_cov_min(
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
         temp_df.reset_index(drop=True, inplace=True)
-        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-        temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-        temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
-        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)  # 带日期时间
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).dt.date
         return temp_df
     else:
         adjust_map = {
@@ -206,15 +201,16 @@ def bond_zh_hs_cov_min(
         }
         url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
         params = {
-            "fields1": "f1,f2,f3,f4,f5,f6",
-            "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
-            "ut": "7eea3edcaed734bea9cbfc24409ed989",
+            "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
             "klt": period,
             "fqt": adjust_map[adjust],
-            "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
-            "beg": "0",
+            "lmt": "66",
             "end": "20500000",
-            "_": "1630930917857",
+            "iscca": "1",
+            "fields1": "f1,f2,f3,f4,f5",
+            "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+            "ut": "7eea3edcaed734bea9cbfc24409ed989",
+            "forcect": "1",
         }
         r = requests.get(url, params=params)
         data_json = r.json()
@@ -237,17 +233,17 @@ def bond_zh_hs_cov_min(
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
         temp_df.reset_index(drop=True, inplace=True)
-        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-        temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-        temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
-        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)  # 带日期时间
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).dt.date
         temp_df = temp_df[
             [
                 "时间",
@@ -289,9 +285,7 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    temp_df = pd.DataFrame(
-        [item.split(",") for item in data_json["data"]["trends"]]
-    )
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
     temp_df.columns = [
         "时间",
         "开盘",
@@ -304,14 +298,14 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
     ]
     temp_df.index = pd.to_datetime(temp_df["时间"])
     temp_df.reset_index(drop=True, inplace=True)
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
-    temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)  # 带日期时间
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["时间"] = pd.to_datetime(temp_df["时间"]).dt.date
     return temp_df
 
 
@@ -449,13 +443,9 @@ def bond_zh_cov() -> pd.DataFrame:
     big_df["原股东配售-股权登记日"] = pd.to_datetime(
         big_df["原股东配售-股权登记日"], errors="coerce"
     ).dt.date
-    big_df["原股东配售-每股配售额"] = pd.to_numeric(
-        big_df["原股东配售-每股配售额"], errors="coerce"
-    )
+    big_df["原股东配售-每股配售额"] = pd.to_numeric(big_df["原股东配售-每股配售额"], errors="coerce")
     big_df["发行规模"] = pd.to_numeric(big_df["发行规模"], errors="coerce")
-    big_df["中签号发布日"] = pd.to_datetime(
-        big_df["中签号发布日"], errors="coerce"
-    ).dt.date
+    big_df["中签号发布日"] = pd.to_datetime(big_df["中签号发布日"], errors="coerce").dt.date
     big_df["中签率"] = pd.to_numeric(big_df["中签率"], errors="coerce")
     big_df["上市时间"] = pd.to_datetime(big_df["上市时间"], errors="coerce").dt.date
 
@@ -545,9 +535,7 @@ def bond_cov_comparison() -> pd.DataFrame:
     return temp_df
 
 
-def bond_zh_cov_info(
-    symbol: str = "123121", indicator: str = "基本信息"
-) -> pd.DataFrame:
+def bond_zh_cov_info(symbol: str = "123121", indicator: str = "基本信息") -> pd.DataFrame:
     """
     https://data.eastmoney.com/kzz/detail/123121.html
     东方财富网-数据中心-新股数据-可转债详情
@@ -669,18 +657,18 @@ def bond_zh_cov_value_analysis(symbol: str = "123138") -> pd.DataFrame:
     ]
 
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
-    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"])
-    temp_df["纯债价值"] = pd.to_numeric(temp_df["纯债价值"])
-    temp_df["转股价值"] = pd.to_numeric(temp_df["转股价值"])
-    temp_df["纯债溢价率"] = pd.to_numeric(temp_df["纯债溢价率"])
-    temp_df["转股溢价率"] = pd.to_numeric(temp_df["转股溢价率"])
+    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
+    temp_df["纯债价值"] = pd.to_numeric(temp_df["纯债价值"], errors="coerce")
+    temp_df["转股价值"] = pd.to_numeric(temp_df["转股价值"], errors="coerce")
+    temp_df["纯债溢价率"] = pd.to_numeric(temp_df["纯债溢价率"], errors="coerce")
+    temp_df["转股溢价率"] = pd.to_numeric(temp_df["转股溢价率"], errors="coerce")
 
     return temp_df
 
 
 if __name__ == "__main__":
     bond_zh_hs_cov_min_df = bond_zh_hs_cov_min(
-        symbol="sz127004",
+        symbol="sz128039",
         period="5",
         adjust="hfq",
         start_date="1979-09-01 09:32:00",
@@ -688,10 +676,10 @@ if __name__ == "__main__":
     )
     print(bond_zh_hs_cov_min_df)
 
-    bond_zh_hs_cov_pre_min_df = bond_zh_hs_cov_pre_min(symbol="sh113570")
+    bond_zh_hs_cov_pre_min_df = bond_zh_hs_cov_pre_min(symbol="sz128039")
     print(bond_zh_hs_cov_pre_min_df)
 
-    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sh113542")
+    bond_zh_hs_cov_daily_df = bond_zh_hs_cov_daily(symbol="sz128039")
     print(bond_zh_hs_cov_daily_df)
 
     bond_zh_hs_cov_spot_df = bond_zh_hs_cov_spot()
