@@ -17,7 +17,7 @@ from akshare.futures_derivative.futures_index_price_nh import (
 )
 
 
-def futures_nh_volatility_index(
+def futures_volatility_index_nh(
     symbol: str = "NHCI", period: str = "20"
 ) -> pd.DataFrame:
     """
@@ -45,7 +45,7 @@ def futures_nh_volatility_index(
 
 
 if __name__ == "__main__":
-    futures_nh_volatility_index_df = futures_nh_volatility_index(
+    futures_volatility_index_nh_df = futures_volatility_index_nh(
         symbol="SA", period="5"
     )
-    print(futures_nh_volatility_index_df)
+    print(futures_volatility_index_nh_df)

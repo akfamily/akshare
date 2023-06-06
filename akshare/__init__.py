@@ -2422,9 +2422,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.5 fix: fix index_level_one_hist_sw interface
 1.10.6 fix: fix futures_nh_volatility_index interface
 1.10.7 fix: fix option_finance_board interface
+1.10.8 fix: fix futures_volatility_index_nh interface
 """
 
-__version__ = "1.10.7"
+__version__ = "1.10.8"
 __author__ = "AKFamily"
 
 import sys
@@ -4361,7 +4362,7 @@ from akshare.futures_derivative.futures_index_price_nh import (
     futures_index_symbol_table_nh,
 )
 from akshare.futures_derivative.futures_index_volatility_nh import (
-    futures_nh_volatility_index,
+    futures_volatility_index_nh,
 )
 
 """

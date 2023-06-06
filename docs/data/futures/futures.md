@@ -3094,7 +3094,7 @@ print(futures_price_index_nh_df)
 
 #### 波动率指数
 
-接口: futures_nh_volatility_index
+接口: futures_volatility_index_nh
 
 目标地址: http://www.nanhua.net/nhzc/varietytrend.html
 
@@ -3198,8 +3198,8 @@ print(futures_price_index_nh_df)
 ```python
 import akshare as ak
 
-futures_nh_volatility_index_df = ak.futures_nh_volatility_index(symbol="SA", period='5')
-print(futures_nh_volatility_index_df)
+futures_volatility_index_nh_df = ak.futures_volatility_index_nh(symbol="SA", period='5')
+print(futures_volatility_index_nh_df)
 ```
 
 数据示例
