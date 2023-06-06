@@ -138,7 +138,7 @@
  # 河北空气质量数据(期货-钢铁)
  "air_quality_hebei"  # 河北空气质量数据
  # 南华期货-南华指数-波动率指数
- "futures_nh_volatility_index"  # 波动率指数
+ "futures_volatility_index_nh"  # 波动率指数
  # 南华期货-南华指数-价格指数
  "futures_price_index_nh"  # 价格指数
  # 南华期货-南华指数-收益率指数
