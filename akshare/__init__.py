@@ -2425,9 +2425,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.8 fix: fix futures_volatility_index_nh interface
 1.10.9 fix: fix bond_zh_hs_cov_min interface
 1.10.10 fix: fix stock_zh_a_hist interface
+1.10.11 fix: fix stock_zh_a_hist_pre_min_em interface
 """
 
-__version__ = "1.10.10"
+__version__ = "1.10.11"
 __author__ = "AKFamily"
 
 import sys
