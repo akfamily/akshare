@@ -1193,7 +1193,7 @@ def stock_zh_a_hist_pre_min_em(
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日分时行情包含盘前数据
-    http://quote.eastmoney.com/concept/sh603777.html?from=classic
+    https://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
     :param start_time: 开始时间
@@ -1232,13 +1232,13 @@ def stock_zh_a_hist_pre_min_em(
     date_format = temp_df.index[0].date().isoformat()
     temp_df = temp_df[date_format + " " + start_time : date_format + " " + end_time]
     temp_df.reset_index(drop=True, inplace=True)
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
     temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
     return temp_df
 
