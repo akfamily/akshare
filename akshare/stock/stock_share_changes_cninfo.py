@@ -1,46 +1,29 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/7/11 16:44
+Date: 2023/6/8 16:44
 Desc: 巨潮资讯-股本股东-公司股本变动
 http://webapi.cninfo.com.cn/api/stock/p_stock2215
 """
-import time
-
-import numpy as np
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
-js_str = """
-    function mcode(input) {
-                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";
-                var output = "";
-                var chr1, chr2, chr3 = "";
-                var enc1, enc2, enc3, enc4 = "";
-                var i = 0;
-                do {
-                    chr1 = input.charCodeAt(i++);
-                    chr2 = input.charCodeAt(i++);
-                    chr3 = input.charCodeAt(i++);
-                    enc1 = chr1 >> 2;
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-                    enc4 = chr3 & 63;
-                    if (isNaN(chr2)) {
-                        enc3 = enc4 = 64;
-                    } else if (isNaN(chr3)) {
-                        enc4 = 64;
-                    }
-                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)
-                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);
-                    chr1 = chr2 = chr3 = "";
-                    enc1 = enc2 = enc3 = enc4 = "";
-                } while (i < input.length);
+from akshare.datasets import get_ths_js
 
-                return output;
-            }
-"""
+
+def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
+    """
+    获取 JS 文件的内容
+    :param file:  JS 文件名
+    :type file: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_path = get_ths_js(file)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
 
 
 def stock_share_change_cninfo(
@@ -67,18 +50,18 @@ def stock_share_change_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -139,7 +122,7 @@ def stock_share_change_cninfo(
     }
     ignore_cols = ["最新记录标识", "其他"]
     temp_df.rename(columns=cols_map, inplace=True)
-    temp_df.fillna(np.nan, inplace=True)
+    temp_df.fillna(pd.NA, inplace=True)
     temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
     temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"]).dt.date
     data_df = temp_df[[c for c in temp_df.columns if c not in ignore_cols]]
