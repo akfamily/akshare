@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/25 17:05
+Date: 2023/6/8 14:05
 Desc: 债券-集思录-可转债
 集思录：https://app.jisilu.cn/data/cbnew/#cb
 """
@@ -138,7 +138,7 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
             "双低",
         ]
     ]
-    temp_df['到期时间'] = pd.to_datetime(temp_df['到期时间']).dt.date
+    temp_df["到期时间"] = pd.to_datetime(temp_df["到期时间"]).dt.date
     temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["正股价"] = pd.to_numeric(temp_df["正股价"], errors="coerce")
@@ -196,41 +196,44 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
     r = requests.post(url, params=params, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame([item["cell"] for item in data_json["rows"]])
-    temp_df.rename(columns={
-        "bond_id": "代码",
-        "bond_nm": "名称",
-        "price": "现价",
-        "stock_id": "正股代码",
-        "stock_nm": "正股名称",
-        "margin_flg": "-",
-        "btype": "-",
-        "orig_iss_amt": "规模",
-        "curr_iss_amt": "剩余规模",
-        "convert_dt": "转股起始日",
-        "convert_price": "转股价",
-        "next_put_dt": "-",
-        "redeem_dt": "-",
-        "force_redeem": "-",
-        "redeem_flag": "-",
-        "redeem_price": "-",
-        "redeem_price_ratio": "强赎触发比",
-        "real_force_redeem_price": "强赎价",
-        "redeem_remain_days": "-",
-        "redeem_real_days": "-",
-        "redeem_total_days": "-",
-        "recount_dt": "-",
-        "redeem_count_days": "-",
-        "redeem_tc": "强赎条款",
-        "sprice": "正股价",
-        "delist_dt": "-",
-        "maturity_dt": "-",
-        "redeem_icon": "强赎状态",
-        "redeem_orders": "-",
-        "at_maturity": "-",
-        "redeem_count": "强赎天计数",
-        "after_next_put_dt": "-",
-        "force_redeem_price": "强赎触发价",
-    }, inplace=True)
+    temp_df.rename(
+        columns={
+            "bond_id": "代码",
+            "bond_nm": "名称",
+            "price": "现价",
+            "stock_id": "正股代码",
+            "stock_nm": "正股名称",
+            "margin_flg": "-",
+            "btype": "-",
+            "orig_iss_amt": "规模",
+            "curr_iss_amt": "剩余规模",
+            "convert_dt": "转股起始日",
+            "convert_price": "转股价",
+            "next_put_dt": "-",
+            "redeem_dt": "-",
+            "force_redeem": "-",
+            "redeem_flag": "-",
+            "redeem_price": "-",
+            "redeem_price_ratio": "强赎触发比",
+            "real_force_redeem_price": "强赎价",
+            "redeem_remain_days": "-",
+            "redeem_real_days": "-",
+            "redeem_total_days": "-",
+            "recount_dt": "-",
+            "redeem_count_days": "-",
+            "redeem_tc": "强赎条款",
+            "sprice": "正股价",
+            "delist_dt": "-",
+            "maturity_dt": "-",
+            "redeem_icon": "强赎状态",
+            "redeem_orders": "-",
+            "at_maturity": "-",
+            "redeem_count": "强赎天计数",
+            "after_next_put_dt": "-",
+            "force_redeem_price": "强赎触发价",
+        },
+        inplace=True,
+    )
 
     temp_df = temp_df[
         [
@@ -293,8 +296,12 @@ def bond_cb_adj_logs_jsl(symbol: str = "128013") -> pd.DataFrame:
         temp_df["下修前转股价"] = pd.to_numeric(temp_df["下修前转股价"], errors="coerce")
         temp_df["下修后转股价"] = pd.to_numeric(temp_df["下修后转股价"], errors="coerce")
         temp_df["下修底价"] = pd.to_numeric(temp_df["下修底价"], errors="coerce")
-        temp_df["股东大会日"] = pd.to_datetime(temp_df["股东大会日"]).dt.date
-        temp_df["新转股价生效日期"] = pd.to_datetime(temp_df["新转股价生效日期"]).dt.date
+        temp_df["股东大会日"] = pd.to_datetime(
+            temp_df["股东大会日"], format="%Y-%m-%d", errors="coerce"
+        ).dt.date
+        temp_df["新转股价生效日期"] = pd.to_datetime(
+            temp_df["新转股价生效日期"], format="%Y-%m-%d", errors="coerce"
+        ).dt.date
         return temp_df
 
 

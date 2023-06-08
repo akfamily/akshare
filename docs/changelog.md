@@ -57,6 +57,10 @@
 
 ## 更新说明详情
 
+1.10.12 fix: fix bond_cb_adj_logs_jsl interface
+
+    1. 修复 bond_cb_adj_logs_jsl 接口
+
 1.10.11 fix: fix stock_zh_a_hist_pre_min_em interface
 
     1. 修复 stock_zh_a_hist_pre_min_em 接口
@@ -2424,6 +2428,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.12 fix: fix bond_cb_adj_logs_jsl interface
 
 1.10.11 fix: fix stock_zh_a_hist_pre_min_em interface
 
