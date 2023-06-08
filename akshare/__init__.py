@@ -2427,9 +2427,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.10 fix: fix stock_zh_a_hist interface
 1.10.11 fix: fix stock_zh_a_hist_pre_min_em interface
 1.10.12 fix: fix bond_cb_adj_logs_jsl interface
+1.10.13 fix: fix stock_share_change_cninfo interface
 """
 
-__version__ = "1.10.12"
+__version__ = "1.10.13"
 __author__ = "AKFamily"
 
 import sys
@@ -3704,7 +3705,7 @@ from akshare.futures.futures_zh_sina import (
 """
 股票财务报告预约披露
 """
-from akshare.stock_feature.stock_cninfo_yjyg import stock_report_disclosure
+from akshare.stock_feature.stock_yjyg_cninfo import stock_report_disclosure
 
 """
 基金行情
