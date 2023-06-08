@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/6 19:23
+Date: 2023/6/8 17:00
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
@@ -191,7 +191,7 @@ def bond_zh_hs_cov_min(
         temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
         temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
         temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).dt.date
+        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)  # show datatime here
         return temp_df
     else:
         adjust_map = {
