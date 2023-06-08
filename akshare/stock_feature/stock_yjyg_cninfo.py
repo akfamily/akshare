@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/7/12 19:34
+Date: 2023/6/8 16:34
 Desc: 巨潮资讯-首页-数据-预约披露
 http://www.cninfo.com.cn/new/commonUrl?url=data/yypl
 """
@@ -77,16 +77,14 @@ def stock_report_disclosure(
             "实际披露",
         ]
     ]
-    temp_df["首次预约"] = pd.to_datetime(temp_df["首次预约"]).dt.date
-    temp_df["初次变更"] = pd.to_datetime(temp_df["初次变更"]).dt.date
-    temp_df["二次变更"] = pd.to_datetime(temp_df["二次变更"]).dt.date
-    temp_df["三次变更"] = pd.to_datetime(temp_df["三次变更"]).dt.date
-    temp_df["实际披露"] = pd.to_datetime(temp_df["实际披露"]).dt.date
+    temp_df["首次预约"] = pd.to_datetime(temp_df["首次预约"], errors="coerce").dt.date
+    temp_df["初次变更"] = pd.to_datetime(temp_df["初次变更"], errors="coerce").dt.date
+    temp_df["二次变更"] = pd.to_datetime(temp_df["二次变更"], errors="coerce").dt.date
+    temp_df["三次变更"] = pd.to_datetime(temp_df["三次变更"], errors="coerce").dt.date
+    temp_df["实际披露"] = pd.to_datetime(temp_df["实际披露"], errors="coerce").dt.date
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_report_disclosure_df = stock_report_disclosure(
-        market="北交所", period="2021年报"
-    )
+    stock_report_disclosure_df = stock_report_disclosure(market="北交所", period="2021年报")
     print(stock_report_disclosure_df)
