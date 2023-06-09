@@ -57,9 +57,9 @@
 
 ## 更新说明详情
 
-1.10.17 fix: fix bond_zh_hs_cov_min interface
+1.10.17 fix: fix stock_allotment_cninfo interface
 
-    1. 修复 bond_zh_hs_cov_min 接口
+    1. 修复 stock_allotment_cninfo 接口
 
 1.10.16 fix: fix bond_zh_hs_cov_min interface
 
@@ -2449,7 +2449,7 @@
 
 ## 版本更新说明
 
-1.10.17 fix: fix bond_zh_hs_cov_min interface
+1.10.17 fix: fix stock_allotment_cninfo interface
 
 1.10.16 fix: fix bond_zh_hs_cov_min interface
 
