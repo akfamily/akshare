@@ -305,7 +305,7 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
     temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
     temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["时间"] = pd.to_datetime(temp_df["时间"]).dt.date
+    temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
     return temp_df
 
 
