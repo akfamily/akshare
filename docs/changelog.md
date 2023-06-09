@@ -57,6 +57,10 @@
 
 ## 更新说明详情
 
+1.10.16 fix: fix bond_zh_hs_cov_min interface
+
+    1. 修复 bond_zh_hs_cov_min 接口
+
 1.10.15 fix: fix bond_zh_hs_cov_pre_min interface
 
     1. 修复 bond_zh_hs_cov_pre_min 接口
@@ -2440,6 +2444,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.16 fix: fix bond_zh_hs_cov_min interface
 
 1.10.15 fix: fix bond_zh_hs_cov_pre_min interface
 

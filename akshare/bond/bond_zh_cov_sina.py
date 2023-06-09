@@ -243,7 +243,7 @@ def bond_zh_hs_cov_min(
         temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
         temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
         temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).dt.date
+        temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         temp_df = temp_df[
             [
                 "时间",
@@ -669,7 +669,7 @@ def bond_zh_cov_value_analysis(symbol: str = "123138") -> pd.DataFrame:
 if __name__ == "__main__":
     bond_zh_hs_cov_min_df = bond_zh_hs_cov_min(
         symbol="sz128039",
-        period="5",
+        period="1",
         adjust="hfq",
         start_date="1979-09-01 09:32:00",
         end_date="2222-01-01 09:32:00",
