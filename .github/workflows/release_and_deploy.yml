@@ -3,30 +3,34 @@ name: Release and Deploy
 on:
   push:
     tags:
-      - "release-v*.*.*"
+      - 'release-v*.*.*'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
-      - name: set up python
-        uses: actions/setup-python@v1
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          python-version: "3.x"
+          python-version: '3.x'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
-      - name: Build and publish
+
+      - name: Build and publish package
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           python setup.py sdist bdist_wheel
           twine upload dist/*
-      - name: release
+
+      - name: Create GitHub release
         uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
