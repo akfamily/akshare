@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2021/10/14 12:19
+Date: 2023/6/12 15:00
 Desc: 巨潮资讯-数据中心-专题统计-债券报表-债券发行
 http://webapi.cninfo.com.cn/#/thematicStatistics
 """
@@ -11,39 +11,25 @@ import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
-js_str = """
-    function mcode(input) {  
-                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";  
-                var output = "";  
-                var chr1, chr2, chr3 = "";  
-                var enc1, enc2, enc3, enc4 = "";  
-                var i = 0;  
-                do {  
-                    chr1 = input.charCodeAt(i++);  
-                    chr2 = input.charCodeAt(i++);  
-                    chr3 = input.charCodeAt(i++);  
-                    enc1 = chr1 >> 2;  
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
-                    enc4 = chr3 & 63;  
-                    if (isNaN(chr2)) {  
-                        enc3 = enc4 = 64;  
-                    } else if (isNaN(chr3)) {  
-                        enc4 = 64;  
-                    }  
-                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)  
-                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);  
-                    chr1 = chr2 = chr3 = "";  
-                    enc1 = enc2 = enc3 = enc4 = "";  
-                } while (i < input.length);  
-          
-                return output;  
-            }  
-"""
+from akshare.datasets import get_ths_js
+
+
+def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
+    """
+    获取 JS 文件的内容
+    :param file:  JS 文件名
+    :type file: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_path = get_ths_js(file)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
 
 
 def bond_treasure_issue_cninfo(
-        start_date: str = "20210910", end_date: str = "20211109"
+    start_date: str = "20210910", end_date: str = "20211109"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-国债发行
@@ -56,18 +42,18 @@ def bond_treasure_issue_cninfo(
     :rtype: pandas.DataFrame
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1120"
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -121,20 +107,20 @@ def bond_treasure_issue_cninfo(
             "债券名称",
         ]
     ]
-    temp_df["发行起始日"] = pd.to_datetime(temp_df["发行起始日"]).dt.date
-    temp_df["发行终止日"] = pd.to_datetime(temp_df["发行终止日"]).dt.date
-    temp_df["缴款日"] = pd.to_datetime(temp_df["缴款日"]).dt.date
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
-    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"])
-    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"])
-    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"])
-    temp_df["单位面值"] = pd.to_numeric(temp_df["单位面值"])
-    temp_df["增发次数"] = pd.to_numeric(temp_df["增发次数"])
+    temp_df["发行起始日"] = pd.to_datetime(temp_df["发行起始日"], errors="coerce").dt.date
+    temp_df["发行终止日"] = pd.to_datetime(temp_df["发行终止日"], errors="coerce").dt.date
+    temp_df["缴款日"] = pd.to_datetime(temp_df["缴款日"], errors="coerce").dt.date
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
+    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"], errors="coerce")
+    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"], errors="coerce")
+    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"], errors="coerce")
+    temp_df["单位面值"] = pd.to_numeric(temp_df["单位面值"], errors="coerce")
+    temp_df["增发次数"] = pd.to_numeric(temp_df["增发次数"], errors="coerce")
     return temp_df
 
 
 def bond_local_government_issue_cninfo(
-        start_date: str = "20210911", end_date: str = "20211110"
+    start_date: str = "20210911", end_date: str = "20211110"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-地方债发行
@@ -149,16 +135,17 @@ def bond_local_government_issue_cninfo(
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1121"
     random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -212,20 +199,20 @@ def bond_local_government_issue_cninfo(
             "债券名称",
         ]
     ]
-    temp_df["发行起始日"] = pd.to_datetime(temp_df["发行起始日"]).dt.date
-    temp_df["发行终止日"] = pd.to_datetime(temp_df["发行终止日"]).dt.date
-    temp_df["缴款日"] = pd.to_datetime(temp_df["缴款日"]).dt.date
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
-    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"])
-    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"])
-    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"])
-    temp_df["单位面值"] = pd.to_numeric(temp_df["单位面值"])
-    temp_df["增发次数"] = pd.to_numeric(temp_df["增发次数"])
+    temp_df["发行起始日"] = pd.to_datetime(temp_df["发行起始日"], errors="coerce").dt.date
+    temp_df["发行终止日"] = pd.to_datetime(temp_df["发行终止日"], errors="coerce").dt.date
+    temp_df["缴款日"] = pd.to_datetime(temp_df["缴款日"], errors="coerce").dt.date
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
+    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"], errors="coerce")
+    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"], errors="coerce")
+    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"], errors="coerce")
+    temp_df["单位面值"] = pd.to_numeric(temp_df["单位面值"], errors="coerce")
+    temp_df["增发次数"] = pd.to_numeric(temp_df["增发次数"], errors="coerce")
     return temp_df
 
 
 def bond_corporate_issue_cninfo(
-        start_date: str = "20210911", end_date: str = "20211110"
+    start_date: str = "20210911", end_date: str = "20211110"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-企业债发行
@@ -238,18 +225,18 @@ def bond_corporate_issue_cninfo(
     :rtype: pandas.DataFrame
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1122"
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -307,20 +294,20 @@ def bond_corporate_issue_cninfo(
             "债券名称",
         ]
     ]
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
-    temp_df["交易所网上发行起始日"] = pd.to_datetime(temp_df["交易所网上发行起始日"]).dt.date
-    temp_df["交易所网上发行终止日"] = pd.to_datetime(temp_df["交易所网上发行终止日"]).dt.date
-    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"])
-    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"])
-    temp_df["发行面值"] = pd.to_numeric(temp_df["发行面值"])
-    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"])
-    temp_df["最小认购单位"] = pd.to_numeric(temp_df["最小认购单位"])
-    temp_df["最低认购额"] = pd.to_numeric(temp_df["最低认购额"])
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
+    temp_df["交易所网上发行起始日"] = pd.to_datetime(temp_df["交易所网上发行起始日"], errors="coerce").dt.date
+    temp_df["交易所网上发行终止日"] = pd.to_datetime(temp_df["交易所网上发行终止日"], errors="coerce").dt.date
+    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"], errors="coerce")
+    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"], errors="coerce")
+    temp_df["发行面值"] = pd.to_numeric(temp_df["发行面值"], errors="coerce")
+    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"], errors="coerce")
+    temp_df["最小认购单位"] = pd.to_numeric(temp_df["最小认购单位"], errors="coerce")
+    temp_df["最低认购额"] = pd.to_numeric(temp_df["最低认购额"], errors="coerce")
     return temp_df
 
 
 def bond_cov_issue_cninfo(
-        start_date: str = "20210913", end_date: str = "20211112"
+    start_date: str = "20210913", end_date: str = "20211112"
 ) -> pd.DataFrame:
     """
     巨潮资讯-数据中心-专题统计-债券报表-债券发行-可转债发行
@@ -333,18 +320,18 @@ def bond_cov_issue_cninfo(
     :rtype: pandas.DataFrame
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1123"
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -361,95 +348,95 @@ def bond_cov_issue_cninfo(
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(
         columns={
-            'F029D': '发行起始日',
-            'SECNAME': '债券简称',
-            'F027D': '转股开始日期',
-            'F003D': '发行终止日',
-            'F007N': '发行面值',
-            'F053D': '转股终止日期',
-            'F005N': '计划发行总量',
-            'F051D': '网上申购日期',
-            'F026N': '初始转股价格',
-            'F066N': '网上申购数量下限',
-            'F052N': '发行价格',
-            'BONDNAME': '债券名称',
-            'F014V': '发行对象',
-            'F002V': '交易市场',
-            'F032V': '网上申购简称',
-            'F086V': '转股代码',
-            'DECLAREDATE': '公告日期',
-            'F028D': '债权登记日',
-            'F004D': '优先申购日',
-            'F068D': '网上申购中签结果公告日及退款日',
-            'F054D': '优先申购缴款日',
-            'F008N': '网上申购数量上限',
-            'SECCODE': '债券代码',
-            'F006N': '实际发行总量',
-            'F067N': '网上申购单位',
-            'F065N': '配售价格',
-            'F017V': '承销方式',
-            'F015V': '发行范围',
-            'F013V': '发行方式',
-            'F021V': '募资用途说明',
-            'F031V': '网上申购代码'
+            "F029D": "发行起始日",
+            "SECNAME": "债券简称",
+            "F027D": "转股开始日期",
+            "F003D": "发行终止日",
+            "F007N": "发行面值",
+            "F053D": "转股终止日期",
+            "F005N": "计划发行总量",
+            "F051D": "网上申购日期",
+            "F026N": "初始转股价格",
+            "F066N": "网上申购数量下限",
+            "F052N": "发行价格",
+            "BONDNAME": "债券名称",
+            "F014V": "发行对象",
+            "F002V": "交易市场",
+            "F032V": "网上申购简称",
+            "F086V": "转股代码",
+            "DECLAREDATE": "公告日期",
+            "F028D": "债权登记日",
+            "F004D": "优先申购日",
+            "F068D": "网上申购中签结果公告日及退款日",
+            "F054D": "优先申购缴款日",
+            "F008N": "网上申购数量上限",
+            "SECCODE": "债券代码",
+            "F006N": "实际发行总量",
+            "F067N": "网上申购单位",
+            "F065N": "配售价格",
+            "F017V": "承销方式",
+            "F015V": "发行范围",
+            "F013V": "发行方式",
+            "F021V": "募资用途说明",
+            "F031V": "网上申购代码",
         },
         inplace=True,
     )
     temp_df = temp_df[
         [
-            '债券代码',
-            '债券简称',
-            '公告日期',
-            '发行起始日',
-            '发行终止日',
-            '计划发行总量',
-            '实际发行总量',
-            '发行面值',
-            '发行价格',
-            '发行方式',
-            '发行对象',
-            '发行范围',
-            '承销方式',
-            '募资用途说明',
-            '初始转股价格',
-            '转股开始日期',
-            '转股终止日期',
-            '网上申购日期',
-            '网上申购代码',
-            '网上申购简称',
-            '网上申购数量上限',
-            '网上申购数量下限',
-            '网上申购单位',
-            '网上申购中签结果公告日及退款日',
-            '优先申购日',
-            '配售价格',
-            '债权登记日',
-            '优先申购缴款日',
-            '转股代码',
-            '交易市场',
-            '债券名称',
+            "债券代码",
+            "债券简称",
+            "公告日期",
+            "发行起始日",
+            "发行终止日",
+            "计划发行总量",
+            "实际发行总量",
+            "发行面值",
+            "发行价格",
+            "发行方式",
+            "发行对象",
+            "发行范围",
+            "承销方式",
+            "募资用途说明",
+            "初始转股价格",
+            "转股开始日期",
+            "转股终止日期",
+            "网上申购日期",
+            "网上申购代码",
+            "网上申购简称",
+            "网上申购数量上限",
+            "网上申购数量下限",
+            "网上申购单位",
+            "网上申购中签结果公告日及退款日",
+            "优先申购日",
+            "配售价格",
+            "债权登记日",
+            "优先申购缴款日",
+            "转股代码",
+            "交易市场",
+            "债券名称",
         ]
     ]
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
-    temp_df["发行起始日"] = pd.to_datetime(temp_df["发行起始日"]).dt.date
-    temp_df["发行终止日"] = pd.to_datetime(temp_df["发行终止日"]).dt.date
-    temp_df["转股开始日期"] = pd.to_datetime(temp_df["转股开始日期"]).dt.date
-    temp_df["转股终止日期"] = pd.to_datetime(temp_df["转股终止日期"]).dt.date
-    temp_df["转股终止日期"] = pd.to_datetime(temp_df["转股终止日期"]).dt.date
-    temp_df["网上申购日期"] = pd.to_datetime(temp_df["网上申购日期"]).dt.date
-    temp_df["网上申购中签结果公告日及退款日"] = pd.to_datetime(temp_df["网上申购中签结果公告日及退款日"]).dt.date
-    temp_df["债权登记日"] = pd.to_datetime(temp_df["债权登记日"]).dt.date
-    temp_df["优先申购日"] = pd.to_datetime(temp_df["优先申购日"]).dt.date
-    temp_df["优先申购缴款日"] = pd.to_datetime(temp_df["优先申购缴款日"]).dt.date
-    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"])
-    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"])
-    temp_df["发行面值"] = pd.to_numeric(temp_df["发行面值"])
-    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"])
-    temp_df["初始转股价格"] = pd.to_numeric(temp_df["初始转股价格"])
-    temp_df["网上申购数量上限"] = pd.to_numeric(temp_df["网上申购数量上限"])
-    temp_df["网上申购数量下限"] = pd.to_numeric(temp_df["网上申购数量下限"])
-    temp_df["网上申购单位"] = pd.to_numeric(temp_df["网上申购单位"])
-    temp_df["配售价格"] = pd.to_numeric(temp_df["配售价格"])
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
+    temp_df["发行起始日"] = pd.to_datetime(temp_df["发行起始日"], errors="coerce").dt.date
+    temp_df["发行终止日"] = pd.to_datetime(temp_df["发行终止日"], errors="coerce").dt.date
+    temp_df["转股开始日期"] = pd.to_datetime(temp_df["转股开始日期"], errors="coerce").dt.date
+    temp_df["转股终止日期"] = pd.to_datetime(temp_df["转股终止日期"], errors="coerce").dt.date
+    temp_df["转股终止日期"] = pd.to_datetime(temp_df["转股终止日期"], errors="coerce").dt.date
+    temp_df["网上申购日期"] = pd.to_datetime(temp_df["网上申购日期"], errors="coerce").dt.date
+    temp_df["网上申购中签结果公告日及退款日"] = pd.to_datetime(temp_df["网上申购中签结果公告日及退款日"], errors="coerce").dt.date
+    temp_df["债权登记日"] = pd.to_datetime(temp_df["债权登记日"], errors="coerce").dt.date
+    temp_df["优先申购日"] = pd.to_datetime(temp_df["优先申购日"], errors="coerce").dt.date
+    temp_df["优先申购缴款日"] = pd.to_datetime(temp_df["优先申购缴款日"], errors="coerce").dt.date
+    temp_df["计划发行总量"] = pd.to_numeric(temp_df["计划发行总量"], errors="coerce")
+    temp_df["实际发行总量"] = pd.to_numeric(temp_df["实际发行总量"], errors="coerce")
+    temp_df["发行面值"] = pd.to_numeric(temp_df["发行面值"], errors="coerce")
+    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"], errors="coerce")
+    temp_df["初始转股价格"] = pd.to_numeric(temp_df["初始转股价格"], errors="coerce")
+    temp_df["网上申购数量上限"] = pd.to_numeric(temp_df["网上申购数量上限"], errors="coerce")
+    temp_df["网上申购数量下限"] = pd.to_numeric(temp_df["网上申购数量下限"], errors="coerce")
+    temp_df["网上申购单位"] = pd.to_numeric(temp_df["网上申购单位"], errors="coerce")
+    temp_df["配售价格"] = pd.to_numeric(temp_df["配售价格"], errors="coerce")
     return temp_df
 
 
@@ -461,18 +448,18 @@ def bond_cov_stock_issue_cninfo() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1124"
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -485,37 +472,37 @@ def bond_cov_stock_issue_cninfo() -> pd.DataFrame:
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(
         columns={
-            'F003N': '转股价格',
-            'SECNAME': '债券简称',
-            'DECLAREDATE': '公告日期',
-            'F005D': '自愿转换期终止日',
-            'F004D': '自愿转换期起始日',
-            'F017V': '标的股票',
-            'BONDNAME': '债券名称',
-            'F002V': '转股简称',
-            'F001V': '转股代码',
-            'SECCODE': '债券代码',
+            "F003N": "转股价格",
+            "SECNAME": "债券简称",
+            "DECLAREDATE": "公告日期",
+            "F005D": "自愿转换期终止日",
+            "F004D": "自愿转换期起始日",
+            "F017V": "标的股票",
+            "BONDNAME": "债券名称",
+            "F002V": "转股简称",
+            "F001V": "转股代码",
+            "SECCODE": "债券代码",
         },
         inplace=True,
     )
     temp_df = temp_df[
         [
-            '债券代码',
-            '债券简称',
-            '公告日期',
-            '转股代码',
-            '转股简称',
-            '转股价格',
-            '自愿转换期起始日',
-            '自愿转换期终止日',
-            '标的股票',
-            '债券名称',
+            "债券代码",
+            "债券简称",
+            "公告日期",
+            "转股代码",
+            "转股简称",
+            "转股价格",
+            "自愿转换期起始日",
+            "自愿转换期终止日",
+            "标的股票",
+            "债券名称",
         ]
     ]
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
-    temp_df["自愿转换期起始日"] = pd.to_datetime(temp_df["自愿转换期起始日"]).dt.date
-    temp_df["自愿转换期终止日"] = pd.to_datetime(temp_df["自愿转换期终止日"]).dt.date
-    temp_df["转股价格"] = pd.to_numeric(temp_df["转股价格"])
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
+    temp_df["自愿转换期起始日"] = pd.to_datetime(temp_df["自愿转换期起始日"], errors="coerce").dt.date
+    temp_df["自愿转换期终止日"] = pd.to_datetime(temp_df["自愿转换期终止日"], errors="coerce").dt.date
+    temp_df["转股价格"] = pd.to_numeric(temp_df["转股价格"], errors="coerce")
     return temp_df
 
 
@@ -525,13 +512,19 @@ if __name__ == "__main__":
     )
     print(bond_treasure_issue_cninfo_df)
 
-    bond_local_government_issue_cninfo_df = bond_local_government_issue_cninfo(start_date="20210911", end_date="20211110")
+    bond_local_government_issue_cninfo_df = bond_local_government_issue_cninfo(
+        start_date="20210911", end_date="20211110"
+    )
     print(bond_local_government_issue_cninfo_df)
 
-    bond_corporate_issue_cninfo_df = bond_corporate_issue_cninfo(start_date="20210911", end_date="20211110")
+    bond_corporate_issue_cninfo_df = bond_corporate_issue_cninfo(
+        start_date="20210911", end_date="20211110"
+    )
     print(bond_corporate_issue_cninfo_df)
 
-    bond_cov_issue_cninfo_df = bond_cov_issue_cninfo(start_date="20210913", end_date="20211112")
+    bond_cov_issue_cninfo_df = bond_cov_issue_cninfo(
+        start_date="20210913", end_date="20211112"
+    )
     print(bond_cov_issue_cninfo_df)
 
     bond_cov_stock_issue_cninfo_df = bond_cov_stock_issue_cninfo()
