@@ -57,6 +57,14 @@
 
 ## 更新说明详情
 
+1.10.19 fix: fix bond_treasure_issue_cninfo interface
+
+    1. 修复 bond_treasure_issue_cninfo 接口
+    2. 修复 bond_local_government_issue_cninfo 接口
+    3. 修复 bond_corporate_issue_cninfo 接口
+    4. 修复 bond_cov_issue_cninfo 接口
+    5. 修复 bond_cov_stock_issue_cninfo 接口
+
 1.10.18 fix: fix index_yw interface
 
     1. 修复 index_yw 接口
@@ -2453,6 +2461,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.19 fix: fix bond_treasure_issue_cninfo interface
 
 1.10.18 fix: fix index_yw interface
 
