@@ -1,45 +1,29 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/18 16:29
+Date: 2023/6/12 17:29
 Desc: 巨潮资讯-数据中心-新股数据
 http://webapi.cninfo.com.cn/#/xinguList
 """
-import time
-
 import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
-js_str = """
-    function mcode(input) {  
-                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";  
-                var output = "";  
-                var chr1, chr2, chr3 = "";  
-                var enc1, enc2, enc3, enc4 = "";  
-                var i = 0;  
-                do {  
-                    chr1 = input.charCodeAt(i++);  
-                    chr2 = input.charCodeAt(i++);  
-                    chr3 = input.charCodeAt(i++);  
-                    enc1 = chr1 >> 2;  
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
-                    enc4 = chr3 & 63;  
-                    if (isNaN(chr2)) {  
-                        enc3 = enc4 = 64;  
-                    } else if (isNaN(chr3)) {  
-                        enc4 = 64;  
-                    }  
-                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)  
-                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);  
-                    chr1 = chr2 = chr3 = "";  
-                    enc1 = enc2 = enc3 = enc4 = "";  
-                } while (i < input.length);  
-          
-                return output;  
-            }  
-"""
+from akshare.datasets import get_ths_js
+
+
+def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
+    """
+    获取 JS 文件的内容
+    :param file:  JS 文件名
+    :type file: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_path = get_ths_js(file)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
 
 
 def stock_new_gh_cninfo() -> pd.DataFrame:
@@ -50,18 +34,18 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1098"
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -80,8 +64,8 @@ def stock_new_gh_cninfo() -> pd.DataFrame:
         "审核结果",
         "审核公告日",
     ]
-    temp_df["上会日期"] = pd.to_datetime(temp_df["上会日期"]).dt.date
-    temp_df["审核公告日"] = pd.to_datetime(temp_df["审核公告日"]).dt.date
+    temp_df["上会日期"] = pd.to_datetime(temp_df["上会日期"], errors="coerce").dt.date
+    temp_df["审核公告日"] = pd.to_datetime(temp_df["审核公告日"], errors="coerce").dt.date
     return temp_df
 
 
@@ -93,18 +77,18 @@ def stock_new_ipo_cninfo() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1097"
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -151,17 +135,17 @@ def stock_new_ipo_cninfo() -> pd.DataFrame:
             "上网发行数量",
         ]
     ]
-    temp_df["摇号结果公告日"] = pd.to_datetime(temp_df["摇号结果公告日"]).dt.date
-    temp_df["中签公告日"] = pd.to_datetime(temp_df["中签公告日"]).dt.date
-    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"]).dt.date
-    temp_df["中签缴款日"] = pd.to_datetime(temp_df["中签缴款日"]).dt.date
-    temp_df["申购日期"] = pd.to_datetime(temp_df["申购日期"]).dt.date
-    temp_df["发行价"] = pd.to_numeric(temp_df["发行价"])
-    temp_df["上网发行中签率"] = pd.to_numeric(temp_df["上网发行中签率"])
-    temp_df["总发行数量"] = pd.to_numeric(temp_df["总发行数量"])
-    temp_df["发行市盈率"] = pd.to_numeric(temp_df["发行市盈率"])
-    temp_df["上网发行数量"] = pd.to_numeric(temp_df["上网发行数量"])
-    temp_df["网上申购上限"] = pd.to_numeric(temp_df["网上申购上限"])
+    temp_df["摇号结果公告日"] = pd.to_datetime(temp_df["摇号结果公告日"], errors="coerce").dt.date
+    temp_df["中签公告日"] = pd.to_datetime(temp_df["中签公告日"], errors="coerce").dt.date
+    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], errors="coerce").dt.date
+    temp_df["中签缴款日"] = pd.to_datetime(temp_df["中签缴款日"], errors="coerce").dt.date
+    temp_df["申购日期"] = pd.to_datetime(temp_df["申购日期"], errors="coerce").dt.date
+    temp_df["发行价"] = pd.to_numeric(temp_df["发行价"], errors="coerce")
+    temp_df["上网发行中签率"] = pd.to_numeric(temp_df["上网发行中签率"], errors="coerce")
+    temp_df["总发行数量"] = pd.to_numeric(temp_df["总发行数量"], errors="coerce")
+    temp_df["发行市盈率"] = pd.to_numeric(temp_df["发行市盈率"], errors="coerce")
+    temp_df["上网发行数量"] = pd.to_numeric(temp_df["上网发行数量"], errors="coerce")
+    temp_df["网上申购上限"] = pd.to_numeric(temp_df["网上申购上限"], errors="coerce")
     return temp_df
 
 
