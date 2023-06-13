@@ -83,6 +83,7 @@ def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
         big_df['价格指数-涨跌幅'] = pd.to_numeric(big_df['价格指数-涨跌幅'], errors='coerce')
         big_df['景气指数'] = pd.to_numeric(big_df['景气指数'], errors='coerce')
         big_df['景气指数-涨跌幅'] = pd.to_numeric(big_df['景气指数-涨跌幅'], errors='coerce')
+    big_df.sort_values(['期次'], inplace=True, ignore_index=True)
     return big_df
 
 
