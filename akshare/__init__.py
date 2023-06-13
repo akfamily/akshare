@@ -2436,9 +2436,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.19 fix: fix bond_treasure_issue_cninfo interface
 1.10.20 fix: fix stock_new_gh_cninfo interface
 1.10.21 fix: fix fund_report_stock_cninfo interface
+1.10.22 fix: fix macro_china_cpi_monthly interface
 """
 
-__version__ = "1.10.21"
+__version__ = "1.10.22"
 __author__ = "AKFamily"
 
 import sys
