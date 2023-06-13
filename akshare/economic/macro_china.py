@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/9 22:20
+Date: 2023/6/13 16:20
 Desc: 宏观数据-中国
 """
 import json
@@ -55,38 +55,43 @@ def macro_china_qyspjg() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(columns={
-        'REPORT_DATE': "-",
-        'TIME': "月份",
-        'BASE': "总指数-指数值",
-        'BASE_SAME': "总指数-同比增长",
-        'BASE_SEQUENTIAL': "总指数-环比增长",
-        'FARM_BASE': "农产品-指数值",
-        'FARM_BASE_SAME':"农产品-同比增长",
-        'FARM_BASE_SEQUENTIAL':"农产品-环比增长",
-        'MINERAL_BASE':"矿产品-指数值",
-        'MINERAL_BASE_SAME':"矿产品-同比增长",
-        'MINERAL_BASE_SEQUENTIAL':"矿产品-环比增长",
-        'ENERGY_BASE':"煤油电-指数值",
-        'ENERGY_BASE_SAME':"煤油电-同比增长",
-        'ENERGY_BASE_SEQUENTIAL': "煤油电-环比增长"
-    }, inplace=True)
+    temp_df.rename(
+        columns={
+            "REPORT_DATE": "-",
+            "TIME": "月份",
+            "BASE": "总指数-指数值",
+            "BASE_SAME": "总指数-同比增长",
+            "BASE_SEQUENTIAL": "总指数-环比增长",
+            "FARM_BASE": "农产品-指数值",
+            "FARM_BASE_SAME": "农产品-同比增长",
+            "FARM_BASE_SEQUENTIAL": "农产品-环比增长",
+            "MINERAL_BASE": "矿产品-指数值",
+            "MINERAL_BASE_SAME": "矿产品-同比增长",
+            "MINERAL_BASE_SEQUENTIAL": "矿产品-环比增长",
+            "ENERGY_BASE": "煤油电-指数值",
+            "ENERGY_BASE_SAME": "煤油电-同比增长",
+            "ENERGY_BASE_SEQUENTIAL": "煤油电-环比增长",
+        },
+        inplace=True,
+    )
 
-    temp_df = temp_df[[
-        "月份",
-        "总指数-指数值",
-        "总指数-同比增长",
-        "总指数-环比增长",
-        "农产品-指数值",
-        "农产品-同比增长",
-        "农产品-环比增长",
-        "矿产品-指数值",
-        "矿产品-同比增长",
-        "矿产品-环比增长",
-        "煤油电-指数值",
-        "煤油电-同比增长",
-        "煤油电-环比增长"
-    ]]
+    temp_df = temp_df[
+        [
+            "月份",
+            "总指数-指数值",
+            "总指数-同比增长",
+            "总指数-环比增长",
+            "农产品-指数值",
+            "农产品-同比增长",
+            "农产品-环比增长",
+            "矿产品-指数值",
+            "矿产品-同比增长",
+            "矿产品-环比增长",
+            "煤油电-指数值",
+            "煤油电-同比增长",
+            "煤油电-环比增长",
+        ]
+    ]
     temp_df["总指数-指数值"] = pd.to_numeric(temp_df["总指数-指数值"], errors="coerce")
     temp_df["总指数-同比增长"] = pd.to_numeric(temp_df["总指数-同比增长"], errors="coerce")
     temp_df["总指数-环比增长"] = pd.to_numeric(temp_df["总指数-环比增长"], errors="coerce")
@@ -138,14 +143,16 @@ def macro_china_fdi() -> pd.DataFrame:
         "累计",
         "累计-同比增长",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "当月",
-        "当月-同比增长",
-        "当月-环比增长",
-        "累计",
-        "累计-同比增长",
-    ]]
+    temp_df = temp_df[
+        [
+            "月份",
+            "当月",
+            "当月-同比增长",
+            "当月-环比增长",
+            "累计",
+            "累计-同比增长",
+        ]
+    ]
     temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
     temp_df["当月-同比增长"] = pd.to_numeric(temp_df["当月-同比增长"], errors="coerce")
     temp_df["当月-环比增长"] = pd.to_numeric(temp_df["当月-环比增长"], errors="coerce")
@@ -429,7 +436,7 @@ def macro_china_ppi_yearly() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = pd.concat([temp_df,temp_se])
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -489,7 +496,7 @@ def macro_china_exports_yoy() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = pd.concat([temp_df,temp_se])
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1384,10 +1391,7 @@ def macro_china_market_margin_sh() -> pd.DataFrame:
         "attr_id": "1",
         "_": str(int(round(t * 1000))),
     }
-    headers = {
-        'x-app-id': 'rU6QIu7JHe2gOUeR',
-        'x-version': '1.0.0'
-    }
+    headers = {"x-app-id": "rU6QIu7JHe2gOUeR", "x-version": "1.0.0"}
     r = requests.get(url, params=params, headers=headers)
     temp_df = pd.DataFrame(r.json()["data"]["values"])
     temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
@@ -1417,7 +1421,7 @@ def macro_china_market_margin_sh() -> pd.DataFrame:
     value_df.sort_index(inplace=True)
     value_df.reset_index(inplace=True)
     value_df.rename(columns={"index": "日期"}, inplace=True)
-    value_df['日期'] = pd.to_datetime(value_df['日期']).dt.date
+    value_df["日期"] = pd.to_datetime(value_df["日期"]).dt.date
     return value_df
 
 
@@ -1574,7 +1578,9 @@ def macro_china_lpr() -> pd.DataFrame:
 
 
 # 中国-新房价指数
-def macro_china_new_house_price(city_first: str = "北京", city_second: str = "上海") -> pd.DataFrame:
+def macro_china_new_house_price(
+    city_first: str = "北京", city_second: str = "上海"
+) -> pd.DataFrame:
     """
     中国-新房价指数
     https://data.eastmoney.com/cjsj/newhouse.html
@@ -1596,10 +1602,10 @@ def macro_china_new_house_price(city_first: str = "北京", city_second: str = "
         "sortTypes": "-1,-1",
         "source": "WEB",
         "client": "WEB",
-        'p': '1',
-        'pageNo': '1',
-        'pageNum': '1',
-        '_': '1669352163467',
+        "p": "1",
+        "pageNo": "1",
+        "pageNum": "1",
+        "_": "1669352163467",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -1615,23 +1621,25 @@ def macro_china_new_house_price(city_first: str = "北京", city_second: str = "
         "二手住宅价格指数-定基",
         "-",
     ]
-    temp_df = temp_df[[
-        "日期",
-        "城市",
-        "新建商品住宅价格指数-同比",
-        "新建商品住宅价格指数-环比",
-        "新建商品住宅价格指数-定基",
-        "二手住宅价格指数-环比",
-        "二手住宅价格指数-同比",
-        "二手住宅价格指数-定基",
-    ]]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-    temp_df['新建商品住宅价格指数-同比'] = pd.to_numeric(temp_df['新建商品住宅价格指数-同比'], errors="coerce")
-    temp_df['新建商品住宅价格指数-环比'] = pd.to_numeric(temp_df['新建商品住宅价格指数-环比'], errors="coerce")
-    temp_df['新建商品住宅价格指数-定基'] = pd.to_numeric(temp_df['新建商品住宅价格指数-定基'], errors="coerce")
-    temp_df['二手住宅价格指数-环比'] = pd.to_numeric(temp_df['二手住宅价格指数-环比'], errors="coerce")
-    temp_df['二手住宅价格指数-同比'] = pd.to_numeric(temp_df['二手住宅价格指数-同比'], errors="coerce")
-    temp_df['二手住宅价格指数-定基'] = pd.to_numeric(temp_df['二手住宅价格指数-定基'], errors="coerce")
+    temp_df = temp_df[
+        [
+            "日期",
+            "城市",
+            "新建商品住宅价格指数-同比",
+            "新建商品住宅价格指数-环比",
+            "新建商品住宅价格指数-定基",
+            "二手住宅价格指数-环比",
+            "二手住宅价格指数-同比",
+            "二手住宅价格指数-定基",
+        ]
+    ]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["新建商品住宅价格指数-同比"] = pd.to_numeric(temp_df["新建商品住宅价格指数-同比"], errors="coerce")
+    temp_df["新建商品住宅价格指数-环比"] = pd.to_numeric(temp_df["新建商品住宅价格指数-环比"], errors="coerce")
+    temp_df["新建商品住宅价格指数-定基"] = pd.to_numeric(temp_df["新建商品住宅价格指数-定基"], errors="coerce")
+    temp_df["二手住宅价格指数-环比"] = pd.to_numeric(temp_df["二手住宅价格指数-环比"], errors="coerce")
+    temp_df["二手住宅价格指数-同比"] = pd.to_numeric(temp_df["二手住宅价格指数-同比"], errors="coerce")
+    temp_df["二手住宅价格指数-定基"] = pd.to_numeric(temp_df["二手住宅价格指数-定基"], errors="coerce")
     return temp_df
 
 
@@ -1653,10 +1661,10 @@ def macro_china_enterprise_boom_index() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
         "reportName": "RPT_ECONOMY_BOOM_INDEX",
-        'p': '1',
-        'pageNo': '1',
-        'pageNum': '1',
-        '_': '1669352163467',
+        "p": "1",
+        "pageNo": "1",
+        "pageNum": "1",
+        "_": "1669352163467",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -1671,21 +1679,23 @@ def macro_china_enterprise_boom_index() -> pd.DataFrame:
         "企业家信心指数-同比",
         "企业家信心指数-环比",
     ]
-    temp_df = temp_df[[
-        "季度",
-        "企业景气指数-指数",
-        "企业景气指数-同比",
-        "企业景气指数-环比",
-        "企业家信心指数-指数",
-        "企业家信心指数-同比",
-        "企业家信心指数-环比",
-    ]]
-    temp_df['企业景气指数-指数'] = pd.to_numeric(temp_df['企业景气指数-指数'], errors="coerce")
-    temp_df['企业家信心指数-指数'] = pd.to_numeric(temp_df['企业家信心指数-指数'], errors="coerce")
-    temp_df['企业景气指数-同比'] = pd.to_numeric(temp_df['企业景气指数-同比'], errors="coerce")
-    temp_df['企业景气指数-环比'] = pd.to_numeric(temp_df['企业景气指数-环比'], errors="coerce")
-    temp_df['企业家信心指数-同比'] = pd.to_numeric(temp_df['企业家信心指数-同比'], errors="coerce")
-    temp_df['企业家信心指数-环比'] = pd.to_numeric(temp_df['企业家信心指数-环比'], errors="coerce")
+    temp_df = temp_df[
+        [
+            "季度",
+            "企业景气指数-指数",
+            "企业景气指数-同比",
+            "企业景气指数-环比",
+            "企业家信心指数-指数",
+            "企业家信心指数-同比",
+            "企业家信心指数-环比",
+        ]
+    ]
+    temp_df["企业景气指数-指数"] = pd.to_numeric(temp_df["企业景气指数-指数"], errors="coerce")
+    temp_df["企业家信心指数-指数"] = pd.to_numeric(temp_df["企业家信心指数-指数"], errors="coerce")
+    temp_df["企业景气指数-同比"] = pd.to_numeric(temp_df["企业景气指数-同比"], errors="coerce")
+    temp_df["企业景气指数-环比"] = pd.to_numeric(temp_df["企业景气指数-环比"], errors="coerce")
+    temp_df["企业家信心指数-同比"] = pd.to_numeric(temp_df["企业家信心指数-同比"], errors="coerce")
+    temp_df["企业家信心指数-环比"] = pd.to_numeric(temp_df["企业家信心指数-环比"], errors="coerce")
     return temp_df
 
 
@@ -1707,19 +1717,17 @@ def macro_china_national_tax_receipts() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
         "reportName": "RPT_ECONOMY_TAX",
-        'p': '1',
-        'pageNo': '1',
-        'pageNum': '1',
-        '_': '1669352163467',
+        "p": "1",
+        "pageNo": "1",
+        "pageNum": "1",
+        "_": "1669352163467",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
     temp_df.columns = ["-", "季度", "税收收入合计", "较上年同期", "季度环比"]
-    temp_df = temp_df[[
-        "季度", "税收收入合计", "较上年同期", "季度环比"
-    ]]
+    temp_df = temp_df[["季度", "税收收入合计", "较上年同期", "季度环比"]]
 
     temp_df["税收收入合计"] = pd.to_numeric(temp_df["税收收入合计"], errors="coerce")
     temp_df["较上年同期"] = pd.to_numeric(temp_df["较上年同期"], errors="coerce")
@@ -2513,7 +2521,7 @@ def _em_macro_1(em_id) -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
         "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
-        "filter": '(INDICATOR_ID=' + ind_id + ')',
+        "filter": "(INDICATOR_ID=" + ind_id + ")",
         "source": "WEB",
         "client": "WEB",
     }
@@ -2621,22 +2629,8 @@ def macro_china_new_financial_credit() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 
-    temp_df.columns = ["-",
-                       "月份",
-                       "当月",
-                       "当月-同比增长",
-                       "当月-环比增长",
-                       "累计",
-                       "累计-同比增长"
-                       ]
-    temp_df = temp_df[[
-        "月份",
-        "当月",
-        "当月-同比增长",
-        "当月-环比增长",
-        "累计",
-        "累计-同比增长"
-    ]]
+    temp_df.columns = ["-", "月份", "当月", "当月-同比增长", "当月-环比增长", "累计", "累计-同比增长"]
+    temp_df = temp_df[["月份", "当月", "当月-同比增长", "当月-环比增长", "累计", "累计-同比增长"]]
 
     temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
     temp_df["当月-同比增长"] = pd.to_numeric(temp_df["当月-同比增长"], errors="coerce")
@@ -2747,21 +2741,23 @@ def macro_china_stock_market_cap() -> pd.DataFrame:
         "A股最高综合股价指数-深圳",
         "A股最低综合股价指数-深圳",
     ]
-    temp_df = temp_df[[
-        "数据日期",
-        "发行总股本-上海",
-        "发行总股本-深圳",
-        "市价总值-上海",
-        "市价总值-深圳",
-        "成交金额-上海",
-        "成交金额-深圳",
-        "成交量-上海",
-        "成交量-深圳",
-        "A股最高综合股价指数-上海",
-        "A股最高综合股价指数-深圳",
-        "A股最低综合股价指数-上海",
-        "A股最低综合股价指数-深圳",
-    ]]
+    temp_df = temp_df[
+        [
+            "数据日期",
+            "发行总股本-上海",
+            "发行总股本-深圳",
+            "市价总值-上海",
+            "市价总值-深圳",
+            "成交金额-上海",
+            "成交金额-深圳",
+            "成交量-上海",
+            "成交量-深圳",
+            "A股最高综合股价指数-上海",
+            "A股最高综合股价指数-深圳",
+            "A股最低综合股价指数-上海",
+            "A股最低综合股价指数-深圳",
+        ]
+    ]
     temp_df["发行总股本-上海"] = pd.to_numeric(temp_df["发行总股本-上海"], errors="coerce")
     temp_df["发行总股本-深圳"] = pd.to_numeric(temp_df["发行总股本-深圳"], errors="coerce")
     temp_df["市价总值-上海"] = pd.to_numeric(temp_df["市价总值-上海"], errors="coerce")
@@ -2815,18 +2811,20 @@ def macro_china_money_supply() -> pd.DataFrame:
         "流通中的现金(M0)-同比增长",
         "流通中的现金(M0)-环比增长",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "货币和准货币(M2)-数量(亿元)",
-        "货币和准货币(M2)-同比增长",
-        "货币和准货币(M2)-环比增长",
-        "货币(M1)-数量(亿元)",
-        "货币(M1)-同比增长",
-        "货币(M1)-环比增长",
-        "流通中的现金(M0)-数量(亿元)",
-        "流通中的现金(M0)-同比增长",
-        "流通中的现金(M0)-环比增长",
-    ]]
+    temp_df = temp_df[
+        [
+            "月份",
+            "货币和准货币(M2)-数量(亿元)",
+            "货币和准货币(M2)-同比增长",
+            "货币和准货币(M2)-环比增长",
+            "货币(M1)-数量(亿元)",
+            "货币(M1)-同比增长",
+            "货币(M1)-环比增长",
+            "流通中的现金(M0)-数量(亿元)",
+            "流通中的现金(M0)-同比增长",
+            "流通中的现金(M0)-环比增长",
+        ]
+    ]
 
     temp_df["货币和准货币(M2)-数量(亿元)"] = pd.to_numeric(temp_df["货币和准货币(M2)-数量(亿元)"])
     temp_df["货币和准货币(M2)-同比增长"] = pd.to_numeric(temp_df["货币和准货币(M2)-同比增长"])
@@ -2881,21 +2879,23 @@ def macro_china_cpi() -> pd.DataFrame:
         "农村-环比增长",
         "农村-累计",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "全国-当月",
-        "全国-同比增长",
-        "全国-环比增长",
-        "全国-累计",
-        "城市-当月",
-        "城市-同比增长",
-        "城市-环比增长",
-        "城市-累计",
-        "农村-当月",
-        "农村-同比增长",
-        "农村-环比增长",
-        "农村-累计",
-    ]]
+    temp_df = temp_df[
+        [
+            "月份",
+            "全国-当月",
+            "全国-同比增长",
+            "全国-环比增长",
+            "全国-累计",
+            "城市-当月",
+            "城市-同比增长",
+            "城市-环比增长",
+            "城市-累计",
+            "农村-当月",
+            "农村-同比增长",
+            "农村-环比增长",
+            "农村-累计",
+        ]
+    ]
     temp_df["全国-当月"] = pd.to_numeric(temp_df["全国-当月"], errors="coerce")
     temp_df["全国-同比增长"] = pd.to_numeric(temp_df["全国-同比增长"], errors="coerce")
     temp_df["全国-环比增长"] = pd.to_numeric(temp_df["全国-环比增长"], errors="coerce")
@@ -2949,17 +2949,19 @@ def macro_china_gdp() -> pd.DataFrame:
         "第二产业-同比增长",
         "第三产业-同比增长",
     ]
-    temp_df = temp_df[[
-        "季度",
-        "国内生产总值-绝对值",
-        "国内生产总值-同比增长",
-        "第一产业-绝对值",
-        "第一产业-同比增长",
-        "第二产业-绝对值",
-        "第二产业-同比增长",
-        "第三产业-绝对值",
-        "第三产业-同比增长",
-    ]]
+    temp_df = temp_df[
+        [
+            "季度",
+            "国内生产总值-绝对值",
+            "国内生产总值-同比增长",
+            "第一产业-绝对值",
+            "第一产业-同比增长",
+            "第二产业-绝对值",
+            "第二产业-同比增长",
+            "第三产业-绝对值",
+            "第三产业-同比增长",
+        ]
+    ]
     temp_df["国内生产总值-绝对值"] = pd.to_numeric(temp_df["国内生产总值-绝对值"], errors="coerce")
     temp_df["国内生产总值-同比增长"] = pd.to_numeric(temp_df["国内生产总值-同比增长"], errors="coerce")
     temp_df["第一产业-绝对值"] = pd.to_numeric(temp_df["第一产业-绝对值"], errors="coerce")
@@ -3003,12 +3005,14 @@ def macro_china_ppi() -> pd.DataFrame:
         "当月同比增长",
         "累计",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "当月",
-        "当月同比增长",
-        "累计",
-    ]]
+    temp_df = temp_df[
+        [
+            "月份",
+            "当月",
+            "当月同比增长",
+            "累计",
+        ]
+    ]
     temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
     temp_df["当月同比增长"] = pd.to_numeric(temp_df["当月同比增长"], errors="coerce")
     temp_df["累计"] = pd.to_numeric(temp_df["累计"], errors="coerce")
@@ -3048,13 +3052,15 @@ def macro_china_pmi() -> pd.DataFrame:
         "非制造业-指数",
         "非制造业-同比增长",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "制造业-指数",
-        "制造业-同比增长",
-        "非制造业-指数",
-        "非制造业-同比增长",
-    ]]
+    temp_df = temp_df[
+        [
+            "月份",
+            "制造业-指数",
+            "制造业-同比增长",
+            "非制造业-指数",
+            "非制造业-同比增长",
+        ]
+    ]
     temp_df["制造业-指数"] = pd.to_numeric(temp_df["制造业-指数"], errors="coerce")
     temp_df["制造业-同比增长"] = pd.to_numeric(temp_df["制造业-同比增长"], errors="coerce")
     temp_df["非制造业-指数"] = pd.to_numeric(temp_df["非制造业-指数"], errors="coerce")
@@ -3096,17 +3102,19 @@ def macro_china_gdzctz() -> pd.DataFrame:
         "环比增长",
         "自年初累计",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "当月",
-        "同比增长",
-        "环比增长",
-        "自年初累计",
-    ]]
-    temp_df['当月'] = pd.to_numeric(temp_df['当月'], errors="coerce")
-    temp_df['同比增长'] = pd.to_numeric(temp_df['同比增长'], errors="coerce")
-    temp_df['环比增长'] = pd.to_numeric(temp_df['环比增长'], errors="coerce")
-    temp_df['自年初累计'] = pd.to_numeric(temp_df['自年初累计'], errors="coerce")
+    temp_df = temp_df[
+        [
+            "月份",
+            "当月",
+            "同比增长",
+            "环比增长",
+            "自年初累计",
+        ]
+    ]
+    temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
+    temp_df["同比增长"] = pd.to_numeric(temp_df["同比增长"], errors="coerce")
+    temp_df["环比增长"] = pd.to_numeric(temp_df["环比增长"], errors="coerce")
+    temp_df["自年初累计"] = pd.to_numeric(temp_df["自年初累计"], errors="coerce")
     return temp_df
 
 
@@ -3135,33 +3143,38 @@ def macro_china_hgjck() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.rename(columns={
-        'REPORT_DATE': "-",
-        'TIME': "月份",
-        'EXIT_BASE': "当月出口额-金额",
-        'IMPORT_BASE': "当月进口额-金额",
-        'EXIT_BASE_SAME': "当月出口额-同比增长",
-        'IMPORT_BASE_SAME': "当月进口额-同比增长",
-        'EXIT_BASE_SEQUENTIAL': "当月出口额-环比增长",
-        'IMPORT_BASE_SEQUENTIAL': "当月进口额-环比增长",
-        'EXIT_ACCUMULATE': "累计出口额-金额",
-        'IMPORT_ACCUMULATE': "累计进口额-金额",
-        'EXIT_ACCUMULATE_SAME': "累计出口额-同比增长",
-        'IMPORT_ACCUMULATE_SAME': "累计进口额-同比增长",
-    }, inplace=True)
-    temp_df = temp_df[[
-        "月份",
-        "当月出口额-金额",
-        "当月出口额-同比增长",
-        "当月出口额-环比增长",
-        "当月进口额-金额",
-        "当月进口额-同比增长",
-        "当月进口额-环比增长",
-        "累计出口额-金额",
-        "累计出口额-同比增长",
-        "累计进口额-金额",
-        "累计进口额-同比增长",
-    ]]
+    temp_df.rename(
+        columns={
+            "REPORT_DATE": "-",
+            "TIME": "月份",
+            "EXIT_BASE": "当月出口额-金额",
+            "IMPORT_BASE": "当月进口额-金额",
+            "EXIT_BASE_SAME": "当月出口额-同比增长",
+            "IMPORT_BASE_SAME": "当月进口额-同比增长",
+            "EXIT_BASE_SEQUENTIAL": "当月出口额-环比增长",
+            "IMPORT_BASE_SEQUENTIAL": "当月进口额-环比增长",
+            "EXIT_ACCUMULATE": "累计出口额-金额",
+            "IMPORT_ACCUMULATE": "累计进口额-金额",
+            "EXIT_ACCUMULATE_SAME": "累计出口额-同比增长",
+            "IMPORT_ACCUMULATE_SAME": "累计进口额-同比增长",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "月份",
+            "当月出口额-金额",
+            "当月出口额-同比增长",
+            "当月出口额-环比增长",
+            "当月进口额-金额",
+            "当月进口额-同比增长",
+            "当月进口额-环比增长",
+            "累计出口额-金额",
+            "累计出口额-同比增长",
+            "累计进口额-金额",
+            "累计进口额-同比增长",
+        ]
+    ]
     temp_df["当月出口额-金额"] = pd.to_numeric(temp_df["当月出口额-金额"], errors="coerce")
     temp_df["当月出口额-同比增长"] = pd.to_numeric(temp_df["当月出口额-同比增长"], errors="coerce")
     temp_df["当月出口额-环比增长"] = pd.to_numeric(temp_df["当月出口额-环比增长"], errors="coerce")
@@ -3210,19 +3223,21 @@ def macro_china_czsr() -> pd.DataFrame:
         "累计",
         "累计-同比增长",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "当月",
-        "当月-同比增长",
-        "当月-环比增长",
-        "累计",
-        "累计-同比增长",
-    ]]
-    temp_df['当月'] = pd.to_numeric(temp_df['当月'], errors="coerce")
-    temp_df['当月-同比增长'] = pd.to_numeric(temp_df['当月-同比增长'], errors="coerce")
-    temp_df['当月-环比增长'] = pd.to_numeric(temp_df['当月-环比增长'], errors="coerce")
-    temp_df['累计'] = pd.to_numeric(temp_df['累计'], errors="coerce")
-    temp_df['累计-同比增长'] = pd.to_numeric(temp_df['累计-同比增长'], errors="coerce")
+    temp_df = temp_df[
+        [
+            "月份",
+            "当月",
+            "当月-同比增长",
+            "当月-环比增长",
+            "累计",
+            "累计-同比增长",
+        ]
+    ]
+    temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
+    temp_df["当月-同比增长"] = pd.to_numeric(temp_df["当月-同比增长"], errors="coerce")
+    temp_df["当月-环比增长"] = pd.to_numeric(temp_df["当月-环比增长"], errors="coerce")
+    temp_df["累计"] = pd.to_numeric(temp_df["累计"], errors="coerce")
+    temp_df["累计-同比增长"] = pd.to_numeric(temp_df["累计-同比增长"], errors="coerce")
 
     return temp_df
 
@@ -3261,17 +3276,19 @@ def macro_china_whxd() -> pd.DataFrame:
         "环比增长",
         "累计",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "当月",
-        "同比增长",
-        "环比增长",
-        "累计",
-    ]]
-    temp_df['当月'] = pd.to_numeric(temp_df['当月'], errors="coerce")
-    temp_df['同比增长'] = pd.to_numeric(temp_df['同比增长'], errors="coerce")
-    temp_df['环比增长'] = pd.to_numeric(temp_df['环比增长'], errors="coerce")
-    temp_df['累计'] = pd.to_numeric(temp_df['累计'], errors="coerce")
+    temp_df = temp_df[
+        [
+            "月份",
+            "当月",
+            "同比增长",
+            "环比增长",
+            "累计",
+        ]
+    ]
+    temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
+    temp_df["同比增长"] = pd.to_numeric(temp_df["同比增长"], errors="coerce")
+    temp_df["环比增长"] = pd.to_numeric(temp_df["环比增长"], errors="coerce")
+    temp_df["累计"] = pd.to_numeric(temp_df["累计"], errors="coerce")
     return temp_df
 
 
@@ -3309,17 +3326,19 @@ def macro_china_wbck() -> pd.DataFrame:
         "环比增长",
         "累计",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "当月",
-        "同比增长",
-        "环比增长",
-        "累计",
-    ]]
-    temp_df['当月'] = pd.to_numeric(temp_df['当月'], errors="coerce")
-    temp_df['同比增长'] = pd.to_numeric(temp_df['同比增长'], errors="coerce")
-    temp_df['环比增长'] = pd.to_numeric(temp_df['环比增长'], errors="coerce")
-    temp_df['累计'] = pd.to_numeric(temp_df['累计'], errors="coerce")
+    temp_df = temp_df[
+        [
+            "月份",
+            "当月",
+            "同比增长",
+            "环比增长",
+            "累计",
+        ]
+    ]
+    temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
+    temp_df["同比增长"] = pd.to_numeric(temp_df["同比增长"], errors="coerce")
+    temp_df["环比增长"] = pd.to_numeric(temp_df["环比增长"], errors="coerce")
+    temp_df["累计"] = pd.to_numeric(temp_df["累计"], errors="coerce")
 
     return temp_df
 
@@ -3539,18 +3558,20 @@ def macro_china_xfzxx() -> pd.DataFrame:
         "消费者预期指数-同比增长",
         "消费者预期指数-环比增长",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "消费者信心指数-指数值",
-        "消费者信心指数-同比增长",
-        "消费者信心指数-环比增长",
-        "消费者满意指数-指数值",
-        "消费者满意指数-同比增长",
-        "消费者满意指数-环比增长",
-        "消费者预期指数-指数值",
-        "消费者预期指数-同比增长",
-        "消费者预期指数-环比增长",
-    ]]
+    temp_df = temp_df[
+        [
+            "月份",
+            "消费者信心指数-指数值",
+            "消费者信心指数-同比增长",
+            "消费者信心指数-环比增长",
+            "消费者满意指数-指数值",
+            "消费者满意指数-同比增长",
+            "消费者满意指数-环比增长",
+            "消费者预期指数-指数值",
+            "消费者预期指数-同比增长",
+            "消费者预期指数-环比增长",
+        ]
+    ]
 
     temp_df["消费者信心指数-指数值"] = pd.to_numeric(temp_df["消费者信心指数-指数值"], errors="coerce")
     temp_df["消费者信心指数-同比增长"] = pd.to_numeric(temp_df["消费者信心指数-同比增长"], errors="coerce")
@@ -3622,20 +3643,8 @@ def macro_china_reserve_requirement_ratio() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
-    temp_df.columns = ["-",
-                       "公布时间",
-                       "生效时间",
-                       "大型金融机构-调整前",
-                       "大型金融机构-调整后",
-                       "大型金融机构-调整幅度",
-                       "中小金融机构-调整前",
-                       "中小金融机构-调整后",
-                       "中小金融机构-调整幅度",
-                       "消息公布次日指数涨跌-上证",
-                       "消息公布次日指数涨跌-深证",
-                       "备注",
-                       ]
-    temp_df = temp_df[[
+    temp_df.columns = [
+        "-",
         "公布时间",
         "生效时间",
         "大型金融机构-调整前",
@@ -3647,16 +3656,31 @@ def macro_china_reserve_requirement_ratio() -> pd.DataFrame:
         "消息公布次日指数涨跌-上证",
         "消息公布次日指数涨跌-深证",
         "备注",
-    ]]
-    temp_df['大型金融机构-调整前'] = pd.to_numeric(temp_df['大型金融机构-调整前'], errors="coerce")
-    temp_df['大型金融机构-调整后'] = pd.to_numeric(temp_df['大型金融机构-调整后'], errors="coerce")
-    temp_df['大型金融机构-调整幅度'] = pd.to_numeric(temp_df['大型金融机构-调整幅度'], errors="coerce")
-    temp_df['大型金融机构-调整前'] = pd.to_numeric(temp_df['大型金融机构-调整前'], errors="coerce")
-    temp_df['大型金融机构-调整后'] = pd.to_numeric(temp_df['大型金融机构-调整后'], errors="coerce")
-    temp_df['大型金融机构-调整幅度'] = pd.to_numeric(temp_df['大型金融机构-调整幅度'], errors="coerce")
-    temp_df['消息公布次日指数涨跌-上证'] = pd.to_numeric(temp_df['消息公布次日指数涨跌-上证'], errors="coerce")
-    temp_df['消息公布次日指数涨跌-深证'] = pd.to_numeric(temp_df['消息公布次日指数涨跌-深证'], errors="coerce")
-    temp_df['消息公布次日指数涨跌-深证'] = pd.to_numeric(temp_df['消息公布次日指数涨跌-深证'], errors="coerce")
+    ]
+    temp_df = temp_df[
+        [
+            "公布时间",
+            "生效时间",
+            "大型金融机构-调整前",
+            "大型金融机构-调整后",
+            "大型金融机构-调整幅度",
+            "中小金融机构-调整前",
+            "中小金融机构-调整后",
+            "中小金融机构-调整幅度",
+            "消息公布次日指数涨跌-上证",
+            "消息公布次日指数涨跌-深证",
+            "备注",
+        ]
+    ]
+    temp_df["大型金融机构-调整前"] = pd.to_numeric(temp_df["大型金融机构-调整前"], errors="coerce")
+    temp_df["大型金融机构-调整后"] = pd.to_numeric(temp_df["大型金融机构-调整后"], errors="coerce")
+    temp_df["大型金融机构-调整幅度"] = pd.to_numeric(temp_df["大型金融机构-调整幅度"], errors="coerce")
+    temp_df["大型金融机构-调整前"] = pd.to_numeric(temp_df["大型金融机构-调整前"], errors="coerce")
+    temp_df["大型金融机构-调整后"] = pd.to_numeric(temp_df["大型金融机构-调整后"], errors="coerce")
+    temp_df["大型金融机构-调整幅度"] = pd.to_numeric(temp_df["大型金融机构-调整幅度"], errors="coerce")
+    temp_df["消息公布次日指数涨跌-上证"] = pd.to_numeric(temp_df["消息公布次日指数涨跌-上证"], errors="coerce")
+    temp_df["消息公布次日指数涨跌-深证"] = pd.to_numeric(temp_df["消息公布次日指数涨跌-深证"], errors="coerce")
+    temp_df["消息公布次日指数涨跌-深证"] = pd.to_numeric(temp_df["消息公布次日指数涨跌-深证"], errors="coerce")
     return temp_df
 
 
@@ -3697,14 +3721,16 @@ def macro_china_consumer_goods_retail() -> pd.DataFrame:
         "累计",
         "累计-同比增长",
     ]
-    temp_df = temp_df[[
-        "月份",
-        "当月",
-        "同比增长",
-        "环比增长",
-        "累计",
-        "累计-同比增长",
-    ]]
+    temp_df = temp_df[
+        [
+            "月份",
+            "当月",
+            "同比增长",
+            "环比增长",
+            "累计",
+            "累计-同比增长",
+        ]
+    ]
     temp_df["当月"] = pd.to_numeric(temp_df["当月"], errors="coerce")
     temp_df["同比增长"] = pd.to_numeric(temp_df["同比增长"], errors="coerce")
     temp_df["环比增长"] = pd.to_numeric(temp_df["环比增长"], errors="coerce")
@@ -4102,7 +4128,7 @@ def macro_china_swap_rate(
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest"
+        "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, data=params, headers=headers)
     data_json = r.json()
