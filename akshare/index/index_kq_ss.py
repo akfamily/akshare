@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/5/8 16:05
+Date: 2023/6/13 22:05
 Desc: 柯桥时尚指数
 http://ss.kqindex.cn:9559/rinder_web_kqsszs/index/index_page.do
 """
-import requests
 import pandas as pd
+import requests
 
 
 def index_kq_fashion(symbol: str = "时尚创意指数") -> pd.DataFrame:
@@ -67,7 +67,7 @@ def index_kq_fashion(symbol: str = "时尚创意指数") -> pd.DataFrame:
     temp_df.sort_values("日期", inplace=True)
     temp_df["涨跌值"] = temp_df["指数"].diff()
     temp_df["涨跌幅"] = temp_df["指数"].pct_change()
-    temp_df.sort_values("日期", ascending=False, inplace=True)
+    temp_df.sort_values("日期", ascending=True, inplace=True, ignore_index=True)
     return temp_df
 
 
@@ -92,4 +92,5 @@ if __name__ == "__main__":
         "时尚评价指数",
     ]:
         index_kq_fashion_df = index_kq_fashion(symbol=item)
+        print(item)
         print(index_kq_fashion_df)
