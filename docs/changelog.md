@@ -57,6 +57,12 @@
 
 ## 更新说明详情
 
+1.10.21 fix: fix fund_report_stock_cninfo interface
+
+    1. 修复 fund_report_stock_cninfo 接口
+    2. 修复 fund_report_industry_allocation_cninfo 接口
+    3. 修复 fund_report_asset_allocation_cninfo 接口
+
 1.10.20 fix: fix stock_new_gh_cninfo interface
 
     1. 修复 stock_new_gh_cninfo 接口
