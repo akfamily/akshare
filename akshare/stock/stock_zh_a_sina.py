@@ -134,18 +134,17 @@ def stock_zh_a_daily(
     """
     新浪财经-A 股-个股的历史行情数据, 大量抓取容易封 IP
     https://finance.sina.com.cn/realstock/company/sh603843/nc.shtml
+    :param symbol: sh600000
+    :type symbol: str
     :param start_date: 20201103; 开始日期
     :type start_date: str
     :param end_date: 20201103; 结束日期
     :type end_date: str
-    :param symbol: sh600000
-    :type symbol: str
     :param adjust: 默认为空: 返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据; hfq-factor: 返回后复权因子; hfq-factor: 返回前复权因子
     :type adjust: str
-    :return: specific data
+    :return: 行情数据
     :rtype: pandas.DataFrame
     """
-
     def _fq_factor(method: str) -> pd.DataFrame:
         if method == "hfq":
             res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
@@ -264,7 +263,6 @@ def stock_zh_a_daily(
         qfq_factor_df.columns = ["date", "qfq_factor"]
         qfq_factor_df.index = pd.to_datetime(qfq_factor_df.date)
         del qfq_factor_df["date"]
-
         temp_df = pd.merge(
             temp_df,
             qfq_factor_df,
@@ -459,9 +457,9 @@ def stock_zh_a_minute(
 
 if __name__ == "__main__":
     stock_zh_a_daily_hfq_df_one = stock_zh_a_daily(
-        symbol="bj430047",
-        start_date="20171103",
-        end_date="20211115",
+        symbol="sz000001",
+        start_date="19910403",
+        end_date="20230614",
         adjust="qfq",
     )
     print(stock_zh_a_daily_hfq_df_one)
