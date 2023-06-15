@@ -1053,6 +1053,7 @@
  "index_zh_a_hist_min_em"  # 中国股票指数-指数分时数据
  # 东方财富-个股人气榜-A股
  "stock_hot_rank_em"  # 东方财富-个股人气榜-人气榜
+ "stock_hot_up_em"  # 东方财富-个股人气榜-飙升榜
  "stock_hot_rank_detail_em"  # 东方财富-个股人气榜-历史趋势及粉丝特征
  "stock_hot_rank_detail_realtime_em"  # 东方财富-个股人气榜-实时变动
  "stock_hot_keyword_em"  # 东方财富-个股人气榜-关键词
