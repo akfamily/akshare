@@ -2772,6 +2772,7 @@ from akshare.stock.stock_hot_rank_em import (
     stock_hot_keyword_em,
     stock_hot_rank_latest_em,
 )
+from akshare.stock.stock_hot_up_em import stock_hot_up_em
 
 """
 东方财富个股人气榜-港股
