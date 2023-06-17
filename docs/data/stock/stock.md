@@ -12856,9 +12856,9 @@ print(stock_info_sh_name_code_df)
 
 输入参数
 
-| 名称        | 类型  | 描述                                                             |
-|-----------|-----|----------------------------------------------------------------|
-| indicator | str | indicator="A股列表"; choice of {"A股列表", "B股列表", "CDR列表", "AB股列表"} |
+| 名称     | 类型  | 描述                                                          |
+|--------|-----|-------------------------------------------------------------|
+| symbol | str | symbol="A股列表"; choice of {"A股列表", "B股列表", "CDR列表", "AB股列表"} |
 
 输出参数-A股列表
 
@@ -12877,7 +12877,7 @@ print(stock_info_sh_name_code_df)
 ```python
 import akshare as ak
 
-stock_info_sz_name_code_df = ak.stock_info_sz_name_code(indicator="A股列表")
+stock_info_sz_name_code_df = ak.stock_info_sz_name_code(symbol="A股列表")
 print(stock_info_sz_name_code_df)
 ```
 
