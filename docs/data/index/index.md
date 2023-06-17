@@ -180,21 +180,23 @@ print(stock_zh_index_daily_tx_df)
 
 输入参数
 
-| 名称     | 类型  | 描述                |
-|--------|-----|-------------------|
-| symbol | str | symbol="sz399552" |
+| 名称         | 类型  | 描述                                                             |
+|------------|-----|----------------------------------------------------------------|
+| symbol     | str | symbol="sz399552"; 支持 sz: 深交所, sh: 上交所, csi: 中信指数 + id(000905) |
+| start_date | str | start_date="19900101"                                          |
+| end_date   | str | end_date="20500101"                                            |
 
 输出参数
 
-| 名称     | 类型    | 描述                    |
-|--------|-------|-----------------------|
-| date   | str   | 东方财富的数据开始时间, 不是证券上市时间 |
-| open   | float | -                     |
-| close  | float | -                     |
-| high   | float | -                     |
-| low    | float | -                     |
-| volume | float | -                     |
-| amount | float | -                     |
+| 名称     | 类型      | 描述                    |
+|--------|---------|-----------------------|
+| date   | object  | 东方财富的数据开始时间, 不是证券上市时间 |
+| open   | float64 | -                     |
+| close  | float64 | -                     |
+| high   | float64 | -                     |
+| low    | float64 | -                     |
+| volume | int64   | -                     |
+| amount | float64 | -                     |
 
 接口示例
 
