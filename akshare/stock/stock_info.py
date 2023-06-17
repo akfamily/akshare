@@ -14,12 +14,12 @@ import requests
 from tqdm import tqdm
 
 
-def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
+def stock_info_sz_name_code(symbol: str = "A股列表") -> pd.DataFrame:
     """
     深圳证券交易所-股票列表
     http://www.szse.cn/market/product/stock/list/index.html
-    :param indicator: choice of {"A股列表", "B股列表", "CDR列表", "AB股列表"}
-    :type indicator: str
+    :param symbol: choice of {"A股列表", "B股列表", "CDR列表", "AB股列表"}
+    :type symbol: str
     :return: 指定 indicator 的数据
     :rtype: pandas.DataFrame
     """
@@ -33,7 +33,7 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
     params = {
         "SHOWTYPE": "xlsx",
         "CATALOGID": "1110",
-        "TABKEY": indicator_map[indicator],
+        "TABKEY": indicator_map[symbol],
         "random": "0.6935816432433362",
     }
     r = requests.get(url, params=params)
@@ -41,7 +41,7 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
     if len(temp_df) > 10:
-        if indicator == "A股列表":
+        if symbol == "A股列表":
             temp_df["A股代码"] = (
                 temp_df["A股代码"]
                 .astype(str)
@@ -61,7 +61,7 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
                     "所属行业",
                 ]
             ]
-        elif indicator == "B股列表":
+        elif symbol == "B股列表":
             temp_df["B股代码"] = (
                 temp_df["B股代码"]
                 .astype(str)
@@ -81,7 +81,7 @@ def stock_info_sz_name_code(indicator: str = "A股列表") -> pd.DataFrame:
                     "所属行业",
                 ]
             ]
-        elif indicator == "AB股列表":
+        elif symbol == "AB股列表":
             temp_df["A股代码"] = (
                 temp_df["A股代码"]
                 .astype(str)
@@ -419,7 +419,7 @@ def stock_info_a_code_name() -> pd.DataFrame:
     stock_sh = stock_info_sh_name_code(symbol="主板A股")
     stock_sh = stock_sh[["证券代码", "证券简称"]]
 
-    stock_sz = stock_info_sz_name_code(indicator="A股列表")
+    stock_sz = stock_info_sz_name_code(symbol="A股列表")
     stock_sz["A股代码"] = stock_sz["A股代码"].astype(str).str.zfill(6)
     big_df = pd.concat([big_df, stock_sz[["A股代码", "A股简称"]]], ignore_index=True)
     big_df.columns = ["证券代码", "证券简称"]
@@ -448,16 +448,16 @@ if __name__ == "__main__":
     stock_info_sh_name_code_df = stock_info_sh_name_code(symbol="科创板")
     print(stock_info_sh_name_code_df)
 
-    stock_info_sz_name_code_df = stock_info_sz_name_code(indicator="A股列表")
+    stock_info_sz_name_code_df = stock_info_sz_name_code(symbol="A股列表")
     print(stock_info_sz_name_code_df)
 
-    stock_info_sz_df = stock_info_sz_name_code(indicator="B股列表")
+    stock_info_sz_df = stock_info_sz_name_code(symbol="B股列表")
     print(stock_info_sz_df)
 
-    stock_info_sz_df = stock_info_sz_name_code(indicator="AB股列表")
+    stock_info_sz_df = stock_info_sz_name_code(symbol="AB股列表")
     print(stock_info_sz_df)
 
-    stock_info_sz_df = stock_info_sz_name_code(indicator="CDR列表")
+    stock_info_sz_df = stock_info_sz_name_code(symbol="CDR列表")
     print(stock_info_sz_df)
 
     stock_info_sh_delist_df = stock_info_sh_delist()
