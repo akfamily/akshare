@@ -134,6 +134,8 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
     data_df = data_df[data_df["合约代码"] != "小计"]
     data_df = data_df[data_df["合约代码"] != "合计"]
     data_df = data_df[~data_df["合约代码"].str.contains("IO")]
+    data_df = data_df[~data_df["合约代码"].str.contains("MO")]
+    data_df = data_df[~data_df["合约代码"].str.contains("HO")]
     data_df.reset_index(inplace=True, drop=True)
     data_df["合约代码"] = data_df["合约代码"].str.strip()
     symbol_list = data_df["合约代码"].to_list()
