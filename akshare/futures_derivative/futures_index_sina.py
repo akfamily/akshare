@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/30 20:41
+Date: 2023/6/19 17:41
 Desc: 新浪财经-期货的主力合约数据
 https://finance.sina.com.cn/futuremarket/index.shtml
 """
@@ -43,7 +43,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> pd.DataFrame:
         data_json["cffex"].remove("中国金融期货交易所")
         return pd.DataFrame(data_json["cffex"])
     if symbol == "gfex":
-        data_json["gfex"].remove("广期所")
+        data_json["gfex"].remove("广州期货交易所")
         return pd.DataFrame(data_json["gfex"])
 
 
