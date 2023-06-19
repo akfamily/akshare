@@ -4278,7 +4278,7 @@ from akshare.fortune.fortune_it_juzi import (
 """
 新浪主力连续接口
 """
-from akshare.futures_derivative.sina_futures_index import (
+from akshare.futures_derivative.futures_index_sina import (
     futures_main_sina,
     futures_display_main_sina,
 )
