@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/6 10:38
+Date: 2023/6/19 17:38
 Desc: Drewry 集装箱指数
 https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry
 https://infogram.com/world-container-index-1h17493095xl4zj
@@ -17,8 +17,8 @@ def drewry_wci_index(symbol: str = "composite") -> pd.DataFrame:
     """
     Drewry 集装箱指数
     https://infogram.com/world-container-index-1h17493095xl4zj
-    :return: choice of {"composite", "shanghai-rotterdam", "rotterdam-shanghai", "shanghai-los angeles", "los angeles-shanghai", "shanghai-genoa", "new york-rotterdam", "rotterdam-new york"}
-    :type: str
+    :param symbol: choice of {"composite", "shanghai-rotterdam", "rotterdam-shanghai", "shanghai-los angeles", "los angeles-shanghai", "shanghai-genoa", "new york-rotterdam", "rotterdam-new york"}
+    :type symbol: str
     :return: Drewry 集装箱指数
     :rtype: pandas.DataFrame
     """
@@ -44,9 +44,10 @@ def drewry_wci_index(symbol: str = "composite") -> pd.DataFrame:
     temp_df['wci'] = [item['value'] for item in temp_df['wci']]
     day = temp_df["date"].str.split("-", expand=True).iloc[:, 0].str.strip()
     month = temp_df["date"].str.split("-", expand=True).iloc[:, 1].str.strip()
+    month = month.str.replace("July", "Jul")
     year = temp_df["date"].str.split("-", expand=True).iloc[:, 2].str.strip()
     temp_df["date"] = day + "-" + month + "-" + year
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["date"] = pd.to_datetime(temp_df["date"], format="%d-%b-%y").dt.date
     temp_df["wci"] = pd.to_numeric(temp_df["wci"], errors="coerce")
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df

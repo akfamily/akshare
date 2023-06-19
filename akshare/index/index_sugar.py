@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/6/15 15:00
+Date: 2023/6/19 17:00
 Desc: 沐甜科技数据中心-中国食糖指数
 https://www.msweet.com.cn/mtkj/sjzx13/index.html
 """
@@ -28,10 +28,10 @@ def index_sugar_msweet() -> pd.DataFrame:
     )
     temp_df.columns = ["日期", "综合价格", "原糖价格", "现货价格"]
     temp_df.loc[3226, ["原糖价格"]] = 12.88  # 数据源错误
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
-    temp_df["综合价格"] = pd.to_numeric(temp_df["综合价格"])
-    temp_df["原糖价格"] = pd.to_numeric(temp_df["原糖价格"])
-    temp_df["现货价格"] = pd.to_numeric(temp_df["现货价格"])
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["综合价格"] = pd.to_numeric(temp_df["综合价格"], errors="coerce")
+    temp_df["原糖价格"] = pd.to_numeric(temp_df["原糖价格"], errors="coerce")
+    temp_df["现货价格"] = pd.to_numeric(temp_df["现货价格"], errors="coerce")
     return temp_df
 
 
@@ -65,7 +65,7 @@ def index_inner_quote_sugar_msweet() -> pd.DataFrame:
     ]
     temp_df.loc[988, ["泰国糖"]] = 4045.2  # 数据源错误
     temp_df["日期"] = temp_df["日期"].str.replace("/", "-")
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["利润空间"] = pd.to_numeric(temp_df["利润空间"], errors="coerce")
     temp_df["泰国糖"] = pd.to_numeric(temp_df["泰国糖"], errors="coerce")
     temp_df["泰国MA5"] = pd.to_numeric(temp_df["泰国MA5"], errors="coerce")
@@ -95,7 +95,7 @@ def index_outer_quote_sugar_msweet() -> pd.DataFrame:
     )
     temp_df.columns = ["日期", "巴西糖进口成本", "泰国糖进口利润空间", "巴西糖进口利润空间", "泰国糖进口成本", "日照现货价"]
     temp_df["日期"] = temp_df["日期"].str.replace("/", "-")
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["巴西糖进口成本"] = pd.to_numeric(temp_df["巴西糖进口成本"], errors="coerce")
     temp_df["泰国糖进口利润空间"] = pd.to_numeric(temp_df["泰国糖进口利润空间"], errors="coerce")
     temp_df["巴西糖进口利润空间"] = pd.to_numeric(temp_df["巴西糖进口利润空间"], errors="coerce")
