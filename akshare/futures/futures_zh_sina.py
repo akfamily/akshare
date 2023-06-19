@@ -130,7 +130,7 @@ def futures_zh_realtime(symbol: str = "白糖") -> pd.DataFrame:
     return temp_df
 
 
-def zh_subscribe_exchange_symbol(symbol: str = "dce") -> dict:
+def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> dict:
     """
     交易所具体的可交易品种
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
@@ -158,7 +158,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> dict:
         data_json["cffex"].remove("中国金融期货交易所")
         return pd.DataFrame(data_json["cffex"])
     if symbol == "gfex":
-        data_json["gfex"].remove("广期所")
+        data_json["gfex"].remove("广州期货交易所")
         return pd.DataFrame(data_json["gfex"])
 
 
