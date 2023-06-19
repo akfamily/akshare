@@ -2448,9 +2448,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.31 fix: fix zh_subscribe_exchange_symbol interface
 1.10.32 fix: fix get_cffex_daily interface
 1.10.33 fix: fix index_sugar_msweet interface
+1.10.34 fix: fix futures_display_main_sina interface
 """
 
-__version__ = "1.10.33"
+__version__ = "1.10.34"
 __author__ = "AKFamily"
 
 import sys
