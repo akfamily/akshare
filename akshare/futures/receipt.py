@@ -347,6 +347,8 @@ def get_gfex_receipt(date: str = None, vars_list: List = cons.contract_symbols) 
     :return: 注册仓单数据
     :rtype: pandas.DataFrame
     """
+    if not isinstance(vars_list, list):
+        return warnings.warn("vars_list: 必须是列表")
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime('%Y%m%d') not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
