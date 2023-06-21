@@ -155,6 +155,7 @@ def chinese_to_english(chinese_var: str):
         '生猪',
         '花生',
         '工业硅',
+        '氧化铝',
     ]
     english_list = [
         "RU",
@@ -261,6 +262,7 @@ def chinese_to_english(chinese_var: str):
         "LH",
         "PK",
         "SI",
+        "AO",
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]
@@ -269,9 +271,12 @@ def chinese_to_english(chinese_var: str):
 if __name__ == "__main__":
     print(chinese_to_english("苹果"))
     symbol = "rb1801"
+
     var = symbol_varieties("rb1808")
     print(var)
+
     market = symbol_market("SP")
     print(market)
+
     chi = find_chinese("a对方水电费dc大V")
     print(chi)
