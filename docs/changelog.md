@@ -4,6 +4,11 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.10.36    | stock_em_sy_hy_list                         | stock_sy_hy_em                              | 20230624 |
+| 1.10.36    | stock_em_sy_list                            | stock_sy_em                                 | 20230624 |
+| 1.10.36    | stock_em_sy_jz_list                         | stock_sy_jz_em                              | 20230624 |
+| 1.10.36    | stock_em_sy_yq_list                         | stock_sy_yq_em                              | 20230624 |
+| 1.10.36    | stock_em_sy_profile                         | stock_sy_profile_em                         | 20230624 |
 | 1.10.8     | futures_nh_volatility_index                 | futures_volatility_index_nh                 | 20230606 |
 | 1.9.41     | stock_a_lg_indicator                        | stock_a_indicator_lg                        | 20230406 |
 | 1.9.37     | stock_hk_eniu_indicator                     | stock_hk_indicator_eniu                     | 20230404 |
@@ -56,6 +61,14 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明详情
+
+1.10.36 fix: fix stock_sy_profile_em interface
+
+    1. 修复 stock_sy_profile_em 接口
+    2. 修复 stock_sy_yq_em 接口
+    3. 修复 stock_sy_jz_em 接口
+    4. 修复 stock_sy_em 接口
+    5. 修复 stock_sy_hy_em 接口
 
 1.10.35 add: add get_gfex_receipt interface
 
@@ -2533,6 +2546,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.36 fix: fix stock_sy_profile_em interface
 
 1.10.35 add: add get_gfex_receipt interface
 
