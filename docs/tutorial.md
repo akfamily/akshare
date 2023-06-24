@@ -225,11 +225,11 @@
  "stock_gpzy_distribute_statistics_bank_em"  # 获取质押机构分布统计-银行
  "stock_gpzy_industry_data_em"  # 获取上市公司质押比例-行业数据
  # 商誉专题数据
- "stock_em_sy_profile"  # 获取A股商誉市场概况
- "stock_em_sy_yq_list"  # 获取商誉减值预期明细
- "stock_em_sy_jz_list"  # 获取个股商誉减值明细
- "stock_em_sy_list"  # 获取个股商誉明细
- "stock_em_sy_hy_list"  # 获取行业商誉
+ "stock_sy_profile_em"  # A股商誉市场概况
+ "stock_sy_yq_em"  # 商誉减值预期明细
+ "stock_sy_jz_em"  # 个股商誉减值明细
+ "stock_sy_em"  # 个股商誉明细
+ "stock_sy_hy_em"  # 行业商誉
  # 股票账户统计数据
  "stock_account_statistics_em"  # 获取股票账户统计数据
  # 股票指数-成份股
