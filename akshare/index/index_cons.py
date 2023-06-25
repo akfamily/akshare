@@ -12,7 +12,6 @@ from io import BytesIO
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from tqdm import tqdm
 
 from akshare.utils import demjson
 
@@ -174,38 +173,6 @@ def index_stock_cons_weight_csindex(symbol: str = "000300") -> pd.DataFrame:
     return temp_df
 
 
-def index_stock_hist(symbol: str = "sh000300") -> pd.DataFrame:
-    """
-    指数历史成份, 从 2005 年开始
-    http://stock.jrj.com.cn/share,sh000300,2015nlscf_2.shtml
-    :param symbol: 指数代码, 需要带市场前缀
-    :type symbol: str
-    :return: 历史成份的进入和退出数据
-    :rtype: pandas.DataFrame
-    """
-    url = f"http://stock.jrj.com.cn/share,{symbol},2015nlscf.shtml"
-    r = requests.get(url)
-    r.encoding = "gb2312"
-    soup = BeautifulSoup(r.text, "lxml")
-    last_page_num = soup.find_all("a", attrs={"target": "_self"})[-2].text
-    temp_df = pd.read_html(r.text)[-1]
-    if last_page_num == "历史成份":
-        temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
-        del temp_df["股票名称"]
-        temp_df.columns = ["stock_code", "in_date", "out_date"]
-        return temp_df
-    for page in tqdm(range(2, int(last_page_num) + 1), leave=False):
-        url = f"http://stock.jrj.com.cn/share,{symbol},2015nlscf_{page}.shtml"
-        r = requests.get(url)
-        r.encoding = "gb2312"
-        inner_temp_df = pd.read_html(r.text)[-1]
-        temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
-    temp_df["股票代码"] = temp_df["股票代码"].astype(str).str.zfill(6)
-    del temp_df["股票名称"]
-    temp_df.columns = ["stock_code", "in_date", "out_date"]
-    return temp_df
-
-
 def stock_a_code_to_symbol(symbol: str = "000300") -> str:
     """
     输入股票代码判断股票市场
@@ -234,6 +201,3 @@ if __name__ == "__main__":
 
     index_stock_cons_df = index_stock_cons(symbol="000688")
     print(index_stock_cons_df)
-
-    stock_index_hist_df = index_stock_hist(symbol="sh000300")
-    print(stock_index_hist_df)
