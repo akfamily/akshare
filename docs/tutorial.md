@@ -238,7 +238,6 @@
  "index_stock_cons_weight_csindex"  # 中证指数成份股的权重
  "index_stock_info"  # 股票指数-成份股-所有可以获取的指数表
  "index_stock_info_sina"  # 股票指数-成份股-所有可以获取的指数表-新浪新接口
- "index_stock_hist"  # 股票指数-历史成份股
  # 义乌小商品指数
  "index_yw"  # 获取义乌小商品指数
  # 世界银行间拆借利率
