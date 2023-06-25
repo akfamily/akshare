@@ -1114,13 +1114,13 @@ def stock_zh_a_hist_min_em(
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
         temp_df.reset_index(drop=True, inplace=True)
-        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-        temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-        temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         return temp_df
     else:
@@ -1157,16 +1157,16 @@ def stock_zh_a_hist_min_em(
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
         temp_df.reset_index(drop=True, inplace=True)
-        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-        temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-        temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         temp_df = temp_df[
             [
@@ -1949,7 +1949,7 @@ if __name__ == "__main__":
     stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="106.TTE")
     print(stock_us_hist_min_em_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period="1")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="000001", period="5", adjust="qfq")
     print(stock_zh_a_hist_min_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
