@@ -62,6 +62,10 @@
 
 ## 更新说明详情
 
+1.10.38 fix: fix stock_board_industry_hist_min_em interface
+
+    1. 修复 stock_board_industry_hist_min_em 接口
+
 1.10.37 rem: rem index_stock_hist interface
 
     1. 移除 index_stock_hist 接口
@@ -2550,6 +2554,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.38 fix: fix stock_board_industry_hist_min_em interface
 
 1.10.37 rem: rem index_stock_hist interface
 
