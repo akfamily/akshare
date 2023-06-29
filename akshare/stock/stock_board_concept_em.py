@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/1/19 11:13
+Date: 2023/6/29 17:13
 Desc: 东方财富-沪深板块-概念板块
 https://quote.eastmoney.com/center/boardlist.html#concept_board
 """
@@ -199,60 +199,95 @@ def stock_board_concept_hist_min_em(
     stock_board_code = stock_board_concept_em_map[
         stock_board_concept_em_map["板块名称"] == symbol
     ]["板块代码"].values[0]
-    url = "http://91.push2his.eastmoney.com/api/qt/stock/kline/get"
-    params = {
-        "secid": f"90.{stock_board_code}",
-        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
-        "fields1": "f1,f2,f3,f4,f5,f6",
-        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
-        "klt": period,
-        "fqt": "1",
-        "end": "20500101",
-        "lmt": "1000000",
-        "_": "1647760607065",
-    }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
-    temp_df.columns = [
-        "日期时间",
-        "开盘",
-        "收盘",
-        "最高",
-        "最低",
-        "成交量",
-        "成交额",
-        "振幅",
-        "涨跌幅",
-        "涨跌额",
-        "换手率",
-    ]
-    temp_df = temp_df[
-        [
+    if period == "1":
+        url = "https://push2his.eastmoney.com/api/qt/stock/trends2/get"
+        params = {
+            "fields1": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13",
+            "fields2": "f51,f52,f53,f54,f55,f56,f57,f58",
+            "ut": 'fa5fd1943c7b386f172d6893dbfba10b',
+            "iscr": '0',
+            "ndays": '1',
+            "secid": f"90.{stock_board_code}",
+            "_": "1687852931312",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(
+            [item.split(",") for item in data_json["data"]["trends"]]
+        )
+        temp_df.columns = [
             "日期时间",
             "开盘",
             "收盘",
             "最高",
             "最低",
-            "涨跌幅",
-            "涨跌额",
+            "成交量",
+            "成交额",
+            "最新价",
+        ]
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+        return temp_df
+    else:
+        url = "http://91.push2his.eastmoney.com/api/qt/stock/kline/get"
+        params = {
+            "secid": f"90.{stock_board_code}",
+            "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+            "fields1": "f1,f2,f3,f4,f5,f6",
+            "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+            "klt": period,
+            "fqt": "1",
+            "end": "20500101",
+            "lmt": "1000000",
+            "_": "1647760607065",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+        temp_df.columns = [
+            "日期时间",
+            "开盘",
+            "收盘",
+            "最高",
+            "最低",
             "成交量",
             "成交额",
             "振幅",
+            "涨跌幅",
+            "涨跌额",
             "换手率",
         ]
-    ]
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-    return temp_df
+        temp_df = temp_df[
+            [
+                "日期时间",
+                "开盘",
+                "收盘",
+                "最高",
+                "最低",
+                "涨跌幅",
+                "涨跌额",
+                "成交量",
+                "成交额",
+                "振幅",
+                "换手率",
+            ]
+        ]
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+        return temp_df
 
 
 def stock_board_concept_cons_em(symbol: str = "车联网") -> pd.DataFrame:
