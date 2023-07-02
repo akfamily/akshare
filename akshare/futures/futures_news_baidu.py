@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/10/14 17:00
+Date: 2023/7/2 16:00
 Desc: 百度股市通-期货-新闻
 https://gushitong.baidu.com/futures/ab-CJ888
 """
@@ -44,7 +44,7 @@ def futures_news_baidu(symbol: str = "AL") -> pd.DataFrame:
             "新闻链接",
         ]
     ]
-    temp_df["发布时间"] = pd.to_datetime(temp_df["发布时间"], unit="s").dt.date
+    temp_df["发布时间"] = pd.to_datetime(pd.to_numeric(temp_df["发布时间"]), unit="s").dt.date
     temp_df.sort_values(["发布时间"], inplace=True, ignore_index=True)
     return temp_df
 
