@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/1/4 12:18
+Date: 2023/7/3 20:18
 Desc: 东方财富-ETF 行情
 https://quote.eastmoney.com/sh513500.html
 """
@@ -19,7 +19,7 @@ def _fund_etf_code_id_map_em() -> dict:
     :return: ETF 代码和市场标识映射
     :rtype: pandas.DataFrame
     """
-    url = "http://88.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "5000",
@@ -48,7 +48,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
     :return: ETF 实时行情
     :rtype: pandas.DataFrame
     """
-    url = "http://88.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "2000",
@@ -144,7 +144,7 @@ def fund_etf_hist_em(
     code_id_dict = _fund_etf_code_id_map_em()
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     period_dict = {"daily": "101", "weekly": "102", "monthly": "103"}
-    url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
+    url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "fields1": "f1,f2,f3,f4,f5,f6",
         "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61,f116",
@@ -176,17 +176,16 @@ def fund_etf_hist_em(
     ]
     temp_df.index = pd.to_datetime(temp_df["日期"])
     temp_df.reset_index(inplace=True, drop=True)
-
-    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-    temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-    temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
+    temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+    temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
     return temp_df
 
 
@@ -206,7 +205,7 @@ def fund_etf_hist_min_em(
     :type start_date: str
     :param end_date: 结束日期
     :type end_date: str
-    :param period: choice of {'1', '5', '15', '30', '60'}
+    :param period: choice of {"1", "5", "15", "30", "60"}
     :type period: str
     :param adjust: choice of {'', 'qfq', 'hfq'}
     :type adjust: str
@@ -248,17 +247,17 @@ def fund_etf_hist_min_em(
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
         temp_df.reset_index(drop=True, inplace=True)
-        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-        temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-        temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"])
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         return temp_df
     else:
-        url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
+        url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
         params = {
             "fields1": "f1,f2,f3,f4,f5,f6",
             "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
@@ -291,16 +290,16 @@ def fund_etf_hist_min_em(
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
         temp_df.reset_index(drop=True, inplace=True)
-        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"])
-        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"])
-        temp_df["最高"] = pd.to_numeric(temp_df["最高"])
-        temp_df["最低"] = pd.to_numeric(temp_df["最低"])
-        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
-        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"])
-        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"])
-        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
-        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"])
-        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"])
+        temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
+        temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+        temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+        temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+        temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+        temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
+        temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
+        temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+        temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
+        temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         temp_df = temp_df[
             [
@@ -355,7 +354,7 @@ if __name__ == "__main__":
         symbol="513500",
         period="5",
         adjust="hfq",
-        start_date="2023-05-01 09:32:00",
-        end_date="2023-05-04 14:40:00",
+        start_date="2023-07-01 09:32:00",
+        end_date="2023-07-04 14:40:00",
     )
     print(fund_etf_hist_min_em_df)
