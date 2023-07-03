@@ -2455,19 +2455,31 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.38 fix: fix stock_board_industry_hist_min_em interface
 1.10.39 fix: fix stock_board_concept_hist_min_em interface
 1.10.40 fix: fix futures_news_baidu interface
+1.10.41 add: add fund_lof_hist_em interface
 """
 
-__version__ = "1.10.40"
+__version__ = "1.10.41"
 __author__ = "AKFamily"
 
 import sys
 import warnings
 
 if sys.version_info < (3, 8):
-    warnings.warn("为了支持更多特性，AKShare 将于 2023-07-01 停止对 Python 3.7 及以下版本的支持，请尽快升级 Python 版本")
+    warnings.warn(
+        "为了支持更多特性，AKShare 将于 2023-07-01 停止对 Python 3.7 及以下版本的支持，请尽快升级 Python 版本"
+    )
     # sys.exit(1)
 
 del sys
+
+"""
+LOF 行情数据
+"""
+from akshare.fund.fund_lof_em import (
+    fund_lof_hist_em,
+    fund_lof_spot_em,
+    fund_lof_hist_min_em,
+)
 
 """
 同花顺-财务指标-主要指标
