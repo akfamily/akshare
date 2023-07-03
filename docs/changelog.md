@@ -62,6 +62,12 @@
 
 ## 更新说明详情
 
+1.10.41 add: add fund_lof_hist_em interface
+
+    1. 新增 fund_lof_hist_em 接口
+    2. 新增 fund_lof_spot_em 接口
+    3. 新增 fund_lof_hist_min_em 接口
+
 1.10.40 fix: fix futures_news_baidu interface
 
     1. 修复 futures_news_baidu 接口
