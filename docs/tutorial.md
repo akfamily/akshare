@@ -1216,6 +1216,10 @@
  "stock_hk_index_daily_em"  # 东方财富网-港股-股票指数数据
  # 同花顺-财务指标-主要指标
  "stock_financial_abstract_ths"  # 同花顺-财务指标-主要指标
+ # LOF 行情
+ "fund_lof_hist_em"  # 东方财富-LOF 行情
+ "fund_lof_spot_em"  # 东方财富-LOF 实时行情
+ "fund_lof_hist_min_em"  # 东方财富-LOF 分时行情
 ```
 
 ## 案例演示

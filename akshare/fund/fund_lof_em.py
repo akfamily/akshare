@@ -2,8 +2,9 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2023/7/3 20:18
-Desc: 东方财富-ETF 行情
-https://quote.eastmoney.com/sh513500.html
+Desc: 东方财富-LOF 行情
+https://quote.eastmoney.com/center/gridlist.html#fund_lof
+https://quote.eastmoney.com/sz166009.html
 """
 from functools import lru_cache
 
@@ -12,11 +13,40 @@ import requests
 
 
 @lru_cache()
-def _fund_etf_code_id_map_em() -> dict:
+def _fund_lof_code_id_map_em() -> dict:
     """
-    东方财富-ETF 代码和市场标识映射
-    https://quote.eastmoney.com/center/gridlist.html#fund_etf
-    :return: ETF 代码和市场标识映射
+    东方财富-LOF 代码和市场标识映射
+    https://quote.eastmoney.com/center/gridlist.html#fund_lof
+    :return: LOF 代码和市场标识映射
+    :rtype: pandas.DataFrame
+    """
+    url = "https://2.push2.eastmoney.com/api/qt/clist/get"
+    params = {
+        "pn": "1",
+        "pz": "5000",
+        "po": "1",
+        "np": "1",
+        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
+        "fltt": "2",
+        "invt": "2",
+        "wbp2u": "|0|0|0|web",
+        "fid": "f3",
+        "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
+        "fields": "f12,f13",
+        "_": "1672806290972",
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]["diff"])
+    temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
+    return temp_dict
+
+
+def fund_lof_spot_em() -> pd.DataFrame:
+    """
+    东方财富-LOF 实时行情
+    https://quote.eastmoney.com/center/gridlist.html#fund_lof
+    :return: LOF 实时行情
     :rtype: pandas.DataFrame
     """
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
@@ -30,36 +60,7 @@ def _fund_etf_code_id_map_em() -> dict:
         "invt": "2",
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
-        "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
-        "fields": "f12,f13",
-        "_": "1672806290972",
-    }
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["data"]["diff"])
-    temp_dict = dict(zip(temp_df["f12"], temp_df["f13"]))
-    return temp_dict
-
-
-def fund_etf_spot_em() -> pd.DataFrame:
-    """
-    东方财富-ETF 实时行情
-    https://quote.eastmoney.com/center/gridlist.html#fund_etf
-    :return: ETF 实时行情
-    :rtype: pandas.DataFrame
-    """
-    url = "https://88.push2.eastmoney.com/api/qt/clist/get"
-    params = {
-        "pn": "1",
-        "pz": "2000",
-        "po": "1",
-        "np": "1",
-        "ut": "bd1d9ddb04089700cf9c27f6f7426281",
-        "fltt": "2",
-        "invt": "2",
-        "wbp2u": "|0|0|0|web",
-        "fid": "f3",
-        "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
+        "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1672806290972",
     }
@@ -118,17 +119,17 @@ def fund_etf_spot_em() -> pd.DataFrame:
     return temp_df
 
 
-def fund_etf_hist_em(
-    symbol: str = "159707",
+def fund_lof_hist_em(
+    symbol: str = "166009",
     period: str = "daily",
     start_date: str = "19700101",
     end_date: str = "20500101",
     adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富-ETF 行情
-    https://quote.eastmoney.com/sz159707.html
-    :param symbol: ETF 代码
+    东方财富-LOF 行情
+    https://quote.eastmoney.com/sz166009.html
+    :param symbol: LOF 代码
     :type symbol: str
     :param period: choice of {'daily', 'weekly', 'monthly'}
     :type period: str
@@ -141,7 +142,7 @@ def fund_etf_hist_em(
     :return: 每日行情
     :rtype: pandas.DataFrame
     """
-    code_id_dict = _fund_etf_code_id_map_em()
+    code_id_dict = _fund_lof_code_id_map_em()
     adjust_dict = {"qfq": "1", "hfq": "2", "": "0"}
     period_dict = {"daily": "101", "weekly": "102", "monthly": "103"}
     url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
@@ -189,21 +190,21 @@ def fund_etf_hist_em(
     return temp_df
 
 
-def fund_etf_hist_min_em(
-    symbol: str = "159707",
+def fund_lof_hist_min_em(
+    symbol: str = "166009",
     start_date: str = "1979-09-01 09:32:00",
     end_date: str = "2222-01-01 09:32:00",
     period: str = "5",
     adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富-ETF 行情
-    https://quote.eastmoney.com/sz159707.html
-    :param symbol: ETF 代码
+    东方财富-LOF 分时行情
+    https://quote.eastmoney.com/sz166009.html
+    :param symbol: LOF 代码
     :type symbol: str
-    :param start_date: 开始日期
+    :param start_date: 开始日期时间
     :type start_date: str
-    :param end_date: 结束日期
+    :param end_date: 结束日期时间
     :type end_date: str
     :param period: choice of {"1", "5", "15", "30", "60"}
     :type period: str
@@ -212,7 +213,7 @@ def fund_etf_hist_min_em(
     :return: 每日分时行情
     :rtype: pandas.DataFrame
     """
-    code_id_dict = _fund_etf_code_id_map_em()
+    code_id_dict = _fund_lof_code_id_map_em()
     adjust_map = {
         "": "0",
         "qfq": "1",
@@ -320,41 +321,41 @@ def fund_etf_hist_min_em(
 
 
 if __name__ == "__main__":
-    fund_etf_spot_em_df = fund_etf_spot_em()
-    print(fund_etf_spot_em_df)
+    fund_lof_spot_em_df = fund_lof_spot_em()
+    print(fund_lof_spot_em_df)
 
-    fund_etf_hist_hfq_em_df = fund_etf_hist_em(
-        symbol="513500",
+    fund_lof_hist_em_df = fund_lof_hist_em(
+        symbol="166009",
         period="daily",
         start_date="20000101",
-        end_date="20230201",
-        adjust="hfq",
-    )
-    print(fund_etf_hist_hfq_em_df)
-
-    fund_etf_hist_qfq_em_df = fund_etf_hist_em(
-        symbol="513500",
-        period="daily",
-        start_date="20000101",
-        end_date="20230201",
-        adjust="qfq",
-    )
-    print(fund_etf_hist_qfq_em_df)
-
-    fund_etf_hist_em_df = fund_etf_hist_em(
-        symbol="513500",
-        period="daily",
-        start_date="20000101",
-        end_date="20230201",
+        end_date="20230703",
         adjust="",
     )
-    print(fund_etf_hist_em_df)
+    print(fund_lof_hist_em_df)
 
-    fund_etf_hist_min_em_df = fund_etf_hist_min_em(
-        symbol="513500",
+    fund_lof_hist_qfq_em_df = fund_lof_hist_em(
+        symbol="166009",
+        period="daily",
+        start_date="20000101",
+        end_date="20230703",
+        adjust="qfq",
+    )
+    print(fund_lof_hist_qfq_em_df)
+
+    fund_lof_hist_em_df = fund_lof_hist_em(
+        symbol="166009",
+        period="daily",
+        start_date="20000101",
+        end_date="20230703",
+        adjust="hfq",
+    )
+    print(fund_lof_hist_em_df)
+
+    fund_lof_hist_min_em_df = fund_lof_hist_min_em(
+        symbol="166009",
         period="5",
         adjust="hfq",
         start_date="2023-07-01 09:32:00",
         end_date="2023-07-04 14:40:00",
     )
-    print(fund_etf_hist_min_em_df)
+    print(fund_lof_hist_min_em_df)
