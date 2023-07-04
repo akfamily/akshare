@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/6/1 16:36
+Date: 2023/7/4 16:36
 Desc: 金十数据-其他-加密货币实时行情
 """
 import time
@@ -19,7 +19,7 @@ def crypto_js_spot() -> pd.DataFrame:
     """
     url = "https://datacenter-api.jin10.com/crypto_currency/list"
     params = {
-        "_": '1672141224307',
+        "_": "1672141224307",
     }
     headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
@@ -104,63 +104,11 @@ def macro_fx_sentiment(
     return temp_df
 
 
-def index_vix(
-    start_date: str = "20210401", end_date: str = "20210402"
-) -> pd.DataFrame:
-    """
-    金十数据-市场异动-恐慌指数; 只能获取当前交易日近一个月内的数据
-    https://datacenter.jin10.com/market
-    :param start_date: 具体交易日, 只能获取当前交易日近一个月内的数据
-    :type start_date: str
-    :param end_date: 具体交易日, 与 end_date 相同, 只能获取当前交易日近一个月内的数据
-    :type end_date: str
-    :return: 恐慌指数
-    :rtype: pandas.DataFrame
-    """
-    import warnings
-
-    warnings.warn("由于目标网站未更新数据，该接口即将移除", DeprecationWarning)
-    url = "https://datacenter-api.jin10.com/vix/datas"
-    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
-    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
-    params = {
-        "start_date": start_date,
-        "end_date": end_date,
-        "_": int(time.time() * 1000),
-    }
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "referer": "https://datacenter.jin10.com/reportType/dc_ssi_trends",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    res = requests.get(url, params=params, headers=headers)
-    temp_df = pd.DataFrame(
-        res.json()["data"]["values"], index=["开盘价", "当前价", "涨跌", "涨跌幅"]
-    ).T
-    temp_df = temp_df.astype(float)
-    return temp_df
-
-
 if __name__ == "__main__":
     crypto_js_spot_df = crypto_js_spot()
     print(crypto_js_spot_df)
 
     test_date = datetime.now().date().isoformat().replace("-", "")
 
-    macro_fx_sentiment_df = macro_fx_sentiment(
-        start_date=test_date, end_date=test_date
-    )
+    macro_fx_sentiment_df = macro_fx_sentiment(start_date=test_date, end_date=test_date)
     print(macro_fx_sentiment_df)
-
-    index_vix_df = index_vix(start_date="20220501", end_date="20220517")
-    print(index_vix_df)

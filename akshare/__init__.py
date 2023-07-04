@@ -2457,9 +2457,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.40 fix: fix futures_news_baidu interface
 1.10.41 add: add fund_lof_hist_em interface
 1.10.42 fix: fix fund_rating_all interface
+1.10.43 rem: rem index_vix interface
 """
 
-__version__ = "1.10.42"
+__version__ = "1.10.43"
 __author__ = "AKFamily"
 
 import sys
@@ -3966,11 +3967,6 @@ from akshare.futures.futures_spot_stock_em import futures_spot_stock
 energy_oil
 """
 from akshare.energy.energy_oil_em import energy_oil_detail, energy_oil_hist
-
-"""
-index-vix
-"""
-from akshare.economic.macro_other import index_vix
 
 """
 futures-foreign
