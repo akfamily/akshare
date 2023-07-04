@@ -468,8 +468,6 @@
  "stock_hsgt_fund_flow_summary_em"  # 沪深港通资金流向
  # 两市停复牌
  "stock_tfp_em"  # 两市停复牌数据
- # 恐慌指数
- "index_vix"  # 恐慌指数
  # 中国油价
  "energy_oil_hist"  # 汽柴油历史调价信息
  "energy_oil_detail"  # 地区油价
