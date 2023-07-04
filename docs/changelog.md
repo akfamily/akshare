@@ -62,6 +62,13 @@
 
 ## 更新说明详情
 
+1.10.42 fix: fix fund_rating_all interface
+
+    1. 修复 fund_rating_all 接口
+    2. 修复 fund_rating_sh 接口
+    3. 修复 fund_rating_zs 接口
+    4. 修复 fund_rating_ja 接口
+
 1.10.41 add: add fund_lof_hist_em interface
 
     1. 新增 fund_lof_hist_em 接口
@@ -2568,6 +2575,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.42 fix: fix fund_rating_all interface
+
+1.10.41 add: add fund_lof_hist_em interface
 
 1.10.40 fix: fix futures_news_baidu interface
 

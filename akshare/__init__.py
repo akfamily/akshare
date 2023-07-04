@@ -2456,9 +2456,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.39 fix: fix stock_board_concept_hist_min_em interface
 1.10.40 fix: fix futures_news_baidu interface
 1.10.41 add: add fund_lof_hist_em interface
+1.10.42 fix: fix fund_rating_all interface
 """
 
-__version__ = "1.10.41"
+__version__ = "1.10.42"
 __author__ = "AKFamily"
 
 import sys
