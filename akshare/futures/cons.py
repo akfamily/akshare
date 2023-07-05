@@ -184,6 +184,7 @@ market_exchange_symbols = {
         "SS",
         "LU",
         "BC",
+        "AO",
     ],
     "gfex": ["SI"],
 }
