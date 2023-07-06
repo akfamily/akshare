@@ -2461,9 +2461,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.44 fix: fix get_shfe_rank_table interface
 1.10.45 fix: fix stock_zh_a_minute interface
 1.10.46 fix: fix index_value_hist_funddb interface
+1.10.47 add: add stock_esg_rate_sina interface
 """
 
-__version__ = "1.10.46"
+__version__ = "1.10.47"
 __author__ = "AKFamily"
 
 import sys
@@ -2476,6 +2477,11 @@ if sys.version_info < (3, 8):
     # sys.exit(1)
 
 del sys
+
+"""
+新浪财经-ESG评级中心
+"""
+from akshare.stock_feature.stock_esg_sina import stock_esg_rate_sina
 
 """
 LOF 行情数据
