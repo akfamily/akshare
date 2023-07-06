@@ -1218,6 +1218,8 @@
  "fund_lof_hist_em"  # 东方财富-LOF 行情
  "fund_lof_spot_em"  # 东方财富-LOF 实时行情
  "fund_lof_hist_min_em"  # 东方财富-LOF 分时行情
+ # 新浪财经-ESG评级中心
+ "stock_esg_rate_sina"  # 新浪财经-ESG评级中心-ESG评级-ESG评级数据
 ```
 
 ## 案例演示
