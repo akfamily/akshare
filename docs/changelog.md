@@ -62,6 +62,10 @@
 
 ## 更新说明详情
 
+1.10.46 fix: fix index_value_hist_funddb interface
+    
+    1. 修复 index_value_hist_funddb 接口
+
 1.10.45 fix: fix stock_zh_a_minute interface
 
     1. 修复 stock_zh_a_minute 接口
@@ -2587,6 +2591,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.46 fix: fix index_value_hist_funddb interface
 
 1.10.45 fix: fix stock_zh_a_minute interface
 
