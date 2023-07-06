@@ -284,12 +284,13 @@ def get_rank_sum(
 
 def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
     """
-    上海期货交易所前 20 会员持仓排名数据明细
+    上海期货交易所会员成交及持仓排名表
     https://www.shfe.com.cn/
+    https://www.shfe.com.cn/statements/dataview.html?paramid=delaymarket_ao
     注：该交易所只公布每个品种内部的标的排名，没有公布品种的总排名
     数据从20020107开始，每交易日16:30左右更新数据
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品
+    :param vars_list: 合约品种如 RB、AL等列表 为空时为所有商品
     :return: pd.DataFrame
     rank                        排名                        int
     vol_party_name              成交量排序的当前名次会员        string(中文)
@@ -1133,7 +1134,7 @@ if __name__ == "__main__":
     print(get_cffex_rank_table_df)
 
     # 上海期货交易所
-    get_shfe_rank_table_df = get_shfe_rank_table(date="20230103")
+    get_shfe_rank_table_df = get_shfe_rank_table(date="20230705")
     print(get_shfe_rank_table_df)
 
     # 大连商品交易所
@@ -1142,10 +1143,13 @@ if __name__ == "__main__":
 
     get_dce_rank_table_second_df = get_dce_rank_table(date="20171227")
     print(get_dce_rank_table_second_df)
+
     get_dce_rank_table_third_df = get_dce_rank_table(date="20200929")
     print(get_dce_rank_table_third_df)
+
     get_dce_rank_table_third_df = get_dce_rank_table(date="20210517")
     print(get_dce_rank_table_third_df)
+
     get_dce_rank_table_fourth_df = get_dce_rank_table(
         date="20210517", vars_list=["V"]
     )
