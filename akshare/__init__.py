@@ -2459,9 +2459,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.42 fix: fix fund_rating_all interface
 1.10.43 rem: rem index_vix interface
 1.10.44 fix: fix get_shfe_rank_table interface
+1.10.45 fix: fix stock_zh_a_minute interface
 """
 
-__version__ = "1.10.44"
+__version__ = "1.10.45"
 __author__ = "AKFamily"
 
 import sys
