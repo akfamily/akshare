@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/3/6 18:28
+Date: 2023/7/6 19:28
 Desc: 新浪财经-科创板-实时行情数据和历史行情数据(包含前复权和后复权因子)
 """
 import datetime
@@ -26,8 +26,9 @@ from akshare.stock.cons import (
 def get_zh_kcb_page_count() -> int:
     """
     所有股票的总页数
-    http://vip.stock.finance.sina.com.cn/mkt/#hs_a
-    :return: int 需要抓取的股票总页数
+    https://vip.stock.finance.sina.com.cn/mkt/#hs_a
+    :return: 所有股票的总页数
+    :rtype: int
     """
     res = requests.get(zh_sina_kcb_stock_count_url)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
