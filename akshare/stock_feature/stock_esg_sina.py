@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/6 19:28
+Date: 2023/7/7 19:28
 Desc: 新浪财经-ESG评级中心
 https://finance.sina.com.cn/esg/
 """
@@ -65,6 +65,68 @@ def stock_esg_rate_sina() -> pd.DataFrame:
     return big_df
 
 
+def stock_esg_hz_sina() -> pd.DataFrame:
+    """
+    新浪财经-ESG评级中心-ESG评级-华证指数
+    https://finance.sina.com.cn/esg/grade.shtml
+    :return: 华证指数
+    :rtype: pandas.DataFrame
+    """
+    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getHzEsgStocks?p=1&num=200"
+    r = requests.get(url)
+    data_json = r.json()
+    page_num = math.ceil(int(data_json["result"]["data"]["total"]) / 200)
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, page_num + 1), leave=False):
+        url = f"https://global.finance.sina.com.cn/api/openapi.php/EsgService.getHzEsgStocks?page={page}&num=200"
+        r = requests.get(url)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df.rename(
+        columns={
+            "date": "日期",
+            "symbol": "股票代码",
+            "market": "交易市场",
+            "name": "股票名称",
+            "esg_score": "ESG评分",
+            "esg_score_grade": "ESG等级",
+            "e_score": "环境",
+            "e_score_grade": "环境等级",
+            "s_score": "社会",
+            "s_score_grade": "社会等级",
+            "g_score": "公司治理",
+            "g_score_grade": "公司治理等级",
+        },
+        inplace=True,
+    )
+    big_df = big_df[
+        [
+            "日期",
+            "股票代码",
+            "交易市场",
+            "股票名称",
+            "ESG评分",
+            "ESG等级",
+            "环境",
+            "环境等级",
+            "社会",
+            "社会等级",
+            "公司治理",
+            "公司治理等级",
+        ]
+    ]
+    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
+    big_df['ESG评分'] = pd.to_numeric(big_df['ESG评分'])
+    big_df['环境'] = pd.to_numeric(big_df['环境'])
+    big_df['社会'] = pd.to_numeric(big_df['社会'])
+    big_df['公司治理'] = pd.to_numeric(big_df['公司治理'])
+    return big_df
+
+
 if __name__ == "__main__":
     stock_esg_rate_sina_df = stock_esg_rate_sina()
     print(stock_esg_rate_sina_df)
+
+    stock_esg_hz_sina_df = stock_esg_hz_sina()
+    print(stock_esg_hz_sina_df)
