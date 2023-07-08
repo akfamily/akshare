@@ -7,9 +7,9 @@ Desc: 艺恩-艺人
 艺人流量价值
 https://www.endata.com.cn/Marketing/Artist/business.html
 """
+import datetime
 import json
 import os
-import datetime
 
 import pandas as pd  # type: ignore
 import requests
@@ -70,11 +70,11 @@ def business_value_artist() -> pd.DataFrame:
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
     payload = {
-            "Order": "BusinessValueIndex_L1",
-            "OrderType": "DESC",
-            "PageIndex": '1',
-            "PageSize": '100',
-            "MethodName": "Data_GetList_Star"
+        "Order": "BusinessValueIndex_L1",
+        "OrderType": "DESC",
+        "PageIndex": "1",
+        "PageSize": "100",
+        "MethodName": "Data_GetList_Star",
     }
     r = requests.post(url, data=payload)
     r.encoding = "utf8"
@@ -99,7 +99,7 @@ def online_value_artist() -> pd.DataFrame:
         "OrderType": "DESC",
         "PageIndex": 1,
         "PageSize": 100,
-        "MethodName": "Data_GetList_Star"
+        "MethodName": "Data_GetList_Star",
     }
     r = requests.post(url, data=payload)
     r.encoding = "utf8"
