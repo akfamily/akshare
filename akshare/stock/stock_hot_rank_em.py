@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/15 17:15
+Date: 2023/7/8 17:15
 Desc: 东方财富个股人气榜
 https://guba.eastmoney.com/rank/
 """
@@ -45,6 +45,8 @@ def stock_hot_rank_em() -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = ["最新价", "涨跌幅", "代码", "股票名称"]
+    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["涨跌额"] = temp_df["最新价"] * temp_df["涨跌幅"] / 100
     temp_df["当前排名"] = temp_rank_df["rk"]
     temp_df["代码"] = temp_rank_df["sc"]
@@ -59,8 +61,6 @@ def stock_hot_rank_em() -> pd.DataFrame:
         ]
     ]
     temp_df["当前排名"] = pd.to_numeric(temp_df["当前排名"], errors="coerce")
-    temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     return temp_df
 
 
