@@ -2465,9 +2465,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.48 add: add stock_esg_hz_sina interface
 1.10.49 fix: fix stock_hot_rank_em interface
 1.10.50 fix: fix car_energy_sale_cpca interface
+1.10.51 fix: fix fund_money_rank_em interface
 """
 
-__version__ = "1.10.50"
+__version__ = "1.10.51"
 __author__ = "AKFamily"
 
 import sys
