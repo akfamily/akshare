@@ -1,16 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/1 19:15
+Date: 2023/7/10 20:15
 Desc: 港股-基本面数据
 https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
 """
+import datetime
+
 import pandas as pd
 import requests
 
 
 def stock_financial_hk_report_em(
-    stock: str = "00700", symbol: str = "现金流量表", indicator: str = "年度"
+    stock: str = "00853", symbol: str = "资产负债表", indicator: str = "年度"
 ) -> pd.DataFrame:
     """
     东方财富-港股-财务报表-三大报表
@@ -24,30 +26,74 @@ def stock_financial_hk_report_em(
     :return: 东方财富-港股-财务报表-三大报表
     :rtype: pandas.DataFrame
     """
+    url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
+    year_int = datetime.datetime.now().year
     if indicator == "年度":
-        rtype = 6
-    elif indicator == "报告期":
-        rtype = 0
+        year_list = [f"{item}-12-31" for item in range(1990, year_int + 1)]
     else:
-        raise Exception("请输入正确的 indicator !", indicator)
+        year_list_four = [f"{item}-12-31" for item in range(1990, year_int + 1)]
+        year_list_three = [f"{item}-09-30" for item in range(1990, year_int + 1)]
+        year_list_two = [f"{item}-06-30" for item in range(1990, year_int + 1)]
+        year_list_one = [f"{item}-03-31" for item in range(1990, year_int + 1)]
+        year_list = year_list_one + year_list_two + year_list_three + year_list_four
     if symbol == "资产负债表":
-        url = f"https://emweb.securities.eastmoney.com/PC_HKF10/NewFinancialAnalysis/GetZCFZB?code={stock}&startdate=&ctype=4&rtype={rtype}"  # 资产负债表
+        params = {
+            "reportName": "RPT_HKF10_FN_BALANCE_PC",
+            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,FISCAL_YEAR,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT,STD_REPORT_DATE",
+            "quoteColumns": "",
+            "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
+            "pageNumber": "1",
+            "pageSize": "",
+            "sortTypes": "-1,1",
+            "sortColumns": "REPORT_DATE,STD_ITEM_CODE",
+            "source": "F10",
+            "client": "PC",
+            "v": "01975982096513973",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        return temp_df
     elif symbol == "利润表":
-        url = f"https://emweb.securities.eastmoney.com/PC_HKF10/NewFinancialAnalysis/GetLRB?code={stock}&startdate=&ctype=4&rtype={rtype}"  # 利润表
+        params = {
+            "reportName": "RPT_HKF10_FN_INCOME_PC",
+            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,FISCAL_YEAR,START_DATE,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT",
+            "quoteColumns": "",
+            "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
+            "pageNumber": "1",
+            "pageSize": "",
+            "sortTypes": "-1,1",
+            "sortColumns": "REPORT_DATE,STD_ITEM_CODE",
+            "source": "F10",
+            "client": "PC",
+            "v": "01975982096513973",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        return temp_df
     elif symbol == "现金流量表":
-        url = f"https://emweb.securities.eastmoney.com/PC_HKF10/NewFinancialAnalysis/GetXJLLB?code={stock}&startdate=&rtype={rtype}"  # 现金流量表
-    r = requests.get(url)
-    temp_df = pd.DataFrame(eval(r.text)["data"])
-    temp_df.columns = temp_df.loc[0]
-    temp_df = temp_df.drop(0, axis=0)
-    temp_df["截止日期"] = pd.to_datetime(temp_df["截止日期"], format="%y-%m-%d").dt.date
-    temp_df.reset_index(drop=True, inplace=True)
-    temp_df.columns.name = None
-    return temp_df
+        params = {
+            "reportName": "RPT_HKF10_FN_CASHFLOW_PC",
+            "columns": "SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,ORG_CODE,REPORT_DATE,DATE_TYPE_CODE,FISCAL_YEAR,START_DATE,STD_ITEM_CODE,STD_ITEM_NAME,AMOUNT",
+            "quoteColumns": "",
+            "filter": f"""(SECUCODE="{stock}.HK")(REPORT_DATE in ({"'" + "','".join(year_list) + "'"}))""",
+            "pageNumber": "1",
+            "pageSize": "",
+            "sortTypes": "-1,1",
+            "sortColumns": "REPORT_DATE,STD_ITEM_CODE",
+            "source": "F10",
+            "client": "PC",
+            "v": "01975982096513973",
+        }
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"])
+        return temp_df
 
 
 def stock_financial_hk_analysis_indicator_em(
-    symbol: str = "00700", indicator: str = "年度"
+    symbol: str = "00853", indicator: str = "年度"
 ) -> pd.DataFrame:
     """
     东方财富-港股-财务分析-主要指标
@@ -59,57 +105,26 @@ def stock_financial_hk_analysis_indicator_em(
     :return: 新浪财经-港股-财务分析-主要指标
     :rtype: pandas.DataFrame
     """
+    url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
+    params = {
+        "reportName": "RPT_HKF10_FN_MAININDICATOR",
+        "columns": "HKF10_FN_MAININDICATOR",
+        "quoteColumns": "",
+        "pageNumber": "1",
+        "pageSize": "9",
+        "sortTypes": "-1",
+        "sortColumns": "STD_REPORT_DATE",
+        "source": "F10",
+        "client": "PC",
+        "v": "01975982096513973",
+    }
     if indicator == "年度":
-        key = "zyzb_an"
-    elif indicator == "报告期":
-        key = "zyzb_abgq"
+        params.update({"filter": f"""(SECUCODE="{symbol}.HK")(DATE_TYPE_CODE="001")"""})
     else:
-        raise Exception("非法的关键字!", indicator)
-    url = f"http://emweb.securities.eastmoney.com/PC_HKF10/NewFinancialAnalysis/GetZYZB?code={symbol}"
-    r = requests.get(url)
-    temp_df = pd.DataFrame.from_records(eval(r.text)["data"][key])
-    temp_df.columns = temp_df.loc[0]
-    temp_df = temp_df.drop(0, axis=0)
-    temp_df["周期"] = pd.to_datetime(temp_df["每股指标"], format="%y-%m-%d").dt.date
-    temp_df = temp_df.drop("每股指标", axis=1)
-    temp_df = temp_df[
-        [
-            "周期",
-            "基本每股收益(元)",
-            "稀释每股收益(元)",
-            "TTM每股收益(元)",
-            "每股净资产(元)",
-            "每股经营现金流(元)",
-            "每股营业收入(元)",
-            "成长能力指标",
-            "营业总收入(元)",
-            "毛利润",
-            "归母净利润",
-            "营业总收入同比增长(%)",
-            "毛利润同比增长(%)",
-            "归母净利润同比增长(%)",
-            "营业总收入滚动环比增长(%)",
-            "毛利润滚动环比增长(%)",
-            "归母净利润滚动环比增长(%)",
-            "盈利能力指标",
-            "平均净资产收益率(%)",
-            "年化净资产收益率(%)",
-            "总资产净利率(%)",
-            "毛利率(%)",
-            "净利率(%)",
-            "年化投资回报率(%)",
-            "盈利质量指标",
-            "所得税/利润总额(%)",
-            "经营现金流/营业收入(%)",
-            "财务风险指标",
-            "资产负债率(%)",
-            "流动负债/总负债(%)",
-            "流动比率",
-        ]
-    ]
-    temp_df.reset_index(drop=True, inplace=True)
-    temp_df.columns.name = None
-    temp_df["周期"] = pd.to_datetime(temp_df["周期"]).dt.date
+        params.update({"filter": f"""(SECUCODE="{symbol}.HK")"""})
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["result"]["data"])
     return temp_df
 
 
