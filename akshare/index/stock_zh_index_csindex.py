@@ -296,45 +296,24 @@ def index_value_name_funddb() -> pd.DataFrame:
     :rtype: 指数代码
     """
     url = "https://api.jiucaishuo.com/v2/guzhi/showcategory"
+    get_current_timestamp_ms_str = __get_current_timestamp_ms()
+    encode_params = __create_encode(
+        act_time=str(get_current_timestamp_ms_str),
+        authtoken="",
+        gu_code="",
+        pe_category="",
+        type="pc",
+        ver="",
+        version="2.2.7",
+        year="",
+    )
     payload = {
-        "category_id": "-1",
         "type": "pc",
         "version": "2.2.7",
         "authtoken": "",
-        "act_time": 1688634288265,
-        "tirgkjfs": "91",
-        "abiokytke": "f9",
-        "u54rg5d": "a3",
-        "kf54ge7": "7",
-        "tiklsktr4": "1",
-        "lksytkjh": "106c",
-        "sbnoywr": "12",
-        "bgd7h8tyu54": "85",
-        "y654b5fs3tr": "d",
-        "bioduytlw": "3",
-        "bd4uy742": "c",
-        "h67456y": "110",
-        "bvytikwqjk": "85",
-        "ngd4uy551": "10",
-        "bgiuytkw": "91",
-        "nd354uy4752": "b",
-        "ghtoiutkmlg": "d5c",
-        "bd24y6421f": "24",
-        "tbvdiuytk": "1",
-        "ibvytiqjek": "58",
-        "jnhf8u5231": "91",
-        "fjlkatj": "a34",
-        "hy5641d321t": "4c",
-        "iogojti": "4",
-        "ngd4yut78": "5c",
-        "nkjhrew": "c",
-        "yt447e13f": "6",
-        "n3bf4uj7y7": "0",
-        "nbf4uj7y432": "f9",
-        "yi854tew": "9b",
-        "h13ey474": "9b7",
-        "quikgdky": "58",
+        "act_time": str(get_current_timestamp_ms_str)
     }
+    payload.update(encode_params)
     r = requests.post(url, json=payload)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["right_list"])
@@ -483,8 +462,8 @@ if __name__ == "__main__":
     stock_zh_index_value_csindex_df = stock_zh_index_value_csindex(symbol="H30374")
     print(stock_zh_index_value_csindex_df)
 
-    index_value_hist_funddb_df = index_value_hist_funddb(symbol="大盘成长", indicator="市盈率")
-    print(index_value_hist_funddb_df)
-
     index_value_name_funddb_df = index_value_name_funddb()
     print(index_value_name_funddb_df)
+
+    index_value_hist_funddb_df = index_value_hist_funddb(symbol="大盘成长", indicator="市盈率")
+    print(index_value_hist_funddb_df)
