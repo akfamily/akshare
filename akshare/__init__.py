@@ -2464,9 +2464,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.47 add: add stock_esg_rate_sina interface
 1.10.48 add: add stock_esg_hz_sina interface
 1.10.49 fix: fix stock_hot_rank_em interface
+1.10.50 fix: fix car_energy_sale_cpca interface
 """
 
-__version__ = "1.10.49"
+__version__ = "1.10.50"
 __author__ = "AKFamily"
 
 import sys
@@ -3383,7 +3384,7 @@ from akshare.stock_feature.stock_average_position_lg import (
 """
 汽车销量
 """
-from akshare.other.other_car import car_gasgoo_sale_rank, car_cpca_energy_sale
+from akshare.other.other_car import car_gasgoo_sale_rank, car_energy_sale_cpca
 
 """
 中国公路物流运价、运量指数
