@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/10 16:19
+Date: 2023/7/11 13:19
 Desc: 股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
-新接口：http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
-老接口：http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
+新接口：https://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
+老接口：https://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
 import math
 from io import BytesIO
@@ -19,7 +19,7 @@ from akshare.utils import demjson
 def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
     """
     新浪新版股票指数成份页面, 目前该接口可获取指数数量较少
-    http://vip.stock.finance.sina.com.cn/mkt/#zhishu_000040
+    https://vip.stock.finance.sina.com.cn/mkt/#zhishu_000040
     :param symbol: 指数代码
     :type symbol: str
     :return: 指数的成份股
@@ -27,13 +27,13 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
     """
     if symbol == "000300":
         symbol = "hs300"
-        url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple"
+        url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple"
         params = {"node": f"{symbol}"}
         r = requests.get(url, params=params)
         page_num = math.ceil(int(r.json()) / 80) + 1
         temp_df = pd.DataFrame()
         for page in range(1, page_num):
-            url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
+            url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
             params = {
                 "page": str(page),
                 "num": "80",
@@ -49,7 +49,7 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
             )
         return temp_df
 
-    url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
+    url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeDataSimple"
     params = {
         "page": 1,
         "num": "3000",
@@ -78,13 +78,13 @@ def index_stock_info() -> pd.DataFrame:
 def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
     """
     最新股票指数的成份股目录
-    http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
+    https://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
     :param symbol: 指数代码, 可以通过 ak.index_stock_info() 函数获取
     :type symbol: str
     :return: 最新股票指数的成份股目录
     :rtype: pandas.DataFrame
     """
-    url = f"http://vip.stock.finance.sina.com.cn/corp/go.php/vII_NewestComponent/indexid/{symbol}.phtml"
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vII_NewestComponent/indexid/{symbol}.phtml"
     r = requests.get(url)
     r.encoding = "gb2312"
     soup = BeautifulSoup(r.text, "lxml")
@@ -102,7 +102,7 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
 
     temp_df = pd.DataFrame()
     for page in range(1, int(page_num) + 1):
-        url = f"http://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page={page}&indexid={symbol}"
+        url = f"https://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page={page}&indexid={symbol}"
         r = requests.get(url)
         r.encoding = "gb2312"
         temp_df = pd.concat(
@@ -116,7 +116,7 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
 def index_stock_cons_csindex(symbol: str = "000300") -> pd.DataFrame:
     """
     中证指数网站-成份股目录
-    http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+    https://www.csindex.com.cn/zh-CN/indices/index-detail/000300
     :param symbol: 指数代码, 可以通过 ak.index_stock_info() 函数获取
     :type symbol: str
     :return: 最新指数的成份股
@@ -145,7 +145,7 @@ def index_stock_cons_csindex(symbol: str = "000300") -> pd.DataFrame:
 def index_stock_cons_weight_csindex(symbol: str = "000300") -> pd.DataFrame:
     """
     中证指数网站-样本权重
-    http://www.csindex.com.cn/zh-CN/indices/index-detail/000300
+    https://www.csindex.com.cn/zh-CN/indices/index-detail/000300
     :param symbol: 指数代码, 可以通过 ak.index_stock_info() 接口获取
     :type symbol: str
     :return: 最新指数的成份股权重
