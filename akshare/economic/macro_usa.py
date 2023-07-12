@@ -186,7 +186,7 @@ def macro_usa_cpi_monthly() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -311,7 +311,7 @@ def macro_usa_personal_spending() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -371,7 +371,7 @@ def macro_usa_retail_sales() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -431,7 +431,7 @@ def macro_usa_import_price() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -491,7 +491,7 @@ def macro_usa_export_price() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -553,7 +553,7 @@ def macro_usa_lmci() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -614,7 +614,7 @@ def macro_usa_unemployment_rate() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -673,7 +673,7 @@ def macro_usa_job_cuts() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -734,7 +734,7 @@ def macro_usa_non_farm() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -795,7 +795,7 @@ def macro_usa_adp_employment() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -856,7 +856,7 @@ def macro_usa_core_pce_price() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -915,7 +915,7 @@ def macro_usa_real_consumer_spending() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -974,7 +974,7 @@ def macro_usa_trade_balance() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1033,7 +1033,7 @@ def macro_usa_current_account() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1124,7 +1124,7 @@ def macro_usa_ppi() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1184,7 +1184,7 @@ def macro_usa_core_ppi() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1244,7 +1244,7 @@ def macro_usa_api_crude_stock() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1304,7 +1304,7 @@ def macro_usa_pmi() -> pd.Series:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1364,7 +1364,7 @@ def macro_usa_ism_pmi() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1424,7 +1424,7 @@ def macro_usa_industrial_production() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1484,7 +1484,7 @@ def macro_usa_durable_goods_orders() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1544,7 +1544,7 @@ def macro_usa_factory_orders() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1604,7 +1604,7 @@ def macro_usa_services_pmi() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1664,7 +1664,7 @@ def macro_usa_business_inventories() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1724,7 +1724,7 @@ def macro_usa_ism_non_pmi() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1784,7 +1784,7 @@ def macro_usa_nahb_house_market_index() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1844,7 +1844,7 @@ def macro_usa_house_starts() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1904,7 +1904,7 @@ def macro_usa_new_home_sales() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -1964,7 +1964,7 @@ def macro_usa_building_permits() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2024,7 +2024,7 @@ def macro_usa_exist_home_sales() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2084,7 +2084,7 @@ def macro_usa_house_price_index() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2144,7 +2144,7 @@ def macro_usa_spcs20() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2204,7 +2204,7 @@ def macro_usa_pending_home_sales() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2264,7 +2264,7 @@ def macro_usa_cb_consumer_confidence() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2323,7 +2323,7 @@ def macro_usa_nfib_small_business() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2382,7 +2382,7 @@ def macro_usa_michigan_consumer_sentiment() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2453,7 +2453,7 @@ def macro_usa_eia_crude_rate() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -2523,7 +2523,7 @@ def macro_usa_initial_jobless() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
