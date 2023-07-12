@@ -5691,55 +5691,48 @@ macro_usa_cpi_monthly_se: pandas.Series
 
 目标地址: https://datacenter.jin10.com/reportType/dc_usa_core_cpi
 
-描述: 美国核心CPI月率报告, 数据区间从19700101-至今
+描述: 美国核心 CPI 月率报告, 数据区间从 19700101-至今
 
 限量: 单次返回所有历史数据
 
 输入参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| 无   | 无   | 无   |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
 
 输出参数
 
-| 名称  | 类型    | 描述    |
-|-----|-------|-------|
-| 日期  | str   | 日期-索引 |
-| 值   | float | -     |
+| 名称    | 类型      | 描述 |
+|-------|---------|----|
+| date  | object  | -  |
+| value | float64 | -  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-macro_usa_core_cpi_monthly_se = ak.macro_usa_core_cpi_monthly()
-print(macro_usa_core_cpi_monthly_se.name)
-print(macro_usa_core_cpi_monthly_se)
+macro_usa_core_cpi_monthly_df = ak.macro_usa_core_cpi_monthly()
+print(macro_usa_core_cpi_monthly_df)
 ```
 
 数据示例
 
-macro_usa_core_cpi_monthly_se.name
-
 ```
-usa_core_cpi
-```
-
-macro_usa_core_cpi_monthly_se: pandas.Series
-
-```
-1970-01-01    0.5
-1970-02-01    0.5
-1970-03-01    0.5
-1970-04-01    0.8
-1970-05-01    0.7
-             ...
-2019-09-12    0.3
-2019-10-10    0.1
-2019-11-13    0.2
-2019-12-11    0.2
-2020-01-14      0
+           date  value
+0    1970-01-01    0.5
+1    1970-02-01    0.5
+2    1970-03-01    0.5
+3    1970-04-01    0.8
+4    1970-05-01    0.7
+..          ...    ...
+616  2023-02-14    0.4
+617  2023-03-14    0.5
+618  2023-04-12    0.4
+619  2023-05-10    0.4
+620  2023-06-13    0.4
+[621 rows x 2 columns]
 ```
 
 ##### 美国个人支出月率报告
@@ -5748,22 +5741,22 @@ macro_usa_core_cpi_monthly_se: pandas.Series
 
 目标地址: https://datacenter.jin10.com/reportType/dc_usa_personal_spending
 
-描述: 获取美国个人支出月率报告, 数据区间从19700101-至今
+描述: 美国个人支出月率报告, 数据区间从19700101-至今
 
 限量: 单次返回所有历史数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 日期      | str   | Y        | 日期-索引  |
-| 值      | float   | Y        | -   |
+| 名称 | 类型    | 描述    |
+|----|-------|-------|
+| 日期 | str   | 日期-索引 |
+| 值  | float | -     |
 
 接口示例
 
