@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/10 17:00
+Date: 2023/7/12 17:00
 Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
@@ -202,7 +202,7 @@ def macro_usa_cpi_monthly() -> pd.DataFrame:
 # 金十数据中心-经济指标-美国-物价水平-美国核心CPI月率报告
 def macro_usa_core_cpi_monthly() -> pd.DataFrame:
     """
-    美国核心CPI月率报告, 数据区间从19700101-至今
+    美国核心 CPI 月率报告, 数据区间从 19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_core_cpi
     https://cdn.jin10.com/dc/reports/dc_usa_core_cpi_all.js?v=1578740570
     :return: 美国核心CPI月率报告-今值(%)
@@ -246,7 +246,7 @@ def macro_usa_core_cpi_monthly() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = temp_df.append(temp_se)
+    temp_df = pd.concat([temp_df, temp_se])
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
@@ -256,6 +256,11 @@ def macro_usa_core_cpi_monthly() -> pd.DataFrame:
     temp_df.index.name = None
     temp_df.name = "usa_core_cpi"
     temp_df = temp_df.astype("float")
+    temp_df = pd.DataFrame(temp_df)
+    temp_df.reset_index(inplace=True, drop=False)
+    temp_df.columns = ['date', 'value']
+    temp_df['date'] = pd.to_datetime(temp_df['date'], errors="coerce").dt.date
+    temp_df['value'] = pd.to_numeric(temp_df['value'], errors="coerce")
     return temp_df
 
 
