@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/14 17:28
-Desc: 新浪财经-B 股-实时行情数据和历史行情数据(包含前复权和后复权因子)
+Date: 2023/7/13 16:28
+Desc: 新浪财经-B股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
 import re
@@ -27,11 +27,11 @@ from akshare.stock.cons import (
 def _get_zh_b_page_count() -> int:
     """
     所有股票的总页数
-    http://vip.stock.finance.sina.com.cn/mkt/#hs_b
+    https://vip.stock.finance.sina.com.cn/mkt/#hs_b
     :return: 需要采集的股票总页数
     :rtype: int
     """
-    url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_b"
+    url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount?node=hs_b"
     r = requests.get(url)
     page_count = int(re.findall(re.compile(r"\d+"), r.text)[0]) / 80
     if isinstance(page_count, int):
@@ -43,7 +43,7 @@ def _get_zh_b_page_count() -> int:
 def stock_zh_b_spot() -> pd.DataFrame:
     """
     新浪财经-所有 B 股的实时行情数据; 重复运行本函数会被新浪暂时封 IP
-    http://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
+    https://vip.stock.finance.sina.com.cn/mkt/#qbgg_hk
     :return: 所有股票的实时行情数据
     :rtype: pandas.DataFrame
     """
@@ -62,7 +62,8 @@ def stock_zh_b_spot() -> pd.DataFrame:
         zh_sina_stock_payload_copy.update({"page": page})
         r = requests.get(zh_sina_a_stock_url, params=zh_sina_stock_payload_copy)
         data_json = demjson.decode(r.text)
-        big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
+        big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
+
     big_df = big_df.astype(
         {
             "trade": "float",
@@ -291,7 +292,7 @@ def stock_zh_b_minute(
 ) -> pd.DataFrame:
     """
     股票及股票指数历史行情数据-分钟数据
-    http://finance.sina.com.cn/realstock/company/sh900901/nc.shtml
+    https://finance.sina.com.cn/realstock/company/sh900901/nc.shtml
     :param symbol: sh900901
     :type symbol: str
     :param period: 1, 5, 15, 30, 60 分钟的数据
