@@ -1881,8 +1881,7 @@ print(stock_zh_b_spot_df)
 ```python
 import akshare as ak
 
-stock_zh_b_daily_qfq_df = ak.stock_zh_b_daily(symbol="sh900901", start_date="20101103", end_date="20201116",
-                                              adjust="qfq")
+stock_zh_b_daily_qfq_df = ak.stock_zh_b_daily(symbol="sh900901", start_date="20101103", end_date="20201116", adjust="qfq")
 print(stock_zh_b_daily_qfq_df)
 ```
 
@@ -1908,8 +1907,7 @@ print(stock_zh_b_daily_qfq_df)
 ```python
 import akshare as ak
 
-stock_zh_b_daily_hfq_df = ak.stock_zh_b_daily(symbol="sh900901", start_date='20201103', end_date='20201116',
-                                              adjust="hfq")
+stock_zh_b_daily_hfq_df = ak.stock_zh_b_daily(symbol="sh900901", start_date='20201103', end_date='20201116', adjust="hfq")
 print(stock_zh_b_daily_hfq_df)
 ```
 
