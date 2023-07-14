@@ -2471,19 +2471,20 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.54 fix: fix macro_usa_core_cpi_monthly interface
 1.10.55 fix: fix macro_usa_personal_spending interface
 1.10.56 fix: fix stock_zh_b_daily interface
+1.10.57 fix: fix stock_zh_valuation_baidu interface
 """
 
-__version__ = "1.10.56"
+__version__ = "1.10.57"
 __author__ = "AKFamily"
 
 import sys
-import warnings
+# import warnings
 
-if sys.version_info < (3, 8):
-    warnings.warn(
-        "为了支持更多特性，AKShare 将于 2023-07-01 停止对 Python 3.7 及以下版本的支持，请尽快升级 Python 版本"
-    )
-    # sys.exit(1)
+# if sys.version_info < (3, 8):
+#     warnings.warn(
+#         "为了支持更多特性，请尽快升级 Python 版本到 3.8 及以上"
+#     )
+#     sys.exit(1)
 
 del sys
 

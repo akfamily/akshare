@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/17 14:26
-Desc: 百度股市通- A 股-财务报表-估值数据
+Date: 2023/7/14 15:00
+Desc: 百度股市通-A股-财务报表-估值数据
 https://gushitong.baidu.com/stock/ab-002044
 """
 import pandas as pd
@@ -13,7 +13,7 @@ def stock_zh_valuation_baidu(
     symbol: str = "002044", indicator: str = "总市值", period: str = "近一年"
 ) -> pd.DataFrame:
     """
-    百度股市通- A 股-财务报表-估值数据
+    百度股市通-A股-财务报表-估值数据
     https://gushitong.baidu.com/stock/ab-002044
     :param symbol: 股票代码
     :type symbol: str
@@ -50,7 +50,7 @@ def stock_zh_valuation_baidu(
     )
     temp_df.columns = ["date", "value"]
     temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
-    temp_df["value"] = pd.to_numeric(temp_df["value"])
+    temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
     return temp_df
 
 
