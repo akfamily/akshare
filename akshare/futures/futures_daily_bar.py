@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/2/10 18:19
+Date: 2023/7/14 15:19
 Desc: 期货日线行情
 """
 import datetime
@@ -733,7 +733,7 @@ def get_futures_daily(
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20100823", end_date="20100825", market="CZCE"
+        start_date="20220714", end_date="20220813", market="DCE"
     )
     print(get_futures_daily_df)
 
