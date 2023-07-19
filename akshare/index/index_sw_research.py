@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/4 16:00
+Date: 2023/7/19 18:40
 Desc: 申万宏源研究-指数系列
 https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex
 """
@@ -33,7 +33,10 @@ def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
         "swindexcode": symbol,
         "period": period_map[period],
     }
-    r = requests.get(url, params=params)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.rename(
@@ -63,7 +66,12 @@ def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
             "成交额",
         ]
     ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
+    temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
+    temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
+    temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
     return temp_df
 
 
@@ -82,7 +90,10 @@ def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
     params = {
         "swindexcode": symbol,
     }
-    r = requests.get(url, params=params)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.rename(
@@ -104,8 +115,8 @@ def index_min_sw(symbol: str = "801001") -> pd.DataFrame:
             "时间",
         ]
     ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
-    temp_df["价格"] = pd.to_numeric(temp_df["价格"])
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
     return temp_df
 
 
@@ -120,7 +131,10 @@ def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
     """
     url = "https://www.swhyresearch.com/institute-sw/api/index_publish/details/component_stocks/"
     params = {"swindexcode": symbol, "page": "1", "page_size": "10000"}
-    r = requests.get(url, params=params)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["results"])
     temp_df.reset_index(inplace=True)
@@ -144,8 +158,8 @@ def index_component_sw(symbol: str = "801001") -> pd.DataFrame:
             "计入日期",
         ]
     ]
-    temp_df["计入日期"] = pd.to_datetime(temp_df["计入日期"]).dt.date
-    temp_df["最新权重"] = pd.to_numeric(temp_df["最新权重"])
+    temp_df["计入日期"] = pd.to_datetime(temp_df["计入日期"], errors="coerce").dt.date
+    temp_df["最新权重"] = pd.to_numeric(temp_df["最新权重"], errors="coerce")
     return temp_df
 
 
@@ -160,14 +174,17 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
     """
     url = "https://www.swhyresearch.com/institute-sw/api/index_publish/current/"
     params = {"page": "1", "page_size": "50", "indextype": symbol}
-    r = requests.get(url, params=params)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = requests.get(url, params=params)
+        r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -195,13 +212,13 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
             "最低价",
         ]
     ]
-    big_df["昨收盘"] = pd.to_numeric(big_df["昨收盘"])
-    big_df["今开盘"] = pd.to_numeric(big_df["今开盘"])
-    big_df["最新价"] = pd.to_numeric(big_df["最新价"])
-    big_df["成交额"] = pd.to_numeric(big_df["成交额"])
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
-    big_df["最高价"] = pd.to_numeric(big_df["最高价"])
-    big_df["最低价"] = pd.to_numeric(big_df["最低价"])
+    big_df["昨收盘"] = pd.to_numeric(big_df["昨收盘"], errors="coerce")
+    big_df["今开盘"] = pd.to_numeric(big_df["今开盘"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
+    big_df["最高价"] = pd.to_numeric(big_df["最高价"], errors="coerce")
+    big_df["最低价"] = pd.to_numeric(big_df["最低价"], errors="coerce")
     return big_df
 
 
@@ -229,17 +246,20 @@ def index_analysis_daily_sw(
         "index_type": symbol,
         "start_date": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "end_date": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
-        "type": 'DAY',
+        "type": "DAY",
         "swindexcode": "all",
     }
-    r = requests.get(url, params=params)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = requests.get(url, params=params)
+        r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -262,20 +282,19 @@ def index_analysis_daily_sw(
         },
         inplace=True,
     )
-    big_df["发布日期"] = pd.to_datetime(big_df["发布日期"]).dt.date
-    big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"])
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
-    big_df["换手率"] = pd.to_numeric(big_df["换手率"])
-    big_df["市盈率"] = pd.to_numeric(big_df["市盈率"])
-    big_df["市净率"] = pd.to_numeric(big_df["市净率"])
-    big_df["均价"] = pd.to_numeric(big_df["均价"])
-    big_df["成交额占比"] = pd.to_numeric(big_df["成交额占比"])
-    big_df["流通市值"] = pd.to_numeric(big_df["流通市值"])
-    big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"])
-    big_df["股息率"] = pd.to_numeric(big_df["股息率"])
-
-    big_df.sort_values(['发布日期'], inplace=True, ignore_index=True)
+    big_df["发布日期"] = pd.to_datetime(big_df["发布日期"], errors="coerce").dt.date
+    big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"], errors="coerce")
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
+    big_df["换手率"] = pd.to_numeric(big_df["换手率"], errors="coerce")
+    big_df["市盈率"] = pd.to_numeric(big_df["市盈率"], errors="coerce")
+    big_df["市净率"] = pd.to_numeric(big_df["市净率"], errors="coerce")
+    big_df["均价"] = pd.to_numeric(big_df["均价"], errors="coerce")
+    big_df["成交额占比"] = pd.to_numeric(big_df["成交额占比"], errors="coerce")
+    big_df["流通市值"] = pd.to_numeric(big_df["流通市值"], errors="coerce")
+    big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"], errors="coerce")
+    big_df["股息率"] = pd.to_numeric(big_df["股息率"], errors="coerce")
+    big_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
     return big_df
 
 
@@ -289,15 +308,16 @@ def index_analysis_week_month_sw(symbol: str = "month") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.swhyresearch.com/institute-sw/api/index_analysis/week_month_datetime/"
-    params = {
-        'type': symbol.upper()
+    params = {"type": symbol.upper()}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data'])
-    temp_df['bargaindate'] = pd.to_datetime(temp_df['bargaindate']).dt.date
-    temp_df.columns = ['date']
-    temp_df.sort_values(['date'], inplace=True, ignore_index=True)
+    temp_df = pd.DataFrame(data_json["data"])
+    temp_df["bargaindate"] = pd.to_datetime(temp_df["bargaindate"], errors="coerce").dt.date
+    temp_df.columns = ["date"]
+    temp_df.sort_values(["date"], inplace=True, ignore_index=True)
     return temp_df
 
 
@@ -324,14 +344,17 @@ def index_analysis_weekly_sw(
         "type": "WEEK",
         "swindexcode": "all",
     }
-    r = requests.get(url, params=params)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = requests.get(url, params=params)
+        r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -354,20 +377,20 @@ def index_analysis_weekly_sw(
         },
         inplace=True,
     )
-    big_df["发布日期"] = pd.to_datetime(big_df["发布日期"]).dt.date
-    big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"])
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
-    big_df["换手率"] = pd.to_numeric(big_df["换手率"])
-    big_df["市盈率"] = pd.to_numeric(big_df["市盈率"])
-    big_df["市净率"] = pd.to_numeric(big_df["市净率"])
-    big_df["均价"] = pd.to_numeric(big_df["均价"])
-    big_df["成交额占比"] = pd.to_numeric(big_df["成交额占比"])
-    big_df["流通市值"] = pd.to_numeric(big_df["流通市值"])
-    big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"])
-    big_df["股息率"] = pd.to_numeric(big_df["股息率"])
+    big_df["发布日期"] = pd.to_datetime(big_df["发布日期"], errors="coerce").dt.date
+    big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"], errors="coerce")
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
+    big_df["换手率"] = pd.to_numeric(big_df["换手率"], errors="coerce")
+    big_df["市盈率"] = pd.to_numeric(big_df["市盈率"], errors="coerce")
+    big_df["市净率"] = pd.to_numeric(big_df["市净率"], errors="coerce")
+    big_df["均价"] = pd.to_numeric(big_df["均价"], errors="coerce")
+    big_df["成交额占比"] = pd.to_numeric(big_df["成交额占比"], errors="coerce")
+    big_df["流通市值"] = pd.to_numeric(big_df["流通市值"], errors="coerce")
+    big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"], errors="coerce")
+    big_df["股息率"] = pd.to_numeric(big_df["股息率"], errors="coerce")
 
-    big_df.sort_values(['发布日期'], inplace=True, ignore_index=True)
+    big_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
     return big_df
 
 
@@ -394,14 +417,17 @@ def index_analysis_monthly_sw(
         "type": "MONTH",
         "swindexcode": "all",
     }
-    r = requests.get(url, params=params)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+    }
+    r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
-        r = requests.get(url, params=params)
+        r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["results"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -424,20 +450,19 @@ def index_analysis_monthly_sw(
         },
         inplace=True,
     )
-    big_df["发布日期"] = pd.to_datetime(big_df["发布日期"]).dt.date
-    big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"])
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
-    big_df["换手率"] = pd.to_numeric(big_df["换手率"])
-    big_df["市盈率"] = pd.to_numeric(big_df["市盈率"])
-    big_df["市净率"] = pd.to_numeric(big_df["市净率"])
-    big_df["均价"] = pd.to_numeric(big_df["均价"])
-    big_df["成交额占比"] = pd.to_numeric(big_df["成交额占比"])
-    big_df["流通市值"] = pd.to_numeric(big_df["流通市值"])
-    big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"])
-    big_df["股息率"] = pd.to_numeric(big_df["股息率"])
-
-    big_df.sort_values(['发布日期'], inplace=True, ignore_index=True)
+    big_df["发布日期"] = pd.to_datetime(big_df["发布日期"], errors="coerce").dt.date
+    big_df["收盘指数"] = pd.to_numeric(big_df["收盘指数"], errors="coerce")
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
+    big_df["换手率"] = pd.to_numeric(big_df["换手率"], errors="coerce")
+    big_df["市盈率"] = pd.to_numeric(big_df["市盈率"], errors="coerce")
+    big_df["市净率"] = pd.to_numeric(big_df["市净率"], errors="coerce")
+    big_df["均价"] = pd.to_numeric(big_df["均价"], errors="coerce")
+    big_df["成交额占比"] = pd.to_numeric(big_df["成交额占比"], errors="coerce")
+    big_df["流通市值"] = pd.to_numeric(big_df["流通市值"], errors="coerce")
+    big_df["平均流通市值"] = pd.to_numeric(big_df["平均流通市值"], errors="coerce")
+    big_df["股息率"] = pd.to_numeric(big_df["股息率"], errors="coerce")
+    big_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
     return big_df
 
 
@@ -462,8 +487,12 @@ if __name__ == "__main__":
     index_analysis_week_month_sw_df = index_analysis_week_month_sw(symbol="month")
     print(index_analysis_week_month_sw_df)
 
-    index_analysis_weekly_sw_df = index_analysis_weekly_sw(symbol="市场表征", date="20221104")
+    index_analysis_weekly_sw_df = index_analysis_weekly_sw(
+        symbol="市场表征", date="20221104"
+    )
     print(index_analysis_weekly_sw_df)
 
-    index_analysis_monthly_sw_df = index_analysis_monthly_sw(symbol="市场表征", date="20221031")
+    index_analysis_monthly_sw_df = index_analysis_monthly_sw(
+        symbol="市场表征", date="20221031"
+    )
     print(index_analysis_monthly_sw_df)
