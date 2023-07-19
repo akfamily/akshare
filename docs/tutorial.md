@@ -303,6 +303,7 @@
  # 美国
  "macro_usa_gdp_monthly"  # 金十数据中心-经济指标-美国-经济状况-美国GDP
  "macro_usa_cpi_monthly"  # 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告
+ "macro_usa_cpi_yoy"  # 东方财富-经济数据一览-美国-CPI年率
  "macro_usa_core_cpi_monthly"  # 金十数据中心-经济指标-美国-物价水平-美国核心CPI月率报告
  "macro_usa_personal_spending"  # 金十数据中心-经济指标-美国-物价水平-美国个人支出月率报告
  "macro_usa_retail_sales"  # 金十数据中心-经济指标-美国-物价水平-美国零售销售月率报告
