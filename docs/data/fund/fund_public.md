@@ -3905,7 +3905,7 @@ print(fund_linghuo_position_lg_df)
 ```python
 import akshare as ak
 
-fund_announcement_personnel_df = ak.fund_announcement_personnel()
+fund_announcement_personnel_df = ak.fund_announcement_personnel(symbol="000001")
 print(fund_announcement_personnel_df)
 ```
 
