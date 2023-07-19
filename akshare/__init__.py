@@ -2474,9 +2474,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.57 fix: fix stock_zh_valuation_baidu interface
 1.10.58 fix: fix fund_etf_hist_em interface
 1.10.59 add: add fund_announcement_personnel_em interface
+1.10.60 add: add macro_usa_cpi_yoy interface
 """
 
-__version__ = "1.10.59"
+__version__ = "1.10.60"
 __author__ = "AKFamily"
 
 import sys
@@ -2489,6 +2490,11 @@ import sys
 #     sys.exit(1)
 
 del sys
+
+"""
+基金公告-人事公告
+"""
+from akshare.fund.fund_announcement import fund_announcement_personnel_em
 
 """
 新浪财经-ESG评级中心
@@ -4565,6 +4571,7 @@ from akshare.economic.macro_usa import (
     macro_usa_adp_employment,
     macro_usa_core_pce_price,
     macro_usa_cpi_monthly,
+    macro_usa_cpi_yoy,
     macro_usa_crude_inner,
     macro_usa_gdp_monthly,
     macro_usa_initial_jobless,
