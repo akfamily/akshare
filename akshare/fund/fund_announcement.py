@@ -13,7 +13,7 @@ import requests
 
 from akshare.utils import demjson
 
-def fund_announcement_personnel(symbol: str = "000791") -> pd.DataFrame:
+def fund_announcement_personnel(symbol: str = "000001") -> pd.DataFrame:
     """
     东方财富网站-天天基金网-基金档案-基金公告-人事调整
     http://fundf10.eastmoney.com/jjgg_000001_4.html
