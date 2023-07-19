@@ -613,13 +613,13 @@ print(fund_lof_hist_min_em_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                                                       |
-|------------|-----|----------------------------------------------------------|
-| symbol     | str | symbol='159707'; ETF 代码可以在 **ak.fund_etf_spot_em()** 中获取 |
-| period     | str | period='daily'; choice of {'daily', 'weekly', 'monthly'} |
-| start_date | str | start_date='20000101'; 开始查询的日期                           |
-| end_date   | str | end_date='20230104'; 结束查询的日期                             |
-| adjust     | str | 默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据               |
+| 名称         | 类型  | 描述                                                              |
+|------------|-----|-----------------------------------------------------------------|
+| symbol     | str | symbol='159707'; ETF 代码可以在 **ak.fund_etf_spot_em()** 中获取或查看东财主页 |
+| period     | str | period='daily'; choice of {'daily', 'weekly', 'monthly'}        |
+| start_date | str | start_date='20000101'; 开始查询的日期                                  |
+| end_date   | str | end_date='20230104'; 结束查询的日期                                    |
+| adjust     | str | 默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据                      |
 
 **数据复权**
 
