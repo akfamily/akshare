@@ -1218,6 +1218,8 @@
  # 新浪财经-ESG评级中心
  "stock_esg_rate_sina"  # 新浪财经-ESG评级中心-ESG评级-ESG评级数据
  "stock_esg_hz_sina"  # 新浪财经-ESG评级中心-ESG评级-华证指数
+ # 基金公告
+ "fund_announcement_personnel"  # 东方财富网站-天天基金网-基金档案-基金公告-人事调整
 ```
 
 ## 案例演示
