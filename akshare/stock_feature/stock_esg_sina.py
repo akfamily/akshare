@@ -72,17 +72,10 @@ def stock_esg_hz_sina() -> pd.DataFrame:
     :return: 华证指数
     :rtype: pandas.DataFrame
     """
-    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getHzEsgStocks?p=1&num=200"
+    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getHzEsgStocks?p=1&num=20000"
     r = requests.get(url)
     data_json = r.json()
-    page_num = math.ceil(int(data_json["result"]["data"]["total"]) / 200)
-    big_df = pd.DataFrame()
-    for page in tqdm(range(1, page_num + 1), leave=False):
-        url = f"https://global.finance.sina.com.cn/api/openapi.php/EsgService.getHzEsgStocks?page={page}&num=200"
-        r = requests.get(url)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df = pd.DataFrame(data_json["result"]["data"]["data"])
     big_df.rename(
         columns={
             "date": "日期",
@@ -116,11 +109,11 @@ def stock_esg_hz_sina() -> pd.DataFrame:
             "公司治理等级",
         ]
     ]
-    big_df['日期'] = pd.to_datetime(big_df['日期']).dt.date
-    big_df['ESG评分'] = pd.to_numeric(big_df['ESG评分'])
-    big_df['环境'] = pd.to_numeric(big_df['环境'])
-    big_df['社会'] = pd.to_numeric(big_df['社会'])
-    big_df['公司治理'] = pd.to_numeric(big_df['公司治理'])
+    big_df['日期'] = pd.to_datetime(big_df['日期'], errors="coerce").dt.date
+    big_df['ESG评分'] = pd.to_numeric(big_df['ESG评分'], errors="coerce")
+    big_df['环境'] = pd.to_numeric(big_df['环境'], errors="coerce")
+    big_df['社会'] = pd.to_numeric(big_df['社会'], errors="coerce")
+    big_df['公司治理'] = pd.to_numeric(big_df['公司治理'], errors="coerce")
     return big_df
 
 
