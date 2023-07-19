@@ -3876,7 +3876,7 @@ print(fund_linghuo_position_lg_df)
 
 #### 人事公告
 
-接口: fund_announcement_personnel
+接口: fund_announcement_personnel_em
 
 目标地址: http://fundf10.eastmoney.com/jjgg_000001_4.html
 
@@ -3886,27 +3886,27 @@ print(fund_linghuo_position_lg_df)
 
 输入参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| symbol   | string   | 基金代码，可以通过调用 ak.fund_name_em() 接口获取   |
+| 名称     | 类型  | 描述                                 |
+|--------|-----|------------------------------------|
+| symbol | str | 基金代码，可以通过调用 ak.fund_name_em() 接口获取 |
 
 输出参数
 
-| 名称       | 类型      | 描述               |
-|----------|---------|------------------|
-| 基金代码     | string  | 基金代码                |
-| 公告标题     | string  | -                |
-| 基金名称     | string  | 基金名称                |
-| 公告日期     | string  | 公告的发布日期          |
-| 报告ID     | string  | 获取报告详情的依据        |
+| 名称   | 类型     | 描述                     |
+|------|--------|------------------------|
+| 基金代码 | object | 基金代码                   |
+| 公告标题 | object | -                      |
+| 基金名称 | object | 基金名称                   |
+| 公告日期 | object | 公告的发布日期                |
+| 报告ID | object | 获取报告详情的依据; 拼接后可以获取公告地址 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-fund_announcement_personnel_df = ak.fund_announcement_personnel(symbol="000001")
-print(fund_announcement_personnel_df)
+fund_announcement_personnel_em_df = ak.fund_announcement_personnel_em(symbol="000001")
+print(fund_announcement_personnel_em_df)
 ```
 
 数据示例
