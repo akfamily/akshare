@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/3 20:18
-Desc: 东方财富-ETF 行情
+Date: 2023/7/18 17:40
+Desc: 东方财富-ETF行情
 https://quote.eastmoney.com/sh513500.html
 """
 from functools import lru_cache
@@ -14,10 +14,10 @@ import requests
 @lru_cache()
 def _fund_etf_code_id_map_em() -> dict:
     """
-    东方财富-ETF 代码和市场标识映射
+    东方财富-ETF代码和市场标识映射
     https://quote.eastmoney.com/center/gridlist.html#fund_etf
     :return: ETF 代码和市场标识映射
-    :rtype: pandas.DataFrame
+    :rtype: dict
     """
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
@@ -51,7 +51,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
     url = "https://88.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "2000",
+        "pz": "5000",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",
@@ -126,7 +126,7 @@ def fund_etf_hist_em(
     adjust: str = "",
 ) -> pd.DataFrame:
     """
-    东方财富-ETF 行情
+    东方财富-ETF行情
     https://quote.eastmoney.com/sz159707.html
     :param symbol: ETF 代码
     :type symbol: str
@@ -151,13 +151,25 @@ def fund_etf_hist_em(
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "klt": period_dict[period],
         "fqt": adjust_dict[adjust],
-        "secid": f"{code_id_dict[symbol]}.{symbol}",
         "beg": start_date,
         "end": end_date,
         "_": "1623766962675",
     }
-    r = requests.get(url, params=params)
-    data_json = r.json()
+    try:
+        market_id = code_id_dict[symbol]
+        params.update({"secid": f"{market_id}.{symbol}"})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+    except KeyError:
+        market_id = 1
+        params.update({"secid": f"{market_id}.{symbol}"})
+        r = requests.get(url, params=params)
+        data_json = r.json()
+        if not data_json["data"]:
+            market_id = 0
+            params.update({"secid": f"{market_id}.{symbol}"})
+            r = requests.get(url, params=params)
+            data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
@@ -333,11 +345,11 @@ if __name__ == "__main__":
     print(fund_etf_hist_hfq_em_df)
 
     fund_etf_hist_qfq_em_df = fund_etf_hist_em(
-        symbol="513500",
+        symbol="511010",
         period="daily",
         start_date="20000101",
-        end_date="20230201",
-        adjust="qfq",
+        end_date="20230718",
+        adjust="",
     )
     print(fund_etf_hist_qfq_em_df)
 
