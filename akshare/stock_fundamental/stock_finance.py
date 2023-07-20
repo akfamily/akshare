@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/2/14 22:25
+Date: 2023/7/20 15:00
 Desc: 股票基本面数据
 新浪财经-财务报表-财务摘要
 https://vip.stock.finance.sina.com.cn/corp/go.php/vFD_FinanceSummary/stockid/600004.phtml
@@ -10,7 +10,6 @@ https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600
 新浪财经-发行与分配
 https://money.finance.sina.com.cn/corp/go.php/vISSUE_ShareBonus/stockid/600004.phtml
 """
-from io import BytesIO
 from datetime import datetime
 
 import pandas as pd
@@ -49,6 +48,7 @@ def stock_financial_report_sina(
     data_json = r.json()
     df_columns = [item['date_value'] for item in data_json["result"]["data"]["report_date"]]
     big_df = pd.DataFrame()
+    temp_df = pd.DataFrame()
     for date_str in df_columns:
         temp_df = pd.DataFrame(
             data_json["result"]["data"]["report_list"][date_str]["data"]
@@ -86,6 +86,8 @@ def stock_financial_report_sina(
     big_df = big_df.T
     big_df.columns = temp_df["项目"]
     big_df = pd.concat([pd.DataFrame({"报告日": df_columns}), big_df], axis=1)
+    # 此处有 '国内票证结算' 和 '内部应收款'字段重复
+    big_df = big_df.loc[:, ~big_df.columns.duplicated(keep='first')]
     return big_df
 
 
@@ -283,13 +285,13 @@ def stock_history_dividend_detail(
         del temp_df["查看详细"]
         if temp_df.iloc[0, 0] == "暂时没有数据！":
             return pd.DataFrame()
-        temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
-        temp_df["送股"] = pd.to_numeric(temp_df["送股"])
-        temp_df["转增"] = pd.to_numeric(temp_df["转增"])
-        temp_df["派息"] = pd.to_numeric(temp_df["派息"])
-        temp_df["除权除息日"] = pd.to_datetime(temp_df["除权除息日"], errors="coerce").dt.date
-        temp_df["股权登记日"] = pd.to_datetime(temp_df["股权登记日"], errors="coerce").dt.date
-        temp_df["红股上市日"] = pd.to_datetime(temp_df["红股上市日"], errors="coerce").dt.date
+        temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
+        temp_df["送股"] = pd.to_numeric(temp_df["送股"], errors="coerce")
+        temp_df["转增"] = pd.to_numeric(temp_df["转增"], errors="coerce")
+        temp_df["派息"] = pd.to_numeric(temp_df["派息"], errors="coerce")
+        temp_df["除权除息日"] = pd.to_datetime(temp_df["除权除息日"], format="%Y-%m-%d", errors="coerce").dt.date
+        temp_df["股权登记日"] = pd.to_datetime(temp_df["股权登记日"], format="%Y-%m-%d", errors="coerce").dt.date
+        temp_df["红股上市日"] = pd.to_datetime(temp_df["红股上市日"], format="%Y-%m-%d", errors="coerce").dt.date
         if date:
             url = "https://vip.stock.finance.sina.com.cn/corp/view/vISSUE_ShareBonusDetail.php"
             params = {
@@ -324,16 +326,17 @@ def stock_history_dividend_detail(
         del temp_df["查看详细"]
         if temp_df.iloc[0, 0] == "暂时没有数据！":
             return pd.DataFrame()
-        temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
-        temp_df["配股方案"] = pd.to_numeric(temp_df["配股方案"])
-        temp_df["配股价格"] = pd.to_numeric(temp_df["配股价格"])
-        temp_df["基准股本"] = pd.to_numeric(temp_df["基准股本"])
-        temp_df["除权日"] = pd.to_datetime(temp_df["除权日"]).dt.date
-        temp_df["股权登记日"] = pd.to_datetime(temp_df["股权登记日"]).dt.date
-        temp_df["缴款起始日"] = pd.to_datetime(temp_df["缴款起始日"]).dt.date
-        temp_df["缴款终止日"] = pd.to_datetime(temp_df["缴款终止日"]).dt.date
-        temp_df["配股上市日"] = pd.to_datetime(temp_df["配股上市日"]).dt.date
-        temp_df["募集资金合计"] = pd.to_numeric(temp_df["募集资金合计"])
+        temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
+        temp_df["配股方案"] = pd.to_numeric(temp_df["配股方案"], errors="coerce")
+        temp_df["配股价格"] = pd.to_numeric(temp_df["配股价格"], errors="coerce")
+        temp_df["基准股本"] = pd.to_numeric(temp_df["基准股本"], errors="coerce")
+        temp_df["募集资金合计"] = pd.to_numeric(temp_df["募集资金合计"], errors="coerce")
+        temp_df["除权日"] = pd.to_datetime(temp_df["除权日"], format="%Y-%m-%d", errors="coerce").dt.date
+        temp_df["股权登记日"] = pd.to_datetime(temp_df["股权登记日"], format="%Y-%m-%d", errors="coerce").dt.date
+        temp_df["缴款起始日"] = pd.to_datetime(temp_df["缴款起始日"], format="%Y-%m-%d", errors="coerce").dt.date
+        temp_df["缴款终止日"] = pd.to_datetime(temp_df["缴款终止日"], format="%Y-%m-%d", errors="coerce").dt.date
+        temp_df["配股上市日"] = pd.to_datetime(temp_df["配股上市日"], format="%Y-%m-%d", errors="coerce").dt.date
+
         if date:
             url = "https://vip.stock.finance.sina.com.cn/corp/view/vISSUE_ShareBonusDetail.php"
             params = {
@@ -378,7 +381,7 @@ def stock_add_stock(stock: str = "688166") -> pd.DataFrame:
     r = requests.get(url)
     temp_df = pd.read_html(r.text)[12]
     if temp_df.at[0, 0] == "对不起，暂时没有相关增发记录":
-        return f"股票 {stock} 无增发记录"
+        raise f"股票 {stock} 无增发记录"
     big_df = pd.DataFrame()
     for i in range(int(len(temp_df.at[0, 1]) / 10)):
         temp_df = pd.read_html(r.text)[13 + i].iloc[:, 1]
