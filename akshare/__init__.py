@@ -2478,9 +2478,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.61 fix: fix macro_cnbs interface
 1.10.62 fix: fix index_hist_sw interface
 1.10.63 fix: fix stock_esg_hz_sina interface
+1.10.64 fix: fix stock_zh_b_spot interface
 """
 
-__version__ = "1.10.63"
+__version__ = "1.10.64"
 __author__ = "AKFamily"
 
 import sys
