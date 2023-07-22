@@ -880,10 +880,6 @@
  # 全部 A 股-等权重市盈率、中位数市盈率
  "stock_a_ttm_lyr"  # 全部 A 股-等权重市盈率、中位数市盈率
  "stock_a_all_pb"  # 全部 A 股-等权重市净率、中位数市净率
- # 鸡蛋价格
- "futures_egg_price_yearly"  # 各年度产区鸡蛋价格走势
- "futures_egg_price"  # 2015-2021年鸡蛋价格走势图
- "futures_egg_price_area"  # 各主产区鸡蛋均价
  # REITs
  "reits_realtime_em"  #  REITs-行情
  # A 股分时数据
