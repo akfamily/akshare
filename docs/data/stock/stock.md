@@ -1017,14 +1017,14 @@ print(stock_zh_a_spot_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                                                       |
-|------------|-----|----------------------------------------------------------|
-| symbol     | str | symbol='603777'; 股票代码可以在 **ak.stock_zh_a_spot_em()** 中获取 |
-| period     | str | period='daily'; choice of {'daily', 'weekly', 'monthly'} |
-| start_date | str | start_date='20210301'; 开始查询的日期                           |
-| end_date   | str | end_date='20210616'; 结束查询的日期                             |
-| adjust     | str | 默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据               |
-| timeout    | float | timeout=None; 默认不设置超时参数                          |
+| 名称         | 类型    | 描述                                                       |
+|------------|-------|----------------------------------------------------------|
+| symbol     | str   | symbol='603777'; 股票代码可以在 **ak.stock_zh_a_spot_em()** 中获取 |
+| period     | str   | period='daily'; choice of {'daily', 'weekly', 'monthly'} |
+| start_date | str   | start_date='20210301'; 开始查询的日期                           |
+| end_date   | str   | end_date='20210616'; 结束查询的日期                             |
+| adjust     | str   | 默认返回不复权的数据; qfq: 返回前复权后的数据; hfq: 返回后复权后的数据               |
+| timeout    | float | timeout=None; 默认不设置超时参数                                  |
 
 **股票数据复权**
 

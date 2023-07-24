@@ -1888,9 +1888,9 @@ if __name__ == "__main__":
     print(stock_hk_main_board_spot_em_df)
 
     stock_zh_a_hist_df = stock_zh_a_hist(
-        symbol="430090",
+        symbol="000001",
         period="daily",
-        start_date="20220516",
+        start_date="20170301",
         end_date="20220722",
         adjust="hfq",
     )
