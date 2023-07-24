@@ -2484,9 +2484,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.67 rem: rem futures_egg_price_yearly interface
 1.10.68 fix: fix option_gfex_daily interface
 1.10.69 fix: fix currency_latest interface
+1.10.70 fix: fix stock_zh_a_hist interface
 """
 
-__version__ = "1.10.69"
+__version__ = "1.10.70"
 __author__ = "AKFamily"
 
 import sys
