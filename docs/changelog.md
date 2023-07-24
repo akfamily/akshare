@@ -63,6 +63,14 @@
 
 ## 更新说明详情
 
+1.10.69 fix: fix currency_latest interface
+
+    1. 修复 currency_latest 接口
+    2. 修复 currency_history 接口
+    3. 修复 currency_time_series 接口
+    4. 修复 currency_currencies 接口
+    5. 修复 currency_convert 接口
+
 1.10.68 fix: fix option_gfex_daily interface
 
     1. 修复 option_gfex_daily 接口
@@ -2685,6 +2693,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.69 fix: fix currency_latest interface
 
 1.10.68 fix: fix option_gfex_daily interface
 
