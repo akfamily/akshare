@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/19 15:50
+Date: 2023/7/24 18:00
 Desc: 商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
@@ -344,14 +344,13 @@ def option_shfe_daily(
             return
 
 
-def option_gfex_daily(symbol: str = "工业硅", trade_date: str = "20230418"):
+def option_gfex_daily(symbol: str = "工业硅", trade_date: str = "20230724"):
     """
     广州期货交易所-日频率-量价数据
-    广州期货交易所: 工业硅(上市时间: 20221222)
     http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
     :param trade_date: 交易日
     :type trade_date: str
-    :param symbol: choice of {"工业硅"}
+    :param symbol: choice of {"工业硅", "碳酸锂"}
     :type symbol: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
@@ -361,9 +360,8 @@ def option_gfex_daily(symbol: str = "工业硅", trade_date: str = "20230418"):
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return
-    symbol_map = {"工业硅": 1}
     url = "http://www.gfex.com.cn/u/interfacesWebTiDayQuotes/loadList"
-    payload = {"trade_date": day.strftime("%Y%m%d"), "trade_type": symbol_map[symbol]}
+    payload = {"trade_date": day.strftime("%Y%m%d"), "trade_type": "1"}
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Encoding": "gzip, deflate",
@@ -427,28 +425,31 @@ def option_gfex_daily(symbol: str = "工业硅", trade_date: str = "20230418"):
             "隐含波动率",
         ]
     ]
+    temp_df = temp_df[temp_df['商品名称'].str.contains(symbol)]
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
-def option_gfex_vol_daily(symbol: str = "工业硅", trade_date: str = "20230418"):
+def option_gfex_vol_daily(symbol: str = "碳酸锂", trade_date: str = "20230724"):
     """
     广州期货交易所-日频率-合约隐含波动率
-    广州期货交易所: 工业硅(上市时间: 20221222)
     http://www.gfex.com.cn/gfex/rihq/hqsj_tjsj.shtml
-    :param symbol: choice of {"工业硅"}
+    :param symbol: choice of choice of {"工业硅", "碳酸锂"}
     :type symbol: str
     :param trade_date: 交易日
     :type trade_date: str
     :return: 日频行情数据
     :rtype: pandas.DataFrame
     """
+    symbol_code_map = {
+        "工业硅": "si",
+        "碳酸锂": "lc",
+    }
     calendar = get_calendar()
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return
-    symbol_map = {"工业硅": 1}
-    symbol_map[symbol]  # 占位
     url = "http://www.gfex.com.cn/u/interfacesWebTiDayQuotes/loadListOptVolatility"
     payload = {"trade_date": day.strftime("%Y%m%d")}
     headers = {
@@ -484,6 +485,8 @@ def option_gfex_vol_daily(symbol: str = "工业硅", trade_date: str = "20230418
             "隐含波动率",
         ]
     ]
+    temp_df = temp_df[temp_df['合约系列'].str.contains(symbol_code_map[symbol])]
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
