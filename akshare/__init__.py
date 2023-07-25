@@ -2485,9 +2485,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.68 fix: fix option_gfex_daily interface
 1.10.69 fix: fix currency_latest interface
 1.10.70 fix: fix stock_zh_a_hist interface
+1.10.71 fix: fix stock_us_hist interface
 """
 
-__version__ = "1.10.70"
+__version__ = "1.10.71"
 __author__ = "AKFamily"
 
 import sys
@@ -4376,19 +4377,10 @@ from akshare.fortune.fortune_500 import fortune_rank, fortune_rank_eng
 申万行业一级
 """
 from akshare.index.index_sw import (
-    sw_index_representation_spot,
-    sw_index_spot,
-    sw_index_second_spot,
-    sw_index_cons,
-    sw_index_daily,
-    sw_index_daily_indicator,
     sw_index_third_cons,
     sw_index_first_info,
     sw_index_second_info,
     sw_index_third_info,
-    index_level_one_hist_sw,
-    index_style_index_hist_sw,
-    index_market_representation_hist_sw,
 )
 
 """
