@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/10 20:15
+Date: 2023/7/31 12:00
 Desc: 港股-基本面数据
 https://emweb.securities.eastmoney.com/PC_HKF10/FinancialAnalysis/index?type=web&code=00700
 """
-import datetime
-
 import pandas as pd
 import requests
 
 
 def stock_financial_hk_report_em(
-    stock: str = "00853", symbol: str = "资产负债表", indicator: str = "年度"
+    stock: str = "00700", symbol: str = "资产负债表", indicator: str = "年度"
 ) -> pd.DataFrame:
     """
     东方财富-港股-财务报表-三大报表
@@ -20,22 +18,30 @@ def stock_financial_hk_report_em(
     :param stock: 股票代码
     :type stock: str
     :param symbol: choice of {"资产负债表", "利润表", "现金流量表"}
-    :type symbol:
+    :type symbol: str
     :param indicator: choice of {"年度", "报告期"}
     :type indicator:
     :return: 东方财富-港股-财务报表-三大报表
     :rtype: pandas.DataFrame
     """
     url = "https://datacenter.eastmoney.com/securities/api/data/v1/get"
-    year_int = datetime.datetime.now().year
+    params = {
+        'reportName': 'RPT_CUSTOM_HKSK_APPFN_CASHFLOW_SUMMARY',
+        'columns': 'SECUCODE,SECURITY_CODE,SECURITY_NAME_ABBR,START_DATE,REPORT_DATE,FISCAL_YEAR,CURRENCY,ACCOUNT_STANDARD,REPORT_TYPE',
+        'quoteColumns': '',
+        'filter': f'(SECUCODE="{stock}.HK")',
+        'source': 'F10',
+        'client': 'PC',
+        'v': '02092616586970355',
+    }
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json['result']['data'][0]['REPORT_LIST'])
     if indicator == "年度":
-        year_list = [f"{item}-12-31" for item in range(1990, year_int + 1)]
+        temp_df = temp_df[temp_df['REPORT_TYPE'] == "年报"]
     else:
-        year_list_four = [f"{item}-12-31" for item in range(1990, year_int + 1)]
-        year_list_three = [f"{item}-09-30" for item in range(1990, year_int + 1)]
-        year_list_two = [f"{item}-06-30" for item in range(1990, year_int + 1)]
-        year_list_one = [f"{item}-03-31" for item in range(1990, year_int + 1)]
-        year_list = year_list_one + year_list_two + year_list_three + year_list_four
+        temp_df = temp_df
+    year_list = [item.split(" ")[0] for item in temp_df['REPORT_DATE']]
     if symbol == "资产负债表":
         params = {
             "reportName": "RPT_HKF10_FN_BALANCE_PC",
@@ -140,12 +146,12 @@ if __name__ == "__main__":
     print(stock_financial_hk_analysis_indicator_em_df)
 
     stock_financial_hk_report_em_df = stock_financial_hk_report_em(
-        stock="00700", symbol="资产负债表", indicator="年度"
+        stock="01742", symbol="资产负债表", indicator="年度"
     )
     print(stock_financial_hk_report_em_df)
 
     stock_financial_hk_report_em_df = stock_financial_hk_report_em(
-        stock="00700", symbol="资产负债表", indicator="报告期"
+        stock="01742", symbol="资产负债表", indicator="报告期"
     )
     print(stock_financial_hk_report_em_df)
 
