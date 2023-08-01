@@ -916,7 +916,7 @@ if __name__ == "__main__":
     print(option_sse_list_sina_df)
 
     option_sse_expire_day_sina_df = option_sse_expire_day_sina(
-        trade_date="202210", symbol="50ETF", exchange="null"
+        trade_date="202308", symbol="50ETF", exchange="null"
     )
     print(option_sse_expire_day_sina_df)
 
