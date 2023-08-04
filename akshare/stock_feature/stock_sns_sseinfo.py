@@ -2,172 +2,147 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2023/8/4 19:20
-Desc: 互动易-提问与回答
-https://irm.cninfo.com.cn/
+Desc: 上证e互动-提问与回答
+https://sns.sseinfo.com/
 """
+import warnings
+from functools import lru_cache
+
 import pandas as pd
 import requests
+from bs4 import BeautifulSoup
 from tqdm import tqdm
 
 
-def _fetch_org_id(symbol: str = "000001") -> str:
+@lru_cache()
+def _fetch_stock_uid() -> dict:
     """
-    股票-互动易-组织代码
-    https://irm.cninfo.com.cn/
-    :return: 组织代码
+    上证e互动-代码ID映射
+    https://sns.sseinfo.com/list/company.do
+    :return: 代码ID映射
     :rtype: str
     """
-    url = "https://irm.cninfo.com.cn/newircs/index/queryKeyboardInfo"
-    params = {"_t": "1691144074"}
-    data = {"keyWord": symbol}
-    r = requests.post(url, params=params, data=data)
-    data_json = r.json()
-    org_id = data_json["data"][0]["secid"]
-    return org_id
+    url = "https://sns.sseinfo.com/allcompany.do"
+    data = {
+        "code": "0",
+        "order": "2",
+        "areaId": "0",
+        "page": "1",
+    }
+    uid_list = list()
+    code_list = list()
+    for page in tqdm(range(1, 73), leave=False):
+        data.update({"page": page})
+        r = requests.post(url, data=data)
+        data_json = r.json()
+        soup = BeautifulSoup(data_json["content"], "lxml")
+        soup.find_all("a", attrs={"rel": "tag"})
+        uid_list.extend(
+            [item["uid"] for item in soup.find_all("a", attrs={"rel": "tag"})]
+        )
+        code_list.extend(
+            [
+                item.find("img")["src"].split("?")[0].split("/")[-1].split(".")[0]
+                for item in soup.find_all("a", attrs={"rel": "tag"})
+            ]
+        )
+    code_uid_map = dict(zip(code_list, uid_list))
+    return code_uid_map
 
 
-def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
+def stock_sns_sseinfo(symbol: str = "603119") -> pd.DataFrame:
     """
-    互动易-提问
-    https://irm.cninfo.com.cn/ircs/question/questionDetail?questionId=1515236357817618432
+    上证e互动-提问与回答
+    https://sns.sseinfo.com/company.do?uid=65
     :param symbol: 股票代码
     :type symbol: str
-    :return: 提问
+    :return: 提问与回答
     :rtype: str
     """
-    url = "https://irm.cninfo.com.cn/newircs/company/question"
+    code_uid_map = _fetch_stock_uid()
+    url = "https://sns.sseinfo.com/ajax/userfeeds.do"
     params = {
-        "_t": "1691142650",
-        "stockcode": symbol,
-        "orgId": _fetch_org_id(symbol),
-        "pageSize": "1000",
-        "pageNum": "1",
-        "keyWord": "",
-        "startDay": "",
-        "endDay": "",
+        "typeCode": "company",
+        "type": "11",
+        "pageSize": "100",
+        "uid": code_uid_map[symbol],
+        "page": "1",
     }
-    r = requests.post(url, params=params)
-    data_json = r.json()
-    total_page = int(data_json["totalPage"])
-    total_page = 10 if total_page > 10 else total_page
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, 1 + total_page), leave=False):
-        params.update({"pageNum": page})
+    page = 1
+    warnings.warn("正在下载中")
+    while True:
+        params.update({"page": page})
         r = requests.post(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["rows"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df.rename(
-        columns={
-            "indexId": "问题编号",
-            "contentType": "-",
-            "trade": "行业",
-            "mainContent": "问题",
-            "attachmentUrl": "-",
-            "boardType": "行业代码",
-            "filetype": "-",
-            "pubDate": "提问时间",
-            "stockCode": "股票代码",
-            "companyShortName": "公司简称",
-            "author": "提问者编号",
-            "authorName": "提问者",
-            "authorLogo": "-",
-            "pubClient": "来源",
-            "attachedId": "-",
-            "attachedContent": "-",
-            "attachedAuthor": "-",
-            "attachedPubDate": "-",
-            "updateDate": "更新时间",
-            "isPraise": "-",
-            "isFavorite": "-",
-            "isForward": "-",
-            "praiseCount": "-",
-            "qaStatus": "-",
-            "rights": "-",
-            "topStatus": "-",
-            "companyLogo": "-",
-            "favoriteCount": "-",
-            "forwardCount": "-",
-        },
-        inplace=True,
-    )
-    big_df = big_df[
-        [
+        if len(r.text) < 300:
+            break
+        else:
+            page += 1
+        r = requests.post(url, params=params)
+        soup = BeautifulSoup(r.text, "lxml")
+        content_list = [
+            item.get_text().strip()
+            for item in soup.find_all("div", attrs={"class": "m_feed_txt"})
+        ]
+        date_list = [
+            item.get_text().strip().split("\n")[0]
+            for item in soup.find_all("div", attrs={"class": "m_feed_from"})
+        ]
+        source_list = [
+            item.get_text().strip().split("\n")[2]
+            for item in soup.find_all("div", attrs={"class": "m_feed_from"})
+        ]
+        q_list = [
+            item.split(")")[1]
+            for index, item in enumerate(content_list)
+            if index % 2 == 0
+        ]
+        stock_name = [
+            item.split("(")[0].strip(":")
+            for index, item in enumerate(content_list)
+            if index % 2 == 0
+        ]
+        stock_code = [
+            item.split("(")[1].split(")")[0]
+            for index, item in enumerate(content_list)
+            if index % 2 == 0
+        ]
+        a_list = [item for index, item in enumerate(content_list) if index % 2 != 0]
+        d_q_list = [item for index, item in enumerate(date_list) if index % 2 == 0]
+        d_a_list = [item for index, item in enumerate(date_list) if index % 2 != 0]
+        s_q_list = [item for index, item in enumerate(source_list) if index % 2 == 0]
+        s_a_list = [item for index, item in enumerate(source_list) if index % 2 != 0]
+        author_name = [
+            item["title"] for item in soup.find_all("a", attrs={"rel": "face"})
+        ]
+        temp_df = pd.DataFrame(
+            [
+                stock_code,
+                stock_name,
+                q_list,
+                a_list,
+                d_q_list,
+                d_a_list,
+                s_q_list,
+                s_a_list,
+                author_name,
+            ]
+        ).T
+        temp_df.columns = [
             "股票代码",
             "公司简称",
-            "行业",
-            "行业代码",
             "问题",
-            "提问者",
-            "来源",
-            "提问时间",
-            "更新时间",
-            "提问者编号",
-            "问题编号",
+            "回答",
+            "问题时间",
+            "回答时间",
+            "问题来源",
+            "回答来源",
+            "用户名",
         ]
-    ]
-    big_df["行业"] = [item[0] for item in big_df["行业"]]
-    big_df["行业代码"] = [item[0] for item in big_df["行业代码"]]
-    big_df["提问时间"] = pd.to_datetime(big_df["提问时间"], unit="ms")
-    big_df["更新时间"] = pd.to_datetime(big_df["更新时间"], unit="ms")
-    big_df["来源"] = big_df["来源"].map(
-        {
-            "2": "APP",
-            "5": "公众号",
-            "4": "网站",
-        }
-    )
-    big_df["来源"].fillna("网站", inplace=True)
+        big_df = pd.concat([big_df, temp_df], ignore_index=True)
     return big_df
 
 
-def stock_irm_ans_cninfo(symbol: str = "1513586704097333248") -> pd.DataFrame:
-    """
-    互动易-回答
-    https://irm.cninfo.com.cn/ircs/question/questionDetail?questionId=1515236357817618432
-    :param symbol: 提问者编号; 通过 ak.stock_irm_cninfo 来获取具体的提问者编号
-    :type symbol: str
-    :return: 回答
-    :rtype: str
-    """
-    url = "https://irm.cninfo.com.cn/newircs/question/getQuestionDetail"
-    params = {"questionId": symbol, "_t": "1691146921"}
-    r = requests.get(url, params=params)
-    data_json = r.json()
-    temp_df = pd.DataFrame.from_dict(data_json["data"], orient="index").T
-    if "replyDate" not in temp_df.columns:
-        return pd.DataFrame()
-    temp_df.rename(
-        columns={
-            "questionContent": "问题",
-            "questioner": "提问者",
-            "questionDate": "提问时间",
-            "replyDate": "回答时间",
-            "replyContent": "回答内容",
-            "stockCode": "股票代码",
-            "shortName": "公司简称",
-        },
-        inplace=True,
-    )
-    temp_df = temp_df[
-        [
-            "股票代码",
-            "公司简称",
-            "问题",
-            "回答内容",
-            "提问者",
-            "提问时间",
-            "回答时间",
-        ]
-    ]
-    temp_df["提问时间"] = pd.to_datetime(temp_df["提问时间"], unit="ms", errors="coerce")
-    temp_df["回答时间"] = pd.to_datetime(temp_df["回答时间"], unit="ms", errors="coerce")
-    return temp_df
-
-
 if __name__ == "__main__":
-    stock_irm_cninfo_df = stock_irm_cninfo(symbol="002594")
-    print(stock_irm_cninfo_df)
-
-    stock_irm_ans_cninfo_df = stock_irm_ans_cninfo(symbol="1495108801386602496")
-    print(stock_irm_ans_cninfo_df)
+    stock_sns_sseinfo_df = stock_sns_sseinfo(symbol="603119")
+    print(stock_sns_sseinfo_df)
