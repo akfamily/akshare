@@ -13,8 +13,8 @@ from akshare.utils import demjson
 
 def bond_cb_index_jsl() -> pd.DataFrame:
     """
-    https://www.jisilu.cn/web/data/cb/index
     首页-可转债-集思录可转债等权指数
+    https://www.jisilu.cn/web/data/cb/index
     :return: 集思录可转债等权指数
     :rtype: pandas.DataFrame
     """
