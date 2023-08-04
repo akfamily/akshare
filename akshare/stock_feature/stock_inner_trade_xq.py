@@ -68,9 +68,9 @@ def stock_inner_trade_xq() -> pd.DataFrame:
         '董监高职务',
     ]]
     temp_df['变动日期'] = pd.to_datetime(temp_df['变动日期'], unit="ms").dt.date
-    temp_df['变动股数'] = pd.to_numeric(temp_df['变动股数'])
-    temp_df['成交均价'] = pd.to_numeric(temp_df['成交均价'])
-    temp_df['变动后持股数'] = pd.to_numeric(temp_df['变动后持股数'])
+    temp_df['变动股数'] = pd.to_numeric(temp_df['变动股数'], errors="coerce")
+    temp_df['成交均价'] = pd.to_numeric(temp_df['成交均价'], errors="coerce")
+    temp_df['变动后持股数'] = pd.to_numeric(temp_df['变动后持股数'], errors="coerce")
     return temp_df
 
 
