@@ -2488,12 +2488,14 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.71 fix: fix stock_us_hist interface
 1.10.72 fix: fix stock_financial_hk_report_em interface
 1.10.73 add: add stock_irm_cninfo interface
+1.10.74 add: add stock_sns_sseinfo interface
 """
 
-__version__ = "1.10.73"
+__version__ = "1.10.74"
 __author__ = "AKFamily"
 
 import sys
+
 # import warnings
 
 # if sys.version_info < (3, 8):
@@ -2505,9 +2507,17 @@ import sys
 del sys
 
 """
+上证e互动
+"""
+from akshare.stock_feature.stock_sns_sseinfo import stock_sns_sseinfo
+
+"""
 互动易-提问与回答
 """
-from akshare.stock_feature.stock_irm_cninfo import stock_irm_cninfo, stock_irm_ans_cninfo
+from akshare.stock_feature.stock_irm_cninfo import (
+    stock_irm_cninfo,
+    stock_irm_ans_cninfo,
+)
 
 """
 基金公告-人事公告
