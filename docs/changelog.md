@@ -63,6 +63,10 @@
 
 ## 更新说明详情
 
+1.10.74 add: add stock_sns_sseinfo interface
+
+    1. 新增 stock_sns_sseinfo 接口
+
 1.10.73 add: add stock_irm_cninfo interface
 
     1. 新增 stock_irm_cninfo 接口
@@ -2711,6 +2715,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.74 add: add stock_sns_sseinfo interface
 
 1.10.73 add: add stock_irm_cninfo interface
 
