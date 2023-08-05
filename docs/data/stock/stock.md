@@ -19307,7 +19307,7 @@ print(stock_irm_cninfo_df)
 
 ##### 互动易-回答
 
-接口: stock_irm_cninfo
+接口: stock_irm_ans_cninfo
 
 目标地址: https://irm.cninfo.com.cn/
 
