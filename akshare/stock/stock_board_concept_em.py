@@ -399,7 +399,7 @@ if __name__ == "__main__":
     print(stock_board_concept_em_df)
 
     stock_board_concept_hist_em_df = stock_board_concept_hist_em(
-        symbol="车联网", period="weekly", start_date="20220101", end_date="20221128", adjust=""
+        symbol="绿色电力", period="daily", start_date="20220101", end_date="20230806", adjust=""
     )
     print(stock_board_concept_hist_em_df)
 

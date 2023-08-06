@@ -49,13 +49,13 @@ def stock_zh_valuation_baidu(
         ][0]["body"]
     )
     temp_df.columns = ["date", "value"]
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
     return temp_df
 
 
 if __name__ == "__main__":
     stock_zh_valuation_baidu_df = stock_zh_valuation_baidu(
-        symbol="600010", indicator="总市值", period="近一年"
+        symbol="002955", indicator="市净率", period="近一年"
     )
     print(stock_zh_valuation_baidu_df)
