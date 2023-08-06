@@ -197,16 +197,55 @@ def macro_china_shrzgm() -> pd.DataFrame:
             "其中-非金融企业境内股票融资",
         ]
     ]
-    temp_df["社会融资规模增量"] = pd.to_numeric(temp_df["社会融资规模增量"])
-    temp_df["其中-人民币贷款"] = pd.to_numeric(temp_df["其中-人民币贷款"])
-    temp_df["其中-委托贷款外币贷款"] = pd.to_numeric(temp_df["其中-委托贷款外币贷款"])
-    temp_df["其中-委托贷款"] = pd.to_numeric(temp_df["其中-委托贷款"])
-    temp_df["其中-信托贷款"] = pd.to_numeric(temp_df["其中-信托贷款"])
-    temp_df["其中-未贴现银行承兑汇票"] = pd.to_numeric(temp_df["其中-未贴现银行承兑汇票"])
-    temp_df["其中-企业债券"] = pd.to_numeric(temp_df["其中-企业债券"])
-    temp_df["其中-非金融企业境内股票融资"] = pd.to_numeric(temp_df["其中-非金融企业境内股票融资"])
+    temp_df["社会融资规模增量"] = pd.to_numeric(temp_df["社会融资规模增量"], errors="coerce")
+    temp_df["其中-人民币贷款"] = pd.to_numeric(temp_df["其中-人民币贷款"], errors="coerce")
+    temp_df["其中-委托贷款外币贷款"] = pd.to_numeric(temp_df["其中-委托贷款外币贷款"], errors="coerce")
+    temp_df["其中-委托贷款"] = pd.to_numeric(temp_df["其中-委托贷款"], errors="coerce")
+    temp_df["其中-信托贷款"] = pd.to_numeric(temp_df["其中-信托贷款"], errors="coerce")
+    temp_df["其中-未贴现银行承兑汇票"] = pd.to_numeric(temp_df["其中-未贴现银行承兑汇票"], errors="coerce")
+    temp_df["其中-企业债券"] = pd.to_numeric(temp_df["其中-企业债券"], errors="coerce")
+    temp_df["其中-非金融企业境内股票融资"] = pd.to_numeric(
+        temp_df["其中-非金融企业境内股票融资"], errors="coerce"
+    )
     temp_df.sort_values(["月份"], inplace=True)
     temp_df.reset_index(drop=True, inplace=True)
+    return temp_df
+
+
+def macro_china_urban_unemployment() -> pd.DataFrame:
+    """
+    国家统计局-月度数据-城镇调查失业率
+    https://data.stats.gov.cn/easyquery.htm?cn=A01&zb=A0203&sj=202304
+    :return: 城镇调查失业率
+    :rtype: pandas.DataFrame
+    """
+    url = "https://data.stats.gov.cn/easyquery.htm"
+    params = {
+        "m": "QueryData",
+        "dbcode": "hgyd",
+        "rowcode": "zb",
+        "colcode": "sj",
+        "wds": "[]",
+        "dfwds": '[{"wdcode":"zb","valuecode":"A0E01"},{"wdcode":"sj","valuecode":"LAST72"}]',
+        "k1": "1691326382042",
+        'h': '1'
+    }
+    r = requests.get(url, params=params, verify=False)
+    r.encoding = "utf-8"
+    data_json = r.json()
+    value_list = [item["data"]["data"] for item in data_json["returndata"]["datanodes"]]
+    name_list = [
+        item["wds"][0]["valuecode"] for item in data_json["returndata"]["datanodes"]
+    ]
+    date_list = [
+        item["wds"][1]["valuecode"] for item in data_json["returndata"]["datanodes"]
+    ]
+    temp_df = pd.DataFrame(data_json["returndata"]["wdnodes"][0]["nodes"])
+    code_item_map = dict(zip(temp_df["code"], temp_df["cname"]))
+    temp_df = pd.DataFrame([date_list, name_list, value_list]).T
+    temp_df.columns = ["date", "item", "value"]
+    temp_df["item"] = temp_df["item"].map(code_item_map)
+    temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
     return temp_df
 
 
@@ -1553,24 +1592,24 @@ def macro_china_lpr() -> pd.DataFrame:
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        'reportName': 'RPTA_WEB_RATE',
-        'columns': 'ALL',
-        'sortColumns': 'TRADE_DATE',
-        'sortTypes': '-1',
-        'token': '894050c76af8597a853f5b408b759f5d',
-        'pageNumber': '1',
-        'pageSize': '500',
-        'p': '1',
-        'pageNo': '1',
-        'pageNum': '1',
-        '_': '1689835278471',
+        "reportName": "RPTA_WEB_RATE",
+        "columns": "ALL",
+        "sortColumns": "TRADE_DATE",
+        "sortTypes": "-1",
+        "token": "894050c76af8597a853f5b408b759f5d",
+        "pageNumber": "1",
+        "pageSize": "500",
+        "p": "1",
+        "pageNo": "1",
+        "pageNum": "1",
+        "_": "1689835278471",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(1, total_page+1), leave=False):
-        params.update({'pageNumber': page})
+    for page in tqdm(range(1, total_page + 1), leave=False):
+        params.update({"pageNumber": page})
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
@@ -4342,6 +4381,10 @@ if __name__ == "__main__":
     # 社会融资规模增量
     macro_china_shrzgm_df = macro_china_shrzgm()
     print(macro_china_shrzgm_df)
+
+    # 城镇调查失业率
+    macro_china_urban_unemployment_df = macro_china_urban_unemployment()
+    print(macro_china_urban_unemployment_df)
 
     # 金十数据中心-经济指标-中国-国民经济运行状况-经济状况-中国GDP年率报告
     macro_china_gdp_yearly_df = macro_china_gdp_yearly()

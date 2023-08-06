@@ -229,6 +229,57 @@ print(macro_china_lpr_df)
 [1538 rows x 5 columns]
 ```
 
+###### 城镇调查失业率
+
+接口: macro_china_urban_unemployment
+
+目标地址: https://data.stats.gov.cn/easyquery.htm?cn=A01&zb=A0203&sj=202304
+
+描述: 国家统计局-月度数据-城镇调查失业率
+
+限量: 单次返回所有历史数据
+
+输入参数
+
+| 名称  | 类型  | 描述  |
+|-----|-----|-----|
+| -   | -   | -   |
+
+输出参数
+
+| 名称    | 类型      | 描述 |
+|-------|---------|----|
+| date  | object  | 年月 |
+| item  | object  | -  |
+| value | float64 | -  |
+
+接口示例
+
+```python
+import akshare as ak
+
+macro_china_urban_unemployment_df = ak.macro_china_urban_unemployment()
+print(macro_china_urban_unemployment_df)
+```
+
+数据示例
+
+```
+       date           item  value
+0    202307      全国城镇调查失业率    0.0
+1    202306      全国城镇调查失业率    5.2
+2    202305      全国城镇调查失业率    5.2
+3    202304      全国城镇调查失业率    5.2
+4    202303      全国城镇调查失业率    5.3
+..      ...            ...    ...
+499  201712  企业就业人员周平均工作时间    0.0
+500  201711  企业就业人员周平均工作时间    0.0
+501  201710  企业就业人员周平均工作时间    0.0
+502  201709  企业就业人员周平均工作时间    0.0
+503  201708  企业就业人员周平均工作时间    0.0
+[504 rows x 3 columns]
+```
+
 ###### 社会融资规模增量统计
 
 接口: macro_china_shrzgm
