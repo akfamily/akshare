@@ -2490,9 +2490,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.73 add: add stock_irm_cninfo interface
 1.10.74 add: add stock_sns_sseinfo interface
 1.10.75 add: add macro_china_urban_unemployment interface
+1.10.76 fix: fix stock_notice_report interface
 """
 
-__version__ = "1.10.75"
+__version__ = "1.10.76"
 __author__ = "AKFamily"
 
 import sys
