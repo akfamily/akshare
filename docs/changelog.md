@@ -63,6 +63,11 @@
 
 ## 更新说明详情
 
+1.10.76 fix: fix stock_notice_report interface
+
+    1. 修复 stock_notice_report 接口
+    2. 修复 stock_irm_cninfo 接口
+
 1.10.75 add: add macro_china_urban_unemployment interface
 
     1. 新增 macro_china_urban_unemployment 接口
@@ -2719,6 +2724,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.76 fix: fix stock_notice_report interface
 
 1.10.75 add: add macro_china_urban_unemployment interface
 
