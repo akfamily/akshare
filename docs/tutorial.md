@@ -1214,6 +1214,9 @@
  "stock_irm_ans_cninfo"  # 互动易-回答
  # 上证e互动
  "stock_sns_sseinfo"  # 上证e互动-提问与回答
+ # 新浪财经-债券-可转债
+ "bond_cb_profile_sina"  # 新浪财经-债券-可转债-详情资料
+ "bond_cb_summary_sina"  # 新浪财经-债券-可转债-债券概况
 ```
 
 ## 案例演示
