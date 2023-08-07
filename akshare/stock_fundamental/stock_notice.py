@@ -36,7 +36,7 @@ def stock_notice_report(symbol: str = "全部", date: str = "20220511") -> pd.Da
         "sr": "-1",
         "page_size": "100",
         "page_index": "1",
-        "ann_type": "SHA,CYB,SZA,BJA",
+        "ann_type": "A",
         "client_source": "web",
         "f_node": report_map[symbol],
         "s_node": "0",
