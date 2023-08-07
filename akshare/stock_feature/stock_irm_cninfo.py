@@ -73,9 +73,9 @@ def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
             "authorName": "提问者",
             "authorLogo": "-",
             "pubClient": "来源",
-            "attachedId": "-",
-            "attachedContent": "-",
-            "attachedAuthor": "-",
+            "attachedId": "回答ID",
+            "attachedContent": "回答内容",
+            "attachedAuthor": "回答者",
             "attachedPubDate": "-",
             "updateDate": "更新时间",
             "isPraise": "-",
@@ -104,6 +104,9 @@ def stock_irm_cninfo(symbol: str = "002594") -> pd.DataFrame:
             "更新时间",
             "提问者编号",
             "问题编号",
+            "回答ID",
+            "回答内容",
+            "回答者",
         ]
     ]
     big_df["行业"] = [item[0] for item in big_df["行业"]]
