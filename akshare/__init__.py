@@ -2493,9 +2493,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.76 fix: fix stock_notice_report interface
 1.10.77 add: add bond_cb_profile_sina interface
 1.10.78 fix: fix get_cffex_rank_table interface
+1.10.79 add: add stock_hold_management_detail_em interface
 """
 
-__version__ = "1.10.78"
+__version__ = "1.10.79"
 __author__ = "AKFamily"
 
 import sys
@@ -2509,6 +2510,19 @@ import sys
 #     sys.exit(1)
 
 del sys
+
+"""
+东方财富网-数据中心-股市日历
+"""
+from akshare.stock.stock_gsrl_em import stock_gsrl_gsdt_em
+
+"""
+东方财富网-数据中心-特色数据-高管持股
+"""
+from akshare.stock.stock_hold_control_em import (
+    stock_hold_management_detail_em,
+    stock_hold_management_person_em,
+)
 
 """
 新浪财经-债券-可转债
