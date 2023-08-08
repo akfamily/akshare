@@ -1217,6 +1217,11 @@
  # 新浪财经-债券-可转债
  "bond_cb_profile_sina"  # 新浪财经-债券-可转债-详情资料
  "bond_cb_summary_sina"  # 新浪财经-债券-可转债-债券概况
+ # 东方财富网-数据中心-特色数据-高管持股
+ "stock_hold_management_detail_em"  # 东方财富网-数据中心-特色数据-高管持股-董监高及相关人员持股变动明细
+ "stock_hold_management_person_em"  # 东方财富网-数据中心-特色数据-高管持股-人员增减持股变动明细
+ # 股市日历
+ "stock_gsrl_gsdt_em"  # 东方财富网-数据中心-股市日历-公司动态
 ```
 
 ## 案例演示
