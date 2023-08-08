@@ -297,8 +297,8 @@ if __name__ == "__main__":
     )
     print(futures_spot_price_daily_df)
 
-    futures_spot_price_df = futures_spot_price("20200510")
+    futures_spot_price_df = futures_spot_price("20230807")
     print(futures_spot_price_df)
 
-    futures_spot_price_previous_df = futures_spot_price_previous('20220209')
+    futures_spot_price_previous_df = futures_spot_price_previous('20230807')
     print(futures_spot_price_previous_df)
