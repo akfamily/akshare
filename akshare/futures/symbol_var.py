@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2019/9/30 13:58
-Desc:
+Date: 2023/8/8 20:58
+Desc: 期货品种映射表
 """
 import re
 
@@ -156,6 +156,8 @@ def chinese_to_english(chinese_var: str):
         '花生',
         '工业硅',
         '氧化铝',
+        '丁二烯橡胶',
+        '碳酸锂',
     ]
     english_list = [
         "RU",
@@ -263,6 +265,8 @@ def chinese_to_english(chinese_var: str):
         "PK",
         "SI",
         "AO",
+        "BR",
+        "LC",
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]

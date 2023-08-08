@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/12 17:06
+Date: 2023/8/8 17:00
 Desc: 期货-中国-交易所-会员持仓数据接口
-大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所
+大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所、广州期货交易所(交易所未提供)
 采集前 20 会员持仓数据;
 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定;
 郑州商品交易所格式分为三类
@@ -20,7 +20,6 @@ import time
 import warnings
 import zipfile
 from io import BytesIO
-from io import StringIO
 
 import pandas as pd
 import requests
@@ -709,9 +708,10 @@ def get_dce_rank_table(
     return big_dict
 
 
-def get_cffex_rank_table(date="20200427", vars_list=cons.contract_symbols):
+def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols):
     """
     中国金融期货交易所前 20 会员持仓排名数据明细
+    http://www.cffex.com.cn/ccpm/
     注：该交易所既公布品种排名，也公布标的排名
     :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
     :param vars_list: 合约品种如RB、AL等列表 为空时为所有商品, 数据从20100416开始，每交易日16:30左右更新数据
@@ -737,11 +737,14 @@ def get_cffex_rank_table(date="20200427", vars_list=cons.contract_symbols):
         cons.convert_date(date) if date is not None else datetime.date.today()
     )
     if date < datetime.date(2010, 4, 16):
-        print(Exception("cffex数据源开始日期为20100416，跳过"))
+        print(Exception("CFFEX 数据源开始日期为 20100416，跳过"))
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
     big_dict = {}
     for var in vars_list:
         # print(var)
@@ -751,26 +754,36 @@ def get_cffex_rank_table(date="20200427", vars_list=cons.contract_symbols):
             date.strftime("%d"),
             var,
         )
-        r = requests_link(url, encoding="gbk")
-        if not r:
-            return False
-        if "网页错误" not in r.text:
+        # url = 'http://www.cffex.com.cn/sj/ccpm/201908/05/IF_1.csv'
+        # url = 'http://www.cffex.com.cn/sj/ccpm/202308/08/IF_1.csv'
+        r = requests.get(url, headers=headers)
+        # 20200316 开始数据结构变化，统一格式
+        if r.status_code == 200:
             try:
-                temp_chche = StringIO(r.text.split("\n交易日,")[1])
+                # 当所需要的合约没有数据时
+                temp_df = pd.read_table(BytesIO(r.content), encoding="gbk", header=None)
             except:
-                temp_chche = StringIO(
-                    r.text.split("\n交易日,")[0][4:]
-                )  # 20200316开始数据结构变化，统一格式
-            table = pd.read_csv(temp_chche)
-            table = table.dropna(how="any")
-            table = table.applymap(
-                lambda x: x.strip() if isinstance(x, str) else x
-            )
-            for symbol in set(table["合约"]):
-                table_cut = table[table["合约"] == symbol]
-                table_cut.columns = ["symbol", "rank"] + rank_columns
-                table_cut = _table_cut_cal(pd.DataFrame(table_cut), symbol)
-                big_dict[symbol] = table_cut.reset_index(drop=True)
+                continue
+            need_index = temp_df.iloc[:, 0].str.contains("交易日")
+            if sum(need_index) > 2:
+                table = temp_df.iloc[temp_df[need_index].index[1]:, 0].str.split(",", expand=True)
+                table.columns = table.iloc[0,:]
+                table = table.iloc[2:, :].copy()
+                table.reset_index(inplace=True, drop=True)
+            else:
+                table = pd.read_csv(BytesIO(r.content), encoding="gbk")
+        else:
+            return
+        table = table.dropna(how="any")
+        table = table.applymap(
+            lambda x: x.strip() if isinstance(x, str) else x
+        )
+        del table['交易日']
+        for symbol in set(table["合约"]):
+            table_cut = table[table["合约"] == symbol]
+            table_cut.columns = ["symbol", "rank"] + rank_columns
+            table_cut = _table_cut_cal(pd.DataFrame(table_cut), symbol)
+            big_dict[symbol] = table_cut.reset_index(drop=True)
     return big_dict
 
 
@@ -1121,30 +1134,30 @@ def futures_dce_position_rank_other(date: str = "20160104"):
 
 
 if __name__ == "__main__":
-    # # 郑州商品交易所
-    # get_czce_rank_table_first_df = get_czce_rank_table(date="20210525")
-    # print(get_czce_rank_table_first_df)
-    #
-    # get_czce_rank_table_first_df = get_czce_rank_table(date="20201026")
-    # print(get_czce_rank_table_first_df)
-    #
-    # # 中国金融期货交易所
-    # get_cffex_rank_table_df = get_cffex_rank_table(date="20200325")
-    # print(get_cffex_rank_table_df)
-    #
-    # # 上海期货交易所
-    # get_shfe_rank_table_df = get_shfe_rank_table(date="20230705")
-    # print(get_shfe_rank_table_df)
-    #
-    # # 大连商品交易所
-    # get_dce_rank_table_first_df = get_dce_rank_table(date="20131227")
-    # print(get_dce_rank_table_first_df)
-    #
-    # get_dce_rank_table_second_df = get_dce_rank_table(date="20171227")
-    # print(get_dce_rank_table_second_df)
-    #
-    # get_dce_rank_table_third_df = get_dce_rank_table(date="20200929")
-    # print(get_dce_rank_table_third_df)
+    # 郑州商品交易所
+    get_czce_rank_table_first_df = get_czce_rank_table(date="20210525")
+    print(get_czce_rank_table_first_df)
+
+    get_czce_rank_table_first_df = get_czce_rank_table(date="20201026")
+    print(get_czce_rank_table_first_df)
+
+    # 中国金融期货交易所
+    get_cffex_rank_table_df = get_cffex_rank_table(date="20100810")
+    print(get_cffex_rank_table_df)
+
+    # 上海期货交易所
+    get_shfe_rank_table_df = get_shfe_rank_table(date="20230808")
+    print(get_shfe_rank_table_df)
+
+    # 大连商品交易所
+    get_dce_rank_table_first_df = get_dce_rank_table(date="20131227")
+    print(get_dce_rank_table_first_df)
+
+    get_dce_rank_table_second_df = get_dce_rank_table(date="20171227")
+    print(get_dce_rank_table_second_df)
+
+    get_dce_rank_table_third_df = get_dce_rank_table(date="20200929")
+    print(get_dce_rank_table_third_df)
 
     get_dce_rank_table_third_df = get_dce_rank_table(date="20230706")
     print(get_dce_rank_table_third_df)

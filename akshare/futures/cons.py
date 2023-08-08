@@ -24,7 +24,9 @@ hq_sina_spot_headers = {
 }
 
 # zh_sina_spot
-zh_subscribe_exchange_symbol_url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
+zh_subscribe_exchange_symbol_url = (
+    "http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
+)
 zh_match_main_contract_url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQFuturesData"
 zh_match_main_contract_payload = {
     "page": "1",
@@ -91,21 +93,17 @@ QHKC_INDEX_TREND_URL = "https://qhkch.com/ajax/indexes_trend.php"
 QHKC_INDEX_PROFIT_LOSS_URL = "https://qhkch.com/ajax/indexes_profit_loss.php"
 QHKC_FUND_BS_URL = "https://qhkch.com/ajax/fund_bs_pie.php"
 QHKC_FUND_POSITION_URL = "https://qhkch.com/ajax/fund_position_pie.php"
-QHKC_FUND_POSITION_CHANGE_URL = (
-    "https://qhkch.com/ajax/fund_position_chge_pie.php"
-)
+QHKC_FUND_POSITION_CHANGE_URL = "https://qhkch.com/ajax/fund_position_chge_pie.php"
 QHKC_FUND_DEAL_URL = "https://qhkch.com/ajax/fund_deal_pie.php"
 QHKC_FUND_BIG_CHANGE_URL = "https://qhkch.com/ajax/fund_big_chge.php"
 QHKC_TOOL_FOREIGN_URL = "https://qhkch.com/ajax/toolbox_foreign.php"
 QHKC_TOOL_GDP_URL = "https://qhkch.com/dist/views/toolbox/gdp.html?v=1.10.7.1"
 
-BOND_BANK_URL = (
-    "http://zhuce.nafmii.org.cn/fans/publicQuery/releFileProjDataGrid"
-)
+BOND_BANK_URL = "http://zhuce.nafmii.org.cn/fans/publicQuery/releFileProjDataGrid"
 
 # 键值对: 键为交易所代码, 值为具体合约代码
 market_exchange_symbols = {
-    "cffex": ["IF", "IC", "IM", "IH", "T", "TF", "TS"],
+    "cffex": ["IF", "IC", "IM", "IH", "T", "TF", "TS", "TL"],
     "dce": [
         "C",
         "CS",
@@ -185,8 +183,9 @@ market_exchange_symbols = {
         "LU",
         "BC",
         "AO",
+        "BR",
     ],
-    "gfex": ["SI"],
+    "gfex": ["SI", "LC"],
 }
 
 contract_symbols = []
@@ -241,32 +240,28 @@ SYS_SPOT_PRICE_URL = "http://www.100ppi.com/sf/day-{}.html"
 SYS_SPOT_PRICE_LATEST_URL = "http://www.100ppi.com/sf/"
 
 SHFE_VOL_RANK_URL = "http://www.shfe.com.cn/data/dailydata/kx/pm%s.dat"
-CFFEX_VOL_RANK_URL = "http://www.cffex.com.cn/fzjy/ccpm/%s/%s/%s_1.csv"
+CFFEX_VOL_RANK_URL = "http://www.cffex.com.cn/sj/ccpm/%s/%s/%s_1.csv"
 DCE_VOL_RANK_URL_1 = "http://www.dce.com.cn/publicweb/quotesdata/exportMemberDealPosiQuotesData.html?memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id=%s&contract.variety_id=%s&year=%s&month=%s&day=%s&exportFlag=txt"
 DCE_VOL_RANK_URL_2 = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html?memberDealPosiQuotes.variety=%s&memberDealPosiQuotes.trade_type=0&contract.contract_id=all&contract.variety_id=%s&year=%s&month=%s&day=%s"
 CZCE_VOL_RANK_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/pm/pm%s.html"
-CZCE_VOL_RANK_URL_2 = (
-    "http://www.czce.com.cn/cn/exchange/%s/datatradeholding/%s.htm"
+CZCE_VOL_RANK_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datatradeholding/%s.htm"
+CZCE_VOL_RANK_URL_3 = (
+    "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataHolding.htm"
 )
-CZCE_VOL_RANK_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataHolding.htm"
 
-DCE_RECEIPT_URL = (
-    "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
-)
+DCE_RECEIPT_URL = "http://www.dce.com.cn/publicweb/quotesdata/wbillWeeklyQuotes.html"
 
 SHFE_RECEIPT_URL_1 = "http://www.shfe.com.cn/data/dailydata/%sdailystock.html"
 SHFE_RECEIPT_URL_2 = "http://www.shfe.com.cn/data/dailydata/%sdailystock.dat"
-CZCE_RECEIPT_URL_1 = (
-    "http://www.czce.com.cn/cn/exchange/jyxx/sheet/sheet%s.html"
-)
+CZCE_RECEIPT_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/sheet/sheet%s.html"
 CZCE_RECEIPT_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datawhsheet/%s.htm"
-CZCE_RECEIPT_URL_3 = "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataWhsheet.htm"
+CZCE_RECEIPT_URL_3 = (
+    "http://www.czce.com.cn/cn/DFSStaticFiles/Future/%s/%s/FutureDataWhsheet.htm"
+)
 
 CFFEX_DAILY_URL = "http://www.cffex.com.cn/fzjy/mrhq/{}/{}/{}_1.csv"
 SHFE_DAILY_URL = "http://www.shfe.com.cn/data/dailydata/kx/kx%s.dat"
-SHFE_V_WAP_URL = (
-    "http://www.shfe.com.cn/data/dailydata/ck/%sdailyTimePrice.dat"
-)
+SHFE_V_WAP_URL = "http://www.shfe.com.cn/data/dailydata/ck/%sdailyTimePrice.dat"
 DCE_DAILY_URL = "http://www.dce.com.cn//publicweb/quotesdata/dayQuotesCh.html"
 CZCE_DAILY_URL_1 = "http://www.czce.com.cn/cn/exchange/jyxx/hq/hq%s.html"
 CZCE_DAILY_URL_2 = "http://www.czce.com.cn/cn/exchange/%s/datadaily/%s.txt"
@@ -459,9 +454,7 @@ def get_json_path(name, module_file):
     :param module_file: filename
     :return: str json_file_path
     """
-    module_folder = os.path.abspath(
-        os.path.dirname(os.path.dirname(module_file))
-    )
+    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
     module_json_path = os.path.join(module_folder, "file_fold", name)
     return module_json_path
 
@@ -473,9 +466,7 @@ def get_pk_path(name, module_file):
     :param module_file: filename
     :return: str json_file_path
     """
-    module_folder = os.path.abspath(
-        os.path.dirname(os.path.dirname(module_file))
-    )
+    module_folder = os.path.abspath(os.path.dirname(os.path.dirname(module_file)))
     module_json_path = os.path.join(module_folder, "file_fold", name)
     return module_json_path
 
