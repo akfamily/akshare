@@ -26,4 +26,4 @@ python -m aktools
 
 ## 更多详情
 
-[参见 AKTools 项目文档](https://aktools.readthedocs.io/)
+[参见 AKTools 项目文档](https://aktools.akfamily.xyz/)
