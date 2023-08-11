@@ -4582,11 +4582,6 @@ from akshare.futures_derivative.sys_spot_futures import (
 )
 
 """
-和讯财经-行情及历史数据
-"""
-from akshare.stock.stock_us_zh_hx import stock_us_zh_spot, stock_us_zh_daily
-
-"""
 全球宏观-机构宏观
 """
 from akshare.economic.macro_constitute import (
