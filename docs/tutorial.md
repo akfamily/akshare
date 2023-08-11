@@ -83,9 +83,6 @@
  "get_finance_option"  # 提供上海证券交易所期权数据
  # 加密货币行情
  "crypto_js_spot"  # 提供主流加密货币行情数据接口
- # 美股-中国概念股行情和历史数据
- "stock_us_zh_spot"  # 中国概念股行情
- "stock_us_zh_daily"  # 中国概念股历史数据
  # 新浪财经-港股
  "stock_hk_spot"  # 获取港股的历史行情数据(包括前后复权因子)
  "stock_hk_daily"  # 获取港股的实时行情数据(也可以用于获得所有港股代码)
