@@ -359,6 +359,7 @@ print(stock_sse_deal_daily_df)
 | 名称     | 类型  | 描述                    |
 |--------|-----|-----------------------|
 | symbol | str | symbol="603777"; 股票代码 |
+| timeout | float | timeout=None; 默认不设置超时参数 |
 
 输出参数-实时行情数据
 

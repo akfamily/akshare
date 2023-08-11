@@ -11,12 +11,14 @@ import requests
 from akshare.stock_feature.stock_hist_em import code_id_map_em
 
 
-def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:
+def stock_individual_info_em(symbol: str = "603777", timeout: float = None) -> pd.DataFrame:
     """
     东方财富-个股-股票信息
     https://quote.eastmoney.com/concept/sh603777.html?from=classic
     :param symbol: 股票代码
     :type symbol: str
+    :param timeout: choice of None or a positive float number
+    :type timeout: float
     :return: 股票信息
     :rtype: pandas.DataFrame
     """
@@ -30,7 +32,7 @@ def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:
         "secid": f"{code_id_dict[symbol]}.{symbol}",
         "_": "1640157544804",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     temp_df.reset_index(inplace=True)
@@ -62,5 +64,5 @@ def stock_individual_info_em(symbol: str = "603777") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_individual_info_em_df = stock_individual_info_em(symbol="000001")
+    stock_individual_info_em_df = stock_individual_info_em(symbol="000001", timeout=None)
     print(stock_individual_info_em_df)
