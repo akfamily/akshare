@@ -8,6 +8,7 @@ https://www.swhyresearch.com/institute_sw/allIndex/downloadCenter/industryType
 
 import pandas as pd
 import requests
+from datetime import datetime
 import io
 
 def sw_stock_industry_classification_hist() -> pd.DataFrame:
@@ -33,7 +34,8 @@ def sw_stock_industry_classification_hist() -> pd.DataFrame:
             "更新日期": "UpdateTime",
         }
     )
-    df["StartDate"] = df["StartDate"].apply(lambda x: x.date())
+    df["StartDate"] = df["StartDate"].apply(lambda x: datetime.strftime(x.date(), "%Y-%m-%d"))
+    df["UpdateTime"] = df["UpdateTime"].apply(lambda x: datetime.strftime(x.date(), "%Y-%m-%d"))
     return df
 
 
