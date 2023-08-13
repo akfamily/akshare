@@ -2504,10 +2504,10 @@ print(stock_zh_index_spot_df)
 |--------|---------|---------------------|
 | date   | object  | 新浪的数据开始时间, 不是证券上市时间 |
 | open   | float64 | -                   |
-| close  | float64 | -                   |
 | high   | float64 | -                   |
 | low    | float64 | -                   |
-| amount | float64 | -                   |
+| close  | float64 | -                   |
+| volume | float64 | -                   |
 
 接口示例
 
