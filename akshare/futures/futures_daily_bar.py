@@ -123,7 +123,10 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
     url = (
         f"http://www.cffex.com.cn/sj/historysj/{date[:-2]}/zip/{date[:-2]}.zip"
     )
-    r = requests.get(url)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+    }
+    r = requests.get(url, headers=headers)
     try:
         with zipfile.ZipFile(BytesIO(r.content)) as file:
             with file.open(f"{date}_1.csv") as my_file:
@@ -740,7 +743,7 @@ if __name__ == "__main__":
     get_dce_daily_df = get_dce_daily(date="20220308")
     print(get_dce_daily_df)
 
-    get_cffex_daily_df = get_cffex_daily(date="20210719")
+    get_cffex_daily_df = get_cffex_daily(date="20230810")
     print(get_cffex_daily_df)
 
     get_ine_daily_df = get_ine_daily(date="20211201")
