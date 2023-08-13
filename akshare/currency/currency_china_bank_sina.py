@@ -1,28 +1,35 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/6/20 20:49
+Date: 2023/8/13 19:20
 Desc: 新浪财经-中行人民币牌价历史数据查询
-http://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
+https://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
 """
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+from functools import lru_cache
 
 
-def _currency_boc_sina_map(date: str = "20210614") -> dict:
+@lru_cache()
+def _currency_boc_sina_map(
+    start_date: str = "20210614", end_date: str = "20230810"
+) -> dict:
     """
     外汇 symbol 和代码映射
-    :param date: 交易日
-    :type date: str
+    https://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
+    :param start_date: 开始交易日
+    :type start_date: str
+    :param end_date: 结束交易日
+    :type end_date: str
     :return: 外汇 symbol 和代码映射
     :rtype: dict
     """
     url = "http://biz.finance.sina.com.cn/forex/forex.php"
     params = {
-        "startdate": "2012-01-01",
-        "enddate": "-".join([date[:4], date[4:6], date[6:]]),
+        "startdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
+        "enddate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "money_code": "EUR",
         "type": "0",
     }
@@ -33,15 +40,11 @@ def _currency_boc_sina_map(date: str = "20210614") -> dict:
         zip(
             [
                 item.text
-                for item in soup.find(attrs={"id": "money_code"}).find_all(
-                    "option"
-                )
+                for item in soup.find(attrs={"id": "money_code"}).find_all("option")
             ],
             [
                 item["value"]
-                for item in soup.find(attrs={"id": "money_code"}).find_all(
-                    "option"
-                )
+                for item in soup.find(attrs={"id": "money_code"}).find_all("option")
             ],
         )
     )
@@ -49,25 +52,27 @@ def _currency_boc_sina_map(date: str = "20210614") -> dict:
 
 
 def currency_boc_sina(
-    symbol: str = "美元", date: str = "20210614"
+    symbol: str = "美元", start_date: str = "20210614", end_date: str = "20230810"
 ) -> pd.DataFrame:
     """
     新浪财经-中行人民币牌价历史数据查询
-    http://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
+    https://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
     :param symbol: choice of {'美元', '英镑', '欧元', '澳门元', '泰国铢', '菲律宾比索', '港币', '瑞士法郎', '新加坡元', '瑞典克朗', '丹麦克朗', '挪威克朗', '日元', '加拿大元', '澳大利亚元', '新西兰元', '韩国元'}
     :type symbol: str
-    :param date: 交易日
-    :type date: str
+    :param start_date: 开始交易日
+    :type start_date: str
+    :param end_date: 结束交易日
+    :type end_date: str
     :return: 中行人民币牌价历史数据查询
     :rtype: pandas.DataFrame
     """
-    data_dict = _currency_boc_sina_map(date="20210614")
+    data_dict = _currency_boc_sina_map(start_date=start_date, end_date=end_date)
     url = "http://biz.finance.sina.com.cn/forex/forex.php"
     params = {
         "money_code": data_dict[symbol],
         "type": "0",
-        "startdate": "2012-01-01",
-        "enddate": "-".join([date[:4], date[4:6], date[6:]]),
+        "startdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
+        "enddate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
         "page": "1",
         "call_type": "ajax",
     }
@@ -88,17 +93,17 @@ def currency_boc_sina(
         "中行钞卖价/汇卖价",
         "央行中间价",
     ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["中行汇买价"] = pd.to_numeric(big_df["中行汇买价"])
-    big_df["中行钞买价"] = pd.to_numeric(big_df["中行钞买价"])
-    big_df["中行钞卖价/汇卖价"] = pd.to_numeric(big_df["中行钞卖价/汇卖价"])
-    big_df["央行中间价"] = pd.to_numeric(big_df["央行中间价"])
-
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["中行汇买价"] = pd.to_numeric(big_df["中行汇买价"], errors="coerce")
+    big_df["中行钞买价"] = pd.to_numeric(big_df["中行钞买价"], errors="coerce")
+    big_df["中行钞卖价/汇卖价"] = pd.to_numeric(big_df["中行钞卖价/汇卖价"], errors="coerce")
+    big_df["央行中间价"] = pd.to_numeric(big_df["央行中间价"], errors="coerce")
+    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
     return big_df
 
 
 if __name__ == "__main__":
-    currency_boc_sina_df = currency_boc_sina(symbol="美元", date="20220620")
+    currency_boc_sina_df = currency_boc_sina(
+        symbol="美元", start_date="20230304", end_date="20230813"
+    )
     print(currency_boc_sina_df)

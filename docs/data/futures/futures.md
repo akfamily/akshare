@@ -957,6 +957,7 @@ print(futures_spot_price_daily_df)
 
 ```python
 import akshare as ak
+
 get_rank_sum_daily_df = ak.get_rank_sum_daily(start_day="20180718", end_day="20180719", vars_list=["IF", "C"])
 print(get_rank_sum_daily_df)
 ```

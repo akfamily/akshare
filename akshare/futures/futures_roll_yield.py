@@ -174,9 +174,9 @@ def get_roll_yield_bar(
 if __name__ == "__main__":
     get_roll_yield_bar_range_df = get_roll_yield_bar(
         type_method="date",
-        var="IM",
-        start_day="20230101",
-        end_day="20230112",
+        var="RB",
+        start_day="20230801",
+        end_day="20230810",
     )
     print(get_roll_yield_bar_range_df)
 

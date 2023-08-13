@@ -79,16 +79,12 @@ def get_rank_sum_daily(
     date                             日期                         string YYYYMMDD
     """
     start_day = (
-        cons.convert_date(start_day)
-        if start_day is not None
-        else datetime.date.today()
+        cons.convert_date(start_day) if start_day is not None else datetime.date.today()
     )
     end_day = (
         cons.convert_date(end_day)
         if end_day is not None
-        else cons.convert_date(
-            cons.get_latest_data_date(datetime.datetime.now())
-        )
+        else cons.convert_date(cons.get_latest_data_date(datetime.datetime.now()))
     )
     records = pd.DataFrame()
     while start_day <= end_day:
@@ -108,9 +104,7 @@ def get_rank_sum_daily(
     return records.reset_index(drop=True)
 
 
-def get_rank_sum(
-    date: str = "20210525", vars_list: list = cons.contract_symbols
-):
+def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols):
     """
     抓取四个期货交易所前5、前10、前15、前20会员持仓排名数据
     注1：由于上期所和中金所只公布每个品种内部的标的排名, 没有公布品种的总排名;
@@ -132,27 +126,17 @@ def get_rank_sum(
     ...
     date                             日期                         string YYYYMMDD
     """
-    date = (
-        cons.convert_date(date) if date is not None else datetime.date.today()
-    )
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return None
-    dce_var = [
-        i for i in vars_list if i in cons.market_exchange_symbols["dce"]
-    ]
-    shfe_var = [
-        i for i in vars_list if i in cons.market_exchange_symbols["shfe"]
-    ]
-    czce_var = [
-        i for i in vars_list if i in cons.market_exchange_symbols["czce"]
-    ]
-    cffex_var = [
-        i for i in vars_list if i in cons.market_exchange_symbols["cffex"]
-    ]
+    dce_var = [i for i in vars_list if i in cons.market_exchange_symbols["dce"]]
+    shfe_var = [i for i in vars_list if i in cons.market_exchange_symbols["shfe"]]
+    czce_var = [i for i in vars_list if i in cons.market_exchange_symbols["czce"]]
+    cffex_var = [i for i in vars_list if i in cons.market_exchange_symbols["cffex"]]
     big_dict = {}
     if len(dce_var) > 0:
-        data = get_dce_rank_table(date, dce_var)
+        data = futures_dce_position_rank(date, dce_var)
         if data is False:
             return False
         big_dict.update(data)
@@ -186,9 +170,7 @@ def get_rank_sum(
                         if item.find("open_interest") > -1
                     ] + ["vol", "vol_chg"]:
                         table[col] = [
-                            float(value.replace(",", ""))
-                            if value != "-"
-                            else 0.0
+                            float(value.replace(",", "")) if value != "-" else 0.0
                             for value in table[col]
                         ]
 
@@ -260,7 +242,9 @@ def get_rank_sum(
                     ].sum(),
                     "date": date.strftime("%Y%m%d"),
                 }
-                records = pd.concat([records, pd.DataFrame(big_dict, index=[0])], ignore_index=True)
+                records = pd.concat(
+                    [records, pd.DataFrame(big_dict, index=[0])], ignore_index=True
+                )
 
     if len(big_dict.items()) > 0:
         add_vars = [
@@ -304,9 +288,7 @@ def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
-    date = (
-        cons.convert_date(date) if date is not None else datetime.date.today()
-    )
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2002, 1, 7):
         print("shfe数据源开始日期为20020107，跳过")
         return {}
@@ -426,9 +408,7 @@ def get_czce_rank_table(
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
-    date = (
-        cons.convert_date(date) if date is not None else datetime.date.today()
-    )
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2015, 10, 8):
         print("CZCE可获取的数据源开始日期为 20151008, 请输入合适的日期参数")
         return {}
@@ -449,9 +429,7 @@ def get_czce_rank_table(
     temp_pinzhong_index.insert(0, 0)
     temp_pinzhong_index.pop()
     temp_symbol_index = (
-        temp_df.iloc[temp_pinzhong_index, 0]
-        .str.split(" ", expand=True)
-        .iloc[:, 0]
+        temp_df.iloc[temp_pinzhong_index, 0].str.split(" ", expand=True).iloc[:, 0]
     )
     symbol_list = [
         re.compile(r"[0-9a-zA-Z_]+").findall(item)[0]
@@ -508,9 +486,7 @@ def _get_dce_contract_list(date, var):
     :param var: 合约品种
     :return: list 公布了持仓排名的合约列表
     """
-    url = (
-        "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
-    )
+    url = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
         "Accept-Encoding": "gzip, deflate",
@@ -541,9 +517,7 @@ def _get_dce_contract_list(date, var):
             contract_list = [
                 re.findall(
                     r"\d+",
-                    item["onclick"]
-                    .strip("javascript:setContract_id('")
-                    .strip("');"),
+                    item["onclick"].strip("javascript:setContract_id('").strip("');"),
                 )[0]
                 for item in soup.find_all(attrs={"name": "contract"})
             ]
@@ -554,9 +528,7 @@ def _get_dce_contract_list(date, var):
             continue
 
 
-def get_dce_rank_table(
-    date: str = "20230706", vars_list=cons.contract_symbols
-):
+def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols):
     """
     大连商品交易所前 20 会员持仓排名数据明细, 由于交易所网站问题, 需要 20200720 之后才有数据
     注: 该交易所只公布标的合约排名
@@ -578,18 +550,14 @@ def get_dce_rank_table(
     date                        日期                        string YYYYMMDD
     """
     date_string = date
-    date = (
-        cons.convert_date(date) if date is not None else datetime.date.today()
-    )
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2006, 1, 4):
         print(Exception("大连商品交易所数据源开始日期为 20060104，跳过"))
         return {}
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
-    vars_list = [
-        i for i in vars_list if i in cons.market_exchange_symbols["dce"]
-    ]
+    vars_list = [i for i in vars_list if i in cons.market_exchange_symbols["dce"]]
     big_dict = {}
     for var in vars_list:
         # var = 'V'
@@ -605,9 +573,7 @@ def get_dce_rank_table(
                 date.day,
             )
             try:
-                temp_df = pd.read_excel(
-                    url[:-3] + "excel", header=0, skiprows=3
-                )
+                temp_df = pd.read_excel(url[:-3] + "excel", header=0, skiprows=3)
                 temp_df.dropna(how="any", axis=0, inplace=True)
                 temp_df = temp_df.applymap(lambda x: str(x).replace(",", ""))
                 del temp_df["名次.1"]
@@ -636,15 +602,15 @@ def get_dce_rank_table(
                 temp_df["rank"] = range(1, len(temp_df) + 1)
                 temp_df["vol"] = temp_df["vol"].astype(float)
                 temp_df["vol_chg"] = temp_df["vol_chg"].astype(float)
-                temp_df["long_open_interest"] = temp_df[
-                    "long_open_interest"
-                ].astype(float)
+                temp_df["long_open_interest"] = temp_df["long_open_interest"].astype(
+                    float
+                )
                 temp_df["long_open_interest_chg"] = temp_df[
                     "long_open_interest_chg"
                 ].astype(float)
-                temp_df["short_open_interest"] = temp_df[
-                    "short_open_interest"
-                ].astype(float)
+                temp_df["short_open_interest"] = temp_df["short_open_interest"].astype(
+                    float
+                )
                 temp_df["short_open_interest_chg"] = temp_df[
                     "short_open_interest_chg"
                 ].astype(float)
@@ -730,12 +696,8 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
-    vars_list = [
-        i for i in vars_list if i in cons.market_exchange_symbols["cffex"]
-    ]
-    date = (
-        cons.convert_date(date) if date is not None else datetime.date.today()
-    )
+    vars_list = [i for i in vars_list if i in cons.market_exchange_symbols["cffex"]]
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2010, 4, 16):
         print(Exception("CFFEX 数据源开始日期为 20100416，跳过"))
         return {}
@@ -766,8 +728,10 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
                 continue
             need_index = temp_df.iloc[:, 0].str.contains("交易日")
             if sum(need_index) > 2:
-                table = temp_df.iloc[temp_df[need_index].index[1]:, 0].str.split(",", expand=True)
-                table.columns = table.iloc[0,:]
+                table = temp_df.iloc[temp_df[need_index].index[1] :, 0].str.split(
+                    ",", expand=True
+                )
+                table.columns = table.iloc[0, :]
                 table = table.iloc[2:, :].copy()
                 table.reset_index(inplace=True, drop=True)
             else:
@@ -775,10 +739,8 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
         else:
             return
         table = table.dropna(how="any")
-        table = table.applymap(
-            lambda x: x.strip() if isinstance(x, str) else x
-        )
-        del table['交易日']
+        table = table.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+        del table["交易日"]
         for symbol in set(table["合约"]):
             table_cut = table[table["合约"] == symbol]
             table_cut.columns = ["symbol", "rank"] + rank_columns
@@ -798,9 +760,7 @@ def _table_cut_cal(table_cut, symbol):
     :rtype: pandas.DataFrame
     """
     var = symbol_varieties(symbol)
-    table_cut[intColumns + ["rank"]] = table_cut[intColumns + ["rank"]].astype(
-        int
-    )
+    table_cut[intColumns + ["rank"]] = table_cut[intColumns + ["rank"]].astype(int)
     table_cut_sum = table_cut.sum()
     table_cut_sum["rank"] = 999
     for col in ["vol_party_name", "long_party_name", "short_party_name"]:
@@ -808,24 +768,24 @@ def _table_cut_cal(table_cut, symbol):
     table_cut = pd.concat([table_cut, pd.DataFrame(table_cut_sum).T], sort=True)
     table_cut["symbol"] = symbol
     table_cut["variety"] = var
-    table_cut[intColumns + ["rank"]] = table_cut[intColumns + ["rank"]].astype(
-        int
-    )
+    table_cut[intColumns + ["rank"]] = table_cut[intColumns + ["rank"]].astype(int)
     return table_cut
 
 
-def futures_dce_position_rank(date: str = "20160919") -> dict:
+def futures_dce_position_rank(
+    date: str = "20160919", vars_list=cons.contract_symbols
+) -> dict:
     """
     大连商品交易所-每日持仓排名-具体合约
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
     :param date: 指定交易日; e.g., "20200511"
     :type date: str
+    :param vars_list: 品种列表
+    :type vars_list: list
     :return: 指定日期的持仓排名数据
     :rtype: pandas.DataFrame
     """
-    date = (
-        cons.convert_date(date) if date is not None else datetime.date.today()
-    )
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
@@ -863,34 +823,24 @@ def futures_dce_position_rank(date: str = "20160919") -> dict:
             if not file_name.startswith(date.strftime("%Y%m%d")):
                 continue
             try:
-                data = pd.read_table(z.open(i), header=None, sep="\t").iloc[
-                    :-6
-                ]
+                data = pd.read_table(z.open(i), header=None, sep="\t").iloc[:-6]
                 if len(data) < 12:  # 处理没有活跃合约的情况
                     big_dict[file_name.split("_")[1]] = pd.DataFrame()
                     continue
-                temp_filter = data[
-                    data.iloc[:, 0].str.find("名次") == 0
-                ].index.tolist()
+                temp_filter = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
                 if (
                     temp_filter[1] - temp_filter[0] < 5
                 ):  # 过滤有无成交量但是有买卖持仓的数据, 如 20201105_c2011_成交量_买持仓_卖持仓排名.txt
                     big_dict[file_name.split("_")[1]] = pd.DataFrame()
                     continue
-                start_list = data[
-                    data.iloc[:, 0].str.find("名次") == 0
-                ].index.tolist()
+                start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
                 data = data.iloc[
                     start_list[0] :,
                     data.columns[data.iloc[start_list[0], :].notnull()],
                 ]
                 data.reset_index(inplace=True, drop=True)
-                start_list = data[
-                    data.iloc[:, 0].str.find("名次") == 0
-                ].index.tolist()
-                end_list = data[
-                    data.iloc[:, 0].str.find("总计") == 0
-                ].index.tolist()
+                start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
+                end_list = data[data.iloc[:, 0].str.find("总计") == 0].index.tolist()
                 part_one = data[start_list[0] : end_list[0]].iloc[1:, :]
                 part_two = data[start_list[1] : end_list[1]].iloc[1:, :]
                 part_three = data[start_list[2] : end_list[2]].iloc[1:, :]
@@ -949,6 +899,16 @@ def futures_dce_position_rank(date: str = "20160919") -> dict:
                         "variety",
                     ]
                 ]
+                temp_df = temp_df.applymap(lambda x: str(x).replace(",", ""))
+                temp_df['long_open_interest'] = pd.to_numeric(temp_df['long_open_interest'], errors="coerce")
+                temp_df['long_open_interest_chg'] = pd.to_numeric(temp_df['long_open_interest_chg'], errors="coerce")
+                temp_df['rank'] = pd.to_numeric(temp_df['rank'], errors="coerce")
+                temp_df['short_open_interest'] = pd.to_numeric(temp_df['short_open_interest'], errors="coerce")
+                temp_df['short_open_interest_chg'] = pd.to_numeric(temp_df['short_open_interest_chg'], errors="coerce")
+                temp_df['vol'] = pd.to_numeric(temp_df['vol'], errors="coerce")
+                temp_df['vol_chg'] = pd.to_numeric(temp_df['vol_chg'], errors="coerce")
+                temp_df['vol_party_name'] = pd.to_numeric(temp_df['vol_party_name'], errors="coerce")
+                temp_df['vol_party_name'] = pd.to_numeric(temp_df['vol_party_name'], errors="coerce")
                 big_dict[file_name.split("_")[1]] = temp_df
             except UnicodeDecodeError as e:
                 try:
@@ -967,12 +927,8 @@ def futures_dce_position_rank(date: str = "20160919") -> dict:
                         encoding="gb2312",
                         skiprows=4,
                     )
-                start_list = data[
-                    data.iloc[:, 0].str.find("名次") == 0
-                ].index.tolist()
-                end_list = data[
-                    data.iloc[:, 0].str.find("总计") == 0
-                ].index.tolist()
+                start_list = data[data.iloc[:, 0].str.find("名次") == 0].index.tolist()
+                end_list = data[data.iloc[:, 0].str.find("总计") == 0].index.tolist()
                 part_one = data[start_list[0] : end_list[0]].iloc[1:, :]
                 part_two = data[start_list[1] : end_list[1]].iloc[1:, :]
                 part_three = data[start_list[2] : end_list[2]].iloc[1:, :]
@@ -1031,20 +987,31 @@ def futures_dce_position_rank(date: str = "20160919") -> dict:
                         "variety",
                     ]
                 ]
+                temp_df = temp_df.applymap(lambda x: str(x).replace(",", ""))
+                temp_df['long_open_interest'] = pd.to_numeric(temp_df['long_open_interest'], errors="coerce")
+                temp_df['long_open_interest_chg'] = pd.to_numeric(temp_df['long_open_interest_chg'], errors="coerce")
+                temp_df['rank'] = pd.to_numeric(temp_df['rank'], errors="coerce")
+                temp_df['short_open_interest'] = pd.to_numeric(temp_df['short_open_interest'], errors="coerce")
+                temp_df['short_open_interest_chg'] = pd.to_numeric(temp_df['short_open_interest_chg'], errors="coerce")
+                temp_df['vol'] = pd.to_numeric(temp_df['vol'], errors="coerce")
+                temp_df['vol_chg'] = pd.to_numeric(temp_df['vol_chg'], errors="coerce")
+                temp_df['vol_party_name'] = pd.to_numeric(temp_df['vol_party_name'], errors="coerce")
+                temp_df['vol_party_name'] = pd.to_numeric(temp_df['vol_party_name'], errors="coerce")
                 big_dict[file_name.split("_")[1]] = temp_df
+    dict_keys = list(big_dict.keys())
+    for item in dict_keys:
+        result = re.sub(r"\d", "", item)
+        if result.upper() not in vars_list:
+            del big_dict[item]
     return big_dict
 
 
 def futures_dce_position_rank_other(date: str = "20160104"):
-    date = (
-        cons.convert_date(date) if date is not None else datetime.date.today()
-    )
+    date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
         return {}
-    url = (
-        "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
-    )
+    url = "http://www.dce.com.cn/publicweb/quotesdata/memberDealPosiQuotes.html"
     payload = {
         "memberDealPosiQuotes.variety": "c",
         "memberDealPosiQuotes.trade_type": "0",
@@ -1059,9 +1026,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
     soup = BeautifulSoup(r.text, "lxml")
     symbol_list = [
         item["onclick"].strip("javascript:setVariety(").strip("');")
-        for item in soup.find_all(attrs={"class": "selBox"})[-3].find_all(
-            "input"
-        )
+        for item in soup.find_all(attrs={"class": "selBox"})[-3].find_all("input")
     ]
     big_df = dict()
     for symbol in symbol_list:
@@ -1169,7 +1134,7 @@ if __name__ == "__main__":
 
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(
-        start_day="20210515", end_day="20210518", vars_list=["MA"]
+        start_day="20230806", end_day="20230810", vars_list=["IF", "C"]
     )
     print(get_rank_sum_daily_df)
 
