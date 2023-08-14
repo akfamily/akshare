@@ -2497,9 +2497,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.80 fix: fix macro_china_gyzjz interface
 1.10.81 fix: fix stock_bid_ask_em interface
 1.10.82 fix: fix currency_boc_sina interface
+1.10.83 add: add stock_industry_clf_hist_sw interface
 """
 
-__version__ = "1.10.82"
+__version__ = "1.10.83"
 __author__ = "AKFamily"
 
 import sys
@@ -3176,9 +3177,8 @@ from akshare.stock.stock_industry_pe_cninfo import (
 """
 申万宏源行业分类数据
 """
-from akshare.stock.stock_industry_sw import (
-    sw_stock_industry_classification_hist,
-)
+
+from akshare.stock.stock_industry_sw import stock_industry_clf_hist_sw
 
 """
 投资评级
