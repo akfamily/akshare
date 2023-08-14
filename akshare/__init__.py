@@ -3177,6 +3177,7 @@ from akshare.stock.stock_industry_pe_cninfo import (
 """
 申万宏源行业分类数据
 """
+
 from akshare.stock.stock_industry_sw import stock_industry_clf_hist_sw
 
 """

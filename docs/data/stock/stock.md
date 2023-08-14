@@ -13336,7 +13336,6 @@ print(stock_industry_clf_hist_sw_df)
 [12247 rows x 4 columns]
 ```
 
-
 ##### 行业市盈率
 
 接口: stock_industry_pe_ratio_cninfo
