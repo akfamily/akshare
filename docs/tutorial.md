@@ -1162,6 +1162,8 @@
  "index_realtime_sw"  # 申万指数实时行情
  # 申万指数历史行情
  "index_hist_sw"  # 申万指数历史行情
+ # 申万宏源研究-行业分类-全部行业分类
+ "stock_industry_clf_hist_sw"  # 申万宏源研究-行业分类-全部行业分类
  # 申万指数分时行情
  "index_min_sw"  # 申万指数分时行情
  # 申万指数成分股
