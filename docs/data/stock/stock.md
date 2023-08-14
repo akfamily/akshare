@@ -13285,6 +13285,61 @@ print(stock_rank_forecast_cninfo_df)
 168  689009   九号公司  2021-09-07   安信证券  ...   维持      买入  100.00  100.00
 ```
 
+##### 申万个股行业分类变动历史
+
+接口: sw_stock_industry_classification_hist
+
+目标地址: https://www.swsresearch.com/swindex/pdf/SwClass2021/StockClassifyUse_stock.xls
+
+描述: 申万宏源研究-行业分类-全部行业分类下载
+
+限量: 单次获取所有个股的行业分类变动历史
+
+输入参数
+
+| 名称     | 类型  | 描述                                                |
+|--------|-----|---------------------------------------------------|
+
+
+输出参数
+
+| 名称         | 类型      | 描述       |
+|------------|---------|----------|
+| Symbol       | object  |   股票代码    |
+| StartDate   | object | 计入日期 |
+| IndCode | object | 申万行业代码 | 
+| UpdateTime | object | 更新日期 |
+
+
+接口示例
+
+```python
+import akshare as ak
+
+sw_stock_industry_classification_hist_df = (
+    sw_stock_industry_classification_hist()
+)
+print(sw_stock_industry_classification_hist_df)
+```
+
+数据示例
+
+```
+       Symbol   StartDate IndCode  UpdateTime
+0      000001  1991-04-03  440101  2015-10-27
+1      000001  2014-01-01  480101  2015-10-27
+2      000001  2021-07-30  480301  2021-07-31
+3      000002  1991-01-29  430101  2015-10-27
+4      000003  1991-04-14  510101  2015-10-27
+...       ...         ...     ...         ...
+12242  873305  2022-12-27  640108  2023-01-09
+12243  873339  2022-11-23  330501  2022-11-23
+12244  873527  2022-10-26  220309  2022-10-26
+12245  873576  2023-07-10  240201  2023-07-10
+12246  873593  2023-04-07  640701  2023-06-30
+```
+
+
 ##### 行业市盈率
 
 接口: stock_industry_pe_ratio_cninfo
