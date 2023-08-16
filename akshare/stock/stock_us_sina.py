@@ -225,7 +225,10 @@ def stock_us_fundamental(
     :rtype: pandas.DataFrame
     """
     url = "https://www.macrotrends.net/stocks/stock-screener"
-    r = requests.get(url)
+    headers = {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36",
+    }
+    r = requests.get(url, headers=headers)
     temp_text = r.text[
         r.text.find("originalData") + 15 : r.text.find("filterArray") - 8
     ]
@@ -235,12 +238,16 @@ def stock_us_fundamental(
         del temp_df["name_link"]
         return temp_df
     else:
+        headers = {
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36",
+        }
         need_df = temp_df[temp_df["ticker"] == stock]
         soup = BeautifulSoup(need_df["name_link"].values[0], "lxml")
         base_url = "https://www.macrotrends.net" + soup.find("a")["href"]
         if symbol == "PE":
             url = base_url.rsplit("/", maxsplit=1)[0] + "/pe-ratio"
-            temp_df = pd.read_html(url)[0]
+            r = requests.get(url, headers=headers)
+            temp_df = pd.read_html(r.text)[0]
             temp_df.columns = [
                 "date",
                 "stock_price",
@@ -250,7 +257,8 @@ def stock_us_fundamental(
             return temp_df
         elif symbol == "PB":
             url = base_url.rsplit("/", maxsplit=1)[0] + "/price-book"
-            temp_df = pd.read_html(url)[0]
+            r = requests.get(url, headers=headers)
+            temp_df = pd.read_html(r.text)[0]
             temp_df.columns = [
                 "date",
                 "stock_price",
