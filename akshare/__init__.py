@@ -2500,9 +2500,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.83 add: add stock_industry_clf_hist_sw interface
 1.10.84 fix: fix stock_us_fundamental interface
 1.10.85 fix: fix stock_hot_rank_wc interface
+1.10.86 add: add stock_gddh_em interface
 """
 
-__version__ = "1.10.85"
+__version__ = "1.10.86"
 __author__ = "AKFamily"
 
 import sys
@@ -2516,6 +2517,11 @@ import sys
 #     sys.exit(1)
 
 del sys
+
+"""
+东方财富网-数据中心-股东大会
+"""
+from akshare.stock_feature.stock_gddh_em import stock_gddh_em
 
 """
 东方财富网-数据中心-股市日历
