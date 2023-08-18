@@ -1,47 +1,32 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/9/12 18:29
+Date: 2023/8/18 15:29
 Desc: 巨潮资讯-数据中心-评级预测-投资评级
 http://webapi.cninfo.com.cn/#/thematicStatistics?name=%E6%8A%95%E8%B5%84%E8%AF%84%E7%BA%A7
 """
-import time
-from py_mini_racer import py_mini_racer
-import requests
 import pandas as pd
+import requests
+from py_mini_racer import py_mini_racer
 
-js_str = """
-    function mcode(input) {  
-                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";  
-                var output = "";  
-                var chr1, chr2, chr3 = "";  
-                var enc1, enc2, enc3, enc4 = "";  
-                var i = 0;  
-                do {  
-                    chr1 = input.charCodeAt(i++);  
-                    chr2 = input.charCodeAt(i++);  
-                    chr3 = input.charCodeAt(i++);  
-                    enc1 = chr1 >> 2;  
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
-                    enc4 = chr3 & 63;  
-                    if (isNaN(chr2)) {  
-                        enc3 = enc4 = 64;  
-                    } else if (isNaN(chr3)) {  
-                        enc4 = 64;  
-                    }  
-                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)  
-                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);  
-                    chr1 = chr2 = chr3 = "";  
-                    enc1 = enc2 = enc3 = enc4 = "";  
-                } while (i < input.length);  
-          
-                return output;  
-            }  
-"""
+from akshare.datasets import get_ths_js
 
 
-def stock_rank_forecast_cninfo(date: str = "20210910") -> pd.DataFrame:
+def _get_file_content_cninfo(file: str = "cninfo.js") -> str:
+    """
+    获取 JS 文件的内容
+    :param file:  JS 文件名
+    :type file: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_path = get_ths_js(file)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
+
+
+def stock_rank_forecast_cninfo(date: str = "20230817") -> pd.DataFrame:
     """
     巨潮资讯-数据中心-评级预测-投资评级
     http://webapi.cninfo.com.cn/#/thematicStatistics?name=%E6%8A%95%E8%B5%84%E8%AF%84%E7%BA%A7
@@ -52,18 +37,18 @@ def stock_rank_forecast_cninfo(date: str = "20210910") -> pd.DataFrame:
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1089"
     params = {"tdate": "-".join([date[:4], date[4:6], date[6:]])}
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_cninfo("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
+        "Accept-Enckey": mcode,
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -87,24 +72,26 @@ def stock_rank_forecast_cninfo(date: str = "20210910") -> pd.DataFrame:
         "目标价格-下限",
         "证券代码",
     ]
-    temp_df = temp_df[[
-        "证券代码",
-        "证券简称",
-        "发布日期",
-        "研究机构简称",
-        "研究员名称",
-        "投资评级",
-        "是否首次评级",
-        "评级变化",
-        "前一次投资评级",
-        "目标价格-下限",
-        "目标价格-上限",
-    ]]
+    temp_df = temp_df[
+        [
+            "证券代码",
+            "证券简称",
+            "发布日期",
+            "研究机构简称",
+            "研究员名称",
+            "投资评级",
+            "是否首次评级",
+            "评级变化",
+            "前一次投资评级",
+            "目标价格-下限",
+            "目标价格-上限",
+        ]
+    ]
     temp_df["目标价格-上限"] = pd.to_numeric(temp_df["目标价格-上限"], errors="coerce")
     temp_df["目标价格-下限"] = pd.to_numeric(temp_df["目标价格-下限"], errors="coerce")
     return temp_df
 
 
 if __name__ == "__main__":
-    stock_rank_forecast_cninfo_df = stock_rank_forecast_cninfo(date="20210907")
+    stock_rank_forecast_cninfo_df = stock_rank_forecast_cninfo(date="20230817")
     print(stock_rank_forecast_cninfo_df)
