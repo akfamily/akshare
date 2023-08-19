@@ -299,7 +299,7 @@ if __name__ == "__main__":
     print(fund_portfolio_hold_em_df)
 
     fund_portfolio_bond_hold_em_df = fund_portfolio_bond_hold_em(
-        symbol="000001", date="2020"
+        symbol="320007", date="2015"
     )
     print(fund_portfolio_bond_hold_em_df)
 

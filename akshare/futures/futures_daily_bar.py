@@ -746,7 +746,7 @@ if __name__ == "__main__":
     get_cffex_daily_df = get_cffex_daily(date="20230810")
     print(get_cffex_daily_df)
 
-    get_ine_daily_df = get_ine_daily(date="20211201")
+    get_ine_daily_df = get_ine_daily(date="20230818")
     print(get_ine_daily_df)
 
     get_czce_daily_df = get_czce_daily(date="20230320")
