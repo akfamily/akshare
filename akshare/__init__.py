@@ -2501,9 +2501,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.84 fix: fix stock_us_fundamental interface
 1.10.85 fix: fix stock_hot_rank_wc interface
 1.10.86 add: add stock_gddh_em interface
+1.10.87 add: add stock_zdhtmx_em interface
 """
 
-__version__ = "1.10.86"
+__version__ = "1.10.87"
 __author__ = "AKFamily"
 
 import sys
@@ -2517,6 +2518,11 @@ import sys
 #     sys.exit(1)
 
 del sys
+
+"""
+东方财富网-数据中心-重大合同-重大合同明细
+"""
+from akshare.stock_feature.stock_zdhtmx_em import stock_zdhtmx_em
 
 """
 东方财富网-数据中心-股东大会
