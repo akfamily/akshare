@@ -1,33 +1,34 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/18 15:32
-Desc: 东方财富网-数据中心-股东大会
-https://data.eastmoney.com/gddh/
+Date: 2023/8/19 20:32
+Desc: 东方财富网-数据中心-重大合同-重大合同明细
+https://data.eastmoney.com/zdht/mx.html
 """
 import pandas as pd
 import requests
 from tqdm import tqdm
 
 
-def stock_gddh_em() -> pd.DataFrame:
+def stock_zdhtmx_em(
+    start_date: str = "20200819", end_date: str = "20230819"
+) -> pd.DataFrame:
     """
-    东方财富网-数据中心-股东大会
-    https://data.eastmoney.com/gddh/
+    东方财富网-数据中心-重大合同-重大合同明细
+    https://data.eastmoney.com/zdht/mx.html
     :return: 股东大会
     :rtype: pandas.DataFrame
     """
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
-        "sortColumns": "NOTICE_DATE",
+        "sortColumns": "DIM_RDATE",
         "sortTypes": "-1",
         "pageSize": "500",
         "pageNumber": "1",
-        "reportName": "RPT_GENERALMEETING_DETAIL",
-        "columns": "SECURITY_CODE,SECURITY_NAME_ABBR,MEETING_TITLE,START_ADJUST_DATE,EQUITY_RECORD_DATE,ONSITE_RECORD_DATE,DECISION_NOTICE_DATE,NOTICE_DATE,WEB_START_DATE,WEB_END_DATE,SERIAL_NUM,PROPOSAL",
-        "filter": '(IS_LASTDATE="1")',
-        "source": "WEB",
-        "client": "WEB",
+        "columns": "ALL",
+        "token": "894050c76af8597a853f5b408b759f5d",
+        "reportName": "RPTA_WEB_ZDHT_LIST",
+        "filter": f"""(DIM_RDATE>='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')(DIM_RDATE<='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
@@ -43,50 +44,68 @@ def stock_gddh_em() -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], axis=0, ignore_index=True)
+    big_df.reset_index(inplace=True)
+    big_df["index"] = big_df["index"] + 1
     big_df.rename(
         columns={
-            "SECURITY_CODE": "代码",
-            "SECURITY_NAME_ABBR": "简称",
-            "MEETING_TITLE": "股东大会名称",
-            "START_ADJUST_DATE": "召开开始日",
-            "EQUITY_RECORD_DATE": "股权登记日",
-            "ONSITE_RECORD_DATE": "现场登记日",
-            "DECISION_NOTICE_DATE": "决议公告日",
-            "NOTICE_DATE": "公告日",
-            "WEB_START_DATE": "网络投票时间-开始日",
-            "WEB_END_DATE": "网络投票时间-结束日",
-            "SERIAL_NUM": "序列号",
-            "PROPOSAL": "提案",
+            "index": "序号",
+            "DIM_SCODE": "-",
+            "CONTENTS": "-",
+            "CONTRACTNAME": "合同名称",
+            "CONTRACTTYPE": "-",
+            "COUNTERPARTY": "其他签署方",
+            "COUNTERPARTYREL": "-",
+            "ISABOLISHED": "-",
+            "DIM_RDATE": "公告日期",
+            "REMARK": "-",
+            "SIGNATORY": "签署主体",
+            "SIGNATORYREL": "与上市公司关系",
+            "SIGNDATE": "签署日期",
+            "SIGNEFFECT": "-",
+            "UPDATEDATE": "-",
+            "YEAR": "-",
+            "AMOUNTS": "合同金额",
+            "SECURITYCODE": "股票代码",
+            "SECURITYSHORTNAME": "股票简称",
+            "CONTRACTTYPENAME": "合同类型",
+            "SIGNATORYRELNAME": "签署主体-与上市公司关系",
+            "COUNTERPARTYRELNAME": "其他签署方-与上市公司关系",
+            "SNDYYSR": "上年度营业收入",
+            "OPERATEREVE": "最新财务报表的营业收入",
+            "RCHANGE1DC": "-",
+            "RCHANGE20DC": "-",
+            "ZSNDYYSRBL": "占上年度营业收入比例",
         },
         inplace=True,
     )
     big_df = big_df[
         [
-            "代码",
-            "简称",
-            "股东大会名称",
-            "召开开始日",
-            "股权登记日",
-            "现场登记日",
-            "网络投票时间-开始日",
-            "网络投票时间-结束日",
-            "决议公告日",
-            "公告日",
-            "序列号",
-            "提案",
+            "序号",
+            "股票代码",
+            "股票简称",
+            "签署主体",
+            "签署主体-与上市公司关系",
+            "其他签署方",
+            "其他签署方-与上市公司关系",
+            "合同类型",
+            "合同名称",
+            "合同金额",
+            "上年度营业收入",
+            "占上年度营业收入比例",
+            "最新财务报表的营业收入",
+            "签署日期",
+            "公告日期",
         ]
     ]
-    big_df['召开开始日'] = pd.to_datetime(big_df['召开开始日'], errors="coerce").dt.date
-    big_df['股权登记日'] = pd.to_datetime(big_df['股权登记日'], errors="coerce").dt.date
-    big_df['现场登记日'] = pd.to_datetime(big_df['现场登记日'], errors="coerce").dt.date
-    big_df['网络投票时间-开始日'] = pd.to_datetime(big_df['网络投票时间-开始日'], errors="coerce").dt.date
-    big_df['网络投票时间-结束日'] = pd.to_datetime(big_df['网络投票时间-结束日'], errors="coerce").dt.date
-    big_df['决议公告日'] = pd.to_datetime(big_df['决议公告日'], errors="coerce").dt.date
-    big_df['公告日'] = pd.to_datetime(big_df['公告日'], errors="coerce").dt.date
-    big_df["提案"] = big_df["提案"].str.replace("\r\n2", "").str.replace("\r\n3", "")
+    big_df["签署日期"] = pd.to_datetime(big_df["签署日期"], errors="coerce").dt.date
+    big_df["公告日期"] = pd.to_datetime(big_df["公告日期"], errors="coerce").dt.date
+    big_df["合同金额"] = pd.to_numeric(big_df["合同金额"], errors="coerce")
+    big_df["上年度营业收入"] = pd.to_numeric(big_df["上年度营业收入"], errors="coerce")
+    big_df["占上年度营业收入比例"] = pd.to_numeric(big_df["占上年度营业收入比例"], errors="coerce")
+    big_df["最新财务报表的营业收入"] = pd.to_numeric(big_df["最新财务报表的营业收入"], errors="coerce")
     return big_df
 
 
 if __name__ == "__main__":
-    stock_gddh_em_df = stock_gddh_em()
-    print(stock_gddh_em_df)
+    stock_zdhtmx_em_df = stock_zdhtmx_em(start_date="20220819", end_date="20230819")
+    print(stock_zdhtmx_em_df)
