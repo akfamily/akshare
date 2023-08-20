@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/2/7 12:25
+Date: 2023/8/20 20:00
 Desc: 东方财富网-数据中心-研究报告-东方财富分析师指数
 https://data.eastmoney.com/invest/invest/list.html
 """
@@ -10,7 +10,7 @@ import requests
 from tqdm import tqdm
 
 
-def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
+def stock_analyst_rank_em(year: str = "2023") -> pd.DataFrame:
     """
     东方财富网-数据中心-研究报告-东方财富分析师指数-东方财富分析师指数
     https://data.eastmoney.com/invest/invest/list.html
@@ -26,7 +26,7 @@ def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
     params = {
         "sortColumns": "YEAR_YIELD",
         "sortTypes": "-1",
-        "pageSize": "50",
+        "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_ANALYST_INDEX_RANK",
         "columns": "ALL",
@@ -90,13 +90,13 @@ def stock_analyst_rank_em(year: str = "2022") -> pd.DataFrame:
             "年度",
         ]
     ]
-    big_df["更新日期"] = pd.to_datetime(big_df["更新日期"]).dt.date
-    big_df["年度指数"] = pd.to_numeric(big_df["年度指数"])
-    big_df[f"{year}年收益率"] = pd.to_numeric(big_df[f"{year}年收益率"])
-    big_df["3个月收益率"] = pd.to_numeric(big_df["3个月收益率"])
-    big_df["6个月收益率"] = pd.to_numeric(big_df["6个月收益率"])
-    big_df["12个月收益率"] = pd.to_numeric(big_df["12个月收益率"])
-    big_df["成分股个数"] = pd.to_numeric(big_df["成分股个数"])
+    big_df["更新日期"] = pd.to_datetime(big_df["更新日期"], errors="coerce").dt.date
+    big_df["年度指数"] = pd.to_numeric(big_df["年度指数"], errors="coerce")
+    big_df[f"{year}年收益率"] = pd.to_numeric(big_df[f"{year}年收益率"], errors="coerce")
+    big_df["3个月收益率"] = pd.to_numeric(big_df["3个月收益率"], errors="coerce")
+    big_df["6个月收益率"] = pd.to_numeric(big_df["6个月收益率"], errors="coerce")
+    big_df["12个月收益率"] = pd.to_numeric(big_df["12个月收益率"], errors="coerce")
+    big_df["成分股个数"] = pd.to_numeric(big_df["成分股个数"], errors="coerce")
     return big_df
 
 
@@ -108,7 +108,7 @@ def stock_analyst_detail_em(
     https://data.eastmoney.com/invest/invest/11000257131.html
     :param analyst_id: 分析师 ID, 从 ak.stock_analyst_rank_em() 获取
     :type analyst_id: str
-    :param indicator: ["最新跟踪成分股", "历史跟踪成分股", "历史指数"]
+    :param indicator: choice of {"最新跟踪成分股", "历史跟踪成分股", "历史指数"}
     :type indicator: str
     :return: 具体指标的数据
     :rtype: pandas.DataFrame
@@ -164,11 +164,11 @@ def stock_analyst_detail_em(
                 "阶段涨跌幅",
             ]
         ]
-        temp_df["调入日期"] = pd.to_datetime(temp_df["调入日期"]).dt.date
-        temp_df["最新评级日期"] = pd.to_datetime(temp_df["最新评级日期"]).dt.date
-        temp_df["成交价格(前复权)"] = pd.to_numeric(temp_df["成交价格(前复权)"])
-        temp_df["最新价格"] = pd.to_numeric(temp_df["最新价格"])
-        temp_df["阶段涨跌幅"] = pd.to_numeric(temp_df["阶段涨跌幅"])
+        temp_df["调入日期"] = pd.to_datetime(temp_df["调入日期"], errors="coerce").dt.date
+        temp_df["最新评级日期"] = pd.to_datetime(temp_df["最新评级日期"], errors="coerce").dt.date
+        temp_df["成交价格(前复权)"] = pd.to_numeric(temp_df["成交价格(前复权)"], errors="coerce")
+        temp_df["最新价格"] = pd.to_numeric(temp_df["最新价格"], errors="coerce")
+        temp_df["阶段涨跌幅"] = pd.to_numeric(temp_df["阶段涨跌幅"], errors="coerce")
         return temp_df
     elif indicator == "历史跟踪成分股":
         params = {
@@ -214,9 +214,9 @@ def stock_analyst_detail_em(
                 "累计涨跌幅",
             ]
         ]
-        temp_df["调入日期"] = pd.to_datetime(temp_df["调入日期"]).dt.date
-        temp_df["调出日期"] = pd.to_datetime(temp_df["调出日期"]).dt.date
-        temp_df["累计涨跌幅"] = pd.to_numeric(temp_df["累计涨跌幅"])
+        temp_df["调入日期"] = pd.to_datetime(temp_df["调入日期"], errors="coerce").dt.date
+        temp_df["调出日期"] = pd.to_datetime(temp_df["调出日期"], errors="coerce").dt.date
+        temp_df["累计涨跌幅"] = pd.to_numeric(temp_df["累计涨跌幅"], errors="coerce")
         return temp_df
     elif indicator == "历史指数":
         params = {
@@ -239,14 +239,14 @@ def stock_analyst_detail_em(
             "INDEX_HVALUE",
         ]]
         temp_df.columns = ['date', 'value']
-        temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
-        temp_df["value"] = pd.to_numeric(temp_df["value"])
+        temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
+        temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
         temp_df.sort_values(['date'], inplace=True, ignore_index=True)
         return temp_df
 
 
 if __name__ == "__main__":
-    stock_analyst_rank_em_df = stock_analyst_rank_em(year="2022")
+    stock_analyst_rank_em_df = stock_analyst_rank_em(year="2023")
     print(stock_analyst_rank_em_df)
 
     stock_analyst_detail_em_df = stock_analyst_detail_em(
