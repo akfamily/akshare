@@ -1,80 +1,115 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/19 20:32
-Desc: 东方财富网-数据中心-重大合同-重大合同明细
-https://data.eastmoney.com/zdht/mx.html
+Date: 2023/8/20 20:00
+Desc: 东方财富网-数据中心-研究报告-个股研报
+https://data.eastmoney.com/report/stock.jshtml
 """
 import pandas as pd
 import requests
 from tqdm import tqdm
 
 
-def stock_zdhtmx_em(
-    start_date: str = "20200819", end_date: str = "20230819"
-) -> pd.DataFrame:
+def stock_research_report_em(symbol: str = "000001") -> pd.DataFrame:
     """
-    东方财富网-数据中心-重大合同-重大合同明细
-    https://data.eastmoney.com/zdht/mx.html
-    :return: 股东大会
+    东方财富网-数据中心-研究报告-个股研报
+    https://data.eastmoney.com/report/stock.jshtml
+    :return: 个股研报
     :rtype: pandas.DataFrame
     """
-    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://reportapi.eastmoney.com/report/list"
     params = {
-        "sortColumns": "DIM_RDATE",
-        "sortTypes": "-1",
-        "pageSize": "500",
+        "industryCode": "*",
+        "pageSize": "5000",
+        "industry": "*",
+        "rating": "*",
+        "ratingChange": "*",
+        "beginTime": "2000-01-01",
+        "endTime": "2025-01-01",
+        "pageNo": "1",
+        "fields": "",
+        "qType": "0",
+        "orgCode": "",
+        "code": symbol,
+        "rcode": "",
+        "p": "1",
+        "pageNum": "1",
         "pageNumber": "1",
-        "columns": "ALL",
-        "token": "894050c76af8597a853f5b408b759f5d",
-        "reportName": "RPTA_WEB_ZDHT_LIST",
-        "filter": f"""(DIM_RDATE>='{"-".join([start_date[:4], start_date[4:6], start_date[6:]])}')(DIM_RDATE<='{"-".join([end_date[:4], end_date[4:6], end_date[6:]])}')""",
+        "_": "1692533168153",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    total_page = data_json["result"]["pages"]
+    total_page = data_json["TotalPage"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update(
             {
+                "pageNo": page,
+                "p": page,
+                "pageNum": page,
                 "pageNumber": page,
             }
         )
         r = requests.get(url, params=params)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["result"]["data"])
+        temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat([big_df, temp_df], axis=0, ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df["index"] + 1
     big_df.rename(
         columns={
             "index": "序号",
-            "DIM_SCODE": "-",
-            "CONTENTS": "-",
-            "CONTRACTNAME": "合同名称",
-            "CONTRACTTYPE": "-",
-            "COUNTERPARTY": "其他签署方",
-            "COUNTERPARTYREL": "-",
-            "ISABOLISHED": "-",
-            "DIM_RDATE": "公告日期",
-            "REMARK": "-",
-            "SIGNATORY": "签署主体",
-            "SIGNATORYREL": "与上市公司关系",
-            "SIGNDATE": "签署日期",
-            "SIGNEFFECT": "-",
-            "UPDATEDATE": "-",
-            "YEAR": "-",
-            "AMOUNTS": "合同金额",
-            "SECURITYCODE": "股票代码",
-            "SECURITYSHORTNAME": "股票简称",
-            "CONTRACTTYPENAME": "合同类型",
-            "SIGNATORYRELNAME": "签署主体-与上市公司关系",
-            "COUNTERPARTYRELNAME": "其他签署方-与上市公司关系",
-            "SNDYYSR": "上年度营业收入",
-            "OPERATEREVE": "最新财务报表的营业收入",
-            "RCHANGE1DC": "-",
-            "RCHANGE20DC": "-",
-            "ZSNDYYSRBL": "占上年度营业收入比例",
+            "title": "报告名称",
+            "stockName": "股票简称",
+            "stockCode": "股票代码",
+            "orgCode": "-",
+            "orgName": "-",
+            "orgSName": "机构",
+            "publishDate": "日期",
+            "infoCode": "-",
+            "column": "-",
+            "predictNextTwoYearEps": "-",
+            "predictNextTwoYearPe": "-",
+            "predictNextYearEps": "2024-盈利预测-收益",
+            "predictNextYearPe": "2024-盈利预测-市盈率",
+            "predictThisYearEps": "2023-盈利预测-收益",
+            "predictThisYearPe": "2023-盈利预测-市盈率",
+            "predictLastYearEps": "-",
+            "predictLastYearPe": "-",
+            "actualLastTwoYearEps": "-",
+            "actualLastYearEps": "-",
+            "industryCode": "-",
+            "industryName": "-",
+            "emIndustryCode": "-",
+            "indvInduCode": "-",
+            "indvInduName": "行业",
+            "emRatingCode": "-",
+            "emRatingValue": "-",
+            "emRatingName": "东财评级",
+            "lastEmRatingCode": "-",
+            "lastEmRatingValue": "-",
+            "lastEmRatingName": "-",
+            "ratingChange": "-",
+            "reportType": "-",
+            "author": "-",
+            "indvIsNew": "-",
+            "researcher": "-",
+            "newListingDate": "-",
+            "newPurchaseDate": "-",
+            "newIssuePrice": "-",
+            "newPeIssueA": "-",
+            "indvAimPriceT": "-",
+            "indvAimPriceL": "-",
+            "attachType": "-",
+            "attachSize": "-",
+            "attachPages": "-",
+            "encodeUrl": "-",
+            "sRatingName": "-",
+            "sRatingCode": "-",
+            "market": "-",
+            "authorID": "-",
+            "count": "近一月个股研报数",
+            "orgType": "-",
         },
         inplace=True,
     )
@@ -83,29 +118,27 @@ def stock_zdhtmx_em(
             "序号",
             "股票代码",
             "股票简称",
-            "签署主体",
-            "签署主体-与上市公司关系",
-            "其他签署方",
-            "其他签署方-与上市公司关系",
-            "合同类型",
-            "合同名称",
-            "合同金额",
-            "上年度营业收入",
-            "占上年度营业收入比例",
-            "最新财务报表的营业收入",
-            "签署日期",
-            "公告日期",
+            "报告名称",
+            "东财评级",
+            "机构",
+            "近一月个股研报数",
+            "2023-盈利预测-收益",
+            "2023-盈利预测-市盈率",
+            "2024-盈利预测-收益",
+            "2024-盈利预测-市盈率",
+            "行业",
+            "日期",
         ]
     ]
-    big_df["签署日期"] = pd.to_datetime(big_df["签署日期"], errors="coerce").dt.date
-    big_df["公告日期"] = pd.to_datetime(big_df["公告日期"], errors="coerce").dt.date
-    big_df["合同金额"] = pd.to_numeric(big_df["合同金额"], errors="coerce")
-    big_df["上年度营业收入"] = pd.to_numeric(big_df["上年度营业收入"], errors="coerce")
-    big_df["占上年度营业收入比例"] = pd.to_numeric(big_df["占上年度营业收入比例"], errors="coerce")
-    big_df["最新财务报表的营业收入"] = pd.to_numeric(big_df["最新财务报表的营业收入"], errors="coerce")
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["近一月个股研报数"] = pd.to_numeric(big_df["近一月个股研报数"], errors="coerce")
+    big_df["2023-盈利预测-收益"] = pd.to_numeric(big_df["2023-盈利预测-收益"], errors="coerce")
+    big_df["2023-盈利预测-市盈率"] = pd.to_numeric(big_df["2023-盈利预测-市盈率"], errors="coerce")
+    big_df["2024-盈利预测-收益"] = pd.to_numeric(big_df["2024-盈利预测-收益"], errors="coerce")
+    big_df["2024-盈利预测-市盈率"] = pd.to_numeric(big_df["2024-盈利预测-市盈率"], errors="coerce")
     return big_df
 
 
 if __name__ == "__main__":
-    stock_zdhtmx_em_df = stock_zdhtmx_em(start_date="20220819", end_date="20230819")
-    print(stock_zdhtmx_em_df)
+    stock_research_report_em_df = stock_research_report_em(symbol="000001")
+    print(stock_research_report_em_df)
