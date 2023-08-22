@@ -262,8 +262,8 @@ def stock_info_bj_name_code() -> pd.DataFrame:
             "报告日期",
         ]
     ]
-    big_df["报告日期"] = pd.to_datetime(big_df["报告日期"]).dt.date
-    big_df["上市日期"] = pd.to_datetime(big_df["上市日期"]).dt.date
+    big_df["报告日期"] = pd.to_datetime(big_df["报告日期"], errors="coerce").dt.date
+    big_df["上市日期"] = pd.to_datetime(big_df["上市日期"], errors="coerce").dt.date
     return big_df
 
 
