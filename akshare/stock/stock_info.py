@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/2/19 19:00
+Date: 2023/8/23 12:01
 Desc: 股票基本信息
 """
 import json
