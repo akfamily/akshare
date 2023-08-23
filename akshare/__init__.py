@@ -2503,9 +2503,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.86 add: add stock_gddh_em interface
 1.10.87 add: add stock_zdhtmx_em interface
 1.10.88 add: add stock_research_report_em interface
+1.10.89 add: add stock_share_hold_change_bse interface
 """
 
-__version__ = "1.10.88"
+__version__ = "1.10.89"
 __author__ = "AKFamily"
 
 import sys
@@ -2519,6 +2520,15 @@ import sys
 #     sys.exit(1)
 
 del sys
+
+"""
+董监高及相关人员持股变动
+"""
+from akshare.stock.stock_share_hold import (
+    stock_share_hold_change_bse,
+    stock_share_hold_change_sse,
+    stock_share_hold_change_szse,
+)
 
 """
 东方财富网-数据中心-研究报告-个股研报
