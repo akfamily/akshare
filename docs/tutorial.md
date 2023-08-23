@@ -1227,6 +1227,10 @@
  "stock_zdhtmx_em"  # 重大合同明细
  # 东方财富网-数据中心-研究报告-个股研报
  "stock_research_report_em"  # 个股研报
+ # 董监高及相关人员持股变动
+ "stock_share_hold_change_sse"  # 董监高及相关人员持股变动-上海证券交易所
+ "stock_share_hold_change_szse"  # 董监高及相关人员持股变动-深圳证券交易所
+ "stock_share_hold_change_bse"  # 董监高及相关人员持股变动-北京证券交易所
 ```
 
 ## 案例演示
