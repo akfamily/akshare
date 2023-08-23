@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/29 23:34
+Date: 2023/8/23 8:30
 Desc: 巨潮资讯-数据中心-专题统计-股东股本-实际控制人持股变动
 http://webapi.cninfo.com.cn/#/thematicStatistics
 
@@ -95,7 +95,7 @@ def stock_hold_control_cninfo(symbol: str = "全部") -> pd.DataFrame:
             "控制类型",
         ]
     ]
-    temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"]).dt.date
+    temp_df["变动日期"] = pd.to_datetime(temp_df["变动日期"], errors="coerce").dt.date
     temp_df["控股数量"] = pd.to_numeric(temp_df["控股数量"], errors="coerce")
     temp_df["控股比例"] = pd.to_numeric(temp_df["控股比例"], errors="coerce")
     return temp_df
@@ -181,8 +181,8 @@ def stock_hold_management_detail_cninfo(symbol: str = "增持") -> pd.DataFrame:
             "数据来源",
         ]
     ]
-    temp_df["截止日期"] = pd.to_datetime(temp_df["截止日期"]).dt.date
-    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"]).dt.date
+    temp_df["截止日期"] = pd.to_datetime(temp_df["截止日期"], errors="coerce").dt.date
+    temp_df["公告日期"] = pd.to_datetime(temp_df["公告日期"], errors="coerce").dt.date
     temp_df["期初持股数量"] = pd.to_numeric(temp_df["期初持股数量"], errors="coerce")
     temp_df["期末持股数量"] = pd.to_numeric(temp_df["期末持股数量"], errors="coerce")
     temp_df["变动数量"] = pd.to_numeric(temp_df["变动数量"], errors="coerce")
