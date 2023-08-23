@@ -63,6 +63,10 @@
 
 ## 更新说明详情
 
+1.10.90 fix: fix futures_comex_inventory interface
+
+    1. 修复 futures_comex_inventory 接口
+
 1.10.89 add: add stock_share_hold_change_bse interface
 
     1. 新增 stock_share_hold_change_bse 接口
@@ -2785,6 +2789,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.90 fix: fix futures_comex_inventory interface
 
 1.10.89 add: add stock_share_hold_change_bse interface
 
