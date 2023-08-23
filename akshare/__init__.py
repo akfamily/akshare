@@ -2504,9 +2504,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.87 add: add stock_zdhtmx_em interface
 1.10.88 add: add stock_research_report_em interface
 1.10.89 add: add stock_share_hold_change_bse interface
+1.10.90 fix: fix futures_comex_inventory interface
 """
 
-__version__ = "1.10.89"
+__version__ = "1.10.90"
 __author__ = "AKFamily"
 
 import sys
@@ -3783,7 +3784,7 @@ from akshare.bond.bond_china_money import (
 """
 COMEX黄金-白银库存
 """
-from akshare.futures.futures_comex import futures_comex_inventory
+from akshare.futures.futures_comex_em import futures_comex_inventory
 
 """
 国债期货可交割券相关指标
