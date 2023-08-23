@@ -291,5 +291,3 @@ if __name__ == "__main__":
 
     stock_share_hold_change_bse_df = stock_share_hold_change_bse(symbol="全部")
     print(stock_share_hold_change_bse_df)
-
-
