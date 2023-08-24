@@ -2505,9 +2505,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.88 add: add stock_research_report_em interface
 1.10.89 add: add stock_share_hold_change_bse interface
 1.10.90 fix: fix futures_comex_inventory interface
+1.10.91 fix: fix stock_share_hold_change_szse interface
 """
 
-__version__ = "1.10.90"
+__version__ = "1.10.91"
 __author__ = "AKFamily"
 
 import sys
