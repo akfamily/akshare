@@ -907,8 +907,6 @@ def futures_dce_position_rank(
                 temp_df['short_open_interest_chg'] = pd.to_numeric(temp_df['short_open_interest_chg'], errors="coerce")
                 temp_df['vol'] = pd.to_numeric(temp_df['vol'], errors="coerce")
                 temp_df['vol_chg'] = pd.to_numeric(temp_df['vol_chg'], errors="coerce")
-                temp_df['vol_party_name'] = pd.to_numeric(temp_df['vol_party_name'], errors="coerce")
-                temp_df['vol_party_name'] = pd.to_numeric(temp_df['vol_party_name'], errors="coerce")
                 big_dict[file_name.split("_")[1]] = temp_df
             except UnicodeDecodeError as e:
                 try:
@@ -995,8 +993,6 @@ def futures_dce_position_rank(
                 temp_df['short_open_interest_chg'] = pd.to_numeric(temp_df['short_open_interest_chg'], errors="coerce")
                 temp_df['vol'] = pd.to_numeric(temp_df['vol'], errors="coerce")
                 temp_df['vol_chg'] = pd.to_numeric(temp_df['vol_chg'], errors="coerce")
-                temp_df['vol_party_name'] = pd.to_numeric(temp_df['vol_party_name'], errors="coerce")
-                temp_df['vol_party_name'] = pd.to_numeric(temp_df['vol_party_name'], errors="coerce")
                 big_dict[file_name.split("_")[1]] = temp_df
     dict_keys = list(big_dict.keys())
     for item in dict_keys:

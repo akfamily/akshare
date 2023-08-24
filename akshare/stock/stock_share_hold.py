@@ -113,7 +113,7 @@ def stock_share_hold_change_sse(symbol: str = "600000") -> pd.DataFrame:
     return big_df
 
 
-def stock_share_hold_change_szse(symbol: str = "001308") -> pd.DataFrame:
+def stock_share_hold_change_szse(symbol: str = "全部") -> pd.DataFrame:
     """
     深圳证券交易所-信息披露-监管信息公开-董监高人员股份变动
     http://www.szse.cn/disclosure/supervision/change/index.html
@@ -138,10 +138,10 @@ def stock_share_hold_change_szse(symbol: str = "001308") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json[0]["metadata"]["pagecount"]
     big_df = pd.DataFrame()
-    for page in tqdm(range(0, total_page), leave=False):
+    for page in tqdm(range(1, total_page+1), leave=False):
         params.update(
             {
-                "page": page,
+                "PAGENO": page,
             }
         )
         r = requests.get(url, headers=headers, params=params)
