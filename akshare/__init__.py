@@ -4776,6 +4776,14 @@ from akshare.economic.macro_china import (
 )
 
 """
+全球宏观-中国宏观-国家统计局
+"""
+from akshare.economic.macro_china_nbs import (
+    macro_china_nbs_nation,
+    macro_china_nbs_region
+)
+
+"""
 全球期货
 """
 from akshare.futures.futures_international import (
