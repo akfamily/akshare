@@ -63,6 +63,10 @@
 
 ## 更新说明详情
 
+1.10.93 add: add stock_ipo_summary_cninfo interface
+
+    1. 新增 stock_ipo_summary_cninfo 接口
+
 1.10.92 fix: fix stock_individual_fund_flow interface
 
     1. 修复 stock_individual_fund_flow 接口
@@ -2798,6 +2802,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.10.93 add: add stock_ipo_summary_cninfo interface
 
 1.10.92 fix: fix stock_individual_fund_flow interface
 
