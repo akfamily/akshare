@@ -8239,6 +8239,59 @@ print(stock_profile_cninfo_df)
 0  中信证券股份有限公司  ...  公司的前身中信证券有限责任公司是经中国人民银行银复[1995]313号文批准，由中信公司，中...
 ```
 
+#### 上市相关-巨潮资讯
+
+接口: stock_ipo_summary_cninfo
+
+目标地址: http://webapi.cninfo.com.cn/#/company
+
+描述: 巨潮资讯-个股-上市相关
+
+限量: 单次获取指定 symbol 的上市相关
+
+输入参数
+
+| 名称         | 类型  | 描述                    |
+|------------|-----|-----------------------|
+| symbol     | str | symbol="600030"       |
+
+输出参数
+
+| 名称   | 类型     | 描述  |
+|------|--------|-----|
+| 股票代码 | object | -   |
+| 招股公告日期 | object | -   |
+| 中签率公告日 | object | -   |
+| 每股面值(元) | object | -   |
+| 总发行数量(万股) | object | -   |
+| 发行前每股净资产(元) | object | -   |
+| 摊薄发行市盈率 | object | -   |
+| 募集资金净额(万元) | object | -   |
+| 上网发行日期 | object | -   |
+| 上市日期 | object | -   |
+| 发行价格(元) | object | -   |
+| 发行费用总额(万元) | object | -   |
+| 发行后每股净资产(元) | object | -   |
+| 上网发行中签率(%) | object | -   |
+| 主承销商 | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_ipo_summary_cninfo_df = stock_ipo_summary_cninfo(symbol="600030")
+print(stock_ipo_summary_cninfo_df)
+```
+
+数据示例
+
+```
+     股票代码      招股公告日期 中签率公告日 每股面值(元) 总发行数量(万股) ...  主承销商
+0  600030  2002-12-13   None     1.0   40000.0   ...   广发证券股份有限公司
+```
+
+
 #### 资产负债表
 
 接口: stock_zcfz_em

@@ -2778,6 +2778,11 @@ from akshare.stock_feature.stock_hk_valuation_baidu import stock_hk_valuation_ba
 from akshare.stock.stock_profile_cninfo import stock_profile_cninfo
 
 """
+巨潮资讯-个股-上市相关
+"""
+from akshare.stock.stock_ipo_summary_cninfo import stock_ipo_summary_cninfo
+
+"""
 巨潮资讯-数据浏览器-筹资指标-公司配股实施方案
 """
 from akshare.stock.stock_allotment_cninfo import stock_allotment_cninfo
