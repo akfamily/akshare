@@ -34,7 +34,6 @@ def stock_ipo_summary_cninfo(symbol: str = "600030") -> pd.DataFrame:
     :type symbol: str
     :return: 上市相关
     :rtype: pandas.DataFrame
-    :raise: Exception，如果服务器返回的数据无法被解析
     """
     url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1134"
     params = {
@@ -60,42 +59,37 @@ def stock_ipo_summary_cninfo(symbol: str = "600030") -> pd.DataFrame:
     }
     r = requests.post(url, params=params, headers=headers)
     data_json = r.json()
-    columns = [
+    temp_df = pd.DataFrame.from_dict(data_json["records"][0], orient="index").T
+    temp_df.columns = [
         "股票代码",
         "招股公告日期",
         "中签率公告日",
-        "每股面值(元)",
-        "总发行数量(万股)",
-        "发行前每股净资产(元)",
+        "每股面值",
+        "总发行数量",
+        "发行前每股净资产",
         "摊薄发行市盈率",
-        "募集资金净额(万元)",
+        "募集资金净额",
         "上网发行日期",
         "上市日期",
-        "发行价格(元)",
-        "发行费用总额(万元)",
-        "发行后每股净资产(元)",
-        "上网发行中签率(%)",
+        "发行价格",
+        "发行费用总额",
+        "发行后每股净资产",
+        "上网发行中签率",
         "主承销商",
     ]
-    count = data_json["count"]
-    if count == 1:
-        # 有上市相关的
-        redundant_json = data_json["records"][0]
-        records_json = {}
-        i = 0
-        for k, v in redundant_json.items():
-            if i == (len(redundant_json)):
-                break
-            records_json[k] = v
-            i += 1
-        del i
-        temp_df = pd.Series(records_json).to_frame().T
-        temp_df.columns = columns
-    elif count == 0:
-        # 没上市相关的
-        temp_df = pd.DataFrame(columns=columns)
-    else:
-        raise Exception("数据错误！")
+    temp_df["招股公告日期"] = pd.to_datetime(temp_df["招股公告日期"], errors="coerce").dt.date
+    temp_df["中签率公告日"] = pd.to_datetime(temp_df["中签率公告日"], errors="coerce").dt.date
+    temp_df["上网发行日期"] = pd.to_datetime(temp_df["上网发行日期"], errors="coerce").dt.date
+    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], errors="coerce").dt.date
+    temp_df["每股面值"] = pd.to_numeric(temp_df["每股面值"], errors="coerce")
+    temp_df["总发行数量"] = pd.to_numeric(temp_df["总发行数量"], errors="coerce")
+    temp_df["发行前每股净资产"] = pd.to_numeric(temp_df["发行前每股净资产"], errors="coerce")
+    temp_df["摊薄发行市盈率"] = pd.to_numeric(temp_df["摊薄发行市盈率"], errors="coerce")
+    temp_df["募集资金净额"] = pd.to_numeric(temp_df["募集资金净额"], errors="coerce")
+    temp_df["发行价格"] = pd.to_numeric(temp_df["发行价格"], errors="coerce")
+    temp_df["发行费用总额"] = pd.to_numeric(temp_df["发行费用总额"], errors="coerce")
+    temp_df["发行后每股净资产"] = pd.to_numeric(temp_df["发行后每股净资产"], errors="coerce")
+    temp_df["上网发行中签率"] = pd.to_numeric(temp_df["上网发行中签率"], errors="coerce")
     return temp_df
 
 
