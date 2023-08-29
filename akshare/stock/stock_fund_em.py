@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/16 15:30
+Date: 2023/8/29 8:30
 Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
@@ -78,18 +78,18 @@ def stock_individual_fund_flow(
             "小单净流入-净占比",
         ]
     ]
-    temp_df["主力净流入-净额"] = pd.to_numeric(temp_df["主力净流入-净额"])
-    temp_df["小单净流入-净额"] = pd.to_numeric(temp_df["小单净流入-净额"])
-    temp_df["中单净流入-净额"] = pd.to_numeric(temp_df["中单净流入-净额"])
-    temp_df["大单净流入-净额"] = pd.to_numeric(temp_df["大单净流入-净额"])
-    temp_df["超大单净流入-净额"] = pd.to_numeric(temp_df["超大单净流入-净额"])
-    temp_df["主力净流入-净占比"] = pd.to_numeric(temp_df["主力净流入-净占比"])
-    temp_df["小单净流入-净占比"] = pd.to_numeric(temp_df["小单净流入-净占比"])
-    temp_df["中单净流入-净占比"] = pd.to_numeric(temp_df["中单净流入-净占比"])
-    temp_df["大单净流入-净占比"] = pd.to_numeric(temp_df["大单净流入-净占比"])
-    temp_df["超大单净流入-净占比"] = pd.to_numeric(temp_df["超大单净流入-净占比"])
-    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"])
-    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"])
+    temp_df["主力净流入-净额"] = pd.to_numeric(temp_df["主力净流入-净额"], errors="coerce")
+    temp_df["小单净流入-净额"] = pd.to_numeric(temp_df["小单净流入-净额"], errors="coerce")
+    temp_df["中单净流入-净额"] = pd.to_numeric(temp_df["中单净流入-净额"], errors="coerce")
+    temp_df["大单净流入-净额"] = pd.to_numeric(temp_df["大单净流入-净额"], errors="coerce")
+    temp_df["超大单净流入-净额"] = pd.to_numeric(temp_df["超大单净流入-净额"], errors="coerce")
+    temp_df["主力净流入-净占比"] = pd.to_numeric(temp_df["主力净流入-净占比"], errors="coerce")
+    temp_df["小单净流入-净占比"] = pd.to_numeric(temp_df["小单净流入-净占比"], errors="coerce")
+    temp_df["中单净流入-净占比"] = pd.to_numeric(temp_df["中单净流入-净占比"], errors="coerce")
+    temp_df["大单净流入-净占比"] = pd.to_numeric(temp_df["大单净流入-净占比"], errors="coerce")
+    temp_df["超大单净流入-净占比"] = pd.to_numeric(temp_df["超大单净流入-净占比"], errors="coerce")
+    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     return temp_df
 
 
@@ -1015,7 +1015,7 @@ def stock_concept_fund_flow_hist(symbol: str = "锂电池") -> pd.DataFrame:
 
 if __name__ == "__main__":
     stock_individual_fund_flow_df = stock_individual_fund_flow(
-        stock="600094", market="sh"
+        stock="000650", market="sz"
     )
     print(stock_individual_fund_flow_df)
 
