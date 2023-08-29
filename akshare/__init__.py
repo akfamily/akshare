@@ -2507,9 +2507,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.90 fix: fix futures_comex_inventory interface
 1.10.91 fix: fix stock_share_hold_change_szse interface
 1.10.92 fix: fix stock_individual_fund_flow interface
+1.10.93 add: add stock_ipo_summary_cninfo interface
 """
 
-__version__ = "1.10.92"
+__version__ = "1.10.93"
 __author__ = "AKFamily"
 
 import sys
@@ -2777,6 +2778,11 @@ from akshare.stock_feature.stock_hk_valuation_baidu import stock_hk_valuation_ba
 巨潮资讯-个股-公司概况
 """
 from akshare.stock.stock_profile_cninfo import stock_profile_cninfo
+
+"""
+巨潮资讯-个股-上市相关
+"""
+from akshare.stock.stock_ipo_summary_cninfo import stock_ipo_summary_cninfo
 
 """
 巨潮资讯-数据浏览器-筹资指标-公司配股实施方案
@@ -4774,6 +4780,14 @@ from akshare.economic.macro_china import (
     macro_shipping_bdi,
     macro_shipping_bpi,
     macro_china_urban_unemployment,
+)
+
+"""
+全球宏观-中国宏观-国家统计局
+"""
+from akshare.economic.macro_china_nbs import (
+    macro_china_nbs_nation,
+    macro_china_nbs_region
 )
 
 """

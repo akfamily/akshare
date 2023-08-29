@@ -1015,7 +1015,7 @@ def stock_concept_fund_flow_hist(symbol: str = "锂电池") -> pd.DataFrame:
 
 if __name__ == "__main__":
     stock_individual_fund_flow_df = stock_individual_fund_flow(
-        stock="000650", market="sz"
+        stock="600094", market="sh"
     )
     print(stock_individual_fund_flow_df)
 
