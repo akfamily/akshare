@@ -7,7 +7,7 @@ https://data.stats.gov.cn/easyquery.htm
 """
 import time
 from functools import lru_cache
-from typing import Union, Literal
+from typing import Union, Literal, List, Dict
 
 import jsonpath as jp
 import numpy as np
@@ -21,7 +21,7 @@ urllib3.disable_warnings(InsecureRequestWarning)
 
 
 @lru_cache
-def _get_nbs_tree(idcode: str, dbcode: str) -> list[dict]:
+def _get_nbs_tree(idcode: str, dbcode: str) -> List[Dict]:
     """
     获取指标目录树
     :param idcode: 指标编码
@@ -36,7 +36,7 @@ def _get_nbs_tree(idcode: str, dbcode: str) -> list[dict]:
 
 
 @lru_cache
-def _get_nbs_wds_tree(idcode: str, dbcode: str, rowcode: str) -> list[dict]:
+def _get_nbs_wds_tree(idcode: str, dbcode: str, rowcode: str) -> List[Dict]:
     """
     获取地区数据的可选指标目录树
     :param idcode: 指标编码
@@ -58,7 +58,7 @@ def _get_nbs_wds_tree(idcode: str, dbcode: str, rowcode: str) -> list[dict]:
     return data_json
 
 
-def _get_code_from_nbs_tree(tree: list[dict], name: str, target: str = "id") -> str:
+def _get_code_from_nbs_tree(tree: List[Dict], name: str, target: str = "id") -> str:
     """
     根据指标名称从目录树中获取target编码
     :param tree: 目录树
