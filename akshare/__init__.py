@@ -2508,9 +2508,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.91 fix: fix stock_share_hold_change_szse interface
 1.10.92 fix: fix stock_individual_fund_flow interface
 1.10.93 add: add stock_ipo_summary_cninfo interface
+1.10.94 add: add macro_china_nbs_nation interface
 """
 
-__version__ = "1.10.93"
+__version__ = "1.10.94"
 __author__ = "AKFamily"
 
 import sys

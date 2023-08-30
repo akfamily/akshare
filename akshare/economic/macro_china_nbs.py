@@ -270,4 +270,4 @@ if __name__ == "__main__":
     region_gdp_df = macro_china_nbs_region(
         "分省季度数据", "国民经济核算 > 地区生产总值", period="2018-", indicator="地区生产总值_累计值(亿元)"
     )
-    print(nation_estate_df, region_income_df, region_gdp_df, sep='\n')
+    print(nation_estate_df, region_income_df, region_gdp_df, sep="\n")

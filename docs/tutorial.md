@@ -1233,6 +1233,9 @@
  "stock_share_hold_change_sse"  # 董监高及相关人员持股变动-上海证券交易所
  "stock_share_hold_change_szse"  # 董监高及相关人员持股变动-深圳证券交易所
  "stock_share_hold_change_bse"  # 董监高及相关人员持股变动-北京证券交易所
+ # 统计局接口
+ "macro_china_nbs_nation"  # 国家统计局全国数据通用接口
+ "macro_china_nbs_region"  # 国家统计局地区数据通用接口
 ```
 
 ## 案例演示
