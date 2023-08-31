@@ -18,17 +18,17 @@
 
 输出参数
 
-| 名称      | 类型      | 描述              |
-|---------|---------|-----------------|
-| 市场      | object  | 日期              |
-| 交易品种    | object  | 市场              |
-| 最近报价    | float64 | 货币对代码           |
-| 涨跌额     | float64 | 最新价(注意货币币种)     |
-| 涨跌幅     | float64 | -               |
-| 24小时最高  | float64 | -               |
-| 24小时最低  | float64 | 24小时最高价(注意货币币种) |
-| 24小时成交量 | float64 | 24小时最低价(注意货币币种) |
-| 更新时间    | float64 | 24小时成交量         |
+| 名称      | 类型      | 描述     |
+|---------|---------|--------|
+| 市场      | object  | -      |
+| 交易品种    | object  | -      |
+| 最近报价    | float64 | -      |
+| 涨跌额     | float64 | -      |
+| 涨跌幅     | float64 | -      |
+| 24小时最高  | float64 | -      |
+| 24小时最低  | float64 | 注意货币币种 |
+| 24小时成交量 | float64 | 注意货币币种 |
+| 更新时间    | float64 | -      |
 
 接口示例
 
@@ -120,39 +120,40 @@ print(crypto_hist_df)
 
 目标地址: https://datacenter.jin10.com/dc_report?name=bitcoint
 
-描述: 获取比特币持仓报告
+描述: 比特币持仓报告
 
 限量: 单次返回当前时点的比特币持仓报告数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| 无 | 无 | 无 | 无 |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 代码      | str   | Y        | 日期时间-索引  |
-| 公司名称-英文      | float   | Y        | -   |
-| 公司名称-中文      | str   | Y        | -  |
-| 国家/地区      | float   | Y        | -   |
-| 市值      | str   | Y        | - |
-| 比特币占市值比重      | float   | Y        | 注意单位: %    |
-| 持仓成本      | str   | Y        |  - |
-| 持仓占比      | float   | Y        | 注意单位: %  |
-| 持仓量      | str   | Y        | -  |
-| 当日持仓市值      | str   | Y        | -  |
-| 查询日期      | str   | Y        | -  |
-| 公告链接      | str   | Y        | -  |
-| 分类      | str   | Y        | -  |
-| 倍数      | str   | Y        | -  |
+| 名称       | 类型      | 描述      |
+|----------|---------|---------|
+| 代码       | object  | 日期时间-索引 |
+| 公司名称-英文  | object  | -       |
+| 公司名称-中文  | object  | -       |
+| 国家/地区    | object  | -       |
+| 市值       | float64 | -       |
+| 比特币占市值比重 | float64 | 注意单位: % |
+| 持仓成本     | float64 | -       |
+| 持仓占比     | float64 | 注意单位: % |
+| 持仓量      | float64 | -       |
+| 当日持仓市值   | float64 | -       |
+| 查询日期     | object  | -       |
+| 公告链接     | object  | -       |
+| 分类       | object  | -       |
+| 倍数       | float64 | -       |
 
 接口示例
 
 ```python
 import akshare as ak
+
 crypto_bitcoin_hold_report_df = ak.crypto_bitcoin_hold_report()
 print(crypto_bitcoin_hold_report_df)
 ```
@@ -160,61 +161,67 @@ print(crypto_bitcoin_hold_report_df)
 数据示例
 
 ```
-               代码                           公司名称-英文  ...      分类   倍数
-0       NADQ:MSTR                MicroStrategy inc.  ...    公开交易  2.2
-1       NADQ:TSLA                       Tesla, Inc.  ...    公开交易  1.7
-2         NADQ:SQ                       Square inc.  ...    公开交易  2.0
-3       NADQ:MARA         Marathon Digital Holdings  ...    公开交易  1.7
-4       NADQ:COIN             Coinbase Global, Inc.  ...    公开交易    1
-5        TSE:GLXY           Galaxy Digital Holdings  ...    公开交易    1
-6          ADE.DE                  Bitcoin Group SE  ...    公开交易    1
-7       TSX:Hut-8                 Hut 8 Mining Corp  ...    公开交易  4.4
-8        CSE:VYGR               Voyager Digital LTD  ...    公开交易  8.4
-9       NADQ:RIOT             Riot Blockchain, Inc.  ...    公开交易  8.8
-10        AKER:NO                         Seetee AS  ...    公开交易  1.1
-11      SEHK:1357                             Meitu  ...    公开交易  1.0
-12    OTCPK:ARBKF               Argo Blockchain PLC  ...    公开交易    1
-13   OTCMKTS:CCTL                  Coin Citadel Inc  ...    公开交易  149
-14      NADQ:BTBT                 Bit Digital, Inc.  ...    公开交易    1
-15       CSE:BITF                  Bitfarms Limited  ...    公开交易  1.7
-16       CSE:HODL          Cypherpunk Holdings Inc.  ...    公开交易    3
-17       CVE:HIVE                   Hive Blockchain  ...    公开交易    1
-18      CNSX:BIGG          BIGG Digital Assets Inc.  ...    公开交易  6.0
-19         ABT:GR  Advanced Bitcoin Technologies AG  ...    公开交易  6.4
-20     TSX-V:DMGI     DMG Blockchain Solutions Inc.  ...    公开交易    1
-21        ASX:DCC                          DigitalX  ...    公开交易   13
-22    TSXV:DGHI.V          Digihost Technology Inc.  ...    公开交易  1.4
-23      TSXV:FORT               Fortress Blockchain  ...    公开交易    1
-24  OTCMKTS:BNXAF                Banxa Holdings Inc  ...    公开交易    1
-25       LON:MODE              Mode Global Holdings  ...    公开交易    5
-26      TSXV:DASH         Neptune Dash Technologies  ...    公开交易    1
-27     OTCQB:BTCS                         BTCS Inc.  ...    公开交易    1
-28   OTCMKTS:FRMO                        FRMO Corp.  ...    公开交易    1
-29      NADQ:MOGO                    MOGO Financing  ...    公开交易    1
-30       NYSE:BLK                         BlackRock  ...    公开交易    1
-31      IST:NETHL        Net Holding Anonim Sirketi  ...    公开交易  1.9
-32           None                        MTGOX K.K.  ...      私募  111
-33           None                         Block.one  ...      私募    1
-34           None              The Tezos Foundation  ...      私募    1
-35           None        Stone Ridge Holdings Group  ...      私募  4.8
-36            gov                 Ukraine (various)  ...  政府人员持仓    1
-37     OTCQX:GBTC           Grayscale Bitcoin Trust  ...   ETF相关  1.0
-38     COINXBT:SS         CoinShares / XBT Provider  ...   ETF相关  4.9
-39       LON:RICA     Ruffer Investment Company Ltd  ...   ETF相关  3.2
-40     TSX:QBTC.U              3iQ The Bitcoin Fund  ...   ETF相关    1
-41        BTCE:GR             ETC Group Bitcoin ETP  ...   ETF相关    1
-42  TSX:BTCC(U/B)              Purpose Bitcoin  ETF  ...   ETF相关    1
-43     OTCQX:BITW      Bitwise 10 Crypto Index Fund  ...   ETF相关    1
-44       multiple                       21Shares AG  ...   ETF相关    1
-45   OTCMKTS:GDLC  Grayscale Digital Large Cap Fund  ...   ETF相关    1
-46        BTCW:SW                WisdomTree Bitcoin  ...   ETF相关    1
-47     TSX:BITC.U           Ninepoint Bitcoin Trust  ...   ETF相关  1.7
-48     TSX:BTCG.U            CI Galaxy Bitcoin Fund  ...   ETF相关    1
-49     XETRA:VBTC        VanEck Vectors Bitcoin ETN  ...   ETF相关    1
-50         UBTCTQ       Leonteq Bitcoin Tracker USD  ...   ETF相关    1
-51           OBTC              Osprey Bitcoin Trust  ...   ETF相关    1
-52      TSX: EBIT               Evolve Bitcoin  ETF  ...   ETF相关    1
-53      NADQ:PHUN                    Phunware, Inc.  ...    公开交易    1
+               代码                               公司名称-英文  ...    分类  倍数
+0       MSTR:NADQ                         MicroStrategy  ...  上市公司 NaN
+1       MARA:NADQ         Marathon Digital Holdings Inc  ...  上市公司 NaN
+2       TSLA:NADQ                            Tesla, Inc  ...  上市公司 NaN
+3      HUT:NASDAQ                     Hut 8 Mining Corp  ...  上市公司 NaN
+4       COIN:NADQ                 Coinbase Global, Inc.  ...  上市公司 NaN
+5   BRPHF:OTCMKTS               Galaxy Digital Holdings  ...  上市公司 NaN
+6         SQ:NYSE                           Block, Inc.  ...  上市公司 NaN
+7       RIOT:NADQ                  Riot Platforms, Inc.  ...  上市公司 NaN
+8    BTGGF:TCMKTS                      Bitcoin Group SE  ...  上市公司 NaN
+9        VOYG:TSX                   Voyager Digital LTD  ...  上市公司 NaN
+10    HIVE:NASDAQ                       Hive Blockchain  ...  上市公司 NaN
+11  NEXOF:OTCMKTS                         NEXON Co. Ltd  ...  上市公司 NaN
+12   EXOD:OTCMKTS                   Exodus Movement Inc  ...  上市公司 NaN
+13        HKD:HKG                                 Meitu  ...  上市公司 NaN
+14    PHUN:NASDAQ                        Phunware, Inc.  ...  上市公司 NaN
+15       NFT:AQSE                   NFT Investments PLC  ...  上市公司 NaN
+16    BITF:NASDAQ                      Bitfarms Limited  ...  上市公司 NaN
+17    CLSK:NASDAQ                        CleanSpark Inc  ...  上市公司 NaN
+18  DMGGF:OTCMKTS         DMG Blockchain Solutions Inc.  ...  上市公司 NaN
+19    BTBT:NASDAQ                     Bit Digital, Inc.  ...  上市公司 NaN
+20    CIFR:NASDAQ                         Cipher Mining  ...  上市公司 NaN
+21  NPPTF:OTCMKTS                Neptune Digital Assets  ...  上市公司 NaN
+22        ABT:DUS      Advanced Bitcoin Technologies AG  ...  上市公司 NaN
+23      LQWDF:OTC                     LQwD FinTech Corp  ...  上市公司 NaN
+24  BBKCF:OTCMKTS              BIGG Digital Assets Inc.  ...  上市公司 NaN
+25  BNXAF:OTCMKTS                    Banxa Holdings Inc  ...  上市公司 NaN
+26  HSSHF:OTCMKTS              Digihost Technology Inc.  ...  上市公司 NaN
+27   BTCS:OTCMKTS                             BTCS Inc.  ...  上市公司 NaN
+28      SATO:TSXV  Canada Computational Unlimited Corp.  ...  上市公司 NaN
+29   FRMO:OTCMKTS                            FRMO Corp.  ...  上市公司 NaN
+30  ARBKF:OTCMKTS                   Argo Blockchain PLC  ...  上市公司 NaN
+31    MILE:NASDAQ                             Metromile  ...  上市公司 NaN
+32    MOGO:Nasdaq                        MOGO Financing  ...  上市公司 NaN
+33           None                                   USA  ...  政府机构 NaN
+34           None                        Ukraine (govt)  ...  政府机构 NaN
+35           None                               Mt. Gox  ...  私营企业 NaN
+36           None                             Block.one  ...  私营企业 NaN
+37           None                   Tether Holdings LTD  ...  私营企业 NaN
+38           None                  The Tezos Foundation  ...  私营企业 NaN
+39           None            Stone Ridge Holdings Group  ...  私营企业 NaN
+40           None                  Massachusetts Mutual  ...  私营企业 NaN
+41           None                       Lisk Foundation  ...  私营企业 NaN
+42           None                             Seetee AS  ...  私营企业 NaN
+43   GBTC:OTCMKTS               Grayscale Bitcoin Trust  ...   ETF NaN
+44      XBTE:NADQ             CoinShares / XBT Provider  ...   ETF NaN
+45       BTCC:TSX                   Purpose Bitcoin ETF  ...   ETF NaN
+46       BTCQ:TSX            3iQ CoinShares Bitcoin ETF  ...   ETF NaN
+47     BTCE:XETRA                 ETC Group Bitcoin ETP  ...   ETF NaN
+48     QBTCBV:TSX                  3iQ The Bitcoin Fund  ...   ETF NaN
+49   BITW:OTCMKTS          Bitwise 10 Crypto Index Fund  ...   ETF NaN
+50  OTCQX:OTCMKTS      Grayscale Digital Large Cap Fund  ...   ETF NaN
+51       ABTC:SWX                           21Shares AG  ...   ETF NaN
+52     VBTC:XETRA            VanEck Vectors Bitcoin ETN  ...   ETF NaN
+53       BTCX:TSX                CI Galaxy Bitcoin Fund  ...   ETF NaN
+54       OBTC:OTC                  Osprey Bitcoin Trust  ...   ETF NaN
+55   BTC0E.AS:OTC               Valour Bitcoin Zero ETP  ...   ETF NaN
+56       EBIT:TSX                    Evolve Bitcoin ETF  ...   ETF NaN
+57       BITC:TSX               Ninepoint Bitcoin Trust  ...   ETF NaN
+58       FTBC:TSE        Fidelity Advantage Bitcoin ETF  ...   ETF NaN
+[59 rows x 14 columns]
 ```
 
 ### CME-成交量报告
@@ -223,92 +230,45 @@ print(crypto_bitcoin_hold_report_df)
 
 目标地址: https://datacenter.jin10.com/reportType/dc_cme_btc_report
 
-描述: 获取芝加哥商业交易所-比特币成交量报告
+描述: 芝加哥商业交易所-比特币成交量报告
 
 限量: 单次返回指定交易日的比特币成交量报告数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| date | str | Y | date="20210621" |
+| 名称   | 类型  | 描述              |
+|------|-----|-----------------|
+| date | str | date="20230830" |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| 商品      | object   | Y        | -  |
-| 类型      | object   | Y        | -   |
-| 电子交易合约      | int64   | Y        | -  |
-| 场内成交合约      | int64   | Y        | -   |
-| 场外成交合约      | int64   | Y        | - |
-| 成交量      | int64   | Y        | -    |
-| 未平仓合约      | int64   | Y        |  - |
-| 持仓变化      | int64   | Y        | -  |
+| 名称     | 类型      | 描述 |
+|--------|---------|----|
+| 商品     | object  | -  |
+| 类型     | object  | -  |
+| 电子交易合约 | int64   | -  |
+| 场内成交合约 | float64 | -  |
+| 场外成交合约 | int64   | -  |
+| 成交量    | int64   | -  |
+| 未平仓合约  | int64   | -  |
+| 持仓变化   | int64   | -  |
 
 接口示例
 
 ```python
 import akshare as ak
-crypto_bitcoin_cme_df = ak.crypto_bitcoin_cme(date="20210621")
+
+crypto_bitcoin_cme_df = ak.crypto_bitcoin_cme(date="20230830")
 print(crypto_bitcoin_cme_df)
 ```
 
 数据示例
 
 ```
-    商品  类型  电子交易合约  场内成交合约  场外成交合约    成交量  未平仓合约  持仓变化
-0    比特币  期货   13015       0      15  13030   8126   -90
-1    比特币  期权      72       0       0     72   1325    32
-2    比特币  看涨      38       0       0     38    525    34
-3    比特币  看跌      34       0       0     34    800    -2
-4  微型比特币  期货   35368       0       0  35368  26779  5551
-```
-
-### 加密货币全球市场指数
-
-接口: crypto_crix
-
-目标地址: https://thecrix.de/
-
-描述: 获取加密货币全球市场指数
-
-限量: 单次返回指定 symbol 的历史数据
-
-输入参数
-
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| symbol | str | Y | symbol="CRIX"; choice of {"CRIX", "VCRIX"} |
-
-输出参数
-
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| date      | object   | Y        | - |
-| value      | float64   | Y        | 访问 [thecrix](https://thecrix.de/) 了解定义   |
-
-接口示例
-
-```python
-import akshare as ak
-crypto_crix_df = ak.crypto_crix(symbol="CRIX")
-print(crypto_crix_df)
-```
-
-数据示例
-
-```
-           date      value
-0     2014-07-31    1000.00
-1     2014-08-01    1018.20
-2     2014-08-02    1008.77
-3     2014-08-03    1004.42
-4     2014-08-04    1004.98
-          ...        ...
-2516  2021-06-20   99857.76
-2517  2021-06-21  100771.09
-2518  2021-06-22   89383.27
-2519  2021-06-23   90074.02
-2520  2021-06-24   94013.24
+      商品  类型  电子交易合约  场内成交合约  场外成交合约   成交量  未平仓合约  持仓变化
+0    比特币  期货    7895     NaN     366  8261  15364  -808
+1    比特币  看涨      38     NaN       0    38   3260    11
+2    比特币  期权     113     NaN       0   113   5871   -27
+3    比特币  看跌      75     NaN       0    75   2611   -38
+4  微型比特币  期货    7818     NaN       0  7818   8353  -425
 ```
