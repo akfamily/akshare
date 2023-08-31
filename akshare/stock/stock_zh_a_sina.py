@@ -348,7 +348,7 @@ def stock_zh_a_minute(
         "symbol": symbol,
         "scale": period,
         "ma": "no",
-        "datalen": "9900",
+        "datalen": "1970",
     }
     r = requests.get(url, params=params)
     data_text = r.text
@@ -361,7 +361,7 @@ def stock_zh_a_minute(
             "symbol": symbol,
             "scale": period,
             "ma": "no",
-            "datalen": "9900",
+            "datalen": "1970",
         }
         r = requests.get(url, params=params)
         data_text = r.text
