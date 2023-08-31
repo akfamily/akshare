@@ -6,14 +6,15 @@ Desc: 股票基本信息
 """
 import json
 import warnings
-from io import BytesIO
 from functools import lru_cache
+from io import BytesIO
 
 import pandas as pd
 import requests
 from tqdm import tqdm
 
 
+@lru_cache()
 def stock_info_sz_name_code(symbol: str = "A股列表") -> pd.DataFrame:
     """
     深圳证券交易所-股票列表
@@ -36,7 +37,7 @@ def stock_info_sz_name_code(symbol: str = "A股列表") -> pd.DataFrame:
         "TABKEY": indicator_map[symbol],
         "random": "0.6935816432433362",
     }
-    r = requests.get(url, params=params)
+    r = requests.get(url, params=params, timeout=15)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
@@ -115,6 +116,7 @@ def stock_info_sz_name_code(symbol: str = "A股列表") -> pd.DataFrame:
         return temp_df
 
 
+@lru_cache()
 def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
     """
     上海证券交易所-股票列表
@@ -152,22 +154,28 @@ def stock_info_sh_name_code(symbol: str = "主板A股") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
     col_stock_code = "B_STOCK_CODE" if symbol == "主板B股" else "A_STOCK_CODE"
-    temp_df.rename(columns={
-        col_stock_code: "证券代码",
-        "COMPANY_ABBR": "证券简称",
-        "FULL_NAME": "公司全称",
-        "LIST_DATE": "上市日期",
-    }, inplace=True)
-    temp_df = temp_df[[
-        "证券代码",
-        "证券简称",
-        "公司全称",
-        "上市日期",
-    ]]
+    temp_df.rename(
+        columns={
+            col_stock_code: "证券代码",
+            "COMPANY_ABBR": "证券简称",
+            "FULL_NAME": "公司全称",
+            "LIST_DATE": "上市日期",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "证券代码",
+            "证券简称",
+            "公司全称",
+            "上市日期",
+        ]
+    ]
     temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"]).dt.date
     return temp_df
 
 
+@lru_cache()
 def stock_info_bj_name_code() -> pd.DataFrame:
     """
     北京证券交易所-股票列表
@@ -305,12 +313,15 @@ def stock_info_sh_delist() -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"])
-    temp_df.rename(columns={
-        "COMPANY_ABBR": "公司简称",
-        "DELIST_DATE": "暂停上市日期",
-        "LIST_DATE": "上市日期",
-        "COMPANY_CODE": "公司代码",
-    }, inplace=True)
+    temp_df.rename(
+        columns={
+            "COMPANY_ABBR": "公司简称",
+            "DELIST_DATE": "暂停上市日期",
+            "LIST_DATE": "上市日期",
+            "COMPANY_CODE": "公司代码",
+        },
+        inplace=True,
+    )
     temp_df = temp_df[
         [
             "公司代码",
@@ -348,8 +359,8 @@ def stock_info_sz_delist(symbol: str = "暂停上市公司") -> pd.DataFrame:
         if temp_df.empty:
             return pd.DataFrame()
         temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
-        temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期']).dt.date
-        temp_df['终止上市日期'] = pd.to_datetime(temp_df['终止上市日期']).dt.date
+        temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"]).dt.date
+        temp_df["终止上市日期"] = pd.to_datetime(temp_df["终止上市日期"]).dt.date
         return temp_df
 
 
@@ -375,8 +386,8 @@ def stock_info_sz_change_name(symbol: str = "全称变更") -> pd.DataFrame:
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content))
         temp_df["证券代码"] = temp_df["证券代码"].astype("str").str.zfill(6)
-        temp_df['变更日期'] = pd.to_datetime(temp_df['变更日期']).dt.date
-        temp_df.sort_values(['变更日期'], inplace=True, ignore_index=True)
+        temp_df["变更日期"] = pd.to_datetime(temp_df["变更日期"]).dt.date
+        temp_df.sort_values(["变更日期"], inplace=True, ignore_index=True)
         return temp_df
 
 
@@ -396,9 +407,7 @@ def stock_info_change_name(symbol: str = "000503") -> pd.DataFrame:
     temp_df.columns = ["item", "value"]
     temp_df["item"] = temp_df["item"].str.split("：", expand=True)[0]
     try:
-        name_list = (
-            temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
-        )
+        name_list = temp_df[temp_df["item"] == "证券简称更名历史"].value.tolist()[0].split(" ")
         big_df = pd.DataFrame(name_list)
         big_df.reset_index(inplace=True)
         big_df["index"] = big_df.index + 1
