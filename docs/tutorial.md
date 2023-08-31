@@ -781,8 +781,6 @@
  "stock_board_change_em"  # 板块异动
  # CME 比特币成交量
  "crypto_bitcoin_cme"  # CME 比特币成交量
- # 加密货币全球市场指数
- "crypto_crix"  # 加密货币全球市场指数
  # 基金规模和规模趋势
  "fund_aum_em"  # 基金公司规模排名列表
  "fund_aum_trend_em"  # 基金市场管理规模走势图

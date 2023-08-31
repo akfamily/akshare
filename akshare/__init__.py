@@ -2509,9 +2509,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.92 fix: fix stock_individual_fund_flow interface
 1.10.93 add: add stock_ipo_summary_cninfo interface
 1.10.94 add: add macro_china_nbs_nation interface
+1.10.95 fix: fix crypto_bitcoin_cme interface
 """
 
-__version__ = "1.10.94"
+__version__ = "1.10.95"
 __author__ = "AKFamily"
 
 import sys
@@ -3374,11 +3375,6 @@ from akshare.fund.fund_aum_em import (
     fund_aum_trend_em,
     fund_aum_hist_em,
 )
-
-"""
-CRIX 数据
-"""
-from akshare.crypto.crypto_crix import crypto_crix
 
 """
 CME 比特币成交量
