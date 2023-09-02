@@ -117,7 +117,15 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         temp_df = pd.merge(
             data_df, new_range, left_index=True, right_index=True, how="outer"
         )
-        temp_df.fillna(method="ffill", inplace=True)
+        try:
+            # try for pandas >= 2.1.0
+            temp_df.ffill(inplace=True)
+        except Exception as e:
+            try:
+            # try for pandas < 2.1.0          
+                temp_df.fillna(method="ffill", inplace=True)
+            except Exception as e:
+                print("Error:", e)
         temp_df.drop_duplicates(
             subset=["open", "high", "low", "close", "volume"], inplace=True
         )
@@ -166,7 +174,15 @@ def stock_hk_daily(symbol: str = "00981", adjust: str = "") -> pd.DataFrame:
         temp_df = pd.merge(
             data_df, new_range, left_index=True, right_index=True, how="outer"
         )
-        temp_df.fillna(method="ffill", inplace=True)
+        try:
+            # try for pandas >= 2.1.0
+            temp_df.ffill(inplace=True)
+        except Exception as e:
+            try:
+            # try for pandas < 2.1.0          
+                temp_df.fillna(method="ffill", inplace=True)
+            except Exception as e:
+                print("Error:", e)
         temp_df.drop_duplicates(
             subset=["open", "high", "low", "close", "volume"], inplace=True
         )
