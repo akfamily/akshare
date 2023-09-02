@@ -147,7 +147,15 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     temp_df = pd.merge(
         data_df, amount_data_df, left_index=True, right_index=True, how="left"
     )
-    temp_df.fillna(method="ffill", inplace=True)
+    try:
+        # try for pandas >= 2.1.0
+        temp_df.ffill(inplace=True)
+    except Exception as e:
+        try:
+        # try for pandas < 2.1.0          
+            temp_df.fillna(method="ffill", inplace=True)
+        except Exception as e:
+                print("Error:", e)
     temp_df = temp_df.astype(float)
     temp_df["amount"] = temp_df["amount"] * 10000
     temp_df["turnover"] = temp_df["v"] / temp_df["amount"]
@@ -180,7 +188,15 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         temp_df = pd.merge(
             temp_df, hfq_factor_df, left_index=True, right_index=True, how="left"
         )
-        temp_df.fillna(method="ffill", inplace=True)
+        try:
+            # try for pandas >= 2.1.0
+            temp_df.ffill(inplace=True)
+        except Exception as e:
+            try:
+            # try for pandas < 2.1.0          
+                temp_df.fillna(method="ffill", inplace=True)
+            except Exception as e:
+                print("Error:", e)
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] * temp_df["hfq_factor"]
         temp_df["high"] = temp_df["high"] * temp_df["hfq_factor"]
@@ -203,7 +219,15 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         temp_df = pd.merge(
             temp_df, qfq_factor_df, left_index=True, right_index=True, how="left"
         )
-        temp_df.fillna(method="ffill", inplace=True)
+        try:
+            # try for pandas >= 2.1.0
+            temp_df.ffill(inplace=True)
+        except Exception as e:
+            try:
+            # try for pandas < 2.1.0          
+                temp_df.fillna(method="ffill", inplace=True)
+            except Exception as e:
+                print("Error:", e)
         temp_df = temp_df.astype(float)
         temp_df["open"] = temp_df["open"] / temp_df["qfq_factor"]
         temp_df["high"] = temp_df["high"] / temp_df["qfq_factor"]
