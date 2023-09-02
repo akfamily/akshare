@@ -147,7 +147,9 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     temp_df = pd.merge(
         data_df, amount_data_df, left_index=True, right_index=True, how="left"
     )
-
+    try:
+        # try for pandas >= 2.1.0
+        temp_df.ffill(inplace=True)
     except Exception as e:
         try:
         # try for pandas < 2.1.0          
