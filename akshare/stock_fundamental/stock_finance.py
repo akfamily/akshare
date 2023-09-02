@@ -172,12 +172,16 @@ def stock_financial_abstract(symbol: str = "600004") -> pd.DataFrame:
     return big_df
 
 
-def stock_financial_analysis_indicator(symbol: str = "600004") -> pd.DataFrame:
+def stock_financial_analysis_indicator(
+    symbol: str = "600004", start_year: str = "1900"
+) -> pd.DataFrame:
     """
     新浪财经-财务分析-财务指标
     https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/600004/ctrl/2019/displaytype/4.phtml
     :param symbol: 股票代码
     :type symbol: str
+    :param start_year: 开始年份
+    :type start_year: str
     :return: 新浪财经-财务分析-财务指标
     :rtype: pandas.DataFrame
     """
@@ -186,6 +190,8 @@ def stock_financial_analysis_indicator(symbol: str = "600004") -> pd.DataFrame:
     soup = BeautifulSoup(r.text, "lxml")
     year_context = soup.find(attrs={"id": "con02-1"}).find("table").find_all("a")
     year_list = [item.text for item in year_context]
+    if start_year in year_list:
+        year_list = year_list[: year_list.index(start_year) + 1]
     out_df = pd.DataFrame()
     for year_item in tqdm(year_list, leave=False):
         url = f"https://money.finance.sina.com.cn/corp/go.php/vFD_FinancialGuideLine/stockid/{symbol}/ctrl/{year_item}/displaytype/4.phtml"
@@ -617,7 +623,7 @@ if __name__ == "__main__":
     print(stock_financial_abstract_df)
 
     stock_financial_analysis_indicator_df = stock_financial_analysis_indicator(
-        symbol="300168"
+        symbol="600004", start_year="2020"
     )
     print(stock_financial_analysis_indicator_df)
 
