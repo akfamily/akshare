@@ -234,7 +234,6 @@
  "macro_bank_usa_interest_rate"  # 美联储利率决议报告
  "macro_bank_euro_interest_rate"  # 欧洲央行决议报告
  "macro_bank_newzealand_interest_rate"  # 新西兰联储决议报告
- "macro_bank_china_interest_rate"  # 中国央行决议报告
  "macro_bank_switzerland_interest_rate"  # 瑞士央行决议报告
  "macro_bank_english_interest_rate"  # 英国央行决议报告
  "macro_bank_australia_interest_rate"  # 澳洲联储决议报告
