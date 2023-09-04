@@ -2512,9 +2512,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.95 fix: fix crypto_bitcoin_cme interface
 1.10.96 fix: fix stock_hk_daily interface
 1.10.97 fix: fix stock_financial_analysis_indicator interface
+1.10.98 fix: fix get_cffex_rank_table interface
 """
 
-__version__ = "1.10.97"
+__version__ = "1.10.98"
 __author__ = "AKFamily"
 
 import sys
@@ -4322,7 +4323,6 @@ from akshare.economic.macro_euro import (
 from akshare.economic.macro_bank import (
     macro_bank_australia_interest_rate,
     macro_bank_brazil_interest_rate,
-    macro_bank_china_interest_rate,
     macro_bank_brazil_interest_rate,
     macro_bank_english_interest_rate,
     macro_bank_euro_interest_rate,

@@ -252,82 +252,6 @@ def macro_bank_newzealand_interest_rate() -> pd.DataFrame:
     return big_df
 
 
-# 金十数据中心-经济指标-央行利率-主要央行利率-中国央行决议报告
-def macro_bank_china_interest_rate() -> pd.DataFrame:
-    """
-    中国人民银行利率报告, 数据区间从 19910501-至今
-    https://datacenter.jin10.com/reportType/dc_china_interest_rate_decision
-    https://cdn.jin10.com/dc/reports/dc_china_interest_rate_decision_all.js?v=1578582163
-    :return: 中国人民银行利率报告-今值(%)
-    :rtype: pandas.Series
-    """
-    t = time.time()
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "ec",
-        "attr_id": "91",
-        "_": str(int(round(t * 1000))),
-    }
-    big_df = pd.DataFrame()
-    while True:
-        r = requests.get(url, params=params, headers=headers)
-        data_json = r.json()
-        if not data_json["data"]["values"]:
-            break
-        temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
-        last_date_str = temp_df.iat[-1, 0]
-        last_date_str = (
-            (
-                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
-                - datetime.timedelta(days=1)
-            )
-            .date()
-            .isoformat()
-        )
-        params.update({"max_date": f"{last_date_str}"})
-    big_df["商品"] = "中国人民银行利率报告"
-    big_df.columns = [
-        "日期",
-        "今值",
-        "预测值",
-        "前值",
-        "商品",
-    ]
-    big_df = big_df[
-        [
-            "商品",
-            "日期",
-            "今值",
-            "预测值",
-            "前值",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["今值"] = pd.to_numeric(big_df["今值"])
-    big_df["预测值"] = pd.to_numeric(big_df["预测值"])
-    big_df["前值"] = pd.to_numeric(big_df["前值"])
-    big_df.sort_values(["日期"], inplace=True)
-    big_df.reset_index(inplace=True, drop=True)
-    return big_df
-
-
 # 金十数据中心-经济指标-央行利率-主要央行利率-瑞士央行决议报告
 def macro_bank_switzerland_interest_rate() -> pd.DataFrame:
     """
@@ -874,10 +798,6 @@ if __name__ == "__main__":
         macro_bank_newzealand_interest_rate()
     )
     print(macro_bank_newzealand_interest_rate_df)
-
-    # 金十数据中心-经济指标-央行利率-主要央行利率-中国央行决议报告
-    macro_bank_china_interest_rate_df = macro_bank_china_interest_rate()
-    print(macro_bank_china_interest_rate_df)
 
     # 金十数据中心-经济指标-央行利率-主要央行利率-瑞士央行决议报告
     macro_bank_switzerland_interest_rate_df = (

@@ -739,7 +739,11 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
         else:
             return
         table = table.dropna(how="any")
-        table = table.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+        # TODO pandas 2.1.0 change
+        try:
+            table = table.map(lambda x: x.strip() if isinstance(x, str) else x)
+        except:
+            table = table.applymap(lambda x: x.strip() if isinstance(x, str) else x)
         del table["交易日"]
         for symbol in set(table["合约"]):
             table_cut = table[table["合约"] == symbol]
