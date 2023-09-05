@@ -265,9 +265,6 @@
  "macro_china_market_margin_sz"  # 金十数据中心-经济指标-中国-其他-深圳融资融券报告
  "macro_china_market_margin_sh"  # 金十数据中心-经济指标-中国-其他-上海融资融券报告
  "macro_china_au_report"  # 金十数据中心-经济指标-中国-其他-上海黄金交易所报告
- "macro_china_ctci"  # 发改委-中国电煤价格指数-全国综合电煤价格指数
- "macro_china_ctci_detail"  # 发改委-中国电煤价格指数-各价区电煤价格指数
- "macro_china_ctci_detail_hist"  # 发改委-中国电煤价格指数-历史电煤价格指数
  "macro_china_lpr"  # 中国-利率-贷款报价利率
  "macro_china_new_house_price"  # 中国-新房价指数
  "macro_china_enterprise_boom_index"  # 中国-企业景气及企业家信心指数
