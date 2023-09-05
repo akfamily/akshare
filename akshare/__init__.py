@@ -2513,9 +2513,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.96 fix: fix stock_hk_daily interface
 1.10.97 fix: fix stock_financial_analysis_indicator interface
 1.10.98 fix: fix get_cffex_rank_table interface
+1.10.99 fix: fix crypto_bitcoin_cme interface
 """
 
-__version__ = "1.10.98"
+__version__ = "1.10.99"
 __author__ = "AKFamily"
 
 import sys
@@ -4726,9 +4727,6 @@ from akshare.economic.macro_china import (
     macro_china_market_margin_sh,
     macro_china_market_margin_sz,
     macro_china_au_report,
-    macro_china_ctci_detail,
-    macro_china_ctci_detail_hist,
-    macro_china_ctci,
     macro_china_exports_yoy,
     macro_china_hk_market_info,
     macro_china_imports_yoy,
