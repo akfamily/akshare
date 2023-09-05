@@ -1523,65 +1523,6 @@ def macro_china_au_report() -> pd.DataFrame:
     return big_df
 
 
-# 发改委-中国电煤价格指数-全国综合电煤价格指数
-def macro_china_ctci() -> pd.DataFrame:
-    """
-    中国电煤价格指数-全国综合电煤价格指数
-    http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
-    :return: 20140101-至今的所有历史数据
-    :rtype: pandas.DataFrame
-    """
-    url = "http://59.252.41.60/portal//out/dm?t=1578298533594"
-    r = requests.get(url)
-    temp_df = pd.Series(r.json()["data"][0])
-    temp_df.index = pd.to_datetime(r.json()["periods"])
-    temp_df = temp_df.astype(float)
-    return temp_df
-
-
-# 发改委-中国电煤价格指数-各价区电煤价格指数
-def macro_china_ctci_detail() -> pd.DataFrame:
-    """
-    2019年11月各价区电煤价格指数
-    http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
-    :return:
-    :rtype:
-    """
-    url = "http://59.252.41.60/portal//out/dm/list/cebdf627f9c24c22a507e2f2e25e2b43?t=1578298533161"
-    res = requests.get(url)
-    data_df = pd.DataFrame(res.json()["data"])
-    data_df.index = res.json()["names"]
-    data_df.columns = ["-", "环比", "上期", "同比", "本期"]
-    temp = data_df[["环比", "上期", "同比", "本期"]]
-    temp = temp.astype(float)
-    return temp
-
-
-# 发改委-中国电煤价格指数-历史电煤价格指数
-def macro_china_ctci_detail_hist(year: str = "2018") -> pd.DataFrame:
-    """
-    历史电煤价格指数
-    http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741
-    :param year: 2014-2019 年
-    :type year: str
-    :return: 制定年份的中国电煤价格指数
-    :rtype: pandas.DataFrame
-    """
-    url = "http://59.252.41.60/portal//out/dm/listAll?t=1578299685398"
-    params = {
-        "CONF_ID": "cebdf627f9c24c22a507e2f2e25e2b43",
-        "year": f"{year}",
-    }
-    res = requests.post(url, data=params)
-    data_df = pd.DataFrame(res.json()["data"])
-    data_df.columns = res.json()["names"]
-    data_df.index = data_df["地区"]
-    del data_df["地区"]
-    temp_df = data_df
-    temp_df = temp_df.astype(float)
-    return temp_df
-
-
 # 中国-利率-贷款报价利率
 def macro_china_lpr() -> pd.DataFrame:
     """
@@ -4480,16 +4421,6 @@ if __name__ == "__main__":
     # 金十数据中心-经济指标-中国-其他-上海黄金交易所报告
     macro_china_au_report_df = macro_china_au_report()
     print(macro_china_au_report_df)
-
-    # 发改委-中国电煤价格指数-全国综合电煤价格指数
-    macro_china_ctci_df = macro_china_ctci()
-    print(macro_china_ctci_df)
-    # 发改委-中国电煤价格指数-各价区电煤价格指数
-    macro_china_ctci_detail_df = macro_china_ctci_detail()
-    print(macro_china_ctci_detail_df)
-    # 发改委-中国电煤价格指数-历史电煤价格指数
-    macro_china_ctci_detail_hist_df = macro_china_ctci_detail_hist()
-    print(macro_china_ctci_detail_hist_df)
 
     # 中国-新房价指数
     macro_china_new_house_price_df = macro_china_new_house_price()
