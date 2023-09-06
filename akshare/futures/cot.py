@@ -1100,7 +1100,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
 
 if __name__ == "__main__":
     # 郑州商品交易所
-    get_czce_rank_table_first_df = get_czce_rank_table(date="20210525")
+    get_czce_rank_table_first_df = get_czce_rank_table(date="20230109")
     print(get_czce_rank_table_first_df)
 
     get_czce_rank_table_first_df = get_czce_rank_table(date="20201026")
