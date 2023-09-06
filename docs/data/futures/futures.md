@@ -964,7 +964,9 @@ print(get_rank_sum_daily_df)
 
 获取某交易日某品种的持仓排名榜
 
-```
+```python
+import akshare as ak
+
 ak.get_dce_rank_table()
 ak.get_cffex_rank_table()
 ak.get_czce_rank_table()
