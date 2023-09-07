@@ -274,10 +274,10 @@ if __name__ == "__main__":
     stock_us_spot_df = stock_us_spot()
     print(stock_us_spot_df)
 
-    stock_us_daily_df = stock_us_daily(symbol="AMZN", adjust="")
+    stock_us_daily_df = stock_us_daily(symbol=".DJI", adjust="")
     print(stock_us_daily_df)
 
-    stock_us_daily_qfq_df = stock_us_daily(symbol="AAPL", adjust="qfq")
+    stock_us_daily_qfq_df = stock_us_daily(symbol=".DJI", adjust="qfq")
     print(stock_us_daily_qfq_df)
 
     stock_us_daily_qfq_factor_df = stock_us_daily(symbol="AAPL", adjust="qfq-factor")
