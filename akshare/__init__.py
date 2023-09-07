@@ -2514,9 +2514,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.10.97 fix: fix stock_financial_analysis_indicator interface
 1.10.98 fix: fix get_cffex_rank_table interface
 1.10.99 fix: fix crypto_bitcoin_cme interface
+1.11.1 add: add index_us_stock_sina interface
 """
 
-__version__ = "1.10.99"
+__version__ = "1.11.1"
 __author__ = "AKFamily"
 
 import sys
@@ -2530,6 +2531,11 @@ import sys
 #     sys.exit(1)
 
 del sys
+
+"""
+美股指数行情
+"""
+from akshare.index.index_stock_us_sina import index_us_stock_sina
 
 """
 董监高及相关人员持股变动
@@ -3027,14 +3033,6 @@ from akshare.spot.spot_sge import (
     spot_symbol_table_sge,
     spot_silver_benchmark_sge,
     spot_golden_benchmark_sge,
-)
-
-"""
-富途牛牛-美股
-"""
-from akshare.stock_feature.stock_us_hist_futunn import (
-    stock_us_hist_fu,
-    stock_us_code_table_fu,
 )
 
 """

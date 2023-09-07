@@ -971,8 +971,6 @@
  "stock_repurchase_em"  # 股票回购数据
  # 期货品种字典
  "futures_hq_subscribe_exchange_symbol"  # 期货品种字典
- # 富途-美股
- "stock_us_hist_fu"  # 富途-美股
  # 上海黄金交易所
  "spot_hist_sge"  # 上海黄金交易所-历史行情走势
  "spot_golden_benchmark_sge"  # 上海金基准价
@@ -1230,6 +1228,8 @@
  # 统计局接口
  "macro_china_nbs_nation"  # 国家统计局全国数据通用接口
  "macro_china_nbs_region"  # 国家统计局地区数据通用接口
+ # 新浪财经-美股指数行情
+ "index_us_stock_sina"  # 新浪财经-美股指数行情
 ```
 
 ## 案例演示
