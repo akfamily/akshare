@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/22 11:32
+Date: 2023/9/10 15:30
 Desc: 破净股统计历史走势
 https://www.legulegu.com/stockdata/below-net-asset-statistics
 """
@@ -13,14 +13,16 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
     """
     破净股统计历史走势
     https://www.legulegu.com/stockdata/below-net-asset-statistics
-    :param symbol: choice of {"全部A股", "沪深300"}
+    :param symbol: choice of {"全部A股", "沪深300", "上证50", "中证500"}
     :type symbol: str
-    :return: 创新高和新低的股票数量
+    :return: 破净股统计历史走势
     :rtype: pandas.DataFrame
     """
     symbol_map = {
         "全部A股": "1",
         "沪深300": "000300.XSHG",
+        "上证50": "000016.SH",
+        "中证500": "000905.SH",
     }
     url = "https://legulegu.com/stockdata/below-net-asset-statistics-data"
     params = {
@@ -40,17 +42,35 @@ def stock_a_below_net_asset_statistics(symbol: str = "全部A股") -> pd.DataFra
     big_df = big_df[
         ["date", "below_net_asset", "total_company", "below_net_asset_ratio"]
     ]
-    big_df['date'] = pd.to_datetime(big_df['date']).dt.date
-    big_df['below_net_asset'] = pd.to_numeric(big_df['below_net_asset'])
-    big_df['total_company'] = pd.to_numeric(big_df['total_company'])
-    big_df['below_net_asset_ratio'] = pd.to_numeric(big_df['below_net_asset_ratio'])
+    big_df["date"] = pd.to_datetime(big_df["date"], errors="coerce").dt.date
+    big_df["below_net_asset"] = pd.to_numeric(
+        big_df["below_net_asset"], errors="coerce"
+    )
+    big_df["total_company"] = pd.to_numeric(big_df["total_company"], errors="coerce")
+    big_df["below_net_asset_ratio"] = pd.to_numeric(
+        big_df["below_net_asset_ratio"], errors="coerce"
+    )
     big_df.sort_values(["date"], inplace=True)
     return big_df
 
 
 if __name__ == "__main__":
-    stock_a_below_net_asset_statistics_df = stock_a_below_net_asset_statistics(symbol="全部A股")
+    stock_a_below_net_asset_statistics_df = stock_a_below_net_asset_statistics(
+        symbol="全部A股"
+    )
     print(stock_a_below_net_asset_statistics_df)
 
-    stock_a_below_net_asset_statistics_df = stock_a_below_net_asset_statistics(symbol="沪深300")
+    stock_a_below_net_asset_statistics_df = stock_a_below_net_asset_statistics(
+        symbol="沪深300"
+    )
+    print(stock_a_below_net_asset_statistics_df)
+
+    stock_a_below_net_asset_statistics_df = stock_a_below_net_asset_statistics(
+        symbol="上证50"
+    )
+    print(stock_a_below_net_asset_statistics_df)
+
+    stock_a_below_net_asset_statistics_df = stock_a_below_net_asset_statistics(
+        symbol="中证500"
+    )
     print(stock_a_below_net_asset_statistics_df)
