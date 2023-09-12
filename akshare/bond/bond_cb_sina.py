@@ -1,10 +1,12 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/8/7 20:20
+Date: 2023/9/12 16:50
 Desc: 新浪财经-债券-可转债
 https://money.finance.sina.com.cn/bond/info/sz128039.html
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 
@@ -20,8 +22,8 @@ def bond_cb_profile_sina(symbol: str = "sz128039") -> pd.DataFrame:
     """
     url = f"https://money.finance.sina.com.cn/bond/info/{symbol}.html"
     r = requests.get(url)
-    temp_df = pd.read_html(r.text)[0]
-    temp_df.columns = ['item', 'value']
+    temp_df = pd.read_html(StringIO(r.text))[0]
+    temp_df.columns = ["item", "value"]
     return temp_df
 
 
@@ -36,14 +38,14 @@ def bond_cb_summary_sina(symbol: str = "sh155255") -> pd.DataFrame:
     """
     url = f"https://money.finance.sina.com.cn/bond/quotes/{symbol}.html"
     r = requests.get(url)
-    temp_df = pd.read_html(r.text)[10]
+    temp_df = pd.read_html(StringIO(r.text))[10]
     part1 = temp_df.iloc[:, 0:2].copy()
     part1.columns = ["item", "value"]
     part2 = temp_df.iloc[:, 2:4].copy()
     part2.columns = ["item", "value"]
     part3 = temp_df.iloc[:, 4:6].copy()
     part3.columns = ["item", "value"]
-    big_df = pd.concat([part1, part2, part3], ignore_index=True)
+    big_df = pd.concat(objs=[part1, part2, part3], ignore_index=True)
     return big_df
 
 
