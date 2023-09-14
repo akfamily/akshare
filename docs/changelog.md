@@ -63,6 +63,10 @@
 
 ## 更新说明详情
 
+1.11.5 fix: fix macro_china_hk_cpi interface
+
+    1. 修复 macro_china_hk_cpi 接口
+
 1.11.4 fix: fix bond_cb_profile_sina interface
 
     1. 修复 bond_cb_profile_sina 接口
@@ -2844,6 +2848,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.5 fix: fix macro_china_hk_cpi interface
 
 1.11.4 fix: fix bond_cb_profile_sina interface
 

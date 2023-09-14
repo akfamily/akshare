@@ -4829,9 +4829,9 @@ print(macro_china_au_report_df)
 
 输出参数
 
-| 名称   | 类型   | 描述   |
-|------|------|------|
-| ---- | ---- | ---- |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
 
 接口示例
 
@@ -4877,17 +4877,18 @@ print(macro_china_nbs_nation_df)
 
 | 名称 | 类型 | 描述 |
 |----|----|----|
+| -  | -  | -  |
 
 接口示例
 
 ```python
 import akshare as ak
 
-region_gdp_df = ak.macro_china_nbs_region(kind="分省季度数据", path="国民经济核算 > 地区生产总值", period="last3", indicator=None, region="河北省")
-print("region_gdp_df", region_gdp_df, sep='\n')
+macro_china_nbs_region_df = ak.macro_china_nbs_region(kind="分省季度数据", path="国民经济核算 > 地区生产总值", period="last3", indicator=None, region="河北省")
+print(macro_china_nbs_region_df)
 
-region_income_df = ak.macro_china_nbs_region(kind="分省季度数据", path="人民生活 > 居民人均可支配收入", indicator='居民人均可支配收入_累计值(元)', period="2022")
-print("region_income_df", region_income_df, sep='\n')
+macro_china_nbs_region_df = ak.macro_china_nbs_region(kind="分省季度数据", path="人民生活 > 居民人均可支配收入", indicator='居民人均可支配收入_累计值(元)', period="2022")
+print(macro_china_nbs_region_df)
 ```
 
 数据示例
@@ -4897,6 +4898,7 @@ region_gdp_df
 河北省                                2023年第二季度   2023年第一季度  2022年第四季度
 地区生产总值_累计值(亿元)                 20779.0        10041.0        42370.0
 地区生产总值指数(上年同期=100)_累计值(%)    106.1         105.1          103.8
+
 region_income_df
 居民人均可支配收入_累计值(元)      2022年第四季度     2022年第三季度     2022年第二季度  2022年第一季度
 北京市                            77414.548842      58596.590041     39391.260057    20630.0
@@ -4920,9 +4922,9 @@ region_income_df
 
 输入参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| 无   | 无   | 无   |
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| -  | -  | -  |
 
 输出参数
 
