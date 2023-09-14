@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/27 11:15
+Date: 2023/9/14 18:00
 Desc: 中国-国家统计局-宏观数据
 https://data.stats.gov.cn/easyquery.htm
 """
@@ -78,7 +78,7 @@ def macro_china_nbs_nation(
 ) -> pd.DataFrame:
     """
     国家统计局全国数据通用接口
-    https://data.stats.gov.cn/easyquery.htm
+    http://data.stats.gov.cn/easyquery.htm
     :param kind: 数据类别
     :param path: 数据路径
     :param period: 时间区间，例如'LAST10', '2016-2023', '2016-'等
@@ -260,14 +260,17 @@ def macro_china_nbs_region(
 
 
 if __name__ == "__main__":
-    nation_estate_df = macro_china_nbs_nation(
-        kind="月度数据", path="房地产 > 房地产开发投资实际到位资金", period="LAST13"
+    macro_china_nbs_nation_df = macro_china_nbs_nation(
+        kind="月度数据", path="工业 > 工业企业主要经济指标", period="LAST13"
     )
+    print(macro_china_nbs_nation_df)
 
-    region_income_df = macro_china_nbs_region(
+    macro_china_nbs_region_df = macro_china_nbs_region(
         "分省季度数据", "人民生活 > 居民人均可支配收入", period="2018-2022", indicator=None, region="北京市"
     )
-    region_gdp_df = macro_china_nbs_region(
+    print(macro_china_nbs_region_df)
+
+    macro_china_nbs_region_df = macro_china_nbs_region(
         "分省季度数据", "国民经济核算 > 地区生产总值", period="2018-", indicator="地区生产总值_累计值(亿元)"
     )
-    print(nation_estate_df, region_income_df, region_gdp_df, sep="\n")
+    print(macro_china_nbs_region_df)
