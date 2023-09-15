@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/5/7 13:58
+Date: 2023/9/15 19:00
 Desc: 请求网站内容的函数: 在链接失败后可重复 20 次
 """
+from io import StringIO
 import time
 from typing import Dict
 
@@ -58,12 +59,12 @@ def pandas_read_html_link(url: str, encoding: str = "utf-8", method: str = "get"
             if method == "get":
                 r = requests.get(url, timeout=20)
                 r.encoding = encoding
-                r = pd.read_html(r.text, encoding=encoding)
+                r = pd.read_html(StringIO(r.text), encoding=encoding)
                 return r
             elif method == "post":
                 r = requests.post(url, timeout=20, data=data, headers=headers)
                 r.encoding = encoding
-                r = pd.read_html(r.text, encoding=encoding)
+                r = pd.read_html(StringIO(r.text), encoding=encoding)
                 return r
             else:
                 raise ValueError("请提供正确的请求方式")
