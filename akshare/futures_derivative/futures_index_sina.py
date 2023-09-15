@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/19 17:41
+Date: 2023/9/15 17:41
 Desc: 新浪财经-期货的主力合约数据
 https://finance.sina.com.cn/futuremarket/index.shtml
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 
@@ -27,9 +29,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "dce") -> pd.DataFrame:
     """
     r = requests.get(zh_subscribe_exchange_symbol_url)
     r.encoding = "gb2312"
-    data_json = demjson.decode(
-        r.text[r.text.find("{") : r.text.find("};") + 1]
-    )
+    data_json = demjson.decode(r.text[r.text.find("{") : r.text.find("};") + 1])
     if symbol == "czce":
         data_json["czce"].remove("郑州商品交易所")
         return pd.DataFrame(data_json["czce"])
@@ -57,9 +57,7 @@ def match_main_contract(symbol: str = "shfe") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     subscribe_list = []
-    exchange_symbol_list = (
-        zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
-    )
+    exchange_symbol_list = zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
         zh_match_main_contract_payload.update({"node": item})
         res = requests.get(
@@ -121,21 +119,21 @@ def futures_main_sina(
     r = requests.get(url)
     data_text = r.text
     data_json = data_text[data_text.find("([") + 1 : data_text.rfind("])") + 1]
-    temp_df = pd.read_json(data_json)
+    temp_df = pd.read_json(StringIO(data_json))
     temp_df.columns = ["日期", "开盘价", "最高价", "最低价", "收盘价", "成交量", "持仓量", "动态结算价"]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
     temp_df.set_index(["日期"], inplace=True)
     temp_df.index = pd.to_datetime(temp_df.index)
     temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(inplace=True)
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
-    temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"])
-    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"])
-    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"])
-    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"])
-    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"])
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["开盘价"] = pd.to_numeric(temp_df["开盘价"], errors="coerce")
+    temp_df["最高价"] = pd.to_numeric(temp_df["最高价"], errors="coerce")
+    temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
+    temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
+    temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
     temp_df["持仓量"] = pd.to_numeric(temp_df["持仓量"])
-    temp_df["动态结算价"] = pd.to_numeric(temp_df["动态结算价"])
+    temp_df["动态结算价"] = pd.to_numeric(temp_df["动态结算价"], errors="coerce")
     return temp_df
 
 
@@ -144,6 +142,6 @@ if __name__ == "__main__":
     print(futures_display_main_sina_df)
 
     futures_main_sina_hist = futures_main_sina(
-        symbol="V0", start_date="20200101", end_date="20220101"
+        symbol="V0", start_date="20170916", end_date="20230915"
     )
     print(futures_main_sina_hist)
