@@ -457,5 +457,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20230621', end_day='20230621')
+    get_receipt_df = get_receipt(start_day='20230915', end_day='20230915')
     print(get_receipt_df)
