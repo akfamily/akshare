@@ -588,6 +588,7 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
     day = (
         cons.convert_date(date) if date is not None else datetime.date.today()
     )
+    print(day)
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
@@ -658,7 +659,12 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
             "variety",
         ]
     ]
-    data_df = data_df.applymap(lambda x: x.replace(",", ""))
+    # TODO pandas 2.1.0 change
+    try:
+        data_df = data_df.map(lambda x: x.replace(",", ""))
+    except:
+        data_df = data_df.applymap(lambda x: x.replace(",", ""))
+
     data_df = data_df.astype(
         {
             "open": "float",
@@ -736,11 +742,11 @@ def get_futures_daily(
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20220714", end_date="20220813", market="DCE"
+        start_date="20230701", end_date="20230915", market="DCE"
     )
     print(get_futures_daily_df)
 
-    get_dce_daily_df = get_dce_daily(date="20220308")
+    get_dce_daily_df = get_dce_daily(date="20230810")
     print(get_dce_daily_df)
 
     get_cffex_daily_df = get_cffex_daily(date="20230810")

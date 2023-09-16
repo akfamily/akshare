@@ -326,7 +326,6 @@ def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
     df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
     df = df.applymap(lambda x: None if x == "" else x)
     df["variety"] = df["symbol"].apply(lambda x: symbol_varieties(x))
-
     df = df[df["rank"] > 0]
     for col in [
         "PARTICIPANTID1",
