@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/5/16 15:08
+Date: 2023/9/17 17:08
 Desc: 人民币汇率中间价
 https://www.safe.gov.cn/safe/rmbhlzjj/index.html
 """
 import re
 from datetime import datetime
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -42,14 +43,14 @@ def currency_boc_safe() -> pd.DataFrame:
         "queryYN": "true",
     }
     r = requests.post(url, data=payload)
-    current_temp_df = pd.read_html(r.text)[-1]
+    current_temp_df = pd.read_html(StringIO(r.text))[-1]
     current_temp_df.sort_values(["日期"], inplace=True)
     current_temp_df.reset_index(inplace=True, drop=True)
     big_df = pd.concat([temp_df, current_temp_df], ignore_index=True)
     column_name_list = big_df.columns[1:]
     for item in column_name_list:
         big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     return big_df
 
 
