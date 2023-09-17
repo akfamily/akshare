@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/5/12 16:53
+Date: 2023/9/17 16:53
 Desc: 百度股市通-经济数据
 https://gushitong.baidu.com/calendar
 """
@@ -65,7 +65,7 @@ def news_economic_baidu(date: str = "20220502") -> pd.DataFrame:
             temp_df["预期"] = pd.to_numeric(temp_df["预期"], errors="coerce")
             temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
             temp_df["重要性"] = pd.to_numeric(temp_df["重要性"], errors="coerce")
-            temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+            temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
 
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
         else:
@@ -117,8 +117,8 @@ def news_trade_notify_suspend_baidu(date: str = "20220513") -> pd.DataFrame:
                     "停牌事项说明",
                 ]
             ]
-            temp_df["停牌时间"] = pd.to_datetime(temp_df["停牌时间"]).dt.date
-            temp_df["复牌时间"] = pd.to_datetime(temp_df["复牌时间"]).dt.date
+            temp_df["停牌时间"] = pd.to_datetime(temp_df["停牌时间"], errors="coerce").dt.date
+            temp_df["复牌时间"] = pd.to_datetime(temp_df["复牌时间"], errors="coerce").dt.date
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
         else:
             continue
@@ -174,8 +174,8 @@ def news_trade_notify_dividend_baidu(date: str = "20220916") -> pd.DataFrame:
                     "报告期",
                 ]
             ]
-            temp_df["除权日"] = pd.to_datetime(temp_df["除权日"]).dt.date
-            temp_df["报告期"] = pd.to_datetime(temp_df["报告期"]).dt.date
+            temp_df["除权日"] = pd.to_datetime(temp_df["除权日"], errors="coerce").dt.date
+            temp_df["报告期"] = pd.to_datetime(temp_df["报告期"], errors="coerce").dt.date
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
         else:
             continue
@@ -231,7 +231,7 @@ def news_report_time_baidu(date: str = "20220514") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    news_economic_baidu_df = news_economic_baidu(date="20230516")
+    news_economic_baidu_df = news_economic_baidu(date="20230916")
     print(news_economic_baidu_df)
 
     news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(date="20220916")
