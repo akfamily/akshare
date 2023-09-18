@@ -23,7 +23,7 @@ def bond_new_composite_index_cbond(
     """
     indicator_map = {
         "全价": "QJZS",
-        "净价": "JQZS",
+        "净价": "JJZS",
         "财富": "CFZS",
         "平均市值法久期": "PJSZFJQ",
         "平均现金流法久期": "PJXJLFJQ",
@@ -61,6 +61,10 @@ def bond_new_composite_index_cbond(
         "": "",
         "qxlxt": period_map[period],
         "": "",
+        "ltcslx": "",
+        "": "",
+        "zslxt": indicator_map[indicator],
+        "": "",
         "zslxt": indicator_map[indicator],
         "": "",
         "lx": "1",
@@ -95,7 +99,7 @@ def bond_composite_index_cbond(
     """
     indicator_map = {
         "全价": "QJZS",
-        "净价": "JQZS",
+        "净价": "JJZS",
         "财富": "CFZS",
         "平均市值法久期": "PJSZFJQ",
         "平均现金流法久期": "PJXJLFJQ",

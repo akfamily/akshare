@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/9 17:20
+Date: 2023/9/18 17:20
 Desc: 同花顺-板块-行业板块
 https://q.10jqka.com.cn/thshy/
 """
 from datetime import datetime
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -383,9 +384,7 @@ def stock_board_industry_cons_ths(symbol: str = "半导体及元件") -> pd.Data
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        page_num = int(
-            soup.find_all("a", attrs={"class": "changePage"})[-1]["page"]
-        )
+        page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
     except IndexError as e:
         page_num = 1
     big_df = pd.DataFrame()
@@ -397,7 +396,7 @@ def stock_board_industry_cons_ths(symbol: str = "半导体及元件") -> pd.Data
         }
         url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     big_df.rename(
@@ -425,9 +424,9 @@ def stock_board_industry_info_ths(symbol: str = "半导体及元件") -> pd.Data
     :rtype: pandas.DataFrame
     """
     stock_board_ths_map_df = stock_board_industry_name_ths()
-    symbol_code = stock_board_ths_map_df[
-        stock_board_ths_map_df["name"] == symbol
-    ]["code"].values[0]
+    symbol_code = stock_board_ths_map_df[stock_board_ths_map_df["name"] == symbol][
+        "code"
+    ].values[0]
     url = f"http://q.10jqka.com.cn/thshy/detail/code/{symbol_code}/"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
@@ -436,15 +435,11 @@ def stock_board_industry_info_ths(symbol: str = "半导体及元件") -> pd.Data
     soup = BeautifulSoup(r.text, "lxml")
     name_list = [
         item.text.strip()
-        for item in soup.find("div", attrs={"class": "board-infos"}).find_all(
-            "dt"
-        )
+        for item in soup.find("div", attrs={"class": "board-infos"}).find_all("dt")
     ]
     value_list = [
         item.text.strip().replace("\n", "/")
-        for item in soup.find("div", attrs={"class": "board-infos"}).find_all(
-            "dd"
-        )
+        for item in soup.find("div", attrs={"class": "board-infos"}).find_all("dd")
     ]
     temp_df = pd.DataFrame([name_list, value_list]).T
     temp_df.columns = ["项目", "值"]
@@ -558,14 +553,12 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
-        "hexin-v": v_code
+        "hexin-v": v_code,
     }
     url = f"http://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/1/ajax/1/free/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    page_num = soup.find("span", attrs={"class": "page_info"}).text.split("/")[
-        1
-    ]
+    page_num = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
         url = f"http://data.10jqka.com.cn/ipo/syg/field/invest/order/desc/page/{page}/ajax/1/free/1/"
@@ -573,10 +566,10 @@ def stock_ipo_benefit_ths() -> pd.DataFrame:
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
-            "hexin-v": v_code
+            "hexin-v": v_code,
         }
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     big_df.columns = [
@@ -618,14 +611,12 @@ def stock_board_industry_summary_ths() -> pd.DataFrame:
     url = f"http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/1/ajax/1/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    page_num = soup.find("span", attrs={"class": "page_info"}).text.split("/")[
-        1
-    ]
+    page_num = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(page_num) + 1), leave=False):
         url = f"http://q.10jqka.com.cn/thshy/index/field/199112/order/desc/page/{page}/ajax/1/"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     big_df.columns = [
@@ -641,7 +632,6 @@ def stock_board_industry_summary_ths() -> pd.DataFrame:
         "领涨股",
         "领涨股-最新价",
         "领涨股-涨跌幅",
-
     ]
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
     big_df["总成交量"] = pd.to_numeric(big_df["总成交量"], errors="coerce")
@@ -659,14 +649,10 @@ if __name__ == "__main__":
     stock_board_industry_name_ths_df = stock_board_industry_name_ths()
     print(stock_board_industry_name_ths_df)
 
-    stock_board_industry_cons_ths_df = stock_board_industry_cons_ths(
-        symbol="涂料油墨"
-    )
+    stock_board_industry_cons_ths_df = stock_board_industry_cons_ths(symbol="涂料油墨")
     print(stock_board_industry_cons_ths_df)
 
-    stock_board_industry_info_ths_df = stock_board_industry_info_ths(
-        symbol="小家电"
-    )
+    stock_board_industry_info_ths_df = stock_board_industry_info_ths(symbol="小家电")
     print(stock_board_industry_info_ths_df)
 
     stock_board_industry_index_ths_df = stock_board_industry_index_ths(
@@ -682,7 +668,5 @@ if __name__ == "__main__":
 
     for stock in stock_board_industry_name_ths_df["name"]:
         print(stock)
-        stock_board_industry_index_ths_df = stock_board_industry_index_ths(
-            symbol=stock
-        )
+        stock_board_industry_index_ths_df = stock_board_industry_index_ths(symbol=stock)
         print(stock_board_industry_index_ths_df)
