@@ -63,6 +63,11 @@
 
 ## 更新说明详情
 
+1.11.10 fix: fix bond_new_composite_index_cbond interface
+
+    1. 修复 bond_new_composite_index_cbond 接口
+    2. 修复 stock_board_industry_summary_ths 接口
+
 1.11.9 fix: fix currency_boc_safe interface
 
     1. 修复 currency_boc_safe 接口
@@ -2865,6 +2870,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.10 fix: fix bond_new_composite_index_cbond interface
 
 1.11.9 fix: fix currency_boc_safe interface
 
