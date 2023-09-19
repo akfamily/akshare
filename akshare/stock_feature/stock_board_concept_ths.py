@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/30 19:10
+Date: 2023/9/19 12:10
 Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
 from datetime import datetime
 from functools import lru_cache
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -14,8 +15,8 @@ from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
 
-from akshare.utils import demjson
 from akshare.datasets import get_ths_js
+from akshare.utils import demjson
 
 
 def _get_file_content_ths(file: str = "ths.js") -> str:
@@ -75,12 +76,12 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
         ):
             inner_url = item.find_all("td")[1].find("a")["href"]
             url_list.append(inner_url)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         temp_df["网址"] = url_list
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df = big_df[["日期", "概念名称", "成分股数量", "网址"]]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["成分股数量"] = pd.to_numeric(big_df["成分股数量"])
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["成分股数量"] = pd.to_numeric(big_df["成分股数量"], errors="coerce")
     big_df["代码"] = big_df["网址"].str.split("/", expand=True).iloc[:, 6]
     big_df.drop_duplicates(keep="last", inplace=True)
     big_df.reset_index(inplace=True, drop=True)
@@ -114,7 +115,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     return big_df
 
 
-def _stock_board_concept_code_ths() -> pd.DataFrame:
+def _stock_board_concept_code_ths() -> dict:
     """
     同花顺-板块-概念板块-概念
     http://q.10jqka.com.cn/gn/detail/code/301558/
@@ -172,7 +173,7 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
         }
         url = f"http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.rename(
         {
@@ -310,13 +311,13 @@ def stock_board_concept_hist_ths(
             "成交额",
         ]
     ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["开盘价"] = pd.to_numeric(big_df["开盘价"])
-    big_df["最高价"] = pd.to_numeric(big_df["最高价"])
-    big_df["最低价"] = pd.to_numeric(big_df["最低价"])
-    big_df["收盘价"] = pd.to_numeric(big_df["收盘价"])
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
-    big_df["成交额"] = pd.to_numeric(big_df["成交额"])
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["开盘价"] = pd.to_numeric(big_df["开盘价"], errors="coerce")
+    big_df["最高价"] = pd.to_numeric(big_df["最高价"], errors="coerce")
+    big_df["最低价"] = pd.to_numeric(big_df["最低价"], errors="coerce")
+    big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
+    big_df["成交额"] = pd.to_numeric(big_df["成交额"], errors="coerce")
     return big_df
 
 
@@ -362,7 +363,7 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
         }
         url = f"http://q.10jqka.com.cn/{url_flag}/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.rename(
         {
