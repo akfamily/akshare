@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/30 20:20
+Date: 2023/9/19 8:50
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
@@ -9,10 +9,10 @@ P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
 import json
 import time
 from functools import lru_cache
-from py_mini_racer import py_mini_racer
 
 import pandas as pd
 import requests
+from py_mini_racer import py_mini_racer
 
 from akshare.futures.cons import (
     zh_subscribe_exchange_symbol_url,
@@ -43,7 +43,11 @@ def futures_symbol_mark() -> pd.DataFrame:
     cffex_mark_list = [item[1] for item in data_json["cffex"][1:]]
     gfex_mark_list = [item[1] for item in data_json["gfex"][1:]]
     all_mark_list = (
-        czce_mark_list + dce_mark_list + shfe_mark_list + cffex_mark_list + gfex_mark_list
+        czce_mark_list
+        + dce_mark_list
+        + shfe_mark_list
+        + cffex_mark_list
+        + gfex_mark_list
     )
 
     czce_market_name_list = [data_json["czce"][0]] * len(czce_mark_list)
@@ -72,9 +76,7 @@ def futures_symbol_mark() -> pd.DataFrame:
         + gfex_symbol_list
     )
 
-    temp_df = pd.DataFrame(
-        [all_market_name_list, all_symbol_list, all_mark_list]
-    ).T
+    temp_df = pd.DataFrame([all_market_name_list, all_symbol_list, all_mark_list]).T
     temp_df.columns = [
         "exchange",
         "symbol",
@@ -126,11 +128,10 @@ def futures_zh_realtime(symbol: str = "白糖") -> pd.DataFrame:
     temp_df["bid"] = pd.to_numeric(temp_df["bid"])
     temp_df["ask"] = pd.to_numeric(temp_df["ask"])
     temp_df["prevsettlement"] = pd.to_numeric(temp_df["prevsettlement"])
-
     return temp_df
 
 
-def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> dict:
+def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
     """
     交易所具体的可交易品种
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
@@ -172,9 +173,7 @@ def match_main_contract(symbol: str = "cffex") -> str:
     :rtype: str
     """
     subscribe_exchange_list = []
-    exchange_symbol_list = (
-        zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
-    )
+    exchange_symbol_list = zh_subscribe_exchange_symbol(symbol).iloc[:, 1].tolist()
     for item in exchange_symbol_list:
         # item = 'sngz_qh'
         zh_match_main_contract_payload.update({"node": item})
@@ -218,9 +217,7 @@ def futures_zh_spot(
     file_data = "Math.round(Math.random() * 2147483648).toString(16)"
     ctx = py_mini_racer.MiniRacer()
     rn_code = ctx.eval(file_data)
-    subscribe_list = ",".join(
-        ["nf_" + item.strip() for item in symbol.split(",")]
-    )
+    subscribe_list = ",".join(["nf_" + item.strip() for item in symbol.split(",")])
     url = f"https://hq.sinajs.cn/rn={rn_code}&list={subscribe_list}"
     headers = {
         "Accept": "*/*",
@@ -244,20 +241,14 @@ def futures_zh_spot(
     data_df.iloc[:, 0] = data_df.iloc[:, 0].str.replace('"', "")
     data_df.iloc[:, -1] = data_df.iloc[:, -1].str.replace('"', "")
     if adjust == "1":
-        contract_name_list = [
-            item.split("_")[1] for item in subscribe_list.split(",")
-        ]
+        contract_name_list = [item.split("_")[1] for item in subscribe_list.split(",")]
         contract_min_list = []
         contract_exchange_list = []
         for contract_name in contract_name_list:
             temp_df = futures_contract_detail(symbol=contract_name)
-            exchange_name = temp_df[temp_df["item"] == "上市交易所"][
-                "value"
-            ].values[0]
+            exchange_name = temp_df[temp_df["item"] == "上市交易所"]["value"].values[0]
             contract_exchange_list.append(exchange_name)
-            contract_min = temp_df[temp_df["item"] == "最小变动价位"][
-                "value"
-            ].values[0]
+            contract_min = temp_df[temp_df["item"] == "最小变动价位"]["value"].values[0]
             contract_min_list.append(contract_min)
         if market == "CF":
             data_df.columns = [
@@ -325,9 +316,7 @@ def futures_zh_spot(
             data_df["volume"] = pd.to_numeric(data_df["volume"])
             data_df["avg_price"] = pd.to_numeric(data_df["avg_price"])
             data_df["last_close"] = pd.to_numeric(data_df["last_close"])
-            data_df["last_settle_price"] = pd.to_numeric(
-                data_df["last_settle_price"]
-            )
+            data_df["last_settle_price"] = pd.to_numeric(data_df["last_settle_price"])
             data_df.dropna(subset=["current_price"], inplace=True)
             return data_df
         else:
@@ -523,9 +512,7 @@ def futures_zh_spot(
             data_df["volume"] = pd.to_numeric(data_df["volume"])
             data_df["avg_price"] = pd.to_numeric(data_df["avg_price"])
             data_df["last_close"] = pd.to_numeric(data_df["last_close"])
-            data_df["last_settle_price"] = pd.to_numeric(
-                data_df["last_settle_price"]
-            )
+            data_df["last_settle_price"] = pd.to_numeric(data_df["last_settle_price"])
 
             data_df.dropna(subset=["current_price"], inplace=True)
             return data_df
@@ -607,9 +594,7 @@ def futures_zh_spot(
             return data_df
 
 
-def futures_zh_minute_sina(
-    symbol: str = "IF2008", period: str = "5"
-) -> pd.DataFrame:
+def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.DataFrame:
     """
     中国各品种期货分钟频率数据
     http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
@@ -691,9 +676,7 @@ if __name__ == "__main__":
     )
     print(futures_zh_spot_df)
 
-    futures_zh_spot_df = futures_zh_spot(
-        symbol="RB2310", market="CF", adjust="0"
-    )
+    futures_zh_spot_df = futures_zh_spot(symbol="RB2310", market="CF", adjust="0")
     print(futures_zh_spot_df)
 
     futures_symbol_mark_df = futures_symbol_mark()
@@ -702,9 +685,7 @@ if __name__ == "__main__":
     futures_zh_realtime_df = futures_zh_realtime(symbol="工业硅")
     print(futures_zh_realtime_df)
 
-    futures_zh_minute_sina_df = futures_zh_minute_sina(
-        symbol="SI2311", period="1"
-    )
+    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="SI2311", period="1")
     print(futures_zh_minute_sina_df)
 
     futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="SI2311")
@@ -726,5 +707,6 @@ if __name__ == "__main__":
         futures_zh_spot_df = futures_zh_spot(
             symbol=",".join([dce_text, czce_text, shfe_text, gfex_text]),
             market="CF",
-            adjust='0')
+            adjust="0",
+        )
         print(futures_zh_spot_df)
