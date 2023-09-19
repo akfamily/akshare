@@ -63,6 +63,10 @@
 
 ## 更新说明详情
 
+1.11.11 fix: fix spot_hist_sge interface
+
+    1. 修复 spot_hist_sge 接口
+
 1.11.10 fix: fix bond_new_composite_index_cbond interface
 
     1. 修复 bond_new_composite_index_cbond 接口
@@ -2870,6 +2874,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.11 fix: fix spot_hist_sge interface
 
 1.11.10 fix: fix bond_new_composite_index_cbond interface
 
