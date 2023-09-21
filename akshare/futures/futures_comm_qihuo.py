@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/1/17 16:07
+Date: 2023/9/21 16:30
 Desc: 九期网-期货手续费
 https://www.9qihuo.com/qihuoshouxufei
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -97,7 +99,7 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     del common_temp_df["涨/跌停板"]
     del common_temp_df["手续费(开+平)"]
     del common_temp_df["保证金-保证金/每手"]
-    common_temp_df['交易所名称'] = name
+    common_temp_df["交易所名称"] = name
     common_temp_df = common_temp_df[
         [
             "交易所名称",
@@ -138,11 +140,11 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     url = "http://www.9qihuo.com/qihuoshouxufei"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
-    raw_date_text = soup.find('a', attrs={"id": "dlink"}).previous
+    raw_date_text = soup.find("a", attrs={"id": "dlink"}).previous
     comm_update_time = raw_date_text.split("，")[0].strip("（手续费更新时间：")
     price_update_time = raw_date_text.split("，")[1].strip("价格更新时间：").strip("。）")
-    common_temp_df['手续费更新时间'] = comm_update_time
-    common_temp_df['价格更新时间'] = price_update_time
+    common_temp_df["手续费更新时间"] = comm_update_time
+    common_temp_df["价格更新时间"] = price_update_time
 
     return common_temp_df
 
@@ -158,7 +160,7 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
     """
     url = "https://www.9qihuo.com/qihuoshouxufei"
     r = requests.get(url)
-    temp_df = pd.read_html(r.text)[0]
+    temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = [
         "合约品种",
         "现价",
@@ -183,12 +185,12 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
     df_4 = temp_df[temp_df["合约品种"].str.contains("广州期货交易所")].index.values[0]
     df_5 = temp_df[temp_df["合约品种"].str.contains("中国金融期货交易所")].index.values[0]
 
-    shfe_df = temp_df.iloc[df_0 + 3: df_1, :].reset_index(drop=True)
-    dce_df = temp_df.iloc[df_1 + 3: df_2, :].reset_index(drop=True)
-    czce_df = temp_df.iloc[df_2 + 3: df_3, :].reset_index(drop=True)
-    ine_df = temp_df.iloc[df_3 + 3: df_4, :].reset_index(drop=True)
-    gfex_df = temp_df.iloc[df_4 + 3: df_5, :].reset_index(drop=True)
-    cffex_df = temp_df.iloc[df_5 + 3:, :].reset_index(drop=True)
+    shfe_df = temp_df.iloc[df_0 + 3 : df_1, :].reset_index(drop=True)
+    dce_df = temp_df.iloc[df_1 + 3 : df_2, :].reset_index(drop=True)
+    czce_df = temp_df.iloc[df_2 + 3 : df_3, :].reset_index(drop=True)
+    ine_df = temp_df.iloc[df_3 + 3 : df_4, :].reset_index(drop=True)
+    gfex_df = temp_df.iloc[df_4 + 3 : df_5, :].reset_index(drop=True)
+    cffex_df = temp_df.iloc[df_5 + 3 :, :].reset_index(drop=True)
 
     if symbol == "上海期货交易所":
         return _futures_comm_qihuo_process(shfe_df, "上海期货交易所")
@@ -204,12 +206,26 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
         return _futures_comm_qihuo_process(cffex_df, "中国金融期货交易所")
     else:
         big_df = pd.DataFrame()
-        big_df = pd.concat([big_df, _futures_comm_qihuo_process(shfe_df, "上海期货交易所")], ignore_index=True)
-        big_df = pd.concat([big_df, _futures_comm_qihuo_process(dce_df, "大连商品交易所")], ignore_index=True)
-        big_df = pd.concat([big_df, _futures_comm_qihuo_process(czce_df, "郑州商品交易所")], ignore_index=True)
-        big_df = pd.concat([big_df, _futures_comm_qihuo_process(ine_df, "上海国际能源交易中心")], ignore_index=True)
-        big_df = pd.concat([big_df, _futures_comm_qihuo_process(gfex_df, "广州期货交易所")], ignore_index=True)
-        big_df = pd.concat([big_df, _futures_comm_qihuo_process(cffex_df, "中国金融期货交易所")], ignore_index=True)
+        big_df = pd.concat(
+            [big_df, _futures_comm_qihuo_process(shfe_df, "上海期货交易所")], ignore_index=True
+        )
+        big_df = pd.concat(
+            [big_df, _futures_comm_qihuo_process(dce_df, "大连商品交易所")], ignore_index=True
+        )
+        big_df = pd.concat(
+            [big_df, _futures_comm_qihuo_process(czce_df, "郑州商品交易所")], ignore_index=True
+        )
+        big_df = pd.concat(
+            [big_df, _futures_comm_qihuo_process(ine_df, "上海国际能源交易中心")],
+            ignore_index=True,
+        )
+        big_df = pd.concat(
+            [big_df, _futures_comm_qihuo_process(gfex_df, "广州期货交易所")], ignore_index=True
+        )
+        big_df = pd.concat(
+            [big_df, _futures_comm_qihuo_process(cffex_df, "中国金融期货交易所")],
+            ignore_index=True,
+        )
         return big_df
 
 
