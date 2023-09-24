@@ -866,8 +866,8 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.36: fix: macro_cons_opec_month
 0.4.37: add: get_ine_daily to fetch SC and NR data
 0.4.38: add: futures_sgx_daily to fetch futures data from sgx
-0.4.39: refactor: covid.py/covid_19_163 interface
-0.4.40: refactor: covid.py interface
+0.4.39: refactor: migration.py/covid_19_163 interface
+0.4.40: refactor: migration.py interface
 0.4.41: fix: cot.py get_rank_sum_daily interface
 0.4.42: add: wdbank.py test
 0.4.43: add: wdbank.py dependencies
@@ -879,7 +879,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.49: add: stock_em_hsgt
 0.4.50: fix: stock_em_sy_yq_list
 0.4.51: add: stock_tfp_em
-0.4.52: fix: covid.py
+0.4.52: fix: migration.py
 0.4.53: fix: futures_hq_sina.py
 0.4.54: add: futures_foreign
 0.4.55: fix: macro_constitute.py
@@ -2527,9 +2527,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.11 fix: fix spot_hist_sge interface
 1.11.12 fix: fix stock_board_concept_hist_ths interface
 1.11.13 fix: fix futures_comm_info interface
+1.11.14 fix: fix migration_area_baidu interface
 """
 
-__version__ = "1.11.13"
+__version__ = "1.11.14"
 __author__ = "AKFamily"
 
 import sys
@@ -4062,19 +4063,6 @@ article
 from akshare.article.fred_md import fred_md, fred_qd
 
 """
-covid_19 CSSE
-"""
-from akshare.event.covid import (
-    covid_19_csse_daily,
-    covid_19_csse_global_confirmed,
-    covid_19_csse_global_death,
-    covid_19_csse_global_recovered,
-    covid_19_csse_us_death,
-    covid_19_csse_us_confirmed,
-    covid_19_risk_area,
-)
-
-"""
 中证商品指数
 """
 from akshare.futures.futures_index_ccidx import (
@@ -4235,14 +4223,6 @@ from akshare.utils.token_process import set_token
 from akshare.bond.china_repo import bond_repo_zh_tick
 
 """
-新型肺炎
-"""
-from akshare.event.covid import (
-    covid_19_trip,
-    covid_19_trace,
-)
-
-"""
 基金数据接口
 """
 from akshare.fund.fund_em import (
@@ -4266,20 +4246,9 @@ from akshare.fund.fund_em import (
 """
 百度迁徙地图接口
 """
-from akshare.event.covid import (
+from akshare.event.migration import (
     migration_area_baidu,
     migration_scale_baidu,
-)
-
-"""
-新增-事件接口新型冠状病毒接口
-"""
-from akshare.event.covid import (
-    covid_19_163,
-    covid_19_dxy,
-    covid_19_baidu,
-    covid_19_hist_city,
-    covid_19_hist_province,
 )
 
 """
