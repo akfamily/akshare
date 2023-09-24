@@ -341,27 +341,9 @@
  "macro_usa_cftc_merchant_goods_holding"  # 商品类商业持仓报告
  # 货币对-投机情绪报告
  "macro_fx_sentiment"  # 货币对-投机情绪报告
- # COVID-19数据接口
- "covid_19_risk_area"  # 疫情风险等级查询
- "covid_19_163"  # COVID-19-网易
- "covid_19_dxy"  # COVID-19-丁香园
- "covid_19_baidu"  # COVID-19-百度
- "covid_19_csse_daily"  # COVID-19-CSSE每日数据
- "covid_19_csse_global_confirmed"  # COVID-19-CSSE-全球确诊
- "covid_19_csse_global_death"  # COVID-19-CSSE-全球死亡
- "covid_19_csse_global_recovered"  # COVID-19-CSSE-全球治愈
- "covid_19_csse_us_death"  # COVID-19-CSSE-美国死亡
- "covid_19_csse_us_confirmed"  # COVID-19-CSSE-美国确诊
  # 百度迁徙地图接口
  "migration_area_baidu"  # 百度迁徙地图-迁入/出地详情
  "migration_scale_baidu"  # 百度迁徙地图-迁徙规模
- # 新型肺炎-小区查询
- "covid_19_area_search"  # 具体小区查询
- "covid_19_area_all"  # 提供可查询的省份-城市-区一览表
- "covid_19_area_detail"  # 全国所有小区详细数据
- # 新型肺炎-相同行程查询
- "covid_19_trip"  # 同程交通
- "covid_19_trace"  # 病患轨迹
  # 债券-沪深债券
  "bond_zh_hs_daily"  # 债券-沪深债券-历史行情数据
  "bond_zh_hs_spot"  # 债券-沪深债券-实时行情数据

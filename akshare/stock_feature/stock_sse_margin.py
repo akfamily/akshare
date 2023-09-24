@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/2/8 16:40
+Date: 2023/9/24 15:30
 Desc: 上海证券交易所-融资融券数据
 http://www.sse.com.cn/market/othersdata/margin/sum/
 """
@@ -10,7 +10,7 @@ import requests
 
 
 def stock_margin_sse(
-    start_date: str = "20010106", end_date: str = "20210208"
+    start_date: str = "20010106", end_date: str = "20230922"
 ) -> pd.DataFrame:
     """
     上海证券交易所-融资融券数据-融资融券汇总
@@ -69,10 +69,16 @@ def stock_margin_sse(
             "融资融券余额",
         ]
     ]
+    temp_df['融资余额'] = pd.to_numeric(temp_df['融资余额'], errors="coerce")
+    temp_df['融资买入额'] = pd.to_numeric(temp_df['融资买入额'], errors="coerce")
+    temp_df['融券余量'] = pd.to_numeric(temp_df['融券余量'], errors="coerce")
+    temp_df['融券余量金额'] = pd.to_numeric(temp_df['融券余量金额'], errors="coerce")
+    temp_df['融券卖出量'] = pd.to_numeric(temp_df['融券卖出量'], errors="coerce")
+    temp_df['融资融券余额'] = pd.to_numeric(temp_df['融资融券余额'], errors="coerce")
     return temp_df
 
 
-def stock_margin_detail_sse(date: str = "20210205") -> pd.DataFrame:
+def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
     """
     上海证券交易所-融资融券数据-融资融券明细
     http://www.sse.com.cn/market/othersdata/margin/detail/
@@ -132,6 +138,12 @@ def stock_margin_detail_sse(date: str = "20210205") -> pd.DataFrame:
             "融券偿还量",
         ]
     ]
+    temp_df['融资余额'] = pd.to_numeric(temp_df['融资余额'], errors="coerce")
+    temp_df['融资买入额'] = pd.to_numeric(temp_df['融资买入额'], errors="coerce")
+    temp_df['融资偿还额'] = pd.to_numeric(temp_df['融资偿还额'], errors="coerce")
+    temp_df['融券余量'] = pd.to_numeric(temp_df['融券余量'], errors="coerce")
+    temp_df['融券卖出量'] = pd.to_numeric(temp_df['融券卖出量'], errors="coerce")
+    temp_df['融券偿还量'] = pd.to_numeric(temp_df['融券偿还量'], errors="coerce")
     return temp_df
 
 
@@ -139,5 +151,5 @@ if __name__ == "__main__":
     stock_margin_sse_df = stock_margin_sse(start_date="20010106", end_date="20210401")
     print(stock_margin_sse_df)
 
-    stock_margin_detail_sse_df = stock_margin_detail_sse(date="20210727")
+    stock_margin_detail_sse_df = stock_margin_detail_sse(date="20230922")
     print(stock_margin_detail_sse_df)
