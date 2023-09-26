@@ -2528,9 +2528,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.12 fix: fix stock_board_concept_hist_ths interface
 1.11.13 fix: fix futures_comm_info interface
 1.11.14 fix: fix migration_area_baidu interface
+1.11.15 fix: fix stock_dividend_cninfo interface
 """
 
-__version__ = "1.11.14"
+__version__ = "1.11.15"
 __author__ = "AKFamily"
 
 import sys
@@ -3208,7 +3209,7 @@ from akshare.stock.stock_new_cninfo import (
 """
 个股分红
 """
-from akshare.stock.stock_dividents_cninfo import stock_dividents_cninfo
+from akshare.stock.stock_dividend_cninfo import stock_dividend_cninfo
 
 """
 公司股本变动

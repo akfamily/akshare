@@ -470,7 +470,7 @@
  "stock_ipo_info"  # 股票新股
  "stock_history_dividend_detail"  # 分红配股
  "stock_history_dividend"  # 历史分红
- "stock_dividents_cninfo"  # 个股历史分红
+ "stock_dividend_cninfo"  # 个股历史分红
  "stock_restricted_release_queue_sina"  # 限售解禁-新浪
  "stock_restricted_release_summary_em"  # 东方财富网-数据中心-特色数据-限售股解禁
  "stock_restricted_release_detail_em"  # 东方财富网-数据中心-限售股解禁-解禁详情一览

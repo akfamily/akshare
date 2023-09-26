@@ -11941,7 +11941,7 @@ print(stock_history_dividend_detail_df)
 
 #### 历史分红
 
-接口: stock_dividents_cninfo
+接口: stock_dividend_cninfo
 
 目标地址: http://webapi.cninfo.com.cn/#/company?companyid=600009
 
@@ -11976,8 +11976,8 @@ print(stock_history_dividend_detail_df)
 ```python
 import akshare as ak
 
-stock_dividents_cninfo_df = ak.stock_dividents_cninfo(symbol="600009")
-print(stock_dividents_cninfo_df)
+stock_dividend_cninfo_df = ak.stock_dividend_cninfo(symbol="600009")
+print(stock_dividend_cninfo_df)
 ```
 
 数据示例
