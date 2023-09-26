@@ -3209,7 +3209,7 @@ from akshare.stock.stock_new_cninfo import (
 """
 个股分红
 """
-from akshare.stock.stock_dividents_cninfo import stock_dividend_cninfo
+from akshare.stock.stock_dividend_cninfo import stock_dividend_cninfo
 
 """
 公司股本变动
