@@ -2529,9 +2529,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.13 fix: fix futures_comm_info interface
 1.11.14 fix: fix migration_area_baidu interface
 1.11.15 fix: fix stock_dividend_cninfo interface
+1.11.16 fix: fix stock_dividend_cninfo interface
 """
 
-__version__ = "1.11.15"
+__version__ = "1.11.16"
 __author__ = "AKFamily"
 
 import sys
