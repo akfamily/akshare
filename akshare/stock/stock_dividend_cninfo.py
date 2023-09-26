@@ -79,6 +79,7 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
     temp_df["股权登记日"] = pd.to_datetime(temp_df["股权登记日"], errors="coerce").dt.date
     temp_df["除权日"] = pd.to_datetime(temp_df["除权日"], errors="coerce").dt.date
     temp_df["派息日"] = pd.to_datetime(temp_df["派息日"], errors="coerce").dt.date
+    temp_df.sort_values(by="实施方案公告日期", ignore_index=True, inplace=True)
     return temp_df
 
 
