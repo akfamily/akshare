@@ -160,6 +160,7 @@ def chinese_to_english(chinese_var: str):
         '碳酸锂',
         '氧化铝仓库',
         '氧化铝厂库',
+        '烧碱',
     ]
     english_list = [
         "RU",
@@ -271,6 +272,7 @@ def chinese_to_english(chinese_var: str):
         "LC",
         "AO",
         "AO",
+        "SH",
     ]
     pos = chinese_list.index(chinese_var)
     return english_list[pos]
