@@ -30,7 +30,7 @@ calendar = cons.get_calendar()
 def futures_spot_price_daily(
     start_day: str = "20210201",
     end_day: str = "20210208",
-    vars_list=cons.contract_symbols,
+    vars_list: list = cons.contract_symbols,
 ):
     """
     指定时间段内大宗商品现货价格及相应基差
@@ -99,7 +99,7 @@ def futures_spot_price(date: str = "20230509", vars_list: list = cons.contract_s
         raise Exception("数据源开始日期为 20110104, 请将获取数据时间点设置在 20110104 后")
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
-        return
+        return pd.DataFrame()
     u1 = "http://www.100ppi.com/sf/"
     u2 = f'http://www.100ppi.com/sf/day-{date.strftime("%Y-%m-%d")}.html'
     i = 1
@@ -126,7 +126,7 @@ def futures_spot_price(date: str = "20230509", vars_list: list = cons.contract_s
                     print(
                         f"{date.strftime('%Y-%m-%d')}日生意社数据连接失败, 如果当前交易日是 2018-09-12, 由于生意社源数据缺失, 无法访问, 否则为重复访问已超过5次，您的地址被网站墙了，请保存好返回数据，稍后从该日期起重试"
                     )
-                    return False
+                    return pd.DataFrame()
 
 
 def _check_information(df_data, date):
@@ -293,12 +293,12 @@ def futures_spot_price_previous(date: str = "20220209") -> pd.DataFrame:
 
 if __name__ == "__main__":
     futures_spot_price_daily_df = futures_spot_price_daily(
-        start_day="20180913", end_day="20180916", vars_list=['SR']
+        start_day="20230919", end_day="20230927", vars_list=['SR']
     )
     print(futures_spot_price_daily_df)
 
-    futures_spot_price_df = futures_spot_price("20230807")
+    futures_spot_price_df = futures_spot_price(date="20230919")
     print(futures_spot_price_df)
 
-    futures_spot_price_previous_df = futures_spot_price_previous('20230807')
+    futures_spot_price_previous_df = futures_spot_price_previous(date='20230807')
     print(futures_spot_price_previous_df)
