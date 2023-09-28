@@ -934,6 +934,7 @@ print(futures_spot_price_previous_df)
 
 ```python
 import akshare as ak
+
 futures_spot_price_daily_df = ak.futures_spot_price_daily(start_day="20180710", end_day="20180719", vars_list=["CU", "RB"])
 print(futures_spot_price_daily_df)
 ```
