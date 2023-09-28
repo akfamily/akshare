@@ -10,8 +10,6 @@ from functools import lru_cache
 import pandas as pd
 import requests
 
-from akshare.utils import demjson
-
 def stock_zh_a_spot_em() -> pd.DataFrame:
     """
     东方财富网-沪深京 A 股-实时行情
@@ -1628,77 +1626,6 @@ def stock_hk_hist_min_em(
     return temp_df
 
 
-def stock_hk_individual_info_em(
-    symbol: str = "07000",
-) -> pd.DataFrame:
-    """
-    东方财富网-行情-港股-个股-股票信息
-    https://quote.eastmoney.com/hk/00700.html
-    :param symbol: 股票代码
-    :type symbol: str
-    :return: 港股个股公司信息
-    :rtype: pandas.DataFrame
-    """
-    url = "http://datacenter-web.eastmoney.com/web/api/data/v1/get"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "Referer": f"https://quote.eastmoney.com/hk/{symbol}.html",
-    }
-    params = {
-        "callback": "jQuery35108686720163178234_1695810647631",
-        "reportName": "RPT_HK_ORGPROFILE",
-        "columns": "SECUCODE,SECURITY_CODE,ORG_CODE,SECURITY_INNER_CODE,SECURITY_NAME_ABBR,ORG_NAME,ORG_EN_ABBR,INDUSTRY,PE,TOTAL_EQUITY,AVERAGEPRICE_30,HK_SHARES,ORG_WEB,TRADE_UNIT",
-        "quoteColumns": "",
-        "filter": "(SECUCODE=\"%s.HK\")" % symbol,
-        "pageNumber": "1",
-        "pageSize": "200",
-        "sortTypes": "",
-        "sortColumns": "",
-        "source": "QuoteWeb",
-        "client": "WEB",
-        "_": "1695810647632",
-    }
-    r = requests.get(url, params=params)
-    text_data = r.text
-    data_json = demjson.decode(text_data[text_data.find("{") : -2])
-    # temp_df = pd.DataFrame(data_json["Data"]["LSJZList"])
-    # data_json = r.json()
-    temp_df = pd.DataFrame(data_json["result"]["data"])
-    # temp_df.reset_index(inplace=True)
-    # del temp_df["index"]
-    code_name_map = {
-        "SECUCODE": "股票代码",
-        "SECURITY_CODE": "股票简称",
-        # "f84": "总股本",
-        # "f85": "流通股",
-        # "f127": "行业",
-        # "f116": "总市值",
-        # "f117": "流通市值",
-        # "f189": "上市时间",
-    }
-    # temp_df = temp_df.map(code_name_map)
-    # temp_df = temp_df[pd.notna(temp_df["index"])]
-    # if "dlmkts" in temp_df.columns:
-    #     del temp_df["dlmkts"]
-    temp_df.rename(columns={"SECUCODE": "股票代码"})
-
-    temp_df.columns = [
-        "",
-        "SECURITY_CODE",
-        "",
-        "",
-        "SECURITY_NAME_ABBR",
-        "PE",
-        "TOTAL_EQUITY",
-        "AVERAGEPRICE_30",
-        "HK_SHARES"
-        "",
-        "",
-    ]
-    # temp_df.reset_index(inplace=True, drop=True)
-    return temp_df
-
-
 def stock_us_spot_em() -> pd.DataFrame:
     """
     东方财富-美股-实时行情
@@ -1925,11 +1852,8 @@ def stock_us_hist_min_em(
     temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
     return temp_df
 
-
 if __name__ == "__main__":
-    stock_hk_individual_info_em_df = stock_hk_individual_info_em("00700")
-    print(stock_hk_individual_info_em_df)
-    exit()
+
 
     stock_zh_a_spot_em_df = stock_zh_a_spot_em()
     print(stock_zh_a_spot_em_df)

@@ -377,6 +377,38 @@ stock_individual_info_em_df = ak.stock_individual_info_em(symbol="000001")
 print(stock_individual_info_em_df)
 ```
 
+#### 港股个股信息查询
+
+接口: stock_hk_individual_info_em
+
+目标地址: https://quote.eastmoney.com/hk/00700.html
+
+描述: 东方财富网-行情-港股-个股-股票信息
+
+限量: 单次返回指定 symbol 的个股信息
+
+输入参数
+
+| 名称      | 类型    | 描述                      |
+|---------|-------|-------------------------|
+| symbol  | str   | symbol="00700"; 股票代码   |
+
+输出参数
+
+| 名称    | 类型     | 描述  |
+|-------|--------|-----|
+| item  | object | -   |
+| value | object | -   |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_hk_individual_info_em_df = stock_hk_individual_info_em("00700")
+print(stock_hk_individual_info_em_df)
+```
+
 数据示例
 
 ```

@@ -9,9 +9,9 @@ import pandas as pd
 import requests
 
 from akshare.stock_feature.stock_hist_em import code_id_map_em
+from akshare.utils import demjson
 
-
-def stock_individual_info_em(symbol: str = "603777", timeout: float = None) -> pd.DataFrame:
+def stock_individual_info_em(symbol: str = "00600", timeout: float = None) -> pd.DataFrame:
     """
     东方财富-个股-股票信息
     https://quote.eastmoney.com/concept/sh603777.html?from=classic
@@ -63,6 +63,61 @@ def stock_individual_info_em(symbol: str = "603777", timeout: float = None) -> p
     return temp_df
 
 
+def stock_hk_individual_info_em(symbol: str = "00700") -> pd.DataFrame:
+    """
+    东方财富网-行情-港股-个股-股票信息
+    https://quote.eastmoney.com/hk/00700.html
+    :param symbol: 股票代码
+    :type symbol: str
+    :return: 港股个股公司信息
+    :rtype: pandas.DataFrame
+    """
+    url = "http://datacenter-web.eastmoney.com/web/api/data/v1/get"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "Referer": f"https://quote.eastmoney.com/hk/{symbol}.html",
+    }
+    params = {
+        "callback": "jQuery35108686720163178234_1695810647631",
+        "reportName": "RPT_HK_ORGPROFILE",
+        "columns": "SECUCODE,SECURITY_CODE,ORG_CODE,SECURITY_INNER_CODE,SECURITY_NAME_ABBR,ORG_NAME,ORG_EN_ABBR,INDUSTRY,PE,TOTAL_EQUITY,AVERAGEPRICE_30,HK_SHARES,ORG_WEB,TRADE_UNIT",
+        "quoteColumns": "",
+        "filter": "(SECUCODE=\"%s.HK\")" % symbol,
+        "pageNumber": "1",
+        "pageSize": "200",
+        "sortTypes": "",
+        "sortColumns": "",
+        "source": "QuoteWeb",
+        "client": "WEB",
+        "_": "1695810647632",
+    }
+    r = requests.get(url, params=params)
+    text_data = r.text
+    data_json = demjson.decode(text_data[text_data.find("{") : -2])
+    temp_df = pd.DataFrame(data_json["result"]['data'])
+    temp_df.reset_index(inplace=True)
+    temp_df = pd.melt(temp_df, var_name="item", value_name="value")
+    code_name_map = {
+        "SECURITY_CODE": "股票代码",
+        "AVERAGEPRICE_30": "30天均价(元)",
+        "PE": "PE",
+        "ORG_EN_ABBR": "公司英文名",
+        "ORG_NAME": "公司名",
+        "INDUSTRY": "行业",
+        "HK_SHARES": "港股股本(万股)",
+        "TOTAL_EQUITY": "总股本(万股)",
+        "TRADE_UNIT": "每手股数",
+        "ORG_WEB": "网站",
+    }
+    temp_df["item"] = temp_df["item"].map(code_name_map)
+    temp_df = temp_df[pd.notna(temp_df["item"])]
+    return temp_df
+
+
+
 if __name__ == "__main__":
     stock_individual_info_em_df = stock_individual_info_em(symbol="000001", timeout=None)
     print(stock_individual_info_em_df)
+
+    stock_hk_individual_info_em_df = stock_hk_individual_info_em("00700")
+    print(stock_hk_individual_info_em_df)
