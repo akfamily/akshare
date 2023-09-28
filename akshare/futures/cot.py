@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/8 17:00
+Date: 2023/9/28 8:50
 Desc: 期货-中国-交易所-会员持仓数据接口
 大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所、广州期货交易所(交易所未提供)
 采集前 20 会员持仓数据;
@@ -20,6 +20,7 @@ import time
 import warnings
 import zipfile
 from io import BytesIO
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -158,7 +159,7 @@ def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols
     records = pd.DataFrame()
 
     for symbol, table in big_dict.items():
-        table = table.applymap(lambda x: 0 if x == "" else x)
+        table = table.map(lambda x: 0 if x == "" else x)
         for symbol_inner in set(table["symbol"]):
 
             var = symbol_varieties(symbol_inner)
@@ -323,8 +324,8 @@ def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
 
     if len(df.columns) < 3:
         return {}
-    df = df.applymap(lambda x: x.strip() if isinstance(x, str) else x)
-    df = df.applymap(lambda x: None if x == "" else x)
+    df = df.map(lambda x: x.strip() if isinstance(x, str) else x)
+    df = df.map(lambda x: None if x == "" else x)
     df["variety"] = df["symbol"].apply(lambda x: symbol_varieties(x))
     df = df[df["rank"] > 0]
     for col in [
@@ -365,8 +366,9 @@ def _czce_df_read(url, skip_rows, encoding="utf-8", header=0):
         "Cookie": "XquW6dFMPxV380S=CAaD3sMkdXv3fUoaJlICIEv0MVegGq5EoMyBcxkOjCgSjmpuovYFuTLtYFcxTZGw; XquW6dFMPxV380T=5QTTjUlA6f6WiDO7fMGmqNxHBWz.hKIc8lb_tc1o4nHrJM4nsXCAI9VHaKyV_jkHh4cIVvD25kGQAh.MvLL1SHRA20HCG9mVVHPhAzktNdPK3evjm0NYbTg2Gu_XGGtPhecxLvdFQ0.JlAxy_z0C15_KdO8kOI18i4K0rFERNPxjXq5qG1Gs.QiOm976wODY.pe8XCQtAsuLYJ.N4DpTgNfHJp04jhMl0SntHhr.jhh3dFjMXBx.JEHngXBzY6gQAhER7uSKAeSktruxFeuKlebse.vrPghHqWvJm4WPTEvDQ8q",
     }
     r = requests_link(url, encoding, headers=headers)
+
     data = pd.read_html(
-        r.text,
+        StringIO(r.text),
         match=".+",
         flavor=None,
         header=header,
@@ -574,7 +576,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols):
             try:
                 temp_df = pd.read_excel(url[:-3] + "excel", header=0, skiprows=3)
                 temp_df.dropna(how="any", axis=0, inplace=True)
-                temp_df = temp_df.applymap(lambda x: str(x).replace(",", ""))
+                temp_df = temp_df.map(lambda x: str(x).replace(",", ""))
                 del temp_df["名次.1"]
                 del temp_df["名次.2"]
                 temp_df.rename(
@@ -595,7 +597,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols):
                 temp_df["symbol"] = symbol.upper()
                 temp_df["var"] = var
                 temp_df["date"] = date_string
-                temp_df = temp_df.applymap(
+                temp_df = temp_df.map(
                     lambda x: str(x).replace("-", "0") if x == "-" else x
                 )
                 temp_df["rank"] = range(1, len(temp_df) + 1)
@@ -630,7 +632,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols):
                 if r.status_code != 200:
                     big_dict[symbol] = {}
                 else:
-                    temp_df = pd.read_html(r.text)[1].iloc[:-1, :]
+                    temp_df = pd.read_html(StringIO(r.text))[1].iloc[:-1, :]
                     del temp_df["名次.1"]
                     del temp_df["名次.2"]
                     temp_df.rename(
@@ -651,7 +653,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols):
                     temp_df["symbol"] = symbol.upper()
                     temp_df["var"] = var
                     temp_df["date"] = date_string
-                    temp_df = temp_df.applymap(
+                    temp_df = temp_df.map(
                         lambda x: str(x).replace("-", "0") if x == "-" else x
                     )
                     temp_df["rank"] = range(1, len(temp_df) + 1)
@@ -738,11 +740,7 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
         else:
             return
         table = table.dropna(how="any")
-        # TODO pandas 2.1.0 change
-        try:
-            table = table.map(lambda x: x.strip() if isinstance(x, str) else x)
-        except:
-            table = table.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+        table = table.map(lambda x: x.strip() if isinstance(x, str) else x)
         del table["交易日"]
         for symbol in set(table["合约"]):
             table_cut = table[table["合约"] == symbol]
@@ -815,7 +813,7 @@ def futures_dce_position_rank(
         "contract.variety_id": "a",
         "year": date.year,
         "month": date.month - 1,
-        "day": date.day,
+        "day": str(date.day).zfill(2),
         "batchExportFlag": "batch",
     }
     r = requests.post(url, payload, headers=headers)
@@ -902,14 +900,22 @@ def futures_dce_position_rank(
                         "variety",
                     ]
                 ]
-                temp_df = temp_df.applymap(lambda x: str(x).replace(",", ""))
-                temp_df['long_open_interest'] = pd.to_numeric(temp_df['long_open_interest'], errors="coerce")
-                temp_df['long_open_interest_chg'] = pd.to_numeric(temp_df['long_open_interest_chg'], errors="coerce")
-                temp_df['rank'] = pd.to_numeric(temp_df['rank'], errors="coerce")
-                temp_df['short_open_interest'] = pd.to_numeric(temp_df['short_open_interest'], errors="coerce")
-                temp_df['short_open_interest_chg'] = pd.to_numeric(temp_df['short_open_interest_chg'], errors="coerce")
-                temp_df['vol'] = pd.to_numeric(temp_df['vol'], errors="coerce")
-                temp_df['vol_chg'] = pd.to_numeric(temp_df['vol_chg'], errors="coerce")
+                temp_df = temp_df.map(lambda x: str(x).replace(",", ""))
+                temp_df["long_open_interest"] = pd.to_numeric(
+                    temp_df["long_open_interest"], errors="coerce"
+                )
+                temp_df["long_open_interest_chg"] = pd.to_numeric(
+                    temp_df["long_open_interest_chg"], errors="coerce"
+                )
+                temp_df["rank"] = pd.to_numeric(temp_df["rank"], errors="coerce")
+                temp_df["short_open_interest"] = pd.to_numeric(
+                    temp_df["short_open_interest"], errors="coerce"
+                )
+                temp_df["short_open_interest_chg"] = pd.to_numeric(
+                    temp_df["short_open_interest_chg"], errors="coerce"
+                )
+                temp_df["vol"] = pd.to_numeric(temp_df["vol"], errors="coerce")
+                temp_df["vol_chg"] = pd.to_numeric(temp_df["vol_chg"], errors="coerce")
                 big_dict[file_name.split("_")[1]] = temp_df
             except UnicodeDecodeError as e:
                 try:
@@ -988,21 +994,30 @@ def futures_dce_position_rank(
                         "variety",
                     ]
                 ]
-                temp_df = temp_df.applymap(lambda x: str(x).replace(",", ""))
-                temp_df['long_open_interest'] = pd.to_numeric(temp_df['long_open_interest'], errors="coerce")
-                temp_df['long_open_interest_chg'] = pd.to_numeric(temp_df['long_open_interest_chg'], errors="coerce")
-                temp_df['rank'] = pd.to_numeric(temp_df['rank'], errors="coerce")
-                temp_df['short_open_interest'] = pd.to_numeric(temp_df['short_open_interest'], errors="coerce")
-                temp_df['short_open_interest_chg'] = pd.to_numeric(temp_df['short_open_interest_chg'], errors="coerce")
-                temp_df['vol'] = pd.to_numeric(temp_df['vol'], errors="coerce")
-                temp_df['vol_chg'] = pd.to_numeric(temp_df['vol_chg'], errors="coerce")
+                temp_df = temp_df.map(lambda x: str(x).replace(",", ""))
+                temp_df["long_open_interest"] = pd.to_numeric(
+                    temp_df["long_open_interest"], errors="coerce"
+                )
+                temp_df["long_open_interest_chg"] = pd.to_numeric(
+                    temp_df["long_open_interest_chg"], errors="coerce"
+                )
+                temp_df["rank"] = pd.to_numeric(temp_df["rank"], errors="coerce")
+                temp_df["short_open_interest"] = pd.to_numeric(
+                    temp_df["short_open_interest"], errors="coerce"
+                )
+                temp_df["short_open_interest_chg"] = pd.to_numeric(
+                    temp_df["short_open_interest_chg"], errors="coerce"
+                )
+                temp_df["vol"] = pd.to_numeric(temp_df["vol"], errors="coerce")
+                temp_df["vol_chg"] = pd.to_numeric(temp_df["vol_chg"], errors="coerce")
                 big_dict[file_name.split("_")[1]] = temp_df
     dict_keys = list(big_dict.keys())
     for item in dict_keys:
         result = re.sub(r"\d", "", item)
         if result.upper() not in vars_list:
             del big_dict[item]
-    return big_dict
+    filtered_dict = {k: v for k, v in big_dict.items() if len(v) > 1}
+    return filtered_dict
 
 
 def futures_dce_position_rank_other(date: str = "20160104"):
@@ -1060,7 +1075,7 @@ def futures_dce_position_rank_other(date: str = "20160104"):
                         "contract": "",
                     }
                     r = requests.post(url, data=payload)
-                    temp_df = pd.read_html(r.text)[1].iloc[:-1, :]
+                    temp_df = pd.read_html(StringIO(r.text))[1].iloc[:-1, :]
                     temp_df.columns = [
                         "rank",
                         "vol_party_name",
@@ -1133,7 +1148,7 @@ if __name__ == "__main__":
 
     # 总接口
     get_rank_sum_daily_df = get_rank_sum_daily(
-        start_day="20230806", end_day="20230810", vars_list=["IF", "C"]
+        start_day="20230701", end_day="20230705", vars_list=["V", "C", "PP"]
     )
     print(get_rank_sum_daily_df)
 
