@@ -63,6 +63,10 @@
 
 ## 更新说明详情
 
+1.11.21 fix: fix get_dce_daily interface
+
+    1. 修复 get_dce_daily 接口
+
 1.11.20 fix: fix option_dce_daily interface
 
     1. 修复 option_dce_daily 接口
@@ -2911,6 +2915,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.21 fix: fix get_dce_daily interface
 
 1.11.20 fix: fix option_dce_daily interface
 
