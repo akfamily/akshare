@@ -2533,9 +2533,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.17 fix: fix futures_spot_price_daily interface
 1.11.18 fix: fix get_rank_sum_daily interface
 1.11.19 fix: fix drewry_wci_index interface
+1.11.20 fix: fix option_dce_daily interface
 """
 
-__version__ = "1.11.19"
+__version__ = "1.11.20"
 __author__ = "AKFamily"
 
 import sys
