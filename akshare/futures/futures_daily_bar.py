@@ -588,7 +588,6 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
     day = (
         cons.convert_date(date) if date is not None else datetime.date.today()
     )
-    print(day)
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
         return None
@@ -619,7 +618,8 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
         "exportFlag": "excel",
     }
     r = requests.post(url, data=params, headers=headers)
-    data_df = pd.read_excel(BytesIO(r.content))
+    data_df = pd.read_excel(BytesIO(r.content), header=1)
+
     data_df = data_df[~data_df["商品名称"].str.contains("小计")]
     data_df = data_df[~data_df["商品名称"].str.contains("总计")]
     data_df["variety"] = data_df["商品名称"].map(lambda x: cons.DCE_MAP[x])
@@ -742,7 +742,7 @@ def get_futures_daily(
 
 if __name__ == "__main__":
     get_futures_daily_df = get_futures_daily(
-        start_date="20230701", end_date="20230915", market="DCE"
+        start_date="20230901", end_date="20230915", market="DCE"
     )
     print(get_futures_daily_df)
 
