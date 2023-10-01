@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/24 18:00
+Date: 2023/10/1 13:00
 Desc: 商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
@@ -65,7 +65,6 @@ def option_dce_daily(
         [0, 1],
     ]
     another_df.reset_index(inplace=True, drop=True)
-    another_df.iloc[0] = another_df.iat[0, 0].split("\t")
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
     if symbol == "豆粕期权":
@@ -229,7 +228,6 @@ def option_shfe_daily(
                 ]
             )
             contract_df = table_df[table_df["PRODUCTNAME"].str.strip() == symbol]
-            product_df = pd.DataFrame(json_data["o_curproduct"])
             volatility_df = pd.DataFrame(json_data["o_cursigma"])
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
@@ -304,6 +302,8 @@ def option_shfe_daily(
                     "隐含波动率",
                 ]
             ]
+            contract_df.reset_index(inplace=True, drop=True)
+            volatility_df.reset_index(inplace=True, drop=True)
             return contract_df, volatility_df
         except:
             return
