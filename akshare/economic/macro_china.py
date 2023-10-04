@@ -3819,6 +3819,21 @@ def macro_china_society_traffic_volume() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["data"]["非累计"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    big_df['货运量'] = pd.to_numeric(big_df['货运量'], errors="coerce")
+    big_df['货运量同比增长'] = pd.to_numeric(big_df['货运量同比增长'], errors="coerce")
+    big_df['货物周转量'] = pd.to_numeric(big_df['货物周转量'], errors="coerce")
+    big_df['公里货物周转量同比增长'] = pd.to_numeric(big_df['公里货物周转量同比增长'], errors="coerce")
+    big_df['客运量'] = pd.to_numeric(big_df['客运量'], errors="coerce")
+    big_df['客运量同比增长'] = pd.to_numeric(big_df['客运量同比增长'], errors="coerce")
+    big_df['旅客周转量'] = pd.to_numeric(big_df['旅客周转量'], errors="coerce")
+    big_df['公里旅客周转量同比增长'] = pd.to_numeric(big_df['公里旅客周转量同比增长'], errors="coerce")
+    big_df['沿海主要港口货物吞吐量'] = pd.to_numeric(big_df['沿海主要港口货物吞吐量'], errors="coerce")
+    big_df['沿海主要港口货物吞吐量同比增长'] = pd.to_numeric(big_df['沿海主要港口货物吞吐量同比增长'], errors="coerce")
+    big_df['其中:外贸货物吞吐量'] = pd.to_numeric(big_df['其中:外贸货物吞吐量'], errors="coerce")
+    big_df['其中:外贸货物吞吐量同比增长'] = pd.to_numeric(big_df['其中:外贸货物吞吐量同比增长'], errors="coerce")
+    big_df['民航总周转量'] = pd.to_numeric(big_df['民航总周转量'], errors="coerce")
+    big_df['公里民航总周转'] = pd.to_numeric(big_df['公里民航总周转'], errors="coerce")
+
     return big_df
 
 
