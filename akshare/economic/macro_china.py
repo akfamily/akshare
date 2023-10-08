@@ -4034,6 +4034,9 @@ def macro_china_central_bank_balance() -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [item[1] for item in data_json["config"]["all"]]
+    for item in big_df.columns[1:]:
+        big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
+
     return big_df
 
 
