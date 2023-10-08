@@ -63,6 +63,10 @@
 
 ## 更新说明详情
 
+1.11.25 fix: fix macro_china_central_bank_balance interface
+
+    1. 修复 macro_china_central_bank_balance 接口
+
 1.11.24 fix: fix macro_china_postal_telecommunicational interface
 
     1. 修复 macro_china_postal_telecommunicational 接口
@@ -2927,6 +2931,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.25 fix: fix macro_china_central_bank_balance interface
 
 1.11.24 fix: fix macro_china_postal_telecommunicational interface
 
