@@ -2539,9 +2539,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.23 fix: fix macro_china_society_traffic_volume interface
 1.11.24 fix: fix macro_china_postal_telecommunicational interface
 1.11.25 fix: fix macro_china_central_bank_balance interface
+1.11.26 fix: fix macro_china_supply_of_money interface
 """
 
-__version__ = "1.11.25"
+__version__ = "1.11.26"
 __author__ = "AKFamily"
 
 import sys
