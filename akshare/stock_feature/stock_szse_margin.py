@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/30 13:13
+Date: 2023/10/9 15:00
 Desc: 深圳证券交易所-融资融券数据
 https://www.szse.cn/disclosure/margin/object/index.html
 """
@@ -27,7 +27,7 @@ def stock_margin_underlying_info_szse(date: str = "20221129") -> pd.DataFrame:
         "txtDate": "-".join([date[:4], date[4:6], date[6:]]),
         "tab1PAGENO": "1",
         "random": "0.7425245522795993",
-        'TABKEY': 'tab1',
+        "TABKEY": "tab1",
     }
     headers = {
         "Referer": "http://www.szse.cn/disclosure/margin/object/index.html",
@@ -87,7 +87,7 @@ def stock_margin_szse(date: str = "20221129") -> pd.DataFrame:
     return temp_df
 
 
-def stock_margin_detail_szse(date: str = "20221128") -> pd.DataFrame:
+def stock_margin_detail_szse(date: str = "20230925") -> pd.DataFrame:
     """
     深证证券交易所-融资融券数据-融资融券交易明细
     https://www.szse.cn/disclosure/margin/margin/index.html
@@ -106,7 +106,6 @@ def stock_margin_detail_szse(date: str = "20221128") -> pd.DataFrame:
         "TABKEY": "tab2",
     }
     headers = {
-
         "Referer": "http://www.szse.cn/disclosure/margin/margin/index.html",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
     }
@@ -129,7 +128,7 @@ def stock_margin_detail_szse(date: str = "20221128") -> pd.DataFrame:
     temp_df["融资买入额"] = pd.to_numeric(temp_df["融资买入额"], errors="coerce")
     temp_df["融资余额"] = temp_df["融资余额"].str.replace(",", "")
     temp_df["融资余额"] = pd.to_numeric(temp_df["融资余额"], errors="coerce")
-    temp_df["融券卖出量"] = temp_df["融券卖出量"].str.replace(",", "")
+    temp_df["融券卖出量"] = temp_df["融券卖出量"].astype(str).str.replace(",", "")
     temp_df["融券卖出量"] = pd.to_numeric(temp_df["融券卖出量"], errors="coerce")
     temp_df["融券余量"] = temp_df["融券余量"].str.replace(",", "")
     temp_df["融券余量"] = pd.to_numeric(temp_df["融券余量"], errors="coerce")
