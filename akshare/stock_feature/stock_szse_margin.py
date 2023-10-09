@@ -87,7 +87,7 @@ def stock_margin_szse(date: str = "20221129") -> pd.DataFrame:
     return temp_df
 
 
-def stock_margin_detail_szse(date: str = "20221128") -> pd.DataFrame:
+def stock_margin_detail_szse(date: str = "20230928") -> pd.DataFrame:
     """
     深证证券交易所-融资融券数据-融资融券交易明细
     https://www.szse.cn/disclosure/margin/margin/index.html
@@ -129,7 +129,7 @@ def stock_margin_detail_szse(date: str = "20221128") -> pd.DataFrame:
     temp_df["融资买入额"] = pd.to_numeric(temp_df["融资买入额"], errors="coerce")
     temp_df["融资余额"] = temp_df["融资余额"].str.replace(",", "")
     temp_df["融资余额"] = pd.to_numeric(temp_df["融资余额"], errors="coerce")
-    temp_df["融券卖出量"] = temp_df["融券卖出量"].str.replace(",", "")
+    temp_df["融券卖出量"] = temp_df["融券卖出量"].astype(str).str.replace(",", "")
     temp_df["融券卖出量"] = pd.to_numeric(temp_df["融券卖出量"], errors="coerce")
     temp_df["融券余量"] = temp_df["融券余量"].str.replace(",", "")
     temp_df["融券余量"] = pd.to_numeric(temp_df["融券余量"], errors="coerce")
