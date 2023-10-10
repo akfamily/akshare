@@ -79,8 +79,9 @@ def bond_new_composite_index_cbond(
     )
     temp_df.reset_index(inplace=True)
     temp_df.columns = ["date", "value"]
-    temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms").dt.date
-    temp_df["value"] = pd.to_numeric(temp_df["value"])
+    temp_df['date'] = temp_df['date'].astype(float)
+    temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms", errors="coerce", utc=True).dt.tz_convert("Asia/Shanghai").dt.date
+    temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
     return temp_df
 
 
