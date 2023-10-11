@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2020/7/3 17:32
+Date: 2023/10/11 17:32
 Desc: 期货-仓单日报
 郑州商品交易所-交易数据-仓单日报
 http://www.czce.com.cn/cn/jysj/cdrb/H770310index_1.htm
 大连商品交易所-行情数据-统计数据-日统计-仓单日报
 http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/cdrb/index.html
-
 """
 import re
-from io import BytesIO
+from io import BytesIO, StringIO
 
 import pandas as pd
 import requests
@@ -71,7 +70,7 @@ def futures_dce_warehouse_receipt(trade_date: str = "20200702") -> dict:
         "day": trade_date[6:],
     }
     r = requests.get(url, params=params, headers=headers)
-    temp_df = pd.read_html(r.text)[0]
+    temp_df = pd.read_html(StringIO(r.text))[0]
     index_list = temp_df[
         temp_df.iloc[:, 0].str.contains("小计") == 1
     ].index.to_list()
@@ -85,7 +84,7 @@ def futures_dce_warehouse_receipt(trade_date: str = "20200702") -> dict:
         inner_df = temp_df[temp_index : index_list[inner_index + 1] + 1]
         inner_key = inner_df.iloc[0, 0]
         inner_df.reset_index(inplace=True, drop=True)
-        inner_df = inner_df.fillna(method="ffill")
+        inner_df = inner_df.ffill()
         big_dict[inner_key] = inner_df
     return big_dict
 
@@ -122,7 +121,7 @@ def futures_shfe_warehouse_receipt(trade_date: str = "20200702") -> dict:
     else:
         url = f"http://www.shfe.com.cn/data/dailydata/{trade_date}dailystock.html"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         index_list = temp_df[
             temp_df.iloc[:, 3].str.contains("单位：") == 1
         ].index.to_list()

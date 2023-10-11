@@ -2544,9 +2544,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.28 fix: fix stock_margin_detail_szse interface
 1.11.29 fix: fix bond_new_composite_index_cbond interface
 1.11.30 fix: fix stock_zh_a_st_em interface
+1.11.31 fix: fix futures_dce_warehouse_receipt interface
 """
 
-__version__ = "1.11.30"
+__version__ = "1.11.31"
 __author__ = "AKFamily"
 
 import sys
