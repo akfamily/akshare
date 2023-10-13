@@ -9,6 +9,51 @@ import pandas as pd
 import requests
 
 
+def stock_margin_ratio_pa(date: str = "20231013") -> pd.DataFrame:
+    """
+    融资融券-标的证券名单及保证金比例查询
+    https://stock.pingan.com/static/webinfo/margin/business.html?businessType=0
+    :param date: 交易日期
+    :type date: str
+    :return: 标的证券名单及保证金比例查询
+    :rtype: pandas.DataFrame
+    """
+    url = "https://stock.pingan.com/fss/servlet/fsscoreapp/stockSource/mrgRatio"
+    payload = {
+        "currentPage": 1,
+        "pageSize": 50000,
+        "type": "bdzq",
+        "setdate": "-".join([date[:4], date[4:6], date[6:]]),
+        "stockMes": "",
+        "market": "00",
+        "appName": "AYLCH5",
+        "tokenId": "",
+        "appChannel": "LRSP",
+        "requestId": "194055910e2075c03e25fabf6ffc5a7f",
+        "channel": "pa18",
+    }
+    r = requests.post(url, json=payload)
+    data_json = r.json()
+    temp_df = pd.DataFrame(data_json["data"]["list"])
+    temp_df.rename(
+        columns={
+            "fiMarginRatio": "融资比例",
+            "secuCode": "证券代码",
+            "secuName": "证券简称",
+            "slMarginRatio": "融券比例",
+        }, inplace=True
+    )
+    temp_df = temp_df[[
+            "证券代码",
+            "证券简称",
+            "融资比例",
+            "融券比例",
+    ]]
+    temp_df['融资比例'] = pd.to_numeric(temp_df['融资比例'], errors="coerce")
+    temp_df['融券比例'] = pd.to_numeric(temp_df['融券比例'], errors="coerce")
+    return temp_df
+
+
 def stock_margin_sse(
     start_date: str = "20010106", end_date: str = "20230922"
 ) -> pd.DataFrame:
@@ -69,12 +114,12 @@ def stock_margin_sse(
             "融资融券余额",
         ]
     ]
-    temp_df['融资余额'] = pd.to_numeric(temp_df['融资余额'], errors="coerce")
-    temp_df['融资买入额'] = pd.to_numeric(temp_df['融资买入额'], errors="coerce")
-    temp_df['融券余量'] = pd.to_numeric(temp_df['融券余量'], errors="coerce")
-    temp_df['融券余量金额'] = pd.to_numeric(temp_df['融券余量金额'], errors="coerce")
-    temp_df['融券卖出量'] = pd.to_numeric(temp_df['融券卖出量'], errors="coerce")
-    temp_df['融资融券余额'] = pd.to_numeric(temp_df['融资融券余额'], errors="coerce")
+    temp_df["融资余额"] = pd.to_numeric(temp_df["融资余额"], errors="coerce")
+    temp_df["融资买入额"] = pd.to_numeric(temp_df["融资买入额"], errors="coerce")
+    temp_df["融券余量"] = pd.to_numeric(temp_df["融券余量"], errors="coerce")
+    temp_df["融券余量金额"] = pd.to_numeric(temp_df["融券余量金额"], errors="coerce")
+    temp_df["融券卖出量"] = pd.to_numeric(temp_df["融券卖出量"], errors="coerce")
+    temp_df["融资融券余额"] = pd.to_numeric(temp_df["融资融券余额"], errors="coerce")
     return temp_df
 
 
@@ -138,16 +183,19 @@ def stock_margin_detail_sse(date: str = "20230922") -> pd.DataFrame:
             "融券偿还量",
         ]
     ]
-    temp_df['融资余额'] = pd.to_numeric(temp_df['融资余额'], errors="coerce")
-    temp_df['融资买入额'] = pd.to_numeric(temp_df['融资买入额'], errors="coerce")
-    temp_df['融资偿还额'] = pd.to_numeric(temp_df['融资偿还额'], errors="coerce")
-    temp_df['融券余量'] = pd.to_numeric(temp_df['融券余量'], errors="coerce")
-    temp_df['融券卖出量'] = pd.to_numeric(temp_df['融券卖出量'], errors="coerce")
-    temp_df['融券偿还量'] = pd.to_numeric(temp_df['融券偿还量'], errors="coerce")
+    temp_df["融资余额"] = pd.to_numeric(temp_df["融资余额"], errors="coerce")
+    temp_df["融资买入额"] = pd.to_numeric(temp_df["融资买入额"], errors="coerce")
+    temp_df["融资偿还额"] = pd.to_numeric(temp_df["融资偿还额"], errors="coerce")
+    temp_df["融券余量"] = pd.to_numeric(temp_df["融券余量"], errors="coerce")
+    temp_df["融券卖出量"] = pd.to_numeric(temp_df["融券卖出量"], errors="coerce")
+    temp_df["融券偿还量"] = pd.to_numeric(temp_df["融券偿还量"], errors="coerce")
     return temp_df
 
 
 if __name__ == "__main__":
+    stock_margin_ratio_pa_df = stock_margin_ratio_pa(date="20231013")
+    print(stock_margin_ratio_pa_df)
+
     stock_margin_sse_df = stock_margin_sse(start_date="20010106", end_date="20210401")
     print(stock_margin_sse_df)
 

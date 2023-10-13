@@ -1212,6 +1212,8 @@
  "macro_china_nbs_region"  # 国家统计局地区数据通用接口
  # 新浪财经-美股指数行情
  "index_us_stock_sina"  # 新浪财经-美股指数行情
+ # 融资融券-标的证券名单及保证金比例查询
+ "stock_margin_ratio_pa"  # 融资融券-标的证券名单及保证金比例查询
 ```
 
 ## 案例演示
