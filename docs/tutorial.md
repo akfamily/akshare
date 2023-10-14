@@ -16,7 +16,7 @@
  "get_gfex_daily",  # 获取广州期货交易所每日交易数据
  "get_ine_daily",  # 获取上海国际能源交易中心每日交易数据
  "futures_sgx_daily",  # 获取新加坡交易所每日交易数据
- "get_dce_rank_table",  #获取大连商品交易所前20会员持仓数据明细
+ "get_dce_rank_table",  # 获取大连商品交易所前20会员持仓数据明细
  "get_futures_daily",  # 获取中国金融期货交易所每日基差数据
  "get_rank_sum",  # 获取四个期货交易所前5, 10, 15, 20会员持仓排名数据
  "get_rank_sum_daily",  # 获取每日四个期货交易所前5, 10, 15, 20会员持仓排名数据
@@ -1216,6 +1216,8 @@
  "stock_margin_ratio_pa"  # 融资融券-标的证券名单及保证金比例查询
  # 东财财富-日内分时数据
  "stock_intraday_em"  # 东财财富-日内分时数据
+ # 同花顺-板块-概念板块-概念图谱
+ "stock_board_concept_graph_ths"  # 同花顺-板块-概念板块-概念图谱
 ```
 
 ## 案例演示

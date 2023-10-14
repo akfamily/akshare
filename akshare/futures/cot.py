@@ -550,6 +550,7 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols):
     var                         品种                        string
     date                        日期                        string YYYYMMDD
     """
+    print("如果本接口不可用，请使用 ak.futures_dce_position_rank() 接口")
     date_string = date
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date < datetime.date(2006, 1, 4):

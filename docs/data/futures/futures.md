@@ -984,8 +984,8 @@ ak.get_shfe_rank_table()
 ```python
 import akshare as ak
 
-get_dce_rank_table_df = ak.get_czce_rank_table(date='20200213')
-print(get_dce_rank_table_df)
+get_czce_rank_table_df = ak.get_czce_rank_table(date='20200213')
+print(get_czce_rank_table_df)
 ```
 
 注意:
