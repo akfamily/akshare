@@ -2546,9 +2546,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.30 fix: fix stock_zh_a_st_em interface
 1.11.31 fix: fix futures_dce_warehouse_receipt interface
 1.11.32 add: add stock_margin_ratio_pa interface
+1.11.33 add: add stock_intraday_em interface
 """
 
-__version__ = "1.11.32"
+__version__ = "1.11.33"
 __author__ = "AKFamily"
 
 import sys
@@ -2562,6 +2563,11 @@ import sys
 #     sys.exit(1)
 
 del sys
+
+"""
+东财财富-分时数据
+"""
+from akshare.stock.stock_intraday_em import stock_intraday_em
 
 """
 美股指数行情
