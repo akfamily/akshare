@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/19 12:10
+Date: 2023/10/14 22:10
 Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
@@ -17,6 +17,42 @@ from tqdm import tqdm
 
 from akshare.datasets import get_ths_js
 from akshare.utils import demjson
+
+
+def stock_board_concept_graph_ths(symbol: str = "通用航空") -> pd.DataFrame:
+    """
+    同花顺-板块-概念板块-概念图谱
+    http://q.10jqka.com.cn/gn/detail/code/301558/
+    :param symbol: 板块名称
+    :type symbol: str
+    :return: 概念图谱
+    :rtype: pandas.DataFrame
+    """
+    stock_board_ths_map_df = stock_board_concept_name_ths()
+    symbol = (
+        stock_board_ths_map_df[stock_board_ths_map_df["概念名称"] == symbol]["网址"]
+        .values[0]
+        .split("/")[-2]
+    )
+    url = f"http://q.10jqka.com.cn/gn/detail/code/{symbol}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+    }
+    r = requests.get(url, headers=headers)
+    temp_df = pd.read_html(StringIO(r.text))[0]
+    new_list = []
+    for col in temp_df.columns:
+        temp_list = temp_df[col].values[0].split("  ")
+        for i, item in enumerate(temp_list):
+            if i % 2 != 0:
+                price_pct, pct = item.split(" ")
+                price_pct = price_pct.strip("%").strip("+").strip("-")
+                pct = pct.strip("-").strip("+")
+                new_list.append([col, temp_list[i - 1], price_pct, pct])
+    temp_df = pd.DataFrame(new_list, columns=["产业链", "名称", "涨跌幅", "现价"])
+    temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
+    temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
+    return temp_df
 
 
 def _get_file_content_ths(file: str = "ths.js") -> str:
@@ -52,9 +88,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     }
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    total_page = soup.find("span", attrs={"class": "page_info"}).text.split(
-        "/"
-    )[1]
+    total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
@@ -91,8 +125,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     need_list = [
-        item.find_all("a")
-        for item in soup.find_all(attrs={"class": "cate_group"})
+        item.find_all("a") for item in soup.find_all(attrs={"class": "cate_group"})
     ]
     temp_list = []
     for item in need_list:
@@ -106,9 +139,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     temp_df.columns = ["概念名称", "网址"]
     temp_df["日期"] = None
     temp_df["成分股数量"] = None
-    temp_df["代码"] = (
-        temp_df["网址"].str.split("/", expand=True).iloc[:, 6].tolist()
-    )
+    temp_df["代码"] = temp_df["网址"].str.split("/", expand=True).iloc[:, 6].tolist()
     temp_df = temp_df[["日期", "概念名称", "成分股数量", "网址", "代码"]]
     big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.drop_duplicates(subset=["概念名称"], keep="first", inplace=True)
@@ -125,8 +156,7 @@ def _stock_board_concept_code_ths() -> dict:
     _stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     name_list = _stock_board_concept_name_ths_df["概念名称"].tolist()
     url_list = [
-        item.split("/")[-2]
-        for item in _stock_board_concept_name_ths_df["网址"].tolist()
+        item.split("/")[-2] for item in _stock_board_concept_name_ths_df["网址"].tolist()
     ]
     temp_map = dict(zip(name_list, url_list))
     return temp_map
@@ -159,9 +189,7 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     try:
-        page_num = int(
-            soup.find_all("a", attrs={"class": "changePage"})[-1]["page"]
-        )
+        page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
     except IndexError as e:
         page_num = 1
     big_df = pd.DataFrame()
@@ -214,15 +242,11 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     soup = BeautifulSoup(r.text, "lxml")
     name_list = [
         item.text
-        for item in soup.find("div", attrs={"class": "board-infos"}).find_all(
-            "dt"
-        )
+        for item in soup.find("div", attrs={"class": "board-infos"}).find_all("dt")
     ]
     value_list = [
         item.text.strip().replace("\n", "/")
-        for item in soup.find("div", attrs={"class": "board-infos"}).find_all(
-            "dd"
-        )
+        for item in soup.find("div", attrs={"class": "board-infos"}).find_all("dd")
     ]
     temp_df = pd.DataFrame([name_list, value_list]).T
     temp_df.columns = ["项目", "值"]
@@ -249,9 +273,7 @@ def stock_board_concept_hist_ths(
     }
     r = requests.get(symbol_url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
-    symbol_code = (
-        soup.find("div", attrs={"class": "board-hq"}).find("span").text
-    )
+    symbol_code = soup.find("div", attrs={"class": "board-hq"}).find("span").text
     big_df = pd.DataFrame()
     current_year = datetime.now().year
     for year in tqdm(range(int(start_year), current_year + 1), leave=False):
@@ -349,9 +371,7 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
         soup = BeautifulSoup(r.text, "lxml")
         url_flag = "gn"
     try:
-        page_num = int(
-            soup.find_all("a", attrs={"class": "changePage"})[-1]["page"]
-        )
+        page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
     except IndexError as e:
         page_num = 1
     big_df = pd.DataFrame()
@@ -381,21 +401,20 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
+    stock_board_concept_graph_ths_df = stock_board_concept_graph_ths(symbol="通用航空")
+    print(stock_board_concept_graph_ths_df)
+
     stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     print(stock_board_concept_name_ths_df)
 
-    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(
-        symbol="小米概念"
-    )
+    stock_board_concept_cons_ths_df = stock_board_concept_cons_ths(symbol="小米概念")
     print(stock_board_concept_cons_ths_df)
 
-    stock_board_concept_info_ths_df = stock_board_concept_info_ths(
-        symbol="PVDF概念"
-    )
+    stock_board_concept_info_ths_df = stock_board_concept_info_ths(symbol="PVDF概念")
     print(stock_board_concept_info_ths_df)
 
     stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(
-        start_year="2022", symbol="阿里巴巴概念"
+        start_year="2023", symbol="新能源汽车"
     )
     print(stock_board_concept_hist_ths_df)
 
