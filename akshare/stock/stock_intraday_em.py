@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 """
 Date: 2023/10/14 22:00
-Desc: 东财财富-分时数据
+Desc: 东财财富-日内分时数据
 https://quote.eastmoney.com/f1.html?newcode=0.000001
 """
 import json
