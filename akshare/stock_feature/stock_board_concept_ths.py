@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/14 22:10
+Date: 2023/10/15 18:00
 Desc: 同花顺-板块-概念板块
 http://q.10jqka.com.cn/gn/detail/code/301558/
 """
@@ -87,8 +87,8 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
         "Cookie": f"v={v_code}",
     }
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
-    total_page = soup.find("span", attrs={"class": "page_info"}).text.split("/")[1]
+    soup = BeautifulSoup(r.text, features="lxml")
+    total_page = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
         url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
@@ -101,10 +101,10 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
             "Cookie": f"v={v_code}",
         }
         r = requests.get(url, headers=headers)
-        soup = BeautifulSoup(r.text, "lxml")
+        soup = BeautifulSoup(r.text, features="lxml")
         url_list = []
         for item in (
-            soup.find("table", attrs={"class": "m-table m-pager-table"})
+            soup.find(name="table", attrs={"class": "m-table m-pager-table"})
             .find("tbody")
             .find_all("tr")
         ):
@@ -112,7 +112,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
             url_list.append(inner_url)
         temp_df = pd.read_html(StringIO(r.text))[0]
         temp_df["网址"] = url_list
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df = big_df[["日期", "概念名称", "成分股数量", "网址"]]
     big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     big_df["成分股数量"] = pd.to_numeric(big_df["成分股数量"], errors="coerce")
@@ -141,7 +141,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     temp_df["成分股数量"] = None
     temp_df["代码"] = temp_df["网址"].str.split("/", expand=True).iloc[:, 6].tolist()
     temp_df = temp_df[["日期", "概念名称", "成分股数量", "网址", "代码"]]
-    big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.drop_duplicates(subset=["概念名称"], keep="first", inplace=True)
     return big_df
 
@@ -187,9 +187,9 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     }
     url = f"http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/1/ajax/1/code/{symbol}"
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     try:
-        page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
+        page_num = int(soup.find_all(name="a", attrs={"class": "changePage"})[-1]["page"])
     except IndexError as e:
         page_num = 1
     big_df = pd.DataFrame()
@@ -202,9 +202,9 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
         url = f"http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.rename(
-        {
+        mapper={
             "涨跌幅(%)": "涨跌幅",
             "涨速(%)": "涨速",
             "换手(%)": "换手",
@@ -239,14 +239,14 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, features="lxml")
     name_list = [
         item.text
-        for item in soup.find("div", attrs={"class": "board-infos"}).find_all("dt")
+        for item in soup.find(name="div", attrs={"class": "board-infos"}).find_all("dt")
     ]
     value_list = [
         item.text.strip().replace("\n", "/")
-        for item in soup.find("div", attrs={"class": "board-infos"}).find_all("dd")
+        for item in soup.find(name="div", attrs={"class": "board-infos"}).find_all("dd")
     ]
     temp_df = pd.DataFrame([name_list, value_list]).T
     temp_df.columns = ["项目", "值"]
