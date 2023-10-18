@@ -28,7 +28,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
     return file_data
 
 
-def stock_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
+def index_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
     """
     funddb-工具-估值情绪-恐惧贪婪指数
     https://funddb.cn/tool/fear
@@ -67,5 +67,5 @@ def stock_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_fear_greed_funddb_df = stock_fear_greed_funddb(symbol="上证指数")
-    print(stock_fear_greed_funddb_df)
+    index_fear_greed_funddb_df = index_fear_greed_funddb(symbol="上证指数")
+    print(index_fear_greed_funddb_df)

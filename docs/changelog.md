@@ -63,6 +63,10 @@
 
 ## 更新说明详情
 
+1.11.37 fix: fix index_fear_greed_funddb interface
+
+    1. 重命名 stock_fear_greed_funddb 为 index_fear_greed_funddb 接口
+
 1.11.36 add: add stock_fear_greed_funddb interface
 
     1. 新增 stock_fear_greed_funddb 接口
@@ -2975,6 +2979,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.37 fix: fix index_fear_greed_funddb interface
 
 1.11.36 add: add stock_fear_greed_funddb interface
 
