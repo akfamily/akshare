@@ -2,7 +2,7 @@
 # !/usr/bin/env python
 """
 Date: 2023/10/18 20:00
-Desc: funddb-工具-估值情绪-恐贪指数
+Desc: funddb-工具-估值情绪-恐惧贪婪指数
 https://funddb.cn/tool/fear
 """
 import json
@@ -30,7 +30,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
 
 def stock_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
     """
-    funddb-工具-估值情绪-恐贪指数
+    funddb-工具-估值情绪-恐惧贪婪指数
     https://funddb.cn/tool/fear
     :param symbol: choice of {"上证指数", "沪深300"}
     :type symbol: str
