@@ -1219,7 +1219,7 @@
  # 同花顺-板块-概念板块-概念图谱
  "stock_board_concept_graph_ths"  # 同花顺-板块-概念板块-概念图谱
  # 恐惧贪婪指数
- "stock_fear_greed_funddb"  # 恐惧贪婪指数
+ "index_fear_greed_funddb"  # 恐惧贪婪指数
 ```
 
 ## 案例演示
