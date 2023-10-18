@@ -2551,9 +2551,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.35 fix: fix stock_board_concept_hist_ths interface
 1.11.36 add: add stock_fear_greed_funddb interface
 1.11.37 fix: fix index_fear_greed_funddb interface
+1.11.38 fix: fix setup.py interface
 """
 
-__version__ = "1.11.37"
+__version__ = "1.11.38"
 __author__ = "AKFamily"
 
 import sys
@@ -2564,7 +2565,7 @@ if sys.version_info < (3, 9):
     warnings.warn(
         "为了支持更多特性，请将 Python 升级到 3.9 及以上版本！"
     )
-    sys.exit(1)
+    # sys.exit(1)
 
 del sys
 
