@@ -2549,22 +2549,28 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.33 add: add stock_intraday_em interface
 1.11.34 add: add stock_board_concept_graph_ths interface
 1.11.35 fix: fix stock_board_concept_hist_ths interface
+1.11.36 add: add stock_fear_greed_funddb interface
 """
 
-__version__ = "1.11.35"
+__version__ = "1.11.36"
 __author__ = "AKFamily"
 
 import sys
 
-# import warnings
+import warnings
 
-# if sys.version_info < (3, 8):
-#     warnings.warn(
-#         "为了支持更多特性，请尽快升级 Python 版本到 3.8 及以上"
-#     )
-#     sys.exit(1)
+if sys.version_info < (3, 9):
+    warnings.warn(
+        "为了支持更多特性，请将 Python 升级到 3.9 及以上版本！"
+    )
+    sys.exit(1)
 
 del sys
+
+"""
+funddb-工具-估值情绪-恐贪指数
+"""
+from akshare.stock.stock_fear_greed_funddb import stock_fear_greed_funddb
 
 """
 东财财富-分时数据

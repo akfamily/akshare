@@ -5986,3 +5986,16 @@ function getResCode1() {
     );
     return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
 }
+
+function my_decode(data) {
+    var encrypted = CryptoJS.AES.decrypt(
+        data,
+        CryptoJS.enc.Utf8.parse('h5.jiucaishuo.comaaaaaaaaaaaaaaa'),
+        {
+            iv: CryptoJS.enc.Utf8.parse('h5.jiucaishuo.com'),
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        }
+    );
+    return encrypted.toString(CryptoJS.enc.Utf8);
+}
