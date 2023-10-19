@@ -1129,11 +1129,13 @@
  # 百度股市通-外汇-行情榜单
  "fx_quote_baidu"  # 百度股市通-外汇-行情榜单
  # 50ETF 期权波动率指数
- "option_50etf_qvix"  # 50ETF 期权波动率指数
+ "index_option_50etf_qvix"  # 50ETF 期权波动率指数
+ # 50ETF 期权波动率指数 QVIX-分时
+ "index_option_50etf_min_qvix"  # 50ETF 期权波动率指数 QVIX-分时
  # 300 ETF 期权波动率指数
- "option_300etf_qvix"  # 300 ETF 期权波动率指数
+ "index_option_300etf_qvix"  # 300 ETF 期权波动率指数
  # 300 ETF 期权波动率指数 QVIX-分时
- "option_300etf_min_qvix"  # 300 ETF 期权波动率指数 QVIX-分时
+ "index_option_300etf_min_qvix"  # 300 ETF 期权波动率指数 QVIX-分时
  # 申万指数实时行情
  "index_realtime_sw"  # 申万指数实时行情
  # 申万指数历史行情
