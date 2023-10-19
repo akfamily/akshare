@@ -67,6 +67,10 @@
 
 ## 更新说明详情
 
+1.11.40 fix: fix index_option_300etf_qvix interface
+
+    1. 新增 index_option_300etf_qvix 接口
+
 1.11.39 fix: fix index_option_50etf_qvix interface
 
     1. 重命名 option_50etf_qvix 为 index_option_50etf_qvix 接口
@@ -2994,6 +2998,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.40 fix: fix index_option_300etf_qvix interface
 
 1.11.39 fix: fix index_option_50etf_qvix interface
 

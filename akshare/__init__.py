@@ -2553,9 +2553,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.37 fix: fix index_fear_greed_funddb interface
 1.11.38 fix: fix setup.py interface
 1.11.39 fix: fix index_option_50etf_qvix interface
+1.11.40 fix: fix index_option_300etf_qvix interface
 """
 
-__version__ = "1.11.39"
+__version__ = "1.11.40"
 __author__ = "AKFamily"
 
 import sys
