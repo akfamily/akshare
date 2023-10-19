@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/10/26 20:20
+Date: 2023/10/19 16:00
 Desc: 50 ETF 期权波动率指数 QVIX
 300 ETF 期权波动率指数 QVIX
 http://1.optbbs.com/s/vix.shtml?50ETF
@@ -10,7 +10,7 @@ http://1.optbbs.com/s/vix.shtml?300ETF
 import pandas as pd
 
 
-def option_50etf_qvix() -> pd.DataFrame:
+def index_option_50etf_qvix() -> pd.DataFrame:
     """
     50ETF 期权波动率指数 QVIX
     http://1.optbbs.com/s/vix.shtml?50ETF
@@ -26,11 +26,15 @@ def option_50etf_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
+    temp_df['open'] = pd.to_numeric(temp_df['open'], errors="coerce")
+    temp_df['high'] = pd.to_numeric(temp_df['high'], errors="coerce")
+    temp_df['low'] = pd.to_numeric(temp_df['low'], errors="coerce")
+    temp_df['close'] = pd.to_numeric(temp_df['close'], errors="coerce")
     return temp_df
 
 
-def option_50etf_min_qvix() -> pd.DataFrame:
+def index_option_50etf_min_qvix() -> pd.DataFrame:
     """
     50 ETF 期权波动率指数 QVIX
     http://1.optbbs.com/s/vix.shtml?50ETF
@@ -43,10 +47,11 @@ def option_50etf_min_qvix() -> pd.DataFrame:
         "time",
         "qvix",
     ]
+    temp_df['qvix'] = pd.to_numeric(temp_df['qvix'], errors="coerce")
     return temp_df
 
 
-def option_300etf_qvix() -> pd.DataFrame:
+def index_option_300etf_qvix() -> pd.DataFrame:
     """
     300 ETF 期权波动率指数 QVIX
     http://1.optbbs.com/s/vix.shtml?300ETF
@@ -62,11 +67,15 @@ def option_300etf_qvix() -> pd.DataFrame:
         "low",
         "close",
     ]
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
+    temp_df['open'] = pd.to_numeric(temp_df['open'], errors="coerce")
+    temp_df['high'] = pd.to_numeric(temp_df['high'], errors="coerce")
+    temp_df['low'] = pd.to_numeric(temp_df['low'], errors="coerce")
+    temp_df['close'] = pd.to_numeric(temp_df['close'], errors="coerce")
     return temp_df
 
 
-def option_300etf_min_qvix() -> pd.DataFrame:
+def index_option_300etf_min_qvix() -> pd.DataFrame:
     """
     300 ETF 期权波动率指数 QVIX-分时
     http://1.optbbs.com/s/vix.shtml?300ETF
@@ -79,18 +88,19 @@ def option_300etf_min_qvix() -> pd.DataFrame:
         "time",
         "qvix",
     ]
+    temp_df['qvix'] = pd.to_numeric(temp_df['qvix'], errors="coerce")
     return temp_df
 
 
 if __name__ == "__main__":
-    option_50etf_qvix_df = option_50etf_qvix()
-    print(option_50etf_qvix_df)
+    index_option_50etf_qvix_df = index_option_50etf_qvix()
+    print(index_option_50etf_qvix_df)
 
-    option_50etf_min_qvix_df = option_50etf_min_qvix()
-    print(option_50etf_min_qvix_df)
+    index_option_50etf_min_qvix_df = index_option_50etf_min_qvix()
+    print(index_option_50etf_min_qvix_df)
 
-    option_300etf_qvix_df = option_300etf_qvix()
-    print(option_300etf_qvix_df)
+    index_option_300etf_qvix_df = index_option_300etf_qvix()
+    print(index_option_300etf_qvix_df)
 
-    option_300etf_min_qvix_df = option_300etf_min_qvix()
-    print(option_300etf_min_qvix_df)
+    index_option_300etf_min_qvix_df = index_option_300etf_min_qvix()
+    print(index_option_300etf_min_qvix_df)

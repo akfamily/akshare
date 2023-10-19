@@ -4,6 +4,10 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.11.39    | option_300etf_min_qvix                      | index_option_300etf_min_qvix                | 20231019 |
+| 1.11.39    | option_300etf_qvix                          | index_option_300etf_qvix                    | 20231019 |
+| 1.11.39    | option_50etf_min_qvix                       | index_option_50etf_min_qvix                 | 20231019 |
+| 1.11.39    | option_50etf_qvix                           | index_option_50etf_qvix                     | 20231019 |
 | 1.10.50    | car_cpca_energy_sale                        | car_energy_sale_cpca                        | 20230710 |
 | 1.10.36    | stock_em_sy_hy_list                         | stock_sy_hy_em                              | 20230624 |
 | 1.10.36    | stock_em_sy_list                            | stock_sy_em                                 | 20230624 |
@@ -62,6 +66,13 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明详情
+
+1.11.39 fix: fix index_option_50etf_qvix interface
+
+    1. 重命名 option_50etf_qvix 为 index_option_50etf_qvix 接口
+    2. 重命名 option_50etf_min_qvix 为 index_option_50etf_min_qvix 接口
+    3. 重命名 option_300etf_qvix 为 index_option_300etf_qvix 接口
+    4. 重命名 option_300etf_min_qvix 为 index_option_300etf_min_qvix 接口
 
 1.11.38 fix: fix setup.py interface
 
@@ -2983,6 +2994,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.39 fix: fix index_option_50etf_qvix interface
 
 1.11.38 fix: fix setup.py interface
 
