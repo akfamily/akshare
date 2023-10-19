@@ -2552,9 +2552,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.36 add: add stock_fear_greed_funddb interface
 1.11.37 fix: fix index_fear_greed_funddb interface
 1.11.38 fix: fix setup.py interface
+1.11.39 fix: fix index_option_50etf_qvix interface
 """
 
-__version__ = "1.11.38"
+__version__ = "1.11.39"
 __author__ = "AKFamily"
 
 import sys
@@ -2791,11 +2792,11 @@ from akshare.index.index_sw_research import (
 """
 50ETF 期权波动率指数
 """
-from akshare.option.option_qvix import (
-    option_50etf_qvix,
-    option_300etf_min_qvix,
-    option_300etf_qvix,
-    option_50etf_min_qvix,
+from akshare.index.index_option_qvix import (
+    index_option_50etf_qvix,
+    index_option_300etf_min_qvix,
+    index_option_300etf_qvix,
+    index_option_50etf_min_qvix,
 )
 
 """
