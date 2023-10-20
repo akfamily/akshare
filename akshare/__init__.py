@@ -2554,9 +2554,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.38 fix: fix setup.py interface
 1.11.39 fix: fix index_option_50etf_qvix interface
 1.11.40 fix: fix index_option_300etf_qvix interface
+1.11.41 fix: fix index_weibo_sina interface
 """
 
-__version__ = "1.11.40"
+__version__ = "1.11.41"
 __author__ = "AKFamily"
 
 import sys
@@ -4506,7 +4507,7 @@ from akshare.index.index_baidu import (
 """
 微博指数
 """
-from akshare.index.index_weibo import weibo_index
+from akshare.index.index_weibo_sina import index_weibo_sina
 
 """
 经济政策不确定性指数
