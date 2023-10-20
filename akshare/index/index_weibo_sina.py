@@ -104,8 +104,8 @@ def index_weibo_sina(symbol: str = "python", period: str = "3month") -> pd.DataF
         else:
             df.index = pd.to_datetime(df.index, format="mixed")
         df.reset_index(inplace=True)
-        df.columns = ['datetime', "index"]
-        df['datetime'] = df['datetime'].astype(str)
+        df.columns = ["datetime", "value"]
+        df["datetime"] = df["datetime"].astype(str)
         return df
 
 

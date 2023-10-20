@@ -2165,53 +2165,53 @@ print(index_option_300etf_min_qvix_df)
 [239 rows x 2 columns]
 ```
 
-### 微博指数数据
+### 新浪微博指数
 
-接口: weibo_index
+接口: index_weibo_sina
 
 目标地址: https://data.weibo.com/index/newindex
 
-描述: 获取指定 **word** 的微博指数
+描述: 获取指定 symbol 和 period 的微博指数数据
 
 输入参数
 
-| 名称        | 类型  | 描述                                                 |
-|-----------|-----|----------------------------------------------------|
-| word      | str | word="股票"                                          |
-| time_type | str | time_type="1hour"; 1hour, 1day, 1month, 3month 选其一 |
+| 名称     | 类型  | 描述                                                              |
+|--------|-----|-----------------------------------------------------------------|
+| symbol | str | symbol="股票"; 需要搜索的关键词                                           |
+| period | str | period="1hour"; choice of {'1hour', '1day', '1month', '3month'} |
 
 输出参数
 
-| 名称    | 类型       | 描述    |
-|-------|----------|-------|
-| date  | datetime | 日期-索引 |
-| index | float    | 指数    |
+| 名称       | 类型      | 描述   |
+|----------|---------|------|
+| datetime | object  | 日期日期 |
+| value    | float64 | 指数   |
 
 接口示例
 
 ```python
 import akshare as ak
 
-weibo_index_df = ak.weibo_index(word="期货", time_type="3month")
-print(weibo_index_df)
+index_weibo_sina_df = ak.index_weibo_sina(symbol="股票", period="3month")
+print(index_weibo_sina_df)
 ```
 
 数据示例
 
 ```
-             期货
-index
-20190901  13334
-20190902  46214
-20190903  49017
-20190904  53229
-20190905  68506
-         ...
-20191127  68081
-20191128  42348
-20191129  62141
-20191130  23448
-20191201  16169
+      datetime   value
+0   2023-07-19  385427
+1   2023-07-20  419670
+2   2023-07-21  304118
+3   2023-07-22  202934
+4   2023-07-23  249032
+..         ...     ...
+88  2023-10-15  137029
+89  2023-10-16  394977
+90  2023-10-17  326126
+91  2023-10-18  366712
+92  2023-10-19  336407
+[93 rows x 2 columns]
 ```
 
 ### 百度搜索指数
