@@ -1,4 +1,4 @@
-name: Master and Dev Checks
+name: Main and Dev Checks
 
 on:
   push:
