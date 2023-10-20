@@ -4,6 +4,7 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.11.41    | weibo_index                                 | index_weibo_sina                            | 20231020 |
 | 1.11.39    | option_300etf_min_qvix                      | index_option_300etf_min_qvix                | 20231019 |
 | 1.11.39    | option_300etf_qvix                          | index_option_300etf_qvix                    | 20231019 |
 | 1.11.39    | option_50etf_min_qvix                       | index_option_50etf_min_qvix                 | 20231019 |
@@ -66,6 +67,10 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明详情
+
+1.11.41 fix: fix index_weibo_sina interface
+
+    1. 重命名 weibo_index 为 index_weibo_sina 接口
 
 1.11.40 fix: fix index_option_300etf_qvix interface
 
@@ -2998,6 +3003,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.41 fix: fix index_weibo_sina interface
 
 1.11.40 fix: fix index_option_300etf_qvix interface
 

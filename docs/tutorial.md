@@ -143,7 +143,7 @@
  # 经济政策不确定性(EPU)指数
  "article_epu_index"  # 主要国家和地区的经济政策不确定性(EPU)指数
  # 微博指数
- "weibo_index"  # 获取3个月内的微博指数
+ "index_weibo_sina"  # 获取3个月内的微博指数
  # 百度指数
  "baidu_search_index"  # 获取百度搜索指数
  "baidu_info_index"  # 获取百度资讯指数
