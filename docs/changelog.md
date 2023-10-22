@@ -68,6 +68,10 @@
 
 ## 更新说明详情
 
+1.11.42 fix: fix stock_gpzy_pledge_ratio_em interface
+
+    1. 修复 stock_gpzy_pledge_ratio_em 接口
+
 1.11.41 fix: fix index_weibo_sina interface
 
     1. 重命名 weibo_index 为 index_weibo_sina 接口
@@ -3003,6 +3007,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.42 fix: fix stock_gpzy_pledge_ratio_em interface
 
 1.11.41 fix: fix index_weibo_sina interface
 

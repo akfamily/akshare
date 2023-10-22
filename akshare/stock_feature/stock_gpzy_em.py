@@ -77,7 +77,7 @@ def stock_gpzy_profile_em() -> pd.DataFrame:
     return temp_df
 
 
-def stock_gpzy_pledge_ratio_em(date: str = "20220408") -> pd.DataFrame:
+def stock_gpzy_pledge_ratio_em(date: str = "20231020") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-股权质押-上市公司质押比例
     https://data.eastmoney.com/gpzy/pledgeRatio.aspx
@@ -127,6 +127,7 @@ def stock_gpzy_pledge_ratio_em(date: str = "20220408") -> pd.DataFrame:
         "质押市值",
         "所属行业",
         "近一年涨跌幅",
+        "所属行业代码",
         "-",
     ]
     big_df = big_df[
@@ -143,6 +144,7 @@ def stock_gpzy_pledge_ratio_em(date: str = "20220408") -> pd.DataFrame:
             "无限售股质押数",
             "限售股质押数",
             "近一年涨跌幅",
+            "所属行业代码",
         ]
     ]
     big_df["质押比例"] = pd.to_numeric(big_df["质押比例"], errors="coerce")
@@ -152,7 +154,7 @@ def stock_gpzy_pledge_ratio_em(date: str = "20220408") -> pd.DataFrame:
     big_df["无限售股质押数"] = pd.to_numeric(big_df["无限售股质押数"], errors="coerce")
     big_df["限售股质押数"] = pd.to_numeric(big_df["限售股质押数"], errors="coerce")
     big_df["近一年涨跌幅"] = pd.to_numeric(big_df["近一年涨跌幅"], errors="coerce")
-    big_df["交易日期"] = pd.to_datetime(big_df["交易日期"]).dt.date
+    big_df["交易日期"] = pd.to_datetime(big_df["交易日期"], errors="coerce").dt.date
     return big_df
 
 
