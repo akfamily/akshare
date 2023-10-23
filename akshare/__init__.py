@@ -2557,9 +2557,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.41 fix: fix index_weibo_sina interface
 1.11.42 fix: fix stock_gpzy_pledge_ratio_em interface
 1.11.43 fix: fix get_futures_daily interface
+1.11.44 add: add stock_cyq_em interface
 """
 
-__version__ = "1.11.43"
+__version__ = "1.11.44"
 __author__ = "AKFamily"
 
 import sys
@@ -2573,6 +2574,11 @@ if sys.version_info < (3, 9):
     # sys.exit(1)
 
 del sys
+
+"""
+筹码分布
+"""
+from akshare.stock_feature.stock_cyq_em import stock_cyq_em
 
 """
 funddb-工具-估值情绪-恐贪指数
