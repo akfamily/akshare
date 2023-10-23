@@ -160,6 +160,9 @@ market_exchange_symbols = {
         "CJ",  # 红枣期货
         "SA",  # 纯碱期货
         "PK",  # 20210201 花生期货
+        "PF",  # 短纤
+        "PX",  # 纯苯
+        "SH",  # 烧碱
     ],
     "shfe": [
         "CU",
@@ -184,6 +187,7 @@ market_exchange_symbols = {
         "BC",
         "AO",
         "BR",
+        "EC", # 集运指数
     ],
     "gfex": ["SI", "LC"],
 }
