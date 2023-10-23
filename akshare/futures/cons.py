@@ -187,7 +187,7 @@ market_exchange_symbols = {
         "BC",
         "AO",
         "BR",
-        "EC", # 集运指数
+        "EC",  # 集运指数
     ],
     "gfex": ["SI", "LC"],
 }
