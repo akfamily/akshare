@@ -2556,9 +2556,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.40 fix: fix index_option_300etf_qvix interface
 1.11.41 fix: fix index_weibo_sina interface
 1.11.42 fix: fix stock_gpzy_pledge_ratio_em interface
+1.11.43 fix: fix get_futures_daily interface
 """
 
-__version__ = "1.11.42"
+__version__ = "1.11.43"
 __author__ = "AKFamily"
 
 import sys

@@ -68,6 +68,10 @@
 
 ## 更新说明详情
 
+1.11.43 fix: fix get_futures_daily interface
+
+    1. 修复 get_futures_daily 接口
+
 1.11.42 fix: fix stock_gpzy_pledge_ratio_em interface
 
     1. 修复 stock_gpzy_pledge_ratio_em 接口
@@ -3007,6 +3011,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.43 fix: fix get_futures_daily interface
 
 1.11.42 fix: fix stock_gpzy_pledge_ratio_em interface
 
