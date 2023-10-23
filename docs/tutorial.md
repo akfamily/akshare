@@ -1222,6 +1222,8 @@
  "stock_board_concept_graph_ths"  # 同花顺-板块-概念板块-概念图谱
  # 恐惧贪婪指数
  "index_fear_greed_funddb"  # 恐惧贪婪指数
+ # 筹码分布
+ "stock_cyq_em"  # 筹码分布
 ```
 
 ## 案例演示
