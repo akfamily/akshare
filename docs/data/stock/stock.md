@@ -9968,9 +9968,9 @@ print(stock_financial_report_sina_df)
 
 输出参数
 
-| 名称  | 类型  | 描述         |
-|-----|-----|------------|
-| -   | -   | 319项，不逐一列出 |
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 319 项，不逐一列出 |
 
 接口示例
 
@@ -9984,18 +9984,19 @@ print(stock_balance_sheet_by_report_em_df)
 数据示例
 
 ```
-    SECUCODE SECURITY_CODE  ... OSOPINION_TYPE LISTING_STATE
+     SECUCODE SECURITY_CODE  ... OSOPINION_TYPE LISTING_STATE
 0   600519.SH        600519  ...           None             0
 1   600519.SH        600519  ...           None             0
 2   600519.SH        600519  ...           None             0
 3   600519.SH        600519  ...           None             0
 4   600519.SH        600519  ...           None             0
 ..        ...           ...  ...            ...           ...
-67  600519.SH        600519  ...           None             0
-68  600519.SH        600519  ...           None             0
-69  600519.SH        600519  ...           None             0
-70  600519.SH        600519  ...           None             0
-71  600519.SH        600519  ...           None             0
+87  600519.SH        600519  ...           None             0
+88  600519.SH        600519  ...           None             0
+89  600519.SH        600519  ...           None             0
+90  600519.SH        600519  ...           None             0
+91  600519.SH        600519  ...           None             0
+[92 rows x 319 columns]
 ```
 
 ##### 资产负债表-按年度
@@ -10016,9 +10017,9 @@ print(stock_balance_sheet_by_report_em_df)
 
 输出参数
 
-| 名称  | 类型  | 描述         |
-|-----|-----|------------|
-| -   | -   | 319项，不逐一列出 |
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 319 项，不逐一列出 |
 
 接口示例
 
@@ -10053,9 +10054,15 @@ print(stock_balance_sheet_by_yearly_em_df)
 17  600519.SH        600519  ...           None             0
 18  600519.SH        600519  ...           None             0
 19  600519.SH        600519  ...           None             0
+20  600519.SH        600519  ...           None             0
+21  600519.SH        600519  ...           None             0
+22  600519.SH        600519  ...           None             0
+23  600519.SH        600519  ...           None             0
+24  600519.SH        600519  ...           None             0
+[25 rows x 319 columns]
 ```
 
-##### 利润表-报告期
+##### 利润表-按报告期
 
 接口: stock_profit_sheet_by_report_em
 
@@ -10089,18 +10096,19 @@ print(stock_profit_sheet_by_report_em_df)
 数据示例
 
 ```
-     SECUCODE SECURITY_CODE  ... ACF_END_INCOME_YOY OPINION_TYPE
+   SECUCODE SECURITY_CODE  ... ACF_END_INCOME_YOY OPINION_TYPE
 0   600519.SH        600519  ...               None         None
-1   600519.SH        600519  ...               None      标准无保留意见
+1   600519.SH        600519  ...               None         None
 2   600519.SH        600519  ...               None         None
-3   600519.SH        600519  ...               None         None
+3   600519.SH        600519  ...               None      标准无保留意见
 4   600519.SH        600519  ...               None         None
 ..        ...           ...  ...                ...          ...
-67  600519.SH        600519  ...               None         None
-68  600519.SH        600519  ...               None      标准无保留意见
-69  600519.SH        600519  ...               None      标准无保留意见
-70  600519.SH        600519  ...               None      标准无保留意见
-71  600519.SH        600519  ...               None      标准无保留意见
+87  600519.SH        600519  ...               None      标准无保留意见
+88  600519.SH        600519  ...               None      标准无保留意见
+89  600519.SH        600519  ...               None      标准无保留意见
+90  600519.SH        600519  ...               None      标准无保留意见
+91  600519.SH        600519  ...               None      标准无保留意见
+[92 rows x 203 columns]
 ```
 
 ##### 利润表-按年度
@@ -10158,6 +10166,12 @@ print(stock_profit_sheet_by_yearly_em_df)
 17  600519.SH        600519  ...               None      标准无保留意见
 18  600519.SH        600519  ...               None      标准无保留意见
 19  600519.SH        600519  ...               None      标准无保留意见
+20  600519.SH        600519  ...               None      标准无保留意见
+21  600519.SH        600519  ...               None      标准无保留意见
+22  600519.SH        600519  ...               None      标准无保留意见
+23  600519.SH        600519  ...               None      标准无保留意见
+24  600519.SH        600519  ...               None      标准无保留意见
+[25 rows x 203 columns]
 ```
 
 ##### 利润表-按单季度
@@ -10195,17 +10209,18 @@ print(stock_profit_sheet_by_quarterly_em_df)
 
 ```
     SECUCODE SECURITY_CODE  ... DEDUCT_PARENT_NETPROFIT DEDUCT_PARENT_NETPROFIT_QOQ
-0   600519.SH        600519  ...            1.724306e+10                   13.261847
-1   600519.SH        600519  ...            1.522407e+10                   19.799929
-2   600519.SH        600519  ...            1.270791e+10                   18.991805
-3   600519.SH        600519  ...            1.067965e+10                  -23.550003
-4   600519.SH        600519  ...            1.396946e+10                    6.520684
+0   600519.SH        600519  ...            1.686819e+10                   11.201931
+1   600519.SH        600519  ...            1.516897e+10                  -26.996696
+2   600519.SH        600519  ...            2.077848e+10                   12.934838
+3   600519.SH        600519  ...            1.839864e+10                   25.756158
+4   600519.SH        600519  ...            1.463041e+10                   16.858574
 ..        ...           ...  ...                     ...                         ...
-63  600519.SH        600519  ...                     NaN                         NaN
-64  600519.SH        600519  ...                     NaN                         NaN
-65  600519.SH        600519  ...            7.115463e+07                        None
-66  600519.SH        600519  ...                     NaN                        None
-67  600519.SH        600519  ...                     NaN                        None
+82  600519.SH        600519  ...                     NaN                         NaN
+83  600519.SH        600519  ...            6.878058e+07                   -3.336461
+84  600519.SH        600519  ...            7.115463e+07                         NaN
+85  600519.SH        600519  ...                     NaN                         NaN
+86  600519.SH        600519  ...                     NaN                         NaN
+[87 rows x 204 columns]
 ```
 
 ##### 现金流量表-按报告期
@@ -10228,7 +10243,7 @@ print(stock_profit_sheet_by_quarterly_em_df)
 
 | 名称  | 类型  | 描述          |
 |-----|-----|-------------|
-| -   | -   | 204 项，不逐一列出 |
+| -   | -   | 252 项，不逐一列出 |
 
 接口示例
 
@@ -10243,17 +10258,18 @@ print(stock_cash_flow_sheet_by_report_em_df)
 
 ```
     SECUCODE SECURITY_CODE  ... MINORITY_INTEREST MINORITY_INTEREST_YOY
-0   600519.SH        600519  ...              None                  None
-1   600519.SH        600519  ...              None                  None
-2   600519.SH        600519  ...              None                  None
-3   600519.SH        600519  ...              None                  None
-4   600519.SH        600519  ...              None                  None
+0   600519.SH        600519  ...               NaN                   NaN
+1   600519.SH        600519  ...               NaN                   NaN
+2   600519.SH        600519  ...               NaN                   NaN
+3   600519.SH        600519  ...               NaN                   NaN
+4   600519.SH        600519  ...               NaN                   NaN
 ..        ...           ...  ...               ...                   ...
-64  600519.SH        600519  ...               NaN                  None
-65  600519.SH        600519  ...              None                  None
-66  600519.SH        600519  ...              None                  None
-67  600519.SH        600519  ...              None                  None
-68  600519.SH        600519  ...              None                  None
+83  600519.SH        600519  ...               NaN                   NaN
+84  600519.SH        600519  ...               NaN                   NaN
+85  600519.SH        600519  ...               NaN                   NaN
+86  600519.SH        600519  ...               NaN                   NaN
+87  600519.SH        600519  ...               NaN                   NaN
+[88 rows x 252 columns]
 ```
 
 ##### 现金流量表-按年度
@@ -10276,7 +10292,7 @@ print(stock_cash_flow_sheet_by_report_em_df)
 
 | 名称  | 类型  | 描述          |
 |-----|-----|-------------|
-| -   | -   | 252 项，不逐一列出 |
+| -   | -   | 314 项，不逐一列出 |
 
 接口示例
 
@@ -10290,26 +10306,28 @@ print(stock_cash_flow_sheet_by_yearly_em_df)
 数据示例
 
 ```
-    SECUCODE SECURITY_CODE  ... MINORITY_INTEREST MINORITY_INTEREST_YOY
-0   600519.SH        600519  ...              None                  None
-1   600519.SH        600519  ...              None                  None
-2   600519.SH        600519  ...              None                  None
-3   600519.SH        600519  ...              None                  None
-4   600519.SH        600519  ...              None                  None
-5   600519.SH        600519  ...               NaN                   NaN
-6   600519.SH        600519  ...               NaN                   NaN
-7   600519.SH        600519  ...               NaN                   NaN
-8   600519.SH        600519  ...               NaN                   NaN
-9   600519.SH        600519  ...      487177897.39             68.826452
-10  600519.SH        600519  ...      240442819.27             19.457607
-11  600519.SH        600519  ...       201278784.6             48.851814
-12  600519.SH        600519  ...      135220914.59             88.954245
-13  600519.SH        600519  ...       71562782.14             41.482957
-14  600519.SH        600519  ...       50580496.34             50.455792
-15  600519.SH        600519  ...       22005657.78                  None
-16  600519.SH        600519  ...               NaN                  None
-17  600519.SH        600519  ...               NaN                  None
-18  600519.SH        600519  ...               NaN                  None
+    SECUCODE SECURITY_CODE  ... FBCCE_ADD_YOY CREDIT_IMPAIRMENT_INCOME_YOY
+0   601398.SH        601398  ...    238.302033                         None
+1   601398.SH        601398  ...   -204.008112                         None
+2   601398.SH        601398  ...    676.398241                         None
+3   601398.SH        601398  ...   -446.960304                         None
+4   601398.SH        601398  ...   -103.265330                         None
+5   601398.SH        601398  ...    231.370619                         None
+6   601398.SH        601398  ...   -156.355892                         None
+7   601398.SH        601398  ...   1112.723130                         None
+8   601398.SH        601398  ...    115.092223                         None
+9   601398.SH        601398  ...   -169.124835                         None
+10  601398.SH        601398  ...     10.647686                         None
+11  601398.SH        601398  ...    167.055537                         None
+12  601398.SH        601398  ...    160.423857                         None
+13  601398.SH        601398  ...           NaN                         None
+14  601398.SH        601398  ...           NaN                         None
+15  601398.SH        601398  ...           NaN                         None
+16  601398.SH        601398  ...           NaN                         None
+17  601398.SH        601398  ...           NaN                         None
+18  601398.SH        601398  ...           NaN                         None
+19  601398.SH        601398  ...           NaN                         None
+[20 rows x 314 columns]
 ```
 
 ##### 现金流量表-按单季度
@@ -10332,7 +10350,7 @@ print(stock_cash_flow_sheet_by_yearly_em_df)
 
 | 名称  | 类型  | 描述          |
 |-----|-----|-------------|
-| -   | -   | 253 项，不逐一列出 |
+| -   | -   | 315 项，不逐一列出 |
 
 接口示例
 
@@ -10346,18 +10364,233 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 数据示例
 
 ```
-    SECUCODE SECURITY_CODE  ... OSOPINION_TYPE LISTING_STATE
-0   600519.SH        600519  ...           None             0
-1   600519.SH        600519  ...           None             0
-2   600519.SH        600519  ...           None             0
-3   600519.SH        600519  ...           None             0
-4   600519.SH        600519  ...           None             0
-..        ...           ...  ...            ...           ...
-60  600519.SH        600519  ...           None             0
-61  600519.SH        600519  ...           None             0
-62  600519.SH        600519  ...           None             0
-63  600519.SH        600519  ...           None             0
-64  600519.SH        600519  ...           None             0
+    SECUCODE SECURITY_CODE  ... OPINION_TYPE OSOPINION_TYPE
+0   601398.SH        601398  ...         None           None
+1   601398.SH        601398  ...         None           None
+2   601398.SH        601398  ...      标准无保留意见           None
+3   601398.SH        601398  ...         None           None
+4   601398.SH        601398  ...         None           None
+..        ...           ...  ...          ...            ...
+61  601398.SH        601398  ...         None           None
+62  601398.SH        601398  ...      标准无保留意见           None
+63  601398.SH        601398  ...         None           None
+64  601398.SH        601398  ...         None           None
+65  601398.SH        601398  ...         None           None
+[66 rows x 315 columns]
+```
+
+#### 财务报表-东财-已退市股票
+
+##### 资产负债表-按报告期
+
+接口: stock_balance_sheet_by_report_delisted_em
+
+目标地址: https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=SZ000013#/cwfx/zcfzb
+
+描述: 东方财富-股票-财务分析-资产负债表-已退市股票-按报告期
+
+限量: 单次获取指定 symbol 的资产负债表-按报告期数据
+
+输入参数
+
+| 名称     | 类型  | 描述                               |
+|--------|-----|----------------------------------|
+| symbol | str | symbol="SZ000013"; 带市场标识的已退市股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述         |
+|-----|-----|------------|
+| -   | -   | 319项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_balance_sheet_by_report_delisted_em_df = ak.stock_balance_sheet_by_report_delisted_em(symbol="SZ000013")
+print(stock_balance_sheet_by_report_delisted_em_df)
+```
+
+数据示例
+
+```
+     SECUCODE SECURITY_CODE  ... OSOPINION_TYPE LISTING_STATE
+0   000013.SZ        000013  ...           None             2
+1   000013.SZ        000013  ...           None             2
+2   000013.SZ        000013  ...           None             2
+3   000013.SZ        000013  ...           None             2
+4   000013.SZ        000013  ...           None             2
+5   000013.SZ        000013  ...           None             2
+6   000013.SZ        000013  ...           None             2
+7   000013.SZ        000013  ...           None             2
+8   000013.SZ        000013  ...           None             2
+9   000013.SZ        000013  ...           None             2
+10  000013.SZ        000013  ...           None             2
+11  000013.SZ        000013  ...           None             2
+12  000013.SZ        000013  ...           None             2
+13  000013.SZ        000013  ...           None             2
+14  000013.SZ        000013  ...           None             2
+15  000013.SZ        000013  ...           None             2
+16  000013.SZ        000013  ...           None             2
+17  000013.SZ        000013  ...           None             2
+18  000013.SZ        000013  ...           None             2
+19  000013.SZ        000013  ...           None             2
+20  000013.SZ        000013  ...           None             2
+21  000013.SZ        000013  ...           None             2
+22  000013.SZ        000013  ...           None             2
+23  000013.SZ        000013  ...           None             2
+24  000013.SZ        000013  ...           None             2
+25  000013.SZ        000013  ...           None             2
+26  000013.SZ        000013  ...           None             2
+27  000013.SZ        000013  ...           None             2
+28  000013.SZ        000013  ...           None             2
+29  000013.SZ        000013  ...           None             2
+30  000013.SZ        000013  ...           None             2
+31  000013.SZ        000013  ...           None             2
+32  000013.SZ        000013  ...           None             2
+33  000013.SZ        000013  ...           None             2
+34  000013.SZ        000013  ...           None             2
+35  000013.SZ        000013  ...           None             2
+36  000013.SZ        000013  ...           None             2
+37  000013.SZ        000013  ...           None             2
+[38 rows x 319 columns]
+```
+
+##### 利润表-按报告期
+
+接口: stock_profit_sheet_by_report_delisted_em
+
+目标地址: https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=SZ000013#/cwfx/lrb
+
+描述: 东方财富-股票-财务分析-利润表-已退市股票-按报告期
+
+限量: 单次获取指定 symbol 的利润表-按报告期数据
+
+输入参数
+
+| 名称     | 类型  | 描述                               |
+|--------|-----|----------------------------------|
+| symbol | str | symbol="SZ000013"; 带市场标识的已退市股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 203 项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_profit_sheet_by_report_delisted_em_df = ak.stock_profit_sheet_by_report_delisted_em(symbol="SZ000013")
+print(stock_profit_sheet_by_report_delisted_em_df)
+```
+
+数据示例
+
+```
+     SECUCODE SECURITY_CODE  ... ACF_END_INCOME_YOY  OPINION_TYPE
+0   000013.SZ        000013  ...               None          None
+1   000013.SZ        000013  ...               None          None
+2   000013.SZ        000013  ...               None          None
+3   000013.SZ        000013  ...               None          None
+4   000013.SZ        000013  ...               None          None
+5   000013.SZ        000013  ...               None          None
+6   000013.SZ        000013  ...               None          None
+7   000013.SZ        000013  ...               None          None
+8   000013.SZ        000013  ...               None          None
+9   000013.SZ        000013  ...               None          None
+10  000013.SZ        000013  ...               None          None
+11  000013.SZ        000013  ...               None          None
+12  000013.SZ        000013  ...               None          None
+13  000013.SZ        000013  ...               None          None
+14  000013.SZ        000013  ...               None       标准无保留意见
+15  000013.SZ        000013  ...               None          None
+16  000013.SZ        000013  ...               None  带解释性说明的无保留意见
+17  000013.SZ        000013  ...               None          None
+18  000013.SZ        000013  ...               None          None
+19  000013.SZ        000013  ...               None        无法表示意见
+20  000013.SZ        000013  ...               None          None
+21  000013.SZ        000013  ...               None          未经审计
+22  000013.SZ        000013  ...               None          None
+23  000013.SZ        000013  ...               None        无法表示意见
+24  000013.SZ        000013  ...               None          None
+25  000013.SZ        000013  ...               None          未经审计
+26  000013.SZ        000013  ...               None          None
+27  000013.SZ        000013  ...               None        无法表示意见
+28  000013.SZ        000013  ...               None          None
+29  000013.SZ        000013  ...               None        无法表示意见
+30  000013.SZ        000013  ...               None          None
+31  000013.SZ        000013  ...               None          None
+32  000013.SZ        000013  ...               None          None
+33  000013.SZ        000013  ...               None          None
+34  000013.SZ        000013  ...               None          None
+35  000013.SZ        000013  ...               None          None
+36  000013.SZ        000013  ...               None          None
+37  000013.SZ        000013  ...               None          None
+38  000013.SZ        000013  ...               None          None
+[39 rows x 203 columns]
+```
+
+##### 现金流量表-按报告期
+
+接口: stock_cash_flow_sheet_by_report_delisted_em
+
+目标地址: https://emweb.securities.eastmoney.com/pc_hsf10/pages/index.html?type=web&code=SZ000013#/cwfx/xjllb
+
+描述: 东方财富-股票-财务分析-现金流量表-已退市股票-按报告期
+
+限量: 单次获取指定 symbol 的现金流量表-按报告期数据
+
+输入参数
+
+| 名称     | 类型  | 描述                               |
+|--------|-----|----------------------------------|
+| symbol | str | symbol="SZ000013"; 带市场标识的已退市股票代码 |
+
+输出参数
+
+| 名称  | 类型  | 描述          |
+|-----|-----|-------------|
+| -   | -   | 252 项，不逐一列出 |
+
+接口示例
+
+```python
+import akshare as ak
+
+stock_cash_flow_sheet_by_report_delisted_em_df = ak.stock_cash_flow_sheet_by_report_delisted_em(symbol="SZ000013")
+print(stock_cash_flow_sheet_by_report_delisted_em_df)
+```
+
+数据示例
+
+```
+     SECUCODE SECURITY_CODE  ... MINORITY_INTEREST MINORITY_INTEREST_YOY
+0   000013.SZ        000013  ...       18337254.13                   NaN
+1   000013.SZ        000013  ...       14847516.38            -19.030863
+2   000013.SZ        000013  ...        9677540.34                   NaN
+3   000013.SZ        000013  ...       23357763.71             57.317649
+4   000013.SZ        000013  ...        9262252.60             -4.291253
+5   000013.SZ        000013  ...       -3961320.04           -116.959329
+6   000013.SZ        000013  ...       -1234838.91           -113.331950
+7   000013.SZ        000013  ...      -35258015.13           -790.057223
+8   000013.SZ        000013  ...        -179278.95                   NaN
+9   000013.SZ        000013  ...       -4739838.45           -283.842654
+10  000013.SZ        000013  ...      -28385113.99                   NaN
+11  000013.SZ        000013  ...               NaN                   NaN
+12  000013.SZ        000013  ...               NaN                   NaN
+13  000013.SZ        000013  ...               NaN                   NaN
+14  000013.SZ        000013  ...               NaN                   NaN
+15  000013.SZ        000013  ...               NaN                   NaN
+16  000013.SZ        000013  ...               NaN                   NaN
+17  000013.SZ        000013  ...               NaN                   NaN
+18  000013.SZ        000013  ...               NaN                   NaN
+19  000013.SZ        000013  ...               NaN                   NaN
+20  000013.SZ        000013  ...               NaN                   NaN
+[21 rows x 252 columns]
 ```
 
 #### 港股财务报表

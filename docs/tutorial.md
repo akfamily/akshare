@@ -1072,6 +1072,9 @@
  "stock_cash_flow_sheet_by_report_em"  # 东方财富-股票-财务分析-现金流量表-按报告期
  "stock_cash_flow_sheet_by_yearly_em"  # 东方财富-股票-财务分析-现金流量表-按年度
  "stock_cash_flow_sheet_by_quarterly_em"  # 东方财富-股票-财务分析-现金流量表-按单季度
+ "stock_balance_sheet_by_report_delisted_em"  # 东方财富-股票-财务分析-资产负债表-已退市股票-按报告期
+ "stock_profit_sheet_by_report_delisted_em"  # 东方财富-股票-财务分析-利润表-已退市股票-按报告期
+ "stock_cash_flow_sheet_by_report_delisted_em"  # 东方财富-股票-财务分析-现金流量表-已退市股票-按报告期
  # 宏观-全球事件
  "news_economic_baidu"  # 宏观-全球事件
  # 停复牌
