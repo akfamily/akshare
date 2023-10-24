@@ -52,7 +52,7 @@ setuptools.setup(
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
         "py-mini-racer>=0.6.0",
-        "akracer>=0.0.10",
+        "akracer>=0.0.11",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[
