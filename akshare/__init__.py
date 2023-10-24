@@ -2562,9 +2562,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.46 add: add akracer support
 1.11.47 add: add akracer 0.0.8 support
 1.11.48 fix: fix installation.md
+1.11.49 add: add aarch64 support
 """
 
-__version__ = "1.11.48"
+__version__ = "1.11.49"
 __author__ = "AKFamily"
 
 import sys
