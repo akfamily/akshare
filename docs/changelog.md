@@ -68,6 +68,10 @@
 
 ## 更新说明详情
 
+1.11.49 add: add aarch64 support
+
+    1. 新增 aarch64 支持
+
 1.11.48 fix: fix installation.md
 
     1. 修复 installation.md
@@ -3033,6 +3037,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.49 add: add aarch64 support
 
 1.11.48 fix: fix installation.md
 
