@@ -51,7 +51,8 @@ setuptools.setup(
         "jsonpath>=0.82",
         "tabulate>=0.8.6",
         "decorator>=4.4.2",
-        "akracer>=0.0.4",
+        "py-mini-racer>=0.6.0",
+        "akracer>=0.0.8",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[
