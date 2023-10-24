@@ -2561,9 +2561,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.45 add: add stock_balance_sheet_by_report_delisted_em interface
 1.11.46 add: add akracer support
 1.11.47 add: add akracer 0.0.8 support
+1.11.48 fix: fix installation.md
 """
 
-__version__ = "1.11.47"
+__version__ = "1.11.48"
 __author__ = "AKFamily"
 
 import sys
