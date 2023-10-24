@@ -68,6 +68,10 @@
 
 ## 更新说明详情
 
+1.11.48 fix: fix installation.md
+
+    1. 修复 installation.md
+
 1.11.47 add: add akracer 0.0.8 support
 
     1. 修复 akracer 0.0.8 support
@@ -3029,6 +3033,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.48 fix: fix installation.md
 
 1.11.47 add: add akracer 0.0.8 support
 
