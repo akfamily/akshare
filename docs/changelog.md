@@ -68,6 +68,10 @@
 
 ## 更新说明详情
 
+1.11.46 add: add akracer support
+
+    1. 新增 akracer 支持 MacOS M 系列处理器使用
+
 1.11.45 add: add stock_balance_sheet_by_report_delisted_em interface
 
     1. 新增 stock_balance_sheet_by_report_delisted_em 接口
@@ -3021,6 +3025,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.46 add: add akracer support
 
 1.11.45 add: add stock_balance_sheet_by_report_delisted_em interface
 
