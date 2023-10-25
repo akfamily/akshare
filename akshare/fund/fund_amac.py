@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/3 20:48
+Date: 2023/10/25 16:30
 Desc: 中国证券投资基金业协会-信息公示数据
 中国证券投资基金业协会-新版: https://gs.amac.org.cn
 """
@@ -64,7 +64,7 @@ def amac_member_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "managerName",
         "memberBehalf",
@@ -124,7 +124,7 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
         )
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "orgName",
         "orgType",
@@ -214,7 +214,7 @@ def amac_manager_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "managerName",
         "artificialPersonName",
@@ -267,7 +267,7 @@ def amac_manager_classify_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "managerName",
         "artificialPersonName",
@@ -333,7 +333,7 @@ def amac_member_sub_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "managerName",
         "memberBehalf",
@@ -442,7 +442,7 @@ def amac_securities_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "cpmc",
         "cpbm",
@@ -495,7 +495,7 @@ def amac_aoin_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "code",
         "name",
@@ -539,7 +539,7 @@ def amac_fund_sub_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "productCode",
         "productName",
@@ -586,7 +586,7 @@ def amac_fund_account_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "registerDate",
         "registerCode",
@@ -628,7 +628,7 @@ def amac_fund_abs() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = range(1, len(big_df) + 1)
     big_df.columns = [
@@ -686,7 +686,7 @@ def amac_futures_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "mpiName",
         "mpiProductCode",
@@ -743,7 +743,7 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
         r = requests.post(url, params=params, json={}, verify=False)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
-        big_df = big_df.append(temp_df, ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     keys_list = [
         "orgName",
         "orgCode",
