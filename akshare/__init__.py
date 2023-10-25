@@ -2563,14 +2563,22 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.47 add: add akracer 0.0.8 support
 1.11.48 fix: fix installation.md
 1.11.49 add: add aarch64 support
+1.11.50 fix: fix amac_fund_abs support
 """
 
-__version__ = "1.11.49"
+__version__ = "1.11.50"
 __author__ = "AKFamily"
 
 import sys
-
 import warnings
+
+import pandas as pd
+
+pd_main_version = int(pd.__version__.split('.')[0])
+if pd_main_version < 2:
+    warnings.warn(
+        "为了支持更多特性，请将 Pandas 升级到 2.1.0 及以上版本！"
+    )
 
 if sys.version_info < (3, 9):
     warnings.warn(
