@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/12 21:28
+Date: 2023/10/27 21:28
 Desc: 股票指数数据-新浪-东财-腾讯
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -70,16 +70,16 @@ def stock_zh_index_spot() -> pd.DataFrame:
         data_json = demjson.decode(res.text)
         big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
 
-    big_df = big_df.applymap(_replace_comma)
-    big_df["trade"] = big_df["trade"].astype(float)
-    big_df["pricechange"] = big_df["pricechange"].astype(float)
-    big_df["changepercent"] = big_df["changepercent"].astype(float)
-    big_df["buy"] = big_df["buy"].astype(float)
-    big_df["sell"] = big_df["sell"].astype(float)
-    big_df["settlement"] = big_df["settlement"].astype(float)
-    big_df["open"] = big_df["open"].astype(float)
-    big_df["high"] = big_df["high"].astype(float)
-    big_df["low"] = big_df["low"].astype(float)
+    big_df = big_df.map(_replace_comma)
+    big_df["trade"] = pd.to_numeric(big_df["trade"], errors="coerce")
+    big_df["pricechange"] = pd.to_numeric(big_df["pricechange"], errors="coerce")
+    big_df["changepercent"] = pd.to_numeric(big_df["changepercent"], errors="coerce")
+    big_df["buy"] = pd.to_numeric(big_df["buy"], errors="coerce")
+    big_df["sell"] = pd.to_numeric(big_df["sell"], errors="coerce")
+    big_df["settlement"] = pd.to_numeric(big_df["settlement"], errors="coerce")
+    big_df["open"] = pd.to_numeric(big_df["open"], errors="coerce")
+    big_df["high"] = pd.to_numeric(big_df["high"], errors="coerce")
+    big_df["low"] = pd.to_numeric(big_df["low"], errors="coerce")
     big_df.columns = [
         "代码",
         "名称",
@@ -132,19 +132,19 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
         "d", res.text.split("=")[1].split(";")[0].replace('"', "")
     )  # 执行js解密代码
     temp_df = pd.DataFrame(dict_list)
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
-    temp_df["open"] = pd.to_numeric(temp_df["open"])
-    temp_df["close"] = pd.to_numeric(temp_df["close"])
-    temp_df["high"] = pd.to_numeric(temp_df["high"])
-    temp_df["low"] = pd.to_numeric(temp_df["low"])
-    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce")
     return temp_df
 
 
 def _get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
     """
     腾讯证券-获取所有股票数据的第一天, 注意这个数据是腾讯证券的历史数据第一天
-    http://gu.qq.com/sh000919/zs
+    https://gu.qq.com/sh000919/zs
     :param symbol: 带市场标识的股票代码
     :type symbol: str
     :return: 开始日期
@@ -159,7 +159,7 @@ def _get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    if not demjson.decode(data_text[data_text.find("={") + 1 :])["data"]:
+    if not demjson.decode(data_text[data_text.find("={") + 1:])["data"]:
         url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
         params = {
             "_var": "kline_dayqfq",
@@ -168,11 +168,11 @@ def _get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
         }
         r = requests.get(url, params=params)
         data_text = r.text
-        start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][
+        start_date = demjson.decode(data_text[data_text.find("={") + 1:])["data"][
             symbol
         ]["day"][0][0]
         return start_date
-    start_date = demjson.decode(data_text[data_text.find("={") + 1 :])["data"][0][0]
+    start_date = demjson.decode(data_text[data_text.find("={") + 1:])["data"][0][0]
     return start_date
 
 
@@ -181,7 +181,7 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     腾讯证券-日频-股票或者指数历史数据
     作为 stock_zh_index_daily 的补充, 因为在新浪中有部分指数数据缺失
     注意都是: 前复权, 不同网站复权方式不同, 不可混用数据
-    http://gu.qq.com/sh000919/zs
+    https://gu.qq.com/sh000919/zs
     :param symbol: 带市场标识的股票或者指数代码
     :type symbol: str
     :return: 前复权的股票和指数数据
@@ -202,11 +202,11 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
         text = res.text
         try:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["day"]
+                demjson.decode(text[text.find("={") + 1:])["data"][symbol]["day"]
             )
         except:
             inner_temp_df = pd.DataFrame(
-                demjson.decode(text[text.find("={") + 1 :])["data"][symbol]["qfqday"]
+                demjson.decode(text[text.find("={") + 1:])["data"][symbol]["qfqday"]
             )
         temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
     if temp_df.shape[1] == 6:
@@ -214,20 +214,20 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     else:
         temp_df = temp_df.iloc[:, :6]
         temp_df.columns = ["date", "open", "close", "high", "low", "amount"]
-    temp_df["date"] = pd.to_datetime(temp_df["date"]).dt.date
-    temp_df["open"] = pd.to_numeric(temp_df["open"])
-    temp_df["close"] = pd.to_numeric(temp_df["close"])
-    temp_df["high"] = pd.to_numeric(temp_df["high"])
-    temp_df["low"] = pd.to_numeric(temp_df["low"])
-    temp_df["amount"] = pd.to_numeric(temp_df["amount"])
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["amount"] = pd.to_numeric(temp_df["amount"], errors="coerce")
     temp_df.drop_duplicates(inplace=True, ignore_index=True)
     return temp_df
 
 
 def stock_zh_index_daily_em(
-    symbol: str = "csi931151",
-    start_date: str = "19900101",
-    end_date: str = "20500101",
+        symbol: str = "csi931151",
+        start_date: str = "19900101",
+        end_date: str = "20500101",
 ) -> pd.DataFrame:
     """
     东方财富网-股票指数数据
@@ -250,7 +250,7 @@ def stock_zh_index_daily_em(
     elif symbol.find("csi") != -1:
         secid = "{}.{}".format(market_map["csi"], symbol.replace("csi", ""))
     else:
-        return
+        return pd.DataFrame()
     params = {
         "cb": "jQuery1124033485574041163946_1596700547000",
         "secid": secid,
@@ -265,11 +265,10 @@ def stock_zh_index_daily_em(
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -2])
+    data_json = demjson.decode(data_text[data_text.find("{"): -2])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = ["date", "open", "close", "high", "low", "volume", "amount", "_"]
     temp_df = temp_df[["date", "open", "close", "high", "low", "volume", "amount"]]
-
     temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
     temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
     temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
@@ -286,10 +285,10 @@ if __name__ == "__main__":
     stock_zh_index_spot_df = stock_zh_index_spot()
     print(stock_zh_index_spot_df)
 
-    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sz000001")
+    stock_zh_index_daily_tx_df = stock_zh_index_daily_tx(symbol="sh000919")
     print(stock_zh_index_daily_tx_df)
 
     stock_zh_index_daily_em_df = stock_zh_index_daily_em(
-        symbol="sz399812", start_date="20220101", end_date="20230606"
+        symbol="sz399812"
     )
     print(stock_zh_index_daily_em_df)

@@ -126,8 +126,7 @@
  "stock_zh_index_daily_em"  # 股票指数历史行情数据-东方财富
  "stock_zh_index_spot"  # 股票指数实时行情数据
  # 股票分笔数据
- "stock_zh_a_tick_tx"  # A 股票分笔行情数据(近2年)-腾讯
- "stock_zh_a_tick_tx_js"  # A 股票分笔行情数据(近2年)-腾讯-当日数据
+ "stock_zh_a_tick_tx_js"  # A 股票分笔行情数据-腾讯-当日数据
  # 世界各地区日出和日落数据-日
  "weather_daily"  # 每日日出和日落数据
  # 世界各地区日出和日落数据-月
@@ -754,6 +753,8 @@
  "currency_boc_sina"  # 中行人民币牌价历史数据查询
  # A 股日频率数据-东方财富
  "stock_zh_a_hist"  # A 股日频率数据-东方财富
+ # A 股日频率数据-腾讯
+ "stock_zh_a_hist_tx"  # A 股日频率数据-腾讯
  # 盘口异动
  "stock_changes_em"  # 盘口异动
  "stock_board_change_em"  # 板块异动

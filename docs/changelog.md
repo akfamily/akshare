@@ -68,6 +68,10 @@
 
 ## 更新说明详情
 
+1.11.53 add: add stock_zh_a_hist_tx interface
+
+    1. 新增 stock_zh_a_hist_tx 接口
+
 1.11.52 fix: fix fund_scale_change_em interface
 
     1. 修复 fund_scale_change_em 接口
@@ -3049,6 +3053,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.53 add: add stock_zh_a_hist_tx interface
 
 1.11.52 fix: fix fund_scale_change_em interface
 

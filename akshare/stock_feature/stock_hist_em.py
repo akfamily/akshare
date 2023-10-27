@@ -1892,7 +1892,7 @@ if __name__ == "__main__":
         symbol="000001",
         period="daily",
         start_date="20170301",
-        end_date="20231022",
+        end_date="20231030",
         adjust="",
     )
     print(stock_zh_a_hist_df)
