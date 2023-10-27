@@ -2566,9 +2566,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.50 fix: fix amac_fund_abs support
 1.11.51 fix: fix stock_zh_a_daily interface
 1.11.52 fix: fix fund_scale_change_em interface
+1.11.53 add: add stock_zh_a_hist_tx interface
 """
 
-__version__ = "1.11.52"
+__version__ = "1.11.53"
 __author__ = "AKFamily"
 
 import sys
@@ -2589,6 +2590,11 @@ if sys.version_info < (3, 9):
     # sys.exit(1)
 
 del sys
+
+"""
+股票日行情
+"""
+from akshare.stock_feature.stock_hist_tx import stock_zh_a_hist_tx
 
 """
 筹码分布
@@ -4568,7 +4574,6 @@ from akshare.air.sunrise_tad import sunrise_daily, sunrise_monthly
 新浪-指数实时行情和历史行情
 """
 from akshare.stock.stock_zh_a_tick_tx import (
-    stock_zh_a_tick_tx,
     stock_zh_a_tick_tx_js,
 )
 
