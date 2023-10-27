@@ -2564,9 +2564,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.48 fix: fix installation.md
 1.11.49 add: add aarch64 support
 1.11.50 fix: fix amac_fund_abs support
+1.11.51 fix: fix stock_zh_a_daily interface
 """
 
-__version__ = "1.11.50"
+__version__ = "1.11.51"
 __author__ = "AKFamily"
 
 import sys
