@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/3/21 17:40
+Date: 2023/10/28 18:30
 Desc: 天天基金网-基金档案-投资组合
 https://fundf10.eastmoney.com/ccmx_000001.html
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -13,7 +15,7 @@ from akshare.utils import demjson
 
 
 def fund_portfolio_hold_em(
-    symbol: str = "162411", date: str = "2020"
+        symbol: str = "162411", date: str = "2020"
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-基金持仓
@@ -36,7 +38,7 @@ def fund_portfolio_hold_em(
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = demjson.decode(data_text[data_text.find("{"): -1])
     soup = BeautifulSoup(data_json["content"], "lxml")
     item_label = [
         item.text.split("\xa0\xa0")[1]
@@ -44,7 +46,7 @@ def fund_portfolio_hold_em(
     ]
     big_df = pd.DataFrame()
     for item in range(len(item_label)):
-        temp_df = pd.read_html(data_json["content"], converters={"股票代码": str})[
+        temp_df = pd.read_html(StringIO(data_json["content"]), converters={"股票代码": str})[
             item
         ]
         del temp_df["相关资讯"]
@@ -67,7 +69,6 @@ def fund_portfolio_hold_em(
             columns={"持股数 （万股）": "持股数", "持仓市值 （万元人民币）": "持仓市值"}, inplace=True
         )
 
-
         temp_df["季度"] = item_label[item]
         temp_df = temp_df[
             [
@@ -89,11 +90,11 @@ def fund_portfolio_hold_em(
 
 
 def fund_portfolio_bond_hold_em(
-    symbol: str = "000001", date: str = "2021"
+        symbol: str = "000001", date: str = "2021"
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-债券持仓
-    http://fundf10.eastmoney.com/ccmx1_000001.html
+    https://fundf10.eastmoney.com/ccmx1_000001.html
     :param symbol: 基金代码
     :type symbol: str
     :param date: 查询年份
@@ -110,7 +111,7 @@ def fund_portfolio_bond_hold_em(
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = demjson.decode(data_text[data_text.find("{"): -1])
     soup = BeautifulSoup(data_json["content"], "lxml")
     item_label = [
         item.text.split("\xa0\xa0")[1]
@@ -118,7 +119,7 @@ def fund_portfolio_bond_hold_em(
     ]
     big_df = pd.DataFrame()
     for item in range(len(item_label)):
-        temp_df = pd.read_html(data_json["content"], converters={"债券代码": str})[
+        temp_df = pd.read_html(StringIO(data_json["content"]), converters={"债券代码": str})[
             item
         ]
         temp_df["占净值比例"] = (
@@ -144,11 +145,11 @@ def fund_portfolio_bond_hold_em(
 
 
 def fund_portfolio_industry_allocation_em(
-    symbol: str = "000001", date: str = "2021"
+        symbol: str = "000001", date: str = "2021"
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-行业配置
-    http://fundf10.eastmoney.com/hytz_000001.html
+    https://fundf10.eastmoney.com/hytz_000001.html
     :param symbol: 基金代码
     :type symbol: str
     :param date: 查询年份
@@ -176,7 +177,7 @@ def fund_portfolio_industry_allocation_em(
     }
     r = requests.get(url, params=params, headers=headers)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = demjson.decode(data_text[data_text.find("{"): -1])
     temp_list = []
     for item in data_json["Data"]["QuarterInfos"]:
         temp_list.extend(item["HYPZInfo"])
@@ -211,17 +212,17 @@ def fund_portfolio_industry_allocation_em(
             "截止时间",
         ]
     ]
-    temp_df["市值"] = pd.to_numeric(temp_df["市值"])
+    temp_df["市值"] = pd.to_numeric(temp_df["市值"], errors="coerce")
     temp_df["占净值比例"] = pd.to_numeric(temp_df["占净值比例"], errors="coerce")
     return temp_df
 
 
 def fund_portfolio_change_em(
-    symbol: str = "003567", indicator: str = "累计买入", date: str = "2020"
+        symbol: str = "003567", indicator: str = "累计买入", date: str = "2020"
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-重大变动
-    http://fundf10.eastmoney.com/ccbd_000001.html
+    https://fundf10.eastmoney.com/ccbd_000001.html
     :param symbol: 基金代码
     :type symbol: str
     :param indicator: choice of {"累计买入", "累计卖出"}
@@ -245,7 +246,7 @@ def fund_portfolio_change_em(
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_json = demjson.decode(data_text[data_text.find("{") : -1])
+    data_json = demjson.decode(data_text[data_text.find("{"): -1])
     soup = BeautifulSoup(data_json["content"], "lxml")
     item_label = [
         item.text.split("\xa0\xa0")[1]
@@ -253,7 +254,7 @@ def fund_portfolio_change_em(
     ]
     big_df = pd.DataFrame()
     for item in range(len(item_label)):
-        temp_df = pd.read_html(data_json["content"], converters={"股票代码": str})[
+        temp_df = pd.read_html(StringIO(data_json["content"]), converters={"股票代码": str})[
             item
         ]
         del temp_df["相关资讯"]
