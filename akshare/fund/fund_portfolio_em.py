@@ -15,7 +15,7 @@ from akshare.utils import demjson
 
 
 def fund_portfolio_hold_em(
-        symbol: str = "162411", date: str = "2020"
+        symbol: str = "000001", date: str = "2023"
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-基金持仓
@@ -90,7 +90,7 @@ def fund_portfolio_hold_em(
 
 
 def fund_portfolio_bond_hold_em(
-        symbol: str = "000001", date: str = "2021"
+        symbol: str = "000001", date: str = "2023"
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-债券持仓
@@ -295,12 +295,12 @@ def fund_portfolio_change_em(
 
 if __name__ == "__main__":
     fund_portfolio_hold_em_df = fund_portfolio_hold_em(
-        symbol="000001", date="2020"
+        symbol="000001", date="2023"
     )
     print(fund_portfolio_hold_em_df)
 
     fund_portfolio_bond_hold_em_df = fund_portfolio_bond_hold_em(
-        symbol="320007", date="2015"
+        symbol="000001", date="2023"
     )
     print(fund_portfolio_bond_hold_em_df)
 

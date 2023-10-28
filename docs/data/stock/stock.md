@@ -1399,13 +1399,13 @@ print(hfq_factor_df)
 
 输出参数-历史行情数据
 
-| 名称  | 类型      | 描述      |
-|-----|---------|---------|
-| date  | object  | 交易日     |
-| open  | float64 | 开盘价     |
+| 名称     | 类型      | 描述      |
+|--------|---------|---------|
+| date   | object  | 交易日     |
+| open   | float64 | 开盘价     |
 | close  | float64 | 收盘价     |
-| high  | float64 | 最高价     |
-| low  | float64 | 最低价     |
+| high   | float64 | 最高价     |
+| low    | float64 | 最低价     |
 | amount | int64   | 注意单位: 手 |
 
 接口示例-不复权
