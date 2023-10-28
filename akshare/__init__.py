@@ -2567,9 +2567,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.51 fix: fix stock_zh_a_daily interface
 1.11.52 fix: fix fund_scale_change_em interface
 1.11.53 add: add stock_zh_a_hist_tx interface
+1.11.54 fix: fix fund_portfolio_hold_em interface
 """
 
-__version__ = "1.11.53"
+__version__ = "1.11.54"
 __author__ = "AKFamily"
 
 import sys
@@ -3525,7 +3526,6 @@ from akshare.stock.stock_stop import stock_staq_net_stop
 """
 
 from akshare.stock_feature.stock_cls_alerts import (
-    stock_zh_a_alerts_cls,
     stock_telegraph_cls,
 )
 
@@ -4801,8 +4801,6 @@ from akshare.economic.macro_china import (
     macro_china_whxd,
     macro_china_wbck,
     macro_china_bond_public,
-    macro_china_gksccz,
-    macro_china_hb,
     macro_china_xfzxx,
     macro_china_reserve_requirement_ratio,
     macro_china_consumer_goods_retail,

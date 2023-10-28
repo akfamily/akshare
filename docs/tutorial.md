@@ -281,8 +281,6 @@
  "macro_china_czsr"  # 中国-财政收入
  "macro_china_whxd"  # 中国-外汇贷款数据
  "macro_china_wbck"  # 中国-本外币存款
- "macro_china_hb"  # 中国-货币净投放与净回笼
- "macro_china_gksccz"  # 中国-央行公开市场操作
  "macro_china_bond_public"  # 中国-债券发行
  # 美国
  "macro_usa_gdp_monthly"  # 金十数据中心-经济指标-美国-经济状况-美国GDP
@@ -1097,9 +1095,8 @@
  "stock_industry_change_cninfo"  # 巨潮资讯-上市公司行业归属的变动情况
  # 公司股本变动
  "stock_share_change_cninfo"  # 巨潮资讯-公司股本变动
- # 咨询-财联社
- "stock_zh_a_alerts_cls"  # 咨询-财联社-今日快讯
- "stock_telegraph_cls"  # 咨询-财联社-电报
+ # 资讯-财联社-电报
+ "stock_telegraph_cls"  # 资讯-财联社-电报
  # 上海金属网
  "futures_news_shmet"  # 上海金属网-快讯
  # 分红配股
