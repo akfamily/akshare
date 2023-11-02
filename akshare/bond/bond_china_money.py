@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/12/6 15:43
+Date: 2023/11/2 10:43
 Desc: 收盘收益率曲线历史数据
 https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 """
+from functools import lru_cache
+
 import pandas as pd
 import requests
-from functools import lru_cache
 
 
 @lru_cache()
@@ -46,10 +47,10 @@ def bond_china_close_return_map() -> pd.DataFrame:
 
 
 def bond_china_close_return(
-    symbol: str = "国债",
-    period: str = "1",
-    start_date: str = "20221111",
-    end_date: str = "20221211",
+        symbol: str = "国债",
+        period: str = "1",
+        start_date: str = "20231101",
+        end_date: str = "20231101",
 ) -> pd.DataFrame:
     """
     收盘收益率曲线历史数据
@@ -102,8 +103,8 @@ def bond_china_close_return(
             "远期收益率",
         ]
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-    temp_df['期限'] = pd.to_numeric(temp_df['期限'])
+    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors='coerce').dt.date
+    temp_df['期限'] = pd.to_numeric(temp_df['期限'], errors='coerce')
     temp_df['到期收益率'] = pd.to_numeric(temp_df['到期收益率'], errors='coerce')
     temp_df['即期收益率'] = pd.to_numeric(temp_df['即期收益率'], errors='coerce')
     temp_df['远期收益率'] = pd.to_numeric(temp_df['远期收益率'], errors='coerce')
@@ -112,9 +113,6 @@ def bond_china_close_return(
 
 if __name__ == "__main__":
     bond_china_close_return_df = bond_china_close_return(
-        symbol="国债", period="1", start_date="20221111", end_date="20221211"
+        symbol="国债", period="1", start_date="20231101", end_date="20231101"
     )
-    print(bond_china_close_return_df)
-
-    bond_china_close_return_df = bond_china_close_return(symbol="政策性金融债(进出口行)", period="1", start_date="20221111", end_date="20221211")
     print(bond_china_close_return_df)
