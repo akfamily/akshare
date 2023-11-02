@@ -188,6 +188,11 @@ def stock_zh_a_daily(
         del data_df["prevclose"]
     except:
         pass
+    try:
+        del data_df["postVol"]
+        del data_df["postAmt"]
+    except:
+        pass
     data_df = data_df.astype("float")
     r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
     amount_data_json = demjson.decode(
@@ -521,7 +526,7 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_daily_hfq_factor_df)
 
-    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sh601939")
+    stock_zh_a_daily_df = stock_zh_a_daily(symbol="sz300798", start_date="20200601", end_date="20231101", adjust="hfq")
     print(stock_zh_a_daily_df)
 
     stock_zh_a_cdr_daily_df = stock_zh_a_cdr_daily(
