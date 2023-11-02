@@ -68,6 +68,11 @@
 
 ## 更新说明详情
 
+1.11.58 fix: fix bond_china_close_return interface
+
+    1. 修复 bond_china_close_return 接口
+    2. 修复 stock_zh_a_daily 接口
+
 1.11.57 fix: fix stock_zt_pool_em interface
 
     1. 修复 stock_zt_pool_em 接口
@@ -3069,6 +3074,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.58 fix: fix bond_china_close_return interface
 
 1.11.57 fix: fix stock_zt_pool_em interface
 
