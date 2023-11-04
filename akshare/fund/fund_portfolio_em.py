@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/28 18:30
+Date: 2023/11/4 17:00
 Desc: 天天基金网-基金档案-投资组合
 https://fundf10.eastmoney.com/ccmx_000001.html
 """
@@ -145,7 +145,7 @@ def fund_portfolio_bond_hold_em(
 
 
 def fund_portfolio_industry_allocation_em(
-        symbol: str = "000001", date: str = "2021"
+        symbol: str = "000001", date: str = "2023"
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-行业配置
@@ -218,7 +218,7 @@ def fund_portfolio_industry_allocation_em(
 
 
 def fund_portfolio_change_em(
-        symbol: str = "003567", indicator: str = "累计买入", date: str = "2020"
+        symbol: str = "003567", indicator: str = "累计买入", date: str = "2023"
 ) -> pd.DataFrame:
     """
     天天基金网-基金档案-投资组合-重大变动
@@ -305,16 +305,16 @@ if __name__ == "__main__":
     print(fund_portfolio_bond_hold_em_df)
 
     fund_portfolio_industry_allocation_em_df = (
-        fund_portfolio_industry_allocation_em(symbol="000001", date="2021")
+        fund_portfolio_industry_allocation_em(symbol="000001", date="2023")
     )
     print(fund_portfolio_industry_allocation_em_df)
 
     fund_portfolio_change_em_df = fund_portfolio_change_em(
-        symbol="003567", indicator="累计买入", date="2020"
+        symbol="003567", indicator="累计买入", date="2023"
     )
     print(fund_portfolio_change_em_df)
 
     fund_portfolio_change_em_df = fund_portfolio_change_em(
-        symbol="003567", indicator="累计卖出", date="2020"
+        symbol="003567", indicator="累计卖出", date="2023"
     )
     print(fund_portfolio_change_em_df)
