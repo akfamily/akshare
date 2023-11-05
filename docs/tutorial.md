@@ -661,7 +661,7 @@
  "fund_rating_zs"  # 基金评级-招商证券评级
  "fund_rating_ja"  # 基金评级-济安金信评级
  # 基金经理
- "fund_manager"  # 基金经理-基金经理大全
+ "fund_manager_em"  # 基金经理-基金经理大全
  # 盈利预测
  "stock_profit_forecast_em"  # 盈利预测-东财
  "stock_profit_forecast_ths"  # 盈利预测-同花顺

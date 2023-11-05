@@ -2613,7 +2613,7 @@ print(futures_sgx_daily_df)
 
 接口: futures_main_sina
 
-目标地址: http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_0
+目标地址: https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_0
 
 描述: 新浪财经-期货-主力连续合约历史数据
 

@@ -4,6 +4,7 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.11.61    | fund_manager                                | fund_manager_em                             | 20231105 |
 | 1.11.41    | weibo_index                                 | index_weibo_sina                            | 20231020 |
 | 1.11.39    | option_300etf_min_qvix                      | index_option_300etf_min_qvix                | 20231019 |
 | 1.11.39    | option_300etf_qvix                          | index_option_300etf_qvix                    | 20231019 |
@@ -67,6 +68,10 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明详情
+
+1.11.61 fix: fix fund_manager_em interface
+
+    1. 修复 fund_manager_em 接口
 
 1.11.60 fix: fix bond_china_close_return interface
 
@@ -3082,6 +3087,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.61 fix: fix fund_manager_em interface
 
 1.11.60 fix: fix bond_china_close_return interface
 
