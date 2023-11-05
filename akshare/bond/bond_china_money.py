@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/2 10:43
+Date: 2023/11/5 20:20
 Desc: 收盘收益率曲线历史数据
 https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 """
@@ -9,6 +9,48 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+
+
+def __bond_register_service() -> requests.Session:
+    """
+    将服务注册到网站中，则该 IP 在 24 小时内可以直接访问
+    www.chinamoney.com.cn
+    :return: 访问过的 Session
+    :rtype: requests.Session
+    """
+    session = requests.Session()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+
+    }
+    session.get(url="https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1",
+                headers=headers)
+    cookies_dict = session.cookies.get_dict()
+    cookies_str = '; '.join(f'{k}={v}' for k, v in cookies_dict.items())
+    data = {
+        "key": "ZHNTbk5sYUhNMFo="
+    }
+    headers = {
+        "Accept": "application/json, text/javascript, */*; q=0.01",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "Content-Length": "22",
+        'Cookie': cookies_str,
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Host": "www.chinamoney.com.cn",
+        "Origin": "https://www.chinamoney.com.cn",
+        "Pragma": "no-cache",
+        "Referer": "https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest"
+    }
+    session.post(url="https://www.chinamoney.com.cn/dqs/rest/cm-u-rbt/apply", data=data, headers=headers)
+    return session
 
 
 @lru_cache()
@@ -19,7 +61,6 @@ def bond_china_close_return_map() -> pd.DataFrame:
     :return: 收盘收益率曲线历史数据
     :rtype: pandas.DataFrame
     """
-    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvCurvGO"
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
         "Accept-Encoding": "gzip, deflate, br",
@@ -31,17 +72,19 @@ def bond_china_close_return_map() -> pd.DataFrame:
         "Origin": "https://www.chinamoney.com.cn",
         "Pragma": "no-cache",
         "Referer": "https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1",
-        "sec-ch-ua": '"Not?A_Brand";v="8", "Chromium";v="108", "Google Chrome";v="108"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest"
     }
-    r = requests.post(url, headers=headers)
-    data_json = r.json()
+    url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvCurvGO"
+    try:
+        print("req")
+        r = requests.get(url, headers=headers)
+        data_json = r.json()
+    except:
+        print("ses")
+        session = __bond_register_service()
+        r = session.get(url, headers=headers)
+        data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     return temp_df
 
@@ -82,7 +125,6 @@ def bond_china_close_return(
         "pageNum": "1",
         "pageSize": "15",
     }
-
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
