@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/3/22 14:30
+Date: 2023/11/7 18:30
 Desc: 基金数据-新发基金-新成立基金
 https://fund.eastmoney.com/data/xinfound.html
 """
@@ -14,11 +14,11 @@ from akshare.utils import demjson
 def fund_new_found_em() -> pd.DataFrame:
     """
     基金数据-新发基金-新成立基金
-    http://fund.eastmoney.com/data/xinfound.html
+    https://fund.eastmoney.com/data/xinfound.html
     :return: 新成立基金
     :rtype: pandas.DataFrame
     """
-    url = "http://fund.eastmoney.com/data/FundNewIssue.aspx"
+    url = "https://fund.eastmoney.com/data/FundNewIssue.aspx"
     params = {
         "t": "xcln",
         "sort": "jzrgq,desc",
@@ -67,13 +67,11 @@ def fund_new_found_em() -> pd.DataFrame:
             "优惠费率",
         ]
     ]
-
-    temp_df['募集份额'] = pd.to_numeric(temp_df['募集份额'])
-    temp_df['成立日期'] = pd.to_datetime(temp_df['成立日期']).dt.date
-    temp_df['成立来涨幅'] = pd.to_numeric(temp_df['成立来涨幅'].str.replace(',', ''))
+    temp_df['募集份额'] = pd.to_numeric(temp_df['募集份额'], errors="coerce")
+    temp_df['成立日期'] = pd.to_datetime(temp_df['成立日期'], errors="coerce").dt.date
+    temp_df['成立来涨幅'] = pd.to_numeric(temp_df['成立来涨幅'].str.replace(',', ''), errors="coerce")
     temp_df['优惠费率'] = temp_df['优惠费率'].str.strip("%")
-    temp_df['优惠费率'] = pd.to_numeric(temp_df['优惠费率'])
-
+    temp_df['优惠费率'] = pd.to_numeric(temp_df['优惠费率'], errors="coerce")
     return temp_df
 
 
