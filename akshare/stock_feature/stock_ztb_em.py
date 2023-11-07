@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/31 18:00
+Date: 2023/11/7 17:00
 Desc: 首页-行情中心-涨停板行情-涨停股池
 https://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -14,6 +14,8 @@ https://quote.eastmoney.com/ztb/detail#type=ztgc
 6. 跌停股池：包含当日当前跌停的所有A股股票。
 注：涨停板行情专题统计不包含ST股票及科创板股票。
 """
+from datetime import datetime, timedelta
+
 import pandas as pd
 import requests
 
@@ -62,9 +64,9 @@ def stock_zt_pool_em(date: str = "20220426") -> pd.DataFrame:
         "涨停统计",
     ]
     temp_df["涨停统计"] = (
-        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-        + "/"
-        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+            + "/"
+            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -145,9 +147,9 @@ def stock_zt_pool_previous_em(date: str = "20210521") -> pd.DataFrame:
         "涨停统计",
     ]
     temp_df["涨停统计"] = (
-        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-        + "/"
-        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+            + "/"
+            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -220,9 +222,9 @@ def stock_zt_pool_strong_em(date: str = "20210521") -> pd.DataFrame:
         "所属行业",
     ]
     temp_df["涨停统计"] = (
-        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-        + "/"
-        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+            + "/"
+            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -249,7 +251,7 @@ def stock_zt_pool_strong_em(date: str = "20210521") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_sub_new_em(date: str = "20210525") -> pd.DataFrame:
+def stock_zt_pool_sub_new_em(date: str = "20231107") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-次新股池
     https://quote.eastmoney.com/ztb/detail#type=cxgc
@@ -268,7 +270,7 @@ def stock_zt_pool_sub_new_em(date: str = "20210525") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    if data_json["data"] is None:
+    if data_json["data"]["pool"] == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
     temp_df.reset_index(inplace=True)
@@ -295,9 +297,9 @@ def stock_zt_pool_sub_new_em(date: str = "20210525") -> pd.DataFrame:
         "所属行业",
     ]
     temp_df["涨停统计"] = (
-        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-        + "/"
-        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+            + "/"
+            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -322,17 +324,24 @@ def stock_zt_pool_sub_new_em(date: str = "20210525") -> pd.DataFrame:
     temp_df["最新价"] = temp_df["最新价"] / 1000
     temp_df["涨停价"] = temp_df["涨停价"] / 1000
     temp_df.loc[temp_df["涨停价"] > 100000, "涨停价"] = pd.NA
+    temp_df['开板日期'] = pd.to_datetime(temp_df['开板日期'], format='%Y%m%d')
+    temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期'], format='%Y%m%d')
     temp_df.loc[temp_df["上市日期"] == 0, "上市日期"] = pd.NaT
     return temp_df
 
 
-def stock_zt_pool_zbgc_em(date: str = "20210525") -> pd.DataFrame:
+def stock_zt_pool_zbgc_em(date: str = "20231107") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-炸板股池
     https://quote.eastmoney.com/ztb/detail#type=zbgc
     :return: 炸板股池
     :rtype: pandas.DataFrame
     """
+    thirty_days_ago = datetime.now() - timedelta(days=30)
+    thirty_days_ago_str = thirty_days_ago.strftime("%Y%m%d")
+    if int(date) < int(thirty_days_ago_str):
+        raise ValueError("炸板股池只能获取最近 30 个交易日的数据")
+
     url = "http://push2ex.eastmoney.com/getTopicZBPool"
     params = {
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
@@ -370,9 +379,9 @@ def stock_zt_pool_zbgc_em(date: str = "20210525") -> pd.DataFrame:
         "所属行业",
     ]
     temp_df["涨停统计"] = (
-        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-        + "/"
-        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+            + "/"
+            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -400,7 +409,7 @@ def stock_zt_pool_zbgc_em(date: str = "20210525") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_dtgc_em(date: str = "20220425") -> pd.DataFrame:
+def stock_zt_pool_dtgc_em(date: str = "20231106") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-跌停股池
     https://quote.eastmoney.com/ztb/detail#type=dtgc
@@ -409,6 +418,11 @@ def stock_zt_pool_dtgc_em(date: str = "20220425") -> pd.DataFrame:
     :return: 跌停股池
     :rtype: pandas.DataFrame
     """
+    thirty_days_ago = datetime.now() - timedelta(days=30)
+    thirty_days_ago_str = thirty_days_ago.strftime("%Y%m%d")
+    if int(date) < int(thirty_days_ago_str):
+        raise ValueError("跌停股池只能获取最近 30 个交易日的数据")
+
     url = "http://push2ex.eastmoney.com/getTopicDTPool"
     params = {
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
@@ -421,7 +435,7 @@ def stock_zt_pool_dtgc_em(date: str = "20220425") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    if data_json["data"] is None:
+    if len(data_json["data"]["pool"]) == 0:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["data"]["pool"])
     temp_df.reset_index(inplace=True)
@@ -485,20 +499,20 @@ def stock_zt_pool_dtgc_em(date: str = "20220425") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zt_pool_em_df = stock_zt_pool_em(date="20231011")
+    stock_zt_pool_em_df = stock_zt_pool_em(date="20231107")
     print(stock_zt_pool_em_df)
 
-    stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20231011")
+    stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20231107")
     print(stock_zt_pool_previous_em_df)
 
-    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20231011")
+    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20231107")
     print(stock_zt_pool_strong_em_df)
 
-    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20231011")
+    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20231107")
     print(stock_zt_pool_sub_new_em_df)
 
-    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20231011")
+    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20231107")
     print(stock_zt_pool_zbgc_em_df)
 
-    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20231011")
+    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20231103")
     print(stock_zt_pool_dtgc_em_df)
