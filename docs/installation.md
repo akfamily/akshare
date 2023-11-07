@@ -37,9 +37,19 @@ P.S. **由于目前版本更新迭代频繁, 请在使用 [AKShare](https://gith
 pip install akshare --upgrade -i https://pypi.org/simple
 ```
 
-## M系列芯片
+## M 系列芯片
 
 1. 如果需要编译，请参考该文章：[Building V8 on an M1 MacBook](https://joyeecheung.github.io/blog/2021/08/27/binding-v8-on-an-m1-macbook/)
+
+## 树莓派支持
+
+目前 AKShare 已支持在树莓派 4B 上安装和使用，具体安装方法如下：
+
+1. 安装 [Raspberry Pi OS (64-bit)](https://www.raspberrypi.com/software/operating-systems/) 操作系统，目前支持树莓派于 20231010 发布的 64 位版本
+2. 通过 `sudo apt-get install python3-venv` 安装虚拟环境支持
+3. 通过 `python3 -m venv myenv` 创建名为 `myenv` 的虚拟环境
+4. 通过 `source myenv/bin/activate` 来激活创建好的虚拟环境
+5. 通过 `pip install akshare` 来安装 AKShare
 
 ## R 语言调用支持
 
