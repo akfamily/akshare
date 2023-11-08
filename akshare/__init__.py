@@ -2604,6 +2604,11 @@ if sys.version_info < (3, 9):
 del sys
 
 """
+东财财富-分时数据
+"""
+from akshare.stock.stock_intraday_sina import stock_intraday_sina
+
+"""
 股票日行情
 """
 from akshare.stock_feature.stock_hist_tx import stock_zh_a_hist_tx
