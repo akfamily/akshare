@@ -57,7 +57,7 @@ def stock_zh_index_spot() -> pd.DataFrame:
     """
     新浪财经-行情中心首页-A股-分类-所有指数
     大量采集会被目标网站服务器封禁 IP, 如果被封禁 IP, 请 10 分钟后再试
-    http://vip.stock.finance.sina.com.cn/mkt/#hs_s
+    https://vip.stock.finance.sina.com.cn/mkt/#hs_s
     :return: 所有指数的实时行情数据
     :rtype: pandas.DataFrame
     """
