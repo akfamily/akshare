@@ -1219,6 +1219,8 @@
  "stock_margin_ratio_pa"  # 融资融券-标的证券名单及保证金比例查询
  # 东财财富-日内分时数据
  "stock_intraday_em"  # 东财财富-日内分时数据
+ # 新浪财经-日内分时数据
+ "stock_intraday_sina"  # 新浪财经-日内分时数据
  # 同花顺-板块-概念板块-概念图谱
  "stock_board_concept_graph_ths"  # 同花顺-板块-概念板块-概念图谱
  # 恐惧贪婪指数
