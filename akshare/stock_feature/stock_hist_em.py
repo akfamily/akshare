@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/25 15:30
-Desc: 东方财富网-行情首页-沪深京A股
+Date: 2023/11/8 17:00
+Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
 from functools import lru_cache
@@ -126,7 +126,7 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
 def stock_sh_a_spot_em() -> pd.DataFrame:
     """
     东方财富网-沪 A 股-实时行情
-    http://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
@@ -238,7 +238,7 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
 def stock_sz_a_spot_em() -> pd.DataFrame:
     """
     东方财富网-深 A 股-实时行情
-    http://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
@@ -350,7 +350,7 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
 def stock_bj_a_spot_em() -> pd.DataFrame:
     """
     东方财富网-京 A 股-实时行情
-    http://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
@@ -805,7 +805,7 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
 def stock_zh_b_spot_em() -> pd.DataFrame:
     """
     东方财富网- B 股-实时行情
-    http://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 实时行情
     :rtype: pandas.DataFrame
     """
@@ -1046,7 +1046,7 @@ def stock_zh_a_hist(
         "涨跌额",
         "换手率",
     ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
     temp_df["最高"] = pd.to_numeric(temp_df["最高"], errors="coerce")
@@ -1323,7 +1323,7 @@ def stock_hk_spot_em() -> pd.DataFrame:
             "成交额",
         ]
     ]
-    temp_df["序号"] = pd.to_numeric(temp_df["序号"])
+    temp_df["序号"] = pd.to_numeric(temp_df["序号"], errors="coerce")
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
@@ -1412,7 +1412,7 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
             "成交额",
         ]
     ]
-    temp_df["序号"] = pd.to_numeric(temp_df["序号"])
+    temp_df["序号"] = pd.to_numeric(temp_df["序号"], errors="coerce")
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")

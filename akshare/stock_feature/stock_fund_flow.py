@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/3 20:03
+Date: 2023/11/8 17:00
 Desc: 同花顺-数据中心-资金流向
 同花顺-数据中心-资金流向-个股资金流
 https://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
@@ -12,6 +12,8 @@ https://data.10jqka.com.cn/funds/hyzjl/#refCountId=data_55f13c2c_254
 同花顺-数据中心-资金流向-打单追踪
 https://data.10jqka.com.cn/funds/ddzz/#refCountId=data_55f13c2c_254
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -96,7 +98,7 @@ def stock_fund_flow_individual(symbol: str = "即时") -> pd.DataFrame:
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
@@ -191,7 +193,7 @@ def stock_fund_flow_concept(symbol: str = "即时") -> pd.DataFrame:
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
@@ -292,7 +294,7 @@ def stock_fund_flow_industry(symbol: str = "即时") -> pd.DataFrame:
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     del big_df["序号"]
@@ -380,7 +382,7 @@ def stock_fund_flow_big_deal() -> pd.DataFrame:
             "X-Requested-With": "XMLHttpRequest",
         }
         r = requests.get(url.format(page), headers=headers)
-        temp_df = pd.read_html(r.text)[0]
+        temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
 
     big_df.columns = [

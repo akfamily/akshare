@@ -2552,61 +2552,62 @@ print(futures_global_commodity_hist_df)
 
 #### 新加坡交易所期货
 
-接口: futures_sgx_daily
+接口: futures_settlement_price_sgx
 
 目标地址: https://www.sgx.com/zh-hans/research-education/derivatives
 
-描述: 主要提供开盘价、最高价、最低价、收盘价、结算价、成交量及未平仓合约数据, 数据于下个工作日新加坡时间下午 2 点起提供
+描述: 新加坡交易所-衍生品-历史数据-历史结算价格; 数据于下个工作日新加坡时间下午 2 点起提供
 
-限量: 单次获取指定交易日前指定交易日天数的数据, 由于国内网络限制, 请使用代理访问
+限量: 单次获取指定交易日前一日的所有期货品种的结算价数据; 由于国内网络限制, 请使用代理访问
 
 输入参数
 
-| 名称         | 类型  | 描述                                                     |
-|------------|-----|--------------------------------------------------------|
-| trade_date | str | 需要获取数据的指定日期, e.g., trade_date="20200306"               |
-| recent_day | str | 需要获取数据的指定日期的前 **recent_day** 的数据, e.g., recent_day="2" |
+| 名称   | 类型  | 描述                   |
+|------|-----|----------------------|
+| date | str | date="20231107"; 交易日 |
 
 输出参数
 
-| 名称     | 类型    | 描述     |
-|--------|-------|--------|
-| DATE   | str   | 日期     |
-| COM    | float | 品种代码   |
-| COM_MM | float | 品种到期月份 |
-| COM_YY | float | 品种年份   |
-| OPEN   | float | 开盘价    |
-| HIGH   | str   | 最高价    |
-| LOW    | str   | 最低价    |
-| CLOSE  | str   | 收盘价    |
-| SETTLE | str   | 结算价    |
-| VOLUME | str   | 交易量    |
-| OINT   | str   | 未平仓合约  |
-| SERIES | str   | 合约代码   |
+| 名称     | 类型      | 描述     |
+|--------|---------|--------|
+| DATE   | int64   | 日期     |
+| COM    | object  | 品种代码   |
+| COM_MM | int64   | 品种到期月份 |
+| COM_YY | int64   | 品种年份   |
+| OPEN   | float64 | 开盘价    |
+| HIGH   | float64 | 最高价    |
+| LOW    | float64 | 最低价    |
+| CLOSE  | float64 | 收盘价    |
+| SETTLE | float64 | 结算价    |
+| VOLUME | int64   | 交易量    |
+| OINT   | int64   | 未平仓合约  |
+| SERIES | object  | 合约代码   |
 
 接口示例
 
 ```python
 import akshare as ak
-futures_sgx_daily_df = ak.futures_sgx_daily(trade_date="20200306", recent_day="2")
-print(futures_sgx_daily_df)
+
+futures_settlement_price_sgx_df = ak.futures_settlement_price_sgx(date="20231108")
+print(futures_settlement_price_sgx_df)
 ```
 
 数据示例
 
 ```
           DATE    COM  COM_MM  COM_YY  ...  SETTLE  VOLUME  OINT   SERIES
-0     20200305  1MF         3    2020  ...  273.01       0    20   1MFH20
-1     20200305  1MF         4    2020  ...  275.23       0    20   1MFJ20
-2     20200305  1MF         5    2020  ...  277.23       0    20   1MFK20
-3     20200305  1MF         6    2020  ...  279.45       0     0   1MFM20
-4     20200305  1MF         7    2020  ...  280.47       0     0   1MFN20
+0     20231107  1MF        11    2023  ...  465.34       0     0   1MFX23
+1     20231107  1MF        12    2023  ...  462.13       0     0   1MFZ23
+2     20231107  1MF         1    2024  ...  457.05       0     0   1MFF24
+3     20231107  1MF         2    2024  ...  453.97       0     0   1MFG24
+4     20231107  1MF         3    2024  ...  452.39       0     0   1MFH24
         ...    ...     ...     ...  ...     ...     ...   ...      ...
-2174  20200306  ZYES        4    2020  ...    9.30     314   314  ZYESJ20
-2175  20200306  ZYES        5    2020  ...    9.60       0     0  ZYESK20
-2176  20200306  ZZEE        3    2020  ...  221.60       0     4  ZZEEH20
-2177  20200306  ZZEE        4    2020  ...  222.95       0     0  ZZEEJ20
-2178  20200306  ZZEE        5    2020  ...  223.70       0     0  ZZEEK20
+3165  20231107  ZYES       12    2023  ...   16.95       0     0  ZYESZ23
+3166  20231107  ZYES        1    2024  ...   17.05       0     0  ZYESF24
+3167  20231107  ZZEE       11    2023  ...  263.45     584    90  ZZEEX23
+3168  20231107  ZZEE       12    2023  ...  264.80       0     0  ZZEEZ23
+3169  20231107  ZZEE        1    2024  ...  266.25       0     0  ZZEEF24
+[3170 rows x 12 columns]
 ```
 
 ### 期货连续合约

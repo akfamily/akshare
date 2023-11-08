@@ -3,7 +3,7 @@
 """
 Date: 2023/9/26 15:00
 Desc: 巨潮资讯-个股-历史分红
-http://webapi.cninfo.com.cn/#/company?companyid=600009
+https://webapi.cninfo.com.cn/#/company?companyid=600009
 """
 import pandas as pd
 import requests
@@ -29,7 +29,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
 def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
     """
     巨潮资讯-个股-历史分红
-    http://webapi.cninfo.com.cn/#/company?companyid=600009
+    https://webapi.cninfo.com.cn/#/company?companyid=600009
     :param symbol: 股票代码
     :type symbol: str
     :return: 历史分红
@@ -72,7 +72,7 @@ def stock_dividend_cninfo(symbol: str = "600009") -> pd.DataFrame:
         "分红类型",
         "报告时间",
     ]
-    temp_df["实施方案公告日期"] = pd.to_datetime(temp_df["实施方案公告日期"]).dt.date
+    temp_df["实施方案公告日期"] = pd.to_datetime(temp_df["实施方案公告日期"], errors="coerce").dt.date
     temp_df["送股比例"] = pd.to_numeric(temp_df["送股比例"], errors="coerce")
     temp_df["转增比例"] = pd.to_numeric(temp_df["转增比例"], errors="coerce")
     temp_df["派息比例"] = pd.to_numeric(temp_df["派息比例"], errors="coerce")
