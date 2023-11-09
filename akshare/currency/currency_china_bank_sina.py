@@ -79,7 +79,8 @@ def currency_boc_sina(
     r = requests.get(url, params=params)
     soup = BeautifulSoup(r.text, "lxml")
     soup.find(attrs={"id": "money_code"})
-    page_num = int(soup.find_all("a", attrs={"class": "page"})[-2].text)
+    page_element_list = soup.find_all("a", attrs={"class": "page"})
+    page_num = int(page_element_list[-2].text) if len(page_element_list) != 0 else 1
     big_df = pd.DataFrame()
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"page": page})
