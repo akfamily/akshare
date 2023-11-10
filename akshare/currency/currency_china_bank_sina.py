@@ -1,20 +1,22 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/13 19:20
+Date: 2023/11/10 15:20
 Desc: 新浪财经-中行人民币牌价历史数据查询
 https://biz.finance.sina.com.cn/forex/forex.php?startdate=2012-01-01&enddate=2021-06-14&money_code=EUR&type=0
 """
+from functools import lru_cache
+from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
-from functools import lru_cache
 
 
 @lru_cache()
 def _currency_boc_sina_map(
-    start_date: str = "20210614", end_date: str = "20230810"
+        start_date: str = "20210614", end_date: str = "20230810"
 ) -> dict:
     """
     外汇 symbol 和代码映射
@@ -52,7 +54,7 @@ def _currency_boc_sina_map(
 
 
 def currency_boc_sina(
-    symbol: str = "美元", start_date: str = "20210614", end_date: str = "20230810"
+        symbol: str = "美元", start_date: str = "20230304", end_date: str = "20231110"
 ) -> pd.DataFrame:
     """
     新浪财经-中行人民币牌价历史数据查询
@@ -85,7 +87,7 @@ def currency_boc_sina(
     for page in tqdm(range(1, page_num + 1), leave=False):
         params.update({"page": page})
         r = requests.get(url, params=params)
-        temp_df = pd.read_html(r.text, header=0)[0]
+        temp_df = pd.read_html(StringIO(r.text), header=0)[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.columns = [
         "日期",
@@ -99,12 +101,12 @@ def currency_boc_sina(
     big_df["中行钞买价"] = pd.to_numeric(big_df["中行钞买价"], errors="coerce")
     big_df["中行钞卖价/汇卖价"] = pd.to_numeric(big_df["中行钞卖价/汇卖价"], errors="coerce")
     big_df["央行中间价"] = pd.to_numeric(big_df["央行中间价"], errors="coerce")
-    big_df.sort_values(["日期"], inplace=True, ignore_index=True)
+    big_df.sort_values(by=["日期"], inplace=True, ignore_index=True)
     return big_df
 
 
 if __name__ == "__main__":
     currency_boc_sina_df = currency_boc_sina(
-        symbol="美元", start_date="20230304", end_date="20230813"
+        symbol="美元", start_date="20230304", end_date="20231110"
     )
     print(currency_boc_sina_df)
