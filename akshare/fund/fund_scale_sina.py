@@ -159,7 +159,7 @@ def fund_scale_close_sina() -> pd.DataFrame:
 def fund_scale_structured_sina() -> pd.DataFrame:
     """
     新浪财经-基金数据中心-基金规模-分级子基金
-    https://vip.stock.finance.sina.com.cn/fund_center/index.html#jjhqetf
+    https://vip.stock.finance.sina.com.cn/fund_center/index.html#jjgmfjall
     :return: 基金规模
     :rtype: pandas.DataFrame
     """
