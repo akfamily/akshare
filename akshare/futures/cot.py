@@ -1028,6 +1028,14 @@ def futures_dce_position_rank(
 
 
 def futures_dce_position_rank_other(date: str = "20160104"):
+    """
+    大连商品交易所-每日持仓排名-具体合约-补充
+    http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/rcjccpm/index.html
+    :param date: 交易日
+    :type date: str
+    :return: 合约具体名称列表
+    :rtype: list
+    """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime("%Y%m%d") not in calendar:
         warnings.warn("%s非交易日" % date.strftime("%Y%m%d"))
@@ -1120,6 +1128,12 @@ def futures_dce_position_rank_other(date: str = "20160104"):
 
 
 def __futures_gfex_vars_list() -> list:
+    """
+    广州期货交易所-合约品种名称列表
+    http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
+    :return: 合约品种名称列表
+    :rtype: list
+    """
     url = "http://www.gfex.com.cn/u/interfacesWebVariety/loadList"
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
@@ -1132,6 +1146,16 @@ def __futures_gfex_vars_list() -> list:
 
 
 def __futures_gfex_contract_list(symbol: str = "si", date: str = "20231113") -> list:
+    """
+    广州期货交易所-合约具体名称列表
+    http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
+    :param symbol: 品种
+    :type symbol: str
+    :param date: 交易日
+    :type date: str
+    :return: 合约具体名称列表
+    :rtype: list
+    """
     url = "http://www.gfex.com.cn/u/interfacesWebTiMemberDealPosiQuotes/loadListContract_id"
     payload = {
         'variety': symbol,
@@ -1151,6 +1175,18 @@ def __futures_gfex_contract_data(
         symbol: str = "si",
         contract_id: str = "si2312",
         date: str = "20231113") -> pd.DataFrame:
+    """
+    广州期货交易所-合约具体数据
+    http://www.gfex.com.cn/gfex/rcjccpm/hqsj_tjsj.shtml
+    :param symbol: 品种
+    :type symbol: str
+    :param contract_id: 具体合约
+    :type contract_id: str
+    :param date: 交易日
+    :type date: str
+    :return: 合约具体数据
+    :rtype: pandas.DataFrame
+    """
     url = "http://www.gfex.com.cn/u/interfacesWebTiMemberDealPosiQuotes/loadList"
     payload = {
         'trade_date': date,

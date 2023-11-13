@@ -1084,7 +1084,7 @@ P.S. 这里仅列出值(pandas.DataFrame)的字段信息
 
 | 名称                      | 类型     | 描述      |
 |-------------------------|--------|---------|
-| rank                    | int64  | 名词      |
+| rank                    | int64  | 名次      |
 | vol_party_name          | object | 会员简称    |
 | vol                     | int64  | 成交量     |
 | vol_chg                 | int64  | 成交量-增减  |
