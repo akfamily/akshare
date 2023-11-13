@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/10/29 17:00
+Date: 2023/11/13 23:00
 Desc: 东方财富-股票-财务分析
 """
 from functools import lru_cache
@@ -53,7 +53,7 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
     sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
-    big_list = list()
+    big_df = pd.DataFrame()
     for item in tqdm(sep_list, leave=False):
         url = "https://emweb.securities.eastmoney.com/PC_HSF10/NewFinanceAnalysis/zcfzbAjaxNew"
         params = {
@@ -66,8 +66,13 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_list.append(temp_df)
-    big_df = pd.concat(big_list, ignore_index=True)
+        for col in temp_df.columns:
+            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+        if big_df.empty:
+            big_df = temp_df
+        else:
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
@@ -97,7 +102,7 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-    temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"]).dt.date
+    temp_df["REPORT_DATE"] = pd.to_datetime(temp_df["REPORT_DATE"], errors="coerce").dt.date
     temp_df["REPORT_DATE"] = temp_df["REPORT_DATE"].astype(str)
     need_date = temp_df["REPORT_DATE"].tolist()
     sep_list = [",".join(need_date[i: i + 5]) for i in range(0, len(need_date), 5)]
@@ -114,7 +119,13 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        for col in temp_df.columns:
+            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+        if big_df.empty:
+            big_df = temp_df
+        else:
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
@@ -154,7 +165,13 @@ def stock_profit_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        for col in temp_df.columns:
+            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+        if big_df.empty:
+            big_df = temp_df
+        else:
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
@@ -194,7 +211,13 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        for col in temp_df.columns:
+            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+        if big_df.empty:
+            big_df = temp_df
+        else:
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
@@ -236,7 +259,13 @@ def stock_profit_sheet_by_quarterly_em(
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        for col in temp_df.columns:
+            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+        if big_df.empty:
+            big_df = temp_df
+        else:
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
@@ -278,7 +307,13 @@ def stock_cash_flow_sheet_by_report_em(
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        for col in temp_df.columns:
+            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+        if big_df.empty:
+            big_df = temp_df
+        else:
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
@@ -320,7 +355,13 @@ def stock_cash_flow_sheet_by_yearly_em(
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        for col in temp_df.columns:
+            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+        if big_df.empty:
+            big_df = temp_df
+        else:
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
@@ -362,7 +403,13 @@ def stock_cash_flow_sheet_by_quarterly_em(
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        for col in temp_df.columns:
+            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+                temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
+        if big_df.empty:
+            big_df = temp_df
+        else:
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     return big_df
 
 
