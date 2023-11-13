@@ -67,7 +67,7 @@ def stock_balance_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
-            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+            if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
                 temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
         if big_df.empty:
             big_df = temp_df
@@ -120,7 +120,7 @@ def stock_balance_sheet_by_yearly_em(symbol: str = "SH600036") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
-            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+            if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
                 temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
         if big_df.empty:
             big_df = temp_df
@@ -166,7 +166,7 @@ def stock_profit_sheet_by_report_em(symbol: str = "SH600519") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
-            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+            if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
                 temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
         if big_df.empty:
             big_df = temp_df
@@ -212,7 +212,7 @@ def stock_profit_sheet_by_yearly_em(symbol: str = "SH600519") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
-            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+            if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
                 temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
         if big_df.empty:
             big_df = temp_df
@@ -260,7 +260,7 @@ def stock_profit_sheet_by_quarterly_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
-            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+            if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
                 temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
         if big_df.empty:
             big_df = temp_df
@@ -308,7 +308,7 @@ def stock_cash_flow_sheet_by_report_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
-            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+            if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
                 temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
         if big_df.empty:
             big_df = temp_df
@@ -356,7 +356,7 @@ def stock_cash_flow_sheet_by_yearly_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
-            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+            if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
                 temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
         if big_df.empty:
             big_df = temp_df
@@ -404,7 +404,7 @@ def stock_cash_flow_sheet_by_quarterly_em(
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         for col in temp_df.columns:
-            if temp_df[col].isnull().any():  # 检查列是否包含 None 或 NaN
+            if temp_df[col].isnull().all():  # 检查列是否包含 None 或 NaN
                 temp_df[col] = pd.to_numeric(temp_df[col], errors='coerce')
         if big_df.empty:
             big_df = temp_df
