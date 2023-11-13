@@ -2583,9 +2583,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.67 fix: fix currency_boc_sina interface
 1.11.68 fix: fix fund_aum_em interface
 1.11.69 add: add futures_gfex_position_rank interface
+1.11.70 fix: fix futures_gfex_position_rank interface
 """
 
-__version__ = "1.11.69"
+__version__ = "1.11.70"
 __author__ = "AKFamily"
 
 import sys
@@ -4965,6 +4966,7 @@ from akshare.futures.cot import (
     get_cffex_rank_table,
     futures_dce_position_rank,
     futures_dce_position_rank_other,
+    futures_gfex_position_rank,
 )
 
 """
