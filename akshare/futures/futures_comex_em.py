@@ -8,7 +8,7 @@ https://data.eastmoney.com/pmetal/comex/by.html
 import pandas as pd
 import requests
 
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 
 def futures_comex_inventory(symbol: str = "白银") -> pd.DataFrame:
@@ -41,6 +41,7 @@ def futures_comex_inventory(symbol: str = "白银") -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update(
             {
