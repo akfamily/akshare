@@ -70,6 +70,10 @@
 
 ## 更新说明详情
 
+1.11.72 fix: fix get_rank_sum_daily interface
+
+    1. 修复 get_rank_sum_daily 接口
+
 1.11.71 fix: fix stock_balance_sheet_by_report_em interface
 
     1. 修复 stock_balance_sheet_by_report_em 接口
@@ -3128,6 +3132,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.72 fix: fix get_rank_sum_daily interface
 
 1.11.71 fix: fix stock_balance_sheet_by_report_em interface
 
