@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/28 8:50
+Date: 2023/11/15 19:30
 Desc: 期货-中国-交易所-会员持仓数据接口
-大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所、广州期货交易所(交易所未提供)
+大连商品交易所、上海期货交易所、郑州商品交易所、中国金融期货交易所、广州期货交易所
 采集前 20 会员持仓数据;
 建议下午 16:30 以后采集当天数据, 避免交易所数据更新不稳定;
 郑州商品交易所格式分为三类
@@ -270,16 +270,19 @@ def get_rank_sum(date: str = "20210525", vars_list: list = cons.contract_symbols
     return records.reset_index(drop=True)
 
 
-def get_shfe_rank_table(date=None, vars_list=cons.contract_symbols):
+def get_shfe_rank_table(date: str = None, vars_list: str = cons.contract_symbols) -> dict:
     """
     上海期货交易所会员成交及持仓排名表
     https://www.shfe.com.cn/
-    https://www.shfe.com.cn/statements/dataview.html?paramid=delaymarket_ao
+    https://www.shfe.com.cn/statements/dataview.html?paramid=kx
     注：该交易所只公布每个品种内部的标的排名，没有公布品种的总排名
-    数据从20020107开始，每交易日16:30左右更新数据
-    :param date: 日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
-    :param vars_list: 合约品种如 RB、AL等列表 为空时为所有商品
-    :return: pd.DataFrame
+    数据从 20020107 开始，每交易日 16:30 左右更新数据
+    :param date: 交易日
+    :type date: str
+    :param vars_list: 合约品种如 RB、AL等列表; 为空时为所有商品
+    :type vars_list: list
+    :return: 上海期货交易所会员成交及持仓排名表
+    :rtype: dict
     rank                        排名                        int
     vol_party_name              成交量排序的当前名次会员        string(中文)
     vol                         该会员成交量                  int
@@ -394,7 +397,7 @@ def _czce_df_read(url, skip_rows, encoding="utf-8", header=0):
 
 def get_czce_rank_table(
         date: str = "20210428", vars_list: list = cons.contract_symbols
-):
+) -> dict:
     """
     郑州商品交易所前 20 会员持仓排名数据明细
     注：该交易所既公布了品种排名, 也公布了标的排名
@@ -535,7 +538,7 @@ def _get_dce_contract_list(date, var):
             continue
 
 
-def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols):
+def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) -> dict:
     """
     大连商品交易所前 20 会员持仓排名数据明细, 由于交易所网站问题, 需要 20200720 之后才有数据
     注: 该交易所只公布标的合约排名
