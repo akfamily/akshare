@@ -2588,9 +2588,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.72 fix: fix get_rank_sum_daily interface
 1.11.73 fix: fix futures_comex_inventory interface
 1.11.74 fix: fix stock_comment_em interface
+1.11.75 fix: fix futures_comex_inventory interface
 """
 
-__version__ = "1.11.74"
+__version__ = "1.11.75"
 __author__ = "AKFamily"
 
 import sys
