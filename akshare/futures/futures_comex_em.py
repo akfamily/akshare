@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/23 14:00
+Date: 2023/11/15 18:00
 Desc: 东方财富网-数据中心-期货期权-COMEX库存数据
 https://data.eastmoney.com/pmetal/comex/by.html
 """
@@ -11,7 +11,7 @@ import requests
 from akshare.utils.tqdm import get_tqdm
 
 
-def futures_comex_inventory(symbol: str = "白银") -> pd.DataFrame:
+def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
     """
     东方财富网-数据中心-期货期权-COMEX库存数据
     https://data.eastmoney.com/pmetal/comex/by.html
@@ -95,5 +95,5 @@ def futures_comex_inventory(symbol: str = "白银") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_comex_inventory_df = futures_comex_inventory(symbol="白银")
+    futures_comex_inventory_df = futures_comex_inventory(symbol="黄金")
     print(futures_comex_inventory_df)
