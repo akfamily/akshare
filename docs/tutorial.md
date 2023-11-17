@@ -1058,8 +1058,6 @@
  "stock_hot_follow_xq"  # 雪球-沪深股市-热度排行榜-关注排行榜
  "stock_hot_tweet_xq"  # 雪球-沪深股市-热度排行榜-讨论排行榜
  "stock_hot_deal_xq"  # 雪球-沪深股市-热度排行榜-分享交易排行榜
- # 股票热度-淘股吧
- "stock_hot_tgb"  # 淘股吧-热门股票
  # 内部交易
  "stock_inner_trade_xq"  # 内部交易
  # 股票-三大报表
