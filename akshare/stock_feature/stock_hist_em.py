@@ -1426,7 +1426,7 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
 
 
 def stock_hk_hist(
-    symbol: str = "40224",
+    symbol: str = "00593",
     period: str = "daily",
     start_date: str = "19700101",
     end_date: str = "22220101",
@@ -1434,7 +1434,7 @@ def stock_hk_hist(
 ) -> pd.DataFrame:
     """
     东方财富网-行情-港股-每日行情
-    http://quote.eastmoney.com/hk/08367.html
+    https://quote.eastmoney.com/hk/08367.html
     :param symbol: 港股-每日行情
     :type symbol: str
     :param period: choice of {'daily', 'weekly', 'monthly'}
@@ -1480,7 +1480,7 @@ def stock_hk_hist(
         "涨跌额",
         "换手率",
     ]
-    temp_df.index = pd.to_datetime(temp_df["日期"])
+    temp_df.index = pd.to_datetime(temp_df["日期"], errors="coerce")
     temp_df = temp_df[start_date:end_date]
     if temp_df.empty:
         return pd.DataFrame()
@@ -1495,6 +1495,7 @@ def stock_hk_hist(
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
     return temp_df
 
 
@@ -1904,7 +1905,7 @@ if __name__ == "__main__":
     print(stock_zh_a_hist_pre_min_em_df)
 
     stock_hk_hist_df = stock_hk_hist(
-        symbol="01246",
+        symbol="00593",
         period="daily",
         start_date="19700101",
         end_date="22220101",
@@ -1914,7 +1915,7 @@ if __name__ == "__main__":
 
     stock_hk_hist_qfq_df = stock_hk_hist(
         symbol="00593",
-        period="weekly",
+        period="daily",
         start_date="19700101",
         end_date="22220101",
         adjust="qfq",
@@ -1922,7 +1923,8 @@ if __name__ == "__main__":
     print(stock_hk_hist_qfq_df)
 
     stock_hk_hist_hfq_df = stock_hk_hist(
-        symbol="00326",
+        symbol="00593",
+        period="daily",
         start_date="19700101",
         end_date="22220101",
         adjust="hfq",
