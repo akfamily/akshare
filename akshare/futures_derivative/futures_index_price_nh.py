@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/31 16:25
+Date: 2023/11/17 18:20
 Desc: 南华期货-商品指数历史走势-价格指数-数值
 https://www.nanhua.net/nhzc/varietytrend.html
 1000 点开始, 用收益率累计
@@ -24,7 +24,7 @@ def futures_index_symbol_table_nh() -> pd.DataFrame:
     r = requests.get(url)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
-    temp_df["firstday"] = pd.to_datetime(temp_df["firstday"]).dt.date
+    temp_df["firstday"] = pd.to_datetime(temp_df["firstday"], errors="coerce").dt.date
     return temp_df
 
 
@@ -46,7 +46,7 @@ def futures_price_index_nh(symbol: str = "A") -> pd.DataFrame:
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["date", "value"]
-        temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms")
+        temp_df["date"] = pd.to_datetime(temp_df["date"], unit="ms", errors="coerce")
         temp_df["date"] = temp_df["date"].dt.tz_localize("UTC")
         temp_df["date"] = temp_df["date"].dt.tz_convert("Asia/Shanghai").dt.date
         temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
@@ -57,5 +57,5 @@ if __name__ == "__main__":
     futures_index_symbol_table_nh_df = futures_index_symbol_table_nh()
     print(futures_index_symbol_table_nh_df)
 
-    futures_price_index_nh_df = futures_price_index_nh(symbol="Y")
+    futures_price_index_nh_df = futures_price_index_nh(symbol="A")
     print(futures_price_index_nh_df)
