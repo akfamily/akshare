@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/1 13:00
+Date: 2023/11/17 17:00
 Desc: 商品期权数据
 说明：
 (1) 价格：自2019年12月02日起，纤维板报价单位由元/张改为元/立方米
@@ -16,10 +16,10 @@ Desc: 商品期权数据
 import datetime
 import warnings
 from io import StringIO, BytesIO
-
-import requests
-import pandas as pd
 from typing import Tuple, Any
+
+import pandas as pd
+import requests
 
 from akshare.option.cons import (
     get_calendar,
@@ -32,7 +32,7 @@ from akshare.option.cons import (
 
 
 def option_dce_daily(
-    symbol: str = "聚乙烯期权", trade_date: str = "20210728"
+        symbol: str = "聚乙烯期权", trade_date: str = "20210728"
 ) -> Tuple[Any, Any]:
     """
     大连商品交易所-期权-日频行情数据
@@ -61,9 +61,9 @@ def option_dce_daily(
     res = requests.post(url, data=payload)
     table_df = pd.read_excel(BytesIO(res.content), header=1)
     another_df = table_df.iloc[
-        table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name :,
-        [0, 1],
-    ]
+                 table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:,
+                 [0, 1],
+                 ]
     another_df.reset_index(inplace=True, drop=True)
     another_df.columns = another_df.iloc[0]
     another_df = another_df.iloc[1:, :]
@@ -139,10 +139,11 @@ def option_dce_daily(
 
 
 def option_czce_daily(
-    symbol: str = "白糖期权", trade_date: str = "20191017"
+        symbol: str = "白糖期权", trade_date: str = "20191017"
 ) -> pd.DataFrame:
     """
     郑州商品交易所-期权-日频行情数据
+
     :param trade_date: 交易日
     :type trade_date: str
     :param symbol: choice of {"白糖期权", "棉花期权", "甲醇期权", "PTA期权", "菜籽粕期权", "动力煤期权", "菜籽油期权", "花生期权"}
@@ -154,7 +155,7 @@ def option_czce_daily(
     day = convert_date(trade_date) if trade_date is not None else datetime.date.today()
     if day.strftime("%Y%m%d") not in calendar:
         warnings.warn("{}非交易日".format(day.strftime("%Y%m%d")))
-        return
+        return pd.DataFrame()
     if day > datetime.date(2010, 8, 24):
         url = CZCE_DAILY_OPTION_URL_3.format(day.strftime("%Y"), day.strftime("%Y%m%d"))
         try:
@@ -189,16 +190,40 @@ def option_czce_daily(
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("PK")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
-            else:
+            elif symbol == "棉花期权":
                 temp_df = table_df[table_df.iloc[:, 0].str.contains("CF")]
                 temp_df.reset_index(inplace=True, drop=True)
                 return temp_df.iloc[:-1, :]
+            elif symbol == "短纤期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("PF")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "纯碱期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("SA")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "锰硅期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("SM")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "硅铁期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("SF")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            elif symbol == "尿素期权":
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("UR")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
+            else:
+                temp_df = table_df[table_df.iloc[:, 0].str.contains("AP")]
+                temp_df.reset_index(inplace=True, drop=True)
+                return temp_df.iloc[:-1, :]
         except:
-            return
+            return pd.DataFrame()
 
 
 def option_shfe_daily(
-    symbol: str = "铝期权", trade_date: str = "20200827"
+        symbol: str = "铝期权", trade_date: str = "20200827"
 ) -> pd.DataFrame:
     """
     上海期货交易所-期权-日频行情数据
@@ -224,14 +249,14 @@ def option_shfe_daily(
                     row
                     for row in json_data["o_curinstrument"]
                     if row["INSTRUMENTID"] not in ["小计", "合计"]
-                    and row["INSTRUMENTID"] != ""
+                       and row["INSTRUMENTID"] != ""
                 ]
             )
             contract_df = table_df[table_df["PRODUCTNAME"].str.strip() == symbol]
             volatility_df = pd.DataFrame(json_data["o_cursigma"])
             volatility_df = volatility_df[
                 volatility_df["PRODUCTNAME"].str.strip() == symbol
-            ]
+                ]
             contract_df.columns = [
                 "_",
                 "_",
@@ -488,3 +513,6 @@ if __name__ == "__main__":
 
     option_gfex_vol_daily_df = option_gfex_vol_daily(symbol="工业硅", trade_date="20230418")
     print(option_gfex_vol_daily_df)
+
+    option_czce_daily_df = option_czce_daily(symbol="短纤期权", trade_date="20231116")
+    print(option_czce_daily_df)

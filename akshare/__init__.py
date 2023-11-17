@@ -2589,9 +2589,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.73 fix: fix futures_comex_inventory interface
 1.11.74 fix: fix stock_comment_em interface
 1.11.75 fix: fix futures_comex_inventory interface
+1.11.76 fix: fix option_czce_daily interface
 """
 
-__version__ = "1.11.75"
+__version__ = "1.11.76"
 __author__ = "AKFamily"
 
 import sys
@@ -2982,11 +2983,6 @@ from akshare.stock_feature.stock_three_report_em import (
 内部交易
 """
 from akshare.stock_feature.stock_inner_trade_xq import stock_inner_trade_xq
-
-"""
-股票热度-淘股吧
-"""
-from akshare.stock_feature.stock_hot_tgb import stock_hot_tgb
 
 """
 股票热度-雪球
