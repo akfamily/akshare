@@ -75,6 +75,7 @@
     1. 修复 option_czce_daily 接口
     2. 移除 stock_hot_tgb 接口
     3. 修复 futures_board_index_nh 接口
+    4. 修复 stock_hk_hist 接口
 
 1.11.75 fix: fix futures_comex_inventory interface
 
