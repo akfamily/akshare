@@ -70,9 +70,9 @@
 
 ## 更新说明详情
 
-1.11.77 fix: fix option_czce_daily interface
+1.11.77 fix: fix futures_zh_spot interface
 
-    1. 修复 option_czce_daily 接口
+    1. 修复 futures_zh_spot 接口
 
 1.11.76 fix: fix option_czce_daily interface
 
@@ -3156,7 +3156,7 @@
 
 ## 版本更新说明
 
-1.11.77 fix: fix option_czce_daily interface
+1.11.77 fix: fix futures_zh_spot interface
 
 1.11.76 fix: fix option_czce_daily interface
 

@@ -1955,7 +1955,7 @@ futures_zh_spot_df = ak.futures_zh_spot(symbol='V2205', market="CF", adjust='0')
 print(futures_zh_spot_df)
 ```
 
-数据示例--单品种获取
+数据示例-单品种获取
 
 ```
     symbol    time    open  ...  avg_price  last_close  last_settle_price
@@ -1972,7 +1972,7 @@ futures_zh_spot_df = ak.futures_zh_spot(symbol='V2205, P2205, B2201, M2205', mar
 print(futures_zh_spot_df)
 ```
 
-数据示例--多品种获取
+数据示例-多品种获取
 
 ```
     symbol    time    open  ...  avg_price  last_close  last_settle_price
@@ -2098,7 +2098,7 @@ while True:
 
 接口: futures_zh_realtime
 
-目标地址: http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+目标地址: https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
 
 描述: 新浪财经-期货实时行情数据
 
