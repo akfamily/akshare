@@ -204,12 +204,12 @@ def futures_zh_spot(
 ) -> pd.DataFrame:
     """
     期货的实时行情数据
-    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+    https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: 合约名称的字符串组合
     :type symbol: str
     :param market: CF 为商品期货
     :type market: str
-    :param adjust: '1' or '0'; 字符串的 0 或 1
+    :param adjust: '1' or '0'；字符串的 0 或 1；返回合约、交易所和最小变动单位的实时数据, 返回数据会变慢
     :type adjust: str
     :return: 期货的实时行情数据
     :rtype: pandas.DataFrame
@@ -597,7 +597,7 @@ def futures_zh_spot(
 def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.DataFrame:
     """
     中国各品种期货分钟频率数据
-    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
+    https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
     :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
     :type symbol: str
     :param period: choice of {"1": "1分钟", "5": "5分钟", "15": "15分钟", "30": "30分钟", "60": "60分钟"}
@@ -676,7 +676,7 @@ if __name__ == "__main__":
     )
     print(futures_zh_spot_df)
 
-    futures_zh_spot_df = futures_zh_spot(symbol="RB2310", market="CF", adjust="0")
+    futures_zh_spot_df = futures_zh_spot(symbol="BB2110", market="CF", adjust="0")
     print(futures_zh_spot_df)
 
     futures_symbol_mark_df = futures_symbol_mark()
