@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/19 16:25
+Date: 2023/11/20 13:20
 Desc: 同花顺-财务指标-主要指标
 https://basic.10jqka.com.cn/new/000063/finance.html
 """
@@ -61,6 +61,7 @@ def stock_financial_debt_ths(
 ) -> pd.DataFrame:
     """
     同花顺-财务指标-资产负债表
+    https://basic.10jqka.com.cn/new/000063/finance.html
     https://basic.10jqka.com.cn/api/stock/finance/000063_debt.json
     :param symbol: 股票代码
     :type symbol: str
@@ -99,6 +100,7 @@ def stock_financial_benefit_ths(
 ) -> pd.DataFrame:
     """
     同花顺-财务指标-利润表
+    https://basic.10jqka.com.cn/new/000063/finance.html
     https://basic.10jqka.com.cn/api/stock/finance/000063_benefit.json
     :param symbol: 股票代码
     :type symbol: str
@@ -141,6 +143,7 @@ def stock_financial_cash_ths(
 ) -> pd.DataFrame:
     """
     同花顺-财务指标-现金流量表
+    https://basic.10jqka.com.cn/new/000063/finance.html
     https://basic.10jqka.com.cn/api/stock/finance/000063_cash.json
     :param symbol: 股票代码
     :type symbol: str
@@ -193,17 +196,42 @@ if __name__ == "__main__":
         symbol="000063", indicator="按单季度"
     )
     print(stock_financial_abstract_ths_df)
-    stock_financial_debt_ths(
+
+    stock_financial_debt_ths_df = stock_financial_debt_ths(
         symbol="000063", indicator="按报告期"
     )
+    print(stock_financial_debt_ths_df)
+
     stock_financial_debt_ths_df = stock_financial_debt_ths(
         symbol="000063", indicator="按年度"
     )
     print(stock_financial_debt_ths_df)
+
     stock_financial_benefit_ths_df = stock_financial_benefit_ths(
         symbol="000063", indicator="按报告期"
     )
     print(stock_financial_benefit_ths_df)
+
+    stock_financial_benefit_ths_df = stock_financial_benefit_ths(
+        symbol="000063", indicator="按年度"
+    )
+    print(stock_financial_benefit_ths_df)
+
+    stock_financial_benefit_ths_df = stock_financial_benefit_ths(
+        symbol="000063", indicator="按报告期"
+    )
+    print(stock_financial_benefit_ths_df)
+
+    stock_financial_cash_ths_df = stock_financial_cash_ths(
+        symbol="000063", indicator="按年度"
+    )
+    print(stock_financial_cash_ths_df)
+
+    stock_financial_cash_ths_df = stock_financial_cash_ths(
+        symbol="000063", indicator="按年度"
+    )
+    print(stock_financial_cash_ths_df)
+
     stock_financial_cash_ths_df = stock_financial_cash_ths(
         symbol="000063", indicator="按单季度"
     )

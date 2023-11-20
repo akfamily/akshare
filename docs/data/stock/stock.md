@@ -10576,7 +10576,7 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 
 接口: stock_financial_debt_ths
 
-目标地址: https://basic.10jqka.com.cn/api/stock/finance/000063_debt.json
+目标地址: https://basic.10jqka.com.cn/new/000063/finance.html
 
 描述: 同花顺-财务指标-资产负债表
 
@@ -10584,23 +10584,23 @@ print(stock_cash_flow_sheet_by_quarterly_em_df)
 
 输入参数
 
-| 名称      | 类型 | 描述                                                         |
-| --------- | ---- | ------------------------------------------------------------ |
-| symbol    | str  | symbol="000063"; 股票代码                                    |
-| indicator | str  | indicator="按报告期"; choice of {"按报告期", "按年度", "按单季度"} |
+| 名称        | 类型  | 描述                                                  |
+|-----------|-----|-----------------------------------------------------|
+| symbol    | str | symbol="000063"; 股票代码                               |
+| indicator | str | indicator="按报告期"; choice of {"按报告期", "按年度", "按单季度"} |
 
 输出参数
 
-| 名称 | 类型 | 描述              |
-| ---- | ---- | ----------------- |
-| -    | -    | 80 项，不逐一列出 |
+| 名称 | 类型 | 描述         |
+|----|----|------------|
+| -  | -  | 80 项，不逐一列出 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_financial_debt_ths_df = stock_financial_debt_ths(symbol="000063", indicator="按年度")
+stock_financial_debt_ths_df = ak.stock_financial_debt_ths(symbol="000063", indicator="按年度")
 print(stock_financial_debt_ths_df)
 ```
 
@@ -10637,7 +10637,6 @@ print(stock_financial_debt_ths_df)
 26  1996                  1.30亿  ...    10.00万          1.30亿             3.83亿
 27  1995               7839.06万  ...     False       7839.06万             2.36亿
 28  1994               4254.78万  ...     False       4254.78万             1.45亿
-
 [29 rows x 80 columns]
 ```
 
@@ -10645,7 +10644,7 @@ print(stock_financial_debt_ths_df)
 
 接口: stock_financial_benefit_ths
 
-目标地址: https://basic.10jqka.com.cn/api/stock/finance/000063_benefit.json
+目标地址: https://basic.10jqka.com.cn/new/000063/finance.html
 
 描述: 同花顺-财务指标-利润表
 
@@ -10653,23 +10652,23 @@ print(stock_financial_debt_ths_df)
 
 输入参数
 
-| 名称      | 类型 | 描述                                                         |
-| --------- | ---- | ------------------------------------------------------------ |
-| symbol    | str  | symbol="000063"; 股票代码                                    |
-| indicator | str  | indicator="按报告期"; choice of {"按报告期", "按年度", "按单季度"} |
+| 名称        | 类型  | 描述                                                  |
+|-----------|-----|-----------------------------------------------------|
+| symbol    | str | symbol="000063"; 股票代码                               |
+| indicator | str | indicator="按报告期"; choice of {"按报告期", "按年度", "按单季度"} |
 
 输出参数
 
-| 名称 | 类型 | 描述              |
-| ---- | ---- | ----------------- |
-| -    | -    | 45 项，不逐一列出 |
+| 名称 | 类型 | 描述         |
+|----|----|------------|
+| -  | -  | 45 项，不逐一列出 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_financial_benefit_ths_df = stock_financial_benefit_ths(symbol="000063", indicator="按报告期")
+stock_financial_benefit_ths_df = ak.stock_financial_benefit_ths(symbol="000063", indicator="按报告期")
 print(stock_financial_benefit_ths_df)
 ```
 
@@ -10688,7 +10687,6 @@ print(stock_financial_benefit_ths_df)
 97  1996-12-31         9905.67万  ...    False           False          False
 98  1995-12-31         7314.86万  ...    False           False          False
 99  1994-12-31         8071.26万  ...    False           False          False
-
 [100 rows x 45 columns]
 ```
 
@@ -10696,7 +10694,7 @@ print(stock_financial_benefit_ths_df)
 
 接口: stock_financial_cash_ths
 
-目标地址: https://basic.10jqka.com.cn/api/stock/finance/000063_cash.json
+目标地址: https://basic.10jqka.com.cn/new/000063/finance.html
 
 描述: 同花顺-财务指标-现金流量表
 
@@ -10704,42 +10702,44 @@ print(stock_financial_benefit_ths_df)
 
 输入参数
 
-| 名称      | 类型 | 描述                                                         |
-| --------- | ---- | ------------------------------------------------------------ |
-| symbol    | str  | symbol="000063"; 股票代码                                    |
-| indicator | str  | indicator="按报告期"; choice of {"按报告期", "按年度", "按单季度"} |
+| 名称        | 类型  | 描述                                                  |
+|-----------|-----|-----------------------------------------------------|
+| symbol    | str | symbol="000063"; 股票代码                               |
+| indicator | str | indicator="按报告期"; choice of {"按报告期", "按年度", "按单季度"} |
 
 输出参数
 
-| 名称 | 类型 | 描述              |
-| ---- | ---- | ----------------- |
-| -    | -    | 75 项，不逐一列出 |
+| 名称 | 类型 | 描述         |
+|----|----|------------|
+| -  | -  | 75 项，不逐一列出 |
 
 接口示例
 
 ```python
 import akshare as ak
 
-stock_financial_cash_ths_df = stock_financial_cash_ths(symbol="000063", indicator="按单季度")
+stock_financial_cash_ths_df = ak.stock_financial_cash_ths(symbol="000063", indicator="按单季度")
 print(stock_financial_cash_ths_df)
 ```
 
 数据示例
 
-               报告期 报表核心指标 *现金及现金等价物净增加额  ... 加：现金等价物的期末余额 减：现金等价物的期初余额 间接法-现金及现金等价物净增加额
-    0   2023-09-30               15.54亿  ...                                           
-    1   2023-06-30               52.02亿  ...                                           
-    2   2023-03-31               26.73亿  ...        False        False            False
-    3   2022-12-31              107.72亿  ...                                           
-    4   2022-09-30              -77.82亿  ...                                           
-    ..         ...    ...           ...  ...          ...          ...              ...
-    78  2004-03-31              -16.81亿  ...        False        False          -16.81亿
-    79  2003-12-31               19.40亿  ...                                     19.40亿
-    80  2003-09-30              -10.76亿  ...                                    -10.76亿
-    81  2003-06-30               13.89亿  ...                                     13.89亿
-    82  2003-03-31              -14.06亿  ...        False        False          -14.06亿
-    
-    [83 rows x 75 columns]
+```
+    报告期 报表核心指标 *现金及现金等价物净增加额  ... 加：现金等价物的期末余额 减：现金等价物的期初余额 间接法-现金及现金等价物净增加额
+0   2023-09-30               15.54亿  ...                                           
+1   2023-06-30               52.02亿  ...                                           
+2   2023-03-31               26.73亿  ...        False        False            False
+3   2022-12-31              107.72亿  ...                                           
+4   2022-09-30              -77.82亿  ...                                           
+..         ...    ...           ...  ...          ...          ...              ...
+78  2004-03-31              -16.81亿  ...        False        False          -16.81亿
+79  2003-12-31               19.40亿  ...                                     19.40亿
+80  2003-09-30              -10.76亿  ...                                    -10.76亿
+81  2003-06-30               13.89亿  ...                                     13.89亿
+82  2003-03-31              -14.06亿  ...        False        False          -14.06亿
+[83 rows x 75 columns]
+```
+
 #### 财务报表-东财-已退市股票
 
 ##### 资产负债表-按报告期
