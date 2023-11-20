@@ -2591,9 +2591,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.75 fix: fix futures_comex_inventory interface
 1.11.76 fix: fix option_czce_daily interface
 1.11.77 fix: fix futures_zh_spot interface
+1.11.78 add: add stock_financial_benefit_ths interface
 """
 
-__version__ = "1.11.77"
+__version__ = "1.11.78"
 __author__ = "AKFamily"
 
 import sys
@@ -2723,7 +2724,12 @@ from akshare.fund.fund_lof_em import (
 """
 同花顺-财务指标-主要指标
 """
-from akshare.stock_fundamental.stock_finance_ths import stock_financial_abstract_ths
+from akshare.stock_fundamental.stock_finance_ths import (
+    stock_financial_abstract_ths,
+    stock_financial_debt_ths,
+    stock_financial_benefit_ths,
+    stock_financial_cash_ths,
+)
 
 """
 港股股票指数数据-新浪-东财
