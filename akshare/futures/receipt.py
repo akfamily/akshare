@@ -305,13 +305,13 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
         inner_df = inner_df.dropna(axis=1, how='all')
         if symbol == "PTA":
             try:
-                receipt_list.append(inner_df['仓单数量(完税)'].iloc[-1] + inner_df['仓单数量(保税)'].iloc[-1])  # 20210316 TA 分为保税和完税
+                receipt_list.append(inner_df['仓单数量(完税)'].iloc[-1] + int(inner_df['仓单数量(保税)'].iloc[-1]))  # 20210316 TA 分为保税和完税
             except:
                 receipt_list.append(0)
         elif symbol == "MA":
             try:
                 try:
-                    receipt_list.append(inner_df['仓单数量(完税)'].iloc[-2] + inner_df['仓单数量(保税)'].iloc[-2])  # 20210316 MA 分为保税和完税
+                    receipt_list.append(inner_df['仓单数量(完税)'].iloc[-2] + int(inner_df['仓单数量(保税)'].iloc[-2]))  # 20210316 MA 分为保税和完税
                 except:
                     receipt_list.append(inner_df['仓单数量(完税)'].iloc[-2])  # 处理 MA 的特殊格式
             except:
@@ -450,12 +450,9 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
     records.reset_index(drop=True, inplace=True)
     if records.empty:
         return records
-    if "MA" in records["var"].to_list():
-        replace_index = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0].index
-        records.loc[replace_index, "receipt"] = records[records["var"] == "MA"]["receipt"].astype(str).str.split("0", expand=True)[0]
     return records
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20231120', end_day='20231121')
+    get_receipt_df = get_receipt(start_day='20231124', end_day='20231124')
     print(get_receipt_df)
