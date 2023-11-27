@@ -515,6 +515,8 @@ def stock_gdfx_free_holding_detail_em(date: str = "20210930") -> pd.DataFrame:
         "-",
         "期末持股-数量变化",
         "-",
+        "-",
+        "-"
     ]
     big_df = big_df[
         [
