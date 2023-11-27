@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/5 20:20
+Date: 2023/11/27 16:20
 Desc: 收盘收益率曲线历史数据
 https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 """
@@ -14,7 +14,7 @@ import requests
 def __bond_register_service() -> requests.Session:
     """
     将服务注册到网站中，则该 IP 在 24 小时内可以直接访问
-    www.chinamoney.com.cn
+    https://www.chinamoney.com.cn
     :return: 访问过的 Session
     :rtype: requests.Session
     """
@@ -50,6 +50,28 @@ def __bond_register_service() -> requests.Session:
         "X-Requested-With": "XMLHttpRequest"
     }
     session.post(url="https://www.chinamoney.com.cn/dqs/rest/cm-u-rbt/apply", data=data, headers=headers)
+
+    # 20231127 新增部分 https://github.com/akfamily/akshare/issues/4299
+    cookies_dict = session.cookies.get_dict()
+    cookies_str = '; '.join(f'{k}={v}' for k, v in cookies_dict.items())
+    headers = {
+        "Accept": "application/json, text/javascript, /; q=0.01",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en",
+        "Connection": "keep-alive",
+        "Content-Length": "0",
+        'Cookie': cookies_str,
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Host": "www.chinamoney.com.cn",
+        "Origin": "https://www.chinamoney.com.cn",
+        "Referer": "https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+        "X-Requested-With": "XMLHttpRequest"
+    }
+    session.post(url="https://www.chinamoney.com.cn/lss/rest/cm-s-account/getSessionUser", headers=headers)
     return session
 
 
@@ -77,11 +99,9 @@ def bond_china_close_return_map() -> pd.DataFrame:
     }
     url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvCurvGO"
     try:
-        print("req")
         r = requests.get(url, headers=headers)
         data_json = r.json()
     except:
-        print("ses")
         session = __bond_register_service()
         r = session.get(url, headers=headers)
         data_json = r.json()
