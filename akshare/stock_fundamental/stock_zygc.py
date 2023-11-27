@@ -1,11 +1,13 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/1/30 11:30
+Date: 2023/11/27 16:30
 Desc: 主营构成
 https://emweb.securities.eastmoney.com/PC_HSF10/BusinessAnalysis/Index?type=web&code=SH688041#
 http://f10.emoney.cn/f10/zbyz/1000001
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -30,7 +32,7 @@ def stock_zygc_ym(symbol: str = "000001") -> pd.DataFrame:
 
     big_df = pd.DataFrame()
     for i, item in enumerate(year_list, 2):
-        temp_df = pd.read_html(r.text, header=0)[i]
+        temp_df = pd.read_html(StringIO(r.text), header=0)[i]
         temp_df.columns = [
             "分类方向",
             "分类",
@@ -44,7 +46,7 @@ def stock_zygc_ym(symbol: str = "000001") -> pd.DataFrame:
             "毛利率-同比增长",
         ]
         temp_df["报告期"] = item
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df = big_df[
         [
