@@ -481,7 +481,6 @@ def stock_zt_pool_dtgc_em(date: str = "20231106") -> pd.DataFrame:
     ]
     temp_df["最新价"] = temp_df["最新价"] / 1000
     temp_df["最后封板时间"] = temp_df["最后封板时间"].astype(str).str.zfill(6)
-
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
     temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
@@ -494,7 +493,6 @@ def stock_zt_pool_dtgc_em(date: str = "20231106") -> pd.DataFrame:
     temp_df["连续跌停"] = pd.to_numeric(temp_df["连续跌停"], errors="coerce")
     temp_df["开板次数"] = pd.to_numeric(temp_df["开板次数"], errors="coerce")
     temp_df["开板次数"] = pd.to_numeric(temp_df["开板次数"], errors="coerce")
-
     return temp_df
 
 
