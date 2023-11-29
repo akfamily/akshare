@@ -21096,17 +21096,17 @@ print(stock_board_change_em_df)
 
 接口: stock_zt_pool_em
 
-目标地址: http://quote.eastmoney.com/ztb/detail#type=ztgc
+目标地址: https://quote.eastmoney.com/ztb/detail#type=ztgc
 
 描述: 东方财富网-行情中心-涨停板行情-涨停股池
 
-限量: 单次返回所有涨停股池数据; 该接口只能返回近期的数据
+限量: 单次返回指定 date 的涨停股池数据; 该接口只能获取近期的数据
 
 输入参数
 
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
-| date | str | date='20210525' |
+| date | str | date='20231129' |
 
 输出参数
 
@@ -21201,17 +21201,17 @@ print(stock_zt_pool_em_df)
 
 接口: stock_zt_pool_previous_em
 
-目标地址: http://quote.eastmoney.com/ztb/detail#type=zrzt
+目标地址: https://quote.eastmoney.com/ztb/detail#type=zrzt
 
 描述: 东方财富网-行情中心-涨停板行情-昨日涨停股池
 
-限量: 单次返回所有昨日涨停股池数据
+限量: 单次返回指定 date 的昨日涨停股池数据; 该接口只能获取近期的数据
 
 输入参数
 
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
-| date | str | date='20210521' |
+| date | str | date='20231129' |
 
 输出参数
 
@@ -21263,17 +21263,17 @@ print(stock_zt_pool_previous_em_df)
 
 接口: stock_zt_pool_strong_em
 
-目标地址: http://quote.eastmoney.com/ztb/detail#type=qsgc
+目标地址: https://quote.eastmoney.com/ztb/detail#type=qsgc
 
 描述: 东方财富网-行情中心-涨停板行情-强势股池
 
-限量: 单次返回所有昨日涨停股池数据
+限量: 单次返回指定 date 的强势股池数据；该接口只能获取近期的数据
 
 输入参数
 
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
-| date | str | date='20210521' |
+| date | str | date='20231129' |
 
 输出参数
 
@@ -21326,17 +21326,17 @@ print(stock_zt_pool_strong_em_df)
 
 接口: stock_zt_pool_sub_new_em
 
-目标地址: http://quote.eastmoney.com/ztb/detail#type=cxgc
+目标地址: https://quote.eastmoney.com/ztb/detail#type=cxgc
 
 描述: 东方财富网-行情中心-涨停板行情-次新股池
 
-限量: 单次返回所有次新股池数据
+限量: 单次返回指定 date 的次新股池数据；该接口只能获取近期的数据
 
 输入参数
 
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
-| date | str | date='20210521' |
+| date | str | date='20231129' |
 
 输出参数
 
@@ -21389,17 +21389,17 @@ print(stock_zt_pool_sub_new_em_df)
 
 接口: stock_zt_pool_zbgc_em
 
-目标地址: http://quote.eastmoney.com/ztb/detail#type=zbgc
+目标地址: https://quote.eastmoney.com/ztb/detail#type=zbgc
 
 描述: 东方财富网-行情中心-涨停板行情-炸板股池
 
-限量: 单次返回所有炸板股池数据
+限量: 单次返回指定 date 的炸板股池数据；该接口只能获取近期的数据
 
 输入参数
 
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
-| date | str | date='20210525' |
+| date | str | date='20231129' |
 
 输出参数
 
@@ -21458,17 +21458,17 @@ print(stock_zt_pool_zbgc_em_df)
 
 接口: stock_zt_pool_dtgc_em
 
-目标地址: http://quote.eastmoney.com/ztb/detail#type=zbgc
+目标地址: https://quote.eastmoney.com/ztb/detail#type=zbgc
 
 描述: 东方财富网-行情中心-涨停板行情-跌停股池
 
-限量: 单次返回所有跌停股池数据; 该接口只能获取近 30 天的数据
+限量: 单次返回指定 date 的跌停股池数据；该接口只能获取近期的数据
 
 输入参数
 
 | 名称   | 类型  | 描述              |
 |------|-----|-----------------|
-| date | str | date='20231106' |
+| date | str | date='20231129' |
 
 输出参数
 

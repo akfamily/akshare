@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/7 17:00
+Date: 2023/11/29 17:00
 Desc: 首页-行情中心-涨停板行情-涨停股池
 https://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -20,10 +20,12 @@ import pandas as pd
 import requests
 
 
-def stock_zt_pool_em(date: str = "20220426") -> pd.DataFrame:
+def stock_zt_pool_em(date: str = "20231129") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-涨停股池
     https://quote.eastmoney.com/ztb/detail#type=ztgc
+    :param date: 交易日
+    :type date: str
     :return: 涨停股池
     :rtype: pandas.DataFrame
     """
@@ -103,14 +105,16 @@ def stock_zt_pool_em(date: str = "20220426") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_previous_em(date: str = "20210521") -> pd.DataFrame:
+def stock_zt_pool_previous_em(date: str = "20231129") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-昨日涨停股池
     https://quote.eastmoney.com/ztb/detail#type=zrzt
+    :param date: 交易日
+    :type date: str
     :return: 昨日涨停股池
     :rtype: pandas.DataFrame
     """
-    url = "http://push2ex.eastmoney.com/getYesterdayZTPool"
+    url = "https://push2ex.eastmoney.com/getYesterdayZTPool"
     params = {
         "ut": "7eea3edcaed734bea9cbfc24409ed989",
         "dpt": "wz.ztzt",
@@ -177,10 +181,12 @@ def stock_zt_pool_previous_em(date: str = "20210521") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_strong_em(date: str = "20210521") -> pd.DataFrame:
+def stock_zt_pool_strong_em(date: str = "20231129") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-强势股池
     https://quote.eastmoney.com/ztb/detail#type=qsgc
+    :param date: 交易日
+    :type date: str
     :return: 强势股池
     :rtype: pandas.DataFrame
     """
@@ -251,10 +257,12 @@ def stock_zt_pool_strong_em(date: str = "20210521") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_sub_new_em(date: str = "20231107") -> pd.DataFrame:
+def stock_zt_pool_sub_new_em(date: str = "20231129") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-次新股池
     https://quote.eastmoney.com/ztb/detail#type=cxgc
+    :param date: 交易日
+    :type date: str
     :return: 次新股池
     :rtype: pandas.DataFrame
     """
@@ -330,10 +338,12 @@ def stock_zt_pool_sub_new_em(date: str = "20231107") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_zbgc_em(date: str = "20231107") -> pd.DataFrame:
+def stock_zt_pool_zbgc_em(date: str = "20231129") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-炸板股池
     https://quote.eastmoney.com/ztb/detail#type=zbgc
+    :param date: 交易日
+    :type date: str
     :return: 炸板股池
     :rtype: pandas.DataFrame
     """
@@ -409,7 +419,7 @@ def stock_zt_pool_zbgc_em(date: str = "20231107") -> pd.DataFrame:
     return temp_df
 
 
-def stock_zt_pool_dtgc_em(date: str = "20231106") -> pd.DataFrame:
+def stock_zt_pool_dtgc_em(date: str = "20231129") -> pd.DataFrame:
     """
     东方财富网-行情中心-涨停板行情-跌停股池
     https://quote.eastmoney.com/ztb/detail#type=dtgc
@@ -497,20 +507,20 @@ def stock_zt_pool_dtgc_em(date: str = "20231106") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zt_pool_em_df = stock_zt_pool_em(date="20231107")
+    stock_zt_pool_em_df = stock_zt_pool_em(date="20231129")
     print(stock_zt_pool_em_df)
 
-    stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20231107")
+    stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20231129")
     print(stock_zt_pool_previous_em_df)
 
-    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20231107")
+    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20231129")
     print(stock_zt_pool_strong_em_df)
 
-    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20231107")
+    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20231129")
     print(stock_zt_pool_sub_new_em_df)
 
-    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20231107")
+    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20231129")
     print(stock_zt_pool_zbgc_em_df)
 
-    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20231103")
+    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20231129")
     print(stock_zt_pool_dtgc_em_df)
