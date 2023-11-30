@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/24 14:20
+Date: 2023/11/30 17:20
 Desc: 东方财富网站-天天基金网-基金数据-开放式基金净值
 https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc
 1.基金经理基本数据, 建议包含:基金经理代码,基金经理姓名,从业起始日期,现任基金公司,管理资产总规模,上述数据可在"基金经理列表: http://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1;scabbname;stasc 和"基金经理理档案如:http://fund.eastmoney.com/manager/30040164.html 获取.
@@ -11,6 +11,7 @@ https://fund.eastmoney.com/manager/default.html#dt14;mcreturnjson;ftall;pn20;pi1
 """
 import json
 import time
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -512,7 +513,7 @@ def fund_open_fund_info_em(
     if indicator == "分红送配详情":
         url = f"http://fundf10.eastmoney.com/fhsp_{fund}.html"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(r.text)[1]
+        temp_df = pd.read_html(StringIO(r.text))[1]
         if temp_df.iloc[0, 1] == "暂无分红信息!":
             return None
         else:
@@ -522,9 +523,9 @@ def fund_open_fund_info_em(
     if indicator == "拆分详情":
         url = f"http://fundf10.eastmoney.com/fhsp_{fund}.html"
         r = requests.get(url, headers=headers)
-        temp_df = pd.read_html(r.text)[2]
+        temp_df = pd.read_html(StringIO(r.text))[2]
         if temp_df.iloc[0, 1] == "暂无拆分信息!":
-            return None
+            return
         else:
             return temp_df
 
@@ -542,8 +543,8 @@ def fund_money_fund_daily_em() -> pd.DataFrame:
     url = "http://fund.eastmoney.com/HBJJ_pjsyl.html"
     r = requests.get(url, headers=headers)
     r.encoding = "gb2312"
-    show_day = pd.read_html(r.text)[1].iloc[0, 5:11].tolist()
-    temp_df = pd.read_html(r.text)[1].iloc[1:, 2:]
+    show_day = pd.read_html(StringIO(r.text))[1].iloc[0, 5:11].tolist()
+    temp_df = pd.read_html(StringIO(r.text))[1].iloc[1:, 2:]
     temp_df_columns = temp_df.iloc[0, :].tolist()[1:]
     temp_df = temp_df.iloc[1:, 1:]
     temp_df.columns = temp_df_columns
@@ -863,8 +864,8 @@ def fund_etf_fund_daily_em() -> pd.DataFrame:
     url = "http://fund.eastmoney.com/cnjy_dwjz.html"
     r = requests.get(url, headers=headers)
     r.encoding = "gb2312"
-    show_day = pd.read_html(r.text)[1].iloc[0, 6:10].tolist()
-    temp_df = pd.read_html(r.text)[1].iloc[1:, 2:]
+    show_day = pd.read_html(StringIO(r.text))[1].iloc[0, 6:10].tolist()
+    temp_df = pd.read_html(StringIO(r.text))[1].iloc[1:, 2:]
     temp_df_columns = temp_df.iloc[0, :].tolist()[1:]
     temp_df = temp_df.iloc[1:, 1:]
     temp_df.columns = temp_df_columns
