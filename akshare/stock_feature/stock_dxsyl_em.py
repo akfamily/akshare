@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/3 16:30
+Date: 2023/12/01 02:24
 Desc: 东方财富网-数据中心-新股数据-打新收益率
 东方财富网-数据中心-新股申购-打新收益率
 https://data.eastmoney.com/xg/xg/dxsyl.html
@@ -147,80 +147,76 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
         big_df.reset_index(inplace=True)
         big_df["index"] = big_df.index + 1
-        big_df.columns = [
-            "序号",
-            "-",
-            "代码",
-            "-",
-            "简称",
-            "申购代码",
-            "发行总数",
-            "-",
-            "发行价格",
-            "发行市盈率",
-            "申购日",
-            "发行结果公告日",
-            "上市日",
-            "网上发行数量",
-            "顶格申购所需资金",
-            "申购上限",
-            "网上申购缴款日",
-            "网上申购退款日",
-            "-",
-            "网上获配比例",
-            "最新价",
-            "首日收盘价",
-            "网下有效申购倍数",
-            "每百股获利",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-            "-",
-        ]
+
+        big_df.rename(
+            columns={
+                'ORG_CODE': '序号',
+                'SECURITY_CODE': '股票代码',
+                'SECUCODE': '代码',
+                'SECURITY_NAME_ABBR': '股票简称',
+                'APPLY_CODE': '申购代码',
+                'EXPECT_ISSUE_NUM': '总发行数量',
+                'PRICE_WAY': '定价方式',
+                'ISSUE_PRICE': '发行价格',
+                'ISSUE_PE_RATIO': '发行市盈率',
+                'APPLY_DATE': '网上发行日期',
+                'RESULT_NOTICE_DATE': '发行结果公告日期',
+                'SELECT_LISTING_DATE': '上市日',
+                'ONLINE_ISSUE_NUM': '网上发行数量',
+                'APPLY_AMT_UPPER': '网上顶格申购所需资金',
+                'APPLY_NUM_UPPER': '网上申购上限',
+                'ONLINE_PAY_DATE': '网上申购缴款日期',
+                'ONLINE_REFUND_DATE': '网上申购资金退款日',
+                'INFO_CODE': '-',
+                'ONLINE_ISSUE_LWR': '网上配售比例',
+                'NEWEST_PRICE': '最新价',
+                'CLOSE_PRICE': '首日收盘价',
+                'INITIAL_MULTIPLE': '-',
+                'PER_SHARES_INCOME': '每100股获利',
+                'LD_CLOSE_CHANGE': '首日平均涨幅',
+                'TURNOVERRATE': '首日换手率',
+                'AMPLITUDE': '首日振幅',
+                'ONLINE_APPLY_LOWER': '-',
+                'MAIN_BUSINESS': '主营业务',
+                'INDUSTRY_PE_RATIO': '行业市盈率',
+                'APPLY_AMT_100': '每获配百股需配资金',
+                'TAKE_UP_TIME': '资金占用时间',
+                'CAPTURE_PROFIT': '约合年化收益',
+                'APPLY_SHARE_100': '每获配百股需配股数',
+                'AVERAGE_PRICE': '首日均价',
+                'ORG_VAN': '参与申购人数',
+                'VA_AMT': '参与申购资金',
+                'ISSUE_PRICE_ADJFACTOR': '-'
+            },
+            inplace=True
+        )
+
         big_df = big_df[
-            [
-                "序号",
-                "代码",
-                "简称",
-                "申购代码",
-                "发行总数",
-                "网上发行数量",
-                "顶格申购所需资金",
-                "申购上限",
-                "发行价格",
-                "最新价",
-                "首日收盘价",
-                "申购日",
-                "网上申购缴款日",
-                "网上申购退款日",
-                "上市日",
-                "发行结果公告日",
-                "发行市盈率",
-                "网上获配比例",
-                "网下有效申购倍数",
-                "每百股获利",
-            ]
+            ['股票代码', '股票简称', '申购代码', '总发行数量', '定价方式', '发行价格', '发行市盈率',
+             '网上发行日期', '发行结果公告日期', '上市日', '网上发行数量', '网上顶格申购所需资金', '网上申购上限',
+             '网上申购缴款日期', '网上申购资金退款日', '网上配售比例', '最新价', '首日收盘价', '每100股获利',
+             '首日平均涨幅', '首日换手率', '首日振幅', '主营业务', '行业市盈率', '每获配百股需配资金',
+             '资金占用时间', '约合年化收益', '每获配百股需配股数', '首日均价', '参与申购人数', '参与申购资金']
         ]
-        big_df["发行总数"] = pd.to_numeric(big_df["发行总数"])
+
+        big_df["总发行数量"] = pd.to_numeric(big_df["总发行数量"])
         big_df["网上发行数量"] = pd.to_numeric(big_df["网上发行数量"])
-        big_df["顶格申购所需资金"] = pd.to_numeric(big_df["顶格申购所需资金"])
-        big_df["申购上限"] = pd.to_numeric(big_df["申购上限"])
+        big_df["网上顶格申购所需资金"] = pd.to_numeric(big_df["网上顶格申购所需资金"])
+        big_df["网上申购上限"] = pd.to_numeric(big_df["网上申购上限"])
         big_df["发行价格"] = pd.to_numeric(big_df["发行价格"])
         big_df["最新价"] = pd.to_numeric(big_df["最新价"])
         big_df["首日收盘价"] = pd.to_numeric(big_df["首日收盘价"])
         big_df["发行市盈率"] = pd.to_numeric(big_df["发行市盈率"])
-        big_df["网上获配比例"] = pd.to_numeric(big_df["网上获配比例"])
-        big_df["网下有效申购倍数"] = pd.to_numeric(big_df["网下有效申购倍数"])
-        big_df["每百股获利"] = pd.to_numeric(big_df["每百股获利"])
-
-        big_df["申购日"] = pd.to_datetime(big_df["申购日"]).dt.date
-        big_df["网上申购缴款日"] = pd.to_datetime(big_df["网上申购缴款日"]).dt.date
-        big_df["网上申购退款日"] = pd.to_datetime(big_df["网上申购退款日"]).dt.date
+        big_df["网上配售比例"] = pd.to_numeric(big_df["网上配售比例"])
+        big_df["每100股获利"] = pd.to_numeric(big_df["每100股获利"])
+        big_df["网上发行日期"] = pd.to_datetime(big_df["网上发行日期"]).dt.date
+        big_df["网上申购缴款日期"] = pd.to_datetime(big_df["网上申购缴款日期"]).dt.date
+        big_df["网上申购资金退款日"] = pd.to_datetime(big_df["网上申购资金退款日"]).dt.date
         big_df["上市日"] = pd.to_datetime(big_df["上市日"]).dt.date
-        big_df["发行结果公告日"] = pd.to_datetime(big_df["发行结果公告日"]).dt.date
+        big_df["发行结果公告日期"] = pd.to_datetime(big_df["发行结果公告日期"]).dt.date
+
         return big_df
+
     else:
         params = {
             "sortColumns": "APPLY_DATE,SECURITY_CODE",
