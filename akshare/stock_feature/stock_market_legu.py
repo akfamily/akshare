@@ -5,6 +5,8 @@ Date: 2022/11/22 11:25
 Desc: 乐咕乐股网-赚钱效应分析
 https://www.legulegu.com/stockdata/market-activity
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -19,7 +21,7 @@ def stock_market_activity_legu() -> pd.DataFrame:
     """
     url = "https://legulegu.com/stockdata/market-activity"
     r = requests.get(url)
-    temp_df = pd.read_html(r.text)[0]
+    temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df_one = temp_df.iloc[:, :2]
     temp_df_one.columns = ["item", "value"]
     temp_df_two = temp_df.iloc[:, 2:4]
@@ -38,6 +40,7 @@ def stock_market_activity_legu() -> pd.DataFrame:
     inner_temp_df.columns = ["item", "value"]
     temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
     temp_df.reset_index(inplace=True, drop=True)
+    temp_df.replace({'\n': '', '\t': ''}, regex=True, inplace=True)
     return temp_df
 
 
