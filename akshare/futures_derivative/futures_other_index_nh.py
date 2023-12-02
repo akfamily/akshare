@@ -48,19 +48,16 @@ def futures_board_index_nh(start_date: str = "20231110", end_date: str = "202311
     end_df.columns = [
         'name',
         'code',
-        'end_date',
+        end_date,
     ]
-    # 去除异常数据 IF
-    end_df = end_df[end_df['code'] != 'IF']
     end_df.reset_index(inplace=True, drop=True)
 
     # 计算数据
-    start_df[end_date] = end_df['end_date']
-    start_df['gap'] = start_df[end_date] - start_df[start_date]
-    start_df['return'] = start_df['gap'] / start_df[start_date]
-
-    temp_df = start_df
-    temp_df = temp_df[['name', 'return']]
+    start_df = start_df.merge(end_df, on=['name', 'code'], how='inner')
+    # 去除异常数据 IF
+    start_df = start_df[start_df['code'] != 'IF']
+    start_df['return'] = start_df[end_date] / start_df[start_date] - 1
+    temp_df = start_df[['name', 'return']]
 
     return temp_df
 
