@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/11/17 18:00
+Date: 2023/12/2 19:00
 Desc: 板块指数、品种指数和相关系数矩阵
 南华期货-板块指数涨跌
 https://www.nanhua.net/nhzc/platechange.html
@@ -135,7 +135,7 @@ def futures_correlation_nh(date: str = "20231110", period: str = "20") -> pd.Dat
 
 
 if __name__ == '__main__':
-    futures_board_index_nh_df = futures_board_index_nh(start_date="20231110", end_date="20231116")
+    futures_board_index_nh_df = futures_board_index_nh(start_date="20230103", end_date="20231201")
     print(futures_board_index_nh_df)
 
     futures_variety_index_nh_df = futures_variety_index_nh(start_date="20231110", end_date="20231116")
