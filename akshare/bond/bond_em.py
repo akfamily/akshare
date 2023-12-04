@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/28 18:00
+Date: 2023/12/4 14:00
 Desc: 东方财富网-数据中心-经济数据-中美国债收益率
 https://data.eastmoney.com/cjsj/zmgzsyl.html
 """
@@ -14,10 +14,12 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
     """
     东方财富网-数据中心-经济数据-中美国债收益率
     https://data.eastmoney.com/cjsj/zmgzsyl.html
+    :param start_date: 开始统计时间
+    :type start_date: str
     :return: 中美国债收益率
     :rtype: pandas.DataFrame
     """
-    url = "http://datacenter.eastmoney.com/api/data/get"
+    url = "https://datacenter.eastmoney.com/api/data/get"
     params = {
         "type": "RPTA_WEB_TREASURYYIELD",
         "sty": "ALL",
