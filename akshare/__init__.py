@@ -2601,9 +2601,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.85 fix: fix stock_market_activity_legu interface
 1.11.86 fix: fix stock_telegraph_cls interface
 1.11.87 fix: fix futures_board_index_nh interface
+1.11.88 fix: fix macro_china_swap_rate interface
 """
 
-__version__ = "1.11.87"
+__version__ = "1.11.88"
 __author__ = "AKFamily"
 
 import sys
@@ -3908,7 +3909,9 @@ from akshare.news.news_cctv import news_cctv
 """
 from akshare.bond.bond_china_money import (
     bond_china_close_return,
+    macro_china_swap_rate,
     bond_china_close_return_map,
+
 )
 
 """
@@ -4852,7 +4855,6 @@ from akshare.economic.macro_china import (
     macro_china_central_bank_balance,
     macro_china_insurance,
     macro_china_supply_of_money,
-    macro_china_swap_rate,
     macro_china_foreign_exchange_gold,
     macro_china_retail_price_index,
     macro_china_real_estate,

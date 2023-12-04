@@ -3983,124 +3983,6 @@ def macro_china_supply_of_money() -> pd.DataFrame:
     return big_df
 
 
-def macro_china_swap_rate(
-        start_date: str = "20221027", end_date: str = "20221127"
-) -> pd.DataFrame:
-    """
-    FR007利率互换曲线历史数据; 只能获取近一年的数据
-    https://www.chinamoney.com.cn/chinese/bkcurvfxhis/?cfgItemType=72&curveType=FR007
-    :param start_date: 开始日期, 开始和结束日期不得超过一个月
-    :type start_date: str
-    :param end_date: 结束日期, 开始和结束日期不得超过一个月
-    :type end_date: str
-    :return: FR007利率互换曲线历史数据
-    :rtype: pandas.DataFrame
-    """
-    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
-    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
-    url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bk-shibor/IfccHis"
-    params = {
-        "cfgItemType": "72",
-        "interestRateType": "0",
-        "startDate": start_date,
-        "endDate": end_date,
-        "bidAskType": "",
-        "lang": "CN",
-        "quoteTime": "全部",
-        "pageSize": "5000",
-        "pageNum": "1",
-    }
-    headers = {
-        "Accept": "application/json, text/javascript, */*; q=0.01",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
-        "Content-Length": "0",
-        "Host": "www.chinamoney.com.cn",
-        "Origin": "https://www.chinamoney.com.cn",
-        "Pragma": "no-cache",
-        "Referer": "https://www.chinamoney.com.cn/chinese/bkcurvfxhis/?cfgItemType=72&curveType=FR007",
-        "sec-ch-ua": '"Google Chrome";v="107", "Chromium";v="107", "Not=A?Brand";v="24"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest",
-    }
-    r = requests.post(url, data=params, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["records"])
-    temp_df.columns = [
-        "日期",
-        "_",
-        "_",
-        "时刻",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "价格类型",
-        "_",
-        "曲线名称",
-        "_",
-        "_",
-        "_",
-        "_",
-        "data",
-    ]
-    price_df = pd.DataFrame([item for item in temp_df["data"]])
-    price_df.columns = [
-        "1M",
-        "3M",
-        "6M",
-        "9M",
-        "1Y",
-        "2Y",
-        "3Y",
-        "4Y",
-        "5Y",
-        "7Y",
-        "10Y",
-    ]
-    big_df = pd.concat([temp_df, price_df], axis=1)
-    big_df = big_df[
-        [
-            "日期",
-            "曲线名称",
-            "时刻",
-            "价格类型",
-            "1M",
-            "3M",
-            "6M",
-            "9M",
-            "1Y",
-            "2Y",
-            "3Y",
-            "4Y",
-            "5Y",
-            "7Y",
-            "10Y",
-        ]
-    ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["1M"] = pd.to_numeric(big_df["1M"], errors="coerce")
-    big_df["3M"] = pd.to_numeric(big_df["3M"], errors="coerce")
-    big_df["6M"] = pd.to_numeric(big_df["6M"], errors="coerce")
-    big_df["9M"] = pd.to_numeric(big_df["9M"], errors="coerce")
-    big_df["1Y"] = pd.to_numeric(big_df["1Y"], errors="coerce")
-    big_df["2Y"] = pd.to_numeric(big_df["2Y"], errors="coerce")
-    big_df["3Y"] = pd.to_numeric(big_df["3Y"], errors="coerce")
-    big_df["4Y"] = pd.to_numeric(big_df["4Y"], errors="coerce")
-    big_df["5Y"] = pd.to_numeric(big_df["5Y"], errors="coerce")
-    big_df["7Y"] = pd.to_numeric(big_df["7Y"], errors="coerce")
-    big_df["10Y"] = pd.to_numeric(big_df["10Y"], errors="coerce")
-    return big_df
-
-
 def macro_china_foreign_exchange_gold() -> pd.DataFrame:
     """
     央行黄金和外汇储备
@@ -4416,11 +4298,6 @@ if __name__ == "__main__":
 
     macro_china_supply_of_money_df = macro_china_supply_of_money()
     print(macro_china_supply_of_money_df)
-
-    macro_china_swap_rate_df = macro_china_swap_rate(
-        start_date="20220906", end_date="20221006"
-    )
-    print(macro_china_swap_rate_df)
 
     macro_china_foreign_exchange_gold_df = macro_china_foreign_exchange_gold()
     print(macro_china_foreign_exchange_gold_df)
