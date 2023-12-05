@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/7 14:00
+Date: 2023/12/5 19:00
 Desc: 国泰君安期货-交易日历数据表
 https://www.gtjaqh.com/pc/calendar.html
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 
 
-def futures_rule(date: str = "20221027") -> pd.DataFrame:
+def futures_rule(date: str = "20231205") -> pd.DataFrame:
     """
     国泰君安期货-交易日历数据表
     https://www.gtjaqh.com/pc/calendar.html
@@ -18,10 +20,12 @@ def futures_rule(date: str = "20221027") -> pd.DataFrame:
     :return: 交易日历数据
     :rtype: pandas.DataFrame
     """
+    import urllib3
+    urllib3.disable_warnings()
     url = " https://www.gtjaqh.com/pc/calendar"
     params = {"date": f"{date}"}
-    r = requests.get(url, params=params)
-    big_df = pd.read_html(r.text, header=1)[0]
+    r = requests.get(url, params=params, verify=False)
+    big_df = pd.read_html(StringIO(r.text), header=1)[0]
     big_df["交易保证金比例"] = big_df["交易保证金比例"].str.strip("%")
     big_df["交易保证金比例"] = pd.to_numeric(big_df["交易保证金比例"], errors="coerce")
     big_df["涨跌停板幅度"] = big_df["涨跌停板幅度"].str.strip("%")
@@ -33,5 +37,5 @@ def futures_rule(date: str = "20221027") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_rule_df = futures_rule(date="20221228")
+    futures_rule_df = futures_rule(date="20231205")
     print(futures_rule_df)
