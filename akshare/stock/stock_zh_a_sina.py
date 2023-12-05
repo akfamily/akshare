@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/27 21:20
+Date: 2023/12/5 19:20
 Desc: 新浪财经-A股-实时行情数据和历史行情数据(包含前复权和后复权因子)
 https://finance.sina.com.cn/realstock/company/sh689009/nc.shtml
 """
@@ -98,7 +98,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
         "最低",
         "成交量",
         "成交额",
-        "_",
+        "时间戳",
         "_",
         "_",
         "_",
@@ -120,6 +120,7 @@ def stock_zh_a_spot() -> pd.DataFrame:
             "最低",
             "成交量",
             "成交额",
+            "时间戳",
         ]
     ]
     return big_df
