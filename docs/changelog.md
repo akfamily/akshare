@@ -70,6 +70,10 @@
 
 ## 更新说明详情
 
+1.11.91 fix: remove stock_us_fundamental interface
+
+    1. 移除 stock_us_fundamental 接口
+
 1.11.90 fix: fix futures_rule interface
 
     1. 修复 futures_rule 接口
@@ -3220,6 +3224,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.91 fix: remove stock_us_fundamental interface
 
 1.11.90 fix: fix futures_rule interface
 
