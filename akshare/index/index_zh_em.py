@@ -237,7 +237,7 @@ def index_zh_a_hist_min_em(
 ) -> pd.DataFrame:
     """
     东方财富网-指数数据-每日分时行情
-    https://quote.eastmoney.com/concept/sh603777.html
+    https://quote.eastmoney.com/center/hszs.html
     :param symbol: 指数代码
     :type symbol: str
     :param period: choice of {'1', '5', '15', '30', '60'}
