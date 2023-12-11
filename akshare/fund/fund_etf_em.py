@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/18 17:40
+Date: 2023/12/11 22:40
 Desc: 东方财富-ETF行情
 https://quote.eastmoney.com/sh513500.html
 """
@@ -119,11 +119,11 @@ def fund_etf_spot_em() -> pd.DataFrame:
 
 
 def fund_etf_hist_em(
-    symbol: str = "159707",
-    period: str = "daily",
-    start_date: str = "19700101",
-    end_date: str = "20500101",
-    adjust: str = "",
+        symbol: str = "159707",
+        period: str = "daily",
+        start_date: str = "19700101",
+        end_date: str = "20500101",
+        adjust: str = "",
 ) -> pd.DataFrame:
     """
     东方财富-ETF行情
@@ -186,7 +186,7 @@ def fund_etf_hist_em(
         "涨跌额",
         "换手率",
     ]
-    temp_df.index = pd.to_datetime(temp_df["日期"])
+    temp_df.index = pd.to_datetime(temp_df["日期"], errors="coerce")
     temp_df.reset_index(inplace=True, drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
@@ -202,11 +202,11 @@ def fund_etf_hist_em(
 
 
 def fund_etf_hist_min_em(
-    symbol: str = "159707",
-    start_date: str = "1979-09-01 09:32:00",
-    end_date: str = "2222-01-01 09:32:00",
-    period: str = "5",
-    adjust: str = "",
+        symbol: str = "159707",
+        start_date: str = "1979-09-01 09:32:00",
+        end_date: str = "2222-01-01 09:32:00",
+        period: str = "5",
+        adjust: str = "",
 ) -> pd.DataFrame:
     """
     东方财富-ETF 行情
@@ -225,6 +225,12 @@ def fund_etf_hist_min_em(
     :rtype: pandas.DataFrame
     """
     code_id_dict = _fund_etf_code_id_map_em()
+    # 商品期货类 ETF
+    code_id_dict.update({
+        "159980": "0",
+        "159981": "0",
+        "159985": "0",
+    })
     adjust_map = {
         "": "0",
         "qfq": "1",
@@ -354,10 +360,10 @@ if __name__ == "__main__":
     print(fund_etf_hist_qfq_em_df)
 
     fund_etf_hist_em_df = fund_etf_hist_em(
-        symbol="513500",
+        symbol="159985",
         period="daily",
         start_date="20000101",
-        end_date="20230201",
+        end_date="20231211",
         adjust="",
     )
     print(fund_etf_hist_em_df)
@@ -366,7 +372,7 @@ if __name__ == "__main__":
         symbol="513500",
         period="5",
         adjust="hfq",
-        start_date="2023-07-01 09:32:00",
-        end_date="2023-07-04 14:40:00",
+        start_date="2023-12-11 09:32:00",
+        end_date="2023-12-11 17:40:00",
     )
     print(fund_etf_hist_min_em_df)
