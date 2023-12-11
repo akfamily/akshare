@@ -70,6 +70,11 @@
 
 ## 更新说明详情
 
+1.11.93 fix: fix stock_zh_a_hist_pre_min_em interface
+
+    1. 修复 stock_zh_a_hist_pre_min_em 接口
+    2. 修复 stock_intraday_sina 接口
+
 1.11.92 fix: fix get_gfex_receipt interface
 
     1. 修复 get_gfex_receipt 接口
@@ -3228,6 +3233,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.11.93 fix: fix stock_zh_a_hist_pre_min_em interface
 
 1.11.92 fix: fix get_gfex_receipt interface
 
