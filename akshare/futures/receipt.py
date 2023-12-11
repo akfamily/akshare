@@ -348,11 +348,11 @@ def get_gfex_receipt(date: str = None, vars_list: List = cons.contract_symbols) 
     :rtype: pandas.DataFrame
     """
     if not isinstance(vars_list, list):
-        return warnings.warn("vars_list: 必须是列表")
+        raise warnings.warn("vars_list: 必须是列表")
     date = cons.convert_date(date) if date is not None else datetime.date.today()
     if date.strftime('%Y%m%d') not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
-        return None
+        return pd.DataFrame()
     url = "http://www.gfex.com.cn/u/interfacesWebTdWbillWeeklyQuotes/loadList"
     payload = {
         "gen_date": date.isoformat().replace("-", "")
@@ -376,12 +376,16 @@ def get_gfex_receipt(date: str = None, vars_list: List = cons.contract_symbols) 
     r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['data'])
-    result_se = temp_df[['wbillQty', 'diff']].iloc[-1, :]
-    result_se.index = ['receipt', 'receipt_chg']
-    result_se['date'] = date.isoformat().replace("-", "")
-    result_se['var'] = "SI"
-    result_df = result_se.to_frame().T
-    result_df.reset_index(drop=True)
+    temp_df = temp_df[temp_df['variety'].str.contains("小计")]
+    result_df = temp_df[['wbillQty', 'diff']].copy()
+    result_df.loc[:, 'date'] = date.isoformat().replace("-", "")
+    result_df.loc[:, 'var'] = [item.upper() for item in temp_df['varietyOrder'].tolist()]
+
+    result_df.reset_index(drop=True, inplace=True)
+    result_df.rename(columns={
+        "wbillQty": "receipt",
+        "diff": "receipt_chg",
+    }, inplace=True)
     result_df = result_df[[
         'var', 'receipt', 'receipt_chg', 'date'
     ]]
@@ -454,5 +458,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20231124', end_day='20231124')
+    get_receipt_df = get_receipt(start_day='20231205', end_day='20231210')
     print(get_receipt_df)

@@ -2605,9 +2605,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.89 fix: fix bond_zh_us_rate interface
 1.11.90 fix: fix futures_rule interface
 1.11.91 fix: remove stock_us_fundamental interface
+1.11.92 fix: fix get_gfex_receipt interface
 """
 
-__version__ = "1.11.91"
+__version__ = "1.11.92"
 __author__ = "AKFamily"
 
 import sys
