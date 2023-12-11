@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/8 18:00
+Date: 2023/12/11 17:00
 Desc: 新浪财经-日内分时数据
 https://quote.eastmoney.com/f1.html?newcode=0.000001
 """
@@ -9,7 +9,7 @@ import math
 
 import pandas as pd
 import requests
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_intraday_sina(symbol: str = "sz000001", date: str = "20231108") -> pd.DataFrame:
@@ -44,6 +44,7 @@ def stock_intraday_sina(symbol: str = "sz000001", date: str = "20231108") -> pd.
     total_page = math.ceil(int(data_json) / 60)
     url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/CN_Bill.GetBillList"
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({'page': page})
         r = requests.get(url=url, params=params, headers=headers)
