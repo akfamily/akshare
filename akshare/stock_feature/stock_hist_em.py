@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/8 17:00
+Date: 2023/12/11 17:00
 Desc: 东方财富网-行情首页-沪深京 A 股
 https://quote.eastmoney.com/
 """
@@ -1901,7 +1901,7 @@ if __name__ == "__main__":
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454", period="1")
     print(stock_zh_a_hist_min_em_df)
 
-    stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="833454")
+    stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="000001")
     print(stock_zh_a_hist_pre_min_em_df)
 
     stock_hk_hist_df = stock_hk_hist(
