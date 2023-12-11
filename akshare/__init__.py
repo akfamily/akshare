@@ -2629,7 +2629,6 @@ if sys.version_info < (3, 9):
     warnings.warn(
         "为了支持更多特性，请将 Python 升级到 3.9 及以上版本！"
     )
-    # sys.exit(1)
 
 del sys
 

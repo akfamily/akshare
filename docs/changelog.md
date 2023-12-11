@@ -73,6 +73,7 @@
 1.11.94 fix: fix index_zh_a_hist_min_em interface
 
     1. 修复 index_zh_a_hist_min_em 接口
+    2. 修复 index_zh_a_hist 接口
 
 1.11.93 fix: fix stock_zh_a_hist_pre_min_em interface
 
