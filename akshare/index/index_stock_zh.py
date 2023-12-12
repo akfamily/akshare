@@ -41,7 +41,7 @@ def _replace_comma(x):
 def get_zh_index_page_count() -> int:
     """
     指数的总页数
-    http://vip.stock.finance.sina.com.cn/mkt/#hs_s
+    https://vip.stock.finance.sina.com.cn/mkt/#hs_s
     :return: 需要抓取的指数的总页数
     :rtype: int
     """
@@ -141,7 +141,7 @@ def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
     return temp_df
 
 
-def _get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
+def get_tx_start_year(symbol: str = "sh000919") -> pd.DataFrame:
     """
     腾讯证券-获取所有股票数据的第一天, 注意这个数据是腾讯证券的历史数据第一天
     https://gu.qq.com/sh000919/zs
@@ -187,7 +187,7 @@ def stock_zh_index_daily_tx(symbol: str = "sz980017") -> pd.DataFrame:
     :return: 前复权的股票和指数数据
     :rtype: pandas.DataFrame
     """
-    start_date = _get_tx_start_year(symbol=symbol)
+    start_date = get_tx_start_year(symbol=symbol)
     url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
     range_start = int(start_date.split("-")[0])
     range_end = datetime.date.today().year + 1
