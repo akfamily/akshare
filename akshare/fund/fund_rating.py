@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/4 16:48
+Date: 2023/12/12 16:30
 Desc: 基金评级
 https://fund.eastmoney.com/data/fundrating.html
 """
@@ -52,6 +52,7 @@ def fund_rating_all() -> pd.DataFrame:
         "济安金信",
         "-",
         "手续费",
+        "-",
         "-",
         "-",
         "-",
@@ -160,7 +161,6 @@ def fund_rating_sh(date: str = "20230630") -> pd.DataFrame:
         ]
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-
     temp_df["3年期评级-3年评级"] = pd.to_numeric(temp_df["3年期评级-3年评级"], errors="coerce")
     temp_df["3年期评级-较上期"] = pd.to_numeric(temp_df["3年期评级-较上期"], errors="coerce")
     temp_df["5年期评级-5年评级"] = pd.to_numeric(temp_df["5年期评级-5年评级"], errors="coerce")
@@ -246,7 +246,6 @@ def fund_rating_zs(date: str = "20230331") -> pd.DataFrame:
         ]
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-
     temp_df["3年期评级-3年评级"] = pd.to_numeric(temp_df["3年期评级-3年评级"], errors="coerce")
     temp_df["3年期评级-较上期"] = pd.to_numeric(temp_df["3年期评级-较上期"], errors="coerce")
     temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"], errors="coerce")
@@ -331,7 +330,6 @@ def fund_rating_ja(date: str = "20230331") -> pd.DataFrame:
         ]
     ]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
-
     temp_df["3年期评级-3年评级"] = pd.to_numeric(temp_df["3年期评级-3年评级"], errors="coerce")
     temp_df["3年期评级-较上期"] = pd.to_numeric(temp_df["3年期评级-较上期"], errors="coerce")
     temp_df["单位净值"] = pd.to_numeric(temp_df["单位净值"], errors="coerce")
