@@ -9,6 +9,7 @@ import math
 
 import pandas as pd
 import requests
+
 from akshare.utils.tqdm import get_tqdm
 
 
@@ -59,5 +60,5 @@ def stock_intraday_sina(symbol: str = "sz000001", date: str = "20231108") -> pd.
 
 
 if __name__ == "__main__":
-    stock_intraday_sina_df = stock_intraday_sina(symbol="sz000001", date="20231108")
+    stock_intraday_sina_df = stock_intraday_sina(symbol="sz000001", date="20231212")
     print(stock_intraday_sina_df)

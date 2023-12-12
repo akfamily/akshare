@@ -9,10 +9,10 @@ import datetime
 
 import pandas as pd
 import requests
-from tqdm import tqdm
 
-from akshare.index.index_stock_zh import _get_tx_start_year
+from akshare.index.index_stock_zh import get_tx_start_year
 from akshare.utils import demjson
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_zh_a_hist_tx(
@@ -38,7 +38,7 @@ def stock_zh_a_hist_tx(
     :return: 前复权的股票和指数数据
     :rtype: pandas.DataFrame
     """
-    init_start_date = _get_tx_start_year(symbol=symbol)
+    init_start_date = get_tx_start_year(symbol=symbol)
     if int(start_date.replace("-", "")) < int(init_start_date.replace("-", "")):
         start_date = init_start_date
     url = "https://proxy.finance.qq.com/ifzqgtimg/appstock/app/newfqkline/get"
@@ -48,6 +48,7 @@ def stock_zh_a_hist_tx(
     else:
         range_end = int(end_date.split("-")[0]) + 1
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for year in tqdm(range(range_start, range_end), leave=False):
         params = {
             "_var": f"kline_day{adjust}{year}",
@@ -66,7 +67,6 @@ def stock_zh_a_hist_tx(
         else:
             temp_df = pd.DataFrame(data_json["qfqday"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-
     big_df = big_df.iloc[:, :6]
     big_df.columns = ["date", "open", "close", "high", "low", "amount"]
     big_df["date"] = pd.to_datetime(big_df["date"], errors="coerce").dt.date
@@ -79,10 +79,10 @@ def stock_zh_a_hist_tx(
     big_df.index = pd.to_datetime(big_df["date"])
     big_df = big_df[start_date:end_date]
     big_df.reset_index(inplace=True, drop=True)
-
     return big_df
 
 
 if __name__ == "__main__":
-    stock_zh_a_hist_tx_df = stock_zh_a_hist_tx(symbol="sz000001", start_date="20200101", end_date="20231027", adjust="hfq")
+    stock_zh_a_hist_tx_df = stock_zh_a_hist_tx(symbol="sz000001", start_date="20200101", end_date="20231027",
+                                               adjust="hfq")
     print(stock_zh_a_hist_tx_df)
