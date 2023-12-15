@@ -12,7 +12,7 @@
 ### 通用安装
 
 ```
-pip install akshare  --upgrade
+pip install akshare --upgrade
 ```
 
 注意：程序运行时，文件名、文件夹名不能是：akshare
@@ -20,13 +20,13 @@ pip install akshare  --upgrade
 ### 国内安装-Python
 
 ```
-pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
+pip install akshare --upgrade -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ### 国内安装-Anaconda
 
 ```
-pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --user  --upgrade
+pip install akshare --upgrade --user -i https://pypi.tuna.tsinghua.edu.cn/simple 
 ```
 
 ## 升级 [AKShare](https://github.com/akfamily/akshare)
@@ -49,7 +49,7 @@ pip install akshare --upgrade -i https://pypi.org/simple
 2. 通过 `sudo apt-get install python3-venv` 安装虚拟环境支持
 3. 通过 `python3 -m venv myenv` 创建名为 `myenv` 的虚拟环境
 4. 通过 `source myenv/bin/activate` 来激活创建好的虚拟环境
-5. 通过 `pip install akshare` 来安装 AKShare
+5. 通过 `pip install akshare --upgrade` 来安装和升级 AKShare 到最新版本
 
 ## R 语言调用支持
 
