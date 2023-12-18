@@ -86,5 +86,5 @@ def stock_report_disclosure(
 
 
 if __name__ == "__main__":
-    stock_report_disclosure_df = stock_report_disclosure(market="北交所", period="2021年报")
+    stock_report_disclosure_df = stock_report_disclosure(market="沪深京", period="2022年报")
     print(stock_report_disclosure_df)
