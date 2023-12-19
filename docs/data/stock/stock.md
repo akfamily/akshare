@@ -7912,24 +7912,24 @@ print(stock_zh_a_disclosure_report_cninfo_df)
 ```python
 import akshare as ak
 
-stock_zh_a_disclosure_relation_cninfo_df = ak.stock_zh_a_disclosure_relation_cninfo(symbol="000001", market="沪深京", start_date="20230618", end_date="20231219")
+stock_zh_a_disclosure_relation_cninfo_df = ak.stock_zh_a_disclosure_relation_cninfo(symbol="000001", market="沪深京", start_date="20230619", end_date="20231220")
 print(stock_zh_a_disclosure_relation_cninfo_df)
 ```
 
 数据示例
 
 ```
-    代码    简称  ...        公告时间                          公告链接
-0  000001  平安银行  ...  2023-11-08  finalpage/2023-11-08/1218282445.PDF
-1  000001  平安银行  ...  2023-11-01  finalpage/2023-11-01/1218229997.PDF
-2  000001  平安银行  ...  2023-10-24  finalpage/2023-10-24/1218135586.PDF
-3  000001  平安银行  ...  2023-10-24  finalpage/2023-10-24/1218135585.PDF
-4  000001  平安银行  ...  2023-10-24  finalpage/2023-10-24/1218135582.PDF
-5  000001  平安银行  ...  2023-10-24  finalpage/2023-10-24/1218135583.PDF
-6  000001  平安银行  ...  2023-08-23  finalpage/2023-08-23/1217616708.PDF
-7  000001  平安银行  ...  2023-08-23  finalpage/2023-08-23/1217616707.PDF
-8  000001  平安银行  ...  2023-08-23  finalpage/2023-08-23/1217616706.PDF
-9  000001  平安银行  ...  2023-08-23  finalpage/2023-08-23/1217616705.PDF
+   代码    简称  ...        公告时间                               公告链接
+0  000001  平安银行  ...  2023-11-08  http://www.cninfo.com.cn/new/disclosure/detail...
+1  000001  平安银行  ...  2023-11-01  http://www.cninfo.com.cn/new/disclosure/detail...
+2  000001  平安银行  ...  2023-10-24  http://www.cninfo.com.cn/new/disclosure/detail...
+3  000001  平安银行  ...  2023-10-24  http://www.cninfo.com.cn/new/disclosure/detail...
+4  000001  平安银行  ...  2023-10-24  http://www.cninfo.com.cn/new/disclosure/detail...
+5  000001  平安银行  ...  2023-10-24  http://www.cninfo.com.cn/new/disclosure/detail...
+6  000001  平安银行  ...  2023-08-23  http://www.cninfo.com.cn/new/disclosure/detail...
+7  000001  平安银行  ...  2023-08-23  http://www.cninfo.com.cn/new/disclosure/detail...
+8  000001  平安银行  ...  2023-08-23  http://www.cninfo.com.cn/new/disclosure/detail...
+9  000001  平安银行  ...  2023-08-23  http://www.cninfo.com.cn/new/disclosure/detail...
 [10 rows x 5 columns]
 ```
 
