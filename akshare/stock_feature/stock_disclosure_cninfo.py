@@ -248,6 +248,6 @@ if __name__ == "__main__":
     stock_zh_a_disclosure_relation_cninfo_df = stock_zh_a_disclosure_relation_cninfo(
         symbol="000001",
         market="沪深京",
-        start_date="20231201",
+        start_date="20230619",
         end_date="20231220")
     print(stock_zh_a_disclosure_relation_cninfo_df)
