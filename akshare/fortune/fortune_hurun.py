@@ -1,21 +1,22 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/1/16 20:00
+Date: 2023/12/22 20:00
 Desc: 胡润排行榜
 https://www.hurun.net/
 """
+import warnings
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-import warnings
 
 
-def hurun_rank(indicator: str = "胡润百富榜", year: str = "2018") -> pd.DataFrame:
+def hurun_rank(indicator: str = "胡润百富榜", year: str = "2023") -> pd.DataFrame:
     """
     胡润排行榜
     https://www.hurun.net/CN/HuList/Index?num=3YwKs889SRIm
-    :param indicator: choice of {"胡润百富榜", "胡润全球富豪榜", "胡润印度榜", "胡润全球独角兽榜", "中国瞪羚企业榜", "全球瞪羚企业榜", "胡润Under30s创业领袖榜", "胡润中国500强民营企业", "胡润世界500强", "胡润艺术榜"}
+    :param indicator: choice of {"胡润百富榜", "胡润全球富豪榜", "胡润印度榜", "胡润全球独角兽榜", "全球瞪羚企业榜", "胡润Under30s创业领袖榜", "胡润中国500强民营企业", "胡润世界500强", "胡润艺术榜"}
     :type indicator: str
     :param year: 指定年份; {"胡润百富榜": "2014-至今", "胡润全球富豪榜": "2019-至今", "胡润印度榜": "2018-至今", "胡润全球独角兽榜": "2019-至今", "中国瞪羚企业榜": "2021-至今", "全球瞪羚企业榜": "2021-至今", "胡润Under30s创业领袖榜": "2019-至今", "胡润中国500强民营企业": "2019-至今", "胡润世界500强": "2020-至今", "胡润艺术榜": "2019-至今"}
     :type year: str
@@ -26,13 +27,13 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2018") -> pd.Dat
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     url_list = []
-    for item in soup.find_all("div", attrs={"aria-labelledby": "dropdownMenuLink1"}):
+    for item in soup.find_all("ul", attrs={"class": "dropdown-menu"}):
         for inner_item in item.find_all("a"):
             url_list.append("https://www.hurun.net" + inner_item["href"])
     name_list = []
-    for item in soup.find_all("div", attrs={"aria-labelledby": "dropdownMenuLink1"}):
+    for item in soup.find_all("ul", attrs={"class": "dropdown-menu"}):
         for inner_item in item.find_all("a"):
-            name_list.append(inner_item.text)
+            name_list.append(inner_item.text.strip())
 
     name_url_map = dict(zip(name_list, url_list))
     r = requests.get(name_url_map[indicator])
@@ -311,19 +312,16 @@ def hurun_rank(indicator: str = "胡润百富榜", year: str = "2018") -> pd.Dat
 
 
 if __name__ == "__main__":
-    hurun_rank_df = hurun_rank(indicator="胡润百富榜", year="2022")
+    hurun_rank_df = hurun_rank(indicator="胡润百富榜", year="2023")
     print(hurun_rank_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润全球富豪榜", year="2022")
+    hurun_rank_df = hurun_rank(indicator="胡润全球富豪榜", year="2023")
+    print(hurun_rank_df)
+
+    hurun_rank_df = hurun_rank(indicator="胡润全球独角兽榜", year="2023")
     print(hurun_rank_df)
 
     hurun_rank_df = hurun_rank(indicator="胡润印度榜", year="2021")
-    print(hurun_rank_df)
-
-    hurun_rank_df = hurun_rank(indicator="胡润全球独角兽榜", year="2021")
-    print(hurun_rank_df)
-
-    hurun_rank_df = hurun_rank(indicator="中国瞪羚企业榜", year="2021")
     print(hurun_rank_df)
 
     hurun_rank_df = hurun_rank(indicator="全球瞪羚企业榜", year="2021")
@@ -332,11 +330,8 @@ if __name__ == "__main__":
     hurun_rank_df = hurun_rank(indicator="胡润Under30s创业领袖榜", year="2021")
     print(hurun_rank_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润中国500强民营企业", year="2021")
+    hurun_rank_df = hurun_rank(indicator="胡润世界500强", year="2022")
     print(hurun_rank_df)
 
-    hurun_rank_df = hurun_rank(indicator="胡润世界500强", year="2021")
-    print(hurun_rank_df)
-
-    hurun_rank_df = hurun_rank(indicator="胡润艺术榜", year="2021")
+    hurun_rank_df = hurun_rank(indicator="胡润艺术榜", year="2023")
     print(hurun_rank_df)
