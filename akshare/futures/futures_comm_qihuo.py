@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/21 16:30
+Date: 2023/12/22 11:20
 Desc: 九期网-期货手续费
 https://www.9qihuo.com/qihuoshouxufei
 """
@@ -24,33 +24,29 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     :rtype: pandas.DataFrame
     """
     common_temp_df = df.copy()
-
     common_temp_df["合约名称"] = (
         common_temp_df["合约品种"].str.split("(", expand=True).iloc[:, 0].str.strip()
     )
     common_temp_df["合约代码"] = (
         common_temp_df["合约品种"].str.split("(", expand=True).iloc[:, 1].str.strip(")")
     )
-
     common_temp_df["涨停板"] = (
         common_temp_df["涨/跌停板"].str.split("/", expand=True).iloc[:, 0].str.strip()
     )
     common_temp_df["跌停板"] = (
         common_temp_df["涨/跌停板"].str.split("/", expand=True).iloc[:, 1].str.strip()
     )
-
     common_temp_df["保证金-买开"] = common_temp_df["保证金-买开"].str.strip("%")
     common_temp_df["保证金-卖开"] = common_temp_df["保证金-卖开"].str.strip("%")
     common_temp_df["保证金-每手"] = common_temp_df["保证金-保证金/每手"].str.strip("元")
     common_temp_df["手续费"] = common_temp_df["手续费(开+平)"].str.strip("元")
-
     try:
         temp_df_ratio = (
-            common_temp_df["手续费标准-开仓"][common_temp_df["手续费标准-开仓"].str.contains("万分之")]
-            .str.split("/", expand=True)
-            .iloc[:, 0]
-            .astype(float)
-            / 10000
+                common_temp_df["手续费标准-开仓"][common_temp_df["手续费标准-开仓"].str.contains("万分之")]
+                .str.split("/", expand=True)
+                .iloc[:, 0]
+                .astype(float)
+                / 10000
         )
     except IndexError as e:
         temp_df_ratio = pd.NA
@@ -59,14 +55,13 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     ]
     common_temp_df["手续费标准-开仓-万分之"] = temp_df_ratio
     common_temp_df["手续费标准-开仓-元"] = temp_df_yuan.str.strip("元")
-
     try:
         temp_df_ratio = (
-            common_temp_df["手续费标准-平昨"][common_temp_df["手续费标准-平昨"].str.contains("万分之")]
-            .str.split("/", expand=True)
-            .iloc[:, 0]
-            .astype(float)
-            / 10000
+                common_temp_df["手续费标准-平昨"][common_temp_df["手续费标准-平昨"].str.contains("万分之")]
+                .str.split("/", expand=True)
+                .iloc[:, 0]
+                .astype(float)
+                / 10000
         )
     except IndexError as e:
         temp_df_ratio = pd.NA
@@ -75,14 +70,13 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     ]
     common_temp_df["手续费标准-平昨-万分之"] = temp_df_ratio
     common_temp_df["手续费标准-平昨-元"] = temp_df_yuan.str.strip("元")
-
     try:
         temp_df_ratio = (
-            common_temp_df["手续费标准-平今"][common_temp_df["手续费标准-平今"].str.contains("万分之")]
-            .str.split("/", expand=True)
-            .iloc[:, 0]
-            .astype(float)
-            / 10000
+                common_temp_df["手续费标准-平今"][common_temp_df["手续费标准-平今"].str.contains("万分之")]
+                .str.split("/", expand=True)
+                .iloc[:, 0]
+                .astype(float)
+                / 10000
         )
     except IndexError as e:
         temp_df_ratio = pd.NA
@@ -91,7 +85,6 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     ]
     common_temp_df["手续费标准-平今-万分之"] = temp_df_ratio
     common_temp_df["手续费标准-平今-元"] = temp_df_yuan.str.strip("元")
-
     del common_temp_df["手续费标准-开仓"]
     del common_temp_df["手续费标准-平昨"]
     del common_temp_df["手续费标准-平今"]
@@ -123,7 +116,6 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
             "备注",
         ]
     ]
-
     common_temp_df["现价"] = pd.to_numeric(common_temp_df["现价"])
     common_temp_df["涨停板"] = pd.to_numeric(common_temp_df["涨停板"])
     common_temp_df["跌停板"] = pd.to_numeric(common_temp_df["跌停板"])
@@ -136,7 +128,6 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     common_temp_df["每跳毛利"] = pd.to_numeric(common_temp_df["每跳毛利"])
     common_temp_df["手续费"] = pd.to_numeric(common_temp_df["手续费"])
     common_temp_df["每跳净利"] = pd.to_numeric(common_temp_df["每跳净利"])
-
     url = "http://www.9qihuo.com/qihuoshouxufei"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
@@ -145,7 +136,6 @@ def _futures_comm_qihuo_process(df: pd.DataFrame, name: str = None) -> pd.DataFr
     price_update_time = raw_date_text.split("，")[1].strip("价格更新时间：").strip("。）")
     common_temp_df["手续费更新时间"] = comm_update_time
     common_temp_df["价格更新时间"] = price_update_time
-
     return common_temp_df
 
 
@@ -184,14 +174,12 @@ def futures_comm_info(symbol: str = "所有") -> pd.DataFrame:
     df_3 = temp_df[temp_df["合约品种"].str.contains("上海国际能源交易中心")].index.values[0]
     df_4 = temp_df[temp_df["合约品种"].str.contains("广州期货交易所")].index.values[0]
     df_5 = temp_df[temp_df["合约品种"].str.contains("中国金融期货交易所")].index.values[0]
-
-    shfe_df = temp_df.iloc[df_0 + 3 : df_1, :].reset_index(drop=True)
-    dce_df = temp_df.iloc[df_1 + 3 : df_2, :].reset_index(drop=True)
-    czce_df = temp_df.iloc[df_2 + 3 : df_3, :].reset_index(drop=True)
-    ine_df = temp_df.iloc[df_3 + 3 : df_4, :].reset_index(drop=True)
-    gfex_df = temp_df.iloc[df_4 + 3 : df_5, :].reset_index(drop=True)
-    cffex_df = temp_df.iloc[df_5 + 3 :, :].reset_index(drop=True)
-
+    shfe_df = temp_df.iloc[df_0 + 3: df_1, :].reset_index(drop=True)
+    dce_df = temp_df.iloc[df_1 + 3: df_2, :].reset_index(drop=True)
+    czce_df = temp_df.iloc[df_2 + 3: df_3, :].reset_index(drop=True)
+    ine_df = temp_df.iloc[df_3 + 3: df_4, :].reset_index(drop=True)
+    gfex_df = temp_df.iloc[df_4 + 3: df_5, :].reset_index(drop=True)
+    cffex_df = temp_df.iloc[df_5 + 3:, :].reset_index(drop=True)
     if symbol == "上海期货交易所":
         return _futures_comm_qihuo_process(shfe_df, "上海期货交易所")
     elif symbol == "大连商品交易所":

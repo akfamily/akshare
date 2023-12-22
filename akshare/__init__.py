@@ -2613,9 +2613,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.11.97 add: add stock_zh_a_disclosure_report_cninfo interface
 1.11.98 fix: fix stock_zh_a_disclosure_report_cninfo interface
 1.11.99 fix: fix stock_zh_index_spot interface
+1.12.1 fix: fix futures_comm_info interface
 """
 
-__version__ = "1.11.99"
+__version__ = "1.12.1"
 __author__ = "AKFamily"
 
 import sys
