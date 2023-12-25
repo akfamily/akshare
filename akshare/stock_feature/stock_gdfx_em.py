@@ -775,13 +775,16 @@ def stock_gdfx_holding_analyse_em(date: str = "20230331") -> pd.DataFrame:
     return big_df
 
 
-def stock_gdfx_free_holding_teamwork_em() -> pd.DataFrame:
+def stock_gdfx_free_holding_teamwork_em(symbol: str = "社保") -> pd.DataFrame:
     """
     东方财富网-数据中心-股东分析-股东协同-十大流通股东
     https://data.eastmoney.com/gdfx/HoldingAnalyse.html
+    :param symbol: 全部; choice of {"全部", "个人", "基金", "QFII", "社保", "券商", "信托"}
+    :type symbol: str
     :return: 十大流通股东
     :rtype: pandas.DataFrame
     """
+    symbol_dict = {} if symbol == "全部" else {"filter": f'(HOLDER_TYPE="{symbol}")'}
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "sortColumns": "COOPERAT_NUM,HOLDER_NEW,COOPERAT_HOLDER_NEW",
@@ -793,6 +796,7 @@ def stock_gdfx_free_holding_teamwork_em() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
+    params.update(symbol_dict)
     r = requests.get(url, params=params)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
@@ -815,6 +819,7 @@ def stock_gdfx_free_holding_teamwork_em() -> pd.DataFrame:
         "协同股东名称",
         "协同股东类型",
         "协同次数",
+        "-",
         "个股详情",
     ]
     big_df = big_df[
@@ -828,7 +833,7 @@ def stock_gdfx_free_holding_teamwork_em() -> pd.DataFrame:
             "个股详情",
         ]
     ]
-    big_df["协同次数"] = pd.to_numeric(big_df["协同次数"])
+    big_df["协同次数"] = pd.to_numeric(big_df["协同次数"], errors="coerce")
     return big_df
 
 
