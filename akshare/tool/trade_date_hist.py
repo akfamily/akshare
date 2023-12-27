@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/29 22:27
+Date: 2023/12/27 22:27
 Desc: 新浪财经-交易日历
 https://finance.sina.com.cn/realstock/company/klc_td_sh.txt
 此处可以用来更新 calendar.json 文件，注意末尾没有 "," 号
@@ -17,7 +17,7 @@ from akshare.stock.cons import hk_js_decode
 
 def tool_trade_date_hist_sina() -> pd.DataFrame:
     """
-    交易日历-历史数据
+    新浪财经-交易日历-历史数据
     https://finance.sina.com.cn/realstock/company/klc_td_sh.txt
     :return: 交易日历
     :rtype: pandas.DataFrame
