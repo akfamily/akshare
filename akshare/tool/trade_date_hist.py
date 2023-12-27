@@ -17,7 +17,7 @@ from akshare.stock.cons import hk_js_decode
 
 def tool_trade_date_hist_sina() -> pd.DataFrame:
     """
-    交易日历-历史数据
+    新浪财经-交易日历-历史数据
     https://finance.sina.com.cn/realstock/company/klc_td_sh.txt
     :return: 交易日历
     :rtype: pandas.DataFrame
