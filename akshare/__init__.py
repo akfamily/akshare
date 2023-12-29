@@ -2617,9 +2617,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.2 fix: fix hurun_rank interface
 1.12.3 fix: fix stock_gdfx_free_holding_teamwork_em interface
 1.12.4 fix: fix tool_trade_date_hist_sina interface
+1.12.5 fix: fix stock_zh_a_gdhs interface
 """
 
-__version__ = "1.12.4"
+__version__ = "1.12.5"
 __author__ = "AKFamily"
 
 import sys

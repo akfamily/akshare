@@ -70,6 +70,10 @@
 
 ## 更新说明详情
 
+1.12.5 fix: fix stock_zh_a_gdhs interface
+
+    1. 修复 stock_zh_a_gdhs 接口
+
 1.12.4 fix: fix tool_trade_date_hist_sina interface
 
     1. 修复 tool_trade_date_hist_sina 接口
@@ -3276,6 +3280,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.5 fix: fix stock_zh_a_gdhs interface
 
 1.12.4 fix: fix tool_trade_date_hist_sina interface
 
