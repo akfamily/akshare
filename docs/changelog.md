@@ -70,6 +70,10 @@
 
 ## 更新说明详情
 
+1.12.6 fix: fix fund_open_fund_info_em interface
+    
+    1. 修复 fund_open_fund_info_em 接口
+
 1.12.5 fix: fix stock_zh_a_gdhs interface
 
     1. 修复 stock_zh_a_gdhs 接口
@@ -3280,6 +3284,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.6 fix: fix fund_open_fund_info_em interface
 
 1.12.5 fix: fix stock_zh_a_gdhs interface
 
