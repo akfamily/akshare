@@ -508,7 +508,7 @@ if __name__ == "__main__":
     print(option_shfe_daily_one)
     print(option_shfe_daily_two)
 
-    option_gfex_daily_df = option_gfex_daily(symbol="工业硅", trade_date="20230418")
+    option_gfex_daily_df = option_gfex_daily(symbol="工业硅", trade_date="20240102")
     print(option_gfex_daily_df)
 
     option_gfex_vol_daily_df = option_gfex_vol_daily(symbol="工业硅", trade_date="20230418")
