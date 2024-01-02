@@ -1040,7 +1040,7 @@ print(fund_open_fund_daily_em_df)
 
 | 名称        | 类型  | 描述                                                                                             |
 |-----------|-----|------------------------------------------------------------------------------------------------|
-| fund      | str | fund="710001"; 需要基金代码, 可以通过调用 **ak.fund_open_fund_daily_em()** 获取                              |
+| symbol    | str | symbol="710001"; 需要基金代码, 可以通过调用 **ak.fund_open_fund_daily_em()** 获取                            |
 | indicator | str | indicator="单位净值走势";  参见 **fund_open_fund_info_em** 参数一览表                                       |
 | period    | str | period="成立来"; 该参数只对 `累计收益率走势` 有效, choice of {"1月", "3月", "6月", "1年", "3年", "5年", "今年来", "成立来"} |
 
