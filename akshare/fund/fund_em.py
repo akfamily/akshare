@@ -362,6 +362,8 @@ def fund_open_fund_info_em(
         except:
             return pd.DataFrame()
         temp_df = pd.DataFrame(data_json)
+        if temp_df.empty:
+            return pd.DataFrame()
         temp_df["x"] = pd.to_datetime(
             temp_df["x"], unit="ms", utc=True
         ).dt.tz_convert("Asia/Shanghai")
@@ -435,7 +437,7 @@ def fund_open_fund_info_em(
             "成立来": "se",
         }
         params = {
-            'fundCode': '710001',
+            'fundCode': symbol,
             'indexcode': '000300',
             'type': period_map[period],
             '_': '1704012866899'
@@ -519,7 +521,7 @@ def fund_open_fund_info_em(
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[1]
         if temp_df.iloc[0, 1] == "暂无分红信息!":
-            return None
+            return
         else:
             return temp_df
 
