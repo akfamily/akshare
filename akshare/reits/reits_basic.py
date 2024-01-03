@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/30 15:59
+Date: 2024/1/3 17:00
 Desc: REITs 行情及信息
 https://quote.eastmoney.com/center/gridlist.html#fund_reits_all
 https://www.jisilu.cn/data/cnreits/#CnReits
@@ -20,7 +20,7 @@ def reits_realtime_em() -> pd.DataFrame:
     url = "http://95.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
-        "pz": "20",
+        "pz": "500",
         "po": "1",
         "np": "1",
         "ut": "bd1d9ddb04089700cf9c27f6f7426281",

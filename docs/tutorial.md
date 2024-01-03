@@ -1227,6 +1227,12 @@
  "index_fear_greed_funddb"  # 恐惧贪婪指数
  # 筹码分布
  "stock_cyq_em"  # 筹码分布
+ # 雪球基金-基金详情
+ "fund_individual_basic_info_xq"  # 雪球基金-基金详情
+ "fund_individual_achievement_xq"  # 雪球基金-基金业绩
+ "fund_individual_analysis_xq"  # 雪球基金-基金数据分析
+ "fund_individual_profit_probability_xq"  # 雪球基金-盈利概率
+ "fund_individual_detail_info_xq"  # 雪球基金-详细信息
 ```
 
 ## 案例演示

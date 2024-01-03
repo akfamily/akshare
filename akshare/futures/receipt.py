@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/21 18:00
+Date: 2024/1/3 17:00
 Desc: 每日注册仓单数据
 大连商品交易所, 上海期货交易所, 郑州商品交易所, 广州期货交易所
 """
@@ -77,7 +77,7 @@ def get_shfe_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     :rtype: pandas.DataFrame
     """
     if not isinstance(vars_list, list):
-        return warnings.warn(f"symbol_list: 必须是列表")
+        raise warnings.warn(f"symbol_list: 必须是列表")
     date = cons.convert_date(date).strftime('%Y%m%d') if date is not None else datetime.date.today()
     if date not in calendar:
         warnings.warn(f"{date.strftime('%Y%m%d')}非交易日")
@@ -128,10 +128,10 @@ def get_shfe_receipt_2(date: str = None, vars_list: List = cons.contract_symbols
     :rtype: pandas.DataFrame
     """
     if not isinstance(vars_list, list):
-        return warnings.warn(f"symbol_list: 必须是列表")
+        raise warnings.warn(f"symbol_list: 必须是列表")
     date = cons.convert_date(date).strftime('%Y%m%d') if date is not None else datetime.date.today()
     if date not in calendar:
-        warnings.warn('%s非交易日' % date.strftime('%Y%m%d'))
+        warnings.warn('%s 非交易日' % date.strftime('%Y%m%d'))
         return None
     url = cons.SHFE_RECEIPT_URL_2 % date
     r = requests_link(url, encoding='utf-8', headers=cons.shfe_headers)
@@ -389,15 +389,18 @@ def get_gfex_receipt(date: str = None, vars_list: List = cons.contract_symbols) 
     result_df = result_df[[
         'var', 'receipt', 'receipt_chg', 'date'
     ]]
+    result_df.set_index(['var'], inplace=True)
+    result_df = result_df.loc[vars_list, :]
+    result_df.reset_index(inplace=True)
     return result_df
 
 
 def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = cons.contract_symbols):
     """
     大宗商品-注册仓单数据
-    :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
     :type start_day: str
-    :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date对象 为空时为当天
+    :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
     :type end_day: str
     :param vars_list: 合约品种如 RB、AL 等列表为空时为所有商品
     :type vars_list: str
@@ -412,7 +415,7 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
     records = pd.DataFrame()
     while start_day <= end_day:
         if start_day.strftime('%Y%m%d') not in calendar:
-            warnings.warn(f"{start_day.strftime('%Y%m%d')}非交易日")
+            warnings.warn(f"{start_day.strftime('%Y%m%d')} 非交易日")
         else:
             print(start_day)
             for market, market_vars in cons.market_exchange_symbols.items():
@@ -458,5 +461,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20231205', end_day='20231210')
+    get_receipt_df = get_receipt(start_day='20240103', end_day='20240103', vars_list=['SI'])
     print(get_receipt_df)
