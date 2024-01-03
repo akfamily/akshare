@@ -386,26 +386,28 @@ def stock_ipo_info(stock: str = "600004") -> pd.DataFrame:
     return temp_df
 
 
-def stock_add_stock(stock: str = "688166") -> pd.DataFrame:
+def stock_add_stock(symbol: str = "688166") -> pd.DataFrame:
     """
     新浪财经-发行与分配-增发
     https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_AddStock/stockid/600004.phtml
-    :param stock: 股票代码
-    :type stock: str
+    :param symbol: 股票代码
+    :type symbol: str
     :return: 返回增发详情
     :rtype: pandas.DataFrame
     """
-    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_AddStock/stockid/{stock}.phtml"
+    url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vISSUE_AddStock/stockid/{symbol}.phtml"
     r = requests.get(url)
     temp_df = pd.read_html(StringIO(r.text))[12]
     if temp_df.at[0, 0] == "对不起，暂时没有相关增发记录":
-        raise f"股票 {stock} 无增发记录"
+        raise f"股票 {symbol} 无增发记录"
     big_df = pd.DataFrame()
     for i in range(int(len(temp_df.at[0, 1]) / 10)):
         temp_df = pd.read_html(StringIO(r.text))[13 + i].iloc[:, 1]
         big_df[temp_df.name.split(" ")[1].split("：")[1][:10]] = temp_df
     big_df = big_df.T
-    big_df.columns = ["发行方式", "发行价格", "实际公司募集资金总额", "发行费用总额", "实际发行数量"]
+    big_df.reset_index(inplace=True)
+    big_df.columns = ["公告日期", "发行方式", "发行价格", "实际公司募集资金总额", "发行费用总额", "实际发行数量"]
+    big_df['公告日期'] = pd.to_datetime(big_df['公告日期'], errors="coerce").dt.date
     return big_df
 
 
@@ -653,7 +655,7 @@ if __name__ == "__main__":
     stock_ipo_info_df = stock_ipo_info(stock="600004")
     print(stock_ipo_info_df)
 
-    stock_add_stock_df = stock_add_stock(stock="600004")
+    stock_add_stock_df = stock_add_stock(symbol="600004")
     print(stock_add_stock_df)
 
     stock_restricted_release_queue_sina_df = stock_restricted_release_queue_sina(
