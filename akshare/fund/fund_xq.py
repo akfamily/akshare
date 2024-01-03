@@ -1,21 +1,16 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/01/01 17:58
+Date: 2024/01/03 15:40
 Desc: 雪球基金-基金详情
 https://danjuanfunds.com/funding/003545
 """
-
 import pandas as pd
 import requests
 
-headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
-}
-
 
 def fund_individual_basic_info_xq(
-    symbol: str = "000001", timeout: float = None
+        symbol: str = "000001", timeout: float = None
 ) -> pd.DataFrame:
     """
     雪球基金-基金详情
@@ -27,8 +22,10 @@ def fund_individual_basic_info_xq(
     :return: 基金信息
     :rtype: pandas.DataFrame
     """
-
     url = f"https://danjuanfunds.com/djapi/fund/{symbol}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
     temp_df = pd.json_normalize(json_data)
@@ -73,7 +70,7 @@ def fund_individual_basic_info_xq(
 
 
 def fund_individual_achievement_xq(
-    symbol: str = "000001", timeout: float = None
+        symbol: str = "000001", timeout: float = None
 ) -> pd.DataFrame:
     """
     雪球基金-基金业绩
@@ -88,6 +85,9 @@ def fund_individual_achievement_xq(
     url = (
         f"https://danjuanfunds.com/djapi/fundx/base/fund/achievement/{symbol}"
     )
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
     combined_df = None
@@ -110,19 +110,22 @@ def fund_individual_achievement_xq(
         temp_df.columns = [
             "业绩类型",
             "周期",
-            "本产品区间收益[%]",
-            "本产品最大回撒[%]",
+            "本产品区间收益",
+            "本产品最大回撒",
             "周期收益同类排名",
         ]
         combined_df = pd.concat([combined_df, temp_df], ignore_index=True)
     combined_df = combined_df.map(
         lambda x: x if "%" not in str(x) else x.replace("%", "")
     )
+    combined_df[["本产品区间收益", "本产品最大回撒"]] = combined_df[
+        ["本产品区间收益", "本产品最大回撒"]
+    ].astype(float)
     return combined_df
 
 
 def fund_individual_analysis_xq(
-    symbol: str = "000001", timeout: float = None
+        symbol: str = "000001", timeout: float = None
 ) -> pd.DataFrame:
     """
     雪球基金-基金数据分析
@@ -135,6 +138,9 @@ def fund_individual_analysis_xq(
     :rtype: pandas.DataFrame
     """
     url = f"https://danjuanfunds.com/djapi/fund/base/quote/data/index/analysis/{symbol}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]["index_data_list"]
     temp_df = pd.json_normalize(json_data)
@@ -150,24 +156,29 @@ def fund_individual_analysis_xq(
     ]
     temp_df.columns = [
         "周期",
-        "较同类风险收益比[%]",
-        "较同类抗风险波动[%]",
-        "年化波动率[%]",
+        "较同类风险收益比",
+        "较同类抗风险波动",
+        "年化波动率",
         "年化夏普比率",
-        "最大回撤[%]",
+        "最大回撤",
     ]
     temp_df = temp_df.map(
         lambda x: x if "%" not in str(x) else x.replace("%", "")
     )
-    temp_df[["年化波动率[%]", "最大回撤[%]"]] *= 100
+    temp_df[["年化波动率", "最大回撤"]] *= 100
+    temp_df['较同类风险收益比'] = pd.to_numeric(temp_df['较同类风险收益比'], errors="coerce")
+    temp_df['较同类抗风险波动'] = pd.to_numeric(temp_df['较同类抗风险波动'], errors="coerce")
+    temp_df['年化波动率'] = pd.to_numeric(temp_df['年化波动率'], errors="coerce")
+    temp_df['年化夏普比率'] = pd.to_numeric(temp_df['年化夏普比率'], errors="coerce")
+    temp_df['最大回撤'] = pd.to_numeric(temp_df['最大回撤'], errors="coerce")
     return temp_df
 
 
 def fund_individual_profit_probability_xq(
-    symbol: str = "000001", timeout: float = None
+        symbol: str = "000001", timeout: float = None
 ) -> pd.DataFrame:
     """
-    雪球基金-盈利概率-历史任意时点买入，持有满X年，盈利概率Y%
+    雪球基金-盈利概率-历史任意时点买入，持有满 X 年，盈利概率 Y%
     https://danjuanfunds.com/djapi/fundx/base/fund/profit/ratio/675091
     :param symbol: 基金代码
     :type symbol: str
@@ -179,6 +190,9 @@ def fund_individual_profit_probability_xq(
     url = (
         f"https://danjuanfunds.com/djapi/fundx/base/fund/profit/ratio/{symbol}"
     )
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]["data_list"]
     temp_df = pd.DataFrame.from_dict(json_data, orient="columns")
@@ -191,24 +205,26 @@ def fund_individual_profit_probability_xq(
     ]
     temp_df.columns = [
         "持有时长",
-        "盈利概率[%]",
-        "平均收益[%]",
+        "盈利概率",
+        "平均收益",
     ]
     temp_df = temp_df.map(
         lambda x: x if "%" not in str(x) else x.replace("%", "")
     )
+    temp_df['盈利概率'] = pd.to_numeric(temp_df['盈利概率'], errors="coerce")
+    temp_df['平均收益'] = pd.to_numeric(temp_df['平均收益'], errors="coerce")
     return temp_df
 
 
 def fund_individual_detail_info_xq(
-    symbol: str = "000001", info_type: str = "交易规则", timeout: float = None
+        symbol: str = "000001", indicator: str = "交易规则", timeout: float = None
 ) -> pd.DataFrame:
     """
     雪球基金-详细信息
     https://danjuanfunds.com/djapi/fund/detail/675091
     :param symbol: 基金代码
     :type symbol: str
-    :param info_type: 信息类型，可选“交易规则”或者“持仓资产比例”
+    :param indicator: 信息类型; choice of {"交易规则", "持仓资产比例"}
     :type symbol: str
     :param timeout: choice of None or a positive float number
     :type timeout: float
@@ -216,10 +232,13 @@ def fund_individual_detail_info_xq(
     :rtype: pandas.DataFrame
     """
     url = f"https://danjuanfunds.com/djapi/fund/detail/{symbol}"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
 
-    if info_type == "持仓资产比例":
+    if indicator == "持仓资产比例":
         temp_df = pd.DataFrame.from_dict(
             json_data["fund_position"]["chart_list"], orient="columns"
         )
@@ -231,10 +250,11 @@ def fund_individual_detail_info_xq(
         ]
         temp_df.columns = [
             "资产类型",
-            "仓位占比[%]",
+            "仓位占比",
         ]
+        temp_df['仓位占比'] = pd.to_numeric(temp_df['仓位占比'], errors="coerce")
         return temp_df
-    elif info_type == "交易规则":
+    elif indicator == "交易规则":
         combined_df = None
         rate_type_dict = {
             "declare_rate_table": "买入规则",
@@ -255,20 +275,29 @@ def fund_individual_detail_info_xq(
             ]
             temp_df.columns = [
                 "费用类型",
-                "条件/名称",
-                "费用[%]",
+                "条件或名称",
+                "费用",
             ]
             combined_df = pd.concat([combined_df, temp_df], ignore_index=True)
+            combined_df['费用'] = pd.to_numeric(combined_df['费用'], errors="coerce")
         return combined_df
-
-    pass
 
 
 if __name__ == "__main__":
-    print(fund_individual_basic_info_xq())
-    print(fund_individual_achievement_xq())
-    print(fund_individual_analysis_xq())
-    print(fund_individual_profit_probability_xq())
-    print(fund_individual_detail_info_xq())
-    print(fund_individual_detail_info_xq(info_type="持仓资产比例"))
+    fund_individual_basic_info_xq_df = fund_individual_basic_info_xq()
+    print(fund_individual_basic_info_xq_df)
 
+    fund_individual_achievement_xq_df = fund_individual_achievement_xq()
+    print(fund_individual_achievement_xq_df)
+
+    fund_individual_analysis_xq_df = fund_individual_analysis_xq()
+    print(fund_individual_analysis_xq_df)
+
+    fund_individual_profit_probability_xq_df = fund_individual_profit_probability_xq()
+    print(fund_individual_profit_probability_xq_df)
+
+    fund_individual_detail_info_xq_df = fund_individual_detail_info_xq(indicator="交易规则")
+    print(fund_individual_detail_info_xq_df)
+
+    fund_individual_detail_info_xq_df = fund_individual_detail_info_xq(indicator="持仓资产比例")
+    print(fund_individual_detail_info_xq_df)
