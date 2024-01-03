@@ -70,6 +70,10 @@
 
 ## 更新说明详情
 
+1.12.10 fix: fix stock_add_stock interface
+
+    1. 修复 stock_add_stock 接口
+
 1.12.9 add: add fund_individual_basic_info_xq interface
 
     1. 新增 fund_individual_basic_info_xq 接口
@@ -3303,6 +3307,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.10 fix: fix stock_add_stock interface
 
 1.12.9 add: add fund_individual_basic_info_xq interface
 
