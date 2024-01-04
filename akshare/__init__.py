@@ -2623,9 +2623,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.8 fix: fix fund_open_fund_info_em interface
 1.12.9 add: add fund_individual_basic_info_xq interface
 1.12.10 fix: fix stock_add_stock interface
+1.12.11 add: add stock_zh_index_spot_em interface
 """
 
-__version__ = "1.12.10"
+__version__ = "1.12.11"
 __author__ = "AKFamily"
 
 import sys
@@ -4652,7 +4653,8 @@ from akshare.stock.stock_zh_a_tick_tx import (
 """
 from akshare.index.index_stock_zh import (
     stock_zh_index_daily,
-    stock_zh_index_spot,
+    stock_zh_index_spot_sina,
+    stock_zh_index_spot_em,
     stock_zh_index_daily_tx,
     stock_zh_index_daily_em,
 )
