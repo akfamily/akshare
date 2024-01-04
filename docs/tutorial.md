@@ -123,7 +123,8 @@
  "stock_zh_index_daily"  # 股票指数历史行情数据
  "stock_zh_index_daily_tx"  # 股票指数历史行情数据-腾讯
  "stock_zh_index_daily_em"  # 股票指数历史行情数据-东方财富
- "stock_zh_index_spot"  # 股票指数实时行情数据
+ "stock_zh_index_spot_sina"  # 股票指数实时行情数据-新浪
+ "stock_zh_index_spot_em"  # 股票指数实时行情数据-东财
  # 股票分笔数据
  "stock_zh_a_tick_tx_js"  # A 股票分笔行情数据-腾讯-当日数据
  # 世界各地区日出和日落数据-日
