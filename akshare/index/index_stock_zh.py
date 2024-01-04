@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/20 17:20
+Date: 2024/1/4 23:00
 Desc: 股票指数数据-新浪-东财-腾讯
 所有指数-实时行情数据和历史行情数据
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
@@ -203,7 +203,6 @@ def stock_zh_index_spot_em(symbol: str = "上证系列指数") -> pd.DataFrame:
     temp_df['昨收'] = pd.to_numeric(temp_df['昨收'], errors="coerce")
     temp_df['量比'] = pd.to_numeric(temp_df['量比'], errors="coerce")
     return temp_df
-
 
 
 def stock_zh_index_daily(symbol: str = "sh000922") -> pd.DataFrame:
