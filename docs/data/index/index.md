@@ -1446,18 +1446,19 @@ print(index_stock_cons_df)
 数据示例
 
 ```
-     品种代码  品种名称        纳入日期
-0    603501  韦尔股份  2019-12-16
-1    600989  宝丰能源  2019-12-16
-2    000723  美锦能源  2019-12-16
-3    601236  红塔证券  2019-12-16
-4    603899  晨光文具  2019-12-16
+       品种代码  品种名称     纳入日期
+0    601916  浙商银行  2023-12-11
+1    301269  华大九天  2023-12-11
+2    688256   寒武纪  2023-12-11
+3    600515  海南机场  2023-12-11
+4    000999  华润三九  2023-12-11
 ..      ...   ...         ...
 295  000157  中联重科  2005-04-08
 296  000069  华侨城A  2005-04-08
 297  000063  中兴通讯  2005-04-08
 298  000001  深发展A  2005-04-08
 299  000002   万科A  2005-04-08
+[300 rows x 3 columns]
 ```
 
 输出参数-按市场归类
@@ -1522,6 +1523,7 @@ print(index_stock_cons_df)
 37  000709  河北钢铁  2011-11-15  sz000709
 38  000630  铜陵有色  2011-11-15  sz000630
 39  000060  中金岭南  2011-11-15  sz000060
+[40 rows x 4 columns]
 ```
 
 #### 中证指数成份股
@@ -1557,25 +1559,26 @@ print(index_stock_cons_df)
 ```python
 import akshare as ak
 
-index_stock_cons_csindex_df = ak.index_stock_cons_csindex(symbol="931463")
+index_stock_cons_csindex_df = ak.index_stock_cons_csindex(symbol="000300")
 print(index_stock_cons_csindex_df)
 ```
 
 数据示例
 
 ```
-         日期    指数代码  ...      交易所             交易所英文名称
-0    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
-1    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
-2    2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
-3    2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
-4    2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
-..          ...     ...  ...      ...                 ...
-295  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
-296  2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
-297  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
-298  2021-12-30  000300  ...  上海证券交易所  Shanghai  Exchange
-299  2021-12-30  000300  ...  深圳证券交易所  Shenzhen  Exchange
+             日期    指数代码  ...      交易所                  交易所英文名称
+0    2024-01-04  000300  ...  深圳证券交易所  Shenzhen Stock Exchange
+1    2024-01-04  000300  ...  深圳证券交易所  Shenzhen Stock Exchange
+2    2024-01-04  000300  ...  深圳证券交易所  Shenzhen Stock Exchange
+3    2024-01-04  000300  ...  深圳证券交易所  Shenzhen Stock Exchange
+4    2024-01-04  000300  ...  深圳证券交易所  Shenzhen Stock Exchange
+..          ...     ...  ...      ...                      ...
+295  2024-01-04  000300  ...  上海证券交易所  Shanghai Stock Exchange
+296  2024-01-04  000300  ...  上海证券交易所  Shanghai Stock Exchange
+297  2024-01-04  000300  ...  上海证券交易所  Shanghai Stock Exchange
+298  2024-01-04  000300  ...  上海证券交易所  Shanghai Stock Exchange
+299  2024-01-04  000300  ...  上海证券交易所  Shanghai Stock Exchange
+[300 rows x 9 columns]
 ```
 
 #### 中证指数成份股权重
@@ -1619,18 +1622,19 @@ print(index_stock_cons_weight_csindex_df)
 数据示例
 
 ```
-      日期    指数代码   指数名称  ...         交易所                  交易所英文名称     权重
-0    2021-11-30  000300  沪深300  ...  深圳证券交易所_股票  Shenzhen Stock Exchange  0.838
-1    2021-11-30  000300  沪深300  ...  深圳证券交易所_股票  Shenzhen Stock Exchange  0.584
-2    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.217
-3    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.104
-4    2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  1.124
-..          ...     ...    ...  ...         ...                      ...    ...
-295  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.074
-296  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.085
-297  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.040
-298  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.022
-299  2021-11-30  000300  沪深300  ...  上海证券交易所_股票  Shanghai Stock Exchange  0.063
+     日期    指数代码   指数名称  ...     交易所                交易所英文名称     权重
+0    2023-12-29  000300  沪深300  ...  深圳证券交易所  Shenzhen Stock Exchange  0.524
+1    2023-12-29  000300  沪深300  ...  深圳证券交易所  Shenzhen Stock Exchange  0.410
+2    2023-12-29  000300  沪深300  ...  深圳证券交易所  Shenzhen Stock Exchange  0.486
+3    2023-12-29  000300  沪深300  ...  深圳证券交易所  Shenzhen Stock Exchange  0.088
+4    2023-12-29  000300  沪深300  ...  深圳证券交易所  Shenzhen Stock Exchange  0.465
+..          ...     ...    ...  ...      ...                      ...    ...
+295  2023-12-29  000300  沪深300  ...  上海证券交易所  Shanghai Stock Exchange  0.074
+296  2023-12-29  000300  沪深300  ...  上海证券交易所  Shanghai Stock Exchange  0.136
+297  2023-12-29  000300  沪深300  ...  上海证券交易所  Shanghai Stock Exchange  0.063
+298  2023-12-29  000300  沪深300  ...  上海证券交易所  Shanghai Stock Exchange  0.178
+299  2023-12-29  000300  沪深300  ...  上海证券交易所  Shanghai Stock Exchange  0.602
+[300 rows x 10 columns]
 ```
 
 ### 国证指数

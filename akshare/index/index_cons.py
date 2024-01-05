@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/11 13:19
+Date: 2024/1/5 17:00
 Desc: 股票指数成份股数据, 新浪有两个接口, 这里使用老接口:
 新接口：https://vip.stock.finance.sina.com.cn/mkt/#zhishu_000001
 老接口：https://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page=1&indexid=399639
 """
 import math
-from io import BytesIO
+from io import BytesIO, StringIO
 
 import pandas as pd
 import requests
@@ -69,10 +69,13 @@ def index_stock_info() -> pd.DataFrame:
     :return: 指数信息的数据框
     :rtype: pandas.DataFrame
     """
-    index_df = pd.read_html("https://www.joinquant.com/data/dict/indexData")[0]
+    url = "https://www.joinquant.com/data/dict/indexData"
+    r = requests.get(url)
+    index_df = pd.read_html(StringIO(r.text))[0]
     index_df["指数代码"] = index_df["指数代码"].str.split(".", expand=True)[0]
     index_df.columns = ["index_code", "display_name", "publish_date", "-", "-"]
-    return index_df[["index_code", "display_name", "publish_date"]]
+    temp_df = index_df[["index_code", "display_name", "publish_date"]]
+    return temp_df
 
 
 def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
@@ -96,7 +99,7 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
         .split("&")[0]
     )
     if page_num == "#":
-        temp_df = pd.read_html(r.text, header=0, skiprows=1)[3].iloc[:, :3]
+        temp_df = pd.read_html(StringIO(r.text), header=0, skiprows=1)[3].iloc[:, :3]
         temp_df["品种代码"] = temp_df["品种代码"].astype(str).str.zfill(6)
         return temp_df
 
@@ -106,7 +109,7 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
         r = requests.get(url)
         r.encoding = "gb2312"
         temp_df = pd.concat(
-            [temp_df, pd.read_html(r.text, header=1)[3]], ignore_index=True
+            [temp_df, pd.read_html(StringIO(r.text), header=1)[3]], ignore_index=True
         )
     temp_df = temp_df.iloc[:, :3]
     temp_df["品种代码"] = temp_df["品种代码"].astype(str).str.zfill(6)
@@ -199,5 +202,5 @@ if __name__ == "__main__":
     index_stock_cons_sina_df = index_stock_cons_sina(symbol="000300")
     print(index_stock_cons_sina_df)
 
-    index_stock_cons_df = index_stock_cons(symbol="000688")
+    index_stock_cons_df = index_stock_cons(symbol="000300")
     print(index_stock_cons_df)
