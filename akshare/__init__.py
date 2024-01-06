@@ -2626,9 +2626,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.11 add: add stock_zh_index_spot_em interface
 1.12.12 fix: fix stock_zh_index_daily interface
 1.12.13 fix: fix index_stock_cons_csindex interface
+1.12.14 add: add stock_hk_profit_forecast_et interface
 """
 
-__version__ = "1.12.13"
+__version__ = "1.12.14"
 __author__ = "AKFamily"
 
 import sys
@@ -2649,6 +2650,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+港股盈利预测
+"""
+from akshare.stock_fundamental.stock_profit_forecast_hk_etnet import stock_hk_profit_forecast_et
 
 """
 巨潮资讯-首页-公告查询-信息披露
