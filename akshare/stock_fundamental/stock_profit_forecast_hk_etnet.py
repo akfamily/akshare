@@ -42,17 +42,23 @@ def stock_hk_profit_forecast_et(symbol: str = "09999", indicator: str = "盈利�
         temp_df_down = temp_df.iloc[:, 3:].copy()
         temp_df_down.reset_index(inplace=True, drop=True)
         temp_df_down.columns = ["item", "value"]
-        temp_df = pd.concat([temp_df_upper, temp_df_down], ignore_index=True)
+        temp_df = pd.concat(objs=[temp_df_upper, temp_df_down], ignore_index=True)
         return temp_df
     elif indicator == "综合盈利预测":
         temp_df = pd.read_html(StringIO(r.text), header=0)[3]
         temp_df.rename(columns={
             "纯利/(亏损)  (百万元人民币)": "纯利/亏损",
+            "纯利/(亏损)  (百万港元)": "纯利/亏损",
             "每股盈利/  (亏损)(分)": "每股盈利/每股亏损",
+            "每股盈利/  (亏损)(港仙)": "每股盈利/每股亏损",
             "每股派息  (分)": "每股派息",
+            "每股派息  (港仙)": "每股派息",
             "每股资产净值  (人民币元)": "每股资产净值",
+            "每股资产净值  (港元)": "每股资产净值",
             "最高  (百万元人民币)": "最高",
+            "最高  (百万港元)": "最高",
             "最低  (百万元人民币)": "最低",
+            "最低  (百万港元)": "最低",
 
         }, inplace=True)
         temp_df['纯利/亏损'] = pd.to_numeric(temp_df['纯利/亏损'], errors='coerce')
@@ -67,8 +73,11 @@ def stock_hk_profit_forecast_et(symbol: str = "09999", indicator: str = "盈利�
         del temp_df['目标价* (港元).1']
         temp_df.rename(columns={
             "纯利/(亏损)  (百万元人民币)": "纯利/亏损",
+            "纯利/(亏损)  (百万港元)": "纯利/亏损",
+            "每股盈利*/ (亏损)  (港仙)": "每股盈利",
             "每股盈利*/ (亏损)  (分)": "每股盈利",
             "每股派息*  (分)": "每股派息",
+            "每股派息*  (港仙)": "每股派息",
             "目标价* (港元)": "目标价",
         }, inplace=True)
         temp_df.dropna(inplace=True)
