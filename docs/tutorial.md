@@ -1234,6 +1234,8 @@
  "fund_individual_analysis_xq"  # 雪球基金-基金数据分析
  "fund_individual_profit_probability_xq"  # 雪球基金-盈利概率
  "fund_individual_detail_info_xq"  # 雪球基金-详细信息
+ # 港股盈利预测
+ "stock_hk_profit_forecast_et"  # 港股盈利预测
 ```
 
 ## 案例演示

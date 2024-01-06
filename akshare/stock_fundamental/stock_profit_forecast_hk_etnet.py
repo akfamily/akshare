@@ -5,143 +5,91 @@ Date: 2024/1/6 15:00
 Desc: 东方财富网-数据中心-研究报告-盈利预测
 https://data.eastmoney.com/report/profitforecast.jshtml
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 
-from akshare.utils.tqdm import get_tqdm
 
-
-def stock_profit_forecast_em(symbol: str = "") -> pd.DataFrame:
+def stock_hk_profit_forecast_et(symbol: str = "09999", indicator: str = "盈利预测概览") -> pd.DataFrame:
     """
-    东方财富网-数据中心-研究报告-盈利预测
-    https://data.eastmoney.com/report/profitforecast.jshtml
-    :param symbol: "", 默认为获取全部数据; symbol="船舶制造", 则获取具体行业板块的数据; 行业板块可以通过 ak.stock_board_industry_name_em() 接口获取
+    经济通-公司资料-盈利预测
+    https://www.etnet.com.hk/www/sc/stocks/realtime/quote_profit.php?code=9999
+    :param symbol: 股票代码
     :type symbol: str
+    :param indicator: "盈利预测概览", 默认为获取全部数据; choice of {"评级总览", "去年度业绩表现", "综合盈利预测", "盈利预测概览"}
+    :type indicator: str
     :return: 盈利预测
     :rtype: pandas.DataFrame
     """
-    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://www.etnet.com.hk/www/sc/stocks/realtime/quote_profit.php"
     params = {
-        "reportName": "RPT_WEB_RESPREDICT",
-        "columns": "WEB_RESPREDICT",
-        "pageNumber": "1",
-        "pageSize": "500",
-        "sortTypes": "-1",
-        "sortColumns": "RATING_ORG_NUM",
-        "p": "1",
-        "pageNo": "1",
-        "pageNum": "1",
+        "code": str(int(symbol)),
     }
-    if symbol:
-        params.update({"filter": f'(INDUSTRY_BOARD="{symbol}")'})
-
     r = requests.get(url, params=params)
-    data_json = r.json()
-    page_num = int(data_json["result"]["pages"])
-    big_df = pd.DataFrame()
-    tqdm = get_tqdm()
-    for page in tqdm(range(1, page_num + 1), leave=False):
-        params.update(
-            {
-                "pageNumber": page,
-                "p": page,
-                "pageNo": page,
-                "pageNum": page,
-            }
-        )
-        r = requests.get(url, params=params)
-        data_json = r.json()
-        temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+    if indicator == "评级总览":
+        temp_df = pd.read_html(StringIO(r.text))[0]
+        inner_list = [item for item in temp_df.iloc[0, 0].split(" ") if item != ""]
+        inner_list.remove("平均评级")
+        temp_df = pd.DataFrame(inner_list).T
+        temp_df.columns = ["方向", "评级数量", "平均评级"]
+        return temp_df
+    elif indicator == "去年度业绩表现":
+        temp_df = pd.read_html(StringIO(r.text))[2]
+        temp_df_upper = temp_df.iloc[:, :2].copy()
+        temp_df_upper.reset_index(inplace=True, drop=True)
+        temp_df_upper.columns = ["item", "value"]
+        temp_df_down = temp_df.iloc[:, 3:].copy()
+        temp_df_down.reset_index(inplace=True, drop=True)
+        temp_df_down.columns = ["item", "value"]
+        temp_df = pd.concat([temp_df_upper, temp_df_down], ignore_index=True)
+        return temp_df
+    elif indicator == "综合盈利预测":
+        temp_df = pd.read_html(StringIO(r.text), header=0)[3]
+        temp_df.rename(columns={
+            "纯利/(亏损)  (百万元人民币)": "纯利/亏损",
+            "每股盈利/  (亏损)(分)": "每股盈利/每股亏损",
+            "每股派息  (分)": "每股派息",
+            "每股资产净值  (人民币元)": "每股资产净值",
+            "最高  (百万元人民币)": "最高",
+            "最低  (百万元人民币)": "最低",
 
-    big_df.reset_index(inplace=True)
-    big_df["index"] = big_df.index + 1
-    year1 = str(big_df["YEAR1"].mode().values[0])
-    year2 = str(big_df["YEAR2"].mode().values[0])
-    year3 = str(big_df["YEAR3"].mode().values[0])
-    year4 = str(big_df["YEAR4"].mode().values[0])
-    big_df.columns = [
-        "序号",
-        "-",
-        "代码",
-        "名称",
-        "研报数",
-        "机构投资评级(近六个月)-买入",
-        "机构投资评级(近六个月)-增持",
-        "机构投资评级(近六个月)-中性",
-        "机构投资评级(近六个月)-减持",
-        "机构投资评级(近六个月)-卖出",
-        "-",
-        "_",
-        f"{year1}预测每股收益",
-        "-",
-        "_",
-        f"{year2}预测每股收益",
-        "-",
-        "_",
-        f"{year3}预测每股收益",
-        "-",
-        "_",
-        f"{year4}预测每股收益",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-        "_",
-    ]
-
-    big_df = big_df[
-        [
-            "序号",
-            "代码",
-            "名称",
-            "研报数",
-            "机构投资评级(近六个月)-买入",
-            "机构投资评级(近六个月)-增持",
-            "机构投资评级(近六个月)-中性",
-            "机构投资评级(近六个月)-减持",
-            "机构投资评级(近六个月)-卖出",
-            f"{year1}预测每股收益",
-            f"{year2}预测每股收益",
-            f"{year3}预测每股收益",
-            f"{year4}预测每股收益",
-        ]
-    ]
-    big_df["机构投资评级(近六个月)-买入"].fillna(0, inplace=True)
-    big_df["机构投资评级(近六个月)-增持"].fillna(0, inplace=True)
-    big_df["机构投资评级(近六个月)-中性"].fillna(0, inplace=True)
-    big_df["机构投资评级(近六个月)-减持"].fillna(0, inplace=True)
-    big_df["机构投资评级(近六个月)-卖出"].fillna(0, inplace=True)
-    big_df["研报数"] = pd.to_numeric(big_df["研报数"], errors="coerce")
-    big_df["机构投资评级(近六个月)-买入"] = pd.to_numeric(
-        big_df["机构投资评级(近六个月)-买入"], errors="coerce"
-    )
-    big_df["机构投资评级(近六个月)-增持"] = pd.to_numeric(
-        big_df["机构投资评级(近六个月)-增持"], errors="coerce"
-    )
-    big_df["机构投资评级(近六个月)-中性"] = pd.to_numeric(
-        big_df["机构投资评级(近六个月)-中性"], errors="coerce"
-    )
-    big_df["机构投资评级(近六个月)-减持"] = pd.to_numeric(
-        big_df["机构投资评级(近六个月)-减持"], errors="coerce"
-    )
-    big_df["机构投资评级(近六个月)-卖出"] = pd.to_numeric(
-        big_df["机构投资评级(近六个月)-卖出"], errors="coerce"
-    )
-    big_df[f"{year1}预测每股收益"] = pd.to_numeric(big_df[f"{year1}预测每股收益"], errors="coerce")
-    big_df[f"{year2}预测每股收益"] = pd.to_numeric(big_df[f"{year2}预测每股收益"], errors="coerce")
-    big_df[f"{year3}预测每股收益"] = pd.to_numeric(big_df[f"{year3}预测每股收益"], errors="coerce")
-    big_df[f"{year4}预测每股收益"] = pd.to_numeric(big_df[f"{year4}预测每股收益"], errors="coerce")
-    big_df.sort_values(["研报数"], ascending=False, inplace=True, ignore_index=True)
-    big_df["序号"] = range(1, len(big_df) + 1)
-    return big_df
+        }, inplace=True)
+        temp_df['纯利/亏损'] = pd.to_numeric(temp_df['纯利/亏损'], errors='coerce')
+        temp_df['每股盈利/每股亏损'] = pd.to_numeric(temp_df['每股盈利/每股亏损'], errors='coerce')
+        temp_df['每股派息'] = pd.to_numeric(temp_df['每股派息'], errors='coerce')
+        temp_df['每股资产净值'] = pd.to_numeric(temp_df['每股资产净值'], errors='coerce')
+        temp_df['最高'] = pd.to_numeric(temp_df['最高'], errors='coerce')
+        temp_df['最低'] = pd.to_numeric(temp_df['最低'], errors='coerce')
+        return temp_df
+    elif indicator == "盈利预测概览":
+        temp_df = pd.read_html(StringIO(r.text), header=0)[4]
+        del temp_df['目标价* (港元).1']
+        temp_df.rename(columns={
+            "纯利/(亏损)  (百万元人民币)": "纯利/亏损",
+            "每股盈利*/ (亏损)  (分)": "每股盈利",
+            "每股派息*  (分)": "每股派息",
+            "目标价* (港元)": "目标价",
+        }, inplace=True)
+        temp_df.dropna(inplace=True)
+        temp_df['纯利/亏损'] = pd.to_numeric(temp_df['纯利/亏损'], errors='coerce')
+        temp_df['每股盈利'] = pd.to_numeric(temp_df['每股盈利'], errors='coerce')
+        temp_df['每股派息'] = pd.to_numeric(temp_df['每股派息'], errors='coerce')
+        temp_df['目标价'] = pd.to_numeric(temp_df['目标价'], errors='coerce')
+        temp_df['更新日期'] = pd.to_datetime(temp_df['更新日期'], errors='coerce', dayfirst=True).dt.date
+        temp_df['财政年度'] = temp_df['财政年度'].astype(int).astype(str)
+        return temp_df
 
 
 if __name__ == "__main__":
-    stock_profit_forecast_em_df = stock_profit_forecast_em(symbol="航运港口")
-    print(stock_profit_forecast_em_df)
+    stock_hk_profit_forecast_et_df = stock_hk_profit_forecast_et(symbol="09999", indicator="评级总览")
+    print(stock_hk_profit_forecast_et_df)
+
+    stock_hk_profit_forecast_et_df = stock_hk_profit_forecast_et(symbol="09999", indicator="去年度业绩表现")
+    print(stock_hk_profit_forecast_et_df)
+
+    stock_hk_profit_forecast_et_df = stock_hk_profit_forecast_et(symbol="09999", indicator="综合盈利预测")
+    print(stock_hk_profit_forecast_et_df)
+
+    stock_hk_profit_forecast_et_df = stock_hk_profit_forecast_et(symbol="09999", indicator="盈利预测概览")
+    print(stock_hk_profit_forecast_et_df)
