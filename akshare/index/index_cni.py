@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/3/5 23:50
+Date: 2024/1/6 16:20
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
 import zipfile
+from io import BytesIO
 
 import pandas as pd
 import requests
@@ -91,6 +92,7 @@ def index_hist_cni(symbol: str = "399001") -> pd.DataFrame:
         "frequency": "day",
     }
     r = requests.get(url, params=params)
+    r.text
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["data"])
     temp_df.columns = [
@@ -121,6 +123,7 @@ def index_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     temp_df["涨跌幅"] = temp_df["涨跌幅"].str.replace("%", "")
     temp_df["涨跌幅"] = temp_df["涨跌幅"].astype("float")
     temp_df["涨跌幅"] = temp_df["涨跌幅"] / 100
+    temp_df.sort_values(['日期'], inplace=True, ignore_index=True)
     return temp_df
 
 
@@ -141,7 +144,7 @@ def index_detail_cni(symbol: str = '399005', date: str = '202011') -> pd.DataFra
         'dateStr': '-'.join([date[:4], date[4:]])
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_excel(r.content)
+    temp_df = pd.read_excel(BytesIO(r.content))
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
         '日期',
@@ -152,9 +155,9 @@ def index_detail_cni(symbol: str = '399005', date: str = '202011') -> pd.DataFra
         '总市值',
         '权重',
     ]
-    temp_df['自由流通市值'] = pd.to_numeric(temp_df['自由流通市值'])
-    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'])
-    temp_df['权重'] = pd.to_numeric(temp_df['权重'])
+    temp_df['自由流通市值'] = pd.to_numeric(temp_df['自由流通市值'], errors="coerce")
+    temp_df['总市值'] = pd.to_numeric(temp_df['总市值'], errors="coerce")
+    temp_df['权重'] = pd.to_numeric(temp_df['权重'], errors="coerce")
     return temp_df
 
 
@@ -208,7 +211,7 @@ def index_detail_hist_cni(symbol: str = '399001', date: str = "") -> pd.DataFram
             'indexcode': symbol
         }
         r = requests.get(url, params=params)
-        temp_df = pd.read_excel(r.content)
+        temp_df = pd.read_excel(BytesIO(r.content))
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
         '日期',
@@ -240,7 +243,7 @@ def index_detail_hist_adjust_cni(symbol: str = '399005') -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     try:
-        temp_df = pd.read_excel(r.content, engine="openpyxl")
+        temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
     except zipfile.BadZipFile as e:
         return pd.DataFrame()
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
@@ -254,10 +257,10 @@ if __name__ == "__main__":
     index_hist_cni_df = index_hist_cni(symbol="399303")
     print(index_hist_cni_df)
 
-    index_detail_cni_df = index_detail_cni(symbol='399303', date='202011')
+    index_detail_cni_df = index_detail_cni(symbol='399001', date='202011')
     print(index_detail_cni_df)
 
-    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399303', date='202201')
+    index_detail_hist_cni_df = index_detail_hist_cni(symbol='399005', date='202201')
     print(index_detail_hist_cni_df)
 
     index_detail_hist_adjust_cni_df = index_detail_hist_adjust_cni(symbol='399005')
