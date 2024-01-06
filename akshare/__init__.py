@@ -2627,9 +2627,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.12 fix: fix stock_zh_index_daily interface
 1.12.13 fix: fix index_stock_cons_csindex interface
 1.12.14 add: add stock_hk_profit_forecast_et interface
+1.12.15 fix: fix stock_hk_profit_forecast_et interface
 """
 
-__version__ = "1.12.14"
+__version__ = "1.12.15"
 __author__ = "AKFamily"
 
 import sys
