@@ -6,7 +6,7 @@
 
 **本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源。**
 
-![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare_logo.jpg)
+![](https://github.com/akfamily/akshare/blob/master/assets/images/AKShare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
@@ -29,7 +29,7 @@
 
 - Documentation: [中文文档](https://akshare.akfamily.xyz/)
 
-![](https://github.com/akfamily/akshare/blob/master/example/images/AKShare.svg)
+![](https://github.com/akfamily/akshare/blob/master/assets/images/AKShare.svg)
 
 ## Installation
 
@@ -133,7 +133,7 @@ Pay attention to **数据科学实战** Official Accounts to get more informatio
 Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/akfamily/akshare) updated info:
 
 <div>
-    <img alt="ds" src="https://github.com/akfamily/akshare/blob/master/example/images/ds.png">
+    <img alt="ds" src="https://github.com/akfamily/akshare/blob/master/assets/images/ds.png">
 </div>
 
 Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 1254836886
@@ -315,5 +315,5 @@ Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://
 ## Backer and Sponsor
 
 <a href="https://www.jetbrains.com/?from=jindaxiang/akshare" target="_blank">
-<img alt="jetbrains" src="https://github.com/akfamily/akshare/blob/master/example/images/jetbrains.svg" width="100px" height="100px">
+<img alt="jetbrains" src="https://github.com/akfamily/akshare/blob/master/assets/images/jetbrains.svg" width="100px" height="100px">
 </a>
