@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/6 15:00
+Date: 2024/1/7 15:00
 Desc: 东方财富网-数据中心-研究报告-盈利预测
 https://data.eastmoney.com/report/profitforecast.jshtml
 """
@@ -59,7 +59,6 @@ def stock_hk_profit_forecast_et(symbol: str = "09999", indicator: str = "盈利�
             "最高  (百万港元)": "最高",
             "最低  (百万元人民币)": "最低",
             "最低  (百万港元)": "最低",
-
         }, inplace=True)
         temp_df['纯利/亏损'] = pd.to_numeric(temp_df['纯利/亏损'], errors='coerce')
         temp_df['每股盈利/每股亏损'] = pd.to_numeric(temp_df['每股盈利/每股亏损'], errors='coerce')
