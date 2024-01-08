@@ -18631,7 +18631,7 @@ print(stock_profit_forecast_em_df)
 [3031 rows x 13 columns]
 ```
 
-### 港股盈利预测-东方财富
+### 港股盈利预测-经济通
 
 接口: stock_hk_profit_forecast_et
 

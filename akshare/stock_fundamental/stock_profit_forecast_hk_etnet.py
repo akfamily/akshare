@@ -17,7 +17,7 @@ def stock_hk_profit_forecast_et(symbol: str = "09999", indicator: str = "盈利�
     https://www.etnet.com.hk/www/sc/stocks/realtime/quote_profit.php?code=9999
     :param symbol: 股票代码
     :type symbol: str
-    :param indicator: "盈利预测概览", 默认为获取全部数据; choice of {"评级总览", "去年度业绩表现", "综合盈利预测", "盈利预测概览"}
+    :param indicator: "盈利预测概览"; choice of {"评级总览", "去年度业绩表现", "综合盈利预测", "盈利预测概览"}
     :type indicator: str
     :return: 盈利预测
     :rtype: pandas.DataFrame
