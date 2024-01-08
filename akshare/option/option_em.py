@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/18 15:30
+Date: 2024/1/8 13:10
 Desc: 东方财富网-行情中心-期权市场
 https://quote.eastmoney.com/center/qqsc.html
 """
-
 import pandas as pd
 import requests
 
@@ -27,7 +26,7 @@ def option_current_em() -> pd.DataFrame:
         'fltt': '2',
         'invt': '2',
         'fid': 'f3',
-        'fs': 'm:10,m:140,m:141,m:151',
+        'fs': 'm:10,m:140,m:141,m:151,m:163,m:226',
         'fields': 'f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f28,f11,f62,f128,f136,f115,f152,f133,f108,f163,f161,f162',
         '_': '1606225274063',
     }
