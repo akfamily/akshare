@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/18 17:20
+Date: 2024/1/8 17:20
 Desc: 同花顺-板块-行业板块
 https://q.10jqka.com.cn/thshy/
 """
@@ -449,7 +449,7 @@ def stock_board_industry_info_ths(symbol: str = "半导体及元件") -> pd.Data
 def stock_board_industry_index_ths(
     symbol: str = "半导体及元件",
     start_date: str = "20200101",
-    end_date: str = "20211027",
+    end_date: str = "20240108",
 ) -> pd.DataFrame:
     """
     同花顺-板块-行业板块-指数数据
@@ -468,7 +468,8 @@ def stock_board_industry_index_ths(
     symbol_code = code_map[symbol]
     big_df = pd.DataFrame()
     current_year = datetime.now().year
-    for year in tqdm(range(2000, current_year + 1), leave=False):
+    begin_year = int(start_date[:4])
+    for year in tqdm(range(begin_year, current_year + 1), leave=False):
         url = f"http://d.10jqka.com.cn/v4/line/bk_{symbol_code}/01/{year}.js"
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
@@ -484,7 +485,7 @@ def stock_board_industry_index_ths(
         temp_df = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(temp_df["data"].split(";"))
         temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     if len(big_df.columns) == 11:
         big_df.columns = [
@@ -526,8 +527,8 @@ def stock_board_industry_index_ths(
             "成交额",
         ]
     ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df.index = pd.to_datetime(big_df["日期"])
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df.index = pd.to_datetime(big_df["日期"], errors="coerce")
     big_df = big_df[start_date:end_date]
     big_df.reset_index(drop=True, inplace=True)
     big_df["开盘价"] = pd.to_numeric(big_df["开盘价"], errors="coerce")
@@ -656,7 +657,7 @@ if __name__ == "__main__":
     print(stock_board_industry_info_ths_df)
 
     stock_board_industry_index_ths_df = stock_board_industry_index_ths(
-        symbol="养殖业", start_date="20150101", end_date="20211027"
+        symbol="半导体及元件", start_date="20200101", end_date="20240108"
     )
     print(stock_board_industry_index_ths_df)
 
