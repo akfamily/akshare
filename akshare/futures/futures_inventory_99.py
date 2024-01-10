@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/7/5 14:22
+Date: 2024/1/10 19:00
 Desc: 99 期货网-大宗商品库存数据
 http://www.99qh.com/d/store.aspx
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -16,7 +18,7 @@ from akshare.futures.cons import (
 
 
 def futures_inventory_99(
-    exchange: str = "大连商品交易所", symbol: str = "豆一"
+        exchange: str = "大连商品交易所", symbol: str = "豆一"
 ) -> pd.DataFrame:
     """
     99 期货网-大宗商品库存数据
@@ -273,7 +275,7 @@ def futures_inventory_99(
                 headers=qh_headers,
                 cookies=cookie,
             )
-            data_df = pd.read_html(res.text)[-1].T
+            data_df = pd.read_html(StringIO(res.text))[-1].T
             data_df.columns = data_df.iloc[0, :]
             data_df = data_df.iloc[1:, :]
             data_df.reset_index(inplace=True, drop=True)
