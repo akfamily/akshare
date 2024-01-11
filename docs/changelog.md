@@ -71,6 +71,19 @@
 
 ## 更新说明详情
 
+1.12.21 fix: fix stock_hsgt_hold_stock_em interface
+
+    1. 修复 stock_hsgt_hold_stock_em 接口
+    2. 修复 stock_cyq_em 接口
+    3. 修复 stock_industry_pe_ratio_cninfo 接口
+    4. 移除 stock_average_position_legu 接口
+    5. 修复 stock_hsgt_institution_statistics_em 接口
+    6. 移除 index_weibo_sina 接口
+    7. 移除 index_baidu 接口
+    8. 移除 index_google 接口
+    9. 修复 macro_china_bond_public 接口
+    10. 移除 index_investing_global_from_url 接口
+
 1.12.20 fix: fix futures_inventory_99 interface
 
     1. 修复 futures_inventory_99 接口
@@ -3351,6 +3364,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.21 fix: fix stock_hsgt_hold_stock_em interface
 
 1.12.20 fix: fix futures_inventory_99 interface
 
