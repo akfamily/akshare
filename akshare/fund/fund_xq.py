@@ -63,7 +63,6 @@ def fund_individual_basic_info_xq(
         "投资目标",
         "业绩比较基准",
     ]
-
     temp_df = temp_df.T.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
@@ -284,16 +283,16 @@ def fund_individual_detail_info_xq(
 
 
 if __name__ == "__main__":
-    fund_individual_basic_info_xq_df = fund_individual_basic_info_xq()
+    fund_individual_basic_info_xq_df = fund_individual_basic_info_xq(symbol="000001")
     print(fund_individual_basic_info_xq_df)
 
-    fund_individual_achievement_xq_df = fund_individual_achievement_xq()
+    fund_individual_achievement_xq_df = fund_individual_achievement_xq(symbol="000001")
     print(fund_individual_achievement_xq_df)
 
-    fund_individual_analysis_xq_df = fund_individual_analysis_xq()
+    fund_individual_analysis_xq_df = fund_individual_analysis_xq(symbol="000001")
     print(fund_individual_analysis_xq_df)
 
-    fund_individual_profit_probability_xq_df = fund_individual_profit_probability_xq()
+    fund_individual_profit_probability_xq_df = fund_individual_profit_probability_xq(symbol="000001")
     print(fund_individual_profit_probability_xq_df)
 
     fund_individual_detail_info_xq_df = fund_individual_detail_info_xq(indicator="交易规则")
