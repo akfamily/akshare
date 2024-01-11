@@ -480,7 +480,7 @@ def stock_hsgt_hold_stock_em(
 ) -> pd.DataFrame:
     """
     东方财富-数据中心-沪深港通持股-个股排行
-    http://data.eastmoney.com/hsgtcg/list.html
+    https://data.eastmoney.com/hsgtcg/list.html
     :param market: choice of {"北向", "沪股通", "深股通"}
     :type market: str
     :param indicator: choice of {"今日排行", "3日排行", "5日排行", "10日排行", "月排行", "季排行", "年排行"}
@@ -488,7 +488,7 @@ def stock_hsgt_hold_stock_em(
     :return: 指定 sector 和 indicator 的数据
     :rtype: pandas.DataFrame
     """
-    url = "http://data.eastmoney.com/hsgtcg/list.html"
+    url = "https://data.eastmoney.com/hsgtcg/list.html"
     r = requests.get(url)
     soup = BeautifulSoup(r.text, "lxml")
     date = (
@@ -497,7 +497,7 @@ def stock_hsgt_hold_stock_em(
         .text.strip("（")
         .strip("）")
     )
-    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     if indicator == "今日排行":
         indicator_type = "1"
     if indicator == "3日排行":
@@ -588,6 +588,7 @@ def stock_hsgt_hold_stock_em(
         "_",
         "_",
         "_",
+        "_",
     ]
     big_df = big_df[
         [
@@ -609,35 +610,35 @@ def stock_hsgt_hold_stock_em(
             "日期",
         ]
     ]
-    big_df["今日收盘价"] = pd.to_numeric(big_df["今日收盘价"])
-    big_df["今日涨跌幅"] = pd.to_numeric(big_df["今日涨跌幅"])
-    big_df["今日持股-股数"] = pd.to_numeric(big_df["今日持股-股数"])
-    big_df["今日持股-市值"] = pd.to_numeric(big_df["今日持股-市值"])
-    big_df["今日持股-占流通股比"] = pd.to_numeric(big_df["今日持股-占流通股比"])
-    big_df["今日持股-占总股本比"] = pd.to_numeric(big_df["今日持股-占总股本比"])
+    big_df["今日收盘价"] = pd.to_numeric(big_df["今日收盘价"], errors="coerce")
+    big_df["今日涨跌幅"] = pd.to_numeric(big_df["今日涨跌幅"], errors="coerce")
+    big_df["今日持股-股数"] = pd.to_numeric(big_df["今日持股-股数"], errors="coerce")
+    big_df["今日持股-市值"] = pd.to_numeric(big_df["今日持股-市值"], errors="coerce")
+    big_df["今日持股-占流通股比"] = pd.to_numeric(big_df["今日持股-占流通股比"], errors="coerce")
+    big_df["今日持股-占总股本比"] = pd.to_numeric(big_df["今日持股-占总股本比"], errors="coerce")
     big_df[f'{indicator.split("排")[0]}增持估计-股数'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-股数']
+        big_df[f'{indicator.split("排")[0]}增持估计-股数'], errors="coerce"
     )
     big_df[f'{indicator.split("排")[0]}增持估计-市值'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-市值']
+        big_df[f'{indicator.split("排")[0]}增持估计-市值'], errors="coerce"
     )
     big_df[f'{indicator.split("排")[0]}增持估计-市值增幅'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-市值增幅']
+        big_df[f'{indicator.split("排")[0]}增持估计-市值增幅'], errors="coerce"
     )
     big_df[f'{indicator.split("排")[0]}增持估计-占流通股比'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-占流通股比']
+        big_df[f'{indicator.split("排")[0]}增持估计-占流通股比'], errors="coerce"
     )
     big_df[f'{indicator.split("排")[0]}增持估计-占总股本比'] = pd.to_numeric(
-        big_df[f'{indicator.split("排")[0]}增持估计-占总股本比']
+        big_df[f'{indicator.split("排")[0]}增持估计-占总股本比'], errors="coerce"
     )
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     return big_df
 
 
 def stock_hsgt_stock_statistics_em(
     symbol: str = "北向持股",
-    start_date: str = "20230113",
-    end_date: str = "20230113",
+    start_date: str = "20240110",
+    end_date: str = "20240110",
 ):
     """
     东方财富网-数据中心-沪深港通-沪深港通持股-每日个股统计
@@ -732,15 +733,15 @@ def stock_hsgt_stock_statistics_em(
                 "持股市值变化-10日",
             ]
         ]
-        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"]).dt.date
-        big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"])
-        big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"])
-        big_df["持股数量"] = pd.to_numeric(big_df["持股数量"])
-        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"])
-        big_df["持股数量占发行股百分比"] = pd.to_numeric(big_df["持股数量占发行股百分比"])
-        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"])
-        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"])
-        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"])
+        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"], errors="coerce").dt.date
+        big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"], errors="coerce")
+        big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"], errors="coerce")
+        big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
+        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+        big_df["持股数量占发行股百分比"] = pd.to_numeric(big_df["持股数量占发行股百分比"], errors="coerce")
+        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"], errors="coerce")
+        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"], errors="coerce")
+        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"], errors="coerce")
     elif symbol == "北向持股":
         params = {
             "sortColumns": "TRADE_DATE",
@@ -815,6 +816,7 @@ def stock_hsgt_stock_statistics_em(
             "持股市值变化-10日",
             "-",
             "-",
+            "-",
         ]
         big_df = big_df[
             [
@@ -831,15 +833,15 @@ def stock_hsgt_stock_statistics_em(
                 "持股市值变化-10日",
             ]
         ]
-        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"]).dt.date
-        big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"])
-        big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"])
-        big_df["持股数量"] = pd.to_numeric(big_df["持股数量"])
-        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"])
-        big_df["持股数量占发行股百分比"] = pd.to_numeric(big_df["持股数量占发行股百分比"])
-        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"])
-        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"])
-        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"])
+        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"], errors="coerce").dt.date
+        big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"], errors="coerce")
+        big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"], errors="coerce")
+        big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
+        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+        big_df["持股数量占发行股百分比"] = pd.to_numeric(big_df["持股数量占发行股百分比"], errors="coerce")
+        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"], errors="coerce")
+        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"], errors="coerce")
+        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"], errors="coerce")
     elif symbol == "沪股通持股":
         params = {
             "sortColumns": "TRADE_DATE",
@@ -912,6 +914,7 @@ def stock_hsgt_stock_statistics_em(
             "持股市值变化-10日",
             "-",
             "-",
+            "-",
         ]
         big_df = big_df[
             [
@@ -928,15 +931,15 @@ def stock_hsgt_stock_statistics_em(
                 "持股市值变化-10日",
             ]
         ]
-        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"]).dt.date
-        big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"])
-        big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"])
-        big_df["持股数量"] = pd.to_numeric(big_df["持股数量"])
-        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"])
-        big_df["持股数量占发行股百分比"] = pd.to_numeric(big_df["持股数量占发行股百分比"])
-        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"])
-        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"])
-        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"])
+        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"], errors="coerce").dt.date
+        big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"], errors="coerce")
+        big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"], errors="coerce")
+        big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
+        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+        big_df["持股数量占发行股百分比"] = pd.to_numeric(big_df["持股数量占发行股百分比"], errors="coerce")
+        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"], errors="coerce")
+        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"], errors="coerce")
+        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"], errors="coerce")
     elif symbol == "深股通持股":
         params = {
             "sortColumns": "TRADE_DATE",
@@ -1009,6 +1012,7 @@ def stock_hsgt_stock_statistics_em(
             "持股市值变化-10日",
             "-",
             "-",
+            "-",
         ]
         big_df = big_df[
             [
@@ -1025,15 +1029,15 @@ def stock_hsgt_stock_statistics_em(
                 "持股市值变化-10日",
             ]
         ]
-        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"]).dt.date
-        big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"])
-        big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"])
-        big_df["持股数量"] = pd.to_numeric(big_df["持股数量"])
-        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"])
-        big_df["持股数量占发行股百分比"] = pd.to_numeric(big_df["持股数量占发行股百分比"])
-        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"])
-        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"])
-        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"])
+        big_df["持股日期"] = pd.to_datetime(big_df["持股日期"], errors="coerce").dt.date
+        big_df["当日收盘价"] = pd.to_numeric(big_df["当日收盘价"], errors="coerce")
+        big_df["当日涨跌幅"] = pd.to_numeric(big_df["当日涨跌幅"], errors="coerce")
+        big_df["持股数量"] = pd.to_numeric(big_df["持股数量"], errors="coerce")
+        big_df["持股市值"] = pd.to_numeric(big_df["持股市值"], errors="coerce")
+        big_df["持股数量占发行股百分比"] = pd.to_numeric(big_df["持股数量占发行股百分比"], errors="coerce")
+        big_df["持股市值变化-1日"] = pd.to_numeric(big_df["持股市值变化-1日"], errors="coerce")
+        big_df["持股市值变化-5日"] = pd.to_numeric(big_df["持股市值变化-5日"], errors="coerce")
+        big_df["持股市值变化-10日"] = pd.to_numeric(big_df["持股市值变化-10日"], errors="coerce")
     return big_df
 
 
@@ -1752,49 +1756,49 @@ if __name__ == "__main__":
     print(stock_hsgt_hold_stock_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="北向持股", start_date="20230901", end_date="20230930"
+        symbol="北向持股", start_date="20240110", end_date="20240110"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="南向持股", start_date="20220601", end_date="20220615"
+        symbol="南向持股", start_date="20240110", end_date="20240110"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="沪股通持股", start_date="20220601", end_date="20220609"
+        symbol="沪股通持股", start_date="20240110", end_date="20240110"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
     stock_hsgt_stock_statistics_em_df = stock_hsgt_stock_statistics_em(
-        symbol="深股通持股", start_date="20220601", end_date="20220609"
+        symbol="深股通持股", start_date="20240110", end_date="20240110"
     )
     print(stock_hsgt_stock_statistics_em_df)
 
     stock_hsgt_institution_statistics_em_df = (
         stock_hsgt_institution_statistics_em(
-            market="北向持股", start_date="20220601", end_date="20220609"
+            market="北向持股", start_date="20240110", end_date="20240110"
         )
     )
     print(stock_hsgt_institution_statistics_em_df)
 
     stock_hsgt_institution_statistics_em_df = (
         stock_hsgt_institution_statistics_em(
-            market="南向持股", start_date="20220601", end_date="20220609"
+            market="南向持股", start_date="20240110", end_date="20240110"
         )
     )
     print(stock_hsgt_institution_statistics_em_df)
 
     stock_hsgt_institution_statistics_em_df = (
         stock_hsgt_institution_statistics_em(
-            market="沪股通持股", start_date="20220601", end_date="20220609"
+            market="沪股通持股", start_date="20240110", end_date="20240110"
         )
     )
     print(stock_hsgt_institution_statistics_em_df)
 
     stock_hsgt_institution_statistics_em_df = (
         stock_hsgt_institution_statistics_em(
-            market="深股通持股", start_date="20220601", end_date="20220609"
+            market="深股通持股", start_date="20240110", end_date="20240110"
         )
     )
     print(stock_hsgt_institution_statistics_em_df)
@@ -1811,6 +1815,6 @@ if __name__ == "__main__":
     print(stock_hsgt_individual_em_df)
 
     stock_hsgt_individual_detail_em_df = stock_hsgt_individual_detail_em(
-        symbol="002008", start_date="20220601", end_date="20220609"
+        symbol="002008", start_date="20240110", end_date="20240110"
     )
     print(stock_hsgt_individual_detail_em_df)
