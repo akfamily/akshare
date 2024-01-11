@@ -2633,9 +2633,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.18 fix: fix stock_board_industry_index_ths interface
 1.12.19 fix: fix stock_hk_profit_forecast_et interface
 1.12.20 fix: fix futures_inventory_99 interface
+1.12.21 fix: fix stock_hsgt_hold_stock_em interface
 """
 
-__version__ = "1.12.20"
+__version__ = "1.12.21"
 __author__ = "AKFamily"
 
 import sys
@@ -3645,13 +3646,6 @@ from akshare.economic.macro_china_hk import (
 from akshare.stock_feature.stock_zf_pg import stock_qbzf_em, stock_pg_em
 
 """
-平均持仓
-"""
-from akshare.stock_feature.stock_average_position_lg import (
-    stock_average_position_legu,
-)
-
-"""
 汽车销量
 """
 from akshare.other.other_car import car_gasgoo_sale_rank, car_energy_sale_cpca
@@ -4608,25 +4602,6 @@ from akshare.index.index_sw import (
 )
 
 """
-谷歌指数
-"""
-from akshare.index.index_google import google_index
-
-"""
-百度指数
-"""
-from akshare.index.index_baidu import (
-    baidu_search_index,
-    baidu_info_index,
-    baidu_media_index,
-)
-
-"""
-微博指数
-"""
-from akshare.index.index_weibo_sina import index_weibo_sina
-
-"""
 经济政策不确定性指数
 """
 from akshare.article.epu_index import article_epu_index
@@ -4966,7 +4941,6 @@ from akshare.index.index_investing import (
     index_investing_global,
     index_investing_global_area_index_name_code,
     index_investing_global_area_index_name_url,
-    index_investing_global_from_url,
 )
 
 """

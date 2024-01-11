@@ -5,41 +5,25 @@ Date: 2021/9/14 16:29
 Desc: 巨潮资讯-数据中心-行业分析-行业市盈率
 http://webapi.cninfo.com.cn/#/thematicStatistics?name=%E6%8A%95%E8%B5%84%E8%AF%84%E7%BA%A7
 """
-import time
-from py_mini_racer import py_mini_racer
-import requests
 import pandas as pd
+import requests
+from py_mini_racer import py_mini_racer
+
+from akshare.datasets import get_ths_js
 
 
-js_str = """
-    function mcode(input) {  
-                var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"   + "wxyz0123456789+/" + "=";  
-                var output = "";  
-                var chr1, chr2, chr3 = "";  
-                var enc1, enc2, enc3, enc4 = "";  
-                var i = 0;  
-                do {  
-                    chr1 = input.charCodeAt(i++);  
-                    chr2 = input.charCodeAt(i++);  
-                    chr3 = input.charCodeAt(i++);  
-                    enc1 = chr1 >> 2;  
-                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);  
-                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);  
-                    enc4 = chr3 & 63;  
-                    if (isNaN(chr2)) {  
-                        enc3 = enc4 = 64;  
-                    } else if (isNaN(chr3)) {  
-                        enc4 = 64;  
-                    }  
-                    output = output + keyStr.charAt(enc1) + keyStr.charAt(enc2)  
-                            + keyStr.charAt(enc3) + keyStr.charAt(enc4);  
-                    chr1 = chr2 = chr3 = "";  
-                    enc1 = enc2 = enc3 = enc4 = "";  
-                } while (i < input.length);  
-          
-                return output;  
-            }  
-"""
+def _get_file_content_ths(file: str = "cninfo.js") -> str:
+    """
+    获取 JS 文件的内容
+    :param file:  JS 文件名
+    :type file: str
+    :return: 文件内容
+    :rtype: str
+    """
+    setting_file_path = get_ths_js(file)
+    with open(setting_file_path) as f:
+        file_data = f.read()
+    return file_data
 
 
 def stock_industry_pe_ratio_cninfo(symbol: str = "证监会行业分类", date: str = "20210910") -> pd.DataFrame:
@@ -61,10 +45,10 @@ def stock_industry_pe_ratio_cninfo(symbol: str = "证监会行业分类", date: 
     params = {"tdate": "-".join([date[:4], date[4:6], date[6:]]),
               "sortcode": sort_code_map[symbol],
               }
-    random_time_str = str(int(time.time()))
     js_code = py_mini_racer.MiniRacer()
-    js_code.eval(js_str)
-    mcode = js_code.call("mcode", random_time_str)
+    js_content = _get_file_content_ths("cninfo.js")
+    js_code.eval(js_content)
+    mcode = js_code.call("getResCode1")
     headers = {
         "Accept": "*/*",
         "Accept-Encoding": "gzip, deflate",
@@ -72,7 +56,7 @@ def stock_industry_pe_ratio_cninfo(symbol: str = "证监会行业分类", date: 
         "Cache-Control": "no-cache",
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
-        "mcode": mcode,
+        "Accept-Enckey": mcode,
         "Origin": "http://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
@@ -123,5 +107,5 @@ def stock_industry_pe_ratio_cninfo(symbol: str = "证监会行业分类", date: 
 
 
 if __name__ == "__main__":
-    stock_industry_pe_ratio_cninfo_df = stock_industry_pe_ratio_cninfo(symbol="国证行业分类", date="20210907")
+    stock_industry_pe_ratio_cninfo_df = stock_industry_pe_ratio_cninfo(symbol="国证行业分类", date="20210910")
     print(stock_industry_pe_ratio_cninfo_df)

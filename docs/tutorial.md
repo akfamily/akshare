@@ -47,7 +47,6 @@
  "get_bond_bank"  # 获取中国银行间市场交易商协会-债券数据
  # 提供英为财情数据接口
  "index_investing_global"  # 提供英为财情-股票指数-全球股指与期货指数数据
- "index_investing_global_from_url"  # 提供英为财情-股票指数-全球股指与期货指数数据-URL版本
  "bond_investing_global"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
  # 交易所商品期权数据
  "option_dce_daily"  # 提供大连商品交易所商品期权数据
@@ -141,14 +140,6 @@
  "futures_return_index_nh"  # 收益率指数
  # 经济政策不确定性(EPU)指数
  "article_epu_index"  # 主要国家和地区的经济政策不确定性(EPU)指数
- # 微博指数
- "index_weibo_sina"  # 获取3个月内的微博指数
- # 百度指数
- "baidu_search_index"  # 获取百度搜索指数
- "baidu_info_index"  # 获取百度资讯指数
- "baidu_media_index"  # 获取百度媒体指数
- # 谷歌指数
- "google_index"  # 获取谷歌趋势指数
  # 申万行业指数
  "sw_index_third_info"  # 申万三级信息
  "sw_index_third_cons"  # 申万三级信息成份
@@ -719,8 +710,6 @@
  # 汽车销量
  "car_gasgoo_sale_rank"  # 盖世汽车-汽车行业制造企业数据库-销量数据
  "car_energy_sale_cpca"  # 乘联会-新能源细分市场-整体市场
- # 平均持仓
- "stock_average_position_legu"  # 平均持仓
  # 增发
  "stock_em_qbzf"  # 增发
  # 配股
