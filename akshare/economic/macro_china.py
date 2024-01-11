@@ -3335,11 +3335,14 @@ def macro_china_wbck() -> pd.DataFrame:
 def macro_china_bond_public() -> pd.DataFrame:
     """
     中国-债券信息披露-债券发行
-    http://www.chinamoney.com.cn/chinese/xzjfx/
+    https://www.chinamoney.com.cn/chinese/xzjfx/
     :return: 债券发行
     :rtype: pandas.DataFrame
     """
     url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-an/bnBondEmit"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+    }
     payload = {
         "enty": "",
         "bondType": "",
@@ -3349,7 +3352,7 @@ def macro_china_bond_public() -> pd.DataFrame:
         "pageSize": "1000",
         "limit": "1",
     }
-    r = requests.post(url, data=payload)
+    r = requests.post(url, data=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
