@@ -305,6 +305,8 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
     temp_df['70成本-低'] = pd.to_numeric(temp_df['70成本-低'], errors="coerce")
     temp_df['70成本-高'] = pd.to_numeric(temp_df['70成本-高'], errors="coerce")
     temp_df['70集中度'] = pd.to_numeric(temp_df['70集中度'], errors="coerce")
+    temp_df = temp_df.iloc[-90:, :].copy()
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
