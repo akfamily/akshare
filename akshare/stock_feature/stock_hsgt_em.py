@@ -1405,7 +1405,7 @@ def stock_hsgt_board_rank_em(
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-沪深港通持股-行业板块排行-北向资金增持行业板块排行
-    https://data.eastmoney.com/hsgtcg/hy.html
+    https://data.eastmoney.com/hsgtcg/bk.html
     :param symbol: choice of {"北向资金增持行业板块排行", "北向资金增持概念板块排行", "北向资金增持地域板块排行"}
     :type symbol: str
     :param indicator: choice of {"今日", "3日", "5日", "10日", "1月", "1季", "1年"}
@@ -1510,17 +1510,17 @@ def stock_hsgt_board_rank_em(
             "报告时间",
         ]
     ]
-    temp_df["最新涨跌幅"] = pd.to_numeric(temp_df["最新涨跌幅"])
-    temp_df["北向资金今日持股-股票只数"] = pd.to_numeric(temp_df["北向资金今日持股-股票只数"])
-    temp_df["北向资金今日持股-市值"] = pd.to_numeric(temp_df["北向资金今日持股-市值"])
-    temp_df["北向资金今日持股-占板块比"] = pd.to_numeric(temp_df["北向资金今日持股-占板块比"])
-    temp_df["北向资金今日持股-占北向资金比"] = pd.to_numeric(temp_df["北向资金今日持股-占北向资金比"])
-    temp_df["北向资金今日增持估计-股票只数"] = pd.to_numeric(temp_df["北向资金今日增持估计-股票只数"])
-    temp_df["北向资金今日增持估计-市值"] = pd.to_numeric(temp_df["北向资金今日增持估计-市值"])
-    temp_df["北向资金今日增持估计-市值增幅"] = pd.to_numeric(temp_df["北向资金今日增持估计-市值增幅"])
-    temp_df["北向资金今日增持估计-占板块比"] = pd.to_numeric(temp_df["北向资金今日增持估计-占板块比"])
-    temp_df["北向资金今日增持估计-占北向资金比"] = pd.to_numeric(temp_df["北向资金今日增持估计-占北向资金比"])
-    temp_df["报告时间"] = pd.to_datetime(temp_df["报告时间"]).dt.date
+    temp_df["最新涨跌幅"] = pd.to_numeric(temp_df["最新涨跌幅"], errors="coerce")
+    temp_df["北向资金今日持股-股票只数"] = pd.to_numeric(temp_df["北向资金今日持股-股票只数"], errors="coerce")
+    temp_df["北向资金今日持股-市值"] = pd.to_numeric(temp_df["北向资金今日持股-市值"], errors="coerce")
+    temp_df["北向资金今日持股-占板块比"] = pd.to_numeric(temp_df["北向资金今日持股-占板块比"], errors="coerce")
+    temp_df["北向资金今日持股-占北向资金比"] = pd.to_numeric(temp_df["北向资金今日持股-占北向资金比"], errors="coerce")
+    temp_df["北向资金今日增持估计-股票只数"] = pd.to_numeric(temp_df["北向资金今日增持估计-股票只数"], errors="coerce")
+    temp_df["北向资金今日增持估计-市值"] = pd.to_numeric(temp_df["北向资金今日增持估计-市值"], errors="coerce")
+    temp_df["北向资金今日增持估计-市值增幅"] = pd.to_numeric(temp_df["北向资金今日增持估计-市值增幅"], errors="coerce")
+    temp_df["北向资金今日增持估计-占板块比"] = pd.to_numeric(temp_df["北向资金今日增持估计-占板块比"], errors="coerce")
+    temp_df["北向资金今日增持估计-占北向资金比"] = pd.to_numeric(temp_df["北向资金今日增持估计-占北向资金比"], errors="coerce")
+    temp_df["报告时间"] = pd.to_datetime(temp_df["报告时间"], errors="coerce").dt.date
     return temp_df
 
 
