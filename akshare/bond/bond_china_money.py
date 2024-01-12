@@ -294,11 +294,11 @@ def macro_china_swap_rate(
 
 if __name__ == "__main__":
     bond_china_close_return_df = bond_china_close_return(
-        symbol="国债", period="1", start_date="20231128", end_date="20231130"
+        symbol="国债", period="1", start_date="20240101", end_date="20240112"
     )
     print(bond_china_close_return_df)
 
     macro_china_swap_rate_df = macro_china_swap_rate(
-        start_date="20231128", end_date="20231130"
+        start_date="20240101", end_date="20240112"
     )
     print(macro_china_swap_rate_df)
