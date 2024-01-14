@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/6 16:20
+Date: 2024/1/14 18:00
 Desc: 国证指数
 http://www.cnindex.com.cn/index.html
 """
@@ -75,24 +75,29 @@ def index_all_cni() -> pd.DataFrame:
     return temp_df
 
 
-def index_hist_cni(symbol: str = "399001") -> pd.DataFrame:
+def index_hist_cni(symbol: str = "399001", start_date: str = "20230114", end_date: str = "20240114") -> pd.DataFrame:
     """
     指数历史行情数据
     http://www.cnindex.com.cn/module/index-detail.html?act_menu=1&indexCode=399001
     :param symbol: 指数代码
     :type symbol: str
+    :param start_date: 开始时间
+    :type start_date: str
+    :param end_date: 结束时间
+    :type end_date: str
     :return: 指数历史行情数据
     :rtype: pandas.DataFrame
     """
+    start_date = "-".join([start_date[:4], start_date[4:6], start_date[6:]])
+    end_date = "-".join([end_date[:4], end_date[4:6], end_date[6:]])
     url = "http://hq.cnindex.com.cn/market/market/getIndexDailyDataWithDataFormat"
     params = {
         "indexCode": symbol,
-        "startDate": "",
-        "endDate": "",
+        "startDate": start_date,
+        "endDate": end_date,
         "frequency": "day",
     }
     r = requests.get(url, params=params)
-    r.text
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["data"])
     temp_df.columns = [
@@ -124,6 +129,14 @@ def index_hist_cni(symbol: str = "399001") -> pd.DataFrame:
     temp_df["涨跌幅"] = temp_df["涨跌幅"].astype("float")
     temp_df["涨跌幅"] = temp_df["涨跌幅"] / 100
     temp_df.sort_values(['日期'], inplace=True, ignore_index=True)
+    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
+    temp_df['开盘价'] = pd.to_numeric(temp_df['开盘价'], errors="coerce")
+    temp_df['最高价'] = pd.to_numeric(temp_df['最高价'], errors="coerce")
+    temp_df['最低价'] = pd.to_numeric(temp_df['最低价'], errors="coerce")
+    temp_df['收盘价'] = pd.to_numeric(temp_df['收盘价'], errors="coerce")
+    temp_df['涨跌幅'] = pd.to_numeric(temp_df['涨跌幅'], errors="coerce")
+    temp_df['成交量'] = pd.to_numeric(temp_df['成交量'], errors="coerce")
+    temp_df['成交额'] = pd.to_numeric(temp_df['成交额'], errors="coerce")
     return temp_df
 
 
@@ -254,7 +267,7 @@ if __name__ == "__main__":
     index_all_cni_df = index_all_cni()
     print(index_all_cni_df)
 
-    index_hist_cni_df = index_hist_cni(symbol="399303")
+    index_hist_cni_df = index_hist_cni(symbol="399005", start_date="20230114", end_date="20240114")
     print(index_hist_cni_df)
 
     index_detail_cni_df = index_detail_cni(symbol='399001', date='202011')
