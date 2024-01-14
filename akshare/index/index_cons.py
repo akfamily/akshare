@@ -70,12 +70,10 @@ def index_stock_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.joinquant.com/data/dict/indexData"
-    r = requests.get(url)
-    index_df = pd.read_html(StringIO(r.text))[0]
+    index_df = pd.read_html(url)[0]
     index_df["指数代码"] = index_df["指数代码"].str.split(".", expand=True)[0]
     index_df.columns = ["index_code", "display_name", "publish_date", "-", "-"]
-    temp_df = index_df[["index_code", "display_name", "publish_date"]]
-    return temp_df
+    return index_df[["index_code", "display_name", "publish_date"]]
 
 
 def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
