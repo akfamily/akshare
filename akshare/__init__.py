@@ -2636,9 +2636,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.21 fix: fix stock_hsgt_hold_stock_em interface
 1.12.22 fix: fix stock_hsgt_board_rank_em interface
 1.12.23 fix: fix fund_etf_hist_min_em interface
+1.12.24 fix: fix stock_hk_index_spot_em interface
 """
 
-__version__ = "1.12.23"
+__version__ = "1.12.24"
 __author__ = "AKFamily"
 
 import sys
