@@ -71,10 +71,11 @@ def index_stock_info() -> pd.DataFrame:
     """
     url = "https://www.joinquant.com/data/dict/indexData"
     r = requests.get(url)
+    r.encoding = "utf-8"
     index_df = pd.read_html(StringIO(r.text))[0]
     index_df["指数代码"] = index_df["指数代码"].str.split(".", expand=True)[0]
     index_df.columns = ["index_code", "display_name", "publish_date", "-", "-"]
-    temp_df = index_df[["index_code", "display_name", "publish_date"]]
+    temp_df = index_df[["index_code", "display_name", "publish_date"]].copy()
     return temp_df
 
 
