@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/01/03 15:40
+Date: 2024/01/16 23:40
 Desc: 雪球基金-基金详情
 https://danjuanfunds.com/funding/003545
 """
@@ -29,25 +29,25 @@ def fund_individual_basic_info_xq(
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
     temp_df = pd.json_normalize(json_data)
-    temp_df = temp_df[
-        [
-            "fd_code",
-            "fd_name",
-            "fd_full_name",
-            "found_date",
-            "totshare",
-            "keeper_name",
-            "manager_name",
-            "trup_name",
-            "type_desc",
-            "rating_source",
-            "rating_desc",
-            "invest_orientation",
-            "invest_target",
-            "performance_bench_mark",
-        ]
-    ]
-    temp_df.columns = [
+    temp_df.rename(columns={
+        "fd_code": "基金代码",
+        "fd_name": "基金名称",
+        "fd_full_name": "基金全称",
+        "found_date": "成立时间",
+        "totshare": "最新规模",
+        "keeper_name": "基金公司",
+        "manager_name": "基金经理",
+        "trup_name": "托管银行",
+        "type_desc": "基金类型",
+        "rating_source": "评级机构",
+        "rating_desc": "基金评级",
+        "invest_orientation": "投资策略",
+        "invest_target": "投资目标",
+        "performance_bench_mark": "业绩比较基准",
+    }, inplace=True)
+    if "评级机构" not in temp_df.columns:
+        temp_df['评级机构'] = pd.NA
+    temp_df = temp_df[[
         "基金代码",
         "基金名称",
         "基金全称",
@@ -62,7 +62,7 @@ def fund_individual_basic_info_xq(
         "投资策略",
         "投资目标",
         "业绩比较基准",
-    ]
+    ]]
     temp_df = temp_df.T.reset_index()
     temp_df.columns = ["item", "value"]
     return temp_df
@@ -283,7 +283,7 @@ def fund_individual_detail_info_xq(
 
 
 if __name__ == "__main__":
-    fund_individual_basic_info_xq_df = fund_individual_basic_info_xq(symbol="000001")
+    fund_individual_basic_info_xq_df = fund_individual_basic_info_xq(symbol="000005")
     print(fund_individual_basic_info_xq_df)
 
     fund_individual_achievement_xq_df = fund_individual_achievement_xq(symbol="000001")
