@@ -2639,10 +2639,11 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.24 fix: fix stock_hk_index_spot_em interface
 1.12.25 fix: fix fund_individual_basic_info_xq interface
 1.12.26 fix: fix index_stock_info interface
-1.12.27 add: add fund_individual_basic_info_xq interface
+1.12.27 fix: fix stock_hk_fhpx_detail_ths interface
+1.12.28 add: add fund_individual_basic_info_xq interface
 """
 
-__version__ = "1.12.26"
+__version__ = "1.12.27"
 __author__ = "AKFamily"
 
 import sys
@@ -2659,7 +2660,7 @@ if pd_main_version < 2:
 
 if sys.version_info < (3, 9):
     warnings.warn(
-        "为了支持更多特性，请将 Python 升级到 3.9 及以上版本！"
+        "为了支持更多特性，请将 Python 升级到 3.9.0 及以上版本！"
     )
 
 del sys

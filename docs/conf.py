@@ -19,7 +19,7 @@ from recommonmark.transform import AutoStructify
 
 def get_version_string():
     """
-    Get the akshare version number
+    Get the version of akshare
     :return: version number
     :rtype: str, e.g. '0.6.24'
     """

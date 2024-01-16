@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/4 22:09
+Date: 2024/1/16 16:30
 Desc: AKShare's PYPI info file
 """
 import re
@@ -15,7 +15,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 def get_version_string() -> str:
     """
-    Get the akshare version number
+    get the version of akshare
     :return: version number
     :rtype: str, e.g. '0.6.24'
     """

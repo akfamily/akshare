@@ -10,6 +10,7 @@ https://www.aqistudy.cn/
 import json
 import os
 import re
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -78,7 +79,7 @@ def air_city_table() -> pd.DataFrame:
             "type": "DAY",
         }
         r = requests.get(url, params=params)
-        temp_df = pd.read_html(r.text)[1].iloc[1:, :]
+        temp_df = pd.read_html(StringIO(r.text))[1].iloc[1:, :]
         del temp_df["降序"]
         temp_df.reset_index(inplace=True)
         temp_df["index"] = temp_df.index + 1
@@ -88,7 +89,7 @@ def air_city_table() -> pd.DataFrame:
 
 
 def air_quality_watch_point(
-    city: str = "杭州", start_date: str = "20220408", end_date: str = "20220409"
+        city: str = "杭州", start_date: str = "20220408", end_date: str = "20220409"
 ) -> pd.DataFrame:
     """
     真气网-监测点空气质量-细化到具体城市的每个监测点
@@ -136,10 +137,10 @@ def air_quality_watch_point(
 
 
 def air_quality_hist(
-    city: str = "杭州",
-    period: str = "day",
-    start_date: str = "20190327",
-    end_date: str = "20200427",
+        city: str = "杭州",
+        period: str = "day",
+        start_date: str = "20190327",
+        end_date: str = "20200427",
 ) -> pd.DataFrame:
     """
     真气网-空气历史数据
@@ -261,7 +262,7 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "type": "DAY",
         }
         r = requests.get(url, params=params)
-        return pd.read_html(r.text)[1].iloc[1:, :]
+        return pd.read_html(StringIO(r.text))[1].iloc[1:, :]
     elif len(date.split("-")) == 2:
         params = {
             "month": date,
@@ -270,7 +271,7 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "type": "MONTH",
         }
         r = requests.get(url, params=params)
-        return pd.read_html(r.text)[2].iloc[1:, :]
+        return pd.read_html(StringIO(r.text))[2].iloc[1:, :]
     elif len(date.split("-")) == 1 and date != "实时":
         params = {
             "year": date,
@@ -279,7 +280,7 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "type": "YEAR",
         }
         r = requests.get(url, params=params)
-        return pd.read_html(r.text)[3].iloc[1:, :]
+        return pd.read_html(StringIO(r.text))[3].iloc[1:, :]
     if date == "实时":
         params = {
             "tab": "rank",
@@ -287,7 +288,7 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "type": "MONTH",
         }
         r = requests.get(url, params=params)
-        return pd.read_html(r.text)[0].iloc[1:, :]
+        return pd.read_html(StringIO(r.text))[0].iloc[1:, :]
 
 
 if __name__ == "__main__":
