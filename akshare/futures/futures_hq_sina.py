@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/1/25 11:35
+Date: 2024/1/17 15:30
 Desc: 新浪财经-外盘期货
-http://finance.sina.com.cn/money/future/hf.html
+https://finance.sina.com.cn/money/future/hf.html
 """
 import time
 
@@ -17,10 +17,11 @@ from akshare.utils import demjson
 def _get_real_name_list() -> list:
     """
     新浪-外盘期货所有品种的中文名称
+    https://finance.sina.com.cn/money/future/hf.html
     :return: 外盘期货所有品种的中文名称
     :rtype: list
     """
-    url = "http://finance.sina.com.cn/money/future/hf.html"
+    url = "https://finance.sina.com.cn/money/future/hf.html"
     r = requests.get(url)
     r.encoding = "gb2312"
     data_text = r.text
@@ -35,10 +36,11 @@ def _get_real_name_list() -> list:
 def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
     """
     需要订阅的行情的代码
+    https://finance.sina.com.cn/money/future/hf.html
     :return: 需要订阅的行情的代码
     :rtype: list
     """
-    url = "http://finance.sina.com.cn/money/future/hf.html"
+    url = "https://finance.sina.com.cn/money/future/hf.html"
     r = requests.get(url)
     r.encoding = "gb2312"
     data_text = r.text
@@ -59,6 +61,8 @@ def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     inner_dict = {
+        "新交所 TSI CFR 中国铁矿石（62%铁粉）指数": 'FEF',
+        "马棕油": 'FCPO',
         "NYBOT-棉花": 'CT',
         "LME镍3个月": 'NID',
         "LME铅3个月": 'PBD',
@@ -83,7 +87,6 @@ def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
         "伦敦银": 'XAG',
         "伦敦铂金": 'XPT',
         "伦敦钯金": 'XPD',
-        "马棕油": 'FCPO',
         "欧洲碳排放": 'EUA',
     }
     temp_df = pd.DataFrame.from_dict(inner_dict, orient='index')
@@ -182,15 +185,15 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
         "日期",
     ]
     data_df.dropna(how="all", inplace=True)
-    data_df["最新价"] = pd.to_numeric(data_df["最新价"])
-    data_df["人民币报价"] = pd.to_numeric(data_df["人民币报价"])
-    data_df["买价"] = pd.to_numeric(data_df["买价"])
-    data_df["卖价"] = pd.to_numeric(data_df["卖价"])
-    data_df["最高价"] = pd.to_numeric(data_df["最高价"])
-    data_df["最低价"] = pd.to_numeric(data_df["最低价"])
-    data_df["昨日结算价"] = pd.to_numeric(data_df["昨日结算价"])
-    data_df["开盘价"] = pd.to_numeric(data_df["开盘价"])
-    data_df["持仓量"] = pd.to_numeric(data_df["持仓量"])
+    data_df["最新价"] = pd.to_numeric(data_df["最新价"], errors="coerce")
+    data_df["人民币报价"] = pd.to_numeric(data_df["人民币报价"], errors="coerce")
+    data_df["买价"] = pd.to_numeric(data_df["买价"], errors="coerce")
+    data_df["卖价"] = pd.to_numeric(data_df["卖价"], errors="coerce")
+    data_df["最高价"] = pd.to_numeric(data_df["最高价"], errors="coerce")
+    data_df["最低价"] = pd.to_numeric(data_df["最低价"], errors="coerce")
+    data_df["昨日结算价"] = pd.to_numeric(data_df["昨日结算价"], errors="coerce")
+    data_df["开盘价"] = pd.to_numeric(data_df["开盘价"], errors="coerce")
+    data_df["持仓量"] = pd.to_numeric(data_df["持仓量"], errors="coerce")
     data_df["涨跌额"] = data_df["最新价"] - data_df["昨日结算价"]
     data_df["涨跌幅"] = (data_df["最新价"] - data_df["昨日结算价"]) / data_df["昨日结算价"] * 100
     data_df = data_df[
@@ -263,5 +266,3 @@ if __name__ == "__main__":
         )
         print(futures_foreign_commodity_realtime_df)
         time.sleep(3)
-
-
