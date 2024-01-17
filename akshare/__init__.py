@@ -5049,3 +5049,10 @@ from akshare.fund.fund_xq import (
     fund_individual_profit_probability_xq,
     fund_individual_detail_info_xq,
 )
+
+"""
+雪球官网证券数据
+"""
+from akshare.stock.stock_xq import (
+    stock_individual_spot_xq,
+)
