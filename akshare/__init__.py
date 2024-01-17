@@ -2642,9 +2642,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.27 fix: fix stock_hk_fhpx_detail_ths interface
 1.12.28 fix: fix futures_foreign_commodity_realtime interface
 1.12.29 add: add stock_individual_spot_xq interface
+1.12.30 fix: fix futures_settlement_price_sgx interface
 """
 
-__version__ = "1.12.29"
+__version__ = "1.12.30"
 __author__ = "AKFamily"
 
 import sys
@@ -2667,7 +2668,7 @@ if sys.version_info < (3, 9):
 del sys
 
 """
-雪球官网证券数据
+雪球行情数据
 """
 from akshare.stock.stock_xq import (
     stock_individual_spot_xq,
