@@ -1,11 +1,10 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/01/16 18:39
+Date: 2024/01/17 16:0
 Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
-
 import re
 
 import pandas as pd
@@ -13,29 +12,23 @@ import requests
 
 
 def stock_individual_spot_xq(
-    symbol: str = "SH600000",
-    timeout: float = None,
-    cookie_xqat="4418c7deafa5b566e73966d73045c92752601c18",
-    transpose=True,
+        symbol: str = "SH600000",
+        timeout: float = None,
 ) -> pd.DataFrame:
     """
-    雪球-证券详情
+    雪球-行情中心-个股
     https://xueqiu.com/S/SH600000
-    :param symbol: 证券代码，可以是A股代码，A股场内基金代码，A股指数，美股代码, 美股指数
+    :param symbol: 证券代码，可以是A股代码，A 股场内基金代码，A 股指数，美股代码, 美股指数
     :type symbol: str
     :param timeout: choice of None or a positive float number
     :type timeout: float
-    :param cookie_xqat: 雪球网站cookie中xqat的值，如果默认的值不起作用，可以自行更换
-    :type cookie_xqat: str
-    :param transpose: 是否对结果进行转置，如果不做转置方便将循环调用后的结果拼接成列表
-    :type transpose: bool
     :return: 证券最新行情
     :rtype: pandas.DataFrame
     """
     url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
-        "Cookie": f"xqat={cookie_xqat}",
+        "Cookie": "xqat=4418c7deafa5b566e73966d73045c92752601c18",
     }
     r = requests.get(url, headers=headers, timeout=timeout)
     column_name_map = {
@@ -98,18 +91,20 @@ def stock_individual_spot_xq(
             )  # 过滤temp_df，留下包含汉字的列
         )
     ]
-    if transpose:
-        temp_df = temp_df.T.reset_index()
-        temp_df.columns = ["item", "value"]
+    temp_df = temp_df.T.reset_index()
+    temp_df.columns = ["item", "value"]
     return temp_df
 
 
 if __name__ == "__main__":
     stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="SH600000")
     print(stock_individual_spot_xq_df)
+
     stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="SH000001")
     print(stock_individual_spot_xq_df)
+
     stock_individual_spot_xq_df = stock_individual_spot_xq(symbol="SPY")
     print(stock_individual_spot_xq_df)
+
     stock_individual_spot_xq_df = stock_individual_spot_xq(symbol=".INX")
     print(stock_individual_spot_xq_df)
