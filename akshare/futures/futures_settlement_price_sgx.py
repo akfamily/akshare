@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/8 16:25
+Date: 2024/1/17 16:25
 Desc: 新加坡交易所-衍生品-历史数据-历史结算价格
 https://www.sgx.com/zh-hans/research-education/derivatives
 https://links.sgx.com/1.0.0/derivatives-daily/5888/FUTURE.zip
@@ -68,5 +68,5 @@ def futures_settlement_price_sgx(date: str = "20231107") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_settlement_price_sgx_df = futures_settlement_price_sgx(date="20231107")
+    futures_settlement_price_sgx_df = futures_settlement_price_sgx(date="20231001")
     print(futures_settlement_price_sgx_df)
