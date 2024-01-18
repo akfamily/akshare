@@ -2643,9 +2643,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.28 fix: fix futures_foreign_commodity_realtime interface
 1.12.29 add: add stock_individual_spot_xq interface
 1.12.30 fix: fix futures_settlement_price_sgx interface
+1.12.31 add: add futures_global_em interface
 """
 
-__version__ = "1.12.30"
+__version__ = "1.12.31"
 __author__ = "AKFamily"
 
 import sys
@@ -2666,6 +2667,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+东方财富网-行情中心-期货市场-国际期货
+"""
+from akshare.futures.futures_hf_em import futures_global_em
 
 """
 雪球行情数据

@@ -71,6 +71,11 @@
 
 ## 更新说明详情
 
+1.12.31 add: add futures_global_em interface
+
+    1. 新增 futures_global_em 接口
+    2. 修复 futures_settlement_price_sgx 接口
+
 1.12.30 fix: fix futures_settlement_price_sgx interface
 
     1. 修复 futures_settlement_price_sgx 接口

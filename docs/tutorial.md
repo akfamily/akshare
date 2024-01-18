@@ -1227,6 +1227,8 @@
  "stock_hk_profit_forecast_et"  # 港股盈利预测
  # 雪球-行情中心-个股
  "stock_individual_spot_xq"  # 雪球-行情中心-个股
+ # 东方财富网-行情中心-期货市场-国际期货
+ "futures_global_em"  # 东方财富网-行情中心-期货市场-国际期货
 ```
 
 ## 案例演示
