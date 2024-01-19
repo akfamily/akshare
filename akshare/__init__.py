@@ -2646,9 +2646,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.31 add: add futures_global_em interface
 1.12.32 fix: fix energy_oil_hist interface
 1.12.33 fix: fix futures_global_em interface
+1.12.34 fix: fix repo_rate_hist interface
 """
 
-__version__ = "1.12.33"
+__version__ = "1.12.34"
 __author__ = "AKFamily"
 
 import sys
@@ -3297,7 +3298,7 @@ from akshare.stock_feature.stock_hsgt_em import (
 """
 指数估值
 """
-from akshare.index.stock_zh_index_csindex import (
+from akshare.index.index_stock_zh_csindex import (
     index_value_hist_funddb,
     index_value_name_funddb,
 )
@@ -3692,7 +3693,7 @@ from akshare.index.index_eri import index_eri
 """
 Drewry 集装箱指数
 """
-from akshare.index.drewry_index import drewry_wci_index
+from akshare.index.index_drewry import drewry_wci_index
 
 """
 柯桥指数
@@ -3925,7 +3926,7 @@ from akshare.fortune.fortune_forbes_500 import forbes_rank
 """
 回购定盘利率
 """
-from akshare.rate.repo_rate import repo_rate_hist
+from akshare.rate.repo_rate import repo_rate_hist, repo_rate_query
 
 """
 公募基金排行
@@ -4018,7 +4019,7 @@ from akshare.stock_feature.stock_lhb_sina import (
 """
 中证指数
 """
-from akshare.index.stock_zh_index_csindex import (
+from akshare.index.index_stock_zh_csindex import (
     stock_zh_index_hist_csindex,
     stock_zh_index_value_csindex,
 )
