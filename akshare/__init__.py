@@ -2645,9 +2645,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.30 fix: fix futures_settlement_price_sgx interface
 1.12.31 add: add futures_global_em interface
 1.12.32 fix: fix energy_oil_hist interface
+1.12.33 fix: fix futures_global_em interface
 """
 
-__version__ = "1.12.32"
+__version__ = "1.12.33"
 __author__ = "AKFamily"
 
 import sys
