@@ -166,7 +166,7 @@ print(article_rlab_rv_df)
 
 接口: article_ff_crr
 
-目标地址: http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
+目标地址: https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 
 描述: 获取 Current Research Returns 多因子数据; 更多信息请访问目标地址
 
@@ -179,8 +179,6 @@ print(article_rlab_rv_df)
 | -  | -  | -  |
 
 输出参数
-
-FF-Current Research Returns
 
 | 名称             | 类型     | 描述   |
 |----------------|--------|------|
@@ -203,37 +201,38 @@ print(article_ff_crr_df)
 ```
                                            item  ... Last 12  Months
 0                Fama/French 3 Research Factors  ...               -
-1                                         Rm-Rf  ...          -11.50
-2                                           SMB  ...           -1.53
-3                                           HML  ...            1.52
+1                                         Rm-Rf  ...            8.12
+2                                           SMB  ...           -9.44
+3                                           HML  ...          -14.98
 4          Fama/French 5 Research Factors (2x3)  ...               -
-5                                         Rm-Rf  ...          -11.50
-6                                           SMB  ...           -0.26
-7                                           HML  ...            1.52
-8                                           RMW  ...            9.61
-9                                           CMA  ...            4.53
+5                                         Rm-Rf  ...            8.12
+6                                           SMB  ...          -12.25
+7                                           HML  ...          -14.98
+8                                           RMW  ...            8.46
+9                                           CMA  ...          -14.63
 10              Fama/French Research Portfolios  ...               -
 11           Size and Book-to-Market Portfolios  ...               -
-12                                  Small Value  ...          -10.89
-13                                Small Neutral  ...           -5.21
-14                                  Big Neutral  ...          -11.90
-15                                 Small Growth  ...           -7.23
-16                                    Big Value  ...           -6.92
-17                                   Big Growth  ...           -9.27
+12                                  Small Value  ...           -7.16
+13                                Small Neutral  ...            1.97
+14                                  Big Neutral  ...           -2.47
+15                                 Small Growth  ...           -2.56
+16                                    Big Value  ...            0.51
+17                                   Big Growth  ...           22.70
 18  Size and Operating Profitability Portfolios  ...               -
-19                                 Small Robust  ...           -5.23
-20                                Small Neutral  ...           -4.06
-21                                   Small Weak  ...          -16.12
-22                                   Big Robust  ...           -3.68
-23                                  Big Neutral  ...          -14.64
-24                                     Big Weak  ...          -12.01
+19                                 Small Robust  ...            4.19
+20                                Small Neutral  ...            0.17
+21                                   Small Weak  ...           -4.93
+22                                   Big Robust  ...           19.99
+23                                  Big Neutral  ...            5.67
+24                                     Big Weak  ...           12.20
 25               Size and Investment Portfolios  ...               -
-26                           Small Conservative  ...           -9.80
-27                                Small Neutral  ...           -5.30
-28                             Small Aggressive  ...          -11.87
-29                             Big Conservative  ...           -6.99
-30                                  Big Neutral  ...           -3.36
-31                               Big Aggressive  ...          -13.98
+26                           Small Conservative  ...           -6.81
+27                                Small Neutral  ...           -1.21
+28                             Small Aggressive  ...            1.64
+29                             Big Conservative  ...            0.77
+30                                  Big Neutral  ...           14.75
+31                               Big Aggressive  ...           21.59
+[32 rows x 4 columns]
 ```
 
 ## [AKShare](https://github.com/akfamily/akshare) 政策不确定性数据
