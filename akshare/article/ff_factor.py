@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/5/19 20:31
+Date: 2024/1/20 22:30
 Desc: FF-data-library
-http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
+https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 
@@ -14,33 +16,33 @@ from akshare.article.cons import ff_home_url
 def article_ff_crr() -> pd.DataFrame:
     """
     FF多因子模型
-    http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
+    https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html
     :return: FF多因子模型单一表格
     :rtype: pandas.DataFrame
     """
     res = requests.get(ff_home_url)
     # first table
     list_index = (
-        pd.read_html(res.text, header=0, index_col=0)[4].iloc[2, :].index.tolist()
+        pd.read_html(StringIO(res.text), header=0, index_col=0)[4].iloc[2, :].index.tolist()
     )
     list_0 = [
         item
-        for item in pd.read_html(res.text, header=0, index_col=0)[4]
-        .iloc[0, :][0]
+        for item in pd.read_html(StringIO(res.text), header=0, index_col=0)[4]
+                    .iloc[0, :].iloc[0]
         .split(" ")
         if item != ""
     ]
     list_1 = [
         item
-        for item in pd.read_html(res.text, header=0, index_col=0)[4]
-        .iloc[0, :][1]
+        for item in pd.read_html(StringIO(res.text), header=0, index_col=0)[4]
+                    .iloc[0, :].iloc[1]
         .split(" ")
         if item != ""
     ]
     list_2 = [
         item
-        for item in pd.read_html(res.text, header=0, index_col=0)[4]
-        .iloc[0, :][2]
+        for item in pd.read_html(StringIO(res.text), header=0, index_col=0)[4]
+                    .iloc[0, :].iloc[2]
         .split(" ")
         if item != ""
     ]
@@ -48,7 +50,7 @@ def article_ff_crr() -> pd.DataFrame:
     list_1.insert(0, "-")
     list_2.insert(0, "-")
     temp_columns = (
-        pd.read_html(res.text, header=0)[4]
+        pd.read_html(StringIO(res.text), header=0)[4]
         .iloc[:, 0]
         .str.split("  ", expand=True)
         .T[0]
@@ -61,26 +63,26 @@ def article_ff_crr() -> pd.DataFrame:
 
     # second table
     list_index = (
-        pd.read_html(res.text, header=0, index_col=0)[4].iloc[1, :].index.tolist()
+        pd.read_html(StringIO(res.text), header=0, index_col=0)[4].iloc[1, :].index.tolist()
     )
     list_0 = [
         item
-        for item in pd.read_html(res.text, header=0, index_col=0)[4]
-        .iloc[1, :][0]
+        for item in pd.read_html(StringIO(res.text), header=0, index_col=0)[4]
+                    .iloc[1, :].iloc[0]
         .split(" ")
         if item != ""
     ]
     list_1 = [
         item
-        for item in pd.read_html(res.text, header=0, index_col=0)[4]
-        .iloc[1, :][1]
+        for item in pd.read_html(StringIO(res.text), header=0, index_col=0)[4]
+                    .iloc[1, :].iloc[1]
         .split(" ")
         if item != ""
     ]
     list_2 = [
         item
-        for item in pd.read_html(res.text, header=0, index_col=0)[4]
-        .iloc[1, :][2]
+        for item in pd.read_html(StringIO(res.text), header=0, index_col=0)[4]
+                    .iloc[1, :].iloc[2]
         .split(" ")
         if item != ""
     ]
@@ -88,7 +90,7 @@ def article_ff_crr() -> pd.DataFrame:
     list_1.insert(0, "-")
     list_2.insert(0, "-")
     temp_columns = (
-        pd.read_html(res.text, header=0)[4]
+        pd.read_html(StringIO(res.text), header=0)[4]
         .iloc[:, 0]
         .str.split("  ", expand=True)
         .T[1]
@@ -100,27 +102,27 @@ def article_ff_crr() -> pd.DataFrame:
     ).T
 
     # third table
-    df = pd.read_html(res.text, header=0, index_col=0)[4].iloc[2, :]
+    df = pd.read_html(StringIO(res.text), header=0, index_col=0)[4].iloc[2, :]
     name_list = (
-        pd.read_html(res.text, header=0)[4]
+        pd.read_html(StringIO(res.text), header=0)[4]
         .iloc[:, 0]
         .str.split(r"  ", expand=True)
         .iloc[2, :]
         .tolist()
     )
-    value_list_0 = df[0].split("  ")
+    value_list_0 = df.iloc[0].split("  ")
     value_list_0.insert(0, "-")
     value_list_0.insert(1, "-")
     value_list_0.insert(8, "-")
     value_list_0.insert(15, "-")
 
-    value_list_1 = df[1].split("  ")
+    value_list_1 = df.iloc[1].split("  ")
     value_list_1.insert(0, "-")
     value_list_1.insert(1, "-")
     value_list_1.insert(8, "-")
     value_list_1.insert(15, "-")
 
-    value_list_2 = df[2].split("  ")
+    value_list_2 = df.iloc[2].split("  ")
     value_list_2.insert(0, "-")
     value_list_2.insert(1, "-")
     value_list_2.insert(8, "-")
