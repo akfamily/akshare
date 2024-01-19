@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/10 17:00
+Date: 2024/1/20 23:00
 Desc: 乘联会
-http://data.cpcaauto.com/FuelMarket
+https://data.cpcaauto.com/FuelMarket
 汽车行业制造企业数据库
-http://i.gasgoo.com/data/ranking
+https://i.gasgoo.com/data/ranking
 """
 import pandas as pd
 import requests
@@ -16,7 +16,7 @@ from akshare.utils import demjson
 def car_energy_sale_cpca() -> pd.DataFrame:
     """
     乘联会-新能源细分市场-整体市场
-    http://data.cpcaauto.com/FuelMarket
+    https://data.cpcaauto.com/FuelMarket
     :return: 新能源细分市场-整体市场
     :rtype: pandas.DataFrame
     """
@@ -53,7 +53,7 @@ def car_energy_sale_cpca() -> pd.DataFrame:
 def car_gasgoo_sale_rank(symbol: str = "车企榜", date: str = "202109") -> pd.DataFrame:
     """
     盖世汽车-汽车行业制造企业数据库-销量数据
-    http://i.gasgoo.com/data/ranking
+    https://i.gasgoo.com/data/ranking
     :param symbol: choice of {"车企榜", "品牌榜", "车型榜"}
     :type symbol: str
     :param date: 查询的年份和月份
@@ -68,16 +68,17 @@ def car_gasgoo_sale_rank(symbol: str = "车企榜", date: str = "202109") -> pd.
     }
     url = "https://i.gasgoo.com/data/sales/AutoModelSalesRank.aspx/GetSalesRank"
     payload = {
+        "countryID": "",
+        "endM": str(int(date[4:6])),
+        "endY": date[:4],
+        "energy": "",
+        "modelGradeID": "",
+        "modelTypeID": "",
+        "orderBy": f"{date[:4]}-{str(int(date[4:6]))}",
+        "queryDate": f"{date[:4]}-{str(int(date[4:6]))}",
         "rankType": symbol_map[symbol],
         "startY": date[:4],
         "startM": str(int(date[4:6])),
-        "endY": date[:4],
-        "endM": str(int(date[4:6])),
-        "orderBy": f"{date[:4]}-{str(int(date[4:6]))}",
-        "modelGradeID": "",
-        "modelTypeID": "",
-        "countryID": "",
-        "queryDate": f"{date[:4]}-{str(int(date[4:6]))}",
     }
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
@@ -112,11 +113,11 @@ if __name__ == "__main__":
     car_energy_sale_cpca_df = car_energy_sale_cpca()
     print(car_energy_sale_cpca_df)
 
-    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="品牌榜", date="202203")
+    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="品牌榜", date="202311")
     print(car_gasgoo_sale_rank_df)
 
-    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="车型榜", date="202203")
+    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="车型榜", date="202311")
     print(car_gasgoo_sale_rank_df)
 
-    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="车企榜", date="202203")
+    car_gasgoo_sale_rank_df = car_gasgoo_sale_rank(symbol="车企榜", date="202311")
     print(car_gasgoo_sale_rank_df)
