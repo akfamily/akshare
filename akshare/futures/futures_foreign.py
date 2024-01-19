@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/7/20 20:10
+Date: 2024/1/19 23:10
 Desc: 外盘期货-历史行情数据-日频率
-http://finance.sina.com.cn/money/future/hf.html
+https://finance.sina.com.cn/money/future/hf.html
 """
 from datetime import datetime
+from io import StringIO
 
 import pandas as pd
 import requests
@@ -16,7 +17,7 @@ from akshare.futures.futures_hq_sina import futures_foreign_commodity_subscribe_
 def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
     """
     外盘期货-历史行情数据-日频率
-    http://finance.sina.com.cn/money/future/hf.html
+    https://finance.sina.com.cn/money/future/hf.html
     :param symbol: futures symbol, you can get it from futures_foreign_commodity_subscribe_exchange_symbol
     :type symbol: str
     :return: historical data from 2010
@@ -31,7 +32,7 @@ def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_text = r.text
-    data_df = pd.read_json(data_text[data_text.find("["):-2])
+    data_df = pd.read_json(StringIO(data_text[data_text.find("["):-2]))
     return data_df
 
 
@@ -47,7 +48,7 @@ def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
     r = requests.get(url)
     r.encoding = "gbk"
     data_text = r.text
-    data_df = pd.read_html(data_text)[6]
+    data_df = pd.read_html(StringIO(data_text))[6]
     return data_df
 
 

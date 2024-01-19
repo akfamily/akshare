@@ -64,7 +64,10 @@ def stock_hot_follow_xq(symbol: str = "最热门") -> pd.DataFrame:
         params.update({"page": page})
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["list"])
+        try:
+            temp_df = pd.DataFrame(data_json["data"]["list"])
+        except TypeError:
+            temp_df = pd.DataFrame()
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     if symbol == "本周新增":
         big_df = big_df[
@@ -146,7 +149,10 @@ def stock_hot_tweet_xq(symbol: str = "最热门") -> pd.DataFrame:
         params.update({"page": page})
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["list"])
+        try:
+            temp_df = pd.DataFrame(data_json["data"]["list"])
+        except TypeError:
+            temp_df = pd.DataFrame()
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     if symbol == "本周新增":
         big_df = big_df[
@@ -228,7 +234,10 @@ def stock_hot_deal_xq(symbol: str = "最热门") -> pd.DataFrame:
         params.update({"page": page})
         r = requests.get(url, params=params, headers=headers)
         data_json = r.json()
-        temp_df = pd.DataFrame(data_json["data"]["list"])
+        try:
+            temp_df = pd.DataFrame(data_json["data"]["list"])
+        except TypeError:
+            temp_df = pd.DataFrame()
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     if symbol == "本周新增":
         big_df = big_df[
