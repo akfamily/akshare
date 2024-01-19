@@ -37,7 +37,7 @@ def futures_global_em():
     total_page = math.ceil(total_num / 20) - 1
     tqdm = get_tqdm()
     big_df = pd.DataFrame()
-    for page in tqdm(range(total_page)):
+    for page in tqdm(range(total_page), leave=False):
         params.update({'pageIndex': page})
         r = requests.get(url, params=params)
         data_json = r.json()
