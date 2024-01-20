@@ -14,10 +14,10 @@
 
 输入参数
 
-| 名称     | 类型  | 必选  | 描述                                        |
-|--------|-----|-----|-------------------------------------------|
-| symbol | str | Y   | symbol="FTSE", 具体指数请查看如下 **已实现波动率指数一览表**  |
-| index  | str | Y   | index="rk_th2", 具体指标请查看如下 **已实现波动率指标一览表** |
+| 名称     | 类型  | 描述                                        |
+|--------|-----|-------------------------------------------|
+| symbol | str | symbol="FTSE", 具体指数请查看如下 **已实现波动率指数一览表**  |
+| index  | str | index="rk_th2", 具体指标请查看如下 **已实现波动率指标一览表** |
 
 已实现波动率指数一览表
 
@@ -146,6 +146,7 @@ print(article_rlab_rv_df)
 ```
 
 数据示例
+
 ```
 1996-01-02    0.000000
 1996-01-04    0.000000
@@ -241,75 +242,77 @@ print(article_ff_crr_df)
 
 接口: article_epu_index
 
-目标地址: http://www.policyuncertainty.com/index.html
+目标地址: https://www.policyuncertainty.com/index.html
 
-描述: 获取国家或地区的经济政策不确定性(EPU)数据
+描述: 国家或地区的经济政策不确定性(EPU)数据
 
 限量: 单次返回某个具体国家或地区的所有月度经济政策不确定性数据
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| index | str  | Y    |  index="China"; 按 **国家和地区一览表** 输入相应参数|
+| 名称     | 类型  | 描述                                    |
+|--------|-----|---------------------------------------|
+| symbol | str | symbol="China"; 按 **国家和地区一览表** 输入相应参数 |
 
 国家和地区一览表
 
-| 英文名词          | 说明 |
-| --------------- | ----- | 
-| Global |  | 
-| Australia |  | 
-| Canada |  | 
-| China |  | 
-| Europe | 欧洲 | 
-| Germany | 欧洲 | 
-| Hong Kong |  | 
-| Ireland |  | 
-| Japan |  | 
-| Mexico |  | 
-| Russia |  | 
-| Spain |  | 
-| UK |  | 
-| USA |  | 
-| Brazil |  | 
-| Chile |  | 
-| Colombia | 有两种, 默认第一种(FKT) | 
-| France | 欧洲 | 
-| Greece |  | 
-| India |  | 
-| Italy | 欧洲 | 
-| South Korea |  | 
-| Netherlands |  | 
-| Singapore |  | 
-| Sweden |  |
+| 英文名词        | 说明              |
+|-------------|-----------------| 
+| Global      |                 | 
+| Australia   |                 | 
+| Canada      |                 | 
+| China       |                 | 
+| Europe      | 欧洲              | 
+| Germany     | 欧洲              | 
+| Hong Kong   |                 | 
+| Ireland     |                 | 
+| Japan       |                 | 
+| Mexico      |                 | 
+| Russia      |                 | 
+| Spain       |                 | 
+| UK          |                 | 
+| USA         |                 | 
+| Brazil      |                 | 
+| Chile       |                 | 
+| Colombia    | 有两种, 默认第一种(FKT) | 
+| France      | 欧洲              | 
+| Greece      |                 | 
+| India       |                 | 
+| Italy       | 欧洲              | 
+| South Korea |                 | 
+| Netherlands |                 | 
+| Singapore   |                 | 
+| Sweden      |                 |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| -      | -   | -        | 每个国家或地区不同  |  
+| 名称 | 类型 | 描述        |
+|----|----|-----------|
+| -  | -  | 每个国家或地区不同 |  
 
 接口示例
 
 ```python
 import akshare as ak
-epu_index_df = ak.article_epu_index(index="China")  # 注意单词第一个字母大写
-print(epu_index_df)
+
+article_epu_index_df = ak.article_epu_index(symbol="China")  # 注意单词第一个字母大写
+print(article_epu_index_df)
 ```
 
 数据示例
 
 ```
      year  month  China_Policy_Index
-0    1995      1           192.91190
-1    1995      2           193.98790
-2    1995      3            88.22704
-3    1995      4           131.03470
-4    1995      5           177.09690
+0    1995      1          192.911910
+1    1995      2          193.987850
+2    1995      3           88.227035
+3    1995      4          131.034710
+4    1995      5          177.096860
 ..    ...    ...                 ...
-287  2018     12           935.31030
-288  2019      1           654.96260
-289  2019      2           720.15790
-290  2019      3           753.10770
-291  2019      4           502.55000
+342  2023      7          704.566080
+343  2023      8          709.881990
+344  2023      9          819.746150
+345  2023     10          603.739890
+346  2023     11          743.397580
+[347 rows x 3 columns]
 ```
