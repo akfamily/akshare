@@ -71,6 +71,10 @@
 
 ## 更新说明详情
 
+1.12.35 fix: fix article_epu_index interface
+
+    1. 修复 article_epu_index 接口
+
 1.12.34 fix: fix repo_rate_hist interface
 
     1. 修复 repo_rate_hist 接口
@@ -3424,6 +3428,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.35 fix: fix article_epu_index interface
 
 1.12.34 fix: fix repo_rate_hist interface
 
