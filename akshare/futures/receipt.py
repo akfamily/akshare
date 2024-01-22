@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/3 17:00
+Date: 2024/1/22 18:00
 Desc: 每日注册仓单数据
 大连商品交易所, 上海期货交易所, 郑州商品交易所, 广州期货交易所
 """
 import datetime
 import re
 import warnings
+from io import BytesIO
 from typing import List
 
 import pandas as pd
 import requests
-from io import BytesIO
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link, pandas_read_html_link
@@ -54,7 +54,8 @@ def get_dce_receipt(date: str = None, vars_list: List = cons.contract_symbols):
         if isinstance(x['品种'], str):
             if x['品种'][-2:] == '小计':
                 var = x['品种'][:-2]
-                temp_data = {'var': chinese_to_english(var), 'receipt': int(x['今日仓单量']), 'receipt_chg': int(x['增减']),
+                temp_data = {'var': chinese_to_english(var), 'receipt': int(x['今日仓单量']),
+                             'receipt_chg': int(x['增减']),
                              'date': date.strftime('%Y%m%d')}
                 records = pd.concat([records, pd.DataFrame(temp_data, index=[0])])
 
@@ -91,7 +92,8 @@ def get_shfe_receipt_1(date: str = None, vars_list: List = cons.contract_symbols
     elif date in ['20100416', '20130821']:
         return warnings.warn('20100416、20130821交易所数据丢失')
     else:
-        var_list = ['天然橡胶', '沥青仓库', '沥青厂库', '热轧卷板', '燃料油', '白银', '线材', '螺纹钢', '铅', '铜', '铝', '锌', '黄金', '锡', '镍']
+        var_list = ['天然橡胶', '沥青仓库', '沥青厂库', '热轧卷板', '燃料油', '白银', '线材', '螺纹钢', '铅', '铜',
+                    '铝', '锌', '黄金', '锡', '镍']
         url = cons.SHFE_RECEIPT_URL_1 % date
         data = pandas_read_html_link(url)[0]
         indexes = [x for x in data.index if (data[0].tolist()[x] in var_list)]
@@ -284,10 +286,13 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataWhsheet.xls"
     r = requests_link(url, encoding='utf-8', headers=cons.shfe_headers)
     temp_df = pd.read_excel(BytesIO(r.content))
-    temp_df = temp_df[[bool(1-item) for item in [item if item is not pd.NA else False for item in temp_df.iloc[:, 0].str.contains("非农产品")]]]
+    temp_df = temp_df[[bool(1 - item) for item in
+                       [item if item is not pd.NA else False for item in temp_df.iloc[:, 0].str.contains("非农产品")]]]
     temp_df.reset_index(inplace=True, drop=True)
-    range_list_one = list(temp_df[[item if not pd.isnull(item) else False for item in temp_df.iloc[:, 0].str.contains("品种")]].index)
-    range_list_two = list(temp_df[[item if not pd.isnull(item) else False for item in temp_df.iloc[:, 0].str.contains("品种")]].index)[1:]
+    range_list_one = list(
+        temp_df[[item if not pd.isnull(item) else False for item in temp_df.iloc[:, 0].str.contains("品种")]].index)
+    range_list_two = list(
+        temp_df[[item if not pd.isnull(item) else False for item in temp_df.iloc[:, 0].str.contains("品种")]].index)[1:]
     range_list_two.append(None)
     symbol_list = []
     receipt_list = []
@@ -305,13 +310,15 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
         inner_df = inner_df.dropna(axis=1, how='all')
         if symbol == "PTA":
             try:
-                receipt_list.append(inner_df['仓单数量(完税)'].iloc[-1] + int(inner_df['仓单数量(保税)'].iloc[-1]))  # 20210316 TA 分为保税和完税
+                receipt_list.append(inner_df['仓单数量(完税)'].iloc[-1] + int(
+                    inner_df['仓单数量(保税)'].iloc[-1]))  # 20210316 TA 分为保税和完税
             except:
                 receipt_list.append(0)
         elif symbol == "MA":
             try:
                 try:
-                    receipt_list.append(inner_df['仓单数量(完税)'].iloc[-2] + int(inner_df['仓单数量(保税)'].iloc[-2]))  # 20210316 MA 分为保税和完税
+                    receipt_list.append(inner_df['仓单数量(完税)'].iloc[-2] + int(
+                        inner_df['仓单数量(保税)'].iloc[-2]))  # 20210316 MA 分为保税和完税
                 except:
                     receipt_list.append(inner_df['仓单数量(完税)'].iloc[-2])  # 处理 MA 的特殊格式
             except:
@@ -325,7 +332,7 @@ def get_czce_receipt_3(date: str = None, vars_list: List = cons.contract_symbols
             receipt_chg_list.append(inner_df['当日增减'].iloc[-2])
         else:
             receipt_chg_list.append(inner_df['当日增减'].iloc[-1])
-    data_df = pd.DataFrame([symbol_list, receipt_list, receipt_chg_list, [date]*len(receipt_chg_list)]).T
+    data_df = pd.DataFrame([symbol_list, receipt_list, receipt_chg_list, [date] * len(receipt_chg_list)]).T
     data_df.columns = ['var', 'receipt', 'receipt_chg', 'date']
     temp_list = data_df['var'].tolist()
     data_df['var'] = [item if item != "PTA" else "TA" for item in temp_list]
@@ -461,5 +468,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20240103', end_day='20240103', vars_list=['SI'])
+    get_receipt_df = get_receipt(start_day='20240122', end_day='20240122', vars_list=['LC'])
     print(get_receipt_df)
