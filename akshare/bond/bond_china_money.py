@@ -1,7 +1,7 @@
-给i他#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/4 9:30
+Date: 2024/1/22 18:30
 Desc: 收盘收益率曲线历史数据
 https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1
 """
