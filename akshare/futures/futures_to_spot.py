@@ -10,7 +10,7 @@ import pandas as pd
 import requests
 
 
-def futures_to_spot_shfe(date: str = "202101") -> pd.DataFrame:
+def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
     """
     上海期货交易所-期转现
     https://www.shfe.com.cn/statements/dataview.html?paramid=kx
@@ -46,10 +46,13 @@ def futures_to_spot_shfe(date: str = "202101") -> pd.DataFrame:
             "期转现量",
         ]
     ]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
+    temp_df['交割量'] = pd.to_numeric(temp_df['交割量'], errors="coerce")
+    temp_df['期转现量'] = pd.to_numeric(temp_df['期转现量'], errors="coerce")
     return temp_df
 
 
-def futures_delivery_dce(date: str = "202101") -> pd.DataFrame:
+def futures_delivery_dce(date: str = "202312") -> pd.DataFrame:
     """
     大连商品交易所-交割统计
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/jgsj/index.html
@@ -81,6 +84,11 @@ def futures_delivery_dce(date: str = "202101") -> pd.DataFrame:
     temp_df["交割日期"] = (
         temp_df["交割日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
+    temp_df = temp_df[~temp_df['品种'].str.contains('小计|总计')]
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df['交割日期'] = pd.to_datetime(temp_df['交割日期'], errors="coerce").dt.date
+    temp_df['交割量'] = pd.to_numeric(temp_df['交割量'], errors="coerce")
+    temp_df['交割金额'] = pd.to_numeric(temp_df['交割金额'], errors="coerce")
     return temp_df
 
 
@@ -298,7 +306,7 @@ if __name__ == "__main__":
     futures_to_spot_dce_df = futures_to_spot_dce(date="202102")
     print(futures_to_spot_dce_df)
 
-    futures_to_spot_shfe_df = futures_to_spot_shfe(date="202101")
+    futures_to_spot_shfe_df = futures_to_spot_shfe(date="202312")
     print(futures_to_spot_shfe_df)
 
     futures_to_spot_czce_df = futures_to_spot_czce(date="20210112")
