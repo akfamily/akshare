@@ -28,7 +28,6 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
     params = {"indexCode": futures_index_map[symbol]}
     r = requests.get(url, params=params)
     temp_df = pd.read_excel(BytesIO(r.content), header=1, engine="openpyxl")
-
     temp_df.columns = [
         "日期",
         "指数代码",
