@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/9/19 8:50
+Date: 2024/1/23 16:00
 Desc: 新浪财经-国内期货-实时数据获取
 http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
@@ -35,7 +35,7 @@ def futures_symbol_mark() -> pd.DataFrame:
     r = requests.get(url)
     r.encoding = "gb2312"
     data_text = r.text
-    raw_json = data_text[data_text.find("{") : data_text.find("}") + 1]
+    raw_json = data_text[data_text.find("{"): data_text.find("}") + 1]
     data_json = demjson.decode(raw_json)
     czce_mark_list = [item[1] for item in data_json["czce"][1:]]
     dce_mark_list = [item[1] for item in data_json["dce"][1:]]
@@ -43,11 +43,11 @@ def futures_symbol_mark() -> pd.DataFrame:
     cffex_mark_list = [item[1] for item in data_json["cffex"][1:]]
     gfex_mark_list = [item[1] for item in data_json["gfex"][1:]]
     all_mark_list = (
-        czce_mark_list
-        + dce_mark_list
-        + shfe_mark_list
-        + cffex_mark_list
-        + gfex_mark_list
+            czce_mark_list
+            + dce_mark_list
+            + shfe_mark_list
+            + cffex_mark_list
+            + gfex_mark_list
     )
 
     czce_market_name_list = [data_json["czce"][0]] * len(czce_mark_list)
@@ -56,11 +56,11 @@ def futures_symbol_mark() -> pd.DataFrame:
     cffex_market_name_list = [data_json["cffex"][0]] * len(cffex_mark_list)
     gfex_market_name_list = [data_json["gfex"][0]] * len(gfex_mark_list)
     all_market_name_list = (
-        czce_market_name_list
-        + dce_market_name_list
-        + shfe_market_name_list
-        + cffex_market_name_list
-        + gfex_market_name_list
+            czce_market_name_list
+            + dce_market_name_list
+            + shfe_market_name_list
+            + cffex_market_name_list
+            + gfex_market_name_list
     )
 
     czce_symbol_list = [item[0] for item in data_json["czce"][1:]]
@@ -69,11 +69,11 @@ def futures_symbol_mark() -> pd.DataFrame:
     cffex_symbol_list = [item[0] for item in data_json["cffex"][1:]]
     gfex_symbol_list = [item[0] for item in data_json["gfex"][1:]]
     all_symbol_list = (
-        czce_symbol_list
-        + dce_symbol_list
-        + shfe_symbol_list
-        + cffex_symbol_list
-        + gfex_symbol_list
+            czce_symbol_list
+            + dce_symbol_list
+            + shfe_symbol_list
+            + cffex_symbol_list
+            + gfex_symbol_list
     )
 
     temp_df = pd.DataFrame([all_market_name_list, all_symbol_list, all_mark_list]).T
@@ -110,24 +110,24 @@ def futures_zh_realtime(symbol: str = "白糖") -> pd.DataFrame:
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
 
-    temp_df["trade"] = pd.to_numeric(temp_df["trade"])
-    temp_df["settlement"] = pd.to_numeric(temp_df["settlement"])
-    temp_df["presettlement"] = pd.to_numeric(temp_df["presettlement"])
-    temp_df["open"] = pd.to_numeric(temp_df["open"])
-    temp_df["high"] = pd.to_numeric(temp_df["high"])
-    temp_df["low"] = pd.to_numeric(temp_df["low"])
-    temp_df["close"] = pd.to_numeric(temp_df["close"])
-    temp_df["bidprice1"] = pd.to_numeric(temp_df["bidprice1"])
-    temp_df["askprice1"] = pd.to_numeric(temp_df["askprice1"])
-    temp_df["bidvol1"] = pd.to_numeric(temp_df["bidvol1"])
-    temp_df["askvol1"] = pd.to_numeric(temp_df["askvol1"])
-    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
-    temp_df["position"] = pd.to_numeric(temp_df["position"])
-    temp_df["preclose"] = pd.to_numeric(temp_df["preclose"])
-    temp_df["changepercent"] = pd.to_numeric(temp_df["changepercent"])
-    temp_df["bid"] = pd.to_numeric(temp_df["bid"])
-    temp_df["ask"] = pd.to_numeric(temp_df["ask"])
-    temp_df["prevsettlement"] = pd.to_numeric(temp_df["prevsettlement"])
+    temp_df["trade"] = pd.to_numeric(temp_df["trade"], errors="coerce")
+    temp_df["settlement"] = pd.to_numeric(temp_df["settlement"], errors="coerce")
+    temp_df["presettlement"] = pd.to_numeric(temp_df["presettlement"], errors="coerce")
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["bidprice1"] = pd.to_numeric(temp_df["bidprice1"], errors="coerce")
+    temp_df["askprice1"] = pd.to_numeric(temp_df["askprice1"], errors="coerce")
+    temp_df["bidvol1"] = pd.to_numeric(temp_df["bidvol1"], errors="coerce")
+    temp_df["askvol1"] = pd.to_numeric(temp_df["askvol1"], errors="coerce")
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce")
+    temp_df["position"] = pd.to_numeric(temp_df["position"], errors="coerce")
+    temp_df["preclose"] = pd.to_numeric(temp_df["preclose"], errors="coerce")
+    temp_df["changepercent"] = pd.to_numeric(temp_df["changepercent"], errors="coerce")
+    temp_df["bid"] = pd.to_numeric(temp_df["bid"], errors="coerce")
+    temp_df["ask"] = pd.to_numeric(temp_df["ask"], errors="coerce")
+    temp_df["prevsettlement"] = pd.to_numeric(temp_df["prevsettlement"], errors="coerce")
     return temp_df
 
 
@@ -144,7 +144,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
     r.encoding = "gbk"
     data_text = r.text
     data_json = demjson.decode(
-        data_text[data_text.find("{") : data_text.find("};") + 1]
+        data_text[data_text.find("{"): data_text.find("};") + 1]
     )
     if symbol == "czce":
         data_json["czce"].remove("郑州商品交易所")
@@ -198,9 +198,9 @@ def match_main_contract(symbol: str = "cffex") -> str:
 
 
 def futures_zh_spot(
-    symbol: str = "V2309",
-    market: str = "CF",
-    adjust: str = "0",
+        symbol: str = "V2309",
+        market: str = "CF",
+        adjust: str = "0",
 ) -> pd.DataFrame:
     """
     期货的实时行情数据
@@ -304,20 +304,20 @@ def futures_zh_spot(
             data_df["contract"] = contract_name_list
             data_df["contract_min_change"] = contract_min_list
 
-            data_df["open"] = pd.to_numeric(data_df["open"])
-            data_df["high"] = pd.to_numeric(data_df["high"])
-            data_df["low"] = pd.to_numeric(data_df["low"])
-            data_df["current_price"] = pd.to_numeric(data_df["current_price"])
-            data_df["bid_price"] = pd.to_numeric(data_df["bid_price"])
-            data_df["ask_price"] = pd.to_numeric(data_df["ask_price"])
-            data_df["buy_vol"] = pd.to_numeric(data_df["buy_vol"])
-            data_df["sell_vol"] = pd.to_numeric(data_df["sell_vol"])
-            data_df["hold"] = pd.to_numeric(data_df["hold"])
-            data_df["volume"] = pd.to_numeric(data_df["volume"])
-            data_df["avg_price"] = pd.to_numeric(data_df["avg_price"])
-            data_df["last_close"] = pd.to_numeric(data_df["last_close"])
-            data_df["last_settle_price"] = pd.to_numeric(data_df["last_settle_price"])
-            data_df.dropna(subset=["current_price"], inplace=True)
+            data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
+            data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
+            data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
+            data_df["current_price"] = pd.to_numeric(data_df["current_price"], errors="coerce")
+            data_df["bid_price"] = pd.to_numeric(data_df["bid_price"], errors="coerce")
+            data_df["ask_price"] = pd.to_numeric(data_df["ask_price"], errors="coerce")
+            data_df["buy_vol"] = pd.to_numeric(data_df["buy_vol"], errors="coerce")
+            data_df["sell_vol"] = pd.to_numeric(data_df["sell_vol"], errors="coerce")
+            data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
+            data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
+            data_df["avg_price"] = pd.to_numeric(data_df["avg_price"], errors="coerce")
+            data_df["last_close"] = pd.to_numeric(data_df["last_close"], errors="coerce")
+            data_df["last_settle_price"] = pd.to_numeric(data_df["last_settle_price"], errors="coerce")
+            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
             return data_df
         else:
             data_df.columns = [
@@ -388,16 +388,14 @@ def futures_zh_spot(
             data_df["exchange"] = contract_exchange_list
             data_df["contract"] = contract_name_list
             data_df["contract_min_change"] = contract_min_list
-
-            data_df["open"] = pd.to_numeric(data_df["open"])
-            data_df["high"] = pd.to_numeric(data_df["high"])
-            data_df["low"] = pd.to_numeric(data_df["low"])
-            data_df["current_price"] = pd.to_numeric(data_df["current_price"])
-            data_df["hold"] = pd.to_numeric(data_df["hold"])
-            data_df["volume"] = pd.to_numeric(data_df["volume"])
-            data_df["amount"] = pd.to_numeric(data_df["amount"])
-
-            data_df.dropna(subset=["current_price"], inplace=True)
+            data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
+            data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
+            data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
+            data_df["current_price"] = pd.to_numeric(data_df["current_price"], errors="coerce")
+            data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
+            data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
+            data_df["amount"] = pd.to_numeric(data_df["amount"], errors="coerce")
+            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
             return data_df
     else:
         if market == "CF":
@@ -500,21 +498,20 @@ def futures_zh_spot(
                 ]
             ]
 
-            data_df["open"] = pd.to_numeric(data_df["open"])
-            data_df["high"] = pd.to_numeric(data_df["high"])
-            data_df["low"] = pd.to_numeric(data_df["low"])
-            data_df["current_price"] = pd.to_numeric(data_df["current_price"])
-            data_df["bid_price"] = pd.to_numeric(data_df["bid_price"])
-            data_df["ask_price"] = pd.to_numeric(data_df["ask_price"])
-            data_df["buy_vol"] = pd.to_numeric(data_df["buy_vol"])
-            data_df["sell_vol"] = pd.to_numeric(data_df["sell_vol"])
-            data_df["hold"] = pd.to_numeric(data_df["hold"])
-            data_df["volume"] = pd.to_numeric(data_df["volume"])
-            data_df["avg_price"] = pd.to_numeric(data_df["avg_price"])
-            data_df["last_close"] = pd.to_numeric(data_df["last_close"])
-            data_df["last_settle_price"] = pd.to_numeric(data_df["last_settle_price"])
-
-            data_df.dropna(subset=["current_price"], inplace=True)
+            data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
+            data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
+            data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
+            data_df["current_price"] = pd.to_numeric(data_df["current_price"], errors="coerce")
+            data_df["bid_price"] = pd.to_numeric(data_df["bid_price"], errors="coerce")
+            data_df["ask_price"] = pd.to_numeric(data_df["ask_price"], errors="coerce")
+            data_df["buy_vol"] = pd.to_numeric(data_df["buy_vol"], errors="coerce")
+            data_df["sell_vol"] = pd.to_numeric(data_df["sell_vol"], errors="coerce")
+            data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
+            data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
+            data_df["avg_price"] = pd.to_numeric(data_df["avg_price"], errors="coerce")
+            data_df["last_close"] = pd.to_numeric(data_df["last_close"], errors="coerce")
+            data_df["last_settle_price"] = pd.to_numeric(data_df["last_settle_price"], errors="coerce")
+            data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
             return data_df
         else:
             data_df.columns = [
@@ -582,15 +579,14 @@ def futures_zh_spot(
                     "amount",
                 ]
             ]
-            data_df["open"] = pd.to_numeric(data_df["open"])
-            data_df["high"] = pd.to_numeric(data_df["high"])
-            data_df["low"] = pd.to_numeric(data_df["low"])
-            data_df["current_price"] = pd.to_numeric(data_df["current_price"])
-            data_df["hold"] = pd.to_numeric(data_df["hold"])
-            data_df["volume"] = pd.to_numeric(data_df["volume"])
-            data_df["amount"] = pd.to_numeric(data_df["amount"])
-
-            data_df.dropna(subset=["current_price"], inplace=True)
+            data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
+            data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
+            data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
+            data_df["current_price"] = pd.to_numeric(data_df["current_price"], errors="coerce")
+            data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
+            data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
+            data_df["amount"] = pd.to_numeric(data_df["amount"], errors="coerce")
+            data_df.dropna(subset=["current_price"], inplace=True, ignore_index=True)
             return data_df
 
 
@@ -621,12 +617,12 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
         "volume",
         "hold",
     ]
-    temp_df["open"] = pd.to_numeric(temp_df["open"])
-    temp_df["high"] = pd.to_numeric(temp_df["high"])
-    temp_df["low"] = pd.to_numeric(temp_df["low"])
-    temp_df["close"] = pd.to_numeric(temp_df["close"])
-    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
-    temp_df["hold"] = pd.to_numeric(temp_df["hold"])
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce")
+    temp_df["hold"] = pd.to_numeric(temp_df["hold"], errors="coerce")
     return temp_df
 
 
@@ -657,13 +653,13 @@ def futures_zh_daily_sina(symbol: str = "V2306") -> pd.DataFrame:
         "hold",
         "settle",
     ]
-    temp_df["open"] = pd.to_numeric(temp_df["open"])
-    temp_df["high"] = pd.to_numeric(temp_df["high"])
-    temp_df["low"] = pd.to_numeric(temp_df["low"])
-    temp_df["close"] = pd.to_numeric(temp_df["close"])
-    temp_df["volume"] = pd.to_numeric(temp_df["volume"])
-    temp_df["hold"] = pd.to_numeric(temp_df["hold"])
-    temp_df["settle"] = pd.to_numeric(temp_df["settle"])
+    temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")
+    temp_df["high"] = pd.to_numeric(temp_df["high"], errors="coerce")
+    temp_df["low"] = pd.to_numeric(temp_df["low"], errors="coerce")
+    temp_df["close"] = pd.to_numeric(temp_df["close"], errors="coerce")
+    temp_df["volume"] = pd.to_numeric(temp_df["volume"], errors="coerce")
+    temp_df["hold"] = pd.to_numeric(temp_df["hold"], errors="coerce")
+    temp_df["settle"] = pd.to_numeric(temp_df["settle"], errors="coerce")
     return temp_df
 
 
@@ -672,11 +668,11 @@ if __name__ == "__main__":
     print(match_main_contract_df)
 
     futures_zh_spot_df = futures_zh_spot(
-        symbol="TA2309,P2309,B2309,M2309", market="CF", adjust="0"
+        symbol="V2405,V2409", market="CF", adjust="0"
     )
     print(futures_zh_spot_df)
 
-    futures_zh_spot_df = futures_zh_spot(symbol="BB2110", market="CF", adjust="0")
+    futures_zh_spot_df = futures_zh_spot(symbol="V2405", market="CF", adjust="0")
     print(futures_zh_spot_df)
 
     futures_symbol_mark_df = futures_symbol_mark()
@@ -685,17 +681,14 @@ if __name__ == "__main__":
     futures_zh_realtime_df = futures_zh_realtime(symbol="工业硅")
     print(futures_zh_realtime_df)
 
-    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="SI2311", period="1")
+    futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="SI2406", period="1")
     print(futures_zh_minute_sina_df)
 
-    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="SI2311")
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="SI2406")
     print(futures_zh_daily_sina_df)
 
-    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="V2306")
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="SI2406")
     print(futures_zh_daily_sina_df)
-
-    futures_zh_spot_df = futures_zh_spot()
-    print(futures_zh_spot_df)
 
     dce_text = match_main_contract(symbol="dce")
     czce_text = match_main_contract(symbol="czce")
