@@ -174,6 +174,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
         "variety": "品种",
         "whAbbr": "仓库/分库",
         "lastWbillQty": "昨日仓单量",
+        "wbillQty": "今日仓单量",
         "regWbillQty": "增减",
     }, inplace=True)
     temp_df = temp_df[[
@@ -182,6 +183,7 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
         "品种",
         "仓库/分库",
         "昨日仓单量",
+        "今日仓单量",
         "增减",
     ]]
     temp_df['whType'] = pd.to_numeric(temp_df['whType'], errors="coerce")
@@ -193,9 +195,11 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
             "品种",
             "仓库/分库",
             "昨日仓单量",
+            "今日仓单量",
             "增减",
         ]]
         inner_temp_df['昨日仓单量'] = pd.to_numeric(inner_temp_df['昨日仓单量'], errors="coerce")
+        inner_temp_df['今日仓单量'] = pd.to_numeric(inner_temp_df['今日仓单量'], errors="coerce")
         inner_temp_df['增减'] = pd.to_numeric(inner_temp_df['增减'], errors="coerce")
         inner_temp_df.reset_index(inplace=True, drop=True)
         big_dict[symbol] = inner_temp_df
