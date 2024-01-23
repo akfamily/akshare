@@ -1572,32 +1572,32 @@ print(futures_gfex_warehouse_receipt_df)
 
 | 名称   | 类型  | 描述                  |
 |------|-----|---------------------|
-| date | str | date="202102"; 交易年月 |
+| date | str | date="202312"; 交易年月 |
 
 输出参数
 
-| 名称      | 类型  | 描述      |
-|---------|-----|---------|
-| 合约代码    | str | -       |
-| 期转现发生日期 | str | -       |
-| 期转现数量   | str | 注意单位: 手 |
+| 名称      | 类型     | 描述      |
+|---------|--------|---------|
+| 合约代码    | object | -       |
+| 期转现发生日期 | object | -       |
+| 期转现数量   | int64  | 注意单位: 手 |
 
 接口示例
 
 ```python
 import akshare as ak
-futures_to_spot_dce_df = ak.futures_to_spot_dce(date="202102")
+
+futures_to_spot_dce_df = ak.futures_to_spot_dce(date="202312")
 print(futures_to_spot_dce_df)
 ```
 
 数据示例
 
 ```
-     合约代码   期转现发生日期  期转现数量
-0  lh2109  20210202      1
-1  lh2109  20210202      1
-2    生猪小计       nan      2
-3      总计       nan      2
+     合约代码     期转现发生日期  期转现数量
+0   c2401  2023-12-19   1480
+1   c2401  2023-12-26   1490
+2  eb2312  2023-12-20    176
 ```
 
 #### 期转现-郑商所
@@ -1628,7 +1628,7 @@ print(futures_to_spot_dce_df)
 ```python
 import akshare as ak
 
-futures_to_spot_czce_df = ak.futures_to_spot_czce(date="20210112")
+futures_to_spot_czce_df = ak.futures_to_spot_czce(date="20231228")
 print(futures_to_spot_czce_df)
 ```
 
@@ -1636,12 +1636,8 @@ print(futures_to_spot_czce_df)
 
 ```
     合约代码  合约数量
-0  CF101   840
-1  CF105  1576
-2  SA101   132
-3  SM101   445
-4  SR101   220
-5    合计  3213
+0  CF401   496
+1  CJ401    10
 ```
 
 #### 期转现-上期所
@@ -1840,7 +1836,7 @@ print(futures_delivery_monthly_czce_df)
 
 目标地址: https://www.shfe.com.cn/statements/dataview.html?paramid=kx
 
-描述: 提供上海期货交易所-交割统计
+描述: 上海期货交易所-交割统计
 
 限量: 单次返回指定交易月份的交割统计数据
 

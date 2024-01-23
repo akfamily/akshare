@@ -92,7 +92,7 @@ def futures_delivery_dce(date: str = "202312") -> pd.DataFrame:
     return temp_df
 
 
-def futures_to_spot_dce(date: str = "202102") -> pd.DataFrame:
+def futures_to_spot_dce(date: str = "202312") -> pd.DataFrame:
     """
     大连商品交易所-期转现
     http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/jgtj/qzxcx/index.html
@@ -114,6 +114,10 @@ def futures_to_spot_dce(date: str = "202102") -> pd.DataFrame:
     temp_df["期转现发生日期"] = (
         temp_df["期转现发生日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
     )
+    temp_df = temp_df[~temp_df['合约代码'].str.contains('小计|总计')]
+    temp_df.reset_index(inplace=True, drop=True)
+    temp_df['期转现发生日期'] = pd.to_datetime(temp_df['期转现发生日期'], errors="coerce").dt.date
+    temp_df['期转现数量'] = pd.to_numeric(temp_df['期转现数量'], errors="coerce")
     return temp_df
 
 
@@ -144,7 +148,7 @@ def futures_delivery_match_dce(symbol: str = "a") -> pd.DataFrame:
     return temp_df
 
 
-def futures_to_spot_czce(date: str = "20210112") -> pd.DataFrame:
+def futures_to_spot_czce(date: str = "20231228") -> pd.DataFrame:
     """
     郑州商品交易所-期转现统计
     http://www.czce.com.cn/cn/jysj/qzxtj/H770311index_1.htm
@@ -180,8 +184,10 @@ def futures_to_spot_czce(date: str = "20210112") -> pd.DataFrame:
             "合约数量",
         ]
     ]
-    temp_df["合约数量"] = temp_df["合约数量"].str.replace(",", "")
-    temp_df["合约数量"] = pd.to_numeric(temp_df["合约数量"])
+    temp_df["合约数量"] = temp_df["合约数量"].astype(str).str.replace(",", "")
+    temp_df["合约数量"] = pd.to_numeric(temp_df["合约数量"], errors="coerce")
+    temp_df = temp_df[~temp_df['合约代码'].str.contains('小计|合计')]
+    temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
@@ -303,7 +309,7 @@ def futures_delivery_shfe(date: str = "202312") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_to_spot_dce_df = futures_to_spot_dce(date="202102")
+    futures_to_spot_dce_df = futures_to_spot_dce(date="202312")
     print(futures_to_spot_dce_df)
 
     futures_to_spot_shfe_df = futures_to_spot_shfe(date="202312")
