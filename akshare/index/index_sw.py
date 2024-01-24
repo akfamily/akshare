@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/25 16:10
+Date: 2024/1/24 15:00
 Desc: 申万宏源研究-申万指数-指数发布
 乐咕乐股网
 https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
@@ -59,11 +59,11 @@ def sw_index_first_info() -> pd.DataFrame:
         "市净率",
         "静态股息率",
     ]
-    temp_df["成份个数"] = pd.to_numeric(temp_df["成份个数"])
-    temp_df["静态市盈率"] = pd.to_numeric(temp_df["静态市盈率"])
-    temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"])
-    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"])
-    temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"])
+    temp_df["成份个数"] = pd.to_numeric(temp_df["成份个数"], errors="coerce")
+    temp_df["静态市盈率"] = pd.to_numeric(temp_df["静态市盈率"], errors="coerce")
+    temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"], errors="coerce")
+    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"], errors="coerce")
+    temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"], errors="coerce")
     return temp_df
 
 
@@ -115,12 +115,11 @@ def sw_index_second_info() -> pd.DataFrame:
         "市净率",
         "静态股息率",
     ]
-    temp_df["成份个数"] = pd.to_numeric(temp_df["成份个数"])
-    temp_df["静态市盈率"] = pd.to_numeric(temp_df["静态市盈率"])
-    temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"])
-    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"])
-    temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"])
-
+    temp_df["成份个数"] = pd.to_numeric(temp_df["成份个数"], errors="coerce")
+    temp_df["静态市盈率"] = pd.to_numeric(temp_df["静态市盈率"], errors="coerce")
+    temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"], errors="coerce")
+    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"], errors="coerce")
+    temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"], errors="coerce")
     return temp_df
 
 
@@ -172,11 +171,11 @@ def sw_index_third_info() -> pd.DataFrame:
         "市净率",
         "静态股息率",
     ]
-    temp_df["成份个数"] = pd.to_numeric(temp_df["成份个数"])
-    temp_df["静态市盈率"] = pd.to_numeric(temp_df["静态市盈率"])
-    temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"])
-    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"])
-    temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"])
+    temp_df["成份个数"] = pd.to_numeric(temp_df["成份个数"], errors="coerce")
+    temp_df["静态市盈率"] = pd.to_numeric(temp_df["静态市盈率"], errors="coerce")
+    temp_df["TTM(滚动)市盈率"] = pd.to_numeric(temp_df["TTM(滚动)市盈率"], errors="coerce")
+    temp_df["市净率"] = pd.to_numeric(temp_df["市净率"], errors="coerce")
+    temp_df["静态股息率"] = pd.to_numeric(temp_df["静态股息率"], errors="coerce")
     return temp_df
 
 
