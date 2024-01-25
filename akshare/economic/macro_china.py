@@ -1387,81 +1387,17 @@ def macro_china_market_margin_sh() -> pd.DataFrame:
     :return: pandas.DataFrame
     """
     t = time.time()
+    params = {"_": t}
     res = requests.get(
-        JS_CHINA_MARKET_MARGIN_SH_URL.format(
-            str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)
-        )
+        "https://cdn.jin10.com/data_center/reports/fs_1.json", params=params
     )
-    json_data = json.loads(res.text[res.text.find("{"): res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list_1 = [item["datas"]["总量"][0] for item in json_data["list"]]
-    value_list_2 = [item["datas"]["总量"][1] for item in json_data["list"]]
-    value_list_3 = [item["datas"]["总量"][2] for item in json_data["list"]]
-    value_list_4 = [item["datas"]["总量"][3] for item in json_data["list"]]
-    value_list_5 = [item["datas"]["总量"][4] for item in json_data["list"]]
-    value_list_6 = [item["datas"]["总量"][5] for item in json_data["list"]]
-    value_df = pd.DataFrame(
-        [
-            value_list_1,
-            value_list_2,
-            value_list_3,
-            value_list_4,
-            value_list_5,
-            value_list_6,
-        ]
-    ).T
-    value_df.columns = [
-        "融资余额",
-        "融资买入额",
-        "融券余量",
-        "融券余额",
-        "融券卖出量",
-        "融资融券余额",
-    ]
-    value_df.index = pd.to_datetime(date_list)
-    value_df.name = "market_margin_sh"
-    value_df.index = pd.to_datetime(value_df.index)
-    value_df = value_df.astype(float)
-
-    url = "https://datacenter-api.jin10.com/reports/list_v2"
-    params = {
-        "max_date": "",
-        "category": "fs",
-        "attr_id": "1",
-        "_": str(int(round(t * 1000))),
-    }
-    headers = {"x-app-id": "rU6QIu7JHe2gOUeR", "x-version": "1.0.0"}
-    r = requests.get(url, params=params, headers=headers)
-    temp_df = pd.DataFrame(r.json()["data"]["values"])
-    temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
-    temp_df = temp_df.iloc[:, 1:]
-    temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
-
-    for_times = math.ceil(
-        int(str((temp_df.index[-1] - value_df.index[-1])).split(" ")[0]) / 20
-    )
-    big_df = temp_df
-    for i in tqdm(range(for_times)):
-        params = {
-            "max_date": temp_df.index[-1],
-            "category": "fs",
-            "attr_id": "1",
-            "_": str(int(round(t * 1000))),
-        }
-        r = requests.get(url, params=params, headers=headers)
-        temp_df = pd.DataFrame(r.json()["data"]["values"])
-        temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
-        temp_df = temp_df.iloc[:, 1:]
-        temp_df.columns = [item["name"] for item in r.json()["data"]["keys"]][1:]
-        big_df = pd.concat([big_df, temp_df])
-
-    value_df = pd.concat([value_df, big_df])
-    value_df.drop_duplicates(inplace=True)
-    value_df.sort_index(inplace=True)
-    value_df.reset_index(inplace=True)
-    value_df.rename(columns={"index": "日期"}, inplace=True)
-    value_df["日期"] = pd.to_datetime(value_df["日期"]).dt.date
-    return value_df
+    json_data = res.json()
+    temp_df = pd.DataFrame(json_data["values"]).T
+    temp_df.columns = ["融资买入额", "融资余额", "融券卖出量", "融券余量", "融券余额", "融资融券余额"]
+    temp_df.sort_index(inplace=True)
+    temp_df.index = pd.to_datetime(temp_df.index)
+    temp_df = temp_df.astype("float")
+    return temp_df
 
 
 # 金十数据中心-经济指标-中国-其他-上海黄金交易所报告
