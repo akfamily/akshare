@@ -1386,17 +1386,22 @@ def macro_china_market_margin_sh() -> pd.DataFrame:
     https://datacenter.jin10.com/reportType/dc_market_margin_sse
     :return: pandas.DataFrame
     """
+    url = "https://cdn.jin10.com/data_center/reports/fs_1.json"
     t = time.time()
     params = {"_": t}
-    res = requests.get(
-        "https://cdn.jin10.com/data_center/reports/fs_1.json", params=params
-    )
-    json_data = res.json()
+    r = requests.get(url, params=params)
+    json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
-    temp_df.columns = ["融资买入额", "融资余额", "融券卖出量", "融券余量", "融券余额", "融资融券余额"]
-    temp_df.sort_index(inplace=True)
-    temp_df.index = pd.to_datetime(temp_df.index)
-    temp_df = temp_df.astype("float")
+    temp_df.reset_index(inplace=True)
+    temp_df.columns = ["日期", "融资买入额", "融资余额", "融券卖出量", "融券余量", "融券余额", "融资融券余额"]
+    temp_df.sort_values(by=["日期"], inplace=True, ignore_index=True)
+    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
+    temp_df['融资买入额'] = pd.to_numeric(temp_df['融资买入额'], errors="coerce")
+    temp_df['融资余额'] = pd.to_numeric(temp_df['融资余额'], errors="coerce")
+    temp_df['融券卖出量'] = pd.to_numeric(temp_df['融券卖出量'], errors="coerce")
+    temp_df['融券余量'] = pd.to_numeric(temp_df['融券余量'], errors="coerce")
+    temp_df['融券余额'] = pd.to_numeric(temp_df['融券余额'], errors="coerce")
+    temp_df['融资融券余额'] = pd.to_numeric(temp_df['融资融券余额'], errors="coerce")
     return temp_df
 
 
