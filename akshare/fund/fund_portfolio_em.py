@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/4 17:00
+Date: 2024/1/25 18:00
 Desc: 天天基金网-基金档案-投资组合
 https://fundf10.eastmoney.com/ccmx_000001.html
 """
