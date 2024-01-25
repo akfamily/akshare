@@ -2655,9 +2655,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.40 fix: fix futures_to_spot_dce interface
 1.12.41 fix: fix sw_index_third_cons interface
 1.12.42 fix: fix stock_news_em interface
+1.12.43 fix: fix macro_china_market_margin_sh interface
 """
 
-__version__ = "1.12.42"
+__version__ = "1.12.43"
 __author__ = "AKFamily"
 
 import sys
