@@ -74,6 +74,7 @@
 1.12.42 fix: fix stock_news_em interface
 
     1. 修复 stock_news_em 接口
+    2. 修复 fund_portfolio_hold_em 接口
 
 1.12.41 fix: fix sw_index_third_cons interface
 
