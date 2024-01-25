@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/11/4 17:00
+Date: 2024/1/25 18:00
 Desc: 天天基金网-基金档案-投资组合
 https://fundf10.eastmoney.com/ccmx_000001.html
 """
@@ -31,7 +31,7 @@ def fund_portfolio_hold_em(
     params = {
         "type": "jjcc",
         "code": symbol,
-        "topline": "200",
+        "topline": "10000",
         "year": date,
         "month": "",
         "rt": "0.913877030254846",
@@ -295,7 +295,7 @@ def fund_portfolio_change_em(
 
 if __name__ == "__main__":
     fund_portfolio_hold_em_df = fund_portfolio_hold_em(
-        symbol="000001", date="2023"
+        symbol="011934", date="2023"
     )
     print(fund_portfolio_hold_em_df)
 

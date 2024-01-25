@@ -71,6 +71,11 @@
 
 ## 更新说明详情
 
+1.12.42 fix: fix stock_news_em interface
+
+    1. 修复 stock_news_em 接口
+    2. 修复 fund_portfolio_hold_em 接口
+
 1.12.41 fix: fix sw_index_third_cons interface
 
     1. 修复 sw_index_third_cons 接口
@@ -3458,6 +3463,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.42 fix: fix stock_news_em interface
 
 1.12.41 fix: fix sw_index_third_cons interface
 
