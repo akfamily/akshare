@@ -31,7 +31,7 @@ def fund_portfolio_hold_em(
     params = {
         "type": "jjcc",
         "code": symbol,
-        "topline": "200",
+        "topline": "10000",
         "year": date,
         "month": "",
         "rt": "0.913877030254846",
