@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/5 22:10
+Date: 2024/1/27 15:10
 Desc: 腾讯财经-A+H股数据, 实时行情数据和历史行情数据(后复权)
 https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH&sort=3&page=3&max=20
 """
@@ -10,7 +10,7 @@ import random
 import requests
 import pandas as pd
 from akshare.utils import demjson
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 from akshare.stock.cons import (
     hk_url,
@@ -47,6 +47,7 @@ def stock_zh_ah_spot() -> pd.DataFrame:
     """
     big_df = pd.DataFrame()
     page_count = _get_zh_stock_ah_page_count() + 1
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_count), leave=False):
         hk_payload.update({"reqPage": i})
         r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
@@ -117,6 +118,7 @@ def stock_zh_ah_name() -> dict:
     """
     big_df = pd.DataFrame()
     page_count = _get_zh_stock_ah_page_count() + 1
+    tqdm = get_tqdm()
     for i in tqdm(range(1, page_count), leave=False):
         hk_payload.update({"reqPage": i})
         r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
@@ -177,6 +179,7 @@ def stock_zh_ah_daily(
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for year in tqdm(range(int(start_year), int(end_year)), leave=False):
         # year = "2003"
         hk_stock_payload_copy = hk_stock_payload.copy()
@@ -249,12 +252,12 @@ def stock_zh_ah_daily(
                 temp_df.columns = ["日期", "开盘", "收盘", "最高", "最低", "成交量"]
             temp_df = temp_df[["日期", "开盘", "收盘", "最高", "最低", "成交量"]]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["开盘"] = pd.to_numeric(big_df["开盘"])
-    big_df["收盘"] = pd.to_numeric(big_df["收盘"])
-    big_df["最高"] = pd.to_numeric(big_df["最高"])
-    big_df["最低"] = pd.to_numeric(big_df["最低"])
-    big_df["成交量"] = pd.to_numeric(big_df["成交量"])
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["开盘"] = pd.to_numeric(big_df["开盘"], errors="coerce")
+    big_df["收盘"] = pd.to_numeric(big_df["收盘"], errors="coerce")
+    big_df["最高"] = pd.to_numeric(big_df["最高"], errors="coerce")
+    big_df["最低"] = pd.to_numeric(big_df["最低"], errors="coerce")
+    big_df["成交量"] = pd.to_numeric(big_df["成交量"], errors="coerce")
     return big_df
 
 
@@ -266,6 +269,6 @@ if __name__ == "__main__":
     print(stock_zh_ah_name_df)
 
     stock_zh_ah_daily_df = stock_zh_ah_daily(
-        symbol="00241", start_year="2000", end_year="2022", adjust="qfq"
+        symbol="00241", start_year="2022", end_year="2024", adjust="qfq"
     )
     print(stock_zh_ah_daily_df)
