@@ -480,7 +480,7 @@ if __name__ == "__main__":
     print(index_realtime_sw_df)
 
     index_analysis_daily_sw_df = index_analysis_daily_sw(
-        symbol="市场表征", start_date="20211003", end_date="20221103"
+        symbol="市场表征", start_date="20240101", end_date="20240127"
     )
     print(index_analysis_daily_sw_df)
 
