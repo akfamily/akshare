@@ -988,12 +988,12 @@ def code_id_map_em() -> dict:
 
 
 def stock_zh_a_hist(
-    symbol: str = "000001",
-    period: str = "daily",
-    start_date: str = "19700101",
-    end_date: str = "20500101",
-    adjust: str = "",
-    timeout: float = None,
+        symbol: str = "000001",
+        period: str = "daily",
+        start_date: str = "19700101",
+        end_date: str = "20500101",
+        adjust: str = "",
+        timeout: float = None,
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日行情
@@ -1061,11 +1061,11 @@ def stock_zh_a_hist(
 
 
 def stock_zh_a_hist_min_em(
-    symbol: str = "000001",
-    start_date: str = "1979-09-01 09:32:00",
-    end_date: str = "2222-01-01 09:32:00",
-    period: str = "5",
-    adjust: str = "",
+        symbol: str = "000001",
+        start_date: str = "1979-09-01 09:32:00",
+        end_date: str = "2222-01-01 09:32:00",
+        period: str = "5",
+        adjust: str = "",
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日分时行情
@@ -1191,9 +1191,9 @@ def stock_zh_a_hist_min_em(
 
 
 def stock_zh_a_hist_pre_min_em(
-    symbol: str = "000001",
-    start_time: str = "09:00:00",
-    end_time: str = "15:50:00",
+        symbol: str = "000001",
+        start_time: str = "09:00:00",
+        end_time: str = "15:50:00",
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-沪深京 A 股-每日分时行情包含盘前数据
@@ -1234,7 +1234,7 @@ def stock_zh_a_hist_pre_min_em(
     ]
     temp_df.index = pd.to_datetime(temp_df["时间"])
     date_format = temp_df.index[0].date().isoformat()
-    temp_df = temp_df[date_format + " " + start_time : date_format + " " + end_time]
+    temp_df = temp_df[date_format + " " + start_time: date_format + " " + end_time]
     temp_df.reset_index(drop=True, inplace=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
     temp_df["收盘"] = pd.to_numeric(temp_df["收盘"], errors="coerce")
@@ -1426,11 +1426,11 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
 
 
 def stock_hk_hist(
-    symbol: str = "00593",
-    period: str = "daily",
-    start_date: str = "19700101",
-    end_date: str = "22220101",
-    adjust: str = "",
+        symbol: str = "00593",
+        period: str = "daily",
+        start_date: str = "19700101",
+        end_date: str = "22220101",
+        adjust: str = "",
 ) -> pd.DataFrame:
     """
     东方财富网-行情-港股-每日行情
@@ -1500,11 +1500,11 @@ def stock_hk_hist(
 
 
 def stock_hk_hist_min_em(
-    symbol: str = "01611",
-    period: str = "1",
-    adjust: str = "",
-    start_date: str = "1979-09-01 09:32:00",
-    end_date: str = "2222-01-01 09:32:00",
+        symbol: str = "01611",
+        period: str = "1",
+        adjust: str = "",
+        start_date: str = "1979-09-01 09:32:00",
+        end_date: str = "2222-01-01 09:32:00",
 ) -> pd.DataFrame:
     """
     东方财富网-行情-港股-每日分时行情
@@ -1728,11 +1728,11 @@ def stock_us_spot_em() -> pd.DataFrame:
 
 
 def stock_us_hist(
-    symbol: str = "105.MSFT",
-    period: str = "daily",
-    start_date: str = "19700101",
-    end_date: str = "22220101",
-    adjust: str = "",
+        symbol: str = "105.MSFT",
+        period: str = "daily",
+        start_date: str = "19700101",
+        end_date: str = "22220101",
+        adjust: str = "",
 ) -> pd.DataFrame:
     """
     东方财富网-行情-美股-每日行情
@@ -1800,9 +1800,9 @@ def stock_us_hist(
 
 
 def stock_us_hist_min_em(
-    symbol: str = "105.ATER",
-    start_date: str = "1979-09-01 09:32:00",
-    end_date: str = "2222-01-01 09:32:00",
+        symbol: str = "105.ATER",
+        start_date: str = "1979-09-01 09:32:00",
+        end_date: str = "2222-01-01 09:32:00",
 ) -> pd.DataFrame:
     """
     东方财富网-行情首页-美股-每日分时行情
