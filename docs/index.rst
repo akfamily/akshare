@@ -26,6 +26,7 @@ Welcome to AKShare's Online Documentation!
    tutorial
    articles
    data/index
+   data_tips
    anaconda
    special
    platform
