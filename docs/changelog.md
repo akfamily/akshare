@@ -74,6 +74,7 @@
 1.12.47 fix: fix stock_zh_ah_daily interface
 
     1. 修复 stock_zh_ah_daily 接口
+    2. 修复 get_receipt 接口
 
 1.12.46 fix: fix futures_contract_detail interface
 
