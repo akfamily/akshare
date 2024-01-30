@@ -385,9 +385,11 @@ def get_gfex_receipt(date: str = None, vars_list: List = cons.contract_symbols) 
     temp_df = pd.DataFrame(data_json['data'])
     temp_df = temp_df[temp_df['variety'].str.contains("小计")]
     result_df = temp_df[['wbillQty', 'diff']].copy()
+    if result_df.empty:
+        return pd.DataFrame()
+
     result_df.loc[:, 'date'] = date.isoformat().replace("-", "")
     result_df.loc[:, 'var'] = [item.upper() for item in temp_df['varietyOrder'].tolist()]
-
     result_df.reset_index(drop=True, inplace=True)
     result_df.rename(columns={
         "wbillQty": "receipt",
@@ -397,18 +399,20 @@ def get_gfex_receipt(date: str = None, vars_list: List = cons.contract_symbols) 
         'var', 'receipt', 'receipt_chg', 'date'
     ]]
     result_df.set_index(['var'], inplace=True)
+    if 'LC' not in result_df.index:
+        vars_list.remove('LC')
     result_df = result_df.loc[vars_list, :]
     result_df.reset_index(inplace=True)
     return result_df
 
 
-def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = cons.contract_symbols):
+def get_receipt(start_date: str = None, end_date: str = None, vars_list: List = cons.contract_symbols):
     """
     大宗商品-注册仓单数据
-    :param start_day: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
-    :type start_day: str
-    :param end_day: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
-    :type end_day: str
+    :param start_date: 开始日期 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
+    :type start_date: str
+    :param end_date: 结束数据 format：YYYY-MM-DD 或 YYYYMMDD 或 datetime.date 对象 为空时为当天
+    :type end_date: str
     :param vars_list: 合约品种如 RB、AL 等列表为空时为所有商品
     :type vars_list: str
     :return: 展期收益率数据
@@ -416,42 +420,42 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
     """
     if not isinstance(vars_list, list):
         return warnings.warn(f"vars_list: 必须是列表")
-    start_day = cons.convert_date(start_day) if start_day is not None else datetime.date.today()
-    end_day = cons.convert_date(end_day) if end_day is not None else cons.convert_date(
+    start_date = cons.convert_date(start_date) if start_date is not None else datetime.date.today()
+    end_date = cons.convert_date(end_date) if end_date is not None else cons.convert_date(
         cons.get_latest_data_date(datetime.datetime.now()))
     records = pd.DataFrame()
-    while start_day <= end_day:
-        if start_day.strftime('%Y%m%d') not in calendar:
-            warnings.warn(f"{start_day.strftime('%Y%m%d')} 非交易日")
+    while start_date <= end_date:
+        if start_date.strftime('%Y%m%d') not in calendar:
+            warnings.warn(f"{start_date.strftime('%Y%m%d')} 非交易日")
         else:
-            print(start_day)
+            print(start_date)
             for market, market_vars in cons.market_exchange_symbols.items():
                 if market == 'dce':
-                    if start_day >= datetime.date(2009, 4, 7):
+                    if start_date >= datetime.date(2009, 4, 7):
                         f = get_dce_receipt
                     else:
                         print('20090407 起，大连商品交易所每个交易日更新仓单数据')
                         f = None
                 elif market == 'shfe':
-                    if datetime.date(2008, 10, 6) <= start_day <= datetime.date(2014, 5, 16):
+                    if datetime.date(2008, 10, 6) <= start_date <= datetime.date(2014, 5, 16):
                         f = get_shfe_receipt_1
-                    elif start_day > datetime.date(2014, 5, 16):
+                    elif start_date > datetime.date(2014, 5, 16):
                         f = get_shfe_receipt_2
                     else:
                         f = None
                         print('20081006 起，上海期货交易所每个交易日更新仓单数据')
                 elif market == "gfex":
-                    if start_day > datetime.date(2022, 12, 22):
+                    if start_date > datetime.date(2022, 12, 22):
                         f = get_gfex_receipt
                     else:
                         f = None
                         print('20081006 起，上海期货交易所每个交易日更新仓单数据')
                 elif market == 'czce':
-                    if datetime.date(2008, 3, 3) <= start_day <= datetime.date(2010, 8, 24):
+                    if datetime.date(2008, 3, 3) <= start_date <= datetime.date(2010, 8, 24):
                         f = get_czce_receipt_1
-                    elif datetime.date(2010, 8, 24) < start_day <= datetime.date(2015, 11, 11):
+                    elif datetime.date(2010, 8, 24) < start_date <= datetime.date(2015, 11, 11):
                         f = get_czce_receipt_2
-                    elif start_day > datetime.date(2015, 11, 11):
+                    elif start_date > datetime.date(2015, 11, 11):
                         f = get_czce_receipt_3
                     else:
                         f = None
@@ -459,8 +463,8 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
                 get_vars = [var for var in vars_list if var in market_vars]
                 if market != 'cffex' and get_vars != []:
                     if f is not None:
-                        records = pd.concat([records, f(start_day, get_vars)])
-        start_day += datetime.timedelta(days=1)
+                        records = pd.concat([records, f(start_date, get_vars)])
+        start_date += datetime.timedelta(days=1)
     records.reset_index(drop=True, inplace=True)
     if records.empty:
         return records
@@ -468,5 +472,5 @@ def get_receipt(start_day: str = None, end_day: str = None, vars_list: List = co
 
 
 if __name__ == '__main__':
-    get_receipt_df = get_receipt(start_day='20240122', end_day='20240122', vars_list=['LC'])
+    get_receipt_df = get_receipt(start_date='20230601', end_date='20230615')
     print(get_receipt_df)
