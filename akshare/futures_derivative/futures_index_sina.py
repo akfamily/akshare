@@ -142,6 +142,6 @@ if __name__ == "__main__":
     print(futures_display_main_sina_df)
 
     futures_main_sina_hist = futures_main_sina(
-        symbol="V0", start_date="20170916", end_date="20230915"
+        symbol="CF0", start_date="20240124", end_date="20240131"
     )
     print(futures_main_sina_hist)
