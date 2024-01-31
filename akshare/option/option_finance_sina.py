@@ -831,7 +831,7 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
     return temp_df
 
 
-def option_minute_em(symbol: str = "10005265") -> pd.DataFrame:
+def option_minute_em(symbol: str = "MO2402-C-5400") -> pd.DataFrame:
     """
     东方财富网-行情中心-期权市场-分时行情
     https://stock.finance.sina.com.cn/option/quotes.html
@@ -952,5 +952,5 @@ if __name__ == "__main__":
     option_current_em_df = option_current_em()
     print(option_current_em_df)
 
-    option_minute_em_df = option_minute_em(symbol="10005265")
+    option_minute_em_df = option_minute_em(symbol="MO2402-C-5400")
     print(option_minute_em_df)
