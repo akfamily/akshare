@@ -71,6 +71,11 @@
 
 ## 更新说明详情
 
+1.12.48 fix: fix option_minute_em interface
+
+    1. 修复 option_minute_em 接口
+    2. 修复 option_current_em 接口
+
 1.12.47 fix: fix stock_zh_ah_daily interface
 
     1. 修复 stock_zh_ah_daily 接口
