@@ -834,7 +834,7 @@ def option_finance_minute_sina(symbol: str = "10002530") -> pd.DataFrame:
 def option_minute_em(symbol: str = "MO2402-C-5400") -> pd.DataFrame:
     """
     东方财富网-行情中心-期权市场-分时行情
-    https://stock.finance.sina.com.cn/option/quotes.html
+    https://wap.eastmoney.com/quote/stock/151.cu2404P61000.html
     :param symbol: 期权代码; 通过调用 ak.option_current_em() 获取
     :type symbol: str
     :return: 指定期权的分钟频率数据
