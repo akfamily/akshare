@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/2 19:30
+Date: 2024/2/1 16:20
 Desc: 东方财富网-数据中心-新股数据-打新收益率
 东方财富网-数据中心-新股申购-打新收益率
 https://data.eastmoney.com/xg/xg/dxsyl.html
@@ -10,7 +10,8 @@ https://data.eastmoney.com/xg/xg/default_2.html
 """
 import pandas as pd
 import requests
-from tqdm import tqdm
+
+from akshare.utils.tqdm import get_tqdm
 
 
 def stock_dxsyl_em() -> pd.DataFrame:
@@ -38,6 +39,7 @@ def stock_dxsyl_em() -> pd.DataFrame:
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
         r = requests.get(url, params=params)
@@ -102,7 +104,7 @@ def stock_dxsyl_em() -> pd.DataFrame:
     big_df["总发行数量"] = pd.to_numeric(big_df["总发行数量"], errors="coerce")
     big_df["开盘溢价"] = pd.to_numeric(big_df["开盘溢价"], errors="coerce")
     big_df["首日涨幅"] = pd.to_numeric(big_df["首日涨幅"], errors="coerce")
-    big_df["上市日期"] = pd.to_datetime(big_df["上市日期"]).dt.date
+    big_df["上市日期"] = pd.to_datetime(big_df["上市日期"], errors="coerce").dt.date
     return big_df
 
 
@@ -139,6 +141,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, 1 + int(total_page)), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params)
@@ -252,6 +255,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
         data_json = r.json()
         total_page = data_json["result"]["pages"]
         big_df = pd.DataFrame()
+        tqdm = get_tqdm()
         for page in tqdm(range(1, total_page + 1), leave=False):
             params.update({"pageNumber": page})
             r = requests.get(url, params=params)
@@ -338,7 +342,7 @@ def stock_xgsglb_em(symbol: str = "全部股票") -> pd.DataFrame:
             ]
         ]
 
-        big_df["申购日期"] = pd.to_datetime(big_df["申购日期"]).dt.date
+        big_df["申购日期"] = pd.to_datetime(big_df["申购日期"], errors="coerce").dt.date
         big_df["中签号公布日"] = pd.to_datetime(big_df["中签号公布日"]).dt.date
         big_df["中签缴款日期"] = pd.to_datetime(big_df["中签缴款日期"]).dt.date
         big_df["发行总数"] = pd.to_numeric(big_df["发行总数"], errors="coerce")
