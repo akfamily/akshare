@@ -2662,9 +2662,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.47 fix: fix stock_zh_ah_daily interface
 1.12.48 fix: fix option_minute_em interface
 1.12.49 fix: fix stock_dxsyl_em interface
+1.12.50 fix: fix bond_china_close_return interface
 """
 
-__version__ = "1.12.49"
+__version__ = "1.12.50"
 __author__ = "AKFamily"
 
 import sys
