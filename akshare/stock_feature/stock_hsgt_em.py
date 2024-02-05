@@ -80,11 +80,9 @@ def stock_hsgt_fund_flow_summary_em() -> pd.DataFrame:
     temp_df['持平数'] = pd.to_numeric(temp_df['持平数'], errors="coerce")
     temp_df['下跌数'] = pd.to_numeric(temp_df['下跌数'], errors="coerce")
     temp_df['指数涨跌幅'] = pd.to_numeric(temp_df['指数涨跌幅'], errors="coerce")
-
     temp_df['成交净买额'] = temp_df['成交净买额'] / 10000
     temp_df['资金净流入'] = temp_df['资金净流入'] / 10000
     temp_df['当日资金余额'] = temp_df['当日资金余额'] / 10000
-
     return temp_df
 
 
