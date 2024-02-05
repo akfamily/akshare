@@ -28,7 +28,7 @@ def __bond_register_service() -> requests.Session:
     cookies_dict = session.cookies.get_dict()
     cookies_str = '; '.join(f'{k}={v}' for k, v in cookies_dict.items())
     data = {
-        "key": "c3pTbk5sYVpNMFg="
+        "key": "c3pTblpsYU5UMFg="
     }
     headers = {
         "Accept": "application/json, text/javascript, */*; q=0.01",
