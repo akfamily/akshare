@@ -133,7 +133,7 @@ Pay attention to **数据科学实战** Official Accounts to get more informatio
 Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/akfamily/akshare) updated info:
 
 <div>
-    <img alt="ds" src="https://github.com/akfamily/akshare/blob/master/assets/images/ds.png">
+    <img alt="ds" src="https://github.com/akfamily/akshare/blob/main/assets/images/ds.png">
 </div>
 
 Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 1254836886
@@ -315,5 +315,5 @@ Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://
 ## Backer and Sponsor
 
 <a href="https://www.jetbrains.com/?from=jindaxiang/akshare" target="_blank">
-<img alt="jetbrains" src="https://github.com/akfamily/akshare/blob/master/assets/images/jetbrains.svg" width="100px" height="100px">
+<img alt="jetbrains" src="https://github.com/akfamily/akshare/blob/main/assets/images/jetbrains.svg" width="100px" height="100px">
 </a>
