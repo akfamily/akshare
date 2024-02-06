@@ -6,7 +6,7 @@
 
 **本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源。**
 
-![](https://github.com/akfamily/akshare/blob/master/assets/images/AKShare_logo.jpg)
+![](https://github.com/akfamily/akshare/blob/main/assets/images/AKShare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
@@ -15,7 +15,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
 [![Actions Status](https://github.com/akfamily/akshare/actions/workflows/release_and_deploy.yml/badge.svg)](https://github.com/akfamily/akshare/actions)
-[![MIT Licence](https://img.shields.io/badge/license-MIT-blue)](https://github.com/akfamily/akshare/blob/master/LICENSE)
+[![MIT Licence](https://img.shields.io/badge/license-MIT-blue)](https://github.com/akfamily/akshare/blob/main/LICENSE)
 [![](https://img.shields.io/github/forks/jindaxiang/akshare)](https://github.com/akfamily/akshare)
 [![](https://img.shields.io/github/stars/jindaxiang/akshare)](https://github.com/akfamily/akshare)
 [![](https://img.shields.io/github/issues/jindaxiang/akshare)](https://github.com/akfamily/akshare)
@@ -29,7 +29,7 @@
 
 - Documentation: [中文文档](https://akshare.akfamily.xyz/)
 
-![](https://github.com/akfamily/akshare/blob/master/assets/images/AKShare.svg)
+![](https://github.com/akfamily/akshare/blob/main/assets/images/AKShare.svg)
 
 ## Installation
 
@@ -133,7 +133,7 @@ Pay attention to **数据科学实战** Official Accounts to get more informatio
 Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKShare](https://github.com/akfamily/akshare) updated info:
 
 <div>
-    <img alt="ds" src="https://github.com/akfamily/akshare/blob/master/assets/images/ds.png">
+    <img alt="ds" src="https://github.com/akfamily/akshare/blob/main/assets/images/ds.png">
 </div>
 
 Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 1254836886
@@ -315,5 +315,5 @@ Thanks for the tutorials provided by [微信公众号: Python大咖谈](https://
 ## Backer and Sponsor
 
 <a href="https://www.jetbrains.com/?from=jindaxiang/akshare" target="_blank">
-<img alt="jetbrains" src="https://github.com/akfamily/akshare/blob/master/assets/images/jetbrains.svg" width="100px" height="100px">
+<img alt="jetbrains" src="https://github.com/akfamily/akshare/blob/main/assets/images/jetbrains.svg" width="100px" height="100px">
 </a>
