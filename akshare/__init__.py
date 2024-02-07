@@ -2665,9 +2665,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.50 fix: fix bond_china_close_return interface
 1.12.51 add: add stock_hsgt_fund_min_em interface
 1.12.52 fix: fix stock_rank_cxg_ths interface
+1.12.53 fix: fix stock_rank_xzjp_ths interface
 """
 
-__version__ = "1.12.52"
+__version__ = "1.12.53"
 __author__ = "AKFamily"
 
 import sys
