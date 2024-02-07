@@ -1,18 +1,19 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2024/2/5 20:00
+Date: 2024/2/7 23:00
 Desc: 同花顺-数据中心-技术选股
 https://data.10jqka.com.cn/rank/cxg/
 """
 from io import StringIO
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from py_mini_racer import py_mini_racer
-from akshare.utils.tqdm import get_tqdm
 
 from akshare.datasets import get_ths_js
+from akshare.utils.tqdm import get_tqdm
 
 
 def _get_file_content_ths(file: str = "ths.js") -> str:
