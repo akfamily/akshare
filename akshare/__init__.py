@@ -2666,9 +2666,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.51 add: add stock_hsgt_fund_min_em interface
 1.12.52 fix: fix stock_rank_cxg_ths interface
 1.12.53 fix: fix stock_rank_xzjp_ths interface
+1.12.54 fix: fix stock_gpzy_pledge_ratio_detail_em interface
 """
 
-__version__ = "1.12.53"
+__version__ = "1.12.54"
 __author__ = "AKFamily"
 
 import sys

@@ -18,7 +18,7 @@ def stock_individual_spot_xq(
     """
     雪球-行情中心-个股
     https://xueqiu.com/S/SH600000
-    :param symbol: 证券代码，可以是A股代码，A 股场内基金代码，A 股指数，美股代码, 美股指数
+    :param symbol: 证券代码，可以是 A 股代码，A 股场内基金代码，A 股指数，美股代码, 美股指数
     :type symbol: str
     :param timeout: choice of None or a positive float number
     :type timeout: float
@@ -29,7 +29,7 @@ def stock_individual_spot_xq(
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
                       "80.0.3987.149 Safari/537.36",
-        "Cookie": "xqat=edbee4e5d1e92f98548629214a6e17fe06486a8f",
+        "Cookie": "xqat=f5e826d5be1c4265b380bc7d743963f24729480d",
     }
     r = requests.get(url, headers=headers, timeout=timeout)
     column_name_map = {
