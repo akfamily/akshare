@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/7 17:00
+Date: 2024/2/9 11:40
 Desc: 东方财富网-数据中心-特色数据-股权质押
-东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: http://data.eastmoney.com/gpzy/marketProfile.aspx
-东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: http://data.eastmoney.com/gpzy/pledgeRatio.aspx
-东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细: http://data.eastmoney.com/gpzy/pledgeDetail.aspx
-东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
-东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
-东方财富网-数据中心-特色数据-股权质押-行业数据: http://data.eastmoney.com/gpzy/industryData.aspx
+东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: https://data.eastmoney.com/gpzy/marketProfile.aspx
+东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: https://data.eastmoney.com/gpzy/pledgeRatio.aspx
+东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细: https://data.eastmoney.com/gpzy/pledgeDetail.aspx
+东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司: https://data.eastmoney.com/gpzy/distributeStatistics.aspx
+东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行: https://data.eastmoney.com/gpzy/distributeStatistics.aspx
+东方财富网-数据中心-特色数据-股权质押-行业数据: https://data.eastmoney.com/gpzy/industryData.aspx
 """
 import math
 
@@ -164,7 +164,7 @@ def _get_page_num_gpzy_market_pledge_ratio_detail() -> int:
     https://data.eastmoney.com/gpzy/pledgeDetail.aspx
     :return: int 获取 重要股东股权质押明细 的总页数
     """
-    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "sortColumns": "NOTICE_DATE",
         "sortTypes": "-1",
@@ -188,7 +188,7 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
     https://data.eastmoney.com/gpzy/pledgeDetail.aspx
     :return: pandas.DataFrame
     """
-    url = "http://datacenter-web.eastmoney.com/api/data/v1/get"
+    url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     total_page = _get_page_num_gpzy_market_pledge_ratio_detail()
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
@@ -206,7 +206,7 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     big_df.columns = [
@@ -251,6 +251,7 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
         "_",
         "_",
         "_",
+        "_",
     ]
     big_df = big_df[
         [
@@ -270,14 +271,14 @@ def stock_gpzy_pledge_ratio_detail_em() -> pd.DataFrame:
         ]
     ]
 
-    big_df["质押股份数量"] = pd.to_numeric(big_df["质押股份数量"])
-    big_df["占所持股份比例"] = pd.to_numeric(big_df["占所持股份比例"])
-    big_df["占总股本比例"] = pd.to_numeric(big_df["占总股本比例"])
-    big_df["最新价"] = pd.to_numeric(big_df["最新价"])
-    big_df["质押日收盘价"] = pd.to_numeric(big_df["质押日收盘价"])
-    big_df["预估平仓线"] = pd.to_numeric(big_df["预估平仓线"])
-    big_df["公告日期"] = pd.to_datetime(big_df["公告日期"]).dt.date
-    big_df["质押开始日期"] = pd.to_datetime(big_df["质押开始日期"]).dt.date
+    big_df["质押股份数量"] = pd.to_numeric(big_df["质押股份数量"], errors="coerce")
+    big_df["占所持股份比例"] = pd.to_numeric(big_df["占所持股份比例"], errors="coerce")
+    big_df["占总股本比例"] = pd.to_numeric(big_df["占总股本比例"], errors="coerce")
+    big_df["最新价"] = pd.to_numeric(big_df["最新价"], errors="coerce")
+    big_df["质押日收盘价"] = pd.to_numeric(big_df["质押日收盘价"], errors="coerce")
+    big_df["预估平仓线"] = pd.to_numeric(big_df["预估平仓线"], errors="coerce")
+    big_df["公告日期"] = pd.to_datetime(big_df["公告日期"], errors="coerce").dt.date
+    big_df["质押开始日期"] = pd.to_datetime(big_df["质押开始日期"], errors="coerce").dt.date
     return big_df
 
 
