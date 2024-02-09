@@ -2088,7 +2088,7 @@ print(index_option_50etf_min_qvix_df)
 
 接口: index_option_300etf_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?300ETF
+目标地址: https://1.optbbs.com/s/vix.shtml?300ETF
 
 描述: 300ETF 期权波动率指数 QVIX
 
@@ -2141,7 +2141,7 @@ print(index_option_300etf_qvix_df)
 
 接口: index_option_300etf_min_qvix
 
-目标地址: http://1.optbbs.com/s/vix.shtml?300ETF
+目标地址: https://1.optbbs.com/s/vix.shtml?300ETF
 
 描述: 300ETF 期权波动率指数-分时
 
