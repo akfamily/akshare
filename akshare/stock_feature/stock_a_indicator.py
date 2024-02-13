@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/6 20:20
+Date: 2024/02/14 01:24
 Desc: 市盈率, 市净率和股息率查询
 https://www.legulegu.com/stocklist
 https://www.legulegu.com/s/000001
@@ -82,13 +82,13 @@ def stock_a_indicator_lg(symbol: str = "002174") -> pd.DataFrame:
         temp_df["trade_date"] = pd.to_datetime(temp_df["trade_date"]).dt.date
         temp_df[temp_df.columns[1:]] = temp_df[temp_df.columns[1:]].astype(float)
         temp_df.sort_values(["trade_date"], inplace=True, ignore_index=True)
-        if len(set(temp_df['trade_date'])) < 10:
+        if len(set(temp_df['trade_date'])) <= 0:
             raise ValueError("数据获取失败, 请检查是否输入正确的股票代码")
         return temp_df
 
 
 def stock_hk_indicator_eniu(
-    symbol: str = "hk01093", indicator: str = "市盈率"
+        symbol: str = "hk01093", indicator: str = "市盈率"
 ) -> pd.DataFrame:
     """
     亿牛网-港股指标
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     stock_a_indicator_lg_all_df = stock_a_indicator_lg(symbol="all")
     print(stock_a_indicator_lg_all_df)
 
-    stock_a_indicator_lg_df = stock_a_indicator_lg(symbol="501050")
+    stock_a_indicator_lg_df = stock_a_indicator_lg(symbol="301502")
     print(stock_a_indicator_lg_df)
 
     stock_hk_indicator_eniu_df = stock_hk_indicator_eniu(
