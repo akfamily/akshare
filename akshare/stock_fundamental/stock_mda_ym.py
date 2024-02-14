@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/7/4 20:30
+Date: 2024/2/14 12:30
 Desc: 益盟-F10-管理层讨论与分析
-http://f10.emoney.cn/f10/zbyz/1000001
+https://f10.emoney.cn/f10/zbyz/1000001
 """
 import pandas as pd
 import requests
@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 def stock_mda_ym(symbol: str = "000001") -> pd.DataFrame:
     """
     益盟-F10-管理层讨论与分析
-    http://f10.emoney.cn/f10/zbyz/1000001
+    https://f10.emoney.cn/f10/zbyz/1000001
     :param symbol: 股票代码
     :type symbol: str
     :return: 管理层讨论与分析
