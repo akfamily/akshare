@@ -261,7 +261,7 @@ def stock_sy_jz_em(date: str = "20230331") -> pd.DataFrame:
     return big_df
 
 
-def stock_sy_em(date: str = "20230331") -> pd.DataFrame:
+def stock_sy_em(date: str = "20231231") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-个股商誉明细
     https://data.eastmoney.com/sy/list.html
@@ -339,7 +339,7 @@ def stock_sy_em(date: str = "20230331") -> pd.DataFrame:
     return big_df
 
 
-def stock_sy_hy_em(date: str = "20230331") -> pd.DataFrame:
+def stock_sy_hy_em(date: str = "20231231") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-商誉-行业商誉
     https://data.eastmoney.com/sy/hylist.html
@@ -408,8 +408,8 @@ if __name__ == "__main__":
     stock_sy_jz_em_df = stock_sy_jz_em(date="20230331")
     print(stock_sy_jz_em_df)
 
-    stock_sy_em_df = stock_sy_em(date="20230331")
+    stock_sy_em_df = stock_sy_em(date="20231231")
     print(stock_sy_em_df)
 
-    stock_sy_hy_em_df = stock_sy_hy_em(date="20230331")
+    stock_sy_hy_em_df = stock_sy_hy_em(date="20231231")
     print(stock_sy_hy_em_df)

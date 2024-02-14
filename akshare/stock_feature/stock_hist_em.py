@@ -1630,8 +1630,8 @@ def stock_hk_hist_min_em(
 
 def stock_us_spot_em() -> pd.DataFrame:
     """
-    东方财富-美股-实时行情
-    http://quote.eastmoney.com/center/gridlist.html#us_stocks
+    东方财富网-美股-实时行情
+    https://quote.eastmoney.com/center/gridlist.html#us_stocks
     :return: 美股-实时行情; 延迟 15 min
     :rtype: pandas.DataFrame
     """
@@ -1935,10 +1935,10 @@ if __name__ == "__main__":
     print(stock_us_spot_em_df)
 
     stock_us_hist_df = stock_us_hist(
-        symbol="105.TKNO",
-        period="weekly",
-        start_date="19700101",
-        end_date="22220101",
+        symbol="106.TTE",
+        period="daily",
+        start_date="20200101",
+        end_date="20240213",
         adjust="qfq",
     )
     print(stock_us_hist_df)
