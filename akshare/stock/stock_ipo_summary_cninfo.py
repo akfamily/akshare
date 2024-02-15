@@ -59,6 +59,8 @@ def stock_ipo_summary_cninfo(symbol: str = "600030") -> pd.DataFrame:
     }
     r = requests.post(url, params=params, headers=headers)
     data_json = r.json()
+    if not (data_json and data_json["records"]):
+        return pd.DataFrame()
     temp_df = pd.DataFrame.from_dict(data_json["records"][0], orient="index").T
     temp_df.columns = [
         "股票代码",
