@@ -128,7 +128,7 @@ if __name__ == "__main__":
     stock_a_indicator_lg_all_df = stock_a_indicator_lg(symbol="all")
     print(stock_a_indicator_lg_all_df)
 
-    stock_a_indicator_lg_df = stock_a_indicator_lg(symbol="301502")
+    stock_a_indicator_lg_df = stock_a_indicator_lg(symbol="000001")
     print(stock_a_indicator_lg_df)
 
     stock_hk_indicator_eniu_df = stock_hk_indicator_eniu(
