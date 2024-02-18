@@ -71,6 +71,10 @@
 
 ## 更新说明详情
 
+1.12.57 fix: fix bank_fjcf_table_detail interface
+
+    1. 修复 bank_fjcf_table_detail 接口
+
 1.12.56 fix: fix stock_a_indicator_lg interface
 
     1. 修复 stock_a_indicator_lg 接口
