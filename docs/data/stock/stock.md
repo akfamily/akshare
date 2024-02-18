@@ -8506,7 +8506,7 @@ print(stock_profile_cninfo_df)
 
 接口: stock_ipo_summary_cninfo
 
-目标地址: http://webapi.cninfo.com.cn/#/company
+目标地址: https://webapi.cninfo.com.cn/#/company
 
 描述: 巨潮资讯-个股-上市相关
 
@@ -8559,7 +8559,7 @@ print(stock_ipo_summary_cninfo_df)
 
 接口: stock_zcfz_em
 
-目标地址: http://data.eastmoney.com/bbsj/202003/zcfz.html
+目标地址: https://data.eastmoney.com/bbsj/202003/zcfz.html
 
 描述: 东方财富-数据中心-年报季报-业绩快报-资产负债表
 
