@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/27 20:20
+Date: 2024/2/18 12:20
 Desc: 巨潮资讯-个股-上市相关
-http://webapi.cninfo.com.cn/#/company
+https://webapi.cninfo.com.cn/#/company
 """
 import pandas as pd
 import requests
@@ -29,13 +29,13 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
 def stock_ipo_summary_cninfo(symbol: str = "600030") -> pd.DataFrame:
     """
     巨潮资讯-个股-上市相关
-    http://webapi.cninfo.com.cn/#/company
+    https://webapi.cninfo.com.cn/#/company
     :param symbol: 股票代码
     :type symbol: str
     :return: 上市相关
     :rtype: pandas.DataFrame
     """
-    url = "http://webapi.cninfo.com.cn/api/sysapi/p_sysapi1134"
+    url = "https://webapi.cninfo.com.cn/api/sysapi/p_sysapi1134"
     params = {
         "scode": symbol,
     }
@@ -51,10 +51,10 @@ def stock_ipo_summary_cninfo(symbol: str = "600030") -> pd.DataFrame:
         "Content-Length": "0",
         "Host": "webapi.cninfo.com.cn",
         "Accept-Enckey": mcode,
-        "Origin": "http://webapi.cninfo.com.cn",
+        "Origin": "https://webapi.cninfo.com.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://webapi.cninfo.com.cn/",
+        "Referer": "https://webapi.cninfo.com.cn/",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, params=params, headers=headers)
