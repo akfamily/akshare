@@ -145,6 +145,9 @@ def bank_fjcf_table_detail(
             elif len(table_list) == 11:
                 table_list = table_list[2:]
                 table_list.insert(2, pd.NA)
+            else:
+                print(f"{item} 异常，请通过 https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId={item} 查看")
+                continue
 
             # 部分会变成嵌套列表, 这里还原
             table_list = [
@@ -154,11 +157,13 @@ def bank_fjcf_table_detail(
             table_list.append(res.json()["data"]["publishDate"])
             table_df = pd.DataFrame(table_list)
             table_df.columns = ["内容"]
-            big_df = pd.concat([big_df, table_df.T], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, table_df.T], ignore_index=True)
             # 解决有些页面缺少字段的问题, 都放到 try 里面
         except:
-            warnings.warn(f"{item} is not table, it will be skip")
+            warnings.warn(f"{item} 不是表格型数据，将跳过采集")
             continue
+    if big_df.empty:
+        return pd.DataFrame()
     big_df.columns = [
         "行政处罚决定书文号",
         "姓名",
@@ -177,5 +182,5 @@ def bank_fjcf_table_detail(
 
 
 if __name__ == "__main__":
-    bank_fjcf_table_detail_df = bank_fjcf_table_detail(page=5, item="分局本级")
+    bank_fjcf_table_detail_df = bank_fjcf_table_detail(page=1, item="机关", begin=11)
     print(bank_fjcf_table_detail_df)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/16 16:30
+Date: 2024/2/19 13:30
 Desc: AKShare's PYPI info file
 """
 import re
@@ -53,6 +53,7 @@ setuptools.setup(
         "decorator>=4.4.2",
         "py-mini-racer>=0.6.0",
         "akracer>=0.0.11",
+        "pyarrow>=15.0.0",
     ],
     package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[

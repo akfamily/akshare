@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2021/6/28 17:02
+Date: 2024/2/19 13:00
 Desc: 电影票房数据
-https://www.endata.com.cn/BoxOffice/BO/RealTime/reTimeBO.html
+https://ys.endata.cn/BoxOffice/Movie
 """
 import datetime
 import json
 import os
 
-import pandas as pd  # type: ignore
+import pandas as pd
 import requests
-from py_mini_racer import py_mini_racer  # type: ignore
+from py_mini_racer import py_mini_racer
 
 
 def _get_js_path(name: str = "", module_file: str = "") -> str:
@@ -44,7 +44,7 @@ def _get_file_content(file_name: str = "jm.js"):
     return file_data
 
 
-def get_current_week(date: str = "20201019") -> int:
+def get_current_week(date: str = "20201019") -> datetime.date:
     """
     当前周的周一
     :param date: 具体的日期
@@ -179,7 +179,8 @@ def movie_boxoffice_weekly(date: str = "20201018") -> pd.DataFrame:
         "口碑指数",
     ]
     temp_df = temp_df[
-        ["排序", "影片名称", "排名变化", "单周票房", "环比变化", "累计票房", "平均票价", "场均人次", "口碑指数", "上映天数"]
+        ["排序", "影片名称", "排名变化", "单周票房", "环比变化", "累计票房", "平均票价", "场均人次", "口碑指数",
+         "上映天数"]
     ]
     return temp_df
 
@@ -379,7 +380,7 @@ if __name__ == "__main__":
     movie_boxoffice_realtime_df = movie_boxoffice_realtime()
     print(movie_boxoffice_realtime_df)
 
-    movie_boxoffice_daily_df = movie_boxoffice_daily(date="20210618")
+    movie_boxoffice_daily_df = movie_boxoffice_daily(date="20080201")
     print(movie_boxoffice_daily_df)
 
     movie_boxoffice_weekly_df = movie_boxoffice_weekly(date="20201018")
