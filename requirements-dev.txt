@@ -20,4 +20,5 @@ recommonmark>=0.7.1
 sphinx_markdown_tables>=0.0.17
 sphinx_rtd_theme>=1.0.0
 mplfinance>=0.12.7a17
+pyarrow>=15.0.0
 black[d]
