@@ -2672,9 +2672,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.57 fix: fix bank_fjcf_table_detail interface
 1.12.58 fix: fix stock_ipo_summary_cninfo interface
 1.12.59 fix: fix movie_boxoffice_realtime interface
+1.12.60 fix: fix movie_boxoffice_daily interface
 """
 
-__version__ = "1.12.59"
+__version__ = "1.12.60"
 __author__ = "AKFamily"
 
 import sys
