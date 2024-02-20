@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/6 18:11
+Date: 2024/2/20 14:00
 Desc: 东方财富-行情报价
 https://quote.eastmoney.com/sz000001.html
 """
@@ -84,7 +84,7 @@ def __code_id_map_em() -> dict:
     return code_id_dict
 
 
-def stock_bid_ask_em(symbol: str = "000001") -> dict:
+def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
     """
     东方财富-行情报价
     https://quote.eastmoney.com/sz000001.html
