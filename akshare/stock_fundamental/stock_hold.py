@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/2/21 11:47
+Date: 2024/2/21 11:00
 Desc: 新浪财经-股票-机构持股
 https://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml
 """
+from io import StringIO
+
 import pandas as pd
 import requests
 
@@ -28,7 +30,7 @@ def stock_institute_hold(symbol: str = "20051") -> pd.DataFrame:
         "quarter": symbol[-1],
     }
     r = requests.get(url, params=params)
-    temp_df = pd.read_html(r.text)[0]
+    temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["证券代码"] = temp_df["证券代码"].astype(str).str.zfill(6)
     del temp_df["明细"]
     temp_df.columns = [
@@ -41,11 +43,17 @@ def stock_institute_hold(symbol: str = "20051") -> pd.DataFrame:
         "占流通股比例",
         "占流通股比例增幅",
     ]
+    temp_df['机构数'] = pd.to_numeric(temp_df['机构数'], errors="coerce")
+    temp_df['机构数变化'] = pd.to_numeric(temp_df['机构数变化'], errors="coerce")
+    temp_df['持股比例'] = pd.to_numeric(temp_df['持股比例'], errors="coerce")
+    temp_df['持股比例增幅'] = pd.to_numeric(temp_df['持股比例增幅'], errors="coerce")
+    temp_df['占流通股比例'] = pd.to_numeric(temp_df['占流通股比例'], errors="coerce")
+    temp_df['占流通股比例增幅'] = pd.to_numeric(temp_df['占流通股比例增幅'], errors="coerce")
     return temp_df
 
 
 def stock_institute_hold_detail(
-    stock: str = "600433", quarter: str = "20201"
+        stock: str = "600433", quarter: str = "20201"
 ) -> pd.DataFrame:
     """
     新浪财经-股票-机构持股详情
@@ -64,12 +72,12 @@ def stock_institute_hold_detail(
     }
     r = requests.get(url, params=params)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -2])
+    json_data = demjson.decode(text_data[text_data.find("{"): -2])
     big_df = pd.DataFrame()
     for item in json_data["data"].keys():
         inner_temp_df = pd.DataFrame(json_data["data"][item]).T.iloc[:-1, :]
         inner_temp_df.reset_index(inplace=True)
-        big_df = pd.concat([big_df, inner_temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, inner_temp_df], ignore_index=True)
     if not big_df.empty:
         big_df["index"] = big_df["index"].str.split("_", expand=True)[0]
         big_df.rename(columns={"index": "institute"}, inplace=True)
@@ -101,10 +109,9 @@ def stock_institute_hold_detail(
         big_df['最新占流通股比例'] = pd.to_numeric(big_df['最新占流通股比例'], errors="coerce")
         big_df['持股比例增幅'] = pd.to_numeric(big_df['持股比例增幅'], errors="coerce")
         big_df['占流通股比例增幅'] = pd.to_numeric(big_df['占流通股比例增幅'], errors="coerce")
-
         return big_df
     else:
-        return None
+        return pd.DataFrame()
 
 
 if __name__ == "__main__":
