@@ -9060,7 +9060,7 @@ print(stock_hk_fhpx_detail_ths_df)
 
 接口: stock_fund_flow_individual
 
-目标地址: http://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
+目标地址: https://data.10jqka.com.cn/funds/ggzjl/#refCountId=data_55f13c2c_254
 
 描述: 同花顺-数据中心-资金流向-个股资金流
 
@@ -13987,7 +13987,7 @@ print(stock_main_stock_holder_df)
 
 接口: stock_institute_hold
 
-目标地址: http://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml
+目标地址: https://vip.stock.finance.sina.com.cn/q/go.php/vComStockHold/kind/jgcg/index.phtml
 
 描述: 新浪财经-机构持股-机构持股一览表
 
@@ -14024,7 +14024,7 @@ print(stock_institute_hold_df)
 数据示例
 
 ```
-      证券代码 证券简称  机构数  机构数变化   持股比例  持股比例增幅  占流通股比例  占流通股比例增幅
+      证券代码  证券简称 机构数  机构数变化   持股比例  持股比例增幅  占流通股比例  占流通股比例增幅
 0     002296  辉煌科技    1      1   0.85    0.85    0.85      0.85
 1     300354  东华测试    1      0   0.21   -0.59    0.21     -0.59
 2     000656  金科股份    1      0   2.12    0.04    2.14      0.03
@@ -14036,6 +14036,7 @@ print(stock_institute_hold_df)
 1792  300785   值得买   10      1  11.62    4.14   46.48     16.56
 1793  688188  柏楚电子   10      0   5.17   -0.13   21.43     -1.70
 1794  300003  乐普医疗   16      1  11.16    0.99   11.78      1.05
+[1795 rows x 8 columns]
 ```
 
 ##### 机构持股详情
@@ -14084,10 +14085,10 @@ print(stock_institute_hold_detail_df)
 数据示例
 
 ```
-   持股机构类型    持股机构代码              持股机构简称  ... 最新占流通股比例  持股比例增幅  占流通股比例增幅
+   持股机构类型  持股机构代码      持股机构简称  ... 最新占流通股比例  持股比例增幅  占流通股比例增幅
 0      基金    519069          汇添富价值精选混合A  ...     1.18   -0.22     -0.23
 1      基金    159915           易方达创业板ETF  ...     0.73    0.02      0.02
-2      基金    001417          汇添富医疗服务混合A  ...     1.01   -0.35     -0.37
+2      基金    001417      汇添富医疗服务灵活配置混合A  ...     1.01   -0.35     -0.37
 3      基金    470009          汇添富民营活力混合A  ...     0.48    0.03      0.02
 4      基金    159949          华安创业板50ETF  ...     0.36    0.13      0.13
 5      基金    000831            工银医疗保健股票  ...     0.57   -0.09     -0.10
@@ -14101,6 +14102,7 @@ print(stock_institute_hold_detail_df)
 13   QFII  70304150  鼎晖投资咨询新加坡有限公司－鼎...  ...     0.57    0.01      0.01
 14   QFII  80128964             阿布达比投资局  ...     0.56    0.02      0.02
 15   QFII  80195934            科威特政府投资局  ...     0.39    0.04      0.04
+[16 rows x 12 columns]
 ```
 
 #### 机构推荐
