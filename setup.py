@@ -4,8 +4,8 @@
 Date: 2024/2/19 13:30
 Desc: AKShare's PYPI info file
 """
-import re
 import ast
+import re
 
 import setuptools
 
@@ -55,6 +55,16 @@ setuptools.setup(
         "akracer>=0.0.11",
         "pyarrow>=15.0.0",
     ],
+    extras_require={
+        # 这些是额外的依赖集合，可以通过 'pip install akshare[full]' 安装
+        'full': [
+            'akqmt',
+        ],
+        # 这些是额外的依赖集合，可以通过 'pip install akshare[qmt]' 安装
+        'qmt': [
+            'akqmt',
+        ],
+    },
     package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
     keywords=[
         "stock",
