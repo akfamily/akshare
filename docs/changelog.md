@@ -71,6 +71,11 @@
 
 ## 更新说明详情
 
+1.12.62 fix: fix stock_fund_flow_individual interface
+
+    1. 修复 stock_fund_flow_individual 接口
+    2. 修复 stock_institute_hold 接口
+
 1.12.61 fix: fix stock_bid_ask_em interface
 
     1. 修复 stock_bid_ask_em 接口
@@ -3553,6 +3558,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.62 fix: fix stock_fund_flow_individual interface
 
 1.12.61 fix: fix stock_bid_ask_em interface
 
