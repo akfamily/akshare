@@ -2675,9 +2675,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.60 fix: fix movie_boxoffice_daily interface
 1.12.61 fix: fix stock_bid_ask_em interface
 1.12.62 fix: fix stock_fund_flow_individual interface
+1.12.63 add: add akqmt interface
 """
 
-__version__ = "1.12.62"
+__version__ = "1.12.63"
 __author__ = "AKFamily"
 
 import sys
@@ -4417,16 +4418,6 @@ from akshare.bond.bond_convert import (
 )
 
 """
-for pro api
-"""
-from akshare.pro.data_pro import pro_api
-
-"""
-for pro api token set
-"""
-from akshare.utils.token_process import set_token
-
-"""
 债券质押式回购成交明细数据
 """
 from akshare.bond.china_repo import bond_repo_zh_tick
@@ -5101,3 +5092,20 @@ from akshare.fund.fund_xq import (
     fund_individual_profit_probability_xq,
     fund_individual_detail_info_xq,
 )
+
+"""
+Pro API 设置
+"""
+from akshare.pro.data_pro import pro_api
+from akshare.utils.token_process import set_token, get_token
+
+"""
+AKQMT 设置
+"""
+from akqmt import xt_api
+
+
+if __name__ == '__main__':
+    pro = xt_api()
+    temp_df = pro.get_instrument_detail(stock_code="000001.SZ")
+    print(temp_df)
