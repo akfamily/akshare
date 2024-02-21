@@ -1,3 +1,4 @@
+akqmt>=0.1.0
 beautifulsoup4>=4.9.1
 lxml>=4.2.1
 pandas>=0.25
