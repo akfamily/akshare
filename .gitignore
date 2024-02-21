@@ -20,3 +20,5 @@ colors
 #docs/source/_static/
 #docs/source/_templates/
 .DS_Store
+/data
+/tests/data
