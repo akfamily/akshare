@@ -2676,9 +2676,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.61 fix: fix stock_bid_ask_em interface
 1.12.62 fix: fix stock_fund_flow_individual interface
 1.12.63 add: add akqmt interface
+1.12.64 fix: fix stock_board_industry_index_ths interface
 """
 
-__version__ = "1.12.63"
+__version__ = "1.12.64"
 __author__ = "AKFamily"
 
 import sys
@@ -5102,10 +5103,7 @@ from akshare.utils.token_process import set_token, get_token
 """
 AKQMT 设置
 """
-from akqmt import xt_api
-
-
-if __name__ == '__main__':
-    pro = xt_api()
-    temp_df = pro.get_instrument_detail(stock_code="000001.SZ")
-    print(temp_df)
+try:
+    from akqmt import xt_api
+except ImportError as e:
+    pass
