@@ -19820,7 +19820,7 @@ print(stock_board_cons_ths_df)
 
 接口: stock_board_industry_index_ths
 
-目标地址: http://q.10jqka.com.cn/gn/detail/code/301558/
+目标地址: https://q.10jqka.com.cn/gn/detail/code/301558/
 
 描述: 同花顺-板块-行业板块-指数日频率数据
 

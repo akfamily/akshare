@@ -453,7 +453,7 @@ def stock_board_industry_index_ths(
 ) -> pd.DataFrame:
     """
     同花顺-板块-行业板块-指数数据
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :param start_date: 开始时间
     :type start_date: str
     :param end_date: 结束时间
@@ -657,7 +657,7 @@ if __name__ == "__main__":
     print(stock_board_industry_info_ths_df)
 
     stock_board_industry_index_ths_df = stock_board_industry_index_ths(
-        symbol="半导体及元件", start_date="20200101", end_date="20240108"
+        symbol="通信服务", start_date="20230825", end_date="20240221"
     )
     print(stock_board_industry_index_ths_df)
 
