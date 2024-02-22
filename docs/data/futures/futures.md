@@ -2561,9 +2561,9 @@ print(futures_hq_subscribe_exchange_symbol_df)
 
 输入参数
 
-| 名称             | 类型   | 描述                                                                     |
-|----------------|------|------------------------------------------------------------------------|
-| subscribe_list | list | 需要订阅的合约代码; 调用 **ak.futures_hq_subscribe_exchange_symbol()** 获取字段及代码对应表 |
+| 名称     | 类型          | 描述                                                                     |
+|--------|-------------|------------------------------------------------------------------------|
+| symbol | list or str | 需要订阅的合约代码; 调用 **ak.futures_hq_subscribe_exchange_symbol()** 获取字段及代码对应表 |
 
 输出参数
 
@@ -2584,21 +2584,39 @@ print(futures_hq_subscribe_exchange_symbol_df)
 | 行情时间  | object  | -   |
 | 日期    | object  | -   |
 
-接口示例
+接口示例-传入字符串
+
+```python
+import akshare as ak
+
+futures_foreign_commodity_realtime_df = ak.futures_foreign_commodity_realtime(symbol='CT,NID')
+print(futures_foreign_commodity_realtime_df)
+```
+
+数据示例-传入字符串
+
+```
+         名称        最新价        人民币报价  ...        卖价      行情时间          日期
+0  NYBOT-棉花     93.492     6.721607  ...     93.49  14:34:21  2024-02-22
+1   LME镍3个月  16974.000  3923.411522  ...  16980.00  14:31:46  2024-02-22
+[2 rows x 14 columns]
+```
+
+接口示例-传入列表
 
 ```python
 import time
 import akshare as ak
 
 print("开始接收实时行情, 每 3 秒刷新一次")
-subscribe_list = ak.futures_foreign_commodity_subscribe_exchange_symbol()
+subscribe_list = ak.futures_foreign_commodity_subscribe_exchange_symbol()  # 其中 subscribe_list 为列表
 while True:
     time.sleep(3)
-    futures_foreign_commodity_realtime_df = ak.futures_foreign_commodity_realtime(subscribe_list=subscribe_list)
+    futures_foreign_commodity_realtime_df = ak.futures_foreign_commodity_realtime(symbol=subscribe_list)
     print(futures_foreign_commodity_realtime_df)
 ```
 
-数据示例
+数据示例-传入列表
 
 ```
                             名称        最新价  ...      行情时间          日期
