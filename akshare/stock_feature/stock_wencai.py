@@ -98,5 +98,5 @@ def stock_hot_rank_wc(date: str = "20230815") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20230816")
+    stock_hot_rank_wc_df = stock_hot_rank_wc(date="20240222")
     print(stock_hot_rank_wc_df)
