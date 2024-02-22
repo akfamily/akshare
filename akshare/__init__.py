@@ -2678,9 +2678,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.63 add: add akqmt interface
 1.12.64 fix: fix stock_board_industry_index_ths interface
 1.12.65 fix: fix futures_foreign_commodity_realtime interface
+1.12.66 fix: fix stock_board_industry_hist_em interface
 """
 
-__version__ = "1.12.65"
+__version__ = "1.12.66"
 __author__ = "AKFamily"
 
 import sys
