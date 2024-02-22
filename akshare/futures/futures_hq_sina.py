@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/17 15:30
+Date: 2024/2/22 14:00
 Desc: 新浪财经-外盘期货
 https://finance.sina.com.cn/money/future/hf.html
 """
@@ -12,6 +12,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from akshare.utils import demjson
+from typing import Union, List
 
 
 def _get_real_name_list() -> list:
@@ -95,16 +96,20 @@ def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
     return temp_df
 
 
-def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
+def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.DataFrame:
     """
     新浪-外盘期货-行情数据
     https://finance.sina.com.cn/money/future/hf.html
-    :param subscribe_list: 通过调用 ak.futures_hq_subscribe_exchange_symbol() 函数来获取
-    :type subscribe_list: list
+    :param symbol: 通过调用 ak.futures_hq_subscribe_exchange_symbol() 函数来获取
+    :type symbol: list or str
     :return: 行情数据
     :rtype: pandas.DataFrame
     """
-    payload = "?list=" + ",".join(["hf_" + item for item in subscribe_list])
+    if isinstance(symbol, list):
+        payload = "?list=" + ",".join(["hf_" + item for item in symbol])
+    else:
+        symbol = symbol.split(",")
+        payload = "?list=" + ",".join(["hf_" + item for item in symbol])
     url = "http://hq.sinajs.cn/" + payload
     headers = {
         'Accept': '*/*',
@@ -153,7 +158,7 @@ def futures_foreign_commodity_realtime(subscribe_list: list) -> pd.DataFrame:
     ]
     temp_symbol_code_df = futures_hq_subscribe_exchange_symbol()
     temp_symbol_code_dict = dict(zip(temp_symbol_code_df['code'], temp_symbol_code_df['symbol']))
-    data_df["symbol"] = [temp_symbol_code_dict[subscribe] for subscribe in subscribe_list]
+    data_df["symbol"] = [temp_symbol_code_dict[subscribe] for subscribe in symbol]
     data_df = data_df[
         [
             "symbol",
@@ -256,13 +261,18 @@ if __name__ == "__main__":
     subscribes = futures_foreign_commodity_subscribe_exchange_symbol()
 
     futures_foreign_commodity_realtime_df = futures_foreign_commodity_realtime(
-        subscribe_list=['CT', 'NID']
+        symbol='CT,NID'
+    )
+    print(futures_foreign_commodity_realtime_df)
+
+    futures_foreign_commodity_realtime_df = futures_foreign_commodity_realtime(
+        symbol=['CT', 'NID']
     )
     print(futures_foreign_commodity_realtime_df)
 
     while True:
         futures_foreign_commodity_realtime_df = futures_foreign_commodity_realtime(
-            subscribe_list=subscribes
+            symbol=subscribes
         )
         print(futures_foreign_commodity_realtime_df)
         time.sleep(3)
