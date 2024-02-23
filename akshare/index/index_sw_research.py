@@ -9,7 +9,7 @@ import math
 
 import pandas as pd
 import requests
-from tqdm import tqdm
+from akshare.utils.tqdm import get_tqdm
 
 
 def index_hist_sw(symbol: str = "801030", period: str = "day") -> pd.DataFrame:
@@ -182,6 +182,7 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
         r = requests.get(url, params=params, headers=headers)
@@ -223,9 +224,9 @@ def index_realtime_sw(symbol: str = "二级行业") -> pd.DataFrame:
 
 
 def index_analysis_daily_sw(
-    symbol: str = "市场表征",
-    start_date: str = "20221103",
-    end_date: str = "20221103",
+        symbol: str = "市场表征",
+        start_date: str = "20221103",
+        end_date: str = "20221103",
 ) -> pd.DataFrame:
     """
     申万宏源研究-指数分析
@@ -257,6 +258,7 @@ def index_analysis_daily_sw(
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
         r = requests.get(url, params=params, headers=headers)
@@ -322,8 +324,8 @@ def index_analysis_week_month_sw(symbol: str = "month") -> pd.DataFrame:
 
 
 def index_analysis_weekly_sw(
-    symbol: str = "市场表征",
-    date: str = "20221104",
+        symbol: str = "市场表征",
+        date: str = "20221104",
 ) -> pd.DataFrame:
     """
     申万宏源研究-指数分析-周报告
@@ -352,6 +354,7 @@ def index_analysis_weekly_sw(
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
         r = requests.get(url, params=params, headers=headers)
@@ -395,8 +398,8 @@ def index_analysis_weekly_sw(
 
 
 def index_analysis_monthly_sw(
-    symbol: str = "市场表征",
-    date: str = "20221031",
+        symbol: str = "市场表征",
+        date: str = "20221031",
 ) -> pd.DataFrame:
     """
     申万宏源研究-指数分析-月报告
@@ -425,6 +428,7 @@ def index_analysis_monthly_sw(
     total_num = data_json["data"]["count"]
     total_page = math.ceil(total_num / 50)
     big_df = pd.DataFrame()
+    tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"page": page})
         r = requests.get(url, params=params, headers=headers)
