@@ -203,7 +203,6 @@ def macro_euro_ppi_mom() -> pd.DataFrame:
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
     }
-
     r = requests.get(url, headers=headers, params=params)
     data_json = r.json()
     date_list = data_json["data"]
