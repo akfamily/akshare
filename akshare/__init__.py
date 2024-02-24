@@ -2680,9 +2680,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.65 fix: fix futures_foreign_commodity_realtime interface
 1.12.66 fix: fix stock_board_industry_hist_em interface
 1.12.67 fix: fix index_hist_sw interface
+1.12.68 fix: fix option_finance_board interface
 """
 
-__version__ = "1.12.67"
+__version__ = "1.12.68"
 __author__ = "AKFamily"
 
 import sys
@@ -2703,6 +2704,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+上海期货交易所指定交割仓库库存周报
+"""
+from akshare.futures.futures_stock_js import futures_stock_shfe_js
 
 """
 东方财富-数据中心-沪深港通-市场概括-分时数据
@@ -3653,7 +3659,7 @@ from akshare.currency.currency_china_bank_sina import currency_boc_sina
 """
 期货持仓
 """
-from akshare.futures_derivative.futures_sina_cot import futures_sina_hold_pos
+from akshare.futures_derivative.futures_cot_sina import futures_hold_pos_sina
 
 """
 股东户数
@@ -4787,9 +4793,9 @@ from akshare.stock.stock_hk_sina import stock_hk_daily, stock_hk_spot
 """
 生意社-商品与期货-现期图数据
 """
-from akshare.futures_derivative.sys_spot_futures import (
-    get_sys_spot_futures,
-    get_sys_spot_futures_dict,
+from akshare.futures_derivative.futures_spot_sys import (
+    futures_spot_sys,
+    __get_sys_spot_futures_dict,
 )
 
 """

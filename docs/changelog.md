@@ -71,6 +71,13 @@
 
 ## 更新说明详情
 
+1.12.68 fix: fix option_finance_board interface
+
+    1. 修复 option_finance_board 接口
+    2. 修复 futures_spot_sys 接口
+    3. 新增 futures_stock_shfe_js 接口
+    4. 修复 futures_hold_pos_sina 接口
+
 1.12.67 fix: fix index_hist_sw interface
 
     1. 修复 index_hist_sw 接口
@@ -3579,6 +3586,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.68 fix: fix option_finance_board interface
 
 1.12.67 fix: fix index_hist_sw interface
 
