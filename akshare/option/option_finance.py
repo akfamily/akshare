@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/5 19:18
+Date: 2024/2/24 15:18
 Desc: 金融期权数据
 http://www.sse.com.cn/assortment/options/price/
 http://www.szse.cn/market/product/option/index.html
 http://www.cffex.com.cn/hs300gzqq/
 http://www.cffex.com.cn/zz1000gzqq/
 """
+from io import BytesIO
+
 import pandas as pd
 import requests
 
@@ -67,7 +69,7 @@ def option_finance_sse_underlying(symbol: str = "华夏科创50ETF期权") -> pd
 
 
 def option_finance_board(
-    symbol: str = "嘉实沪深300ETF期权", end_month: str = "2306"
+        symbol: str = "嘉实沪深300ETF期权", end_month: str = "2306"
 ) -> pd.DataFrame:
     """
     期权当前交易日的行情数据
@@ -203,7 +205,11 @@ def option_finance_board(
         big_df.reset_index(inplace=True, drop=True)
         return big_df
     elif symbol == "沪深300股指期权":
-        raw_df = pd.read_table(CFFEX_OPTION_URL_300, sep=",")
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        }
+        r = requests.get(CFFEX_OPTION_URL_300, headers=headers)
+        raw_df = pd.read_table(BytesIO(r.content), sep=",")
         raw_df["end_month"] = (
             raw_df["instrument"]
             .str.split("-", expand=True)
@@ -217,8 +223,12 @@ def option_finance_board(
         raw_df.reset_index(inplace=True, drop=True)
         return raw_df
     elif symbol == "中证1000股指期权":
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        }
         url = "http://www.cffex.com.cn/quote_MO.txt"
-        raw_df = pd.read_table(url, sep=",")
+        r = requests.get(url, headers=headers)
+        raw_df = pd.read_table(BytesIO(r.content), sep=",")
         raw_df["end_month"] = (
             raw_df["instrument"]
             .str.split("-", expand=True)
@@ -232,8 +242,12 @@ def option_finance_board(
         raw_df.reset_index(inplace=True, drop=True)
         return raw_df
     elif symbol == "上证50股指期权":
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
+        }
         url = "http://www.cffex.com.cn/quote_HO.txt"
-        raw_df = pd.read_table(url, sep=",")
+        r = requests.get(url, headers=headers)
+        raw_df = pd.read_table(BytesIO(r.content), sep=",")
         raw_df["end_month"] = (
             raw_df["instrument"]
             .str.split("-", expand=True)
