@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/19 18:40
+Date: 2024/2/25 15:40
 Desc: 申万宏源研究-指数系列
 https://www.swhyresearch.com/institute_sw/allIndex/releasedIndex
 """
@@ -9,6 +9,7 @@ import math
 
 import pandas as pd
 import requests
+
 from akshare.utils.tqdm import get_tqdm
 
 
