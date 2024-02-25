@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/24 15:30
+Date: 2024/2/25 15:30
 Desc: 新浪财经-商品期货-成交持仓
 https://vip.stock.finance.sina.com.cn/q/view/vFutures_Positions_cjcc.php
 """
@@ -31,15 +31,37 @@ def futures_hold_pos_sina(
     params = {"symbol": contract, "date": date}
     r = requests.get(url, params=params)
     if symbol == "成交量":
-        return pd.read_html(StringIO(r.text))[2]
+        temp_df = pd.read_html(StringIO(r.text))[2].iloc[:-1, :]
+        temp_df['名次'] = pd.to_numeric(temp_df['名次'], errors="coerce")
+        temp_df['成交量'] = pd.to_numeric(temp_df['成交量'], errors="coerce")
+        temp_df['比上交易增减'] = pd.to_numeric(temp_df['比上交易增减'], errors="coerce")
+        return temp_df
     elif symbol == "多单持仓":
-        return pd.read_html(StringIO(r.text))[3]
+        temp_df = pd.read_html(StringIO(r.text))[3].iloc[:-1, :]
+        temp_df['名次'] = pd.to_numeric(temp_df['名次'], errors="coerce")
+        temp_df['多单持仓'] = pd.to_numeric(temp_df['多单持仓'], errors="coerce")
+        temp_df['比上交易增减'] = pd.to_numeric(temp_df['比上交易增减'], errors="coerce")
+        return temp_df
     elif symbol == "空单持仓":
-        return pd.read_html(StringIO(r.text))[4]
+        temp_df = pd.read_html(StringIO(r.text))[4].iloc[:-1, :]
+        temp_df['名次'] = pd.to_numeric(temp_df['名次'], errors="coerce")
+        temp_df['空单持仓'] = pd.to_numeric(temp_df['空单持仓'], errors="coerce")
+        temp_df['比上交易增减'] = pd.to_numeric(temp_df['比上交易增减'], errors="coerce")
+        return temp_df
 
 
 if __name__ == "__main__":
     futures_hold_pos_sina_df = futures_hold_pos_sina(
         symbol="成交量", contract="IC2403", date="20240223"
+    )
+    print(futures_hold_pos_sina_df)
+
+    futures_hold_pos_sina_df = futures_hold_pos_sina(
+        symbol="多单持仓", contract="IC2403", date="20240223"
+    )
+    print(futures_hold_pos_sina_df)
+
+    futures_hold_pos_sina_df = futures_hold_pos_sina(
+        symbol="空单持仓", contract="IC2403", date="20240223"
     )
     print(futures_hold_pos_sina_df)
