@@ -71,6 +71,12 @@
 
 ## 更新说明详情
 
+1.12.70 fix: fix stock_lhb_detail_daily_sina interface
+
+    1. 修复 stock_lhb_detail_daily_sina 接口
+    2. 修复 stock_lhb_ggtj_sina 接口
+    3. 修复 stock_lhb_yytj_sina 接口
+
 1.12.69 fix: fix futures_hold_pos_sina interface
 
     1. 修复 futures_hold_pos_sina 接口
