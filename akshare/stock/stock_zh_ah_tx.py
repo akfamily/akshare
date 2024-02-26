@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/27 15:10
+Date: 2024/2/26 15:10
 Desc: 腾讯财经-A+H股数据, 实时行情数据和历史行情数据(后复权)
 https://stockapp.finance.qq.com/mstats/#mod=list&id=hk_ah&module=HK&type=AH&sort=3&page=3&max=20
 """
@@ -46,9 +46,9 @@ def stock_zh_ah_spot() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    page_count = _get_zh_stock_ah_page_count() + 1
+    page_count = _get_zh_stock_ah_page_count()
     tqdm = get_tqdm()
-    for i in tqdm(range(1, page_count), leave=False):
+    for i in tqdm(range(0, page_count), leave=False):
         hk_payload.update({"reqPage": i})
         r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
         data_json = demjson.decode(
@@ -118,9 +118,9 @@ def stock_zh_ah_name() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     big_df = pd.DataFrame()
-    page_count = _get_zh_stock_ah_page_count() + 1
+    page_count = _get_zh_stock_ah_page_count()
     tqdm = get_tqdm()
-    for i in tqdm(range(1, page_count), leave=False):
+    for i in tqdm(range(0, page_count), leave=False):
         hk_payload.update({"reqPage": i})
         r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
         data_json = demjson.decode(
