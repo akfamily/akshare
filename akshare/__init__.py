@@ -2710,6 +2710,11 @@ if sys.version_info < (3, 9):
 del sys
 
 """
+上海期货交易所-交易所服务-业务数据-交易参数汇总查询
+"""
+from akshare.futures_derivative.futures_contract_info_shfe import futures_contract_info_shfe
+
+"""
 上海期货交易所指定交割仓库库存周报
 """
 from akshare.futures.futures_stock_js import futures_stock_shfe_js

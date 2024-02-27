@@ -74,6 +74,7 @@
 1.12.72 fix: fix stock_hot_rank_wc interface
 
     1. 修复 stock_hot_rank_wc 接口
+    2. 新增 futures_contract_info_shfe 接口
 
 1.12.71 fix: fix stock_zh_ah_spot interface
 
