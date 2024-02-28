@@ -48,7 +48,6 @@ def bond_zh_hs_spot() -> pd.DataFrame:
     :return: 所有沪深债券在当前时刻的实时行情数据
     :rtype: pandas.DataFrame
     """
-    big_df = pd.DataFrame()
     big_df_item_list = []
     page_count = get_zh_bond_hs_page_count()
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_payload.copy()
