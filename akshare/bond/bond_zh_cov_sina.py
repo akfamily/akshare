@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/8 17:00
+Date: 2024/2/28 23:00
 Desc: 新浪财经-债券-沪深可转债-实时行情数据和历史行情数据
 https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
 """
@@ -26,7 +26,7 @@ from akshare.utils import demjson
 def _get_zh_bond_hs_cov_page_count() -> int:
     """
     新浪财经-行情中心-债券-沪深可转债的总页数
-    http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
+    https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
     :return: 总页数
     :rtype: int
     """
@@ -44,7 +44,7 @@ def _get_zh_bond_hs_cov_page_count() -> int:
 def bond_zh_hs_cov_spot() -> pd.DataFrame:
     """
     新浪财经-债券-沪深可转债的实时行情数据; 大量抓取容易封IP
-    http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
+    https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
     :return: 所有沪深可转债在当前时刻的实时行情数据
     :rtype: pandas.DataFrame
     """
@@ -62,7 +62,7 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
 def bond_zh_hs_cov_daily(symbol: str = "sh010107") -> pd.DataFrame:
     """
     新浪财经-债券-沪深可转债的历史行情数据, 大量抓取容易封 IP
-    http://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
+    https://vip.stock.finance.sina.com.cn/mkt/#hskzz_z
     :param symbol: 沪深可转债代码; e.g., sh010107
     :type symbol: str
     :return: 指定沪深可转债代码的日 K 线数据
@@ -86,11 +86,11 @@ def bond_zh_hs_cov_daily(symbol: str = "sh010107") -> pd.DataFrame:
 def _code_id_map() -> dict:
     """
     东方财富-股票和市场代码
-    http://quote.eastmoney.com/center/gridlist.html#hs_a_board
+    https://quote.eastmoney.com/center/gridlist.html#hs_a_board
     :return: 股票和市场代码
     :rtype: dict
     """
-    url = "http://80.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://80.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "5000",
@@ -132,11 +132,11 @@ def _code_id_map() -> dict:
 
 
 def bond_zh_hs_cov_min(
-    symbol: str = "sz128039",
-    period: str = "15",
-    adjust: str = "",
-    start_date: str = "1979-09-01 09:32:00",
-    end_date: str = "2222-01-01 09:32:00",
+        symbol: str = "sz128039",
+        period: str = "15",
+        adjust: str = "",
+        start_date: str = "1979-09-01 09:32:00",
+        end_date: str = "2222-01-01 09:32:00",
 ) -> pd.DataFrame:
     """
     东方财富网-可转债-分时行情
@@ -337,7 +337,7 @@ def bond_zh_cov() -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.columns = [
         "债券代码",
@@ -433,22 +433,22 @@ def bond_zh_cov() -> pd.DataFrame:
             "上市时间",
         ]
     ]
-    big_df["申购日期"] = pd.to_datetime(big_df["申购日期"], errors="coerce").dt.date
+
     big_df["申购上限"] = pd.to_numeric(big_df["申购上限"], errors="coerce")
     big_df["正股价"] = pd.to_numeric(big_df["正股价"], errors="coerce")
     big_df["转股价"] = pd.to_numeric(big_df["转股价"], errors="coerce")
     big_df["转股价值"] = pd.to_numeric(big_df["转股价值"], errors="coerce")
     big_df["债现价"] = pd.to_numeric(big_df["债现价"], errors="coerce")
     big_df["转股溢价率"] = pd.to_numeric(big_df["转股溢价率"], errors="coerce")
+    big_df["原股东配售-每股配售额"] = pd.to_numeric(big_df["原股东配售-每股配售额"], errors="coerce")
+    big_df["发行规模"] = pd.to_numeric(big_df["发行规模"], errors="coerce")
+    big_df["中签率"] = pd.to_numeric(big_df["中签率"], errors="coerce")
+    big_df["中签号发布日"] = pd.to_datetime(big_df["中签号发布日"], errors="coerce").dt.date
+    big_df["上市时间"] = pd.to_datetime(big_df["上市时间"], errors="coerce").dt.date
+    big_df["申购日期"] = pd.to_datetime(big_df["申购日期"], errors="coerce").dt.date
     big_df["原股东配售-股权登记日"] = pd.to_datetime(
         big_df["原股东配售-股权登记日"], errors="coerce"
     ).dt.date
-    big_df["原股东配售-每股配售额"] = pd.to_numeric(big_df["原股东配售-每股配售额"], errors="coerce")
-    big_df["发行规模"] = pd.to_numeric(big_df["发行规模"], errors="coerce")
-    big_df["中签号发布日"] = pd.to_datetime(big_df["中签号发布日"], errors="coerce").dt.date
-    big_df["中签率"] = pd.to_numeric(big_df["中签率"], errors="coerce")
-    big_df["上市时间"] = pd.to_datetime(big_df["上市时间"], errors="coerce").dt.date
-
     big_df["债现价"] = big_df["债现价"].fillna(100)
     return big_df
 
@@ -456,11 +456,11 @@ def bond_zh_cov() -> pd.DataFrame:
 def bond_cov_comparison() -> pd.DataFrame:
     """
     东方财富网-行情中心-债券市场-可转债比价表
-    http://quote.eastmoney.com/center/fullscreenlist.html#convertible_comparison
+    https://quote.eastmoney.com/center/fullscreenlist.html#convertible_comparison
     :return: 可转债比价表数据
     :rtype: pandas.DataFrame
     """
-    url = "http://16.push2.eastmoney.com/api/qt/clist/get"
+    url = "https://16.push2.eastmoney.com/api/qt/clist/get"
     params = {
         "pn": "1",
         "pz": "5000",
@@ -573,6 +573,7 @@ def bond_zh_cov_info(symbol: str = "123121", indicator: str = "基本信息") ->
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
+        return temp_df
     elif indicator == "中签号":
         params.update(
             {
@@ -583,6 +584,7 @@ def bond_zh_cov_info(symbol: str = "123121", indicator: str = "基本信息") ->
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
+        return temp_df
     elif indicator == "筹资用途":
         params.update(
             {
@@ -595,6 +597,7 @@ def bond_zh_cov_info(symbol: str = "123121", indicator: str = "基本信息") ->
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
+        return temp_df
     elif indicator == "重要日期":
         params.update(
             {
@@ -605,10 +608,10 @@ def bond_zh_cov_info(symbol: str = "123121", indicator: str = "基本信息") ->
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
-    return temp_df
+        return temp_df
 
 
-def bond_zh_cov_value_analysis(symbol: str = "123138") -> pd.DataFrame:
+def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
     """
     https://data.eastmoney.com/kzz/detail/113527.html
     东方财富网-数据中心-新股数据-可转债数据-价值分析-溢价率分析
@@ -655,14 +658,12 @@ def bond_zh_cov_value_analysis(symbol: str = "123138") -> pd.DataFrame:
             "转股溢价率",
         ]
     ]
-
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
     temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
     temp_df["纯债价值"] = pd.to_numeric(temp_df["纯债价值"], errors="coerce")
     temp_df["转股价值"] = pd.to_numeric(temp_df["转股价值"], errors="coerce")
     temp_df["纯债溢价率"] = pd.to_numeric(temp_df["纯债溢价率"], errors="coerce")
     temp_df["转股溢价率"] = pd.to_numeric(temp_df["转股溢价率"], errors="coerce")
-
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     return temp_df
 
 
