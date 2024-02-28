@@ -1240,6 +1240,7 @@
  "futures_stock_shfe_js"  # 上海期货交易所指定交割仓库库存周报
  # 期货合约信息
  "futures_contract_info_shfe"  # 上海期货交易所-期货合约信息
+ "futures_contract_info_ine"  # 上海国际能源交易中心-期货合约信息
  "futures_contract_info_dce"  # 大连商品交易所-期货合约信息
  "futures_contract_info_czce"  # 郑州商品交易所-期货合约信息
  "futures_contract_info_gfex"  # 广州期货交易所-期货合约信息
