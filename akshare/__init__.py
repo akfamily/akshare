@@ -97,7 +97,7 @@ get_bond_bank
 0.1.50
 更新 akdocker.md 文件
 0.1.51
-更新官方文档: https://akshare.readthedocs.io
+更新官方文档: https://akshare.akfamily.xyz
 0.1.52
 增加量化策略和量化平台板块
 0.1.53
@@ -105,9 +105,9 @@ get_bond_bank
 0.1.54
 修改 AkShare的初衷, 增加管理期货策略指数
 0.1.55
-新增 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
+新增 99 期货库存数据接口
 0.1.56
-修复 99期货(http://www.99qh.com/d/store.aspx) 库存数据接口
+修复 99 期货库存数据接口
 0.1.57
 更新 md 文件数据接口
 0.1.58
@@ -484,24 +484,24 @@ pypinyin 降级
 增加东方财富网-数据中心-特色数据-股票质押
 0.3.20
 东方财富网-数据中心-特色数据-股权质押
-东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: http://data.eastmoney.com/gpzy/marketProfile.aspx
-东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: http://data.eastmoney.com/gpzy/pledgeRatio.aspx
-东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细: http://data.eastmoney.com/gpzy/pledgeDetail.aspx
-东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
-东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行: http://data.eastmoney.com/gpzy/distributeStatistics.aspx
-东方财富网-数据中心-特色数据-股权质押-行业数据: http://data.eastmoney.com/gpzy/industryData.aspx
+东方财富网-数据中心-特色数据-股权质押-股权质押市场概况: https://data.eastmoney.com/gpzy/marketProfile.aspx
+东方财富网-数据中心-特色数据-股权质押-上市公司质押比例: https://data.eastmoney.com/gpzy/pledgeRatio.aspx
+东方财富网-数据中心-特色数据-股权质押-重要股东股权质押明细: https://data.eastmoney.com/gpzy/pledgeDetail.aspx
+东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-证券公司: https://data.eastmoney.com/gpzy/distributeStatistics.aspx
+东方财富网-数据中心-特色数据-股权质押-质押机构分布统计-银行: https://data.eastmoney.com/gpzy/distributeStatistics.aspx
+东方财富网-数据中心-特色数据-股权质押-行业数据: https://data.eastmoney.com/gpzy/industryData.aspx
 0.3.21
 东方财富网-数据中心-特色数据-商誉
-东方财富网-数据中心-特色数据-商誉-A股商誉市场概况: http://data.eastmoney.com/sy/scgk.html
-东方财富网-数据中心-特色数据-商誉-商誉减值预期明细: http://data.eastmoney.com/sy/yqlist.html
-东方财富网-数据中心-特色数据-商誉-个股商誉减值明细: http://data.eastmoney.com/sy/jzlist.html
-东方财富网-数据中心-特色数据-商誉-个股商誉明细: http://data.eastmoney.com/sy/list.html
-东方财富网-数据中心-特色数据-商誉-行业商誉: http://data.eastmoney.com/sy/hylist.html
+东方财富网-数据中心-特色数据-商誉-A股商誉市场概况: https://data.eastmoney.com/sy/scgk.html
+东方财富网-数据中心-特色数据-商誉-商誉减值预期明细: https://data.eastmoney.com/sy/yqlist.html
+东方财富网-数据中心-特色数据-商誉-个股商誉减值明细: https://data.eastmoney.com/sy/jzlist.html
+东方财富网-数据中心-特色数据-商誉-个股商誉明细: https://data.eastmoney.com/sy/list.html
+东方财富网-数据中心-特色数据-商誉-行业商誉: https://data.eastmoney.com/sy/hylist.html
 0.3.22
 期货规则-交易日历数据表
 更新2020交易日历数据
 0.3.23
-东方财富网-数据中心-特色数据-股票账户统计: http://data.eastmoney.com/cjsj/gpkhsj.html
+东方财富网-数据中心-特色数据-股票账户统计: https://data.eastmoney.com/cjsj/gpkhsj.html
 0.3.24
 移除-交易法门系列老函数
 因为交易法门网站需要会员登录后访问数据
@@ -2688,9 +2688,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.73 fix: fix stock_individual_spot_xq interface
 1.12.74 add: add futures_contract_info_czce interface
 1.12.75 add: add futures_contract_info_ine interface
+1.12.76 fix: fix bond_zh_hs_spot interface
 """
 
-__version__ = "1.12.75"
+__version__ = "1.12.76"
 __author__ = "AKFamily"
 
 import sys
@@ -2713,7 +2714,7 @@ if sys.version_info < (3, 9):
 del sys
 
 """
-交易参数汇总查询
+期货交易-参数汇总查询
 """
 from akshare.futures_derivative.futures_contract_info_shfe import futures_contract_info_shfe
 from akshare.futures_derivative.futures_contract_info_dce import futures_contract_info_dce
@@ -2723,7 +2724,7 @@ from akshare.futures_derivative.futures_contract_info_cffex import futures_contr
 from akshare.futures_derivative.futures_contract_info_ine import futures_contract_info_ine
 
 """
-上海期货交易所指定交割仓库库存周报
+上海期货交易所-指定交割仓库-库存周报
 """
 from akshare.futures.futures_stock_js import futures_stock_shfe_js
 
