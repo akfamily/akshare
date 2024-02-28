@@ -48,14 +48,15 @@ def bond_zh_hs_spot() -> pd.DataFrame:
     :return: 所有沪深债券在当前时刻的实时行情数据
     :rtype: pandas.DataFrame
     """
-    big_df = pd.DataFrame()
+    big_df_item_list = []
     page_count = get_zh_bond_hs_page_count()
     zh_sina_bond_hs_payload_copy = zh_sina_bond_hs_payload.copy()
     for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
         res = requests.get(zh_sina_bond_hs_url, params=zh_sina_bond_hs_payload_copy)
         data_json = demjson.decode(res.text)
-        big_df = big_df.append(pd.DataFrame(data_json), ignore_index=True)
+        big_df_item_list.append(pd.DataFrame(data_json))
+    big_df = pd.concat(big_df_item_list, ignore_index=True)
     big_df.columns = [
         '代码',
         '-',
