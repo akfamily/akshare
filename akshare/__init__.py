@@ -2686,9 +2686,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.71 fix: fix stock_zh_ah_spot interface
 1.12.72 fix: fix stock_hot_rank_wc interface
 1.12.73 fix: fix stock_individual_spot_xq interface
+1.12.74 add: fix futures_contract_info_czce interface
 """
 
-__version__ = "1.12.73"
+__version__ = "1.12.74"
 __author__ = "AKFamily"
 
 import sys
@@ -2715,7 +2716,9 @@ del sys
 """
 from akshare.futures_derivative.futures_contract_info_shfe import futures_contract_info_shfe
 from akshare.futures_derivative.futures_contract_info_dce import futures_contract_info_dce
-
+from akshare.futures_derivative.futures_contract_info_czce import futures_contract_info_czce
+from akshare.futures_derivative.futures_contract_info_gfex import futures_contract_info_gfex
+from akshare.futures_derivative.futures_contract_info_cffex import futures_contract_info_cffex
 
 """
 上海期货交易所指定交割仓库库存周报
