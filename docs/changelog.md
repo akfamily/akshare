@@ -71,7 +71,11 @@
 
 ## 更新说明详情
 
-1.12.74 add: fix futures_contract_info_czce interface
+1.12.75 add: add futures_contract_info_ine interface
+
+    1. 新增 futures_contract_info_ine 接口
+
+1.12.74 add: add futures_contract_info_czce interface
 
     1. 新增 futures_contract_info_shfe 接口
     2. 新增 futures_contract_info_dce 接口
@@ -3620,7 +3624,9 @@
 
 ## 版本更新说明
 
-1.12.74 add: fix futures_contract_info_czce interface
+1.12.75 add: add futures_contract_info_ine interface
+
+1.12.74 add: add futures_contract_info_czce interface
 
 1.12.73 fix: fix stock_individual_spot_xq interface
 
