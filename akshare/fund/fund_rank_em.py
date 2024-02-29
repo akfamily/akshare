@@ -1,18 +1,32 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/3/30 15:04
+Date: 2024/2/29 18:00
 Desc: 东方财富网-数据中心-开放基金排行
 https://fund.eastmoney.com/data/fundranking.html
 名词解释
 https://help.1234567.com.cn/list_236.html
 """
-import datetime
+from datetime import datetime, date
 
 import pandas as pd
 import requests
 
 from akshare.utils import demjson
+
+
+def __one_year_ago(date_str: str) -> date:
+    # 将字符串格式的日期转换为date对象
+    given_date = date(int(date_str[0:4]), int(date_str[4:6]), int(date_str[6:8]))
+
+    try:
+        # 尝试直接设置为前一年，保持相同的月和日
+        one_year_before = given_date.replace(year=given_date.year - 1)
+    except ValueError:
+        # 如果前一年没有相同的月和日（比如2月29日），则设置为2月28日
+        one_year_before = given_date.replace(year=given_date.year - 1, day=28)
+
+    return one_year_before
 
 
 def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
@@ -24,18 +38,18 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
     :return: 开放基金排行
     :rtype: pandas.DataFrame
     """
-    current_date = datetime.datetime.now().date().isoformat()
-    last_date = str(int(current_date[:4]) - 1) + current_date[4:]
-    url = "http://fund.eastmoney.com/data/rankhandler.aspx"
+    current_date = datetime.now().date().isoformat()
+    last_date = __one_year_ago(current_date.replace("-", "")).isoformat()
+    url = "https://fund.eastmoney.com/data/rankhandler.aspx"
     type_map = {
-        "全部": ["all", "zzf"],
-        "股票型": ["gp", "6yzf"],
-        "混合型": ["hh", "6yzf"],
-        "债券型": ["zq", "6yzf"],
-        "指数型": ["zs", "6yzf"],
-        "QDII": ["qdii", "6yzf"],
-        "LOF": ["lof", "6yzf"],
-        "FOF": ["fof", "6yzf"],
+        "全部": ["all", "1nzf"],
+        "股票型": ["gp", "1nzf"],
+        "混合型": ["hh", "1nzf"],
+        "债券型": ["zq", "1nzf"],
+        "指数型": ["zs", "1nzf"],
+        "QDII": ["qdii", "1nzf"],
+        "LOF": ["lof", "1nzf"],
+        "FOF": ["fof", "1nzf"],
     }
     params = {
         "op": "ph",
@@ -56,12 +70,12 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-        "Referer": "http://fund.eastmoney.com/fundguzhi.html",
+        "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
-    text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -1])
-    temp_df = pd.DataFrame(json_data["datas"])
+    data_text = r.text
+    data_json = demjson.decode(data_text[data_text.find("{"): -1])
+    temp_df = pd.DataFrame(data_json["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
     temp_df.reset_index(inplace=True)
     temp_df["index"] = list(range(1, len(temp_df) + 1))
@@ -115,6 +129,20 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
             "手续费",
         ]
     ]
+    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
+    temp_df['单位净值'] = pd.to_numeric(temp_df['单位净值'], errors="coerce")
+    temp_df['累计净值'] = pd.to_numeric(temp_df['累计净值'], errors="coerce")
+    temp_df['日增长率'] = pd.to_numeric(temp_df['日增长率'], errors="coerce")
+    temp_df['近1周'] = pd.to_numeric(temp_df['近1周'], errors="coerce")
+    temp_df['近1月'] = pd.to_numeric(temp_df['近1月'], errors="coerce")
+    temp_df['近3月'] = pd.to_numeric(temp_df['近3月'], errors="coerce")
+    temp_df['近6月'] = pd.to_numeric(temp_df['近6月'], errors="coerce")
+    temp_df['近1年'] = pd.to_numeric(temp_df['近1年'], errors="coerce")
+    temp_df['近2年'] = pd.to_numeric(temp_df['近2年'], errors="coerce")
+    temp_df['近3年'] = pd.to_numeric(temp_df['近3年'], errors="coerce")
+    temp_df['今年来'] = pd.to_numeric(temp_df['今年来'], errors="coerce")
+    temp_df['成立来'] = pd.to_numeric(temp_df['成立来'], errors="coerce")
+    temp_df['自定义'] = pd.to_numeric(temp_df['自定义'], errors="coerce")
     return temp_df
 
 
@@ -125,7 +153,7 @@ def fund_exchange_rank_em() -> pd.DataFrame:
     :return: 场内交易基金数据
     :rtype: pandas.DataFrame
     """
-    url = "http://fund.eastmoney.com/data/rankhandler.aspx"
+    url = "https://fund.eastmoney.com/data/rankhandler.aspx"
     params = {
         "op": "ph",
         "dt": "fb",
@@ -140,11 +168,11 @@ def fund_exchange_rank_em() -> pd.DataFrame:
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-        "Referer": "http://fund.eastmoney.com/fundguzhi.html",
+        "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = demjson.decode(text_data[text_data.find("{") : -1])
+    json_data = demjson.decode(text_data[text_data.find("{"): -1])
     temp_df = pd.DataFrame(json_data["datas"])
     temp_df = temp_df.iloc[:, 0].str.split(",", expand=True)
     temp_df.reset_index(inplace=True)
@@ -219,7 +247,7 @@ def fund_money_rank_em() -> pd.DataFrame:
     :return: 货币型基金排行
     :rtype: pandas.DataFrame
     """
-    url = "http://api.fund.eastmoney.com/FundRank/GetHbRankList"
+    url = "https://api.fund.eastmoney.com/FundRank/GetHbRankList"
     params = {
         "intCompany": "0",
         "MinsgType": "",
@@ -232,7 +260,7 @@ def fund_money_rank_em() -> pd.DataFrame:
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-        "Referer": "http://fund.eastmoney.com/fundguzhi.html",
+        "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
     json_data = r.json()
@@ -316,7 +344,7 @@ def fund_lcx_rank_em() -> pd.DataFrame:
     :return: 理财基金排行
     :rtype: pandas.DataFrame
     """
-    url = "http://api.fund.eastmoney.com/FundRank/GetLcRankList"
+    url = "https://api.fund.eastmoney.com/FundRank/GetLcRankList"
     params = {
         "intCompany": "0",
         "MinsgType": "undefined",
@@ -331,13 +359,13 @@ def fund_lcx_rank_em() -> pd.DataFrame:
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-        "Referer": "http://fund.eastmoney.com/fundguzhi.html",
+        "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
     try:
         data_json = r.json()
     except:
-        return None
+        return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["Data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = list(range(1, len(temp_df) + 1))
@@ -396,7 +424,7 @@ def fund_hk_rank_em() -> pd.DataFrame:
     :return: 香港基金排行
     :rtype: pandas.DataFrame
     """
-    format_date = datetime.datetime.now().date().isoformat()
+    format_date = datetime.now().date().isoformat()
     url = "https://overseas.1234567.com.cn/overseasapi/OpenApiHander.ashx"
     params = {
         'api': 'HKFDApi',
@@ -414,7 +442,7 @@ def fund_hk_rank_em() -> pd.DataFrame:
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-        "Referer": "http://fund.eastmoney.com/fundguzhi.html",
+        "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -484,11 +512,28 @@ def fund_hk_rank_em() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    for item in {"全部", "股票型", "混合型", "债券型", "指数型", "QDII", "LOF", "FOF"}:
-        fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol=item)
-        print(fund_open_fund_rank_em_df)
-
     fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="全部")
+    print(fund_open_fund_rank_em_df)
+
+    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="股票型")
+    print(fund_open_fund_rank_em_df)
+
+    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="混合型")
+    print(fund_open_fund_rank_em_df)
+
+    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="债券型")
+    print(fund_open_fund_rank_em_df)
+
+    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="指数型")
+    print(fund_open_fund_rank_em_df)
+
+    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="QDII")
+    print(fund_open_fund_rank_em_df)
+
+    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="LOF")
+    print(fund_open_fund_rank_em_df)
+
+    fund_open_fund_rank_em_df = fund_open_fund_rank_em(symbol="FOF")
     print(fund_open_fund_rank_em_df)
 
     fund_exchange_rank_em_df = fund_exchange_rank_em()
