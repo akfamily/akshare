@@ -275,13 +275,19 @@ def stock_info_bj_name_code() -> pd.DataFrame:
     return big_df
 
 
-def stock_info_sh_delist() -> pd.DataFrame:
+def stock_info_sh_delist(symbol: str = "全部") -> pd.DataFrame:
     """
     上海证券交易所-终止上市公司
     http://www.sse.com.cn/assortment/stock/list/delisting/
+    :param symbol: choice of {"全部", "沪市", "科创板"}
     :return: 终止上市公司
     :rtype: pandas.DataFrame
     """
+    symbol_map = {
+        "全部": "1,2,8",
+        "沪市": "1,2",
+        "科创板": "8",
+    }
     url = "http://query.sse.com.cn/commonQuery.do"
     headers = {
         "Accept": "*/*",
@@ -300,7 +306,7 @@ def stock_info_sh_delist() -> pd.DataFrame:
         "STOCK_CODE": "",
         "CSRC_CODE": "",
         "REG_PROVINCE": "",
-        "STOCK_TYPE": "1,2",
+        "STOCK_TYPE": symbol_map[symbol],
         "COMPANY_STATUS": "3",
         "type": "inParams",
         "pageHelp.cacheSize": "1",

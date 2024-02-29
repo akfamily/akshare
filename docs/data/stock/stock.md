@@ -13735,9 +13735,9 @@ print(stock_staq_net_stop_df)
 
 输入参数
 
-| 名称  | 类型  | 描述  |
-|-----|-----|-----|
-| -   | -   | -   |
+| 名称    | 类型 | 描述                                            |
+|--------|-----|-------------------------------------------------|
+| symbol | str | symbol="全部"; choice of {"全部", "沪市", "科创板"} |
 
 输出参数
 
@@ -13753,7 +13753,7 @@ print(stock_staq_net_stop_df)
 ```python
 import akshare as ak
 
-stock_info_sh_delist_df = ak.stock_info_sh_delist()
+stock_info_sh_delist_df = ak.stock_info_sh_delist(symbol="全部")
 print(stock_info_sh_delist_df)
 ```
 
