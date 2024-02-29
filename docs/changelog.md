@@ -71,6 +71,11 @@
 
 ## 更新说明详情
 
+1.12.77 fix: fix futures_contract_info_shfe interface
+
+    1. 修复 futures_contract_info_shfe 接口
+    2. 修复 fund_open_fund_rank_em 接口
+
 1.12.76 fix: fix bond_zh_hs_spot interface
 
     1. 修复 bond_zh_hs_spot 接口
@@ -3627,6 +3632,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.77 fix: fix futures_contract_info_shfe interface
 
 1.12.76 fix: fix bond_zh_hs_spot interface
 

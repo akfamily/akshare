@@ -68,7 +68,7 @@ print(stock_zh_index_spot_em_df)
 
 接口: stock_zh_index_spot_sina
 
-目标地址: http://vip.stock.finance.sina.com.cn/mkt/#hs_s
+目标地址: https://vip.stock.finance.sina.com.cn/mkt/#hs_s
 
 描述: 新浪财经-中国股票指数数据
 

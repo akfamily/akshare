@@ -2689,9 +2689,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.74 add: add futures_contract_info_czce interface
 1.12.75 add: add futures_contract_info_ine interface
 1.12.76 fix: fix bond_zh_hs_spot interface
+1.12.77 fix: fix futures_contract_info_shfe interface
 """
 
-__version__ = "1.12.76"
+__version__ = "1.12.77"
 __author__ = "AKFamily"
 
 import sys
