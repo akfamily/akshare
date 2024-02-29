@@ -19,7 +19,10 @@ def futures_contract_info_shfe(date: str = "20240227") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://www.shfe.com.cn/data/instrument/ContractBaseInfo{date}.dat"
-    r = requests.get(url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+    }
+    r = requests.get(url, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['ContractBaseInfo'])
     temp_df.rename(columns={
