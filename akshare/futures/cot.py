@@ -419,6 +419,9 @@ def get_czce_rank_table(
     date                        日期                        string YYYYMMDD
     """
     date = cons.convert_date(date) if date is not None else datetime.date.today()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+    }
     if date < datetime.date(2015, 10, 8):
         print("CZCE可获取的数据源开始日期为 20151008, 请输入合适的日期参数")
         return {}
@@ -427,7 +430,7 @@ def get_czce_rank_table(
         return {}
     if date >= datetime.date(2015, 10, 8):
         url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date.year}/{date.isoformat().replace('-', '')}/FutureDataHolding.xls"
-        r = requests.get(url)
+        r = requests.get(url, headers=headers)
         temp_df = pd.read_excel(BytesIO(r.content))
 
     temp_pinzhong_index = [
