@@ -20,7 +20,7 @@ calendar = cons.get_calendar()
 
 
 def _futures_daily_czce(
-    date: str = "20100824", dataset: str = "datahistory2010"
+        date: str = "20100824", dataset: str = "datahistory2010"
 ) -> pd.DataFrame:
     """
     郑州商品交易所-交易数据-历史行情下载
@@ -294,17 +294,17 @@ def get_ine_daily(date: str = "20220208") -> pd.DataFrame:
     temp_df = temp_df[~temp_df["PRODUCTNAME"].str.contains("总计")]
     try:
         result_df["symbol"] = (
-            temp_df["PRODUCTGROUPID"].str.upper().str.strip()
-            + temp_df["DELIVERYMONTH"]
+                temp_df["PRODUCTGROUPID"].str.upper().str.strip()
+                + temp_df["DELIVERYMONTH"]
         )
     except:
         result_df["symbol"] = (
-            temp_df["PRODUCTID"]
-            .str.upper()
-            .str.strip()
-            .str.split("_", expand=True)
-            .iloc[:, 0]
-            + temp_df["DELIVERYMONTH"]
+                temp_df["PRODUCTID"]
+                .str.upper()
+                .str.strip()
+                .str.split("_", expand=True)
+                .iloc[:, 0]
+                + temp_df["DELIVERYMONTH"]
         )
     result_df["date"] = day.strftime("%Y%m%d")
     result_df["open"] = temp_df["OPENPRICE"]
@@ -348,9 +348,12 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
     day = (
         cons.convert_date(date) if date is not None else datetime.date.today()
     )
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+    }
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
-        return
+        return pd.DataFrame()
     if day > datetime.date(2010, 8, 24):
         if day > datetime.date(2015, 11, 11):
             u = cons.CZCE_DAILY_URL_3
@@ -361,11 +364,11 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         listed_columns = cons.CZCE_COLUMNS
         output_columns = cons.OUTPUT_COLUMNS
         try:
-            r = requests.get(url)
+            r = requests.get(url, headers=headers)
             if (
-                datetime.date(2015, 11, 12)
-                <= day
-                <= datetime.date(2017, 12, 27)
+                    datetime.date(2015, 11, 12)
+                    <= day
+                    <= datetime.date(2017, 12, 27)
             ):
                 html = str(r.content, encoding="gbk")
             else:
@@ -544,7 +547,7 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
             row
             for row in json_data["o_curinstrument"]
             if row["DELIVERYMONTH"] not in ["小计", "合计"]
-            and row["DELIVERYMONTH"] != ""
+               and row["DELIVERYMONTH"] != ""
         ]
     )
     try:
@@ -683,9 +686,9 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
 
 
 def get_futures_daily(
-    start_date: str = "20220208",
-    end_date: str = "20220208",
-    market: str = "CFFEX",
+        start_date: str = "20220208",
+        end_date: str = "20220208",
+        market: str = "CFFEX",
 ) -> pd.DataFrame:
     """
     交易所日交易数据
