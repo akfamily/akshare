@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/28 18:20
+Date: 2024/3/4 14:30
 Desc: 宏观数据-中国
 """
 import json
@@ -24,7 +24,6 @@ from akshare.economic.cons import (
     JS_CHINA_ENERGY_DAILY_URL,
     JS_CHINA_NON_MAN_PMI_MONTHLY_URL,
     JS_CHINA_CX_SERVICE_PMI_YEARLY_URL,
-    JS_CHINA_MARKET_MARGIN_SH_URL,
 )
 from akshare.utils import demjson
 
@@ -3273,61 +3272,6 @@ def macro_china_wbck() -> pd.DataFrame:
     return temp_df
 
 
-def macro_china_bond_public() -> pd.DataFrame:
-    """
-    中国-债券信息披露-债券发行
-    https://www.chinamoney.com.cn/chinese/xzjfx/
-    :return: 债券发行
-    :rtype: pandas.DataFrame
-    """
-    url = "https://www.chinamoney.com.cn/ags/ms/cm-u-bond-an/bnBondEmit"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
-    }
-    payload = {
-        "enty": "",
-        "bondType": "",
-        "bondNameCode": "",
-        "leadUnderwriter": "",
-        "pageNo": "1",
-        "pageSize": "1000",
-        "limit": "1",
-    }
-    r = requests.post(url, data=payload, headers=headers)
-    data_json = r.json()
-    temp_df = pd.DataFrame(data_json["records"])
-    temp_df.columns = [
-        "债券全称",
-        "债券类型",
-        "-",
-        "发行日期",
-        "-",
-        "计息方式",
-        "-",
-        "债券期限",
-        "-",
-        "债券评级",
-        "-",
-        "价格",
-        "计划发行量",
-    ]
-    temp_df = temp_df[
-        [
-            "债券全称",
-            "债券类型",
-            "发行日期",
-            "计息方式",
-            "价格",
-            "债券期限",
-            "计划发行量",
-            "债券评级",
-        ]
-    ]
-    temp_df["价格"] = pd.to_numeric(temp_df["价格"], errors="coerce")
-    temp_df["计划发行量"] = pd.to_numeric(temp_df["计划发行量"], errors="coerce")
-    return temp_df
-
-
 def macro_china_xfzxx() -> pd.DataFrame:
     """
     东方财富网-经济数据一览-消费者信心指数
@@ -4200,9 +4144,6 @@ if __name__ == "__main__":
 
     macro_china_wbck_df = macro_china_wbck()
     print(macro_china_wbck_df)
-
-    macro_china_bond_public_df = macro_china_bond_public()
-    print(macro_china_bond_public_df)
 
     macro_china_xfzxx_df = macro_china_xfzxx()
     print(macro_china_xfzxx_df)
