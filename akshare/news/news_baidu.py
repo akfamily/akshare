@@ -235,7 +235,7 @@ if __name__ == "__main__":
     print(news_economic_baidu_df)
 
     news_trade_notify_suspend_baidu_df = news_trade_notify_suspend_baidu(
-        date="20220916"
+        date="20220523"
     )
     print(news_trade_notify_suspend_baidu_df)
 

@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/5/23 14:05
+Date: 2024/3/4 18:00
 Desc: 东方财富网-数据中心-特色数据-停复牌信息
-http://data.eastmoney.com/tfpxx/
+https://data.eastmoney.com/tfpxx/
 """
 import pandas as pd
 import requests
 
 
-def stock_tfp_em(date: str = "20220523") -> pd.DataFrame:
+def stock_tfp_em(date: str = "20221109") -> pd.DataFrame:
     """
     东方财富网-数据中心-特色数据-停复牌信息
-    http://data.eastmoney.com/tfpxx/
+    https://data.eastmoney.com/tfpxx/
     :param date: specific date as "2020-03-19"
     :type date: str
     :return: 停复牌信息表
@@ -59,5 +59,5 @@ def stock_tfp_em(date: str = "20220523") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_tfp_em_df = stock_tfp_em(date="20221109")
+    stock_tfp_em_df = stock_tfp_em(date="20220523")
     print(stock_tfp_em_df)
