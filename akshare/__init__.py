@@ -2695,9 +2695,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.80 fix: fix get_czce_daily interface
 1.12.81 fix: fix macro_china_bond_public interface
 1.12.82 fix: fix stock_tfp_em interface
+1.12.83 fix: fix stock_sector_fund_flow_rank interface
 """
 
-__version__ = "1.12.82"
+__version__ = "1.12.83"
 __author__ = "AKFamily"
 
 import sys
