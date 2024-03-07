@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/8/29 8:30
+Date: 2024/3/7 22:30
 Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
@@ -14,7 +14,7 @@ import requests
 
 
 def stock_individual_fund_flow(
-    stock: str = "600094", market: str = "sh"
+        stock: str = "600094", market: str = "sh"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-个股
@@ -27,7 +27,7 @@ def stock_individual_fund_flow(
     :rtype: pandas.DataFrame
     """
     market_map = {"sh": 1, "sz": 0, "bj": 0}
-    url = "http://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get"
+    url = "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     }
@@ -120,7 +120,7 @@ def stock_individual_fund_flow_rank(indicator: str = "5日") -> pd.DataFrame:
             "f12,f14,f2,f160,f174,f175,f176,f177,f178,f179,f180,f181,f182,f183,f260,f261,f124",
         ],
     }
-    url = "http://push2.eastmoney.com/api/qt/clist/get"
+    url = "https://push2.eastmoney.com/api/qt/clist/get"
     params = {
         "fid": indicator_map[indicator][0],
         "po": "1",
@@ -312,7 +312,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
     :return: 近期大盘的资金流数据
     :rtype: pandas.DataFrame
     """
-    url = "http://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get"
+    url = "https://push2his.eastmoney.com/api/qt/stock/fflow/daykline/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     }
@@ -329,7 +329,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
+    json_data = json.loads(text_data[text_data.find("{"): -2])
     content_list = json_data["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
@@ -387,7 +387,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
 
 
 def stock_sector_fund_flow_rank(
-    indicator: str = "10日", sector_type: str = "行业资金流"
+        indicator: str = "10日", sector_type: str = "行业资金流"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-板块资金流-排名
@@ -417,7 +417,7 @@ def stock_sector_fund_flow_rank(
             "f12,f14,f2,f160,f174,f175,f176,f177,f178,f179,f180,f181,f182,f183,f260,f261,f124",
         ],
     }
-    url = "http://push2.eastmoney.com/api/qt/clist/get"
+    url = "https://push2.eastmoney.com/api/qt/clist/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     }
@@ -439,7 +439,7 @@ def stock_sector_fund_flow_rank(
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
+    json_data = json.loads(text_data[text_data.find("{"): -2])
     temp_df = pd.DataFrame(json_data["data"]["diff"])
     if indicator == "今日":
         temp_df.columns = [
@@ -480,6 +480,7 @@ def stock_sector_fund_flow_rank(
                 "今日主力净流入最大股",
             ]
         ]
+        temp_df["今日主力净流入-净额"] = pd.to_numeric(temp_df["今日主力净流入-净额"], errors="coerce")
         temp_df.sort_values(["今日主力净流入-净额"], ascending=False, inplace=True)
         temp_df.reset_index(inplace=True)
         temp_df["index"] = range(1, len(temp_df) + 1)
@@ -581,7 +582,7 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
     :return: 行业板块与代码字典
     :rtype: dict
     """
-    url = "http://push2.eastmoney.com/api/qt/clist/get"
+    url = "https://push2.eastmoney.com/api/qt/clist/get"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
     }
@@ -608,7 +609,7 @@ def _get_stock_sector_fund_flow_summary_code() -> dict:
 
 
 def stock_sector_fund_flow_summary(
-    symbol: str = "电源设备", indicator: str = "今日"
+        symbol: str = "电源设备", indicator: str = "今日"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-行业资金流-xx行业个股资金流
@@ -1043,6 +1044,11 @@ if __name__ == "__main__":
 
     stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(
         indicator="今日", sector_type="行业资金流"
+    )
+    print(stock_sector_fund_flow_rank_df)
+
+    stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(
+        indicator="今日", sector_type="概念资金流"
     )
     print(stock_sector_fund_flow_rank_df)
 

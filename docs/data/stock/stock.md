@@ -9731,7 +9731,7 @@ print(stock_market_fund_flow_df)
 
 接口: stock_sector_fund_flow_rank
 
-目标地址: http://data.eastmoney.com/bkzj/hy.html
+目标地址: https://data.eastmoney.com/bkzj/hy.html
 
 描述: 东方财富网-数据中心-资金流向-板块资金流-排名
 
