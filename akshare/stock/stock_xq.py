@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/02/28 11:00
+Date: 2024/3/7 22:30
 Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
@@ -29,7 +29,7 @@ def stock_individual_spot_xq(
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
                       "80.0.3987.149 Safari/537.36",
-        "Cookie": "xqat=76d4e5ee97f60e0be2c9b6c094156d577fba5c5b",
+        "Cookie": "xqat=52dfb79aed5f2cdd1e7c2cfc56054ac1f5b77fc3",
     }
     r = requests.get(url, headers=headers, timeout=timeout)
     column_name_map = {
