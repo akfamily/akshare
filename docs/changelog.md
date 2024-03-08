@@ -71,6 +71,10 @@
 
 ## 更新说明详情
 
+1.12.84 fix: fix stock_market_fund_flow interface
+
+    1. 修复 stock_market_fund_flow 接口
+
 1.12.83 fix: fix stock_sector_fund_flow_rank interface
 
     1. 修复 stock_sector_fund_flow_rank 接口
@@ -3662,6 +3666,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.84 fix: fix stock_market_fund_flow interface
 
 1.12.83 fix: fix stock_sector_fund_flow_rank interface
 
