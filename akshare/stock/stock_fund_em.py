@@ -368,7 +368,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
             "小单净流入-净占比",
         ]
     ]
-    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
     temp_df["上证-收盘价"] = pd.to_numeric(temp_df["上证-收盘价"], errors="coerce")
     temp_df["上证-涨跌幅"] = pd.to_numeric(temp_df["上证-涨跌幅"], errors="coerce")
     temp_df["深证-收盘价"] = pd.to_numeric(temp_df["深证-收盘价"], errors="coerce")
@@ -387,7 +387,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
 
 
 def stock_sector_fund_flow_rank(
-        indicator: str = "10日", sector_type: str = "行业资金流"
+        indicator: str = "今日", sector_type: str = "行业资金流"
 ) -> pd.DataFrame:
     """
     东方财富网-数据中心-资金流向-板块资金流-排名
@@ -1038,7 +1038,7 @@ if __name__ == "__main__":
     print(stock_market_fund_flow_df)
 
     stock_sector_fund_flow_rank_df = stock_sector_fund_flow_rank(
-        indicator="5日", sector_type="地域资金流"
+        indicator="今日", sector_type="地域资金流"
     )
     print(stock_sector_fund_flow_rank_df)
 
