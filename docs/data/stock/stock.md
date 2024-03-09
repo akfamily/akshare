@@ -9669,7 +9669,7 @@ print(stock_individual_fund_flow_rank_df)
 
 接口: stock_market_fund_flow
 
-目标地址: http://data.eastmoney.com/zjlx/dpzjlx.html
+目标地址: https://data.eastmoney.com/zjlx/dpzjlx.html
 
 描述: 东方财富网-数据中心-资金流向-大盘
 
@@ -17966,21 +17966,21 @@ print(stock_dzjy_sctj_df)
 
 输出参数-A股
 
-| 名称 | 类型 | 描述 |
-|----------|--|----------|
-| 序号 | int64 | - |
-| 交易日期 | object | - |
-| 证券代码 | object | - |
-| 证券简称 | object | - |
-| 涨跌幅 | float64 | 注意单位: % |
-| 收盘价 | float64 | - |
-| 成交价 | float64 | - |
-| 折溢率 | float64 | - |
-| 成交量 | float64 | 注意单位: 股 |
-| 成交额 | float64 | 注意单位: 元 |
+| 名称       | 类型      | 描述      |
+|----------|---------|---------|
+| 序号       | int64   | -       |
+| 交易日期     | object  | -       |
+| 证券代码     | object  | -       |
+| 证券简称     | object  | -       |
+| 涨跌幅      | float64 | 注意单位: % |
+| 收盘价      | float64 | -       |
+| 成交价      | float64 | -       |
+| 折溢率      | float64 | -       |
+| 成交量      | float64 | 注意单位: 股 |
+| 成交额      | float64 | 注意单位: 元 |
 | 成交额/流通市值 | float64 | 注意单位: % |
-| 买方营业部 | object | - |
-| 卖方营业部 | object | - |
+| 买方营业部    | object  | -       |
+| 卖方营业部    | object  | -       |
 
 接口示例-A股
 
