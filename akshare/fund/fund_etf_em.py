@@ -60,7 +60,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
         "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f33,f34,f35,f62,f128,f136,f115,f152",
         "_": "1672806290972",
     }
     r = requests.get(url, params=params)
@@ -80,6 +80,10 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "f16": "最低价",
             "f18": "昨收",
             "f8": "换手率",
+            "f10": "量比",
+            "f33": "委比",
+            "f34": "外盘",
+            "f35": "内盘",
             "f21": "流通市值",
             "f20": "总市值",
         },
@@ -99,6 +103,10 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "最低价",
             "昨收",
             "换手率",
+            "量比",
+            "委比",
+            "外盘",
+            "内盘",
             "流通市值",
             "总市值",
         ]
@@ -113,6 +121,10 @@ def fund_etf_spot_em() -> pd.DataFrame:
     temp_df["最低价"] = pd.to_numeric(temp_df["最低价"], errors="coerce")
     temp_df["昨收"] = pd.to_numeric(temp_df["昨收"], errors="coerce")
     temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
+    temp_df["量比"] = pd.to_numeric(temp_df["量比"], errors="coerce")
+    temp_df["委比"] = pd.to_numeric(temp_df["委比"], errors="coerce")
+    temp_df["外盘"] = pd.to_numeric(temp_df["外盘"], errors="coerce")
+    temp_df["内盘"] = pd.to_numeric(temp_df["内盘"], errors="coerce")
     temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
     return temp_df
