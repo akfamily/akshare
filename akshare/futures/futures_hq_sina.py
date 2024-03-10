@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/22 14:00
+Date: 2024/3/10 17:00
 Desc: 新浪财经-外盘期货
 https://finance.sina.com.cn/money/future/hf.html
 """
 import time
+from typing import Union, List
 
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
 from akshare.utils import demjson
-from typing import Union, List
 
 
 def _get_real_name_list() -> list:
@@ -64,6 +64,8 @@ def futures_hq_subscribe_exchange_symbol() -> pd.DataFrame:
     inner_dict = {
         "新交所 TSI CFR 中国铁矿石（62%铁粉）指数": 'FEF',
         "马棕油": 'FCPO',
+        "日橡胶": 'RSS3',
+        "CME比特币期货": 'BTC',
         "NYBOT-棉花": 'CT',
         "LME镍3个月": 'NID',
         "LME铅3个月": 'PBD',
@@ -110,7 +112,7 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
     else:
         symbol = symbol.split(",")
         payload = "?list=" + ",".join(["hf_" + item for item in symbol])
-    url = "http://hq.sinajs.cn/" + payload
+    url = "https://hq.sinajs.cn/" + payload
     headers = {
         'Accept': '*/*',
         'Accept-Encoding': 'gzip, deflate, br',
