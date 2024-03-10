@@ -71,6 +71,11 @@
 
 ## 更新说明详情
 
+1.12.85 fix: fix stock_sector_fund_flow_summary interface
+
+    1. 修复 stock_sector_fund_flow_summary 接口
+    2. 修复 futures_foreign_commodity_realtime 接口
+
 1.12.84 fix: fix stock_market_fund_flow interface
 
     1. 修复 stock_market_fund_flow 接口
@@ -3666,6 +3671,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.85 fix: fix stock_sector_fund_flow_summary interface
 
 1.12.84 fix: fix stock_market_fund_flow interface
 
