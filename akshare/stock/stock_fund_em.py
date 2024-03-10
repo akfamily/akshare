@@ -1053,7 +1053,7 @@ if __name__ == "__main__":
     print(stock_sector_fund_flow_rank_df)
 
     stock_sector_fund_flow_summary_df = stock_sector_fund_flow_summary(symbol="电源设备", indicator="今日")
-    print(stock_sector_fund_flow_summary_df.dtypes)
+    print(stock_sector_fund_flow_summary_df)
 
     stock_sector_fund_flow_hist_df = stock_sector_fund_flow_hist(symbol="电源设备")
     print(stock_sector_fund_flow_hist_df)
