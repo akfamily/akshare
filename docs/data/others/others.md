@@ -1091,7 +1091,7 @@ print(air_quality_watch_point_df)
 
 接口: fortune_rank
 
-目标地址: http://www.fortunechina.com/fortune500/node_65.htm
+目标地址: https://www.fortunechina.com/fortune500/node_65.htm
 
 描述: 指定年份财富世界 500 强公司排行榜
 
@@ -1101,7 +1101,7 @@ print(air_quality_watch_point_df)
 
 | 名称   | 类型  | 描述          |
 |------|-----|-------------|
-| year | str | year="2022" |
+| year | str | year="2023" |
 
 输出参数
 
@@ -1114,25 +1114,26 @@ print(air_quality_watch_point_df)
 ```python
 import akshare as ak
 
-fortune_rank_df = ak.fortune_rank(year="2022")
+fortune_rank_df = ak.fortune_rank(year="2023")
 print(fortune_rank_df)
 ```
 
 数据示例
 
 ```
-      排名                                 公司名称(中文)  ...   国家  关键数据
-0      1                             沃尔玛（WALMART)  ...   美国     +
-1      2                          亚马逊（AMAZON.COM)  ...   美国     +
-2      3                     国家电网有限公司（STATE GRID)  ...   中国     +
-3      4  中国石油天然气集团有限公司（CHINA NATIONAL PETROLEUM)  ...   中国     +
-4      5              中国石油化工集团有限公司（SINOPEC GROUP)  ...   中国     +
-..   ...                                      ...  ...  ...   ...
-495  496                               DSV公司（DSV)  ...   丹麦     +
-496  497                             瑞士ABB集团（ABB)  ...   瑞士     +
-497  498             亿滋国际（MONDELEZ INTERNATIONAL)  ...   美国     +
-498  499                               达能（DANONE)  ...   法国     +
-499  500                           优美科公司（UMICORE)  ...  比利时     +
+      排名                                         公司名称(中文)  ...     国家  关键数据
+0      1                                       沃尔玛（WALMART)  ...     美国     +
+1      2                               沙特阿美公司（SAUDI ARAMCO)  ...  沙特阿拉伯     +
+2      3                               国家电网有限公司（STATE GRID)  ...     中国     +
+3      4                                    亚马逊（AMAZON.COM)  ...     美国     +
+4      5            中国石油天然气集团有限公司（CHINA NATIONAL PETROLEUM)  ...     中国     +
+..   ...                                                ...  ...    ...   ...
+495  496                     三星人寿保险（SAMSUNG LIFE INSURANCE)  ...     韩国     +
+496  497                  住友生命保险公司（SUMITOMO LIFE INSURANCE)  ...     日本     +
+497  498                                   CarMax公司（CARMAX)  ...     美国     +
+498  499         日本三菱重工业股份有限公司（MITSUBISHI HEAVY INDUSTRIES)  ...     日本     +
+499  500  新疆广汇实业投资（集团）有限责任公司（XINJIANG GUANGHUI INDUSTRY ...  ...     中国     +
+[500 rows x 6 columns]
 ```
 
 ### 财富排行榜-英文
