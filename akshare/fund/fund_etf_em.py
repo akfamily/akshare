@@ -60,7 +60,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
         "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f30,f31,f32,f33,f34,f35,f38,f62,f63,f64,f65,f66,f69,f72,f75,f78,f81,f84,f87,f128,f136,f115,f152,f184",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f33,f34,f35,f62,f128,f136,f115,f152",
         "_": "1672806290972",
     }
     r = requests.get(url, params=params)
@@ -84,17 +84,6 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "f33": "委比",
             "f34": "外盘",
             "f35": "内盘",
-            "f62": "主力净流入-净额",
-            "f184": "主力净流入-净占比",
-            "f66": "超大单净流入-净额",
-            "f69": "超大单净流入-净占比",
-            "f72": "大单净流入-净额",
-            "f75": "大单净流入-净占比",
-            "f78": "中单净流入-净额",
-            "f81": "中单净流入-净占比",
-            "f84": "小单净流入-净额",
-            "f87": "小单净流入-净占比",
-            "f38": "最新份额",
             "f21": "流通市值",
             "f20": "总市值",
         },
@@ -118,22 +107,8 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "委比",
             "外盘",
             "内盘",
-            "主力净流入-净额",
-            "主力净流入-净占比",
-            "超大单净流入-净额",
-            "超大单净流入-净占比",
-            "大单净流入-净额",
-            "大单净流入-净占比",
-            "中单净流入-净额",
-            "中单净流入-净占比",
-            "小单净流入-净额",
-            "小单净流入-净占比",
-            "现手",
-            "买一",
-            "卖一",
-            "最新份额",
             "流通市值",
-            "总市值"
+            "总市值",
         ]
     ]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
@@ -152,42 +127,6 @@ def fund_etf_spot_em() -> pd.DataFrame:
     temp_df["内盘"] = pd.to_numeric(temp_df["内盘"], errors="coerce")
     temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
     temp_df["总市值"] = pd.to_numeric(temp_df["总市值"], errors="coerce")
-    temp_df["振幅"] = pd.to_numeric(temp_df["振幅"], errors="coerce")
-    temp_df["现手"] = pd.to_numeric(temp_df["现手"], errors="coerce")
-    temp_df["买一"] = pd.to_numeric(temp_df["买一"], errors="coerce")
-    temp_df["卖一"] = pd.to_numeric(temp_df["卖一"], errors="coerce")
-    temp_df["最新份额"] = pd.to_numeric(temp_df["最新份额"], errors="coerce")
-    temp_df["主力净流入-净额"] = pd.to_numeric(
-        temp_df["主力净流入-净额"], errors="coerce"
-    )
-    temp_df["主力净流入-净占比"] = pd.to_numeric(
-        temp_df["主力净流入-净占比"], errors="coerce"
-    )
-    temp_df["超大单净流入-净额"] = pd.to_numeric(
-        temp_df["超大单净流入-净额"], errors="coerce"
-    )
-    temp_df["超大单净流入-净占比"] = pd.to_numeric(
-        temp_df["超大单净流入-净占比"], errors="coerce"
-    )
-    temp_df["大单净流入-净额"] = pd.to_numeric(
-        temp_df["大单净流入-净额"], errors="coerce"
-    )
-    temp_df["大单净流入-净占比"] = pd.to_numeric(
-        temp_df["大单净流入-净占比"], errors="coerce"
-    )
-    temp_df["中单净流入-净额"] = pd.to_numeric(
-        temp_df["中单净流入-净额"], errors="coerce"
-    )
-    temp_df["中单净流入-净占比"] = pd.to_numeric(
-        temp_df["中单净流入-净占比"], errors="coerce"
-    )
-    temp_df["小单净流入-净额"] = pd.to_numeric(
-        temp_df["小单净流入-净额"], errors="coerce"
-    )
-    temp_df["小单净流入-净占比"] = pd.to_numeric(
-        temp_df["小单净流入-净占比"], errors="coerce"
-    )
-
     return temp_df
 
 
