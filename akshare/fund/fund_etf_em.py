@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/11 22:40
+Date: 2024/3/11 16:40
 Desc: 东方财富-ETF行情
 https://quote.eastmoney.com/sh513500.html
 """
@@ -385,7 +385,7 @@ if __name__ == "__main__":
         symbol="511090",
         period="5",
         adjust="hfq",
-        start_date="2024-01-12 09:32:00",
-        end_date="2024-01-12 17:40:00",
+        start_date="2024-03-11 09:32:00",
+        end_date="2024-03-11 17:40:00",
     )
     print(fund_etf_hist_min_em_df)
