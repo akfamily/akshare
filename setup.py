@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/19 13:30
+Date: 2024/3/12 17:30
 Desc: AKShare's PYPI info file
 """
 import ast
@@ -57,12 +57,12 @@ setuptools.setup(
     ],
     extras_require={
         # 这些是额外的依赖集合，可以通过 'pip install akshare[full]' 安装
-        'full': [
-            'akqmt',
+        "full": [
+            "akqmt",
         ],
         # 这些是额外的依赖集合，可以通过 'pip install akshare[qmt]' 安装
-        'qmt': [
-            'akqmt',
+        "qmt": [
+            "akqmt",
         ],
     },
     package_data={"": ["*.py", "*.json", "*.pk", "*.js", "*.zip"]},
