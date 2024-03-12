@@ -1,6 +1,7 @@
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
+    "akshare/__init__.py",  # 初始化导入库文件
     ".bzr",
     ".direnv",
     ".eggs",
@@ -27,7 +28,6 @@ exclude = [
     "node_modules",
     "site-packages",
     "venv",
-    "akshare/__init__.py"
 ]
 
 # Same as Black.
