@@ -60,7 +60,14 @@ def fund_etf_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
         "fs": "b:MK0021,b:MK0022,b:MK0023,b:MK0024",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f30,f31,f32,f33,f34,f35,f38,f62,f63,f64,f65,f66,f69,f72,f75,f78,f81,f84,f87,f128,f136,f115,f152,f184",
+        "fields": (
+            "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,"
+            "f12,f13,f14,f15,f16,f17,f18,f20,f21,"
+            "f23,f24,f25,f22,f11,f30,f31,f32,f33,"
+            "f34,f35,f38,f62,f63,f64,f65,f66,f69,"
+            "f72,f75,f78,f81,f84,f87,f128,f136,"
+            "f115,f152,f184,f297,f402,f441"
+        ),
         "_": "1672806290972",
     }
     r = requests.get(url, params=params)
@@ -101,6 +108,9 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "f38": "最新份额",
             "f21": "流通市值",
             "f20": "总市值",
+            "f402": "基金折价率",
+            "f441": "实时估值",
+            "f297": "数据日期",
         },
         inplace=True,
     )
@@ -109,6 +119,8 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "代码",
             "名称",
             "最新价",
+            "实时估值",
+            "基金折价率",
             "涨跌额",
             "涨跌幅",
             "成交量",
@@ -139,9 +151,11 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "最新份额",
             "流通市值",
             "总市值",
+            "数据日期",
         ]
     ]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+    temp_df["实时估值"] = pd.to_numeric(temp_df["实时估值"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
@@ -162,6 +176,9 @@ def fund_etf_spot_em() -> pd.DataFrame:
     temp_df["买一"] = pd.to_numeric(temp_df["买一"], errors="coerce")
     temp_df["卖一"] = pd.to_numeric(temp_df["卖一"], errors="coerce")
     temp_df["最新份额"] = pd.to_numeric(temp_df["最新份额"], errors="coerce")
+    temp_df["基金折价率"] = pd.to_numeric(
+        temp_df["基金折价率"], errors="coerce"
+    )
     temp_df["主力净流入-净额"] = pd.to_numeric(
         temp_df["主力净流入-净额"], errors="coerce"
     )
@@ -192,16 +209,19 @@ def fund_etf_spot_em() -> pd.DataFrame:
     temp_df["小单净流入-净占比"] = pd.to_numeric(
         temp_df["小单净流入-净占比"], errors="coerce"
     )
+    temp_df["数据日期"] = pd.to_datetime(
+        temp_df["数据日期"], format="%Y%m%d", errors="coerce"
+    )
 
     return temp_df
 
 
 def fund_etf_hist_em(
-        symbol: str = "159707",
-        period: str = "daily",
-        start_date: str = "19700101",
-        end_date: str = "20500101",
-        adjust: str = "",
+    symbol: str = "159707",
+    period: str = "daily",
+    start_date: str = "19700101",
+    end_date: str = "20500101",
+    adjust: str = "",
 ) -> pd.DataFrame:
     """
     东方财富-ETF行情
@@ -250,7 +270,9 @@ def fund_etf_hist_em(
             data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df = pd.DataFrame(
+        [item.split(",") for item in data_json["data"]["klines"]]
+    )
     temp_df.columns = [
         "日期",
         "开盘",
@@ -280,11 +302,11 @@ def fund_etf_hist_em(
 
 
 def fund_etf_hist_min_em(
-        symbol: str = "159707",
-        start_date: str = "1979-09-01 09:32:00",
-        end_date: str = "2222-01-01 09:32:00",
-        period: str = "5",
-        adjust: str = "",
+    symbol: str = "159707",
+    start_date: str = "1979-09-01 09:32:00",
+    end_date: str = "2222-01-01 09:32:00",
+    period: str = "5",
+    adjust: str = "",
 ) -> pd.DataFrame:
     """
     东方财富-ETF 行情
@@ -304,12 +326,14 @@ def fund_etf_hist_min_em(
     """
     code_id_dict = _fund_etf_code_id_map_em()
     # 商品期货类 ETF
-    code_id_dict.update({
-        "159980": "0",
-        "159981": "0",
-        "159985": "0",
-        "511090": "1",
-    })
+    code_id_dict.update(
+        {
+            "159980": "0",
+            "159981": "0",
+            "159985": "0",
+            "511090": "1",
+        }
+    )
     adjust_map = {
         "": "0",
         "qfq": "1",
