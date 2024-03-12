@@ -27,6 +27,7 @@ exclude = [
     "node_modules",
     "site-packages",
     "venv",
+    "akshare/__init__.py"
 ]
 
 # Same as Black.
@@ -34,7 +35,7 @@ line-length = 88
 indent-width = 4
 
 # Assume Python 3.12
-target-version = "py12"
+target-version = "py312"
 
 [tool.ruff.lint]
 # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
