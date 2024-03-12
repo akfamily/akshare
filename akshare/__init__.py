@@ -859,7 +859,7 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 0.4.29: feats: add currency interface
 0.4.30: fix: futures_roll_yield.py/get_roll_yield: CUefp error
 0.4.31: format: format currency.py
-0.4.32: fix: china_bond.py
+0.4.32: fix: bond_china.py
 0.4.33: add: jyfm_tools_futures_arbitrage_matrix for jyfm futures
 0.4.34: fix: get_czce_rank_table history-20171228 format
 0.4.35: fix: get_czce_rank_table history-20071228 format
@@ -2701,9 +2701,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.86 fix: fix fund_etf_spot_em interface
 1.12.87 fix: fix fortune_rank interface
 1.12.88 fix: fix fund_etf_spot_em interface
+1.12.89 fix: fix bond_china_yield interface
 """
 
-__version__ = "1.12.88"
+__version__ = "1.12.89"
 __author__ = "AKFamily"
 
 import sys
@@ -4459,11 +4460,6 @@ from akshare.bond.bond_convert import (
 )
 
 """
-债券质押式回购成交明细数据
-"""
-from akshare.bond.china_repo import bond_repo_zh_tick
-
-"""
 基金数据接口
 """
 from akshare.fund.fund_em import (
@@ -4999,7 +4995,7 @@ from akshare.fx.fx_quote import fx_pair_quote, fx_spot_quote, fx_swap_quote
 """
 债券行情
 """
-from akshare.bond.china_bond import (
+from akshare.bond.bond_china import (
     bond_spot_quote,
     bond_spot_deal,
     bond_china_yield,
