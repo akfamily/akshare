@@ -12,7 +12,7 @@
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
 [![Downloads](https://pepy.tech/badge/akshare)](https://pepy.tech/project/akshare)
 [![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/?badge=latest)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
 [![Actions Status](https://github.com/akfamily/akshare/actions/workflows/release_and_deploy.yml/badge.svg)](https://github.com/akfamily/akshare/actions)
 [![MIT Licence](https://img.shields.io/badge/license-MIT-blue)](https://github.com/akfamily/akshare/blob/main/LICENSE)
@@ -162,7 +162,7 @@ Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://git
 - Write or fix documentation
 - Add test cases
 
-> Notice: We use [Black](https://black.readthedocs.io/en/stable/) to format the code
+> Notice: We use [Ruff](https://github.com/astral-sh/ruff) to format the code
 
 ## Statement
 
