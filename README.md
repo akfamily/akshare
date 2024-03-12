@@ -104,7 +104,7 @@ Output
 
 ### Plot
 
-Code
+Code:
 
 ```python
 import akshare as ak
@@ -118,7 +118,7 @@ stock_us_daily_df = stock_us_daily_df["2020-04-01": "2020-04-29"]
 mpf.plot(stock_us_daily_df, type='candle', mav=(3, 6, 9), volume=True, show_nontrading=False)
 ```
 
-Output
+Output:
 
 ![](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/home/AAPL_candle.png)
 
