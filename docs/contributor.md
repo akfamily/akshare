@@ -9,7 +9,7 @@
 
 ### 代码及接口设计规范
 
-1. 代码需要符合 **PEP 8** 要求，请使用 [Black](https://github.com/psf/black) 格式化代码
+1. 代码需要符合 **PEP 8** 要求，请使用 [Ruff](https://github.com/astral-sh/ruff) 格式化代码
 2. 函数接口的设计 **stock_zh_a_hist_sina** 结构，其中 **stock** 为金融产品，**zh** 为国家或地区，**a** 为市场或品种，**hist** 为 history 的缩写表示历史数据，**sina** 表示数据源为新浪
 3. 接口函数需要增加注释，注释规则请参考 **stock_zh_a_hist_sina** 接口的源码
 4. 需要在接口函数的注释中增加目标网站的地址（不是具体的数据接口地址，而是网页的地址）
@@ -38,21 +38,21 @@
 
       接口: stock_zh_a_minute
 
-      目标地址: http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
+      目标地址: https://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
 
       描述: 新浪财经获取分时数据，目前可以获取 1, 5, 15, 30, 60 分钟的数据频率
 
       限量: 单次返回指定公司的指定频率的所有历史分时行情数据
 
       输入参数
-      
+
       | 名称   | 类型 |  描述|
       | -------- | ---- |  --- |
       | symbol | str  | symbol='sh000300'; 同日频率数据接口|
       | period | str  | period='1'; 获取 1, 5, 15, 30, 60 分钟的数据频率|
-      
+
       输出参数
-      
+
       | 名称           | 类型        |  描述   |
       | ------------  | ------      |  -------- |
       | day           | object   |  -     |

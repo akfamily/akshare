@@ -22,5 +22,6 @@ sphinx_markdown_tables>=0.0.17
 sphinx_rtd_theme>=1.0.0
 mplfinance>=0.12.7a17
 pyarrow>=15.0.0
-black[d]>=24.2.0
+ruff>=0.3.2
+ruff-lsp>=0.0.53
 pre-commit>=3.6.2

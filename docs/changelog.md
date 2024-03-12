@@ -71,6 +71,10 @@
 
 ## 更新说明详情
 
+1.12.90 fix: fix fund_etf_spot_em interface
+
+    1. 修复 fund_etf_spot_em 接口
+
 1.12.89 fix: fix bond_china_yield interface
 
     1. 修复 bond_china_yield 接口
@@ -474,7 +478,7 @@
     2. 更新 calendar.json 文件
 
 1.12.6 fix: fix fund_open_fund_info_em interface
-    
+
     1. 修复 fund_open_fund_info_em 接口
 
 1.12.5 fix: fix stock_zh_a_gdhs interface
@@ -498,7 +502,7 @@
     1. 修复 futures_comm_info 接口
 
 1.11.99 fix: fix stock_zh_index_spot interface
-    
+
     1. 修复 stock_zh_index_spot 接口
 
 1.11.98 fix: fix stock_zh_a_disclosure_report_cninfo interface
@@ -931,7 +935,7 @@
     1. 修复 get_cffex_rank_table 接口
 
 1.10.97 fix: fix stock_financial_analysis_indicator interface
-    
+
     1. 修复 stock_financial_analysis_indicator 接口
 
 1.10.96 fix: fix stock_hk_daily interface
@@ -1159,7 +1163,7 @@
     1. 新增 stock_esg_rate_sina 接口
 
 1.10.46 fix: fix index_value_hist_funddb interface
-    
+
     1. 修复 index_value_hist_funddb 接口
 
 1.10.45 fix: fix stock_zh_a_minute interface
@@ -1167,7 +1171,7 @@
     1. 修复 stock_zh_a_minute 接口
 
 1.10.44 fix: fix get_shfe_rank_table interface
-    
+
     1. 修复 get_shfe_rank_table 接口
 
 1.10.43 rem: rem index_vix interface
@@ -1270,7 +1274,7 @@
 
 1.10.22 fix: fix macro_china_cpi_monthly interface
 
-    1. 修复 macro_china_cpi_monthly 接口 
+    1. 修复 macro_china_cpi_monthly 接口
 
 1.10.21 fix: fix fund_report_stock_cninfo interface
 
@@ -1403,7 +1407,7 @@
     1. 新增 stock_financial_abstract_ths 接口
 
 1.9.90 fix: fix stock_sse_deal_daily interface
-    
+
     1. 修复 stock_sse_deal_daily 接口
 
 1.9.89 fix: fix index_kq_fz interface
@@ -1411,7 +1415,7 @@
     1. 修复 index_kq_fz 接口
 
 1.9.88 fix: fix setup.py
-    
+
     1. 移除 setup.py 中的相关依赖
 
 1.9.87 add: add option_minute_em interface
@@ -1486,7 +1490,7 @@
     1. 修复 stock_lh_yyb_most 接口
 
 1.9.70 fix: fix stock_szse_sector_summary interface
-    
+
     1. 修复 stock_szse_sector_summary 接口
 
 1.9.69 fix: fix stock_lh_yyb_capital interface
@@ -1643,7 +1647,7 @@
     1. 修复 stock_a_lg_indicator 接口
 
 1.9.34 fix: fix stock_zh_a_tick_tx_js interface
-    
+
     1. 修复 stock_zh_a_tick_tx_js 接口
 
 1.9.33 add: add stock_hk_main_board_spot_em interface
@@ -1660,7 +1664,7 @@
 
 1.9.30 fix: fix stock_a_lg_indicator interface
 
-    1. 修复 stock_a_lg_indicator 接口 
+    1. 修复 stock_a_lg_indicator 接口
 
 1.9.29 fix: fix stock_a_lg_indicator interface
 
@@ -1812,7 +1816,7 @@
     1. 修复 index_zh_a_hist 接口
 
 1.8.94 fix: fix Dockerfile
-    
+
     1. 修复 Dockerfile
 
 1.8.93 fix: fix stock_gdfx_holding_detail_em interface
@@ -2363,7 +2367,7 @@
     1. 新增 option_300etf_min_qvix 接口
 
 1.7.62 add: add option_300etf_qvix interface
-    
+
     1. 新增 option_300etf_qvix 接口
 
 1.7.61 add: add option_50etf_qvix interface
@@ -3687,6 +3691,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.90 fix: fix fund_etf_spot_em interface
 
 1.12.89 fix: fix bond_china_yield interface
 
