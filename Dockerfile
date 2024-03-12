@@ -1,5 +1,5 @@
 # 使用精简镜像，镜像体积从 1.2G 下降为约 400M，提高启动效率，同时升级到 Python 3.11.x 提高 20% 以上性能
-FROM python:3.11-slim-bullseye
+FROM python:3.12-slim-bullseye
 
 # 升级 pip 到最新版
 RUN pip install --upgrade pip
