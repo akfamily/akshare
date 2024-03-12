@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/4/23 17:24
+Date: 2024/3/12 14:00
 Desc: 中国外汇交易中心暨全国银行间同业拆借中心
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场做市报价
 中国外汇交易中心暨全国银行间同业拆借中心-市场数据-债券市场行情-现券市场成交行情
@@ -136,7 +136,7 @@ def bond_spot_deal() -> pd.DataFrame:
 
 
 def bond_china_yield(
-    start_date: str = "20200204", end_date: str = "20210124"
+        start_date: str = "20200204", end_date: str = "20210124"
 ) -> pd.DataFrame:
     """
     中国债券信息网-国债及其他债券收益率曲线
