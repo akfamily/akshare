@@ -1,4 +1,4 @@
-FROM python:3.11-bullseye
+FROM python:3.12-bullseye
 
 # 设定时区
 ENV TZ=Asia/Shanghai
