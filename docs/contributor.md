@@ -38,7 +38,7 @@
 
       接口: stock_zh_a_minute
 
-      目标地址: http://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
+      目标地址: https://finance.sina.com.cn/realstock/company/sh600519/nc.shtml
 
       描述: 新浪财经获取分时数据，目前可以获取 1, 5, 15, 30, 60 分钟的数据频率
 
