@@ -358,6 +358,9 @@ def stock_zh_index_daily_em(
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): -2])
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    # check temp_df data availability before further transformations which may raise errors
+    if temp_df.empty:
+        return pd.DataFrame()
     temp_df.columns = ["date", "open", "close", "high", "low", "volume", "amount", "_"]
     temp_df = temp_df[["date", "open", "close", "high", "low", "volume", "amount"]]
     temp_df["open"] = pd.to_numeric(temp_df["open"], errors="coerce")

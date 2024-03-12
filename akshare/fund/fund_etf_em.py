@@ -74,6 +74,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
     r = requests.get(url, timeout=15, params=params)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
+    # TODO: extract 跟踪误差？
     temp_df.rename(
         columns={
             "f12": "代码",
@@ -110,7 +111,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "f21": "流通市值",
             "f20": "总市值",
             "f402": "基金折价率",
-            "f441": "实时估值",
+            "f441": "IOPV实时估值",
             "f297": "数据日期",
             "f124": "更新时间",
         },
@@ -121,7 +122,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "代码",
             "名称",
             "最新价",
-            "实时估值",
+            "IOPV实时估值",
             "基金折价率",
             "涨跌额",
             "涨跌幅",
@@ -158,7 +159,6 @@ def fund_etf_spot_em() -> pd.DataFrame:
         ]
     ]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
-    temp_df["实时估值"] = pd.to_numeric(temp_df["实时估值"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
@@ -179,7 +179,12 @@ def fund_etf_spot_em() -> pd.DataFrame:
     temp_df["买一"] = pd.to_numeric(temp_df["买一"], errors="coerce")
     temp_df["卖一"] = pd.to_numeric(temp_df["卖一"], errors="coerce")
     temp_df["最新份额"] = pd.to_numeric(temp_df["最新份额"], errors="coerce")
-    temp_df["基金折价率"] = pd.to_numeric(temp_df["基金折价率"], errors="coerce")
+    temp_df["IOPV实时估值"] = pd.to_numeric(
+        temp_df["IOPV实时估值"], errors="coerce"
+    )
+    temp_df["基金折价率"] = pd.to_numeric(
+        temp_df["基金折价率"], errors="coerce"
+    )
     temp_df["主力净流入-净额"] = pd.to_numeric(
         temp_df["主力净流入-净额"], errors="coerce"
     )
@@ -276,7 +281,9 @@ def fund_etf_hist_em(
             data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
-    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
+    temp_df = pd.DataFrame(
+        [item.split(",") for item in data_json["data"]["klines"]]
+    )
     temp_df.columns = [
         "日期",
         "开盘",
