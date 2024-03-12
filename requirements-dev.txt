@@ -23,4 +23,4 @@ sphinx_rtd_theme>=1.0.0
 mplfinance>=0.12.7a17
 pyarrow>=15.0.0
 black[d]
-pre-commit
+pre-commit>=3.6.2
