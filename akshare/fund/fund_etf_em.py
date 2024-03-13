@@ -65,8 +65,8 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "f12,f13,f14,f15,f16,f17,f18,f20,f21,"
             "f23,f24,f25,f22,f11,f30,f31,f32,f33,"
             "f34,f35,f38,f62,f63,f64,f65,f66,f69,"
-            "f72,f75,f78,f81,f84,f87,f128,f136,"
-            "f115,f152,f184,f297,f402,f441"
+            "f72,f75,f78,f81,f84,f87,f115,f124,f128,"
+            "f136,f152,f184,f297,f402,f441"
         ),
         "_": "1672806290972",
     }
@@ -111,6 +111,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "f402": "基金折价率",
             "f441": "实时估值",
             "f297": "数据日期",
+            "f124": "更新时间",
         },
         inplace=True,
     )
@@ -152,6 +153,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
             "流通市值",
             "总市值",
             "数据日期",
+            "更新时间",
         ]
     ]
     temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
@@ -211,6 +213,11 @@ def fund_etf_spot_em() -> pd.DataFrame:
     )
     temp_df["数据日期"] = pd.to_datetime(
         temp_df["数据日期"], format="%Y%m%d", errors="coerce"
+    )
+    temp_df["更新时间"] = (
+        pd.to_datetime(temp_df["更新时间"], unit="s", errors="coerce")
+        .dt.tz_localize("UTC")
+        .dt.tz_convert("Asia/Shanghai")
     )
 
     return temp_df
