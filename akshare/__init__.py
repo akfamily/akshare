@@ -2703,9 +2703,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.88 fix: fix fund_etf_spot_em interface
 1.12.89 fix: fix bond_china_yield interface
 1.12.90 fix: fix fund_etf_spot_em interface
+1.12.91 add: add stock_info_global_em interface
 """
 
-__version__ = "1.12.90"
+__version__ = "1.12.91"
 __author__ = "AKFamily"
 
 import sys
@@ -2726,6 +2727,18 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+东方财富-财经早餐
+"""
+from akshare.stock_feature.stock_info import (
+    stock_info_cjzc_em,
+    stock_info_global_em,
+    stock_info_global_ths,
+    stock_info_global_futu,
+    stock_info_global_sina,
+    stock_info_global_cls
+)
 
 """
 期货交易-参数汇总查询
@@ -3705,14 +3718,6 @@ from akshare.stock_feature.stock_gdhs import (
 两网及退市
 """
 from akshare.stock.stock_stop import stock_staq_net_stop
-
-"""
-每日快讯数据
-"""
-
-from akshare.stock_feature.stock_cls_alerts import (
-    stock_telegraph_cls,
-)
 
 """
 涨停板行情
