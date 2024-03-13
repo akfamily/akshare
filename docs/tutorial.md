@@ -1083,8 +1083,6 @@
  "stock_industry_change_cninfo"  # 巨潮资讯-上市公司行业归属的变动情况
  # 公司股本变动
  "stock_share_change_cninfo"  # 巨潮资讯-公司股本变动
- # 资讯-财联社-电报
- "stock_telegraph_cls"  # 资讯-财联社-电报
  # 上海金属网
  "futures_news_shmet"  # 上海金属网-快讯
  # 分红配股
@@ -1245,6 +1243,13 @@
  "futures_contract_info_czce"  # 郑州商品交易所-期货合约信息
  "futures_contract_info_gfex"  # 广州期货交易所-期货合约信息
  "futures_contract_info_cffex"  # 中国金融期货交易所-期货合约信息
+ # 资讯数据
+ "stock_info_cjzc_em"  # 资讯数据-财经早餐-东方财富
+ "stock_info_global_em"  # 资讯数据-东方财富
+ "stock_info_global_sina"  # 资讯数据-新浪财经
+ "stock_info_global_futu"  # 资讯数据-富途牛牛
+ "stock_info_global_ths"  # 资讯数据-同花顺
+ "stock_info_global_cls"  # 资讯数据-财联社
 ```
 
 ## 案例演示
