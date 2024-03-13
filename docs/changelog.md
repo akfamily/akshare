@@ -4,6 +4,7 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.12.91    | stock_telegraph_cls                         | stock_info_global_cls                       | 20240313 |
 | 1.12.11    | stock_zh_index_spot                         | stock_zh_index_spot_sina                    | 20240104 |
 | 1.11.64    | futures_sgx_daily                           | futures_settlement_price_sgx                | 20231108 |
 | 1.11.61    | fund_manager                                | fund_manager_em                             | 20231105 |
@@ -70,6 +71,16 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明详情
+
+1.12.91 add: add stock_info_global_em interface
+
+    1. 新增 stock_info_global_em 接口
+    1. 新增 stock_info_cjzc_em 接口
+    1. 新增 stock_info_global_sina 接口
+    1. 新增 stock_info_global_futu 接口
+    1. 新增 stock_info_global_ths 接口
+    1. 新增 stock_info_global_cls 接口
+    1. 修复 fund_etf_spot_em 接口
 
 1.12.90 fix: fix fund_etf_spot_em interface
 
@@ -3691,6 +3702,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.91 add: add stock_info_global_em interface
 
 1.12.90 fix: fix fund_etf_spot_em interface
 
