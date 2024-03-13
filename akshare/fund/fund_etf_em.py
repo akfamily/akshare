@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/11 16:40
+Date: 2024/3/13 21:30
 Desc: 东方财富-ETF行情
 https://quote.eastmoney.com/sh513500.html
 """
+
 from functools import lru_cache
 
 import pandas as pd
@@ -178,9 +179,7 @@ def fund_etf_spot_em() -> pd.DataFrame:
     temp_df["买一"] = pd.to_numeric(temp_df["买一"], errors="coerce")
     temp_df["卖一"] = pd.to_numeric(temp_df["卖一"], errors="coerce")
     temp_df["最新份额"] = pd.to_numeric(temp_df["最新份额"], errors="coerce")
-    temp_df["基金折价率"] = pd.to_numeric(
-        temp_df["基金折价率"], errors="coerce"
-    )
+    temp_df["基金折价率"] = pd.to_numeric(temp_df["基金折价率"], errors="coerce")
     temp_df["主力净流入-净额"] = pd.to_numeric(
         temp_df["主力净流入-净额"], errors="coerce"
     )
@@ -277,9 +276,7 @@ def fund_etf_hist_em(
             data_json = r.json()
     if not (data_json["data"] and data_json["data"]["klines"]):
         return pd.DataFrame()
-    temp_df = pd.DataFrame(
-        [item.split(",") for item in data_json["data"]["klines"]]
-    )
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
         "日期",
         "开盘",
@@ -339,6 +336,7 @@ def fund_etf_hist_min_em(
             "159981": "0",
             "159985": "0",
             "511090": "1",
+            "511220": "1",
         }
     )
     adjust_map = {
@@ -479,7 +477,7 @@ if __name__ == "__main__":
     print(fund_etf_hist_em_df)
 
     fund_etf_hist_min_em_df = fund_etf_hist_min_em(
-        symbol="511090",
+        symbol="511220",
         period="5",
         adjust="hfq",
         start_date="2024-03-11 09:32:00",
