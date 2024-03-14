@@ -6,7 +6,7 @@
 
 **本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源。**
 
-![](https://github.com/akfamily/akshare/blob/main/assets/images/AKShare_logo.jpg)
+![](https://github.com/akfamily/akshare/blob/main/assets/images/akshare_logo.jpg)
 
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
 [![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
@@ -29,7 +29,7 @@
 
 - Documentation: [中文文档](https://akshare.akfamily.xyz/)
 
-![](https://github.com/akfamily/akshare/blob/main/assets/images/AKShare.svg)
+![](https://github.com/akfamily/akshare/blob/main/assets/images/akshare.svg)
 
 ## Installation
 
