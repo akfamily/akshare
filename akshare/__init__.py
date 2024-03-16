@@ -2705,9 +2705,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.90 fix: fix fund_etf_spot_em interface
 1.12.91 add: add stock_info_global_em interface
 1.12.92 fix: fix fund_etf_hist_min_em interface
+1.12.93 fix: fix bond_debt_nafmii interface
 """
 
-__version__ = "1.12.92"
+__version__ = "1.12.93"
 __author__ = "AKFamily"
 
 import sys
@@ -5049,7 +5050,7 @@ from akshare.futures.futures_inventory_em import futures_inventory_em
 """
 中国银行间市场交易商协会
 """
-from akshare.bond.bond_bank import get_bond_bank
+from akshare.bond.bond_nafmii import bond_debt_nafmii
 
 """
 奇货可查-工具模块
