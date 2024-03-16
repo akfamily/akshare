@@ -44,8 +44,8 @@
  "get_qhkc_fund_position_change"  # 获取奇货可查-资金-净持仓变化分布数据
  "get_qhkc_tool_foreign"  # 获取奇货可查-工具-外盘比价数据
  "get_qhkc_tool_gdp"  # 获取奇货可查-工具-各地区经济数据
- # 中国银行间市场交易所数据
- "get_bond_bank"  # 获取中国银行间市场交易商协会-债券数据
+ # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
+ "bond_debt_nafmii"  # 中国银行间市场交易商协会-非金融企业债务融资工具注册信息系统
  # 提供英为财情数据接口
  "index_investing_global"  # 提供英为财情-股票指数-全球股指与期货指数数据
  "bond_investing_global"  # 提供英为财情-债券数据-全球政府债券行情与收益率数据
