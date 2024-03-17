@@ -7,6 +7,7 @@ Desc: 港股股票指数数据-新浪-东财
 https://finance.sina.com.cn/realstock/company/sz399552/nc.shtml
 https://quote.eastmoney.com/gb/zsHSTECF2L.html
 """
+
 import re
 
 import pandas as pd
@@ -112,7 +113,7 @@ def stock_hk_index_spot_sina() -> pd.DataFrame:
 def stock_hk_index_daily_sina(symbol: str = "CES100") -> pd.DataFrame:
     """
     新浪财经-港股指数-历史行情数据
-    http://stock.finance.sina.com.cn/hkstock/quotes/CES100.html
+    https://stock.finance.sina.com.cn/hkstock/quotes/CES100.html
     :param symbol: CES100, 港股指数代码
     :type symbol: str
     :return: 历史行情数据
@@ -220,18 +221,21 @@ def stock_hk_index_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
     :return: 指数数据
     :rtype: pandas.DataFrame
     """
-    stock_hk_index_spot_em_df = stock_hk_index_spot_em()
-    stock_hk_index_spot_em_df = stock_hk_index_spot_em_df[
-        stock_hk_index_spot_em_df["代码"] == symbol
-    ]
-    market_map = (
-        stock_hk_index_spot_em_df["内部编号"].astype(str)
-        + "."
-        + stock_hk_index_spot_em_df["代码"]
+    __stock_hk_index_spot_em_df = stock_hk_index_spot_em()
+    symbol_code_dict = dict(
+        zip(
+            __stock_hk_index_spot_em_df["代码"], __stock_hk_index_spot_em_df["内部编号"]
+        )
     )
-    url = "http://push2his.eastmoney.com/api/qt/stock/kline/get"
+    symbol_code_dict.update(
+        {
+            "HSAHP": "100",
+        }
+    )
+    symbol_str = symbol_code_dict[symbol] + "." + symbol
+    url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
-        "secid": market_map.values[0],
+        "secid": symbol_str,
         "klt": "101",  # 日频率
         "fqt": "1",
         "lmt": "10000",
@@ -279,5 +283,5 @@ if __name__ == "__main__":
     stock_hk_index_spot_em_df = stock_hk_index_spot_em()
     print(stock_hk_index_spot_em_df)
 
-    stock_zh_index_daily_em_df = stock_hk_index_daily_em(symbol="HSTECF2L")
+    stock_zh_index_daily_em_df = stock_hk_index_daily_em(symbol="HSAHP")
     print(stock_zh_index_daily_em_df)
