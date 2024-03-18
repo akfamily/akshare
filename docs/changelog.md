@@ -4,6 +4,8 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.12.95    | futures_hog_rank                            | futures_hog_cost                            | 20240318 |
+| 1.12.95    | futures_hog_info                            | futures_hog_core                            | 20240318 |
 | 1.12.93    | get_bond_bank                               | bond_debt_nafmii                            | 20240316 |
 | 1.12.91    | stock_telegraph_cls                         | stock_info_global_cls                       | 20240313 |
 | 1.12.11    | stock_zh_index_spot                         | stock_zh_index_spot_sina                    | 20240104 |
@@ -72,6 +74,14 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明详情
+
+1.12.95 add: add futures_hog_core interface
+
+    1. 新增 futures_hog_core 接口
+    2. 新增 futures_hog_cost 接口
+    3. 新增 futures_hog_supply 接口
+    4. 移除 futures_hog_info 接口
+    5. 新增 futures_hog_rank 接口
 
 1.12.94 fix: fix stock_hk_index_daily_em interface
 
@@ -3716,6 +3726,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.95 add: add futures_hog_core interface
 
 1.12.94 fix: fix stock_hk_index_daily_em interface
 
