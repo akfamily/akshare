@@ -813,8 +813,9 @@
  "macro_australia_ppi_quarterly"  # 生产者物价指数季率
  "macro_australia_retail_rate_monthly"  # 零售销售月率
  # 养猪数据中心
- "futures_hog_info"  # 生猪信息
- "futures_hog_rank"  # 生猪价格排行
+ "futures_hog_core"  # 生猪信息-核心数据
+ "futures_hog_cost"  # 生猪信息-成本维度
+ "futures_hog_supply"  # 生猪信息-供应维度
  # 宏观-加拿大
  "macro_canada_new_house_rate"  # 新屋开工
  "macro_canada_unemployment_rate"  # 失业率
