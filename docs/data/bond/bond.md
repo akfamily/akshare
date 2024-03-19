@@ -1449,6 +1449,8 @@ print(bond_cb_jsl_df)
 | 规模    | float64 | 注意单位: 亿 |
 | 剩余规模  | float64 | -       |
 | 转股起始日 | object  | -       |
+| 最后交易日 | object  | -       |
+| 到期日   | object  | -       |
 | 转股价   | float64 | -       |
 | 强赎触发比 | int64   | 注意单位: % |
 | 强赎触发价 | float64 | -       |
