@@ -223,8 +223,8 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
             "redeem_count_days": "-",
             "redeem_tc": "强赎条款",
             "sprice": "正股价",
-            "delist_dt": "-",
-            "maturity_dt": "-",
+            "delist_dt": "最后交易日",
+            "maturity_dt": "到期日",
             "redeem_icon": "强赎状态",
             "redeem_orders": "-",
             "at_maturity": "-",
@@ -245,6 +245,8 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
             "规模",
             "剩余规模",
             "转股起始日",
+            "最后交易日",
+            "到期日",
             "转股价",
             "强赎触发比",
             "强赎触发价",
@@ -259,6 +261,8 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
     temp_df["规模"] = pd.to_numeric(temp_df["规模"], errors="coerce")
     temp_df["剩余规模"] = pd.to_numeric(temp_df["剩余规模"], errors="coerce")
     temp_df["转股起始日"] = pd.to_datetime(temp_df["转股起始日"]).dt.date
+    temp_df["最后交易日"] = pd.to_datetime(temp_df["最后交易日"]).dt.date
+    temp_df["到期日"] = pd.to_datetime(temp_df["到期日"]).dt.date
     temp_df["转股价"] = pd.to_numeric(temp_df["转股价"], errors="coerce")
     temp_df["强赎触发比"] = pd.to_numeric(temp_df["强赎触发比"].str.strip("%"), errors="coerce")
     temp_df["强赎触发价"] = pd.to_numeric(temp_df["强赎触发价"], errors="coerce")
