@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/3 20:18
+Date: 2024/3/20 15:00
 Desc: 东方财富-LOF 行情
 https://quote.eastmoney.com/center/gridlist.html#fund_lof
 https://quote.eastmoney.com/sz166009.html
 """
+
 from functools import lru_cache
 
 import pandas as pd
@@ -61,7 +62,8 @@ def fund_lof_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
         "fs": "b:MK0404,b:MK0405,b:MK0406,b:MK0407",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,"
+        "f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1672806290972",
     }
     r = requests.get(url, params=params)
@@ -243,7 +245,7 @@ def fund_lof_hist_min_em(
             "最低",
             "成交量",
             "成交额",
-            "最新价",
+            "均价",
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
@@ -254,7 +256,7 @@ def fund_lof_hist_min_em(
         temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
         temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
         temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+        temp_df["均价"] = pd.to_numeric(temp_df["均价"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         return temp_df
     else:
@@ -353,9 +355,9 @@ if __name__ == "__main__":
 
     fund_lof_hist_min_em_df = fund_lof_hist_min_em(
         symbol="166009",
-        period="5",
-        adjust="hfq",
-        start_date="2023-07-01 09:32:00",
-        end_date="2023-07-04 14:40:00",
+        period="1",
+        adjust="",
+        start_date="2024-03-20 09:30:00",
+        end_date="2024-03-20 14:40:00",
     )
     print(fund_lof_hist_min_em_df)
