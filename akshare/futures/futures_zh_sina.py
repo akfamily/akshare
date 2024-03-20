@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/23 16:00
+Date: 2024/3/20 16:00
 Desc: 新浪财经-国内期货-实时数据获取
-http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
+https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_3
 P.S. 注意采集速度, 容易封禁 IP, 如果不能访问请稍后再试
 """
+
 import json
 import time
 from functools import lru_cache
@@ -27,15 +28,17 @@ from akshare.utils import demjson
 def futures_symbol_mark() -> pd.DataFrame:
     """
     期货的品种和代码映射
-    http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js
+    https://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js
     :return: 期货的品种和代码映射
     :rtype: pandas.DataFrame
     """
-    url = "http://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
+    url = (
+        "https://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
+    )
     r = requests.get(url)
     r.encoding = "gb2312"
     data_text = r.text
-    raw_json = data_text[data_text.find("{"): data_text.find("}") + 1]
+    raw_json = data_text[data_text.find("{") : data_text.find("}") + 1]
     data_json = demjson.decode(raw_json)
     czce_mark_list = [item[1] for item in data_json["czce"][1:]]
     dce_mark_list = [item[1] for item in data_json["dce"][1:]]
@@ -43,11 +46,11 @@ def futures_symbol_mark() -> pd.DataFrame:
     cffex_mark_list = [item[1] for item in data_json["cffex"][1:]]
     gfex_mark_list = [item[1] for item in data_json["gfex"][1:]]
     all_mark_list = (
-            czce_mark_list
-            + dce_mark_list
-            + shfe_mark_list
-            + cffex_mark_list
-            + gfex_mark_list
+        czce_mark_list
+        + dce_mark_list
+        + shfe_mark_list
+        + cffex_mark_list
+        + gfex_mark_list
     )
 
     czce_market_name_list = [data_json["czce"][0]] * len(czce_mark_list)
@@ -56,11 +59,11 @@ def futures_symbol_mark() -> pd.DataFrame:
     cffex_market_name_list = [data_json["cffex"][0]] * len(cffex_mark_list)
     gfex_market_name_list = [data_json["gfex"][0]] * len(gfex_mark_list)
     all_market_name_list = (
-            czce_market_name_list
-            + dce_market_name_list
-            + shfe_market_name_list
-            + cffex_market_name_list
-            + gfex_market_name_list
+        czce_market_name_list
+        + dce_market_name_list
+        + shfe_market_name_list
+        + cffex_market_name_list
+        + gfex_market_name_list
     )
 
     czce_symbol_list = [item[0] for item in data_json["czce"][1:]]
@@ -69,11 +72,11 @@ def futures_symbol_mark() -> pd.DataFrame:
     cffex_symbol_list = [item[0] for item in data_json["cffex"][1:]]
     gfex_symbol_list = [item[0] for item in data_json["gfex"][1:]]
     all_symbol_list = (
-            czce_symbol_list
-            + dce_symbol_list
-            + shfe_symbol_list
-            + cffex_symbol_list
-            + gfex_symbol_list
+        czce_symbol_list
+        + dce_symbol_list
+        + shfe_symbol_list
+        + cffex_symbol_list
+        + gfex_symbol_list
     )
 
     temp_df = pd.DataFrame([all_market_name_list, all_symbol_list, all_mark_list]).T
@@ -88,7 +91,7 @@ def futures_symbol_mark() -> pd.DataFrame:
 def futures_zh_realtime(symbol: str = "白糖") -> pd.DataFrame:
     """
     期货品种当前时刻所有可交易的合约实时数据
-    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+    https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: 品种名称；可以通过 ak.futures_symbol_mark() 获取所有品种命名表
     :type symbol: str
     :return: 期货品种当前时刻所有可交易的合约实时数据
@@ -98,7 +101,7 @@ def futures_zh_realtime(symbol: str = "白糖") -> pd.DataFrame:
     symbol_mark_map = dict(
         zip(_futures_symbol_mark_df["symbol"], _futures_symbol_mark_df["mark"])
     )
-    url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQFuturesData"
+    url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQFuturesData"
     params = {
         "page": "1",
         "sort": "position",
@@ -127,14 +130,16 @@ def futures_zh_realtime(symbol: str = "白糖") -> pd.DataFrame:
     temp_df["changepercent"] = pd.to_numeric(temp_df["changepercent"], errors="coerce")
     temp_df["bid"] = pd.to_numeric(temp_df["bid"], errors="coerce")
     temp_df["ask"] = pd.to_numeric(temp_df["ask"], errors="coerce")
-    temp_df["prevsettlement"] = pd.to_numeric(temp_df["prevsettlement"], errors="coerce")
+    temp_df["prevsettlement"] = pd.to_numeric(
+        temp_df["prevsettlement"], errors="coerce"
+    )
     return temp_df
 
 
 def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
     """
     交易所具体的可交易品种
-    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+    https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex', 'gfex'}
     :type symbol: str
     :return: 交易所具体的可交易品种
@@ -144,7 +149,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
     r.encoding = "gbk"
     data_text = r.text
     data_json = demjson.decode(
-        data_text[data_text.find("{"): data_text.find("};") + 1]
+        data_text[data_text.find("{") : data_text.find("};") + 1]
     )
     if symbol == "czce":
         data_json["czce"].remove("郑州商品交易所")
@@ -166,7 +171,7 @@ def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
 def match_main_contract(symbol: str = "cffex") -> str:
     """
     新浪财经-期货-主力合约
-    http://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
+    https://vip.stock.finance.sina.com.cn/quotes_service/view/qihuohangqing.html#titlePos_1
     :param symbol: choice of {'czce', 'dce', 'shfe', 'cffex', 'gfex'}
     :type symbol: str
     :return: 主力合约的字符串
@@ -186,7 +191,7 @@ def match_main_contract(symbol: str = "cffex") -> str:
             main_contract = data_df[data_df.iloc[:, 3:].duplicated()]
             print(main_contract["symbol"].values[0])
             subscribe_exchange_list.append(main_contract["symbol"].values[0])
-        except:
+        except:  # noqa: E722
             if len(data_df) == 1:
                 subscribe_exchange_list.append(data_df["symbol"].values[0])
                 print(data_df["symbol"].values[0])
@@ -198,9 +203,9 @@ def match_main_contract(symbol: str = "cffex") -> str:
 
 
 def futures_zh_spot(
-        symbol: str = "V2309",
-        market: str = "CF",
-        adjust: str = "0",
+    symbol: str = "V2309",
+    market: str = "CF",
+    adjust: str = "0",
 ) -> pd.DataFrame:
     """
     期货的实时行情数据
@@ -227,8 +232,9 @@ def futures_zh_spot(
         "Host": "hq.sinajs.cn",
         "Pragma": "no-cache",
         "Proxy-Connection": "keep-alive",
-        "Referer": "http://vip.stock.finance.sina.com.cn/",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36",
+        "Referer": "https://vip.stock.finance.sina.com.cn/",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/97.0.4692.71 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     data_df = pd.DataFrame(
@@ -307,7 +313,9 @@ def futures_zh_spot(
             data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
             data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
             data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
-            data_df["current_price"] = pd.to_numeric(data_df["current_price"], errors="coerce")
+            data_df["current_price"] = pd.to_numeric(
+                data_df["current_price"], errors="coerce"
+            )
             data_df["bid_price"] = pd.to_numeric(data_df["bid_price"], errors="coerce")
             data_df["ask_price"] = pd.to_numeric(data_df["ask_price"], errors="coerce")
             data_df["buy_vol"] = pd.to_numeric(data_df["buy_vol"], errors="coerce")
@@ -315,8 +323,12 @@ def futures_zh_spot(
             data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
             data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
             data_df["avg_price"] = pd.to_numeric(data_df["avg_price"], errors="coerce")
-            data_df["last_close"] = pd.to_numeric(data_df["last_close"], errors="coerce")
-            data_df["last_settle_price"] = pd.to_numeric(data_df["last_settle_price"], errors="coerce")
+            data_df["last_close"] = pd.to_numeric(
+                data_df["last_close"], errors="coerce"
+            )
+            data_df["last_settle_price"] = pd.to_numeric(
+                data_df["last_settle_price"], errors="coerce"
+            )
             data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
             return data_df
         else:
@@ -391,7 +403,9 @@ def futures_zh_spot(
             data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
             data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
             data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
-            data_df["current_price"] = pd.to_numeric(data_df["current_price"], errors="coerce")
+            data_df["current_price"] = pd.to_numeric(
+                data_df["current_price"], errors="coerce"
+            )
             data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
             data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
             data_df["amount"] = pd.to_numeric(data_df["amount"], errors="coerce")
@@ -431,7 +445,7 @@ def futures_zh_spot(
                     "_",
                     "_",
                 ]
-            except:
+            except:  # noqa: E722
                 data_df.columns = [
                     "symbol",
                     "time",
@@ -501,7 +515,9 @@ def futures_zh_spot(
             data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
             data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
             data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
-            data_df["current_price"] = pd.to_numeric(data_df["current_price"], errors="coerce")
+            data_df["current_price"] = pd.to_numeric(
+                data_df["current_price"], errors="coerce"
+            )
             data_df["bid_price"] = pd.to_numeric(data_df["bid_price"], errors="coerce")
             data_df["ask_price"] = pd.to_numeric(data_df["ask_price"], errors="coerce")
             data_df["buy_vol"] = pd.to_numeric(data_df["buy_vol"], errors="coerce")
@@ -509,8 +525,12 @@ def futures_zh_spot(
             data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
             data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
             data_df["avg_price"] = pd.to_numeric(data_df["avg_price"], errors="coerce")
-            data_df["last_close"] = pd.to_numeric(data_df["last_close"], errors="coerce")
-            data_df["last_settle_price"] = pd.to_numeric(data_df["last_settle_price"], errors="coerce")
+            data_df["last_close"] = pd.to_numeric(
+                data_df["last_close"], errors="coerce"
+            )
+            data_df["last_settle_price"] = pd.to_numeric(
+                data_df["last_settle_price"], errors="coerce"
+            )
             data_df.dropna(subset=["current_price"], ignore_index=True, inplace=True)
             return data_df
         else:
@@ -582,7 +602,9 @@ def futures_zh_spot(
             data_df["open"] = pd.to_numeric(data_df["open"], errors="coerce")
             data_df["high"] = pd.to_numeric(data_df["high"], errors="coerce")
             data_df["low"] = pd.to_numeric(data_df["low"], errors="coerce")
-            data_df["current_price"] = pd.to_numeric(data_df["current_price"], errors="coerce")
+            data_df["current_price"] = pd.to_numeric(
+                data_df["current_price"], errors="coerce"
+            )
             data_df["hold"] = pd.to_numeric(data_df["hold"], errors="coerce")
             data_df["volume"] = pd.to_numeric(data_df["volume"], errors="coerce")
             data_df["amount"] = pd.to_numeric(data_df["amount"], errors="coerce")
@@ -636,7 +658,10 @@ def futures_zh_daily_sina(symbol: str = "V2306") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     date = "20210412"
-    url = "https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_V21052021_4_12=/InnerFuturesNewService.getDailyKLine"
+    url = (
+        "https://stock2.finance.sina.com.cn/futures/api/jsonp.php/var%20_V21052021_4_12="
+        "/InnerFuturesNewService.getDailyKLine"
+    )
     params = {
         "symbol": symbol,
         "type": "_".join([date[:4], date[4:6], date[6:]]),
@@ -667,9 +692,7 @@ if __name__ == "__main__":
     match_main_contract_df = match_main_contract(symbol="gfex")
     print(match_main_contract_df)
 
-    futures_zh_spot_df = futures_zh_spot(
-        symbol="V2405,V2409", market="CF", adjust="0"
-    )
+    futures_zh_spot_df = futures_zh_spot(symbol="V2405,V2409", market="CF", adjust="0")
     print(futures_zh_spot_df)
 
     futures_zh_spot_df = futures_zh_spot(symbol="V2405", market="CF", adjust="0")
