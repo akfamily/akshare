@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/6/8 14:05
+Date: 2024/3/20 15:00
 Desc: 债券-集思录-可转债
 集思录：https://app.jisilu.cn/data/cbnew/#cb
 """
+
+from io import StringIO
 import pandas as pd
 import requests
 
@@ -51,7 +53,8 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-origin",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/91.0.4472.164 Safari/537.36",
         "x-requested-with": "XMLHttpRequest",
     }
     params = {
@@ -68,10 +71,10 @@ def bond_cb_jsl(cookie: str = None) -> pd.DataFrame:
         "market": "",
         "rating_cd": "",
         "is_search": "N",
-        "market_cd[]": "shmb",
-        "market_cd[]": "shkc",
-        "market_cd[]": "szmb",
-        "market_cd[]": "szcy",
+        "market_cd[]": "shmb",  # noqa: F601
+        "market_cd[]": "shkc",  # noqa: F601
+        "market_cd[]": "szmb",  # noqa: F601
+        "market_cd[]": "szcy",  # noqa: F601
         "btype": "",
         "listed": "Y",
         "qflag": "N",
@@ -184,7 +187,8 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/101.0.4951.67 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {
@@ -260,11 +264,17 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
     temp_df["现价"] = pd.to_numeric(temp_df["现价"], errors="coerce")
     temp_df["规模"] = pd.to_numeric(temp_df["规模"], errors="coerce")
     temp_df["剩余规模"] = pd.to_numeric(temp_df["剩余规模"], errors="coerce")
-    temp_df["转股起始日"] = pd.to_datetime(temp_df["转股起始日"]).dt.date
-    temp_df["最后交易日"] = pd.to_datetime(temp_df["最后交易日"]).dt.date
-    temp_df["到期日"] = pd.to_datetime(temp_df["到期日"]).dt.date
+    temp_df["转股起始日"] = pd.to_datetime(
+        temp_df["转股起始日"], errors="coerce"
+    ).dt.date
+    temp_df["最后交易日"] = pd.to_datetime(
+        temp_df["最后交易日"], errors="coerce"
+    ).dt.date
+    temp_df["到期日"] = pd.to_datetime(temp_df["到期日"], errors="coerce").dt.date
     temp_df["转股价"] = pd.to_numeric(temp_df["转股价"], errors="coerce")
-    temp_df["强赎触发比"] = pd.to_numeric(temp_df["强赎触发比"].str.strip("%"), errors="coerce")
+    temp_df["强赎触发比"] = pd.to_numeric(
+        temp_df["强赎触发比"].str.strip("%"), errors="coerce"
+    )
     temp_df["强赎触发价"] = pd.to_numeric(temp_df["强赎触发价"], errors="coerce")
     temp_df["正股价"] = pd.to_numeric(temp_df["正股价"], errors="coerce")
     temp_df["强赎价"] = pd.to_numeric(temp_df["强赎价"], errors="coerce")
@@ -272,7 +282,13 @@ def bond_cb_redeem_jsl() -> pd.DataFrame:
         r"^.*?(\d{1,2}\/\d{1,2} \| \d{1,2}).*?$", r"\1", regex=True
     )
     temp_df["强赎状态"] = temp_df["强赎状态"].map(
-        {"R": "已公告强赎", "O": "公告要强赎", "G": "公告不强赎", "B": "已满足强赎条件", "": ""}
+        {
+            "R": "已公告强赎",
+            "O": "公告要强赎",
+            "G": "公告不强赎",
+            "B": "已满足强赎条件",
+            "": "",
+        }
     )
     return temp_df
 
@@ -293,12 +309,16 @@ def bond_cb_adj_logs_jsl(symbol: str = "128013") -> pd.DataFrame:
         # 1. 该可转债没有转股价调整记录，服务端返回文本 '暂无数据'
         # 2. 无效可转债代码，服务端返回 {"timestamp":1639565628,"isError":1,"msg":"无效代码格式"}
         # 以上两种情况，返回空的 DataFrame
-        return
+        return pd.DataFrame()
     else:
-        temp_df = pd.read_html(data_text, parse_dates=True)[0]
+        temp_df = pd.read_html(StringIO(data_text), parse_dates=True)[0]
         temp_df.columns = [item.replace(" ", "") for item in temp_df.columns]
-        temp_df["下修前转股价"] = pd.to_numeric(temp_df["下修前转股价"], errors="coerce")
-        temp_df["下修后转股价"] = pd.to_numeric(temp_df["下修后转股价"], errors="coerce")
+        temp_df["下修前转股价"] = pd.to_numeric(
+            temp_df["下修前转股价"], errors="coerce"
+        )
+        temp_df["下修后转股价"] = pd.to_numeric(
+            temp_df["下修后转股价"], errors="coerce"
+        )
         temp_df["下修底价"] = pd.to_numeric(temp_df["下修底价"], errors="coerce")
         temp_df["股东大会日"] = pd.to_datetime(
             temp_df["股东大会日"], format="%Y-%m-%d", errors="coerce"
