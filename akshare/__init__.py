@@ -2710,9 +2710,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.95 add: add futures_hog_core interface
 1.12.96 fix: fix stock_bid_ask_em interface
 1.12.97 fix: fix stock_zh_a_hist_min_em interface
+1.12.98 fix: fix bond_zh_cov interface
 """
 
-__version__ = "1.12.97"
+__version__ = "1.12.98"
 __author__ = "AKFamily"
 
 import sys
@@ -4455,7 +4456,7 @@ from akshare.option.option_finance_sina import (
 债券-沪深债券
 """
 from akshare.bond.bond_zh_sina import bond_zh_hs_daily, bond_zh_hs_spot
-from akshare.bond.bond_zh_cov_sina import (
+from akshare.bond.bond_zh_cov import (
     bond_zh_hs_cov_daily,
     bond_zh_hs_cov_spot,
     bond_cov_comparison,
