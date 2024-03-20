@@ -368,7 +368,7 @@ def fund_etf_hist_min_em(
             "最低",
             "成交量",
             "成交额",
-            "最新价",
+            "均价",
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
@@ -379,7 +379,7 @@ def fund_etf_hist_min_em(
         temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
         temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
         temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+        temp_df["均价"] = pd.to_numeric(temp_df["均价"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         return temp_df
     else:
@@ -478,9 +478,9 @@ if __name__ == "__main__":
 
     fund_etf_hist_min_em_df = fund_etf_hist_min_em(
         symbol="511220",
-        period="5",
-        adjust="hfq",
-        start_date="2024-03-11 09:32:00",
-        end_date="2024-03-11 17:40:00",
+        period="1",
+        adjust="",
+        start_date="2024-03-20 09:30:00",
+        end_date="2024-03-20 17:40:00",
     )
     print(fund_etf_hist_min_em_df)
