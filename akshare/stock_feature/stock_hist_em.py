@@ -1130,7 +1130,7 @@ def stock_zh_a_hist_min_em(
             "最低",
             "成交量",
             "成交额",
-            "最新价",
+            "均价",
         ]
         temp_df.index = pd.to_datetime(temp_df["时间"])
         temp_df = temp_df[start_date:end_date]
@@ -1141,7 +1141,7 @@ def stock_zh_a_hist_min_em(
         temp_df["最低"] = pd.to_numeric(temp_df["最低"], errors="coerce")
         temp_df["成交量"] = pd.to_numeric(temp_df["成交量"], errors="coerce")
         temp_df["成交额"] = pd.to_numeric(temp_df["成交额"], errors="coerce")
-        temp_df["最新价"] = pd.to_numeric(temp_df["最新价"], errors="coerce")
+        temp_df["均价"] = pd.to_numeric(temp_df["均价"], errors="coerce")
         temp_df["时间"] = pd.to_datetime(temp_df["时间"]).astype(str)
         return temp_df
     else:
@@ -1915,7 +1915,7 @@ if __name__ == "__main__":
     )
     print(stock_zh_a_hist_df)
 
-    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="833454", period="1")
+    stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(symbol="603777", period="1")
     print(stock_zh_a_hist_min_em_df)
 
     stock_zh_a_hist_pre_min_em_df = stock_zh_a_hist_pre_min_em(symbol="000001")
@@ -1973,7 +1973,11 @@ if __name__ == "__main__":
     print(stock_us_hist_min_em_df)
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(
-        symbol="000001", period="5", adjust="qfq"
+        symbol="000001",
+        start_date="2024-03-20 09:30:00",
+        end_date="2024-03-20 15:00:00",
+        period="5",
+        adjust="hfq",
     )
     print(stock_zh_a_hist_min_em_df)
 
