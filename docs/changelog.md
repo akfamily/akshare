@@ -75,6 +75,10 @@
 
 ## 更新说明详情
 
+1.12.99 fix: fix index_hog_spot_price interface
+
+    1. 修复 index_hog_spot_price 接口
+
 1.12.98 fix: fix bond_zh_cov interface
 
     1. 修复 bond_zh_cov 接口
@@ -3741,6 +3745,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.12.99 fix: fix index_hog_spot_price interface
 
 1.12.98 fix: fix bond_zh_cov interface
 
