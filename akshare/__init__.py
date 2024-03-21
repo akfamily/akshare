@@ -2711,9 +2711,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.96 fix: fix stock_bid_ask_em interface
 1.12.97 fix: fix stock_zh_a_hist_min_em interface
 1.12.98 fix: fix bond_zh_cov interface
+1.12.99 fix: fix index_hog_spot_price interface
 """
 
-__version__ = "1.12.98"
+__version__ = "1.12.99"
 __author__ = "AKFamily"
 
 import sys
