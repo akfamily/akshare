@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/7 22:30
+Date: 2024/3/22 18:30
 Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
@@ -1192,11 +1192,11 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
             "f225": "今日排行榜-今日排名",
             "f3": "今日排行榜-今日涨跌",
             "f165": "5日排行榜-主力净占比",
-            "f263": "5日排行榜-今日排名",
-            "f109": "5日排行榜-今日涨跌",
+            "f263": "5日排行榜-5日排名",
+            "f109": "5日排行榜-5日涨跌",
             "f175": "10日排行榜-主力净占比",
-            "f264": "10日排行榜-今日排名",
-            "f160": "10日排行榜-今日涨跌",
+            "f264": "10日排行榜-10日排名",
+            "f160": "10日排行榜-10日涨跌",
             "f100": "所属板块",
         },
         inplace=True,
@@ -1211,11 +1211,11 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
             "今日排行榜-今日排名",
             "今日排行榜-今日涨跌",
             "5日排行榜-主力净占比",
-            "5日排行榜-今日排名",
-            "5日排行榜-今日涨跌",
+            "5日排行榜-5日排名",
+            "5日排行榜-5日涨跌",
             "10日排行榜-主力净占比",
-            "10日排行榜-今日排名",
-            "10日排行榜-今日涨跌",
+            "10日排行榜-10日排名",
+            "10日排行榜-10日涨跌",
             "所属板块",
         ]
     ]
@@ -1233,19 +1233,19 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
         temp_df["5日排行榜-主力净占比"], errors="coerce"
     )
     temp_df["5日排行榜-今日排名"] = pd.to_numeric(
-        temp_df["5日排行榜-今日排名"], errors="coerce"
+        temp_df["5日排行榜-5日排名"], errors="coerce"
     )
     temp_df["5日排行榜-今日涨跌"] = pd.to_numeric(
-        temp_df["5日排行榜-今日涨跌"], errors="coerce"
+        temp_df["5日排行榜-5日涨跌"], errors="coerce"
     )
     temp_df["10日排行榜-主力净占比"] = pd.to_numeric(
         temp_df["10日排行榜-主力净占比"], errors="coerce"
     )
     temp_df["10日排行榜-今日排名"] = pd.to_numeric(
-        temp_df["10日排行榜-今日排名"], errors="coerce"
+        temp_df["10日排行榜-10日排名"], errors="coerce"
     )
     temp_df["10日排行榜-今日涨跌"] = pd.to_numeric(
-        temp_df["10日排行榜-今日涨跌"], errors="coerce"
+        temp_df["10日排行榜-10日涨跌"], errors="coerce"
     )
     return temp_df
 
