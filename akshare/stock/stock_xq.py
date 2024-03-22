@@ -1,10 +1,11 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/7 22:30
+Date: 2024/3/23 22:00
 Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
+
 import re
 
 import pandas as pd
@@ -12,8 +13,8 @@ import requests
 
 
 def stock_individual_spot_xq(
-        symbol: str = "SH600000",
-        timeout: float = None,
+    symbol: str = "SH600000",
+    timeout: float = None,
 ) -> pd.DataFrame:
     """
     雪球-行情中心-个股
@@ -28,8 +29,8 @@ def stock_individual_spot_xq(
     url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
-                      "80.0.3987.149 Safari/537.36",
-        "Cookie": "xqat=52dfb79aed5f2cdd1e7c2cfc56054ac1f5b77fc3",
+        "80.0.3987.149 Safari/537.36",
+        "Cookie": "xqat=01b99d82fffd2faf8b614e98a00cbb35d6c7ddcf",
     }
     r = requests.get(url, headers=headers, timeout=timeout)
     column_name_map = {
