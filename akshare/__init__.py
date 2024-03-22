@@ -2714,9 +2714,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.12.99 fix: fix index_hog_spot_price interface
 1.13.1 fix: fix futures_spot_stock interface
 1.13.2 add: add stock_main_fund_flow interface
+1.13.3 fix: fix stock_main_fund_flow interface
 """
 
-__version__ = "1.13.2"
+__version__ = "1.13.3"
 __author__ = "AKFamily"
 
 import sys
