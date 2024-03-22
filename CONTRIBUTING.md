@@ -1,5 +1,5 @@
 <!-- omit in toc -->
-# Contributing to akshare
+# Contributing to AKShare
 
 First off, thanks for taking the time to contribute! ❤️
 
@@ -29,7 +29,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[akshare Code of Conduct](https://github.com/akfamily/akshareblob/master/CODE_OF_CONDUCT.md).
+[AKShare Code of Conduct](https://github.com/akfamily/akshareblob/master/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to <albertandking@gmail.com>.
 
