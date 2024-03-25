@@ -4,7 +4,7 @@
 
 接口: tool_trade_date_hist_sina
 
-目标地址: https://finance.sina.com.cn/realstock/company/klc_td_sh.txt
+目标地址: https://finance.sina.com.cn
 
 描述: 新浪财经-股票交易日历数据
 
