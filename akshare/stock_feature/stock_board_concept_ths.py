@@ -3,8 +3,9 @@
 """
 Date: 2023/10/15 18:00
 Desc: 同花顺-板块-概念板块
-http://q.10jqka.com.cn/gn/detail/code/301558/
+https://q.10jqka.com.cn/gn/detail/code/301558/
 """
+
 from datetime import datetime
 from functools import lru_cache
 from io import StringIO
@@ -22,7 +23,7 @@ from akshare.utils import demjson
 def stock_board_concept_graph_ths(symbol: str = "通用航空") -> pd.DataFrame:
     """
     同花顺-板块-概念板块-概念图谱
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :param symbol: 板块名称
     :type symbol: str
     :return: 概念图谱
@@ -34,9 +35,10 @@ def stock_board_concept_graph_ths(symbol: str = "通用航空") -> pd.DataFrame:
         .values[0]
         .split("/")[-2]
     )
-    url = f"http://q.10jqka.com.cn/gn/detail/code/{symbol}"
+    url = f"https://q.10jqka.com.cn/gn/detail/code/{symbol}"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
@@ -73,17 +75,18 @@ def _get_file_content_ths(file: str = "ths.js") -> str:
 def stock_board_concept_name_ths() -> pd.DataFrame:
     """
     同花顺-板块-概念板块-概念
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :return: 所有概念板块的名称和链接
     :rtype: pandas.DataFrame
     """
-    url = "http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
+    url = "https://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/1/ajax/1/"
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("ths.js")
     js_code.eval(js_content)
     v_code = js_code.call("v")
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
     r = requests.get(url, headers=headers)
@@ -91,13 +94,14 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     total_page = soup.find(name="span", attrs={"class": "page_info"}).text.split("/")[1]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, int(total_page) + 1), leave=False):
-        url = f"http://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
+        url = f"https://q.10jqka.com.cn/gn/index/field/addtime/order/desc/page/{page}/ajax/1/"
         js_code = py_mini_racer.MiniRacer()
         js_content = _get_file_content_ths("ths.js")
         js_code.eval(js_content)
         v_code = js_code.call("v")
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
         r = requests.get(url, headers=headers)
@@ -121,7 +125,7 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
     big_df.reset_index(inplace=True, drop=True)
 
     # 处理遗漏的板块
-    url = "http://q.10jqka.com.cn/gn/detail/code/301558/"
+    url = "https://q.10jqka.com.cn/gn/detail/code/301558/"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     need_list = [
@@ -149,23 +153,24 @@ def stock_board_concept_name_ths() -> pd.DataFrame:
 def _stock_board_concept_code_ths() -> dict:
     """
     同花顺-板块-概念板块-概念
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :return: 所有概念板块的名称和链接
     :rtype: pandas.DataFrame
     """
     _stock_board_concept_name_ths_df = stock_board_concept_name_ths()
     name_list = _stock_board_concept_name_ths_df["概念名称"].tolist()
     url_list = [
-        item.split("/")[-2] for item in _stock_board_concept_name_ths_df["网址"].tolist()
+        item.split("/")[-2]
+        for item in _stock_board_concept_name_ths_df["网址"].tolist()
     ]
     temp_map = dict(zip(name_list, url_list))
     return temp_map
 
 
-def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataFrame:
+def stock_board_concept_cons_ths(symbol: str = "小米概念") -> pd.DataFrame:
     """
     同花顺-板块-概念板块-成份股
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :param symbol: 板块名称
     :type symbol: str
     :return: 成份股
@@ -182,24 +187,28 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
     js_code.eval(js_content)
     v_code = js_code.call("v")
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/1/ajax/1/code/{symbol}"
+    url = f"https://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/1/ajax/1/code/{symbol}"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
     try:
-        page_num = int(soup.find_all(name="a", attrs={"class": "changePage"})[-1]["page"])
-    except IndexError as e:
+        page_num = int(
+            soup.find_all(name="a", attrs={"class": "changePage"})[-1]["page"]
+        )
+    except IndexError:
         page_num = 1
     big_df = pd.DataFrame()
     for page in tqdm(range(1, page_num + 1), leave=False):
         v_code = js_code.call("v")
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
-        url = f"http://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/{page}/ajax/1/code/{symbol}"
+        url = f"https://q.10jqka.com.cn/gn/detail/field/264648/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -222,7 +231,7 @@ def stock_board_concept_cons_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
 def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataFrame:
     """
     同花顺-板块-概念板块-板块简介
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :param symbol: 板块简介
     :type symbol: str
     :return: 板块简介
@@ -234,9 +243,10 @@ def stock_board_concept_info_ths(symbol: str = "阿里巴巴概念") -> pd.DataF
         .values[0]
         .split("/")[-2]
     )
-    url = f"http://q.10jqka.com.cn/gn/detail/code/{symbol_code}/"
+    url = f"https://q.10jqka.com.cn/gn/detail/code/{symbol_code}/"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, features="lxml")
@@ -258,7 +268,7 @@ def stock_board_concept_hist_ths(
 ) -> pd.DataFrame:
     """
     同花顺-板块-概念板块-指数数据
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :param start_year: 开始年份; e.g., 2019
     :type start_year: str
     :param symbol: 板块简介
@@ -267,9 +277,10 @@ def stock_board_concept_hist_ths(
     :rtype: pandas.DataFrame
     """
     code_map = _stock_board_concept_code_ths()
-    symbol_url = f"http://q.10jqka.com.cn/gn/detail/code/{code_map[symbol]}/"
+    symbol_url = f"https://q.10jqka.com.cn/gn/detail/code/{code_map[symbol]}/"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
     }
     r = requests.get(symbol_url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
@@ -277,17 +288,18 @@ def stock_board_concept_hist_ths(
     big_df = pd.DataFrame()
     current_year = datetime.now().year
     for year in tqdm(range(int(start_year), current_year + 1), leave=False):
-        url = f"http://d.10jqka.com.cn/v4/line/bk_{symbol_code}/01/{year}.js"
+        url = f"https://d.10jqka.com.cn/v4/line/bk_{symbol_code}/01/{year}.js"
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
-            "Referer": "http://q.10jqka.com.cn",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/89.0.4389.90 Safari/537.36",
+            "Referer": "https://q.10jqka.com.cn",
             "Host": "d.10jqka.com.cn",
         }
         r = requests.get(url, headers=headers)
         data_text = r.text
         try:
             demjson.decode(data_text[data_text.find("{") : -1])
-        except:
+        except:  # noqa: E722
             continue
         temp_df = demjson.decode(data_text[data_text.find("{") : -1])
         temp_df = pd.DataFrame(temp_df["data"].split(";"))
@@ -346,8 +358,8 @@ def stock_board_concept_hist_ths(
 def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
     """
     通过输入行业板块或者概念板块的代码获取成份股
-    http://q.10jqka.com.cn/thshy/detail/code/881121/
-    http://q.10jqka.com.cn/gn/detail/code/301558/
+    https://q.10jqka.com.cn/thshy/detail/code/881121/
+    https://q.10jqka.com.cn/gn/detail/code/301558/
     :param symbol: 行业板块或者概念板块的代码
     :type symbol: str
     :return: 行业板块或者概念板块的成份股
@@ -358,30 +370,32 @@ def stock_board_cons_ths(symbol: str = "301558") -> pd.DataFrame:
     js_code.eval(js_content)
     v_code = js_code.call("v")
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/89.0.4389.90 Safari/537.36",
         "Cookie": f"v={v_code}",
     }
-    url = f"http://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
+    url = f"https://q.10jqka.com.cn/thshy/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "lxml")
     url_flag = "thshy"
     if soup.find("td", attrs={"colspan": "14"}):
-        url = f"http://q.10jqka.com.cn/gn/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
+        url = f"https://q.10jqka.com.cn/gn/detail/field/199112/order/desc/page/1/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
         soup = BeautifulSoup(r.text, "lxml")
         url_flag = "gn"
     try:
         page_num = int(soup.find_all("a", attrs={"class": "changePage"})[-1]["page"])
-    except IndexError as e:
+    except IndexError:
         page_num = 1
     big_df = pd.DataFrame()
     for page in tqdm(range(1, page_num + 1), leave=False):
         v_code = js_code.call("v")
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/89.0.4389.90 Safari/537.36",
             "Cookie": f"v={v_code}",
         }
-        url = f"http://q.10jqka.com.cn/{url_flag}/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
+        url = f"https://q.10jqka.com.cn/{url_flag}/detail/field/199112/order/desc/page/{page}/ajax/1/code/{symbol}"
         r = requests.get(url, headers=headers)
         temp_df = pd.read_html(StringIO(r.text))[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -414,7 +428,7 @@ if __name__ == "__main__":
     print(stock_board_concept_info_ths_df)
 
     stock_board_concept_hist_ths_df = stock_board_concept_hist_ths(
-        start_year="2023", symbol="新能源汽车"
+        start_year="2024", symbol="新能源汽车"
     )
     print(stock_board_concept_hist_ths_df)
 
