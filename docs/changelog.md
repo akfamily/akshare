@@ -75,6 +75,10 @@
 
 ## 更新说明详情
 
+1.13.7 add: add futures_fees_info interface
+
+    1. 新增 futures_fees_info 接口
+
 1.13.6 fix: fix stock_board_concept_name_ths interface
 
     1. 修复 stock_board_concept_name_ths 接口
@@ -3771,6 +3775,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.7 add: add futures_fees_info interface
 
 1.13.6 fix: fix stock_board_concept_name_ths interface
 
