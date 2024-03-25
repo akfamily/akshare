@@ -1641,7 +1641,7 @@ print(stock_zh_a_minute_df)
 
 接口: stock_zh_a_hist_min_em
 
-目标地址: http://quote.eastmoney.com/concept/sh603777.html
+目标地址: https://quote.eastmoney.com/concept/sh603777.html
 
 描述: 东方财富网-行情首页-沪深京 A 股-每日分时行情; 该接口只能获取近期的分时数据，注意时间周期的设置
 
