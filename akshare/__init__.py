@@ -2718,9 +2718,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.4 fix: fix stock_individual_spot_xq interface
 1.13.5 fix: fix stock_main_fund_flow interface
 1.13.6 fix: fix stock_board_concept_name_ths interface
+1.13.7 add: add futures_fees_info interface
 """
 
-__version__ = "1.13.6"
+__version__ = "1.13.7"
 __author__ = "AKFamily"
 
 import sys
@@ -3465,6 +3466,7 @@ from akshare.stock.stock_zh_b_sina import (
 期货手续费
 """
 from akshare.futures.futures_comm_qihuo import futures_comm_info
+from akshare.futures.futures_comm_ctp import futures_fees_info
 
 """
 实际控制人持股变动
