@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/22 18:30
+Date: 2024/3/25 12:30
 Desc: 东方财富网-数据中心-资金流向
 https://data.eastmoney.com/zjlx/detail.html
 """
@@ -352,7 +352,7 @@ def stock_market_fund_flow() -> pd.DataFrame:
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
+    json_data = json.loads(text_data[text_data.find("{"): -2])
     content_list = json_data["data"]["klines"]
     temp_df = pd.DataFrame([item.split(",") for item in content_list])
     temp_df.columns = [
@@ -483,7 +483,7 @@ def stock_sector_fund_flow_rank(
     }
     r = requests.get(url, params=params, headers=headers)
     text_data = r.text
-    json_data = json.loads(text_data[text_data.find("{") : -2])
+    json_data = json.loads(text_data[text_data.find("{"): -2])
     temp_df = pd.DataFrame(json_data["data"]["diff"])
     if indicator == "今日":
         temp_df.columns = [
@@ -1232,19 +1232,19 @@ def stock_main_fund_flow(symbol: str = "全部股票") -> pd.DataFrame:
     temp_df["5日排行榜-主力净占比"] = pd.to_numeric(
         temp_df["5日排行榜-主力净占比"], errors="coerce"
     )
-    temp_df["5日排行榜-今日排名"] = pd.to_numeric(
+    temp_df["5日排行榜-5日排名"] = pd.to_numeric(
         temp_df["5日排行榜-5日排名"], errors="coerce"
     )
-    temp_df["5日排行榜-今日涨跌"] = pd.to_numeric(
+    temp_df["5日排行榜-5日涨跌"] = pd.to_numeric(
         temp_df["5日排行榜-5日涨跌"], errors="coerce"
     )
     temp_df["10日排行榜-主力净占比"] = pd.to_numeric(
         temp_df["10日排行榜-主力净占比"], errors="coerce"
     )
-    temp_df["10日排行榜-今日排名"] = pd.to_numeric(
+    temp_df["10日排行榜-10日排名"] = pd.to_numeric(
         temp_df["10日排行榜-10日排名"], errors="coerce"
     )
-    temp_df["10日排行榜-今日涨跌"] = pd.to_numeric(
+    temp_df["10日排行榜-10日涨跌"] = pd.to_numeric(
         temp_df["10日排行榜-10日涨跌"], errors="coerce"
     )
     return temp_df
