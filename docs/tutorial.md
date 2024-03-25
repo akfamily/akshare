@@ -869,6 +869,7 @@
  "stock_hold_management_detail_cninfo"  # 高管持股变动明细
  # 期货手续费
  "futures_comm_info"  # 期货手续费
+ "futures_fees_info"  # 期货交易费用参照表
  # B 股实时行情数据和历史行情数据
  "stock_zh_b_spot"  # B 股实时行情数据
  "stock_zh_b_daily"  # B 股历史行情数据(日频)
