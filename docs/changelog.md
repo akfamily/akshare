@@ -75,6 +75,10 @@
 
 ## 更新说明详情
 
+1.13.9 chore: remove pyarrow deps
+
+    1. 移除 pyarrow 依赖
+
 1.13.8 fix: fix fund_etf_hist_em interface
 
     1. 修复 fund_etf_hist_em 接口
@@ -3779,6 +3783,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.9 chore: remove pyarrow deps
 
 1.13.8 fix: fix fund_etf_hist_em interface
 
