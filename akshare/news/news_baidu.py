@@ -7,6 +7,7 @@ https://gushitong.baidu.com/calendar
 """
 import pandas as pd
 import requests
+from dataclasses import dataclass, field
 
 
 def news_economic_baidu(date: str = "20220502") -> pd.DataFrame:
@@ -125,6 +126,19 @@ def news_trade_notify_suspend_baidu(date: str = "20220513") -> pd.DataFrame:
     return big_df
 
 
+@dataclass
+class _news_trade_notify_dividend_baidu:
+    code:str = field(metadata={"alias": "股票代码"})
+    market:str = field(metadata={"alias": "-"})
+    exchange:str = field(metadata={"alias": "交易所"})
+    name:str = field(metadata={"alias": "股票简称"})
+    diviDate:str = field(metadata={"alias": "除权日"})
+    date:str = field(metadata={"alias": "报告期"})
+    diviCash:str = field(metadata={"alias": "分红"})
+    shareDivide:str = field(metadata={"alias": "送股"})
+    transfer:str = field(metadata={"alias": "转增"})
+    physical:str = field(default="", metadata={"alias": "实物"})
+
 def news_trade_notify_dividend_baidu(date: str = "20220916") -> pd.DataFrame:
     """
     百度股市通-交易提醒-分红派息
@@ -148,8 +162,8 @@ def news_trade_notify_dividend_baidu(date: str = "20220916") -> pd.DataFrame:
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
         if not item["list"] == []:
-            temp_df = pd.DataFrame(item["list"])
-            temp_df.columns = [
+            temp_df = pd.DataFrame(columns=
+            [
                 "股票代码",
                 "-",
                 "交易所",
@@ -160,7 +174,10 @@ def news_trade_notify_dividend_baidu(date: str = "20220916") -> pd.DataFrame:
                 "送股",
                 "转增",
                 "实物",
-            ]
+            ])
+            for i, v in enumerate(item["list"]):
+                temp_df.loc[i] = list(_news_trade_notify_dividend_baidu(**v).__dict__.values())
+
             temp_df = temp_df[
                 [
                     "股票代码",
