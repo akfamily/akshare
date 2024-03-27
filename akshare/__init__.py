@@ -2721,9 +2721,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.7 add: add futures_fees_info interface
 1.13.8 fix: fix fund_etf_hist_em interface
 1.13.9 chore: remove pyarrow deps
+1.13.10 fix: fix news_trade_notify_dividend_baidu interface
 """
 
-__version__ = "1.13.9"
+__version__ = "1.13.10"
 __author__ = "AKFamily"
 
 import sys
