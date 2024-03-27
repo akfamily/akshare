@@ -232,7 +232,7 @@ def stock_hk_index_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
             "HSAHP": "100",
         }
     )
-    symbol_str = symbol_code_dict[symbol] + "." + symbol
+    symbol_str = f'{symbol_code_dict[symbol]}.{symbol}'
     url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "secid": symbol_str,
