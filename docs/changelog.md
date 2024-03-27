@@ -78,6 +78,7 @@
 1.13.10 fix: fix news_trade_notify_dividend_baidu interface
 
     1. 修复 news_trade_notify_dividend_baidu 接口
+    2. 修复 fund_etf_hist_em 接口
 
 1.13.9 chore: remove pyarrow deps
 
