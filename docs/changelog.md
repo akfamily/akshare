@@ -75,6 +75,11 @@
 
 ## 更新说明详情
 
+1.13.11 fix: fix option_minute_em interface
+
+    1. 修复 option_minute_em 接口
+    2. 修复 stock_hk_index_daily_em 接口
+
 1.13.10 fix: fix news_trade_notify_dividend_baidu interface
 
     1. 修复 news_trade_notify_dividend_baidu 接口
@@ -3788,6 +3793,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.11 fix: fix option_minute_em interface
 
 1.13.10 fix: fix news_trade_notify_dividend_baidu interface
 
