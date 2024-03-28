@@ -30,7 +30,8 @@ def stock_zh_a_spot_em() -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": "m:0 t:6,m:0 t:80,m:1 t:2,m:1 t:23,m:0 t:81 s:2048",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,"
+        "f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -144,7 +145,8 @@ def stock_sh_a_spot_em() -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": "m:1 t:2,m:1 t:23",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,"
+        "f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -258,7 +260,8 @@ def stock_sz_a_spot_em() -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": "m:0 t:6,m:0 t:80",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,"
+        "f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -372,7 +375,8 @@ def stock_bj_a_spot_em() -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": "m:0 t:81 s:2048",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24"
+        ",f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -487,7 +491,8 @@ def stock_new_a_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
         "fid": "f26",
         "fs": "m:0 f:8,m:1 f:8",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,"
+        "f25,f26,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -606,7 +611,8 @@ def stock_cy_a_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
         "fs": "m:0 t:80",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,"
+        "f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -721,7 +727,8 @@ def stock_kc_a_spot_em() -> pd.DataFrame:
         "wbp2u": "|0|0|0|web",
         "fid": "f3",
         "fs": "m:1 t:23",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
+        "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -835,7 +842,8 @@ def stock_zh_b_spot_em() -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": "m:0 t:7,m:1 t:3",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20"
+        ",f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1623833739532",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -1282,7 +1290,8 @@ def stock_hk_spot_em() -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": "m:128 t:3,m:128 t:4,m:128 t:1,m:128 t:2",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
+        "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -1371,7 +1380,8 @@ def stock_hk_main_board_spot_em() -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": "m:128 t:3",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
+        "f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -1663,7 +1673,8 @@ def stock_us_spot_em() -> pd.DataFrame:
         "invt": "2",
         "fid": "f3",
         "fs": "m:105,m:106,m:107",
-        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
+        "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,"
+        "f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1624010056945",
     }
     r = requests.get(url, timeout=15, params=params)
@@ -1994,8 +2005,8 @@ if __name__ == "__main__":
         symbol="01611",
         period="1",
         adjust="",
-        start_date="2024-03-20 09:30:00",
-        end_date="2024-03-20 18:32:00",
+        start_date="2024-03-28 09:30:00",
+        end_date="2024-03-28 18:32:00",
     )
     print(stock_hk_hist_min_em_df)
 
