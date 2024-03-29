@@ -4414,7 +4414,7 @@ print(stock_jgdy_detail_em_df)
 
 接口: stock_zyjs_ths
 
-目标地址: http://basic.10jqka.com.cn/new/000066/operate.html
+目标地址: https://basic.10jqka.com.cn/new/000066/operate.html
 
 描述: 同花顺-主营介绍
 
@@ -4450,6 +4450,7 @@ print(stock_zyjs_ths_df)
 ```
      股票代码  ...                                               经营范围
 0  000066  ...  计算机软件、硬件、终端及其外部设备、网络系统及系统集成、电子产品及零部件、金融机具、税控机具...
+[1 rows x 5 columns]
 ```
 
 ### 主营构成-东财
