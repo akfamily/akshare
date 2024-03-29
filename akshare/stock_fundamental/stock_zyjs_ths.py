@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/2/2 11:30
+Date: 2024/3/29 10:30
 Desc: 同花顺-主营介绍
 https://basic.10jqka.com.cn/new/000066/operate.html
 """
+
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -19,9 +20,10 @@ def stock_zyjs_ths(symbol: str = "000066") -> pd.DataFrame:
     :return: 主营介绍
     :rtype: pandas.DataFrame
     """
-    url = f"http://basic.10jqka.com.cn/new/{symbol}/operate.html"
+    url = f"https://basic.10jqka.com.cn/new/{symbol}/operate.html"
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/109.0.0.0 Safari/537.36"
     }
     r = requests.get(url, headers=headers)
     r.encoding = "gb2312"
