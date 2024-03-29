@@ -2723,9 +2723,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.9 chore: remove pyarrow deps
 1.13.10 fix: fix news_trade_notify_dividend_baidu interface
 1.13.11 fix: fix option_minute_em interface
+1.13.12 fix: fix stock_zyjs_ths interface
 """
 
-__version__ = "1.13.11"
+__version__ = "1.13.12"
 __author__ = "AKFamily"
 
 import sys
