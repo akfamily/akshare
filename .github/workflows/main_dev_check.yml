@@ -4,11 +4,11 @@ name: Main and Dev Checks
 on:
   push:
     branches:
-      - master
+      - main
       - dev
   pull_request:
     branches:
-      - master
+      - main
       - dev
 
 jobs:
