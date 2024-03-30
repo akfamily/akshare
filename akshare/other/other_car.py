@@ -1,16 +1,167 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/20 23:00
+Date: 2024/3/30 14:00
 Desc: 乘联会
 https://data.cpcaauto.com/FuelMarket
 汽车行业制造企业数据库
-https://i.gasgoo.com/data/ranking
+http://i.gasgoo.com/data/ranking
 """
+
 import pandas as pd
 import requests
 
 from akshare.utils import demjson
+
+
+def car_market_cpca(
+    symbol: str = "狭义乘用车", indicator: str = "产量"
+) -> pd.DataFrame:
+    """
+    乘联会-统计数据-总体市场
+    https://data.cpcaauto.com/FuelMarket
+    :param symbol: choice of {"狭义乘用车", "广义乘用车"}
+    :type symbol: str
+    :param indicator: choice of {"产量", "批发", "零售", "出口"}
+    :type indicator: str
+    :return: 统计数据-总体市场
+    :rtype: pandas.DataFrame
+    """
+    url = "http://data.cpcaauto.com/api/chartlist"
+    params = {"charttype": "1"}
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    big_df = pd.DataFrame()
+    if symbol == "狭义乘用车":
+        temp_df = pd.DataFrame(data_json[0]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[0]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        if indicator == "产量":
+            big_df = pd.DataFrame(
+                [temp_current_year_df.iloc[:, 0], temp_previous_year_df.iloc[:, 0]]
+            ).T
+            big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+            big_df["月份"] = temp_df["month"]
+            big_df = big_df[
+                [
+                    "月份",
+                    temp_df.columns[2],
+                    temp_df.columns[1],
+                ]
+            ]
+        elif indicator == "批发":
+            big_df = pd.DataFrame(
+                [temp_current_year_df.iloc[:, 1], temp_previous_year_df.iloc[:, 1]]
+            ).T
+            big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+            big_df["月份"] = temp_df["month"]
+            big_df = big_df[
+                [
+                    "月份",
+                    temp_df.columns[2],
+                    temp_df.columns[1],
+                ]
+            ]
+        elif indicator == "零售":
+            big_df = pd.DataFrame(
+                [temp_current_year_df.iloc[:, 2], temp_previous_year_df.iloc[:, 2]]
+            ).T
+            big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+            big_df["月份"] = temp_df["month"]
+            big_df = big_df[
+                [
+                    "月份",
+                    temp_df.columns[2],
+                    temp_df.columns[1],
+                ]
+            ]
+        elif indicator == "出口":
+            big_df = pd.DataFrame(
+                [temp_current_year_df.iloc[:, 3], temp_previous_year_df.iloc[:, 3]]
+            ).T
+            big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+            big_df["月份"] = temp_df["month"]
+            big_df = big_df[
+                [
+                    "月份",
+                    temp_df.columns[2],
+                    temp_df.columns[1],
+                ]
+            ]
+    else:
+        temp_df = pd.DataFrame(data_json[1]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[1]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        if indicator == "产量":
+            big_df = pd.DataFrame(
+                [temp_current_year_df.iloc[:, 0], temp_previous_year_df.iloc[:, 0]]
+            ).T
+            big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+            big_df["月份"] = temp_df["month"]
+            big_df = big_df[
+                [
+                    "月份",
+                    temp_df.columns[2],
+                    temp_df.columns[1],
+                ]
+            ]
+        elif indicator == "批发":
+            big_df = pd.DataFrame(
+                [temp_current_year_df.iloc[:, 1], temp_previous_year_df.iloc[:, 1]]
+            ).T
+            big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+            big_df["月份"] = temp_df["month"]
+            big_df = big_df[
+                [
+                    "月份",
+                    temp_df.columns[2],
+                    temp_df.columns[1],
+                ]
+            ]
+        elif indicator == "零售":
+            big_df = pd.DataFrame(
+                [temp_current_year_df.iloc[:, 2], temp_previous_year_df.iloc[:, 2]]
+            ).T
+            big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+            big_df["月份"] = temp_df["month"]
+            big_df = big_df[
+                [
+                    "月份",
+                    temp_df.columns[2],
+                    temp_df.columns[1],
+                ]
+            ]
+        elif indicator == "出口":
+            big_df = pd.DataFrame(
+                [temp_current_year_df.iloc[:, 3], temp_previous_year_df.iloc[:, 3]]
+            ).T
+            big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+            big_df["月份"] = temp_df["month"]
+            big_df = big_df[
+                [
+                    "月份",
+                    temp_df.columns[2],
+                    temp_df.columns[1],
+                ]
+            ]
+
+    return big_df
 
 
 def car_energy_sale_cpca() -> pd.DataFrame:
@@ -31,7 +182,7 @@ def car_energy_sale_cpca() -> pd.DataFrame:
         temp_previous_year_list.append(item[temp_df.columns[2]])
         try:
             temp_current_year_list.append(item[temp_df.columns[1]])
-        except:
+        except:  # noqa: E722
             continue
     temp_current_year_df = pd.DataFrame(temp_current_year_list)
     temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
@@ -88,7 +239,8 @@ def car_gasgoo_sale_rank(symbol: str = "车企榜", date: str = "202109") -> pd.
         "Connection": "keep-alive",
         "Content-Length": "195",
         "Content-Type": "application/json; charset=UTF-8",
-        "Cookie": "Hm_lvt_8e90480b1bf68ede548c407057660718=1636981448; _ga=GA1.2.858318653.1636981449; _gid=GA1.2.1448165285.1636981449; _gat=1; Hm_lpvt_8e90480b1bf68ede548c407057660718=1636982578",
+        "Cookie": "Hm_lvt_8e90480b1bf68ede548c407057660718=1636981448; _ga=GA1.2.858318653.1636981449; "
+        "_gid=GA1.2.1448165285.1636981449; _gat=1; Hm_lpvt_8e90480b1bf68ede548c407057660718=1636982578",
         "Host": "i.gasgoo.com",
         "Origin": "https://i.gasgoo.com",
         "Pragma": "no-cache",
@@ -99,7 +251,8 @@ def car_gasgoo_sale_rank(symbol: str = "车企榜", date: str = "202109") -> pd.
         "Sec-Fetch-Dest": "empty",
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-origin",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/95.0.4638.69 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
     r = requests.post(url, json=payload, headers=headers)
@@ -110,6 +263,18 @@ def car_gasgoo_sale_rank(symbol: str = "车企榜", date: str = "202109") -> pd.
 
 
 if __name__ == "__main__":
+    car_market_cpca_df = car_market_cpca(symbol="狭义乘用车", indicator="产量")
+    print(car_market_cpca_df)
+
+    car_market_cpca_df = car_market_cpca(symbol="广义乘用车", indicator="产量")
+    print(car_market_cpca_df)
+
+    car_market_cpca_df = car_market_cpca(symbol="狭义乘用车")
+    print(car_market_cpca_df)
+
+    car_market_cpca_df = car_market_cpca(symbol="广义乘用车")
+    print(car_market_cpca_df)
+
     car_energy_sale_cpca_df = car_energy_sale_cpca()
     print(car_energy_sale_cpca_df)
 
