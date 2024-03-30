@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/25 17:27
+Date: 2024/3/30 17:00
 Desc: openctp 期货交易费用参照表
 http://openctp.cn/fees.html
 """
 
-from io import BytesIO
-
 import pandas as pd
-import requests
 
 
 def futures_fees_info() -> pd.DataFrame:
@@ -19,9 +16,8 @@ def futures_fees_info() -> pd.DataFrame:
     :return: 期货交易费用参照表
     :rtype: pandas.DataFrame
     """
-    url = "http://openctp.cn/fees.csv"
-    r = requests.get(url)
-    temp_df = pd.read_csv(BytesIO(r.content))
+    url = "http://openctp.cn/fees.html"
+    temp_df = pd.read_html(url)[0]
     return temp_df
 
 
