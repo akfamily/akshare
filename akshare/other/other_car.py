@@ -19,7 +19,7 @@ def car_market_cpca(
 ) -> pd.DataFrame:
     """
     乘联会-统计数据-总体市场
-    https://data.cpcaauto.com/FuelMarket
+    http://data.cpcaauto.com/FuelMarket
     :param symbol: choice of {"狭义乘用车", "广义乘用车"}
     :type symbol: str
     :param indicator: choice of {"产量", "批发", "零售", "出口"}
