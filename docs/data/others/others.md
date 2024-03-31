@@ -244,6 +244,58 @@ print(car_market_man_rank_cpca_df)
 9    华晨宝马   5.2871   4.1604
 ```
 
+#### 乘联会-统计数据-车型大类
+
+接口: car_market_cate_cpca
+
+目标地址: http://data.cpcaauto.com/CategoryMarket
+
+描述: 乘联会-统计数据-车型大类
+
+限量: 单次返回指定 symbol 和 indicator 的数据
+
+输入参数
+
+| 名称        | 类型  | 描述                                                |
+|-----------|-----|---------------------------------------------------|
+| symbol    | str | symbol="轿车"; choice of {"轿车", "MPV", "SUV", "占比"} |
+| indicator | str | indicator="批发"; choice of {"批发", "零售"}            |
+
+输出参数
+
+| 名称       | 类型      | 描述       |
+|----------|---------|----------|
+| 月份       | object  | -        |
+| {前一个年份}年 | float64 | 注意单位: 万辆 |
+| {当前年份}年  | float64 | 注意单位: 万辆 |
+
+接口示例
+
+```python
+import akshare as ak
+
+car_market_cate_cpca_df = ak.car_market_cate_cpca(symbol="轿车", indicator="批发")
+print(car_market_cate_cpca_df)
+```
+
+数据示例
+
+```
+     月份   2023年    2024年
+0    1月   63.2478  87.1795
+1    2月   72.2022  54.5316
+2    3月   90.4165      NaN
+3    4月   79.3741      NaN
+4    5月   89.9973      NaN
+5    6月   98.1894      NaN
+6    7月   91.2119      NaN
+7    8月   97.8467      NaN
+8    9月  106.0477      NaN
+9   10月  105.2851      NaN
+10  11月  110.8935      NaN
+11  12月  122.1150      NaN
+```
+
 #### 乘联会-新能源细分市场
 
 接口: car_energy_sale_cpca
