@@ -2726,9 +2726,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.12 fix: fix stock_zyjs_ths interface
 1.13.13 fix: fix car_market_cpca interface
 1.13.14 fix: fix futures_fees_info interface
+1.13.15 add: add car_market_man_rank_cpca interface
 """
 
-__version__ = "1.13.14"
+__version__ = "1.13.15"
 __author__ = "AKFamily"
 
 import sys
@@ -3778,7 +3779,12 @@ from akshare.stock_feature.stock_zf_pg import stock_qbzf_em, stock_pg_em
 """
 汽车销量
 """
-from akshare.other.other_car import car_gasgoo_sale_rank, car_energy_sale_cpca, car_market_cpca
+from akshare.other.other_car import (
+    car_gasgoo_sale_rank,
+    car_energy_sale_cpca,
+    car_market_total_cpca,
+    car_market_man_rank_cpca
+)
 
 """
 中国公路物流运价、运量指数
