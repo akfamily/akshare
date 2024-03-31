@@ -14,12 +14,12 @@ import requests
 from akshare.utils import demjson
 
 
-def car_market_cpca(
+def car_market_total_cpca(
     symbol: str = "狭义乘用车", indicator: str = "产量"
 ) -> pd.DataFrame:
     """
     乘联会-统计数据-总体市场
-    http://data.cpcaauto.com/FuelMarket
+    http://data.cpcaauto.com/TotalMarket
     :param symbol: choice of {"狭义乘用车", "广义乘用车"}
     :type symbol: str
     :param indicator: choice of {"产量", "批发", "零售", "出口"}
@@ -164,6 +164,245 @@ def car_market_cpca(
     return big_df
 
 
+def __car_market_man_rank_cpca_pifa(symbol: str = "狭义乘用车-累计") -> pd.DataFrame:
+    """
+    "狭义乘用车-累计", "狭义乘用车-单月",
+    """
+    url = "http://data.cpcaauto.com/api/chartlist"
+    params = {"charttype": "2"}
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    big_df = pd.DataFrame()
+    if symbol == "狭义乘用车-累计":
+        temp_df = pd.DataFrame(data_json[0]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[0]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        big_df = pd.DataFrame(
+            [temp_current_year_df.iloc[:, 0], temp_previous_year_df.iloc[:, 0]]
+        ).T
+        big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+        big_df["厂商"] = temp_df["厂商"]
+        big_df = big_df[
+            [
+                "厂商",
+                temp_df.columns[2],
+                temp_df.columns[1],
+            ]
+        ]
+    elif symbol == "狭义乘用车-单月":
+        temp_df = pd.DataFrame(data_json[1]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[1]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        big_df = pd.DataFrame(
+            [temp_current_year_df.iloc[:, 0], temp_previous_year_df.iloc[:, 0]]
+        ).T
+        big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+        big_df["厂商"] = temp_df["厂商"]
+        big_df = big_df[
+            [
+                "厂商",
+                temp_df.columns[2],
+                temp_df.columns[1],
+            ]
+        ]
+    elif symbol == "广义乘用车-累计":
+        temp_df = pd.DataFrame(data_json[2]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[2]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        big_df = pd.DataFrame(
+            [temp_current_year_df.iloc[:, 0], temp_previous_year_df.iloc[:, 0]]
+        ).T
+        big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+        big_df["厂商"] = temp_df["厂商"]
+        big_df = big_df[
+            [
+                "厂商",
+                temp_df.columns[2],
+                temp_df.columns[1],
+            ]
+        ]
+    elif symbol == "广义乘用车-单月":
+        temp_df = pd.DataFrame(data_json[3]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[3]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        big_df = pd.DataFrame(
+            [temp_current_year_df.iloc[:, 0], temp_previous_year_df.iloc[:, 0]]
+        ).T
+        big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+        big_df["厂商"] = temp_df["厂商"]
+        big_df = big_df[
+            [
+                "厂商",
+                temp_df.columns[2],
+                temp_df.columns[1],
+            ]
+        ]
+    return big_df
+
+
+def __car_market_man_rank_cpca_lingshou(
+    symbol: str = "狭义乘用车-累计",
+) -> pd.DataFrame:
+    """
+    "狭义乘用车-累计", "狭义乘用车-单月",
+    """
+    url = "http://data.cpcaauto.com/api/chartlist_2"
+    params = {"charttype": "2"}
+    r = requests.get(url, params=params)
+    data_json = r.json()
+    big_df = pd.DataFrame()
+    if symbol == "狭义乘用车-累计":
+        temp_df = pd.DataFrame(data_json[0]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[0]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        big_df = pd.DataFrame(
+            [temp_current_year_df.iloc[:, 1], temp_previous_year_df.iloc[:, 1]]
+        ).T
+        big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+        big_df["厂商"] = temp_df["厂商"]
+        big_df = big_df[
+            [
+                "厂商",
+                temp_df.columns[2],
+                temp_df.columns[1],
+            ]
+        ]
+    elif symbol == "狭义乘用车-单月":
+        temp_df = pd.DataFrame(data_json[1]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[1]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        big_df = pd.DataFrame(
+            [temp_current_year_df.iloc[:, 1], temp_previous_year_df.iloc[:, 1]]
+        ).T
+        big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+        big_df["厂商"] = temp_df["厂商"]
+        big_df = big_df[
+            [
+                "厂商",
+                temp_df.columns[2],
+                temp_df.columns[1],
+            ]
+        ]
+    elif symbol == "广义乘用车-累计":
+        temp_df = pd.DataFrame(data_json[2]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[2]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        big_df = pd.DataFrame(
+            [temp_current_year_df.iloc[:, 1], temp_previous_year_df.iloc[:, 1]]
+        ).T
+        big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+        big_df["厂商"] = temp_df["厂商"]
+        big_df = big_df[
+            [
+                "厂商",
+                temp_df.columns[2],
+                temp_df.columns[1],
+            ]
+        ]
+    elif symbol == "广义乘用车-单月":
+        temp_df = pd.DataFrame(data_json[3]["dataList"])
+        temp_current_year_list = []
+        temp_previous_year_list = []
+        for item in data_json[3]["dataList"]:
+            temp_previous_year_list.append(item[temp_df.columns[2]])
+            try:
+                temp_current_year_list.append(item[temp_df.columns[1]])
+            except:  # noqa: E722
+                continue
+        temp_current_year_df = pd.DataFrame(temp_current_year_list)
+        temp_previous_year_df = pd.DataFrame(temp_previous_year_list)
+        big_df = pd.DataFrame(
+            [temp_current_year_df.iloc[:, 1], temp_previous_year_df.iloc[:, 1]]
+        ).T
+        big_df.columns = [temp_df.columns[1], temp_df.columns[2]]
+        big_df["厂商"] = temp_df["厂商"]
+        big_df = big_df[
+            [
+                "厂商",
+                temp_df.columns[2],
+                temp_df.columns[1],
+            ]
+        ]
+    return big_df
+
+
+def car_market_man_rank_cpca(
+    symbol: str = "狭义乘用车-单月", indicator: str = "批发"
+) -> pd.DataFrame:
+    """
+    乘联会-统计数据-厂商排名
+    http://data.cpcaauto.com/ManRank
+    :param symbol: choice of {"狭义乘用车-单月", "狭义乘用车-累计", "广义乘用车-单月", "广义乘用车-累计"}
+    :type symbol: str
+    :param indicator: choice of {"批发", "零售"}
+    :type indicator: str
+    :return: 统计数据-总体市场
+    :rtype: pandas.DataFrame
+    """
+    if indicator == "批发":
+        temp_df = __car_market_man_rank_cpca_pifa(symbol=symbol)
+        return temp_df
+    else:
+        temp_df = __car_market_man_rank_cpca_lingshou(symbol=symbol)
+        return temp_df
+
+
 def car_energy_sale_cpca() -> pd.DataFrame:
     """
     乘联会-新能源细分市场-整体市场
@@ -263,17 +502,85 @@ def car_gasgoo_sale_rank(symbol: str = "车企榜", date: str = "202109") -> pd.
 
 
 if __name__ == "__main__":
-    car_market_cpca_df = car_market_cpca(symbol="狭义乘用车", indicator="产量")
-    print(car_market_cpca_df)
+    car_market_total_cpca_df = car_market_total_cpca(
+        symbol="狭义乘用车", indicator="产量"
+    )
+    print(car_market_total_cpca_df)
 
-    car_market_cpca_df = car_market_cpca(symbol="广义乘用车", indicator="产量")
-    print(car_market_cpca_df)
+    car_market_total_cpca_df = car_market_total_cpca(
+        symbol="广义乘用车", indicator="产量"
+    )
+    print(car_market_total_cpca_df)
 
-    car_market_cpca_df = car_market_cpca(symbol="狭义乘用车")
-    print(car_market_cpca_df)
+    car_market_total_cpca_df = car_market_total_cpca(
+        symbol="狭义乘用车", indicator="批发"
+    )
+    print(car_market_total_cpca_df)
 
-    car_market_cpca_df = car_market_cpca(symbol="广义乘用车")
-    print(car_market_cpca_df)
+    car_market_total_cpca_df = car_market_total_cpca(
+        symbol="广义乘用车", indicator="批发"
+    )
+    print(car_market_total_cpca_df)
+
+    car_market_total_cpca_df = car_market_total_cpca(
+        symbol="狭义乘用车", indicator="零售"
+    )
+    print(car_market_total_cpca_df)
+
+    car_market_total_cpca_df = car_market_total_cpca(
+        symbol="广义乘用车", indicator="零售"
+    )
+    print(car_market_total_cpca_df)
+
+    car_market_total_cpca_df = car_market_total_cpca(
+        symbol="狭义乘用车", indicator="出口"
+    )
+    print(car_market_total_cpca_df)
+
+    car_market_total_cpca_df = car_market_total_cpca(
+        symbol="广义乘用车", indicator="出口"
+    )
+    print(car_market_total_cpca_df)
+
+    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+        symbol="狭义乘用车-单月", indicator="批发"
+    )
+    print(car_market_man_rank_cpca_df)
+
+    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+        symbol="狭义乘用车-累计", indicator="批发"
+    )
+    print(car_market_man_rank_cpca_df)
+
+    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+        symbol="广义乘用车-单月", indicator="批发"
+    )
+    print(car_market_man_rank_cpca_df)
+
+    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+        symbol="广义乘用车-累计", indicator="批发"
+    )
+    print(car_market_man_rank_cpca_df)
+
+    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+        symbol="狭义乘用车-单月", indicator="零售"
+    )
+    print(car_market_man_rank_cpca_df)
+
+    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+        symbol="狭义乘用车-累计", indicator="零售"
+    )
+    print(car_market_man_rank_cpca_df)
+
+    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+        symbol="广义乘用车-单月", indicator="零售"
+    )
+    print(car_market_man_rank_cpca_df)
+
+    car_market_man_rank_cpca_df = car_market_man_rank_cpca(
+        symbol="广义乘用车-累计", indicator="零售"
+    )
+    print(car_market_man_rank_cpca_df)
 
     car_energy_sale_cpca_df = car_energy_sale_cpca()
     print(car_energy_sale_cpca_df)
