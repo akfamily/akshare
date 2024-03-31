@@ -714,6 +714,7 @@
  "car_energy_sale_cpca"  # 乘联会-新能源细分市场-整体市场
  "car_market_total_cpca"  # 乘联会-统计数据-总体市场
  "car_market_man_rank_cpca"  # 乘联会-统计数据-厂商排名
+ "car_market_cate_cpca"  # 乘联会-统计数据-车型大类
  # 增发
  "stock_em_qbzf"  # 增发
  # 配股
