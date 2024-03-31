@@ -2727,9 +2727,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.13 fix: fix car_market_cpca interface
 1.13.14 fix: fix futures_fees_info interface
 1.13.15 add: add car_market_man_rank_cpca interface
+1.13.16 add: add car_market_cate_cpca interface
 """
 
-__version__ = "1.13.15"
+__version__ = "1.13.16"
 __author__ = "AKFamily"
 
 import sys
@@ -3785,6 +3786,7 @@ from akshare.other.other_car import (
     car_market_total_cpca,
     car_market_man_rank_cpca
 )
+from akshare.other.other_car_cpca import car_market_cate_cpca
 
 """
 中国公路物流运价、运量指数
