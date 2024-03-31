@@ -166,7 +166,12 @@ def car_market_total_cpca(
 
 def __car_market_man_rank_cpca_pifa(symbol: str = "狭义乘用车-累计") -> pd.DataFrame:
     """
-    "狭义乘用车-累计", "狭义乘用车-单月",
+    乘联会-统计数据-厂商排名
+    http://data.cpcaauto.com/ManRank
+    :param symbol: choice of {"狭义乘用车-单月", "狭义乘用车-累计", "广义乘用车-单月", "广义乘用车-累计"}
+    :type symbol: str
+    :return: 统计数据-厂商排名
+    :rtype: pandas.DataFrame
     """
     url = "http://data.cpcaauto.com/api/chartlist"
     params = {"charttype": "2"}
@@ -276,7 +281,12 @@ def __car_market_man_rank_cpca_lingshou(
     symbol: str = "狭义乘用车-累计",
 ) -> pd.DataFrame:
     """
-    "狭义乘用车-累计", "狭义乘用车-单月",
+    乘联会-统计数据-厂商排名
+    http://data.cpcaauto.com/ManRank
+    :param symbol: choice of {"狭义乘用车-单月", "狭义乘用车-累计", "广义乘用车-单月", "广义乘用车-累计"}
+    :type symbol: str
+    :return: 统计数据-厂商排名
+    :rtype: pandas.DataFrame
     """
     url = "http://data.cpcaauto.com/api/chartlist_2"
     params = {"charttype": "2"}
@@ -392,7 +402,7 @@ def car_market_man_rank_cpca(
     :type symbol: str
     :param indicator: choice of {"批发", "零售"}
     :type indicator: str
-    :return: 统计数据-总体市场
+    :return: 统计数据-厂商排名
     :rtype: pandas.DataFrame
     """
     if indicator == "批发":
