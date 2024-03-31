@@ -14,6 +14,7 @@ https://quote.eastmoney.com/ztb/detail#type=ztgc
 6. 跌停股池：包含当日当前跌停的所有A股股票。
 注：涨停板行情专题统计不包含ST股票及科创板股票。
 """
+
 from datetime import datetime, timedelta
 
 import pandas as pd
@@ -66,9 +67,9 @@ def stock_zt_pool_em(date: str = "20231129") -> pd.DataFrame:
         "涨停统计",
     ]
     temp_df["涨停统计"] = (
-            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-            + "/"
-            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+        + "/"
+        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -151,9 +152,9 @@ def stock_zt_pool_previous_em(date: str = "20231129") -> pd.DataFrame:
         "涨停统计",
     ]
     temp_df["涨停统计"] = (
-            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-            + "/"
-            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+        + "/"
+        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -228,9 +229,9 @@ def stock_zt_pool_strong_em(date: str = "20231129") -> pd.DataFrame:
         "所属行业",
     ]
     temp_df["涨停统计"] = (
-            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-            + "/"
-            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+        + "/"
+        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -305,9 +306,9 @@ def stock_zt_pool_sub_new_em(date: str = "20231129") -> pd.DataFrame:
         "所属行业",
     ]
     temp_df["涨停统计"] = (
-            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-            + "/"
-            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+        + "/"
+        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -332,8 +333,8 @@ def stock_zt_pool_sub_new_em(date: str = "20231129") -> pd.DataFrame:
     temp_df["最新价"] = temp_df["最新价"] / 1000
     temp_df["涨停价"] = temp_df["涨停价"] / 1000
     temp_df.loc[temp_df["涨停价"] > 100000, "涨停价"] = pd.NA
-    temp_df['开板日期'] = pd.to_datetime(temp_df['开板日期'], format='%Y%m%d')
-    temp_df['上市日期'] = pd.to_datetime(temp_df['上市日期'], format='%Y%m%d')
+    temp_df["开板日期"] = pd.to_datetime(temp_df["开板日期"], format="%Y%m%d")
+    temp_df["上市日期"] = pd.to_datetime(temp_df["上市日期"], format="%Y%m%d")
     temp_df.loc[temp_df["上市日期"] == 0, "上市日期"] = pd.NaT
     return temp_df
 
@@ -389,9 +390,9 @@ def stock_zt_pool_zbgc_em(date: str = "20231129") -> pd.DataFrame:
         "所属行业",
     ]
     temp_df["涨停统计"] = (
-            temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
-            + "/"
-            + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
+        temp_df["涨停统计"].apply(lambda x: dict(x)["days"]).astype(str)
+        + "/"
+        + temp_df["涨停统计"].apply(lambda x: dict(x)["ct"]).astype(str)
     )
     temp_df = temp_df[
         [
@@ -507,20 +508,20 @@ def stock_zt_pool_dtgc_em(date: str = "20231129") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    stock_zt_pool_em_df = stock_zt_pool_em(date="20231129")
+    stock_zt_pool_em_df = stock_zt_pool_em(date="20240329")
     print(stock_zt_pool_em_df)
 
-    stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20231129")
+    stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20240329")
     print(stock_zt_pool_previous_em_df)
 
-    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20231129")
+    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20240329")
     print(stock_zt_pool_strong_em_df)
 
-    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20231129")
+    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20240329")
     print(stock_zt_pool_sub_new_em_df)
 
-    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20231129")
+    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20240329")
     print(stock_zt_pool_zbgc_em_df)
 
-    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20231129")
+    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20240329")
     print(stock_zt_pool_dtgc_em_df)
