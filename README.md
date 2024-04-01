@@ -47,7 +47,7 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 
 ### PR
 
-Please check out [documentation](https://akshare.akfamily.xyz/contributor.html) if you want to contribute to AKShare
+Please check out [documentation](https://akshare.akfamily.xyz/contributing.html) if you want to contribute to AKShare
 
 ### Docker
 
