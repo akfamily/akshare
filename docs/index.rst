@@ -21,7 +21,7 @@ Welcome to AKShare's Online Documentation!
 
    introduction
    installation
-   contributor
+   contributing
    answer
    tutorial
    articles
