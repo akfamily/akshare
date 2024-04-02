@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/1/22 18:30
+Date: 2024/4/2 22:30
 Desc: 期货-仓单日报
 上海期货交易所-仓单日报
 https://www.shfe.com.cn/statements/dataview.html?paramid=dailystock
