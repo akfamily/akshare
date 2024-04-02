@@ -1227,7 +1227,8 @@
  "fund_individual_achievement_xq"  # 雪球基金-基金业绩
  "fund_individual_analysis_xq"  # 雪球基金-基金数据分析
  "fund_individual_profit_probability_xq"  # 雪球基金-盈利概率
- "fund_individual_detail_info_xq"  # 雪球基金-详细信息
+ "fund_individual_detail_info_xq"  # 雪球基金-交易规则
+ "fund_individual_detail_hold_xq"  # 雪球基金-持仓详情
  # 港股盈利预测
  "stock_hk_profit_forecast_et"  # 港股盈利预测
  # 雪球-行情中心-个股
