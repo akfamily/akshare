@@ -12,6 +12,7 @@ http://www.dce.com.cn/dalianshangpin/xqsj/tjsj26/rtj/cdrb/index.html
 广州期货交易所-行情数据-仓单日报
 http://www.gfex.com.cn/gfex/cdrb/hqsj_tjsj.shtml
 """
+
 import re
 from io import BytesIO, StringIO
 
@@ -34,15 +35,11 @@ def futures_czce_warehouse_receipt(date: str = "20200702") -> dict:
     }
     r = requests.get(url, verify=False, headers=headers)
     temp_df = pd.read_excel(BytesIO(r.content))
-    index_list = temp_df[
-        temp_df.iloc[:, 0].str.find("品种") == 0.0
-        ].index.to_list()
+    index_list = temp_df[temp_df.iloc[:, 0].str.find("品种") == 0.0].index.to_list()
     index_list.append(len(temp_df))
     big_dict = {}
     for inner_index in range(len(index_list) - 1):
-        inner_df = temp_df[
-                   index_list[inner_index]: index_list[inner_index + 1]
-                   ]
+        inner_df = temp_df[index_list[inner_index] : index_list[inner_index + 1]]
         inner_key = re.findall(r"[a-zA-Z]+", inner_df.iloc[0, 0])[0]
         inner_df = inner_df.iloc[1:, :]
         inner_df.dropna(axis=0, how="all", inplace=True)
@@ -75,9 +72,7 @@ def futures_dce_warehouse_receipt(date: str = "20200702") -> dict:
     }
     r = requests.get(url, params=params, headers=headers)
     temp_df = pd.read_html(StringIO(r.text))[0]
-    index_list = temp_df[
-        temp_df.iloc[:, 0].str.contains("小计") == 1
-        ].index.to_list()
+    index_list = temp_df[temp_df.iloc[:, 0].str.contains("小计") == 1].index.to_list()
     index_list.insert(0, 0)
     big_dict = {}
     for inner_index in range(len(index_list) - 1):
@@ -85,10 +80,14 @@ def futures_dce_warehouse_receipt(date: str = "20200702") -> dict:
             temp_index = 0
         else:
             temp_index = index_list[inner_index] + 1
-        inner_df = temp_df[temp_index: index_list[inner_index + 1] + 1]
+        inner_df = temp_df[temp_index : index_list[inner_index + 1] + 1].copy()
         inner_key = inner_df.iloc[0, 0]
         inner_df.reset_index(inplace=True, drop=True)
-        inner_df = inner_df.ffill()
+        inner_df.ffill(inplace=True)
+        # 填补 20240401 中开头没有品种的情况
+        if date == "20240401":
+            inner_df.bfill(inplace=True)
+            inner_key = inner_df.iloc[0, 0]
         big_dict[inner_key] = inner_df
     return big_dict
 
@@ -110,12 +109,8 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
         r = requests.get(url, headers=headers)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["o_cursor"])
-        temp_df["VARNAME"] = (
-            temp_df["VARNAME"].str.split(r"$", expand=True).iloc[:, 0]
-        )
-        temp_df["REGNAME"] = (
-            temp_df["REGNAME"].str.split(r"$", expand=True).iloc[:, 0]
-        )
+        temp_df["VARNAME"] = temp_df["VARNAME"].str.split(r"$", expand=True).iloc[:, 0]
+        temp_df["REGNAME"] = temp_df["REGNAME"].str.split(r"$", expand=True).iloc[:, 0]
         temp_df["WHABBRNAME"] = (
             temp_df["WHABBRNAME"].str.split(r"$", expand=True).iloc[:, 0]
         )
@@ -128,7 +123,7 @@ def futures_shfe_warehouse_receipt(date: str = "20200702") -> dict:
         temp_df = pd.read_html(StringIO(r.text))[0]
         index_list = temp_df[
             temp_df.iloc[:, 3].str.contains("单位：") == 1
-            ].index.to_list()
+        ].index.to_list()
         big_dict = {}
         for inner_index in range(len(index_list)):
             temp_index_start = index_list[inner_index]
@@ -162,69 +157,74 @@ def futures_gfex_warehouse_receipt(date: str = "20240122") -> dict:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
     }
-    payload = {
-        "gen_date": date
-    }
+    payload = {"gen_date": date}
     r = requests.post(url=url, data=payload, headers=headers)
     data_json = r.json()
-    temp_df = pd.DataFrame(data_json['data'])
-    symbol_list = list(set([item.upper() for item in temp_df['varietyOrder'].tolist() if item != ""]))
-    temp_df.rename(columns={
-        "varietyOrder": "symbol",
-        "variety": "品种",
-        "whAbbr": "仓库/分库",
-        "lastWbillQty": "昨日仓单量",
-        "wbillQty": "今日仓单量",
-        "regWbillQty": "增减",
-    }, inplace=True)
-    temp_df = temp_df[[
-        "symbol",
-        "whType",
-        "品种",
-        "仓库/分库",
-        "昨日仓单量",
-        "今日仓单量",
-        "增减",
-    ]]
-    temp_df['whType'] = pd.to_numeric(temp_df['whType'], errors="coerce")
-    temp_df.dropna(subset=["whType"], how="any", axis=0, ignore_index=True, inplace=True)
-    big_dict = dict()
-    for symbol in symbol_list:
-        inner_temp_df = temp_df[temp_df['symbol'] == symbol.lower()].copy()
-        inner_temp_df = inner_temp_df[[
+    temp_df = pd.DataFrame(data_json["data"])
+    symbol_list = list(
+        set([item.upper() for item in temp_df["varietyOrder"].tolist() if item != ""])
+    )
+    temp_df.rename(
+        columns={
+            "varietyOrder": "symbol",
+            "variety": "品种",
+            "whAbbr": "仓库/分库",
+            "lastWbillQty": "昨日仓单量",
+            "wbillQty": "今日仓单量",
+            "regWbillQty": "增减",
+        },
+        inplace=True,
+    )
+    temp_df = temp_df[
+        [
+            "symbol",
+            "whType",
             "品种",
             "仓库/分库",
             "昨日仓单量",
             "今日仓单量",
             "增减",
-        ]]
-        inner_temp_df['昨日仓单量'] = pd.to_numeric(inner_temp_df['昨日仓单量'], errors="coerce")
-        inner_temp_df['今日仓单量'] = pd.to_numeric(inner_temp_df['今日仓单量'], errors="coerce")
-        inner_temp_df['增减'] = pd.to_numeric(inner_temp_df['增减'], errors="coerce")
+        ]
+    ]
+    temp_df["whType"] = pd.to_numeric(temp_df["whType"], errors="coerce")
+    temp_df.dropna(
+        subset=["whType"], how="any", axis=0, ignore_index=True, inplace=True
+    )
+    big_dict = dict()
+    for symbol in symbol_list:
+        inner_temp_df = temp_df[temp_df["symbol"] == symbol.lower()].copy()
+        inner_temp_df = inner_temp_df[
+            [
+                "品种",
+                "仓库/分库",
+                "昨日仓单量",
+                "今日仓单量",
+                "增减",
+            ]
+        ]
+        inner_temp_df["昨日仓单量"] = pd.to_numeric(
+            inner_temp_df["昨日仓单量"], errors="coerce"
+        )
+        inner_temp_df["今日仓单量"] = pd.to_numeric(
+            inner_temp_df["今日仓单量"], errors="coerce"
+        )
+        inner_temp_df["增减"] = pd.to_numeric(inner_temp_df["增减"], errors="coerce")
         inner_temp_df.reset_index(inplace=True, drop=True)
         big_dict[symbol] = inner_temp_df
     return big_dict
 
 
 if __name__ == "__main__":
-    czce_warehouse_receipt_df = futures_czce_warehouse_receipt(
-        date="20151019"
-    )
+    czce_warehouse_receipt_df = futures_czce_warehouse_receipt(date="20151019")
     print(czce_warehouse_receipt_df)
 
-    futures_dce_warehouse_receipt_df = futures_dce_warehouse_receipt(
-        date="20200702"
-    )
+    futures_dce_warehouse_receipt_df = futures_dce_warehouse_receipt(date="20240401")
     print(futures_dce_warehouse_receipt_df)
 
-    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(
-        date="20200702"
-    )
+    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20200702")
     print(futures_shfe_warehouse_receipt_df)
 
-    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(
-        date="20140516"
-    )
+    futures_shfe_warehouse_receipt_df = futures_shfe_warehouse_receipt(date="20140516")
     print(futures_shfe_warehouse_receipt_df)
 
     futures_gfex_warehouse_receipt_df = futures_gfex_warehouse_receipt(date="20240122")
