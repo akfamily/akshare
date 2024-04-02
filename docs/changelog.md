@@ -76,6 +76,12 @@
 
 ## 更新说明详情
 
+1.13.17 fix: fix stock_zcfz_em interface
+
+    1. 修复 stock_zcfz_em 接口
+    2. 新增 fund_individual_detail_hold_xq 接口
+    3. 修复 futures_dce_warehouse_receipt 接口
+
 1.13.16 add: add car_market_cate_cpca interface
 
     1. 新增 car_market_cate_cpca 接口
