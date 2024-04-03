@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/3 15:08
+Date: 2024/4/3 17:08
 Desc: 金十数据中心-经济指标-欧元区
 金十数据中心-经济指标-欧元区-国民经济运行状况-经济状况
 金十数据中心-经济指标-欧元区-国民经济运行状况-物价水平
@@ -10,6 +10,7 @@ Desc: 金十数据中心-经济指标-欧元区
 金十数据中心-经济指标-欧元区-产业指标
 金十数据中心-经济指标-欧元区-领先指标
 """
+
 import time
 
 import pandas as pd
@@ -826,7 +827,7 @@ def macro_euro_lme_stock() -> pd.DataFrame:
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
     r = requests.get(
-        "https://cdn.jin10.com/data_center/reports/lme_stock.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/lme_stock.json", params=params
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
@@ -835,8 +836,10 @@ def macro_euro_lme_stock() -> pd.DataFrame:
         for i in range(3):
             inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
-            big_df = pd.concat([big_df, inner_temp_df], axis=1)
+            big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
     big_df.sort_index(inplace=True)
+    big_df.reset_index(inplace=True)
+    big_df.rename(columns={"index": "日期"}, inplace=True)
     return big_df
 
 
