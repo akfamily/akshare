@@ -2731,9 +2731,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.17 fix: fix stock_zcfz_em interface
 1.13.18 fix: fix macro_china_pmi_yearly interface
 1.13.19 add: add car_market_country_cpca interface
+1.13.20 fix: fix stock_zh_a_disclosure_report_cninfo interface
 """
 
-__version__ = "1.13.19"
+__version__ = "1.13.20"
 __author__ = "AKFamily"
 
 import sys
