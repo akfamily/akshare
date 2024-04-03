@@ -86,7 +86,7 @@ def futures_dce_warehouse_receipt(date: str = "20200702") -> dict:
         inner_df.ffill(inplace=True)
         # 填补 20240401 中开头没有品种的情况
         if date == "20240401":
-            inner_df.bfill(inplace=True)
+            inner_df["品种"] = inner_df["品种"].fillna("玉米")
             inner_key = inner_df.iloc[0, 0]
         big_dict[inner_key] = inner_df
     return big_dict
