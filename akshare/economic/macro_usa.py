@@ -1334,21 +1334,24 @@ def macro_usa_api_crude_stock() -> pd.DataFrame:
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index("index", inplace=True)
+    temp_df.set_index(keys="index", inplace=True)
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "usa_api_crude_stock"
     temp_df = temp_df.astype("float")
+    temp_df = pd.DataFrame(temp_df)
+    temp_df.reset_index(inplace=True)
+    temp_df.columns = ["日期", "值"]
     return temp_df
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国Markit制造业PMI初值报告
-def macro_usa_pmi() -> pd.Series:
+def macro_usa_pmi() -> pd.DataFrame:
     """
-    美国Markit制造业PMI初值报告, 数据区间从20120601-至今
+    美国 Markit 制造业 PMI 初值报告, 数据区间从 20120601-至今
     https://datacenter.jin10.com/reportType/dc_usa_pmi
     https://cdn.jin10.com/dc/reports/dc_usa_pmi_all.js?v=1578743969
-    :return: 美国Markit制造业PMI初值报告-今值
+    :return: 美国 Markit 制造业 PMI 初值报告-今值
     :rtype: pandas.Series
     """
     t = time.time()
@@ -1398,18 +1401,21 @@ def macro_usa_pmi() -> pd.Series:
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index("index", inplace=True)
+    temp_df.set_index(keys="index", inplace=True)
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "usa_pmi"
     temp_df = temp_df.astype("float")
+    temp_df = pd.DataFrame(temp_df)
+    temp_df.reset_index(inplace=True)
+    temp_df.columns = ["日期", "值"]
     return temp_df
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国ISM制造业PMI报告
 def macro_usa_ism_pmi() -> pd.DataFrame:
     """
-    美国ISM制造业PMI报告, 数据区间从19700101-至今
+    美国 ISM 制造业 PMI 报告, 数据区间从 19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_ism_pmi
     https://cdn.jin10.com/dc/reports/dc_usa_ism_pmi_all.js?v=1578744071
     :return: 美国ISM制造业PMI报告-今值
@@ -1455,16 +1461,19 @@ def macro_usa_ism_pmi() -> pd.DataFrame:
     temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
     temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
     temp_se = temp_se.iloc[:, 1]
-    temp_df = pd.concat([temp_df, temp_se])
+    temp_df = pd.concat(objs=[temp_df, temp_se], ignore_index=False)
     temp_df.dropna(inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index("index", inplace=True)
+    temp_df.set_index(keys="index", inplace=True)
     temp_df = temp_df.squeeze()
     temp_df.index.name = None
     temp_df.name = "usa_ism_pmi"
     temp_df = temp_df.astype("float")
+    temp_df = pd.DataFrame(temp_df)
+    temp_df.reset_index(inplace=True)
+    temp_df.columns = ["日期", "值"]
     return temp_df
 
 
