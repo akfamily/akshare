@@ -5,6 +5,7 @@ Date: 2023/7/19 18:00
 Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
+
 import json
 import time
 
@@ -71,7 +72,7 @@ def macro_usa_phs() -> pd.DataFrame:
     ]
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
     return temp_df
 
 
@@ -113,7 +114,8 @@ def macro_usa_gdp_monthly() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -121,19 +123,19 @@ def macro_usa_gdp_monthly() -> pd.DataFrame:
     r = requests.get(url, params=params, headers=headers)
     temp_df = pd.DataFrame(r.json()["data"]["values"])
     temp_df.index = pd.to_datetime(temp_df.iloc[:, 0])
-    temp_df.columns = ['date'] + json_data["kinds"]
-    del temp_df['date']
+    temp_df.columns = ["date"] + json_data["kinds"]
+    del temp_df["date"]
     temp_df = pd.concat([value_df, temp_df])
 
     temp_df.dropna(subset=["预测值(%)"], inplace=True)
     temp_df.sort_index(inplace=True)
     temp_df = temp_df.reset_index()
     temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.columns = ['日期', '今值', '预测值', '前值']
-    temp_df['日期'] = pd.to_datetime(temp_df['日期']).dt.date
-    temp_df['今值'] = pd.to_numeric(temp_df['今值'], errors="coerce")
-    temp_df['预测值'] = pd.to_numeric(temp_df['预测值'], errors="coerce")
-    temp_df['前值'] = pd.to_numeric(temp_df['前值'], errors="coerce")
+    temp_df.columns = ["日期", "今值", "预测值", "前值"]
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"]).dt.date
+    temp_df["今值"] = pd.to_numeric(temp_df["今值"], errors="coerce")
+    temp_df["预测值"] = pd.to_numeric(temp_df["预测值"], errors="coerce")
+    temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     return temp_df
 
 
@@ -154,7 +156,9 @@ def macro_usa_cpi_monthly() -> pd.DataFrame:
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国居民消费价格指数(CPI)(月环比)"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国居民消费价格指数(CPI)(月环比)"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -177,7 +181,8 @@ def macro_usa_cpi_monthly() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -221,18 +226,20 @@ def macro_usa_cpi_yoy() -> pd.DataFrame:
     r = requests.get(url, params=params)
     data_json = r.json()
     data_list = data_json["result"]["data"]
-    temp_df = pd.DataFrame(data_list, columns=['REPORT_DATE', 'PUBLISH_DATE', 'VALUE', 'PRE_VALUE'])
+    temp_df = pd.DataFrame(
+        data_list, columns=["REPORT_DATE", "PUBLISH_DATE", "VALUE", "PRE_VALUE"]
+    )
     temp_df.columns = [
-            "时间",
-            "发布日期",
-            "现值",
-            "前值",
-        ]
+        "时间",
+        "发布日期",
+        "现值",
+        "前值",
+    ]
     temp_df["时间"] = pd.to_datetime(temp_df["时间"], errors="coerce").dt.date
     temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
     temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
     temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
-    temp_df.sort_values(['时间'], inplace=True, ignore_index=True)
+    temp_df.sort_values(by=["时间"], inplace=True, ignore_index=True)
     return temp_df
 
 
@@ -247,7 +254,8 @@ def macro_usa_core_cpi_monthly() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_core_cpi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_core_cpi_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -274,7 +282,8 @@ def macro_usa_core_cpi_monthly() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -295,9 +304,9 @@ def macro_usa_core_cpi_monthly() -> pd.DataFrame:
     temp_df = temp_df.astype("float")
     temp_df = pd.DataFrame(temp_df)
     temp_df.reset_index(inplace=True, drop=False)
-    temp_df.columns = ['date', 'value']
-    temp_df['date'] = pd.to_datetime(temp_df['date'], errors="coerce").dt.date
-    temp_df['value'] = pd.to_numeric(temp_df['value'], errors="coerce")
+    temp_df.columns = ["date", "value"]
+    temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
+    temp_df["value"] = pd.to_numeric(temp_df["value"], errors="coerce")
     return temp_df
 
 
@@ -312,7 +321,8 @@ def macro_usa_personal_spending() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_personal_spending_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_personal_spending_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -339,7 +349,8 @@ def macro_usa_personal_spending() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -372,7 +383,8 @@ def macro_usa_retail_sales() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_retail_sales_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_retail_sales_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -399,7 +411,8 @@ def macro_usa_retail_sales() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -432,7 +445,8 @@ def macro_usa_import_price() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_import_price_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_import_price_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -459,7 +473,8 @@ def macro_usa_import_price() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -492,7 +507,8 @@ def macro_usa_export_price() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_export_price_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_export_price_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -519,7 +535,8 @@ def macro_usa_export_price() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -558,7 +575,9 @@ def macro_usa_lmci() -> pd.DataFrame:
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美联储劳动力市场状况指数"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美联储劳动力市场状况指数"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -581,7 +600,8 @@ def macro_usa_lmci() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -642,7 +662,8 @@ def macro_usa_unemployment_rate() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -675,11 +696,14 @@ def macro_usa_job_cuts() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_job_cuts_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_job_cuts_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国挑战者企业裁员人数报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国挑战者企业裁员人数报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -701,7 +725,8 @@ def macro_usa_job_cuts() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -762,7 +787,8 @@ def macro_usa_non_farm() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -823,7 +849,8 @@ def macro_usa_adp_employment() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -862,7 +889,9 @@ def macro_usa_core_pce_price() -> pd.DataFrame:
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国核心PCE物价指数年率"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国核心PCE物价指数年率"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -884,7 +913,8 @@ def macro_usa_core_pce_price() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -917,11 +947,14 @@ def macro_usa_real_consumer_spending() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_real_consumer_spending_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_real_consumer_spending_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国实际个人消费支出季率初值报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国实际个人消费支出季率初值报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -943,7 +976,8 @@ def macro_usa_real_consumer_spending() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -976,7 +1010,8 @@ def macro_usa_trade_balance() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_trade_balance_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_trade_balance_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1002,7 +1037,8 @@ def macro_usa_trade_balance() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1035,7 +1071,8 @@ def macro_usa_current_account() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_current_account_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_current_account_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1061,7 +1098,8 @@ def macro_usa_current_account() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1125,11 +1163,14 @@ def macro_usa_ppi() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_ppi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_ppi_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国生产者物价指数(PPI)报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国生产者物价指数(PPI)报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -1152,7 +1193,8 @@ def macro_usa_ppi() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1185,11 +1227,14 @@ def macro_usa_core_ppi() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_core_ppi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_core_ppi_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国核心生产者物价指数(PPI)报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国核心生产者物价指数(PPI)报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -1212,7 +1257,8 @@ def macro_usa_core_ppi() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1245,7 +1291,8 @@ def macro_usa_api_crude_stock() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_api_crude_stock_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_api_crude_stock_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1272,7 +1319,8 @@ def macro_usa_api_crude_stock() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1305,11 +1353,14 @@ def macro_usa_pmi() -> pd.Series:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_pmi_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国Markit制造业PMI报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国Markit制造业PMI报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -1332,7 +1383,8 @@ def macro_usa_pmi() -> pd.Series:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1365,7 +1417,8 @@ def macro_usa_ism_pmi() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_ism_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_ism_pmi_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1392,7 +1445,8 @@ def macro_usa_ism_pmi() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1425,7 +1479,8 @@ def macro_usa_industrial_production() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_industrial_production_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_industrial_production_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1452,7 +1507,8 @@ def macro_usa_industrial_production() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1485,7 +1541,8 @@ def macro_usa_durable_goods_orders() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_durable_goods_orders_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_durable_goods_orders_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1512,7 +1569,8 @@ def macro_usa_durable_goods_orders() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1545,7 +1603,8 @@ def macro_usa_factory_orders() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_factory_orders_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_factory_orders_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1572,7 +1631,8 @@ def macro_usa_factory_orders() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1605,11 +1665,14 @@ def macro_usa_services_pmi() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_services_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_services_pmi_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国Markit服务业PMI初值报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国Markit服务业PMI初值报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -1632,7 +1695,8 @@ def macro_usa_services_pmi() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1665,7 +1729,8 @@ def macro_usa_business_inventories() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_business_inventories_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_business_inventories_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1692,7 +1757,8 @@ def macro_usa_business_inventories() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1725,7 +1791,8 @@ def macro_usa_ism_non_pmi() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_ism_non_pmi_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_ism_non_pmi_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1752,7 +1819,8 @@ def macro_usa_ism_non_pmi() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1785,11 +1853,14 @@ def macro_usa_nahb_house_market_index() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_nahb_house_market_index_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_nahb_house_market_index_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国NAHB房产市场指数报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国NAHB房产市场指数报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -1812,7 +1883,8 @@ def macro_usa_nahb_house_market_index() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1845,11 +1917,14 @@ def macro_usa_house_starts() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_house_starts_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_house_starts_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国新屋开工总数年化报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国新屋开工总数年化报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -1872,7 +1947,8 @@ def macro_usa_house_starts() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1905,11 +1981,14 @@ def macro_usa_new_home_sales() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_new_home_sales_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_new_home_sales_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国新屋销售总数年化报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国新屋销售总数年化报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -1932,7 +2011,8 @@ def macro_usa_new_home_sales() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -1965,7 +2045,8 @@ def macro_usa_building_permits() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_building_permits_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_building_permits_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
@@ -1992,7 +2073,8 @@ def macro_usa_building_permits() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2025,11 +2107,14 @@ def macro_usa_exist_home_sales() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_exist_home_sales_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_exist_home_sales_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国成屋销售总数年化报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国成屋销售总数年化报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -2052,7 +2137,8 @@ def macro_usa_exist_home_sales() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2085,11 +2171,14 @@ def macro_usa_house_price_index() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_house_price_index_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_house_price_index_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国FHFA房价指数月率报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国FHFA房价指数月率报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -2112,7 +2201,8 @@ def macro_usa_house_price_index() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2145,11 +2235,15 @@ def macro_usa_spcs20() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_spcs20_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_spcs20_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国S&P/CS20座大城市房价指数年率报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国S&P/CS20座大城市房价指数年率报告"]
+        for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -2172,7 +2266,8 @@ def macro_usa_spcs20() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2205,11 +2300,14 @@ def macro_usa_pending_home_sales() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_pending_home_sales_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_pending_home_sales_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国成屋签约销售指数月率报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国成屋签约销售指数月率报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -2232,7 +2330,8 @@ def macro_usa_pending_home_sales() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2264,11 +2363,14 @@ def macro_usa_cb_consumer_confidence() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_cb_consumer_confidence_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国谘商会消费者信心指数报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国谘商会消费者信心指数报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -2292,7 +2394,8 @@ def macro_usa_cb_consumer_confidence() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2324,11 +2427,14 @@ def macro_usa_nfib_small_business() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_nfib_small_business_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国NFIB小型企业信心指数报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国NFIB小型企业信心指数报告"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -2351,7 +2457,8 @@ def macro_usa_nfib_small_business() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2383,11 +2490,15 @@ def macro_usa_michigan_consumer_sentiment() -> pd.DataFrame:
     """
     t = time.time()
     res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
+        f"https://cdn.jin10.com/dc/reports/dc_usa_michigan_consumer_sentiment_all.js?"
+        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国密歇根大学消费者信心指数初值报告"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国密歇根大学消费者信心指数初值报告"]
+        for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -2410,7 +2521,8 @@ def macro_usa_michigan_consumer_sentiment() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2481,7 +2593,8 @@ def macro_usa_eia_crude_rate() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2528,7 +2641,9 @@ def macro_usa_initial_jobless() -> pd.DataFrame:
     )
     json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
     date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国初请失业金人数(万人)"] for item in json_data["list"]]
+    value_list = [
+        item["datas"]["美国初请失业金人数(万人)"] for item in json_data["list"]
+    ]
     value_df = pd.DataFrame(value_list)
     value_df.columns = json_data["kinds"]
     value_df.index = pd.to_datetime(date_list)
@@ -2551,7 +2666,8 @@ def macro_usa_initial_jobless() -> pd.DataFrame:
         "sec-fetch-dest": "empty",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
+        " Chrome/80.0.3987.149 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
@@ -2600,10 +2716,18 @@ def macro_usa_crude_inner() -> pd.DataFrame:
     big_df = pd.DataFrame()
     big_df["美国国内原油总量_产量"] = temp_df["美国国内原油总量"].apply(lambda x: x[0])
     big_df["美国国内原油总量_变化"] = temp_df["美国国内原油总量"].apply(lambda x: x[1])
-    big_df["美国本土48州原油产量_产量"] = temp_df["美国本土48州原油产量"].apply(lambda x: x[0])
-    big_df["美国本土48州原油产量_变化"] = temp_df["美国本土48州原油产量"].apply(lambda x: x[1])
-    big_df["美国阿拉斯加州原油产量_产量"] = temp_df["美国阿拉斯加州原油产量"].apply(lambda x: x[0])
-    big_df["美国阿拉斯加州原油产量_变化"] = temp_df["美国阿拉斯加州原油产量"].apply(lambda x: x[1])
+    big_df["美国本土48州原油产量_产量"] = temp_df["美国本土48州原油产量"].apply(
+        lambda x: x[0]
+    )
+    big_df["美国本土48州原油产量_变化"] = temp_df["美国本土48州原油产量"].apply(
+        lambda x: x[1]
+    )
+    big_df["美国阿拉斯加州原油产量_产量"] = temp_df["美国阿拉斯加州原油产量"].apply(
+        lambda x: x[0]
+    )
+    big_df["美国阿拉斯加州原油产量_变化"] = temp_df["美国阿拉斯加州原油产量"].apply(
+        lambda x: x[1]
+    )
     big_df = big_df.astype("float")
     return big_df
 
@@ -2748,100 +2872,132 @@ if __name__ == "__main__":
     # 金十数据中心-经济指标-美国-经济状况-美国GDP
     macro_usa_gdp_monthly_df = macro_usa_gdp_monthly()
     print(macro_usa_gdp_monthly_df)
+
     # 金十数据中心-经济指标-美国-物价水平-美国CPI月率报告
     macro_usa_cpi_monthly_df = macro_usa_cpi_monthly()
     print(macro_usa_cpi_monthly_df)
+
     # 金十数据中心-经济指标-美国-物价水平-美国核心CPI月率报告
     macro_usa_core_cpi_monthly_df = macro_usa_core_cpi_monthly()
     print(macro_usa_core_cpi_monthly_df)
+
     # 金十数据中心-经济指标-美国-物价水平-美国个人支出月率报告
     macro_usa_personal_spending_df = macro_usa_personal_spending()
     print(macro_usa_personal_spending_df)
+
     # 金十数据中心-经济指标-美国-物价水平-美国零售销售月率报告
     macro_usa_retail_sales_df = macro_usa_retail_sales()
     print(macro_usa_retail_sales_df)
+
     # 金十数据中心-经济指标-美国-物价水平-美国进口物价指数报告
     macro_usa_import_price_df = macro_usa_import_price()
     print(macro_usa_import_price_df)
+
     # 金十数据中心-经济指标-美国-物价水平-美国出口价格指数报告
     macro_usa_export_price_df = macro_usa_export_price()
     print(macro_usa_export_price_df)
+
     # 金十数据中心-经济指标-美国-劳动力市场-LMCI
     macro_usa_lmci_df = macro_usa_lmci()
     print(macro_usa_lmci_df)
+
     # 金十数据中心-经济指标-美国-劳动力市场-失业率-美国失业率报告
     macro_usa_unemployment_rate_df = macro_usa_unemployment_rate()
     print(macro_usa_unemployment_rate_df)
+
     # 金十数据中心-经济指标-美国-劳动力市场-失业率-美国挑战者企业裁员人数报告
     macro_usa_job_cuts_df = macro_usa_job_cuts()
     print(macro_usa_job_cuts_df)
+
     # 金十数据中心-经济指标-美国-劳动力市场-就业人口-美国非农就业人数报告
     macro_usa_non_farm_df = macro_usa_non_farm()
     print(macro_usa_non_farm_df)
+
     # 金十数据中心-经济指标-美国-劳动力市场-就业人口-美国ADP就业人数报告
     macro_usa_adp_employment_df = macro_usa_adp_employment()
     print(macro_usa_adp_employment_df)
+
     # 金十数据中心-经济指标-美国-劳动力市场-消费者收入与支出-美国核心PCE物价指数年率报告
     macro_usa_core_pce_price_df = macro_usa_core_pce_price()
     print(macro_usa_core_pce_price_df)
+
     # 金十数据中心-经济指标-美国-劳动力市场-消费者收入与支出-美国实际个人消费支出季率初值报告
     macro_usa_real_consumer_spending_df = macro_usa_real_consumer_spending()
     print(macro_usa_real_consumer_spending_df)
+
     # 金十数据中心-经济指标-美国-贸易状况-美国贸易帐报告
     macro_usa_trade_balance_df = macro_usa_trade_balance()
     print(macro_usa_trade_balance_df)
+
     # 金十数据中心-经济指标-美国-贸易状况-美国经常帐报告
     macro_usa_current_account_df = macro_usa_current_account()
     print(macro_usa_current_account_df)
+
     # 金十数据中心-经济指标-美国-产业指标-制造业-贝克休斯钻井报告
     macro_usa_rig_count_df = macro_usa_rig_count()
     print(macro_usa_rig_count_df)
+
     # 金十数据中心-经济指标-美国-产业指标-制造业-美国个人支出月率报告
     # 金十数据中心-经济指标-美国-产业指标-制造业-美国生产者物价指数(PPI)报告
     macro_usa_ppi_df = macro_usa_ppi()
     print(macro_usa_ppi_df)
+
     # 金十数据中心-经济指标-美国-产业指标-制造业-美国核心生产者物价指数(PPI)报告
     macro_usa_core_ppi_df = macro_usa_core_ppi()
     print(macro_usa_core_ppi_df)
+
     # 金十数据中心-经济指标-美国-产业指标-制造业-美国API原油库存报告
     macro_usa_api_crude_stock_df = macro_usa_api_crude_stock()
     print(macro_usa_api_crude_stock_df)
+
     # 金十数据中心-经济指标-美国-产业指标-制造业-美国Markit制造业PMI初值报告
     macro_usa_pmi_df = macro_usa_pmi()
     print(macro_usa_pmi_df)
+
     # 金十数据中心-经济指标-美国-产业指标-制造业-美国ISM制造业PMI报告
     macro_usa_ism_pmi_df = macro_usa_ism_pmi()
     print(macro_usa_ism_pmi_df)
+
     # 金十数据中心-经济指标-美国-产业指标-房地产-美国NAHB房产市场指数报告
     macro_usa_nahb_house_market_index_df = macro_usa_nahb_house_market_index()
     print(macro_usa_nahb_house_market_index_df)
+
     # 金十数据中心-经济指标-美国-产业指标-房地产-美国新屋开工总数年化报告
     macro_usa_house_starts_df = macro_usa_house_starts()
     print(macro_usa_house_starts_df)
+
     # 金十数据中心-经济指标-美国-产业指标-房地产-美国新屋销售总数年化报告
     macro_usa_new_home_sales_df = macro_usa_new_home_sales()
     print(macro_usa_new_home_sales_df)
+
     # 金十数据中心-经济指标-美国-产业指标-房地产-美国营建许可总数报告
     macro_usa_building_permits_df = macro_usa_building_permits()
     print(macro_usa_building_permits_df)
+
     # 金十数据中心-经济指标-美国-产业指标-房地产-美国成屋销售总数年化报告
     macro_usa_exist_home_sales_df = macro_usa_exist_home_sales()
     print(macro_usa_exist_home_sales_df)
+
     # 金十数据中心-经济指标-美国-产业指标-房地产-美国FHFA房价指数月率报告
     macro_usa_house_price_index_df = macro_usa_house_price_index()
     print(macro_usa_house_price_index_df)
+
     # 金十数据中心-经济指标-美国-产业指标-房地产-美国S&P/CS20座大城市房价指数年率报告
     macro_usa_spcs20_df = macro_usa_spcs20()
     print(macro_usa_spcs20_df)
+
     # 金十数据中心-经济指标-美国-产业指标-房地产-美国成屋签约销售指数月率报告
     macro_usa_pending_home_sales_df = macro_usa_pending_home_sales()
     print(macro_usa_pending_home_sales_df)
+
     # 金十数据中心-经济指标-美国-领先指标-美国谘商会消费者信心指数报告
     macro_usa_cb_consumer_confidence_df = macro_usa_cb_consumer_confidence()
     print(macro_usa_cb_consumer_confidence_df)
+
     # 金十数据中心-经济指标-美国-领先指标-美国NFIB小型企业信心指数报告
     macro_usa_nfib_small_business_df = macro_usa_nfib_small_business()
     print(macro_usa_nfib_small_business_df)
+
     # 金十数据中心-经济指标-美国-领先指标-美国密歇根大学消费者信心指数初值报告
     macro_usa_michigan_consumer_sentiment_df = macro_usa_michigan_consumer_sentiment()
     print(macro_usa_michigan_consumer_sentiment_df)
@@ -2861,14 +3017,17 @@ if __name__ == "__main__":
     # 金十数据中心-美国商品期货交易委员会CFTC外汇类非商业持仓报告
     macro_usa_cftc_nc_holding_df = macro_usa_cftc_nc_holding()
     print(macro_usa_cftc_nc_holding_df)
+
     # 金十数据中心-美国商品期货交易委员会CFTC商品类非商业持仓报告
     macro_usa_cftc_c_holding_df = macro_usa_cftc_c_holding()
     print(macro_usa_cftc_c_holding_df)
+
     # 金十数据中心-美国商品期货交易委员会CFTC外汇类商业持仓报告
     macro_usa_cftc_merchant_currency_holding_df = (
         macro_usa_cftc_merchant_currency_holding()
     )
     print(macro_usa_cftc_merchant_currency_holding_df)
+
     # 金十数据中心-美国商品期货交易委员会CFTC商品类商业持仓报告
     macro_usa_cftc_merchant_goods_holding_df = macro_usa_cftc_merchant_goods_holding()
     print(macro_usa_cftc_merchant_goods_holding_df)
