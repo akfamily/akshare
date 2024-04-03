@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/11/9 15:14
+Date: 2024/4/3 16:00
 Desc: 东方财富-经济数据-日本
 https://data.eastmoney.com/cjsj/foreign_3_0.html
 """
+
 import pandas as pd
 import requests
 
@@ -59,9 +60,9 @@ def macro_japan_core(symbol: str = "EMG00341602") -> pd.DataFrame:
             "发布日期",
         ]
     ]
-    temp_df["前值"] = pd.to_numeric(temp_df["前值"])
-    temp_df["现值"] = pd.to_numeric(temp_df["现值"])
-    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"]).dt.date
+    temp_df["前值"] = pd.to_numeric(temp_df["前值"], errors="coerce")
+    temp_df["现值"] = pd.to_numeric(temp_df["现值"], errors="coerce")
+    temp_df["发布日期"] = pd.to_datetime(temp_df["发布日期"], errors="coerce").dt.date
     temp_df.sort_values(["发布日期"], inplace=True, ignore_index=True)
     return temp_df
 
