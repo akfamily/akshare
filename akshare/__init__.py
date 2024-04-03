@@ -2729,9 +2729,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.15 add: add car_market_man_rank_cpca interface
 1.13.16 add: add car_market_cate_cpca interface
 1.13.17 fix: fix stock_zcfz_em interface
+1.13.18 fix: fix macro_china_pmi_yearly interface
 """
 
-__version__ = "1.13.17"
+__version__ = "1.13.18"
 __author__ = "AKFamily"
 
 import sys
@@ -2752,6 +2753,11 @@ if sys.version_info < (3, 9):
     )
 
 del sys
+
+"""
+
+"""
+from akshare.index.index_research_fund_sw import index_hist_fund_sw, index_realtime_fund_sw
 
 """
 东方财富-财经早餐
@@ -3038,7 +3044,7 @@ from akshare.bond.bond_info_cm import (
 """
 申万宏源研究-指数系列
 """
-from akshare.index.index_sw_research import (
+from akshare.index.index_research_sw import (
     index_realtime_sw,
     index_hist_sw,
     index_component_sw,
