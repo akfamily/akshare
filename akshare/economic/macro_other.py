@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/4 16:36
+Date: 2024/4/3 16:36
 Desc: 金十数据-其他-加密货币实时行情
 """
+
 import time
 from datetime import datetime
 
@@ -22,7 +23,8 @@ def crypto_js_spot() -> pd.DataFrame:
         "_": "1672141224307",
     }
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -42,12 +44,12 @@ def crypto_js_spot() -> pd.DataFrame:
         "24小时成交量",
         "更新时间",
     ]
-    data_df["最近报价"] = pd.to_numeric(data_df["最近报价"])
-    data_df["涨跌额"] = pd.to_numeric(data_df["涨跌额"])
-    data_df["涨跌幅"] = pd.to_numeric(data_df["涨跌幅"])
-    data_df["24小时最高"] = pd.to_numeric(data_df["24小时最高"])
-    data_df["24小时最低"] = pd.to_numeric(data_df["24小时最低"])
-    data_df["24小时成交量"] = pd.to_numeric(data_df["24小时成交量"])
+    data_df["最近报价"] = pd.to_numeric(data_df["最近报价"], errors="coerce")
+    data_df["涨跌额"] = pd.to_numeric(data_df["涨跌额"], errors="coerce")
+    data_df["涨跌幅"] = pd.to_numeric(data_df["涨跌幅"], errors="coerce")
+    data_df["24小时最高"] = pd.to_numeric(data_df["24小时最高"], errors="coerce")
+    data_df["24小时最低"] = pd.to_numeric(data_df["24小时最低"], errors="coerce")
+    data_df["24小时成交量"] = pd.to_numeric(data_df["24小时成交量"], errors="coerce")
     data_df["更新时间"] = data_df["更新时间"].astype(str)
     return data_df
 
@@ -89,7 +91,8 @@ def macro_fx_sentiment(
         "referer": "https://datacenter.jin10.com/reportType/dc_ssi_trends",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/79.0.3945.130 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
