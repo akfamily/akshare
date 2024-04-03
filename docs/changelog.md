@@ -4,6 +4,8 @@
 
 | AKShare 版本 | 旧接口名称                                       | 新接口名称                                       | 修改日期     |
 |------------|---------------------------------------------|---------------------------------------------|----------|
+| 1.13.19    | car_gasgoo_sale_rank                        | car_sale_rank_gasgoo                        | 20240403 |
+| 1.13.19    | car_energy_sale_cpca                        | car_market_fuel_cpca                        | 20240403 |
 | 1.13.15    | car_market_cpca                             | car_market_total_cpca                       | 20240331 |
 | 1.12.95    | futures_hog_rank                            | futures_hog_cost                            | 20240318 |
 | 1.12.95    | futures_hog_info                            | futures_hog_core                            | 20240318 |
@@ -75,6 +77,11 @@
 | 1.4.86     | fund_em_aum                                 | fund_aum_em                                 | 20220322 |
 
 ## 更新说明详情
+
+1.13.19 add: add car_market_country_cpca interface
+
+    1. 新增 car_market_country_cpca 接口
+    2. 新增 car_market_segment_cpca 接口
 
 1.13.18 fix: fix macro_china_pmi_yearly interface
 
@@ -3834,6 +3841,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.19 add: add car_market_country_cpca interface
 
 1.13.18 fix: fix macro_china_pmi_yearly interface
 
