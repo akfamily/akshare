@@ -76,6 +76,18 @@
 
 ## 更新说明详情
 
+1.13.18 fix: fix macro_china_pmi_yearly interface
+
+    1. 修复 crypto_js_spot 接口
+    2. 修复 macro_cons_gold 接口
+    3. 修复 macro_china_hk_cpi 接口
+    4. 修复 macro_china_pmi_yearly 接口
+    5. 新增 index_realtime_fund_sw 接口
+    6. 新增 index_hist_fund_sw 接口
+    7. 修复 macro_euro_lme_stock 接口
+    8. 修复 macro_usa_cftc_merchant_goods_holding 接口
+    9. 修复 macro_usa_ism_pmi 接口
+
 1.13.17 fix: fix stock_zcfz_em interface
 
     1. 修复 stock_zcfz_em 接口
@@ -3822,6 +3834,10 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.18 fix: fix macro_china_pmi_yearly interface
+
+1.13.17 fix: fix stock_zcfz_em interface
 
 1.13.16 add: add car_market_cate_cpca interface
 
