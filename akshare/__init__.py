@@ -2730,9 +2730,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.16 add: add car_market_cate_cpca interface
 1.13.17 fix: fix stock_zcfz_em interface
 1.13.18 fix: fix macro_china_pmi_yearly interface
+1.13.19 add: add car_market_country_cpca interface
 """
 
-__version__ = "1.13.18"
+__version__ = "1.13.19"
 __author__ = "AKFamily"
 
 import sys
@@ -2755,7 +2756,7 @@ if sys.version_info < (3, 9):
 del sys
 
 """
-
+申万宏源研究-申万指数-指数发布-基金指数-实时行情
 """
 from akshare.index.index_research_fund_sw import index_hist_fund_sw, index_realtime_fund_sw
 
@@ -3787,13 +3788,15 @@ from akshare.stock_feature.stock_zf_pg import stock_qbzf_em, stock_pg_em
 """
 汽车销量
 """
-from akshare.other.other_car import (
-    car_gasgoo_sale_rank,
-    car_energy_sale_cpca,
+from akshare.other.other_car_gasgoo import car_sale_rank_gasgoo
+from akshare.other.other_car_cpca import (
+    car_market_cate_cpca,
+    car_market_fuel_cpca,
+    car_market_segment_cpca,
+    car_market_country_cpca,
+    car_market_man_rank_cpca,
     car_market_total_cpca,
-    car_market_man_rank_cpca
 )
-from akshare.other.other_car_cpca import car_market_cate_cpca
 
 """
 中国公路物流运价、运量指数
