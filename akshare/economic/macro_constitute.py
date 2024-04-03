@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/12/27 20:08
+Date: 2024/4/3 16:08
 Desc: 金十数据-数据中心-主要机构-宏观经济
 https://datacenter.jin10.com/
 """
+
+import datetime
 import time
 
 import pandas as pd
 import requests
 from tqdm import tqdm
-import datetime
 
 
 def macro_cons_gold() -> pd.DataFrame:
@@ -22,7 +23,8 @@ def macro_cons_gold() -> pd.DataFrame:
     """
     t = time.time()
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -41,7 +43,7 @@ def macro_cons_gold() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -68,7 +70,7 @@ def macro_cons_gold() -> pd.DataFrame:
             "总价值",
         ]
     ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     big_df["总库存"] = pd.to_numeric(big_df["总库存"], errors="coerce")
     big_df["增持/减持"] = pd.to_numeric(big_df["增持/减持"], errors="coerce")
     big_df["总价值"] = pd.to_numeric(big_df["总价值"], errors="coerce")
@@ -86,7 +88,8 @@ def macro_cons_silver() -> pd.DataFrame:
     """
     t = time.time()
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
@@ -105,7 +108,7 @@ def macro_cons_silver() -> pd.DataFrame:
         if not data_json["data"]["values"]:
             break
         temp_df = pd.DataFrame(data_json["data"]["values"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
         last_date_str = temp_df.iat[-1, 0]
         last_date_str = (
             (
@@ -132,7 +135,7 @@ def macro_cons_silver() -> pd.DataFrame:
             "总价值",
         ]
     ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
     big_df["总库存"] = pd.to_numeric(big_df["总库存"], errors="coerce")
     big_df["增持/减持"] = pd.to_numeric(big_df["增持/减持"], errors="coerce")
     big_df["总价值"] = pd.to_numeric(big_df["总价值"], errors="coerce")
@@ -163,13 +166,14 @@ def macro_cons_opec_month() -> pd.DataFrame:
         "referer": "https://datacenter.jin10.com/reportType/dc_opec_report",
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/79.0.3945.117 Safari/537.36",
         "x-app-id": "rU6QIu7JHe2gOUeR",
         "x-csrf-token": "",
         "x-version": "1.0.0",
     }
     res = requests.get(
-        f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
+        url=f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
         headers=headers,
     )  # 日期序列
     all_date_list = res.json()["data"]
@@ -177,7 +181,8 @@ def macro_cons_opec_month() -> pd.DataFrame:
     for item in bar:
         bar.set_description(f"Please wait for a moment, now downloading {item}'s data")
         res = requests.get(
-            f"https://datacenter-api.jin10.com/reports/list?category=opec&date={item}&_={str(int(round(t * 1000)))}",
+            url=f"https://datacenter-api.jin10.com/reports/list?"
+            f"category=opec&date={item}&_={str(int(round(t * 1000)))}",
             headers=headers,
         )
         temp_df = pd.DataFrame(
@@ -203,7 +208,7 @@ def macro_cons_opec_month() -> pd.DataFrame:
                     "欧佩克产量",
                 ]
             ].iloc[-2, :]
-        except:
+        except:  # noqa: E722
             temp_df = temp_df[
                 [
                     "阿尔及利亚",
