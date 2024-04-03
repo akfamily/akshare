@@ -296,15 +296,15 @@ print(car_market_cate_cpca_df)
 11  12月  122.1150      NaN
 ```
 
-#### 乘联会-新能源细分市场
+#### 乘联会-统计数据-国别细分市场
 
-接口: car_energy_sale_cpca
+接口: car_market_country_cpca
 
-目标地址: http://data.cpcaauto.com/FuelMarket
+目标地址: http://data.cpcaauto.com/CountryMarket
 
-描述: 乘联会-新能源细分市场汽车销量数据
+描述: 乘联会-统计数据-国别细分市场
 
-限量: 单次返回本年度和上年度月份的销量数据
+限量: 单次返回指定 symbol 和 indicator 的数据
 
 输入参数
 
@@ -312,7 +312,118 @@ print(car_market_cate_cpca_df)
 |----|----|----|
 | -  | -  | -  |
 
-输出参数-品牌
+输出参数
+
+| 名称   | 类型      | 描述       |
+|------|---------|----------|
+| 月份   | object  | -        |
+| 自主   | float64 | 注意单位: 万辆 |
+| 德系   | float64 | 注意单位: 万辆 |
+| 日系   | float64 | 注意单位: 万辆 |
+| 法系   | float64 | 注意单位: 万辆 |
+| 美系   | float64 | 注意单位: 万辆 |
+| 韩系   | float64 | 注意单位: 万辆 |
+| 其他欧系 | float64 | 注意单位: 万辆 |
+
+接口示例
+
+```python
+import akshare as ak
+
+car_market_country_cpca_df = ak.car_market_country_cpca()
+print(car_market_country_cpca_df)
+```
+
+数据示例
+
+```
+     月份         自主      德系  ...        美系       韩系     其他欧系
+0    2023-3月  52.937614  18.783411  ...  8.944649  1.841395  0.656085
+1    2023-4月  56.117973  17.591091  ...  9.997354  1.454204  0.767231
+2    2023-5月  54.849330  17.672825  ...  9.739207  1.441945  0.856578
+3    2023-6月  53.630800  18.637491  ...  9.731017  1.782815  0.873428
+4    2023-7月  58.120550  17.234150  ...  8.402960  1.375989  0.825758
+5    2023-8月  57.429867  17.205738  ...  8.894298  1.640349  0.783967
+6    2023-9月  56.517770  17.429178  ...  8.500368  1.590704  0.753809
+7   2023-10月  59.985280  15.645699  ...  7.352488  1.470236  0.694709
+8   2023-11月  59.638090  16.112440  ...  7.439157  1.567490  0.624859
+9   2023-12月  57.890274  17.040712  ...  8.136273  1.738795  0.650838
+10   2024-1月  60.437893  17.406410  ...  6.315318  1.404617  0.804964
+11   2024-2月  60.124140  17.637665  ...  6.854863  1.837663  0.695454
+[12 rows x 8 columns]
+```
+
+#### 乘联会-统计数据-级别细分市场
+
+接口: car_market_segment_cpca
+
+目标地址: http://data.cpcaauto.com/SegmentMarket
+
+描述: 乘联会-统计数据-级别细分市场
+
+限量: 单次返回指定 symbol 的数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                          |
+|--------|-----|---------------------------------------------|
+| symbol | str | symbol="轿车"; choice of {"轿车", "MPV", "SUV"} |
+
+输出参数
+
+| 名称  | 类型      | 描述       |
+|-----|---------|----------|
+| 月份  | object  | -        |
+| A00 | float64 | 注意单位: 万辆 |
+| A0  | float64 | 注意单位: 万辆 |
+| A   | float64 | 注意单位: 万辆 |
+| B   | float64 | 注意单位: 万辆 |
+| C   | float64 | 注意单位: 万辆 |
+
+接口示例
+
+```python
+import akshare as ak
+
+car_market_segment_cpca_df = ak.car_market_segment_cpca(symbol="轿车")
+print(car_market_segment_cpca_df)
+```
+
+数据示例
+
+```
+          月份        A00         A0          A          B          C
+0    2023-3月   5.456084   8.219518  42.917168  34.389297   9.017934
+1    2023-4月   5.164784  10.342795  44.179653  30.211243  10.101533
+2    2023-5月   4.764809   9.978744  46.005154  28.248846  11.002440
+3    2023-6月   4.684416   9.713371  44.913500  30.345741  10.342969
+4    2023-7月   4.699168  10.649708  45.020990  28.368778  11.261360
+5    2023-8月   4.059616  11.460070  45.084000  29.152237  10.244087
+6    2023-9月   7.940861   7.592339  43.092026  30.093441  11.281339
+7   2023-10月   9.530694   8.313237  42.630062  28.593506  10.932507
+8   2023-11月  11.200026   8.195070  40.859290  29.682444  10.063169
+9   2023-12月  12.457766   8.930598  37.996150  30.184662  10.430823
+10   2024-1月   9.581266   5.019070  41.158417  35.134407   9.106843
+11   2024-2月   7.976292   7.585693  36.759968  36.646090  11.031953
+```
+
+#### 乘联会-统计数据-新能源细分市场
+
+接口: car_market_fuel_cpca
+
+目标地址: http://data.cpcaauto.com/FuelMarket
+
+描述: 乘联会-统计数据-车型大类
+
+限量: 单次返回指定 symbol 的数据
+
+输入参数
+
+| 名称     | 类型  | 描述                                                                 |
+|--------|-----|--------------------------------------------------------------------|
+| symbol | str | symbol="整体市场"; choice of {"整体市场", "销量占比-PHEV-BEV", "销量占比-ICE-NEV"} |
+
+输出参数
 
 | 名称       | 类型      | 描述       |
 |----------|---------|----------|
@@ -325,31 +436,31 @@ print(car_market_cate_cpca_df)
 ```python
 import akshare as ak
 
-car_energy_sale_cpca_df = ak.car_energy_sale_cpca()
-print(car_energy_sale_cpca_df)
+car_market_fuel_cpca_df = ak.car_market_fuel_cpca()
+print(car_market_fuel_cpca_df)
 ```
 
 数据示例
 
 ```
-     月份    2022年    2023年
-0    1月  35.2329  33.1542
-1    2月  27.2624  43.9068
-2    3月  44.4656  54.6472
-3    4月  28.2490  52.4730
-4    5月  35.9503  57.9938
-5    6月  53.1478      NaN
-6    7月  48.6048      NaN
-7    8月  52.9566      NaN
-8    9月  61.0855      NaN
-9   10月  55.4664      NaN
-10  11月  59.8107      NaN
-11  12月  64.0064      NaN
+     月份    2023年    2024年
+0    1月  33.1542  66.7653
+1    2月  43.9068  38.8294
+2    3月  54.6472      NaN
+3    4月  52.4730      NaN
+4    5月  57.9938      NaN
+5    6月  66.5066      NaN
+6    7月  64.1005      NaN
+7    8月  71.6335      NaN
+8    9月  74.6305      NaN
+9   10月  77.1797      NaN
+10  11月  84.0500      NaN
+11  12月  94.7347      NaN
 ```
 
 #### 盖世研究院
 
-接口: car_gasgoo_sale_rank
+接口: car_sale_rank_gasgoo
 
 目标地址: https://i.gasgoo.com/data/ranking
 
@@ -381,8 +492,8 @@ print(car_energy_sale_cpca_df)
 ```python
 import akshare as ak
 
-car_gasgoo_sale_rank_df = ak.car_gasgoo_sale_rank(symbol="品牌榜", date="202311")
-print(car_gasgoo_sale_rank_df)
+car_sale_rank_gasgoo_df = ak.car_sale_rank_gasgoo(symbol="品牌榜", date="202311")
+print(car_sale_rank_gasgoo_df)
 ```
 
 数据示例-品牌
@@ -458,8 +569,8 @@ print(car_gasgoo_sale_rank_df)
 ```python
 import akshare as ak
 
-car_gasgoo_sale_rank_df = ak.car_gasgoo_sale_rank(symbol="车型榜", date="202311")
-print(car_gasgoo_sale_rank_df)
+car_sale_rank_gasgoo_df = ak.car_sale_rank_gasgoo(symbol="车型榜", date="202311")
+print(car_sale_rank_gasgoo_df)
 ```
 
 数据示例-车型
@@ -536,8 +647,8 @@ print(car_gasgoo_sale_rank_df)
 ```python
 import akshare as ak
 
-car_gasgoo_sale_rank_df = ak.car_gasgoo_sale_rank(symbol="车企榜", date="202311")
-print(car_gasgoo_sale_rank_df)
+car_sale_rank_gasgoo_df = ak.car_sale_rank_gasgoo(symbol="车企榜", date="202311")
+print(car_sale_rank_gasgoo_df)
 ```
 
 数据示例-车企
@@ -1197,29 +1308,30 @@ print(air_quality_rank_df)
 
 输入参数
 
-| 名称   | 类型 | 必选 | 描述                                                                              |
-| -------- | ---- | ---- | --- |
-| city | str | Y | city="杭州"; 调用 air_city_table 接口获取所有城市列表 | |
-| start_date | str | Y | start_date="2018-01-01" |
-| end_date | str | Y | end_date="2020-04-27" |
+| 名称         | 类型     | 描述                                           |
+|------------|--------|----------------------------------------------|
+| city       | object | city="杭州"; 调用 ak.air_city_table() 接口获取所有城市列表 | |
+| start_date | object | start_date="2018-01-01"                      |
+| end_date   | object | end_date="2020-04-27"                        |
 
 输出参数
 
-| 名称          | 类型 | 默认显示 | 描述           |
-| --------------- | ----- | -------- | ---------------- |
-| pointname      | str  | Y        | 监测点名称  |
-| aqi      | float   | Y        | AQI  |
-| pm2_5      | float   | Y        | PM2.5   |
-| pm10     | float   | Y        | PM10  |
-| no2      | float   | Y        | NO2   |
-| so2      | float   | Y        | SO2  |
-| o3      | float   | Y        | O3  |
-| co      | float   | Y        | CO  |
+| 名称        | 类型      | 描述    |
+|-----------|---------|-------|
+| pointname | object  | 监测点名称 |
+| aqi       | float64 | AQI   |
+| pm2_5     | float64 | PM2.5 |
+| pm10      | float64 | PM10  |
+| no2       | float64 | NO2   |
+| so2       | float64 | SO2   |
+| o3        | float64 | O3    |
+| co        | float64 | CO    |
 
 接口示例
 
 ```python
 import akshare as ak
+
 air_quality_watch_point_df = ak.air_quality_watch_point(city="杭州", start_date="2018-01-01", end_date="2020-04-27")
 print(air_quality_watch_point_df)
 ```

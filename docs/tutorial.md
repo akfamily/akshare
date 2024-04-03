@@ -710,11 +710,13 @@
  # 中国公路物流运量指数
  "index_cflp_volume"  # 中国公路物流运量指数
  # 汽车销量
- "car_gasgoo_sale_rank"  # 盖世汽车-汽车行业制造企业数据库-销量数据
- "car_energy_sale_cpca"  # 乘联会-新能源细分市场-整体市场
+ "car_sale_rank_gasgoo"  # 盖世汽车-汽车行业制造企业数据库-销量数据
  "car_market_total_cpca"  # 乘联会-统计数据-总体市场
  "car_market_man_rank_cpca"  # 乘联会-统计数据-厂商排名
  "car_market_cate_cpca"  # 乘联会-统计数据-车型大类
+ "car_market_country_cpca"  # 乘联会-统计数据-国别细分市场
+ "car_market_segment_cpca"  # 乘联会-统计数据-级别细分市场
+ "car_market_fuel_cpca"  # 乘联会-统计数据-新能源细分市场
  # 增发
  "stock_em_qbzf"  # 增发
  # 配股
