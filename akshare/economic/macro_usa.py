@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/19 18:00
+Date: 2024/4/4 18:00
 Desc: 金十数据中心-经济指标-美国
 https://datacenter.jin10.com/economic
 """
 
+import datetime
 import json
 import time
 
@@ -1283,24 +1284,23 @@ def macro_usa_core_ppi() -> pd.DataFrame:
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国API原油库存报告
 def macro_usa_api_crude_stock() -> pd.DataFrame:
     """
-    美国API原油库存报告, 数据区间从20120328-至今
+    美国 API 原油库存报告, 数据区间从 20120328-至今
     https://datacenter.jin10.com/reportType/dc_usa_api_crude_stock
     https://cdn.jin10.com/dc/reports/dc_usa_api_crude_stock_all.js?v=1578743859
     :return: 美国API原油库存报告-今值(万桶)
     :rtype: pandas.Series
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
     t = time.time()
-    res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_api_crude_stock_all.js?"
-        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国API原油库存报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(万桶)"]
+    headers = {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "x-csrf-token",
+        "x-version": "1.0.0",
+    }
     url = "https://datacenter-api.jin10.com/reports/list_v2"
     params = {
         "max_date": "",
@@ -1308,41 +1308,47 @@ def macro_usa_api_crude_stock() -> pd.DataFrame:
         "attr_id": "69",
         "_": str(int(round(t * 1000))),
     }
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    r = requests.get(url, params=params, headers=headers)
-    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
-    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
-    temp_se = temp_se.iloc[:, 1]
-    temp_df = pd.concat([temp_df, temp_se])
-    temp_df.dropna(inplace=True)
-    temp_df.sort_index(inplace=True)
-    temp_df = temp_df.reset_index()
-    temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index(keys="index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "usa_api_crude_stock"
-    temp_df = temp_df.astype("float")
-    temp_df = pd.DataFrame(temp_df)
-    temp_df.reset_index(inplace=True)
-    temp_df.columns = ["日期", "值"]
-    return temp_df
+    big_df = pd.DataFrame()
+    while True:
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        if not data_json["data"]["values"]:
+            break
+        temp_df = pd.DataFrame(data_json["data"]["values"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+        last_date_str = temp_df.iat[-1, 0]
+        last_date_str = (
+            (
+                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
+                - datetime.timedelta(days=1)
+            )
+            .date()
+            .isoformat()
+        )
+        params.update({"max_date": f"{last_date_str}"})
+    big_df.columns = [
+        "日期",
+        "今值",
+        "预测值",
+        "前值",
+    ]
+    big_df["商品"] = "美国API原油库存"
+    big_df = big_df[
+        [
+            "商品",
+            "日期",
+            "今值",
+            "预测值",
+            "前值",
+        ]
+    ]
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["今值"] = pd.to_numeric(big_df["今值"], errors="coerce")
+    big_df["预测值"] = pd.to_numeric(big_df["预测值"], errors="coerce")
+    big_df["前值"] = pd.to_numeric(big_df["前值"], errors="coerce")
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
 
 
 # 金十数据中心-经济指标-美国-产业指标-制造业-美国Markit制造业PMI初值报告
@@ -1418,21 +1424,20 @@ def macro_usa_ism_pmi() -> pd.DataFrame:
     美国 ISM 制造业 PMI 报告, 数据区间从 19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_ism_pmi
     https://cdn.jin10.com/dc/reports/dc_usa_ism_pmi_all.js?v=1578744071
-    :return: 美国ISM制造业PMI报告-今值
-    :rtype: pandas.Series
+    :return: 美国 ISM 制造业 PMI 报告-今值
+    :rtype: pandas.DataFrame
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
     t = time.time()
-    res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_ism_pmi_all.js?"
-        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国ISM制造业PMI报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值"]
+    headers = {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "x-csrf-token",
+        "x-version": "1.0.0",
+    }
     url = "https://datacenter-api.jin10.com/reports/list_v2"
     params = {
         "max_date": "",
@@ -1440,64 +1445,69 @@ def macro_usa_ism_pmi() -> pd.DataFrame:
         "attr_id": "28",
         "_": str(int(round(t * 1000))),
     }
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    r = requests.get(url, params=params, headers=headers)
-    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
-    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
-    temp_se = temp_se.iloc[:, 1]
-    temp_df = pd.concat(objs=[temp_df, temp_se], ignore_index=False)
-    temp_df.dropna(inplace=True)
-    temp_df.sort_index(inplace=True)
-    temp_df = temp_df.reset_index()
-    temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index(keys="index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "usa_ism_pmi"
-    temp_df = temp_df.astype("float")
-    temp_df = pd.DataFrame(temp_df)
-    temp_df.reset_index(inplace=True)
-    temp_df.columns = ["日期", "值"]
-    return temp_df
+    big_df = pd.DataFrame()
+    while True:
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        if not data_json["data"]["values"]:
+            break
+        temp_df = pd.DataFrame(data_json["data"]["values"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+        last_date_str = temp_df.iat[-1, 0]
+        last_date_str = (
+            (
+                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
+                - datetime.timedelta(days=1)
+            )
+            .date()
+            .isoformat()
+        )
+        params.update({"max_date": f"{last_date_str}"})
+    big_df.columns = [
+        "日期",
+        "今值",
+        "预测值",
+        "前值",
+    ]
+    big_df["商品"] = "美国ISM制造业PMI报告"
+    big_df = big_df[
+        [
+            "商品",
+            "日期",
+            "今值",
+            "预测值",
+            "前值",
+        ]
+    ]
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["今值"] = pd.to_numeric(big_df["今值"], errors="coerce")
+    big_df["预测值"] = pd.to_numeric(big_df["预测值"], errors="coerce")
+    big_df["前值"] = pd.to_numeric(big_df["前值"], errors="coerce")
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
 
 
 # 金十数据中心-经济指标-美国-产业指标-工业-美国工业产出月率报告
 def macro_usa_industrial_production() -> pd.DataFrame:
     """
-    美国工业产出月率报告, 数据区间从19700101-至今
+    美国工业产出月率报告, 数据区间从 19700101-至今
     https://datacenter.jin10.com/reportType/dc_usa_industrial_production
     https://cdn.jin10.com/dc/reports/dc_usa_industrial_production_all.js?v=1578744188
     :return: 美国工业产出月率报告-今值(%)
     :rtype: pandas.Series
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
     t = time.time()
-    res = requests.get(
-        f"https://cdn.jin10.com/dc/reports/dc_usa_industrial_production_all.js?"
-        f"v={str(int(round(t * 1000))), str(int(round(t * 1000)) + 90)}"
-    )
-    json_data = json.loads(res.text[res.text.find("{") : res.text.rfind("}") + 1])
-    date_list = [item["date"] for item in json_data["list"]]
-    value_list = [item["datas"]["美国工业产出月率报告"] for item in json_data["list"]]
-    value_df = pd.DataFrame(value_list)
-    value_df.columns = json_data["kinds"]
-    value_df.index = pd.to_datetime(date_list)
-    temp_df = value_df["今值(%)"]
+    headers = {
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/107.0.0.0 Safari/537.36",
+        "x-app-id": "rU6QIu7JHe2gOUeR",
+        "x-csrf-token": "x-csrf-token",
+        "x-version": "1.0.0",
+    }
     url = "https://datacenter-api.jin10.com/reports/list_v2"
     params = {
         "max_date": "",
@@ -1505,38 +1515,47 @@ def macro_usa_industrial_production() -> pd.DataFrame:
         "attr_id": "20",
         "_": str(int(round(t * 1000))),
     }
-    headers = {
-        "accept": "*/*",
-        "accept-encoding": "gzip, deflate, br",
-        "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-        "cache-control": "no-cache",
-        "origin": "https://datacenter.jin10.com",
-        "pragma": "no-cache",
-        "referer": "https://datacenter.jin10.com/reportType/dc_usa_michigan_consumer_sentiment",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-site",
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Safari/537.36",
-        "x-app-id": "rU6QIu7JHe2gOUeR",
-        "x-csrf-token": "",
-        "x-version": "1.0.0",
-    }
-    r = requests.get(url, params=params, headers=headers)
-    temp_se = pd.DataFrame(r.json()["data"]["values"]).iloc[:, :2]
-    temp_se.index = pd.to_datetime(temp_se.iloc[:, 0])
-    temp_se = temp_se.iloc[:, 1]
-    temp_df = pd.concat([temp_df, temp_se])
-    temp_df.dropna(inplace=True)
-    temp_df.sort_index(inplace=True)
-    temp_df = temp_df.reset_index()
-    temp_df.drop_duplicates(subset="index", inplace=True)
-    temp_df.set_index("index", inplace=True)
-    temp_df = temp_df.squeeze()
-    temp_df.index.name = None
-    temp_df.name = "usa_industrial_production"
-    temp_df = temp_df.astype("float")
-    return temp_df
+    big_df = pd.DataFrame()
+    while True:
+        r = requests.get(url, params=params, headers=headers)
+        data_json = r.json()
+        if not data_json["data"]["values"]:
+            break
+        temp_df = pd.DataFrame(data_json["data"]["values"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+        last_date_str = temp_df.iat[-1, 0]
+        last_date_str = (
+            (
+                datetime.datetime.strptime(last_date_str, "%Y-%m-%d")
+                - datetime.timedelta(days=1)
+            )
+            .date()
+            .isoformat()
+        )
+        params.update({"max_date": f"{last_date_str}"})
+    big_df.columns = [
+        "日期",
+        "今值",
+        "预测值",
+        "前值",
+    ]
+    big_df["商品"] = "美国工业产出月率报告"
+    big_df = big_df[
+        [
+            "商品",
+            "日期",
+            "今值",
+            "预测值",
+            "前值",
+        ]
+    ]
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["今值"] = pd.to_numeric(big_df["今值"], errors="coerce")
+    big_df["预测值"] = pd.to_numeric(big_df["预测值"], errors="coerce")
+    big_df["前值"] = pd.to_numeric(big_df["前值"], errors="coerce")
+    big_df.sort_values(["日期"], inplace=True)
+    big_df.reset_index(inplace=True, drop=True)
+    return big_df
 
 
 # 金十数据中心-经济指标-美国-产业指标-工业-美国耐用品订单月率报告
