@@ -44,7 +44,7 @@ docker run -it registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter
 ```python
 import akshare as ak
 
-ak.__version__
+print(ak.__version__)
 ```
 
 ## 使用案例

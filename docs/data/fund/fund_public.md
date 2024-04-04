@@ -2950,7 +2950,7 @@ print(fund_portfolio_industry_allocation_em_df)
 ```python
 import akshare as ak
 
-fund_individual_detail_info_xq_df = ak.fund_individual_detail_info_xq(symbol="000001", indicator="交易规则")
+fund_individual_detail_info_xq_df = ak.fund_individual_detail_info_xq(symbol="000001")
 print(fund_individual_detail_info_xq_df)
 ```
 

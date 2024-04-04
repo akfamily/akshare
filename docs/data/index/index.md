@@ -4357,7 +4357,6 @@ print(index_hist_fund_sw_df)
 [4435 rows x 6 columns]
 ```
 
-
 #### 申万指数实时行情
 
 接口: index_realtime_sw
