@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/23 19:00
+Date: 2024/4/4 19:00
 Desc: 东方财富网-概念板-行情中心-日K-筹码分布
 https://quote.eastmoney.com/concept/sz000001.html
 """
+
 import json
 from datetime import datetime
 
@@ -34,6 +35,9 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
      * @param {number} index 当前选中的K线的索引
      * @return {{x: Array.<number>, y: Array.<number>}}
      */
+    /**
+    this.range = 120;
+    */
     function CYQCalculator(index, klinedata) {
         var maxprice = 0;
         var minprice = 0;
@@ -222,35 +226,35 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
     url = "https://push2his.eastmoney.com/api/qt/stock/kline/get"
     params = {
         "secid": f"{code_id_dict[symbol]}.{symbol}",
-        'ut': 'fa5fd1943c7b386f172d6893dbfba10b',
-        'fields1': 'f1,f2,f3,f4,f5,f6',
-        'fields2': 'f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61',
-        'klt': '101',
-        'fqt': adjust_dict[adjust],
-        'end': datetime.now().date().strftime("%Y%m%d"),
-        'lmt': '210',
-        'cb': 'quote_jp1',
+        "ut": "fa5fd1943c7b386f172d6893dbfba10b",
+        "fields1": "f1,f2,f3,f4,f5,f6",
+        "fields2": "f51,f52,f53,f54,f55,f56,f57,f58,f59,f60,f61",
+        "klt": "101",
+        "fqt": adjust_dict[adjust],
+        "end": datetime.now().date().strftime("%Y%m%d"),
+        "lmt": "210",
+        "cb": "quote_jp1",
     }
     r = requests.get(url, params=params)
     data_json = r.text.strip("quote_jp1(").strip(");")
     data_json = json.loads(data_json)
-    temp_df = pd.DataFrame([item.split(",") for item in data_json['data']['klines']])
+    temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
-        'date',
-        'open',
-        'close',
-        'high',
-        'low',
-        'volume',
-        'volume_money',
-        'zf',
-        'zdf',
-        'zde',
-        'hsl',
+        "date",
+        "open",
+        "close",
+        "high",
+        "low",
+        "volume",
+        "volume_money",
+        "zf",
+        "zdf",
+        "zde",
+        "hsl",
     ]
     for item in temp_df.columns[1:]:
         temp_df[item] = pd.to_numeric(temp_df[item])
-    temp_df['index'] = range(0, len(temp_df))
+    temp_df["index"] = range(0, len(temp_df))
     records = temp_df.to_dict(orient="records")
     date_list = []
     benefit_part = []
@@ -263,27 +267,27 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
     pct_90_con = []
     for i in range(0, len(records)):
         mcode = js_code.call("CYQCalculator", i, records)
-        date_list.append(records[i]['date'])
-        benefit_part.append(mcode['benefitPart'])
-        avg_cost.append(mcode['avgCost'])
-        pct_70_low.append(mcode["percentChips"]['70']['priceRange'][0])
-        pct_70_high.append(mcode["percentChips"]['70']['priceRange'][1])
-        pct_90_low.append(mcode["percentChips"]['90']['priceRange'][0])
-        pct_90_high.append(mcode["percentChips"]['90']['priceRange'][1])
-        pct_70_con.append(mcode["percentChips"]['70']['concentration'])
-        pct_90_con.append(mcode["percentChips"]['90']['concentration'])
-    temp_df = pd.DataFrame([
-        date_list,
-        benefit_part,
-        avg_cost,
-        pct_90_low,
-        pct_90_high,
-        pct_90_con,
-        pct_70_low,
-        pct_70_high,
-        pct_70_con,
-
-    ]
+        date_list.append(records[i]["date"])
+        benefit_part.append(mcode["benefitPart"])
+        avg_cost.append(mcode["avgCost"])
+        pct_70_low.append(mcode["percentChips"]["70"]["priceRange"][0])
+        pct_70_high.append(mcode["percentChips"]["70"]["priceRange"][1])
+        pct_90_low.append(mcode["percentChips"]["90"]["priceRange"][0])
+        pct_90_high.append(mcode["percentChips"]["90"]["priceRange"][1])
+        pct_70_con.append(mcode["percentChips"]["70"]["concentration"])
+        pct_90_con.append(mcode["percentChips"]["90"]["concentration"])
+    temp_df = pd.DataFrame(
+        [
+            date_list,
+            benefit_part,
+            avg_cost,
+            pct_90_low,
+            pct_90_high,
+            pct_90_con,
+            pct_70_low,
+            pct_70_high,
+            pct_70_con,
+        ]
     ).T
     temp_df.columns = [
         "日期",
@@ -296,20 +300,20 @@ def stock_cyq_em(symbol: str = "000001", adjust: str = "") -> pd.DataFrame:
         "70成本-高",
         "70集中度",
     ]
-    temp_df['日期'] = pd.to_datetime(temp_df['日期'], errors="coerce").dt.date
-    temp_df['获利比例'] = pd.to_numeric(temp_df['获利比例'], errors="coerce")
-    temp_df['平均成本'] = pd.to_numeric(temp_df['平均成本'], errors="coerce")
-    temp_df['90成本-低'] = pd.to_numeric(temp_df['90成本-低'], errors="coerce")
-    temp_df['90成本-高'] = pd.to_numeric(temp_df['90成本-高'], errors="coerce")
-    temp_df['90集中度'] = pd.to_numeric(temp_df['90集中度'], errors="coerce")
-    temp_df['70成本-低'] = pd.to_numeric(temp_df['70成本-低'], errors="coerce")
-    temp_df['70成本-高'] = pd.to_numeric(temp_df['70成本-高'], errors="coerce")
-    temp_df['70集中度'] = pd.to_numeric(temp_df['70集中度'], errors="coerce")
+    temp_df["日期"] = pd.to_datetime(temp_df["日期"], errors="coerce").dt.date
+    temp_df["获利比例"] = pd.to_numeric(temp_df["获利比例"], errors="coerce")
+    temp_df["平均成本"] = pd.to_numeric(temp_df["平均成本"], errors="coerce")
+    temp_df["90成本-低"] = pd.to_numeric(temp_df["90成本-低"], errors="coerce")
+    temp_df["90成本-高"] = pd.to_numeric(temp_df["90成本-高"], errors="coerce")
+    temp_df["90集中度"] = pd.to_numeric(temp_df["90集中度"], errors="coerce")
+    temp_df["70成本-低"] = pd.to_numeric(temp_df["70成本-低"], errors="coerce")
+    temp_df["70成本-高"] = pd.to_numeric(temp_df["70成本-高"], errors="coerce")
+    temp_df["70集中度"] = pd.to_numeric(temp_df["70集中度"], errors="coerce")
     temp_df = temp_df.iloc[-90:, :].copy()
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     stock_cyq_em_df = stock_cyq_em(symbol="000001", adjust="")
     print(stock_cyq_em_df)
