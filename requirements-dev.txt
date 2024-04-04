@@ -24,3 +24,4 @@ mplfinance>=0.12.10b0
 ruff>=0.3.3
 ruff-lsp>=0.0.53
 pre-commit>=3.6.2
+backtrader>=1.9.78.123  # just for test
