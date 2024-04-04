@@ -78,6 +78,13 @@
 
 ## 更新说明详情
 
+1.13.21 fix: fix stock_yjkb_em interface
+
+    1. 修复 stock_yjkb_em 接口
+    2. 修复 stock_pg_em 接口
+    3. 修复 stock_comment_em 接口
+    4. 修复 macro_usa_api_crude_stock 接口
+
 1.13.20 fix: fix stock_zh_a_disclosure_report_cninfo interface
 
     1. 修复 stock_zh_a_disclosure_report_cninfo 接口
@@ -3845,6 +3852,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.21 fix: fix stock_yjkb_em interface
 
 1.13.20 fix: fix stock_zh_a_disclosure_report_cninfo interface
 
