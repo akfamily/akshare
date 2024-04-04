@@ -120,7 +120,7 @@ def stock_yjyg_em(date: str = "20200331") -> pd.DataFrame:
     """
     东方财富-数据中心-年报季报-业绩预告
     https://data.eastmoney.com/bbsj/202003/yjyg.html
-    :param date: "2020-03-31", "2020-06-30", "2020-09-30", "2020-12-31"; 从 2008-12-31 开始
+    :param date: "20200331", "20200630", "20200930", "20201231"; 从 20081231 开始
     :type date: str
     :return: 业绩预告
     :rtype: pandas.DataFrame
