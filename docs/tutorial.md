@@ -718,9 +718,9 @@
  "car_market_segment_cpca"  # 乘联会-统计数据-级别细分市场
  "car_market_fuel_cpca"  # 乘联会-统计数据-新能源细分市场
  # 增发
- "stock_em_qbzf"  # 增发
+ "stock_qbzf_em"  # 增发
  # 配股
- "stock_em_pg"  # 配股
+ "stock_pg_em"  # 配股
  # 中国-香港-宏观经济指标
  "macro_china_hk_cpi"  # 中国-香港-消费者物价指数
  "macro_china_hk_cpi_ratio"  # 中国-香港-消费者物价指数年率
