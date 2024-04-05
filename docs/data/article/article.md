@@ -82,10 +82,10 @@
 
 Oxford-Man-已实现波动率数据
 
-| 名称    | 类型                | 默认显示 | 描述  |
-|-------|-------------------|------|-----|
-| index | datetime.datetime | Y    | 日期  |  
-| data  | float             | Y    | 数据  |  
+| 名称    | 类型                | 描述 |
+|-------|-------------------|----|
+| index | datetime.datetime | 日期 |
+| data  | float             | 数据 |
 
 接口示例
 
@@ -103,7 +103,7 @@ print(article_oman_rv_df)
 2000-01-06    18.22
 2000-01-07    19.34
 2000-01-10    15.67
-              ...  
+              ...
 2019-11-04     6.71
 2019-11-05     5.90
 2019-11-06     6.43
@@ -133,8 +133,8 @@ Risk-Lab-已实现波动率数据
 
 | 名称    | 类型                | 描述  |
 |-------|-------------------|-----|
-| index | datetime.datetime | 日期  |  
-| data  | float             | 数据  |  
+| index | datetime.datetime | 日期  |
+| data  | float             | 数据  |
 
 接口示例
 
@@ -153,7 +153,7 @@ print(article_rlab_rv_df)
 1996-01-05    0.000000
 1996-01-09    0.000000
 1996-01-10    0.000000
-                ...   
+                ...
 2019-11-04    0.175107
 2019-11-05    0.185112
 2019-11-06    0.210373
@@ -183,10 +183,10 @@ print(article_rlab_rv_df)
 
 | 名称             | 类型     | 描述   |
 |----------------|--------|------|
-| item           | object | -    |  
-| September 2019 | object | 动态日期 |  
-| Last 3 Months  | object | 动态日期 |  
-| Last 12 Months | object | 动态日期 |  
+| item           | object | -    |
+| September 2019 | object | 动态日期 |
+| Last 3 Months  | object | 动态日期 |
+| Last 12 Months | object | 动态日期 |
 
 接口示例
 
@@ -257,38 +257,38 @@ print(article_ff_crr_df)
 国家和地区一览表
 
 | 英文名词        | 说明              |
-|-------------|-----------------| 
-| Global      |                 | 
-| Australia   |                 | 
-| Canada      |                 | 
-| China       |                 | 
-| Europe      | 欧洲              | 
-| Germany     | 欧洲              | 
-| Hong Kong   |                 | 
-| Ireland     |                 | 
-| Japan       |                 | 
-| Mexico      |                 | 
-| Russia      |                 | 
-| Spain       |                 | 
-| UK          |                 | 
-| USA         |                 | 
-| Brazil      |                 | 
-| Chile       |                 | 
-| Colombia    | 有两种, 默认第一种(FKT) | 
-| France      | 欧洲              | 
-| Greece      |                 | 
-| India       |                 | 
-| Italy       | 欧洲              | 
-| South Korea |                 | 
-| Netherlands |                 | 
-| Singapore   |                 | 
+|-------------|-----------------|
+| Global      |                 |
+| Australia   |                 |
+| Canada      |                 |
+| China       |                 |
+| Europe      | 欧洲              |
+| Germany     | 欧洲              |
+| Hong Kong   |                 |
+| Ireland     |                 |
+| Japan       |                 |
+| Mexico      |                 |
+| Russia      |                 |
+| Spain       |                 |
+| UK          |                 |
+| USA         |                 |
+| Brazil      |                 |
+| Chile       |                 |
+| Colombia    | 有两种, 默认第一种(FKT) |
+| France      | 欧洲              |
+| Greece      |                 |
+| India       |                 |
+| Italy       | 欧洲              |
+| South Korea |                 |
+| Netherlands |                 |
+| Singapore   |                 |
 | Sweden      |                 |
 
 输出参数
 
 | 名称 | 类型 | 描述        |
 |----|----|-----------|
-| -  | -  | 每个国家或地区不同 |  
+| -  | -  | 每个国家或地区不同 |
 
 接口示例
 
