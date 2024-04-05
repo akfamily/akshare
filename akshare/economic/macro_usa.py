@@ -1132,7 +1132,6 @@ def macro_usa_cme_merchant_goods_holding():
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.columns = ["pz", "tc", "-", "-", "-", "成交量", "-", "-", "日期"]
-
     big_df["品种"] = big_df["pz"] + "-" + big_df["tc"]
     big_df = big_df[["日期", "品种", "成交量"]]
     big_df.sort_values(["日期"], ignore_index=True, inplace=True)
