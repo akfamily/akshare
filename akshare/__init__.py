@@ -2734,9 +2734,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.20 fix: fix stock_zh_a_disclosure_report_cninfo interface
 1.13.21 fix: fix stock_yjkb_em interface
 1.13.22 fix: fix amac_manager_cancelled_info interface
+1.13.23 add: add macro_usa_cme_merchant_goods_holding interface
 """
 
-__version__ = "1.13.22"
+__version__ = "1.13.23"
 __author__ = "AKFamily"
 
 import sys
@@ -4937,6 +4938,7 @@ from akshare.economic.macro_usa import (
     macro_usa_cftc_c_holding,
     macro_usa_cftc_merchant_currency_holding,
     macro_usa_cftc_merchant_goods_holding,
+    macro_usa_cme_merchant_goods_holding,
     macro_usa_phs,
 )
 

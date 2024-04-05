@@ -78,6 +78,10 @@
 
 ## 更新说明详情
 
+1.13.23 add: add macro_usa_cme_merchant_goods_holding interface
+
+    1. 新增 macro_usa_cme_merchant_goods_holding 接口
+
 1.13.22 fix: fix amac_manager_cancelled_info interface
 
     1. 修复 amac_manager_cancelled_info 接口
@@ -3860,6 +3864,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.23 add: add macro_usa_cme_merchant_goods_holding interface
 
 1.13.22 fix: fix amac_manager_cancelled_info interface
 
