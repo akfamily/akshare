@@ -2735,9 +2735,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.21 fix: fix stock_yjkb_em interface
 1.13.22 fix: fix amac_manager_cancelled_info interface
 1.13.23 add: add macro_usa_cme_merchant_goods_holding interface
+1.13.24 fix: fix futures_spot_sys interface
 """
 
-__version__ = "1.13.23"
+__version__ = "1.13.24"
 __author__ = "AKFamily"
 
 import sys
@@ -4873,10 +4874,7 @@ from akshare.stock.stock_hk_sina import stock_hk_daily, stock_hk_spot
 """
 生意社-商品与期货-现期图数据
 """
-from akshare.futures_derivative.futures_spot_sys import (
-    futures_spot_sys,
-    __get_sys_spot_futures_dict,
-)
+from akshare.futures_derivative.futures_spot_sys import futures_spot_sys
 
 """
 全球宏观-机构宏观
