@@ -800,7 +800,7 @@ def macro_euro_lme_holding() -> pd.DataFrame:
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
     r = requests.get(
-        "https://cdn.jin10.com/data_center/reports/lme_position.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/lme_position.json", params=params
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
@@ -810,8 +810,12 @@ def macro_euro_lme_holding() -> pd.DataFrame:
         for i in range(3):
             inner_temp_df = temp_df.loc[:, item].apply(lambda x: eval(str(x))[i])
             inner_temp_df.name = inner_temp_df.name + "-" + json_data["keys"][i]["name"]
-            big_df = pd.concat([big_df, inner_temp_df], axis=1)
-    big_df.sort_index(inplace=True)
+            big_df = pd.concat(objs=[big_df, inner_temp_df], axis=1)
+    big_df = big_df.astype("float")
+    big_df = big_df.iloc[:-1, :].copy()
+    big_df.reset_index(inplace=True)
+    big_df.rename(columns={"index": "日期"}, inplace=True)
+    big_df.sort_values(by=["日期"], ignore_index=True, inplace=True)
     return big_df
 
 
