@@ -1696,6 +1696,9 @@ def macro_china_construction_index() -> pd.DataFrame:
     :return: 建材指数
     :rtype: pandas.DataFrame
     """
+    import warnings
+
+    warnings.filterwarnings(action="ignore", category=FutureWarning)
     url = "https://datacenter-web.eastmoney.com/api/data/v1/get"
     params = {
         "sortColumns": "REPORT_DATE",
@@ -1703,7 +1706,8 @@ def macro_china_construction_index() -> pd.DataFrame:
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_INDUSTRY_INDEX",
-        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
+        "columns": "REPORT_DATE,INDICATOR_VALUE,CHANGE_RATE,CHANGERATE_3M,CHANGERATE_6M,"
+        "CHANGERATE_1Y,CHANGERATE_2Y,CHANGERATE_3Y",
         "filter": '(INDICATOR_ID="EMI00662541")',
         "source": "WEB",
         "client": "WEB",
@@ -1717,7 +1721,7 @@ def macro_china_construction_index() -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.drop_duplicates(inplace=True)
     big_df.columns = [
         "日期",
@@ -1729,15 +1733,15 @@ def macro_china_construction_index() -> pd.DataFrame:
         "近2年涨跌幅",
         "近3年涨跌幅",
     ]
-    big_df["日期"] = pd.to_datetime(big_df["日期"]).dt.date
-    big_df["最新值"] = pd.to_numeric(big_df["最新值"])
-    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"])
-    big_df["近3月涨跌幅"] = pd.to_numeric(big_df["近3月涨跌幅"])
-    big_df["近6月涨跌幅"] = pd.to_numeric(big_df["近6月涨跌幅"])
-    big_df["近1年涨跌幅"] = pd.to_numeric(big_df["近1年涨跌幅"])
-    big_df["近2年涨跌幅"] = pd.to_numeric(big_df["近2年涨跌幅"])
-    big_df["近3年涨跌幅"] = pd.to_numeric(big_df["近3年涨跌幅"])
-    big_df.sort_values(["日期"], inplace=True)
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["最新值"] = pd.to_numeric(big_df["最新值"], errors="coerce")
+    big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
+    big_df["近3月涨跌幅"] = pd.to_numeric(big_df["近3月涨跌幅"], errors="coerce")
+    big_df["近6月涨跌幅"] = pd.to_numeric(big_df["近6月涨跌幅"], errors="coerce")
+    big_df["近1年涨跌幅"] = pd.to_numeric(big_df["近1年涨跌幅"], errors="coerce")
+    big_df["近2年涨跌幅"] = pd.to_numeric(big_df["近2年涨跌幅"], errors="coerce")
+    big_df["近3年涨跌幅"] = pd.to_numeric(big_df["近3年涨跌幅"], errors="coerce")
+    big_df.sort_values(by=["日期"], inplace=True)
     big_df.reset_index(inplace=True, drop=True)
     return big_df
 
