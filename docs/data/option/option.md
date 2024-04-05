@@ -6,7 +6,7 @@
 
 接口: option_finance_board
 
-目标地址: 
+目标地址:
 
 1. http://www.sse.com.cn/assortment/options/price/
 2. http://www.szse.cn/market/derivative/derivative_list/index.html
@@ -1391,10 +1391,10 @@ print(option_sse_spot_price_sina_df)
 
 输出参数
 
-| 名称  | 类型  | 默认显示 | 描述  |
-|-----|-----|------|-----|
-| 字段  | str | Y    | -   |
-| 值   | str | Y    | -   |
+| 名称 | 类型     | 描述 |
+|----|--------|----|
+| 字段 | object | -  |
+| 值  | object | -  |
 
 接口示例
 
