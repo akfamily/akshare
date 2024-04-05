@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/2/24 16:20
+Date: 2024/4/5 20:20
 Desc: 生意社-商品与期货-现期图
 https://www.100ppi.com/sf/792.html
 """
+
 from io import StringIO
 
 import pandas as pd
@@ -24,7 +25,11 @@ def __get_sys_spot_futures_dict() -> dict:
     soup = BeautifulSoup(res.text, features="lxml")
     temp_item = soup.find(name="div", attrs={"class": "q8"}).find_all("li")
     name_url_dict = dict(
-        zip([item.find("a").get_text().strip() for item in temp_item], [item.find("a")["href"] for item in temp_item]))
+        zip(
+            [item.find("a").get_text().strip() for item in temp_item],
+            [item.find("a")["href"] for item in temp_item],
+        )
+    )
     return name_url_dict
 
 
@@ -44,24 +49,32 @@ def futures_spot_sys(symbol: str = "铜", indicator: str = "市场价格") -> pd
     r = requests.get("https://www.100ppi.com" + url)
     if indicator == "市场价格":
         table_df_one = pd.read_html(StringIO(r.text), header=0, index_col=0)[1].T
-        table_df_one['现货价格'] = pd.to_numeric(table_df_one['现货价格'], errors="coerce")
-        table_df_one['主力合约'] = pd.to_numeric(table_df_one['主力合约'], errors="coerce")
-        table_df_one['最近合约'] = pd.to_numeric(table_df_one['最近合约'], errors="coerce")
+        table_df_one["现货价格"] = pd.to_numeric(
+            table_df_one["现货价格"], errors="coerce"
+        )
+        table_df_one["主力合约"] = pd.to_numeric(
+            table_df_one["主力合约"], errors="coerce"
+        )
+        table_df_one["最近合约"] = pd.to_numeric(
+            table_df_one["最近合约"], errors="coerce"
+        )
         table_df_one.reset_index(inplace=True)
         table_df_one.columns.name = None
         table_df_one.rename(columns={"index": "日期"}, inplace=True)
         return table_df_one
     elif indicator == "基差率":
         table_df_two = pd.read_html(StringIO(r.text), header=0, index_col=0)[2].T
-        table_df_two['基差率'] = table_df_two['基差率'].str.replace("%", "")
-        table_df_two['基差率'] = pd.to_numeric(table_df_two['基差率'], errors="coerce")
+        table_df_two["基差率"] = table_df_two["基差率"].str.replace("%", "")
+        table_df_two["基差率"] = pd.to_numeric(table_df_two["基差率"], errors="coerce")
         table_df_two.reset_index(inplace=True)
         table_df_two.columns.name = None
         table_df_two.rename(columns={"index": "日期"}, inplace=True)
         return table_df_two
     else:
         table_df_three = pd.read_html(StringIO(r.text), header=0, index_col=0)[3].T
-        table_df_three['主力基差'] = pd.to_numeric(table_df_three['主力基差'], errors="coerce")
+        table_df_three["主力基差"] = pd.to_numeric(
+            table_df_three["主力基差"], errors="coerce"
+        )
         table_df_three.reset_index(inplace=True)
         table_df_three.columns.name = None
         table_df_three.rename(columns={"index": "日期"}, inplace=True)
