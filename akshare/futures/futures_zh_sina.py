@@ -648,7 +648,7 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
     return temp_df
 
 
-def futures_zh_daily_sina(symbol: str = "V2306") -> pd.DataFrame:
+def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
     """
     中国各品种期货日频率数据
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
@@ -707,10 +707,10 @@ if __name__ == "__main__":
     futures_zh_minute_sina_df = futures_zh_minute_sina(symbol="SI2406", period="1")
     print(futures_zh_minute_sina_df)
 
-    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="SI2406")
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="RB0")
     print(futures_zh_daily_sina_df)
 
-    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="SI2406")
+    futures_zh_daily_sina_df = futures_zh_daily_sina(symbol="RB2410")
     print(futures_zh_daily_sina_df)
 
     dce_text = match_main_contract(symbol="dce")
