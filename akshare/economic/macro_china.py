@@ -3210,6 +3210,9 @@ def macro_china_society_electricity() -> pd.DataFrame:
         "乡村居民用电量",
         "乡村居民用电量同比",
     ]
+    for item in big_df.columns[1:]:
+        big_df[item] = pd.to_numeric(big_df[item], errors="coerce")
+    big_df.sort_values(["统计时间"], inplace=True, ignore_index=True)
     return big_df
 
 
