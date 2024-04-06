@@ -654,7 +654,7 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
     https://finance.sina.com.cn/futures/quotes/V2105.shtml
     :param symbol: 可以通过 match_main_contract(symbol="cffex") 获取, 或者访问网页获取
     :type symbol: str
-    :return: 指定 symbol 和 period 的数据
+    :return: 指定 symbol 的数据
     :rtype: pandas.DataFrame
     """
     date = "20210412"
