@@ -23229,19 +23229,19 @@ print(stock_esg_msci_sina_df)
 数据示例
 
 ```
-       股票名称        股票代码 ESG评分  环境总评  ...  评级机构  交易市场          行业名称    评级季度
-0   太古股份公司A    00019.HK   AAA   6.9  ...  MSCI    HK           房地产  2024Q2
-1      丽珠集团   000513.SZ   AAA   6.9  ...  MSCI    CN  制药、生物科技和生命科学  2024Q2
-2      港铁公司    00066.HK   AAA   7.2  ...  MSCI    HK            运输  2024Q2
-3   太古股份公司B    00087.HK   AAA   6.9  ...  MSCI    HK           房地产  2024Q2
-4      联想集团    00992.HK   AAA   5.1  ...  MSCI    HK       技术硬件与设备  2024Q2
-..      ...         ...   ...   ...  ...   ...   ...           ...     ...
-95   英国国家电网   GB_NGG.US   AAA   8.4  ...  MSCI    US            --  2024Q2
-96     印北瓦电    GB_NI.US   AAA   7.5  ...  MSCI    US            --  2024Q2
-97      诺基亚   GB_NOK.US   AAA   3.9  ...  MSCI    US            --  2024Q2
-98      英伟达  GB_NVDA.US   AAA   6.2  ...  MSCI    US            --  2024Q2
-99     诺和诺德   GB_NVO.US   AAA   4.8  ...  MSCI    US            --  2024Q2
-[100 rows x 11 columns]
+                股票名称        股票代码 ESG评分  环境总评  ...  评级机构  交易市场          行业名称    评级季度
+0              太古股份公司A    00019.HK   AAA   6.9  ...  MSCI    HK           房地产  2024Q2
+1                 丽珠集团   000513.SZ   AAA   6.9  ...  MSCI    CN  制药、生物科技和生命科学  2024Q2
+2                 港铁公司    00066.HK   AAA   7.2  ...  MSCI    HK            运输  2024Q2
+3              太古股份公司B    00087.HK   AAA   6.9  ...  MSCI    HK           房地产  2024Q2
+4                 联想集团    00992.HK   AAA   5.1  ...  MSCI    HK       技术硬件与设备  2024Q2
+                ...         ...   ...   ...  ...   ...   ...           ...     ...
+4546              VNOM  GB_VNOM.US   CCC   4.0  ...  MSCI    US            --  2024Q2
+4547               VTS   GB_VTS.US   CCC   0.5  ...  MSCI    US            --  2024Q2
+4548  W&T Offshore Inc   GB_WTI.US   CCC   2.6  ...  MSCI    US            --  2024Q2
+4549              WULF  GB_WULF.US   CCC   0.3  ...  MSCI    US            --  2024Q2
+4550              ZETA  GB_ZETA.US   CCC   6.7  ...  MSCI    US            --  2024Q2
+[4551 rows x 11 columns]
 ```
 
 #### 路孚特
@@ -23338,7 +23338,7 @@ print(stock_esg_rft_sina_df)
 ```python
 import akshare as ak
 
-stock_esg_zd_sina_df = ak.tock_esg_zd_sina()
+stock_esg_zd_sina_df = ak.stock_esg_zd_sina()
 print(stock_esg_zd_sina_df)
 ```
 
