@@ -2740,9 +2740,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.26 fix: fix option_sse_minute_sina interface
 1.13.27 add: add stock_esg_msci_sina interface
 1.13.28 fix: fix stock_restricted_release_queue_em interface
+1.13.29 fix: fix stock_esg_msci_sina interface
 """
 
-__version__ = "1.13.28"
+__version__ = "1.13.29"
 __author__ = "AKFamily"
 
 import sys
