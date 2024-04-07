@@ -78,6 +78,9 @@ def stock_esg_msci_sina() -> pd.DataFrame:
             "治理总评",
             "评级日期",
             "评级机构",
+            "交易市场",
+            "行业名称",
+            "评级季度",
         ]
     ]
     big_df["评级日期"] = pd.to_datetime(big_df["评级日期"], errors="coerce").dt.date
