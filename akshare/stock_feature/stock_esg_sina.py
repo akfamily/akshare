@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/7/7 19:28
+Date: 2024/4/7 20:28
 Desc: 新浪财经-ESG评级中心
 https://finance.sina.com.cn/esg/
 """
@@ -20,10 +20,23 @@ def stock_esg_msci_sina() -> pd.DataFrame:
     :return: MSCI
     :rtype: pandas.DataFrame
     """
-    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getMsciEsgStocks?p=1&num=20000"
+    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getMsciEsgStocks?p=1&num=100"
     r = requests.get(url)
     data_json = r.json()
-    big_df = pd.DataFrame(data_json["result"]["data"]["data"])
+    page_num = math.ceil(int(data_json["result"]["data"]["total"]) / 100)
+    big_df = pd.DataFrame()
+    for page in tqdm(range(1, page_num + 1), leave=False):
+        headers = {
+            "Referer": "https://finance.sina.com.cn/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/123.0.0.0 Safari/537.36",
+        }
+        url = f"https://global.finance.sina.com.cn/api/openapi.php/EsgService.getMsciEsgStocks?p={page}&num=100"
+        r = requests.get(url, headers=headers)
+        data_json = r.json()
+        temp_df = pd.DataFrame(data_json["result"]["data"]["data"])
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
+
     big_df.rename(
         columns={
             "agency_id": "-",
@@ -181,7 +194,7 @@ def stock_esg_rate_sina() -> pd.DataFrame:
             temp_df["market"] = data_json["result"]["data"]["info"]["stocks"][num][
                 "market"
             ]
-            big_df = pd.concat([big_df, temp_df], ignore_index=True)
+            big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.rename(
         columns={
