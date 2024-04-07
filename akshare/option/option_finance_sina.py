@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Date: 2024/3/28 15:50
+Date: 2024/4/7 15:30
 Desc: 新浪财经-股票期权
 https://stock.finance.sina.com.cn/option/quotes.html
 期权-中金所-沪深 300 指数
@@ -21,6 +21,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from akshare.option.option_em import option_current_em
+from akshare.utils.func import set_df_columns
 
 
 # 期权-中金所-上证50指数
@@ -759,10 +760,12 @@ def option_sse_minute_sina(symbol: str = "10003720") -> pd.DataFrame:
     data_json = r.json()
     temp_df = data_json["result"]["data"]
     data_df = pd.DataFrame(temp_df)
-    data_df.columns = ["时间", "价格", "成交", "持仓", "均价", "日期"]
+    data_df = set_df_columns(
+        df=data_df, cols=["时间", "价格", "成交", "持仓", "均价", "日期"]
+    )
     data_df = data_df[["日期", "时间", "价格", "成交", "持仓", "均价"]]
-    data_df["日期"] = pd.to_datetime(data_df["日期"]).dt.date
-    data_df["日期"].ffill(inplace=True)
+    data_df["日期"] = pd.to_datetime(data_df["日期"], errors="coerce").dt.date
+    data_df["日期"] = data_df["日期"].ffill()
     data_df["价格"] = pd.to_numeric(data_df["价格"], errors="coerce")
     data_df["成交"] = pd.to_numeric(data_df["成交"], errors="coerce")
     data_df["持仓"] = pd.to_numeric(data_df["持仓"], errors="coerce")
