@@ -206,6 +206,8 @@ def stock_restricted_release_queue_em(symbol: str = "600000") -> pd.DataFrame:
     }
     r = requests.get(url, params=params)
     data_json = r.json()
+    if data_json["result"] is None:
+        return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)
     temp_df["index"] = temp_df["index"] + 1
