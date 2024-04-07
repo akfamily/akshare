@@ -2737,9 +2737,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.23 add: add macro_usa_cme_merchant_goods_holding interface
 1.13.24 fix: fix futures_spot_sys interface
 1.13.25 fix: fix futures_zh_daily_sina interface
+1.13.26 fix: fix option_sse_minute_sina interface
 """
 
-__version__ = "1.13.25"
+__version__ = "1.13.26"
 __author__ = "AKFamily"
 
 import sys
