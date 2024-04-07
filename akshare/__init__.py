@@ -2738,9 +2738,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.24 fix: fix futures_spot_sys interface
 1.13.25 fix: fix futures_zh_daily_sina interface
 1.13.26 fix: fix option_sse_minute_sina interface
+1.13.27 add: add stock_esg_msci_sina interface
 """
 
-__version__ = "1.13.26"
+__version__ = "1.13.27"
 __author__ = "AKFamily"
 
 import sys
@@ -2917,7 +2918,13 @@ from akshare.fund.fund_announcement import fund_announcement_personnel_em
 """
 新浪财经-ESG评级中心
 """
-from akshare.stock_feature.stock_esg_sina import stock_esg_rate_sina, stock_esg_hz_sina
+from akshare.stock_feature.stock_esg_sina import (
+    stock_esg_msci_sina,
+    stock_esg_rft_sina,
+    stock_esg_rate_sina,
+    stock_esg_zd_sina,
+    stock_esg_hz_sina,
+)
 
 """
 LOF 行情数据
