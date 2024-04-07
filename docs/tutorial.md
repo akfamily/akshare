@@ -1182,7 +1182,10 @@
  "fund_lof_spot_em"  # 东方财富-LOF 实时行情
  "fund_lof_hist_min_em"  # 东方财富-LOF 分时行情
  # 新浪财经-ESG评级中心
+ "stock_esg_msci_sina"  # 新浪财经-ESG评级中心-ESG评级-MSCI
+ "stock_esg_rft_sina"  # 新浪财经-ESG评级中心-ESG评级-路孚特
  "stock_esg_rate_sina"  # 新浪财经-ESG评级中心-ESG评级-ESG评级数据
+ "stock_esg_zd_sina"  # 新浪财经-ESG评级中心-ESG评级-秩鼎
  "stock_esg_hz_sina"  # 新浪财经-ESG评级中心-ESG评级-华证指数
  # 基金公告
  "fund_announcement_personnel_em"  # 东方财富网站-天天基金网-基金档案-基金公告-人事调整
