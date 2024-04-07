@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2022/12/2 16:28
+Date: 2024/4/7 19:30
 Desc: 限售股解禁
 https://data.eastmoney.com/dxf/detail.html
 """
+
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -46,7 +47,8 @@ def stock_restricted_release_summary_em(
         "quoteType": "0",
         "source": "WEB",
         "client": "WEB",
-        "filter": f"""(INDEX_CODE="{symbol_map[symbol]}")(FREE_DATE>='{start_date_str}')(FREE_DATE<='{end_date_str}')""",
+        "filter": f"""(INDEX_CODE="{symbol_map[symbol]}")(FREE_DATE>=
+        '{start_date_str}')(FREE_DATE<='{end_date_str}')""",
         "reportName": "RPT_LIFTDAY_STA",
     }
     r = requests.get(url, params=params)
@@ -83,14 +85,21 @@ def stock_restricted_release_summary_em(
             "沪深300指数涨跌幅",
         ]
     ]
-    temp_df["解禁时间"] = pd.to_datetime(temp_df["解禁时间"]).dt.date
-
-    temp_df["当日解禁股票家数"] = pd.to_numeric(temp_df["当日解禁股票家数"], errors="coerce")
+    temp_df["解禁时间"] = pd.to_datetime(temp_df["解禁时间"], errors="coerce").dt.date
+    temp_df["当日解禁股票家数"] = pd.to_numeric(
+        temp_df["当日解禁股票家数"], errors="coerce"
+    )
     temp_df["解禁数量"] = pd.to_numeric(temp_df["解禁数量"], errors="coerce") * 10000
-    temp_df["实际解禁数量"] = pd.to_numeric(temp_df["实际解禁数量"], errors="coerce") * 10000
-    temp_df["实际解禁市值"] = pd.to_numeric(temp_df["实际解禁市值"], errors="coerce") * 10000
+    temp_df["实际解禁数量"] = (
+        pd.to_numeric(temp_df["实际解禁数量"], errors="coerce") * 10000
+    )
+    temp_df["实际解禁市值"] = (
+        pd.to_numeric(temp_df["实际解禁市值"], errors="coerce") * 10000
+    )
     temp_df["沪深300指数"] = pd.to_numeric(temp_df["沪深300指数"], errors="coerce")
-    temp_df["沪深300指数涨跌幅"] = pd.to_numeric(temp_df["沪深300指数涨跌幅"], errors="coerce")
+    temp_df["沪深300指数涨跌幅"] = pd.to_numeric(
+        temp_df["沪深300指数涨跌幅"], errors="coerce"
+    )
     return temp_df
 
 
@@ -116,7 +125,9 @@ def stock_restricted_release_detail_em(
         "pageSize": "500",
         "pageNumber": "1",
         "reportName": "RPT_LIFT_STAGE",
-        "columns": "SECURITY_CODE,SECURITY_NAME_ABBR,FREE_DATE,CURRENT_FREE_SHARES,ABLE_FREE_SHARES,LIFT_MARKET_CAP,FREE_RATIO,NEW,B20_ADJCHRATE,A20_ADJCHRATE,FREE_SHARES_TYPE,TOTAL_RATIO,NON_FREE_SHARES,BATCH_HOLDER_NUM",
+        "columns": "SECURITY_CODE,SECURITY_NAME_ABBR,FREE_DATE,CURRENT_FREE_SHARES,ABLE_FREE_SHARES,"
+        "LIFT_MARKET_CAP,FREE_RATIO,NEW,B20_ADJCHRATE,A20_ADJCHRATE,FREE_SHARES_TYPE,TOTAL_RATIO,"
+        "NON_FREE_SHARES,BATCH_HOLDER_NUM",
         "source": "WEB",
         "client": "WEB",
         "filter": f"""(FREE_DATE>='{start_date_str}')(FREE_DATE<='{end_date_str}')""",
@@ -134,7 +145,7 @@ def stock_restricted_release_detail_em(
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
 
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df["index"] + 1
@@ -171,15 +182,27 @@ def stock_restricted_release_detail_em(
             "解禁后20日涨跌幅",
         ]
     ]
-    big_df["解禁时间"] = pd.to_datetime(big_df["解禁时间"]).dt.date
+    big_df["解禁时间"] = pd.to_datetime(big_df["解禁时间"], errors="coerce").dt.date
 
     big_df["解禁数量"] = pd.to_numeric(big_df["解禁数量"], errors="coerce") * 10000
-    big_df["实际解禁数量"] = pd.to_numeric(big_df["实际解禁数量"], errors="coerce") * 10000
-    big_df["实际解禁市值"] = pd.to_numeric(big_df["实际解禁市值"], errors="coerce") * 10000
-    big_df["占解禁前流通市值比例"] = pd.to_numeric(big_df["占解禁前流通市值比例"], errors="coerce")
-    big_df["解禁前一交易日收盘价"] = pd.to_numeric(big_df["解禁前一交易日收盘价"], errors="coerce")
-    big_df["解禁前20日涨跌幅"] = pd.to_numeric(big_df["解禁前20日涨跌幅"], errors="coerce")
-    big_df["解禁后20日涨跌幅"] = pd.to_numeric(big_df["解禁后20日涨跌幅"], errors="coerce")
+    big_df["实际解禁数量"] = (
+        pd.to_numeric(big_df["实际解禁数量"], errors="coerce") * 10000
+    )
+    big_df["实际解禁市值"] = (
+        pd.to_numeric(big_df["实际解禁市值"], errors="coerce") * 10000
+    )
+    big_df["占解禁前流通市值比例"] = pd.to_numeric(
+        big_df["占解禁前流通市值比例"], errors="coerce"
+    )
+    big_df["解禁前一交易日收盘价"] = pd.to_numeric(
+        big_df["解禁前一交易日收盘价"], errors="coerce"
+    )
+    big_df["解禁前20日涨跌幅"] = pd.to_numeric(
+        big_df["解禁前20日涨跌幅"], errors="coerce"
+    )
+    big_df["解禁后20日涨跌幅"] = pd.to_numeric(
+        big_df["解禁后20日涨跌幅"], errors="coerce"
+    )
     return big_df
 
 
@@ -200,13 +223,15 @@ def stock_restricted_release_queue_em(symbol: str = "600000") -> pd.DataFrame:
         "pageNumber": "1",
         "reportName": "RPT_LIFT_STAGE",
         "filter": f'(SECURITY_CODE="{symbol}")',
-        "columns": "SECURITY_CODE,SECURITY_NAME_ABBR,FREE_DATE,CURRENT_FREE_SHARES,ABLE_FREE_SHARES,LIFT_MARKET_CAP,FREE_RATIO,NEW,B20_ADJCHRATE,A20_ADJCHRATE,FREE_SHARES_TYPE,TOTAL_RATIO,NON_FREE_SHARES,BATCH_HOLDER_NUM",
+        "columns": "SECURITY_CODE,SECURITY_NAME_ABBR,FREE_DATE,CURRENT_FREE_SHARES,ABLE_FREE_SHARES,"
+        "LIFT_MARKET_CAP,FREE_RATIO,NEW,B20_ADJCHRATE,A20_ADJCHRATE,FREE_SHARES_TYPE,TOTAL_RATIO,"
+        "NON_FREE_SHARES,BATCH_HOLDER_NUM",
         "source": "WEB",
         "client": "WEB",
     }
     r = requests.get(url, params=params)
     data_json = r.json()
-    if data_json["result"] is None:
+    if not data_json["result"]:
         return pd.DataFrame()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)
@@ -245,18 +270,31 @@ def stock_restricted_release_queue_em(symbol: str = "600000") -> pd.DataFrame:
             "解禁后20日涨跌幅",
         ]
     ]
-    temp_df["解禁时间"] = pd.to_datetime(temp_df["解禁时间"]).dt.date
-
+    temp_df["解禁时间"] = pd.to_datetime(temp_df["解禁时间"], errors="coerce").dt.date
     temp_df["解禁股东数"] = pd.to_numeric(temp_df["解禁股东数"], errors="coerce")
     temp_df["解禁数量"] = pd.to_numeric(temp_df["解禁数量"], errors="coerce") * 10000
-    temp_df["实际解禁数量"] = pd.to_numeric(temp_df["实际解禁数量"], errors="coerce") * 10000
-    temp_df["未解禁数量"] = pd.to_numeric(temp_df["未解禁数量"], errors="coerce") * 10000
-    temp_df["实际解禁数量市值"] = pd.to_numeric(temp_df["实际解禁数量市值"], errors="coerce") * 10000
+    temp_df["实际解禁数量"] = (
+        pd.to_numeric(temp_df["实际解禁数量"], errors="coerce") * 10000
+    )
+    temp_df["未解禁数量"] = (
+        pd.to_numeric(temp_df["未解禁数量"], errors="coerce") * 10000
+    )
+    temp_df["实际解禁数量市值"] = (
+        pd.to_numeric(temp_df["实际解禁数量市值"], errors="coerce") * 10000
+    )
     temp_df["占总市值比例"] = pd.to_numeric(temp_df["占总市值比例"], errors="coerce")
-    temp_df["占流通市值比例"] = pd.to_numeric(temp_df["占流通市值比例"], errors="coerce")
-    temp_df["解禁前一交易日收盘价"] = pd.to_numeric(temp_df["解禁前一交易日收盘价"], errors="coerce")
-    temp_df["解禁前20日涨跌幅"] = pd.to_numeric(temp_df["解禁前20日涨跌幅"], errors="coerce")
-    temp_df["解禁后20日涨跌幅"] = pd.to_numeric(temp_df["解禁后20日涨跌幅"], errors="coerce")
+    temp_df["占流通市值比例"] = pd.to_numeric(
+        temp_df["占流通市值比例"], errors="coerce"
+    )
+    temp_df["解禁前一交易日收盘价"] = pd.to_numeric(
+        temp_df["解禁前一交易日收盘价"], errors="coerce"
+    )
+    temp_df["解禁前20日涨跌幅"] = pd.to_numeric(
+        temp_df["解禁前20日涨跌幅"], errors="coerce"
+    )
+    temp_df["解禁后20日涨跌幅"] = pd.to_numeric(
+        temp_df["解禁后20日涨跌幅"], errors="coerce"
+    )
     return temp_df
 
 
@@ -282,7 +320,8 @@ def stock_restricted_release_stockholder_em(
         "pageNumber": "1",
         "reportName": "RPT_LIFT_GD",
         "filter": f"""(SECURITY_CODE="{symbol}")(FREE_DATE='{date_str}')""",
-        "columns": "LIMITED_HOLDER_NAME,ADD_LISTING_SHARES,ACTUAL_LISTED_SHARES,ADD_LISTING_CAP,LOCK_MONTH,RESIDUAL_LIMITED_SHARES,FREE_SHARES_TYPE,PLAN_FEATURE",
+        "columns": "LIMITED_HOLDER_NAME,ADD_LISTING_SHARES,ACTUAL_LISTED_SHARES,ADD_LISTING_CAP,LOCK_MONTH,"
+        "RESIDUAL_LIMITED_SHARES,FREE_SHARES_TYPE,PLAN_FEATURE",
         "source": "WEB",
         "client": "WEB",
     }
@@ -306,14 +345,18 @@ def stock_restricted_release_stockholder_em(
     temp_df["实际解禁数量"] = pd.to_numeric(temp_df["实际解禁数量"], errors="coerce")
     temp_df["解禁市值"] = pd.to_numeric(temp_df["解禁市值"], errors="coerce")
     temp_df["锁定期"] = pd.to_numeric(temp_df["锁定期"], errors="coerce")
-    temp_df["剩余未解禁数量"] = pd.to_numeric(temp_df["剩余未解禁数量"], errors="coerce")
-    temp_df["剩余未解禁数量"] = pd.to_numeric(temp_df["剩余未解禁数量"], errors="coerce")
+    temp_df["剩余未解禁数量"] = pd.to_numeric(
+        temp_df["剩余未解禁数量"], errors="coerce"
+    )
+    temp_df["剩余未解禁数量"] = pd.to_numeric(
+        temp_df["剩余未解禁数量"], errors="coerce"
+    )
     return temp_df
 
 
 if __name__ == "__main__":
     stock_restricted_release_summary_em_df = stock_restricted_release_summary_em(
-            symbol="全部股票", start_date="20221108", end_date="20221209"
+        symbol="全部股票", start_date="20221108", end_date="20221209"
     )
     print(stock_restricted_release_summary_em_df)
 
@@ -327,5 +370,7 @@ if __name__ == "__main__":
     )
     print(stock_restricted_release_queue_em_df)
 
-    stock_restricted_release_stockholder_em_df = stock_restricted_release_stockholder_em(symbol="600000", date="20200904")
+    stock_restricted_release_stockholder_em_df = (
+        stock_restricted_release_stockholder_em(symbol="600000", date="20200904")
+    )
     print(stock_restricted_release_stockholder_em_df)
