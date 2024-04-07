@@ -5,11 +5,150 @@ Date: 2023/7/7 19:28
 Desc: 新浪财经-ESG评级中心
 https://finance.sina.com.cn/esg/
 """
+
 import math
 
 import pandas as pd
 import requests
 from tqdm import tqdm
+
+
+def stock_esg_msci_sina() -> pd.DataFrame:
+    """
+    新浪财经-ESG评级中心-ESG评级-MSCI
+    https://finance.sina.com.cn/esg/grade.shtml
+    :return: MSCI
+    :rtype: pandas.DataFrame
+    """
+    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getMsciEsgStocks?p=1&num=20000"
+    r = requests.get(url)
+    data_json = r.json()
+    big_df = pd.DataFrame(data_json["result"]["data"]["data"])
+    big_df.rename(
+        columns={
+            "agency_id": "-",
+            "agency_name": "评级机构",
+            "symbol": "股票代码",
+            "delist": "-",
+            "comp_code": "-",
+            "name": "股票名称",
+            "market": "交易市场",
+            "industry_code": "行业代码",
+            "industry_name": "行业名称",
+            "sw1_code": "-",
+            "sw1_name": "-",
+            "sw2_code": "-",
+            "sw2_name": "-",
+            "sw3_code": "-",
+            "sw3_name": "-",
+            "hs1_code": "-",
+            "hs1_name": "-",
+            "hs2_code": "-",
+            "hs2_name": "-",
+            "hs3_code": "-",
+            "hs3_name": "-",
+            "factset_sector_code": "-",
+            "factset_sector_name": "-",
+            "factset_industry_code": "-",
+            "factset_industry_name": "-",
+            "date": "评级日期",
+            "quarter": "评级季度",
+            "grade": "ESG等级",
+            "score": "-",
+            "env_score": "环境总评",
+            "env_grade": "-",
+            "social_score": "社会责任总评",
+            "social_grade": "-",
+            "governance_score": "治理总评",
+            "governance_grade": "-",
+            "change_status": "-",
+            "updated_time": "更新时间",
+            "created_time": "创建时间",
+            "esg_rating": "ESG评分",
+        },
+        inplace=True,
+    )
+    big_df = big_df[
+        [
+            "股票名称",
+            "股票代码",
+            "ESG评分",
+            "环境总评",
+            "社会责任总评",
+            "治理总评",
+            "评级日期",
+            "评级机构",
+        ]
+    ]
+    big_df["评级日期"] = pd.to_datetime(big_df["评级日期"], errors="coerce").dt.date
+    big_df["环境总评"] = pd.to_numeric(big_df["环境总评"], errors="coerce")
+    big_df["社会责任总评"] = pd.to_numeric(big_df["社会责任总评"], errors="coerce")
+    big_df["治理总评"] = pd.to_numeric(big_df["治理总评"], errors="coerce")
+    return big_df
+
+
+def stock_esg_rft_sina() -> pd.DataFrame:
+    """
+    新浪财经-ESG评级中心-ESG评级-路孚特
+    https://finance.sina.com.cn/esg/grade.shtml
+    :return: 路孚特
+    :rtype: pandas.DataFrame
+    """
+    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getRftEsgStocks?p=1&num=20000"
+    r = requests.get(url)
+    data_json = r.json()
+    big_df = pd.DataFrame(data_json["result"]["data"]["data"])
+    big_df.rename(
+        columns={
+            "symbol": "股票代码",
+            "esg_score": "ESG评分",
+            "esg_score_date": "ESG评分日期",
+            "env_score": "环境总评",
+            "env_score_date": "环境总评日期",
+            "social_score": "社会责任总评",
+            "social_score_date": "社会责任总评日期",
+            "governance_score": "治理总评",
+            "governance_score_date": "治理总评日期",
+            "zy_score": "争议总评",
+            "zy_score_date": "争议总评日期",
+            "industry": "行业",
+            "exchange": "交易所",
+        },
+        inplace=True,
+    )
+    big_df = big_df[
+        [
+            "股票代码",
+            "ESG评分",
+            "ESG评分日期",
+            "环境总评",
+            "环境总评日期",
+            "社会责任总评",
+            "社会责任总评日期",
+            "治理总评",
+            "治理总评日期",
+            "争议总评",
+            "争议总评日期",
+            "行业",
+            "交易所",
+        ]
+    ]
+    big_df["ESG评分日期"] = pd.to_datetime(
+        big_df["ESG评分日期"], errors="coerce"
+    ).dt.date
+    big_df["环境总评日期"] = pd.to_datetime(
+        big_df["环境总评日期"], errors="coerce"
+    ).dt.date
+    big_df["社会责任总评日期"] = pd.to_datetime(
+        big_df["社会责任总评日期"], errors="coerce"
+    ).dt.date
+    big_df["治理总评日期"] = pd.to_datetime(
+        big_df["治理总评日期"], errors="coerce"
+    ).dt.date
+    big_df["争议总评日期"] = pd.to_datetime(
+        big_df["争议总评日期"], errors="coerce"
+    ).dt.date
+    return big_df
 
 
 def stock_esg_rate_sina() -> pd.DataFrame:
@@ -65,6 +204,42 @@ def stock_esg_rate_sina() -> pd.DataFrame:
     return big_df
 
 
+def stock_esg_zd_sina() -> pd.DataFrame:
+    """
+    新浪财经-ESG评级中心-ESG评级-秩鼎
+    https://finance.sina.com.cn/esg/grade.shtml
+    :return: 秩鼎
+    :rtype: pandas.DataFrame
+    """
+    url = "https://global.finance.sina.com.cn/api/openapi.php/EsgService.getZdEsgStocks?p=1&num=20000"
+    r = requests.get(url)
+    data_json = r.json()
+    big_df = pd.DataFrame(data_json["result"]["data"]["data"])
+    big_df.rename(
+        columns={
+            "ticker": "股票代码",
+            "esg_score": "ESG评分",
+            "report_date": "评分日期",
+            "environmental_score": "环境总评",
+            "social_score": "社会责任总评",
+            "governance_score": "治理总评",
+        },
+        inplace=True,
+    )
+    big_df = big_df[
+        [
+            "股票代码",
+            "ESG评分",
+            "环境总评",
+            "社会责任总评",
+            "治理总评",
+            "评分日期",
+        ]
+    ]
+    big_df["评分日期"] = pd.to_datetime(big_df["评分日期"], errors="coerce").dt.date
+    return big_df
+
+
 def stock_esg_hz_sina() -> pd.DataFrame:
     """
     新浪财经-ESG评级中心-ESG评级-华证指数
@@ -109,17 +284,26 @@ def stock_esg_hz_sina() -> pd.DataFrame:
             "公司治理等级",
         ]
     ]
-    big_df['日期'] = pd.to_datetime(big_df['日期'], errors="coerce").dt.date
-    big_df['ESG评分'] = pd.to_numeric(big_df['ESG评分'], errors="coerce")
-    big_df['环境'] = pd.to_numeric(big_df['环境'], errors="coerce")
-    big_df['社会'] = pd.to_numeric(big_df['社会'], errors="coerce")
-    big_df['公司治理'] = pd.to_numeric(big_df['公司治理'], errors="coerce")
+    big_df["日期"] = pd.to_datetime(big_df["日期"], errors="coerce").dt.date
+    big_df["ESG评分"] = pd.to_numeric(big_df["ESG评分"], errors="coerce")
+    big_df["环境"] = pd.to_numeric(big_df["环境"], errors="coerce")
+    big_df["社会"] = pd.to_numeric(big_df["社会"], errors="coerce")
+    big_df["公司治理"] = pd.to_numeric(big_df["公司治理"], errors="coerce")
     return big_df
 
 
 if __name__ == "__main__":
+    stock_esg_msci_sina_df = stock_esg_msci_sina()
+    print(stock_esg_msci_sina_df)
+
+    stock_esg_rft_sina_df = stock_esg_rft_sina()
+    print(stock_esg_rft_sina_df)
+
     stock_esg_rate_sina_df = stock_esg_rate_sina()
     print(stock_esg_rate_sina_df)
+
+    stock_esg_zd_sina_df = stock_esg_zd_sina()
+    print(stock_esg_zd_sina_df)
 
     stock_esg_hz_sina_df = stock_esg_hz_sina()
     print(stock_esg_hz_sina_df)
