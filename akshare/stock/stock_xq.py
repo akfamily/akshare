@@ -1,7 +1,7 @@
 # !/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/3/23 22:00
+Date: 2024/4/9 16:30
 Desc: 雪球-行情中心-个股
 https://xueqiu.com/S/SH513520
 """
@@ -26,13 +26,14 @@ def stock_individual_spot_xq(
     :return: 证券最新行情
     :rtype: pandas.DataFrame
     """
-    url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
+    session = requests.Session()
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/"
-        "80.0.3987.149 Safari/537.36",
-        "Cookie": "xqat=01b99d82fffd2faf8b614e98a00cbb35d6c7ddcf",
+        "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/78.0.3904.108 Safari/537.36"
     }
-    r = requests.get(url, headers=headers, timeout=timeout)
+    session.get(url="https://xueqiu.com", headers=headers)
+    url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
+    r = session.get(url, headers=headers, timeout=timeout)
     column_name_map = {
         "acc_unit_nav": "累计净值",
         "amount": "成交额",
@@ -89,7 +90,8 @@ def stock_individual_spot_xq(
     temp_df = temp_df[
         list(
             filter(
-                lambda x: re.search(r"[\u4e00-\u9fa5]", x), temp_df.columns
+                lambda x: re.search(pattern="[\u4e00-\u9fa5]", string=x),
+                temp_df.columns,
             )  # 过滤temp_df，留下包含汉字的列
         )
     ]
