@@ -70,25 +70,13 @@
 
 感谢[北京市碳排放权电子交易平台网站](https://www.bjets.com.cn)提供的碳排放行情数据;
 
-感谢[IT桔子网站](https://www.itjuzi.com)提供的数据;
-
 感谢[东方财富网站](http://data.eastmoney.com)提供的数据;
 
 感谢[义乌小商品指数网站](http://www.ywindex.com)提供的相关数据;
 
 感谢[中国国家发展和改革委员会网站](http://jgjc.ndrc.gov.cn)提供的相关数据;
 
-感谢[丁香园网站](http://3g.dxy.cn)提供的相关数据;
-
 感谢[百度网站](https://voice.baidu.com)提供的相关数据;
-
-感谢[新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip)相关数据;
-
-感谢[新型肺炎-小区查询](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0)提供的相关数据;
-
-感谢[商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/)提供的相关数据;
-
-感谢[慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html)提供的相关数据;
 
 感谢[思知网站](https://www.ownthink.com/)提供的相关数据;
 
