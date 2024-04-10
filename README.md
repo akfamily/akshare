@@ -136,9 +136,6 @@ Pay attention to **数据科学实战** WeChat Official Accounts to get the [AKS
     <img alt="ds" src="https://github.com/akfamily/akshare/blob/main/assets/images/ds.png">
 </div>
 
-Application to add **AKShare-VIP QQ group** and talk about [AKShare](https://github.com/akfamily/akshare) issues, please contact **AKShare-小助手 QQ**: 1254836886
-![QRCode](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/qr_code_1254836886.jpg)
-
 ## Features
 
 - **Easy of use**: Just one line code to fetch the data;
@@ -288,19 +285,7 @@ Thanks for the data provided by [义乌小商品指数网站](http://www.ywindex
 
 Thanks for the data provided by [中国国家发展和改革委员会网站](http://jgjc.ndrc.gov.cn/dmzs.aspx?clmId=741);
 
-Thanks for the data provided by [163网站](https://news.163.com/special/epidemic/);
-
-Thanks for the data provided by [丁香园网站](http://3g.dxy.cn/newh5/view/pneumonia?scene=2&clicktime=1579615030&enterid=1579615030&from=groupmessage&isappinstalled=0);
-
-Thanks for the data provided by [百度新型肺炎网站](https://voice.baidu.com/act/newpneumonia/newpneumonia/?from=osari_pc_1);
-
 Thanks for the data provided by [百度迁徙网站](https://qianxi.baidu.com/?from=shoubai#city=0);
-
-Thanks for the data provided by [新型肺炎-相同行程查询工具网站](https://rl.inews.qq.com/h5/trip?from=newsapp&ADTAG=tgi.wx.share.message);
-
-Thanks for the data provided by [新型肺炎-小区查询网站](https://ncov.html5.qq.com/community?channelid=1&from=singlemessage&isappinstalled=0);
-
-Thanks for the data provided by [商业特许经营信息管理网站](http://txjy.syggs.mofcom.gov.cn/);
 
 Thanks for the data provided by [慈善中国网站](http://cishan.chinanpo.gov.cn/platform/login.html);
 
