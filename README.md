@@ -1,10 +1,12 @@
-**AKShare VIP 交流群欢迎大家的加入，加群方式请点击[【加群】](https://zmj.xet.tech/s/28gOeh)**
+**欢迎加入专注于财经数据和量化投资的知识社区，请点击[了解更多](https://akshare.akfamily.xyz/learn.html)**
 
 **相关视频教程已经发布：《AKShare-初阶-使用教学》、《AKShare-初阶-实战应用》、《AKShare-源码解析》、《开源项目巡礼》**，详情请访问[课程](https://app3rqjh1z21630.h5.xiaoeknow.com)查看更多课程信息！
 
 **AKQuant 量化教程请访问：[利用 PyBroker 进行量化投资](https://akquant.akfamily.xyz/)**
 
-**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！ 点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源。**
+**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，
+突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！
+点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。另外提供 [awesome-data](https://github.com/akfamily/awesome-data) 方便各位小伙伴查询各种数据源。**
 
 ![AKShare Logo](https://github.com/akfamily/akshare/blob/main/assets/images/akshare_logo.jpg)
 
@@ -23,8 +25,8 @@
 
 ## Overview
 
-[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.8 or greater, aims to make
-fetch financial data as convenient as possible.
+[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.8 or higher and
+aims to simplify the process of fetching financial data.
 
 **Write less, get more!**
 
@@ -46,7 +48,8 @@ pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mir
 
 ### PR
 
-Please check out [documentation](https://akshare.akfamily.xyz/contributing.html) if you want to contribute to AKShare
+Please check out [Documentation](https://akshare.akfamily.xyz/contributing.html) if you
+want to contribute to AKShare
 
 ### Docker
 
