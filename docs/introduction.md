@@ -1,14 +1,14 @@
 # [AKShare](https://github.com/akfamily/akshare) 项目概览
 
-**本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！
-点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。**
+本次发布 [AKTools](https://github.com/akfamily/aktools) 作为 AKShare 的 HTTP API 版本，突破 Python 语言的限制，欢迎各位小伙伴试用并提出更好的意见或建议！
+点击 [AKTools](https://github.com/akfamily/aktools) 查看使用指南。
 
-**风险提示：[AKShare](https://github.com/akfamily/akshare) 开源财经数据接口库所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
-同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。**
+**风险提示**：[AKShare](https://github.com/akfamily/akshare) 开源财经数据接口库所采集的数据皆来自公开的数据源，不涉及任何个人隐私数据和非公开数据。
+同时本项目提供的数据接口及相关数据仅用于学术研究，任何个人、机构及团体使用本项目的数据接口及相关数据请注意商业风险。
 
-1. 本文档更新时间：**2024-04-10**；
+1. 本文档更新时间：**2024-04-11**；
 2. 如有 [AKShare](https://github.com/akfamily/akshare) 库、文档及数据的相关问题，请在 [AKShare Issues](https://github.com/akfamily/akshare/issues) 中提 Issues；
-3. 欢迎关注 **数据科学实战** 微信公众号：<div><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>；
+3. 欢迎关注 **数据科学实战** 微信公众号；<div><img src="https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/ds.png"></div>
 4. **知识星球【数据科学实战】** 2024 全新改版，聚焦于量化投资内容，欢迎加入 **知识星球【数据科学实战】** 高质量社区，里面有丰富的视频课程、问答、文章、书籍及代码等内容：
    - 知识分享：分享高质量财经数学、量化投资框架和策略的相关文章和代码
    - 数据分享：分享高质量财经数据，主要包括但不限于股票、期货、期权、基金等数据用于量化策略研究
@@ -17,7 +17,7 @@
    - 所有课程课件：我们会在星球中分享所有视频课程的课件及源码
    - 专属课程优惠券：【数据科学实战】星球球友可获得 10 张【数据科学实战】知识店铺 8.8 折优惠券，所有在售课程均可使用
    - 交个朋友：星球内有众多业内大咖，可以让大家学习交流！
-   - 惊喜福利：邀请 AKShare 的开发者分享和解答 AKShare 及其衍生工具中使用的问题
+   - 惊喜福利：邀请 AKShare 和 PyBroker 的开发和维护者分享和解答财经数据和量化交易框架问题
    - ![星球加入二维码](https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/readme/qrcode/data_scientist.png)
 
 ## 引用
