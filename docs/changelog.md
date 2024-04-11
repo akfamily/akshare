@@ -78,6 +78,11 @@
 
 ## 更新说明详情
 
+1.13.33 fix: fix index_realtime_fund_sw interface
+
+    1. 修复 index_realtime_fund_sw 接口
+    2. 修复 stock_zt_pool_em 接口
+
 1.13.32 fix: fix futures_contract_info_czce interface
 
     1. 修复 futures_contract_info_czce 接口
@@ -3906,6 +3911,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.33 fix: fix index_realtime_fund_sw interface
 
 1.13.32 fix: fix futures_contract_info_czce interface
 
