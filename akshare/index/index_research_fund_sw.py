@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/3 16:40
+Date: 2024/4/11 17:40
 Desc: 申万宏源研究-申万指数-指数发布-基金指数-实时行情
 https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 """
 
 import pandas as pd
 import requests
+
+from akshare.utils.cons import headers
 
 
 def index_realtime_fund_sw(symbol: str = "基础一级") -> pd.DataFrame:
@@ -27,10 +29,6 @@ def index_realtime_fund_sw(symbol: str = "基础一级") -> pd.DataFrame:
         "sortField": "",
         "rule": "",
         "indexType": 1,
-    }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/114.0.0.0 Safari/537.36"
     }
     r = requests.post(url, json=payload, headers=headers)
     data_json = r.json()
@@ -78,10 +76,6 @@ def index_hist_fund_sw(symbol: str = "807200", period: str = "day") -> pd.DataFr
     }
     url = "https://www.swsresearch.com/insWechatSw/fundIndex/getFundKChartData"
     payload = {"swIndexCode": symbol, "type": period_map[period]}
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/114.0.0.0 Safari/537.36"
-    }
     r = requests.post(url, json=payload, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
