@@ -78,6 +78,13 @@
 
 ## 更新说明详情
 
+1.13.32 fix: fix futures_contract_info_czce interface
+
+    1. 修复 futures_contract_info_czce 接口
+    2. 修复 stock_board_concept_cons_em 接口
+    3. 修复 futures_comm_info 接口
+    4. 修复 stock_us_pink_spot_em 接口
+
 1.13.31 fix: fix stock_individual_spot_xq interface
 
     1. 修复 stock_individual_spot_xq 接口
@@ -3899,6 +3906,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.32 fix: fix futures_contract_info_czce interface
 
 1.13.31 fix: fix stock_individual_spot_xq interface
 
