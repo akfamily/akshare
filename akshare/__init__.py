@@ -2760,7 +2760,7 @@ pd_main_version = int(pd.__version__.split('.')[0])
 
 if pd_main_version < 2:
     warnings.warn(
-        "为了支持更多特性，请将 Pandas 升级到 2.1.0 及以上版本！"
+        "为了支持更多特性，请将 Pandas 升级到 2.2.0 及以上版本！"
     )
 
 if sys.version_info < (3, 9):
