@@ -8,6 +8,7 @@ https://www.cbirc.gov.cn/cn/view/pages/ItemList.html?itemPId=923&itemId=4115&ite
 https://www.cbirc.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId=881446.json
 2020 新接口
 """
+
 import warnings
 from io import StringIO
 
@@ -33,7 +34,7 @@ def bank_fjcf_total_num(item: str = "分局本级") -> int:
         "分局本级": "4115",
     }
     cbirc_headers = cbirc_headers_without_cookie_2020.copy()
-    main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
+    main_url = "https://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
     params = {
         "itemId": item_id_list[item],
         "pageSize": "18",
@@ -60,7 +61,7 @@ def bank_fjcf_total_page(item: str = "分局本级", begin: int = 1) -> int:
         "分局本级": "4115",
     }
     cbirc_headers = cbirc_headers_without_cookie_2020.copy()
-    main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
+    main_url = "https://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
     params = {
         "itemId": item_id_list[item],
         "pageSize": "18",
@@ -73,7 +74,7 @@ def bank_fjcf_total_page(item: str = "分局本级", begin: int = 1) -> int:
 
 
 def bank_fjcf_page_url(
-        page: int = 5, item: str = "分局本级", begin: int = 1
+    page: int = 5, item: str = "分局本级", begin: int = 1
 ) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-每一页的 json 数据
@@ -92,7 +93,7 @@ def bank_fjcf_page_url(
         "分局本级": "4115",
     }
     cbirc_headers = cbirc_headers_without_cookie_2020.copy()
-    main_url = "http://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
+    main_url = "https://www.cbirc.gov.cn/cbircweb/DocInfo/SelectDocByItemIdAndChild"
     temp_df = pd.DataFrame()
     for i_page in tqdm(range(begin, page + begin), leave=False):
         params = {
@@ -108,7 +109,7 @@ def bank_fjcf_page_url(
 
 
 def bank_fjcf_table_detail(
-        page: int = 5, item: str = "分局本级", begin: int = 1
+    page: int = 5, item: str = "分局本级", begin: int = 1
 ) -> pd.DataFrame:
     """
     获取 首页-政务信息-行政处罚-银保监分局本级-XXXX行政处罚信息公开表 数据
@@ -124,7 +125,7 @@ def bank_fjcf_table_detail(
     id_list = bank_fjcf_page_url(page=page, item=item, begin=begin)["docId"]
     big_df = pd.DataFrame()
     for item in id_list:
-        url = f"http://www.cbirc.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId={item}.json"
+        url = f"https://www.cbirc.gov.cn/cn/static/data/DocInfo/SelectByDocId/data_docId={item}.json"
         res = requests.get(url)
         try:
             table_list = pd.read_html(StringIO(res.json()["data"]["docClob"]))[0]
@@ -146,7 +147,9 @@ def bank_fjcf_table_detail(
                 table_list = table_list[2:]
                 table_list.insert(2, pd.NA)
             else:
-                print(f"{item} 异常，请通过 https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId={item} 查看")
+                print(
+                    f"{item} 异常，请通过 https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId={item} 查看"
+                )
                 continue
 
             # 部分会变成嵌套列表, 这里还原
@@ -159,7 +162,7 @@ def bank_fjcf_table_detail(
             table_df.columns = ["内容"]
             big_df = pd.concat(objs=[big_df, table_df.T], ignore_index=True)
             # 解决有些页面缺少字段的问题, 都放到 try 里面
-        except:
+        except:  # noqa: E722
             warnings.warn(f"{item} 不是表格型数据，将跳过采集")
             continue
     if big_df.empty:
@@ -182,5 +185,5 @@ def bank_fjcf_table_detail(
 
 
 if __name__ == "__main__":
-    bank_fjcf_table_detail_df = bank_fjcf_table_detail(page=1, item="机关", begin=11)
+    bank_fjcf_table_detail_df = bank_fjcf_table_detail(page=1, item="机关", begin=1)
     print(bank_fjcf_table_detail_df)
