@@ -1649,12 +1649,12 @@ print(stock_zh_a_minute_df)
 
 输入参数
 
-| 名称         | 类型  | 描述                                                                                                  |
-|------------|-----|-----------------------------------------------------------------------------------------------------|
-| symbol     | str | symbol='sh000300'; 股票代码                                                                             |
-| start_date | str | start_date="1979-09-01 09:32:00"; 日期时间; 默认返回所有数据                                                    |
-| end_date   | str | end_date="2222-01-01 09:32:00"; 日期时间; 默认返回所有数据                                                      |
-| period     | str | period='5'; choice of {'1', '5', '15', '30', '60'}; 其中 1 分钟数据返回近 5 个交易日数据且不复权                       |
+| 名称         | 类型  | 描述                                                                                                |
+|------------|-----|---------------------------------------------------------------------------------------------------|
+| symbol     | str | symbol='000300'; 股票代码                                                                             |
+| start_date | str | start_date="1979-09-01 09:32:00"; 日期时间; 默认返回所有数据                                                  |
+| end_date   | str | end_date="2222-01-01 09:32:00"; 日期时间; 默认返回所有数据                                                    |
+| period     | str | period='5'; choice of {'1', '5', '15', '30', '60'}; 其中 1 分钟数据返回近 5 个交易日数据且不复权                     |
 | adjust     | str | adjust=''; choice of {'', 'qfq', 'hfq'}; '': 不复权, 'qfq': 前复权, 'hfq': 后复权, 其中 1 分钟数据返回近 5 个交易日数据且不复权 |
 
 输出参数-1分钟数据
@@ -18744,7 +18744,7 @@ print(stock_margin_detail_sse_df)
 
 接口: stock_margin_szse
 
-目标地址: http://www.szse.cn/disclosure/margin/margin/index.html
+目标地址: https://www.szse.cn/disclosure/margin/margin/index.html
 
 描述: 深圳证券交易所-融资融券数据-融资融券汇总数据
 
@@ -18754,7 +18754,7 @@ print(stock_margin_detail_sse_df)
 
 | 名称   | 类型  | 描述                    |
 |------|-----|-----------------------|
-| date | str | start_date="20210401" |
+| date | str | date="20240411"; 交易日期 |
 
 输出参数
 
@@ -18772,22 +18772,22 @@ print(stock_margin_detail_sse_df)
 ```python
 import akshare as ak
 
-stock_margin_sse_df = ak.stock_margin_szse(date="20210401")
+stock_margin_sse_df = ak.stock_margin_szse(date="20240411")
 print(stock_margin_sse_df)
 ```
 
 数据示例
 
 ```
-   融资买入额     融资余额  融券卖出量   融券余量    融券余额   融资融券余额
-0  267.8  7113.05   0.93  31.99  579.71  7692.76
+    融资买入额     融资余额  融券卖出量   融券余量   融券余额   融资融券余额
+0  321.08  7077.67   0.28  24.34  157.3  7234.97
 ```
 
 ##### 融资融券明细
 
 接口: stock_margin_detail_szse
 
-目标地址: http://www.szse.cn/disclosure/margin/margin/index.html
+目标地址: https://www.szse.cn/disclosure/margin/margin/index.html
 
 描述: 深证证券交易所-融资融券数据-融资融券交易明细数据
 
@@ -18843,7 +18843,7 @@ print(stock_margin_detail_sse_df)
 
 接口: stock_margin_underlying_info_szse
 
-目标地址: http://www.szse.cn/disclosure/margin/object/index.html
+目标地址: https://www.szse.cn/disclosure/margin/object/index.html
 
 描述: 深圳证券交易所-融资融券数据-标的证券信息
 
