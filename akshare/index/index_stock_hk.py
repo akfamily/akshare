@@ -14,6 +14,8 @@ import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
+from functools import lru_cache
+
 from akshare.stock.cons import hk_js_decode
 
 
@@ -138,6 +140,7 @@ def stock_hk_index_daily_sina(symbol: str = "CES100") -> pd.DataFrame:
     return temp_df
 
 
+@lru_cache()
 def stock_hk_index_spot_em() -> pd.DataFrame:
     """
     东方财富网-行情中心-港股-指数实时行情
@@ -283,5 +286,5 @@ if __name__ == "__main__":
     stock_hk_index_spot_em_df = stock_hk_index_spot_em()
     print(stock_hk_index_spot_em_df)
 
-    stock_zh_index_daily_em_df = stock_hk_index_daily_em(symbol="HSAHP")
-    print(stock_zh_index_daily_em_df)
+    stock_hk_index_daily_em_df = stock_hk_index_daily_em(symbol="HSAHP")
+    print(stock_hk_index_daily_em_df)
