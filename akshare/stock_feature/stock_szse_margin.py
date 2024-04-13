@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/10/9 15:00
+Date: 2024/4/13 18:00
 Desc: 深圳证券交易所-融资融券数据
 https://www.szse.cn/disclosure/margin/object/index.html
 """
+
 import warnings
 
 import pandas as pd
@@ -20,7 +21,7 @@ def stock_margin_underlying_info_szse(date: str = "20221129") -> pd.DataFrame:
     :return: 标的证券信息
     :rtype: pandas.DataFrame
     """
-    url = "http://www.szse.cn/api/report/ShowReport"
+    url = "https://www.szse.cn/api/report/ShowReport"
     params = {
         "SHOWTYPE": "xlsx",
         "CATALOGID": "1834_xxpl",
@@ -30,8 +31,9 @@ def stock_margin_underlying_info_szse(date: str = "20221129") -> pd.DataFrame:
         "TABKEY": "tab1",
     }
     headers = {
-        "Referer": "http://www.szse.cn/disclosure/margin/object/index.html",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
+        "Referer": "https://www.szse.cn/disclosure/margin/object/index.html",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     with warnings.catch_warnings(record=True):
@@ -40,7 +42,7 @@ def stock_margin_underlying_info_szse(date: str = "20221129") -> pd.DataFrame:
     return temp_df
 
 
-def stock_margin_szse(date: str = "20221129") -> pd.DataFrame:
+def stock_margin_szse(date: str = "20240411") -> pd.DataFrame:
     """
     深圳证券交易所-融资融券数据-融资融券汇总
     https://www.szse.cn/disclosure/margin/margin/index.html
@@ -49,7 +51,7 @@ def stock_margin_szse(date: str = "20221129") -> pd.DataFrame:
     :return: 融资融券汇总
     :rtype: pandas.DataFrame
     """
-    url = "http://www.szse.cn/api/report/ShowReport/data"
+    url = "https://www.szse.cn/api/report/ShowReport/data"
     params = {
         "SHOWTYPE": "JSON",
         "CATALOGID": "1837_xxpl",
@@ -58,8 +60,9 @@ def stock_margin_szse(date: str = "20221129") -> pd.DataFrame:
         "random": "0.7425245522795993",
     }
     headers = {
-        "Referer": "http://www.szse.cn/disclosure/margin/object/index.html",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
+        "Referer": "https://www.szse.cn/disclosure/margin/object/index.html",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     data_json = r.json()
@@ -96,7 +99,7 @@ def stock_margin_detail_szse(date: str = "20230925") -> pd.DataFrame:
     :return: 融资融券明细
     :rtype: pandas.DataFrame
     """
-    url = "http://www.szse.cn/api/report/ShowReport"
+    url = "https://www.szse.cn/api/report/ShowReport"
     params = {
         "SHOWTYPE": "xlsx",
         "CATALOGID": "1837_xxpl",
@@ -106,8 +109,9 @@ def stock_margin_detail_szse(date: str = "20230925") -> pd.DataFrame:
         "TABKEY": "tab2",
     }
     headers = {
-        "Referer": "http://www.szse.cn/disclosure/margin/margin/index.html",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36",
+        "Referer": "https://www.szse.cn/disclosure/margin/margin/index.html",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/88.0.4324.150 Safari/537.36",
     }
     r = requests.get(url, params=params, headers=headers)
     with warnings.catch_warnings(record=True):
@@ -145,8 +149,8 @@ if __name__ == "__main__":
     )
     print(stock_margin_underlying_info_szse_df)
 
-    stock_margin_szse_df = stock_margin_szse(date="20210401")
+    stock_margin_szse_df = stock_margin_szse(date="20240411")
     print(stock_margin_szse_df)
 
-    stock_margin_detail_szse_df = stock_margin_detail_szse(date="20210728")
+    stock_margin_detail_szse_df = stock_margin_detail_szse(date="20240411")
     print(stock_margin_detail_szse_df)
