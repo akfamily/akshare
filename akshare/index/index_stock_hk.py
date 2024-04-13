@@ -14,6 +14,8 @@ import pandas as pd
 import requests
 from py_mini_racer import py_mini_racer
 
+from functools import lru_cache
+
 from akshare.stock.cons import hk_js_decode
 
 
@@ -212,6 +214,20 @@ def stock_hk_index_spot_em() -> pd.DataFrame:
     return temp_df
 
 
+@lru_cache()
+def _symbol_code_dict():
+    """
+    缓存stock_hk_index_spot_em接口中的代码与内部编号。
+    """
+    __stock_hk_index_spot_em_df = stock_hk_index_spot_em()
+    symbol_code_dict = dict(
+        zip(
+            __stock_hk_index_spot_em_df["代码"], __stock_hk_index_spot_em_df["内部编号"]
+        )
+    )
+    return symbol_code_dict
+
+
 def stock_hk_index_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
     """
     东方财富网-港股-股票指数数据
@@ -221,12 +237,7 @@ def stock_hk_index_daily_em(symbol: str = "HSTECF2L") -> pd.DataFrame:
     :return: 指数数据
     :rtype: pandas.DataFrame
     """
-    __stock_hk_index_spot_em_df = stock_hk_index_spot_em()
-    symbol_code_dict = dict(
-        zip(
-            __stock_hk_index_spot_em_df["代码"], __stock_hk_index_spot_em_df["内部编号"]
-        )
-    )
+    symbol_code_dict = _symbol_code_dict()
     symbol_code_dict.update(
         {
             "HSAHP": "100",
@@ -283,5 +294,5 @@ if __name__ == "__main__":
     stock_hk_index_spot_em_df = stock_hk_index_spot_em()
     print(stock_hk_index_spot_em_df)
 
-    stock_zh_index_daily_em_df = stock_hk_index_daily_em(symbol="HSAHP")
-    print(stock_zh_index_daily_em_df)
+    stock_hk_index_daily_em_df = stock_hk_index_daily_em(symbol="HSAHP")
+    print(stock_hk_index_daily_em_df)
