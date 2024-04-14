@@ -22135,6 +22135,58 @@ print(stock_info_global_cls_df)
 [300 rows x 4 columns]
 ```
 
+#### 新浪财经-券商原创文章
+接口：stock_broker_orig_article_sina
+
+目标地址：https://finance.sina.com.cn/roll/index.d.html?cid=221431
+
+描述：新浪财经-证券-券商原创文章
+
+限量：无
+
+输入参数
+| 名称 | 类型 | 描述 |
+|----|----|----|
+| page  | int  | 页面号，默认为1  |
+
+
+输出参数
+| 时间 | 内容 | 链接 |
+|----|----|----|
+| 时间  | object  | - |
+| 内容  | object  | - |
+| 链接  | object  | - |
+
+
+接口示例
+
+```python
+
+import akshare as ak
+
+stock_broker_orig_article_sina_df = ak.stock_broker_orig_article_sina()
+print(stock_broker_orig_article_sina_df)
+```
+
+数据示例
+
+
+```
+时间	内容	链接
+0	(04月13日 14:12)	维业股份百亿营收下净利仅2000万左右 保理融资利息大涨下反映出什么？	https://finance.sina.com.cn/stock/focus/2024-0...
+1	(04月13日 01:08)	红塔证券去年多项业务利润为负 高管总薪酬却逆势增长 总裁沈春晖任内营收大降8成|券商年报	https://finance.sina.com.cn/stock/observe/2024...
+2	(04月12日 20:17)	中联重科资产腾挪四部曲：高管层低价埋伏入股、14亿买壳、关联交易拉升业绩、标的估值激增22倍...	https://finance.sina.com.cn/stock/observe/2024...
+3	(04月12日 19:19)	又一"分拆+借壳"上市案例?中联重科管理层提前入股后增值超12倍 被质疑利益输送	https://finance.sina.com.cn/stock/observe/2024...
+4	(04月12日 18:51)	路特斯三年巨亏百亿IPO前销量骤增12倍 收入一半用于营销百万售价或是"智商税"？	https://finance.sina.com.cn/stock/observe/2024...
+5	(04月12日 18:48)	聚石化学资本运作不能停？科创板上市破发后玩转“重整+收购+定增+A拆北”	https://finance.sina.com.cn/stock/observe/2024...
+...
+40	(04月03日 21:09)	中金公司保荐并行科技IPO项目质量评级D级 承销保荐佣金率较高 上市后继续亏损	https://finance.sina.com.cn/stock/observe/2024...
+41	(04月03日 21:09)	中泰证券保荐国子软件IPO项目质量评级B级 信息披露有提升空间	https://finance.sina.com.cn/stock/observe/2024...
+42	(04月03日 21:06)	东莞证券保荐东和新材IPO项目质量评级C级 上市首年扣非归母净利润大降47.47% 实际...	https://finance.sina.com.cn/stock/observe/2024...
+43	(04月03日 21:03)	中信建投保荐鼎智科技IPO项目质量评级B级 上市首年业绩“变脸”	https://finance.sina.com.cn/stock/observe/2024...
+44	(04月03日 21:01)	中泰证券保荐迪尔化工IPO项目质量评级C级 实际募资金额缩水	https://finance.sina.com.cn/stock/observe/2024...
+```
+
 ### 手续费
 
 #### 国内券商佣金
