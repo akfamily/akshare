@@ -1810,7 +1810,7 @@ def stock_us_hist(
         "涨跌额",
         "换手率",
     ]
-    temp_df.index = pd.to_datetime(temp_df["日期"])
+    temp_df.index = pd.to_datetime(temp_df["日期"], errors="coerce")
     temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(inplace=True, drop=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
@@ -1823,7 +1823,7 @@ def stock_us_hist(
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["涨跌额"] = pd.to_numeric(temp_df["涨跌额"], errors="coerce")
     temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
-    temp_df.sort_values(["日期"], inplace=True)
+    temp_df.sort_values(["日期"], inplace=True, ignore_index=True)
     return temp_df
 
 
@@ -1869,7 +1869,7 @@ def stock_us_hist_min_em(
         "成交额",
         "最新价",
     ]
-    temp_df.index = pd.to_datetime(temp_df["时间"])
+    temp_df.index = pd.to_datetime(temp_df["时间"], errors="coerce")
     temp_df = temp_df[start_date:end_date]
     temp_df.reset_index(drop=True, inplace=True)
     temp_df["开盘"] = pd.to_numeric(temp_df["开盘"], errors="coerce")
@@ -1966,7 +1966,7 @@ if __name__ == "__main__":
         symbol="106.TTE",
         period="daily",
         start_date="20200101",
-        end_date="20240213",
+        end_date="20240414",
         adjust="qfq",
     )
     print(stock_us_hist_df)
@@ -1981,6 +1981,9 @@ if __name__ == "__main__":
     print(stock_us_spot_em_df)
 
     stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="106.TTE")
+    print(stock_us_hist_min_em_df)
+
+    stock_us_hist_min_em_df = stock_us_hist_min_em(symbol="105.ATER")
     print(stock_us_hist_min_em_df)
 
     stock_zh_a_hist_min_em_df = stock_zh_a_hist_min_em(
@@ -2005,8 +2008,8 @@ if __name__ == "__main__":
         symbol="01611",
         period="1",
         adjust="",
-        start_date="2024-03-28 09:30:00",
-        end_date="2024-03-28 18:32:00",
+        start_date="2024-04-12 09:30:00",
+        end_date="2024-04-12 18:32:00",
     )
     print(stock_hk_hist_min_em_df)
 
