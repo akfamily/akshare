@@ -526,7 +526,7 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     )
     if day.strftime("%Y%m%d") not in calendar:
         # warnings.warn("%s非交易日" % day.strftime("%Y%m%d"))
-        return
+        return pd.DataFrame()
     try:
         json_data = json.loads(
             requests_link(
@@ -537,10 +537,10 @@ def get_shfe_daily(date: str = "20220415") -> pd.DataFrame:
     except requests.HTTPError as reason:
         if reason.response != 404:
             print(cons.SHFE_DAILY_URL % (day.strftime("%Y%m%d")), reason)
-        return
+        return pd.DataFrame()
 
     if len(json_data["o_curinstrument"]) == 0:
-        return
+        return pd.DataFrame()
 
     df = pd.DataFrame(
         [
