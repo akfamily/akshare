@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2023/12/2 18:00
+Date: 2024/4/15 20:00
 Desc: 乐咕乐股网-赚钱效应分析
 https://www.legulegu.com/stockdata/market-activity
 """
+
 from io import StringIO
 
 import pandas as pd
@@ -28,17 +29,19 @@ def stock_market_activity_legu() -> pd.DataFrame:
     temp_df_two.columns = ["item", "value"]
     temp_df_three = temp_df.iloc[:, 4:6]
     temp_df_three.columns = ["item", "value"]
-    temp_df = pd.concat([temp_df_one, temp_df_two, temp_df_three], ignore_index=True)
+    temp_df = pd.concat(
+        objs=[temp_df_one, temp_df_two, temp_df_three], ignore_index=True
+    )
     temp_df.dropna(how="all", axis=0, inplace=True)
-    soup = BeautifulSoup(r.text, "lxml")
-    item_str = soup.find("div", attrs={"class": "current-index"}).text
+    soup = BeautifulSoup(r.text, features="lxml")
+    item_str = soup.find(name="div", attrs={"class": "current-index"}).text
     inner_temp_df = pd.DataFrame([item.strip() for item in item_str.split("：")]).T
     inner_temp_df.columns = ["item", "value"]
-    temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
-    item_str = soup.find("div", attrs={"class": "current-data"}).text.strip()
+    temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
+    item_str = soup.find(name="div", attrs={"class": "current-data"}).text.strip()
     inner_temp_df = pd.DataFrame(["统计日期", item_str]).T
     inner_temp_df.columns = ["item", "value"]
-    temp_df = pd.concat([temp_df, inner_temp_df], ignore_index=True)
+    temp_df = pd.concat(objs=[temp_df, inner_temp_df], ignore_index=True)
     temp_df.reset_index(inplace=True, drop=True)
     return temp_df
 
