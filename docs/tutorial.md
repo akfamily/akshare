@@ -1259,6 +1259,8 @@
  "stock_info_global_ths"  # 资讯数据-同花顺
  "stock_info_global_cls"  # 资讯数据-财联社
  "stock_info_broker_sina"  # 新浪财经-证券-证券原创
+ # 数库-A股新闻情绪指数
+ "index_news_sentiment_scope"  # 数库-A股新闻情绪指数
 ```
 
 ## 案例演示
