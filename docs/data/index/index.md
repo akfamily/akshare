@@ -4798,9 +4798,9 @@ print(index_analysis_monthly_sw_df)
 
 ### 市场情绪指数
 
-#### A股新闻情绪指数
+#### A 股新闻情绪指数
 
-接口: index_analysis_monthly_sw
+接口: index_news_sentiment_scope
 
 目标地址: https://www.chinascope.com/reasearch.html
 
