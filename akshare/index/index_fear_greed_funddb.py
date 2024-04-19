@@ -5,6 +5,7 @@ Date: 2023/10/18 20:00
 Desc: funddb-工具-估值情绪-恐惧贪婪指数
 https://funddb.cn/tool/fear
 """
+
 import json
 
 import pandas as pd
@@ -63,8 +64,9 @@ def index_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     temp_df["fear"] = pd.to_numeric(temp_df["fear"], errors="coerce")
     temp_df["index"] = pd.to_numeric(temp_df["index"], errors="coerce")
-    temp_df['fear'] = temp_df['fear'].round(2)
-    temp_df['index'] = temp_df['index'].round(2)
+
+    temp_df["fear"] = temp_df["fear"].round(2)
+    temp_df["index"] = temp_df["index"].round(2)
     return temp_df
 
 
