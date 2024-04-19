@@ -53,7 +53,7 @@ def index_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("cninfo.js")
     js_code.eval(js_content)
-    mcode = js_code.call("my_decode", data_json)
+    mcode = js_code.call("new_my_decode", data_json)
     data_json = json.loads(mcode)
     date_list = data_json["data"]["xAxis"]["categories"]
     tl_list = data_json["data"]["series"][0]["data"]
@@ -63,9 +63,14 @@ def index_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
     temp_df["fear"] = pd.to_numeric(temp_df["fear"], errors="coerce")
     temp_df["index"] = pd.to_numeric(temp_df["index"], errors="coerce")
+    temp_df['fear'] = temp_df['fear'].round(2)
+    temp_df['index'] = temp_df['index'].round(2)
     return temp_df
 
 
 if __name__ == "__main__":
     index_fear_greed_funddb_df = index_fear_greed_funddb(symbol="上证指数")
+    print(index_fear_greed_funddb_df)
+
+    index_fear_greed_funddb_df = index_fear_greed_funddb(symbol="沪深300")
     print(index_fear_greed_funddb_df)
