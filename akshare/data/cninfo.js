@@ -5999,3 +5999,18 @@ function my_decode(data) {
     );
     return encrypted.toString(CryptoJS.enc.Utf8);
 }
+
+function new_my_decode(data) {
+    let key = CryptoJS.enc.Utf8.parse('bieyanjiulexixishuibatoufameill1'); // 密钥需要是32字节，这里可能需要调整
+    let iv = CryptoJS.enc.Utf8.parse('nengnongchulainbl1'); // 向量通常是16字节
+    let decrypted = CryptoJS.AES.decrypt(
+        data,
+        key,
+        {
+            iv: iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7
+        }
+    );
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
