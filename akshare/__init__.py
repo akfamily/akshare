@@ -2751,9 +2751,10 @@ amac_manager_cancelled_info # 中国证券投资基金业协会-信息公示-诚
 1.13.37 fix: fix stock_hk_index_daily_sina interface
 1.13.38 fix: fix stock_market_activity_legu interface
 1.13.39 add: add index_news_sentiment_scope interface
+1.13.40 fix: fix index_fear_greed_funddb interface
 """
 
-__version__ = "1.13.39"
+__version__ = "1.13.40"
 __author__ = "AKFamily"
 
 import sys
