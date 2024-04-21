@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/10/18 20:00
+Date: 2024/4/21 17:00
 Desc: funddb-工具-估值情绪-恐惧贪婪指数
 https://funddb.cn/tool/fear
 """
