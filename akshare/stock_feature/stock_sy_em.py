@@ -9,6 +9,7 @@ Desc: 东方财富网-数据中心-特色数据-商誉
 东方财富网-数据中心-特色数据-商誉-个股商誉明细: https://data.eastmoney.com/sy/list.html
 东方财富网-数据中心-特色数据-商誉-行业商誉: https://data.eastmoney.com/sy/hylist.html
 """
+
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -65,10 +66,16 @@ def stock_sy_profile_em() -> pd.DataFrame:
     data_df["商誉"] = pd.to_numeric(data_df["商誉"], errors="coerce")
     data_df["商誉减值"] = pd.to_numeric(data_df["商誉减值"], errors="coerce")
     data_df["净资产"] = pd.to_numeric(data_df["净资产"], errors="coerce")
-    data_df["商誉占净资产比例"] = pd.to_numeric(data_df["商誉占净资产比例"], errors="coerce")
-    data_df["商誉减值占净资产比例"] = pd.to_numeric(data_df["商誉减值占净资产比例"], errors="coerce")
+    data_df["商誉占净资产比例"] = pd.to_numeric(
+        data_df["商誉占净资产比例"], errors="coerce"
+    )
+    data_df["商誉减值占净资产比例"] = pd.to_numeric(
+        data_df["商誉减值占净资产比例"], errors="coerce"
+    )
     data_df["净利润规模"] = pd.to_numeric(data_df["净利润规模"], errors="coerce")
-    data_df["商誉减值占净利润比例"] = pd.to_numeric(data_df["商誉减值占净利润比例"], errors="coerce")
+    data_df["商誉减值占净利润比例"] = pd.to_numeric(
+        data_df["商誉减值占净利润比例"], errors="coerce"
+    )
     data_df.sort_values(["报告期"], inplace=True, ignore_index=True)
     return data_df
 
@@ -157,15 +164,27 @@ def stock_sy_yq_em(date: str = "20221231") -> pd.DataFrame:
     big_df["交易市场"] = big_df["交易市场"].map(
         {"shzb": "沪市主板", "kcb": "科创板", "szzb": "深市主板", "cyb": "创业板"}
     )
-    big_df["最新商誉报告期"] = pd.to_datetime(big_df["最新商誉报告期"], errors="coerce").dt.date
+    big_df["最新商誉报告期"] = pd.to_datetime(
+        big_df["最新商誉报告期"], errors="coerce"
+    ).dt.date
     big_df["公告日期"] = pd.to_datetime(big_df["公告日期"], errors="coerce").dt.date
     big_df["最新一期商誉"] = pd.to_numeric(big_df["最新一期商誉"], errors="coerce")
     big_df["上年商誉"] = pd.to_numeric(big_df["上年商誉"], errors="coerce")
-    big_df["预计净利润-下限"] = pd.to_numeric(big_df["预计净利润-下限"], errors="coerce")
-    big_df["预计净利润-上限"] = pd.to_numeric(big_df["预计净利润-上限"], errors="coerce")
-    big_df["业绩变动幅度-下限"] = pd.to_numeric(big_df["业绩变动幅度-下限"], errors="coerce")
-    big_df["业绩变动幅度-上限"] = pd.to_numeric(big_df["业绩变动幅度-上限"], errors="coerce")
-    big_df["上年度同期净利润"] = pd.to_numeric(big_df["上年度同期净利润"], errors="coerce")
+    big_df["预计净利润-下限"] = pd.to_numeric(
+        big_df["预计净利润-下限"], errors="coerce"
+    )
+    big_df["预计净利润-上限"] = pd.to_numeric(
+        big_df["预计净利润-上限"], errors="coerce"
+    )
+    big_df["业绩变动幅度-下限"] = pd.to_numeric(
+        big_df["业绩变动幅度-下限"], errors="coerce"
+    )
+    big_df["业绩变动幅度-上限"] = pd.to_numeric(
+        big_df["业绩变动幅度-上限"], errors="coerce"
+    )
+    big_df["上年度同期净利润"] = pd.to_numeric(
+        big_df["上年度同期净利润"], errors="coerce"
+    )
     return big_df
 
 
@@ -253,11 +272,19 @@ def stock_sy_jz_em(date: str = "20230331") -> pd.DataFrame:
     big_df["公告日期"] = pd.to_datetime(big_df["公告日期"], errors="coerce").dt.date
     big_df["商誉"] = pd.to_numeric(big_df["商誉"], errors="coerce")
     big_df["商誉减值"] = pd.to_numeric(big_df["商誉减值"], errors="coerce")
-    big_df["商誉占净资产比例"] = pd.to_numeric(big_df["商誉占净资产比例"], errors="coerce")
-    big_df["商誉减值占净资产比例"] = pd.to_numeric(big_df["商誉减值占净资产比例"], errors="coerce")
+    big_df["商誉占净资产比例"] = pd.to_numeric(
+        big_df["商誉占净资产比例"], errors="coerce"
+    )
+    big_df["商誉减值占净资产比例"] = pd.to_numeric(
+        big_df["商誉减值占净资产比例"], errors="coerce"
+    )
     big_df["净利润"] = pd.to_numeric(big_df["净利润"], errors="coerce")
-    big_df["商誉减值占净利润比例"] = pd.to_numeric(big_df["商誉减值占净利润比例"], errors="coerce")
-    big_df["商誉减值占净利润比例"] = pd.to_numeric(big_df["商誉减值占净利润比例"], errors="coerce")
+    big_df["商誉减值占净利润比例"] = pd.to_numeric(
+        big_df["商誉减值占净利润比例"], errors="coerce"
+    )
+    big_df["商誉减值占净利润比例"] = pd.to_numeric(
+        big_df["商誉减值占净利润比例"], errors="coerce"
+    )
     return big_df
 
 
@@ -325,14 +352,27 @@ def stock_sy_em(date: str = "20231231") -> pd.DataFrame:
         inplace=True,
     )
     big_df = big_df[
-        ["序号", "股票代码", "股票简称", "商誉", "商誉占净资产比例", "净利润", "净利润同比", "上年商誉", "公告日期", "交易市场"]
+        [
+            "序号",
+            "股票代码",
+            "股票简称",
+            "商誉",
+            "商誉占净资产比例",
+            "净利润",
+            "净利润同比",
+            "上年商誉",
+            "公告日期",
+            "交易市场",
+        ]
     ]
     big_df["交易市场"] = big_df["交易市场"].map(
         {"shzb": "沪市主板", "kcb": "科创板", "szzb": "深市主板", "cyb": "创业板"}
     )
     big_df["公告日期"] = pd.to_datetime(big_df["公告日期"], errors="coerce").dt.date
     big_df["商誉"] = pd.to_numeric(big_df["商誉"], errors="coerce")
-    big_df["商誉占净资产比例"] = pd.to_numeric(big_df["商誉占净资产比例"], errors="coerce")
+    big_df["商誉占净资产比例"] = pd.to_numeric(
+        big_df["商誉占净资产比例"], errors="coerce"
+    )
     big_df["净利润"] = pd.to_numeric(big_df["净利润"], errors="coerce")
     big_df["净利润同比"] = pd.to_numeric(big_df["净利润同比"], errors="coerce")
     big_df["上年商誉"] = pd.to_numeric(big_df["上年商誉"], errors="coerce")
@@ -370,7 +410,6 @@ def stock_sy_hy_em(date: str = "20231231") -> pd.DataFrame:
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True, drop=True)
-    big_df.columns
     big_df.rename(
         columns={
             "REPORT_DATE": "数据日期",
@@ -388,12 +427,21 @@ def stock_sy_hy_em(date: str = "20231231") -> pd.DataFrame:
         inplace=True,
     )
     big_df = big_df[
-        ["行业名称", "公司家数", "商誉规模", "净资产", "商誉规模占净资产规模比例", "净利润规模"]
+        [
+            "行业名称",
+            "公司家数",
+            "商誉规模",
+            "净资产",
+            "商誉规模占净资产规模比例",
+            "净利润规模",
+        ]
     ]
     big_df["公司家数"] = pd.to_numeric(big_df["公司家数"], errors="coerce")
     big_df["商誉规模"] = pd.to_numeric(big_df["商誉规模"], errors="coerce")
     big_df["净资产"] = pd.to_numeric(big_df["净资产"], errors="coerce")
-    big_df["商誉规模占净资产规模比例"] = pd.to_numeric(big_df["商誉规模占净资产规模比例"], errors="coerce")
+    big_df["商誉规模占净资产规模比例"] = pd.to_numeric(
+        big_df["商誉规模占净资产规模比例"], errors="coerce"
+    )
     big_df["净利润规模"] = pd.to_numeric(big_df["净利润规模"], errors="coerce")
     return big_df
 
@@ -405,7 +453,7 @@ if __name__ == "__main__":
     stock_sy_yq_em_df = stock_sy_yq_em(date="20221231")
     print(stock_sy_yq_em_df)
 
-    stock_sy_jz_em_df = stock_sy_jz_em(date="20230331")
+    stock_sy_jz_em_df = stock_sy_jz_em(date="20230630")
     print(stock_sy_jz_em_df)
 
     stock_sy_em_df = stock_sy_em(date="20231231")
