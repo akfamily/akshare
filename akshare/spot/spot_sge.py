@@ -83,8 +83,8 @@ def spot_hist_sge(symbol: str = "Au99.99") -> pd.DataFrame:
         "date",
         "open",
         "close",
-        "high",
         "low",
+        "high",
     ]
 
     temp_df["date"] = pd.to_datetime(temp_df["date"], errors="coerce").dt.date
