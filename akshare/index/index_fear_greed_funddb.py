@@ -24,7 +24,7 @@ def _get_file_content_ths(file: str = "cninfo.js") -> str:
     :rtype: str
     """
     setting_file_path = get_ths_js(file)
-    with open(setting_file_path) as f:
+    with open(setting_file_path, encoding="utf8") as f:
         file_data = f.read()
     return file_data
 
