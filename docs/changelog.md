@@ -78,6 +78,10 @@
 
 ## 更新说明详情
 
+1.13.42 fix: fix index_fear_greed_funddb interface
+
+    1. 修复 index_fear_greed_funddb 接口
+
 1.13.41 fix: fix stock_sy_hy_em interface
 
     1. 修复 stock_sy_hy_em 接口
@@ -3947,6 +3951,8 @@
     3. 修改 air_quality_hist 接口的请求日期格式，从 '2022-01-01' 为 '20220101'
 
 ## 版本更新说明
+
+1.13.42 fix: fix index_fear_greed_funddb interface
 
 1.13.41 fix: fix stock_sy_hy_em interface
 
