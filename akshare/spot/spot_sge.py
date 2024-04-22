@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2023/9/19 8:00
+Date: 2024/4/22 14:00
 Desc: 上海黄金交易所-数据资讯-行情走势
 https://www.sge.com.cn/sjzx/mrhq
 上海黄金交易所-数据资讯-上海金基准价-历史数据
 上海黄金交易所-数据资讯-上海银基准价-历史数据
 """
+
 import pandas as pd
 import requests
 
