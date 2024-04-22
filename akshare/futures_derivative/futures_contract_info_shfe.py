@@ -66,5 +66,5 @@ def futures_contract_info_shfe(date: str = "20240227") -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    futures_contract_info_shfe_df = futures_contract_info_shfe(date="20240227")
+    futures_contract_info_shfe_df = futures_contract_info_shfe(date="20240422")
     print(futures_contract_info_shfe_df)
