@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 """
-Date: 2022/3/15 17:32
+Date: 2024/4/22 14:00
 Desc: 东方财富网-数据中心-龙虎榜单
 https://data.eastmoney.com/stock/tradedetail.html
 """
+
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -32,7 +33,10 @@ def stock_lhb_detail_em(
         "pageSize": "5000",
         "pageNumber": "1",
         "reportName": "RPT_DAILYBILLBOARD_DETAILSNEW",
-        "columns": "SECURITY_CODE,SECUCODE,SECURITY_NAME_ABBR,TRADE_DATE,EXPLAIN,CLOSE_PRICE,CHANGE_RATE,BILLBOARD_NET_AMT,BILLBOARD_BUY_AMT,BILLBOARD_SELL_AMT,BILLBOARD_DEAL_AMT,ACCUM_AMOUNT,DEAL_NET_RATIO,DEAL_AMOUNT_RATIO,TURNOVERRATE,FREE_MARKET_CAP,EXPLANATION,D1_CLOSE_ADJCHRATE,D2_CLOSE_ADJCHRATE,D5_CLOSE_ADJCHRATE,D10_CLOSE_ADJCHRATE,SECURITY_TYPE_CODE",
+        "columns": "SECURITY_CODE,SECUCODE,SECURITY_NAME_ABBR,TRADE_DATE,EXPLAIN,CLOSE_PRICE,CHANGE_RATE,"
+        "BILLBOARD_NET_AMT,BILLBOARD_BUY_AMT,BILLBOARD_SELL_AMT,BILLBOARD_DEAL_AMT,ACCUM_AMOUNT,"
+        "DEAL_NET_RATIO,DEAL_AMOUNT_RATIO,TURNOVERRATE,FREE_MARKET_CAP,EXPLANATION,D1_CLOSE_ADJCHRATE,"
+        "D2_CLOSE_ADJCHRATE,D5_CLOSE_ADJCHRATE,D10_CLOSE_ADJCHRATE,SECURITY_TYPE_CODE",
         "source": "WEB",
         "client": "WEB",
         "filter": f"(TRADE_DATE<='{end_date}')(TRADE_DATE>='{start_date}')",
@@ -106,7 +110,7 @@ def stock_lhb_detail_em(
             "上榜后10日",
         ]
     ]
-    big_df["上榜日"] = pd.to_datetime(big_df["上榜日"]).dt.date
+    big_df["上榜日"] = pd.to_datetime(big_df["上榜日"], errors="coerce").dt.date
 
     big_df["收盘价"] = pd.to_numeric(big_df["收盘价"], errors="coerce")
     big_df["涨跌幅"] = pd.to_numeric(big_df["涨跌幅"], errors="coerce")
@@ -115,8 +119,12 @@ def stock_lhb_detail_em(
     big_df["龙虎榜卖出额"] = pd.to_numeric(big_df["龙虎榜卖出额"], errors="coerce")
     big_df["龙虎榜成交额"] = pd.to_numeric(big_df["龙虎榜成交额"], errors="coerce")
     big_df["市场总成交额"] = pd.to_numeric(big_df["市场总成交额"], errors="coerce")
-    big_df["净买额占总成交比"] = pd.to_numeric(big_df["净买额占总成交比"], errors="coerce")
-    big_df["成交额占总成交比"] = pd.to_numeric(big_df["成交额占总成交比"], errors="coerce")
+    big_df["净买额占总成交比"] = pd.to_numeric(
+        big_df["净买额占总成交比"], errors="coerce"
+    )
+    big_df["成交额占总成交比"] = pd.to_numeric(
+        big_df["成交额占总成交比"], errors="coerce"
+    )
     big_df["换手率"] = pd.to_numeric(big_df["换手率"], errors="coerce")
     big_df["流通市值"] = pd.to_numeric(big_df["流通市值"], errors="coerce")
     big_df["上榜后1日"] = pd.to_numeric(big_df["上榜后1日"], errors="coerce")
@@ -145,7 +153,7 @@ def stock_lhb_stock_statistic_em(symbol: str = "近一月") -> pd.DataFrame:
     params = {
         "sortColumns": "BILLBOARD_TIMES,LATEST_TDATE,SECURITY_CODE",
         "sortTypes": "-1,-1,1",
-        "pageSize": "500",
+        "pageSize": "5000",
         "pageNumber": "1",
         "reportName": "RPT_BILLBOARD_TRADEALL",
         "columns": "ALL",
@@ -209,7 +217,9 @@ def stock_lhb_stock_statistic_em(symbol: str = "近一月") -> pd.DataFrame:
             "近1年涨跌幅",
         ]
     ]
-    temp_df["最近上榜日"] = pd.to_datetime(temp_df["最近上榜日"]).dt.date
+    temp_df["最近上榜日"] = pd.to_datetime(
+        temp_df["最近上榜日"], errors="coerce"
+    ).dt.date
     return temp_df
 
 
@@ -293,7 +303,7 @@ def stock_lhb_jgmmtj_em(
             "上榜日期",
         ]
     ]
-    temp_df["上榜日期"] = pd.to_datetime(temp_df["上榜日期"]).dt.date
+    temp_df["上榜日期"] = pd.to_datetime(temp_df["上榜日期"], errors="coerce").dt.date
     temp_df["收盘价"] = pd.to_numeric(temp_df["收盘价"], errors="coerce")
     temp_df["涨跌幅"] = pd.to_numeric(temp_df["涨跌幅"], errors="coerce")
     temp_df["买方机构数"] = pd.to_numeric(temp_df["买方机构数"], errors="coerce")
@@ -302,7 +312,9 @@ def stock_lhb_jgmmtj_em(
     temp_df["机构卖出总额"] = pd.to_numeric(temp_df["机构卖出总额"], errors="coerce")
     temp_df["机构买入净额"] = pd.to_numeric(temp_df["机构买入净额"], errors="coerce")
     temp_df["市场总成交额"] = pd.to_numeric(temp_df["市场总成交额"], errors="coerce")
-    temp_df["机构净买额占总成交额比"] = pd.to_numeric(temp_df["机构净买额占总成交额比"], errors="coerce")
+    temp_df["机构净买额占总成交额比"] = pd.to_numeric(
+        temp_df["机构净买额占总成交额比"], errors="coerce"
+    )
     temp_df["换手率"] = pd.to_numeric(temp_df["换手率"], errors="coerce")
     temp_df["流通市值"] = pd.to_numeric(temp_df["流通市值"], errors="coerce")
 
@@ -475,12 +487,12 @@ def stock_lhb_hyyyb_em(
         ]
     ]
 
-    big_df["上榜日"] = pd.to_datetime(big_df["上榜日"]).dt.date
-    big_df["买入个股数"] = pd.to_numeric(big_df["买入个股数"])
-    big_df["卖出个股数"] = pd.to_numeric(big_df["卖出个股数"])
-    big_df["买入总金额"] = pd.to_numeric(big_df["买入总金额"])
-    big_df["卖出总金额"] = pd.to_numeric(big_df["卖出总金额"])
-    big_df["总买卖净额"] = pd.to_numeric(big_df["总买卖净额"])
+    big_df["上榜日"] = pd.to_datetime(big_df["上榜日"], errors="coerce").dt.date
+    big_df["买入个股数"] = pd.to_numeric(big_df["买入个股数"], errors="coerce")
+    big_df["卖出个股数"] = pd.to_numeric(big_df["卖出个股数"], errors="coerce")
+    big_df["买入总金额"] = pd.to_numeric(big_df["买入总金额"], errors="coerce")
+    big_df["卖出总金额"] = pd.to_numeric(big_df["卖出总金额"], errors="coerce")
+    big_df["总买卖净额"] = pd.to_numeric(big_df["总买卖净额"], errors="coerce")
     return big_df
 
 
@@ -520,7 +532,7 @@ def stock_lhb_yybph_em(symbol: str = "近一月") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     big_df.rename(
@@ -567,25 +579,55 @@ def stock_lhb_yybph_em(symbol: str = "近一月") -> pd.DataFrame:
         ]
     ]
 
-    big_df["上榜后1天-买入次数"] = pd.to_numeric(big_df["上榜后1天-买入次数"], errors="coerce")
-    big_df["上榜后1天-平均涨幅"] = pd.to_numeric(big_df["上榜后1天-平均涨幅"], errors="coerce")
-    big_df["上榜后1天-上涨概率"] = pd.to_numeric(big_df["上榜后1天-上涨概率"], errors="coerce")
+    big_df["上榜后1天-买入次数"] = pd.to_numeric(
+        big_df["上榜后1天-买入次数"], errors="coerce"
+    )
+    big_df["上榜后1天-平均涨幅"] = pd.to_numeric(
+        big_df["上榜后1天-平均涨幅"], errors="coerce"
+    )
+    big_df["上榜后1天-上涨概率"] = pd.to_numeric(
+        big_df["上榜后1天-上涨概率"], errors="coerce"
+    )
 
-    big_df["上榜后2天-买入次数"] = pd.to_numeric(big_df["上榜后2天-买入次数"], errors="coerce")
-    big_df["上榜后2天-平均涨幅"] = pd.to_numeric(big_df["上榜后2天-平均涨幅"], errors="coerce")
-    big_df["上榜后2天-上涨概率"] = pd.to_numeric(big_df["上榜后2天-上涨概率"], errors="coerce")
+    big_df["上榜后2天-买入次数"] = pd.to_numeric(
+        big_df["上榜后2天-买入次数"], errors="coerce"
+    )
+    big_df["上榜后2天-平均涨幅"] = pd.to_numeric(
+        big_df["上榜后2天-平均涨幅"], errors="coerce"
+    )
+    big_df["上榜后2天-上涨概率"] = pd.to_numeric(
+        big_df["上榜后2天-上涨概率"], errors="coerce"
+    )
 
-    big_df["上榜后3天-买入次数"] = pd.to_numeric(big_df["上榜后3天-买入次数"], errors="coerce")
-    big_df["上榜后3天-平均涨幅"] = pd.to_numeric(big_df["上榜后3天-平均涨幅"], errors="coerce")
-    big_df["上榜后3天-上涨概率"] = pd.to_numeric(big_df["上榜后3天-上涨概率"], errors="coerce")
+    big_df["上榜后3天-买入次数"] = pd.to_numeric(
+        big_df["上榜后3天-买入次数"], errors="coerce"
+    )
+    big_df["上榜后3天-平均涨幅"] = pd.to_numeric(
+        big_df["上榜后3天-平均涨幅"], errors="coerce"
+    )
+    big_df["上榜后3天-上涨概率"] = pd.to_numeric(
+        big_df["上榜后3天-上涨概率"], errors="coerce"
+    )
 
-    big_df["上榜后5天-买入次数"] = pd.to_numeric(big_df["上榜后5天-买入次数"], errors="coerce")
-    big_df["上榜后5天-平均涨幅"] = pd.to_numeric(big_df["上榜后5天-平均涨幅"], errors="coerce")
-    big_df["上榜后5天-上涨概率"] = pd.to_numeric(big_df["上榜后5天-上涨概率"], errors="coerce")
+    big_df["上榜后5天-买入次数"] = pd.to_numeric(
+        big_df["上榜后5天-买入次数"], errors="coerce"
+    )
+    big_df["上榜后5天-平均涨幅"] = pd.to_numeric(
+        big_df["上榜后5天-平均涨幅"], errors="coerce"
+    )
+    big_df["上榜后5天-上涨概率"] = pd.to_numeric(
+        big_df["上榜后5天-上涨概率"], errors="coerce"
+    )
 
-    big_df["上榜后10天-买入次数"] = pd.to_numeric(big_df["上榜后10天-买入次数"], errors="coerce")
-    big_df["上榜后10天-平均涨幅"] = pd.to_numeric(big_df["上榜后10天-平均涨幅"], errors="coerce")
-    big_df["上榜后10天-上涨概率"] = pd.to_numeric(big_df["上榜后10天-上涨概率"], errors="coerce")
+    big_df["上榜后10天-买入次数"] = pd.to_numeric(
+        big_df["上榜后10天-买入次数"], errors="coerce"
+    )
+    big_df["上榜后10天-平均涨幅"] = pd.to_numeric(
+        big_df["上榜后10天-平均涨幅"], errors="coerce"
+    )
+    big_df["上榜后10天-上涨概率"] = pd.to_numeric(
+        big_df["上榜后10天-上涨概率"], errors="coerce"
+    )
     return big_df
 
 
@@ -625,7 +667,7 @@ def stock_lhb_traderstatistic_em(symbol: str = "近一月") -> pd.DataFrame:
         r = requests.get(url, params=params)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
-        big_df = pd.concat([big_df, temp_df], ignore_index=True)
+        big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
     big_df.reset_index(inplace=True)
     big_df["index"] = big_df.index + 1
     big_df.rename(
@@ -784,11 +826,15 @@ def stock_lhb_stock_detail_em(
                 "类型",
             ]
         ]
-        temp_df["买入金额"] = pd.to_numeric(temp_df["买入金额"])
-        temp_df["买入金额-占总成交比例"] = pd.to_numeric(temp_df["买入金额-占总成交比例"])
-        temp_df["卖出金额"] = pd.to_numeric(temp_df["卖出金额"])
-        temp_df["卖出金额-占总成交比例"] = pd.to_numeric(temp_df["卖出金额-占总成交比例"])
-        temp_df.sort_values("类型", inplace=True)
+        temp_df["买入金额"] = pd.to_numeric(temp_df["买入金额"], errors="coerce")
+        temp_df["买入金额-占总成交比例"] = pd.to_numeric(
+            temp_df["买入金额-占总成交比例"], errors="coerce"
+        )
+        temp_df["卖出金额"] = pd.to_numeric(temp_df["卖出金额"], errors="coerce")
+        temp_df["卖出金额-占总成交比例"] = pd.to_numeric(
+            temp_df["卖出金额-占总成交比例"], errors="coerce"
+        )
+        temp_df.sort_values("类型", inplace=True, ignore_index=True)
         temp_df.reset_index(inplace=True, drop=True)
         temp_df["序号"] = range(1, len(temp_df["序号"]) + 1)
     else:
@@ -827,11 +873,15 @@ def stock_lhb_stock_detail_em(
                 "类型",
             ]
         ]
-        temp_df["买入金额"] = pd.to_numeric(temp_df["买入金额"])
-        temp_df["买入金额-占总成交比例"] = pd.to_numeric(temp_df["买入金额-占总成交比例"])
-        temp_df["卖出金额"] = pd.to_numeric(temp_df["卖出金额"])
-        temp_df["卖出金额-占总成交比例"] = pd.to_numeric(temp_df["卖出金额-占总成交比例"])
-        temp_df.sort_values("类型", inplace=True)
+        temp_df["买入金额"] = pd.to_numeric(temp_df["买入金额"], errors="coerce")
+        temp_df["买入金额-占总成交比例"] = pd.to_numeric(
+            temp_df["买入金额-占总成交比例"], errors="coerce"
+        )
+        temp_df["卖出金额"] = pd.to_numeric(temp_df["卖出金额"], errors="coerce")
+        temp_df["卖出金额-占总成交比例"] = pd.to_numeric(
+            temp_df["卖出金额-占总成交比例"], errors="coerce"
+        )
+        temp_df.sort_values("类型", inplace=True, ignore_index=True)
         temp_df.reset_index(inplace=True, drop=True)
         temp_df["序号"] = range(1, len(temp_df["序号"]) + 1)
     return temp_df
