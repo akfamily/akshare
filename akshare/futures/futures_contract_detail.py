@@ -9,6 +9,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_contract_detail(symbol: str = 'AP2101') -> pd.DataFrame:
@@ -21,7 +22,8 @@ def futures_contract_detail(symbol: str = 'AP2101') -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://finance.sina.com.cn/futures/quotes/{symbol}.shtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = 'gb2312'
     temp_df = pd.read_html(StringIO(r.text))[6]
     data_one = temp_df.iloc[:, :2]

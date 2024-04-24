@@ -7,6 +7,7 @@ https://gushitong.baidu.com/futures/ab-CJ888
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_news_baidu(symbol: str = "AL") -> pd.DataFrame:
@@ -20,7 +21,8 @@ def futures_news_baidu(symbol: str = "AL") -> pd.DataFrame:
     """
     url = "https://finance.pae.baidu.com/vapi/getfuturesnews"
     params = {"code": f"{symbol}888", "pn": "0", "rn": "2000", "finClientType": "pc"}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["Result"])
     temp_df.rename(

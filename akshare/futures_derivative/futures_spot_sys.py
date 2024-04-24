@@ -10,6 +10,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -21,7 +22,8 @@ def __get_sys_spot_futures_dict() -> dict:
     :rtype: dict
     """
     url = "https://www.100ppi.com/sf/792.html"
-    res = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(res.text, features="lxml")
     temp_item = soup.find(name="div", attrs={"class": "q8"}).find_all("li")
     name_url_dict = dict(
@@ -46,7 +48,8 @@ def futures_spot_sys(symbol: str = "铜", indicator: str = "市场价格") -> pd
     """
     name_url_dict = __get_sys_spot_futures_dict()
     url = name_url_dict[symbol]
-    r = requests.get("https://www.100ppi.com" + url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get("https://www.100ppi.com" + url, headers=headers, timeout=timeout)
     if indicator == "市场价格":
         table_df_one = pd.read_html(StringIO(r.text), header=0, index_col=0)[1].T
         table_df_one["现货价格"] = pd.to_numeric(

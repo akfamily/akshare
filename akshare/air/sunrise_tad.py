@@ -10,6 +10,7 @@ from io import StringIO
 import pandas as pd
 import pypinyin
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def sunrise_city_list() -> list:
@@ -20,7 +21,8 @@ def sunrise_city_list() -> list:
     :rtype: list
     """
     url = "https://www.timeanddate.com/astronomy/china"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     city_list = []
     china_city_one_df = pd.read_html(StringIO(r.text))[1]
     china_city_two_df = pd.read_html(StringIO(r.text))[2]
@@ -50,7 +52,8 @@ def sunrise_daily(date: str = "20200428", city: str = "北京") -> pd.DataFrame:
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1, ]
         day_df = month_df[month_df.iloc[:, 0].astype(str).str.zfill(2) == date[6:]].copy()
@@ -78,7 +81,8 @@ def sunrise_monthly(date: str = "20190801", city: str = "北京") -> pd.DataFram
         year = date[:4]
         month = date[4:6]
         url = f"https://www.timeanddate.com/sun/china/{pypinyin.slug(city, separator='')}?month={month}&year={year}"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         table = pd.read_html(StringIO(r.text), header=2)[1]
         month_df = table.iloc[:-1, ].copy()
         month_df.index = [date[:-2]] * len(month_df)

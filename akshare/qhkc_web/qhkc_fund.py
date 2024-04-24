@@ -10,6 +10,7 @@ from typing import AnyStr
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.futures.cons import (
     QHKC_FUND_BS_URL,
@@ -90,7 +91,8 @@ def get_qhkc_fund_bs(
     date = date[:4] + "-" + date[4:6] + "-" + date[6:]
     print(date)
     payload_id = {"date": date}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print("数据获取成功")
     json_data = r.json()
     symbol_name = []
@@ -187,7 +189,8 @@ def get_qhkc_fund_position(
     date = date[:4] + "-" + date[4:6] + "-" + date[6:]
     print(date)
     payload_id = {"date": date}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print(url)
     print("数据获取成功")
     json_data = r.json()
@@ -286,7 +289,8 @@ def get_qhkc_fund_position_change(
     date = date[:4] + "-" + date[4:6] + "-" + date[6:]
     print(date)
     payload_id = {"date": date}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print(url)
     print("数据获取成功")
     json_data = r.json()
@@ -387,7 +391,8 @@ def get_qhkc_fund_money_change(
     date = date[:4] + "-" + date[4:6] + "-" + date[6:]
     print(date)
     payload_id = {"date": date}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print(url)
     print("数据获取成功")
     json_data = r.json()

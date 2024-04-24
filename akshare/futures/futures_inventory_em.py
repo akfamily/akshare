@@ -7,6 +7,7 @@ https://data.eastmoney.com/ifdata/kcsj.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_inventory_em(symbol: str = "沪铝") -> pd.DataFrame:
@@ -29,7 +30,8 @@ def futures_inventory_em(symbol: str = "沪铝") -> pd.DataFrame:
         "client": "WEB",
         "_": "1669352163467",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     symbol_dict = dict(zip(temp_df["TRADE_TYPE"], temp_df["TRADE_CODE"]))
@@ -47,7 +49,8 @@ def futures_inventory_em(symbol: str = "沪铝") -> pd.DataFrame:
         "client": "WEB",
         "_": "1669352163467",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
 

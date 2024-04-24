@@ -13,6 +13,7 @@ import os
 
 import pandas as pd  # type: ignore
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer  # type: ignore
 
 
@@ -76,7 +77,8 @@ def business_value_artist() -> pd.DataFrame:
         "PageSize": "100",
         "MethodName": "Data_GetList_Star",
     }
-    r = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
@@ -101,7 +103,8 @@ def online_value_artist() -> pd.DataFrame:
         "PageSize": 100,
         "MethodName": "Data_GetList_Star",
     }
-    r = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])

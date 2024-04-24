@@ -11,6 +11,7 @@ import time
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.futures_derivative.futures_index_price_nh import (
     futures_index_symbol_table_nh,
@@ -34,7 +35,8 @@ def futures_volatility_index_nh(
     if symbol in symbol_df["code"].tolist():
         t = time.time()
         url = f"https://www.nanhua.net/ianalysis/volatility/{period}/{symbol}.json?t={int(round(t * 1000))}"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)
         temp_df.columns = ["date", "value"]

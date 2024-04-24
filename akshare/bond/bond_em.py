@@ -7,6 +7,7 @@ https://data.eastmoney.com/cjsj/zmgzsyl.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -32,7 +33,8 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
         "pageNum": "1",
         "_": "1615791534490",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -49,7 +51,8 @@ def bond_zh_us_rate(start_date: str = "19901219") -> pd.DataFrame:
             "pageNum": page,
             "_": "1615791534490",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         for col in temp_df.columns:

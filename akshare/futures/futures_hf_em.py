@@ -9,6 +9,7 @@ import math
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils.tqdm import get_tqdm
 
@@ -31,7 +32,8 @@ def futures_global_em():
         'blockName': 'callback',
         '_': '1705570814466'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_num = data_json['total']
     total_page = math.ceil(total_num / 20) - 1
@@ -39,7 +41,8 @@ def futures_global_em():
     big_df = pd.DataFrame()
     for page in tqdm(range(total_page), leave=False):
         params.update({'pageIndex': page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['list'])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)

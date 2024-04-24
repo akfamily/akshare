@@ -10,6 +10,7 @@ from typing import Dict
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: Dict = None, headers: Dict = None):
@@ -26,11 +27,15 @@ def requests_link(url: str, encoding: str = "utf-8", method: str = "get", data: 
     while True:
         try:
             if method == "get":
-                r = requests.get(url, timeout=20, headers=headers)
+                timeout = 20
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.get(url, timeout=timeout, headers=headers)
                 r.encoding = encoding
                 return r
             elif method == "post":
-                r = requests.post(url, timeout=20, data=data, headers=headers)
+                timeout = 20
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.post(url, timeout=timeout, data=data, headers=headers)
                 r.encoding = encoding
                 return r
             else:
@@ -57,12 +62,16 @@ def pandas_read_html_link(url: str, encoding: str = "utf-8", method: str = "get"
     while True:
         try:
             if method == "get":
-                r = requests.get(url, timeout=20)
+                timeout = 20
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.get(url, timeout=timeout, headers=headers)
                 r.encoding = encoding
                 r = pd.read_html(StringIO(r.text), encoding=encoding)
                 return r
             elif method == "post":
-                r = requests.post(url, timeout=20, data=data, headers=headers)
+                timeout = 20
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.post(url, timeout=timeout, data=data, headers=headers)
                 r.encoding = encoding
                 r = pd.read_html(StringIO(r.text), encoding=encoding)
                 return r

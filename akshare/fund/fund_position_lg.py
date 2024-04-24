@@ -7,6 +7,7 @@ https://legulegu.com/stockdata/fund-position/pos-stock
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.stock_feature.stock_a_indicator import get_token_lg, get_cookie_csrf
 
@@ -21,10 +22,12 @@ def fund_stock_position_lg() -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/fund-position"
     token = get_token_lg()
     params = {"token": token, "type": "pos_stock", "category": "总仓位", "marketId": "5"}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
         url,
         params=params,
-        **get_cookie_csrf(url="https://legulegu.com/stockdata/fund-position/pos-stock")
+        **get_cookie_csrf(url="https://legulegu.com/stockdata/fund-position/pos-stock"),
+        timeout=timeout
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
@@ -57,12 +60,14 @@ def fund_balance_position_lg() -> pd.DataFrame:
         "category": "总仓位",
         "marketId": "5",
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
         url,
         params=params,
         **get_cookie_csrf(
             url="https://legulegu.com/stockdata/fund-position/pos-pingheng"
-        )
+        ),
+        timeout=timeout
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
@@ -90,12 +95,14 @@ def fund_linghuo_position_lg() -> pd.DataFrame:
     url = "https://legulegu.com/api/stockdata/fund-position"
     token = get_token_lg()
     params = {"token": token, "type": "pos_linghuo", "category": "总仓位", "marketId": "5"}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
         url,
         params=params,
         **get_cookie_csrf(
             url="https://legulegu.com/stockdata/fund-position/pos-linghuo"
-        )
+        ),
+        timeout=timeout
     )
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)

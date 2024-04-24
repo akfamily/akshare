@@ -13,9 +13,11 @@ from io import BytesIO, StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
+from akshare.request_config_manager import get_headers_and_timeout
 
 calendar = cons.get_calendar()
 
@@ -34,7 +36,8 @@ def _futures_daily_czce(
     :rtype: pandas.DataFrame
     """
     url = f"http://www.czce.com.cn/cn/exchange/{dataset}.zip"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     with zipfile.ZipFile(BytesIO(r.content)) as file:
         with file.open(f"{dataset}.txt") as my_file:
             data = my_file.read().decode("gb2312")
@@ -122,7 +125,8 @@ def get_cffex_daily(date: str = "20100416") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/108.0.0.0 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     try:
         with zipfile.ZipFile(BytesIO(r.content)) as file:
             with file.open(f"{date}_1.csv") as my_file:
@@ -228,7 +232,8 @@ def get_gfex_daily(date: str = "20221223") -> pd.DataFrame:
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     try:
         data_json = r.json()
     except:  # noqa: E722
@@ -287,7 +292,8 @@ def get_ine_daily(date: str = "20220208") -> pd.DataFrame:
         # warnings.warn(f"{day.strftime('%Y%m%d')}非交易日")
         return pd.DataFrame()
     url = f"http://www.ine.cn/data/dailydata/kx/kx{day.strftime('%Y%m%d')}.dat"
-    r = requests.get(url, headers=cons.shfe_headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=cons.shfe_headers, timeout=timeout)
     result_df = pd.DataFrame()
     try:
         data_json = r.json()
@@ -365,7 +371,8 @@ def get_czce_daily(date: str = "20050525") -> pd.DataFrame:
         listed_columns = cons.CZCE_COLUMNS
         output_columns = cons.OUTPUT_COLUMNS
         try:
-            r = requests.get(url, headers=headers)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, headers=headers, timeout=timeout)
             if datetime.date(2015, 11, 12) <= day <= datetime.date(2017, 12, 27):
                 html = str(r.content, encoding="gbk")
             else:
@@ -557,7 +564,8 @@ def get_dce_daily(date: str = "20220308") -> pd.DataFrame:
         "day": date[6:],
         "exportFlag": "excel",
     }
-    r = requests.post(url, data=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=params, headers=headers, timeout=timeout)
     data_df = pd.read_excel(BytesIO(r.content), header=1)
 
     data_df = data_df[~data_df["商品名称"].str.contains("小计")]

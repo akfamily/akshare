@@ -6,6 +6,7 @@ Desc: 百度股市通-外汇-行情榜单
 https://gushitong.baidu.com/top/foreign-common-%E5%B8%B8%E7%94%A8
 """
 import http.client
+from akshare.request_config_manager import get_headers_and_timeout
 import json
 import urllib
 
@@ -36,7 +37,8 @@ def fx_quote_baidu(symbol: str = "人民币") -> pd.DataFrame:
                 "type": symbol_map[symbol],
                 "finClientType": "pc",
             }
-            conn.request("GET", f"/api/getforeignrank?{urllib.parse.urlencode(params)}")
+            headers, timeout = get_headers_and_timeout(locals().get("headers", {}), locals().get("timeout", None))
+            conn.request("GET", f"/api/getforeignrank?{urllib.parse.urlencode(params)}", headers=headers, timeout=timeout)
             res = conn.getresponse()
             data = res.read()
             data_json = json.loads(data.decode("utf-8"))

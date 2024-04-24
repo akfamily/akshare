@@ -12,6 +12,7 @@ from io import BytesIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -32,7 +33,8 @@ def stock_szse_summary(date: str = "20200619") -> pd.DataFrame:
         "txtQueryDate": "-".join([date[:4], date[4:6], date[6:]]),
         "random": "0.39339437497296137",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
@@ -63,7 +65,8 @@ def stock_szse_area_summary(date: str = "202203") -> pd.DataFrame:
         "DATETIME": "-".join([date[:4], date[4:6]]),
         "random": "0.39339437497296137",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
@@ -92,7 +95,8 @@ def stock_szse_sector_summary(symbol: str = "当月", date: str = "202303") -> p
     :rtype: pandas.DataFrame
     """
     url = "https://www.szse.cn/market/periodical/month/index.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, "lxml")
     tags_list = soup.find_all("div", attrs={"class": "g-container"})[1].find_all(
@@ -116,13 +120,16 @@ def stock_szse_sector_summary(symbol: str = "当月", date: str = "202303") -> p
     )
     date_format = "-".join([date[:4], date[4:]])
     url = f"http://www.szse.cn/market/periodical/month/{date_url_dict[date_format]}"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, "lxml")
     url = [item for item in soup.find_all("a") if item.get_text() == "股票行业成交数据"][0]["href"]
 
     if symbol == "当月":
-        temp_df = pd.read_html(url, encoding="gbk")[0]
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(url, headers=headers, timeout=timeout)
+        temp_df = pd.read_html(BytesIO(res.content), encoding="gbk")[0]
         temp_df.columns = [
             "项目名称",
             "项目名称-英文",
@@ -135,7 +142,9 @@ def stock_szse_sector_summary(symbol: str = "当月", date: str = "202303") -> p
             "成交笔数-占总计",
         ]
     else:
-        temp_df = pd.read_html(url, encoding="gbk")[1]
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(url, headers=headers, timeout=timeout)
+        temp_df = pd.read_html(BytesIO(res.content), encoding="gbk")[1]
         temp_df.columns = [
             "项目名称",
             "项目名称-英文",
@@ -176,7 +185,8 @@ def stock_sse_summary() -> pd.DataFrame:
         "Referer": "http://www.sse.com.cn/",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]).T
     temp_df.reset_index(inplace=True)
@@ -221,7 +231,8 @@ def stock_sse_deal_daily(date: str = "20180117") -> pd.DataFrame:
             "Referer": "http://www.sse.com.cn/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         }
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"])
         temp_df = temp_df.T
@@ -310,7 +321,8 @@ def stock_sse_deal_daily(date: str = "20180117") -> pd.DataFrame:
             "Referer": "http://www.sse.com.cn/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         }
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"])
         temp_df = temp_df.T
@@ -464,7 +476,8 @@ def stock_sse_deal_daily(date: str = "20180117") -> pd.DataFrame:
             "Referer": "http://www.sse.com.cn/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         }
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"])
         temp_df = temp_df.T
@@ -533,7 +546,8 @@ def stock_sse_deal_daily(date: str = "20180117") -> pd.DataFrame:
             "Referer": "http://www.sse.com.cn/",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36",
         }
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"])
         temp_df = temp_df.T

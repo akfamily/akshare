@@ -7,6 +7,7 @@ https://quote.eastmoney.com/center/boardlist.html#concept_board
 """
 
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pandas as pd
 
 
@@ -31,7 +32,8 @@ def stock_board_concept_name_em() -> pd.DataFrame:
         "fields": "f2,f3,f4,f8,f12,f14,f15,f16,f17,f18,f20,f21,f24,f25,f22,f33,f11,f62,f128,f124,f107,f104,f105,f136",
         "_": "1626075887768",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)
@@ -141,7 +143,8 @@ def stock_board_concept_hist_em(
         "lmt": "1000000",
         "_": "1626079488673",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["klines"]])
     temp_df.columns = [
@@ -213,7 +216,8 @@ def stock_board_concept_hist_min_em(
             "secid": f"90.{stock_board_code}",
             "_": "1687852931312",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -249,7 +253,8 @@ def stock_board_concept_hist_min_em(
             "lmt": "1000000",
             "_": "1647760607065",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -323,7 +328,8 @@ def stock_board_concept_cons_em(symbol: str = "车联网") -> pd.DataFrame:
         "f24,f25,f22,f11,f62,f128,f136,f115,f152,f45",
         "_": "1626081702127",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)

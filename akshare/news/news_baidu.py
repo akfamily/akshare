@@ -12,6 +12,8 @@ from urllib.parse import urlencode
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def news_economic_baidu(date: str = "20240327") -> pd.DataFrame:
@@ -35,7 +37,8 @@ def news_economic_baidu(date: str = "20240327") -> pd.DataFrame:
         # "pn": "0",
         "finClientType": "pc",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
@@ -96,7 +99,8 @@ def news_trade_notify_suspend_baidu(date: str = "20220513") -> pd.DataFrame:
         "market": "",
         "cate": "notify_suspend",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:
@@ -145,7 +149,8 @@ def news_trade_notify_dividend_baidu(date: str = "20220513") -> pd.DataFrame:
     """
     start_date = "-".join([date[:4], date[4:6], date[6:]])
     end_date = "-".join([date[:4], date[4:6], date[6:]])
-    conn = http.client.HTTPSConnection("finance.pae.baidu.com")
+    headers, timeout = get_headers_and_timeout(locals().get("headers", {}), locals().get("timeout", None))
+    conn = http.client.HTTPSConnection("finance.pae.baidu.com", timeout=timeout)
     params = {
         "start_date": start_date,
         "end_date": end_date,
@@ -154,7 +159,7 @@ def news_trade_notify_dividend_baidu(date: str = "20220513") -> pd.DataFrame:
     }
     query_string = urlencode(params)
     url = "/api/financecalendar" + "?" + query_string
-    conn.request(method="GET", url=url)
+    conn.request(method="GET", url=url, headers=headers)
     r = conn.getresponse()
     data = r.read()
     data_json = json.loads(data)
@@ -223,7 +228,8 @@ def news_report_time_baidu(date: str = "20220514") -> pd.DataFrame:
         "cate": "report_time",
         "finClientType": "pc",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     big_df = pd.DataFrame()
     for item in data_json["Result"]:

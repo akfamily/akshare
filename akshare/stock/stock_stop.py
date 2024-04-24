@@ -7,6 +7,7 @@ https://quote.eastmoney.com/center/gridlist.html#staq_net_board
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_staq_net_stop() -> pd.DataFrame:
@@ -30,7 +31,8 @@ def stock_staq_net_stop() -> pd.DataFrame:
         "fields": "f12,f14",
         "_": "1622622663841",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)

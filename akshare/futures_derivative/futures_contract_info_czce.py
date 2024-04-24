@@ -10,6 +10,7 @@ import xml.etree.ElementTree as ET
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_contract_info_czce(date: str = "20240228") -> pd.DataFrame:
@@ -27,7 +28,8 @@ def futures_contract_info_czce(date: str = "20240228") -> pd.DataFrame:
         "Host": "www.czce.com.cn",
     }
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataReferenceData.xml"
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     xml_data = r.text
     # 解析 XML
     tree = ET.ElementTree(ET.fromstring(xml_data))

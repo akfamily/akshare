@@ -8,6 +8,8 @@ long history data for S&P 500 index daily
 http://www.econ.yale.edu/~shiller/data.htm
 """
 import pandas as pd
+import requests
+from io import StringIO
 
 
 def hf_sp_500(year: str = "2017") -> pd.DataFrame:
@@ -19,7 +21,9 @@ def hf_sp_500(year: str = "2017") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://github.com/FutureSharks/financial-data/raw/master/pyfinancialdata/data/stocks/histdata/SPXUSD/DAT_ASCII_SPXUSD_M1_{year}.csv"
-    temp_df = pd.read_table(url, header=None, sep=";")
+    r = requests.get(url)
+    r.raise_for_status()
+    temp_df = pd.read_table(StringIO(r.content), header=None, sep=";")
     temp_df.columns = ["date", "open", "high", "low", "close", "price"]
     temp_df['date'] = pd.to_datetime(temp_df['date']).dt.date
     temp_df['open'] = pd.to_numeric(temp_df['open'])
@@ -30,6 +34,6 @@ def hf_sp_500(year: str = "2017") -> pd.DataFrame:
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     hf_sp_500_df = hf_sp_500(year="2017")
     print(hf_sp_500_df)

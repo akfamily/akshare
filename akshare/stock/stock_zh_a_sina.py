@@ -12,6 +12,7 @@ from akshare.utils import demjson
 from py_mini_racer import py_mini_racer
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 from akshare.stock.cons import (
@@ -33,7 +34,8 @@ def _get_zh_a_page_count() -> int:
     :return: 需要采集的股票总页数
     :rtype: int
     """
-    res = requests.get(zh_sina_a_stock_count_url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(zh_sina_a_stock_count_url, headers=headers, timeout=timeout)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -55,8 +57,9 @@ def stock_zh_a_spot() -> pd.DataFrame:
             range(1, page_count + 1), leave=False, desc="Please wait for a moment"
     ):
         zh_sina_stock_payload_copy.update({"page": page})
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
         r = requests.get(
-            zh_sina_a_stock_url, params=zh_sina_stock_payload_copy
+            zh_sina_a_stock_url, params=zh_sina_stock_payload_copy, headers=headers, timeout=timeout
         )
         data_json = demjson.decode(r.text)
         big_df = pd.concat(
@@ -149,7 +152,8 @@ def stock_zh_a_daily(
 
     def _fq_factor(method: str) -> pd.DataFrame:
         if method == "hfq":
-            r = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(zh_sina_a_stock_hfq_url.format(symbol), headers=headers, timeout=timeout)
             hfq_factor_df = pd.DataFrame(
                 eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
@@ -161,7 +165,8 @@ def stock_zh_a_daily(
             hfq_factor_df.reset_index(inplace=True)
             return hfq_factor_df
         else:
-            r = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(zh_sina_a_stock_qfq_url.format(symbol), headers=headers, timeout=timeout)
             qfq_factor_df = pd.DataFrame(
                 eval(r.text.split("=")[1].split("\n")[0])["data"]
             )
@@ -176,7 +181,8 @@ def stock_zh_a_daily(
     if adjust in ("hfq-factor", "qfq-factor"):
         return _fq_factor(adjust.split("-")[0])
 
-    r = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(zh_sina_a_stock_hist_url.format(symbol), headers=headers, timeout=timeout)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -195,7 +201,8 @@ def stock_zh_a_daily(
     except:
         pass
     data_df = data_df.astype("float")
-    r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol))
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(zh_sina_a_stock_amount_url.format(symbol, symbol), headers=headers, timeout=timeout)
     amount_data_json = demjson.decode(
         r.text[r.text.find("["): r.text.rfind("]") + 1]
     )
@@ -243,7 +250,8 @@ def stock_zh_a_daily(
         temp_df['date'] = pd.to_datetime(temp_df['date'], errors="coerce").dt.date
         return temp_df
     if adjust == "hfq":
-        res = requests.get(zh_sina_a_stock_hfq_url.format(symbol))
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(zh_sina_a_stock_hfq_url.format(symbol), headers=headers, timeout=timeout)
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -287,7 +295,8 @@ def stock_zh_a_daily(
         return temp_df
 
     if adjust == "qfq":
-        res = requests.get(zh_sina_a_stock_qfq_url.format(symbol))
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(zh_sina_a_stock_qfq_url.format(symbol), headers=headers, timeout=timeout)
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -348,7 +357,8 @@ def stock_zh_a_cdr_daily(
     :return: specific data
     :rtype: pandas.DataFrame
     """
-    res = requests.get(zh_sina_a_stock_hist_url.format(symbol))
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(zh_sina_a_stock_hist_url.format(symbol), headers=headers, timeout=timeout)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
     dict_list = js_code.call(
@@ -390,7 +400,8 @@ def stock_zh_a_minute(
         "ma": "no",
         "datalen": "1970",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     try:
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
@@ -403,7 +414,8 @@ def stock_zh_a_minute(
             "ma": "no",
             "datalen": "1970",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_text = r.text
         data_json = json.loads(data_text.split("=(")[1].split(");")[0])
         temp_df = pd.DataFrame(data_json).iloc[:, :6]

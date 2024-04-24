@@ -12,6 +12,7 @@ https://www.nanhua.net/nhzc/correltable.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_board_index_nh(start_date: str = "20231110", end_date: str = "20231116") -> pd.DataFrame:
@@ -30,7 +31,8 @@ def futures_board_index_nh(start_date: str = "20231110", end_date: str = "202311
     params = {
         't': '1649920913503'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     start_df = pd.DataFrame(r.json())
     start_df.columns = [
         'name',
@@ -43,7 +45,8 @@ def futures_board_index_nh(start_date: str = "20231110", end_date: str = "202311
     params = {
         't': '1649920913503'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     end_df = pd.DataFrame(r.json())
     end_df.columns = [
         'name',
@@ -77,7 +80,8 @@ def futures_variety_index_nh(start_date: str = "20231110", end_date: str = "2023
     params = {
         't': '1649920913503'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     start_df = pd.DataFrame(r.json())
     start_df.columns = [
         'name',
@@ -89,7 +93,8 @@ def futures_variety_index_nh(start_date: str = "20231110", end_date: str = "2023
     params = {
         't': '1649920913503'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     end_df = pd.DataFrame(r.json())
     end_df.columns = [
         'name',
@@ -121,7 +126,8 @@ def futures_correlation_nh(date: str = "20231110", period: str = "20") -> pd.Dat
     params = {
         't': '1649920913503'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.DataFrame(r.json())
     temp_df.columns = [
         '品种代码1',

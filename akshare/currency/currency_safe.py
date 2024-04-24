@@ -7,10 +7,11 @@ https://www.safe.gov.cn/safe/rmbhlzjj/index.html
 """
 import re
 from datetime import datetime
-from io import StringIO
+from io import StringIO, BytesIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -22,12 +23,16 @@ def currency_boc_safe() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.safe.gov.cn/safe/2020/1218/17833.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf8"
     soup = BeautifulSoup(r.text, "lxml")
     content = soup.find("a", string=re.compile("人民币汇率"))["href"]
     url = f"https://www.safe.gov.cn{content}"
-    temp_df = pd.read_excel(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    res.raise_for_status()
+    temp_df = pd.read_excel(BytesIO(res.content))
     temp_df.sort_values(["日期"], inplace=True)
     temp_df.reset_index(inplace=True, drop=True)
     start_date = (
@@ -42,7 +47,8 @@ def currency_boc_safe() -> pd.DataFrame:
         "endDate": end_date,
         "queryYN": "true",
     }
-    r = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     current_temp_df = pd.read_html(StringIO(r.text))[-1]
     current_temp_df.sort_values(["日期"], inplace=True)
     current_temp_df.reset_index(inplace=True, drop=True)

@@ -13,6 +13,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 from akshare.futures.cons import (
@@ -35,7 +36,8 @@ def futures_symbol_mark() -> pd.DataFrame:
     url = (
         "https://vip.stock.finance.sina.com.cn/quotes_service/view/js/qihuohangqing.js"
     )
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "gb2312"
     data_text = r.text
     raw_json = data_text[data_text.find("{") : data_text.find("}") + 1]
@@ -109,7 +111,8 @@ def futures_zh_realtime(symbol: str = "白糖") -> pd.DataFrame:
         "node": symbol_mark_map[symbol],
         "base": "futures",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
 
@@ -145,7 +148,8 @@ def zh_subscribe_exchange_symbol(symbol: str = "cffex") -> pd.DataFrame:
     :return: 交易所具体的可交易品种
     :rtype: dict
     """
-    r = requests.get(zh_subscribe_exchange_symbol_url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(zh_subscribe_exchange_symbol_url, headers=headers, timeout=timeout)
     r.encoding = "gbk"
     data_text = r.text
     data_json = demjson.decode(
@@ -182,8 +186,9 @@ def match_main_contract(symbol: str = "cffex") -> str:
     for item in exchange_symbol_list:
         # item = 'sngz_qh'
         zh_match_main_contract_payload.update({"node": item})
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
         res = requests.get(
-            zh_match_main_contract_url, params=zh_match_main_contract_payload
+            zh_match_main_contract_url, params=zh_match_main_contract_payload, headers=headers, timeout=timeout
         )
         data_json = demjson.decode(res.text)
         data_df = pd.DataFrame(data_json)
@@ -236,7 +241,8 @@ def futures_zh_spot(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/97.0.4692.71 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_df = pd.DataFrame(
         [
             item.strip().split("=")[1].split(",")
@@ -628,7 +634,8 @@ def futures_zh_minute_sina(symbol: str = "IF2008", period: str = "5") -> pd.Data
         "symbol": symbol,
         "type": period,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
     temp_df.columns = [
         "datetime",
@@ -666,7 +673,8 @@ def futures_zh_daily_sina(symbol: str = "RB0") -> pd.DataFrame:
         "symbol": symbol,
         "type": "_".join([date[:4], date[4:6], date[6:]]),
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.DataFrame(json.loads(r.text.split("=(")[1].split(");")[0]))
     temp_df.columns = [
         "date",

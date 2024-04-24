@@ -6,6 +6,7 @@ Desc: 美股目标价 or 港股目标价
 https://www.ushknews.com/report.html
 """
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pandas as pd
 
 
@@ -41,7 +42,8 @@ def stock_price_js(symbol: str = "us") -> pd.DataFrame:
         "x-app-id": "BNsiR9uq7yfW0LVz",
         "x-version": "1.0.0",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["data"]["list"])
     temp_df.columns = [

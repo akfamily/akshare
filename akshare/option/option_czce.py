@@ -18,6 +18,7 @@ import warnings
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def option_czce_hist(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
@@ -44,7 +45,8 @@ def option_czce_hist(symbol: str = "SR", year: str = "2021") -> pd.DataFrame:
         return None
     warnings.warn("正在下载中, 请稍等")
     url = f'http://www.czce.com.cn/cn/DFSStaticFiles/Option/2021/OptionDataAllHistory/{symbol}OPTIONS{year}.txt'
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     option_df = pd.read_table(StringIO(r.text), skiprows=1, sep="|", low_memory=False)
     return option_df
 

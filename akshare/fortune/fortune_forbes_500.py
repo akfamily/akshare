@@ -7,6 +7,7 @@ https://www.forbeschina.com/lists
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -21,7 +22,8 @@ def forbes_rank(symbol: str = "2021福布斯中国创投人100") -> pd.DataFrame
     :rtype: pandas.DataFrame
     """
     url = "https://www.forbeschina.com/lists"
-    r = requests.get(url, verify=False)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, verify=False, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     need_list = [
         item.find_all("a")
@@ -39,7 +41,8 @@ def forbes_rank(symbol: str = "2021福布斯中国创投人100") -> pd.DataFrame
             ],
         )
     )
-    r = requests.get(name_url_dict[symbol], verify=False)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(name_url_dict[symbol], verify=False, headers=headers, timeout=timeout)
     temp_df = pd.read_html(r.text)[0]
     return temp_df
 

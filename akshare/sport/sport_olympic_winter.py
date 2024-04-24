@@ -6,6 +6,7 @@ Desc: 腾讯运动-冬奥会-历届奖牌榜
 https://m.sports.qq.com/g/sv3/winter-oly22/winter-olympic-rank.htm?type=0
 """
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pandas as pd
 
 
@@ -16,7 +17,8 @@ def sport_olympic_winter_hist() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://app.sports.qq.com/m/oly/historyMedal"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df = temp_df.explode("list")

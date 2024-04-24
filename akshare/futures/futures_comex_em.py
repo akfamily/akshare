@@ -7,6 +7,7 @@ https://data.eastmoney.com/pmetal/comex/by.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils.tqdm import get_tqdm
 
@@ -37,7 +38,8 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
         "client": "WEB",
         "filter": f'(INDICATOR_ID1="{symbol_map[symbol]}")(@STORAGE_TON<>"NULL")',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -48,7 +50,8 @@ def futures_comex_inventory(symbol: str = "黄金") -> pd.DataFrame:
                 "pageNumber": page,
             }
         )
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], axis=0, ignore_index=True)

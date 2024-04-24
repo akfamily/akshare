@@ -12,6 +12,7 @@ import math
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_zh_a_st_em() -> pd.DataFrame:
@@ -35,7 +36,8 @@ def stock_zh_a_st_em() -> pd.DataFrame:
         'fields': 'f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152',
         '_': '1631107510188',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['data']['diff'])
     temp_df.reset_index(inplace=True)
@@ -127,7 +129,8 @@ def stock_zh_a_new_em() -> pd.DataFrame:
         'fields': 'f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152',
         '_': '1631107510188',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['data']['diff'])
     temp_df.reset_index(inplace=True)
@@ -219,7 +222,8 @@ def stock_zh_a_stop_em() -> pd.DataFrame:
         'fields': 'f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f22,f11,f62,f128,f136,f115,f152',
         '_': '1631107510188',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json['data']['diff'])
     temp_df.reset_index(inplace=True)
@@ -299,7 +303,8 @@ def stock_zh_a_new() -> pd.DataFrame:
     """
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCount"
     params = {"node": "new_stock"}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     total_page = math.ceil(int(r.json()) / 80)
     url = "http://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeData"
     big_df = pd.DataFrame()
@@ -313,7 +318,8 @@ def stock_zh_a_new() -> pd.DataFrame:
             "symbol": "",
             "_s_r_a": "page",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         r.encoding = "gb2312"
         data_json = r.json()
         temp_df = pd.DataFrame(data_json)

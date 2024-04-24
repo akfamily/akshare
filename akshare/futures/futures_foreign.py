@@ -10,6 +10,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.futures.futures_hq_sina import futures_foreign_commodity_subscribe_exchange_symbol
 
@@ -30,7 +31,8 @@ def futures_foreign_hist(symbol: str = "ZSD") -> pd.DataFrame:
         "_": today,
         "source": "web",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_df = pd.read_json(StringIO(data_text[data_text.find("["):-2]))
     return data_df
@@ -45,7 +47,8 @@ def futures_foreign_detail(symbol: str = "ZSD") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://finance.sina.com.cn/futures/quotes/{symbol}.shtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "gbk"
     data_text = r.text
     data_df = pd.read_html(StringIO(data_text))[6]

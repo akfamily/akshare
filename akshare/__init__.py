@@ -2774,6 +2774,8 @@ if sys.version_info < (3, 9):
 
 del sys
 
+from akshare.request_config_manager import start_config, stop_config, change_proxy
+
 """
 申万宏源研究-申万指数-指数发布-基金指数-实时行情
 """

@@ -8,6 +8,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def fund_aum_em() -> pd.DataFrame:
@@ -21,7 +22,8 @@ def fund_aum_em() -> pd.DataFrame:
     params = {
         'fundType': '0'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     del temp_df['相关链接']
     del temp_df['天相评级']
@@ -47,7 +49,8 @@ def fund_aum_trend_em() -> pd.DataFrame:
     payload = {
         'fundType': '0'
     }
-    r = requests.get(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame()
     temp_df['date'] = data_json['x']
@@ -68,7 +71,8 @@ def fund_aum_hist_em(year: str = "2023") -> pd.DataFrame:
     params = {
         'year': year
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = ['序号', '基金公司', '总规模', '股票型', '混合型', '债券型', '指数型', 'QDII', '货币型']
     temp_df['总规模'] = pd.to_numeric(temp_df['总规模'], errors="coerce")

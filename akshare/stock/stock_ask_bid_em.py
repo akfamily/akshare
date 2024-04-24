@@ -10,6 +10,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 @lru_cache()
@@ -34,7 +35,8 @@ def __code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -55,7 +57,8 @@ def __code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -75,7 +78,8 @@ def __code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -109,7 +113,8 @@ def stock_bid_ask_em(symbol: str = "000001") -> pd.DataFrame:
         "f276,f265,f266,f289,f290,f286,f285,f292,f293,f294,f295",
         "secid": f"{code_id_map_em_dict[symbol]}.{symbol}",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     tick_dict = {
         "sell_5": data_json["data"]["f31"],

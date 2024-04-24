@@ -12,6 +12,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def __fetch_ftse_index_futu(date: str = "20231108") -> int:
@@ -36,7 +37,8 @@ def __fetch_ftse_index_futu(date: str = "20231108") -> int:
         'ut': 'f057cbcbce2a86e2866ab8877db1d059',
         'forcect': '1',
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json['data']['klines']])
     temp_df.columns = ['date', "-", "open", "close", "high", "low", "volume", "amount", "_", "-", "open", "close",
@@ -56,7 +58,8 @@ def futures_settlement_price_sgx(date: str = "20231107") -> pd.DataFrame:
     """
     num = __fetch_ftse_index_futu(date)
     url = f"https://links.sgx.com/1.0.0/derivatives-daily/{num}/FUTURE.zip"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     with zipfile.ZipFile(BytesIO(r.content)) as file:
         with file.open(file.namelist()[0]) as my_file:
             data = my_file.read().decode()

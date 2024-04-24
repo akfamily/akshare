@@ -7,6 +7,7 @@ https://data.eastmoney.com/cjsj/foreign_5_0.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils import demjson
 
@@ -35,7 +36,8 @@ def macro_australia_retail_rate_monthly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -86,7 +88,8 @@ def macro_australia_trade() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -136,7 +139,8 @@ def macro_australia_unemployment_rate() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -186,7 +190,8 @@ def macro_australia_ppi_quarterly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -236,7 +241,8 @@ def macro_australia_cpi_quarterly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -286,7 +292,8 @@ def macro_australia_cpi_yearly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -336,7 +343,8 @@ def macro_australia_bank_rate() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [

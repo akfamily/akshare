@@ -7,6 +7,7 @@ https://datacenter.jin10.com/reportType/dc_cme_btc_report
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def crypto_bitcoin_cme(date: str = "20230830") -> pd.DataFrame:
@@ -41,7 +42,8 @@ def crypto_bitcoin_cme(date: str = "20230830") -> pd.DataFrame:
         "x-csrf-token": "",
         "x-version": "1.0.0",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(
         [item for item in data_json["data"]["values"]],

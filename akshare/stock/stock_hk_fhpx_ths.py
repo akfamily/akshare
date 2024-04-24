@@ -9,6 +9,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_hk_fhpx_detail_ths(symbol: str = "0700") -> pd.DataFrame:
@@ -26,7 +27,8 @@ def stock_hk_fhpx_detail_ths(symbol: str = "0700") -> pd.DataFrame:
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/89.0.4389.90 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf-8"
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df.columns = [

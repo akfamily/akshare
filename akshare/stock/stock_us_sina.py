@@ -10,6 +10,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 from tqdm import tqdm
 
@@ -38,9 +39,12 @@ def __get_us_page_count() -> int:
     js_code.eval(js_hash_text)
     dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
     us_sina_stock_dict_payload.update({"page": "{}".format(page)})
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     res = requests.get(
         us_sina_stock_list_url.format(dict_list),
         params=us_sina_stock_dict_payload,
+        headers=headers,
+        timeout=timeout
     )
     data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
     if not isinstance(int(data_json["count"]) / 20, int):
@@ -71,9 +75,12 @@ def get_us_stock_name() -> pd.DataFrame:
         js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
         res = requests.get(
             us_sina_stock_list_url.format(dict_list),
             params=us_sina_stock_dict_payload,
+            headers=headers,
+            timeout=timeout
         )
         data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
         big_df = pd.concat([big_df, pd.DataFrame(data_json["data"])], ignore_index=True)
@@ -100,9 +107,12 @@ def stock_us_spot() -> pd.DataFrame:
         js_code.eval(js_hash_text)
         dict_list = js_code.call("d", us_js_decode)  # 执行js解密代码
         us_sina_stock_dict_payload.update({"page": "{}".format(page)})
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
         res = requests.get(
             us_sina_stock_list_url.format(dict_list),
             params=us_sina_stock_dict_payload,
+            headers=headers,
+            timeout=timeout
         )
         data_json = json.loads(res.text[res.text.find("({") + 1: res.text.rfind(");")])
         big_df = pd.concat([big_df, pd.DataFrame(data_json["data"])], ignore_index=True)
@@ -124,7 +134,8 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://finance.sina.com.cn/staticdata/us/{symbol}"
-    res = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(zh_js_decode)
     dict_list = js_code.call(
@@ -137,7 +148,8 @@ def stock_us_daily(symbol: str = "FB", adjust: str = "") -> pd.DataFrame:
     del data_df["date"]
     data_df = data_df.astype("float")
     url = us_sina_stock_hist_qfq_url.format(symbol)
-    res = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
     qfq_factor_df = pd.DataFrame(eval(res.text.split("=")[1].split("\n")[0])["data"])
     qfq_factor_df.rename(
         columns={

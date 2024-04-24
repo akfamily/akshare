@@ -7,6 +7,7 @@ https://www.ywindex.com/Home/Product/index/
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -25,7 +26,8 @@ def index_yw(symbol: str = "月景气指数") -> pd.DataFrame:
         "月景气指数": 5,
     }
     url = "http://www.ywindex.com/Home/Product/index/"
-    res = requests.get(url, verify=False)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, verify=False, headers=headers, timeout=timeout)
     soup = BeautifulSoup(res.text, "lxml")
     table_name = (
         soup.find_all(attrs={"class": "tablex"})[name_num_dict[symbol]]

@@ -8,6 +8,7 @@ https://zhujia.zhuwang.com.cn
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_hog_core(symbol: str = "外三元") -> pd.DataFrame:
@@ -22,7 +23,8 @@ def futures_hog_core(symbol: str = "外三元") -> pd.DataFrame:
     if symbol == "外三元":
         url = "https://xt.yangzhu.vip/data/getzhujiahitsdata"
         params = {"ptype": "1", "areano": "-1", "datetype": "0"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["value", "date"]
@@ -33,7 +35,8 @@ def futures_hog_core(symbol: str = "外三元") -> pd.DataFrame:
     elif symbol == "内三元":
         url = "https://xt.yangzhu.vip/data/getzhujiahitsdata"
         params = {"ptype": "2", "areano": "-1", "datetype": "0"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["value", "date"]
@@ -44,7 +47,8 @@ def futures_hog_core(symbol: str = "外三元") -> pd.DataFrame:
     elif symbol == "土杂猪":
         url = "https://xt.yangzhu.vip/data/getzhujiahitsdata"
         params = {"ptype": "3", "areano": "-1", "datetype": "0"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["value", "date"]
@@ -66,7 +70,8 @@ def futures_hog_cost(symbol: str = "玉米") -> pd.DataFrame:
     if symbol == "玉米":
         url = "https://xt.yangzhu.vip/data/getzhujiahitsdata"
         params = {"ptype": "4", "areano": "-1", "datetype": "0"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["value", "date"]
@@ -77,7 +82,8 @@ def futures_hog_cost(symbol: str = "玉米") -> pd.DataFrame:
     elif symbol == "豆粕":
         url = "https://xt.yangzhu.vip/data/getzhujiahitsdata"
         params = {"ptype": "5", "areano": "-1", "datetype": "0"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["value", "date"]
@@ -91,7 +97,8 @@ def futures_hog_cost(symbol: str = "玉米") -> pd.DataFrame:
             "ptype": "1",
             "areano": "-1",
         }
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["date", "value"]
@@ -104,7 +111,8 @@ def futures_hog_cost(symbol: str = "玉米") -> pd.DataFrame:
             "ptype": "2",
             "areano": "-1",
         }
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["date", "value"]
@@ -126,7 +134,8 @@ def futures_hog_supply(symbol: str = "猪肉批发价") -> pd.DataFrame:
     if symbol == "猪肉批发价":
         url = "https://xt.yangzhu.vip/data/getmapdata"
         params = {"ptype": "3", "areano": "-1"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["date", "item", "value"]
@@ -137,7 +146,8 @@ def futures_hog_supply(symbol: str = "猪肉批发价") -> pd.DataFrame:
     elif symbol == "储备冻猪肉":
         url = "https://xt.yangzhu.vip/data/getmapdata"
         params = {"ptype": "4", "areano": "-1"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["date", "value"]
@@ -147,7 +157,8 @@ def futures_hog_supply(symbol: str = "猪肉批发价") -> pd.DataFrame:
     elif symbol == "饲料原料数据":
         url = "https://xt.yangzhu.vip/data/getmapdata"
         params = {"ptype": "5", "areano": "-1"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = [
@@ -174,7 +185,8 @@ def futures_hog_supply(symbol: str = "猪肉批发价") -> pd.DataFrame:
     elif symbol == "白条肉":
         url = "https://xt.yangzhu.vip/data/getmapdata"
         params = {"ptype": "6", "areano": "-1"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["周期", "白条肉平均出厂价格", "环比", "同比"]
@@ -187,7 +199,8 @@ def futures_hog_supply(symbol: str = "猪肉批发价") -> pd.DataFrame:
     elif symbol == "生猪产能":
         url = "https://xt.yangzhu.vip/data/getmapdata"
         params = {"ptype": "7", "areano": "-1"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["周期", "能繁母猪存栏", "猪肉产量", "生猪存栏", "生猪出栏"]
@@ -201,7 +214,8 @@ def futures_hog_supply(symbol: str = "猪肉批发价") -> pd.DataFrame:
     elif symbol == "育肥猪":
         url = "https://xt.yangzhu.vip/data/getmapdata"
         params = {"ptype": "9", "areano": "-1"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df = temp_df[["date", "benzhou"]]
@@ -211,7 +225,8 @@ def futures_hog_supply(symbol: str = "猪肉批发价") -> pd.DataFrame:
     elif symbol == "肉类价格指数":
         url = "https://xt.yangzhu.vip/data/getmapdata"
         params = {"ptype": "10", "areano": "-1"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["date", "item", "value"]
@@ -222,7 +237,8 @@ def futures_hog_supply(symbol: str = "猪肉批发价") -> pd.DataFrame:
     elif symbol == "猪粮比价":
         url = "https://xt.yangzhu.vip/data/getmapdata"
         params = {"ptype": "11", "areano": "-1"}
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         temp_df.columns = ["date", "value"]

@@ -7,6 +7,7 @@ https://data.eastmoney.com/gsrl/gsdt.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_gsrl_gsdt_em(date: str = "20230808") -> pd.DataFrame:
@@ -30,7 +31,8 @@ def stock_gsrl_gsdt_em(date: str = "20230808") -> pd.DataFrame:
         "reportName": "RPT_ORGOP_ALL",
         "filter": f"""(TRADE_DATE='{"-".join([date[:4], date[4:6], date[6:]])}')""",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.reset_index(inplace=True)

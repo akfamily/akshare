@@ -7,6 +7,7 @@ https://data.eastmoney.com/executive/list.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -34,7 +35,8 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1691501763413",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
@@ -47,7 +49,8 @@ def stock_hold_management_detail_em() -> pd.DataFrame:
                 "pageNum": page,
             }
         )
-        r = requests.post(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -135,7 +138,8 @@ def stock_hold_management_person_em(
         "client": "WEB",
         "_": "1691503078611",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.rename(

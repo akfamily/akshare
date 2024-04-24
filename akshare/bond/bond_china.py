@@ -11,6 +11,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.bond.bond_china_money import bond_china_close_return_map
 
@@ -31,7 +32,8 @@ def bond_spot_quote() -> pd.DataFrame:
         "flag": "1",
         "lang": "cn",
     }
-    r = requests.post(url=url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url=url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
@@ -90,7 +92,8 @@ def bond_spot_deal() -> pd.DataFrame:
         "lang": "cn",
         "bondName": "",
     }
-    r = requests.post(url=url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url=url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
@@ -161,7 +164,8 @@ def bond_china_yield(
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
     }
-    res = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = res.text.replace("&nbsp", "")
     data_df = pd.read_html(StringIO(data_text), header=0)[1]
     data_df['日期'] = pd.to_datetime(data_df['日期'], errors="coerce").dt.date

@@ -8,6 +8,7 @@ https://quote.eastmoney.com/center/gridlist.html#us_pinksheet
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_us_pink_spot_em() -> pd.DataFrame:
@@ -32,7 +33,8 @@ def stock_us_pink_spot_em() -> pd.DataFrame:
         "f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1631271634231",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = [

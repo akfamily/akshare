@@ -9,6 +9,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_contract_info_dce() -> pd.DataFrame:
@@ -23,7 +24,8 @@ def futures_contract_info_dce() -> pd.DataFrame:
         'contractInformation.variety': 'all',
         'contractInformation.trade_type': '0',
     }
-    r = requests.post(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df['交易单位'] = pd.to_numeric(temp_df['交易单位'], errors="coerce")
     temp_df['最小变动价位'] = pd.to_numeric(temp_df['最小变动价位'], errors="coerce")

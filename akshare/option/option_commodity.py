@@ -20,6 +20,7 @@ from typing import Tuple, Any
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.option.cons import (
     get_calendar,
@@ -58,7 +59,8 @@ def option_dce_daily(
         "day": str(day.day),
         "exportFlag": "excel",
     }
-    res = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.post(url, data=payload, headers=headers, timeout=timeout)
     table_df = pd.read_excel(BytesIO(res.content), header=1)
     another_df = table_df.iloc[
                  table_df[table_df.iloc[:, 0].str.contains("合约")].iloc[-1].name:,
@@ -159,7 +161,8 @@ def option_czce_daily(
     if day > datetime.date(2010, 8, 24):
         url = CZCE_DAILY_OPTION_URL_3.format(day.strftime("%Y"), day.strftime("%Y%m%d"))
         try:
-            r = requests.get(url)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, headers=headers, timeout=timeout)
             f = StringIO(r.text)
             table_df = pd.read_table(f, encoding="utf-8", skiprows=1, sep="|")
             if symbol == "白糖期权":
@@ -242,7 +245,8 @@ def option_shfe_daily(
     if day > datetime.date(2010, 8, 24):
         url = SHFE_OPTION_URL.format(day.strftime("%Y%m%d"))
         try:
-            r = requests.get(url, headers=SHFE_HEADERS)
+            SHFE_HEADERS, timeout = get_headers_and_timeout(locals().get('SHFE_HEADERS', {}), locals().get('timeout', None))
+            r = requests.get(url, headers=SHFE_HEADERS, timeout=timeout)
             json_data = r.json()
             table_df = pd.DataFrame(
                 [
@@ -368,7 +372,8 @@ def option_gfex_daily(symbol: str = "工业硅", trade_date: str = "20230724"):
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.rename(
@@ -458,7 +463,8 @@ def option_gfex_vol_daily(symbol: str = "碳酸锂", trade_date: str = "20230724
         "X-Requested-With": "XMLHttpRequest",
         "content-type": "application/x-www-form-urlencoded",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.rename(

@@ -9,6 +9,7 @@ import re
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 from akshare.index.cons import short_headers, long_headers
@@ -24,7 +25,8 @@ def get_sector_symbol_name_url() -> dict:
     '商品指数': '/indices/commodities-indices'}
     """
     url = "https://cn.investing.com/commodities/"
-    res = requests.get(url, headers=short_headers)
+    short_headers, timeout = get_headers_and_timeout(locals().get('short_headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=short_headers, timeout=timeout)
     soup = BeautifulSoup(res.text, "lxml")
     name_url_option_list = soup.find_all(attrs={"class": "linkTitle"})  # 去掉-所有国家及地区
     url_list = [item.find("a")["href"] for item in name_url_option_list]
@@ -54,7 +56,8 @@ def futures_global_commodity_name_url_map(sector: str = "能源") -> dict:
     """
     name_url_dict = get_sector_symbol_name_url()
     url = f"https://cn.investing.com{name_url_dict[sector]}"
-    res = requests.post(url, headers=short_headers)
+    short_headers, timeout = get_headers_and_timeout(locals().get('short_headers', {}), locals().get('timeout', None))
+    res = requests.post(url, headers=short_headers, timeout=timeout)
     soup = BeautifulSoup(res.text, "lxml")
     url_list = [
         item.find("a")["href"].split("?")[0]
@@ -93,10 +96,12 @@ def futures_global_commodity_hist(
     end_date = "/".join([end_date[:4], end_date[4:6], end_date[6:]])
     name_code_dict = futures_global_commodity_name_url_map(sector)
     temp_url = f"https://cn.investing.com/{name_code_dict[symbol]}-historical-data"
-    res = requests.post(temp_url, headers=short_headers)
+    short_headers, timeout = get_headers_and_timeout(locals().get('short_headers', {}), locals().get('timeout', None))
+    res = requests.post(temp_url, headers=short_headers, timeout=timeout)
     soup = BeautifulSoup(res.text, "lxml")
     title = soup.find("h2", attrs={"class": "float_lang_base_1"}).get_text()
-    res = requests.post(temp_url, headers=short_headers)
+    short_headers, timeout = get_headers_and_timeout(locals().get('short_headers', {}), locals().get('timeout', None))
+    res = requests.post(temp_url, headers=short_headers, timeout=timeout)
     soup = BeautifulSoup(res.text, "lxml")
     data = soup.find_all(text=re.compile("window.histDataExcessInfo"))[0].strip()
     para_data = re.findall(r"\d+", data)
@@ -112,7 +117,8 @@ def futures_global_commodity_hist(
         "action": "historical_data",
     }
     url = "https://cn.investing.com/instruments/HistoricalDataAjax"
-    r = requests.post(url, data=payload, headers=long_headers)
+    long_headers, timeout = get_headers_and_timeout(locals().get('long_headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=long_headers, timeout=timeout)
     temp_df = pd.read_html(r.text)[0]
     temp_df["日期"] = pd.to_datetime(temp_df["日期"], format="%Y年%m月%d日")
     if any(temp_df["交易量"].astype(str).str.contains("-")):

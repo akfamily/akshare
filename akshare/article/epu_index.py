@@ -6,6 +6,9 @@ Desc: 经济政策不确定性指数
 https://www.policyuncertainty.com/index.html
 """
 import pandas as pd
+import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from io import BytesIO
 
 
 def article_epu_index(symbol: str = "China") -> pd.DataFrame:
@@ -26,10 +29,11 @@ def article_epu_index(symbol: str = "China") -> pd.DataFrame:
         symbol = "US"
     if symbol == "Hong Kong":
         symbol = "HK"
-        epu_df = pd.read_excel(
-            io=f"http://www.policyuncertainty.com/media/{symbol}_EPU_Data_Annotated.xlsx",
-            engine="openpyxl"
-        )
+        url = f"http://www.policyuncertainty.com/media/{symbol}_EPU_Data_Annotated.xlsx"
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        response = requests.get(url, headers=headers, timeout=timeout)
+        response.raise_for_status()
+        epu_df = pd.read_excel(BytesIO(response.content), engine="openpyxl")
         return epu_df
     if symbol in ["Germany", "France", "Italy"]:  # 欧洲
         symbol = "Europe"
@@ -38,19 +42,24 @@ def article_epu_index(symbol: str = "China") -> pd.DataFrame:
     if symbol == "Spain New":
         symbol = "Spain"
     if symbol in ["Ireland", "Chile", "Colombia", "Netherlands", "Singapore", "Sweden"]:
-        epu_df = pd.read_excel(
-            io=f"http://www.policyuncertainty.com/media/{symbol}_Policy_Uncertainty_Data.xlsx",
-            engine="openpyxl"
-        )
+        url = f"http://www.policyuncertainty.com/media/{symbol}_Policy_Uncertainty_Data.xlsx"
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        response = requests.get(url, headers=headers, timeout=timeout)
+        response.raise_for_status()
+        epu_df = pd.read_excel(BytesIO(response.content), engine="openpyxl")
         return epu_df
     if symbol == "Greece":
-        epu_df = pd.read_excel(
-            io=f"http://www.policyuncertainty.com/media/FKT_{symbol}_Policy_Uncertainty_Data.xlsx",
-            engine="openpyxl"
-        )
+        url = f"http://www.policyuncertainty.com/media/FKT_{symbol}_Policy_Uncertainty_Data.xlsx"
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        response = requests.get(url, headers=headers, timeout=timeout)
+        response.raise_for_status()
+        epu_df = pd.read_excel(BytesIO(response.content), engine="openpyxl")
         return epu_df
     url = f"http://www.policyuncertainty.com/media/{symbol}_Policy_Uncertainty_Data.csv"
-    epu_df = pd.read_csv(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    response = requests.get(url, headers=headers, timeout=timeout)
+    response.raise_for_status()
+    epu_df = pd.read_csv(BytesIO(response.content))
     return epu_df
 
 

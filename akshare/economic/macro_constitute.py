@@ -11,6 +11,7 @@ import time
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -38,7 +39,8 @@ def macro_cons_gold() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -103,7 +105,8 @@ def macro_cons_silver() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -172,18 +175,22 @@ def macro_cons_opec_month() -> pd.DataFrame:
         "x-csrf-token": "",
         "x-version": "1.0.0",
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     res = requests.get(
         url=f"https://datacenter-api.jin10.com/reports/dates?category=opec&_={str(int(round(t * 1000)))}",
         headers=headers,
+        timeout=timeout
     )  # 日期序列
     all_date_list = res.json()["data"]
     bar = tqdm(reversed(all_date_list))
     for item in bar:
         bar.set_description(f"Please wait for a moment, now downloading {item}'s data")
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
         res = requests.get(
             url=f"https://datacenter-api.jin10.com/reports/list?"
             f"category=opec&date={item}&_={str(int(round(t * 1000)))}",
             headers=headers,
+            timeout=timeout
         )
         temp_df = pd.DataFrame(
             res.json()["data"]["values"],

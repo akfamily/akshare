@@ -10,6 +10,7 @@ from typing import Union, List
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 from akshare.utils import demjson
@@ -23,7 +24,8 @@ def _get_real_name_list() -> list:
     :rtype: list
     """
     url = "https://finance.sina.com.cn/money/future/hf.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "gb2312"
     data_text = r.text
     need_text = data_text[
@@ -42,7 +44,8 @@ def futures_foreign_commodity_subscribe_exchange_symbol() -> list:
     :rtype: list
     """
     url = "https://finance.sina.com.cn/money/future/hf.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "gb2312"
     data_text = r.text
     data_json = demjson.decode(
@@ -130,7 +133,8 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
         'Sec-Fetch-Site': 'cross-site',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36'
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_text = r.text
     data_df = pd.DataFrame(
         [
@@ -224,7 +228,8 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
 
     # 获取转换比例数据
     url = "https://finance.sina.com.cn/money/future/hf.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "gb2312"
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find_all("script", attrs={"type": "text/javascript"})[
@@ -243,7 +248,8 @@ def futures_foreign_commodity_realtime(symbol: Union[str, List[str]]) -> pd.Data
 
     # 获取汇率数据
     url = "https://hq.sinajs.cn/?list=USDCNY"
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_text = r.text
     usd_rmb = float(
         data_text[data_text.find('"') + 1: data_text.find(",美元人民币")].split(",")[-1]

@@ -8,6 +8,7 @@ Desc: 中国证券投资基金业协会-信息公示数据
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils.tqdm import get_tqdm
 
@@ -23,7 +24,8 @@ def _get_pages(url: str = "", payload: str = "") -> pd.DataFrame:
     中国证券投资基金业协会-信息公示-私募基金管理人公示 页数
     暂时不使用本函数, 直接可以获取所有数据
     """
-    res = requests.post(url=url, json=payload, headers=headers, verify=False)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.post(url=url, json=payload, headers=headers, verify=False, timeout=timeout)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df["totalPages"]
@@ -33,7 +35,8 @@ def get_data(url: str = "", payload: str = "") -> pd.DataFrame:
     """
     中国证券投资基金业协会-信息公示-私募基金管理人公示
     """
-    res = requests.post(url=url, json=payload, headers=headers, verify=False)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.post(url=url, json=payload, headers=headers, verify=False, timeout=timeout)
     res.encoding = "utf-8"
     json_df = res.json()
     return json_df
@@ -54,14 +57,16 @@ def amac_member_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -115,12 +120,14 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
         "page": "1",
         "size": "100",
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.post(
         url,
         params=params,
         json={"orgType": symbol_trans, "page": "1"},
         verify=False,
         headers=headers,
+        timeout=timeout
     )
     data_json = r.json()
     total_page = data_json["totalPages"]
@@ -128,12 +135,14 @@ def amac_person_fund_org_list(symbol: str = "公募基金管理公司") -> pd.Da
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
         r = requests.post(
             url,
             params=params,
             json={"orgType": symbol_trans, "page": "1"},
             verify=False,
             headers=headers,
+            timeout=timeout
         )
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
@@ -188,7 +197,8 @@ def amac_person_bond_org_list() -> pd.DataFrame:
     http = urllib3.PoolManager(ssl_context=ctx)
 
     url = "https://human.amac.org.cn/web/api/publicityAddress?rand=0.6288001872566391&pageNum=1&pageSize=5000"
-    r = http.request(method="GET", url=url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = http.request(method="GET", url=url, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["list"])
     temp_df.reset_index(inplace=True)
@@ -227,14 +237,16 @@ def amac_manager_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -281,14 +293,16 @@ def amac_manager_classify_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -352,14 +366,16 @@ def amac_member_sub_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -406,7 +422,8 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = int(data_json["totalPages"])
     if total_page > int(end_page):
@@ -417,7 +434,8 @@ def amac_fund_info(start_page: str = "1", end_page: str = "2000") -> pd.DataFram
     tqdm = get_tqdm()
     for page in tqdm(range(int(start_page) - 1, real_end_page), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -463,14 +481,16 @@ def amac_securities_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -517,14 +537,16 @@ def amac_aoin_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -564,14 +586,16 @@ def amac_fund_sub_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -620,14 +644,16 @@ def amac_fund_account_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -665,14 +691,16 @@ def amac_fund_abs() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -724,14 +752,16 @@ def amac_futures_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -782,14 +812,16 @@ def amac_manager_cancelled_info() -> pd.DataFrame:
         "page": "1",
         "size": "100",
     }
-    r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["totalPages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(0, int(total_page)), leave=False):
         params.update({"page": page})
-        r = requests.post(url, params=params, json={}, verify=False, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, params=params, json={}, verify=False, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["content"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)

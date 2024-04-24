@@ -10,6 +10,7 @@ import warnings
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
@@ -33,7 +34,8 @@ def stock_zh_a_tick_tx_js(symbol: str = "sz000001") -> pd.DataFrame:
                 "c": symbol,
                 "p": page,
             }
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             text_data = r.text
             temp_df = (
                 pd.DataFrame(eval(text_data[text_data.find("["):])[1].split("|"))

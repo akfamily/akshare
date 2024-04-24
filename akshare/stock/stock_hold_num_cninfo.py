@@ -7,6 +7,7 @@ http://webapi.cninfo.com.cn/#/thematicStatistics
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 from akshare.datasets import get_ths_js
@@ -58,7 +59,8 @@ def stock_hold_num_cninfo(date: str = "20210630") -> pd.DataFrame:
     params = {
         "rdate": date,
     }
-    r = requests.post(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [

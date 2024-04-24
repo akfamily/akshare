@@ -9,6 +9,7 @@ import json
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def xincaifu_rank(year: str = "2022") -> pd.DataFrame:
@@ -34,7 +35,8 @@ def xincaifu_rank(year: str = "2022") -> pd.DataFrame:
         "from": "jsonp",
         "_": "1604722171732",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = json.loads(data_text[data_text.find("{") : -1])
     temp_df = pd.DataFrame(data_json["data"]["rows"])

@@ -8,6 +8,9 @@ https://www.itjuzi.com/chollima
 https://www.itjuzi.com/unicorn
 """
 import pandas as pd
+import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from io import BytesIO
 
 
 def death_company() -> pd.DataFrame:
@@ -18,8 +21,12 @@ def death_company() -> pd.DataFrame:
     :return: 死亡公司名单
     :rtype: pandas.DataFrame
     """
+    url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/juzi.csv"
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
+    r.raise_for_status()
     temp_df = pd.read_csv(
-        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/juzi.csv"
+        BytesIO(r.content)
     )
 
     temp_df.reset_index(inplace=True, drop=True)
@@ -43,8 +50,12 @@ def nicorn_company() -> pd.DataFrame:
     :return: 独角兽公司
     :rtype: pandas.DataFrame
     """
+    url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/nicorn_company.csv"
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
+    r.raise_for_status()
     temp_df = pd.read_csv(
-        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/nicorn_company.csv",
+        BytesIO(r.content),
         index_col=0,
     )
     temp_df.reset_index(drop=True, inplace=True)
@@ -82,8 +93,12 @@ def maxima_company() -> pd.DataFrame:
     :return: 千里马公司
     :rtype: pandas.DataFrame
     """
+    url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/maxima.csv"
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
+    r.raise_for_status()
     temp_df = pd.read_csv(
-        "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_juzi/maxima.csv",
+        BytesIO(r.content),
         index_col=0,
     )
     temp_df.reset_index(drop=True, inplace=True)

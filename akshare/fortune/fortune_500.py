@@ -13,6 +13,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -26,7 +27,8 @@ def _fortune_rank_year_url_map() -> dict:
     :rtype: dict
     """
     url = "https://www.fortunechina.com/fortune500/index.htm"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, features="lxml")
     url_2023 = soup.find(name='meta', attrs={"property": "og:url"})['content'].strip()
     node_list = soup.find_all(name='div', attrs={"class": "swiper-slide"})
@@ -46,7 +48,8 @@ def fortune_rank(year: str = "2015") -> pd.DataFrame:
     """
     year_url_map = _fortune_rank_year_url_map()
     url = year_url_map[year]
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf-8"
     if int(year) < 2007:
         df = pd.read_html(StringIO(r.text))[0].iloc[1:-1, ]
@@ -57,7 +60,8 @@ def fortune_rank(year: str = "2015") -> pd.DataFrame:
         df.columns = pd.read_html(StringIO(r.text))[0].iloc[0, :].tolist()
         for page in tqdm(range(2, 11), leave=False):
             # page =2
-            r = requests.get(url.rsplit(".", maxsplit=1)[0] + "_" + str(page) + ".htm")
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url.rsplit(".", maxsplit=1, headers=headers, timeout=timeout)[0] + "_" + str(page) + ".htm")
             r.encoding = "utf-8"
             temp_df = pd.read_html(StringIO(r.text))[0].iloc[1:, ]
             temp_df.columns = pd.read_html(StringIO(r.text))[0].iloc[0, :].tolist()
@@ -79,7 +83,8 @@ def fortune_rank_eng(year: str = "2023") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://fortune.com/ranking/global500/{year}/search/"
-    res = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(res.text, "lxml")
     code = json.loads(soup.find("script", attrs={"type": "application/ld+json"}).string)["identifier"]
     url = f"https://content.fortune.com/wp-json/irving/v1/data/franchise-search-results"
@@ -87,7 +92,8 @@ def fortune_rank_eng(year: str = "2023") -> pd.DataFrame:
         "list_id": code,
         "token": "Zm9ydHVuZTpCcHNyZmtNZCN5SndjWkkhNHFqMndEOTM=",
     }
-    res = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, params=params, headers=headers, timeout=timeout)
     big_df = pd.DataFrame()
     for i in range(len(res.json()[1]["items"][0]['fields'])):
         temp_df = pd.DataFrame([item["fields"][i] for item in res.json()[1]["items"]])

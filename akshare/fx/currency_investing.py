@@ -10,6 +10,7 @@ import json
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -23,7 +24,8 @@ def _currency_name_url() -> dict:
     :rtype: dict
     """
     url = "https://cn.investing.com/currencies/"
-    res = requests.post(url, headers=short_headers)
+    short_headers, timeout = get_headers_and_timeout(locals().get('short_headers', {}), locals().get('timeout', None))
+    res = requests.post(url, headers=short_headers, timeout=timeout)
     data_table = pd.read_html(res.text)[0].iloc[:, 1:]  # 实时货币行情
     data_table.columns = ["中文名称", "英文名称", "最新", "最高", "最低", "涨跌额", "涨跌幅", "时间"]
     name_code_dict = dict(
@@ -49,7 +51,8 @@ def currency_hist_area_index_name_code(symbol: str = "usd-jpy") -> dict:
     """
     pd.set_option("mode.chained_assignment", None)
     url = f"https://cn.investing.com/currencies/{symbol}-historical-data"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("script", attrs={"id": "__NEXT_DATA__"}).text
     data_json = json.loads(data_text)
@@ -107,7 +110,8 @@ def currency_hist(
         "sec-fetch-site": "same-site",
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     df_data = pd.DataFrame(data_json["data"])
     df_data.columns = [
@@ -148,7 +152,8 @@ def _currency_single() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://cn.investing.com/currencies/single-currency-crosses"
-    res = requests.post(url, headers=short_headers)
+    short_headers, timeout = get_headers_and_timeout(locals().get('short_headers', {}), locals().get('timeout', None))
+    res = requests.post(url, headers=short_headers, timeout=timeout)
     soup = BeautifulSoup(res.text, "lxml")
     name_url_option_list = soup.find(
         "select", attrs={"class": "newInput selectBox"}
@@ -205,7 +210,8 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(r.json()["HTML"])[0].iloc[:, 1:]
     temp_df.rename(columns={"名称.1": "简称"}, inplace=True)
     temp_df["pids"] = [item[:-1] for item in r.json()["pids"]]
@@ -238,7 +244,8 @@ def currency_name_code(symbol: str = "usd/jpy") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(r.json()["HTML"])[0].iloc[:, 1:]
     temp_df.rename(columns={"名称.1": "简称"}, inplace=True)
     temp_df["pids"] = [item[:-1] for item in r.json()["pids"]]
@@ -291,7 +298,8 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
             "X-Requested-With": "XMLHttpRequest",
         }
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         soup = BeautifulSoup(r.text, "lxml")
         region_code.extend(
             [
@@ -312,7 +320,8 @@ def currency_pair_map(symbol: str = "美元") -> pd.DataFrame:
         "region_ID": name_id_map[symbol].split("-")[1],
         "currency_ID": name_id_map[symbol].split("-")[0],
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
 
     temp_code = [

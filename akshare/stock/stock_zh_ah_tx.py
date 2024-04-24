@@ -9,6 +9,7 @@ import random
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.stock.cons import (
     hk_url,
@@ -30,7 +31,8 @@ def _get_zh_stock_ah_page_count() -> int:
     """
     hk_payload_copy = hk_payload.copy()
     hk_payload_copy.update({"reqPage": 1})
-    r = requests.get(hk_url, params=hk_payload_copy, headers=hk_headers)
+    hk_headers, timeout = get_headers_and_timeout(locals().get('hk_headers', {}), locals().get('timeout', None))
+    r = requests.get(hk_url, params=hk_payload_copy, headers=hk_headers, timeout=timeout)
     data_json = demjson.decode(
         r.text[r.text.find("{"): r.text.rfind("}") + 1]
     )
@@ -50,7 +52,8 @@ def stock_zh_ah_spot() -> pd.DataFrame:
     tqdm = get_tqdm()
     for i in tqdm(range(0, page_count), leave=False):
         hk_payload.update({"reqPage": i})
-        r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
+        hk_headers, timeout = get_headers_and_timeout(locals().get('hk_headers', {}), locals().get('timeout', None))
+        r = requests.get(hk_url, params=hk_payload, headers=hk_headers, timeout=timeout)
         data_json = demjson.decode(
             r.text[r.text.find("{"): r.text.rfind("}") + 1]
         )
@@ -122,7 +125,8 @@ def stock_zh_ah_name() -> pd.DataFrame:
     tqdm = get_tqdm()
     for i in tqdm(range(0, page_count), leave=False):
         hk_payload.update({"reqPage": i})
-        r = requests.get(hk_url, params=hk_payload, headers=hk_headers)
+        hk_headers, timeout = get_headers_and_timeout(locals().get('hk_headers', {}), locals().get('timeout', None))
+        r = requests.get(hk_url, params=hk_payload, headers=hk_headers, timeout=timeout)
         data_json = demjson.decode(
             r.text[r.text.find("{"): r.text.rfind("}") + 1]
         )
@@ -210,16 +214,20 @@ def stock_zh_ah_daily(
                 "Referer": "http://gu.qq.com/hk01033/gp",
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
             }
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
             r = requests.get(
                 url="http://web.ifzq.gtimg.cn/appstock/app/kline/kline",
                 params=hk_stock_payload_copy,
                 headers=headers,
+                timeout=timeout
             )
         else:
+            hk_stock_headers, timeout = get_headers_and_timeout(locals().get('hk_stock_headers', {}), locals().get('timeout', None))
             r = requests.get(
                 url="https://web.ifzq.gtimg.cn/appstock/app/hkfqkline/get",
                 params=hk_stock_payload_copy,
                 headers=hk_stock_headers,
+                timeout=timeout
             )
         data_json = demjson.decode(
             r.text[r.text.find("{"): r.text.rfind("}") + 1]

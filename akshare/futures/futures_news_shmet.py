@@ -8,6 +8,7 @@ https://www.shmet.com/newsFlash/newsFlash.html?searchKeyword=
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_news_shmet(symbol: str = "全部") -> pd.DataFrame:
@@ -42,7 +43,8 @@ def futures_news_shmet(symbol: str = "全部") -> pd.DataFrame:
             "content": "",
             "flashTag": symbol_map[symbol],
         }
-    r = requests.post(url, json=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, json=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["dataList"])
     temp_df.columns = [

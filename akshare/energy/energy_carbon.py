@@ -23,6 +23,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -47,7 +48,8 @@ def energy_carbon_domestic(symbol: str = "湖北") -> pd.DataFrame:
         "brand": "TAN",
         "_": "1626773022063",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("(") + 1 : -1])
     temp_df = pd.DataFrame(data_json[symbol])
@@ -85,7 +87,8 @@ def energy_carbon_bj() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.bjets.com.cn/article/jyxx/"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     total_page = (
         soup.find("table")
@@ -104,7 +107,8 @@ def energy_carbon_bj() -> pd.DataFrame:
         if i == 1:
             i = ""
         url = f"https://www.bjets.com.cn/article/jyxx/?{i}"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         r.encoding = "utf-8"
         df = pd.read_html(r.text)[0]
         temp_df = pd.concat([temp_df, df], ignore_index=True)
@@ -144,7 +148,8 @@ def energy_carbon_sz() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://www.cerx.cn/dailynewsCN/index.htm"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     page_num = int(
         soup.find(attrs={"class": "pagebar"}).find_all("option")[-1].text
@@ -154,7 +159,8 @@ def energy_carbon_sz() -> pd.DataFrame:
         range(2, page_num + 1), desc="Please wait for a moment", leave=False
     ):
         url = f"http://www.cerx.cn/dailynewsCN/index_{page}.htm"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(r.text, header=0)[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df["交易日期"] = pd.to_datetime(big_df["交易日期"]).dt.date
@@ -179,7 +185,8 @@ def energy_carbon_eu() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://www.cerx.cn/dailynewsOuter/index.htm"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     page_num = int(
         soup.find(attrs={"class": "pagebar"}).find_all("option")[-1].text
@@ -189,7 +196,8 @@ def energy_carbon_eu() -> pd.DataFrame:
         range(2, page_num + 1), desc="Please wait for a moment", leave=False
     ):
         url = f"http://www.cerx.cn/dailynewsOuter/index_{page}.htm"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_html(r.text, header=0)[0]
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
     big_df["交易日期"] = pd.to_datetime(big_df["交易日期"]).dt.date
@@ -214,7 +222,8 @@ def energy_carbon_hb() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://www.hbets.cn/list/13.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     page_string = (
         soup.find("div", attrs={"class": "page"}).find_all("span")[-1].text
@@ -230,7 +239,8 @@ def energy_carbon_hb() -> pd.DataFrame:
     ):
         url = f"http://www.hbets.cn/list/13.html"
         params = {"page": page}
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         soup = BeautifulSoup(r.text, "lxml")
         page_node = [
             item
@@ -286,7 +296,8 @@ def energy_carbon_gz() -> pd.DataFrame:
         "beginTime": "2010-01-01",
         "endTime": "2030-09-12",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(r.text, header=0)[1]
     temp_df.columns = [
         "日期",

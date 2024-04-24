@@ -8,6 +8,7 @@ import json
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.event.cons import province_dict, city_dict
 
@@ -44,7 +45,8 @@ def migration_area_baidu(
         "type": indicator,
         "date": date,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text[r.text.find("({") + 1 : r.text.rfind(");")]
     data_json = json.loads(data_text)
     temp_df = pd.DataFrame(data_json["data"]["list"])
@@ -79,7 +81,8 @@ def migration_scale_baidu(
         "id": inner_dict[area],
         "type": indicator,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     json_data = json.loads(r.text[r.text.find("({") + 1 : r.text.rfind(");")])
     temp_df = pd.DataFrame.from_dict(json_data["data"]["list"], orient="index")
     temp_df.index = pd.to_datetime(temp_df.index)

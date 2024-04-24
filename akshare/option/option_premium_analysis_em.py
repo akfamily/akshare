@@ -6,6 +6,7 @@ Desc: 东方财富网-数据中心-特色数据-期权折溢价
 https://data.eastmoney.com/other/premium.html
 """
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pandas as pd
 
 
@@ -29,7 +30,8 @@ def option_premium_analysis_em() -> pd.DataFrame:
         'fields': 'f1,f2,f3,f12,f13,f14,f161,f250,f330,f331,f332,f333,f334,f335,f337,f301,f152',
         'fs': 'm:10'
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = [

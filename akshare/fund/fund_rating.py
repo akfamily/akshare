@@ -7,6 +7,7 @@ https://fund.eastmoney.com/data/fundrating.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 
@@ -18,7 +19,8 @@ def fund_rating_all() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://fund.eastmoney.com/data/fundrating.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("div", attrs={"id": "fundinfo"}).find("script").string
     data_content = [
@@ -93,7 +95,8 @@ def fund_rating_sh(date: str = "20230630") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://fund.eastmoney.com/data/fundrating_3.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     date_list = [
         item["value"] for item in soup.find("select", attrs={"id": "rqoptions"})
@@ -102,7 +105,8 @@ def fund_rating_sh(date: str = "20230630") -> pd.DataFrame:
     if date_format not in date_list:
         raise "请访问 https://fund.eastmoney.com/data/fundrating_3.html 获取查询日期"
     url = f"https://fund.eastmoney.com/data/fundrating_3_{'-'.join([date[:4], date[4:6], date[6:]])}.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("div", attrs={"id": "fundinfo"}).find("script").string
     data_content = [
@@ -183,7 +187,8 @@ def fund_rating_zs(date: str = "20230331") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://fund.eastmoney.com/data/fundrating_2.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     date_list = [
         item["value"] for item in soup.find("select", attrs={"id": "rqoptions"})
@@ -192,7 +197,8 @@ def fund_rating_zs(date: str = "20230331") -> pd.DataFrame:
     if date_format not in date_list:
         raise "请访问 https://fund.eastmoney.com/data/fundrating_2.html 获取查询日期"
     url = f"https://fund.eastmoney.com/data/fundrating_2_{'-'.join([date[:4], date[4:6], date[6:]])}.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("div", attrs={"id": "fundinfo"}).find("script").string
     data_content = [
@@ -266,7 +272,8 @@ def fund_rating_ja(date: str = "20230331") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://fund.eastmoney.com/data/fundrating_4.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     date_list = [
         item["value"] for item in soup.find("select", attrs={"id": "rqoptions"})
@@ -275,7 +282,8 @@ def fund_rating_ja(date: str = "20230331") -> pd.DataFrame:
     if date_format not in date_list:
         raise "请访问 http://fund.eastmoney.com/data/fundrating_4.html 获取查询日期"
     url = f"https://fund.eastmoney.com/data/fundrating_4_{'-'.join([date[:4], date[4:6], date[6:]])}.html"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find("div", attrs={"id": "fundinfo"}).find("script").string
     data_content = [

@@ -7,6 +7,7 @@ https://data.eastmoney.com/cjsj/oil_default.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def energy_oil_hist() -> pd.DataFrame:
@@ -31,7 +32,8 @@ def energy_oil_hist() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1652959763351",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = ["调整日期", "汽油价格", "柴油价格", "汽油涨跌", "柴油涨跌"]
@@ -68,7 +70,8 @@ def energy_oil_detail(date: str = "20220517") -> pd.DataFrame:
         "source": "WEB",
         "_": "1652959763351",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"]).iloc[:, 1:]
     temp_df.columns = [

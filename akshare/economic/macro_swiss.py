@@ -7,6 +7,7 @@ http://data.eastmoney.com/cjsj/foreign_2_0.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from akshare.utils import demjson
 
 
@@ -35,7 +36,8 @@ def macro_swiss_core(symbol: str = "EMG00341602") -> pd.DataFrame:
         "pageNum": "1",
         "_": "1667639896816",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.rename(

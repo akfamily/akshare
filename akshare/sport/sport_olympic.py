@@ -6,6 +6,9 @@ Desc: 运动-奥运会
 https://www.kaggle.com/marcogdepinto/let-s-discover-more-about-the-olympic-games
 """
 import pandas as pd
+import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from io import BytesIO
 
 
 def sport_olympic_hist() -> pd.DataFrame:
@@ -16,7 +19,9 @@ def sport_olympic_hist() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://jfds-1252952517.cos.ap-chengdu.myqcloud.com/akshare/data/data_olympic/athlete_events.zip"
-    temp_df = pd.read_csv(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    temp_df = pd.read_csv(BytesIO(res.content), compression='zip')
     columns_list = [item.lower() for item in temp_df.columns.tolist()]
     temp_df.columns = columns_list
     return temp_df

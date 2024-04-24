@@ -7,6 +7,7 @@ http://webapi.cninfo.com.cn/#/dataBrowse
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 from akshare.datasets import get_ths_js
@@ -69,7 +70,8 @@ def stock_allotment_cninfo(
         "Referer": "http://webapi.cninfo.com.cn/",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     columns = [
         "记录标识",

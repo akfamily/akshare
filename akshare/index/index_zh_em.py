@@ -9,6 +9,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 @lru_cache()
@@ -33,7 +34,8 @@ def index_code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -54,7 +56,8 @@ def index_code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -74,7 +77,8 @@ def index_code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -135,7 +139,8 @@ def index_zh_a_hist(
             "end": "20500000",
             "_": "1623766962675",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if data_json["data"] is None:
             params = {
@@ -149,7 +154,8 @@ def index_zh_a_hist(
                 "end": "20500000",
                 "_": "1623766962675",
             }
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             if data_json["data"] is None:
                 params = {
@@ -163,7 +169,8 @@ def index_zh_a_hist(
                     "end": "20500000",
                     "_": "1623766962675",
                 }
-                r = requests.get(url, params=params)
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.get(url, params=params, headers=headers, timeout=timeout)
                 data_json = r.json()
                 if data_json["data"] is None:
                     params = {
@@ -177,7 +184,8 @@ def index_zh_a_hist(
                         "end": "20500000",
                         "_": "1623766962675",
                     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     try:
         temp_df = pd.DataFrame(
@@ -196,7 +204,8 @@ def index_zh_a_hist(
             "end": "20500000",
             "_": "1623766962675",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -273,7 +282,8 @@ def index_zh_a_hist_min_em(
                 "secid": f"1.{symbol}",
                 "_": "1623766962675",
             }
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             if data_json["data"] is None:
                 params = {
@@ -285,7 +295,8 @@ def index_zh_a_hist_min_em(
                     "secid": f"0.{symbol}",
                     "_": "1623766962675",
                 }
-                r = requests.get(url, params=params)
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.get(url, params=params, headers=headers, timeout=timeout)
                 data_json = r.json()
                 if data_json["data"] is None:
                     params = {
@@ -297,7 +308,8 @@ def index_zh_a_hist_min_em(
                         "secid": f"47.{symbol}",
                         "_": "1623766962675",
                     }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -350,7 +362,8 @@ def index_zh_a_hist_min_em(
                 "end": "20500000",
                 "_": "1630930917857",
             }
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             data_json = r.json()
             if data_json["data"] is None:
                 params = {
@@ -364,7 +377,8 @@ def index_zh_a_hist_min_em(
                     "end": "20500000",
                     "_": "1630930917857",
                 }
-                r = requests.get(url, params=params)
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.get(url, params=params, headers=headers, timeout=timeout)
                 data_json = r.json()
                 if data_json["data"] is None:
                     params = {
@@ -378,7 +392,8 @@ def index_zh_a_hist_min_em(
                         "end": "20500000",
                         "_": "1630930917857",
                     }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]

@@ -9,6 +9,7 @@ import re
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 from tqdm import tqdm
 
@@ -24,7 +25,8 @@ def news_cctv(date: str = "20130308") -> pd.DataFrame:
     """
     if int(date) <= int("20130708"):
         url = f"http://cctv.cntv.cn/lm/xinwenlianbo/{date}.shtml"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         r.encoding = "gbk"
         raw_list = re.findall(r"title_array_01\((.*)", r.text)
         page_url = [
@@ -47,7 +49,8 @@ def news_cctv(date: str = "20130308") -> pd.DataFrame:
         }
         for page in tqdm(page_url, leave=False):
             try:
-                r = requests.get(page, headers=headers)
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.get(page, headers=headers, timeout=timeout)
                 r.encoding = "utf-8"
                 soup = BeautifulSoup(r.text, "lxml")
                 title = soup.find("h3").text
@@ -73,7 +76,8 @@ def news_cctv(date: str = "20130308") -> pd.DataFrame:
 
     elif int(date) < int("20160203"):
         url = f"http://cctv.cntv.cn/lm/xinwenlianbo/{date}.shtml"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         r.encoding = "utf-8"
         soup = BeautifulSoup(r.text, "lxml")
         page_url = [
@@ -98,7 +102,8 @@ def news_cctv(date: str = "20130308") -> pd.DataFrame:
         }
         for page in tqdm(page_url, leave=False):
             try:
-                r = requests.get(page, headers=headers)
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.get(page, headers=headers, timeout=timeout)
                 r.encoding = "utf-8"
                 soup = BeautifulSoup(r.text, "lxml")
                 title = soup.find("h3").text
@@ -123,7 +128,8 @@ def news_cctv(date: str = "20130308") -> pd.DataFrame:
         return temp_df
     elif int(date) > int("20160203"):
         url = f"https://tv.cctv.com/lm/xwlb/day/{date}.shtml"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         r.encoding = "utf-8"
         soup = BeautifulSoup(r.text, "lxml")
         page_url = [item.find("a")["href"] for item in soup.find_all("li")[1:]]
@@ -143,7 +149,8 @@ def news_cctv(date: str = "20130308") -> pd.DataFrame:
         }
         for page in tqdm(page_url, leave=False):
             try:
-                r = requests.get(page, headers=headers)
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.get(page, headers=headers, timeout=timeout)
                 r.encoding = "utf-8"
                 soup = BeautifulSoup(r.text, "lxml")
                 if soup.find("h3"):

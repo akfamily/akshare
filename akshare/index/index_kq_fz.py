@@ -7,6 +7,7 @@ http://www.kqindex.cn/flzs/jiage
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -33,7 +34,8 @@ def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
         "pageindex": "1",
         "_": "1619871781413",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     page_num = data_json["page"]
     big_df = pd.DataFrame()
@@ -46,7 +48,8 @@ def index_kq_fz(symbol: str = "价格指数") -> pd.DataFrame:
             "pageindex": page,
             "_": "1619871781413",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)

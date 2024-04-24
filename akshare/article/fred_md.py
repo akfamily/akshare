@@ -7,6 +7,9 @@ https://research.stlouisfed.org/econ/mccracken/fred-databases/
 FRED-MD and FRED-QD are large macroeconomic databases designed for the empirical analysis of “big data.” The datasets of monthly and quarterly observations mimic the coverage of datasets already used in the literature, but they add three appealing features. They are updated in real-time through the FRED database. They are publicly accessible, facilitating the replication of empirical work. And they relieve the researcher of the task of incorporating data changes and revisions (a task accomplished by the data desk at the Federal Reserve Bank of St. Louis).
 """
 import pandas as pd
+import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from io import StringIO
 
 
 def fred_md(date: str = "2020-01") -> pd.DataFrame:
@@ -18,7 +21,10 @@ def fred_md(date: str = "2020-01") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://s3.amazonaws.com/files.fred.stlouisfed.org/fred-md/monthly/{date}.csv"
-    temp_df = pd.read_csv(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    response = requests.get(url, headers=headers, timeout=timeout)
+    response.raise_for_status()
+    temp_df = pd.read_csv(StringIO(response.text))
     return temp_df
 
 
@@ -31,7 +37,10 @@ def fred_qd(date: str = "2020-01") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://s3.amazonaws.com/files.fred.stlouisfed.org/fred-md/quarterly/{date}.csv"
-    temp_df = pd.read_csv(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    response = requests.get(url, headers=headers, timeout=timeout)
+    response.raise_for_status()
+    temp_df = pd.read_csv(StringIO(response.text))
     return temp_df
 
 

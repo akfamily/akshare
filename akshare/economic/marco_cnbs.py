@@ -6,6 +6,9 @@ Desc: 国家金融与发展实验室-中国宏观杠杆率数据
 http://114.115.232.154:8080/
 """
 import pandas as pd
+import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from io import BytesIO
 
 
 def macro_cnbs() -> pd.DataFrame:
@@ -16,8 +19,11 @@ def macro_cnbs() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://114.115.232.154:8080/handler/download.ashx"
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    res.raise_for_status()
     temp_df = pd.read_excel(
-        url, sheet_name="Data", header=0, skiprows=1, engine="openpyxl"
+        BytesIO(res.content), sheet_name="Data", header=0, skiprows=1, engine="openpyxl"
     )
 
     temp_df["Period"] = pd.to_datetime(temp_df["Period"]).dt.strftime("%Y-%m")

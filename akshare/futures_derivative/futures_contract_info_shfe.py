@@ -8,6 +8,7 @@ https://www.shfe.com.cn/bourseService/businessdata/summaryinquiry/
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_contract_info_shfe(date: str = "20240227") -> pd.DataFrame:
@@ -24,7 +25,8 @@ def futures_contract_info_shfe(date: str = "20240227") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/119.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["ContractBaseInfo"])
     temp_df.rename(

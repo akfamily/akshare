@@ -7,6 +7,7 @@ http://quote.eastmoney.com/center/gridlist.html#us_wellknown
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
@@ -40,7 +41,8 @@ def stock_us_famous_spot_em(symbol: str = "科技类") -> pd.DataFrame:
         "fields": "f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f12,f13,f14,f15,f16,f17,f18,f20,f21,f23,f24,f25,f26,f22,f33,f11,f62,f128,f136,f115,f152",
         "_": "1631271634231",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = [

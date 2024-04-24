@@ -5,6 +5,7 @@ Date: 2021/1/10 13:58
 Desc: 得到 99 期货网的原始数据
 """
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pickle
 from bs4 import BeautifulSoup
 import time
@@ -20,7 +21,8 @@ sample_headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
 }
 
-res = requests.get(url, headers=sample_headers)
+headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+res = requests.get(url, headers=sample_headers, timeout=timeout)
 
 soup = BeautifulSoup(res.text, "lxml")
 view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
@@ -69,7 +71,8 @@ for i in code_temp_list:
                 # "ddlGoodsName": 6
             }
 
-            res = requests.post(url, data=payload, headers=qh_headers)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            res = requests.post(url, data=payload, headers=qh_headers, timeout=timeout)
             soup = BeautifulSoup(res.text, "lxml")
             exchange = soup.find_all("select")[0].find_all(attrs={"selected": "selected"})[0].get_text()
             print(exchange)

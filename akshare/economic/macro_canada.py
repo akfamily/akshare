@@ -7,6 +7,7 @@ https://data.eastmoney.com/cjsj/foreign_5_0.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 # 新屋开工
@@ -33,7 +34,8 @@ def macro_canada_new_house_rate() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -83,7 +85,8 @@ def macro_canada_unemployment_rate() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -133,7 +136,8 @@ def macro_canada_trade() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -183,7 +187,8 @@ def macro_canada_retail_rate_monthly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -233,7 +238,8 @@ def macro_canada_bank_rate() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -283,7 +289,8 @@ def macro_canada_core_cpi_yearly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -333,7 +340,8 @@ def macro_canada_core_cpi_monthly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -383,7 +391,8 @@ def macro_canada_cpi_yearly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -433,7 +442,8 @@ def macro_canada_cpi_monthly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -483,7 +493,8 @@ def macro_canada_gdp_monthly() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [

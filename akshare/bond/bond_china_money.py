@@ -9,6 +9,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def __bond_register_service() -> requests.Session:
@@ -23,8 +24,10 @@ def __bond_register_service() -> requests.Session:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
 
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     session.get(url="https://www.chinamoney.com.cn/chinese/bkcurvclosedyhis/?bondType=CYCC000&reference=1",
-                headers=headers)
+                headers=headers,
+                timeout=timeout)
     cookies_dict = session.cookies.get_dict()
     cookies_str = '; '.join(f'{k}={v}' for k, v in cookies_dict.items())
     data = {
@@ -49,7 +52,8 @@ def __bond_register_service() -> requests.Session:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest"
     }
-    session.post(url="https://www.chinamoney.com.cn/dqs/rest/cm-u-rbt/apply", data=data, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    session.post(url="https://www.chinamoney.com.cn/dqs/rest/cm-u-rbt/apply", data=data, headers=headers, timeout=timeout)
 
     # 20231127 新增部分 https://github.com/akfamily/akshare/issues/4299
     cookies_dict = session.cookies.get_dict()
@@ -71,7 +75,8 @@ def __bond_register_service() -> requests.Session:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest"
     }
-    session.post(url="https://www.chinamoney.com.cn/lss/rest/cm-s-account/getSessionUser", headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    session.post(url="https://www.chinamoney.com.cn/lss/rest/cm-s-account/getSessionUser", headers=headers, timeout=timeout)
     return session
 
 
@@ -99,11 +104,12 @@ def bond_china_close_return_map() -> pd.DataFrame:
     }
     url = "http://www.chinamoney.com.cn/ags/ms/cm-u-bk-currency/ClsYldCurvCurvGO"
     try:
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         data_json = r.json()
     except:
         session = __bond_register_service()
-        r = session.get(url, headers=headers)
+        r = session.get(url, headers=headers ,timeout=timeout)
         data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     return temp_df
@@ -145,7 +151,8 @@ def bond_china_close_return(
         "pageNum": "1",
         "pageSize": "15",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     del temp_df["newDateValue"]
@@ -221,7 +228,8 @@ def macro_china_swap_rate(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, data=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [
@@ -313,7 +321,8 @@ def macro_china_bond_public() -> pd.DataFrame:
         "pageSize": "1000",
         "limit": "1",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.columns = [

@@ -7,6 +7,7 @@ https://zs.zjpwq.net/
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def index_eri(symbol: str = "月度") -> pd.DataFrame:
@@ -34,14 +35,16 @@ def index_eri(symbol: str = "月度") -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     index_value = temp_df["indexValue"].tolist()
     index_time = [item["stage"]["publishTime"] for item in data_json["data"]]
     big_df = pd.DataFrame([index_time, index_value], index=["日期", "交易指数"]).T
     url = "https://zs.zjpwq.net/pwq-index-webapi/dataStatistics"
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     big_df["成交量"] = temp_df["totalQuantity"].tolist()

@@ -8,6 +8,7 @@ Desc:中国银行间市场交易商协会(https://www.nafmii.org.cn/)
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def bond_debt_nafmii(page: str = "1") -> pd.DataFrame:
@@ -32,7 +33,8 @@ def bond_debt_nafmii(page: str = "1") -> pd.DataFrame:
         "rows": 50,
     }
     payload.update({"page": page})
-    r = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()  # 数据类型为 json 格式
     temp_df = pd.DataFrame(data_json["rows"])
     temp_df.rename(

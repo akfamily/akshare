@@ -11,6 +11,7 @@ import math
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 from akshare.datasets import get_crypto_info_csv
@@ -101,7 +102,8 @@ def crypto_name_url_table(symbol: str = "web") -> pd.DataFrame:
             'search[regex]': 'false',
             'currencyId': '12',
         }
-        r = requests.post(url, data=payload, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, data=payload, headers=headers, timeout=timeout)
         data_json = r.json()
         total_page = math.ceil(int(data_json['recordsTotal']) / 100)
         big_df = pd.DataFrame()
@@ -110,7 +112,8 @@ def crypto_name_url_table(symbol: str = "web") -> pd.DataFrame:
                 "start": (page-1)*100,
                 'length': 100
             })
-            r = requests.post(url, data=payload, headers=headers)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.post(url, data=payload, headers=headers, timeout=timeout)
             data_json = r.json()
             temp_df = pd.DataFrame(data_json['data'])
             big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -172,7 +175,8 @@ def crypto_hist(
         "sort_ord": "DESC",
         "action": "historical_data",
     }
-    r = requests.post(url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
 
     temp_df = pd.read_html(r.text)[0]
     df_data = temp_df.copy()

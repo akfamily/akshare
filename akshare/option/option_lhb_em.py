@@ -6,6 +6,7 @@ Desc: 东方财富网-数据中心-特色数据-期权龙虎榜单
 https://data.eastmoney.com/other/qqlhb.html
 """
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pandas as pd
 
 
@@ -38,7 +39,8 @@ def option_lhb_em(
         "ut": "b2884a393a59ad64002292a3e90d46a5",
         "_": "1642904215146",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     if indicator == "期权交易情况-认沽交易量":

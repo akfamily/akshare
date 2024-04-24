@@ -9,6 +9,7 @@ import time
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 from akshare.datasets import get_ths_js
@@ -65,7 +66,8 @@ def bond_treasure_issue_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    r = requests.post(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(
@@ -157,7 +159,8 @@ def bond_local_government_issue_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    r = requests.post(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(
@@ -248,7 +251,8 @@ def bond_corporate_issue_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    r = requests.post(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(
@@ -343,7 +347,8 @@ def bond_cov_issue_cninfo(
         "sdate": "-".join([start_date[:4], start_date[4:6], start_date[6:]]),
         "edate": "-".join([end_date[:4], end_date[4:6], end_date[6:]]),
     }
-    r = requests.post(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(
@@ -467,7 +472,8 @@ def bond_cov_stock_issue_cninfo() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["records"])
     temp_df.rename(

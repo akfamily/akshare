@@ -10,6 +10,7 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 @lru_cache()
@@ -34,7 +35,8 @@ def __code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -55,7 +57,8 @@ def __code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -75,7 +78,8 @@ def __code_id_map_em() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     if not data_json["data"]["diff"]:
         return dict()
@@ -87,7 +91,8 @@ def __code_id_map_em() -> dict:
 
 def __event_stream(url, params):
     # 使用 stream=True 参数来启用流式请求
-    response = requests.get(url, params=params, stream=True)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    response = requests.get(url, params=params, stream=True, headers=headers, timeout=timeout)
     event_data = ""
 
     for line in response.iter_lines():

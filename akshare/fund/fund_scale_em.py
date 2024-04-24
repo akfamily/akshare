@@ -7,6 +7,7 @@ https://fund.eastmoney.com/data/cyrjglist.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils import demjson
 
@@ -27,14 +28,16 @@ def fund_scale_change_em() -> pd.DataFrame:
         "st": "desc",
         "sc": "reportdate",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): -1])
     total_page = data_json["pages"]
     big_df = pd.DataFrame()
     for page in range(1, int(total_page) + 1):
         params.update({"pi": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{"): -1])
         temp_df = pd.DataFrame(data_json["data"])
@@ -75,14 +78,16 @@ def fund_hold_structure_em() -> pd.DataFrame:
         "st": "desc",
         "sc": "reportdate",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): -1])
     total_page = data_json["pages"]
     big_df = pd.DataFrame()
     for page in range(1, int(total_page) + 1):
         params.update({"pi": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_text = r.text
         data_json = demjson.decode(data_text[data_text.find("{"): -1])
         temp_df = pd.DataFrame(data_json["data"])

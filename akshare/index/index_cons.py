@@ -11,6 +11,7 @@ from io import BytesIO, StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 from akshare.utils import demjson
@@ -29,7 +30,8 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
         symbol = "hs300"
         url = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/Market_Center.getHQNodeStockCountSimple"
         params = {"node": f"{symbol}"}
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         page_num = math.ceil(int(r.json()) / 80) + 1
         temp_df = pd.DataFrame()
         for page in range(1, page_num):
@@ -43,7 +45,8 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
                 "symbol": "",
                 "_s_r_a": "init",
             }
-            r = requests.get(url, params=params)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.get(url, params=params, headers=headers, timeout=timeout)
             temp_df = pd.concat(
                 [temp_df, pd.DataFrame(demjson.decode(r.text))], ignore_index=True
             )
@@ -58,7 +61,8 @@ def index_stock_cons_sina(symbol: str = "000300") -> pd.DataFrame:
         "node": f"zhishu_{symbol}",
         "_s_r_a": "setlen",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     return pd.DataFrame(demjson.decode(r.text))
 
 
@@ -70,7 +74,8 @@ def index_stock_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://www.joinquant.com/data/dict/indexData"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf-8"
     index_df = pd.read_html(StringIO(r.text))[0]
     index_df["指数代码"] = index_df["指数代码"].str.split(".", expand=True)[0]
@@ -89,7 +94,8 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://vip.stock.finance.sina.com.cn/corp/go.php/vII_NewestComponent/indexid/{symbol}.phtml"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "gb2312"
     soup = BeautifulSoup(r.text, "lxml")
     page_num = (
@@ -107,7 +113,8 @@ def index_stock_cons(symbol: str = "399639") -> pd.DataFrame:
     temp_df = pd.DataFrame()
     for page in range(1, int(page_num) + 1):
         url = f"https://vip.stock.finance.sina.com.cn/corp/view/vII_NewestComponent.php?page={page}&indexid={symbol}"
-        r = requests.get(url)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         r.encoding = "gb2312"
         temp_df = pd.concat(
             [temp_df, pd.read_html(StringIO(r.text), header=1)[3]], ignore_index=True
@@ -127,7 +134,8 @@ def index_stock_cons_csindex(symbol: str = "000300") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/cons/{symbol}cons.xls"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df.columns = [
         "日期",
@@ -156,7 +164,8 @@ def index_stock_cons_weight_csindex(symbol: str = "000300") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/closeweight/{symbol}closeweight.xls"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df.columns = [
         "日期",

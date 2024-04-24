@@ -8,6 +8,9 @@ http://1.optbbs.com/s/vix.shtml?50ETF
 http://1.optbbs.com/s/vix.shtml?300ETF
 """
 import pandas as pd
+import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from io import BytesIO
 
 
 def index_option_50etf_qvix() -> pd.DataFrame:
@@ -18,7 +21,10 @@ def index_option_50etf_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/k.csv"
-    temp_df = pd.read_csv(url).iloc[:, :5]
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    res.raise_for_status()
+    temp_df = pd.read_csv(BytesIO(res.content)).iloc[:, :5]
     temp_df.columns = [
         "date",
         "open",
@@ -42,7 +48,10 @@ def index_option_50etf_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vix50.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    res.raise_for_status()
+    temp_df = pd.read_csv(BytesIO(res.content)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",
@@ -59,7 +68,10 @@ def index_option_300etf_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/k.csv"
-    temp_df = pd.read_csv(url).iloc[:, [0, 9, 10, 11, 12]]
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    res.raise_for_status()
+    temp_df = pd.read_csv(BytesIO(res.content)).iloc[:, [0, 9, 10, 11, 12]]
     temp_df.columns = [
         "date",
         "open",
@@ -83,7 +95,10 @@ def index_option_300etf_min_qvix() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "http://1.optbbs.com/d/csv/d/vix300.csv"
-    temp_df = pd.read_csv(url).iloc[:, :2]
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    res.raise_for_status()
+    temp_df = pd.read_csv(BytesIO(res.content)).iloc[:, :2]
     temp_df.columns = [
         "time",
         "qvix",

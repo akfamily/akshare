@@ -18,6 +18,7 @@ from datetime import datetime
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -32,7 +33,8 @@ def air_quality_hebei(symbol: str = "唐山市") -> pd.DataFrame:
     """
     url = "http://110.249.223.67/server/api/CityPublishInfo/GetProvinceAndCityPublishData"
     params = {"publishDate": f"{datetime.today().strftime('%Y-%m-%d')} 16:00:00"}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     json_data = r.json()
     city_list = pd.DataFrame.from_dict(json_data["cityPublishDatas"], orient="columns")[
         "CityName"

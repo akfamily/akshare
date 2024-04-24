@@ -7,6 +7,7 @@ https://gushitong.baidu.com/expressnews
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from datetime import datetime
 
 
@@ -43,7 +44,8 @@ def stock_hot_search_baidu(symbol: str = "A股", date: str = "20230428", time: s
         "type": "day" if time == "今日" else "hour",
         "finClientType": "pc",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(
         data_json["Result"]["body"], columns=data_json["Result"]["header"]

@@ -15,6 +15,7 @@ import time
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -38,7 +39,8 @@ def macro_euro_gdp_yoy() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -57,7 +59,8 @@ def macro_euro_gdp_yoy() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -95,7 +98,8 @@ def macro_euro_cpi_mom() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -114,7 +118,8 @@ def macro_euro_cpi_mom() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -150,7 +155,8 @@ def macro_euro_cpi_yoy() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -169,7 +175,8 @@ def macro_euro_cpi_yoy() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -204,7 +211,8 @@ def macro_euro_ppi_mom() -> pd.DataFrame:
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
     }
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -223,7 +231,8 @@ def macro_euro_ppi_mom() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -259,7 +268,8 @@ def macro_euro_retail_sales_mom() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -278,7 +288,8 @@ def macro_euro_retail_sales_mom() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -314,7 +325,8 @@ def macro_euro_employment_change_qoq() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -333,7 +345,8 @@ def macro_euro_employment_change_qoq() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -369,7 +382,8 @@ def macro_euro_unemployment_rate_mom() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -388,7 +402,8 @@ def macro_euro_unemployment_rate_mom() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -424,7 +439,8 @@ def macro_euro_trade_balance() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -443,7 +459,8 @@ def macro_euro_trade_balance() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -479,7 +496,8 @@ def macro_euro_current_account_mom() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -498,7 +516,8 @@ def macro_euro_current_account_mom() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -534,7 +553,8 @@ def macro_euro_industrial_production_mom() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -553,7 +573,8 @@ def macro_euro_industrial_production_mom() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -589,7 +610,8 @@ def macro_euro_manufacturing_pmi() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -608,7 +630,8 @@ def macro_euro_manufacturing_pmi() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -644,7 +667,8 @@ def macro_euro_services_pmi() -> pd.DataFrame:
         "x-version": "1.0.0",
     }
 
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -663,7 +687,8 @@ def macro_euro_services_pmi() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -698,7 +723,8 @@ def macro_euro_zew_economic_sentiment() -> pd.DataFrame:
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
     }
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -717,7 +743,8 @@ def macro_euro_zew_economic_sentiment() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -752,7 +779,8 @@ def macro_euro_sentix_investor_confidence() -> pd.DataFrame:
         "x-csrf-token": "x-csrf-token",
         "x-version": "1.0.0",
     }
-    r = requests.get(url, headers=headers, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     date_list = data_json["data"]
     date_point_list = [item for num, item in enumerate(date_list) if num % 20 == 0]
@@ -771,7 +799,8 @@ def macro_euro_sentix_investor_confidence() -> pd.DataFrame:
             "x-csrf-token": "x-csrf-token",
             "x-version": "1.0.0",
         }
-        r = requests.get(url, headers=headers, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, params=params, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             data_json["data"]["values"],
@@ -799,8 +828,9 @@ def macro_euro_lme_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/lme_position.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/lme_position.json", params=params, headers=headers, timeout=timeout
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
@@ -830,8 +860,9 @@ def macro_euro_lme_stock() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/lme_stock.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/lme_stock.json", params=params, headers=headers, timeout=timeout
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T

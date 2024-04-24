@@ -9,6 +9,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_rule(date: str = "20231205") -> pd.DataFrame:
@@ -24,7 +25,8 @@ def futures_rule(date: str = "20231205") -> pd.DataFrame:
     urllib3.disable_warnings()
     url = " https://www.gtjaqh.com/pc/calendar"
     params = {"date": f"{date}"}
-    r = requests.get(url, params=params, verify=False)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, verify=False, headers=headers, timeout=timeout)
     big_df = pd.read_html(StringIO(r.text), header=1)[0]
     big_df["交易保证金比例"] = big_df["交易保证金比例"].str.strip("%")
     big_df["交易保证金比例"] = pd.to_numeric(big_df["交易保证金比例"], errors="coerce")

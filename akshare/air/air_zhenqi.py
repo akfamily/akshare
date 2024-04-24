@@ -15,6 +15,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 from akshare.utils import demjson
@@ -78,7 +79,8 @@ def air_city_table() -> pd.DataFrame:
             "order": "DESC",
             "type": "DAY",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         temp_df = pd.read_html(StringIO(r.text))[1].iloc[1:, :]
         del temp_df["降序"]
         temp_df.reset_index(inplace=True)
@@ -136,7 +138,8 @@ def air_quality_watch_point(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/81.0.4044.122 Safari/537.36"
     }
-    r = requests.post(url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(ctx.call("decode_result", data_text))
     temp_df = pd.DataFrame(data_json["rows"])
@@ -210,7 +213,8 @@ def air_quality_hist(
         "X-Requested-With": "XMLHttpRequest",
     }
     params = {"param": ctx.call("encode_param", need)}
-    r = requests.post(url, data=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=params, headers=headers, timeout=timeout)
     temp_text = ctx.call("decryptData", r.text)
     data_json = demjson.decode(ctx.call("b.decode", temp_text))
     temp_df = pd.DataFrame(data_json["result"]["data"]["rows"])
@@ -247,7 +251,8 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "order": "DESC",
             "type": "DAY",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         return pd.read_html(StringIO(r.text))[1].iloc[1:, :]
     elif len(date.split("-")) == 2:
         params = {
@@ -256,7 +261,8 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "order": "DESC",
             "type": "MONTH",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         return pd.read_html(StringIO(r.text))[2].iloc[1:, :]
     elif len(date.split("-")) == 1 and date != "实时":
         params = {
@@ -265,7 +271,8 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "order": "DESC",
             "type": "YEAR",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         return pd.read_html(StringIO(r.text))[3].iloc[1:, :]
     if date == "实时":
         params = {
@@ -273,7 +280,8 @@ def air_quality_rank(date: str = "") -> pd.DataFrame:
             "order": "DESC",
             "type": "MONTH",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         return pd.read_html(StringIO(r.text))[0].iloc[1:, :]
 
 

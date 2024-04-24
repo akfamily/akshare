@@ -11,6 +11,7 @@ import time
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.fx.cons import (
     SHORT_HEADERS,
@@ -28,7 +29,8 @@ def fx_spot_quote() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     payload = {"t": str(int(round(time.time() * 1000)))}
-    res = requests.post(FX_SPOT_URL, data=payload, headers=SHORT_HEADERS)
+    SHORT_HEADERS, timeout = get_headers_and_timeout(locals().get('SHORT_HEADERS', {}), locals().get('timeout', None))
+    res = requests.post(FX_SPOT_URL, data=payload, headers=SHORT_HEADERS, timeout=timeout)
     temp_df = pd.DataFrame(res.json()["records"])
     temp_df = temp_df[["ccyPair", "bidPrc", "askPrc", "midprice", "time"]]
     temp_df.columns = [
@@ -52,7 +54,8 @@ def fx_swap_quote() -> pd.DataFrame:
     :return: pandas.DataFrame
     """
     payload = {"t": str(int(round(time.time() * 1000)))}
-    res = requests.post(FX_SWAP_URL, data=payload, headers=SHORT_HEADERS)
+    SHORT_HEADERS, timeout = get_headers_and_timeout(locals().get('SHORT_HEADERS', {}), locals().get('timeout', None))
+    res = requests.post(FX_SWAP_URL, data=payload, headers=SHORT_HEADERS, timeout=timeout)
     temp_df = pd.DataFrame(res.json()["records"])
     temp_df = temp_df[
         [
@@ -85,7 +88,8 @@ def fx_pair_quote() -> pd.DataFrame:
     :return: pandas.DataFrame
     """
     payload = {"t": str(int(round(time.time() * 1000)))}
-    res = requests.post(FX_PAIR_URL, data=payload, headers=SHORT_HEADERS)
+    SHORT_HEADERS, timeout = get_headers_and_timeout(locals().get('SHORT_HEADERS', {}), locals().get('timeout', None))
+    res = requests.post(FX_PAIR_URL, data=payload, headers=SHORT_HEADERS, timeout=timeout)
     temp_df = pd.DataFrame(res.json()["records"])
     temp_df = temp_df[["ccyPair", "bidPrc", "askPrc", "midprice", "time"]]
     temp_df.columns = [

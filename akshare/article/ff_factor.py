@@ -9,6 +9,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.article.cons import ff_home_url
 
@@ -20,7 +21,8 @@ def article_ff_crr() -> pd.DataFrame:
     :return: FF多因子模型单一表格
     :rtype: pandas.DataFrame
     """
-    res = requests.get(ff_home_url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(ff_home_url, headers=headers, timeout=timeout)
     # first table
     list_index = (
         pd.read_html(StringIO(res.text), header=0, index_col=0)[4].iloc[2, :].index.tolist()

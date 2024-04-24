@@ -9,6 +9,7 @@ from io import BytesIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFrame:
@@ -26,7 +27,8 @@ def futures_index_ccidx(symbol: str = "中证商品期货指数") -> pd.DataFram
     }
     url = "http://www.ccidx.com/front/ajax_downZSHQ.do"
     params = {"indexCode": futures_index_map[symbol]}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_excel(BytesIO(r.content), header=1, engine="openpyxl")
     temp_df.columns = [
         "日期",
@@ -96,7 +98,8 @@ def futures_index_min_ccidx(symbol: str = "中证监控油脂油料期货指数"
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36",
         "X-Requested-With": "XMLHttpRequest",
     }
-    r = requests.post(url, params=params, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(
         [data_json["dataMap"]["axisList"], data_json["dataMap"]["lineList"]]

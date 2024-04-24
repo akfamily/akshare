@@ -11,6 +11,7 @@ import time
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def __macro_usa_base_func(symbol: str, params: dict) -> pd.DataFrame:
@@ -34,7 +35,8 @@ def __macro_usa_base_func(symbol: str, params: dict) -> pd.DataFrame:
     params = params
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -99,7 +101,8 @@ def macro_usa_phs() -> pd.DataFrame:
         "pageNum": "1",
         "_": "1669047266881",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [
@@ -145,7 +148,8 @@ def macro_usa_cpi_yoy() -> pd.DataFrame:
         "client": "WEB",
         "_": "1689320600161",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     data_list = data_json["result"]["data"]
     temp_df = pd.DataFrame(
@@ -474,8 +478,9 @@ def macro_usa_rig_count() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": t}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     res = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/baker.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/baker.json", params=params, headers=headers, timeout=timeout
     )
     temp_df = pd.DataFrame(res.json().get("values")).T
     big_df = pd.DataFrame()
@@ -969,8 +974,9 @@ def macro_usa_crude_inner() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": t}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     res = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/usa_oil.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/usa_oil.json", params=params, headers=headers, timeout=timeout
     )
     temp_df = pd.DataFrame(res.json().get("values")).T
     big_df = pd.DataFrame()
@@ -1005,8 +1011,9 @@ def macro_usa_cftc_nc_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/cftc_4.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/cftc_4.json", params=params, headers=headers, timeout=timeout
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
@@ -1034,8 +1041,9 @@ def macro_usa_cftc_c_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/cftc_2.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/cftc_2.json", params=params, headers=headers, timeout=timeout
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
@@ -1063,8 +1071,9 @@ def macro_usa_cftc_merchant_currency_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/cftc_3.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/cftc_3.json", params=params, headers=headers, timeout=timeout
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
@@ -1092,8 +1101,9 @@ def macro_usa_cftc_merchant_goods_holding() -> pd.DataFrame:
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/cftc_1.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/cftc_1.json", params=params, headers=headers, timeout=timeout
     )
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["values"]).T
@@ -1121,8 +1131,9 @@ def macro_usa_cme_merchant_goods_holding():
     """
     t = time.time()
     params = {"_": str(int(round(t * 1000)))}
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
-        url="https://cdn.jin10.com/data_center/reports/cme_3.json", params=params
+        url="https://cdn.jin10.com/data_center/reports/cme_3.json", params=params, headers=headers, timeout=timeout
     )
     json_data = r.json()
     big_df = pd.DataFrame()

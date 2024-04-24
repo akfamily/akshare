@@ -8,6 +8,7 @@ https://www.swsresearch.com/institute_sw/allIndex/releasedIndex
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils.cons import headers
 
@@ -30,7 +31,8 @@ def index_realtime_fund_sw(symbol: str = "基础一级") -> pd.DataFrame:
         "rule": "",
         "indexType": 1,
     }
-    r = requests.post(url, json=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, json=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["list"])
     temp_df.rename(
@@ -76,7 +78,8 @@ def index_hist_fund_sw(symbol: str = "807200", period: str = "day") -> pd.DataFr
     }
     url = "https://www.swsresearch.com/insWechatSw/fundIndex/getFundKChartData"
     payload = {"swIndexCode": symbol, "type": period_map[period]}
-    r = requests.post(url, json=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, json=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.rename(

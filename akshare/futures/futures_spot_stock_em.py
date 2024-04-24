@@ -8,6 +8,7 @@ https://data.eastmoney.com/ifdata/xhgp.html
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils import demjson
 
@@ -45,7 +46,8 @@ def futures_spot_stock(symbol: str = "能源") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
         "(KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_text = r.text
     temp_json = demjson.decode(
         data_text[

@@ -7,6 +7,7 @@ https://fund.eastmoney.com/data/xinfound.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils import demjson
 
@@ -27,7 +28,8 @@ def fund_new_found_em() -> pd.DataFrame:
         "isbuy": "1",
         "v": "0.4069919776543214",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text.strip("var newfunddata="))
     temp_df = pd.DataFrame(data_json["datas"])

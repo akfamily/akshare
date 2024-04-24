@@ -8,6 +8,7 @@ https://danjuanfunds.com/funding/003545
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def fund_individual_basic_info_xq(
@@ -27,6 +28,7 @@ def fund_individual_basic_info_xq(
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
     temp_df = pd.json_normalize(json_data)
@@ -92,6 +94,7 @@ def fund_individual_achievement_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
     combined_df = None
@@ -146,6 +149,7 @@ def fund_individual_analysis_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]["index_data_list"]
     temp_df = pd.json_normalize(json_data)
@@ -199,6 +203,7 @@ def fund_individual_profit_probability_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]["data_list"]
     temp_df = pd.DataFrame.from_dict(json_data, orient="columns")
@@ -238,6 +243,7 @@ def fund_individual_detail_info_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/80.0.3987.149 Safari/537.36"
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(url, headers=headers, timeout=timeout)
     json_data = r.json()["data"]
     combined_df = None
@@ -290,6 +296,7 @@ def fund_individual_detail_hold_xq(
         "fund_code": f"{symbol}",
         "report_date": f"{'-'.join([date[:4], date[4:6], date[6:]])}",
     }
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(url, headers=headers, params=params, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame.from_dict(data_json["data"]["chart_list"], orient="columns")

@@ -11,6 +11,7 @@ import re
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 from akshare.bond.cons import (
@@ -34,7 +35,8 @@ def _get_zh_bond_hs_cov_page_count() -> int:
     params = {
         "node": "hskzz_z",
     }
-    r = requests.get(zh_sina_bond_hs_cov_count_url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(zh_sina_bond_hs_cov_count_url, params=params, headers=headers, timeout=timeout)
     page_count = int(re.findall(re.compile(r"\d+"), r.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -55,7 +57,8 @@ def bond_zh_hs_cov_spot() -> pd.DataFrame:
     tqdm = get_tqdm()
     for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_bond_hs_payload_copy.update({"page": page})
-        res = requests.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(zh_sina_bond_hs_cov_url, params=zh_sina_bond_hs_payload_copy, headers=headers, timeout=timeout)
         data_json = demjson.decode(res.text)
         big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
     return big_df
@@ -70,10 +73,13 @@ def bond_zh_hs_cov_daily(symbol: str = "sh010107") -> pd.DataFrame:
     :return: 指定沪深可转债代码的日 K 线数据
     :rtype: pandas.DataFrame
     """
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     r = requests.get(
         zh_sina_bond_hs_cov_hist_url.format(
             symbol, datetime.datetime.now().strftime("%Y_%m_%d")
-        )
+        ),
+        headers=headers,
+        timeout=timeout
     )
     js_code = py_mini_racer.MiniRacer()
     js_code.eval(hk_js_decode)
@@ -106,7 +112,8 @@ def _code_id_map() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df["market_id"] = 1
@@ -125,7 +132,8 @@ def _code_id_map() -> dict:
         "fields": "f12",
         "_": "1623833739532",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df_sz = pd.DataFrame(data_json["data"]["diff"])
     temp_df_sz["sz_id"] = 0
@@ -168,7 +176,8 @@ def bond_zh_hs_cov_min(
             "ut": "f057cbcbce2a86e2866ab8877db1d059",
             "ndays": "1",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["trends"]]
@@ -216,7 +225,8 @@ def bond_zh_hs_cov_min(
             "ut": "7eea3edcaed734bea9cbfc24409ed989",
             "forcect": "1",
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(
             [item.split(",") for item in data_json["data"]["klines"]]
@@ -287,7 +297,8 @@ def bond_zh_hs_cov_pre_min(symbol: str = "sh113570") -> pd.DataFrame:
         "secid": f"{market_type[symbol[:2]]}.{symbol[2:]}",
         "_": "1623766962675",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame([item.split(",") for item in data_json["data"]["trends"]])
     temp_df.columns = [
@@ -336,14 +347,16 @@ def bond_zh_cov() -> pd.DataFrame:
         "source": "WEB",
         "client": "WEB",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()
     tqdm = get_tqdm()
     for page in tqdm(range(1, total_page + 1), leave=False):
         params.update({"pageNumber": page})
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["result"]["data"])
         big_df = pd.concat(objs=[big_df, temp_df], ignore_index=True)
@@ -490,7 +503,8 @@ def bond_cov_comparison() -> pd.DataFrame:
         "f235,f236,f237,f238,f239,f240,f241,f242,f26,f243",
         "_": "1590386857527",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     text_data = r.text
     json_data = demjson.decode(text_data)
     temp_df = pd.DataFrame(json_data["data"]["diff"])
@@ -594,7 +608,8 @@ def bond_zh_cov_info(
                 "f240~10~SECURITY_CODE~REDEEM_TRIG_PRICE,f23~01~CONVERT_STOCK_CODE~PBV_RATIO",
             }
         )
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
@@ -605,7 +620,8 @@ def bond_zh_cov_info(
                 "quoteColumns": "",
             }
         )
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
@@ -618,7 +634,8 @@ def bond_zh_cov_info(
                 "sortTypes": "1",
             }
         )
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
@@ -629,7 +646,8 @@ def bond_zh_cov_info(
                 "quoteColumns": "",
             }
         )
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame.from_dict(data_json["result"]["data"])
         return temp_df
@@ -655,7 +673,8 @@ def bond_zh_cov_value_analysis(symbol: str = "113527") -> pd.DataFrame:
         "ps": "8000",
         "_": "1648629088839",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["result"]["data"])
     temp_df.columns = [

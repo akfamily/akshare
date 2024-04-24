@@ -8,6 +8,7 @@ https://www.jisilu.cn/data/cnreits/#CnReits
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def reits_realtime_em() -> pd.DataFrame:
@@ -31,7 +32,8 @@ def reits_realtime_em() -> pd.DataFrame:
         "fields": "f2,f3,f4,f5,f6,f12,f14,f15,f16,f17,f18",
         "_": "1630048369992",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.reset_index(inplace=True)

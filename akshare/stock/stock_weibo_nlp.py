@@ -14,6 +14,7 @@ from typing import Dict
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_js_weibo_nlp_time() -> Dict:
@@ -41,7 +42,8 @@ def stock_js_weibo_nlp_time() -> Dict:
         "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
     }
 
-    r = requests.get(url, headers=headers, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, data=payload, timeout=timeout)
     return r.json()["data"]["timescale"]
 
 
@@ -76,7 +78,8 @@ def stock_js_weibo_report(time_period: str = "CNHOUR12") -> pd.DataFrame:
         'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8'
     }
 
-    r = requests.get(url, params=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=payload, headers=headers, timeout=timeout)
     temp_df = pd.DataFrame(r.json()["data"])
     temp_df['rate'] = pd.to_numeric(temp_df['rate'])
     return temp_df

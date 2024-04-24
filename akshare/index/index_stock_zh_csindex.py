@@ -11,6 +11,8 @@ from functools import lru_cache
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from io import BytesIO
 
 
 def __get_current_timestamp_ms() -> int:
@@ -221,7 +223,8 @@ def stock_zh_index_hist_csindex(
         "startDate": start_date,
         "endDate": end_date,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     temp_df.columns = [
@@ -266,7 +269,10 @@ def stock_zh_index_value_csindex(symbol: str = "H30374") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://csi-web-dev.oss-cn-shanghai-finance-1-pub.aliyuncs.com/static/html/csindex/public/uploads/file/autofile/indicator/{symbol}indicator.xls"
-    temp_df = pd.read_excel(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    res.raise_for_status()
+    temp_df = pd.read_excel(BytesIO(res.content))
     temp_df.columns = [
         "日期",
         "指数代码",
@@ -314,7 +320,8 @@ def index_value_name_funddb() -> pd.DataFrame:
         "act_time": str(get_current_timestamp_ms_str)
     }
     payload.update(encode_params)
-    r = requests.post(url, json=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, json=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["right_list"])
     temp_df.columns = [
@@ -422,7 +429,8 @@ def index_value_hist_funddb(
         "act_time": str(get_current_timestamp_ms_str)
     }
     payload.update(encode_params)
-    r = requests.post(url, json=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, json=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     big_df = pd.DataFrame()
     temp_df = pd.DataFrame(

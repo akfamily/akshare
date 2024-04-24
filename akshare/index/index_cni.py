@@ -10,6 +10,7 @@ from io import BytesIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def index_all_cni() -> pd.DataFrame:
@@ -25,7 +26,8 @@ def index_all_cni() -> pd.DataFrame:
         "rows": "2000",
         "pageNum": "1",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["rows"])
     temp_df.columns = [
@@ -97,7 +99,8 @@ def index_hist_cni(symbol: str = "399001", start_date: str = "20230114", end_dat
         "endDate": end_date,
         "frequency": "day",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["data"])
     temp_df.columns = [
@@ -156,7 +159,8 @@ def index_detail_cni(symbol: str = '399005', date: str = '202011') -> pd.DataFra
         'indexcode': symbol,
         'dateStr': '-'.join([date[:4], date[4:]])
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_excel(BytesIO(r.content))
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
@@ -193,7 +197,8 @@ def index_detail_hist_cni(symbol: str = '399001', date: str = "") -> pd.DataFram
             'pageNum': '1',
             'rows': '50000',
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json['data']['rows'])
         temp_df.columns = [
@@ -223,7 +228,8 @@ def index_detail_hist_cni(symbol: str = '399001', date: str = "") -> pd.DataFram
         params = {
             'indexcode': symbol
         }
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         temp_df = pd.read_excel(BytesIO(r.content))
     temp_df['样本代码'] = temp_df['样本代码'].astype(str).str.zfill(6)
     temp_df.columns = [
@@ -254,7 +260,8 @@ def index_detail_hist_adjust_cni(symbol: str = '399005') -> pd.DataFrame:
     params = {
         'indexcode': symbol
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     try:
         temp_df = pd.read_excel(BytesIO(r.content), engine="openpyxl")
     except zipfile.BadZipFile as e:

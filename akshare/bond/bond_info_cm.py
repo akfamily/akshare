@@ -9,6 +9,7 @@ import functools
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -27,7 +28,8 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
         }
-        r = requests.post(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["enty"])
         temp_df.columns = ["code", "name"]
@@ -44,7 +46,8 @@ def bond_info_cm_query(symbol: str = "评级等级") -> pd.DataFrame:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
         }
-        r = requests.post(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"][f"{symbol_map[symbol]}"])
         if temp_df.shape[1] == 1:
@@ -129,13 +132,15 @@ def bond_info_cm(
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
     }
-    r = requests.post(url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["data"]["pageTotal"]
     big_df = pd.DataFrame()
     for page in tqdm(range(1, total_page + 1), leave=False):
         payload.update({"pageNo": page})
-        r = requests.post(url, data=payload, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, data=payload, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"]["resultList"])
         big_df = pd.concat([big_df, temp_df], ignore_index=True)
@@ -177,7 +182,8 @@ def bond_info_detail_cm(symbol: str = "淮安农商行CDSD2022021012") -> pd.Dat
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36'
     }
-    r = requests.post(url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     data_dict = data_json["data"]["bondBaseInfo"]
     if data_dict["creditRateEntyList"]:

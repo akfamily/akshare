@@ -25,10 +25,12 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 from akshare.futures import cons
 from akshare.futures.requests_fun import requests_link
+from akshare.request_config_manager import get_headers_and_timeout
 from akshare.futures.symbol_var import symbol_varieties
 
 calendar = cons.get_calendar()
@@ -440,7 +442,8 @@ def get_czce_rank_table(date: str = "20210428") -> dict:
             f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date.year}/"
             f"{date.isoformat().replace('-', '')}/FutureDataHolding.xls"
         )
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         temp_df = pd.read_excel(BytesIO(r.content))
 
     temp_pinzhong_index = [
@@ -537,7 +540,8 @@ def _get_dce_contract_list(date, var):
 
     while 1:
         try:
-            r = requests.post(url, params=params, headers=headers)
+            headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+            r = requests.post(url, params=params, headers=headers, timeout=timeout)
             soup = BeautifulSoup(r.text, "lxml")
             contract_list = [
                 re.findall(
@@ -599,7 +603,11 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                 date.day,
             )
             try:
-                temp_df = pd.read_excel(url[:-3] + "excel", header=0, skiprows=3)
+                url = url[:-3] + "excel"
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                res = requests.get(url, headers=headers, timeout=timeout)
+                res.raise_for_status()
+                temp_df = pd.read_excel(StringIO(res.content), header=0, skiprows=3)
                 temp_df.dropna(how="any", axis=0, inplace=True)
                 temp_df = temp_df.map(lambda x: str(x).replace(",", ""))
                 del temp_df["名次.1"]
@@ -653,7 +661,8 @@ def get_dce_rank_table(date: str = "20230706", vars_list=cons.contract_symbols) 
                     "contract.variety_id": var.lower(),
                     "contract": "",
                 }
-                r = requests.post(temp_url, data=payload)
+                headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                r = requests.post(temp_url, data=payload, headers=headers, timeout=timeout)
                 if r.status_code != 200:
                     big_dict[symbol] = {}
                 else:
@@ -745,7 +754,8 @@ def get_cffex_rank_table(date: str = "20190805", vars_list=cons.contract_symbols
         )
         # url = 'http://www.cffex.com.cn/sj/ccpm/201908/05/IF_1.csv'
         # url = 'http://www.cffex.com.cn/sj/ccpm/202308/08/IF_1.csv'
-        r = requests.get(url, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, headers=headers, timeout=timeout)
         # 20200316 开始数据结构变化，统一格式
         if r.status_code == 200:
             try:
@@ -844,7 +854,8 @@ def futures_dce_position_rank(
         "day": str(date.day).zfill(2),
         "batchExportFlag": "batch",
     }
-    r = requests.post(url, payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, payload, headers=headers, timeout=timeout)
     big_dict = dict()
     with zipfile.ZipFile(BytesIO(r.content), "r") as z:
         for i in z.namelist():
@@ -1072,7 +1083,8 @@ def futures_dce_position_rank_other(date: str = "20160104"):
         "contract.variety_id": "c",
         "contract": "",
     }
-    r = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     symbol_list = [
         item["onclick"].strip("javascript:setVariety(").strip("');")
@@ -1090,7 +1102,8 @@ def futures_dce_position_rank_other(date: str = "20160104"):
             "contract.variety_id": symbol,
             "contract": "",
         }
-        r = requests.post(url, data=payload)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url, data=payload, headers=headers, timeout=timeout)
         soup = BeautifulSoup(r.text, "lxml")
         contract_list = [
             item["onclick"].strip("javascript:setContract_id('").strip("');")
@@ -1110,7 +1123,8 @@ def futures_dce_position_rank_other(date: str = "20160104"):
                         "contract.variety_id": symbol,
                         "contract": "",
                     }
-                    r = requests.post(url, data=payload)
+                    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+                    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
                     temp_df = pd.read_html(StringIO(r.text))[1].iloc[:-1, :]
                     temp_df.columns = [
                         "rank",
@@ -1160,7 +1174,8 @@ def __futures_gfex_vars_list() -> list:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/119.0.0.0 Safari/537.36"
     }
-    r = requests.post(url=url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url=url, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     var_list = temp_df["varietyId"].tolist()
@@ -1187,7 +1202,8 @@ def __futures_gfex_contract_list(symbol: str = "si", date: str = "20231113") -> 
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/119.0.0.0 Safari/537.36"
     }
-    r = requests.post(url=url, data=payload, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url=url, data=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"])
     contract_list = temp_df.iloc[:, 0].tolist()
@@ -1228,7 +1244,8 @@ def __futures_gfex_contract_data(
                 "data_type": page,
             }
         )
-        r = requests.post(url=url, data=payload, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.post(url=url, data=payload, headers=headers, timeout=timeout)
         data_json = r.json()
         temp_df = pd.DataFrame(data_json["data"])
         if "qtySub" in temp_df.columns:

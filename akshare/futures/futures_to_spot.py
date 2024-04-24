@@ -8,6 +8,7 @@ from io import StringIO, BytesIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
@@ -25,7 +26,8 @@ def futures_to_spot_shfe(date: str = "202312") -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["ExchangeDelivery"])
     temp_df.columns = [
@@ -79,7 +81,8 @@ def futures_delivery_dce(date: str = "202312") -> pd.DataFrame:
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
     }
-    r = requests.post(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["交割日期"] = (
         temp_df["交割日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
@@ -109,7 +112,8 @@ def futures_to_spot_dce(date: str = "202312") -> pd.DataFrame:
         "ftsDealQuotes.begin_month": date,
         "ftsDealQuotes.end_month": date,
     }
-    r = requests.post(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["期转现发生日期"] = (
         temp_df["期转现发生日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
@@ -136,7 +140,8 @@ def futures_delivery_match_dce(symbol: str = "a") -> pd.DataFrame:
         "contract.contract_id": "all",
         "contract.variety_id": symbol,
     }
-    r = requests.post(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, params=params, headers=headers, timeout=timeout)
     temp_df = pd.read_html(StringIO(r.text))[0]
     temp_df["配对日期"] = (
         temp_df["配对日期"].astype(str).str.split(".", expand=True).iloc[:, 0]
@@ -170,7 +175,8 @@ def futures_to_spot_czce(date: str = "20231228") -> pd.DataFrame:
         "Upgrade-Insecure-Requests": "1",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf-8"
     temp_df = pd.read_excel(BytesIO(r.content), skiprows=1)
 
@@ -201,7 +207,8 @@ def futures_delivery_match_czce(date: str = "20210106") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataDelsettle.xls"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf-8"
     temp_df = pd.read_excel(BytesIO(r.content), skiprows=0)
     index_flag = temp_df[temp_df.iloc[:, 0].str.contains("配对日期")].index.values
@@ -249,7 +256,8 @@ def futures_delivery_czce(date: str = "20210112") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"http://www.czce.com.cn/cn/DFSStaticFiles/Future/{date[:4]}/{date}/FutureDataSettlematched.xls"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf-8"
     temp_df = pd.read_excel(BytesIO(r.content), skiprows=1)
     temp_df.columns = [
@@ -279,7 +287,8 @@ def futures_delivery_shfe(date: str = "202312") -> pd.DataFrame:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36",
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     r.encoding = "utf-8"
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["o_curdelivery"])

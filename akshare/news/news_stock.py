@@ -9,6 +9,7 @@ import json
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_news_em(symbol: str = "300059") -> pd.DataFrame:
@@ -28,7 +29,8 @@ def stock_news_em(symbol: str = "300059") -> pd.DataFrame:
         + ',"type":["cmsArticleWebOld"],"client":"web","clientType":"web","clientVersion":"curr","param":{"cmsArticleWebOld":{"searchScope":"default","sort":"default","pageIndex":1,"pageSize":100,"preTag":"<em>","postTag":"</em>"}}}',
         "_": "1668256937996",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = json.loads(
         data_text.strip("jQuery3510875346244069884_1668256937995(")[:-1]

@@ -8,6 +8,8 @@ https://legulegu.com/stockdata/index-composition?industryCode=851921.SI
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from io import BytesIO
 from bs4 import BeautifulSoup
 
 
@@ -19,7 +21,8 @@ def sw_index_first_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://legulegu.com/stockdata/sw-industry-overview"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     code_raw = soup.find("div", attrs={"id": "level1Items"}).find_all(
         "div", attrs={"class": "lg-industries-item-chinese-title"}
@@ -75,7 +78,8 @@ def sw_index_second_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://legulegu.com/stockdata/sw-industry-overview"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     code_raw = soup.find("div", attrs={"id": "level2Items"}).find_all(
         "div", attrs={"class": "lg-industries-item-chinese-title"}
@@ -131,7 +135,8 @@ def sw_index_third_info() -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = "https://legulegu.com/stockdata/sw-industry-overview"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     code_raw = soup.find("div", attrs={"id": "level3Items"}).find_all(
         "div", attrs={"class": "lg-industries-item-chinese-title"}
@@ -189,7 +194,10 @@ def sw_index_third_cons(symbol: str = "801120.SI") -> pd.DataFrame:
     :rtype: pandas.DataFrame
     """
     url = f"https://legulegu.com/stockdata/index-composition?industryCode={symbol}"
-    temp_df = pd.read_html(url)[0]
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    res.raise_for_status()
+    temp_df = pd.read_html(BytesIO(res.content))[0]
     temp_df.columns = [
         "序号",
         "股票代码",

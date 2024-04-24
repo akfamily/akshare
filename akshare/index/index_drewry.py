@@ -8,6 +8,7 @@ https://infogram.com/world-container-index-1h17493095xl4zj
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 from akshare.utils import demjson
@@ -33,7 +34,8 @@ def drewry_wci_index(symbol: str = "composite") -> pd.DataFrame:
         "rotterdam-new york": 7,
     }
     url = "https://infogram.com/world-container-index-1h17493095xl4zj"
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     data_text = soup.find_all("script")[-4].string.strip("window.infographicData=")[:-1]
     data_json = demjson.decode(data_text)

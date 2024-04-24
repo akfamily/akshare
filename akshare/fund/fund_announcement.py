@@ -9,6 +9,7 @@ import time
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def fund_announcement_personnel_em(symbol: str = "000001") -> pd.DataFrame:
@@ -32,7 +33,8 @@ def fund_announcement_personnel_em(symbol: str = "000001") -> pd.DataFrame:
         "type": "4",
         "_": round(time.time() * 1000),
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["Data"])
     temp_df.columns = [

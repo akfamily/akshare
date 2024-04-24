@@ -7,6 +7,7 @@ https://stock.finance.sina.com.cn/futures/view/optionsDP.php
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 from akshare.utils import demjson
@@ -24,7 +25,8 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
     url = (
         "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
     )
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     url_list = [
         item.find("a")["href"]
@@ -40,7 +42,8 @@ def option_commodity_contract_sina(symbol: str = "玉米期权") -> pd.DataFrame
         key: value for key, value in zip(commodity_list, url_list)
     }
     url = "https://stock.finance.sina.com.cn" + comm_list_dict[symbol]
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     symbol = (
         soup.find(attrs={"id": "option_symbol"})
@@ -74,7 +77,8 @@ def option_commodity_contract_table_sina(
     url = (
         "https://stock.finance.sina.com.cn/futures/view/optionsDP.php/pg_o/dce"
     )
-    r = requests.get(url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     soup = BeautifulSoup(r.text, "lxml")
     url_list = [
         item.find("a")["href"]
@@ -96,7 +100,8 @@ def option_commodity_contract_table_sina(
         "exchange": comm_list_dict[symbol].split("/")[-1],
         "pinzhong": contract,
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     up_df = pd.DataFrame(data_json["result"]["data"]["up"])
     down_df = pd.DataFrame(data_json["result"]["data"]["down"])
@@ -149,7 +154,8 @@ def option_commodity_hist_sina(symbol: str = "au2012C392") -> pd.DataFrame:
     """
     url = "https://stock.finance.sina.com.cn/futures/api/jsonp.php/var%20_m2009C30002020_7_17=/FutureOptionAllService.getOptionDayline"
     params = {"symbol": symbol}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("[") : -2])
     temp_df = pd.DataFrame(data_json)

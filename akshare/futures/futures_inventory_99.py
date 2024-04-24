@@ -9,6 +9,8 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
+from akshare.request_config_manager import get_headers_and_timeout
 from bs4 import BeautifulSoup
 
 from akshare.futures.cons import (
@@ -224,12 +226,14 @@ def futures_inventory_99(
             session = requests.Session()
             url = "http://service.99qh.com/Storage/Storage.aspx"
             params = {"page": "99qh"}
-            r = session.post(url, params=params, headers=sample_headers)
+            sample_headers, timeout = get_headers_and_timeout(locals().get('sample_headers', {}), locals().get('timeout', None))
+            r = session.post(url, params=params, headers=sample_headers, timeout=timeout)
             cookie = r.cookies.get_dict()
             url = "http://service.99qh.com/Storage/Storage.aspx"
             params = {"page": "99qh"}
+            sample_headers, timeout = get_headers_and_timeout(locals().get('sample_headers', {}), locals().get('timeout', None))
             r = requests.post(
-                url, params=params, headers=sample_headers, cookies=cookie
+                url, params=params, headers=sample_headers, cookies=cookie, timeout=timeout
             )
             soup = BeautifulSoup(r.text, "lxml")
             view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
@@ -246,12 +250,14 @@ def futures_inventory_99(
                 "ddlExchName": int(exchange),
                 "ddlGoodsName": 1,
             }
+            qh_headers, timeout = get_headers_and_timeout(locals().get('qh_headers', {}), locals().get('timeout', None))
             res = requests.post(
                 url,
                 params={"page": "99qh"},
                 data=payload,
                 headers=qh_headers,
                 cookies=cookie,
+                timeout=timeout
             )
             soup = BeautifulSoup(res.text, "lxml")
             view_state = soup.find_all(attrs={"id": "__VIEWSTATE"})[0]["value"]
@@ -268,12 +274,14 @@ def futures_inventory_99(
                 "ddlExchName": int(exchange),
                 "ddlGoodsName": int(symbol),
             }
+            qh_headers, timeout = get_headers_and_timeout(locals().get('qh_headers', {}), locals().get('timeout', None))
             res = requests.post(
                 url,
                 params=params,
                 data=payload,
                 headers=qh_headers,
                 cookies=cookie,
+                timeout=timeout
             )
             data_df = pd.read_html(StringIO(res.text))[-1].T
             data_df.columns = data_df.iloc[0, :]

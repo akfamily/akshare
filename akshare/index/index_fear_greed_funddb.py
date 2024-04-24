@@ -9,6 +9,7 @@ import json
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 from akshare.datasets import get_ths_js
@@ -48,7 +49,8 @@ def index_fear_greed_funddb(symbol: str = "上证指数") -> pd.DataFrame:
         "version": "2.4.5",
         "act_time": 1697623588394,
     }
-    r = requests.post(url, json=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, json=payload, headers=headers, timeout=timeout)
     data_json = r.json()
     js_code = py_mini_racer.MiniRacer()
     js_content = _get_file_content_ths("cninfo.js")

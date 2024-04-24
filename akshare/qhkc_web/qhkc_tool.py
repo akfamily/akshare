@@ -9,6 +9,7 @@ from typing import AnyStr
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.futures.cons import QHKC_TOOL_FOREIGN_URL, QHKC_TOOL_GDP_URL
 
@@ -41,7 +42,8 @@ def qhkc_tool_foreign(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
      美棉花  10/07 23:30      61.69        61.05 -1.037
     """
     payload_id = {"page": 1, "limit": 10}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print("数据获取成功")
     json_data = r.json()
     name = []
@@ -87,7 +89,8 @@ def qhkc_tool_nebula(url: AnyStr = QHKC_TOOL_FOREIGN_URL):
      美棉花  10/07 23:30      61.69        61.05 -1.037
     """
     payload_id = {"page": 1, "limit": 10}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print("数据获取成功")
     json_data = r.json()
     name = []
@@ -163,7 +166,9 @@ def qhkc_tool_gdp(url: AnyStr = QHKC_TOOL_GDP_URL):
      越南     245     7.31%     6.88%  ...   -3.50%   57.50%   3.00    94.67
   捷克共和国     244     2.70%     0.70%  ...    0.90%   32.70%   0.30    10.61
     """
-    data = pd.read_html(url, encoding="utf-8")
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(url, headers=headers, timeout=timeout)
+    data = pd.read_html(res.content, encoding="utf-8")
     columns_list = data[0].columns.tolist()
     columns_list[0] = "国家"
     data[0].columns = columns_list

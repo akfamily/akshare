@@ -10,6 +10,7 @@ import re
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_individual_spot_xq(
@@ -31,7 +32,8 @@ def stock_individual_spot_xq(
         "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/78.0.3904.108 Safari/537.36"
     }
-    session.get(url="https://xueqiu.com", headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    session.get(url="https://xueqiu.com", headers=headers, timeout=timeout)
     url = f"https://stock.xueqiu.com/v5/stock/quote.json?symbol={symbol}&extend=detail"
     r = session.get(url, headers=headers, timeout=timeout)
     column_name_map = {

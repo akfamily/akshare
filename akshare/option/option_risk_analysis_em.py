@@ -6,6 +6,7 @@ Desc: 东方财富网-数据中心-特色数据-期权风险分析
 https://data.eastmoney.com/other/riskanal.html
 """
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 import pandas as pd
 
 
@@ -29,7 +30,8 @@ def option_risk_analysis_em() -> pd.DataFrame:
         "fields": "f1,f2,f3,f12,f13,f14,f302,f303,f325,f326,f327,f329,f328,f301,f152,f154",
         "fs": "m:10",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["data"]["diff"])
     temp_df.columns = [

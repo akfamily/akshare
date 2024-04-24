@@ -7,6 +7,7 @@ https://quote.eastmoney.com/concept/sh603777.html?from=classic
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.stock_feature.stock_hist_em import code_id_map_em
 
@@ -32,7 +33,8 @@ def stock_individual_info_em(symbol: str = "603777", timeout: float = None) -> p
         "secid": f"{code_id_dict[symbol]}.{symbol}",
         "_": "1640157544804",
     }
-    r = requests.get(url, params=params, timeout=timeout)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, timeout=timeout, headers=headers)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json)
     temp_df.reset_index(inplace=True)

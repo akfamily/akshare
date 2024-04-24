@@ -9,6 +9,7 @@ from typing import AnyStr
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.futures.cons import (
     QHKC_INDEX_URL,
@@ -39,13 +40,15 @@ def get_qhkc_index(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX_URL):
     """
     name_id_dict = {}
     qhkc_index_url = "https://qhkch.com/ajax/official_indexes.php"
-    r = requests.post(qhkc_index_url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(qhkc_index_url, headers=headers, timeout=timeout)
     display_name = [item["name"] for item in r.json()["data"]]
     index_id = [item["id"] for item in r.json()["data"]]
     for item in range(len(display_name)):
         name_id_dict[display_name[item]] = index_id[item]
     payload_id = {"id": name_id_dict[name]}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print(name, "数据获取成功")
     json_data = r.json()
     date = json_data["data"]["date"]
@@ -115,13 +118,15 @@ def get_qhkc_index_trend(name: AnyStr = "奇货商品", url: AnyStr = QHKC_INDEX
     """
     name_id_dict = {}
     qhkc_index_url = "https://qhkch.com/ajax/official_indexes.php"
-    r = requests.post(qhkc_index_url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(qhkc_index_url, headers=headers, timeout=timeout)
     display_name = [item["name"] for item in r.json()["data"]]
     index_id = [item["id"] for item in r.json()["data"]]
     for item in range(len(display_name)):
         name_id_dict[display_name[item]] = index_id[item]
     payload_id = {"page": 1, "limit": 10, "index": name_id_dict[name], "date": ""}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print(f"{name}期货指数-大资金动向数据获取成功")
     json_data = r.json()
     df_temp = pd.DataFrame()
@@ -168,13 +173,15 @@ def get_qhkc_index_profit_loss(
     """
     name_id_dict = {}
     qhkc_index_url = "https://qhkch.com/ajax/official_indexes.php"
-    r = requests.post(qhkc_index_url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(qhkc_index_url, headers=headers, timeout=timeout)
     display_name = [item["name"] for item in r.json()["data"]]
     index_id = [item["id"] for item in r.json()["data"]]
     for item in range(len(display_name)):
         name_id_dict[display_name[item]] = index_id[item]
     payload_id = {"index": name_id_dict[name], "date1": start_date, "date2": end_date}
-    r = requests.post(url, data=payload_id)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload_id, headers=headers, timeout=timeout)
     print(f"{name}期货指数-盈亏分布数据获取成功")
     json_data = r.json()
     indexes = json_data["data"]["indexes"]

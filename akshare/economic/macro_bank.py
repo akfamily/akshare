@@ -22,6 +22,7 @@ import time
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 # 金十数据中心-经济指标-央行利率-主要央行利率-美联储利率决议报告
@@ -58,7 +59,8 @@ def macro_bank_usa_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -134,7 +136,8 @@ def macro_bank_euro_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -210,7 +213,8 @@ def macro_bank_newzealand_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -286,7 +290,8 @@ def macro_bank_switzerland_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -362,7 +367,8 @@ def macro_bank_english_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -438,7 +444,8 @@ def macro_bank_australia_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -514,7 +521,8 @@ def macro_bank_japan_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -590,7 +598,8 @@ def macro_bank_russia_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -666,7 +675,8 @@ def macro_bank_india_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break
@@ -742,7 +752,8 @@ def macro_bank_brazil_interest_rate() -> pd.DataFrame:
     }
     big_df = pd.DataFrame()
     while True:
-        r = requests.get(url, params=params, headers=headers)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_json = r.json()
         if not data_json["data"]["values"]:
             break

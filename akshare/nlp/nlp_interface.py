@@ -8,6 +8,7 @@ https://www.ownthink.com/docs/kg/
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def nlp_ownthink(word: str = "人工智能", indicator: str = "entity") -> pd.DataFrame:
@@ -25,7 +26,8 @@ def nlp_ownthink(word: str = "人工智能", indicator: str = "entity") -> pd.Da
     payload = {
         "entity": word,
     }
-    r = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     if not r.json()["data"]:
         print("Can not find the resource, please type into the correct word")
         return None
@@ -52,7 +54,8 @@ def nlp_answer(question: str = "人工智能") -> str:
     params = {
         'spoken': question
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     json_data = r.json()
     answer = json_data['data']['info']['text']
     return answer

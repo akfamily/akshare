@@ -10,6 +10,7 @@ import io
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def stock_industry_clf_hist_sw() -> pd.DataFrame:
@@ -26,7 +27,8 @@ def stock_industry_clf_hist_sw() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/102.0.0.0 Safari/537.36"
     }
-    r = requests.get(url, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, headers=headers, timeout=timeout)
     temp_df = pd.read_excel(
         io.BytesIO(r.content), dtype={"股票代码": "str", "行业代码": "str"}
     )

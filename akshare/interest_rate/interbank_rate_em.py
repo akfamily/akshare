@@ -6,6 +6,7 @@ Desc: 东方财富网-经济数据-银行间拆借利率
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 
@@ -83,7 +84,8 @@ def rate_interbank(
         "pageNum": "1",
         "_": "1653376974939",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     total_page = data_json["result"]["pages"]
     big_df = pd.DataFrame()

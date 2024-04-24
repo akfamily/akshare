@@ -7,6 +7,7 @@ http://index.0256.cn/expx.htm
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def index_cflp_price(symbol: str = "周指数") -> pd.DataFrame:
@@ -40,7 +41,8 @@ def index_cflp_price(symbol: str = "周指数") -> pd.DataFrame:
         "Referer": "http://index.0256.cn/expx.htm",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
     }
-    r = requests.post(url, data=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(
         [
@@ -88,7 +90,8 @@ def index_cflp_volume(symbol: str = "月指数") -> pd.DataFrame:
         "Referer": "http://index.0256.cn/expx.htm",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
     }
-    r = requests.post(url, data=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(
         [

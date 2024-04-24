@@ -6,7 +6,8 @@ Desc: 中国外汇交易中心暨全国银行间同业拆借中心-回购定盘�
 """
 import pandas as pd
 import requests
-
+from akshare.request_config_manager import get_headers_and_timeout
+from io import BytesIO
 
 def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
     """
@@ -19,7 +20,10 @@ def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
     """
     if symbol == "回购定盘利率":
         url = "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/frr-chrt.csv"
-        temp_df = pd.read_csv(url, header=None)
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(url, headers=headers, timeout=timeout)
+        temp_df = pd.read_csv(BytesIO(res.content), header=None)
         temp_df.dropna(axis=1, inplace=True)
         temp_df.columns = ['date', "FR001", "FR007", "FR014"]
         temp_df['date'] = pd.to_datetime(temp_df['date'], errors="coerce").dt.date
@@ -30,7 +34,10 @@ def repo_rate_query(symbol: str = "回购定盘利率") -> pd.DataFrame:
         return temp_df
     else:
         url = "https://www.chinamoney.com.cn/r/cms/www/chinamoney/data/currency/fdr-chrt.csv"
-        temp_df = pd.read_csv(url, header=None)
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(url, headers=headers, timeout=timeout)
+        temp_df = pd.read_csv(BytesIO(res.content), header=None)
         temp_df.dropna(axis=1, inplace=True)
         temp_df.columns = ['date', "FDR001", "FDR007", "FDR014"]
         temp_df['date'] = pd.to_datetime(temp_df['date'], errors="coerce").dt.date
@@ -88,7 +95,7 @@ def repo_rate_hist(start_date: str = "20200930", end_date: str = "20201029") -> 
     return temp_df
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     repo_rate_query_df = repo_rate_query(symbol="回购定盘利率")
     print(repo_rate_query_df)
 

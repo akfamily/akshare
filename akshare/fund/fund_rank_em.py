@@ -11,6 +11,7 @@ from datetime import datetime, date
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 from akshare.utils import demjson
 
@@ -72,7 +73,8 @@ def fund_open_fund_rank_em(symbol: str = "全部") -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text[data_text.find("{"): -1])
     temp_df = pd.DataFrame(data_json["datas"])
@@ -170,7 +172,8 @@ def fund_exchange_rank_em() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     text_data = r.text
     json_data = demjson.decode(text_data[text_data.find("{"): -1])
     temp_df = pd.DataFrame(json_data["datas"])
@@ -262,7 +265,8 @@ def fund_money_rank_em() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     json_data = r.json()
     temp_df = pd.DataFrame(json_data["Data"])
     temp_df.reset_index(inplace=True)
@@ -361,7 +365,8 @@ def fund_lcx_rank_em() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     try:
         data_json = r.json()
     except:
@@ -444,7 +449,8 @@ def fund_hk_rank_em() -> pd.DataFrame:
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
         "Referer": "https://fund.eastmoney.com/fundguzhi.html",
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     temp_df = pd.DataFrame(data_json["Data"])
     temp_df.reset_index(inplace=True)

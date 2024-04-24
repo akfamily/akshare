@@ -10,6 +10,7 @@ import re
 from akshare.utils import demjson
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 from akshare.stock.cons import (
@@ -30,7 +31,8 @@ def get_zh_kcb_page_count() -> int:
     :return: 所有股票的总页数
     :rtype: int
     """
-    res = requests.get(zh_sina_kcb_stock_count_url)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    res = requests.get(zh_sina_kcb_stock_count_url, headers=headers, timeout=timeout)
     page_count = int(re.findall(re.compile(r"\d+"), res.text)[0]) / 80
     if isinstance(page_count, int):
         return page_count
@@ -51,7 +53,8 @@ def stock_zh_kcb_spot() -> pd.DataFrame:
     for page in tqdm(range(1, page_count + 1), leave=False):
         zh_sina_stock_payload_copy.update({"page": page})
         zh_sina_stock_payload_copy.update({"_s_r_a": "page"})
-        res = requests.get(zh_sina_kcb_stock_url, params=zh_sina_stock_payload_copy)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(zh_sina_kcb_stock_url, params=zh_sina_stock_payload_copy, headers=headers, timeout=timeout)
         data_json = demjson.decode(res.text)
         big_df = pd.concat([big_df, pd.DataFrame(data_json)], ignore_index=True)
     big_df.columns = [
@@ -128,10 +131,13 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     :return: 科创板股票的历史行情数据
     :rtype: pandas.DataFrame
     """
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
     res = requests.get(
         zh_sina_kcb_stock_hist_url.format(
             symbol, datetime.datetime.now().strftime("%Y_%m_%d"), symbol
-        )
+        ),
+        headers=headers,
+        timeout=timeout
     )
     data_json = demjson.decode(res.text[res.text.find("[") : res.text.rfind("]") + 1])
     data_df = pd.DataFrame(data_json)
@@ -139,7 +145,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
     data_df.index.name = "date"
     del data_df["d"]
 
-    r = requests.get(zh_sina_kcb_stock_amount_url.format(symbol, symbol))
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(zh_sina_kcb_stock_amount_url.format(symbol, symbol), headers=headers, timeout=timeout)
     amount_data_json = demjson.decode(r.text[r.text.find("[") : r.text.rfind("]") + 1])
     amount_data_df = pd.DataFrame(amount_data_json)
     amount_data_df.index = pd.to_datetime(amount_data_df.date)
@@ -177,7 +184,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         return temp_df
 
     if adjust == "hfq":
-        res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol))
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol), headers=headers, timeout=timeout)
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -208,7 +216,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         return temp_df
 
     if adjust == "qfq":
-        res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol))
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol), headers=headers, timeout=timeout)
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -239,7 +248,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         return temp_df
 
     if adjust == "hfq-factor":
-        res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol))
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(zh_sina_kcb_stock_hfq_url.format(symbol), headers=headers, timeout=timeout)
         hfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )
@@ -251,7 +261,8 @@ def stock_zh_kcb_daily(symbol: str = "sh688399", adjust: str = "") -> pd.DataFra
         return hfq_factor_df
 
     if adjust == "qfq-factor":
-        res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol))
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        res = requests.get(zh_sina_kcb_stock_qfq_url.format(symbol), headers=headers, timeout=timeout)
         qfq_factor_df = pd.DataFrame(
             eval(res.text.split("=")[1].split("\n")[0])["data"]
         )

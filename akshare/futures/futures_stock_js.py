@@ -8,6 +8,7 @@ https://www.shfe.com.cn/statements/dataview.html?paramid=kx
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_stock_shfe_js(date: str = "20240223") -> pd.DataFrame:
@@ -32,7 +33,8 @@ def futures_stock_shfe_js(date: str = "20240223") -> pd.DataFrame:
         'attr_id': '1',
         '_': '1708761356458',
     }
-    r = requests.get(url, params=params, headers=headers)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_json = r.json()
     columns_list = [item['name'] for item in data_json['data']['keys']]
     temp_df = pd.DataFrame(data_json['data']['values'], columns=columns_list)

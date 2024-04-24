@@ -7,6 +7,7 @@ https://fund.eastmoney.com/manager/default.html
 """
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from tqdm import tqdm
 
 from akshare.utils import demjson
@@ -30,7 +31,8 @@ def fund_manager_em() -> pd.DataFrame:
         "sc": "abbname",
         "st": "asc",
     }
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     data_text = r.text
     data_json = demjson.decode(data_text.strip("var returnjson= "))
     total_page = data_json["pages"]
@@ -38,7 +40,8 @@ def fund_manager_em() -> pd.DataFrame:
         params.update({
             "pi": page,
         })
-        r = requests.get(url, params=params)
+        headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+        r = requests.get(url, params=params, headers=headers, timeout=timeout)
         data_text = r.text
         data_json = demjson.decode(data_text.strip("var returnjson= "))
         temp_df = pd.DataFrame(data_json["data"])

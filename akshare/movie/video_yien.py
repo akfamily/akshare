@@ -13,6 +13,7 @@ import os
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 from py_mini_racer import py_mini_racer
 
 
@@ -70,7 +71,8 @@ def video_tv() -> pd.DataFrame:
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
     payload = {"tvType": 2, "MethodName": "BoxOffice_GetTvData_PlayIndexRank"}
-    r = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])
@@ -90,7 +92,8 @@ def video_variety_show() -> pd.DataFrame:
     """
     url = "https://www.endata.com.cn/API/GetData.ashx"
     payload = {"tvType": 8, "MethodName": "BoxOffice_GetTvData_PlayIndexRank"}
-    r = requests.post(url, data=payload)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.post(url, data=payload, headers=headers, timeout=timeout)
     r.encoding = "utf8"
     data_json = json.loads(decrypt(r.text))
     temp_df = pd.DataFrame(data_json["Data"]["Table"])

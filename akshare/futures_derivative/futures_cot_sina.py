@@ -9,6 +9,7 @@ from io import StringIO
 
 import pandas as pd
 import requests
+from akshare.request_config_manager import get_headers_and_timeout
 
 
 def futures_hold_pos_sina(
@@ -29,7 +30,8 @@ def futures_hold_pos_sina(
     date = '-'.join([date[:4], date[4:6], date[6:]])
     url = "https://vip.stock.finance.sina.com.cn/q/view/vCffex_Positions_cjcc.php"
     params = {"symbol": contract, "date": date}
-    r = requests.get(url, params=params)
+    headers, timeout = get_headers_and_timeout(locals().get('headers', {}), locals().get('timeout', None))
+    r = requests.get(url, params=params, headers=headers, timeout=timeout)
     if symbol == "成交量":
         temp_df = pd.read_html(StringIO(r.text))[2].iloc[:-1, :]
         temp_df['名次'] = pd.to_numeric(temp_df['名次'], errors="coerce")
