@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 """
-Date: 2024/4/11 18:00
+Date: 2024/4/25 20:00
 Desc: 首页-行情中心-涨停板行情-涨停股池
 https://quote.eastmoney.com/ztb/detail#type=ztgc
 
@@ -514,14 +514,14 @@ if __name__ == "__main__":
     stock_zt_pool_previous_em_df = stock_zt_pool_previous_em(date="20240415")
     print(stock_zt_pool_previous_em_df)
 
-    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20240329")
+    stock_zt_pool_strong_em_df = stock_zt_pool_strong_em(date="20240424")
     print(stock_zt_pool_strong_em_df)
 
-    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20240329")
+    stock_zt_pool_sub_new_em_df = stock_zt_pool_sub_new_em(date="20240424")
     print(stock_zt_pool_sub_new_em_df)
 
-    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20240329")
+    stock_zt_pool_zbgc_em_df = stock_zt_pool_zbgc_em(date="20240424")
     print(stock_zt_pool_zbgc_em_df)
 
-    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20240329")
+    stock_zt_pool_dtgc_em_df = stock_zt_pool_dtgc_em(date="20240424")
     print(stock_zt_pool_dtgc_em_df)
